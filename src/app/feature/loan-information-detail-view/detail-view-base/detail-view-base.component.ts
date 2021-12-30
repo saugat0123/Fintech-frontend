@@ -43,6 +43,9 @@ export class DetailViewBaseComponent implements OnInit {
   @Output() documents = new EventEmitter();
   bankingRelation;
   isIndividual =  false;
+  financialData;
+  financialKeys;
+  requestedLoanType;
 
   constructor(private customerLoanService: LoanFormService,
               private combinedLoanService: CombinedLoanService,
@@ -73,6 +76,12 @@ export class DetailViewBaseComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.bankingRelationship)) {
       this.bankingRelation = JSON.parse(this.loanDataHolder.loanHolder.bankingRelationship);
     }
+    if (!ObjectUtil.isEmpty(this.loanHolder.financial)) {
+      if (!ObjectUtil.isEmpty(this.loanHolder.financial.data)) {
+        this.financialData = JSON.parse(this.loanHolder.financial.data);
+        this.financialKeys = Object.keys(this.financialData);
+      }
+    }
     if (this.loanDataHolder.loanCategory === 'INDIVIDUAL') {
       this.isIndividual = true;
     }
@@ -87,13 +96,17 @@ export class DetailViewBaseComponent implements OnInit {
         .subscribe((res: any) => {
           this.customerAllLoanList = res.detail;
           // push current loan if not fetched from staged spec response
-          if (this.customerAllLoanList.filter((l) => l.id === this.loanDataHolder.id).length < 1) {
-            this.customerAllLoanList.push(this.loanDataHolder);
-          }
-          if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
-            this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => c.id === this.loanDataHolder.id);
+          if (ObjectUtil.isEmpty(this.requestedLoanType)) {
+            if (this.customerAllLoanList.filter((l) => l.id === this.loanDataHolder.id).length < 1) {
+              this.customerAllLoanList.push(this.loanDataHolder);
+            }
+            if ((this.loanDataHolder.documentStatus.toString() === 'APPROVED') || (this.loanDataHolder.documentStatus.toString() === 'CLOSED') || (this.loanDataHolder.documentStatus.toString() === 'REJECTED')) {
+              this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => c.id === this.loanDataHolder.id);
+            } else {
+              this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => ((c.currentStage.docAction !== 'APPROVED') && (c.currentStage.docAction !== 'CLOSED') && (c.currentStage.docAction !== 'REJECT')));
+            }
           } else {
-            this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => c.currentStage.docAction !== 'APPROVED');
+            this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => ((c.currentStage.docAction === this.requestedLoanType)));
           }
           // push loans from combined loan if not in the existing array
           const combinedLoans = this.customerAllLoanList

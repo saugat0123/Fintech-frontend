@@ -64,4 +64,9 @@ export class CustomerInfoService extends BaseService<Object> {
         const req = ApiUtils.getRequest(`${this.getApi()}/transfer-customer-other-branch`);
         return this.http.post(req.url, object, {headers: req.header});
     }
+
+    public uploadFinancialExcel(object) {
+        const req = ApiUtils.getRequestWithFileSupport(`${this.getApi()}/uploadExcel`);
+        return this.http.post(req.url, object, {headers: req.header});
+    }
 }
