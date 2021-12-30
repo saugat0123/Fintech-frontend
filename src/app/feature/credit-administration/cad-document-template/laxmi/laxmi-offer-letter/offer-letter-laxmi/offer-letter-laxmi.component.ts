@@ -60,14 +60,8 @@ export class OfferLetterLaxmiComponent implements OnInit {
     this.loanName = this.cadData.assignedLoan[0].loan.name;
     this.subloanTypes = SubLoanType.value(this.loanName);
     this.loanType = this.cadData.assignedLoan[0].loanType;
-    console.log(this.cadData);
-    console.log(this.loanName);
-    console.log(this.subloanTypes);
-    console.log(this.subloanType);
     this.buildForm();
-    this.modalService.open(this.modal).close(res => {
-      this.modalService.dismissAll();
-    });
+    this.modalService.open(this.modal);
   }
 
   buildForm() {
