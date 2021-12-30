@@ -89,7 +89,6 @@ export class CadLegalDocActionModalComponent implements OnInit {
         private roleService: RoleService,
         private http: HttpClient,
         private modalService: NgbModal,
-        private servive: CreditAdministrationService,
     ) {
     }
 
@@ -146,10 +145,6 @@ export class CadLegalDocActionModalComponent implements OnInit {
         const comment = this.formAction.value.comment;
         this.formData.append('remarks', comment);
         this.formData.append('institution', 'BANK');
-        this.servive.upload(this.formData).subscribe(res => {
-            console.log('this si response', res);
-        });
-        return;
         this.legalDoc = this.legalDoc.filter(d => d.docName !== LaxmiOfferLetterConst.value(LaxmiOfferLetterConst.OFFER_LETTER));
         const docAction = this.formAction.value.docAction;
         const docActionMSG = this.formAction.value.docActionMsg;
@@ -161,7 +156,7 @@ export class CadLegalDocActionModalComponent implements OnInit {
                 status: this.docAction,
                 institution: Clients.Bank
             };
-            this.loanFormService.sendLegalDocumentBackToSenderOrAgent(sendDocToRemit).subscribe((res) => {
+            this.loanFormService.sendLegalDocumentBackToSenderOrAgent(this.formData).subscribe((res) => {
                 this.spinner = false;
                 this.nbDialogRef.close();
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Sucessfully Forwarded Document To Agent/Sender'));
