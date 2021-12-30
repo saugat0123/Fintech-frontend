@@ -1535,26 +1535,31 @@
             </div>
           </div>
           <h4 *ngIf="configForm?.clientType?.value == clientType.INSTITUTION"> {{detailOption}}
-            <a *ngIf="userConfigForm.get('ownerDetails')['length'] == 0" nbButton status="primary" size="tiny" (click)="addOwnerDetails()">Add
-              Detail
+            <a *ngIf="userConfigForm.get('ownerDetails')['length'] == 0" nbButton status="primary" size="tiny" (click)="addOwnerDetails()">
+              Add Detail
             </a>
           </h4>
 
-
           <div *ngFor="let owner of userConfigForm.get('ownerDetails')['controls']; let i = index;"
-               formArrayName="ownerDetails"
-               style="border: 1px solid rgba(255,255,255, 0.1)">
+               formArrayName="ownerDetails" style="border: 1px solid rgba(255,255,255, 0.1)">
             <table [formGroupName]="i" class="table table-borderless table-4">
               <tr>
                 <td>
-                  <label class="title">{{i + 1}}. Share Holder Name</label>
+                  <ng-container *ngIf="'Partner\'s Detail' === detailOption">
+                    <label class="title">{{i + 1}}. Partner Name</label>
+                  </ng-container>
+                  <ng-container *ngIf="'Proprietor\'s Detail' === detailOption">
+                    <label class="title">{{i + 1}}. Owner Name</label>
+                  </ng-container><ng-container *ngIf="'Share Holder\'s Detail' === detailOption">
+                    <label class="title">{{i + 1}}. Share Holder Name</label>
+                  </ng-container>
                 </td>
                 <td>
                   <input class="form-control "
                          formControlName="ownerName"
                           (keyup)="autoTrans('ownerName',i)"
                          autocomplete="off"
-                         name="name" placeholder="Share Holder Name"
+                         name="name" placeholder="Name"
                          type="text"/>
                 </td>
                 <td>
@@ -1645,7 +1650,7 @@
                 <td><select class="form-control" formControlName="ownerGender">
                   <option value="null" hidden>Select Gender</option>
                   <option value="MALE">Male</option>
-                  <option value="MALE" value="FEMALE">Female</option>
+                  <option value="FEMALE">Female</option>
                   <option value="OTHERS">Others</option>
                 </select>
                 </td>
@@ -1756,7 +1761,7 @@
                 <td><select class="form-control" formControlName="ownerMaritalStatus">
                   <option value="null" hidden>Select Marital Status</option>
                   <option value="Married">Married</option>
-                  <option value="Unmarried" value="FEMALE">Unmarried</option>
+                  <option value="Unmarried">Unmarried</option>
                 </select>
                 </td>
               </tr>
@@ -2180,7 +2185,7 @@
               <tr *ngIf="userConfigForm.get(['ownerDetails', i, 'ownerNationality']).value === 'Indian' &&
               userConfigForm.get(['ownerDetails', i, 'indianOwnerDetailOption']).value === 'Adhar Card'">
                 <td>
-                  <label class="title">Adhar Car No</label>
+                  <label class="title">Adhar Card No</label>
                 </td>
                 <td>
                   <input class="form-control "
@@ -2573,8 +2578,7 @@ userConfigForm.get(['ownerDetails', i, 'ownerNationality']).value !== null">
                           'ownerTemporaryDistrict']).value?.id, $event,i)"
                           [compareWith]="compareFn"
                           class="custom-select"
-                          formControlName="ownerTemporaryDistrict"
-                  >
+                          formControlName="ownerTemporaryDistrict">
                     <option [ngValue]="null" hidden>District</option>
                     <option *ngFor="let districtVal of ownerTemporaryDistricts[i]"
                             [ngValue]="districtVal">
@@ -2671,10 +2675,7 @@ userConfigForm.get(['ownerDetails', i, 'ownerNationality']).value !== null">
                 </td>
               </tr>
               <tr>
-
-                <td>
-                  <label class="title">Street Tole</label>
-                </td>
+                <td><label class="title">Street Tole</label></td>
                 <td>
                   <input class="form-control "
                          formControlName="ownerTemporaryStreetTole"
@@ -2682,60 +2683,53 @@ userConfigForm.get(['ownerDetails', i, 'ownerNationality']).value !== null">
                          name="ownerTemporaryStreetTole" placeholder="Street Tole"
                          type="text"/>
                 </td>
-                <td><input disabled readonly class="form-control"
-                           formControlName="ownerTemporaryStreetToleTrans" type="text"></td>
                 <td>
-                  <input class="form-control"
-                         [ngClass]="{ 'is-invalid':submitted &&
+                  <input disabled readonly class="form-control" formControlName="ownerTemporaryStreetToleTrans"
+                         type="text">
+                </td>
+                <td>
+                  <input class="form-control" [ngClass]="{ 'is-invalid':submitted &&
                          userConfigForm.get(['ownerDetails', i, 'ownerTemporaryStreetToleCT']).errors }"
-                         formControlName="ownerTemporaryStreetToleCT" type="text"
-                  />
+                         formControlName="ownerTemporaryStreetToleCT" type="text"/>
                   <div *ngIf="submitted && userConfigForm.get(['ownerDetails', i, 'ownerTemporaryStreetToleCT']).errors"
                        class="invalid-feedback">
-                    <div *ngIf="userConfigForm.get(['ownerDetails', i, 'ownerTemporaryStreetToleCT']).errors.required">Street Tole is
-                      required
+                    <div *ngIf="userConfigForm.get(['ownerDetails', i, 'ownerTemporaryStreetToleCT']).errors.required">
+                      Street Tole is required
                     </div>
                   </div>
                 </td>
               </tr>
-
               </tbody>
-
               <tr>
-                <td>
+                <td colspan="4" class="text-left">
                   <nb-checkbox formControlName="isAuthorizedPersion">
                     <i>Is authorized person?</i>
                   </nb-checkbox>
                 </td>
               </tr>
               <tr>
-                <td *ngIf="userConfigForm.get('ownerDetails')['length'] > 1" colspan="2"
-                    class="text-left">
-                  <a nbButton status="danger" size="tiny" (click)="removeOwnerDetailAtIndex(i)"
-                     style="position: static">
+                <td class="text-left">
+                  <a *ngIf="userConfigForm.get('ownerDetails')['length'] > 1" nbButton status="danger" size="tiny"
+                     (click)="removeOwnerDetailAtIndex(i)" style="position: static">
                     <em class="fa fa-trash" style="color: white;"></em>
                   </a>
                 </td>
-                <td>
-                  <a *ngIf="userConfigForm.get('ownerDetails')['length'] >0 && userConfigForm.get('ownerDetails')['length'] -1 == i
-" nbButton status="primary" size="tiny" (click)="addOwnerDetails()">Add More
-                    Detail
+                <td></td>
+                <td class="text-right" colspan="2">
+                  <a *ngIf="userConfigForm.get('ownerDetails')['length'] >0 && userConfigForm.get('ownerDetails')['length'] -1 == i"
+                     nbButton status="primary" size="tiny" style="margin-right: 5px" (click)="addOwnerDetails()">Add More Detail
                   </a>
-                </td>
-                <td [attr.colspan]="userConfigForm.get('guarantorDetails')['length'] > 1 ? '3' : '5'"
-                    class="text-right">
                   <a nbButton status="info" size="tiny" (click)="translateOwnerData(i)">
                     Translate Owner Data
                   </a>
                 </td>
               </tr>
-
             </table>
           </div>
 
-          <h4>Guarantors
-            <a nbButton status="primary" size="tiny" (click)="addGuarantor()">Add
-              Guarantor
+          <h4 class="mt-3">Guarantors
+            <a *ngIf="userConfigForm.get('guarantorDetails')['length'] == 0" nbButton status="primary" size="tiny" (click)="addGuarantor()">
+              Add Guarantor
             </a>
           </h4>
           <div
@@ -3427,12 +3421,10 @@ userConfigForm.get(['ownerDetails', i, 'ownerNationality']).value !== null">
 
               <tr *ngIf="userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value === 'Personal Guarantor' || configForm?.clientType?.value == clientType.INDIVIDUAL">
                 <td>
-                  <label class="relationMedium">Guarantor
-                    Relation</label>
+                  <label class="relationMedium">Guarantor Relation</label>
                 </td>
                 <td>
-                  <select class="form-control" formControlName="relationship"
-                  >
+                  <select class="form-control" formControlName="relationship">
                     <option hidden [value]="null">Select Relation</option>
                     <option *ngFor="let relationship of relationshipList"
                             [value]="relationship?.value">{{relationship?.value}}</option>
@@ -3444,14 +3436,14 @@ userConfigForm.get(['ownerDetails', i, 'ownerNationality']).value !== null">
                 /></td>
               </tr>
 
-              <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL || userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value === 'Personal Guarantor'">
-
+              <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL ||
+              userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value === 'Personal Guarantor'">
                 <td><label class="title">Gender</label></td>
                 <td><select class="form-control" formControlName="gender">
                   <option value="null" hidden>Select Gender</option>
                   <option [selected]="userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'MALE'" value="MALE">Male</option>
                   <option [selected]="userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'FEMALE'"
-                          value="MALE" value="FEMALE">Female</option>
+                          value="FEMALE">Female</option>
                   <option [selected]="userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'OTHERS'"
                           value="OTHERS">Others</option>
                 </select>
@@ -3465,8 +3457,16 @@ userConfigForm.get(['ownerDetails', i, 'ownerNationality']).value !== null">
                   />
                 </td>
               </tr>
-
-
+              <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL ||
+              userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value === 'Personal Guarantor'">
+                <td><label class="title">Marital Status</label></td>
+                <td><select class="form-control" formControlName="guarantorMaritalStatus">
+                  <option value="null" hidden>Select Marital Status</option>
+                  <option value="Married">Married</option>
+                  <option value="Unmarried">Unmarried</option>
+                </select>
+                </td>
+              </tr>
               <tr *ngIf="userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'FEMALE'">
                 <td>
                   <label class="relationMedium">Relation Medium</label>
@@ -4306,7 +4306,6 @@ userConfigForm.get(['guarantorDetails', i, 'guarantorNationality']).value !== nu
                   <input class="form-control" formControlName="temporaryWardCT" type="text"
                   />
                 </td>
-
               </tr>
               <tr *ngIf="customerType === 'INSTITUTION'">
                 <td>
@@ -4331,17 +4330,19 @@ userConfigForm.get(['guarantorDetails', i, 'guarantorNationality']).value !== nu
               <br>
               </tbody>
               <!-- end guarantor temporaryAddress/permanenetAddress -->
-
               <tr>
-                <td *ngIf="userConfigForm.get('guarantorDetails')['length'] > 1" colspan="2"
-                    class="text-left">
-                  <a nbButton status="danger" size="tiny" (click)="removeAtIndex(i)"
+                <td class="text-left">
+                  <a *ngIf="userConfigForm.get('guarantorDetails')['length'] > 1" nbButton status="danger" size="tiny" (click)="removeAtIndex(i)"
                           style="position: static">
                     <em class="fa fa-trash" style="color: white;"></em>
                   </a>
                 </td>
-                <td [attr.colspan]="userConfigForm.get('guarantorDetails')['length'] > 1 ? '3' : '5'"
-                    class="text-right">
+                <td></td>
+                <td class="text-right" colspan="2">
+                  <a *ngIf="userConfigForm.get('guarantorDetails')['length'] > 0 && userConfigForm.get('guarantorDetails')['length'] -1 == i"
+                     nbButton status="primary" size="tiny" style="margin-right: 5px" (click)="addGuarantor()">
+                    Add More Guarantor
+                  </a>
                   <a nbButton status="info" size="tiny" (click)="translateGuarantorData(i)">
                     Translate Guarantor Data
                   </a>
