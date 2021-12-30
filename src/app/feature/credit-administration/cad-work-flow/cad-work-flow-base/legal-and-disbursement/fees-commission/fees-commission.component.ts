@@ -44,10 +44,12 @@ export class FeesCommissionComponent implements OnInit {
         this.feeCommissionFormGroup = this.formBuilder.group({
             feeAmountDetails: this.formBuilder.array([])
         });
-        if (!ObjectUtil.isEmpty(this.cadData.feesAndCommission)) {
-            this.setFeeAmountDetails();
-        } else {
-            this.addFeeAmountDetails();
+        if (!ObjectUtil.isEmpty(this.cadData)) {
+            if (!ObjectUtil.isEmpty(this.cadData.feesAndCommission)) {
+                this.setFeeAmountDetails();
+            } else {
+                this.addFeeAmountDetails();
+            }
         }
     }
 
