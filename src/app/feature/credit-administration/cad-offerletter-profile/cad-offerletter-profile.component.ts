@@ -358,6 +358,7 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc)) {
             this.initial();
             this.checkCadDocument();
+            this.checkRemit();
         }
     }
 
