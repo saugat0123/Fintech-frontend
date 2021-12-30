@@ -113,7 +113,6 @@ export class RemitCustomerListComponent implements OnInit {
     transferCustomer(event, data, template) {
         this.onBoardData = data;
         event.stopPropagation();
-        this.onBoardData.branch = null;
         this.modalService.open(template);
     }
 
