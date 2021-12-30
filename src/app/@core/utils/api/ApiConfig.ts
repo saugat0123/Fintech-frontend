@@ -3,7 +3,7 @@ export class ApiConfig {
     public static URL = 'http://localhost:8086';
 
     // Laxmi BANK
-    public static BANK_URL = 'http://103.198.9.175:8080';
+    public static BANK_URL = 'http://103.198.9.175:8080/remit';
 
     // Remit App UAT
     public static REMIT_WEB = 'http://202.166.201.232/api';
