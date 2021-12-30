@@ -245,26 +245,32 @@ export class LoanPullComponent implements OnInit {
             );
         } else {
             this.isCombine = true;
+            this.spinner2 = true;
             // Get all combined loan ids
-            this.loanDataHolderList.forEach(l1 => {
-                if (l1.combinedLoan !== null && !ObjectUtil.isEmpty(l1) && l1.id === customerLoanId) {
-                    this.combinedIds = l1.id;
-                    console.log(l1.combinedLoan.id);
-                    this.loanDataHolderList.forEach(l2 => {
-                        if (l2.combinedLoan !== null && l2.combinedLoan.id === l1.combinedLoan.id && l2.id !== l1.id) {
-                            this.combinedIds = this.combinedIds + ',' + l2.id;
-                        }
-                    });
-                }
-            });
-            const customerLoanIdList = this.combinedIds.split(',').map(Number);
-            this.formVal = customerLoanIdList.map(c => {
-                return {
-                    customerLoanId: c,
-                    docAction: DocAction.value(DocAction.PULLED),
-                    documentStatus: DocStatus.PENDING,
-                    comment: 'PULLED'
-                };
+            let combineLoanList = [];
+            this.loanFormService.getByCombineLoanId(customerLoan.combinedLoan.id).subscribe((res: any) => {
+                combineLoanList = res.detail;
+                this.spinner2 = false;
+                combineLoanList.forEach(l1 => {
+                    if (l1.combinedLoan !== null && !ObjectUtil.isEmpty(l1) && l1.id === customerLoanId) {
+                        this.combinedIds = l1.id;
+                        console.log(l1.combinedLoan.id);
+                        combineLoanList.forEach(l2 => {
+                            if (l2.combinedLoan !== null && l2.combinedLoan.id === l1.combinedLoan.id && l2.id !== l1.id) {
+                                this.combinedIds = this.combinedIds + ',' + l2.id;
+                            }
+                        });
+                    }
+                });
+                const customerLoanIdList = this.combinedIds.split(',').map(Number);
+                this.formVal = customerLoanIdList.map(c => {
+                    return {
+                        customerLoanId: c,
+                        docAction: DocAction.value(DocAction.PULLED),
+                        documentStatus: DocStatus.PENDING,
+                        comment: 'PULLED'
+                    };
+                });
             });
         }
         this.loanFormService.detail(customerLoanId).subscribe((response: any) => {
@@ -326,7 +332,6 @@ export class LoanPullComponent implements OnInit {
 
     }
 
-
     getCsv() {
         this.loanFormService.download(this.catalogueService.search).subscribe((response: any) => {
             const link = document.createElement('a');
@@ -338,7 +343,5 @@ export class LoanPullComponent implements OnInit {
 
         });
     }
-
-
 }
 

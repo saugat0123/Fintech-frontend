@@ -203,4 +203,10 @@ export class LoanFormService extends BaseService<LoanDataHolder> {
     protected getApi(): string {
         return LoanFormService.API;
     }
+
+    public getByCombineLoanId(id: number) {
+        const api = `${this.getApi()}/committee-combine-loan`;
+        const req = ApiUtils.getRequest(api);
+        return this.http.post(req.url, id, {headers: req.header});
+    }
 }

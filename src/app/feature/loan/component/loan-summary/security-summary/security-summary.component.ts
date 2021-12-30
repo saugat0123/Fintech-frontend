@@ -255,10 +255,12 @@ export class SecuritySummaryComponent implements OnInit {
 
     private calculateShareTotals() {
         const shareList = this.shareSecurity['shareSecurityDetails'];
-        shareList.forEach(share => {
-            this.shareTotalValue += Number(share.total);
-            this.totalConsideredValue += Number(share.consideredValue);
-        });
+        if (!ObjectUtil.isEmpty(shareList)) {
+            shareList.forEach(share => {
+                this.shareTotalValue += Number(share.total);
+                this.totalConsideredValue += Number(share.consideredValue);
+            });
+        }
     }
 
     private calculateTotalBondSecurityAmount(): void {
