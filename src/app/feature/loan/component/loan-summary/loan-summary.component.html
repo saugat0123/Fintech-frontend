@@ -702,19 +702,19 @@
             </tr>
             <tr>
                 <td class="text-center pl-1">CIB Report Obtained</td>
-                <td class="text-center pl-1">{{(loanData?.loanHolder.bankingRelationship) ? (loanData?.loanHolder.bankingRelationship | jsonParse).cibReport ==='true'?'Yes':'No' : 'N/A' }}</td>
+                <td class="text-center pl-1">{{(loanData?.loanHolder?.bankingRelationship) ? (loanData?.loanHolder?.bankingRelationship | jsonParse)?.cibReport ==='true'?'Yes':'No' : 'N/A' }}</td>
             </tr>
             <tr>
                 <td class="text-center pl-1">Any existing Credit Relationship with other BFIs?</td>
-                <td class="text-center pl-1">{{(loanData?.loanHolder.bankingRelationship) ? (loanData?.loanHolder.bankingRelationship |jsonParse).bfi ==='true'?'Yes':'No' : 'N/A' }}</td>
+                <td class="text-center pl-1">{{(loanData?.loanHolder?.bankingRelationship) ? (loanData?.loanHolder?.bankingRelationship |jsonParse)?.bfi ==='true'?'Yes':'No' : 'N/A' }}</td>
             </tr>
-            <tr *ngIf="(loanData.loanHolder.bankingRelationship | jsonParse).bfi === 'false'">
+            <tr *ngIf="(loanData?.loanHolder?.bankingRelationship | jsonParse)?.bfi === 'false'">
                 <td class="text-center pl-1">Remarks</td>
-                <td class="text-center pl-1" [innerHTML]="(loanData?.loanHolder.bankingRelationship) ? ((loanData?.loanHolder.bankingRelationship | jsonParse).remarks | safeHtml) : 'N/A'"></td>
+                <td class="text-center pl-1" [innerHTML]="(loanData?.loanHolder?.bankingRelationship) ? ((loanData?.loanHolder?.bankingRelationship | jsonParse)?.remarks | safeHtml) : 'N/A'"></td>
             </tr>
             <tr>
                 <td class="text-center pl-1">Any credit relationship with Laxmi Bank?(Including Group)</td>
-                <td class="text-center pl-1">{{(loanData?.loanHolder.bankingRelationship) ? (loanData?.loanHolder.bankingRelationship | jsonParse).creditRelationship ==='true'?'Yes':'No' : 'N/A' }}</td>
+                <td class="text-center pl-1">{{(loanData?.loanHolder?.bankingRelationship) ? (loanData?.loanHolder?.bankingRelationship | jsonParse)?.creditRelationship ==='true'?'Yes':'No' : 'N/A' }}</td>
             </tr>
         </table>
     </div>
