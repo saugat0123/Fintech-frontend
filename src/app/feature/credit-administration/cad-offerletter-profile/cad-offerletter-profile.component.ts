@@ -85,15 +85,18 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc)) {
             this.initial();
             this.checkCadDocument();
-            if (this.cadOfferLetterApprovedDoc.assignedLoan[0].loan.loanTag === LoanTag.getKeyByValue(LoanTag.REMIT_LOAN)) {
-                this.isRemit = true;
-            }
+            this.checkRemit();
+        }
+    }
+
+    checkRemit() {
+        if (this.cadOfferLetterApprovedDoc.assignedLoan[0].loan.loanTag === LoanTag.getKeyByValue(LoanTag.REMIT_LOAN)) {
+            this.isRemit = true;
         }
         if (this.hasRequierdDocument && this.isRemit) {
             this.getDoc();
         }
     }
-
 
     getDoc() {
         this.formdata = new FormData();
