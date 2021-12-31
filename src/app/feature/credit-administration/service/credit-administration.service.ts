@@ -107,4 +107,9 @@ export class CreditAdministrationService extends BaseService<any> {
         return this.http.post(req.url, searchObj, {headers: req.header});
     }
 
+    public getFile(path: any): Observable<any> {
+        const api = `${this.getApi()}/file`;
+        const req = ApiUtils.getRequest(api);
+        return this.http.post(req.url, path, {headers: req.header});
+    }
 }

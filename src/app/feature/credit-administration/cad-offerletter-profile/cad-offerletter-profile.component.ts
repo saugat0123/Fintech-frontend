@@ -16,13 +16,8 @@ import {environment} from '../../../../environments/environment';
 import {Clients} from '../../../../environments/Clients';
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {CadOfferLetterConfigurationComponent} from './cad-offer-letter-configuration/cad-offer-letter-configuration.component';
-import {ExcelOfferLetterComponent} from '../excel-offer-letter-template/excel-offer-letter/excel-offer-letter.component';
 import {ExcelOfferLetterConst} from '../../cad-documents/cad-document-core/excel-offer-letter/excel-offer-letter-const';
-import {ProgressiveOfferLetterConst} from '../cad-document-template/progressive/progressive-offer-letter/progressive-offer-letter-const';
-import {ProgressiveOfferLetterComponent} from '../cad-document-template/progressive/progressive-offer-letter/progressive-offer-letter.component';
 
-import {IcfcOfferLetterComponent} from '../cad-document-template/icfc/icfc-offer-letter/icfc-offer-letter.component';
-import {IcfcOfferLetterConst} from '../cad-document-template/icfc/icfc-offer-letter-const';
 import {LaxmiOfferLetterConst} from '../cad-document-template/laxmi/laxmi-offer-letter/laxmi-offer-letter-const';
 import {LaxmiOfferLetterComponent} from '../cad-document-template/laxmi/laxmi-offer-letter/laxmi-offer-letter.component';
 import {DocStatus} from '../../loan/model/docStatus';
@@ -44,6 +39,9 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
     offerLetterConst;
     excelOfferLetterConst = ExcelOfferLetterConst;
     isRemit = false;
+    index = 0;
+    path;
+
     constructor(
         private activatedRoute: ActivatedRoute,
         private service: CreditAdministrationService,
@@ -60,6 +58,7 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
     customerInfoData: CustomerInfoData;
     component: any;
     offerLetterTypes = [];
+    excelOfferLetterTypes = [];
     client = environment.client;
     clientList = Clients;
     // todo move document upload to different to component
@@ -67,7 +66,6 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
     documentId;
     docType = null;
     uploadFile;
-    index;
     spinners = false;
     toggleArray: { toggled: boolean }[] = [];
 
@@ -76,22 +74,31 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
     private dialogRef: NbDialogRef<any>;
     isOpen = false;
     legalDoc = [];
-
+    formdata: FormData = new FormData();
+    objArr = [];
 
     ngOnInit() {
-        console.log('client', this.client);
-        console.log('offer enum', LaxmiOfferLetterConst.enumObject());
         this.offerLetterTypes = LaxmiOfferLetterConst.enumObject();
+        this.offerLetterConst = LaxmiOfferLetterConst;
         this.component = LaxmiOfferLetterComponent;
+    }
 
-        this.initial();
-        this.checkCadDocument();
+    checkRemit() {
         if (this.cadOfferLetterApprovedDoc.assignedLoan[0].loan.loanTag === LoanTag.getKeyByValue(LoanTag.REMIT_LOAN)) {
             this.isRemit = true;
         }
-        console.log('offer enum');
-        console.log('offer enum', LaxmiOfferLetterConst.enumObject());
-        this.offerLetterConst = LaxmiOfferLetterConst;
+    }
+
+    getDoc() {
+        this.formdata = new FormData();
+        this.objArr = [];
+        this.cadOfferLetterApprovedDoc.offerDocumentList.forEach((d, i) => {
+            if ((d.docName === LaxmiOfferLetterConst.value(LaxmiOfferLetterConst.PERSONAL_GUARANTEE))
+                || (d.docName === LaxmiOfferLetterConst.value(LaxmiOfferLetterConst.LETTER_OF_COMMITMENT))) {
+                console.log('four', d);
+                this.getFile(i);
+            }
+        });
     }
 
     close() {
@@ -101,20 +108,20 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
         }
     }
 
+    dataURItoBlob(dataURI) {
+        const byteString = window.atob(dataURI);
+        const arrayBuffer = new ArrayBuffer(byteString.length);
+        const int8Array = new Uint8Array(arrayBuffer);
+        for (let i = 0; i < byteString.length; i++) {
+            int8Array[i] = byteString.charCodeAt(i);
+        }
+        const blob = new Blob([int8Array], {type: 'image/png'});
+        return blob;
+    }
+
     public loanAction(action: 'send legal doc to sender' | 'send legal doc to agent'): void {
-        this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offer => {
-            const obj = {
-                id: 0,
-                docName: '',
-                draftPath: '',
-                pathSigned: ''
-            };
-            obj.id = offer.id;
-            obj.docName = offer.docName;
-            obj.draftPath = offer.draftPath;
-            this.legalDoc.push(obj);
-        });
         const beneficiaryId: any = this.cadOfferLetterApprovedDoc.assignedLoan[0].remitCustomer.beneficiaryId;
+        this.formdata.append('details', JSON.stringify(this.objArr));
         this.close();
         let context;
         switch (action) {
@@ -125,6 +132,7 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
                     docAction: 'SEND_BACK_TO_SENDER',
                     docActionMsg: 'Send Legal Doc',
                     legalDoc: this.legalDoc,
+                    formData: this.formdata,
                     documentStatus: DocStatus.SEND_BACK_TO_SENDER
                 };
                 break;
@@ -136,6 +144,7 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
                     docAction: 'SEND_BACK_TO_AGENT',
                     legalDoc: this.legalDoc,
                     docActionMsg: 'Send Legal Doc',
+                    formData: this.formdata,
                     documentStatus: DocStatus.SEND_BACK_TO_AGENT
                 };
                 break;
@@ -149,25 +158,68 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
         this.isOpen = true;
     }
 
+    getFile(index) {
+        this.path = this.cadOfferLetterApprovedDoc.offerDocumentList[index].draftPath;
+        const mimeType = this.path.split('.')[1];
+        const promise = this.service.getFile(this.path).toPromise();
+        promise.then(res => {
+            const imageBase64 = res.detail;
+            if (res.detail) {
+                const blob = this.dataURItoBlob(imageBase64);
+                let type;
+                if (mimeType === 'png' || mimeType === 'jpg' || mimeType === 'jpeg') {
+                    type = 'image/' + mimeType;
+                } else if (mimeType === 'pdf') {
+                    type = 'application/pdf';
+                } else if (mimeType === 'docx') {
+                    type = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';
+                } else if (mimeType === 'txt') {
+                    type = 'text/plain';
+                }
+                const file = new File([blob], 'file.' + mimeType, {type: type});
+                const obj = {
+                    id: this.cadOfferLetterApprovedDoc.offerDocumentList[index].id,
+                    docName: this.cadOfferLetterApprovedDoc.offerDocumentList[index].docName,
+                    draftPath: this.cadOfferLetterApprovedDoc.offerDocumentList[index].draftPath,
+                    pathSigned: ''
+                };
+                if (this.index === 0) {
+                    console.log('vitra xa');
+                    this.formdata.append('file', file);
+                    this.index = 1;
+                } else if (this.index === 1) {
+                    this.formdata.append('file2', file);
+                    this.index = 0;
+                }
+                this.objArr.push(obj);
+            }
+        });
+    }
+
     checkCadDocument() {
         const cadDocuments: any = this.cadOfferLetterApprovedDoc.offerDocumentList;
         let index = 0;
         if (cadDocuments.length > 0) {
             cadDocuments.forEach((data) => {
-                if ((data.docName === LaxmiOfferLetterConst.value(LaxmiOfferLetterConst.PERSONAL_GUARANTEE))
-                    || (data.docName === LaxmiOfferLetterConst.value(LaxmiOfferLetterConst.LETTER_OF_COMMITMENT))) {
+                if ((data.docName === LaxmiOfferLetterConst.value(LaxmiOfferLetterConst.PERSONAL_GUARANTEE) && data.draftPath !== null)
+                    || (data.docName === LaxmiOfferLetterConst.value(LaxmiOfferLetterConst.LETTER_OF_COMMITMENT && data.draftPath !== null))) {
                     index += 1;
                 }
             });
             if (index === 2 || index > 2) {
                 this.hasRequierdDocument = true;
+                if (this.hasRequierdDocument && this.isRemit) {
+                    this.getDoc();
+                }
             }
         }
     }
 
     initial() {
-        this.customerInfoData = this.cadOfferLetterApprovedDoc.loanHolder;
-        this.cadOfferLetterApprovedDoc.assignedLoan.forEach(() => this.toggleArray.push({toggled: false}));
+        if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc)) {
+            this.customerInfoData = this.cadOfferLetterApprovedDoc.loanHolder;
+            this.cadOfferLetterApprovedDoc.assignedLoan.forEach(() => this.toggleArray.push({toggled: false}));
+        }
     }
 
     openOfferLetterDocumentModal(offerLetterType) {
@@ -229,6 +281,12 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
 
     uploadOfferLetter(event) {
         this.uploadFile = event.target.files[0];
+        if (this.uploadFile.name.split('.')[1] !== 'docx' && this.uploadFile.name.split('.')[1] !== 'png' && this.uploadFile.name.split('.')[1] !== 'jpg' && this.uploadFile.name.split('.')[1] !== 'pdf' && this.uploadFile.name.split('.')[1] !== 'txt') {
+            this.modelService.dismissAll();
+            this.toastrService.show(new Alert(AlertType.ERROR, 'Not Supported Type'));
+            this.uploadFile = null;
+            return;
+        }
     }
 
     previewClick(file, direct) {
@@ -290,8 +348,11 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        this.initial();
-        this.checkCadDocument();
+        if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc)) {
+            this.checkRemit();
+            this.initial();
+            this.checkCadDocument();
+        }
     }
 
     openModal(template) {
