@@ -82,19 +82,11 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
         this.offerLetterTypes = LaxmiOfferLetterConst.enumObject();
         this.offerLetterConst = LaxmiOfferLetterConst;
         this.component = LaxmiOfferLetterComponent;
-        if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc)) {
-            this.initial();
-            this.checkCadDocument();
-            this.checkRemit();
-        }
     }
 
     checkRemit() {
         if (this.cadOfferLetterApprovedDoc.assignedLoan[0].loan.loanTag === LoanTag.getKeyByValue(LoanTag.REMIT_LOAN)) {
             this.isRemit = true;
-        }
-        if (this.hasRequierdDocument && this.isRemit) {
-            this.getDoc();
         }
     }
 
@@ -214,7 +206,9 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
             });
             if (index === 2 || index > 2) {
                 this.hasRequierdDocument = true;
-                this.getDoc();
+                if (this.hasRequierdDocument && this.isRemit) {
+                    this.getDoc();
+                }
             }
         }
     }
@@ -356,9 +350,9 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
 
     ngOnChanges(changes: SimpleChanges): void {
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc)) {
+            this.checkRemit();
             this.initial();
             this.checkCadDocument();
-            this.checkRemit();
         }
     }
 
