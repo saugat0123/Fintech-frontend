@@ -6,6 +6,13 @@ export enum SubLoanType {
     FIXED_ASSETS_FINANCING = 'Fixed Assets Financing',
     VEHICLE_FINANCING = 'Vehicle Financing',
     REFINANCING_OF_ASSETS = 'Refinancing of Assets',
+    LOAN_AGAINST_LC_DOCUMENT = 'Loan against LC  Document (Within LC Limit)',
+    LOAN_AGAINST_TT_DD_DAP_DAA = 'Loan against TT/DD/DAP/DAA',
+    PURCHASE_OF_LAND_BUILDING = 'Purchase of Land / Building',
+    CONSTRUCTION_OF_BUILDING = 'Construction of  Building',
+    BID_BOND_GUARANTEE= 'Bid Bond Guarantee',
+    PERFORMANCE_GUARANTEE = 'Performance Guarantee',
+    ADVANCE_PAYMENT_GUARANTEE = 'Advance Payment Guarantee'
 }
 
 export namespace SubLoanType {
