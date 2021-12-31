@@ -1,10 +1,11 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from "@angular/forms";
-import {CustomerApprovedLoanCadDocumentation} from "../../../../../../model/customerApprovedLoanCadDocumentation";
-import {ObjectUtil} from "../../../../../../../../@core/utils/ObjectUtil";
-import {NepaliCurrencyWordPipe} from "../../../../../../../../@core/pipe/nepali-currency-word.pipe";
-import {Editor} from "../../../../../../../../@core/utils/constants/editor";
-import {TableMaker} from "../../../../../../../../@core/utils/constants/tableMaker";
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {CustomerApprovedLoanCadDocumentation} from '../../../../../../model/customerApprovedLoanCadDocumentation';
+import {ObjectUtil} from '../../../../../../../../@core/utils/ObjectUtil';
+import {NepaliCurrencyWordPipe} from '../../../../../../../../@core/pipe/nepali-currency-word.pipe';
+import {Editor} from '../../../../../../../../@core/utils/constants/editor';
+import {TableMaker} from '../../../../../../../../@core/utils/constants/tableMaker';
+import {NepaliToEngNumberPipe} from '../../../../../../../../@core/pipe/nepali-to-eng-number.pipe';
 
 @Component({
   selector: 'app-section3-security-and-collateral',
@@ -73,7 +74,7 @@ export class Section3SecurityAndCollateralComponent implements OnInit {
   table;
 
   constructor(private formBuilder: FormBuilder,
-              private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe) { }
+              public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe) { }
 
   ngOnInit() {
     this.buildForm();
@@ -88,14 +89,14 @@ export class Section3SecurityAndCollateralComponent implements OnInit {
         this.table = this.freeTextVal.section3.freeTable;
       }
       this.fillForm();
+      this.guarantorData.forEach(any => {
+        this.guarantorParsed.push(JSON.parse(any.nepData));
+      });
+      this.guarantorDetails();
     }
-    this.guarantorData.forEach(any => {
-      this.guarantorParsed.push(JSON.parse(any.nepData));
-    });
     this.checkPrimaryConditions();
     this.checkSecondaryConditions();
     this.checkLienLoop();
-    this.guarantorDetails();
   }
 
   buildForm() {
@@ -126,14 +127,15 @@ export class Section3SecurityAndCollateralComponent implements OnInit {
       otherBorrowingClientNameSecondary: [undefined],
       guarantorAmount: [undefined],
       guarantorAmountInWords: [undefined],
-      personalguaranteeName: [undefined],
+      personalGuarantorAmount: [undefined],
+      personalGuarantorAmountInWords: [undefined],
+      personalGuaranteeName: [undefined],
       freeTable: [undefined],
 
-    })
+    });
   }
 
   fillForm() {
-    console.log('tempData: ', this.tempData);
     const guarantorAmount = this.guarantorParse(this.guarantorData[0].nepData, 'gurantedAmount');
     const guarantorName = this.nepaliCurrencyWordPipe.transform(this.guarantorParse(this.guarantorData[0].nepData, 'gurantedAmount', 'en'));
     this.form.patchValue({
@@ -149,48 +151,48 @@ export class Section3SecurityAndCollateralComponent implements OnInit {
         val.collateralShareCT === 'YES');
     this.tempParipassu = this.securityDetails.primarySecurity.filter(val =>
         val.paripassuContentsCT !== null);
-    if(this.securityDetails.primarySecurity.length > 0) {
+    if (this.securityDetails.primarySecurity.length > 0) {
       this.securityDetails.primarySecurity.forEach(i => {
-        if(i.securityTypeCT === 'LAND' || i.securityTypeCT === 'LAND_AND_BUILDING') {
+        if (i.securityTypeCT === 'LAND' || i.securityTypeCT === 'LAND_AND_BUILDING') {
           this.securityTypeCondition = true;
           this.checkMortgage(i);
         }
-        if(i.collateralShareCT === 'YES') {
+        if (i.collateralShareCT === 'YES') {
           this.collateralShareCondition = true;
         }
-        if(i.securityTypeCT === 'HYPOTHECATION') {
+        if (i.securityTypeCT === 'HYPOTHECATION') {
           this.securityTypeHypothecationCondition = true;
         }
-        if(i.hypothecationPurposeCT === 'For Trading Unit') {
+        if (i.hypothecationPurposeCT === 'For Trading Unit') {
           this.hypoPurposeTrading = true;
         }
-        if(i.hypothecationPurposeCT === 'For Manufacturing Case') {
+        if (i.hypothecationPurposeCT === 'For Manufacturing Case') {
           this.hypoPurposeManufacturing = true;
         }
-        if(i.assignmentToBeUsedCT !== null) {
+        if (i.assignmentToBeUsedCT !== null) {
           this.assignment = true;
-          if(i.assignmentToBeUsedCT === 'NEW') {
+          if (i.assignmentToBeUsedCT === 'NEW') {
             this.assignmentNew = true;
           }
         }
-        if(i.paripassuContentsCT !== null) {
+        if (i.paripassuContentsCT !== null) {
           this.paripassu = true;
-          if(i.paripassuContentsCT === 'NEW') {
+          if (i.paripassuContentsCT === 'NEW') {
             this.paripassuNew = true;
           }
         }
-        if(i.securityTypeCT === 'LIEN AGAINST FD' || i.securityTypeCT === 'LIEN AGAINST DEPOSIT ACCOUNT' || i.securityTypeCT === 'LIEN AGAINST DEBENTURE') {
+        if (i.securityTypeCT === 'LIEN AGAINST FD' || i.securityTypeCT === 'LIEN AGAINST DEPOSIT ACCOUNT' || i.securityTypeCT === 'LIEN AGAINST DEBENTURE') {
           this.securityTypeLienCondition = true;
         }
-        if(i.vehicleRegistrationCT !== null) {
+        if (i.vehicleRegistrationCT !== null) {
           this.vehicleRegister = true;
-          if(i.vehicleRegistrationCT === 'NEW') {
+          if (i.vehicleRegistrationCT === 'NEW') {
             this.vehicleRegisterNew = true;
           }
         }
-        if(i.generalCounterGuaranteeCT !== null) {
+        if (i.generalCounterGuaranteeCT !== null) {
           this.generalCounter = true;
-          if(i.generalCounterGuaranteeCT === 'NEW') {
+          if (i.generalCounterGuaranteeCT === 'NEW') {
             this.generalCounterNew = true;
           }
         }
@@ -205,43 +207,43 @@ export class Section3SecurityAndCollateralComponent implements OnInit {
         val.collateralShareCT === 'YES');
     if (this.securityDetails.secondarySecurity.length > 0) {
       this.securityDetails.secondarySecurity.forEach(i => {
-        if(i.securityTypeCT === 'LAND' || i.securityTypeCT === 'LAND_AND_BUILDING') {
+        if (i.securityTypeCT === 'LAND' || i.securityTypeCT === 'LAND_AND_BUILDING') {
           this.securityTypeSecondaryCondition = true;
           {
             this.checkSecondaryMortgage(i);
           }        }
-        if(i.collateralShareCT === 'YES') {
+        if (i.collateralShareCT === 'YES') {
           this.collateralShareSecondaryCondition = true;
         }
-        if(i.securityTypeCT === 'PERSONAL_GUARANTEE') {
+        if (i.securityTypeCT === 'PERSONAL_GUARANTEE') {
           this.securityTypeSecondaryPersonalCondition = true;
         }
-        if(i.personalGuaranteeToBeUsedCT !== null) {
-          if(i.personalGuaranteeToBeUsedCT === 'NEW') {
+        if (i.personalGuaranteeToBeUsedCT !== null) {
+          if (i.personalGuaranteeToBeUsedCT === 'NEW') {
             this.personalGuaranteeToBeUsedSecondary = true;
           }
         }
-        if(i.securityTypeCT === 'CORPORATE_GUARANTEE') {
+        if (i.securityTypeCT === 'CORPORATE_GUARANTEE') {
           this.securityTypeSecondaryCorporateCondition = true;
         }
-        if(i.corporateGuaranteeCT !== null) {
-          if(i.corporateGuaranteeCT === 'NEW') {
+        if (i.corporateGuaranteeCT !== null) {
+          if (i.corporateGuaranteeCT === 'NEW') {
             this.corporateGuaranteeSecondary = true;
           }
         }
-        if(i.securityTypeCT === 'CROSS_GUARANTEE') {
+        if (i.securityTypeCT === 'CROSS_GUARANTEE') {
           this.securityTypeSecondaryCrossCondition = true;
         }
-        if(i.crossGuaranteeCT !== null) {
-          if(i.crossGuaranteeCT === 'NEW') {
+        if (i.crossGuaranteeCT !== null) {
+          if (i.crossGuaranteeCT === 'NEW') {
             this.crossGuaranteeSecondary = true;
           }
         }
-        if(i.securityTypeCT === 'SHARE_PLEDGE') {
+        if (i.securityTypeCT === 'SHARE_PLEDGE') {
           this.securityTypeSecondarySharePledgeCondition = true;
         }
-        if(i.sharePledgeToBeUsedCT !== null) {
-          if(i.sharePledgeToBeUsedCT === 'NEW') {
+        if (i.sharePledgeToBeUsedCT !== null) {
+          if (i.sharePledgeToBeUsedCT === 'NEW') {
             this.sharePledgeSecondary = true;
           }
         }
@@ -262,25 +264,25 @@ export class Section3SecurityAndCollateralComponent implements OnInit {
   }
 
   checkMortgage(any) {
-    if(any.mortgageType === 'New') {
+    if (any.mortgageType === 'New') {
       this.primaryNewMortgage = true;
     }
-    if(any.mortgageType === 'Existing') {
+    if (any.mortgageType === 'Existing') {
       this.primaryExistingMortgage = true;
     }
-    if(any.mortgageType === 'Enhancement'){
+    if (any.mortgageType === 'Enhancement') {
       this.primaryEnhancementMortgage = true;
     }
   }
 
   checkSecondaryMortgage(any) {
-    if(any.mortgageType === 'New') {
+    if (any.mortgageType === 'New') {
       this.secondaryNewMortgage = true;
     }
-    if(any.mortgageType === 'Existing') {
+    if (any.mortgageType === 'Existing') {
       this.secondaryExistingMortgage = true;
     }
-    if(any.mortgageType === 'Enhancement'){
+    if (any.mortgageType === 'Enhancement') {
       this.secondaryEnhancementMortgage = true;
     }
   }
@@ -305,7 +307,6 @@ export class Section3SecurityAndCollateralComponent implements OnInit {
         val.guarantorType.en === 'Corporate Guarantor');
     this.tempCrossguarantors = this.guarantorParsed.filter(val =>
         val.guarantorType.en === 'Cross Guarantor');
-    this.personalGuarantorDetails();
     this.tempCorporateGuarantors.forEach(i => {
       this.corporateGuarantorsName.push(i.authorizedPersonName ? i.authorizedPersonName.ct : '');
     });
@@ -314,30 +315,14 @@ export class Section3SecurityAndCollateralComponent implements OnInit {
     });
   }
 
-  personalGuarantorDetails() {
-    let rel: String = '';
-    this.tempPersonalGuarantors.forEach(i => {
-      if (i.gender.en === 'FEMALE' && i.relationMedium.en === '0') {
-        rel = 'श्रीमती';
-      }
-      if (i.gender.en === 'FEMALE' && i.relationMedium.en === '1') {
-        rel = 'सुश्री';
-      }
-      if (i.gender.en === 'MALE') {
-        rel = 'श्रीमान्';
-      }
-      this.personalGuarantorsName.push(rel + ' ' + i.guarantorName.ct);
-    });
-  }
-
   commonGuarantorDetails(guarantorName, finalName) {
-    if(guarantorName.length === 1) {
+    if (guarantorName.length === 1) {
       finalName = guarantorName[0];
     }
-    if(guarantorName.length === 2) {
+    if (guarantorName.length === 2) {
       finalName = guarantorName.join(' र ');
     }
-    if(guarantorName.length > 2){
+    if (guarantorName.length > 2) {
       for (let i = 0; i < guarantorName.length - 1; i++) {
         this.temp2 = guarantorName.join(' , ');
       }
