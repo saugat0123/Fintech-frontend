@@ -7,6 +7,7 @@ import {CurrencyFormatterPipe} from '../../../../../../../@core/pipe/currency-fo
 import {EngNepDatePipe} from 'nepali-patro';
 import {DatePipe} from '@angular/common';
 import {ObjectUtil} from '../../../../../../../@core/utils/ObjectUtil';
+import {CustomerSubType} from '../../../../../../customer/model/customerSubType';
 
 @Component({
   selector: 'app-interest-subsidy-sanction-letter-print',
@@ -46,6 +47,24 @@ export class InterestSubsidySanctionLetterPrintComponent implements OnInit {
   tempPersonalGuarantors;
   temp2;
   finalPersonalName;
+  tempData;
+  securityDetails: any;
+  // security conditions
+  securityTypeCondition = false;
+  securityTypeConditionFixedAssests = false;
+  securityTypeConditionStock = false;
+  securityTypeConditionAssestsPlants = false;
+  tempSecondaryLandBuilding;
+  securityTypeSecondaryCondition = false;
+  securityTypeSecondaryConditionFixedAssests = false;
+  securityTypeSecondaryConditionStock = false;
+  securityTypeSecondaryConditionAssestsPlants = false;
+  securityTypeConditionLandAndBuilding = false;
+  securityTypeConditionLandAndBuildingSecondary = false;
+  securityTypeConditionLiveStocks = false;
+  securityTypeConditionDocuments = false;
+  plotNumber;
+  customerSubType = CustomerSubType;
 
   constructor(public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
               public engToNepNumberPipe: EngToNepaliNumberPipe,
@@ -70,6 +89,8 @@ export class InterestSubsidySanctionLetterPrintComponent implements OnInit {
           this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.registeredDistrict.ct + ', ' +
           this.loanHolderInfo.registeredProvince.ct;
       this.branchName = this.loanHolderInfo.branch ? this.loanHolderInfo.branch.ct : '';
+      this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
+      this.securityDetails = this.tempData.securities;
     }
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.offerDocumentList)) {
       this.offerDocumentDetails = this.cadOfferLetterApprovedDoc.offerDocumentList[0] ? JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation) : '';
@@ -108,6 +129,8 @@ export class InterestSubsidySanctionLetterPrintComponent implements OnInit {
       this.guarantorParsed.push(JSON.parse(any.nepData));
     });
     this.guarantorDetails();
+    this.checkPrimaryConditions();
+    this.checkSecondaryConditions();
   }
 
   guarantorParse(nepData, key, trans?) {
@@ -124,7 +147,7 @@ export class InterestSubsidySanctionLetterPrintComponent implements OnInit {
         val.guarantorType.en === 'Personal Guarantor');
     this.tempPersonalGuarantors.forEach(i => {
       this.personalGuarantorsName.push(i.guarantorName ? i.guarantorName.ct : '');
-    })
+    });
   }
 
   commonGuarantorDetails(guarantorName, finalName) {
@@ -142,5 +165,64 @@ export class InterestSubsidySanctionLetterPrintComponent implements OnInit {
       finalName = this.temp2 + ' र ' + temp1;
     }
     return finalName ? finalName : '';
+  }
+  checkPrimaryConditions() {
+    /* this.tempLandBuilding = this.securityDetails.primarySecurity.filter(val =>
+         val.securityType === 'LAND' || val.securityType === 'LAND_AND_BUILDING');*/
+    if (this.securityDetails.primarySecurity.length > 0) {
+      this.securityDetails.primarySecurity.forEach(i => {
+        if (i.securityType === 'LAND' || i.securityType === 'LAND_AND_BUILDING') {
+          this.securityTypeCondition = true;
+        }
+        if (i.securityType === 'LAND_AND_BUILDING') {
+          this.securityTypeConditionLandAndBuilding = true;
+        }
+      });
+    }
+    if (this.securityDetails.primarySecurity.some(s => s.securityType === 'FIXED_ASSETS')) {
+      this.securityTypeConditionFixedAssests = true;
+    }
+    if (this.securityDetails.primarySecurity.some(s => s.securityType === 'STOCK')) {
+      this.securityTypeConditionStock = true;
+    }
+    if (this.securityDetails.primarySecurity.some(s => s.securityType === 'ASSETS_PLANTS_MACHINERY_AND_OTHER_EQUIPMENTS')) {
+      this.securityTypeConditionAssestsPlants = true;
+    }
+    if (this.securityDetails.primarySecurity.some(s => s.securityType === 'LIVE_STOCKS_ANIMALS')) {
+      this.securityTypeConditionLiveStocks = true;
+    }
+    if (this.securityDetails.secondarySecurity.some(s => s.securityType === 'DOCUMENTS')) {
+      this.securityTypeConditionDocuments = true;
+    }
+  }
+
+  checkSecondaryConditions() {
+    this.tempSecondaryLandBuilding = this.securityDetails.secondarySecurity.filter(val =>
+        val.securityType === 'LAND' || val.securityType === 'LAND_AND_BUILDING');
+    if (this.securityDetails.secondarySecurity.length > 0) {
+      this.securityDetails.secondarySecurity.forEach(i => {
+        if (i.securityType === 'LAND' || i.securityType === 'LAND_AND_BUILDING') {
+          this.securityTypeSecondaryCondition = true;
+        }
+        if (i.securityType === 'LAND_AND_BUILDING') {
+          this.securityTypeConditionLandAndBuildingSecondary = true;
+        }
+      });
+    }
+    if (this.securityDetails.secondarySecurity.some(s => s.securityType === 'FIXED_ASSETS')) {
+      this.securityTypeSecondaryConditionFixedAssests = true;
+    }
+    if (this.securityDetails.secondarySecurity.some(s => s.securityType === 'STOCK')) {
+      this.securityTypeSecondaryConditionStock = true;
+    }
+    if (this.securityDetails.secondarySecurity.some(s => s.securityType === 'ASSETS_PLANTS_MACHINERY_AND_OTHER_EQUIPMENTS')) {
+      this.securityTypeSecondaryConditionAssestsPlants = true;
+    }
+    if (this.securityDetails.secondarySecurity.some(s => s.securityType === 'LIVE_STOCKS_ANIMALS')) {
+      this.securityTypeConditionLiveStocks = true;
+    }
+    if (this.securityDetails.secondarySecurity.some(s => s.securityType === 'DOCUMENTS')) {
+      this.securityTypeConditionDocuments = true;
+    }
   }
 }

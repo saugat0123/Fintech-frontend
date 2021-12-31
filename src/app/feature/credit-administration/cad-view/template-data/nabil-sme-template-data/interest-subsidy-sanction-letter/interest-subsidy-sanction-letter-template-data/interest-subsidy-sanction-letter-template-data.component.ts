@@ -124,9 +124,9 @@ export class InterestSubsidySanctionLetterTemplateDataComponent implements OnIni
             previousSanctionDate: [undefined],
             previousSanctionDateNepali: [undefined],
             purposeOfLoan: [undefined],
-            marginInPercentage: [undefined],
-            marginInPercentageMotor: [undefined],
-            marginInPercentageFoot: [undefined],
+            // marginInPercentage: [undefined],
+            // marginInPercentageMotor: [undefined],
+            // marginInPercentageFoot: [undefined],
             baseRate: [undefined],
             premiumRate: [undefined],
             interestRate: [undefined],
@@ -152,9 +152,9 @@ export class InterestSubsidySanctionLetterTemplateDataComponent implements OnIni
             previousSanctionDateTrans: [undefined],
             previousSanctionDateNepaliTrans: [undefined],
             purposeOfLoanTrans: [undefined],
-            marginInPercentageTrans: [undefined],
-            marginInPercentageMotorTrans: [undefined],
-            marginInPercentageFootTrans: [undefined],
+            // marginInPercentageTrans: [undefined],
+            // marginInPercentageMotorTrans: [undefined],
+            // marginInPercentageFootTrans: [undefined],
             baseRateTrans: [undefined],
             premiumRateTrans: [undefined],
             interestRateTrans: [undefined],
@@ -180,9 +180,9 @@ export class InterestSubsidySanctionLetterTemplateDataComponent implements OnIni
             previousSanctionDateCT: [undefined, Validators.required],
             previousSanctionDateNepaliCT: [undefined, Validators.required],
             purposeOfLoanCT: [undefined, Validators.required],
-            marginInPercentageCT: [undefined, Validators.required],
-            marginInPercentageMotorCT: [undefined, Validators.required],
-            marginInPercentageFootCT: [undefined, Validators.required],
+            // marginInPercentageCT: [undefined, Validators.required],
+            // marginInPercentageMotorCT: [undefined, Validators.required],
+            // marginInPercentageFootCT: [undefined, Validators.required],
             baseRateCT: [undefined, Validators.required],
             premiumRateCT: [undefined, Validators.required],
             interestRateCT: [undefined, Validators.required],
@@ -412,9 +412,9 @@ export class InterestSubsidySanctionLetterTemplateDataComponent implements OnIni
             this.interestSubsidy.get('previousSanctionDateNepaliTrans').patchValue(transPrevSancDate);
         }
         // TRANSLATE VALUES OF NUMBERS:
-        this.translateNumber('marginInPercentage', 'marginInPercentageTrans');
-        this.translateNumber('marginInPercentageMotor', 'marginInPercentageMotorTrans');
-        this.translateNumber('marginInPercentageFoot', 'marginInPercentageFootTrans');
+        // this.translateNumber('marginInPercentage', 'marginInPercentageTrans');
+        // this.translateNumber('marginInPercentageMotor', 'marginInPercentageMotorTrans');
+        // this.translateNumber('marginInPercentageFoot', 'marginInPercentageFootTrans');
         this.translateNumber('baseRate', 'baseRateTrans');
         this.translateNumber('premiumRate', 'premiumRateTrans');
         this.translateNumber('interestRate', 'interestRateTrans');
@@ -560,9 +560,9 @@ export class InterestSubsidySanctionLetterTemplateDataComponent implements OnIni
             );
         }
         this.interestSubsidy.get('purposeOfLoanCT').patchValue(this.interestSubsidy.get('purposeOfLoanTrans').value);
-        this.interestSubsidy.get('marginInPercentageCT').patchValue(this.interestSubsidy.get('marginInPercentageTrans').value);
-        this.interestSubsidy.get('marginInPercentageMotorCT').patchValue(this.interestSubsidy.get('marginInPercentageMotorTrans').value);
-        this.interestSubsidy.get('marginInPercentageFootCT').patchValue(this.interestSubsidy.get('marginInPercentageFootTrans').value);
+        // this.interestSubsidy.get('marginInPercentageCT').patchValue(this.interestSubsidy.get('marginInPercentageTrans').value);
+        // this.interestSubsidy.get('marginInPercentageMotorCT').patchValue(this.interestSubsidy.get('marginInPercentageMotorTrans').value);
+        // this.interestSubsidy.get('marginInPercentageFootCT').patchValue(this.interestSubsidy.get('marginInPercentageFootTrans').value);
         this.interestSubsidy.get('baseRateCT').patchValue(this.interestSubsidy.get('baseRateTrans').value);
         this.interestSubsidy.get('premiumRateCT').patchValue(this.interestSubsidy.get('premiumRateTrans').value);
         this.interestSubsidy.get('interestRateCT').patchValue(this.interestSubsidy.get('interestRateTrans').value);
