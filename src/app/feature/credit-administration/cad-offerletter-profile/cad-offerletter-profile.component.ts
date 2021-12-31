@@ -39,7 +39,7 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
     offerLetterConst;
     excelOfferLetterConst = ExcelOfferLetterConst;
     isRemit = false;
-    flag = false;
+    index = 0;
     path;
 
     constructor(
@@ -66,7 +66,6 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
     documentId;
     docType = null;
     uploadFile;
-    index;
     spinners = false;
     toggleArray: { toggled: boolean }[] = [];
 
@@ -96,6 +95,7 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
         this.cadOfferLetterApprovedDoc.offerDocumentList.forEach((d, i) => {
             if ((d.docName === LaxmiOfferLetterConst.value(LaxmiOfferLetterConst.PERSONAL_GUARANTEE))
                 || (d.docName === LaxmiOfferLetterConst.value(LaxmiOfferLetterConst.LETTER_OF_COMMITMENT))) {
+                console.log('four', d);
                 this.getFile(i);
             }
         });
@@ -183,13 +183,15 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
                     draftPath: this.cadOfferLetterApprovedDoc.offerDocumentList[index].draftPath,
                     pathSigned: ''
                 };
-                if (!this.flag) {
+                if (this.index === 0) {
+                    console.log('vitra xa');
                     this.formdata.append('file', file);
-                } else if (this.flag) {
+                    this.index = 1;
+                } else if (this.index === 1) {
                     this.formdata.append('file2', file);
+                    this.index = 0;
                 }
                 this.objArr.push(obj);
-                this.flag = true;
             }
         });
     }
@@ -266,9 +268,6 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
             this.service.detail(this.cadOfferLetterApprovedDoc.id).subscribe((res: any) => {
                 this.responseCadData.emit(res.detail);
                 this.cadOfferLetterApprovedDoc = res.detail;
-                if (res.detail) {
-                    this.checkCadDocument();
-                }
             });
         }, error => {
             this.modelService.dismissAll();
