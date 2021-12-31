@@ -25,8 +25,8 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {ApiConfig} from '../../../@core/utils/api/ApiConfig';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {LaxmiOfferLetterConst} from '../cad-document-template/laxmi/laxmi-offer-letter/laxmi-offer-letter-const';
-import {LaxmiModule} from '../cad-document-template/laxmi/laxmi.module';
-import {Clients} from "../../../../environments/Clients";
+import {Clients} from '../../../../environments/Clients';
+import {CreditAdministrationService} from '../service/credit-administration.service';
 
 @Component({
     selector: 'app-cad-legal-doc-action-modal',
@@ -50,6 +50,7 @@ export class CadLegalDocActionModalComponent implements OnInit {
     @Input() branchId: number;
     @Input() isMaker: boolean;
     @Input() customerLoanHolder: LoanDataHolder;
+    @Input() formData: FormData;
     submitted = false;
     formAction: FormGroup;
     userList: Array<User> = new Array<User>();
@@ -93,6 +94,8 @@ export class CadLegalDocActionModalComponent implements OnInit {
 
     ngOnInit() {
         this.formAction = this.buildForm();
+        this.formData.append('beneficiaryId', this.beneficiaryId);
+        this.formData.append('status', DocStatus.value(this.documentStatus));
         this.roleId = parseInt(LocalStorageUtil.getStorage().roleId, 10);
         this.conditionalDataLoad();
         if (!ObjectUtil.isEmpty(this.customerLoanHolder)) {
@@ -140,7 +143,9 @@ export class CadLegalDocActionModalComponent implements OnInit {
     public onSubmit() {
         this.spinner = true;
         const comment = this.formAction.value.comment;
-     this.legalDoc = this.legalDoc.filter(d => d.docName !== LaxmiOfferLetterConst.value(LaxmiOfferLetterConst.OFFER_LETTER));
+        this.formData.append('remarks', comment);
+        this.formData.append('institution', Clients.MICRO_FINANCE);
+        this.legalDoc = this.legalDoc.filter(d => d.docName !== LaxmiOfferLetterConst.value(LaxmiOfferLetterConst.OFFER_LETTER));
         const docAction = this.formAction.value.docAction;
         const docActionMSG = this.formAction.value.docActionMsg;
         if (docActionMSG === 'Send Legal Doc') {
@@ -151,7 +156,7 @@ export class CadLegalDocActionModalComponent implements OnInit {
                 status: this.docAction,
                 institution: Clients.MICRO_FINANCE
             };
-            this.loanFormService.sendLegalDocumentBackToSenderOrAgent(sendDocToRemit).subscribe((res) => {
+            this.loanFormService.sendLegalDocumentBackToSenderOrAgent(this.formData).subscribe((res) => {
                 this.spinner = false;
                 this.nbDialogRef.close();
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Sucessfully Forwarded Document To Agent/Sender'));
