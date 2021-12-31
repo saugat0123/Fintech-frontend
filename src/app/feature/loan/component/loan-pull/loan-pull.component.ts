@@ -254,7 +254,6 @@ export class LoanPullComponent implements OnInit {
                 combineLoanList.forEach(l1 => {
                     if (l1.combinedLoan !== null && !ObjectUtil.isEmpty(l1) && l1.id === customerLoanId) {
                         this.combinedIds = l1.id;
-                        console.log(l1.combinedLoan.id);
                         combineLoanList.forEach(l2 => {
                             if (l2.combinedLoan !== null && l2.combinedLoan.id === l1.combinedLoan.id && l2.id !== l1.id) {
                                 this.combinedIds = this.combinedIds + ',' + l2.id;

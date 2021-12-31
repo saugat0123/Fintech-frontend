@@ -101,7 +101,16 @@ export class LoanActionCombinedModalComponent implements OnInit {
             this.individualType.form = this.buildIndividualForm();
             this.individualType.users = new Map<number, User[]>();
             this.individualType.solUsers = new Map<number, User[]>();
-            this.combinedLoan.loans.forEach((l, i) => this.individualType.users.set(i, []));
+            this.combinedLoan.loans.forEach((l, i) => {
+                this.individualType.users.set(i, []);
+                if (this.docAction === DocAction[DocAction.BACKWARD_TO_COMMITTEE]) {
+                    this.roleService.detail(this.toRole.id).subscribe((res: any) => {
+                        this.toRole = res.detail;
+                        this.individualType.form.get(['actions', i, 'toRole']).setValue(this.toRole);
+                    });
+                    this.getIndividualUserList(this.toRole, i);
+                }
+            });
             this.combinedLoan.loans.forEach((l, i) => this.individualType.solUsers.set(i, []));
         } else if (value === 'combined') {
             this.combinedType.form = this.buildCombinedForm();
@@ -162,7 +171,11 @@ export class LoanActionCombinedModalComponent implements OnInit {
 
     public getIndividualUserList(role, i: number) {
         this.userService.getUserListByRoleIdAndBranchIdForDocumentAction(role.id, this.branchId).subscribe((response: any) => {
-            this.individualType.users.set(i, response.detail);
+            if (this.docAction === DocAction[DocAction.BACKWARD_TO_COMMITTEE]) {
+                this.individualType.users.set(i, response.detail[0]);
+            } else {
+                this.individualType.users.set(i, response.detail);
+            }
             const users: User[] = response.detail;
             this.isUserPresent[i] = true;
             if (users.length === 0) {
