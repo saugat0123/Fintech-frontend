@@ -124,7 +124,8 @@ import {CoreModule} from '../../../../@core/core.module';
         DdslWithoutSubsidyPrintComponent,
         CombinedOfferLetterComponent,
         CombinedOfferLetterPrintComponent,
-        Section2LoanTypeComponent
+        Section2LoanTypeComponent,
+        MasterSecuritiesViewComponent
     ],
     imports: [
         CommonModule,
