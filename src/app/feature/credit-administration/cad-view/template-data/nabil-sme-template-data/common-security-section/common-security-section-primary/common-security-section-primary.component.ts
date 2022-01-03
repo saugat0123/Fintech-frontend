@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {EngToNepaliNumberPipe} from '../../../../../../../@core/pipe/eng-to-nepali-number.pipe';
 import {SbTranslateService} from '../../../../../../../@core/service/sbtranslate.service';
 import {AddressService} from '../../../../../../../@core/service/baseservice/address.service';
@@ -23,6 +23,8 @@ export class CommonSecuritySectionPrimaryComponent implements OnInit {
   municipalityListForSecurities = [];
   securityType = [{key: 'LAND', value: 'Land'},
     {key: 'LAND_AND_BUILDING', value: 'Land And Building'},
+    {key: 'HYPOTHECATION', value: 'Hypothecation'},
+    {key: 'ASSIGNMENT', value: 'Assignment'},
     {key: 'FIXED_ASSETS', value: 'Fixed Assets'},
     {key: 'STOCK', value: 'Stock'},
     {key: 'ASSETS_PLANTS_MACHINERY_AND_OTHER_EQUIPMENTS', value: 'Assets Plants Machinery & other equipments'},
@@ -92,6 +94,9 @@ export class CommonSecuritySectionPrimaryComponent implements OnInit {
       securityOwnersDistrict: [undefined],
       securityOwnersMunicipalityOrVdc: [undefined],
       securityOwnersMunicipality: [undefined],
+      marginInPercentage: [undefined],
+      marginInPercentageMotor: [undefined],
+      marginInPercentageFoot: [undefined],
       /*securityOwnersWardNo: [undefined],
       securityOwnersKittaNo: [undefined],
       securityOwnersLandArea: [undefined],
@@ -102,6 +107,9 @@ export class CommonSecuritySectionPrimaryComponent implements OnInit {
       securityOwnersDistrictTrans: [undefined],
       securityOwnersMunicipalityOrVdcTrans: [undefined],
       securityOwnersMunicipalityTrans: [undefined],
+      marginInPercentageTrans: [undefined],
+      marginInPercentageMotorTrans: [undefined],
+      marginInPercentageFootTrans: [undefined],
       /*securityOwnersWardNoTrans: [undefined],
       securityOwnersKittaNoTrans: [undefined],
       securityOwnersLandAreaTrans: [undefined],
@@ -112,6 +120,9 @@ export class CommonSecuritySectionPrimaryComponent implements OnInit {
       securityOwnersDistrictCT: [undefined],
       securityOwnersMunicipalityOrVdcCT: [undefined],
       securityOwnersMunicipalityCT: [undefined],
+      marginInPercentageCT: [undefined],
+      marginInPercentageMotorCT: [undefined],
+      marginInPercentageFootCT: [undefined],
       /*securityOwnersWardNoCT: [undefined],
       securityOwnersKittaNoCT: [undefined],
       securityOwnersLandAreaCT: [undefined],
@@ -280,15 +291,26 @@ export class CommonSecuritySectionPrimaryComponent implements OnInit {
           this.formBuilder.group({
             securityType: [val.securityType],
             securityOwnersName: [val.securityOwnersName],
+            marginInPercentage: [val.marginInPercentage],
+            marginInPercentageMotor: [val.marginInPercentageMotor],
+            marginInPercentageFoot: [val.marginInPercentageFoot],
             securityOwnersMunicipalityOrVdc: [val.securityOwnersMunicipalityOrVdc],
             securityOwnersMunicipality: [val.securityOwnersMunicipality],
             securityOwnersDistrict: [val.securityOwnersDistrict],
             // TRANSLATION FIELD OF SECURITY:
+            securityTypeTrans: [val.securityTypeTrans],
             securityOwnersNameTrans: [val.securityOwnersNameTrans],
+            marginInPercentageTrans: [val.marginInPercentageTrans],
+            marginInPercentageMotorTrans: [val.marginInPercentageMotorTrans],
+            marginInPercentageFootTrans: [val.marginInPercentageFootTrans],
             securityOwnersDistrictTrans: [val.securityOwnersDistrictTrans],
             securityOwnersMunicipalityTrans: [val.securityOwnersMunicipalityTrans],
             // CT FIELDS OF SECURITY
+            securityTypeCT: [val.securityTypeCT],
             securityOwnersNameCT: [val.securityOwnersNameCT],
+            marginInPercentageCT: [val.marginInPercentageCT],
+            marginInPercentageMotorCT: [val.marginInPercentageMotorCT],
+            marginInPercentageFootCT: [val.marginInPercentageFootCT],
             securityOwnersDistrictCT: [val.securityOwnersDistrictCT],
             securityOwnersMunicipalityCT: [val.securityOwnersMunicipalityCT],
             propertyDetails: this.formBuilder.array([])
