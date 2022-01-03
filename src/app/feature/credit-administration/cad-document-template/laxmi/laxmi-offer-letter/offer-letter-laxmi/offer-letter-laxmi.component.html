@@ -38,7 +38,7 @@
 
             <table class="table table-bordered table-responsive-md text-center table-sm sb-small">
                 <thead>
-                <ng-container *ngIf="loanName.toLowerCase() === 'demand loan'">
+                <ng-container *ngIf="loanName.toLowerCase() === 'demand loan' || loanName.toLowerCase() === 'overdraft'">
                     <th width="50%" class="sb-bg-dark">
                         <b> सुविधा (Facility) </b>
                     </th>
@@ -78,7 +78,7 @@
                         <b> बैक ग्यारेण्टी (Bank Guarantee)</b>
                     </th>
                 </ng-container>
-                <ng-container *ngIf="loanName === 'Sana Byawasai Karja'">
+                <ng-container *ngIf="loanName.toLowerCase() === 'sana byawasai karja'">
                     <th width="50%">
                         <b> सुविधा (Facility) </b>
                     </th>
@@ -86,7 +86,7 @@
                         <b> साना ब्यवसायी कर्जा (Sana Byawasai Karja)</b>
                     </th>
                 </ng-container>
-                <ng-container *ngIf="loanName === 'Sana Byawasai Karja - Lite'">
+                <ng-container *ngIf="loanName.toLowerCase() === 'sana byawasai karja - lite'">
                     <th width="50%">
                         <b> सुविधा (Facility) </b>
                     </th>
@@ -94,15 +94,78 @@
                         <b> साना ब्यवसायी कर्जा (Sana Byawasai Karja - Lite)</b>
                     </th>
                 </ng-container>
+                <ng-container *ngIf="loanName.toLowerCase() === 'home equity line of credit'
+                        || loanName.toLowerCase() === 'home equity installment credit'
+                        || loanName.toLowerCase() === 'home equity installment credit - lite'">
+                    <th width="50%">
+                        <b> सुविधा (Facility) </b>
+                    </th>
+                    <th width="50%">
+                        <b> होम इक्वीटी लाईन अफ क्रेडिट (Home Equity Line of Credit)/ होम इक्वीटी इन्स्टलमेण्ट क्रेडिट (Home Equity Installment Credit)/
+                            होम इक्वीटी इन्स्टलमेण्ट क्रेडिट लाईट (Home Equity Installment Credit - Lite)</b>
+                    </th>
+                </ng-container>
+                <ng-container *ngIf="loanName.toLowerCase() === 'bridge gap loan'">
+                    <th width="50%">
+                        <b> सुविधा (Facility) </b>
+                    </th>
+                    <th width="50%">
+                        <b> बिेज ग्याप लोन (Bridge Gap Loan)</b>
+                    </th>
+                </ng-container>
+                <ng-container *ngIf="loanName.toLowerCase() === 'letter of credit'">
+                    <th width="50%">
+                        <b> सुविधा (Facility) </b>
+                    </th>
+                    <th width="50%">
+                        <b> बप्रतित पत्र (Letter of Credit)</b>
+                    </th>
+                </ng-container>
+                <ng-container *ngIf="loanName.toLowerCase() === 'hire purchase loan'">
+                    <th width="50%">
+                        <b> सुविधा (Facility) </b>
+                    </th>
+                    <th width="50%">
+                        <b> सवारी कर्जा (Hire Purchase Loan)</b>
+                    </th>
+                </ng-container>
+                <ng-container *ngIf="loanName.toLowerCase() === 'commercial auto loan'">
+                    <th width="50%">
+                        <b> सुविधा (Facility) </b>
+                    </th>
+                    <th width="50%">
+                        <b>कमर्शियल अटो लोन (Commercial Auto Loan)</b>
+                    </th>
+                </ng-container>
+                <ng-container *ngIf="loanName.toLowerCase() === 'personal loan'">
+                    <th width="50%">
+                        <b> सुविधा (Facility) </b>
+                    </th>
+                    <th width="50%">
+                        <b>व्यक्तिगत कर्जा (Personal Loan)</b>
+                    </th>
+                </ng-container>
+                <ng-container *ngIf="loanName.toLowerCase() === 'educational loan'">
+                    <th width="50%">
+                        <b> सुविधा (Facility) </b>
+                    </th>
+                    <th width="50%">
+                        <b>शैक्षिक कर्जा (Educational Loan)</b>
+                    </th>
+                </ng-container>
+                <ng-container *ngIf="loanName.toLowerCase() === 'agmi'">
+                    <th width="50%">
+                        <b> सुविधा (Facility) </b>
+                    </th>
+                    <th width="50%">
+                        <b>लक्ष्मी कृषि कर्जा (AGMI)</b>
+                    </th>
+                </ng-container>
                 </thead>
                 <tbody>
                 <tr>
-                    <td>
-                        Loan Type
-                    </td>
-                    <td>
-                        {{subloanType}}
-                    </td>
+                    <td>Loan Type</td>
+                    <td>{{subloanType}}</td>
                 </tr>
                 <tbody [ngSwitch]="subloanType">
                 <ng-container *ngSwitchCase="subloanTypeEnum.WORKING_CAPITAL_FINANCING">
@@ -165,15 +228,9 @@
                         </td>
                     </tr>
                 </ng-container>
-                <ng-container *ngIf="loanName === 'Home Equity Line of Credit'
-                        || loanName === 'Home Equity Installment Credit'
-                        || loanName === 'Home Equity Installment Credit - Lite'">
-                    <tr>
-                        <td>२.</td>
-                        <td>सुविधा (Facility)</td>
-                        <td>होम इक्वीटी लाईन अफ क्रेडिट (Home Equity Line of Credit)/ होम इक्वीटी इन्स्टलमेण्ट क्रेडिट (Home Equity Installment Credit)/
-                            होम इक्वीटी इन्स्टलमेण्ट क्रेडिट लाईट (Home Equity Installment Credit - Lite)</td>
-                    </tr>
+                <ng-container *ngIf="loanName.toLowerCase() === 'home equity line of credit'
+                        || loanName.toLowerCase() === 'home equity installment credit'
+                        || loanName.toLowerCase() === 'home equity installment credit - lite'">
                     <tr>
                         <td>उद्देश्य(Purpose)</td>
                         <td>वित्तीय सम्पत्तिमा लगानी गर्न । <br>
@@ -181,26 +238,17 @@
                             व्यक्तिगत ऋण चुत्ता गर्नका लागी ।</td>
                     </tr>
                     <tr>
-                        <td></td>
                         <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने  सीमाः (Drawdown)</td>
                         <td>सवै प्रकारका सुरक्षण लिखतहरु पूर्ण रुपमा स्वीकार गरी बैंकमा वुझाए पछि स्वीकृत कर्जा तथा सुविधा मध्ये जग्गा÷घरजग्गाको शुपथ वजार मूल्यको ....... प्रतिशत वा रु. ............./–
                             (अक्षरेपी रुपैयाँ ............................. मात्र) मध्ये जुन कम हुन्छ, सो वरावरको रकम उपभोग गर्न सकिनेछ ।</td>
                     </tr>
                 </ng-container>
-
-                <ng-container *ngIf="loanName === 'Bridge Gap Loan'">
+                <ng-container *ngIf="loanName.toLowerCase() === 'bridge gap loan'">
                     <tr>
-                        <th>३.</th>
-                        <th>सुविधा (Facility)</th>
-                        <th>बिेज ग्याप लोन (Bridge Gap Loan)</th>
-                    </tr>
-                    <tr>
-                        <td></td>
                         <td>उद्देश्य(Purpose)</td>
                         <td></td>
                     </tr>
                     <tr>
-                        <td></td>
                         <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने  सीमाः (Drawdown)</td>
                         <td>सवै प्रकारका सुरक्षण लिखतहरु पूर्ण रुपमा स्वीकार गरी बैंकमा वुझाए पछि स्वीकृत कर्जा तथा सुविधा मध्ये भवनको कुल निर्माण खर्चको ६८.२५ प्रतिशत उपभोग गर्न सकिनेछ । उक्त कर्जा ऋणीद्धारा पेश गरिएको
                             Running Bills को ६८.२५ प्रतिशत वा Project Contractor संग भएको Contract Agreement वा कर्जा झिक्न पाउने अवधि (Drawdown Period) सम्मको लागि बैक ग्यारेण्टी बरावरको रकम उपभोग गर्न सकिनेछ । </td>
@@ -291,63 +339,44 @@
                         </td>
                     </tr>
                 </ng-container>
-                <ng-container *ngIf="loanName === 'Letter of Credit'">
+                <ng-container *ngIf="loanName.toLowerCase() === 'letter of credit'">
                     <tr>
-                        <th>५.</th>
-                        <th>सुविधा (Facility)</th>
-                        <th>प्रतित पत्र (Letter of Credit)</th>
-                    </tr>
-                    <tr>
-                        <td></td>
                         <td>उद्देश्य(Purpose)</td>
                         <td>....................आयात गर्न ।</td>
                     </tr>
                     <tr>
-                        <td></td>
                         <td>कमिसन (Commission)</td>
                         <td>.......... प्रतिशत प्रति त्रैमासिक वा न्यूनतम रु.........../– मात्र ।</td>
                     </tr>
                     <tr>
-                        <td></td>
                         <td>अवधि पुग्ने मिति (Maturity)</td>
                         <td>मिति ................... सम्म प्राप्त गर्न सकिने ।</td>
                     </tr>
                     <tr>
-                        <td></td>
                         <td>टेलेक्स चार्ज (Telex Charges)</td>
                         <td>रु..................../– मात्र ।</td>
                     </tr>
                     <tr>
-                        <td></td>
                         <td>फोर्स लोन (Force Loan) तथा व्याज (Interest)</td>
                         <td>प्रतितपत्र सुविधा नगदी कर्जामा परिणत भएमा बैंकको नियमानुसार व्याज लगाई असुल उपर गरिने छ ।</td>
                     </tr>
                 </ng-container>
                 <ng-container *ngSwitchCase="subloanTypeEnum.LOAN_AGAINST_LC_DOCUMENT">
                     <tr>
-                        <td></td>
                         <td>उद्देश्य (Purpose)</td>
                         <td>बैंकले खोलेको प्रतित पत्रबाट आयातित सामानहरुमा लगानी गर्न ।</td>
                     </tr>
                     <tr>
-                        <td></td>
                         <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने  सीमाः (Drawdown)</td>
                         <td>सवै प्रकारका सुरक्षण लिखतहरु पूर्ण रुपमा स्वीकार गरी बैंकमा वुझाए पछि स्वीकृत कर्जा तथा सुविधा मध्ये प्रतितपत्रमा उल्लेखित कागजात मूल्य (LC Document value) को ............. प्रतिशत रकम उपभोग गर्न सकिनेछ ।</td>
                     </tr>
                 </ng-container>
-                <ng-container *ngSwitchCase="subloanTypeEnum?.LOAN_AGAINST_TT_DD_DAP_DAA" t>
+                <ng-container *ngSwitchCase="subloanTypeEnum?.LOAN_AGAINST_TT_DD_DAP_DAA">
                     <tr>
-                        <th>ग</th>
-                        <th>Loan Type</th>
-                        <th>Loan against TT/DD/DAP/DAA</th>
-                    </tr>
-                    <tr>
-                        <td></td>
                         <td>उद्देश्य (Purpose)</td>
                         <td>टेलेग्राफिक ट्रान्सफर/डिमान्ड डाफ्ट बाट आयातित तथा स्थानिय रुपमा खरिद गरिएको मेशिनरी/स्थिर सम्पत्तिमा लगानी गर्न ।</td>
                     </tr>
                     <tr>
-                        <td></td>
                         <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने  सीमाः (Drawdown)</td>
                         <td>सवै प्रकारका सुरक्षण लिखतहरु पूर्ण रुपमा स्वीकार गरी बैंकमा वुझाए पछि स्वीकृत कर्जा तथा सुविधा मध्ये आयातित कागजात मूल्य (Import Document value) को ........ प्रतिशत वा स्थिर सम्पत्तिको खरीद मूल्य
                             (Invoice/Bill) को ........ प्रतिशत रकम उपभोग गर्न सकिनेछ ।</td>
@@ -355,24 +384,20 @@
                 </ng-container>
                 <ng-container *ngSwitchCase="subloanTypeEnum?.PURCHASE_OF_LAND_BUILDING">
                     <tr>
-                        <td></td>
                         <td>उद्देश्य (Purpose)</td>
                         <td>............... जिल्ला .......... न.पा./गा.वि.स वडा नं .........स्थित कित्ता नं .......... क्षेत्रफल ........... को घर÷जग्गा खरिद गर्नको लागी ।</td>
                     </tr>
                     <tr>
-                        <td></td>
                         <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने  सीमाः (Drawdown)</td>
                         <td>सवै प्रकारका सुरक्षण लिखतहरु पूर्ण रुपमा स्वीकार गरी बैंकमा वुझाए पछि स्वीकृत कर्जा तथा सुविधा उपभोग गर्न सकिनेछ । जग्गा/घरजग्गाको शुपथ वजार मूल्यको ..... प्रतिशत वा स्वीकृत कर्जा सुविधा मध्ये जुन कम हुन्छ सो वरावरको रकम उपभोग गर्न सकिनेछ ।</td>
                     </tr>
                 </ng-container>
                 <ng-container *ngSwitchCase="subloanTypeEnum?.CONSTRUCTION_OF_BUILDING">
                     <tr>
-                        <td></td>
                         <td>उद्देश्य (Purchase)</td>
                         <td>............... जिल्ला .......... न.पा.÷गा.वि.स वडा नं .........स्थित कित्ता नं .......... क्षेत्रफल ........... को जग्गामा घर निर्माण गर्नको लागी ।</td>
                     </tr>
                     <tr>
-                        <td></td>
                         <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने  सीमाः (Drawdown)</td>
                         <td>सवै प्रकारका सुरक्षण लिखतहरु पूर्ण रुपमा स्वीकार गरी बैंकमा वुझाए पछि स्वीकृत कर्जा तथा सुविधा उपभोग गर्न सकिनेछ ।
                             <br>
@@ -385,40 +410,26 @@
                             कर्जा सिमा मध्ये जुन कम हुन्छ सोही कायम गरिनेछ ।</td>
                     </tr>
                     <tr>
-                        <td></td>
                         <td>ग्रेस पिरियड (Moratarium Period)</td>
                         <td>ऋण प्रवाह भएको सुरु मितिवाट अधिकतम ... महिनाको ग्रेस पिरियड उपलव्ध गराइनेछ । यस अवधिमा प्रवाहित कर्जामा पाकेको व्याज ऋणीले नेपाली महिनाको अन्तिम दिन भुक्तानी गर्नु पर्नेछ ।</td>
                     </tr>
                 </ng-container>
-
-                <ng-container *ngIf="loanName === 'Hire Purchase Loan'">
+                <ng-container *ngIf="loanName.toLowerCase() === 'hire purchase loan'">
                     <tr>
-                        <th>८.</th>
-                        <th>सुविधा (Facility)</th>
-                        <th>सवारी कर्जा (Hire Purchase Loan)</th>
-                    </tr>
-                    <tr>
-                        <td></td>
                         <td>उद्देश्य (Purpose)</td>
                         <td>व्यक्तिगत प्रयोगका लागि ..... थान ...... मोडेलको सवारी साधन खरिद गर्न ।</td>
                     </tr>
                     <tr>
-                        <td></td>
                         <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने  सीमाः (Drawdown)</td>
                         <td>धितो सुरक्षण लगायत कर्जा सम्वन्धि सवै लिखतहरु स्वीकार गरी बैंकमा वुझाए पछि सवारी साधनको मूल्यको ...... <strong>प्रतिशत</strong> वा कर्जा रकम मध्ये जुन कम हुन्छ सो वरावरको कर्जा रकम उपभोग गर्न सकिनेछ ।</td>
                     </tr>
+                </ng-container>
+                <ng-container *ngIf="loanName.toLowerCase() === 'commercial auto laon'">
                     <tr>
-                        <th></th>
-                        <th>सुविधा (Facility)</th>
-                        <th>कमर्शियल अटो लोन (Commercial Auto Loan)</th>
-                    </tr>
-                    <tr>
-                        <td></td>
                         <td>उद्देश्य (Purpose)</td>
                         <td>व्यापारिक प्रयोगका लागि ..... थान ...... मोडेलको सवारी साधन खरिद गर्न ।</td>
                     </tr>
                     <tr>
-                        <td></td>
                         <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने  सीमाः (Drawdown)</td>
                         <td>धितो सुरक्षण लगायत कर्जा सम्वन्धि सवै लिखतहरु स्वीकार गरी बैंकमा वुझाए पछि सवारी साधनको मूल्य (Chasis Plus Inbulit Body) को ...... <strong>प्रतिशत</strong> वा कर्जा रकम मध्ये जुन कम हुन्छ सो वरावरको कर्जा
                             रकम उपभोग गर्न सकिनेछ । अन्यथा व्यवस्था गरिएकोमा वाहेक ऋणीले लिन सक्ने कर्जा तथा सुविधाको रकम सवारीसाधन विक्रेतालाई सोझै भुक्तानी गरेमा ऋणीको मन्जुरी रहेको छ । त्यसरी भुक्तानी गरिएको रकम कलमको सम्वन्धमा ऋणी र विक्रेता
@@ -427,87 +438,61 @@
                 </ng-container>
                 <ng-container *ngSwitchCase="subloanTypeEnum?.BID_BOND_GUARANTEE">
                     <tr>
-                        <td></td>
                         <td>उद्येश्य (Purpose)</td>
                         <td>बिड ग्यारेण्टी जारी गर्न ।</td>
                     </tr>
                     <tr>
-                        <td></td>
                         <td>कमिसन (Commission)</td>
                         <td>.......... प्रतिशत प्रति त्रैमासिक ।</td>
                     </tr>
                     <tr>
-                        <td></td>
                         <td>फोर्स (Force Loan) तथा व्याज (Interest)</td>
                         <td>बैंक ग्यारेण्टी सुविधा नगदी कर्जामा परिणत भएमा बैंकको नियमानुसार व्याज लगाई नगदी कर्जा तथा व्याज असुल उपर गरिने छ ।</td>
                     </tr>
                 </ng-container>
                 <ng-container *ngSwitchCase="subloanTypeEnum?.PERFORMANCE_GUARANTEE">
                     <tr>
-                        <td></td>
                         <td>उद्येश्य (Purpose)</td>
                         <td>परफरमेन्स ग्यारेण्टी जारी गर्न ।</td>
                     </tr>
                     <tr>
-                        <td></td>
                         <td>कमिसन (Commission)</td>
                         <td>.......... प्रतिशत प्रति त्रैमासिक ।</td>
                     </tr>
                     <tr>
-                        <td></td>
                         <td>फोर्स (Force Loan) तथा व्याज (Interest)</td>
                         <td>बैंक ग्यारेण्टी सुविधा नगदी कर्जामा परिणत भएमा बैंकको नियमानुसार व्याज लगाई नगदी कर्जा तथा व्याज असुल उपर गरिने छ ।</td>
                     </tr>
                 </ng-container>
                 <ng-container *ngSwitchCase="subloanTypeEnum?.ADVANCE_PAYMENT_GUARANTEE">
                     <tr>
-                        <td></td>
                         <td>उद्येश्य (Purpose)</td>
                         <td>अग्रिम भुक्तानी ग्यारेण्टी जारी गर्न ।</td>
                     </tr>
                     <tr>
-                        <td></td>
                         <td>कमिसन (Commission)</td>
                         <td>.......... प्रतिशत प्रति त्रैमासिक ।</td>
                     </tr>
                     <tr>
-                        <td></td>
                         <td>फोर्स (Force Loan) तथा व्याज (Interest)</td>
                         <td>बैंक ग्यारेण्टी सुविधा नगदी कर्जामा परिणत भएमा बैंकको नियमानुसार व्याज लगाई नगदी कर्जा तथा व्याज असुल उपर गरिने छ ।</td>
                     </tr>
                 </ng-container>
-                <ng-container *ngIf="loanName === 'Personal Loan'">
+                <ng-container *ngIf="loanName.toLowerCase() === 'personal loan'">
                     <tr>
-                        <th></th>
-                        <th>सुविधा (Facility)</th>
-                        <th>व्यक्तिगत कर्जा (Personal Loan)</th>
-                    </tr>
-                    <tr>
-                        <td></td>
                         <td>उद्येश्य (Purpose)</td>
                         <td>व्यक्तिगत प्रयोजनको लागि ।</td>
                     </tr>
                 </ng-container>
                 <ng-container *ngIf="loanName === 'Educational Loan'">
                     <tr>
-                        <th></th>
-                        <th>सुविधा (Facility)</th>
-                        <th>शैक्षिक कर्जा (Educational Loan)</th>
-                    </tr>
-                    <tr>
-                        <td></td>
                         <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने  सीमाः (Drawdown)</td>
                         <td>सवै प्रकारका सुरक्षण लिखतहरु पूर्ण रुपमा स्वीकार गरी बैंकमा वुझाए पछि स्वीकृत कर्जा तथा सुविधा मध्ये आवश्यक पर्ने घरजग्गाको शुपथ वजार मूल्यको .... <strong>प्रतिशत</strong> तथा सम्वन्धित शैक्षिक संस्थावाट प्राप्त
                             कुल शैक्षिक खर्च (Including cost of travelling, insurance, living & accommodation of student/dependent spouse) विवरणको .... <strong>प्रतिशत</strong> वा कर्जा रकम मध्ये
                             जुन कम हुन्छ सो वरावरको रकम उपभोग गर्न सकिनेछ ।</td>
                     </tr>
                 </ng-container>
-            <ng-container *ngIf="loanName === 'AGMI'">
-                <tr>
-                    <th>१३.</th>
-                    <th>सुविधा (Facility)</th>
-                    <th>लक्ष्मी कृषि कर्जा (AGMI)</th>
-                </tr>
+                <ng-container *ngIf="loanName === 'AGMI'">
                 <tr>
                     <td></td>
                     <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने  सीमाः (Drawdown)</td>
