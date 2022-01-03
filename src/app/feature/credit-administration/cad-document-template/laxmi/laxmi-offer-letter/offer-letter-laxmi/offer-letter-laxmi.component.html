@@ -42,27 +42,27 @@
                     <th width="50%" class="sb-bg-dark">
                         <b> सुविधा (Facility) </b>
                     </th>
-                    <th width="50%">
+                    <th width="50%" class="sb-bg-dark">
                         <b> ओभरड्राफ्ट (Overdraft) र डिमान्ड लोन (Demand Loan)</b>
                     </th>
                 </ng-container>
                 <ng-container *ngIf="loanName.toLowerCase() === 'term loan'">
-                    <th width="50%">
+                    <th width="50%" class="sb-bg-dark">
                         <b> सुविधा (Facility) </b>
                     </th>
-                    <th width="50%">
+                    <th width="50%" class="sb-bg-dark">
                         <b> आवधिक कर्जा (Term Loan)</b>
                     </th>
                 </ng-container>
                 <ng-container *ngIf="loanName.toLowerCase() === 'trust receipt loan'">
-                    <th width="50%">
+                    <th width="50%" class="sb-bg-dark">
                         <b> सुविधा (Facility) </b>
                     </th>
-                    <th width="50%">
+                    <th width="50%" class="sb-bg-dark">
                         <b> ट्रष्ट रिसिप्ट कर्जा (Trust Receipt Loan)</b>
                     </th>
                 </ng-container>
-                <ng-container *ngIf="loanName.toLowerCase() === 'home loan'">
+                <ng-container *ngIf="loanName.toLowerCase() === 'home loan'" class="sb-bg-dark">
                     <th width="50%">
                         <b> सुविधा (Facility) </b>
                     </th>
@@ -70,7 +70,7 @@
                         <b> घर कर्जा (Home Loan)</b>
                     </th>
                 </ng-container>
-                <ng-container *ngIf="loanName.toLowerCase() === 'bank guarantee'">
+                <ng-container *ngIf="loanName.toLowerCase() === 'bank guarantee'" class="sb-bg-dark">
                     <th width="50%">
                         <b> सुविधा (Facility) </b>
                     </th>
@@ -78,7 +78,7 @@
                         <b> बैक ग्यारेण्टी (Bank Guarantee)</b>
                     </th>
                 </ng-container>
-                <ng-container *ngIf="loanName.toLowerCase() === 'sana byawasai karja'">
+                <ng-container *ngIf="loanName.toLowerCase() === 'sana byawasai karja'" class="sb-bg-dark">
                     <th width="50%">
                         <b> सुविधा (Facility) </b>
                     </th>
@@ -86,7 +86,7 @@
                         <b> साना ब्यवसायी कर्जा (Sana Byawasai Karja)</b>
                     </th>
                 </ng-container>
-                <ng-container *ngIf="loanName.toLowerCase() === 'sana byawasai karja - lite'">
+                <ng-container *ngIf="loanName.toLowerCase() === 'sana byawasai karja - lite'" class="sb-bg-dark">
                     <th width="50%">
                         <b> सुविधा (Facility) </b>
                     </th>
@@ -105,7 +105,7 @@
                             होम इक्वीटी इन्स्टलमेण्ट क्रेडिट लाईट (Home Equity Installment Credit - Lite)</b>
                     </th>
                 </ng-container>
-                <ng-container *ngIf="loanName.toLowerCase() === 'bridge gap loan'">
+                <ng-container *ngIf="loanName.toLowerCase() === 'bridge gap loan'" class="sb-bg-dark">
                     <th width="50%">
                         <b> सुविधा (Facility) </b>
                     </th>
@@ -113,7 +113,7 @@
                         <b> बिेज ग्याप लोन (Bridge Gap Loan)</b>
                     </th>
                 </ng-container>
-                <ng-container *ngIf="loanName.toLowerCase() === 'letter of credit'">
+                <ng-container *ngIf="loanName.toLowerCase() === 'letter of credit'" class="sb-bg-dark">
                     <th width="50%">
                         <b> सुविधा (Facility) </b>
                     </th>
@@ -121,7 +121,7 @@
                         <b> बप्रतित पत्र (Letter of Credit)</b>
                     </th>
                 </ng-container>
-                <ng-container *ngIf="loanName.toLowerCase() === 'hire purchase loan'">
+                <ng-container *ngIf="loanName.toLowerCase() === 'hire purchase loan'" class="sb-bg-dark">
                     <th width="50%">
                         <b> सुविधा (Facility) </b>
                     </th>
@@ -129,7 +129,7 @@
                         <b> सवारी कर्जा (Hire Purchase Loan)</b>
                     </th>
                 </ng-container>
-                <ng-container *ngIf="loanName.toLowerCase() === 'commercial auto loan'">
+                <ng-container *ngIf="loanName.toLowerCase() === 'commercial auto loan'" class="sb-bg-dark">
                     <th width="50%">
                         <b> सुविधा (Facility) </b>
                     </th>
@@ -137,7 +137,7 @@
                         <b>कमर्शियल अटो लोन (Commercial Auto Loan)</b>
                     </th>
                 </ng-container>
-                <ng-container *ngIf="loanName.toLowerCase() === 'personal loan'">
+                <ng-container *ngIf="loanName.toLowerCase() === 'personal loan'" class="sb-bg-dark">
                     <th width="50%">
                         <b> सुविधा (Facility) </b>
                     </th>
@@ -145,7 +145,7 @@
                         <b>व्यक्तिगत कर्जा (Personal Loan)</b>
                     </th>
                 </ng-container>
-                <ng-container *ngIf="loanName.toLowerCase() === 'educational loan'">
+                <ng-container *ngIf="loanName.toLowerCase() === 'educational loan'" class="sb-bg-dark">
                     <th width="50%">
                         <b> सुविधा (Facility) </b>
                     </th>
@@ -153,7 +153,7 @@
                         <b>शैक्षिक कर्जा (Educational Loan)</b>
                     </th>
                 </ng-container>
-                <ng-container *ngIf="loanName.toLowerCase() === 'agmi'">
+                <ng-container *ngIf="loanName.toLowerCase() === 'agmi'" class="sb-bg-dark">
                     <th width="50%">
                         <b> सुविधा (Facility) </b>
                     </th>
@@ -252,38 +252,6 @@
                         <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने  सीमाः (Drawdown)</td>
                         <td>सवै प्रकारका सुरक्षण लिखतहरु पूर्ण रुपमा स्वीकार गरी बैंकमा वुझाए पछि स्वीकृत कर्जा तथा सुविधा मध्ये भवनको कुल निर्माण खर्चको ६८.२५ प्रतिशत उपभोग गर्न सकिनेछ । उक्त कर्जा ऋणीद्धारा पेश गरिएको
                             Running Bills को ६८.२५ प्रतिशत वा Project Contractor संग भएको Contract Agreement वा कर्जा झिक्न पाउने अवधि (Drawdown Period) सम्मको लागि बैक ग्यारेण्टी बरावरको रकम उपभोग गर्न सकिनेछ । </td>
-                    </tr>
-                </ng-container>
-                <ng-container *ngSwitchCase="subloanTypeEnum.SHARE_LOAN">
-                    <tr>
-                        <td>उद्देश्य(Purpose)</td>
-                        <td>शेयरमा लगानी गर्न ।</td>
-                    </tr>
-                    <tr>
-                        <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमाः(Drawdown)</td>
-                        <td>
-                            सवै प्रकारका सुरक्षण लिखतहरु पूर्ण रुपमा स्वीकार गरी बैंकमा वुझाए पछि नेपाल स्टक एक्सचेन्ज
-                            लिमिटेडमा सूचिकृत बिभिन्न बैंक तथा वित्तीय संस्था वा कम्पनीको शेयरहरु बैंकलाई हाल धितो
-                            दिइएको वा भविष्यमा दिने शेयरहरु धितो रोक्का भए पश्चात धितो दिएको शेयरहरुको देहाय बमोजिम कायम
-                            हुने सिमा सम्मको कर्जा उपभोग गर्न सक्नेछ ।
-                            <br>
-
-                            <b>साधारण शेयरको हकमा </b> नेपाल स्टक एक्सचेन्ज लिमिटेडबाट प्रकाशित पछिल्लो <b>१८०</b> कार्य
-                            दिनको अन्तिम मूल्यको औसत मूल्य वा सेयरको प्रचलित बजार मूल्य मध्ये जुन कम हुन्छ, सो रकमको
-                            बढीमा <b>७०</b> प्रतिशत रकमसम्म वा स्वीकृत कर्जा सीमा जुन कम हुन्छ सो सिमासम्म उपभोग गर्न
-                            पाउनेछ ।
-                            <br>
-
-                            <b> संस्थापक सेयरको हकमा </b> नेपाल स्टक एक्सचेन्ज लिमिटेडबाट प्रकाशित साधारण सेयरको
-                            ंपछिल्लो <b> १८० </b> कार्य दिनको औसत मूल्यको बढीमा <b>५० प्रतिशत </b> मूल्य वा संस्थापक
-                            सेयरको अन्तिम कारोबारको मूल्यमध्ये जुन कम हुन्छ, सोको आधारमा कायमी मूल्यको बढीमा ५० प्रतिशत
-                            रकमसम्म वा स्वीकृत कर्जा सीमा जुन कम हुन्छ सो सिमासम्म उपभोग गर्न पाउनेछ ।
-                            <br>
-                            माथी उल्लेख गरिए बमोजिम ऋणीको नाममा हाल जे जति कर्जा स्वीकृत भएतापनि ऋणीले बैंकलाई विभिन्न
-                            समयमा दिने शेयर धितो रोक्का भए पश्चात धितो रोक्का हुने शेयरको मुल्यांकनको आधारमा कायम हुन
-                            आउने सिमा सम्मको मात्र कर्जा क्रमिक रुपमा स्वीकृत कर्जा सिमा भित्र रहि उपभोग गर्न पाउनेछ ।
-
-                        </td>
                     </tr>
                 </ng-container>
                 <ng-container *ngSwitchCase="subloanTypeEnum.CAPITAL_EXPENDITURE_FINANCING">
@@ -529,11 +497,7 @@
                         प्रतिशत वार्षिक रुपमा प्रतिवद्धता शुल्क <strong>(Commitment Fee)</strong> असुल उपर गरिनेछ । <br>
                         <strong>Amortizing </strong> सीमा अन्तर्गत प्रवाह हुने कर्जाको हकमा स्वीकृत कर्जा भन्दा कम उपभोग गरेमा, उपभोग नगरेको रकममा <strong>०.१५</strong> प्रतिशत मात्र एकपटकका लागि प्रतिबद्धता शुल्क
                         <strong>(Commitment Fee)</strong> असुल उपर गरिनेछ ।</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>प्रतिबद्धता शुल्क (Commitment Fee)</td>
-                    <td>लागु हुने छैन ।</td>
+<!--                    <td>लागु हुने छैन ।</td>-->
                 </tr>
                 <tr>
                     <td>४</td>
