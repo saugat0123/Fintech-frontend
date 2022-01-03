@@ -20,9 +20,10 @@
             </tr>
             <tr>
                 <td>Age</td>
-                <td class="text-left pl-1">{{(agentDetails.email) ? (agentDetails.email) : 'N/A'}}</td>
+                <td class="text-left pl-1">{{calculateAge(loanHolder?.customerInfo?.dob)}}</td>
+
                 <td>
-                    {{(agentDetails.branch) ? (agentDetails.branch) : 'N/A'}}
+                    {{(senderDetails?.senderIdentity?.dob_bs) ? calculateAge((senderDetails?.senderIdentity?.dob_bs)) : 'N/A'}}
                 </td>
             </tr>
             <tr>
@@ -56,9 +57,11 @@
             </tr>
             <tr>
                 <td>Estimated Net Worth</td>
-                <td class="text-left pl-1"></td>
-                <td>
+                <td class="text-left pl-1">
                     {{(beneficiaryDetails.beneficiaryOtherDetail.benef_net_worth) ? (beneficiaryDetails.beneficiaryOtherDetail.benef_net_worth) : 'N/A'}}
+
+                </td>
+                <td>
                 </td>
             </tr>
             </tbody>
