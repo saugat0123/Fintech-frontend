@@ -160,12 +160,6 @@
                                    nbInput status="success" type="number">
                         </div>
 
-                        <div class="form-group">
-                            <label for="commitmentFee">Total Commitment Fee (%)</label>
-                            <input class="form-control" formControlName="commitmentFee" fullWidth id="commitmentFee"
-                                   nbInput status="success" type="number">
-                        </div>
-
                         <div *ngIf="isInterestSubsidy" class="form-group">
                             <label for="circularRate">Rate As Per NRB Circular</label>
                             <input class="form-control" formControlName="circularRate" fullWidth id="circularRate"
@@ -295,13 +289,6 @@
                             <label for="totalTenureOfLoanTrans">Total Tenure Of Loan (%) Translation </label>
                             <input class="form-control" formControlName="totalTenureOfLoanTrans" fullWidth
                                    id="totalTenureOfLoanTrans"
-                                   nbInput readonly status="success" type="text">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="commitmentFeeTrans">Total Commitment Fee (%) Translation </label>
-                            <input class="form-control" formControlName="commitmentFeeTrans" fullWidth
-                                   id="commitmentFeeTrans"
                                    nbInput readonly status="success" type="text">
                         </div>
 
@@ -524,18 +511,6 @@
                                    type="text">
                             <span *ngIf="submitted && FormControls.totalTenureOfLoanCT.invalid" class="text-danger">
                             Total Tenure Of Loan is required
-                        </span>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="commitmentFeeCT">Total Commitment Fee (%) CT</label>
-                            <input [ngClass]="{ 'is-invalid':submitted && FormControls.commitmentFeeCT.errors }"
-                                   class="form-control" formControlName="commitmentFeeCT" fullWidth
-                                   id="commitmentFeeCT" nbInput
-                                   status="success"
-                                   type="text">
-                            <span *ngIf="submitted && FormControls.commitmentFeeCT.invalid" class="text-danger">
-                            Total Commitment Fee is required
                         </span>
                         </div>
 

@@ -191,11 +191,6 @@
                                nbInput status="success" type="number">
                     </div>
                     <div class="form-group">
-                        <label for="commitmentFee">Total Commitment Fee (%)</label>
-                        <input class="form-control" formControlName="commitmentFee" fullWidth id="commitmentFee"
-                               nbInput status="success" type="number">
-                    </div>
-                    <div class="form-group">
                         <label for="nameOfStaff">Name of ARO/RO/RM/ARM</label>
                         <input class="form-control" formControlName="nameOfStaff" fullWidth id="nameOfStaff"
                                nbInput status="success" type="text">
@@ -349,12 +344,6 @@
                         <label for="totalTenureOfLoanTrans">Total Tenure of Loan In Year Translation </label>
                         <input class="form-control" formControlName="totalTenureOfLoanTrans" fullWidth
                                id="totalTenureOfLoanTrans"
-                               nbInput status="success" type="text" readonly>
-                    </div>
-                    <div class="form-group">
-                        <label for="commitmentFeeTrans">Total Commitment Fee (%) Translation </label>
-                        <input class="form-control" formControlName="commitmentFeeTrans" fullWidth
-                               id="commitmentFeeTrans"
                                nbInput status="success" type="text" readonly>
                     </div>
                     <div class="form-group">
@@ -608,16 +597,6 @@
                         </span>
                     </div>
                     <div class="form-group">
-                        <label for="commitmentFeeCT">Total Commitment Fee (%) CT</label>
-                        <input class="form-control" formControlName="commitmentFeeCT" fullWidth id="commitmentFeeCT"
-                               nbInput status="success"
-                               [ngClass]="{ 'is-invalid':submitted && FormControls.commitmentFeeCT.errors }"
-                               type="text">
-                        <span *ngIf="submitted && FormControls.commitmentFeeCT.invalid" class="text-danger">
-                            Total Commitment Fee is required
-                        </span>
-                    </div>
-                    <div class="form-group">
                         <label for="nameOfStaffCT">Name of ARO/RO/RM/ARM CT</label>
                         <input class="form-control" formControlName="nameOfStaffCT" fullWidth id="nameOfStaffCT"
                                nbInput status="success"
@@ -685,6 +664,9 @@
                 <app-common-security-section-primary [customerApprove]="customerApprovedDoc" #primarySecurity></app-common-security-section-primary>
                 <hr>
                 <app-common-security-section-secondary [customerApprove]="customerApprovedDoc" #secondarySecurity></app-common-security-section-secondary>
+                <hr>
+                <!-- Required Document Section -->
+                <app-required-legal-document-section #requiredLegalDocument></app-required-legal-document-section>
             </div>
             <!--<div *ngIf="ddslFormGroup.get('securityType').value === 'LAND' || ddslFormGroup.get('securityType').value === 'LAND_AND_BUILDING'">
                 <div class="row">
