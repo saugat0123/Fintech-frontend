@@ -57,7 +57,9 @@ export class OfferLetterLaxmiComponent implements OnInit {
               private nepaliNumber: NepaliNumberPipe) { }
 
   ngOnInit() {
+    console.log('cadData', this.cadData);
     this.loanName = this.cadData.assignedLoan[0].loan.name;
+    console.log('loanName', this.loanName);
     this.subloanTypes = SubLoanType.value(this.loanName);
     this.loanType = this.cadData.assignedLoan[0].loanType;
     this.buildForm();
@@ -80,7 +82,31 @@ export class OfferLetterLaxmiComponent implements OnInit {
       branchName: [undefined],
       telephoneNumber: [undefined],
       faxNumber: [undefined],
-      subLoanType: [undefined]
+      subLoanType: [undefined],
+
+      landOwnerName: [undefined],
+      securityDistrict: [undefined],
+      securityVdc: [undefined],
+      securityWard: [undefined],
+      securityKitta: [undefined],
+      securityArea: [undefined],
+
+      landOwnerName1: [undefined],
+      securityDistrict1: [undefined],
+      securityVdc1: [undefined],
+      securityWard1: [undefined],
+      securityKitta1: [undefined],
+      securityArea1: [undefined],
+
+      vehicleDetails: [undefined],
+      engineNo: [undefined],
+      chasisNo: [undefined],
+      vehicleNo: [undefined],
+
+      shareOwnerName: [undefined],
+      shareCompanyName: [undefined],
+      shareUnit: [undefined],
+      shareType: [undefined],
     });
   }
 
