@@ -130,6 +130,7 @@ export class Section2LoanTypeComponent implements OnInit {
     finalLoanDetails = [];
     autoLoanData;
     termLoanData;
+    temp;
 
     constructor(private formBuilder: FormBuilder,
                 private engToNepWord: NepaliCurrencyWordPipe,
@@ -846,12 +847,10 @@ export class Section2LoanTypeComponent implements OnInit {
     }
 
     setTextAreaValue() {
-        let tempTermLoanFreeVal: any = [];
-        console.log('Term Loan Component:', this.termLoanToOrForComponent.form);
+        let tempTermLoanFreeVal;
         if (this.termLoanDetails.length > 0) {
-            tempTermLoanFreeVal = this.termLoanToOrForComponent.form.value.termLoanFreeText;
+            tempTermLoanFreeVal = this.termLoanToOrForComponent.setFreeTextTermLoan();
         }
-        console.log('Temp Term Loan', tempTermLoanFreeVal);
         let tempAutoLoanFreeVal;
         if (this.autoLoanDetails.length > 0) {
             tempAutoLoanFreeVal = this.autoLoanComponent.setFreeTextAutoLoan();
@@ -861,6 +860,8 @@ export class Section2LoanTypeComponent implements OnInit {
             tempMortgageEquity = this.mortgageEquityTermLoanComponent.setFreeTextMortgage();
         }
         this.freeTextVal = {
+            autoLoanFreeText: !ObjectUtil.isEmpty(tempAutoLoanFreeVal) ? tempAutoLoanFreeVal : '',
+            termLoanFreeText : !ObjectUtil.isEmpty(tempTermLoanFreeVal) ? tempTermLoanFreeVal : '',
             loanExpiryIrrevocable: this.form.get('loanExpiryDateIrrevocable2').value ? this.form.get('loanExpiryDateIrrevocable2').value : '',
             loanExpiryTimeLetter: this.form.get('loanExpiryDateTimeLetter2').value ? this.form.get('loanExpiryDateTimeLetter2').value : '',
             freeText1: this.form.get('freeTextOne').value ? this.form.get('freeTextOne').value : '',
@@ -880,15 +881,12 @@ export class Section2LoanTypeComponent implements OnInit {
             freeText8: this.form.get('freeTextEight').value ? this.form.get('freeTextEight').value : '',
             freeText9: this.form.get('freeTextNine').value ? this.form.get('freeTextNine').value : '',
             // termLoanFreeText: !ObjectUtil.isEmpty(this.termLoanFreeText) ? this.termLoanFreeText : '',
-            termLoanFreeText : !ObjectUtil.isEmpty(JSON.stringify(tempTermLoanFreeVal)),
             /*freeText10: !ObjectUtil.isEmpty(tempTermLoanFreeVal) ? tempTermLoanFreeVal.freeText10 : '',
             freeText11: !ObjectUtil.isEmpty(tempTermLoanFreeVal) ? tempTermLoanFreeVal.freeText11 : '',
             freeText12: !ObjectUtil.isEmpty(tempTermLoanFreeVal) ? tempTermLoanFreeVal.freeText12 : '',
             SNLimitVehicleLoan: !ObjectUtil.isEmpty(tempTermLoanFreeVal) ? tempTermLoanFreeVal.SNLimitVehicleLoan : '',
             newEMISubsequentVehicleLoan1: !ObjectUtil.isEmpty(tempTermLoanFreeVal) ? tempTermLoanFreeVal.newEMISubsequentVehicleLoan1 : '',*/
             freeText13: !ObjectUtil.isEmpty(tempMortgageEquity) ? tempMortgageEquity.freeText13 : '',
-            freeText14: !ObjectUtil.isEmpty(tempAutoLoanFreeVal) ? tempAutoLoanFreeVal.freeText14 : '',
-            newEMIAutoPopulateAutoLoan1: !ObjectUtil.isEmpty(tempAutoLoanFreeVal) ? tempAutoLoanFreeVal.newEMIAutoPopulateAutoLoan1 : '',
             newEMIAutoPopulateMortgageTerm1: !ObjectUtil.isEmpty(tempMortgageEquity) ? tempMortgageEquity.newEMIAutoPopulateMortgageTerm1 : '',
             freeText15: this.form.get('freeTextFifteen').value ? this.form.get('freeTextFifteen').value : '',
             freeText16: this.form.get('freeTextSixteen').value ? this.form.get('freeTextSixteen').value : '',

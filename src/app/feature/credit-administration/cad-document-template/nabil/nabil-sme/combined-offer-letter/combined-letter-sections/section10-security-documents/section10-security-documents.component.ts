@@ -55,6 +55,7 @@ export class Section10SecurityDocumentsComponent implements OnInit {
   partnershipDeed: boolean;
   letterSetOff: boolean;
   freeInformation: any;
+  freeTextVal;
   constructor(private formBuilder: FormBuilder,
               private engToNepNumberPipe: EngToNepaliNumberPipe,
               private currencyFormatPipe: CurrencyFormatterPipe) {
@@ -158,6 +159,18 @@ export class Section10SecurityDocumentsComponent implements OnInit {
       plotNumber: this.kittaNumbers ? this.kittaNumbers : '',
       nameOfPropertyOwner: this.securityOwnersName ? this.securityOwnersName : '',
     });
+    if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation)) {
+      this.freeTextVal = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation);
+      if (!ObjectUtil.isEmpty(this.freeTextVal.section10) && !ObjectUtil.isEmpty(this.freeTextVal.section10[0].additionalGuarantorDetails)) {
+        for (let val = 0; val < this.freeTextVal.section10.length - 1; val++){
+          this.addTextArea();
+        }
+      }
+    }
+    console.log('Main Free TExt or patching:', this.freeTextVal);
+    for (let val = 0; val < this.freeTextVal.section10.length; val++) {
+      this.form.get(['textAreas', val, 'additionalGuarantorDetails']).patchValue(this.freeTextVal.section10[val].additionalGuarantorDetails);
+    }
   }
 
   requiredDocument() {

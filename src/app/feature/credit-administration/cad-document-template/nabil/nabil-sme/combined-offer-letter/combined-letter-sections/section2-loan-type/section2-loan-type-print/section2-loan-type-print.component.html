@@ -1,4 +1,4 @@
-<div class="container all">
+<div class="all">
     <p class="text-center"><strong>स्वीकृत ऋणकर्जा सुविधाहरुको विवरण</strong></p>
     <div>
         <table class="table table-bordered print-friendly">
@@ -1172,33 +1172,36 @@
                     </td>
                 </tr>
             </ng-container>
-            <tr *ngFor="let autoData of autoLoanDetails; let index1 = index">
-                <!--Auto Loan-->
-                <td width="10%"><strong>{{finalLoanDetails.length + (index1 + 1) | nepaliWord}})</strong></td>
-                <td>
-                    <app-auto-loan-print #autoLoanComponent
-                                   [customerApprovedDoc]="customerApprovedDoc" [loanData]="autoLoanDetails" [index]="index1" [data]="autoLoanData[index1]"></app-auto-loan-print>
-                </td>
-            </tr>
-
-            <tr *ngFor="let termLoan of termLoanDetails; let index2 = index;">
-                <!--Term Loan to/for-->
-                <td width="10%"><strong>{{finalLoanDetails.length + autoLoanDetails.length + (index2 + 1) | nepaliWord}})</strong></td>
-                <td>
-                    <app-term-loan-to-or-for-print [customerApprovedDoc]="customerApprovedDoc"
-                                                   [letterData]="letterData"
-                                                   [freeText]="freeText" [loanData]="termLoanDetails" [index]="index2" [data]="termLoanData[index2]"></app-term-loan-to-or-for-print>
-                </td>
-            </tr>
-
+        </table>
+        <div>
+            <app-auto-loan-print #autoLoanComponent
+                                 [customerApprovedDoc]="customerApprovedDoc"
+                                 [loanData]="autoLoanDetails"
+                                 [pointNumber]="finalLoanDetails.length"
+                                 [autoLoanData]="autoLoanData"
+                                 [freeText]="freeText">
+            </app-auto-loan-print>
+        </div>
+        <div style="width: 100%">
+            <app-term-loan-to-or-for-print [customerApprovedDoc]="customerApprovedDoc"
+                                           [letterData]="letterData"
+                                           [freeText]="freeText"
+                                           [loanData]="termLoanDetails"
+                                           [pointNumber]="finalLoanDetails.length + autoLoanDetails.length"
+                                           [termLoanData]="termLoanData">
+            </app-term-loan-to-or-for-print>
+        </div>
+        <div style="width: 100%">
+            <table class="table table-bordered-all print-friendly" style="border-top: 1px solid black">
             <tr *ngIf="this.freeInformation?.section2.freeText16">
                 <!--Free Text-->
-                <td width="10%"><strong>{{finalLoanDetails.length + autoLoanDetails.length + termLoanDetails.length + 1 | nepaliWord}})</strong></td>
-                <td>
-                    <span>{{this.freeInformation ? this.freeInformation.section2.freeText16 : ''}}</span>
+                <td style="width: 10%; border-top: 1px solid black; border-right: 1px solid black"><strong>{{finalLoanDetails.length + autoLoanDetails.length + termLoanDetails.length + 1 | nepaliWord}})</strong></td>
+                <td style="border-top: 1px solid black; border-right: 1px solid black; text-align: justify">
+                    <span style="font-size: 19px">{{this.freeInformation ? this.freeInformation.section2.freeText16 : ''}}</span>
                 </td>
             </tr>
         </table>
+        </div>
     </div>
     <div class="row all">
         <div class="col-md-1 all">
