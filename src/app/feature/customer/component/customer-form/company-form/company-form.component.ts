@@ -1,4 +1,14 @@
-import {Component, ElementRef, Input, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
+import {
+    AfterContentChecked,
+    ChangeDetectorRef,
+    Component,
+    ElementRef,
+    Input,
+    OnInit,
+    QueryList,
+    ViewChild,
+    ViewChildren
+} from '@angular/core';
 import {CompanyInfo} from '../../../../admin/modal/company-info';
 import {Customer} from '../../../../admin/modal/customer';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -62,7 +72,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
     templateUrl: './company-form.component.html',
     styleUrls: ['./company-form.component.scss']
 })
-export class CompanyFormComponent implements OnInit {
+export class CompanyFormComponent implements OnInit, AfterContentChecked {
     onActionChangeSpinner = false;
     @Input() formValue: CompanyInfo;
     @Input() bankingRelationshipInput: any;
@@ -162,7 +172,8 @@ export class CompanyFormComponent implements OnInit {
         private company: CompanyService,
         private el: ElementRef,
         private customerService: CustomerService,
-        private translate: TranslateService
+        private translate: TranslateService,
+        private cdref: ChangeDetectorRef
     ) {
 
     }
@@ -1197,5 +1208,11 @@ export class CompanyFormComponent implements OnInit {
             }
             this.companyInfoFormGroup.get(s).updateValueAndValidity();
         });
+    }
+    ngAfterContentChecked() {
+        this.cdref.detectChanges();
+    }
+    setAdditionalFormValue(controlName: string, data) {
+        this.companyInfoFormGroup.get('additionalCompanyInfo').get(controlName).patchValue(data);
     }
 }
