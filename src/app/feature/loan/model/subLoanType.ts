@@ -25,7 +25,7 @@ export namespace SubLoanType {
 
     export function value(loanType: string) {
         const enums = [];
-        if (loanType.toLowerCase() === 'demand loan') {
+        if (loanType.toLowerCase() === 'demand loan' || loanType.toLowerCase() === 'overdraft') {
             enums.push({
                 key: getEnum(SubLoanType.WORKING_CAPITAL_FINANCING),
                 value: SubLoanType.WORKING_CAPITAL_FINANCING
@@ -96,7 +96,7 @@ export namespace SubLoanType {
                 key: getEnum(SubLoanType.ADVANCE_PAYMENT_GUARANTEE),
                 value: SubLoanType.ADVANCE_PAYMENT_GUARANTEE
             });
-        } else if (loanType.toLowerCase() === 'sana byawasai karja') {
+        } else if (loanType.toLowerCase() === 'sana byawasai karja' || loanType.toLowerCase() === 'sana byawasai karja - lite') {
             enums.push({
                 key: getEnum(SubLoanType.WORKING_CAPITAL_FINANCING),
                 value: SubLoanType.WORKING_CAPITAL_FINANCING
