@@ -63,7 +63,15 @@ export class OfferLetterLaxmiComponent implements OnInit {
     this.subloanTypes = SubLoanType.value(this.loanName);
     this.loanType = this.cadData.assignedLoan[0].loanType;
     this.buildForm();
-    this.modalService.open(this.modal);
+    if (this.loanName.toLowerCase() === 'demand loan' ||
+        this.loanName.toLowerCase() === 'term loan' ||
+        this.loanName.toLowerCase() === 'home loan' ||
+        this.loanName.toLowerCase() === 'sana byawasai karja' ||
+        this.loanName.toLowerCase() === 'sana byawasai karja - lite' ||
+        this.loanName.toLowerCase() === 'bank guarantee' ||
+        this.loanName.toLowerCase() === 'trust receipt loan') {
+      this.modalService.open(this.modal);
+    }
   }
 
   buildForm() {
