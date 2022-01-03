@@ -129,7 +129,7 @@
                 <td>
                     <ng-container *ngIf="user.roleType ==='MAKER' && !model.alreadyOnBoarded">
                         <button nbTooltip="Insert in our db" (click)="addMember($event, model,confirmOnBoard)"
-                                *ngIf="!model?.alreadyOnboarded"
+                                *ngIf="!model?.alreadyOnboarded && model?.shipped === 'BANK'"
                                 class="m-1"
                                 nbButton size="tiny"
                                 status="info"
@@ -137,7 +137,7 @@
                             <i class="fas fa-plus"></i>
                         </button>
                     </ng-container>
-                    <ng-container *ngIf="user.roleType === 'COMMITTEE' && !(model?.sendToBranch)">
+                    <ng-container *ngIf="((user.roleType === 'COMMITTEE' && !(model?.sendToBranch)) || transferDoc) && !model.alreadyOnBoarded && model?.shipped === 'BANK'">
                         <button nbTooltip="Send to branch" (click)="sendToBranch($event, model,transferBranch)"
                                 class="m-1"
                                 nbButton size="tiny"
