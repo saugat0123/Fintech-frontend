@@ -152,14 +152,14 @@
                                nbInput status="success" type="number">
                     </div>
                     <div class="form-group">
-                        <label for="loanLimitAmountFigure">Loan Limit Amount In Figure</label>
+                        <label for="loanLimitAmountFigure">Total Limit Amount In Figure</label>
                         <input (input)="getNumAmountWord('loanLimitAmountFigure', 'loanLimitAmountFigureWords')"
                                class="form-control" formControlName="loanLimitAmountFigure" fullWidth
                                id="loanLimitAmountFigure"
                                nbInput status="success" type="number">
                     </div>
                     <div class="form-group">
-                        <label for="loanLimitAmountFigureWords">Loan Limit Amount In Words</label>
+                        <label for="loanLimitAmountFigureWords">Total Limit Amount In Words</label>
                         <input class="form-control" formControlName="loanLimitAmountFigureWords" fullWidth
                                id="loanLimitAmountFigureWords"
                                nbInput status="success" type="text">
@@ -310,14 +310,14 @@
                                nbInput status="success" type="text">
                     </div>
                     <div class="form-group">
-                        <label for="loanLimitAmountFigureTrans">Loan Limit Amount In Figure Translation </label>
+                        <label for="loanLimitAmountFigureTrans">Total Limit Amount In Figure Translation </label>
                         <input (input)="getNumAmountWord('loanLimitAmountFigure', 'loanLimitAmountFigureWords')"
                                class="form-control" formControlName="loanLimitAmountFigureTrans" fullWidth
                                id="loanLimitAmountFigureTrans"
                                nbInput status="success" type="text" readonly>
                     </div>
                     <div class="form-group">
-                        <label for="loanLimitAmountFigureWordsTrans">Loan Limit Amount In Words Translation </label>
+                        <label for="loanLimitAmountFigureWordsTrans">Total Limit Amount In Words Translation </label>
                         <input class="form-control" formControlName="loanLimitAmountFigureWordsTrans" fullWidth
                                id="loanLimitAmountFigureWordsTrans"
                                nbInput status="success" type="text" readonly>
@@ -536,18 +536,18 @@
                                [ngClass]="{ 'is-invalid':submitted && FormControls.loanLimitAmountFigureCT.errors }"
                                type="text">
                         <span *ngIf="submitted && FormControls.loanLimitAmountFigureCT.invalid" class="text-danger">
-                            Loan Limit Amount Figure is required
+                            Total Limit Amount Figure is required
                         </span>
                     </div>
                     <div class="form-group">
-                        <label for="loanLimitAmountFigureWordsCT">Loan Limit Amount In Words CT</label>
+                        <label for="loanLimitAmountFigureWordsCT">Total Limit Amount In Words CT</label>
                         <input class="form-control" formControlName="loanLimitAmountFigureWordsCT" fullWidth
                                id="loanLimitAmountFigureWordsCT"
                                nbInput status="success"
                                [ngClass]="{ 'is-invalid':submitted && FormControls.loanLimitAmountFigureWordsCT.errors }"
                                type="text">
                         <span *ngIf="submitted && FormControls.loanLimitAmountFigureWordsCT.invalid" class="text-danger">
-                            Loan Limit Amount In Words is required
+                            Total Limit Amount In Words is required
                         </span>
                     </div>
                     <div class="form-group">
@@ -690,6 +690,9 @@
                 <app-common-security-section-primary #primarySecurity [customerApprove]="customerApprovedDoc" [isEdit]="true"></app-common-security-section-primary>
                 <hr>
                 <app-common-security-section-secondary #secondarySecurity [customerApprove]="customerApprovedDoc" [isEdit]="true"></app-common-security-section-secondary>
+                <hr>
+                <!-- Required Document Section -->
+                <app-required-legal-document-section #requiredLegalDocument></app-required-legal-document-section>
             </div>
             <!--<div *ngIf="ddslFormGroup.get('securityType').value === 'LAND' || ddslFormGroup.get('securityType').value === 'LAND_AND_BUILDING'">
                 <div class="row">

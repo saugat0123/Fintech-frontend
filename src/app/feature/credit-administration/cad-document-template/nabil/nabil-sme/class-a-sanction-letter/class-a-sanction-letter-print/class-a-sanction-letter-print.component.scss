@@ -1,5 +1,5 @@
 .nepaliFont{
-  font-size: 16px;
+  font-size: 19px;
   line-height: 1.7;
   text-align: justify;
   text-justify: inter-word;
@@ -45,7 +45,7 @@ nb-card{
 
 // to resize unicode font
 .unicodeResize {
-  font-size: 16px;
+  font-size: 19px;
 }
 
 // to set width 100 %
@@ -81,12 +81,12 @@ input.bottom-line {
 
 // to set same font size for all td and th elements
 .table-sm th, .table-sm td {
-  font-size: 15px !important;
+  font-size: 19px !important;
 }
 
 // to set small tag elements font size
 small#subContactPerson {
-  font-size: 15px;
+  font-size: 19px;
 }
 
 @media print {
@@ -113,7 +113,7 @@ small#subContactPerson {
   }
 
   .unicodeResize {
-    font-size: 16px;
+    font-size: 19px;
   }
 
   .w-100 {
@@ -153,7 +153,7 @@ small#subContactPerson {
   }
 
   .table-sm th, .table-sm td {
-    font-size: 15px !important;
+    font-size: 19px !important;
   }
 
   * {

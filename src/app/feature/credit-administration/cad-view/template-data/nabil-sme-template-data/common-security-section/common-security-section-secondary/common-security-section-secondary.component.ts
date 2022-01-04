@@ -23,6 +23,7 @@ export class CommonSecuritySectionSecondaryComponent implements OnInit {
   municipalityListForSecurities = [];
   securityType = [{key: 'LAND', value: 'Land'},
     {key: 'LAND_AND_BUILDING', value: 'Land And Building'},
+    {key: 'PERSONAL_GUARANTEE', value: 'Personal Guarantee'},
     {key: 'FIXED_ASSETS', value: 'Fixed Assets'},
     {key: 'STOCK', value: 'Stock'},
     {key: 'ASSETS_PLANTS_MACHINERY_AND_OTHER_EQUIPMENTS', value: 'Assets Plants Machinery & other equipments'},

@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {NepaliCurrencyWordPipe} from "../../../../../../../../../@core/pipe/nepali-currency-word.pipe";
-import {ObjectUtil} from "../../../../../../../../../@core/utils/ObjectUtil";
+import {NepaliCurrencyWordPipe} from '../../../../../../../../../@core/pipe/nepali-currency-word.pipe';
+import {ObjectUtil} from '../../../../../../../../../@core/utils/ObjectUtil';
 
 @Component({
   selector: 'app-section3-security-and-collateral-print',
@@ -69,13 +69,13 @@ export class Section3SecurityAndCollateralPrintComponent implements OnInit {
   free;
   table;
 
-  constructor(private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe) { }
+  constructor(public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe) { }
 
   ngOnInit() {
     this.securityDetails = this.letterData.securities;
     this.guarantorData = this.customerApprovedDoc.assignedLoan[0].taggedGuarantors;
     this.free = JSON.parse(this.customerApprovedDoc.offerDocumentList[0].supportedInformation);
-    if(this.free !== null) {
+    if (this.free !== null) {
       this.table = this.free.section3 ? this.free.section3.freeTable : '';
     }
     this.guarantorData.forEach(any => {
@@ -96,48 +96,48 @@ export class Section3SecurityAndCollateralPrintComponent implements OnInit {
         val.collateralShareCT === 'YES');
     this.tempParipassu = this.securityDetails.primarySecurity.filter(val =>
         val.paripassuContentsCT !== null);
-    if(this.securityDetails.primarySecurity.length > 0) {
+    if (this.securityDetails.primarySecurity.length > 0) {
       this.securityDetails.primarySecurity.forEach(i => {
-        if(i.securityTypeCT === 'LAND' || i.securityTypeCT === 'LAND_AND_BUILDING') {
+        if (i.securityTypeCT === 'LAND' || i.securityTypeCT === 'LAND_AND_BUILDING') {
           this.securityTypeCondition = true;
           this.checkMortgage(i);
         }
-        if(i.collateralShareCT === 'YES') {
+        if (i.collateralShareCT === 'YES') {
           this.collateralShareCondition = true;
         }
-        if(i.securityTypeCT === 'HYPOTHECATION') {
+        if (i.securityTypeCT === 'HYPOTHECATION') {
           this.securityTypeHypothecationCondition = true;
         }
-        if(i.hypothecationPurposeCT === 'For Trading Unit') {
+        if (i.hypothecationPurposeCT === 'For Trading Unit') {
           this.hypoPurposeTrading = true;
         }
-        if(i.hypothecationPurposeCT === 'For Manufacturing Case') {
+        if (i.hypothecationPurposeCT === 'For Manufacturing Case') {
           this.hypoPurposeManufacturing = true;
         }
-        if(i.assignmentToBeUsedCT !== null) {
+        if (i.assignmentToBeUsedCT !== null) {
           this.assignment = true;
-          if(i.assignmentToBeUsedCT === 'NEW') {
+          if (i.assignmentToBeUsedCT === 'NEW') {
             this.assignmentNew = true;
           }
         }
-        if(i.paripassuContentsCT !== null) {
+        if (i.paripassuContentsCT !== null) {
           this.paripassu = true;
-          if(i.paripassuContentsCT === 'NEW') {
+          if (i.paripassuContentsCT === 'NEW') {
             this.paripassuNew = true;
           }
         }
-        if(i.securityTypeCT === 'LIEN AGAINST FD' || i.securityTypeCT === 'LIEN AGAINST DEPOSIT ACCOUNT' || i.securityTypeCT === 'LIEN AGAINST DEBENTURE') {
+        if (i.securityTypeCT === 'LIEN AGAINST FD' || i.securityTypeCT === 'LIEN AGAINST DEPOSIT ACCOUNT' || i.securityTypeCT === 'LIEN AGAINST DEBENTURE') {
           this.securityTypeLienCondition = true;
         }
-        if(i.vehicleRegistrationCT !== null) {
+        if (i.vehicleRegistrationCT !== null) {
           this.vehicleRegister = true;
-          if(i.vehicleRegistrationCT === 'NEW') {
+          if (i.vehicleRegistrationCT === 'NEW') {
             this.vehicleRegisterNew = true;
           }
         }
-        if(i.generalCounterGuaranteeCT !== null) {
+        if (i.generalCounterGuaranteeCT !== null) {
           this.generalCounter = true;
-          if(i.generalCounterGuaranteeCT === 'NEW') {
+          if (i.generalCounterGuaranteeCT === 'NEW') {
             this.generalCounterNew = true;
           }
         }
@@ -152,42 +152,42 @@ export class Section3SecurityAndCollateralPrintComponent implements OnInit {
         val.collateralShareCT === 'YES');
     if (this.securityDetails.secondarySecurity.length > 0) {
       this.securityDetails.secondarySecurity.forEach(i => {
-        if(i.securityTypeCT === 'LAND' || i.securityTypeCT === 'LAND_AND_BUILDING') {
+        if (i.securityTypeCT === 'LAND' || i.securityTypeCT === 'LAND_AND_BUILDING') {
           this.securityTypeSecondaryCondition = true;
           this.checkSecondaryMortgage(i);
         }
-        if(i.collateralShareCT === 'YES') {
+        if (i.collateralShareCT === 'YES') {
           this.collateralShareSecondaryCondition = true;
         }
-        if(i.securityTypeCT === 'PERSONAL_GUARANTEE') {
+        if (i.securityTypeCT === 'PERSONAL_GUARANTEE') {
           this.securityTypeSecondaryPersonalCondition = true;
         }
-        if(i.personalGuaranteeToBeUsedCT !== null) {
-          if(i.personalGuaranteeToBeUsedCT === 'NEW') {
+        if (i.personalGuaranteeToBeUsedCT !== null) {
+          if (i.personalGuaranteeToBeUsedCT === 'NEW') {
             this.personalGuaranteeToBeUsedSecondary = true;
           }
         }
-        if(i.securityTypeCT === 'CORPORATE_GUARANTEE') {
+        if (i.securityTypeCT === 'CORPORATE_GUARANTEE') {
           this.securityTypeSecondaryCorporateCondition = true;
         }
-        if(i.corporateGuaranteeCT !== null) {
-          if(i.corporateGuaranteeCT === 'NEW') {
+        if (i.corporateGuaranteeCT !== null) {
+          if (i.corporateGuaranteeCT === 'NEW') {
             this.corporateGuaranteeSecondary = true;
           }
         }
-        if(i.securityTypeCT === 'CROSS_GUARANTEE') {
+        if (i.securityTypeCT === 'CROSS_GUARANTEE') {
           this.securityTypeSecondaryCrossCondition = true;
         }
-        if(i.crossGuaranteeCT !== null) {
-          if(i.crossGuaranteeCT === 'NEW') {
+        if (i.crossGuaranteeCT !== null) {
+          if (i.crossGuaranteeCT === 'NEW') {
             this.crossGuaranteeSecondary = true;
           }
         }
-        if(i.securityTypeCT === 'SHARE_PLEDGE') {
+        if (i.securityTypeCT === 'SHARE_PLEDGE') {
           this.securityTypeSecondarySharePledgeCondition = true;
         }
-        if(i.sharePledgeToBeUsedCT !== null) {
-          if(i.sharePledgeToBeUsedCT === 'NEW') {
+        if (i.sharePledgeToBeUsedCT !== null) {
+          if (i.sharePledgeToBeUsedCT === 'NEW') {
             this.sharePledgeSecondary = true;
           }
         }
@@ -208,25 +208,25 @@ export class Section3SecurityAndCollateralPrintComponent implements OnInit {
   }
 
   checkMortgage(any) {
-    if(any.mortgageType === 'New') {
+    if (any.mortgageType === 'New') {
       this.primaryNewMortgage = true;
     }
-    if(any.mortgageType === 'Existing') {
+    if (any.mortgageType === 'Existing') {
       this.primaryExistingMortgage = true;
     }
-    if(any.mortgageType === 'Enhancement'){
+    if (any.mortgageType === 'Enhancement') {
       this.primaryEnhancementMortgage = true;
     }
   }
 
   checkSecondaryMortgage(any) {
-    if(any.mortgageType === 'New') {
+    if (any.mortgageType === 'New') {
       this.secondaryNewMortgage = true;
     }
-    if(any.mortgageType === 'Existing') {
+    if (any.mortgageType === 'Existing') {
       this.secondaryExistingMortgage = true;
     }
-    if(any.mortgageType === 'Enhancement'){
+    if (any.mortgageType === 'Enhancement') {
       this.secondaryEnhancementMortgage = true;
     }
   }
@@ -277,13 +277,13 @@ export class Section3SecurityAndCollateralPrintComponent implements OnInit {
   }
 
   commonGuarantorDetails(guarantorName, finalName) {
-    if(guarantorName.length === 1) {
+    if (guarantorName.length === 1) {
       finalName = guarantorName[0];
     }
-    if(guarantorName.length === 2) {
+    if (guarantorName.length === 2) {
       finalName = guarantorName.join(' र ');
     }
-    if(guarantorName.length > 2){
+    if (guarantorName.length > 2) {
       for (let i = 0; i < guarantorName.length - 1; i++) {
         this.temp2 = guarantorName.join(' , ');
       }
