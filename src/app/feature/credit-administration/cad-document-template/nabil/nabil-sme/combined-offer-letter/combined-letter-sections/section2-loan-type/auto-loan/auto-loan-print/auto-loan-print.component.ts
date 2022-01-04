@@ -16,35 +16,16 @@ export class AutoLoanPrintComponent implements OnInit {
   @Input() customerApprovedDoc;
   @Input() freeText;
   @Input() loanData;
-  @Input() index;
-  @Input() data;
+  @Input() pointNumber;
+  @Input() autoLoanData;
   tempData;
-  autoLoanFreeText: any = {};
-  complementaryOtherAutoLoan = false; vehiclePurchaseAutoLoan = false; vehicleRegistrationAutoLoan = false;
-  loanOptionAutoLoan; autoLoanTypeAutoLoan; emiPaymentTypeAutoLoan; paymentsTermsAutoLoan;
-  complementaryOtherAutoLoanName;
+  autoLoanFreeText;
   constructor() { }
 
   ngOnInit() {
     if (!ObjectUtil.isEmpty(this.customerApprovedDoc)) {
       this.tempData = JSON.parse(this.customerApprovedDoc.offerDocumentList[0].initialInformation);
     }
-    if (!ObjectUtil.isEmpty(this.data)) {
-      this.loanOptionAutoLoan = this.tempData.smeGlobalForm.loanOption;
-      this.autoLoanTypeAutoLoan = this.data.autoLoanType;
-      this.emiPaymentTypeAutoLoan = this.data.emiPaymentType;
-      this.complementaryOtherAutoLoanName = this.data.complimentaryLoanSelected;
-      this.paymentsTermsAutoLoan = this.data.paymentTerms;
-      if (this.data.complementaryOther === true) {
-        this.complementaryOtherAutoLoan = true;
-      }
-      if (this.data.vehiclePurchased === true) {
-        this.vehiclePurchaseAutoLoan = true;
-      }
-      if (this.data.vehicleRegistered === true) {
-        this.vehicleRegistrationAutoLoan = true;
-      }
-    }
+    this.autoLoanFreeText = this.freeText ? this.freeText.section2.autoLoanFreeText : '';
   }
-
 }

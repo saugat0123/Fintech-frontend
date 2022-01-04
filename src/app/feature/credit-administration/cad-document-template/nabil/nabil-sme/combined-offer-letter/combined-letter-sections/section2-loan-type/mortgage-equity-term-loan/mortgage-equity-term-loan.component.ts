@@ -188,7 +188,7 @@ export class MortgageEquityTermLoanComponent implements OnInit {
     setFreeTextMortgage() {
         this.mortgageEquity = {
             freeText13: this.form.get('freeTextThirteen').value ? this.form.get('freeTextThirteen').value : '',
-            // tslint:disable-next-line:max-line-length
+            SNOfParentLimitMortgageTerm: this.form.get('SNOfParentLimitMortgageTerm').value ? this.form.get('SNOfParentLimitMortgageTerm').value : '',
             newEMIAutoPopulateMortgageTerm1: this.form.get('newEMIAutoPopulateMortgageTerm').value ? this.form.get('newEMIAutoPopulateMortgageTerm').value : '',
         };
         return this.mortgageEquity;
@@ -204,7 +204,7 @@ export class MortgageEquityTermLoanComponent implements OnInit {
         }
         this.form.patchValue({
             freeTextThirteen: this.tempInformation ? this.tempInformation.section2.freeText13 : '',
-            // tslint:disable-next-line:max-line-length
+            SNOfParentLimitMortgageTerm: this.tempInformation ? this.tempInformation.section2.SNOfParentLimitMortgageTerm : '',
             newEMIAutoPopulateMortgageTerm: !ObjectUtil.isEmpty(this.newEMIAutoPopulateMortgageTerm) ? this.newEMIAutoPopulateMortgageTerm : '',
         });
     }
