@@ -73,23 +73,23 @@
                 <li *ngIf="multiVisible">
                     बहु बैंकिङ्ग घोषणापत्र (Multiple Banking Declaration)
                 </li>
-                <li *ngFor="let val of tempPersonalGuarantors">
-                    <p *ngIf="guaranteeVisible">
-                    रु.
-                    <input formControlName="loanAmountInFigure"
-                           name="loanAmountInfigure"
-                           type="text"
-                           class="form-field form-control-sm"
-                    [value]="val.gurantedAmount.ct"/> /-
-                    बराबरको
+                <ng-container *ngIf="guaranteeVisible">
+                    <li *ngFor="let val of tempPersonalGuarantors">
+                        रु.
+                        <input formControlName="loanAmountInFigure"
+                               name="loanAmountInfigure"
+                               type="text"
+                               class="form-field form-control-sm"
+                               [value]="val.gurantedAmount.ct"/> /-
+                        बराबरको
                         {{val.gender.en === 'FEMALE' && val.relationMedium.en === '0' ? 'श्रीमती' : (val.gender.en === 'FEMALE' && val.relationMedium.en === '1' ? 'सुश्री' : val.gender.en === 'MALE' ? 'श्रीमान्' : '')}}
                         <input class="form-field form-control-sm col-3"
-                           formControlName="guarantorName"
-                           type="text"
-                           [value]="val.guarantorName.ct"/>
-                    ले बैंकको पक्षमा लेखिदिनुपर्ने ब्यक्तिगत जमानीपत्र (Personal Guarantee)
-                    </p>
-                </li>
+                               formControlName="guarantorName"
+                               type="text"
+                               [value]="val.guarantorName.ct"/>
+                        ले बैंकको पक्षमा लेखिदिनुपर्ने ब्यक्तिगत जमानीपत्र (Personal Guarantee)
+                    </li>
+                </ng-container>
                 <li *ngIf="wealthVisible">
                     जमानीकर्ताको सम्पत्ति विवरण (Wealth Statement of Guarantor)
                 </li>
@@ -159,23 +159,25 @@
                 <li *ngIf="letterSetOff">
                     मोजरा पत्र (Letter of set off)
                 </li>
-                    <a nbButton status="primary" size="tiny" (click)="addTextArea()" style="margin-bottom: 10px">Add
+                    <button nbButton status="primary" size="tiny" (click)="addTextArea()" style="margin-bottom: 10px">Add
                         Text Area
-                    </a>
+                    </button>
                     <li *ngFor="let textArea of form.get('textAreas')['controls']; let i = index;" formArrayName="textAreas">
                         <ng-container [formGroupName]="i">
                         <textarea
-                         class="form-control nepaliFont"
+                         class="form-control"
                          rows="5"
                          style="width:1100px;margin-left:2%"
                          name="additionalGuarantorDetails"
                          formControlName="additionalGuarantorDetails">
                  </textarea>
                         </ng-container>
-                    <a nbButton status="danger" size="tiny" (click)="removeAtIndex(i)"
+                        <div *ngIf="form.get('textAreas')['length'] > 1" class="col-md-12 text-left mb-3">
+                        <button nbButton status="danger" size="tiny" (click)="removeAtIndex(i)"
                        style="position: static">
                         <em class="fa fa-trash" style="color: white;"></em>
-                    </a>
+                    </button>
+                        </div>
                 </li>
             </ul>
         </div>
