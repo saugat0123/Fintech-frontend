@@ -2,7 +2,7 @@
     <div class="col-md-12 viewFull">
         <form (ngSubmit)="submit()" [formGroup]="offerLetterForm" class="text-justify nepali">
             <ng-template #select>
-                <div class="card">
+                <div class="card" *ngIf="hasSubLoanType">
                     <div class="card-header">
                         Change Loan
                         <a (click)="close()" aria-label="Close" class="close cursor"><span

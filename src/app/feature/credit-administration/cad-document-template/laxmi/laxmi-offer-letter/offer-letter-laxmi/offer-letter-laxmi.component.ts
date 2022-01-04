@@ -43,6 +43,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
   subloanTypes;
   subloanType;
   subloanTypeEnum = SubLoanType;
+  hasSubLoanType = false;
 
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
@@ -62,14 +63,9 @@ export class OfferLetterLaxmiComponent implements OnInit {
     console.log('loanName', this.loanName);
     this.subloanTypes = SubLoanType.value(this.loanName);
     this.loanType = this.cadData.assignedLoan[0].loanType;
+    this.checkSubLoanType();
     this.buildForm();
-    if (this.loanName.toLowerCase() === 'demand loan' ||
-        this.loanName.toLowerCase() === 'term loan' ||
-        this.loanName.toLowerCase() === 'home loan' ||
-        this.loanName.toLowerCase() === 'sana byawasai karja' ||
-        this.loanName.toLowerCase() === 'sana byawasai karja - lite' ||
-        this.loanName.toLowerCase() === 'bank guarantee' ||
-        this.loanName.toLowerCase() === 'trust receipt loan') {
+    if (this.hasSubLoanType) {
       this.modalService.open(this.modal);
     }
   }
@@ -164,6 +160,18 @@ export class OfferLetterLaxmiComponent implements OnInit {
   }
   close() {
     this.modalService.dismissAll();
+  }
+
+  checkSubLoanType() {
+    if (this.loanName.toLowerCase() === 'demand loan' ||
+        this.loanName.toLowerCase() === 'term loan' ||
+        this.loanName.toLowerCase() === 'home loan' ||
+        this.loanName.toLowerCase() === 'sana byawasai karja' ||
+        this.loanName.toLowerCase() === 'sana byawasai karja - lite' ||
+        this.loanName.toLowerCase() === 'bank guarantee' ||
+        this.loanName.toLowerCase() === 'trust receipt loan') {
+      this.hasSubLoanType = true;
+    }
   }
 
 }
