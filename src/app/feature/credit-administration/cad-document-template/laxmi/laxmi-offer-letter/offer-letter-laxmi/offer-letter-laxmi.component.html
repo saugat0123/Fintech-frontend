@@ -207,8 +207,11 @@
                         <td>
                             सवै प्रकारका सुरक्षण लिखतहरु पूर्ण रुपमा स्वीकार गरी बैंकमा वुझाए पछि स्वीकृत कर्जा तथा
                             सुविधा मध्ये आवश्यक पर्ने खुद चालुपूँजी
-                            (Net Trading Assets) को ..... प्रतिशत वा घरजग्गा/जग्गाको सुपथ बजार मूल्यको ............
-                            प्रतिशत वा स्वीकृत कर्जा
+                            (Net Trading Assets) को
+                            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                   formControlName="workingRate"> प्रतिशत वा घरजग्गा/जग्गाको सुपथ बजार मूल्यको
+                            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                   formControlName="workingLandBuildingRate"> प्रतिशत वा स्वीकृत कर्जा
                             रकम मध्ये जुन कम हुन्छ, सो रकम उपभोग गर्न सकिनेछ ।
                         </td>
                     </tr>
@@ -217,7 +220,9 @@
                             Period)
                         </td>
                         <td>
-                            पहिलो किस्ता प्रवाह भएको मितिबाट सांवाको किस्ता तिर्न र पुरा कर्जा झिक्न .....
+                            पहिलो किस्ता प्रवाह भएको मितिबाट सांवाको किस्ता तिर्न र पुरा कर्जा झिक्न
+                            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                   formControlName="month">
                             महिनाको ग्रेस पिरियड उपलव्ध गराइनेछ । जुन अवधिमा तिर्न वांकी कर्जामा पाकेको व्याज
                             मासिक/त्रैमासिक रुपमा भुक्तानी गर्नु पर्नेछ ।
                         </td>
@@ -252,7 +257,9 @@
                         <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमाः(Drawdown)</td>
                         <td>
                             सवै प्रकारका सुरक्षण लिखतहरु पूर्ण रुपमा स्वीकार गरी बैंकमा वुझाए पछि स्वीकृत कर्जा तथा
-                            सुविधाको सुरक्षण बापत प्रदान गरेको धितोको .....
+                            सुविधाको सुरक्षण बापत प्रदान गरेको धितोको
+                            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                   formControlName="goldRate">
                             प्रतिशत वा स्वीकृत कर्जा रकम मध्ये जुन कम हुन्छ, सो रकम उपभोग गर्न सकिनेछ ।
                         </td>
                     </tr>
@@ -268,8 +275,13 @@
                     </tr>
                     <tr>
                         <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने  सीमाः (Drawdown)</td>
-                        <td>सवै प्रकारका सुरक्षण लिखतहरु पूर्ण रुपमा स्वीकार गरी बैंकमा वुझाए पछि स्वीकृत कर्जा तथा सुविधा मध्ये जग्गा/घरजग्गाको शुपथ वजार मूल्यको ....... प्रतिशत वा रु. ............./–
-                            (अक्षरेपी रुपैयाँ ............................. मात्र) मध्ये जुन कम हुन्छ, सो वरावरको रकम उपभोग गर्न सकिनेछ ।</td>
+                        <td>सवै प्रकारका सुरक्षण लिखतहरु पूर्ण रुपमा स्वीकार गरी बैंकमा वुझाए पछि स्वीकृत कर्जा तथा सुविधा मध्ये जग्गा/घरजग्गाको शुपथ वजार मूल्यको
+                            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                   formControlName="homeRate"> प्रतिशत वा रु.
+                            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                   formControlName="homeAmount">/–
+                            (अक्षरेपी रुपैयाँ <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                                     formControlName="homeAmountWord"> मात्र) मध्ये जुन कम हुन्छ, सो वरावरको रकम उपभोग गर्न सकिनेछ ।</td>
                     </tr>
                 </ng-container>
                 <ng-container *ngIf="loanName.toLowerCase() === 'bridge gap loan'">
@@ -292,7 +304,9 @@
                         <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमाः(Drawdown)</td>
                         <td>
                             सवै प्रकारका सुरक्षण लिखतहरु पूर्ण रुपमा स्वीकार गरी बैंकमा वुझाए पछि स्वीकृत कर्जा तथा
-                            सुविधा मध्ये आवश्यक पर्ने Capital Expediture को ..... प्रतिशत सम्मको रकम उपभोग गर्न
+                            सुविधा मध्ये आवश्यक पर्ने Capital Expediture को
+                            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                   formControlName="capitalRate"> प्रतिशत सम्मको रकम उपभोग गर्न
                             सकिनेछ ।
                         </td>
                     </tr>
@@ -317,7 +331,8 @@
                         <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमाः(Drawdown)</td>
                         <td>
                             धितो सुरक्षण लगायत कर्जा सम्वन्धि सवै लिखतहरु स्वीकार गरी बैंकमा वुझाए पछि सवारी साधनको
-                            मूल्यको ..... प्रतिशत वा स्वीकृत कर्जा रकम मध्ये जुन कम हुन्छ सो वरावरको कर्जा रकम उपभोग
+                            मूल्यको <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                           formControlName="vehicleRate"> प्रतिशत वा स्वीकृत कर्जा रकम मध्ये जुन कम हुन्छ सो वरावरको कर्जा रकम उपभोग
                             गर्न सकिनेछ । अन्यथा व्यवस्था गरिएकोमा वाहेक ऋणीले लिन सक्ने कर्जा तथा सुविधाको रकम
                             सवारीसाधन विक्रेतालाई सोझै भुक्तानी गरेमा ऋणीको मन्जुरी रहेको छ । त्यसरी भुक्तानी गरिएको रकम
                             कलमको सम्वन्धमा ऋणी र विक्रेता वीच भविश्यमा कुनै किसिमको विवाद उत्पन्न भई कुनै किसिमको
@@ -328,7 +343,8 @@
                 <ng-container *ngSwitchCase="subloanTypeEnum.REFINANCING_OF_ASSETS">
                     <tr>
                         <td>उद्देश्य(Purpose)</td>
-                        <td>....................पुनः लगानी गर्न ।</td>
+                        <td><input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                   formControlName="refPurpose"> पुनः लगानी गर्न ।</td>
                     </tr>
                     <tr>
                         <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमाः(Drawdown)</td>
@@ -339,19 +355,25 @@
                 <ng-container *ngIf="loanName.toLowerCase() === 'letter of credit'">
                     <tr>
                         <td>उद्देश्य(Purpose)</td>
-                        <td>....................आयात गर्न ।</td>
+                        <td><input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                   formControlName="creditPurpose"> आयात गर्न ।</td>
                     </tr>
                     <tr>
                         <td>कमिसन (Commission)</td>
-                        <td>.......... प्रतिशत प्रति त्रैमासिक वा न्यूनतम रु.........../– मात्र ।</td>
+                        <td><input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                   formControlName="creditRate"> प्रतिशत प्रति त्रैमासिक वा न्यूनतम
+                            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                   formControlName="creditAmount">/– मात्र ।</td>
                     </tr>
                     <tr>
                         <td>अवधि पुग्ने मिति (Maturity)</td>
-                        <td>मिति ................... सम्म प्राप्त गर्न सकिने ।</td>
+                        <td>मिति <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                        formControlName="creditMaturityDate"> सम्म प्राप्त गर्न सकिने ।</td>
                     </tr>
                     <tr>
                         <td>टेलेक्स चार्ज (Telex Charges)</td>
-                        <td>रु..................../– मात्र ।</td>
+                        <td>रु <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                      formControlName="creditTelexAmount"> /– मात्र ।</td>
                     </tr>
                     <tr>
                         <td>फोर्स लोन (Force Loan) तथा व्याज (Interest)</td>
@@ -365,7 +387,9 @@
                     </tr>
                     <tr>
                         <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने  सीमाः (Drawdown)</td>
-                        <td>सवै प्रकारका सुरक्षण लिखतहरु पूर्ण रुपमा स्वीकार गरी बैंकमा वुझाए पछि स्वीकृत कर्जा तथा सुविधा मध्ये प्रतितपत्रमा उल्लेखित कागजात मूल्य (LC Document value) को ............. प्रतिशत रकम उपभोग गर्न सकिनेछ ।</td>
+                        <td>सवै प्रकारका सुरक्षण लिखतहरु पूर्ण रुपमा स्वीकार गरी बैंकमा वुझाए पछि स्वीकृत कर्जा तथा सुविधा मध्ये प्रतितपत्रमा उल्लेखित कागजात मूल्य (LC Document value) को
+                            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                   formControlName="loanAgainstRate"> प्रतिशत रकम उपभोग गर्न सकिनेछ ।</td>
                     </tr>
                 </ng-container>
                 <ng-container *ngSwitchCase="subloanTypeEnum?.LOAN_AGAINST_TT_DD_DAP_DAA">
@@ -375,60 +399,102 @@
                     </tr>
                     <tr>
                         <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने  सीमाः (Drawdown)</td>
-                        <td>सवै प्रकारका सुरक्षण लिखतहरु पूर्ण रुपमा स्वीकार गरी बैंकमा वुझाए पछि स्वीकृत कर्जा तथा सुविधा मध्ये आयातित कागजात मूल्य (Import Document value) को ........ प्रतिशत वा स्थिर सम्पत्तिको खरीद मूल्य
-                            (Invoice/Bill) को ........ प्रतिशत रकम उपभोग गर्न सकिनेछ ।</td>
+                        <td>सवै प्रकारका सुरक्षण लिखतहरु पूर्ण रुपमा स्वीकार गरी बैंकमा वुझाए पछि स्वीकृत कर्जा तथा सुविधा मध्ये आयातित कागजात मूल्य (Import Document value) को
+                            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                   formControlName="ttRate"> प्रतिशत वा स्थिर सम्पत्तिको खरीद मूल्य
+                            (Invoice/Bill) को <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                                     formControlName="ttBillRate"> प्रतिशत रकम उपभोग गर्न सकिनेछ ।</td>
                     </tr>
                 </ng-container>
                 <ng-container *ngSwitchCase="subloanTypeEnum?.PURCHASE_OF_LAND_BUILDING">
                     <tr>
                         <td>उद्देश्य (Purpose)</td>
-                        <td>............... जिल्ला .......... न.पा./गा.वि.स वडा नं .........स्थित कित्ता नं .......... क्षेत्रफल ........... को घर/जग्गा खरिद गर्नको लागी ।</td>
+                        <td><input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                   formControlName="buildingDis"> जिल्ला
+                            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                   formControlName="buildingVdc"> न.पा./गा.वि.स वडा नं
+                            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                   formControlName="buildingKitta"> स्थित कित्ता नं
+                            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                   formControlName="buildingArea"> क्षेत्रफल
+                            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                   formControlName="buildingLand">को घर/जग्गा खरिद गर्नको लागी ।</td>
                     </tr>
                     <tr>
                         <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने  सीमाः (Drawdown)</td>
-                        <td>सवै प्रकारका सुरक्षण लिखतहरु पूर्ण रुपमा स्वीकार गरी बैंकमा वुझाए पछि स्वीकृत कर्जा तथा सुविधा उपभोग गर्न सकिनेछ । जग्गा/घरजग्गाको शुपथ वजार मूल्यको ..... प्रतिशत वा स्वीकृत कर्जा सुविधा मध्ये जुन कम हुन्छ सो वरावरको रकम उपभोग गर्न सकिनेछ ।</td>
+                        <td>सवै प्रकारका सुरक्षण लिखतहरु पूर्ण रुपमा स्वीकार गरी बैंकमा वुझाए पछि स्वीकृत कर्जा तथा सुविधा उपभोग गर्न सकिनेछ । जग्गा/घरजग्गाको शुपथ वजार मूल्यको
+                            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                   formControlName="purchaseRate"> प्रतिशत वा स्वीकृत कर्जा सुविधा मध्ये जुन कम हुन्छ सो वरावरको रकम उपभोग गर्न सकिनेछ ।</td>
                     </tr>
                 </ng-container>
                 <ng-container *ngSwitchCase="subloanTypeEnum?.CONSTRUCTION_OF_BUILDING">
                     <tr>
                         <td>उद्देश्य (Purchase)</td>
-                        <td>............... जिल्ला .......... न.पा./गा.वि.स वडा नं .........स्थित कित्ता नं .......... क्षेत्रफल ........... को जग्गामा घर निर्माण गर्नको लागी ।</td>
+                        <td><input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                   formControlName="conBuildingDis"> जिल्ला
+                            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                   formControlName="conBuildingVdc"> न.पा./गा.वि.स वडा नं
+                            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                   formControlName="conBuildingKitta"> स्थित कित्ता नं
+                            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                   formControlName="conBuildingArea"> क्षेत्रफल
+                            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                   formControlName="conBuildingLand">को घर/जग्गा खरिद गर्नको लागी ।</td>
                     </tr>
                     <tr>
                         <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने  सीमाः (Drawdown)</td>
                         <td>सवै प्रकारका सुरक्षण लिखतहरु पूर्ण रुपमा स्वीकार गरी बैंकमा वुझाए पछि स्वीकृत कर्जा तथा सुविधा उपभोग गर्न सकिनेछ ।
                             <br>
-                            घर निर्माण गर्न पेश्की रकम वापत शुरुमा कुल अनुमानीत निमार्ण खर्च <strong>Total Estimated construction cost</strong> को ...... <strong>प्रतिशत</strong> वा घरजग्गा सम्पतीको शुपथ बजार मुल्यको ....
-                            <strong>प्रतिशत</strong> वा दिईएको कर्जा सिमा मध्ये जुन कम हुन्छ सोही कायम गरिने छ । <strong><i>Advances to be restricted to maximum ……% of total estimated
+                            घर निर्माण गर्न पेश्की रकम वापत शुरुमा कुल अनुमानीत निमार्ण खर्च <strong>Total Estimated construction cost</strong> को
+                            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                   formControlName="totalEstimateRate"> <strong>प्रतिशत</strong> वा घरजग्गा सम्पतीको शुपथ बजार मुल्यको
+                            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                   formControlName="totalEstBuildingLandRate"> <strong>प्रतिशत</strong> वा दिईएको कर्जा सिमा मध्ये जुन कम हुन्छ सोही कायम गरिने छ । <strong><i>Advances to be restricted to maximum ……% of total estimated
                                 construction cost or ……% of FMV of property (before construction) whichever is lower</i></strong>
                             <br>
                             त्यसपछि बैंकको अख्तियार प्राप्त मूल्याकंनकर्ताबाट <strong>(Approved Valuator)</strong> द्वारा  निमार्णधिन भवनको सन्तोषजनक प्रगती रिपोर्टको <strong>(Satisfactory Progess Report)</strong> आधारमा चरणगत
-                            <strong>(Phasewise)</strong> रुपमा कुल निमार्ण खर्च <strong>(Total Construction Cost)</strong> को ..... <strong>प्रतिशत</strong> वा घरजग्गा सम्पतीको शुपथ बजार मुल्यको .... <strong>प्रतिशत</strong> वा दिईएको
+                            <strong>(Phasewise)</strong> रुपमा कुल निमार्ण खर्च <strong>(Total Construction Cost)</strong> को
+                            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                   formControlName="totalConRate"><strong>प्रतिशत</strong> वा घरजग्गा सम्पतीको शुपथ बजार मुल्यको
+                            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                   formControlName="totalConBuildingLandRate"> <strong>प्रतिशत</strong> वा दिईएको
                             कर्जा सिमा मध्ये जुन कम हुन्छ सोही कायम गरिनेछ ।</td>
                     </tr>
                     <tr>
                         <td>ग्रेस पिरियड (Moratarium Period)</td>
-                        <td>ऋण प्रवाह भएको सुरु मितिवाट अधिकतम ... महिनाको ग्रेस पिरियड उपलव्ध गराइनेछ । यस अवधिमा प्रवाहित कर्जामा पाकेको व्याज ऋणीले नेपाली महिनाको अन्तिम दिन भुक्तानी गर्नु पर्नेछ ।</td>
+                        <td>ऋण प्रवाह भएको सुरु मितिवाट अधिकतम
+                            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                   formControlName="moratariumRate"> महिनाको ग्रेस पिरियड उपलव्ध गराइनेछ । यस अवधिमा प्रवाहित कर्जामा पाकेको व्याज ऋणीले नेपाली महिनाको अन्तिम दिन भुक्तानी गर्नु पर्नेछ ।</td>
                     </tr>
                 </ng-container>
                 <ng-container *ngIf="loanName.toLowerCase() === 'hire purchase loan'">
                     <tr>
                         <td>उद्देश्य (Purpose)</td>
-                        <td>व्यक्तिगत प्रयोगका लागि ..... थान ...... मोडेलको सवारी साधन खरिद गर्न ।</td>
+                        <td>व्यक्तिगत प्रयोगका लागि <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                                           formControlName="hirePersonalUse"> थान
+                            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                   formControlName="hireModel"> मोडेलको सवारी साधन खरिद गर्न ।</td>
                     </tr>
                     <tr>
                         <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने  सीमाः (Drawdown)</td>
-                        <td>धितो सुरक्षण लगायत कर्जा सम्वन्धि सवै लिखतहरु स्वीकार गरी बैंकमा वुझाए पछि सवारी साधनको मूल्यको ...... <strong>प्रतिशत</strong> वा कर्जा रकम मध्ये जुन कम हुन्छ सो वरावरको कर्जा रकम उपभोग गर्न सकिनेछ ।</td>
+                        <td>धितो सुरक्षण लगायत कर्जा सम्वन्धि सवै लिखतहरु स्वीकार गरी बैंकमा वुझाए पछि सवारी साधनको मूल्यको
+                            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                   formControlName="hireRate"><strong>प्रतिशत</strong> वा कर्जा रकम मध्ये जुन कम हुन्छ सो वरावरको कर्जा रकम उपभोग गर्न सकिनेछ ।</td>
                     </tr>
                 </ng-container>
                 <ng-container *ngIf="loanName.toLowerCase() === 'commercial auto laon'">
                     <tr>
                         <td>उद्देश्य (Purpose)</td>
-                        <td>व्यापारिक प्रयोगका लागि ..... थान ...... मोडेलको सवारी साधन खरिद गर्न ।</td>
+                        <td>व्यापारिक प्रयोगका लागि <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                                           formControlName="autoRate"> थान
+                            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                   formControlName="autoModel"> मोडेलको सवारी साधन खरिद गर्न ।</td>
                     </tr>
                     <tr>
                         <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने  सीमाः (Drawdown)</td>
-                        <td>धितो सुरक्षण लगायत कर्जा सम्वन्धि सवै लिखतहरु स्वीकार गरी बैंकमा वुझाए पछि सवारी साधनको मूल्य (Chasis Plus Inbulit Body) को ...... <strong>प्रतिशत</strong> वा कर्जा रकम मध्ये जुन कम हुन्छ सो वरावरको कर्जा
+                        <td>धितो सुरक्षण लगायत कर्जा सम्वन्धि सवै लिखतहरु स्वीकार गरी बैंकमा वुझाए पछि सवारी साधनको मूल्य (Chasis Plus Inbulit Body) को
+                            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                   formControlName="autoDrawRate"><strong>प्रतिशत</strong> वा कर्जा रकम मध्ये जुन कम हुन्छ सो वरावरको कर्जा
                             रकम उपभोग गर्न सकिनेछ । अन्यथा व्यवस्था गरिएकोमा वाहेक ऋणीले लिन सक्ने कर्जा तथा सुविधाको रकम सवारीसाधन विक्रेतालाई सोझै भुक्तानी गरेमा ऋणीको मन्जुरी रहेको छ । त्यसरी भुक्तानी गरिएको रकम कलमको सम्वन्धमा ऋणी र विक्रेता
                             वीच भविश्यमा कुनै किसिमको विवाद उत्पन्न भई कुनै किसिमको दायित्व सिर्जना भएमा सो दायित्व ऋणी आफैले व्यहोर्न मन्जुरी व्यक्त गर्दछ ।</td>
                     </tr>
@@ -440,7 +506,8 @@
                     </tr>
                     <tr>
                         <td>कमिसन (Commission)</td>
-                        <td>.......... प्रतिशत प्रति त्रैमासिक ।</td>
+                        <td><input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                   formControlName="bidRate"> प्रतिशत प्रति त्रैमासिक ।</td>
                     </tr>
                     <tr>
                         <td>फोर्स (Force Loan) तथा व्याज (Interest)</td>
@@ -454,7 +521,8 @@
                     </tr>
                     <tr>
                         <td>कमिसन (Commission)</td>
-                        <td>.......... प्रतिशत प्रति त्रैमासिक ।</td>
+                        <td><input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                   formControlName="performanceRate"> प्रतिशत प्रति त्रैमासिक ।</td>
                     </tr>
                     <tr>
                         <td>फोर्स (Force Loan) तथा व्याज (Interest)</td>
@@ -468,7 +536,8 @@
                     </tr>
                     <tr>
                         <td>कमिसन (Commission)</td>
-                        <td>.......... प्रतिशत प्रति त्रैमासिक ।</td>
+                        <td><input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                   formControlName="advanceRate"> प्रतिशत प्रति त्रैमासिक ।</td>
                     </tr>
                     <tr>
                         <td>फोर्स (Force Loan) तथा व्याज (Interest)</td>
@@ -484,8 +553,12 @@
                 <ng-container *ngIf="loanName === 'Educational Loan'">
                     <tr>
                         <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने  सीमाः (Drawdown)</td>
-                        <td>सवै प्रकारका सुरक्षण लिखतहरु पूर्ण रुपमा स्वीकार गरी बैंकमा वुझाए पछि स्वीकृत कर्जा तथा सुविधा मध्ये आवश्यक पर्ने घरजग्गाको शुपथ वजार मूल्यको .... <strong>प्रतिशत</strong> तथा सम्वन्धित शैक्षिक संस्थावाट प्राप्त
-                            कुल शैक्षिक खर्च (Including cost of travelling, insurance, living & accommodation of student/dependent spouse) विवरणको .... <strong>प्रतिशत</strong> वा कर्जा रकम मध्ये
+                        <td>सवै प्रकारका सुरक्षण लिखतहरु पूर्ण रुपमा स्वीकार गरी बैंकमा वुझाए पछि स्वीकृत कर्जा तथा सुविधा मध्ये आवश्यक पर्ने घरजग्गाको शुपथ वजार मूल्यको
+                            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                   formControlName="educationalRate"> <strong>प्रतिशत</strong> तथा सम्वन्धित शैक्षिक संस्थावाट प्राप्त
+                            कुल शैक्षिक खर्च (Including cost of travelling, insurance, living & accommodation of student/dependent spouse) विवरणको
+                            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                   formControlName="educationalRate1"><strong>प्रतिशत</strong> वा कर्जा रकम मध्ये
                             जुन कम हुन्छ सो वरावरको रकम उपभोग गर्न सकिनेछ ।</td>
                     </tr>
                 </ng-container>
@@ -493,8 +566,11 @@
                 <tr>
                     <td></td>
                     <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने  सीमाः (Drawdown)</td>
-                    <td> सवै प्रकारका सुरक्षण लिखतहरु पूर्ण रुपमा स्वीकार गरी बैंकमा वुझाए पछि स्वीकृत कर्जा तथा सुविधा मध्ये आवश्यक पर्ने खुद चालुपूँजी (Net Trading Assest) को ..... प्रतिशत वा घरजग्गा/जग्गाको सुपथ बजार मूल्यको
-                        ............ प्रतिशत  वा स्वीकृत कर्जा रकम मध्ये जुन कम हुन्छ, सो रकम उपभोग गर्न सकिनेछ ।</td>
+                    <td> सवै प्रकारका सुरक्षण लिखतहरु पूर्ण रुपमा स्वीकार गरी बैंकमा वुझाए पछि स्वीकृत कर्जा तथा सुविधा मध्ये आवश्यक पर्ने खुद चालुपूँजी (Net Trading Assest) को
+                        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                               formControlName="agmiRate"> प्रतिशत वा घरजग्गा/जग्गाको सुपथ बजार मूल्यको
+                        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                               formControlName="agmiRate1"> प्रतिशत  वा स्वीकृत कर्जा रकम मध्ये जुन कम हुन्छ, सो रकम उपभोग गर्न सकिनेछ ।</td>
                 </tr>
             </ng-container>
             </tbody>
@@ -1047,28 +1123,39 @@
             <table class="table table-bordered table-responsive-md table-sm sb-small">
                 <tr>
                     <td>कर्जा अवधि (Tenure)</td>
-                    <td>मिति ..................... मा कर्जा तथा सुविधाको पुनरावलोकन गरिने र सो मिति सम्म उपभोग गर्न सकिनेछ । पुनरावलोकन गर्ने मिति जुनसुकै उल्लेख भएको भएतापनि बैंकले माग गर्नासाथ बैंकको सम्पूर्ण लेना रकम
+                    <td colspan="2">मिति <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                    formControlName="reviewDate"> मा कर्जा तथा सुविधाको पुनरावलोकन गरिने र सो मिति सम्म उपभोग गर्न सकिनेछ । पुनरावलोकन गर्ने मिति जुनसुकै उल्लेख भएको भएतापनि बैंकले माग गर्नासाथ बैंकको सम्पूर्ण लेना रकम
                         भुक्तानी गर्नु पर्नेछ ।</td>
-                    <td>मिति .............................. सम्ममा कर्जा चुक्ता गर्नुपर्नेछ ।</td>
+<!--                    <td colspan="2">मिति <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"-->
+<!--                                    formControlName="reviewDate"> सम्ममा कर्जा चुक्ता गर्नुपर्नेछ ।</td>-->
                 </tr>
                 <tr>
                     <td>व्याज (Interest)</td>
-                    <td> बैंकको प्रचलित मासिक आधार दर ९द्यबकभ च्बतभ० मा प्रिमियम दर (Premium Rate) ........... थप गरी जम्मा कायम हुन आउने ब्याज दर लागु भई असुल उपर गरिनेछ । उक्त आधार दर चालु त्रैमासिक अवधि भरको
-                        लागि अपरिवर्तनीय हुनेछ । <br>
+                    <td colspan="2"> बैंकको प्रचलित मासिक आधार दर (Monthly Base Rate) मा प्रिमियम दर (Premium Rate)
+                        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                               formControlName="premiumRate"> थप गरी जम्मा कायम हुन आउने ब्याज दर लागु भई असुल उपर गरिनेछ । उक्त आधार दर चालु त्रैमासिक अवधि भरको लागि अपरिवर्तनीय हुनेछ । <br>
                         यधपि ग्रेस अवधि वा स्वीकृत कर्जा सुविधा झिक्न पाउने अवधि (Moratorium or Drawdown period) भित्र रही प्रवाह हुने कर्जा÷किस्ताको हकमा प्रथम किस्ता प्रवाह हुँदा लाग्ने आधार दर चालु त्रैमासिक अवधि भर प्रवाह हुने
                         कर्जाको हकमा अपरिवर्तनीय रहनेछ । <br>
                         बैंकको त्रैमासिक औसत आधार दर प्रचलित नियमानुसार निर्धारित हुने र प्रत्येक त्रैमासमा परिवर्तन भई तिर्न बाँकी कर्जा बक्यौता रकममा लागू हुनेछ । यसरी परिवर्तन भई लागू हुने त्रैमासिक औसत आधार दर प्रत्येक त्रैमासिक मसान्त
                         पछिको पहिलो दिन <strong>(श्र्रावण १, कात्र्तिक १, माघ १ तथा बैशाख १ गते)</strong> देखि लागू हुनेछ र सोही बमोजिमका दरले तिर्न बाँकी कर्जा तथा सुविधामा ब्याज गणना गरी मासिक रुपमा अंगे्रजी महिनाको १४
                         तारिखमा/नेपाली महिनाको अन्तमा/त्रैमासिक रुपमा नेपाली महिनाको अन्तमा वा कर्जाको अन्तिम भुक्तानीका दिन असुल उपर गरिनेछ । <br>
-                        बैंकको हालको मासिक आधार दर (Monthly Base Rate) ....... प्रतिशत तथा त्रैमासिक औसत आधार दर (Quarterly Average Base Rate) ....... प्रतिशत रहेको छ । सो दरमा हुने परिवर्तन ऋणीको
+                        बैंकको हालको मासिक आधार दर (Monthly Base Rate)
+                        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                               formControlName="monthlyRate">प्रतिशत तथा त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)
+                        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                               formControlName="quaterlyRate">प्रतिशत रहेको छ । सो दरमा हुने परिवर्तन ऋणीको
                         जानकारीको लागि मासिक रुपमा बैंकको आधिकारिक वेवसाईट <u>www.laxmibank.com</u> मा राखिनेछ र साथै राष्ट्रिय दैनिकमा पनि प्रकाशित गरिनेछ । <br>
                         <strong><u>प्रिमियम दर परिवर्तन वा थप हुने अवस्था :</u></strong> <br>
                         ऋणीले जुन उद्देश्यका लागि कर्जा लिएको हो सो उद्देश्यमा कर्जा प्रयोग नगरेको र धितो सम्पत्तिमा हानी नोक्सानी पु¥याउने कार्य गरेको पाइएमा यस कर्जा प्रस्तावपत्रमा तोकिएको प्रिमियम दर परिवर्तन गरी वा थप गरी लागु गर्न सकिनेछ ।</td>
                 </tr>
                 <tr>
                     <td>व्याज (Interest)</td>
-                    <td>बैंकको स्कीम योजना अनुरुप ब्याज दर ....... <strong>प्रतिशत</strong> लगाइएको छ । उक्त व्याज दर ...... <strong>महिना</strong> सम्मलाई परिवर्तन गरिने छैन । तत्पश्चात बैंकको कायमी आधार
-                        दर र प्रिमियम दर ....... <strong>प्रतिशत जोडी</strong> जम्मा हुन आउने ब्याज दर प्रचलित नियमानुसार निर्धारित भई लागू हुनेछ ।
+                    <td colspan="2">बैंकको स्कीम योजना अनुरुप ब्याज दर <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                                                  formControlName="anurupRate"> <strong>प्रतिशत</strong> लगाइएको छ । उक्त व्याज दर
+                        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                               formControlName="interestMonth"> <strong>महिना</strong> सम्मलाई परिवर्तन गरिने छैन । तत्पश्चात बैंकको कायमी आधार दर र प्रिमियम दर
+                        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                               formControlName="interestPremiumRate"> <strong>प्रतिशत जोडी</strong> जम्मा हुन आउने ब्याज दर प्रचलित नियमानुसार निर्धारित भई लागू हुनेछ ।
                         <br>
                         यसरी परीवर्तन भई लागूहुने आधारदर प्रत्येक त्रैमासिक मसान्त पछिको पहिलो दिन <strong>(श्र्रावण १, कात्र्तिक १, माघ १ तथा बैशाख १ गते)</strong> देखि लागू हुनेछ र सोही बमोजिमका दरले तिर्न बाँकी कर्जा तथा
                         सुविधामा ब्याज गणना गरी मासिक रुपमा अंगे्रजी महिनाको १४ तारिखमा/अंगे्रजी महिनाको अन्तमा/त्रैमासिक रुपमा नेपाली महिनाको अन्तमा वा कर्जाको अन्तिम भुक्तानीका दिन असुल उपर गरिनेछ ।
@@ -1079,60 +1166,90 @@
                 </tr>
                 <tr>
                     <td>व्याज (Interest)</td>
-                    <td>......... प्रतिशत वार्षिक व्याजदरले तिर्न बाँकी कर्जा तथा सुविधामा ब्याज गणना गरी मासिक रुपमा अंगे्रजी महिनाको १४ तारिखमा/नेपाली महिनाको अन्तमा/त्रैमासिक रुपमा नेपाली महिनाको अन्तमा वा कर्जाको अन्तिम भुक्तानीका
-                        दिन असुल उपर गरिनेछ ।</td>
+                    <td colspan="2"><input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                               formControlName="interestRate"> प्रतिशत वार्षिक व्याजदरले तिर्न बाँकी कर्जा तथा सुविधामा ब्याज गणना गरी मासिक रुपमा अंगे्रजी महिनाको १४ तारिखमा/नेपाली महिनाको अन्तमा/त्रैमासिक
+                        रुपमा नेपाली महिनाको अन्तमा वा कर्जाको अन्तिम भुक्तानीका दिन असुल उपर गरिनेछ ।</td>
                 </tr>
                 <tr>
                     <td>कर्जा सुविधाको भुक्तानी (Repayment)</td>
-                    <td>करिब <strong>रु. ..................../– (अक्षरेपी रुपैयाँ ............................ मात्र)</strong> का .... वरावरी मासिक किस्तामा
-                        (साँवा तथा व्याज) कर्जा भुक्तानी गर्नु पर्नेछ । कर्जाको भुक्तानी कर्जा प्रवाह भएको आगामी अंग्रेजी महिनाकोे १४ तारीख देखि सुरु गरी प्रत्येक अंग्रेजी महिनाको १४ तारीखमा किस्ता भुक्तानी गर्नु पर्नेछ । अंतिम
-                        किस्ताको हकमा तोकीएको किस्ता रकमभन्दा केही घटी/बढी हुनसक्छ ।</td>
+                    <td colspan="2">करिब <strong>रु. <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                                formControlName="repaymentAmount">/– (अक्षरेपी रुपैयाँ
+                        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                               formControlName="repaymentAmountWord"> मात्र)</strong> का
+                        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                               formControlName="repaymentMonthly"> वरावरी मासिक किस्तामा (साँवा तथा व्याज) कर्जा भुक्तानी गर्नु पर्नेछ । कर्जाको भुक्तानी कर्जा प्रवाह भएको आगामी
+                        अंग्रेजी महिनाकोे १४ तारीख देखि सुरु गरी प्रत्येक अंग्रेजी महिनाको १४ तारीखमा किस्ता भुक्तानी गर्नु पर्नेछ । अंतिम किस्ताको हकमा तोकीएको किस्ता रकमभन्दा केही घटी/बढी हुनसक्छ ।</td>
                 </tr>
                 <tr>
                     <td>कर्जा सुविधाको भुक्तानी (Repayment)</td>
-                    <td>बैंकले लागु गरेको हालको कर्जा स्कीम योजना अनुरुप वार्षिक ...... प्रतिशत ब्याजका दरले कर्जा प्रवाह भएको मितिले .......... महिना सम्म करिव <strong> रु. ................।– (अक्षरेपी रुपैयाँ ................... मात्र)
+                    <td colspan="2">बैंकले लागु गरेको हालको कर्जा स्कीम योजना अनुरुप वार्षिक
+                        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                               formControlName="repaymentMonthlyRate"> प्रतिशत ब्याजका दरले कर्जा प्रवाह भएको मितिले
+                        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                               formControlName="repaymentMonth"> महिना सम्म करिव <strong> रु.
+                            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                   formControlName="repaymentAmount1"> ।– (अक्षरेपी रुपैयाँ
+                            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                   formControlName="repaymentAmountWord1"> मात्र)
                         का दरले मासिक </strong> किस्ता (साँवा तथा व्याज) मा कर्जा भुक्तानी गर्नु पर्नेछ । <br>
-                        तत्पश्चात्को अवधी सम्मको व्याजदर बैंकबाट प्रकाशित हुने आधार दरमा ...... प्रतिशत प्रिमियम दर जोडीे जम्मा कायम हुन आउने ब्याज दरले मासिक किस्ता रकम (साँवा तथा व्याज) भुक्तानी गर्नुपर्नेछ । कर्जाको भुक्तानी पुरा कर्जा प्रवाह भएको वा
+                        तत्पश्चात्को अवधी सम्मको व्याजदर बैंकबाट प्रकाशित हुने आधार दरमा
+                        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                               formControlName="repaymentAmountWord1"> प्रतिशत प्रिमियम दर जोडीे जम्मा कायम हुन आउने ब्याज दरले मासिक किस्ता रकम (साँवा तथा व्याज) भुक्तानी गर्नुपर्नेछ । कर्जाको भुक्तानी पुरा कर्जा प्रवाह भएको वा
                         ग्रेस पिरियड समाप्त भएको आगामी अंग्रेजी महिनाकोे १४ तारीख देखि सुरु गरी प्रत्येक अंग्रेजी महिनाको १४ तारीखमा किस्ता भुक्तानी गर्नु पर्नेछ । अन्तिम किस्ताको हकमा तोकीएको किस्ता रकमभन्दा केही घटी/बढी हुनसक्छ ।</td>
                 </tr>
-                <ng-container>
-                    <td>कर्जा सुविधाको भुक्तानी (Repayment)</td>
-                    निम्न उल्लेखित तालिका बमोजिम ऋणीले जम्मा ....... त्रैमासिक किस्ता मा कर्जा (साँवा) भुक्तानी गर्नु पर्नेछ ।
-                    <tr>
-                        <td>किस्ता</td>
-                        <td>भुक्तानी गर्नु पर्ने साँवा रकम</td>
-                    </tr>
-                    <tr>
-                        <td>१–४</td>
-                        <td>रु. .............../–</td>
-                    </tr>
-                    <tr>
-                        <td>५–८</td>
-                        <td>रु. .............../–</td>
-                    </tr>
-                    <tr>
-                        <td>९–१२</td>
-                        <td>रु. .............../–</td>
-                    </tr>
-
-                    कर्जाको भुक्तानी पुरा कर्जा प्रवाह भएको वा सांवाको किस्ता तिर्ने छुट अवधि (Moratorium Period) वा पुरा कर्जा झिक्न पाउने अवधि (Drawdown Period) समाप्त भए पश्चात प्रत्येक त्रैमासको अन्तिम महिना
-                    (अक्टोवर, जनवरी, अप्रिल र जुलाई) को १४ तारिखमा गर्नुपर्नेछ ।
-                </ng-container>
                 <tr>
                     <td>कर्जा सुविधाको भुक्तानी (Repayment)</td>
-                    <td></td>
+                    <td>
+                        <table class="table table-responsive-md table-bordered table-sm sb-small">
+                            <tr>
+                                <td colspan="2">निम्न उल्लेखित तालिका बमोजिम ऋणीले जम्मा
+                                    <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                           formControlName="totalBorrowerAmount"> त्रैमासिक किस्ता मा कर्जा (साँवा) भुक्तानी गर्नु पर्नेछ ।
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>किस्ता</td>
+                                <td>भुक्तानी गर्नु पर्ने साँवा रकम</td>
+                            </tr>
+                            <tr>
+                                <td>१–४</td>
+                                <td>रु. <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                               formControlName="borrowerAmount"> /–</td>
+                            </tr>
+                            <tr>
+                                <td>५–८</td>
+                                <td>रु. <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                               formControlName="borrowerAmount1"> /–</td>
+                            </tr>
+                            <tr>
+                                <td>९–१२</td>
+                                <td>रु. <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                               formControlName="borrowerAmount2"> /–</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">कर्जाको भुक्तानी पुरा कर्जा प्रवाह भएको वा सांवाको किस्ता तिर्ने छुट अवधि (Moratorium Period) वा पुरा कर्जा झिक्न पाउने अवधि (Drawdown Period) समाप्त भए पश्चात प्रत्येक त्रैमासको अन्तिम महिना
+                                    (अक्टोवर, जनवरी, अप्रिल र जुलाई) को १४ तारिखमा गर्नुपर्नेछ ।</td>
+                            </tr>
+                            <tr></tr>
+                        </table>
+                    </td>
                 </tr>
                 <tr>
                     <td>प्रशासनिक शुल्क (Administration Fee)</td>
-                    <td>कर्जाको .......... प्रतिशत प्रशासनिक शुल्क लगाई कर्जा प्रवाह गर्नु अगावै असुल उपर गरिनेछ । <br>
+                    <td colspan="2">कर्जाको <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                       formControlName="administrationRate"> प्रतिशत प्रशासनिक शुल्क लगाई कर्जा प्रवाह गर्नु अगावै असुल उपर गरिनेछ । <br>
                         वा <br>
-                        रु................रकम प्रशासनिक शुल्क लगाई कर्जा प्रवाह गर्नु अगावै असुल उपर गरिनेछ ।</td>
+                        रु <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                  formControlName="administrationAmount"> रकम प्रशासनिक शुल्क लगाई कर्जा प्रवाह गर्नु अगावै असुल उपर गरिनेछ ।</td>
                 </tr>
                 <tr>
                     <td>पुनरावलोकन शुल्क (Review Fee)</td>
-                    <td>कर्जाको .......... प्रतिशत प्रशासनिक शुल्क लगाई कर्जा पुनरावलोकन गर्नु अगावै असुल उपर गरिनेछ । <br>
+                    <td colspan="2">कर्जाको <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                       formControlName="reviewRate"> प्रतिशत प्रशासनिक शुल्क लगाई कर्जा पुनरावलोकन गर्नु अगावै असुल उपर गरिनेछ । <br>
                         वा <br>
-                        रु................रकम प्रशासनिक शुल्क लगाई कर्जा पुनरावलोकन गर्नु अगावै असुल उपर गरिनेछ ।</td>
+                        रु <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                  formControlName="reviewAmount"> रकम प्रशासनिक शुल्क लगाई कर्जा पुनरावलोकन गर्नु अगावै असुल उपर गरिनेछ ।</td>
                 </tr>
             </table>
 
@@ -1614,8 +1731,7 @@
                                        formControlName="branchName">
                                 <span class="nepaliFont print-only"><b>{{offerLetterForm?.get('branchName').value ? offerLetterForm?.get('branchName').value : '========='}}</b> </span>
                                 <br>
-                                टेलिफोन नं. <input type="text"
-                                                   class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                टेलिफोन नं. <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                                                    formControlName="telephoneNumber">
                                 <span class="nepaliFont print-only"><b>{{offerLetterForm?.get('telephoneNumber').value ? offerLetterForm?.get('telephoneNumber').value : '========='}}</b> </span>
                                 <br>
