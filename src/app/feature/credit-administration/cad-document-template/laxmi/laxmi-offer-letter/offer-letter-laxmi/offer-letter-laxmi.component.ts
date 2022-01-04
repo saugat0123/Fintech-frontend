@@ -133,6 +133,40 @@ export class OfferLetterLaxmiComponent implements OnInit {
       address1: [undefined],
       phoneNo: [undefined],
       attention: [undefined],
+      personalName: [undefined],
+      personalAmount: [undefined],
+      personalAmountWord: [undefined],
+
+      corporateName: [undefined],
+      corporateAmount: [undefined],
+      corporateAmountWord: [undefined],
+
+      letterCM: [undefined],
+      guarnateeCM: [undefined],
+
+      accountName: [undefined],
+      accountNo: [undefined],
+      accountAmount: [undefined],
+      accountAmountWord: [undefined],
+
+      loanAmount: [undefined],
+      loanAmountWord: [undefined],
+      promiseAmount: [undefined],
+      promiseAmountWord: [undefined],
+
+      date1: [undefined],
+      amount1: [undefined],
+      date2: [undefined],
+      amount2: [undefined],
+      date3: [undefined],
+      amount3: [undefined],
+      date4: [undefined],
+      date5: [undefined],
+      date6: [undefined],
+      date7: [undefined],
+      date8: [undefined],
+      date9: [undefined],
+      date10: [undefined],
     });
   }
 

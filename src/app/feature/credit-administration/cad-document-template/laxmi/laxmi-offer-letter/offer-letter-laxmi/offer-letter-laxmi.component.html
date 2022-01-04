@@ -548,6 +548,9 @@
 
             <p><strong>३. कर्जा सम्बन्धी लिखत तथा धितो सुरक्षण विवरणः</strong></p>
             <p>ऋणीले लिने वा लिएको तथा भविश्यमा लिने सम्पूर्ण कर्जा तथा सुविधा निम्न वमोजिमको सम्पत्ति तथा लिखतहरुले सुरक्षित गर्नुपर्नेछ ।</p>
+
+            enhance
+<!--           New / Enhancement Loan case:-->
             <table class="table table-bordered table-responsive-md table-sm sb-small">
                 <tbody>
                 <tr>
@@ -673,7 +676,12 @@
                     <td colspan="6">Where Personal Guarantee is to be obtained</td>
                 </tr>
                 <tr>
-                    <td colspan="6">.............................. को रु................/– (अक्षरेपी रुपैयाँ ............... मात्र) को <strong>व्यक्तिगत जमानतको</strong>
+                    <td colspan="6"><input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                           formControlName="personalName"> को
+                        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                               formControlName="personalAmount">/– (अक्षरेपी रुपैयाँ
+                        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                               formControlName="personalAmountWord"> मात्र) को <strong>व्यक्तिगत जमानतको</strong>
                         लिखत बैंकलाई उपलब्ध गराउनु पर्नेछ ।</td>
                 </tr>
                 </tbody>
@@ -682,7 +690,12 @@
                     <td colspan="6">Where Corporate Guarantee is to be obtained</td>
                 </tr>
                 <tr>
-                    <td colspan="6">.............................. को रु................/– (अक्षरेपी रुपैयाँ ............... मात्र) को <strong>संस्थागत जमानतको</strong>
+                    <td colspan="6"><input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                           formControlName="corporateName"> को
+                        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                               formControlName="corporateAmount">/– (अक्षरेपी रुपैयाँ
+                        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                               formControlName="corporateAmountWord"> मात्र) को <strong>संस्थागत जमानतको</strong>
                         लिखत बैंकलाई उपलब्ध गराउनु पर्नेछ ।</td>
                 </tr>
                 </tbody>
@@ -707,8 +720,14 @@
                     <td colspan="6">Security as Cash Margin</td>
                 </tr>
                 <tr>
-                    <td colspan="3">प्रतितपत्र सुविधा उपयोगको आधारमा ......... प्रतिशत नगद मार्जिन जम्मा गर्नु पर्नेछ ।</td>
-                    <td colspan="3">ग्यारेण्टी सुविधा उपयोगको आधारमा ........ प्रतिशत नगद मार्जिन जम्मा गर्नु पर्नेछ ।</td>
+                    <td colspan="6">प्रतितपत्र सुविधा उपयोगको आधारमा
+                        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                               formControlName="letterCM"> प्रतिशत नगद मार्जिन जम्मा गर्नु पर्नेछ ।</td>
+                </tr>
+                <tr>
+                    <td colspan="6">ग्यारेण्टी सुविधा उपयोगको आधारमा
+                        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                               formControlName="guarnateeCM"> प्रतिशत नगद मार्जिन जम्मा गर्नु पर्नेछ ।</td>
                 </tr>
                 </tbody>
                 <tbody>
@@ -724,22 +743,401 @@
                     <td colspan="6">Security as Cash lien</td>
                 </tr>
                 <tr>
-                    <td colspan="6">...........................को नाममा लक्ष्मी बैंक लिमिटेडमा रहेको चल्ती/बचत खाता नं .................................मा रु. ...................../–
-                        (अक्षरेपी रुपैयाँ ..........................मात्र) लिएको कर्जा चुक्ता नहुञ्जेल सम्मका लागि यस बैंकको नाममा लियन (ष्भिल) राखीदिन मञ्जुर गरी दिएको लिखत ।</td>
+                    <td colspan="6"><input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                           formControlName="accountName"> को नाममा लक्ष्मी बैंक लिमिटेडमा रहेको चल्ती/बचत खाता नं
+                        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                               formControlName="accountNo"> मा
+                        <strong> रु. <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                               formControlName="accountAmount">/–
+                        (अक्षरेपी रुपैयाँ <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                                 formControlName="accountAmountWord"> मात्र) </strong>
+                        लिएको कर्जा चुक्ता नहुञ्जेल सम्मका लागि यस बैंकको नाममा लियन (ष्भिल) राखीदिन मञ्जुर गरी दिएको लिखत ।</td>
                 </tr>
                 </tbody>
                 <tbody>
                 <tr>
-                    <td colspan="6">रु................/– (अक्षरेपी रुपैयाँ ............... मात्र) को कर्जा तमसुकमा सही छाप गरी बैंकलाई उपलव्ध गराउनु पर्नेछ ।</td>
+                    <td colspan="6"><input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                           formControlName="loanAmount"> /– (अक्षरेपी रुपैयाँ
+                        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                               formControlName="loanAmountWord"> मात्र) को <strong>कर्जा तमसुकमा</strong> सही छाप गरी बैंकलाई उपलव्ध गराउनु पर्नेछ ।</td>
                 </tr>
                 </tbody>
                 <tbody>
                 <tr>
-                    <td colspan="6">रु................/– (अक्षरेपी रुपैयाँ ............... मात्र) को प्रतिज्ञापत्रमा सही छाप गरी बैंकलाई उपलव्ध गराउनु पर्नेछ ।</td>
+                    <td colspan="6">रु<input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                             formControlName="promiseAmount">/– (अक्षरेपी रुपैयाँ
+                        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                               formControlName="promiseAmountWord"> मात्र) को <strong>प्रतिज्ञापत्रमा</strong> सही छाप गरी बैंकलाई उपलव्ध गराउनु पर्नेछ ।</td>
                 </tr>
                 </tbody>
-
             </table>
+
+            Review
+
+<!--            -	Loan Review/Renewal case:-->
+            <table class="table table-bordered table-responsive-md table-sm sb-small">
+                <tbody>
+                <tr>
+                    <td colspan="6">Security as Fixed Assets Collateral (Single borrower)</td>
+                </tr>
+                <tr>
+                    <td colspan="6">
+                    </td>
+                </tr>
+                <tr>
+                    <td>जग्गाधनीको नाम</td>
+                    <td>जिल्ला</td>
+                    <td>गा.पा./न.पा.</td>
+                    <td>वडा नं.</td>
+                    <td>कि.नं.</td>
+                    <td>क्षेत्रफल</td>
+                </tr>
+                <tr>
+                    <td> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                formControlName="landOwnerName"></td>
+                    <td> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                formControlName="securityDistrict"></td>
+                    <td> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                formControlName="securityVdc"></td>
+                    <td> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                formControlName="securityWard"></td>
+                    <td> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                formControlName="securityKitta"></td>
+                    <td> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                formControlName="securityArea"></td>
+                </tr>
+                <tr>
+                    <td colspan="6">उक्त जग्गा/घरजग्गा समेतको लिगलगापात कर्जाको सुरक्षण वापत बैंकको नाममा धितो वन्धकीको लिखत लेखी सम्वन्धित मालपोत कार्यालयमा गई पारित गरिएको यथावत रहनेछ ।
+                        <br>
+                        <strong>(मिति <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                             formControlName="date1"> मा
+                            रु. <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                       formControlName="amount1">/– को प्राप्त)</strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="6">Cross-Collateralized case</td>
+                </tr>
+                <tr>
+                    <td>जग्गाधनीको नाम</td>
+                    <td>जिल्ला</td>
+                    <td>गा.पा./न.पा.</td>
+                    <td>वडा नं.</td>
+                    <td>कि.नं.</td>
+                    <td>क्षेत्रफल</td>
+                </tr>
+                <tr>
+                    <td> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                formControlName="landOwnerName"></td>
+                    <td> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                formControlName="securityDistrict"></td>
+                    <td> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                formControlName="securityVdc"></td>
+                    <td> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                formControlName="securityWard"></td>
+                    <td> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                formControlName="securityKitta"></td>
+                    <td> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                formControlName="securityArea"></td>
+                </tr>
+                <tr>
+                    <td colspan="6">उक्त जग्गा/घरजग्गा समेतको लिगलगापात ऋणी
+                        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                               formControlName="securityArea">
+                        उपभोग गर्ने कर्जा रकम रु <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                                        formControlName="securityArea"> ।–
+                        तथा ऋणी <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                       formControlName="securityArea"> ले उपभोग गर्ने कर्जा रकम रु
+                        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                               formControlName="securityArea"> ।– गरी जम्मा रु <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                                                                      formControlName="securityArea"> /– (अक्षरेपी रुपैया
+                        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                               formControlName="securityArea"> मात्र) को सुरक्षण वापत बैंकको नाममा धितो वन्धकीको लिखत (Cross Collateralised Deed) लेखी सम्बन्धित मालपोत कार्यालयमा गई पारित गरिएको यथावत रहनेछ ।
+                        <br>
+                        <strong> (मिति <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                     formControlName="date4">मा प्राप्त) </strong>
+                    </td>
+                </tr>
+                </tbody>
+                <tbody>
+                <tr>
+                    <td colspan="6">Security as Vehicle</td>
+                </tr>
+                <tr>
+                    <td colspan="2">सवारीको विवरण</td>
+                    <td colspan="2">इन्जिन नं.</td>
+                    <td>चेसिस नं.</td>
+                    <td>गाडी नं.</td>
+                </tr>
+                <tr>
+                    <td colspan="2"> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                            formControlName="vehicleDetails"></td>
+                    <td colspan="2"> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                            formControlName="engineNo"></td>
+                    <td> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                formControlName="chasisNo"></td>
+                    <td> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                formControlName="vehicleNo"></td>
+                </tr>
+                <tr>
+                    <td colspan="6">उक्त सवारी सधानहरु बैंकको कर्जा चुक्ता नहुन्जेल सम्मको लागि कर्जाको सुरक्षण वापत धितोको रुपमा प्रदान गरिएको यथावत रहनेछ ।
+                        <br>
+                        <strong> (मिति <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                              formControlName="date5">मा प्राप्त) </strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="6">Security as Shares of different institutions</td>
+                </tr>
+                <tr>
+                    <td colspan="2">शेयरधनीको नाम</td>
+                    <td colspan="2">धितोमा दिने शेयर रहेको कम्पनीको विवरण</td>
+                    <td>शेयर संख्या</td>
+                    <td>शेयरको किसिम</td>
+                </tr>
+                <tr>
+                    <td colspan="2"> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                            formControlName="shareOwnerName"></td>
+                    <td colspan="2"> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                            formControlName="shareCompanyName"></td>
+                    <td> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                formControlName="shareUnit"></td>
+                    <td> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                formControlName="shareType"></td>
+                </tr>
+                <tr>
+                    उक्त शेयरहरु र सोमा प्राप्त हुने वोनश शेयर, नगद लाभांश, हकप्रदबाट प्राप्त हुने शेयर लगायतका सम्पूर्ण शेयरहरु बैंकको कर्जा चुक्ता नहुन्जेल सम्मका लागि कर्जाको सुरक्षण वापत धितोको रुपमा प्रदान
+
+                    <td colspan="6">उक्त शेयरहरु र सोमा प्राप्त हुने वोनश शेयर, नगद लाभांश, हकप्रदबाट प्राप्त हुने शेयर लगायतका सम्पूर्ण शेयरहरु बैंकको कर्जा चुक्ता नहुन्जेल सम्मका लागि कर्जाको सुरक्षण
+                        वापत धितोको रुपमा प्रदान  गरिएको यथावत रहनेछ । <br>
+                        <strong> (मिति <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                              formControlName="date6">मा प्राप्त) </strong></td>
+                </tr>
+                <tr>
+                    <td colspan="6">धितोमा राखिदिएको शेयर बिक्रिको लागि गरिदिएको लिखत ।</td>
+                </tr>
+                </tbody>
+                <tbody>
+                <tr>
+                    <td colspan="6">Where Personal Guarantee is to be obtained</td>
+                </tr>
+                <tr>
+                    <td colspan="6"><input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                           formControlName="personalName"> को
+                        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                               formControlName="personalAmount">/– (अक्षरेपी रुपैयाँ
+                        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                               formControlName="personalAmountWord"> मात्र) को <strong>व्यक्तिगत जमानतको</strong>
+                        लिखत बैंकलाई उपलब्ध गराउनु पर्नेछ ।</td>
+                </tr>
+                </tbody>
+                <tbody>
+                <tr>
+                    <td colspan="6">Where Corporate Guarantee is to be obtained</td>
+                </tr>
+                <tr>
+                    <td colspan="6"><input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                           formControlName="corporateName"> को
+                        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                               formControlName="corporateAmount">/– (अक्षरेपी रुपैयाँ
+                        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                               formControlName="corporateAmountWord"> मात्र) को <strong>संस्थागत जमानतको</strong>
+                        लिखत बैंकलाई उपलब्ध गराउनु पर्नेछ ।</td>
+                </tr>
+                </tbody>
+                <tbody>
+                <tr>
+                    <td colspan="6">Security as Current assets</td>
+                </tr>
+                <tr>
+                    ऋणीको सम्पूर्ण चालु सम्पत्ति उपर हाइपोथिकेसन ९ज्थउयतजभअबतष्यल यखभच ऋगचचभलत ब्ककभतक० को लिखत
+
+                    <td colspan="6">ऋणीको सम्पूर्ण <strong>चालु सम्पत्ति</strong> उपर हाइपोथिकेसन (Hypothecation over Current Assets) को लिखत बैंकलाई उपलब्ध गराएको यथावत रहने छ ।
+                        <br>
+                        <strong>(मिति <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                             formControlName="date2"> मा
+                            रु. <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                       formControlName="amount2">/– को प्राप्त)</strong>
+                </tr>
+                </tbody>
+                <tbody>
+                <tr>
+                    <td colspan="6">Security as Fixed assets collateral</td>
+                </tr>
+                <tr>
+                    <td colspan="6">ऋणीको सम्पूर्ण <strong>स्थिर सम्पत्ति</strong> उपर हाइपोथिकेसन (Hypothecation over Fixed Assets) को लिखत बैंकलाई उपलब्ध गराएको यथावत रहने छ ।
+                        <br>
+                        <strong>(मिति <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                             formControlName="date3"> मा
+                            रु. <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                       formControlName="amount3">/– को प्राप्त)</strong>
+                    </td>
+                </tr>
+                </tbody>
+                <tbody>
+                <tr>
+                    <td colspan="6">Security as Cash Margin</td>
+                </tr>
+                <tr>
+                    <td colspan="6">प्रतितपत्र सुविधा उपयोगको आधारमा
+                        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                               formControlName="letterCM"> प्रतिशत नगद मार्जिन जम्मा गर्नु पर्नेछ ।</td>
+                </tr>
+                <tr>
+                    <td colspan="6">ग्यारेण्टी सुविधा उपयोगको आधारमा
+                        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                               formControlName="guarnateeCM"> प्रतिशत नगद मार्जिन जम्मा गर्नु पर्नेछ ।</td>
+                </tr>
+                </tbody>
+                <tbody>
+                <tr>
+                    <td colspan="6">Security in case of Personal loan (Declaration)</td>
+                </tr>
+                <tr>
+                    <td colspan="6">ऋणी तथा ऋणीको एकाघर परिवारको नाममा दर्ता कायम रहेको अन्य कसैको हक दावी नलाग्ने सम्पत्ति विवरण बैँक समक्ष पेश गराएको यथावत रहने छ ।
+                        <br>
+                        <strong> (मिति <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                              formControlName="date7">मा प्राप्त) </strong>
+                    </td>
+                </tr>
+                </tbody>
+                <tbody>
+                <tr>
+                    <td colspan="6">Security as Cash lien</td>
+                </tr>
+                <tr>
+                    <td colspan="6"><input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                           formControlName="accountName"> को नाममा लक्ष्मी बैंक लिमिटेडमा रहेको चल्ती/बचत खाता नं
+                        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                               formControlName="accountNo"> मा
+                        <strong> रु. <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                               formControlName="accountAmount">/–
+                        (अक्षरेपी रुपैयाँ <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                                 formControlName="accountAmountWord"> मात्र) </strong>
+                        लिएको कर्जा चुक्ता नहुञ्जेल सम्मका लागि यस बैंकको नाममा लियन (lien) राखीदिन मञ्जुर गरी दिएको लिखत बैंकलाई उपलब्ध गराएको यथावत रहने छ ।
+                        <br> <strong> (मिति <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                                   formControlName="date8">मा प्राप्त) </strong>
+                    </td>
+                </tr>
+                </tbody>
+                <tbody>
+                <tr>
+                    <td colspan="6"><input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                           formControlName="loanAmount"> /– (अक्षरेपी रुपैयाँ
+                        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                               formControlName="loanAmountWord"> मात्र) को <strong>कर्जा तमसुकमा</strong> सही छाप गरी बैंकलाई उपलव्ध गराएको यथावत रहने छ ।
+                        <br> <strong> (मिति <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                                   formControlName="date9">मा प्राप्त) </strong></td>
+                </tr>
+                </tbody>
+                <tbody>
+                <tr>
+                    <td colspan="6">रु<input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                             formControlName="promiseAmount">/– (अक्षरेपी रुपैयाँ
+                        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                               formControlName="promiseAmountWord"> मात्र) को <strong>प्रतिज्ञापत्रमा</strong> सही छाप गरी बैंकलाई उपलव्ध गराएको यथावत रहने छ ।
+                        <br> <strong> (मिति <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                                   formControlName="date10">मा प्राप्त) </strong>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <p>Other common clauses</p>
+            <table class="table table-bordered table-responsive-md table-sm sb-small">
+                <tr>
+                    <td>कर्जा अवधि (Tenure)</td>
+                    <td>मिति ..................... मा कर्जा तथा सुविधाको पुनरावलोकन गरिने र सो मिति सम्म उपभोग गर्न सकिनेछ । पुनरावलोकन गर्ने मिति जुनसुकै उल्लेख भएको भएतापनि बैंकले माग गर्नासाथ बैंकको सम्पूर्ण लेना रकम
+                        भुक्तानी गर्नु पर्नेछ ।</td>
+                    <td>मिति .............................. सम्ममा कर्जा चुक्ता गर्नुपर्नेछ ।</td>
+                </tr>
+                <tr>
+                    <td>व्याज (Interest)</td>
+                    <td> बैंकको प्रचलित मासिक आधार दर ९द्यबकभ च्बतभ० मा प्रिमियम दर (Premium Rate) ........... थप गरी जम्मा कायम हुन आउने ब्याज दर लागु भई असुल उपर गरिनेछ । उक्त आधार दर चालु त्रैमासिक अवधि भरको
+                        लागि अपरिवर्तनीय हुनेछ । <br>
+                        यधपि ग्रेस अवधि वा स्वीकृत कर्जा सुविधा झिक्न पाउने अवधि (Moratorium or Drawdown period) भित्र रही प्रवाह हुने कर्जा÷किस्ताको हकमा प्रथम किस्ता प्रवाह हुँदा लाग्ने आधार दर चालु त्रैमासिक अवधि भर प्रवाह हुने
+                        कर्जाको हकमा अपरिवर्तनीय रहनेछ । <br>
+                        बैंकको त्रैमासिक औसत आधार दर प्रचलित नियमानुसार निर्धारित हुने र प्रत्येक त्रैमासमा परिवर्तन भई तिर्न बाँकी कर्जा बक्यौता रकममा लागू हुनेछ । यसरी परिवर्तन भई लागू हुने त्रैमासिक औसत आधार दर प्रत्येक त्रैमासिक मसान्त
+                        पछिको पहिलो दिन <strong>(श्र्रावण १, कात्र्तिक १, माघ १ तथा बैशाख १ गते)</strong> देखि लागू हुनेछ र सोही बमोजिमका दरले तिर्न बाँकी कर्जा तथा सुविधामा ब्याज गणना गरी मासिक रुपमा अंगे्रजी महिनाको १४
+                        तारिखमा/नेपाली महिनाको अन्तमा/त्रैमासिक रुपमा नेपाली महिनाको अन्तमा वा कर्जाको अन्तिम भुक्तानीका दिन असुल उपर गरिनेछ । <br>
+                        बैंकको हालको मासिक आधार दर (Monthly Base Rate) ....... प्रतिशत तथा त्रैमासिक औसत आधार दर (Quarterly Average Base Rate) ....... प्रतिशत रहेको छ । सो दरमा हुने परिवर्तन ऋणीको
+                        जानकारीको लागि मासिक रुपमा बैंकको आधिकारिक वेवसाईट <u>www.laxmibank.com</u> मा राखिनेछ र साथै राष्ट्रिय दैनिकमा पनि प्रकाशित गरिनेछ । <br>
+                        <strong><u>प्रिमियम दर परिवर्तन वा थप हुने अवस्था :</u></strong> <br>
+                        ऋणीले जुन उद्देश्यका लागि कर्जा लिएको हो सो उद्देश्यमा कर्जा प्रयोग नगरेको र धितो सम्पत्तिमा हानी नोक्सानी पु¥याउने कार्य गरेको पाइएमा यस कर्जा प्रस्तावपत्रमा तोकिएको प्रिमियम दर परिवर्तन गरी वा थप गरी लागु गर्न सकिनेछ ।</td>
+                </tr>
+                <tr>
+                    <td>व्याज (Interest)</td>
+                    <td>बैंकको स्कीम योजना अनुरुप ब्याज दर ....... <strong>प्रतिशत</strong> लगाइएको छ । उक्त व्याज दर ...... <strong>महिना</strong> सम्मलाई परिवर्तन गरिने छैन । तत्पश्चात बैंकको कायमी आधार
+                        दर र प्रिमियम दर ....... <strong>प्रतिशत जोडी</strong> जम्मा हुन आउने ब्याज दर प्रचलित नियमानुसार निर्धारित भई लागू हुनेछ ।
+                        <br>
+                        यसरी परीवर्तन भई लागूहुने आधारदर प्रत्येक त्रैमासिक मसान्त पछिको पहिलो दिन <strong>(श्र्रावण १, कात्र्तिक १, माघ १ तथा बैशाख १ गते)</strong> देखि लागू हुनेछ र सोही बमोजिमका दरले तिर्न बाँकी कर्जा तथा
+                        सुविधामा ब्याज गणना गरी मासिक रुपमा अंगे्रजी महिनाको १४ तारिखमा/अंगे्रजी महिनाको अन्तमा/त्रैमासिक रुपमा नेपाली महिनाको अन्तमा वा कर्जाको अन्तिम भुक्तानीका दिन असुल उपर गरिनेछ ।
+                        <br>
+                        आधार दरमा हुने परीवर्तन ऋणीको जानकारीको लागि मासिक रुपमा बैंकको आधिकारिक वेवसाईट <u>www.laxmibank.com</u> मा राखिनेछ र साथै राष्ट्रिय दैनिकमा पनि प्रकाशित गरिनेछ । <br>
+                        <strong><u>प्रिमियम दर परिवर्तन वा थप हुने अवस्था : </u></strong> <br>
+                        ऋणीले जुन उद्देश्यका लागि कर्जा लिएको हो सो उद्देश्यमा कर्जा प्रयोग नगरेको र धितो सम्पत्तिमा हानी नोक्सानी पु¥याउने कार्य गरेको पाइएमा यस कर्जा प्रस्तावपत्रमा तोकिएको प्रिमियम दर परिवर्तन गरी वा थप गरी लागु गर्न सकिनेछ ।</td>
+                </tr>
+                <tr>
+                    <td>व्याज (Interest)</td>
+                    <td>......... प्रतिशत वार्षिक व्याजदरले तिर्न बाँकी कर्जा तथा सुविधामा ब्याज गणना गरी मासिक रुपमा अंगे्रजी महिनाको १४ तारिखमा/नेपाली महिनाको अन्तमा/त्रैमासिक रुपमा नेपाली महिनाको अन्तमा वा कर्जाको अन्तिम भुक्तानीका
+                        दिन असुल उपर गरिनेछ ।</td>
+                </tr>
+                <tr>
+                    <td>कर्जा सुविधाको भुक्तानी (Repayment)</td>
+                    <td>करिब <strong>रु. ..................../– (अक्षरेपी रुपैयाँ ............................ मात्र)</strong> का .... वरावरी मासिक किस्तामा
+                        (साँवा तथा व्याज) कर्जा भुक्तानी गर्नु पर्नेछ । कर्जाको भुक्तानी कर्जा प्रवाह भएको आगामी अंग्रेजी महिनाकोे १४ तारीख देखि सुरु गरी प्रत्येक अंग्रेजी महिनाको १४ तारीखमा किस्ता भुक्तानी गर्नु पर्नेछ । अंतिम
+                        किस्ताको हकमा तोकीएको किस्ता रकमभन्दा केही घटी/बढी हुनसक्छ ।</td>
+                </tr>
+                <tr>
+                    <td>कर्जा सुविधाको भुक्तानी (Repayment)</td>
+                    <td>बैंकले लागु गरेको हालको कर्जा स्कीम योजना अनुरुप वार्षिक ...... प्रतिशत ब्याजका दरले कर्जा प्रवाह भएको मितिले .......... महिना सम्म करिव <strong> रु. ................।– (अक्षरेपी रुपैयाँ ................... मात्र)
+                        का दरले मासिक </strong> किस्ता (साँवा तथा व्याज) मा कर्जा भुक्तानी गर्नु पर्नेछ । <br>
+                        तत्पश्चात्को अवधी सम्मको व्याजदर बैंकबाट प्रकाशित हुने आधार दरमा ...... प्रतिशत प्रिमियम दर जोडीे जम्मा कायम हुन आउने ब्याज दरले मासिक किस्ता रकम (साँवा तथा व्याज) भुक्तानी गर्नुपर्नेछ । कर्जाको भुक्तानी पुरा कर्जा प्रवाह भएको वा
+                        ग्रेस पिरियड समाप्त भएको आगामी अंग्रेजी महिनाकोे १४ तारीख देखि सुरु गरी प्रत्येक अंग्रेजी महिनाको १४ तारीखमा किस्ता भुक्तानी गर्नु पर्नेछ । अन्तिम किस्ताको हकमा तोकीएको किस्ता रकमभन्दा केही घटी/बढी हुनसक्छ ।</td>
+                </tr>
+                <ng-container>
+                    <td>कर्जा सुविधाको भुक्तानी (Repayment)</td>
+                    निम्न उल्लेखित तालिका बमोजिम ऋणीले जम्मा ....... त्रैमासिक किस्ता मा कर्जा (साँवा) भुक्तानी गर्नु पर्नेछ ।
+                    <tr>
+                        <td>किस्ता</td>
+                        <td>भुक्तानी गर्नु पर्ने साँवा रकम</td>
+                    </tr>
+                    <tr>
+                        <td>१–४</td>
+                        <td>रु. .............../–</td>
+                    </tr>
+                    <tr>
+                        <td>५–८</td>
+                        <td>रु. .............../–</td>
+                    </tr>
+                    <tr>
+                        <td>९–१२</td>
+                        <td>रु. .............../–</td>
+                    </tr>
+
+                    कर्जाको भुक्तानी पुरा कर्जा प्रवाह भएको वा सांवाको किस्ता तिर्ने छुट अवधि (Moratorium Period) वा पुरा कर्जा झिक्न पाउने अवधि (Drawdown Period) समाप्त भए पश्चात प्रत्येक त्रैमासको अन्तिम महिना
+                    (अक्टोवर, जनवरी, अप्रिल र जुलाई) को १४ तारिखमा गर्नुपर्नेछ ।
+                </ng-container>
+                <tr>
+                    <td>कर्जा सुविधाको भुक्तानी (Repayment)</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>प्रशासनिक शुल्क (Administration Fee)</td>
+                    <td>कर्जाको .......... प्रतिशत प्रशासनिक शुल्क लगाई कर्जा प्रवाह गर्नु अगावै असुल उपर गरिनेछ । <br>
+                        वा <br>
+                        रु................रकम प्रशासनिक शुल्क लगाई कर्जा प्रवाह गर्नु अगावै असुल उपर गरिनेछ ।</td>
+                </tr>
+                <tr>
+                    <td>पुनरावलोकन शुल्क (Review Fee)</td>
+                    <td>कर्जाको .......... प्रतिशत प्रशासनिक शुल्क लगाई कर्जा पुनरावलोकन गर्नु अगावै असुल उपर गरिनेछ । <br>
+                        वा <br>
+                        रु................रकम प्रशासनिक शुल्क लगाई कर्जा पुनरावलोकन गर्नु अगावै असुल उपर गरिनेछ ।</td>
+                </tr>
+            </table>
+
+
+
             <br>
 
             <p class="text-center"><strong>४. लागुहुने शर्त तथा बन्देजहरु (Covenants)</strong></p>
