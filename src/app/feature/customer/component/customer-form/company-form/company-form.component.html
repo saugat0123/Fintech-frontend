@@ -282,14 +282,12 @@
                                <div  class="col-md-4">
                                    <div class="form-group">
                                        <label for="businessType"><strong>Relationship Since</strong></label>
-                                       <input
-                                                  *ngIf="calendarType === 'AD'"
-                                                  [ngClass]="{'is-invalid':submitted &&  form.relationshipSince.errors}"
-                                                  formControlName="relationshipSince"
-                                                  [nbDatepicker]="relationshipSince"
-                                                  class="form-control"
-                                                  id="relationshipSince"
-                                                  placeholder="Relationship Since"/>
+                                       <input *ngIf="calendarType === 'AD'" [nbDatepicker]="relationshipSince"
+                                              [ngClass]="{ 'is-invalid':submitted && form.relationshipSince.errors}"
+                                              class="form-control rounded"
+                                              formControlName="relationshipSince"
+                                              id="relationshipSince" placeholder="Relationship Since"
+                                              type="text"/>
                                        <input formControlName="relationshipSince" *ngIf="calendarType === 'BS'" hidden>
 
                                        <app-calendar [ePreDate]="form.relationshipSince?.value" *ngIf="calendarType === 'BS'"
