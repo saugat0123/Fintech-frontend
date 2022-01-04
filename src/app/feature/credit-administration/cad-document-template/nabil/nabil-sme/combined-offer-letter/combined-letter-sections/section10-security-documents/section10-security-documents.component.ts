@@ -165,11 +165,10 @@ export class Section10SecurityDocumentsComponent implements OnInit {
         for (let val = 0; val < this.freeTextVal.section10.length - 1; val++){
           this.addTextArea();
         }
+        for (let val = 0; val < this.freeTextVal.section10.length; val++) {
+          this.form.get(['textAreas', val, 'additionalGuarantorDetails']).patchValue(this.freeTextVal.section10[val].additionalGuarantorDetails);
+        }
       }
-    }
-    console.log('Main Free TExt or patching:', this.freeTextVal);
-    for (let val = 0; val < this.freeTextVal.section10.length; val++) {
-      this.form.get(['textAreas', val, 'additionalGuarantorDetails']).patchValue(this.freeTextVal.section10[val].additionalGuarantorDetails);
     }
   }
 

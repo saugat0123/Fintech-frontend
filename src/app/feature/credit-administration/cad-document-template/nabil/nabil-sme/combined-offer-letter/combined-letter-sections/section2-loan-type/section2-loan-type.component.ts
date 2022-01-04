@@ -856,7 +856,7 @@ export class Section2LoanTypeComponent implements OnInit {
             tempAutoLoanFreeVal = this.autoLoanComponent.setFreeTextAutoLoan();
         }
         let tempMortgageEquity;
-        if (this.isEquityMortgageOverdraft) {
+        if (this.isEquityMortgageTermLoan) {
             tempMortgageEquity = this.mortgageEquityTermLoanComponent.setFreeTextMortgage();
         }
         this.freeTextVal = {
@@ -887,6 +887,7 @@ export class Section2LoanTypeComponent implements OnInit {
             SNLimitVehicleLoan: !ObjectUtil.isEmpty(tempTermLoanFreeVal) ? tempTermLoanFreeVal.SNLimitVehicleLoan : '',
             newEMISubsequentVehicleLoan1: !ObjectUtil.isEmpty(tempTermLoanFreeVal) ? tempTermLoanFreeVal.newEMISubsequentVehicleLoan1 : '',*/
             freeText13: !ObjectUtil.isEmpty(tempMortgageEquity) ? tempMortgageEquity.freeText13 : '',
+            SNOfParentLimitMortgageTerm: !ObjectUtil.isEmpty(tempMortgageEquity) ? tempMortgageEquity.SNOfParentLimitMortgageTerm : '',
             newEMIAutoPopulateMortgageTerm1: !ObjectUtil.isEmpty(tempMortgageEquity) ? tempMortgageEquity.newEMIAutoPopulateMortgageTerm1 : '',
             freeText15: this.form.get('freeTextFifteen').value ? this.form.get('freeTextFifteen').value : '',
             freeText16: this.form.get('freeTextSixteen').value ? this.form.get('freeTextSixteen').value : '',

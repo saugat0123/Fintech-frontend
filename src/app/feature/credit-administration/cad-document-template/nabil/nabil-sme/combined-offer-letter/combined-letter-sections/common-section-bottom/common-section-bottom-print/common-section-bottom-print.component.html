@@ -16,12 +16,12 @@
         <div class="row mt-4 d-flex justify-content-between">
             <div class="right-content">
                 <p>
-                        <span class="nepaliFont"
+                        <span
                               [ngClass]="{'outside': letter?.smeGlobalForm.nameOfRelationshipManagerCT !== null && letter?.smeGlobalForm.nameOfRelationshipManagerCT !== ''}">
                                 {{letter?.smeGlobalForm.nameOfRelationshipManagerCT === null || letter?.smeGlobalForm.nameOfRelationshipManagerCT === "" ? "_______" : letter?.smeGlobalForm.nameOfRelationshipManagerCT}}
                         </span>
                     <br>
-                    <span class="nepaliFont">{{freeInformation ? freeInformation.sectionBottom.position : 'सम्पर्क अधिकृत'}}</span>
+                    <span>{{freeInformation ? freeInformation.sectionBottom.position : 'सम्पर्क अधिकृत'}}</span>
                     <br>
                     नबिल बैंक लि.
                     <br>
@@ -34,12 +34,12 @@
 
             <div class="left-content">
                 <p>
-                        <span class="nepaliFont"
+                        <span
                               [ngClass]="{'outside': letter?.smeGlobalForm.nameOfBranchManagerCT !== null && letter?.smeGlobalForm.nameOfBranchManagerCT !== ''}">
                                 {{letter?.smeGlobalForm.nameOfBranchManagerCT === null || letter?.smeGlobalForm.nameOfBranchManagerCT === "" ? "_______" : letter?.smeGlobalForm.nameOfBranchManagerCT}}
                         </span>
                     <br>
-                    <span class="nepaliFont">{{freeInformation ? freeInformation.sectionBottom.position1 : 'सम्पर्क प्रबन्धक'}}</span>
+                    <span>{{freeInformation ? freeInformation.sectionBottom.position1 : 'सम्पर्क प्रबन्धक'}}</span>
                     <br>
                     नबिल बैंक लि.
                     <br>
