@@ -109,20 +109,6 @@ export class CombinedOfferLetterComponent implements OnInit {
   setFreeText() {
     const section1FreeText = this.section1.section1.get('firstAdditionalDetails').value ? this.section1.section1.get('firstAdditionalDetails').value : '';
     const section2FreeText = this.section2.setTextAreaValue();
-      /*freeText1: this.section2.form.get('freeTextOne').value ? this.section2.form.get('freeTextOne').value : '',
-      freeText2: this.section2.form.get('freeTextTwo').value ? this.section2.form.get('freeTextTwo').value : '',
-      freeText3: this.section2.form.get('freeTextThree').value ? this.section2.form.get('freeTextThree').value : '',
-      freeText4: this.section2.form.get('freeTextFour').value ? this.section2.form.get('freeTextFour').value : '',
-      freeText5: this.section2.form.get('freeTextFive').value ? this.section2.form.get('freeTextFive').value : '',
-      freeText6: this.section2.form.get('freeTextSix').value ? this.section2.form.get('freeTextSix').value : '',
-      freeText7: this.section2.form.get('freeTextSeven').value ? this.section2.form.get('freeTextSeven').value : '',
-      freeText8: this.section2.form.get('freeTextEight').value ? this.section2.form.get('freeTextEight').value : '',
-      freeText9: this.section2.form.get('freeTextNine').value ? this.section2.form.get('freeTextNine').value : '',
-      freeText10: this.section2.form.get('freeTextFifteen').value ? this.section2.form.get('freeTextFifteen').value : '',
-      freeText11: this.section2.form.get('freeTextSixteen').value ? this.section2.form.get('freeTextSixteen').value : '',*/
-
-      // freeTextOthers: this.section2.form.get('otherFreeTexts').value ? this.section2.form.get('otherFreeTexts').value : '',
-
     const section3FreeText = {
       // freeText1: this.section3.form.get('freeText1').value ? this.section3.form.get('freeText1').value : '',
       freeText2: this.section3.form.get('freeText2').value ? this.section3.form.get('freeText2').value : '',

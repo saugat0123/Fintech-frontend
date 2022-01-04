@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../../../../model/customerApprovedLoanCadDocumentation';
 import {ObjectUtil} from '../../../../../../../../../@core/utils/ObjectUtil';
 
@@ -11,14 +11,13 @@ import {ObjectUtil} from '../../../../../../../../../@core/utils/ObjectUtil';
 export class AutoLoanComponent implements OnInit {
     @Input() customerApprovedDoc: CustomerApprovedLoanCadDocumentation;
     @Input() loanData;
-    @Input() index;
-    @Input() data;
+    // @Input() index;
+    // @Input() data;
+    @Input() pointNumber;
+    @Input() autoLoanData;
     form: FormGroup;
     tempData;
-    autoLoanFreeText: any = {};
-    complementaryOtherAutoLoan = false; vehiclePurchaseAutoLoan = false; vehicleRegistrationAutoLoan = false;
-    loanOptionAutoLoan; autoLoanTypeAutoLoan; emiPaymentTypeAutoLoan; paymentsTermsAutoLoan;
-    complementaryOtherAutoLoanName;
+    autoLoanFreeText: Array<any> = new Array<any>();
     tempInformation;
     newEMIAutoPopulateAutoLoan = 'निकासा भएको पछिल्लोे महिना देखि किस्ता भुक्तानी मिति हुनेछ';
     constructor(private formBuilder: FormBuilder,
@@ -30,183 +29,130 @@ export class AutoLoanComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.customerApprovedDoc)) {
             this.tempData = JSON.parse(this.customerApprovedDoc.offerDocumentList[0].initialInformation);
             this.tempInformation = JSON.parse(this.customerApprovedDoc.offerDocumentList[0].supportedInformation);
-            this.setFreeTextAutoLoan();
             this.fillForm();
-        }
-        this.getConditions();
-    }
-
-    getConditions() {
-        if (!ObjectUtil.isEmpty(this.data)) {
-            this.loanOptionAutoLoan = this.tempData.smeGlobalForm.loanOption;
-            this.autoLoanTypeAutoLoan = this.data.autoLoanType;
-            this.emiPaymentTypeAutoLoan = this.data.emiPaymentType;
-            this.complementaryOtherAutoLoanName = this.data.complimentaryLoanSelected;
-            this.paymentsTermsAutoLoan = this.data.paymentTerms;
-            if (this.data.complementaryOther === true) {
-                this.complementaryOtherAutoLoan = true;
-            }
-            if (this.data.vehiclePurchased === true) {
-                this.vehiclePurchaseAutoLoan = true;
-            }
-            if (this.data.vehicleRegistered === true) {
-                this.vehicleRegistrationAutoLoan = true;
-            }
         }
     }
 
     buildForm() {
         this.form = this.formBuilder.group({
-            // Auto Loan
-            SNOfParentLimitAutoLoan: [undefined],
-            // For New EMI Term Loan
-            newEMIDrawingPowerAutoLoan: [undefined],
-            newEMIBaseRateAutoLoan: [undefined],
-            newEMIPremiumRateAutoLoan: [undefined],
-            newEMIInterestRateAutoLoan: [undefined],
-            newEMIAmountAutoLoan: [undefined],
-            newEMIAmountInWordAutoLoan: [undefined],
-            newEMINoOfInstallmentAutoLoan: [undefined],
-            newEMIAutoPopulateAutoLoan: [undefined],
-            newEMILoanPurposeAutoLoan: [undefined],
-            newEMIServiceChargeAutoLoan: [undefined],
-            newEMILoanTenureAutoLoan: [undefined],
-            // For EMI Term Loan at the time of Annual Review of other credit limits
-            annualEMIBaseRateAutoLoan: [undefined],
-            annualEMIPremiumRateAutoLoan: [undefined],
-            annualEMIInterestRateAutoLoan: [undefined],
-            annualEMIAmountAutoLoan: [undefined],
-            annualEMIAmountInWordAutoLoan: [undefined],
-            annualEMILoanExpiryDateAutoLoan: [undefined],
-            // For New Installment Basis Term Loan
-            newInstallmentBaseRateAutoLoan: [undefined],
-            newInstallmentPremiumRateAutoLoan: [undefined],
-            newInstallmentInterestRateAutoLoan: [undefined],
-            newInstallmentLoanTenureAutoLoan: [undefined],
-            newInstallmentPaymentAmountAutoLoan: [undefined],
-            newInstallmentPaymentAmountInWordAutoLoan: [undefined],
-            newInstallmentNoOfPaymentAutoLoan: [undefined],
-            newInstallmentLoanPurposeAutoLoan: [undefined],
-            newInstallmentServiceChargeAutoLoan: [undefined],
-            // For Installment Basis Term Loan at the time of Annual Review of other credit limits
-            annualInstallmentBaseRateAutoLoan: [undefined],
-            annualInstallmentPremiumRateAutoLoan: [undefined],
-            annualInstallmentInterestRateAutoLoan: [undefined],
-            annualInstallmentPaymentAmountAutoLoan: [undefined],
-            annualInstallmentPaymentAmountInWordAutoLoan: [undefined],
-            annualInstallmentNoOfPaymentAutoLoan: [undefined],
-            annualInstallmentLoanExpiryDateAutoLoan: [undefined],
-            annualInstallmentDrawingPowerAutoLoan: [undefined],
-            annualInstallmentNameOfDealerAutoLoan: [undefined],
-            // Free Text
-            freeTextFourteen: [undefined]
+            autoLoanDetails: this.formBuilder.array([]),
         });
+        for (let val = 0; val < this.loanData.length; val++) {
+            this.setForm();
+        }
+    }
+
+    setForm() {
+        (this.form.get('autoLoanDetails') as FormArray).push(this.formBuilder.group({
+                // Auto Loan
+                SNOfParentLimitAutoLoan: [undefined],
+                // For New EMI Term Loan
+                newEMIDrawingPowerAutoLoan: [undefined],
+                newEMIBaseRateAutoLoan: [undefined],
+                newEMIPremiumRateAutoLoan: [undefined],
+                newEMIInterestRateAutoLoan: [undefined],
+                newEMIAmountAutoLoan: [undefined],
+                newEMIAmountInWordAutoLoan: [undefined],
+                newEMINoOfInstallmentAutoLoan: [undefined],
+                newEMIAutoPopulateAutoLoan: [undefined],
+                newEMILoanPurposeAutoLoan: [undefined],
+                newEMIServiceChargeAutoLoan: [undefined],
+                newEMILoanTenureAutoLoan: [undefined],
+                // For EMI Term Loan at the time of Annual Review of other credit limits
+                annualEMIBaseRateAutoLoan: [undefined],
+                annualEMIPremiumRateAutoLoan: [undefined],
+                annualEMIInterestRateAutoLoan: [undefined],
+                annualEMIAmountAutoLoan: [undefined],
+                annualEMIAmountInWordAutoLoan: [undefined],
+                annualEMILoanExpiryDateAutoLoan: [undefined],
+                // For New Installment Basis Term Loan
+                newInstallmentBaseRateAutoLoan: [undefined],
+                newInstallmentPremiumRateAutoLoan: [undefined],
+                newInstallmentInterestRateAutoLoan: [undefined],
+                newInstallmentLoanTenureAutoLoan: [undefined],
+                newInstallmentPaymentAmountAutoLoan: [undefined],
+                newInstallmentPaymentAmountInWordAutoLoan: [undefined],
+                newInstallmentNoOfPaymentAutoLoan: [undefined],
+                newInstallmentLoanPurposeAutoLoan: [undefined],
+                newInstallmentServiceChargeAutoLoan: [undefined],
+                // For Installment Basis Term Loan at the time of Annual Review of other credit limits
+                annualInstallmentBaseRateAutoLoan: [undefined],
+                annualInstallmentPremiumRateAutoLoan: [undefined],
+                annualInstallmentInterestRateAutoLoan: [undefined],
+                annualInstallmentPaymentAmountAutoLoan: [undefined],
+                annualInstallmentPaymentAmountInWordAutoLoan: [undefined],
+                annualInstallmentNoOfPaymentAutoLoan: [undefined],
+                annualInstallmentLoanExpiryDateAutoLoan: [undefined],
+                annualInstallmentDrawingPowerAutoLoan: [undefined],
+                annualInstallmentNameOfDealerAutoLoan: [undefined],
+                loanAmountInFigure: [undefined],
+                loanAmountInWords: [undefined],
+                // Free Text
+                freeTextFourteen: [undefined],
+            })
+        )
     }
 
     fillForm() {
-        if (!ObjectUtil.isEmpty(this.tempData.autoLoanMasterForm)) {
-            for (let i = 0; i < this.tempData.autoLoanMasterForm['autoLoanFormArray'].length; i++ ) {
-                this.form.patchValue({
-                    // Auto Loan
-                    // SNOfParentLimitAutoLoan: [undefined],
-                    // For New EMI Term Loan
-                    // tslint:disable-next-line:max-line-length
-                    newEMIDrawingPowerAutoLoan: this.data.drawingPower ? this.data.drawingPowerCT : '',
-                    // tslint:disable-next-line:max-line-length
-                    newEMIBaseRateAutoLoan: this.data.baseRate ? this.data.baseRateCT : '',
-                    // tslint:disable-next-line:max-line-length
-                    newEMIPremiumRateAutoLoan: this.data.premiumRate ? this.data.premiumRateCT : '',
-                    // tslint:disable-next-line:max-line-length
-                    newEMIInterestRateAutoLoan: this.data.interestRate ? this.data.interestRateCT : '',
-                    // tslint:disable-next-line:max-line-length
-                    newEMIAmountAutoLoan: this.data.emiInfigure ? this.data.emiInfigureCT : '',
-                    // tslint:disable-next-line:max-line-length
-                    newEMIAmountInWordAutoLoan: this.data.emiInWords ? this.data.emiInWordsCT : '',
-                    // tslint:disable-next-line:max-line-length
-                    newEMINoOfInstallmentAutoLoan: this.data.numberOfInstallment ? this.data.numberOfInstallmentCT : '',
-                    // tslint:disable-next-line:max-line-length
-                    newEMILoanPurposeAutoLoan: this.data.purposeOfLoan ? this.data.purposeOfLoanCT : '',
-                    // tslint:disable-next-line:max-line-length
-                    newEMIServiceChargeAutoLoan: this.data.serviceCharge ? this.data.serviceChargeCT : '',
-                    // tslint:disable-next-line:max-line-length
-                    newEMILoanTenureAutoLoan: this.data.tenureOfLoan ? this.data.tenureOfLoanCT : '',
-                    // For EMI Term Loan at the time of Annual Review of other credit limits
-                    // tslint:disable-next-line:max-line-length
-                    annualEMIBaseRateAutoLoan: this.data.baseRate ? this.data.baseRateCT : '',
-                    // tslint:disable-next-line:max-line-length
-                    annualEMIPremiumRateAutoLoan: this.data.premiumRate ? this.data.premiumRateCT : '',
-                    // tslint:disable-next-line:max-line-length
-                    annualEMIInterestRateAutoLoan: this.data.interestRate ? this.data.interestRateCT : '',
-                    // tslint:disable-next-line:max-line-length
-                    annualEMIAmountAutoLoan: this.data.emiInfigure ? this.data.emiInfigureCT : '',
-                    // tslint:disable-next-line:max-line-length
-                    annualEMIAmountInWordAutoLoan: this.data.emiInWords ? this.data.emiInWordsCT : '',
-                    // tslint:disable-next-line:max-line-length
-                    annualEMILoanExpiryDateAutoLoan: this.data.dateOfExpiry ? this.data.dateOfExpiryCT : '',
-                    // For New Installment Basis Term Loan
-                    // tslint:disable-next-line:max-line-length
-                    newInstallmentBaseRateAutoLoan: this.data.baseRate ? this.data.baseRateCT : '',
-                    // tslint:disable-next-line:max-line-length
-                    newInstallmentPremiumRateAutoLoan: this.data.premiumRate ? this.data.premiumRateCT : '',
-                    // tslint:disable-next-line:max-line-length
-                    newInstallmentInterestRateAutoLoan: this.data.interestRate ? this.data.interestRateCT : '',
-                    // tslint:disable-next-line:max-line-length
-                    newInstallmentLoanTenureAutoLoan: this.data.tenureOfLoan ? this.data.tenureOfLoanCT : '',
-                    // tslint:disable-next-line:max-line-length
-                    newInstallmentPaymentAmountAutoLoan: this.data.paymentAmountFigure ? this.data.paymentAmountFigureCT : '',
-                    // tslint:disable-next-line:max-line-length
-                    newInstallmentPaymentAmountInWordAutoLoan: this.data.paymentAmountWords ? this.data.paymentAmountWordsCT : '',
-                    // tslint:disable-next-line:max-line-length
-                    newInstallmentNoOfPaymentAutoLoan: this.data.numberOfPayments ? this.data.numberOfPaymentsCT : '',
-                    // tslint:disable-next-line:max-line-length
-                    newInstallmentLoanPurposeAutoLoan: this.data.purposeOfLoan ? this.data.purposeOfLoanCT : '',
-                    // tslint:disable-next-line:max-line-length
-                    newInstallmentServiceChargeAutoLoan: this.data.serviceCharge ? this.data.serviceChargeCT : '',
-                    // For Installment Basis Term Loan at the time of Annual Review of other credit limits
-                    // tslint:disable-next-line:max-line-length
-                    annualInstallmentBaseRateAutoLoan: this.data.baseRate ? this.data.baseRateCT : '',
-                    // tslint:disable-next-line:max-line-length
-                    annualInstallmentPremiumRateAutoLoan: this.data.premiumRate ? this.data.premiumRateCT : '',
-                    // tslint:disable-next-line:max-line-length
-                    annualInstallmentInterestRateAutoLoan: this.data.interestRate ? this.data.interestRateCT : '',
-                    // tslint:disable-next-line:max-line-length
-                    annualInstallmentPaymentAmountAutoLoan: this.data.paymentAmountFigure ? this.data.paymentAmountFigureCT : '',
-                    // tslint:disable-next-line:max-line-length
-                    annualInstallmentPaymentAmountInWordAutoLoan: this.data.paymentAmountWords ? this.data.paymentAmountWordsCT : '',
-                    // tslint:disable-next-line:max-line-length
-                    annualInstallmentNoOfPaymentAutoLoan: this.data.numberOfPayments ? this.data.numberOfPaymentsCT : '',
-                    // tslint:disable-next-line:max-line-length
-                    annualInstallmentLoanExpiryDateAutoLoan: this.data.dateOfExpiry ? this.data.dateOfExpiryCT : '',
-                    // tslint:disable-next-line:max-line-length
-                    annualInstallmentDrawingPowerAutoLoan: this.data.drawingPowerCT ? this.data.drawingPowerCT : '',
-                    // tslint:disable-next-line:max-line-length
-                    annualInstallmentNameOfDealerAutoLoan: this.data.nameOfDealer ? this.data.nameOfDealerCT : '',
-                });
-                this.patchFreeText();
+        if (!ObjectUtil.isEmpty(this.autoLoanData)) {
+            for (let i = 0; i < this.autoLoanData.length; i++ ) {
+                this.form.get(['autoLoanDetails', i, 'newEMIDrawingPowerAutoLoan']).patchValue(this.autoLoanData[i].drawingPowerCT);
+                this.form.get(['autoLoanDetails', i, 'newEMIBaseRateAutoLoan']).patchValue(this.autoLoanData[i].baseRateCT);
+                this.form.get(['autoLoanDetails', i, 'newEMIPremiumRateAutoLoan']).patchValue(this.autoLoanData[i].premiumRateCT);
+                this.form.get(['autoLoanDetails', i, 'newEMIInterestRateAutoLoan']).patchValue(this.autoLoanData[i].interestRateCT);
+                this.form.get(['autoLoanDetails', i, 'newEMIAmountAutoLoan']).patchValue(this.autoLoanData[i].emiInfigureCT);
+                this.form.get(['autoLoanDetails', i, 'newEMIAmountInWordAutoLoan']).patchValue(this.autoLoanData[i].emiInWordsCT);
+                this.form.get(['autoLoanDetails', i, 'newEMINoOfInstallmentAutoLoan']).patchValue(this.autoLoanData[i].numberOfInstallmentCT);
+                this.form.get(['autoLoanDetails', i, 'newEMILoanPurposeAutoLoan']).patchValue(this.autoLoanData[i].purposeOfLoanCT);
+                this.form.get(['autoLoanDetails', i, 'newEMIServiceChargeAutoLoan']).patchValue(this.autoLoanData[i].serviceChargeCT);
+                this.form.get(['autoLoanDetails', i, 'newEMILoanTenureAutoLoan']).patchValue(this.autoLoanData[i].tenureOfLoanCT);
+                this.form.get(['autoLoanDetails', i, 'annualEMIBaseRateAutoLoan']).patchValue(this.autoLoanData[i].baseRateCT);
+                this.form.get(['autoLoanDetails', i, 'annualEMIPremiumRateAutoLoan']).patchValue(this.autoLoanData[i].premiumRateCT);
+                this.form.get(['autoLoanDetails', i, 'annualEMIInterestRateAutoLoan']).patchValue(this.autoLoanData[i].interestRateCT);
+                this.form.get(['autoLoanDetails', i, 'annualEMIAmountAutoLoan']).patchValue(this.autoLoanData[i].emiInfigureCT);
+                this.form.get(['autoLoanDetails', i, 'annualEMIAmountInWordAutoLoan']).patchValue(this.autoLoanData[i].emiInWordsCT);
+                this.form.get(['autoLoanDetails', i, 'annualEMILoanExpiryDateAutoLoan']).patchValue(this.autoLoanData[i].dateOfExpiryCT);
+                this.form.get(['autoLoanDetails', i, 'newInstallmentBaseRateAutoLoan']).patchValue(this.autoLoanData[i].baseRateCT);
+                this.form.get(['autoLoanDetails', i, 'newInstallmentPremiumRateAutoLoan']).patchValue(this.autoLoanData[i].premiumRateCT);
+                this.form.get(['autoLoanDetails', i, 'newInstallmentInterestRateAutoLoan']).patchValue(this.autoLoanData[i].interestRateCT);
+                this.form.get(['autoLoanDetails', i, 'newInstallmentLoanTenureAutoLoan']).patchValue(this.autoLoanData[i].tenureOfLoanCT);
+                this.form.get(['autoLoanDetails', i, 'newInstallmentPaymentAmountAutoLoan']).patchValue(this.autoLoanData[i].paymentAmountFigureCT);
+                this.form.get(['autoLoanDetails', i, 'newInstallmentPaymentAmountInWordAutoLoan']).patchValue(this.autoLoanData[i].paymentAmountWordsCT);
+                this.form.get(['autoLoanDetails', i, 'newInstallmentNoOfPaymentAutoLoan']).patchValue(this.autoLoanData[i].numberOfPaymentsCT);
+                this.form.get(['autoLoanDetails', i, 'newInstallmentLoanPurposeAutoLoan']).patchValue(this.autoLoanData[i].purposeOfLoanCT);
+                this.form.get(['autoLoanDetails', i, 'newInstallmentServiceChargeAutoLoan']).patchValue(this.autoLoanData[i].serviceChargeCT);
+                this.form.get(['autoLoanDetails', i, 'annualInstallmentBaseRateAutoLoan']).patchValue(this.autoLoanData[i].baseRateCT);
+                this.form.get(['autoLoanDetails', i, 'annualInstallmentPremiumRateAutoLoan']).patchValue(this.autoLoanData[i].premiumRateCT);
+                this.form.get(['autoLoanDetails', i, 'annualInstallmentInterestRateAutoLoan']).patchValue(this.autoLoanData[i].interestRateCT);
+                this.form.get(['autoLoanDetails', i, 'annualInstallmentPaymentAmountAutoLoan']).patchValue(this.autoLoanData[i].paymentAmountFigureCT);
+                this.form.get(['autoLoanDetails', i, 'annualInstallmentPaymentAmountInWordAutoLoan']).patchValue(this.autoLoanData[i].paymentAmountWordsCT);
+                this.form.get(['autoLoanDetails', i, 'annualInstallmentNoOfPaymentAutoLoan']).patchValue(this.autoLoanData[i].numberOfPaymentsCT);
+                this.form.get(['autoLoanDetails', i, 'annualInstallmentLoanExpiryDateAutoLoan']).patchValue(this.autoLoanData[i].dateOfExpiryCT);
+                this.form.get(['autoLoanDetails', i, 'annualInstallmentDrawingPowerAutoLoan']).patchValue(this.autoLoanData[i].drawingPowerCT);
+                this.form.get(['autoLoanDetails', i, 'annualInstallmentNameOfDealerAutoLoan']).patchValue(this.autoLoanData[i].nameOfDealerCT);
+                this.form.get(['autoLoanDetails', i, 'loanAmountInFigure']).patchValue(this.loanData[i].loanAmountNp);
+                this.form.get(['autoLoanDetails', i, 'loanAmountInWords']).patchValue(this.loanData[i].loanAmountWords);
+                this.form.get(['autoLoanDetails', i, 'SNOfParentLimitAutoLoan']).patchValue(
+                    this.tempInformation ? this.tempInformation.section2.autoLoanFreeText[i].SNOfParentLimitAutoLoan : '');
+                this.form.get(['autoLoanDetails', i, 'freeTextFourteen']).patchValue(
+                    this.tempInformation ? this.tempInformation.section2.autoLoanFreeText[i].freeText14 : '');
+                this.form.get(['autoLoanDetails', i, 'newEMIAutoPopulateAutoLoan']).patchValue(
+                    this.tempInformation ?
+                        this.tempInformation.section2.autoLoanFreeText[i].newEMIAutoPopulateAutoLoan1 :
+                        'निकासा भएको पछिल्लोे महिना देखि किस्ता भुक्तानी मिति हुनेछ');
+                }
             }
         }
-    }
+
     setFreeTextAutoLoan() {
-        this.autoLoanFreeText = {
-            freeText14: this.form.get('freeTextFourteen').value ? this.form.get('freeTextFourteen').value : '',
-            // tslint:disable-next-line:max-line-length
-            newEMIAutoPopulateAutoLoan1: this.form.get('newEMIAutoPopulateAutoLoan').value ? this.form.get('newEMIAutoPopulateAutoLoan').value : '',
-        };
-        return this.autoLoanFreeText;
-    }
-    patchFreeText() {
-        if (!ObjectUtil.isEmpty(this.tempInformation)) {
-            if (this.newEMIAutoPopulateAutoLoan === this.tempInformation.section2.newEMIAutoPopulateAutoLoan1) {
-                this.newEMIAutoPopulateAutoLoan = 'निकासा भएको पछिल्लोे महिना देखि किस्ता भुक्तानी मिति हुनेछ';
+        for (let val = 0; val < this.loanData.length; val++) {
+            const tempFreeText = {
+                SNOfParentLimitAutoLoan: this.form.get(['autoLoanDetails', val, 'SNOfParentLimitAutoLoan']).value ? this.form.get(['autoLoanDetails', val, 'SNOfParentLimitAutoLoan']).value : '',
+                freeText14: this.form.get(['autoLoanDetails', val, 'freeTextFourteen']).value ? this.form.get(['autoLoanDetails', val, 'freeTextFourteen']).value : '',
+                newEMIAutoPopulateAutoLoan1: this.form.get(['autoLoanDetails', val, 'newEMIAutoPopulateAutoLoan']).value ? this.form.get(['autoLoanDetails', val, 'newEMIAutoPopulateAutoLoan']).value : '',
             }
-            if (this.tempInformation.section2.newEMIAutoPopulateAutoLoan1 !== this.newEMIAutoPopulateAutoLoan) {
-                this.newEMIAutoPopulateAutoLoan = this.tempInformation.section2.newEMIAutoPopulateAutoLoan1;
-            }
+            this.autoLoanFreeText.push(tempFreeText);
         }
-        this.form.patchValue({
-            freeTextFourteen: this.tempInformation ? this.tempInformation.section2.freeText14 : '',
-            // tslint:disable-next-line:max-line-length
-            newEMIAutoPopulateAutoLoan: !ObjectUtil.isEmpty(this.newEMIAutoPopulateAutoLoan) ? this.newEMIAutoPopulateAutoLoan : '',
-        });
+        return this.autoLoanFreeText;
     }
 }
