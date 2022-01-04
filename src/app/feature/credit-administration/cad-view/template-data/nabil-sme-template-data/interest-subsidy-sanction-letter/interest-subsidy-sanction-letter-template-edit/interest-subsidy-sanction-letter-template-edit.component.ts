@@ -54,7 +54,7 @@ export class InterestSubsidySanctionLetterTemplateEditComponent implements OnIni
             eData: 'Loan to under-priviledged Caste/Community/Marginalized Communities'
         },
         {nData: 'भुकम्प पीडितहरुको निजी आवास निर्माण कर्जा', eData: 'Personal Home Construction loan for Earthquake Affected People'},
-        {nData: 'महिलाफरा प्रबर्तित लघु उद्यमशीलता कर्जा', eData: 'Women Run Micro enterprise Loan'},
+        {nData: 'महिलाद्वारा प्रबर्तित लघु उद्यमशीलता कर्जा', eData: 'Women Run Micro enterprise Loan'},
         {nData: 'बैदेशिक रोजगारीबाट फर्केका युवा परियोजना कर्जा ', eData: 'Project loan for Youths returning from Foreign Employment'},
     ];
     isCustomerNew = false;
