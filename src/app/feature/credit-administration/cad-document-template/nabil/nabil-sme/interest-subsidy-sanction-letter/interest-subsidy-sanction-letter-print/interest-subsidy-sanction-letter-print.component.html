@@ -319,9 +319,9 @@
                             guarantorParse(guarantorData[0].nepData, "gurantedAmount")
                             }}
                                             </span>
-                            /-(अक्षरेपि रु.
+                            /- (अक्षरेपि रु.
                             <span class="font-weight-bold">{{nepaliCurrencyWordPipe.transform(guarantorParse(guarantorData[0].nepData, "gurantedAmount", "en"))}}</span>
-                            मात्र)
+                            /- मात्र)
                             बराबरको <span class="font-weight-bold">
                                             {{ commonGuarantorDetails(personalGuarantorsName, finalPersonalName) }}
                                             </span>
@@ -331,7 +331,7 @@
                 </div>
             </div>
             <div>
-                <div class="col-sm-12">
+                <div class="col-sm-12 pageBreak">
                     <ol class="conditions-list orderd-list">
                         <strong>व्याज सम्बन्धी शर्तहरु: </strong>
                         <li>हरेक त्रैमास (आषाढ, आश्विन, पौष र चैत्र मसान्त) को समाप्ति पश्चात बैंकको
@@ -1010,7 +1010,7 @@
                     </li>
                     <li> रु.<span class="font-weight-bold">
                                                 {{ engToNepNumberPipe.transform(currencyFormatPipe.transform(proposedAmount))}}
-                                            </span> मात्र )(बराबरको प्रतिज्ञा पत्र (Promissory
+                                            </span>/- मात्र )(बराबरको प्रतिज्ञा पत्र (Promissory
                         Note)
                     </li>
                     <li>निरन्तरताको लिखत (Letter of Continuity )</li>
@@ -1020,7 +1020,7 @@
                             currencyFormatPipe.transform(proposedAmount)
                         )
                         }}
-                                            </span>।( को श्री(सम्पत्ति धितोरसुरक्षण लेखीदिएको गोश्वारा(General Letter of Hypothecation)
+                                            </span>/- ( को श्री(सम्पत्ति धितोरसुरक्षण लेखीदिएको गोश्वारा(General Letter of Hypothecation)
                         सहित पूरक सम्झौता (Supplementary Agreement)
                     </li>
                     <li> रु.<span class="font-weight-bold">
@@ -1029,7 +1029,7 @@
                             currencyFormatPipe.transform(proposedAmount)
                         )
                         }}
-                                            </span>।(बराबरकोे वारेसनामा (Power of Attorney) सहित
+                                            </span>/- (बराबरकोे वारेसनामा (Power of Attorney) सहित
                         भुक्तानी प्राप्त गर्न
                         बांकी रकम संकलन गर्ने अख्तियारनामा (Assignment of Receivables) ।
                     </li>
@@ -1039,31 +1039,21 @@
                             currencyFormatPipe.transform(proposedAmount)
                         )
                         }}
-                                            </span>।(बराबरको ऋणतमसुक (Loan Deed).
+                                            </span>/- (बराबरको ऋणतमसुक (Loan Deed).
                     </li>
-                    <li> रु.<span class="font-weight-bold">
-                                            {{
-                        engToNepNumberPipe.transform(
-                            currencyFormatPipe.transform(proposedAmount)
-                        )
-                        }}
-                                            </span> (बराबरको <ng-container *ngIf="loanHolderInfo?.gender?.en === 'MALE' else nameDetails"> श्री</ng-container>
-                        <ng-template #nameDetails>
-                        <ng-container *ngIf="loanHolderInfo?.relationMedium !== undefined && loanHolderInfo?.relationMedium?.en === '0'">
-                            श्रीमती
-                        </ng-container>
-                            <ng-container *ngIf="loanHolderInfo?.relationMedium !== undefined && loanHolderInfo?.relationMedium?.en === '1'">
-                          सुश्री
-                        </ng-container>
-                        </ng-template>
+                    <li *ngFor="let personalGuarantor of tempPersonalGuarantors"> रु.<span class="font-weight-bold">
+                                            {{personalGuarantor.gurantedAmount.ct}}
+                                            </span>/- (बराबरको
+                        {{personalGuarantor.gender.en === 'FEMALE' && personalGuarantor.relationMedium.en === '0' ? 'श्रीमती' : (personalGuarantor.gender.en === 'FEMALE' && personalGuarantor.relationMedium.en === '1' ? 'सुश्री' : personalGuarantor.gender.en === 'MALE' ? 'श्रीमान्' : '')}}
                         <span class="font-weight-bold">
-                                            {{ commonGuarantorDetails(personalGuarantorsName, finalPersonalName) }}
+                            {{personalGuarantor.guarantorName.ct}}
+                                            <!--{{ commonGuarantorDetails(personalGuarantorsName, finalPersonalName) }}-->
                                             </span> ले बैंकको पक्षमा लेखिदिनुपर्ने
                         व्यक्तिगत जमानत (Personal Guarantee)
                     </li>
                     <li> जमानीकर्ताको सम्पत्ति विवरण (wealth statement of Guarantor)
                     </li>
-                    <li> बबहु बैंकिङ्ग घोषणापत्र (Multiple Banking Declaration)
+                    <li> बहु बैंकिङ्ग घोषणापत्र (Multiple Banking Declaration)
                     </li>
                     <li>ऋणी फर्मले यस बैंकको ऋणकर्जा सुविधा समेत गरी अन्य बैंक तथा वित्तिय
                         संस्थाबाट रु.१ करोड भन्दा बढी
@@ -1100,7 +1090,7 @@
                               [ngClass]="{'nepaliFont outside' : letter?.nameOfStaff.ct!== null && letter?.nameOfStaff.ct!== ''}">
             {{letter?.nameOfStaff.ct === null || letter?.nameOfStaff.ct === '' ? '___________' : letter?.nameOfStaff.ct}}</span>
                         <br>
-                        <span class="nepaliFont" style="font-size: 29px">{{freeInformation ? freeInformation.autoPopulate1 : 'सम्पर्क अधिकृत'}}</span>
+                        <span class="nepaliFont" style="font-size: 19px">{{freeInformation ? freeInformation.autoPopulate1 : 'सम्पर्क अधिकृत'}}</span>
                         <br>
                         नबिल बैंक लि.
                         <br>
@@ -1115,7 +1105,7 @@
                               [ngClass]="{'nepaliFont outside' : letter?.nameOfBranchManager.ct!== null && letter?.nameOfBranchManager.ct!== ''}">
                                 {{letter?.nameOfBranchManager.ct === null || letter?.nameOfBranchManager.ct === '' ? '___________' : letter?.nameOfBranchManager.ct}}</span>
                         <br>
-                        <span style="font-size: 29px" class="nepaliFont">
+                        <span style="font-size: 19px" class="nepaliFont">
                             {{freeInformation ? freeInformation.autoPopulate2 : 'शाखा प्रबन्धक/बरिष्ठ सम्पर्क प्रबन्धक'}}</span>
                         <br>
                         नबिल बैंक लि.
@@ -1244,16 +1234,18 @@
                     </li>
                 </ol>
             </div>
-            <div style="left:80%; margin-top:2em">
-
-                .............................
-                <p>
-                    आधिकारिक हस्ताक्षर (ऋणी)
-                </p>
-                <br>
-                <p>
-                    मिति: .............................
-                </p>
+            <div class="col-md-12 d-flex justify-content-between">
+                <div class="left-content"></div>
+                <div class="right-content">
+                    .............................
+                    <p>
+                        आधिकारिक हस्ताक्षर (ऋणी)
+                    </p>
+                    <br>
+                    <p>
+                        मिति: .............................
+                    </p>
+                </div>
             </div>
             <br>
             <div class="col-md-12" style="padding-left: 2em">
