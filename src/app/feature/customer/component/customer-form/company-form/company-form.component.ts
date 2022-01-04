@@ -1,14 +1,4 @@
-import {
-    AfterContentChecked,
-    ChangeDetectorRef,
-    Component,
-    ElementRef,
-    Input,
-    OnInit,
-    QueryList,
-    ViewChild,
-    ViewChildren
-} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {CompanyInfo} from '../../../../admin/modal/company-info';
 import {Customer} from '../../../../admin/modal/customer';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -72,7 +62,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
     templateUrl: './company-form.component.html',
     styleUrls: ['./company-form.component.scss']
 })
-export class CompanyFormComponent implements OnInit, AfterContentChecked {
+export class CompanyFormComponent implements OnInit {
     onActionChangeSpinner = false;
     @Input() formValue: CompanyInfo;
     @Input() bankingRelationshipInput: any;
@@ -172,8 +162,7 @@ export class CompanyFormComponent implements OnInit, AfterContentChecked {
         private company: CompanyService,
         private el: ElementRef,
         private customerService: CustomerService,
-        private translate: TranslateService,
-        private cdref: ChangeDetectorRef
+        private translate: TranslateService
     ) {
 
     }
@@ -335,7 +324,7 @@ export class CompanyFormComponent implements OnInit, AfterContentChecked {
             relationshipSince:
                 [(ObjectUtil.isEmpty(this.companyJsonData)
                     || ObjectUtil.isEmpty(this.companyJsonData.relationshipSince)) ? undefined :
-                    new Date(this.companyJsonData.relationshipSince), DateValidator.isValidBefore],
+                    this.companyJsonData.relationshipSince, DateValidator.isValidBefore],
             issuePlace:
                 [(ObjectUtil.isEmpty(this.companyInfo)
                     || ObjectUtil.isEmpty(this.companyInfo.issuePlace)) ? undefined :
@@ -1208,11 +1197,5 @@ export class CompanyFormComponent implements OnInit, AfterContentChecked {
             }
             this.companyInfoFormGroup.get(s).updateValueAndValidity();
         });
-    }
-    ngAfterContentChecked() {
-        this.cdref.detectChanges();
-    }
-    setAdditionalFormValue(controlName: string, data) {
-        this.companyInfoFormGroup.get('additionalCompanyInfo').get(controlName).patchValue(data);
     }
 }
