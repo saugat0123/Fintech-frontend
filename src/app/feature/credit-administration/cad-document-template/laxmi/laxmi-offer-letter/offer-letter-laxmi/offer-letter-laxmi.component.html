@@ -8,6 +8,16 @@
                         <a (click)="close()" aria-label="Close" class="close cursor"><span
                                 aria-hidden="true">×</span></a>
                     </div>
+<!--                    <div class="card-body">-->
+<!--                        <div class="col-md-12">-->
+<!--                            <select id="loanName" class="form-control"-->
+<!--                                    formControlName="loanName" (change)="log($event.target.value)">-->
+<!--                                <option value="null" hidden selected>&#45;&#45;Select Options&#45;&#45;</option>-->
+<!--                                <option *ngFor="let m of loanName"-->
+<!--                                        [value]="m">{{m}}</option>-->
+<!--                            </select>-->
+<!--                        </div>-->
+<!--                    </div>-->
                     <div class="card-body">
                         <div class="col-md-12">
                             <select id="majorSourceIncomeType" class="form-control"
@@ -20,6 +30,25 @@
                     </div>
                 </div>
             </ng-template>
+            रेफ नं.: कर्जा सुविधा प्रस्तावपत्र/सम्झौतापत्र/
+            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                   formControlName="samjhautapatra">/
+            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                   formControlName="samjhautapatra1">/
+            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                   formControlName="samjhautapatra2"> <br>
+            <p class="float-right">मिति :— <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                                  formControlName="date"></p> <br>
+            श्री <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                        formControlName="borrowerName1"> <br>
+            ठेगाना : <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                            formControlName="address1"><br>
+
+            सम्पर्क टेलिफोन/मोवाइल नं.: <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                               formControlName="phoneNo"><br>
+            ध्यानार्थ : <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                               formControlName="attention">
+
             <p class="text-left">महाशय,</p>
             <div *ngIf="loanType === loanTypes.NEW_LOAN.toString() || loanType === loanTypes.ENHANCED_LOAN">
                 तपाई (अब उप्रान्त ऋणी भनिएको) ले लक्ष्मी बैंक (अब उप्रान्त बैंक भनिएको) मा पेश गरेको कर्जा आवेदन उपर कारवाही
@@ -239,7 +268,7 @@
                     </tr>
                     <tr>
                         <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने  सीमाः (Drawdown)</td>
-                        <td>सवै प्रकारका सुरक्षण लिखतहरु पूर्ण रुपमा स्वीकार गरी बैंकमा वुझाए पछि स्वीकृत कर्जा तथा सुविधा मध्ये जग्गा÷घरजग्गाको शुपथ वजार मूल्यको ....... प्रतिशत वा रु. ............./–
+                        <td>सवै प्रकारका सुरक्षण लिखतहरु पूर्ण रुपमा स्वीकार गरी बैंकमा वुझाए पछि स्वीकृत कर्जा तथा सुविधा मध्ये जग्गा/घरजग्गाको शुपथ वजार मूल्यको ....... प्रतिशत वा रु. ............./–
                             (अक्षरेपी रुपैयाँ ............................. मात्र) मध्ये जुन कम हुन्छ, सो वरावरको रकम उपभोग गर्न सकिनेछ ।</td>
                     </tr>
                 </ng-container>
@@ -353,7 +382,7 @@
                 <ng-container *ngSwitchCase="subloanTypeEnum?.PURCHASE_OF_LAND_BUILDING">
                     <tr>
                         <td>उद्देश्य (Purpose)</td>
-                        <td>............... जिल्ला .......... न.पा./गा.वि.स वडा नं .........स्थित कित्ता नं .......... क्षेत्रफल ........... को घर÷जग्गा खरिद गर्नको लागी ।</td>
+                        <td>............... जिल्ला .......... न.पा./गा.वि.स वडा नं .........स्थित कित्ता नं .......... क्षेत्रफल ........... को घर/जग्गा खरिद गर्नको लागी ।</td>
                     </tr>
                     <tr>
                         <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने  सीमाः (Drawdown)</td>
@@ -363,7 +392,7 @@
                 <ng-container *ngSwitchCase="subloanTypeEnum?.CONSTRUCTION_OF_BUILDING">
                     <tr>
                         <td>उद्देश्य (Purchase)</td>
-                        <td>............... जिल्ला .......... न.पा.÷गा.वि.स वडा नं .........स्थित कित्ता नं .......... क्षेत्रफल ........... को जग्गामा घर निर्माण गर्नको लागी ।</td>
+                        <td>............... जिल्ला .......... न.पा./गा.वि.स वडा नं .........स्थित कित्ता नं .......... क्षेत्रफल ........... को जग्गामा घर निर्माण गर्नको लागी ।</td>
                     </tr>
                     <tr>
                         <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने  सीमाः (Drawdown)</td>
@@ -464,7 +493,7 @@
                 <tr>
                     <td></td>
                     <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने  सीमाः (Drawdown)</td>
-                    <td> सवै प्रकारका सुरक्षण लिखतहरु पूर्ण रुपमा स्वीकार गरी बैंकमा वुझाए पछि स्वीकृत कर्जा तथा सुविधा मध्ये आवश्यक पर्ने खुद चालुपूँजी (Net Trading Assest) को ..... प्रतिशत वा घरजग्गा÷जग्गाको सुपथ बजार मूल्यको
+                    <td> सवै प्रकारका सुरक्षण लिखतहरु पूर्ण रुपमा स्वीकार गरी बैंकमा वुझाए पछि स्वीकृत कर्जा तथा सुविधा मध्ये आवश्यक पर्ने खुद चालुपूँजी (Net Trading Assest) को ..... प्रतिशत वा घरजग्गा/जग्गाको सुपथ बजार मूल्यको
                         ............ प्रतिशत  वा स्वीकृत कर्जा रकम मध्ये जुन कम हुन्छ, सो रकम उपभोग गर्न सकिनेछ ।</td>
                 </tr>
             </ng-container>
@@ -482,7 +511,7 @@
                 <tr>
                     <td>२</td>
                     <td>अवधि अगावै भुक्तानीमा दस्तुर लाग्ने (Prepayment Charges)</td>
-                    <td>प्रथम पटक कर्जा प्रवाह भएको मितिबाट कर्जा चुक्ता गर्नुपर्ने अवधि अगावै कर्जा चुक्ता गरेमा देहाय बमोजिमको अग्रीम भुक्तानी शुल्क <strong>(Prepayment Charge)</strong> बुझाउनु पर्नेछ ।
+                    <td>प्रथम पटक कर्जा प्रवाह भएको मितिबाट कर्जा चुक्ता गर्नुपर्ने अवधि अगावै कर्जा चुक्ता गरेमा देहाय बमोजिमको अग्रीम भुक्तानी शुल्क <strong>(Prepayment Charge)</strong> बुझाउनु पर्नेछ । <br>
                         (१) 	२ वर्ष भित्र कर्जाको अग्र्रीम भुक्तानी गरेमा <strong><u>भुक्तानी गरेको रकममा ०.७५</u></strong> प्रतिशत । <br>
                         (२) 	२ वर्ष देखी ५ वर्ष भित्र कर्जाको अग्र्रीम भुक्तानी गरेमा <strong><u>भुक्तानी गरेको रकममा ०.३७५</u></strong> प्रतिशत । <br>
                         (३) 	५ वर्ष भन्दा पछि कर्जाको अग्र्रीम भुक्तानी गरेमा <strong><u>भुक्तानी गरेको रकममा ०.१५</u></strong> प्रतिशत । <br>
@@ -520,143 +549,198 @@
             <p><strong>३. कर्जा सम्बन्धी लिखत तथा धितो सुरक्षण विवरणः</strong></p>
             <p>ऋणीले लिने वा लिएको तथा भविश्यमा लिने सम्पूर्ण कर्जा तथा सुविधा निम्न वमोजिमको सम्पत्ति तथा लिखतहरुले सुरक्षित गर्नुपर्नेछ ।</p>
             <table class="table table-bordered table-responsive-md table-sm sb-small">
+                <tbody>
                 <tr>
-                    <td>१</td>
                     <td colspan="6">Security as Fixed Assets Collateral (Single borrower)</td>
                 </tr>
+                <tr>
+                    <td>जग्गाधनीको नाम</td>
+                    <td>जिल्ला</td>
+                    <td>गा.पा./न.पा.</td>
+                    <td>वडा नं.</td>
+                    <td>कि.नं.</td>
+                    <td>क्षेत्रफल</td>
+                </tr>
+                <tr>
+                    <td> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                formControlName="landOwnerName"></td>
+                    <td> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                formControlName="securityDistrict"></td>
+                    <td> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                formControlName="securityVdc"></td>
+                    <td> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                formControlName="securityWard"></td>
+                    <td> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                formControlName="securityKitta"></td>
+                    <td> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                formControlName="securityArea"></td>
+                </tr>
+                <tr>
+                    <td colspan="6">उक्त जग्गा/घरजग्गा समेतको लिगलगापात कर्जाको सुरक्षण वापत बैंकको नाममा धितो वन्धकीको लिखत लेखी सम्वन्धित मालपोत कार्यालयमा गई पारित गर्नु पर्नेछ ।</td>
+                </tr>
+                <tr>
+                    <td colspan="6">Cross-Collateralized case</td>
+                </tr>
+                <tr>
+                    <td>जग्गाधनीको नाम</td>
+                    <td>जिल्ला</td>
+                    <td>गा.पा./न.पा.</td>
+                    <td>वडा नं.</td>
+                    <td>कि.नं.</td>
+                    <td>क्षेत्रफल</td>
+                </tr>
+                <tr>
+                    <td> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                            formControlName="landOwnerName"></td>
+                    <td> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                            formControlName="securityDistrict"></td>
+                    <td> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                            formControlName="securityVdc"></td>
+                    <td> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                            formControlName="securityWard"></td>
+                    <td> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                            formControlName="securityKitta"></td>
+                    <td> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                            formControlName="securityArea"></td>
+                </tr>
+                <tr>
+                    <td colspan="6">उक्त जग्गा/घरजग्गा समेतको लिगलगापात ऋणी
+                        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                               formControlName="securityArea">
+                        उपभोग गर्ने कर्जा रकम रु <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                                        formControlName="securityArea"> ।–
+                        तथा ऋणी <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                       formControlName="securityArea"> ले उपभोग गर्ने कर्जा रकम रु
+                        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                               formControlName="securityArea"> ।– गरी जम्मा रु <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                                                                      formControlName="securityArea"> /– (अक्षरेपी रुपैया
+                        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                               formControlName="securityArea"> मात्र) को सुरक्षण वापत बैंकको नाममा धितो वन्धकीको लिखत (Cross Collateralised Deed) लेखी सम्बन्धित मालपोत कार्यालयमा गई पारित गर्नु पर्ने छ ।</td>
+                </tr>
+                </tbody>
+                <tbody>
+                <tr>
+                    <td colspan="6">Security as Vehicle</td>
+                </tr>
+                <tr>
+                    <td colspan="2">सवारीको विवरण</td>
+                    <td colspan="2">इन्जिन नं.</td>
+                    <td>चेसिस नं.</td>
+                    <td>गाडी नं.</td>
+                </tr>
+                <tr>
+                    <td colspan="2"> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                formControlName="vehicleDetails"></td>
+                    <td colspan="2"> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                formControlName="engineNo"></td>
+                    <td> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                formControlName="chasisNo"></td>
+                    <td> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                formControlName="vehicleNo"></td>
+                </tr>
+                <tr>
+                    <td colspan="6">उक्त सवारी सधानहरु बैंकको कर्जा चुक्ता नहुन्जेल सम्मको लागि कर्जाको सुरक्षण वापत धितोको रुपमा प्रदान गर्नुपर्नेछ ।</td>
+                </tr>
+                <tr>
+                    <td colspan="6">Security as Shares of different institutions</td>
+                </tr>
+                <tr>
+                    <td colspan="2">शेयरधनीको नाम</td>
+                    <td colspan="2">धितोमा दिने शेयर रहेको कम्पनीको विवरण</td>
+                    <td>शेयर संख्या</td>
+                    <td>शेयरको किसिम</td>
+                </tr>
+                <tr>
+                    <td colspan="2"> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                formControlName="shareOwnerName"></td>
+                    <td colspan="2"> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                formControlName="shareCompanyName"></td>
+                    <td> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                formControlName="shareUnit"></td>
+                    <td> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                formControlName="shareType"></td>
+                </tr>
+                <tr>
+                    <td colspan="6">उक्त शेयरहरु र सोमा प्राप्त हुने वोनश शेयर, नगद लाभांश, हकप्रदबाट प्राप्त हुने शेयर लगायतका सम्पूर्ण शेयरहरु बैंकको कर्जा चुक्ता नहुन्जेल सम्मका लागि कर्जाको सुरक्षण
+                        वापत धितोको रुपमा प्रदान गर्नुपर्नेछ ।</td>
+                </tr>
+                <tr>
+                    <td colspan="6">धितोमा राखिदिएको शेयर बिक्रिको लागि गरिदिएको लिखत ।</td>
+                </tr>
+                </tbody>
+                <tbody>
+                <tr>
+                    <td colspan="6">Where Personal Guarantee is to be obtained</td>
+                </tr>
+                <tr>
+                    <td colspan="6">.............................. को रु................/– (अक्षरेपी रुपैयाँ ............... मात्र) को <strong>व्यक्तिगत जमानतको</strong>
+                        लिखत बैंकलाई उपलब्ध गराउनु पर्नेछ ।</td>
+                </tr>
+                </tbody>
+                <tbody>
+                <tr>
+                    <td colspan="6">Where Corporate Guarantee is to be obtained</td>
+                </tr>
+                <tr>
+                    <td colspan="6">.............................. को रु................/– (अक्षरेपी रुपैयाँ ............... मात्र) को <strong>संस्थागत जमानतको</strong>
+                        लिखत बैंकलाई उपलब्ध गराउनु पर्नेछ ।</td>
+                </tr>
+                </tbody>
+                <tbody>
+                <tr>
+                    <td colspan="6">Security as Current assets</td>
+                </tr>
+                <tr>
+                    <td colspan="6">ऋणीको सम्पूर्ण <strong>चालु सम्पत्ति</strong> उपर हाइपोथिकेसन (Hypothecation over Current Assets) को लिखत गरिदिनु पर्नेछ।</td>
+                </tr>
+                </tbody>
+                <tbody>
+                <tr>
+                    <td colspan="6">Security as Fixed assets collateral</td>
+                </tr>
+                <tr>
+                    <td colspan="6">ऋणीको सम्पूर्ण <strong>स्थिर सम्पत्ति</strong> उपर हाइपोथिकेसन (Hypothecation over Fixed Assets) को लिखत गरिदिनु पर्नेछ ।</td>
+                </tr>
+                </tbody>
+                <tbody>
+                <tr>
+                    <td colspan="6">Security as Cash Margin</td>
+                </tr>
+                <tr>
+                    <td colspan="3">प्रतितपत्र सुविधा उपयोगको आधारमा ......... प्रतिशत नगद मार्जिन जम्मा गर्नु पर्नेछ ।</td>
+                    <td colspan="3">ग्यारेण्टी सुविधा उपयोगको आधारमा ........ प्रतिशत नगद मार्जिन जम्मा गर्नु पर्नेछ ।</td>
+                </tr>
+                </tbody>
+                <tbody>
+                <tr>
+                    <td colspan="6">Security in case of Personal loan (Declaration)</td>
+                </tr>
+                <tr>
+                    <td colspan="6">ऋणी तथा ऋणीको एकाघर परिवारको नाममा दर्ता कायम रहेको अन्य कसैको हक दावी नलाग्ने सम्पत्ति विवरण बैँक समक्ष पेश गर्नु पर्नेछ ।</td>
+                </tr>
+                </tbody>
+                <tbody>
+                <tr>
+                    <td colspan="6">Security as Cash lien</td>
+                </tr>
+                <tr>
+                    <td colspan="6">...........................को नाममा लक्ष्मी बैंक लिमिटेडमा रहेको चल्ती/बचत खाता नं .................................मा रु. ...................../–
+                        (अक्षरेपी रुपैयाँ ..........................मात्र) लिएको कर्जा चुक्ता नहुञ्जेल सम्मका लागि यस बैंकको नाममा लियन (ष्भिल) राखीदिन मञ्जुर गरी दिएको लिखत ।</td>
+                </tr>
+                </tbody>
+                <tbody>
+                <tr>
+                    <td colspan="6">रु................/– (अक्षरेपी रुपैयाँ ............... मात्र) को कर्जा तमसुकमा सही छाप गरी बैंकलाई उपलव्ध गराउनु पर्नेछ ।</td>
+                </tr>
+                </tbody>
+                <tbody>
+                <tr>
+                    <td colspan="6">रु................/– (अक्षरेपी रुपैयाँ ............... मात्र) को प्रतिज्ञापत्रमा सही छाप गरी बैंकलाई उपलव्ध गराउनु पर्नेछ ।</td>
+                </tr>
+                </tbody>
+
             </table>
-            <tr>
-                <td>जग्गाधनीको नाम</td>
-                <td>जिल्ला</td>
-                <td>गा.पा./न.पा.</td>
-                <td>वडा नं.</td>
-                <td>कि.नं.</td>
-                <td>क्षेत्रफल</td>
-            </tr>
-            <tr>
-                <td> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                            formControlName="landOwnerName"></td>
-                <td> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                            formControlName="securityDistrict"></td>
-                <td> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                            formControlName="securityVdc"></td>
-                <td> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                            formControlName="securityWard"></td>
-                <td> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                            formControlName="securityKitta"></td>
-                <td> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                            formControlName="securityArea"></td>
-            </tr>
-            उक्त जग्गा/घरजग्गा समेतको लिगलगापात कर्जाको सुरक्षण वापत बैंकको नाममा धितो वन्धकीको लिखत लेखी सम्वन्धित मालपोत कार्यालयमा गई पारित गर्नु पर्नेछ ।
-
-            Cross-Collateralized case
-            <tr>
-                <td>जग्गाधनीको नाम</td>
-                <td>जिल्ला</td>
-                <td>गा.पा./न.पा.</td>
-                <td>वडा नं.</td>
-                <td>कि.नं.</td>
-                <td>क्षेत्रफल</td>
-            </tr>
-            <tr>
-                <td> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                            formControlName="landOwnerName"></td>
-                <td> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                            formControlName="securityDistrict"></td>
-                <td> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                            formControlName="securityVdc"></td>
-                <td> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                            formControlName="securityWard"></td>
-                <td> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                            formControlName="securityKitta"></td>
-                <td> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                            formControlName="securityArea"></td>
-            </tr>
-
-            उक्त जग्गा/घरजग्गा समेतको लिगलगापात ऋणी
-            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                   formControlName="securityArea">
-            उपभोग गर्ने कर्जा रकम रु <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                            formControlName="securityArea"> ।–
-            तथा ऋणी <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                           formControlName="securityArea"> ले उपभोग गर्ने कर्जा रकम रु
-            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                   formControlName="securityArea"> ।– गरी जम्मा रु <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                                                          formControlName="securityArea"> /– (अक्षरेपी रुपैया
-            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                   formControlName="securityArea"> मात्र) को सुरक्षण वापत बैंकको नाममा धितो वन्धकीको लिखत (Cross Collateralised Deed) लेखी सम्बन्धित मालपोत कार्यालयमा गई पारित गर्नु पर्ने छ ।
-
-            २. Security as Vehicle
-
-            <tr>
-                <td>सवारीको विवरण</td>
-                <td>इन्जिन नं.</td>
-                <td>चेसिस नं.</td>
-                <td>गाडी नं.</td>
-            </tr>
-            <tr>
-                <td> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                            formControlName="vehicleDetails"></td>
-                <td> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                            formControlName="engineNo"></td>
-                <td> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                            formControlName="chasisNo"></td>
-                <td> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                            formControlName="vehicleNo"></td>
-            </tr>
-            उक्त सवारी सधानहरु बैंकको कर्जा चुक्ता नहुन्जेल सम्मको लागि कर्जाको सुरक्षण वापत धितोको रुपमा प्रदान गर्नुपर्नेछ ।
-
-            ३. Security as Shares of different institutions
-            <tr>
-                <td>शेयरधनीको नाम</td>
-                <td>धितोमा दिने शेयर रहेको कम्पनीको विवरण</td>
-                <td>शेयर संख्या</td>
-                <td>शेयरको किसिम</td>
-            </tr>
-            <tr>
-                <td> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                            formControlName="shareOwnerName"></td>
-                <td> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                            formControlName="shareCompanyName"></td>
-                <td> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                            formControlName="shareUnit"></td>
-                <td> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                            formControlName="shareType"></td>
-            </tr>
-
-            उक्त शेयरहरु र सोमा प्राप्त हुने वोनश शेयर, नगद लाभांश, हकप्रदबाट प्राप्त हुने शेयर लगायतका सम्पूर्ण शेयरहरु बैंकको कर्जा चुक्ता नहुन्जेल सम्मका लागि कर्जाको सुरक्षण वापत धितोको रुपमा प्रदान गर्नुपर्नेछ ।
             <br>
-            <tr>
-                <td></td>
-                <td>धितोमा राखिदिएको शेयर बिक्रिको लागि गरिदिएको लिखत ।</td>
-            </tr>
-
-            Where Personal Guarantee is to be obtained
-            .............................. को रु................/– (अक्षरेपी रुपैयाँ ............... मात्र) को <strong>व्यक्तिगत जमानतको</strong> लिखत बैंकलाई उपलब्ध गराउनु पर्नेछ ।
-
-            Where Corporate Guarantee is to be obtained
-            .............................. को रु................/– (अक्षरेपी रुपैयाँ ............... मात्र) को <strong>संस्थागत जमानतको</strong> लिखत बैंकलाई उपलब्ध गराउनु पर्नेछ ।
-
-            Security as Current assets
-            ऋणीको सम्पूर्ण <strong>चालु सम्पत्ति</strong> उपर हाइपोथिकेसन (Hypothecation over Current Assets) को लिखत गरिदिनु पर्नेछ।
-
-            Security as Fixed assets collateral
-            ऋणीको सम्पूर्ण <strong>स्थिर सम्पत्ति</strong> उपर हाइपोथिकेसन (Hypothecation over Fixed Assets) को लिखत गरिदिनु पर्नेछ ।
-
-            Security as Cash Margin
-            प्रतितपत्र सुविधा उपयोगको आधारमा ......... प्रतिशत नगद मार्जिन जम्मा गर्नु पर्नेछ ।
-            ग्यारेण्टी सुविधा उपयोगको आधारमा ........ प्रतिशत नगद मार्जिन जम्मा गर्नु पर्नेछ ।
-
-
-            Security in case of Personal loan (Declaration)
-            ऋणी तथा ऋणीको एकाघर परिवारको नाममा दर्ता कायम रहेको अन्य कसैको हक दावी नलाग्ने सम्पत्ति विवरण बैँक समक्ष पेश गर्नु पर्नेछ ।
-
-            Security as Cash lien
-            ...........................को नाममा लक्ष्मी बैंक लिमिटेडमा रहेको चल्ती/बचत खाता नं .................................मा रु. ...................../– (अक्षरेपी रुपैयाँ ..........................मात्र) लिएको कर्जा चुक्ता नहुञ्जेल सम्मका लागि यस बैंकको नाममा लियन (ष्भिल) राखीदिन मञ्जुर गरी दिएको लिखत ।
-
-            ११	रु................/– (अक्षरेपी रुपैयाँ ............... मात्र) को कर्जा तमसुकमा सही छाप गरी बैंकलाई उपलव्ध गराउनु पर्नेछ ।
-            १२	रु................/– (अक्षरेपी रुपैयाँ ............... मात्र) को प्रतिज्ञापत्रमा सही छाप गरी बैंकलाई उपलव्ध गराउनु पर्नेछ ।
-
 
             <p class="text-center"><strong>४. लागुहुने शर्त तथा बन्देजहरु (Covenants)</strong></p>
             <p>ऋणीले बैंकवाट लिएको कुनै पनि कर्जा तथा सुविधा सम्पूर्ण रुपमा चुक्ता फछर््यौट नभए सम्म ऋणीले देहाय वमोजिमका शर्तहरु सदैव पालना गर्नु पर्नेछ ।</p>

@@ -59,10 +59,22 @@ export class OfferLetterLaxmiComponent implements OnInit {
 
   ngOnInit() {
     console.log('cadData', this.cadData);
+    // if (!ObjectUtil.isEmpty(this.cadData)) {
+    //   if (this.cadData.assignedLoan.length > 1) {
+    //     const loanNameArray = [];
+    //     this.cadData.assignedLoan.forEach((a) => {
+    //       loanNameArray.push(a.loan.name);
+    //     });
+    //     this.loanName = loanNameArray;
+    //   } else {
+    //     this.loanName = this.cadData.assignedLoan[0].loan.name;
+    //   }
+    // }
     this.loanName = this.cadData.assignedLoan[0].loan.name;
     console.log('loanName', this.loanName);
     this.subloanTypes = SubLoanType.value(this.loanName);
     this.loanType = this.cadData.assignedLoan[0].loanType;
+    console.log('loanType', this.loanType);
     this.checkSubLoanType();
     this.buildForm();
     if (this.hasSubLoanType) {
@@ -111,6 +123,16 @@ export class OfferLetterLaxmiComponent implements OnInit {
       shareCompanyName: [undefined],
       shareUnit: [undefined],
       shareType: [undefined],
+
+
+      samjhautapatra: [undefined],
+      samjhautapatra1: [undefined],
+      samjhautapatra2: [undefined],
+      date: [undefined],
+      borrowerName1: [undefined],
+      address1: [undefined],
+      phoneNo: [undefined],
+      attention: [undefined],
     });
   }
 
