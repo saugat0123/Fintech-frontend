@@ -95,7 +95,6 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
         this.cadOfferLetterApprovedDoc.offerDocumentList.forEach((d, i) => {
             if ((d.docName === LaxmiOfferLetterConst.value(LaxmiOfferLetterConst.PERSONAL_GUARANTEE))
                 || (d.docName === LaxmiOfferLetterConst.value(LaxmiOfferLetterConst.LETTER_OF_COMMITMENT))) {
-                console.log('four', d);
                 this.getFile(i);
             }
         });
@@ -183,15 +182,13 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
                     draftPath: this.cadOfferLetterApprovedDoc.offerDocumentList[index].draftPath,
                     pathSigned: ''
                 };
-                if (this.index === 0) {
-                    console.log('vitra xa');
+                if (this.cadOfferLetterApprovedDoc.offerDocumentList[index].docName === LaxmiOfferLetterConst.value(LaxmiOfferLetterConst.PERSONAL_GUARANTEE)) {
                     this.formdata.append('file', file);
-                    this.index = 1;
-                } else if (this.index === 1) {
+                    this.objArr.push(obj);
+                } else if (this.cadOfferLetterApprovedDoc.offerDocumentList[index].docName === LaxmiOfferLetterConst.value(LaxmiOfferLetterConst.LETTER_OF_COMMITMENT)) {
                     this.formdata.append('file2', file);
-                    this.index = 0;
+                    this.objArr.push(obj);
                 }
-                this.objArr.push(obj);
             }
         });
     }
