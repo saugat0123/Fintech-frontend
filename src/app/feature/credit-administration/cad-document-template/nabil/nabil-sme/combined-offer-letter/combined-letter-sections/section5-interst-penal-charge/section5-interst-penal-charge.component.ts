@@ -98,7 +98,7 @@ export class Section5InterstPenalChargeComponent implements OnInit {
                 }
             }
             if (data === this.loanNameConst.MORTGAGE_TERM_LOAN_EQUITY_MORTGAGE_TERM_LOAN) {
-                const tempTermMortgageKey = this.tempData.termLoanForm;
+                const tempTermMortgageKey = this.tempData.mortgageEquityTermForm;
                 if (tempTermMortgageKey.termLoanType === 'NEW_EMI_TERM_LOAN' || tempTermMortgageKey.termLoanType === 'NEW_ANNUAL_REVIEW') {
                     this.isMortgageTermLoanSelected = true;
                 }

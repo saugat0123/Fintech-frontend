@@ -1599,22 +1599,26 @@
                         </td>
                     </tr>
                 </ng-container>
-                <tr *ngFor="let autoData of autoLoanDetails; let index1 = index">
-                    <!--Auto Loan-->
-                    <td width="10%"><strong>{{finalLoanDetails.length + (index1 + 1) | nepaliWord}})</strong></td>
-                    <td>
-                        <app-auto-loan #autoLoanComponent
-                                       [customerApprovedDoc]="cadOfferLetterApprovedDoc" [loanData]="autoLoanDetails" [index]="index1" [data]="autoLoanData[index1]"></app-auto-loan>
-                    </td>
-                </tr>
-                <tr *ngFor="let termLoan of termLoanDetails; let index2 = index;">
-                    <!--Term Loan to/for-->
-                    <td width="10%"><strong>{{finalLoanDetails.length + autoLoanDetails.length +(index2 + 1) | nepaliWord}})</strong></td>
-                    <td>
-                        <app-term-loan-to-or-for #termLoanToOrForComponent
-                                                 [customerApprovedDoc]="cadOfferLetterApprovedDoc" [loanData]="termLoanDetails" [index]="index2" [data]="termLoanData[index2]" [data2]="termLoanData"></app-term-loan-to-or-for>
-                    </td>
-                </tr>
+            </table>
+        </div>
+        <div>
+            <app-auto-loan #autoLoanComponent
+                           [customerApprovedDoc]="cadOfferLetterApprovedDoc"
+                           [loanData]="autoLoanDetails"
+                           [pointNumber]="finalLoanDetails.length"
+                           [autoLoanData]="autoLoanData">
+            </app-auto-loan>
+        </div>
+        <div>
+            <app-term-loan-to-or-for #termLoanToOrForComponent
+                                     [customerApprovedDoc]="cadOfferLetterApprovedDoc"
+                                     [loanData]="termLoanDetails"
+                                     [termLoanData]="termLoanData"
+                                     [pointNumber]="finalLoanDetails.length + autoLoanDetails.length">
+            </app-term-loan-to-or-for>
+        </div>
+            <div>
+            <table class="table table-bordered" style="margin-top:-17px">
                 <tr>
                     <!--Free Text-->
                     <td width="10%"><strong>{{finalLoanDetails.length + autoLoanDetails.length + termLoanDetails.length + 1 | nepaliWord}})</strong></td>
