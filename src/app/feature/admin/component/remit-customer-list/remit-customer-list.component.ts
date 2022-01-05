@@ -202,11 +202,13 @@ export class RemitCustomerListComponent implements OnInit {
         this.onBoardSpinner = true;
         this.modalService.dismissAll();
         this.remitCustomerService.saveRemitCustomer(this.onBoardData).subscribe((res) => {
+            // this.remitCustomerList[i] = res.detail;
             this.onBoardData.sendToBranch = true;
+            RemitCustomerListComponent.loadData(this);
             this.onBoardSpinner = false;
             this.toastService.success('Successfully Send to branch');
         }, error => {
-            this.toastService.success('Failed to send to branch');
+            this.toastService.danger('Failed to send to branch');
             this.onBoardSpinner = false;
         });
     }
