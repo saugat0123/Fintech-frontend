@@ -100,7 +100,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
       faxNumber: [undefined],
       subLoanType: [undefined],
 
-      // Security
+      // new/enhance Security
       landOwnerName: [undefined],
       securityDistrict: [undefined],
       securityVdc: [undefined],
@@ -125,15 +125,6 @@ export class OfferLetterLaxmiComponent implements OnInit {
       shareUnit: [undefined],
       shareType: [undefined],
 
-
-      samjhautapatra: [undefined],
-      samjhautapatra1: [undefined],
-      samjhautapatra2: [undefined],
-      date: [undefined],
-      borrowerName1: [undefined],
-      address1: [undefined],
-      phoneNo: [undefined],
-      attention: [undefined],
       personalName: [undefined],
       personalAmount: [undefined],
       personalAmountWord: [undefined],
@@ -155,6 +146,66 @@ export class OfferLetterLaxmiComponent implements OnInit {
       promiseAmount: [undefined],
       promiseAmountWord: [undefined],
 
+      ligLoan: [undefined],
+      landLoanAmount: [undefined],
+      loanBorrower: [undefined],
+      consumptionAmount: [undefined],
+      totalConsumptionAmount: [undefined],
+      totalConsumptionAmountWord: [undefined],
+
+      // renew
+      landOwnerName2: [undefined],
+      securityDistrict2: [undefined],
+      securityVdc2: [undefined],
+      securityWard2: [undefined],
+      securityKitta2: [undefined],
+      securityArea2: [undefined],
+
+      landOwnerName3: [undefined],
+      securityDistrict3: [undefined],
+      securityVdc3: [undefined],
+      securityWard3: [undefined],
+      securityKitta3: [undefined],
+      securityArea3: [undefined],
+
+      vehicleDetails1: [undefined],
+      engineNo1: [undefined],
+      chasisNo1: [undefined],
+      vehicleNo1: [undefined],
+
+      shareOwnerName1: [undefined],
+      shareCompanyName1: [undefined],
+      shareUnit1: [undefined],
+      shareType1: [undefined],
+
+      personalName1: [undefined],
+      personalAmount1: [undefined],
+      personalAmountWord1: [undefined],
+
+      corporateName1: [undefined],
+      corporateAmount1: [undefined],
+      corporateAmountWord1: [undefined],
+
+      letterCM1: [undefined],
+      guarnateeCM1: [undefined],
+
+      accountName1: [undefined],
+      accountNo1: [undefined],
+      accountAmount1: [undefined],
+      accountAmountWord1: [undefined],
+
+      loanAmount1: [undefined],
+      loanAmountWord1: [undefined],
+      promiseAmount1: [undefined],
+      promiseAmountWord1: [undefined],
+
+      ligLoan1: [undefined],
+      landLoanAmount1: [undefined],
+      loanBorrower1: [undefined],
+      consumptionAmount1: [undefined],
+      totalConsumptionAmount1: [undefined],
+      totalConsumptionAmountWord1: [undefined],
+
       date1: [undefined],
       amount1: [undefined],
       date2: [undefined],
@@ -170,6 +221,14 @@ export class OfferLetterLaxmiComponent implements OnInit {
       date10: [undefined],
 
       // subLoantype
+      samjhautapatra: [undefined],
+      samjhautapatra1: [undefined],
+      samjhautapatra2: [undefined],
+      date: [undefined],
+      borrowerName1: [undefined],
+      address1: [undefined],
+      phoneNo: [undefined],
+      attention: [undefined],
       workingRate: [undefined],
       workingLandBuildingRate: [undefined],
       month: [undefined],
@@ -198,7 +257,6 @@ export class OfferLetterLaxmiComponent implements OnInit {
       conBuildingKitta: [undefined],
       conBuildingArea: [undefined],
       conBuildingLand: [undefined],
-
       totalEstimateRate: [undefined],
       totalEstBuildingLandRate: [undefined],
       totalConRate: [undefined],
