@@ -161,6 +161,7 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
       purposeOfLoan: [undefined],
       loanSubType: [undefined],
       loanSubTypeEn: [undefined],
+      guarantorAmount: [undefined],
       securities: this.formBuilder.array([]),
     });
   }
@@ -209,6 +210,7 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
     }
   }
   fillForm() {
+    const guarantorAmount = this.guarantorParse(this.guarantorData[0].nepData, 'gurantedAmount');
     const proposalData = this.cadOfferLetterApprovedDoc.assignedLoan[0].proposal;
     const customerAddress = this.loanHolderInfo.registeredMunicipality.ct + '-' +
         this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.registeredDistrict.ct + ' ,' +
@@ -255,6 +257,7 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
       finalSanctionDate = templateSanctionDate ? templateSanctionDate.nDate : '';
     }
     this.form.patchValue({
+      guarantorAmount: guarantorAmount,
       customerName: this.loanHolderInfo.name ? this.loanHolderInfo.name.ct : '',
       customerAddress: customerAddress ? customerAddress : '',
       loanAmountInFigure: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount)),

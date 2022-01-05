@@ -1086,7 +1086,7 @@
                                                            formControlName="amountInFigure"
                                                            name="amountInFigure"
                                                            placeholder=" "
-                                                           type="text"/> मात्र )(बराबरको प्रतिज्ञा पत्र (Promissory
+                                                           type="text"/>/- मात्र)बराबरको प्रतिज्ञा पत्र (Promissory
                                                 Note)
                                             </li>
                                             <li>निरन्तरताको लिखत (Letter of Continuity )</li>
@@ -1094,14 +1094,14 @@
                                                           formControlName="amountInFigure"
                                                           name="amountInFigure"
                                                           placeholder=" "
-                                                          type="text"/>।( को श्री(सम्पत्ति धितोरसुरक्षण लेखीदिएको गोश्वारा(General Letter of Hypothecation)
+                                                          type="text"/>/- को श्री(सम्पत्ति धितोरसुरक्षण लेखीदिएको गोश्वारा(General Letter of Hypothecation)
                                                 सहित पूरक सम्झौता (Supplementary Agreement)
                                             </li>
                                             <li> रु.<input class="form-field form-control-sm"
                                                            formControlName="amountInFigure"
                                                            name="amountInFigure"
                                                            placeholder=" "
-                                                           type="text"/>।(बराबरकोे वारेसनामा (Power of Attorney) सहित
+                                                           type="text"/>/- (बराबरकोे वारेसनामा (Power of Attorney) सहित
                                                 भुक्तानी प्राप्त गर्न
                                                 बांकी रकम संकलन गर्ने अख्तियारनामा (Assignment of Receivables) ।
                                             </li>
@@ -1109,23 +1109,25 @@
                                                            formControlName="amountInFigure"
                                                            name="amountInFigure"
                                                            placeholder=" "
-                                                           type="text"/>।(बराबरको ऋणतमसुक (Loan Deed).
+                                                           type="text"/>/- बराबरको ऋणतमसुक (Loan Deed).
                                             </li>
-                                            <li> रु.<input class="form-field form-control-sm"
-                                                           formControlName="amountInFigure"
-                                                           name="amountInFigure"
+                                            <li *ngFor="let personalGuarantor of tempPersonalGuarantors">
+                                                रु.<input class="form-field form-control-sm"
+                                                          [value]="personalGuarantor.gurantedAmount.ct"
                                                            placeholder=" "
-                                                           type="text"/> (बराबरको श्री <input
+                                                           type="text"/>/- बराबरको
+                                                {{personalGuarantor.gender.en === 'FEMALE' && personalGuarantor.relationMedium.en === '0' ? 'श्रीमती' : (personalGuarantor.gender.en === 'FEMALE' && personalGuarantor.relationMedium.en === '1' ? 'सुश्री' : personalGuarantor.gender.en === 'MALE' ? 'श्रीमान्' : '')}}
+                                                <input
                                                     class="form-field form-control-sm"
                                                     formControlName="guarantorName"
-                                                    [value]="commonGuarantorDetails(personalGuarantorsName, finalPersonalName)"
+                                                    [value]="personalGuarantor.guarantorName.ct"
                                                     placeholder=" "
                                                     type="text"/> ले बैंकको पक्षमा लेखिदिनुपर्ने
                                                 व्यक्तिगत जमानत (Personal Guarantee)
                                             </li>
                                             <li> जमानीकर्ताको सम्पत्ति विवरण (wealth statement of Guarantor)
                                             </li>
-                                            <li> बबहु बैंकिङ्ग घोषणापत्र (Multiple Banking Declaration)
+                                            <li> बहु बैंकिङ्ग घोषणापत्र (Multiple Banking Declaration)
                                             </li>
                                             <li>ऋणी फर्मले यस बैंकको ऋणकर्जा सुविधा समेत गरी अन्य बैंक तथा वित्तिय
                                                 संस्थाबाट रु.१ करोड भन्दा बढी

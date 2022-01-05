@@ -58,17 +58,17 @@
                 <li *ngIf="multiVisible">
                     बहु बैंकिङ्ग घोषणापत्र (Multiple Banking Declaration)
                 </li>
-                <li *ngFor="let val of tempPersonalGuarantors">
-                    <p *ngIf="guaranteeVisible">
+                <ng-container *ngIf="guaranteeVisible">
+                    <li *ngFor="let val of tempPersonalGuarantors">
                         रु.
                         <span><strong>{{val.gurantedAmount.ct ? val.gurantedAmount.ct : ''}}</strong></span>
                         /-
                         बराबरको
-                            {{val.gender.en === 'FEMALE' && val.relationMedium.en === '0' ? 'श्रीमती' : (val.gender.en === 'FEMALE' && val.relationMedium.en === '1' ? 'सुश्री' : val.gender.en === 'MALE' ? 'श्रीमान्' : '')}}
-                            <span><strong>{{val.guarantorName.ct ? val.guarantorName.ct : ''}}</strong></span>
-                            ले बैंकको पक्षमा लेखिदिनुपर्ने ब्यक्तिगत जमानीपत्र (Personal Guarantee)
-                    </p>
-                </li>
+                        {{val.gender.en === 'FEMALE' && val.relationMedium.en === '0' ? 'श्रीमती' : (val.gender.en === 'FEMALE' && val.relationMedium.en === '1' ? 'सुश्री' : val.gender.en === 'MALE' ? 'श्रीमान्' : '')}}
+                        <span><strong>{{val.guarantorName.ct ? val.guarantorName.ct : ''}}</strong></span>
+                        ले बैंकको पक्षमा लेखिदिनुपर्ने ब्यक्तिगत जमानीपत्र (Personal Guarantee)
+                    </li>
+                </ng-container>
                 <li *ngIf="wealthVisible">
                     जमानीकर्ताको सम्पत्ति विवरण (Wealth Statement of Guarantor)
                 </li>
@@ -135,13 +135,11 @@
                 <li *ngIf="letterSetOff">
                     मोजरा पत्र (Letter of set off)
                 </li>
-                <li *ngFor="let textArea of freeText?.section10; index as i">
-                    <span
-                            class="nepaliFont"
-                            style="font-size: 24px;">
-                           {{ textArea.additionalGuarantorDetails }}
-                    </span>
-                </li>
+                <ng-container *ngIf="freeText?.section10[0].additionalGuarantorDetails !== null && freeText?.section10[0].additionalGuarantorDetails !== ''">
+                    <li *ngFor="let textArea of freeText?.section10; index as i">
+                        {{ textArea.additionalGuarantorDetails }}
+                    </li>
+                </ng-container>
             </ul>
         </div>
         <!--    Only for existing case-->
