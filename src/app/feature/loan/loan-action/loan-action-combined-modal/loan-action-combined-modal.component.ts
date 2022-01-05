@@ -65,6 +65,7 @@ export class LoanActionCombinedModalComponent implements OnInit {
     isSolUserPresentForCombine = true;
     isUserNotPresentForCombine = false;
     showUserList = true;
+    spinner = false;
 
     constructor(
         public nbDialogRef: NbDialogRef<LoanActionCombinedModalComponent>,
@@ -98,6 +99,7 @@ export class LoanActionCombinedModalComponent implements OnInit {
 
     public changeStageType(value: 'individually' | 'combined'): void {
         if (value === 'individually') {
+            this.spinner = true;
             this.individualType.form = this.buildIndividualForm();
             this.individualType.users = new Map<number, User[]>();
             this.individualType.solUsers = new Map<number, User[]>();
@@ -173,8 +175,10 @@ export class LoanActionCombinedModalComponent implements OnInit {
         this.userService.getUserListByRoleIdAndBranchIdForDocumentAction(role.id, this.branchId).subscribe((response: any) => {
             if (this.docAction === DocAction[DocAction.BACKWARD_TO_COMMITTEE]) {
                 this.individualType.users.set(i, response.detail[0]);
+                this.spinner = false;
             } else {
                 this.individualType.users.set(i, response.detail);
+                this.spinner = false;
             }
             const users: User[] = response.detail;
             this.isUserPresent[i] = true;

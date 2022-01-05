@@ -57,7 +57,7 @@
                         </div>
                     </div>
                 </div>
-                <div *ngIf="radioStageType.value === 'individually'" class="row">
+                <div *ngIf="radioStageType.value === 'individually'" class="row" [nbSpinner]="spinner">
                     <div class="col-md-12">
                         <form [formGroup]="individualType?.form">
                             <nb-accordion formArrayName="actions">
