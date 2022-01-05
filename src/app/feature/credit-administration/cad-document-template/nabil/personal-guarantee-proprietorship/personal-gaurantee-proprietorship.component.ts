@@ -18,6 +18,7 @@ import {EngToNepaliNumberPipe} from '../../../../../@core/pipe/eng-to-nepali-num
 import {CurrencyFormatterPipe} from '../../../../../@core/pipe/currency-formatter.pipe';
 import {ProposalCalculationUtils} from '../../../../loan/component/loan-summary/ProposalCalculationUtils';
 import {NabilDocumentChecklist} from '../../../../admin/modal/nabil-document-checklist.enum';
+import {LoanNameConstant} from '../../../cad-view/template-data/nabil-sme-template-data/sme-costant/loan-name-constant';
 
 @Component({
     selector: 'app-personal-guarantee-proprietorship',
@@ -38,7 +39,8 @@ export class PersonalGuaranteeProprietorshipComponent implements OnInit {
     loanHolderNepData: any;
     offerDocumentDetails: any;
     nepaliNumber = new NepaliNumberAndWords();
-
+    loanPurpose = 'व्यापार/ व्यवसाय संचालन';
+    tempData;
     constructor(private formBuilder: FormBuilder,
                 private administrationService: CreditAdministrationService,
                 private toastService: ToastService,
@@ -97,7 +99,6 @@ export class PersonalGuaranteeProprietorshipComponent implements OnInit {
         let todayDate: any = this.englishNepaliDatePipe.transform(new Date(), true);
         todayDate = todayDate.replace(',', '').split(' ');
         const daysInNumber = new Date().getDay();
-
         if (!ObjectUtil.isEmpty(this.taggedGuarantorsDetailsInLoan)) {
             this.taggedGuarantorsDetailsInLoan.forEach((val) => {
                 const individualGuarantorNepData = val.nepData
@@ -111,15 +112,18 @@ export class PersonalGuaranteeProprietorshipComponent implements OnInit {
                 (this.personalGuaranteeProprietorship.get('guaranteeCompanies') as FormArray).push(
                     this.formBuilder.group({
                         branchName: [this.loanHolderNepData.branch ? this.loanHolderNepData.branch.ct : ''],
-                        actDetails: [undefined],
-                        actYearInFigure: [undefined],
-                        headDepartment: [undefined],
-                        registrationDate: [undefined],
-                        registrationNo: [undefined],
-                        location: [undefined],
+                        actDetails: [this.loanHolderNepData.actName.ct ? this.loanHolderNepData.actName.ct : ''],
+                        actYearInFigure: [this.loanHolderNepData.actYear.np ? this.loanHolderNepData.actYear.np : ''],
+                        headDepartment: [this.loanHolderNepData.authorizedBodyName.ct ? this.loanHolderNepData.authorizedBodyName.ct : ''],
+                        registrationDate: [this.englishNepaliDatePipe.transform(this.loanHolderNepData.registrationDate.np ? this.loanHolderNepData.registrationDate.np : this.loanHolderNepData.registrationDate.np, true) || ''],
+                        registrationNo: [this.loanHolderNepData.registrationNo.ct ? this.loanHolderNepData.registrationNo.ct : ''],
+                        registeredDistrict: [this.loanHolderNepData.registeredDistrict.ct ? this.loanHolderNepData.registeredDistrict.ct : ''],
+                        municipalityOfFirm: [this.loanHolderNepData.registeredMunicipality.ct ? this.loanHolderNepData.registeredMunicipality.ct : ''],
+                        wardNumOfFirm: [this.loanHolderNepData.permanentWard.ct ? this.loanHolderNepData.permanentWard.ct : ''],
+                        addressOfFirm: [this.loanHolderNepData.registeredStreetTole.ct ? this.loanHolderNepData.registeredStreetTole.ct : ''],
                         loaneeName: [this.loanHolderNepData.name ? this.loanHolderNepData.name.ct : ''],
-                        loanPurpose: [this.offerDocumentDetails && this.offerDocumentDetails.purposeOfLoan ? this.offerDocumentDetails.purposeOfLoan.ct : ''],
-                        letterIssuedDate: [undefined],
+                        loanPurpose: [this.setLoanPurpose()],
+                        letterIssuedDate: [this.englishNepaliDatePipe.transform(this.offerDocumentDetails.smeGlobalForm.dateOfApprovalCT ? this.offerDocumentDetails.smeGlobalForm.dateOfApprovalCT : this.offerDocumentDetails.smeGlobalForm.dateOfApprovalCT, true) || ''],
                         loanAmount: [this.nepaliNumber.numberNepali],
                         loanAmountInWord: [this.nepaliNumber.nepaliWords],
                         approvedLoanAmount: [this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(individualGuarantorNepData.gurantedAmount.en))],
@@ -128,14 +132,14 @@ export class PersonalGuaranteeProprietorshipComponent implements OnInit {
                         guarantorName: [individualGuarantorNepData.guarantorName ? individualGuarantorNepData.guarantorName.ct : ''],
                         guarantorFatherOrHusbandName: [individualGuarantorNepData.fatherName ? individualGuarantorNepData.fatherName.ct : individualGuarantorNepData.husbandName ? individualGuarantorNepData.husbandName.ct : ''],
                         grandFatherOrFatherInLaw: [individualGuarantorNepData.grandFatherName ? individualGuarantorNepData.grandFatherName.ct : individualGuarantorNepData.fatherInLawName ? individualGuarantorNepData.fatherInLawName.ct : ''],
-                        permanentDistrict: [individualGuarantorNepData.permanentDistrict ? individualGuarantorNepData.permanentDistrict.ct : '',],
-                        permanentMunicipalities: [individualGuarantorNepData.permanentMunicipality ? individualGuarantorNepData.permanentMunicipality.ct : '',],
-                        permanentWard: [individualGuarantorNepData.permanentWard ? individualGuarantorNepData.permanentWard.ct : '',],
-                        temporaryDistrict: [individualGuarantorNepData.temporaryDistrict ? individualGuarantorNepData.temporaryDistrict.ct : '',],
-                        temporaryMunicipalities: [individualGuarantorNepData.temporaryMunicipality ? individualGuarantorNepData.temporaryMunicipality.ct : '',],
-                        temporaryWard: [individualGuarantorNepData.temporaryWard ? individualGuarantorNepData.temporaryWard.ct : '',],
-                        citizenshipNo: [individualGuarantorNepData.citizenNumber ? individualGuarantorNepData.citizenNumber.ct : '',],
-                        issuedBy: [individualGuarantorNepData.issuedPlace ? individualGuarantorNepData.issuedPlace.ct : '',],
+                        permanentDistrict: [individualGuarantorNepData.permanentDistrict ? individualGuarantorNepData.permanentDistrict.ct : ''],
+                        permanentMunicipalities: [individualGuarantorNepData.permanentMunicipality ? individualGuarantorNepData.permanentMunicipality.ct : ''],
+                        permanentWard: [individualGuarantorNepData.permanentWard ? individualGuarantorNepData.permanentWard.ct : ''],
+                        temporaryDistrict: [individualGuarantorNepData.temporaryDistrict ? individualGuarantorNepData.temporaryDistrict.ct : ''],
+                        temporaryMunicipalities: [individualGuarantorNepData.temporaryMunicipality ? individualGuarantorNepData.temporaryMunicipality.ct : ''],
+                        temporaryWard: [individualGuarantorNepData.temporaryWard ? individualGuarantorNepData.temporaryWard.ct : ''],
+                        citizenshipNo: [individualGuarantorNepData.citizenNumber ? individualGuarantorNepData.citizenNumber.ct : ''],
+                        issuedBy: [individualGuarantorNepData.issuedPlace ? individualGuarantorNepData.issuedPlace.ct : ''],
                         issuedDate: [
                             this.englishNepaliDatePipe.transform(individualGuarantorNepData.citizenIssuedDate.en.eDate ? individualGuarantorNepData.citizenIssuedDate.en.eDate : individualGuarantorNepData.citizenIssuedDate.en, true) || ''
                         ],
@@ -161,6 +165,29 @@ export class PersonalGuaranteeProprietorshipComponent implements OnInit {
             this.nepaliNumber = JSON.parse(this.cadData.nepData);
         }
 
+    }
+
+    setLoanPurpose() {
+      let loanKoPurpose = '';
+      if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'DDSL Without Subsidy') {
+        loanKoPurpose = this.offerDocumentDetails.purposeOfLoan.ct;
+      }
+      if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Kisan Karja Subsidy') {
+        loanKoPurpose = this.offerDocumentDetails.purposeOfLoan.ct;
+      }
+      if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Udyamsil Karja Subsidy') {
+        loanKoPurpose = this.offerDocumentDetails.purposeOfLoan.ct;
+      }
+      if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Udyamsil Karja Subsidy') {
+        loanKoPurpose = this.offerDocumentDetails.purposeOfLoan.ct;
+      }
+      if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.offerDocumentDetails.mortgageEquityTermForm) {
+        loanKoPurpose = this.offerDocumentDetails.mortgageEquityTermForm.purposeOfLoanCT;
+      }
+      if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.offerDocumentDetails.autoLoanMasterForm) {
+        loanKoPurpose = this.offerDocumentDetails.autoLoanMasterForm.purposeOfLoanCT;
+      }
+      return loanKoPurpose ? loanKoPurpose : this.loanPurpose;
     }
 
     submit() {
