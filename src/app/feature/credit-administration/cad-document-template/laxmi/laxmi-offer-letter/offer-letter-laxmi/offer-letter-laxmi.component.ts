@@ -1,5 +1,5 @@
 import {Component, Input, OnInit, TemplateRef, ViewChild} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {CadCheckListTemplateEnum} from '../../../../../admin/modal/cadCheckListTemplateEnum';
 import {CreditAdministrationService} from '../../../../service/credit-administration.service';
 import {ToastService} from '../../../../../../@core/utils';
@@ -80,6 +80,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
     if (this.hasSubLoanType) {
       this.modalService.open(this.modal);
     }
+    this.addFixedAssetsCollateral();
   }
 
   buildForm() {
@@ -101,12 +102,13 @@ export class OfferLetterLaxmiComponent implements OnInit {
       subLoanType: [undefined],
 
       // new/enhance Security
-      landOwnerName: [undefined],
-      securityDistrict: [undefined],
-      securityVdc: [undefined],
-      securityWard: [undefined],
-      securityKitta: [undefined],
-      securityArea: [undefined],
+      fixedAssetsCollateral: this.formBuilder.array([]),
+      // landOwnerName: [undefined],
+      // securityDistrict: [undefined],
+      // securityVdc: [undefined],
+      // securityWard: [undefined],
+      // securityKitta: [undefined],
+      // securityArea: [undefined],
 
       landOwnerName1: [undefined],
       securityDistrict1: [undefined],
@@ -363,4 +365,21 @@ export class OfferLetterLaxmiComponent implements OnInit {
     }
   }
 
+  addFixedAssetsCollateral() {
+    const data = this.offerLetterForm.get('fixedAssetsCollateral') as FormArray;
+    data.push(
+        this.formBuilder.group({
+          landOwnerName: [undefined],
+          securityDistrict: [undefined],
+          securityVdc: [undefined],
+          securityWard: [undefined],
+          securityKitta: [undefined],
+          securityArea: [undefined],
+        })
+    );
+  }
+
+  removeFixedAssetsCollateral(i) {
+    (<FormArray>this.offerLetterForm.get('fixedAssetsCollateral')).removeAt(i);
+  }
 }

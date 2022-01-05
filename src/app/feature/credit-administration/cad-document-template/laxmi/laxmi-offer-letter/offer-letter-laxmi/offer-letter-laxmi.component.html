@@ -640,20 +640,31 @@
                     <td>कि.नं.</td>
                     <td>क्षेत्रफल</td>
                 </tr>
-                <tr>
-                    <td> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                formControlName="landOwnerName"></td>
-                    <td> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                formControlName="securityDistrict"></td>
-                    <td> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                formControlName="securityVdc"></td>
-                    <td> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                formControlName="securityWard"></td>
-                    <td> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                formControlName="securityKitta"></td>
-                    <td> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                formControlName="securityArea"></td>
-                </tr>
+                <ng-container *ngFor="let d of offerLetterForm.get('fixedAssetsCollateral')['controls']; let i = index" formArrayName="fixedAssetsCollateral">
+                    <div *ngIf="offerLetterForm.get('fixedAssetsCollateral')['length'] > 1">
+                        <input (click)="removeFixedAssetsCollateral(i)"
+                               class="align-self-end btn btn-sm btn-danger btn-primary"
+                               type="button" value="Delete"/>
+                    </div>
+                    <tr [formGroupName]="i">
+                        <td> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                    formControlName="landOwnerName"></td>
+                        <td> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                    formControlName="securityDistrict"></td>
+                        <td> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                    formControlName="securityVdc"></td>
+                        <td> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                    formControlName="securityWard"></td>
+                        <td> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                    formControlName="securityKitta"></td>
+                        <td> <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                    formControlName="securityArea"></td>
+                    </tr>
+                </ng-container>
+                <div>
+                    <input (click)="addFixedAssetsCollateral()" class="btn btn-sm btn-flat btn-primary"
+                           type="button" value="Add More"/>
+                </div>
                 <tr>
                     <td colspan="6">उक्त जग्गा/घरजग्गा समेतको लिगलगापात कर्जाको सुरक्षण वापत बैंकको नाममा धितो वन्धकीको लिखत लेखी सम्वन्धित मालपोत कार्यालयमा गई पारित गर्नु पर्नेछ ।</td>
                 </tr>
