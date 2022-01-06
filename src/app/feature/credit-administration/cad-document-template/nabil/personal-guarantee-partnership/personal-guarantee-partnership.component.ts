@@ -74,7 +74,6 @@ export class PersonalGuaranteePartnershipComponent implements OnInit {
     ).removeAt(i);
   }
   loadPersonalGuarantorData() {
-    console.log('cadData: ', this.cadData);
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.assignedLoan)) {
       this.loanHolderNepData = this.cadData.loanHolder.nepData
           ? JSON.parse(this.cadData.loanHolder.nepData)
@@ -93,8 +92,6 @@ export class PersonalGuaranteePartnershipComponent implements OnInit {
             this.taggedGuarantorsDetailsInLoan.map((val) => JSON.stringify(val))
         )
     ).map((val) => JSON.parse(val));
-    console.log('loanHolderNepData: ', this.loanHolderNepData);
-    console.log('taggedGuarantorsDetailsInLoan: ', this.taggedGuarantorsDetailsInLoan);
   }
   calulation() {
     if (ObjectUtil.isEmpty(this.cadData.nepData)) {

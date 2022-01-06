@@ -60,7 +60,6 @@ export class PersonalGuaranteeProprietorshipComponent implements OnInit {
     }
 
     loadPersonalGuarantorData() {
-      console.log('this.cadData', this.cadData);
         if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.assignedLoan)) {
             this.loanHolderNepData = this.cadData.loanHolder.nepData
                 ? JSON.parse(this.cadData.loanHolder.nepData)
