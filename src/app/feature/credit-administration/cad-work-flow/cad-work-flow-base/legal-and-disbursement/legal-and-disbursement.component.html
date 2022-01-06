@@ -32,7 +32,7 @@
         <div [class]="layoutFlag ? 'col-md-11 float-right':'col-md-12'">
 
 
-            <nb-tabset fullWidth>
+            <nb-tabset *ngIf="!isRoleLegal;" fullWidth>
                 <nb-tab tabTitle="Basic Info" [active]="activeTab === 0">
                     <app-cad-offerletter-profile
                                                  [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"
@@ -63,7 +63,7 @@
 <!--                                             (responseCadData)="newCadData($event)"></app-cad-offerletter-profile>-->
 
 <!--            </div>`-->
-            <nb-tabset *ngIf="isRoleLegal">
+            <nb-tabset *ngIf="isRoleLegal;">
                 <nb-tab tabTitle="Basic Info">
                     <app-profile-view *ngIf="cadOfferLetterApprovedDoc && toggleArray"
                                       [toggleArray]="toggleArray"
