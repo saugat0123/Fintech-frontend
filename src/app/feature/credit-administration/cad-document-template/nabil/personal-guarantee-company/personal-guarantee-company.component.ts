@@ -38,8 +38,12 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
   loanHolderNepData: any;
   offerDocumentDetails: any;
   nepaliNumber = new NepaliNumberAndWords();
+  freeText: Array<any> = new Array<any>();
+  cadFreeText;
+  loanPurpose = 'व्यापार/ व्यवसाय संचालन';
+  spinner = false;
 
-  constructor(private formBuilder: FormBuilder,
+    constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
               private dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
@@ -83,8 +87,22 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
   // }
 
   ngOnInit() {
+      console.log('Initial Free:', this.cadData.cadFileList);
     this.loadPersonalGuarantorData();
     this.buildForm();
+    this.fillGuarantee();
+  }
+
+  fillGuarantee() {
+      if (this.cadData.cadFileList.length > 0) {
+          const cadInitialInfo = JSON.parse(this.cadData.cadFileList[0].supportedInformation);
+          // this.cadFreeText = cadInitialInfo.guaranteeCompanies;
+          console.log('Cad FreeTExt:', cadInitialInfo);
+          // const free = this.personalGuaranteeCompany.value;
+          // for (let val = 0; val < free.guaranteeCompanies.length; val++) {
+          //     this.personalGuaranteeCompany.get(['guaranteeCompanies', val, 'freeText']).patchValue(this.cadFreeText[val].freeText);
+          // }
+      }
   }
 
 
@@ -133,47 +151,81 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
         if (ObjectUtil.isEmpty(individualGuarantorNepData)) {
           return;
         }
-      console.log('individualGuarantorNepData: ', individualGuarantorNepData);  
-      (this.personalGuaranteeCompany.get("guaranteeCompanies") as FormArray).push(
-        this.formBuilder.group({
-          branchName: [this.loanHolderNepData.branch ? this.loanHolderNepData.branch.ct : ''],
-          actDetails: [undefined],
-          actYearInFigure: [undefined],
-          headDepartment: [undefined],
-          registrationDate: [undefined],
-          registrationNo: [undefined],
-          location: [undefined],
-          loaneeName: [this.loanHolderNepData.name ? this.loanHolderNepData.name.ct : ''],
-          loanPurpose: [this.offerDocumentDetails ? this.offerDocumentDetails.purposeOfLoan.ct : ''],
-          letterIssuedDate: [undefined],
-          loanAmount: [this.nepaliNumber.numberNepali],
-          loanAmountInWord: [this.nepaliNumber.nepaliWords],
+          console.log('individualGuarantorNepData: ', individualGuarantorNepData);
+          (this.personalGuaranteeCompany.get("guaranteeCompanies") as FormArray).push(
+              this.formBuilder.group({
+                  branchName: [this.loanHolderNepData.branch ? this.loanHolderNepData.branch.ct : ''],
+                  actDetails: [this.loanHolderNepData.actName.ct ? this.loanHolderNepData.actName.ct : ''],
+                  actYearInFigure: [this.loanHolderNepData.actYear.np ? this.loanHolderNepData.actYear.np :
+                                    this.loanHolderNepData.actYear.en ? this.engToNepNumberPipe.transform((this.loanHolderNepData.actYear.en).toString()) : ''],
+                  headDepartment: [this.loanHolderNepData.authorizedBodyName.ct ? this.loanHolderNepData.authorizedBodyName.ct : ''],
+                  registrationDate: [this.setRegistrationDate()],
+                  registrationNo: [this.loanHolderNepData.registrationNo.ct ? this.loanHolderNepData.registrationNo.ct : ''],
+                  location: [this.loanHolderNepData.registeredDistrict.ct ? this.loanHolderNepData.registeredDistrict.ct : ''],
+                  municipalityName: [this.loanHolderNepData.registeredMunicipality.ct ? this.loanHolderNepData.registeredMunicipality.ct : ''],
+                  wardNumber: [this.loanHolderNepData.permanentWard.ct ? this.loanHolderNepData.permanentWard.ct : ''],
+                  streetAddress: [this.loanHolderNepData.registeredStreetTole.ct ? this.loanHolderNepData.registeredStreetTole.ct : ''],
+                  loaneeName: [this.loanHolderNepData.name ? this.loanHolderNepData.name.ct : ''],
+                  loanPurpose: [this.setLoanPurpose()],
+                  letterIssuedDate: [this.englishNepaliDatePipe.transform(this.offerDocumentDetails.smeGlobalForm.dateOfApprovalCT ? this.offerDocumentDetails.smeGlobalForm.dateOfApprovalCT : this.offerDocumentDetails.smeGlobalForm.dateOfApprovalCT, true) || ''],
+                  loanAmount: [this.nepaliNumber.numberNepali],
+                  loanAmountInWord: [this.nepaliNumber.nepaliWords],
 
-          approvedLoanAmount: [this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(individualGuarantorNepData.gurantedAmount.en))],
-          approvedLoanAmountInWord: [this.nepaliCurrencyWordPipe.transform(individualGuarantorNepData.gurantedAmount.en)],
-          freeText: [undefined],
+                  approvedLoanAmount: [this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(individualGuarantorNepData.gurantedAmount.en))],
+                  approvedLoanAmountInWord: [this.nepaliCurrencyWordPipe.transform(individualGuarantorNepData.gurantedAmount.en)],
+                  freeText: [undefined],
 
-          guarantorName: [individualGuarantorNepData.guarantorName ? individualGuarantorNepData.guarantorName.ct : ''],
-          guarantorFatherOrHusbandName: [individualGuarantorNepData.fatherName ? individualGuarantorNepData.fatherName.ct : individualGuarantorNepData.husbandName ? individualGuarantorNepData.husbandName.ct : ''],
-          grandFatherOrFatherInLaw: [individualGuarantorNepData.grandFatherName ? individualGuarantorNepData.grandFatherName.ct : individualGuarantorNepData.fatherInLawName ? individualGuarantorNepData.fatherInLawName.ct : ''],
-          permanentDistrict: [individualGuarantorNepData.permanentDistrict ? individualGuarantorNepData.permanentDistrict.ct : '',],
-          permanentMunicipalities: [individualGuarantorNepData.permanentMunicipality ? individualGuarantorNepData.permanentMunicipality.ct : '',],
-          permanentWard: [individualGuarantorNepData.permanentWard ? individualGuarantorNepData.permanentWard.ct : '',],
+                  guarantorName: [individualGuarantorNepData.guarantorName ? individualGuarantorNepData.guarantorName.ct : ''],
+                  guarantorFatherOrHusbandName: [individualGuarantorNepData.fatherName ? individualGuarantorNepData.fatherName.ct : individualGuarantorNepData.husbandName ? individualGuarantorNepData.husbandName.ct : ''],
+                  grandFatherOrFatherInLaw: [individualGuarantorNepData.grandFatherName ? individualGuarantorNepData.grandFatherName.ct : individualGuarantorNepData.fatherInLawName ? individualGuarantorNepData.fatherInLawName.ct : ''],
+                  permanentDistrict: [individualGuarantorNepData.permanentDistrict ? individualGuarantorNepData.permanentDistrict.ct : '',],
+                  permanentMunicipalities: [individualGuarantorNepData.permanentMunicipality ? individualGuarantorNepData.permanentMunicipality.ct : '',],
+                  permanentWard: [individualGuarantorNepData.permanentWard ? individualGuarantorNepData.permanentWard.ct : '',],
 
-          temporaryDistrict: [individualGuarantorNepData.temporaryDistrict ? individualGuarantorNepData.temporaryDistrict.ct : '',],
-          temporaryMunicipalities: [individualGuarantorNepData.temporaryMunicipality ? individualGuarantorNepData.temporaryMunicipality.ct : '',],
-          temporaryWard: [individualGuarantorNepData.temporaryWard ? individualGuarantorNepData.temporaryWard.ct : '',],
+                  temporaryDistrict: [individualGuarantorNepData.temporaryDistrict ? individualGuarantorNepData.temporaryDistrict.ct : '',],
+                  temporaryMunicipalities: [individualGuarantorNepData.temporaryMunicipality ? individualGuarantorNepData.temporaryMunicipality.ct : '',],
+                  temporaryWard: [individualGuarantorNepData.temporaryWard ? individualGuarantorNepData.temporaryWard.ct : '',],
 
-          citizenshipNo: [individualGuarantorNepData.citizenNumber ? individualGuarantorNepData.citizenNumber.ct : '',],
-          issuedBy: [individualGuarantorNepData.issuedPlace ? individualGuarantorNepData.issuedPlace.ct : '',],
-          issuedDate: [
-            this.englishNepaliDatePipe.transform(individualGuarantorNepData.citizenIssuedDate.en.eDate ? individualGuarantorNepData.citizenIssuedDate.en.eDate : individualGuarantorNepData.citizenIssuedDate.en, true) || ''
-          ],
-        })
+                  citizenshipNo: [individualGuarantorNepData.citizenNumber ? individualGuarantorNepData.citizenNumber.ct : '',],
+                  issuedBy: [individualGuarantorNepData.issuedPlace ? individualGuarantorNepData.issuedPlace.ct : '',],
+                  issuedDate: [
+                      this.englishNepaliDatePipe.transform(individualGuarantorNepData.citizenIssuedDate.en.eDate ? individualGuarantorNepData.citizenIssuedDate.en.eDate : individualGuarantorNepData.citizenIssuedDate.en, true) || ''
+                  ],
+              })
       );
       })
     }
   }
+
+    setRegistrationDate() {
+        let expiryDate = '';
+        if (this.loanHolderNepData.registrationDateOption.en === 'AD') {
+            expiryDate = this.englishNepaliDatePipe.transform(this.loanHolderNepData.registrationDate.np, true);
+        } else {
+            expiryDate = this.loanHolderNepData.registrationDate.en.nDate;
+        }
+        return expiryDate;
+    }
+
+    setLoanPurpose() {
+        let loanKoPurpose = '';
+        if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'DDSL Without Subsidy') {
+            loanKoPurpose = this.offerDocumentDetails.purposeOfLoan.ct;
+        }
+        if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Kisan Karja Subsidy') {
+            loanKoPurpose = this.offerDocumentDetails.purposeOfLoan.ct;
+        }
+        if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Udyamsil Karja Subsidy') {
+            loanKoPurpose = this.offerDocumentDetails.purposeOfLoan.ct;
+        }
+        if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.offerDocumentDetails.mortgageEquityTermForm) {
+            loanKoPurpose = this.offerDocumentDetails.mortgageEquityTermForm.purposeOfLoanCT;
+        }
+        if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.offerDocumentDetails.autoLoanMasterForm) {
+            loanKoPurpose = this.offerDocumentDetails.autoLoanMasterForm.purposeOfLoanCT;
+        }
+        return loanKoPurpose ? loanKoPurpose : this.loanPurpose;
+    }
 
   calulation() {
     if (ObjectUtil.isEmpty(this.cadData.nepData)) {
@@ -187,13 +239,27 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
 
   }
 
-  submit() {
+  setFreeText() {
+    const free = this.personalGuaranteeCompany.value;
+    for (let val = 0; val < free.guaranteeCompanies.length; val++) {
+        const tempFreeText = {
+            freeText: this.personalGuaranteeCompany.get(['guaranteeCompanies', val, 'freeText']) ? this.personalGuaranteeCompany.get(['guaranteeCompanies', val, 'freeText']).value : '',
+            }
+            this.freeText.push(tempFreeText);
+    }
+    console.log('FinalFree:', this.freeText);
+    return JSON.stringify(this.freeText);
+    }
+
+    submit() {
+    this.spinner = true;
     let flag = true;
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
           flag = false;
-          singleCadFile.initialInformation = JSON.stringify(this.personalGuaranteeCompany.value);
+          // singleCadFile.initialInformation = JSON.stringify(this.personalGuaranteeCompany.value);
+          singleCadFile.supportedInformation = this.setFreeText();
         }
       });
       if (flag) {
@@ -218,11 +284,13 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
     this.administrationService.saveCadDocumentBulk(this.cadData).subscribe(() => {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
       this.dialogRef.close();
+      this.spinner = false;
       this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
     }, error => {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
       this.dialogRef.close();
+      this.spinner = false;
     });
     console.log(this.personalGuaranteeCompany.value);
   }
