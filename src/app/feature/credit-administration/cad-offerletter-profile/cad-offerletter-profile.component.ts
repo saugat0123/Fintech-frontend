@@ -91,7 +91,7 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
 
     getDoc() {
         this.formdata = new FormData();
-        this.objArr = [{},{}];
+        this.objArr = [{}, {}];
         this.cadOfferLetterApprovedDoc.offerDocumentList.forEach((d, i) => {
             if ((d.docName === LaxmiOfferLetterConst.value(LaxmiOfferLetterConst.PERSONAL_GUARANTEE))
                 || (d.docName === LaxmiOfferLetterConst.value(LaxmiOfferLetterConst.LETTER_OF_COMMITMENT))) {
@@ -177,7 +177,7 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
                 } else if (mimeType === 'txt') {
                     type = 'text/plain';
                 }
-                const file = new File([blob], 'file.' + mimeType, {type: type});
+                const file = new File([blob], this.cadOfferLetterApprovedDoc.offerDocumentList[index].docName + '.' + mimeType, {type: type});
                 const obj = {
                     id: this.cadOfferLetterApprovedDoc.offerDocumentList[index].id,
                     docName: this.cadOfferLetterApprovedDoc.offerDocumentList[index].docName,
