@@ -3,7 +3,7 @@ import {ActivatedRoute} from '@angular/router';
 import {CreditAdministrationService} from '../service/credit-administration.service';
 import {CustomerApprovedLoanCadDocumentation} from '../model/customerApprovedLoanCadDocumentation';
 import {CustomerInfoData} from '../../loan/model/customerInfoData';
-import {NbDialogRef, NbDialogService} from '@nebular/theme';
+import {NbDialogService} from '@nebular/theme';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {ToastService} from '../../../@core/utils';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
@@ -71,11 +71,11 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
 
     roleType = LocalStorageUtil.getStorage().roleType;
     hasRequierdDocument = false;
-    private dialogRef: NbDialogRef<any>;
+    private dialogRef: any;
     isOpen = false;
     legalDoc = [];
     formdata: FormData = new FormData();
-    objArr = [];
+    objArr = [{}, {}];
 
     ngOnInit() {
         this.offerLetterTypes = LaxmiOfferLetterConst.enumObject();
@@ -91,7 +91,7 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
 
     getDoc() {
         this.formdata = new FormData();
-        this.objArr = [];
+        this.objArr = [{},{}];
         this.cadOfferLetterApprovedDoc.offerDocumentList.forEach((d, i) => {
             if ((d.docName === LaxmiOfferLetterConst.value(LaxmiOfferLetterConst.PERSONAL_GUARANTEE))
                 || (d.docName === LaxmiOfferLetterConst.value(LaxmiOfferLetterConst.LETTER_OF_COMMITMENT))) {
@@ -121,7 +121,6 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
     public loanAction(action: 'send legal doc to sender' | 'send legal doc to agent'): void {
         const beneficiaryId: any = this.cadOfferLetterApprovedDoc.assignedLoan[0].remitCustomer.beneficiaryId;
         this.formdata.append('details', JSON.stringify(this.objArr));
-        this.close();
         let context;
         switch (action) {
             case 'send legal doc to sender':
@@ -153,6 +152,9 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
             closeOnBackdropClick: false,
             hasBackdrop: false,
             hasScroll: true
+        }).onClose.subscribe((res) => {
+            this.checkCadDocument();
+            this.dialogRef = null;
         });
         this.isOpen = true;
     }
@@ -184,10 +186,10 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
                 };
                 if (this.cadOfferLetterApprovedDoc.offerDocumentList[index].docName === LaxmiOfferLetterConst.value(LaxmiOfferLetterConst.PERSONAL_GUARANTEE)) {
                     this.formdata.append('file', file);
-                    this.objArr.push(obj);
+                    this.objArr[0] = obj;
                 } else if (this.cadOfferLetterApprovedDoc.offerDocumentList[index].docName === LaxmiOfferLetterConst.value(LaxmiOfferLetterConst.LETTER_OF_COMMITMENT)) {
                     this.formdata.append('file2', file);
-                    this.objArr.push(obj);
+                    this.objArr[1] = obj;
                 }
             }
         });
