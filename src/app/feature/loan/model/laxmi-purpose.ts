@@ -18,13 +18,14 @@ export enum LaxmiPurpose {
     ADVANCEMENT_PAYMENT_GUARANTEE = 'अग्रिम भुक्तानी ग्यारेण्टी जारी गर्न ।',
     EXIM_CODE = 'Exim Code जारी गर्न ।',
     EDUCATIONAL_USE = 'शैक्षिक खर्चको लागी ।',
-    TRADE_BUSINESS = 'व्यापार/व्यवसायमा लगानी गर्न ।'
+    TRADE_BUSINESS = 'व्यापार/व्यवसायमा लगानी गर्न ।',
+    OTHER = 'Other'
 }
 
 export namespace LaxmiPurpose {
     export function values() {
         return Object.keys(LaxmiPurpose).filter(
-            (type) => isNaN(<any>type) && type !== 'values' && type !== 'value'
+            (type) => isNaN(<any>type) && type !== 'values' && type !== 'enumObject'
         );
     }
 

@@ -76,6 +76,10 @@ export namespace SubLoanType {
             });
         } else if (loanType.toLowerCase() === 'home loan') {
             enums.push({
+                key: getEnum(SubLoanType.WORKING_CAPITAL_FINANCING),
+                value: SubLoanType.WORKING_CAPITAL_FINANCING
+            });
+            enums.push({
                 key: getEnum(SubLoanType.PURCHASE_OF_LAND_BUILDING),
                 value: SubLoanType.PURCHASE_OF_LAND_BUILDING
             });

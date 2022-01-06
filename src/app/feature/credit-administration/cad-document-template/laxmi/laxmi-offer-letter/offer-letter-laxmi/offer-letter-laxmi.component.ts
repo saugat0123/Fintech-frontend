@@ -19,6 +19,7 @@ import {LoanType} from '../../../../../loan/model/loanType';
 import {SubLoanType} from '../../../../../loan/model/subLoanType';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {LaxmiPurpose} from '../../../../../loan/model/laxmi-purpose';
+import {NepaliEditor} from '../../../../../../@core/utils/constants/nepaliEditor';
 
 @Component({
   selector: 'app-offer-letter-laxmi',
@@ -46,6 +47,24 @@ export class OfferLetterLaxmiComponent implements OnInit {
   subloanTypeEnum = SubLoanType;
   hasSubLoanType = false;
   purpose = LaxmiPurpose.enumObject();
+  tempPurposeFlag = {
+    workingCapitalOther: false,
+    selectShareLoanOther: false,
+    selectGoldOther: false,
+    selectHomeEquityOther: false,
+    selectBridgeOther: false,
+    selectFixedAssetsOther: false,
+    selectVehicleOther: false,
+    selectRefinancingOther: false,
+    selectLetterOther: false,
+    selectLoanAgainstOther: false,
+    selectLoanAgainstTOther: false,
+    selectPurchaseOther: false,
+    selectConstructionOther: false,
+    selectHireOther: false,
+    selectcommercialOther: false,
+  };
+  ckeConfig = NepaliEditor.CK_CONFIG;
 
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
@@ -60,6 +79,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
               private nepaliNumber: NepaliNumberPipe) { }
 
   ngOnInit() {
+    this.ckeConfig.font_names = 'Preeti';
     console.log('purpose', this.purpose);
     console.log('cadData', this.cadData);
     // if (!ObjectUtil.isEmpty(this.cadData)) {
@@ -235,51 +255,38 @@ export class OfferLetterLaxmiComponent implements OnInit {
       phoneNo: [undefined],
       attention: [undefined],
       workingRate: [undefined],
+      workingCapitalPurpose: [undefined],
+      workingCapitalDrawDown: [undefined],
+      workingOther: [undefined],
       workingLandBuildingRate: [undefined],
       month: [undefined],
-      goldRate: [undefined],
-      homeRate: [undefined],
-      homeAmount: [undefined],
-      homeAmountWord: [undefined],
-      capitalRate: [undefined],
-      vehicleRate: [undefined],
-      refPurpose: [undefined],
-      creditPurpose: [undefined],
       creditRate: [undefined],
       creditAmount: [undefined],
       creditMaturityDate: [undefined],
       creditTelexAmount: [undefined],
-      loanAgainstRate: [undefined],
-      ttRate: [undefined],
-      buildingDis: [undefined],
-      buildingVdc: [undefined],
-      buildingKitta: [undefined],
-      buildingArea: [undefined],
-      buildingLand: [undefined],
-      purchaseRate: [undefined],
-      conBuildingDis: [undefined],
-      conBuildingVdc: [undefined],
-      conBuildingKitta: [undefined],
-      conBuildingArea: [undefined],
-      conBuildingLand: [undefined],
-      totalEstimateRate: [undefined],
-      totalEstBuildingLandRate: [undefined],
-      totalConRate: [undefined],
-      totalConBuildingLandRate: [undefined],
       moratariumRate: [undefined],
-      hirePersonalUse: [undefined],
-      hireModel: [undefined],
-      hireRate: [undefined],
       autoRate: [undefined],
       autoModel: [undefined],
-      autoDrawRate: [undefined],
       bidRate: [undefined],
       performanceRate: [undefined],
       advanceRate: [undefined],
-      educationalRate: [undefined],
-      educationalRate1: [undefined],
-      agmiRate: [undefined],
-      agmiRate1: [undefined],
+
+      shareDrawdown: [undefined],
+      goldLoanDrawdown: [undefined],
+      homeEquityDrawDown: [undefined],
+      bridgeGapDrawdown: [undefined],
+      capitalDrawdown: [undefined],
+      fixedAssetsDrawdown: [undefined],
+      vehiceDrawdown: [undefined],
+      refinancingDrawDown: [undefined],
+      loanAgainstDrawdown: [undefined],
+      ttDrawdown: [undefined],
+      purchaseDrawdown: [undefined],
+      constructionDrawdown: [undefined],
+      hirePurchaseDrawdown: [undefined],
+      commercialAutoDrawdown: [undefined],
+      educationalDrawdown: [undefined],
+      agmiDrawdown: [undefined],
 
       // other Clauses
       reviewDate: [undefined],
@@ -305,6 +312,38 @@ export class OfferLetterLaxmiComponent implements OnInit {
       administrationAmount: [undefined],
       reviewRate: [undefined],
       reviewAmount: [undefined],
+
+      // textArea formcontrol
+      letterPurpose: [undefined],
+      letterOther: [undefined],
+      vehiclePurpose: [undefined],
+      vehicleOther: [undefined],
+      fixedPurpose: [undefined],
+      fixedOther: [undefined],
+      capitalPurpose: [undefined],
+      capitalOther: [undefined],
+      bridgeGapPurpose: [undefined],
+      bridgeGapOther: [undefined],
+      homeEquityPurpose: [undefined],
+      homeEquityOther: [undefined],
+      goldLoanPurpose: [undefined],
+      goldLoanOther: [undefined],
+      shareLoanPurpose: [undefined],
+      shareLoanOther: [undefined],
+      refinancingPurpose: [undefined],
+      refinancingOther: [undefined],
+      loanAgainstPurpose: [undefined],
+      loanAgainstOther: [undefined],
+      loanAgainstTPurpose: [undefined],
+      loanAgainstTOther: [undefined],
+      purchasePurpose: [undefined],
+      purchaseOther: [undefined],
+      constructionPurpose: [undefined],
+      constructionOther: [undefined],
+      hirePurpose: [undefined],
+      hireOther: [undefined],
+      commercialPurpose: [undefined],
+      commercialOther: [undefined],
     });
   }
 
@@ -384,5 +423,23 @@ export class OfferLetterLaxmiComponent implements OnInit {
 
   removeFixedAssetsCollateral(i) {
     (<FormArray>this.offerLetterForm.get('fixedAssetsCollateral')).removeAt(i);
+  }
+
+  purposeChange() {
+    let isOtherSelected;
+    console.log('value', this.offerLetterForm.get('workingCapitalPurpose').value);
+    if (!ObjectUtil.isEmpty(this.offerLetterForm.get('workingCapitalPurpose').value) ||
+        !ObjectUtil.isEmpty(this.offerLetterForm.get('workingCapitalPurpose').value) ||
+        !ObjectUtil.isEmpty(this.offerLetterForm.get('workingCapitalPurpose').value)) {
+      isOtherSelected = this.offerLetterForm.get('workingCapitalPurpose').value.includes('Other');
+    }
+    console.log('isOtherSelected', isOtherSelected);
+    if (isOtherSelected) {
+      this.tempPurposeFlag.workingCapitalOther = true;
+    } else {
+      this.tempPurposeFlag.workingCapitalOther = false;
+      // this.offerLetterForm.get('workingOther').setValue(null);
+    }
+    console.log(this.tempPurposeFlag.workingCapitalOther);
   }
 }

@@ -201,33 +201,35 @@
                     <tr>
                         <td>उद्देश्य(Purpose)</td>
                         <td>
-                            <select class="form-control form-control-sm-error rounded"
-                                    formControlName="profession"
-                                    id="profession"
-                                    name="profession">
-                                <option [value]="null">Select Profession</option>
+                            <select class="form-control"
+                                    formControlName="workingCapitalPurpose"
+                                    name="workingCapitalPurpose" (change)="purposeChange()">
+                                <option [value]="null">Select Purpose</option>
                                 <option *ngFor="let pur of purpose"
-                                        [value]="pur.key">{{pur.value}}</option>
-
+                                        [value]="pur?.value">{{pur?.value}}</option>
                             </select>
+<!--                            <ckeditor formControlName="workingOther" *ngIf="tempPurposeFlag?.workingCapitalOther"-->
+<!--                                      [config]="ckeConfig"></ckeditor>-->
+                            <textarea *ngIf="tempPurposeFlag?.workingCapitalOther"
+                                      class="form-control nepaliFont form-field font-size-normal"
+                                      formControlName="workingOther"
+                                      placeholder="अन्य उद्देश्य"
+                                      rows="2"></textarea>
                         </td>
                     </tr>
                     <tr>
                         <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमाः(Drawdown)</td>
                         <td>
-                            सवै प्रकारका सुरक्षण लिखतहरु पूर्ण रुपमा स्वीकार गरी बैंकमा वुझाए पछि स्वीकृत कर्जा तथा
-                            सुविधा मध्ये आवश्यक पर्ने खुद चालुपूँजी
-                            (Net Trading Assets) को
-                            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                   formControlName="workingRate"> प्रतिशत वा घरजग्गा/जग्गाको सुपथ बजार मूल्यको
-                            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                   formControlName="workingLandBuildingRate"> प्रतिशत वा स्वीकृत कर्जा
-                            रकम मध्ये जुन कम हुन्छ, सो रकम उपभोग गर्न सकिनेछ ।
+<!--                            <ckeditor formControlName="workingCapitalDrawDown"-->
+<!--                                      [config]="ckeConfig"></ckeditor>-->
+                            <textarea class="form-control nepaliFont form-field font-size-normal"
+                                      formControlName="workingCapitalDrawDown"
+                                      placeholder="स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमा"
+                                      rows="4"></textarea>
                         </td>
                     </tr>
                     <tr *ngIf="loanName.toLowerCase() === 'term loan'">
-                        <td>सांवाको किस्ता तिर्ने छुट अवधि (Moratorium Period) तथा कर्जा झिक्न पाउने अवधि (Drawdown
-                            Period)
+                        <td>सांवाको किस्ता तिर्ने छुट अवधि (Moratorium Period) तथा कर्जा झिक्न पाउने अवधि (Drawdown Period)
                         </td>
                         <td>
                             पहिलो किस्ता प्रवाह भएको मितिबाट सांवाको किस्ता तिर्न र पुरा कर्जा झिक्न
@@ -241,36 +243,64 @@
                 <ng-container *ngSwitchCase="subloanTypeEnum?.SHARE_LOAN">
                     <tr>
                         <td>उद्देश्य(Purpose)</td>
-                        <td>शेयरमा लगानी गर्न ।</td>
+                        <td>
+                            <select class="form-control"
+                                    formControlName="shareLoanPurpose"
+                                    name="shareLoanPurpose" (change)="purposeChange()">
+                                <option [value]="null">Select Purpose</option>
+                                <option *ngFor="let pur of purpose"
+                                        [value]="pur?.value">{{pur?.value}}</option>
+                            </select>
+                            <!--                            <ckeditor formControlName="shareLoanOther" *ngIf="tempPurposeFlag?.selectShareLoanOther"-->
+                            <!--                                      [config]="ckeConfig"></ckeditor>-->
+                            <textarea class="form-control nepaliFont form-field font-size-normal"
+                                      *ngIf="tempPurposeFlag?.selectShareLoanOther"
+                                      formControlName="shareLoanOther"
+                                      placeholder="अन्य उद्देश्य"
+                                      rows="2"></textarea>
+                        </td>
                     </tr>
                     <tr>
                         <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने  सीमाः (Drawdown)</td>
-                        <td>सवै प्रकारका सुरक्षण लिखतहरु पूर्ण रुपमा स्वीकार गरी बैंकमा वुझाए पछि नेपाल स्टक एक्सचेन्ज लिमिटेडमा सूचिकृत बिभिन्न बैंक तथा वित्तीय संस्था वा कम्पनीको शेयरहरु बैंकलाई हाल धितो दिइएको वा भविष्यमा दिने शेयरहरु
-                            धितो रोक्का भए पश्चात धितो दिएको शेयरहरुको देहाय बमोजिम कायम हुने सिमा सम्मको कर्जा उपभोग गर्न सक्नेछ ।
-                            <br>
-                            <strong>साधारण शेयरको हकमा</strong> नेपाल स्टक एक्सचेन्ज लिमिटेडबाट प्रकाशित पछिल्लो <strong>१८०</strong> कार्य दिनको अन्तिम मूल्यको औसत मूल्य वा सेयरको प्रचलित बजार मूल्य मध्ये जुन कम
-                            हुन्छ, सो रकमको बढीमा <strong>७०</strong> प्रतिशत रकमसम्म वा स्वीकृत कर्जा सीमा जुन कम हुन्छ सो सिमासम्म उपभोग गर्न पाउनेछ ।
-                            <br>
-                            <strong>संस्थापक सेयरको हकमा</strong> नेपाल स्टक एक्सचेन्ज लिमिटेडबाट सेयरको पछिल्लो <strong>१८०</strong> कार्य दिनको औसत मूल्यको बढीमा <strong>५० प्रतिशत</strong> मूल्य वा संस्थापक
-                            सेयरको अन्तिम कारोबारको मूल्यमध्ये जुन कम हुन्छ, सोको आधारमा कायमी मूल्यको बढीमा <strong>५० प्रतिशत</strong> रकमसम्म वा स्वीकृत कर्जा सीमा जुन कम हुन्छ सो सिमासम्म उपभोग गर्न पाउनेछ ।
-                            <br>
-                            माथी उल्लेख गरिए बमोजिम ऋणीको नाममा हाल जे जति कर्जा स्वीकृत भएतापनि ऋणीले बैंकलाई विभिन्न समयमा दिने शेयर धितो रोक्का भए पश्चात धितो रोक्का हुने शेयरको मुल्यांकनको आधारमा कायम हुन आउने सिमा
-                            सम्मको मात्र कर्जा क्रमिक रुपमा स्वीकृत कर्जा सिमा भित्र रहि उपभोग गर्न पाउनेछ ।</td>
+                        <td>
+<!--                            <ckeditor formControlName="shareDrawdown"-->
+<!--                                      [config]="ckeConfig"></ckeditor>-->
+                            <textarea class="form-control nepaliFont form-field font-size-normal"
+                                      formControlName="shareDrawdown"
+                                      placeholder="स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमा"
+                                      rows="4"></textarea>
+                        </td>
                     </tr>
                 </ng-container>
                 <ng-container *ngSwitchCase="subloanTypeEnum.GOLD_LOAN">
                     <tr>
                         <td>उद्देश्य(Purpose)</td>
-                        <td>व्यक्तिगत प्रयोजनको लागी ।</td>
+                        <td>
+                            <select class="form-control"
+                                    formControlName="goldLoanPurpose"
+                                    name="goldLoanPurpose" (change)="purposeChange()">
+                                <option [value]="null">Select Purpose</option>
+                                <option *ngFor="let pur of purpose"
+                                        [value]="pur?.value">{{pur?.value}}</option>
+                            </select>
+                            <!--                            <ckeditor formControlName="goldLoanOther" *ngIf="workingOther"-->
+                            <!--                                      [config]="ckeConfig"></ckeditor>-->
+                            <textarea class="form-control nepaliFont form-field font-size-normal"
+                                      *ngIf="tempPurposeFlag?.selectGoldOther"
+                                      formControlName="goldLoanOther"
+                                      placeholder="अन्य उद्देश्य"
+                                      rows="2"></textarea>
+                        </td>
                     </tr>
                     <tr>
                         <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमाः(Drawdown)</td>
                         <td>
-                            सवै प्रकारका सुरक्षण लिखतहरु पूर्ण रुपमा स्वीकार गरी बैंकमा वुझाए पछि स्वीकृत कर्जा तथा
-                            सुविधाको सुरक्षण बापत प्रदान गरेको धितोको
-                            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                   formControlName="goldRate">
-                            प्रतिशत वा स्वीकृत कर्जा रकम मध्ये जुन कम हुन्छ, सो रकम उपभोग गर्न सकिनेछ ।
+<!--                            <ckeditor formControlName="goldLoanDrawdown"-->
+<!--                                      [config]="ckeConfig"></ckeditor>-->
+                            <textarea class="form-control nepaliFont form-field font-size-normal"
+                                      formControlName="goldLoanDrawdown"
+                                      placeholder="स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमा"
+                                      rows="4"></textarea>
                         </td>
                     </tr>
                 </ng-container>
@@ -279,94 +309,213 @@
                         || loanName.toLowerCase() === 'home equity installment credit - lite'">
                     <tr>
                         <td>उद्देश्य(Purpose)</td>
-                        <td>वित्तीय सम्पत्तिमा लगानी गर्न । <br>
-                            वा <br>
-                            व्यक्तिगत ऋण चुत्ता गर्नका लागी ।</td>
+                        <td>
+                            <select class="form-control"
+                                    formControlName="homeEquityPurpose"
+                                    name="homeEquityPurpose" (change)="purposeChange()">
+                            <option [value]="null">Select Purpose</option>
+                            <option *ngFor="let pur of purpose"
+                                    [value]="pur?.value">{{pur?.value}}</option>
+                            </select>
+                            <!--                            <ckeditor formControlName="homeEquityOther" *ngIf="workingOther"-->
+                            <!--                                      [config]="ckeConfig"></ckeditor>-->
+                            <textarea class="form-control nepaliFont form-field font-size-normal"
+                                      *ngIf="tempPurposeFlag?.selectHomeEquityOther"
+                                      formControlName="homeEquityOther"
+                                      placeholder="अन्य उद्देश्य"
+                                      rows="2"></textarea>
+                        </td>
                     </tr>
                     <tr>
                         <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने  सीमाः (Drawdown)</td>
-                        <td>सवै प्रकारका सुरक्षण लिखतहरु पूर्ण रुपमा स्वीकार गरी बैंकमा वुझाए पछि स्वीकृत कर्जा तथा सुविधा मध्ये जग्गा/घरजग्गाको शुपथ वजार मूल्यको
-                            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                   formControlName="homeRate"> प्रतिशत वा रु.
-                            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                   formControlName="homeAmount">/–
-                            (अक्षरेपी रुपैयाँ <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                                     formControlName="homeAmountWord"> मात्र) मध्ये जुन कम हुन्छ, सो वरावरको रकम उपभोग गर्न सकिनेछ ।</td>
+                        <td>
+                            <ckeditor formControlName="homeEquityDrawDown"
+                                      [config]="ckeConfig"></ckeditor>
+                            <textarea class="form-control nepaliFont form-field font-size-normal"
+                                      formControlName="homeEquityDrawDown"
+                                      placeholder="स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमा"
+                                      rows="4"></textarea>
+                        </td>
                     </tr>
                 </ng-container>
                 <ng-container *ngIf="loanName.toLowerCase() === 'bridge gap loan'">
                     <tr>
                         <td>उद्देश्य(Purpose)</td>
-                        <td></td>
+                        <td>
+                            <select class="form-control"
+                                    formControlName="bridgeGapPurpose"
+                                    name="bridgeGapPurpose" (change)="purposeChange()">
+                                <option [value]="null">Select Purpose</option>
+                                <option *ngFor="let pur of purpose"
+                                        [value]="pur?.value">{{pur?.value}}</option>
+                            </select>
+                            <!--                            <ckeditor formControlName="bridgeGapOther" *ngIf="workingOther"-->
+                            <!--                                      [config]="ckeConfig"></ckeditor>-->
+                            <textarea class="form-control nepaliFont form-field font-size-normal"
+                                      *ngIf="tempPurposeFlag?.selectBridgeOther"
+                                      formControlName="bridgeGapOther"
+                                      placeholder="अन्य उद्देश्य"
+                                      rows="2"></textarea>
+                        </td>
                     </tr>
                     <tr>
                         <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने  सीमाः (Drawdown)</td>
-                        <td>सवै प्रकारका सुरक्षण लिखतहरु पूर्ण रुपमा स्वीकार गरी बैंकमा वुझाए पछि स्वीकृत कर्जा तथा सुविधा मध्ये भवनको कुल निर्माण खर्चको ६८.२५ प्रतिशत उपभोग गर्न सकिनेछ । उक्त कर्जा ऋणीद्धारा पेश गरिएको
-                            Running Bills को ६८.२५ प्रतिशत वा Project Contractor संग भएको Contract Agreement वा कर्जा झिक्न पाउने अवधि (Drawdown Period) सम्मको लागि बैक ग्यारेण्टी बरावरको रकम उपभोग गर्न सकिनेछ । </td>
+                        <td>
+                            <ckeditor formControlName="bridgeGapDrawdown"
+                                      [config]="ckeConfig"></ckeditor>
+                            <textarea class="form-control nepaliFont form-field font-size-normal"
+                                      formControlName="bridgeGapDrawdown"
+                                      placeholder="स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमा"
+                                      rows="4"></textarea>
+                        </td>
                     </tr>
                 </ng-container>
                 <ng-container *ngSwitchCase="subloanTypeEnum.CAPITAL_EXPENDITURE_FINANCING">
                     <tr>
                         <td>उद्देश्य(Purpose)</td>
-                        <td>स्थिर सम्पत्तिमा लगानी गर्न ।</td>
+                        <td>
+                            <select class="form-control"
+                                    formControlName="capitalPurpose"
+                                    name="capitalPurpose" (change)="purposeChange()">
+                                <option [value]="null">Select Purpose</option>
+                                <option *ngFor="let pur of purpose"
+                                        [value]="pur?.value">{{pur?.value}}</option>
+                            </select>
+                            <!--                            <ckeditor formControlName="capitalOther" *ngIf="workingOther"-->
+                            <!--                                      [config]="ckeConfig"></ckeditor>-->
+                            <textarea class="form-control nepaliFont form-field font-size-normal" *ngIf="workingOther"
+                                      formControlName="capitalOther"
+                                      placeholder="अन्य उद्देश्य"
+                                      rows="2"></textarea>
+                        </td>
                     </tr>
                     <tr>
                         <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमाः(Drawdown)</td>
                         <td>
-                            सवै प्रकारका सुरक्षण लिखतहरु पूर्ण रुपमा स्वीकार गरी बैंकमा वुझाए पछि स्वीकृत कर्जा तथा
-                            सुविधा मध्ये आवश्यक पर्ने Capital Expediture को
-                            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                   formControlName="capitalRate"> प्रतिशत सम्मको रकम उपभोग गर्न
-                            सकिनेछ ।
+                            <ckeditor formControlName="capitalDrawdown"
+                                      [config]="ckeConfig"></ckeditor>
+                            <textarea class="form-control nepaliFont form-field font-size-normal"
+                                      formControlName="capitalDrawdown"
+                                      placeholder="स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमा"
+                                      rows="4"></textarea>
                         </td>
                     </tr>
                 </ng-container>
                 <ng-container *ngSwitchCase="subloanTypeEnum.FIXED_ASSETS_FINANCING">
                     <tr>
                         <td>उद्देश्य(Purpose)</td>
-                        <td>स्थिर सम्पतिमा लगानी गर्न ।</td>
+                        <td>
+                            <select class="form-control"
+                                    formControlName="fixedPurpose"
+                                    name="fixedPurpose" (change)="purposeChange()">
+                                <option [value]="null">Select Purpose</option>
+                                <option *ngFor="let pur of purpose"
+                                        [value]="pur?.value">{{pur?.value}}</option>
+                            </select>
+                            <!--                            <ckeditor formControlName="fixedOther" *ngIf="workingOther"-->
+                            <!--                                      [config]="ckeConfig"></ckeditor>-->
+                            <textarea class="form-control nepaliFont form-field font-size-normal"
+                                      *ngIf="tempPurposeFlag?.selectFixedAssetsOther"
+                                      formControlName="fixedOther"
+                                      placeholder="अन्य उद्देश्य"
+                                      rows="2"></textarea>
+                        </td>
                     </tr>
                     <tr>
                         <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमाः(Drawdown)</td>
                         <td>
+<!--                            <ckeditor formControlName="fixedAssetsDrawdown"-->
+<!--                                      [config]="ckeConfig"></ckeditor>-->
+                            <textarea class="form-control nepaliFont form-field font-size-normal"
+                                      formControlName="fixedAssetsDrawdown"
+                                      placeholder="स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमा"
+                                      rows="4"></textarea>
                         </td>
                     </tr>
                 </ng-container>
                 <ng-container *ngSwitchCase="subloanTypeEnum.VEHICLE_FINANCING">
                     <tr>
                         <td>उद्देश्य(Purpose)</td>
-                        <td>सवारी साधनमा लगानी गर्न ।</td>
+                        <td>
+                            <select class="form-control"
+                                    formControlName="vehiclePurpose"
+                                    name="vehiclePurpose" (change)="purposeChange()">
+                                <option [value]="null">Select Purpose</option>
+                                <option *ngFor="let pur of purpose"
+                                        [value]="pur?.value">{{pur?.value}}</option>
+                            </select>
+                            <!--                            <ckeditor formControlName="vehicleOther" *ngIf="workingOther"-->
+                            <!--                                      [config]="ckeConfig"></ckeditor>-->
+                            <textarea class="form-control nepaliFont form-field font-size-normal"
+                                      *ngIf="tempPurposeFlag?.selectVehicleOther"
+                                      formControlName="vehicleOther"
+                                      placeholder="अन्य उद्देश्य"
+                                      rows="2"></textarea>
+                        </td>
                     </tr>
                     <tr>
                         <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमाः(Drawdown)</td>
                         <td>
-                            धितो सुरक्षण लगायत कर्जा सम्वन्धि सवै लिखतहरु स्वीकार गरी बैंकमा वुझाए पछि सवारी साधनको
-                            मूल्यको <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                           formControlName="vehicleRate"> प्रतिशत वा स्वीकृत कर्जा रकम मध्ये जुन कम हुन्छ सो वरावरको कर्जा रकम उपभोग
-                            गर्न सकिनेछ । अन्यथा व्यवस्था गरिएकोमा वाहेक ऋणीले लिन सक्ने कर्जा तथा सुविधाको रकम
-                            सवारीसाधन विक्रेतालाई सोझै भुक्तानी गरेमा ऋणीको मन्जुरी रहेको छ । त्यसरी भुक्तानी गरिएको रकम
-                            कलमको सम्वन्धमा ऋणी र विक्रेता वीच भविश्यमा कुनै किसिमको विवाद उत्पन्न भई कुनै किसिमको
-                            दायित्व सिर्जना भएमा सो दायित्व ऋणी आफैले व्यहोर्न मन्जुरी व्यक्त गर्दछ ।
+<!--                            <ckeditor formControlName="vehiceDrawdown"-->
+<!--                                      [config]="ckeConfig"></ckeditor>-->
+                            <textarea class="form-control nepaliFont form-field font-size-normal"
+                                      formControlName="vehiceDrawdown"
+                                      placeholder="स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमा"
+                                      rows="4"></textarea>
                         </td>
                     </tr>
                 </ng-container>
                 <ng-container *ngSwitchCase="subloanTypeEnum.REFINANCING_OF_ASSETS">
                     <tr>
                         <td>उद्देश्य(Purpose)</td>
-                        <td><input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                   formControlName="refPurpose"> पुनः लगानी गर्न ।</td>
+                        <td>
+                            <select class="form-control"
+                                    formControlName="refinancingPurpose"
+                                    name="refinancingPurpose" (change)="purposeChange()">
+                                <option [value]="null">Select Purpose</option>
+                                <option *ngFor="let pur of purpose"
+                                        [value]="pur?.value">{{pur?.value}}</option>
+                            </select>
+                            <!--                            <ckeditor formControlName="workingOther" *ngIf="workingOther"-->
+                            <!--                                      [config]="ckeConfig"></ckeditor>-->
+                            <textarea class="form-control nepaliFont form-field font-size-normal"
+                                      *ngIf="tempPurposeFlag?.selectRefinancingOther"
+                                      formControlName="refinancingOther"
+                                      placeholder="अन्य उद्देश्य"
+                                      rows="2"></textarea>
+                        </td>
                     </tr>
                     <tr>
                         <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमाः(Drawdown)</td>
                         <td>
+                            <textarea class="form-control nepaliFont form-field font-size-normal"
+                                      formControlName="refinancingDrawDown"
+                                      placeholder="स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमा"
+                                      rows="4"></textarea>
+<!--                            <ckeditor formControlName="workingCapitalDrawDown"-->
+<!--                                      [config]="ckeConfig"></ckeditor>-->
                         </td>
                     </tr>
                 </ng-container>
                 <ng-container *ngIf="loanName.toLowerCase() === 'letter of credit'">
                     <tr>
                         <td>उद्देश्य(Purpose)</td>
-                        <td><input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                   formControlName="creditPurpose"> आयात गर्न ।</td>
+                        <td>
+                            <select class="form-control"
+                                    formControlName="letterPurpose"
+                                    name="letterPurpose" (change)="purposeChange()">
+                                <option [value]="null">Select Purpose</option>
+                                <option *ngFor="let pur of purpose"
+                                        [value]="pur?.value">{{pur?.value}}</option>
+                            </select>
+                            <!--                            <ckeditor formControlName="letterOther" *ngIf="letterOther"-->
+                            <!--                                      [config]="ckeConfig"></ckeditor>-->
+                            <textarea class="form-control nepaliFont form-field font-size-normal"
+                                      *ngIf="tempPurposeFlag?.selectLetterOther"
+                                      formControlName="letterOther"
+                                      placeholder="अन्य उद्देश्य"
+                                      rows="2"></textarea>
+                        </td>
                     </tr>
                     <tr>
                         <td>कमिसन (Commission)</td>
@@ -393,82 +542,128 @@
                 <ng-container *ngSwitchCase="subloanTypeEnum.LOAN_AGAINST_LC_DOCUMENT">
                     <tr>
                         <td>उद्देश्य (Purpose)</td>
-                        <td>बैंकले खोलेको प्रतित पत्रबाट आयातित सामानहरुमा लगानी गर्न ।</td>
+                        <td>
+                            <select class="form-control"
+                                    formControlName="loanAgainstPurpose"
+                                    name="loanAgainstPurpose" (change)="purposeChange()">
+                                <option [value]="null">Select Purpose</option>
+                                <option *ngFor="let pur of purpose"
+                                        [value]="pur?.value">{{pur?.value}}</option>
+                            </select>
+                            <!--                            <ckeditor formControlName="workingOther" *ngIf="tempPurposeFlag?.selectLoanAgainstOther"-->
+                            <!--                                      [config]="ckeConfig"></ckeditor>-->
+                            <textarea *ngIf="tempPurposeFlag?.selectLoanAgainstOther"
+                                      class="form-control nepaliFont form-field font-size-normal"
+                                      formControlName="loanAgainstOther"
+                                      placeholder="अन्य उद्देश्य"
+                                      rows="2"></textarea>
+                        </td>
                     </tr>
                     <tr>
                         <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने  सीमाः (Drawdown)</td>
-                        <td>सवै प्रकारका सुरक्षण लिखतहरु पूर्ण रुपमा स्वीकार गरी बैंकमा वुझाए पछि स्वीकृत कर्जा तथा सुविधा मध्ये प्रतितपत्रमा उल्लेखित कागजात मूल्य (LC Document value) को
-                            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                   formControlName="loanAgainstRate"> प्रतिशत रकम उपभोग गर्न सकिनेछ ।</td>
+                        <td>
+<!--                            <ckeditor formControlName="loanAgainstDrawdown"-->
+<!--                                      [config]="ckeConfig"></ckeditor>-->
+                            <textarea class="form-control nepaliFont form-field font-size-normal"
+                                      formControlName="loanAgainstDrawdown"
+                                      placeholder="स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमा"
+                                      rows="4"></textarea>
+                        </td>
                     </tr>
                 </ng-container>
                 <ng-container *ngSwitchCase="subloanTypeEnum?.LOAN_AGAINST_TT_DD_DAP_DAA">
                     <tr>
                         <td>उद्देश्य (Purpose)</td>
-                        <td>टेलेग्राफिक ट्रान्सफर/डिमान्ड डाफ्ट बाट आयातित तथा स्थानिय रुपमा खरिद गरिएको मेशिनरी/स्थिर सम्पत्तिमा लगानी गर्न ।</td>
+                        <td>
+                            <select class="form-control"
+                                    formControlName="loanAgainstTPurpose"
+                                    name="loanAgainstTPurpose" (change)="purposeChange()">
+                                <option [value]="null">Select Purpose</option>
+                                <option *ngFor="let pur of purpose"
+                                        [value]="pur?.value">{{pur?.value}}</option>
+                            </select>
+                            <!--                            <ckeditor formControlName="workingOther" *ngIf="tempPurposeFlag?.selectLoanAgainstTOther"-->
+                            <!--                                      [config]="ckeConfig"></ckeditor>-->
+                            <textarea *ngIf="tempPurposeFlag?.selectLoanAgainstTOther"
+                                      class="form-control nepaliFont form-field font-size-normal"
+                                      formControlName="loanAgainstTOther"
+                                      placeholder="अन्य उद्देश्य"
+                                      rows="2"></textarea>
+                        </td>
                     </tr>
                     <tr>
                         <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने  सीमाः (Drawdown)</td>
-                        <td>सवै प्रकारका सुरक्षण लिखतहरु पूर्ण रुपमा स्वीकार गरी बैंकमा वुझाए पछि स्वीकृत कर्जा तथा सुविधा मध्ये आयातित कागजात मूल्य (Import Document value) को
-                            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                   formControlName="ttRate"> प्रतिशत वा स्थिर सम्पत्तिको खरीद मूल्य
-                            (Invoice/Bill) को <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                                     formControlName="ttBillRate"> प्रतिशत रकम उपभोग गर्न सकिनेछ ।</td>
+                        <td>
+<!--                            <ckeditor formControlName="ttDrawdown"-->
+<!--                                      [config]="ckeConfig"></ckeditor>-->
+                            <textarea class="form-control nepaliFont form-field font-size-normal"
+                                      formControlName="ttDrawdown"
+                                      placeholder="स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमा"
+                                      rows="4"></textarea></td>
                     </tr>
                 </ng-container>
                 <ng-container *ngSwitchCase="subloanTypeEnum?.PURCHASE_OF_LAND_BUILDING">
                     <tr>
                         <td>उद्देश्य (Purpose)</td>
-                        <td><input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                   formControlName="buildingDis"> जिल्ला
-                            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                   formControlName="buildingVdc"> न.पा./गा.वि.स वडा नं
-                            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                   formControlName="buildingKitta"> स्थित कित्ता नं
-                            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                   formControlName="buildingArea"> क्षेत्रफल
-                            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                   formControlName="buildingLand">को घर/जग्गा खरिद गर्नको लागी ।</td>
+                        <td>
+                            <select class="form-control"
+                                    formControlName="purchasePurpose"
+                                    name="purchasePurpose" (change)="purposeChange()">
+                                <option [value]="null">Select Purpose</option>
+                                <option *ngFor="let pur of purpose"
+                                        [value]="pur?.value">{{pur?.value}}</option>
+                            </select>
+                            <!--                            <ckeditor formControlName="workingOther" *ngIf="tempPurposeFlag?.selectPurchaseOther"-->
+                            <!--                                      [config]="ckeConfig"></ckeditor>-->
+                            <textarea *ngIf="tempPurposeFlag?.selectPurchaseOther"
+                                      class="form-control nepaliFont form-field font-size-normal"
+                                      formControlName="purchaseOther"
+                                      placeholder="अन्य उद्देश्य"
+                                      rows="2"></textarea>
+                        </td>
                     </tr>
                     <tr>
                         <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने  सीमाः (Drawdown)</td>
-                        <td>सवै प्रकारका सुरक्षण लिखतहरु पूर्ण रुपमा स्वीकार गरी बैंकमा वुझाए पछि स्वीकृत कर्जा तथा सुविधा उपभोग गर्न सकिनेछ । जग्गा/घरजग्गाको शुपथ वजार मूल्यको
-                            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                   formControlName="purchaseRate"> प्रतिशत वा स्वीकृत कर्जा सुविधा मध्ये जुन कम हुन्छ सो वरावरको रकम उपभोग गर्न सकिनेछ ।</td>
+                        <td>
+<!--                            <ckeditor formControlName="purchaseDrawdown"-->
+<!--                                      [config]="ckeConfig"></ckeditor>-->
+                            <textarea class="form-control nepaliFont form-field font-size-normal"
+                                      formControlName="purchaseDrawdown"
+                                      placeholder="स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमा"
+                                      rows="4"></textarea>
+                        </td>
                     </tr>
                 </ng-container>
                 <ng-container *ngSwitchCase="subloanTypeEnum?.CONSTRUCTION_OF_BUILDING">
                     <tr>
                         <td>उद्देश्य (Purchase)</td>
-                        <td><input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                   formControlName="conBuildingDis"> जिल्ला
-                            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                   formControlName="conBuildingVdc"> न.पा./गा.वि.स वडा नं
-                            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                   formControlName="conBuildingKitta"> स्थित कित्ता नं
-                            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                   formControlName="conBuildingArea"> क्षेत्रफल
-                            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                   formControlName="conBuildingLand">को घर/जग्गा खरिद गर्नको लागी ।</td>
+                        <td>
+                            <select class="form-control"
+                                    formControlName="constructionPurpose"
+                                    name="constructionPurpose" (change)="purposeChange()">
+                                <option [value]="null">Select Purpose</option>
+                                <option *ngFor="let pur of purpose"
+                                        [value]="pur?.value">{{pur?.value}}</option>
+                            </select>
+                            <!--                            <ckeditor formControlName="workingOther" *ngIf="tempPurposeFlag?.selectConstructionOther"-->
+                            <!--                                      [config]="ckeConfig"></ckeditor>-->
+                            <textarea *ngIf="tempPurposeFlag?.selectConstructionOther"
+                                      class="form-control nepaliFont form-field font-size-normal"
+                                      formControlName="constructionOther"
+                                      placeholder="अन्य उद्देश्य"
+                                      rows="2"></textarea>
+                        </td>
                     </tr>
                     <tr>
                         <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने  सीमाः (Drawdown)</td>
-                        <td>सवै प्रकारका सुरक्षण लिखतहरु पूर्ण रुपमा स्वीकार गरी बैंकमा वुझाए पछि स्वीकृत कर्जा तथा सुविधा उपभोग गर्न सकिनेछ ।
-                            <br>
-                            घर निर्माण गर्न पेश्की रकम वापत शुरुमा कुल अनुमानीत निमार्ण खर्च <strong>Total Estimated construction cost</strong> को
-                            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                   formControlName="totalEstimateRate"> <strong>प्रतिशत</strong> वा घरजग्गा सम्पतीको शुपथ बजार मुल्यको
-                            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                   formControlName="totalEstBuildingLandRate"> <strong>प्रतिशत</strong> वा दिईएको कर्जा सिमा मध्ये जुन कम हुन्छ सोही कायम गरिने छ । <strong><i>Advances to be restricted to maximum ……% of total estimated
-                                construction cost or ……% of FMV of property (before construction) whichever is lower</i></strong>
-                            <br>
-                            त्यसपछि बैंकको अख्तियार प्राप्त मूल्याकंनकर्ताबाट <strong>(Approved Valuator)</strong> द्वारा  निमार्णधिन भवनको सन्तोषजनक प्रगती रिपोर्टको <strong>(Satisfactory Progess Report)</strong> आधारमा चरणगत
-                            <strong>(Phasewise)</strong> रुपमा कुल निमार्ण खर्च <strong>(Total Construction Cost)</strong> को
-                            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                   formControlName="totalConRate"><strong>प्रतिशत</strong> वा घरजग्गा सम्पतीको शुपथ बजार मुल्यको
-                            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                   formControlName="totalConBuildingLandRate"> <strong>प्रतिशत</strong> वा दिईएको
-                            कर्जा सिमा मध्ये जुन कम हुन्छ सोही कायम गरिनेछ ।</td>
+                        <td>
+<!--                            <ckeditor formControlName="constructionDrawdown"-->
+<!--                                      [config]="ckeConfig"></ckeditor>-->
+                            <textarea class="form-control nepaliFont form-field font-size-normal"
+                                      formControlName="constructionDrawdown"
+                                      placeholder="स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमा"
+                                      rows="4"></textarea>
+                        </td>
                     </tr>
                     <tr>
                         <td>ग्रेस पिरियड (Moratarium Period)</td>
@@ -480,33 +675,65 @@
                 <ng-container *ngIf="loanName.toLowerCase() === 'hire purchase loan'">
                     <tr>
                         <td>उद्देश्य (Purpose)</td>
-                        <td>व्यक्तिगत प्रयोगका लागि <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                                           formControlName="hirePersonalUse"> थान
-                            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                   formControlName="hireModel"> मोडेलको सवारी साधन खरिद गर्न ।</td>
+                        <td>
+                            <select class="form-control"
+                                    formControlName="hirePurpose"
+                                    name="hirePurpose" (change)="purposeChange()">
+                                <option [value]="null">Select Purpose</option>
+                                <option *ngFor="let pur of purpose"
+                                        [value]="pur?.value">{{pur?.value}}</option>
+                            </select>
+                            <!--                            <ckeditor formControlName="workingOther" *ngIf="tempPurposeFlag?.selectHireOther"-->
+                            <!--                                      [config]="ckeConfig"></ckeditor>-->
+                            <textarea *ngIf="tempPurposeFlag?.selectHireOther"
+                                      class="form-control nepaliFont form-field font-size-normal"
+                                      formControlName="hireOther"
+                                      placeholder="अन्य उद्देश्य"
+                                      rows="2"></textarea>
+                        </td>
                     </tr>
                     <tr>
                         <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने  सीमाः (Drawdown)</td>
-                        <td>धितो सुरक्षण लगायत कर्जा सम्वन्धि सवै लिखतहरु स्वीकार गरी बैंकमा वुझाए पछि सवारी साधनको मूल्यको
-                            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                   formControlName="hireRate"><strong>प्रतिशत</strong> वा कर्जा रकम मध्ये जुन कम हुन्छ सो वरावरको कर्जा रकम उपभोग गर्न सकिनेछ ।</td>
+                        <td>
+<!--                            <ckeditor formControlName="hirePurchaseDrawdown"-->
+<!--                                      [config]="ckeConfig"></ckeditor>-->
+                            <textarea class="form-control nepaliFont form-field font-size-normal"
+                                      formControlName="hirePurchaseDrawdown"
+                                      placeholder="स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमा"
+                                      rows="4"></textarea>
+                        </td> 
                     </tr>
                 </ng-container>
                 <ng-container *ngIf="loanName.toLowerCase() === 'commercial auto laon'">
                     <tr>
                         <td>उद्देश्य (Purpose)</td>
-                        <td>व्यापारिक प्रयोगका लागि <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                                           formControlName="autoRate"> थान
-                            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                   formControlName="autoModel"> मोडेलको सवारी साधन खरिद गर्न ।</td>
+                        <td>
+                            <select class="form-control"
+                                    formControlName="commercialPurpose"
+                                    name="commercialPurpose" (change)="purposeChange()">
+                                <option [value]="null">Select Purpose</option>
+                                <option *ngFor="let pur of purpose"
+                                        [value]="pur?.value">{{pur?.value}}</option>
+                            </select>
+                            <!--                            <ckeditor formControlName="workingOther" *ngIf="tempPurposeFlag?.selectcommercialOther"-->
+                            <!--                                      [config]="ckeConfig"></ckeditor>-->
+                            <textarea *ngIf="tempPurposeFlag?.selectcommercialOther"
+                                      class="form-control nepaliFont form-field font-size-normal"
+                                      formControlName="commercialOther"
+                                      placeholder="अन्य उद्देश्य"
+                                      rows="2"></textarea>
+                        </td>
                     </tr>
                     <tr>
                         <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने  सीमाः (Drawdown)</td>
-                        <td>धितो सुरक्षण लगायत कर्जा सम्वन्धि सवै लिखतहरु स्वीकार गरी बैंकमा वुझाए पछि सवारी साधनको मूल्य (Chasis Plus Inbulit Body) को
-                            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                   formControlName="autoDrawRate"><strong>प्रतिशत</strong> वा कर्जा रकम मध्ये जुन कम हुन्छ सो वरावरको कर्जा
-                            रकम उपभोग गर्न सकिनेछ । अन्यथा व्यवस्था गरिएकोमा वाहेक ऋणीले लिन सक्ने कर्जा तथा सुविधाको रकम सवारीसाधन विक्रेतालाई सोझै भुक्तानी गरेमा ऋणीको मन्जुरी रहेको छ । त्यसरी भुक्तानी गरिएको रकम कलमको सम्वन्धमा ऋणी र विक्रेता
-                            वीच भविश्यमा कुनै किसिमको विवाद उत्पन्न भई कुनै किसिमको दायित्व सिर्जना भएमा सो दायित्व ऋणी आफैले व्यहोर्न मन्जुरी व्यक्त गर्दछ ।</td>
+                        <td>
+<!--                            <ckeditor formControlName="commercialAutoDrawdown"-->
+<!--                                      [config]="ckeConfig"></ckeditor>-->
+                            <textarea class="form-control nepaliFont form-field font-size-normal"
+                                      formControlName="commercialAutoDrawdown"
+                                      placeholder="स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमा"
+                                      rows="4"></textarea>
+                        </td>
                     </tr>
                 </ng-container>
                 <ng-container *ngSwitchCase="subloanTypeEnum?.BID_BOND_GUARANTEE">
@@ -563,24 +790,28 @@
                 <ng-container *ngIf="loanName === 'Educational Loan'">
                     <tr>
                         <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने  सीमाः (Drawdown)</td>
-                        <td>सवै प्रकारका सुरक्षण लिखतहरु पूर्ण रुपमा स्वीकार गरी बैंकमा वुझाए पछि स्वीकृत कर्जा तथा सुविधा मध्ये आवश्यक पर्ने घरजग्गाको शुपथ वजार मूल्यको
-                            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                   formControlName="educationalRate"> <strong>प्रतिशत</strong> तथा सम्वन्धित शैक्षिक संस्थावाट प्राप्त
-                            कुल शैक्षिक खर्च (Including cost of travelling, insurance, living & accommodation of student/dependent spouse) विवरणको
-                            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                   formControlName="educationalRate1"><strong>प्रतिशत</strong> वा कर्जा रकम मध्ये
-                            जुन कम हुन्छ सो वरावरको रकम उपभोग गर्न सकिनेछ ।</td>
+                        <td>
+<!--                            <ckeditor formControlName="educationalDrawdown"-->
+<!--                                      [config]="ckeConfig"></ckeditor>-->
+                            <textarea class="form-control nepaliFont form-field font-size-normal"
+                                      formControlName="educationalDrawdown"
+                                      placeholder="स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमा"
+                                      rows="4"></textarea>
+                        </td>
                     </tr>
                 </ng-container>
                 <ng-container *ngIf="loanName === 'AGMI'">
                 <tr>
                     <td></td>
                     <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने  सीमाः (Drawdown)</td>
-                    <td> सवै प्रकारका सुरक्षण लिखतहरु पूर्ण रुपमा स्वीकार गरी बैंकमा वुझाए पछि स्वीकृत कर्जा तथा सुविधा मध्ये आवश्यक पर्ने खुद चालुपूँजी (Net Trading Assest) को
-                        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                               formControlName="agmiRate"> प्रतिशत वा घरजग्गा/जग्गाको सुपथ बजार मूल्यको
-                        <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                               formControlName="agmiRate1"> प्रतिशत  वा स्वीकृत कर्जा रकम मध्ये जुन कम हुन्छ, सो रकम उपभोग गर्न सकिनेछ ।</td>
+                    <td>
+<!--                        <ckeditor formControlName="agmiDrawdown"-->
+<!--                                  [config]="ckeConfig"></ckeditor>-->
+                        <textarea class="form-control nepaliFont form-field font-size-normal"
+                                  formControlName="agmiDrawdown"
+                                  placeholder="स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमा"
+                                  rows="4"></textarea>
+                  </td>
                 </tr>
             </ng-container>
             </tbody>
