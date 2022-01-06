@@ -18,6 +18,7 @@ import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 import {LoanType} from '../../../../../loan/model/loanType';
 import {SubLoanType} from '../../../../../loan/model/subLoanType';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {LaxmiPurpose} from '../../../../../loan/model/laxmi-purpose';
 
 @Component({
   selector: 'app-offer-letter-laxmi',
@@ -44,6 +45,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
   subloanType;
   subloanTypeEnum = SubLoanType;
   hasSubLoanType = false;
+  purpose = LaxmiPurpose.enumObject();
 
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
@@ -58,6 +60,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
               private nepaliNumber: NepaliNumberPipe) { }
 
   ngOnInit() {
+    console.log('purpose', this.purpose);
     console.log('cadData', this.cadData);
     // if (!ObjectUtil.isEmpty(this.cadData)) {
     //   if (this.cadData.assignedLoan.length > 1) {

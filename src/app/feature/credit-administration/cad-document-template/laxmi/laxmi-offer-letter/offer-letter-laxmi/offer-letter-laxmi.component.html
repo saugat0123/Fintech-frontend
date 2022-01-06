@@ -200,7 +200,17 @@
                 <ng-container *ngSwitchCase="subloanTypeEnum.WORKING_CAPITAL_FINANCING">
                     <tr>
                         <td>उद्देश्य(Purpose)</td>
-                        <td>चालु पूंजीमा लगानी गर्न ।</td>
+                        <td>
+                            <select class="form-control form-control-sm-error rounded"
+                                    formControlName="profession"
+                                    id="profession"
+                                    name="profession">
+                                <option [value]="null">Select Profession</option>
+                                <option *ngFor="let pur of purpose"
+                                        [value]="pur.key">{{pur.value}}</option>
+
+                            </select>
+                        </td>
                     </tr>
                     <tr>
                         <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमाः(Drawdown)</td>
