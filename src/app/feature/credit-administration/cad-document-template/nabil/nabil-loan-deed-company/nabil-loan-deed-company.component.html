@@ -6,61 +6,164 @@
                    <p class="text-center" style="font-size: 12pt"><b>विषयः ऋण तमसुक</b>
                    </p>
                    <div>
-                       लिखितम् धनीका नाम काठमाण्डौ जिल्ला काठमाण्डौ महानगरपालिका कमलादि स्थित नविल हाउसमा मुख्य कार्यालय रहि ऐ.
-                       <input class="form-field form-control-sm nepaliFont"
+                       लिखितम् धनीका नाम काठमाण्डौ जिल्ला काठमाण्डौ महानगरपालिका
+                       वीणा मार्ग तिनधारा दरवारमार्ग स्थित नबिल सेनटरमा मुख्य कार्यालय रही
+                       <input class="form-field form-control-sm"
                               formControlName="nameOfBranch"
                               placeholder="शाखा कार्यालय रहेको नाम"
                               type="text"/>
-                       शाखा कार्यालय रहेको नबिल बैंक लिमिटेड (जसलाई यस उप्रान्त धनी बैंक भनिएको छ)  लिखत गरी दिने ऋणीका नाम कम्पनी ऐन
-                       <input class="form-field form-control-sm nepaliFont"
+                       मा शाखा कार्यालय रहेको <b>नबिल बैंक लिमिटेड</b>
+                       (जसलाई यस उप्रान्त <b>“धनी बैंक”</b> भनिएको छ) 
+                       लिखत गरी दिने ऋणीका नाम -
+                       <input class="form-field form-control-sm"
+                              formControlName="actName"/>
+                       ऐन
+                       <input class="form-field form-control-sm"
                               formControlName="actYearInFigure"
-                              placeholder="कार्य वर्ष फिगर मा"
                               type="text"/>
                        बमोजिम नेपाल सरकार
-                       <input class="form-field form-control-sm nepaliFont"
+                       <input class="form-field form-control-sm"
+                              formControlName="authorizedBody"
+                              type="text"/>
+                       <input class="form-field form-control-sm"
                               formControlName="headSectionDepartment"
                               placeholder="विभाग प्रमुख"
-                              type="text"/> मिति
-                       <input class="form-field form-control-sm nepaliFont"
+                              type="text"/>
+                       विभाग/कार्यालयमा मिति
+                       <input class="form-field form-control-sm"
                               formControlName="registrationDate"
                               placeholder="दर्ता मिति"
-                              type="text"/> मा दर्ता भै द.नं.:–
-                       <input class="form-field form-control-sm nepaliFont"
+                              type="text"/>
+                       मा दर्ता भै द.नं.:–
+                       <input class="form-field form-control-sm"
                               formControlName="registrationNo"
                               placeholder="दर्ता नं"
                               type="text"/>
                        कायम भएको श्री
-                       <input class="form-field form-control-sm nepaliFont"
+                       <input class="form-field form-control-sm"
                               formControlName="companyName"
                               placeholder="कम्पनीको नाम"
-                              type="text"/> प्रा.लि. (जसलाई यस उप्रान्त ऋणी कम्पनीÞ भनिएको छ) का तर्फवाट ऐ.का अख्तियारप्राप्त
-                       <input class="form-field form-control-sm nepaliFont"
+                              type="text"/>
+                       प्रा.लि. (जसलाई यस उप्रान्त <b>"ऋणी कम्पनी"</b> भनिएको छ) का
+                       तर्फवाट ऐ.का अख्तियार प्राप्त
+                       <input class="form-field form-control-sm"
                               formControlName="nameOfAuthorizePerson"
                               placeholder="प्राधिकरण व्यक्तिको नाम"
-                              type="text"/> आगे हामी ऋणीलाई
-<!--                       कम्पनीको व्यापार व्यवसाय संचालन गर्न यस अघि देखि नैं तपाई धनी बैंकबाट ऋणकर्जा-->
-<!--                       सुविधाहरु प्राप्त गरी उपभोग समेत गरि राखेको ठिक सांचो हो । हाल हामी ऋणी कम्पनीलाई उक्त ऋणकर्जा तथा बैंकिह् सुविधा नविकरण एवम थप तथा अतिरिक्त -->
+                              type="text"/>
+                       को नाती
+                       <input class="form-field form-control-sm"
+                              formControlName="nameOfGrandSon"
+                              placeholder="नातीको नाम"
+                              type="text"/>
+                       /नातिनी
+                       <input class="form-field form-control-sm"
+                              formControlName="nameOfGrandDaughter"
+                              placeholder="नातिनीको नाम"
+                              type="text"/>
+                       /बुहारी
+                       <input class="form-field form-control-sm"
+                              formControlName="nameOfDaughterInLaw"
+                              placeholder="बुहारीको नाम"
+                              type="text"/>
+                       को छोरा
+                       <input class="form-field form-control-sm"
+                              formControlName="nameOfSon"
+                              placeholder="छोराको नाम"
+                              type="text"/>
+                       /छोरी
+                       <input class="form-field form-control-sm"
+                              formControlName="nameOfDaughter"
+                              placeholder="छोरीको नाम"
+                              type="text"/>
+                       श्रीमती
+                       <input class="form-field form-control-sm"
+                              formControlName="nameOfWife"
+                              placeholder="श्रीमतीको नाम"
+                              type="text"/>
+                       <input class="form-field form-control-sm"
+                              formControlName="districtOfAuthPerson"
+                              type="text"/>
+                       जिल्ला
+                       <input class="form-field form-control-sm"
+                              formControlName="vdcMunicipalityOfAuth"
+                              type="text"/>
+                       न.पा.
+                       <input class="form-field form-control-sm"
+                              formControlName="municipality"
+                              type="text"/>
+                       गा.वि.स.
+                       <input class="form-field form-control-sm"
+                              formControlName="VDC"
+                              type="text"/>
+                       गाँउपालिका
+                       <input class="form-field form-control-sm"
+                              formControlName="gaupalika"
+                              type="text"/>
+                       वडा नंं.
+                       <input class="form-field form-control-sm"
+                              formControlName="wardNo"
+                              type="text"/>
+                       बस्ने बर्ष
+                       <input class="form-field form-control-sm"
+                              formControlName="ageOfAuthPerson"
+                              type="text"/>
+                       को/की श्री/श्रीमती/सुश्री
+                       <input class="form-field form-control-sm"
+                              formControlName="nameOfAuthPerson"
+                              type="text"/>
+                       , आगे हामी म/ऋणी(हरु)लाई
+                       <input class="form-field form-control-sm"
+                              formControlName="purposeOfLoan"
+                              type="text"/>
+                       प्रयोजनका लागि
+                       <!--Autopopulate but editable-->
+                       <ng-container>
+                       यस अघी देखी नै तपाई धनी बैंकवाट विभिन्न ऋणकर्जा तथा
+                       बैकिङ्ग सुविधाहरु प्राप्त गरी उपभोग गर्दै आएको ठिक सांचो हो  ।
+                       हाल म/हामी ऋणी(हरु)लाई उक्त ऋणकर्जा तथा बैंकिङ्ग सुविधा
+                       नवीकरण गर्न एवम् थप तथा अतिरिक्त
+                       </ng-container>
                        ऋणकर्जा सुविधा आवश्यक भई सोको
-                       लागि तपाई धनी बैंकसंग अनुरोध गरेकोमा तपाईं धनी बैंकले हामी ऋणी कम्पनीको नाममा जारी गरेकोे मिति
-                       <input class="form-field form-control-sm nepaliFont"
+                       लागि तपाई धनी बैंकसंग अनुरोध गरेकोमा तपाईं धनी
+                       बैंकसंग अनुरोध गरेकोमा तपाई धनी बैंकले मेरो/हाम्रो नाउँमा जारी गरेको मिति
+                       <input class="form-field form-control-sm"
                               formControlName="sanctionLetterIssueDate"
                               placeholder="स्वीकृति पत्र जारी मिति"
-                              type="text"/> को ऋण स्विकृति पत्रानुसार स्वीकृत देहाय
-                       बमोजिमका ऋणकर्जा तथा बैंकिग सुविधाहरु सोही ऋण स्वीकृति पत्रमा उल्लेखित तरिका बमोजिम प्राप्त गर्ने गरी यो ऋणकर्जाको तमसुक गरिदिएको ठीक सांचो हो ।
-                       तपाई धनी बैंकबाट प्राप्त ऋणकर्जा तथा बैंकिग सुविधाहरुमा लाग्ने ब्याज, कमिशन, शुल्क आदि स्वीकृत ऋणकर्जा तथा बैंकिग सुविधाहरु तल खण्ड खण्डमा उल्लेख भएको दर अनुसार तिरी बुझाई सोही खण्डमा
-                       लेखिएको मिति भित्रमा वा स्वीकृत ऋणकर्जा तथा बैंकिग सुविधा नवीकरण भएमा नवीकरण भएको बखत तपाई धनी बैंकले ऋणीका नाममा जारी गर्ने ऋण स्वीकृति पत्रमा तोकिएको मिति भित्रमा तपांई धनी बैंकलाई
-                       तिर्नु बुमmाउनु पर्ने ऋणकर्जाको सम्पूर्ण सांवा ब्याज चुक्ता भुक्तान गर्नेछौं । स्वीकृत ऋणकर्जा तथा भविष्यमा थप प्राप्त गरेमा सो समेतको सुरक्षण वापत हामी ऋणी कम्पनीको नीजि श्रोत साधनबाट तथा तपाई धनी
-                       बैंकबाट प्राप्त गरेको ऋणकर्जा समेतबाट हाल खरिदरआयात गरेको, श्रृृजना गरेको तथा यस उप्रान्त खरिद र आयात गर्ने श्रृजना गर्ने लगायतका सम्पूर्ण चल अचल जायजेथा तथा हामी ऋणी कम्पनीले भुक्तानी प्राप्त
-                       गर्न बांकि रकमहरु (Account Receivable) समेत यसै लिखतबाट तपाई धनी बैंकको नाममा धितोवन्धक लेखिदिएकाछौं । प्राप्त ऋणकर्जाको तपाई धनी बैंकलाई तिर्र्नु बुझाउनु पर्ने सांवा व्याज आदी यसै
-                       लिखत तथा उल्लेखित ऋण स्वीकृति पत्रानुसार तोकिएको शर्त बमोजिम नतिरे नवुझाएमा वा तिर्न बुझाउन आलटाल गरी बांकी राखेमा वा किस्ता खिलाफी गरेमा वा ऋण स्वीकृति पत्र तथा यसै लिखतको कुनै शर्त बन्देजहरु
-                       उल्लंघन गरेमा समेत हामी ऋणी कम्पनीको नाउंमा तपाईं धनी बैंकमा खोलेको निक्षेप खातामा रहेको रकमबाट कटृा गरी तथा उपरोक्त बमोजिम धितो लेखिदिएको चल अचल श्रीसम्पत्ति बैंक तथा वित्तीय संस्था सम्बन्धि ऐन
-                       २०७३ बमोजिम कव्जा गरी लिलाम विक्री गरी र वा अन्य व्यवस्था गरी तपाई धनी बैंकको सम्पूर्ण लेना रकम असुल उपर गरी लिनु होला । कथम्कदाचित धितो लेखिदिएको श्रीसम्पत्ति कच्चा नकरा ठहरी लिलाम विक्री हुन
-                       नसकेमा वा लिलाम विक्री गर्दा समेत तपाई धनी बैंकको लेना रकम असुल उपर नभई बांकि रहेमा सो समेत हामी ऋणी कम्पनीको घरघराना लगायतका अन्य श्रीसम्पत्तिबाट असुल उपर गरी लिनुहोला ।
-                       सो बमोजिम गरी लिएमा पछि कुनै किसिमको उजुर बाजुर गर्ने छैनौ, गरे यसै लिखतले बदर गराई लिनु भनि किनाराका साक्षीहरुको रोहबरमा तपाई धनी बैंकको कार्यालयमा बसी यो लिखतमा ऐ.का अख्तियारप्राप्त
-                       <input class="form-field form-control-sm nepaliFont"
+                              type="text"/>
+                       को ऋण स्वीकृति पत्रानुसार स्वीकृत देहाय बमोजिमका ऋणकर्जा तथा बैकिङ्ग सुविधाहरु
+                       सोही ऋण स्वीकृति पत्रमा उल्लेखित तरिका बमोजिम प्राप्त गर्ने गरी यो ऋणकर्जाको तमसुक गरिदिएको ठिक
+                       सांचो हो । तपाई धनी बैंकबाट प्राप्त ऋणकर्जा तथा बैकिङ्ग सुविधाहरुमा लाग्ने ब्याज, कमिशन, शुल्क आदि
+                       स्वीकृत ऋणकर्जा तथा बैकिङ्ग सुविधाहरु तल उल्लेखित खण्ड खण्डमा उल्लेख भएको दर अनुसार तिरी बुझाई \
+                       सोही खण्डमा लेखिएको मिति भित्रमा वा स्वीकृत ऋणकर्जा तथा बैकिङ्ग सुविधा नवीकरण भएमा नवीकरण भएको
+                       बखत तपाई धनी बैंकले म/हामी ऋणी(हरु)का नाममा जारी गर्ने ऋण स्वीकृति पत्रमा तोकिएको मिति
+                       भित्रमा म/हामी ऋणी(हरु) आफै वा प्रतिनिधि मार्फत तपाई धनी बैंकमा उपस्थित भै सोधखोज गरी धनी
+                       बैंकलाई तिर्नु बुझाउनु पर्ने ऋणकर्जाको सम्पूर्ण ब्याज चुक्ताभूक्तान गर्नेछु/छौं ।
+                       म/हामी ऋणी(हरु)को नाममा स्वीकृत बैकिङ्ग सुविधा (एल.सी., ग्यारेण्टी, बण्ड आदि)
+                       उपभोग गर्दा तपाई धनी बैंक उपर कुनै थप दायित्व श्रृजना भएमा त्यस्तो थप दायित्व तपाई धनी बैंकले
+                       माग गर्नासाथ तिर्ने बुझाउने छु/छौं । स्वीकृत ऋणकर्जा तथा बैकिङ्ग सुविधा तथा भविष्यमा तपाई धनी
+                       बैंकले उपलब्ध गराउने थप ऋणकर्जा तथा सुविधाहरु समेतको सुरक्षण वापत म/हामी ऋणी(हरु)को
+                       निजी श्रोतबाट खरिद गरेको, श्रृजना भएको र तपाई धनी बैंकबाट प्राप्त ऋणकर्जाबाट खरिद वा आयात गरेको,
+                       श्रृजना गरेको लगायत म ऋणीको नाममा रहे भएको सम्पूर्ण चल अचल श्रीसम्पत्तिहरु तथा भविष्यमा म/हामी
+                       ऋणी(हरु)को नाममा कायम हुने श्रीसम्पत्ति तथा म/हामी ऋणी(हरु)को भुक्तानी  प्राप्त गर्न बांकि रकमहरु
+                       (Account Receivables)
+                       <input class="form-field form-control-sm"
                               formControlName="givenAuthorityPerson"
                               placeholder="अधिकार दिइएको व्यक्ति"
-                              type="text"/> ले हस्ताक्षर गरी यो लिखतमा कम्पनीको छाप लगाई तपाईं धनी बैंकलाई दियौं र यसको दोहरी समेत बुझिलियौं
+                              type="text"/>
+                       समेत यसै लिखतबाट तपाई धनी बैंकको नाममा धितोबन्धक लेखिदिएको छु/छौं ।
+                       सोको अलावा तपसिलमा उल्लेख गरे बमोजिमको सम्पत्ति समेत छुट्टै लिखतबाट तपाई
+                       धनी बैंकको नाममा धितोबन्धकको लिखत लेखिदिई सकेको छ ।
+                       प्राप्त ऋणकर्जाको तपाई धनी बैंकलाई तिर्नु पर्ने साँवा, व्याज, कमिशन, शुल्क
+                       आदि यसै लिखत तथा उल्लेखित ऋण स्वीकृति पत्रानुसार तोकिएको तरिका बमोजिम
+                       नतिरे नबुझाएमा वा तिर्नु बुझाउन आलटाल गरेमा वा किस्ता खिलाफी गरेमा वा ऋण
+                       स्वीकृति पत्र तथा यसै लिखतको कुनै शर्त उल्लंघन गरेमा समेत म/हामी ऋणी(हरु)को
+                       नाममा तपाई धनी बैंकमा खोलेको निक्षेप खातामा जम्मा रहेको रकमबाट कट्टा गरी तथा
+                       धितो लेखिदिएको सम्पत्ति बैंक तथा वित्तिय संस्था सम्बन्धी ऐन २०७३ बमोजिम लिलाम विक्री
+                       तथा अन्य व्यवस्था गरी तपाई धनी बैंकको सम्पूर्ण लेना असुल उपर गरिलिनु होला । कथमकदाचित
+                       धितो लेखिएको श्रीसम्पत्ति कच्चा नकरा ठहरी लिलाम बिक्री हुन नसकेमा वा लिलाम विक्री हुंदा
+                       समेत तपाई धनी बैंकको सम्पूर्ण लेना रकम असुल उपर नभएमा मेरो/हाम्रो घरघरानाको श्रीसम्पत्तिबाट
+                       असुल उपर गरी लिनु होला भनी देहायका साक्षीहरुको रोहवरमा तपाई धनी बैंकको कार्यालयमा बसी
+                       यो लिखतमा सहिछाप गरी तपाई धनी बैंकलाई दियौं र यसको दोहरी समेत बुझिलिए/लियौं ।
                    </div>
                </div>
             </div>
@@ -74,10 +177,9 @@
                                 Name of Facility</th>
                             <th>रकम <br>
                                 Loan Amount</th>
-                            <th>ब्याज र कमिसन <br>
-                                Interest/Commission as per Approved CFR</th>
-                            <th>अन्तिम चुक्ताभुक्तान गर्ने वा बहाल मिति <br>
-                                Expiry/Renewal Date</th>
+                            <th>ब्याज/कमिसन</th>
+                            <th>अन्तिम चुक्ताभुक्तान गर्ने वा बहाल मिति
+                            </th>
                         </tr>
                         </thead>
                         <tbody>
@@ -87,30 +189,26 @@
                             <td>8%</td>
                             <td>2021/09/30</td>
                         </tr>
-                        <tr>
-                            <td>Personal Loan</td>
-                            <td>1520000 /-</td>
-                            <td>8%</td>
-                            <td>2021/09/30</td>
-                        </tr>
                         </tbody>
                     </table>
                     <b>कुल ऋणकर्जा तथा बैंकिङ्ग सुविधा रु</b>
-                    <input class="form-field form-control-sm nepaliFont"
+                    <input class="form-field form-control-sm"
                            formControlName="totalLoanAmountInFigure"
                            placeholder="कुल ऋणकर्जा"
-                           type="text"> । (अक्षरेपी
-                    <input class="form-field form-control-sm nepaliFont"
+                           type="text"> । (अक्षरेपी रु
+                    <input class="form-field form-control-sm"
                            formControlName="totalLoanAmountInWord"
                            placeholder="कुल ऋणकर्जा"
-                           type="text"> )
+                           type="text"> मात्र)
                 </div>
             </div>
             <div class="container-fluid">
                 <div class="col-md-12 mt-lg-5">
                     <b class="text-center" style="font-size: 12pt">तपसिल</b> <br>
-                    उपरोक्त ऋणकर्जा तथा बैंकिग सुविधाको सुरक्षण वापत देहाय बमोजिमको घरजग्गा तपाई धनी बैंकको नाममा<br>
-                    धितोबन्धक लेखिदिई सम्बन्धित मालपोत कार्यालयमा रजिष्ट्रेशन समेत पारित गरिदिएको छु ।
+<!--                    Default text but editable for land/building/apartment as collateral or free text  -->
+                    उपरोक्त ऋणकर्जा तथा बैकिङ्ग सुविधाहरुको सुरक्षण वापत देहाय
+                    बमोजिमको घरजग्गा तपाई धनी बैंकको नाममा धितो वन्धक
+                    पारित गरिदिएका छौं ।
                     <table class="table-bordered mt-2">
                         <thead>
                         <tr>
@@ -137,14 +235,6 @@
                             <td>123</td>
                             <td>1245</td>
                         </tr>
-                        <tr>
-                            <td>Ganga Shrestha</td>
-                            <td>Sarlahi</td>
-                            <td>Hariwan</td>
-                            <td>7</td>
-                            <td>123</td>
-                            <td>1245</td>
-                        </tr>
                         </tbody>
                     </table>
                 </div>
@@ -155,24 +245,69 @@
                     [config]="ckEditorConfig"></ckeditor>
                 </div>
             </div>
+            <div class="container-fluid">
+                <div class="col-md-12 mt-3">
+                    <ckeditor class="nepaliFont" formControlName="collateral"></ckeditor>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="col-md-12 mt-3">
+                    <ckeditor class="nepaliFont" formControlName="freeText"
+                              [config]="ckEditorConfig"></ckeditor>
+                </div>
+            </div>
+
+            <div>
+                १.
+                <input class="form-field form-control-sm"
+                       formControlName="districtOfWitness"
+                       type="text">
+                जिल्ला
+                <input class="form-field form-control-sm"
+                       formControlName="municipalityVDC"
+                       type="text">
+                न.पा/गा.वि.स. वडा नं.
+                <input class="form-field form-control-sm"
+                       formControlName="wardNoOfWitness"
+                       type="text">
+                बस्ने बर्ष.
+                <input class="form-field form-control-sm"
+                       formControlName="ageOfWitness"
+                       type="text">
+                को/की
+                <input class="form-field form-control-sm"
+                       formControlName="yearInFigure"
+                       type="nameOfWitness">
+                <br>
+                २. कारणीले प्रस्तुत लिखत मेरो सामुन्ने सहिछाप गरेको हो भनी सनाखत
+                गर्ने नविल बैंक लिमिटेडका कर्मचारी
+                <input class="form-field form-control-sm"
+                       formControlName="nameOfBank"
+                       type="text">
+            </div>
+
             <div class="container-fluid mt-lg-5">
                 <div class="col-md-12">
                     <p>
                         ईति सम्वत्
-                        <input class="form-field form-control-sm nepaliFont"
+                        <input class="form-field form-control-sm"
                                formControlName="yearInFigure"
                                placeholder="ईति सम्वत्" type="text">
-                        साल <input class="form-field form-control-sm nepaliFont"
+                        साल <input class="form-field form-control-sm"
                                    formControlName="year"
                                    placeholder="साल" type="text">
                         महिना
-                        <input class="form-field form-control-sm nepaliFont"
+                        <input class="form-field form-control-sm"
                                formControlName="month"
                                placeholder="महिना" type="text">
                         गते रोज
-                        <input class="form-field form-control-sm nepaliFont"
+                        <input class="form-field form-control-sm"
                                formControlName="days"
-                               placeholder="गते" type="text"> शुभम्
+                               placeholder="गते" type="text">
+                        शुभम्
+                        <input class="form-field form-control-sm"
+                               formControlName="days"
+                               placeholder="गते" type="text">
                     </p>
                 </div>
             </div>
