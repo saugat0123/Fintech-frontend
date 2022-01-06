@@ -39,8 +39,9 @@ export class PersonalGuaranteeProprietorshipComponent implements OnInit {
     loanHolderNepData: any;
     offerDocumentDetails: any;
     nepaliNumber = new NepaliNumberAndWords();
-    loanPurpose = 'व्यापार/ व्यवसाय संचालन';
+    loanPurpose = 'व्यापार / व्यवसाय संचालन';
     tempData;
+    nameOfAuthorizedBody = 'नेपाल सरकार';
     constructor(private formBuilder: FormBuilder,
                 private administrationService: CreditAdministrationService,
                 private toastService: ToastService,
@@ -59,7 +60,6 @@ export class PersonalGuaranteeProprietorshipComponent implements OnInit {
     }
 
     loadPersonalGuarantorData() {
-        console.log('cadData: ', this.cadData);
         if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.assignedLoan)) {
             this.loanHolderNepData = this.cadData.loanHolder.nepData
                 ? JSON.parse(this.cadData.loanHolder.nepData)
@@ -78,8 +78,6 @@ export class PersonalGuaranteeProprietorshipComponent implements OnInit {
                 this.taggedGuarantorsDetailsInLoan.map((val) => JSON.stringify(val))
             )
         ).map((val) => JSON.parse(val));
-        console.log('loanHolderNepData: ', this.loanHolderNepData);
-        console.log('taggedGuarantorsDetailsInLoan: ', this.taggedGuarantorsDetailsInLoan);
     }
 
     buildForm() {
@@ -107,15 +105,13 @@ export class PersonalGuaranteeProprietorshipComponent implements OnInit {
                 if (ObjectUtil.isEmpty(individualGuarantorNepData)) {
                     return;
                 }
-                console.log('individualGuarantorNepData: ', individualGuarantorNepData);
-                console.log('offerDocumentDetails: ', this.offerDocumentDetails);
                 (this.personalGuaranteeProprietorship.get('guaranteeCompanies') as FormArray).push(
                     this.formBuilder.group({
                         branchName: [this.loanHolderNepData.branch ? this.loanHolderNepData.branch.ct : ''],
                         actDetails: [this.loanHolderNepData.actName.ct ? this.loanHolderNepData.actName.ct : ''],
-                        actYearInFigure: [this.loanHolderNepData.actYear.np ? this.loanHolderNepData.actYear.np : ''],
-                        headDepartment: [this.loanHolderNepData.authorizedBodyName.ct ? this.loanHolderNepData.authorizedBodyName.ct : ''],
-                        registrationDate: [this.englishNepaliDatePipe.transform(this.loanHolderNepData.registrationDate.np ? this.loanHolderNepData.registrationDate.np : this.loanHolderNepData.registrationDate.np, true) || ''],
+                        actYearInFigure: [this.loanHolderNepData.actYear.en ? this.loanHolderNepData.actYear.en : ''],
+                        headDepartment: [!ObjectUtil.isEmpty(this.loanHolderNepData.authorizedBodyName) ? this.loanHolderNepData.authorizedBodyName.ct : this.nameOfAuthorizedBody],
+                        registrationDate: [this.setRegistrationDate()],
                         registrationNo: [this.loanHolderNepData.registrationNo.ct ? this.loanHolderNepData.registrationNo.ct : ''],
                         registeredDistrict: [this.loanHolderNepData.registeredDistrict.ct ? this.loanHolderNepData.registeredDistrict.ct : ''],
                         municipalityOfFirm: [this.loanHolderNepData.registeredMunicipality.ct ? this.loanHolderNepData.registeredMunicipality.ct : ''],
@@ -123,7 +119,7 @@ export class PersonalGuaranteeProprietorshipComponent implements OnInit {
                         addressOfFirm: [this.loanHolderNepData.registeredStreetTole.ct ? this.loanHolderNepData.registeredStreetTole.ct : ''],
                         loaneeName: [this.loanHolderNepData.name ? this.loanHolderNepData.name.ct : ''],
                         loanPurpose: [this.setLoanPurpose()],
-                        letterIssuedDate: [this.englishNepaliDatePipe.transform(this.offerDocumentDetails.smeGlobalForm.dateOfApprovalCT ? this.offerDocumentDetails.smeGlobalForm.dateOfApprovalCT : this.offerDocumentDetails.smeGlobalForm.dateOfApprovalCT, true) || ''],
+                        letterIssuedDate: [this.setIssuedDate()],
                         loanAmount: [this.nepaliNumber.numberNepali],
                         loanAmountInWord: [this.nepaliNumber.nepaliWords],
                         approvedLoanAmount: [this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(individualGuarantorNepData.gurantedAmount.en))],
@@ -227,6 +223,23 @@ export class PersonalGuaranteeProprietorshipComponent implements OnInit {
             this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
             this.dialogRef.close();
         });
-        console.log(this.personalGuaranteeProprietorship.value);
     }
+  setRegistrationDate() {
+    let regDate = '';
+    if (this.loanHolderNepData.registrationDateOption.en === 'AD') {
+      regDate = this.englishNepaliDatePipe.transform(this.loanHolderNepData.registrationDate.en ? this.loanHolderNepData.registrationDate.en : this.loanHolderNepData.registrationDate.en, true) || '' ;
+    } else {
+      regDate = this.loanHolderNepData.registrationDate.en.nDate ? this.loanHolderNepData.registrationDate.en.nDate : '';
+    }
+    return regDate ? regDate : '';
+  }
+  setIssuedDate() {
+    let issuedDate = '';
+    if (this.offerDocumentDetails.smeGlobalForm.dateOfApprovalType === 'AD') {
+      issuedDate = this.englishNepaliDatePipe.transform(this.offerDocumentDetails.smeGlobalForm.dateOfApprovalCT ? this.offerDocumentDetails.smeGlobalForm.dateOfApprovalCT : this.offerDocumentDetails.smeGlobalForm.dateOfApprovalCT, true) || ''
+    } else {
+      issuedDate = this.offerDocumentDetails.smeGlobalForm.dateOfApprovalNepali.nDate ? this.offerDocumentDetails.smeGlobalForm.dateOfApprovalNepali.nDate : '';
+    }
+    return issuedDate ? issuedDate : '';
+  }
 }
