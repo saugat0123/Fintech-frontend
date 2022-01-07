@@ -171,31 +171,14 @@ export class RemitCustomerListComponent implements OnInit {
         this.onBoardData.shipped = this.shipped;
         this.modalService.dismissAll();
         this.onBoardSpinner = true;
-        if (this.shipped === 'MICRO_FINANCE') {
-            this.remitCustomerService.saveRemitCustomerToMicroFinance(this.onBoardData).subscribe((res) => {
-                this.onBoardSpinner = false;
-                this.remitCustomerService.saveRemitCustomer(this.onBoardData).subscribe((res) => {
-                    this.onBoardData.alreadyTransferred = true;
-                    this.onBoardSpinner = false;
-                }, error => {
-                    this.onBoardSpinner = false;
-                    this.toastService.danger('Failed to Update In Bank');
-                });
-                this.toastService.success('Successfully Transferred to ' + `${this.shipped}`);
-            }, error => {
-                this.onBoardSpinner = false;
-                this.toastService.danger('Failed to transfer to');
-            });
-        } else {
-            this.remitCustomerService.saveRemitCustomer(this.onBoardData).subscribe((res) => {
-                this.onBoardData.alreadyTransferred = true;
-                this.onBoardSpinner = false;
-                this.toastService.success('Successfully Transferred to ' + `${this.shipped}`);
-            }, error => {
-                this.onBoardSpinner = false;
-                this.toastService.danger('Failed to transfer to');
-            });
-        }
+        this.remitCustomerService.saveRemitCustomer(this.onBoardData).subscribe((res) => {
+            this.onBoardData.alreadyTransferred = true;
+            this.onBoardSpinner = false;
+        }, error => {
+            this.onBoardSpinner = false;
+            this.toastService.danger('Failed to Update In Bank');
+        });
+        this.toastService.success('Successfully Transferred to ' + `${this.shipped}`);
     }
 
     customerTransferToBranch() {
