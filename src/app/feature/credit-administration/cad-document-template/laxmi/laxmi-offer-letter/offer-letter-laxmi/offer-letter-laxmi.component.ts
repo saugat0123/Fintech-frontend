@@ -21,6 +21,7 @@ import {NepaliEditor} from '../../../../../../@core/utils/constants/nepaliEditor
 import {OfferDocument} from '../../../../model/OfferDocument';
 import {LaxmiOfferLetterConst} from '../laxmi-offer-letter-const';
 import {CadDocStatus} from '../../../../model/CadDocStatus';
+import {Security} from '../../../../../loan/model/security';
 
 @Component({
   selector: 'app-offer-letter-laxmi',
@@ -74,6 +75,9 @@ export class OfferLetterLaxmiComponent implements OnInit {
   };
   ckeConfig = NepaliEditor.CK_CONFIG;
   existingOfferLetter = false;
+  securityData: Security;
+  singleSecurity = false;
+  selectedArray = [];
 
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
@@ -89,11 +93,6 @@ export class OfferLetterLaxmiComponent implements OnInit {
 
   ngOnInit() {
     console.log('cadData', this.cadData);
-    this.loanName = this.cadData.assignedLoan[0].loan.name;
-    console.log('loanName', this.loanName);
-    this.subloanTypes = SubLoanType.value(this.loanName);
-    this.loanType = this.cadData.assignedLoan[0].loanType;
-    console.log('loanType', this.loanType);
     this.buildForm();
     this.checkOfferLetter();
     this.checkSubLoanType();
@@ -101,6 +100,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
       this.modalService.open(this.modal);
     }
     this.addFixedAssetsCollateral();
+    this.parseSiteVisitSecurityData()
   }
 
   checkOfferLetter() {
@@ -572,7 +572,34 @@ export class OfferLetterLaxmiComponent implements OnInit {
     }
   }
 
-  setOtherPurpose() {
-
+  parseSiteVisitSecurityData() {
+    if (!ObjectUtil.isEmpty(this.cadData)) {
+      if (this.cadData.assignedLoan.length > 1) {
+        console.log('length is greater than 1');
+      } else {
+        this.loanName = this.cadData.assignedLoan[0].loan.name;
+        console.log('loanName', this.loanName);
+        this.subloanTypes = SubLoanType.value(this.loanName);
+        this.loanType = this.cadData.assignedLoan[0].loanType;
+        console.log('loanType', this.loanType);
+        this.securityData = this.cadData.loanHolder.security;
+        const sitevisit = this.cadData.loanHolder.siteVisit;
+        if (!ObjectUtil.isEmpty(this.securityData)) {
+          console.log(this.securityData);
+          const data = JSON.parse(this.securityData.data);
+          this.selectedArray = data.selectedArray;
+          console.log('selectedArray', this.selectedArray);
+          if (this.selectedArray.length > 0) {
+            this.singleSecurity = false;
+          } else {
+            this.singleSecurity = true;
+          }
+        }
+        if (!ObjectUtil.isEmpty(sitevisit)) {
+          const siteVisitData = JSON.parse(sitevisit.data);
+          console.log('siteVisitData', siteVisitData);
+        }
+      }
+    }
   }
 }
