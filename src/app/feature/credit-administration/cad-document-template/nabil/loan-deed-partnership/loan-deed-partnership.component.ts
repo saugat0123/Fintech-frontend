@@ -104,8 +104,6 @@ export class LoanDeedPartnershipComponent implements OnInit {
             this.cadData.offerDocumentList[0].docName === 'Udyamsil Karja Subsidy') {
             this.SecurityCheck();
         }
-        console.log('This is company data.......', this.cadData);
-        console.log('individual data.......', this.individualData);
         this.getLoanName();
         this.fillForm();
     }

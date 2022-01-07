@@ -63,7 +63,6 @@ export class LoanDeedPartnershipPrintComponent implements OnInit {
               private nepToEngNumberPipe: NepaliToEngNumberPipe, ) { }
 
   ngOnInit() {
-    console.log('letterData::  ' ,this.letterData);
     if (!ObjectUtil.isEmpty(this.cadData.assignedLoan[0])) {
       this.companyInfo = this.cadData.assignedLoan[0] ? JSON.parse(this.cadData.assignedLoan[0].companyInfo.companyJsonData) : '';
     }
@@ -89,8 +88,6 @@ export class LoanDeedPartnershipPrintComponent implements OnInit {
         this.cadData.offerDocumentList[0].docName === 'Udyamsil Karja Subsidy') {
       this.SecurityCheck();
     }
-    console.log('This is company data.......', this.cadData);
-    console.log('individual data.......', this.individualData);
     this.getLoanName();
     this.fillForm();
   }
