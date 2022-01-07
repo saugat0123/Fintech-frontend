@@ -19,6 +19,14 @@
 <!--                        </div>-->
 <!--                    </div>-->
                     <div class="card-body">
+<!--                        <div class="col-md-12">-->
+<!--                            <select id="majorSourceIncomeType" class="form-control"-->
+<!--                                    formControlName="subLoanType">-->
+<!--                                <option value="null" hidden selected>&#45;&#45;Select Options&#45;&#45;</option>-->
+<!--                                <option *ngFor="let m of loan?.loanName"-->
+<!--                                        [value]="m">{{m}}</option>-->
+<!--                            </select>-->
+<!--                        </div>-->
                         <div class="col-md-12">
                             <select id="majorSourceIncomeType" class="form-control"
                                     formControlName="subLoanType" (change)="log($event.target.value)">
@@ -194,53 +202,63 @@
                 <tbody>
                 <tr>
                     <td>Loan Type</td>
-                    <td>{{subloanType}}</td>
+                    <td>{{offerLetterForm?.get('subLoanType')?.value}}</td>
                 </tr>
-                <tbody [ngSwitch]="subloanType">
-                <ng-container *ngSwitchCase="subloanTypeEnum.WORKING_CAPITAL_FINANCING">
+                <ng-container *ngIf="offerLetterForm?.get('subLoanType')?.value === subloanTypeEnum?.WORKING_CAPITAL_FINANCING">
                     <tr>
                         <td>उद्देश्य(Purpose)</td>
                         <td>
-                            <select class="form-control"
+                            <select class="form-control disable-print"
                                     formControlName="workingCapitalPurpose"
                                     name="workingCapitalPurpose" (change)="purposeChange()">
                                 <option [value]="null">Select Purpose</option>
                                 <option *ngFor="let pur of purpose"
                                         [value]="pur?.value">{{pur?.value}}</option>
                             </select>
-<!--                            <ckeditor formControlName="workingOther" *ngIf="tempPurposeFlag?.workingCapitalOther"-->
-<!--                                      [config]="ckeConfig"></ckeditor>-->
-                            <textarea *ngIf="tempPurposeFlag?.workingCapitalOther"
-                                      class="form-control nepaliFont form-field font-size-normal"
-                                      formControlName="workingOther"
-                                      placeholder="अन्य उद्देश्य"
-                                      rows="2"></textarea>
+                            <!--                            <ckeditor formControlName="workingOther" *ngIf="tempPurposeFlag?.workingCapitalOther"-->
+                            <!--                                      [config]="ckeConfig"></ckeditor>-->
+                            <textarea
+                                    *ngIf="tempPurposeFlag?.workingCapitalOther || offerLetterForm?.get('workingCapitalPurpose')?.value?.includes('Other')"
+                                    class="form-control nepaliFont form-field font-size-normal disable-print"
+                                    formControlName="workingOther"
+                                    placeholder="अन्य उद्देश्य"
+                                    rows="2"></textarea>
+                            <span class="nepaliFont print-only" *ngIf="!tempPurposeFlag?.workingCapitalOther">
+                                <b>{{offerLetterForm?.get('workingCapitalPurpose').value ? offerLetterForm?.get('workingCapitalPurpose').value : '========='}}</b></span>
+                            <span class="nepaliFont print-only" *ngIf="tempPurposeFlag?.workingCapitalOther">
+                                <b>{{offerLetterForm?.get('workingOther').value ? offerLetterForm?.get('workingOther').value : '========='}}</b></span>
                         </td>
                     </tr>
                     <tr>
                         <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमाः(Drawdown)</td>
                         <td>
-<!--                            <ckeditor formControlName="workingCapitalDrawDown"-->
-<!--                                      [config]="ckeConfig"></ckeditor>-->
-                            <textarea class="form-control nepaliFont form-field font-size-normal"
+                            <!--                            <ckeditor formControlName="workingCapitalDrawDown"-->
+                            <!--                                      [config]="ckeConfig"></ckeditor>-->
+                            <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
                                       formControlName="workingCapitalDrawDown"
                                       placeholder="स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमा"
                                       rows="4"></textarea>
+                            <span class="nepaliFont print-only">
+                                <b>{{offerLetterForm?.get('workingCapitalDrawDown').value ? offerLetterForm?.get('workingCapitalDrawDown').value : '========='}}</b></span>
                         </td>
                     </tr>
                     <tr *ngIf="loanName.toLowerCase() === 'term loan'">
-                        <td>सांवाको किस्ता तिर्ने छुट अवधि (Moratorium Period) तथा कर्जा झिक्न पाउने अवधि (Drawdown Period)
+                        <td>सांवाको किस्ता तिर्ने छुट अवधि (Moratorium Period) तथा कर्जा झिक्न पाउने अवधि (Drawdown
+                            Period)
                         </td>
                         <td>
                             पहिलो किस्ता प्रवाह भएको मितिबाट सांवाको किस्ता तिर्न र पुरा कर्जा झिक्न
-                            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                            <input type="text"
+                                   class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                                    formControlName="month">
+                            <span class="nepaliFont print-only">
+                                <b>{{offerLetterForm?.get('month').value ? offerLetterForm?.get('month').value : '========='}}</b></span>
                             महिनाको ग्रेस पिरियड उपलव्ध गराइनेछ । जुन अवधिमा तिर्न वांकी कर्जामा पाकेको व्याज
                             मासिक/त्रैमासिक रुपमा भुक्तानी गर्नु पर्नेछ ।
                         </td>
                     </tr>
                 </ng-container>
-                <ng-container *ngSwitchCase="subloanTypeEnum?.SHARE_LOAN">
+                <ng-container *ngIf="offerLetterForm?.get('subLoanType')?.value === subloanTypeEnum?.SHARE_LOAN">
                     <tr>
                         <td>उद्देश्य(Purpose)</td>
                         <td>
@@ -254,17 +272,21 @@
                             <!--                            <ckeditor formControlName="shareLoanOther" *ngIf="tempPurposeFlag?.selectShareLoanOther"-->
                             <!--                                      [config]="ckeConfig"></ckeditor>-->
                             <textarea class="form-control nepaliFont form-field font-size-normal"
-                                      *ngIf="tempPurposeFlag?.selectShareLoanOther"
+                                      *ngIf="tempPurposeFlag?.selectShareLoanOther || offerLetterForm?.get('shareLoanPurpose')?.value?.includes('Other')"
                                       formControlName="shareLoanOther"
                                       placeholder="अन्य उद्देश्य"
                                       rows="2"></textarea>
+                            <span class="nepaliFont print-only" *ngIf="!tempPurposeFlag?.selectShareLoanOther">
+                                <b>{{offerLetterForm?.get('shareLoanPurpose').value ? offerLetterForm?.get('shareLoanPurpose').value : '========='}}</b></span>
+                            <span class="nepaliFont print-only" *ngIf="tempPurposeFlag?.selectShareLoanOther">
+                                <b>{{offerLetterForm?.get('shareLoanOther').value ? offerLetterForm?.get('shareLoanOther').value : '========='}}</b></span>
                         </td>
                     </tr>
                     <tr>
                         <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने  सीमाः (Drawdown)</td>
                         <td>
-<!--                            <ckeditor formControlName="shareDrawdown"-->
-<!--                                      [config]="ckeConfig"></ckeditor>-->
+                            <!--                            <ckeditor formControlName="shareDrawdown"-->
+                            <!--                                      [config]="ckeConfig"></ckeditor>-->
                             <textarea class="form-control nepaliFont form-field font-size-normal"
                                       formControlName="shareDrawdown"
                                       placeholder="स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमा"
@@ -272,6 +294,89 @@
                         </td>
                     </tr>
                 </ng-container>
+
+                <tbody [ngSwitch]="subloanType">
+<!--                <ng-container *ngSwitchCase="subloanTypeEnum.WORKING_CAPITAL_FINANCING">-->
+<!--                    <tr>-->
+<!--                        <td>उद्देश्य(Purpose)</td>-->
+<!--                        <td>-->
+<!--                            <select class="form-control disable-print"-->
+<!--                                    formControlName="workingCapitalPurpose"-->
+<!--                                    name="workingCapitalPurpose" (change)="purposeChange()">-->
+<!--                                <option [value]="null">Select Purpose</option>-->
+<!--                                <option *ngFor="let pur of purpose"-->
+<!--                                        [value]="pur?.value">{{pur?.value}}</option>-->
+<!--                            </select>-->
+<!--&lt;!&ndash;                            <ckeditor formControlName="workingOther" *ngIf="tempPurposeFlag?.workingCapitalOther"&ndash;&gt;-->
+<!--&lt;!&ndash;                                      [config]="ckeConfig"></ckeditor>&ndash;&gt;-->
+<!--                            <textarea *ngIf="tempPurposeFlag?.workingCapitalOther"-->
+<!--                                      class="form-control nepaliFont form-field font-size-normal disable-print"-->
+<!--                                      formControlName="workingOther"-->
+<!--                                      placeholder="अन्य उद्देश्य"-->
+<!--                                      rows="2"></textarea>-->
+<!--                            <span class="nepaliFont print-only" *ngIf="!tempPurposeFlag?.workingCapitalOther">-->
+<!--                                <b>{{offerLetterForm?.get('workingCapitalPurpose').value ? offerLetterForm?.get('workingCapitalPurpose').value : '========='}}</b></span>-->
+<!--                            <span class="nepaliFont print-only" *ngIf="tempPurposeFlag?.workingCapitalOther">-->
+<!--                                <b>{{offerLetterForm?.get('workingOther').value ? offerLetterForm?.get('workingOther').value : '========='}}</b></span>-->
+<!--                        </td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमाः(Drawdown)</td>-->
+<!--                        <td>-->
+<!--&lt;!&ndash;                            <ckeditor formControlName="workingCapitalDrawDown"&ndash;&gt;-->
+<!--&lt;!&ndash;                                      [config]="ckeConfig"></ckeditor>&ndash;&gt;-->
+<!--                            <textarea class="form-control nepaliFont form-field font-size-normal disable-print"-->
+<!--                                      formControlName="workingCapitalDrawDown"-->
+<!--                                      placeholder="स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमा"-->
+<!--                                      rows="4"></textarea>-->
+<!--                            <span class="nepaliFont print-only">-->
+<!--                                <b>{{offerLetterForm?.get('workingCapitalDrawDown').value ? offerLetterForm?.get('workingCapitalDrawDown').value : '========='}}</b></span>-->
+<!--                        </td>-->
+<!--                    </tr>-->
+<!--                    <tr *ngIf="loanName.toLowerCase() === 'term loan'">-->
+<!--                        <td>सांवाको किस्ता तिर्ने छुट अवधि (Moratorium Period) तथा कर्जा झिक्न पाउने अवधि (Drawdown Period)-->
+<!--                        </td>-->
+<!--                        <td>-->
+<!--                            पहिलो किस्ता प्रवाह भएको मितिबाट सांवाको किस्ता तिर्न र पुरा कर्जा झिक्न-->
+<!--                            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"-->
+<!--                                   formControlName="month">-->
+<!--                            महिनाको ग्रेस पिरियड उपलव्ध गराइनेछ । जुन अवधिमा तिर्न वांकी कर्जामा पाकेको व्याज-->
+<!--                            मासिक/त्रैमासिक रुपमा भुक्तानी गर्नु पर्नेछ ।-->
+<!--                        </td>-->
+<!--                    </tr>-->
+<!--                </ng-container>-->
+<!--                <ng-container *ngSwitchCase="subloanTypeEnum?.SHARE_LOAN">-->
+<!--                    <tr>-->
+<!--                        <td>उद्देश्य(Purpose)</td>-->
+<!--                        <td>-->
+<!--                            <select class="form-control"-->
+<!--                                    formControlName="shareLoanPurpose"-->
+<!--                                    name="shareLoanPurpose" (change)="purposeChange()">-->
+<!--                                <option [value]="null">Select Purpose</option>-->
+<!--                                <option *ngFor="let pur of purpose"-->
+<!--                                        [value]="pur?.value">{{pur?.value}}</option>-->
+<!--                            </select>-->
+<!--                            &lt;!&ndash;                            <ckeditor formControlName="shareLoanOther" *ngIf="tempPurposeFlag?.selectShareLoanOther"&ndash;&gt;-->
+<!--                            &lt;!&ndash;                                      [config]="ckeConfig"></ckeditor>&ndash;&gt;-->
+<!--                            <textarea class="form-control nepaliFont form-field font-size-normal"-->
+<!--                                      *ngIf="tempPurposeFlag?.selectShareLoanOther"-->
+<!--                                      formControlName="shareLoanOther"-->
+<!--                                      placeholder="अन्य उद्देश्य"-->
+<!--                                      rows="2"></textarea>-->
+<!--                        </td>-->
+<!--                    </tr>-->
+<!--                    <tr>-->
+<!--                        <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने  सीमाः (Drawdown)</td>-->
+<!--                        <td>-->
+<!--&lt;!&ndash;                            <ckeditor formControlName="shareDrawdown"&ndash;&gt;-->
+<!--&lt;!&ndash;                                      [config]="ckeConfig"></ckeditor>&ndash;&gt;-->
+<!--                            <textarea class="form-control nepaliFont form-field font-size-normal"-->
+<!--                                      formControlName="shareDrawdown"-->
+<!--                                      placeholder="स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमा"-->
+<!--                                      rows="4"></textarea>-->
+<!--                        </td>-->
+<!--                    </tr>-->
+<!--                </ng-container>-->
                 <ng-container *ngSwitchCase="subloanTypeEnum.GOLD_LOAN">
                     <tr>
                         <td>उद्देश्य(Purpose)</td>
@@ -383,7 +488,8 @@
                             </select>
                             <!--                            <ckeditor formControlName="capitalOther" *ngIf="workingOther"-->
                             <!--                                      [config]="ckeConfig"></ckeditor>-->
-                            <textarea class="form-control nepaliFont form-field font-size-normal" *ngIf="workingOther"
+                            <textarea class="form-control nepaliFont form-field font-size-normal"
+                                      *ngIf="tempPurposeFlag?.selectCapitalOther"
                                       formControlName="capitalOther"
                                       placeholder="अन्य उद्देश्य"
                                       rows="2"></textarea>
@@ -602,6 +708,38 @@
                                       rows="4"></textarea></td>
                     </tr>
                 </ng-container>
+                <ng-container *ngIf="offerLetterForm.get('subLoanType').value === subloanTypeEnum.PURCHASE_OF_LAND_BUILDING">
+                    <tr>
+                        <td>उद्देश्य (Purpose)</td>
+                        <td>
+                            <select class="form-control"
+                                    formControlName="purchasePurpose"
+                                    name="purchasePurpose" (change)="purposeChange()">
+                                <option [value]="null">Select Purpose</option>
+                                <option *ngFor="let pur of purpose"
+                                        [value]="pur?.value">{{pur?.value}}</option>
+                            </select>
+                            <!--                            <ckeditor formControlName="workingOther" *ngIf="tempPurposeFlag?.selectPurchaseOther"-->
+                            <!--                                      [config]="ckeConfig"></ckeditor>-->
+                            <textarea *ngIf="tempPurposeFlag?.selectPurchaseOther || offerLetterForm?.get('purchasePurpose')?.value.includes('Other')"
+                                      class="form-control nepaliFont form-field font-size-normal"
+                                      formControlName="purchaseOther"
+                                      placeholder="अन्य उद्देश्य"
+                                      rows="2"></textarea>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने  सीमाः (Drawdown)</td>
+                        <td>
+                            <!--                            <ckeditor formControlName="purchaseDrawdown"-->
+                            <!--                                      [config]="ckeConfig"></ckeditor>-->
+                            <textarea class="form-control nepaliFont form-field font-size-normal"
+                                      formControlName="purchaseDrawdown"
+                                      placeholder="स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमा"
+                                      rows="4"></textarea>
+                        </td>
+                    </tr>
+                </ng-container>
                 <ng-container *ngSwitchCase="subloanTypeEnum?.PURCHASE_OF_LAND_BUILDING">
                     <tr>
                         <td>उद्देश्य (Purpose)</td>
@@ -739,7 +877,22 @@
                 <ng-container *ngSwitchCase="subloanTypeEnum?.BID_BOND_GUARANTEE">
                     <tr>
                         <td>उद्येश्य (Purpose)</td>
-                        <td>बिड ग्यारेण्टी जारी गर्न ।</td>
+                        <td>
+                            <select class="form-control"
+                                    formControlName="bidPurpose"
+                                    name="commercialPurpose" (change)="purposeChange()">
+                                <option [value]="null">Select Purpose</option>
+                                <option *ngFor="let pur of purpose"
+                                        [value]="pur?.value">{{pur?.value}}</option>
+                            </select>
+                            <!--                            <ckeditor formControlName="workingOther" *ngIf="tempPurposeFlag?.selectBidOther"-->
+                            <!--                                      [config]="ckeConfig"></ckeditor>-->
+                            <textarea *ngIf="tempPurposeFlag?.selectBidOther"
+                                      class="form-control nepaliFont form-field font-size-normal"
+                                      formControlName="bidOther"
+                                      placeholder="अन्य उद्देश्य"
+                                      rows="2"></textarea>
+                        </td>
                     </tr>
                     <tr>
                         <td>कमिसन (Commission)</td>
@@ -754,7 +907,22 @@
                 <ng-container *ngSwitchCase="subloanTypeEnum?.PERFORMANCE_GUARANTEE">
                     <tr>
                         <td>उद्येश्य (Purpose)</td>
-                        <td>परफरमेन्स ग्यारेण्टी जारी गर्न ।</td>
+                        <td>
+                            <select class="form-control"
+                                    formControlName="performancePurpose"
+                                    name="commercialPurpose" (change)="purposeChange()">
+                                <option [value]="null">Select Purpose</option>
+                                <option *ngFor="let pur of purpose"
+                                        [value]="pur?.value">{{pur?.value}}</option>
+                            </select>
+                            <!--                            <ckeditor formControlName="workingOther" *ngIf="tempPurposeFlag?.selectPerformanceOther"-->
+                            <!--                                      [config]="ckeConfig"></ckeditor>-->
+                            <textarea *ngIf="tempPurposeFlag?.selectPerformanceOther"
+                                      class="form-control nepaliFont form-field font-size-normal"
+                                      formControlName="performanceOther"
+                                      placeholder="अन्य उद्देश्य"
+                                      rows="2"></textarea>
+                        </td>
                     </tr>
                     <tr>
                         <td>कमिसन (Commission)</td>
@@ -769,7 +937,22 @@
                 <ng-container *ngSwitchCase="subloanTypeEnum?.ADVANCE_PAYMENT_GUARANTEE">
                     <tr>
                         <td>उद्येश्य (Purpose)</td>
-                        <td>अग्रिम भुक्तानी ग्यारेण्टी जारी गर्न ।</td>
+                        <td>
+                            <select class="form-control"
+                                    formControlName="commercialPurpose"
+                                    name="commercialPurpose" (change)="purposeChange()">
+                                <option [value]="null">Select Purpose</option>
+                                <option *ngFor="let pur of purpose"
+                                        [value]="pur?.value">{{pur?.value}}</option>
+                            </select>
+                            <!--                            <ckeditor formControlName="workingOther" *ngIf="tempPurposeFlag?.selectcommercialOther"-->
+                            <!--                                      [config]="ckeConfig"></ckeditor>-->
+                            <textarea *ngIf="tempPurposeFlag?.selectcommercialOther"
+                                      class="form-control nepaliFont form-field font-size-normal"
+                                      formControlName="commercialOther"
+                                      placeholder="अन्य उद्देश्य"
+                                      rows="2"></textarea>
+                        </td>
                     </tr>
                     <tr>
                         <td>कमिसन (Commission)</td>
@@ -784,7 +967,22 @@
                 <ng-container *ngIf="loanName.toLowerCase() === 'personal loan'">
                     <tr>
                         <td>उद्येश्य (Purpose)</td>
-                        <td>व्यक्तिगत प्रयोजनको लागि ।</td>
+                        <td>
+                            <select class="form-control"
+                                    formControlName="personalPurpose"
+                                    name="commercialPurpose" (change)="purposeChange()">
+                                <option [value]="null">Select Purpose</option>
+                                <option *ngFor="let pur of purpose"
+                                        [value]="pur?.value">{{pur?.value}}</option>
+                            </select>
+                            <!--                            <ckeditor formControlName="workingOther" *ngIf="tempPurposeFlag?.selectPersonalOther"-->
+                            <!--                                      [config]="ckeConfig"></ckeditor>-->
+                            <textarea *ngIf="tempPurposeFlag?.selectPersonalOther"
+                                      class="form-control nepaliFont form-field font-size-normal"
+                                      formControlName="personalOther"
+                                      placeholder="अन्य उद्देश्य"
+                                      rows="2"></textarea>
+                        </td>
                     </tr>
                 </ng-container>
                 <ng-container *ngIf="loanName === 'Educational Loan'">
@@ -802,7 +1000,6 @@
                 </ng-container>
                 <ng-container *ngIf="loanName === 'AGMI'">
                 <tr>
-                    <td></td>
                     <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने  सीमाः (Drawdown)</td>
                     <td>
 <!--                        <ckeditor formControlName="agmiDrawdown"-->
@@ -2060,6 +2257,17 @@
             दस्तखत : <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                             formControlName="signature1">
             <span class="nepaliFont print-only"><b>{{offerLetterForm?.get('signature1').value ? offerLetterForm?.get('signature1').value : '========='}}</b></span>
+
+            <div>
+                <button type="submit" class="btn btn-primary float-right" nbButton status="success">
+                    Save
+                </button>
+            </div>
         </form>
+        <button class="btn btn-primary d-print-none"
+                [useExistingCss]="true"
+                printSectionId="print-section-{{cadCheckListEnum.OFFER_LETTER_LAXMI}}"
+                ngxPrint>print
+        </button>
     </div>
 </div>

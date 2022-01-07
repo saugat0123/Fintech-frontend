@@ -12,14 +12,15 @@ import {NepaliCurrencyWordPipe} from '../../../../../../@core/pipe/nepali-curren
 import {NepaliToEngNumberPipe} from '../../../../../../@core/pipe/nepali-to-eng-number.pipe';
 import {NepaliNumberPipe} from '../../../../../../@core/pipe/nepali-number.pipe';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
-import {CadFile} from '../../../../model/CadFile';
-import {Document} from '../../../../../admin/modal/document';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 import {LoanType} from '../../../../../loan/model/loanType';
 import {SubLoanType} from '../../../../../loan/model/subLoanType';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {LaxmiPurpose} from '../../../../../loan/model/laxmi-purpose';
 import {NepaliEditor} from '../../../../../../@core/utils/constants/nepaliEditor';
+import {OfferDocument} from '../../../../model/OfferDocument';
+import {LaxmiOfferLetterConst} from '../laxmi-offer-letter-const';
+import {CadDocStatus} from '../../../../model/CadDocStatus';
 
 @Component({
   selector: 'app-offer-letter-laxmi',
@@ -31,11 +32,13 @@ export class OfferLetterLaxmiComponent implements OnInit {
   @Input() cadData;
   @Input() documentId;
   @Input() customerLoanId;
+  @Input() offerLetterType;
   @ViewChild('select', {static: true}) modal: TemplateRef<any>;
   offerLetterForm: FormGroup;
   spinner = false;
   initialInfoPrint;
   cadCheckListEnum = CadCheckListTemplateEnum;
+  offerLetterConst = LaxmiOfferLetterConst;
   nepaliData;
   proposedAmount;
   customerInfo;
@@ -45,6 +48,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
   subloanTypes;
   subloanType;
   subloanTypeEnum = SubLoanType;
+  offerLetterDocument;
   hasSubLoanType = false;
   purpose = LaxmiPurpose.enumObject();
   tempPurposeFlag = {
@@ -53,6 +57,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
     selectGoldOther: false,
     selectHomeEquityOther: false,
     selectBridgeOther: false,
+    selectCapitalOther: false,
     selectFixedAssetsOther: false,
     selectVehicleOther: false,
     selectRefinancingOther: false,
@@ -63,8 +68,12 @@ export class OfferLetterLaxmiComponent implements OnInit {
     selectConstructionOther: false,
     selectHireOther: false,
     selectcommercialOther: false,
+    selectBidOther: false,
+    selectPerformanceOther: false,
+    selectPersonalOther: false,
   };
   ckeConfig = NepaliEditor.CK_CONFIG;
+  existingOfferLetter = false;
 
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
@@ -79,31 +88,35 @@ export class OfferLetterLaxmiComponent implements OnInit {
               private nepaliNumber: NepaliNumberPipe) { }
 
   ngOnInit() {
-    this.ckeConfig.font_names = 'Preeti';
-    console.log('purpose', this.purpose);
     console.log('cadData', this.cadData);
-    // if (!ObjectUtil.isEmpty(this.cadData)) {
-    //   if (this.cadData.assignedLoan.length > 1) {
-    //     const loanNameArray = [];
-    //     this.cadData.assignedLoan.forEach((a) => {
-    //       loanNameArray.push(a.loan.name);
-    //     });
-    //     this.loanName = loanNameArray;
-    //   } else {
-    //     this.loanName = this.cadData.assignedLoan[0].loan.name;
-    //   }
-    // }
     this.loanName = this.cadData.assignedLoan[0].loan.name;
     console.log('loanName', this.loanName);
     this.subloanTypes = SubLoanType.value(this.loanName);
     this.loanType = this.cadData.assignedLoan[0].loanType;
     console.log('loanType', this.loanType);
-    this.checkSubLoanType();
     this.buildForm();
+    this.checkOfferLetter();
+    this.checkSubLoanType();
     if (this.hasSubLoanType) {
       this.modalService.open(this.modal);
     }
     this.addFixedAssetsCollateral();
+  }
+
+  checkOfferLetter() {
+    this.offerLetterDocument = this.cadData.offerDocumentList.filter(value => value.docName.toString()
+        === this.offerLetterConst.value(this.offerLetterConst.OFFER_LETTER).toString())[0];
+    if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
+      this.offerLetterDocument = new OfferDocument();
+      this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.OFFER_LETTER);
+    } else {
+      const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
+      this.initialInfoPrint = initialInfo;
+      this.existingOfferLetter = true;
+      this.offerLetterForm.patchValue(initialInfo);
+      console.log('initialInfo', initialInfo);
+      console.log('offerLetterForm', this.offerLetterForm);
+    }
   }
 
   buildForm() {
@@ -344,37 +357,57 @@ export class OfferLetterLaxmiComponent implements OnInit {
       hireOther: [undefined],
       commercialPurpose: [undefined],
       commercialOther: [undefined],
+      personalPurpose: [undefined],
+      personalOther: [undefined],
+      bidPurpose: [undefined],
+      bidOther: [undefined],
+      performancePurpose: [undefined],
+      performanceOther: [undefined],
     });
   }
 
   submit() {
     this.spinner = true;
-    let flag = true;
-    if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
-      this.cadData.cadFileList.forEach(singleCadFile => {
-        if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          flag = false;
+    this.cadData.docStatus = CadDocStatus.OFFER_PENDING;
+    if (this.existingOfferLetter) {
+      this.cadData.offerDocumentList.forEach(singleCadFile => {
+        if (singleCadFile.docName.toString() ===
+            this.offerLetterConst.value(this.offerLetterConst.OFFER_LETTER).toString()) {
           singleCadFile.initialInformation = JSON.stringify(this.offerLetterForm.value);
         }
       });
-      if (flag) {
-        const cadFile = new CadFile();
-        const document = new Document();
-        cadFile.initialInformation = JSON.stringify(this.offerLetterForm.value);
-        document.id = this.documentId;
-        cadFile.cadDocument = document;
-        cadFile.customerLoanId = this.customerLoanId;
-        this.cadData.cadFileList.push(cadFile);
-      }
     } else {
-      const cadFile = new CadFile();
-      const document = new Document();
-      cadFile.initialInformation = JSON.stringify(this.offerLetterForm.value);
-      document.id = this.documentId;
-      cadFile.cadDocument = document;
-      cadFile.customerLoanId = this.customerLoanId;
-      this.cadData.cadFileList.push(cadFile);
+      const offerDocument = new OfferDocument();
+      offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.OFFER_LETTER);
+      offerDocument.initialInformation = JSON.stringify(this.offerLetterForm.value);
+      this.cadData.offerDocumentList.push(offerDocument);
     }
+    // if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
+    //   this.cadData.cadFileList.forEach(singleCadFile => {
+    //     if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
+    //       console.log();
+    //       flag = false;
+    //       singleCadFile.initialInformation = JSON.stringify(this.offerLetterForm.value);
+    //     }
+    //   });
+    //   console.log(flag);
+    //   if (flag) {
+    //     const cadFile = new CadFile();
+    //     const document = new Document();
+    //     cadFile.initialInformation = JSON.stringify(this.offerLetterForm.value);
+    //     document.id = this.documentId;
+    //     cadFile.cadDocument = document;
+    //     cadFile.customerLoanId = this.customerLoanId;
+    //     this.cadData.cadFileList.push(cadFile);
+    //   } else {
+    //     const offerDocument = new OfferDocument();
+    //     offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.OFFER_LETTER);
+    //     offerDocument.initialInformation = JSON.stringify(this.offerLetterForm.value);
+    //     this.cadData.offerDocumentList.push(offerDocument);
+    //   }
+    // }
+    console.log('existingOfferLetter', this.existingOfferLetter);
+    console.log('cadData', this.cadData);
     this.administrationService.saveCadDocumentBulk(this.cadData).subscribe(() => {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved '));
       this.dialogRef.close();
@@ -396,13 +429,14 @@ export class OfferLetterLaxmiComponent implements OnInit {
   }
 
   checkSubLoanType() {
-    if (this.loanName.toLowerCase() === 'demand loan' ||
+    if ((this.loanName.toLowerCase() === 'demand loan' ||
         this.loanName.toLowerCase() === 'term loan' ||
         this.loanName.toLowerCase() === 'home loan' ||
         this.loanName.toLowerCase() === 'sana byawasai karja' ||
         this.loanName.toLowerCase() === 'sana byawasai karja - lite' ||
         this.loanName.toLowerCase() === 'bank guarantee' ||
-        this.loanName.toLowerCase() === 'trust receipt loan') {
+        this.loanName.toLowerCase() === 'trust receipt loan')  && this.offerLetterForm.get('subLoanType').value === null) {
+      console.log('open model');
       this.hasSubLoanType = true;
     }
   }
@@ -426,20 +460,119 @@ export class OfferLetterLaxmiComponent implements OnInit {
   }
 
   purposeChange() {
-    let isOtherSelected;
-    console.log('value', this.offerLetterForm.get('workingCapitalPurpose').value);
-    if (!ObjectUtil.isEmpty(this.offerLetterForm.get('workingCapitalPurpose').value) ||
-        !ObjectUtil.isEmpty(this.offerLetterForm.get('workingCapitalPurpose').value) ||
-        !ObjectUtil.isEmpty(this.offerLetterForm.get('workingCapitalPurpose').value)) {
-      isOtherSelected = this.offerLetterForm.get('workingCapitalPurpose').value.includes('Other');
+    if (!ObjectUtil.isEmpty(this.offerLetterForm.get('workingCapitalPurpose').value)) {
+      if (this.offerLetterForm.get('workingCapitalPurpose').value.includes('Other')) {
+        this.tempPurposeFlag.workingCapitalOther = true;
+      } else {
+        this.tempPurposeFlag.workingCapitalOther = false;
+        this.offerLetterForm.get('workingOther').setValue(null);
+      }
     }
-    console.log('isOtherSelected', isOtherSelected);
-    if (isOtherSelected) {
-      this.tempPurposeFlag.workingCapitalOther = true;
-    } else {
-      this.tempPurposeFlag.workingCapitalOther = false;
-      // this.offerLetterForm.get('workingOther').setValue(null);
+    if (!ObjectUtil.isEmpty(this.offerLetterForm.get('purchasePurpose').value)) {
+      if (this.offerLetterForm.get('purchasePurpose').value.includes('Other')) {
+        this.tempPurposeFlag.selectPurchaseOther = true;
+      } else {
+        this.tempPurposeFlag.selectPurchaseOther = false;
+        this.offerLetterForm.get('purchaseOther').setValue(null);
+      }
     }
-    console.log(this.tempPurposeFlag.workingCapitalOther);
+    if (!ObjectUtil.isEmpty(this.offerLetterForm.get('shareLoanPurpose').value) ||
+        !ObjectUtil.isEmpty(this.offerLetterForm.get('goldLoanPurpose').value) ||
+        !ObjectUtil.isEmpty(this.offerLetterForm.get('homeEquityPurpose').value) ||
+        !ObjectUtil.isEmpty(this.offerLetterForm.get('bridgeGapPurpose').value) ||
+        !ObjectUtil.isEmpty(this.offerLetterForm.get('capitalPurpose').value) ||
+        !ObjectUtil.isEmpty(this.offerLetterForm.get('fixedPurpose').value) ||
+        !ObjectUtil.isEmpty(this.offerLetterForm.get('vehiclePurpose').value) ||
+        !ObjectUtil.isEmpty(this.offerLetterForm.get('refinancingPurpose').value) ||
+        !ObjectUtil.isEmpty(this.offerLetterForm.get('letterPurpose').value)) {
+      if (this.offerLetterForm.get('shareLoanPurpose').value.includes('Other')) {
+        this.tempPurposeFlag.selectShareLoanOther = true;
+      } else {
+        this.tempPurposeFlag.selectShareLoanOther = false;
+        this.offerLetterForm.get('shareLoanOther').setValue(null);
+      }
+      if (this.offerLetterForm.get('goldLoanPurpose').value.includes('Other')) {
+        this.tempPurposeFlag.selectGoldOther = true;
+      } else {
+        this.tempPurposeFlag.selectGoldOther = false;
+        this.offerLetterForm.get('goldLoanOther').setValue(null);
+      }
+      if (this.offerLetterForm.get('homeEquityPurpose').value.includes('Other')) {
+        this.tempPurposeFlag.selectGoldOther = true;
+      } else {
+        this.tempPurposeFlag.selectGoldOther = false;
+        this.offerLetterForm.get('homeEquityOther').setValue(null);
+      }
+      if (this.offerLetterForm.get('bridgeGapPurpose').value.includes('Other')) {
+        this.tempPurposeFlag.selectBridgeOther = true;
+      } else {
+        this.tempPurposeFlag.selectBridgeOther = false;
+        this.offerLetterForm.get('bridgeGapOther').setValue(null);
+      }
+      if (this.offerLetterForm.get('capitalPurpose').value.includes('Other')) {
+        this.tempPurposeFlag.selectCapitalOther = true;
+      } else {
+        this.tempPurposeFlag.selectCapitalOther = false;
+        this.offerLetterForm.get('capitalOther').setValue(null);
+      }
+      if (this.offerLetterForm.get('fixedPurpose').value.includes('Other')) {
+        this.tempPurposeFlag.selectFixedAssetsOther = true;
+      } else {
+        this.tempPurposeFlag.selectFixedAssetsOther = false;
+        this.offerLetterForm.get('fixedOther').setValue(null);
+      }
+      if (this.offerLetterForm.get('vehiclePurpose').value.includes('Other')) {
+        this.tempPurposeFlag.selectVehicleOther = true;
+      } else {
+        this.tempPurposeFlag.selectVehicleOther = false;
+        this.offerLetterForm.get('vehicleOther').setValue(null);
+      }
+      if (this.offerLetterForm.get('refinancingPurpose').value.includes('Other')) {
+        this.tempPurposeFlag.selectRefinancingOther = true;
+      } else {
+        this.tempPurposeFlag.selectRefinancingOther = false;
+        this.offerLetterForm.get('refinancingOther').setValue(null);
+      }
+      if (this.offerLetterForm.get('letterPurpose').value.includes('Other')) {
+        this.tempPurposeFlag.selectLetterOther = true;
+      } else {
+        this.tempPurposeFlag.selectLetterOther = false;
+        this.offerLetterForm.get('letterOther').setValue(null);
+      }
+      if (this.offerLetterForm.get('loanAgainstPurpose').value.includes('Other')) {
+        this.tempPurposeFlag.selectLoanAgainstOther = true;
+      } else {
+        this.tempPurposeFlag.selectLoanAgainstOther = false;
+        this.offerLetterForm.get('loanAgainstOther').setValue(null);
+      }
+      if (this.offerLetterForm.get('loanAgainstTPurpose').value.includes('Other')) {
+        this.tempPurposeFlag.selectLoanAgainstTOther = true;
+      } else {
+        this.tempPurposeFlag.selectLoanAgainstTOther = false;
+        this.offerLetterForm.get('loanAgainstTOther').setValue(null);
+      }
+      if (this.offerLetterForm.get('constructionPurpose').value.includes('Other')) {
+        this.tempPurposeFlag.selectConstructionOther = true;
+      } else {
+        this.tempPurposeFlag.selectConstructionOther = false;
+        this.offerLetterForm.get('constructionOther').setValue(null);
+      }
+      if (this.offerLetterForm.get('hirePurpose').value.includes('Other')) {
+        this.tempPurposeFlag.selectHireOther = true;
+      } else {
+        this.tempPurposeFlag.selectHireOther = false;
+        this.offerLetterForm.get('hireOther').setValue(null);
+      }
+      if (this.offerLetterForm.get('commercialPurpose').value.includes('Other')) {
+        this.tempPurposeFlag.selectcommercialOther = true;
+      } else {
+        this.tempPurposeFlag.selectcommercialOther = false;
+        this.offerLetterForm.get('commercialOther').setValue(null);
+      }
+    }
+  }
+
+  setOtherPurpose() {
+
   }
 }

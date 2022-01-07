@@ -21,6 +21,7 @@
                         [cadOfferLetterApprovedDoc]="cadOfferLetterApprovedDoc"></app-offer-letter>
                 <app-offer-letter-laxmi
                         *ngIf="!isRemitLoan"
+                        [offerLetterType]="offerLetterType"
                         [cadData]="cadOfferLetterApprovedDoc"
                 ></app-offer-letter-laxmi>
             </div>
