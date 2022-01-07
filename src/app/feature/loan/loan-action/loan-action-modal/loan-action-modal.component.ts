@@ -150,6 +150,7 @@ export class LoanActionModalComponent implements OnInit {
         const comment = this.formAction.value.comment;
         const docAction = this.formAction.value.docAction;
         const docActionMSG = this.formAction.value.docActionMsg;
+        const link = window.location.href;
         if (this.docAction === 'DUAL_APPROVAL_PENDING') {
             this.formAction.patchValue({
                 dualApproved: true
@@ -172,7 +173,7 @@ export class LoanActionModalComponent implements OnInit {
                 console.log(error);
             });
         } else {
-
+            this.formAction.get('link').patchValue(link);
             this.submitted = true;
             if (this.formAction.invalid) {
                 return;
@@ -253,6 +254,7 @@ export class LoanActionModalComponent implements OnInit {
             isHsov: [undefined],
             dualApproval: [undefined],
             dualApproved: [undefined],
+            link: [undefined],
         });
     }
 
