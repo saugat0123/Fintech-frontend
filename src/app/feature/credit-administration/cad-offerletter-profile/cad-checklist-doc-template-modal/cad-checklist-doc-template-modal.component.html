@@ -16,6 +16,9 @@
         <app-loan-deed-individual *ngSwitchCase="nabilCadTemplate.LOAN_DEED_INDIVIDUAL"
                                     [cadData]="cadData" [documentId]="documentId"
                                     [customerLoanId]="customerLoanId"></app-loan-deed-individual>
+        <app-loan-deed-partnership *ngSwitchCase="nabilCadTemplate.LOAN_DEED_PARTNERSHIP"
+                                  [cadData]="cadData" [documentId]="documentId"
+                                  [customerLoanId]="customerLoanId"></app-loan-deed-partnership>
         <app-nabil-loan-deed-company *ngSwitchCase="nabilCadTemplate.LOAN_DEED_COMPANY"
                                     [cadData]="cadData" [documentId]="documentId"
                                     [customerLoanId]="customerLoanId"></app-nabil-loan-deed-company>
