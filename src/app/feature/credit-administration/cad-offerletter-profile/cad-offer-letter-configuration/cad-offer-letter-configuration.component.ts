@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild, AfterViewChecked, ChangeDetectorRef} from '@angular/core';
 import {CustomerInfoData} from '../../../loan/model/customerInfoData';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CustomerInfoService} from '../../../customer/service/customer-info.service';
@@ -43,7 +43,7 @@ import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
     templateUrl: './cad-offer-letter-configuration.component.html',
     styleUrls: ['./cad-offer-letter-configuration.component.scss']
 })
-export class CadOfferLetterConfigurationComponent implements OnInit {
+export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewChecked {
 
     @Input() customerType;
     @Input() customerSubType;
@@ -127,6 +127,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     guarantorProvienceList = [];
     guarantorDistrict = [];
     guarantorMunicipalities = [];
+    saveDisable = false;
 
     constructor(private formBuilder: FormBuilder,
                 private titleCasePipe: TitleCasePipe,
@@ -145,7 +146,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 private addressService: AddressService,
                 private currencyFormatterPipe: CurrencyFormatterPipe,
                 private dialogService: NbDialogService,
-                private modalService: NgbModal
+                private modalService: NgbModal,
+                private readonly changeDetectorRef: ChangeDetectorRef,
     ) {
     }
 
@@ -155,6 +157,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
     get form() {
         return this.userConfigForm.controls;
+    }
+
+    ngAfterViewChecked(): void {
+        this.changeDetectorRef.detectChanges();
     }
 
     ngOnInit() {
@@ -583,6 +589,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 return;
             }
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Customer'));
+            this.saveDisable = false;
             this.customerId = res.detail.customerInfoId;
             this.responseData = res.detail;
             this.activeCustomerTab = false;
@@ -590,6 +597,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             this.activeTemplateDataTab = false;
         }, res => {
             this.spinner = false;
+            this.saveDisable = false;
             this.toastService.show(new Alert(AlertType.ERROR, res.error.message));
         });
     }
@@ -1391,9 +1399,16 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         this.spinner = true;
         const alluarantors = this.userConfigForm.get('guarantorDetails').value as FormArray;
         if (alluarantors.length > 0) {
+            if (ObjectUtil.isEmpty(this.userConfigForm.get(['guarantorDetails', index, 'gurantedAmount']).value)) {
+                this.userConfigForm.get(['guarantorDetails', index, 'gurantedAmount']).patchValue("0");
+            }
             let guarantorsDetails: any = [];
             guarantorsDetails = await this.translateService.translateForm(this.userConfigForm, 'guarantorDetails', index);
             this.spinner = false;
+            if (this.userConfigForm.get(['guarantorDetails', index, 'gurantedAmount']).value === 0) {
+                this.userConfigForm.get(['guarantorDetails', index, 'gurantedAmountTrans']).patchValue(guarantorsDetails.gurantedAmount ? guarantorsDetails.gurantedAmount : '');
+                this.userConfigForm.get(['guarantorDetails', index, 'gurantedAmountCT']).patchValue(guarantorsDetails.gurantedAmount ? guarantorsDetails.gurantedAmount : '');
+            }
             this.userConfigForm.get(['guarantorDetails', index, 'guarantorNameTrans']).patchValue(guarantorsDetails.guarantorName ? guarantorsDetails.guarantorName : '');
             this.userConfigForm.get(['guarantorDetails', index, 'guarantorNameCT']).patchValue(guarantorsDetails.guarantorName ? guarantorsDetails.guarantorName : '');
             this.userConfigForm.get(['guarantorDetails', index, 'citizenNumberTrans']).patchValue(guarantorsDetails.citizenNumber ? guarantorsDetails.citizenNumber : '');
@@ -1507,6 +1522,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             // this.deleteCTAndTransContorls(index);
             this.userConfigForm.get(['guarantorDetails', index, 'nepData']).setValue(JSON.stringify(newArr));
             // end guarantorDetails
+            if (index === 0) {
+                this.saveDisable = true;
+            }
         }
     }
 
@@ -2161,7 +2179,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     }
 
     translateNumberInFA(source, i) {
-        const wordLabelVar = this.engToNepaliNumberPipe.transform(this.currencyFormatterPipe.transform(this.userConfigForm.get(['guarantorDetails', i, source]).value.toString()));
+        const wordLabelVar = this.engToNepaliNumberPipe.transform(this.currencyFormatterPipe.transform(
+            this.userConfigForm.get(['guarantorDetails', i, source]).value ?
+            this.userConfigForm.get(['guarantorDetails', i, source]).value.toString(): ''));
         this.userConfigForm.get(['guarantorDetails', i, source + 'Trans']).patchValue(wordLabelVar);
         this.userConfigForm.get(['guarantorDetails', i, source + 'CT']).patchValue(wordLabelVar);
     }
