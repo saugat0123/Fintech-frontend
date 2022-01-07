@@ -54,6 +54,10 @@
                                                [cadData]="cadData" [documentId]="documentId"
                                                [customerLoanId]="customerLoanId"
                                                [nepaliAmount]="nepaliNumber"></app-personal-guarantee-proprietorship>
+        <app-loan-deed-proprietorship *ngSwitchCase="nabilCadTemplate.LOAN_DEED_PROPRIETORSHIP"
+                                      [cadData]="cadData" [documentId]="documentId"
+                                      [customerLoanId]="customerLoanId"
+                                      [nepaliAmount]="nepaliNumber"></app-loan-deed-proprietorship>
 
 
         <p *ngSwitchDefault>No Template is available for this Document!!! </p>
