@@ -109,7 +109,7 @@
                                     </select>
                                 </div>
 
-                                <div *ngIf="commonSecondarySecurity.get(['securityDetails', i, 'securityOwnersMunicipalityOrVdc']).value  &&
+                                <!--<div *ngIf="commonSecondarySecurity.get(['securityDetails', i, 'securityOwnersMunicipalityOrVdc']).value  &&
                                     commonSecondarySecurity.get(['securityDetails', i, 'securityOwnersMunicipalityOrVdc']).value === 'VDC'"
                                      class="col-md-8">
                                     <input (input)="onChangeTranslate('securityDetails', 'securityOwnersMunicipality', i, 'securityOwnersMunicipalityTrans')"
@@ -117,10 +117,9 @@
                                            fullWidth
                                            id="securityOwnersVDC"
                                            nbInput status="success" type="text">
-                                </div>
+                                </div>-->
 
-                                <div *ngIf="commonSecondarySecurity.get(['securityDetails', i, 'securityOwnersMunicipalityOrVdc']).value
-                                    && commonSecondarySecurity.get(['securityDetails', i, 'securityOwnersMunicipalityOrVdc']).value !== 'VDC'"
+                                <div *ngIf="commonSecondarySecurity.get(['securityDetails', i, 'securityOwnersMunicipalityOrVdc']).value"
                                      class="col-md-8">
                                     <select (change)="setDefaultResponse('securityDetails', 'securityOwnersMunicipality', i, 'securityOwnersMunicipalityTrans')"
                                             class="custom-select"
@@ -128,7 +127,7 @@
                                             formControlName="securityOwnersMunicipality"
                                             id="securityOwnersMunicipality{{i}}"
                                             name="securityOwnersMunicipality{{i}}">
-                                        <option [ngValue]="null" hidden>Municipality</option>
+                                        <option [ngValue]="null" hidden>{{commonSecondarySecurity.get(['securityDetails', i, 'securityOwnersMunicipalityOrVdc']).value}}</option>
                                         <option *ngFor="let municipalityVal of municipalityListForSecurities[i]"
                                                 [ngValue]="municipalityVal">
                                             {{municipalityVal.name}} || {{municipalityVal.nepaliName}}
@@ -218,7 +217,7 @@
 
                             <div class="row">
                                 <div class="form-group col-md-4">
-                                    <label for="securityOwnersLandArea">Area With Unit</label>
+                                    <label for="securityOwnersLandArea">Area And Unit</label>
                                     <input (input)="onChangeFormArrayTranslate('securityDetails', 'securityOwnersLandArea', i, 'securityOwnersLandAreaTrans', index, 'propertyDetails')"
                                            class="form-control" formControlName="securityOwnersLandArea"
                                            fullWidth

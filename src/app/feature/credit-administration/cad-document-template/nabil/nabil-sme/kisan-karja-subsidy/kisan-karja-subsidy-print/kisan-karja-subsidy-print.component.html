@@ -11,7 +11,7 @@
                     <strong> ऋणकर्जा सुविधा स्वीकृति पत्र </strong>
                 </p>
                 <p>
-                    मितिः
+                    मिति: वि.सं. 
                     <span><strong>{{finalDateOfApproval ? finalDateOfApproval : '__________________'}}</strong></span>
                 </p>
                 <p>
@@ -36,7 +36,7 @@
                             महोदय,<br>
                             तपाईंले
                             <span class="text-left">
-                                मितिः
+                                मिति: वि.सं. 
                                 <span>
                                     <strong>{{finalDateOfApplication ? finalDateOfApplication : "_______________________" }}</strong></span>
                             </span>
@@ -56,7 +56,7 @@
                             महोदय,<br>
                             तपाईंले यस बैंकको
                             <span class="text-left">
-                                मितिः
+                                मिति: वि.सं. 
                                 <span>
                                     <strong>{{finalPrevSanctionLetterDate ? finalPrevSanctionLetterDate : "_______________________" }}</strong>
                                 </span>
@@ -65,7 +65,7 @@
                             थप/अतिरिक्त
                             ऋणकर्जा सुविधाका लागि यस बैंकमा दिनु भएको
                             <span class="text-left">
-                                मितिः
+                                मिति: वि.सं. 
                                 <span>
                                     <strong>{{finalDateOfApplication ? finalDateOfApplication : "_______________________" }}</strong>
                                 </span>
@@ -187,7 +187,7 @@
                                 </strong>
                             </td>
                             <td>
-                                <span> <strong>{{finalNextReviewDate}}</strong> </span>
+                                <span> <strong>वि.सं. {{finalNextReviewDate}}</strong> </span>
                             </td>
                         </tr>
                         <tr *ngIf="!this.tempData.collateral.en === false">
@@ -197,12 +197,12 @@
                             </td>
                             <td>
                                 <span class="row p-4" *ngFor="let guarantor of letter?.securities; let i = index">
-                                        <p>घर/जग्गा धनीको नाम: <strong>{{guarantor?.securityOwnersNameCT}}</strong></p>
-                                        <p>जिल्ला: <strong>{{guarantor?.securityOwnersDistrictCT}}</strong></p>
-                                        <p>न.पा/गा.वि.स.: <strong>{{guarantor?.securityOwnersMunicipalityCT}}</strong></p>
-                                       <p>वडा नं: <strong>{{guarantor?.securityOwnersPlotNoCT}}</strong></p>
-                                       <p>किता नं.: <strong>{{guarantor?.securityOwnersLandAreaCT}}</strong></p>
-                                        <p>क्षेत्रफल: <strong>{{guarantor?.securityOwnersSheetNoCT}}</strong></p>
+                                    <p>घर/जग्गा धनीको नाम: <strong>{{guarantor?.securityOwnersNameCT}}, </strong>
+                                        जिल्ला: <strong>{{guarantor?.securityOwnersDistrictCT}}, </strong>
+                                        न.पा/गा.वि.स.: <strong>{{guarantor?.securityOwnersMunicipalityCT}}, </strong>
+                                        वडा नं: <strong>{{guarantor?.securityOwnersPlotNoCT}}, </strong>
+                                        किता नं.: <strong>{{guarantor?.securityOwnersLandAreaCT}}, </strong>
+                                        क्षेत्रफल: <strong>{{guarantor?.securityOwnersSheetNoCT}}</strong></p>
                                 </span>
                             </td>
                         </tr>
@@ -341,7 +341,7 @@
                                         त्रैमासिक रुपमा ब्याज दर निर्धारण गरिनेछ ।
                                         यसरी हरेक त्रैमासको अन्तिममा प्रकाशित <strong>त्रैमासिक औसत आधार दर (Quarterly
                                             Average Base Rate)</strong>
-                                        मा जतिले परिवर्र्तन हुनेछ सोहि अनुपातमा प्रत्येक त्रैमास पछिको महिनाहरुको पहिलो
+                                        मा जतिले परिवर्तन हुनेछ सोहि अनुपातमा प्रत्येक त्रैमास पछिको महिनाहरुको पहिलो
                                         दिनबाट ब्याज दर समायोजन तथा संसोधन तथा पुनरावलोकन गरीनेछ ।
                                         संशोधनको जानकारी बैंकको आधिकारिक वेव साईट (Website) पत्रपत्रिका मार्फत
                                         सार्वजनिक सुचना जारी गरी परिवर्तित व्याज दर लागु भइ उक्त परिवर्तित
@@ -355,22 +355,22 @@
                                         किस्ता रकम तथा किस्ता भुक्तानी तालिकामा परीवर्तन गरिने छैन । परिवर्तनशिल ब्याज
                                         दरको कारण अन्तिम किस्ता भुक्तानी मितिमा यदी कुनै साँवा/ब्याज बाँकी
                                         रहन गएमा उक्त रकम समेत अन्तिम किस्ता भुक्तानी मितिमा सम्पुर्ण बाँकी बक्यौता
-                                        कर्जा साँवा ब्याज रकम चुक्ता भुक्तान गर्नुपर्नेछ ।
+                                        कर्जा साँवा ब्याज रकम चुक्ता भुक्तान गर्नुपर्नेछ ।<br>
 
                                         <!--(Applicable in case of EMI basis repayment)-->
-                                        <p *ngIf="this.tempData.repaymentType.en === 'EMI_BASIS'">
-                                            माथि जेसुकै लेखिएको भए तापनि परिवर्तनशील व्याजको कारण समय समयमा व्याज दरको
-                                            बृद्घी हुन गएबाट सो अनुसार बैंकले शुरुमा प्रदान गरेको/गर्ने किस्ता रकममा
-                                            परिवर्तन गर्न बाधा
-                                            पर्ने छैन । स्वीकृत कर्जा प्रवाह पश्चात त्रैमासिक वा कम्तिमा बर्षको एक पटक
-                                            बैैंकमा सम्पर्क गरी बक्यौता कर्जा रकम, मासीक किस्ता तथा ब्याज दरको स्थिति
-                                            सुनिश्चित गर्नु ऋणीको कर्तव्य तथा जिम्मेवारी हुने कुरामा ऋणी मन्जुर गर्दछ ।
-                                            ऋणीले यस ब्यबस्थाको पालना नगरी पछि मलाई ब्याजदर बढेको तथा अन्तिम
-                                            किस्तामा थप रकम बुझाउनु पर्ने कुरा थाहा थिएन भन्ने दावी गर्न पाइने छैन ।</p>
+
+                                        माथि जेसुकै लेखिएको भए तापनि परिवर्तनशील व्याजको कारण समय समयमा व्याज दरको
+                                        बृद्घी हुन गएबाट सो अनुसार बैंकले शुरुमा प्रदान गरेको/गर्ने किस्ता रकममा
+                                        परिवर्तन गर्न बाधा
+                                        पर्ने छैन । स्वीकृत कर्जा प्रवाह पश्चात त्रैमासिक वा कम्तिमा बर्षको एक पटक
+                                        बैैंकमा सम्पर्क गरी बक्यौता कर्जा रकम, मासीक किस्ता तथा ब्याज दरको स्थिति
+                                        सुनिश्चित गर्नु ऋणीको कर्तव्य तथा जिम्मेवारी हुने कुरामा ऋणी मन्जुर गर्दछ ।
+                                        ऋणीले यस ब्यबस्थाको पालना नगरी पछि मलाई ब्याजदर बढेको तथा अन्तिम
+                                        किस्तामा थप रकम बुझाउनु पर्ने कुरा थाहा थिएन भन्ने दावी गर्न पाइने छैन ।
                                     </li>
                                     <!-- - Applicable incase of interest subsidy loan-->
                                     <li *ngIf="!this.tempData.interestSubsidy.en === false">
-                                        उल्लिखित ब्याज दर प्रिमियम ९ष्लतभचभकत चबतभ (interest rate premium) नेपाल राष्ट्र
+                                        उल्लिखित ब्याज दर प्रिमियम (interest rate premium) नेपाल राष्ट्र
                                         बैंकबाट जारी निर्देशन बमोजिम समय समयमा परिवर्तन गर्न सकिनेछ र सोहि अनुसार
                                         परिवर्तित व्याज दर लागु गरिनेछ ।
                                     </li>
@@ -411,7 +411,7 @@
                                             <ul>
                                                 ख. बैंकबाट जुन उद्देश्यको लागि कर्जा लिएको हो, सो उद्देश्यमा कर्जा
                                                 प्रयोग नगरेमा (Misuse of Loan) र/वा धितो सम्पत्तिमा हानी नोक्सानी
-                                                पुर्‍याउन कार्य गरेमा
+                                                पुर्‍याउने कार्य गरेमा
                                                 (Damage/destruction of security collateral) र/वा ऋणीले ऋणकर्जा स्वीकृति
                                                 पत्रमा उल्लिखित कुनै पनि शर्तबन्देजहरु उल्लंघन गरेमा
                                                 (Non-compliance of terms & conditions stipulated in offer letters)
@@ -772,7 +772,7 @@
 
                                     <!-- - Following clause shall be applicable if borrower is firm/company-->
                                     <div
-                                        *ngIf="cadOfferLetterApprovedDoc?.loanHolder['customerSubType'] === 'PRIVATE_PUBLIC'">
+                                        *ngIf="cadOfferLetterApprovedDoc?.loanHolder['customerType'] === 'INSTITUTION'">
                                         <strong>ऋणी फर्म/कम्पनी भएमा देहाय बमोजिमका थप शर्तहरु लागूहुनेछ:</strong>
                                         <li>
                                             ऋणीले आर्थिक बर्ष समाप्त भएको तिन महिना भित्र आफ्नोे व्यवसायको लेखापरिक्षण
@@ -857,7 +857,7 @@
 
                                     <!--Applicable in case of proprietor ship firm/partnership firm only-->
                                     <li
-                                        *ngIf="cadOfferLetterApprovedDoc.loanHolder['customerSubType'] === 'PROPRIETORSHIP' || cadOfferLetterApprovedDoc.loanHolder['customerSubType'] === 'PARTNERSHIP'">
+                                        *ngIf="cadOfferLetterApprovedDoc.loanHolder['customerSubType'] === 'PROPRIETORSHIP' || cadOfferLetterApprovedDoc.loanHolder['customerSubType'] === 'PARTNERSHIP' || cadOfferLetterApprovedDoc?.loanHolder['customerType'] === 'INSTITUTION'">
                                         प्रचलित ऐन, नियम, नेपाल राष्ट्र बैंकको निर्देशन तथा यस बैंकको निति, नियम तथा
                                         तिनमा समय समयमा हुने सँशोधन सहितको शर्तहरु पालना गर्न ऋणी/ऋणी फर्म/ऋणी
                                         कम्पनी/ऋणी संस्था मञ्जुर गर्नुका साथै माथि उल्लिखित सम्पुर्ण समेतबाट स्वीकृत
@@ -899,7 +899,7 @@
                                         निरन्तरताको लिखत (Letter of Continuity)
                                     </li>
                                     <li>
-                                        श्री(सम्पत्ति धितो/सुरक्षण लेखीदिएको गोश्वारा-पत्र (General Letter of
+                                        श्री (सम्पत्ति धितो/सुरक्षण लेखीदिएको गोश्वारा-पत्र (General Letter of
                                         Hypothecation) सहित पूरक सम्झौता (Supplementary Agreement)
                                     </li>
 
@@ -1053,9 +1053,9 @@
                         बैंकले राख्ने अन्य शर्तहरु पालना गर्न मन्जुर गर्दछु/गर्दछौं । यस पत्रमा उल्लेखित सम्पूर्ण
                         शर्तबन्देजहरु पढी सो को अर्थ/परिणाम समेत बुझी आफ्नो स्वतन्त्र मञ्जुरीले दिएको मानिनेछ ।
                     </p>
-                    <div *ngIf="!this.tempData.interestSubsidy.en === true" style="margin-top: 2rem"></div>
+                    <div *ngIf="!this.tempData.interestSubsidy.en === false" class="mt-5"></div>
                     <table class="table table-condensed table-bordered text-center table-sm sb-small"
-                        style="width: 95%;">
+                        style="width: 95%;margin-top: 1rem;">
                         <tr>
                             <td style="width: 30%">
                                 आवेदकको नाम:
@@ -1093,7 +1093,7 @@
                         </tr>
                     </table>
 
-                    <div class="text-left mt-4">
+                    <div class="text-left mt-5">
                         <p>
                             साक्षीः
                         </p>

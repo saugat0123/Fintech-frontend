@@ -23,6 +23,7 @@ import {CadDocStatus} from '../../../../../model/CadDocStatus';
 import {DdslWithoutSubsidyComponent} from '../../../../../cad-document-template/nabil/nabil-sme/ddsl-without-subsidy/ddsl-without-subsidy.component';
 import {CommonSecuritySectionPrimaryComponent} from '../../common-security-section/common-security-section-primary/common-security-section-primary.component';
 import {CommonSecuritySectionSecondaryComponent} from '../../common-security-section/common-security-section-secondary/common-security-section-secondary.component';
+import {RequiredLegalDocumentSectionComponent} from '../../sme-template-data/sme-master-template/required-legal-document-section/required-legal-document-section.component';
 
 @Component({
     selector: 'app-ddsl-without-subsidy-template-data',
@@ -35,6 +36,8 @@ export class DdslWithoutSubsidyTemplateDataComponent implements OnInit {
     commonSecuritySectionPrimaryComponent: CommonSecuritySectionPrimaryComponent;
     @ViewChild('secondarySecurity', {static: false})
     commonSecuritySectionSecondaryComponent: CommonSecuritySectionSecondaryComponent;
+    @ViewChild('requiredLegalDocument', {static: false})
+    requiredLegalDocumentSectionComponent: RequiredLegalDocumentSectionComponent;
     ddslFormGroup: FormGroup;
     spinner = false;
     customerLoanOptions: Array<String> = new Array<String>();
@@ -67,6 +70,7 @@ export class DdslWithoutSubsidyTemplateDataComponent implements OnInit {
     offerLetterConst = NabilOfferLetterConst;
     offerLetterDocument: OfferDocument;
     securities;
+    requiredDoc;
     loanSubTypeList = [
         {nData: 'ब्यापारिक कृषि तथा पशुपंछी कर्जा', eData: 'Commercial Agro and Livestock Loan'},
         {nData: 'साना तथा लघु उद्यम आवधिक कर्जा', eData: 'Small & Micro EnterpriseTerm Loan'},
@@ -124,7 +128,6 @@ export class DdslWithoutSubsidyTemplateDataComponent implements OnInit {
             serviceCharge: [undefined],
             nameOfFacility: [undefined],
             totalTenureOfLoan: [undefined],
-            commitmentFee: [undefined],
             nameOfStaff: [undefined],
             nameOfBranchManager: [undefined],
             EMIAmountFigure: [undefined],
@@ -158,7 +161,6 @@ export class DdslWithoutSubsidyTemplateDataComponent implements OnInit {
             serviceChargeTrans: [undefined],
             nameOfFacilityTrans: [undefined],
             totalTenureOfLoanTrans: [undefined],
-            commitmentFeeTrans: [undefined],
             nameOfStaffTrans: [undefined],
             nameOfBranchManagerTrans: [undefined],
             EMIAmountFigureTrans: [undefined],
@@ -190,7 +192,6 @@ export class DdslWithoutSubsidyTemplateDataComponent implements OnInit {
             serviceChargeCT: [undefined, Validators.required],
             nameOfFacilityCT: [undefined, Validators.required],
             totalTenureOfLoanCT: [undefined, Validators.required],
-            commitmentFeeCT: [undefined, Validators.required],
             nameOfStaffCT: [undefined, Validators.required],
             nameOfBranchManagerCT: [undefined, Validators.required],
             EMIAmountFigureCT: [undefined, Validators.required],
@@ -423,11 +424,6 @@ export class DdslWithoutSubsidyTemplateDataComponent implements OnInit {
             const convertTenureData = this.convertNumbersToNepali(tenureData, false);
             this.ddslFormGroup.get('totalTenureOfLoanTrans').patchValue(convertTenureData);
         }
-        const commitmentData = this.ddslFormGroup.get('commitmentFee').value;
-        if (!ObjectUtil.isEmpty(commitmentData)) {
-            const convertCommitment = this.convertNumbersToNepali(commitmentData, false);
-            this.ddslFormGroup.get('commitmentFeeTrans').patchValue(convertCommitment);
-        }
         const EMIAmountFigureData = this.ddslFormGroup.get('EMIAmountFigure').value;
         if (!ObjectUtil.isEmpty(EMIAmountFigureData)) {
             const convertEMIAmountFigure = this.convertNumbersToNepali(EMIAmountFigureData, true);
@@ -511,7 +507,6 @@ export class DdslWithoutSubsidyTemplateDataComponent implements OnInit {
         this.ddslFormGroup.get('serviceChargeCT').patchValue(this.ddslFormGroup.get('serviceChargeTrans').value);
         this.ddslFormGroup.get('totalInstallmentFigureCT').patchValue(this.ddslFormGroup.get('totalInstallmentFigureTrans').value);
         this.ddslFormGroup.get('totalTenureOfLoanCT').patchValue(this.ddslFormGroup.get('totalTenureOfLoanTrans').value);
-        this.ddslFormGroup.get('commitmentFeeCT').patchValue(this.ddslFormGroup.get('commitmentFeeTrans').value);
         this.ddslFormGroup.get('nameOfStaffCT').patchValue(this.ddslFormGroup.get('nameOfStaffTrans').value);
         this.ddslFormGroup.get('nameOfFacilityCT').patchValue(this.ddslFormGroup.get('nameOfFacilityTrans').value);
         this.ddslFormGroup.get('nameOfBranchManagerCT').patchValue(this.ddslFormGroup.get('nameOfBranchManagerTrans').value);
@@ -674,6 +669,8 @@ export class DdslWithoutSubsidyTemplateDataComponent implements OnInit {
         this.submitted = true;
         const tempSecurityDetails = this.setSecurityData();
         this.tdVal['securities'] = tempSecurityDetails;
+        const tempRequiredDocument = this.setRequiredDocumemts();
+        this.tdVal['requiredDoc'] = tempRequiredDocument;
         this.clearConditionalValidation();
         const invalidControls = [];
         const controls = this.ddslFormGroup.controls;
@@ -729,5 +726,13 @@ export class DdslWithoutSubsidyTemplateDataComponent implements OnInit {
             secondarySecurity: secondarySecurity
         };
         return (allData);
+    }
+
+    private setRequiredDocumemts() {
+        const requiredLegalDocument = this.requiredLegalDocumentSectionComponent.requireDocumentForm.value;
+        const requiredData = {
+            requiredLegalDocument: requiredLegalDocument,
+        };
+        return (requiredData);
     }
 }
