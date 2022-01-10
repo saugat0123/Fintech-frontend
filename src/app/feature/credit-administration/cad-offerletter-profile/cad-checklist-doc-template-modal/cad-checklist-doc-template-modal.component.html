@@ -52,7 +52,8 @@
           <app-personal-guarantee-company *ngSwitchCase="nabilCadTemplate.PERSONAL_GUARANTEE_COMPANY"
         [cadData]="cadData" [documentId]="documentId"
         [customerLoanId]="customerLoanId"
-        [nepaliAmount]="nepaliNumber"></app-personal-guarantee-company>
+        [nepaliAmount]="nepaliNumber">
+          </app-personal-guarantee-company>
         <app-personal-guarantee-proprietorship *ngSwitchCase="nabilCadTemplate.PERSONAL_GUARANTEE_PROPRIETORSHIP"
                                                [cadData]="cadData" [documentId]="documentId"
                                                [customerLoanId]="customerLoanId"
@@ -64,6 +65,66 @@
 
         <app-counter-guarantee-company *ngSwitchCase="nabilCadTemplate.COUNTER_GUARANTEE_COMPANY"
                                             [cadData]="cadData"></app-counter-guarantee-company>
+        <app-letter-of-hypothecation-proprietorship *ngSwitchCase="nabilCadTemplate.LETTER_OF_HYPOTHECATION_PROPRIETORSHIP"
+                                                    [cadData]="cadData"
+                                                    [documentId]="documentId"
+                                                    [customerLoanId]="customerLoanId">
+        </app-letter-of-hypothecation-proprietorship>
+        <app-letter-of-hypothecation-partnership *ngSwitchCase="nabilCadTemplate.LETTER_OF_HYPOTHECATION_PARTNERSHIP"
+                                                    [cadData]="cadData"
+                                                    [documentId]="documentId"
+                                                    [customerLoanId]="customerLoanId">
+        </app-letter-of-hypothecation-partnership>
+        <app-letter-of-hypothecation-company *ngSwitchCase="nabilCadTemplate.LETTER_OF_HYPOTHECATION_COMPANY"
+                                                    [cadData]="cadData"
+                                                    [documentId]="documentId"
+                                                    [customerLoanId]="customerLoanId">
+        </app-letter-of-hypothecation-company>
+        <app-supplementary-aggrement-proprietorship *ngSwitchCase="nabilCadTemplate.SUPPLEMENTARY_AGGREMENT_PROPRIETORSHIP"
+                                                    [cadData]="cadData"
+                                                    [documentId]="documentId"
+                                                    [customerLoanId]="customerLoanId">
+        </app-supplementary-aggrement-proprietorship>
+        <app-supplementary-aggrement-partnership *ngSwitchCase="nabilCadTemplate.SUPPLEMENTARY_AGGREMENT_PARTNERSHIP"
+                                                    [cadData]="cadData"
+                                                    [documentId]="documentId"
+                                                    [customerLoanId]="customerLoanId">
+        </app-supplementary-aggrement-partnership>
+        <app-supplementary-aggrement-company *ngSwitchCase="nabilCadTemplate.SUPPLEMENTARY_AGGREMENT_COMPANY"
+                                                    [cadData]="cadData"
+                                                    [documentId]="documentId"
+                                                    [customerLoanId]="customerLoanId">
+        </app-supplementary-aggrement-company>
+        <app-assignment-of-receivable-proprietorship *ngSwitchCase="nabilCadTemplate.ASSIGNMENT_OF_RECEIVABLE_PROPRIETORSHIP"
+                                                    [cadData]="cadData"
+                                                    [documentId]="documentId"
+                                                    [customerLoanId]="customerLoanId">
+        </app-assignment-of-receivable-proprietorship>
+        <app-assignment-of-receivable-partnership *ngSwitchCase="nabilCadTemplate.ASSIGNMENT_OF_RECEIVABLE_PARTNERSHIP"
+                                                    [cadData]="cadData"
+                                                    [documentId]="documentId"
+                                                    [customerLoanId]="customerLoanId">
+        </app-assignment-of-receivable-partnership>
+        <app-assignment-of-receivable-company *ngSwitchCase="nabilCadTemplate.ASSIGNMENT_OF_RECEIVABLE_COMPANY"
+                                                    [cadData]="cadData"
+                                                    [documentId]="documentId"
+                                                    [customerLoanId]="customerLoanId">
+        </app-assignment-of-receivable-company>
+        <app-power-of-attorney-proprietorship *ngSwitchCase="nabilCadTemplate.POWER_OF_ATTORNEY_PROPRIETORSHIP"
+                                                     [cadData]="cadData"
+                                                     [documentId]="documentId"
+                                                     [customerLoanId]="customerLoanId">
+        </app-power-of-attorney-proprietorship>
+        <app-power-of-attorney-partnership *ngSwitchCase="nabilCadTemplate.POWER_OF_ATTORNEY_PARTNERSHIP"
+                                                  [cadData]="cadData"
+                                                  [documentId]="documentId"
+                                                  [customerLoanId]="customerLoanId">
+        </app-power-of-attorney-partnership>
+        <app-power-of-attorney-company *ngSwitchCase="nabilCadTemplate.POWER_OF_ATTORNEY_COMPANY"
+                                              [cadData]="cadData"
+                                              [documentId]="documentId"
+                                              [customerLoanId]="customerLoanId">
+        </app-power-of-attorney-company>
 
         <p *ngSwitchDefault>No Template is available for this Document!!! </p>
       </div>
