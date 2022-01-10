@@ -288,28 +288,28 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
         }
     }
 
-    previewClick(file, direct) {
+    previewClick(file, doc, flag) {
         let fileName = this.uploadFile;
-        if (direct) {
-            const link = document.createElement('a');
-            link.href = file;
-            link.target = '_blank';
-            link.click();
-        } else {
-            if (file !== null) {
+        if (file !== null) {
+            if ((doc.docName === LaxmiOfferLetterConst.value(LaxmiOfferLetterConst.PERSONAL_GUARANTEE) ||
+                doc.docName === LaxmiOfferLetterConst.value(LaxmiOfferLetterConst.LETTER_OF_COMMITMENT)) && this.isRemit && flag) {
+                const link = document.createElement('a');
+                link.href = file;
+                link.target = '_blank';
+                link.click();
+            } else {
                 fileName = ApiConfig.URL + '/' + file;
-
                 const link = document.createElement('a');
                 link.href = fileName;
                 link.target = '_blank';
                 link.click();
-            } else {
-                const downloadUrl = window.URL.createObjectURL(fileName);
-                const link = document.createElement('a');
-                link.href = downloadUrl;
-                link.target = '_blank';
-                link.click();
             }
+        } else {
+            const downloadUrl = window.URL.createObjectURL(fileName);
+            const link = document.createElement('a');
+            link.href = downloadUrl;
+            link.target = '_blank';
+            link.click();
         }
     }
 
