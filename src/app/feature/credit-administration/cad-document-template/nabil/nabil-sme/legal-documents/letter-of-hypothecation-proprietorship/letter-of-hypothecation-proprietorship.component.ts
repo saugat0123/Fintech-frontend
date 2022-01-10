@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { CustomerApprovedLoanCadDocumentation} from "../../../../../model/customerApprovedLoanCadDocumentation";
 
 @Component({
   selector: 'app-letter-of-hypothecation-proprietorship',
@@ -6,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./letter-of-hypothecation-proprietorship.component.scss']
 })
 export class LetterOfHypothecationProprietorshipComponent implements OnInit {
+  @Input() cadData: CustomerApprovedLoanCadDocumentation;
+  @Input() documentId: number;
+  @Input() customerLoanId: number;
   constructor() { }
 
   ngOnInit() {

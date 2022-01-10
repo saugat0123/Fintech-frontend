@@ -74,7 +74,19 @@ import { MasterSecuritiesViewComponent } from './master-securities-view/master-s
 import { MasterSecondarySecuritiesViewComponent } from './master-secondary-securities-view/master-secondary-securities-view.component';
 import { SharePledgeSecuritiesComponent } from './share-pledge-securities/share-pledge-securities.component';
 import {CoreModule} from '../../../../@core/core.module';
+import { CounterGuaranteeCompanyComponent } from './counter-guarantee-company/counter-guarantee-company.component';
 import { LetterOfHypothecationProprietorshipComponent } from './nabil-sme/legal-documents/letter-of-hypothecation-proprietorship/letter-of-hypothecation-proprietorship.component';
+import { LetterOfHypothecationPartnershipComponent } from './nabil-sme/legal-documents/letter-of-hypothecation-partnership/letter-of-hypothecation-partnership.component';
+import { LetterOfHypothecationCompanyComponent } from './nabil-sme/legal-documents/letter-of-hypothecation-company/letter-of-hypothecation-company.component';
+import { SupplementaryAggrementProprietorshipComponent } from './nabil-sme/legal-documents/supplementary-aggrement-proprietorship/supplementary-aggrement-proprietorship.component';
+import { SupplementaryAggrementPartnershipComponent } from './nabil-sme/legal-documents/supplementary-aggrement-partnership/supplementary-aggrement-partnership.component';
+import { SupplementaryAggrementCompanyComponent } from './nabil-sme/legal-documents/supplementary-aggrement-company/supplementary-aggrement-company.component';
+import { AssignmentOfReceivableProprietorshipComponent } from './nabil-sme/legal-documents/assignment-of-receivable-proprietorship/assignment-of-receivable-proprietorship.component';
+import { AssignmentOfReceivablePartnershipComponent } from './nabil-sme/legal-documents/assignment-of-receivable-partnership/assignment-of-receivable-partnership.component';
+import { AssignmentOfReceivableCompanyComponent } from './nabil-sme/legal-documents/assignment-of-receivable-company/assignment-of-receivable-company.component';
+import { PowerOfAttorneyProprietorshipComponent } from './nabil-sme/legal-documents/power-of-attorney-proprietorship/power-of-attorney-proprietorship.component';
+import { PowerOfAttorneyPartnershipComponent } from './nabil-sme/legal-documents/power-of-attorney-partnership/power-of-attorney-partnership.component';
+import { PowerOfAttorneyCompanyComponent } from './nabil-sme/legal-documents/power-of-attorney-company/power-of-attorney-company.component';
 
 @NgModule({
     declarations: [
@@ -91,7 +103,7 @@ import { LetterOfHypothecationProprietorshipComponent } from './nabil-sme/legal-
         LoanDeedPartnershipComponent,
        LoanDeedPartnershipPrintComponent, LetterVehicleThirdpartyCompanyComponent, LetterVehicleThirdpartyCompanyPrintComponent,
         PersonalGuaranteeIndividualPrintComponent,
-        LoanDeedIndividualComponent, PromissoryNoteCompanyPrintComponent, PersonalGuaranteeProprietorshipComponent, NabilSmeComponent, KisanKarjaSubsidyComponent, UdyamsilKarjaSubsidyComponent, UdyamsilKarjaSubsidyPrintComponent, DdslWithoutSubsidyComponent, DdslWithoutSubsidyPrintComponent, KisanKarjaSubsidyPrintComponent, CombinedOfferLetterComponent, Section1IntroductionComponent, Section2LoanTypeComponent, Section3SecurityAndCollateralComponent, Section4LoanLimitComponent, Section5InterstPenalChargeComponent, Section6FacilitiesClauseComponent, Section7SecurityClauseComponent, Section8InsuranceClauseComponent, Section9OtherClauseComponent, Section10SecurityDocumentsComponent, CombinedOfferLetterPrintComponent, Section6FacilitiesClausePrintComponent, Section9OtherClausePrintComponent, Section3SecurityAndCollateralPrintComponent, Section7SecurityClausePrintComponent, Section10SecurityDocumentsPrintComponent, Section1IntroductionPrintComponent, Section4LoanLimitPrintComponent, Section5InterestPenalChargePrintComponent, Section8InsuranceClausePrintComponent, Section2LoanTypePrintComponent, TermLoanToOrForComponent, TermLoanToOrForPrintComponent, MortgageEquityTermLoanComponent, MortgageEquityTermLoanPrintComponent, AutoLoanComponent, AutoLoanPrintComponent, CommonSectionTopComponent, CommonSectionBottomComponent, CommonSectionBottomPrintComponent, CommonSectionTopPrintComponent, MasterSecuritiesViewComponent, MasterSecondarySecuritiesViewComponent, SharePledgeSecuritiesComponent, LetterOfHypothecationProprietorshipComponent],
+        LoanDeedIndividualComponent, PromissoryNoteCompanyPrintComponent, PersonalGuaranteeProprietorshipComponent, NabilSmeComponent, KisanKarjaSubsidyComponent, UdyamsilKarjaSubsidyComponent, UdyamsilKarjaSubsidyPrintComponent, DdslWithoutSubsidyComponent, DdslWithoutSubsidyPrintComponent, KisanKarjaSubsidyPrintComponent, CombinedOfferLetterComponent, Section1IntroductionComponent, Section2LoanTypeComponent, Section3SecurityAndCollateralComponent, Section4LoanLimitComponent, Section5InterstPenalChargeComponent, Section6FacilitiesClauseComponent, Section7SecurityClauseComponent, Section8InsuranceClauseComponent, Section9OtherClauseComponent, Section10SecurityDocumentsComponent, CombinedOfferLetterPrintComponent, Section6FacilitiesClausePrintComponent, Section9OtherClausePrintComponent, Section3SecurityAndCollateralPrintComponent, Section7SecurityClausePrintComponent, Section10SecurityDocumentsPrintComponent, Section1IntroductionPrintComponent, Section4LoanLimitPrintComponent, Section5InterestPenalChargePrintComponent, Section8InsuranceClausePrintComponent, Section2LoanTypePrintComponent, TermLoanToOrForComponent, TermLoanToOrForPrintComponent, MortgageEquityTermLoanComponent, MortgageEquityTermLoanPrintComponent, AutoLoanComponent, AutoLoanPrintComponent, CommonSectionTopComponent, CommonSectionBottomComponent, CommonSectionBottomPrintComponent, CommonSectionTopPrintComponent, MasterSecuritiesViewComponent, MasterSecondarySecuritiesViewComponent, SharePledgeSecuritiesComponent, CounterGuaranteeCompanyComponent, LetterOfHypothecationProprietorshipComponent, LetterOfHypothecationPartnershipComponent, LetterOfHypothecationCompanyComponent, SupplementaryAggrementProprietorshipComponent, SupplementaryAggrementPartnershipComponent, SupplementaryAggrementCompanyComponent, AssignmentOfReceivableProprietorshipComponent, AssignmentOfReceivablePartnershipComponent, AssignmentOfReceivableCompanyComponent, PowerOfAttorneyProprietorshipComponent, PowerOfAttorneyPartnershipComponent, PowerOfAttorneyCompanyComponent],
 
     exports: [
         PromissoryNoteIndividualComponent,
@@ -126,7 +138,20 @@ import { LetterOfHypothecationProprietorshipComponent } from './nabil-sme/legal-
         CombinedOfferLetterComponent,
         CombinedOfferLetterPrintComponent,
         Section2LoanTypeComponent,
-        MasterSecuritiesViewComponent
+        MasterSecuritiesViewComponent,
+        CounterGuaranteeCompanyComponent,
+        LetterOfHypothecationPartnershipComponent,
+        LetterOfHypothecationCompanyComponent,
+        SupplementaryAggrementProprietorshipComponent,
+        SupplementaryAggrementPartnershipComponent,
+        SupplementaryAggrementCompanyComponent,
+        AssignmentOfReceivableProprietorshipComponent,
+        AssignmentOfReceivablePartnershipComponent,
+        AssignmentOfReceivableCompanyComponent,
+        PowerOfAttorneyProprietorshipComponent,
+        PowerOfAttorneyPartnershipComponent,
+        PowerOfAttorneyCompanyComponent,
+        LetterOfHypothecationProprietorshipComponent
     ],
     imports: [
         CommonModule,
