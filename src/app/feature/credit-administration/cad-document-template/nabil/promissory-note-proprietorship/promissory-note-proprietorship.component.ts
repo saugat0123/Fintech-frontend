@@ -32,11 +32,14 @@ export class PromissoryNoteProprietorshipComponent implements OnInit {
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() documentId: number;
   @Input() customerLoanId: number;
+  guarantorData;
   individualData;
   initialInfoPrint;
+  customerAddress;
   offerLetterConst = NabilDocumentChecklist;
   offerDocumentChecklist = NabilOfferLetterConst;
   form: FormGroup;
+  guarantorNames: Array<String> = [];
   nepData;
   clientType;
   customerType = CustomerType;
@@ -45,6 +48,10 @@ export class PromissoryNoteProprietorshipComponent implements OnInit {
   selectiveArr = [];
   offerLetterDocument;
   educationalTemplateData;
+  companyInfo;
+  loanHolderNepData: any;
+  isInstitutional = false;
+  tempProprietor;
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
@@ -59,8 +66,16 @@ export class PromissoryNoteProprietorshipComponent implements OnInit {
               private customerService: CustomerService) { }
 
   async ngOnInit() {
+    console.log('Offer Letter Details for Home Loan', this.cadData);
     this.buildForm();
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
+      if (this.cadData.loanHolder.customerType === 'INSTITUTION') {
+        this.isInstitutional = true;
+      }
+      if (!ObjectUtil.isEmpty(this.cadData.assignedLoan[0])) {
+        this.companyInfo = this.cadData.assignedLoan[0] ? JSON.parse(this.cadData.assignedLoan[0].companyInfo.companyJsonData) : '';
+      }
+      this.guarantorData = this.cadData.assignedLoan[0].taggedGuarantors;
       this.cadData.cadFileList.forEach(individualCadFile => {
         if (individualCadFile.customerLoanId === this.customerLoanId && individualCadFile.cadDocument.id === this.documentId) {
           const initialInfo = JSON.parse(individualCadFile.initialInformation);
@@ -72,7 +87,17 @@ export class PromissoryNoteProprietorshipComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.individualData = JSON.parse(this.cadData.loanHolder.nepData);
       this.clientType = this.cadData.loanHolder['customerSubType'];
+
+      this.loanHolderNepData = this.cadData.loanHolder.nepData
+          ? JSON.parse(this.cadData.loanHolder.nepData)
+          : this.cadData.loanHolder.nepData;
+      // this.customerAddress = this.tempProprietor[0].ownerPermanentProvinceCT + '-' +
+      //     this.tempProprietor[0].ownerPermanentWardNoCT + ', ' + this.tempProprietor[0].ownerPermanentDistrictCT + ' ,' +
+      //     this.tempProprietor[0].ownerPermanentProvinceCT;
     }
+    console.log('loanHolderNepData: ', this.loanHolderNepData);
+    console.log('initial info', this.initialInfoPrint);
+    console.log('form', this.form);
     await this.getJointInfoData();
     this.fillform();
   }
@@ -85,6 +110,7 @@ export class PromissoryNoteProprietorshipComponent implements OnInit {
       actDetails: [undefined],
       actYear: [undefined],
       nameOfHead: [undefined],
+      dateOfRegNepali: [undefined],
       dateOfReg: [undefined],
       regNo: [undefined],
       distictOfFirm: [undefined],
@@ -118,6 +144,12 @@ export class PromissoryNoteProprietorshipComponent implements OnInit {
     });
   }
   fillform() {
+    const proprietor = this.cadData.assignedLoan[0].companyInfo.companyJsonData;
+    // let tempProprietor;
+    if (!ObjectUtil.isEmpty(proprietor)) {
+      this.tempProprietor = JSON.parse(proprietor);
+      console.log('DATA::::::', this.tempProprietor);
+    }
     let totalLoan = 0;
     this.cadData.assignedLoan.forEach(val => {
       const proposedAmount = val.proposal.proposedLimit;
@@ -126,22 +158,37 @@ export class PromissoryNoteProprietorshipComponent implements OnInit {
     const finalAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoan));
     const loanAmountWord = this.nepaliCurrencyWordPipe.transform(totalLoan);
     let citizenshipIssuedDate;
-    if (!ObjectUtil.isEmpty(this.individualData.citizenshipIssueDate.en.nDate)) {
-      citizenshipIssuedDate = this.individualData.citizenshipIssueDate.en.nDate;
-    } else {
-      const convertedDate = this.datePipe.transform(this.individualData.citizenshipIssueDate.en);
-      citizenshipIssuedDate = this.engToNepaliDate.transform(convertedDate, true);
+    if (!this.isInstitutional) {
+      if (!ObjectUtil.isEmpty(this.individualData.citizenshipIssueDate.en.nDate)) {
+        citizenshipIssuedDate = this.individualData.citizenshipIssueDate.en.nDate;
+      } else {
+        const convertedDate = this.datePipe.transform(this.individualData.citizenshipIssueDate.en);
+        citizenshipIssuedDate = this.engToNepaliDate.transform(convertedDate, true);
+      }
     }
     let age;
-    if (!ObjectUtil.isEmpty(this.individualData.dob) && !ObjectUtil.isEmpty(this.individualData.dob.en.eDate)) {
-      const calAge = AgeCalculation.calculateAge(this.individualData.dob.en.eDate);
-      // age = this.engToNepNumberPipe.transform(String(calAge));
-      age = this.ageCalculation(this.individualData.dob.en.eDate);
-    } else {
-      // const calAge = AgeCalculation.calculateAge(this.individualData.dob.en);
-      // age = this.engToNepNumberPipe.transform(String(calAge));
-      age = this.ageCalculation(this.individualData.dob.en);
+    if (!this.isInstitutional) {
+      if (!ObjectUtil.isEmpty(this.individualData.dob) && !ObjectUtil.isEmpty(this.individualData.dob.en.eDate)) {
+        const calAge = AgeCalculation.calculateAge(this.individualData.dob.en.eDate);
+        // age = this.engToNepNumberPipe.transform(String(calAge));
+        age = this.ageCalculation(this.individualData.dob.en.eDate);
+      } else {
+        // const calAge = AgeCalculation.calculateAge(this.individualData.dob.en);
+        // age = this.engToNepNumberPipe.transform(String(calAge));
+        age = this.ageCalculation(this.individualData.dob.en);
+      }
     }
+    if (this.isInstitutional) {
+      if (!ObjectUtil.isEmpty(this.tempProprietor[0].ownerDobDateType) && this.tempProprietor.length > 0) {
+        if (this.tempProprietor[0].ownerDobDateType === undefined) {
+          age = this.engToNepNumberPipe.transform(AgeCalculation.calculateAge(this.tempProprietor[0].ownerDob).toString());
+        } else {
+          age = this.engToNepNumberPipe.transform(AgeCalculation.calculateAge(this.tempProprietor[0].ownerDob).toString());
+        }
+      }
+    }
+
+
     let length = 1;
     if (!ObjectUtil.isEmpty(this.jointInfoData)) {
       length = this.jointInfoData.length;
@@ -156,21 +203,46 @@ export class PromissoryNoteProprietorshipComponent implements OnInit {
     this.checkOfferLetterData();
     this.form.patchValue(
         {
-          nameofBranchLocated: this.individualData.branch.ct,
-          nameofGrandFather: this.individualData.grandFatherName.ct,
-          nameofFather: this.individualData.fatherName.ct,
-          nameofIssuedDistrict: this.individualData.citizenshipIssueDistrict.ct,
-          dateofIssue: citizenshipIssuedDate ? citizenshipIssuedDate : '',
-          citizenshipNo: this.individualData.citizenshipNo.ct,
-          nameofPerson: this.individualData.name.ct,
-          wardNo: this.individualData.permanentWard.ct,
-          vdc: this.individualData.permanentMunicipality.ct,
-          district: this.individualData.permanentDistrict.ct,
+          nameofBranchLocated: [this.loanHolderNepData.branch ? this.loanHolderNepData.branch.ct : ''],
+          actDetails: [this.loanHolderNepData.actName ? this.loanHolderNepData.actName.ct : ''],
+          actYear: [this.loanHolderNepData.actYear ? this.loanHolderNepData.actYear.np : ''],
+          nameOfHead : [this.loanHolderNepData.authorizedBodyName ? this.loanHolderNepData.authorizedBodyName.ct : ''],
+          regNo: [this.loanHolderNepData.registrationNo ? this.loanHolderNepData.registrationNo.np : ''],
+          branchName: [this.loanHolderNepData.branch ? this.loanHolderNepData.branch.ct : ''],
+          addressOfFirm: [this.loanHolderNepData.currentStreetTole ? this.loanHolderNepData.currentStreetTole.ct : ''],
           loanamountinFigure: finalAmount,
           loanamountinWords: loanAmountWord,
-          age: age ? age : '',
-          totalPeople: this.engToNepNumberPipe.transform(length.toString()) ? this.engToNepNumberPipe.transform(length.toString()) : '',
-          interest: this.educationalTemplateData && this.educationalTemplateData.ct ? this.educationalTemplateData.ct : '',
+          fatherNameOfPro: this.tempProprietor[0] ? this.tempProprietor[0].ownerFatherNameCT : '',
+          firmName: [this.loanHolderNepData.name ? this.loanHolderNepData.name.np : ''],
+          grandNameOfPro: this.tempProprietor[0] ? this.tempProprietor[0].ownerGrandFatherNameCT : '',
+          districtOfPro: this.tempProprietor[0] ? this.tempProprietor[0].ownerPermanentDistrictCT : '',
+          vdcNameOfPro: this.tempProprietor[0] ? this.tempProprietor[0].ownerPermanentMunicipalityCT : '',
+          wardNoOfPro: this.tempProprietor[0] ? this.tempProprietor[0].ownerPermanentWardNoCT : '',
+          nameOfPro: this.tempProprietor[0] ? this.tempProprietor[0].ownerNameCT : '',
+          citizenshipNo: this.tempProprietor[0] ? this.engToNepNumberPipe.transform(this.tempProprietor[0].ownerCitizenshipNoCT) : '',
+          citizenshipIssueDistrict: this.tempProprietor[0] ? this.tempProprietor[0].ownerCitizenshipIssuedDistrictCT : '',
+          intRate: this.tempProprietor[0] ? this.tempProprietor[0].ownerSharePercentageCT : '',
+          nameOfFirm: [this.loanHolderNepData.currentMunicipality ? this.loanHolderNepData.currentMunicipality.ct : ''],
+          wardNo: [this.loanHolderNepData.permanentWard ? this.loanHolderNepData.permanentWard.ct : ''],
+          vdc: [this.loanHolderNepData.municipalityVdc ? this.loanHolderNepData.municipalityVdc.ct : ''],
+          distictOfFirm: [this.loanHolderNepData.issuingDistrict ? this.loanHolderNepData.issuingDistrict.ct : ''],
+          loanAmountinFigure: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(finalAmount)),
+          loanAmountInWords: this.nepaliCurrencyWordPipe.transform(loanAmountWord),
+          ageOfPro: age ? age : '',
+          // totalPeople: this.engToNepNumberPipe.transform(length.toString()) ? this.engToNepNumberPipe.transform(length.toString()) : '',
+          // interest: this.educationalTemplateData && this.educationalTemplateData.ct ? this.educationalTemplateData.ct : '',
+          // nameofBranchLocated: this.individualData.branch.ct,
+          // nameofGrandFather: this.individualData.grandFatherName.ct,
+          // nameofFather: this.individualData.fatherName.ct,
+          // nameofIssuedDistrict: this.individualData.citizenshipIssueDistrict.ct,
+          // dateofIssue: citizenshipIssuedDate ? citizenshipIssuedDate : '',
+          // citizenshipNo: this.individualData.citizenshipNo.ct,
+          // nameofPerson: this.individualData.name.ct,
+          // wardNo: this.individualData.permanentWard.ct,
+          // vdc: this.individualData.permanentMunicipality.ct,
+          // district: this.individualData.permanentDistrict.ct,
+          // loanamountinFigure: finalAmount,
+          // loanamountinWords: loanAmountWord,
         }
     );
   }
@@ -184,9 +256,7 @@ export class PromissoryNoteProprietorshipComponent implements OnInit {
     const yr = Math.abs(Math.round(diff / 365.25));
     return this.engToNepNumberPipe.transform(yr.toString());
   }
-
-
-  submit() {
+submit() {
     let flag = true;
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(individualCadFile => {
@@ -257,12 +327,13 @@ export class PromissoryNoteProprietorshipComponent implements OnInit {
       //
       // }
       const nepData = value;
+      const tempProprietor = value;
       let age;
-      if (!ObjectUtil.isEmpty(nepData.dob) && !ObjectUtil.isEmpty(nepData.dob.en.eDate)) {
-        const calAge = AgeCalculation.calculateAge(nepData.dob.en.eDate);
-        age = this.ageCalculation(nepData.dob.en.eDate);
+      if (!ObjectUtil.isEmpty(tempProprietor.ownerDobCT) && !ObjectUtil.isEmpty(tempProprietor.radioOwnerDob)) {
+        const calAge = AgeCalculation.calculateAge(tempProprietor.radioOwnerDob);
+        age = this.ageCalculation(tempProprietor.radioOwnerDob);
       } else {
-        age = this.ageCalculation(nepData.dob.en);
+        age = this.ageCalculation(tempProprietor.radioOwnerDob);
       }
       let citizenshipIssuedDate;
       if (!ObjectUtil.isEmpty(nepData.citizenshipIssueDate.en.nDate)) {
@@ -287,12 +358,24 @@ export class PromissoryNoteProprietorshipComponent implements OnInit {
   }
 
   checkOfferLetterData() {
+    console.log('CHeck:');
     if (this.cadData.offerDocumentList.length > 0) {
       this.offerLetterDocument = this.cadData.offerDocumentList.filter(value => value.docName.toString()
           === this.offerDocumentChecklist.value(this.offerDocumentChecklist.EDUCATIONAL).toString())[0];
       if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
         const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
         this.educationalTemplateData = educationalOfferData.interestRate;
+      }
+      console.log('loanholder nepdata:', this.loanHolderNepData);
+      if (this.loanHolderNepData.registrationDateOption.en === 'AD') {
+        this.form.get('dateOfReg').patchValue(this.engToNepaliDate.transform(this.loanHolderNepData.registrationDate.en, true));
+      } else {
+        this.form.get('dateOfReg').patchValue(this.loanHolderNepData.registrationDate.np);
+      }
+      if (this.tempProprietor[0].radioOwnerCitizenshipIssuedDate === 'AD') {
+        this.form.get('citizenshipIssueDate').patchValue(this.engToNepaliDate.transform(this.tempProprietor[0].ownerCitizenshipIssuedDateCT, true));
+      } else {
+        this.form.get('citizenshipIssueDate').patchValue(this.tempProprietor[0].ownerCitizenshipIssuedDateCT);
       }
     }
   }
