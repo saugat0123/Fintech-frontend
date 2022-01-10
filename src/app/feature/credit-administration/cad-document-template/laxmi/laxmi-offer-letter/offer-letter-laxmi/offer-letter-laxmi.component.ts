@@ -22,6 +22,7 @@ import {OfferDocument} from '../../../../model/OfferDocument';
 import {LaxmiOfferLetterConst} from '../laxmi-offer-letter-const';
 import {CadDocStatus} from '../../../../model/CadDocStatus';
 import {Security} from '../../../../../loan/model/security';
+import {validate} from 'codelyzer/walkerFactory/walkerFn';
 
 @Component({
     selector: 'app-offer-letter-laxmi',
@@ -81,6 +82,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
     subLoanTypeEnum1 = [];
     arrayOfSubloan = [];
     test111 = [];
+    subLoanData = [];
 
     constructor(private formBuilder: FormBuilder,
                 private administrationService: CreditAdministrationService,
@@ -106,6 +108,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
         //   this.modalService.open(this.modal);
         // }
         this.addFixedAssetsCollateral();
+        console.log('initial arrayOfSubloan', this.arrayOfSubloan);
     }
 
     checkOfferLetter() {
@@ -115,11 +118,17 @@ export class OfferLetterLaxmiComponent implements OnInit {
             console.log('offerLetterDocument', this.offerLetterDocument);
             this.offerLetterDocument = new OfferDocument();
             this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.OFFER_LETTER);
+            this.saveLoanSubLoan();
         } else {
             const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
             this.initialInfoPrint = initialInfo;
             this.existingOfferLetter = true;
             this.offerLetterForm.patchValue(initialInfo);
+            this.arrayOfSubloan = initialInfo.subLoanType;
+            const purposeData = initialInfo.purpose;
+            console.log('purposeData', purposeData);
+            this.setSubLoanData(purposeData);
+            // this.setSubLoanType(initialInfo.subLoanType);
             console.log('initialInfo', initialInfo);
             console.log('offerLetterForm', this.offerLetterForm);
         }
@@ -369,6 +378,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
             bidOther: [undefined],
             performancePurpose: [undefined],
             performanceOther: [undefined],
+            purpose: this.formBuilder.array([])
         });
     }
 
@@ -379,15 +389,26 @@ export class OfferLetterLaxmiComponent implements OnInit {
             this.cadData.offerDocumentList.forEach(singleCadFile => {
                 if (singleCadFile.docName.toString() ===
                     this.offerLetterConst.value(this.offerLetterConst.OFFER_LETTER).toString()) {
+                    this.offerLetterForm.get('subLoanType').patchValue(this.arrayOfSubloan);
+                    // singleCadFile.subLoanArray = this.arrayOfSubloan;
                     singleCadFile.initialInformation = JSON.stringify(this.offerLetterForm.value);
                 }
             });
         } else {
             const offerDocument = new OfferDocument();
             offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.OFFER_LETTER);
+            // offerDocument.subLoanArray = this.arrayOfSubloan;
+            // this.arrayOfSubloan.forEach(l => {
+            //     l.subLoan.filter((aa, i) => aa === 'Working Capital Financing');
+            //     if (l.length > 0) {
+            //         this.offerLetterForm.get('').patchValue(null);
+            //     }
+            // });
+            this.offerLetterForm.get('subLoanType').patchValue(this.arrayOfSubloan);
             offerDocument.initialInformation = JSON.stringify(this.offerLetterForm.value);
             this.cadData.offerDocumentList.push(offerDocument);
         }
+        console.log('Submit Data', this.cadData);
         this.administrationService.saveCadDocumentBulk(this.cadData).subscribe(() => {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved '));
             this.dialogRef.close();
@@ -406,10 +427,19 @@ export class OfferLetterLaxmiComponent implements OnInit {
         this.arrayOfSubloan.push(data12);
     }
 
-    SaveLoanSubLoan() {
+    saveLoanSubLoan() {
         const arrUniq = [...new Map(this.arrayOfSubloan.map(v => [v.loan, v])).values()];
         this.arrayOfSubloan = arrUniq;
-        this.modalService.dismissAll();
+        console.log('arrayOfSubloan', this.arrayOfSubloan);
+        // this.modalService.dismissAll();
+        this.arrayOfSubloan.forEach((d, i) => {
+            if (!ObjectUtil.isEmpty(d.loan)) {
+                this.addPurpose();
+                this.offerLetterForm.get(['purpose', i]).patchValue({loan: d.loan, subLoan: d.subLoan});
+                // this.offerLetterForm.get(['purpose', i, 'subLoan']).patchValue(d.subLoan);
+            }
+        });
+        console.log('this is form array, ', this.offerLetterForm.get('purpose'));
     }
 
     close() {
@@ -443,11 +473,26 @@ export class OfferLetterLaxmiComponent implements OnInit {
         );
     }
 
+    addPurpose() {
+        const data = this.offerLetterForm.get('purpose') as FormArray;
+        data.push(
+            this.formBuilder.group({
+                loan: [undefined],
+                subLoan: [undefined],
+                purpose: [undefined],
+                drawDown: [undefined],
+                other: [undefined]
+            })
+        );
+    }
+
     removeFixedAssetsCollateral(i) {
         (<FormArray>this.offerLetterForm.get('fixedAssetsCollateral')).removeAt(i);
     }
 
-    purposeChange() {
+    purposeChange(formControlName, i) {
+        console.log('event', formControlName);
+        console.log('iiii', i);
         if (!ObjectUtil.isEmpty(this.offerLetterForm.get('workingCapitalPurpose').value)) {
             if (this.offerLetterForm.get('workingCapitalPurpose').value.includes('Other')) {
                 this.tempPurposeFlag.workingCapitalOther = true;
@@ -558,44 +603,121 @@ export class OfferLetterLaxmiComponent implements OnInit {
                 this.offerLetterForm.get('commercialOther').setValue(null);
             }
         }
+        this.setPurposeValue(i, formControlName);
     }
 
     parseSiteVisitSecurityData() {
         if (!ObjectUtil.isEmpty(this.cadData)) {
-            if (this.cadData.assignedLoan.length > 1) {
-                let loanData;
-                this.cadData.assignedLoan.forEach((l, i) => {
-                    loanData = l.loan.name;
-                    const subLoan = SubLoanType.value(loanData);
-                    // this.loanName.push(loanData);
-                    this.subLoanTypeEnum1.push(subLoan);
-                });
-                console.log('subLo', this.subLoanTypeEnum1);
-                console.log('LoanName', this.loanName);
-            } else {
-                this.loanName = this.cadData.assignedLoan[0].loan.name;
-                console.log('loanName', this.loanName);
-                this.subloanTypes = SubLoanType.value(this.loanName.toString());
-                this.loanType = this.cadData.assignedLoan[0].loanType;
-                console.log('loanType', this.loanType);
-                this.securityData = this.cadData.loanHolder.security;
-                const sitevisit = this.cadData.loanHolder.siteVisit;
-                if (!ObjectUtil.isEmpty(this.securityData)) {
-                    console.log(this.securityData);
-                    const data = JSON.parse(this.securityData.data);
-                    this.selectedArray = data.selectedArray;
-                    console.log('selectedArray', this.selectedArray);
-                    if (this.selectedArray.length > 0) {
-                        this.singleSecurity = false;
-                    } else {
-                        this.singleSecurity = true;
-                    }
-                }
-                if (!ObjectUtil.isEmpty(sitevisit)) {
-                    const siteVisitData = JSON.parse(sitevisit.data);
-                    console.log('siteVisitData', siteVisitData);
-                }
-            }
+            let loanData;
+            this.cadData.assignedLoan.forEach((l, i) => {
+                loanData = l.loan.name;
+                const subLoan = SubLoanType.value(loanData);
+                this.loanName.push(loanData);
+                this.subLoanTypeEnum1.push(subLoan);
+            });
+            console.log('subLo', this.subLoanTypeEnum1);
+            console.log('LoanName', this.loanName);
+            // if (this.cadData.assignedLoan.length > 1) {
+            //     let loanData;
+            //     this.cadData.assignedLoan.forEach((l, i) => {
+            //         loanData = l.loan.name;
+            //         const subLoan = SubLoanType.value(loanData);
+            //         this.loanName.push(loanData);
+            //         this.subLoanTypeEnum1.push(subLoan);
+            //     });
+            //     console.log('subLo', this.subLoanTypeEnum1);
+            //     console.log('LoanName', this.loanName);
+            // } else {
+            //     this.loanName = this.cadData.assignedLoan[0].loan.name;
+            //     console.log('loanName', this.loanName);
+            //     this.subloanTypes = SubLoanType.value(this.loanName.toString());
+            //     this.loanType = this.cadData.assignedLoan[0].loanType;
+            //     console.log('loanType', this.loanType);
+            //     this.securityData = this.cadData.loanHolder.security;
+            //     const sitevisit = this.cadData.loanHolder.siteVisit;
+            //     if (!ObjectUtil.isEmpty(this.securityData)) {
+            //         console.log(this.securityData);
+            //         const data = JSON.parse(this.securityData.data);
+            //         this.selectedArray = data.selectedArray;
+            //         console.log('selectedArray', this.selectedArray);
+            //         if (this.selectedArray.length > 0) {
+            //             this.singleSecurity = false;
+            //         } else {
+            //             this.singleSecurity = true;
+            //         }
+            //     }
+            //     if (!ObjectUtil.isEmpty(sitevisit)) {
+            //         const siteVisitData = JSON.parse(sitevisit.data);
+            //         console.log('siteVisitData', siteVisitData);
+            //     }
+            // }
         }
+    }
+
+    setPurposeValue(i, value) {
+        console.log('Purpose', value);
+        this.offerLetterForm.get(['purpose', i, 'purpose']).patchValue(value);
+        console.log('this is asdasdasd',  this.offerLetterForm.get('purpose') );
+    }
+    drawChange(value, i) {
+        console.log('drawDown', value);
+        this.offerLetterForm.get(['purpose', i, 'drawDown']).patchValue(value);
+        console.log('this is drawDown',  this.offerLetterForm.get('purpose') );
+    }
+
+    otherPurposeChange(value, i) {
+        console.log('other Purpose', value);
+        this.offerLetterForm.get(['purpose', i, 'other']).patchValue(value);
+        console.log('this is other',  this.offerLetterForm.get('purpose') );
+    }
+
+    setSubLoanType(value) {
+        value.forEach((l, i) => {
+            console.log('i', i);
+            console.log('subLoan', l.subLoan);
+            // this.offerLetterForm.get(['subLoanType', i]).patchValue(l.subLoan);
+            // this.subLoanTypeEnum1 = l.subLoan;
+        });
+    }
+
+    setSubLoanData(data) {
+        console.log('setData', data);
+        let count = 0;
+        console.log('before', count);
+        data.forEach(test1 => {
+            if (test1.subLoan === this.subloanTypeEnum.WORKING_CAPITAL_FINANCING) {
+                console.log('I am here');
+                count++;
+            }
+            console.log('After', count);
+            if (count > 0) {
+                this.addWorkingCapital();
+            }
+        });
+        const test = this.offerLetterForm.get('purpose') as FormArray;
+        if (!ObjectUtil.isEmpty(data)) {
+            data.forEach((p) => {
+                test.push(this.formBuilder.group({
+                    loan: [p.loan],
+                    subLoan: [p.subLoan],
+                    purpose: [p.purpose],
+                    drawDown: [p.drawDown],
+                    other: [p.other]
+                }));
+            });
+        }
+    }
+
+
+    addWorkingCapital() {
+        return this.formBuilder.group({
+            purpose: [undefined],
+            otherPurpose: [undefined],
+            drawDown: [undefined],
+        });
+        // const data = this.offerLetterForm.get('workingCapital') as FormArray;
+        // data.push(
+        //
+        // );
     }
 }
