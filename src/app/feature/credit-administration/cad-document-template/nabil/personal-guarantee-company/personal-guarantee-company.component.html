@@ -1,3 +1,4 @@
+<nb-card [nbSpinner]="spinner">
 <div class="container text-justify">
   <form [formGroup]="personalGuaranteeCompany" id="print-section">
     <div class="row" *ngFor="let guaranteeCompany of personalGuaranteeCompany.get('guaranteeCompanies')['controls']; let i = index"
@@ -30,7 +31,12 @@
                                 formControlName="actYearInFigure" placeholder="" type="text"/>
                                 <strong class="print-only">{{personalGuaranteeCompany.get(["guaranteeCompanies", i, "actYearInFigure"]).value}}</strong>
                             </span>
-                            बमोजिम नेपाल सरकार
+                            बमोजिम
+                            <span>
+                                <input class="form-field form-control-sm d-print-none" name="authorizedBodyName"
+                                       formControlName="authorizedBodyName" placeholder="" type="text"/>
+                                <strong class="print-only">{{personalGuaranteeCompany.get(["guaranteeCompanies", i, "authorizedBodyName"]).value}}</strong>
+                            </span>,
                             <span>
                                 <input class="form-field form-control-sm d-print-none" name="headDepartment"
                                 formControlName="headDepartment" placeholder="" type="text"/>
@@ -53,6 +59,33 @@
                                 <input class="form-field form-control-sm d-print-none" name="location"
                                 formControlName="location" placeholder="" type="text"/>
                                 <strong class="print-only">{{personalGuaranteeCompany.get(["guaranteeCompanies", i, "location"]).value}}</strong>
+                            </span>
+                            जिल्ला,
+                            <span>
+                                <input class="form-field form-control-sm d-print-none" name="municipalityName"
+                                       formControlName="municipalityName" placeholder="" type="text"/>
+                                <strong class="print-only">{{personalGuaranteeCompany.get(["guaranteeCompanies", i, "municipalityName"]).value}}</strong>
+                            </span>
+                            <span *ngIf="this.loanHolderNepData.registeredMunType.en === '0'">
+                                न.पा.
+                            </span>
+                            <span *ngIf="this.loanHolderNepData.registeredMunType.en === '1'">
+                                गा.वि.स.
+                            </span>
+                            <span *ngIf="this.loanHolderNepData.registeredMunType.en === '2'">
+                                गाँउपालिका
+                            </span>
+                            , वडा नं
+                            <span>
+                                <input class="form-field form-control-sm d-print-none" name="wardNumber"
+                                       formControlName="wardNumber" placeholder="" type="text"/>
+                                <strong class="print-only">{{personalGuaranteeCompany.get(["guaranteeCompanies", i, "wardNumber"]).value}}</strong>
+                            </span>
+                            ,
+                            <span>
+                                <input class="form-field form-control-sm d-print-none" name="streetAddress"
+                                       formControlName="streetAddress" placeholder="" type="text"/>
+                                <strong class="print-only">{{personalGuaranteeCompany.get(["guaranteeCompanies", i, "streetAddress"]).value}}</strong>
                             </span>
                             मा कार्यालय रहेको श्री
                             <span>
@@ -177,15 +210,31 @@
                                     ऋणीले प्राप्त गरेको/गर्ने ऋणकर्जाको रकम, सोमा लाग्ने ब्याज, हर्जना ब्याज तथा सो तिर्नु बुभाउनु पर्ने समय तालिका तथा कर्जाका शर्तहरु समेत मैले/हामीले उल्लिखित ऋणस्वीकृती पत्र मार्फत जानकारी लिएको छु/छौं । साथै ऋणस्वीकृती पत्र तथा भुक्तानी तालिकाको
                                      प्रतिलिपि समेत बुझिलिएँ/बुझिलियौं । साथै ब्याज दर लगायत अन्य दरहरुमा बैंकले समय समयमा परिवर्तन गर्नसक्ने र त्यस्तो परिवर्तनको जानकारी बैंकले पत्रपत्रिकामा प्रकाशन गरेमा सोहि मार्फत र/वा बैंकको आधिकारिक वेव साईट (Website) बाट समेत जानकारी प्राप्त गर्नेछु/गर्नेछौं ।
                                 </li>
+                                <span class="d-print-none">
+                                <li>
+                                    <textarea rows="5" style="width:100%;margin-left:20px" class="form-control" name="freeText" formControlName="freeText">
+                                    </textarea>
+                                </li>
+                                </span>
+                                <span class="print-only">
+                                    <li *ngIf="this.cadInitialInfo !== undefined">
+                                        {{this.cadInitialInfo ? this.cadInitialInfo[i].freeText : ''}}
+                                    </li>
+                                </span>
+                                <!--<li *ngIf="this.cadFreeText !== null && this.cadFreeText[i].freeText !== null">
+                                    <span class="print-only">
+                                       {{this.cadFreeText[i].freeText}}
+                                    </span>
+                                </li>-->
                             </ol>
                         </div>
                     </div>
-                    <div class="row free-text w-100">
+                    <!--<div class="row free-text w-100">
                         <div class="col-md-12">
                             <textarea rows="5" style="width:inherit;margin-left:20px" class="form-control nepaliFont" name="freeText" formControlName="freeText">
                             </textarea>
                         </div>
-                    </div>
+                    </div>-->
                 </div>
                 <div class="row mt-5">
                     <div class="col-sm-12">
@@ -303,7 +352,7 @@
         [useExistingCss]="true"
         styleSheetFile="assets/css/printStyles.scss"
         printSectionId="personalGuaranteeCompanyPrint"
-        class="d-print-none"
+        class="d-print-none float-right"
         printSectionId="print-section"
         nbButton
         size="small"
@@ -314,6 +363,13 @@
         Print &nbsp;&nbsp;
         <em class="fa fa-print" style="color: rgb(47, 3, 168)"></em>
       </button>
+        <button nbButton size="small"
+                class="d-print-none sav"
+                status="success"
+                (click)="submit()"
+                style="color: rgb(65,104,207); background-color: rgb(235,247,255);">Save &nbsp;&nbsp;
+            <em class="fa fa-save" style="color: rgb(47, 3, 168)"></em></button>
     </div>
   </div>
 </div>
+</nb-card>
