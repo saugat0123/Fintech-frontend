@@ -139,7 +139,7 @@
                      type="text"/>
             </ng-container>
             (जसलाई यसपछि “ऋणी” भनिएको छ), आगे म ऋणीलाई
-            <input class="form-field form-control-sm"
+            <input class="form-field form-control-sm d-print-none"
                    name="purposeOfLoan"
                    formControlName="purposeOfLoan"
                    type="text"/>
@@ -153,7 +153,7 @@
             </ng-container>
             ऋणकर्जा सुविधा आवश्यक भई सोका लागी तपाई धनी बैंकसंग अनुरोध गरेकोमा तपाई
             धनी बैंकले मेरो/हाम्रो नाउंमा जारी गरेको मिति
-            <input class="form-field form-control-sm"
+            <input class="form-field form-control-sm d-print-none"
                    name="sanctionLetterIssuedDate"
                    formControlName="sanctionLetterIssuedDate"
                    placeholder=" "
@@ -204,7 +204,7 @@
                 <td>{{loan?.loan?.nepaliName || loan?.loan?.name}}</td>
                 <td>{{convertNepaliNumberAmount(loan?.proposal?.proposedLimit)}}</td>
                 <td>{{this.interestRate}}%</td>
-                <td><input class="form-field form-control-sm"
+                <td><input class="form-field form-control-sm d-print-none"
                            name="dateOfExpirySingle"
                            formControlName="dateOfExpirySingle"
                            placeholder=""
@@ -218,12 +218,12 @@
                 <ng-container [formGroupName]="i">
                   <td>{{newTempData[i]?.loanNepaliName}}</td>
                   <td>{{newTempData[i]?.loanAmount}}</td>
-                  <td><input class="form-field form-control-sm"
+                  <td><input class="form-field form-control-sm d-print-none"
                              name="interestRateCombined"
                              formControlName="interestRateCombined"
                              placeholder=""
                              type="text"/></td>
-                  <td><input class="form-field form-control-sm"
+                  <td><input class="form-field form-control-sm d-print-none"
                              name="dateOfExpiry"
                              formControlName="dateOfExpiry"
                              placeholder=""
@@ -384,8 +384,7 @@
           </div>
           <div class="col-md-12 text-right disable-print">
             <button nbButton status="info" class="mb-4 float-right disable-print"
-                    [useExistingCss]="true"
-                    ngxPrint printSectionId="{{offerLetterConst.LOAN_DEED_PROPRIETORSHIP}}Print">Print
+             [useExistingCss]="true" ngxPrint printSectionId="loanDeedProprietorship">Print
             </button>
             <button nbButton status="success" class="disable-print" (click)="submit()">Save</button>
           </div>
@@ -395,8 +394,8 @@
   </form>
 </div>
 
-<app-loan-deed-proprietorship-print *ngIf="initialInfoPrint" [letterData]="initialInfoPrint"
-                                 hidden></app-loan-deed-proprietorship-print>
+<!--<app-loan-deed-proprietorship-print *ngIf="initialInfoPrint" [letterData]="initialInfoPrint"-->
+<!--                                 hidden></app-loan-deed-proprietorship-print>-->
 
 
 
