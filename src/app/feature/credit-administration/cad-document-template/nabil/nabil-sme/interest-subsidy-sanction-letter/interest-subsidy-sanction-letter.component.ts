@@ -20,6 +20,7 @@ import {EngNepDatePipe} from 'nepali-patro';
 import {DatePipe} from '@angular/common';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
+import {CustomerSubType} from '../../../../../customer/model/customerSubType';
 
 @Component({
   selector: 'app-interest-subsidy-sanction-letter',
@@ -51,6 +52,7 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
   external = [];
   loanHolderInfo;
   tempData;
+  securityDetails: any;
   offerLetterData;
   afterSave = false;
   // selectedSecurity;
@@ -61,12 +63,28 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
   finalName;
   freeInformation: any;
   autoPopulate1 = 'सम्पर्क अधिकृत';
-  autoPopulate2 = 'शाखा प्रबन्धक÷बरिष्ठ सम्पर्क प्रबन्धक';
+  autoPopulate2 = 'शाखा प्रबन्धक/बरिष्ठ सम्पर्क प्रबन्धक';
   personalGuarantorsName: Array<any> = new Array<any>();
   guarantorParsed: Array<any> = new Array<any>();
   tempPersonalGuarantors;
   temp2;
   finalPersonalName;
+  // security conditions
+  securityTypeCondition = false;
+  securityTypeConditionFixedAssests = false;
+  securityTypeConditionStock = false;
+  securityTypeConditionAssestsPlants = false;
+  tempSecondaryLandBuilding;
+  securityTypeSecondaryCondition = false;
+  securityTypeSecondaryConditionFixedAssests = false;
+  securityTypeSecondaryConditionStock = false;
+  securityTypeSecondaryConditionAssestsPlants = false;
+  securityTypeConditionLandAndBuilding = false;
+  securityTypeConditionLandAndBuildingSecondary = false;
+  securityTypeConditionLiveStocks = false;
+  securityTypeConditionDocuments = false;
+  plotNumber;
+  customerSubType = CustomerSubType;
 
   constructor(private formBuilder: FormBuilder,
               private router: Router,
@@ -89,6 +107,7 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
       this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
       this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
+      this.securityDetails = this.tempData.securities;
     }
     this.guarantorData = this.cadOfferLetterApprovedDoc.assignedLoan[0].taggedGuarantors;
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.offerDocumentList)) {
@@ -100,6 +119,8 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
       this.guarantorParsed.push(JSON.parse(any.nepData));
     });
     this.guarantorDetails();
+    this.checkPrimaryConditions();
+    this.checkSecondaryConditions();
   }
 
   buildSanction() {
@@ -139,7 +160,9 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
       autoPopulate2: [undefined],
       purposeOfLoan: [undefined],
       loanSubType: [undefined],
-      loanSubTypeEn: [undefined]
+      loanSubTypeEn: [undefined],
+      guarantorAmount: [undefined],
+      securities: this.formBuilder.array([]),
     });
   }
   setLoanConfigData(data: any) {
@@ -164,6 +187,8 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
       loanAmount: cadNepData.numberNepali,
       loanNameInWords: cadNepData.nepaliWords,
     });
+    this.checkPrimaryConditions();
+    this.checkSecondaryConditions();
   }
   checkOfferLetterData() {
     if (this.cadOfferLetterApprovedDoc.offerDocumentList.length > 0) {
@@ -185,6 +210,7 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
     }
   }
   fillForm() {
+    const guarantorAmount = this.guarantorParse(this.guarantorData[0].nepData, 'gurantedAmount');
     const proposalData = this.cadOfferLetterApprovedDoc.assignedLoan[0].proposal;
     const customerAddress = this.loanHolderInfo.registeredMunicipality.ct + '-' +
         this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.registeredDistrict.ct + ' ,' +
@@ -231,6 +257,7 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
       finalSanctionDate = templateSanctionDate ? templateSanctionDate.nDate : '';
     }
     this.form.patchValue({
+      guarantorAmount: guarantorAmount,
       customerName: this.loanHolderInfo.name ? this.loanHolderInfo.name.ct : '',
       customerAddress: customerAddress ? customerAddress : '',
       loanAmountInFigure: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount)),
@@ -245,9 +272,9 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
       loanSubTypeEn: this.tempData.loanSubType ? this.tempData.loanSubType.en.eData : '',
       previousSanctionLetter: finalSanctionDate ? finalSanctionDate : '',
       totalInterestRate: this.tempData.interestRate ? this.tempData.interestRate.ct : '',
-      marginInPercentage: this.tempData.marginInPercentage ? this.tempData.marginInPercentage.ct : '',
-      marginInPercentageMotor: this.tempData.marginInPercentageMotor ? this.tempData.marginInPercentageMotor.ct : '',
-      marginInPercentageFoot: this.tempData.marginInPercentageFoot ? this.tempData.marginInPercentageFoot.ct : '',
+      marginInPercentage: this.tempData.securities.primarySecurity ? this.tempData.securities.primarySecurity[0].marginInPercentageCT : '',
+      marginInPercentageMotor: this.tempData.securities.primarySecurity ? this.tempData.securities.primarySecurity[0].marginInPercentageMotorCT : '',
+      marginInPercentageFoot: this.tempData.securities.primarySecurity ? this.tempData.securities.primarySecurity[0].marginInPercentageFootCT : '',
       totalLimitFigure: this.tempData.totalLimitFigure ? this.tempData.totalLimitFigure.ct : '',
       totalLimitWords: this.tempData.totalLimitWords ? this.tempData.totalLimitWords.ct : '',
       totalTenureOfLoan: this.tempData.totalTenureOfLoan ? this.tempData.totalTenureOfLoan.ct : '',
@@ -264,7 +291,14 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
       fourthAdditionalDetails : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.fourthText : '',
       autoPopulate1: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.autoPopulate1 : '',
       autoPopulate2: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.autoPopulate2 : '',
-
+      // for secondary
+      // landOwnerName: this.tempData.purposeOfLoan ? this.tempData.purposeOfLoan.ct : '',
+      // district: this.tempData.purposeOfLoan ? this.tempData.purposeOfLoan.ct : '',
+      // VDCMuni: this.tempData.purposeOfLoan ? this.tempData.purposeOfLoan.ct : '',
+      // wardNo: this.tempData.purposeOfLoan ? this.tempData.purposeOfLoan.ct : '',
+      // sheetNo: this.tempData.purposeOfLoan ? this.tempData.purposeOfLoan.ct : '',
+      // plotNo: this.tempData.purposeOfLoan ? this.tempData.purposeOfLoan.ct : '',
+      // areaInSq: this.tempData.purposeOfLoan ? this.tempData.purposeOfLoan.ct : ''
     });
   }
   submit(): void {
@@ -334,17 +368,17 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
         val.guarantorType.en === 'Personal Guarantor');
     this.tempPersonalGuarantors.forEach(i => {
       this.personalGuarantorsName.push(i.guarantorName ? i.guarantorName.ct : '');
-    })
+    });
   }
 
   commonGuarantorDetails(guarantorName, finalName) {
-    if(guarantorName.length === 1) {
+    if (guarantorName.length === 1) {
       finalName = guarantorName[0];
     }
-    if(guarantorName.length === 2) {
+    if (guarantorName.length === 2) {
       finalName = guarantorName.join(' र ');
     }
-    if(guarantorName.length > 2){
+    if (guarantorName.length > 2) {
       for (let i = 0; i < guarantorName.length - 1; i++) {
         this.temp2 = guarantorName.join(' , ');
       }
@@ -360,6 +394,66 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
       return data[key].ct;
     } else {
       return data[key].en;
+    }
+  }
+
+  checkPrimaryConditions() {
+    /* this.tempLandBuilding = this.securityDetails.primarySecurity.filter(val =>
+         val.securityType === 'LAND' || val.securityType === 'LAND_AND_BUILDING');*/
+    if (this.securityDetails.primarySecurity.length > 0) {
+      this.securityDetails.primarySecurity.forEach(i => {
+        if (i.securityType === 'LAND' || i.securityType === 'LAND_AND_BUILDING') {
+          this.securityTypeCondition = true;
+        }
+        if (i.securityType === 'LAND_AND_BUILDING') {
+          this.securityTypeConditionLandAndBuilding = true;
+        }
+      });
+    }
+    if (this.securityDetails.primarySecurity.some(s => s.securityType === 'FIXED_ASSETS')) {
+      this.securityTypeConditionFixedAssests = true;
+    }
+    if (this.securityDetails.primarySecurity.some(s => s.securityType === 'STOCK')) {
+      this.securityTypeConditionStock = true;
+    }
+    if (this.securityDetails.primarySecurity.some(s => s.securityType === 'ASSETS_PLANTS_MACHINERY_AND_OTHER_EQUIPMENTS')) {
+      this.securityTypeConditionAssestsPlants = true;
+    }
+    if (this.securityDetails.primarySecurity.some(s => s.securityType === 'LIVE_STOCKS_ANIMALS')) {
+      this.securityTypeConditionLiveStocks = true;
+    }
+    if (this.securityDetails.secondarySecurity.some(s => s.securityType === 'DOCUMENTS')) {
+      this.securityTypeConditionDocuments = true;
+    }
+  }
+
+  checkSecondaryConditions() {
+    this.tempSecondaryLandBuilding = this.securityDetails.secondarySecurity.filter(val =>
+        val.securityType === 'LAND' || val.securityType === 'LAND_AND_BUILDING');
+    if (this.securityDetails.secondarySecurity.length > 0) {
+      this.securityDetails.secondarySecurity.forEach(i => {
+        if (i.securityType === 'LAND' || i.securityType === 'LAND_AND_BUILDING') {
+          this.securityTypeSecondaryCondition = true;
+        }
+        if (i.securityType === 'LAND_AND_BUILDING') {
+          this.securityTypeConditionLandAndBuildingSecondary = true;
+        }
+      });
+    }
+    if (this.securityDetails.secondarySecurity.some(s => s.securityType === 'FIXED_ASSETS')) {
+      this.securityTypeSecondaryConditionFixedAssests = true;
+    }
+    if (this.securityDetails.secondarySecurity.some(s => s.securityType === 'STOCK')) {
+      this.securityTypeSecondaryConditionStock = true;
+    }
+    if (this.securityDetails.secondarySecurity.some(s => s.securityType === 'ASSETS_PLANTS_MACHINERY_AND_OTHER_EQUIPMENTS')) {
+      this.securityTypeSecondaryConditionAssestsPlants = true;
+    }
+    if (this.securityDetails.secondarySecurity.some(s => s.securityType === 'LIVE_STOCKS_ANIMALS')) {
+      this.securityTypeConditionLiveStocks = true;
+    }
+    if (this.securityDetails.secondarySecurity.some(s => s.securityType === 'DOCUMENTS')) {
+      this.securityTypeConditionDocuments = true;
     }
   }
 }

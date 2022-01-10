@@ -19,7 +19,17 @@
                         </span>
                     </p>
 
-                    <p class="m-0">श्री
+                    <p class="m-0">
+                        श्री
+<!--                        <span *ngIf="loanHolderInfo?.gender?.en === 'MALE' else customerRelation"> श्री</span>-->
+<!--                        <ng-template #customerRelation>-->
+<!--                        <span *ngIf="loanHolderInfo?.relationMedium !== undefined && (loanHolderInfo?.relationMedium?.en === '1' || loanHolderInfo?.relationMedium?.en === 1)">-->
+<!--                            सुश्री-->
+<!--                        </span>-->
+<!--                            <span *ngIf="loanHolderInfo?.relationMedium !== undefined && (loanHolderInfo?.relationMedium?.en === '0' || loanHolderInfo?.relationMedium?.en === 0)">-->
+<!--                          श्रीमती-->
+<!--                        </span>-->
+<!--                        </ng-template>-->
                         <span [ngClass]="{'font-weight-bold': loanHolderInfo?.name !== null && loanHolderInfo?.name !== ''}">
                             {{loanHolderInfo?.name === null || loanHolderInfo?.name === '' ? '___________' : loanHolderInfo?.name.ct}}
                         </span>
@@ -119,7 +129,7 @@
                     <tr>
                         <td><strong> सुरक्षणः </strong></td>
                         <td colspan="2"> ऋणकर्जा उपयोग गर्नु अगावै ऋणकर्जाको सुरक्षण स्वरुप
-                            <ng-container *ngIf="this.letter.securityType.en === 'LAND' "> बैंकको पक्षमा सुरक्षण
+                            <ng-container *ngIf="securityTypeCondition"> बैंकको पक्षमा सुरक्षण
                                 महलमा उल्लिखित घर/जग्गा तथा
                             </ng-container>
                             प्रशोधित वा अर्ध प्रशोधित कच्चा
@@ -130,31 +140,34 @@
                             धितोबन्धक/दृष्टिबन्धक/रोक्का गरिदिनु पर्नेछ ।
                         </td>
                     </tr>
-                    <tr *ngIf="this.letter.securityType.en === 'LAND & BUILDING' || this.letter.securityType.en === 'FIXED ASSETS' || this.letter.securityType.en === 'STOCK'">
+                    <tr>
                         <td><strong> ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power) </strong></td>
-                        <td colspan="2" *ngIf="this.letter.securityType.en === 'LAND & BUILDING'"> कर्जाको सुरक्षण वापत
+                        <td colspan="2">
+                            <span *ngIf="securityTypeCondition"> कर्जाको सुरक्षण वापत
                             बैंकको पक्षमा धितोबन्धक पारित/रोक्का गरिदिने
                             घर/जग्गाको बैंकको आधिकारिक मुल्याङकनकर्ताद्वारा उद्घोषित मोटर बाटो भएको (Motorable Road
                             access)
                             को हकमा बजार मुल्य (Market Value) को <span
-                                    [ngClass]="{'font-weight-bold': letter?.marginInPercentageMotor.ct !== null && letter?.marginInPercentageMotor.ct !== ''}">
-                                        {{letter?.marginInPercentageMotor.ct === null || letter?.marginInPercentageMotor.ct === "" ? "___________" : letter?.marginInPercentageMotor.ct}}
+                                    [ngClass]="{'font-weight-bold': letter?.securities.primarySecurity[0].marginInPercentageMotorCT !== null && letter?.securities.primarySecurity[0].marginInPercentageMotorCT !== ''}">
+                                        {{letter?.securities.primarySecurity[0].marginInPercentageMotorCT === null || letter?.securities.primarySecurity[0].marginInPercentageMotorCT === "" ? "___________" : letter?.securities.primarySecurity[0].marginInPercentageMotorCT}}
                                         </span>
+
                             प्रतिशत वा गोरेटो बाटो भएको (Foot trail access)
                             को हकमा बजार मुल्य (Market value) को <span
-                                    [ngClass]="{'font-weight-bold': letter?.marginInPercentageFoot.ct !== null && letter?.marginInPercentageFoot.ct !== ''}">
-                                        {{letter?.marginInPercentageFoot.ct === null || letter?.marginInPercentageFoot.ct === "" ? "___________" : letter?.marginInPercentageFoot.ct}}
+                                    [ngClass]="{'font-weight-bold': letter?.securities.primarySecurity[0].marginInPercentageFootCT !== null && letter?.securities.primarySecurity[0].marginInPercentageFootCT !== ''}">
+                                        {{letter?.securities.primarySecurity[0].marginInPercentageFootCT === null || letter?.securities.primarySecurity[0].marginInPercentageFootCT === "" ? "___________" : letter?.securities.primarySecurity[0].marginInPercentageFootCT}}
                                         </span>
                             प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ ।
-                        </td>
-                        <td *ngIf="this.letter.securityType.en === 'FIXED ASSETS' || this.letter.securityType.en === 'STOCK'">
+                            </span>
+                        <span *ngIf="!securityTypeCondition">
                             सुरक्षण महलमा उल्लिखित सामानहरुको मौज्दात, उपकरण लगायत परियोजना संग सम्बन्धित सम्पूर्ण
                             चल
                             अचल सम्पत्तीहरुको मुल्यको <span
-                                [ngClass]="{'font-weight-bold': letter?.marginInPercentage.ct !== null && letter?.marginInPercentage.ct !== ''}">
-                                        {{letter?.marginInPercentage.ct === null || letter?.marginInPercentage.ct === "" ? "___________" : letter?.marginInPercentage.ct}}
+                                [ngClass]="{'font-weight-bold': letter?.securities.primarySecurity[0].marginInPercentageCT !== null && letter?.securities.primarySecurity[0].marginInPercentageCT !== ''}">
+                                        {{letter?.securities.primarySecurity[0].marginInPercentageCT === null || letter?.securities.primarySecurity[0].marginInPercentageCT === "" ? "___________" : letter?.securities.primarySecurity[0].marginInPercentageCT}}
                                         </span> प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये
                             जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ ।
+                        </span>
                         </td>
                     </tr>
                     <tr>
@@ -191,44 +204,45 @@
                     </tr>
                     <tr>
                         <td><strong>कर्जा अवधिः</strong></td>
-                        <td colspan="2"><span class="font-weight-bold"
+                        <td colspan="2">कर्जा निकाशा भएको मितिले<span class="font-weight-bold"
                                               [ngClass]="{'nepaliFont outside' : letter?.totalTenureOfLoan.ct=== null && letter?.totalTenureOfLoan.ct!== ''}">
                                 {{letter?.totalTenureOfLoan.ct === null || letter?.totalTenureOfLoan.ct === '' ? '___________' : letter?.totalTenureOfLoan.ct}}</span>
                             बर्ष सम्मको लागि मात्र ।
                         </td>
                     </tr>
-                    <tr *ngIf="this.letter.securityType.en === 'LAND & BUILDING' || this.letter.securityType.en === 'LAND' || this.letter.securityType.en === 'FIXED ASSETS' || this.letter.securityType.en === 'STOCK'">
+                    <tr>
                         <td><strong>कर्जा प्रवाह तरिकाः</strong></td>
-                        <td colspan="2"
-                            *ngIf="this.letter.securityType.en === 'LAND & BUILDING' || this.letter.securityType.en === 'LAND'">
+                        <td colspan="2">
+                            <span *ngIf="securityTypeCondition">
                             सुरक्षण महलमा उल्लिखित घर/जग्गा बैंकको पक्षमा धितो बन्धक पारित रोक्का
                             गरिदिनुका
                             साथै ऋणीले ऋणकर्जा संग सम्बन्धित सम्पूर्ण कागजातहरु सहिछाप गरिसके पश्चात
                             सो घर/जग्गाको बैंकको आधिकारिक मुल्याङकनकर्ताद्वारा उद्घोषित मोटर बाटो भएको (Motorable
                             Road access)
                             को हकमा बजार मुल्य (Market Value) को <span
-                                [ngClass]="{'font-weight-bold': letter?.marginInPercentageMotor.ct !== null && letter?.marginInPercentageMotor.ct !== ''}">
-                                        {{letter?.marginInPercentageMotor.ct === null || letter?.marginInPercentageMotor.ct === "" ? "___________" : letter?.marginInPercentageMotor.ct}}
+                                [ngClass]="{'font-weight-bold': letter?.securities.primarySecurity[0].marginInPercentageMotorCT !== null && letter?.securities.primarySecurity[0].marginInPercentageMotorCT !== ''}">
+                                        {{letter?.securities.primarySecurity[0].marginInPercentageMotorCT === null || letter?.securities.primarySecurity[0].marginInPercentageMotorCT === "" ? "___________" : letter?.securities.primarySecurity[0].marginInPercentageMotorCT}}
                                         </span> । प्रतिशत वा
                             गोरेटो बाटो भएको (Foot trail access) को हकमा बजार मुल्य (Market Value) को
-                            <span [ngClass]="{'font-weight-bold': letter?.marginInPercentageFoot.ct !== null && letter?.marginInPercentageFoot.ct !== ''}">
-                                        {{letter?.marginInPercentageFoot.ct === null || letter?.marginInPercentageFoot.ct === "" ? "___________" : letter?.marginInPercentageFoot.ct}}
+                            <span [ngClass]="{'font-weight-bold': letter?.securities.primarySecurity[0].marginInPercentageFootCT !== null && letter?.securities.primarySecurity[0].marginInPercentageFootCT !== ''}">
+                                        {{letter?.securities.primarySecurity[0].marginInPercentageFootCT === null || letter?.securities.primarySecurity[0].marginInPercentageFootCT === "" ? "___________" : letter?.securities.primarySecurity[0].marginInPercentageFootCT}}
                                         </span>। प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो
                             बरावर रकम तपाईंको निवेदन बमोजिम यस बैंकमा खोल्नु भएको चल्ती खातामा प्रवाह गरिनेछ ।
-                        </td>
-                        <td *ngIf="this.letter.securityType.en === 'FIXED ASSETS'">
+                        </span>
+                        <span *ngIf="!securityTypeCondition">
                             ऋणीले ऋणकर्जा संग सम्बन्धित सम्पूर्ण कागजातहरु सहिछाप गरिसके पश्चात सुरक्षण महलमा
                             उल्लिखित सामानहरुको मौज्दात,
-                            उपकरण लगायत परियोजना संग सम्बन्धित सम्पूर्ण चल अचल सम्पत्तीहरुको मुल्यको ‘।
-                            <span [ngClass]="{'font-weight-bold': letter?.marginInPercentage.ct !== null && letter?.marginInPercentage.ct !== ''}">
-                                        {{letter?.marginInPercentage.ct === null || letter?.marginInPercentage.ct === "" ? "___________" : letter?.marginInPercentage.ct}}
+                            उपकरण लगायत परियोजना संग सम्बन्धित सम्पूर्ण चल अचल सम्पत्तीहरुको मुल्यको
+                            <span [ngClass]="{'font-weight-bold': letter?.securities.primarySecurity[0].marginInPercentageCT !== null && letter?.securities.primarySecurity[0].marginInPercentageCT !== ''}">
+                                        {{letter?.securities.primarySecurity[0].marginInPercentageCT === null || letter?.securities.primarySecurity[0].marginInPercentageCT === "" ? "___________" : letter?.securities.primarySecurity[0].marginInPercentageCT}}
                                         </span>
                             प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ ।
+                        </span>
                         </td>
                     </tr>
                 </table>
             </div>
-            <p>द्रष्टब्यः माथि उल्लेखित ऋणकर्जा सुविधाहरु सहुलियतपुर्ण कर्जा हुन् । सहुलियतपुर्ण कर्जाका लागि ब्याज
+            <p style="padding-left: 1em">द्रष्टब्यः माथि उल्लेखित ऋणकर्जा सुविधाहरु सहुलियतपुर्ण कर्जा हुन् । सहुलियतपुर्ण कर्जाका लागि ब्याज
                 अनुदान सम्बन्धि एकिकृत कार्यविधि,
                 २०७५, दोस्रो संशोधन, २०७६ र तेस्रो संशोधन, २०७७ बमोजिमको हुन आउने अनुदान ब्याज भुक्तानीका लागि नेपाल
                 राष्ट्र बैंक समक्ष
@@ -243,20 +257,23 @@
                 साथै अघिल्लो प्रदान गरिएका अनुदानहरु पनि फिर्ता माग गर्ने बैंकको अधिकार सुरक्षित रहेनछ ।
             </p><br>
             <div class="service-contions mt-5">
-                <div class="col-sm-12"
-                     *ngIf="this.letter.securityType.en === 'LAND' || this.letter.securityType.en === 'FIXED ASSETS' || this.letter.securityType.en === 'STOCK'">
+                <div class="col-sm-12">
                     <ol class="conditions-list orderd-list">
                         <strong><u>सुरक्षण विवरण: </u></strong>
 
                         <p>
                             <strong><u>क. प्राथमिक/थप सुरक्षण (Primary/Secondary Security)</u></strong>
                         </p>
-                        <li *ngIf="this.letter.securityType.en === 'LAND & BUILDING'"><strong> </strong>
+                        <li *ngIf="securityTypeCondition"><strong> </strong>
                             <strong>घर/जग्गा धितोेबन्धक हकाधिकार </strong>(Mortgage Charges):(Applicable if Land & building has
                             been purposed in approved CFR)<br>
                             स्वीकृत ऋणकर्जा प्रवाह गर्नु अगावै ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा देहाय
                             बमोजिमको घर/जग्गा धितोबन्धक पारित/रोक्का गरिदिनु पर्नेछ ।
-                            <table class="table table-bordered table-hover hello">
+                            <div class="pb-4">
+                                <app-master-securities-view
+                                        [securityDetails]="tempData?.securities"></app-master-securities-view>
+                            </div>
+                            <!--<table class="table table-bordered table-hover hello">
                                 <tr>
                                     <td rowspan="2">घर/जग्गा धनीको नाम थर (Land Owner Name)</td>
                                     <td colspan="3">घर/जग्गाको अवस्थिति</td>
@@ -278,9 +295,9 @@
                                     <td></td>
                                     <td></td>
                                 </tr>
-                            </table>
+                            </table>-->
                         </li>
-                        <li *ngIf="this.letter.securityType.en === 'FIXED ASSETS'"><strong> सामान मौज्दात धितोेबन्धक
+                        <li *ngIf="securityTypeConditionFixedAssests"><strong> सामान मौज्दात धितोेबन्धक
                             हकाधिकार </strong>(Hypothecation Charges)
                             <br>
                             बैंकबाट प्राप्त कर्जा वा सुविधा तथा ऋणीको आफ्नै श्रोत समेतबाट खरिद गरेको जहासुकै
@@ -290,7 +307,7 @@
                             मौज्दात, टहरा, उपकरण लगायत परियोजना संग सम्बन्धित सम्पूर्ण चल अचल सम्पत्तिहरु यस
                             बैंकको पक्षमा धितोबन्धक हकाधिकार कायम गरिदिनु पर्नेछ ।
                         </li>
-                        <li>
+                        <li *ngIf="securityTypeConditionDocuments">
                             <strong> हस्तान्तरण </strong>-(Assignment):<br>
                             ऋणीले आफ्ना आसामीबाट भुक्तानी प्राप्त गर्न बांकि रकमहरु (Account Receivables)
                             बैंकले संकलन गर्न सक्ने अख्तियारनामा हस्तान्तरण गरिदिनु पर्नेछ ।
@@ -302,9 +319,9 @@
                             guarantorParse(guarantorData[0].nepData, "gurantedAmount")
                             }}
                                             </span>
-                            /-(अक्षरेपि रु.
+                            /- (अक्षरेपि रु.
                             <span class="font-weight-bold">{{nepaliCurrencyWordPipe.transform(guarantorParse(guarantorData[0].nepData, "gurantedAmount", "en"))}}</span>
-                            मात्र)
+                            /- मात्र)
                             बराबरको <span class="font-weight-bold">
                                             {{ commonGuarantorDetails(personalGuarantorsName, finalPersonalName) }}
                                             </span>
@@ -314,7 +331,7 @@
                 </div>
             </div>
             <div>
-                <div class="col-sm-12">
+                <div class="col-sm-12 pageBreak">
                     <ol class="conditions-list orderd-list">
                         <strong>व्याज सम्बन्धी शर्तहरु: </strong>
                         <li>हरेक त्रैमास (आषाढ, आश्विन, पौष र चैत्र मसान्त) को समाप्ति पश्चात बैंकको
@@ -529,7 +546,7 @@
 
                         <ol class="conditions-list orderd-list">
                             <strong><u>सुरक्षणहरु सम्बन्धित शर्तहरु </u></strong><br>
-                            <ng-container *ngIf="this?.letter?.securityType.en === 'LAND & BUILDING' ">
+                            <ng-container *ngIf="securityTypeCondition">
                                 <strong><u>घर तथा जग्गा धितोे सुरक्षण </u></strong>
                                 <li> माथि उल्लिखित घर/जग्गा बैंकको पक्षमा धितोेबन्धक पारित गर्दा
                                     लाग्ने सरकारी राजश्व, दै दस्तुर
@@ -590,7 +607,7 @@
                     </div>
 
                 </div>
-                <div *ngIf="this.letter.securityType.en === 'FIXED ASSETS'">
+                <div *ngIf="securityTypeConditionFixedAssests">
                     <ol class="conditions-list orderd-list">
                         <strong><u>सामानको मौज्दात सुरक्षण र भुक्तानी प्राप्त गर्न बाँकी रकमहरुका
                             लागि </u></strong>
@@ -619,7 +636,7 @@
             <div mt-5>
                 <ol class="conditions-list orderd-list" style="padding-left: 2em">
                     <strong><u>बिमा सम्बन्धी शर्तहरु </u></strong>
-                    <li *ngIf="this.letter.securityType.en === 'STOCK'">ऋणीले आफ्नोे खर्चमा आगलागी, भुकम्प, दंगा/हड्ताल,
+                    <li *ngIf="securityTypeConditionStock">ऋणीले आफ्नोे खर्चमा आगलागी, भुकम्प, दंगा/हड्ताल,
                         दुर्भावनापूर्ण क्षति र
                         आतंकवाद आदी जस्ता
                         जोखिमहरुबाट सुरक्षित गरिएको “बैंकिङ्ग शर्त”
@@ -633,7 +650,7 @@
                         बिमा गरीएको हुनु
                         पर्नेछ.
                     </li>
-                    <li *ngIf="this.letter.securityType.en === 'FIXED ASSETS' || letter.securityType.en === 'ASSETS PLANTS MACHINERY & OTHER EQUIPMENTS'">
+                    <li *ngIf="securityTypeConditionFixedAssests || securityTypeConditionAssestsPlants">
                         ऋणीले आफ्नोे खर्चमा आगलागी, भुकम्प, दंगा/हड्ताल, दुर्भावनापूर्ण क्षति र
                         आतंकवाद आदी जस्ता
                         जोखिमहरुबाट सुरक्षित गरिएको “बैंकिङ्ग शर्त”
@@ -644,7 +661,7 @@
                         नबिकरण/अध्यावधिक गराइएको बिमा
                         लेख बैकमा पेश गर्नुपर्नेछ ।
                     </li>
-                    <li *ngIf="this?.letter?.securityType.en === 'LAND & BUILDING'">
+                    <li *ngIf="securityTypeConditionLandAndBuilding">
                         ऋणीले आफ्नोे खर्चमा आगलागी, भुकम्प/दंगा/हड्ताल/दुर्भावनापूर्ण क्षति र
                         आतंकवाद आदी जस्ता
                         जोखिमहरुबाट सुरक्षित गरीएको “बैंकिङ्ग शर्त”
@@ -655,7 +672,7 @@
                         लागत/बजार मूल्य भन्दा कम
                         हुनु हुने छैन् ।
                     </li>
-                    <li> ऋणीले आफ्नोे खर्चमा आगलागी, भुकम्प, दंगा/हड्ताल, दुर्भावनापूर्ण क्षति र
+                    <li *ngIf="securityTypeConditionLiveStocks"> ऋणीले आफ्नोे खर्चमा आगलागी, भुकम्प, दंगा/हड्ताल, दुर्भावनापूर्ण क्षति र
                         आतंकवाद आदी जस्ता
                         जोखिमहरुबाट सुरक्षित
                         गरीएको “बैंकिङ्ग शर्त” (Bankers Clause) सहितको बैंकको पक्षमा
@@ -961,7 +978,8 @@
                             बैंकिङ्ग सुविधा प्रशासित तथा सँचालित हुने
                             कुरामा समेत ऋणी/ऋणी फर्म/ऋणी कम्पनी/ऋणी संस्था मञ्जुर गर्दछ ।
                         </li>
-                        <li> तहां फर्मको दर्ता प्रमाणपत्रको अवधि समाप्त हुन अगावै सम्बन्धित
+                        <li *ngIf="cadOfferLetterApprovedDoc.loanHolder['customerSubType'] === 'PROPRIETORSHIP' || cadOfferLetterApprovedDoc.loanHolder['customerSubType'] === 'PARTNERSHIP'">
+                            तहां फर्मको दर्ता प्रमाणपत्रको अवधि समाप्त हुन अगावै सम्बन्धित
                             कार्यालयबाट नविकरण गर्ने
                             दायित्व ऋणी फर्मका प्रोप्राईटर/साझेदारहरुको हुनेछ र
                             नविकरण पश्चात सोको प्रतिलिपि यस बैंकमा पेश गर्नु पर्नेछ । दर्ता
@@ -979,7 +997,7 @@
             </div>
 
             <div mt-5>
-                <ol class="conditions-list orderd-list" style="padding-left: 2em">
+                <ul class="conditions-list orderd-list" style="padding-left: 2em">
                     <strong><u>कागजपत्रहरु </u></strong>
 
                     <li> ऋणीले बैंकको <span class="font-weight-bold">{{ branchName }}</span> शाखामा सम्पर्क राखी देहाय
@@ -992,7 +1010,7 @@
                     </li>
                     <li> रु.<span class="font-weight-bold">
                                                 {{ engToNepNumberPipe.transform(currencyFormatPipe.transform(proposedAmount))}}
-                                            </span> मात्र )(बराबरको प्रतिज्ञा पत्र (Promissory
+                                            </span>/- मात्र )(बराबरको प्रतिज्ञा पत्र (Promissory
                         Note)
                     </li>
                     <li>निरन्तरताको लिखत (Letter of Continuity )</li>
@@ -1002,9 +1020,8 @@
                             currencyFormatPipe.transform(proposedAmount)
                         )
                         }}
-                                            </span>।(बराबरकोे पूरक सम्झौता (Supplementary Agreement)
-                        सहित श्री(सम्पत्ति
-                        धितोरसुरक्षण लेखीदिएको गोश्वारा(General Letter of Hypothecation)
+                                            </span>/- ( को श्री(सम्पत्ति धितोरसुरक्षण लेखीदिएको गोश्वारा(General Letter of Hypothecation)
+                        सहित पूरक सम्झौता (Supplementary Agreement)
                     </li>
                     <li> रु.<span class="font-weight-bold">
                                             {{
@@ -1012,7 +1029,7 @@
                             currencyFormatPipe.transform(proposedAmount)
                         )
                         }}
-                                            </span>।(बराबरकोे वारेसनामा (Power of Attorney) सहित
+                                            </span>/- (बराबरकोे वारेसनामा (Power of Attorney) सहित
                         भुक्तानी प्राप्त गर्न
                         बांकी रकम संकलन गर्ने अख्तियारनामा (Assignment of Receivables) ।
                     </li>
@@ -1022,31 +1039,21 @@
                             currencyFormatPipe.transform(proposedAmount)
                         )
                         }}
-                                            </span>।(बराबरको ऋणतमसुक (Loan Deed).
+                                            </span>/- (बराबरको ऋणतमसुक (Loan Deed).
                     </li>
-                    <li> रु.<span class="font-weight-bold">
-                                            {{
-                        engToNepNumberPipe.transform(
-                            currencyFormatPipe.transform(proposedAmount)
-                        )
-                        }}
-                                            </span> (बराबरको <ng-container *ngIf="loanHolderInfo?.gender?.en === 'MALE' else nameDetails"> श्री</ng-container>
-                        <ng-template #nameDetails>
-                        <ng-container *ngIf="loanHolderInfo?.relationMedium !== undefined && loanHolderInfo?.relationMedium?.en === '0'">
-                            श्रीमती
-                        </ng-container>
-                            <ng-container *ngIf="loanHolderInfo?.relationMedium !== undefined && loanHolderInfo?.relationMedium?.en === '1'">
-                          सुश्री
-                        </ng-container>
-                        </ng-template>
+                    <li *ngFor="let personalGuarantor of tempPersonalGuarantors"> रु.<span class="font-weight-bold">
+                                            {{personalGuarantor.gurantedAmount.ct}}
+                                            </span>/- (बराबरको
+                        {{personalGuarantor.gender.en === 'FEMALE' && personalGuarantor.relationMedium.en === '0' ? 'श्रीमती' : (personalGuarantor.gender.en === 'FEMALE' && personalGuarantor.relationMedium.en === '1' ? 'सुश्री' : personalGuarantor.gender.en === 'MALE' ? 'श्रीमान्' : '')}}
                         <span class="font-weight-bold">
-                                            {{ commonGuarantorDetails(personalGuarantorsName, finalPersonalName) }}
+                            {{personalGuarantor.guarantorName.ct}}
+                                            <!--{{ commonGuarantorDetails(personalGuarantorsName, finalPersonalName) }}-->
                                             </span> ले बैंकको पक्षमा लेखिदिनुपर्ने
                         व्यक्तिगत जमानत (Personal Guarantee)
                     </li>
                     <li> जमानीकर्ताको सम्पत्ति विवरण (wealth statement of Guarantor)
                     </li>
-                    <li> बबहु बैंकिङ्ग घोषणापत्र (Multiple Banking Declaration)
+                    <li> बहु बैंकिङ्ग घोषणापत्र (Multiple Banking Declaration)
                     </li>
                     <li>ऋणी फर्मले यस बैंकको ऋणकर्जा सुविधा समेत गरी अन्य बैंक तथा वित्तिय
                         संस्थाबाट रु.१ करोड भन्दा बढी
@@ -1059,7 +1066,7 @@
                     <li *ngIf="freeInformation?.thirdText">
                         <span style="font-size: 29px" class="nepaliFont">{{freeInformation ? freeInformation.thirdText : ''}}</span>
                     </li>
-                </ol>
+                </ul>
             </div>
             <p style="padding-left: 2em">
                 यो ऋण स्वीकृति पत्रमा उल्लिखित मितिबाट ३० (तिस) दिनभित्र यस ऋणस्वीकृति पत्र साथ
@@ -1083,7 +1090,7 @@
                               [ngClass]="{'nepaliFont outside' : letter?.nameOfStaff.ct!== null && letter?.nameOfStaff.ct!== ''}">
             {{letter?.nameOfStaff.ct === null || letter?.nameOfStaff.ct === '' ? '___________' : letter?.nameOfStaff.ct}}</span>
                         <br>
-                        <span class="nepaliFont" style="font-size: 29px">{{freeInformation ? freeInformation.autoPopulate1 : 'सम्पर्क अधिकृत'}}</span>
+                        <span class="nepaliFont" style="font-size: 19px">{{freeInformation ? freeInformation.autoPopulate1 : 'सम्पर्क अधिकृत'}}</span>
                         <br>
                         नबिल बैंक लि.
                         <br>
@@ -1098,7 +1105,7 @@
                               [ngClass]="{'nepaliFont outside' : letter?.nameOfBranchManager.ct!== null && letter?.nameOfBranchManager.ct!== ''}">
                                 {{letter?.nameOfBranchManager.ct === null || letter?.nameOfBranchManager.ct === '' ? '___________' : letter?.nameOfBranchManager.ct}}</span>
                         <br>
-                        <span style="font-size: 29px" class="nepaliFont">
+                        <span style="font-size: 19px" class="nepaliFont">
                             {{freeInformation ? freeInformation.autoPopulate2 : 'शाखा प्रबन्धक/बरिष्ठ सम्पर्क प्रबन्धक'}}</span>
                         <br>
                         नबिल बैंक लि.
@@ -1227,16 +1234,18 @@
                     </li>
                 </ol>
             </div>
-            <div style="margin-left:80%; margin-top:2em">
-
-                .........................................
-                <p>
-                    आधिकारिक हस्ताक्षर (ऋणी)
-                </p>
-                <br>
-                <p>
-                    मिति: ...................................
-                </p>
+            <div class="col-md-12 d-flex justify-content-between">
+                <div class="left-content"></div>
+                <div class="right-content">
+                    .............................
+                    <p>
+                        आधिकारिक हस्ताक्षर (ऋणी)
+                    </p>
+                    <br>
+                    <p>
+                        मिति: .............................
+                    </p>
+                </div>
             </div>
             <br>
             <div class="col-md-12" style="padding-left: 2em">
@@ -1244,11 +1253,14 @@
                     साक्षीः
                 </p>
                 <ul class="nepaliList">
-                    <app-sakhshi-common></app-sakhshi-common>
+                    <li>
+                        ___________________ जिल्ला _____________________
+                        गा.वि.स./न.पा.,वडा नं. _______ बस्ने श्री ___________________________________________
+                    </li>
                     <li>
                         कारणीले प्रस्तुत लिखत मेरो सामुन्ने सही छाप गरेको हो भनी सनाखत गर्ने नबिल
                         बैंक लि. का कर्मचारी श्री
-                        ____________________________
+                        ___________________________________________
                     </li>
                 </ul>
             </div>

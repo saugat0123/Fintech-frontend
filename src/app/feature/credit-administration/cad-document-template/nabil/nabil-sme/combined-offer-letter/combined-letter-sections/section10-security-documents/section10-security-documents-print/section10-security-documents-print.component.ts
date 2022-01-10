@@ -62,6 +62,7 @@ export class Section10SecurityDocumentsPrintComponent implements OnInit {
                private currencyFormatPipe: CurrencyFormatterPipe) { }
 
   ngOnInit() {
+    console.log('Free Text:', this.freeText);
     if (!ObjectUtil.isEmpty(this.customerApprovedDoc)) {
       this.guarantorData = this.customerApprovedDoc.assignedLoan[0].taggedGuarantors;
       this.loanHolderInfo = JSON.parse(this.customerApprovedDoc.loanHolder.nepData);

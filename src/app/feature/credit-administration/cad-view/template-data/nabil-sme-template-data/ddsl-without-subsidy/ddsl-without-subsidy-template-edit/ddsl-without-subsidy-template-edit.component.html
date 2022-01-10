@@ -690,6 +690,9 @@
                 <app-common-security-section-primary #primarySecurity [customerApprove]="customerApprovedDoc" [isEdit]="true"></app-common-security-section-primary>
                 <hr>
                 <app-common-security-section-secondary #secondarySecurity [customerApprove]="customerApprovedDoc" [isEdit]="true"></app-common-security-section-secondary>
+                <hr>
+                <!-- Required Document Section -->
+                <app-required-legal-document-section #requiredLegalDocument></app-required-legal-document-section>
             </div>
             <!--<div *ngIf="ddslFormGroup.get('securityType').value === 'LAND' || ddslFormGroup.get('securityType').value === 'LAND_AND_BUILDING'">
                 <div class="row">

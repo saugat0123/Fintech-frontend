@@ -10,7 +10,7 @@
                             <p class="lh-30">
                                 लिखितम् काठमाण्डौ जिल्ला काठमाण्डौ महानगरपालिका बीणा मार्ग तीनधारा दरवारर्मा स्थित नबिल
                                 सेन्टरमा मूख्य कार्यालय रहि
-                                <input class="form-field form-control-sm d-print-none nepaliFont"
+                                <input class="form-field form-control-sm d-print-none"
                                        name="branchName"
                                        formControlName="branchName" placeholder="शाखा कार्यालय" type="text"/>
                                 <span class="print-only nepaliFont font-size-normal">{{form.get(['guarantorsPartnership', i, 'branchName']).value || "==========================="}}</span>
@@ -19,51 +19,82 @@
                                 (जसलाई यस उप्रान्त <strong>“धनी बैंक”</strong> भनिएको छ ) को पक्षमा व्यक्तिगत जमानतको
                                 लिखत
                                 गरी दिने <strong> तपसिल खण्ड “ख”</strong> मा उल्लिखित व्यक्ति/हरु जसलाई यस उप्रान्त
-                                <strong>“जमानतदिने”</strong> भनिएको छ आगे|
-                                <input class="form-field form-control-sm d-print-none nepaliFont" name="actDetails"
+                                <strong>“जमानतदिने”</strong> भनिएको छ आगे, <br>
+                                <input class="form-field form-control-sm d-print-none" name="actDetails"
                                        formControlName="actDetails" placeholder="" type="text"/>
                                 <span class="print-only nepaliFont font-size-normal">{{form.get(["guarantorsPartnership", i, "actDetails"]).value || "==========================="}}</span>
                                 ऐन
-                                २०<input class="form-field form-control-sm d-print-none nepaliFont"
+                                <input class="form-field form-control-sm d-print-none"
                                          name="actYearInFigure"
                                          formControlName="actYearInFigure" placeholder="" type="text"/>
                                 <span class="print-only nepaliFont font-size-normal">{{form.get(["guarantorsPartnership", i, "actYearInFigure"]).value || "==========================="}}</span>
-                                बमोजिम नेपाल सरकार <input class="form-field form-control-sm d-print-none nepaliFont"
+                                बमोजिम नेपाल सरकार <input class="form-field form-control-sm d-print-none"
                                                          name="headDepartment"
                                                          formControlName="headDepartment" placeholder="" type="text"/>
                                 <span class="print-only nepaliFont font-size-normal">{{form.get(["guarantorsPartnership", i, "headDepartment"]).value || "==========================="}}</span>
-                                विभाग/कार्यालयमा मिति <input class="form-field form-control-sm d-print-none nepaliFont"
+                                विभाग/कार्यालयमा मिति <input class="form-field form-control-sm d-print-none"
                                                              name="registrationDate"
                                                              formControlName="registrationDate" placeholder=""
                                                              type="text"/>
                                 <span class="print-only nepaliFont font-size-normal">{{form.get(["guarantorsPartnership", i, "registrationDate"]).value || "==========================="}}</span>
-                                मा नं. <input class="form-field form-control-sm d-print-none nepaliFont"
+                                मा नं. <input class="form-field form-control-sm d-print-none"
                                               name="registrationNo"
                                               formControlName="registrationNo" placeholder="" type="text"/>
                                 <span class="print-only nepaliFont font-size-normal">{{form.get(["guarantorsPartnership", i, "registrationNo"]).value || "==========================="}}</span>
-                                अन्तर्गत दर्ता भई <input class="form-field form-control-sm d-print-none nepaliFont"
-                                                         name="location"
-                                                         formControlName="location" placeholder="" type="text"/>
-                                <span class="print-only nepaliFont font-size-normal">{{form.get(["guarantorsPartnership", i, "location"]).value || "==========================="}}</span>
-                                मा कार्यालय रहेको श्री <input class="form-field form-control-sm d-print-none nepaliFont"
+                                अन्तर्गत दर्ता भई
+                                <span>
+                                    <input class="form-field form-control-sm d-print-none" name="registeredDistrict"
+                                           formControlName="registeredDistrict" placeholder="" type="text"/>
+                                    <span class="print-only">{{form.get(["guarantorsPartnership", i, "registeredDistrict"]).value || '_____________________'}}</span>
+                                    जिल्ला,
+                                </span>
+                                <input class="form-field form-control-sm d-print-none" name="municipalityOfFirm"
+                                       formControlName="municipalityOfFirm" placeholder="" type="text"/>
+                                <span *ngIf="this.loanHolderNepData.registeredMunType.en === '0'">
+                                    न.पा. ,
+                                </span>
+                                <span *ngIf="this.loanHolderNepData.registeredMunType.en === '1'">
+                                    गा.वि.स. ,
+                                </span>
+                                <span *ngIf="this.loanHolderNepData.registeredMunType.en === '2'">
+                                    गाँउपालिका ,
+                                </span>
+                                <span class="print-only">{{form.get(["guarantorsPartnership", i, "municipalityOfFirm"]).value || '_____________________'}}</span>
+                                <span *ngIf="this.loanHolderNepData.registeredMunType.en === '0'" class="print-only">
+                                    न.पा. ,
+                                </span>
+                                <span *ngIf="this.loanHolderNepData.registeredMunType.en === '1'" class="print-only">
+                                    गा.वि.स. ,
+                                </span>
+                                <span *ngIf="this.loanHolderNepData.registeredMunType.en === '2'" class="print-only">
+                                    गाँउपालिका ,
+                                </span>
+                                वडा नं
+                                <input class="form-field form-control-sm d-print-none" name="wardNumOfFirm"
+                                       formControlName="wardNumOfFirm" placeholder="" type="text"/>
+                                <span class="print-only">{{form.get(["guarantorsPartnership", i, "wardNumOfFirm"]).value || '_____________________'}}</span>,
+                                <input class="form-field form-control-sm d-print-none" name="addressOfFirm"
+                                       formControlName="addressOfFirm" placeholder="" type="text"/>
+                                <span class="print-only">{{form.get(["guarantorsPartnership", i, "addressOfFirm"]).value || '_____________________'}}</span>
+                                मा कार्यालय रहेको श्री <input class="form-field form-control-sm d-print-none"
                                                               name="loaneeName"
                                                               formControlName="loaneeName" placeholder="" type="text"/>
                                 <span class="print-only nepaliFont font-size-normal">{{form.get(["guarantorsPartnership", i, "loaneeName"]).value || "==========================="}}</span>
                                 (जसलाई यस उप्रान्त <strong>“ऋणी”</strong> भनिएको छ)
-                                लाई <input class="form-field form-control-sm d-print-none nepaliFont" name="loanPurpose"
+                                लाई <input class="form-field form-control-sm d-print-none" name="loanPurpose"
                                            formControlName="loanPurpose" placeholder="" type="text"/>
                                 <span class="print-only nepaliFont font-size-normal">{{form.get(["guarantorsPartnership", i, "loanPurpose"]).value || "==========================="}}</span>
                                 गर्न ऋणकर्जा सुविधाहरु आवश्यकत्ता भई सोको लागि ऋणीले तपाई धनी बैंकसंग अनुरोध गरेकोमा
                                 तपाई धनी बैंकबाट निज ऋणीको नाममा जारी भएको
-                                मिति <input class="form-field form-control-sm d-print-none nepaliFont"
+                                मिति <input class="form-field form-control-sm d-print-none"
                                             name="letterIssuedDate"
                                             formControlName="letterIssuedDate" placeholder="" type="text"/>
                                 <span class="print-only nepaliFont font-size-normal">{{form.get(["guarantorsPartnership", i, "letterIssuedDate"]).value || "==========================="}}</span>
                                 को ऋण स्विकृति पत्रानुसार स्विकृत विभिन्न ऋणकर्जा तथा बैकिंग सुविधाहरु जम्मा
-                                रु.<input class="form-field form-control-sm d-print-none nepaliFont" name="loanAmount"
+                                रु.<input class="form-field form-control-sm d-print-none" name="loanAmount"
                                           formControlName="loanAmount" placeholder="" type="text"/>
                                 <span class="print-only nepaliFont font-size-normal">{{form.get(["guarantorsPartnership", i, "loanAmount"]).value || "==========================="}}</span>।
-                                (अक्षरेपी <input class="form-field form-control-sm d-print-none nepaliFont"
+                                (अक्षरेपी <input class="form-field form-control-sm d-print-none"
                                                  name="loanAmountInWord"
                                                  formControlName="loanAmountInWord" placeholder="" type="text"/>
                                 <span class="print-only nepaliFont font-size-normal">{{form.get(["guarantorsPartnership", i, "loanAmountInWord"]).value || "==========================="}}</span>)
@@ -115,11 +146,11 @@
                                 <ol class="conditions">
                                     <li>
                                         यस जमानतको लिखत बमोजिम जमानत दिनेको दायित्व सांवा रकम रु.<input
-                                            class="form-field form-control-sm d-print-none nepaliFont"
+                                            class="form-field form-control-sm d-print-none"
                                             name="approvedLoanAmount"
                                             formControlName="approvedLoanAmount" placeholder="" type="text"/>
                                         <span class="print-only nepaliFont font-size-normal">{{form.get(["guarantorsPartnership", i, "approvedLoanAmount"]).value || "==========================="}}</span>।
-                                        (अक्षरेपी <input class="form-field form-control-sm d-print-none nepaliFont"
+                                        (अक्षरेपी <input class="form-field form-control-sm d-print-none"
                                                          name="approvedLoanAmountInWord"
                                                          formControlName="approvedLoanAmountInWord" placeholder=""
                                                          type="text"/>
@@ -266,7 +297,7 @@
                                         <p class="lh-30">
                                             नाम :
                                             <span>
-                                                <input class="form-field form-control-sm d-print-none nepaliFont"
+                                                <input class="form-field form-control-sm d-print-none"
                                                        name="guarantorName"
                                                        formControlName="guarantorName"
                                                        placeholder="ग्यारेन्टरको नाम"
@@ -277,7 +308,7 @@
                                     <p class="lh-30">
                                         बाबु/श्रीमान :
                                         <span>
-                                        <input class="form-field form-control-sm d-print-none nepaliFont"
+                                        <input class="form-field form-control-sm d-print-none"
                                                name="guarantorFatherOrHusbandName"
                                                formControlName="guarantorFatherOrHusbandName"
                                                placeholder="बाबु वा श्रीमानको नाम" type="text"/>
@@ -286,7 +317,7 @@
                                     </p>
                                     <p class="lh-30">
                                         बाजे/ससुरा:
-                                        <input class="form-field form-control-sm d-print-none nepaliFont"
+                                        <input class="form-field form-control-sm d-print-none"
                                                name="guarantorGrandFatherName"
                                                formControlName="guarantorGrandFatherName"
                                                placeholder="बाजे वा ससुराको नाम" type="text"/>
@@ -295,7 +326,7 @@
                                     <p class="lh-30">
                                         स्थायी ठेगाना :
                                         <span>
-                                        <input class="form-field form-control-sm d-print-none nepaliFont"
+                                        <input class="form-field form-control-sm d-print-none"
                                                name="guarantorPermanentDistrict"
                                                formControlName="guarantorPermanentDistrict" placeholder="जिल्ला"
                                                type="text"/>
@@ -303,7 +334,7 @@
                                         </span>
                                             जिल्ला
                                         <span>
-                                        <input class="form-field form-control-sm d-print-none nepaliFont"
+                                        <input class="form-field form-control-sm d-print-none"
                                                name="guarantorPermanentMunicipality"
                                                formControlName="guarantorPermanentMunicipality"
                                                placeholder="गा.वि.स. वा नगर" type="text"/>
@@ -312,7 +343,7 @@
                                             गा.वि.स./नगर,
                                         वडा नं.
                                         <span>
-                                        <input class="form-field form-control-sm d-print-none nepaliFont"
+                                        <input class="form-field form-control-sm d-print-none"
                                                name="guarantorPermanentWard"
                                                formControlName="guarantorPermanentWard" placeholder="वडा नं"
                                                type="text"/>
@@ -322,7 +353,7 @@
                                     <p class="lh-30">
                                         हालको ठेगाना :
                                         <span>
-                                        <input class="form-field form-control-sm d-print-none nepaliFont"
+                                        <input class="form-field form-control-sm d-print-none"
                                                name="guarantorTemporaryDistrict"
                                                formControlName="guarantorTemporaryDistrict" placeholder="जिल्ला"
                                                type="text"/>
@@ -330,7 +361,7 @@
                                        </span>
                                         जिल्ला
                                         <span>
-                                        <input class="form-field form-control-sm d-print-none nepaliFont"
+                                        <input class="form-field form-control-sm d-print-none"
                                                name="guarantorTemporaryMunicipality"
                                                formControlName="guarantorTemporaryMunicipality"
                                                placeholder="गा.वि.स. वा नगर" type="text"/>
@@ -339,7 +370,7 @@
                                             गा.वि.स./नगर,
                                         वडा नं.
                                         <span>
-                                        <input class="form-field form-control-sm d-print-none nepaliFont"
+                                        <input class="form-field form-control-sm d-print-none"
                                                name="guarantorTemporaryWard"
                                                formControlName="guarantorTemporaryWard" placeholder="वडा नं"
                                                type="text"/>
@@ -349,7 +380,7 @@
                                     <p class="lh-30">
                                         ना.प्र.नं.
                                         <span>
-                                        <input class="form-field form-control-sm d-print-none nepaliFont"
+                                        <input class="form-field form-control-sm d-print-none"
                                                name="guarantorCitizenNumber"
                                                formControlName="guarantorCitizenNumber" placeholder="ना प्र नं"
                                                type="text"/>
@@ -357,7 +388,7 @@
                                         </span>
                                             जारी गर्ने कार्यालय
                                         <span>
-                                        <input class="form-field form-control-sm d-print-none nepaliFont"
+                                        <input class="form-field form-control-sm d-print-none"
                                                name="guarantorCitzenIssuedPlace"
                                                formControlName="guarantorCitzenIssuedPlace"
                                                placeholder="जारी गर्ने कार्यालय" type="text"/>
@@ -365,7 +396,7 @@
                                         </span>
                                             जारी मिति:
                                         <span>
-                                        <input class="form-field form-control-sm d-print-none nepaliFont"
+                                        <input class="form-field form-control-sm d-print-none"
                                                name="guarantorCitzenIssuedDate"
                                                formControlName="guarantorCitzenIssuedDate" placeholder="जारी मिति"
                                                type="text"/>
@@ -380,22 +411,22 @@
                     <div>
                         <p style="text-align:center">
                             ईति सम्वत् &nbsp;&nbsp;
-                            <input class="form-field form-control-sm d-print-none nepaliFont"
+                            <input class="form-field form-control-sm d-print-none"
                                    name="year"
                                    formControlName="year" placeholder="साल" type="text"/>
                             <span class="print-only nepaliFont font-size-normal">{{form.get(['guarantorsPartnership', i, 'year']).value || "==========================="}}</span>
                             साल &nbsp;&nbsp;
-                            <input class="form-field form-control-sm d-print-none nepaliFont"
+                            <input class="form-field form-control-sm d-print-none"
                                    name="month"
                                    formControlName="month" placeholder="महिना" type="text"/>
                             <span class="print-only nepaliFont font-size-normal">{{form.get(['guarantorsPartnership', i, 'month']).value || "==========================="}}</span>
                             महिना &nbsp;&nbsp;
-                            <input class="form-field form-control-sm d-print-none nepaliFont"
+                            <input class="form-field form-control-sm d-print-none"
                                    name="day"
                                    formControlName="day" placeholder="गते" type="text"/>
                             <span class="print-only nepaliFont font-size-normal">{{form.get(['guarantorsPartnership', i, 'day']).value || "==========================="}}</span>
                             गते रोज &nbsp;&nbsp;
-                            <input class="form-field form-control-sm d-print-none nepaliFont"
+                            <input class="form-field form-control-sm d-print-none"
                                    name="date"
                                    formControlName="date" placeholder="दिन" type="text"/>
                             <span class="print-only nepaliFont font-size-normal">{{form.get(['guarantorsPartnership', i, 'date']).value || "==========================="}}</span>

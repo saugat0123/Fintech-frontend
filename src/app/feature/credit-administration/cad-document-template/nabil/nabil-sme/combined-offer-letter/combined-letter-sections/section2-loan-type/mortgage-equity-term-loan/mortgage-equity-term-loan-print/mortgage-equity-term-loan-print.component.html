@@ -9,6 +9,9 @@
                                            formControlName="SNOfParentLimitMortgageTerm"
                                            placeholder=""
                                            type="text"/>-->
+                   <span>
+                       {{this.freeText ? this.freeText.section2.SNOfParentLimitMortgageTerm : ''}}
+                   </span>
                     <ng-container *ngIf="complementaryOtherMortgageEquityTermName !== 'TOTAL LIMIT'"> को पूरक सुविधा</ng-container>
                <ng-container *ngIf="complementaryOtherMortgageEquityTermName === 'TOTAL LIMIT'"> कुल सुविधाको पूरक सुविधा </ng-container>
                </ng-container></strong></span><br>
@@ -16,6 +19,9 @@
             <strong>सुरक्षणमा आधारीत स्वपुञजी आवधिक कर्जा (Equity Mortgage Term Loan)
               <ng-container *ngIf="complementaryOtherMortgageEquityTerm">
                   बुँदा नं.
+                  <span>
+                       {{this.freeText ? this.freeText.section2.SNOfParentLimitMortgageTerm : ''}}
+                   </span>
                 <!--<span [ngClass]="{'outside' : letterData?.marginInPercentageCT !== null && letterData?.marginInPercentageCT !== ''}">
                         {{letterData?.marginInPercentageCT === null || letterData?.marginInPercentageCT === '' ? '___________' : letterData?.marginInPercentageCT}}</span>
                   --><!--<input class="form-field form-control-sm "
@@ -94,8 +100,9 @@
     </span><br>
     <span *ngIf="emiPaymentTypeMortgageEquityTerm === 'ON_SUBSEQUENT_MONTH'">
         <strong>कर्जा भुक्तानी शुरुः</strong>कर्जा
-        <span>______________________</span>
-        <!--<input
+        <span>
+            {{this.freeText ? this.freeText.section2.newEMIAutoPopulateMortgageTerm1 : ''}}
+        </span>        <!--<input
             class="form-field form-control-sm nepaliFont"
             formControlName="newEMIAutoPopulateMortgageTerm"
             value="निकासा भएको पछिल्लोे महिना देखि किस्ता भुक्तानी मिति हुनेछ"
@@ -293,7 +300,9 @@
         </span><br>
 </p>
 <p>
-    <span>_______________</span>
+    <span>
+        {{this.freeText ? this.freeText.section2.freeText13 : ''}}
+    </span>
     <!--<textarea
                 class="form-control customFont nepaliFont"
                 rows="2"
