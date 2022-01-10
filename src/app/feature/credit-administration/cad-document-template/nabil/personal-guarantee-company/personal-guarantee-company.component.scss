@@ -7,7 +7,7 @@
 }
 
 .nep {
-  font-size: 16px;
+  font-size: 19px;
   line-height: 1.9;
   text-align: justify;
   text-justify: inter-word;
@@ -63,11 +63,20 @@ ol.conditions li {
     display: inline;
   }
   div.align {
-    font-size: 20px;
+    font-size: 19px;
     line-height: 1.9;
     text-align: justify;
     text-justify: inter-word;
     margin: 10px 70px;
   }
 
+}
+
+.sav {
+  color: rgb(65,104,207) ;
+  background-color: rgb(235,247,255);
+}
+
+ol li {
+  padding-left: 1em;
 }
