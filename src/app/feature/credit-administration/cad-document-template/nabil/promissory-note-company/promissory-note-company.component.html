@@ -47,9 +47,9 @@
                                                                 ऐन <input
                                                                         class="form-field form-control-sm disable-print"
                                                                         name="actDate" formControlName="actDate"
-                                                                        placeholder="" type="text" />
+                                                                        placeholder="" type="text" /> 
                                                                 <span
-                                                                        class="print-only">{{ form.get('actDate').value ? form.get('actDate').value : '_________________'}}</span>
+                                                                        class="print-only font-weight-bold" >{{ form.get('actDate').value ? form.get('actDate').value : '_________________'}}</span>
                                                                 बमोजिम नेपाल सरकार <input
                                                                         class="form-field form-control-sm  disable-print"
                                                                         name="headName" formControlName="headName"
@@ -84,7 +84,15 @@
                                                                         type="text" />
                                                                 <span
                                                                         class="print-only font-weight-bold">{{ form.get('companyVDCMunci').value ? form.get('companyVDCMunci').value : '_________________'}}</span>
-                                                                न.पा/गा.वि.स./गाँउपालिका वडा नं
+                                                                        <span *ngIf="this.loanHolderNepData.registeredMunType.en === '0'">
+                                                                                न.पा. ,
+                                                                            </span>
+                                                                            <span *ngIf="this.loanHolderNepData.registeredMunType.en === '1'">
+                                                                                गा.वि.स. ,
+                                                                            </span>
+                                                                            <span *ngIf="this.loanHolderNepData.registeredMunType.en === '2'">
+                                                                                गाँउपालिका ,
+                                                                            </span>  वडा नं
                                                                 <input class="form-field form-control-sm  disable-print"
                                                                         name="firmWardNumber"
                                                                         formControlName="firmWardNumber" placeholder=""
@@ -109,13 +117,26 @@
                                                                         type="text" />
                                                                 <span
                                                                         class="print-only font-weight-bold">{{ form.get('grandfatherName').value ? form.get('grandfatherName').value : '_________________'}}</span>
-                                                                को नाती /नातिनी /बुहारी
+                                                                को <ng-container *ngFor="let i of tempProprietor">
+                                                                        <span *ngIf="i?.ownerGender === 'MALE'">नाति </span>
+                                                                        <span
+                                                                            *ngIf="i?.ownerGender === 'FEMALE' && i?.ownerRelationMedium === '1'">नातिनी </span>
+                                                                        <span
+                                                                            *ngIf="i?.ownerGender === 'FEMALE' && i?.ownerRelationMedium === '0'">बुहारी </span>
+                                                                    </ng-container>
                                                                 <input class="form-field form-control-sm  disable-print"
                                                                         name="fatherName" formControlName="fatherName"
                                                                         placeholder="" type="text" />
                                                                 <span
                                                                         class="print-only font-weight-bold">{{ form.get('fatherName').value ? form.get('fatherName').value : '_________________'}}</span>
-                                                                को छोरा / छोरी / श्रीमती
+                                                                को 
+                                                                <ng-container *ngFor="let i of tempProprietor">
+                                                                        <span *ngIf="i?.ownerGender === 'MALE'">छोरा </span>
+                                                                        <span
+                                                                            *ngIf="i?.ownerGender === 'FEMALE' && i?.ownerRelationMedium === '1'">छोरी </span>
+                                                                        <span
+                                                                            *ngIf="i?.ownerGender === 'FEMALE' && i?.ownerRelationMedium === '0'">श्रीमती </span>
+                                                                    </ng-container>
                                                                 <input class="form-field form-control-sm  disable-print"
                                                                         name="district" formControlName="district"
                                                                         placeholder="" type="text" />
@@ -128,20 +149,36 @@
                                                                         type="text" />
                                                                 <span
                                                                         class="print-only font-weight-bold">{{ form.get('municipality').value ? form.get('municipality').value : '_________________'}}</span>
-                                                                न.पा/गा.वि.स. वडा नं.
+                                                                        <span *ngIf="this.loanHolderNepData.registeredMunType.en === '0'">
+                                                                                न.पा. ,
+                                                                            </span>
+                                                                            <span *ngIf="this.loanHolderNepData.registeredMunType.en === '1'">
+                                                                                गा.वि.स. ,
+                                                                            </span>
+                                                                            <span *ngIf="this.loanHolderNepData.registeredMunType.en === '2'">
+                                                                                गाँउपालिका ,
+                                                                            </span> वडा नं.
                                                                 <input class="form-field form-control-sm  disable-print"
                                                                         name="wardNumber" formControlName="wardNumber"
                                                                         placeholder="" type="text" />
                                                                 <span
                                                                         class="print-only font-weight-bold">{{ form.get('wardNumber').value ? form.get('wardNumber').value : '_________________'}}</span>
-                                                                बस्ने बर्ष
+                                                                बस्ने बर्ष 
                                                                 <input class="form-field form-control-sm  disable-print"
                                                                         name="authorizedPersonAge"
                                                                         formControlName="authorizedPersonAge"
                                                                         placeholder="" type="text" />
                                                                 <span
                                                                         class="print-only font-weight-bold">{{ form.get('authorizedPersonAge').value ? form.get('authorizedPersonAge').value : '_________________'}}</span>
-                                                                को/की श्री/श्रीमती/सुश्री
+                                                                        <ng-container *ngFor="let i of tempProprietor">
+                                                                                <span *ngIf="i?.ownerGender === 'MALE'"> को </span>
+                                                                                <span *ngIf="i?.ownerGender === 'FEMALE'"> की </span>
+                                                                            </ng-container>
+                                                                            <ng-container *ngFor="let i of tempProprietor">
+                                                                                <span *ngIf="i?.ownerGender === 'MALE'">श्री </span>
+                                                                                <span *ngIf="i?.ownerGender === 'FEMALE' && i?.ownerRelationMedium === '1'">सुश्री </span>
+                                                                                <span *ngIf="i?.ownerGender === 'FEMALE' && i?.ownerRelationMedium === '0'">श्रीमती </span>
+                                                                            </ng-container>
                                                                 <input class="form-field form-control-sm  disable-print"
                                                                         name="directorName"
                                                                         formControlName="directorName" placeholder=""
