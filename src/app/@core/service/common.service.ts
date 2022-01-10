@@ -22,12 +22,9 @@ export class CommonService {
         }
     }
     public openDocuments(file) {
-        let fileName = file;
         if (file !== null) {
-            fileName = `${file}?${Math.floor(Math.random() * 100) + 1}`;
-
             const link = document.createElement('a');
-            link.href = fileName;
+            link.href = file;
             link.target = '_blank';
             link.click();
         }
