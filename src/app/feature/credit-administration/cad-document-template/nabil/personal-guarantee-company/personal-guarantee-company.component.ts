@@ -323,6 +323,7 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
       const cadFile = new CadFile();
       const document = new Document();
       cadFile.initialInformation = JSON.stringify(this.personalGuaranteeCompany.value);
+      cadFile.supportedInformation = this.setFreeText();
       document.id = this.documentId;
       cadFile.cadDocument = document;
       cadFile.customerLoanId = this.customerLoanId;

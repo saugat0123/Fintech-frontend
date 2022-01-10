@@ -81,7 +81,7 @@ export class LoanDeedPartnershipComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
             this.individualData = JSON.parse(this.cadData.loanHolder.nepData);
         }
-        if (this.cadData.cadFileList.length > 0) {
+        if (this.cadData.cadFileList.length > 0 && !ObjectUtil.isEmpty(this.cadData.cadFileList[0].supportedInformation)) {
             this.supportedInfo = JSON.parse(this.cadData.cadFileList[0].supportedInformation);
         }
         if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
@@ -178,7 +178,8 @@ export class LoanDeedPartnershipComponent implements OnInit {
         return JSON.stringify(free1);
     }
     patchFreeText() {
-        if (!ObjectUtil.isEmpty(this.cadData)) {
+        if (!ObjectUtil.isEmpty(this.cadData) && this.cadData.cadFileList.length > 0
+            && !ObjectUtil.isEmpty(this.cadData.cadFileList[0].supportedInformation)) {
             if (this.purposeOfLoan === this.supportedInfo.purposeOfLoan) {
                 this.purposeOfLoan = 'व्यापार/ व्यवसाय संचालन';
             }
@@ -216,6 +217,7 @@ export class LoanDeedPartnershipComponent implements OnInit {
             const document = new Document();
             cadFile.initialInformation = JSON.stringify(this.form.value);
             this.initialInfoPrint = cadFile.initialInformation;
+            cadFile.supportedInformation = this.setCombinedFreeText();
             document.id = this.documentId;
             cadFile.cadDocument = document;
             cadFile.customerLoanId = this.customerLoanId;
@@ -253,11 +255,14 @@ export class LoanDeedPartnershipComponent implements OnInit {
         const finalAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoan));
         const loanAmountWord = this.nepaliCurrencyWordPipe.transform(totalLoan);
         let registrationDate;
-        if (!ObjectUtil.isEmpty(this.individualData.registrationDate.np)) {
-            registrationDate = this.individualData.registrationDate.np;
-        } else {
-            const convertedDate = this.datePipe.transform(this.individualData.registrationDate.en);
-            registrationDate = this.engToNepaliDate.transform(convertedDate, true);
+        // for date conversion of registration date
+        if (!ObjectUtil.isEmpty(this.individualData.registrationDateOption)) {
+            if (this.individualData.registrationDateOption.en === 'AD') {
+                registrationDate = this.engToNepaliDate.transform(this.individualData.registrationDate ?
+                    this.individualData.registrationDate.en : this.individualData.registrationDate.en, true) || '';
+            } else {
+                registrationDate = this.individualData.registrationDate.en ? this.individualData.registrationDate.en.nDate : '';
+            }
         }
         let sanctionDate;
         if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
@@ -712,10 +717,10 @@ export class LoanDeedPartnershipComponent implements OnInit {
                         this.addCombinedFreeText();
                         if (this.cadData.cadFileList.length > 0) {
                             this.form.get(['combinedFreeText', index, 'dateOfExpiry']).patchValue(
-                                this.supportedInfo.combinedFreeText[index].dateOfExpiry
+                                this.supportedInfo ? this.supportedInfo.combinedFreeText[index].dateOfExpiry : ''
                             );
                             this.form.get(['combinedFreeText', index, 'interestRateCombined']).patchValue(
-                                this.supportedInfo.combinedFreeText[index].interest
+                                this.supportedInfo ? this.supportedInfo.combinedFreeText[index].interest : ''
                             );
                         } else {
                             this.form.get(['combinedFreeText', index, 'dateOfExpiry']).patchValue(
@@ -727,17 +732,19 @@ export class LoanDeedPartnershipComponent implements OnInit {
             }
         }
         let actYear;
-        if (!ObjectUtil.isEmpty(this.individualData.actYear.np)) {
-            actYear = this.individualData.actYear.np;
-        } else {
-            const convertedDate = this.individualData.actYear.en;
-            actYear = this.engToNepNumberPipe.transform(convertedDate);
+        if (!ObjectUtil.isEmpty(this.individualData.radioActYearDate)) {
+            if (this.individualData.radioActYearDate.en === 'AD') {
+                actYear = this.engToNepNumberPipe.transform(this.individualData.actYear ?
+                    this.individualData.actYear.en : this.individualData.actYear.en) || '' ;
+            } else {
+                actYear = this.individualData.actYear ? this.individualData.actYear.en.nDate : '';
+            }
         }
        let dateOfExpirySingle;
         if (this.cadData.offerDocumentList[0].docName !== 'Combined Offer Letter') {
-            if (this.cadData.cadFileList.length > 0) {
+            if (this.cadData.cadFileList.length > 0 && !ObjectUtil.isEmpty(this.cadData.cadFileList[0].supportedInformation)) {
                 const date = JSON.parse(this.cadData.cadFileList[0].supportedInformation);
-                dateOfExpirySingle = date.dateOfExpirySingle ? date.dateOfExpirySingle : '';
+                dateOfExpirySingle = date ? date.dateOfExpirySingle : '';
             }
         }
         /*this.checkOfferLetterData();*/
