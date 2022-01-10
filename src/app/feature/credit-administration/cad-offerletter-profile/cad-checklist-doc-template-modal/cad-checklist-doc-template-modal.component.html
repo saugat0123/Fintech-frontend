@@ -62,6 +62,8 @@
                                       [customerLoanId]="customerLoanId"
                                       [nepaliAmount]="nepaliNumber"></app-loan-deed-proprietorship>
 
+        <app-counter-guarantee-company *ngSwitchCase="nabilCadTemplate.COUNTER_GUARANTEE_COMPANY"
+                                            [cadData]="cadData"></app-counter-guarantee-company>
 
         <p *ngSwitchDefault>No Template is available for this Document!!! </p>
       </div>
