@@ -50,6 +50,17 @@ export class PromissoryNotePartnershipComponent implements OnInit {
   tempProprietor;
   isInstitutional = false;
   genderArr;
+  grandFatherName;
+  nameOfFather;
+  district;
+  vdc;
+  wardNumber;
+  age;
+  nameOfPartner;
+  directorCitizenshipNumber;
+  citizenshipIssueDate;
+  citizenshipIssueDistrict;
+
 
   constructor(
       private formBuilder: FormBuilder,
@@ -127,7 +138,6 @@ export class PromissoryNotePartnershipComponent implements OnInit {
     });
   }
   fillform(){
-    console.log(this.cadData);
     const proprietor = this.cadData.assignedLoan[0].companyInfo.companyJsonData;
     // let tempProprietor;
     if (!ObjectUtil.isEmpty(proprietor)) {
@@ -175,8 +185,7 @@ export class PromissoryNotePartnershipComponent implements OnInit {
       this.setJointDetailsArr(this.selectiveArr);
     }
     this.checkOfferLetterData();
-    
-    
+    this.forPrint();
     this.form.patchValue({
       actDetails: [this.loanHolderNepData.actName ? this.loanHolderNepData.actName.ct : ''],
       actYearInFigure: [this.loanHolderNepData.actYear ? this.loanHolderNepData.actYear.np : ''],
@@ -193,8 +202,9 @@ export class PromissoryNotePartnershipComponent implements OnInit {
       loanAmountInWords: this.nepaliCurrencyWordPipe.transform(loanAmountWord),
       nameOfBranch: [this.loanHolderNepData.branch ? this.loanHolderNepData.branch.ct : ''],
       interestPerApprovedCFR: (this.educationalTemplateData && this.educationalTemplateData.ct) ? (this.educationalTemplateData.ct) : ((this.educationalTemplateData) ? (this.educationalTemplateData) : ('')),
+      nameOfGrandfather: this.grandFatherName ? this.grandFatherName : '',
     });
-    
+    console.log(this.cadData.assignedLoan[0].companyInfo)
   }
   setJointDetailsArr(data) {
     const formArray = (this.form.get('jointDetailsArr') as FormArray);
@@ -394,11 +404,35 @@ export class PromissoryNotePartnershipComponent implements OnInit {
       } else {
         this.form.get('dateOfRegistration').patchValue(this.loanHolderNepData.registrationDate.np);
       }
-      if (this.tempProprietor[0].radioOwnerCitizenshipIssuedDate === 'AD') {
-        this.form.get('citizenshipIssueDate').patchValue(this.engToNepaliDate.transform(this.tempProprietor[0].ownerCitizenshipIssuedDateCT, true));
-      } else {
-        this.form.get('citizenshipIssueDate').patchValue(this.tempProprietor[0].ownerCitizenshipIssuedDateCT);
+      for(let i of this.tempProprietor){
+        if (i.radioOwnerCitizenshipIssuedDate === 'AD') {
+          this.form.get('citizenshipIssueDate').patchValue(this.engToNepaliDate.transform(i.ownerCitizenshipIssuedDateCT, true));
+        } else {
+          this.form.get('citizenshipIssueDate').patchValue(i.ownerCitizenshipIssuedDateCT);
+        }
       }
     }
+  }
+  forPrint(){
+    for(let i of this.tempProprietor){
+      this.grandFatherName = i.ownerGrandFatherNameCT;
+      this.nameOfFather = i.ownerFatherNameCT;
+      this.district = i.ownerPermanentDistrictCT;
+      this.vdc = i.ownerPermanentMunicipalityCT;
+      this.wardNumber = i.ownerPermanentWardNoCT;
+      this.age = i.ownerDobCT;
+      this.nameOfPartner = i.ownerNameCT;
+      this.directorCitizenshipNumber = i.ownerCitizenshipNoCT;
+
+      if (i.radioOwnerCitizenshipIssuedDate === 'AD') {
+        this.citizenshipIssueDate = this.engToNepaliDate.transform(i.ownerCitizenshipIssuedDateCT, true);
+        console.log(this.citizenshipIssueDate);
+      } else {
+        this.citizenshipIssueDate = i.ownerCitizenshipIssuedDateCT;
+        console.log(this.citizenshipIssueDate);
+      }
+      
+      this.citizenshipIssueDistrict = i.ownerCitizenshipIssuedDistrictCT;
+     }
   }
 }
