@@ -204,7 +204,6 @@ export class PromissoryNotePartnershipComponent implements OnInit {
       interestPerApprovedCFR: (this.educationalTemplateData && this.educationalTemplateData.ct) ? (this.educationalTemplateData.ct) : ((this.educationalTemplateData) ? (this.educationalTemplateData) : ('')),
       nameOfGrandfather: this.grandFatherName ? this.grandFatherName : '',
     });
-    console.log(this.cadData.assignedLoan[0].companyInfo)
   }
   setJointDetailsArr(data) {
     const formArray = (this.form.get('jointDetailsArr') as FormArray);
@@ -426,12 +425,10 @@ export class PromissoryNotePartnershipComponent implements OnInit {
 
       if (i.radioOwnerCitizenshipIssuedDate === 'AD') {
         this.citizenshipIssueDate = this.engToNepaliDate.transform(i.ownerCitizenshipIssuedDateCT, true);
-        console.log(this.citizenshipIssueDate);
       } else {
         this.citizenshipIssueDate = i.ownerCitizenshipIssuedDateCT;
-        console.log(this.citizenshipIssueDate);
       }
-      
+
       this.citizenshipIssueDistrict = i.ownerCitizenshipIssuedDistrictCT;
      }
   }
