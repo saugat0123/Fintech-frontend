@@ -74,6 +74,7 @@ import { MasterSecuritiesViewComponent } from './master-securities-view/master-s
 import { MasterSecondarySecuritiesViewComponent } from './master-secondary-securities-view/master-secondary-securities-view.component';
 import { SharePledgeSecuritiesComponent } from './share-pledge-securities/share-pledge-securities.component';
 import {CoreModule} from '../../../../@core/core.module';
+import { CounterGuaranteeCompanyComponent } from './counter-guarantee-company/counter-guarantee-company.component';
 
 @NgModule({
     declarations: [
@@ -90,7 +91,7 @@ import {CoreModule} from '../../../../@core/core.module';
         LoanDeedPartnershipComponent,
        LoanDeedPartnershipPrintComponent, LetterVehicleThirdpartyCompanyComponent, LetterVehicleThirdpartyCompanyPrintComponent,
         PersonalGuaranteeIndividualPrintComponent,
-        LoanDeedIndividualComponent, PromissoryNoteCompanyPrintComponent, PersonalGuaranteeProprietorshipComponent, NabilSmeComponent, KisanKarjaSubsidyComponent, UdyamsilKarjaSubsidyComponent, UdyamsilKarjaSubsidyPrintComponent, DdslWithoutSubsidyComponent, DdslWithoutSubsidyPrintComponent, KisanKarjaSubsidyPrintComponent, CombinedOfferLetterComponent, Section1IntroductionComponent, Section2LoanTypeComponent, Section3SecurityAndCollateralComponent, Section4LoanLimitComponent, Section5InterstPenalChargeComponent, Section6FacilitiesClauseComponent, Section7SecurityClauseComponent, Section8InsuranceClauseComponent, Section9OtherClauseComponent, Section10SecurityDocumentsComponent, CombinedOfferLetterPrintComponent, Section6FacilitiesClausePrintComponent, Section9OtherClausePrintComponent, Section3SecurityAndCollateralPrintComponent, Section7SecurityClausePrintComponent, Section10SecurityDocumentsPrintComponent, Section1IntroductionPrintComponent, Section4LoanLimitPrintComponent, Section5InterestPenalChargePrintComponent, Section8InsuranceClausePrintComponent, Section2LoanTypePrintComponent, TermLoanToOrForComponent, TermLoanToOrForPrintComponent, MortgageEquityTermLoanComponent, MortgageEquityTermLoanPrintComponent, AutoLoanComponent, AutoLoanPrintComponent, CommonSectionTopComponent, CommonSectionBottomComponent, CommonSectionBottomPrintComponent, CommonSectionTopPrintComponent, MasterSecuritiesViewComponent, MasterSecondarySecuritiesViewComponent, SharePledgeSecuritiesComponent],
+        LoanDeedIndividualComponent, PromissoryNoteCompanyPrintComponent, PersonalGuaranteeProprietorshipComponent, NabilSmeComponent, KisanKarjaSubsidyComponent, UdyamsilKarjaSubsidyComponent, UdyamsilKarjaSubsidyPrintComponent, DdslWithoutSubsidyComponent, DdslWithoutSubsidyPrintComponent, KisanKarjaSubsidyPrintComponent, CombinedOfferLetterComponent, Section1IntroductionComponent, Section2LoanTypeComponent, Section3SecurityAndCollateralComponent, Section4LoanLimitComponent, Section5InterstPenalChargeComponent, Section6FacilitiesClauseComponent, Section7SecurityClauseComponent, Section8InsuranceClauseComponent, Section9OtherClauseComponent, Section10SecurityDocumentsComponent, CombinedOfferLetterPrintComponent, Section6FacilitiesClausePrintComponent, Section9OtherClausePrintComponent, Section3SecurityAndCollateralPrintComponent, Section7SecurityClausePrintComponent, Section10SecurityDocumentsPrintComponent, Section1IntroductionPrintComponent, Section4LoanLimitPrintComponent, Section5InterestPenalChargePrintComponent, Section8InsuranceClausePrintComponent, Section2LoanTypePrintComponent, TermLoanToOrForComponent, TermLoanToOrForPrintComponent, MortgageEquityTermLoanComponent, MortgageEquityTermLoanPrintComponent, AutoLoanComponent, AutoLoanPrintComponent, CommonSectionTopComponent, CommonSectionBottomComponent, CommonSectionBottomPrintComponent, CommonSectionTopPrintComponent, MasterSecuritiesViewComponent, MasterSecondarySecuritiesViewComponent, SharePledgeSecuritiesComponent, CounterGuaranteeCompanyComponent],
 
     exports: [
         PromissoryNoteIndividualComponent,
@@ -125,7 +126,8 @@ import {CoreModule} from '../../../../@core/core.module';
         CombinedOfferLetterComponent,
         CombinedOfferLetterPrintComponent,
         Section2LoanTypeComponent,
-        MasterSecuritiesViewComponent
+        MasterSecuritiesViewComponent,
+        CounterGuaranteeCompanyComponent
     ],
     imports: [
         CommonModule,
