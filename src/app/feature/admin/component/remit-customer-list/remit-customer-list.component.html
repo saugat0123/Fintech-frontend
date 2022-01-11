@@ -158,7 +158,7 @@
                             </button>
                         </ng-container>
                         <ng-container
-                                *ngIf="transferDoc && (model?.shipped === 'NOT_TRANSFERRED' || model?.shipped === 'BANK')  && !model.alreadyOnBoarded">
+                                *ngIf="transferDoc && (model?.shipped === 'NOT_TRANSFERRED')  && !model.alreadyOnBoarded">
                             <button nbTooltip="Transfer to instuition"
                                     (click)="transferCustomer($event, model,customerTransfer)"
                                     class="m-1"
