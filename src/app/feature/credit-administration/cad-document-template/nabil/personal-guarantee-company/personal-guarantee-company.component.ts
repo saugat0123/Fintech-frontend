@@ -311,13 +311,14 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
         }
       });
       if (flag) {
-        const cadFile = new CadFile();
-        const document = new Document();
-        cadFile.initialInformation = JSON.stringify(this.personalGuaranteeCompany.value);
-        document.id = this.documentId;
-        cadFile.cadDocument = document;
-        cadFile.customerLoanId = this.customerLoanId;
-        this.cadData.cadFileList.push(cadFile);
+          const cadFile = new CadFile();
+          const document = new Document();
+          cadFile.initialInformation = JSON.stringify(this.personalGuaranteeCompany.value);
+          cadFile.supportedInformation = this.setFreeText();
+          document.id = this.documentId;
+          cadFile.cadDocument = document;
+          cadFile.customerLoanId = this.customerLoanId;
+          this.cadData.cadFileList.push(cadFile);
       }
     } else {
       const cadFile = new CadFile();
