@@ -38,7 +38,7 @@ export class LoanDeedPartnershipPrintComponent implements OnInit {
   companyInfo;
   initialInfo;
   interestRate;
-  supportedInfo;
+  supportedInfo: any = {};
   newOrExisting = false;
   loanData = [];
   purposeOfLoan = 'व्यापार/ व्यवसाय संचालन';
@@ -73,10 +73,8 @@ export class LoanDeedPartnershipPrintComponent implements OnInit {
       this.individualData = JSON.parse(this.cadData.loanHolder.nepData);
     }
     if (this.cadData.cadFileList.length > 0) {
-      this.supportedInfo = JSON.parse(this.cadData.cadFileList[0].supportedInformation);
-    }
-    if (this.cadData.cadFileList.length > 0) {
-      this.freeText = this.supportedInfo.combinedFreeText;
+      this.supportedInfo = this.cadData.cadFileList[0] ? JSON.parse(this.cadData.cadFileList[0].supportedInformation) : '';
+      this.freeText = this.supportedInfo ? this.supportedInfo.combinedFreeText : '';
     }
     if (this.cadData.offerDocumentList[0].docName === 'DDSL Without Subsidy' ||
         this.cadData.offerDocumentList[0].docName === 'Interest subsidy sanction letter' ||
@@ -129,11 +127,14 @@ export class LoanDeedPartnershipPrintComponent implements OnInit {
     });
     this.finalAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoan));
     this.loanAmountWord = this.nepaliCurrencyWordPipe.transform(totalLoan);
-    if (!ObjectUtil.isEmpty(this.individualData.registrationDate.np)) {
-      this.registrationDate = this.individualData.registrationDate.np;
-    } else {
-      const convertedDate = this.datePipe.transform(this.individualData.registrationDate.en);
-      this.registrationDate = this.engToNepaliDate.transform(convertedDate, true);
+    // for date conversion of registration date
+    if (!ObjectUtil.isEmpty(this.individualData.registrationDateOption)) {
+      if (this.individualData.registrationDateOption.en === 'AD') {
+        this.registrationDate = this.engToNepaliDate.transform(this.individualData.registrationDate ?
+            this.individualData.registrationDate.en : this.individualData.registrationDate.en, true) || '';
+      } else {
+        this.registrationDate = this.individualData.registrationDate.en ? this.individualData.registrationDate.en.nDate : '';
+      }
     }
     if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
       if (this.cadData.offerDocumentList[0].docName === 'DDSL Without Subsidy') {
@@ -588,22 +589,24 @@ export class LoanDeedPartnershipPrintComponent implements OnInit {
         }
       }
     }
-    if (!ObjectUtil.isEmpty(this.individualData.actYear.np)) {
-      this.actYear = this.individualData.actYear.np;
-    } else {
-      const convertedDate = this.individualData.actYear.en;
-      this.actYear = this.engToNepNumberPipe.transform(convertedDate);
+    if (!ObjectUtil.isEmpty(this.individualData.radioActYearDate)) {
+      if (this.individualData.radioActYearDate.en === 'AD') {
+        this.actYear = this.engToNepNumberPipe.transform(this.individualData.actYear ?
+            this.individualData.actYear.en : this.individualData.actYear.en) || '' ;
+      } else {
+        this.actYear = this.individualData.actYear ? this.individualData.actYear.en.nDate : '';
+      }
     }
     if (this.cadData.offerDocumentList[0].docName !== 'Combined Offer Letter') {
       if (this.cadData.cadFileList.length > 0) {
         const date = JSON.parse(this.cadData.cadFileList[0].supportedInformation);
-        this.dateOfExpirySingle = date.dateOfExpirySingle ? date.dateOfExpirySingle : '';
+        this.dateOfExpirySingle = date ? date.dateOfExpirySingle : '';
       }
     }
     this.patchFreeText();
   }
   patchFreeText() {
-    if (!ObjectUtil.isEmpty(this.cadData)) {
+    if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList[0].supportedInformation)) {
       if (this.purposeOfLoan === this.supportedInfo.purposeOfLoan) {
         this.purposeOfLoan = 'व्यापार/ व्यवसाय संचालन';
       }
