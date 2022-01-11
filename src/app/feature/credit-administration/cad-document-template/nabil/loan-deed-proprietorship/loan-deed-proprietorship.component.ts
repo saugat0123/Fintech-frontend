@@ -80,10 +80,10 @@ export class LoanDeedProprietorshipComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
       this.initialInfo = JSON.parse(this.cadData.offerDocumentList[0].initialInformation);
-      console.log('this.initialInfo',  this.initialInfo);
     }
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.individualData = JSON.parse(this.cadData.loanHolder.nepData);
+      console.log('this.individualData',  this.individualData);
     }
     if (this.cadData.cadFileList.length > 0) {
       this.supportedInfo = JSON.parse(this.cadData.cadFileList[0].supportedInformation);
@@ -151,7 +151,17 @@ export class LoanDeedProprietorshipComponent implements OnInit {
       loanAmountInWords: [undefined],
       freeText1: [undefined],
       dateOfExpirySingle: [undefined],
-      combinedFreeText: this.formBuilder.array([])
+      combinedFreeText: this.formBuilder.array([]),
+      grandfatherNameOfPartner: [undefined],
+      fatherInLawNameOfPartner: [undefined],
+      fatherNameOfPartner: [undefined],
+      husbandNameOfPartner: [undefined],
+      districtOfPartner: [undefined],
+      vdcNameOfPartner: [undefined],
+      wardNoOfPartner: [undefined],
+      otherAddress: [undefined],
+      ageOfPartner: [undefined],
+      nameOfPartner: [undefined]
     });
   }
 
@@ -729,7 +739,7 @@ export class LoanDeedProprietorshipComponent implements OnInit {
     this.form.patchValue({
       nameOfBranchLocated: this.individualData.branch ? this.individualData.branch.ct : '',
       actName: !ObjectUtil.isEmpty(this.individualData.actName) ? this.individualData.actName.ct : this.nameOfAct,
-      yearInFigure: !ObjectUtil.isEmpty(this.individualData.actYear) ? this.individualData.actYear.en : this.yearOfAct,
+      yearInFigure: this.setActYear(),
       nameOfAuthorizedBody: !ObjectUtil.isEmpty(this.individualData.authorizedBodyName) ? this.individualData.authorizedBodyName.ct : this.nameOfAuthorizedBody,
       nameOfDepartment: this.individualData.registeredWith ? this.individualData.registeredWith.ct : '',
       dateOfRegistration: this.setRegistrationDate(),
@@ -793,6 +803,16 @@ export class LoanDeedProprietorshipComponent implements OnInit {
       loanKoPurpose = this.offerDocumentDetails.autoLoanMasterForm.purposeOfLoanCT;
     }
     return loanKoPurpose ? loanKoPurpose : this.purposeOfLoan;
+  }
+
+  setActYear() {
+    let yearOfAct = '';
+    if (this.individualData.radioActYearDate.en === 'AD') {
+      yearOfAct = this.engToNepaliDate.transform(this.individualData.actYear.en ? this.individualData.actYear.en : this.individualData.actYear.en, true) || '' ;
+    } else {
+      yearOfAct = this.individualData.actYear.np ? this.individualData.actYear.np : '';
+    }
+    return yearOfAct ? yearOfAct : this.yearOfAct;
   }
 }
 
