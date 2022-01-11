@@ -217,7 +217,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.loanDataHolder = this.loanData;
-        console.log('loanDataHolder', this.loanDataHolder);
         if (this.loanDataHolder.loanCategory === 'INDIVIDUAL' &&
             !ObjectUtil.isEmpty(this.loanDataHolder.customerInfo.jointInfo)) {
             const jointCustomerInfo = JSON.parse(this.loanDataHolder.customerInfo.jointInfo);
