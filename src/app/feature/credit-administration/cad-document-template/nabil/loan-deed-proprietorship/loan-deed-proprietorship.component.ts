@@ -60,6 +60,7 @@ export class LoanDeedProprietorshipComponent implements OnInit {
   nameOfAuthorizedBody = 'नेपाल सरकार';
   yearOfAct = '२०१४';
   offerDocumentDetails: any;
+  dateOfExpirySingle;
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
@@ -83,7 +84,6 @@ export class LoanDeedProprietorshipComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.individualData = JSON.parse(this.cadData.loanHolder.nepData);
-      console.log('this.individualData',  this.individualData);
     }
     if (this.cadData.cadFileList.length > 0) {
       this.supportedInfo = JSON.parse(this.cadData.cadFileList[0].supportedInformation);
@@ -188,12 +188,15 @@ export class LoanDeedProprietorshipComponent implements OnInit {
     const free1 = {
       freeText1: this.form.get('freeText1').value ? this.form.get('freeText1').value : '',
       dateOfExpirySingle: this.form.get('dateOfExpirySingle').value ? this.form.get('dateOfExpirySingle').value : '',
-      purposeOfLoan: this.form.get('purposeOfLoan').value ? this.form.get('purposeOfLoan').value : '',
       combinedFreeText: this.freeText
     };
     return JSON.stringify(free1);
   }
-
+  patchFreeText() {
+    this.form.patchValue({
+      freeText1: this.supportedInfo ? this.supportedInfo.freeText1 : '',
+    });
+  }
   submit() {
     let flag = true;
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
@@ -728,11 +731,11 @@ export class LoanDeedProprietorshipComponent implements OnInit {
         }
       }
     }
-    let dateOfExpirySingle;
+    // for date of expiry
     if (this.cadData.offerDocumentList[0].docName !== 'Combined Offer Letter') {
       if (this.cadData.cadFileList.length > 0) {
         const date = JSON.parse(this.cadData.cadFileList[0].supportedInformation);
-        dateOfExpirySingle = date.dateOfExpirySingle ? date.dateOfExpirySingle : '';
+        this.dateOfExpirySingle = !ObjectUtil.isEmpty(date) ? date.dateOfExpirySingle : '';
       }
     }
     /*this.checkOfferLetterData();*/
@@ -748,9 +751,10 @@ export class LoanDeedProprietorshipComponent implements OnInit {
       loanAmountInFigure: finalAmount ? finalAmount : '',
       loanAmountInWords: loanAmountWord ? loanAmountWord : '',
       sanctionLetterIssuedDate: sanctionDate ? sanctionDate : '',
-      dateOfExpirySingle: dateOfExpirySingle ? dateOfExpirySingle : '',
+      dateOfExpirySingle: this.dateOfExpirySingle ? this.dateOfExpirySingle : '',
       purposeOfLoan: this.setLoanPurpose(),
     });
+    this.patchFreeText();
   }
 
   ageCalculation(startDate) {
@@ -810,7 +814,7 @@ export class LoanDeedProprietorshipComponent implements OnInit {
     if (this.individualData.radioActYearDate.en === 'AD') {
       yearOfAct = this.engToNepaliDate.transform(this.individualData.actYear.en ? this.individualData.actYear.en : this.individualData.actYear.en, true) || '' ;
     } else {
-      yearOfAct = this.individualData.actYear.np ? this.individualData.actYear.np : '';
+      yearOfAct = this.individualData.actYear.en ? this.individualData.actYear.en : '';
     }
     return yearOfAct ? yearOfAct : this.yearOfAct;
   }

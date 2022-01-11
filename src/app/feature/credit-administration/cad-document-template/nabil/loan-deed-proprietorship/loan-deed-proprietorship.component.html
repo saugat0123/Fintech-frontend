@@ -85,10 +85,10 @@
                          [value]="partner?.ownerGrandFatherNameCT"
                          placeholder=" "
                          type="text"/>
-                  <span class="print-only"><b>{{form.get('grandfatherNameOfPartner').value || '_____________________'}}</b></span>
+                  <span class="print-only"><b>{{partner?.ownerGrandFatherNameCT ? partner?.ownerGrandFatherNameCT : ''}}</b></span>
                 </span> को
-                <ng-container *ngIf="partner?.ownerGender === 'MALE'">नाती</ng-container>
-                <ng-container *ngIf="partner?.ownerGender === 'FEMALE'">नातिनी</ng-container>
+                <ng-container *ngIf="partner?.ownerGender === 'MALE'">नाती </ng-container>
+                <ng-container *ngIf="partner?.ownerGender === 'FEMALE'">नातिनी </ng-container>
               </ng-container>
               <ng-container
                   *ngIf="partner?.ownerGender === 'FEMALE' && partner?.ownerRelationMedium === '0'">
@@ -99,7 +99,7 @@
                          [value]="partner?.ownerFatherInLawNameCT"
                          placeholder=" "
                          type="text"/>
-                  <span class="print-only"><b>{{form.get('fatherInLawNameOfPartner').value || '_____________________'}}</b></span>
+                  <span class="print-only"><b>{{partner?.ownerFatherInLawNameCT ? partner?.ownerFatherInLawNameCT : ''}}</b></span>
                 </span> को बुहारी
               </ng-container>
               <ng-container *ngIf="partner?.ownerGender === 'MALE' ||
@@ -111,10 +111,10 @@
                          [value]="partner?.ownerFatherNameCT"
                          placeholder=" "
                          type="text"/>
-                  <span class="print-only"><b>{{form.get('fatherNameOfPartner').value || '_____________________'}}</b></span>
+                  <span class="print-only"><b>{{partner?.ownerFatherNameCT ? partner?.ownerFatherNameCT : ''}}</b></span>
                 </span> को
-                <ng-container *ngIf="partner?.ownerGender === 'MALE'">छोरा</ng-container>
-                <ng-container *ngIf="partner?.ownerGender === 'FEMALE'">छोरी</ng-container>
+                <ng-container *ngIf="partner?.ownerGender === 'MALE'">छोरा </ng-container>
+                <ng-container *ngIf="partner?.ownerGender === 'FEMALE'">छोरी </ng-container>
               </ng-container>
               <ng-container
                   *ngIf="partner?.ownerGender === 'FEMALE' && partner?.ownerRelationMedium === '0'">
@@ -125,7 +125,7 @@
                          [value]="partner?.ownerHusbandNameCT"
                          placeholder=" "
                          type="text"/>
-                  <span class="print-only"><b>{{form.get('husbandNameOfPartner').value || '_____________________'}}</b></span>
+                  <span class="print-only"><b>{{partner?.ownerHusbandNameCT ? partner?.ownerHusbandNameCT : ''}}</b></span>
                 </span> को श्रीमती
               </ng-container>
               <ng-container
@@ -137,7 +137,7 @@
                          [value]="partner?.ownerPermanentDistrictCT"
                          placeholder=" "
                          type="text"/>
-                  <span class="print-only"><b>{{form.get('districtOfPartner').value || '_____________________'}}</b></span>
+                  <span class="print-only"><b>{{partner?.ownerPermanentDistrictCT ? partner?.ownerPermanentDistrictCT : ''}}</b></span>
                 </span>
                 जिल्ला
                 <span>
@@ -147,9 +147,9 @@
                          [value]="partner?.ownerPermanentMunicipalityCT"
                          placeholder=" "
                          type="text"/>
-                  <span class="print-only"><b>{{form.get('vdcNameOfPartner').value || '_____________________'}}</b></span>
+                  <span class="print-only"><b>{{partner?.ownerPermanentMunicipalityCT ? partner?.ownerPermanentMunicipalityCT : ''}}</b></span>
                 </span>
-                <ng-container *ngIf="partner?.ownerPermanentAddressRadio === '0'">न.पा</ng-container>
+                <ng-container *ngIf="partner?.ownerPermanentAddressRadio === '0'">न.पा </ng-container>
                 <ng-container *ngIf="partner?.ownerPermanentAddressRadio === '1'">गा.वि.स.
                 </ng-container>
                 <ng-container *ngIf="partner?.ownerPermanentAddressRadio === '2'">गाँउपालिका
@@ -162,7 +162,7 @@
                          [value]="partner?.ownerPermanentWardNoCT"
                          placeholder=" "
                          type="text"/>
-                  <span class="print-only"><b>{{form.get('wardNoOfPartner').value || '_____________________'}}</b></span>
+                  <span class="print-only"><b>{{partner?.ownerPermanentWardNoCT ? partner?.ownerPermanentWardNoCT : ''}}</b></span>
                 </span>
               </ng-container>
               <ng-container *ngIf="(partner?.ownerNationality === 'Indian' || partner?.ownerNationality === 'Other')
@@ -174,7 +174,7 @@
                          [value]="partner?.ownerOtherAddressCT"
                          placeholder=" "
                          type="text"/>
-                  <span class="print-only"><b>{{form.get('otherAddress').value || '_____________________'}}</b></span>
+                  <span class="print-only"><b>{{partner?.ownerOtherAddressCT ? partner?.ownerOtherAddressCT : ''}}</b></span>
                 </span>
               </ng-container>
               बस्ने बर्ष
@@ -185,11 +185,12 @@
                        [value]="ageCalculation(partner?.ownerDob)"
                        placeholder=" "
                        type="text"/>
-                <span class="print-only"><b>{{form.get('ageOfPartner').value || '_____________________'}}</b></span>
+                <span class="print-only"><b>{{ageCalculation(partner?.ownerDob) ? ageCalculation(partner?.ownerDob) : ''}}</b></span>
               </span>
-              <ng-container *ngIf="partner?.ownerGender === 'MALE'">को</ng-container>
-              <ng-container *ngIf="partner?.ownerGender === 'FEMALE'">की</ng-container>
-              <ng-container *ngIf="partner?.ownerGender === 'MALE'">श्री</ng-container>
+
+              <ng-container *ngIf="partner?.ownerGender === 'MALE'">को </ng-container>
+              <ng-container *ngIf="partner?.ownerGender === 'FEMALE'">की </ng-container>
+              <ng-container *ngIf="partner?.ownerGender === 'MALE'">श्री </ng-container>
               <ng-container
                   *ngIf="partner?.ownerGender === 'FEMALE' && partner?.ownerRelationMedium === '0'">
                 श्रीमती
@@ -205,7 +206,7 @@
                        [value]="partner?.ownerNameCT"
                        placeholder=" "
                        type="text"/>
-                <span class="print-only"><b>{{form.get('nameOfPartner').value || '_____________________'}}</b></span>
+                <span class="print-only"><b>{{partner?.ownerNameCT ? partner?.ownerNameCT : ''}}</b></span>
               </span>
             </ng-container>
             (जसलाई यसपछि “ऋणी” भनिएको छ), आगे म ऋणीलाई
@@ -287,7 +288,7 @@
                            formControlName="dateOfExpirySingle"
                            placeholder=""
                            type="text"/>
-                    <span class="print-only"><b>{{form.get('dateOfExpirySingle').value || '_____________________'}}</b></span>
+                    <span class="print-only"><b>{{this.dateOfExpirySingle ? this.dateOfExpirySingle : ''}}</b></span>
                   </span>
                 </td>
               </tr>
@@ -458,9 +459,11 @@
                 ४. गाडी नं. __________________________________
               </p>
             </div>
-            <div class="col-md-12 mt-3">
+            <div class="col-md-12 mt-3 disable-print">
               <ckeditor formControlName="freeText1" [config]="ckEditorConfig"></ckeditor>
             </div>
+          <span class="col-md-12 mt-3 print-only" *ngIf="this.supportedInfo !== null && this.supportedInfo.freeText1 !== null" [innerHTML]="this.supportedInfo.freeText1 | safeHtml">
+          </span>
             <div class="col-md-12">
               <p class="text-center"><strong><u>साक्षी</u></strong></p>
               १. .............................. जिल्ला .................................
