@@ -183,7 +183,8 @@ export class SecurityViewComponent implements OnInit {
       if (this.collateralData.length > 0) {
         this.isCollateralSiteVisit = true;
       }
-    } else {
+    }
+    if (this.docStatus.toString() !== 'APPROVED') {
       if (this.securityId !== undefined) {
         this.collateralSiteVisitService.getCollateralSiteVisitBySecurityId(this.securityId)
             .subscribe((response: any) => {
