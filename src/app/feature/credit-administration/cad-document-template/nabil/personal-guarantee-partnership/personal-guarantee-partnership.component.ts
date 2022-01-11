@@ -211,7 +211,7 @@ export class PersonalGuaranteePartnershipComponent implements OnInit {
          this.formBuilder.group({
           branchName: [this.loanHolderNepData.branch ? this.loanHolderNepData.branch.ct : ''],
           actDetails: [!ObjectUtil.isEmpty(this.loanHolderNepData.actName) ? this.loanHolderNepData.actName.ct : this.nameOfAct],
-          actYearInFigure: [!ObjectUtil.isEmpty(this.loanHolderNepData.actYear) ? this.loanHolderNepData.actYear.en : this.actYear],
+          actYearInFigure: [this.setActYear()],
           headDepartment: [!ObjectUtil.isEmpty(this.loanHolderNepData.authorizedBodyName) ? this.loanHolderNepData.authorizedBodyName.ct : this.nameOfAuthorizedBody],
           registrationDate: [this.setRegistrationDate()],
           registrationNo: [this.loanHolderNepData.registrationNo.ct ? this.loanHolderNepData.registrationNo.ct : ''],
@@ -249,7 +249,7 @@ export class PersonalGuaranteePartnershipComponent implements OnInit {
     }
   }
 
-  private setLoanPurpose() {
+  setLoanPurpose() {
     let loanKoPurpose = '';
     if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'DDSL Without Subsidy') {
       loanKoPurpose = this.offerDocumentDetails.purposeOfLoan.ct;
@@ -271,7 +271,15 @@ export class PersonalGuaranteePartnershipComponent implements OnInit {
     }
     return loanKoPurpose ? loanKoPurpose : this.loanPurpose;
   }
-
+  setActYear() {
+    let yearOfAct = '';
+    if (this.loanHolderNepData.radioActYearDate.en === 'AD') {
+      yearOfAct = this.englishNepaliDatePipe.transform(this.loanHolderNepData.actYear.en ? this.loanHolderNepData.actYear.en : this.loanHolderNepData.actYear.en, true) || '' ;
+    } else {
+      yearOfAct = this.loanHolderNepData.actYear.en ? this.loanHolderNepData.actYear.en : '';
+    }
+    return yearOfAct ? yearOfAct : this.actYear;
+  }
   setRegistrationDate() {
     let regDate = '';
     if (this.loanHolderNepData.registrationDateOption.en === 'AD') {

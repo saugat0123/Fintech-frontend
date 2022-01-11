@@ -109,7 +109,7 @@ export class PersonalGuaranteeProprietorshipComponent implements OnInit {
                     this.formBuilder.group({
                         branchName: [this.loanHolderNepData.branch ? this.loanHolderNepData.branch.ct : ''],
                         actDetails: [this.loanHolderNepData.actName.ct ? this.loanHolderNepData.actName.ct : ''],
-                        actYearInFigure: [this.loanHolderNepData.actYear.en ? this.loanHolderNepData.actYear.en : ''],
+                        actYearInFigure: [this.setActYear()],
                         headDepartment: [!ObjectUtil.isEmpty(this.loanHolderNepData.authorizedBodyName) ? this.loanHolderNepData.authorizedBodyName.ct : this.nameOfAuthorizedBody],
                         registrationDate: [this.setRegistrationDate()],
                         registrationNo: [this.loanHolderNepData.registrationNo.ct ? this.loanHolderNepData.registrationNo.ct : ''],
@@ -224,6 +224,15 @@ export class PersonalGuaranteeProprietorshipComponent implements OnInit {
             this.dialogRef.close();
         });
     }
+  setActYear() {
+    let yearOfAct = '';
+    if (this.loanHolderNepData.radioActYearDate.en === 'AD') {
+      yearOfAct = this.englishNepaliDatePipe.transform(this.loanHolderNepData.actYear.en ? this.loanHolderNepData.actYear.en : this.loanHolderNepData.actYear.en, true) || '' ;
+    } else {
+      yearOfAct = this.loanHolderNepData.actYear.en ? this.loanHolderNepData.actYear.en : '';
+    }
+    return yearOfAct ? yearOfAct : '';
+  }
   setRegistrationDate() {
     let regDate = '';
     if (this.loanHolderNepData.registrationDateOption.en === 'AD') {
