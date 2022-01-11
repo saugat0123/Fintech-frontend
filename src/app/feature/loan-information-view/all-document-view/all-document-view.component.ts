@@ -114,8 +114,12 @@ export class AllDocumentViewComponent implements OnInit {
         docPaths.push(doc.policyDocumentPath);
       }
       const siteVisitDocument = this.siteVisitDocument;
-      for (const doc of siteVisitDocument) {
-        docPaths.push(doc.docPath.concat(doc.docName).concat('.jpg'));
+      console.log('siteVisitDocument', siteVisitDocument);
+      console.log('siteVisitDocument', this.siteVisitDocument);
+      if (!ObjectUtil.isEmpty(siteVisitDocument)) {
+        for (const doc of siteVisitDocument) {
+          docPaths.push(doc.docPath.concat(doc.docName).concat('.jpg'));
+        }
       }
     } else {
       docPaths.push(this.loanDataHolder.zipPath);
