@@ -73,7 +73,7 @@
                                                placeholder=""
                                                type="text"
                                 />
-<!--                                <span class=" print-only font-weight-bold nepaliFont font-size-normal1">{{form.get('dateOfReg').value ? form.get('dateOfReg').value : "============================"}}</span>-->
+                                <span class=" print-only font-weight-bold nepaliFont font-size-normal1">{{form.get('dateOfReg').value ? form.get('dateOfReg').value : "============================"}}</span>
 
 
                                 मा दर्ता नं. <input class="form-field disable-print form-control-sm nepaliFont"
@@ -103,7 +103,16 @@
                                 <span class=" print-only font-weight-bold nepaliFont font-size-normal1">{{form.get('nameOfFirm').value ? form.get('nameOfFirm').value : "============================"}}</span>
 
 
-                                न.पा/गा.वि.स./गाँउपालिका वडा नं <input
+                                <span *ngIf="this.loanHolderNepData.registeredMunType.en === '0'">
+                                                                                न.पा. ,
+                                                                            </span>
+                                <span *ngIf="this.loanHolderNepData.registeredMunType.en === '1'">
+                                                                                गा.वि.स. ,
+                                                                            </span>
+                                <span *ngIf="this.loanHolderNepData.registeredMunType.en === '2'">
+                                                                                गाँउपालिका ,
+                                                                            </span>
+                                <input
                                         class="form-field disable-print form-control-sm nepali Fontfont-size-normal"
                                         name="wardNo"
                                         formControlName="wardNo"
@@ -121,8 +130,6 @@
                                          type="text"
                                 />
                                 <span class=" print-only font-weight-bold nepaliFont font-size-normal1">{{form.get('addressOfFirm').value ? form.get('addressOfFirm').value : "============================"}}</span>
-
-                                <ng-container *ngFor="let assignedLoan of companyInfo; let i = index">
                                 रजिष्टर्ड कार्यालय रहेको श्री <input
                                         class="form-field disable-print form-control-sm nepaliFont"
                                         name="firmName"
@@ -133,7 +140,9 @@
                                 <span class=" print-only font-weight-bold nepaliFont font-size-normal1">{{form.get('firmName').value ? form.get('firmName').value : "============================"}}</span>
 
 
-                                को प्रोप्राइटर <input class="form-field disable-print form-control-sm nepaliFont"
+                                को प्रोप्राइटर
+                                <ng-container *ngFor="let assignedLoan of companyInfo; let i = index">
+                                <input class="form-field disable-print form-control-sm nepaliFont"
                                                       name="grandNameOfPro"
                                                       formControlName="grandNameOfPro"
                                                       placeholder=""
@@ -142,7 +151,14 @@
                                 <span class=" print-only font-weight-bold nepaliFont font-size-normal1">{{form.get('grandNameOfPro').value ? form.get('grandNameOfPro').value : "============================"}}</span>
 
 
-                                को नाती/नातिनी/बुहारी <input class="form-field disable-print form-control-sm nepaliFont"
+                                को
+                                    <span *ngIf="assignedLoan?.ownerGender === 'MALE'">नाति </span>
+                                    <span
+                                            *ngIf="assignedLoan?.ownerGender === 'FEMALE' && assignedLoan?.ownerRelationMedium === '1'">नातिनी </span>
+                                    <span
+                                            *ngIf="assignedLoan?.ownerGender === 'FEMALE' && assignedLoan?.ownerRelationMedium === '0'">बुहारी </span>
+
+                                    <input class="form-field disable-print form-control-sm nepaliFont"
                                                              name="fatherNameOfPro"
                                                              formControlName="fatherNameOfPro"
                                                              placeholder=""
@@ -151,7 +167,13 @@
                                 <span class=" print-only font-weight-bold nepaliFont font-size-normal1">{{form.get('fatherNameOfPro').value ? form.get('fatherNameOfPro').value : "============================"}}</span>
 
 
-                                    को छोरा/छोरी/श्रीमती <span *ngIf="gender && isNewSelected || isOverdraftSelected && isExistingSelected"></span>
+                                    को
+                                    <span *ngIf="assignedLoan?.ownerGender === 'MALE'">छोरा </span>
+                                    <span
+                                            *ngIf="assignedLoan?.ownerGender === 'FEMALE' && assignedLoan?.ownerRelationMedium === '1'">छोरी </span>
+                                    <span
+                                            *ngIf="assignedLoan?.ownerGender === 'FEMALE' && assignedLoan?.ownerRelationMedium === '0'">श्रीमती </span>
+
                                     <input class="form-field disable-print form-control-sm nepaliFont"
                                                             name="districtOfPro"
                                                             formControlName="districtOfPro"
@@ -170,7 +192,16 @@
                                 <span class=" print-only font-weight-bold nepaliFont font-size-normal1">{{form.get('vdcNameOfPro').value ? form.get('vdcNameOfPro').value : "============================"}}</span>
 
 
-                                न.पा/गा.वि.स./गाँउपालिका वडा नं. <input
+                                    <span *ngIf="this.loanHolderNepData.registeredMunType.en === '0'">
+                                                                                न.पा. ,
+                                                                            </span>
+                                    <span *ngIf="this.loanHolderNepData.registeredMunType.en === '1'">
+                                                                                गा.वि.स. ,
+                                                                            </span>
+                                    <span *ngIf="this.loanHolderNepData.registeredMunType.en === '2'">
+                                                                                गाँउपालिका ,
+                                                                            </span> वडा नं.
+                                    <input
                                         class="form-field disable-print form-control-sm nepaliFont"
                                         name="wardNoOfPro"
                                         formControlName="wardNoOfPro"
@@ -189,7 +220,12 @@
                                 <span class=" print-only font-weight-bold nepaliFont font-size-normal1">{{form.get('ageOfPro').value ? form.get('ageOfPro').value : "============================"}}</span>
 
 
-                                को श्री/श्रीमती/सुश्री <input
+                                को
+                                    <span *ngIf="assignedLoan?.ownerGender === 'MALE'">श्री </span>
+                                    <span *ngIf="assignedLoan?.ownerGender === 'FEMALE' && assignedLoan?.ownerRelationMedium === '1'">सुश्री </span>
+                                    <span *ngIf="assignedLoan?.ownerGender === 'FEMALE' && assignedLoan?.ownerRelationMedium === '0'">श्रीमती </span>
+
+                                    <input
                                         class="form-field disable-print form-control-sm nepaliFont"
                                         name="nameOfPro"
                                         formControlName="nameOfPro"
@@ -205,7 +241,7 @@
                                                    placeholder=""
                                                    type="text"
                                 />
-<!--                                <span class=" print-only font-weight-bold nepaliFont font-size-normal1">{{form.get('citizenshipNo').value ? form.get('citizenshipNo').value : "============================"}}</span>-->
+                                <span class=" print-only font-weight-bold nepaliFont font-size-normal1">{{form.get('citizenshipNo').value ? form.get('citizenshipNo').value : "============================"}}</span>
 
 
                                 मिति <input class="form-field disable-print form-control-sm nepaliFont"
@@ -214,7 +250,7 @@
                                             placeholder=""
                                             type="text"
                                 />
-<!--                                <span class=" print-only font-weight-bold nepaliFont font-size-normal1">{{form.get('citizenshipIssueDate').value ? form.get('citizenshipIssueDate').value : "============================"}}</span>-->
+                                <span class=" print-only font-weight-bold nepaliFont font-size-normal1">{{form.get('citizenshipIssueDate').value ? form.get('citizenshipIssueDate').value : "============================"}}</span>
 
 
                                 /जिल्ला प्रशासन कार्यालय <input
