@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild, AfterViewChecked, ChangeDetectorRef} from '@angular/core';
 import {CustomerInfoData} from '../../../loan/model/customerInfoData';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CustomerInfoService} from '../../../customer/service/customer-info.service';
@@ -43,7 +43,7 @@ import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
     templateUrl: './cad-offer-letter-configuration.component.html',
     styleUrls: ['./cad-offer-letter-configuration.component.scss']
 })
-export class CadOfferLetterConfigurationComponent implements OnInit {
+export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewChecked {
 
     @Input() customerType;
     @Input() customerSubType;
@@ -158,8 +158,13 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 private addressService: AddressService,
                 private currencyFormatterPipe: CurrencyFormatterPipe,
                 private dialogService: NbDialogService,
-                private modalService: NgbModal
+                private modalService: NgbModal,
+                private readonly changeDetectorRef: ChangeDetectorRef
     ) {
+    }
+
+    ngAfterViewChecked(): void {
+        this.changeDetectorRef.detectChanges();
     }
 
     get configForm() {
