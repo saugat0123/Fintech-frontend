@@ -80,6 +80,7 @@ export class LetterOfContinuityComponent implements OnInit {
         this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
         if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
             this.form.patchValue({
+                branchName: this.nepaliData.branchName ? this.nepaliData.branchName : '',
                 borrowerName: this.nepaliData.name ? this.nepaliData.name : '',
                 borrowerPermanentMunicipality: this.nepaliData.permanentMunicipality ? this.nepaliData.permanentMunicipality : '',
                 borrowerPermanentWardNo: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
