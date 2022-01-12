@@ -5,7 +5,7 @@ import {Pipe, PipeTransform} from '@angular/core';
 })
 export class NepaliNumberPipe implements PipeTransform {
   mapPreetiNumber = new Map([
-    [0, ')'], // १
+    [0, ')'], // ०
     [1, '!'], // १
     [2, '@'], // २
     [3, '#'], // ३
@@ -39,6 +39,7 @@ export class NepaliNumberPipe implements PipeTransform {
   ]);
 
   mapUnicodeNumber = new Map([
+    [0, '०'], // ०
     [1, '१'], // १
     [2, '२'], // २
     [3, '३'], // ३
@@ -74,7 +75,12 @@ export class NepaliNumberPipe implements PipeTransform {
 
   transform(value: number, mapType: string = 'unicode'): string {
     if (mapType === 'unicode') {
-      return this.mapUnicodeNumber.get(value);
+      let finalValue = '';
+      for (let i = 0; i < value.toString().length; i++) {
+        // tslint:disable-next-line:radix
+        finalValue += this.mapUnicodeNumber.get(parseInt(value.toString()[i]));
+      }
+      return finalValue;
     } else if (mapType === 'preeti') {
       let finalValue = '';
       for (let i = 0; i < value.toString().length; i++) {

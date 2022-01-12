@@ -87,6 +87,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
         'BRIDGE GAP LOAN', 'LETTER OF CREDIT', 'HIRE PURCHASE LOAN', 'COMMERCIAL AUTO LOAN', 'PERSONAL LOAN', 'EDUCATIONAL LOAN', 'AGMI'];
     loanHavingSubLoan = ['OVERDRAFT', 'DEMAND LOAN', 'TERM LOAN', 'TRUST RECEIPT LOAN', 'HOME LOAN', 'BANK GUARANTEE',
         'SANA BYAWASAI KARJA', 'SANA BYAWASAI KARJA - LITE'];
+    commissionTime = ['त्रैमासिक', 'मासिक', 'Other'];
     loanWithSubloan = [];
     loanNature = [];
     loanWithOutSubLoan = [];
@@ -115,6 +116,12 @@ export class OfferLetterLaxmiComponent implements OnInit {
           this.modalService.open(this.modal);
         }
         this.addFixedAssetsCollateral();
+        this.addOtherCovenants();
+        this.addAcceptance();
+        this.addEventDefault();
+        this.addEventDefault1();
+        this.addRepresentation();
+        this.addPrecedent();
     }
 
     checkOfferLetter() {
@@ -344,7 +351,13 @@ export class OfferLetterLaxmiComponent implements OnInit {
 
 
             educationalDrawdown: [undefined],
-            purpose: this.formBuilder.array([])
+            purpose: this.formBuilder.array([]),
+            covenant: this.formBuilder.array([]),
+            eventDefault: this.formBuilder.array([]),
+            eventDefault1: this.formBuilder.array([]),
+            representation: this.formBuilder.array([]),
+            acceptance: this.formBuilder.array([]),
+            precedent: this.formBuilder.array([]),
         });
     }
 
@@ -718,5 +731,143 @@ export class OfferLetterLaxmiComponent implements OnInit {
                 break;
         }
         console.log(this.offerLetterForm);
+    }
+
+    addOtherCovenants() {
+        (this.offerLetterForm.get('covenant') as FormArray).push(
+            this.formBuilder.group({
+                otherCovenant: [undefined]
+            })
+        );
+    }
+
+    setOtherCovenants(data) {
+        const dataArray = this.offerLetterForm.get('covenant') as FormArray;
+        if (!ObjectUtil.isEmpty(data)) {
+            data.forEach(singleData => {
+                dataArray.push(this.formBuilder.group({
+                    otherCovenant: [singleData.otherCovenant]
+                }));
+            });
+        }
+    }
+
+    removeOtherCovenants(index: number) {
+        (<FormArray>this.offerLetterForm.get('covenant')).removeAt(index);
+    }
+
+    addEventDefault() {
+        (this.offerLetterForm.get('eventDefault') as FormArray).push(
+            this.formBuilder.group({
+                otherEventDeafult: [undefined]
+            })
+        );
+    }
+
+    setEventDefaul(data) {
+        const dataArray = this.offerLetterForm.get('eventDefault') as FormArray;
+        if (!ObjectUtil.isEmpty(data)) {
+            data.forEach(singleData => {
+                dataArray.push(this.formBuilder.group({
+                    otherEventDeafult: [singleData.otherEventDeafult]
+                }));
+            });
+        }
+    }
+
+    removeEventDefault(index: number) {
+        (<FormArray>this.offerLetterForm.get('eventDefault')).removeAt(index);
+    }
+
+    addEventDefault1() {
+        (this.offerLetterForm.get('eventDefault1') as FormArray).push(
+            this.formBuilder.group({
+                otherEventDeafult: [undefined]
+            })
+        );
+    }
+
+    setEventDefaul1(data) {
+        const dataArray = this.offerLetterForm.get('eventDefault1') as FormArray;
+        if (!ObjectUtil.isEmpty(data)) {
+            data.forEach(singleData => {
+                dataArray.push(this.formBuilder.group({
+                    otherEventDeafult: [singleData.otherEventDeafult]
+                }));
+            });
+        }
+    }
+
+    removeEventDefault1(index: number) {
+        (<FormArray>this.offerLetterForm.get('eventDefault1')).removeAt(index);
+    }
+
+    addRepresentation() {
+        (this.offerLetterForm.get('representation') as FormArray).push(
+            this.formBuilder.group({
+                otherRepresentation: [undefined]
+            })
+        );
+    }
+
+    removeRepresentation(i: number) {
+        (<FormArray>this.offerLetterForm.get('representation')).removeAt(i);
+    }
+
+    setRepresentation(data) {
+        const dataArray = this.offerLetterForm.get('representation') as FormArray;
+        if (!ObjectUtil.isEmpty(data)) {
+            data.forEach(singleData => {
+                dataArray.push(this.formBuilder.group({
+                    otherRepresentation: [singleData.otherRepresentation]
+                }));
+            });
+        }
+    }
+
+    addAcceptance() {
+        (this.offerLetterForm.get('acceptance') as FormArray).push(
+            this.formBuilder.group({
+                otherAcceptance: [undefined]
+            })
+        );
+    }
+
+    removeAcceptance(i: number) {
+        (<FormArray>this.offerLetterForm.get('acceptance')).removeAt(i);
+    }
+
+    setAcceptance(data) {
+        const dataArray = this.offerLetterForm.get('acceptance') as FormArray;
+        if (!ObjectUtil.isEmpty(data)) {
+            data.forEach(singleData => {
+                dataArray.push(this.formBuilder.group({
+                    otherAcceptance: [singleData.otherAcceptance]
+                }));
+            });
+        }
+    }
+
+    addPrecedent() {
+        (this.offerLetterForm.get('precedent') as FormArray).push(
+            this.formBuilder.group({
+                otherPrecedent: [undefined]
+            })
+        );
+    }
+
+    removePrecedent(i: number) {
+        (<FormArray>this.offerLetterForm.get('precedent')).removeAt(i);
+    }
+
+    setPrecedent(data) {
+        const dataArray = this.offerLetterForm.get('precedent') as FormArray;
+        if (!ObjectUtil.isEmpty(data)) {
+            data.forEach(singleData => {
+                dataArray.push(this.formBuilder.group({
+                    otherPrecedent: [singleData.otherPrecedent]
+                }));
+            });
+        }
     }
 }

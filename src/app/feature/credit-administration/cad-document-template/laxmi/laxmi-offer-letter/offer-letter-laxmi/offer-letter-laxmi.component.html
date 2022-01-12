@@ -937,8 +937,9 @@
                             <td>उद्देश्य(Purpose)</td>
                             <td>
                                 <select class="form-control disable-print"
+                                        [value]="offerLetterForm?.get('bridgeGapPurpose')?.value"
                                         formControlName="bridgeGapPurpose"
-                                        name="bridgeGapPurpose" (change)="purposeChangeNonSubLoan()">
+                                        name="bridgeGapPurpose" (change)="purposeChangeNonSubLoan($event?.target?.value)">
                                     <option [value]="null">Select Purpose</option>
                                     <option *ngFor="let pur of purpose"
                                             [value]="pur?.value">{{pur?.value}}</option>
@@ -983,8 +984,9 @@
                             <td>उद्देश्य(Purpose)</td>
                             <td>
                                 <select class="form-control disable-print"
+                                        [value]="offerLetterForm?.get('letterPurpose')?.value"
                                         formControlName="letterPurpose"
-                                        name="letterPurpose" (change)="purposeChangeNonSubLoan()">
+                                        name="letterPurpose" (change)="purposeChangeNonSubLoan($event?.target?.value)">
                                     <option [value]="null">Select Purpose</option>
                                     <option *ngFor="let pur of purpose"
                                             [value]="pur?.value">{{pur?.value}}</option>
@@ -1056,8 +1058,9 @@
                             <td>उद्देश्य (Purpose)</td>
                             <td>
                                 <select class="form-control disable-print"
+                                        [value]="offerLetterForm?.get('hirePurpose')?.value"
                                         formControlName="hirePurpose"
-                                        name="hirePurpose" (change)="purposeChangeNonSubLoan()">
+                                        name="hirePurpose" (change)="purposeChangeNonSubLoan($event?.target?.value)">
                                     <option [value]="null">Select Purpose</option>
                                     <option *ngFor="let pur of purpose"
                                             [value]="pur?.value">{{pur?.value}}</option>
@@ -1065,7 +1068,7 @@
                                 <!--                            <ckeditor formControlName="workingOther" *ngIf="tempPurposeFlag?.selectHireOther"-->
                                 <!--                                      [config]="ckeConfig"></ckeditor>-->
                                 <textarea *ngIf="offerLetterForm?.get('hirePurpose')?.value === 'Other'"
-                                          class="form-control nepaliFont form-field font-size-normal"
+                                          class="form-control nepaliFont form-field font-size-normal disable-print"
                                           formControlName="hireOther"
                                           placeholder="अन्य उद्देश्य"
                                           rows="2"></textarea>
@@ -1102,8 +1105,9 @@
                             <td>उद्देश्य (Purpose)</td>
                             <td>
                                 <select class="form-control disable-print"
+                                        [value]="offerLetterForm?.get('commercialPurpose')?.value"
                                         formControlName="commercialPurpose"
-                                        name="commercialPurpose" (change)="purposeChangeNonSubLoan()">
+                                        name="commercialPurpose" (change)="purposeChangeNonSubLoan($event?.target?.value)">
                                     <option [value]="null">Select Purpose</option>
                                     <option *ngFor="let pur of purpose"
                                             [value]="pur?.value">{{pur?.value}}</option>
@@ -1147,9 +1151,10 @@
                         <tr>
                             <td>उद्येश्य (Purpose)</td>
                             <td>
-                                <select class="form-control"
+                                <select class="form-control disable-print"
                                         formControlName="personalPurpose"
-                                        name="commercialPurpose" (change)="purposeChangeNonSubLoan()">
+                                        [value]="offerLetterForm?.get('personalPurpose')?.value"
+                                        name="commercialPurpose" (change)="purposeChangeNonSubLoan($event?.target?.value)">
                                     <option [value]="null">Select Purpose</option>
                                     <option *ngFor="let pur of purpose"
                                             [value]="pur?.value">{{pur?.value}}</option>
@@ -1157,7 +1162,7 @@
                                 <!--                            <ckeditor formControlName="workingOther" *ngIf="tempPurposeFlag?.selectPersonalOther"-->
                                 <!--                                      [config]="ckeConfig"></ckeditor>-->
                                 <textarea *ngIf="offerLetterForm?.get('personalPurpose')?.value === 'Other'"
-                                          class="form-control nepaliFont form-field font-size-normal"
+                                          class="form-control nepaliFont form-field font-size-normal disable-print"
                                           formControlName="personalOther"
                                           placeholder="अन्य उद्देश्य"
                                           rows="2"></textarea>
@@ -1263,7 +1268,7 @@
                             <td>
                                 <!--                        <ckeditor formControlName="agmiDrawdown"-->
                                 <!--                                  [config]="ckeConfig"></ckeditor>-->
-                                <textarea class="form-control nepaliFont form-field font-size-normal"
+                                <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
                                           formControlName="agmiDrawdown"
                                           placeholder="स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमा"
                                           rows="4"></textarea>
@@ -1485,13 +1490,10 @@
 
             <!--           New / Enhancement Loan case:-->
 <!--            <ng-container *ngIf="loanTypes[loanType] === loanTypes?.NEW_LOAN || loanTypes[loanType] === loanTypes?.ENHANCED_LOAN">-->
-            <ng-container>
+            <ng-container *ngIf="loanType.includes('NEW_LOAN') || loanType.includes('ENHANCED_LOAN')">
                 <table class="table table-bordered table-responsive-md table-sm sb-small">
                     <tbody>
                     <ng-container *ngIf="singleSecurity">
-                        <tr>
-                            <td colspan="6">Security as Fixed Assets Collateral (Single borrower)</td>
-                        </tr>
                         <tr>
                             <td>जग्गाधनीको नाम</td>
                             <td>जिल्ला</td>
@@ -2733,6 +2735,27 @@
                         आफैले व्यहोर्नु पर्नेछ ।
                     </td>
                 </tr>
+                <tr *ngFor="let test of offerLetterForm.get('covenant')['controls']; let ii = index" formArrayName="covenant">
+                    <ng-container [formGroupName]="ii">
+                        <td>{{(42 + ii + 1) |nepaliNumber}}</td>
+                        <td>
+                            <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                                      formControlName="otherCovenant"
+                                      placeholder="अन्य शर्त तथा बन्देजहरु"
+                                      rows="3"></textarea>
+                        </td>
+                        <div>
+                            <button (click)="removeOtherCovenants(ii)"
+                                    *ngIf="offerLetterForm?.get('covenant')['length'] > 1"
+                                    class="btn btn-success" nbButton size="small"
+                                    status="primary">Delete </button>
+                        </div>
+                    </ng-container>
+                </tr>
+                <div class="text-right">
+                    <input (click)="addOtherCovenants()" class="btn btn-sm btn-flat btn-primary"
+                           type="button" value="Add More"/>
+                </div>
             </table>
             <p class="text-center"><strong>६. कर्जा खिलाफीको अवस्था (Events of Defaults)</strong></p>
             <table class="table table-bordered table-responsive-md table-sm sb-small">
@@ -2838,6 +2861,29 @@
                         तथा कुनै पनि प्रकारले हक हस्तान्तरण गर्न, धितो सुरक्षण प्रदान गर्न वा व्ययभार खडा गरे गराएमा ।
                     </td>
                 </tr>
+
+                <tr *ngFor="let test of offerLetterForm.get('eventDefault')['controls']; let iii = index" formArrayName="eventDefault">
+                    <ng-container [formGroupName]="iii">
+                        <td>{{(16 + iii + 1) |nepaliNumber}}</td>
+                        <td>
+                            <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                                      formControlName="otherEventDeafult"
+                                      placeholder="अन्य कर्जा खिलाफीको अवस्था"
+                                      rows="3"></textarea>
+                        </td>
+                        <div>
+                            <button (click)="removeEventDefault(iii)"
+                                    *ngIf="offerLetterForm?.get('eventDefault')['length'] > 1"
+                                    class="btn btn-success" nbButton size="small"
+                                    status="primary">Delete </button>
+                        </div>
+                    </ng-container>
+                </tr>
+                <div class="text-right">
+                    <input (click)="addEventDefault()" class="btn btn-sm btn-flat btn-primary"
+                           type="button" value="Add More"/>
+                </div>
+
                 <tr>
                     <th>(ख)</th>
                     <th>उपरोक्त लेखिए वमोजिमको कुनै एक वा सवै कर्जा खिलाफीको अवस्था विद्यमान भएमा बैंकलाई देहाय वमोजिमको
@@ -2920,6 +2966,27 @@
                         जमानी, मञ्जुरीनामा, आयात–निर्यात र प्रतित–पत्र आदिमा सृजना हुन सक्ने दायित्वलाई सम्झनु पर्दछ) ।
                     </td>
                 </tr>
+                <tr *ngFor="let test of offerLetterForm.get('eventDefault1')['controls']; let iiii = index" formArrayName="eventDefault1">
+                    <ng-container [formGroupName]="iiii">
+                        <td>{{(11 + iiii + 1) |nepaliNumber}}</td>
+                        <td>
+                            <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                                      formControlName="otherEventDeafult"
+                                      placeholder="अन्य कर्जा खिलाफीको अवस्था"
+                                      rows="3"></textarea>
+                        </td>
+                        <div>
+                            <button (click)="removeEventDefault1(iiii)"
+                                    *ngIf="offerLetterForm?.get('eventDefault1')['length'] > 1"
+                                    class="btn btn-success" nbButton size="small"
+                                    status="primary">Delete </button>
+                        </div>
+                    </ng-container>
+                </tr>
+                <div class="text-right">
+                    <input (click)="addEventDefault1()" class="btn btn-sm btn-flat btn-primary"
+                           type="button" value="Add More"/>
+                </div>
             </table>
             <p class="text-center"><strong>७. लागू हुने पूर्व शर्त (Condition Precedent):</strong></p>
             <table class="table table-bordered table-responsive-md text-center table-sm sb-small">
@@ -2940,6 +3007,27 @@
                         कानून बमोजिम अमान्य वा बदर घोषित भएमा सो वाहेकका अन्य शर्त तथा व्यवस्थाहरु यथावत कायम रहनेछ ।
                     </td>
                 </tr>
+                <tr *ngFor="let test of offerLetterForm.get('precedent')['controls']; let ii = index" formArrayName="precedent">
+                    <ng-container [formGroupName]="ii">
+                        <td>{{(2 + ii + 1) |nepaliNumber}}</td>
+                        <td>
+                            <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                                      formControlName="otherPrecedent"
+                                      placeholder="अन्य लागू हुने पूर्व शर्त"
+                                      rows="3"></textarea>
+                        </td>
+                        <div>
+                            <button (click)="removeOtherCovenants(ii)"
+                                    *ngIf="offerLetterForm?.get('precedent')['length'] > 1"
+                                    class="btn btn-success" nbButton size="small"
+                                    status="primary">Delete </button>
+                        </div>
+                    </ng-container>
+                </tr>
+                <div class="text-right">
+                    <input (click)="addOtherCovenants()" class="btn btn-sm btn-flat btn-primary"
+                           type="button" value="Add More"/>
+                </div>
             </table>
 
             <br>
@@ -3005,6 +3093,27 @@
                         उपलब्ध गराएको कारणले हुने कारवाही प्रति बैंक जवाफदेही हुने छैन ।
                     </td>
                 </tr>
+                <tr *ngFor="let test of offerLetterForm.get('representation')['controls']; let iv = index" formArrayName="representation">
+                    <ng-container [formGroupName]="iv">
+                        <td>{{(7 + iv + 1) |nepaliNumber}}</td>
+                        <td>
+                            <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                                      formControlName="otherRepresentation"
+                                      placeholder="अन्य घोषणा"
+                                      rows="3"></textarea>
+                        </td>
+                        <div>
+                            <button (click)="removeRepresentation(iv)"
+                                    *ngIf="offerLetterForm?.get('representation')['length'] > 1"
+                                    class="btn btn-success" nbButton size="small"
+                                    status="primary">Delete </button>
+                        </div>
+                    </ng-container>
+                </tr>
+                <div class="text-right">
+                    <input (click)="addRepresentation()" class="btn btn-sm btn-flat btn-primary"
+                           type="button" value="Add More"/>
+                </div>
             </table>
             <br>
             <p class="text-center"><strong>९. स्वीकारोक्ति <em class="sb-medium">(Acceptance)</em> :</strong></p>
@@ -3041,6 +3150,27 @@
                         ठेगानामा पत्राचार गरेको मानिनेछ ।
                     </td>
                 </tr>
+                <tr *ngFor="let test of offerLetterForm.get('acceptance')['controls']; let v = index" formArrayName="acceptance">
+                    <ng-container [formGroupName]="v">
+                        <td>{{(3 + v + 1) |nepaliNumber}}</td>
+                        <td>
+                            <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                                      formControlName="otherAcceptance"
+                                      placeholder="अन्य स्वीकारोक्ति"
+                                      rows="3"></textarea>
+                        </td>
+                        <div>
+                            <button (click)="removeAcceptance(v)"
+                                    *ngIf="offerLetterForm?.get('acceptance')['length'] > 1"
+                                    class="btn btn-success" nbButton size="small"
+                                    status="primary">Delete </button>
+                        </div>
+                    </ng-container>
+                </tr>
+                <div class="text-right">
+                    <input (click)="addAcceptance()" class="btn btn-sm btn-flat btn-primary"
+                           type="button" value="Add More"/>
+                </div>
             </table>
             <br>
 
