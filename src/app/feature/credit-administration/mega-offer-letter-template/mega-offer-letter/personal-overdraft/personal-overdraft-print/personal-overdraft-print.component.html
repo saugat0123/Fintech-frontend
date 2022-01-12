@@ -723,24 +723,6 @@
                                         </p>
                                     </div>
                                 </div>
-                                <div class="row" *ngIf="selectedSecurity === 'LAND' && !renewalVal">
-                                    <div class="col-sm-12">
-                                        <span *ngIf="offerData?.supportedInformation !== null">
-                                            <p>
-                                                झ)
-                                                <span
-                                                  class="nepaliFont"
-                                                  style="
-                                                    font-size: 24px;
-                                                    margin-top: -0.35em;
-                                                    margin-left: 0.3em;">
-                                                    {{ offerData?.supportedInformation }}
-                                                </span>
-                                            </p>
-                                        </span>
-                                    </div>
-                                </div>
-
                                 <div class="row" *ngIf="selectedSecurity === 'LAND_AND_BUILDING' && !renewalVal">
                                     <div class="col-sm-12">
                                         <p class="m-0">
@@ -834,22 +816,8 @@
                                         <p class="m-0">
                                             ञ. भवन निर्माण सम्पन्नताको प्रमाण पत्र ।
                                         </p>
-                                        <p class="m-0" *ngIf="offerData?.supportedInformation !== null">
-                                            ट)
-                                            <span
-                                              class="nepaliFont"
-                                              style="
-                                                font-size: 24px;
-                                                margin-top: -0.35em;
-                                                margin-left: 0.3em;
-                                              "
-                                            >
-                                              {{ offerData?.supportedInformation }}
-                                            </span>
-                                        </p>
                                     </div>
                                 </div>
-
                                 <div class="row" *ngIf="renewalVal">
                                     <div class="col-sm-12">
                                         <p class="m-0">
@@ -914,7 +882,13 @@
                         </ol>
                     </div>
                 </div>
-
+                    <div class="col-sm-12">
+                        <span *ngIf="offerData?.supportedInformation !== null">
+                                <span class="uniFont" style="margin-left: 20px">
+                                    {{ offerData?.supportedInformation }}
+                                </span>
+                        </span>
+                    </div>
                 <div class="row info-msg">
                     <div class="col-sm-12">
                         <p class="lh-40 text-justify">

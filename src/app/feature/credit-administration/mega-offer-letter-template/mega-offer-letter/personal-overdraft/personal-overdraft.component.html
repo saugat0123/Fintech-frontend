@@ -631,21 +631,9 @@
                                             मात्र) बराबरको व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण ।
                                         </p>
                                         <br>
-                                        <div class="row col-md-12" style="margin-left: 5.8em;width: 95%;margin-top: -2em;">
-                                            झ.
-                                            <textarea
-                                                    id="additionalGuarantorDetails"
-                                                    class="form-control customFont nepaliFont"
-                                                    rows="5"
-                                                    style="width:inherit;margin-left:2%"
-                                                    name="additionalGuarantorDetails"
-                                                    formControlName="additionalGuarantorDetails">
-                                            </textarea>
-                                        </div>
                                     </div>
-
                                     <div *ngIf="selectedSecurity === 'LAND_AND_BUILDING' && !renewal" class="col-md-12">
-                                        <p style="line-height: 1.9;margin-left:100px">क. रु.<input class="form-field form-control-sm"
+                                        <p style="line-height: 1.9;margin-left:100px; margin-bottom: 15px">क. रु.<input class="form-field form-control-sm"
                                                         formControlName="loanAmountinFigure"
                                                         name="loanAmountinFigure"
                                                         placeholder=" रकम "
@@ -691,16 +679,6 @@
                                             ञ. भवन निर्माण सम्पन्नताको प्रमाण पत्र ।
                                         </p>
                                         <br>
-                                        <div class="row col-md-12" style="margin-left: 5.8em;width: 95%;margin-top: -2em;">
-                                            ट.
-                                            <textarea
-                                                    class="form-control customFont nepaliFont"
-                                                    rows="5"
-                                                    style="width:inherit;margin-left:2%"
-                                                    name="additionalGuarantorDetails"
-                                                    formControlName="additionalGuarantorDetails">
-                                            </textarea>
-                                        </div>
                                     </div>
                                     <br>
                                     <div *ngIf="renewal" class="col-md-12">
@@ -727,7 +705,7 @@
                                                                 type="text"/>
                                             मात्र) बराबरको व्यक्तिगत जमानत पत्र र सम्पत्ती विवरण ।
                                         </p>
-                                        <p *ngIf="selectedSecurity === 'LAND_AND_BUILDING'">
+                                        <p *ngIf="selectedSecurity === 'LAND_AND_BUILDING'" style="line-height: 1.9;margin-left:100px">
                                             च.  बैकर्श शर्त सहितको कम्तीमा रु
                                             <input class="form-field form-control-sm"
                                                                                      formControlName="insuranceAmountinFigure"
@@ -740,6 +718,16 @@
                                 </td>
                             </tr>
                         </table>
+                            <div [ngStyle]="{'margin': renewal ? '-2rem auto 1rem auto' : '-5rem auto 1rem auto'}" style="width: 75%">
+                                <textarea
+                                    id="additionalGuarantorDetails"
+                                    class="form-control customFont"
+                                    rows="5"
+                                    name="additionalGuarantorDetails"
+                                    formControlName="additionalGuarantorDetails">
+                                </textarea>
+                            </div>
+                        <br>
                         <p style="line-height:1.9"> यो ऋण स्वीकृति पत्रमा उल्लिखित मितिबाट ३० (तिस) दिनभित्र यस ऋणस्वीकृति पत्र साथ संलग्न रहेको प्रतिलिपीमा तपाईंको मञ्जुरी
                             सहीछाप गरी बैंकमा फिर्ता बुझाउनु पर्नेछ । अन्यथा यो प्रस्ताव स्वतः रद्द हुनेछ । साथै, तपाईले यो ऋण स्वीकृति पत्रमा मञ्जुरी जनाएको
                             मितिले ६० (साठ्ठी) दिनभित्र यस ऋण स्वीकृति पत्रमा ऋणीले बैंकलाई उपलब्ध गराउनु पर्ने भनी तोकिएको विवरण, सूचना, कागजात
@@ -753,10 +741,10 @@
                                         सहायक सम्पर्क अधिकृत
                                     </p>
                                     <p>
-                                        <input class="form-field form-control-sm nepaliFont" name="relationshipofficerName" formControlName="relationshipofficerName" placeholder="सम्बन्ध अधिकारीको नाम" type="text"/>
+                                        <input class="form-field form-control-sm" name="relationshipofficerName" formControlName="relationshipofficerName" placeholder="सम्बन्ध अधिकारीको नाम" type="text"/>
                                     </p>
                                     <p>
-                                        <input class="form-field form-control-sm nepaliFont" name="branchName" formControlName="branchName" placeholder="एकाइ वा शाखा नाम" type="text"/>
+                                        <input class="form-field form-control-sm" name="branchName" formControlName="branchName" placeholder="एकाइ वा शाखा नाम" type="text"/>
                                     </p>
                                 </div>
                                 <div class="left-content">
@@ -765,10 +753,10 @@
                                         सम्पर्क अधिकृत
                                     </p>
                                     <p>
-                                        <input class="form-field form-control-sm nepaliFont" name="nameofBranchManager" formControlName="nameofBranchManager" placeholder="शाखा प्रबन्धक वा पर्यवेक्षकको नाम" type="text"/>
+                                        <input class="form-field form-control-sm" name="nameofBranchManager" formControlName="nameofBranchManager" placeholder="शाखा प्रबन्धक वा पर्यवेक्षकको नाम" type="text"/>
                                     </p>
                                     <p>
-                                        <input class="form-field form-control-sm nepaliFont" name="branchName" formControlName="branchName" placeholder="एकाइ वा शाखाको नाम" type="text"/>
+                                        <input class="form-field form-control-sm" name="branchName" formControlName="branchName" placeholder="एकाइ वा शाखाको नाम" type="text"/>
                                     </p>
                                 </div>
                             </div>
