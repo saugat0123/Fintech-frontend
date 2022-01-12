@@ -1,1 +1,353 @@
-<p>power-of-attorney-company works!</p>
+<nb-card [nbSpinner]="spinner">
+    <div class="container text-justify">
+        <form [formGroup]="powerOfAttorneyCompanyForm" id="print-section">
+            <div class="form-group align">
+                <div class="row">
+                    <div class="col-md-12 text-center font-weight-bold">
+                        <p>
+                            वारेसनामा
+                        </p>
+                        <p>
+                            <u>
+                                (Power of Attorney)
+                            </u>
+                        </p>
+                    </div>
+                </div>
+                <div class="row" style="float: right">
+                    <div class="col-md-12">
+                        <p>मिति: ............................</p>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 3em">
+                    <div class="col-md-12">
+                        <p class="m-0">
+                            प्रचलित कानून बमोजिम दर्ता भई
+                            <span>
+                                <input class="form-field form-control-sm d-print-none" name="districtOfCompany"
+                                       formControlName="districtOfCompany" placeholder="" type="text"/>
+                                <strong class="print-only">
+                                    {{this.loanHolderNepData.registeredDistrict ? this.loanHolderNepData.registeredDistrict.ct : '___________________________'}}
+                                </strong>
+                        </span>
+                            जिल्ला,
+                            <span>
+                            <input class="form-field form-control-sm d-print-none" name="vdcCompany"
+                                   formControlName="vdcCompany" placeholder="" type="text"/>
+                            <strong class="print-only">
+                                {{this.loanHolderNepData.registeredMunicipality ? this.loanHolderNepData.registeredMunicipality.ct : '___________________________'}}
+                            </strong>
+                        </span>
+                            <span *ngIf="this.loanHolderNepData.registeredMunType.en === '0'">
+                                    न.पा.
+                        </span>
+                            <span *ngIf="this.loanHolderNepData.registeredMunType.en === '1'">
+                                     गा.वि.स.
+                        </span>
+                            <span *ngIf="this.loanHolderNepData.registeredMunType.en === '2'">
+                                    गाँउपालिका
+                        </span>
+                            वडा नं
+                            <span>
+                            <input class="form-field form-control-sm d-print-none" name="wardNumber"
+                                   formControlName="wardNumber" placeholder="" type="text"/>
+                            <strong class="print-only">
+                                {{this.loanHolderNepData.permanentWard ? this.loanHolderNepData.permanentWard.ct : '_________'}}
+                            </strong>
+                        </span>,
+                            <span>
+                            <input class="form-field form-control-sm d-print-none" name="streetName"
+                                   formControlName="streetName" placeholder="" type="text"/>
+                            <strong class="print-only">
+                                {{this.loanHolderNepData.registeredStreetTole ? this.loanHolderNepData.registeredStreetTole.ct : '___________________________'}}
+                            </strong>
+                        </span>
+                            मा कार्यलय रहेको श्री
+                            <span>
+                            <input class="form-field form-control-sm d-print-none" name="nameOfBorrower"
+                                   formControlName="nameOfBorrower" placeholder="" type="text"/>
+                            <strong class="print-only">
+                                {{this.loanHolderNepData.name ? this.loanHolderNepData.name.ct : '___________________________'}}
+                            </strong>
+                        </span>
+                            (प्रा.लि./लि.) को
+                            <span>
+                            <input class="form-field form-control-sm d-print-none" name="freeText1"
+                                   formControlName="freeText1" placeholder="" type="text"/>
+                            <strong class="print-only">
+                                {{this.freeText ? this.freeText.freeText1 : ''}}
+                            </strong>
+                        </span>
+                            जसलाई यसपछि ऋणी भनिएको छ,
+                            को हकमा एवं तर्फबाट ऐ. का अख्तियारप्राप्त सञ्चालक/प्रबन्ध सञ्चालक/प्रमुख कार्यकारी अधिकृत/
+                            <span>
+                            <input class="form-field form-control-sm d-print-none" name="freeText2"
+                                   formControlName="freeText2" placeholder="" type="text"/>
+                            <strong class="print-only">
+                                {{this.freeText ? this.freeText.freeText2 : ''}}
+                            </strong>
+                        </span>,
+
+                            <!--Repeated Clause-->
+                            <span *ngFor="let details of companyInfo">
+                                  <input class="form-field form-control-sm d-print-none"
+                                         name="authorizedDistrict"
+                                         formControlName="authorizedDistrict"
+                                         [value]="details.ownerPermanentDistrictCT"
+                                         placeholder="" type="text"/>
+                                    <strong class="print-only">
+                                        {{details.ownerPermanentDistrictCT}}
+                                    </strong>
+                                जिल्ला
+                                <input class="form-field form-control-sm d-print-none"
+                                       name="authorizedVDC"
+                                       formControlName="authorizedVDC"
+                                       [value]="details.ownerPermanentMunicipalityCT"
+                                       placeholder="" type="text"/>
+                                    <strong class="print-only">
+                                        {{details.ownerPermanentMunicipalityCT}}
+                                    </strong>
+                                {{details.ownerPermanentAddressRadio === '0' ?  'न.पा.' : details.ownerPermanentAddressRadio === '1' ? 'गा.वि.स.' : details.ownerPermanentAddressRadio === '2' ? 'गाँउपालिका' : ''}},
+                                वडा नं.
+                                    <input class="form-field form-control-sm d-print-none"
+                                           name="authorizedWardNumber"
+                                           formControlName="authorizedWardNumber"
+                                           [value]="details.ownerPermanentWardNoCT"
+                                           placeholder="" type="text"/>
+                                <strong class="print-only">
+                                    {{details.ownerPermanentWardNoCT}}
+                                </strong>
+                                बस्ने श्री.
+                                <input class="form-field form-control-sm d-print-none"
+                                       name="authorizedName"
+                                       formControlName="authorizedName"
+                                       [value]="details.ownerNameCT"
+                                       placeholder="" type="text"/>
+                                <strong class="print-only">
+                                    {{details.ownerNameCT}}
+                                </strong>
+                                (ना.प्र.नं .
+                                <input class="form-field form-control-sm d-print-none"
+                                       name="authorizedCitizenship"
+                                       formControlName="authorizedCitizenship"
+                                       [value]="details.ownerCitizenshipNoCT"
+                                       placeholder="" type="text"/>
+                                <strong class="print-only">
+                                    {{details.ownerCitizenshipNoCT}}
+                                </strong>
+                                , जारी मिति
+                                <input class="form-field form-control-sm d-print-none"
+                                       name="authorizedDateOfIssue"
+                                       formControlName="authorizedDateOfIssue"
+                                       [value]="this.englishNepaliDatePipe.transform(this.datePipe.transform(details.ownerCitizenshipIssuedDateCT), true)"
+                                       placeholder="" type="text"/>
+                                <strong class="print-only">
+                                    {{this.englishNepaliDatePipe.transform(this.datePipe.transform(details.ownerCitizenshipIssuedDateCT), true)}}
+                                </strong>
+                            , जिल्ला प्रशासन कार्यालय
+                                <input class="form-field form-control-sm d-print-none"
+                                       name="authorizedIdentity"
+                                       formControlName="authorizedIdentity"
+                                       [value]="details.ownerCitizenshipIssuedDistrictCT"
+                                       placeholder="" type="text"/>
+                                <strong class="print-only">
+                                    {{details.ownerCitizenshipIssuedDistrictCT}}
+                                </strong>
+                                ) ,
+                            </span>
+                            <!--Repeated Clause Finished-->
+
+                            आगे म/हामी ऋणीको अनुरोधमा नबिल बैंक लिमिटेडको
+                            <span>
+                            <input class="form-field form-control-sm d-print-none" name="branchName"
+                                   formControlName="branchName" placeholder="" type="text"/>
+                            <strong class="print-only">
+                                {{this.loanHolderNepData.branch ? this.loanHolderNepData.branch.ct : '___________________________'}}
+                            </strong>
+                        </span>
+                            शाखा मार्फत मेरो/हाम्रो नाममा जारी भएको मिति
+                            <span>
+                            <input class="form-field form-control-sm d-print-none" name="sanctionLetterIssuedDate"
+                                   formControlName="sanctionLetterIssuedDate" placeholder="" type="text"/>
+                            <strong class="print-only">
+                                {{this.powerOfAttorneyCompanyForm.get('sanctionLetterIssuedDate').value ? this.powerOfAttorneyCompanyForm.get('sanctionLetterIssuedDate').value : '___________________________'}}
+                            </strong>
+                        </span>
+                            को ऋण स्वीकृती पत्रानुसार
+                            मेरो/हाम्रो नाममा कुल कर्जा रु
+                            <span>
+                            <input class="form-field form-control-sm d-print-none" name="loanAmountInFigure"
+                                   formControlName="loanAmountInFigure" placeholder="" type="text"/>
+                            <strong class="print-only">
+                                {{this.finalAmount ? this.finalAmount : '___________________________'}}
+                            </strong>
+                        </span>
+                            (अक्षरेपी
+                            <span>
+                            <input class="form-field form-control-sm d-print-none" name="loanAmountInWords"
+                                   formControlName="loanAmountInWords" placeholder="" type="text"/>
+                            <strong class="print-only">
+                                {{this.loanAmountWord ? this.loanAmountWord : '___________________________'}}
+                            </strong>
+                        </span>
+                            ) स्वीकृत गर्दा तोकिएको शर्त बमोजिम हामी ऋणीले भुक्तानी
+                            प्राप्त गर्न बांकी रहेको (Account Receivables) रकम र स्वीकारयोग्य चेक, ड्राफ्ट, बील, वित्तीय
+                            उपकरण आदि हामी ऋणीको हकमा बुझीलिन नबिल बैंक लिमिटेड (जसले यसका अधिकारप्राप्त कर्मचारी वा
+                            प्रतिनिधिलाई समेत जनाउनेछ) लाई यसै लिखतबाट मेरो/हाम्रो वारेस नियुक्त गरेका छौं र वारेसका
+                            हैसियतले नबिल बैंक लिमिटेडले देहायको कुनै वा सबै कार्य गर्न सक्नेछ :
+                        </p>
+                    </div>
+                </div>
+
+                <div class="row mt-2">
+                    <div class="col-md-12">
+                        <ol class="conditions">
+                            <li>
+                                म/हामीलाई रकम भुक्तानी गर्नुपर्ने दायित्व भएका कुनैपनि व्यक्ति, व्यक्तिहरु, फर्म,
+                                कम्पनी,
+                                सरकारी, गैर्हसरकारी कार्यालय, संघसंस्थामा सम्पर्क गरी मेरोरहाम्रो तर्फबाट रकम असुल गर्न
+                                वा
+                                प्राप्त गर्न,
+                            </li>
+                            <li>
+                                मेरो/हाम्रो हकमा प्राप्त गरेको चेक, ड्राफ्ट वा यस्तै वित्तीय उपकरणहरुमा हस्ताक्षर गर्न,
+                                पृष्ठांकन गर्न, प्राप्त रकम वापत मेरो/हाम्रो तर्फबाट प्राप्ति रसिद (acknowledgement
+                                receipt)
+                                जारी गर्न,
+                            </li>
+                            <li>
+                                मेरो/हाम्रो हकमा प्राप्त गरेको रकम मेरोरहाम्रो बैंकप्रतिको दायित्वमा समायोजन गर्न,
+                            </li>
+                            <li>
+                                मेरो/हाम्रो हकमा रकम प्राप्त गर्ने सिलसिलामा कुनैपनि सरकारी, गैर्हसरकारी कार्यालयमा
+                                प्रतिनिधित्व गर्न, निवेदन दिन, निवेदन प्रमाणित गर्न, कुनैपनि लिखत गरीदिन र रकम प्राप्त
+                                गर्ने
+                                सिलसिलामा आईपर्ने सबै कार्य गर्न,
+                            </li>
+                            <li>
+                                माथि उल्लेख भए अनुसार बैंकले मेरो/हाम्रो नाममा स्वीकृत गरेको कर्जा सुविधाको सांवा,
+                                ब्याज, थप ब्याज वा सोही कर्जा सुविधाको कारणबाट बैंकमा परेको थप दायित्व समेत सम्पूर्ण रकम
+                                कलम
+                                चुक्ता भुक्तान नभएसम्म यो वारेसनामा वैध रही अरद्धनीय (irrevocable) हुनेछ र यो वारेसनामा
+                                प्रस्तुत गरेपछि मेरो/हाम्रो थप स्वीकृति वा सहमति विना नै म/हामीलाई भुक्तानी दिनुपर्ने
+                                रकम
+                                वारेस नबिल बैंक लिमिटेड (वा यसका अधिकारप्राप्त कर्मचारी वा प्रतिनिधि) लाई भुक्तानी दिन
+                                यसै
+                                लिखतबाट सम्बन्धित सबैलाई जानकारी गराएका छौं,
+                            </li>
+                            <li>
+                                यो वारेसनामा दिएको कारणले मात्र मेरो/हाम्रो बैंकप्रतिको दायित्वमा कुनै परिवर्तन हुने छैन
+                                र मैले/हामीले बैंकको पक्षमा गरीदिएको कर्जा सुविधा सम्बन्धी लिखतहरुबाट प्राप्त म/हामीबाट
+                                बैंकको लेना असुल गर्ने अधिकारमा कुनै असर पर्ने छैन ।
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-md-12">
+                        <p class="m-0">
+                            यो वारेसनामा अनुसार मेरोरहाम्रो वारेस नबिल बैंक लिमिटेडले गरेको कुनैपनि काम कारवाही म/हामी
+                            आफैंले गरे सरह मानिनेछ र यो वारेसनामा अनुसार कुनैपनि काम कारवाही गर्दा वारेस नबिल बैंक
+                            लिमिटेडले
+                            कुनै लागत वा खर्च व्यहोर्न परेमा त्यस्तो लागत वा खर्च नबिल बैंक लिमिटेडलाई म/हामीले सोधभर्ना
+                            दिई
+                            बैंकलाई सबै किसिमको दायित्वबाट उन्मुक्ति (indemnify) गर्ने प्रतिवद्धता सहित नबिल बैंक
+                            लिमिटेडकै
+                            शाखा
+                            <span>
+                            <input class="form-field form-control-sm d-print-none" name="branchName"
+                                   formControlName="branchName" placeholder="" type="text"/>
+                            <strong class="print-only">
+                                {{this.loanHolderNepData.branch ? this.loanHolderNepData.branch.ct : '___________________________'}}
+                            </strong>
+                        </span>
+                            कार्यालयमा बसी देहायका साक्षीको रोहवरमा यो वारेसनामामा सहीछाप गरीदियौं ।
+                        </p>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 2em">
+                    <div class="col-md-12">
+                        <p class="m-0">
+                            <u>
+                                वारेसनामा लेखीदिनेको
+                            </u>
+                        </p>
+                        <div class="mt-2">
+                            <p class="m-0">
+                                ऋणी/फर्म/कम्पनी/संस्थाको नाम :
+                                <span>
+                            <input class="form-field form-control-sm d-print-none" name="nameOfBorrower"
+                                   formControlName="nameOfBorrower" placeholder="" type="text"/>
+                            <strong class="print-only">
+                                {{this.loanHolderNepData.name ? this.loanHolderNepData.name.ct : '___________________________'}}
+                            </strong>
+                        </span>
+                            </p>
+                            <p class="m-0">
+                                ठेगाना :
+                                <span>
+                                <input class="form-field form-control-sm d-print-none" name="streetName"
+                                       formControlName="streetName" placeholder="" type="text"/>
+                                <strong class="print-only">
+                                    __________________________________
+                                    <!--{{this.loanHolderNepData.registeredStreetTole ? this.loanHolderNepData.registeredStreetTole.ct : '___________________________'}}-->
+                                </strong>
+                            </span>
+                            </p>
+                            <p class="m-0">
+                                आधिकारिक प्रतिनिधिको नाम :
+                                <span>
+                                <input class="form-field form-control-sm d-print-none" name="authorizedName"
+                                       formControlName="authorizedName" placeholder="" type="text"/>
+                                <strong class="print-only">
+                                    {{this.loanHolderNepData.registeredStreetTole ? this.loanHolderNepData.registeredStreetTole.ct : '___________________________'}}
+                                </strong>
+                            </span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top: 3em">
+                    <div class="col-md-12">
+                        <p class="font-weight-bold" style="margin-left: 45%">साक्षी</p>
+                        <ol class="conditions">
+                            <li>
+                                ___________________ जिल्ला ___________________ न.पा/गा.वि.स. वडा नं.
+                                ___________________ बस्ने बर्ष ___________________ को/की ___________________
+                            </li>
+                            <li>
+                                कारणीले प्रस्तुत लिखत मेरो सामुन्ने सहिछाप गरेको हो भनी सनाखत गर्ने धनी बैंकका
+                                कर्मचारी _________________________________________________
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="row mt-5 ml-0">
+            <div class="col-md-12 text-right">
+                <button
+                        [useExistingCss]="true"
+                        styleSheetFile="assets/css/printStyles.scss"
+                        class="d-print-none float-right"
+                        printSectionId="print-section"
+                        nbButton
+                        size="small"
+                        status="info"
+                        outline
+                        ngxPrint
+                >
+                    Print &nbsp;&nbsp;
+                    <em class="fa fa-print" style="color: rgb(47, 3, 168)"></em>
+                </button>
+                <button nbButton size="small"
+                        class="d-print-none sav"
+                        status="success"
+                        (click)="submit()"
+                        style="color: rgb(65,104,207); background-color: rgb(235,247,255);">Save &nbsp;&nbsp;
+                    <em class="fa fa-save" style="color: rgb(47, 3, 168)"></em></button>
+            </div>
+        </div>
+    </div>
+</nb-card>
