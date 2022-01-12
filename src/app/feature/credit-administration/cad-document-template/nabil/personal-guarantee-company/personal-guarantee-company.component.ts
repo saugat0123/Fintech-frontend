@@ -97,17 +97,21 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
 
     fillGuarantee() {
         if (this.cadData.cadFileList.length > 0) {
-            this.cadInitialInfo = JSON.parse(this.cadData.cadFileList[0].supportedInformation);
-            // this.cadFreeText = this.cadInitialInfo.guaranteeCompanies;
-            const free = this.personalGuaranteeCompany.value;
-            if (this.cadInitialInfo !== null) {
-                for (let val = 0; val < free.guaranteeCompanies.length; val++) {
-                    this.personalGuaranteeCompany.get(['guaranteeCompanies', val, 'freeText']).patchValue(this.cadInitialInfo ? this.cadInitialInfo[val].freeText : '');
+            if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
+                this.cadData.cadFileList.forEach(singleCadFile => {
+                    if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
+                        this.cadInitialInfo = JSON.parse(singleCadFile.supportedInformation);
+                    }
+                });
+                const free = this.personalGuaranteeCompany.value;
+                if (this.cadInitialInfo !== null) {
+                    for (let val = 0; val < free.guaranteeCompanies.length; val++) {
+                        this.personalGuaranteeCompany.get(['guaranteeCompanies', val, 'freeText']).patchValue(this.cadInitialInfo ? this.cadInitialInfo[val].freeText : '');
+                    }
                 }
             }
         }
     }
-
 
   loadPersonalGuarantorData() {
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.assignedLoan)) {
@@ -200,7 +204,7 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
     setRegistrationDate() {
         let expiryDate = '';
         if (this.loanHolderNepData.registrationDateOption.en === 'AD') {
-            expiryDate = this.englishNepaliDatePipe.transform(this.loanHolderNepData.registrationDate.np, true);
+            expiryDate = this.englishNepaliDatePipe.transform(this.loanHolderNepData.registrationDate.en, true);
         } else {
             expiryDate = this.loanHolderNepData.registrationDate.en.nDate;
         }
@@ -313,7 +317,7 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
       if (flag) {
           const cadFile = new CadFile();
           const document = new Document();
-          cadFile.initialInformation = JSON.stringify(this.personalGuaranteeCompany.value);
+          // cadFile.initialInformation = JSON.stringify(this.personalGuaranteeCompany.value);
           cadFile.supportedInformation = this.setFreeText();
           document.id = this.documentId;
           cadFile.cadDocument = document;
