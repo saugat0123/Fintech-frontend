@@ -189,7 +189,8 @@ export class SecuritySummaryComponent implements OnInit {
             if (this.collateralData.length > 0) {
                 this.isCollateralSiteVisitPresent = true;
             }
-        } else {
+        }
+        if (this.docStatus.toString() !== 'APPROVED') {
             if (!ObjectUtil.isEmpty(this.securityId)) {
                 this.collateralSiteVisitService.getCollateralSiteVisitBySecurityId(this.securityId)
                     .subscribe((response: any) => {
