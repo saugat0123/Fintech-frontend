@@ -22,7 +22,6 @@ import {OfferDocument} from '../../../../model/OfferDocument';
 import {LaxmiOfferLetterConst} from '../laxmi-offer-letter-const';
 import {CadDocStatus} from '../../../../model/CadDocStatus';
 import {Security} from '../../../../../loan/model/security';
-import {validate} from 'codelyzer/walkerFactory/walkerFn';
 
 @Component({
     selector: 'app-offer-letter-laxmi',
@@ -90,6 +89,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
         'SANA BYAWASAI KARJA', 'SANA BYAWASAI KARJA - LITE'];
     loanWithSubloan = [];
     loanNature = [];
+    loanWithOutSubLoan = [];
 
     constructor(private formBuilder: FormBuilder,
                 private administrationService: CreditAdministrationService,
@@ -131,6 +131,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
             this.offerLetterForm.patchValue(initialInfo);
             this.arrayOfSubloan = initialInfo.subLoanType;
             this.setSubLoanData(initialInfo.purpose);
+            console.log('initialInfo', initialInfo);
         }
     }
 
@@ -314,6 +315,33 @@ export class OfferLetterLaxmiComponent implements OnInit {
             reviewRate: [undefined],
             reviewAmount: [undefined],
 
+            educationOther: [undefined],
+            commercialOther: [undefined],
+            educationPurpose: [undefined],
+            commercialPurpose: [undefined],
+            swapFee: [true],
+            otherSwapFeeChecked: [false],
+            swapFeeOther: [undefined],
+            agmiPurpose: [undefined],
+            prepaymentCharge: [true],
+            prepaymentOtherCheck: [false],
+            prepaymentOther: [undefined],
+            commitmentFee: [true],
+            commitmentFeeOtherCheck: [false],
+            commitmentFeeOther: [undefined],
+
+            informationFee: [true],
+            informationFeeOtherCheck: [false],
+            informationFeeOther: [undefined],
+
+            valuationFee: [true],
+            valuationFeeOtherCheck: [false],
+            valuationFeeOther: [undefined],
+
+            penalInterest: [true],
+            penalInterestOtherCheck: [false],
+            penalInterestOther: [undefined],
+
 
             educationalDrawdown: [undefined],
             purpose: this.formBuilder.array([])
@@ -352,21 +380,29 @@ export class OfferLetterLaxmiComponent implements OnInit {
         });
     }
 
-    log(loanName, data) {
-        const data12 = {loan: loanName, subLoan: data};
+    log(loan, data) {
+        console.log('loanName', loan);
+        console.log('data', data);
+        const data12 = {loan: loan.loanName, isFunded: loan.isFunded,
+            loanNature: loan.loanNature, subLoan: data};
         this.arrayOfSubloan.push(data12);
+        console.log('test', this.arrayOfSubloan);
     }
 
     saveLoanSubLoan() {
         const arrUniq = [...new Map(this.arrayOfSubloan.map(v => [v.loan, v])).values()];
         this.arrayOfSubloan = arrUniq;
+        console.log('arrUniq', arrUniq);
+        console.log('arrayOfSubloan', this.arrayOfSubloan);
         if (!ObjectUtil.isEmpty(arrUniq)) {
             arrUniq.forEach((d, i) => {
                 if (!ObjectUtil.isEmpty(this.offerLetterForm.get(['purpose', i]))) {
-                    this.offerLetterForm.get(['purpose', i]).patchValue({loan: d.loan, subLoan: d.subLoan});
+                    this.offerLetterForm.get(['purpose', i]).patchValue({loan: d.loan, subLoan: d.subLoan, isFunded: d.isFunded,
+                        loanNature: d.loanNature});
                 } else {
                     this.addPurpose();
-                    this.offerLetterForm.get(['purpose', i]).patchValue({loan: d.loan, subLoan: d.subLoan});
+                    this.offerLetterForm.get(['purpose', i]).patchValue({loan: d.loan, subLoan: d.subLoan, isFunded: d.isFunded,
+                        loanNature: d.loanNature});
                 }
             });
         }
@@ -412,6 +448,8 @@ export class OfferLetterLaxmiComponent implements OnInit {
             this.formBuilder.group({
                 loan: [undefined],
                 subLoan: [undefined],
+                isFunded: [undefined],
+                loanNature: [undefined],
                 purpose: [undefined],
                 drawDown: [undefined],
                 other: [undefined],
@@ -434,7 +472,11 @@ export class OfferLetterLaxmiComponent implements OnInit {
         }
     }
 
-    purposeChangeNonSubLoan() {
+    purposeChangeNonSubLoan(event) {
+        console.log(event);
+        if (!ObjectUtil.isEmpty(this.offerLetterForm.get('educationPurpose').value)) {
+            console.log('test');
+        }
 
     }
 
@@ -448,9 +490,16 @@ export class OfferLetterLaxmiComponent implements OnInit {
                 this.loanHavingSubLoan.forEach(loan => {
                    if (loan === loanData) {
                        // const test = {loanName: l.loan.name, subLoanName: subLoan};
-                       this.loanWithSubloan.push({loanName: l.loan.name, subLoanName: subLoan, loanNature: l.loan.loanNature});
-                       console.log('I am called');
+                       this.loanWithSubloan.push({loanName: l.loan.name, subLoanName: subLoan,
+                           loanNature: l.loan.loanNature, isFunded: l.loan.isFundable});
+                       console.log('Loan having Sub Loan');
                    }
+                });
+                this.loanNotHavingSubloan.forEach(loan1 => {
+                    if (loan1 === loanData) {
+                        console.log('Loan Not having Sub Loan');
+                        this.loanWithOutSubLoan.push({loanName: l.loan.name, loanNature: l.loan.loanNature, isFunded: l.loan.isFundable});
+                    }
                 });
                 this.loanType.push(l.loanType);
                 this.loanNature.push(l.loan.loanNature);
@@ -459,6 +508,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
             if (this.loanWithSubloan.length > 0) {
                 console.log('loanNature', this.loanWithSubloan[0].loanNature === 'Revolving');
             }
+            console.log('loanNotHavingSubloan', this.loanNotHavingSubloan);
             console.log('subLo', this.subLoanTypeEnum1);
             console.log('LoanName', this.loanName);
             console.log('loanType', this.loanType);
@@ -518,7 +568,11 @@ export class OfferLetterLaxmiComponent implements OnInit {
                     subLoan: [p.subLoan],
                     purpose: [p.purpose],
                     drawDown: [p.drawDown],
-                    other: [p.other]
+                    other: [p.other],
+                    periodOtherCheck: [p.periodOtherCheck],
+                    termMonth: [p.termMonth],
+                    periodValue: [p.periodValue],
+                    rate: [p.rate],
                 }));
             });
         }
@@ -554,5 +608,115 @@ export class OfferLetterLaxmiComponent implements OnInit {
 
     termMonthValue(value: any, i: number) {
         this.offerLetterForm.get(['purpose', i, 'termMonth']).patchValue(value);
+    }
+
+    otherCheck(event, value) {
+        console.log('event', event);
+        console.log('value', value);
+        switch (value) {
+            case 'swapFee':
+                if (event) {
+                    this.offerLetterForm.get('swapFee').patchValue(event);
+                } else {
+                    this.offerLetterForm.get('swapFee').patchValue(false);
+                    this.offerLetterForm.get('otherSwapFeeChecked').patchValue(false);
+                    this.offerLetterForm.get('swapFeeOther').patchValue(null);
+                }
+                break;
+            case 'otherSwapFeeChecked':
+                if (event) {
+                    this.offerLetterForm.get('otherSwapFeeChecked').patchValue(event);
+                } else {
+                    this.offerLetterForm.get('otherSwapFeeChecked').patchValue(false);
+                    this.offerLetterForm.get('swapFeeOther').patchValue(null);
+                }
+                break;
+            case 'prepaymentCharge':
+                if (event) {
+                    this.offerLetterForm.get('prepaymentCharge').patchValue(event);
+                } else {
+                    this.offerLetterForm.get('prepaymentCharge').patchValue(false);
+                    this.offerLetterForm.get('prepaymentOtherCheck').patchValue(false);
+                    this.offerLetterForm.get('prepaymentOther').patchValue(null);
+                }
+                break;
+            case 'prepaymentOtherCheck':
+                if (event) {
+                    this.offerLetterForm.get('prepaymentOtherCheck').patchValue(event);
+                } else {
+                    this.offerLetterForm.get('prepaymentOtherCheck').patchValue(false);
+                    this.offerLetterForm.get('prepaymentOther').patchValue(null);
+                }
+                break;
+            case 'commitmentFee':
+                if (event) {
+                    this.offerLetterForm.get('commitmentFee').patchValue(event);
+                } else {
+                    this.offerLetterForm.get('commitmentFee').patchValue(false);
+                    this.offerLetterForm.get('commitmentFeeOtherCheck').patchValue(false);
+                    this.offerLetterForm.get('commitmentFeeOther').patchValue(null);
+                }
+                break;
+            case 'commitmentFeeOtherCheck':
+                if (event) {
+                    this.offerLetterForm.get('commitmentFeeOtherCheck').patchValue(event);
+                } else {
+                    this.offerLetterForm.get('commitmentFeeOtherCheck').patchValue(false);
+                    this.offerLetterForm.get('commitmentFeeOther').patchValue(null);
+                }
+                break;
+            case 'informationFee':
+                if (event) {
+                    this.offerLetterForm.get('informationFee').patchValue(event);
+                } else {
+                    this.offerLetterForm.get('informationFee').patchValue(false);
+                    this.offerLetterForm.get('informationFeeOtherCheck').patchValue(false);
+                    this.offerLetterForm.get('informationFeeOther').patchValue(null);
+                }
+                break;
+            case 'informationFeeOtherCheck':
+                if (event) {
+                    this.offerLetterForm.get('informationFeeOtherCheck').patchValue(event);
+                } else {
+                    this.offerLetterForm.get('informationFeeOtherCheck').patchValue(false);
+                    this.offerLetterForm.get('informationFeeOther').patchValue(null);
+                }
+                break;
+            case 'valuationFee':
+                if (event) {
+                    this.offerLetterForm.get('valuationFee').patchValue(event);
+                } else {
+                    this.offerLetterForm.get('valuationFee').patchValue(false);
+                    this.offerLetterForm.get('valuationFeeOtherCheck').patchValue(false);
+                    this.offerLetterForm.get('valuationFeeOther').patchValue(null);
+                }
+                break;
+            case 'valuationFeeOtherCheck':
+                if (event) {
+                    this.offerLetterForm.get('valuationFeeOtherCheck').patchValue(event);
+                } else {
+                    this.offerLetterForm.get('valuationFeeOtherCheck').patchValue(false);
+                    this.offerLetterForm.get('valuationFeeOther').patchValue(null);
+                }
+                break;
+            case 'penalInterest':
+                if (event) {
+                    this.offerLetterForm.get('penalInterest').patchValue(event);
+                } else {
+                    this.offerLetterForm.get('penalInterest').patchValue(false);
+                    this.offerLetterForm.get('penalInterestOtherCheck').patchValue(false);
+                    this.offerLetterForm.get('penalInterestOther').patchValue(null);
+                }
+                break;
+            case 'penalInterestOtherCheck':
+                if (event) {
+                    this.offerLetterForm.get('penalInterestOtherCheck').patchValue(event);
+                } else {
+                    this.offerLetterForm.get('penalInterestOtherCheck').patchValue(false);
+                    this.offerLetterForm.get('penalInterestOther').patchValue(null);
+                }
+                break;
+        }
+        console.log(this.offerLetterForm);
     }
 }

@@ -27,7 +27,7 @@
                         </div>
                         <div class="col-md-12">
                             <select id="majorSourceIncomeType" class="form-control"
-                                    formControlName="subLoanType" (change)="log(data?.loanName, $event.target.value)">
+                                    formControlName="subLoanType" (change)="log(data, $event.target.value)">
                                 <option value="null" hidden selected>--Select Options--</option>
                                 <option *ngFor="let m of data?.subLoanName"
                                         [value]="m?.value">{{m?.value}}</option>
@@ -126,34 +126,34 @@
                         </th>
                     </ng-container>
                     <ng-container *ngIf="data?.loan?.toLowerCase() === 'home loan'" class="sb-bg-dark">
-                        <th width="50%">
+                        <th width="50%" class="sb-bg-dark">
                             <b> सुविधा (Facility) </b>
                         </th>
-                        <th width="50%">
+                        <th width="50%" class="sb-bg-dark">
                             <b> घर कर्जा (Home Loan)</b>
                         </th>
                     </ng-container>
                     <ng-container *ngIf="data?.loan?.toLowerCase() === 'bank guarantee'" class="sb-bg-dark">
-                        <th width="50%">
+                        <th width="50%" class="sb-bg-dark">
                             <b> सुविधा (Facility) </b>
                         </th>
-                        <th width="50%">
+                        <th width="50%" class="sb-bg-dark">
                             <b> बैक ग्यारेण्टी (Bank Guarantee)</b>
                         </th>
                     </ng-container>
                     <ng-container *ngIf="data?.loan?.toLowerCase() === 'sana byawasai karja'" class="sb-bg-dark">
-                        <th width="50%">
+                        <th width="50%" class="sb-bg-dark">
                             <b> सुविधा (Facility) </b>
                         </th>
-                        <th width="50%">
+                        <th width="50%" class="sb-bg-dark">
                             <b> साना ब्यवसायी कर्जा (Sana Byawasai Karja)</b>
                         </th>
                     </ng-container>
                     <ng-container *ngIf="data?.loan?.toLowerCase() === 'sana byawasai karja - lite'" class="sb-bg-dark">
-                        <th width="50%">
+                        <th width="50%" class="sb-bg-dark">
                             <b> सुविधा (Facility) </b>
                         </th>
-                        <th width="50%">
+                        <th width="50%" class="sb-bg-dark">
                             <b> साना ब्यवसायी कर्जा (Sana Byawasai Karja - Lite)</b>
                         </th>
                     </ng-container>
@@ -203,11 +203,11 @@
                                     offerLetterForm?.get(['purpose', i, 'drawDown'])?.value : '========='}}</b></span>
                             </td>
                         </tr>
-                        <tr *ngIf="data?.loan?.toLowerCase() === 'term loan' && loanWithSubloan[i].loanNature === 'Terminating'">
+                        <tr *ngIf="data?.loan?.toLowerCase() === 'term loan' && data?.loanNature === 'Terminating'">
                             <td>सांवाको किस्ता तिर्ने छुट अवधि (Moratorium Period) तथा कर्जा झिक्न पाउने अवधि (Drawdown Period)
                             </td>
                             <td>
-                                <span *ngIf="offerLetterForm?.get(['purpose', i, 'periodOtherCheck']).value === false">
+                                <span *ngIf="offerLetterForm?.get(['purpose', i, 'periodOtherCheck'])?.value === false">
                                     पहिलो किस्ता प्रवाह भएको मितिबाट सांवाको किस्ता तिर्न र पुरा कर्जा झिक्न
                                     <input type="text" [value]="offerLetterForm?.get(['purpose', i, 'termMonth']).value"
                                            (change)="termMonthValue($event?.target?.value, i)"
@@ -223,7 +223,7 @@
                                                  [checked]="offerLetterForm?.get(['purpose', i, 'periodOtherCheck'])?.value"><i>Other</i>
                                     </nb-checkbox>
                                 </span>
-                                <span *ngIf="offerLetterForm?.get(['purpose', i, 'periodOtherCheck']).value === true">
+                                <span *ngIf="offerLetterForm?.get(['purpose', i, 'periodOtherCheck'])?.value === true">
                                     <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
                                               placeholder="अन्य सांवाको किस्ता तिर्ने छुट अवधि"
                                               [value]="offerLetterForm?.get(['purpose', i, 'periodValue']).value"
@@ -690,10 +690,10 @@
                                         offerLetterForm?.get(['purpose', i, 'drawDown'])?.value : '========='}}</b></span>
                             </td>
                         </tr>
-                        <tr *ngIf="loanWithSubloan[i]?.loanNature === 'Terminating'">
+                        <tr *ngIf="data?.loanNature === 'Terminating'">
                             <td>ग्रेस पिरियड (Moratarium Period)</td>
                             <td>
-                                <span *ngIf="offerLetterForm?.get(['purpose', i, 'periodOtherCheck']).value === false">
+                                <span *ngIf="offerLetterForm?.get(['purpose', i, 'periodOtherCheck'])?.value === false">
                                     ऋण प्रवाह भएको सुरु मितिवाट अधिकतम
                                 <input type="text" [value]="offerLetterForm?.get(['purpose', i, 'rate']).value"
                                        (change)="commissionValue($event?.target?.value, i)"
@@ -709,7 +709,7 @@
                                                  [checked]="offerLetterForm?.get(['purpose', i, 'periodOtherCheck'])?.value"><i>Other</i>
                                     </nb-checkbox>
                                 </span>
-                                <span *ngIf="offerLetterForm?.get(['purpose', i, 'periodOtherCheck']).value === true">
+                                <span *ngIf="offerLetterForm?.get(['purpose', i, 'periodOtherCheck'])?.value === true">
                                     <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
                                               placeholder="अन्य सांवाको किस्ता तिर्ने छुट अवधि"
                                               [value]="offerLetterForm?.get(['purpose', i, 'periodValue']).value"
@@ -719,11 +719,6 @@
                                 <b>{{offerLetterForm?.get(['purpose', i, 'periodValue'])?.value ?
                                     offerLetterForm?.get(['purpose', i, 'periodValue'])?.value : '========='}}</b></span>
                                 </span>
-                            </td>
-                            <td>
-                                <nb-checkbox (change)="periodOtherCheck($event?.target?.checked, i)"
-                                             [checked]="offerLetterForm?.get(['purpose', i, 'periodOtherCheck'])?.value"><i>Other</i>
-                                </nb-checkbox>
                             </td>
                         </tr>
                     </ng-container>
@@ -757,7 +752,7 @@
                                         offerLetterForm?.get(['purpose', i, 'other'])?.value : '========='}}</b></span>
                             </td>
                         </tr>
-                        <tr>
+                        <tr *ngIf="!data?.isFunded">
                             <td>कमिसन (Commission)</td>
                             <td><input type="text" [value]="offerLetterForm?.get(['purpose', i, 'rate']).value"
                                        (change)="commissionValue($event?.target?.value, i)"
@@ -804,7 +799,7 @@
                                         offerLetterForm?.get(['purpose', i, 'other'])?.value : '========='}}</b></span>
                             </td>
                         </tr>
-                        <tr>
+                        <tr *ngIf="!data?.isFunded">
                             <td>कमिसन (Commission)</td>
                             <td><input type="text" [value]="offerLetterForm?.get(['purpose', i, 'rate']).value"
                                        (change)="commissionValue($event?.target?.value, i)"
@@ -851,7 +846,7 @@
                                         offerLetterForm?.get(['purpose', i, 'other'])?.value : '========='}}</b></span>
                             </td>
                         </tr>
-                        <tr>
+                        <tr *ngIf="!data?.isFunded">
                             <td>कमिसन (Commission)</td>
                             <td><input type="text" [value]="offerLetterForm?.get(['purpose', i, 'rate']).value"
                                        (change)="commissionValue($event?.target?.value, i)"
@@ -873,366 +868,459 @@
                 </table>
             </ng-container>
             <!--            Loan not having subLoanTYpe-->
-            <ng-container *ngIf="loanName.includes('HOME EQUITY LINE OF CREDIT') ||
+            <ng-container>
+                <table class="table table-bordered table-responsive-md text-center table-sm sb-small">
+                    <tbody>
+                    <ng-container *ngIf="loanName.includes('HOME EQUITY LINE OF CREDIT') ||
                     loanName.includes('HOME EQUITY INSTALLMENT OF CREDIT') ||
                     loanName.includes('HOME EQUITY INSTALLMENT OF CREDIT - LITE')">
-                <tr>
-                    <th width="50%">
-                        <b> सुविधा (Facility) </b>
-                    </th>
-                    <th width="50%">
-                        <b> होम इक्वीटी लाईन अफ क्रेडिट (Home Equity Line of Credit)/ होम इक्वीटी इन्स्टलमेण्ट
-                            क्रेडिट (Home Equity Installment Credit)/
-                            होम इक्वीटी इन्स्टलमेण्ट क्रेडिट लाईट (Home Equity Installment Credit - Lite)</b>
-                    </th>
-                </tr>
-                <tr>
-                    <td>उद्देश्य(Purpose)</td>
-                    <td>
-                        <select class="form-control disable-print"
-                                formControlName="homeEquityPurpose"
-                                name="homeEquityPurpose" (change)="purposeChangeNonSubLoan()">
-                            <option [value]="null">Select Purpose</option>
-                            <option *ngFor="let pur of purpose"
-                                    [value]="pur?.value">{{pur?.value}}</option>
-                        </select>
-                        <!--                            <ckeditor formControlName="homeEquityOther" *ngIf="workingOther"-->
-                        <!--                                      [config]="ckeConfig"></ckeditor>-->
-                        <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
-                                  *ngIf="offerLetterForm?.get('homeEquityPurpose')?.value === 'Other'"
-                                  formControlName="homeEquityOther"
-                                  placeholder="अन्य उद्देश्य"
-                                  rows="2"></textarea>
-                        <span class="nepaliFont print-only"
-                              *ngIf="offerLetterForm?.get('homeEquityPurpose')?.value !== 'Other'">
+                        <tr>
+                            <th width="50%">
+                                <b> सुविधा (Facility) </b>
+                            </th>
+                            <th width="50%">
+                                <b> होम इक्वीटी लाईन अफ क्रेडिट (Home Equity Line of Credit)/ होम इक्वीटी इन्स्टलमेण्ट
+                                    क्रेडिट (Home Equity Installment Credit)/
+                                    होम इक्वीटी इन्स्टलमेण्ट क्रेडिट लाईट (Home Equity Installment Credit - Lite)</b>
+                            </th>
+                        </tr>
+                        <tr>
+                            <td>उद्देश्य(Purpose)</td>
+                            <td>
+                                <select class="form-control disable-print"
+                                        formControlName="homeEquityPurpose"
+                                        name="homeEquityPurpose" (change)="purposeChangeNonSubLoan()">
+                                    <option [value]="null">Select Purpose</option>
+                                    <option *ngFor="let pur of purpose"
+                                            [value]="pur?.value">{{pur?.value}}</option>
+                                </select>
+                                <!--                            <ckeditor formControlName="homeEquityOther" *ngIf="workingOther"-->
+                                <!--                                      [config]="ckeConfig"></ckeditor>-->
+                                <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                                          *ngIf="offerLetterForm?.get('homeEquityPurpose')?.value === 'Other'"
+                                          formControlName="homeEquityOther"
+                                          placeholder="अन्य उद्देश्य"
+                                          rows="2"></textarea>
+                                <span class="nepaliFont print-only"
+                                      *ngIf="offerLetterForm?.get('homeEquityPurpose')?.value !== 'Other'">
                             <b>{{offerLetterForm?.get('homeEquityPurpose')?.value ? offerLetterForm?.get('homeEquityPurpose')?.value : '========='}}</b></span>
-                        <span class="nepaliFont print-only"
-                              *ngIf="offerLetterForm?.get('homeEquityPurpose')?.value === 'Other'">
+                                <span class="nepaliFont print-only"
+                                      *ngIf="offerLetterForm?.get('homeEquityPurpose')?.value === 'Other'">
                             <b>{{offerLetterForm?.get('homeEquityOther')?.value ? offerLetterForm?.get('homeEquityOther')?.value : '========='}}</b></span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमाः (Drawdown)</td>
-                    <td>
-                        <!--                        <ckeditor formControlName="homeEquityDrawDown"-->
-                        <!--                                  [config]="ckeConfig"></ckeditor>-->
-                        <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
-                                  formControlName="homeEquityDrawDown"
-                                  placeholder="स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमा"
-                                  rows="4"></textarea>
-                        <span class="nepaliFont print-only">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमाः (Drawdown)</td>
+                            <td>
+                                <!--                        <ckeditor formControlName="homeEquityDrawDown"-->
+                                <!--                                  [config]="ckeConfig"></ckeditor>-->
+                                <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                                          formControlName="homeEquityDrawDown"
+                                          placeholder="स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमा"
+                                          rows="4"></textarea>
+                                <span class="nepaliFont print-only">
                             <b>{{offerLetterForm?.get('homeEquityDrawDown')?.value ? offerLetterForm?.get('homeEquityDrawDown')?.value : '========='}}</b></span>
-                    </td>
-                </tr>
+                            </td>
+                        </tr>
 
-            </ng-container>
-            <ng-container *ngIf="loanName?.includes('BRIDGE GAP LOAN')" class="sb-bg-dark">
-                <tr>
-                    <th width="50%">
-                        <b> सुविधा (Facility) </b>
-                    </th>
-                    <th width="50%">
-                        <b> बिेज ग्याप लोन (Bridge Gap Loan)</b>
-                    </th>
-                </tr>
-                <tr>
-                    <td>उद्देश्य(Purpose)</td>
-                    <td>
-                        <select class="form-control disable-print"
-                                formControlName="bridgeGapPurpose"
-                                name="bridgeGapPurpose" (change)="purposeChangeNonSubLoan()">
-                            <option [value]="null">Select Purpose</option>
-                            <option *ngFor="let pur of purpose"
-                                    [value]="pur?.value">{{pur?.value}}</option>
-                        </select>
-                        <!--                            <ckeditor formControlName="bridgeGapOther" *ngIf="workingOther"-->
-                        <!--                                      [config]="ckeConfig"></ckeditor>-->
-                        <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
-                                  *ngIf="offerLetterForm?.get('bridgeGapPurpose')?.value === 'Other'"
-                                  formControlName="bridgeGapOther"
-                                  placeholder="अन्य उद्देश्य"
-                                  rows="2"></textarea>
-                        <span class="nepaliFont print-only"
-                              *ngIf="offerLetterForm?.get('bridgeGapPurpose')?.value !== 'Other'">
+                    </ng-container>
+                    <ng-container *ngIf="loanName?.includes('BRIDGE GAP LOAN')" class="sb-bg-dark">
+                        <tr>
+                            <th width="50%">
+                                <b> सुविधा (Facility) </b>
+                            </th>
+                            <th width="50%">
+                                <b> बिेज ग्याप लोन (Bridge Gap Loan)</b>
+                            </th>
+                        </tr>
+                        <tr>
+                            <td>उद्देश्य(Purpose)</td>
+                            <td>
+                                <select class="form-control disable-print"
+                                        formControlName="bridgeGapPurpose"
+                                        name="bridgeGapPurpose" (change)="purposeChangeNonSubLoan()">
+                                    <option [value]="null">Select Purpose</option>
+                                    <option *ngFor="let pur of purpose"
+                                            [value]="pur?.value">{{pur?.value}}</option>
+                                </select>
+                                <!--                            <ckeditor formControlName="bridgeGapOther" *ngIf="workingOther"-->
+                                <!--                                      [config]="ckeConfig"></ckeditor>-->
+                                <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                                          *ngIf="offerLetterForm?.get('bridgeGapPurpose')?.value === 'Other'"
+                                          formControlName="bridgeGapOther"
+                                          placeholder="अन्य उद्देश्य"
+                                          rows="2"></textarea>
+                                <span class="nepaliFont print-only"
+                                      *ngIf="offerLetterForm?.get('bridgeGapPurpose')?.value !== 'Other'">
                             <b>{{offerLetterForm?.get('bridgeGapPurpose')?.value ? offerLetterForm?.get('bridgeGapPurpose')?.value : '========='}}</b></span>
-                        <span class="nepaliFont print-only"
-                              *ngIf="offerLetterForm?.get('bridgeGapPurpose')?.value === 'Other'">
+                                <span class="nepaliFont print-only"
+                                      *ngIf="offerLetterForm?.get('bridgeGapPurpose')?.value === 'Other'">
                             <b>{{offerLetterForm?.get('bridgeGapOther')?.value ? offerLetterForm?.get('bridgeGapOther')?.value : '========='}}</b></span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमाः (Drawdown)</td>
-                    <td>
-                        <!--                        <ckeditor formControlName="bridgeGapDrawdown"-->
-                        <!--                                  [config]="ckeConfig"></ckeditor>-->
-                        <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
-                                  formControlName="bridgeGapDrawdown"
-                                  placeholder="स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमा"
-                                  rows="4"></textarea>
-                        <span class="nepaliFont print-only">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमाः (Drawdown)</td>
+                            <td>
+                                <!--                        <ckeditor formControlName="bridgeGapDrawdown"-->
+                                <!--                                  [config]="ckeConfig"></ckeditor>-->
+                                <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                                          formControlName="bridgeGapDrawdown"
+                                          placeholder="स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमा"
+                                          rows="4"></textarea>
+                                <span class="nepaliFont print-only">
                             <b>{{offerLetterForm?.get('bridgeGapDrawdown')?.value ? offerLetterForm?.get('bridgeGapDrawdown')?.value : '========='}}</b></span>
-                    </td>
-                </tr>
-            </ng-container>
-            <ng-container *ngIf="loanName?.includes('LETTER OF CREDIT')" class="sb-bg-dark">
-                <th width="50%">
-                    <b> सुविधा (Facility) </b>
-                </th>
-                <th width="50%">
-                    <b> बप्रतित पत्र (Letter of Credit)</b>
-                </th>
-                <tr>
-                    <td>उद्देश्य(Purpose)</td>
-                    <td>
-                        <select class="form-control disable-print"
-                                formControlName="letterPurpose"
-                                name="letterPurpose" (change)="purposeChangeNonSubLoan()">
-                            <option [value]="null">Select Purpose</option>
-                            <option *ngFor="let pur of purpose"
-                                    [value]="pur?.value">{{pur?.value}}</option>
-                        </select>
-                        <!--                            <ckeditor formControlName="letterOther" *ngIf="letterOther"-->
-                        <!--                                      [config]="ckeConfig"></ckeditor>-->
-                        <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
-                                  *ngIf="offerLetterForm?.get('letterPurpose')?.value === 'Other'"
-                                  formControlName="letterOther"
-                                  placeholder="अन्य उद्देश्य"
-                                  rows="2"></textarea>
-                        <span class="nepaliFont print-only"
-                              *ngIf="offerLetterForm?.get('letterPurpose')?.value !== 'Other'">
+                            </td>
+                        </tr>
+                    </ng-container>
+                    <ng-container *ngIf="loanName?.includes('LETTER OF CREDIT')" class="sb-bg-dark">
+                        <th width="50%">
+                            <b> सुविधा (Facility) </b>
+                        </th>
+                        <th width="50%">
+                            <b> बप्रतित पत्र (Letter of Credit)</b>
+                        </th>
+                        <tr>
+                            <td>उद्देश्य(Purpose)</td>
+                            <td>
+                                <select class="form-control disable-print"
+                                        formControlName="letterPurpose"
+                                        name="letterPurpose" (change)="purposeChangeNonSubLoan()">
+                                    <option [value]="null">Select Purpose</option>
+                                    <option *ngFor="let pur of purpose"
+                                            [value]="pur?.value">{{pur?.value}}</option>
+                                </select>
+                                <!--                            <ckeditor formControlName="letterOther" *ngIf="letterOther"-->
+                                <!--                                      [config]="ckeConfig"></ckeditor>-->
+                                <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                                          *ngIf="offerLetterForm?.get('letterPurpose')?.value === 'Other'"
+                                          formControlName="letterOther"
+                                          placeholder="अन्य उद्देश्य"
+                                          rows="2"></textarea>
+                                <span class="nepaliFont print-only"
+                                      *ngIf="offerLetterForm?.get('letterPurpose')?.value !== 'Other'">
                                 <b>{{offerLetterForm?.get('letterPurpose')?.value ? offerLetterForm?.get('letterPurpose')?.value : '========='}}</b></span>
-                        <span class="nepaliFont print-only"
-                              *ngIf="offerLetterForm?.get('letterPurpose').value === 'Other'">
+                                <span class="nepaliFont print-only"
+                                      *ngIf="offerLetterForm?.get('letterPurpose').value === 'Other'">
                                 <b>{{offerLetterForm?.get('letterOther')?.value ? offerLetterForm?.get('letterOther')?.value : '========='}}</b></span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>कमिसन (Commission)</td>
-                    <td><input type="text"
-                               class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                               formControlName="creditRate">
-                        <span class="nepaliFont print-only">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>कमिसन (Commission)</td>
+                            <td><input type="text"
+                                       class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                       formControlName="creditRate">
+                                <span class="nepaliFont print-only">
                                 <b>{{offerLetterForm?.get('creditRate')?.value ? offerLetterForm?.get('creditRate')?.value : '========='}}</b></span>
-                        प्रतिशत प्रति त्रैमासिक वा न्यूनतम
-                        <input type="text"
-                               class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                               formControlName="creditAmount">
-                        <span class="nepaliFont print-only">
+                                प्रतिशत प्रति त्रैमासिक वा न्यूनतम
+                                <input type="text"
+                                       class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                       formControlName="creditAmount">
+                                <span class="nepaliFont print-only">
                                 <b>{{offerLetterForm?.get('creditAmount')?.value ? offerLetterForm?.get('creditAmount')?.value : '========='}}</b></span>
-                        /– मात्र ।
-                    </td>
-                </tr>
-                <tr>
-                    <td>अवधि पुग्ने मिति (Maturity)</td>
-                    <td>मिति <input type="text"
-                                    class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                    formControlName="creditMaturityDate">
-                        <span class="nepaliFont print-only">
+                                /– मात्र ।
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>अवधि पुग्ने मिति (Maturity)</td>
+                            <td>मिति <input type="text"
+                                            class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                            formControlName="creditMaturityDate">
+                                <span class="nepaliFont print-only">
                                 <b>{{offerLetterForm?.get('creditMaturityDate')?.value ? offerLetterForm?.get('creditMaturityDate')?.value : '========='}}</b></span>
-                        सम्म प्राप्त गर्न सकिने ।
-                    </td>
-                </tr>
-                <tr>
-                    <td>टेलेक्स चार्ज (Telex Charges)</td>
-                    <td>रु <input type="text"
-                                  class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                  formControlName="creditTelexAmount">
-                        <span class="nepaliFont print-only">
+                                सम्म प्राप्त गर्न सकिने ।
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>टेलेक्स चार्ज (Telex Charges)</td>
+                            <td>रु <input type="text"
+                                          class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                          formControlName="creditTelexAmount">
+                                <span class="nepaliFont print-only">
                                 <b>{{offerLetterForm?.get('creditTelexAmount')?.value ? offerLetterForm?.get('creditTelexAmount')?.value : '========='}}</b></span>
-                        /– मात्र ।
-                    </td>
-                </tr>
-                <tr>
-                    <td>फोर्स लोन (Force Loan) तथा व्याज (Interest)</td>
-                    <td>प्रतितपत्र सुविधा नगदी कर्जामा परिणत भएमा बैंकको नियमानुसार व्याज लगाई असुल उपर गरिने छ ।</td>
-                </tr>
-            </ng-container>
-            <ng-container *ngIf="loanName?.includes('HIRE PURCHASE LOAN')" class="sb-bg-dark">
-                <th width="50%">
-                    <b> सुविधा (Facility) </b>
-                </th>
-                <th width="50%">
-                    <b> सवारी कर्जा (Hire Purchase Loan)</b>
-                </th>
-                <tr>
-                    <td>उद्देश्य (Purpose)</td>
-                    <td>
-                        <select class="form-control disable-print"
-                                formControlName="hirePurpose"
-                                name="hirePurpose" (change)="purposeChangeNonSubLoan()">
-                            <option [value]="null">Select Purpose</option>
-                            <option *ngFor="let pur of purpose"
-                                    [value]="pur?.value">{{pur?.value}}</option>
-                        </select>
-                        <!--                            <ckeditor formControlName="workingOther" *ngIf="tempPurposeFlag?.selectHireOther"-->
-                        <!--                                      [config]="ckeConfig"></ckeditor>-->
-                        <textarea *ngIf="offerLetterForm?.get('hirePurpose')?.value === 'Other'"
-                                  class="form-control nepaliFont form-field font-size-normal"
-                                  formControlName="hireOther"
-                                  placeholder="अन्य उद्देश्य"
-                                  rows="2"></textarea>
-                        <span class="nepaliFont print-only"
-                              *ngIf="offerLetterForm?.get('hirePurpose')?.value !== 'Other'">
+                                /– मात्र ।
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>फोर्स लोन (Force Loan) तथा व्याज (Interest)</td>
+                            <td>प्रतितपत्र सुविधा नगदी कर्जामा परिणत भएमा बैंकको नियमानुसार व्याज लगाई असुल उपर गरिने छ ।</td>
+                        </tr>
+                    </ng-container>
+                    <ng-container *ngIf="loanName?.includes('HIRE PURCHASE LOAN')" class="sb-bg-dark">
+                        <th width="50%">
+                            <b> सुविधा (Facility) </b>
+                        </th>
+                        <th width="50%">
+                            <b> सवारी कर्जा (Hire Purchase Loan)</b>
+                        </th>
+                        <tr>
+                            <td>उद्देश्य (Purpose)</td>
+                            <td>
+                                <select class="form-control disable-print"
+                                        formControlName="hirePurpose"
+                                        name="hirePurpose" (change)="purposeChangeNonSubLoan()">
+                                    <option [value]="null">Select Purpose</option>
+                                    <option *ngFor="let pur of purpose"
+                                            [value]="pur?.value">{{pur?.value}}</option>
+                                </select>
+                                <!--                            <ckeditor formControlName="workingOther" *ngIf="tempPurposeFlag?.selectHireOther"-->
+                                <!--                                      [config]="ckeConfig"></ckeditor>-->
+                                <textarea *ngIf="offerLetterForm?.get('hirePurpose')?.value === 'Other'"
+                                          class="form-control nepaliFont form-field font-size-normal"
+                                          formControlName="hireOther"
+                                          placeholder="अन्य उद्देश्य"
+                                          rows="2"></textarea>
+                                <span class="nepaliFont print-only"
+                                      *ngIf="offerLetterForm?.get('hirePurpose')?.value !== 'Other'">
                                 <b>{{offerLetterForm?.get('hirePurpose')?.value ? offerLetterForm?.get('hirePurpose')?.value : '========='}}</b></span>
-                        <span class="nepaliFont print-only"
-                              *ngIf="offerLetterForm?.get('hirePurpose')?.value === 'Other'">
+                                <span class="nepaliFont print-only"
+                                      *ngIf="offerLetterForm?.get('hirePurpose')?.value === 'Other'">
                                 <b>{{offerLetterForm?.get('hireOther')?.value ? offerLetterForm?.get('hireOther')?.value : '========='}}</b></span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमाः (Drawdown)</td>
-                    <td>
-                        <!--                            <ckeditor formControlName="hirePurchaseDrawdown"-->
-                        <!--                                      [config]="ckeConfig"></ckeditor>-->
-                        <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
-                                  formControlName="hirePurchaseDrawdown"
-                                  placeholder="स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमा"
-                                  rows="4"></textarea>
-                        <span class="nepaliFont print-only">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमाः (Drawdown)</td>
+                            <td>
+                                <!--                            <ckeditor formControlName="hirePurchaseDrawdown"-->
+                                <!--                                      [config]="ckeConfig"></ckeditor>-->
+                                <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                                          formControlName="hirePurchaseDrawdown"
+                                          placeholder="स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमा"
+                                          rows="4"></textarea>
+                                <span class="nepaliFont print-only">
                                 <b>{{offerLetterForm?.get('hirePurchaseDrawdown')?.value ? offerLetterForm?.get('hirePurchaseDrawdown')?.value : '========='}}</b></span>
-                    </td>
-                </tr>
-            </ng-container>
-            <ng-container *ngIf="loanName?.includes('COMMERCIAL AUTO LOAN')" class="sb-bg-dark">
-                <th width="50%">
-                    <b> सुविधा (Facility) </b>
-                </th>
-                <th width="50%">
-                    <b>कमर्शियल अटो लोन (Commercial Auto Loan)</b>
-                </th>
-                <tr>
-                    <td>उद्देश्य (Purpose)</td>
-                    <td>
-                        <select class="form-control disable-print"
-                                formControlName="commercialPurpose"
-                                name="commercialPurpose" (change)="purposeChangeNonSubLoan()">
-                            <option [value]="null">Select Purpose</option>
-                            <option *ngFor="let pur of purpose"
-                                    [value]="pur?.value">{{pur?.value}}</option>
-                        </select>
-                        <!--                            <ckeditor formControlName="workingOther" *ngIf="tempPurposeFlag?.selectcommercialOther"-->
-                        <!--                                      [config]="ckeConfig"></ckeditor>-->
-                        <textarea *ngIf="offerLetterForm?.get('commercialPurpose')?.value === 'Other'"
-                                  class="form-control nepaliFont form-field font-size-normal disable-print"
-                                  formControlName="commercialOther"
-                                  placeholder="अन्य उद्देश्य"
-                                  rows="2"></textarea>
-                        <span class="nepaliFont print-only"
-                              *ngIf="offerLetterForm?.get('commercialPurpose')?.value !== 'Other'">
+                            </td>
+                        </tr>
+                    </ng-container>
+                    <ng-container *ngIf="loanName?.includes('COMMERCIAL AUTO LOAN')" class="sb-bg-dark">
+                        <th width="50%">
+                            <b> सुविधा (Facility) </b>
+                        </th>
+                        <th width="50%">
+                            <b>कमर्शियल अटो लोन (Commercial Auto Loan)</b>
+                        </th>
+                        <tr>
+                            <td>उद्देश्य (Purpose)</td>
+                            <td>
+                                <select class="form-control disable-print"
+                                        formControlName="commercialPurpose"
+                                        name="commercialPurpose" (change)="purposeChangeNonSubLoan()">
+                                    <option [value]="null">Select Purpose</option>
+                                    <option *ngFor="let pur of purpose"
+                                            [value]="pur?.value">{{pur?.value}}</option>
+                                </select>
+                                <!--                            <ckeditor formControlName="workingOther" *ngIf="tempPurposeFlag?.selectcommercialOther"-->
+                                <!--                                      [config]="ckeConfig"></ckeditor>-->
+                                <textarea *ngIf="offerLetterForm?.get('commercialPurpose')?.value === 'Other'"
+                                          class="form-control nepaliFont form-field font-size-normal disable-print"
+                                          formControlName="commercialOther"
+                                          placeholder="अन्य उद्देश्य"
+                                          rows="2"></textarea>
+                                <span class="nepaliFont print-only"
+                                      *ngIf="offerLetterForm?.get('commercialPurpose')?.value !== 'Other'">
                                 <b>{{offerLetterForm?.get('commercialPurpose')?.value ? offerLetterForm?.get('commercialPurpose')?.value : '========='}}</b></span>
-                        <span class="nepaliFont print-only"
-                              *ngIf="offerLetterForm?.get('commercialPurpose')?.value === 'Other'">
+                                <span class="nepaliFont print-only"
+                                      *ngIf="offerLetterForm?.get('commercialPurpose')?.value === 'Other'">
                                 <b>{{offerLetterForm?.get('commercialOther')?.value ? offerLetterForm?.get('commercialOther')?.value : '========='}}</b></span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमाः (Drawdown)</td>
-                    <td>
-                        <!--                            <ckeditor formControlName="commercialAutoDrawdown"-->
-                        <!--                                      [config]="ckeConfig"></ckeditor>-->
-                        <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
-                                  formControlName="commercialAutoDrawdown"
-                                  placeholder="स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमा"
-                                  rows="4"></textarea>
-                        <span class="nepaliFont print-only">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमाः (Drawdown)</td>
+                            <td>
+                                <!--                            <ckeditor formControlName="commercialAutoDrawdown"-->
+                                <!--                                      [config]="ckeConfig"></ckeditor>-->
+                                <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                                          formControlName="commercialAutoDrawdown"
+                                          placeholder="स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमा"
+                                          rows="4"></textarea>
+                                <span class="nepaliFont print-only">
                                 <b>{{offerLetterForm?.get('hirePurchaseDrawdown')?.value ? offerLetterForm?.get('hirePurchaseDrawdown')?.value : '========='}}</b></span>
-                    </td>
-                </tr>
-            </ng-container>
-            <ng-container *ngIf="loanName?.includes('PERSONAL LOAN')" class="sb-bg-dark">
-                <th width="50%">
-                    <b> सुविधा (Facility) </b>
-                </th>
-                <th width="50%">
-                    <b>व्यक्तिगत कर्जा (Personal Loan)</b>
-                </th>
-                <tr>
-                    <td>उद्येश्य (Purpose)</td>
-                    <td>
-                        <select class="form-control"
-                                formControlName="personalPurpose"
-                                name="commercialPurpose" (change)="purposeChangeNonSubLoan()">
-                            <option [value]="null">Select Purpose</option>
-                            <option *ngFor="let pur of purpose"
-                                    [value]="pur?.value">{{pur?.value}}</option>
-                        </select>
-                        <!--                            <ckeditor formControlName="workingOther" *ngIf="tempPurposeFlag?.selectPersonalOther"-->
-                        <!--                                      [config]="ckeConfig"></ckeditor>-->
-                        <textarea *ngIf="offerLetterForm?.get('personalPurpose')?.value === 'Other'"
-                                  class="form-control nepaliFont form-field font-size-normal"
-                                  formControlName="personalOther"
-                                  placeholder="अन्य उद्देश्य"
-                                  rows="2"></textarea>
-                        <span class="nepaliFont print-only"
-                              *ngIf="offerLetterForm?.get('personalPurpose')?.value !== 'Other'">
+                            </td>
+                        </tr>
+                    </ng-container>
+                    <ng-container *ngIf="loanName?.includes('PERSONAL LOAN')" class="sb-bg-dark">
+                        <th width="50%">
+                            <b> सुविधा (Facility) </b>
+                        </th>
+                        <th width="50%">
+                            <b>व्यक्तिगत कर्जा (Personal Loan)</b>
+                        </th>
+                        <tr>
+                            <td>उद्येश्य (Purpose)</td>
+                            <td>
+                                <select class="form-control"
+                                        formControlName="personalPurpose"
+                                        name="commercialPurpose" (change)="purposeChangeNonSubLoan()">
+                                    <option [value]="null">Select Purpose</option>
+                                    <option *ngFor="let pur of purpose"
+                                            [value]="pur?.value">{{pur?.value}}</option>
+                                </select>
+                                <!--                            <ckeditor formControlName="workingOther" *ngIf="tempPurposeFlag?.selectPersonalOther"-->
+                                <!--                                      [config]="ckeConfig"></ckeditor>-->
+                                <textarea *ngIf="offerLetterForm?.get('personalPurpose')?.value === 'Other'"
+                                          class="form-control nepaliFont form-field font-size-normal"
+                                          formControlName="personalOther"
+                                          placeholder="अन्य उद्देश्य"
+                                          rows="2"></textarea>
+                                <span class="nepaliFont print-only"
+                                      *ngIf="offerLetterForm?.get('personalPurpose')?.value !== 'Other'">
                                 <b>{{offerLetterForm?.get('personalPurpose')?.value ? offerLetterForm?.get('personalPurpose')?.value : '========='}}</b></span>
-                        <span class="nepaliFont print-only"
-                              *ngIf="offerLetterForm?.get('personalPurpose')?.value === 'Other'">
+                                <span class="nepaliFont print-only"
+                                      *ngIf="offerLetterForm?.get('personalPurpose')?.value === 'Other'">
                                 <b>{{offerLetterForm?.get('personalOther')?.value ? offerLetterForm?.get('personalOther')?.value : '========='}}</b></span>
-                    </td>
-                </tr>
-            </ng-container>
-            <ng-container *ngIf="loanName?.includes('EDUCATION LOAN')" class="sb-bg-dark">
-                <tr>
-                    <th width="50%">
-                        <b> सुविधा (Facility) </b>
-                    </th>
-                    <th width="50%">
-                        <b>शैक्षिक कर्जा (Educational Loan)</b>
-                    </th>
-                </tr>
-                <tr>
-                    <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमाः (Drawdown)</td>
-                    <td>
-                        <!--                            <ckeditor formControlName="educationalDrawdown"-->
-                        <!--                                      [config]="ckeConfig"></ckeditor>-->
-                        <textarea class="form-control nepaliFont form-field font-size-normal"
-                                  formControlName="educationalDrawdown"
-                                  placeholder="स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमा"
-                                  rows="4"></textarea>
-                        <span class="nepaliFont print-only">
+                            </td>
+                        </tr>
+                    </ng-container>
+                    <ng-container *ngIf="loanName?.includes('EDUCATION LOAN')" class="sb-bg-dark">
+                        <tr>
+                            <th width="50%">
+                                <b> सुविधा (Facility) </b>
+                            </th>
+                            <th width="50%">
+                                <b>शैक्षिक कर्जा (Educational Loan)</b>
+                            </th>
+                        </tr>
+                        <tr>
+                            <td>उद्येश्य (Purpose)</td>
+                            <td>
+                                <select class="form-control disable-print"
+                                        formControlName="educationPurpose"
+                                        [value]="offerLetterForm?.get('educationPurpose')?.value"
+                                        name="educationPurpose" (change)="purposeChangeNonSubLoan($event?.target?.value)">
+                                    <option [value]="null">Select Purpose</option>
+                                    <option *ngFor="let pur of purpose"
+                                            [value]="pur?.value">{{pur?.value}}</option>
+                                </select>
+                                <!--                            <ckeditor formControlName="workingOther" *ngIf="tempPurposeFlag?.selectcommercialOther"-->
+                                <!--                                      [config]="ckeConfig"></ckeditor>-->
+                                <textarea *ngIf="offerLetterForm?.get('educationPurpose')?.value === 'Other'"
+                                          class="form-control nepaliFont form-field font-size-normal disable-print disable-print"
+                                          formControlName="educationOther"
+                                          placeholder="अन्य उद्देश्य"
+                                          rows="2"></textarea>
+                                <span class="nepaliFont print-only"
+                                      *ngIf="offerLetterForm?.get('educationPurpose')?.value !== 'Other'">
+                                    <b>{{offerLetterForm?.get('educationPurpose')?.value ?
+                                        offerLetterForm?.get('educationPurpose')?.value : '========='}}</b></span>
+                                <span class="nepaliFont print-only"
+                                      *ngIf="offerLetterForm?.get('educationPurpose')?.value === 'Other'">
+                                    <b>{{offerLetterForm?.get('educationOther')?.value ?
+                                        offerLetterForm?.get('educationOther')?.value : '========='}}</b></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमाः (Drawdown)</td>
+                            <td>
+                                <!--                            <ckeditor formControlName="educationalDrawdown"-->
+                                <!--                                      [config]="ckeConfig"></ckeditor>-->
+                                <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                                          formControlName="educationalDrawdown"
+                                          placeholder="स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमा"
+                                          rows="4"></textarea>
+                                <span class="nepaliFont print-only">
                                 <b>{{offerLetterForm?.get('educationalDrawdown')?.value ? offerLetterForm?.get('educationalDrawdown')?.value : '========='}}</b></span>
-                    </td>
-                </tr>
-            </ng-container>
-            <ng-container *ngIf="loanName?.includes('AGMI')" class="sb-bg-dark">
-                <tr>
-                    <th width="50%">
-                        <b> सुविधा (Facility) </b>
-                    </th>
-                    <th width="50%">
-                        <b>लक्ष्मी कृषि कर्जा (AGMI)</b>
-                    </th>
-                </tr>
-                <tr>
-                    <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमाः (Drawdown)</td>
-                    <td>
-                        <!--                        <ckeditor formControlName="agmiDrawdown"-->
-                        <!--                                  [config]="ckeConfig"></ckeditor>-->
-                        <textarea class="form-control nepaliFont form-field font-size-normal"
-                                  formControlName="agmiDrawdown"
-                                  placeholder="स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमा"
-                                  rows="4"></textarea>
-                        <span class="nepaliFont print-only">
+                            </td>
+                        </tr>
+                    </ng-container>
+                    <ng-container *ngIf="loanName?.includes('AGMI')" class="sb-bg-dark">
+                        <tr>
+                            <th width="50%">
+                                <b> सुविधा (Facility) </b>
+                            </th>
+                            <th width="50%">
+                                <b>लक्ष्मी कृषि कर्जा (AGMI)</b>
+                            </th>
+                        </tr>
+                        <tr>
+                            <td>उद्येश्य (Purpose)</td>
+                            <td>
+                                <select class="form-control disable-print"
+                                        formControlName="agmiPurpose"
+                                        [value]="offerLetterForm?.get('agmiPurpose')?.value"
+                                        name="commercialPurpose" (change)="purposeChangeNonSubLoan($event?.target?.value)">
+                                    <option [value]="null">Select Purpose</option>
+                                    <option *ngFor="let pur of purpose"
+                                            [value]="pur?.value">{{pur?.value}}</option>
+                                </select>
+                                <!--                            <ckeditor formControlName="workingOther" *ngIf="tempPurposeFlag?.selectcommercialOther"-->
+                                <!--                                      [config]="ckeConfig"></ckeditor>-->
+                                <textarea *ngIf="offerLetterForm?.get('agmiPurpose')?.value === 'Other'"
+                                          formControlName="agmiOther"
+                                          class="form-control nepaliFont form-field font-size-normal disable-print"
+                                          placeholder="अन्य उद्देश्य"
+                                          rows="2"></textarea>
+                                <span class="nepaliFont print-only"
+                                      *ngIf="offerLetterForm?.get('agmiPurpose')?.value !== 'Other'">
+                                    <b>{{offerLetterForm?.get('agmiPurpose')?.value ?
+                                        offerLetterForm?.get('agmiPurpose')?.value : '========='}}</b></span>
+                                <span class="nepaliFont print-only"
+                                      *ngIf="offerLetterForm?.get('agmiPurpose')?.value === 'Other'">
+                                    <b>{{offerLetterForm?.get('agmiOther')?.value ?
+                                        offerLetterForm?.get('agmiOther')?.value : '========='}}</b></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमाः (Drawdown)</td>
+                            <td>
+                                <!--                        <ckeditor formControlName="agmiDrawdown"-->
+                                <!--                                  [config]="ckeConfig"></ckeditor>-->
+                                <textarea class="form-control nepaliFont form-field font-size-normal"
+                                          formControlName="agmiDrawdown"
+                                          placeholder="स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमा"
+                                          rows="4"></textarea>
+                                <span class="nepaliFont print-only">
                                 <b>{{offerLetterForm?.get('agmiDrawdown')?.value ? offerLetterForm?.get('agmiDrawdown')?.value : '========='}}</b></span>
-                    </td>
-                </tr>
+                            </td>
+                        </tr>
+                    </ng-container>
+                    </tbody>
+                </table>
             </ng-container>
 
             <p><strong>२. विभिन्न शुल्क, हर्जना तथा दस्तुरहरु :</strong></p>
             <table class="table table-bordered table-responsive-md table-sm sb-small">
                 <tr>
                     <td>१</td>
-                    <td>स्वाप शुल्क (Swap Fee)</td>
-                    <td>ऋणीले यस बैंकबाट उपभोग गरिरहेको कर्जा अन्य बैँक तथा बित्तीय संस्थामा स्वाप Swap गरीएको खण्डमा
+                    <td>स्वाप शुल्क (Swap Fee)
+                        <span class="float-right disable-print">
+                            <nb-checkbox (change)="otherCheck($event?.target?.checked, 'swapFee')"
+                                         [checked]="offerLetterForm?.get('swapFee').value"><i>Swap Fee ?</i>
+                            </nb-checkbox>
+                        </span>
+                    </td>
+                    <td>
+                        <span *ngIf="offerLetterForm?.get('swapFee').value && !offerLetterForm?.get('otherSwapFeeChecked').value">
+                            ऋणीले यस बैंकबाट उपभोग गरिरहेको कर्जा अन्य बैँक तथा बित्तीय संस्थामा स्वाप Swap गरीएको खण्डमा
                         स्वाप Swap गरीने कर्जा रकममा नेपाल राष्ट्र बैंकको निर्देशन बमोजिम बैंकको प्रचलित नियम
                         अनुसार कर्जा स्वाप शुल्क ऋणीबाट असुल उपर गरिनेछ ।
+                        </span>
+                        <span class="float-right disable-print">
+                            <nb-checkbox (change)="otherCheck($event?.target?.checked, 'otherSwapFeeChecked')"
+                                         [checked]="offerLetterForm?.get('otherSwapFeeChecked').value"><i>Other</i>
+                            </nb-checkbox>
+                        </span>
+                        <span *ngIf="!offerLetterForm?.get('swapFee').value">लागु हुने छैन ।</span>
+                        <span *ngIf="offerLetterForm?.get('otherSwapFeeChecked')?.value">
+                             <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                                       formControlName="swapFeeOther"
+                                       placeholder="स्वाप शुल्क"
+                                       rows="4"></textarea>
+                                <span class="nepaliFont print-only">
+                                <b>{{offerLetterForm?.get('swapFeeOther')?.value ? offerLetterForm?.get('swapFeeOther')?.value : '========='}}</b></span>
+                        </span>
                     </td>
                 </tr>
                 <tr>
                     <td>२</td>
-                    <td>अवधि अगावै भुक्तानीमा दस्तुर लाग्ने (Prepayment Charges)</td>
-                    <td>प्रथम पटक कर्जा प्रवाह भएको मितिबाट कर्जा चुक्ता गर्नुपर्ने अवधि अगावै कर्जा चुक्ता गरेमा देहाय
+                    <td>अवधि अगावै भुक्तानीमा दस्तुर लाग्ने (Prepayment Charges)
+                        <span class="float-right disable-print">
+                            <nb-checkbox (change)="otherCheck($event?.target?.checked, 'prepaymentCharge')"
+                                         [checked]="offerLetterForm?.get('prepaymentCharge').value"><i>Prepayment Charges ?</i>
+                            </nb-checkbox>
+                        </span>
+                    </td>
+                    <td>
+                        <span *ngIf="offerLetterForm?.get('prepaymentCharge').value && !offerLetterForm?.get('prepaymentOtherCheck').value">
+                            प्रथम पटक कर्जा प्रवाह भएको मितिबाट कर्जा चुक्ता गर्नुपर्ने अवधि अगावै कर्जा चुक्ता गरेमा देहाय
                         बमोजिमको अग्रीम भुक्तानी शुल्क <strong>(Prepayment Charge)</strong> बुझाउनु पर्नेछ । <br>
                         (१) २ वर्ष भित्र कर्जाको अग्र्रीम भुक्तानी गरेमा <strong><u>भुक्तानी गरेको रकममा
                             ०.७५</u></strong> प्रतिशत । <br>
@@ -1242,45 +1330,151 @@
                             ०.१५</u></strong> प्रतिशत । <br>
                         यधपी स्थिर व्याजदरमा प्रवाह भएका <strong>Amortizing</strong> प्रकृतिका कर्जाको हकमा <strong><u>भुक्तानी
                             गरेको रकममा ०.७५</u></strong> प्रतिशत ।
-                        <!--                        अवधि अगावै भुक्तानीमा दस्तुर लाग्ने ९एचभउबथmभलत ऋजबचनभक०	लागु हुने छैन ।-->
+                        </span>
+                        <span class="float-right disable-print">
+                            <nb-checkbox (change)="otherCheck($event?.target?.checked, 'prepaymentOtherCheck')"
+                                         [checked]="offerLetterForm?.get('prepaymentOtherCheck').value"><i>Other</i>
+                            </nb-checkbox>
+                        </span>
+                        <span *ngIf="!offerLetterForm?.get('prepaymentCharge').value">लागु हुने छैन ।</span>
+                        <span *ngIf="offerLetterForm?.get('prepaymentOtherCheck')?.value">
+                             <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                                       formControlName="prepaymentOther"
+                                       placeholder="अवधि अगावै भुक्तानीमा दस्तुर लाग्ने"
+                                       rows="4"></textarea>
+                                <span class="nepaliFont print-only">
+                                <b>{{offerLetterForm?.get('prepaymentOther')?.value ? offerLetterForm?.get('prepaymentOther')?.value : '========='}}</b></span>
+                        </span>
                     </td>
                 </tr>
                 <tr>
                     <td>३</td>
-                    <td>प्रतिबद्धता शुल्क (Commitment Fee)</td>
-                    <td><strong>Revolving</strong> सीमा अन्तर्गत प्रवाह हुने कर्जाको हकमा स्वीकृत कर्जा सीमाको <strong>६०</strong>
+                    <td>प्रतिबद्धता शुल्क (Commitment Fee)
+                        <span class="float-right disable-print">
+                            <nb-checkbox (change)="otherCheck($event?.target?.checked, 'commitmentFee')"
+                                         [checked]="offerLetterForm?.get('commitmentFee').value"><i>Commitment Charges ?</i>
+                            </nb-checkbox>
+                        </span>
+                    </td>
+                    <td>
+                        <span *ngIf="offerLetterForm?.get('commitmentFee').value && !offerLetterForm?.get('commitmentFeeOtherCheck').value">
+                            <strong>Revolving</strong> सीमा अन्तर्गत प्रवाह हुने कर्जाको हकमा स्वीकृत कर्जा सीमाको <strong>६०</strong>
                         प्रतिशत रकम सम्म उपभोग नगरेमा, उपभोग नगरेको रकममा <strong>०.१५</strong>
                         प्रतिशत वार्षिक रुपमा प्रतिवद्धता शुल्क <strong>(Commitment Fee)</strong> असुल उपर गरिनेछ । <br>
                         <strong>Amortizing </strong> सीमा अन्तर्गत प्रवाह हुने कर्जाको हकमा स्वीकृत कर्जा भन्दा कम उपभोग
                         गरेमा, उपभोग नगरेको रकममा <strong>०.१५</strong> प्रतिशत मात्र एकपटकका लागि प्रतिबद्धता शुल्क
                         <strong>(Commitment Fee)</strong> असुल उपर गरिनेछ ।
+                        </span>
+                        <span class="float-right disable-print">
+                            <nb-checkbox (change)="otherCheck($event?.target?.checked, 'commitmentFeeOtherCheck')"
+                                         [checked]="offerLetterForm?.get('commitmentFeeOtherCheck').value"><i>Other</i>
+                            </nb-checkbox>
+                        </span>
+                        <span *ngIf="!offerLetterForm?.get('commitmentFee').value">लागु हुने छैन ।</span>
+                        <span *ngIf="offerLetterForm?.get('commitmentFeeOtherCheck')?.value">
+                             <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                                       formControlName="commitmentFeeOther"
+                                       placeholder="प्रतिबद्धता शुल्क दस्तुर लाग्ने"
+                                       rows="4"></textarea>
+                                <span class="nepaliFont print-only">
+                                <b>{{offerLetterForm?.get('commitmentFeeOther')?.value ? offerLetterForm?.get('commitmentFeeOther')?.value : '========='}}</b></span>
+                        </span>
                     </td>
-                    <!--                    <td>लागु हुने छैन ।</td>-->
                 </tr>
                 <tr>
                     <td>४</td>
                     <td>कर्जा सूचना शुल्क, धितो सुरक्षण शुल्क, कर्जा सुरक्षण शुल्क, वीमा प्रिमियम शुल्क (Credit
                         Information Fee, Security Registration fee, Credit Guarantee fee & Insurance Premium charge)
+<!--                        <span class="float-right disable-print">-->
+<!--                            <nb-checkbox (change)="otherCheck($event?.target?.checked, 'informationFee')"-->
+<!--                                         [checked]="offerLetterForm?.get('informationFee').value"><i> Fee ?</i>-->
+<!--                            </nb-checkbox>-->
+<!--                        </span>-->
                     </td>
-                    <td>कर्जा सूचना शुल्क, धितो सुरक्षण शुल्क, कर्जा सुरक्षण शुल्क तथा वीमा प्रिमियम शुल्क वास्तविक
+                    <td>
+                        <span *ngIf="offerLetterForm?.get('informationFee').value && !offerLetterForm?.get('informationFeeOtherCheck').value">
+                            कर्जा सूचना शुल्क, धितो सुरक्षण शुल्क, कर्जा सुरक्षण शुल्क तथा वीमा प्रिमियम शुल्क वास्तविक
                         लागतका आधारमा ऋणीले तिर्नुपर्नेछ र सो शुल्कहरु कर्जा प्रवाह हुनु पूर्व ऋणीबाट असुल उपर गरिने छ ।
+                        </span>
+                        <span class="float-right disable-print">
+                            <nb-checkbox (change)="otherCheck($event?.target?.checked, 'informationFeeOtherCheck')"
+                                         [checked]="offerLetterForm?.get('informationFeeOtherCheck').value"><i>Other</i>
+                            </nb-checkbox>
+                        </span>
+<!--                        <span *ngIf="!offerLetterForm?.get('informationFee').value">लागु हुने छैन ।</span>-->
+                        <span *ngIf="offerLetterForm?.get('informationFeeOtherCheck')?.value">
+                             <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                                       formControlName="informationFeeOther"
+                                       placeholder="कर्जा सूचना शुल्क, धितो सुरक्षण शुल्क, कर्जा सुरक्षण शुल्क, वीमा प्रिमियम शुल्क"
+                                       rows="4"></textarea>
+                                <span class="nepaliFont print-only">
+                                <b>{{offerLetterForm?.get('informationFeeOther')?.value ? offerLetterForm?.get('informationFeeOther')?.value : '========='}}</b></span>
+                        </span>
                     </td>
+
                 </tr>
                 <tr>
                     <td>५</td>
-                    <td>धितो मुल्यांकन शुल्क (Valuation Fee)</td>
-                    <td>धितो अथवा सुरक्षण बापत प्रदान गरिने वा गरिएको चल अचल सम्पतिको मूल्याकंन गर्दा लागेको सम्पूर्ण
+                    <td>धितो मुल्यांकन शुल्क (Valuation Fee)
+<!--                        <span class="float-right disable-print">-->
+<!--                            <nb-checkbox (change)="otherCheck($event?.target?.checked, 'valuationFee')"-->
+<!--                                         [checked]="offerLetterForm?.get('valuationFee').value"><i>Valuation Fee ?</i>-->
+<!--                            </nb-checkbox>-->
+<!--                        </span>-->
+                    </td>
+                    <td>
+                        <span *ngIf="offerLetterForm?.get('valuationFee').value && !offerLetterForm?.get('valuationFeeOtherCheck').value">
+                            धितो अथवा सुरक्षण बापत प्रदान गरिने वा गरिएको चल अचल सम्पतिको मूल्याकंन गर्दा लागेको सम्पूर्ण
                         खर्च ऋणी स्वयंले ब्यहोर्नु पर्नेछ ।
+                        </span>
+                        <span class="float-right disable-print">
+                            <nb-checkbox (change)="otherCheck($event?.target?.checked, 'valuationFeeOtherCheck')"
+                                         [checked]="offerLetterForm?.get('valuationFeeOtherCheck').value"><i>Other</i>
+                            </nb-checkbox>
+                        </span>
+<!--                        <span *ngIf="!offerLetterForm?.get('valuationFee').value">लागु हुने छैन ।</span>-->
+                        <span *ngIf="offerLetterForm?.get('valuationFeeOtherCheck')?.value">
+                             <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                                       formControlName="valuationFeeOther"
+                                       placeholder="धितो मुल्यांकन शुल्क"
+                                       rows="4"></textarea>
+                                <span class="nepaliFont print-only">
+                                <b>{{offerLetterForm?.get('valuationFeeOther')?.value ? offerLetterForm?.get('valuationFeeOther')?.value : '========='}}</b></span>
+                        </span>
                     </td>
                 </tr>
                 <tr>
                     <td>६</td>
-                    <td>हर्जाना व्याज (Penal Interest)</td>
-                    <td>कर्जा समयमा भुक्तानी नभएमा वा किस्ता खिलाफी भएको अवस्थामा वा यस कर्जा स्वीकृतिपत्रमा उल्लेखित
+                    <td>हर्जाना व्याज (Penal Interest)
+<!--                        <span class="float-right disable-print">-->
+<!--                            <nb-checkbox (change)="otherCheck($event?.target?.checked, 'penalInterest')"-->
+<!--                                         [checked]="offerLetterForm?.get('penalInterest').value"><i>Prepayment Charges ?</i>-->
+<!--                            </nb-checkbox>-->
+<!--                        </span>-->
+                    </td>
+
+                    <td>
+                        <span *ngIf="offerLetterForm?.get('penalInterest').value && !offerLetterForm?.get('penalInterestOtherCheck').value">
+                            कर्जा समयमा भुक्तानी नभएमा वा किस्ता खिलाफी भएको अवस्थामा वा यस कर्जा स्वीकृतिपत्रमा उल्लेखित
                         शर्त तथा वन्देजहरुको पालना नगरेमा वा उल्लंघन गरेमा वा स्वीकृत सिमा भन्दा वढी कर्जा उपभोग गरेमा
                         विना पूर्व सूचना तिर्न
                         बाकि ब्याज तथा सावाँमा यस कर्जा स्वीकृतीपत्रमा उल्लेखित व्याज दरमा माथि उल्लेख भएको ब्याजदरमा २
                         प्रतिशत थप हर्जना व्याज लगाई असुल उपर गरिनेछ ।
+                        </span>
+                        <span class="float-right disable-print">
+                            <nb-checkbox (change)="otherCheck($event?.target?.checked, 'penalInterestOtherCheck')"
+                                         [checked]="offerLetterForm?.get('penalInterestOtherCheck').value"><i>Other</i>
+                            </nb-checkbox>
+                        </span>
+<!--                        <span *ngIf="!offerLetterForm?.get('penalInterest').value">लागु हुने छैन ।</span>-->
+                        <span *ngIf="offerLetterForm?.get('penalInterestOtherCheck')?.value">
+                             <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                                       formControlName="penalInterestOther"
+                                       placeholder="हर्जाना व्याज"
+                                       rows="4"></textarea>
+                                <span class="nepaliFont print-only">
+                                <b>{{offerLetterForm?.get('penalInterestOther')?.value ? offerLetterForm?.get('penalInterestOther')?.value : '========='}}</b></span>
+                        </span>
                     </td>
                 </tr>
             </table>
