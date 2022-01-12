@@ -28,4 +28,16 @@ export class CustomerGeneralDocumentService extends BaseService<Object> {
     protected getApi(): string {
         return CustomerGeneralDocumentService.API;
     }
+
+    public uploadMultipleDoc(formData: FormData): Observable<any> {
+        const req = ApiUtils.getRequestWithFileSupport(`${this.getApi()}/upload-multiple-document`);
+        console.log(formData.getAll('file'));
+        return this.http.post(req.url, formData, {headers: req.header});
+    }
+
+    public deleteDocumentWithDocIndex(id: number, customerId, path, doc_index): Observable<any> {
+        const req = ApiUtils.getRequestWithFileSupport(`${this.getApi()}/delete-document/${id}/${customerId}/${doc_index}`);
+        return this.http.post(req.url, path, {headers: req.header});
+    }
+
 }

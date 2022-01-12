@@ -9,5 +9,6 @@ export class CustomerGeneralDocument {
   name: string;
   id: number;
   checked: boolean;
+  docIndex: number;
 
 }
