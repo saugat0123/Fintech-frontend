@@ -1,1 +1,135 @@
-<p>supplementary-aggrement-proprietorship works!</p>
+<main class="main-section container nep text-justify"
+    id="{{offerLetterConst.SUPPLEMENTARY_AGGREMENT_PROPRIETORSHIP}}Print">
+    <form [formGroup]="supplementaryAgreementProprietorship" id="supplementaryAgreementProprietorship">
+        <div class="text-justify">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="nep">
+                        <section class="top-date d-flex flex-row-reverse">
+                            <p>
+                                मिति: <input class="form-field disable-print form-control-sm" name="date"
+                                    formControlName="date" placeholder="मिति" type="text" />
+                            </p>
+                        </section>
+                        <section>
+                            <p>
+                                श्री नबिल बैंक लिमिटेड
+                            </p>
+                            <p>
+                                <input class="form-field disable-print form-control-sm" name="bankAddress"
+                                    formControlName="bankAddress" type="text" />
+                            </p>
+                        </section>
+                        <section>
+                            <h4 class="text-center mb-4">
+                                <strong>
+                                    <u>
+                                        विषयः पूरक सम्झौता (Supplementary Agreement)।
+                                    </u>
+                                </strong>
+                            </h4>
+                            <p>
+                                म/हामी
+                                <input class="form-field disable-print form-control-sm" name="firmName"
+                                    formControlName="firmName" type="text" />
+                                ले मिति
+                                <input class="form-field disable-print form-control-sm"
+                                    name="dateOfHypothecation/Pledge" formControlName="dateOfHypothecation"
+                                    type="text" />
+                                मा त्यस बैंकको पक्षमा मेरो÷हाम्रो श्री(सम्पत्ति धितो÷सुरक्षण लेखीदिएको गोश्वारा-पत्र
+                                (General Letter of Hypothecation) को सन्दर्भमा सोही गोश्वारा (पत्रको
+                                अभिन्न अंगको रुपमा रहने गरी यो पूरक सम्झौता गरीदिएका छौं ।
+                            </p>
+                            <p>
+                                तहांले हाम्रो नाममा जारी गरेको मिति
+                                <input class="form-field disable-print form-control-sm"
+                                    name="Sanction letter issued date" formControlName="sanctionLetterIssuedDate"
+                                    type="text" />
+                                को ऋण स्वीकृति पत्रानुसार म/हामीले रु.
+                                <input class="form-field disable-print form-control-sm" name="Loan Amount in Figure"
+                                    formControlName="loanAmountInFigure" type="text" /> । (अक्षरेपी
+                                <input class="form-field disable-print form-control-sm" name="Loan Amount in Words"
+                                    formControlName="loanAmountInWords" type="text" />
+                                उपयोग/उपभोग गरेको ठिक सांचो हो, र
+                            </p>
+                            <p>
+                                उक्त ऋणकर्जा उपयोग/उपभोग गरे वापत माथि उल्लेखित गोश्वारा(पत्र वा मिति
+                                <input class="form-field disable-print form-control-sm" name="Date of Trust Recipt"
+                                    formControlName="dateOfTrustReceipt" type="text" /> मा गरीदिएको "न्यासमा सामान
+                                बुझीलिने गोश्वारा-पत्र (General Letter of Trust Receipt)"
+                                मा उल्लेखित शर्तबन्देज अनुरुप मेरो÷हाम्रो अनुरोधमा तहांले खोलीदिएको नं.
+                                <input class="form-field disable-print form-control-sm" name="Letter of Credit No"
+                                    formControlName="letterOfCreditNo" type="text" /> मिति
+                                <input class="form-field disable-print form-control-sm"
+                                    name="Letter of Credit Issued Date" formControlName="letterOfCreditIssuedDate"
+                                    type="text" />
+                                को प्रतीतपत्र अन्तर्गत आयात गरी वा अन्य माध्यमबाट खरिद गरी हाम्रो जिम्मामा रहेको देहायमा
+                                उल्लेखित सुरक्षणका सामानहरुमाथि त्यस बैंकको हकाधिकार रहने गरी यो पूरक सम्झौता गरीदिएका
+                                छौं:
+                            </p>
+                        </section>
+                        <section class="free-text">
+                            <p><strong><u>सुरक्षणमा रहेको सामानको विवरण</u></strong></p>
+                            <button nbButton status="primary" size="tiny" (click)="addTextArea()"
+                                style="margin-bottom: 10px">Add
+                                Text Area
+                            </button>
+                            <ol class="conditions-list orderd-list font-weight-bold">
+                                <li *ngFor="let textArea of supplementaryAgreementProprietorship.get('textAreas')['controls']; let i = index;"
+                                    formArrayName="textAreas">
+                                    <div class="text-area">
+                                    <ng-container [formGroupName]="i">
+                                        <textarea id="additionalGuarantorDetails" class="form-control customFont"
+                                            style="width: 60%;height: 1.8rem;" name="additionalGuarantorDetails"
+                                            formControlName="additionalGuarantorDetails">
+                                    </textarea>
+                                    </ng-container>
+                                        <button *ngIf="supplementaryAgreementProprietorship.get('textAreas')['length'] > 1" nbButton status="danger" size="tiny" (click)="removeAtIndex(i)">
+                                            <em class="fa fa-trash" style="color: white;"></em>
+                                        </button>
+                                    </div>
+                                </li>
+                            </ol>
+                        </section>
+                        <section class="d-flex flex-column align-items-end mt-4">
+                            <p>_________________________________</p>
+                            <p class="sign" style="margin-right: 7rem;">अधिकृत दस्तखत</p>
+                            <p class="sign" style="margin-right: 11.5rem;">छाप </p>
+                        </section>
+                        <section class="sakshi mt-4">
+                            <p class="text-center">
+                                <b><u>साक्षी</u></b>
+                            </p>
+                            <ol class="conditions-list orderd-list font-weight-bold">
+                                <li>
+                                    <input class="form-field form-control-sm  disable-print" name="witnessDistrict"
+                                        formControlName="witnessDistrict" placeholder="" type="text" />
+                                    <span class="print-only font-weight-bold">______________________</span>
+                                    जिल्ला <input class="form-field form-control-sm  disable-print"
+                                        name="witnessMunicipality" formControlName="witnessMunicipality" placeholder=""
+                                        type="text" />
+                                    <span class="print-only font-weight-bold">______________________</span>
+                                    न.पा/गा.वि.स. वडा नं.
+                                    <input class="form-field form-control-sm  disable-print" name="WitnessWardNumber"
+                                        formControlName="witnessWardNumber" placeholder="" type="text" />
+                                    <span class="print-only font-weight-bold">______________________</span>
+                                    बस्ने बर्ष <input class="form-field form-control-sm  disable-print"
+                                        name="witnessAge" formControlName="witnessAge" placeholder="" type="text" />
+                                    <span class="print-only font-weight-bold">______________________</span>
+                                    को/की <input class="form-field form-control-sm  disable-print" name="witnessName"
+                                        formControlName="witnessName" placeholder="" type="text" />
+                                    <span class="print-only font-weight-bold">______________________</span>
+                                </li>
+                                <li>कारणीले प्रस्तुत लिखत मेरो सामुन्ने सहिछाप गरेको हो भनी सनाखत गर्ने धनी बैंकका
+                                    कर्मचारी <input class="form-field form-control-sm  disable-print" name="witnessName"
+                                        formControlName="witnessName" placeholder="" type="text" />
+                                    <span class="print-only font-weight-bold">______________________</span>
+                                </li>
+                            </ol>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</main>
