@@ -169,12 +169,17 @@ export class PromissoryNoteCompanyComponent implements OnInit {
       directorCitizenshipIssueDistrict: [undefined],
       interest: [undefined],
       branchName: [undefined],
+      bankStaff: [undefined],
       witnessDistrict: [undefined],
       witnessMunicipality: [undefined],
       WitnessWardNumber: [undefined],
       witnessAge: [undefined],
       witnessName: [undefined],
-      bankWitness: [undefined]
+      witnessDistrict2: [undefined],
+      witnessMunicipality2: [undefined],
+      WitnessWardNumber2: [undefined],
+      witnessAge2: [undefined],
+      witnessName2: [undefined],
     });
   }
   fillform() {
