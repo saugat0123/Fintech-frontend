@@ -16,6 +16,7 @@ import {ProgressiveLegalDocConst} from '../progressive-legal-doc-const';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
 import {CadFile} from '../../../../model/CadFile';
 import {Document} from '../../../../../admin/modal/document';
+import {NepDataPersonal} from '../../../../model/nepDataPersonal';
 
 @Component({
   selector: 'app-mortgage-deed',
@@ -34,6 +35,7 @@ export class MortgageDeedComponent implements OnInit {
   existingOfferLetter = false;
   offerLetterDocument: OfferDocument;
   nepaliData;
+  nepDataPersonal = new NepDataPersonal();
 
   constructor(private dialogRef: NbDialogRef<MortgageDeedComponent>,
               private formBuilder: FormBuilder,
@@ -72,6 +74,10 @@ export class MortgageDeedComponent implements OnInit {
 
       this.form.patchValue({
         customerName: this.nepaliData.name ? this.nepaliData.name : '',
+        cityName: this.nepaliData.branchDistrict ? this.nepaliData.branchDistrict : '',
+        jillaName: this.nepaliData.branchMunVdc ? this.nepaliData.branchMunVdc : '',
+        wodaNum: this.nepaliData.branchWardNo ? this.nepaliData.branchWardNo : '',
+        jillaName2: this.nepaliData.branchName ? this.nepaliData.branchName : '',
       });
     }
   }
@@ -138,6 +144,7 @@ export class MortgageDeedComponent implements OnInit {
 
   buildForm() {
     this.form = this.formBuilder.group({
+      customerName : [undefined],
       tokenDartaNo: [undefined],
       regNo: [undefined],
       creditorName: [undefined],
@@ -269,7 +276,7 @@ export class MortgageDeedComponent implements OnInit {
       fatwalaName: [undefined],
       fatwalaPosition: [undefined],
       guarantorDetails: this.formBuilder.array([]),
-      rinBibaran:this.formBuilder.array([]),
+      rinBibaran: this.formBuilder.array([]),
       jillaName: [undefined],
       cityName: [undefined],
       wodaNum: [undefined],
@@ -287,7 +294,9 @@ export class MortgageDeedComponent implements OnInit {
       witnessCDOoffice1: [undefined],
       witnessIssuedPlace1: [undefined],
       witnessMunicipality1: [undefined],
-      witnessWardNo1: [undefined]
+      panNo: [undefined],
+      dartaDate4: [undefined],
+      witnessWardNo1 : [undefined]
 
     });
   }
@@ -331,7 +340,7 @@ export class MortgageDeedComponent implements OnInit {
     const formArray = this.form.get('rinBibaran') as FormArray;
     formArray.removeAt(index);
   }
-  rinBibaranFormGroup():FormGroup{
+  rinBibaranFormGroup(): FormGroup {
     return this.formBuilder.group({
       creditorNameNepali2: [undefined],
       creditorNameEnglish2: [undefined],
@@ -348,7 +357,7 @@ export class MortgageDeedComponent implements OnInit {
       creditorSpouse1: [undefined],
       creditorGrandFatherName1: [undefined],
       creditorGrandMotherName1: [undefined],
-    })
+    });
 
   }
   setRinBibaran(data) {
