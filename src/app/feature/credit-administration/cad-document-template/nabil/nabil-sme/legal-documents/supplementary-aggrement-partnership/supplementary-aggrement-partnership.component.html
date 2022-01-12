@@ -1,1 +1,134 @@
-<p>supplementary-aggrement-partnership works!</p>
+<div class="text-justify nep">
+  <form [formGroup]="form" class="nep">
+    <div class="'container nep text-justify">
+      <div class="row">
+        <div class="col-md-12 viewFull">
+          <p class="text-right">
+            मितिः ................/........../..........
+          </p>
+          श्री नबिल बैंक लिमिटेड
+          <br>
+          <input class="form-field form-control-sm"
+                 formControlName="addressOfBank"
+                 name="addressOfBank"
+                 placeholder="ठेगाना"
+                 type="text"/>
+          <p class="text-center"> शाखा ।
+            <b><u>विषयः पूरक सम्झौता (Supplementary Agreement) ।</u></b>
+          </p>
+          महोदय,
+          <br>
+          म/हामी
+          <input class="form-field form-control-sm"
+                 formControlName="nameOfBorrower"
+                 name="nameOfBorrower"
+                 type="text"/>
+          ले मिति
+          <input class="form-field form-control-sm"
+                 formControlName="dateOfHyothenciation"
+                 name="dateOfHyothenciation"
+                 type="text"/>
+
+          मा त्यस बैंकको पक्षमा मेरो/हाम्रो श्री(सम्पत्ति धितो/सुरक्षण लेखीदिएको गोश्वारा-पत्र
+          (General Letter of Hypothecation) को सन्दर्भमा सोही गोश्वारा-पत्रको
+          अभिन्न अंगको रुपमा रहने गरी यो पूरक सम्झौता गरीदिएका छौं ।
+          <br>
+          तहांले हाम्रो नाममा जारी गरेको मिति
+          <input class="form-field form-control-sm"
+                 formControlName="sanctionLetter"
+                 name="sanctionLetter"
+                 type="text"/>
+          को ऋण स्वीकृति पत्रानुसार म/हामीले रु.
+          <input class="form-field form-control-sm"
+                 formControlName="loanAmountInFig"
+                 name="loanAmountInFig"
+                 type="text"/>।
+          (अक्षरेपी
+          <input class="form-field form-control-sm"
+                 formControlName="loanAmountInWord"
+                 name="loanAmountInWord"
+                 type=" "/>
+          )  उपयोग/उपभोग गरेको ठिक सांचो हो, र
+
+          उक्त ऋणकर्जा उपयोग/उपभोग गरे वापत माथि उल्लेखित गोश्वारा-पत्र वा मिति
+          <input class="form-field form-control-sm"
+                 formControlName="dateOfTrust"
+                 name="dateOfTrust"
+                 type="text"/>
+          मा गरीदिएको "न्यासमा सामान बुझीलिने गोश्वारा-पत्र (General Letter of Trust Receipt)"
+          मा उल्लेखित शर्तबन्देज अनुरुप मेरो/हाम्रो अनुरोधमा तहांले खोलीदिएको नं.
+          <input class="form-field form-control-sm"
+                 formControlName="letterOfCredit"
+                 name="letterOfCredit"
+                 type="text"/>
+          मिति
+          <input class="form-field form-control-sm"
+                 formControlName="letterOfCreditIssueDate"
+                 name="letterOfCreditIssueDate"
+                 type="text"/>
+          को प्रतीतपत्र अन्तर्गत आयात गरी वा अन्य माध्यमबाट खरिद गरी हाम्रो जिम्मामा रहेको देहायमा उल्लेखित
+          सुरक्षणका सामानहरुमाथि त्यस बैंकको हकाधिकार रहने गरी यो पूरक सम्झौता गरीदिएका छौं :
+          <br>
+          <br>
+          <b><u>सुरक्षणमा रहेको सामानको विवरण</u></b>
+          <ol class="disc-list">
+            <button nbButton status="primary" size="tiny" (click)="addTextArea()" style="margin-bottom: 10px">Add
+              Text Area
+            </button>
+            <li *ngFor="let textArea of form.get('textAreas')['controls']; let i = index;" formArrayName="textAreas">
+              <ng-container [formGroupName]="i">
+                        <textarea
+                            class="form-control"
+                            rows="5"
+                            style="width:1100px;margin-left:2%"
+                            name="freeTexts"
+                            formControlName="freeTexts">
+                 </textarea>
+              </ng-container>
+              <div *ngIf="form.get('textAreas')['length'] > 1" class="col-md-12 text-left mb-3">
+                <button nbButton status="danger" size="tiny" (click)="removeAtIndex(i)"
+                        style="position: static">
+                  <em class="fa fa-trash" style="color: white;"></em>
+                </button>
+              </div>
+            </li>
+          </ol>
+
+          <div class="col-md-12 mt-5 d-flex justify-content-between">
+            <div class="right-content">
+            </div>
+            <div class="left-content">
+              --------------------------
+              <br>
+              अधिकृत दस्तखत
+              <br>
+              <br>
+              छापः
+              <br>
+              <br>
+              <br>
+            </div>
+          </div>
+
+          <div class="col-md-12">
+            <p class="text-center"><strong><u>साक्षी</u></strong></p>
+            १. .............................. जिल्ला .................................
+            न.पा/गा.वि.स. वडा नं. ............................
+            बस्ने बर्ष. ...................को/की ...........................<br>
+            २.कारणीले प्रस्तुत लिखत मेरो सामुन्ने सहिछाप गरेको हो भनी सनाखत गर्ने नविल बैंक
+            लिमिटेडका कर्मचारी ...............................................
+          </div>
+        </div>
+
+        <div class="col-md-12 text-right print-section d-print-none">
+          <button [useExistingCss]="true"
+                  nbButton status="info" class="mb-4 float-right"
+                  printSectionId="print-section"
+                  outline ngxPrint>Print
+          </button>
+          <button nbButton status="success" class="print-section d-print-none" (click)="submit()">Save</button>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
