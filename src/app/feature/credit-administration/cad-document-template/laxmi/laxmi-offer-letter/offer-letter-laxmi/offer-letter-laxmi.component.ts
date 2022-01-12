@@ -77,7 +77,6 @@ export class OfferLetterLaxmiComponent implements OnInit {
     securityData: Security;
     singleSecurity = false;
     selectedArray = [];
-    subLoanTypeEnum1 = [];
     arrayOfSubloan = [];
     test111 = [];
     subLoanData = [];
@@ -91,6 +90,8 @@ export class OfferLetterLaxmiComponent implements OnInit {
     loanWithSubloan = [];
     loanNature = [];
     loanWithOutSubLoan = [];
+    proposalData = [];
+    commissionFrequency = [];
 
     constructor(private formBuilder: FormBuilder,
                 private administrationService: CreditAdministrationService,
@@ -138,6 +139,12 @@ export class OfferLetterLaxmiComponent implements OnInit {
             this.offerLetterForm.patchValue(initialInfo);
             this.arrayOfSubloan = initialInfo.subLoanType;
             this.setSubLoanData(initialInfo.purpose);
+            this.setOtherCovenants(initialInfo.covenant);
+            this.setAcceptance(initialInfo.acceptance);
+            this.setEventDefaul(initialInfo.eventDefault);
+            this.setEventDefaul1(initialInfo.eventDefault1);
+            this.setRepresentation(initialInfo.representation);
+            this.setPrecedent(initialInfo.precedent);
             console.log('initialInfo', initialInfo);
         }
     }
@@ -397,9 +404,8 @@ export class OfferLetterLaxmiComponent implements OnInit {
         console.log('loanName', loan);
         console.log('data', data);
         const data12 = {loan: loan.loanName, isFunded: loan.isFunded,
-            loanNature: loan.loanNature, subLoan: data};
+            loanNature: loan.loanNature, subLoan: data, commissionFrequency: loan.commissionFrequency};
         this.arrayOfSubloan.push(data12);
-        console.log('test', this.arrayOfSubloan);
     }
 
     saveLoanSubLoan() {
@@ -411,11 +417,11 @@ export class OfferLetterLaxmiComponent implements OnInit {
             arrUniq.forEach((d, i) => {
                 if (!ObjectUtil.isEmpty(this.offerLetterForm.get(['purpose', i]))) {
                     this.offerLetterForm.get(['purpose', i]).patchValue({loan: d.loan, subLoan: d.subLoan, isFunded: d.isFunded,
-                        loanNature: d.loanNature});
+                        loanNature: d.loanNature, commissionFrequency: d.commissionFrequency});
                 } else {
                     this.addPurpose();
                     this.offerLetterForm.get(['purpose', i]).patchValue({loan: d.loan, subLoan: d.subLoan, isFunded: d.isFunded,
-                        loanNature: d.loanNature});
+                        loanNature: d.loanNature, commissionFrequency: d.commissionFrequency});
                 }
             });
         }
@@ -469,7 +475,8 @@ export class OfferLetterLaxmiComponent implements OnInit {
                 periodOtherCheck: [false],
                 termMonth: [undefined],
                 periodValue: [undefined],
-                rate: [undefined]
+                rate: [undefined],
+                commissionFrequency: [undefined]
             })
         );
     }
@@ -504,25 +511,26 @@ export class OfferLetterLaxmiComponent implements OnInit {
                    if (loan === loanData) {
                        // const test = {loanName: l.loan.name, subLoanName: subLoan};
                        this.loanWithSubloan.push({loanName: l.loan.name, subLoanName: subLoan,
-                           loanNature: l.loan.loanNature, isFunded: l.loan.isFundable});
+                           loanNature: l.loan.loanNature, isFunded: l.loan.isFundable,
+                           commissionFrequency: l.proposal.commissionFrequency});
                        console.log('Loan having Sub Loan');
                    }
                 });
                 this.loanNotHavingSubloan.forEach(loan1 => {
                     if (loan1 === loanData) {
                         console.log('Loan Not having Sub Loan');
-                        this.loanWithOutSubLoan.push({loanName: l.loan.name, loanNature: l.loan.loanNature, isFunded: l.loan.isFundable});
+                        this.loanWithOutSubLoan.push({loanName: l.loan.name, loanNature: l.loan.loanNature, isFunded: l.loan.isFundable,
+                            commissionFrequency: l.proposal.commissionFrequency});
                     }
                 });
                 this.loanType.push(l.loanType);
                 this.loanNature.push(l.loan.loanNature);
+                this.commissionFrequency.push(l.proposal.commissionFrequency);
+                // this.proposalData.push(l.proposal);
+                this.proposalData = l.proposal.commissionFrequency;
             });
             console.log('loanWithSubloan', this.loanWithSubloan);
-            if (this.loanWithSubloan.length > 0) {
-                console.log('loanNature', this.loanWithSubloan[0].loanNature === 'Revolving');
-            }
             console.log('loanNotHavingSubloan', this.loanNotHavingSubloan);
-            console.log('subLo', this.subLoanTypeEnum1);
             console.log('LoanName', this.loanName);
             console.log('loanType', this.loanType);
             // if (this.cadData.assignedLoan.length > 1) {
@@ -586,6 +594,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
                     termMonth: [p.termMonth],
                     periodValue: [p.periodValue],
                     rate: [p.rate],
+                    commissionFrequency: [p.commissionFrequency],
                 }));
             });
         }

@@ -754,13 +754,16 @@
                         </tr>
                         <tr *ngIf="!data?.isFunded">
                             <td>कमिसन (Commission)</td>
-                            <td><input type="text" [value]="offerLetterForm?.get(['purpose', i, 'rate']).value"
+                            <td>
+                                <input type="text" [value]="offerLetterForm?.get(['purpose', i, 'rate']).value"
                                        (change)="commissionValue($event?.target?.value, i)"
                                        class="nepaliFont form-field form-control-sm font-size-normal disable-print">
                                 <span class="nepaliFont print-only">
                                     <b>{{offerLetterForm?.get(['purpose', i, 'rate'])?.value ?
                                         offerLetterForm?.get(['purpose', i, 'rate'])?.value : '========='}}</b></span>
-                                प्रतिशत प्रति त्रैमासिक ।
+                                प्रतिशत प्रति
+                                <span *ngIf="data?.commissionFrequency === 'QUARTER'">त्रैमासिक</span>
+                                <span *ngIf="data?.commissionFrequency === 'MONTH'">मासिक</span> ।
                             </td>
                         </tr>
                         <tr>
@@ -3017,7 +3020,7 @@
                                       rows="3"></textarea>
                         </td>
                         <div>
-                            <button (click)="removeOtherCovenants(ii)"
+                            <button (click)="removePrecedent(ii)"
                                     *ngIf="offerLetterForm?.get('precedent')['length'] > 1"
                                     class="btn btn-success" nbButton size="small"
                                     status="primary">Delete </button>
@@ -3025,7 +3028,7 @@
                     </ng-container>
                 </tr>
                 <div class="text-right">
-                    <input (click)="addOtherCovenants()" class="btn btn-sm btn-flat btn-primary"
+                    <input (click)="addPrecedent()" class="btn btn-sm btn-flat btn-primary"
                            type="button" value="Add More"/>
                 </div>
             </table>
