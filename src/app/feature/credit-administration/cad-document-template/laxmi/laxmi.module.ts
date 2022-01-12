@@ -36,6 +36,7 @@ import { HypothecationChargeOverFixedAssetsComponent } from './laxmi-offer-lette
 import { OfferLetterLaxmiComponent } from './laxmi-offer-letter/offer-letter-laxmi/offer-letter-laxmi.component';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {CKEditorModule} from 'ng2-ckeditor';
+import {ThemeModule} from '../../../../@theme/theme.module';
 
 
 @NgModule({
@@ -78,6 +79,7 @@ import {CKEditorModule} from 'ng2-ckeditor';
         NbRadioModule,
         NgSelectModule,
         CKEditorModule,
+        ThemeModule,
     ],
   exports: [
     LoanDeedIndividualComponent,

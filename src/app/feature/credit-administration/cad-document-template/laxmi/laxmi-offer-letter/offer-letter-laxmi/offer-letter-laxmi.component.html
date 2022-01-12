@@ -8,21 +8,34 @@
                         <a (click)="close()" aria-label="Close" class="close cursor"><span
                                 aria-hidden="true">×</span></a>
                     </div>
-                    <div class="card-body" *ngFor="let data of cadData?.assignedLoan; let i = index">
+<!--                    <div class="card-body" *ngFor="let data of cadData?.assignedLoan; let i = index">-->
+<!--                        <div class="col-md-12">-->
+<!--                            <label>{{data?.loan?.name}}</label>-->
+<!--                        </div>-->
+<!--                        <div class="col-md-12">-->
+<!--                            <select id="majorSourceIncomeType" class="form-control"-->
+<!--                                    formControlName="subLoanType" (change)="log(data?.loan?.name, $event.target.value)">-->
+<!--                                <option value="null" hidden selected>&#45;&#45;Select Options&#45;&#45;</option>-->
+<!--                                <option *ngFor="let m of subLoanTypeEnum1[i]"-->
+<!--                                        [value]="m?.value">{{m?.value}}</option>-->
+<!--                            </select>-->
+<!--                        </div>-->
+<!--                    </div>-->
+                    <div class="card-body" *ngFor="let data of loanWithSubloan; let i = index">
                         <div class="col-md-12">
-                            <label>{{data?.loan?.name}}</label>
+                            <label>{{data?.loanName}}</label>
                         </div>
                         <div class="col-md-12">
                             <select id="majorSourceIncomeType" class="form-control"
-                                    formControlName="subLoanType" (change)="log(data?.loan?.name, $event.target.value)">
+                                    formControlName="subLoanType" (change)="log(data?.loanName, $event.target.value)">
                                 <option value="null" hidden selected>--Select Options--</option>
-                                <option *ngFor="let m of subLoanTypeEnum1[i]"
+                                <option *ngFor="let m of data?.subLoanName"
                                         [value]="m?.value">{{m?.value}}</option>
                             </select>
                         </div>
                     </div>
                     <div>
-                        <button (click)="saveLoanSubLoan()">save</button>
+                        <button (click)="saveLoanSubLoan()" type="submit" class="btn btn-primary float-right pr-2" nbButton status="success">Save</button>
                     </div>
                 </div>
             </ng-template>
@@ -146,10 +159,6 @@
                     </ng-container>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td><span class="disable-print">Loan Type</span></td>
-                        <td><span class="disable-print">{{data?.subLoan}}</span></td>
-                    </tr>
                     <ng-container *ngIf="data?.subLoan === subloanTypeEnum?.WORKING_CAPITAL_FINANCING">
                         <tr>
                             <td>उद्देश्य(Purpose)</td>
@@ -194,19 +203,36 @@
                                     offerLetterForm?.get(['purpose', i, 'drawDown'])?.value : '========='}}</b></span>
                             </td>
                         </tr>
-                        <tr *ngIf="data?.loan?.toLowerCase() === 'term loan'">
-                            <td>सांवाको किस्ता तिर्ने छुट अवधि (Moratorium Period) तथा कर्जा झिक्न पाउने अवधि (Drawdown
-                                Period)
+                        <tr *ngIf="data?.loan?.toLowerCase() === 'term loan' && loanWithSubloan[i].loanNature === 'Terminating'">
+                            <td>सांवाको किस्ता तिर्ने छुट अवधि (Moratorium Period) तथा कर्जा झिक्न पाउने अवधि (Drawdown Period)
                             </td>
                             <td>
-                                पहिलो किस्ता प्रवाह भएको मितिबाट सांवाको किस्ता तिर्न र पुरा कर्जा झिक्न
-                                <input type="text"
-                                       class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                       formControlName="month">
-                                <span class="nepaliFont print-only">
-                                <b>{{offerLetterForm?.get('month').value ? offerLetterForm?.get('month').value : '========='}}</b></span>
-                                महिनाको ग्रेस पिरियड उपलव्ध गराइनेछ । जुन अवधिमा तिर्न वांकी कर्जामा पाकेको व्याज
-                                मासिक/त्रैमासिक रुपमा भुक्तानी गर्नु पर्नेछ ।
+                                <span *ngIf="offerLetterForm?.get(['purpose', i, 'periodOtherCheck']).value === false">
+                                    पहिलो किस्ता प्रवाह भएको मितिबाट सांवाको किस्ता तिर्न र पुरा कर्जा झिक्न
+                                    <input type="text" [value]="offerLetterForm?.get(['purpose', i, 'termMonth']).value"
+                                           (change)="termMonthValue($event?.target?.value, i)"
+                                           class="nepaliFont form-field form-control-sm font-size-normal disable-print">
+                                    <span class="nepaliFont print-only">
+                                        <b>{{offerLetterForm?.get(['purpose', i, 'termMonth']).value ?
+                                            offerLetterForm?.get(['purpose', i, 'termMonth']).value : '========='}}</b></span>
+                                    महिनाको ग्रेस पिरियड उपलव्ध गराइनेछ । जुन अवधिमा तिर्न वांकी कर्जामा पाकेको व्याज
+                                    मासिक/त्रैमासिक रुपमा भुक्तानी गर्नु पर्नेछ ।
+                                </span>
+                                <span class="disable-print">
+                                    <nb-checkbox (change)="periodOtherCheck($event?.target?.checked, i)"
+                                                 [checked]="offerLetterForm?.get(['purpose', i, 'periodOtherCheck'])?.value"><i>Other</i>
+                                    </nb-checkbox>
+                                </span>
+                                <span *ngIf="offerLetterForm?.get(['purpose', i, 'periodOtherCheck']).value === true">
+                                    <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                                              placeholder="अन्य सांवाको किस्ता तिर्ने छुट अवधि"
+                                              [value]="offerLetterForm?.get(['purpose', i, 'periodValue']).value"
+                                              (change)="periodChangeValue($event?.target?.value, i)"
+                                              rows="4"></textarea>
+                                    <span class="nepaliFont print-only">
+                                <b>{{offerLetterForm?.get(['purpose', i, 'periodValue'])?.value ?
+                                    offerLetterForm?.get(['purpose', i, 'periodValue'])?.value : '========='}}</b></span>
+                                </span>
                             </td>
                         </tr>
                     </ng-container>
@@ -664,13 +690,40 @@
                                         offerLetterForm?.get(['purpose', i, 'drawDown'])?.value : '========='}}</b></span>
                             </td>
                         </tr>
-                        <tr>
+                        <tr *ngIf="loanWithSubloan[i]?.loanNature === 'Terminating'">
                             <td>ग्रेस पिरियड (Moratarium Period)</td>
-                            <td>ऋण प्रवाह भएको सुरु मितिवाट अधिकतम
-                                <input type="text"
-                                       class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                       formControlName="moratariumRate"> महिनाको ग्रेस पिरियड उपलव्ध गराइनेछ । यस अवधिमा
+                            <td>
+                                <span *ngIf="offerLetterForm?.get(['purpose', i, 'periodOtherCheck']).value === false">
+                                    ऋण प्रवाह भएको सुरु मितिवाट अधिकतम
+                                <input type="text" [value]="offerLetterForm?.get(['purpose', i, 'rate']).value"
+                                       (change)="commissionValue($event?.target?.value, i)"
+                                       class="nepaliFont form-field form-control-sm font-size-normal disable-print">
+                                    <span class="nepaliFont print-only">
+                                    <b>{{offerLetterForm?.get(['purpose', i, 'rate'])?.value ?
+                                        offerLetterForm?.get(['purpose', i, 'rate'])?.value : '========='}}</b></span>
+                                    महिनाको ग्रेस पिरियड उपलव्ध गराइनेछ । यस अवधिमा
                                 प्रवाहित कर्जामा पाकेको व्याज ऋणीले नेपाली महिनाको अन्तिम दिन भुक्तानी गर्नु पर्नेछ ।
+                                </span>
+                                <span class="disable-print">
+                                    <nb-checkbox (change)="periodOtherCheck($event?.target?.checked, i)"
+                                                 [checked]="offerLetterForm?.get(['purpose', i, 'periodOtherCheck'])?.value"><i>Other</i>
+                                    </nb-checkbox>
+                                </span>
+                                <span *ngIf="offerLetterForm?.get(['purpose', i, 'periodOtherCheck']).value === true">
+                                    <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                                              placeholder="अन्य सांवाको किस्ता तिर्ने छुट अवधि"
+                                              [value]="offerLetterForm?.get(['purpose', i, 'periodValue']).value"
+                                              (change)="periodChangeValue($event?.target?.value, i)"
+                                              rows="4"></textarea>
+                                    <span class="nepaliFont print-only">
+                                <b>{{offerLetterForm?.get(['purpose', i, 'periodValue'])?.value ?
+                                    offerLetterForm?.get(['purpose', i, 'periodValue'])?.value : '========='}}</b></span>
+                                </span>
+                            </td>
+                            <td>
+                                <nb-checkbox (change)="periodOtherCheck($event?.target?.checked, i)"
+                                             [checked]="offerLetterForm?.get(['purpose', i, 'periodOtherCheck'])?.value"><i>Other</i>
+                                </nb-checkbox>
                             </td>
                         </tr>
                     </ng-container>
@@ -706,9 +759,13 @@
                         </tr>
                         <tr>
                             <td>कमिसन (Commission)</td>
-                            <td><input type="text"
-                                       class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                       formControlName="bidRate"> प्रतिशत प्रति त्रैमासिक ।
+                            <td><input type="text" [value]="offerLetterForm?.get(['purpose', i, 'rate']).value"
+                                       (change)="commissionValue($event?.target?.value, i)"
+                                       class="nepaliFont form-field form-control-sm font-size-normal disable-print">
+                                <span class="nepaliFont print-only">
+                                    <b>{{offerLetterForm?.get(['purpose', i, 'rate'])?.value ?
+                                        offerLetterForm?.get(['purpose', i, 'rate'])?.value : '========='}}</b></span>
+                                प्रतिशत प्रति त्रैमासिक ।
                             </td>
                         </tr>
                         <tr>
@@ -749,9 +806,13 @@
                         </tr>
                         <tr>
                             <td>कमिसन (Commission)</td>
-                            <td><input type="text"
-                                       class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                       formControlName="performanceRate"> प्रतिशत प्रति त्रैमासिक ।
+                            <td><input type="text" [value]="offerLetterForm?.get(['purpose', i, 'rate']).value"
+                                       (change)="commissionValue($event?.target?.value, i)"
+                                       class="nepaliFont form-field form-control-sm font-size-normal disable-print">
+                                <span class="nepaliFont print-only">
+                                    <b>{{offerLetterForm?.get(['purpose', i, 'rate'])?.value ?
+                                        offerLetterForm?.get(['purpose', i, 'rate'])?.value : '========='}}</b></span>
+                                प्रतिशत प्रति त्रैमासिक ।
                             </td>
                         </tr>
                         <tr>
@@ -792,9 +853,14 @@
                         </tr>
                         <tr>
                             <td>कमिसन (Commission)</td>
-                            <td><input type="text"
+                            <td><input type="text" [value]="offerLetterForm?.get(['purpose', i, 'rate']).value"
+                                       (change)="commissionValue($event?.target?.value, i)"
                                        class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                       formControlName="advanceRate"> प्रतिशत प्रति त्रैमासिक ।
+                                       formControlName="advanceRate">
+                                <span class="nepaliFont print-only">
+                                    <b>{{offerLetterForm?.get(['purpose', i, 'rate'])?.value ?
+                                        offerLetterForm?.get(['purpose', i, 'rate'])?.value : '========='}}</b></span>
+                                प्रतिशत प्रति त्रैमासिक ।
                             </td>
                         </tr>
                         <tr>
@@ -806,7 +872,6 @@
                     </ng-container>
                 </table>
             </ng-container>
-
             <!--            Loan not having subLoanTYpe-->
             <ng-container *ngIf="loanName.includes('HOME EQUITY LINE OF CREDIT') ||
                     loanName.includes('HOME EQUITY INSTALLMENT OF CREDIT') ||
@@ -861,7 +926,6 @@
                 </tr>
 
             </ng-container>
-
             <ng-container *ngIf="loanName?.includes('BRIDGE GAP LOAN')" class="sb-bg-dark">
                 <tr>
                     <th width="50%">
@@ -910,7 +974,6 @@
                     </td>
                 </tr>
             </ng-container>
-
             <ng-container *ngIf="loanName?.includes('LETTER OF CREDIT')" class="sb-bg-dark">
                 <th width="50%">
                     <b> सुविधा (Facility) </b>
@@ -984,7 +1047,6 @@
                     <td>प्रतितपत्र सुविधा नगदी कर्जामा परिणत भएमा बैंकको नियमानुसार व्याज लगाई असुल उपर गरिने छ ।</td>
                 </tr>
             </ng-container>
-
             <ng-container *ngIf="loanName?.includes('HIRE PURCHASE LOAN')" class="sb-bg-dark">
                 <th width="50%">
                     <b> सुविधा (Facility) </b>
@@ -1110,7 +1172,7 @@
                     </td>
                 </tr>
             </ng-container>
-            <ng-container *ngIf="loanName?.includes('EDUCATIONAL LOAN')" class="sb-bg-dark">
+            <ng-container *ngIf="loanName?.includes('EDUCATION LOAN')" class="sb-bg-dark">
                 <tr>
                     <th width="50%">
                         <b> सुविधा (Facility) </b>
@@ -1228,8 +1290,8 @@
                 सुरक्षित गर्नुपर्नेछ ।</p>
 
             <!--           New / Enhancement Loan case:-->
-            <ng-container
-                    *ngIf="loanTypes[loanType] === loanTypes?.NEW_LOAN || loanTypes[loanType] === loanTypes?.ENHANCED_LOAN">
+<!--            <ng-container *ngIf="loanTypes[loanType] === loanTypes?.NEW_LOAN || loanTypes[loanType] === loanTypes?.ENHANCED_LOAN">-->
+            <ng-container>
                 <table class="table table-bordered table-responsive-md table-sm sb-small">
                     <tbody>
                     <ng-container *ngIf="singleSecurity">
@@ -1544,7 +1606,8 @@
             </ng-container>
 
             <!--            -	Loan Review/Renewal case:-->
-            <ng-container *ngIf="loanTypes[loanType] === loanTypes?.RENEWED_LOAN">
+<!--            <ng-container *ngIf="loanTypes[loanType] === loanTypes?.RENEWED_LOAN">-->
+            <ng-container>
                 renew
                 <table class="table table-bordered table-responsive-md table-sm sb-small">
                     <tbody>
