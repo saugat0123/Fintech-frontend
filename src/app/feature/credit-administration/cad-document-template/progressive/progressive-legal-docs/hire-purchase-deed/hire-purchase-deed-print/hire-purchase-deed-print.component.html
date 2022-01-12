@@ -9,19 +9,19 @@
                 <p>लिखितम् धनीकानाम प्रचलित बैंक तथाव वित्तीय संस्था सम्बन्धी ऐन, बमोजिम दर्ता भई काठमाण्डौ
                     जिल्ला, काठमाण्डौ महानगरपालिका
                     वडा नं. ३२ स्थित रजिष्टर्ड कार्यालय रहेको <strong>प्रोग्रेशिभ फाईनान्स लिमिटेड</strong>को
-                    <span [ngClass]="{'nepaliFont' : printDocForm?.districtName !== null && printDocForm?.districtName !== ''}">
+                    <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.districtName !== null && printDocForm?.districtName !== ''}">
     {{printDocForm?.districtName === null || printDocForm?.districtName === '' ? '_________________' : printDocForm?.districtName}}
 </span>
                     जिल्ला <span
-                            [ngClass]="{'nepaliFont' : printDocForm?.municipalityName !== null && printDocForm?.municipalityName !== ''}">
+                            [ngClass]="{'nepaliFont unicode-size' : printDocForm?.municipalityName !== null && printDocForm?.municipalityName !== ''}">
     {{printDocForm?.municipalityName === null || printDocForm?.municipalityName === '' ? '_________________' : printDocForm?.municipalityName}}
 </span>
                     गा.पा./न.पा./उ.म.न.पा./म.न.पा.वडा नं.<span
-                            [ngClass]="{'nepaliFont' : printDocForm?.wadNo !== null && printDocForm?.wadNo !== ''}">
+                            [ngClass]="{'nepaliFont unicode-size' : printDocForm?.wadNo !== null && printDocForm?.wadNo !== ''}">
     {{printDocForm?.wadNo === null || printDocForm?.wadNo === '' ? '_________________' : printDocForm?.wadNo}}
 </span>
                     स्थित <span
-                            [ngClass]="{'nepaliFont' : printDocForm?.branchName !== null && printDocForm?.branchName !== ''}">
+                            [ngClass]="{'nepaliFont unicode-size' : printDocForm?.branchName !== null && printDocForm?.branchName !== ''}">
     {{printDocForm?.branchName === null || printDocForm?.branchName === '' ? '_________________' : printDocForm?.branchName}}
 </span>शाखाकार्यालय
                     (जसलाई यस उप्रान्त यस लिखतमा <strong>“वित्तीय संस्था”</strong> भनिएको)लिखत गरी
@@ -73,7 +73,7 @@
     {{printDocForm?.customerName === null || printDocForm?.customerName === '' ? '_________________' : printDocForm?.customerName}}
 </span>
                     (ना.प्र.नं. <span
-                            [ngClass]="{'nepaliFont' : printDocForm?.customerCitizenshipNo !== null && printDocForm?.customerCitizenshipNo!== ''}">
+                            [ngClass]="{'nepaliFont unicode-size' : printDocForm?.customerCitizenshipNo !== null && printDocForm?.customerCitizenshipNo!== ''}">
     {{printDocForm?.customerCitizenshipNo === null || printDocForm?.customerCitizenshipNo === '' ? '_________________' : printDocForm?.customerCitizenshipNo}}
 </span>
                     मिति <span [ngClass]="{'nepaliFont' : printDocForm?.date !== null && printDocForm?.date !== ''}">

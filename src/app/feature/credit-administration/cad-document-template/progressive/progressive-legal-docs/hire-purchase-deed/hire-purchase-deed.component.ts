@@ -65,8 +65,25 @@ export class HirePurchaseDeedComponent implements OnInit {
       this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
 
       this.form.patchValue({
+        districtName: this.nepaliData.branchDistrict ? this.nepaliData.branchDistrict : '',
+        municipalityName: this.nepaliData.branchMunVdc ? this.nepaliData.branchMunVdc : '',
+        wadNo: this.nepaliData.branchWardNo ? this.nepaliData.branchWardNo : '',
+        branchName: this.nepaliData.branchName ? this.nepaliData.branchName : '',
+        grandParentName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
+        parentName: this.nepaliData.fatherName ? this.nepaliData.fatherName : '',
+        husbandWifeName: this.nepaliData.husbandName ? this.nepaliData.husbandName : '',
+        customerDistrict: this.nepaliData.permanentDistrict ? this.nepaliData.permanentDistrict : '',
+        customerMunicipality: this.nepaliData.permanentMunicipalities ? this.nepaliData.permanentMunicipalities : '',
+        customerWadNo: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
+        // sabikVDC: this.nepaliData. ? this.nepaliData. : '',
+        // sabikWadNo: this.nepaliData. ? this.nepaliData. : '',
+        tempMunicipality: this.nepaliData.temporaryMunicipalities ? this.nepaliData.temporaryMunicipalities : '',
+        tempWadNo: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
+        age: this.nepaliData.age ? this.nepaliData.age : '',
         customerName: this.nepaliData.name ? this.nepaliData.name : '',
-      });
+        customerCitizenshipNo: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
+        date: this.nepaliData.citizenshipIssueDate ? this.nepaliData.citizenshipIssueDate : '',
+    });
     }
   }
 
