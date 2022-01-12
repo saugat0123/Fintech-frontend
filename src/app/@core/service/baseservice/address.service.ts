@@ -18,7 +18,6 @@ export class AddressService {
         return this.http.get(getUrl.url, {headers: getUrl.header});
     }
 
-
     getDistrictByProvince(province: Province) {
         const getUrl = ApiUtils.getRequest(`${AddressService.API}/districtByProvince`);
         return this.http.post(getUrl.url, province, {headers: getUrl.header});

@@ -1,8 +1,12 @@
 export class NepDataPersonal {
+    branchDetails;
     branchName: string;
     branchDistrict: string;
     branchMunVdc: string;
     branchWardNo: string;
+    branchTelNo: string;
+    branchFaxNo: string;
+    branchEmail: string;
     loanType: string;
     interestRate: string;
     serviceFee: string;
@@ -11,4 +15,31 @@ export class NepDataPersonal {
     tenureOfLoanInMonths: string;
     tenureOfLoanInYears: string;
     installmentAmount: string;
+    loanApprovalNo: string;
+    typeOfLoanInEnglish: string;
+    purposeOfLoan: string;
+    baseRate: string;
+    premium: string;
+    discount: string;
+    cibCharges: string;
+    interestInstallmentPaymentFrequency: string;
+    loanMaturityDateAD: string;
+    loanMaturityDateBS: string;
+    collateralName: string;
+    collateralFatherName: string;
+    collateralGrandFatherName: string;
+    collateralProvince: string;
+    collateralDistrict: string;
+    collateralMunVdc: string;
+    collateralWardNo: string;
+    collateralTemporaryDistrict: string;
+    collateralTemporaryMunVdc: string;
+    collateralTemporaryWardNo: string;
+    plotNo: string;
+    areaOfCollateral: string;
+    seatNo: string;
+    valuationDate: string;
+    valuatorName: string;
+    fairMarketValue: string;
+    distressValue: string;
 }

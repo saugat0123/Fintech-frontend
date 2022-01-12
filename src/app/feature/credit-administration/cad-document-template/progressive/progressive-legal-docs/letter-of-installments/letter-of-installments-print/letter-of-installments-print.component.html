@@ -12,7 +12,7 @@
             <strong> श्री प्रोग्रेशिभ फाइनान्स लि.</strong>
             <br>
             <strong>  <span
-                    [ngClass]="{'nepaliFont' : printDocForm?.branchName !== null && printDocForm?.branchName !== ''}">
+                    [ngClass]="{'nepaliFont unicode-size ' : printDocForm?.branchName !== null && printDocForm?.branchName !== ''}">
     {{printDocForm?.branchName === null || printDocForm?.branchName === '' ? '_________________' : printDocForm?.branchName}}
 </span> शाखा।</strong>
         <br>
@@ -24,13 +24,13 @@
     {{printDocForm?.customerName === null || printDocForm?.customerName === '' ? '_________________' : printDocForm?.customerName}}
 </span>
                     लाई जारी गरिएको रु. <span
-                            [ngClass]="{'nepaliFont' : printDocForm?.karjaAmount !== null && printDocForm?.karjaAmount !== ''}">
+                            [ngClass]="{'nepaliFont unicode-size ' : printDocForm?.karjaAmount !== null && printDocForm?.karjaAmount !== ''}">
     {{printDocForm?.karjaAmount === null || printDocForm?.karjaAmount === '' ? '_________________' : printDocForm?.karjaAmount}}
 </span> कर्जाको सन्दर्भमा त्यस वित्तीय संस्थाबाट कुनै पनि समयभित्र कर्जा
           चुक्ता गर्न माग गरिएको अवस्थामा कुनै पूर्वाग्रह नराखी<span [ngClass]="{'nepaliFont' : printDocForm?.timePeriod !== null && printDocForm?.timePeriod !== ''}">
     {{printDocForm?.timePeriod === null || printDocForm?.timePeriod === '' ? '_________________' : printDocForm?.timePeriod}}
 </span> महिना/वर्षको अवधि भित्र रु.
-                    <span [ngClass]="{'nepaliFont' : printDocForm?.kistaAmount !== null && printDocForm?.kistaAmount !== ''}">
+                    <span [ngClass]="{'nepaliFont unicode-size ' : printDocForm?.kistaAmount !== null && printDocForm?.kistaAmount !== ''}">
     {{printDocForm?.kistaAmount === null || printDocForm?.kistaAmount === '' ? '_________________' : printDocForm?.kistaAmount}}
 </span>
           को प्रत्येक <span [ngClass]="{'nepaliFont' : printDocForm?.mahina !== null && printDocForm?.mahina !== ''}">
@@ -59,11 +59,14 @@
 
           <p>ऋणीको तर्फबाट आधिकारीक दस्तखत<br> <br>
 
-                        दस्तखत गर्नेको नाम : <span
-                                [ngClass]="{'nepaliFont' : printDocForm?.debtorName !== null && printDocForm?.debtorName !== ''}">
-    {{printDocForm?.debtorName === null || printDocForm?.debtorName === '' ? '_________________' : printDocForm?.debtorName}}
-</span>
-            संस्थाको छाप : <span class="nepaliFont">{{printDocForm?.InstitutionStamp}}</span>
+            दस्तखत गर्नेको नाम : <span
+                    [ngClass]="{'nepaliFont' : printDocForm?.debtorName !== null && printDocForm?.debtorName !== ''}">
+            {{printDocForm?.debtorName === null || printDocForm?.debtorName === '' ? '_________________' : printDocForm?.debtorName}}
+            </span>
+            संस्थाको छाप : <span
+                      [ngClass]="{'nepaliFont' : printDocForm?.InstitutionStamp !== null && printDocForm?.InstitutionStamp !== ''}">
+            {{printDocForm?.InstitutionStamp === null || printDocForm?.InstitutionStamp === '' ? '_________________' : printDocForm?.InstitutionStamp}}
+            </span>
             <br>
               <br>
               म/हामी उपरोक्त व्यहोराको दृढ गर्दछु/छौं र त्यस बैंकले मुख्य ऋणीहरुलाई कुनै पनि समय वा

@@ -76,7 +76,6 @@ export class LoanDeedComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
             this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
             this.nepDataPersonal = JSON.parse(this.cadData.nepDataPersonal);
-            console.log('nepalidata', this.nepaliData);
             this.form.patchValue({
                 district: this.nepDataPersonal.branchDistrict ? this.nepDataPersonal.branchDistrict : '',
                 municipality: this.nepDataPersonal.branchMunVdc ? this.nepDataPersonal.branchMunVdc : '',
