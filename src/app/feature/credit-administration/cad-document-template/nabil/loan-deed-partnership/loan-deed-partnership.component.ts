@@ -207,6 +207,7 @@ export class LoanDeedPartnershipComponent implements OnInit {
                 const document = new Document();
                 cadFile.initialInformation = JSON.stringify(this.form.value);
                 this.initialInfoPrint = cadFile.initialInformation;
+                cadFile.supportedInformation = this.setCombinedFreeText();
                 document.id = this.documentId;
                 cadFile.cadDocument = document;
                 cadFile.customerLoanId = this.customerLoanId;
@@ -217,7 +218,6 @@ export class LoanDeedPartnershipComponent implements OnInit {
             const document = new Document();
             cadFile.initialInformation = JSON.stringify(this.form.value);
             this.initialInfoPrint = cadFile.initialInformation;
-            cadFile.supportedInformation = this.setCombinedFreeText();
             document.id = this.documentId;
             cadFile.cadDocument = document;
             cadFile.customerLoanId = this.customerLoanId;
@@ -266,7 +266,8 @@ export class LoanDeedPartnershipComponent implements OnInit {
         }
         let sanctionDate;
         if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
-            if (this.cadData.offerDocumentList[0].docName === 'DDSL Without Subsidy') {
+            if (this.cadData.offerDocumentList[0].docName === 'DDSL Without Subsidy' ||
+                this.cadData.offerDocumentList[0].docName === 'Class A Sanction letter') {
                 const dateOfApproval = this.initialInfo.sanctionLetterDateType ? this.initialInfo.sanctionLetterDateType.en : '';
                 if (dateOfApproval === 'AD') {
                     sanctionDate = this.initialInfo.sanctionLetterDate ? this.initialInfo.sanctionLetterDate.ct : '';
@@ -279,7 +280,8 @@ export class LoanDeedPartnershipComponent implements OnInit {
                 this.interestRate = this.initialInfo.interestRate ? this.initialInfo.interestRate.ct : '';
             }
             if (this.cadData.offerDocumentList[0].docName !== 'DDSL Without Subsidy' &&
-                this.cadData.offerDocumentList[0].docName !== 'Combined Offer Letter') {
+                this.cadData.offerDocumentList[0].docName !== 'Combined Offer Letter' &&
+                this.cadData.offerDocumentList[0].docName !== 'Class A Sanction letter') {
                 const dateOfApproval = this.initialInfo.dateOfApprovalType ? this.initialInfo.dateOfApprovalType.en : '';
                 if (dateOfApproval === 'AD') {
                     sanctionDate = this.initialInfo.dateOfApproval ? this.initialInfo.dateOfApproval.ct : '';

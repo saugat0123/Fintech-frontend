@@ -20,6 +20,7 @@ import {NepaliToEngNumberPipe} from '../../../../../@core/pipe/nepali-to-eng-num
 import {EngNepDatePipe} from 'nepali-patro';
 import {NepaliPercentWordPipe} from '../../../../../@core/pipe/nepali-percent-word.pipe';
 import {ProposalCalculationUtils} from '../../../../loan/component/loan-summary/ProposalCalculationUtils';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-personal-guarantee-partnership',
   templateUrl: './personal-guarantee-partnership.component.html',
@@ -54,7 +55,8 @@ export class PersonalGuaranteePartnershipComponent implements OnInit {
       private englishNepaliDatePipe: EngNepDatePipe,
       private nepPercentWordPipe: NepaliPercentWordPipe,
       private dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
-      private routerUtilsService: RouterUtilsService
+      private routerUtilsService: RouterUtilsService,
+      private datePipe: DatePipe
   ) { }
 
   ngOnInit() {
@@ -290,12 +292,51 @@ export class PersonalGuaranteePartnershipComponent implements OnInit {
     return regDate ? regDate : '';
    }
 
-  setIssuedDate() {
+   setIssuedDate() {
     let issuedDate = '';
-    if (this.offerDocumentDetails.smeGlobalForm.dateOfApprovalType === 'AD') {
-      issuedDate = this.englishNepaliDatePipe.transform(this.offerDocumentDetails.smeGlobalForm.dateOfApprovalCT ? this.offerDocumentDetails.smeGlobalForm.dateOfApprovalCT : this.offerDocumentDetails.smeGlobalForm.dateOfApprovalCT, true) || ''
-    } else {
-      issuedDate = this.offerDocumentDetails.smeGlobalForm.dateOfApprovalNepali.nDate ? this.offerDocumentDetails.smeGlobalForm.dateOfApprovalNepali.nDate : '';
+    if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'DDSL Without Subsidy') {
+        const dateOfApproval = this.offerDocumentDetails.sanctionLetterDateType ? this.offerDocumentDetails.sanctionLetterDateType.en : '';
+        if (dateOfApproval === 'AD') {
+            issuedDate = this.offerDocumentDetails.sanctionLetterDate ? this.offerDocumentDetails.sanctionLetterDate.ct : '';
+        } else {
+            issuedDate = this.offerDocumentDetails.sanctionLetterDateNepali ? this.offerDocumentDetails.sanctionLetterDateNepali.ct : '';
+        }
+    }
+    if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Kisan Karja Subsidy') {
+        const dateOfApprovalType = this.offerDocumentDetails.dateOfApprovalType ? this.offerDocumentDetails.dateOfApprovalType.en : '';
+        if (dateOfApprovalType === 'AD') {
+            issuedDate = this.offerDocumentDetails.dateOfApproval ? this.offerDocumentDetails.dateOfApproval.ct : '';
+        } else {
+            issuedDate = this.offerDocumentDetails.dateOfApprovalNepali ? this.offerDocumentDetails.dateOfApprovalNepali.ct : '';
+        }
+    }
+    if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Udyamsil Karja Subsidy') {
+        issuedDate = this.offerDocumentDetails.dateOfApproval ? this.offerDocumentDetails.dateOfApproval.ct : ''
+    }
+    if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Interest subsidy sanction letter') {
+        const dateOfApprovalType = this.offerDocumentDetails.dateOfApprovalType ? this.offerDocumentDetails.dateOfApprovalType.en : '';
+        if (dateOfApprovalType === 'AD') {
+            const templateDateApproval = this.offerDocumentDetails.dateOfApproval ? this.offerDocumentDetails.dateOfApproval.en : '';
+            issuedDate = this.englishNepaliDatePipe.transform(this.datePipe.transform(templateDateApproval), true);
+        } else {
+            const templateDateApproval = this.offerDocumentDetails.dateOfApprovalNepali ? this.offerDocumentDetails.dateOfApprovalNepali.en : '';
+            issuedDate = templateDateApproval ? templateDateApproval.nDate : '';
+        }
+    }
+    if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Class A Sanction letter') {
+        const sanctionLetterDate = this.offerDocumentDetails.sanctionLetterDateType ? this.offerDocumentDetails.sanctionLetterDateType.en : '';
+        if (sanctionLetterDate === 'AD') {
+            const templateDateSanctionDate = this.offerDocumentDetails.sanctionLetterDate ? this.offerDocumentDetails.sanctionLetterDate.en : '';
+            issuedDate = this.englishNepaliDatePipe.transform(this.datePipe.transform(templateDateSanctionDate), true);
+        } else {
+            const templateDateSanctionDate = this.offerDocumentDetails.sanctionLetterDateNepali ? this.offerDocumentDetails.sanctionLetterDateNepali.en : '';
+            issuedDate = templateDateSanctionDate ? templateDateSanctionDate.nDate : '';
+        }
+    }
+    if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.offerDocumentDetails.smeGlobalForm) {
+        issuedDate = this.englishNepaliDatePipe.transform(this.offerDocumentDetails.smeGlobalForm.dateOfApprovalCT ?
+                this.offerDocumentDetails.smeGlobalForm.dateOfApprovalCT :
+                this.offerDocumentDetails.smeGlobalForm.dateOfApprovalCT, true);
     }
     return issuedDate ? issuedDate : '';
   }
