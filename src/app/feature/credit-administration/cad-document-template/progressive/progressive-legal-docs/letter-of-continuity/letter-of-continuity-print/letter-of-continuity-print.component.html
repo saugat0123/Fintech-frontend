@@ -6,7 +6,7 @@
         (Letter of Continuity)</h6>
       <strong class="text-left">
         प्रोग्रेशिभ फाईनान्स लिमिटेड, <br>
-        <span [ngClass]="{'nepaliFont' : printDocForm?.branchName !== null && printDocForm?.branchName !== ''}">
+        <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.branchName !== null && printDocForm?.branchName !== ''}">
                                                 {{printDocForm?.branchName === null || printDocForm?.branchName === '' ? '____________________' : printDocForm?.branchName}}
                                             </span>शाखा |
       </strong>
@@ -51,7 +51,7 @@
                                                 {{printDocForm?.borrowerName === null || printDocForm?.borrowerName === '' ? '____________________' : printDocForm?.borrowerName}}
                                             </span>&nbsp;
               <strong>(ना.प्र.नं</strong> &nbsp;
-              <span [ngClass]="{'nepaliFont' : printDocForm?.borrowerCitizenshipNo !== null && printDocForm?.borrowerCitizenshipNo !== ''}">
+              <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.borrowerCitizenshipNo !== null && printDocForm?.borrowerCitizenshipNo !== ''}">
                                                 {{printDocForm?.borrowerCitizenshipNo === null || printDocForm?.borrowerCitizenshipNo === '' ? '____________________' : printDocForm?.borrowerCitizenshipNo}}
                                             </span>
               &nbsp;<strong>मिति</strong> &nbsp;
@@ -66,15 +66,15 @@
           <tr>
             <td style="text-align: right; vertical-align: top;width: 20%">स्थायी ठेगाना :—</td>
             <td style="text-align: left">
-              <span [ngClass]="{'nepaliFont' : printDocForm?.borrowerPermanentDistrict !== null && printDocForm?.borrowerPermanentDistrict !== ''}">
+              <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.borrowerPermanentDistrict !== null && printDocForm?.borrowerPermanentDistrict !== ''}">
                                                 {{printDocForm?.borrowerPermanentDistrict === null || printDocForm?.borrowerPermanentDistrict === '' ? '____________________' : printDocForm?.borrowerPermanentDistrict}}
                                             </span>
               जिल्ला
-              <span [ngClass]="{'nepaliFont' : printDocForm?.borrowerPermanentMunicipality !== null && printDocForm?.borrowerPermanentMunicipality !== ''}">
+              <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.borrowerPermanentMunicipality !== null && printDocForm?.borrowerPermanentMunicipality !== ''}">
                                                 {{printDocForm?.borrowerPermanentMunicipality === null || printDocForm?.borrowerPermanentMunicipality === '' ? '____________________' : printDocForm?.borrowerPermanentMunicipality}}
                                             </span>
               गा.पा./न.पा.वडा नं
-              <span [ngClass]="{'nepaliFont' : printDocForm?.borrowerPermanentWardNo !== null && printDocForm?.borrowerPermanentWardNo !== ''}">
+              <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.borrowerPermanentWardNo !== null && printDocForm?.borrowerPermanentWardNo !== ''}">
                                                 {{printDocForm?.borrowerPermanentWardNo === null || printDocForm?.borrowerPermanentWardNo === '' ? '____________________' : printDocForm?.borrowerPermanentWardNo}}
                                             </span>
               (साबिक
@@ -93,7 +93,7 @@
                                                 {{printDocForm?.borrowerTempDistrict === null || printDocForm?.borrowerTempDistrict === '' ? '____________________' : printDocForm?.borrowerTempDistrict}}
                                             </span>
               जिल्ला
-              <span [ngClass]="{'nepaliFont' : printDocForm?.borrowerTempMunicipality !== null && printDocForm?.borrowerTempMunicipality !== ''}">
+              <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.borrowerTempMunicipality !== null && printDocForm?.borrowerTempMunicipality !== ''}">
                                                 {{printDocForm?.borrowerTempMunicipality === null || printDocForm?.borrowerTempMunicipality === '' ? '____________________' : printDocForm?.borrowerTempMunicipality}}
                                             </span>
               गा.पा./न.पा.वडा नं.
