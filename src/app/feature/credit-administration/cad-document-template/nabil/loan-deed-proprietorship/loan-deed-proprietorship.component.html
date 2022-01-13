@@ -12,7 +12,7 @@
                      formControlName="nameOfBranchLocated"
                      placeholder=" "
                      type="text"/>
-              <span class="print-only">{{form.get('nameOfBranchLocated').value || '_____________________'}}</span>
+              <span class="print-only">{{form.get('nameOfBranchLocated')?.value || '_____________________'}}</span>
             </span>
             मा शाखा कार्यालय रहेको <strong>नबिल बैंक लिमिटेड </strong>
             (जसलाई यस उप्रान्त <strong>"धनी बैंक"</strong> भनिएको छ) लिखत गरी दिने ऋणीका नाम
@@ -21,14 +21,14 @@
                      name="actName"
                      formControlName="actName"
                      type="text"/>
-              <span class="print-only">{{form.get('actName').value || '_____________________'}}</span>
+              <span class="print-only">{{form.get('actName')?.value || '_____________________'}}</span>
             </span>
             ऐन <span>
                   <input class="form-field form-control-sm disable-print"
                      name="yearInFigure"
                      formControlName="yearInFigure"
                      type="text"/>
-                  <span class="print-only">{{form.get('yearInFigure').value || '_____________________'}}</span>
+                  <span class="print-only">{{form.get('yearInFigure')?.value || '_____________________'}}</span>
             </span>
             बमोजिम
             <span>
@@ -37,7 +37,7 @@
                      formControlName="nameOfAuthorizedBody"
                      placeholder=" "
                      type="text"/>
-              <span class="print-only">{{form.get('nameOfAuthorizedBody').value || '_____________________'}}</span>
+              <span class="print-only">{{form.get('nameOfAuthorizedBody')?.value || '_____________________'}}</span>
             </span>
             <span>
               <input class="form-field form-control-sm disable-print"
@@ -45,7 +45,7 @@
                      formControlName="nameOfDepartment"
                      placeholder=" "
                      type="text"/>
-              <span class="print-only">{{form.get('nameOfDepartment').value || '_____________________'}}</span>
+              <span class="print-only">{{form.get('nameOfDepartment')?.value || '_____________________'}}</span>
             </span>
             विभाग/कार्यालयमा मिति
             <span>
@@ -63,7 +63,7 @@
                      formControlName="registrationNo"
                      placeholder=" "
                      type="text"/>
-              <span class="print-only">{{form.get('registrationNo').value || '_____________________'}}</span>
+              <span class="print-only">{{form.get('registrationNo')?.value || '_____________________'}}</span>
             </span>
             कायम भएको श्री
             <span>
@@ -72,7 +72,7 @@
                      formControlName="firmName"
                      placeholder=" "
                      type="text"/>
-              <span class="print-only">{{form.get('firmName').value || '_____________________'}}</span>
+              <span class="print-only">{{form.get('firmName')?.value || '_____________________'}}</span>
             </span>
             को प्रोप्राइटर
             <ng-container *ngFor="let partner of companyInfo; let i = index">
@@ -215,7 +215,7 @@
                      name="purposeOfLoan"
                      formControlName="purposeOfLoan"
                      type="text"/>
-              <span class="print-only">{{form.get('purposeOfLoan').value || '_____________________'}}</span>
+              <span class="print-only">{{form.get('purposeOfLoan')?.value || '_____________________'}}</span>
             </span>
             <!--Auto Populate and Editable-->
             <!--व्यापार/ व्यवसाय संचालन-->
@@ -312,7 +312,7 @@
                              formControlName="interestRateCombined"
                              placeholder=""
                              type="text"/>
-                      <span class="print-only">{{form.get('interestRateCombined').value || '_____________________'}}</span>
+                      <span class="print-only">{{form.get('interestRateCombined')?.value || '_____________________'}}</span>
                     </span>
                   </td>
                   <td>
@@ -322,7 +322,7 @@
                              formControlName="dateOfExpiry"
                              placeholder=""
                              type="text"/>
-                      <span class="print-only">{{form.get('dateOfExpiry').value || '_____________________'}}</span>
+                      <span class="print-only">{{form.get('dateOfExpiry')?.value || '_____________________'}}</span>
                     </span>
                   </td>
                 </ng-container>
@@ -488,31 +488,31 @@
                      name="districtOfWitness1"
                      formControlName="districtOfWitness1"
                      type="text"/>
-                <span class="print-only">{{form.get('districtOfWitness1').value ? form.get('districtOfWitness1').value : '_____________________'}}</span>
+                <span class="print-only">{{form.get('districtOfWitness1')?.value ? form.get('districtOfWitness1')?.value : '_____________________'}}</span>
               जिल्ला
               <input class="form-field form-control-sm disable-print"
                      name="vdcOrMunOfWitness1"
                      formControlName="vdcOrMunOfWitness1"
                      type="text"/>
-                <span class="print-only">{{form.get('vdcOrMunOfWitness1').value || '_____________________'}}</span>
+                <span class="print-only">{{form.get('vdcOrMunOfWitness1')?.value || '_____________________'}}</span>
               न.पा/गा.वि.स. वडा नं.
               <input class="form-field form-control-sm disable-print"
                      name="wardOfWitness1"
                      formControlName="wardOfWitness1"
                      type="text"/>
-                <span class="print-only">{{form.get('wardOfWitness1').value || '_____________________'}}</span>
+                <span class="print-only">{{form.get('wardOfWitness1')?.value || '_____________________'}}</span>
               बस्ने बर्ष.
               <input class="form-field form-control-sm disable-print"
                      name="ageOfWitness1"
                      formControlName="ageOfWitness1"
                      type="text"/>
-                <span class="print-only">{{form.get('ageOfWitness1').value || '_____________________'}}</span>
+                <span class="print-only">{{form.get('ageOfWitness1')?.value || '_____________________'}}</span>
               को/की
               <input class="form-field form-control-sm disable-print"
                      name="nameOfWitness1"
                      formControlName="nameOfWitness1"
                      type="text"/>
-                <span class="print-only">{{form.get('nameOfWitness1').value || '_____________________'}}</span>
+                <span class="print-only">{{form.get('nameOfWitness1')?.value || '_____________________'}}</span>
               </p>
               <p>
               २.
@@ -520,31 +520,31 @@
                      name="districtOfWitness2"
                      formControlName="districtOfWitness2"
                      type="text"/>
-                <span class="print-only">{{form.get('districtOfWitness2').value || '_____________________'}}</span>
+                <span class="print-only">{{form.get('districtOfWitness2')?.value || '_____________________'}}</span>
               जिल्ला
               <input class="form-field form-control-sm disable-print"
                      name="vdcOrMunOfWitness2"
                      formControlName="vdcOrMunOfWitness2"
                      type="text"/>
-                <span class="print-only">{{form.get('vdcOrMunOfWitness2').value || '_____________________'}}</span>
+                <span class="print-only">{{form.get('vdcOrMunOfWitness2')?.value || '_____________________'}}</span>
               न.पा/गा.वि.स. वडा नं.
               <input class="form-field form-control-sm disable-print"
                      name="wardOfWitness2"
                      formControlName="wardOfWitness2"
                      type="text"/>
-                <span class="print-only">{{form.get('wardOfWitness2').value || '_____________________'}}</span>
+                <span class="print-only">{{form.get('wardOfWitness2')?.value || '_____________________'}}</span>
               बस्ने बर्ष.
               <input class="form-field form-control-sm disable-print"
                      name="ageOfWitness2"
                      formControlName="ageOfWitness2"
                      type="text"/>
-                <span class="print-only">{{form.get('ageOfWitness2').value || '_____________________'}}</span>
+                <span class="print-only">{{form.get('ageOfWitness2')?.value || '_____________________'}}</span>
               को/की
               <input class="form-field form-control-sm disable-print"
                      name="nameOfWitness2"
                      formControlName="nameOfWitness2"
                      type="text"/>
-                <span class="print-only">{{form.get('nameOfWitness2').value || '_____________________'}}</span>
+                <span class="print-only">{{form.get('nameOfWitness2')?.value || '_____________________'}}</span>
               </p>
               <p>
               ३. कारणीले प्रस्तुत लिखत मेरो सामुन्ने सहिछाप गरेको हो भनी सनाखत गर्ने नविल बैंक
@@ -553,7 +553,7 @@
                      name="nameOfBankStaff"
                      formControlName="nameOfBankStaff"
                      type="text"/>
-                <span class="print-only">{{form.get('nameOfBankStaff').value || '_____________________'}}</span>
+                <span class="print-only">{{form.get('nameOfBankStaff')?.value || '_____________________'}}</span>
               </p>
             </div>
             <div class="mt-lg-3">
@@ -564,31 +564,31 @@
                          name="etiYear"
                          formControlName="etiYear"
                          type="text"/>
-                  <span class="print-only"><b>{{form.get('etiYear').value || '_____________________'}}</b></span>
+                  <span class="print-only"><b>{{form.get('etiYear')?.value || '_____________________'}}</b></span>
                   साल
                   <input class="form-field form-control-sm disable-print"
                          name="etiMonth"
                          formControlName="etiMonth"
                          type="text"/>
-                  <span class="print-only">{{form.get('etiMonth').value || '_____________________'}}</span>
+                  <span class="print-only">{{form.get('etiMonth')?.value || '_____________________'}}</span>
                   महिना
                   <input class="form-field form-control-sm disable-print"
                          name="etiDay"
                          formControlName="etiDay"
                          type="text"/>
-                  <span class="print-only">{{form.get('etiDay').value || '_____________________'}}</span>
+                  <span class="print-only">{{form.get('etiDay')?.value || '_____________________'}}</span>
                   गते रोज
                   <input class="form-field form-control-sm disable-print"
                          name="roj"
                          formControlName="roj"
                          type="text"/>
-                  <span class="print-only">{{form.get('roj').value || '_____________________'}}</span>
+                  <span class="print-only">{{form.get('roj')?.value || '_____________________'}}</span>
                   शुभम्
                   <input class="form-field form-control-sm disable-print"
                          name="shuvam"
                          formControlName="shuvam"
                          type="text"/>
-                  <span class="print-only">{{form.get('shuvam').value || '_____________________'}}</span>
+                  <span class="print-only">{{form.get('shuvam')?.value || '_____________________'}}</span>
                 </p>
               </div>
             </div>
