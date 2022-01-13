@@ -71,6 +71,7 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
                         this.cadInitialInfo = JSON.parse(singleCadFile.supportedInformation);
                     }
                 });
+                console.log('Free Information:', this.cadInitialInfo);
                 const free = this.personalGuaranteeCompany.value;
                 if (this.cadInitialInfo !== null) {
                     for (let val = 0; val < free.guaranteeCompanies.length; val++) {
@@ -131,6 +132,7 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
 
   taggedPersonalGuarantorsDetailsForm() {
     if (!ObjectUtil.isEmpty(this.taggedGuarantorsDetailsInLoan)) {
+        console.log('TaggedGuarantorsDetailsLoan Length:', this.taggedGuarantorsDetailsInLoan);
       this.taggedGuarantorsDetailsInLoan.forEach((val) => {
         const individualGuarantorNepData = val.nepData
           ? JSON.parse(val.nepData)

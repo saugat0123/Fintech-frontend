@@ -217,7 +217,8 @@
                                 </li>
                                 </span>
                                 <span class="print-only">
-                                    <li *ngIf="this.cadInitialInfo !== undefined">
+                                    <li *ngIf="this.cadInitialInfo !== undefined &&
+                                    this.cadInitialInfo[i].freeText !== null">
                                         {{this.cadInitialInfo ? this.cadInitialInfo[i].freeText : ''}}
                                     </li>
                                 </span>
@@ -443,7 +444,7 @@
                         </p>
                     </div>
                 </div>
-                <div class="pageBreak"></div>
+                <div *ngIf="i < personalGuaranteeCompany.get('guaranteeCompanies')['length'] - 1" class="pageBreak"></div>
             </div>
         </div>
         <hr class="d-print-none mt-2 mb-2 w-100" />
