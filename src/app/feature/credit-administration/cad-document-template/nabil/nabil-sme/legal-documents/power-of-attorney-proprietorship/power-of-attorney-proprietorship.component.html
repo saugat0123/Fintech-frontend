@@ -263,6 +263,7 @@
                                     ngxPrint printSectionId="{{offerLetterConst.POWER_OF_ATTORNEY_PROPRIETORSHIP}}Print">
                                 Print
                             </button>
+                            <button nbButton status="success" class="disable-print" size="small" (click)="submit()">Save</button>
 
                         </div>
 
@@ -273,6 +274,6 @@
 
     </form>
 </div>
-<app-promissory-note-company-print *ngIf="initialInfoPrint" [letterData]="initialInfoPrint" hidden>
-</app-promissory-note-company-print>
+<!--<app-power-of-attorney-proprietorship *ngIf="initialInfoPrint" [letterData]="initialInfoPrint" hidden>-->
+<!--</app-power-of-attorney-proprietorship>-->
 
