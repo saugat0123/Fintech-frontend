@@ -33,6 +33,7 @@ export class PowerOfAttorneyCompanyComponent implements OnInit {
   loanAmountWord;
   spinner = false;
   freeText;
+  dateArray: Array<any> = new Array<any>();
 
   constructor(private formBuilder: FormBuilder,
               private engToNepNumberPipe: EngToNepaliNumberPipe,
@@ -42,8 +43,8 @@ export class PowerOfAttorneyCompanyComponent implements OnInit {
               private toastService: ToastService,
               private dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
               private routerUtilsService: RouterUtilsService,
-              private englishNepaliDatePipe: EngNepDatePipe,
-              private datePipe: DatePipe) {
+              public englishNepaliDatePipe: EngNepDatePipe,
+              public datePipe: DatePipe) {
   }
 
   ngOnInit() {
@@ -54,6 +55,10 @@ export class PowerOfAttorneyCompanyComponent implements OnInit {
   setData() {
     if (!ObjectUtil.isEmpty(this.cadData.assignedLoan[0])) {
       this.companyInfo = JSON.parse(this.cadData.assignedLoan[0].companyInfo.companyJsonData);
+      this.companyInfo.forEach(val => {
+        const date = this.englishNepaliDatePipe.transform(this.datePipe.transform(val.ownerCitizenshipIssuedDateCT), true);
+        this.dateArray.push(date);
+      })
     }
     if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
       this.offerDocumentDetails = JSON.parse(this.cadData.offerDocumentList[0].initialInformation);
@@ -99,13 +104,36 @@ export class PowerOfAttorneyCompanyComponent implements OnInit {
       authorizedCitizenship: [undefined],
       authorizedDateOfIssue: [undefined],
       authorizedIdentity: [undefined],
+
+      sakshiDistrict1: [this.freeText ? this.freeText.sakshiDistrict1 : ''],
+      sakshiDistrict2: [this.freeText ? this.freeText.sakshiDistrict2 : ''],
+      sakshiMunicipality1: [this.freeText ? this.freeText.sakshiMunicipality1 : ''],
+      sakshiMunicipality2: [this.freeText ? this.freeText.sakshiMunicipality2 : ''],
+      sakshiAge1: [this.freeText ? this.freeText.sakshiAge1 : ''],
+      sakshiAge2: [this.freeText ? this.freeText.sakshiAge2 : ''],
+      sakshiWard1: [this.freeText ? this.freeText.sakshiWard1 : ''],
+      sakshiWard2: [this.freeText ? this.freeText.sakshiWard2 : ''],
+      sakshiName1: [this.freeText ? this.freeText.sakshiName1 : ''],
+      sakshiName2: [this.freeText ? this.freeText.sakshiName2 : ''],
+      nameOfBankStaff: [this.freeText ? this.freeText.nameOfBankStaff : ''],
     });
   }
 
   setFreeText() {
     const free = {
-      freeText1: this.powerOfAttorneyCompanyForm.get('freeText1').value,
-      freeText2: this.powerOfAttorneyCompanyForm.get('freeText2').value
+      freeText1: this.powerOfAttorneyCompanyForm.get('freeText1').value ? this.powerOfAttorneyCompanyForm.get('freeText1').value : '',
+      freeText2: this.powerOfAttorneyCompanyForm.get('freeText2').value ?this.powerOfAttorneyCompanyForm.get('freeText2').value : '',
+      sakshiDistrict1: this.powerOfAttorneyCompanyForm.get('sakshiDistrict1').value ? this.powerOfAttorneyCompanyForm.get('sakshiDistrict1').value : '',
+      sakshiDistrict2: this.powerOfAttorneyCompanyForm.get('sakshiDistrict2').value ? this.powerOfAttorneyCompanyForm.get('sakshiDistrict2').value : '',
+      sakshiMunicipality1: this.powerOfAttorneyCompanyForm.get('sakshiMunicipality1').value ? this.powerOfAttorneyCompanyForm.get('sakshiMunicipality1').value : '',
+      sakshiMunicipality2: this.powerOfAttorneyCompanyForm.get('sakshiMunicipality2').value ? this.powerOfAttorneyCompanyForm.get('sakshiMunicipality2').value : '',
+      sakshiAge1: this.powerOfAttorneyCompanyForm.get('sakshiAge1').value ? this.powerOfAttorneyCompanyForm.get('sakshiAge1').value : '',
+      sakshiAge2: this.powerOfAttorneyCompanyForm.get('sakshiAge2').value ? this.powerOfAttorneyCompanyForm.get('sakshiAge2').value : '',
+      sakshiWard1: this.powerOfAttorneyCompanyForm.get('sakshiWard1').value ? this.powerOfAttorneyCompanyForm.get('sakshiWard1').value : '',
+      sakshiWard2: this.powerOfAttorneyCompanyForm.get('sakshiWard2').value ? this.powerOfAttorneyCompanyForm.get('sakshiWard2').value : '',
+      sakshiName1: this.powerOfAttorneyCompanyForm.get('sakshiName1').value ? this.powerOfAttorneyCompanyForm.get('sakshiName1').value : '',
+      sakshiName2: this.powerOfAttorneyCompanyForm.get('sakshiName2').value ? this.powerOfAttorneyCompanyForm.get('sakshiName2').value : '',
+      nameOfBankStaff: this.powerOfAttorneyCompanyForm.get('nameOfBankStaff').value ? this.powerOfAttorneyCompanyForm.get('nameOfBankStaff').value : '',
     }
     return JSON.stringify(free);
   }
