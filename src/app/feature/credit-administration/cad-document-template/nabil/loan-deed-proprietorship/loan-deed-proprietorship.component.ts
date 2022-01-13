@@ -61,6 +61,8 @@ export class LoanDeedProprietorshipComponent implements OnInit {
   yearOfAct = '२०१४';
   offerDocumentDetails: any;
   dateOfExpirySingle;
+  autoFreeText = 'यस अघी देखी नै तपाई धनी बैंकवाट विभिन्न ऋणकर्जा तथा बैकिङ्ग सुविधाहरु प्राप्त गरी उपभोग गर्दै आएको ठिक सांचो हो । हाल म/हामी ऋणी(हरु)लाई उक्त ऋणकर्जा तथा बैंकिङ्ग सुविधा नवीकरण गर्न एवम् थप तथा अतिरिक्त';
+  autoFreeText2 = 'उपरोक्त ऋणकर्जा तथा बैंकिग सुविधाको सुरक्षण वापत देहाय बमोजिमको घरजग्गा तपाई धनी बैंकको नाममा धितो बन्धक पारित गरिदिएका छौं।';
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
@@ -85,15 +87,10 @@ export class LoanDeedProprietorshipComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.individualData = JSON.parse(this.cadData.loanHolder.nepData);
     }
-    if (this.cadData.cadFileList.length > 0) {
-      this.supportedInfo = JSON.parse(this.cadData.cadFileList[0].supportedInformation);
-    }
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(individualCadFile => {
         if (individualCadFile.customerLoanId === this.customerLoanId && individualCadFile.cadDocument.id === this.documentId) {
-          const initialInfo = JSON.parse(individualCadFile.initialInformation);
-          this.initialInfoPrint = initialInfo;
-          this.form.patchValue(initialInfo);
+          this.supportedInfo = JSON.parse(individualCadFile.supportedInformation);
         }
       });
     }
@@ -146,6 +143,8 @@ export class LoanDeedProprietorshipComponent implements OnInit {
       registrationNo: [undefined],
       firmName: [undefined],
       purposeOfLoan: [undefined],
+      autoFreeText: [undefined],
+      autoFreeText2: [undefined],
       sanctionLetterIssuedDate: [undefined],
       loanAmountInFigure: [undefined],
       loanAmountInWords: [undefined],
@@ -161,7 +160,23 @@ export class LoanDeedProprietorshipComponent implements OnInit {
       wardNoOfPartner: [undefined],
       otherAddress: [undefined],
       ageOfPartner: [undefined],
-      nameOfPartner: [undefined]
+      nameOfPartner: [undefined],
+      districtOfWitness1: [undefined],
+      vdcOrMunOfWitness1: [undefined],
+      wardOfWitness1: [undefined],
+      ageOfWitness1: [undefined],
+      nameOfWitness1: [undefined],
+      districtOfWitness2: [undefined],
+      vdcOrMunOfWitness2: [undefined],
+      wardOfWitness2: [undefined],
+      ageOfWitness2: [undefined],
+      nameOfWitness2: [undefined],
+      nameOfBankStaff: [undefined],
+      etiYear: [undefined],
+      etiMonth: [undefined],
+      etiDay: [undefined],
+      roj: [undefined],
+      shuvam: [undefined]
     });
   }
 
@@ -186,15 +201,65 @@ export class LoanDeedProprietorshipComponent implements OnInit {
       this.freeText.push(tempFreeText);
     }
     const free1 = {
-      freeText1: this.form.get('freeText1').value ? this.form.get('freeText1').value : '',
-      dateOfExpirySingle: this.form.get('dateOfExpirySingle').value ? this.form.get('dateOfExpirySingle').value : '',
+      freeText1: this.form.get('freeText1') ? this.form.get('freeText1').value : '',
+      autoFreeText: this.form.get('autoFreeText') ? this.form.get('autoFreeText').value : '',
+      autoFreeText2: this.form.get('autoFreeText2') ? this.form.get('autoFreeText2').value : '',
+      districtOfWitness1: this.form.get('districtOfWitness1') ? this.form.get('districtOfWitness1').value : '',
+      vdcOrMunOfWitness1: this.form.get('vdcOrMunOfWitness1') ? this.form.get('vdcOrMunOfWitness1').value : '',
+      wardOfWitness1: this.form.get('wardOfWitness1') ? this.form.get('wardOfWitness1').value : '',
+      ageOfWitness1: this.form.get('ageOfWitness1') ? this.form.get('ageOfWitness1').value : '',
+      nameOfWitness1: this.form.get('nameOfWitness1') ? this.form.get('nameOfWitness1').value : '',
+      districtOfWitness2: this.form.get('districtOfWitness2') ? this.form.get('districtOfWitness2').value : '',
+      vdcOrMunOfWitness2: this.form.get('vdcOrMunOfWitness2') ? this.form.get('vdcOrMunOfWitness2').value : '',
+      wardOfWitness2: this.form.get('wardOfWitness2') ? this.form.get('wardOfWitness2').value : '',
+      ageOfWitness2: this.form.get('ageOfWitness2') ? this.form.get('ageOfWitness2').value : '',
+      nameOfWitness2: this.form.get('nameOfWitness2') ? this.form.get('nameOfWitness2').value : '',
+      nameOfBankStaff: this.form.get('nameOfBankStaff') ? this.form.get('nameOfBankStaff').value : '',
+      etiYear: this.form.get('etiYear') ? this.form.get('etiYear').value : '',
+      etiMonth: this.form.get('etiMonth') ? this.form.get('etiMonth').value : '',
+      etiDay: this.form.get('etiDay') ? this.form.get('etiDay').value : '',
+      roj: this.form.get('roj') ? this.form.get('roj').value : '',
+      shuvam: this.form.get('shuvam') ? this.form.get('shuvam').value : '',
+      dateOfExpirySingle: this.form.get('dateOfExpirySingle') ? this.form.get('dateOfExpirySingle').value : '',
       combinedFreeText: this.freeText
     };
     return JSON.stringify(free1);
   }
   patchFreeText() {
+    if (!ObjectUtil.isEmpty(this.cadData) && this.cadData.cadFileList.length > 0) {
+      if (this.supportedInfo.autoFreeText === null || this.supportedInfo.autoFreeText === undefined) {
+        this.autoFreeText = 'यस अघी देखी नै तपाई धनी बैंकवाट विभिन्न ऋणकर्जा तथा बैकिङ्ग सुविधाहरु प्राप्त गरी उपभोग गर्दै आएको ठिक सांचो हो । हाल म/हामी ऋणी(हरु)लाई उक्त ऋणकर्जा तथा बैंकिङ्ग सुविधा नवीकरण गर्न एवम् थप तथा अतिरिक्त';
+      } else if (this.supportedInfo.autoFreeText = '') {
+        this.autoFreeText = '';
+      } else {
+        this.autoFreeText = this.supportedInfo.autoFreeText;
+      }
+      if (ObjectUtil.isEmpty(this.supportedInfo.autoFreeText2)) {
+        this.autoFreeText2 = 'उपरोक्त ऋणकर्जा तथा बैंकिग सुविधाको सुरक्षण वापत देहाय बमोजिमको घरजग्गा तपाई धनी बैंकको नाममा धितो बन्धक पारित गरिदिएका छौं।';
+      } else {
+        this.autoFreeText2 = this.supportedInfo.autoFreeText2;
+      }
+    }
     this.form.patchValue({
       freeText1: this.supportedInfo ? this.supportedInfo.freeText1 : '',
+      autoFreeText: this.autoFreeText ? this.autoFreeText : '',
+      autoFreeText2: this.autoFreeText2 ? this.autoFreeText2 : '',
+      districtOfWitness1: this.supportedInfo ? this.supportedInfo.districtOfWitness1 : '',
+      vdcOrMunOfWitness1: this.supportedInfo ? this.supportedInfo.vdcOrMunOfWitness1 : '',
+      wardOfWitness1: this.supportedInfo ? this.supportedInfo.wardOfWitness1 : '',
+      ageOfWitness1: this.supportedInfo ? this.supportedInfo.ageOfWitness1 : '',
+      nameOfWitness1: this.supportedInfo ? this.supportedInfo.nameOfWitness1 : '',
+      districtOfWitness2: this.supportedInfo ? this.supportedInfo.districtOfWitness2 : '',
+      vdcOrMunOfWitness2: this.supportedInfo ? this.supportedInfo.vdcOrMunOfWitness2 : '',
+      wardOfWitness2: this.supportedInfo ? this.supportedInfo.wardOfWitness2 : '',
+      ageOfWitness2: this.supportedInfo ? this.supportedInfo.ageOfWitness2 : '',
+      nameOfWitness2: this.supportedInfo ? this.supportedInfo.nameOfWitness2 : '',
+      nameOfBankStaff: this.supportedInfo ? this.supportedInfo.nameOfBankStaff : '',
+      etiYear: this.supportedInfo ? this.supportedInfo.etiYear : '',
+      etiMonth: this.supportedInfo ? this.supportedInfo.etiMonth : '',
+      etiDay: this.supportedInfo ? this.supportedInfo.etiDay : '',
+      roj: this.supportedInfo ? this.supportedInfo.roj : '',
+      shuvam: this.supportedInfo ? this.supportedInfo.shuvam : '',
     });
   }
   submit() {
@@ -211,6 +276,7 @@ export class LoanDeedProprietorshipComponent implements OnInit {
         const document = new Document();
         cadFile.initialInformation = JSON.stringify(this.form.value);
         this.initialInfoPrint = cadFile.initialInformation;
+        cadFile.supportedInformation = this.setCombinedFreeText();
         document.id = this.documentId;
         cadFile.cadDocument = document;
         cadFile.customerLoanId = this.customerLoanId;
@@ -811,7 +877,7 @@ export class LoanDeedProprietorshipComponent implements OnInit {
 
   setActYear() {
     let yearOfAct = '';
-    if (this.individualData.radioActYearDate.en === 'AD') {
+    if (!ObjectUtil.isEmpty(this.individualData.radioActYearDate.en === 'AD')) {
       yearOfAct = this.engToNepaliDate.transform(this.individualData.actYear.en ? this.individualData.actYear.en : this.individualData.actYear.en, true) || '' ;
     } else {
       yearOfAct = this.individualData.actYear.en ? this.individualData.actYear.en : '';
