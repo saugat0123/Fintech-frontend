@@ -69,6 +69,7 @@ export class AssignmentOfReceivablePartnershipComponent implements OnInit {
     if (this.cadData.cadFileList.length > 0 && !ObjectUtil.isEmpty(this.cadData.cadFileList[0].supportedInformation)) {
       this.supportedInfo = JSON.parse(this.cadData.cadFileList[0].supportedInformation);
     }
+    console.log('CadData:::', this.cadData);
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(individualCadFile => {
         if (individualCadFile.customerLoanId === this.customerLoanId && individualCadFile.cadDocument.id === this.documentId) {
@@ -123,7 +124,7 @@ export class AssignmentOfReceivablePartnershipComponent implements OnInit {
       if (flag) {
         const cadFile = new CadFile();
         const document = new Document();
-        cadFile.initialInformation = JSON.stringify(this.form.value);
+       // cadFile.initialInformation = JSON.stringify(this.form.value);
         this.initialInfoPrint = cadFile.initialInformation;
         document.id = this.documentId;
         cadFile.cadDocument = document;
@@ -133,12 +134,11 @@ export class AssignmentOfReceivablePartnershipComponent implements OnInit {
     } else {
       const cadFile = new CadFile();
       const document = new Document();
-      cadFile.initialInformation = JSON.stringify(this.form.value);
+     // cadFile.initialInformation = JSON.stringify(this.form.value);
       this.initialInfoPrint = cadFile.initialInformation;
       document.id = this.documentId;
       cadFile.cadDocument = document;
       cadFile.customerLoanId = this.customerLoanId;
-      this.cadData.cadFileList.push(cadFile);
     }
     this.administrationService.saveCadDocumentBulk(this.cadData).subscribe(() => {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved '));
