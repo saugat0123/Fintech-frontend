@@ -96,12 +96,35 @@ export class PowerOfAttorneyPartnershipComponent implements OnInit {
       addressOfBorrower: [undefined],
       // Free text
       freeText1: [undefined],
+      // Witness Fields
+      witnessDistrict1: [undefined],
+      witnessMuni1: [undefined],
+      witnessWard1: [undefined],
+      witnessAge1: [undefined],
+      witnessName1: [undefined],
+      witnessDistrict2: [undefined],
+      witnessMuni2: [undefined],
+      witnessWard2: [undefined],
+      witnessAge2: [undefined],
+      witnessName2: [undefined],
+      karmachariName: [undefined],
     });
   }
 
   setFreeText() {
     const free1 = {
       freeText1: this.form.get('freeText1').value ? this.form.get('freeText1').value : '',
+      witnessDistrict1: this.form.get('witnessDistrict1') ? this.form.get('witnessDistrict1').value : '',
+      witnessMuni1: this.form.get('witnessMuni1') ? this.form.get('witnessMuni1').value : '',
+      witnessWard1: this.form.get('witnessWard1') ? this.form.get('witnessWard1').value : '',
+      witnessAge1: this.form.get('witnessAge1') ? this.form.get('witnessAge1').value : '',
+      witnessName1: this.form.get('witnessName1') ? this.form.get('witnessName1').value : '',
+      witnessDistrict2: this.form.get('witnessDistrict2') ? this.form.get('witnessDistrict2').value : '',
+      witnessMuni2: this.form.get('witnessMuni2') ? this.form.get('witnessMuni2').value : '',
+      witnessWard2: this.form.get('witnessWard2') ? this.form.get('witnessWard2').value : '',
+      witnessAge2: this.form.get('witnessAge2') ? this.form.get('witnessAge2').value : '',
+      witnessName2: this.form.get('witnessName2') ? this.form.get('witnessName2').value : '',
+      karmachariName: this.form.get('karmachariName') ? this.form.get('karmachariName').value : '',
     };
     return JSON.stringify(free1);
   }
@@ -214,7 +237,19 @@ export class PowerOfAttorneyPartnershipComponent implements OnInit {
       loanAmountInWords: this.loanAmountWord ? this.loanAmountWord : '',
       sanctionLetterIssuedDate: this.sanctionDate ? this.sanctionDate : '',
       freeText1: this.supportedInfo ? this.supportedInfo.freeText1 : '',
-      addressOfBorrower: this.combinedAddress ? this.combinedAddress : ''
+      addressOfBorrower: this.combinedAddress ? this.combinedAddress : '',
+      witnessDistrict1: this.supportedInfo ? this.supportedInfo.witnessDistrict1 : '',
+      witnessMuni1: this.supportedInfo ? this.supportedInfo.witnessMuni1 : '',
+      witnessWard1: this.supportedInfo ? this.supportedInfo.witnessWard1 : '',
+      witnessAge1: this.supportedInfo ? this.supportedInfo.witnessAge1 : '',
+      witnessName1: this.supportedInfo ? this.supportedInfo.witnessName1 : '',
+      witnessDistrict2: this.supportedInfo ? this.supportedInfo.witnessDistrict2 : '',
+      witnessMuni2: this.supportedInfo ? this.supportedInfo.witnessMuni2 : '',
+      witnessWard2: this.supportedInfo ? this.supportedInfo.witnessWard2 : '',
+      witnessAge2: this.supportedInfo ? this.supportedInfo.witnessAge2 : '',
+      witnessName2: this.supportedInfo ? this.supportedInfo.witnessName2 : '',
+      karmachariName: this.supportedInfo ? this.supportedInfo.karmachariName : '',
+
     });
   }
 
