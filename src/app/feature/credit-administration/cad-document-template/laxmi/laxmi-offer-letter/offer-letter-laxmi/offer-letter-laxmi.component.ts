@@ -107,15 +107,10 @@ export class OfferLetterLaxmiComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.parseSiteVisitSecurityData();
         console.log('cadData', this.cadData);
         this.buildForm();
+        this.parseAssignedLoanData();
         this.checkOfferLetter();
-        this.checkSubLoanType();
-        // this.modalService.open(this.modal);
-        if (this.hasSubLoanType) {
-          this.modalService.open(this.modal);
-        }
         this.addFixedAssetsCollateral();
     }
 
@@ -292,17 +287,8 @@ export class OfferLetterLaxmiComponent implements OnInit {
             attention: [undefined],
             workingRate: [undefined],
             workingLandBuildingRate: [undefined],
-            // month: [undefined],
-            creditRate: [undefined],
-            creditAmount: [undefined],
-            creditMaturityDate: [undefined],
-            creditTelexAmount: [undefined],
-            moratariumRate: [undefined],
             autoRate: [undefined],
             autoModel: [undefined],
-            // bidRate: [undefined],
-            // performanceRate: [undefined],
-            // advanceRate: [undefined],
 
             // other Clauses
             reviewDate: [undefined],
@@ -401,33 +387,28 @@ export class OfferLetterLaxmiComponent implements OnInit {
     }
 
     log(loan, data) {
-        console.log('loanName', loan);
-        console.log('data', data);
         const data12 = {loan: loan.loanName, isFunded: loan.isFunded,
             loanNature: loan.loanNature, subLoan: data, commissionFrequency: loan.commissionFrequency};
         this.arrayOfSubloan.push(data12);
     }
 
-    saveLoanSubLoan() {
-        const arrUniq = [...new Map(this.arrayOfSubloan.map(v => [v.loan, v])).values()];
-        this.arrayOfSubloan = arrUniq;
-        console.log('arrUniq', arrUniq);
-        console.log('arrayOfSubloan', this.arrayOfSubloan);
-        if (!ObjectUtil.isEmpty(arrUniq)) {
-            arrUniq.forEach((d, i) => {
-                if (!ObjectUtil.isEmpty(this.offerLetterForm.get(['purpose', i]))) {
-                    this.offerLetterForm.get(['purpose', i]).patchValue({loan: d.loan, subLoan: d.subLoan, isFunded: d.isFunded,
-                        loanNature: d.loanNature, commissionFrequency: d.commissionFrequency});
-                } else {
-                    this.addPurpose();
-                    this.offerLetterForm.get(['purpose', i]).patchValue({loan: d.loan, subLoan: d.subLoan, isFunded: d.isFunded,
-                        loanNature: d.loanNature, commissionFrequency: d.commissionFrequency});
-                }
-            });
-        }
-        console.log('offerLetterForm purpose', this.offerLetterForm.get('purpose'));
-        this.close();
-    }
+    // saveLoanSubLoan() {
+    //     const arrUniq = [...new Map(this.arrayOfSubloan.map(v => [v.loan, v])).values()];
+    //     this.arrayOfSubloan = arrUniq;
+    //     if (!ObjectUtil.isEmpty(arrUniq)) {
+    //         arrUniq.forEach((d, i) => {
+    //             if (!ObjectUtil.isEmpty(this.offerLetterForm.get(['purpose', i]))) {
+    //                 this.offerLetterForm.get(['purpose', i]).patchValue({loan: d.loan, subLoan: d.subLoan, isFunded: d.isFunded,
+    //                     loanNature: d.loanNature, commissionFrequency: d.commissionFrequency});
+    //             } else {
+    //                 this.addPurpose();
+    //                 this.offerLetterForm.get(['purpose', i]).patchValue({loan: d.loan, subLoan: d.subLoan, isFunded: d.isFunded,
+    //                     loanNature: d.loanNature, commissionFrequency: d.commissionFrequency});
+    //             }
+    //         });
+    //     }
+    //     this.close();
+    // }
 
     close() {
         this.modalService.dismissAll();
@@ -460,181 +441,185 @@ export class OfferLetterLaxmiComponent implements OnInit {
         );
     }
 
-    addPurpose() {
-        console.log('Add purpose');
-        const data = this.offerLetterForm.get('purpose') as FormArray;
-        data.push(
-            this.formBuilder.group({
-                loan: [undefined],
-                subLoan: [undefined],
-                isFunded: [undefined],
-                loanNature: [undefined],
-                purpose: [undefined],
-                drawDown: [undefined],
-                other: [undefined],
-                periodOtherCheck: [false],
-                termMonth: [undefined],
-                periodValue: [undefined],
-                rate: [undefined],
-                commissionFrequency: [undefined]
-            })
-        );
-    }
-
     removeFixedAssetsCollateral(i) {
         (<FormArray>this.offerLetterForm.get('fixedAssetsCollateral')).removeAt(i);
     }
 
-    purposeChange(value, i) {
-        this.offerLetterForm.get(['purpose', i, 'purpose']).patchValue(value);
-        if (this.offerLetterForm.get(['purpose', i, 'purpose']).value !== 'Other') {
-            this.offerLetterForm.get(['purpose', i, 'other']).setValue(null);
-        }
-    }
-
-    purposeChangeNonSubLoan(event) {
-        console.log(event);
-        if (!ObjectUtil.isEmpty(this.offerLetterForm.get('educationPurpose').value)) {
-            console.log('test');
-        }
-
-    }
-
-    parseSiteVisitSecurityData() {
-        if (!ObjectUtil.isEmpty(this.cadData)) {
-            let loanData;
-            this.cadData.assignedLoan.forEach((l, i) => {
-                loanData = l.loan.name;
-                const subLoan = SubLoanType.value(loanData);
-                this.loanName.push(loanData);
-                this.loanHavingSubLoan.forEach(loan => {
-                   if (loan === loanData) {
-                       // const test = {loanName: l.loan.name, subLoanName: subLoan};
-                       this.loanWithSubloan.push({loanName: l.loan.name, subLoanName: subLoan,
-                           loanNature: l.loan.loanNature, isFunded: l.loan.isFundable,
-                           commissionFrequency: l.proposal.commissionFrequency});
-                       console.log('Loan having Sub Loan');
-                   }
-                });
-                this.loanNotHavingSubloan.forEach(loan1 => {
-                    if (loan1 === loanData) {
-                        console.log('Loan Not having Sub Loan');
-                        this.loanWithOutSubLoan.push({loanName: l.loan.name, loanNature: l.loan.loanNature, isFunded: l.loan.isFundable,
-                            commissionFrequency: l.proposal.commissionFrequency});
-                    }
-                });
-                this.loanType.push(l.loanType);
-                this.loanNature.push(l.loan.loanNature);
-                this.commissionFrequency.push(l.proposal.commissionFrequency);
-                // this.proposalData.push(l.proposal);
-                this.proposalData = l.proposal.commissionFrequency;
-            });
-            console.log('loanWithSubloan', this.loanWithSubloan);
-            console.log('loanNotHavingSubloan', this.loanNotHavingSubloan);
-            console.log('LoanName', this.loanName);
-            console.log('loanType', this.loanType);
-            // if (this.cadData.assignedLoan.length > 1) {
-            //     let loanData;
-            //     this.cadData.assignedLoan.forEach((l, i) => {
-            //         loanData = l.loan.name;
-            //         const subLoan = SubLoanType.value(loanData);
-            //         this.loanName.push(loanData);
-            //         this.subLoanTypeEnum1.push(subLoan);
-            //     });
-            //     console.log('subLo', this.subLoanTypeEnum1);
-            //     console.log('LoanName', this.loanName);
-            // } else {
-            //     this.loanName = this.cadData.assignedLoan[0].loan.name;
-            //     console.log('loanName', this.loanName);
-            //     this.subloanTypes = SubLoanType.value(this.loanName.toString());
-            //     this.loanType = this.cadData.assignedLoan[0].loanType;
-            //     console.log('loanType', this.loanType);
-            //     this.securityData = this.cadData.loanHolder.security;
-            //     const sitevisit = this.cadData.loanHolder.siteVisit;
-            //     if (!ObjectUtil.isEmpty(this.securityData)) {
-            //         console.log(this.securityData);
-            //         const data = JSON.parse(this.securityData.data);
-            //         this.selectedArray = data.selectedArray;
-            //         console.log('selectedArray', this.selectedArray);
-            //         if (this.selectedArray.length > 0) {
-            //             this.singleSecurity = false;
-            //         } else {
-            //             this.singleSecurity = true;
-            //         }
-            //     }
-            //     if (!ObjectUtil.isEmpty(sitevisit)) {
-            //         const siteVisitData = JSON.parse(sitevisit.data);
-            //         console.log('siteVisitData', siteVisitData);
-            //     }
-            // }
-
-        }
-    }
-
-    drawChange(value, i) {
-        this.offerLetterForm.get(['purpose', i, 'drawDown']).patchValue(value);
-    }
-
-    otherPurposeChange(value, i) {
-        this.offerLetterForm.get(['purpose', i, 'other']).patchValue(value);
-    }
-
-    setSubLoanData(data) {
-        console.log('setData', data);
-        const test = this.offerLetterForm.get('purpose') as FormArray;
-        if (!ObjectUtil.isEmpty(data)) {
-            data.forEach((p) => {
-                test.push(this.formBuilder.group({
-                    loan: [p.loan],
-                    subLoan: [p.subLoan],
-                    purpose: [p.purpose],
-                    drawDown: [p.drawDown],
-                    other: [p.other],
-                    periodOtherCheck: [p.periodOtherCheck],
-                    termMonth: [p.termMonth],
-                    periodValue: [p.periodValue],
-                    rate: [p.rate],
-                    commissionFrequency: [p.commissionFrequency],
-                }));
-            });
-        }
-    }
-
-
-    addWorkingCapital() {
-        return this.formBuilder.group({
-            purpose: [undefined],
-            otherPurpose: [undefined],
-            drawDown: [undefined],
-        });
-    }
-
-    periodOtherCheck(checked, i) {
-        console.log('checked', checked);
-        if (checked) {
-            this.offerLetterForm.get(['purpose', i, 'periodOtherCheck']).patchValue(checked);
-        } else {
-            this.offerLetterForm.get(['purpose', i, 'periodOtherCheck']).patchValue(false);
+    valueChange(value, i, formControlName) {
+        console.log('value change');
+        console.log('checked', value, 'i', i, 'value',  formControlName);
+        switch (formControlName) {
+            case 'purpose':
+                this.offerLetterForm.get(['purpose', i, 'purpose']).patchValue(value);
+                this.offerLetterForm.get(['purpose', i, 'otherPurpose']).patchValue(null);
+                break;
+            case 'otherPurpose':
+                this.offerLetterForm.get(['purpose', i, 'otherPurpose']).patchValue(value);
+                break;
+            case 'drawDown':
+                this.offerLetterForm.get(['purpose', i, 'drawDown']).patchValue(value);
+                break;
+            case 'termMonth':
+                this.offerLetterForm.get(['purpose', i, 'termMonth']).patchValue(value);
+                break;
+            case 'rate':
+                this.offerLetterForm.get(['purpose', i, 'rate']).patchValue(value);
+                break;
+            case 'drawDownDate':
+                this.offerLetterForm.get(['purpose', i, 'drawDownDate']).patchValue(value);
+                break;
+            case 'downPeriodValue':
+                this.offerLetterForm.get(['purpose', i, 'downPeriodValue']).patchValue(value);
+                break;
+            case 'commissionOther':
+                this.offerLetterForm.get(['purpose', i, 'commissionOther']).patchValue(value);
+                break;
+            case 'moratariumValue':
+                this.offerLetterForm.get(['purpose', i, 'moratariumValue']).patchValue(value);
+                break;
+            case 'maturityValue':
+                this.offerLetterForm.get(['purpose', i, 'maturityValue']).patchValue(value);
+                break;
         }
         console.log(this.offerLetterForm.get('purpose').value);
-        console.log('index', i);
     }
 
-    periodChangeValue(value: any, i: number) {
-        this.offerLetterForm.get(['purpose', i, 'periodValue']).patchValue(value);
+    otherValueCheck(checked, i, formControlName) {
+        console.log('other value checked');
+        console.log('checked', checked, 'i', i, 'value',  formControlName);
+        switch (formControlName) {
+            case 'drawDownCheck':
+                if (checked) {
+                    this.offerLetterForm.get(['purpose', i, 'drawDownCheck']).patchValue(checked);
+                } else {
+                    this.offerLetterForm.get(['purpose', i, 'drawDownCheck']).patchValue(false);
+                    this.offerLetterForm.get(['purpose', i, 'drawDown']).patchValue(null);
+                }
+                break;
+            case 'drawDownPeriodNeeded':
+                if (checked) {
+                    this.offerLetterForm.get(['purpose', i, 'drawDownPeriodNeeded']).patchValue(checked);
+                    this.offerLetterForm.get(['purpose', i, 'drawDownDate']).patchValue(null);
+                    this.offerLetterForm.get(['purpose', i, 'downPeriodValue']).patchValue(null);
+                } else {
+                    this.offerLetterForm.get(['purpose', i, 'drawDownPeriodNeeded']).patchValue(checked);
+                }
+                break;
+            case 'drawDownOtherPeriodCheck':
+                if (checked) {
+                    this.offerLetterForm.get(['purpose', i, 'drawDownOtherPeriodCheck']).patchValue(checked);
+                    this.offerLetterForm.get(['purpose', i, 'drawDownDate']).patchValue(null);
+                } else {
+                    this.offerLetterForm.get(['purpose', i, 'drawDownOtherPeriodCheck']).patchValue(false);
+                    this.offerLetterForm.get(['purpose', i, 'downPeriodValue']).patchValue(null);
+                }
+                break;
+            case 'moratariumPeriodNeeded':
+                if (checked) {
+                    this.offerLetterForm.get(['purpose', i, 'moratariumPeriodNeeded']).patchValue(checked);
+                    this.offerLetterForm.get(['purpose', i, 'moratariumMonth']).patchValue(null);
+                    this.offerLetterForm.get(['purpose', i, 'moratariumValue']).patchValue(null);
+                } else {
+                    this.offerLetterForm.get(['purpose', i, 'moratariumPeriodNeeded']).patchValue(checked);
+                }
+                break;
+            case 'moratariumOtherCheck':
+                if (checked) {
+                    this.offerLetterForm.get(['purpose', i, 'moratariumOtherCheck']).patchValue(checked);
+                    this.offerLetterForm.get(['purpose', i, 'moratariumMonth']).patchValue(null);
+                } else {
+                    this.offerLetterForm.get(['purpose', i, 'moratariumOtherCheck']).patchValue(false);
+                    this.offerLetterForm.get(['purpose', i, 'moratariumValue']).patchValue(null);
+                }
+                break;
+            case 'commissionOtherChecked':
+                if (checked) {
+                    this.offerLetterForm.get(['purpose', i, 'commissionOtherChecked']).patchValue(checked);
+                    this.offerLetterForm.get(['purpose', i, 'rate']).patchValue(null);
+                } else {
+                    this.offerLetterForm.get(['purpose', i, 'commissionOtherChecked']).patchValue(checked);
+                    this.offerLetterForm.get(['purpose', i, 'commissionOther']).patchValue(null);
+                }
+                break;
+            case 'commissionNeeded':
+                if (checked) {
+                    this.offerLetterForm.get(['purpose', i, 'commissionNeeded']).patchValue(checked);
+                    this.offerLetterForm.get(['purpose', i, 'rate']).patchValue(null);
+                    this.offerLetterForm.get(['purpose', i, 'commissionOther']).patchValue(null);
+                } else {
+                    this.offerLetterForm.get(['purpose', i, 'commissionNeeded']).patchValue(checked);
+                }
+                break;
+            case 'maturityNeeded':
+                if (checked) {
+                    this.offerLetterForm.get(['purpose', i, 'maturityNeeded']).patchValue(checked);
+                    this.offerLetterForm.get(['purpose', i, 'maturityDate']).patchValue(null);
+                } else {
+                    this.offerLetterForm.get(['purpose', i, 'maturityNeeded']).patchValue(checked);
+                }
+                break;
+            case 'maturityOtherCheck':
+                if (checked) {
+                    this.offerLetterForm.get(['purpose', i, 'maturityOtherCheck']).patchValue(checked);
+                    this.offerLetterForm.get(['purpose', i, 'maturityValue']).patchValue(null);
+                } else {
+                    this.offerLetterForm.get(['purpose', i, 'maturityOtherCheck']).patchValue(checked);
+                }
+                break;
+        }
+        console.log(this.offerLetterForm.get('purpose').value);
     }
 
-    commissionValue(value: any, i: number) {
-        this.offerLetterForm.get(['purpose', i, 'rate']).patchValue(value);
+    parseAssignedLoanData() {
+        if (!ObjectUtil.isEmpty(this.cadData)) {
+            this.cadData.assignedLoan.forEach((l, i) => {
+                this.addPurpose(l);
+            });
+        }
     }
 
-    termMonthValue(value: any, i: number) {
-        this.offerLetterForm.get(['purpose', i, 'termMonth']).patchValue(value);
+
+    addPurpose(data1) {
+        console.log('data1', data1);
+        const data = this.offerLetterForm.get('purpose') as FormArray;
+        data.push(
+            this.formBuilder.group({
+                loan: [data1.loan.name],
+                isFunded: [data1.loan.isFunded],
+                loanNature: [data1.loan.loanNature],
+                loanType: [data1.loan.loanType],
+                purpose: [undefined],
+                drawDown: [undefined],
+                drawDownCheck: [true],
+                otherPurpose: [undefined],
+                periodOtherCheck: [false],
+                drawDownOtherPeriodCheck: [false],
+                maturityOtherCheck: [false],
+                moratariumOtherCheck: [false],
+                drawDownPeriodNeeded: [true],
+                commissionNeeded: [true],
+                maturityNeeded: [true],
+                moratariumPeriodNeeded: [true],
+                moratariumValue: [undefined],
+                maturityValue: [undefined],
+                downPeriodValue: [undefined],
+                moratariumMonth: [undefined],
+                drawDownDate: [undefined],
+                termMonth: [undefined],
+                periodValue: [undefined],
+                rate: [undefined],
+                commissionFrequency: [data1.proposal.commissionFrequency],
+                commissionOther: [undefined],
+                commissionOtherChecked: [undefined],
+                creditRate: [undefined],
+                creditAmount: [undefined],
+                maturityDate: [undefined],
+                telexAmount: [undefined],
+            })
+        );
     }
 
     otherCheck(event, value) {
-        console.log('event', event);
-        console.log('value', value);
         switch (value) {
             case 'swapFee':
                 if (event) {
