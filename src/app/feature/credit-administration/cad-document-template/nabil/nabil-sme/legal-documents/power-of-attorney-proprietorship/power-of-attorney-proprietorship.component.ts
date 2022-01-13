@@ -99,14 +99,10 @@ export class PowerOfAttorneyProprietorshipComponent implements OnInit {
       if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList) && this.cadData.offerDocumentList.length !== 0) {
         this.offerDocumentDetails = JSON.parse(this.cadData.offerDocumentList[0].initialInformation);
       }
-      // this.customerAddress = this.tempProprietor[0].ownerPermanentProvinceCT + '-' +
-      //     this.tempProprietor[0].ownerPermanentWardNoCT + ', ' + this.tempProprietor[0].ownerPermanentDistrictCT + ' ,' +
-      //     this.tempProprietor[0].ownerPermanentProvinceCT;
     }
     console.log('loanHolderNepData: ', this.loanHolderNepData);
     console.log('initial info', this.initialInfoPrint);
     console.log('form', this.form);
-    this.getJointInfoData();
     this.fillform();
   }
 
@@ -181,18 +177,6 @@ export class PowerOfAttorneyProprietorshipComponent implements OnInit {
           age = this.engToNepNumberPipe.transform(AgeCalculation.calculateAge(this.tempProprietor[0].ownerDob).toString());
         }
       }
-    }
-
-
-    let length = 1;
-    if (!ObjectUtil.isEmpty(this.jointInfoData)) {
-      length = this.jointInfoData.length;
-      this.jointInfoData.forEach(value => {
-        if (!ObjectUtil.isEmpty(value.nepData)) {
-          const nep = JSON.parse(value.nepData);
-          this.selectiveArr.push(nep);
-        }
-      });
     }
     this.checkOfferLetterData();
     this.form.patchValue(
@@ -290,6 +274,7 @@ export class PowerOfAttorneyProprietorshipComponent implements OnInit {
     const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
     this.form.get(wordLabel).patchValue(returnVal);
   }
+
   checkOfferLetterData() {
     console.log('CHeck:');
     if (this.cadData.offerDocumentList.length > 0) {
@@ -415,17 +400,7 @@ export class PowerOfAttorneyProprietorshipComponent implements OnInit {
       }
     }
   }
-
-  async getJointInfoData() {
-    if (this.cadData.loanHolder.customerType === this.customerType.INDIVIDUAL
-        && this.clientType === this.customerSubType.JOINT.toUpperCase()) {
-      const associateId = this.cadData.loanHolder.associateId;
-      await this.customerService.getJointInfoDetails(associateId).toPromise().then((res: any) => {
-        this.jointInfoData = JSON.parse(res.detail.jointInfo);
-      }, error => {
-        console.log(error);
-      });
-    }
-  }
 }
+
+
 
