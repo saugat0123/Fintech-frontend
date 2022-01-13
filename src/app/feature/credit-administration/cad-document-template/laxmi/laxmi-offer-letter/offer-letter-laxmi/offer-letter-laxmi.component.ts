@@ -117,12 +117,6 @@ export class OfferLetterLaxmiComponent implements OnInit {
           this.modalService.open(this.modal);
         }
         this.addFixedAssetsCollateral();
-        this.addOtherCovenants();
-        this.addAcceptance();
-        this.addEventDefault();
-        this.addEventDefault1();
-        this.addRepresentation();
-        this.addPrecedent();
     }
 
     checkOfferLetter() {
@@ -131,14 +125,20 @@ export class OfferLetterLaxmiComponent implements OnInit {
         if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
             this.offerLetterDocument = new OfferDocument();
             this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.OFFER_LETTER);
-            this.saveLoanSubLoan();
+            this.addOtherCovenants();
+            this.addAcceptance();
+            this.addEventDefault();
+            this.addEventDefault1();
+            this.addRepresentation();
+            this.addPrecedent();
+            // this.saveLoanSubLoan();
         } else {
             const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
             this.initialInfoPrint = initialInfo;
             this.existingOfferLetter = true;
             this.offerLetterForm.patchValue(initialInfo);
             this.arrayOfSubloan = initialInfo.subLoanType;
-            this.setSubLoanData(initialInfo.purpose);
+            // this.setSubLoanData(initialInfo.purpose);
             this.setOtherCovenants(initialInfo.covenant);
             this.setAcceptance(initialInfo.acceptance);
             this.setEventDefaul(initialInfo.eventDefault);

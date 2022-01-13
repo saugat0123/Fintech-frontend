@@ -85,10 +85,6 @@ export namespace SubLoanType {
             });
         } else if (loanType.toLowerCase() === 'bank guarantee') {
             enums.push({
-                key: getEnum(SubLoanType.WORKING_CAPITAL_FINANCING),
-                value: SubLoanType.WORKING_CAPITAL_FINANCING
-            });
-            enums.push({
                 key: getEnum(SubLoanType.BID_BOND_GUARANTEE),
                 value: SubLoanType.BID_BOND_GUARANTEE
             });
