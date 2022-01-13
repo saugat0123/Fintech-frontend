@@ -239,8 +239,9 @@ export class PersonalGuaranteePartnershipComponent implements OnInit {
           guarantorTemporaryWard: [individualGuarantorNepData.temporaryWard ? individualGuarantorNepData.temporaryWard.ct : ''],
           guarantorCitizenNumber: [individualGuarantorNepData.citizenNumber ? individualGuarantorNepData.citizenNumber.ct : ''],
           guarantorCitzenIssuedPlace: [individualGuarantorNepData.issuedPlace ? individualGuarantorNepData.issuedPlace.ct : ''],
-          guarantorCitzenIssuedDate: [this.englishNepaliDatePipe.transform(individualGuarantorNepData.citizenIssuedDate.en.eDate ? individualGuarantorNepData.citizenIssuedDate.en.eDate : individualGuarantorNepData.citizenIssuedDate.en, true) || ''],
-          year: [todayDate[2]],
+          guarantorCitzenIssuedDate: [!ObjectUtil.isEmpty(individualGuarantorNepData.citizenIssuedDate) ? this.englishNepaliDatePipe.transform((individualGuarantorNepData.citizenIssuedDate.en.eDate) ? (individualGuarantorNepData.citizenIssuedDate.en.eDate) : (individualGuarantorNepData.citizenIssuedDate.en), true) : '' || ''],
+
+            year: [todayDate[2]],
           month: [todayDate[1]],
           day: [todayDate[0]],
           date: [this.engToNepNumberPipe.transform(String(daysInNumber + 1))],
@@ -275,7 +276,7 @@ export class PersonalGuaranteePartnershipComponent implements OnInit {
   }
   setActYear() {
     let yearOfAct = '';
-    if (this.loanHolderNepData.radioActYearDate.en === 'AD') {
+    if (!ObjectUtil.isEmpty(this.loanHolderNepData.radioActYearDate.en === 'AD')) {
       yearOfAct = this.englishNepaliDatePipe.transform(this.loanHolderNepData.actYear.en ? this.loanHolderNepData.actYear.en : this.loanHolderNepData.actYear.en, true) || '' ;
     } else {
       yearOfAct = this.loanHolderNepData.actYear.en ? this.loanHolderNepData.actYear.en : '';
