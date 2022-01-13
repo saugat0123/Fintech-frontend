@@ -49,12 +49,16 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
   newOrExisting = false;
   loanData = [];
   purposeOfLoan = 'व्यापार/ व्यवसाय संचालन';
+  autoFreeText = 'यस अघी देखी नै तपाई धनी बैंकवाट विभिन्न ऋणकर्जा तथा बैकिङ्ग सुविधाहरु प्राप्त गरी उपभोग गर्दै आएको ठिक सांचो हो । हाल म/हामी ऋणी(हरु)लाई उक्त ऋणकर्जा तथा बैंकिङ्ग सुविधा नवीकरण गर्न एवम् थप तथा अतिरिक्त';
+  autoFreeText2 = 'उपरोक्त ऋणकर्जा तथा बैंकिग सुविधाको सुरक्षण वापत देहाय बमोजिमको घरजग्गा तपाई धनी बैंकको नाममा धितो बन्धक पारित गरिदिएका छौं।';
   newTempData: any = [];
   freeText: Array<any> = new Array<any>();
   primarySecurityTypeCheck = false;
   secondarySecurityTypeCheck = false;
   SecurityTypeCheck = false;
   autoCheck = false;
+  freeText1Check = false;
+  freeText2Check = false;
   actYearDate;
   regDate;
   finalAmount;
@@ -82,25 +86,12 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
       this.initialInfo = JSON.parse(this.cadData.offerDocumentList[0].initialInformation);
-      console.log(this.initialInfo, 'fsfwrte');
     }
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.individualData = JSON.parse(this.cadData.loanHolder.nepData);
     }
-    if (this.cadData.cadFileList.length > 0) {
-      this.supportedInfo = JSON.parse(this.cadData.cadFileList[0].supportedInformation);
-    }
-    if (this.cadData.cadFileList.length > 0) {
+    if (!ObjectUtil.isEmpty(this.supportedInfo)) {
       this.freeText = this.supportedInfo.combinedFreeText;
-    }
-    if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
-      this.cadData.cadFileList.forEach(individualCadFile => {
-        if (individualCadFile.customerLoanId === this.customerLoanId && individualCadFile.cadDocument.id === this.documentId) {
-          const initialInfo = JSON.parse(individualCadFile.initialInformation);
-          this.initialInfoPrint = initialInfo;
-          this.form.patchValue(initialInfo);
-        }
-      });
     }
     if (this.cadData.offerDocumentList[0].docName === 'DDSL Without Subsidy' ||
         this.cadData.offerDocumentList[0].docName === 'Interest subsidy sanction letter' ||
@@ -113,6 +104,14 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
         this.cadData.offerDocumentList[0].docName === 'Udyamsil Karja Subsidy') {
       this.SecurityCheck();
     }
+    // for free text
+    if (!ObjectUtil.isEmpty(this.supportedInfo) && !ObjectUtil.isEmpty(this.supportedInfo.freeText1)) {
+      this.freeText1Check = true;
+    }
+    if (!ObjectUtil.isEmpty(this.supportedInfo) && !ObjectUtil.isEmpty(this.supportedInfo.freeText2)) {
+      this.freeText2Check = true;
+    }
+    this.setFreeInfo();
     this.getLoanName();
     this.setLoanDeedCompanyFormData(this.cadData);
   }
@@ -161,7 +160,8 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
         this.actYearDate = this.engToNepaliDate.transform(convertedDate, true);
       }
       if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
-        if (this.cadData.offerDocumentList[0].docName === 'DDSL Without Subsidy') {
+        if (this.cadData.offerDocumentList[0].docName === 'DDSL Without Subsidy' ||
+            this.cadData.offerDocumentList[0].docName === 'Class A Sanction letter') {
           const dateOfApproval = this.initialInfo.sanctionLetterDateType ? this.initialInfo.sanctionLetterDateType.en : '';
           if (dateOfApproval === 'AD') {
             this.sanctionDate = this.initialInfo.sanctionLetterDate ? this.initialInfo.sanctionLetterDate.ct : '';
@@ -174,7 +174,8 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
           this.interestRate = this.initialInfo.interestRate ? this.initialInfo.interestRate.ct : '';
         }
         if (this.cadData.offerDocumentList[0].docName !== 'DDSL Without Subsidy' &&
-            this.cadData.offerDocumentList[0].docName !== 'Combined Offer Letter') {
+            this.cadData.offerDocumentList[0].docName !== 'Combined Offer Letter' &&
+            this.cadData.offerDocumentList[0].docName !== 'Class A Sanction letter') {
           const dateOfApproval = this.initialInfo.dateOfApprovalType ? this.initialInfo.dateOfApprovalType.en : '';
           if (dateOfApproval === 'AD') {
             this.sanctionDate = this.initialInfo.dateOfApproval ? this.initialInfo.dateOfApproval.ct : '';
@@ -637,7 +638,7 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
       this.form.get('nameOfBranch').patchValue(data.branch.ct);
       this.form.get('actName').patchValue(data.actName.ct);
       this.form.get('actYearInFigure').patchValue(this.actYearDate ? this.actYearDate : '');
-      this.form.get('authorizedBody').patchValue(data.authorizedBodyName.ct);
+      this.form.get('authorizedBody').patchValue(data.authorizedBodyName.ct ? data.authorizedBodyName.ct : 'नेपाल सरकार');
       this.form.get('headSectionDepartment').patchValue(data.registeredWith.ct);
       this.form.get('registrationDate').patchValue(this.regDate ? this.regDate : '');
       this.form.get('registrationNo').patchValue(data.registrationNo.ct);
@@ -661,6 +662,8 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
       registrationNo: [undefined],
       companyName: [undefined],
       purposeOfLoan: [undefined],
+      autoFreeText: [this.autoFreeText],
+      autoFreeText2: [this.autoFreeText2],
       sanctionLetterIssuedDate: [undefined],
       loanAmountInFigure: [undefined],
       loanAmountInWords: [undefined],
@@ -668,7 +671,24 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
       freeText2: [undefined],
       // other field
       dateOfExpirySingle: [undefined],
-      combinedFreeText: this.formBuilder.array([])
+      combinedFreeText: this.formBuilder.array([]),
+      // Witness Fields
+      witnessDistrict1: [undefined],
+      witnessMuni1: [undefined],
+      witnessWard1: [undefined],
+      witnessAge1: [undefined],
+      witnessName1: [undefined],
+      witnessDistrict2: [undefined],
+      witnessMuni2: [undefined],
+      witnessWard2: [undefined],
+      witnessAge2: [undefined],
+      witnessName2: [undefined],
+      karmachariName: [undefined],
+      year: [undefined],
+      month: [undefined],
+      date: [undefined],
+      days: [undefined],
+      suvam: [undefined],
     });
   }
   combinedFree() {
@@ -694,23 +714,72 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
       freeText2: this.form.get('freeText2').value ? this.form.get('freeText2').value : '',
       dateOfExpirySingle: this.form.get('dateOfExpirySingle').value ? this.form.get('dateOfExpirySingle').value : '',
       purposeOfLoan: this.form.get('purposeOfLoan').value ? this.form.get('purposeOfLoan').value : '',
-      combinedFreeText: this.freeText
+      autoFreeText: this.form.get('autoFreeText').value ? this.form.get('autoFreeText').value : '',
+      autoFreeText2: this.form.get('autoFreeText2') ? this.form.get('autoFreeText2').value : '',
+      combinedFreeText: this.freeText,
+      // for witness
+      witnessDistrict1: this.form.get('witnessDistrict1') ? this.form.get('witnessDistrict1').value : '',
+      witnessMuni1: this.form.get('witnessMuni1') ? this.form.get('witnessMuni1').value : '',
+      witnessWard1: this.form.get('witnessWard1') ? this.form.get('witnessWard1').value : '',
+      witnessAge1: this.form.get('witnessAge1') ? this.form.get('witnessAge1').value : '',
+      witnessName1: this.form.get('witnessName1') ? this.form.get('witnessName1').value : '',
+      witnessDistrict2: this.form.get('witnessDistrict2') ? this.form.get('witnessDistrict2').value : '',
+      witnessMuni2: this.form.get('witnessMuni2') ? this.form.get('witnessMuni2').value : '',
+      witnessWard2: this.form.get('witnessWard2') ? this.form.get('witnessWard2').value : '',
+      witnessAge2: this.form.get('witnessAge2') ? this.form.get('witnessAge2').value : '',
+      witnessName2: this.form.get('witnessName2') ? this.form.get('witnessName2').value : '',
+      karmachariName: this.form.get('karmachariName') ? this.form.get('karmachariName').value : '',
+      year: this.form.get('year') ? this.form.get('year').value : '',
+      month: this.form.get('month') ? this.form.get('month').value : '',
+      date: this.form.get('date') ? this.form.get('date').value : '',
+      days: this.form.get('days') ? this.form.get('days').value : '',
+      suvam: this.form.get('suvam') ? this.form.get('suvam').value : '',
     };
     return JSON.stringify(free1);
   }
   patchFreeText() {
-    if (this.cadData.cadFileList.length > 0) {
-      if (this.purposeOfLoan === this.supportedInfo.purposeOfLoan) {
+    if (!ObjectUtil.isEmpty(this.cadData) && this.cadData.cadFileList.length > 0) {
+      if (!ObjectUtil.isEmpty(this.supportedInfo) && this.purposeOfLoan === this.supportedInfo.purposeOfLoan) {
         this.purposeOfLoan = 'व्यापार/ व्यवसाय संचालन';
       }
-      if (this.supportedInfo.purposeOfLoan !== this.purposeOfLoan) {
+      if (!ObjectUtil.isEmpty(this.supportedInfo) && this.supportedInfo.purposeOfLoan !== this.purposeOfLoan) {
         this.purposeOfLoan = this.supportedInfo.purposeOfLoan;
+      }
+      if (!ObjectUtil.isEmpty(this.supportedInfo) && this.autoFreeText === this.supportedInfo.autoFreeText) {
+        this.autoFreeText = 'यस अघी देखी नै तपाई धनी बैंकवाट विभिन्न ऋणकर्जा तथा बैकिङ्ग सुविधाहरु प्राप्त गरी उपभोग गर्दै आएको ठिक सांचो हो । हाल म/हामी ऋणी(हरु)लाई उक्त ऋणकर्जा तथा बैंकिङ्ग सुविधा नवीकरण गर्न एवम् थप तथा अतिरिक्त';
+      }
+      if (!ObjectUtil.isEmpty(this.supportedInfo) && this.supportedInfo.autoFreeText !== this.autoFreeText) {
+        this.autoFreeText = this.supportedInfo.autoFreeText;
+      }
+      if (!ObjectUtil.isEmpty(this.supportedInfo) && this.autoFreeText2 === this.supportedInfo.autoFreeText2) {
+        this.autoFreeText2 = 'उपरोक्त ऋणकर्जा तथा बैंकिग सुविधाको सुरक्षण वापत देहाय बमोजिमको घरजग्गा तपाई धनी बैंकको नाममा धितो बन्धक पारित गरिदिएका छौं।';
+      }
+      if (!ObjectUtil.isEmpty(this.supportedInfo) && this.supportedInfo.autoFreeText2 !== this.autoFreeText2) {
+        this.autoFreeText2 = this.supportedInfo.autoFreeText2;
       }
     }
     this.form.patchValue({
       purposeOfLoan: !ObjectUtil.isEmpty(this.purposeOfLoan) ? this.purposeOfLoan : '',
+      autoFreeText: !ObjectUtil.isEmpty(this.autoFreeText) ? this.autoFreeText : '',
+      autoFreeText2: !ObjectUtil.isEmpty(this.autoFreeText2) ? this.autoFreeText2 : '',
       freeText1: this.supportedInfo ? this.supportedInfo.freeText1 : '',
       freeText2: this.supportedInfo ? this.supportedInfo.freeText2 : '',
+      witnessDistrict1: this.supportedInfo ? this.supportedInfo.witnessDistrict1 : '',
+      witnessMuni1: this.supportedInfo ? this.supportedInfo.witnessMuni1 : '',
+      witnessWard1: this.supportedInfo ? this.supportedInfo.witnessWard1 : '',
+      witnessAge1: this.supportedInfo ? this.supportedInfo.witnessAge1 : '',
+      witnessName1: this.supportedInfo ? this.supportedInfo.witnessName1 : '',
+      witnessDistrict2: this.supportedInfo ? this.supportedInfo.witnessDistrict2 : '',
+      witnessMuni2: this.supportedInfo ? this.supportedInfo.witnessMuni2 : '',
+      witnessWard2: this.supportedInfo ? this.supportedInfo.witnessWard2 : '',
+      witnessAge2: this.supportedInfo ? this.supportedInfo.witnessAge2 : '',
+      witnessName2: this.supportedInfo ? this.supportedInfo.witnessName2 : '',
+      karmachariName: this.supportedInfo ? this.supportedInfo.karmachariName : '',
+      year: this.supportedInfo ? this.supportedInfo.year : '',
+      month: this.supportedInfo ? this.supportedInfo.month : '',
+      date: this.supportedInfo ? this.supportedInfo.date : '',
+      days: this.supportedInfo ? this.supportedInfo.days : '',
+      suvam: this.supportedInfo ? this.supportedInfo.suvam : '',
     });
   }
   submit() {
@@ -725,7 +794,6 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
       if (flag) {
         const cadFile = new CadFile();
         const document = new Document();
-        cadFile.initialInformation = JSON.stringify(this.form.value);
         this.initialInfoPrint = cadFile.initialInformation;
         document.id = this.documentId;
         cadFile.cadDocument = document;
@@ -761,6 +829,15 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
       };
       this.loanData.push(tempLoan);
     });
+  }
+  setFreeInfo() {
+    if (!ObjectUtil.isEmpty(this.cadData) && (!ObjectUtil.isEmpty(this.cadData.cadFileList))) {
+      this.cadData.cadFileList.forEach(individualCadFile => {
+        if (individualCadFile.customerLoanId === this.customerLoanId && individualCadFile.cadDocument.id === this.documentId) {
+          this.supportedInfo = JSON.parse(individualCadFile.supportedInformation);
+        }
+      });
+    }
   }
   ageCalculation(startDate) {
     startDate = this.datePipe.transform(startDate, 'MMMM d, y, h:mm:ss a z');
