@@ -29,6 +29,9 @@ export class GeneralDocumentComponent implements OnInit {
                 if (ObjectUtil.isEmpty(this.customerGeneralDocument)) {
                     this.customerGeneralDocument = [];
                 }
+                this.customerGeneralDocument
+                    .sort((a, b) =>
+                        (a.docPath > b.docPath) ? 1 : ((b.docPath > a.docPath) ? -1 : 0));
             });
         }
 
