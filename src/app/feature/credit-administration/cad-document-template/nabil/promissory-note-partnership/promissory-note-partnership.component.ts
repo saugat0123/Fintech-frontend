@@ -190,7 +190,6 @@ export class PromissoryNotePartnershipComponent implements OnInit {
           this.selectiveArr.push(nep);
         }
       });
-      this.setJointDetailsArr(this.selectiveArr);
     }
     this.checkOfferLetterData();
     this.forPrint();
@@ -214,37 +213,6 @@ export class PromissoryNotePartnershipComponent implements OnInit {
           : ((this.educationalTemplateData) ? (this.educationalTemplateData)
               : ('')),
       nameOfGrandfather: this.grandFatherName ? this.grandFatherName : '',
-    });
-  }
-  setJointDetailsArr(data) {
-    const formArray = (this.form.get('jointDetailsArr') as FormArray);
-    if (ObjectUtil.isEmpty(data)) {
-      return;
-    }
-    data.forEach(value => {
-      // if (!ObjectUtil.isEmpty(value.nepData)) {
-      //
-      // }
-      const nepData = value;
-      const tempProprietor = value;
-      let age;
-      if (!ObjectUtil.isEmpty(tempProprietor.ownerDobCT) && !ObjectUtil.isEmpty(tempProprietor.radioOwnerDob)) {
-        const calAge = AgeCalculation.calculateAge(tempProprietor.radioOwnerDob);
-        age = this.ageCalculation(tempProprietor.radioOwnerDob);
-      } else {
-        age = this.ageCalculation(tempProprietor.radioOwnerDob);
-      }
-      formArray.push(this.formBuilder.group({
-        nameofGrandFatherJoint : [nepData.grandFatherName.ct || nepData.grandFatherName.np],
-        nameofFatherJoint : [nepData.fatherName.np || nepData.fatherName.ct],
-        districtJoint : [nepData.permanentDistrict.ct],
-        vdcJoint : [nepData.permanentMunicipality.ct],
-        wardNoJoint : [nepData.permanentWard.np || nepData.permanentWard.ct],
-        ageJoint : [age ? age : ''],
-        nameofPersonJoint : [nepData.name.np || nepData.name.ct],
-        citizenshipNoJoint : [nepData.citizenNumber.np || nepData.citizenNumber.ct],
-        nameofIssuedDistrictJoint : [nepData.citizenshipIssueDistrict.en.nepaliName],
-      }));
     });
   }
   ageCalculation(startDate) {
