@@ -79,7 +79,6 @@ export class PromissoryNotePartnershipComponent implements OnInit {
 
   async ngOnInit() {
     this.buildForm();
-    
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       if (this.cadData.loanHolder.customerType === 'INSTITUTION') {
         this.isInstitutional = true;
@@ -93,11 +92,9 @@ export class PromissoryNotePartnershipComponent implements OnInit {
         }
       });
     }
-    
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
     }
-    
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.individualData = JSON.parse(this.cadData.loanHolder.nepData);
       this.clientType = this.cadData.loanHolder['customerSubType'];
@@ -135,9 +132,20 @@ export class PromissoryNotePartnershipComponent implements OnInit {
       citizenshipIssueDistrict: [undefined],
       interestPerApprovedCFR: [undefined],
       nameOfBranch: [undefined],
+      bankStaff: [undefined],
+      witnessDistrict: [undefined],
+      witnessMunicipality: [undefined],
+      WitnessWardNumber: [undefined],
+      witnessAge: [undefined],
+      witnessName: [undefined],
+      witnessDistrict2: [undefined],
+      witnessMunicipality2: [undefined],
+      WitnessWardNumber2: [undefined],
+      witnessAge2: [undefined],
+      witnessName2: [undefined],
     });
   }
-  fillform(){
+  fillform() {
     const proprietor = this.cadData.assignedLoan[0].companyInfo.companyJsonData;
     // let tempProprietor;
     if (!ObjectUtil.isEmpty(proprietor)) {
@@ -201,7 +209,10 @@ export class PromissoryNotePartnershipComponent implements OnInit {
       loanAmountinFigure: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(finalAmount)),
       loanAmountInWords: this.nepaliCurrencyWordPipe.transform(loanAmountWord),
       nameOfBranch: [this.loanHolderNepData.branch ? this.loanHolderNepData.branch.ct : ''],
-      interestPerApprovedCFR: (this.educationalTemplateData && this.educationalTemplateData.ct) ? (this.educationalTemplateData.ct) : ((this.educationalTemplateData) ? (this.educationalTemplateData) : ('')),
+      interestPerApprovedCFR: (this.educationalTemplateData && this.educationalTemplateData.ct)
+          ? (this.educationalTemplateData.ct)
+          : ((this.educationalTemplateData) ? (this.educationalTemplateData)
+              : ('')),
       nameOfGrandfather: this.grandFatherName ? this.grandFatherName : '',
     });
   }
@@ -302,98 +313,97 @@ export class PromissoryNotePartnershipComponent implements OnInit {
         this.offerLetterDocument = document;
       });
       if (documentName === 'DDSL Without Subsidy') {
-        if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
+        if (!ObjectUtil.isEmpty(this.offerLetterDocument.initialInformation.interestRate)) {
           const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
           this.educationalTemplateData = educationalOfferData.interestRate;
         }
       }
       if (documentName === 'Kisan Karja Subsidy') {
-        if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
+        if (!ObjectUtil.isEmpty(this.offerLetterDocument.initialInformation.interestRate)) {
           const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
           this.educationalTemplateData = educationalOfferData.interestRate;
         }
       }
       if (documentName === 'Udyamsil Karja Subsidy') {
-        if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
+        if (!ObjectUtil.isEmpty(this.offerLetterDocument.initialInformation.interestRate)) {
           const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
           this.educationalTemplateData = educationalOfferData.interestRate;
         }
       }
       if (documentName === 'Interest subsidy sanction letter') {
-        if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
+        if (!ObjectUtil.isEmpty(this.offerLetterDocument.initialInformation.interestRate)) {
           const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
           this.educationalTemplateData = educationalOfferData.interestRate;
         }
       }
       if (documentName === 'Class A Sanction letter') {
-        if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
+        if (!ObjectUtil.isEmpty(this.offerLetterDocument.initialInformation.interestRate)) {
           const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
           this.educationalTemplateData = educationalOfferData.interestRate;
         }
       }
       if (documentName === 'Combined Offer Letter') {
-        if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
+        if (!ObjectUtil.isEmpty(this.offerLetterDocument.initialInformation.interestRateCT)) {
           const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
           this.educationalTemplateData = educationalOfferData.importLoanTrust.interestRateCT;
         }
       }
       if (documentName === 'Combined Offer Letter') {
-        if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
+        if (!ObjectUtil.isEmpty(this.offerLetterDocument.initialInformation.interestRateCT)) {
           const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
           this.educationalTemplateData = educationalOfferData.revolvingShortTermLoan.interestRateCT;
         }
       }
       if (documentName === 'Combined Offer Letter') {
-        if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
+        if (!ObjectUtil.isEmpty(this.offerLetterDocument.initialInformation.interestRateCT)) {
           const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
           this.educationalTemplateData = educationalOfferData.demandLoanForm.interestRateCT;
-          
         }
       }
       if (documentName === 'Combined Offer Letter') {
-        if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
+        if (!ObjectUtil.isEmpty(this.offerLetterDocument.initialInformation.interestRateCT)) {
           const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
           this.educationalTemplateData = educationalOfferData.overdraftLoanForm.interestRateCT;
         }
       }
       if (documentName === 'Combined Offer Letter') {
-        if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
+        if (!ObjectUtil.isEmpty(this.offerLetterDocument.initialInformation.interestRateCT)) {
           const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
           this.educationalTemplateData = educationalOfferData.equityMortgaged.interestRateCT;
         }
       }
       if (documentName === 'Combined Offer Letter') {
-        if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
+        if (!ObjectUtil.isEmpty(this.offerLetterDocument.initialInformation.interestRateCT)) {
           const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
           this.educationalTemplateData = educationalOfferData.overdraftFixedForm.interestRateCT;
         }
       }
       if (documentName === 'Combined Offer Letter') {
-        if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
+        if (!ObjectUtil.isEmpty(this.offerLetterDocument.initialInformation.interestRateCT)) {
           const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
           this.educationalTemplateData = educationalOfferData.overDraftFacilityForm.interestRateCT;
         }
       }
       if (documentName === 'Combined Offer Letter') {
-        if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
+        if (!ObjectUtil.isEmpty(this.offerLetterDocument.initialInformation.interestRateCT)) {
           const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
           this.educationalTemplateData = educationalOfferData.bridgeGapLoan.interestRateCT;
         }
       }
       if (documentName === 'Combined Offer Letter') {
-        if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
+        if (!ObjectUtil.isEmpty(this.offerLetterDocument.initialInformation.interestRateCT)) {
           const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
           this.educationalTemplateData = educationalOfferData.termLoanForm.termLoanDetails.interestRateCT;
         }
       }
       if (documentName === 'Combined Offer Letter') {
-        if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
+        if (!ObjectUtil.isEmpty(this.offerLetterDocument.initialInformation.interestRateCT)) {
           const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
           this.educationalTemplateData = educationalOfferData.mortgageEquityTermForm.interestRateCT;
         }
       }
       if (documentName === 'Combined Offer Letter') {
-        if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
+        if (!ObjectUtil.isEmpty(this.offerLetterDocument.initialInformation.interestRateCT)) {
           const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
           this.educationalTemplateData = educationalOfferData.autoLoanMasterForm.autoLoanFormArray.interestRateCT;
         }
@@ -403,7 +413,7 @@ export class PromissoryNotePartnershipComponent implements OnInit {
       } else {
         this.form.get('dateOfRegistration').patchValue(this.loanHolderNepData.registrationDate.np);
       }
-      for(let i of this.tempProprietor){
+      for (const i of this.tempProprietor) {
         if (i.radioOwnerCitizenshipIssuedDate === 'AD') {
           this.form.get('citizenshipIssueDate').patchValue(this.engToNepaliDate.transform(i.ownerCitizenshipIssuedDateCT, true));
         } else {
@@ -412,8 +422,8 @@ export class PromissoryNotePartnershipComponent implements OnInit {
       }
     }
   }
-  forPrint(){
-    for(let i of this.tempProprietor){
+  forPrint() {
+    for (const i of this.tempProprietor) {
       this.grandFatherName = i.ownerGrandFatherNameCT;
       this.nameOfFather = i.ownerFatherNameCT;
       this.district = i.ownerPermanentDistrictCT;
