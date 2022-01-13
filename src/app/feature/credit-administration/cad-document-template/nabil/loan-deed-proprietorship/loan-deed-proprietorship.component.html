@@ -54,7 +54,7 @@
                      formControlName="dateOfRegistration"
                      placeholder=" "
                      type="text"/>
-              <span class="print-only">{{form.get('dateOfRegistration').value || '_____________________'}}</span>
+              <span class="print-only">{{this.registrationDate ? this.registrationDate : '______________________'}}</span>
             </span> मा
             दर्ता भै द.न.
             <span>
@@ -239,7 +239,7 @@
                      formControlName="sanctionLetterIssuedDate"
                      placeholder=" "
                      type="text"/>
-              <span class="print-only">{{form.get('sanctionLetterIssuedDate').value || '_____________________'}}</span>
+              <span class="print-only">{{this.sanctionDate ? this.sanctionDate : '______________________'}}</span>
             </span>
             को ऋण स्वीकृति पत्रानुसार स्वीकृत देहाय बमोजिमका ऋणकर्जा तथा बैकिङ्ग सुविधाहरु सोही ऋण
             स्वीकृति पत्रमा उल्लेखित तरिका बमोजिम प्राप्त गर्ने गरी यो ऋणकर्जाको तमसुक गरिदिएको ठिक
@@ -338,7 +338,7 @@
                   formControlName="loanAmountInFigure"
                   placeholder="ऋण रकम"
                   type="text"/>
-                <span class="print-only">{{form.get('loanAmountInFigure').value || '_____________________'}}</span>
+                <span class="print-only">{{this.finalAmount ? this.finalAmount : '______________________'}}</span>
               </span>।
               (अक्षरेपी <span>
                 <input class="form-field form-control-sm disable-print col-2"
@@ -346,7 +346,7 @@
                        formControlName="loanAmountInWords"
                        placeholder="रकम"
                        type="text"/>
-                <span class="print-only">{{form.get('loanAmountInWords').value || '_____________________'}}</span>
+                <span class="print-only">{{this.loanAmountWord ? this.loanAmountWord : '______________________'}}</span>
               </span> मात्र)</strong></P>
             <div *ngIf="primarySecurityTypeCheck">
               <div class="mt-lg-5">
@@ -488,7 +488,7 @@
                      name="districtOfWitness1"
                      formControlName="districtOfWitness1"
                      type="text"/>
-                <span class="print-only">{{form.get('districtOfWitness1').value || '_____________________'}}</span>
+                <span class="print-only">{{form.get('districtOfWitness1').value ? form.get('districtOfWitness1').value : '_____________________'}}</span>
               जिल्ला
               <input class="form-field form-control-sm disable-print"
                      name="vdcOrMunOfWitness1"
