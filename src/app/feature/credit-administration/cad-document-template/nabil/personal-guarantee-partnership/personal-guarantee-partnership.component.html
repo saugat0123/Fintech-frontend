@@ -436,11 +436,30 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-12 text-right disable-print">
-            <button nbButton status="info" class="mb-4 float-right disable-print" [useExistingCss]="true"
-                    ngxPrint printSectionId="{{offerLetterConst.PERSONAL_GUARANTEE_PARTNERSHIP}}Print">Print
-            </button>
-            <button nbButton status="success" class="disable-print" (click)="submit()">Save</button>
+        <div class="row mt-5 ml-0">
+            <div class="col-md-12 text-right">
+                <button
+                    [useExistingCss]="true"
+                    styleSheetFile="assets/css/printStyles.scss"
+                    printSectionId="personalGuaranteePartnershipPrint"
+                    class="d-print-none float-right"
+                    printSectionId="print-section"
+                    nbButton
+                    size="small"
+                    status="info"
+                    outline
+                    ngxPrint
+                >
+                    Print &nbsp;&nbsp;
+                    <em class="fa fa-print" style="color: rgb(47, 3, 168)"></em>
+                </button>
+                <button nbButton size="small"
+                        class="d-print-none sav"
+                        status="success"
+                        (click)="submit()"
+                        style="color: rgb(65,104,207); background-color: rgb(235,247,255);">Save &nbsp;&nbsp;
+                    <em class="fa fa-save" style="color: rgb(47, 3, 168)"></em></button>
+            </div>
         </div>
     </form>
 </div>
