@@ -89,7 +89,7 @@
                         </span>,
 
                             <!--Repeated Clause-->
-                            <span *ngFor="let details of companyInfo">
+                            <span *ngFor="let details of companyInfo; let i = index">
                                   <input class="form-field form-control-sm d-print-none"
                                          name="authorizedDistrict"
                                          formControlName="authorizedDistrict"
@@ -139,10 +139,10 @@
                                 <input class="form-field form-control-sm d-print-none"
                                        name="authorizedDateOfIssue"
                                        formControlName="authorizedDateOfIssue"
-                                       [value]="this.englishNepaliDatePipe.transform(this.datePipe.transform(details.ownerCitizenshipIssuedDateCT), true)"
+                                       [value]="dateArray ? dateArray[i] : ''"
                                        placeholder="" type="text"/>
                                 <strong class="print-only">
-                                    {{this.englishNepaliDatePipe.transform(this.datePipe.transform(details.ownerCitizenshipIssuedDateCT), true)}}
+                                    {{dateArray ? dateArray[i] : ''}}
                                 </strong>
                             , जिल्ला प्रशासन कार्यालय
                                 <input class="form-field form-control-sm d-print-none"
@@ -290,8 +290,7 @@
                                 <input class="form-field form-control-sm d-print-none" name="streetName"
                                        formControlName="streetName" placeholder="" type="text"/>
                                 <strong class="print-only">
-                                    __________________________________
-                                    <!--{{this.loanHolderNepData.registeredStreetTole ? this.loanHolderNepData.registeredStreetTole.ct : '___________________________'}}-->
+                                    {{this.loanHolderNepData.registeredStreetTole ? this.loanHolderNepData.registeredStreetTole.ct : '___________________________'}}
                                 </strong>
                             </span>
                             </p>
@@ -301,7 +300,7 @@
                                 <input class="form-field form-control-sm d-print-none" name="authorizedName"
                                        formControlName="authorizedName" placeholder="" type="text"/>
                                 <strong class="print-only">
-                                    {{this.loanHolderNepData.registeredStreetTole ? this.loanHolderNepData.registeredStreetTole.ct : '___________________________'}}
+                                    __________________________________
                                 </strong>
                             </span>
                             </p>
@@ -313,12 +312,75 @@
                         <p class="font-weight-bold" style="margin-left: 45%">साक्षी</p>
                         <ol class="conditions">
                             <li>
-                                ___________________ जिल्ला ___________________ न.पा/गा.वि.स. वडा नं.
-                                ___________________ बस्ने बर्ष ___________________ को/की ___________________
+                                <input class="form-field form-control-sm d-print-none" name="sakshiDistrict1"
+                                       formControlName="sakshiDistrict1" placeholder="" type="text"/>
+                                <span class="print-only font-weight-bold">
+                                    {{(this.freeText && this.freeText.sakshiDistrict1) ? this.freeText.sakshiDistrict1 : '_____________________'}}
+                                </span>
+                                जिल्ला
+                                <input class="form-field form-control-sm d-print-none" name="sakshiMunicipality1"
+                                       formControlName="sakshiMunicipality1" placeholder="" type="text"/>
+                                <span class="print-only font-weight-bold">
+                                    {{(this.freeText && this.freeText.sakshiMunicipality1) ? this.freeText.sakshiMunicipality1 : '____________________'}}
+                                </span>
+                                न.पा/गा.वि.स. वडा नं.
+                                <input class="form-field form-control-sm d-print-none" name="sakshiWard1"
+                                       formControlName="sakshiWard1" placeholder="" type="text"/>
+                                <span class="print-only font-weight-bold">
+                                    {{(this.freeText && this.freeText.sakshiWard1) ? this.freeText.sakshiWard1 : '____________________'}}
+                                </span>
+                                बस्ने बर्ष
+                                <input class="form-field form-control-sm d-print-none" name="sakshiAge1"
+                                       formControlName="sakshiAge1" placeholder="" type="text"/>
+                                <span class="print-only font-weight-bold">
+                                    {{(this.freeText && this.freeText.sakshiAge1) ? this.freeText.sakshiAge1 : '____________________'}}
+                                </span>
+                                को/की
+                                <input class="form-field form-control-sm d-print-none" name="sakshiName1"
+                                       formControlName="sakshiName1" placeholder="" type="text"/>
+                                <span class="print-only font-weight-bold">
+                                    {{(this.freeText && this.freeText.sakshiName1) ? this.freeText.sakshiName1 : '____________________'}}
+                                </span>
+                            </li>
+                            <li>
+                                <input class="form-field form-control-sm d-print-none" name="sakshiDistrict2"
+                                       formControlName="sakshiDistrict2" placeholder="" type="text"/>
+                                <span class="print-only font-weight-bold">
+                                    {{(this.freeText && this.freeText.sakshiDistrict2) ? this.freeText.sakshiDistrict2 : '____________________'}}
+                                </span>
+                                जिल्ला
+                                <input class="form-field form-control-sm d-print-none" name="sakshiMunicipality2"
+                                       formControlName="sakshiMunicipality2" placeholder="" type="text"/>
+                                <span class="print-only font-weight-bold">
+                                    {{(this.freeText && this.freeText.sakshiMunicipality2) ? this.freeText.sakshiMunicipality2 : '____________________'}}
+                                </span>
+                                न.पा/गा.वि.स. वडा नं.
+                                <input class="form-field form-control-sm d-print-none" name="sakshiWard2"
+                                       formControlName="sakshiWard2" placeholder="" type="text"/>
+                                <span class="print-only font-weight-bold">
+                                    {{(this.freeText && this.freeText.sakshiWard2) ? this.freeText.sakshiWard2 : '____________________'}}
+                                </span>
+                                बस्ने बर्ष
+                                <input class="form-field form-control-sm d-print-none" name="sakshiAge2"
+                                       formControlName="sakshiAge2" placeholder="" type="text"/>
+                                <span class="print-only font-weight-bold">
+                                    {{(this.freeText && this.freeText.sakshiAge2) ? this.freeText.sakshiAge2 : '____________________'}}
+                                </span>
+                                को/की
+                                <input class="form-field form-control-sm d-print-none" name="sakshiName2"
+                                       formControlName="sakshiName2" placeholder="" type="text"/>
+                                <span class="print-only font-weight-bold">
+                                    {{(this.freeText && this.freeText.sakshiName2) ? this.freeText.sakshiName2 : '____________________'}}
+                                </span>
                             </li>
                             <li>
                                 कारणीले प्रस्तुत लिखत मेरो सामुन्ने सहिछाप गरेको हो भनी सनाखत गर्ने धनी बैंकका
-                                कर्मचारी _________________________________________________
+                                कर्मचारी
+                                <input class="form-field form-control-sm d-print-none" name="nameOfBankStaff"
+                                       formControlName="nameOfBankStaff" placeholder="" type="text"/>
+                                <span class="print-only font-weight-bold">
+                                    {{(this.freeText && this.freeText.nameOfBankStaff) ? this.freeText.nameOfBankStaff : '_____________________'}}
+                                </span>
                             </li>
                         </ol>
                     </div>
