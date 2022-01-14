@@ -20,7 +20,7 @@
                                formControlName="nameOfBranchLocated"
                                placeholder=" "
                                type="text"/>
-                        <span class="print-only">{{this.individualData.branch ? this.individualData.branch.ct : ''}}</span>
+                        <span class="print-only">{{this.individualData?.branch ? this.individualData?.branch.ct : ''}}</span>
                         मा शाखा कार्यालय रहेको श्री <strong>नबिल बैंक लिमिटेड </strong>
                         (जसलाई यस लिखतमा यस पछि <strong>"धनी बैंक"</strong> भनिएको छ), धितो
                         दिई सुरक्षणको लिखत गरीदिने
@@ -28,7 +28,7 @@
                                name="actName"
                                formControlName="actName"
                                type="text"/>
-                        <span class="print-only">{{this.individualData.actName ? this.individualData.actName.ct : ''}}</span>
+                        <span class="print-only">{{this.individualData?.actName ? this.individualData?.actName.ct : ''}}</span>
                         ऐन <input class="form-field form-control-sm d-print-none"
                                   name="yearInFigure"
                                   formControlName="yearInFigure"
@@ -40,13 +40,13 @@
                                formControlName="nameOfAuthorizedBody"
                                placeholder=" "
                                type="text"/>
-                        <span class="print-only">{{this.individualData.authorizedBodyName ? this.individualData.authorizedBodyName.ct : ''}}</span>
+                        <span class="print-only">{{this.individualData?.authorizedBodyName ? this.individualData?.authorizedBodyName.ct : ''}}</span>
                         <input class="form-field form-control-sm d-print-none"
                                name="nameOfDepartment"
                                formControlName="nameOfDepartment"
                                placeholder=" "
                                type="text"/>
-                        <span class="print-only">{{this.individualData.registeredWith ? this.individualData.registeredWith.ct : ''}}</span>
+                        <span class="print-only">{{this.individualData?.registeredWith ? this.individualData?.registeredWith.ct : ''}}</span>
                         विभाग/कार्यालयमा मिति <input class="form-field form-control-sm d-print-none"
                                                      name="dateOfRegistration"
                                                      formControlName="dateOfRegistration"
@@ -58,19 +58,19 @@
                                  formControlName="registrationNo"
                                  placeholder=" "
                                  type="text"/>
-                        <span class="print-only">{{this.individualData.registrationNo ? this.individualData.registrationNo.ct : ''}}</span>
+                        <span class="print-only">{{this.individualData?.registrationNo ? this.individualData?.registrationNo.ct : ''}}</span>
                         अन्तर्गत दर्ता भई <input class="form-field form-control-sm d-print-none"
                                name="districtOfFirm"
                                formControlName="districtOfFirm"
                                placeholder=" "
                                type="text"/>
-                        <span class="print-only">{{this.individualData.registeredDistrict ? this.individualData.registeredDistrict.ct : ''}}</span>
+                        <span class="print-only">{{this.individualData?.registeredDistrict ? this.individualData?.registeredDistrict.ct : ''}}</span>
                         जिल्ला, <input class="form-field form-control-sm d-print-none"
                                        name="municipalityOfFirm"
                                        formControlName="municipalityOfFirm"
                                        placeholder=" "
                                        type="text"/>
-                        <span class="print-only">{{this.individualData.registeredMunicipality ? this.individualData.registeredMunicipality.ct : ''}}</span>
+                        <span class="print-only">{{this.individualData?.registeredMunicipality ? this.individualData?.registeredMunicipality.ct : ''}}</span>
                         <ng-container *ngIf="this.individualData?.registeredMunType === '0'"> न.पा</ng-container>
                         <ng-container *ngIf="this.individualData?.registeredMunType === '1'"> गा.वि.स.</ng-container>
                         <ng-container *ngIf="this.individualData?.registeredMunType === '2'"> गाँउपालिका</ng-container>
@@ -79,20 +79,20 @@
                                         formControlName="wardNoOfFirm"
                                         placeholder=" "
                                         type="text"/>
-                        <span class="print-only">{{this.individualData.permanentWard ? this.individualData.permanentWard.ct : ''}}</span>,
+                        <span class="print-only">{{this.individualData?.permanentWard ? this.individualData?.permanentWard.ct : ''}}</span>,
                         <input class="form-field form-control-sm d-print-none"
                                name="addressOfFirm"
                                formControlName="addressOfFirm"
                                placeholder=" "
                                type="text"/>
-                        <span class="print-only">{{this.individualData.registeredStreetTole ? this.individualData.registeredStreetTole.ct : ''}}</span>मा
+                        <span class="print-only">{{this.individualData?.registeredStreetTole ? this.individualData?.registeredStreetTole.ct : ''}}</span>मा
                         कार्यालय रहेको
                         श्री <input class="form-field form-control-sm d-print-none"
                                     name="firmName"
                                     formControlName="firmName"
                                     placeholder=" "
                                     type="text"/>
-                        <span class="print-only">{{this.individualData.name ? this.individualData.name.ct : ''}}</span>को
+                        <span class="print-only">{{this.individualData?.name ? this.individualData?.name.ct : ''}}</span>को
                         तर्फबाट अख्तियार प्राप्त ऐ.का.
                         <ng-container *ngFor="let partner of companyInfo; let i = index">
                             <ng-container
