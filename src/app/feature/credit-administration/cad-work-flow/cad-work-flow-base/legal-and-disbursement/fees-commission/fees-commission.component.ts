@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CreditAdministrationService} from '../../../../service/credit-administration.service';
@@ -12,7 +12,7 @@ import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
     templateUrl: './fees-commission.component.html',
     styleUrls: ['./fees-commission.component.scss']
 })
-export class FeesCommissionComponent implements OnInit {
+export class FeesCommissionComponent implements OnInit, OnChanges {
     @Input() cadData: CustomerApprovedLoanCadDocumentation;
 
     @Output()
@@ -44,11 +44,6 @@ export class FeesCommissionComponent implements OnInit {
         this.feeCommissionFormGroup = this.formBuilder.group({
             feeAmountDetails: this.formBuilder.array([])
         });
-        if (!ObjectUtil.isEmpty(this.cadData.feesAndCommission)) {
-            this.setFeeAmountDetails();
-        } else {
-            this.addFeeAmountDetails();
-        }
     }
 
     setFeeAmountDetails() {
@@ -144,6 +139,14 @@ export class FeesCommissionComponent implements OnInit {
             }
         });
         return returnType;
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        if (!ObjectUtil.isEmpty(this.cadData.feesAndCommission)) {
+            this.setFeeAmountDetails();
+        } else {
+            this.addFeeAmountDetails();
+        }
     }
 
 }
