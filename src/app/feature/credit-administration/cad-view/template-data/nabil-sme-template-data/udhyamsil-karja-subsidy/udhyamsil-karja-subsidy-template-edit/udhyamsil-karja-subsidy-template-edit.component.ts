@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {NepaliCurrencyWordPipe} from '../../../../../../../@core/pipe/nepali-currency-word.pipe';
@@ -21,6 +21,7 @@ import {UdyamsilKarjaSubsidyComponent} from '../../../../../cad-document-templat
 import {CustomerApprovedLoanCadDocumentation} from '../../../../../model/customerApprovedLoanCadDocumentation';
 import {NabilOfferLetterConst} from '../../../../../nabil-offer-letter-const';
 import {CadDocStatus} from '../../../../../model/CadDocStatus';
+import {RequiredLegalDocumentSectionComponent} from "../../sme-template-data/sme-master-template/required-legal-document-section/required-legal-document-section.component";
 
 @Component({
     selector: 'app-udhyamsil-karja-subsidy-template-edit',
@@ -62,6 +63,8 @@ export class UdhyamsilKarjaSubsidyTemplateEditComponent implements OnInit {
     submitted = false;
     loanOptions = CustomerLoanOptions;
     securities;
+    @ViewChild('requiredLegalDocument', {static: false})
+    requiredLegalDocumentSectionComponent: RequiredLegalDocumentSectionComponent;
 
     constructor(private formBuilder: FormBuilder,
                 private dialogService: NbDialogService,
@@ -659,6 +662,8 @@ export class UdhyamsilKarjaSubsidyTemplateEditComponent implements OnInit {
         //     securities: this.udhyamsilKarja.get('securities').value,
         // }];
         this.tdVal['securities'] = this.udhyamsilKarja.get('securities').value;
+        const tempRequiredDocuments = this.setRequiredDocuments();
+        this.tdVal['requiredDocuments'] = tempRequiredDocuments;
         // For Clearing validation of optional and conditional Fields.
         this.clearConditionalValidation();
         const invalidControls = [];
@@ -896,4 +901,11 @@ export class UdhyamsilKarjaSubsidyTemplateEditComponent implements OnInit {
         return c1 && c2 ? c1.id === c2.id : c1 === c2;
     }
 
+    private setRequiredDocuments() {
+        const requiredLegalDocument = this.requiredLegalDocumentSectionComponent.requireDocumentForm.value;
+        const requiredData = {
+            requiredLegalDocument: requiredLegalDocument,
+        };
+        return (requiredData);
+    }
 }
