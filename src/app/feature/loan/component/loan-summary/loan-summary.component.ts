@@ -678,8 +678,10 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                 }
             }
             const siteVisitDocument = this.siteVisitDocuments;
-            for (const doc of siteVisitDocument) {
-                docPaths.push(doc.docPath.concat(doc.docName).concat('.jpg'));
+            if (!ObjectUtil.isEmpty(this.siteVisitDocuments)) {
+                for (const doc of siteVisitDocument) {
+                    docPaths.push(doc.docPath.concat(doc.docName).concat('.jpg'));
+                }
             }
         } else {
             docPaths.push(this.loanDataHolder.zipPath);
