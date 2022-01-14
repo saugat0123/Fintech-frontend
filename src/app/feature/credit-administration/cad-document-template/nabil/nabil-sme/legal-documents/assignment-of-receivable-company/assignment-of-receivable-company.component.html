@@ -153,11 +153,11 @@
                                                    type="text"/>
                                 <span class="print-only">{{partner ? partner?.ownerCitizenshipNoCT : ''}}</span>
                                 (मिति <input class="form-field form-control-sm d-print-none"
-                                             name="issueDateOfPartner"
-                                             [value]="dateConvert(partner?.radioOwnerCitizenshipIssuedDate, partner?.ownerCitizenshipIssuedDateCT)"
-                                             placeholder=" "
-                                             type="text"/>
-                                <span class="print-only">{{dateConvert(partner?.radioOwnerCitizenshipIssuedDate, partner?.ownerCitizenshipIssuedDateCT)}}</span>
+                                              name="issueDateOfPartner"
+                                              [value]="this.issueDate[i].issueDate"
+                                              placeholder=" "
+                                              type="text"/>
+                                <span class="print-only">{{this.issueDate ? this.issueDate[i].issueDate : ''}}</span>
                                 जिल्ला प्रशासन कार्यालय
                                 <input class="form-field form-control-sm d-print-none"
                                        name="issueDistrictOfPartner"
