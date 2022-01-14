@@ -127,7 +127,6 @@ export class SupplementaryAggrementProprietorshipComponent implements OnInit {
   fillForm() {
     // for sanction letter date
     if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
-      console.log('hire', this.cadData);
       if (this.cadData.offerDocumentList[0].docName === 'DDSL Without Subsidy' ||
           this.cadData.offerDocumentList[0].docName === 'Class A Sanction letter') {
         const dateOfApproval = this.initialInfo.sanctionLetterDateType ? this.initialInfo.sanctionLetterDateType.en : '';
