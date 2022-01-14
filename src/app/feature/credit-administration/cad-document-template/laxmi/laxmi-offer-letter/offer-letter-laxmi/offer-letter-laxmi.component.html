@@ -141,17 +141,18 @@
                                 </span>
                             </td>
                             <td>
-                                <!--                            <ckeditor formControlName="workingCapitalDrawDown"-->
-                                <!--                                      [config]="ckeConfig"></ckeditor>-->
-                                <textarea *ngIf="offerLetterForm?.get(['purpose', i, 'drawDownCheck'])?.value"
-                                          class="form-control nepaliFont form-field font-size-normal disable-print"
-                                          placeholder="स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमा"
-                                          [value]="offerLetterForm?.get(['purpose', i, 'drawDown'])?.value"
-                                          (change)="valueChange($event?.target?.value, i, 'drawDown')"
-                                          rows="4"></textarea>
-                                <span class="nepaliFont print-only" *ngIf="offerLetterForm?.get(['purpose', i, 'drawDownCheck'])?.value">
+                                <ng-container *ngIf="offerLetterForm?.get(['purpose', i, 'drawDownCheck'])?.value">
+                                    <!--                            <ckeditor formControlName="workingCapitalDrawDown"-->
+                                    <!--                                      [config]="ckeConfig"></ckeditor>-->
+                                    <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                                              placeholder="स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमा"
+                                              [value]="offerLetterForm?.get(['purpose', i, 'drawDown'])?.value"
+                                              (change)="valueChange($event?.target?.value, i, 'drawDown')"
+                                              rows="4"></textarea>
+                                    <span class="nepaliFont print-only" *ngIf="offerLetterForm?.get(['purpose', i, 'drawDownCheck'])?.value">
                                 <b>{{offerLetterForm?.get(['purpose', i, 'drawDown'])?.value ?
                                     offerLetterForm?.get(['purpose', i, 'drawDown'])?.value : '========='}}</b></span>
+                                </ng-container>
                             </td>
                         </tr>
 
@@ -167,8 +168,8 @@
                                 </span>
                             </td>
                             <td>
-                                <span *ngIf="!offerLetterForm?.get(['purpose', i, 'drawDownOtherPeriodCheck'])?.value &&
-                                        offerLetterForm?.get(['purpose', i, 'drawDownPeriodNeeded'])?.value">
+                                <ng-container *ngIf="offerLetterForm?.get(['purpose', i, 'drawDownPeriodNeeded'])?.value">
+                                    <span *ngIf="!offerLetterForm?.get(['purpose', i, 'drawDownOtherPeriodCheck'])?.value">
                                      प्रथम पटक/किस्ता कर्जा झिकेको मितिले
                                     <input type="text"
                                            [value]="offerLetterForm?.get(['purpose', i, 'drawDownDate'])?.value"
@@ -179,12 +180,12 @@
                                             offerLetterForm?.get(['purpose', i, 'drawDownDate']).value : '========='}}</b></span>
                                     महिना भित्र । जुन अवधिमा तिर्न वांकी कर्जामा पाकेको व्याज मासिक/त्रैमासिक रुपमा भुक्तानी गर्नु पर्नेछ ।
                                 </span>
-                                <span class="disable-print float-right">
+                                    <span class="disable-print float-right">
                                     <nb-checkbox (change)="otherValueCheck($event?.target?.checked, i, 'drawDownOtherPeriodCheck')"
                                                  [checked]="offerLetterForm?.get(['purpose', i, 'drawDownOtherPeriodCheck'])?.value"><i>Other</i>
                                     </nb-checkbox>
                                 </span>
-                                <span *ngIf="offerLetterForm?.get(['purpose', i, 'drawDownOtherPeriodCheck'])?.value">
+                                    <span *ngIf="offerLetterForm?.get(['purpose', i, 'drawDownOtherPeriodCheck'])?.value">
                                     <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
                                               placeholder="अन्य सांवाको किस्ता तिर्ने छुट अवधि"
                                               [value]="offerLetterForm?.get(['purpose', i, 'downPeriodValue'])?.value"
@@ -194,6 +195,7 @@
                                 <b>{{offerLetterForm?.get(['purpose', i, 'downPeriodValue'])?.value ?
                                     offerLetterForm?.get(['purpose', i, 'downPeriodValue'])?.value : '========='}}</b></span>
                                 </span>
+                                </ng-container>
                             </td>
                         </tr>
 
@@ -209,8 +211,8 @@
                                 </span>
                             </td>
                             <td>
-                                <span *ngIf="!offerLetterForm?.get(['purpose', i, 'moratariumOtherCheck'])?.value &&
-                                        offerLetterForm?.get(['purpose', i, 'moratariumPeriodNeeded'])?.value">
+                                <ng-container *ngIf="offerLetterForm?.get(['purpose', i, 'moratariumPeriodNeeded'])?.value">
+                                    <span *ngIf="!offerLetterForm?.get(['purpose', i, 'moratariumOtherCheck'])?.value">
                                     पहिलो किस्ता प्रवाह भएको मितिबाट सांवाको किस्ता तिर्न र पुरा कर्जा झिक्न
                                     <input type="text"
                                            [value]="offerLetterForm?.get(['purpose', i, 'moratariumMonth'])?.value"
@@ -221,12 +223,12 @@
                                             offerLetterForm?.get(['purpose', i, 'moratariumMonth']).value : '========='}}</b></span>
                                     महिनाको ग्रेस पिरियड उपलव्ध गराइनेछ । जुन अवधिमा तिर्न वांकी कर्जामा पाकेको व्याज मासिक/त्रैमासिक रुपमा भुक्तानी गर्नु पर्नेछ ।
                                 </span>
-                                <span class="disable-print float-right">
+                                    <span class="disable-print float-right">
                                     <nb-checkbox (change)="otherValueCheck($event?.target?.checked, i, 'moratariumOtherCheck')"
                                                  [checked]="offerLetterForm?.get(['purpose', i, 'moratariumOtherCheck'])?.value"><i>Other</i>
                                     </nb-checkbox>
                                 </span>
-                                <span *ngIf="offerLetterForm?.get(['purpose', i, 'moratariumOtherCheck'])?.value">
+                                    <span *ngIf="offerLetterForm?.get(['purpose', i, 'moratariumOtherCheck'])?.value">
                                     <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
                                               placeholder="अन्य कर्जा झिक्न पाउने अवधि"
                                               [value]="offerLetterForm?.get(['purpose', i, 'moratariumValue'])?.value"
@@ -234,8 +236,9 @@
                                               rows="4"></textarea>
                                     <span class="nepaliFont print-only">
                                         <b>{{offerLetterForm?.get(['purpose', i, 'moratariumValue'])?.value ?
-                                    offerLetterForm?.get(['purpose', i, 'moratariumValue'])?.value : '========='}}</b></span>
+                                            offerLetterForm?.get(['purpose', i, 'moratariumValue'])?.value : '========='}}</b></span>
                                 </span>
+                                </ng-container>
                             </td>
                         </tr>
 
@@ -322,8 +325,9 @@
                                     </nb-checkbox>
                                 </span>
                             </td>
-                            <td *ngIf="offerLetterForm?.get(['purpose', i, 'maturityNeeded'])?.value">
-                                <span *ngIf="data?.loanNature === 'Terminating'">
+                            <td>
+                                <ng-container *ngIf="offerLetterForm?.get(['purpose', i, 'maturityNeeded'])?.value">
+                                    <span *ngIf="data?.loanNature === 'Terminating'">
                                     मिति <input type="text"
                                                 [value]="offerLetterForm?.get(['purpose', i, 'maturityDate'])?.value"
                                                 class="nepaliFont form-field form-control-sm font-size-normal disable-print">
@@ -333,7 +337,7 @@
                                     गर्ने मिति जुनसुकै उल्लेख भएको भए पनि बैंकले माग गर्नासाथ बैंकको सम्पूर्ण लेना रकम
                                     भुक्तानी गर्नु पर्ने छ ।
                                 </span>
-                                <span *ngIf="data?.loanNature === 'Revolving'">
+                                    <span *ngIf="data?.loanNature === 'Revolving'">
                                     कर्जा प्रवाह भएको मितिले
                                     <input type="text"
                                            [value]="offerLetterForm?.get(['purpose', i, 'maturityDate'])?.value"
@@ -342,12 +346,12 @@
                                         <b>{{offerLetterForm?.get(['purpose', i, 'maturityDate'])?.value ? offerLetterForm?.get(['purpose', i, 'maturityDate'])?.value : '========='}}</b></span>
                                     सम्म हुनेछ ।
                                 </span>
-                                <span class="disable-print float-right">
+                                    <span class="disable-print float-right">
                                     <nb-checkbox (change)="otherValueCheck($event?.target?.checked, i, 'maturityOtherCheck')"
                                                  [checked]="offerLetterForm?.get(['purpose', i, 'maturityOtherCheck'])?.value"><i>Other</i>
                                     </nb-checkbox>
                                 </span>
-                                <span *ngIf="offerLetterForm?.get(['purpose', i, 'maturityOtherCheck'])?.value">
+                                    <span *ngIf="offerLetterForm?.get(['purpose', i, 'maturityOtherCheck'])?.value">
                                     <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
                                               placeholder="अन्य अवधि पुग्ने मिति"
                                               [value]="offerLetterForm?.get(['purpose', i, 'maturityValue'])?.value"
@@ -357,6 +361,7 @@
                                         <b>{{offerLetterForm?.get(['purpose', i, 'maturityValue'])?.value ?
                                             offerLetterForm?.get(['purpose', i, 'maturityValue'])?.value : '========='}}</b></span>
                                 </span>
+                                </ng-container>
                             </td>
                         </tr>
 <!--                        <tr>-->
