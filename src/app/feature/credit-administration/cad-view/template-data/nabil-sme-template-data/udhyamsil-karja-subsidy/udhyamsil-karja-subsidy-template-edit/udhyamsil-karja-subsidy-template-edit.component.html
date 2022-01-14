@@ -791,6 +791,7 @@
                     </ng-container>
                     <hr *ngIf="udhyamsilKarja.get('securities')['length'] > 1">
                 </div>
+                <app-required-legal-document-section #requiredLegalDocument [initialInformation]="initialInformation"></app-required-legal-document-section>
             </div>
         </form>
     </nb-card-body>
