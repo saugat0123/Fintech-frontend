@@ -5,4 +5,5 @@ export class ShareSecurity {
     data: string;
     version: number;
     customerShareData: Array<CustomerShareData>;
+    approvedData: string;
 }
