@@ -107,6 +107,7 @@ export class PersonalGuaranteeProprietorshipComponent implements OnInit {
                 if (ObjectUtil.isEmpty(individualGuarantorNepData)) {
                     return;
                 }
+                console.log('individualGuarantorNepData', individualGuarantorNepData);
                 (this.personalGuaranteeProprietorship.get('guaranteeCompanies') as FormArray).push(
                     this.formBuilder.group({
                         branchName: [this.loanHolderNepData.branch ? this.loanHolderNepData.branch.ct : ''],
@@ -138,9 +139,7 @@ export class PersonalGuaranteeProprietorshipComponent implements OnInit {
                         temporaryWard: [individualGuarantorNepData.temporaryWard ? individualGuarantorNepData.temporaryWard.ct : ''],
                         citizenshipNo: [individualGuarantorNepData.citizenNumber ? individualGuarantorNepData.citizenNumber.ct : ''],
                         issuedBy: [individualGuarantorNepData.issuedPlace ? individualGuarantorNepData.issuedPlace.ct : ''],
-                        issuedDate: [
-                            this.englishNepaliDatePipe.transform(individualGuarantorNepData.citizenIssuedDate.en.eDate ? individualGuarantorNepData.citizenIssuedDate.en.eDate : individualGuarantorNepData.citizenIssuedDate.en, true) || ''
-                        ],
+                        issuedDate: [!ObjectUtil.isEmpty(individualGuarantorNepData.citizenIssuedDate) ? this.englishNepaliDatePipe.transform((individualGuarantorNepData.citizenIssuedDate.en.eDate) ? (individualGuarantorNepData.citizenIssuedDate.en.eDate) : (individualGuarantorNepData.citizenIssuedDate.en), true) : '' || ''],
 
                         year: [todayDate[2]],
                         month: [todayDate[1]],
@@ -228,13 +227,22 @@ export class PersonalGuaranteeProprietorshipComponent implements OnInit {
     }
   setActYear() {
     let yearOfAct = '';
-    if (this.loanHolderNepData.radioActYearDate.en === 'AD') {
+    if (!ObjectUtil.isEmpty(this.loanHolderNepData.radioActYearDate.en === 'AD')) {
       yearOfAct = this.englishNepaliDatePipe.transform(this.loanHolderNepData.actYear.en ? this.loanHolderNepData.actYear.en : this.loanHolderNepData.actYear.en, true) || '' ;
     } else {
       yearOfAct = this.loanHolderNepData.actYear.en ? this.loanHolderNepData.actYear.en : '';
     }
     return yearOfAct ? yearOfAct : '';
   }
+  // setCitizenIssuedDate() {
+  //   let citizenIssuedDate = '';
+  //   if (!ObjectUtil.isEmpty(this.individualGuarantorNepData.radioActYearDate.en === 'AD')) {
+  //     citizenIssuedDate = this.englishNepaliDatePipe.transform(individualGuarantorNepData.citizenIssuedDate.en.eDate ? individualGuarantorNepData.citizenIssuedDate.en.eDate : individualGuarantorNepData.citizenIssuedDate.en, true) || '',
+  //   } else {
+  //     citizenIssuedDate = this.loanHolderNepData.actYear.en ? this.loanHolderNepData.actYear.en : '';
+  //   }
+  //   return citizenIssuedDate ? citizenIssuedDate : '';
+  // }
   setRegistrationDate() {
     let regDate = '';
     if (this.loanHolderNepData.registrationDateOption.en === 'AD') {
