@@ -54,20 +54,22 @@ export class ExposureComponent implements OnInit, OnChanges {
     }
 
     ngOnInit() {
-        this.initial();
     }
 
     initial() {
         if (!ObjectUtil.isEmpty(this.cadData)) {
-            this.customerLoanList = this.cadData.assignedLoan;
+            this.customerLoanList = this.cadData.   assignedLoan;
         }
         this.buildForm();
-        if (!ObjectUtil.isEmpty(this.cadData.exposure) && !ObjectUtil.isEmpty(this.cadData.exposure.data) && !this.isHistory) {
-            this.setDisbursementDetails();
-            const d = JSON.parse(this.cadData.exposure.data);
+        console.log(this.cadData);
+        if (!ObjectUtil.isEmpty(this.cadData.exposure) && !this.isHistory) {
+            if (!ObjectUtil.isEmpty(this.cadData.exposure.data)) {
+                this.setDisbursementDetails();
+                const d = JSON.parse(this.cadData.exposure.data);
 
-            if (!ObjectUtil.isEmpty(d.sccPath)) {
-                this.docScc = d.sccPath;
+                if (!ObjectUtil.isEmpty(d.sccPath)) {
+                    this.docScc = d.sccPath;
+                }
             }
         } else {
             this.addDisbursementDetail();

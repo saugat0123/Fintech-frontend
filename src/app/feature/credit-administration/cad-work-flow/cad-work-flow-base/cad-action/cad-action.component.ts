@@ -143,7 +143,6 @@ export class CadActionComponent implements OnInit, OnChanges {
                 }
             });
         } catch (e) {
-
         }
         if (LocalStorageUtil.getStorage().roleType === 'MAKER') {
             this.isMaker = true;
@@ -436,8 +435,10 @@ export class CadActionComponent implements OnInit, OnChanges {
         console.log('current status', this.currentStatus);
         if (this.currentStatus === 'OFFER_PENDING') {
             return 'DISBURSEMENT_PENDING';
+        } else if (this.currentStatus === 'DISBURSEMENT_PENDING') {
+            return 'OFFER_PENDING';
         } else {
-            return this.currentStatus;
+           return this.currentStatus;
         }
     }
 
@@ -461,8 +462,10 @@ export class CadActionComponent implements OnInit, OnChanges {
             if (this.returnToRm) {
                 return 'LIMIT_APPROVED';
             } else {
-                return 'LIMIT_PENDING';
+                return 'OFFER_PENDING';
             }
+        } else if (this.currentStatus === 'DISBURSEMENT_PENDING') {
+            return 'OFFER_PENDING';
         } else {
             return this.currentStatus;
         }
