@@ -22,6 +22,8 @@ import {OfferDocument} from '../../../../model/OfferDocument';
 import {LaxmiOfferLetterConst} from '../laxmi-offer-letter-const';
 import {CadDocStatus} from '../../../../model/CadDocStatus';
 import {Security} from '../../../../../loan/model/security';
+import {SiteVisit} from '../../../../../admin/modal/siteVisit';
+import {ShareSecurity} from '../../../../../admin/modal/shareSecurity';
 
 @Component({
     selector: 'app-offer-letter-laxmi',
@@ -74,24 +76,26 @@ export class OfferLetterLaxmiComponent implements OnInit {
     };
     ckeConfig = NepaliEditor.CK_CONFIG;
     existingOfferLetter = false;
-    securityData: Security;
-    singleSecurity = false;
+    multipleSecurity = false;
     selectedArray = [];
     arrayOfSubloan = [];
     test111 = [];
     subLoanData = [];
     loanType = [];
-
-    loanNotHavingSubloan = ['HOME EQUITY LINE OF CREDIT', 'HOME EQUITY INSTALLMENT OF CREDIT', 'HOME EQUITY INSTALLMENT OF CREDIT - LITE',
-        'BRIDGE GAP LOAN', 'LETTER OF CREDIT', 'HIRE PURCHASE LOAN', 'COMMERCIAL AUTO LOAN', 'PERSONAL LOAN', 'EDUCATIONAL LOAN', 'AGMI'];
-    loanHavingSubLoan = ['OVERDRAFT', 'DEMAND LOAN', 'TERM LOAN', 'TRUST RECEIPT LOAN', 'HOME LOAN', 'BANK GUARANTEE',
-        'SANA BYAWASAI KARJA', 'SANA BYAWASAI KARJA - LITE'];
     commissionTime = ['त्रैमासिक', 'मासिक', 'Other'];
     loanWithSubloan = [];
     loanNature = [];
     loanWithOutSubLoan = [];
     proposalData = [];
     commissionFrequency = [];
+    securityPresent = false;
+    siteVisitPresent = false;
+    currentAssetstPresent = false;
+    isCollateral = false;
+    securityData;
+    shareData;
+    landSecurity;
+    landBuildingSecurity;
 
     constructor(private formBuilder: FormBuilder,
                 private administrationService: CreditAdministrationService,
@@ -111,7 +115,6 @@ export class OfferLetterLaxmiComponent implements OnInit {
         this.buildForm();
         this.parseAssignedLoanData();
         this.checkOfferLetter();
-        this.addFixedAssetsCollateral();
     }
 
     checkOfferLetter() {
@@ -351,6 +354,9 @@ export class OfferLetterLaxmiComponent implements OnInit {
             representation: this.formBuilder.array([]),
             acceptance: this.formBuilder.array([]),
             precedent: this.formBuilder.array([]),
+            security: this.formBuilder.array([]),
+            shareSecurity: this.formBuilder.array([]),
+            vehicleSecurity: this.formBuilder.array([]),
         });
     }
 
@@ -361,14 +367,14 @@ export class OfferLetterLaxmiComponent implements OnInit {
             this.cadData.offerDocumentList.forEach(singleCadFile => {
                 if (singleCadFile.docName.toString() ===
                     this.offerLetterConst.value(this.offerLetterConst.OFFER_LETTER).toString()) {
-                    this.offerLetterForm.get('subLoanType').patchValue(this.arrayOfSubloan);
+                    // this.offerLetterForm.get('subLoanType').patchValue(this.arrayOfSubloan);
                     singleCadFile.initialInformation = JSON.stringify(this.offerLetterForm.value);
                 }
             });
         } else {
             const offerDocument = new OfferDocument();
             offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.OFFER_LETTER);
-            this.offerLetterForm.get('subLoanType').patchValue(this.arrayOfSubloan);
+            // this.offerLetterForm.get('subLoanType').patchValue(this.arrayOfSubloan);
             offerDocument.initialInformation = JSON.stringify(this.offerLetterForm.value);
             this.cadData.offerDocumentList.push(offerDocument);
         }
@@ -427,24 +433,6 @@ export class OfferLetterLaxmiComponent implements OnInit {
         }
     }
 
-    addFixedAssetsCollateral() {
-        const data = this.offerLetterForm.get('fixedAssetsCollateral') as FormArray;
-        data.push(
-            this.formBuilder.group({
-                landOwnerName: [undefined],
-                securityDistrict: [undefined],
-                securityVdc: [undefined],
-                securityWard: [undefined],
-                securityKitta: [undefined],
-                securityArea: [undefined],
-            })
-        );
-    }
-
-    removeFixedAssetsCollateral(i) {
-        (<FormArray>this.offerLetterForm.get('fixedAssetsCollateral')).removeAt(i);
-    }
-
     valueChange(value, i, formControlName) {
         console.log('value change');
         console.log('checked', value, 'i', i, 'value',  formControlName);
@@ -485,7 +473,6 @@ export class OfferLetterLaxmiComponent implements OnInit {
     }
 
     otherValueCheck(checked, i, formControlName) {
-        console.log('other value checked');
         console.log('checked', checked, 'i', i, 'value',  formControlName);
         switch (formControlName) {
             case 'drawDownCheck':
@@ -573,21 +560,139 @@ export class OfferLetterLaxmiComponent implements OnInit {
     parseAssignedLoanData() {
         if (!ObjectUtil.isEmpty(this.cadData)) {
             this.cadData.assignedLoan.forEach((l, i) => {
+                console.log('assigned Loan', l);
                 this.addPurpose(l);
+            });
+            const security: Security = this.cadData.loanHolder.security;
+            // const siteVisit: SiteVisit = this.cadData.loanHolder.siteVisit;
+            // console.log('siteVisit', siteVisit);
+            // if (!ObjectUtil.isEmpty(siteVisit)) {
+            //     this.siteVisitPresent = true;
+            //     const siteVisitData = JSON.parse(siteVisit.data);
+            //     if (siteVisitData.currentAssetsInspectionFormChecked) {
+            //         this.currentAssetstPresent = true;
+            //     }
+            //     console.log('siteVisitData', siteVisitData);
+            // }
+            if (!ObjectUtil.isEmpty(security)) {
+                this.securityPresent = true;
+                this.securityData = JSON.parse(security.data);
+                this.selectedArray = this.securityData.selectedArray;
+                if (this.selectedArray.length > 0) {
+                    this.multipleSecurity = true;
+                }
+                if (this.securityData.collateralSiteVisit) {
+                    this.isCollateral = true;
+                }
+            }
+            const shareSecurity: ShareSecurity = this.cadData.loanHolder.shareSecurity;
+            if (!ObjectUtil.isEmpty(shareSecurity)) {
+                this.shareData = JSON.parse(shareSecurity.data);
+                console.log('shareData', this.shareData);
+            }
+
+            // security Data patch
+            this.selectedArray.forEach(s => {
+                if (s === 'LandSecurity') {
+                    this.addSecurity(this.securityData['initialForm']['landDetails']);
+                }
+                if (s === 'Land and Building Security') {
+                    this.addSecurity(this.securityData['initialForm']['landBuilding']);
+                }
+                if (s === 'VehicleSecurity') {
+                    this.addVehicleSecurity(this.securityData['initialForm']['vehicleDetails']);
+                }
+                if (s === 'ShareSecurity') {
+                    this.addShareSecurity(this.shareData);
+                }
             });
         }
     }
 
+    addSecurity(data) {
+        const security = this.offerLetterForm.get('security') as FormArray;
+        if (!ObjectUtil.isEmpty(data)) {
+            data.forEach(d => {
+                security.push(
+                    this.formBuilder.group({
+                        ownerName: [undefined],
+                        district: [undefined],
+                        vdc: [undefined],
+                        wardNo: [undefined],
+                        plotNumber: [d.plotNumber],
+                        area: [d.area]
+                    })
+                );
+            });
+        }
+    }
 
-    addPurpose(data1) {
-        console.log('data1', data1);
-        const data = this.offerLetterForm.get('purpose') as FormArray;
-        data.push(
+    addShareSecurity(data) {
+        const shareSecurityDetail = data.shareSecurityDetails;
+        const security = this.offerLetterForm.get('shareSecurity') as FormArray;
+        if (!ObjectUtil.isEmpty(shareSecurityDetail)) {
+            shareSecurityDetail.forEach(d => {
+                security.push(
+                    this.formBuilder.group({
+                        shareHolderName: [undefined],
+                        companyName: [d.companyName],
+                        totalShareUnit: [d.totalShareUnit],
+                        shareType: [d.shareType],
+                    })
+                );
+            });
+        }
+        console.log(this.offerLetterForm.get('shareSecurity').value);
+    }
+
+    addVehicleSecurity(data) {
+        const security = this.offerLetterForm.get('vehicleSecurity') as FormArray;
+        if (!ObjectUtil.isEmpty(data)) {
+            data.forEach(d => {
+                security.push(
+                    this.formBuilder.group({
+                        vehicleDetail: [undefined],
+                        engineNumber: [d.engineNumber],
+                        chassisNumber: [d.chassisNumber],
+                        model: [d.model]
+                    })
+                );
+            });
+        }
+        console.log(this.offerLetterForm.get('vehicleSecurity').value);
+    }
+
+    securityValueChange(value: any, i: number, formControlName) {
+        switch (formControlName) {
+            case 'ownerName':
+                this.offerLetterForm.get(['security', i, 'ownerName']).patchValue(value);
+                break;
+            case 'district':
+                this.offerLetterForm.get(['security', i, 'district']).patchValue(value);
+                break;
+            case 'vdc':
+                this.offerLetterForm.get(['security', i, 'vdc']).patchValue(value);
+                break;
+            case 'wardNo':
+                this.offerLetterForm.get(['security', i, 'wardNo']).patchValue(value);
+                break;
+            case 'vehicleDetail':
+                this.offerLetterForm.get(['vehicleSecurity', i, 'vehicleDetail']).patchValue(value);
+                break;
+            case 'shareHolderName':
+                this.offerLetterForm.get(['shareSecurity', i, 'shareHolderName']).patchValue(value);
+                break;
+        }
+    }
+
+    addPurpose(data) {
+        const purposeData = this.offerLetterForm.get('purpose') as FormArray;
+        purposeData.push(
             this.formBuilder.group({
-                loan: [data1.loan.name],
-                isFunded: [data1.loan.isFunded],
-                loanNature: [data1.loan.loanNature],
-                loanType: [data1.loan.loanType],
+                loan: [data.loan.name],
+                isFunded: [data.loan.isFunded],
+                loanNature: [data.loan.loanNature],
+                loanType: [data.loan.loanType],
                 purpose: [undefined],
                 drawDown: [undefined],
                 drawDownCheck: [true],
@@ -608,7 +713,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
                 termMonth: [undefined],
                 periodValue: [undefined],
                 rate: [undefined],
-                commissionFrequency: [data1.proposal.commissionFrequency],
+                commissionFrequency: [data.proposal.commissionFrequency],
                 commissionOther: [undefined],
                 commissionOtherChecked: [undefined],
                 creditRate: [undefined],
