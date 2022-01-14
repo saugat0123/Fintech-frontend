@@ -89,14 +89,12 @@ export class LoanActionModalComponent implements OnInit {
     public getHsovRole() {
         this.roleService.getHSOVRoles().subscribe((res: any) => {
             this.hsovRole = res.detail;
-            console.log('hsov role respinse', this.hsovRole);
         });
     }
 
     public getHsovUserList() {
         this.userService.getUserListByRoleHSOV().subscribe((res: any) => {
             this.hsovUserList = res.detail;
-            console.log('hsov role list', this.hsovUserList);
         });
     }
 
@@ -105,10 +103,8 @@ export class LoanActionModalComponent implements OnInit {
         this.isEmptyUser = false;
         this.showUserList = true;
         this.roleService.detail(role.id).subscribe((res: any) => {
-            console.log('role service', res.detail);
             role = res.detail;
             this.userService.getUserListByRoleIdAndBranchIdForDocumentAction(role.id, this.branchId).subscribe((response: any) => {
-                console.log('user list detail', response);
                 this.userList = response.detail;
                 if (this.userList.length === 0) {
                     this.isEmptyUser = true;

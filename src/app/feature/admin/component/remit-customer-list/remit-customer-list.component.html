@@ -128,7 +128,7 @@
                     <td *ngIf="transferDoc">{{(model?.shipped | enumConvertPipe) || 'Not Transferred'}}</td>
                     <td>
                         <ng-container *ngIf="user.roleType ==='MAKER' && !model.alreadyOnBoarded">
-                            <button nbTooltip="Insert in our db" (click)="addMember($event, model,confirmOnBoard)"
+                            <button nbTooltip="Onboard Customer To Credit-X" (click)="addMember($event, model,confirmOnBoard)"
                                     *ngIf="!model?.alreadyOnboarded && model?.shipped === 'BANK'"
                                     class="m-1"
                                     nbButton size="tiny"
