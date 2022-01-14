@@ -11,14 +11,14 @@
                                formControlName="nameOfBranchLocated"
                                placeholder=" "
                                type="text"/>
-                        <span class="print-only">{{this.individualData.branch ? this.individualData.branch.ct : '______________________'}}</span>
+                        <span class="print-only">{{this.individualData?.branch ? this.individualData?.branch.ct : '______________________'}}</span>
                         मा शाखा कार्यालय रहेको <strong>नबिल बैंक लिमिटेड </strong>
                         (जसलाई यस उप्रान्त <strong>"धनी बैंक"</strong> भनिएको छ) लिखत गरी दिने ऋणीका नाम
                         <input class="form-field form-control-sm d-print-none"
                                name="actName"
                                formControlName="actName"
                                type="text"/>
-                        <span class="print-only">{{this.individualData.actName ? this.individualData.actName.ct : '______________________'}}</span>
+                        <span class="print-only">{{this.individualData?.actName ? this.individualData?.actName.ct : '______________________'}}</span>
                         ऐन<input class="form-field form-control-sm d-print-none"
                                  name="yearInFigure"
                                  formControlName="yearInFigure"
@@ -30,13 +30,13 @@
                                formControlName="nameOfAuthorizedBody"
                                placeholder=" "
                                type="text"/>
-                        <span class="print-only">{{this.individualData.authorizedBodyName ? this.individualData.authorizedBodyName.ct : '______________________'}}</span>
+                        <span class="print-only">{{this.individualData?.authorizedBodyName ? this.individualData?.authorizedBodyName.ct : '______________________'}}</span>
                         <input class="form-field form-control-sm d-print-none"
                                name="nameOfDepartment"
                                formControlName="nameOfDepartment"
                                placeholder=" "
                                type="text"/>
-                        <span class="print-only">{{this.individualData.registeredWith ? this.individualData.registeredWith.ct : '______________________'}}</span>
+                        <span class="print-only">{{this.individualData?.registeredWith ? this.individualData?.registeredWith.ct : '______________________'}}</span>
                         विभाग/कार्यालयमा मिति<input class="form-field form-control-sm d-print-none"
                                                     name="dateOfRegistration"
                                                     formControlName="dateOfRegistration"
@@ -49,13 +49,13 @@
                                             formControlName="registrationNo"
                                             placeholder=" "
                                             type="text"/>
-                        <span class="print-only">{{this.individualData.registrationNo ? this.individualData.registrationNo.ct : '______________________'}}</span>
+                        <span class="print-only">{{this.individualData?.registrationNo ? this.individualData?.registrationNo.ct : '______________________'}}</span>
                         कायम भएको श्री<input class="form-field form-control-sm d-print-none"
                                              name="firmName"
                                              formControlName="firmName"
                                              placeholder=" "
                                              type="text"/>
-                        <span class="print-only">{{this.individualData.name ? this.individualData.name.ct : '______________________'}}</span>
+                        <span class="print-only">{{this.individualData?.name ? this.individualData?.name.ct : '______________________'}}</span>
                         साझेदारी फर्मका साझेदारहरु
                         <ng-container *ngFor="let partner of companyInfo; let i = index">
                             <ng-container *ngIf="partner?.ownerGender === 'MALE' ||
