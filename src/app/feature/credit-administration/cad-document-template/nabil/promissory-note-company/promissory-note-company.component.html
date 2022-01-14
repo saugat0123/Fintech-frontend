@@ -15,7 +15,7 @@
                                                                         placeholder="मिति" type="text"
                                                                         readonly="readonly" />
                                                                 <span
-                                                                        class=" print-only font-weight-bold  font-size-normal1">{{form.get('date').value ? form.get('date').value : " _________________"}}</span>
+                                                                        class=" print-only font-weight-bold  font-size-normal1">{{form?.get('date')?.value ? form?.get('date')?.value : " _________________"}}</span>
 
                                                         </p>
                                                         <div style="border: 1px solid black" class="p-2 mb-5 mt-5">
@@ -25,7 +25,7 @@
                                                                         formControlName="loanamountinFigure"
                                                                         placeholder="" type="text" />
                                                                 <span
-                                                                        class="print-only font-weight-bold">{{ form.get('loanamountinFigure').value ? form.get('loanamountinFigure').value : '___________________________________________________'}}</span>
+                                                                        class="print-only font-weight-bold">{{ form?.get('loanamountinFigure')?.value ? form?.get('loanamountinFigure')?.value : '___________________________________________________'}}</span>
                                                                 <br>
 
                                                                 (अक्षरेपी <input
@@ -33,7 +33,7 @@
                                                                         name="loanamountinWords"
                                                                         formControlName="loanamountinWords"
                                                                         placeholder="" type="text" /><span
-                                                                        class="print-only font-weight-bold">{{ form.get('loanamountinWords').value ? form.get('loanamountinWords').value : '_________________'}}</span>
+                                                                        class="print-only font-weight-bold">{{ form?.get('loanamountinWords')?.value ? form?.get('loanamountinWords')?.value : '_________________'}}</span>
                                                                 मात्र ।)</strong>
                                                         </p>
                                                 </div>
@@ -43,47 +43,47 @@
                                                                         name="actDetails" formControlName="actDetails"
                                                                         placeholder="" type="text" />
                                                                 <span
-                                                                        class="print-only font-weight-bold">{{ form.get('actDetails').value ? form.get('actDetails').value : '_________________'}}</span>
+                                                                        class="print-only font-weight-bold">{{ form?.get('actDetails')?.value ? form?.get('actDetails')?.value : '_________________'}}</span>
                                                                 ऐन <input
                                                                         class="form-field form-control-sm disable-print"
                                                                         name="actDate" formControlName="actDate"
                                                                         placeholder="" type="text" /> 
                                                                 <span
-                                                                        class="print-only font-weight-bold" >{{ form.get('actDate').value ? form.get('actDate').value : '_________________'}}</span>
+                                                                        class="print-only font-weight-bold" >{{ form?.get('actDate')?.value ? form?.get('actDate')?.value : '_________________'}}</span>
                                                                 बमोजिम नेपाल सरकार <input
                                                                         class="form-field form-control-sm  disable-print"
                                                                         name="headName" formControlName="headName"
                                                                         placeholder="" type="text" />
                                                                 <span
-                                                                        class="print-only font-weight-bold">{{ form.get('headName').value ? form.get('headName').value : '_________________'}}</span>
+                                                                        class="print-only font-weight-bold">{{ form?.get('headName')?.value ? form?.get('headName')?.value : '_________________'}}</span>
                                                                 मा मिति <input
                                                                         class="form-field form-control-sm  disable-print"
                                                                         name="registrationDate"
                                                                         formControlName="registrationDate"
                                                                         placeholder="" type="text" />
                                                                 <span
-                                                                        class="print-only font-weight-bold">{{ form.get('registrationDate').value ? form.get('registrationDate').value : '_________________'}}</span>
+                                                                        class="print-only font-weight-bold">{{ form?.get('registrationDate')?.value ? form?.get('registrationDate')?.value : '_________________'}}</span>
                                                                 मा दर्ता नं. <input
                                                                         class="form-field form-control-sm  disable-print"
                                                                         name="registrationNumber"
                                                                         formControlName="registrationNumber"
                                                                         placeholder="" type="text" />
                                                                 <span
-                                                                        class="print-only font-weight-bold">{{ form.get('registrationNumber').value ? form.get('registrationNumber').value : '_________________'}}</span>
+                                                                        class="print-only font-weight-bold">{{ form?.get('registrationNumber')?.value ? form?.get('registrationNumber')?.value : '_________________'}}</span>
                                                                 अन्तर्गत दर्ता भइ <input
                                                                         class="form-field form-control-sm  disable-print"
                                                                         name="firmDistrict"
                                                                         formControlName="firmDistrict" placeholder=""
                                                                         type="text" />
                                                                 <span
-                                                                        class="print-only font-weight-bold">{{ form.get('firmDistrict').value ? form.get('firmDistrict').value : '_________________'}}</span>
+                                                                        class="print-only font-weight-bold">{{ form?.get('firmDistrict')?.value ? form?.get('firmDistrict')?.value : '_________________'}}</span>
                                                                 जिल्ला, <input
                                                                         class="form-field form-control-sm  disable-print"
                                                                         name="companyVDCMunci"
                                                                         formControlName="companyVDCMunci" placeholder=""
                                                                         type="text" />
                                                                 <span
-                                                                        class="print-only font-weight-bold">{{ form.get('companyVDCMunci').value ? form.get('companyVDCMunci').value : '_________________'}}</span>
+                                                                        class="print-only font-weight-bold">{{ form?.get('companyVDCMunci')?.value ? form?.get('companyVDCMunci')?.value : '_________________'}}</span>
                                                                         <span *ngIf="this.loanHolderNepData.registeredMunType.en === '0'">
                                                                                 न.पा. ,
                                                                             </span>
@@ -98,25 +98,25 @@
                                                                         formControlName="firmWardNumber" placeholder=""
                                                                         type="text" />
                                                                 <span
-                                                                        class="print-only font-weight-bold">{{ form.get('firmWardNumber').value ? form.get('firmWardNumber').value : '_________________'}}</span>
+                                                                        class="print-only font-weight-bold">{{ form?.get('firmWardNumber')?.value ? form?.get('firmWardNumber')?.value : '_________________'}}</span>
                                                                 <input class="form-field form-control-sm  disable-print"
                                                                         name="firmAddress" formControlName="firmAddress"
                                                                         placeholder="" type="text" />
                                                                 <span
-                                                                        class="print-only font-weight-bold">{{ form.get('firmAddress').value ? form.get('firmAddress').value : '_________________'}}</span>
+                                                                        class="print-only font-weight-bold">{{ form?.get('firmAddress')?.value ? form?.get('firmAddress')?.value : '_________________'}}</span>
                                                                 रजिष्टर्ड कार्यालय रहेकोे श्री
                                                                 <input class="form-field form-control-sm  disable-print"
                                                                         name="companyName" formControlName="companyName"
                                                                         placeholder="" type="text" />
                                                                 <span
-                                                                        class="print-only font-weight-bold">{{ form.get('companyName').value ? form.get('companyName').value : '_________________'}}</span>
+                                                                        class="print-only font-weight-bold">{{ form?.get('companyName')?.value ? form?.get('companyName')?.value : '_________________'}}</span>
                                                                 को अख्तियार प्राप्त
                                                                 <input class="form-field form-control-sm  disable-print"
                                                                         name="grandfatherName"
                                                                         formControlName="grandfatherName" placeholder=""
                                                                         type="text" />
                                                                 <span
-                                                                        class="print-only font-weight-bold">{{ form.get('grandfatherName').value ? form.get('grandfatherName').value : '_________________'}}</span>
+                                                                        class="print-only font-weight-bold">{{ form?.get('grandfatherName')?.value ? form?.get('grandfatherName')?.value : '_________________'}}</span>
                                                                 को <ng-container *ngFor="let i of tempProprietor">
                                                                         <span *ngIf="i?.ownerGender === 'MALE'">नाति </span>
                                                                         <span
@@ -128,7 +128,7 @@
                                                                         name="fatherName" formControlName="fatherName"
                                                                         placeholder="" type="text" />
                                                                 <span
-                                                                        class="print-only font-weight-bold">{{ form.get('fatherName').value ? form.get('fatherName').value : '_________________'}}</span>
+                                                                        class="print-only font-weight-bold">{{ form?.get('fatherName')?.value ? form?.get('fatherName')?.value : '_________________'}}</span>
                                                                 को 
                                                                 <ng-container *ngFor="let i of tempProprietor">
                                                                         <span *ngIf="i?.ownerGender === 'MALE'">छोरा </span>
@@ -141,14 +141,14 @@
                                                                         name="district" formControlName="district"
                                                                         placeholder="" type="text" />
                                                                 <span
-                                                                        class="print-only font-weight-bold">{{ form.get('district').value ? form.get('district').value : '_________________'}}</span>
+                                                                        class="print-only font-weight-bold">{{ form?.get('district')?.value ? form?.get('district')?.value : '_________________'}}</span>
                                                                 जिल्ला
                                                                 <input class="form-field form-control-sm  disable-print"
                                                                         name="municipality"
                                                                         formControlName="municipality" placeholder=""
                                                                         type="text" />
                                                                 <span
-                                                                        class="print-only font-weight-bold">{{ form.get('municipality').value ? form.get('municipality').value : '_________________'}}</span>
+                                                                        class="print-only font-weight-bold">{{ form?.get('municipality')?.value ? form?.get('municipality')?.value : '_________________'}}</span>
                                                                         <span *ngIf="this.loanHolderNepData.registeredMunType.en === '0'">
                                                                                 न.पा. ,
                                                                             </span>
@@ -162,14 +162,14 @@
                                                                         name="wardNumber" formControlName="wardNumber"
                                                                         placeholder="" type="text" />
                                                                 <span
-                                                                        class="print-only font-weight-bold">{{ form.get('wardNumber').value ? form.get('wardNumber').value : '_________________'}}</span>
+                                                                        class="print-only font-weight-bold">{{ form?.get('wardNumber')?.value ? form?.get('wardNumber')?.value : '_________________'}}</span>
                                                                 बस्ने बर्ष 
                                                                 <input class="form-field form-control-sm  disable-print"
                                                                         name="authorizedPersonAge"
                                                                         formControlName="authorizedPersonAge"
                                                                         placeholder="" type="text" />
                                                                 <span
-                                                                        class="print-only font-weight-bold">{{ form.get('authorizedPersonAge').value ? form.get('authorizedPersonAge').value : '_________________'}}</span>
+                                                                        class="print-only font-weight-bold">{{ form?.get('authorizedPersonAge')?.value ? form?.get('authorizedPersonAge')?.value : '_________________'}}</span>
                                                                         <ng-container *ngFor="let i of tempProprietor">
                                                                                 <span *ngIf="i?.ownerGender === 'MALE'"> को </span>
                                                                                 <span *ngIf="i?.ownerGender === 'FEMALE'"> की </span>
@@ -184,28 +184,28 @@
                                                                         formControlName="directorName" placeholder=""
                                                                         type="text" />
                                                                 <span
-                                                                        class="print-only font-weight-bold">{{ form.get('directorName').value ? form.get('directorName').value : '_________________'}}</span>
+                                                                        class="print-only font-weight-bold">{{ form?.get('directorName')?.value ? form?.get('directorName')?.value : '_________________'}}</span>
                                                                 (ना.प्र.नं.
                                                                 <input class="form-field form-control-sm  disable-print"
                                                                         name="directorCitizenshipNumber"
                                                                         formControlName="directorCitizenshipNumber"
                                                                         placeholder="" type="text" />
                                                                 <span
-                                                                        class="print-only font-weight-bold">{{ form.get('directorCitizenshipNumber').value ? form.get('directorCitizenshipNumber').value : '_________________'}}</span>
+                                                                        class="print-only font-weight-bold">{{ form?.get('directorCitizenshipNumber')?.value ? form?.get('directorCitizenshipNumber')?.value : '_________________'}}</span>
                                                                 , जारी मिति
                                                                 <input class="form-field form-control-sm  disable-print"
                                                                         name="directorCitizenshipIssueDate"
                                                                         formControlName="directorCitizenshipIssueDate"
                                                                         placeholder="" type="text" />
                                                                 <span
-                                                                        class="print-only font-weight-bold">{{ form.get('directorCitizenshipIssueDate').value ? form.get('directorCitizenshipIssueDate').value : '_________________'}}</span>
+                                                                        class="print-only font-weight-bold">{{ form?.get('directorCitizenshipIssueDate')?.value ? form?.get('directorCitizenshipIssueDate')?.value : '_________________'}}</span>
                                                                 , जारी गर्ने कार्यालय
                                                                 <input class="form-field form-control-sm  disable-print"
                                                                         name="directorCitizenshipIssueDistrict"
                                                                         formControlName="directorCitizenshipIssueDistrict"
                                                                         placeholder="" type="text" />
                                                                 <span
-                                                                        class="print-only font-weight-bold">{{ form.get('directorCitizenshipIssueDistrict').value ? form.get('directorCitizenshipIssueDistrict').value : '_________________'}}</span>
+                                                                        class="print-only font-weight-bold">{{ form?.get('directorCitizenshipIssueDistrict')?.value ? form?.get('directorCitizenshipIssueDistrict')?.value : '_________________'}}</span>
                                                                 )–१ आगे, तपाई श्री नविल बैंक लिमिटेडले भुक्तानी माग
                                                                 गरेका बखत तपाईलाई वा तपाईले निर्देशन
                                                                 दिएको वा अह्राएको ब्यक्ति/संस्थालाई <strong>रु.
@@ -214,20 +214,20 @@
                                                                         formControlName="loanamountinFigure"
                                                                         placeholder="" type="text" />
                                                                 <span
-                                                                        class="print-only font-weight-bold">{{ form.get('loanamountinFigure').value ? form.get('loanamountinFigure').value : '_________________'}}</span>
+                                                                        class="print-only font-weight-bold">{{ form?.get('loanamountinFigure')?.value ? form?.get('loanamountinFigure')?.value : '_________________'}}</span>
                                                                 । (अक्षरेपी
                                                                 <input class="form-field form-control-sm  disable-print col-3"
                                                                         name="loanamountinWords"
                                                                         formControlName="loanamountinWords"
                                                                         placeholder="" type="text" />
                                                                 <span
-                                                                        class="print-only font-weight-bold">{{ form.get('loanamountinWords').value ? form.get('loanamountinWords').value : '_________________'}}</span>
+                                                                        class="print-only font-weight-bold">{{ form?.get('loanamountinWords')?.value ? form?.get('loanamountinWords')?.value : '_________________'}}</span>
                                                                 मात्र ।)</strong> र भुक्तानी हुने दिन सम्मको बार्षिक
                                                                 <input class="form-field form-control-sm  disable-print col-3"
                                                                         name="interest" formControlName="interest"
                                                                         placeholder="" type="text" />
                                                                 <span
-                                                                        class="print-only font-weight-bold">{{ form.get('interest').value ? form.get('interest').value : '_________________'}}</span>
+                                                                        class="print-only font-weight-bold">{{ form?.get('interest')?.value ? form?.get('interest')?.value : '_________________'}}</span>
                                                                 प्रतिशतका दरले हुने व्याज रकम समेत एकमुष्ट तिर्न बुझाउन
                                                                 प्रतिज्ञा/कवुल गरी यो
                                                                 प्रतिज्ञापत्रको लिखत गरी तपाई नविल बैंक लिमिटेड, शाखा
@@ -236,7 +236,7 @@
                                                                         name="branchName" formControlName="branchName"
                                                                         placeholder="" type="text" />
                                                                 <span
-                                                                        class="print-only font-weight-bold">{{ form.get('branchName').value ? form.get('branchName').value : '_________________'}}</span>
+                                                                        class="print-only font-weight-bold">{{ form?.get('branchName')?.value ? form?.get('branchName')?.value : '_________________'}}</span>
                                                                 लाई दिएँ/दियौं ।
                                                         </p>
                                                         <div class="clearfix">
@@ -259,70 +259,70 @@
                                                                                 formControlName="witnessDistrict"
                                                                                 placeholder="" type="text" />
                                                                         <span
-                                                                                class="print-only font-weight-bold"> {{ form.get('witnessDistrict').value ? form.get('witnessDistrict').value : '_________________'}}</span>
+                                                                                class="print-only font-weight-bold"> {{ form?.get('witnessDistrict')?.value ? form?.get('witnessDistrict')?.value : '_________________'}}</span>
                                                                         जिल्ला <input
                                                                                 class="form-field form-control-sm  disable-print"
                                                                                 name="witnessMunicipality"
                                                                                 formControlName="witnessMunicipality"
                                                                                 placeholder="" type="text" />
                                                                         <span
-                                                                                class="print-only font-weight-bold"> {{ form.get('witnessMunicipality').value ? form.get('witnessMunicipality').value : '_________________'}}</span>
+                                                                                class="print-only font-weight-bold"> {{ form?.get('witnessMunicipality')?.value ? form?.get('witnessMunicipality')?.value : '_________________'}}</span>
                                                                         न.पा/गा.वि.स. वडा नं.
                                                                         <input class="form-field form-control-sm  disable-print"
                                                                                 name="WitnessWardNumber"
                                                                                 formControlName="WitnessWardNumber"
                                                                                 placeholder="" type="text" />
                                                                         <span
-                                                                                class="print-only font-weight-bold"> {{ form.get('WitnessWardNumber').value ? form.get('WitnessWardNumber').value : '_________________'}}</span>
+                                                                                class="print-only font-weight-bold"> {{ form?.get('WitnessWardNumber')?.value ? form?.get('WitnessWardNumber')?.value : '_________________'}}</span>
                                                                         बस्ने बर्ष <input
                                                                                 class="form-field form-control-sm  disable-print"
                                                                                 name="witnessAge"
                                                                                 formControlName="witnessAge"
                                                                                 placeholder="" type="text" />
                                                                         <span
-                                                                                class="print-only font-weight-bold"> {{ form.get('witnessAge').value ? form.get('witnessAge').value : '_________________'}}</span>
+                                                                                class="print-only font-weight-bold"> {{ form?.get('witnessAge')?.value ? form?.get('witnessAge')?.value : '_________________'}}</span>
                                                                         को/की <input
                                                                                 class="form-field form-control-sm  disable-print"
                                                                                 name="witnessName"
                                                                                 formControlName="witnessName"
                                                                                 placeholder="" type="text" />
                                                                         <span
-                                                                                class="print-only font-weight-bold"> {{ form.get('witnessName').value ? form.get('witnessName').value : '_________________'}}</span>
+                                                                                class="print-only font-weight-bold"> {{ form?.get('witnessName')?.value ? form?.get('witnessName')?.value : '_________________'}}</span>
                                                                 </p>
                                                                 <p>२. <input class="form-field form-control-sm  disable-print"
                                                                                 name="witnessDistrict"
                                                                                 formControlName="witnessDistrict2"
                                                                                 placeholder="" type="text" />
                                                                         <span
-                                                                                class="print-only font-weight-bold"> {{ form.get('witnessDistrict2').value ? form.get('witnessDistrict2').value : '_________________'}}</span>
+                                                                                class="print-only font-weight-bold"> {{ form?.get('witnessDistrict2')?.value ? form?.get('witnessDistrict2')?.value : '_________________'}}</span>
                                                                         जिल्ला <input
                                                                                 class="form-field form-control-sm  disable-print"
                                                                                 name="witnessMunicipality"
                                                                                 formControlName="witnessMunicipality2"
                                                                                 placeholder="" type="text" />
                                                                         <span
-                                                                                class="print-only font-weight-bold"> {{ form.get('witnessMunicipality2').value ? form.get('witnessMunicipality2').value : '_________________'}}</span>
+                                                                                class="print-only font-weight-bold"> {{ form?.get('witnessMunicipality2')?.value ? form?.get('witnessMunicipality2')?.value : '_________________'}}</span>
                                                                         न.पा/गा.वि.स. वडा नं.
                                                                         <input class="form-field form-control-sm  disable-print"
                                                                                 name="WitnessWardNumber"
                                                                                 formControlName="WitnessWardNumber2"
                                                                                 placeholder="" type="text" />
                                                                         <span
-                                                                                class="print-only font-weight-bold"> {{ form.get('WitnessWardNumber2').value ? form.get('WitnessWardNumber2').value : '_________________'}}</span>
+                                                                                class="print-only font-weight-bold"> {{ form?.get('WitnessWardNumber2')?.value ? form?.get('WitnessWardNumber2')?.value : '_________________'}}</span>
                                                                         बस्ने बर्ष <input
                                                                                 class="form-field form-control-sm  disable-print"
                                                                                 name="witnessAge"
                                                                                 formControlName="witnessAge2"
                                                                                 placeholder="" type="text" />
                                                                         <span
-                                                                                class="print-only font-weight-bold"> {{ form.get('witnessAge2').value ? form.get('witnessAge2').value : '_________________'}}</span>
+                                                                                class="print-only font-weight-bold"> {{ form?.get('witnessAge2')?.value ? form?.get('witnessAge2')?.value : '_________________'}}</span>
                                                                         को/की <input
                                                                                 class="form-field form-control-sm  disable-print"
                                                                                 name="witnessName"
                                                                                 formControlName="witnessName2"
                                                                                 placeholder="" type="text" />
                                                                         <span
-                                                                                class="print-only font-weight-bold"> {{ form.get('witnessName2').value ? form.get('witnessName2').value : '_________________'}}</span>
+                                                                                class="print-only font-weight-bold"> {{ form?.get('witnessName2')?.value ? form?.get('witnessName2')?.value : '_________________'}}</span>
                                                                 </p>
                                                                 <p>
                                                                         ३. कारणीले प्रस्तुत लिखत मेरो सामुन्ने सहिछाप गरेको हो भनी सनाखत गर्ने नविल बैंक लिमिटेडका कर्मचारी <input
@@ -331,7 +331,7 @@
                                                                         formControlName="bankStaff"
                                                                         placeholder="" type="text" />
                                                                         <span
-                                                                                class="print-only font-weight-bold"> {{ form.get('bankStaff').value ? form.get('bankStaff').value : '_________________'}}</span>
+                                                                                class="print-only font-weight-bold"> {{ form?.get('bankStaff')?.value ? form?.get('bankStaff')?.value : '_________________'}}</span>
                                                                 </p>
                                                         </div>
                                                         <div class="row mt-5 ml-0">
