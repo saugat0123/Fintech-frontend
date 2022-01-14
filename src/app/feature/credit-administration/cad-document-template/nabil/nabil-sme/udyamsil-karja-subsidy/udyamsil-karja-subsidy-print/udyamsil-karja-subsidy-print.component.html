@@ -248,26 +248,16 @@
 
                     <!-- Applicable incase of interest subsidy loan -->
                     <li>
-                        सहुलियत पुर्ण कर्जा अन्तर्गत निक्षेप तथा कर्जा सुरक्षण कोष (Deposit and Credit Guarantee
-                        Fund)
+                        सहुलियत पुर्ण कर्जा अन्तर्गत निक्षेप तथा कर्जा सुरक्षण कोष (Deposit and Credit Guarantee Fund)
                         मा सुरक्षण गरिने ऋणकर्जाको लागि उक्त ऋणकर्जाको सुरक्षण गर्दा लाग्ने सुरक्षण शुल्क वापतको
-                        रकम ऋणी
-                        स्वयमलेनै तिर्नु व्यहोर्नु पर्नेछ। उक्त सुरक्षण शुल्क वापत हाल बार्षिक
-                        <span [ngClass]="{'font-weight-bold': loanHolderInfo?.NRBcircularRateAsPerMention !== null && loanHolderInfo?.NRBcircularRateAsPerMention !== ''}">
-                                {{loanHolderInfo?.NRBcircularRateAsPerMention === null || loanHolderInfo?.NRBcircularRateAsPerMention === "" ? "___________" : loanHolderInfo?.NRBcircularRateAsPerMention}}
-                        </span>
-                        प्रतिशतका दरले हुन आउने रकम अर्धबार्षिक रुपमा प्रत्येक श्रावण र माघ महिनाको ३ गते भित्रै
-                        तिर्नुबुझाउनु पर्नेछ।
-                        उक्त शुल्क बापत ऋणीले पौष र आषाढ मसान्तमा तिर्न बाँकी रहेको साँवा र ब्याज रकमका
-                        <span [ngClass]="{'font-weight-bold': loanHolderInfo?.NRBcircularRateAsPerMention !== null && loanHolderInfo?.NRBcircularRateAsPerMention !== ''}">
-                                {{loanHolderInfo?.NRBcircularRateAsPerMention === null || loanHolderInfo?.NRBcircularRateAsPerMention === "" ? "___________" : loanHolderInfo?.NRBcircularRateAsPerMention}}
-                        </span>
-                        प्रतिशतका दरले हुन आउने रकम ऋणीले यस बैंकमा रहेको चल्ती खातामा जम्मा गर्नुपर्नेछ। सो
-                        सुरक्षण शुल्क दर
-                        यदी परिवर्तन भएमा परिवर्तित दरले ऋणीको यस बैंकमा रहेको खाताबाट कट्टा गरि असुल उपर
-                        गरिनेछ।
-                        उल्लिखित बमोजिमको शुल्क तिर्नबुझाउन तथा खातामा जम्मा गर्न र खाताबाट कट्टा गरी लिन ऋणी
-                        मञ्जुर गर्दछ।
+                        रकम ऋणी स्वयमलेनै तिर्नु व्यहोर्नु पर्नेछ । सो सुरक्षण शुल्क वापत हाल बार्षिक ०.४० प्रतिशतका
+                        दरले हुन आउने रकम ऋणीले अर्धबार्षिक रुपमा प्रत्येक श्रावण र माघ महिनाको १ गते तिर्नु बुझाउनु
+                        पर्नेछ । यसरी शुल्क बुझाउन तोकिएको अवधिभित्र/मितिमा ऋणीले आफ्नो बैंक खातामा प्रयाप्त मात्रामा
+                        रकम जम्मा गरिदिनुपर्नेछ । उक्त शुल्क बापत ऋणीले पौष र आषाढ मसान्तमा तिर्न बाँकी रहेको साँवा र
+                        ब्याज रकमको ०.२० प्रतिशतका दरले हुन आउने रकम शुल्क स्वरुप तिर्नबुझाउनु पर्नेछ । सो सुरक्षण शुल्क
+                        दर यदी परिवर्तन भएमा परिवर्तित दरले ऋणीको यस बैंकमा रहेको खाताबाट कट्टा गरि असुल उपर गरिनेछ ।
+                        उल्लिखित बमोजिमको शुल्क तिर्नबुझाउन तथा खातामा जम्मा गर्न र खाताबाट कट्टा गरी लिन ऋणी मञ्जुर
+                        गर्दछ ।
                     </li>
                 </ol>
             </div>
@@ -917,28 +907,28 @@
             <div class="">
                 <h6><u>कागजपत्रहरुः स्वीकृत कूल ऋणकर्जा सिमाको लागिः </u></h6>
                 <ul>
-                    <li>
+                    <li *ngIf="tempData?.requiredDocuments?.requiredLegalDocument?.requiredDocument.includes('Promissory Note')">
                         प्रतिज्ञा पत्र। (Promissory Note)
                     </li>
-                    <li>
+                    <li *ngIf="tempData?.requiredDocuments?.requiredLegalDocument?.requiredDocument.includes('Loan Deed')">
                         ऋणतमसुक (Loan Deed)
                     </li>
-                    <li>
+                    <li *ngIf="tempData?.requiredDocuments?.requiredLegalDocument?.requiredDocument.includes('Mortgaged Deed')">
                         धितोबन्धक तमसुक (Mortgage Deed)/बैंकको पक्षमा ठाडो रोक्काको पत्र (आवश्यकतानुसार)
                     </li>
-                    <li>
+                    <li *ngIf="tempData?.requiredDocuments?.requiredLegalDocument?.requiredDocument.includes('Letter Of Continuity')">
                         निरन्तरताको लिखत (Letter of Continuity)
                     </li>
-                    <li>
+                    <li *ngIf="tempData?.requiredDocuments?.requiredLegalDocument?.requiredDocument.includes('General Letter Of Hypothecation with Supplementary Agreement')">
                         श्री(सम्पत्ति धितोरसुरक्षण लेखीदिएको गोश्वारा-पत्र (General Letter of Hypothecation)
                         सहित पूरक सम्झौता (Supplementary Agreement)
                     </li>
-                    <li>
+                    <li *ngIf="tempData?.requiredDocuments?.requiredLegalDocument?.requiredDocument.includes('Assignment Of Receivables with Power Of Attorney')">
                         भुक्तानी प्राप्त गर्न बांकी रकम संकलन गर्ने अख्तियारनामा (Assignment of Receivables)
                         सहित वारेसनामा (Power of Attorney)
                     </li>
-                    <li>
-                        ब्यक्तिगत जमानीपत्र (Personal Guarantee)
+                    <li *ngIf="tempData?.requiredDocuments?.requiredLegalDocument?.requiredDocument.includes('Personal Guarantee')">
+                    ब्यक्तिगत जमानीपत्र (Personal Guarantee)
                     </li>
                     <li>
                         सामुहिक ब्यत्तिगत जमानत पत्र

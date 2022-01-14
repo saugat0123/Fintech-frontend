@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../../model/customerApprovedLoanCadDocumentation';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CustomerLoanOptions} from '../../../../cad-constant/customer-loan-options';
@@ -21,6 +21,7 @@ import {CreditAdministrationService} from '../../../../../service/credit-adminis
 import {ToastService} from '../../../../../../../@core/utils';
 import {Alert, AlertType} from '../../../../../../../@theme/model/Alert';
 import {UdyamsilKarjaSubsidyComponent} from '../../../../../cad-document-template/nabil/nabil-sme/udyamsil-karja-subsidy/udyamsil-karja-subsidy.component';
+import {RequiredLegalDocumentSectionComponent} from "../../sme-template-data/sme-master-template/required-legal-document-section/required-legal-document-section.component";
 
 @Component({
     selector: 'app-udhyamsil-karja-subsidy-template-data',
@@ -59,6 +60,8 @@ export class UdhyamsilKarjaSubsidyTemplateDataComponent implements OnInit {
     closeEnable = false;
     submitted = false;
     loanOptions = CustomerLoanOptions;
+    @ViewChild('requiredLegalDocument', {static: false})
+    requiredLegalDocumentSectionComponent: RequiredLegalDocumentSectionComponent;
 
     constructor(private formBuilder: FormBuilder,
                 private dialogService: NbDialogService,
@@ -597,6 +600,8 @@ export class UdhyamsilKarjaSubsidyTemplateDataComponent implements OnInit {
         //     securities: this.udhyamsilKarja.get('securities').value,
         // }];
         this.tdVal['securities'] = this.udhyamsilKarja.get('securities').value;
+        const tempRequiredDocuments = this.setRequiredDocuments();
+        this.tdVal['requiredDocuments'] = tempRequiredDocuments;
         // For Clearing validation of optional and conditional Fields.
         this.clearConditionalValidation();
         const invalidControls = [];
@@ -668,6 +673,14 @@ export class UdhyamsilKarjaSubsidyTemplateDataComponent implements OnInit {
         if (tempVal === 'VDC') {
             this.udhyamsilKarja.get([formArrayName, index, controlName]).setValue(null);
         }
+    }
+
+    private setRequiredDocuments() {
+        const requiredLegalDocument = this.requiredLegalDocumentSectionComponent.requireDocumentForm.value;
+        const requiredData = {
+            requiredLegalDocument: requiredLegalDocument,
+        };
+        return (requiredData);
     }
 
 
