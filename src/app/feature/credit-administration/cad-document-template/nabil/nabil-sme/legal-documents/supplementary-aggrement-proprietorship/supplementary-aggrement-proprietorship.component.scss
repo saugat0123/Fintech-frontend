@@ -2,8 +2,11 @@
     line-height: 1.9em;
     scroll-behavior: smooth;
 }
+p{
+  font-size: 19px;
+}
 .nep {
-    font-size: 16px;
+    font-size: 19px;
     line-height: 1.9;
     text-align: justify;
     text-justify: inter-word;
@@ -15,7 +18,7 @@
     border: 0;
     border-bottom: 1px solid black;
     border-radius: 0px;
-    font-size: 16px;
+    font-size: 19px;
     &:focus {
       outline: none;
     }
@@ -28,10 +31,34 @@ ol.conditions-list {
     text-align: justify !important;
   }
 
+.conditions-list{
+  line-height: 1.9em;
+}
+
 .conditions-list li div{
   margin-top: 1rem;
 }
-.text-area{
-  display: flex;
-  margin-top: 5rem;
+@media screen {
+  .print-only {
+    display: none;
+  }
+
+  .disable-print {
+    display: inline;
+
+  }
+}
+
+@media print {
+  .print-only {
+    display: inline;
+  }
+  div.align {
+    font-size: 19px;
+    line-height: 1.9;
+    text-align: justify;
+    text-justify: inter-word;
+    margin: 10px 70px;
+  }
+
 }
