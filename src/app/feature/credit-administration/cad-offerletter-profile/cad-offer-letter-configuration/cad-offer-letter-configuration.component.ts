@@ -247,6 +247,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             fatherInLawName: [undefined],
             citizenshipNo: [undefined],
             age: [undefined],
+            dob: [undefined],
             permanentProvince: [undefined],
             permanentDistrict: [undefined],
             permanentMunicipalities: [undefined],
@@ -303,6 +304,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             branchTelNo: [undefined],
             branchFaxNo: [undefined],
             branchEmail: [undefined],
+            branchNameInEnglish: [undefined],
             valuationDate: [undefined],
             valuatorName: [undefined],
             fairMarketValue: [undefined],
@@ -426,17 +428,27 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             collateralName: '',
             collateralFatherName: '',
             collateralGrandFatherName: '',
-            collateralProvince: '',
-            collateralDistrict: '',
-            collateralMunVdc: '',
-            collateralWardNo: '',
+            collateralPermanentProvince: '',
+            collateralPermanentDistrict: '',
+            collateralPermanentMunVdc: '',
+            collateralPermanentWardNo: '',
             collateralTemporaryProvince: '',
             collateralTemporaryDistrict: '',
             collateralTemporaryMunVdc: '',
             collateralTemporaryWardNo: '',
+            collateralDistrict: '',
+            collateralMunVdcOriginal: '',
+            collateralMunVdcChanged: '',
             plotNo: '',
             areaOfCollateral: '',
             seatNo: '',
+            collateralWardNoOld: '',
+            collateralProvinceNo: '',
+            wardNoNew: '',
+            toleNew: '',
+            toleOld: '',
+            plotNoOld: '',
+            collateralType: ''
         });
     }
 
@@ -572,20 +584,31 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 collateralName: [value.collateralName],
                 collateralFatherName: [value.collateralFatherName],
                 collateralGrandFatherName: [value.collateralGrandFatherName],
-                collateralProvince: [value.collateralProvince],
-                collateralDistrict: [value.collateralDistrict],
-                collateralMunVdc: [value.collateralMunVdc],
-                collateralWardNo: [value.collateralWardNo],
+                collateralPermanentProvince: [value.collateralPermanentProvince],
+                collateralPermanentDistrict: [value.collateralPermanentDistrict],
+                collateralPermanentMunVdc: [value.collateralPermanentMunVdc],
+                collateralPermanentWardNo: [value.collateralPermanentWardNo],
                 collateralTemporaryProvince: [value.collateralTemporaryProvince],
                 collateralTemporaryDistrict: [value.collateralTemporaryDistrict],
                 collateralTemporaryMunVdc: [value.collateralTemporaryMunVdc],
                 collateralTemporaryWardNo: [value.collateralTemporaryWardNo],
+                collateralDistrict: [value.collateralDistrict],
+                collateralMunVdcOriginal: [value.collateralMunVdcOriginal],
+                collateralMunVdcChanged: [value.collateralMunVdcChanged],
                 plotNo: [value.plotNo],
                 areaOfCollateral: [value.areaOfCollateral],
                 seatNo: [value.seatNo],
+                collateralWardNoOld: [value.collateralWardNoOld],
+                collateralProvinceNo: [value.collateralProvinceNo],
+                wardNoNew: [value.wardNoNew],
+                toleNew: [value.toleNew],
+                toleOld: [value.toleOld],
+                plotNoOld: [value.plotNoOld],
+                collateralType: [value.collateralType]
+
             }));
-            this.getCollateralDistricts(value.collateralProvince, i);
-            this.getCollateralMunicipalities(value.collateralDistrict, i);
+            this.getCollateralDistricts(value.collateralPermanentProvince, i);
+            this.getCollateralMunicipalities(value.collateralPermanentDistrict, i);
             this.getCollateralTemporaryDistricts(value.collateralTemporaryProvince, i);
             this.getCollateralTemporaryMunicipalities(value.collateralTemporaryDistrict, i);
         });
@@ -614,6 +637,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             collateralOwnerPermanentDistrict: '',
             collateralOwnerPermanentMunicipalities: '',
             collateralOwnerPermanentWard: '',
+            collateralOwnerMobileNo: '',
+            collateralOwnerCodeNo: ''
         });
     }
 
@@ -648,6 +673,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 collateralOwnerPermanentDistrict: [value.collateralOwnerPermanentDistrict],
                 collateralOwnerPermanentMunicipalities: [value.collateralOwnerPermanentMunicipalities],
                 collateralOwnerPermanentWard: [value.collateralOwnerPermanentWard],
+                collateralOwnerMobileNo: [value.collateralOwnerMobileNo],
+                collateralOwnerCodeNo: [value.collateralOwnerCodeNo]
             }));
             this.getCollateralOwnerDistricts(value.collateralOwnerPermanentProvince, i);
             this.getCollateralOwnerMunicipalities(value.collateralOwnerPermanentDistrict, i);
@@ -687,6 +714,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                     this.userConfigForm.get('branchDistrict').patchValue(branchDistrictName);
                     const branchMunVdcName = singleData.municipalityVdc.nepaliName;
                     this.userConfigForm.get('branchMunVdc').patchValue(branchMunVdcName);
+                    const branchNameInEnglish = singleData.name;
+                    this.userConfigForm.get('branchNameInEnglish').patchValue(branchNameInEnglish);
                 }
             }
         );
@@ -700,8 +729,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 this.collateralPermanentDistrictList[i].sort((a, b) => a.name.localeCompare(b.name));
                 if (event) {
                     this.collateralPermanentMunicipalitiesList[i] = [];
-                    this.userConfigForm.get(['collateralDetails', i, 'collateralDistrict']).patchValue(null);
-                    this.userConfigForm.get(['collateralDetails', i, 'collateralMunVdc']).patchValue(null);
+                    this.userConfigForm.get(['collateralDetails', i, 'collateralPermanentDistrict']).patchValue(null);
+                    this.userConfigForm.get(['collateralDetails', i, 'collateralPermanentMunVdc']).patchValue(null);
                 }
             }
         );
@@ -715,7 +744,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 this.collateralPermanentMunicipalitiesList[i] = response.detail;
                 this.collateralPermanentMunicipalitiesList[i].sort((a, b) => a.name.localeCompare(b.name));
                 if (event) {
-                    this.userConfigForm.get(['collateralDetails', i, 'collateralMunVdc']).patchValue(null);
+                    this.userConfigForm.get(['collateralDetails', i, 'collateralPermanentMunVdc']).patchValue(null);
                 }
             }
         );
