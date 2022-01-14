@@ -43,6 +43,7 @@ export class AssignmentOfReceivableProprietorshipComponent implements OnInit {
   finalAmount;
   loanAmountWord;
   sanctionDate;
+  issueDate = [];
 
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
@@ -67,29 +68,31 @@ export class AssignmentOfReceivableProprietorshipComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.individualData = JSON.parse(this.cadData.loanHolder.nepData);
     }
-    if (this.cadData.cadFileList.length > 0 && !ObjectUtil.isEmpty(this.cadData.cadFileList[0].supportedInformation)) {
-      this.supportedInfo = JSON.parse(this.cadData.cadFileList[0].supportedInformation);
-    }
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(individualCadFile => {
         if (individualCadFile.customerLoanId === this.customerLoanId && individualCadFile.cadDocument.id === this.documentId) {
-          const initialInfo = JSON.parse(individualCadFile.initialInformation);
-          this.initialInfoPrint = initialInfo;
-          this.form.patchValue(initialInfo);
+          this.supportedInfo = JSON.parse(individualCadFile.supportedInformation);
         }
       });
     }
+    this.dateConvert();
     this.fillForm();
   }
-  dateConvert(dateOption, date) {
-    let convertedDate;
-    if (dateOption === 'AD') {
-      convertedDate = this.engToNepaliDate.transform(date ?
-          date : date, true) || '';
-    } else {
-      convertedDate = date ? date : '';
-    }
-    return convertedDate;
+
+  dateConvert() {
+    let date;
+    this.companyInfo.forEach(val => {
+      if (val.radioOwnerCitizenshipIssuedDate === 'AD') {
+        date = this.engToNepaliDate.transform(val ?
+            val.ownerCitizenshipIssuedDateCT : val.ownerCitizenshipIssuedDateCT, true) || '';
+      } else {
+        date = val ? val.ownerCitizenshipIssuedDateCT : '';
+      }
+      const newDate = {
+        issueDate : date
+      };
+      this.issueDate.push(newDate);
+    });
   }
 
   buildForm() {
@@ -111,21 +114,43 @@ export class AssignmentOfReceivableProprietorshipComponent implements OnInit {
       sanctionLetterIssuedDate: [undefined],
       loanAmountInFigure: [undefined],
       loanAmountInWords: [undefined],
+      // Witness Fields
+      witnessDistrict1: [undefined],
+      witnessMuni1: [undefined],
+      witnessWard1: [undefined],
+      witnessAge1: [undefined],
+      witnessName1: [undefined],
+      witnessDistrict2: [undefined],
+      witnessMuni2: [undefined],
+      witnessWard2: [undefined],
+      witnessAge2: [undefined],
+      witnessName2: [undefined],
+      karmachariName: [undefined],
     });
   }
   setFreeText() {
     const free1 = {
       purposeOfLoan: this.form.get('purposeOfLoan').value ? this.form.get('purposeOfLoan').value : '',
+      witnessDistrict1: this.form.get('witnessDistrict1') ? this.form.get('witnessDistrict1').value : '',
+      witnessMuni1: this.form.get('witnessMuni1') ? this.form.get('witnessMuni1').value : '',
+      witnessWard1: this.form.get('witnessWard1') ? this.form.get('witnessWard1').value : '',
+      witnessAge1: this.form.get('witnessAge1') ? this.form.get('witnessAge1').value : '',
+      witnessName1: this.form.get('witnessName1') ? this.form.get('witnessName1').value : '',
+      witnessDistrict2: this.form.get('witnessDistrict2') ? this.form.get('witnessDistrict2').value : '',
+      witnessMuni2: this.form.get('witnessMuni2') ? this.form.get('witnessMuni2').value : '',
+      witnessWard2: this.form.get('witnessWard2') ? this.form.get('witnessWard2').value : '',
+      witnessAge2: this.form.get('witnessAge2') ? this.form.get('witnessAge2').value : '',
+      witnessName2: this.form.get('witnessName2') ? this.form.get('witnessName2').value : '',
+      karmachariName: this.form.get('karmachariName') ? this.form.get('karmachariName').value : '',
     };
     return JSON.stringify(free1);
   }
   patchFreeText() {
-    if (!ObjectUtil.isEmpty(this.cadData) && this.cadData.cadFileList.length > 0
-        && !ObjectUtil.isEmpty(this.cadData.cadFileList[0].supportedInformation)) {
-      if (this.purposeOfLoan === this.supportedInfo.purposeOfLoan) {
+    if (!ObjectUtil.isEmpty(this.cadData) && this.cadData.cadFileList.length > 0) {
+      if (!ObjectUtil.isEmpty(this.supportedInfo) && this.purposeOfLoan === this.supportedInfo.purposeOfLoan) {
         this.purposeOfLoan = 'व्यापार/ व्यवसाय संचालन';
       }
-      if (this.supportedInfo.purposeOfLoan !== this.purposeOfLoan) {
+      if (!ObjectUtil.isEmpty(this.supportedInfo) && this.supportedInfo.purposeOfLoan !== this.purposeOfLoan) {
         this.purposeOfLoan = this.supportedInfo.purposeOfLoan;
       }
     }
@@ -146,8 +171,6 @@ export class AssignmentOfReceivableProprietorshipComponent implements OnInit {
       if (flag) {
         const cadFile = new CadFile();
         const document = new Document();
-        cadFile.initialInformation = JSON.stringify(this.form.value);
-        this.initialInfoPrint = cadFile.initialInformation;
         cadFile.supportedInformation = this.setFreeText();
         document.id = this.documentId;
         cadFile.cadDocument = document;
@@ -157,8 +180,6 @@ export class AssignmentOfReceivableProprietorshipComponent implements OnInit {
     } else {
       const cadFile = new CadFile();
       const document = new Document();
-      cadFile.initialInformation = JSON.stringify(this.form.value);
-      this.initialInfoPrint = cadFile.initialInformation;
       document.id = this.documentId;
       cadFile.cadDocument = document;
       cadFile.customerLoanId = this.customerLoanId;
@@ -249,6 +270,17 @@ export class AssignmentOfReceivableProprietorshipComponent implements OnInit {
       loanAmountInFigure: this.finalAmount ? this.finalAmount : '',
       loanAmountInWords: this.loanAmountWord ? this.loanAmountWord : '',
       sanctionLetterIssuedDate: this.sanctionDate ? this.sanctionDate : '',
+      witnessDistrict1: this.supportedInfo ? this.supportedInfo.witnessDistrict1 : '',
+      witnessMuni1: this.supportedInfo ? this.supportedInfo.witnessMuni1 : '',
+      witnessWard1: this.supportedInfo ? this.supportedInfo.witnessWard1 : '',
+      witnessAge1: this.supportedInfo ? this.supportedInfo.witnessAge1 : '',
+      witnessName1: this.supportedInfo ? this.supportedInfo.witnessName1 : '',
+      witnessDistrict2: this.supportedInfo ? this.supportedInfo.witnessDistrict2 : '',
+      witnessMuni2: this.supportedInfo ? this.supportedInfo.witnessMuni2 : '',
+      witnessWard2: this.supportedInfo ? this.supportedInfo.witnessWard2 : '',
+      witnessAge2: this.supportedInfo ? this.supportedInfo.witnessAge2 : '',
+      witnessName2: this.supportedInfo ? this.supportedInfo.witnessName2 : '',
+      karmachariName: this.supportedInfo ? this.supportedInfo.karmachariName : '',
     });
     this.patchFreeText();
   }
