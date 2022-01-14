@@ -272,7 +272,7 @@
                                                 सुविधा फिर्ता माग गर्न सक्नेछ र सो कर्जामा नियमानुसार ब्याज अनुदान
                                                 प्रदान
                                                 नगर्नका साथै अघिल्लो प्रदान गरिएका अनुदानहरु पनि
-                                                फिर्ता माग गर्ने बैंकको अधिकार सुरक्षित रहेनछ ।
+                                                फिर्ता माग गर्ने बैंकको अधिकार सुरक्षित रहनेछ ।
                                             </strong></p>
                                     </li>
 
@@ -291,7 +291,7 @@
                                             मसान्तमा तिर्न बाँकी रहेको साँवा र ब्याज रकमको
                                             <span class="font-weight-bold"
                                                 [ngClass]="{' outside' : letter?.circularRate.ct!== null && letter?.circularRate.ct!== ''}">
-                                                {{letter?.circularRate.ct === null || letter?.circularRate.ct === '' ? '___________' : letter?.circularRate.ct}}</span>
+                                                {{letter?.circularRate.ct === null || letter?.circularRate.ct === '' ? '___________' : letter?.circularRate.ct}}</span> प्रतिशतका दरले हुन आउने रकम ऋणीले यस बैंकमा रहेको चल्ती खातामा जम्मा गर्नुपर्नेछ । सो सुरक्षण शुल्क दर यदी परिवर्तन भएमा परिवर्तित दरले ऋणीको यस बैंकमा रहेको खाताबाट कट्टा गरि असुल उपर गरिनेछ । उल्लिखित बमोजिमको शुल्क तिर्नबुझाउन तथा खातामा जम्मा गर्न र खाताबाट कट्टृा गरी लिन ऋणी मञ्जुर गर्दछ । 
                                         </strong>
                                         <br>
                                     </li>
@@ -947,7 +947,7 @@
                                     {{letter?.nameOfStaff.ct === null || letter?.nameOfStaff.ct === '' ? '___________' : letter?.nameOfStaff.ct}}</span>
                                 <br>
                                 <span style="font-size: 19px"
-                                    class="">{{freeInformation ? freeInformation.autoPopulate1 : 'सम्पर्क अधिकृत'}}</span>
+                                    class="">{{autoPopulate1}}</span>
                                 <br>
                                 नबिल बैंक लि.
                                 <br>
@@ -963,7 +963,7 @@
                                     {{letter?.nameOfBranchManager.ct === null || letter?.nameOfBranchManager.ct === '' ? '___________' : letter?.nameOfBranchManager.ct}}</span>
                                 <br>
                                 <span style="font-size: 19px"
-                                    class="">{{freeInformation ? freeInformation.autoPopulate2 : 'शाखा प्रबन्धक/बरिष्ठ सम्पर्क प्रबन्धक'}}</span>
+                                    class="">{{autoPopulate2}}</span>
                                 <br>
                                 नबिल बैंक लि.
                                 <br>

@@ -41,6 +41,8 @@ export class KisanKarjaSubsidyPrintComponent implements OnInit {
   offerDocumentDetails;
   // Test
   dateOfApplication;
+  autoPopulate1;
+  autoPopulate2;
 
   constructor( public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
                public engToNepNumberPipe: EngToNepaliNumberPipe,
@@ -51,6 +53,16 @@ export class KisanKarjaSubsidyPrintComponent implements OnInit {
 
   ngOnInit() {
     this.freeInformation = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation);
+    if(ObjectUtil.isEmpty(this.freeInformation.autoPopulate1)){
+      this.autoPopulate1 = 'सम्पर्क अधिकृत';
+    } else {
+      this.autoPopulate1 = this.freeInformation.autoPopulate1;
+    }
+    if(ObjectUtil.isEmpty(this.freeInformation.autoPopulate2)){
+      this.autoPopulate2 = 'शाखा प्रबन्धक/बरिष्ठ सम्पर्क प्रबन्धक';
+    } else {
+      this.autoPopulate2 = this.freeInformation.autoPopulate2;
+    }
     this.guarantorData = this.cadOfferLetterApprovedDoc.assignedLoan[0].taggedGuarantors;
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
       let totalLoanAmount = 0;
