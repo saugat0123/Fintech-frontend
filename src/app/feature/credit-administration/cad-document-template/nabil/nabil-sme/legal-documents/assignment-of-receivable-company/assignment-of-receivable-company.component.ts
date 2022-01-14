@@ -43,6 +43,7 @@ export class AssignmentOfReceivableCompanyComponent implements OnInit {
     finalAmount;
     loanAmountWord;
     sanctionDate;
+    issueDate = [];
 
     constructor(private formBuilder: FormBuilder,
                 private administrationService: CreditAdministrationService,
@@ -75,18 +76,24 @@ export class AssignmentOfReceivableCompanyComponent implements OnInit {
                 }
             });
         }
+        this.dateConvert();
         this.fillForm();
     }
 
-    dateConvert(dateOption, date) {
-        let convertedDate;
-        if (dateOption === 'AD') {
-            convertedDate = this.engToNepaliDate.transform(date ?
-                date : date, true) || '';
-        } else {
-            convertedDate = date ? date : '';
-        }
-        return convertedDate;
+    dateConvert() {
+        let date;
+        this.companyInfo.forEach(val => {
+            if (val.radioOwnerCitizenshipIssuedDate === 'AD') {
+                date = this.engToNepaliDate.transform(val ?
+                    val.ownerCitizenshipIssuedDateCT : val.ownerCitizenshipIssuedDateCT, true) || '';
+            } else {
+                date = val ? val.ownerCitizenshipIssuedDateCT : '';
+            }
+            const newDate = {
+                issueDate : date
+            };
+            this.issueDate.push(newDate);
+        });
     }
 
     buildForm() {
