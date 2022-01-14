@@ -82,6 +82,8 @@ export class KisanKarjaSubsidyComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.offerDocumentList)) {
             // tslint:disable-next-line:max-line-length
             this.offerDocumentDetails = this.cadOfferLetterApprovedDoc.offerDocumentList[0] ? JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation) : '';
+            console.log(this.offerDocumentDetails);
+            
         }
         this.checkOfferLetterData();
         /* this.guarantorDetails();*/

@@ -348,7 +348,7 @@
                                         व्याज दरको जानकारी ऋणी आफै बैंकको आधिकारिक वेव साईट (Website) र/वा पत्रपत्रिका
                                         मार्फत प्राप्त गरी तिर्न बुझाउन मन्जुर गर्दछ ।
                                     </li>
-                                    <li>
+                                    <li *ngIf="this.tempData.repaymentType.en === 'EMI_BASIS'">
                                         बैंकको <strong>त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
                                         मा हुने उतार चढाबको कारणबाट सम मासिक किस्ता (EMI- Equated Monthly Installment)मा
                                         भुक्तानी हुने प्रकृतिका कर्जाहरुको हकमा निर्धारीत मासिक
@@ -772,7 +772,7 @@
 
                                     <!-- - Following clause shall be applicable if borrower is firm/company-->
                                     <div
-                                        *ngIf="cadOfferLetterApprovedDoc?.loanHolder['customerType'] === 'INSTITUTION'">
+                                    *ngIf="cadOfferLetterApprovedDoc.loanHolder['customerSubType'] === 'Private Public'">
                                         <strong>ऋणी फर्म/कम्पनी भएमा देहाय बमोजिमका थप शर्तहरु लागूहुनेछ:</strong>
                                         <li>
                                             ऋणीले आर्थिक बर्ष समाप्त भएको तिन महिना भित्र आफ्नोे व्यवसायको लेखापरिक्षण
@@ -857,7 +857,7 @@
 
                                     <!--Applicable in case of proprietor ship firm/partnership firm only-->
                                     <li
-                                        *ngIf="cadOfferLetterApprovedDoc.loanHolder['customerSubType'] === 'PROPRIETORSHIP' || cadOfferLetterApprovedDoc.loanHolder['customerSubType'] === 'PARTNERSHIP' || cadOfferLetterApprovedDoc?.loanHolder['customerType'] === 'INSTITUTION'">
+                                        *ngIf="cadOfferLetterApprovedDoc.loanHolder['customerSubType'] === 'Proprietorship' || cadOfferLetterApprovedDoc.loanHolder['customerSubType'] === 'Partnership' || cadOfferLetterApprovedDoc?.loanHolder['customerType'] === 'INSTITUTION'">
                                         प्रचलित ऐन, नियम, नेपाल राष्ट्र बैंकको निर्देशन तथा यस बैंकको निति, नियम तथा
                                         तिनमा समय समयमा हुने सँशोधन सहितको शर्तहरु पालना गर्न ऋणी/ऋणी फर्म/ऋणी
                                         कम्पनी/ऋणी संस्था मञ्जुर गर्नुका साथै माथि उल्लिखित सम्पुर्ण समेतबाट स्वीकृत
@@ -947,7 +947,7 @@
                                     {{letter?.nameOfStaff.ct === null || letter?.nameOfStaff.ct === '' ? '___________' : letter?.nameOfStaff.ct}}</span>
                                 <br>
                                 <span style="font-size: 19px"
-                                    class="">{{autoPopulate1}}</span>
+                                    class="">{{autoPopulate1 ? autoPopulate1 : ''}}</span>
                                 <br>
                                 नबिल बैंक लि.
                                 <br>
@@ -963,7 +963,7 @@
                                     {{letter?.nameOfBranchManager.ct === null || letter?.nameOfBranchManager.ct === '' ? '___________' : letter?.nameOfBranchManager.ct}}</span>
                                 <br>
                                 <span style="font-size: 19px"
-                                    class="">{{autoPopulate2}}</span>
+                                    class="">{{autoPopulate2 ? autoPopulate2 : ''}}</span>
                                 <br>
                                 नबिल बैंक लि.
                                 <br>
