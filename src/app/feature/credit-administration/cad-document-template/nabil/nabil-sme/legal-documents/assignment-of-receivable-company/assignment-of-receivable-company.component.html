@@ -20,7 +20,7 @@
                                formControlName="nameOfBranchLocated"
                                placeholder=" "
                                type="text"/>
-                        <span class="print-only">{{this.individualData.branch ? this.individualData.branch.ct : ''}}</span>
+                        <span class="print-only">{{this.individualData?.branch ? this.individualData?.branch.ct : ''}}</span>
                         मा शाखा कार्यालय रहेको श्री <strong>नबिल बैंक लिमिटेड </strong>
                         (जसलाई यस लिखतमा यस पछि <strong>"धनी बैंक"</strong> भनिएको छ), धितो
                         दिई सुरक्षणको लिखत गरीदिने
@@ -28,7 +28,7 @@
                                name="actName"
                                formControlName="actName"
                                type="text"/>
-                        <span class="print-only">{{this.individualData.actName ? this.individualData.actName.ct : ''}}</span>
+                        <span class="print-only">{{this.individualData?.actName ? this.individualData?.actName.ct : ''}}</span>
                         ऐन <input class="form-field form-control-sm d-print-none"
                                  name="yearInFigure"
                                  formControlName="yearInFigure"
@@ -40,14 +40,14 @@
                                formControlName="nameOfAuthorizedBody"
                                placeholder=" "
                                type="text"/>
-                        <span class="print-only">{{this.individualData.authorizedBodyName ? this.individualData.authorizedBodyName.ct : ''}}</span>
+                        <span class="print-only">{{this.individualData?.authorizedBodyName ? this.individualData?.authorizedBodyName.ct : ''}}</span>
                         <input class="form-field form-control-sm d-print-none"
                                name="nameOfDepartment"
                                formControlName="nameOfDepartment"
                                placeholder=" "
                                type="text"/>
-                        <span class="print-only">{{this.individualData.registeredWith ? this.individualData.registeredWith.ct : ''}}</span>
-                        विभाग/कार्यालयमा मिति<input class="form-field form-control-sm d-print-none"
+                        <span class="print-only">{{this.individualData?.registeredWith ? this.individualData?.registeredWith.ct : ''}}</span>
+                        विभाग/कार्यालयमा मिति <input class="form-field form-control-sm d-print-none"
                                                     name="dateOfRegistration"
                                                     formControlName="dateOfRegistration"
                                                     placeholder=" "
@@ -58,20 +58,20 @@
                                  formControlName="registrationNo"
                                  placeholder=" "
                                  type="text"/>
-                        <span class="print-only">{{this.individualData.registrationNo ? this.individualData.registrationNo.ct : ''}}</span>
+                        <span class="print-only">{{this.individualData?.registrationNo ? this.individualData?.registrationNo.ct : ''}}</span>
                         अन्तर्गत दर्ता भई
                         <input class="form-field form-control-sm d-print-none"
                                name="districtOfFirm"
                                formControlName="districtOfFirm"
                                placeholder=" "
                                type="text"/>
-                        <span class="print-only">{{this.individualData.registeredDistrict ? this.individualData.registeredDistrict.ct : ''}}</span>
+                        <span class="print-only">{{this.individualData?.registeredDistrict ? this.individualData?.registeredDistrict.ct : ''}}</span>
                         जिल्ला, <input class="form-field form-control-sm d-print-none"
                                        name="municipalityOfFirm"
                                        formControlName="municipalityOfFirm"
                                        placeholder=" "
                                        type="text"/>
-                        <span class="print-only">{{this.individualData.registeredMunicipality ? this.individualData.registeredMunicipality.ct : ''}}</span>
+                        <span class="print-only">{{this.individualData?.registeredMunicipality ? this.individualData?.registeredMunicipality.ct : ''}}</span>
                         <ng-container *ngIf="this.individualData?.registeredMunType === '0'"> न.पा</ng-container>
                         <ng-container *ngIf="this.individualData?.registeredMunType === '1'"> गा.वि.स.</ng-container>
                         <ng-container *ngIf="this.individualData?.registeredMunType === '2'"> गाँउपालिका</ng-container>
@@ -80,19 +80,19 @@
                                         formControlName="wardNoOfFirm"
                                         placeholder=" "
                                         type="text"/>
-                        <span class="print-only">{{this.individualData.permanentWard ? this.individualData.permanentWard.ct : ''}}</span>,
+                        <span class="print-only">{{this.individualData?.permanentWard ? this.individualData?.permanentWard.ct : ''}}</span>,
                         <input class="form-field form-control-sm d-print-none"
                                name="addressOfFirm"
                                formControlName="addressOfFirm"
                                placeholder=" "
                                type="text"/>
-                        <span class="print-only">{{this.individualData.registeredStreetTole ? this.individualData.registeredStreetTole.ct : ''}}</span>मा कार्यालय रहेको
+                        <span class="print-only">{{this.individualData?.registeredStreetTole ? this.individualData?.registeredStreetTole.ct : ''}}</span>मा कार्यालय रहेको
                         श्री <input class="form-field form-control-sm d-print-none"
                                     name="firmName"
                                     formControlName="firmName"
                                     placeholder=" "
                                     type="text"/>
-                        <span class="print-only">{{this.individualData.name ? this.individualData.name.ct : ''}}</span>को तर्फबाट अख्तियार प्राप्त ऐ.का.
+                        <span class="print-only">{{this.individualData?.name ? this.individualData?.name.ct : ''}}</span>को तर्फबाट अख्तियार प्राप्त ऐ.का.
                         <ng-container *ngFor="let partner of companyInfo; let i = index">
                             <ng-container
                                     *ngIf="partner?.ownerNationality === 'Nepali' || partner?.foreignAddressOption === 'Local'">
@@ -173,7 +173,7 @@
                                formControlName="purposeOfLoan"
                                [value]="purposeOfLoan"
                                type="text"/>
-                        <span class="print-only">{{this.supportedInfo ? this.supportedInfo.purposeOfLoan : 'व्यापार/ व्यवसाय संचालन'}}</span>
+                        <span class="print-only">{{this.supportedInfo ? this.supportedInfo?.purposeOfLoan : 'व्यापार/ व्यवसाय संचालन'}}</span>
                         प्रयोजनको लागि जम्मा
                         रु <input class="form-field form-control-sm outside disable-print col-2"
                                   (input)="getNumAmountWord('loanAmountInFigure', 'loanAmountInWords')"
@@ -245,33 +245,98 @@
                         </div>
                     </div>
 
-                    <div class="mt-5">
+                    <div class="row">
                         <div class="col-md-12">
                             <p class="text-center"><strong><u>साक्षी</u></strong></p>
-                            १. .............................. जिल्ला .................................
-                            न.पा/गा.वि.स. वडा नं. ............................
-                            बस्ने बर्ष. ...................को/की ...........................<br>
-                            २. कारणीले प्रस्तुत लिखत मेरो सामुन्ने सहिछाप गरेको हो भनी सनाखत गर्ने नविल बैंक
-                            लिमिटेडका कर्मचारी ...............................................
                         </div>
-                        <div class="mt-lg-3">
-                            <div class="col-md-12">
-                                <p>
-                                    ईति सम्वत् ..................साल ................महिना
-                                    .............. गते रोज ...................... शुभम्
-                                    ..........................
-                                </p>
-                            </div>
-                        </div>
+                        <ol class="conditions-list">
+                            <li><input class="form-field form-control-sm d-print-none"
+                                       name="witnessDistrict1"
+                                       formControlName="witnessDistrict1"
+                                       placeholder=""
+                                       type="text"/>
+                                <span class="print-only">{{this.supportedInfo ? (this.supportedInfo?.witnessDistrict1 ? this.supportedInfo?.witnessDistrict1 : '__________________________') : '__________________________'}}</span>
+                                जिल्ला <input class="form-field form-control-sm d-print-none"
+                                              name="witnessMuni1"
+                                              formControlName="witnessMuni1"
+                                              placeholder=""
+                                              type="text"/>
+                                <span class="print-only">{{this.supportedInfo ? (this.supportedInfo?.witnessMuni1 ? this.supportedInfo?.witnessMuni1 : '__________________________') : '__________________________'}}</span>
+                                न.पा/गा.वि.स.
+                                वडा नं. <input class="form-field form-control-sm d-print-none"
+                                               name="witnessWard1"
+                                               formControlName="witnessWard1"
+                                               placeholder=""
+                                               type="text"/>
+                                <span class="print-only">{{this.supportedInfo ? (this.supportedInfo?.witnessWard1 ? this.supportedInfo?.witnessWard1 : '__________________________') : '__________________________'}}</span>
+                                बस्ने बर्ष. <input class="form-field form-control-sm d-print-none"
+                                                   name="witnessAge1"
+                                                   formControlName="witnessAge1"
+                                                   placeholder=""
+                                                   type="text"/>
+                                <span class="print-only">{{this.supportedInfo ? (this.supportedInfo?.witnessAge1 ? this.supportedInfo?.witnessAge1 : '__________________________') : '__________________________'}}</span>
+                                को/की <input class="form-field form-control-sm d-print-none"
+                                             name="witnessName1"
+                                             formControlName="witnessName1"
+                                             placeholder=""
+                                             type="text"/>
+                                <span class="print-only">{{this.supportedInfo ? (this.supportedInfo?.witnessName1 ? this.supportedInfo?.witnessName1 : '__________________________') : '__________________________'}}</span><br>
+                            </li>
+                            <li><input class="form-field form-control-sm d-print-none"
+                                       name="witnessDistrict2"
+                                       formControlName="witnessDistrict2"
+                                       placeholder=""
+                                       type="text"/>
+                                <span class="print-only">{{this.supportedInfo ? (this.supportedInfo?.witnessDistrict2 ? this.supportedInfo?.witnessDistrict2 : '__________________________') : '__________________________'}}</span>
+                                जिल्ला<input class="form-field form-control-sm d-print-none"
+                                             name="witnessMuni2"
+                                             formControlName="witnessMuni2"
+                                             placeholder=""
+                                             type="text"/>
+                                <span class="print-only">{{this.supportedInfo ? (this.supportedInfo?.witnessMuni2 ? this.supportedInfo?.witnessMuni2 : '__________________________') : '__________________________'}}</span>
+                                न.पा/गा.वि.स.
+                                वडा नं. <input class="form-field form-control-sm d-print-none"
+                                               name="witnessWard2"
+                                               formControlName="witnessWard2"
+                                               placeholder=""
+                                               type="text"/>
+                                <span class="print-only">{{this.supportedInfo ? (this.supportedInfo?.witnessWard2 ? this.supportedInfo?.witnessWard2 : '__________________________') : '__________________________'}}</span>
+                                बस्ने बर्ष. <input class="form-field form-control-sm d-print-none"
+                                                   name="witnessAge2"
+                                                   formControlName="witnessAge2"
+                                                   placeholder=""
+                                                   type="text"/>
+                                <span class="print-only">{{this.supportedInfo ? (this.supportedInfo?.witnessAge2 ? this.supportedInfo?.witnessAge2 : '__________________________') : '__________________________'}}</span>
+                                को/की <input class="form-field form-control-sm d-print-none"
+                                             name="witnessName2"
+                                             formControlName="witnessName2"
+                                             placeholder=""
+                                             type="text"/>
+                                <span class="print-only">{{this.supportedInfo ? (this.supportedInfo?.witnessName2 ? this.supportedInfo?.witnessName2 : '__________________________') : '__________________________'}}</span>
+                            </li>
+                            <li> कारणीले प्रस्तुत लिखत मेरो सामुन्ने सहिछाप गरेको हो भनी सनाखत गर्ने नविल बैंक
+                                लिमिटेडका कर्मचारी <input class="form-field form-control-sm d-print-none"
+                                                          name="karmachariName"
+                                                          formControlName="karmachariName"
+                                                          placeholder=""
+                                                          type="text"/>
+                                <span class="print-only">{{this.supportedInfo ? (this.supportedInfo?.karmachariName ? this.supportedInfo?.karmachariName : '__________________________') : '__________________________'}}</span>
+                            </li>
+                        </ol>
                     </div>
                     <div class="row mt-5 ml-0">
                         <div class="col-md-12 text-right">
-                            <button nbButton status="success" class="disable-print" (click)="submit()">Save</button>
                             <button [useExistingCss]="true"
-                                    class="d-print-none" printSectionId="print-section"
-                                    nbButton status="info" outline ngxPrint>Print &nbsp;&nbsp;
+                                    styleSheetFile="assets/css/printStyles.scss"
+                                    printSectionId="personalGuaranteeCompanyPrint"
+                                    class="d-print-none float-right" printSectionId="print-section"
+                                    nbButton size="small" status="info" outline ngxPrint>
+                                Print &nbsp;&nbsp;
                                 <em class="fa fa-print" style="color: rgb(47, 3, 168)"></em>
                             </button>
+                            <button nbButton size="small" class="d-print-none sav" status="success" (click)="submit()"
+                                    style="color: rgb(65,104,207); background-color: rgb(235,247,255);">Save &nbsp;&nbsp;
+                                <em class="fa fa-save" style="color: rgb(47, 3, 168)"></em></button>
                         </div>
                     </div>
                 </div>
