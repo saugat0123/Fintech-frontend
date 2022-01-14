@@ -774,7 +774,7 @@
                             <th>गाडी नं.</th>
                         </tr>
                         <tr *ngFor="let vehicleData of offerLetterForm.get('vehicleSecurity')?.value; let iii = index">
-                            <td><input type="text"
+                            <td colspan="2"><input type="text"
                                        [value]="offerLetterForm?.get(['vehicleSecurity', iii, 'vehicleDetail'])?.value"
                                        placeholder="सवारीको विवरण"
                                        (change)="securityValueChange($event?.target?.value, iii, 'vehicleDetail')"
