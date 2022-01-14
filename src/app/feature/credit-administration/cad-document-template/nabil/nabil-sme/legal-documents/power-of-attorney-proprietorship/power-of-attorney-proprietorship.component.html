@@ -9,31 +9,31 @@
                             </p>
 
                             <p class="text-right"> मिति: <input
-                                    class="form-field disable-print form-control-sm nepaliFont"
+                                    class="form-field disable-print form-control-sm"
                                     name="date"
                                     formControlName="date"
                                     placeholder="मिति"
                                     type="text"
                             />
-                                <span class=" print-only font-weight-bold nepaliFont font-size-normal1">{{form.get('date').value ? form.get('date').value : "============================"}}</span>
+                                <span class=" print-only font-weight-bold">{{form.get('date').value ? form.get('date').value : "_________________"}}</span>
 
                                 <br>
-                            <p>प्रचलित कानून बमोजिम दर्ता भई  <input class="form-field disable-print form-control-sm nepaliFont"
+                            <p>प्रचलित कानून बमोजिम दर्ता भई  <input class="form-field disable-print form-control-sm"
                                                                      name="districtOfFirm"
                                                                      formControlName="districtOfFirm"
                                                                      placeholder=""
                                                                      type="text"
                             />
-                                <span class=" print-only font-weight-bold nepaliFont font-size-normal1">{{form.get('districtOfFirm').value ? form.get('districtOfFirm').value : "============================"}}</span>
+                                <span class=" print-only font-weight-bold">{{form.get('districtOfFirm').value ? form.get('districtOfFirm').value : "_________________"}}</span>
 
 
-                                जिल्ला <input class="form-field disable-print form-control-sm nepaliFont"
+                                जिल्ला <input class="form-field disable-print form-control-sm"
                                               name="municipalityOfFirm"
                                               formControlName="municipalityOfFirm"
                                               placeholder=""
                                               type="text"
                                 />
-                                <span class=" print-only font-weight-bold nepaliFont font-size-normal1">{{form.get('municipalityOfFirm').value ? form.get('municipalityOfFirm').value : "============================"}}</span>
+                                <span class=" print-only font-weight-bold">{{form.get('municipalityOfFirm').value ? form.get('municipalityOfFirm').value : "_________________"}}</span>
 
                                 <span *ngIf="this.loanHolderNepData.registeredMunType.en === '0'">
                                                                                 न.पा. ,
@@ -44,53 +44,53 @@
                                 <span *ngIf="this.loanHolderNepData.registeredMunType.en === '2'">
                                                                                 गाँउपालिका ,
                                                                             </span>
-                                वडा नं <input class="form-field disable-print form-control-sm nepaliFont"
+                                वडा नं <input class="form-field disable-print form-control-sm"
                                               name="wardNoOfFirm "
                                               formControlName="wardNoOfFirm"
                                               placeholder=""
                                               type="text"
                                 />
-                                <span class=" print-only font-weight-bold nepaliFont font-size-normal1">{{form.get('wardNoOfFirm').value ? form.get('wardNoOfFirm').value : "============================"}}</span>
+                                <span class=" print-only font-weight-bold">{{form.get('wardNoOfFirm').value ? form.get('wardNoOfFirm').value : "_________________"}}</span>
 
-                                <input class="form-field disable-print form-control-sm nepaliFont"
+                                <input class="form-field disable-print form-control-sm"
                                        name="addressOfFirm "
                                        formControlName="addressOfFirm"
                                        placeholder=""
                                        type="text"
                                 />
-                                <span class=" print-only font-weight-bold nepaliFont font-size-normal1">{{form.get('addressOfFirm').value ? form.get('addressOfFirm').value : "============================"}}</span>
+                                <span class=" print-only font-weight-bold">{{form.get('addressOfFirm').value ? form.get('addressOfFirm').value : "_________________"}}</span>
 
 
 
-                                मा कार्यलय रहेको श्री <input class="form-field disable-print form-control-sm nepaliFont"
+                                मा कार्यलय रहेको श्री <input class="form-field disable-print form-control-sm"
                                                              name="nameOfBorrower"
                                                              formControlName="nameOfBorrower"
                                                              placeholder=""
                                                              type="text"
                                 />
-                                <span class=" print-only font-weight-bold nepaliFont font-size-normal1">{{form.get('nameOfBorrower').value ? form.get('nameOfBorrower').value : "============================"}}</span>
+                                <span class=" print-only font-weight-bold">{{form.get('nameOfBorrower').value ? form.get('nameOfBorrower').value : "_________________"}}</span>
 
 
                                 (प्रोप्राईटरशीप फर्म) को प्रोप्राईटर जसलाई यसपछि ऋणी भनिएको छ, को हकमा एवं तर्फबाट ऐ. का अख्तियारप्राप्त प्रोप्राईटर
                                 <ng-container *ngFor="let assignedLoan of companyInfo; let i = index">
                                 <input
-                                        class="form-field disable-print form-control-sm nepali Fontfont-size-normal"
+                                        class="form-field disable-print form-control-sm"
                                         name="distrcitOfPropreitor"
                                         formControlName="distrcitOfPropreitor"
                                         placeholder=""
                                         type="text"
 
                                 />
-                                <span class=" print-only font-weight-bold nepaliFont font-size-normal">{{form.get('distrcitOfPropreitor').value ? form.get('distrcitOfPropreitor').value : "============================"}}</span>
+                                <span class=" print-only font-weight-bold">{{form.get('distrcitOfPropreitor').value ? form.get('distrcitOfPropreitor').value : "_________________"}}</span>
 
 
-                                जिल्ला, <input class="form-field disable-print form-control-sm nepaliFont"
+                                जिल्ला, <input class="form-field disable-print form-control-sm"
                                                name="municipalityOfPropreitor "
                                                formControlName="municipalityOfPropreitor"
                                                placeholder=""
                                                type="text"
                                 />
-                                <span class=" print-only font-weight-bold nepaliFont font-size-normal1">{{form.get('municipalityOfPropreitor').value ? form.get('municipalityOfPropreitor').value : "============================"}}</span>
+                                <span class=" print-only font-weight-bold">{{form.get('municipalityOfPropreitor').value ? form.get('municipalityOfPropreitor').value : "_________________"}}</span>
                                 <span *ngIf="this.loanHolderNepData.registeredMunType.en === '0'">
                                                                                 न.पा. ,
                                                                             </span>
@@ -101,101 +101,101 @@
                                                                                 गाँउपालिका ,
                                                                             </span>
                                     वडा नं.
-                                    <input class="form-field disable-print form-control-sm nepaliFont"
+                                    <input class="form-field disable-print form-control-sm"
                                            name="wardNoOfPropreitor"
                                            formControlName="wardNoOfPropreitor"
                                            placeholder=""
                                            type="text"
                                     />
-                                    <span class=" print-only font-weight-bold nepaliFont font-size-normal1">{{form.get('wardNoOfPropreitor').value ? form.get('wardNoOfPropreitor').value : "============================"}}</span>
+                                    <span class=" print-only font-weight-bold">{{form.get('wardNoOfPropreitor').value ? form.get('wardNoOfPropreitor').value : "_________________"}}</span>
 
 
-                                    बस्ने श्री <input class="form-field disable-print form-control-sm nepaliFont"
+                                    बस्ने श्री <input class="form-field disable-print form-control-sm"
                                                       name="nameOfPropreitor"
                                                       formControlName="nameOfPropreitor"
                                                       placeholder=""
                                                       type="text"
                                 />
-                                    <span class=" print-only font-weight-bold nepaliFont font-size-normal1">{{form.get('nameOfPropreitor').value ? form.get('nameOfPropreitor').value : "============================"}}</span>
+                                    <span class=" print-only font-weight-bold">{{form.get('nameOfPropreitor').value ? form.get('nameOfPropreitor').value : "_________________"}}</span>
 
 
                                     (ना.प्र.नं . <input
-                                        class="form-field disable-print form-control-sm nepaliFont"
+                                        class="form-field disable-print form-control-sm"
                                         name="citizenshipNo"
                                         formControlName="citizenshipNo"
                                         placeholder=""
                                         type="text"
                                 />
-                                    <span class=" print-only font-weight-bold nepaliFont font-size-normal">{{form.get('citizenshipNo').value ? form.get('citizenshipNo').value : "============================"}}</span>
+                                    <span class=" print-only font-weight-bold">{{form.get('citizenshipNo').value ? form.get('citizenshipNo').value : "_________________"}}</span>
 
 
-                                    जारी मिति <input class="form-field disable-print form-control-sm nepaliFont"
+                                    जारी मिति <input class="form-field disable-print form-control-sm"
                                                      name="dateOfIssue"
                                                      formControlName="dateOfIssue"
                                                      placeholder=""
                                                      type="text"
                                 />
-                                    <span class=" print-only font-weight-bold nepaliFont font-size-normal1">{{form.get('dateOfIssue').value ? form.get('dateOfIssue').value : "============================"}}</span>
+                                    <span class=" print-only font-weight-bold">{{form.get('dateOfIssue').value ? form.get('dateOfIssue').value : "_________________"}}</span>
 
 
                                     जिल्ला प्रशासन कार्यालय <input
-                                        class="form-field disable-print form-control-sm nepaliFont"
+                                        class="form-field disable-print form-control-sm"
                                         name="nameOfIdentityIssuedDistrict"
                                         formControlName="nameOfIdentityIssuedDistrict"
                                         placeholder=""
                                         type="text"
                                 />
                                 </ng-container>
-                                    <span class=" print-only font-weight-bold nepaliFont font-size-normal1">{{form.get('nameOfIdentityIssuedDistrict').value ? form.get('nameOfIdentityIssuedDistrict').value : "============================"}}</span>
+                                    <span class=" print-only font-weight-bold">{{form.get('nameOfIdentityIssuedDistrict').value ? form.get('nameOfIdentityIssuedDistrict').value : "_________________"}}</span>
 
 
-                                    आगे मरहामी ऋणीको अनुरोधमा नबिल बैंक लिमिटेडको  <input class="form-field disable-print form-control-sm nepaliFont"
+                                    आगे मरहामी ऋणीको अनुरोधमा नबिल बैंक लिमिटेडको  <input class="form-field disable-print form-control-sm"
                                                                                           name="nameOfBranchLocated"
                                                                                           formControlName="nameOfBranchLocated"
                                                                                           placeholder=""
                                                                                           type="text"
                                 />
-                                    <!--                                <span class=" print-only font-weight-bold nepaliFont font-size-normal1">{{form.get('citizenshipNo').value ? form.get('citizenshipNo').value : "============================"}}</span>-->
+                                                                    <span class=" print-only font-weight-bold">{{form.get('nameOfBranchLocated').value ? form.get('nameOfBranchLocated').value : "_________________"}}</span>
 
 
-                                    शाखा मार्फत मेरोरहाम्रो नाममा जारी भएको मिति <input class="form-field disable-print form-control-sm nepaliFont"
+                                    शाखा मार्फत मेरोरहाम्रो नाममा जारी भएको मिति <input class="form-field disable-print form-control-sm"
                                                                                         name="sanctionLetterIssuedDate"
                                                                                         formControlName="sanctionLetterIssuedDate"
                                                                                         placeholder=""
                                                                                         type="text"
                                 />
-                                    <!--                                <span class=" print-only font-weight-bold nepaliFont font-size-normal1">{{form.get('citizenshipIssueDate').value ? form.get('citizenshipIssueDate').value : "============================"}}</span>-->
+                                                                    <span class=" print-only font-weight-bold">{{form.get('sanctionLetterIssuedDate').value ? form.get('sanctionLetterIssuedDate').value : "_________________"}}</span>
 
 
                                     को ऋण स्वीकृती पत्रानुसार मेरो/हाम्रो नाममा कुल कर्जा रु <input
-                                        class="form-field disable-print form-control-sm nepaliFont"
+                                        class="form-field disable-print form-control-sm"
                                         name="loanAmountInFigure"
                                         formControlName="loanAmountInFigure"
                                         placeholder=""
                                         type="text"
                                 />
-<!--                                    <span class=" print-only font-weight-bold nepaliFont font-size-normal1">{{form.get('loanAmountInFigure').value ? form.get('loanAmountInFigure').value : "============================"}}</span>-->
+                                    <span class=" print-only font-weight-bold">{{form.get('loanAmountInFigure').value ? form.get('loanAmountInFigure').value : "_________________"}}</span>
 
 
                                 (अक्षरेपी
-                                <input class="form-field disable-print form-control-sm nepaliFont font-size-normal"
+                                <input class="form-field disable-print form-control-sm"
                                        name="loanAmountInWords"
                                        formControlName="loanAmountInWords"
                                        placeholder=""
                                        type="text"
                                 />)
-<!--                                <span class=" print-only font-weight-bold nepaliFont font-size-normal">{{form.get('loanAmountInWords').value ? form.get('loanAmountInWords').value : "============================"}}</span>-->
+                                <span class=" print-only font-weight-bold">{{form.get('loanAmountInWords').value ? form.get('loanAmountInWords').value : "_________________"}}</span>
                                 स्वीकृत गर्दा तोकिएको शर्त बमोजिम हामी ऋणीले भुक्तानी प्राप्त गर्न बांकी रहेको (Account Receivables) रकम र स्वीकारयोग्य चेक, ड्राफ्ट, बील, वित्तीय उपकरण आदि
                                 हामी ऋणीको हकमा बुझीलिन नबिल बैंक लिमिटेड (जसले यसका अधिकारप्राप्त कर्मचारी वा प्रतिनिधिलाई समेत जनाउनेछ)
                                 लाई यसै लिखतबाट मेरोरहाम्रो वारेस नियुक्त गरेका छौं र वारेसका हैसियतले नबिल बैंक लिमिटेडले देहायको कुनै वा सबै कार्य गर्न सक्नेछ.
 
                             <ol class="conditions">
-                                <li>मरहामीलाई रकम भुक्तानी गर्नुपर्ने दायित्व भएका कुनैपनि व्यक्ति, व्यक्तिहरु, फर्म, कम्पनी, सरकारी, गै¥हसरकारी कार्यालय, संघसंस्थामा सम्पर्क गरी मेरोरहाम्रो तर्फबाट रकम असुल गर्न वा प्राप्त गर्न,
+                                <li>म/हामीलाई रकम भुक्तानी गर्नुपर्ने दायित्व भएका कुनैपनि व्यक्ति, व्यक्तिहरु, फर्म, कम्पनी, सरकारी, गै¥हसरकारी कार्यालय, संघसंस्थामा सम्पर्क गरी मेरोरहाम्रो तर्फबाट रकम असुल गर्न वा प्राप्त गर्न,
                                 </li>
-                                <li> मेरोरहाम्रो हकमा प्राप्त गरेको चेक, ड्राफ्ट वा यस्तै वित्तीय उपकरणहरुमा हस्ताक्षर गर्न, पृष्ठांकन गर्न, प्राप्त रकम वापत मेरोरहाम्रो तर्फबाट प्राप्ति रसिद (acknowledgement receipt) जारी गर्न,
+                                <li> मेरो/हाम्रो हकमा प्राप्त गरेको चेक, ड्राफ्ट वा यस्तै वित्तीय उपकरणहरुमा हस्ताक्षर गर्न, पृष्ठांकन गर्न, प्राप्त रकम वापत मेरोरहाम्रो तर्फबाट प्राप्ति रसिद (acknowledgement receipt) जारी गर्न,
                                 </li>
-                                <li>मेरोरहाम्रो हकमा प्राप्त गरेको रकम मेरोरहाम्रो बैंकप्रतिको दायित्वमा समायोजन गर्न,</li>
-                                <li>मेरोरहाम्रो हकमा रकम प्राप्त गर्ने सिलसिलामा कुनैपनि सरकारी, गै¥हसरकारी कार्यालयमा प्रतिनिधित्व गर्न, निवेदन दिन, निवेदन प्रमाणित गर्न, कुनैपनि लिखत गरीदिन र रकम प्राप्त गर्ने सिलसिलामा आईपर्ने सबै कार्य गर्न,
+                                <li>मेरो/हाम्रो हकमा प्राप्त गरेको रकम मेरोरहाम्रो बैंकप्रतिको दायित्वमा समायोजन गर्न,</li>
+                                <li>मेरो/हाम्रो हकमा रकम प्राप्त गर्ने सिलसिलामा कुनैपनि सरकारी, गै¥हसरकारी कार्यालयमा प्रतिनिधित्व गर्न, निवेदन दिन, निवेदन प्रमाणित गर्न, कुनैपनि लिखत गरीदिन र रकम प्राप्त गर्ने सिलसिलामा आईपर्ने सबै कार्य गर्न,
                                 </li>
                                 <li>माथि उल्लेख भए अनुसार बैंकले मेरोरहाम्रो नाममा स्वीकृत गरेको कर्जा सुविधाको सांवा, ब्याज, थप ब्याज वा सोही कर्जा सुविधाको कारणबाट बैंकमा परेको थप दायित्व समेत सम्पूर्ण रकम कलम चुक्ता भुक्तान
                                     नभएसम्म यो वारेसनामा वैध रही अरद्धनीय (irrevocable) हुनेछ र यो वारेसनामा प्रस्तुत गरेपछि मेरोरहाम्रो थप स्वीकृति वा सहमति विना नै मरहामीलाई भुक्तानी दिनुपर्ने रकम वारेस नबिल बैंक लिमिटेड
@@ -204,11 +204,11 @@
                                 <li>यो वारेसनामा दिएको कारणले मात्र मेरोरहाम्रो बैंकप्रतिको दायित्वमा कुनै परिवर्तन हुने छैन र मैलेरहामीले बैंकको पक्षमा गरीदिएको कर्जा सुविधा सम्बन्धी लिखतहरुबाट प्राप्त मरहामीबाट बैंकको लेना असुल
                                     गर्ने अधिकारमा कुनै असर पर्ने छैन ।
                                 </li>
-                                <li>मेरोरहाम्रो हकमा प्राप्त गरेको रकम मेरोरहाम्रो बैंकप्रतिको दायित्वमा समायोजन गर्न,</li>
+                                <li>मेरो/हाम्रो हकमा प्राप्त गरेको रकम मेरोरहाम्रो बैंकप्रतिको दायित्वमा समायोजन गर्न,</li>
                             </ol>
                             <p>यो वारेसनामा अनुसार मेरोरहाम्रो वारेस नबिल बैंक लिमिटेडले गरेको कुनैपनि काम कारवाही मरहामी आफैंले गरे सरह मानिनेछ र यो वारेसनामा अनुसार कुनैपनि काम कारवाही गर्दा वारेस
                                 नबिल बैंक लिमिटेडले कुनै लागत वा खर्च व्यहोर्न परेमा त्यस्तो लागत वा खर्च नबिल बैंक लिमिटेडलाई मरहामीले सोधभर्ना दिई बैंकलाई सबै किसिमको दायित्वबाट उन्मुक्ति (indemnify)
-                                गर्ने प्रतिवद्धता सहित नबिल बैंक लिमिटेडकै शाखा   <input class="form-field disable-print form-control-sm nepaliFont"
+                                गर्ने प्रतिवद्धता सहित नबिल बैंक लिमिटेडकै शाखा   <input class="form-field disable-print form-control-sm"
                                                                                          name="nameOfBranchLocated"
                                                                                          formControlName="nameOfBranchLocated"
                                                                                          placeholder=""
@@ -219,20 +219,20 @@
                             <div class="clearfix">
                                 <p class="sign col-md-8" style="text-align: left;margin-left: 0em"><b>वारेसनामा लेखीदिनेको</b><br><br> </p>
                                 <p class="float-left">
-                                    ऋणी/फर्म/कम्पनी/संस्थाको नाम: <input class="form-field disable-print form-control-sm nepaliFont"
+                                    ऋणी/फर्म/कम्पनी/संस्थाको नाम: <input class="form-field disable-print form-control-sm"
                                                                          name="nameOfBorrowerFirm"
                                                                          formControlName="nameOfBorrowerFirm"
                                                                          placeholder=""
                                                                          type="text"
                                 /><br>
-                                    ठेगाना: <input class="form-field disable-print form-control-sm nepaliFont"
+                                    ठेगाना: <input class="form-field disable-print form-control-sm"
                                                    style="margin-left: 7.5em"
                                                    name="addressOfBorrowerFirm"
                                                    formControlName="addressOfBorrowerFirm"
                                                    placeholder=""
                                                    type="text"
                                 /><br>
-                                    आधिकारिक प्रतिनिधिको नाम: <input class="form-field disable-print form-control-sm nepaliFont"
+                                    आधिकारिक प्रतिनिधिको नाम: <input class="form-field disable-print form-control-sm"
                                                                      style="margin-left: 0.9em"
                                                                      name="nameOfProprietor"
                                                                      formControlName="nameOfProprietor"
@@ -259,9 +259,11 @@
                         <div class="col-md-12 text-right disable-print">
                             <button nbButton status="info" class="mb-4 float-right disable-print"
                                     [useExistingCss]="true"
+                                    size="small"
                                     ngxPrint printSectionId="{{offerLetterConst.POWER_OF_ATTORNEY_PROPRIETORSHIP}}Print">
                                 Print
                             </button>
+                            <button nbButton status="success" class="disable-print" size="small" (click)="submit()">Save</button>
 
                         </div>
 
@@ -272,6 +274,6 @@
 
     </form>
 </div>
-<!--<app-promissory-note-individual-print [letterData]="initialInfoPrint" [formValue]="form.value" hidden></app-promissory-note-individual-print>-->
-
+<!--<app-power-of-attorney-proprietorship *ngIf="initialInfoPrint" [letterData]="initialInfoPrint" hidden>-->
+<!--</app-power-of-attorney-proprietorship>-->
 
