@@ -31,6 +31,8 @@ export class FixAssetCollateralComponent implements OnInit {
     @Input() securityId: number;
     @Input() security: string;
     @Input() siteVisitDocument: Array<SiteVisitDocument> = new Array<SiteVisitDocument>();
+    @Input() readMode;
+    @Input() uuid;
     customerType: string;
     customerId: number;
     submitted = false;
@@ -42,6 +44,7 @@ export class FixAssetCollateralComponent implements OnInit {
     districts: Array<District> = new Array<District>();
     municipalities: Array<MunicipalityVdc> = new Array<MunicipalityVdc>();
     collateralSiteVisits: Array<CollateralSiteVisit>;
+    approvedCollateralSiteVisits: Array<CollateralSiteVisit>;
     collateralSiteVisit: CollateralSiteVisit = new CollateralSiteVisit();
     collateralData: any;
     selectedSiteVisit: any;
@@ -82,6 +85,9 @@ export class FixAssetCollateralComponent implements OnInit {
         this.getCollateralBySecurityName(this.security);
         this.addStaffs();
         this.getCustomerTypeAndId();
+        if (this.readMode) {
+            this.getApprovedCollateralBySecurityName(this.security);
+        }
     }
 
     getCustomerTypeAndId() {
@@ -97,11 +103,31 @@ export class FixAssetCollateralComponent implements OnInit {
         }
         this.collateralSiteVisitService.getCollateralBySecurityNameAndSecurityAndId(securityName, this.securityId)
             .subscribe((response: any) => {
-            this.collateralSiteVisits = response.detail;
+            const siteVisits = response.detail;
+            console.log(siteVisits);
+            const siteVisitArray = [];
+            siteVisitArray.push(...siteVisits.filter((f) => f.isApproved === false || f.isApproved === null));
+            this.collateralSiteVisits = siteVisitArray;
         }, error => {
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, `Unable to load site visit info of ${securityName}`));
         });
+    }
+
+    getApprovedCollateralBySecurityName(securityName) {
+        if (this.securityId === undefined) {
+            return;
+        }
+        this.collateralSiteVisitService.getCollateralBySecurityNameAndSecurityAndId(securityName, this.securityId)
+            .subscribe((response: any) => {
+                const siteVisits = response.detail;
+                const siteVisitArray = [];
+                siteVisitArray.push(...siteVisits.filter((f) => f.isApproved === true));
+                this.approvedCollateralSiteVisits = siteVisitArray;
+            }, error => {
+                console.error(error);
+                this.toastService.show(new Alert(AlertType.ERROR, `No approved site visit present for security ${securityName}`));
+            });
     }
 
     getLastSiteVisitDetail() {
@@ -120,6 +146,27 @@ export class FixAssetCollateralComponent implements OnInit {
             this.toastService.show(new Alert(AlertType.ERROR, `Unable to load site visit info by ${this.selectedSiteVisit.siteVisitDate} date`));
         });
     }
+
+    getLastApprovedSiteVisitDetail() {
+        this.collateralSiteVisitService.getCollateralBySiteVisitDateAndId(this.selectedSiteVisit.siteVisitDate, this.selectedSiteVisit.id)
+            .subscribe((response: any) => {
+                const siteVisitData = response.detail;
+                if (!ObjectUtil.isEmpty(siteVisitData.isApproved) && siteVisitData.isApproved) {
+                    this.collateralSiteVisit = siteVisitData;
+                    this.isSiteVisitPresent = true;
+                    this.siteVisitDocument = this.collateralSiteVisit.siteVisitDocuments;
+                    this.collateralData = JSON.parse(this.collateralSiteVisit.siteVisitJsonData);
+                    this.getDistrictsById(this.collateralData.province.id, null);
+                    this.getMunicipalitiesById(this.collateralData.district.id, null);
+                    this.fixedAssetsForm.patchValue(JSON.parse(this.collateralSiteVisit.siteVisitJsonData));
+                    this.setStaffDetail(this.collateralData);
+                }
+            }, error => {
+                console.error(error);
+                this.toastService.show(new Alert(AlertType.ERROR, `Unable to load site visit info by ${this.selectedSiteVisit.siteVisitDate} date`));
+            });
+    }
+
     getDistrictsById(provinceId: number, event) {
         const province = new Province();
         province.id = provinceId;
@@ -227,6 +274,7 @@ export class FixAssetCollateralComponent implements OnInit {
             commentAboutFAC: [undefined],
             fixedAssetsLongitude: [undefined],
             fixedAssetsLatitude: [undefined],
+            uuid: [this.uuid]
         });
     }
 
@@ -293,7 +341,9 @@ export class FixAssetCollateralComponent implements OnInit {
         formData.append('siteVisitData', this.fixedAssetsForm.get('date').value);
         formData.append('securityName', this.security);
         formData.append('siteVisitJsonData', JSON.stringify(this.fixedAssetsForm.value));
+        formData.append('uuid', this.uuid);
         if (this.fixedAssetsForm.invalid) {
+            this.spinner = false;
             this.toastService.show(new Alert(AlertType.ERROR, 'Please check validation!!!'));
             this.spinner = false;
             return;

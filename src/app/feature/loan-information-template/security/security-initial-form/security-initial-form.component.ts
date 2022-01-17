@@ -46,7 +46,8 @@ export class SecurityInitialFormComponent implements OnInit {
     @Input() loanTag: string;
     @Input() shareSecurity;
     @Input() customerSecurityId;
-
+    securityEmitValue: string;
+    @Input() approvedData: string;
     @ViewChildren('revaluationComponent')
     revaluationComponent: QueryList<SecurityRevaluationComponent>;
 
@@ -235,7 +236,12 @@ export class SecurityInitialFormComponent implements OnInit {
             this.addInsurancePolicy();
             this.addAssignment();
         }
-
+        if (!ObjectUtil.isEmpty(this.shareSecurity)) {
+            if (!ObjectUtil.isEmpty(this.shareSecurity.approvedData)) {
+                this.shareSecurityData.id = this.shareSecurity.id;
+                this.shareSecurityData.version = this.shareSecurity.version;
+            }
+        }
         if (ObjectUtil.isEmpty(this.shareSecurity)) {
             this.addShareSecurity();
         } else {
@@ -247,6 +253,15 @@ export class SecurityInitialFormComponent implements OnInit {
         this.updateLandSecurityTotal();
         this.reArrangeEnumType();
 
+    }
+    private uuid(): string {
+        // tslint:disable-next-line:no-bitwise
+        let firstPart: any = (Math.random() * 46656) | 0;
+        // tslint:disable-next-line:no-bitwise
+        let secondPart: any = (Math.random() * 46656) | 0;
+        firstPart = ('000' + firstPart.toString(36)).slice(-3);
+        secondPart = ('000' + secondPart.toString(36)).slice(-3);
+        return firstPart + secondPart;
     }
 
     eventLandSecurity($event) {
@@ -453,7 +468,7 @@ export class SecurityInitialFormComponent implements OnInit {
                     ownerKycApplicableData: [singleData.ownerKycApplicableData],
                     landOtherBranchChecked: [singleData.landOtherBranchChecked],
                     kycCheckForLand: [singleData.kycCheckForLand],
-                    landRate: [singleData.landRate],
+                    uuid: [ObjectUtil.isEmpty(singleData.uuid) ? this.uuid() : singleData.uuid],
                 })
             );
         });
@@ -476,6 +491,7 @@ export class SecurityInitialFormComponent implements OnInit {
                         hypothecationOwnerRelationship: [singleData.hypothecationOwnerRelationship],
                         ownerKycApplicableData: [singleData.ownerKycApplicableData],
                         kycCheckForHypthecation: [singleData.kycCheckForHypthecation],
+                        uuid: [ObjectUtil.isEmpty(singleData.uuid) ? this.uuid() : singleData.uuid],
 
                     })
                 );
@@ -493,6 +509,7 @@ export class SecurityInitialFormComponent implements OnInit {
                 assignmentsDetails.push(
                     this.formBuilder.group({
                         otherDetail: [singleData.otherDetail],
+                        uuid: [ObjectUtil.isEmpty(singleData.uuid) ? this.uuid() : singleData.uuid],
                     })
                 );
             });
@@ -509,6 +526,7 @@ export class SecurityInitialFormComponent implements OnInit {
                 securityOtherDetails.push(
                     this.formBuilder.group({
                         otherDetail: [singleData.otherDetail],
+                        uuid: [ObjectUtil.isEmpty(singleData.uuid) ? this.uuid() : singleData.uuid],
                     })
                 );
             });
@@ -531,6 +549,7 @@ export class SecurityInitialFormComponent implements OnInit {
                         email: [singleData.email],
                         phoneNumber: [singleData.phoneNumber],
                         otherDetail: [singleData.otherDetail],
+                        uuid: [ObjectUtil.isEmpty(singleData.uuid) ? this.uuid() : singleData.uuid],
                     })
                 );
             });
@@ -552,6 +571,7 @@ export class SecurityInitialFormComponent implements OnInit {
                         phoneNumber: [singleData.phoneNumber],
                         otherDetail: [singleData.otherDetail],
                         owner: [singleData.owner],
+                        uuid: [ObjectUtil.isEmpty(singleData.uuid) ? this.uuid() : singleData.uuid],
 
                     })
                 );
