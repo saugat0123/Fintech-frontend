@@ -5,6 +5,20 @@
         <ng-container *ngIf="multiBankingData?.isMultiBanking">
             <table class="table table-bordered table-responsive-md table-hover text-center table-sm sb-small">
                 <thead>
+                <tr class="sb-bg-dark">
+                    <td>First Pari Passu Agreement Date</td>
+                    <td>Latest Pari Passu Agreement Date</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="text-left pl-1">{{multiBankingData?.firstPari ? (multiBankingData?.firstPari | date) : 'NA'}}</td>
+                    <td class="text-left pl-1">{{multiBankingData?.lastPari ? (multiBankingData?.lastPari | date) : 'NA'}}</td>
+                </tr> | date
+                </tbody>
+            </table>
+            <table class="table table-bordered table-responsive-md table-hover text-center table-sm sb-small">
+                <thead>
                 <tr class="sb-bg-dark text-white">
                     <th>S.N</th>
                     <th>Bank Name</th>
@@ -37,6 +51,20 @@
 
         <span><strong>Consortium Financing ? </strong>{{multiBankingData?.isConsortium === true ? 'YES' : 'NO'}}</span>
         <ng-container *ngIf="multiBankingData?.isConsortium">
+            <table class="table table-bordered table-responsive-md table-hover text-center table-sm sb-small">
+                <thead>
+                <tr class="sb-bg-dark">
+                    <td>First Facilities Agreement Date</td>
+                    <td>Latest Facilities Agreement Date</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td class="text-left pl-1">{{multiBankingData?.firstFacility ? (multiBankingData?.firstFacility | date) : 'NA'}}</td>
+                    <td class="text-left pl-1">{{multiBankingData?.latestFacility ? (multiBankingData?.latestFacility | date) : 'NA'}}</td>
+                </tr>
+                </tbody>
+            </table>
             <table class="table table-bordered table-responsive-md table-hover text-center table-sm sb-small">
                 <thead>
                 <tr class="sb-bg-dark text-white">
