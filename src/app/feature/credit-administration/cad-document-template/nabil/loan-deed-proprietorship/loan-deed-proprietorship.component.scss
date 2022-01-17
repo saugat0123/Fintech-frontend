@@ -1,6 +1,8 @@
+*{
+  line-height: 1.9em;
+}
 .nep {
   font-size: 16px;
-  line-height: 1.9;
   text-align: justify;
   text-justify: inter-word;
 }
@@ -41,7 +43,6 @@
   }
   div.align {
     font-size: 19px;
-    line-height: 1.9;
     text-align: justify;
     text-justify: inter-word;
     margin: 10px 70px;
@@ -61,7 +62,6 @@ textarea {
 textarea {
   padding: 10px;
   max-width: 100%;
-  line-height: 1.5;
   border-radius: 5px;
   border: 1px solid #ccc;
   box-shadow: 1px 1px 1px #999;

@@ -61,6 +61,12 @@ export class LoanDeedProprietorshipComponent implements OnInit {
   yearOfAct = '२०१४';
   offerDocumentDetails: any;
   dateOfExpirySingle;
+  autoFreeText = 'यस अघी देखी नै तपाई धनी बैंकवाट विभिन्न ऋणकर्जा तथा बैकिङ्ग सुविधाहरु प्राप्त गरी उपभोग गर्दै आएको ठिक सांचो हो । हाल म/हामी ऋणी(हरु)लाई उक्त ऋणकर्जा तथा बैंकिङ्ग सुविधा नवीकरण गर्न एवम् थप तथा अतिरिक्त';
+  autoFreeText2 = 'उपरोक्त ऋणकर्जा तथा बैंकिग सुविधाको सुरक्षण वापत देहाय बमोजिमको घरजग्गा तपाई धनी बैंकको नाममा धितो बन्धक पारित गरिदिएका छौं।';
+  sanctionDate;
+  finalAmount;
+  loanAmountWord;
+  registrationDate;
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
@@ -85,15 +91,10 @@ export class LoanDeedProprietorshipComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.individualData = JSON.parse(this.cadData.loanHolder.nepData);
     }
-    if (this.cadData.cadFileList.length > 0) {
-      this.supportedInfo = JSON.parse(this.cadData.cadFileList[0].supportedInformation);
-    }
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(individualCadFile => {
         if (individualCadFile.customerLoanId === this.customerLoanId && individualCadFile.cadDocument.id === this.documentId) {
-          const initialInfo = JSON.parse(individualCadFile.initialInformation);
-          this.initialInfoPrint = initialInfo;
-          this.form.patchValue(initialInfo);
+          this.supportedInfo = JSON.parse(individualCadFile.supportedInformation);
         }
       });
     }
@@ -146,6 +147,8 @@ export class LoanDeedProprietorshipComponent implements OnInit {
       registrationNo: [undefined],
       firmName: [undefined],
       purposeOfLoan: [undefined],
+      autoFreeText: [undefined],
+      autoFreeText2: [undefined],
       sanctionLetterIssuedDate: [undefined],
       loanAmountInFigure: [undefined],
       loanAmountInWords: [undefined],
@@ -161,7 +164,23 @@ export class LoanDeedProprietorshipComponent implements OnInit {
       wardNoOfPartner: [undefined],
       otherAddress: [undefined],
       ageOfPartner: [undefined],
-      nameOfPartner: [undefined]
+      nameOfPartner: [undefined],
+      districtOfWitness1: [undefined],
+      vdcOrMunOfWitness1: [undefined],
+      wardOfWitness1: [undefined],
+      ageOfWitness1: [undefined],
+      nameOfWitness1: [undefined],
+      districtOfWitness2: [undefined],
+      vdcOrMunOfWitness2: [undefined],
+      wardOfWitness2: [undefined],
+      ageOfWitness2: [undefined],
+      nameOfWitness2: [undefined],
+      nameOfBankStaff: [undefined],
+      etiYear: [undefined],
+      etiMonth: [undefined],
+      etiDay: [undefined],
+      roj: [undefined],
+      shuvam: [undefined]
     });
   }
 
@@ -186,15 +205,65 @@ export class LoanDeedProprietorshipComponent implements OnInit {
       this.freeText.push(tempFreeText);
     }
     const free1 = {
-      freeText1: this.form.get('freeText1').value ? this.form.get('freeText1').value : '',
-      dateOfExpirySingle: this.form.get('dateOfExpirySingle').value ? this.form.get('dateOfExpirySingle').value : '',
+      freeText1: this.form.get('freeText1') ? this.form.get('freeText1').value : '',
+      autoFreeText: this.form.get('autoFreeText') ? this.form.get('autoFreeText').value : '',
+      autoFreeText2: this.form.get('autoFreeText2') ? this.form.get('autoFreeText2').value : '',
+      districtOfWitness1: this.form.get('districtOfWitness1') ? this.form.get('districtOfWitness1').value : '',
+      vdcOrMunOfWitness1: this.form.get('vdcOrMunOfWitness1') ? this.form.get('vdcOrMunOfWitness1').value : '',
+      wardOfWitness1: this.form.get('wardOfWitness1') ? this.form.get('wardOfWitness1').value : '',
+      ageOfWitness1: this.form.get('ageOfWitness1') ? this.form.get('ageOfWitness1').value : '',
+      nameOfWitness1: this.form.get('nameOfWitness1') ? this.form.get('nameOfWitness1').value : '',
+      districtOfWitness2: this.form.get('districtOfWitness2') ? this.form.get('districtOfWitness2').value : '',
+      vdcOrMunOfWitness2: this.form.get('vdcOrMunOfWitness2') ? this.form.get('vdcOrMunOfWitness2').value : '',
+      wardOfWitness2: this.form.get('wardOfWitness2') ? this.form.get('wardOfWitness2').value : '',
+      ageOfWitness2: this.form.get('ageOfWitness2') ? this.form.get('ageOfWitness2').value : '',
+      nameOfWitness2: this.form.get('nameOfWitness2') ? this.form.get('nameOfWitness2').value : '',
+      nameOfBankStaff: this.form.get('nameOfBankStaff') ? this.form.get('nameOfBankStaff').value : '',
+      etiYear: this.form.get('etiYear') ? this.form.get('etiYear').value : '',
+      etiMonth: this.form.get('etiMonth') ? this.form.get('etiMonth').value : '',
+      etiDay: this.form.get('etiDay') ? this.form.get('etiDay').value : '',
+      roj: this.form.get('roj') ? this.form.get('roj').value : '',
+      shuvam: this.form.get('shuvam') ? this.form.get('shuvam').value : '',
+      dateOfExpirySingle: this.form.get('dateOfExpirySingle') ? this.form.get('dateOfExpirySingle').value : '',
       combinedFreeText: this.freeText
     };
     return JSON.stringify(free1);
   }
   patchFreeText() {
+    if (!ObjectUtil.isEmpty(this.cadData) && this.cadData.cadFileList.length > 0) {
+      if (!ObjectUtil.isEmpty(this.supportedInfo) && this.autoFreeText === this.supportedInfo.autoFreeText) {
+        this.autoFreeText = 'यस अघी देखी नै तपाई धनी बैंकवाट विभिन्न ऋणकर्जा तथा बैकिङ्ग सुविधाहरु प्राप्त गरी उपभोग गर्दै आएको ठिक सांचो हो । हाल म/हामी ऋणी(हरु)लाई उक्त ऋणकर्जा तथा बैंकिङ्ग सुविधा नवीकरण गर्न एवम् थप तथा अतिरिक्त';
+      }
+      if (!ObjectUtil.isEmpty(this.supportedInfo) && this.supportedInfo.autoFreeText !== this.autoFreeText) {
+        this.autoFreeText = this.supportedInfo.autoFreeText;
+      }
+      if (!ObjectUtil.isEmpty(this.supportedInfo) && this.autoFreeText2 === this.supportedInfo.autoFreeText2) {
+        this.autoFreeText2 = 'उपरोक्त ऋणकर्जा तथा बैंकिग सुविधाको सुरक्षण वापत देहाय बमोजिमको घरजग्गा तपाई धनी बैंकको नाममा धितो बन्धक पारित गरिदिएका छौं।';
+      }
+      if (!ObjectUtil.isEmpty(this.supportedInfo) && this.supportedInfo.autoFreeText2 !== this.autoFreeText2) {
+        this.autoFreeText2 = this.supportedInfo.autoFreeText2;
+      }
+    }
     this.form.patchValue({
       freeText1: this.supportedInfo ? this.supportedInfo.freeText1 : '',
+      autoFreeText: this.autoFreeText ? this.autoFreeText : '',
+      autoFreeText2: this.autoFreeText2 ? this.autoFreeText2 : '',
+      districtOfWitness1: this.supportedInfo ? this.supportedInfo.districtOfWitness1 : '',
+      vdcOrMunOfWitness1: this.supportedInfo ? this.supportedInfo.vdcOrMunOfWitness1 : '',
+      wardOfWitness1: this.supportedInfo ? this.supportedInfo.wardOfWitness1 : '',
+      ageOfWitness1: this.supportedInfo ? this.supportedInfo.ageOfWitness1 : '',
+      nameOfWitness1: this.supportedInfo ? this.supportedInfo.nameOfWitness1 : '',
+      districtOfWitness2: this.supportedInfo ? this.supportedInfo.districtOfWitness2 : '',
+      vdcOrMunOfWitness2: this.supportedInfo ? this.supportedInfo.vdcOrMunOfWitness2 : '',
+      wardOfWitness2: this.supportedInfo ? this.supportedInfo.wardOfWitness2 : '',
+      ageOfWitness2: this.supportedInfo ? this.supportedInfo.ageOfWitness2 : '',
+      nameOfWitness2: this.supportedInfo ? this.supportedInfo.nameOfWitness2 : '',
+      nameOfBankStaff: this.supportedInfo ? this.supportedInfo.nameOfBankStaff : '',
+      etiYear: this.supportedInfo ? this.supportedInfo.etiYear : '',
+      etiMonth: this.supportedInfo ? this.supportedInfo.etiMonth : '',
+      etiDay: this.supportedInfo ? this.supportedInfo.etiDay : '',
+      roj: this.supportedInfo ? this.supportedInfo.roj : '',
+      shuvam: this.supportedInfo ? this.supportedInfo.shuvam : '',
     });
   }
   submit() {
@@ -211,6 +280,7 @@ export class LoanDeedProprietorshipComponent implements OnInit {
         const document = new Document();
         cadFile.initialInformation = JSON.stringify(this.form.value);
         this.initialInfoPrint = cadFile.initialInformation;
+        cadFile.supportedInformation = this.setCombinedFreeText();
         document.id = this.documentId;
         cadFile.cadDocument = document;
         cadFile.customerLoanId = this.customerLoanId;
@@ -255,38 +325,51 @@ export class LoanDeedProprietorshipComponent implements OnInit {
       const proposedAmount = val.proposal.proposedLimit;
       totalLoan = totalLoan + proposedAmount;
     });
-    const finalAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoan));
-    const loanAmountWord = this.nepaliCurrencyWordPipe.transform(totalLoan);
-    let registrationDate;
-    if (!ObjectUtil.isEmpty(this.individualData.registrationDate.np)) {
-      registrationDate = this.individualData.registrationDate.np;
-    } else {
-      const convertedDate = this.datePipe.transform(this.individualData.registrationDate.en);
-      registrationDate = this.engToNepaliDate.transform(convertedDate, true);
+    this.finalAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoan));
+    this.loanAmountWord = this.nepaliCurrencyWordPipe.transform(totalLoan);
+
+    // for date conversion of registration date
+    if (!ObjectUtil.isEmpty(this.individualData.registrationDateOption)) {
+      if (this.individualData.registrationDateOption.en === 'AD') {
+        this.registrationDate = this.engToNepaliDate.transform(this.individualData.registrationDate ?
+            this.individualData.registrationDate.en : this.individualData.registrationDate.en, true) || '';
+      } else {
+        this.registrationDate = this.individualData.registrationDate.en ? this.individualData.registrationDate.en.nDate : '';
+      }
     }
-    let sanctionDate;
     if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
-      if (this.cadData.offerDocumentList[0].docName === 'DDSL Without Subsidy') {
+      if (this.cadData.offerDocumentList[0].docName === 'DDSL Without Subsidy' ||
+          this.cadData.offerDocumentList[0].docName === 'Class A Sanction letter') {
         const dateOfApproval = this.initialInfo.sanctionLetterDateType ? this.initialInfo.sanctionLetterDateType.en : '';
         if (dateOfApproval === 'AD') {
-          sanctionDate = this.initialInfo.sanctionLetterDate ? this.initialInfo.sanctionLetterDate.ct : '';
+          this.sanctionDate = this.initialInfo.sanctionLetterDate ? this.initialInfo.sanctionLetterDate.ct : '';
         } else {
-          sanctionDate = this.initialInfo.sanctionLetterDateNepali ? this.initialInfo.sanctionLetterDateNepali.ct : '';
+          this.sanctionDate = this.initialInfo.sanctionLetterDateNepali ? this.initialInfo.sanctionLetterDateNepali.ct : '';
         }
-        if (this.initialInfo.loanOption.en === 'EXISTING' || this.initialInfo.loanOption.en === 'Existing') {
-          this.newOrExisting = true;
+        if (this.cadData.offerDocumentList[0].docName === 'Class A Sanction letter') {
+          if (this.initialInfo.costumerType.en === 'existingPlainRenewal' ||
+              this.initialInfo.costumerType.en === 'existingRenewalWithEnhancement'
+              || this.initialInfo.costumerType.en === 'existingAdditionalLoan') {
+            this.newOrExisting = true;
+          }
+        }
+        if (this.cadData.offerDocumentList[0].docName === 'DDSL Without Subsidy') {
+          if (this.initialInfo.loanOption.en === 'EXISTING' || this.initialInfo.loanOption.en === 'Existing') {
+            this.newOrExisting = true;
+          }
         }
         this.interestRate = this.initialInfo.interestRate ? this.initialInfo.interestRate.ct : '';
       }
       if (this.cadData.offerDocumentList[0].docName !== 'DDSL Without Subsidy' &&
-          this.cadData.offerDocumentList[0].docName !== 'Combined Offer Letter') {
+          this.cadData.offerDocumentList[0].docName !== 'Combined Offer Letter' &&
+          this.cadData.offerDocumentList[0].docName !== 'Class A Sanction letter') {
         const dateOfApproval = this.initialInfo.dateOfApprovalType ? this.initialInfo.dateOfApprovalType.en : '';
         if (dateOfApproval === 'AD') {
-          sanctionDate = this.initialInfo.dateOfApproval ? this.initialInfo.dateOfApproval.ct : '';
+          this.sanctionDate = this.initialInfo.dateOfApproval ? this.initialInfo.dateOfApproval.ct : '';
         } else {
-          sanctionDate = this.initialInfo.dateOfApprovalNepali ? this.initialInfo.dateOfApprovalNepali.ct : '';
+          this.sanctionDate = this.initialInfo.dateOfApprovalNepali ? this.initialInfo.dateOfApprovalNepali.ct : '';
         }
-        if (this.initialInfo.loanOption.en === 'EXISTING' || this.initialInfo.loanOption.en === 'Existing') {
+        if (this.initialInfo.loanOption.en === 'EXISTING' || this.initialInfo.loanOption.en === 'Existing' ) {
           this.newOrExisting = true;
         }
         this.interestRate = this.initialInfo.interestRate ? this.initialInfo.interestRate.ct : '';
@@ -295,10 +378,10 @@ export class LoanDeedProprietorshipComponent implements OnInit {
         const dateOfApproval = this.initialInfo.smeGlobalForm.dateOfApprovalType ?
             this.initialInfo.smeGlobalForm.dateOfApprovalType : '';
         if (dateOfApproval === 'AD') {
-          sanctionDate = this.engToNepaliDate.transform(this.initialInfo.smeGlobalForm.dateOfApproval ?
+          this.sanctionDate = this.engToNepaliDate.transform(this.initialInfo.smeGlobalForm.dateOfApproval ?
               this.initialInfo.smeGlobalForm.dateOfApprovalCT : '', true);
         } else {
-          sanctionDate = this.initialInfo.smeGlobalForm.dateOfApprovalNepali ?
+          this.sanctionDate = this.initialInfo.smeGlobalForm.dateOfApprovalNepali ?
               this.initialInfo.smeGlobalForm.dateOfApprovalNepali.nDate : '';
         }
         if (this.initialInfo.smeGlobalForm.loanOption === 'Plain Renewal' || this.initialInfo.smeGlobalForm.loanOption === 'Other'
@@ -717,10 +800,10 @@ export class LoanDeedProprietorshipComponent implements OnInit {
             this.addCombinedFreeText();
             if (this.cadData.cadFileList.length > 0) {
               this.form.get(['combinedFreeText', index, 'dateOfExpiry']).patchValue(
-                  this.supportedInfo.combinedFreeText[index].dateOfExpiry
+                  this.supportedInfo ? this.supportedInfo.combinedFreeText[index].dateOfExpiry : ''
               );
               this.form.get(['combinedFreeText', index, 'interestRateCombined']).patchValue(
-                  this.supportedInfo.combinedFreeText[index].interest
+                  this.supportedInfo ? this.supportedInfo.combinedFreeText[index].interest : ''
               );
             } else {
               this.form.get(['combinedFreeText', index, 'dateOfExpiry']).patchValue(
@@ -748,9 +831,9 @@ export class LoanDeedProprietorshipComponent implements OnInit {
       dateOfRegistration: this.setRegistrationDate(),
       registrationNo: this.individualData.registrationNo ? this.individualData.registrationNo.ct : '',
       firmName: this.individualData.name ? this.individualData.name.ct : '',
-      loanAmountInFigure: finalAmount ? finalAmount : '',
-      loanAmountInWords: loanAmountWord ? loanAmountWord : '',
-      sanctionLetterIssuedDate: sanctionDate ? sanctionDate : '',
+      loanAmountInFigure: this.finalAmount ? this.finalAmount : '',
+      loanAmountInWords: this.loanAmountWord ? this.loanAmountWord : '',
+      sanctionLetterIssuedDate: this.sanctionDate ? this.sanctionDate : '',
       dateOfExpirySingle: this.dateOfExpirySingle ? this.dateOfExpirySingle : '',
       purposeOfLoan: this.setLoanPurpose(),
     });
@@ -811,7 +894,7 @@ export class LoanDeedProprietorshipComponent implements OnInit {
 
   setActYear() {
     let yearOfAct = '';
-    if (this.individualData.radioActYearDate.en === 'AD') {
+    if (!ObjectUtil.isEmpty(this.individualData.radioActYearDate.en === 'AD')) {
       yearOfAct = this.engToNepaliDate.transform(this.individualData.actYear.en ? this.individualData.actYear.en : this.individualData.actYear.en, true) || '' ;
     } else {
       yearOfAct = this.individualData.actYear.en ? this.individualData.actYear.en : '';

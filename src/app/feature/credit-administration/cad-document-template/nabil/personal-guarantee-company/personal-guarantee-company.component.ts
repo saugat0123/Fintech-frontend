@@ -56,38 +56,6 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
               private routerUtilsService: RouterUtilsService,
               private datePipe: DatePipe) { }
-  // ngOnInit(): void {
-  //   this.buildForm();
-  //   const guarantorList = this.cadData.loanHolder.guarantors.guarantorList;
-  //   if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
-  //     this.cadData.cadFileList.forEach(singleCadFile => {
-  //       if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-  //         this.personalGuaranteeCompany.patchValue(JSON.parse(singleCadFile.initialInformation));
-  //       }
-  //     });
-  //   }
-  //   if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
-  //     this.nepData = JSON.parse(this.cadData.loanHolder.nepData);
-  //     this.guarantorData = Object.values(this.nepData.guarantorDetails);
-  //   }
-  //   if (!ObjectUtil.isEmpty(guarantorList)) {
-  //     const guarantorDetails = this.personalGuaranteeCompany.get('personalGuaranteeCompany') as FormArray;
-  //     console.log('list' , guarantorList);
-  //     console.log('details' , guarantorDetails);
-  //     // guarantorList.forEach(e => {
-  //     //   guarantorDetails.push(
-  //     //       this.formBuilder.group({
-  //     //         guarantorName : e.name,
-  //     //         date : e.issuedYear,
-  //     //         guarantorIssueDistrict : e.issuedPlace,
-  //     //         guarantorAddress : e.district,
-  //     //         guarantorRelationship : e.relationship,
-  //     //         citizenshipNo : e.citizenNumber
-  //     //       })
-  //     //   ); }
-  //     // );
-  //   }
-  // }
 
   ngOnInit() {
     this.loadPersonalGuarantorData();
@@ -97,17 +65,37 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
 
     fillGuarantee() {
         if (this.cadData.cadFileList.length > 0) {
-            this.cadInitialInfo = JSON.parse(this.cadData.cadFileList[0].supportedInformation);
-            // this.cadFreeText = this.cadInitialInfo.guaranteeCompanies;
-            const free = this.personalGuaranteeCompany.value;
-            if (this.cadInitialInfo !== null) {
-                for (let val = 0; val < free.guaranteeCompanies.length; val++) {
-                    this.personalGuaranteeCompany.get(['guaranteeCompanies', val, 'freeText']).patchValue(this.cadInitialInfo ? this.cadInitialInfo[val].freeText : '');
+            if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
+                this.cadData.cadFileList.forEach(singleCadFile => {
+                    if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
+                        this.cadInitialInfo = JSON.parse(singleCadFile.supportedInformation);
+                    }
+                });
+                console.log('Free Information:', this.cadInitialInfo);
+                const free = this.personalGuaranteeCompany.value;
+                if (this.cadInitialInfo !== null) {
+                    for (let val = 0; val < free.guaranteeCompanies.length; val++) {
+                        this.personalGuaranteeCompany.get(['guaranteeCompanies', val, 'freeText']).patchValue(this.cadInitialInfo ? this.cadInitialInfo[val].freeText : '');
+                        this.personalGuaranteeCompany.get(['guaranteeCompanies', val, 'sakshiDistrict1']).patchValue(this.cadInitialInfo ? this.cadInitialInfo[val].sakshiDistrict1 : '');
+                        this.personalGuaranteeCompany.get(['guaranteeCompanies', val, 'sakshiDistrict2']).patchValue(this.cadInitialInfo ? this.cadInitialInfo[val].sakshiDistrict2 : '');
+                        this.personalGuaranteeCompany.get(['guaranteeCompanies', val, 'sakshiMunicipality1']).patchValue(this.cadInitialInfo ? this.cadInitialInfo[val].sakshiMunicipality1 : '');
+                        this.personalGuaranteeCompany.get(['guaranteeCompanies', val, 'sakshiMunicipality2']).patchValue(this.cadInitialInfo ? this.cadInitialInfo[val].sakshiMunicipality2 : '');
+                        this.personalGuaranteeCompany.get(['guaranteeCompanies', val, 'sakshiAge1']).patchValue(this.cadInitialInfo ? this.cadInitialInfo[val].sakshiAge1 : '');
+                        this.personalGuaranteeCompany.get(['guaranteeCompanies', val, 'sakshiAge2']).patchValue(this.cadInitialInfo ? this.cadInitialInfo[val].sakshiAge2 : '');
+                        this.personalGuaranteeCompany.get(['guaranteeCompanies', val, 'sakshiWard1']).patchValue(this.cadInitialInfo ? this.cadInitialInfo[val].sakshiWard1 : '');
+                        this.personalGuaranteeCompany.get(['guaranteeCompanies', val, 'sakshiWard2']).patchValue(this.cadInitialInfo ? this.cadInitialInfo[val].sakshiWard2 : '');
+                        this.personalGuaranteeCompany.get(['guaranteeCompanies', val, 'sakshiName1']).patchValue(this.cadInitialInfo ? this.cadInitialInfo[val].sakshiName1 : '');
+                        this.personalGuaranteeCompany.get(['guaranteeCompanies', val, 'sakshiName2']).patchValue(this.cadInitialInfo ? this.cadInitialInfo[val].sakshiName2 : '');
+                        this.personalGuaranteeCompany.get(['guaranteeCompanies', val, 'nameOfBankStaff']).patchValue(this.cadInitialInfo ? this.cadInitialInfo[val].nameOfBankStaff : '');
+                        this.personalGuaranteeCompany.get(['guaranteeCompanies', val, 'year']).patchValue(this.cadInitialInfo ? this.cadInitialInfo[val].year : '');
+                        this.personalGuaranteeCompany.get(['guaranteeCompanies', val, 'month']).patchValue(this.cadInitialInfo ? this.cadInitialInfo[val].month : '');
+                        this.personalGuaranteeCompany.get(['guaranteeCompanies', val, 'date']).patchValue(this.cadInitialInfo ? this.cadInitialInfo[val].date : '');
+                        this.personalGuaranteeCompany.get(['guaranteeCompanies', val, 'day']).patchValue(this.cadInitialInfo ? this.cadInitialInfo[val].day : '');
+                    }
                 }
             }
         }
     }
-
 
   loadPersonalGuarantorData() {
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.assignedLoan)) {
@@ -144,6 +132,7 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
 
   taggedPersonalGuarantorsDetailsForm() {
     if (!ObjectUtil.isEmpty(this.taggedGuarantorsDetailsInLoan)) {
+        console.log('TaggedGuarantorsDetailsLoan Length:', this.taggedGuarantorsDetailsInLoan);
       this.taggedGuarantorsDetailsInLoan.forEach((val) => {
         const individualGuarantorNepData = val.nepData
           ? JSON.parse(val.nepData)
@@ -151,7 +140,6 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
         if (ObjectUtil.isEmpty(individualGuarantorNepData)) {
           return;
         }
-          console.log('individualGuarantorNepData: ', individualGuarantorNepData);
           (this.personalGuaranteeCompany.get("guaranteeCompanies") as FormArray).push(
               this.formBuilder.group({
                   branchName: [this.loanHolderNepData.branch ? this.loanHolderNepData.branch.ct : ''],
@@ -191,6 +179,21 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
                   issuedBy: [individualGuarantorNepData.issuedPlace ? individualGuarantorNepData.issuedPlace.ct : '',],
                   issuedDate: [this.englishNepaliDatePipe.transform(individualGuarantorNepData.citizenIssuedDate.en.eDate ? individualGuarantorNepData.citizenIssuedDate.en.eDate : individualGuarantorNepData.citizenIssuedDate.en, true) || ''
                   ],
+                  sakshiDistrict1: [undefined],
+                  sakshiMunicipality1: [undefined],
+                  sakshiWard1: [undefined],
+                  sakshiAge1: [undefined],
+                  sakshiName1: [undefined],
+                  sakshiDistrict2: [undefined],
+                  sakshiMunicipality2: [undefined],
+                  sakshiWard2: [undefined],
+                  sakshiAge2: [undefined],
+                  sakshiName2: [undefined],
+                  nameOfBankStaff: [undefined],
+                  year: [undefined],
+                  month: [undefined],
+                  date: [undefined],
+                  day: [undefined],
               })
       );
       })
@@ -200,7 +203,7 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
     setRegistrationDate() {
         let expiryDate = '';
         if (this.loanHolderNepData.registrationDateOption.en === 'AD') {
-            expiryDate = this.englishNepaliDatePipe.transform(this.loanHolderNepData.registrationDate.np, true);
+            expiryDate = this.englishNepaliDatePipe.transform(this.loanHolderNepData.registrationDate.en, true);
         } else {
             expiryDate = this.loanHolderNepData.registrationDate.en.nDate;
         }
@@ -293,8 +296,24 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
     for (let val = 0; val < free.guaranteeCompanies.length; val++) {
         const tempFreeText = {
             freeText: this.personalGuaranteeCompany.get(['guaranteeCompanies', val, 'freeText']) ? this.personalGuaranteeCompany.get(['guaranteeCompanies', val, 'freeText']).value : '',
-            }
-            this.freeText.push(tempFreeText);
+                sakshiDistrict1: this.personalGuaranteeCompany.get(['guaranteeCompanies', val, 'sakshiDistrict1']).value ? this.personalGuaranteeCompany.get(['guaranteeCompanies', val, 'sakshiDistrict1']).value : '',
+                sakshiDistrict2: this.personalGuaranteeCompany.get(['guaranteeCompanies', val, 'sakshiDistrict2']).value ? this.personalGuaranteeCompany.get(['guaranteeCompanies', val, 'sakshiDistrict2']).value : '',
+                sakshiMunicipality1: this.personalGuaranteeCompany.get(['guaranteeCompanies', val, 'sakshiMunicipality1']).value ? this.personalGuaranteeCompany.get(['guaranteeCompanies', val, 'sakshiMunicipality1']).value : '',
+                sakshiMunicipality2: this.personalGuaranteeCompany.get(['guaranteeCompanies', val, 'sakshiMunicipality2']).value ? this.personalGuaranteeCompany.get(['guaranteeCompanies', val, 'sakshiMunicipality2']).value : '',
+                sakshiWard1: this.personalGuaranteeCompany.get(['guaranteeCompanies', val, 'sakshiWard1']).value ? this.personalGuaranteeCompany.get(['guaranteeCompanies', val, 'sakshiWard1']).value : '',
+                sakshiWard2: this.personalGuaranteeCompany.get(['guaranteeCompanies', val, 'sakshiWard2']).value ? this.personalGuaranteeCompany.get(['guaranteeCompanies', val, 'sakshiWard2']).value : '',
+                sakshiAge1: this.personalGuaranteeCompany.get(['guaranteeCompanies', val, 'sakshiAge1']).value ? this.personalGuaranteeCompany.get(['guaranteeCompanies', val, 'sakshiAge1']).value : '',
+                sakshiAge2: this.personalGuaranteeCompany.get(['guaranteeCompanies', val, 'sakshiAge2']).value ? this.personalGuaranteeCompany.get(['guaranteeCompanies', val, 'sakshiAge2']).value : '',
+                sakshiName1: this.personalGuaranteeCompany.get(['guaranteeCompanies', val, 'sakshiName1']).value ? this.personalGuaranteeCompany.get(['guaranteeCompanies', val, 'sakshiName1']).value : '',
+                sakshiName2: this.personalGuaranteeCompany.get(['guaranteeCompanies', val, 'sakshiName2']).value ? this.personalGuaranteeCompany.get(['guaranteeCompanies', val, 'sakshiName2']).value : '',
+                nameOfBankStaff: this.personalGuaranteeCompany.get(['guaranteeCompanies', val, 'nameOfBankStaff']).value ? this.personalGuaranteeCompany.get(['guaranteeCompanies', val, 'nameOfBankStaff']).value : '',
+                year: this.personalGuaranteeCompany.get(['guaranteeCompanies', val, 'year']).value ? this.personalGuaranteeCompany.get(['guaranteeCompanies', val, 'year']).value : '',
+                month: this.personalGuaranteeCompany.get(['guaranteeCompanies', val, 'month']).value ? this.personalGuaranteeCompany.get(['guaranteeCompanies', val, 'month']).value : '',
+                date: this.personalGuaranteeCompany.get(['guaranteeCompanies', val, 'date']).value ? this.personalGuaranteeCompany.get(['guaranteeCompanies', val, 'date']).value : '',
+                day: this.personalGuaranteeCompany.get(['guaranteeCompanies', val, 'day']).value ? this.personalGuaranteeCompany.get(['guaranteeCompanies', val, 'day']).value : '',
+
+        }
+        this.freeText.push(tempFreeText);
     }
     return JSON.stringify(this.freeText);
     }
@@ -313,7 +332,7 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
       if (flag) {
           const cadFile = new CadFile();
           const document = new Document();
-          cadFile.initialInformation = JSON.stringify(this.personalGuaranteeCompany.value);
+          // cadFile.initialInformation = JSON.stringify(this.personalGuaranteeCompany.value);
           cadFile.supportedInformation = this.setFreeText();
           document.id = this.documentId;
           cadFile.cadDocument = document;
@@ -342,7 +361,6 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
       this.dialogRef.close();
       this.spinner = false;
     });
-    console.log(this.personalGuaranteeCompany.value);
   }
 
 }

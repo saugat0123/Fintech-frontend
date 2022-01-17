@@ -1,126 +1,146 @@
 <div class="container nep text-justify">
-    <form [formGroup]="form" class="nep">
+    <form [formGroup]="form" class="nep" id="Print">
         <div class="container nep text-justify">
             <div class="row">
                 <div class="col-md-12 viewFull">
                     <p class="text-center" style="font-size:16pt;"><strong><u>विषयः ऋण तमसुक</u></strong></p><br>
                     <p>लिखितम् धनीका नाम काठमाण्डौ जिल्ला काठमाण्डौ महानगरपालिका वीणा मार्ग,
                         तिनधारा दरवारमार्ग स्थित नबिल सेनटरमा मुख्य कार्यालय रही
-                        <input class="form-field form-control-sm"
+                        <input class="form-field form-control-sm d-print-none"
                                name="nameOfBranchLocated"
                                formControlName="nameOfBranchLocated"
                                placeholder=" "
                                type="text"/>
+                        <span class="print-only">{{this.individualData?.branch ? this.individualData?.branch.ct : '______________________'}}</span>
                         मा शाखा कार्यालय रहेको <strong>नबिल बैंक लिमिटेड </strong>
                         (जसलाई यस उप्रान्त <strong>"धनी बैंक"</strong> भनिएको छ) लिखत गरी दिने ऋणीका नाम
-                        <input class="form-field form-control-sm"
+                        <input class="form-field form-control-sm d-print-none"
                                name="actName"
                                formControlName="actName"
                                type="text"/>
-                        ऐन<input class="form-field form-control-sm"
+                        <span class="print-only">{{this.individualData?.actName ? this.individualData?.actName.ct : '______________________'}}</span>
+                        ऐन<input class="form-field form-control-sm d-print-none"
                                  name="yearInFigure"
                                  formControlName="yearInFigure"
                                  type="text"/>
+                        <span class="print-only">{{this.actYear ? this.actYear : '______________________'}}</span>
                         बमोजिम
-                        <input class="form-field form-control-sm"
+                        <input class="form-field form-control-sm d-print-none"
                                name="nameOfAuthorizedBody"
                                formControlName="nameOfAuthorizedBody"
                                placeholder=" "
                                type="text"/>
-                        <input class="form-field form-control-sm"
+                        <span class="print-only">{{this.individualData?.authorizedBodyName ? this.individualData?.authorizedBodyName.ct : '______________________'}}</span>
+                        <input class="form-field form-control-sm d-print-none"
                                name="nameOfDepartment"
                                formControlName="nameOfDepartment"
                                placeholder=" "
                                type="text"/>
-                        विभाग/कार्यालयमा मिति<input class="form-field form-control-sm"
+                        <span class="print-only">{{this.individualData?.registeredWith ? this.individualData?.registeredWith.ct : '______________________'}}</span>
+                        विभाग/कार्यालयमा मिति<input class="form-field form-control-sm d-print-none"
                                                     name="dateOfRegistration"
                                                     formControlName="dateOfRegistration"
                                                     placeholder=" "
-                                                    type="text"/> मा
-                        दर्ता भै द.न.<input class="form-field form-control-sm"
+                                                    type="text"/>
+                        <span class="print-only">{{this.registrationDate ? this.registrationDate : '______________________'}}</span>
+                        मा
+                        दर्ता भै द.न.<input class="form-field form-control-sm d-print-none"
                                             name="registrationNo"
                                             formControlName="registrationNo"
                                             placeholder=" "
                                             type="text"/>
-                        कायम भएको श्री<input class="form-field form-control-sm"
+                        <span class="print-only">{{this.individualData?.registrationNo ? this.individualData?.registrationNo.ct : '______________________'}}</span>
+                        कायम भएको श्री<input class="form-field form-control-sm d-print-none"
                                              name="firmName"
                                              formControlName="firmName"
                                              placeholder=" "
                                              type="text"/>
+                        <span class="print-only">{{this.individualData?.name ? this.individualData?.name.ct : '______________________'}}</span>
                         साझेदारी फर्मका साझेदारहरु
                         <ng-container *ngFor="let partner of companyInfo; let i = index">
                             <ng-container *ngIf="partner?.ownerGender === 'MALE' ||
                             (partner?.ownerGender === 'FEMALE' && partner?.ownerRelationMedium === '1')">
-                                <input class="form-field form-control-sm"
+                                <input class="form-field form-control-sm d-print-none"
                                        name="grandfatherNameOfPartner"
                                        [value]="partner?.ownerGrandFatherNameCT"
                                        placeholder=" "
-                                       type="text"/>को
+                                       type="text"/>
+                                <span class="print-only">{{partner ? partner?.ownerGrandFatherNameCT : '______________________'}}</span>को
                                 <ng-container *ngIf="partner?.ownerGender === 'MALE'">नाती</ng-container>
                                 <ng-container *ngIf="partner?.ownerGender === 'FEMALE'">नातिनी</ng-container>
                             </ng-container>
                             <ng-container
                                     *ngIf="partner?.ownerGender === 'FEMALE' && partner?.ownerRelationMedium === '0'">
-                                <input class="form-field form-control-sm"
+                                <input class="form-field form-control-sm d-print-none"
                                        name="grandfatherNameOfPartner"
                                        [value]="partner?.ownerFatherInLawNameCT"
                                        placeholder=" "
-                                       type="text"/>को बुहारी
+                                       type="text"/>
+                                <span class="print-only">{{partner ? partner?.ownerGrandFatherNameCT : '______________________'}}</span>को
+                                बुहारी
                             </ng-container>
                             <ng-container *ngIf="partner?.ownerGender === 'MALE' ||
                             (partner?.ownerGender === 'FEMALE' && partner?.ownerRelationMedium === '1')">
-                                <input class="form-field form-control-sm"
+                                <input class="form-field form-control-sm d-print-none"
                                        name="fatherNameOfPartner"
                                        [value]="partner?.ownerFatherNameCT"
                                        placeholder=" "
-                                       type="text"/>को
+                                       type="text"/>
+                                <span class="print-only">{{partner ? partner?.ownerGrandFatherNameCT : '______________________'}}</span>को
                                 <ng-container *ngIf="partner?.ownerGender === 'MALE'">छोरा</ng-container>
                                 <ng-container *ngIf="partner?.ownerGender === 'FEMALE'">छोरी</ng-container>
                             </ng-container>
                             <ng-container
                                     *ngIf="partner?.ownerGender === 'FEMALE' && partner?.ownerRelationMedium === '0'">
-                                <input class="form-field form-control-sm"
+                                <input class="form-field form-control-sm d-print-none"
                                        name="fatherNameOfPartner"
                                        [value]="partner?.ownerHusbandNameCT"
                                        placeholder=" "
-                                       type="text"/>को श्रीमती
+                                       type="text"/>
+                                <span class="print-only">{{partner ? partner?.ownerGrandFatherNameCT : '______________________'}}</span>को
+                                श्रीमती
                             </ng-container>
                             <ng-container
                                     *ngIf="partner?.ownerNationality === 'Nepali' || partner?.foreignAddressOption === 'Local'">
-                                <input class="form-field form-control-sm"
+                                <input class="form-field form-control-sm d-print-none"
                                        name="districtOfPartner"
                                        [value]="partner?.ownerPermanentDistrictCT"
                                        placeholder=" "
                                        type="text"/>
-                                जिल्ला <input class="form-field form-control-sm"
+                                <span class="print-only">{{partner ? partner?.ownerPermanentDistrictCT : '______________________'}}</span>
+                                जिल्ला <input class="form-field form-control-sm d-print-none"
                                               name="vdcNameOfPartner"
                                               [value]="partner?.ownerPermanentMunicipalityCT"
                                               placeholder=" "
                                               type="text"/>
+                                <span class="print-only">{{partner ? partner?.ownerPermanentMunicipalityCT : '______________________'}}</span>
                                 <ng-container *ngIf="partner?.ownerPermanentAddressRadio === '0'">न.पा</ng-container>
                                 <ng-container *ngIf="partner?.ownerPermanentAddressRadio === '1'">गा.वि.स.
                                 </ng-container>
                                 <ng-container *ngIf="partner?.ownerPermanentAddressRadio === '2'">गाँउपालिका
                                 </ng-container>
-                                वडा नं <input class="form-field form-control-sm"
+                                वडा नं <input class="form-field form-control-sm d-print-none"
                                               name="wardNoOfPartner"
                                               [value]="partner?.ownerPermanentWardNoCT"
                                               placeholder=" "
                                               type="text"/>
+                                <span class="print-only">{{partner ? partner?.ownerPermanentWardNoCT : '______________________'}}</span>
                             </ng-container>
                             <ng-container *ngIf="(partner?.ownerNationality === 'Indian' || partner?.ownerNationality === 'Other')
                              && partner?.foreignAddressOption === 'Foreign'">
-                                <input class="form-field form-control-sm"
+                                <input class="form-field form-control-sm d-print-none"
                                        name="otherAddress"
                                        [value]="partner?.ownerOtherAddressCT"
                                        placeholder=" "
                                        type="text"/>
+                                <span class="print-only">{{partner ? partner?.ownerOtherAddressCT : '______________________'}}</span>
                             </ng-container>
-                            बस्ने बर्ष <input class="form-field form-control-sm"
+                            बस्ने बर्ष <input class="form-field form-control-sm d-print-none"
                                               name="ageOfPartner"
                                               [value]="ageCalculation(partner?.ownerDob)"
                                               placeholder=" "
                                               type="text"/>
+                            <span class="print-only">{{ageCalculation(partner ? partner?.ownerDob : '______________________')}}</span>
                             <ng-container *ngIf="partner?.ownerGender === 'MALE'">को</ng-container>
                             <ng-container *ngIf="partner?.ownerGender === 'FEMALE'">की</ng-container>
                             <ng-container *ngIf="partner?.ownerGender === 'MALE'">श्री</ng-container>
@@ -132,33 +152,40 @@
                                     *ngIf="partner?.ownerGender === 'FEMALE' && partner?.ownerRelationMedium === '1'">
                                 सुश्री
                             </ng-container>
-                            <input class="form-field form-control-sm"
+                            <input class="form-field form-control-sm d-print-none"
                                    name="nameOfPartner"
                                    [value]="partner?.ownerNameCT"
                                    placeholder=" "
-                                   type="text"/>)–१,
+                                   type="text"/>
+                            <span class="print-only">{{partner ? partner?.ownerNameCT : '______________________'}}</span>)–१,
                         </ng-container>
                         समेत (जसलाई यसपछि ऋणी(हरु) भनिएको छ), आगे म/हामी ऋणी(हरु)लाई
-                        <input class="form-field form-control-sm"
+                        <input class="form-field form-control-sm d-print-none"
                                name="purposeOfLoan"
                                formControlName="purposeOfLoan"
                                [value]="purposeOfLoan"
                                type="text"/>
+                        <span class="print-only">{{this.supportedInfo ? this.supportedInfo.purposeOfLoan : purposeOfLoan}}</span>
                         <!--Auto Populate and Editable-->
                         <!--व्यापार/ व्यवसाय संचालन-->
                         प्रयोजनका लागि
                         <ng-container *ngIf="newOrExisting">
-                            यस अघी देखी नै तपाई धनी बैंकवाट विभिन्न ऋणकर्जा तथा बैकिङ्ग सुविधाहरु
-                            प्राप्त गरी उपभोग गर्दै आएको ठिक सांचो हो । हाल म/हामी ऋणी(हरु)लाई उक्त ऋणकर्जा तथा
-                            बैंकिङ्ग सुविधा नवीकरण गर्न एवम् थप तथा अतिरिक्त
+                            <input class="form-field form-control-sm d-print-none"
+                                   style="width : 100%"
+                                   name="autoFreeText"
+                                   formControlName="autoFreeText"
+                                   [value]="autoFreeText"
+                                   type="text"/>
+                            <span class="print-only">{{this.supportedInfo ? this.supportedInfo.autoFreeText : autoFreeText}}</span>
                         </ng-container>
                         ऋणकर्जा सुविधा आवश्यक भई सोका लागी तपाई धनी बैंकसंग अनुरोध गरेकोमा तपाई
                         धनी बैंकले मेरो/हाम्रो नाउंमा जारी गरेको मिति
-                        <input class="form-field form-control-sm"
+                        <input class="form-field form-control-sm d-print-none"
                                name="sanctionLetterIssuedDate"
                                formControlName="sanctionLetterIssuedDate"
                                placeholder=" "
                                type="text"/>
+                        <span class="print-only">{{this.sanctionDate ? this.sanctionDate : '______________________'}}</span>
                         को ऋण स्वीकृति पत्रानुसार स्वीकृत देहाय बमोजिमका ऋणकर्जा तथा बैकिङ्ग सुविधाहरु सोही ऋण
                         स्वीकृति पत्रमा उल्लेखित तरिका बमोजिम प्राप्त गर्ने गरी यो ऋणकर्जाको तमसुक गरिदिएको ठिक
                         सांचो हो । तपाई धनी बैंकबाट प्राप्त ऋणकर्जा तथा बैकिङ्ग सुविधाहरुमा लाग्ने ब्याज, कमिशन,
@@ -205,11 +232,12 @@
                                 <td>{{loan?.loan?.nepaliName || loan?.loan?.name}}</td>
                                 <td>{{convertNepaliNumberAmount(loan?.proposal?.proposedLimit)}}</td>
                                 <td>{{this.interestRate}}%</td>
-                                <td><input class="form-field form-control-sm"
+                                <td><input class="form-field form-control-sm d-print-none"
                                            name="dateOfExpirySingle"
                                            formControlName="dateOfExpirySingle"
                                            placeholder=""
                                            type="text"/>
+                                    <span class="print-only">{{this.dateOfExpirySingle ? this.dateOfExpirySingle : '______/_______/_______'}}</span>
                                 </td>
                             </tr>
                             </tbody>
@@ -219,37 +247,49 @@
                                 <ng-container [formGroupName]="i">
                                     <td>{{newTempData[i]?.loanNepaliName}}</td>
                                     <td>{{newTempData[i]?.loanAmount}}</td>
-                                    <td><input class="form-field form-control-sm"
+                                    <td><input class="form-field form-control-sm d-print-none"
                                                name="interestRateCombined"
                                                formControlName="interestRateCombined"
                                                placeholder=""
-                                               type="text"/></td>
-                                    <td><input class="form-field form-control-sm"
+                                               type="text"/>
+                                        <span class="print-only">{{this.supportedInfo ? this.supportedInfo.combinedFreeText[i].interest : '____________________'}}</span>
+                                    </td>
+                                    <td><input class="form-field form-control-sm d-print-none"
                                                name="dateOfExpiry"
                                                formControlName="dateOfExpiry"
                                                placeholder=""
-                                               type="text"/></td>
+                                               type="text"/>
+                                        <span class="print-only">{{this.supportedInfo ? this.supportedInfo.combinedFreeText[i].dateOfExpiry : '______/_______/_______'}}</span>
+                                    </td>
                                 </ng-container>
                             </tr>
                             </tbody>
                         </table>
-                        <P><strong>कुल ऋणकर्जा तथा बैंकिङ्ग सुविधा रु.<input
-                                class="form-field form-control-sm outside disable-print col-2"
-                                (input)="getNumAmountWord('loanAmountInFigure', 'loanAmountInWords')"
-                                name="loanAmountInFigure"
-                                formControlName="loanAmountInFigure"
-                                placeholder="ऋण रकम"
-                                type="text"/>।
-                            (अक्षरेपी <input class="form-field form-control-sm outside disable-print col-2"
+                        <P><strong>कुल ऋणकर्जा तथा बैंकिङ्ग सुविधा रु.
+                            <input class="form-field form-control-sm outside disable-print d-print-none col-2"
+                                   (input)="getNumAmountWord('loanAmountInFigure', 'loanAmountInWords')"
+                                   name="loanAmountInFigure"
+                                   formControlName="loanAmountInFigure"
+                                   placeholder="ऋण रकम"
+                                   type="text"/>
+                            <span class="print-only">{{this.finalAmount ? this.finalAmount : '______________________'}}</span>।
+                            (अक्षरेपी <input class="form-field form-control-sm outside disable-print d-print-none col-2"
                                              name="loanAmountInWords"
                                              formControlName="loanAmountInWords"
                                              placeholder="रकम"
-                                             type="text"/>मात्र)</strong></P>
+                                             type="text"/>
+                            <span class="print-only">{{this.loanAmountWord ? this.loanAmountWord : '______________________'}}</span>मात्र)</strong>
+                        </P>
                         <div *ngIf="primarySecurityTypeCheck">
                             <div class="mt-lg-5">
                                 <p class="text-center" style="font-size: 12pt"><strong>तपसिल</strong></p>
-                                उपरोक्त ऋणकर्जा तथा बैंकिग सुविधाको सुरक्षण वापत देहाय बमोजिमको घरजग्गा तपाई
-                                धनी बैंकको नाममा धितो बन्धक पारित गरिदिएका छौं।<br>
+                                <input class="form-field form-control-sm d-print-none"
+                                       style="width : 100%"
+                                       name="autoFreeText2"
+                                       formControlName="autoFreeText2"
+                                       [value]="autoFreeText2"
+                                       type="text"/>
+                                <span class="print-only">{{this.supportedInfo ? this.supportedInfo.autoFreeText2 : autoFreeText2}}</span><br>
                                 <table class="table-bordered mt-2" style="width: 100%">
                                     <thead>
                                     <tr>
@@ -282,8 +322,13 @@
                         <div *ngIf="secondarySecurityTypeCheck">
                             <div class="mt-lg-5">
                                 <p class="text-center" style="font-size: 12pt"><strong>तपसिल</strong></p>
-                                उपरोक्त ऋणकर्जा तथा बैंकिग सुविधाको सुरक्षण वापत देहाय बमोजिमको घरजग्गा तपाई
-                                धनी बैंकको नाममा धितो बन्धक पारित गरिदिएका छौं।<br>
+                                <input class="form-field form-control-sm d-print-none"
+                                       style="width : 100%"
+                                       name="autoFreeText2"
+                                       formControlName="autoFreeText2"
+                                       [value]="autoFreeText2"
+                                       type="text"/>
+                                <span class="print-only">{{this.supportedInfo ? this.supportedInfo.autoFreeText2 : autoFreeText2}}</span><br>
                                 <table class="table-bordered mt-2" style="width: 100%">
                                     <thead>
                                     <tr>
@@ -316,8 +361,13 @@
                         <div *ngIf="SecurityTypeCheck">
                             <div class="mt-lg-5">
                                 <p class="text-center" style="font-size: 12pt"><strong>तपसिल</strong></p>
-                                उपरोक्त ऋणकर्जा तथा बैंकिग सुविधाको सुरक्षण वापत देहाय बमोजिमको घरजग्गा तपाई
-                                धनी बैंकको नाममा धितो बन्धक पारित गरिदिएका छौं।<br>
+                                <input class="form-field form-control-sm d-print-none"
+                                       style="width : 100%"
+                                       name="autoFreeText2"
+                                       formControlName="autoFreeText2"
+                                       [value]="autoFreeText2"
+                                       type="text"/>
+                                <span class="print-only">{{this.supportedInfo ? this.supportedInfo.autoFreeText2 : autoFreeText2}}</span><br>
                                 <table class="table-bordered mt-2" style="width: 100%">
                                     <thead>
                                     <tr>
@@ -362,33 +412,142 @@
                                 ४. गाडी नं. __________________________________
                             </p>
                         </div>
-                        <div class="col-md-12 mt-3">
+                        <div class="col-md-12 mt-3 d-print-none">
                             <ckeditor formControlName="freeText1" [config]="ckEditorConfig"></ckeditor>
+                        </div>
+                        <div class="col-md-12 mt-3 print-only"
+                             *ngIf="freeText1Check"
+                             [innerHTML]="(this.supportedInfo ? this.supportedInfo.freeText1 : '') | safeHtml">
                         </div>
                         <div class="col-md-12">
                             <p class="text-center"><strong><u>साक्षी</u></strong></p>
-                            १. .............................. जिल्ला .................................
-                            न.पा/गा.वि.स. वडा नं. ............................
-                            बस्ने बर्ष. ...................को/की ...........................<br>
-                            २.कारणीले प्रस्तुत लिखत मेरो सामुन्ने सहिछाप गरेको हो भनी सनाखत गर्ने नविल बैंक
-                            लिमिटेडका कर्मचारी ...............................................
+                            <ol class="conditions-list">
+                                <li><input class="form-field form-control-sm d-print-none"
+                                           name="witnessDistrict1"
+                                           formControlName="witnessDistrict1"
+                                           placeholder=""
+                                           type="text"/>
+                                    <span class="print-only">{{this.supportedInfo ? (this.supportedInfo.witnessDistrict1 ? this.supportedInfo.witnessDistrict1 : '__________________________') : '__________________________'}}</span>
+                                    जिल्ला <input class="form-field form-control-sm d-print-none"
+                                                 name="witnessMuni1"
+                                                 formControlName="witnessMuni1"
+                                                 placeholder=""
+                                                 type="text"/>
+                                    <span class="print-only">{{this.supportedInfo ? (this.supportedInfo.witnessMuni1 ? this.supportedInfo.witnessMuni1 : '__________________________') : '__________________________'}}</span>
+                                    न.पा/गा.वि.स.
+                                    वडा नं. <input class="form-field form-control-sm d-print-none"
+                                                   name="witnessWard1"
+                                                   formControlName="witnessWard1"
+                                                   placeholder=""
+                                                   type="text"/>
+                                    <span class="print-only">{{this.supportedInfo ? (this.supportedInfo.witnessWard1 ? this.supportedInfo.witnessWard1 : '__________________________') : '__________________________'}}</span>
+                                    बस्ने बर्ष. <input class="form-field form-control-sm d-print-none"
+                                                       name="witnessAge1"
+                                                       formControlName="witnessAge1"
+                                                       placeholder=""
+                                                       type="text"/>
+                                    <span class="print-only">{{this.supportedInfo ? (this.supportedInfo.witnessAge1 ? this.supportedInfo.witnessAge1 : '__________________________') : '__________________________'}}</span>
+                                    को/की <input class="form-field form-control-sm d-print-none"
+                                                 name="witnessName1"
+                                                 formControlName="witnessName1"
+                                                 placeholder=""
+                                                 type="text"/>
+                                    <span class="print-only">{{this.supportedInfo ? (this.supportedInfo.witnessName1 ? this.supportedInfo.witnessName1 : '__________________________') : '__________________________'}}</span><br>
+                                </li>
+                                <li><input class="form-field form-control-sm d-print-none"
+                                           name="witnessDistrict2"
+                                           formControlName="witnessDistrict2"
+                                           placeholder=""
+                                           type="text"/>
+                                    <span class="print-only">{{this.supportedInfo ? (this.supportedInfo.witnessDistrict2 ? this.supportedInfo.witnessDistrict2 : '__________________________') : '__________________________'}}</span>
+                                    जिल्ला<input class="form-field form-control-sm d-print-none"
+                                                 name="witnessMuni2"
+                                                 formControlName="witnessMuni2"
+                                                 placeholder=""
+                                                 type="text"/>
+                                    <span class="print-only">{{this.supportedInfo ? (this.supportedInfo.witnessMuni2 ? this.supportedInfo.witnessMuni2 : '__________________________') : '__________________________'}}</span>
+                                    न.पा/गा.वि.स.
+                                    वडा नं. <input class="form-field form-control-sm d-print-none"
+                                                   name="witnessWard2"
+                                                   formControlName="witnessWard2"
+                                                   placeholder=""
+                                                   type="text"/>
+                                    <span class="print-only">{{this.supportedInfo ? (this.supportedInfo.witnessWard2 ? this.supportedInfo.witnessWard2 : '__________________________') : '__________________________'}}</span>
+                                    बस्ने बर्ष. <input class="form-field form-control-sm d-print-none"
+                                                       name="witnessAge2"
+                                                       formControlName="witnessAge2"
+                                                       placeholder=""
+                                                       type="text"/>
+                                    <span class="print-only">{{this.supportedInfo ? (this.supportedInfo.witnessAge2 ? this.supportedInfo.witnessAge2 : '__________________________') : '__________________________'}}</span>
+                                    को/की <input class="form-field form-control-sm d-print-none"
+                                                 name="witnessName2"
+                                                 formControlName="witnessName2"
+                                                 placeholder=""
+                                                 type="text"/>
+                                    <span class="print-only">{{this.supportedInfo ? (this.supportedInfo.witnessName2 ? this.supportedInfo.witnessName2 : '__________________________') : '__________________________'}}</span>
+                                </li>
+                                <li> कारणीले प्रस्तुत लिखत मेरो सामुन्ने सहिछाप गरेको हो भनी सनाखत गर्ने नविल बैंक
+                                    लिमिटेडका कर्मचारी <input class="form-field form-control-sm d-print-none"
+                                                              name="karmachariName"
+                                                              formControlName="karmachariName"
+                                                              placeholder=""
+                                                              type="text"/>
+                                    <span class="print-only">{{this.supportedInfo ? (this.supportedInfo.karmachariName ? this.supportedInfo.karmachariName : '__________________________') : '__________________________'}}</span>
+                                </li>
+                            </ol>
                         </div>
                         <div class="mt-lg-3">
                             <div class="col-md-12">
-                                <p>
-                                    ईति सम्वत् ..................साल ................महिना
-                                    .............. गते रोज ...................... शुभम्
-                                    ..........................
+                                <p class="text-center">
+                                    ईति सम्वत् <input class="form-field form-control-sm d-print-none"
+                                                      name="year"
+                                                      formControlName="year"
+                                                      placeholder=""
+                                                      type="text"/>
+                                    <span class="print-only">{{this.supportedInfo ? (this.supportedInfo.year ? this.supportedInfo.year : '__________________________') : '__________________________'}}</span>
+                                    साल
+                                    <input class="form-field form-control-sm d-print-none"
+                                           name="month"
+                                           formControlName="month"
+                                           placeholder=""
+                                           type="text"/>
+                                    <span class="print-only">{{this.supportedInfo ? (this.supportedInfo.month ? this.supportedInfo.month : '__________________________') : '__________________________'}}</span> महिना
+                                    <input class="form-field form-control-sm d-print-none"
+                                           name="date"
+                                           formControlName="date"
+                                           placeholder=""
+                                           type="text"/>
+                                    <span class="print-only">{{this.supportedInfo ? (this.supportedInfo.date ? this.supportedInfo.date : '__________________________') : '__________________________'}}</span> गते
+                                    रोज <input class="form-field form-control-sm d-print-none"
+                                               name="days"
+                                               formControlName="days"
+                                               placeholder=""
+                                               type="text"/>
+                                    <span class="print-only">{{this.supportedInfo ? (this.supportedInfo.days ? this.supportedInfo.days : '__________________________') : '__________________________'}}</span> शुभम्
+                                    <input class="form-field form-control-sm d-print-none"
+                                           name="suvam"
+                                           formControlName="suvam"
+                                           placeholder=""
+                                           type="text"/>
+                                    <span class="print-only">{{this.supportedInfo ? (this.supportedInfo.suvam ? this.supportedInfo.suvam : '__________________________') : '__________________________'}}</span>
                                 </p>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12 text-right disable-print">
-                        <button nbButton status="info" class="mb-4 float-right disable-print"
-                                [useExistingCss]="true"
-                                ngxPrint printSectionId="{{offerLetterConst.LOAN_DEED_PARTNERSHIP}}Print">Print
-                        </button>
-                        <button nbButton status="success" class="disable-print" (click)="submit()">Save</button>
+                    <div class="row mt-5 ml-0">
+                        <div class="col-md-12 text-right">
+                            <button [useExistingCss]="true"
+                                    styleSheetFile="assets/css/printStyles.scss"
+                                    printSectionId="personalGuaranteeCompanyPrint"
+                                    class="d-print-none float-right" printSectionId="Print"
+                                    nbButton size="small" status="info" outline ngxPrint>
+                                Print &nbsp;&nbsp;
+                                <em class="fa fa-print" style="color: rgb(47, 3, 168)"></em>
+                            </button>
+                            <button nbButton size="small" class="d-print-none sav" status="success" (click)="submit()"
+                                    style="color: rgb(65,104,207); background-color: rgb(235,247,255);">Save &nbsp;&nbsp;
+                                <em class="fa fa-save" style="color: rgb(47, 3, 168)"></em></button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -396,8 +555,6 @@
     </form>
 </div>
 
-<app-loan-deed-partnership-print *ngIf="initialInfoPrint" [letterData]="initialInfoPrint" [cadData]="cadData"
-                                 hidden></app-loan-deed-partnership-print>
 
 
 
