@@ -31,7 +31,7 @@ export class KisanKarjaSubsidyComponent implements OnInit {
     offerLetterDocument: OfferDocument;
     selectedArray = [];
     afterSave = false;
-    autoPopulate1 = 'सम्पर्क अधिकृत'
+    autoPopulate1 = 'सम्पर्क अधिकृत';
     autoPopulate2 = 'शाखा प्रबन्धक/बरिष्ठ सम्पर्क प्रबन्धक';
     kisanKarjaSubsidy: FormGroup;
     spinner = false;
@@ -85,7 +85,6 @@ export class KisanKarjaSubsidyComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.offerDocumentList)) {
             // tslint:disable-next-line:max-line-length
             this.offerDocumentDetails = this.cadOfferLetterApprovedDoc.offerDocumentList[0] ? JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation) : '';
-            
         }
         this.checkOfferLetterData();
         /* this.guarantorDetails();*/
@@ -167,11 +166,7 @@ export class KisanKarjaSubsidyComponent implements OnInit {
                     this.offerLetterData = this.offerLetterDocument;
                     this.setFreeText();
                     this.freeInformation = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation);
-                    /* this.kisanKarjaSubsidy.get(this.freeTextVal.firstText).patchValue(this.offerLetterData.supportedInformation);*/
                 }
-                // this.selectedSecurity = initialInfo.selectedSecurity.en;
-                // this.loanLimit = initialInfo.loanLimitChecked.en;
-                // this.renewal = initialInfo.renewalChecked.en;
                 this.initialInfoPrint = initialInfo;
                 this.existingOfferLetter = true;
                 this.selectedArray = initialInfo.loanTypeSelectedArray;
@@ -241,7 +236,7 @@ export class KisanKarjaSubsidyComponent implements OnInit {
             loanAmountInWords: this.nepaliCurrencyWordPipe.transform(totalLoanAmount),
             // guarantorName: this.loanHolderInfo.guarantorDetails[0].guarantorName.np,
             referenceNumber: autoRefNumber ? autoRefNumber : '',
-            purposeOfLoan: this.tempData.purposeOfLoan ? this.tempData.purposeOfLoan.ct : '',
+            // purposeOfLoan: this.tempData.purposeOfLoan ? this.tempData.purposeOfLoan.ct : '',
             drawingPower: this.tempData.marginInPercentage ? this.tempData.marginInPercentage.ct : '',
             commitmentFee: this.tempData.commitmentFee ? this.tempData.commitmentFee.ct : '',
             rateNrbCircular: this.tempData.circularRate ? this.tempData.circularRate.ct : '',
@@ -259,6 +254,7 @@ export class KisanKarjaSubsidyComponent implements OnInit {
             dateOfApplication: finaldateOfApplication ? finaldateOfApplication : '',
             nextReviewDate: finalNextReviewDate ? finalNextReviewDate : '',
             prevSanctionLetterDate: finalprevSanctionLetterDate ? finalprevSanctionLetterDate : '',
+            purposeOfLoan: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.purposeOfLoan : '',
             firstAdditionalDetails: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.firstText : '',
             secondAdditionalDetails: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.secondText : '',
             thirdAdditionalDetails: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.thirdText : '',
@@ -293,8 +289,6 @@ export class KisanKarjaSubsidyComponent implements OnInit {
                     this.offerLetterConst.value(this.offerLetterConst.KISAN_KARJA_SUBSIDY).toString()) {
                     this.setFreeText();
                     offerLetterPath.supportedInformation = JSON.stringify(this.freeTextVal);
-                    // offerLetterPath.supportedInformation = this.kisanKarjaSubsidy.get(this.freeTextVal.firstText).value;
-                    // offerLetterPath.pointInformation = this.kisanKarjaSubsidy.get('additionalDetails').value;
                 }
             });
         } else {
@@ -330,6 +324,7 @@ export class KisanKarjaSubsidyComponent implements OnInit {
 
     setFreeText() {
         this.freeTextVal = {
+            purposeOfLoan: this.kisanKarjaSubsidy.get('purposeOfLoan').value,
             firstText: this.kisanKarjaSubsidy.get('firstAdditionalDetails').value,
             secondText: this.kisanKarjaSubsidy.get('secondAdditionalDetails').value,
             thirdText: this.kisanKarjaSubsidy.get('thirdAdditionalDetails').value,
