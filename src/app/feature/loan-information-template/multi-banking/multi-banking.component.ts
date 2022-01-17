@@ -61,6 +61,12 @@ export class MultiBankingComponent implements OnInit {
             conTotalFundedOS: [0],
             conTotalNonFundedOS: [0],
             conTotalOS1: [0],
+            remark: [undefined],
+            firstPari: [undefined],
+            lastPari: [undefined],
+            firstFacility: [undefined],
+            latestFacility: [undefined],
+
         });
     }
 
