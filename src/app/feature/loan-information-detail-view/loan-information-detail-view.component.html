@@ -101,8 +101,8 @@
                         </ng-container>
                         <ng-template #date>
                             <br>
-                            Last Review Date: {{reviewDateData?.lastReviewDate | date}} <br>
-                            Next Review Date: {{reviewDateData?.nextReviewDate | date}}
+                            Last Review Date: {{reviewDateData?.lastReviewDate ? (reviewDateData?.lastReviewDate | date) : 'NA'}} <br>
+                            Next Review Date: {{reviewDateData?.nextReviewDate ? (reviewDateData?.nextReviewDate | date) : 'NA'}}
                         </ng-template>
                     </span>
                 </div>
