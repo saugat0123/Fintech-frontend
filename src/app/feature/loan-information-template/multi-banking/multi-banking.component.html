@@ -12,6 +12,34 @@
                         <nb-radio [value]="false">No</nb-radio>
                     </nb-radio-group>
                     <ng-container *ngIf="multiBankingForm.get('isMultiBanking').value === true">
+                        <div class="row col-md-6">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="remark"><strong>First Pari Passu Agreement Date</strong></label>
+                                    <input class="form-control text-center date-picker"
+                                           formControlName="firstPari"
+                                           placeholder="First Pari Passu Agreement Date"
+                                           type="date"/>
+                                    <!--                                    <input *ngIf="calendarType === 'BS'" formControlName="firstPari" hidden>-->
+                                    <!--                                    <app-calendar *ngIf="calendarType === 'BS'" [ePreDate]="multiBankingForm.get('firstPari').value"-->
+                                    <!--                                                  (messageToEmit)="multiBankingForm.get('firstPari').patchValue($event?.eDate)"></app-calendar>-->
+                                    <!--                                    <nb-datepicker #firstPari></nb-datepicker>-->
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="remark"><strong>Latest Pari Passu Agreement Date</strong></label>
+                                    <input class="form-control text-center"
+                                           formControlName="lastPari"
+                                           placeholder="Latest Pari Passu Agreement Date"
+                                           type="date"/>
+                                    <!--                                    <input *ngIf="calendarType === 'BS'" formControlName="lastPari" hidden>-->
+                                    <!--                                    <app-calendar *ngIf="calendarType === 'BS'" [ePreDate]="multiBankingForm.get('lastPari').value"-->
+                                    <!--                                                  (messageToEmit)="multiBankingForm.get('lastPari').patchValue($event?.eDate)"></app-calendar>-->
+                                    <!--                                    <nb-datepicker #lastPari></nb-datepicker>-->
+                                </div>
+                            </div>
+                        </div>
                         <table class="table table-bordered table-responsive-md table-hover table-sm sb-small text-center">
                             <thead>
                             <tr class="sb-bg-secondary text-white">
@@ -31,7 +59,7 @@
                             <tbody *ngFor="let data of multiBankingForm.get('multiBanking')['controls']; let i = index"
                                    formArrayName="multiBanking">
                             <tr [formGroupName]="i">
-                                <td>{{i+1}}</td>
+                                <td>{{i + 1}}</td>
                                 <td><input class="form-control text-center"
                                            formControlName="bankName"
                                            placeholder="Bank Name"
@@ -123,11 +151,39 @@
                     <span><strong>Consortium Financing ? </strong></span>
                     <nb-radio-group class="ml-1 d-inline-flex"
                                     formControlName="isConsortium"
-                                    name="isConsortium"id="isConsortium">
+                                    name="isConsortium" id="isConsortium">
                         <nb-radio [value]="true">Yes</nb-radio>
                         <nb-radio [value]="false">No</nb-radio>
                     </nb-radio-group>
                     <ng-container *ngIf="multiBankingForm.get('isConsortium').value === true">
+                        <div class="row col-md-6">
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="remark"><strong>First Facilities Agreement Date</strong></label>
+                                    <input class="form-control text-center"
+                                           formControlName="firstFacility"
+                                           placeholder="First Facilities Agreement Date"
+                                           type="date"/>
+                                    <!--                                <input *ngIf="calendarType === 'BS'" formControlName="firstFacility" hidden>-->
+                                    <!--                                <app-calendar *ngIf="calendarType === 'BS'" [ePreDate]="multiBankingForm.get('firstFacility').value"-->
+                                    <!--                                              (messageToEmit)="multiBankingForm.get('firstFacility').patchValue($event?.eDate)"></app-calendar>-->
+                                    <!--                                    <nb-datepicker #firstFacility></nb-datepicker>-->
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="remark"><strong>Latest Facilities Agreement Date</strong></label>
+                                    <input class="form-control text-center"
+                                           formControlName="latestFacility"
+                                           placeholder="Latest Facilities Agreement Date"
+                                           type="date"/>
+                                    <!--  <input *ngIf="calendarType === 'BS'" formControlName="latestFacility" hidden>-->
+                                    <!--  <app-calendar *ngIf="calendarType === 'BS'" [ePreDate]="multiBankingForm.get('latestFacility').value"-->
+                                    <!--              (messageToEmit)="multiBankingForm.get('latestFacility').patchValue($event?.eDate)"></app-calendar>-->
+                                    <!--                                    <nb-datepicker #latestFacility></nb-datepicker>-->
+                                </div>
+                            </div>
+                        </div>
                         <table class="table table-bordered table-responsive-md table-hover table-sm sb-small text-center">
                             <thead>
                             <tr class="sb-bg-secondary text-white">
@@ -147,7 +203,7 @@
                             <tbody *ngFor="let data of multiBankingForm.get('consortium')['controls']; let index = index"
                                    formArrayName="consortium">
                             <tr [formGroupName]="index">
-                                <td>{{index+1}}</td>
+                                <td>{{index + 1}}</td>
                                 <td><input class="form-control text-center"
                                            formControlName="conBankName"
                                            placeholder="Bank Name"
@@ -257,7 +313,7 @@
                                        formControlName="lastAudited"
                                        placeholder="Last Audited Year"
                                        type="date"/>
-<!--                                <nb-datepicker #auditedYear></nb-datepicker>-->
+                                <!--                                <nb-datepicker #auditedYear></nb-datepicker>-->
                             </td>
                         </tr>
                         <tr>
@@ -294,7 +350,7 @@
                                        formControlName="dateOfApp"
                                        placeholder="Date fo Appointment"
                                        type="date"/>
-<!--                                <nb-datepicker #appointment></nb-datepicker>-->
+                                <!--                                <nb-datepicker #appointment></nb-datepicker>-->
                             </td>
                         </tr>
                         <tr>
@@ -313,6 +369,14 @@
                         </tr>
                         </tbody>
                     </table>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label for="remark"><strong>Remark</strong></label>
+                        <textarea class="form-control" formControlName="remark" id="remark"
+                                  name="remark" placeholder="Remark" rows="3"></textarea>
+                    </div>
                 </div>
             </div>
             <nb-card-footer *ngIf="fromProfile">
