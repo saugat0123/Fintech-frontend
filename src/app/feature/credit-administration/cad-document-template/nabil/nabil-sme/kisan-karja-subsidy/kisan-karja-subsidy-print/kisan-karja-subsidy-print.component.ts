@@ -43,6 +43,7 @@ export class KisanKarjaSubsidyPrintComponent implements OnInit {
   dateOfApplication;
   autoPopulate1;
   autoPopulate2;
+  guarantor;
 
   constructor( public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
                public engToNepNumberPipe: EngToNepaliNumberPipe,
@@ -53,6 +54,8 @@ export class KisanKarjaSubsidyPrintComponent implements OnInit {
 
   ngOnInit() {
     this.freeInformation = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation);
+    this.guarantorData = this.cadOfferLetterApprovedDoc.assignedLoan[0].taggedGuarantors;
+    this.guarantor = JSON.parse(this.guarantorData[0].nepData);
     if(ObjectUtil.isEmpty(this.freeInformation)){
       this.autoPopulate1 = 'सम्पर्क अधिकृत';
     } else {

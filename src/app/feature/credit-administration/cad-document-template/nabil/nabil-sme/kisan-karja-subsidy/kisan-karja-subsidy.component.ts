@@ -19,6 +19,7 @@ import {CreditAdministrationService} from '../../../../service/credit-administra
 import {EngNepDatePipe} from 'nepali-patro';
 import {DatePipe} from '@angular/common';
 import {CustomerSubType} from '../../../../../customer/model/customerSubType';
+import { JsonParsePipe } from '../../../../../../@theme/pipes/json-parse.pipe';
 
 @Component({
     selector: 'app-kisan-karja-subsidy',
@@ -55,6 +56,7 @@ export class KisanKarjaSubsidyComponent implements OnInit {
     guarantorNames: Array<any> = new Array<any>();
     allguarantorNames;
     customerSubType = CustomerSubType;
+    guarantor;
 
     constructor(private formBuilder: FormBuilder,
                 private administrationService: CreditAdministrationService,
@@ -73,16 +75,16 @@ export class KisanKarjaSubsidyComponent implements OnInit {
 
     ngOnInit() {
         this.buildForm();
+        this.guarantorData = this.cadOfferLetterApprovedDoc.assignedLoan[0].taggedGuarantors;
+        this.guarantor = JSON.parse(this.guarantorData[0].nepData);
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
             this.branchName = this.cadOfferLetterApprovedDoc.loanHolder.branch.nepaliName + 'मा';
             this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
             this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
         }
-        this.guarantorData = this.cadOfferLetterApprovedDoc.assignedLoan[0].taggedGuarantors;
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.offerDocumentList)) {
             // tslint:disable-next-line:max-line-length
             this.offerDocumentDetails = this.cadOfferLetterApprovedDoc.offerDocumentList[0] ? JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation) : '';
-            console.log(this.offerDocumentDetails);
             
         }
         this.checkOfferLetterData();
@@ -345,10 +347,8 @@ export class KisanKarjaSubsidyComponent implements OnInit {
         if (this.guarantorData.length === 1) {
             const tempGuarantorNep = JSON.parse(this.guarantorData[0].nepData);
             if (tempGuarantorNep.guarantorType.en === 'Personal Guarantor') {
-                // const temp = JSON.parse(this.guarantorData[0].nepData);
-                this.finalName = tempGuarantorNep.guarantorName.ct;
+                    this.finalName = tempGuarantorNep.guarantorName.ct;
             } else {
-                // const temp = JSON.parse(this.guarantorData[0].nepData);
                 this.finalName = tempGuarantorNep.authorizedPersonName.ct;
             }
         } else if (this.guarantorData.length === 2) {

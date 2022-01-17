@@ -250,6 +250,9 @@
                                         Guarantor): </strong>
                                 </td>
                                 <td>
+                                    <span *ngIf = "guarantor.gender.en === 'FEMALE' && guarantor.relationMedium.en === '0'">श्रीमती </span>
+                                    <span *ngIf = "guarantor.gender.en === 'FEMALE' && guarantor.relationMedium.en === '1'">सुश्री </span>
+                                    <span *ngIf = "guarantor.gender.en === 'MALE'">श्रीमान् </span>
                                     <input class="form-field form-control-sm" readonly
                                         formControlName="nameOfPersonalGuarantor" name="nameOfPersonalGuarantor"
                                         type="text" />
@@ -1179,18 +1182,14 @@
 
                     </div>
 
-                    <div class="row">
-                        <div class="col-md-12 text-right">
-                            <button nbButton status="success" (click)="submit()">Save</button>
-                        </div>
-                    </div>
-
                 </div>
             </form>
         </nb-card-body>
-        <nb-card-footer class="mb-3">
-
-            <button nbButton status="info" outline class="mb-4 float-right" [useExistingCss]="true" ngxPrint
+        <nb-card-footer class="mb-2 text-right disable-print">
+            <button nbButton outline status="success" (click)="submit()">Save
+                <nb-icon icon="save-outline"></nb-icon>
+            </button>
+            <button nbButton status="info" outline [useExistingCss]="true" ngxPrint
                 printSectionId="{{offerLetterConst.KISAN_KARJA_SUBSIDY}}Print">Print
                 <nb-icon icon="printer-outline"></nb-icon>
             </button>

@@ -211,6 +211,9 @@
                                 <strong>कूल कर्जा सिमाको लागु हुने व्यक्तिगत जमानतको नाम (Personal Guarantor): </strong>
                             </td>
                             <td>
+                                <span *ngIf = "guarantor.gender.en === 'FEMALE' && guarantor.relationMedium.en === '0'">श्रीमती </span>
+                                <span *ngIf = "guarantor.gender.en === 'FEMALE' && guarantor.relationMedium.en === '1'">सुश्री </span>
+                                <span *ngIf = "guarantor.gender.en === 'MALE'">श्रीमान् </span>
                                 <span class="font-weight-bold">{{finalName ? finalName : '________________'}}</span>
                             </td>
                         </tr>
