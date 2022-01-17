@@ -211,6 +211,9 @@
                                 <strong>कूल कर्जा सिमाको लागु हुने व्यक्तिगत जमानतको नाम (Personal Guarantor): </strong>
                             </td>
                             <td>
+                                <span *ngIf = "guarantor.gender.en === 'FEMALE' && guarantor.relationMedium.en === '0'">श्रीमती </span>
+                                <span *ngIf = "guarantor.gender.en === 'FEMALE' && guarantor.relationMedium.en === '1'">सुश्री </span>
+                                <span *ngIf = "guarantor.gender.en === 'MALE'">श्रीमान् </span>
                                 <span class="font-weight-bold">{{finalName ? finalName : '________________'}}</span>
                             </td>
                         </tr>
@@ -272,7 +275,7 @@
                                                 सुविधा फिर्ता माग गर्न सक्नेछ र सो कर्जामा नियमानुसार ब्याज अनुदान
                                                 प्रदान
                                                 नगर्नका साथै अघिल्लो प्रदान गरिएका अनुदानहरु पनि
-                                                फिर्ता माग गर्ने बैंकको अधिकार सुरक्षित रहेनछ ।
+                                                फिर्ता माग गर्ने बैंकको अधिकार सुरक्षित रहनेछ ।
                                             </strong></p>
                                     </li>
 
@@ -291,7 +294,7 @@
                                             मसान्तमा तिर्न बाँकी रहेको साँवा र ब्याज रकमको
                                             <span class="font-weight-bold"
                                                 [ngClass]="{' outside' : letter?.circularRate.ct!== null && letter?.circularRate.ct!== ''}">
-                                                {{letter?.circularRate.ct === null || letter?.circularRate.ct === '' ? '___________' : letter?.circularRate.ct}}</span>
+                                                {{letter?.circularRate.ct === null || letter?.circularRate.ct === '' ? '___________' : letter?.circularRate.ct}}</span> प्रतिशतका दरले हुन आउने रकम ऋणीले यस बैंकमा रहेको चल्ती खातामा जम्मा गर्नुपर्नेछ । सो सुरक्षण शुल्क दर यदी परिवर्तन भएमा परिवर्तित दरले ऋणीको यस बैंकमा रहेको खाताबाट कट्टा गरि असुल उपर गरिनेछ । उल्लिखित बमोजिमको शुल्क तिर्नबुझाउन तथा खातामा जम्मा गर्न र खाताबाट कट्टृा गरी लिन ऋणी मञ्जुर गर्दछ । 
                                         </strong>
                                         <br>
                                     </li>
@@ -348,7 +351,7 @@
                                         व्याज दरको जानकारी ऋणी आफै बैंकको आधिकारिक वेव साईट (Website) र/वा पत्रपत्रिका
                                         मार्फत प्राप्त गरी तिर्न बुझाउन मन्जुर गर्दछ ।
                                     </li>
-                                    <li>
+                                    <li *ngIf="this.tempData.repaymentType.en === 'EMI_BASIS'">
                                         बैंकको <strong>त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
                                         मा हुने उतार चढाबको कारणबाट सम मासिक किस्ता (EMI- Equated Monthly Installment)मा
                                         भुक्तानी हुने प्रकृतिका कर्जाहरुको हकमा निर्धारीत मासिक
@@ -772,7 +775,7 @@
 
                                     <!-- - Following clause shall be applicable if borrower is firm/company-->
                                     <div
-                                        *ngIf="cadOfferLetterApprovedDoc?.loanHolder['customerType'] === 'INSTITUTION'">
+                                    *ngIf="cadOfferLetterApprovedDoc.loanHolder['customerSubType'] === 'Private Public'">
                                         <strong>ऋणी फर्म/कम्पनी भएमा देहाय बमोजिमका थप शर्तहरु लागूहुनेछ:</strong>
                                         <li>
                                             ऋणीले आर्थिक बर्ष समाप्त भएको तिन महिना भित्र आफ्नोे व्यवसायको लेखापरिक्षण
@@ -857,7 +860,7 @@
 
                                     <!--Applicable in case of proprietor ship firm/partnership firm only-->
                                     <li
-                                        *ngIf="cadOfferLetterApprovedDoc.loanHolder['customerSubType'] === 'PROPRIETORSHIP' || cadOfferLetterApprovedDoc.loanHolder['customerSubType'] === 'PARTNERSHIP' || cadOfferLetterApprovedDoc?.loanHolder['customerType'] === 'INSTITUTION'">
+                                        *ngIf="cadOfferLetterApprovedDoc.loanHolder['customerSubType'] === 'Proprietorship' || cadOfferLetterApprovedDoc.loanHolder['customerSubType'] === 'Partnership' || cadOfferLetterApprovedDoc?.loanHolder['customerType'] === 'INSTITUTION'">
                                         प्रचलित ऐन, नियम, नेपाल राष्ट्र बैंकको निर्देशन तथा यस बैंकको निति, नियम तथा
                                         तिनमा समय समयमा हुने सँशोधन सहितको शर्तहरु पालना गर्न ऋणी/ऋणी फर्म/ऋणी
                                         कम्पनी/ऋणी संस्था मञ्जुर गर्नुका साथै माथि उल्लिखित सम्पुर्ण समेतबाट स्वीकृत
@@ -947,7 +950,7 @@
                                     {{letter?.nameOfStaff.ct === null || letter?.nameOfStaff.ct === '' ? '___________' : letter?.nameOfStaff.ct}}</span>
                                 <br>
                                 <span style="font-size: 19px"
-                                    class="">{{freeInformation ? freeInformation.autoPopulate1 : 'सम्पर्क अधिकृत'}}</span>
+                                    class="">{{autoPopulate1 ? autoPopulate1 : ''}}</span>
                                 <br>
                                 नबिल बैंक लि.
                                 <br>
@@ -963,7 +966,7 @@
                                     {{letter?.nameOfBranchManager.ct === null || letter?.nameOfBranchManager.ct === '' ? '___________' : letter?.nameOfBranchManager.ct}}</span>
                                 <br>
                                 <span style="font-size: 19px"
-                                    class="">{{freeInformation ? freeInformation.autoPopulate2 : 'शाखा प्रबन्धक/बरिष्ठ सम्पर्क प्रबन्धक'}}</span>
+                                    class="">{{autoPopulate2 ? autoPopulate2 : ''}}</span>
                                 <br>
                                 नबिल बैंक लि.
                                 <br>

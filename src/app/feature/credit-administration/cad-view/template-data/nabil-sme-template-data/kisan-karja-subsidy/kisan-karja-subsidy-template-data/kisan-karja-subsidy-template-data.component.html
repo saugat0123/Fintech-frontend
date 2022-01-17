@@ -180,7 +180,7 @@
                                nbInput status="success" type="number">
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" *ngIf="!isInterestSubsidy">
                         <label for="commitmentFee">Total Commitment Fee (%)</label>
                         <input class="form-control" formControlName="commitmentFee" fullWidth id="commitmentFee"
                                nbInput status="success" type="number">
@@ -328,7 +328,7 @@
                                nbInput status="success" type="text" readonly>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" *ngIf="!isInterestSubsidy">
                         <label for="commitmentFeeTrans">Total Commitment Fee (%) Translation </label>
                         <input class="form-control" formControlName="commitmentFeeTrans" fullWidth
                                id="commitmentFeeTrans"
@@ -564,7 +564,7 @@
                         </span>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" *ngIf="!isInterestSubsidy">
                         <label for="commitmentFeeCT">Total Commitment Fee (%) CT</label>
                         <input class="form-control" formControlName="commitmentFeeCT" fullWidth id="commitmentFeeCT"
                                nbInput status="success"
