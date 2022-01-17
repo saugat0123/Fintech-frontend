@@ -287,6 +287,7 @@ export class SecurityComponent implements OnInit {
             vehicleSecurityCoverage: this.securityForm.get('vehicleSecurityCoverage').value
         };
         this.securityData.data = JSON.stringify(mergedForm);
+        this.securityData.totalSecurityAmount = this.calculateTotalSecurity(mergedForm);
         if (!ObjectUtil.isEmpty(this.approvedSecurityValue)) {
             this.securityData.approvedData = JSON.stringify(this.approvedSecurityValue);
         }

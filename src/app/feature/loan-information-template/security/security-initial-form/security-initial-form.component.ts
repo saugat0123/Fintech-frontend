@@ -169,7 +169,7 @@ export class SecurityInitialFormComponent implements OnInit {
 
 
     ngOnInit() {
-
+        console.log('this is form data', this.formData);
         this.getRoleList();
         this.configEditor();
         this.shareService.findAllNepseCompanyData(this.search).subscribe((list) => {
@@ -188,7 +188,7 @@ export class SecurityInitialFormComponent implements OnInit {
         }, error => {
             console.error(error);
         });
-        if (this.formData !== undefined) {
+        if (!ObjectUtil.isEmpty(this.formData)) {
             this.formDataForEdit = this.formData['initialForm'];
             this.selectedArray = this.formData['selectedArray'];
             this.underConstruction(this.formData['underConstructionChecked']);
@@ -468,6 +468,7 @@ export class SecurityInitialFormComponent implements OnInit {
                     ownerKycApplicableData: [singleData.ownerKycApplicableData],
                     landOtherBranchChecked: [singleData.landOtherBranchChecked],
                     kycCheckForLand: [singleData.kycCheckForLand],
+                    landRate: [singleData.landRate],
                     uuid: [ObjectUtil.isEmpty(singleData.uuid) ? this.uuid() : singleData.uuid],
                 })
             );

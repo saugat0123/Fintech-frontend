@@ -112,6 +112,7 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
   reInitiateLoanType: string;
   showBranch = true;
   formAction: FormGroup;
+  displaySecurity = false;
 
   ngOnChanges(changes: SimpleChanges): void {
     this.initial();
@@ -135,6 +136,7 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
       this.canReInitiateLoan = true;
     }
     this.buildActionForm();
+    this.displaySecurityDetails();
   }
 
   getCustomerLoans() {
@@ -568,5 +570,36 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
           documentStatus: [undefined]
         }
     );
+  }
+  displaySecurityDetails() {
+    console.log('THIS IS TOTAL', this.customerInfo.security);
+    if (!ObjectUtil.isEmpty(this.customerInfo.security)) {
+    const securityData = JSON.parse(this.customerInfo.security.data);
+    const approvedSecurityData = JSON.parse(this.customerInfo.security.approvedData);
+    if (!ObjectUtil.isEmpty(securityData)) {
+    if (!ObjectUtil.isEmpty(this.customerInfo.security) && securityData.selectedArray.length > 0) {
+      this.displaySecurity = true;
+      if (securityData.selectedArray.length === 1 &&
+          securityData.selectedArray.includes('OtherSecurity')) {
+        this.displaySecurity = false;
+      }
+    } else {
+      this.displaySecurity = false;
+      }
+    }
+      if (!ObjectUtil.isEmpty(approvedSecurityData)) {
+        if (!ObjectUtil.isEmpty(this.customerInfo.security) && approvedSecurityData.selectedArray.length > 0) {
+          this.displaySecurity = true;
+          if (approvedSecurityData.selectedArray.length === 1 &&
+              approvedSecurityData.selectedArray.includes('OtherSecurity')) {
+            this.displaySecurity = false;
+          }
+        } else {
+          this.displaySecurity = false;
+        }
+      }
+  } else {
+      this.displaySecurity = false;
+    }
   }
 }

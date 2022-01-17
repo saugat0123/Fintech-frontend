@@ -42,7 +42,7 @@
                                         [proposalData]="proposalData"></app-proposal-justification-summary>
 </div>
 
-<app-security-view *ngIf="loanHolder?.security" [security]="loanHolder?.security"
+<app-security-view *ngIf="loanHolder?.security?.data" [security]="loanHolder?.security"
                    [shareSecurityData]="loanHolder?.shareSecurity"
                    [securityId]="securityId"
                    [collateralData]="loanDataHolder?.collateralSiteVisits"
