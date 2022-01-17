@@ -773,7 +773,7 @@
 
                                     <!-- - Following clause shall be applicable if borrower is firm/company-->
                                     <div
-                                    *ngIf="cadOfferLetterApprovedDoc.loanHolder['customerSubType'] === 'Private Public'">
+                                    *ngIf="cadOfferLetterApprovedDoc?.loanHolder['customerType'] === 'INSTITUTION' || cadOfferLetterApprovedDoc.loanHolder['customerSubType'] === 'Private Public' || cadOfferLetterApprovedDoc.loanHolder['customerSubType'] === 'Proprietorship' || cadOfferLetterApprovedDoc.loanHolder['customerSubType'] === 'Partnership' ">
                                         <strong>ऋणी फर्म/कम्पनी भएमा देहाय बमोजिमका थप शर्तहरु लागूहुनेछ:</strong>
                                         <li>
                                             ऋणीले आर्थिक बर्ष समाप्त भएको तिन महिना भित्र आफ्नोे व्यवसायको लेखापरिक्षण

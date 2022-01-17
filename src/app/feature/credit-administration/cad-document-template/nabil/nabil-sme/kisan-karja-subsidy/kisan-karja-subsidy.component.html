@@ -87,6 +87,7 @@
                                 <td style="width: 15%"><strong>कर्जाको उद्देश्य: </strong></td>
                                 <td>
                                     <textarea class="form-control customFont "
+                                              placeholder="कर्जाको उद्देश्य"
                                               style="width: 60%;padding: 5px;margin-top: 10px" name="freeText"
                                               formControlName="purposeOfLoan">
                                             </textarea>
@@ -826,7 +827,7 @@
                                             अन्य फर्ममा ऋण तथा पूजी साधन प्रवाह गर्न जस्ता कार्य गर्न पाइनेछैन ।
                                         </li>
                                         <div
-                                            *ngIf="cadOfferLetterApprovedDoc.loanHolder['customerSubType'] === 'Private Public'">
+                                            *ngIf="cadOfferLetterApprovedDoc?.loanHolder['customerType'] === 'INSTITUTION' || cadOfferLetterApprovedDoc.loanHolder['customerSubType'] === 'Private Public' || cadOfferLetterApprovedDoc.loanHolder['customerSubType'] === 'Proprietorship' || cadOfferLetterApprovedDoc.loanHolder['customerSubType'] === 'Partnership' ">
                                             <!-- - Following clause shall be applicable if borrower is firm/company-->
                                             <strong>ऋणी फर्म/कम्पनी भएमा देहाय बमोजिमका थप शर्तहरु लागूहुनेछ:</strong>
                                             <li>
@@ -918,7 +919,7 @@
 
                                         <!--Applicable in case of proprietor ship firm/partnership firm only-->
                                         <li
-                                            *ngIf="cadOfferLetterApprovedDoc.loanHolder['customerSubType'] === 'PROPRIETORSHIP' || cadOfferLetterApprovedDoc.loanHolder['customerSubType'] === 'PARTNERSHIP' || cadOfferLetterApprovedDoc?.loanHolder['customerType'] === 'INSTITUTION'">
+                                            *ngIf="cadOfferLetterApprovedDoc.loanHolder['customerSubType'] === 'Proprietorship' || cadOfferLetterApprovedDoc.loanHolder['customerSubType'] === 'Partnership' || cadOfferLetterApprovedDoc?.loanHolder['customerType'] === 'INSTITUTION'">
                                             प्रचलित ऐन, नियम, नेपाल राष्ट्र बैंकको निर्देशन तथा यस बैंकको निति, नियम तथा
                                             तिनमा समय समयमा हुने सँशोधन सहितको शर्तहरु पालना गर्न ऋणी/ऋणी फर्म/ऋणी
                                             कम्पनी/ऋणी संस्था मञ्जुर गर्नुका साथै माथि उल्लिखित सम्पुर्ण समेतबाट स्वीकृत
