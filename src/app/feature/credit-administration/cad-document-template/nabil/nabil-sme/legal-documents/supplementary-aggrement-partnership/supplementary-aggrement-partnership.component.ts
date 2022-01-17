@@ -14,6 +14,7 @@ import {Alert, AlertType} from '../../../../../../../@theme/model/Alert';
 import {CadFile} from '../../../../../model/CadFile';
 import {Document} from '../../../../../../admin/modal/document';
 import {OfferDocument} from '../../../../../model/OfferDocument';
+import {EngNepDatePipe} from 'nepali-patro';
 
 @Component({
   selector: 'app-supplementary-aggrement-partnership',
@@ -29,23 +30,27 @@ export class SupplementaryAggrementPartnershipComponent implements OnInit {
   finalAmount;
   loanAmountWord;
   supportedInfo;
-  initialInfoPrint;
-  cadFileList: Array<OfferDocument>;
-  constructor(
-      private formBuilder: FormBuilder,
-      private administrationService: CreditAdministrationService,
-      private toastService: ToastService,
-      private dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
-      private routerUtilsService: RouterUtilsService,
-      private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
-      private engToNepNumberPipe: EngToNepaliNumberPipe,
-      private currencyFormatPipe: CurrencyFormatterPipe
+  initialInfo;
+  sanctionDate;
+  freeTextVal: Array<any> = new Array<any>();
+  constructor(private  formBuilder: FormBuilder,
+              private administrationService: CreditAdministrationService,
+              private toastService: ToastService,
+              private dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
+              private routerUtilsService: RouterUtilsService,
+              private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
+              private engToNepNumberPipe: EngToNepaliNumberPipe,
+              private currencyFormatPipe: CurrencyFormatterPipe,
+              public engToNepaliDate: EngNepDatePipe,
   ) { }
 
   ngOnInit() {
     this.buildForm();
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.individualData = JSON.parse(this.cadData.loanHolder.nepData);
+    }
+    if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
+      this.initialInfo = JSON.parse(this.cadData.offerDocumentList[0].initialInformation);
     }
     if (!ObjectUtil.isEmpty(this.cadData)) {
       let totalLoan = 0;
@@ -56,13 +61,10 @@ export class SupplementaryAggrementPartnershipComponent implements OnInit {
       this.finalAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoan));
       this.loanAmountWord = this.nepaliCurrencyWordPipe.transform(totalLoan);
     }
+    this.setFreeInfo();
     this.fillForm();
-    // this.setFreeInfo(this.individualData.textAreas);
-    // this.setFreeInfo();
-    this.patchFreeInfo();
   }
-
-  private buildForm() {
+  buildForm() {
     this.form = this.formBuilder.group({
       addressOfBank: [undefined],
       nameOfBorrower: [undefined],
@@ -73,76 +75,148 @@ export class SupplementaryAggrementPartnershipComponent implements OnInit {
       dateOfTrust: [undefined],
       letterOfCredit: [undefined],
       letterOfCreditIssueDate: [undefined],
-      textAreas: this.formBuilder.array([]),
+      securityFreeText: this.formBuilder.array([]),
+      // Witness Fields
+      witnessDistrict1: [undefined],
+      witnessMuni1: [undefined],
+      witnessWard1: [undefined],
+      witnessAge1: [undefined],
+      witnessName1: [undefined],
+      witnessDistrict2: [undefined],
+      witnessMuni2: [undefined],
+      witnessWard2: [undefined],
+      witnessAge2: [undefined],
+      witnessName2: [undefined],
+      karmachariName: [undefined],
+      year: [undefined],
+      month: [undefined],
+      date: [undefined],
+      days: [undefined],
+      suvam: [undefined],
     });
     this.addTextArea();
   }
-
-  addTextArea() {
-    (this.form.get('textAreas') as FormArray).push(
-        this.formBuilder.group({
-          freeTexts: [undefined]
-        }));
-  }
-
-  removeAtIndex(i: number) {
-    (this.form.get('textAreas') as FormArray).removeAt(i);
-  }
- // setFreeInfo() {
- //    let text = '';
- //    if (!ObjectUtil.isEmpty(this.cadData)) {
- //      this.cadData.cadFileList.forEach(individualCadFile => {
- //        if (individualCadFile.customerLoanId === this.customerLoanId && individualCadFile.cadDocument.id === this.documentId) {
- //          text = JSON.parse(individualCadFile.supportedInformation);
- //        }
- //      });
- //    }
- //    return text ? text : '';
- //  }
-  setFreeInfo(textAreas: any) {
-    const formArray = this.form.get('textAreas') as FormArray;
-    if (!ObjectUtil.isEmpty(this.cadData)) {
-    if (!ObjectUtil.isEmpty(this.cadData.cadFileList)) {
-      const cadFileList = this.cadFileList;
-      this.cadFileList = cadFileList;
+  setFreeText() {
+    for (let i = 0; i < this.form.get('securityFreeText')['length']; i++) {
+      const free = {
+        freeTexts: this.form.get(['securityFreeText', i, 'freeTexts']) ? this.form.get(['securityFreeText', i, 'freeTexts']).value : '',
+      };
+      this.freeTextVal.push(free);
     }
-      // this.cadData.cadFileList.forEach(individualCadFile => {
-      //   // const freeTextList = this.customerInfo.guarantors.guarantorList;
-      //   // this.supportedInfo = freeTextList;
-      //   if (individualCadFile.customerLoanId === this.customerLoanId && individualCadFile.cadDocument.id === this.documentId) {
-      //     this.supportedInfo = JSON.parse(individualCadFile.supportedInformation);
-      //   }
-      // });
-    }
-    textAreas.forEach(value => {
-      formArray.push(this.formBuilder.group({
-        freeTexts: [value.freeTexts],
-      }));
-    });
+    const tempFree = {
+      // for witness
+      freeTextVal : this.freeTextVal,
+      witnessDistrict1: this.form.get('witnessDistrict1') ? this.form.get('witnessDistrict1').value : '',
+      witnessMuni1: this.form.get('witnessMuni1') ? this.form.get('witnessMuni1').value : '',
+      witnessWard1: this.form.get('witnessWard1') ? this.form.get('witnessWard1').value : '',
+      witnessAge1: this.form.get('witnessAge1') ? this.form.get('witnessAge1').value : '',
+      witnessName1: this.form.get('witnessName1') ? this.form.get('witnessName1').value : '',
+      witnessDistrict2: this.form.get('witnessDistrict2') ? this.form.get('witnessDistrict2').value : '',
+      witnessMuni2: this.form.get('witnessMuni2') ? this.form.get('witnessMuni2').value : '',
+      witnessWard2: this.form.get('witnessWard2') ? this.form.get('witnessWard2').value : '',
+      witnessAge2: this.form.get('witnessAge2') ? this.form.get('witnessAge2').value : '',
+      witnessName2: this.form.get('witnessName2') ? this.form.get('witnessName2').value : '',
+      karmachariName: this.form.get('karmachariName') ? this.form.get('karmachariName').value : '',
+      year: this.form.get('year') ? this.form.get('year').value : '',
+      month: this.form.get('month') ? this.form.get('month').value : '',
+      date: this.form.get('date') ? this.form.get('date').value : '',
+      days: this.form.get('days') ? this.form.get('days').value : '',
+      suvam: this.form.get('suvam') ? this.form.get('suvam').value : '',
+    };
+    return JSON.stringify(tempFree);
   }
-  private fillForm() {
+  fillForm() {
+    // for sanction letter date
+    if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
+      console.log('hire', this.cadData);
+      if (this.cadData.offerDocumentList[0].docName === 'DDSL Without Subsidy' ||
+          this.cadData.offerDocumentList[0].docName === 'Class A Sanction letter') {
+        const dateOfApproval = this.initialInfo.sanctionLetterDateType ? this.initialInfo.sanctionLetterDateType.en : '';
+        if (dateOfApproval === 'AD') {
+          this.sanctionDate = this.initialInfo.sanctionLetterDate ? this.initialInfo.sanctionLetterDate.ct : '';
+        } else {
+          this.sanctionDate = this.initialInfo.sanctionLetterDateNepali ? this.initialInfo.sanctionLetterDateNepali.ct : '';
+        }
+      }
+      if (this.cadData.offerDocumentList[0].docName !== 'DDSL Without Subsidy' &&
+          this.cadData.offerDocumentList[0].docName !== 'Combined Offer Letter' &&
+          this.cadData.offerDocumentList[0].docName !== 'Class A Sanction letter') {
+        const dateOfApproval = this.initialInfo.dateOfApprovalType ? this.initialInfo.dateOfApprovalType.en : '';
+        if (dateOfApproval === 'AD') {
+          this.sanctionDate = this.initialInfo.dateOfApproval ? this.initialInfo.dateOfApproval.ct : '';
+        } else {
+          this.sanctionDate = this.initialInfo.dateOfApprovalNepali ? this.initialInfo.dateOfApprovalNepali.ct : '';
+        }
+      }
+      if (this.cadData.offerDocumentList[0].docName === 'Combined Offer Letter') {
+        const dateOfApproval = this.initialInfo.smeGlobalForm.dateOfApprovalType ?
+            this.initialInfo.smeGlobalForm.dateOfApprovalType : '';
+        if (dateOfApproval === 'AD') {
+          this.sanctionDate = this.engToNepaliDate.transform(this.initialInfo.smeGlobalForm.dateOfApproval ?
+              this.initialInfo.smeGlobalForm.dateOfApprovalCT : '', true);
+        } else {
+          this.sanctionDate = this.initialInfo.smeGlobalForm.dateOfApprovalNepali ?
+              this.initialInfo.smeGlobalForm.dateOfApprovalNepali.nDate : '';
+        }
+      }
+    }
     this.form.patchValue({
       addressOfBank: this.individualData.branch ? this.individualData.branch.ct : '',
       nameOfBorrower: this.individualData.name ? this.individualData.name.ct : '',
-      dateOfHyothenciation: this.individualData.name ? this.individualData.name.ct : '',
+      // dateOfHyothenciation: this.individualData.name ? this.individualData.name.ct : '',
       loanAmountInFig: this.finalAmount ? this.finalAmount : '',
       loanAmountInWord: this.loanAmountWord ? this.loanAmountWord : '',
+      sanctionLetter: this.sanctionDate ? this.sanctionDate : '',
+      // for witness
+      witnessDistrict1: this.supportedInfo ? this.supportedInfo.witnessDistrict1 : '',
+      witnessMuni1: this.supportedInfo ? this.supportedInfo.witnessMuni1 : '',
+      witnessWard1: this.supportedInfo ? this.supportedInfo.witnessWard1 : '',
+      witnessAge1: this.supportedInfo ? this.supportedInfo.witnessAge1 : '',
+      witnessName1: this.supportedInfo ? this.supportedInfo.witnessName1 : '',
+      witnessDistrict2: this.supportedInfo ? this.supportedInfo.witnessDistrict2 : '',
+      witnessMuni2: this.supportedInfo ? this.supportedInfo.witnessMuni2 : '',
+      witnessWard2: this.supportedInfo ? this.supportedInfo.witnessWard2 : '',
+      witnessAge2: this.supportedInfo ? this.supportedInfo.witnessAge2 : '',
+      witnessName2: this.supportedInfo ? this.supportedInfo.witnessName2 : '',
+      karmachariName: this.supportedInfo ? this.supportedInfo.karmachariName : '',
+      year: this.supportedInfo ? this.supportedInfo.year : '',
+      month: this.supportedInfo ? this.supportedInfo.month : '',
+      date: this.supportedInfo ? this.supportedInfo.date : '',
+      days: this.supportedInfo ? this.supportedInfo.days : '',
+      suvam: this.supportedInfo ? this.supportedInfo.suvam : '',
     });
+    if (!ObjectUtil.isEmpty(this.supportedInfo.freeTextVal)) {
+      for (let val = 0; val < this.supportedInfo.freeTextVal.length - 1; val++) {
+        this.addTextArea();
+      }
+      for (let i = 0; i < this.supportedInfo.freeTextVal.length; i++) {
+        this.form.get(['securityFreeText', i, 'freeTexts']).patchValue(this.supportedInfo.freeTextVal[i].freeTexts);
+      }
+    }
+  }
+  setFreeInfo() {
+    if (!ObjectUtil.isEmpty(this.cadData)) {
+      this.cadData.cadFileList.forEach(individualCadFile => {
+        if (individualCadFile.customerLoanId === this.customerLoanId && individualCadFile.cadDocument.id === this.documentId) {
+          this.supportedInfo = JSON.parse(individualCadFile.supportedInformation);
+        }
+      });
+    }
   }
   submit() {
     let flag = true;
-    if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
+    if (!ObjectUtil.isEmpty(this.cadData)) {
       this.cadData.cadFileList.forEach(individualCadFile => {
         if (individualCadFile.customerLoanId === this.customerLoanId && individualCadFile.cadDocument.id === this.documentId) {
           flag = false;
-         // individualCadFile.supportedInformation = this.setFreeText();
+          individualCadFile.supportedInformation = this.setFreeText();
         }
       });
       if (flag) {
         const cadFile = new CadFile();
         const document = new Document();
-        // cadFile.initialInformation = JSON.stringify(this.form.value);
         document.id = this.documentId;
+        cadFile.supportedInformation = this.setFreeText();
         cadFile.cadDocument = document;
         cadFile.customerLoanId = this.customerLoanId;
         this.cadData.cadFileList.push(cadFile);
@@ -150,31 +224,28 @@ export class SupplementaryAggrementPartnershipComponent implements OnInit {
     } else {
       const cadFile = new CadFile();
       const document = new Document();
-      cadFile.initialInformation = JSON.stringify(this.form.value);
       document.id = this.documentId;
       cadFile.cadDocument = document;
       cadFile.customerLoanId = this.customerLoanId;
       this.cadData.cadFileList.push(cadFile);
     }
-
     this.administrationService.saveCadDocumentBulk(this.cadData).subscribe(() => {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved '));
       this.dialogRef.close();
       this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
     }, error => {
-      console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save '));
       this.dialogRef.close();
     });
   }
-
-  private patchFreeInfo() {
-    if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
-      const data = JSON.parse(this.cadData.loanHolder.nepData);
-      this.form.patchValue(data);
-      this.setFreeInfo(data.textAreas);
-    }
+  addTextArea() {
+    (this.form.get('securityFreeText') as FormArray).push(
+        this.formBuilder.group({
+          freeTexts: [undefined]
+        })
+    );
+  }
+  removeAtIndex(i: number) {
+    (this.form.get('securityFreeText') as FormArray).removeAt(i);
   }
 }
-
-
