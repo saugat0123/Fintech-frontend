@@ -89,9 +89,7 @@
                         <tr>
                             <td><strong>कर्जाको उद्देश्य: </strong></td>
                             <td>
-                                <span
-                                    [ngClass]="{'' : letter?.purposeOfLoan.ct !== null && letter?.purposeOfLoan.ct !== ''}"><strong>
-                                        {{letter?.purposeOfLoan.ct === null || letter?.purposeOfLoan.ct === '' ? '___________' : letter?.purposeOfLoan.ct }}</strong></span>
+                                <span><strong>{{freeInformation ? freeInformation.purposeOfLoan : ''}}</strong></span>
                             </td>
                         </tr>
                         <tr>
