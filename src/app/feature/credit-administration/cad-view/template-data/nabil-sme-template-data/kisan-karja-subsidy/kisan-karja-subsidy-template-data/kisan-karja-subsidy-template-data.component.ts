@@ -656,6 +656,8 @@ export class KisanKarjaSubsidyTemplateDataComponent implements OnInit {
     if (this.isInterestSubsidy) {
       this.kisanKarjaSubsidy.get('serviceChargeCT').clearValidators();
       this.kisanKarjaSubsidy.get('serviceChargeCT').updateValueAndValidity();
+      this.kisanKarjaSubsidy.get('commitmentFeeCT').clearValidators();
+      this.kisanKarjaSubsidy.get('commitmentFeeCT').updateValueAndValidity();
     } else {
       this.kisanKarjaSubsidy.get('circularRateCT').clearValidators();
       this.kisanKarjaSubsidy.get('circularRateCT').updateValueAndValidity();
