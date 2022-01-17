@@ -1,5 +1,5 @@
 *{
-  line-height: 1.9;
+  line-height: 1.9em;
   font-size: 19px;
 }
 .form-field {
@@ -12,6 +12,10 @@
   &:focus {
     outline: none;
   }
+}
+ol.conditions-list{
+  list-style: devanagari;
+  text-align: justify !important;
 }
 
 @media screen {
