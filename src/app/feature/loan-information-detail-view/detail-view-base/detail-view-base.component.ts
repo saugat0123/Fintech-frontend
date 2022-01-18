@@ -46,6 +46,8 @@ export class DetailViewBaseComponent implements OnInit {
   financialData;
   financialKeys;
   requestedLoanType;
+  approvedSecurityData: Object;
+  approvedSecurityAsProposed = false;
 
   constructor(private customerLoanService: LoanFormService,
               private combinedLoanService: CombinedLoanService,
@@ -72,6 +74,15 @@ export class DetailViewBaseComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.loanHolder.security)) {
       this.securityId = this.loanHolder.security.id;
+        if (!ObjectUtil.isEmpty(this.loanDataHolder.security.approvedData)) {
+          this.approvedSecurityAsProposed = false;
+          this.approvedSecurityData = JSON.parse(this.loanDataHolder.security.approvedData);
+        }
+        if (ObjectUtil.isEmpty(this.loanDataHolder.security.data) &&
+            !ObjectUtil.isEmpty(this.loanDataHolder.security.approvedData)) {
+          this.approvedSecurityAsProposed = false;
+          this.approvedSecurityData = JSON.parse(this.loanDataHolder.security.approvedData);
+        }
     }
     if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.bankingRelationship)) {
       this.bankingRelation = JSON.parse(this.loanDataHolder.loanHolder.bankingRelationship);
