@@ -113,7 +113,7 @@
                                 <td>
                                   {{i+1}}.{{j+1}}
                                 </td>
-                                <td colspan="3">
+                                <td [colSpan]=" currentRoleTypeMaker ? '3' : '2'">
                                   <span>
                                     {{file.fileName}}
                                   </span>
