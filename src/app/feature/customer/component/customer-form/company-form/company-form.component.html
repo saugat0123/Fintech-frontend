@@ -84,27 +84,26 @@
                                        </div>
                                    </div>
                                </div>
-                               <div class="col-md-4">
-                                   <div class="form-group">
-                                       <label for="accountNo"><strong>Account Number</strong></label>
-
-                                       <input
-                                               [ngClass]="{'is-invalid':submitted &&  form.accountNo.errors}"
-                                               formControlName="accountNo"
-                                               class="form-control"
-                                               id="accountNo"
-                                               placeholder="Enter Account Number"/>
-
-                                       <div *ngIf="submitted && form.accountNo?.errors "
-                                            class="text-danger small">
-                                           <div *ngIf="form.accountNo?.errors.required">
-                                               Account Number is required.
-                                           </div>
+                               <ng-container>
+                                   <div *ngFor="let acc of companyInfoFormGroup.get('accountDetails')['controls']; let ii = index"
+                                        formArrayName="accountDetails" class="col-md-4">
+                                       <label for="accountNo"><strong>Account Number {{ii + 1}}</strong></label>
+                                       <div [formGroupName]="ii" class="form-group">
+                                           <input formControlName="accountNo"
+                                                  class="form-control"
+                                                  id="accountNo"
+                                                  placeholder="Enter Account Number"/>
+                                           <button (click)="removeAccount(ii)"
+                                                   *ngIf="companyInfoFormGroup.get('accountDetails')['length'] > 0"
+                                                   class="btn btn-success float-right" nbButton size="small"
+                                                   status="primary">Delete </button>
                                        </div>
                                    </div>
-                               </div>
-
-
+                                   <div class="text-left pl-1">
+                                       <input (click)="addAccountNumber()" class="btn btn-sm btn-flat btn-primary"
+                                              type="button" value="Add Account No."/>
+                                   </div>
+                               </ng-container>
                                </div>
                            </div>
 

@@ -144,9 +144,13 @@ bankingRelationshipList = BankingRelationship.enumObject();
             } else {
                 this.setRelatives(this.customer.customerRelatives);
             }
+            if (!ObjectUtil.isEmpty(this.individualJsonData.accountDetails)) {
+                this.setAccountNumber(this.individualJsonData.accountDetails);
+            } else {
+                this.addAccountNumber();
+            }
             this.setOccupationAndIncomeSourceAndParentInput(this.formValue);
             this.occupationChange();
-
         } else {
             this.createRelativesArray();
         }
@@ -452,7 +456,8 @@ bankingRelationshipList = BankingRelationship.enumObject();
                 this.maritalStatus],
             customerLegalDocumentAddress: [this.customerLegalDocumentAddress == null ? undefined :
                 this.customerLegalDocumentAddress],
-            sameAddress: [this.customer.sameAddress === undefined ? undefined : this.customer.sameAddress]
+            sameAddress: [this.customer.sameAddress === undefined ? undefined : this.customer.sameAddress],
+            accountDetails: this.formBuilder.array([])
         });
 
         this.onCustomerTypeChange(this.microCustomer);
@@ -469,6 +474,7 @@ bankingRelationshipList = BankingRelationship.enumObject();
         individualJsonData.temporaryAddressLine2 = this.basicInfoControls.temporaryAddressLine2.value;
         individualJsonData.grandFatherName = this.basicInfoControls.grandFatherName.value;
         individualJsonData.fatherName = this.basicInfoControls.fatherName.value;
+        individualJsonData.accountDetails = this.basicInfoControls.accountDetails.value;
         if (this.microCustomer) {
             individualJsonData.microCustomerDetail = this.microIndividualFormComponent.microCustomerForm.value;
         }
@@ -718,5 +724,26 @@ bankingRelationshipList = BankingRelationship.enumObject();
             clientTypeControl.patchValue(this.customer.clientType === undefined ? undefined : this.customer.clientType);
             clientTypeControl.enable();
         }
+    }
+
+    addAccountNumber() {
+        (this.basicInfo.get('accountDetails') as FormArray).push(
+            this.formBuilder.group({
+                accountNo: [undefined],
+            })
+        );
+    }
+
+    removeAccount(index: number) {
+        (<FormArray>this.basicInfo.get('accountDetails')).removeAt(index);
+    }
+
+    setAccountNumber(data) {
+        const account = this.basicInfo.get('accountDetails') as FormArray;
+        data.forEach(l => {
+            account.push(this.formBuilder.group({
+                accountNo: [l.accountNo]
+            }));
+        });
     }
 }
