@@ -14,6 +14,9 @@ import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {ApiConfig} from '../../../../@core/utils/api/ApiConfig';
 import {CadChecklistDocTemplateModalComponent} from '../../cad-offerletter-profile/cad-checklist-doc-template-modal/cad-checklist-doc-template-modal.component';
+import {LaxmiOfferLetterConst} from '../../cad-document-template/laxmi/laxmi-offer-letter/laxmi-offer-letter-const';
+import {CommonService} from '../../../../@core/service/common.service';
+import {LoanTag} from '../../../loan/model/loanTag';
 
 @Component({
   selector: 'app-document-checklist-view-lite',
@@ -38,7 +41,9 @@ export class DocumentChecklistViewLiteComponent implements OnInit {
               private nbDialogService: NbDialogService,
               private routerUtilsService: RouterUtilsService,
               private modelService: NgbModal,
-              private documentService: DocumentService) {
+              private documentService: DocumentService,
+              public commonService: CommonService
+  ) {
   }
 
   ngOnInit() {
@@ -71,13 +76,25 @@ export class DocumentChecklistViewLiteComponent implements OnInit {
   }
 
 
-  previewDoc(url: string, name: string) {
-    if(!ObjectUtil.isEmpty(url)){
+  previewDoc(url: string, name: string, signedDoc: boolean) {
+    let isRemit = false;
+    this.cadData.assignedLoan.forEach((d) => {
+      if (d.loan.loanTag === LoanTag.getKeyByValue(LoanTag.REMIT_LOAN)) {
+        isRemit = true;
+      }
+    });
     const link = document.createElement('a');
     link.target = '_blank';
-    link.href = `${ApiConfig.URL}/${url}?${Math.floor(Math.random() * 100) + 1}`;
-    link.setAttribute('visibility', 'hidden');
-    link.click();}
+    if (!ObjectUtil.isEmpty(url)) {
+      if (signedDoc && (name === LaxmiOfferLetterConst.value(LaxmiOfferLetterConst.PERSONAL_GUARANTEE) ||
+          name === LaxmiOfferLetterConst.value(LaxmiOfferLetterConst.LETTER_OF_COMMITMENT)) && isRemit) {
+        this.commonService.openDocuments(url);
+      } else {
+        link.href = `${ApiConfig.URL}/${url}?${Math.floor(Math.random() * 100) + 1}`;
+      }
+      link.setAttribute('visibility', 'hidden');
+      link.click();
+    }
   }
 
   populateCadTemplate(documentId, loanId) {
