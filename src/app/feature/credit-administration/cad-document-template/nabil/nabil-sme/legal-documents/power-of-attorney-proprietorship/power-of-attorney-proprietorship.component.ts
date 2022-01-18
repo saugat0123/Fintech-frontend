@@ -23,6 +23,7 @@ import {CadFile} from '../../../../../model/CadFile';
 import {Document} from '../../../../../../admin/modal/document';
 import {Alert, AlertType} from '../../../../../../../@theme/model/Alert';
 import {OfferDocument} from '../../../../../model/OfferDocument';
+import {NepaliNumberAndWords} from '../../../../../model/nepaliNumberAndWords';
 
 @Component({
   selector: 'app-power-of-attorney-proprietorship',
@@ -33,27 +34,20 @@ export class PowerOfAttorneyProprietorshipComponent implements OnInit {
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() documentId: number;
   @Input() customerLoanId: number;
-  guarantorData;
+  @Input() nepaliAmount: NepaliNumberAndWords;
   individualData;
   initialInfoPrint;
-  customerAddress;
   offerLetterConst = NabilDocumentChecklist;
-  offerDocumentChecklist = NabilOfferLetterConst;
   form: FormGroup;
-  guarantorNames: Array<String> = [];
   nepData;
-  clientType;
-  customerType = CustomerType;
-  customerSubType = CustomerSubType;
-  jointInfoData;
-  selectiveArr = [];
-  offerLetterDocument;
-  educationalTemplateData;
   companyInfo;
-  loanHolderNepData: any;
-  isInstitutional = false;
-  tempProprietor;
-  offerDocumentDetails: any;
+  initialInfo;
+  supportedInfo;
+  finalAmount;
+  loanAmountWord;
+  sanctionDate;
+  combinedAddress;
+  issueDate = [];
 
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
@@ -63,230 +57,115 @@ export class PowerOfAttorneyProprietorshipComponent implements OnInit {
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
               private engToNepNumberPipe: EngToNepaliNumberPipe,
               private currencyFormatPipe: CurrencyFormatterPipe,
-              private nepToEngNumberPipe: NepaliToEngNumberPipe,
               public datePipe: DatePipe,
               public engToNepaliDate: EngNepDatePipe,
-              private customerService: CustomerService) {
-  }
+              private nepToEngNumberPipe: NepaliToEngNumberPipe, ) { }
 
   ngOnInit() {
-    console.log('Offer Letter Details for Home Loan', this.cadData);
     this.buildForm();
-    if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
-      if (this.cadData.loanHolder.customerType === 'INSTITUTION') {
-        this.isInstitutional = true;
-      }
-      if (!ObjectUtil.isEmpty(this.cadData.assignedLoan[0])) {
-        this.companyInfo = this.cadData.assignedLoan[0] ? JSON.parse(this.cadData.assignedLoan[0].companyInfo.companyJsonData) : '';
-      }
-      this.guarantorData = this.cadData.assignedLoan[0].taggedGuarantors;
-      this.cadData.cadFileList.forEach(individualCadFile => {
-        if (individualCadFile.customerLoanId === this.customerLoanId && individualCadFile.cadDocument.id === this.documentId) {
-          const initialInfo = JSON.parse(individualCadFile.initialInformation);
-          this.initialInfoPrint = initialInfo;
-          this.form.patchValue(initialInfo);
-        }
-      });
+    if (!ObjectUtil.isEmpty(this.cadData.assignedLoan[0])) {
+      this.companyInfo = this.cadData.assignedLoan[0] ? JSON.parse(this.cadData.assignedLoan[0].companyInfo.companyJsonData) : '';
+    }
+    if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
+      this.initialInfo = JSON.parse(this.cadData.offerDocumentList[0].initialInformation);
     }
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.individualData = JSON.parse(this.cadData.loanHolder.nepData);
-      this.clientType = this.cadData.loanHolder['customerSubType'];
-
-      this.loanHolderNepData = this.cadData.loanHolder.nepData
-          ? JSON.parse(this.cadData.loanHolder.nepData)
-          : this.cadData.loanHolder.nepData;
-
-      if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList) && this.cadData.offerDocumentList.length !== 0) {
-        this.offerDocumentDetails = JSON.parse(this.cadData.offerDocumentList[0].initialInformation);
-      }
     }
-    console.log('loanHolderNepData: ', this.loanHolderNepData);
-    console.log('initial info', this.initialInfoPrint);
-    console.log('form', this.form);
-    this.fillform();
+    this.dateConvert();
+    this.patchFreeText();
+    this.fillForm();
+  }
+
+  dateConvert() {
+    let date;
+    this.companyInfo.forEach(val => {
+      if (val.radioOwnerCitizenshipIssuedDate === 'AD') {
+        date = this.engToNepaliDate.transform(val ?
+            val.ownerCitizenshipIssuedDateCT : val.ownerCitizenshipIssuedDateCT, true) || '';
+      } else {
+        date = val ? val.ownerCitizenshipIssuedDateCT : '';
+      }
+      const newDate = {
+        issueDate : date
+      };
+      this.issueDate.push(newDate);
+    });
   }
 
   buildForm() {
     this.form = this.formBuilder.group({
-      date: [undefined],
-      loanAmountInFigure: [undefined],
-      loanAmountInWords: [undefined],
+      nameOfBranchLocated: [undefined],
+      nameOfAuthorizedBody: [undefined],
+      // Firm Details
       districtOfFirm: [undefined],
       municipalityOfFirm: [undefined],
       wardNoOfFirm: [undefined],
       addressOfFirm: [undefined],
-      nameOfBorrower: [undefined],
-      distrcitOfPropreitor: [undefined],
-      municipalityOfPropreitor: [undefined],
-      wardNoOfPropreitor: [undefined],
-      nameOfPropreitor: [undefined],
-      citizenshipNo: [undefined],
-      dateOfIssue: [undefined],
-      nameOfIdentityIssuedDistrict: [undefined],
-      nameOfBranchLocated: [undefined],
+      firmName: [undefined],
       sanctionLetterIssuedDate: [undefined],
-      branchName: [undefined],
-      nameOfBorrowerFirm: [undefined],
-      addressOfBorrowerFirm: [undefined],
-      nameOfProprietor: [undefined],
-      district: [undefined],
-      municipality: [undefined],
-      age: [undefined],
-      nameOfWitness: [undefined],
-      wardNo: [undefined],
+      loanAmountInFigure: [undefined],
+      loanAmountInWords: [undefined],
+      addressOfBorrower: [undefined],
+      // Free text
+      freeText1: [undefined],
+      // Witness Fields
+      witnessDistrict1: [undefined],
+      witnessMuni1: [undefined],
+      witnessWard1: [undefined],
+      witnessAge1: [undefined],
+      witnessName1: [undefined],
+      witnessDistrict2: [undefined],
+      witnessMuni2: [undefined],
+      witnessWard2: [undefined],
+      witnessAge2: [undefined],
+      witnessName2: [undefined],
+      karmachariName: [undefined],
     });
   }
 
-  fillform() {
-    const proprietor = this.cadData.assignedLoan[0].companyInfo.companyJsonData;
-    // let tempProprietor;
-    if (!ObjectUtil.isEmpty(proprietor)) {
-      this.tempProprietor = JSON.parse(proprietor);
-      console.log('DATA::::::', this.tempProprietor);
-    }
-    let totalLoan = 0;
-    this.cadData.assignedLoan.forEach(val => {
-      const proposedAmount = val.proposal.proposedLimit;
-      totalLoan = totalLoan + proposedAmount;
-    });
-    const finalAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoan));
-    const loanAmountWord = this.nepaliCurrencyWordPipe.transform(totalLoan);
-    let citizenshipIssuedDate;
-    if (!this.isInstitutional) {
-      if (!ObjectUtil.isEmpty(this.individualData.citizenshipIssueDate.en.nDate)) {
-        citizenshipIssuedDate = this.individualData.citizenshipIssueDate.en.nDate;
-      } else {
-        const convertedDate = this.datePipe.transform(this.individualData.citizenshipIssueDate.en);
-        citizenshipIssuedDate = this.engToNepaliDate.transform(convertedDate, true);
-      }
-    }
-    let age;
-    if (!this.isInstitutional) {
-      if (!ObjectUtil.isEmpty(this.individualData.dob) && !ObjectUtil.isEmpty(this.individualData.dob.en.eDate)) {
-        const calAge = AgeCalculation.calculateAge(this.individualData.dob.en.eDate);
-        age = this.ageCalculation(this.individualData.dob.en.eDate);
-      } else {
-        age = this.ageCalculation(this.individualData.dob.en);
-      }
-    }
-    if (this.isInstitutional) {
-      if (!ObjectUtil.isEmpty(this.tempProprietor[0].ownerDobDateType) && this.tempProprietor.length > 0) {
-        if (this.tempProprietor[0].ownerDobDateType === undefined) {
-          age = this.engToNepNumberPipe.transform(AgeCalculation.calculateAge(this.tempProprietor[0].ownerDob).toString());
-        } else {
-          age = this.engToNepNumberPipe.transform(AgeCalculation.calculateAge(this.tempProprietor[0].ownerDob).toString());
+  setFreeText() {
+    const free1 = {
+      freeText1: this.form.get('freeText1').value ? this.form.get('freeText1').value : '',
+      witnessDistrict1: this.form.get('witnessDistrict1') ? this.form.get('witnessDistrict1').value : '',
+      witnessMuni1: this.form.get('witnessMuni1') ? this.form.get('witnessMuni1').value : '',
+      witnessWard1: this.form.get('witnessWard1') ? this.form.get('witnessWard1').value : '',
+      witnessAge1: this.form.get('witnessAge1') ? this.form.get('witnessAge1').value : '',
+      witnessName1: this.form.get('witnessName1') ? this.form.get('witnessName1').value : '',
+      witnessDistrict2: this.form.get('witnessDistrict2') ? this.form.get('witnessDistrict2').value : '',
+      witnessMuni2: this.form.get('witnessMuni2') ? this.form.get('witnessMuni2').value : '',
+      witnessWard2: this.form.get('witnessWard2') ? this.form.get('witnessWard2').value : '',
+      witnessAge2: this.form.get('witnessAge2') ? this.form.get('witnessAge2').value : '',
+      witnessName2: this.form.get('witnessName2') ? this.form.get('witnessName2').value : '',
+      karmachariName: this.form.get('karmachariName') ? this.form.get('karmachariName').value : '',
+    };
+    return JSON.stringify(free1);
+  }
+  patchFreeText() {
+    if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
+      this.cadData.cadFileList.forEach(individualCadFile => {
+        if (individualCadFile.customerLoanId === this.customerLoanId && individualCadFile.cadDocument.id === this.documentId) {
+          this.supportedInfo = JSON.parse(individualCadFile.supportedInformation);
         }
-      }
+      });
     }
-    this.checkOfferLetterData();
-    this.form.patchValue(
-        {
-          nameofBranchLocated: [this.loanHolderNepData.branch ? this.loanHolderNepData.branch.ct : ''],
-          districtOfFirm: [this.loanHolderNepData.registeredDistrict ? this.loanHolderNepData.registeredDistrict.ct : ''],
-          municipalityOfFirm: [this.loanHolderNepData.registeredMunicipality ? this.loanHolderNepData.registeredMunicipality.ct : ''],
-          wardNoOfFirm: [this.loanHolderNepData.permanentWard ? this.loanHolderNepData.permanentWard.ct : ''],
-          regNo: [this.loanHolderNepData.registrationNo ? this.loanHolderNepData.registrationNo.np : ''],
-          nameOfBranchLocated: [this.loanHolderNepData.branch ? this.loanHolderNepData.branch.ct : ''],
-          addressOfFirm: [this.loanHolderNepData.currentStreetTole ? this.loanHolderNepData.currentStreetTole.ct : ''],
-          loanAmountInFigure: finalAmount,
-          loanAmountInWords: loanAmountWord,
-          fatherNameOfPro: this.tempProprietor[0] ? this.tempProprietor[0].ownerFatherNameCT : '',
-          nameOfBorrower: [this.loanHolderNepData.name ? this.loanHolderNepData.name.ct : ''],
-          grandNameOfPro: this.tempProprietor[0] ? this.tempProprietor[0].ownerGrandFatherNameCT : '',
-          distrcitOfPropreitor: this.tempProprietor[0] ? this.tempProprietor[0].ownerPermanentDistrictCT : '',
-          municipalityOfPropreitor: this.tempProprietor[0] ? this.tempProprietor[0].ownerPermanentMunicipalityCT : '',
-          wardNoOfPropreitor: this.tempProprietor[0] ? this.tempProprietor[0].ownerPermanentWardNoCT : '',
-          nameOfPropreitor: this.tempProprietor[0] ? this.tempProprietor[0].ownerNameCT : '',
-          citizenshipNo: this.tempProprietor[0] ? this.tempProprietor[0].ownerCitizenshipNoCT : '',
-          nameOfIdentityIssuedDistrict: this.tempProprietor[0] ? this.tempProprietor[0].ownerCitizenshipIssuedDistrictCT : '',
-          intRate: this.tempProprietor[0] ? this.tempProprietor[0].ownerSharePercentageCT : '',
-          nameOfFirm: [this.loanHolderNepData.currentMunicipality ? this.loanHolderNepData.currentMunicipality.ct : ''],
-          wardNo: [this.loanHolderNepData.permanentWard ? this.loanHolderNepData.permanentWard.ct : ''],
-          vdc: [this.loanHolderNepData.municipalityVdc ? this.loanHolderNepData.municipalityVdc.ct : ''],
-          distictOfFirm: [this.loanHolderNepData.issuingDistrict ? this.loanHolderNepData.issuingDistrict.ct : ''],
-          ageOfPro: age ? age : '',
-          sanctionLetterIssuedDate: [this.setApprovalDate()],
-        }
-    );
   }
 
-  ageCalculation(startDate) {
-    startDate = this.datePipe.transform(startDate, 'MMMM d, y, h:mm:ss a z');
-    const stDate = new Date(startDate);
-    const endDate = new Date();
-    let diff = (endDate.getTime() - stDate.getTime()) / 1000;
-    diff = diff / (60 * 60 * 24);
-    const yr = Math.abs(Math.round(diff / 365.25));
-    return this.engToNepNumberPipe.transform(yr.toString());
-  }
-
-  setApprovalDate() {
-    let approvalDate;
-    if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'DDSL Without Subsidy') {
-      const dateOfApproval = this.offerDocumentDetails.sanctionLetterDateType ? this.offerDocumentDetails.sanctionLetterDateType.en : '';
-      if (dateOfApproval === 'AD') {
-        approvalDate = this.offerDocumentDetails.sanctionLetterDate ? this.offerDocumentDetails.sanctionLetterDate.ct : '';
-      } else {
-        approvalDate = this.offerDocumentDetails.sanctionLetterDateNepali ? this.offerDocumentDetails.sanctionLetterDateNepali.ct : '';
-      }
-    }
-    if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Kisan Karja Subsidy') {
-      const dateOfApprovalType = this.offerDocumentDetails.dateOfApprovalType ? this.offerDocumentDetails.dateOfApprovalType.en : '';
-      if (dateOfApprovalType === 'AD') {
-        approvalDate = this.offerDocumentDetails.dateOfApproval ? this.offerDocumentDetails.dateOfApproval.ct : '';
-      } else {
-        approvalDate = this.offerDocumentDetails.dateOfApprovalNepali ? this.offerDocumentDetails.dateOfApprovalNepali.ct : '';
-      }
-    }
-    if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Udyamsil Karja Subsidy') {
-      approvalDate = this.offerDocumentDetails.dateOfApproval ? this.offerDocumentDetails.dateOfApproval.ct : '';
-    }
-    if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Interest subsidy sanction letter') {
-      const dateOfApprovalType = this.offerDocumentDetails.dateOfApprovalType ? this.offerDocumentDetails.dateOfApprovalType.en : '';
-      if (dateOfApprovalType === 'AD') {
-        const templateDateApproval = this.offerDocumentDetails.dateOfApproval ? this.offerDocumentDetails.dateOfApproval.en : '';
-        approvalDate = this.engToNepNumberPipe.transform(this.datePipe.transform(templateDateApproval), true);
-      } else {
-        const templateDateApproval = this.offerDocumentDetails.dateOfApprovalNepali ? this.offerDocumentDetails.dateOfApprovalNepali.en : '';
-        approvalDate = templateDateApproval ? templateDateApproval.nDate : '';
-      }
-    }
-    if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.offerDocumentDetails.smeGlobalForm) {
-      approvalDate = this.engToNepNumberPipe.transform(this.offerDocumentDetails.smeGlobalForm.dateOfApprovalCT ?
-          this.offerDocumentDetails.smeGlobalForm.dateOfApprovalCT :
-          this.offerDocumentDetails.smeGlobalForm.dateOfApprovalCT, true);
-    }
-    if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Class A Sanction letter') {
-      const sanctionLetterDate = this.offerDocumentDetails.sanctionLetterDateType ? this.offerDocumentDetails.sanctionLetterDateType.en : '';
-      if (sanctionLetterDate === 'AD') {
-        const templateDateSanctionDate = this.offerDocumentDetails.sanctionLetterDate ? this.offerDocumentDetails.sanctionLetterDate.en : '';
-        approvalDate = this.engToNepNumberPipe.transform(this.datePipe.transform(templateDateSanctionDate), true);
-      } else {
-        const templateDateSanctionDate = this.offerDocumentDetails.sanctionLetterDateNepali ? this.offerDocumentDetails.sanctionLetterDateNepali.en : '';
-        approvalDate = templateDateSanctionDate ? templateDateSanctionDate.nDate : '';
-      }
-    }
-    return approvalDate ? approvalDate : '';
-  }
-
-  getNumAmountWord(numLabel, wordLabel) {
-    const wordLabelVar = this.nepToEngNumberPipe.transform(this.form.get(numLabel).value);
-    const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
-    this.form.get(wordLabel).patchValue(returnVal);
-  }
   submit() {
     let flag = true;
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
-      this.cadData.cadFileList.forEach(singleCadFile => {
-        if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
+      this.cadData.cadFileList.forEach(individualCadFile => {
+        if (individualCadFile.customerLoanId === this.customerLoanId && individualCadFile.cadDocument.id === this.documentId) {
           flag = false;
-          singleCadFile.initialInformation = JSON.stringify(this.form.value);
+          individualCadFile.supportedInformation = this.setFreeText();
         }
       });
       if (flag) {
         const cadFile = new CadFile();
         const document = new Document();
-        cadFile.initialInformation = JSON.stringify(this.form.value);
+        // cadFile.initialInformation = JSON.stringify(this.form.value);
+        this.initialInfoPrint = cadFile.initialInformation;
+        cadFile.supportedInformation = this.setFreeText();
         document.id = this.documentId;
         cadFile.cadDocument = document;
         cadFile.customerLoanId = this.customerLoanId;
@@ -296,12 +175,12 @@ export class PowerOfAttorneyProprietorshipComponent implements OnInit {
       const cadFile = new CadFile();
       const document = new Document();
       cadFile.initialInformation = JSON.stringify(this.form.value);
+      this.initialInfoPrint = cadFile.initialInformation;
       document.id = this.documentId;
       cadFile.cadDocument = document;
       cadFile.customerLoanId = this.customerLoanId;
       this.cadData.cadFileList.push(cadFile);
     }
-
     this.administrationService.saveCadDocumentBulk(this.cadData).subscribe(() => {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved '));
       this.dialogRef.close();
@@ -313,132 +192,84 @@ export class PowerOfAttorneyProprietorshipComponent implements OnInit {
     });
   }
 
-  checkOfferLetterData() {
-    console.log('CHeck:');
-    if (this.cadData.offerDocumentList.length > 0) {
-      let documentName;
-      this.cadData.offerDocumentList.filter((document: OfferDocument) => {
-        documentName = document.docName;
-        this.offerLetterDocument = document;
-      });
-      if (documentName === 'DDSL Without Subsidy') {
-        if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
-          const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
-          this.educationalTemplateData = educationalOfferData.interestRate;
+  fillForm() {
+    let totalLoan = 0;
+    this.cadData.assignedLoan.forEach(val => {
+      const proposedAmount = val.proposal.proposedLimit;
+      totalLoan = totalLoan + proposedAmount;
+    });
+    this.finalAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoan));
+    this.loanAmountWord = this.nepaliCurrencyWordPipe.transform(totalLoan);
+    if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
+      if (this.cadData.offerDocumentList[0].docName === 'DDSL Without Subsidy' ||
+          this.cadData.offerDocumentList[0].docName === 'Class A Sanction letter') {
+        const dateOfApproval = this.initialInfo.sanctionLetterDateType ? this.initialInfo.sanctionLetterDateType.en : '';
+        if (dateOfApproval === 'AD') {
+          this.sanctionDate = this.initialInfo.sanctionLetterDate ? this.initialInfo.sanctionLetterDate.ct : '';
+        } else {
+          this.sanctionDate = this.initialInfo.sanctionLetterDateNepali ? this.initialInfo.sanctionLetterDateNepali.ct : '';
         }
       }
-      if (documentName === 'Kisan Karja Subsidy') {
-        if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
-          const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
-          this.educationalTemplateData = educationalOfferData.interestRate;
+      if (this.cadData.offerDocumentList[0].docName !== 'DDSL Without Subsidy' &&
+          this.cadData.offerDocumentList[0].docName !== 'Combined Offer Letter' &&
+          this.cadData.offerDocumentList[0].docName !== 'Class A Sanction letter') {
+        const dateOfApproval = this.initialInfo.dateOfApprovalType ? this.initialInfo.dateOfApprovalType.en : '';
+        if (dateOfApproval === 'AD') {
+          this.sanctionDate = this.initialInfo.dateOfApproval ? this.initialInfo.dateOfApproval.ct : '';
+        } else {
+          this.sanctionDate = this.initialInfo.dateOfApprovalNepali ? this.initialInfo.dateOfApprovalNepali.ct : '';
         }
       }
-      if (documentName === 'Udyamsil Karja Subsidy') {
-        if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
-          const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
-          this.educationalTemplateData = educationalOfferData.interestRate;
+      if (this.cadData.offerDocumentList[0].docName === 'Combined Offer Letter') {
+        const dateOfApproval = this.initialInfo.smeGlobalForm.dateOfApprovalType ?
+            this.initialInfo.smeGlobalForm.dateOfApprovalType : '';
+        if (dateOfApproval === 'AD') {
+          this.sanctionDate = this.engToNepaliDate.transform(this.initialInfo.smeGlobalForm.dateOfApproval ?
+              this.initialInfo.smeGlobalForm.dateOfApprovalCT : '', true);
+        } else {
+          this.sanctionDate = this.initialInfo.smeGlobalForm.dateOfApprovalNepali ?
+              this.initialInfo.smeGlobalForm.dateOfApprovalNepali.nDate : '';
         }
-      }
-      if (documentName === 'Interest subsidy sanction letter') {
-        if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
-          const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
-          this.educationalTemplateData = educationalOfferData.interestRate;
-        }
-      }
-      if (documentName === 'Class A Sanction letter') {
-        if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
-          const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
-          this.educationalTemplateData = educationalOfferData.interestRate;
-        }
-      }
-      if (documentName === 'Combined Offer Letter') {
-        if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
-          const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
-          this.educationalTemplateData = educationalOfferData.importLoanTrust.interestRateCT;
-        }
-      }
-      if (documentName === 'Combined Offer Letter') {
-        if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
-          const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
-          this.educationalTemplateData = educationalOfferData.revolvingShortTermLoan.interestRateCT;
-        }
-      }
-      if (documentName === 'Combined Offer Letter') {
-        if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
-          const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
-          this.educationalTemplateData = educationalOfferData.demandLoanForm.interestRateCT;
-
-        }
-      }
-      if (documentName === 'Combined Offer Letter') {
-        if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
-          const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
-          this.educationalTemplateData = educationalOfferData.overdraftLoanForm.interestRateCT;
-        }
-      }
-      if (documentName === 'Combined Offer Letter') {
-        if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
-          const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
-          this.educationalTemplateData = educationalOfferData.equityMortgaged.interestRateCT;
-        }
-      }
-      if (documentName === 'Combined Offer Letter') {
-        if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
-          const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
-          this.educationalTemplateData = educationalOfferData.overdraftFixedForm.interestRateCT;
-        }
-      }
-      if (documentName === 'Combined Offer Letter') {
-        if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
-          const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
-          this.educationalTemplateData = educationalOfferData.overDraftFacilityForm.interestRateCT;
-        }
-      }
-      if (documentName === 'Combined Offer Letter') {
-        if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
-          const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
-          this.educationalTemplateData = educationalOfferData.bridgeGapLoan.interestRateCT;
-        }
-      }
-      if (documentName === 'Combined Offer Letter') {
-        if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
-          const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
-          this.educationalTemplateData = educationalOfferData.termLoanForm.termLoanDetails.interestRateCT;
-        }
-      }
-      if (documentName === 'Combined Offer Letter') {
-        if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
-          const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
-          this.educationalTemplateData = educationalOfferData.mortgageEquityTermForm.interestRateCT;
-        }
-      }
-      if (documentName === 'Combined Offer Letter') {
-        if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
-          const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
-          this.educationalTemplateData = educationalOfferData.autoLoanMasterForm.autoLoanFormArray.interestRateCT;
-        }
-      }
-
-      this.offerLetterDocument = this.cadData.offerDocumentList.filter(value => value.docName.toString()
-          === this.offerDocumentChecklist.value(this.offerDocumentChecklist.EDUCATIONAL).toString())[0];
-      if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
-        const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
-        this.educationalTemplateData = educationalOfferData.interestRate;
-      }
-      console.log('loanholder nepdata:', this.loanHolderNepData);
-      // if (this.loanHolderNepData.registrationDateOption.en === 'AD') {
-      //   this.form.get('dateOfReg').patchValue(this.engToNepaliDate.transform(this.loanHolderNepData.registrationDate.en, true));
-      // } else {
-      //   this.form.get('dateOfReg').patchValue(this.loanHolderNepData.registrationDate.np);
-      // }
-      if (this.tempProprietor[0].radioOwnerCitizenshipIssuedDate === 'AD') {
-        this.form.get('dateOfIssue').patchValue(this.engToNepaliDate.transform(this.tempProprietor[0].ownerCitizenshipIssuedDateCT, true));
-      } else {
-        this.form.get('dateOfIssue').patchValue(this.tempProprietor[0].ownerCitizenshipIssuedDateCT);
       }
     }
+    if (!ObjectUtil.isEmpty(this.individualData)) {
+      this.combinedAddress = (this.individualData.registeredDistrict ? this.individualData.registeredDistrict.ct : '') +
+          ',' + (this.individualData.registeredMunicipality ? this.individualData.registeredMunicipality.ct : '') + ',' +
+          (this.individualData.permanentWard ? this.individualData.permanentWard.ct : '');
+    }
+
+    this.form.patchValue({
+      nameOfBranchLocated: this.individualData.branch ? this.individualData.branch.ct : '',
+      nameOfAuthorizedBody: this.individualData.authorizedBodyName ? this.individualData.authorizedBodyName.ct : '',
+      districtOfFirm: this.individualData.registeredDistrict ? this.individualData.registeredDistrict.ct : '',
+      municipalityOfFirm: this.individualData.registeredMunicipality ? this.individualData.registeredMunicipality.ct : '',
+      wardNoOfFirm: this.individualData.permanentWard ? this.individualData.permanentWard.ct : '',
+      addressOfFirm: this.individualData.registeredStreetTole ? this.individualData.registeredStreetTole.ct : '',
+      firmName: this.individualData.name ? this.individualData.name.ct : '',
+      loanAmountInFigure: this.finalAmount ? this.finalAmount : '',
+      loanAmountInWords: this.loanAmountWord ? this.loanAmountWord : '',
+      sanctionLetterIssuedDate: this.sanctionDate ? this.sanctionDate : '',
+      freeText1: this.supportedInfo ? this.supportedInfo.freeText1 : '',
+      addressOfBorrower: this.combinedAddress ? this.combinedAddress : '',
+      witnessDistrict1: this.supportedInfo ? this.supportedInfo.witnessDistrict1 : '',
+      witnessMuni1: this.supportedInfo ? this.supportedInfo.witnessMuni1 : '',
+      witnessWard1: this.supportedInfo ? this.supportedInfo.witnessWard1 : '',
+      witnessAge1: this.supportedInfo ? this.supportedInfo.witnessAge1 : '',
+      witnessName1: this.supportedInfo ? this.supportedInfo.witnessName1 : '',
+      witnessDistrict2: this.supportedInfo ? this.supportedInfo.witnessDistrict2 : '',
+      witnessMuni2: this.supportedInfo ? this.supportedInfo.witnessMuni2 : '',
+      witnessWard2: this.supportedInfo ? this.supportedInfo.witnessWard2 : '',
+      witnessAge2: this.supportedInfo ? this.supportedInfo.witnessAge2 : '',
+      witnessName2: this.supportedInfo ? this.supportedInfo.witnessName2 : '',
+      karmachariName: this.supportedInfo ? this.supportedInfo.karmachariName : '',
+
+    });
   }
+
+  getNumAmountWord(numLabel, wordLabel) {
+    const wordLabelVar = this.nepToEngNumberPipe.transform(this.form.get(numLabel).value);
+    const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
+    this.form.get(wordLabel).patchValue(returnVal);
+  }
+
 }
-
-
-
