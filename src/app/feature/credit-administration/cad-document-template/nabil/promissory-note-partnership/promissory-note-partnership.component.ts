@@ -102,8 +102,6 @@ export class PromissoryNotePartnershipComponent implements OnInit {
       this.loanHolderNepData = this.cadData.loanHolder.nepData ?
         JSON.parse(this.cadData.loanHolder.nepData) :
         this.cadData.loanHolder.nepData;
-      console.log('this.loanHolderNepData', this.loanHolderNepData);
-      console.log('this.cadData', this.cadData);
     }
     this.fillform();
   }
