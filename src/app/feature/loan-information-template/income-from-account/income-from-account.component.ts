@@ -68,13 +68,6 @@ export class IncomeFromAccountComponent implements OnInit {
     } else {
       this.addRiskBasedPrice();
     }
-    if (!this.isNewCustomer && !ObjectUtil.isEmpty(this.companyInfo)) {
-      if (!ObjectUtil.isEmpty(this.companyInfo.accountNo)) {
-        this.incomeFormGroup.patchValue({
-          accountNo: this.companyInfo.accountNo
-        });
-      }
-    }
     this.checkIndividual();
   }
 
@@ -89,7 +82,6 @@ export class IncomeFromAccountComponent implements OnInit {
       incomeFromTheAccount: [undefined],
       totalIncomeAfterNextReview: [undefined],
       totalIncomeDuringReview: [undefined],
-      accountNo: [undefined],
       newCustomerChecked: [false],
       loanProcessingDuringReview: undefined,
       loanProcessingAfterNextReview: undefined,

@@ -409,7 +409,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
 
     editRemark() {
         this.isRemarkEdited = true;
-
+        this.customerBasicFormBuilder();
     }
 
     cbsGroupUpdate(event) {

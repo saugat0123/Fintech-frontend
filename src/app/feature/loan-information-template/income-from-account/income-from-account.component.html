@@ -3,20 +3,6 @@
     <form (ngSubmit)="submitForm()" [formGroup]="incomeFormGroup">
       <div class="row">
         <div class="col-md-12">
-          <span><strong>Account No:</strong></span>
-
-            <ng-container *ngIf="individual;else acc;">
-              <input [ngClass]="{ 'is-invalid': (submitted) && formControls.accountNo.errors }"
-                     type="text" formControlName="accountNo"
-                     placeholder="Account Number" nbInput size="medium" name="accountNo"><br>
-            </ng-container>
-          <ng-template #acc>
-            <input [ngClass]="{ 'is-invalid': (submitted) && formControls.accountNo.errors }"
-                   type="text" formControlName="accountNo"
-                   readonly
-                   placeholder="Account Number" nbInput size="medium" name="accountNo"><br>
-          </ng-template>
-          <br>
           <ng-container *ngIf="individual; else institutional">
             <table class="table table-bordered table-responsive-md table-hover table-sm sb-small text-center">
               <thead>

@@ -611,6 +611,9 @@ export class CompanyFormComponent implements OnInit {
             addressLegalDocument: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyJsonData.addressLegalDocument)) ? undefined :
                 this.companyJsonData.addressLegalDocument],
+            irdReport: [(ObjectUtil.isEmpty(this.companyInfo)
+                || ObjectUtil.isEmpty(this.companyJsonData.irdReport)) ? undefined :
+                this.companyJsonData.irdReport],
 
         });
         if (!this.additionalFieldSelected) {
@@ -1090,6 +1093,7 @@ export class CompanyFormComponent implements OnInit {
         submitData.addressLegalDocument = this.companyInfoFormGroup.get('addressLegalDocument').value;
         submitData.BusinessIndustryOutlook = this.companyInfoFormGroup.get('BusinessIndustryOutlook').value;
         submitData.businessManagementRisk = this.companyInfoFormGroup.get('businessManagementRisk').value;
+        submitData.irdReport = this.companyInfoFormGroup.get('irdReport').value;
 
         if (this.microCustomer) {
             /** micro data **/
