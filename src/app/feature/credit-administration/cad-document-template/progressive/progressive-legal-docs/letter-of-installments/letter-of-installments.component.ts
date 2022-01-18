@@ -71,9 +71,9 @@ export class LetterOfInstallmentsComponent implements OnInit {
       this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
       this.form.patchValue({
         customerName: this.nepaliData.name ? this.nepaliData.name : '',
-        branchName : this.nepaliData.branchName ? this.nepaliData.branchName: '',
+        branchName : this.nepaliData.branchName ? this.nepaliData.branchName : '',
         karjaAmount : loanAmount.numberNepali ? loanAmount.numberNepali : '',
-        //timePeriod :
+        timePeriod : this.nepDataPersonal.tenureOfLoanInMonths ? this.nepDataPersonal.tenureOfLoanInMonths : '',
         kistaAmount : this.nepDataPersonal.installmentAmount ? this.nepDataPersonal.installmentAmount : '',
         //mahina :
       });
@@ -133,7 +133,6 @@ export class LetterOfInstallmentsComponent implements OnInit {
       kista: [undefined],
       debtorSign: [undefined],
       debtorName: [undefined],
-      InstitutionStamp: [undefined],
       guarantorName: [undefined],
       guarantorAddress: [undefined],
       guarantorData: this.formBuilder.array([]),

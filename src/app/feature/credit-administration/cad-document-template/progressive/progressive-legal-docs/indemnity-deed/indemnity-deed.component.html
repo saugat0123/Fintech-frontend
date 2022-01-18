@@ -63,7 +63,8 @@
                     <br>
                     <br>
                     यो क्षतिपूर्ति लिखत आजै त्यस वित्तीय संस्थाको
-                    <input class="form-field form-control-sm nepaliFont" formControlName="middleBranchNAme"
+                    <input class="form-field form-control-sm nepaliFont"
+                           value="{{form.get('branchName').value}}"
                            placeholder="" type="text"/>
                     शाखा कार्यालयमा बसी सहिछाप गरी दिएको छू/छौ।
                 </p>
@@ -77,7 +78,7 @@
                     <br>
                     <br>
                     दस्तखत गर्नेको नाम :-<input class="form-field form-control-sm nepaliFont"
-                                                formControlName="sincerlyName" placeholder="" type="text"/>
+                                                value="{{form.get('customerName').value}}" placeholder="" type="text"/>
                     (ना.प्र.नं. <input class="form-field form-control-sm nepaliFont sizefont"
                                        formControlName="sincerlyCitizenshipNo" placeholder="" type="text"/>
                     मिति <input class="form-field form-control-sm nepaliFont" formControlName="sincerlyDate"
@@ -92,10 +93,10 @@
                                   formControlName="sincerlyPermanentMunicipality" placeholder="" type="text"/>गा.पा./न.पा.वडा
                     नं.
                     <input class="form-field form-control-sm nepaliFont sizefont"
-                           formControlName="sincerlyPermanentWadNo" placeholder="" type="text"/> (साबिक
+                           formControlName="sincerlyPermanentWardNo" placeholder="" type="text"/> (साबिक
                     <input class="form-field form-control-sm nepaliFont" formControlName="sabikVDC"
                            placeholder="" type="text"/>.गा.बि.स./न.पा.वडा नं.
-                    <input class="form-field form-control-sm nepaliFont" formControlName="sabikWadNo"
+                    <input class="form-field form-control-sm nepaliFont" formControlName="sabikWardNo"
                            placeholder="" type="text"/>)
                     <br>
                     हालको ठेगानाः <input class="form-field form-control-sm nepaliFont sizefont"
@@ -104,7 +105,7 @@
                     <input class="form-field form-control-sm nepaliFont sizefont"
                            formControlName="sinserlyTempMunicipality" placeholder="" type="text"/>
                     गा.पा./न.पा.वडा नं.
-                    <input class="form-field form-control-sm nepaliFont sizefont" formControlName="sinserlyTempWadNo"
+                    <input class="form-field form-control-sm nepaliFont sizefont" formControlName="sinserlyTempWardNo"
                            placeholder="" type="text"/>
                     <br>
                     <br>

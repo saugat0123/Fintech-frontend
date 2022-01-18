@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {CustomerOfferLetter} from '../../../../../loan/model/customer-offer-letter';
 import {OfferDocument} from '../../../../model/OfferDocument';
 import {NbDialogRef} from '@nebular/theme';
@@ -8,7 +8,6 @@ import {NepaliCurrencyWordPipe} from '../../../../../../@core/pipe/nepali-curren
 import {CreditAdministrationService} from '../../../../service/credit-administration.service';
 import {ToastService} from '../../../../../../@core/utils';
 import {RouterUtilsService} from '../../../../utils/router-utils.service';
-import {CustomerOfferLetterService} from '../../../../../loan/service/customer-offer-letter.service';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 import {ProgressiveLegalDocConst} from '../progressive-legal-doc-const';
@@ -41,8 +40,7 @@ export class IndemnityDeedComponent implements OnInit {
                 private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
                 private administrationService: CreditAdministrationService,
                 private toastService: ToastService,
-                private routerUtilsService: RouterUtilsService,
-                private customerOfferLetterService: CustomerOfferLetterService) {
+                private routerUtilsService: RouterUtilsService) {
     }
 
     ngOnInit() {
@@ -67,21 +65,22 @@ export class IndemnityDeedComponent implements OnInit {
             this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
             this.form.patchValue({
                 customerName: this.nepaliData.name ? this.nepaliData.name : '',
-                sincerlyName: this.nepaliData.name ? this.nepaliData.name : '',
                 sincerlyCitizenshipNo: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
                 sincerlyDate: this.nepaliData.citizenshipIssueDate ? this.nepaliData.citizenshipIssueDate : '',
                 sincerlyCdOoffice: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
-                sincerlyPermanentDistrict: this.nepaliData.permanentDistrict ? this.nepaliData.permanentDistrict : '',
-                sincerlyPermanentMunicipality: this.nepaliData.permanentMunicipality ? this.nepaliData.permanentMunicipality : '',
-                sincerlyPermanentWadNo: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
-                sinserlyTempDistrict: this.nepaliData.temporaryDistrict ? this.nepaliData.temporaryDistrict : '',
-                sinserlyTempMunicipality: this.nepaliData.temporaryMunicipality ? this.nepaliData.temporaryMunicipality : '',
-                sinserlyTempWadNo: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
+                sincerlyPermanentDistrict: this.nepaliData.permanentDistrict.nepaliName ? this.nepaliData.permanentDistrict.nepaliName : '',
+                sincerlyPermanentMunicipality: this.nepaliData.permanentMunicipalities.nepaliName ? this.nepaliData.permanentMunicipalities.nepaliName : '',
+                sincerlyPermanentWardNo: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
+                sinserlyTempDistrict: this.nepaliData.temporaryDistrict.nepaliName ? this.nepaliData.temporaryDistrict.nepaliName : '',
+                sinserlyTempMunicipality: this.nepaliData.temporaryMunicipalities.nepaliName ? this.nepaliData.temporaryMunicipalities.nepaliName : '',
+                sinserlyTempWardNo: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
                 parentName: this.nepaliData.fatherName ? this.nepaliData.fatherName : '',
                 grandParentName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
                 husbandWifeName: this.nepaliData.husbandName ? this.nepaliData.husbandName : '',
                 amount: loanAmount.numberNepali ? loanAmount.numberNepali : '',
                 amountInWord: loanAmount.nepaliWords ? loanAmount.nepaliWords : '',
+                branchName : this.nepaliData.branchName ? this.nepaliData.branchName : '',
+                chaltiKhata: this.nepaliData.accountNo ? this.nepaliData.accountNo : ''
             });
         }
     }
@@ -135,17 +134,16 @@ export class IndemnityDeedComponent implements OnInit {
             chaltiKhata: [undefined],
             amount: [undefined],
             amountInWord: [undefined],
-            middleBranchNAme: [undefined],
             sincerlyName: [undefined],
             sincerlyDate: [undefined],
             sincerlyPermanentDistrict: [undefined],
             sincerlyPermanentMunicipality: [undefined],
-            sincerlyPermanentWadNo: [undefined],
+            sincerlyPermanentWardNo: [undefined],
             sabikVDC: [undefined],
-            sabikWadNo: [undefined],
+            sabikWardNo: [undefined],
             sinserlyTempDistrict: [undefined],
             sinserlyTempMunicipality: [undefined],
-            sinserlyTempWadNo: [undefined],
+            sinserlyTempWardNo: [undefined],
             parentName: [undefined],
             grandParentName: [undefined],
             husbandWifeName: [undefined],

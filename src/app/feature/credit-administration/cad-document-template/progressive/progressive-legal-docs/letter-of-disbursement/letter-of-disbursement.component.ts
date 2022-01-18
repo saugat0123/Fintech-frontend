@@ -16,8 +16,6 @@ import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerAp
 import {CadFile} from '../../../../model/CadFile';
 import {Document} from '../../../../../admin/modal/document';
 import {NepaliNumberAndWords} from '../../../../model/nepaliNumberAndWords';
-import {ProposalCalculationUtils} from '../../../../../loan/component/loan-summary/ProposalCalculationUtils';
-import {LoanDataKey} from '../../../../../../@core/utils/constants/loan-data-key';
 import {EngToNepaliNumberPipe} from '../../../../../../@core/pipe/eng-to-nepali-number.pipe';
 import {CurrencyFormatterPipe} from '../../../../../../@core/pipe/currency-formatter.pipe';
 import {NepDataPersonal} from '../../../../model/nepDataPersonal';
@@ -57,14 +55,6 @@ export class LetterOfDisbursementComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
-    if (ObjectUtil.isEmpty(this.cadData.nepData)) {
-      const number = ProposalCalculationUtils.calculateTotalFromProposalList(LoanDataKey.PROPOSE_LIMIT, this.cadData.assignedLoan);
-      this.loanAmount.numberNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(number));
-      this.loanAmount.nepaliWords = this.nepaliCurrencyWordPipe.transform(number);
-      this.loanAmount.engNumber = number;
-    } else {
-      this.loanAmount = JSON.parse(this.cadData.nepData);
-    }
     this.fillForm();
   }
 
@@ -81,14 +71,13 @@ export class LetterOfDisbursementComponent implements OnInit {
     }
 
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
-      // const loanAmount = JSON.parse(this.cadData.nepData);
+      this.loanAmount = JSON.parse(this.cadData.nepData);
       this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
       const customerType = JSON.parse(this.cadData.loanHolder.customerType);
       this.nepDataPersonal = JSON.parse(this.cadData.nepDataPersonal);
-      console.log('nepalidata', this.nepaliData);
       if (customerType === CustomerType.INDIVIDUAL) {
         this.form.patchValue({
-          BranchName: this.nepDataPersonal.branchName ? this.nepDataPersonal.branchName : '',
+          branchName: this.nepaliData.branchName ? this.nepaliData.branchName : '',
           clientName: this.nepaliData.name ? this.nepaliData.name : '',
           sincerlyname: this.nepaliData.name ? this.nepaliData.name : '',
           naPraNaName: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
@@ -103,10 +92,11 @@ export class LetterOfDisbursementComponent implements OnInit {
           parentName: this.nepaliData.fatherName ? this.nepaliData.fatherName : '',
           grandParentName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
           husbandWifeName: this.nepaliData.husbandName ? this.nepaliData.husbandName : '',
+          accNumber: this.nepaliData.accountNo ? this.nepaliData.accountNo : ''
         });
       } else {
         this.form.patchValue({
-          BranchName: this.nepDataPersonal.branchName ? this.nepDataPersonal.branchName : '',
+          branchName: this.nepaliData.branchName ? this.nepaliData.branchName : '',
           clientName: this.nepaliData.companyName ? this.nepaliData.companyName : '',
           sincerlyname: this.nepaliData.representativeName ? this.nepaliData.representativeName : '',
           naPraNaName: this.nepaliData.representativeCitizenshipNo ? this.nepaliData.representativeCitizenshipNo : '',
@@ -192,7 +182,7 @@ export class LetterOfDisbursementComponent implements OnInit {
       itiSambatRojSumbham: [undefined],
       witnessDetails: this.formBuilder.array([]),
       clientName: [undefined],
-      BranchName: [undefined],
+      branchName: [undefined],
       udhyogBibhag: [undefined],
       praliNo: [undefined],
       underDate: [undefined],

@@ -11,19 +11,19 @@
                     लिखितम् धनीका नाम प्रचलित वित्तीय संस्था तथा वित्तीय संस्था सम्बन्धी ऐन,
                     बमोजिम दर्ता भई काठमाण्डौ जिल्ला, काठमाण्डौ महानगरपालिका वडा नं. २२ स्थित
                     रजिष्टर्ड कार्यालय रहेको <strong>प्रोग्रेशिभ फाईनान्स लिमिटेडको</strong>
-                    <span [ngClass]="{'nepaliFont uniCodeFont':printDocForm?.district!==null && printDocForm.district!==''}">
-            {{printDocForm?.district === null || printDocForm?.district === '' ? '________________' : printDocForm.district }}
+                    <span [ngClass]="{'nepaliFont sizeFont':printDocForm?.branchDistrict!==null && printDocForm.branchDistrict!==''}">
+            {{printDocForm?.branchDistrict === null || printDocForm?.branchDistrict === '' ? '________________' : printDocForm.branchDistrict }}
           </span>
                     जिल्ला <span
-                        [ngClass]="{'nepaliFont uniCodeFont':printDocForm?.municipality!==null && printDocForm.municipality!==''}">
-            {{printDocForm?.municipality === null || printDocForm?.municipality === '' ? '________________' : printDocForm.municipality }}
+                        [ngClass]="{'nepaliFont sizeFont':printDocForm?.branchMunicipality!==null && printDocForm.branchMunicipality!==''}">
+            {{printDocForm?.branchMunicipality === null || printDocForm?.branchMunicipality === '' ? '________________' : printDocForm.branchMunicipality }}
           </span>
                     गा.पा./न.पा./उ.म.न.पा./म.न.पा. वडा नं.<span
-                        [ngClass]="{'nepaliFont uniCodeFont':printDocForm?.wadNo!==null && printDocForm.wadNo!==''}">
-            {{printDocForm?.wadNo === null || printDocForm?.wadNo === '' ? '________________' : printDocForm.wadNo }}
+                        [ngClass]="{'nepaliFont sizeFont':printDocForm?.branchWardNo!==null && printDocForm.branchWardNo!==''}">
+            {{printDocForm?.branchWardNo === null || printDocForm?.branchWardNo === '' ? '________________' : printDocForm.branchWardNo }}
           </span>
                     स्थित <span
-                        [ngClass]="{'nepaliFont uniCodeFont':printDocForm?.branchName!==null && printDocForm.branchName!==''}">
+                        [ngClass]="{'nepaliFont sizeFont':printDocForm?.branchName!==null && printDocForm.branchName!==''}">
             {{printDocForm?.branchName === null || printDocForm?.branchName === '' ? '________________' : printDocForm.branchName }}
           </span>
                     शाखा कार्यालय (जसलाई यस उप्रान्त यस लिखतमा <strong>“धनी वित्तीय संस्था”</strong> भनिएको)लिखत
@@ -40,37 +40,39 @@
             {{printDocForm?.husbandWifeName === null || printDocForm?.husbandWifeName === '' ? '________________' : printDocForm.husbandWifeName }}
           </span> को
                     पति/पत्नी <span
-                        [ngClass]="{'nepaliFont uniCodeFont':printDocForm?.likhitDistrict!==null && printDocForm.likhitDistrict!==''}">
+                        [ngClass]="{'nepaliFont sizeFont':printDocForm?.likhitDistrict!==null && printDocForm.likhitDistrict!==''}">
             {{printDocForm?.likhitDistrict === null || printDocForm?.likhitDistrict === '' ? '________________' : printDocForm.likhitDistrict }}
           </span>
                     जिल्ला<span
-                        [ngClass]="{'nepaliFont uniCodeFont':printDocForm?.likhitMunicipalty!==null && printDocForm.likhitMunicipalty!==''}">
-            {{printDocForm?.likhitMunicipalty === null || printDocForm?.likhitMunicipalty === '' ? '________________' : printDocForm.likhitMunicipalty }}
+                        [ngClass]="{'nepaliFont sizeFont':printDocForm?.likhitMunicipality!==null && printDocForm.likhitMunicipality!==''}">
+            {{printDocForm?.likhitMunicipality === null || printDocForm?.likhitMunicipality === '' ? '________________' : printDocForm.likhitMunicipality }}
           </span>
                     गा.पा./न.पा./उ.म.न.पा./म.न.पा.वडा नं.<span
-                        [ngClass]="{'nepaliFont uniCodeFont':printDocForm?.likhitWadNo!==null && printDocForm.likhitWadNo!==''}">
-            {{printDocForm?.likhitWadNo === null || printDocForm?.likhitWadNo === '' ? '________________' : printDocForm.likhitWadNo }}
+                        [ngClass]="{'nepaliFont':printDocForm?.likhitWardNo!==null && printDocForm.likhitWardNo!==''}">
+            {{printDocForm?.likhitWardNo === null || printDocForm?.likhitWardNo === '' ? '________________' : printDocForm.likhitWardNo }}
           </span>
                     (साबिक <span
-                        [ngClass]="{'nepaliFont uniCodeFont':printDocForm?.sabikVDC!==null && printDocForm.sabikVDC!==''}">
+                        [ngClass]="{'nepaliFont':printDocForm?.sabikVDC!==null && printDocForm.sabikVDC!==''}">
             {{printDocForm?.sabikVDC === null || printDocForm?.sabikVDC === '' ? '________________' : printDocForm.sabikVDC }}
           </span>
-                    गा.बि.स./न.पा. वडा न.)<span
-                        [ngClass]="{'nepaliFont uniCodeFont':printDocForm?.sabikWardNo!==null && printDocForm.sabikWardNo!==''}">
+                    गा.बि.स./न.पा. वडा न. <span
+                        [ngClass]="{'nepaliFont':printDocForm?.sabikWardNo!==null && printDocForm.sabikWardNo!==''}">
             {{printDocForm?.sabikWardNo === null || printDocForm?.sabikWardNo === '' ? '________________' : printDocForm.sabikWardNo }}
-          </span> ,
-                    स्थायी ठेगाना भई हाल <span
-                        [ngClass]="{'nepaliFont uniCodeFont':printDocForm?.tempVDC!==null && printDocForm.tempVDC!==''}">
-            {{printDocForm?.tempVDC === null || printDocForm?.tempVDC === '' ? '________________' : printDocForm.tempVDC }}
-          </span>
-
-                    जिल्ला<span
-                        [ngClass]="{'nepaliFont uniCodeFont':printDocForm?.staDistrict!==null && printDocForm.staDistrict!==''}">
+          </span>) ,
+                    स्थायी ठेगाना भई हाल
+                    <span
+                            [ngClass]="{'nepaliFont sizeFont':printDocForm?.staDistrict!==null && printDocForm.staDistrict!==''}">
             {{printDocForm?.staDistrict === null || printDocForm?.staDistrict === '' ? '________________' : printDocForm.staDistrict }}
           </span>
+
+                    जिल्ला
+                    <span
+                            [ngClass]="{'nepaliFont sizeFont':printDocForm?.tempVDC!==null && printDocForm.tempVDC!==''}">
+            {{printDocForm?.tempVDC === null || printDocForm?.tempVDC === '' ? '________________' : printDocForm.tempVDC }}
+          </span>
                     गा.पा./न.पा./उ.म.न.पा./म.न.पा.वडा नं.<span
-                        [ngClass]="{'nepaliFont uniCodeFont':printDocForm?.tempWadNo!==null && printDocForm.tempWadNo!==''}">
-            {{printDocForm?.tempWadNo === null || printDocForm?.tempWadNo === '' ? '________________' : printDocForm.tempWadNo }}
+                        [ngClass]="{'nepaliFont':printDocForm?.tempWardNo!==null && printDocForm.tempWardNo!==''}">
+            {{printDocForm?.tempWardNo === null || printDocForm?.tempWardNo === '' ? '________________' : printDocForm.tempWardNo }}
           </span>
                     स्थित<span [ngClass]="{'nepaliFont uniCodeFont':printDocForm?.sthit!==null && printDocForm.sthit!==''}">
             {{printDocForm?.sthit === null || printDocForm?.sthit === '' ? '________________' : printDocForm.sthit }}
@@ -81,7 +83,7 @@
           </span>
 
                     को <span
-                        [ngClass]="{'nepaliFont uniCodeFont':printDocForm?.customerName!==null && printDocForm.customerName!==''}">
+                        [ngClass]="{'nepaliFont':printDocForm?.customerName!==null && printDocForm.customerName!==''}">
             {{printDocForm?.customerName === null || printDocForm?.customerName === '' ? '________________' : printDocForm.customerName }}
           </span>
                     (ना.प्र.नं. <span
@@ -171,12 +173,14 @@
                         <tr *ngFor="let guarantor of printDocForm?.swikritiBibaran; let i=index">
                             <td><span>{{i + 1 | nepaliNumber}}.</span></td>
                             <td><span
-                                    [ngClass]="{nepaliFont: guarantor.approvedSubidhakisim!==null && guarantor.approvedSubidhakisim!==''}">
-                            {{guarantor?.approvedSubidhakisim === null || guarantor.approvedSubidhakisim === '' ? '      ' : guarantor?.approvedSubidhakisim }}</span>
+                                    [ngClass]="{nepaliFont: guarantor.loanType!==null && guarantor.loanType!==''}">
+                            {{guarantor?.loanType === null || guarantor.loanType === '' ? '      ' : guarantor?.loanType }}</span>
                             </td>
-                            <td>(अक्षरेपि <span class="nepaliFont">{{guarantor?.approvedAmount}}</span>)</td>
-                            <td><span class="nepaliFont">{{guarantor?.approvedCommision}}</span></td>
-                            <td><span class="nepaliFont">{{guarantor?.approvedLoanTime}}</span></td>
+                            <td>(अक्षरेपि <span class="nepaliFont sizeFont">{{guarantor?.loanAmountInWords}}</span>)</td>
+                            <td><span class="nepaliFont">{{guarantor?.interestRate}}</span>,
+                                <span class="nepaliFont">{{guarantor?.serviceFeePercent}}</span>
+                            </td>
+                            <td><span class="nepaliFont">{{guarantor?.tenureOfLoanInYears}}</span></td>
                         </tr>
                         </tbody>
                     </table>
@@ -214,7 +218,7 @@
                             <td><span class="nepaliFont">{{guarantor?.SecuritiesSNBibaran}}</span></td>
                             <td><span class="nepaliFont">{{guarantor?.SecuritiesDistrict}}</span></td>
                             <td><span class="nepaliFont">{{guarantor?.SecuritiesMunicipality}}</span></td>
-                            <td><span class="nepaliFont">{{guarantor?.SecuritiesWadNo}}</span></td>
+                            <td><span class="nepaliFont">{{guarantor?.SecuritiesWardNo}}</span></td>
                             <td><span class="nepaliFont">{{guarantor?.SecuritiesKeyNo}}</span></td>
                             <td><span class="nepaliFont">{{guarantor?.SecuritiesArea}}</span></td>
                             <td><span class="nepaliFont">{{guarantor?.SecuritiesRegNo}}</span></td>
