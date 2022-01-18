@@ -67,6 +67,7 @@ export class LoanDeedProprietorshipComponent implements OnInit {
   finalAmount;
   loanAmountWord;
   registrationDate;
+  freeText1Check = false;
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
@@ -111,6 +112,9 @@ export class LoanDeedProprietorshipComponent implements OnInit {
     if (this.cadData.offerDocumentList[0].docName === 'Kisan Karja Subsidy' ||
         this.cadData.offerDocumentList[0].docName === 'Udyamsil Karja Subsidy') {
       this.SecurityCheck();
+    }
+    if (!ObjectUtil.isEmpty(this.supportedInfo) && !ObjectUtil.isEmpty(this.supportedInfo.freeText1)) {
+      this.freeText1Check = true;
     }
     this.getLoanName();
     this.fillForm();
@@ -340,13 +344,14 @@ export class LoanDeedProprietorshipComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
       if (this.cadData.offerDocumentList[0].docName === 'DDSL Without Subsidy' ||
           this.cadData.offerDocumentList[0].docName === 'Class A Sanction letter') {
-        const dateOfApproval = this.initialInfo.sanctionLetterDateType ? this.initialInfo.sanctionLetterDateType.en : '';
-        if (dateOfApproval === 'AD') {
-          this.sanctionDate = this.initialInfo.sanctionLetterDate ? this.initialInfo.sanctionLetterDate.ct : '';
-        } else {
-          this.sanctionDate = this.initialInfo.sanctionLetterDateNepali ? this.initialInfo.sanctionLetterDateNepali.ct : '';
-        }
         if (this.cadData.offerDocumentList[0].docName === 'Class A Sanction letter') {
+          const dateOfApproval = this.initialInfo.sanctionLetterDateType ? this.initialInfo.sanctionLetterDateType.en : '';
+          if (dateOfApproval === 'AD') {
+            this.sanctionDate = this.initialInfo.sanctionLetterDate ?
+                this.engToNepaliDate.transform(this.initialInfo.sanctionLetterDate.ct, true) : '';
+          } else {
+            this.sanctionDate = this.initialInfo.sanctionLetterDateNepali ? this.initialInfo.sanctionLetterDateNepali.ct : '';
+          }
           if (this.initialInfo.costumerType.en === 'existingPlainRenewal' ||
               this.initialInfo.costumerType.en === 'existingRenewalWithEnhancement'
               || this.initialInfo.costumerType.en === 'existingAdditionalLoan') {
@@ -354,6 +359,12 @@ export class LoanDeedProprietorshipComponent implements OnInit {
           }
         }
         if (this.cadData.offerDocumentList[0].docName === 'DDSL Without Subsidy') {
+          const dateOfApproval = this.initialInfo.sanctionLetterDateType ? this.initialInfo.sanctionLetterDateType.en : '';
+          if (dateOfApproval === 'AD') {
+            this.sanctionDate = this.initialInfo.sanctionLetterDate ? this.initialInfo.sanctionLetterDate.ct : '';
+          } else {
+            this.sanctionDate = this.initialInfo.sanctionLetterDateNepali ? this.initialInfo.sanctionLetterDateNepali.ct : '';
+          }
           if (this.initialInfo.loanOption.en === 'EXISTING' || this.initialInfo.loanOption.en === 'Existing') {
             this.newOrExisting = true;
           }
@@ -826,7 +837,8 @@ export class LoanDeedProprietorshipComponent implements OnInit {
       nameOfBranchLocated: this.individualData.branch ? this.individualData.branch.ct : '',
       actName: !ObjectUtil.isEmpty(this.individualData.actName) ? this.individualData.actName.ct : this.nameOfAct,
       yearInFigure: this.setActYear(),
-      nameOfAuthorizedBody: !ObjectUtil.isEmpty(this.individualData.authorizedBodyName) ? this.individualData.authorizedBodyName.ct : this.nameOfAuthorizedBody,
+      nameOfAuthorizedBody: !ObjectUtil.isEmpty(this.individualData.authorizedBodyName) ?
+          this.individualData.authorizedBodyName.ct : this.nameOfAuthorizedBody,
       nameOfDepartment: this.individualData.registeredWith ? this.individualData.registeredWith.ct : '',
       dateOfRegistration: this.setRegistrationDate(),
       registrationNo: this.individualData.registrationNo ? this.individualData.registrationNo.ct : '',
@@ -863,7 +875,8 @@ export class LoanDeedProprietorshipComponent implements OnInit {
   setRegistrationDate() {
     let regDate = '';
     if (this.individualData.registrationDateOption.en === 'AD') {
-      regDate = this.engToNepaliDate.transform(this.individualData.registrationDate.en ? this.individualData.registrationDate.en : this.individualData.registrationDate.en, true) || '' ;
+      regDate = this.engToNepaliDate.transform(this.individualData.registrationDate.en ?
+          this.individualData.registrationDate.en : this.individualData.registrationDate.en, true) || '' ;
     } else {
       regDate = this.individualData.registrationDate.en.nDate ? this.individualData.registrationDate.en.nDate : '';
     }
@@ -895,7 +908,8 @@ export class LoanDeedProprietorshipComponent implements OnInit {
   setActYear() {
     let yearOfAct = '';
     if (!ObjectUtil.isEmpty(this.individualData.radioActYearDate.en === 'AD')) {
-      yearOfAct = this.engToNepaliDate.transform(this.individualData.actYear.en ? this.individualData.actYear.en : this.individualData.actYear.en, true) || '' ;
+      yearOfAct = this.engToNepNumberPipe.transform(this.individualData.actYear.en ?
+          this.individualData.actYear.en : this.individualData.actYear.en, true) || '' ;
     } else {
       yearOfAct = this.individualData.actYear.en ? this.individualData.actYear.en : '';
     }
