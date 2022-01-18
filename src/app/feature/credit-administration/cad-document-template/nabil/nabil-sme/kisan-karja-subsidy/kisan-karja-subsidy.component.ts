@@ -19,6 +19,7 @@ import {CreditAdministrationService} from '../../../../service/credit-administra
 import {EngNepDatePipe} from 'nepali-patro';
 import {DatePipe} from '@angular/common';
 import {CustomerSubType} from '../../../../../customer/model/customerSubType';
+import { JsonParsePipe } from '../../../../../../@theme/pipes/json-parse.pipe';
 
 @Component({
     selector: 'app-kisan-karja-subsidy',
@@ -55,6 +56,7 @@ export class KisanKarjaSubsidyComponent implements OnInit {
     guarantorNames: Array<any> = new Array<any>();
     allguarantorNames;
     customerSubType = CustomerSubType;
+    guarantor;
 
     constructor(private formBuilder: FormBuilder,
                 private administrationService: CreditAdministrationService,
@@ -73,12 +75,13 @@ export class KisanKarjaSubsidyComponent implements OnInit {
 
     ngOnInit() {
         this.buildForm();
+        this.guarantorData = this.cadOfferLetterApprovedDoc.assignedLoan[0].taggedGuarantors;
+        this.guarantor = JSON.parse(this.guarantorData[0].nepData);
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
             this.branchName = this.cadOfferLetterApprovedDoc.loanHolder.branch.nepaliName + 'मा';
             this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
             this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
         }
-        this.guarantorData = this.cadOfferLetterApprovedDoc.assignedLoan[0].taggedGuarantors;
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.offerDocumentList)) {
             // tslint:disable-next-line:max-line-length
             this.offerDocumentDetails = this.cadOfferLetterApprovedDoc.offerDocumentList[0] ? JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation) : '';
@@ -163,11 +166,7 @@ export class KisanKarjaSubsidyComponent implements OnInit {
                     this.offerLetterData = this.offerLetterDocument;
                     this.setFreeText();
                     this.freeInformation = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation);
-                    /* this.kisanKarjaSubsidy.get(this.freeTextVal.firstText).patchValue(this.offerLetterData.supportedInformation);*/
                 }
-                // this.selectedSecurity = initialInfo.selectedSecurity.en;
-                // this.loanLimit = initialInfo.loanLimitChecked.en;
-                // this.renewal = initialInfo.renewalChecked.en;
                 this.initialInfoPrint = initialInfo;
                 this.existingOfferLetter = true;
                 this.selectedArray = initialInfo.loanTypeSelectedArray;
@@ -237,7 +236,7 @@ export class KisanKarjaSubsidyComponent implements OnInit {
             loanAmountInWords: this.nepaliCurrencyWordPipe.transform(totalLoanAmount),
             // guarantorName: this.loanHolderInfo.guarantorDetails[0].guarantorName.np,
             referenceNumber: autoRefNumber ? autoRefNumber : '',
-            purposeOfLoan: this.tempData.purposeOfLoan ? this.tempData.purposeOfLoan.ct : '',
+            // purposeOfLoan: this.tempData.purposeOfLoan ? this.tempData.purposeOfLoan.ct : '',
             drawingPower: this.tempData.marginInPercentage ? this.tempData.marginInPercentage.ct : '',
             commitmentFee: this.tempData.commitmentFee ? this.tempData.commitmentFee.ct : '',
             rateNrbCircular: this.tempData.circularRate ? this.tempData.circularRate.ct : '',
@@ -255,6 +254,7 @@ export class KisanKarjaSubsidyComponent implements OnInit {
             dateOfApplication: finaldateOfApplication ? finaldateOfApplication : '',
             nextReviewDate: finalNextReviewDate ? finalNextReviewDate : '',
             prevSanctionLetterDate: finalprevSanctionLetterDate ? finalprevSanctionLetterDate : '',
+            purposeOfLoan: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.purposeOfLoan : '',
             firstAdditionalDetails: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.firstText : '',
             secondAdditionalDetails: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.secondText : '',
             thirdAdditionalDetails: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.thirdText : '',
@@ -263,8 +263,8 @@ export class KisanKarjaSubsidyComponent implements OnInit {
             sixthAdditionalDetails: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.sixthText : '',
             seventhAdditionalDetails: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.seventhText : '',
             eighthAdditionalDetails: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.eighthText : '',
-            autoPopulate1: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.autoPopulate1 : '',
-            autoPopulate2: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.autoPopulate2 : '',
+            autoPopulate1: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.autoPopulate1 : this.autoPopulate1,
+            autoPopulate2: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.autoPopulate2 : this.autoPopulate2,
             nameOfPersonalGuarantor: this.finalName ? this.finalName : '',
             totalTenureOfLoan: this.tempData.totalTenureOfLoan ? this.tempData.totalTenureOfLoan.ct : '',
             typeOfLoan: this.tempData.repaymentType ? this.tempData.repaymentType.ct : '',
@@ -289,8 +289,6 @@ export class KisanKarjaSubsidyComponent implements OnInit {
                     this.offerLetterConst.value(this.offerLetterConst.KISAN_KARJA_SUBSIDY).toString()) {
                     this.setFreeText();
                     offerLetterPath.supportedInformation = JSON.stringify(this.freeTextVal);
-                    // offerLetterPath.supportedInformation = this.kisanKarjaSubsidy.get(this.freeTextVal.firstText).value;
-                    // offerLetterPath.pointInformation = this.kisanKarjaSubsidy.get('additionalDetails').value;
                 }
             });
         } else {
@@ -326,6 +324,7 @@ export class KisanKarjaSubsidyComponent implements OnInit {
 
     setFreeText() {
         this.freeTextVal = {
+            purposeOfLoan: this.kisanKarjaSubsidy.get('purposeOfLoan').value,
             firstText: this.kisanKarjaSubsidy.get('firstAdditionalDetails').value,
             secondText: this.kisanKarjaSubsidy.get('secondAdditionalDetails').value,
             thirdText: this.kisanKarjaSubsidy.get('thirdAdditionalDetails').value,
@@ -334,8 +333,8 @@ export class KisanKarjaSubsidyComponent implements OnInit {
             sixthText: this.kisanKarjaSubsidy.get('sixthAdditionalDetails').value,
             seventhText: this.kisanKarjaSubsidy.get('seventhAdditionalDetails').value,
             eighthText: this.kisanKarjaSubsidy.get('eighthAdditionalDetails').value,
-            autoPopulate1: this.kisanKarjaSubsidy.get('autoPopulate1').value,
-            autoPopulate2: this.kisanKarjaSubsidy.get('autoPopulate2').value,
+            autoPopulate1: !ObjectUtil.isEmpty(this.kisanKarjaSubsidy.get('autoPopulate1').value) ? this.kisanKarjaSubsidy.get('autoPopulate1').value : this.autoPopulate1,
+            autoPopulate2: !ObjectUtil.isEmpty(this.kisanKarjaSubsidy.get('autoPopulate2').value) ? this.kisanKarjaSubsidy.get('autoPopulate2').value : this.autoPopulate2,
         };
     }
 
@@ -343,10 +342,8 @@ export class KisanKarjaSubsidyComponent implements OnInit {
         if (this.guarantorData.length === 1) {
             const tempGuarantorNep = JSON.parse(this.guarantorData[0].nepData);
             if (tempGuarantorNep.guarantorType.en === 'Personal Guarantor') {
-                // const temp = JSON.parse(this.guarantorData[0].nepData);
-                this.finalName = tempGuarantorNep.guarantorName.ct;
+                    this.finalName = tempGuarantorNep.guarantorName.ct;
             } else {
-                // const temp = JSON.parse(this.guarantorData[0].nepData);
                 this.finalName = tempGuarantorNep.authorizedPersonName.ct;
             }
         } else if (this.guarantorData.length === 2) {
