@@ -1153,13 +1153,20 @@
                             <span *ngIf="!offerLetterForm?.get('peGuaranteeOtherCheck').value">
                                 <input type="text"
                                        class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                       formControlName="personalName"> को
+                                       formControlName="personalName">
+                                 <span class="nepaliFont print-only">
+                                        <b>{{offerLetterForm?.get('personalName').value ? offerLetterForm?.get('personalName').value : '========='}}</b></span> को
                             <input type="text"
                                    class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                   formControlName="personalAmount">/– (अक्षरेपी रुपैयाँ
+                                   formControlName="personalAmount">
+                                 <span class="nepaliFont print-only">
+                                        <b>{{offerLetterForm?.get('personalAmount').value ? offerLetterForm?.get('personalAmount').value : '========='}}</b></span> /– (अक्षरेपी रुपैयाँ
                             <input type="text"
                                    class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                   formControlName="personalAmountWord"> मात्र) को <strong>व्यक्तिगत जमानतको</strong>
+                                   formControlName="personalAmountWord">
+                                <span class="nepaliFont print-only">
+                                        <b>{{offerLetterForm?.get('personalAmountWord').value ? offerLetterForm?.get('personalAmountWord').value : '========='}}</b></span>
+                                मात्र) को <strong>व्यक्तिगत जमानतको</strong>
                             लिखत बैंकलाई उपलब्ध गराउनु पर्नेछ ।
                             </span>
                             <span class="disable-print float-right">
@@ -1187,13 +1194,20 @@
                             <span *ngIf="!offerLetterForm?.get('coGuaranteeOtherCheck')?.value">
                                 <input type="text"
                                        class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                       formControlName="corporateName"> को
+                                       formControlName="corporateName">
+                                <span class="nepaliFont print-only">
+                                        <b>{{offerLetterForm?.get('corporateName').value ? offerLetterForm?.get('corporateName').value : '========='}}</b></span> को
                             <input type="text"
                                    class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                   formControlName="corporateAmount">/– (अक्षरेपी रुपैयाँ
+                                   formControlName="corporateAmount">
+                                <span class="nepaliFont print-only">
+                                        <b>{{offerLetterForm?.get('corporateAmount').value ? offerLetterForm?.get('corporateAmount').value : '========='}}</b></span> /– (अक्षरेपी रुपैयाँ
                             <input type="text"
                                    class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                   formControlName="corporateAmountWord"> मात्र) को <strong>संस्थागत जमानतको</strong>
+                                   formControlName="corporateAmountWord">
+                                <span class="nepaliFont print-only">
+                                        <b>{{offerLetterForm?.get('corporateAmountWord').value ? offerLetterForm?.get('corporateAmountWord').value : '========='}}</b></span>
+                                मात्र) को <strong>संस्थागत जमानतको</strong>
                             लिखत बैंकलाई उपलब्ध गराउनु पर्नेछ ।
                             </span>
 
@@ -1280,7 +1294,10 @@
                                 प्रतितपत्र सुविधा उपयोगको आधारमा
                             <input type="text"
                                    class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                   formControlName="letterCM"> प्रतिशत नगद मार्जिन जम्मा गर्नु पर्नेछ ।
+                                   formControlName="letterCM">
+                                <span class="nepaliFont print-only">
+                                        <b>{{offerLetterForm?.get('letterCM').value ? offerLetterForm?.get('letterCM').value : '========='}}</b></span>
+                                प्रतिशत नगद मार्जिन जम्मा गर्नु पर्नेछ ।
                             </span>
                             <span class="disable-print float-right">
                                 <nb-checkbox (change)="otherCheck($event?.target?.checked, 'cashLetterOtherCheck')"
@@ -1302,7 +1319,10 @@
                                 ग्यारेण्टी सुविधा उपयोगको आधारमा
                             <input type="text"
                                    class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                   formControlName="guarnateeCM"> प्रतिशत नगद मार्जिन जम्मा गर्नु पर्नेछ ।
+                                   formControlName="guarnateeCM">
+                                <span class="nepaliFont print-only">
+                                        <b>{{offerLetterForm?.get('guarnateeCM').value ? offerLetterForm?.get('guarnateeCM').value : '========='}}</b></span>
+                                प्रतिशत नगद मार्जिन जम्मा गर्नु पर्नेछ ।
                             </span>
                             <span class="disable-print float-right">
                                 <nb-checkbox (change)="otherCheck($event?.target?.checked, 'cashGuaranteeOtherCheck')"
@@ -1353,17 +1373,26 @@
                             <span *ngIf="!offerLetterForm?.get('cashlienOtherCheck')?.value">
                                 <input type="text"
                                        class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                       formControlName="accountName"> को नाममा लक्ष्मी बैंक लिमिटेडमा रहेको
+                                       formControlName="accountName">
+                                <span class="nepaliFont print-only">
+                                        <b>{{offerLetterForm?.get('accountName').value ? offerLetterForm?.get('accountName').value : '========='}}</b></span>
+                                को नाममा लक्ष्मी बैंक लिमिटेडमा रहेको
                             चल्ती/बचत खाता नं
                             <input type="text"
                                    class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                   formControlName="accountNo"> मा
+                                   formControlName="accountNo">
+                                <span class="nepaliFont print-only">
+                                        <b>{{offerLetterForm?.get('accountNo').value ? offerLetterForm?.get('accountNo').value : '========='}}</b></span>मा
                             <strong> रु. <input type="text"
                                                 class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                                formControlName="accountAmount">/–
+                                                formControlName="accountAmount">
+                                <span class="nepaliFont print-only">
+                                        <b>{{offerLetterForm?.get('accountAmount').value ? offerLetterForm?.get('accountAmount').value : '========='}}</b></span>/–
                                 (अक्षरेपी रुपैयाँ <input type="text"
                                                          class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                                         formControlName="accountAmountWord"> मात्र) </strong>
+                                                         formControlName="accountAmountWord">
+                                <span class="nepaliFont print-only">
+                                        <b>{{offerLetterForm?.get('accountAmountWord').value ? offerLetterForm?.get('accountAmountWord').value : '========='}}</b></span>मात्र) </strong>
                             लिएको कर्जा चुक्ता नहुञ्जेल सम्मका लागि यस बैंकको नाममा लियन (ष्भिल) राखीदिन मञ्जुर गरी
                             दिएको लिखत ।
                             </span>
@@ -1388,10 +1417,14 @@
                             <span *ngIf="!offerLetterForm?.get('loanTamsukOtherCheck')?.value">
                                 <input type="text"
                                        class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                       formControlName="loanAmount"> /– (अक्षरेपी रुपैयाँ
+                                       formControlName="loanAmount">
+                                <span class="nepaliFont print-only">
+                                        <b>{{offerLetterForm?.get('loanAmount').value ? offerLetterForm?.get('loanAmount').value : '========='}}</b></span>/– (अक्षरेपी रुपैयाँ
                             <input type="text"
                                    class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                   formControlName="loanAmountWord"> मात्र) को <strong>कर्जा तमसुकमा</strong> सही छाप
+                                   formControlName="loanAmountWord">
+                                <span class="nepaliFont print-only">
+                                        <b>{{offerLetterForm?.get('loanAmountWord').value ? offerLetterForm?.get('loanAmountWord').value : '========='}}</b></span>मात्र) को <strong>कर्जा तमसुकमा</strong> सही छाप
                             गरी बैंकलाई उपलव्ध गराउनु पर्नेछ ।
                             </span>
                             <span class="disable-print float-right">
@@ -1415,10 +1448,14 @@
                             <span *ngIf="!offerLetterForm?.get('promiseOtherCheck')?.value">
                                 रु<input type="text"
                                          class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                         formControlName="promiseAmount">/– (अक्षरेपी रुपैयाँ
+                                         formControlName="promiseAmount">
+                                <span class="nepaliFont print-only">
+                                        <b>{{offerLetterForm?.get('promiseAmount').value ? offerLetterForm?.get('promiseAmount').value : '========='}}</b></span>/– (अक्षरेपी रुपैयाँ
                             <input type="text"
                                    class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                   formControlName="promiseAmountWord"> मात्र) को <strong>प्रतिज्ञापत्रमा</strong> सही
+                                   formControlName="promiseAmountWord">
+                                <span class="nepaliFont print-only">
+                                        <b>{{offerLetterForm?.get('promiseAmountWord').value ? offerLetterForm?.get('promiseAmountWord').value : '========='}}</b></span>मात्र) को <strong>प्रतिज्ञापत्रमा</strong> सही
                             छाप गरी बैंकलाई उपलव्ध गराउनु पर्नेछ ।
                             </span>
                             <span class="disable-print float-right">
