@@ -39,7 +39,6 @@ export class LetterOfConfessionComponent implements OnInit {
   existingOfferLetter = false;
   offerLetterDocument: OfferDocument;
   nepaliData;
-  loanAmountTemplate = new NepaliNumberAndWords();
 
   constructor(private dialogRef: NbDialogRef<LetterOfConfessionComponent>,
               private formBuilder: FormBuilder,
@@ -54,14 +53,6 @@ export class LetterOfConfessionComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
-    if (ObjectUtil.isEmpty(this.cadData.nepData)) {
-      const number = ProposalCalculationUtils.calculateTotalFromProposalList(LoanDataKey.PROPOSE_LIMIT, this.cadData.assignedLoan);
-      this.loanAmountTemplate.numberNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(number));
-      this.loanAmountTemplate.nepaliWords = this.nepaliCurrencyWordPipe.transform(number);
-      this.loanAmountTemplate.engNumber = number;
-    } else {
-      this.loanAmountTemplate = JSON.parse(this.cadData.nepData);
-    }
     this.fillForm();
   }
 
@@ -95,8 +86,9 @@ export class LetterOfConfessionComponent implements OnInit {
         temporaryDistrict: this.nepaliData.temporaryDistrict ? this.nepaliData.temporaryDistrict : '',
       });
     }
-    this.form.get('amount').patchValue(this.loanAmountTemplate.numberNepali);
-    this.form.get('amountInWord').patchValue(this.loanAmountTemplate.nepaliWords);
+    const loanAmount = JSON.parse(this.cadData.nepData);
+    this.form.get('amount').patchValue(loanAmount.numberNepali);
+    this.form.get('amountInWord').patchValue(loanAmount.nepaliWords);
   }
 
 

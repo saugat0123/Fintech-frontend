@@ -35,7 +35,6 @@ export class OfferLetterHirePurchaseAndAutoLoanComponent implements OnInit {
   existingOfferLetter = false;
   offerLetterDocument: OfferDocument;
   nepaliData;
-  loanAmountTemplate = new NepaliNumberAndWords();
   nepDataPersonal = new NepDataPersonal();
 
   constructor(

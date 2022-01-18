@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {CustomerOfferLetter} from '../../../../../loan/model/customer-offer-letter';
 import {OfferDocument} from '../../../../model/OfferDocument';
 import {NbDialogRef} from '@nebular/theme';
@@ -8,9 +8,7 @@ import {NepaliCurrencyWordPipe} from '../../../../../../@core/pipe/nepali-curren
 import {CreditAdministrationService} from '../../../../service/credit-administration.service';
 import {ToastService} from '../../../../../../@core/utils';
 import {RouterUtilsService} from '../../../../utils/router-utils.service';
-import {CustomerOfferLetterService} from '../../../../../loan/service/customer-offer-letter.service';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
-import {CadDocStatus} from '../../../../model/CadDocStatus';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 import {ProgressiveLegalDocConst} from '../progressive-legal-doc-const';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
@@ -34,6 +32,7 @@ export class GuaranteeBondPersonalComponent implements OnInit {
   existingOfferLetter = false;
   offerLetterDocument: OfferDocument;
   nepaliData;
+  nepDataPersonal;
 
   constructor(private dialogRef: NbDialogRef<GuaranteeBondPersonalComponent>,
               private formBuilder: FormBuilder,
@@ -41,8 +40,7 @@ export class GuaranteeBondPersonalComponent implements OnInit {
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
-              private routerUtilsService: RouterUtilsService,
-              private customerOfferLetterService: CustomerOfferLetterService) {
+              private routerUtilsService: RouterUtilsService) {
   }
 
   ngOnInit() {
@@ -63,10 +61,54 @@ export class GuaranteeBondPersonalComponent implements OnInit {
     }
 
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
+      const loanAmount = JSON.parse(this.cadData.nepData);
       this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
+      this.nepDataPersonal = JSON.parse(this.cadData.nepDataPersonal);
+      console.log('asdf', this.nepaliData);
 
       this.form.patchValue({
         customerName: this.nepaliData.name ? this.nepaliData.name : '',
+        sincerlyCitizenshipNo: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
+        sincerlyDate: this.nepaliData.citizenshipIssueDate ? this.nepaliData.citizenshipIssueDate : '',
+        sincerlyCdOoffice: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
+        district: this.nepaliData.guarantorDetails[0].guarantorPermanentDistrict.nepaliName ? this.nepaliData.guarantorDetails[0].guarantorPermanentDistrict.nepaliName : '',
+        municipality: this.nepaliData.guarantorDetails[0].guarantorPermanentMunicipality.nepaliName ? this.nepaliData.guarantorDetails[0].guarantorPermanentMunicipality.nepaliName : '',
+        wardNo: this.nepaliData.guarantorDetails[0].guarantorPermanentWard ? this.nepaliData.guarantorDetails[0].guarantorPermanentWard : '',
+        tempDistrict: this.nepaliData.guarantorDetails[0].guarantorTemporaryDistrict.nepaliName ? this.nepaliData.guarantorDetails[0].guarantorTemporaryDistrict.nepaliName : '',
+        tempMunicipality: this.nepaliData.guarantorDetails[0].guarantorTemporaryMunicipality.nepaliName ? this.nepaliData.guarantorDetails[0].guarantorTemporaryMunicipality.nepaliName : '',
+        tempWardNo: this.nepaliData.guarantorDetails[0].guarantorTemporaryWard ? this.nepaliData.guarantorDetails[0].guarantorTemporaryWard : '',
+        parentName: this.nepaliData.guarantorDetails[0].guarantorFatherName ? this.nepaliData.guarantorDetails[0].guarantorFatherName : '',
+        grandParentName: this.nepaliData.guarantorDetails[0].guarantorGrandfatherName ? this.nepaliData.guarantorDetails[0].guarantorGrandfatherName : '',
+        husbandWifeName: this.nepaliData.guarantorDetails[0].guarantorSpouseName ? this.nepaliData.guarantorDetails[0].guarantorSpouseName : '',
+        amount: loanAmount.numberNepali ? loanAmount.numberNepali : '',
+        amountInWord: loanAmount.nepaliWords ? loanAmount.nepaliWords : '',
+        branchName : this.nepaliData.branchName ? this.nepaliData.branchName : '',
+        chaltiKhata: this.nepaliData.accountNo ? this.nepaliData.accountNo : '',
+        buttonCitizenshipNo: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
+        buttonDate: this.nepaliData.citizenshipIssueDate ? this.nepaliData.citizenshipIssueDate : '',
+        buttonCdoOffice: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
+        age: this.nepaliData.guarantorDetails[0].guarantorAge ? this.nepaliData.guarantorDetails[0].guarantorAge : '',
+        namName: this.nepaliData.guarantorDetails[0].guarantorName ? this.nepaliData.guarantorDetails[0].guarantorName : '',
+        newName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
+        buttonParentName: this.nepaliData.fatherName ? this.nepaliData.fatherName : '',
+        buttonhusbandName: this.nepaliData.husbandName ? this. nepaliData.husbandName : '',
+        buttonDistrict: this.nepaliData.permanentDistrict.nepaliName ? this.nepaliData.permanentDistrict.nepaliName : '',
+        buttonMunicipalityt: this.nepaliData.permanentMunicipalities.nepaliName ? this.nepaliData.permanentMunicipalities.nepaliName : '',
+        buttonWardNo: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
+        buttonTempDistrict: this.nepaliData.temporaryDistrict.nepaliName ? this.nepaliData.temporaryDistrict.nepaliName : '',
+        buttonTempMuniciplity: this.nepaliData.temporaryMunicipalities.nepaliName ? this.nepaliData.temporaryMunicipalities.nepaliName : '',
+        buttonTempWardNo: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
+        date: this.nepaliData.guarantorDetails[0].issuedYear ? this.nepaliData.guarantorDetails[0].issuedYear : '',
+        cdoOffice: this.nepaliData.guarantorDetails[0].issuedPlace ? this.nepaliData.guarantorDetails[0].issuedPlace : '',
+        citizenshipNo: this.nepaliData.guarantorDetails[0].citizenNumber ? this.nepaliData.guarantorDetails[0].citizenNumber : '',
+        buttonAge: this.nepaliData.age ? this.nepaliData.age : '',
+        borrowerName: this.nepaliData.name ? this.nepaliData.name : '',
+        personalLoan: this.nepDataPersonal.loanType ? this.nepDataPersonal.loanType : '',
+        karjaYojana: this.nepDataPersonal.typeOfLoanInEnglish ? this.nepDataPersonal.typeOfLoanInEnglish : '',
+        sriName: loanAmount.numberNepali ? loanAmount.numberNepali : '',
+        sriiName: loanAmount.nepaliWords ? loanAmount.nepaliWords : ''
+
+
       });
     }
   }
@@ -122,10 +164,11 @@ export class GuaranteeBondPersonalComponent implements OnInit {
       sasuSasura: [undefined],
       district: [undefined],
       municipality: [undefined],
-      wadNo: [undefined],
+      wardNo: [undefined],
       tempDistrict: [undefined],
       tempMunicipality: [undefined],
-      tempWadNo: [undefined],
+      tempWardNo: [undefined],
+      tempWardNo2: [undefined],
       date: [undefined],
       cdoOffice: [undefined],
       citizenshipNo: [undefined],
@@ -136,10 +179,10 @@ export class GuaranteeBondPersonalComponent implements OnInit {
       buttonSasuSasura: [undefined],
       buttonDistrict: [undefined],
       buttonMunicipalityt: [undefined],
-      buttonWadNo: [undefined],
+      buttonWardNo: [undefined],
       buttonTempDistrict: [undefined],
       buttonTempMuniciplity: [undefined],
-      buttonTempWadNo: [undefined],
+      buttonTempWardNo: [undefined],
       buttonDate: [undefined],
       buttonWifeName: [undefined],
       buttonCdoOffice: [undefined],
@@ -151,12 +194,12 @@ export class GuaranteeBondPersonalComponent implements OnInit {
       guaranteeCdoOffice: [undefined],
       guaranteePermanentDistrict: [undefined],
       guaranteePermanentMunicipality: [undefined],
-      guaranteePermanentWadNo: [undefined],
+      guaranteePermanentWardNo: [undefined],
       sabikVDC: [undefined],
       sabikWaNo: [undefined],
       guaranteeTempDistrict: [undefined],
       guaranteeTempMunicipality: [undefined],
-      guaranteeTempWadNo: [undefined],
+      guaranteeTempWardNo: [undefined],
       fatherMotherName: [undefined],
       grandFatherGrandmomName: [undefined],
       husbandWifeName: [undefined],
@@ -167,7 +210,7 @@ export class GuaranteeBondPersonalComponent implements OnInit {
       itiSambatDate: [undefined],
       itiSambatRojSubham: [undefined],
       guarantorDetails: this.formBuilder.array([]),
-      locationName: [undefined],
+      branchName: [undefined],
       sahiName: [undefined],
       namName: [undefined],
       newName: [undefined],
@@ -178,10 +221,9 @@ export class GuaranteeBondPersonalComponent implements OnInit {
       saSura: [undefined],
       districtName: [undefined],
       municipalityName: [undefined],
-      wadNoName: [undefined],
+      wardNoName: [undefined],
       tempDistrictName: [undefined],
       tempMunicipalityName: [undefined],
-      tempWardNo: [undefined],
       buttonDateName: [undefined],
       buttonCdoOfficeName: [undefined],
       buttonCitizenshipNoName: [undefined],
@@ -195,14 +237,15 @@ export class GuaranteeBondPersonalComponent implements OnInit {
       guarantorCDOoffice: [undefined],
       guarantorDistrict: [undefined],
       guarantorMunicipality: [undefined],
-      guarantorWadNo: [undefined],
+      guarantorWardNo: [undefined],
       name1: [undefined],
       citizenNumber1: [undefined],
       issuedYear1: [undefined],
       guarantorCDOoffice1: [undefined],
       guarantorDistrict1: [undefined],
       guarantorMunicipality1: [undefined],
-      guarantorWadNo1: [undefined],
+      guarantorWardNo1: [undefined],
+      borrowerName: [undefined]
     });
   }
   getNumAmountWord(numLabel, wordLabel) {

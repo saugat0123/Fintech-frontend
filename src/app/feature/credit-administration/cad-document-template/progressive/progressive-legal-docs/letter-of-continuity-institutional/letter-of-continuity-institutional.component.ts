@@ -44,7 +44,6 @@ export class LetterOfContinuityInstitutionalComponent implements OnInit {
   existingOfferLetter = false;
   offerLetterDocument: OfferDocument;
   nepaliData;
-  loanAmountTemplate = new NepaliNumberAndWords();
 
   constructor(private dialogRef: NbDialogRef<LetterOfContinuityInstitutionalComponent>,
               private formBuilder: FormBuilder,
@@ -59,14 +58,6 @@ export class LetterOfContinuityInstitutionalComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
-    if (ObjectUtil.isEmpty(this.cadData.nepData)) {
-      const number = ProposalCalculationUtils.calculateTotalFromProposalList(LoanDataKey.PROPOSE_LIMIT, this.cadData.assignedLoan);
-      this.loanAmountTemplate.numberNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(number));
-      this.loanAmountTemplate.nepaliWords = this.nepaliCurrencyWordPipe.transform(number);
-      this.loanAmountTemplate.engNumber = number;
-    } else {
-      this.loanAmountTemplate = JSON.parse(this.cadData.nepData);
-    }
     this.fillForm();
   }
 
@@ -83,6 +74,7 @@ export class LetterOfContinuityInstitutionalComponent implements OnInit {
       });
     }
 
+    const loanAmount = JSON.parse(this.cadData.nepData);
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
       this.nepDataPersonal = JSON.parse(this.cadData.nepDataPersonal);
@@ -121,8 +113,8 @@ export class LetterOfContinuityInstitutionalComponent implements OnInit {
         branchName: this.nepDataPersonal.branchName ? this.nepDataPersonal.branchName : '',
       });
     }
-    this.form.get('belowAmount').patchValue(this.loanAmountTemplate.numberNepali);
-    this.form.get('belowAmountInWord').patchValue(this.loanAmountTemplate.nepaliWords);
+    this.form.get('belowAmount').patchValue(loanAmount.numberNepali);
+    this.form.get('belowAmountInWord').patchValue(loanAmount.nepaliWords);
   }
 
 
