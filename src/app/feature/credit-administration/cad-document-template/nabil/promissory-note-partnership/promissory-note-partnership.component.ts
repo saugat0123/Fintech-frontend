@@ -102,6 +102,8 @@ export class PromissoryNotePartnershipComponent implements OnInit {
       this.loanHolderNepData = this.cadData.loanHolder.nepData ?
         JSON.parse(this.cadData.loanHolder.nepData) :
         this.cadData.loanHolder.nepData;
+      console.log('this.loanHolderNepData', this.loanHolderNepData);
+      console.log('this.cadData', this.cadData);
     }
     this.fillform();
   }
@@ -195,14 +197,15 @@ export class PromissoryNotePartnershipComponent implements OnInit {
     this.forPrint();
     this.form.patchValue({
       actDetails: [this.loanHolderNepData.actName ? this.loanHolderNepData.actName.ct : ''],
-      actYearInFigure: [this.loanHolderNepData.actYear ? this.loanHolderNepData.actYear.np : ''],
+      actYearInFigure: [this.setActYear()],
       nameOfHead: [this.loanHolderNepData.authorizedBodyName ? this.loanHolderNepData.authorizedBodyName.ct : ''],
+      dateOfRegistration: [this.setRegistrationDate()],
       registrationNumber: [this.loanHolderNepData.registrationNo ? this.loanHolderNepData.registrationNo.ct : ''],
       districtOfFirm: [this.loanHolderNepData.registeredDistrict ? this.loanHolderNepData.registeredDistrict.ct : ''],
       wardNumberOfFirm: [this.loanHolderNepData.permanentWard ? this.loanHolderNepData.permanentWard.ct : ''],
       addressOfFirm: [this.loanHolderNepData.registeredStreetTole ? this.loanHolderNepData.registeredStreetTole.ct : ''],
       vdcOfFirm: this.loanHolderNepData.registeredMunicipality ? this.loanHolderNepData.registeredMunicipality.ct : '',
-      nameOfFirm: this.cadData.assignedLoan[0].companyInfo.companyName ? this.cadData.assignedLoan[0].companyInfo.companyName : '',
+      nameOfFirm: this.loanHolderNepData.name ? this.loanHolderNepData.name.ct : '',
       loanamountinFigure: finalAmount,
       loanamountinWords: loanAmountWord,
       loanAmountinFigure: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(finalAmount)),
@@ -376,11 +379,6 @@ export class PromissoryNotePartnershipComponent implements OnInit {
           this.educationalTemplateData = educationalOfferData.autoLoanMasterForm.autoLoanFormArray.interestRateCT;
         }
       }
-      if (this.loanHolderNepData.registrationDateOption.en === 'AD') {
-        this.form.get('dateOfRegistration').patchValue(this.engToNepaliDate.transform(this.loanHolderNepData.registrationDate.en, true));
-      } else {
-        this.form.get('dateOfRegistration').patchValue(this.loanHolderNepData.registrationDate.np);
-      }
       for (const i of this.tempProprietor) {
         if (i.radioOwnerCitizenshipIssuedDate === 'AD') {
           this.form.get('citizenshipIssueDate').patchValue(this.engToNepaliDate.transform(i.ownerCitizenshipIssuedDateCT, true));
@@ -409,5 +407,25 @@ export class PromissoryNotePartnershipComponent implements OnInit {
 
       this.citizenshipIssueDistrict = i.ownerCitizenshipIssuedDistrictCT;
      }
+  }
+
+  setRegistrationDate() {
+    let regDate = '';
+    if (this.loanHolderNepData.registrationDateOption.en === 'AD') {
+      regDate = this.engToNepaliDate.transform(this.loanHolderNepData.registrationDate.en ? this.loanHolderNepData.registrationDate.en : this.loanHolderNepData.registrationDate.en, true) || '' ;
+    } else {
+      regDate = this.loanHolderNepData.registrationDate.en.nDate ? this.loanHolderNepData.registrationDate.en.nDate : '';
+    }
+    return regDate ? regDate : '';
+  }
+
+  setActYear() {
+    let yearOfAct = '';
+    if (!ObjectUtil.isEmpty(this.loanHolderNepData.radioActYearDate.en === 'AD')) {
+      yearOfAct = this.engToNepaliDate.transform(this.loanHolderNepData.actYear.en ? this.loanHolderNepData.actYear.en : this.loanHolderNepData.actYear.en, true) || '' ;
+    } else {
+      yearOfAct = this.loanHolderNepData.actYear.en ? this.loanHolderNepData.actYear.en : '';
+    }
+    return yearOfAct ? yearOfAct : '';
   }
 }

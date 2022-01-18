@@ -241,14 +241,14 @@ export class PromissoryNoteCompanyComponent implements OnInit {
     this.form.patchValue({
       nameofBranchLocated: [this.loanHolderNepData.branch ? this.loanHolderNepData.branch.ct : ''],
       actDetails: [this.loanHolderNepData.actName ? this.loanHolderNepData.actName.ct : ''],
-      actDate: [this.loanHolderNepData.actYear ? this.loanHolderNepData.actYear.np : ''],
+      actDate: [this.setActYear()],
       headName: [this.loanHolderNepData.authorizedBodyName ? this.loanHolderNepData.authorizedBodyName.ct : ''],
       registrationNumber: [this.loanHolderNepData.registrationNo ? this.loanHolderNepData.registrationNo.np : ''],
       firmDistrict: [this.loanHolderNepData.registeredDistrict ? this.loanHolderNepData.registeredDistrict.ct : ''],
       firmWardNumber: [this.loanHolderNepData.permanentWard ? this.loanHolderNepData.permanentWard.ct : ''],
       firmAddress: [this.loanHolderNepData.registeredStreetTole ? this.loanHolderNepData.registeredStreetTole.ct : ''],
       companyVDCMunci: this.loanHolderNepData.registeredMunicipality ? this.loanHolderNepData.registeredMunicipality.ct : '',
-      companyName: this.cadData.assignedLoan[0].companyInfo.companyName ? this.cadData.assignedLoan[0].companyInfo.companyName : '',
+      companyName: this.loanHolderNepData.name ? this.loanHolderNepData.name.ct : '',
       loanamountinFigure: finalAmount,
       loanamountinWords: loanAmountWord,
       loanAmountinFigure: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(finalAmount)),
@@ -476,5 +476,15 @@ export class PromissoryNoteCompanyComponent implements OnInit {
     const wordLabelVar = this.nepToEngNumberPipe.transform(this.form.get(numLabel).value);
     const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
     this.form.get(wordLabel).patchValue(returnVal);
+  }
+
+  setActYear() {
+    let yearOfAct = '';
+    if (!ObjectUtil.isEmpty(this.loanHolderNepData.radioActYearDate.en === 'AD')) {
+      yearOfAct = this.engToNepaliDate.transform(this.loanHolderNepData.actYear.en ? this.loanHolderNepData.actYear.en : this.loanHolderNepData.actYear.en, true) || '' ;
+    } else {
+      yearOfAct = this.loanHolderNepData.actYear.en ? this.loanHolderNepData.actYear.en : '';
+    }
+    return yearOfAct ? yearOfAct : '';
   }
 }

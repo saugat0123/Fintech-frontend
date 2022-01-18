@@ -206,7 +206,7 @@ export class PromissoryNoteProprietorshipComponent implements OnInit {
         {
           nameofBranchLocated: [this.loanHolderNepData.branch ? this.loanHolderNepData.branch.ct : ''],
           actDetails: [this.loanHolderNepData.actName ? this.loanHolderNepData.actName.ct : ''],
-          actYear: [this.loanHolderNepData.actYear ? this.loanHolderNepData.actYear.np : ''],
+          actYear: [this.setActYear()],
           nameOfHead : [this.loanHolderNepData.authorizedBodyName ? this.loanHolderNepData.authorizedBodyName.ct : ''],
           regNo: [this.loanHolderNepData.registrationNo ? this.loanHolderNepData.registrationNo.np : ''],
           branchName: [this.loanHolderNepData.branch ? this.loanHolderNepData.branch.ct : ''],
@@ -482,4 +482,13 @@ submit() {
     }
   }
 
+  setActYear() {
+    let yearOfAct = '';
+    if (!ObjectUtil.isEmpty(this.loanHolderNepData.radioActYearDate.en === 'AD')) {
+      yearOfAct = this.engToNepaliDate.transform(this.loanHolderNepData.actYear.en ? this.loanHolderNepData.actYear.en : this.loanHolderNepData.actYear.en, true) || '' ;
+    } else {
+      yearOfAct = this.loanHolderNepData.actYear.en ? this.loanHolderNepData.actYear.en : '';
+    }
+    return yearOfAct ? yearOfAct : '';
+  }
 }
