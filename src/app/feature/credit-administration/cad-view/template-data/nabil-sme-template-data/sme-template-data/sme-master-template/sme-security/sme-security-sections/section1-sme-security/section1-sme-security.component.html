@@ -69,7 +69,9 @@
                     </div>
                 </div>
 
-                <div *ngIf="this.section1SecurityForm.get(['securityDetails', i,'securityType']).value !== securityType[9]?.key && this.section1SecurityForm.get(['securityDetails', i,'securityType']).value"
+                <div *ngIf="this.section1SecurityForm.get(['securityDetails', i,'securityType']).value !== securityType[9]?.key &&
+                 this.section1SecurityForm.get(['securityDetails', i,'securityType']).value !== securityType[5]?.key &&
+                  this.section1SecurityForm.get(['securityDetails', i,'securityType']).value"
                      class="row mb-4">
                     <div class="col-md-12 m-2">
                         <nb-checkbox #insuranceRequired
