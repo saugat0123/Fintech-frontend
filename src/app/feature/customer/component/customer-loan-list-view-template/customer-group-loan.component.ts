@@ -475,7 +475,6 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
 
   addVideoKyc(model) {
     this.customerLoanService.detail(model.id).subscribe((data) => {
-      console.log('this is  response', data);
       const ref =  this.modalService.open(VideoKycComponent, {size: 'xl', backdrop: true});
       ref.componentInstance.showSender = false;
       ref.componentInstance.showHeader = true;
@@ -572,7 +571,6 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
     );
   }
   displaySecurityDetails() {
-    console.log('THIS IS TOTAL', this.customerInfo.security);
     if (!ObjectUtil.isEmpty(this.customerInfo.security)) {
     const securityData = JSON.parse(this.customerInfo.security.data);
     const approvedSecurityData = JSON.parse(this.customerInfo.security.approvedData);

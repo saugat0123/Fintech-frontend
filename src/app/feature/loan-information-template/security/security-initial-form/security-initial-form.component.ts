@@ -2239,6 +2239,7 @@ export class SecurityInitialFormComponent implements OnInit {
                 this.securityForm.get(['landBuilding', index, 'landConsideredValueConstruction']).patchValue(lbUnderConValue);
                 break;
         }
+        this.updateLandSecurityTotal();
     }
 
     public resetSecurityForm(event): void {

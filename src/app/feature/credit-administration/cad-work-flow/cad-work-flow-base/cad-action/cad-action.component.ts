@@ -223,7 +223,6 @@ export class CadActionComponent implements OnInit, OnChanges {
     }
 
     onLogin(dataValue) {
-        console.log('data value', dataValue);
         this.spinner = true;
         const data: { email: string, password: string } = dataValue.value;
         data.email = LocalStorageUtil.getStorage().username;
@@ -245,7 +244,6 @@ export class CadActionComponent implements OnInit, OnChanges {
     }
 
     postAction() {
-        console.log('form action', this.formAction.value);
         this.isForApproveMaker = false;
         this.cadService.saveAction(this.formAction.value).subscribe((response: any) => {
             this.onClose();
@@ -291,7 +289,6 @@ export class CadActionComponent implements OnInit, OnChanges {
 
     public getUserList(role) {
         this.userList = [];
-        console.log(this.formAction);
         if (role.roleType === RoleType.CAD_LEGAL) {
             this.formAction.patchValue({
                 toRole: role
@@ -321,9 +318,6 @@ export class CadActionComponent implements OnInit, OnChanges {
     }
 
     approvedForwardBackward(template, val, returnToMaker) {
-        console.log('template', template);
-        console.log('val', val);
-        console.log(returnToMaker, returnToMaker);
         // if (!this.hasRequierdDocument) {
         //     this.toastService.show(new Alert(AlertType.WARNING, 'Please Generate Document Before Proceeding to next Stage'));
         //     return;
@@ -332,7 +326,6 @@ export class CadActionComponent implements OnInit, OnChanges {
         this.selectedTemplate = template;
         this.popUpTitle = val;
         this.userList = [];
-        console.log('pop up title', this.popUpTitle);
         if (this.popUpTitle === 'FORWARD') {
             this.formAction = this.formBuilder.group(
                 {
@@ -436,7 +429,6 @@ export class CadActionComponent implements OnInit, OnChanges {
 
 
     public forwardBackwardDocStatusChange() {
-        console.log('current status', this.currentStatus);
         if (this.currentStatus === 'OFFER_APPROVED') {
             return 'LEGAL_PENDING';
         } else if (this.currentStatus === 'LEGAL_APPROVED') {

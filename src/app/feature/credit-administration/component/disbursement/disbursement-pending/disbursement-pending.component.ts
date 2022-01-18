@@ -106,7 +106,6 @@ export class DisbursementPendingComponent implements OnInit {
         comp.componentInstance.disbursementDataAssign = true;
         comp.result.then(() => {
             DisbursementPendingComponent.loadData(this);
-            console.log('When exposure closes');
         }, () => {
             DisbursementPendingComponent.loadData(this);
         });

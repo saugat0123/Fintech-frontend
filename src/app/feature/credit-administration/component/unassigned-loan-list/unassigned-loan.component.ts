@@ -120,7 +120,6 @@ export class UnassignedLoanComponent implements OnInit {
       this.spinnerService.hide();
       this.toastService.success('Successfully Pulled Loan');
       this.routerService.navigateByUrl('/home/credit/offer-pending');
-      console.log(res);
     }, err => {
       this.spinnerService.hide();
       this.toastService.danger('Something Went Wrong');

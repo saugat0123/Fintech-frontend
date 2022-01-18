@@ -11,4 +11,5 @@ export class Security {
     guarantor: Array<Guarantor>;
     totalSecurityAmount: number;
     approvedData: string;
+    templateName: string;
 }
