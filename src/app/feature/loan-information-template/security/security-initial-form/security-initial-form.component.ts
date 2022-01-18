@@ -347,7 +347,7 @@ export class SecurityInitialFormComponent implements OnInit {
         switch (type) {
             case 'land':
                 this.valuatorService.getListWithSearchObject(valuatorSearch).subscribe((res: any) => {
-                    this.securityValuator.landValuator[index] = res.detail;
+                    this.securityValuator.landValuator[index] = res.detail.filter(item => JSON.parse(item.valuatingField).includes('LAND'));
                 });
                 break;
             case 'apartment':
@@ -357,7 +357,7 @@ export class SecurityInitialFormComponent implements OnInit {
                 break;
             case 'vehicle':
                 this.valuatorService.getListWithSearchObject(valuatorSearch).subscribe((res: any) => {
-                    this.securityValuator.vehicalValuator[index] = res.detail;
+                    this.securityValuator.vehicalValuator[index] = res.detail.filter(item => item.valuatingField.includes('VEHICLE'));
                 });
                 break;
             case 'plant':
@@ -367,7 +367,7 @@ export class SecurityInitialFormComponent implements OnInit {
                 break;
             case  'building':
                 this.valuatorService.getListWithSearchObject(valuatorSearch).subscribe((res: any) => {
-                    this.securityValuator.buildingValuator[index] = res.detail;
+                    this.securityValuator.buildingValuator[index] = res.detail.filter(item => item.valuatingField.includes('LAND_BUILDING'));
                 });
                 break;
         }
