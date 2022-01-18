@@ -332,20 +332,15 @@ export class OfferLetterLaxmiComponent implements OnInit {
             commitmentFee: [true],
             commitmentFeeOtherCheck: [false],
             commitmentFeeOther: [undefined],
-
             informationFee: [true],
             informationFeeOtherCheck: [false],
             informationFeeOther: [undefined],
-
             valuationFee: [true],
             valuationFeeOtherCheck: [false],
             valuationFeeOther: [undefined],
-
             penalInterest: [true],
             penalInterestOtherCheck: [false],
             penalInterestOther: [undefined],
-
-
             educationalDrawdown: [undefined],
             purpose: this.formBuilder.array([]),
             covenant: this.formBuilder.array([]),
@@ -357,7 +352,28 @@ export class OfferLetterLaxmiComponent implements OnInit {
             security: this.formBuilder.array([]),
             shareSecurity: this.formBuilder.array([]),
             vehicleSecurity: this.formBuilder.array([]),
-            renewSecurity: this.formBuilder.array([])
+            renewSecurity: this.formBuilder.array([]),
+
+            coGuaranteeOtherCheck: [false],
+            coGuaranteeOther: [undefined],
+            peGuaranteeOtherCheck: [false],
+            peGuaranteeOther: [undefined],
+            fixedAssetOtherCheck: [false],
+            fixedAssetOther: [undefined],
+            currentAssetsOtherCheck: [false],
+            currentAssetsOther: [undefined],
+            personalLoanOtherCheck: [false],
+            personalLoanOther: [undefined],
+            cashlienOtherCheck: [false],
+            cashlienOther: [undefined],
+            cashLetterOtherCheck: [false],
+            cashLetterOther: [undefined],
+            cashGuaranteeOtherCheck: [false],
+            cashGuaranteeOther: [undefined],
+            loanTamsukOtherCheck: [false],
+            loanTamsukOther: [undefined],
+            promiseOtherCheck: [false],
+            promiseOther: [undefined],
         });
     }
 
@@ -697,6 +713,8 @@ export class OfferLetterLaxmiComponent implements OnInit {
                 administrationAmount: [undefined],
                 reviewRate: [undefined],
                 reviewAmount: [undefined],
+                loanProcessingRate: [undefined],
+                loanProcessingAmount: [undefined],
             })
         );
     }
@@ -803,6 +821,104 @@ export class OfferLetterLaxmiComponent implements OnInit {
                 } else {
                     this.offerLetterForm.get('penalInterestOtherCheck').patchValue(false);
                     this.offerLetterForm.get('penalInterestOther').patchValue(null);
+                }
+                break;
+            case 'peGuaranteeOtherCheck':
+                if (event) {
+                    this.offerLetterForm.get('peGuaranteeOtherCheck').patchValue(event);
+                    this.offerLetterForm.get('personalName').patchValue(null);
+                    this.offerLetterForm.get('personalAmount').patchValue(null);
+                    this.offerLetterForm.get('personalAmountWord').patchValue(null);
+                } else {
+                    this.offerLetterForm.get('peGuaranteeOtherCheck').patchValue(false);
+                    this.offerLetterForm.get('peGuaranteeOther').patchValue(null);
+                }
+                break;
+            case 'coGuaranteeOtherCheck':
+                if (event) {
+                    this.offerLetterForm.get('coGuaranteeOtherCheck').patchValue(event);
+                    this.offerLetterForm.get('corporateName').patchValue(null);
+                    this.offerLetterForm.get('corporateAmount').patchValue(null);
+                    this.offerLetterForm.get('corporateAmountWord').patchValue(null);
+                } else {
+                    this.offerLetterForm.get('coGuaranteeOtherCheck').patchValue(false);
+                    this.offerLetterForm.get('coGuaranteeOther').patchValue(null);
+                }
+                break;
+            case 'currentAssetsOtherCheck':
+                if (event) {
+                    this.offerLetterForm.get('currentAssetsOtherCheck').patchValue(event);
+                } else {
+                    this.offerLetterForm.get('currentAssetsOtherCheck').patchValue(false);
+                    this.offerLetterForm.get('currentAssetsOther').patchValue(null);
+                }
+                break;
+            case 'fixedAssetOtherCheck':
+                if (event) {
+                    this.offerLetterForm.get('fixedAssetOtherCheck').patchValue(event);
+                } else {
+                    this.offerLetterForm.get('fixedAssetOtherCheck').patchValue(false);
+                    this.offerLetterForm.get('fixedAssetOther').patchValue(null);
+                }
+                break;
+            case 'personalLoanOtherCheck':
+                if (event) {
+                    this.offerLetterForm.get('personalLoanOtherCheck').patchValue(event);
+                } else {
+                    this.offerLetterForm.get('personalLoanOtherCheck').patchValue(false);
+                    this.offerLetterForm.get('personalLoanOther').patchValue(null);
+                }
+                break;
+            case 'cashlienOtherCheck':
+                if (event) {
+                    this.offerLetterForm.get('cashlienOtherCheck').patchValue(event);
+                    this.offerLetterForm.get('accountName').patchValue(null);
+                    this.offerLetterForm.get('accountNo').patchValue(null);
+                    this.offerLetterForm.get('accountAmount').patchValue(null);
+                    this.offerLetterForm.get('accountAmountWord').patchValue(null);
+                } else {
+                    this.offerLetterForm.get('cashlienOtherCheck').patchValue(false);
+                    this.offerLetterForm.get('cashlienOther').patchValue(null);
+                }
+                break;
+            case 'loanTamsukOtherCheck':
+                if (event) {
+                    this.offerLetterForm.get('loanTamsukOtherCheck').patchValue(event);
+                    this.offerLetterForm.get('loanAmount').patchValue(null);
+                    this.offerLetterForm.get('loanAmountWord').patchValue(null);
+                } else {
+                    this.offerLetterForm.get('loanTamsukOtherCheck').patchValue(false);
+                    this.offerLetterForm.get('loanTamsukOther').patchValue(null);
+                }
+                break;
+            case 'promiseOtherCheck':
+                if (event) {
+                    this.offerLetterForm.get('promiseOtherCheck').patchValue(event);
+                    this.offerLetterForm.get('promiseAmount').patchValue(null);
+                    this.offerLetterForm.get('promiseAmountWord').patchValue(null);
+                } else {
+                    this.offerLetterForm.get('promiseOtherCheck').patchValue(false);
+                    this.offerLetterForm.get('promiseOther').patchValue(null);
+                }
+                break;
+
+            case 'cashLetterOtherCheck':
+                if (event) {
+                    this.offerLetterForm.get('cashLetterOtherCheck').patchValue(event);
+                    this.offerLetterForm.get('letterCM').patchValue(null);
+                } else {
+                    this.offerLetterForm.get('cashLetterOtherCheck').patchValue(false);
+                    this.offerLetterForm.get('cashLetterOther').patchValue(null);
+                }
+                break;
+
+            case 'cashGuaranteeOtherCheck':
+                if (event) {
+                    this.offerLetterForm.get('cashGuaranteeOtherCheck').patchValue(event);
+                    this.offerLetterForm.get('guarnateeCM').patchValue(null);
+                } else {
+                    this.offerLetterForm.get('cashGuaranteeOtherCheck').patchValue(false);
+                    this.offerLetterForm.get('cashGuaranteeOther').patchValue(null);
                 }
                 break;
         }
