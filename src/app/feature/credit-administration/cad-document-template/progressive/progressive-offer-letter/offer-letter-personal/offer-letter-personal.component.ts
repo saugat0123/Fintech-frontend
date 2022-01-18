@@ -39,7 +39,7 @@ export class OfferLetterPersonalComponent implements OnInit {
     offerLetterDocument: OfferDocument;
     nepaliData;
     districtList;
-    loanAmountTemplate = new NepaliNumberAndWords();
+    loanAmount;
     nepDataPersonal = new NepDataPersonal();
 
     constructor(private formBuilder: FormBuilder,
@@ -63,14 +63,6 @@ export class OfferLetterPersonalComponent implements OnInit {
       });*/
 
         this.buildForm();
-        if (ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.nepData)) {
-            const number = ProposalCalculationUtils.calculateTotalFromProposalList(LoanDataKey.PROPOSE_LIMIT, this.cadOfferLetterApprovedDoc.assignedLoan);
-            this.loanAmountTemplate.numberNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(number));
-            this.loanAmountTemplate.nepaliWords = this.nepaliCurrencyWordPipe.transform(number);
-            this.loanAmountTemplate.engNumber = number;
-        } else {
-            this.loanAmountTemplate = JSON.parse(this.cadOfferLetterApprovedDoc.nepData);
-        }
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.nepDataPersonal)) {
             this.nepDataPersonal = JSON.parse(this.cadOfferLetterApprovedDoc.nepDataPersonal);
         }
@@ -78,6 +70,7 @@ export class OfferLetterPersonalComponent implements OnInit {
     }
 
     fillForm() {
+        this.loanAmount = JSON.parse(this.cadOfferLetterApprovedDoc.nepData);
         this.nepaliData = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
         let allGuarantors = '';
         if (!ObjectUtil.isEmpty(this.nepaliData)) {
@@ -123,15 +116,15 @@ export class OfferLetterPersonalComponent implements OnInit {
                 valuatorName: this.nepaliData.valuatorName ? this.nepaliData.valuatorName : '',
                 fairMarketValue: this.nepaliData.fairMarketValue ? this.nepaliData.fairMarketValue : '',
                 distressValue: this.nepaliData.distressValue ? this.nepaliData.distressValue : '',
-                amount3: this.loanAmountTemplate.numberNepali ? this.loanAmountTemplate.numberNepali : '',
-                amountInWords3: this.loanAmountTemplate.nepaliWords ? this.loanAmountTemplate.nepaliWords : ''
+                amount3: this.loanAmount.numberNepali ? this.loanAmount.numberNepali : '',
+                amountInWords3: this.loanAmount.nepaliWords ? this.loanAmount.nepaliWords : ''
             });
             this.setEmptyGuarantors(this.nepaliData.guarantorDetails);
             this.setSecurityDetails(this.nepaliData.collateralDetails);
         }
 
-        this.form.get(['loanFacilityTable', 0, 'amount']).patchValue(this.loanAmountTemplate.numberNepali);
-        this.form.get(['loanFacilityTable', 0, 'amountInWords']).patchValue(this.loanAmountTemplate.nepaliWords);
+        this.form.get(['loanFacilityTable', 0, 'amount']).patchValue(this.loanAmount.numberNepali);
+        this.form.get(['loanFacilityTable', 0, 'amountInWords']).patchValue(this.loanAmount.nepaliWords);
         this.form.get(['loanFacilityTable', 0, 'loanPurpose']).patchValue(this.nepDataPersonal.purposeOfLoan);
         this.form.get(['loanFacilityTable', 0, 'interestFinalRate']).patchValue(this.nepDataPersonal.interestRate);
         this.form.get(['loanFacilityTable', 0, 'interestBaseRate']).patchValue(this.nepDataPersonal.baseRate);
@@ -285,8 +278,8 @@ export class OfferLetterPersonalComponent implements OnInit {
                 name: [value.name],
                 officeType: [value.officeType],
                 branchName: [value.branchName],
-                loanApprovalDate: this.loanAmountTemplate.initDate,
-                loanApprovalNo: this.loanAmountTemplate.loanApprovalNo,
+                loanApprovalDate: this.loanAmount.initDate,
+                loanApprovalNo: this.loanAmount.loanApprovalNo,
                 loanHolderName: this.nepaliData.name,
                 guarantorDistrict: [
                     !ObjectUtil.isEmpty(value.guarantorPermanentDistrict) ?
@@ -557,7 +550,7 @@ export class OfferLetterPersonalComponent implements OnInit {
         if (i > 0) {
             amount = Number(this.nepToEngNumberPipe.transform(amount1));
         } else {
-            amount = this.loanAmountTemplate.engNumber;
+            amount = this.loanAmount.engNumber;
        }
         let value = Number(serviceFeePercent * amount).toFixed(2);
         value = this.engToNepNumberPipe.transform(value.toString());

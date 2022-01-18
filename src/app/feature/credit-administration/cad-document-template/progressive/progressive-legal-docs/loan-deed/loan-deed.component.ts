@@ -8,7 +8,6 @@ import {NepaliCurrencyWordPipe} from '../../../../../../@core/pipe/nepali-curren
 import {CreditAdministrationService} from '../../../../service/credit-administration.service';
 import {ToastService} from '../../../../../../@core/utils';
 import {RouterUtilsService} from '../../../../utils/router-utils.service';
-import {CustomerOfferLetterService} from '../../../../../loan/service/customer-offer-letter.service';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 import {ProgressiveLegalDocConst} from '../progressive-legal-doc-const';
@@ -44,8 +43,7 @@ export class LoanDeedComponent implements OnInit {
                 private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
                 private administrationService: CreditAdministrationService,
                 private toastService: ToastService,
-                private routerUtilsService: RouterUtilsService,
-                private customerOfferLetterService: CustomerOfferLetterService) {
+                private routerUtilsService: RouterUtilsService) {
     }
 
     ngOnInit() {
@@ -72,33 +70,60 @@ export class LoanDeedComponent implements OnInit {
             });
         }
 
-
+        const loanAmount = JSON.parse(this.cadData.nepData);
         if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
+
             this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
             this.nepDataPersonal = JSON.parse(this.cadData.nepDataPersonal);
             this.form.patchValue({
-                district: this.nepDataPersonal.branchDistrict ? this.nepDataPersonal.branchDistrict : '',
-                municipality: this.nepDataPersonal.branchMunVdc ? this.nepDataPersonal.branchMunVdc : '',
-                wadNo: this.nepDataPersonal.branchWardNo ? this.nepDataPersonal.branchWardNo : '',
-                branchName: this.nepDataPersonal.branchName ? this.nepDataPersonal.branchName : '',
+                branchDistrict: this.nepaliData.branchDistrict ? this.nepaliData.branchDistrict : '',
+                branchMunicipality: this.nepaliData.branchMunVdc ? this.nepaliData.branchMunVdc : '',
+                branchWardNo: this.nepaliData.branchWardNo ? this.nepaliData.branchWardNo : '',
+                branchName : this.nepaliData.branchName ? this.nepaliData.branchName : '',
                 grandParentName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
                 parentName: this.nepaliData.fatherName ? this.nepaliData.fatherName : '',
                 husbandWifeName: this.nepaliData.husbandName ? this.nepaliData.husbandName : '',
                 customerName: this.nepaliData.name ? this.nepaliData.name : '',
                 age: this.nepaliData.age ? this.nepaliData.age : '',
-                likhitDistrict: this.nepaliData.permanentDistrict ? this.nepaliData.permanentDistrict : '',
-                likhitMunicipalty: this.nepaliData.permanentMunicipality ? this.nepaliData.permanentMunicipality : '',
-                likhitWadNo: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
-                tempVDC: this.nepaliData.temporaryMunicipality ? this.nepaliData.temporaryMunicipality : '',
-                staDistrict: this.nepaliData.temporaryDistrict ? this.nepaliData.temporaryDistrict : '',
-                tempWadNo: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
+                likhitDistrict: this.nepaliData.permanentDistrict.nepaliName ? this.nepaliData.permanentDistrict.nepaliName : '',
+                likhitMunicipality: this.nepaliData.permanentMunicipalities.nepaliName ? this.nepaliData.permanentMunicipalities.nepaliName : '',
+                likhitWardNo: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
+                tempVDC: this.nepaliData.temporaryMunicipalities.nepaliName ? this.nepaliData.temporaryMunicipalities.nepaliName : '',
+                staDistrict: this.nepaliData.temporaryDistrict.nepaliName ? this.nepaliData.temporaryDistrict.nepaliName : '',
+                tempWardNo: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
                 citizenshipNo: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
                 date: this.nepaliData.citizenshipIssueDate ? this.nepaliData.citizenshipIssueDate : '',
                 cdoOffice: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
+                loanApprovedDate: loanAmount.initDate ? loanAmount.initDate : ''
             });
         }
-    }
 
+        this.form.get(['swikritiBibaran', 0, 'loanType']).patchValue(this.nepDataPersonal.loanType);
+        this.form.get(['swikritiBibaran', 0, 'loanAmountInWords']).patchValue(loanAmount.nepaliWords);
+        this.form.get(['swikritiBibaran', 0, 'interestRate']).patchValue(this.nepDataPersonal.interestRate);
+        this.form.get(['swikritiBibaran', 0, 'serviceFeePercent']).patchValue(this.nepDataPersonal.serviceFeePercent);
+        this.form.get(['swikritiBibaran', 0, 'tenureOfLoanInYears']).patchValue(this.nepDataPersonal.tenureOfLoanInYears);
+
+        /*this.nepaliData.collateralDetails.forEach((value, i) => {
+            this.form.get(['security', i, 'SecuritiesDistrict']).patchValue(value.collateralDistrict);
+            this.form.get(['security', i, 'SecuritiesMunicipality']).patchValue(value.collateralMunVdcOriginal);
+            this.form.get(['security', i, 'SecuritiesWardNo']).patchValue(value.collateralWardNoOld);
+            this.form.get(['security', i, 'SecuritiesKeyNo']).patchValue(value.plotNo);
+            this.form.get(['security', i, 'SecuritiesArea']).patchValue(value.areaOfCollateral);
+            this.form.get(['security', i, 'SecuritiesOwnerName']).patchValue(value.collateralName);
+            console.log('asdfa', i);
+            if (i > 0) {
+                this.addSwikriti();
+            }
+        });*/
+
+        this.form.get(['security', 0, 'SecuritiesDistrict']).patchValue(this.nepaliData.collateralDetails[0].collateralDistrict);
+        this.form.get(['security', 0, 'SecuritiesMunicipality']).patchValue(this.nepaliData.collateralDetails[0].collateralMunVdcOriginal);
+        this.form.get(['security', 0, 'SecuritiesWardNo']).patchValue(this.nepaliData.collateralDetails[0].collateralWardNoOld);
+        this.form.get(['security', 0, 'SecuritiesKeyNo']).patchValue(this.nepaliData.collateralDetails[0].plotNo);
+        this.form.get(['security', 0, 'SecuritiesArea']).patchValue(this.nepaliData.collateralDetails[0].areaOfCollateral);
+        this.form.get(['security', 0, 'SecuritiesOwnerName']).patchValue(this.nepaliData.collateralDetails[0].collateralName);
+    }
     setSwikriti(data) {
         const formArray = this.form.get('swikritiBibaran') as FormArray;
         (this.form.get('swikritiBibaran') as FormArray).clear();
@@ -108,10 +133,11 @@ export class LoanDeedComponent implements OnInit {
         }
         data.forEach((value) => {
             formArray.push(this.formBuilder.group({
-                approvedSubidhakisim: [value.approvedSubidhakisim],
-                approvedAmount: [value.approvedAmount],
-                approvedCommision: [value.approvedCommision],
-                approvedLoanTime: [value.approvedLoanTime],
+                loanType: [value.loanType],
+                loanAmountInWords: [value.loanAmountInWords],
+                interestRate: [value.interestRate],
+                serviceFeePercent: [value.serviceFeePercent],
+                tenureOfLoanInYears: [value.tenureOfLoanInYears]
             }));
         });
     }
@@ -124,15 +150,15 @@ export class LoanDeedComponent implements OnInit {
         }
         data.forEach((value) => {
             formArray.push(this.formBuilder.group({
-                SecuritiesSN: [undefined],
-                SecuritiesSNBibaran: [undefined],
-                SecuritiesDistrict: [undefined],
-                SecuritiesMunicipality: [undefined],
-                SecuritiesWadNo: [undefined],
-                SecuritiesKeyNo: [undefined],
-                SecuritiesArea: [undefined],
-                SecuritiesRegNo: [undefined],
-                SecuritiesOwnerName: [undefined],
+                SecuritiesSN: [value.SecuritiesSN],
+                SecuritiesSNBibaran: [value.SecuritiesSNBibaran],
+                SecuritiesDistrict: [value.SecuritiesDistrict],
+                SecuritiesMunicipality: [value.SecuritiesMunicipality],
+                SecuritiesWardNo: [value.SecuritiesWardNo],
+                SecuritiesKeyNo: [value.SecuritiesKeyNo],
+                SecuritiesArea: [value.SecuritiesArea],
+                SecuritiesRegNo: [value.SecuritiesRegNo],
+                SecuritiesOwnerName: [value.SecuritiesOwnerName],
             }));
         });
     }
@@ -182,24 +208,25 @@ export class LoanDeedComponent implements OnInit {
     buildForm() {
         this.form = this.formBuilder.group({
             financeWardNo: [undefined],
-            district: [undefined],
-            municipality: [undefined],
-            wadNo: [undefined],
+            branchDistrict: [undefined],
+            branchMunicipality: [undefined],
+            branchWardNo: [undefined],
             branchName: [undefined],
             grandParentName: [undefined],
             parentName: [undefined],
             husbandWifeName: [undefined],
             likhitDistrict: [undefined],
-            likhitMunicipalty: [undefined],
-            likhitWadNo: [undefined],
+            likhitMunicipality: [undefined],
+            likhitWardNo: [undefined],
             sabikVDC: [undefined],
             sabikWardNo: [undefined],
             tempVDC: [undefined],
-            tempWadNo: [undefined],
+            tempWardNo: [undefined],
             age: [undefined],
             customerName: [undefined],
             citizenshipNo: [undefined],
             date: [undefined],
+            loanApprovedDate: [undefined],
             cdoOffice: [undefined],
             mantralayaName: [undefined],
             biBhag: [undefined],
@@ -213,17 +240,17 @@ export class LoanDeedComponent implements OnInit {
             certficateNo: [undefined],
             certifiedDistrict: [undefined],
             certifiedMunicipality: [undefined],
-            certifiedWadNo: [undefined],
+            certifiedWardNo: [undefined],
             certifiedRegOffice: [undefined],
             certifiedGrandParentName: [undefined],
             certifiedParentName: [undefined],
             certifiedHusbandWifeName: [undefined],
             certifiedPersonDistrict: [undefined],
             certifiedPersonMunicipality: [undefined],
-            certifiedPersonWadNo: [undefined],
+            certifiedPersonWardNo: [undefined],
             certifiedPersonTempDistrict: [undefined],
             certifiedPersonTempVDC: [undefined],
-            certifiedPersonTempWadNo: [undefined],
+            certifiedPersonTempWardNo: [undefined],
             certifiedPersonAge: [undefined],
             certifiedPersonName: [undefined],
             certifiedPersonCitizenshipNo: [undefined],
@@ -275,7 +302,7 @@ export class LoanDeedComponent implements OnInit {
             SecuritiesSNBibaran: [undefined],
             SecuritiesDistrict: [undefined],
             SecuritiesMunicipality: [undefined],
-            SecuritiesWadNo: [undefined],
+            SecuritiesWardNo: [undefined],
             SecuritiesKeyNo: [undefined],
             SecuritiesArea: [undefined],
             SecuritiesRegNo: [undefined],
@@ -342,10 +369,11 @@ export class LoanDeedComponent implements OnInit {
 
     swikritiFormGroup(): FormGroup {
         return this.formBuilder.group({
-            approvedSubidhakisim: [undefined],
-            approvedAmount: [undefined],
-            approvedCommision: [undefined],
-            approvedLoanTime: [undefined],
+            loanType: [undefined],
+            loanAmountInWords: [undefined],
+            interestRate: [undefined],
+            serviceFeePercent: [undefined],
+            tenureOfLoanInYears: [undefined]
         });
     }
 

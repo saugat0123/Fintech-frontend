@@ -95,7 +95,7 @@
   </tr>
   <tr>
     <td style="text-align: right; vertical-align: top;padding-top: 10px;width: 20%">हालको ठेगाना :—</td>
-    <td style="text-align: left;width: 80%"><input class="form-field form-control-sm nepaliFont"
+    <td style="text-align: left;width: 80%"><input class="form-field form-control-sm nepaliFont unicode-size"
                formControlName="borrowerTempDistrict"
                placeholder=""
                readonly
@@ -350,6 +350,8 @@
     <button [disabled]="!initialInfoPrint"
             [useExistingCss]="true"
             class="btn btn-primary d-print-none"
+            nbButton
+            status="info"
             ngxPrint
             printSectionId="print-section-{{ offerLetterConst.LETTER_OF_CONTINUITY }}"> Print
     </button>

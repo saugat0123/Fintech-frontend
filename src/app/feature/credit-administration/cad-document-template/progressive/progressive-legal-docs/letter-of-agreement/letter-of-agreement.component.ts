@@ -69,8 +69,8 @@ export class LetterOfAgreementComponent implements OnInit {
       this.nepDataPersonal = JSON.parse(this.cadData.nepDataPersonal);
       const loanAmount = JSON.parse(this.cadData.nepData);
       this.form.patchValue({
-        perDistrict: this.nepaliData.permanentDistrict ? this.nepaliData.permanentDistrict : '',
-        perMunicipality: this.nepaliData.permanentMunicipality ? this.nepaliData.permanentMunicipality : '',
+        perDistrict: this.nepaliData.permanentDistrict.nepaliName ? this.nepaliData.permanentDistrict.nepaliName : '',
+        perMunicipality: this.nepaliData.permanentMunicipalities.nepaliName ? this.nepaliData.permanentMunicipalities.nepaliName : '',
         perWardNo: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
         grandFatherName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
         fatherName: this.nepaliData.fatherName ? this.nepaliData.fatherName : '',

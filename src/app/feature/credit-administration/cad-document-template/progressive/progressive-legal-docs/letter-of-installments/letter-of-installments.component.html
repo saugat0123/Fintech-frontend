@@ -35,7 +35,7 @@
                     formControlName="timePeriod"
                     placeholder=""
                     type="text"/>महिना/वर्षको अवधि भित्र रु.<input
-                    class="form-field form-control-sm nepaliFont unicode-size"
+                    class="form-field form-control-sm nepaliFont"
                     formControlName="kistaAmount"
                     placeholder=""
                     type="text"/>
@@ -64,13 +64,10 @@
                     <p>ऋणीको तर्फबाट आधिकारीक दस्तखत <br>
 
                         दस्तखत गर्नेको नाम : <input class="form-field form-control-sm nepaliFont "
-                                                    formControlName="debtorName"
+                                                    value="{{form.get('customerName').value}}"
                                                     placeholder=""
                                                     type="text"/>
-                        संस्थाको छाप : <input class="form-field form-control-sm nepaliFont "
-                                              formControlName="InstitutionStamp"
-                                              placeholder=""
-                                              type="text"/>
+                        संस्थाको छाप : ............................
 
                         <br>
                         <br>
