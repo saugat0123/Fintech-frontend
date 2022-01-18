@@ -35,6 +35,8 @@ import { MortgageDeedLaxmiComponent } from './laxmi-offer-letter/mortgage-deed-l
 import { HypothecationChargeOverFixedAssetsComponent } from './laxmi-offer-letter/hypothecation-charge-over-fixed-assets/hypothecation-charge-over-fixed-assets.component';
 import { OfferLetterLaxmiComponent } from './laxmi-offer-letter/offer-letter-laxmi/offer-letter-laxmi.component';
 import {NgSelectModule} from '@ng-select/ng-select';
+import {CKEditorModule} from 'ng2-ckeditor';
+import {ThemeModule} from '../../../../@theme/theme.module';
 
 
 @NgModule({
@@ -76,6 +78,8 @@ import {NgSelectModule} from '@ng-select/ng-select';
         CoreModule,
         NbRadioModule,
         NgSelectModule,
+        CKEditorModule,
+        ThemeModule,
     ],
   exports: [
     LoanDeedIndividualComponent,
