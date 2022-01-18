@@ -46,8 +46,8 @@ export class DetailViewBaseComponent implements OnInit {
   financialData;
   financialKeys;
   requestedLoanType;
-  approvedSecurityData: Object;
-  approvedSecurityAsProposed = false;
+  approvedSecurity = false;
+  approveSecurityAsProposed = false;
 
   constructor(private customerLoanService: LoanFormService,
               private combinedLoanService: CombinedLoanService,
@@ -74,15 +74,6 @@ export class DetailViewBaseComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.loanHolder.security)) {
       this.securityId = this.loanHolder.security.id;
-        if (!ObjectUtil.isEmpty(this.loanDataHolder.security.approvedData)) {
-          this.approvedSecurityAsProposed = false;
-          this.approvedSecurityData = JSON.parse(this.loanDataHolder.security.approvedData);
-        }
-        if (ObjectUtil.isEmpty(this.loanDataHolder.security.data) &&
-            !ObjectUtil.isEmpty(this.loanDataHolder.security.approvedData)) {
-          this.approvedSecurityAsProposed = false;
-          this.approvedSecurityData = JSON.parse(this.loanDataHolder.security.approvedData);
-        }
     }
     if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.bankingRelationship)) {
       this.bankingRelation = JSON.parse(this.loanDataHolder.loanHolder.bankingRelationship);
@@ -95,6 +86,29 @@ export class DetailViewBaseComponent implements OnInit {
     }
     if (this.loanDataHolder.loanCategory === 'INDIVIDUAL') {
       this.isIndividual = true;
+    }
+    if (!ObjectUtil.isEmpty(this.loanHolder.security)) {
+      if (!ObjectUtil.isEmpty(this.loanHolder.security.approvedData)) {
+        this.approvedSecurity = true;
+      }
+    }
+    if (!ObjectUtil.isEmpty(this.loanHolder.security)) {
+      if (ObjectUtil.isEmpty(this.loanHolder.security.data) &&
+          !ObjectUtil.isEmpty(this.loanHolder.security.approvedData)) {
+        this.approvedSecurity = true;
+        this.approveSecurityAsProposed = false;
+      }
+    }
+
+    if (!ObjectUtil.isEmpty(this.loanHolder.shareSecurity)) {
+      if (ObjectUtil.isEmpty(this.loanHolder.shareSecurity.data) && !ObjectUtil.isEmpty(this.loanHolder.shareSecurity.approvedData)) {
+        const data = JSON.parse(this.loanHolder.security.approvedData);
+        const selectedArray = data.selectedArray;
+        if (selectedArray.indexOf('ShareSecurity') !== -1) {
+          this.approvedSecurity = true;
+          this.approveSecurityAsProposed = false;
+        }
+      }
     }
   }
 
