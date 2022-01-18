@@ -83,17 +83,17 @@ export class DocumentChecklistViewLiteComponent implements OnInit {
         isRemit = true;
       }
     });
-    const link = document.createElement('a');
-    link.target = '_blank';
     if (!ObjectUtil.isEmpty(url)) {
       if (signedDoc && (name === LaxmiOfferLetterConst.value(LaxmiOfferLetterConst.PERSONAL_GUARANTEE) ||
           name === LaxmiOfferLetterConst.value(LaxmiOfferLetterConst.LETTER_OF_COMMITMENT)) && isRemit) {
         this.commonService.openDocuments(url);
       } else {
+        const link = document.createElement('a');
+        link.target = '_blank';
         link.href = `${ApiConfig.URL}/${url}?${Math.floor(Math.random() * 100) + 1}`;
+        link.setAttribute('visibility', 'hidden');
+        link.click();
       }
-      link.setAttribute('visibility', 'hidden');
-      link.click();
     }
   }
 
