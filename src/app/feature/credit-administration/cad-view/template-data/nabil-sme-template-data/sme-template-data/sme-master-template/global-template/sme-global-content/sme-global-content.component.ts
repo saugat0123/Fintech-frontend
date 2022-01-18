@@ -55,12 +55,12 @@ export class SmeGlobalContentComponent implements OnInit {
     {value: 'Service Charge In Flat Amount'},
     {value: 'Service Charge In Percentage'}
   ];
-
+  totalLimitInFigure;
   constructor(private formBuilder: FormBuilder,
               private translateService: SbTranslateService,
               private datePipe: DatePipe,
-              private engToNepaliNumberPipe: EngToNepaliNumberPipe,
-              private currencyWordPipe: NepaliCurrencyWordPipe) { }
+              public engToNepaliNumberPipe: EngToNepaliNumberPipe,
+              public currencyWordPipe: NepaliCurrencyWordPipe) { }
 
   ngOnInit() {
     this.buildForm();
@@ -237,11 +237,16 @@ export class SmeGlobalContentComponent implements OnInit {
       this.globalForm.get('totalNonFundedLimitInFigureCT').patchValue(this.engToNepaliNumberPipe.transform(totalNonFundedLimitInFigure.toString()));
     }
 
-    const totalLimitInFigure = totalFundedLimitInFigure + totalNonFundedLimitInFigure;
+    this.totalLimitInFigure = totalFundedLimitInFigure + totalNonFundedLimitInFigure;
+    const totalLimitInFigure = this.globalForm.get('totalLimitInFigure').value;
     if (!ObjectUtil.isEmpty(totalLimitInFigure)) {
       this.globalForm.get('totalLimitInFigure').patchValue(totalLimitInFigure);
       this.globalForm.get('totalLimitInFigureTrans').patchValue(this.engToNepaliNumberPipe.transform(totalLimitInFigure.toString()));
       this.globalForm.get('totalLimitInFigureCT').patchValue(this.engToNepaliNumberPipe.transform(totalLimitInFigure.toString()));
+    } else {
+      this.globalForm.get('totalLimitInFigure').patchValue(this.totalLimitInFigure);
+      this.globalForm.get('totalLimitInFigureTrans').patchValue(this.engToNepaliNumberPipe.transform(this.totalLimitInFigure.toString()));
+      this.globalForm.get('totalLimitInFigureCT').patchValue(this.engToNepaliNumberPipe.transform(this.totalLimitInFigure.toString()));
     }
 
     // set date field value
@@ -281,6 +286,10 @@ export class SmeGlobalContentComponent implements OnInit {
       this.globalForm.get('totalLimitInWords').patchValue(this.currencyWordPipe.transform(totalLimitInFigure));
       this.globalForm.get('totalLimitInWordsTrans').patchValue(this.currencyWordPipe.transform(totalLimitInFigure));
       this.globalForm.get('totalLimitInWordsCT').patchValue(this.currencyWordPipe.transform(totalLimitInFigure));
+    } else {
+      this.globalForm.get('totalLimitInWords').patchValue(this.currencyWordPipe.transform(this.totalLimitInFigure));
+      this.globalForm.get('totalLimitInWordsTrans').patchValue(this.currencyWordPipe.transform(this.totalLimitInFigure));
+      this.globalForm.get('totalLimitInWordsCT').patchValue(this.currencyWordPipe.transform(this.totalLimitInFigure));
     }
 
     const loanApplicationDataType = this.globalForm.get('loanApplicationDataType').value;
