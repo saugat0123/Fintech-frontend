@@ -104,7 +104,6 @@ export class FixAssetCollateralComponent implements OnInit {
         this.collateralSiteVisitService.getCollateralBySecurityNameAndSecurityAndId(securityName, this.securityId)
             .subscribe((response: any) => {
             const siteVisits = response.detail;
-            console.log(siteVisits);
             const siteVisitArray = [];
             siteVisitArray.push(...siteVisits.filter((f) => f.isApproved === false || f.isApproved === null));
             this.collateralSiteVisits = siteVisitArray;
