@@ -49,6 +49,7 @@ export class PowerOfAttorneyProprietorshipComponent implements OnInit {
   issueDate = [];
   tempProprietor;
   proprietor;
+  nagarpalika = false;
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
@@ -86,11 +87,14 @@ export class PowerOfAttorneyProprietorshipComponent implements OnInit {
       this.form.patchValue({
         nameOfProprietor: i.ownerNameCT ? i.ownerNameCT : '',
         citizenshipNo: i.ownerCitizenshipNoCT ? i.ownerCitizenshipNoCT : '',
-        distrcitOfPropreitor: i.ownerPermanentDistrictCT ? i.ownerPermanentDistrictCT.ct : '',
-        municipalityOfPropreitor: i.ownerPermanentMunicipalityCT ? i.ownerPermanentMunicipalityCT.ct : '',
+        distrcitOfPropreitor: i.ownerPermanentDistrictCT ? i.ownerPermanentDistrictCT : '',
+        municipalityOfPropreitor: i.ownerPermanentMunicipalityCT ? i.ownerPermanentMunicipalityCT : '',
         wardNoOfPropreitor: i.ownerPermanentWardNoCT ? i.ownerPermanentWardNoCT : '',
         nameOfIdentityIssuedDistrict: i.ownerCitizenshipIssuedDistrictCT ? i.ownerCitizenshipIssuedDistrictCT : '',
       });
+      if (i.ownerTemporaryMunicipality.municipalityType === 'RURAL_MUNICIPALITY') {
+        this.nagarpalika = true;
+      }
     }
   }
   //
@@ -268,6 +272,9 @@ export class PowerOfAttorneyProprietorshipComponent implements OnInit {
       nameOfBranchLocated: this.individualData.branch ? this.individualData.branch.ct : '',
       nameOfAuthorizedBody: this.individualData.authorizedBodyName ? this.individualData.authorizedBodyName.ct : '',
       addressOfFirm: this.individualData.registeredStreetTole ? this.individualData.registeredStreetTole.ct : '',
+      districtOfFirm: this.individualData.registeredDistrict ? this.individualData.registeredDistrict.ct : '',
+      municipalityOfFirm: this.individualData.registeredMunicipality ? this.individualData.registeredMunicipality.ct : '',
+      wardNoOfFirm: this.individualData.permanentWard ? this.individualData.permanentWard.ct : '',
       nameOfBorrower: this.individualData.name ? this.individualData.name.ct : '',
       loanAmountInFigure: this.finalAmount ? this.finalAmount : '',
       loanAmountInWords: this.loanAmountWord ? this.loanAmountWord : '',

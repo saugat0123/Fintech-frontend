@@ -34,9 +34,9 @@
                                               type="text"
                                 />
                                 <span class=" print-only font-weight-bold">{{form.get('municipalityOfFirm').value ? form.get('municipalityOfFirm').value : "_________________"}}</span>
-                                <ng-container *ngIf="this.individualData?.registeredMunType === '0'"> न.पा</ng-container>
-                                <ng-container *ngIf="this.individualData?.registeredMunType === '1'"> गा.वि.स.</ng-container>
-                                <ng-container *ngIf="this.individualData?.registeredMunType === '2'"> गाँउपालिका</ng-container>
+                                <ng-container *ngIf="this.individualData?.registeredMunType.en === '0'"> न.पा</ng-container>
+                                <ng-container *ngIf="this.individualData?.registeredMunType.en === '1'"> गा.वि.स.</ng-container>
+                                <ng-container *ngIf="this.individualData?.registeredMunType.en === '2'"> गाँउपालिका</ng-container>
                                 वडा नं <input class="form-field disable-print form-control-sm"
                                               name="wardNoOfFirm "
                                               formControlName="wardNoOfFirm"
@@ -83,15 +83,8 @@
                                                type="text"
                                 />
                                 <span class=" print-only font-weight-bold">{{form.get('municipalityOfPropreitor').value ? form.get('municipalityOfPropreitor').value : "_________________"}}</span>
-                                <span *ngIf="this.individualData.registeredMunType.en === '0'">
-                                                                                न.पा. ,
-                                                                            </span>
-                                <span *ngIf="this.individualData.registeredMunType.en === '1'">
-                                                                                गा.वि.स. ,
-                                                                            </span>
-                                <span *ngIf="this.individualData.registeredMunType.en === '2'">
-                                                                                गाँउपालिका ,
-                                                                            </span>
+                                <ng-container *ngIf="this.nagarpalika === true"> न.पा</ng-container>
+                                <ng-container *ngIf="this.nagarpalika === false"> गा.वि.स.</ng-container>
                                     वडा नं.
                                     <input class="form-field disable-print form-control-sm"
                                            name="wardNoOfPropreitor"
@@ -155,7 +148,7 @@
                                                                                         placeholder=""
                                                                                         type="text"
                                 />
-                                                                    <span class=" print-only font-weight-bold">{{form.get('sanctionLetterIssuedDate').value ? form.get('sanctionLetterIssuedDate').value : "_________________"}}</span>
+                                                                    <span class=" print-only font-weight-bold">{{this.sanctionDate ? this.sanctionDate : "_________________"}}</span>
 
 
                                     को ऋण स्वीकृती पत्रानुसार मेरो/हाम्रो नाममा कुल कर्जा रु <input
@@ -212,21 +205,21 @@
                                 <p class="float-left">
                                     ऋणी/फर्म/कम्पनी/संस्थाको नाम: <input class="form-field disable-print form-control-sm"
                                                                          name="nameOfBorrowerFirm"
-                                                                         formControlName="nameOfBorrowerFirm"
+                                                                         formControlName="nameOfBorrower"
                                                                          placeholder=""
                                                                          type="text"
                                 />
-                                    <span class=" print-only font-weight-bold">{{form.get('nameOfBorrowerFirm').value ? form.get('nameOfBorrowerFirm').value : "_________________"}}</span>
+                                    <span class=" print-only font-weight-bold">{{form.get('nameOfBorrower').value ? form.get('nameOfBorrower').value : "_________________"}}</span>
 
                                     <br>
                                     ठेगाना: <input class="form-field disable-print form-control-sm"
                                                    style="margin-left: 7.5em"
                                                    name="addressOfBorrowerFirm"
-                                                   formControlName="addressOfBorrowerFirm"
+                                                   formControlName="addressOfFirm"
                                                    placeholder=""
                                                    type="text"
                                 />
-                                    <span class=" print-only font-weight-bold">{{form.get('addressOfBorrowerFirm').value ? form.get('addressOfBorrowerFirm').value : "_________________"}}</span>
+                                    <span class=" print-only font-weight-bold">{{form.get('addressOfFirm').value ? form.get('addressOfFirm').value : "_________________"}}</span>
 
                                     <br>
                                     आधिकारिक प्रतिनिधिको नाम: <input class="form-field disable-print form-control-sm"
