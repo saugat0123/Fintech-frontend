@@ -6,6 +6,7 @@ import {CustomerInfoData} from '../../../loan/model/customerInfoData';
 import {ToastService} from '../../../../@core/utils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 
 @Component({
     selector: 'app-financial-upload-view',
@@ -35,8 +36,12 @@ export class FinancialUploadViewComponent implements OnInit {
 
     ngOnInit() {
         this.buildForm();
-        this.financialData = JSON.parse(this.customerInfo.financial.data);
-        this.financialKeys = Object.keys(this.financialData);
+        if (!ObjectUtil.isEmpty(this.customerInfo)) {
+            if (!ObjectUtil.isEmpty(this.customerInfo.financial)) {
+                this.financialData = JSON.parse(this.customerInfo.financial.data);
+                this.financialKeys = Object.keys(this.financialData);
+            }
+        }
     }
 
     buildForm() {
