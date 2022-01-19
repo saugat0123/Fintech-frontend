@@ -401,6 +401,28 @@
                                </div>
                            </div>
 
+                           <ng-container>
+                               <div *ngFor="let acc of basicInfo?.get('accountDetails')['controls']; let ii = index"
+                                    formArrayName="accountDetails" class="col-md-4">
+                                   <label for="accountNo"><strong>Account Number {{ii + 1}}</strong></label>
+                                   <div [formGroupName]="ii" class="form-group">
+                                       <input [ngClass]="{'is-invalid':submitted &&  acc?.accountNo?.errors}"
+                                              formControlName="accountNo"
+                                              class="form-control"
+                                              id="accountNo"
+                                              placeholder="Enter Account Number"/>
+                                       <button (click)="removeAccount(ii)"
+                                               *ngIf="basicInfo?.get('accountDetails')['length'] > 0"
+                                               class="btn btn-success float-right" nbButton size="small"
+                                               status="primary">Delete </button>
+                                   </div>
+                               </div>
+                               <div class="text-left pl-1">
+                                   <input (click)="addAccountNumber()" class="btn btn-sm btn-flat btn-primary"
+                                          type="button" value="Add Account No."/>
+                               </div>
+                           </ng-container>
+
                        </div>
                        <div class="row ml-1">
                            <div class="col-md-12">
