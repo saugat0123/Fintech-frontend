@@ -463,7 +463,7 @@ export class CustomerLoanInformationComponent implements OnInit {
         this.incomeFromAccountDataResponse = data;
         this.customerInfoService.saveLoanInfo(this.incomeFromAccountDataResponse, this.customerInfoId, TemplateName.INCOME_FROM_ACCOUNT)
         .subscribe(() => {
-            this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved Income From Account!'));
+            this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved EARNING, PROFITABILITY AND PRICING'));
             // this.itemIncomeFromAccount.close();
             this.nbDialogRef.close();
             this.triggerCustomerRefresh.emit(true);
@@ -471,7 +471,7 @@ export class CustomerLoanInformationComponent implements OnInit {
         }, error => {
             this.spinner.hide();
             console.error(error);
-            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Successfully saved Income From Account)!'));
+            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save EARNING, PROFITABILITY AND PRICING)!'));
         });
     }
 
@@ -490,7 +490,7 @@ export class CustomerLoanInformationComponent implements OnInit {
         }, error => {
             this.spinner.hide();
             console.error(error);
-            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Successfully saved Net Trading Assets)!'));
+            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Net Trading Assets)!'));
         });
     }
 

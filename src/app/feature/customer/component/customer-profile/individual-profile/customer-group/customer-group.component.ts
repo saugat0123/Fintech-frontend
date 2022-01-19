@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Editor} from '../../../../../../@core/utils/constants/editor';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {MGroupService} from '../../../../service/mgroup.service';
 import {MGroup} from '../../../../model/mGroup';
 import {CustomerInfoData} from '../../../../../loan/model/customerInfoData';
@@ -37,8 +37,6 @@ export class CustomerGroupComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
-    console.log(this.customerInfo);
-    console.log(this.customerInfo.mgroupInfo);
     if (!ObjectUtil.isEmpty(this.customerInfo.mgroupInfo)) {
       this.mGroupInfo = this.customerInfo.mgroupInfo;
       console.log(this.mGroupInfo);
@@ -48,15 +46,15 @@ export class CustomerGroupComponent implements OnInit {
 
   buildForm() {
     this.form = this.formBuilder.group({
-      groupCode: [undefined, Validators.required],
-      detailInformation: [undefined, Validators.required],
+      groupCode: [undefined],
+      detailInformation: [undefined],
     });
   }
 
   onSubmit() {
     this.submitted = true;
-    if (this.form.invalid) {
-      return;
+    if (ObjectUtil.isEmpty(this.form.get('groupCode'))) {
+      this.form.get('groupCode').patchValue('');
     }
     this.spinner = true;
     this.mGroupInfo = this.setMGroupValue();
