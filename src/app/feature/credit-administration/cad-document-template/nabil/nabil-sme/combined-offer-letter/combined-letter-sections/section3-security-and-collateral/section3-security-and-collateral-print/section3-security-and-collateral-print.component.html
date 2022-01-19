@@ -456,6 +456,7 @@
                                     /- (अक्षरेपी रु
                                     <span class="font-weight-bold">{{this.nepaliCurrencyWordPipe.transform(personalGuarantor.gurantedAmount.en)}}</span>
                                     मात्र) बराबरको
+                                    {{personalGuarantor.gender.en === 'FEMALE' && personalGuarantor.relationMedium.en === '0' ? 'श्रीमती' : (personalGuarantor.gender.en === 'FEMALE' && personalGuarantor.relationMedium.en === '1' ? 'सुश्री' : personalGuarantor.gender.en === 'MALE' ? 'श्री' : '')}}
                                     <span class="font-weight-bold">{{personalGuarantor.guarantorName.ct}}</span>
                                     ले बैंकको पक्षमा व्यक्तिगत जमानत
                                     <span *ngIf="!personalGuaranteeToBeUsedSecondary"> <!--If existing personal guarantee is continued-->
