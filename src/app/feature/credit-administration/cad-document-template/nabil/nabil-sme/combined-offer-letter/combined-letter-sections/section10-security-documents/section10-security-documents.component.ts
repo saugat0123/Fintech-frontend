@@ -56,6 +56,7 @@ export class Section10SecurityDocumentsComponent implements OnInit {
   letterSetOff: boolean;
   freeInformation: any;
   freeTextVal;
+  newVisible = true;
   constructor(private formBuilder: FormBuilder,
               private engToNepNumberPipe: EngToNepaliNumberPipe,
               private currencyFormatPipe: CurrencyFormatterPipe) {
@@ -100,6 +101,9 @@ export class Section10SecurityDocumentsComponent implements OnInit {
         this.securityOwnersName.push(sw.securityOwnersNameCT);
       }
     });
+    if (!ObjectUtil.isEmpty(this.tempData) && this.tempData.smeGlobalForm.loanOption === 'New') {
+      this.newVisible = false;
+    }
   }
   getKittaNumbers(plotNumber, kittaNumbers) {
     if (plotNumber.length === 1) {
