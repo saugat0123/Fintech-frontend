@@ -65,6 +65,7 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
   loanAmountWord;
   sanctionDate;
   dateOfExpirySingle;
+  spinner = false;
   constructor(
       private formBuilder: FormBuilder,
       private administrationService: CreditAdministrationService,
@@ -784,6 +785,7 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
   }
   submit() {
     let flag = true;
+    this.spinner = true;
     if (!ObjectUtil.isEmpty(this.cadData)) {
       this.cadData.cadFileList.forEach(individualCadFile => {
         if (individualCadFile.customerLoanId === this.customerLoanId && individualCadFile.cadDocument.id === this.documentId) {
@@ -813,10 +815,12 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
     this.administrationService.saveCadDocumentBulk(this.cadData).subscribe(() => {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved '));
       this.dialogRef.close();
+      this.spinner = false;
       this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
     }, error => {
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save '));
       this.dialogRef.close();
+      this.spinner = false;
     });
   }
   getLoanName() {

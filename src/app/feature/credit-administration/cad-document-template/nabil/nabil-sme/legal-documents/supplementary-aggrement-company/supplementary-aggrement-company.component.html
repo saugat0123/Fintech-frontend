@@ -1,3 +1,4 @@
+<nb-card [nbSpinner]="spinner">
 <div class="container nep text-justify">
     <form [formGroup]="form" class="nep" id="print-section">
         <div class="'container nep text-justify">
@@ -12,7 +13,7 @@
                        name="addressOfBank"
                        placeholder="ठेगाना"
                        type="text"/>
-                <span class="print-only">{{this.individualData?.branch ? this.individualData.branch.ct : '__________________________'}}</span>
+                <span class="print-only font-weight-bold">{{this.individualData?.branch ? this.individualData.branch.ct : '__________________________'}}</span>
                 शाखा ।
                 <p class="text-center">
                     <b><u>विषयः पूरक सम्झौता (Supplementary Agreement) ।</u></b>
@@ -24,13 +25,13 @@
                        formControlName="nameOfBorrower"
                        name="nameOfBorrower"
                        type="text"/>
-                <span class="print-only">{{this.individualData?.name ? this.individualData.name.ct : '__________________________'}}</span>
+                <span class="print-only font-weight-bold">{{this.individualData?.name ? this.individualData.name.ct : '__________________________'}}</span>
                 ले मिति
                 <input class="form-field form-control-sm d-print-none"
                        formControlName="dateOfHyothenciation"
                        name="dateOfHyothenciation"
                        type="text"/>
-                <span class="print-only">{{'__________________________'}}</span>
+                <span class="print-only font-weight-bold">{{'__________________________'}}</span>
                 मा त्यस बैंकको पक्षमा मेरो/हाम्रो श्री(सम्पत्ति धितो/सुरक्षण लेखीदिएको गोश्वारा-पत्र
                 (General Letter of Hypothecation) को सन्दर्भमा सोही गोश्वारा-पत्रको
                 अभिन्न अंगको रुपमा रहने गरी यो पूरक सम्झौता गरीदिएका छौं ।
@@ -40,20 +41,20 @@
                        formControlName="sanctionLetter"
                        name="sanctionLetter"
                        type="text"/>
-                <span class="print-only">{{this.sanctionDate ? this.sanctionDate : '__________________________'}}</span>
+                <span class="print-only font-weight-bold">{{this.sanctionDate ? this.sanctionDate : '__________________________'}}</span>
                 को ऋण स्वीकृति पत्रानुसार म/हामीले रु.
                 <input class="form-field form-control-sm d-print-none"
                        formControlName="loanAmountInFig"
                        name="loanAmountInFig"
                        type="text"/>
-                <span class="print-only">{{this.finalAmount ? this.finalAmount : '__________________________'}}</span>
+                <span class="print-only font-weight-bold">{{this.finalAmount ? this.finalAmount : '__________________________'}}</span>
                 ।
                 (अक्षरेपी
                 <input class="form-field form-control-sm d-print-none"
                        formControlName="loanAmountInWord"
                        name="loanAmountInWord"
                        type=" "/>
-                <span class="print-only">{{this.loanAmountWord ? this.loanAmountWord : '__________________________'}}</span>
+                <span class="print-only font-weight-bold">{{this.loanAmountWord ? this.loanAmountWord : '__________________________'}}</span>
                 )  उपयोग/उपभोग गरेको ठिक सांचो हो, र
 
                 उक्त ऋणकर्जा उपयोग/उपभोग गरे वापत माथि उल्लेखित गोश्वारा-पत्र वा मिति
@@ -61,20 +62,20 @@
                        formControlName="dateOfTrust"
                        name="dateOfTrust"
                        type="text"/>
-                <span class="print-only">{{'__________________________'}}</span>
+                <span class="print-only font-weight-bold">{{'__________________________'}}</span>
                 मा गरीदिएको "न्यासमा सामान बुझीलिने गोश्वारा-पत्र (General Letter of Trust Receipt)"
                 मा उल्लेखित शर्तबन्देज अनुरुप मेरो/हाम्रो अनुरोधमा तहांले खोलीदिएको नं.
                 <input class="form-field form-control-sm d-print-none"
                        formControlName="letterOfCredit"
                        name="letterOfCredit"
                        type="text"/>
-                <span class="print-only">{{'__________________________'}}</span>
+                <span class="print-only font-weight-bold">{{'__________________________'}}</span>
                 मिति
                 <input class="form-field form-control-sm d-print-none"
                        formControlName="letterOfCreditIssueDate"
                        name="letterOfCreditIssueDate"
                        type="text"/>
-                <span class="print-only">{{'__________________________'}}</span>
+                <span class="print-only font-weight-bold">{{'__________________________'}}</span>
                 को प्रतीतपत्र अन्तर्गत आयात गरी वा अन्य माध्यमबाट खरिद गरी हाम्रो जिम्मामा रहेको देहायमा उल्लेखित
                 सुरक्षणका सामानहरुमाथि त्यस बैंकको हकाधिकार रहने गरी यो पूरक सम्झौता गरीदिएका छौं :
                 <br>
@@ -94,7 +95,7 @@
                                       style="width:1100px;margin-left:2%"
                                       formControlName="freeTexts">
                              </textarea>
-                            <span class="print-only">{{form?.get(['securityFreeText', i, 'freeTexts'])?.value}}</span>
+                            <span class="print-only font-weight-bold">{{form?.get(['securityFreeText', i, 'freeTexts'])?.value}}</span>
                             </ng-container>
                         <div *ngIf="form.get('securityFreeText')['length'] > 1" class="col-md-12 text-left mb-3 d-print-none">
                             <button nbButton status="danger" size="tiny" (click)="removeAtIndex(i)"
@@ -130,64 +131,64 @@
                                    formControlName="witnessDistrict1"
                                    placeholder=""
                                    type="text"/>
-                            <span class="print-only">{{this.supportedInfo ? (this.supportedInfo?.witnessDistrict1 ? this.supportedInfo.witnessDistrict1 : '__________________________') : '__________________________'}}</span>
+                            <span class="print-only font-weight-bold">{{this.supportedInfo ? (this.supportedInfo?.witnessDistrict1 ? this.supportedInfo.witnessDistrict1 : '__________________________') : '__________________________'}}</span>
                             जिल्ला <input class="form-field form-control-sm d-print-none"
                                           name="witnessMuni1"
                                           formControlName="witnessMuni1"
                                           placeholder=""
                                           type="text"/>
-                            <span class="print-only">{{this.supportedInfo ? (this.supportedInfo?.witnessMuni1 ? this.supportedInfo.witnessMuni1 : '__________________________') : '__________________________'}}</span>
+                            <span class="print-only font-weight-bold">{{this.supportedInfo ? (this.supportedInfo?.witnessMuni1 ? this.supportedInfo.witnessMuni1 : '__________________________') : '__________________________'}}</span>
                             न.पा/गा.वि.स.
                             वडा नं. <input class="form-field form-control-sm d-print-none"
                                            name="witnessWard1"
                                            formControlName="witnessWard1"
                                            placeholder=""
                                            type="text"/>
-                            <span class="print-only">{{this.supportedInfo ? (this.supportedInfo?.witnessWard1 ? this.supportedInfo.witnessWard1 : '__________________________') : '__________________________'}}</span>
+                            <span class="print-only font-weight-bold">{{this.supportedInfo ? (this.supportedInfo?.witnessWard1 ? this.supportedInfo.witnessWard1 : '__________________________') : '__________________________'}}</span>
                             बस्ने बर्ष. <input class="form-field form-control-sm d-print-none"
                                                name="witnessAge1"
                                                formControlName="witnessAge1"
                                                placeholder=""
                                                type="text"/>
-                            <span class="print-only">{{this.supportedInfo ? (this.supportedInfo?.witnessAge1 ? this.supportedInfo.witnessAge1 : '__________________________') : '__________________________'}}</span>
+                            <span class="print-only font-weight-bold">{{this.supportedInfo ? (this.supportedInfo?.witnessAge1 ? this.supportedInfo.witnessAge1 : '__________________________') : '__________________________'}}</span>
                             को/की <input class="form-field form-control-sm d-print-none"
                                          name="witnessName1"
                                          formControlName="witnessName1"
                                          placeholder=""
                                          type="text"/>
-                            <span class="print-only">{{this.supportedInfo ? (this.supportedInfo?.witnessName1 ? this.supportedInfo.witnessName1 : '__________________________') : '__________________________'}}</span><br>
+                            <span class="print-only font-weight-bold">{{this.supportedInfo ? (this.supportedInfo?.witnessName1 ? this.supportedInfo.witnessName1 : '__________________________') : '__________________________'}}</span><br>
                         </li>
                         <li><input class="form-field form-control-sm d-print-none"
                                    name="witnessDistrict2"
                                    formControlName="witnessDistrict2"
                                    placeholder=""
                                    type="text"/>
-                            <span class="print-only">{{this.supportedInfo ? (this.supportedInfo?.witnessDistrict2 ? this.supportedInfo.witnessDistrict2 : '__________________________') : '__________________________'}}</span>
+                            <span class="print-only font-weight-bold">{{this.supportedInfo ? (this.supportedInfo?.witnessDistrict2 ? this.supportedInfo.witnessDistrict2 : '__________________________') : '__________________________'}}</span>
                             जिल्ला<input class="form-field form-control-sm d-print-none"
                                          name="witnessMuni2"
                                          formControlName="witnessMuni2"
                                          placeholder=""
                                          type="text"/>
-                            <span class="print-only">{{this.supportedInfo ? (this.supportedInfo?.witnessMuni2 ? this.supportedInfo.witnessMuni2 : '__________________________') : '__________________________'}}</span>
+                            <span class="print-only font-weight-bold">{{this.supportedInfo ? (this.supportedInfo?.witnessMuni2 ? this.supportedInfo.witnessMuni2 : '__________________________') : '__________________________'}}</span>
                             न.पा/गा.वि.स.
                             वडा नं. <input class="form-field form-control-sm d-print-none"
                                            name="witnessWard2"
                                            formControlName="witnessWard2"
                                            placeholder=""
                                            type="text"/>
-                            <span class="print-only">{{this.supportedInfo ? (this.supportedInfo?.witnessWard2 ? this.supportedInfo.witnessWard2 : '__________________________') : '__________________________'}}</span>
+                            <span class="print-only font-weight-bold">{{this.supportedInfo ? (this.supportedInfo?.witnessWard2 ? this.supportedInfo.witnessWard2 : '__________________________') : '__________________________'}}</span>
                             बस्ने बर्ष. <input class="form-field form-control-sm d-print-none"
                                                name="witnessAge2"
                                                formControlName="witnessAge2"
                                                placeholder=""
                                                type="text"/>
-                            <span class="print-only">{{this.supportedInfo ? (this.supportedInfo?.witnessAge2 ? this.supportedInfo.witnessAge2 : '__________________________') : '__________________________'}}</span>
+                            <span class="print-only font-weight-bold">{{this.supportedInfo ? (this.supportedInfo?.witnessAge2 ? this.supportedInfo.witnessAge2 : '__________________________') : '__________________________'}}</span>
                             को/की <input class="form-field form-control-sm d-print-none"
                                          name="witnessName2"
                                          formControlName="witnessName2"
                                          placeholder=""
                                          type="text"/>
-                            <span class="print-only">{{this.supportedInfo ? (this.supportedInfo?.witnessName2 ? this.supportedInfo.witnessName2 : '__________________________') : '__________________________'}}</span>
+                            <span class="print-only font-weight-bold">{{this.supportedInfo ? (this.supportedInfo?.witnessName2 ? this.supportedInfo.witnessName2 : '__________________________') : '__________________________'}}</span>
                         </li>
                         <li> कारणीले प्रस्तुत लिखत मेरो सामुन्ने सहिछाप गरेको हो भनी सनाखत गर्ने नविल बैंक
                             लिमिटेडका कर्मचारी <input class="form-field form-control-sm d-print-none"
@@ -195,7 +196,7 @@
                                                       formControlName="karmachariName"
                                                       placeholder=""
                                                       type="text"/>
-                            <span class="print-only">{{this.supportedInfo ? (this.supportedInfo?.karmachariName ? this.supportedInfo.karmachariName : '__________________________') : '__________________________'}}</span>
+                            <span class="print-only font-weight-bold">{{this.supportedInfo ? (this.supportedInfo?.karmachariName ? this.supportedInfo.karmachariName : '__________________________') : '__________________________'}}</span>
                         </li>
                     </ol>
                 </div>
@@ -227,3 +228,4 @@
         </div>
     </form>
 </div>
+</nb-card>
