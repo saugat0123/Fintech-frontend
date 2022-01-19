@@ -1173,14 +1173,14 @@
                                   (downloadSiteVisitDocument)="checkSiteVisitDocument($event)"
                                   [isApproveSecurity]="approvedSecurityAsProposed"></app-security-summary>
             <app-security-approved-summary *ngIf="approvedSecurity && !approvedSecurityAsProposed"
-                                           [formData]="approvedSecurityData" [shareSecurity]="approvedShareSecurityData"
-                                           [collateralSiteVisitDetail]="collateralSiteVisitDetail"
-                                           [securityId]="securityId"
-                                           [siteVisitDocuments]="siteVisitDocuments"
-                                           [isCollateralSiteVisit]="isCollateralSiteVisit"
-                                           [collateralData]="loanDataHolder?.collateralSiteVisits"
-                                           [docStatus]="loanDataHolder?.documentStatus"
-                                           (downloadSiteVisitDocument)="checkSiteVisitDocument($event)">
+                    [formData]="approvedSecurityData" [shareSecurity]="approvedShareSecurityData"
+                    [collateralSiteVisitDetail]="collateralSiteVisitDetail"
+                    [securityId]="securityId"
+                    [siteVisitDocuments]="siteVisitDocuments"
+                    [isCollateralSiteVisit]="isCollateralSiteVisit"
+                    [collateralData]="loanDataHolder?.collateralSiteVisits"
+                    [docStatus]="loanDataHolder?.documentStatus"
+                    (downloadSiteVisitDocument)="checkSiteVisitDocument($event)">
 
             </app-security-approved-summary>
             <app-financial-summary *ngIf="financialSummary && individual" [formData]="financialData"

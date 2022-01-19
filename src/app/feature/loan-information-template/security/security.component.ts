@@ -110,7 +110,10 @@ export class SecurityComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.securityValue)) {
             this.securityValueForEdit = JSON.parse(this.securityValue.data);
             this.initialSecurityValue = this.securityValueForEdit;
-            this.approvedSecurityValue = JSON.parse(this.securityValue.approvedData);
+            console.log(this.securityValue);
+            if(!ObjectUtil.isEmpty(this.securityValue.approvedData)) {
+                this.approvedSecurityValue = JSON.parse(this.securityValue.approvedData);
+            }
             this.setCrgSecurityForm(this.securityValueForEdit);
             this.setGuarantorsDetails(this.securityValue.guarantor);
             this.securityId = this.securityValue.id;
@@ -304,8 +307,6 @@ export class SecurityComponent implements OnInit {
                 this.shareSecurityData.approvedData = JSON.stringify(this.approvedShareSecurityValue);
             }
             this.securityData.share = this.shareSecurityData;
-        } else {
-            this.securityData.share = null;
         }
         let guarantorIndex = 0;
         while (guarantorIndex < this.getGuarantor().length) {

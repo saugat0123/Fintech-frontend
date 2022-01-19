@@ -103,7 +103,6 @@ export class SecurityApprovedFormComponent implements OnInit {
     {key: 'AssignmentOfReceivables', value: 'Assignment of Receivables'},
     {key: 'LeaseAssignment', value: 'Lease Assignment'},
     {key: 'OtherSecurity', value: 'Other Security'},
-    {key: 'BondSecurity', value: 'Bond Security'}
   ];
 
   ownershipType = [
@@ -153,7 +152,6 @@ export class SecurityApprovedFormComponent implements OnInit {
   dialogRef: NbDialogRef<any>;
   isOpen = false;
   newOwnerShipTransfer = [];
-  bondSecurity = false;
 
   constructor(private formBuilder: FormBuilder,
               private valuatorToast: ToastService,
@@ -218,7 +216,6 @@ export class SecurityApprovedFormComponent implements OnInit {
       this.landBuildingOtherBank(this.approvedData['landBuildingOtherBranchChecked']);
       this.vehicleOtherBank(this.approvedData['vehicleOtherBranchChecked']);
       this.plantOtherBank(this.approvedData['plantOtherBranchChecked']);
-      this.setBondSecurityDetail(this.formDataForEdit['bondSecurity']);
 
     } else {
       this.addMoreLand();
@@ -235,7 +232,6 @@ export class SecurityApprovedFormComponent implements OnInit {
       this.addPersonalGuarantee();
       this.addInsurancePolicy();
       this.addAssignment();
-      this.addMoreBondSecurity();
     }
 
     if (ObjectUtil.isEmpty(this.shareSecurity)) {
@@ -286,49 +282,10 @@ export class SecurityApprovedFormComponent implements OnInit {
       leaseAssignment: this.formBuilder.array([]),
       otherSecurity: this.formBuilder.array([]),
       assignmentOfReceivables: this.formBuilder.array([]),
-      bondSecurity: this.formBuilder.array([]),
 
     });
     this.buildShareSecurityForm();
   }
-
-  private buildBondSecurityFormGroup(): FormGroup {
-    return this.formBuilder.group({
-      nameOfBond: [undefined],
-      validityOfBond: [undefined],
-      couponRate: [undefined],
-      bondValue: [undefined],
-      bondSerialNumber: [undefined],
-      issuer: [undefined],
-      expiryDate: [undefined]
-    });
-  }
-
-  public addMoreBondSecurity(): void {
-    (this.securityForm.get('bondSecurity') as FormArray).push(this.buildBondSecurityFormGroup());
-  }
-
-  private setBondSecurityDetail(currentData) {
-    const landDetails = this.securityForm.get('bondSecurity') as FormArray;
-    if (!ObjectUtil.isEmpty(currentData)) {
-      currentData.forEach((singleData: any) => {
-        landDetails.push(
-            this.formBuilder.group({
-              nameOfBond: [singleData.nameOfBond],
-              validityOfBond: [singleData.validityOfBond],
-              couponRate: [singleData.couponRate],
-              bondValue: [singleData.bondValue],
-              bondSerialNumber: [singleData.bondSerialNumber],
-              issuer: [singleData.issuer],
-              expiryDate: [singleData.expiryDate],
-            })
-        );
-      });
-    } else {
-      this.addMoreBondSecurity();
-    }
-  }
-
   buildShareSecurityForm() {
     this.shareSecurityForm = this.formBuilder.group({
       shareSecurityDetails: this.formBuilder.array([]),
@@ -459,6 +416,7 @@ export class SecurityApprovedFormComponent implements OnInit {
             ownerKycApplicableData: [singleData.ownerKycApplicableData],
             landOtherBranchChecked: [singleData.landOtherBranchChecked],
             kycCheckForLand: [singleData.kycCheckForLand],
+            landRate: [singleData.landRate],
           })
       );
     });
@@ -876,7 +834,7 @@ export class SecurityApprovedFormComponent implements OnInit {
         this.insurancePolicySelected = this.hypothecationOfStock = this.assignmentOfReceivable =
             this.corporateGuarantee = this.personal = this.insurancePolicySelected = this.landOtherBranchChecked =
                 this.apartmentOtherBranchChecked = this.landBuildingOtherBranchChecked = this.vehicleOtherBranchChecked =
-                    this.plantOtherBranchChecked = this.bondSecurity = false;
+                    this.plantOtherBranchChecked = false;
     selectedSecurity.push(arraySelected);
     selectedSecurity.forEach(selectedValue => {
       switch (selectedValue) {
@@ -921,9 +879,6 @@ export class SecurityApprovedFormComponent implements OnInit {
           break;
         case 'AssignmentOfReceivables':
           this.assignmentOfReceivable = true;
-          break;
-        case 'BondSecurity':
-          this.bondSecurity = true;
           break;
       }
     });
