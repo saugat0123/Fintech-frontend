@@ -13,8 +13,10 @@ import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {Guarantor} from '../../loan/model/guarantor';
 import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {RelationshipList} from '../../loan/model/relationshipList';
-import {TypeOfSourceOfIncomeArray} from '../../admin/modal/crg/typeOfSourceOfIncome';
 import {Occupation} from '../../admin/modal/occupation';
+import {EnumUtils} from '../../../@core/utils/enums.utils';
+import {Gender} from '../../../@core/model/enum/gender';
+import {ShareGuarantorJson} from '../../admin/modal/shareGuarantorJson';
 
 @Component({
   selector: 'app-guarantor',
@@ -51,6 +53,8 @@ export class GuarantorComponent implements OnInit {
   docFolderName = 'guarantorDoc';
   occupation = Occupation.enumObject();
   checkSameAddress = false;
+  genderPairs = EnumUtils.pairs(Gender);
+  jsonData: any;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -80,6 +84,7 @@ export class GuarantorComponent implements OnInit {
         this.addEmptyGroup();
         return;
       }
+      console.log('guarantorList', this.guarantorDetailValue.guarantorList);
       this.guarantorDetailValue.guarantorList.forEach((v, index) => {
         this.addressList.push(new Address());
         this.addressListTemporary.push(new Address());
@@ -96,6 +101,9 @@ export class GuarantorComponent implements OnInit {
           }
         }
         formArray.push(this.addGuarantorDetails(v));
+        this.jsonData = JSON.parse(v.guarantorJson);
+        this.setJsonData(this.jsonData, index);
+        console.log('jsonData', this.jsonData);
         this.checkSameAddress = v.checkSameAddress;
       });
     }
@@ -205,6 +213,13 @@ export class GuarantorComponent implements OnInit {
       guarantorLegalDocumentAddress: [ObjectUtil.setUndefinedIfNull(data.guarantorLegalDocumentAddress),
         Validators.required],
       checkSameAddress: [ObjectUtil.isEmpty(data.checkSameAddress) ? false : data.checkSameAddress],
+      gender: [undefined],
+      passNumber: [undefined],
+      passIssueDate: [undefined],
+      passIssuedPlace: [undefined],
+      panNumber: [undefined],
+      panIssueDate: [undefined],
+      panIssuedPlace: [undefined],
     });
   }
 
@@ -292,7 +307,16 @@ export class GuarantorComponent implements OnInit {
         municipalityVdc.id = c.get('municipalitiesTemporary').value;
         guarantor.municipalitiesTemporary = municipalityVdc;
       }
+      const submitData = new ShareGuarantorJson();
+      Object.keys(submitData).forEach((k) => {
+        submitData[k] = this.form.value[k];
+      });
+      submitData.gender = c.get('gender').value;
+      submitData.passNumber = c.get('passNumber').value;
+      guarantor.guarantorJson = JSON.stringify(submitData);
+      console.log('json Data', guarantor.guarantorJson);
       this.guarantorDetail.guarantorList.push(guarantor);
+      console.log('submit Value', this.guarantorDetail.guarantorList);
     });
     this.guarantorDataEmitter.emit(this.guarantorDetail);
   }
@@ -355,4 +379,8 @@ export class GuarantorComponent implements OnInit {
         this.form.get(['guarantorDetails', index, 'wardNumberTemporary']).patchValue(null);
     }
 
+  setJsonData(data, index: number) {
+    this.form.get(['guarantorDetails', index, 'gender']).patchValue(data.gender);
+    this.form.get(['guarantorDetails', index, 'passNumber']).patchValue(data.passNumber);
+  }
 }

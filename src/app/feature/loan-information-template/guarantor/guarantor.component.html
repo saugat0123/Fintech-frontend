@@ -21,16 +21,14 @@
                                 <div class="col-md-10">
                                     <h5>{{i + 1}}) Guarantor Information</h5>
                                 </div>
-                                <div *ngIf="form.get('guarantorDetails')['length']>1"
-                                class="col-md-2 ">
-                                <button (click)="removeGuarantorDetails(i)"
-                                        class="float-right btn tbn-sm btn-flat btn-danger"
-                                        value="Delete">
-                                    <em class="fa fa-trash" style="color: white;"></em>
+                                <div *ngIf="form.get('guarantorDetails')['length']>1" class="col-md-2 ">
+                                    <button (click)="removeGuarantorDetails(i)"
+                                            class="float-right btn tbn-sm btn-flat btn-danger"
+                                            value="Delete">
+                                        <em class="fa fa-trash" style="color: white;"></em>
 
-                                </button>
-
-                            </div>
+                                    </button>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
@@ -62,6 +60,29 @@
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label><strong>Gender</strong></label>
+                                        <nb-radio-group class="d-flex" formControlName="gender" name="gender{{i}}">
+                                            <nb-radio *ngFor="let gender of genderPairs"
+                                                      [value]="gender?.key">{{gender?.value}}</nb-radio>
+                                        </nb-radio-group>
+                                        <div *ngIf="(submitted) && guarantorDetails?.get('gender')?.invalid"
+                                             class="invalid-feedback">
+                                            <div *ngIf="guarantorDetails?.get('gender')?.errors?.required">
+                                                Gender is required
+                                            </div>
+                                        </div>
+                                        <div *ngIf="(addMore) && guarantorDetails?.get('gender')?.invalid"
+                                             class="alert-warning">
+                                            <div *ngIf="guarantorDetails?.get('gender')?.errors?.required">
+                                                Please select gender
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label><strong>Citizenship Number</strong></label>
@@ -120,10 +141,7 @@
                                     </div>
 
                                 </div>
-                            </div>
 
-                            <!--END ROW-->
-                            <div class="row">
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label><strong>Citizenship Issued District</strong></label>
@@ -145,6 +163,168 @@
                                              class="alert-warning">
                                             <div *ngIf="guarantorDetails.get('issuedPlace').errors.required">
                                                 Please add Citizenship issued Place
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label><strong>Passport Number</strong></label>
+                                        <input [ngClass]="{ 'is-invalid': (submitted ) && guarantorDetails?.get('passNumber')?.errors }"
+                                               class="form-control form-control-sm-error rounded"
+                                               formControlName="passNumber"
+                                               name="passNUmber"
+                                               placeholder="Passport Number"
+                                               type="text">
+                                        <div *ngIf="(submitted) && guarantorDetails?.get('passNumber')?.invalid"
+                                             class="invalid-feedback">
+                                            <div *ngIf="guarantorDetails?.get('passNumber').errors?.required">
+                                                Passport Number is required
+                                            </div>
+                                        </div>
+                                        <div *ngIf="(addMore) && guarantorDetails?.get('passNumber')?.invalid"
+                                             class="alert-warning">
+                                            <div *ngIf="guarantorDetails?.get('passNumber')?.errors?.required">
+                                                Please add Citizenship Number
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label><strong>Passport Issued Date</strong></label>
+                                        <input [nbDatepicker]="passIssueDate"
+                                               *ngIf="calendarType === 'AD'"
+                                               [ngClass]="{ 'is-invalid': (submitted) && guarantorDetails?.get('passIssueDate')?.errors }"
+                                               class="form-control form-control-sm-error rounded"
+                                               formControlName="passIssueDate"
+                                               name="passIssueDate"
+                                               placeholder="Passport Issued Date"
+                                               type="text">
+                                        <app-calendar
+                                                [ePreDate]="form?.get(['guarantorDetails', i, 'passIssueDate'])?.value"
+                                                *ngIf="calendarType === 'BS'"
+                                                (messageToEmit)="form?.get(['guarantorDetails', i, 'passIssueDate'])?.patchValue($event?.eDate)"></app-calendar>
+
+                                        <nb-datepicker #passIssueDate></nb-datepicker>
+                                        <div *ngIf="(submitted) && guarantorDetails.get('passIssueDate').invalid"
+                                             class="invalid-feedback">
+                                            <div *ngIf="guarantorDetails?.get('passIssueDate')?.errors?.required">
+                                                Passport issued Date is required
+                                            </div>
+                                        </div>
+                                        <div *ngIf="(addMore) && guarantorDetails?.get('passIssueDate')?.invalid"
+                                             class="alert-warning">
+                                            <div *ngIf="guarantorDetails?.get('passIssueDate')?.errors?.required">
+                                                Please fill passport issued Date
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label><strong>Passport Issued District</strong></label>
+                                        <select [ngClass]="{ 'is-invalid': (submitted) && guarantorDetails?.get('passIssuedPlace')?.errors }"
+                                                class="custom-select"
+                                                formControlName="passIssuedPlace">
+                                            <option [value]="null">--Select Passport Issued District-- </option>
+                                            <option *ngFor="let district of allDistrict" [value]="district?.name">
+                                                {{district?.name}}
+                                            </option>
+                                        </select>
+                                        <div *ngIf="(submitted) && guarantorDetails?.get('passIssuedPlace')?.invalid"
+                                             class="invalid-feedback">
+                                            <div *ngIf="guarantorDetails?.get('passIssuedPlace')?.errors?.required">
+                                                Passport issued Place is required
+                                            </div>
+                                        </div>
+                                        <div *ngIf="(addMore) && guarantorDetails?.get('passIssuedPlace')?.invalid"
+                                             class="alert-warning">
+                                            <div *ngIf="guarantorDetails?.get('passIssuedPlace')?.errors?.required">
+                                                Please add passport issued Place
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label><strong>PAN Number</strong></label>
+                                        <input [ngClass]="{ 'is-invalid': (submitted ) && guarantorDetails?.get('panNumber')?.errors }"
+                                               class="form-control form-control-sm-error rounded"
+                                               formControlName="panNumber"
+                                               name="panNumber"
+                                               placeholder="PAN Number"
+                                               type="text">
+                                        <div *ngIf="(submitted) && guarantorDetails?.get('panNumber')?.invalid"
+                                             class="invalid-feedback">
+                                            <div *ngIf="guarantorDetails?.get('panNumber').errors?.required">
+                                                PAN Number is required
+                                            </div>
+                                        </div>
+                                        <div *ngIf="(addMore) && guarantorDetails?.get('panNumber')?.invalid"
+                                             class="alert-warning">
+                                            <div *ngIf="guarantorDetails?.get('panNumber')?.errors?.required">
+                                                Please add PAN Number
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label><strong>PAN Issued Date</strong></label>
+                                        <input [nbDatepicker]="passIssueDate"
+                                               *ngIf="calendarType === 'AD'"
+                                               [ngClass]="{ 'is-invalid': (submitted) && guarantorDetails?.get('panIssueDate')?.errors }"
+                                               class="form-control form-control-sm-error rounded"
+                                               formControlName="panIssueDate"
+                                               name="panIssueDate"
+                                               placeholder="PAN Issued Date"
+                                               type="text">
+                                        <app-calendar
+                                                [ePreDate]="form?.get(['guarantorDetails', i, 'passIssueDate'])?.value"
+                                                *ngIf="calendarType === 'BS'"
+                                                (messageToEmit)="form?.get(['guarantorDetails', i, 'panIssueDate'])?.patchValue($event?.eDate)"></app-calendar>
+
+                                        <nb-datepicker #passIssueDate></nb-datepicker>
+                                        <div *ngIf="(submitted) && guarantorDetails.get('panIssueDate').invalid"
+                                             class="invalid-feedback">
+                                            <div *ngIf="guarantorDetails?.get('panIssueDate')?.errors?.required">
+                                                PAN issued Date is required
+                                            </div>
+                                        </div>
+                                        <div *ngIf="(addMore) && guarantorDetails?.get('panIssueDate')?.invalid"
+                                             class="alert-warning">
+                                            <div *ngIf="guarantorDetails?.get('panIssueDate')?.errors?.required">
+                                                Please fill PAN issued Date
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label><strong>PAN Issued District</strong></label>
+                                        <select [ngClass]="{ 'is-invalid': (submitted) && guarantorDetails?.get('panIssuedPlace')?.errors }"
+                                                class="custom-select"
+                                                formControlName="panIssuedPlace">
+                                            <option [value]="null">--Select PAN Issued District-- </option>
+                                            <option *ngFor="let district of allDistrict" [value]="district?.name">
+                                                {{district?.name}}
+                                            </option>
+                                        </select>
+                                        <div *ngIf="(submitted) && guarantorDetails?.get('panIssuedPlace')?.invalid"
+                                             class="invalid-feedback">
+                                            <div *ngIf="guarantorDetails?.get('panIssuedPlace')?.errors?.required">
+                                                PAN issued Place is required
+                                            </div>
+                                        </div>
+                                        <div *ngIf="(addMore) && guarantorDetails?.get('panIssuedPlace')?.invalid"
+                                             class="alert-warning">
+                                            <div *ngIf="guarantorDetails?.get('panIssuedPlace')?.errors?.required">
+                                                Please add PAN issued Place
                                             </div>
                                         </div>
                                     </div>
@@ -623,8 +803,6 @@
                                     </div>
                                 </div>
                             </ng-container>
-
-
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
