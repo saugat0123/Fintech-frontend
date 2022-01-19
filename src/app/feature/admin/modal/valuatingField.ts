@@ -5,9 +5,12 @@ export enum ValuatingField {
 }
 
 export namespace ValuatingField {
+    export function getKeyByValue(enumValue) {
+        return Object.keys(ValuatingField).find(key => ValuatingField[key] === enumValue);
+    }
     export function values() {
         return Object.keys(ValuatingField).filter(
-            (type) => isNaN(<any>type) && type !== 'values' && type !== 'enumObject'
+            (type) => isNaN(<any>type) && type !== 'values' && type !== 'enumObject' && type !== 'getKeyByValue'
         );
     }
 
