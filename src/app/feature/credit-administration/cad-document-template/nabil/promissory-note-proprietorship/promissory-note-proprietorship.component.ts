@@ -67,7 +67,6 @@ export class PromissoryNoteProprietorshipComponent implements OnInit {
               private customerService: CustomerService) { }
 
   async ngOnInit() {
-    console.log('Offer Letter Details for Home Loan', this.cadData);
     this.buildForm();
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       if (this.cadData.loanHolder.customerType === 'INSTITUTION') {
@@ -96,9 +95,6 @@ export class PromissoryNoteProprietorshipComponent implements OnInit {
       //     this.tempProprietor[0].ownerPermanentWardNoCT + ', ' + this.tempProprietor[0].ownerPermanentDistrictCT + ' ,' +
       //     this.tempProprietor[0].ownerPermanentProvinceCT;
     }
-    console.log('loanHolderNepData: ', this.loanHolderNepData);
-    console.log('initial info', this.initialInfoPrint);
-    console.log('form', this.form);
     await this.getJointInfoData();
     this.fillform();
   }
@@ -149,7 +145,6 @@ export class PromissoryNoteProprietorshipComponent implements OnInit {
     // let tempProprietor;
     if (!ObjectUtil.isEmpty(proprietor)) {
       this.tempProprietor = JSON.parse(proprietor);
-      console.log('DATA::::::', this.tempProprietor);
     }
     let totalLoan = 0;
     this.cadData.assignedLoan.forEach(val => {
@@ -206,7 +201,7 @@ export class PromissoryNoteProprietorshipComponent implements OnInit {
         {
           nameofBranchLocated: [this.loanHolderNepData.branch ? this.loanHolderNepData.branch.ct : ''],
           actDetails: [this.loanHolderNepData.actName ? this.loanHolderNepData.actName.ct : ''],
-          actYear: [this.loanHolderNepData.actYear ? this.loanHolderNepData.actYear.np : ''],
+          actYear: [this.setActYear()],
           nameOfHead : [this.loanHolderNepData.authorizedBodyName ? this.loanHolderNepData.authorizedBodyName.ct : ''],
           regNo: [this.loanHolderNepData.registrationNo ? this.loanHolderNepData.registrationNo.np : ''],
           branchName: [this.loanHolderNepData.branch ? this.loanHolderNepData.branch.ct : ''],
@@ -345,7 +340,6 @@ submit() {
   }
 
   checkOfferLetterData() {
-    console.log('CHeck:');
     if (this.cadData.offerDocumentList.length > 0) {
       let documentName;
       this.cadData.offerDocumentList.filter((document: OfferDocument) => {
@@ -456,7 +450,6 @@ submit() {
         const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
         this.educationalTemplateData = educationalOfferData.interestRate;
       }
-      console.log('loanholder nepdata:', this.loanHolderNepData);
       if (this.loanHolderNepData.registrationDateOption.en === 'AD') {
         this.form.get('dateOfReg').patchValue(this.engToNepaliDate.transform(this.loanHolderNepData.registrationDate.en, true));
       } else {
@@ -482,4 +475,13 @@ submit() {
     }
   }
 
+  setActYear() {
+    let yearOfAct = '';
+    if (!ObjectUtil.isEmpty(this.loanHolderNepData.radioActYearDate.en === 'AD')) {
+      yearOfAct = this.engToNepaliDate.transform(this.loanHolderNepData.actYear.en ? this.loanHolderNepData.actYear.en : this.loanHolderNepData.actYear.en, true) || '' ;
+    } else {
+      yearOfAct = this.loanHolderNepData.actYear.en ? this.loanHolderNepData.actYear.en : '';
+    }
+    return yearOfAct ? yearOfAct : '';
+  }
 }
