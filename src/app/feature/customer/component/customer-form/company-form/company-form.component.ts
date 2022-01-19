@@ -1313,7 +1313,6 @@ export class CompanyFormComponent implements OnInit {
     }
 
     setAccountNumber(data) {
-        console.log('data', data);
         const account = this.companyInfoFormGroup.get('accountDetails') as FormArray;
         if (!ObjectUtil.isEmpty(data)) {
             data.forEach(l => {
@@ -1322,7 +1321,6 @@ export class CompanyFormComponent implements OnInit {
                 }));
             });
         }
-        console.log(this.companyInfoFormGroup.get('accountDetails').value);
     }
 
     oldAccountDetails() {
