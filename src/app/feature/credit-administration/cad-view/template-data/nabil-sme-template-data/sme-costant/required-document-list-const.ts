@@ -25,7 +25,9 @@ export enum RequiredDocumentListConst {
     LOAN_SUBORDINATION_AGREEMENT = 'Loan Subordination Agreement',
     PARI_PASU_DEED = 'Pari-Pasu Deed',
     PARTNERSHIP_DEED = 'Partnership Deed',
-    LETTER_OF_SET_OFF = 'Letter Of Set Off'
+    LETTER_OF_SET_OFF = 'Letter Of Set Off',
+    VALUATION_REPORT = 'Valuation Report',
+    CORPORATE_GUARANTEE = 'Corporate Guarantee'
 }
 
 
