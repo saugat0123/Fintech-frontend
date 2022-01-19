@@ -344,6 +344,7 @@ bankingRelationshipList = BankingRelationship.enumObject();
 
                     this.customer.isMicroCustomer = this.microCustomer;
                     this.customer.sameAddress = this.sameAddress;
+                    this.customer.withinLimitRemarks = this.formValue.withinLimitRemarks;
                     this.customerService.save(this.customer).subscribe(res => {
                         this.spinner = false;
                         this.close();

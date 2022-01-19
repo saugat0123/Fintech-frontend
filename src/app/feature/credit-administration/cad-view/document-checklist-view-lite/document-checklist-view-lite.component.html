@@ -74,7 +74,7 @@
                                                 <span [ngStyle]="{'color': (cusOfferLetter?.draftPath == null) ? 'red': 'limegreen'}">
                                                     <i [ngClass]="cusOfferLetter?.draftPath == null ?  'fas fa-times-circle' : 'fas fa-check-circle'"></i></span>
                         <span class="ml-1">
-                                                    <a (click)="previewDoc(cusOfferLetter?.draftPath, cusOfferLetter.docName)"
+                                                    <a (click)="previewDoc(cusOfferLetter?.draftPath, cusOfferLetter.docName, false)"
                                                        *ngIf="cusOfferLetter?.draftPath !== null"><i
                                                             class="fas fa-eye cursor" style="color:cornflowerblue"></i>
                                                    </a>
@@ -85,7 +85,7 @@
                                                     <i [ngClass]="cusOfferLetter?.pathSigned == null ?  'fas fa-times-circle' : 'fas fa-check-circle'"></i>
                                                 </span>
                         <span class="ml-1">
-                                                    <a (click)="previewDoc(cusOfferLetter?.pathSigned, cusOfferLetter.docName)"
+                                                    <a (click)="previewDoc(cusOfferLetter?.pathSigned, cusOfferLetter.docName, true)"
                                                        *ngIf="cusOfferLetter?.pathSigned !== null"><i
                                                             class="fas fa-eye cursor" style="color:cornflowerblue"></i>
                                                    </a>

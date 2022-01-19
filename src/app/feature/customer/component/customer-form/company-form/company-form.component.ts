@@ -961,6 +961,7 @@ export class CompanyFormComponent implements OnInit {
         this.companyInfo.clientType = this.companyInfoFormGroup.get('clientType').value;
         this.companyInfo.subsectorDetail = this.companyInfoFormGroup.get('subsectorDetail').value;
 
+
         // legalStatus
         // this.legalStatus.companyName = this.companyInfoFormGroup.get('companyName').value;
         const corporateStructure = new Company();
@@ -1115,6 +1116,8 @@ export class CompanyFormComponent implements OnInit {
 
         // swot
         submitData.swot = this.swot;
+        this.companyInfo.accountStrategy = this.formValue.accountStrategy;
+        this.companyInfo.withinLimitRemarks = this.formValue.withinLimitRemarks;
         this.companyInfo.companyJsonData = JSON.stringify(submitData);
         this.companyInfoService.save(this.companyInfo).subscribe(() => {
             this.spinner = false;
