@@ -31,7 +31,7 @@
                 <div class="mt-3">
                   <h4>{{customerInfoData?.name}}</h4>
                   <p class="text-secondary mb-1">{{customerInfoData?.customerType |titlecase}}
-                    Customer</p>
+                    Customer ({{customerInfoData.customerSubType | titlecase}})</p>
                   <!--todo change to address -->
                   <p *ngIf="customerInfoData?.customerType === customerType.INDIVIDUAL" class="text-muted font-size-sm">
                     {{ nepData?.permanentProvince.en.name}} ,
