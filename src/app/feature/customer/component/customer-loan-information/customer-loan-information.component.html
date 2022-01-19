@@ -112,7 +112,7 @@
       </div>
 
 
-      <div class="col-md-4" *ngIf="!isMicroCustomer">
+      <div class="col-md-4" *ngIf="!isMicroCustomer && (customerInfo?.customerType === customerType?.INDIVIDUAL)">
         <div class="row">
         <nb-card class="col-md-11 py-2" #itemFinancial>
         <a class="cursor info-label" (click)="openModel(itemFinancialTemplate)">
@@ -121,7 +121,7 @@
               <p class="custom-font">
                 <span
                   *ngIf="customerInfo?.customerType == customerType.INDIVIDUAL">INCOME & EXPENSES</span>
-              <span *ngIf="customerInfo?.customerType == customerType.INSTITUTION">FINANCIAL</span>
+<!--              <span *ngIf="customerInfo?.customerType == customerType.INSTITUTION">FINANCIAL</span>-->
               </p>
             </div>
             <div class="col-md-4 d-flex justify-content-end">
@@ -141,8 +141,7 @@
           <nb-card-header>
                 <span
                     *ngIf="customerInfo?.customerType == customerType.INDIVIDUAL">INCOME & EXPENSES</span>
-            <span *ngIf="customerInfo?.customerType == customerType.INSTITUTION">FINANCIAL</span>
-
+<!--            <span *ngIf="customerInfo?.customerType == customerType.INSTITUTION">FINANCIAL</span>-->
             <a aria-label="Close" class="close cursor"
                data-dismiss="modal" (click)="ref.close()">
                       <span style="color: red" (click)="ref.close()">
@@ -152,7 +151,6 @@
           <nb-card-body>
             <app-financial #financialComponent
                            (financialDataEmitter)="saveFinancial($event)"
-
                            [formData]="customerInfo?.financial"
                            [fromProfile]="true"></app-financial>
           </nb-card-body>
