@@ -182,10 +182,10 @@
                 <input class="form-field form-control-sm disable-print"
                        name="ageOfPartner"
                        formControlName="ageOfPartner"
-                       [value]="ageCalculation(partner?.ownerDob)"
+                       [value]="ageCalculation(partner?.ownerDob.eDate)"
                        placeholder=" "
                        type="text"/>
-                <span class="print-only">{{ageCalculation(partner?.ownerDob) ? ageCalculation(partner?.ownerDob) : ''}}</span>
+                <span class="print-only">{{ageCalculation(partner ? partner?.ownerDob.eDate : '_____________________________')}}</span>
               </span>
 
               <ng-container *ngIf="partner?.ownerGender === 'MALE'">को </ng-container>
@@ -478,8 +478,10 @@
             <div class="col-md-12 mt-3 disable-print">
               <ckeditor formControlName="freeText1" [config]="ckEditorConfig"></ckeditor>
             </div>
-          <span class="col-md-12 mt-3 print-only" *ngIf="this.supportedInfo !== null && this.supportedInfo.freeText1 !== null" [innerHTML]="this.supportedInfo.freeText1 | safeHtml">
-          </span>
+            <div class="col-md-12 mt-3 print-only"
+                 *ngIf="freeText1Check"
+                 [innerHTML]="(this.supportedInfo ? this.supportedInfo.freeText1 : '') | safeHtml">
+            </div>
             <div class="col-md-12">
               <p class="text-center"><strong><u>साक्षी</u></strong></p>
               <p>

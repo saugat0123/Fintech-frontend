@@ -69,6 +69,7 @@
                                 type="text" />
                             <span
                                 class="print-only font-weight-bold">{{form?.get('wardNumberOfFirm')?.value ? form?.get('wardNumberOfFirm')?.value : "__________________"}}</span>
+
                             <input class="form-field disable-print form-control-sm" name="addressOfFirm"
                                 formControlName="addressOfFirm" placeholder=" " type="text" />
                             <span
@@ -85,24 +86,24 @@
                                 <span
                                     class="print-only font-weight-bold">{{this.grandFatherName ? this.grandFatherName : "___________________________"}}</span>
                                 को
-                                <ng-container *ngFor="let i of tempProprietor">
-                                    <span *ngIf="i?.ownerGender === 'MALE'">नाति </span>
+                                <ng-container>
+                                    <span *ngIf="x?.ownerGender === 'MALE'">नाति </span>
                                     <span
-                                        *ngIf="i?.ownerGender === 'FEMALE' && i?.ownerRelationMedium === '1'">नातिनी </span>
+                                        *ngIf="x?.ownerGender === 'FEMALE' && x?.ownerRelationMedium === '1'">नातिनी </span>
                                     <span
-                                        *ngIf="i?.ownerGender === 'FEMALE' && i?.ownerRelationMedium === '0'">बुहारी </span>
+                                        *ngIf="x?.ownerGender === 'FEMALE' && x?.ownerRelationMedium === '0'">बुहारी </span>
                                 </ng-container>
                                 <input class="form-field disable-print form-control-sm" name="nameOfFather"
                                     formControlName="nameOfFather" placeholder=" " type="text"
                                     [value]="x?.ownerFatherNameCT" />
                                 <span
-                                    class="print-only font-weight-bold">{{this.nameOfFather ? this.nameOfFather : "___________________________"}} </span>को 
-                                <ng-container *ngFor="let i of tempProprietor">
-                                    <span *ngIf="i?.ownerGender === 'MALE'">छोरा </span>
+                                    class="print-only font-weight-bold">{{this.nameOfFather ? this.nameOfFather : "___________________________"}} </span>को
+                                <ng-container>
+                                    <span *ngIf="x?.ownerGender === 'MALE'">छोरा </span>
                                     <span
-                                        *ngIf="i?.ownerGender === 'FEMALE' && i?.ownerRelationMedium === '1'">छोरी </span>
+                                        *ngIf="x?.ownerGender === 'FEMALE' && x?.ownerRelationMedium === '1'">छोरी </span>
                                     <span
-                                        *ngIf="i?.ownerGender === 'FEMALE' && i?.ownerRelationMedium === '0'">श्रीमती </span>
+                                        *ngIf="x?.ownerGender === 'FEMALE' && x?.ownerRelationMedium === '0'">श्रीमती </span>
                                 </ng-container>
                                 <input class="form-field disable-print form-control-sm" name="district"
                                     formControlName="district" placeholder=" " type="text"
@@ -133,14 +134,14 @@
                                     [value]="ageCalculation(x?.ownerDobCT)" />
                                 <span
                                     class="print-only font-weight-bold">{{ageCalculation(this.age) ? ageCalculation(this.age) : "___________________________"}}</span>
-                                <ng-container *ngFor="let i of tempProprietor">
-                                    <span *ngIf="i?.ownerGender === 'MALE'"> को </span>
-                                    <span *ngIf="i?.ownerGender === 'FEMALE'"> की </span>
+                                <ng-container>
+                                    <span *ngIf="x?.ownerGender === 'MALE'"> को </span>
+                                    <span *ngIf="x?.ownerGender === 'FEMALE'"> की </span>
                                 </ng-container>
-                                <ng-container *ngFor="let i of tempProprietor">
-                                    <span *ngIf="i?.ownerGender === 'MALE'">श्री</span>
-                                    <span *ngIf="i?.ownerGender === 'FEMALE' && i?.ownerRelationMedium === '1'">सुश्री </span>
-                                    <span *ngIf="i?.ownerGender === 'FEMALE' && i?.ownerRelationMedium === '0'">श्रीमती </span>
+                                <ng-container>
+                                    <span *ngIf="x?.ownerGender === 'MALE'">श्री</span>
+                                    <span *ngIf="x?.ownerGender === 'FEMALE' && x?.ownerRelationMedium === '1'">सुश्री </span>
+                                    <span *ngIf="x?.ownerGender === 'FEMALE' && x?.ownerRelationMedium === '0'">श्रीमती </span>
                                 </ng-container>
                                 <input class="form-field disable-print form-control-sm" name="nameOfPartner"
                                     formControlName="nameOfPartner" placeholder=" " type="text"
@@ -195,7 +196,7 @@
 
                                 </p>
                                 <p class="mb-5 float-right" style="margin-right: 20rem;">
-                                    हस्ताक्षरः<br><br>
+                                    हस्ताक्षरः <br><br>
                                     छापः
                                 </p>
                             </div>

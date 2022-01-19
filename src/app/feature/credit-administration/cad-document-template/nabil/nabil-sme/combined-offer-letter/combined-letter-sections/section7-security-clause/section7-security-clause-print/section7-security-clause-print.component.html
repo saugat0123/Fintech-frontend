@@ -1,6 +1,6 @@
 <!--Clauses related to security-->
 <div class="row" style="line-height: 1.9em">
-    <div class="col-md-12">
+    <div class="col-md-12 row" *ngIf="isGharJaggaVisible">
         <div class="row mt-2">
             <p class="m-0">
                 <strong>
@@ -21,14 +21,14 @@
             </div>
             <div class="row mt-3">
                 <ol class="dev-list">
-                    <li>
+                    <li *ngIf="mortgageType1 === 'New'">
                         <!--incase of new/re mortagage-->
                         माथि उल्लिखित घर/जग्गा बैंकको पक्षमा धितोेबन्धक पारित गर्दा लाग्ने सरकारी राजस्व, दै दस्तुर
                         ऋणीले नै व्यहोर्नु पर्नेछ । साथै सो घर/जग्गाको सम्पत्ति कर, जग्गाको तिरो, बिजुली, पानी आदी
                         आवश्यक सम्पूर्ण कर, दस्तुर, शुल्क सम्बन्धित सम्पत्ति धनी वा तपाईं ऋणी आफैंले तिर्नु व्यहोर्नु
                         पर्नेछ र सोको प्रतिलिपी रसिद बैंकमा पेश गर्नु पर्नेछ ।
                     </li>
-                    <li>
+                    <li *ngIf="mortgageType1 === 'Existing'">
                         <!--incase of already mortagage is continued-->
                         माथि बैंकको पक्षमा धितोेबन्धक पारित गरिदिनु भएका घर/जग्गाको सम्पत्ति कर, जग्गाको तिरो, बिजुली,
                         पानी आदी आवश्यक सम्पूर्ण कर, दस्तुर, शुल्क सम्बन्धित सम्पत्ति धनी वा तपाईं ऋणी आफैंले तिर्नु
@@ -68,7 +68,7 @@
             </div>
         </div>
         <!--        Applicable incase of Hypothecation/AR as security-->
-        <div class="col-md-12">
+        <div class="col-md-12 row" *ngIf="isSamanMojdatVisible || isReceivableVisible">
             <div class="row mt-4">
                 <p class="m-0">
                     <strong>
@@ -158,7 +158,7 @@
             </div>
         </div>
         <!--       Applicable incase of receivables only as security -->
-        <div class="col-md-12">
+        <div class="col-md-12 row" *ngIf="isReceivableVisible">
             <div class="row mt-4">
                 <p class="m-0">
                     <strong>
@@ -202,7 +202,7 @@
             </div>
         </div>
         <!--      Applicable incase of bond/fixed deposit/debenture as security -->
-        <div class="col-md-12">
+        <div class="col-md-12 row" *ngIf="fixedDeposit">
             <div class="row mt-4">
                 <p class="m-0">
                     <strong>

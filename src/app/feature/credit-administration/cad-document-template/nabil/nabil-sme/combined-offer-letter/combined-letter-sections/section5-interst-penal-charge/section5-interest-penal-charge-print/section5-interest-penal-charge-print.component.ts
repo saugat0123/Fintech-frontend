@@ -24,6 +24,7 @@ export class Section5InterestPenalChargePrintComponent implements OnInit {
   subsidyAgricultureSelected;
   selectedInterestRate;
   subsidyOrAgricultureLoan;
+  typeOfServiceCharge;
 
   constructor() { }
 
@@ -33,6 +34,7 @@ export class Section5InterestPenalChargePrintComponent implements OnInit {
       if (this.loanName.length > 0) {
         this.setLoanFlags(this.loanName);
       }
+      this.typeOfServiceCharge = this.letterData.smeGlobalForm.serviceChargeType;
     }
   }
   getLoanName() {
