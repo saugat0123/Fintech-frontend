@@ -7,6 +7,7 @@ import {CurrencyFormatterPipe} from '../../../../../../../../../@core/pipe/curre
 import {DatePipe} from '@angular/common';
 import {EngNepDatePipe} from 'nepali-patro';
 import {OfferDocument} from '../../../../../../../model/OfferDocument';
+import {SbTranslateService} from '../../../../../../../../../@core/service/sbtranslate.service';
 
 @Component({
   selector: 'app-demand-loan-for-working-capital',
@@ -18,6 +19,8 @@ export class DemandLoanForWorkingCapitalComponent implements OnInit {
   @Input() offerDocumentList: Array<OfferDocument>;
   initialInformation: any;
   demandLoanForm: FormGroup;
+  translatedFormGroup: FormGroup;
+  translatedValue: any;
   isComplimentryOtherLoan = false;
   isARFinancing = false;
   dateType = [{key: 'AD', value: 'AD', checked: true}, {key: 'BS', value: 'BS'}];
@@ -30,6 +33,7 @@ export class DemandLoanForWorkingCapitalComponent implements OnInit {
   ];
 
   constructor(private formBuilder: FormBuilder,
+              private translateService: SbTranslateService,
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
               private engToNepNumberPipe: EngToNepaliNumberPipe,
               private currencyFormatterPipe: CurrencyFormatterPipe,
@@ -179,8 +183,7 @@ export class DemandLoanForWorkingCapitalComponent implements OnInit {
     let tempExpDate;
     if (tempDateOfExpType === 'AD') {
       const tempEngExpDate = this.demandLoanForm.get('dateOfExpiry').value;
-      tempExpDate = !ObjectUtil.isEmpty(tempEngExpDate) ?
-          this.engToNepDatePipe.transform(this.datePipe.transform(tempEngExpDate), true) : '';
+      tempExpDate = !ObjectUtil.isEmpty(tempEngExpDate) ? this.datePipe.transform(tempEngExpDate) : '';
       this.demandLoanForm.get('dateOfExpiryTrans').patchValue(tempExpDate);
     } else {
       const tempDateOfExpNep = this.demandLoanForm.get('dateOfExpiryNepali').value;
@@ -188,6 +191,11 @@ export class DemandLoanForWorkingCapitalComponent implements OnInit {
           tempDateOfExpNep.nDate : '';
       this.demandLoanForm.get('dateOfExpiryTrans').patchValue(tempExpDate);
     }
+    // translated date by google api
+    // this.translatedFormGroup = this.formBuilder.group({
+    //   dateOfExpiry: this.demandLoanForm.get('dateOfExpiry').value
+    // });
+    // this.translatedValue = this.translateService.translateForm(this.translatedFormGroup);
     this.setCTValue();
   }
 
