@@ -50,6 +50,7 @@ export class PowerOfAttorneyProprietorshipComponent implements OnInit {
   tempProprietor;
   proprietor;
   nagarpalika = false;
+  citizenshipIssueDate;
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
@@ -80,16 +81,16 @@ export class PowerOfAttorneyProprietorshipComponent implements OnInit {
   ProprietorDetails() {
     for (const i of this.tempProprietor) {
       if (i.radioOwnerCitizenshipIssuedDate === 'AD') {
-        this.form.get('dateOfIssue').patchValue(this.engToNepaliDate.transform(i.ownerCitizenshipIssuedDateCT, true));
+        this.citizenshipIssueDate = this.engToNepaliDate.transform(i.ownerCitizenshipIssuedDateCT, true);
       } else {
-        this.form.get('dateOfIssue').patchValue(i.ownerCitizenshipIssuedDateCT);
+        this.citizenshipIssueDate = i.ownerCitizenshipIssuedDateCT;
       }
       this.form.patchValue({
         nameOfProprietor: i.ownerNameCT ? i.ownerNameCT : '',
         citizenshipNo: i.ownerCitizenshipNoCT ? i.ownerCitizenshipNoCT : '',
-        distrcitOfPropreitor: i.ownerPermanentDistrictCT ? i.ownerPermanentDistrictCT : '',
-        municipalityOfPropreitor: i.ownerPermanentMunicipalityCT ? i.ownerPermanentMunicipalityCT : '',
-        wardNoOfPropreitor: i.ownerPermanentWardNoCT ? i.ownerPermanentWardNoCT : '',
+        proprietorDistrict: i.ownerPermanentDistrictCT ? i.ownerPermanentDistrictCT : '',
+        proprietorMunicipality: i.ownerPermanentMunicipalityCT ? i.ownerPermanentMunicipalityCT : '',
+        proprietorWardNo: i.ownerPermanentWardNoCT ? i.ownerPermanentWardNoCT : '',
         nameOfIdentityIssuedDistrict: i.ownerCitizenshipIssuedDistrictCT ? i.ownerCitizenshipIssuedDistrictCT : '',
       });
       if (i.ownerTemporaryMunicipality.municipalityType === 'RURAL_MUNICIPALITY') {
@@ -120,9 +121,9 @@ export class PowerOfAttorneyProprietorshipComponent implements OnInit {
       nameOfBranchLocated: [undefined],
       nameOfAuthorizedBody: [undefined],
       // Firm Details
-      distrcitOfPropreitor: [undefined],
-      municipalityOfPropreitor: [undefined],
-      wardNoOfPropreitor: [undefined],
+      proprietorDistrict: [undefined],
+      proprietorMunicipality: [undefined],
+      proprietorWardNo: [undefined],
       addressOfFirm: [undefined],
       nameOfBorrower: [undefined],
       sanctionLetterIssuedDate: [undefined],
