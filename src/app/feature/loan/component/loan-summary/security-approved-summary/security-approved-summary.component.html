@@ -109,7 +109,7 @@
                         </tr>
 
                         <tr class="sb-bg-secondary text-white">
-                            <th>Considered Value</th>
+                            <th>Realisable Value</th>
                             <th>Valuated Date(AD/BS)</th>
                             <th *ngIf="landDetails?.landOtherBranchChecked === true">Valuator Branch</th>
                             <th colspan="2">Valautor Name</th>
@@ -232,7 +232,7 @@
                             <th>Valuated Date(AD/BS)</th>
                             <th *ngIf="landBuilding?.landBuildingOtherBranchChecked === true">Valuator Branch</th>
                             <th>Valautor Name</th>
-                            <th>Considered Value</th>
+                            <th>Realisable Value</th>
                             <th>Valuator Representative Name</th>
                             <th>Staff Representative Name 1</th>
                             <th>Collateral Owner Relationship</th>
@@ -322,8 +322,8 @@
                             <th>Total building area (Sqf)</th>
                             <th>Total cost</th>
                             <th>FMV</th>
-                            <th>{{client === clientName?.EXCEL ? 'Market Value' : 'Distress Value'}}</th>
-                            <th>Considered Value</th>
+                            <th>Distress Value</th>
+                            <th>Realisable Value</th>
                         </tr>
                         <tr *ngIf="landBuilding.underConstructionChecked === true">
                             <td class="text-left pl-1">{{landBuilding?.ownerConstruction}}</td>
@@ -548,7 +548,7 @@
                         <th>Share Unit</th>
                         <th> Rate</th>
                         <th>Total Value</th>
-                        <th>Considered Value</th>
+                        <th>Realisable Value</th>
                         <th>Ratios as per Audited Financials of FY</th>
                     </tr>
                     </thead>
@@ -819,7 +819,7 @@
                         <th>Insurance Policy Type</th>
                         <th>Surrender Value</th>
                         <th>Early Surrender Date(AD/BS)</th>
-                        <th>Considered Value</th>
+                        <th>Realisable Value</th>
                         <th>Cash Back Amount</th>
                     </tr>
                     <tr *ngFor="let insurancePolicy of formData['initialForm']['insurancePolicy']; let i= index">

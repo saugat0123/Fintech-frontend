@@ -15,7 +15,7 @@
                     <th>Plot No.</th>
                     <th>Area Format</th>
                     <th>Area</th>
-                    <th>Considered Value</th>
+                    <th>Realisable Value</th>
                     <th>Distress Value</th>
                     <th>Fair Market Value</th>
                     <th>Collateral Owner Relationship</th>
@@ -159,7 +159,7 @@
                     <th>Plot No.</th>
                     <th>Area Format</th>
                     <th>Area</th>
-                    <th>Considered Value</th>
+                    <th>Realisable Value</th>
                     <th>Fair Market Value</th>
                 </tr>
                 </thead>
@@ -282,8 +282,8 @@
                     <th>Plot No.</th>
                     <th>Area Format</th>
                     <th>Area</th>
-                    <th>Considered Value</th>
-                    <th>{{client === clientName?.EXCEL ? 'Market Value' : 'Distress Value'}}</th>
+                    <th>Realisable Value</th>
+                    <th>Distress Value</th>
                 </tr>
                 <tr *ngIf="landBuilding.underConstructionChecked === true">
                     <td></td>
@@ -1034,7 +1034,7 @@
                 <th>Share Unit</th>
                 <th>Rate</th>
                 <th>Total Value</th>
-                <th>Considered Value</th>
+                <th>Realisable Value</th>
                 <th>Ratios as per Audited Financials of FY</th>
             </tr>
             </thead>
@@ -1099,7 +1099,7 @@
                 <th>Insurance Policy Type</th>
                 <th>Surrender Value</th>
                 <th>Early Surrender Date(AD/BS)</th>
-                <th>Considered Value</th>
+                <th>Realisable Value</th>
                 <th>Cash Back Amount</th>
             </tr>
             <tr *ngFor="let insurancePolicy of securityData['initialForm']['insurancePolicy']; let i= index">
