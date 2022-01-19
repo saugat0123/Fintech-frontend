@@ -347,7 +347,7 @@ export class SecurityInitialFormComponent implements OnInit {
         switch (type) {
             case 'land':
                 this.valuatorService.getListWithSearchObject(valuatorSearch).subscribe((res: any) => {
-                    this.securityValuator.landValuator[index] = res.detail.filter(item => JSON.parse(item.valuatingField).includes('LAND'));
+                    this.securityValuator.landValuator[index] = res.detail.filter(item => item.valuatingFields.length > 0 ? JSON.parse(item.valuatingField).includes('LAND') : item.valuatingField.includes('LAND') && !item.valuatingField.includes('LAND_BUILDING'));
                 });
                 break;
             case 'apartment':
