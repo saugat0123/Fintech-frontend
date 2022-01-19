@@ -110,13 +110,14 @@
                                                                 <span
                                                                         class="print-only font-weight-bold">{{ form?.get('companyName')?.value ? form?.get('companyName')?.value : '_________________'}}</span>
                                                                 को अख्तियार प्राप्त
+                                                                <ng-container *ngFor="let i of tempProprietor">
                                                                 <input class="form-field form-control-sm  disable-print"
                                                                         name="grandfatherName"
                                                                         formControlName="grandfatherName" placeholder=""
                                                                         type="text" />
                                                                 <span
                                                                         class="print-only font-weight-bold">{{ form?.get('grandfatherName')?.value ? form?.get('grandfatherName')?.value : '_________________'}}</span>
-                                                                को <ng-container *ngFor="let i of tempProprietor">
+                                                                को <ng-container>
                                                                         <span *ngIf="i?.ownerGender === 'MALE'">नाति </span>
                                                                         <span
                                                                             *ngIf="i?.ownerGender === 'FEMALE' && i?.ownerRelationMedium === '1'">नातिनी </span>
@@ -129,7 +130,7 @@
                                                                 <span
                                                                         class="print-only font-weight-bold">{{ form?.get('fatherName')?.value ? form?.get('fatherName')?.value : '_________________'}}</span>
                                                                 को 
-                                                                <ng-container *ngFor="let i of tempProprietor">
+                                                                <ng-container>
                                                                         <span *ngIf="i?.ownerGender === 'MALE'">छोरा </span>
                                                                         <span
                                                                             *ngIf="i?.ownerGender === 'FEMALE' && i?.ownerRelationMedium === '1'">छोरी </span>
@@ -169,11 +170,11 @@
                                                                         placeholder="" type="text" />
                                                                 <span
                                                                         class="print-only font-weight-bold">{{ form?.get('authorizedPersonAge')?.value ? form?.get('authorizedPersonAge')?.value : '_________________'}}</span>
-                                                                        <ng-container *ngFor="let i of tempProprietor">
+                                                                        <ng-container>
                                                                                 <span *ngIf="i?.ownerGender === 'MALE'"> को </span>
                                                                                 <span *ngIf="i?.ownerGender === 'FEMALE'"> की </span>
                                                                             </ng-container>
-                                                                            <ng-container *ngFor="let i of tempProprietor">
+                                                                            <ng-container>
                                                                                 <span *ngIf="i?.ownerGender === 'MALE'">श्री </span>
                                                                                 <span *ngIf="i?.ownerGender === 'FEMALE' && i?.ownerRelationMedium === '1'">सुश्री </span>
                                                                                 <span *ngIf="i?.ownerGender === 'FEMALE' && i?.ownerRelationMedium === '0'">श्रीमती </span>
@@ -205,6 +206,7 @@
                                                                         placeholder="" type="text" />
                                                                 <span
                                                                         class="print-only font-weight-bold">{{ form?.get('directorCitizenshipIssueDistrict')?.value ? form?.get('directorCitizenshipIssueDistrict')?.value : '_________________'}}</span>
+                                                                </ng-container>
                                                                 )–१ आगे, तपाई श्री नविल बैंक लिमिटेडले भुक्तानी माग
                                                                 गरेका बखत तपाईलाई वा तपाईले निर्देशन
                                                                 दिएको वा अह्राएको ब्यक्ति/संस्थालाई <strong>रु.
