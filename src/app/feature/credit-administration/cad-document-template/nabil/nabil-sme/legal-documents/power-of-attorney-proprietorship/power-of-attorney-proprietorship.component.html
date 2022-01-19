@@ -173,7 +173,7 @@
                                 हामी ऋणीको हकमा बुझीलिन नबिल बैंक लिमिटेड (जसले यसका अधिकारप्राप्त कर्मचारी वा प्रतिनिधिलाई समेत जनाउनेछ)
                                 लाई यसै लिखतबाट मेरोरहाम्रो वारेस नियुक्त गरेका छौं र वारेसका हैसियतले नबिल बैंक लिमिटेडले देहायको कुनै वा सबै कार्य गर्न सक्नेछ.
 
-                            <ol class="conditions">
+                            <ol class="conditions-list">
                                 <li>म/हामीलाई रकम भुक्तानी गर्नुपर्ने दायित्व भएका कुनैपनि व्यक्ति, व्यक्तिहरु, फर्म, कम्पनी, सरकारी, गैरसरकारी कार्यालय, संघसंस्थामा सम्पर्क गरी मेरोरहाम्रो तर्फबाट रकम असुल गर्न वा प्राप्त गर्न,
                                 </li>
                                 <li> मेरो/हाम्रो हकमा प्राप्त गरेको चेक, ड्राफ्ट वा यस्तै वित्तीय उपकरणहरुमा हस्ताक्षर गर्न, पृष्ठांकन गर्न, प्राप्त रकम वापत मेरोरहाम्रो तर्फबाट प्राप्ति रसिद (acknowledgement receipt) जारी गर्न,
@@ -317,17 +317,6 @@
                                 </p>
                             </div>
                         </div>
-                        <br/>
-                        <div class="col-md-12 text-right disable-print">
-                            <button nbButton status="info" class="mb-4 float-right disable-print"
-                                    [useExistingCss]="true"
-                                    size="small"
-                                    ngxPrint printSectionId="{{offerLetterConst.POWER_OF_ATTORNEY_PROPRIETORSHIP}}Print">
-                                Print
-                            </button>
-                            <button nbButton status="success" class="disable-print" size="small" (click)="submit()">Save</button>
-
-                        </div>
 
                     </div>
                 </div>
@@ -335,6 +324,17 @@
         </div>
 
     </form>
+    <div class="row mt-5 ml-0">
+    <div class="col-md-12 text-right disable-print">
+        <button nbButton status="info" class="mb-4 float-right disable-print"
+                [useExistingCss]="true"
+                outline
+                ngxPrint printSectionId="{{offerLetterConst.POWER_OF_ATTORNEY_PROPRIETORSHIP}}Print">
+            Print <em class="fa fa-print" style="color: rgb(47, 3, 168)"></em>
+        </button>
+        <button nbButton outline status="success" class="disable-print" (click)="submit()">Save <em class="fa fa-save" style="color: rgb(47, 3, 168)"></em></button>
+    </div>
+    </div>
 </div>
 <!--<app-power-of-attorney-proprietorship *ngIf="initialInfoPrint" [letterData]="initialInfoPrint" hidden>-->
 <!--</app-power-of-attorney-proprietorship>-->
