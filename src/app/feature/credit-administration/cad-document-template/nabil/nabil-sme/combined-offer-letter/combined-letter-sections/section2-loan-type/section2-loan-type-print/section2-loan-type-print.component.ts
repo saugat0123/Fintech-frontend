@@ -51,6 +51,7 @@ export class Section2LoanTypePrintComponent implements OnInit {
     isBillPurchase = false;
     // SME Global Form
     hypothecationGlobal;
+    issubsidyOrAgricultureLoan;
     // Irrevocable letter of credit facility
     loanOptionIrrevocable;
     commissionTypeIrrevocable;
@@ -153,6 +154,7 @@ export class Section2LoanTypePrintComponent implements OnInit {
             this.getLoanName();
             this.checkLoanName();
         }
+        this.issubsidyOrAgricultureLoan = this.tempData.smeGlobalForm.subsidyOrAgricultureLoan;
     }
 
     getLoanName() {
