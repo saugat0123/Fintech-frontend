@@ -188,8 +188,8 @@ export class DemandLoanForWorkingCapitalComponent implements OnInit {
     } else {
       const tempDateOfExpNep = this.demandLoanForm.get('dateOfExpiryNepali').value;
       tempExpDate = !ObjectUtil.isEmpty(tempDateOfExpNep) ?
-          tempDateOfExpNep.eDate : '';
-      this.demandLoanForm.get('dateOfExpiryTrans').patchValue(this.datePipe.transform(tempExpDate));
+          tempDateOfExpNep.nDate : '';
+      this.demandLoanForm.get('dateOfExpiryTrans').patchValue(tempExpDate);
     }
     // translated date by google api
     // this.translatedFormGroup = this.formBuilder.group({

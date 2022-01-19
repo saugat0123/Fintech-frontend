@@ -162,8 +162,8 @@ export class OverdraftLoanForWorkingCapitalRequirementComponent implements OnIni
     } else {
       const tempDateOfExpNep = this.overdraftLoanForm.get('dateOfExpiryNepali').value;
       tempExpDate = !ObjectUtil.isEmpty(tempDateOfExpNep) ?
-          tempDateOfExpNep.eDate : '';
-      this.overdraftLoanForm.get('dateOfExpiryTrans').patchValue(this.datePipe.transform(tempExpDate));
+          tempDateOfExpNep.nDate : '';
+      this.overdraftLoanForm.get('dateOfExpiryTrans').patchValue(tempExpDate);
     }
     this.setCTValue();
   }
