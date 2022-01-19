@@ -85,7 +85,7 @@
                                    </div>
                                </div>
                                <ng-container>
-                                   <div *ngFor="let acc of companyInfoFormGroup.get('accountDetails')['controls']; let ii = index"
+                                   <div *ngFor="let acc of companyInfoFormGroup?.get('accountDetails')['controls']; let ii = index"
                                         formArrayName="accountDetails" class="col-md-4">
                                        <label for="accountNo"><strong>Account Number {{ii + 1}}</strong></label>
                                        <div [formGroupName]="ii" class="form-group">
@@ -94,7 +94,7 @@
                                                   id="accountNo"
                                                   placeholder="Enter Account Number"/>
                                            <button (click)="removeAccount(ii)"
-                                                   *ngIf="companyInfoFormGroup.get('accountDetails')['length'] > 0"
+                                                   *ngIf="companyInfoFormGroup?.get('accountDetails')['length'] > 0"
                                                    class="btn btn-success float-right" nbButton size="small"
                                                    status="primary">Delete </button>
                                        </div>
