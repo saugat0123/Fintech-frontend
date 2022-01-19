@@ -101,7 +101,7 @@ export class CreditRiskGradingLambdaComponent implements OnInit {
     } else {
       this.missingAlerts.push({
         type: 'danger',
-        message: 'No Fiscal year data detected for grade automation in financial section!',
+        message: 'No repayment risk data detected for grade automation in Income & Expenses Section! ',
       });
     }
 
