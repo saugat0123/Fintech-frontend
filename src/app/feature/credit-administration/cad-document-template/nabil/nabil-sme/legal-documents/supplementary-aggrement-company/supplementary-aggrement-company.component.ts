@@ -32,6 +32,7 @@ export class SupplementaryAggrementCompanyComponent implements OnInit {
   initialInfo;
   sanctionDate;
   freeTextVal: Array<any> = new Array<any>();
+  spinner = false;
   constructor(private  formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
@@ -184,12 +185,14 @@ export class SupplementaryAggrementCompanyComponent implements OnInit {
       days: this.supportedInfo ? this.supportedInfo.days : '',
       suvam: this.supportedInfo ? this.supportedInfo.suvam : '',
     });
-    if (!ObjectUtil.isEmpty(this.supportedInfo.freeTextVal)) {
-      for (let val = 0; val < this.supportedInfo.freeTextVal.length - 1; val++) {
-        this.addTextArea();
-      }
-      for (let i = 0; i < this.supportedInfo.freeTextVal.length; i++) {
-        this.form.get(['securityFreeText', i, 'freeTexts']).patchValue(this.supportedInfo.freeTextVal[i].freeTexts);
+    if (!ObjectUtil.isEmpty(this.supportedInfo)) {
+      if (!ObjectUtil.isEmpty(this.supportedInfo.freeTextVal)) {
+        for (let val = 0; val < this.supportedInfo.freeTextVal.length - 1; val++) {
+          this.addTextArea();
+        }
+        for (let i = 0; i < this.supportedInfo.freeTextVal.length; i++) {
+          this.form.get(['securityFreeText', i, 'freeTexts']).patchValue(this.supportedInfo.freeTextVal[i].freeTexts);
+        }
       }
     }
   }
@@ -204,6 +207,7 @@ export class SupplementaryAggrementCompanyComponent implements OnInit {
   }
   submit() {
     let flag = true;
+    this.spinner = true;
     if (!ObjectUtil.isEmpty(this.cadData)) {
       this.cadData.cadFileList.forEach(individualCadFile => {
         if (individualCadFile.customerLoanId === this.customerLoanId && individualCadFile.cadDocument.id === this.documentId) {
@@ -231,10 +235,12 @@ export class SupplementaryAggrementCompanyComponent implements OnInit {
       this.administrationService.saveCadDocumentBulk(this.cadData).subscribe(() => {
         this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved '));
         this.dialogRef.close();
+        this.spinner = false;
         this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
       }, error => {
         this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save '));
         this.dialogRef.close();
+        this.spinner = false;
       });
     }
   addTextArea() {
