@@ -292,6 +292,15 @@ export class CompanyFormComponent implements OnInit {
             isOldCustomer: (ObjectUtil.isEmpty(this.formValue))
         };
         this.calculateSharePercent('proprietors', 'totalSharePercent');
+        if (!ObjectUtil.isEmpty(this.companyInfo)) {
+            if (!ObjectUtil.isEmpty(this.companyJsonData.accountDetails)) {
+                this.setAccountNumber(this.companyJsonData.accountDetails);
+            } else if (!ObjectUtil.isEmpty(this.companyInfo.accountNo)) {
+                this.oldAccountDetails();
+            } else {
+                this.addAccountNumber();
+            }
+        }
     }
 
     buildForm() {
@@ -614,6 +623,7 @@ export class CompanyFormComponent implements OnInit {
             irdReport: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyJsonData.irdReport)) ? undefined :
                 this.companyJsonData.irdReport],
+            accountDetails: this.formBuilder.array([]),
 
         });
         if (!this.additionalFieldSelected) {
@@ -941,7 +951,6 @@ export class CompanyFormComponent implements OnInit {
         this.companyInfo.registrationNumber = this.companyInfoFormGroup.get('registrationNumber').value;
         this.companyInfo.panNumber = this.companyInfoFormGroup.get('companyPAN').value;
         this.companyInfo.vatNo = this.companyInfoFormGroup.get('vatNo').value;
-        this.companyInfo.accountNo = this.companyInfoFormGroup.get('accountNo').value;
         this.companyInfo.establishmentDate = this.companyInfoFormGroup.get('companyEstablishmentDate').value;
         this.companyInfo.businessType = this.companyInfoFormGroup.get('businessType').value;
         this.companyInfo.version = this.companyInfoFormGroup.get('companyInfoVersion').value;
@@ -1094,6 +1103,7 @@ export class CompanyFormComponent implements OnInit {
         submitData.BusinessIndustryOutlook = this.companyInfoFormGroup.get('BusinessIndustryOutlook').value;
         submitData.businessManagementRisk = this.companyInfoFormGroup.get('businessManagementRisk').value;
         submitData.irdReport = this.companyInfoFormGroup.get('irdReport').value;
+        submitData.accountDetails = this.companyInfoFormGroup.get('accountDetails').value;
 
         if (this.microCustomer) {
             /** micro data **/
@@ -1103,7 +1113,6 @@ export class CompanyFormComponent implements OnInit {
                 submitData.microCustomerDetail = this.microIndividualFormComponent.microCustomerForm.value;
             }
         }
-
 
         // swot
         submitData.swot = this.swot;
@@ -1292,5 +1301,40 @@ export class CompanyFormComponent implements OnInit {
             }
             this.companyInfoFormGroup.get(s).updateValueAndValidity();
         });
+    }
+
+    addAccountNumber() {
+        (this.companyInfoFormGroup.get('accountDetails') as FormArray).push(
+            this.formBuilder.group({
+                accountNo: [undefined],
+            })
+        );
+    }
+
+    removeAccount(index: number) {
+        (<FormArray>this.companyInfoFormGroup.get('accountDetails')).removeAt(index);
+    }
+
+    setAccountNumber(data) {
+        const account = this.companyInfoFormGroup.get('accountDetails') as FormArray;
+        if (!ObjectUtil.isEmpty(data)) {
+            data.forEach(l => {
+                account.push(this.formBuilder.group({
+                    accountNo: [l.accountNo]
+                }));
+            });
+        }
+    }
+
+    oldAccountDetails() {
+        if (!ObjectUtil.isEmpty(this.companyInfo.accountNo)) {
+            const oldAccountNo = {
+                accountDetails: []
+            };
+            oldAccountNo.accountDetails.push({
+                'accountNo': this.companyInfo.accountNo
+            });
+            this.setAccountNumber(oldAccountNo.accountDetails);
+        }
     }
 }

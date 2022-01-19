@@ -29,4 +29,5 @@ export class CompanyJsonData {
   BusinessIndustryOutlook: string;
   relationshipSinceWithCustomer: string = undefined;
   irdReport: string;
+  accountDetails: any;
 }
