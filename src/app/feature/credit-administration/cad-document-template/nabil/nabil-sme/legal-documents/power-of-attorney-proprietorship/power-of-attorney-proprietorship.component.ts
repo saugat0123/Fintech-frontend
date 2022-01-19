@@ -40,7 +40,6 @@ export class PowerOfAttorneyProprietorshipComponent implements OnInit {
   offerLetterConst = NabilDocumentChecklist;
   form: FormGroup;
   nepData;
-  companyInfo;
   initialInfo;
   supportedInfo;
   finalAmount;
@@ -48,7 +47,8 @@ export class PowerOfAttorneyProprietorshipComponent implements OnInit {
   sanctionDate;
   combinedAddress;
   issueDate = [];
-
+  tempProprietor;
+  proprietor;
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
@@ -62,82 +62,108 @@ export class PowerOfAttorneyProprietorshipComponent implements OnInit {
               private nepToEngNumberPipe: NepaliToEngNumberPipe, ) { }
 
   ngOnInit() {
+    console.log(this.cadData);
     this.buildForm();
-    if (!ObjectUtil.isEmpty(this.cadData.assignedLoan[0])) {
-      this.companyInfo = this.cadData.assignedLoan[0] ? JSON.parse(this.cadData.assignedLoan[0].companyInfo.companyJsonData) : '';
-    }
     if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
       this.initialInfo = JSON.parse(this.cadData.offerDocumentList[0].initialInformation);
     }
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.individualData = JSON.parse(this.cadData.loanHolder.nepData);
     }
-    this.dateConvert();
+    this.tempProprietor = JSON.parse(this.cadData.assignedLoan[0].companyInfo.companyJsonData);
+    // this.dateConvert();
     this.patchFreeText();
     this.fillForm();
+    this.ProprietorDetails();
   }
-
-  dateConvert() {
-    let date;
-    this.companyInfo.forEach(val => {
-      if (val.radioOwnerCitizenshipIssuedDate === 'AD') {
-        date = this.engToNepaliDate.transform(val ?
-            val.ownerCitizenshipIssuedDateCT : val.ownerCitizenshipIssuedDateCT, true) || '';
+  ProprietorDetails() {
+    for (const i of this.tempProprietor) {
+      if (i.radioOwnerCitizenshipIssuedDate === 'AD') {
+        this.form.get('dateOfIssue').patchValue(this.engToNepaliDate.transform(i.ownerCitizenshipIssuedDateCT, true));
       } else {
-        date = val ? val.ownerCitizenshipIssuedDateCT : '';
+        this.form.get('dateOfIssue').patchValue(i.ownerCitizenshipIssuedDateCT);
       }
-      const newDate = {
-        issueDate : date
-      };
-      this.issueDate.push(newDate);
-    });
+      this.form.patchValue({
+        nameOfProprietor: i.ownerNameCT ? i.ownerNameCT : '',
+        citizenshipNo: i.ownerCitizenshipNoCT ? i.ownerCitizenshipNoCT : '',
+        distrcitOfPropreitor: i.ownerPermanentDistrictCT ? i.ownerPermanentDistrictCT.ct : '',
+        municipalityOfPropreitor: i.ownerPermanentMunicipalityCT ? i.ownerPermanentMunicipalityCT.ct : '',
+        wardNoOfPropreitor: i.ownerPermanentWardNoCT ? i.ownerPermanentWardNoCT : '',
+        nameOfIdentityIssuedDistrict: i.ownerCitizenshipIssuedDistrictCT ? i.ownerCitizenshipIssuedDistrictCT : '',
+      });
+    }
   }
+  //
+  // dateConvert() {
+  //   let date;
+  //   this.tempProprietor.forEach(val => {
+  //     if (val.radioOwnerCitizenshipIssuedDate === 'AD') {
+  //       date = this.engToNepaliDate.transform(val ?
+  //           val.ownerCitizenshipIssuedDateCT : val.ownerCitizenshipIssuedDateCT, true) || '';
+  //     } else {
+  //       date = val ? val.ownerCitizenshipIssuedDateCT : '';
+  //     }
+  //     const newDate = {
+  //       issueDate : date
+  //     };
+  //     this.issueDate.push(newDate);
+  //   });
+  // }
 
   buildForm() {
     this.form = this.formBuilder.group({
+      date: [undefined],
       nameOfBranchLocated: [undefined],
       nameOfAuthorizedBody: [undefined],
       // Firm Details
-      districtOfFirm: [undefined],
-      municipalityOfFirm: [undefined],
-      wardNoOfFirm: [undefined],
+      distrcitOfPropreitor: [undefined],
+      municipalityOfPropreitor: [undefined],
+      wardNoOfPropreitor: [undefined],
       addressOfFirm: [undefined],
-      firmName: [undefined],
+      nameOfBorrower: [undefined],
       sanctionLetterIssuedDate: [undefined],
       loanAmountInFigure: [undefined],
       loanAmountInWords: [undefined],
       addressOfBorrower: [undefined],
+      nameOfProprietor: [undefined],
+      citizenshipNo: [undefined],
+      dateOfIssue: [undefined],
+      nameOfIdentityIssuedDistrict: [undefined],
+      nameOfBorrowerFirm: [undefined],
+      addressOfBorrowerFirm: [undefined],
+      districtOfFirm: [undefined],
+      municipalityOfFirm: [undefined],
+      wardNoOfFirm: [undefined],
       // Free text
-      freeText1: [undefined],
       // Witness Fields
-      witnessDistrict1: [undefined],
-      witnessMuni1: [undefined],
-      witnessWard1: [undefined],
-      witnessAge1: [undefined],
-      witnessName1: [undefined],
+      bankStaff: [undefined],
+      witnessDistrict: [undefined],
+      witnessMunicipality: [undefined],
+      WitnessWardNumber: [undefined],
+      witnessAge: [undefined],
+      witnessName: [undefined],
       witnessDistrict2: [undefined],
-      witnessMuni2: [undefined],
-      witnessWard2: [undefined],
+      witnessMunicipality2: [undefined],
+      WitnessWardNumber2: [undefined],
       witnessAge2: [undefined],
       witnessName2: [undefined],
-      karmachariName: [undefined],
     });
   }
 
   setFreeText() {
     const free1 = {
-      freeText1: this.form.get('freeText1').value ? this.form.get('freeText1').value : '',
-      witnessDistrict1: this.form.get('witnessDistrict1') ? this.form.get('witnessDistrict1').value : '',
-      witnessMuni1: this.form.get('witnessMuni1') ? this.form.get('witnessMuni1').value : '',
-      witnessWard1: this.form.get('witnessWard1') ? this.form.get('witnessWard1').value : '',
-      witnessAge1: this.form.get('witnessAge1') ? this.form.get('witnessAge1').value : '',
-      witnessName1: this.form.get('witnessName1') ? this.form.get('witnessName1').value : '',
+      date: this.form.get('date') ? this.form.get('date').value : '',
+      witnessDistrict: this.form.get('witnessDistrict') ? this.form.get('witnessDistrict').value : '',
+      witnessMunicipality: this.form.get('witnessMunicipality') ? this.form.get('witnessMunicipality').value : '',
+      WitnessWardNumber: this.form.get('WitnessWardNumber') ? this.form.get('WitnessWardNumber').value : '',
+      witnessAge: this.form.get('witnessAge') ? this.form.get('witnessAge').value : '',
+      witnessName: this.form.get('witnessName') ? this.form.get('witnessName').value : '',
       witnessDistrict2: this.form.get('witnessDistrict2') ? this.form.get('witnessDistrict2').value : '',
-      witnessMuni2: this.form.get('witnessMuni2') ? this.form.get('witnessMuni2').value : '',
-      witnessWard2: this.form.get('witnessWard2') ? this.form.get('witnessWard2').value : '',
+      witnessMunicipality2: this.form.get('witnessMunicipality2') ? this.form.get('witnessMunicipality2').value : '',
+      WitnessWardNumber2: this.form.get('WitnessWardNumber2') ? this.form.get('WitnessWardNumber2').value : '',
       witnessAge2: this.form.get('witnessAge2') ? this.form.get('witnessAge2').value : '',
       witnessName2: this.form.get('witnessName2') ? this.form.get('witnessName2').value : '',
-      karmachariName: this.form.get('karmachariName') ? this.form.get('karmachariName').value : '',
+      bankStaff: this.form.get('bankStaff') ? this.form.get('bankStaff').value : '',
     };
     return JSON.stringify(free1);
   }
@@ -241,28 +267,25 @@ export class PowerOfAttorneyProprietorshipComponent implements OnInit {
     this.form.patchValue({
       nameOfBranchLocated: this.individualData.branch ? this.individualData.branch.ct : '',
       nameOfAuthorizedBody: this.individualData.authorizedBodyName ? this.individualData.authorizedBodyName.ct : '',
-      districtOfFirm: this.individualData.registeredDistrict ? this.individualData.registeredDistrict.ct : '',
-      municipalityOfFirm: this.individualData.registeredMunicipality ? this.individualData.registeredMunicipality.ct : '',
-      wardNoOfFirm: this.individualData.permanentWard ? this.individualData.permanentWard.ct : '',
       addressOfFirm: this.individualData.registeredStreetTole ? this.individualData.registeredStreetTole.ct : '',
-      firmName: this.individualData.name ? this.individualData.name.ct : '',
+      nameOfBorrower: this.individualData.name ? this.individualData.name.ct : '',
       loanAmountInFigure: this.finalAmount ? this.finalAmount : '',
       loanAmountInWords: this.loanAmountWord ? this.loanAmountWord : '',
       sanctionLetterIssuedDate: this.sanctionDate ? this.sanctionDate : '',
       freeText1: this.supportedInfo ? this.supportedInfo.freeText1 : '',
       addressOfBorrower: this.combinedAddress ? this.combinedAddress : '',
-      witnessDistrict1: this.supportedInfo ? this.supportedInfo.witnessDistrict1 : '',
-      witnessMuni1: this.supportedInfo ? this.supportedInfo.witnessMuni1 : '',
-      witnessWard1: this.supportedInfo ? this.supportedInfo.witnessWard1 : '',
-      witnessAge1: this.supportedInfo ? this.supportedInfo.witnessAge1 : '',
-      witnessName1: this.supportedInfo ? this.supportedInfo.witnessName1 : '',
+      witnessDistrict: this.supportedInfo ? this.supportedInfo.witnessDistrict : '',
+      witnessMunicipality: this.supportedInfo ? this.supportedInfo.witnessMunicipality : '',
+      WitnessWardNumber: this.supportedInfo ? this.supportedInfo.WitnessWardNumber : '',
+      witnessAge: this.supportedInfo ? this.supportedInfo.witnessAge : '',
+      witnessName: this.supportedInfo ? this.supportedInfo.witnessName : '',
       witnessDistrict2: this.supportedInfo ? this.supportedInfo.witnessDistrict2 : '',
-      witnessMuni2: this.supportedInfo ? this.supportedInfo.witnessMuni2 : '',
-      witnessWard2: this.supportedInfo ? this.supportedInfo.witnessWard2 : '',
+      witnessMunicipality2: this.supportedInfo ? this.supportedInfo.witnessMunicipality2 : '',
+      WitnessWardNumber2: this.supportedInfo ? this.supportedInfo.WitnessWardNumber2 : '',
       witnessAge2: this.supportedInfo ? this.supportedInfo.witnessAge2 : '',
       witnessName2: this.supportedInfo ? this.supportedInfo.witnessName2 : '',
-      karmachariName: this.supportedInfo ? this.supportedInfo.karmachariName : '',
-
+      bankStaff: this.supportedInfo ? this.supportedInfo.bankStaff : '',
+      date: this.supportedInfo ? this.supportedInfo.date : '',
     });
   }
 
