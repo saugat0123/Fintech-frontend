@@ -21,6 +21,8 @@ import {DatePipe} from '@angular/common';
 import {EngNepDatePipe} from 'nepali-patro';
 import {NabilOfferLetterConst} from '../../../nabil-offer-letter-const';
 import {LoanNameConstant} from '../../../cad-view/template-data/nabil-sme-template-data/sme-costant/loan-name-constant';
+import {document} from 'ionicons/icons';
+import {OfferDocument} from '../../../model/OfferDocument';
 
 @Component({
     selector: 'app-loan-deed-partnership',
@@ -64,6 +66,7 @@ export class LoanDeedPartnershipComponent implements OnInit {
     sanctionDate;
     actYear;
     dateOfExpirySingle;
+    isAutoOrTermLoan = false;
 
 
     constructor(private formBuilder: FormBuilder,
@@ -76,7 +79,7 @@ export class LoanDeedPartnershipComponent implements OnInit {
                 private currencyFormatPipe: CurrencyFormatterPipe,
                 public datePipe: DatePipe,
                 public engToNepaliDate: EngNepDatePipe,
-                private nepToEngNumberPipe: NepaliToEngNumberPipe, ) {
+                private nepToEngNumberPipe: NepaliToEngNumberPipe,) {
     }
 
     ngOnInit() {
@@ -86,6 +89,7 @@ export class LoanDeedPartnershipComponent implements OnInit {
         }
         if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
             this.initialInfo = JSON.parse(this.cadData.offerDocumentList[0].initialInformation);
+            console.log('initial info', this.initialInfo);
         }
         if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
             this.individualData = JSON.parse(this.cadData.loanHolder.nepData);
@@ -113,6 +117,7 @@ export class LoanDeedPartnershipComponent implements OnInit {
         }
         this.getLoanName();
         this.fillForm();
+        this.checkAutoOrTermLoan();
     }
 
     primarySecurityCheck() {
@@ -371,7 +376,7 @@ export class LoanDeedPartnershipComponent implements OnInit {
                 } else {
                     this.sanctionDate = this.initialInfo.dateOfApprovalNepali ? this.initialInfo.dateOfApprovalNepali.ct : '';
                 }
-                if (this.initialInfo.loanOption.en === 'EXISTING' || this.initialInfo.loanOption.en === 'Existing' ) {
+                if (this.initialInfo.loanOption.en === 'EXISTING' || this.initialInfo.loanOption.en === 'Existing') {
                     this.newOrExisting = true;
                 }
                 this.interestRate = this.initialInfo.interestRate ? this.initialInfo.interestRate.ct : '';
@@ -866,6 +871,33 @@ export class LoanDeedPartnershipComponent implements OnInit {
 
     convertNepaliNumberAmount(value) {
         return this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(value));
+    }
+
+    checkAutoOrTermLoan() {
+        if (this.cadData.offerDocumentList.length > 0) {
+            let documentName;
+            this.cadData.offerDocumentList.filter((document: OfferDocument) => {
+                documentName = document.docName;
+                this.offerLetterDocument = document;
+                console.log(documentName);
+            });
+            if (documentName === 'Combined Offer Letter') {
+                if (!ObjectUtil.isEmpty(this.offerLetterDocument.initialInformation)) {
+                    const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
+                    console.log(educationalOfferData);
+                    this.educationalTemplateData = educationalOfferData.autoLoanMasterForm.autoLoanFormArray[0].interestRateCT;
+                    this.isAutoOrTermLoan = true;
+                }
+            }
+            if (documentName === 'Combined Offer Letter') {
+                if (!ObjectUtil.isEmpty(this.offerLetterDocument.initialInformation.interestRateCT)) {
+                    const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
+                    this.educationalTemplateData = educationalOfferData.termLoanForm.termLoanDetails.interestRateCT;
+                    this.isAutoOrTermLoan = true;
+                }
+            }
+            console.log(this.isAutoOrTermLoan);
+        }
     }
 }
 

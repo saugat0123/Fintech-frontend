@@ -240,6 +240,19 @@
                                     <span class="print-only">{{this.dateOfExpirySingle ? this.dateOfExpirySingle : '______/_______/_______'}}</span>
                                 </td>
                             </tr>
+                            <tbody *ngIf="isAutoOrTermLoan === true">
+                            <tr *ngFor="let loan of cadData?.assignedLoan">
+                                <td>{{loan?.loan?.nepaliName || loan?.loan?.name}}</td>
+                                <td>{{convertNepaliNumberAmount(loan?.proposal?.proposedLimit)}}</td>
+                                <td>{{educationalTemplateData}}%</td>
+                                <td><input class="form-field form-control-sm d-print-none"
+                                           name="dateOfExpirySingle"
+                                           formControlName="dateOfExpirySingle"
+                                           placeholder=""
+                                           type="text"/>
+                                    <span class="print-only">{{this.dateOfExpirySingle ? this.dateOfExpirySingle : '______/_______/_______'}}</span>
+                                </td>
+                            </tr>
                             </tbody>
                             <tbody *ngIf="this.cadData.offerDocumentList[0].docName === 'Combined Offer Letter'">
                             <tr *ngFor="let free of form.get(['combinedFreeText'])['controls']; let i = index"
