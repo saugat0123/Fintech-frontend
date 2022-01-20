@@ -1164,7 +1164,7 @@
       </tbody>
     </table>
   </div>
-  <div class="row" *ngIf="isCollateralSiteVisit">
+  <div class="row" *ngIf="isCollateralSiteVisitPresent">
     <table class="table table-sm table-bordered text-center table-sm sb-small">
       <thead>
         <tr>
@@ -1215,6 +1215,9 @@
         <th>Prominent Place</th>
         <th>Approach Distance</th>
         <th>Road Access From</th>
+        <th>Type of Property</th>
+        <th>Shape of Land</th>
+        <th>Does the location & shape of land appear consistent with Blue Print?</th>
       </tr>
       </thead>
       <tbody>
@@ -1226,6 +1229,9 @@
         <td class="text-left pl-1">{{siteVisit?.prominentPlace}}</td>
         <td class="text-right pr-1">{{siteVisit?.approachDistance}}</td>
         <td class="text-left pl-1">{{siteVisit?.roadAccessFrom}}</td>
+        <td class="text-left pl-1">{{siteVisit?.typeOfProperty}}</td>
+        <td class="text-left pl-1">{{siteVisit?.shapeOfLand}}</td>
+        <td class="text-left pl-1">{{siteVisit?.locationAndShapeOfLand}}</td>
       </tr>
       </tbody>
     </table>

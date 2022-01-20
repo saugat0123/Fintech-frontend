@@ -20,7 +20,8 @@
                                    [formData]="initialSecurityValue"
                                    [loanTag]="loanTag"
                                    [shareSecurity]="shareSecurity"
-                                   [customerSecurityId]="securityId">
+                                   [customerSecurityId]="securityId"
+                                    [approvedData]="approvedSecurityValue">
         </app-security-initial-form>
         <div class="form-group">
             <form [formGroup]="securityForm">
@@ -225,6 +226,18 @@
 </div>
 </div>
 <hr>
+        <div *ngIf="approvedSecurityValue !== null && approvedSecurityValue !== undefined">
+            <h1>Existing Security</h1>
+            <div class="form-group">
+                <app-security-approved-form [calendarType]="calendarType"
+                                            [formData]="initialSecurityValue"
+                                            [loanTag]="loanTag"
+                                            [shareSecurity]="shareSecurity"
+                                            [customerSecurityId]="securityId"
+                                            [approvedData]="approvedSecurityValue"
+                                            [approvedShareData]="approvedShareSecurityValue"></app-security-approved-form>
+            </div>
+        </div>
 <div *ngIf="fromProfile" class="py-4 d-flex justify-content-end">
     <button (click)="onSubmit()" nbButton>save</button>
 </div>

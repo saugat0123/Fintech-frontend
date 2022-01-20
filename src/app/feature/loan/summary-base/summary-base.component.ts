@@ -191,7 +191,9 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
                 ));
             }
             const uploadedDocIds = this.loanDataHolder.customerDocument.map(d => d.document.id);
-            this.hasMissingDeferredDocs = !deferredDocs.every(d => uploadedDocIds.includes(d.id));
+            if (!ObjectUtil.isEmpty(deferredDocs)) {
+                this.hasMissingDeferredDocs = !deferredDocs.every(d => uploadedDocIds.includes(d.id));
+            }
         });
     }
 

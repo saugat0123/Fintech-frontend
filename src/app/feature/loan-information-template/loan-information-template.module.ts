@@ -56,6 +56,7 @@ import { MultiBankingComponent } from './multi-banking/multi-banking.component';
 import { FinancialUploadViewComponent } from './financial/financial-upload-view/financial-upload-view.component';
 import {LoanSummaryModule} from '../loan/component/loan-summary/loan-summary.module';
 import {LoanInformationViewModule} from '../loan-information-view/loan-information-view.module';
+import {SecurityApprovedFormComponent} from './security/security-approved-form/security-approved-form.component';
 
 const COMPONENTS = [
     SiteVisitComponent,
@@ -97,9 +98,9 @@ const COMPONENTS = [
 
 
 @NgModule({
-  declarations: [...COMPONENTS, CadDocumentUploadComponent, MicroProposalComponent, CommentsComponent, PreviousSecurityComponent,
-      CrgMicroComponent,
-      FinancialUploadViewComponent],
+    declarations: [...COMPONENTS, CadDocumentUploadComponent, MicroProposalComponent, CommentsComponent, PreviousSecurityComponent,
+        CrgMicroComponent,
+        FinancialUploadViewComponent, SecurityApprovedFormComponent],
     exports: [...COMPONENTS, MicroProposalComponent, CommentsComponent, CrgMicroComponent, FinancialUploadViewComponent],
     entryComponents: [...COMPONENTS],
     imports: [
@@ -115,6 +116,7 @@ const COMPONENTS = [
         AgmCoreModule.forRoot({
             apiKey: environment.GOOGLE_MAP_API_KEY
         }),
+        CoreModule,
         CKEditorModule,
         FeatureModule,
         AngularDraggableModule,
