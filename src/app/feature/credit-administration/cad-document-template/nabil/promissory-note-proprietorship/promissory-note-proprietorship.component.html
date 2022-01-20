@@ -4,20 +4,20 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="nep">
-                        <div><br>
+                        <div class="align">
                             <p class="text-center" style="font-size:16pt;">
                                 <strong>प्रतिज्ञा पत्र<br>(PROMISSORY NOTE)</strong>
                             </p>
                             <p class="text-right"> मिति: <input
-                                    class="form-field disable-print form-control-sm nepaliFont"
+                                    class="form-field disable-print form-control-sm"
                                     name="date"
                                     formControlName="date"
                                     placeholder="मिति"
                                     type="text"/>
-                                <span class=" print-only font-weight-bold">{{form.get('date').value ? form.get('date').value : "_________________"}}</span>
+                                <span class="print-only">{{form.get('date').value ? form.get('date').value : "_________________"}}</span>
                             <table class="table table-bordered" style="width: 100%; height: 20vh">
                                 <strong>
-                                    रु <input class="form-field form-control-sm outside disable-print col-2"
+                                    रु <input class="form-field form-control-sm outside disable-print col-2 nepaliFont"
                                               (input)="getNumAmountWord('loanAmountInFigure', 'loanAmountInWords')"
                                               name="loanAmountInFigure"
                                               formControlName="loanAmountInFigure"
@@ -48,7 +48,7 @@
                                               formControlName="nameOfAuthorizedBody"
                                               placeholder=" "
                                               type="text"/>
-                                <span class="print-only">{{this.individualData?.authorizedBodyName ? this.individualData?.authorizedBodyName.ct : '______________________'}}</span>
+                                <span class="print-only">{{this.individualData?.authorizedBodyName ? this.individualData?.authorizedBodyName.ct : '______________________'}}</span>,
                                 <input class="form-field form-control-sm d-print-none"
                                        name="nameOfDepartment"
                                        formControlName="nameOfDepartment"
@@ -231,7 +231,7 @@
                                आगे, तपाई श्री नविल बैंक लिमिटेडले भुक्तानी माग गरेका बखत
                                 तपाईलाई वा तपाईले निर्देशन दिएको वा अह्राएको ब्यक्ति/संस्थालाई
                                 <strong>
-                                    रु <input class="form-field form-control-sm outside disable-print col-2"
+                                    रु <input class="form-field form-control-sm outside disable-print col-2 nepaliFont"
                                               (input)="getNumAmountWord('loanAmountInFigure', 'loanAmountInWords')"
                                               name="loanAmountInFigure"
                                               formControlName="loanAmountInFigure"
@@ -251,7 +251,7 @@
                                         formControlName="intRate"
                                         placeholder=""
                                         type="text"/>
-                                <span class=" print-only font-weight-bold">{{form.get('intRate').value ? form.get('intRate').value : "_________________"}}</span>
+                                <span class="print-only">{{this.supportedInfo ? (this.supportedInfo?.intRate ? this.supportedInfo?.intRate : '__________________________') : '__________________________'}}</span>
                                 प्रतिशतका दरले हुने व्याज रकम समेत एकमुष्ट तिर्न बुझाउन
                                 प्रतिज्ञा/कवुल गरी यो प्रतिज्ञापत्रको लिखत गरी तपाई नविल बैंक लिमिटेड, शाखा कार्यालय
                                 <input class="form-field form-control-sm d-print-none"
