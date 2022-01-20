@@ -17,6 +17,7 @@ import {Occupation} from '../../admin/modal/occupation';
 import {EnumUtils} from '../../../@core/utils/enums.utils';
 import {Gender} from '../../../@core/model/enum/gender';
 import {ShareGuarantorJson} from '../../admin/modal/shareGuarantorJson';
+import {RoleService} from '../../admin/component/role-permission/role.service';
 
 @Component({
   selector: 'app-guarantor',
@@ -55,12 +56,16 @@ export class GuarantorComponent implements OnInit {
   checkSameAddress = false;
   genderPairs = EnumUtils.pairs(Gender);
   jsonData: any;
+  question = ['Yes', 'No'];
+  designationList = [];
+  spinner = false;
 
   constructor(
       private formBuilder: FormBuilder,
       private addressServices: AddressService,
       private toastService: ToastService,
-      private blackListService: BlacklistService
+      private blackListService: BlacklistService,
+      private roleService: RoleService,
   ) {
   }
 
@@ -68,6 +73,7 @@ export class GuarantorComponent implements OnInit {
     this.buildForm();
     this.getProvince();
     this.getAllDistrict();
+    this.getRoleList();
     this.relationList = this.relationshipList.relation;
   }
 
@@ -220,6 +226,24 @@ export class GuarantorComponent implements OnInit {
       panNumber: [undefined],
       panIssueDate: [undefined],
       panIssuedPlace: [undefined],
+      nationality: [undefined],
+      email: [undefined],
+      shareHolding: [undefined],
+      guarantor: [undefined],
+      managementTeam: [undefined],
+      managementDesignation: [undefined],
+      boardDirector: [undefined],
+      sharePercent: [undefined],
+      bodNumber: [undefined],
+      bodFemaleDirector: [undefined],
+      marginalisedDirector: [undefined],
+      femaleMarDirector: [undefined],
+
+      // legal
+      registrationNumber: [undefined],
+      registrationDate: [undefined],
+      registrationWith: [undefined],
+      groupName: [undefined],
     });
   }
 
@@ -313,6 +337,27 @@ export class GuarantorComponent implements OnInit {
       });
       submitData.gender = c.get('gender').value;
       submitData.passNumber = c.get('passNumber').value;
+      submitData.passIssueDate = c.get('passIssueDate').value;
+      submitData.passIssuedPlace = c.get('passIssuedPlace').value;
+      submitData.panNumber = c.get('panNumber').value;
+      submitData.panIssueDate = c.get('panIssueDate').value;
+      submitData.panIssuedPlace = c.get('panIssuedPlace').value;
+      submitData.nationality = c.get('nationality').value;
+      submitData.email = c.get('email').value;
+      submitData.shareHolding = c.get('shareHolding').value;
+      submitData.guarantor = c.get('guarantor').value;
+      submitData.managementTeam = c.get('managementTeam').value;
+      submitData.managementDesignation = c.get('managementDesignation').value;
+      submitData.boardDirector = c.get('boardDirector').value;
+      submitData.sharePercent = c.get('sharePercent').value;
+      submitData.bodNumber = c.get('bodNumber').value;
+      submitData.bodFemaleDirector = c.get('bodFemaleDirector').value;
+      submitData.marginalisedDirector = c.get('marginalisedDirector').value;
+      submitData.femaleMarDirector = c.get('femaleMarDirector').value;
+      submitData.registrationNumber = c.get('registrationNumber').value;
+      submitData.registrationDate = c.get('registrationDate').value;
+      submitData.registrationWith = c.get('registrationWith').value;
+      submitData.groupName = c.get('groupName').value;
       guarantor.guarantorJson = JSON.stringify(submitData);
       console.log('json Data', guarantor.guarantorJson);
       this.guarantorDetail.guarantorList.push(guarantor);
@@ -382,5 +427,37 @@ export class GuarantorComponent implements OnInit {
   setJsonData(data, index: number) {
     this.form.get(['guarantorDetails', index, 'gender']).patchValue(data.gender);
     this.form.get(['guarantorDetails', index, 'passNumber']).patchValue(data.passNumber);
+    this.form.get(['guarantorDetails', index, 'passIssueDate']).patchValue(data.passIssueDate);
+    this.form.get(['guarantorDetails', index, 'passIssuedPlace']).patchValue(data.passIssuedPlace);
+    this.form.get(['guarantorDetails', index, 'panNumber']).patchValue(data.panNumber);
+    this.form.get(['guarantorDetails', index, 'panIssueDate']).patchValue(data.panIssueDate);
+    this.form.get(['guarantorDetails', index, 'panIssuedPlace']).patchValue(data.panIssuedPlace);
+    this.form.get(['guarantorDetails', index, 'nationality']).patchValue(data.nationality);
+    this.form.get(['guarantorDetails', index, 'email']).patchValue(data.email);
+    this.form.get(['guarantorDetails', index, 'shareHolding']).patchValue(data.shareHolding);
+    this.form.get(['guarantorDetails', index, 'guarantor']).patchValue(data.guarantor);
+    this.form.get(['guarantorDetails', index, 'managementTeam']).patchValue(data.managementTeam);
+    this.form.get(['guarantorDetails', index, 'managementDesignation']).patchValue(data.managementDesignation);
+    this.form.get(['guarantorDetails', index, 'boardDirector']).patchValue(data.boardDirector);
+    this.form.get(['guarantorDetails', index, 'sharePercent']).patchValue(data.sharePercent);
+    this.form.get(['guarantorDetails', index, 'bodNumber']).patchValue(data.bodNumber);
+    this.form.get(['guarantorDetails', index, 'bodFemaleDirector']).patchValue(data.bodFemaleDirector);
+    this.form.get(['guarantorDetails', index, 'marginalisedDirector']).patchValue(data.marginalisedDirector);
+    this.form.get(['guarantorDetails', index, 'femaleMarDirector']).patchValue(data.femaleMarDirector);
+    this.form.get(['guarantorDetails', index, 'registrationNumber']).patchValue(data.registrationNumber);
+    this.form.get(['guarantorDetails', index, 'registrationDate']).patchValue(data.registrationDate);
+    this.form.get(['guarantorDetails', index, 'registrationWith']).patchValue(data.registrationWith);
+    this.form.get(['guarantorDetails', index, 'groupName']).patchValue(data.groupName);
+  }
+
+  getRoleList() {
+    this.spinner = true;
+    this.roleService.getAll().subscribe(res => {
+      this.spinner = false;
+      this.designationList = res.detail;
+    }, error => {
+      this.spinner = false;
+      this.toastService.show(new Alert(AlertType.ERROR, 'Error While Fetching List'));
+    });
   }
 }
