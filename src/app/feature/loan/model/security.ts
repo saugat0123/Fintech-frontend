@@ -10,4 +10,6 @@ export class Security {
     share: ShareSecurity;
     guarantor: Array<Guarantor>;
     totalSecurityAmount: number;
+    approvedData: string;
+    templateName: string;
 }

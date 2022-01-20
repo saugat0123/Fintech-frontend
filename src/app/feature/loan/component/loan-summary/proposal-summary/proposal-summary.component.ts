@@ -110,7 +110,6 @@ export class ProposalSummaryComponent implements OnInit {
                     const tempCustomerLoanDtoList: CustomerLoanDto[] = this.customerLoanDtoList
                         .filter(l => l.isFundable && l.proposal.data !== null);
                     tempCustomerLoanDtoList.forEach(cdl => {
-                        console.log(cdl.proposal);
                         // numb = numb + JSON.parse(cdl.proposal.data)[key];
                     });
                 }

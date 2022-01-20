@@ -42,12 +42,18 @@
                                         [proposalData]="proposalData"></app-proposal-justification-summary>
 </div>
 
-<app-security-view *ngIf="loanHolder?.security" [security]="loanHolder?.security"
+<app-security-view *ngIf="loanHolder?.security?.data" [security]="loanHolder?.security"
                    [shareSecurityData]="loanHolder?.shareSecurity"
                    [securityId]="securityId"
                    [collateralData]="loanDataHolder?.collateralSiteVisits"
                    [docStatus]="loanDataHolder?.documentStatus"
                    (downloadSiteVisitDocument)="checkSiteVisitDocument($event)"></app-security-view>
+<app-security-approved-view *ngIf="approvedSecurity && !approveSecurityAsProposed" [security]="loanHolder?.security"
+                            [shareSecurityData]="loanDataHolder?.shareSecurity"
+                            [securityId]="securityId"
+                            [docStatus]="loanDataHolder?.documentStatus"
+                            [collateralData]="loanDataHolder?.collateralSiteVisits"
+                            (downloadSiteVisitDocument)="checkSiteVisitDocument($event)"></app-security-approved-view>
 <app-financial-view *ngIf="loanHolder?.financial && isIndividual"
                     [customerType]="loanHolder?.customerType"
                     [formData]="loanHolder?.financial"></app-financial-view>

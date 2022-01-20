@@ -1,22 +1,22 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Security} from '../../loan/model/security';
 import {NepseMaster} from '../../admin/modal/NepseMaster';
-import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {OwnershipTransfer} from '../../loan/model/ownershipTransfer';
-import {Clients} from '../../../../environments/Clients';
 import {environment} from '../../../../environments/environment';
+import {Clients} from '../../../../environments/Clients';
 import {CollateralSiteVisit} from '../../loan-information-template/security/security-initial-form/fix-asset-collateral/CollateralSiteVisit';
-import {CollateralSiteVisitService} from '../../loan-information-template/security/security-initial-form/fix-asset-collateral/collateral-site-visit.service';
 import {SiteVisitDocument} from '../../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
+import {CollateralSiteVisitService} from '../../loan-information-template/security/security-initial-form/fix-asset-collateral/collateral-site-visit.service';
 import {ApiConfig} from '../../../@core/utils/api/ApiConfig';
+import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {flatten} from '@angular/compiler';
 
 @Component({
-  selector: 'app-security-view',
-  templateUrl: './security-view.component.html',
-  styleUrls: ['./security-view.component.scss']
+  selector: 'app-security-approved-view',
+  templateUrl: './security-approved-view.component.html',
+  styleUrls: ['./security-approved-view.component.scss']
 })
-export class SecurityViewComponent implements OnInit {
+export class SecurityApprovedViewComponent implements OnInit {
   @Input() security: Security;
   @Input() shareSecurityData;
   @Input() collateralData;
@@ -57,9 +57,10 @@ export class SecurityViewComponent implements OnInit {
   fileType = '.jpg';
   isPrintable = 'YES';
   random;
+  bondSecurity = false;
+  totalBondSecurityValue = 0;
   @Output() downloadSiteVisitDocument = new EventEmitter();
   isSecurityPresent = false;
-  isCollateralSiteVisitPresent = false;
 
   constructor(private collateralSiteVisitService: CollateralSiteVisitService) {
   }
@@ -67,7 +68,7 @@ export class SecurityViewComponent implements OnInit {
   ngOnInit() {
     this.random = Math.floor(Math.random() * 100) + 1;
     this.url = ApiConfig.URL;
-    this.securityData = JSON.parse(this.security.data);
+    this.securityData = JSON.parse(this.security.approvedData);
     if (this.securityData['selectedArray'] !== undefined) {
       this.isSecurityPresent = true;
       // land security
@@ -158,10 +159,7 @@ export class SecurityViewComponent implements OnInit {
       });
     }
     if (!ObjectUtil.isEmpty(this.shareSecurityData)) {
-      this.shareSecurity = JSON.parse(this.shareSecurityData.data);
-      if (ObjectUtil.isEmpty(this.shareSecurity) && !ObjectUtil.isEmpty(this.shareSecurityData.approvedData)) {
-        this.shareSecurity = JSON.parse(this.shareSecurityData.approvedData);
-      }
+      this.shareSecurity = JSON.parse(this.shareSecurityData.approvedData);
     } else {
       this.shareSelected = false;
     }
@@ -172,6 +170,8 @@ export class SecurityViewComponent implements OnInit {
     if (this.depositSelected) {
       this.calculateTotal();
     }
+
+
     if (!ObjectUtil.isEmpty(this.securityId)) {
       this.collateralSiteVisitService.getCollateralSiteVisitBySecurityId(this.securityId)
           .subscribe((response: any) => {
@@ -234,13 +234,13 @@ export class SecurityViewComponent implements OnInit {
             // make nested array of objects as a single array eg: [1,2,[3[4,[5,6]]]] = [1,2,3,4,5,6]
             const docArray = flatten(arr);
             // filter for only printable document
-            this.siteVisitDocuments = docArray.filter(f => f.isPrintable === this.isPrintable);
+            this.siteVisitDocuments = docArray.filter(f => f.isPrintable === this.isPrintable && f.isApproved === true);
 
             this.collateralSiteVisits.filter(item => {
               this.siteVisitJson.push(JSON.parse(item.siteVisitJsonData));
             });
             if (this.collateralSiteVisits.length > 0) {
-              this.isCollateralSiteVisitPresent = true;
+              this.isCollateralSiteVisit = true;
             }
             this.downloadSiteVisitDocument.emit(this.siteVisitDocuments);
           });
