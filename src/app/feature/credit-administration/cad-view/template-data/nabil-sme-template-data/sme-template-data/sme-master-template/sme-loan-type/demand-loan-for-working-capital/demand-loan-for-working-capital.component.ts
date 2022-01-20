@@ -22,7 +22,6 @@ export class DemandLoanForWorkingCapitalComponent implements OnInit {
   translatedFormGroup: FormGroup;
   translatedValue: any;
   isComplimentryOtherLoan = false;
-  isARFinancing = false;
   dateType = [{key: 'AD', value: 'AD', checked: true}, {key: 'BS', value: 'BS'}];
   ADExpiry = false;
   BSExpiry = false;
@@ -72,7 +71,7 @@ export class DemandLoanForWorkingCapitalComponent implements OnInit {
       // for form data
       complementryOther: [undefined],
       complimentaryLoanSelected: [undefined],
-      arFinancing: [undefined],
+      // arFinancing: [undefined],
       subsidyOrAgricultureLoan: [undefined],
       arDays: [undefined],
       loanAmount: [undefined],
@@ -88,7 +87,7 @@ export class DemandLoanForWorkingCapitalComponent implements OnInit {
       // for translated data
       complementryOtherTrans: [undefined],
       complimentaryLoanSelectedTrans: [undefined],
-      arFinancingTrans: [undefined],
+      // arFinancingTrans: [undefined],
       arDaysTrans: [undefined],
       loanAmountTrans: [undefined],
       loanAmountWordsTrans: [undefined],
@@ -103,7 +102,7 @@ export class DemandLoanForWorkingCapitalComponent implements OnInit {
       // for corrected data
       complementryOtherCT: [undefined],
       complimentaryLoanSelectedCT: [undefined],
-      arFinancingCT: [undefined],
+      // arFinancingCT: [undefined],
       arDaysCT: [undefined],
       loanAmountCT: [undefined],
       loanAmountWordsCT: [undefined],
@@ -123,10 +122,6 @@ export class DemandLoanForWorkingCapitalComponent implements OnInit {
     this.demandLoanForm.get('complementryOther').patchValue(this.isComplimentryOtherLoan);
   }
 
-  checkARFinancing(data) {
-    this.isARFinancing = data;
-    this.demandLoanForm.get('arFinancing').patchValue(this.isARFinancing);
-  }
 
   public checkDateOfExpiry(value): void {
     this.ADExpiry = value === 'AD';
@@ -150,10 +145,10 @@ export class DemandLoanForWorkingCapitalComponent implements OnInit {
     if (!ObjectUtil.isEmpty(tempComplimentaryLoanSelected)) {
       this.demandLoanForm.get('complimentaryLoanSelectedTrans').patchValue(tempComplimentaryLoanSelected);
     }
-    const tempArFinancing = this.demandLoanForm.get('arFinancing').value;
-    if (!ObjectUtil.isEmpty(tempArFinancing)) {
-      this.demandLoanForm.get('arFinancingTrans').patchValue(tempArFinancing);
-    }
+    // const tempArFinancing = this.demandLoanForm.get('arFinancing').value;
+    // if (!ObjectUtil.isEmpty(tempArFinancing)) {
+    //   this.demandLoanForm.get('arFinancingTrans').patchValue(tempArFinancing);
+    // }
 
     /* SET TRANS VALUE FOR OTHER NUMBER FIELDS */
     const tempLoanAmount = this.demandLoanForm.get('loanAmount').value;
@@ -206,9 +201,9 @@ export class DemandLoanForWorkingCapitalComponent implements OnInit {
     this.demandLoanForm.get('complimentaryLoanSelectedCT').patchValue(
         this.demandLoanForm.get('complimentaryLoanSelectedTrans').value
     );
-    this.demandLoanForm.get('arFinancingCT').patchValue(
-        this.demandLoanForm.get('arFinancingTrans').value
-    );
+    // this.demandLoanForm.get('arFinancingCT').patchValue(
+    //     this.demandLoanForm.get('arFinancingTrans').value
+    // );
     this.demandLoanForm.get('loanAmountCT').patchValue(
         this.demandLoanForm.get('loanAmountTrans').value
     );
