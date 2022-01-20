@@ -6,6 +6,7 @@ import {EngToNepaliNumberPipe} from '../../../../../../../../../@core/pipe/eng-t
 import {CurrencyFormatterPipe} from '../../../../../../../../../@core/pipe/currency-formatter.pipe';
 import {EngNepDatePipe} from 'nepali-patro';
 import {OfferDocument} from '../../../../../../../model/OfferDocument';
+import {DatePipe} from '@angular/common';
 
 @Component({
     selector: 'app-revolving-short-term-loan',
@@ -31,7 +32,8 @@ export class RevolvingShortTermLoanComponent implements OnInit {
                 private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
                 private engToNepNumberPipe: EngToNepaliNumberPipe,
                 private currencyFormatterPipe: CurrencyFormatterPipe,
-                private engNepDatePipe: EngNepDatePipe) {
+                private engNepDatePipe: EngNepDatePipe,
+                private datePipe: DatePipe,) {
     }
 
     ngOnInit() {
@@ -203,19 +205,57 @@ export class RevolvingShortTermLoanComponent implements OnInit {
 
         const dateOfExpiryType = this.revolvingShortTermLoan.get('dateOfExpiryType').value;
         let convertedDateOfExpiry;
+        let finalExpDate;
         if (dateOfExpiryType === 'AD') {
             const tempDateOfExp = this.revolvingShortTermLoan.get('dateOfExpiry').value;
-            convertedDateOfExpiry = !ObjectUtil.isEmpty(tempDateOfExp) ?
-                this.engNepDatePipe.transform(tempDateOfExp, true) : '';
+            convertedDateOfExpiry = !ObjectUtil.isEmpty(tempDateOfExp) ? this.datePipe.transform(tempDateOfExp) : '';
+            finalExpDate = this.transformEnglishDate(convertedDateOfExpiry);
         } else {
             const tempDateOfExpNep = this.revolvingShortTermLoan.get('dateOfExpiryNepali').value;
-            convertedDateOfExpiry = !ObjectUtil.isEmpty(tempDateOfExpNep) ?
+            finalExpDate = !ObjectUtil.isEmpty(tempDateOfExpNep) ?
                 tempDateOfExpNep.nDate : '';
         }
         this.revolvingShortTermLoan.get('dateOfExpiryTypeTrans').patchValue(dateOfExpiryType);
-        this.revolvingShortTermLoan.get('dateOfExpiryTrans').patchValue(convertedDateOfExpiry);
+        this.revolvingShortTermLoan.get('dateOfExpiryTrans').patchValue(finalExpDate);
         /* FOR SETTING THE VALUE OF CT */
         this.setCTValueSave();
+    }
+
+    transformEnglishDate(date) {
+        let transformedDate;
+        let monthName;
+        const dateArray = [];
+        const splittedDate = date.split(' ');
+        if (splittedDate[0] === 'Jan') {
+            monthName = 'जनवरी';
+        } else if (splittedDate[0] === 'Feb') {
+            monthName = 'फेब्रुअरी';
+        } else if (splittedDate[0] === 'Mar') {
+            monthName = 'मार्च';
+        } else if (splittedDate[0] === 'Apr') {
+            monthName = 'अप्रिल';
+        } else if (splittedDate[0] === 'May') {
+            monthName = 'मे';
+        } else if (splittedDate[0] === 'Jun') {
+            monthName = 'जुन';
+        } else if (splittedDate[0] === 'Jul') {
+            monthName = 'जुलाई';
+        } else if (splittedDate[0] === 'Aug') {
+            monthName = 'अगष्ट';
+        } else if (splittedDate[0] === 'Sep') {
+            monthName = 'सेप्टेम्बर';
+        } else if (splittedDate[0] === 'Oct') {
+            monthName = 'अक्टुबर';
+        } else if (splittedDate[0] === 'Nov') {
+            monthName = 'नोभेम्बर';
+        } else {
+            monthName = 'डिसेम्बर';
+        }
+        dateArray.push(this.engToNepNumberPipe.transform(splittedDate[1].slice(0, -1)));
+        dateArray.push(monthName + ',');
+        dateArray.push(this.engToNepNumberPipe.transform(splittedDate[2]));
+        transformedDate = dateArray.join(' ');
+        return transformedDate;
     }
 
     /* SET CT VALUE OF EACH FIELDS */

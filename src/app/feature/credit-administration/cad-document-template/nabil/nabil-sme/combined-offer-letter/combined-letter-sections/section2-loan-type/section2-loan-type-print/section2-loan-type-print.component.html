@@ -61,7 +61,10 @@
                         </p>
                         <p *ngIf="this.loanOptionIrrevocable === 'REGULAR'">
                             <strong>सुविधा समाप्ति/पुनरावलोकन मितिः</strong>
-                            <span>{{this.loanExpiryDateIrrevocable ? this.loanExpiryDateIrrevocable : ''}}</span>
+                            {{this.letterData?.letterOfCreditForm?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
+                            <span [ngClass]="{'outside' : letterData?.letterOfCreditForm.dateOfExpiryCT !== null && letterData?.letterOfCreditForm.dateOfExpiryCT !== ''}">
+                            {{letterData?.letterOfCreditForm.dateOfExpiryCT === null || letterData?.letterOfCreditForm.dateOfExpiryCT === '' ? '___________' : letterData?.letterOfCreditForm.dateOfExpiryCT}}
+                            </span>
                         </p>
                         <p *ngIf="this.loanOptionIrrevocable === 'ONE_OFF_BASIS'">
                             <strong>सुविधा समाप्ति मितिः</strong>
@@ -115,11 +118,12 @@
                             {{letterData?.timeLetterCreditForm.minimumCommissionAmountCT === null || letterData?.timeLetterCreditForm.minimumCommissionAmountCT === '' ? '___________' : letterData?.timeLetterCreditForm.minimumCommissionAmountCT}}</span>
                            ।–लाग्नेछ ।<br>
                         <span *ngIf="this.loanOptionTimeLetter === 'REGULAR'"><strong>सुविधा समाप्ति/पुनरावलोकन मितिः</strong>
-                                    <span [ngClass]="{'outside' : letterData?.timeLetterCreditForm.dateOfExpiryCT !== null && letterData?.timeLetterCreditForm.dateOfExpiryCT !== ''}">
+                            {{this.letterData?.timeLetterCreditForm?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
+                            <span [ngClass]="{'outside' : letterData?.timeLetterCreditForm.dateOfExpiryCT !== null && letterData?.timeLetterCreditForm.dateOfExpiryCT !== ''}">
                             {{letterData?.timeLetterCreditForm.dateOfExpiryCT === null || letterData?.timeLetterCreditForm.dateOfExpiryCT === '' ? '___________' : letterData?.timeLetterCreditForm.dateOfExpiryCT}}</span><br></span>
 
                         <span *ngIf="this.loanOptionTimeLetter === 'ONE_OFF_BASIS'"><strong>सुविधा समाप्ति मितिः</strong>
-                                <span>{{this.freeInformation ? this.freeInformation.section2.loanExpiryTimeLetter : ''}}</span> <br></span>
+                            <span>{{this.freeInformation ? this.freeInformation.section2.loanExpiryTimeLetter : ''}}</span> <br></span>
                     </td>
                 </tr>
                 <tr *ngIf="isBillDiscounting && ld.loanName === loanNameConstant.IMPORT_BILLS_DISCOUNTING">
@@ -166,10 +170,11 @@
                         ।<br>
                         <strong>कर्जा भुक्तानी तरिकाः </strong>
                         <span>{{this.freeInformation ? this.freeInformation.section2.freeText1 : ''}}</span><br>
-                        <span *ngIf="this.loanOptionBillDiscounting === 'REGULAR'"><strong>सुविधा समाप्ति/पुनरावलोकन मितिः
+                        <span *ngIf="this.loanOptionBillDiscounting === 'REGULAR'"><strong>सुविधा समाप्ति/पुनरावलोकन मितिः </strong>
+                            {{this.letterData?.importBillsDiscountForm?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
                                                  <span [ngClass]="{'outside' : letterData?.importBillsDiscountForm.dateOfExpiryCT !== null && letterData?.importBillsDiscountForm.dateOfExpiryCT !== ''}">
                             {{letterData?.importBillsDiscountForm.dateOfExpiryCT === null || letterData?.importBillsDiscountForm.dateOfExpiryCT === '' ? '___________' : letterData?.importBillsDiscountForm.dateOfExpiryCT}}</span>
-                            </strong></span>
+                            </span>
                     </td>
                 </tr>
                 <tr *ngIf="isLoanTrustReceiptLoan && ld.loanName === loanNameConstant.IMPORT_LOAN_TRUST_RECEIPT_LOAN">
@@ -249,6 +254,7 @@
                         <strong>कर्जा भुक्तानी तरिकाः</strong>
                         <span>{{this.freeInformation ? this.freeInformation.section2.freeText3 : ''}}</span><br>
                         <span *ngIf="loanOptionImportLoanTrust === 'REGULAR'"><strong>सुविधा समाप्ति/पुनरावलोकन मितिः</strong>
+                            {{this.letterData?.importLoanTrust?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
                                             <span [ngClass]="{'outside' : letterData?.importLoanTrust.dateOfExpiryCT !== null && letterData?.importLoanTrust.dateOfExpiryCT !== ''}">
                             {{letterData?.importLoanTrust.dateOfExpiryCT === null || letterData?.importLoanTrust.dateOfExpiryCT === '' ? '___________' : letterData?.importLoanTrust.dateOfExpiryCT}}</span>
                             </span>
@@ -384,6 +390,7 @@
                         दिन सम्म ।</span><br>
 
                         <span *ngIf="loanOptionShortTermLoan === 'REGULAR'"><strong>कर्जा अवधि पुनरावलोकन मितिः</strong>
+                            {{this.letterData?.revolvingShortTermLoan?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
                                             <span [ngClass]="{'outside' : letterData?.revolvingShortTermLoan.dateOfExpiryCT !== null && letterData?.revolvingShortTermLoan.dateOfExpiryCT !== ''}">
                             {{letterData?.revolvingShortTermLoan.dateOfExpiryCT === null || letterData?.revolvingShortTermLoan.dateOfExpiryCT === '' ? '___________' : letterData?.revolvingShortTermLoan.dateOfExpiryCT}}</span>
                         </span><br>
@@ -464,8 +471,8 @@
                         पौष र चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।</span><br>
 
                         <span><strong>कर्जा अवधि समाप्ति/पुनरावलोकन मितिः</strong>
-
-                                            <span [ngClass]="{'outside' : letterData?.demandLoanForm.dateOfExpiryCT !== null && letterData?.demandLoanForm.dateOfExpiryCT !== ''}">
+                            {{this.letterData?.demandLoanForm?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
+                            <span [ngClass]="{'outside' : letterData?.demandLoanForm.dateOfExpiryCT !== null && letterData?.demandLoanForm.dateOfExpiryCT !== ''}">
                             {{letterData?.demandLoanForm.dateOfExpiryCT === null || letterData?.demandLoanForm.dateOfExpiryCT === '' ? '___________' : letterData?.demandLoanForm.dateOfExpiryCT}}</span>
                             </span><br>
 
@@ -518,6 +525,7 @@
                         <strong>ब्याज दरः </strong>
                         <span>{{this.freeInformation ? this.freeInformation.section2.interestRatePre : ''}}</span><br>
                         <span><strong>कर्जा अवधि समाप्ति/पुनरावलोकन मितिः </strong>
+                            {{this.letterData?.preExportForm?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
                             <span [ngClass]="{'outside' : letterData?.preExportForm.dateOfExpiryCT !== null && letterData?.preExportForm.dateOfExpiryCT !== ''}">
                             {{letterData?.preExportForm.dateOfExpiryCT === null || letterData?.dateOfExpiryCT === '' ? '___________' : letterData?.preExportForm.dateOfExpiryCT}}</span>
                             </span><br>
@@ -567,6 +575,7 @@
                         <strong>कर्जा भुक्तानी तरिकाः </strong>
                         <span>{{this.freeInformation ? this.freeInformation.section2.loanPaymentDocumentary : ''}}</span><br>
                         <span><strong>कर्जा अवधि समाप्ति/पुनरावलोकन मितिः</strong>
+                            {{this.letterData?.documentaryBillPurchase?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
                             <span [ngClass]="{'outside' : letterData?.documentaryBillPurchase.dateOfExpiryCT !== null && letterData?.documentaryBillPurchase.dateOfExpiryCT !== ''}">
                             {{letterData?.documentaryBillPurchase.dateOfExpiryCT === null || letterData?.documentaryBillPurchase.dateOfExpiryCT === '' ? '___________' : letterData?.documentaryBillPurchase.dateOfExpiryCT}}</span>
                         </span><br>
@@ -633,6 +642,7 @@
                         पौष र चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।</span><br>
 
                         <span><strong>कर्जा अवधि समाप्ति/पुनरावलोकन मितिः</strong>
+                               {{this.letterData?.overdraftLoanForm?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
                             <span [ngClass]="{'outside' : letterData?.overdraftLoanForm.dateOfExpiryCT !== null && letterData?.overdraftLoanForm.dateOfExpiryCT !== ''}">
                             {{letterData?.overdraftLoanForm.dateOfExpiryCT === null || letterData?.overdraftLoanForm.dateOfExpiryCT === '' ? '___________' : letterData?.overdraftLoanForm.dateOfExpiryCT}}</span>
                         </span><br>
@@ -728,6 +738,7 @@
                         पौष र चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।</span><br>
 
                         <span><strong>कर्जा अवधि समाप्ति/पुनरावलोकन मितिः</strong>
+                            {{this.letterData?.equityMortgaged?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
                             <span [ngClass]="{'outside' : letterData?.equityMortgaged.dateOfExpiryCT !== null && letterData?.equityMortgaged.dateOfExpiryCT !== ''}">
                             {{letterData?.equityMortgaged.dateOfExpiryCT === null || letterData?.equityMortgaged.dateOfExpiryCT === '' ? '___________' : letterData?.equityMortgaged.dateOfExpiryCT}}</span>
                         </span><br>
@@ -864,6 +875,7 @@
                             निर्धारण गरीएकोछ र सो ब्याज रकम नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र
                             चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।</span><br>
                         <span><strong>कर्जा अवधि समाप्ति/पुनरावलोकन मितिः</strong>
+                            {{this.letterData?.overdraftFixedForm?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
                             <span [ngClass]="{'outside' : letterData?.overdraftFixedForm.dateOfExpiryCT !== null && letterData?.overdraftFixedForm.dateOfExpiryCT !== ''}">
                             {{letterData?.overdraftFixedForm.dateOfExpiryCT === null || letterData?.overdraftFixedForm.dateOfExpiryCT === '' ? '___________' : letterData?.overdraftFixedForm.dateOfExpiryCT}}</span>
                         </span><br>
@@ -942,6 +954,7 @@
                             चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।</span><br>
                         </p>
                         <span><strong>कर्जा अवधि समाप्ति/पुनरावलोकन मितिः</strong>
+                            {{this.letterData?.overDraftFacilityForm?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
                             <span [ngClass]="{'outside' : letterData?.overDraftFacilityForm.dateOfExpiryCT !== null && letterData?.overDraftFacilityForm.dateOfExpiryCT !== ''}">
                             {{letterData?.overDraftFacilityForm.interestRateCT === null || letterData?.overDraftFacilityForm.dateOfExpiryCT === '' ? '___________' : letterData?.overDraftFacilityForm.dateOfExpiryCT}}</span>
                         </span><br>
@@ -1120,6 +1133,7 @@
                         </p>
                         <p>
                             सुविधा समाप्ति/पुनरावलोकन मितिः
+                            {{this.letterData?.bankGuarantee?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
                             <span [ngClass]="{'outside' : letterData?.bankGuarantee.dateOfExpiryCT !== null && letterData?.bankGuarantee.dateOfExpiryCT !== ''}">
                             {{letterData?.bankGuarantee.dateOfExpiryCT === null || letterData?.bankGuarantee.dateOfExpiryCT === '' ? '___________' : letterData?.bankGuarantee.dateOfExpiryCT}}</span>
                         </p>
@@ -1165,6 +1179,7 @@
                         </p>
                         <p>
                             <strong>कर्जा अवधि समाप्ति/पुनरावलोकन मितिः </strong>
+                            {{this.letterData?.billPurchaseForm?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
                             <span [ngClass]="{'outside' : letterData?.billPurchaseForm.dateOfExpiryCT !== null && letterData?.billPurchaseForm.dateOfExpiryCT !== ''}">
                             {{letterData?.billPurchaseForm.dateOfExpiryCT === null || letterData?.billPurchaseForm.dateOfExpiryCT === '' ? '___________' : letterData?.billPurchaseForm.dateOfExpiryCT}}</span>
                             ।
