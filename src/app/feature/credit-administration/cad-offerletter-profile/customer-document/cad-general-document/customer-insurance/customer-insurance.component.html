@@ -1,16 +1,17 @@
-
-
-            <div class="row">
-                <div class="col-md-6 img-hover flex-wrap"
-                     *ngFor="let data of insuranceList;let i =index"
-                     [nbTooltip]="data?.company">
-                    <a (click)="service.openDocument(data?.policyDocumentPath)" class="cursor"><em
-                            [className]="service.SET_CLASS_NAME"></em>
-                        <span class="mx-1"> {{data?.company?.length > 50 ?
-                            data?.company?.substring(0, 45) + '..' :
-                            data?.company}}</span></a>
-                </div>
-            </div>
-
-
-
+<div class="col-md-12">
+    <div class="row" *ngFor="let data of insuranceList;let i =index"
+         [nbTooltip]="data?.company">
+        <div class="col-md-6 img-hover flex-wrap text-left" *ngFor="let singleDoc of data?.policyDocumentPath.split(',')">
+            <a (click)="service.openDocument(singleDoc)" class="cursor">
+                <em
+                        [className]="service.SET_CLASS_NAME">
+                </em>
+                <span class="mx-1">
+                                    {{(singleDoc.substring(singleDoc.lastIndexOf('/') + 1, singleDoc.length)).length > 50 ?
+                    (singleDoc.substring(singleDoc.lastIndexOf('/') + 1, singleDoc.length)).substring(0, 45) + '..' :
+                    (singleDoc.substring(singleDoc.lastIndexOf('/') + 1, singleDoc.length))}}
+                                </span>
+            </a>
+        </div>
+    </div>
+</div>

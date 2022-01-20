@@ -170,24 +170,23 @@ export class SecuritySummaryComponent implements OnInit {
         if (this.formData['guarantorsForm']['guarantorsDetails'].length !== 0) {
             this.isPresentGuarantor = true;
         }
-        if (!ObjectUtil.isEmpty(this.collateralData) && this.docStatus.toString() === 'APPROVED') {
-            this.collateralSiteVisits = this.collateralData;
-            const arr = [];
-            this.collateralSiteVisits.forEach(f => {
-                if (!ObjectUtil.isEmpty(f.siteVisitDocuments)) {
-                    arr.push(f.siteVisitDocuments);
+        if (this.docStatus.toString() === 'APPROVED') {
+            if (!ObjectUtil.isEmpty(this.collateralData)) {
+                this.collateralSiteVisits = this.collateralData;
+                const arr = [];
+                this.collateralSiteVisits.forEach(f => {
+                    if (!ObjectUtil.isEmpty(f.siteVisitDocuments)) {
+                        arr.push(f.siteVisitDocuments);
+                    }
+                });
+                // make nested array of objects as a single array eg: [1,2,[3[4,[5,6]]]] = [1,2,3,4,5,6]
+                this.siteVisitDocuments = flatten(arr);
+                this.collateralSiteVisits.filter(item => {
+                    this.siteVisitJson.push(JSON.parse(item.siteVisitJsonData));
+                });
+                if (this.collateralData.length > 0) {
+                    this.isCollateralSiteVisitPresent = true;
                 }
-            });
-            // make nested array of objects as a single array eg: [1,2,[3[4,[5,6]]]] = [1,2,3,4,5,6]
-            const docArray = flatten(arr);
-            // filter for only printable document
-            this.siteVisitDocuments = docArray.filter(f => f.isPrintable === this.isPrintable);
-
-            this.collateralSiteVisits.filter(item => {
-                this.siteVisitJson.push(JSON.parse(item.siteVisitJsonData));
-            });
-            if (this.collateralData.length > 0) {
-                this.isCollateralSiteVisitPresent = true;
             }
         } else {
             if (!ObjectUtil.isEmpty(this.securityId)) {
@@ -201,9 +200,7 @@ export class SecuritySummaryComponent implements OnInit {
                             }
                         });
                         // make nested array of objects as a single array eg: [1,2,[3[4,[5,6]]]] = [1,2,3,4,5,6]
-                        const docArray = flatten(arr);
-                        // filter for only printable document
-                        this.siteVisitDocuments = docArray.filter(f => f.isPrintable === this.isPrintable);
+                        this.siteVisitDocuments = flatten(arr);
                         this.collateralSiteVisits.filter(item => {
                             this.siteVisitJson.push(JSON.parse(item.siteVisitJsonData));
                         });

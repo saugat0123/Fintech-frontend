@@ -318,7 +318,7 @@ export class GuarantorComponent implements OnInit {
   }
 
   documentPath(path, i) {
-    this.form.get(['guarantorDetails', i, 'docPath']).patchValue(path);
+    this.form.get(['guarantorDetails', i, 'docPath']).patchValue(path.toString());
   }
 
   sameAsAbove(i) {
