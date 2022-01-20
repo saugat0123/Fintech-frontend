@@ -596,7 +596,7 @@
                                            [value]="this.nepaliCurrencyWordPipe.transform(personalGuarantor.gurantedAmount.en)"
                                            />
                                     मात्र) बराबरको
-                                    {{personalGuarantor.gender.en === 'FEMALE' && personalGuarantor.relationMedium.en === '0' ? 'श्रीमती' : (personalGuarantor.gender.en === 'FEMALE' && personalGuarantor.relationMedium.en === '1' ? 'सुश्री' : personalGuarantor.gender.en === 'MALE' ? 'श्रीमान्' : '')}}
+                                    {{personalGuarantor.gender.en === 'FEMALE' && personalGuarantor.relationMedium.en === '0' ? 'श्रीमती' : (personalGuarantor.gender.en === 'FEMALE' && personalGuarantor.relationMedium.en === '1' ? 'सुश्री' : personalGuarantor.gender.en === 'MALE' ? 'श्री' : '')}}
                                     <input formControlName="personalGuaranteeName"
                                            name="personalguaranteeName"
                                            type="text"
