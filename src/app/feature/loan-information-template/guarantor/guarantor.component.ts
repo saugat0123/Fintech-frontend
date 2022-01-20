@@ -163,27 +163,23 @@ export class GuarantorComponent implements OnInit {
         Validators.required
       ],
       citizenNumber: [
-        ObjectUtil.setUndefinedIfNull(data.citizenNumber),
-        Validators.required
+        ObjectUtil.setUndefinedIfNull(data.citizenNumber)
       ],
       issuedYear: [
-        ObjectUtil.isEmpty(data.issuedYear) ? undefined : new Date(data.issuedYear), Validators.required,
+        ObjectUtil.isEmpty(data.issuedYear) ? undefined : new Date(data.issuedYear)
       ],
       issuedPlace: [
-        ObjectUtil.setUndefinedIfNull(data.issuedPlace),
-        Validators.required
+        ObjectUtil.setUndefinedIfNull(data.issuedPlace)
       ],
       contactNumber: [
         ObjectUtil.setUndefinedIfNull(data.contactNumber),
         Validators.required
       ],
       fatherName: [
-        ObjectUtil.setUndefinedIfNull(data.fatherName),
-        Validators.required
+        ObjectUtil.setUndefinedIfNull(data.fatherName)
       ],
       grandFatherName: [
-        ObjectUtil.setUndefinedIfNull(data.grandFatherName),
-        Validators.required
+        ObjectUtil.setUndefinedIfNull(data.grandFatherName)
       ],
       relationship: [
         ObjectUtil.setUndefinedIfNull(data.relationship),
@@ -240,6 +236,7 @@ export class GuarantorComponent implements OnInit {
       femaleMarDirector: [undefined],
 
       // legal
+      legalStatus: [undefined],
       registrationNumber: [undefined],
       registrationDate: [undefined],
       registrationWith: [undefined],
@@ -459,5 +456,59 @@ export class GuarantorComponent implements OnInit {
       this.spinner = false;
       this.toastService.show(new Alert(AlertType.ERROR, 'Error While Fetching List'));
     });
+  }
+
+  legalChange(checked, i: number) {
+    console.log('checked', 'i', checked, i);
+    if (checked) {
+      this.clearValidation(checked, i);
+      console.log('I am here');
+      const test = ['citizenNumber', 'issuedYear', 'issuedPlace', 'dateOfBirth', 'fatherName', 'grandFatherName'];
+      this.form.get(['guarantorDetails', i, 'gender']).patchValue(null);
+      // this.form.get(['guarantorDetails', i, 'citizenNumber']).patchValue(null);
+      // this.form.get(['guarantorDetails', i, 'issuedYear']).patchValue(null);
+      // this.form.get(['guarantorDetails', i, 'issuedPlace']).patchValue(null);
+      this.form.get(['guarantorDetails', i, 'passNumber']).patchValue(null);
+      this.form.get(['guarantorDetails', i, 'passIssueDate']).patchValue(null);
+      this.form.get(['guarantorDetails', i, 'passIssuedPlace']).patchValue(null);
+      // this.form.get(['guarantorDetails', i, 'dateOfBirth']).patchValue(null);
+      // this.form.get(['guarantorDetails', i, 'fatherName']).patchValue(null);
+      // this.form.get(['guarantorDetails', i, 'grandFatherName']).patchValue(null);
+      this.form.get(['guarantorDetails', i, 'motherName']).patchValue(null);
+      this.form.get(['guarantorDetails', i, 'spouseName']).patchValue(null);
+      this.form.get(['guarantorDetails', i, 'fatherInLaw']).patchValue(null);
+      this.form.get(['guarantorDetails', i, 'nationality']).patchValue(null);
+      this.form.get(['guarantorDetails', i, 'managementTeam']).patchValue(null);
+      this.form.get(['guarantorDetails', i, 'managementDesignation']).patchValue(null);
+      this.form.get(['guarantorDetails', i, 'boardDirector']).patchValue(null);
+      this.form.get(['guarantorDetails', i, 'bodNumber']).patchValue(null);
+      this.form.get(['guarantorDetails', i, 'bodFemaleDirector']).patchValue(null);
+      this.form.get(['guarantorDetails', i, 'marginalisedDirector']).patchValue(null);
+      this.form.get(['guarantorDetails', i, 'femaleMarDirector']).patchValue(null);
+    } else {
+      this.form.get(['guarantorDetails', i, 'registrationNumber']).patchValue(null);
+      this.form.get(['guarantorDetails', i, 'registrationDate']).patchValue(null);
+      this.form.get(['guarantorDetails', i, 'registrationWith']).patchValue(null);
+      this.form.get(['guarantorDetails', i, 'groupName']).patchValue(null);
+    }
+  }
+
+  controlValidation(controlNames: string[], validate) {
+    controlNames.forEach(s => {
+      if (validate) {
+        this.form.get(s).setValidators(Validators.required);
+      } else {
+        this.form.get(s).clearValidators();
+      }
+      this.form.get(s).updateValueAndValidity();
+    });
+  }
+
+  clearValidation(checked, i) {
+    if (checked) {
+      this.controlValidation(['citizenNumber', 'issuedYear', 'issuedPlace', 'dateOfBirth', 'fatherName', 'grandFatherName'], true);
+    } else {
+      this.controlValidation(['citizenNumber', 'issuedYear', 'issuedPlace', 'dateOfBirth', 'fatherName', 'grandFatherName'], false);
+    }
   }
 }

@@ -1165,11 +1165,7 @@
             </div>
 
             <br>
-            <div *ngIf="client !== clientName?.LAXMIBANK">
-                <app-guarantor-summary *ngIf="checkGuarantorData"
-                                       [guarantorData]="guarantorData"></app-guarantor-summary>
-            </div>
-            <div *ngIf="client === clientName?.LAXMIBANK">
+            <div>
                 <app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0"
                                     [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
             </div>

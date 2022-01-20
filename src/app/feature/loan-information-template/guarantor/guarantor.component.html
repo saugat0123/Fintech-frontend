@@ -32,7 +32,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
-                                    <nb-checkbox formControlName="consentOfLegalHeirs">Consent of Legal Heirs</nb-checkbox>
+                                    <nb-checkbox formControlName="consentOfLegalHeirs" (change)="legalChange($event?.target?.checked, i)">Consent of Legal Heirs</nb-checkbox>
                                 </div>
                             </div>
                             <div class="row">
@@ -62,6 +62,30 @@
                                 </div>
 
                                 <ng-container *ngIf="guarantorDetails?.get('consentOfLegalHeirs').value; else nonIlegal">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label><strong>Legal Status</strong></label>
+                                            <input [ngClass]="{ 'is-invalid': (submitted ) && guarantorDetails?.get('legalStatus')?.errors }"
+                                                   class="form-control form-control-sm-error rounded"
+                                                   formControlName="legalStatus"
+                                                   id="legalStatus"
+                                                   name="legalStatus"
+                                                   placeholder="Legal Status"
+                                                   type="text">
+                                            <div *ngIf="(submitted) && guarantorDetails?.get('legalStatus')?.invalid"
+                                                 class="invalid-feedback">
+                                                <div *ngIf="guarantorDetails?.get('legalStatus')?.errors?.required">
+                                                    Legal Status is required
+                                                </div>
+                                            </div>
+                                            <div *ngIf="(addMore) && guarantorDetails?.get('legalStatus')?.invalid"
+                                                 class="alert-warning">
+                                                <div *ngIf="guarantorDetails?.get('legalStatus')?.errors?.required">
+                                                    Please fill Legal Status
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label><strong>Registration Number</strong></label>
@@ -144,7 +168,7 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label><strong>Group Name</strong></label>
+                                            <label><strong>Group Name <em class="sb-medium">(if any)</em></strong></label>
                                             <input [ngClass]="{ 'is-invalid': (submitted ) && guarantorDetails?.get('groupName')?.errors }"
                                                    class="form-control form-control-sm-error rounded"
                                                    formControlName="groupName"
@@ -386,6 +410,88 @@
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
+                                            <label><strong>Father's Name</strong></label>
+                                            <input [ngClass]="{ 'is-invalid': (submitted) && guarantorDetails.get('fatherName').errors }"
+                                                   class="form-control form-control-sm-error rounded"
+                                                   formControlName="fatherName"
+                                                   id="fatherName"
+                                                   name="fatherName"
+                                                   placeholder="Father's Name"
+                                                   type="text"/>
+                                            <div *ngIf="(submitted) && guarantorDetails.get('fatherName').invalid"
+                                                 class="invalid-feedback">
+                                                <div *ngIf="guarantorDetails.get('fatherName').errors.required">
+                                                    Father's name is required
+                                                </div>
+                                            </div>
+                                            <div *ngIf="(addMore) && guarantorDetails.get('fatherName').invalid"
+                                                 class="alert-warning">
+                                                <div *ngIf="guarantorDetails.get('fatherName').errors.required">
+                                                    Please fill Guarantors Father's name
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label><strong> Grandfather Name</strong></label>
+                                            <input [ngClass]="{ 'is-invalid': (submitted) && guarantorDetails.get('grandFatherName').errors }"
+                                                   class="form-control form-control-sm-error rounded"
+                                                   formControlName="grandFatherName"
+                                                   id="grandFatherName"
+                                                   name="grandFatherName"
+                                                   placeholder="Grandfather's Name"
+                                                   type="text"/>
+                                            <div *ngIf="(submitted) && guarantorDetails.get('grandFatherName').invalid"
+                                                 class="invalid-feedback">
+                                                <div *ngIf="guarantorDetails.get('grandFatherName').errors.required">
+                                                    Guarantors Grandfathers name is required
+                                                </div>
+                                            </div>
+                                            <div *ngIf="(addMore) && guarantorDetails.get('grandFatherName').invalid"
+                                                 class="alert-warning">
+                                                <div *ngIf="guarantorDetails.get('grandFatherName').errors.required">
+                                                    Please fill Guarantors Grandfathers name
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label><strong> Mother's Name</strong></label>
+                                            <input class="form-control form-control-sm-error rounded"
+                                                   formControlName="motherName"
+                                                   id="motherName"
+                                                   name="motherName"
+                                                   placeholder="Mother's Name"
+                                                   type="text"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label><strong> Spouse's Name</strong></label>
+                                            <input class="form-control form-control-sm-error rounded"
+                                                   formControlName="spouseName"
+                                                   id="spouseName"
+                                                   name="spouseName"
+                                                   placeholder="Spouse's Name"
+                                                   type="text"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label><strong> Father-in-Law's Name </strong></label>
+                                            <input
+                                                    class="form-control form-control-sm-error rounded"
+                                                    formControlName="fatherInLaw"
+                                                    id="fatherInLaw"
+                                                    name="fatherInLaw"
+                                                    placeholder="Father-in-Law's Name "
+                                                    type="text"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
                                             <label><strong>Nationality</strong></label>
                                             <input [ngClass]="{ 'is-invalid': (submitted) && guarantorDetails.get('nationality').errors }"
                                                    class="form-control form-control-sm-error rounded"
@@ -404,30 +510,6 @@
                                                  class="alert-warning">
                                                 <div *ngIf="guarantorDetails.get('nationality').errors.required">
                                                     Please fill Nationality
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label><strong>Contact</strong></label>
-                                            <input [ngClass]="{ 'is-invalid': (submitted) && guarantorDetails.get('contactNumber').errors }"
-                                                   class="form-control form-control-sm-error rounded"
-                                                   formControlName="contactNumber"
-                                                   id="contactNumber"
-                                                   name="contactNumber"
-                                                   placeholder="contact Number"
-                                                   type="text"/>
-                                            <div *ngIf="(submitted) && guarantorDetails.get('contactNumber').invalid"
-                                                 class="invalid-feedback">
-                                                <div *ngIf="guarantorDetails.get('contactNumber').errors.required">
-                                                    Contact Number is required
-                                                </div>
-                                            </div>
-                                            <div *ngIf="(addMore) && guarantorDetails.get('contactNumber').invalid"
-                                                 class="alert-warning">
-                                                <div *ngIf="guarantorDetails.get('contactNumber').errors.required">
-                                                    Please fill Contact Number
                                                 </div>
                                             </div>
                                         </div>
@@ -533,9 +615,9 @@
                                                         Directors from marginalized community group is required
                                                     </div>
                                                 </div>
-                                                <div *ngIf="(addMore) && guarantorDetails?.get('sharePercent')?.invalid"
+                                                <div *ngIf="(addMore) && guarantorDetails?.get('marginalisedDirector')?.invalid"
                                                      class="alert-warning">
-                                                    <div *ngIf="guarantorDetails?.get('sharePercent')?.errors?.required">
+                                                    <div *ngIf="guarantorDetails?.get('marginalisedDirector')?.errors?.required">
                                                         Please fill Directors from marginalized community group
                                                     </div>
                                                 </div>
@@ -544,7 +626,7 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label><strong>No. of Directors from marginalized community group</strong></label>
-                                                <input [ngClass]="{ 'is-invalid': (submitted) && guarantorDetails.get('sharePercent').errors }"
+                                                <input [ngClass]="{ 'is-invalid': (submitted) && guarantorDetails.get('femaleMarDirector').errors }"
                                                        class="form-control form-control-sm-error rounded"
                                                        formControlName="femaleMarDirector"
                                                        id="femaleMarDirector"
@@ -567,6 +649,30 @@
                                         </div>
                                     </ng-container>
                                 </ng-template>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label><strong>Contact</strong></label>
+                                        <input [ngClass]="{ 'is-invalid': (submitted) && guarantorDetails.get('contactNumber').errors }"
+                                               class="form-control form-control-sm-error rounded"
+                                               formControlName="contactNumber"
+                                               id="contactNumber"
+                                               name="contactNumber"
+                                               placeholder="contact Number"
+                                               type="text"/>
+                                        <div *ngIf="(submitted) && guarantorDetails.get('contactNumber').invalid"
+                                             class="invalid-feedback">
+                                            <div *ngIf="guarantorDetails.get('contactNumber').errors.required">
+                                                Contact Number is required
+                                            </div>
+                                        </div>
+                                        <div *ngIf="(addMore) && guarantorDetails.get('contactNumber').invalid"
+                                             class="alert-warning">
+                                            <div *ngIf="guarantorDetails.get('contactNumber').errors.required">
+                                                Please fill Contact Number
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label><strong>PAN Number</strong></label>
@@ -731,89 +837,6 @@
                                         </select>
                                     </div>
                                 </div>
-
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label><strong>Father's Name</strong></label>
-                                        <input [ngClass]="{ 'is-invalid': (submitted) && guarantorDetails.get('fatherName').errors }"
-                                               class="form-control form-control-sm-error rounded"
-                                               formControlName="fatherName"
-                                               id="fatherName"
-                                               name="fatherName"
-                                               placeholder="Father's Name"
-                                               type="text"/>
-                                        <div *ngIf="(submitted) && guarantorDetails.get('fatherName').invalid"
-                                             class="invalid-feedback">
-                                            <div *ngIf="guarantorDetails.get('fatherName').errors.required">
-                                                Father's name is required
-                                            </div>
-                                        </div>
-                                        <div *ngIf="(addMore) && guarantorDetails.get('fatherName').invalid"
-                                             class="alert-warning">
-                                            <div *ngIf="guarantorDetails.get('fatherName').errors.required">
-                                                Please fill Guarantors Father's name
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label><strong> Grandfather Name</strong></label>
-                                        <input [ngClass]="{ 'is-invalid': (submitted) && guarantorDetails.get('grandFatherName').errors }"
-                                               class="form-control form-control-sm-error rounded"
-                                               formControlName="grandFatherName"
-                                               id="grandFatherName"
-                                               name="grandFatherName"
-                                               placeholder="Grandfather's Name"
-                                               type="text"/>
-                                        <div *ngIf="(submitted) && guarantorDetails.get('grandFatherName').invalid"
-                                             class="invalid-feedback">
-                                            <div *ngIf="guarantorDetails.get('grandFatherName').errors.required">
-                                                Guarantors Grandfathers name is required
-                                            </div>
-                                        </div>
-                                        <div *ngIf="(addMore) && guarantorDetails.get('grandFatherName').invalid"
-                                             class="alert-warning">
-                                            <div *ngIf="guarantorDetails.get('grandFatherName').errors.required">
-                                                Please fill Guarantors Grandfathers name
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label><strong> Mother's Name</strong></label>
-                                        <input class="form-control form-control-sm-error rounded"
-                                               formControlName="motherName"
-                                               id="motherName"
-                                               name="motherName"
-                                               placeholder="Mother's Name"
-                                               type="text"/>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label><strong> Spouse's Name</strong></label>
-                                        <input class="form-control form-control-sm-error rounded"
-                                               formControlName="spouseName"
-                                               id="spouseName"
-                                               name="spouseName"
-                                               placeholder="Spouse's Name"
-                                               type="text"/>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label><strong> Father-in-Law's Name </strong></label>
-                                        <input
-                                            class="form-control form-control-sm-error rounded"
-                                            formControlName="fatherInLaw"
-                                            id="fatherInLaw"
-                                            name="fatherInLaw"
-                                            placeholder="Father-in-Law's Name "
-                                            type="text"/>
-                                    </div>
-                                </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label><strong>Relationship</strong></label>
@@ -855,7 +878,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="col-md-12">
                                     <h6><b>Permanent Address</b></h6>
                                 </div>
@@ -996,7 +1018,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="col-md-12">
                                     <nb-checkbox #tempAddress (change)="sameAsAbove(i,tempAddress.checked)" formControlName="checkSameAddress"><i>Same as Permanent Address for Current Address</i></nb-checkbox>
                                 </div>
