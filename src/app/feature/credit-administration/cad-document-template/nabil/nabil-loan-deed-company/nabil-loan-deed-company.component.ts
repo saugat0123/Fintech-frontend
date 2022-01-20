@@ -59,7 +59,7 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
   autoCheck = false;
   freeText1Check = false;
   freeText2Check = false;
-  actYearDate;
+  actYear;
   regDate;
   finalAmount;
   loanAmountWord;
@@ -91,9 +91,7 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.individualData = JSON.parse(this.cadData.loanHolder.nepData);
     }
-    if (!ObjectUtil.isEmpty(this.supportedInfo)) {
-      this.freeText = this.supportedInfo.combinedFreeText;
-    }
+    this.setFreeInfo();
     if (this.cadData.offerDocumentList[0].docName === 'DDSL Without Subsidy' ||
         this.cadData.offerDocumentList[0].docName === 'Interest subsidy sanction letter' ||
         this.cadData.offerDocumentList[0].docName === 'Combined Offer Letter') {
@@ -112,9 +110,8 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.supportedInfo) && !ObjectUtil.isEmpty(this.supportedInfo.freeText2)) {
       this.freeText2Check = true;
     }
-    this.setFreeInfo();
     this.getLoanName();
-    this.setLoanDeedCompanyFormData(this.cadData);
+    this.fillForm();
   }
   primarySecurityCheck() {
     this.initialInfo.securities.primarySecurity.forEach(val => {
@@ -135,31 +132,23 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
       this.SecurityTypeCheck = true;
     }
   }
-  private setLoanDeedCompanyFormData(cadData): void {
-    if (!ObjectUtil.isEmpty(cadData)) {
-      const data = JSON.parse(cadData.loanHolder.nepData);
-      // for final Amount
-      let totalLoan = 0;
-      this.cadData.assignedLoan.forEach(val => {
-        const proposedAmount = val.proposal.proposedLimit;
-        totalLoan = totalLoan + proposedAmount;
-      });
-      this.finalAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoan));
-      this.loanAmountWord = this.nepaliCurrencyWordPipe.transform(totalLoan);
-      // for date conversion of registration date
+  fillForm() {
+    let totalLoan = 0;
+    this.cadData.assignedLoan.forEach(val => {
+      const proposedAmount = val.proposal.proposedLimit;
+      totalLoan = totalLoan + proposedAmount;
+    });
+    this.finalAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoan));
+    this.loanAmountWord = this.nepaliCurrencyWordPipe.transform(totalLoan);
+    // for date conversion of registration date
+    if (!ObjectUtil.isEmpty(this.individualData.registrationDateOption)) {
       if (this.individualData.registrationDateOption.en === 'AD') {
         this.regDate = this.engToNepaliDate.transform(this.individualData.registrationDate.en ?
-            this.individualData.registrationDate.en : this.individualData.registrationDate.en, true) || '' ;
+            this.individualData.registrationDate.en : this.individualData.registrationDate.en, true) || '';
       } else {
         this.regDate = this.individualData.registrationDate.en.nDate ? this.individualData.registrationDate.en.nDate : '';
       }
-      // for date conversion of act year date
-      if (!ObjectUtil.isEmpty(data.actYear.np)) {
-        this.actYearDate = data.actYear.np;
-      } else {
-        const convertedDate = this.datePipe.transform(data.actYear.en);
-        this.actYearDate = this.engToNepaliDate.transform(convertedDate, true);
-      }
+    }
       if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
         if (this.cadData.offerDocumentList[0].docName === 'DDSL Without Subsidy' ||
             this.cadData.offerDocumentList[0].docName === 'Class A Sanction letter') {
@@ -614,10 +603,10 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
               this.addCombinedFreeText();
               if (this.cadData.cadFileList.length > 0) {
                 this.form.get(['combinedFreeText', index, 'dateOfExpiry']).patchValue(
-                    this.supportedInfo.combinedFreeText[index].dateOfExpiry
+                    this.supportedInfo ? this.supportedInfo.combinedFreeText[index].dateOfExpiry : ''
                 );
                 this.form.get(['combinedFreeText', index, 'interestRateCombined']).patchValue(
-                    this.supportedInfo.combinedFreeText[index].interest
+                    this.supportedInfo ? this.supportedInfo.combinedFreeText[index].interest : ''
                 );
               } else {
                 this.form.get(['combinedFreeText', index, 'dateOfExpiry']).patchValue(
@@ -628,28 +617,36 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
           }
         }
       }
-      // for date of expiry
+    // for date conversion of act year date
+    if (!ObjectUtil.isEmpty(this.individualData.radioActYearDate)) {
+      if (this.individualData.radioActYearDate.en === 'AD') {
+        this.actYear = this.engToNepNumberPipe.transform(this.individualData.actYear ?
+            this.individualData.actYear.en : this.individualData.actYear.en);
+      } else {
+        this.actYear = this.individualData.actYear ? this.individualData.actYear.en : '';
+      }
+    }
+    // for date of expiry
       if (this.cadData.offerDocumentList[0].docName !== 'Combined Offer Letter') {
         if (this.cadData.cadFileList.length > 0) {
-          const date = JSON.parse(this.cadData.cadFileList[0].supportedInformation);
+          const date = this.supportedInfo;
           this.dateOfExpirySingle = !ObjectUtil.isEmpty(date) ? date.dateOfExpirySingle : '';
         }
       }
       // for patch value
-      this.form.get('nameOfBranch').patchValue(data.branch.ct);
-      this.form.get('actName').patchValue(data.actName.ct);
-      this.form.get('actYearInFigure').patchValue(this.actYearDate ? this.actYearDate : '');
-      this.form.get('authorizedBody').patchValue(data.authorizedBodyName.ct ? data.authorizedBodyName.ct : 'नेपाल सरकार');
-      this.form.get('headSectionDepartment').patchValue(data.registeredWith.ct);
+      this.form.get('nameOfBranch').patchValue(this.individualData.branch.ct);
+      this.form.get('actName').patchValue(this.individualData.actName.ct);
+      this.form.get('actYearInFigure').patchValue(this.actYear ? this.actYear : '');
+      this.form.get('authorizedBody').patchValue(this.individualData.authorizedBodyName.ct ? this.individualData.authorizedBodyName.ct : 'नेपाल सरकार');
+      this.form.get('headSectionDepartment').patchValue(this.individualData.registeredWith.ct);
       this.form.get('registrationDate').patchValue(this.regDate ? this.regDate : '');
-      this.form.get('registrationNo').patchValue(data.registrationNo.ct);
-      this.form.get('companyName').patchValue(data.name.ct);
+      this.form.get('registrationNo').patchValue(this.individualData.registrationNo.ct);
+      this.form.get('companyName').patchValue(this.individualData.name.ct);
       this.form.get('loanAmountInFigure').patchValue(this.finalAmount ? this.finalAmount : '');
       this.form.get('loanAmountInWords').patchValue(this.loanAmountWord ? this.loanAmountWord : '');
       this.form.get('sanctionLetterIssuedDate').patchValue(this.sanctionDate ? this.sanctionDate : '');
       this.form.get('dateOfExpirySingle').patchValue(this.dateOfExpirySingle ? this.dateOfExpirySingle : '');
-    }
-    this.patchFreeText();
+      this.patchFreeText();
   }
 
   private buildForm(): FormGroup {
@@ -717,7 +714,6 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
       purposeOfLoan: this.form.get('purposeOfLoan').value ? this.form.get('purposeOfLoan').value : '',
       autoFreeText: this.form.get('autoFreeText').value ? this.form.get('autoFreeText').value : '',
       autoFreeText2: this.form.get('autoFreeText2') ? this.form.get('autoFreeText2').value : '',
-      combinedFreeText: this.freeText,
       // for witness
       witnessDistrict1: this.form.get('witnessDistrict1') ? this.form.get('witnessDistrict1').value : '',
       witnessMuni1: this.form.get('witnessMuni1') ? this.form.get('witnessMuni1').value : '',
@@ -735,6 +731,7 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
       date: this.form.get('date') ? this.form.get('date').value : '',
       days: this.form.get('days') ? this.form.get('days').value : '',
       suvam: this.form.get('suvam') ? this.form.get('suvam').value : '',
+      combinedFreeText: this.freeText,
     };
     return JSON.stringify(free1);
   }
@@ -786,7 +783,7 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
   submit() {
     let flag = true;
     this.spinner = true;
-    if (!ObjectUtil.isEmpty(this.cadData)) {
+    if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(individualCadFile => {
         if (individualCadFile.customerLoanId === this.customerLoanId && individualCadFile.cadDocument.id === this.documentId) {
           flag = false;
@@ -796,7 +793,7 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
       if (flag) {
         const cadFile = new CadFile();
         const document = new Document();
-        this.initialInfoPrint = cadFile.initialInformation;
+        cadFile.supportedInformation = this.setCombinedFreeText();
         document.id = this.documentId;
         cadFile.cadDocument = document;
         cadFile.customerLoanId = this.customerLoanId;
