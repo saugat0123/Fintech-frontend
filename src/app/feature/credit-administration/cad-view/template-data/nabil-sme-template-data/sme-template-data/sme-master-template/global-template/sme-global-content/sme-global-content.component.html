@@ -31,7 +31,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" *ngIf="hypothecationVisible">
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="ml-1 font-weight-bold">Hypothecation</label>
@@ -100,6 +100,17 @@
                                    formControlName="interestRateType" shape="semi-round">
                             <nb-option *ngFor="let type of interestRateType" [value]="type?.value">{{type?.value}}</nb-option>
                         </nb-select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <div class="col-md-12 mt-2">
+                            <nb-checkbox #arFinancing (checkedChange)="checkARFinancing(arFinancing.checked)"
+                                         [checked]="isARFinancing" (click)="toggleShow()" formControlName="arFinancing">
+                                <i> Is AR Financing only ? </i></nb-checkbox>
+                        </div>
                     </div>
                 </div>
             </div>
