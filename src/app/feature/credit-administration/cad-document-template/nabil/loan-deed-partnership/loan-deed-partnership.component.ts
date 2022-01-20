@@ -23,6 +23,7 @@ import {NabilOfferLetterConst} from '../../../nabil-offer-letter-const';
 import {LoanNameConstant} from '../../../cad-view/template-data/nabil-sme-template-data/sme-costant/loan-name-constant';
 import {document} from 'ionicons/icons';
 import {OfferDocument} from '../../../model/OfferDocument';
+import {logger} from 'codelyzer/util/logger';
 
 @Component({
     selector: 'app-loan-deed-partnership',
@@ -41,7 +42,6 @@ export class LoanDeedPartnershipComponent implements OnInit {
     nepData;
     ckEditorConfig = Editor.CK_CONFIG;
     offerLetterDocument;
-    educationalTemplateData;
     offerDocumentChecklist = NabilOfferLetterConst;
     selectiveArr = [];
     companyInfo;
@@ -66,8 +66,8 @@ export class LoanDeedPartnershipComponent implements OnInit {
     sanctionDate;
     actYear;
     dateOfExpirySingle;
-    isAutoOrTermLoan = false;
-
+    isAutoLoan = false;
+    isTermLoan = false;
 
     constructor(private formBuilder: FormBuilder,
                 private administrationService: CreditAdministrationService,
@@ -117,7 +117,7 @@ export class LoanDeedPartnershipComponent implements OnInit {
         }
         this.getLoanName();
         this.fillForm();
-        this.checkAutoOrTermLoan();
+        // this.checkAutoOrTermLoan();
     }
 
     primarySecurityCheck() {
@@ -715,6 +715,7 @@ export class LoanDeedPartnershipComponent implements OnInit {
                                 newData
                             );
                         }
+                        let termLoanInterestRateCT;
                         if (v.loanName === LoanNameConstant.TERM_LOAN_TO_FOR_PURCHASE_OF_VEHICLE) {
                             // tslint:disable-next-line:max-line-length
                             const tempLoanAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.cadData.assignedLoan[index].proposal.proposedLimit));
@@ -726,10 +727,16 @@ export class LoanDeedPartnershipComponent implements OnInit {
                                     }
                                 });
                             }
+                            for (const x of this.initialInfo.termLoanForm.termLoanDetails) {
+                                termLoanInterestRateCT = x.interestRateCT;
+                            }
+                            console.log(termLoanInterestRateCT);
+                            this.isTermLoan = true;
                             const newData = {
                                 loanNepaliName: v.loanNepaliName,
                                 loanAmount: tempLoanAmount,
                                 dateOfExpiry: '',
+                                interestRate: termLoanInterestRateCT,
                             };
                             this.newTempData.push(
                                 newData
@@ -751,10 +758,13 @@ export class LoanDeedPartnershipComponent implements OnInit {
                             // tslint:disable-next-line:max-line-length
                             const tempLoanAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.cadData.assignedLoan[index].proposal.proposedLimit));
                             this.autoCheck = true;
+                            const autoLoanInterestRateCT = this.initialInfo.autoLoanMasterForm.autoLoanFormArray[0].interestRateCT;
+                            this.isAutoLoan = true;
                             const newData = {
                                 loanNepaliName: v.loanNepaliName,
                                 loanAmount: tempLoanAmount,
                                 dateOfExpiry: '',
+                                interestRate: autoLoanInterestRateCT,
                             };
                             this.newTempData.push(
                                 newData
@@ -873,31 +883,28 @@ export class LoanDeedPartnershipComponent implements OnInit {
         return this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(value));
     }
 
-    checkAutoOrTermLoan() {
-        if (this.cadData.offerDocumentList.length > 0) {
-            let documentName;
-            this.cadData.offerDocumentList.filter((document: OfferDocument) => {
-                documentName = document.docName;
-                this.offerLetterDocument = document;
-                console.log(documentName);
-            });
-            if (documentName === 'Combined Offer Letter') {
-                if (!ObjectUtil.isEmpty(this.offerLetterDocument.initialInformation)) {
-                    const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
-                    console.log(educationalOfferData);
-                    this.educationalTemplateData = educationalOfferData.autoLoanMasterForm.autoLoanFormArray[0].interestRateCT;
-                    this.isAutoOrTermLoan = true;
-                }
-            }
-            if (documentName === 'Combined Offer Letter') {
-                if (!ObjectUtil.isEmpty(this.offerLetterDocument.initialInformation.interestRateCT)) {
-                    const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
-                    this.educationalTemplateData = educationalOfferData.termLoanForm.termLoanDetails.interestRateCT;
-                    this.isAutoOrTermLoan = true;
-                }
-            }
-            console.log(this.isAutoOrTermLoan);
-        }
-    }
+    // checkAutoOrTermLoan() {
+    //     if (this.cadData.offerDocumentList.length > 0) {
+    //         let documentName;
+    //         this.cadData.offerDocumentList.filter((document: OfferDocument) => {
+    //             documentName = document.docName;
+    //             this.offerLetterDocument = document;
+    //         });
+    //         if (documentName === 'Combined Offer Letter') {
+    //             if (!ObjectUtil.isEmpty(this.offerLetterDocument.initialInformation)) {
+    //                 const vehicleOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
+    //                 this.autoLoanInterestRateCT = vehicleOfferData.autoLoanMasterForm.autoLoanFormArray[0].interestRateCT;
+    //                 this.isAutoLoan = true;
+    //             }
+    //         }
+    //         if (documentName === 'Combined Offer Letter') {
+    //             if (!ObjectUtil.isEmpty(this.offerLetterDocument.initialInformation.interestRateCT)) {
+    //                 const vehicleOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
+    //                 this.termLoanInterestRateCT = vehicleOfferData.termLoanForm.termLoanDetails.interestRateCT;
+    //                 this.isTermLoan = true;
+    //             }
+    //         }
+    //     }
+    // }
 }
 
