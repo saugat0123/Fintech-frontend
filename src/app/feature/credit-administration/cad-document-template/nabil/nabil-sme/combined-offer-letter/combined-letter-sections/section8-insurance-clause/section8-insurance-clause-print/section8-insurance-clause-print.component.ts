@@ -12,7 +12,7 @@ export class Section8InsuranceClausePrintComponent implements OnInit {
   tempData;
   trustReceiptVisible;
   acceptance;
-  autoLoanVisible;
+  autoLoanVisible: boolean;
   stockInsurance: boolean;
   buildingInsurance: boolean;
   insuranceVisible: boolean;
@@ -26,18 +26,26 @@ export class Section8InsuranceClausePrintComponent implements OnInit {
     const securities = this.tempData.securities;
     this.trustReceiptVisible = this.tempData.importLoanTrust;
     this.acceptance = this.tempData.timeLetterCreditForm;
-    this.autoLoanVisible = this.tempData.termLoanForm;
+    if (!ObjectUtil.isEmpty(this.tempData.termLoanForm) && this.tempData.termLoanForm.termLoanDetails.length > 0) {
+      const tmpData = this.tempData.termLoanForm.termLoanDetails;
+      tmpData.forEach(val => {
+        if (val.termLoanFor === 'VEHICLE') {
+          this.autoLoanVisible = true;
+        }
+      });
+    }
+    if (!ObjectUtil.isEmpty(this.tempData.autoLoanMasterForm)) {
+      this.autoLoanVisible = true;
+    }
     if (securities.primarySecurity.some(s => s.insuranceRequired === true)
-        || securities.secondarySecurity.some(s => s.insuranceRequired === true)
-    ) {
+        || securities.secondarySecurity.some(s => s.insuranceRequired === true)) {
       this.insuranceVisible = true;
     }
     if (securities.primarySecurity.some(s => s.securityType === 'LAND_AND_BUILDING' && s.insuranceRequired === true)
         || securities.secondarySecurity.some(s => s.securityType === 'LAND_AND_BUILDING' && s.insuranceRequired === true)) {
       this.buildingInsurance = true;
     }
-    if (securities.primarySecurity.some(s => s.securityType === 'HYPOTHECATION' && s.insuranceRequired === true)
-        || securities.secondarySecurity.some(s => s.securityType === 'HYPOTHECATION' && s.secondarySecurity === true)) {
+    if (securities.primarySecurity.some(s => s.securityType === 'HYPOTHECATION' && s.insuranceRequired === true)) {
       this.stockInsurance = true;
     }
   }
