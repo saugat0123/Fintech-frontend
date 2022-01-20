@@ -40,7 +40,7 @@
                                formControlName="nameOfAuthorizedBody"
                                placeholder=" "
                                type="text"/>
-                        <span class="print-only">{{this.individualData?.authorizedBodyName ? this.individualData?.authorizedBodyName.ct : ''}}</span>
+                        <span class="print-only">{{this.individualData?.authorizedBodyName ? this.individualData?.authorizedBodyName.ct : ''}}</span>,
                         <input class="form-field form-control-sm d-print-none"
                                name="nameOfDepartment"
                                formControlName="nameOfDepartment"
@@ -152,7 +152,7 @@
                                                    placeholder=" "
                                                    type="text"/>
                                 <span class="print-only">{{partner ? partner?.ownerCitizenshipNoCT : ''}}</span>
-                                (मिति <input class="form-field form-control-sm d-print-none"
+                                मिति <input class="form-field form-control-sm d-print-none"
                                              name="issueDateOfPartner"
                                              [value]="this.issueDate[i].issueDate"
                                              placeholder=" "
