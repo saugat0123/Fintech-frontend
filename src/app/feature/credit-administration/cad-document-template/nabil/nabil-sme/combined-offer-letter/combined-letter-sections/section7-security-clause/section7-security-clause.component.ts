@@ -12,7 +12,7 @@ export class Section7SecurityClauseComponent implements OnInit {
   form: FormGroup;
   loanHolderInfo;
   mortgageType1;
-  fixedDeposit;
+  fixedDeposit: boolean;
   tempData;
   isGharJaggaVisible: boolean;
   isSamanMojdatVisible: boolean;
@@ -29,7 +29,6 @@ export class Section7SecurityClauseComponent implements OnInit {
       this.fillForm();
     }
     const securities = this.tempData.securities;
-    this.fixedDeposit = this.tempData.overdraftFixedForm;
     this.mortgageType1 = this.tempData.smeGlobalForm.mortgageType;
     if (
         securities.primarySecurity.filter(s => s.securityType === 'LAND' || s.securityType === 'LAND_AND_BUILDING').length > 0
@@ -47,6 +46,10 @@ export class Section7SecurityClauseComponent implements OnInit {
         securities.primarySecurity.filter(s => s.securityType === 'ASSIGNMENT').length  > 0
     ) {
       this.isReceivableVisible = true;
+    }
+    if (securities.primarySecurity.filter(s => s.securityType === 'LIEN AGAINST FD' ||
+        s.securityType === 'LIEN AGAINST DEBENTURE').length  > 0) {
+      this.fixedDeposit = true;
     }
   }
 
