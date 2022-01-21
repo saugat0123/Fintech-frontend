@@ -91,7 +91,6 @@ export class LoanDeedPartnershipComponent implements OnInit {
         }
         if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
             this.initialInfo = JSON.parse(this.cadData.offerDocumentList[0].initialInformation);
-            console.log('initial info', this.initialInfo);
         }
         if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
             this.individualData = JSON.parse(this.cadData.loanHolder.nepData);
@@ -789,7 +788,6 @@ export class LoanDeedPartnershipComponent implements OnInit {
                             for (const x of this.initialInfo.termLoanForm.termLoanDetails) {
                                 termLoanInterestRateCT = x.interestRateCT;
                             }
-                            console.log(termLoanInterestRateCT);
                             this.isTermLoan = true;
                             this.newData = {
                                 loanNepaliName: v.loanNepaliName,
@@ -801,8 +799,6 @@ export class LoanDeedPartnershipComponent implements OnInit {
                             this.newTempData.push(
                                 this.newData
                             );
-                            console.log(this.newTempData);
-                            console.log(this.newData);
                         }
                         if (v.loanName === LoanNameConstant.MORTGAGE_TERM_LOAN_EQUITY_MORTGAGE_TERM_LOAN) {
                             // tslint:disable-next-line:max-line-length
