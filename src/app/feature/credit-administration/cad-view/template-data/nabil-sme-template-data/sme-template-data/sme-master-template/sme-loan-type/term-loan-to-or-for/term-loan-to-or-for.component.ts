@@ -333,9 +333,9 @@ export class TermLoanToOrForComponent implements OnInit {
     let tempExpDate;
     if (tempDateOfExpType === 'AD') {
       const tempEngExpDate = this.termLoanForm.get(['termLoanDetails', i, 'dateOfExpiry']).value;
-      tempExpDate = !ObjectUtil.isEmpty(tempEngExpDate) ?
-          this.engToNepDatePipe.transform(this.datePipe.transform(tempEngExpDate), true) : '';
-      this.termLoanForm.get(['termLoanDetails', i, 'dateOfExpiryTrans']).patchValue(tempExpDate);
+      tempExpDate = !ObjectUtil.isEmpty(tempEngExpDate) ? this.datePipe.transform(tempEngExpDate) : '';
+      const finalExpDate = this.transformEnglishDate(tempExpDate);
+      this.termLoanForm.get(['termLoanDetails', i, 'dateOfExpiryTrans']).patchValue(finalExpDate);
     } else {
       const tempDateOfExpNep = this.termLoanForm.get(['termLoanDetails', i, 'dateOfExpiryNepali']).value;
       tempExpDate = !ObjectUtil.isEmpty(tempDateOfExpNep) ?
@@ -353,6 +353,43 @@ export class TermLoanToOrForComponent implements OnInit {
     this.termLoanForm.get(['termLoanDetails', i, 'purposeOfLoanTrans']).patchValue(this.translatedValue.purposeOfLoan);
 
     this.setCTValue(i);
+  }
+
+  transformEnglishDate(date) {
+    let transformedDate;
+    let monthName;
+    const dateArray = [];
+    const splittedDate = date.split(' ');
+    if (splittedDate[0] === 'Jan') {
+      monthName = 'जनवरी';
+    } else if (splittedDate[0] === 'Feb') {
+      monthName = 'फेब्रुअरी';
+    } else if (splittedDate[0] === 'Mar') {
+      monthName = 'मार्च';
+    } else if (splittedDate[0] === 'Apr') {
+      monthName = 'अप्रिल';
+    } else if (splittedDate[0] === 'May') {
+      monthName = 'मे';
+    } else if (splittedDate[0] === 'Jun') {
+      monthName = 'जुन';
+    } else if (splittedDate[0] === 'Jul') {
+      monthName = 'जुलाई';
+    } else if (splittedDate[0] === 'Aug') {
+      monthName = 'अगष्ट';
+    } else if (splittedDate[0] === 'Sep') {
+      monthName = 'सेप्टेम्बर';
+    } else if (splittedDate[0] === 'Oct') {
+      monthName = 'अक्टुबर';
+    } else if (splittedDate[0] === 'Nov') {
+      monthName = 'नोभेम्बर';
+    } else {
+      monthName = 'डिसेम्बर';
+    }
+    dateArray.push(this.engToNepNumberPipe.transform(splittedDate[1].slice(0, -1)));
+    dateArray.push(monthName + ',');
+    dateArray.push(this.engToNepNumberPipe.transform(splittedDate[2]));
+    transformedDate = dateArray.join(' ');
+    return transformedDate;
   }
 
   setCTValue(i) {

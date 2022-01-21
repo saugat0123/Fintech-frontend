@@ -56,6 +56,8 @@ export class SmeGlobalContentComponent implements OnInit {
     {value: 'Service Charge In Percentage'}
   ];
   totalLimitInFigure;
+  isARFinancing = false;
+  hypothecationVisible = true;
   constructor(private formBuilder: FormBuilder,
               private translateService: SbTranslateService,
               private datePipe: DatePipe,
@@ -72,7 +74,11 @@ export class SmeGlobalContentComponent implements OnInit {
       }
       if (!ObjectUtil.isEmpty(this.initialInformation)) {
         this.globalForm.patchValue(this.initialInformation.smeGlobalForm);
-        //Date Of Approval
+        const arFinancing = this.initialInformation.smeGlobalForm.arFinancing;
+        if (!ObjectUtil.isEmpty(this.initialInformation.smeGlobalForm) && this.initialInformation.smeGlobalForm.arFinancing === true) {
+          this.hypothecationVisible = false;
+        }
+            // Date Of Approval
         const dateOfApprovalType = this.initialInformation.smeGlobalForm.dateOfApprovalType;
         if (dateOfApprovalType === 'AD') {
           const dateOfApproval = this.initialInformation.smeGlobalForm.dateOfApproval;
@@ -85,10 +91,10 @@ export class SmeGlobalContentComponent implements OnInit {
             this.globalForm.get('dateOfApprovalNepali').patchValue(dateOfApproval);
           }
         }
-        //Loan Application Date
+        // Loan Application Date
         const loanApplicationDataType = this.initialInformation.smeGlobalForm.loanApplicationDataType;
         if (loanApplicationDataType === 'AD') {
-          const loanApplicationDate =this.initialInformation.smeGlobalForm.loanApplicationDate;
+          const loanApplicationDate = this.initialInformation.smeGlobalForm.loanApplicationDate;
           if (!ObjectUtil.isEmpty(loanApplicationDate)) {
             this.globalForm.get('loanApplicationDate').patchValue(new Date(loanApplicationDate));
           }
@@ -98,8 +104,8 @@ export class SmeGlobalContentComponent implements OnInit {
             this.globalForm.get('loanApplicationDateNepali').patchValue(loanApplicationDate);
           }
         }
-        //Sanction Letter Date
-        //Loan Application Date
+        // Sanction Letter Date
+        // Loan Application Date
         if (this.initialInformation.smeGlobalForm.loanOption === 'New') {
           this.loanOptionsSelected = true;
         }
@@ -195,6 +201,9 @@ export class SmeGlobalContentComponent implements OnInit {
       nameOfBranchManager: [undefined],
       nameOfBranchManagerTrans: [undefined],
       nameOfBranchManagerCT: [undefined],
+      arFinancing: [undefined],
+      arFinancingTrans: [undefined],
+      arFinancingCT: [undefined]
     });
   }
 
@@ -264,7 +273,11 @@ export class SmeGlobalContentComponent implements OnInit {
         this.globalForm.get('dateOfApprovalCT').patchValue(dateOfApproval);
       }
     }
-
+    const arFinancing = this.globalForm.get('arFinancing').value;
+    if (!ObjectUtil.isEmpty(arFinancing)) {
+      this.globalForm.get('arFinancingTrans').patchValue(arFinancing);
+      this.globalForm.get('arFinancingCT').patchValue(arFinancing);
+    }
     if (!ObjectUtil.isEmpty(serviceChargeInFigure)) {
       this.globalForm.get('serviceChargeInWords').patchValue(this.currencyWordPipe.transform(serviceChargeInFigure));
       this.globalForm.get('serviceChargeInWordsTrans').patchValue(this.currencyWordPipe.transform(serviceChargeInFigure));
@@ -367,6 +380,15 @@ export class SmeGlobalContentComponent implements OnInit {
       this.globalForm.get(controls + 'Trans').setValue(null);
       this.globalForm.get(controls + 'CT').setValue(null);
     }
+  }
+
+  checkARFinancing(data) {
+    this.isARFinancing = data;
+    this.globalForm.get('arFinancing').patchValue(this.isARFinancing);
+  }
+
+  toggleShow() {
+    this.hypothecationVisible = ! this.hypothecationVisible;
   }
 
 }
