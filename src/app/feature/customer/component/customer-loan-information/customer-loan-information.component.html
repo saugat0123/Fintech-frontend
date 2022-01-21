@@ -782,8 +782,7 @@
 
       <div class="col-md-4">
         <div class="row">
-        <nb-card class="col-md-11 py-2" #reportingInfoLevelAccordion
-               *ngIf="client !== clientName?.SHINE_RESUNGA">
+        <nb-card class="col-md-11 py-2" #reportingInfoLevelAccordion>
         <a class="cursor info-label" (click)="openModel(customerComponentTemplate)">
           <div class="row">
             <div class="col-md-8">
@@ -828,10 +827,9 @@
         </nb-card>
       </ng-template>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-4"  *ngIf="companyInfo">
         <div class="row">
-        <nb-card class="col-md-11 py-2"
-               *ngIf="companyInfo">
+        <nb-card class="col-md-11 py-2">
         <a class="cursor info-label" (click)="openModel(commentComponentTemplate)">
           <div class="row">
             <div class="col-md-8">
