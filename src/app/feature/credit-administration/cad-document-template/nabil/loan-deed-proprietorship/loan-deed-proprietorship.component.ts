@@ -676,7 +676,7 @@ export class LoanDeedProprietorshipComponent implements OnInit {
               this.newData = {
                 loanNepaliName: v.loanNepaliName,
                 interestRateExists: true,
-                interestRate: this.initialInfo.equityMortgaged.interestRateCT,
+                interestRate: equityMortgaged,
                 loanAmount: tempLoanAmount,
                 dateOfExpiry: tempDateOfExpiry2,
               };
