@@ -117,28 +117,12 @@ export class OfferLetterPersonalComponent implements OnInit {
                 fairMarketValue: this.nepaliData.fairMarketValue ? this.nepaliData.fairMarketValue : '',
                 distressValue: this.nepaliData.distressValue ? this.nepaliData.distressValue : '',
                 amount3: this.loanAmount.numberNepali ? this.loanAmount.numberNepali : '',
-                amountInWords3: this.loanAmount.nepaliWords ? this.loanAmount.nepaliWords : ''
+                amountInWords3: this.loanAmount.nepaliWords ? this.loanAmount.nepaliWords : '',
             });
             this.setEmptyGuarantors(this.nepaliData.guarantorDetails);
             this.setSecurityDetails(this.nepaliData.collateralDetails);
+            this.setLoanFacilityData();
         }
-
-        this.form.get(['loanFacilityTable', 0, 'amount']).patchValue(this.loanAmount.numberNepali);
-        this.form.get(['loanFacilityTable', 0, 'amountInWords']).patchValue(this.loanAmount.nepaliWords);
-        this.form.get(['loanFacilityTable', 0, 'loanPurpose']).patchValue(this.nepDataPersonal.purposeOfLoan);
-        this.form.get(['loanFacilityTable', 0, 'interestFinalRate']).patchValue(this.nepDataPersonal.interestRate);
-        this.form.get(['loanFacilityTable', 0, 'interestBaseRate']).patchValue(this.nepDataPersonal.baseRate);
-        this.form.get(['loanFacilityTable', 0, 'interestPremiumRate']).patchValue(this.nepDataPersonal.premium);
-        this.form.get(['loanFacilityTable', 0, 'interestTempDiscountRate']).patchValue(this.nepDataPersonal.discount);
-        this.form.get(['loanFacilityTable', 0, 'serviceFeePercent']).patchValue(this.nepDataPersonal.serviceFeePercent);
-        this.form.get(['loanFacilityTable', 0, 'serviceFeeAmount']).patchValue(this.nepDataPersonal.serviceFeeAmount);
-        this.form.get(['loanFacilityTable', 0, 'cibCharges']).patchValue(this.nepDataPersonal.cibCharges);
-        this.form.get(['loanFacilityTable', 0, 'interestInstallmentPaymentFrequency']).patchValue(this.nepDataPersonal.interestInstallmentPaymentFrequency);
-        this.form.get(['loanFacilityTable', 0, 'loanMaturityDateAD']).patchValue(this.nepDataPersonal.loanMaturityDateAD);
-        this.form.get(['loanFacilityTable', 0, 'loanMaturityDateBS']).patchValue(this.nepDataPersonal.loanMaturityDateBS);
-        this.form.get(['loanFacilityTable', 0, 'tenureOfLoanInMonths']).patchValue(this.nepDataPersonal.tenureOfLoanInMonths);
-        this.form.get(['loanFacilityTable', 0, 'loanTypeNepali']).patchValue(this.nepDataPersonal.loanType);
-        this.form.get(['loanFacilityTable', 0, 'loanTypeEnglish']).patchValue(this.nepDataPersonal.typeOfLoanInEnglish);
     }
 
     checkOfferLetter() {
@@ -159,7 +143,8 @@ export class OfferLetterPersonalComponent implements OnInit {
             this.fillForm();
 /*            this.setEmptyGuarantors(initialInfo.guarantorDetails);
             this.setSecurityDetails(initialInfo.securityDetails);*/
-            this.setLoanFacility(initialInfo.loanFacilityTable);
+                this.setLoanFacility(initialInfo.loanFacilityTable);
+                this.setLoanFacilityData();
             // this.form.patchValue(initialInfo);
         }
     }
@@ -196,6 +181,24 @@ export class OfferLetterPersonalComponent implements OnInit {
         });
     }
 
+    setLoanFacilityData() {
+        this.form.get(['loanFacilityTable', 0, 'amount']).patchValue(this.loanAmount.numberNepali);
+        this.form.get(['loanFacilityTable', 0, 'amountInWords']).patchValue(this.loanAmount.nepaliWords);
+        this.form.get(['loanFacilityTable', 0, 'loanPurpose']).patchValue(this.nepDataPersonal.purposeOfLoan);
+        this.form.get(['loanFacilityTable', 0, 'interestFinalRate']).patchValue(this.nepDataPersonal.interestRate);
+        this.form.get(['loanFacilityTable', 0, 'interestBaseRate']).patchValue(this.nepDataPersonal.baseRate);
+        this.form.get(['loanFacilityTable', 0, 'interestPremiumRate']).patchValue(this.nepDataPersonal.premium);
+        this.form.get(['loanFacilityTable', 0, 'interestTempDiscountRate']).patchValue(this.nepDataPersonal.discount);
+        this.form.get(['loanFacilityTable', 0, 'serviceFeePercent']).patchValue(this.nepDataPersonal.serviceFeePercent);
+        this.form.get(['loanFacilityTable', 0, 'serviceFeeAmount']).patchValue(this.nepDataPersonal.serviceFeeAmount);
+        this.form.get(['loanFacilityTable', 0, 'cibCharges']).patchValue(this.nepDataPersonal.cibCharges);
+        this.form.get(['loanFacilityTable', 0, 'interestInstallmentPaymentFrequency']).patchValue(this.nepDataPersonal.interestInstallmentPaymentFrequency);
+        this.form.get(['loanFacilityTable', 0, 'loanMaturityDateAD']).patchValue(this.nepDataPersonal.loanMaturityDateAD);
+        this.form.get(['loanFacilityTable', 0, 'loanMaturityDateBS']).patchValue(this.nepDataPersonal.loanMaturityDateBS);
+        this.form.get(['loanFacilityTable', 0, 'tenureOfLoanInMonths']).patchValue(this.nepDataPersonal.tenureOfLoanInMonths);
+        this.form.get(['loanFacilityTable', 0, 'loanTypeNepali']).patchValue(this.nepDataPersonal.loanType);
+        this.form.get(['loanFacilityTable', 0, 'loanTypeEnglish']).patchValue(this.nepDataPersonal.typeOfLoanInEnglish);
+    }
     setSecurityDetails(data) {
         const formArray = this.form.get('securityDetails') as FormArray;
         if (data.length === 0) {
@@ -208,18 +211,20 @@ export class OfferLetterPersonalComponent implements OnInit {
                 parentName: [value.collateralFatherName],
                 grandParentName: [value.collateralGrandFatherName],
                 address: [
-                    !ObjectUtil.isEmpty(value.collateralMunVdc) ?
-                        value.collateralMunVdc.nepaliName : ''] + ', j8f g+= ' +
-                    [value.collateralWardNo] + ', ' +
-                    [!ObjectUtil.isEmpty(value.collateralDistrict) ?
-                            value.collateralDistrict.nepaliName : ''],
+                    !ObjectUtil.isEmpty(value.collateralPermanentMunVdc) ?
+                        value.collateralPermanentMunVdc.nepaliName : ''] + ', j8f g+= ' +
+                    [value.collateralPermanentWardNo] + ', ' +
+                    [!ObjectUtil.isEmpty(value.collateralPermanentDistrict) ?
+                            value.collateralPermanentDistrict.nepaliName : ''],
+                collateralPerMunVdc: [!ObjectUtil.isEmpty(value.collateralPermanentMunVdc) ?
+                    value.collateralPermanentMunVdc.nepaliName : ''],
+                collateralPerWard: [value.collateralPermanentWardNo],
+                collateralPerDis: [!ObjectUtil.isEmpty(value.collateralPermanentDistrict) ?
+                    value.collateralPermanentDistrict.nepaliName : ''],
                 wardNo: [value.collateralWardNo],
-                jaggaDistrict: [!ObjectUtil.isEmpty(value.collateralDistrict) ?
-                    value.collateralDistrict.nepaliName : ''],
-                jaggaWard: [!ObjectUtil.isEmpty(value.collateralMunVdc) ?
-                    value.collateralMunVdc.nepaliName : ''],
-                hal: [!ObjectUtil.isEmpty(value.collateralTemporaryMunVdc) ?
-                        value.collateralTemporaryMunVdc.nepaliName : ''],
+                jaggaDistrict: [value.collateralDistrict],
+                jaggaWard: [value.collateralMunVdcOriginal],
+                hal: [value.collateralMunVdcChanged],
                 jaggaKittaNum: [value.plotNo],
                 jaggaArea: [value.areaOfCollateral],
                 jaggaSiNum: [value.seatNo],
@@ -235,6 +240,9 @@ export class OfferLetterPersonalComponent implements OnInit {
                 grandParentName: [undefined],
                 wardNo: [undefined],
                 address: [undefined],
+                collateralPerMunVdc: [undefined],
+                collateralPerWard: [undefined],
+                collateralPerDis: [undefined],
                 jaggaDistrict: [undefined],
                 jaggaWard: [undefined],
                 jaggaKittaNum: [undefined],
