@@ -84,8 +84,7 @@ export class DocumentChecklistViewLiteComponent implements OnInit {
       }
     });
     if (!ObjectUtil.isEmpty(url)) {
-      if (signedDoc && (name === LaxmiOfferLetterConst.value(LaxmiOfferLetterConst.PERSONAL_GUARANTEE) ||
-          name === LaxmiOfferLetterConst.value(LaxmiOfferLetterConst.LETTER_OF_COMMITMENT)) && isRemit) {
+      if (!url.toLowerCase().includes('signed') && signedDoc) {
         this.commonService.openDocuments(url);
       } else {
         const link = document.createElement('a');

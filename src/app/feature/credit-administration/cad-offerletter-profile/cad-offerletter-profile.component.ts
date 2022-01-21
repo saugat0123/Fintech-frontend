@@ -282,7 +282,10 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
 
     uploadOfferLetter(event) {
         this.uploadFile = event.target.files[0];
-        if (this.uploadFile.name.split('.')[1] !== 'docx' && this.uploadFile.name.split('.')[1] !== 'png' && this.uploadFile.name.split('.')[1] !== 'jpg' && this.uploadFile.name.split('.')[1] !== 'pdf' && this.uploadFile.name.split('.')[1] !== 'txt') {
+        console.log('this is file type', this.uploadFile.name.split('.')[1]);
+        const i = this.uploadFile.name.split('.').length - 1;
+        console.log('this is file', this.uploadFile.name);
+        if (this.uploadFile.name.split('.')[i] !== 'docx' && this.uploadFile.name.split('.')[i] !== 'png' && this.uploadFile.name.split('.')[i] !== 'jpg' && this.uploadFile.name.split('.')[i] !== 'pdf' && this.uploadFile.name.split('.')[i] !== 'txt') {
             this.modelService.dismissAll();
             this.toastrService.show(new Alert(AlertType.ERROR, 'Not Supported Type'));
             this.uploadFile = null;
@@ -290,11 +293,10 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
         }
     }
 
-    previewClick(file, doc, flag) {
+    previewClick(file, flag) {
         let fileName = this.uploadFile;
         if (file !== null) {
-            if ((doc.docName === LaxmiOfferLetterConst.value(LaxmiOfferLetterConst.PERSONAL_GUARANTEE) ||
-                doc.docName === LaxmiOfferLetterConst.value(LaxmiOfferLetterConst.LETTER_OF_COMMITMENT)) && this.isRemit && flag) {
+            if (!file.toLowerCase().includes('signed') && flag) {
                 this.commonService.openDocuments(file);
             } else {
                 fileName = ApiConfig.URL + '/' + file;
