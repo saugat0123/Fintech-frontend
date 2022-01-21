@@ -12,15 +12,13 @@ export class Section7SecurityClausePrintComponent implements OnInit {
   loanHolderInfo;
   branchName;
   mortgageType1;
-  fixedDeposit;
+  fixedDeposit: boolean;
   tempData;
   isGharJaggaVisible: boolean;
   isSamanMojdatVisible: boolean;
   isReceivableVisible: boolean;
 
-  constructor(
-      private formbuilder: FormBuilder
-  ) {
+  constructor() {
   }
   ngOnInit() {
     if (!ObjectUtil.isEmpty(this.customerApprovedDoc)) {
@@ -29,7 +27,6 @@ export class Section7SecurityClausePrintComponent implements OnInit {
       this.branchName = this.loanHolderInfo.branch.ct;
     }
     const securities = this.tempData.securities;
-    this.fixedDeposit = this.tempData.overdraftFixedForm;
     this.mortgageType1 = this.tempData.smeGlobalForm.mortgageType;
     if (
         securities.primarySecurity.filter(s => s.securityType === 'LAND' || s.securityType === 'LAND_AND_BUILDING').length > 0
@@ -47,6 +44,10 @@ export class Section7SecurityClausePrintComponent implements OnInit {
         securities.primarySecurity.filter(s => s.securityType === 'ASSIGNMENT').length  > 0
     ) {
       this.isReceivableVisible = true;
+    }
+    if (securities.primarySecurity.filter(s => s.securityType === 'LIEN AGAINST FD' ||
+        s.securityType === 'LIEN AGAINST DEBENTURE').length  > 0) {
+      this.fixedDeposit = true;
     }
   }
 

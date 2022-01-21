@@ -18,7 +18,6 @@ export class OverdraftLoanForWorkingCapitalRequirementComponent implements OnIni
   @Input() offerDocumentList: Array<OfferDocument>;
   initialInformation: any;
   overdraftLoanForm: FormGroup;
-  isARFinancing = false;
   BSExpiry = false;
   ADExpiry = false;
   loanDetails: any = [];
@@ -65,7 +64,7 @@ export class OverdraftLoanForWorkingCapitalRequirementComponent implements OnIni
   buildForm() {
     this.overdraftLoanForm = this.formBuilder.group({
       // For form Data
-      arFinancing: [undefined],
+      // arFinancing: [undefined],
       subsidyOrAgricultureLoan: [undefined],
       loanAmount: [undefined],
       loanAmountWords: [undefined],
@@ -79,7 +78,7 @@ export class OverdraftLoanForWorkingCapitalRequirementComponent implements OnIni
       dateOfExpiryNepali: [undefined],
 
       // For translated Data
-      arFinancingTrans: [undefined],
+      // arFinancingTrans: [undefined],
       loanAmountTrans: [undefined],
       loanAmountWordsTrans: [undefined],
       arDaysTrans: [undefined],
@@ -92,7 +91,7 @@ export class OverdraftLoanForWorkingCapitalRequirementComponent implements OnIni
       dateOfExpiryNepaliTrans: [undefined],
 
       // For corrected Data
-      arFinancingCT: [undefined],
+      // arFinancingCT: [undefined],
       loanAmountCT: [undefined],
       loanAmountWordsCT: [undefined],
       arDaysCT: [undefined],
@@ -104,12 +103,6 @@ export class OverdraftLoanForWorkingCapitalRequirementComponent implements OnIni
       dateOfExpiryCT: [undefined],
       dateOfExpiryNepaliCT: [undefined],
     });
-  }
-
-  checkARFinancing(data) {
-    this.isARFinancing = data;
-    this.overdraftLoanForm.get('arFinancing').patchValue(this.isARFinancing);
-    console.log('Ar financing:', this.overdraftLoanForm.get('arFinancing').value);
   }
 
   public checkDateOfExpiry(value): void {
@@ -124,10 +117,10 @@ export class OverdraftLoanForWorkingCapitalRequirementComponent implements OnIni
 
   translateAndSetVal() {
 
-    const temparFinancing = this.overdraftLoanForm.get('arFinancing').value;
-    if (!ObjectUtil.isEmpty(temparFinancing)) {
-      this.overdraftLoanForm.get('arFinancingTrans').patchValue(temparFinancing);
-    }
+    // const temparFinancing = this.overdraftLoanForm.get('arFinancing').value;
+    // if (!ObjectUtil.isEmpty(temparFinancing)) {
+    //   this.overdraftLoanForm.get('arFinancingTrans').patchValue(temparFinancing);
+    // }
 
     /* SET TRANS VALUE FOR OTHER NUMBER FIELDS */
     const tempLoanAmount = this.overdraftLoanForm.get('loanAmount').value;
@@ -207,9 +200,9 @@ export class OverdraftLoanForWorkingCapitalRequirementComponent implements OnIni
   }
 
   setCTValue() {
-    this.overdraftLoanForm.get('arFinancingCT').patchValue(
-        this.overdraftLoanForm.get('arFinancingTrans').value
-    );
+    // this.overdraftLoanForm.get('arFinancingCT').patchValue(
+    //     this.overdraftLoanForm.get('arFinancingTrans').value
+    // );
     this.overdraftLoanForm.get('loanAmountCT').patchValue(
         this.overdraftLoanForm.get('loanAmountTrans').value
     );

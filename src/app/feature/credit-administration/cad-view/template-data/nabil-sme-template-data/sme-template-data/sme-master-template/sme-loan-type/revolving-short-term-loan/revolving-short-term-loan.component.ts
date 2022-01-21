@@ -18,7 +18,6 @@ export class RevolvingShortTermLoanComponent implements OnInit {
     @Input() offerDocumentList: Array<OfferDocument>;
     initialInformation: any;
     revolvingShortTermLoan: FormGroup;
-    isARFinancing = false;
     isComplementaryOtherLoan = false;
     loanDetails: any = [];
     ADExpiry = false;
@@ -70,7 +69,7 @@ export class RevolvingShortTermLoanComponent implements OnInit {
             loanRevolvingBasis: [undefined],
             subsidyOrAgricultureLoan: [undefined],
             complementaryOther: [undefined],
-            arFinancing: [undefined],
+            // arFinancing: [undefined],
             complimentaryLoanSelected: [undefined],
             loanRevolvingPeriod: [undefined],
             loanAmount: [undefined],
@@ -89,7 +88,7 @@ export class RevolvingShortTermLoanComponent implements OnInit {
             loanRevolvingBasisTrans: [undefined],
             complementaryOtherTrans: [undefined],
             complimentaryLoanSelectedTrans: [undefined],
-            arFinancingTrans: [undefined],
+            // arFinancingTrans: [undefined],
             loanRevolvingPeriodTrans: [undefined],
             loanAmountTrans: [undefined],
             loanAmountWordsTrans: [undefined],
@@ -106,7 +105,7 @@ export class RevolvingShortTermLoanComponent implements OnInit {
             loanRevolvingBasisCT: [undefined],
             complementaryOtherCT: [undefined],
             complimentaryLoanSelectedCT: [undefined],
-            arFinancingCT: [undefined],
+            // arFinancingCT: [undefined],
             loanRevolvingPeriodCT: [undefined],
             loanAmountCT: [undefined],
             loanAmountWordsCT: [undefined],
@@ -123,11 +122,6 @@ export class RevolvingShortTermLoanComponent implements OnInit {
     checkComplimentaryOtherLoan(data) {
         this.isComplementaryOtherLoan = data;
         this.revolvingShortTermLoan.get('complementaryOther').patchValue(this.isComplementaryOtherLoan);
-    }
-
-    checkARFinancing(data) {
-        this.isARFinancing = data;
-        this.revolvingShortTermLoan.get('arFinancing').patchValue(this.isARFinancing);
     }
 
     public checkDateOfExpiry(value): void {
@@ -166,11 +160,11 @@ export class RevolvingShortTermLoanComponent implements OnInit {
         if (!ObjectUtil.isEmpty(tempComplementary)) {
             this.revolvingShortTermLoan.get('complementaryOtherTrans').patchValue(tempComplementary);
         }
-        this.revolvingShortTermLoan.get('arFinancing').patchValue(this.isARFinancing);
-        const tempArFinancing = this.revolvingShortTermLoan.get('arFinancing').value;
-        if (!ObjectUtil.isEmpty(tempArFinancing)) {
-            this.revolvingShortTermLoan.get('arFinancingTrans').patchValue(tempArFinancing);
-        }
+        // this.revolvingShortTermLoan.get('arFinancing').patchValue(this.isARFinancing);
+        // const tempArFinancing = this.revolvingShortTermLoan.get('arFinancing').value;
+        // if (!ObjectUtil.isEmpty(tempArFinancing)) {
+        //     this.revolvingShortTermLoan.get('arFinancingTrans').patchValue(tempArFinancing);
+        // }
 
         /* FOR MULTI LOAN SELECTION DATA */
         this.revolvingShortTermLoan.get('complimentaryLoanSelectedTrans').patchValue(
@@ -272,9 +266,9 @@ export class RevolvingShortTermLoanComponent implements OnInit {
         this.revolvingShortTermLoan.get('complimentaryLoanSelectedCT').patchValue(
             this.revolvingShortTermLoan.get('complimentaryLoanSelectedTrans').value
         );
-        this.revolvingShortTermLoan.get('arFinancingCT').patchValue(
-            this.revolvingShortTermLoan.get('arFinancingTrans').value
-        );
+        // this.revolvingShortTermLoan.get('arFinancingCT').patchValue(
+        //     this.revolvingShortTermLoan.get('arFinancingTrans').value
+        // );
         this.revolvingShortTermLoan.get('loanRevolvingPeriodCT').patchValue(
             this.revolvingShortTermLoan.get('loanRevolvingPeriodTrans').value
         );
