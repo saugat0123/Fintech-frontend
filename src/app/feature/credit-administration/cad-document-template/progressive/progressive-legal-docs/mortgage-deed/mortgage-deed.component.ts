@@ -8,9 +8,7 @@ import {NepaliCurrencyWordPipe} from '../../../../../../@core/pipe/nepali-curren
 import {CreditAdministrationService} from '../../../../service/credit-administration.service';
 import {ToastService} from '../../../../../../@core/utils';
 import {RouterUtilsService} from '../../../../utils/router-utils.service';
-import {CustomerOfferLetterService} from '../../../../../loan/service/customer-offer-letter.service';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
-import {CadDocStatus} from '../../../../model/CadDocStatus';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 import {ProgressiveLegalDocConst} from '../progressive-legal-doc-const';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
@@ -43,8 +41,7 @@ export class MortgageDeedComponent implements OnInit {
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
-              private routerUtilsService: RouterUtilsService,
-              private customerOfferLetterService: CustomerOfferLetterService) {
+              private routerUtilsService: RouterUtilsService) {
   }
 
   ngOnInit() {
@@ -70,16 +67,72 @@ export class MortgageDeedComponent implements OnInit {
     }
 
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
+      const loanAmount = JSON.parse(this.cadData.nepData);
       this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
-
+      const collateralOwnerAddress =
+          !ObjectUtil.isEmpty(this.nepaliData.collateralOwnerDetails) ? this.nepaliData.collateralOwnerDetails[0].collateralOwnerPermanentMunicipalities.nepaliName : '' + ' j8f g+= ' +
+          !ObjectUtil.isEmpty(this.nepaliData.collateralOwnerDetails) ? this.nepaliData.collateralOwnerDetails[0].collateralOwnerPermanentWard : '' + ' , ' +
+          !ObjectUtil.isEmpty(this.nepaliData.collateralOwnerDetails) ? this.nepaliData.collateralOwnerDetails[0].collateralOwnerPermanentDistrict.nepaliName : '';
       this.form.patchValue({
         customerName: this.nepaliData.name ? this.nepaliData.name : '',
         cityName: this.nepaliData.branchDistrict ? this.nepaliData.branchDistrict : '',
         jillaName: this.nepaliData.branchMunVdc ? this.nepaliData.branchMunVdc : '',
         wodaNum: this.nepaliData.branchWardNo ? this.nepaliData.branchWardNo : '',
         jillaName2: this.nepaliData.branchName ? this.nepaliData.branchName : '',
+        dhitoName: !ObjectUtil.isEmpty(this.nepaliData.collateralOwnerDetails) ? this.nepaliData.collateralOwnerDetails[0].collateralOwnerName : '',
+        upabhogRu: loanAmount.numberNepali ? loanAmount.numberNepali : '',
+        upabhogRuWord: loanAmount.nepaliWords ? loanAmount.nepaliWords : '',
+        creditorNameEnglish5: this.nepaliData.branchNameInEnglish ? this.nepaliData.branchNameInEnglish : '',
+        creditorNameNepali4: this.nepaliData.collateralOwnerDetails[0].collateralOwnerName ? this.nepaliData.collateralOwnerDetails[0].collateralOwnerName : '',
+        creditorNameEnglish4: this.nepaliData.collateralOwnerDetails[0].collateralOwnerNameInEnglish ? this.nepaliData.collateralOwnerDetails[0].collateralOwnerNameInEnglish : '',
+        dateOfBirth3: this.nepaliData.collateralOwnerDetails[0].collateralOwnerDOB ? this.nepaliData.collateralOwnerDetails[0].collateralOwnerDOB : '',
+        address3: collateralOwnerAddress ? collateralOwnerAddress : '',
+        sex3: this.nepaliData.collateralOwnerDetails[0].collateralOwnerGender ? this.nepaliData.collateralOwnerDetails[0].collateralOwnerGender : '',
+        creditorCitizenshipNo2: this.nepaliData.collateralOwnerDetails[0].collateralOwnerCitizenshipNo ? this.nepaliData.collateralOwnerDetails[0].collateralOwnerCitizenshipNo : '',
+       creditorCitizenshipOfficeAddress2: this.nepaliData.collateralOwnerDetails[0].collateralOwnerCitizenshipIssueDistrict ? this.nepaliData.collateralOwnerDetails[0].collateralOwnerCitizenshipIssueDistrict : '',
+       jaggaDhaniSanketNo: this.nepaliData.collateralOwnerDetails[0].collateralOwnerCodeNo ? this.nepaliData.collateralOwnerDetails[0].collateralOwnerCodeNo : '',
+       creditorMobileNo2: this.nepaliData.collateralOwnerDetails[0].collateralOwnerMobileNo ? this.nepaliData.collateralOwnerDetails[0].collateralOwnerMobileNo : '',
+       creditorCitizenshipIssueDate2: this.nepaliData.collateralOwnerDetails[0].collateralOwnerCitizenshipIssueDate ? this.nepaliData.collateralOwnerDetails[0].collateralOwnerCitizenshipIssueDate : '',
+       creditorFatherName2: this.nepaliData.collateralOwnerDetails[0].collateralOwnerFatherName ? this.nepaliData.collateralOwnerDetails[0].collateralOwnerFatherName : '',
+       creditorGrandFatherName2: this.nepaliData.collateralOwnerDetails[0].collateralOwnerGrandFatherName ? this.nepaliData.collateralOwnerDetails[0].collateralOwnerGrandFatherName : '',
+       creditorSpouse2: this.nepaliData.collateralOwnerDetails[0].collateralOwnerSpouse ? this.nepaliData.collateralOwnerDetails[0].collateralOwnerSpouse : '',
+       creditorMotherName2: this.nepaliData.collateralOwnerDetails[0].collateralOwnerMotherName ? this.nepaliData.collateralOwnerDetails[0].collateralOwnerMotherName : '',
+       creditorGrandMotherName2: this.nepaliData.collateralOwnerDetails[0].collateralOwnerGrandMotherName ? this.nepaliData.collateralOwnerDetails[0].collateralOwnerMotherName : '',
+       jaggaPradeshNo: this.nepaliData.collateralDetails[0].collateralProvinceNo ? this.nepaliData.collateralDetails[0].collateralProvinceNo : '',
+        jaggaDistrict: this.nepaliData.collateralDetails[0].collateralDistrict ? this.nepaliData.collateralDetails[0].collateralDistrict : '',
+       sawikMunicipality: this.nepaliData.collateralDetails[0].collateralMunVdcOriginal ? this.nepaliData.collateralDetails[0].collateralMunVdcOriginal : '',
+       sawikWardNo: this.nepaliData.collateralDetails[0].collateralWardNoOld ? this.nepaliData.collateralDetails[0].collateralWardNoOld : '',
+       sawikTole: this.nepaliData.collateralDetails[0].toleOld ? this.nepaliData.collateralDetails[0].toleOld : '',
+       halMunicipality: this.nepaliData.collateralDetails[0].collateralMunVdcChanged ? this.nepaliData.collateralDetails[0].collateralMunVdcChanged : '',
+        halWardNo: this.nepaliData.collateralDetails[0].wardNoNew ? this.nepaliData.collateralDetails[0].wardNoNew : '',
+       halTole: this.nepaliData.collateralDetails[0].toleNew ? this.nepaliData.collateralDetails[0].toleNew : '',
+       seatNo: this.nepaliData.collateralDetails[0].seatNo ? this.nepaliData.collateralDetails[0].seatNo : '',
+       kittaNoAnka: this.nepaliData.collateralDetails[0].plotNo ? this.nepaliData.collateralDetails[0].plotNo : '',
+       kittaNoWord: this.nepaliData.collateralDetails[0].plotNoOld ? this.nepaliData.collateralDetails[0].plotNoOld : '',
+       area: this.nepaliData.collateralDetails[0].areaOfCollateral ? this.nepaliData.collateralDetails[0].areaOfCollateral : '',
+        type: this.nepaliData.collateralDetails[0].collateralType ? this.nepaliData.collateralDetails[0].collateralType : '',
       });
     }
+
+    const customerAddress =
+        this.nepaliData.permanentMunicipalities.nepaliName + ' j8f g+= ' +
+        this.nepaliData.permanentWard + ' , ' +
+        this.nepaliData.permanentDistrict.nepaliName;
+    this.form.get(['rinBibaran', 0, 'creditorNameNepali2']).patchValue(this.nepaliData.name);
+    this.form.get(['rinBibaran', 0, 'creditorNameEnglish2']).patchValue(this.nepaliData.nameInEnglish);
+    this.form.get(['rinBibaran', 0, 'dateOfBirth1']).patchValue(this.nepaliData.dob);
+    this.form.get(['rinBibaran', 0, 'address1']).patchValue(customerAddress);
+    this.form.get(['rinBibaran', 0, 'sex1']).patchValue(this.nepaliData.gender === '1' ? 'पुरुष' : 'महिला');
+    this.form.get(['rinBibaran', 0, 'creditorCitizenshipNo1']).patchValue(this.nepaliData.citizenshipNo);
+    this.form.get(['rinBibaran', 0, 'creditorCitizenshipIssueDate1']).patchValue(this.nepaliData.citizenshipIssueDate);
+    this.form.get(['rinBibaran', 0, 'creditorCitizenshipIssueOffice1']).patchValue(this.nepaliData.citizenshipIssueDistrict);
+    this.form.get(['rinBibaran', 0, 'creditorMobileNo1']).patchValue(this.nepaliData.contactNumber);
+    this.form.get(['rinBibaran', 0, 'creditorSpouse1']).patchValue(this.nepaliData.husbandName);
+    this.form.get(['rinBibaran', 0, 'creditorFatherName1']).patchValue(this.nepaliData.fatherName);
+    this.form.get(['rinBibaran', 0, 'creditorMotherName1']).patchValue(this.nepaliData.motherName);
+    this.form.get(['rinBibaran', 0, 'creditorGrandFatherName1']).patchValue(this.nepaliData.grandFatherName);
+    this.form.get(['rinBibaran', 0, 'creditorGrandMotherName1']).patchValue(this.nepaliData.grandMotherName);
+
   }
 
   setGuarantorDetails(data) {

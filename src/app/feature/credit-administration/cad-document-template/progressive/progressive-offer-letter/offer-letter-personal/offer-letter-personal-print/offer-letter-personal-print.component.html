@@ -106,22 +106,27 @@
                                 <td rowspan="10">({{i + 1 | nepaliWord}})</td>
                                 <td style="width: 22%"><strong>कर्जा सुविधाको किसिम :</strong></td>
                                 <td>
-                                    <span [ngClass]="{'nepaliFont uniFont' : loanFacilityData?.loanTypeNepali !== null && loanFacilityData?.loanTypeNepali !== ''}">
+                                    <span [ngClass]="{'nepaliFont unicode-size2' : loanFacilityData?.loanTypeNepali !== null && loanFacilityData?.loanTypeNepali !== ''}">
                                         {{loanFacilityData?.loanTypeNepali === null || loanFacilityData?.loanTypeNepali === '' ? '_________________' : loanFacilityData?.loanTypeNepali}}
                                     </span>
                                     कर्जा
-                                    <span class="unicode-size">
+                                    (<span class="unicode-size">
                                         {{loanFacilityData?.loanTypeEnglish === null || loanFacilityData?.loanTypeEnglish === '' ? '_________________' : loanFacilityData?.loanTypeEnglish}}
                                     </span>
-                                    (loan)
+                                    loan)
                                 </td>
                             </tr>
                             <tr>
                                 <td><strong>कर्जा सिमा :</strong></td>
                                 <td>अधिकतम रु.
-                                    <span [ngClass]="{'nepaliFont unicode-size' : loanFacilityData?.amount !== null && loanFacilityData?.amount !== ''}">
+                                    <span *ngIf="i > 0; else firstIndex" [ngClass]="{'nepaliFont unicode-size2' : loanFacilityData?.amount !== null && loanFacilityData?.amount !== ''}">
                                         {{loanFacilityData?.amount === null || loanFacilityData?.amount === '' ? '_________________' : loanFacilityData?.amount}}
                                     </span>
+                                    <ng-template #firstIndex>
+                                       <span [ngClass]="{'nepaliFont unicode-size' : loanFacilityData?.amount !== null && loanFacilityData?.amount !== ''}">
+                                        {{loanFacilityData?.amount === null || loanFacilityData?.amount === '' ? '_________________' : loanFacilityData?.amount}}
+                                    </span>
+                                    </ng-template>
                                     /– (अक्षरेपी:
 
                                     <span [ngClass]="{'nepaliFont unicode-size' : loanFacilityData?.amountInWords !== null && loanFacilityData?.amountInWords !== ''}">
@@ -143,9 +148,14 @@
                                 <td><strong>व्याजदर :</strong></td>
                                 <td>
                                         स्वीकृत लिमिट मध्ये बाट उपभोग गरिएको हदसम्म तोकिएको
-                                        <span [ngClass]="{'nepaliFont unicode-size2' : loanFacilityData?.interestFinalRate !== null && loanFacilityData?.interestFinalRate !== ''}">
+                                        <span *ngIf="i > 0; else firstIndexByajdar" [ngClass]="{'nepaliFont unicode-size' : loanFacilityData?.interestFinalRate !== null && loanFacilityData?.interestFinalRate !== ''}">
                                             {{loanFacilityData?.interestFinalRate === null || loanFacilityData?.interestFinalRate === '' ? '_________________' : loanFacilityData?.interestFinalRate}}
                                         </span>
+                                    <ng-template #firstIndexByajdar>
+                                       <span [ngClass]="{'nepaliFont unicode-size2' : loanFacilityData?.interestFinalRate !== null && loanFacilityData?.interestFinalRate !== ''}">
+                                        {{loanFacilityData?.interestFinalRate === null || loanFacilityData?.interestFinalRate === '' ? '_________________' : loanFacilityData?.interestFinalRate}}
+                                    </span>
+                                    </ng-template>
 
                                         प्रतिशत बार्षिक व्याजदरले दैनिक रुपमा व्याज गणना गरि महिनाको अन्तमा वा अन्तिम भुक्तानीका दिन असुल
                                         उपर गरिनेछ । यो व्याज दर समय समयमा नेपाल राष्ट्र बैंक वा फाइनान्सको आधार
@@ -192,9 +202,14 @@
                                         </span>
                                         % =
 
-                                        <span [ngClass]="{'nepaliFont unicode-size2' : loanFacilityData?.interestFinalRate !== null && loanFacilityData?.interestFinalRate !== ''}">
+                                        <span  *ngIf="i > 0; else firstIndexIntRate" [ngClass]="{'nepaliFont unicode-size' : loanFacilityData?.interestFinalRate !== null && loanFacilityData?.interestFinalRate !== ''}">
                                             {{loanFacilityData?.interestFinalRate === null || loanFacilityData?.interestFinalRate === '' ? '________' : loanFacilityData?.interestFinalRate}}
                                         </span>
+                                    <ng-template #firstIndexIntRate>
+                                       <span [ngClass]="{'nepaliFont unicode-size2' : loanFacilityData?.interestFinalRate !== null && loanFacilityData?.interestFinalRate !== ''}">
+                                        {{loanFacilityData?.interestFinalRate === null || loanFacilityData?.interestFinalRate === '' ? '_________________' : loanFacilityData?.interestFinalRate}}
+                                    </span>
+                                    </ng-template>
                                         %
                                         <br>
                                         (Base Rate + Risk Premium - Temporary Discount = Interest Rate)
@@ -259,7 +274,7 @@
                                 <td><strong>प्रतिवद्धता शुल्क :</strong></td>
                                 <td>
                                     रु.
-                                    <span [ngClass]="{'nepaliFont unicode-size' : loanFacilityData?.amount !== null && loanFacilityData?.amount !== ''}">
+                                    <span *ngIf="i > 0; else firstIndex" [ngClass]="{'nepaliFont unicode-size2' : loanFacilityData?.amount !== null && loanFacilityData?.amount !== ''}">
                                         {{loanFacilityData?.amount === null || loanFacilityData?.amount === '' ? '___________' : loanFacilityData?.amount}}
                                     </span>
                                     को कर्जा लगानी भएको मितिले म्याद अगावै साँवाको
@@ -336,36 +351,36 @@
                                                 </span>
                                                 <br>
                                                 <strong>ठेगाना :</strong>
-                                                <span [ngClass]="{'nepaliFont unicode-size' : securityDetail?.jaggaWard !== null && securityDetail?.jaggaWard !== ''}">
-                                                    {{securityDetail?.jaggaWard === null || securityDetail?.jaggaWard === '' ? '' : securityDetail?.jaggaWard}}
+                                                <span [ngClass]="{'nepaliFont unicode-size' : securityDetail?.collateralPerMunVdc !== null && securityDetail?.collateralPerMunVdc !== ''}">
+                                                    {{securityDetail?.collateralPerMunVdc === null || securityDetail?.collateralPerMunVdc === '' ? '' : securityDetail?.collateralPerMunVdc}}
                                                 </span>, वडा नं.
-                                                <span [ngClass]="{'nepaliFont' : securityDetail?.wardNo !== null && securityDetail?.wardNo !== ''}">
-                                                    {{securityDetail?.wardNo === null || securityDetail?.wardNo === '' ? '' : securityDetail?.wardNo}}
+                                                <span [ngClass]="{'nepaliFont unicode-size3' : securityDetail?.collateralPerWard !== null && securityDetail?.collateralPerWard !== ''}">
+                                                    {{securityDetail?.collateralPerWard === null || securityDetail?.collateralPerWard === '' ? '' : securityDetail?.collateralPerWard}}
                                                 </span>,
-                                                <span [ngClass]="{'nepaliFont unicode-size' : securityDetail?.jaggaDistrict !== null && securityDetail?.jaggaDistrict !== ''}">
-                                                    {{securityDetail?.jaggaDistrict === null || securityDetail?.jaggaDistrict === '' ? '' : securityDetail?.jaggaDistrict}}
+                                                <span [ngClass]="{'nepaliFont unicode-size' : securityDetail?.collateralPerDis !== null && securityDetail?.collateralPerDis !== ''}">
+                                                    {{securityDetail?.collateralPerDis === null || securityDetail?.collateralPerDis === '' ? '' : securityDetail?.collateralPerDis}}
                                                 </span>
                                                 <br>
                                             </td>
                                             <td>
-                                                <span [ngClass]="{'nepaliFont unicode-size' : securityDetail?.jaggaDistrict !== null && securityDetail?.jaggaDistrict !== ''}">
+                                                <span [ngClass]="{'nepaliFont' : securityDetail?.jaggaDistrict !== null && securityDetail?.jaggaDistrict !== ''}">
                                                     {{securityDetail?.jaggaDistrict === null || securityDetail?.jaggaDistrict === '' ? '' : securityDetail?.jaggaDistrict}}
                                                 </span>
                                             </td>
                                             <td>
                                                 साबिक:
-                                                <span [ngClass]="{'nepaliFont unicode-size' : securityDetail?.jaggaWard !== null && securityDetail?.jaggaWard !== ''}">
+                                                <span [ngClass]="{'nepaliFont' : securityDetail?.jaggaWard !== null && securityDetail?.jaggaWard !== ''}">
                                                     {{securityDetail?.jaggaWard === null || securityDetail?.jaggaWard === '' ? '' : securityDetail?.jaggaWard}}
                                                 </span>
                                                 <br>
                                                 हाल:
-                                                <span [ngClass]="{'nepaliFont unicode-size' : securityDetail?.hal !== null && securityDetail?.hal !== ''}">
+                                                <span [ngClass]="{'nepaliFont' : securityDetail?.hal !== null && securityDetail?.hal !== ''}">
                                                     {{securityDetail?.hal === null || securityDetail?.hal === '' ? '' : securityDetail?.hal}}
                                                 </span>
                                             </td>
                                             <td>
                                                 <span [ngClass]="{'nepaliFont' : securityDetail?.jaggaKittaNum !== null && securityDetail?.jaggaKittaNum !== ''}">
-                                                    {{securityDetail?.jaggaKittaNum === null || printDocForm?.jaggaKittaNum === '' ? '' : securityDetail?.jaggaKittaNum}}
+                                                    {{securityDetail?.jaggaKittaNum === null || securityDetail?.jaggaKittaNum === '' ? '' : securityDetail?.jaggaKittaNum}}
                                                 </span>
                                             </td>
                                             <td>
@@ -857,6 +872,7 @@
                             </tr>
                         </table>
                         <br>
+                        <div class="page-break"></div>
                         <div *ngIf="printDocForm?.loanFacilityTable.length === 1"></div>
                         <div class="row">
                             <div class="col-md-12">
@@ -900,7 +916,7 @@
                                             </span>
                                             <br>
                                             ईमेल ठेगाना:
-                                            <span class="unicode-size4">
+                                            <span class="unicode-size">
                                                 {{printDocForm?.financeEmail === null || printDocForm?.financeEmail === '' ? '____________________' : printDocForm?.financeEmail}}
                                             </span>
                                             <br>
@@ -919,7 +935,7 @@
                                             न.पा.
                                             वडा नं.
 
-                                            <span [ngClass]="{'nepaliFont' : printDocForm?.customerWardNum !== null && printDocForm?.customerWardNum !== ''}">
+                                            <span [ngClass]="{'nepaliFont unicode-size4' : printDocForm?.customerWardNum !== null && printDocForm?.customerWardNum !== ''}">
                                                 {{printDocForm?.customerWardNum === null || printDocForm?.customerWardNum === '' ? '________' : printDocForm?.customerWardNum}}
                                             </span>
                                             ,
@@ -939,7 +955,7 @@
                                             </span>
                                             <br>
                                             ईमेल ठेगाना:
-                                            <span class="unicode-size4">
+                                            <span class="unicode-size">
                                                 {{printDocForm?.customerEmail === null || printDocForm?.customerEmail === '' ? '_____________' : printDocForm?.customerEmail}}
                                             </span>
                                             <br>
