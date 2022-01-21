@@ -57,7 +57,7 @@
 <app-financial-view *ngIf="loanHolder?.financial && isIndividual"
                     [customerType]="loanHolder?.customerType"
                     [formData]="loanHolder?.financial"></app-financial-view>
-<div *ngIf="financialKeys?.length > 0">
+<div *ngIf="financialKeys?.length > 0 && !isIndividual">
     <ng-container  *ngFor="let title of financialKeys">
         <h6>{{title | financialPipe}}</h6>
         <hr>
