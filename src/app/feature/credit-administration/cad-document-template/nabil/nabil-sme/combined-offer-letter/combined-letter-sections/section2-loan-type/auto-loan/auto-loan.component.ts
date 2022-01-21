@@ -90,7 +90,7 @@ export class AutoLoanComponent implements OnInit {
                 // Free Text
                 freeTextFourteen: [undefined],
             })
-        )
+        );
     }
 
     fillForm() {

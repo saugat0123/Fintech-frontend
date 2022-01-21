@@ -146,6 +146,7 @@
                         {{letterData?.mortgageEquityTermForm.emiInWordsCT === null || letterData?.mortgageEquityTermForm.emiInWordsCT === '' ? '___________' : letterData?.mortgageEquityTermForm.emiInWordsCT}}</span>
     मात्र)का दरले बाञकी किस्ताहरुमा तल उल्लिखित कर्जा अवधि समाप्ति मिति भित्र चुक्ता भुक्तानी गर्नु पर्नेछ ।<br>
     <strong>कर्जा अवधि समाप्ति मितिः</strong>
+    {{this.letterData?.mortgageEquityTermForm?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
     <span [ngClass]="{'outside' : letterData?.mortgageEquityTermForm.dateOfExpiryCT !== null && letterData?.mortgageEquityTermForm.dateOfExpiryCT !== ''}">
                         {{letterData?.mortgageEquityTermForm.dateOfExpiryCT === null || letterData?.mortgageEquityTermForm.dateOfExpiryCT === '' ? '___________' : letterData?.mortgageEquityTermForm.dateOfExpiryCT}}</span>
     ।
@@ -261,6 +262,7 @@
                             किस्ताहरुमा तल उल्लिखित कर्जा अवधि
                             समाप्ति मिति भित्र सम्पुर्ण बाँकी बक्यौता रकम चुक्ता भुक्तानी गर्नु पर्नेछ ।</span><br>
     <strong>कर्जा अवधि समाप्ति मितिः </strong>
+    {{this.letterData?.mortgageEquityTermForm?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
     <span [ngClass]="{'outside' : letterData?.mortgageEquityTermForm.dateOfExpiryCT !== null && letterData?.mortgageEquityTermForm.dateOfExpiryCT !== ''}">
                         {{letterData?.mortgageEquityTermForm.dateOfExpiryCT === null || letterData?.mortgageEquityTermForm.dateOfExpiryCT === '' ? '___________' : letterData?.mortgageEquityTermForm.dateOfExpiryCT}}</span>
      ।<br>
