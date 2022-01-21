@@ -107,11 +107,9 @@
 
                 <td>
                     <span *ngIf="(loan?.loan?.isFundable && loan?.loan?.loanNature !== null)
-                    || (loan?.loan?.loanTag === 'VEHICLE' ||  loan?.loan?.loanTag === 'SHARE_SECURITY' ||  loan?.loan?.loanTag === 'GENERAL')">
-                        <span *ngIf="loan?.loan?.loanTag === 'FIXED_DEPOSIT' ">
-                            IR : {{(loan?.proposal?.data | jsonParse)?.interestRate}} %,
-                        </span>
-                        <span *ngIf="loan?.loan?.isFundable !== null">
+                    || (loan?.loan?.loanTag === 'VEHICLE' ||  loan?.loan?.loanTag === 'SHARE_SECURITY' ||  loan?.loan?.loanTag === 'GENERAL' || loan?.loan?.loanTag === 'FIXED_DEPOSIT' )">
+                        IR : {{(loan?.proposal?.data | jsonParse)?.interestRate}} %,
+                        <span *ngIf="loan?.loan?.isFundable !== null && loan?.loan?.loanTag !== 'FIXED_DEPOSIT' ">
                             BR : {{ (loan?.proposal?.data | jsonParse)?.baseRate}} %,
                             PR : {{ (loan?.proposal?.data | jsonParse)?.premiumRateOnBaseRate}} %,
                         </span>
@@ -210,11 +208,9 @@
                 <td>
                     <span *ngIf="(loanDto?.loanConfig?.isFundable && loanDto?.loanConfig?.loanNature !== null)
                             || (loanDto?.loanConfig?.loanTag === 'VEHICLE' ||  loanDto?.loanConfig?.loanTag === 'SHARE_SECURITY'
-                            || loanDto?.loanConfig?.loanTag === 'GENERAL')">
-                        <span *ngIf="loanDto?.loanConfig?.loanTag === 'FIXED_DEPOSIT' ">
-                            IR : {{(loanDto?.proposal?.data | jsonParse)?.interestRate}} %,
-                        </span>
-                        <span *ngIf="loanDto?.loanConfig?.isFundable !== null">
+                            || loanDto?.loanConfig?.loanTag === 'GENERAL' || loanDto?.loanConfig?.loanTag === 'FIXED_DEPOSIT' )">
+                        IR : {{(loanDto?.proposal?.data | jsonParse)?.interestRate}} %,
+                        <span *ngIf="loanDto?.loanConfig?.isFundable !== null && loanDto?.loanConfig?.loanTag !== 'FIXED_DEPOSIT' ">
                             BR : {{ (loanDto?.proposal?.data | jsonParse)?.baseRate}} %,
                             PR : {{ (loanDto?.proposal?.data | jsonParse)?.premiumRateOnBaseRate}} %,
                         </span>
