@@ -142,7 +142,9 @@
                                type="text"/> मात्र)का दरले बाञकी किस्ताहरुमा तल उल्लिखित कर्जा अवधि समाप्ति
                         मिति
                         भित्र चुक्ता भुक्तानी गर्नु पर्नेछ ।<br>
-                        <strong>कर्जा अवधि समाप्ति मितिः</strong> <input class="form-field form-control-sm "
+                        <strong>कर्जा अवधि समाप्ति मितिः</strong>
+                        {{autoLoan.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
+                        <input class="form-field form-control-sm "
                                                                          formControlName="annualEMILoanExpiryDateAutoLoan"
                                                                          placeholder=""
                                                                          type="text"/> ।
@@ -254,7 +256,9 @@
                             <!--बार्षिक/अर्धबार्षिक/त्रैमासिक/मासिक (Patch data from Form)-->
                             किस्ताहरुमा तल उल्लिखित कर्जा अवधि
                             समाप्ति मिति भित्र सम्पुर्ण बाँकी बक्यौता रकम चुक्ता भुक्तानी गर्नु पर्नेछ ।</span><br>
-                        <strong>कर्जा अवधि समाप्ति मितिः </strong><input class="form-field form-control-sm "
+                        <strong>कर्जा अवधि समाप्ति मितिः </strong>
+                        {{autoLoan.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
+                        <input class="form-field form-control-sm "
                                                                          formControlName="annualInstallmentLoanExpiryDateAutoLoan"
                                                                          placeholder=""
                                                                          type="text"/> ।<br>
