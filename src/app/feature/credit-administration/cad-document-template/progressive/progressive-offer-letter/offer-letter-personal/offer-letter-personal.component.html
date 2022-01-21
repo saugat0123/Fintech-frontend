@@ -183,10 +183,16 @@
                                             <td>
                                                 स्वीकृत लिमिट मध्ये बाट उपभोग गरिएको हदसम्म तोकिएको
 
-                                                <input class="form-control-sm form-field nepaliFont"
+                                                <input *ngIf="i == 0; else Byajdar" class="form-control-sm form-field nepaliFont"
                                                        type="text"
                                                        readonly
                                                        formControlName="interestFinalRate">
+                                                <ng-template #Byajdar>
+                                                    <input class="form-control-sm form-field nepaliFont uniFont"
+                                                           type="text"
+                                                           readonly
+                                                           formControlName="interestFinalRate">
+                                                </ng-template>
 
                                                 प्रतिशत बार्षिक व्याजदरले दैनिक रुपमा व्याज गणना गरि महिनाको अन्तमा वा
                                                 अन्तिम भुक्तानीका दिन असुल उपर गरिनेछ । यो व्याज दर समय समयमा नेपाल
@@ -251,7 +257,7 @@
                                                            [value]="form.get(['loanFacilityTable', i, 'interestTempDiscountRate']).value">
                                                     % =
 
-                                                    <input
+                                                    <input *ngIf="i == 0; else Byajdar"
                                                             class="form-control-sm form-field nepaliFont font-size-normal"
                                                             type="text"
                                                             readonly
@@ -273,10 +279,16 @@
                                                 प्रतिशतले
                                                 हुनआउने रकम रु.
 
-                                                <input class="form-control-sm form-field nepaliFont"
+                                                <input *ngIf="i == 0; else serviceFeeAmount" class="form-control-sm form-field nepaliFont"
                                                        type="text"
                                                        readonly
                                                        formControlName="serviceFeeAmount">
+                                                <ng-template #serviceFeeAmount>
+                                                    <input class="form-control-sm form-field nepaliFont uniFont"
+                                                           type="text"
+                                                           readonly
+                                                           formControlName="serviceFeeAmount">
+                                                </ng-template>
 
                                                 /–
                                             </td>
@@ -329,7 +341,7 @@
                                             <td><strong>प्रतिवद्धता शुल्क :</strong></td>
                                             <td>
                                                 रु.
-                                                <input class="form-control-sm form-field nepaliFont uniFont"
+                                                <input *ngIf="i > 0; else firstIndex" class="form-control-sm form-field nepaliFont"
                                                        type="text"
                                                        readonly
                                                        value="{{form.get(['loanFacilityTable', i, 'amount']).value}}"
@@ -405,7 +417,7 @@
                                 </tr>
                                 <tr>
                                     <td><strong>धितो राखिने जायजेथाको बिबरण</strong>
-                                        <table class="table table-bordered">
+                                        <table class="table table-bordered table-striped">
                                             <thead>
                                             <tr>
                                                 <th>जग्गा धनिको नाम र तीन पूस्ते</th>
@@ -440,25 +452,33 @@
                                                     <br>
                                                     ठेगाना :
                                                     <input class="form-control-sm form-field nepaliFont uniFont"
-                                                           formControlName="address"
+                                                           formControlName="collateralPerMunVdc"
+                                                           readonly
+                                                           type="text">, वडा नं.
+                                                    <input class="form-control-sm form-field nepaliFont"
+                                                           formControlName="collateralPerWard"
+                                                           readonly
+                                                           type="text">,
+                                                    <input class="form-control-sm form-field nepaliFont uniFont"
+                                                           formControlName="collateralPerDis"
                                                            readonly
                                                            type="text">
                                                     <br>
                                                 </th>
                                                 <td>
-                                                    <input class="form-control-sm form-field nepaliFont uniFont"
+                                                    <input class="form-control-sm form-field nepaliFont"
                                                            type="text"
                                                            readonly
-                                                           formControlName="jaggaDistrict">;
+                                                           formControlName="jaggaDistrict">
                                                 </td>
                                                 <td>
-                                                    स।बिक:
-                                                    <input class="form-control-sm form-field nepaliFont uniFont"
+                                                    साबिक:
+                                                    <input class="form-control-sm form-field nepaliFont"
                                                            type="text"
                                                            readonly
                                                            formControlName="jaggaWard">
                                                     <br>
-                                                    हाल: <input class="form-control-sm form-field nepaliFont uniFont"
+                                                    हाल: <input class="form-control-sm form-field nepaliFont"
                                                                 type="text"
                                                                 readonly
                                                                 formControlName="hal">

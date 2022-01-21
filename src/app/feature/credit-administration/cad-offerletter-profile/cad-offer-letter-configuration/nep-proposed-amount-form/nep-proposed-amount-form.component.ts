@@ -53,14 +53,6 @@ export class NepProposedAmountFormComponent implements OnInit {
     }
 
     ngOnInit() {
-        if (ObjectUtil.isEmpty(this.cadData.nepData)) {
-            const number = ProposalCalculationUtils.calculateTotalFromProposalList(LoanDataKey.PROPOSE_LIMIT, this.cadData.assignedLoan);
-            this.nepaliNumber.numberNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(number));
-            this.nepaliNumber.nepaliWords = this.nepaliCurrencyWordPipe.transform(number);
-            this.nepaliNumber.engNumber = number;
-        } else {
-            this.nepaliNumber = JSON.parse(this.cadData.nepData);
-        }
         if (!ObjectUtil.isEmpty(this.cadData.nepDataPersonal)) {
             this.nepDataPersonal = JSON.parse(this.cadData.nepDataPersonal);
         }
@@ -69,27 +61,28 @@ export class NepProposedAmountFormComponent implements OnInit {
     }
 
     buildForm() {
+        this.nepaliNumber = JSON.parse(this.cadData.nepData);
         this.nepForm = this.formBuilder.group({
             nepaliNumber: [this.nepaliNumber.numberNepali],
             engNumber: [this.nepaliNumber.engNumber, Validators.required],
-            initDate: [this.nepaliNumber.initDate, Validators.required],
-            loanType: [this.nepDataPersonal.loanType, Validators.required],
-            interestRate: [this.nepDataPersonal.interestRate, Validators.required],
-            serviceFeePercent: [this.nepDataPersonal.serviceFeePercent, Validators.required],
-            serviceFeeAmount: [this.nepDataPersonal.serviceFeeAmount, Validators.required],
-            tenureOfLoanInMonths: [this.nepDataPersonal.tenureOfLoanInMonths, Validators.required],
-            tenureOfLoanInYears: [this.nepDataPersonal.tenureOfLoanInYears, Validators.required],
-            installmentAmount: [this.nepDataPersonal.installmentAmount, Validators.required],
-            typeOfLoanInEnglish: [this.nepDataPersonal.typeOfLoanInEnglish, Validators.required],
-            purposeOfLoan: [this.nepDataPersonal.purposeOfLoan, Validators.required],
-            loanApprovalNo: [this.nepaliNumber.loanApprovalNo, Validators.required],
-            baseRate: [this.nepDataPersonal.baseRate, Validators.required],
-            premium: [this.nepDataPersonal.premium, Validators.required],
-            discount: [this.nepDataPersonal.discount, Validators.required],
-            cibCharges: [this.nepDataPersonal.cibCharges, Validators.required],
-            interestInstallmentPaymentFrequency: [this.nepDataPersonal.interestInstallmentPaymentFrequency, Validators.required],
-            loanMaturityDateBS: [this.nepDataPersonal.loanMaturityDateBS, Validators.required],
-            loanMaturityDateAD: [this.nepDataPersonal.loanMaturityDateAD, Validators.required],
+            initDate: [this.nepaliNumber.initDate],
+            loanType: [this.nepDataPersonal.loanType],
+            interestRate: [this.nepDataPersonal.interestRate],
+            serviceFeePercent: [this.nepDataPersonal.serviceFeePercent],
+            serviceFeeAmount: [this.nepDataPersonal.serviceFeeAmount],
+            tenureOfLoanInMonths: [this.nepDataPersonal.tenureOfLoanInMonths],
+            tenureOfLoanInYears: [this.nepDataPersonal.tenureOfLoanInYears],
+            installmentAmount: [this.nepDataPersonal.installmentAmount],
+            typeOfLoanInEnglish: [this.nepDataPersonal.typeOfLoanInEnglish],
+            purposeOfLoan: [this.nepDataPersonal.purposeOfLoan],
+            loanApprovalNo: [this.nepaliNumber.loanApprovalNo],
+            baseRate: [this.nepDataPersonal.baseRate],
+            premium: [this.nepDataPersonal.premium],
+            discount: [this.nepDataPersonal.discount],
+            cibCharges: [this.nepDataPersonal.cibCharges],
+            interestInstallmentPaymentFrequency: [this.nepDataPersonal.interestInstallmentPaymentFrequency],
+            loanMaturityDateBS: [this.nepDataPersonal.loanMaturityDateBS],
+            loanMaturityDateAD: [this.nepDataPersonal.loanMaturityDateAD],
         });
     }
 
