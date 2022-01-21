@@ -145,8 +145,8 @@
                         <div *ngIf="loanDataHolder?.isHsov" class="float-left"><span><strong>HSOV Enabled: </strong>YES</span></div>
                         <div *ngIf="loanDataHolder?.dualApproval" class="float-left"><span><strong>Dual Approval Enabled.: </strong>YES</span></div>
                         <br>
-<!--                        <div *ngIf="isRemitLoan" class="float-left"><span><strong>Remitter Citizenship Number: </strong>{{loanDataHolder?.refNo}}</span></div>-->
-<!--                        <br>-->
+                        <div *ngIf="isRemitLoan" class="float-left"><span><strong>Remitter Citizenship Number: </strong>{{senderDetails?.senderIdentity?.sender_citizen}}</span></div>
+                        <br>
                         <div class="float-left"><span><strong>Ref. No: </strong>{{loanDataHolder?.refNo}}</span></div>
                         <br>
                         <div class="float-left"><span><strong>Origination Branch/Code: </strong>{{loanDataHolder?.branch?.branchCode}}</span></div>
