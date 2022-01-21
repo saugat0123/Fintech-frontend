@@ -108,6 +108,7 @@ export class GuarantorComponent implements OnInit {
         formArray.push(this.addGuarantorDetails(v));
         this.jsonData = JSON.parse(v.guarantorJson);
         this.setJsonData(this.jsonData, index);
+        this.legalChange(v.consentOfLegalHeirs, index);
         this.checkSameAddress = v.checkSameAddress;
       });
     }
@@ -219,9 +220,15 @@ export class GuarantorComponent implements OnInit {
       checkSameAddress: [ObjectUtil.isEmpty(data.checkSameAddress) ? false : data.checkSameAddress],
       gender: [undefined],
       passNumber: [undefined],
+      // passIssueDate: [
+      //   ObjectUtil.isEmpty(data.guarantorJson) ? undefined : new Date(data.guarantorJson), Validators.required,
+      // ],
       passIssueDate: [undefined],
       passIssuedPlace: [undefined],
       panNumber: [undefined],
+      // panIssueDate: [
+      //   ObjectUtil.isEmpty(data.issuedYear) ? undefined : new Date(data.issuedYear), Validators.required,
+      // ],
       panIssueDate: [undefined],
       panIssuedPlace: [undefined],
       nationality: [undefined],
@@ -240,6 +247,9 @@ export class GuarantorComponent implements OnInit {
       // legal
       legalStatus: [undefined],
       registrationNumber: [undefined],
+      // issuedYear: [
+      //   ObjectUtil.isEmpty(data.issuedYear) ? undefined : new Date(data.issuedYear), Validators.required,
+      // ],
       registrationDate: [undefined],
       registrationWith: [undefined],
       groupName: [undefined],
@@ -357,6 +367,7 @@ export class GuarantorComponent implements OnInit {
       submitData.registrationDate = c.get('registrationDate').value;
       submitData.registrationWith = c.get('registrationWith').value;
       submitData.groupName = c.get('groupName').value;
+      // guarantor.guarantorJson = submitData;
       guarantor.guarantorJson = JSON.stringify(submitData);
       this.guarantorDetail.guarantorList.push(guarantor);
     });
@@ -424,10 +435,12 @@ export class GuarantorComponent implements OnInit {
   setJsonData(data, index: number) {
     this.form.get(['guarantorDetails', index, 'gender']).patchValue(data.gender);
     this.form.get(['guarantorDetails', index, 'passNumber']).patchValue(data.passNumber);
-    this.form.get(['guarantorDetails', index, 'passIssueDate']).patchValue(data.passIssueDate);
+    this.form.get(['guarantorDetails', index, 'passIssueDate'])
+        .patchValue(ObjectUtil.isEmpty(data.passIssueDate) ? undefined : new Date(data.passIssueDate));
     this.form.get(['guarantorDetails', index, 'passIssuedPlace']).patchValue(data.passIssuedPlace);
     this.form.get(['guarantorDetails', index, 'panNumber']).patchValue(data.panNumber);
-    this.form.get(['guarantorDetails', index, 'panIssueDate']).patchValue(data.panIssueDate);
+    this.form.get(['guarantorDetails', index, 'panIssueDate'])
+        .patchValue(ObjectUtil.isEmpty(data.panIssueDate) ? undefined : new Date(data.panIssueDate));
     this.form.get(['guarantorDetails', index, 'panIssuedPlace']).patchValue(data.panIssuedPlace);
     this.form.get(['guarantorDetails', index, 'nationality']).patchValue(data.nationality);
     this.form.get(['guarantorDetails', index, 'email']).patchValue(data.email);
@@ -442,7 +455,8 @@ export class GuarantorComponent implements OnInit {
     this.form.get(['guarantorDetails', index, 'marginalisedDirector']).patchValue(data.marginalisedDirector);
     this.form.get(['guarantorDetails', index, 'femaleMarDirector']).patchValue(data.femaleMarDirector);
     this.form.get(['guarantorDetails', index, 'registrationNumber']).patchValue(data.registrationNumber);
-    this.form.get(['guarantorDetails', index, 'registrationDate']).patchValue(data.registrationDate);
+    this.form.get(['guarantorDetails', index, 'registrationDate'])
+        .patchValue(ObjectUtil.isEmpty(data.registrationDate) ? undefined : new Date(data.registrationDate));
     this.form.get(['guarantorDetails', index, 'registrationWith']).patchValue(data.registrationWith);
     this.form.get(['guarantorDetails', index, 'groupName']).patchValue(data.groupName);
   }
@@ -481,29 +495,36 @@ export class GuarantorComponent implements OnInit {
       this.form.get(['guarantorDetails', i, 'bodFemaleDirector']).patchValue(null);
       this.form.get(['guarantorDetails', i, 'marginalisedDirector']).patchValue(null);
       this.form.get(['guarantorDetails', i, 'femaleMarDirector']).patchValue(null);
-      this.clearValidation(checked, i);
     } else {
       this.form.get(['guarantorDetails', i, 'registrationNumber']).patchValue(null);
       this.form.get(['guarantorDetails', i, 'registrationDate']).patchValue(null);
       this.form.get(['guarantorDetails', i, 'registrationWith']).patchValue(null);
       this.form.get(['guarantorDetails', i, 'groupName']).patchValue(null);
     }
+    this.clearValidation(checked, i);
   }
 
   clearValidation(checked, i) {
     if (checked) {
       this.form.get(['guarantorDetails', i, 'citizenNumber']).clearValidators();
-      this.form.get(['guarantorDetails', i, 'citizenNumber']).updateValueAndValidity();
       this.form.get(['guarantorDetails', i, 'issuedYear']).clearValidators();
-      this.form.get(['guarantorDetails', i, 'issuedYear']).updateValueAndValidity();
       this.form.get(['guarantorDetails', i, 'issuedPlace']).clearValidators();
-      this.form.get(['guarantorDetails', i, 'issuedPlace']).updateValueAndValidity();
       this.form.get(['guarantorDetails', i, 'dateOfBirth']).clearValidators();
-      this.form.get(['guarantorDetails', i, 'dateOfBirth']).updateValueAndValidity();
       this.form.get(['guarantorDetails', i, 'fatherName']).clearValidators();
-      this.form.get(['guarantorDetails', i, 'fatherName']).updateValueAndValidity();
       this.form.get(['guarantorDetails', i, 'grandFatherName']).clearValidators();
-      this.form.get(['guarantorDetails', i, 'grandFatherName']).updateValueAndValidity();
+    } else {
+      this.form.get(['guarantorDetails', i, 'citizenNumber']).setValidators(Validators.required);
+      this.form.get(['guarantorDetails', i, 'issuedYear']).setValidators(Validators.required);
+      this.form.get(['guarantorDetails', i, 'issuedPlace']).setValidators(Validators.required);
+      this.form.get(['guarantorDetails', i, 'dateOfBirth']).setValidators(Validators.required);
+      this.form.get(['guarantorDetails', i, 'fatherName']).setValidators(Validators.required);
+      this.form.get(['guarantorDetails', i, 'grandFatherName']).setValidators(Validators.required);
     }
+    this.form.get(['guarantorDetails', i, 'citizenNumber']).updateValueAndValidity();
+    this.form.get(['guarantorDetails', i, 'issuedYear']).updateValueAndValidity();
+    this.form.get(['guarantorDetails', i, 'issuedPlace']).updateValueAndValidity();
+    this.form.get(['guarantorDetails', i, 'dateOfBirth']).updateValueAndValidity();
+    this.form.get(['guarantorDetails', i, 'fatherName']).updateValueAndValidity();
+    this.form.get(['guarantorDetails', i, 'grandFatherName']).updateValueAndValidity();
   }
 }
