@@ -385,7 +385,8 @@ export class SecurityInitialFormComponent implements OnInit {
                 break;
             case  'building':
                 this.valuatorService.getListWithSearchObject(valuatorSearch).subscribe((res: any) => {
-                    this.securityValuator.buildingValuator[index] = res.detail.filter(item => item.valuatingField.includes('LAND_BUILDING'));
+                    this.securityValuator.buildingValuator[index] = res.detail.filter(item =>
+                        item.valuatingField.includes('LAND_BUILDING'));
                 });
                 break;
         }
@@ -433,6 +434,7 @@ export class SecurityInitialFormComponent implements OnInit {
             landDetails.push(
                 this.formBuilder.group({
                     owner: [singleData.owner],
+                    ownerNepali: [singleData.ownerNepali],
                     location: [singleData.location],
                     plotNumber: [singleData.plotNumber],
                     areaFormat: [singleData.areaFormat],
@@ -1280,6 +1282,7 @@ export class SecurityInitialFormComponent implements OnInit {
     landDetailsFormGroup(): FormGroup {
         return this.formBuilder.group({
             owner: ['', Validators.required],
+            ownerNepali: ['', Validators.required],
             location: [''],
             plotNumber: [''],
             areaFormat: [''],

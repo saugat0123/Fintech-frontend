@@ -568,7 +568,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
             }
             if (!ObjectUtil.isEmpty(security)) {
                 this.securityPresent = true;
-                this.securityData = JSON.parse(security.data);
+                this.securityData = JSON.parse(security.approvedData);
                 this.selectedArray = this.securityData.selectedArray;
                 if (this.selectedArray.length > 0) {
                     this.multipleSecurity = true;
@@ -579,7 +579,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
             }
             const shareSecurity: ShareSecurity = this.cadData.loanHolder.shareSecurity;
             if (!ObjectUtil.isEmpty(shareSecurity)) {
-                this.shareData = JSON.parse(shareSecurity.data);
+                this.shareData = JSON.parse(shareSecurity.approvedData);
             }
 
             // security Data patch
@@ -587,15 +587,15 @@ export class OfferLetterLaxmiComponent implements OnInit {
                 if (s === 'LandSecurity') {
                     this.addSecurity(this.securityData['initialForm']['landDetails']);
                 }
-                if (s === 'Land and Building Security') {
-                    this.addSecurity(this.securityData['initialForm']['landBuilding']);
-                }
-                if (s === 'ApartmentSecurity') {
-                    this.addSecurity(this.securityData['initialForm']['buildingDetails']);
-                }
-                if (s === 'VehicleSecurity') {
-                    this.addVehicleSecurity(this.securityData['initialForm']['vehicleDetails']);
-                }
+                // if (s === 'Land and Building Security') {
+                //     this.addSecurity(this.securityData['initialForm']['landBuilding']);
+                // }
+                // if (s === 'ApartmentSecurity') {
+                //     this.addSecurity(this.securityData['initialForm']['buildingDetails']);
+                // }
+                // if (s === 'VehicleSecurity') {
+                //     this.addVehicleSecurity(this.securityData['initialForm']['vehicleDetails']);
+                // }
                 if (s === 'ShareSecurity') {
                     this.addShareSecurity(this.shareData);
                 }
@@ -604,12 +604,13 @@ export class OfferLetterLaxmiComponent implements OnInit {
     }
 
     addSecurity(data) {
+        console.log('data', data);
         const security = this.offerLetterForm.get('security') as FormArray;
         if (!ObjectUtil.isEmpty(data)) {
             data.forEach(d => {
                 security.push(
                     this.formBuilder.group({
-                        ownerName: [undefined],
+                        ownerName: [d.ownerNepali],
                         district: [undefined],
                         vdc: [undefined],
                         wardNo: [undefined],

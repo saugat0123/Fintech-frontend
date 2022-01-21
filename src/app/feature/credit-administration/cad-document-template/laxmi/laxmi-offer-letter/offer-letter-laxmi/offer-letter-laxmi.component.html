@@ -971,14 +971,15 @@
                         <ng-container>
                             <tr *ngFor="let securityData of offerLetterForm?.get('security')?.value; let ii = index">
                                 <td>
-                                    <input type="text"
-                                           [value]="offerLetterForm?.get(['security', ii, 'ownerName'])?.value"
-                                           placeholder="जग्गाधनीको नाम"
-                                           (change)="securityValueChange($event?.target?.value, ii, 'ownerName')"
-                                           class="nepaliFont form-field form-control-sm font-size-normal disable-print">
-                                    <span class="nepaliFont print-only">
-                                        <b>{{offerLetterForm?.get(['security', ii, 'ownerName'])?.value ?
-                                            offerLetterForm?.get(['security', ii, 'ownerName'])?.value : '========='}}</b></span>
+                                    <span class="nepaliFont">{{securityData?.ownerName}}</span>
+<!--                                    <input type="text"-->
+<!--                                           [value]="offerLetterForm?.get(['security', ii, 'ownerName'])?.value"-->
+<!--                                           placeholder="जग्गाधनीको नाम"-->
+<!--                                           (change)="securityValueChange($event?.target?.value, ii, 'ownerName')"-->
+<!--                                           class="nepaliFont form-field form-control-sm font-size-normal disable-print">-->
+<!--                                    <span class="nepaliFont print-only">-->
+<!--                                        <b>{{offerLetterForm?.get(['security', ii, 'ownerName'])?.value ?-->
+<!--                                            offerLetterForm?.get(['security', ii, 'ownerName'])?.value : '========='}}</b></span>-->
                                 </td>
                                 <td><input type="text"
                                            [value]="offerLetterForm?.get(['security', ii, 'district'])?.value"
