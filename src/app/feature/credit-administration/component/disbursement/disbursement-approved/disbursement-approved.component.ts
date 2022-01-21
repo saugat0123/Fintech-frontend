@@ -80,7 +80,6 @@ export class DisbursementApprovedComponent implements OnInit {
         modelRef.componentInstance.cadData = data;
         modelRef.componentInstance.isHistory = true;
         modelRef.result.then(() => {
-            console.log('When exposure closes');
         }, () => {
             DisbursementApprovedComponent.loadData(this);
         });

@@ -56,7 +56,6 @@ export class CadDocumentUploadComponent implements OnInit {
     this.loanFormService.detail(this.paramProperties.customerId).subscribe(
         (response: any) => {
           this.loanDataHolder = response.detail;
-          console.log(this.loanDataHolder);
             if (!ObjectUtil.isEmpty(this.loanDataHolder.postApprovalDocIdList)) {
               this.docList = JSON.parse(this.loanDataHolder.postApprovalDocIdList);
           }
@@ -64,7 +63,6 @@ export class CadDocumentUploadComponent implements OnInit {
                 this.data = JSON.parse(this.loanDataHolder.data);
                 this.form.patchValue(this.data);
             }
-          console.log(this.loanDataHolder, 'ld');
           this.loanDataHolder.id = response.detail.id;
           this.getLoanData();
         });

@@ -121,10 +121,8 @@ export class CadDocumentListComponent implements OnInit {
         comp.componentInstance.cadData = dataCad;
         comp.componentInstance.disbursementDataAssign = false;
         comp.result.then(() => {
-            console.log('When assigned closes');
             CadDocumentListComponent.loadData(this);
         }, () => {
-            console.log('When assigned closes');
             CadDocumentListComponent.loadData(this);
         });
     }
