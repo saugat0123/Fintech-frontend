@@ -19,6 +19,7 @@ export class OverdraftFacilityAgainstBondComponent implements OnInit {
     @Input() loanName;
     @Input() offerDocumentList: Array<OfferDocument>;
     @Input() customerApprovedDoc;
+    @Input() isEdit;
     initialInformation: any;
     overDraftFacilityForm: FormGroup;
     ADExpiry = false;
@@ -32,6 +33,7 @@ export class OverdraftFacilityAgainstBondComponent implements OnInit {
         {value: 'No'}
     ];
     overdraftFacilityNumber: Array<any> = new Array<any>();
+    forBondDetails;
 
     constructor(private formBuilder: FormBuilder,
                 private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
@@ -284,13 +286,34 @@ export class OverdraftFacilityAgainstBondComponent implements OnInit {
 
     addBondDetails() {
         for (let a = 0; a < this.overdraftFacilityNumber.length; a++) {
-            (this.overDraftFacilityForm.get(['overdraftFacilityDetails', a, 'bondDetails']) as FormArray).push(
-                this.formBuilder.group({
-                    bondOwnerName: [undefined],
-                    bondOwnerNameTrans: [undefined],
-                    bondOwnerNameCT: [undefined],
-                })
-            );
+            if (this.isEdit) {
+                let temp;
+                if (this.offerDocumentList.length > 0) {
+                    this.offerDocumentList.forEach(offerLetter => {
+                        this.forBondDetails = JSON.parse(offerLetter.initialInformation);
+                    });
+                    if (!ObjectUtil.isEmpty(this.forBondDetails)) {
+                        temp = this.forBondDetails.overDraftFacilityForm.overdraftFacilityDetails;
+                    }
+                    temp[a].bondDetails.forEach((val) => {
+                        (this.overDraftFacilityForm.get(['overdraftFacilityDetails', a, 'bondDetails']) as FormArray).push(
+                            this.formBuilder.group({
+                                bondOwnerName: [undefined],
+                                bondOwnerNameTrans: [undefined],
+                                bondOwnerNameCT: [undefined],
+                            })
+                        );
+                    });
+                }
+            } else {
+                (this.overDraftFacilityForm.get(['overdraftFacilityDetails', a, 'bondDetails']) as FormArray).push(
+                    this.formBuilder.group({
+                        bondOwnerName: [undefined],
+                        bondOwnerNameTrans: [undefined],
+                        bondOwnerNameCT: [undefined],
+                    })
+                );
+            }
         }
     }
 
