@@ -131,9 +131,11 @@ export class Section2LoanTypeComponent implements OnInit {
     termLoanDetails = [];
     finalLoanDetails = [];
     overdraftAgainstBond = [];
+    documentaryBillPurchase = [];
     autoLoanData;
     termLoanData;
     temp;
+    documentaryFreeText: Array<any> = new Array<any>();
 
     constructor(private formBuilder: FormBuilder,
                 private engToNepWord: NepaliCurrencyWordPipe,
@@ -161,6 +163,8 @@ export class Section2LoanTypeComponent implements OnInit {
             this.checkLoanName();
             this.setFreeText();
         }
+        console.log('Temp Data:', this.tempData);
+        console.log('Free Information:', this.tempInformation);
         this.issubsidyOrAgricultureLoan = this.tempData.smeGlobalForm.subsidyOrAgricultureLoan;
     }
 
@@ -230,12 +234,8 @@ export class Section2LoanTypeComponent implements OnInit {
             interestRatePreExport: [undefined],
             loanExpiryDatePreExport: [undefined],
             // Documentary Bill Purchase/Negotiation
-            SNOfParentLimitDocumentaryBill: [undefined],
-            marginInPercentageDocumentaryBill: [undefined],
-            drawingPowerDocumentaryBill: [undefined],
-            InterestRateDocumentaryBill: [undefined],
-            loanPaymentDocumentaryBill: [undefined],
-            loanExpiryDateDocumentaryBill: [undefined],
+            documentaryBillPurchaseNegotiation: this.formBuilder.array([]),
+
             // Overdraft Loan for Working Capital requirement
             ARDaysOverdraftLoan: [undefined],
             drawingPowerOverdraftLoan: [undefined],
@@ -309,15 +309,43 @@ export class Section2LoanTypeComponent implements OnInit {
             freeTextSixteen: [undefined],
         });
         this.setOverdraftFacilityAgainstBond();
+        this.setDocumentaryBillPurchaseNegotiation();
+    }
+    setDocumentaryBillPurchaseNegotiation() {
+        if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc)) {
+            this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
+        }
+        if (!ObjectUtil.isEmpty(this.tempData) &&
+            !ObjectUtil.isEmpty(this.tempData.documentaryBillPurchase) &&
+            !ObjectUtil.isEmpty(this.tempData.documentaryBillPurchase.documentaryBillPurchaseFormArray)) {
+            for (let a = 0; a < this.tempData.documentaryBillPurchase.documentaryBillPurchaseFormArray.length; a++) {
+                (this.form.get('documentaryBillPurchaseNegotiation') as FormArray).push(this.setDocumentaryBillPurchaseForm());
+            }
+        }
     }
 
     setOverdraftFacilityAgainstBond() {
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc)) {
             this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
         }
-        for (let a = 0; a < this.tempData.overDraftFacilityForm.overdraftFacilityDetails.length; a++) {
-            (this.form.get('overdraftFacilityAgainstBond') as FormArray).push(this.setOverdraftBondForm());
+        if (!ObjectUtil.isEmpty(this.tempData) &&
+            !ObjectUtil.isEmpty(this.tempData.overDraftFacilityForm) &&
+            !ObjectUtil.isEmpty(this.tempData.overDraftFacilityForm.overdraftFacilityDetails)) {
+            for (let a = 0; a < this.tempData.overDraftFacilityForm.overdraftFacilityDetails.length; a++) {
+                (this.form.get('overdraftFacilityAgainstBond') as FormArray).push(this.setOverdraftBondForm());
+            }
         }
+    }
+
+    setDocumentaryBillPurchaseForm() {
+        return this.formBuilder.group({
+            SNOfParentLimitDocumentaryBill: [undefined],
+            marginInPercentageDocumentaryBill: [undefined],
+            drawingPowerDocumentaryBill: [undefined],
+            InterestRateDocumentaryBill: [undefined],
+            loanPaymentDocumentaryBill: [undefined],
+            loanExpiryDateDocumentaryBill: [undefined],
+        });
     }
 
     setOverdraftBondForm() {
@@ -403,7 +431,9 @@ export class Section2LoanTypeComponent implements OnInit {
     }
 
     getBondName() {
-        if (!ObjectUtil.isEmpty(this.tempData.overDraftFacilityForm.overdraftFacilityDetails)) {
+        if (!ObjectUtil.isEmpty(this.tempData) &&
+            !ObjectUtil.isEmpty(this.tempData.overDraftFacilityForm) &&
+            !ObjectUtil.isEmpty(this.tempData.overDraftFacilityForm.overdraftFacilityDetails)) {
             for (let val = 0; val < this.tempData.overDraftFacilityForm.overdraftFacilityDetails.length; val++) {
                 if (this.tempData.overDraftFacilityForm.overdraftFacilityDetails[val]['bondDetails'].length === 1) {
                     const temp = this.tempData.overDraftFacilityForm.overdraftFacilityDetails[val]['bondDetails'][0].bondOwnerNameCT;
@@ -511,7 +541,7 @@ export class Section2LoanTypeComponent implements OnInit {
                     }
                     this.preExportFormPatchValue();
                 }
-                if (v.loanName === LoanNameConstant.DOCUMENTARY_BILL_PURCHASE_NEGOTIATION &&
+               /* if (v.loanName === LoanNameConstant.DOCUMENTARY_BILL_PURCHASE_NEGOTIATION &&
                     !ObjectUtil.isEmpty(this.tempData.documentaryBillPurchase)) {
                     this.isDocumentaryBillPurchase = true;
                     this.complementaryOtherDocumentaryBillName = this.tempData.documentaryBillPurchase.complimentaryLoanSelected;
@@ -519,7 +549,7 @@ export class Section2LoanTypeComponent implements OnInit {
                         this.complementaryOtherDocumentaryBill = true;
                     }
                     this.documentaryBillPurchaseFormPatchValue();
-                }
+                }*/
                 if (v.loanName === LoanNameConstant.OVERDRAFT_LOAN_FOR_WORKING_CAPITAL_REQUIREMENT &&
                     !ObjectUtil.isEmpty(this.tempData.overdraftLoanForm)) {
                     this.isOverdraftLoanWorkingCapital = true;
@@ -558,10 +588,12 @@ export class Section2LoanTypeComponent implements OnInit {
                     this.overdraftFixedFormPatchValue();
                 }
                 // tslint:disable-next-line:max-line-length
-                /*if (v.loanName === LoanNameConstant.OVERDRAFT_FACILITY_AGAINST_BOND || v.loanName === LoanNameConstant.STL_FACILITY_AGAINST_BOND ||
-                    v.loanName === LoanNameConstant.DL_FACILITY_AGAINST_BOND && !ObjectUtil.isEmpty(this.tempData.overDraftFacilityForm.overdraftFacilityDetails)) {
-                    this.isOverdraftFacilityAgainstBond = true;
-                    console.log('Overdraft Facility Form:', this.tempData.overDraftFacilityForm);
+                /*if (v.loanName === LoanNameConstant.OVERDRAFT_FACILITY_AGAINST_BOND ||
+                v.loanName === LoanNameConstant.STL_FACILITY_AGAINST_BOND ||
+                v.loanName === LoanNameConstant.DL_FACILITY_AGAINST_BOND &&
+                !ObjectUtil.isEmpty(this.tempData.overDraftFacilityForm.overdraftFacilityDetails)) {
+                this.isOverdraftFacilityAgainstBond = true;
+                  console.log('Overdraft Facility Form:', this.tempData.overDraftFacilityForm);
                     this.letterOfSetOffFacilityAgainstBond = this.tempData.overDraftFacilityForm.letterOfSetOffUsed;
                     this.interestSubsidyAgFacilityAgainstBond = this.tempData.overDraftFacilityForm.subsidyOrAgricultureLoan;
                     this.interestRateTypeFacilityAgainstBond = this.tempData.overDraftFacilityForm.interestRateType;
@@ -609,6 +641,7 @@ export class Section2LoanTypeComponent implements OnInit {
             });
         }
         this.overDraftFacilityFormPatchValue();
+        this.documentaryBillPurchaseFormPatchValue();
     }
 
     irrevocableLetterOfCredit() {
@@ -729,16 +762,24 @@ export class Section2LoanTypeComponent implements OnInit {
     }
 
     documentaryBillPurchaseFormPatchValue() {
-        this.form.patchValue({
-            // Documentary Bill Purchase/Negotiation
-            // SNOfParentLimitDocumentaryBill: [undefined],
-            // tslint:disable-next-line:max-line-length
-            marginInPercentageDocumentaryBill: this.tempData.documentaryBillPurchase.marginInPercentageCT ? this.tempData.documentaryBillPurchase.marginInPercentageCT : '',
-            // tslint:disable-next-line:max-line-length
-            drawingPowerDocumentaryBill: this.tempData.documentaryBillPurchase.drawingPowerCT ? this.tempData.documentaryBillPurchase.drawingPowerCT : '',
-            // tslint:disable-next-line:max-line-length
-            loanExpiryDateDocumentaryBill: this.tempData.documentaryBillPurchase.dateOfExpiryCT ? this.tempData.documentaryBillPurchase.dateOfExpiryCT : '',
-        });
+        if (!ObjectUtil.isEmpty(this.tempData) &&
+            !ObjectUtil.isEmpty(this.tempData.documentaryBillPurchase) &&
+            !ObjectUtil.isEmpty(this.tempData.documentaryBillPurchase.documentaryBillPurchaseFormArray)) {
+            for (let val = 0; val < this.tempData.documentaryBillPurchase.documentaryBillPurchaseFormArray.length; val++) {
+                this.form.get(['documentaryBillPurchaseNegotiation', val, 'marginInPercentageDocumentaryBill']).patchValue(
+                    this.tempData.documentaryBillPurchase.documentaryBillPurchaseFormArray[val] ?
+                        this.tempData.documentaryBillPurchase.documentaryBillPurchaseFormArray[val].marginInPercentageCT : ''
+                );
+                this.form.get(['documentaryBillPurchaseNegotiation', val, 'drawingPowerDocumentaryBill']).patchValue(
+                    this.tempData.documentaryBillPurchase.documentaryBillPurchaseFormArray[val] ?
+                        this.tempData.documentaryBillPurchase.documentaryBillPurchaseFormArray[val].drawingPowerCT : ''
+                );
+                this.form.get(['documentaryBillPurchaseNegotiation', val, 'loanExpiryDateDocumentaryBill']).patchValue(
+                    this.tempData.documentaryBillPurchase.documentaryBillPurchaseFormArray[val] ?
+                        this.tempData.documentaryBillPurchase.documentaryBillPurchaseFormArray[val].dateOfExpiryCT : ''
+                );
+            }
+        }
     }
 
     overdraftLoanFormPatchValue() {
@@ -805,47 +846,49 @@ export class Section2LoanTypeComponent implements OnInit {
     }
 
     overDraftFacilityFormPatchValue() {
-        console.log('Overdraft form:', this.form.value);
-        console.log('Overdraft Facility Patch:', this.tempData.overDraftFacilityForm);
-        for (let index = 0; index < this.tempData.overDraftFacilityForm.overdraftFacilityDetails.length; index++) {
-            this.form.get(['overdraftFacilityAgainstBond', index, 'nameOfFacilityAgainstBond']).patchValue(
-                this.tempData.overDraftFacilityForm.overdraftFacilityDetails[index] ?
-                    this.tempData.overDraftFacilityForm.overdraftFacilityDetails[index].nameOfFacilityCT : '');
+        if (!ObjectUtil.isEmpty(this.tempData) &&
+        !ObjectUtil.isEmpty(this.tempData.overDraftFacilityForm) &&
+        !ObjectUtil.isEmpty(this.tempData.overDraftFacilityForm.overdraftFacilityDetails)) {
+            for (let index = 0; index < this.tempData.overDraftFacilityForm.overdraftFacilityDetails.length; index++) {
+                this.form.get(['overdraftFacilityAgainstBond', index, 'nameOfFacilityAgainstBond']).patchValue(
+                    this.tempData.overDraftFacilityForm.overdraftFacilityDetails[index] ?
+                        this.tempData.overDraftFacilityForm.overdraftFacilityDetails[index].nameOfFacilityCT : '');
 
-            this.form.get(['overdraftFacilityAgainstBond', index, 'nameOfFacilityAgainstBondInEng']).patchValue(
-                this.tempData.overDraftFacilityForm.overdraftFacilityDetails[index] ?
-                    this.tempData.overDraftFacilityForm.overdraftFacilityDetails[index].nameOfFacility : '');
+                this.form.get(['overdraftFacilityAgainstBond', index, 'nameOfFacilityAgainstBondInEng']).patchValue(
+                    this.tempData.overDraftFacilityForm.overdraftFacilityDetails[index] ?
+                        this.tempData.overDraftFacilityForm.overdraftFacilityDetails[index].nameOfFacility : '');
 
-            this.form.get(['overdraftFacilityAgainstBond', index, 'ownerNameAgainstBond']).patchValue(
-                this.finalBondName ? this.finalBondName[index] : '');
+                this.form.get(['overdraftFacilityAgainstBond', index, 'ownerNameAgainstBond']).patchValue(
+                    this.finalBondName ? this.finalBondName[index] : '');
 
-            this.form.get(['overdraftFacilityAgainstBond', index, 'bondAmountAgainstBond']).patchValue(
-                this.tempData.overDraftFacilityForm.overdraftFacilityDetails[index] ?
-                    this.tempData.overDraftFacilityForm.overdraftFacilityDetails[index].bondAmountCT : '');
+                this.form.get(['overdraftFacilityAgainstBond', index, 'bondAmountAgainstBond']).patchValue(
+                    this.tempData.overDraftFacilityForm.overdraftFacilityDetails[index] ?
+                        this.tempData.overDraftFacilityForm.overdraftFacilityDetails[index].bondAmountCT : '');
 
-            this.form.get(['overdraftFacilityAgainstBond', index, 'bondTypeAgainstBond']).patchValue(
-                this.tempData.overDraftFacilityForm.overdraftFacilityDetails[index] ?
-                    this.tempData.overDraftFacilityForm.overdraftFacilityDetails[index].bondTypeCT : '');
+                this.form.get(['overdraftFacilityAgainstBond', index, 'bondTypeAgainstBond']).patchValue(
+                    this.tempData.overDraftFacilityForm.overdraftFacilityDetails[index] ?
+                        this.tempData.overDraftFacilityForm.overdraftFacilityDetails[index].bondTypeCT : '');
 
-            this.form.get(['overdraftFacilityAgainstBond', index, 'totalInterestRateAgainstBond']).patchValue(
-                this.tempData.overDraftFacilityForm.overdraftFacilityDetails[index] ?
-                    this.tempData.overDraftFacilityForm.overdraftFacilityDetails[index].interestRateCT : '');
+                this.form.get(['overdraftFacilityAgainstBond', index, 'totalInterestRateAgainstBond']).patchValue(
+                    this.tempData.overDraftFacilityForm.overdraftFacilityDetails[index] ?
+                        this.tempData.overDraftFacilityForm.overdraftFacilityDetails[index].interestRateCT : '');
 
-            this.form.get(['overdraftFacilityAgainstBond', index, 'baseRateAgainstBond']).patchValue(
-                this.tempData.overDraftFacilityForm.overdraftFacilityDetails[index] ?
-                    this.tempData.overDraftFacilityForm.overdraftFacilityDetails[index].baseRateCT : '');
+                this.form.get(['overdraftFacilityAgainstBond', index, 'baseRateAgainstBond']).patchValue(
+                    this.tempData.overDraftFacilityForm.overdraftFacilityDetails[index] ?
+                        this.tempData.overDraftFacilityForm.overdraftFacilityDetails[index].baseRateCT : '');
 
-            this.form.get(['overdraftFacilityAgainstBond', index, 'premiumRateAgainstBond']).patchValue(
-                this.tempData.overDraftFacilityForm.overdraftFacilityDetails[index] ?
-                    this.tempData.overDraftFacilityForm.overdraftFacilityDetails[index].premiumRateCT : '');
+                this.form.get(['overdraftFacilityAgainstBond', index, 'premiumRateAgainstBond']).patchValue(
+                    this.tempData.overDraftFacilityForm.overdraftFacilityDetails[index] ?
+                        this.tempData.overDraftFacilityForm.overdraftFacilityDetails[index].premiumRateCT : '');
 
-            this.form.get(['overdraftFacilityAgainstBond', index, 'interestRateAgainstBond']).patchValue(
-                this.tempData.overDraftFacilityForm.overdraftFacilityDetails[index] ?
-                    this.tempData.overDraftFacilityForm.overdraftFacilityDetails[index].interestRateCT : '');
+                this.form.get(['overdraftFacilityAgainstBond', index, 'interestRateAgainstBond']).patchValue(
+                    this.tempData.overDraftFacilityForm.overdraftFacilityDetails[index] ?
+                        this.tempData.overDraftFacilityForm.overdraftFacilityDetails[index].interestRateCT : '');
 
-            this.form.get(['overdraftFacilityAgainstBond', index, 'loanExpiryDateAgainstBond']).patchValue(
-                this.tempData.overDraftFacilityForm.overdraftFacilityDetails[index] ?
-                    this.tempData.overDraftFacilityForm.overdraftFacilityDetails[index].dateOfExpiryCT : '');
+                this.form.get(['overdraftFacilityAgainstBond', index, 'loanExpiryDateAgainstBond']).patchValue(
+                    this.tempData.overDraftFacilityForm.overdraftFacilityDetails[index] ?
+                        this.tempData.overDraftFacilityForm.overdraftFacilityDetails[index].dateOfExpiryCT : '');
+            }
         }
     }
 
@@ -925,9 +968,9 @@ export class Section2LoanTypeComponent implements OnInit {
             SulkaPreExport: this.form.get('sulkaPreExport').value ? this.form.get('sulkaPreExport').value : '',
             interestRatePre: this.form.get('interestRatePreExport').value ? this.form.get('interestRatePreExport').value : '',
             // tslint:disable-next-line:max-line-length
-            interestRateDocumentary: this.form.get('InterestRateDocumentaryBill').value ? this.form.get('InterestRateDocumentaryBill').value : '',
+            /*interestRateDocumentary: this.documentaryFreeText2(),
             // tslint:disable-next-line:max-line-length
-            loanPaymentDocumentary: this.form.get('loanPaymentDocumentaryBill').value ? this.form.get('loanPaymentDocumentaryBill').value : '',
+            loanPaymentDocumentary: this.documentaryFreeText3(),*/
             freeText6: this.form.get('freeTextSix').value ? this.form.get('freeTextSix').value : '',
             freeText7: this.form.get('freeTextSeven').value ? this.form.get('freeTextSeven').value : '',
             freeText8: this.form.get('freeTextEight').value ? this.form.get('freeTextEight').value : '',
@@ -954,15 +997,32 @@ export class Section2LoanTypeComponent implements OnInit {
             SNDemandLoan: this.form.get('SNOfParentLimitDemandLoan').value ? this.form.get('SNOfParentLimitDemandLoan').value : '',
             SNPreExport: this.form.get('SNOfParentLimitPreExport').value ? this.form.get('SNOfParentLimitPreExport').value : '',
             // tslint:disable-next-line:max-line-length
-            SNDocumentaryBill: this.form.get('SNOfParentLimitDocumentaryBill').value ? this.form.get('SNOfParentLimitDocumentaryBill').value : '',
+            // SNDocumentaryBill: this.form.get('SNOfParentLimitDocumentaryBill').value ? this.form.get('SNOfParentLimitDocumentaryBill').value : '',
+            documentaryBillPurchaseFreeText: this.documentaryBillFreeText(),
             SNBridgeGap: this.form.get('SNOfParentLimitBridgeGap').value ? this.form.get('SNOfParentLimitBridgeGap').value : '',
             SNBankGuarantee: this.form.get('SNOfParentLimitBankGuarantee').value ? this.form.get('SNOfParentLimitBankGuarantee').value : '',
             SNBillsPurchase: this.form.get('SNOfParentLimitBillsPurchase').value ? this.form.get('SNOfParentLimitBillsPurchase').value : '',
         };
         return this.freeTextVal;
     }
-
+    documentaryBillFreeText() {
+        if (!ObjectUtil.isEmpty(this.tempData) && !ObjectUtil.isEmpty(this.tempData.documentaryBillPurchase.documentaryBillPurchaseFormArray)) {
+            for (let val = 0; val < this.tempData.documentaryBillPurchase.documentaryBillPurchaseFormArray.length; val++) {
+                const tempFreeText = {
+                    SNOfParentLimitDocumentaryBill: this.form.get(['documentaryBillPurchaseNegotiation', val, 'SNOfParentLimitDocumentaryBill']).value ?
+                        this.form.get(['documentaryBillPurchaseNegotiation', val, 'SNOfParentLimitDocumentaryBill']).value : '',
+                    InterestRateDocumentaryBill: this.form.get(['documentaryBillPurchaseNegotiation', val, 'InterestRateDocumentaryBill']).value ?
+                        this.form.get(['documentaryBillPurchaseNegotiation', val, 'InterestRateDocumentaryBill']).value : '',
+                    loanPaymentDocumentaryBill: this.form.get(['documentaryBillPurchaseNegotiation', val, 'loanPaymentDocumentaryBill']).value ?
+                        this.form.get(['documentaryBillPurchaseNegotiation', val, 'loanPaymentDocumentaryBill']).value : '',
+                };
+                this.documentaryFreeText.push(tempFreeText);
+            }
+            return this.documentaryFreeText;
+        }
+    }
     setFreeText() {
+        this.setDocumentaryBillFreetext();
         this.form.patchValue({
             freeTextOne: this.tempInformation ? this.tempInformation.section2.freeText1 : '',
             freeTextTwo: this.tempInformation ? this.tempInformation.section2.freeText2 : '',
@@ -980,8 +1040,8 @@ export class Section2LoanTypeComponent implements OnInit {
             remainDaysShortTermLoan: this.tempInformation ? this.tempInformation.section2.remainingDaysShortTerms : '',
             interestRatePreExport: this.tempInformation ? this.tempInformation.section2.interestRatePre : '',
             sulkaPreExport: this.tempInformation ? this.tempInformation.section2.SulkaPreExport : '',
-            InterestRateDocumentaryBill: this.tempInformation ? this.tempInformation.section2.interestRateDocumentary : '',
-            loanPaymentDocumentaryBill: this.tempInformation ? this.tempInformation.section2.loanPaymentDocumentary : '',
+           /* InterestRateDocumentaryBill: this.tempInformation ? this.tempInformation.section2.interestRateDocumentary : '',
+            loanPaymentDocumentaryBill: this.tempInformation ? this.tempInformation.section2.loanPaymentDocumentary : '',*/
             SNOfFacility: this.tempInformation ? this.tempInformation.section2.snOfFacility : '',
             remainDaysLoanTrust: this.tempInformation ? this.tempInformation.section2.remainDaysLoan : '',
             SNOfParentLimitIrrevocable: this.tempInformation ? this.tempInformation.section2.SNIrrevocable : '',
@@ -991,11 +1051,29 @@ export class Section2LoanTypeComponent implements OnInit {
             SNOfParentLimitShortTermLoan: this.tempInformation ? this.tempInformation.section2.SNShortTermLoan : '',
             SNOfParentLimitDemandLoan: this.tempInformation ? this.tempInformation.section2.SNDemandLoan : '',
             SNOfParentLimitPreExport: this.tempInformation ? this.tempInformation.section2.SNPreExport : '',
-            SNOfParentLimitDocumentaryBill: this.tempInformation ? this.tempInformation.section2.SNDocumentaryBill : '',
+            // SNOfParentLimitDocumentaryBill: this.tempInformation ? this.tempInformation.section2.SNDocumentaryBill : '',
             SNOfParentLimitBridgeGap: this.tempInformation ? this.tempInformation.section2.SNBridgeGap : '',
             SNOfParentLimitBankGuarantee: this.tempInformation ? this.tempInformation.section2.SNBankGuarantee : '',
             SNOfParentLimitBillsPurchase: this.tempInformation ? this.tempInformation.section2.SNBillsPurchase : '',
         });
+    }
+
+    setDocumentaryBillFreetext() {
+        if (!ObjectUtil.isEmpty(this.tempInformation) &&
+            !ObjectUtil.isEmpty(this.tempInformation.section2) &&
+            !ObjectUtil.isEmpty(this.tempInformation.section2.documentaryBillPurchaseFreeText)) {
+            for (let val = 0; val < this.tempInformation.section2.documentaryBillPurchaseFreeText.length; val++) {
+                this.form.get(['documentaryBillPurchaseNegotiation', val, 'SNOfParentLimitDocumentaryBill']).patchValue(
+                    this.tempInformation.section2.documentaryBillPurchaseFreeText[val] ?
+                        this.tempInformation.section2.documentaryBillPurchaseFreeText[val].SNOfParentLimitDocumentaryBill : '');
+                this.form.get(['documentaryBillPurchaseNegotiation', val, 'InterestRateDocumentaryBill']).patchValue(
+                    this.tempInformation.section2.documentaryBillPurchaseFreeText[val] ?
+                        this.tempInformation.section2.documentaryBillPurchaseFreeText[val].InterestRateDocumentaryBill : '');
+                this.form.get(['documentaryBillPurchaseNegotiation', val, 'loanPaymentDocumentaryBill']).patchValue(
+                    this.tempInformation.section2.documentaryBillPurchaseFreeText[val] ?
+                        this.tempInformation.section2.documentaryBillPurchaseFreeText[val].loanPaymentDocumentaryBill : '');
+            }
+        }
     }
 
     filterLoanData() {
@@ -1003,8 +1081,8 @@ export class Section2LoanTypeComponent implements OnInit {
             data.loanName !== this.loanNameConstant.TERM_LOAN_TO_FOR_PURCHASE_OF_VEHICLE);
         this.finalLoanDetails = tempArray;
         this.overdraftAgainstBond = this.loanData.filter(data => data.loanName === this.loanNameConstant.OVERDRAFT_FACILITY_AGAINST_BOND);
+        this.documentaryBillPurchase = this.loanData.filter(data => data.loanName === this.loanNameConstant.DOCUMENTARY_BILL_PURCHASE_NEGOTIATION);
         this.autoLoanDetails = this.loanData.filter(data => data.loanName === this.loanNameConstant.AUTO_LOAN);
         this.termLoanDetails = this.loanData.filter(data => data.loanName === this.loanNameConstant.TERM_LOAN_TO_FOR_PURCHASE_OF_VEHICLE);
-        console.log('final Loan Details:', this.finalLoanDetails);
     }
 }

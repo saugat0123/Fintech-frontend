@@ -108,6 +108,104 @@
                         </ng-container>
                     </tr>
                 </ng-container>
+
+                <ng-container *ngIf="tempData?.documentaryBillPurchase?.documentaryBillPurchaseFormArray">
+                    <tr *ngFor="let val of tempData?.documentaryBillPurchase?.documentaryBillPurchaseFormArray; let i2 = index"
+                        formArrayName="documentaryBillPurchaseNegotiation">
+                        <!--Documentary Bill Purchase/Negotiation-->
+                        <ng-container [formGroupName]="i2">
+                            <td width="10%"><strong>{{(tempData?.overDraftFacilityForm?.overdraftFacilityDetails.length) + (i2 + 1) | nepaliWord}})</strong></td>
+                            <td>
+                    <span><strong>डकुमेन्ट्री बिल्स खरिद कर्जा (Documentary Bill Purchase/Negotiation)
+                    <ng-container
+                            *ngIf="this.tempData?.documentaryBillPurchase?.documentaryBillPurchaseFormArray[i2].complementaryOther === true"> बुँदा नं.<input
+                            class="form-field form-control-sm"
+                            formControlName="SNOfParentLimitDocumentaryBill"
+                            placeholder=""
+                            type="text"/>
+                    <ng-container
+                            *ngIf="this.tempData.documentaryBillPurchase.documentaryBillPurchaseFormArray[i2].complimentaryLoanSelected !== 'TOTAL LIMIT'">
+                        को पूरक सुविधा
+                    </ng-container>
+                        <ng-container
+                                *ngIf="this.tempData.documentaryBillPurchase.documentaryBillPurchaseFormArray[i2].complimentaryLoanSelected === 'TOTAL LIMIT'">
+                            कुल सुविधाको पूरक सुविधा
+                        </ng-container>
+                    </ng-container>
+                    </strong>
+                    </span>
+                                <br>
+                                <strong> सीमाः
+                                    <!--<ng-container *ngIf="this.tempData?.documentaryBillPurchase?.documentaryBillPurchaseFormArray[i2].complementaryOther === true">-->
+                                        <ng-container>
+                                            (रु.<input
+                                            class="form-field form-control-sm"
+                                            value="{{documentaryBillPurchase[i2] ? documentaryBillPurchase[i2].loanAmountNp : ''}}"
+                                            placeholder=""
+                                            type="text"/>/–)
+                                    </ng-container>
+                                   <!-- <ng-container *ngIf="this.tempData?.documentaryBillPurchase?.documentaryBillPurchaseFormArray[i2].complementaryOther === false">रु.<input
+                                            class="form-field form-control-sm"
+                                            value="{{documentaryBillPurchase[i2] ? documentaryBillPurchase[i2].loanAmountNp : ''}}"
+                                            placeholder=""
+                                            type="text"/>
+                                        ।–
+                                    </ng-container>-->
+                                    (अक्षरेपी रु.<input class="form-field form-control-sm "
+                                                        value="{{documentaryBillPurchase[i2] ? documentaryBillPurchase[i2].loanAmountWords : ''}}"
+                                                        placeholder=""
+                                                        type="text"/> मात्र)</strong><br>
+
+                                <strong>सुरक्षणः</strong><br>
+
+                                <span *ngIf="this.hypothecationGlobal === 'New'">१. सामानहरुको मौज्दात उपर धितोेबन्धक (Hypothecation) हकाधिकार र ऋणीले आफ्ना आसामीबाट भुक्तानी
+                    प्राप्त गर्न बाँकी रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामा हस्तान्तरण गर्नु
+                    पर्नेछ ।</span><br>
+
+                                <span *ngIf="this.hypothecationGlobal === 'Existing'">१. सामानहरुको मौज्दात उपर धितोेबन्धक (Hypothecation) हकाधिकार र ऋणीले आफ्ना आसामीबाट भुक्तानी
+                    प्राप्त गर्न बाँकी रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामा हस्तान्तरण गरिदिइएको
+                    यथावत कायम रहने छ ।</span><br>
+
+                                २. अख्तियारप्राप्त व्यक्तिद्धारा स्वीकार गरिएको विनिमय–पत्र (Bill of Exchange) बैंकको
+                                पक्षमा
+                                हस्तान्तरण गर्नु पर्नेछ ।<br>
+
+                                <strong>धरौटीः</strong> प्रतित पत्रकागजात मूल्यको <input
+                                    class="form-field form-control-sm "
+                                    formControlName="marginInPercentageDocumentaryBill"
+                                    placeholder=""
+                                    type="text"/>% नगद धरौटी स्वरुप
+                                रहनेछ ।<br>
+
+                                <strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong>
+                                कागजात मूल्यको <input class="form-field form-control-sm "
+                                                      formControlName="drawingPowerDocumentaryBill"
+                                                      placeholder=""
+                                                      type="text"/>% बराबर
+                                रकम
+                                वा स्वीकृत कर्जा
+                                मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ ।<br>
+
+                                <strong>ब्याजः</strong><input class="form-field form-control-sm "
+                                                              formControlName="InterestRateDocumentaryBill"
+                                                              placeholder=""
+                                                              type="text"/> <br>
+                                <strong>कर्जा भुक्तानी तरिकाः </strong><input class="form-field form-control-sm "
+                                                                              formControlName="loanPaymentDocumentaryBill"
+                                                                              placeholder=""
+                                                                              type="text"/><br>
+                                <span><strong>कर्जा अवधि समाप्ति/पुनरावलोकन मितिः</strong>
+                                    {{val.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
+                                    <input
+                                            class="form-field form-control-sm "
+                                            formControlName="loanExpiryDateDocumentaryBill"
+                                            placeholder=""
+                                            type="text"/></span><br>
+                            </td>
+                        </ng-container>
+                    </tr>
+                </ng-container>
+
             </table>
         </div>
         <div>

@@ -126,6 +126,7 @@ export class Section2LoanTypePrintComponent implements OnInit {
     termLoanDetails = [];
     finalLoanDetails = [];
     overdraftAgainstBond = [];
+    documentaryBillPurchase = [];
     autoLoanData;
     termLoanData;
 
@@ -386,7 +387,9 @@ export class Section2LoanTypePrintComponent implements OnInit {
     }
 
     getBondName() {
-        if (!ObjectUtil.isEmpty(this.tempData.overDraftFacilityForm.overdraftFacilityDetails)) {
+        if (!ObjectUtil.isEmpty(this.tempData) &&
+            !ObjectUtil.isEmpty(this.tempData.overDraftFacilityForm) &&
+            !ObjectUtil.isEmpty(this.tempData.overDraftFacilityForm.overdraftFacilityDetails)) {
             for (let val = 0; val < this.tempData.overDraftFacilityForm.overdraftFacilityDetails.length; val++) {
                 if (this.tempData.overDraftFacilityForm.overdraftFacilityDetails[val]['bondDetails'].length === 1) {
                     const temp = this.tempData.overDraftFacilityForm.overdraftFacilityDetails[val]['bondDetails'][0].bondOwnerNameCT;
@@ -413,7 +416,6 @@ export class Section2LoanTypePrintComponent implements OnInit {
                 this.allBondNames = '';
                 this.BondNames = [];
             }
-            console.log('this.finalBondName:', this.finalBondName);
         }
     }
 
@@ -422,6 +424,7 @@ export class Section2LoanTypePrintComponent implements OnInit {
             data.loanName !== this.loanNameConstant.TERM_LOAN_TO_FOR_PURCHASE_OF_VEHICLE);
         this.finalLoanDetails = tempArray;
         this.overdraftAgainstBond = this.loanData.filter(data => data.loanName === this.loanNameConstant.OVERDRAFT_FACILITY_AGAINST_BOND);
+        this.documentaryBillPurchase = this.loanData.filter(data => data.loanName === this.loanNameConstant.DOCUMENTARY_BILL_PURCHASE_NEGOTIATION);
         this.autoLoanDetails = this.loanData.filter(data => data.loanName === this.loanNameConstant.AUTO_LOAN);
         this.termLoanDetails = this.loanData.filter(data => data.loanName === this.loanNameConstant.TERM_LOAN_TO_FOR_PURCHASE_OF_VEHICLE);
     }
