@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {NepaliCurrencyWordPipe} from '../../../../../../../../../@core/pipe/nepali-currency-word.pipe';
 import {EngToNepaliNumberPipe} from '../../../../../../../../../@core/pipe/eng-to-nepali-number.pipe';
 import {CurrencyFormatterPipe} from '../../../../../../../../../@core/pipe/currency-formatter.pipe';
@@ -7,6 +7,7 @@ import {DatePipe} from '@angular/common';
 import {EngNepDatePipe} from 'nepali-patro';
 import {ObjectUtil} from '../../../../../../../../../@core/utils/ObjectUtil';
 import {OfferDocument} from '../../../../../../../model/OfferDocument';
+import {LoanNameConstant} from '../../../../sme-costant/loan-name-constant';
 
 @Component({
   selector: 'app-documentary-bill-purchase-negotiation',
@@ -24,7 +25,8 @@ export class DocumentaryBillPurchaseNegotiationComponent implements OnInit {
   BSExpiry = false;
   loanDetails: any = [];
   isMarketValue = false;
-
+  filteredList: any = [];
+  loanNameConstant = LoanNameConstant;
   constructor(
       private formBuilder: FormBuilder,
       private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
@@ -38,6 +40,7 @@ export class DocumentaryBillPurchaseNegotiationComponent implements OnInit {
     this.buildForm();
     if (!ObjectUtil.isEmpty(this.loanName)) {
       this.loanDetails = this.loanName;
+      this.filterLoanDetails(this.loanDetails);
     }
     if (this.offerDocumentList.length > 0) {
       this.offerDocumentList.forEach(offerLetter => {
@@ -46,57 +49,32 @@ export class DocumentaryBillPurchaseNegotiationComponent implements OnInit {
       if (!ObjectUtil.isEmpty(this.initialInformation)) {
         this.documentaryBillPurchase.patchValue(this.initialInformation.documentaryBillPurchase);
       }
-      const dateOfExpiryType = this.initialInformation.documentaryBillPurchase.dateOfExpiryType;
+      this.patchDate();
+    }
+  }
+  patchDate() {
+    for (let val = 0; val < this.initialInformation.documentaryBillPurchase.documentaryBillPurchaseFormArray.length; val++) {
+      const dateOfExpiryType = this.initialInformation.documentaryBillPurchase.documentaryBillPurchaseFormArray[val].dateOfExpiryType;
       if (dateOfExpiryType === 'AD') {
-        const dateOfExpiry = this.initialInformation.documentaryBillPurchase.dateOfExpiry;
+        const dateOfExpiry = this.initialInformation.documentaryBillPurchase.documentaryBillPurchaseFormArray[val].dateOfExpiry;
         if (!ObjectUtil.isEmpty(dateOfExpiry)) {
-          this.documentaryBillPurchase.get('dateOfExpiry').patchValue(new Date(dateOfExpiry));
+          this.documentaryBillPurchase.get(['documentaryBillPurchaseFormArray', val, 'dateOfExpiry']).patchValue(new Date(dateOfExpiry));
         }
       } else if (dateOfExpiryType === 'BS') {
-        const dateOfExpiry = this.initialInformation.documentaryBillPurchase.dateOfExpiryNepali;
+        const dateOfExpiry = this.initialInformation.documentaryBillPurchase.documentaryBillPurchaseFormArray[val].dateOfExpiryNepali;
         if (!ObjectUtil.isEmpty(dateOfExpiry)) {
-          this.documentaryBillPurchase.get('dateOfExpiryNepali').patchValue(dateOfExpiry);
+          this.documentaryBillPurchase.get(['documentaryBillPurchaseFormArray', val, 'dateOfExpiryNepali']).patchValue(dateOfExpiry);
         }
       }
     }
   }
   buildForm() {
     this.documentaryBillPurchase = this.formBuilder.group({
-      // for form data
-      complementryOther: [undefined],
-      complimentaryLoanSelected: [undefined],
-      loanAmount: [undefined],
-      loanAmountWords: [undefined],
-      marginInPercentage: [undefined],
-      drawingPower: [undefined],
-      dateOfExpiryType: [undefined],
-      dateOfExpiryNepali: [undefined],
-      dateOfExpiry: [undefined],
-      // for translated data
-      complementryOtherTrans: [undefined],
-      complimentaryLoanSelectedTrans: [undefined],
-      loanAmountTrans: [undefined],
-      loanAmountWordsTrans: [undefined],
-      marginInPercentageTrans: [undefined],
-      drawingPowerTrans: [undefined],
-      dateOfExpiryTypeTrans: [undefined],
-      dateOfExpiryNepaliTrans: [undefined],
-      dateOfExpiryTrans: [undefined],
-      // for corrected data
-      complementryOtherCT: [undefined],
-      complimentaryLoanSelectedCT: [undefined],
-      loanAmountCT: [undefined],
-      loanAmountWordsCT: [undefined],
-      marginInPercentageCT: [undefined],
-      drawingPowerCT: [undefined],
-      dateOfExpiryTypeCT: [undefined],
-      dateOfExpiryNepaliCT: [undefined],
-      dateOfExpiryCT: [undefined],
-    });
+      documentaryBillPurchaseFormArray: this.formBuilder.array([]),
+      });
   }
-  checkComplimetryOtherLoan(data) {
-    this.isComplimentryOtherLoan = data;
-    this.documentaryBillPurchase.get('complementryOther').patchValue(this.isComplimentryOtherLoan);
+  checkComplimetryOtherLoan(data, index) {
+    this.documentaryBillPurchase.get(['documentaryBillPurchaseFormArray', index, 'complementaryOther']).patchValue(data);
   }
 
   public checkDateOfExpiry(value): void {
@@ -104,55 +82,55 @@ export class DocumentaryBillPurchaseNegotiationComponent implements OnInit {
     this.BSExpiry = value === 'BS';
   }
 
-  public getNumAmountWord(numLabel, wordLabel): void {
-    const transformValue = this.nepaliCurrencyWordPipe.transform(this.documentaryBillPurchase.get(numLabel).value);
-    this.documentaryBillPurchase.get(wordLabel).patchValue(transformValue);
+  public getNumAmountWord(numLabel, wordLabel, index, arrayName): void {
+    const transformValue = this.nepaliCurrencyWordPipe.transform(this.documentaryBillPurchase.get([arrayName, index, numLabel]).value);
+    this.documentaryBillPurchase.get([arrayName, index, wordLabel]).patchValue(transformValue);
   }
-  translateAndSetVal() {
+  async translateAndSetVal(i) {
     /* SET TRANS VALUE FOR CONDITIONS */
-    const tempComplemetry = this.documentaryBillPurchase.get('complementryOther').value;
+    const tempComplemetry = this.documentaryBillPurchase.get(['documentaryBillPurchaseFormArray', i, 'complementaryOther']).value;
     if (!ObjectUtil.isEmpty(tempComplemetry)) {
-      this.documentaryBillPurchase.get('complementryOtherTrans').patchValue(tempComplemetry);
+      this.documentaryBillPurchase.get(['documentaryBillPurchaseFormArray', i, 'complementaryOtherTrans']).patchValue(tempComplemetry);
     }
-    const tempComplimentaryLoanSelected = this.documentaryBillPurchase.get('complimentaryLoanSelected').value;
+    const tempComplimentaryLoanSelected = this.documentaryBillPurchase.get(['documentaryBillPurchaseFormArray', i, 'complimentaryLoanSelected']).value;
     if (!ObjectUtil.isEmpty(tempComplimentaryLoanSelected)) {
-      this.documentaryBillPurchase.get('complimentaryLoanSelectedTrans').patchValue(
+      this.documentaryBillPurchase.get(['documentaryBillPurchaseFormArray', i, 'complimentaryLoanSelectedTrans']).patchValue(
           tempComplimentaryLoanSelected
       );
     }
 
     /* SET TRANS VALUE FOR OTHER NUMBER FIELDS */
-    const tempLoanAmount = this.documentaryBillPurchase.get('loanAmount').value;
+    const tempLoanAmount = this.documentaryBillPurchase.get(['documentaryBillPurchaseFormArray', i, 'loanAmount']).value;
     const convertNumber = !ObjectUtil.isEmpty(tempLoanAmount) ?
         this.convertNumbersToNepali(tempLoanAmount, true) : '';
-    this.documentaryBillPurchase.get('loanAmountTrans').patchValue(convertNumber);
+    this.documentaryBillPurchase.get(['documentaryBillPurchaseFormArray', i, 'loanAmountTrans']).patchValue(convertNumber);
 
-    this.documentaryBillPurchase.get('loanAmountWordsTrans').patchValue(
-        this.documentaryBillPurchase.get('loanAmountWords').value
+    this.documentaryBillPurchase.get(['documentaryBillPurchaseFormArray', i, 'loanAmountWordsTrans']).patchValue(
+        this.documentaryBillPurchase.get(['documentaryBillPurchaseFormArray', i, 'loanAmountWords']).value
     );
-    const convertMargin = this.convertNumbersToNepali(this.documentaryBillPurchase.get('marginInPercentage').value, false);
-    this.documentaryBillPurchase.get('marginInPercentageTrans').patchValue(convertMargin);
-    const drawingPower = this.convertNumbersToNepali(this.documentaryBillPurchase.get('drawingPower').value, false);
-    this.documentaryBillPurchase.get('drawingPowerTrans').patchValue(drawingPower);
+    const convertMargin = this.convertNumbersToNepali(this.documentaryBillPurchase.get(['documentaryBillPurchaseFormArray', i, 'marginInPercentage']).value, false);
+    this.documentaryBillPurchase.get(['documentaryBillPurchaseFormArray', i, 'marginInPercentageTrans']).patchValue(convertMargin);
+    const drawingPower = this.convertNumbersToNepali(this.documentaryBillPurchase.get(['documentaryBillPurchaseFormArray', i, 'drawingPower']).value, false);
+    this.documentaryBillPurchase.get(['documentaryBillPurchaseFormArray', i, 'drawingPowerTrans']).patchValue(drawingPower);
 
     /* Converting value for date */
-    this.documentaryBillPurchase.get('dateOfExpiryTypeTrans').patchValue(
-        this.documentaryBillPurchase.get('dateOfExpiryType').value
+    this.documentaryBillPurchase.get(['documentaryBillPurchaseFormArray', i, 'dateOfExpiryTypeTrans']).patchValue(
+        this.documentaryBillPurchase.get(['documentaryBillPurchaseFormArray', i, 'dateOfExpiryType']).value
     );
-    const tempDateOfExpType = this.documentaryBillPurchase.get('dateOfExpiryType').value;
+    const tempDateOfExpType = this.documentaryBillPurchase.get(['documentaryBillPurchaseFormArray', i, 'dateOfExpiryType']).value;
     let tempExpDate;
     if (tempDateOfExpType === 'AD') {
-      const tempEngExpDate = this.documentaryBillPurchase.get('dateOfExpiry').value;
+      const tempEngExpDate = this.documentaryBillPurchase.get(['documentaryBillPurchaseFormArray', i, 'dateOfExpiry']).value;
       tempExpDate = !ObjectUtil.isEmpty(tempEngExpDate) ? this.datePipe.transform(tempEngExpDate) : '';
       const finalExpDate = this.transformEnglishDate(tempExpDate);
-      this.documentaryBillPurchase.get('dateOfExpiryTrans').patchValue(finalExpDate);
+      this.documentaryBillPurchase.get(['documentaryBillPurchaseFormArray', i, 'dateOfExpiryTrans']).patchValue(finalExpDate);
     } else {
-      const tempDateOfExpNep = this.documentaryBillPurchase.get('dateOfExpiryNepali').value;
+      const tempDateOfExpNep = this.documentaryBillPurchase.get(['documentaryBillPurchaseFormArray', i, 'dateOfExpiryNepali']).value;
       tempExpDate = !ObjectUtil.isEmpty(tempDateOfExpNep) ?
           tempDateOfExpNep.nDate : '';
-      this.documentaryBillPurchase.get('dateOfExpiryTrans').patchValue(tempExpDate);
+      this.documentaryBillPurchase.get(['documentaryBillPurchaseFormArray', i, 'dateOfExpiryTrans']).patchValue(tempExpDate);
     }
-    this.setCTValue();
+    this.setCTValue(i);
   }
 
   transformEnglishDate(date) {
@@ -192,33 +170,33 @@ export class DocumentaryBillPurchaseNegotiationComponent implements OnInit {
     return transformedDate;
   }
 
-  setCTValue() {
-    this.documentaryBillPurchase.get('complementryOtherCT').patchValue(
-        this.documentaryBillPurchase.get('complementryOtherTrans').value
+  setCTValue(i) {
+    this.documentaryBillPurchase.get(['documentaryBillPurchaseFormArray', i, 'complementaryOtherCT']).patchValue(
+        this.documentaryBillPurchase.get(['documentaryBillPurchaseFormArray', i, 'complementaryOtherTrans']).value
     );
-    this.documentaryBillPurchase.get('complimentaryLoanSelectedCT').patchValue(
-        this.documentaryBillPurchase.get('complimentaryLoanSelectedTrans').value
+    this.documentaryBillPurchase.get(['documentaryBillPurchaseFormArray', i, 'complimentaryLoanSelectedCT']).patchValue(
+        this.documentaryBillPurchase.get(['documentaryBillPurchaseFormArray', i, 'complimentaryLoanSelectedTrans']).value
     );
-    this.documentaryBillPurchase.get('loanAmountCT').patchValue(
-        this.documentaryBillPurchase.get('loanAmountTrans').value
+    this.documentaryBillPurchase.get(['documentaryBillPurchaseFormArray', i, 'loanAmountCT']).patchValue(
+        this.documentaryBillPurchase.get(['documentaryBillPurchaseFormArray', i, 'loanAmountTrans']).value
     );
-    this.documentaryBillPurchase.get('loanAmountWordsCT').patchValue(
-        this.documentaryBillPurchase.get('loanAmountWordsTrans').value
+    this.documentaryBillPurchase.get(['documentaryBillPurchaseFormArray', i, 'loanAmountWordsCT']).patchValue(
+        this.documentaryBillPurchase.get(['documentaryBillPurchaseFormArray', i, 'loanAmountWordsTrans']).value
     );
-    this.documentaryBillPurchase.get('marginInPercentageCT').patchValue(
-        this.documentaryBillPurchase.get('marginInPercentageTrans').value
+    this.documentaryBillPurchase.get(['documentaryBillPurchaseFormArray', i, 'marginInPercentageCT']).patchValue(
+        this.documentaryBillPurchase.get(['documentaryBillPurchaseFormArray', i, 'marginInPercentageTrans']).value
     );
-    this.documentaryBillPurchase.get('drawingPowerCT').patchValue(
-        this.documentaryBillPurchase.get('drawingPowerTrans').value
+    this.documentaryBillPurchase.get(['documentaryBillPurchaseFormArray', i, 'drawingPowerCT']).patchValue(
+        this.documentaryBillPurchase.get(['documentaryBillPurchaseFormArray', i, 'drawingPowerTrans']).value
     );
-    this.documentaryBillPurchase.get('dateOfExpiryTypeCT').patchValue(
-        this.documentaryBillPurchase.get('dateOfExpiryTypeTrans').value
+    this.documentaryBillPurchase.get(['documentaryBillPurchaseFormArray', i, 'dateOfExpiryTypeCT']).patchValue(
+        this.documentaryBillPurchase.get(['documentaryBillPurchaseFormArray', i, 'dateOfExpiryTypeTrans']).value
     );
-    this.documentaryBillPurchase.get('dateOfExpiryNepaliCT').patchValue(
-        this.documentaryBillPurchase.get('dateOfExpiryNepaliTrans').value
+    this.documentaryBillPurchase.get(['documentaryBillPurchaseFormArray', i, 'dateOfExpiryNepaliCT']).patchValue(
+        this.documentaryBillPurchase.get(['documentaryBillPurchaseFormArray', i, 'dateOfExpiryNepaliTrans']).value
     );
-    this.documentaryBillPurchase.get('dateOfExpiryCT').patchValue(
-        this.documentaryBillPurchase.get('dateOfExpiryTrans').value
+    this.documentaryBillPurchase.get(['documentaryBillPurchaseFormArray', i, 'dateOfExpiryCT']).patchValue(
+        this.documentaryBillPurchase.get(['documentaryBillPurchaseFormArray', i, 'dateOfExpiryTrans']).value
     );
   }
 
@@ -235,5 +213,51 @@ export class DocumentaryBillPurchaseNegotiationComponent implements OnInit {
       }
     }
     return finalConvertedVal;
+  }
+
+  filterLoanDetails(loanDetails) {
+    this.filteredList = loanDetails.filter(data => data.name === this.loanNameConstant.DOCUMENTARY_BILL_PURCHASE_NEGOTIATION);
+    this.filteredList.forEach(value => {
+      this.addLoanFormArr();
+    });
+  }
+
+  addLoanFormArr() {
+    (this.documentaryBillPurchase.get('documentaryBillPurchaseFormArray') as FormArray).push(this.buildLoanForm());
+  }
+
+  buildLoanForm() {
+    return this.formBuilder.group({
+        // for form data
+        complementaryOther: [undefined],
+        complimentaryLoanSelected: [undefined],
+        loanAmount: [undefined],
+        loanAmountWords: [undefined],
+        marginInPercentage: [undefined],
+        drawingPower: [undefined],
+        dateOfExpiryType: [undefined],
+        dateOfExpiryNepali: [undefined],
+        dateOfExpiry: [undefined],
+        // for translated data
+        complementaryOtherTrans: [undefined],
+        complimentaryLoanSelectedTrans: [undefined],
+        loanAmountTrans: [undefined],
+        loanAmountWordsTrans: [undefined],
+        marginInPercentageTrans: [undefined],
+        drawingPowerTrans: [undefined],
+        dateOfExpiryTypeTrans: [undefined],
+        dateOfExpiryNepaliTrans: [undefined],
+        dateOfExpiryTrans: [undefined],
+        // for corrected data
+        complementaryOtherCT: [undefined],
+        complimentaryLoanSelectedCT: [undefined],
+        loanAmountCT: [undefined],
+        loanAmountWordsCT: [undefined],
+        marginInPercentageCT: [undefined],
+        drawingPowerCT: [undefined],
+        dateOfExpiryTypeCT: [undefined],
+        dateOfExpiryNepaliCT: [undefined],
+        dateOfExpiryCT: [undefined],
+    });
   }
 }

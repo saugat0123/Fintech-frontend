@@ -134,7 +134,7 @@ export class AutoLoanMasterComponent implements OnInit {
     const baseRate = this.autoLoanMasterForm.get([arrName, index, 'baseRate']).value;
     const premiumRate = this.autoLoanMasterForm.get([arrName, index, 'premiumRate']).value;
     const sum = parseFloat(baseRate) + parseFloat(premiumRate);
-    this.autoLoanMasterForm.get([arrName, index, 'interestRate']).patchValue(sum);
+    this.autoLoanMasterForm.get([arrName, index, 'interestRate']).patchValue(sum.toFixed(3));
   }
 
   public checkDateOfExpiry(value): void {
