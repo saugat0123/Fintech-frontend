@@ -1,6 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ObjectUtil} from '../../../../../../../../@core/utils/ObjectUtil';
+import {CurrencyFormatterPipe} from '../../../../../../../../@core/pipe/currency-formatter.pipe';
+import {EngToNepaliNumberPipe} from '../../../../../../../../@core/pipe/eng-to-nepali-number.pipe';
+import {NepaliCurrencyWordPipe} from '../../../../../../../../@core/pipe/nepali-currency-word.pipe';
 
 @Component({
   selector: 'app-section4-loan-limit',
@@ -13,7 +16,13 @@ export class Section4LoanLimitComponent implements OnInit {
   tempData;
   isComplementaryLoan = false;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder,
+              private currencyFormatPipe: CurrencyFormatterPipe,
+              private engToNepNumberPipe: EngToNepaliNumberPipe,
+              public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
+
+
+  ) { }
 
   ngOnInit() {
     this.buildForm();
@@ -37,6 +46,10 @@ export class Section4LoanLimitComponent implements OnInit {
       totalLimitInFigure: [undefined],
       totalLimitInWords: [undefined],
     });
+  }
+  public getNumAmountWord(numLabel, wordLabel): void {
+    const transformValue = this.nepaliCurrencyWordPipe.transform(this.section4.get(numLabel).value);
+    this.section4.get(wordLabel).patchValue(transformValue);
   }
   fillForm() {
     this.section4.patchValue({
