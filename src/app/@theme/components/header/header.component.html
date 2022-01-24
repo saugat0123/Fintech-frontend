@@ -13,7 +13,7 @@
             size="small"
             [class.right]="position === 'normal'"
             [class.left]="position === 'inverse'">
-        <nb-action [nbPopover]="notification" badgeStatus="danger" badgeText="{{notificationCount === 0 ? '' : notificationCount.toString()}}" class="control-item"
+        <nb-action [nbPopover]="notification" badgeStatus="danger" badgeText="{{notificationCount === 0 ? '' : notificationCount?.toString()}}" class="control-item"
                    icon="bell-outline" nbPopoverPlacement="bottom"></nb-action>
         <!--        <nb-action class="control-item" icon="nb-email"></nb-action>-->
         <ng-template #notification>

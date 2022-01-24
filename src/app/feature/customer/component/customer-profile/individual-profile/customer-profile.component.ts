@@ -31,6 +31,7 @@ import {ProductUtils} from '../../../../admin/service/product-mode.service';
 import {ProductUtilService} from '../../../../../@core/service/product-util.service';
 import {environment} from '../../../../../../environments/environment';
 import {MGroup} from '../../../model/mGroup';
+import {CryptoJsUtil} from '../../../../../@core/utils/crypto-js-util';
 
 @Component({
     selector: 'app-customer-profile',
@@ -45,7 +46,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     public mGroupAccordion: NbAccordionItemComponent;
 
     associateId: number;
-    customerInfoId: number;
+    customerInfoId: any;
     customer: Customer = new Customer();
     loanType = LoanType;
     spinner = false;
@@ -121,6 +122,10 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
                 };
                 this.paramProp = paramsValue;
                 this.customerInfoId = this.paramProp.customerInfoId;
+                if (!CryptoJsUtil.checkKey(this.customerInfoId)) {
+                    this.toastService.show(new Alert(AlertType.ERROR, 'Decryption Failed Please Route From Customer'));
+                    return;
+                }
                 this.getCustomerInfo();
             });
         if (CustomerType.INDIVIDUAL === CustomerType[this.paramProp.customerType]) {

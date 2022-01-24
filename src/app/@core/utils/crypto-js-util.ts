@@ -1,8 +1,9 @@
 import * as CryptoJS from 'crypto-js';
 import {environment} from '../../../environments/environment';
+import {ObjectUtil} from './ObjectUtil';
+import {LocalStorageUtil} from './local-storage-util';
 
 export class CryptoJsUtil {
-
     /**
      * @param data An input to encrypt.
      * */
@@ -19,7 +20,17 @@ export class CryptoJsUtil {
 
     public static encryptUrl(data: string): string {
         const uuid = this.uuid();
-        return CryptoJS.AES.encrypt(data, uuid).toString().replaceAll('/', '!') + '@' + uuid;
+        const encryptedData = CryptoJS.AES.encrypt(data, uuid).toString().replaceAll('/', '!') + '@' + uuid + '@' + LocalStorageUtil.getStorage().userId;
+        // @ts-ignore
+        if (ObjectUtil.isEmpty(localStorage.getItem('keys'))) {
+            const keys = [uuid];
+            localStorage.setItem('keys', JSON.stringify(keys));
+        } else  {
+            const keys = JSON.parse(localStorage.getItem('keys'));
+            keys.push(uuid);
+            localStorage.setItem('keys', JSON.stringify(keys));
+        }
+        return encryptedData;
     }
 
     public static uuid(): string {
@@ -30,5 +41,17 @@ export class CryptoJsUtil {
         firstPart = ('000' + firstPart.toString(36)).slice(-3);
         secondPart = ('000' + secondPart.toString(36)).slice(-3);
         return firstPart + secondPart;
+    }
+
+    public static checkKey(encryptedData: string): boolean {
+        const key = encryptedData.split('@');
+        let hasKey = false;
+        const keys = JSON.parse(localStorage.getItem('keys'));
+        keys.forEach((d, i) => {
+            if (d === key[1] && key[2] === LocalStorageUtil.getStorage().userId) {
+                hasKey = true;
+            }
+        });
+        return hasKey;
     }
 }
