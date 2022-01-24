@@ -1,8 +1,10 @@
 <div>
     <form [formGroup]="demandLoanForm">
+        <div *ngFor="let formDetails of demandLoanForm.get('demandLoanFormArray')['controls']; let i = index" formArrayName="demandLoanFormArray">
+        <ng-container [formGroupName]="i">
         <div class="row">
             <div class="col-md-12 pb-2">
-                <h5> DEMAND LOAN FOR WORKING CAPITAL </h5>
+                <h5> DEMAND LOAN FOR WORKING CAPITAL {{filteredList.length > 1 ? '- ' +( i + 1) : ''}}</h5>
             </div>
             <div class="col-md-4">
                 <div class="form-group">
@@ -14,11 +16,10 @@
                 </div>
             </div>
             <div class="col-md-12 mt-2">
-                <nb-checkbox #complimentryOther (checkedChange)="checkComplimetryOtherLoan(complimentryOther.checked)"
-                             [checked]="isComplimentryOtherLoan">
+                <nb-checkbox #complimentaryOther formControlName="complementaryOther">
                     <i> Is complimentary of other loan ? </i></nb-checkbox>
             </div>
-            <div class="col-md-4 mt-3" *ngIf="isComplimentryOtherLoan">
+            <div class="col-md-4 mt-3" *ngIf="demandLoanForm.get(['demandLoanFormArray', i, 'complementaryOther']).value">
                 <label class="font-weight-bold" for="complimentaryLoanSelected"><strong>Complimentary Loan Selection</strong></label><br>
                 <nb-select placeholder="Select Complimentary Loan"
                            fullWidth
@@ -28,11 +29,16 @@
                     </nb-option>
                 </nb-select>
             </div>
+            <div class="col-md-12 mt-2">
+                <nb-checkbox #arFinancing formControlName="arFinancing">
+                    <i> Is AR Financing only ? </i></nb-checkbox>
+            </div>
         </div>
         <div class="row pt-4">
-            <div class="col-md-4">
+            <div class="col-md-4 form-group">
                 <label class="font-weight-bold" for="loanAmount">Loan Amount</label>
-                <input class="form-control" formControlName="loanAmount" fullWidth id="loanAmount" (input)="getNumAmountWord('loanAmount', 'loanAmountWords')"
+                <input class="form-control" formControlName="loanAmount" fullWidth id="loanAmount"
+                       (input)="getNumAmountWord('loanAmount', 'loanAmountWords', i, 'demandLoanFormArray')"
                        nbInput
                        shape="semi-round"
                        status="success" type="number">
@@ -123,7 +129,7 @@
                 <input class="form-control" formControlName="baseRate" fullWidth id="baseRate"
                        nbInput
                        shape="semi-round"
-                       (input)="calInterestRate()"
+                       (input)="calInterestRate(i, 'demandLoanFormArray')"
                        status="success" type="number">
             </div>
             <div class="col-md-4 form-group fieldMargin">
@@ -146,7 +152,7 @@
                 <input class="form-control" formControlName="premiumRate" fullWidth id="premiumRate"
                        nbInput
                        shape="semi-round"
-                       (input)="calInterestRate()"
+                       (input)="calInterestRate(i, 'demandLoanFormArray')"
                        status="success" type="number">
             </div>
             <div class="col-md-4 form-group fieldMargin">
@@ -187,18 +193,18 @@
         </div>
         <div class="row">
             <div class="col-md-4 form-group">
-                <label class="font-weight-bold" for="dateOfExpiryType"> Loan Expiry Date/Next Review Date</label><br>
+                <label class="font-weight-bold" for="{{'dateOfExpiryType' + i}}"> Loan Expiry Date/Next Review Date</label><br>
                 <nb-radio-group (valueChange)="checkDateOfExpiry($event)" class="d-inline-flex"
-                                formControlName="dateOfExpiryType" id="dateOfExpiryType"
-                                name="dateOfExpiryType" status="success">
+                                formControlName="dateOfExpiryType" id="{{'dateOfExpiryType' + i}}"
+                                name="{{'dateOfExpiryType' + i}}" status="success">
                     <nb-radio *ngFor="let dType of dateType" [value]="dType.value">{{dType.key}}</nb-radio>
                 </nb-radio-group>
-                <div *ngIf="BSExpiry" style="margin-bottom: -50px;">
+                <div *ngIf="demandLoanForm.get(['demandLoanFormArray', i, 'dateOfExpiryType']).value === dateType[1]?.value" style="margin-bottom: -50px;">
                     <nepali-patro [displayNepali]="true" [responseType]="2"
                                   formControlName="dateOfExpiryNepali">
                     </nepali-patro>
                 </div>
-                <input *ngIf="ADExpiry" [nbDatepicker]="previousDate" formControlName="dateOfExpiry"
+                <input *ngIf="demandLoanForm.get(['demandLoanFormArray', i, 'dateOfExpiryType']).value === dateType[0]?.value" [nbDatepicker]="previousDate" formControlName="dateOfExpiry"
                        fullWidth
                        id="dateOfExpiry"
                        nbInput
@@ -223,10 +229,12 @@
         <!-- For Translation -->
         <div class="row pt-5 pb-2 pr-4">
             <div class="col-md-12 text-right">
-                <button (click)="translateAndSetVal()" nbButton outline size="small" status="info">
+                <button (click)="translateAndSetVal(i)" nbButton outline size="small" status="info">
                     Translate Demand Loan For Working Capital Details
                 </button>
             </div>
+        </div>
+        </ng-container>
         </div>
     </form>
 </div>
