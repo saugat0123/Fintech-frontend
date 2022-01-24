@@ -61,6 +61,7 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
   customerInfo: CustomerInfoData;
   @Input()
   fetchType: FetchLoan;
+  @Output() triggerCustomerRefresh = new EventEmitter<boolean>();
 
   @Output() messageToEmit: EventEmitter<LoanAmountType> = new EventEmitter();
 
@@ -473,6 +474,7 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
         this.spinner = true;
         this.customerLoanService.deleteLoanByAdminAndMaker(id).subscribe(() => {
           this.getCustomerLoans();
+          this.triggerCustomerRefresh.emit(true);
           this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Delete Loan'));
         }, error => {
           this.spinner = false;

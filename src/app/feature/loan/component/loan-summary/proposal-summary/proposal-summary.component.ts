@@ -96,7 +96,7 @@ export class ProposalSummaryComponent implements OnInit {
                 .reduce((a, b) => a + b, 0);
             if (this.customerLoanDtoList !== null && !ObjectUtil.isEmpty(this.customerLoanDtoList)) {
                 const tempCustomerLoanDtoList = this.customerLoanDtoList
-                    .filter(l => l.isFundable);
+                    .filter(l => l.loanConfig.isFundable);
                 tempCustomerLoanDtoList.forEach(cdl => {
                     numb = numb + JSON.parse(cdl.proposal.data)[key];
                 });
@@ -109,7 +109,7 @@ export class ProposalSummaryComponent implements OnInit {
                 .reduce((a, b) => a + b, 0);
             if (this.customerLoanDtoList !== null && !ObjectUtil.isEmpty(this.customerLoanDtoList)) {
                 const tempCustomerLoanDtoList = this.customerLoanDtoList
-                    .filter(l => !l.isFundable);
+                    .filter(l => !l.loanConfig.isFundable);
                 tempCustomerLoanDtoList.forEach(cdl => {
                     numb = numb + JSON.parse(cdl.proposal.data)[key];
                 });
