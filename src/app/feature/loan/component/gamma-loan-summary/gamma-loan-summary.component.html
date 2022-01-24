@@ -226,7 +226,7 @@
                         </table>
                     </div>
 
-                    <div *ngIf="loanCategory === 'INDIVIDUAL'">
+                    <div *ngIf="loanCategory === 'INDIVIDUAL' && loanDataHolder?.customerInfo?.customerRelatives.length > 0">
                         <p><strong>Family Details</strong></p>
                         <table
                                 class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
@@ -304,8 +304,8 @@
                                     <td class="text-left pl-1">{{info?.grandFatherName}}</td>
                                     <td class="text-left pl-1">{{info?.fatherName}}</td>
                                 </tr>
-                                <tr><th colspan="5">Family Detail</th></tr>
-                                <tr class="text-white sb-bg-dark">
+                                <tr><th colspan="5" *ngIf="info?.customerRelations?.length > 0">Family Detail</th></tr>
+                                <tr *ngIf="info?.customerRelations?.length > 0" class="text-white sb-bg-dark">
                                     <th>Name</th>
                                     <th>Relation Name</th>
                                     <th>Citizenship no.</th>
