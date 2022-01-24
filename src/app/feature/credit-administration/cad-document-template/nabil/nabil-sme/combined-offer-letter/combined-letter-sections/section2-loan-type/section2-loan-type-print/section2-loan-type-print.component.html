@@ -148,7 +148,7 @@
                             {{this.freeInformation ? this.freeInformation?.section2?.documentaryBillPurchaseFreeText[i2]?.loanPaymentDocumentaryBill : '___________'}}
                         </span><br>
                         <span><strong>कर्जा अवधि समाप्ति/पुनरावलोकन मितिः</strong>
-                            {{this.val?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
+                            {{val?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
                             <span [ngClass]="{'outside' : val.dateOfExpiryCT !== null && val.dateOfExpiryCT !== ''}">
                             {{val.dateOfExpiryCT === null || val.dateOfExpiryCT === '' ? '___________' : val.dateOfExpiryCT}}</span>
                         </span><br>
@@ -173,6 +173,81 @@
                                            [pointNumber]="finalLoanDetails.length + autoLoanDetails.length"
                                            [termLoanData]="termLoanData">
             </app-term-loan-to-or-for-print>
+        </div>
+        <div>
+            <table class="table table-bordered-all print-friendly">
+                <ng-container *ngIf="tempData?.billPurchaseForm?.billPurchaseFormArray">
+                    <tr *ngFor="let val of tempData?.billPurchaseForm?.billPurchaseFormArray; let i3 = index">
+                        <!--Bills Purchase-->
+                        <td style="width: 10%; border-right: 1px solid black; border-top: 1px solid black">
+                            <strong>
+                                {{
+                                (tempData?.termLoanForm?.termLoanDetails?.length) +
+                                (tempData?.autoLoanMasterForm?.autoLoanFormArray?.length) +
+                                (tempData?.overDraftFacilityForm?.overdraftFacilityDetails.length) +
+                                (tempData?.documentaryBillPurchase?.documentaryBillPurchaseFormArray.length) +
+                                (i3 + 1) | nepaliWord}})
+                            </strong>
+                        </td>
+                        <td style="border-top: 1px solid black">
+                            <p>
+                                <strong>बिल्स खरिद कर्जा (Bills Purchase)
+                                    <ng-container *ngIf="tempData?.billPurchaseForm?.billPurchaseFormArray[i3]?.complementaryOther === true">
+                                    बुँदा नं.
+                                        <span>
+                                            {{this.freeInformation ? this.freeInformation?.section2?.billsPurchaseFreeText[i3]?.SNOfParentLimitBillsPurchase : ''}}
+                                        </span>
+                                        <ng-container *ngIf="tempData?.billPurchaseForm?.billPurchaseFormArray[i3]?.complimentaryLoanSelected !== 'TOTAL LIMIT'">
+                                            को पूरक सुविधा
+                                        </ng-container>
+                                        <ng-container *ngIf="tempData?.billPurchaseForm?.billPurchaseFormArray[i3]?.complimentaryLoanSelected === 'TOTAL LIMIT'">
+                                            कुल सुविधाको पूरक सुविधा
+                                        </ng-container>
+                                    </ng-container></strong><br>
+
+                                <strong>
+                                    सीमाः
+<!--                                    <ng-container *ngIf="complementaryOtherBillPurchase">(</ng-container> -->
+                                    रु.
+                                    <span>{{billsPurchase[i3] ? billsPurchase[i3].loanAmountNp : ''}}</span>
+                                    /-
+<!--                                    <ng-container *ngIf="complementaryOtherBillPurchase">)</ng-container>-->
+                                    (अक्षरेपी रु.
+                                    <span>{{billsPurchase[i3] ? billsPurchase[i3].loanAmountWords : ''}}</span>
+                                    मात्र)</strong>
+                            </p>
+                            <p>
+                                <strong>सुरक्षणः</strong> खरिद गरिने बिल्स् , चेक, ड्राफ्ट '
+                                <span>
+                                    {{this.freeInformation ? this.freeInformation?.section2?.billsPurchaseFreeText[i3]?.freeTextFifteen : ''}}
+                                </span>'
+                            </p>
+                            <p>
+                                <strong>धरौटीः </strong>
+                                <span [ngClass]="{'outside' : val.marginInPercentageCT !== null && val.marginInPercentageCT !== ''}">
+                            {{val.marginInPercentageCT === null || val.marginInPercentageCT === '' ? '___________' : val.marginInPercentageCT}}</span>
+                                प्रतिशत धरौटी स्वरुप रहनेछ ।
+                            </p>
+                            <p>
+                                <strong>शुल्कः</strong>प्रति कारोबार <strong>‘
+                                <span [ngClass]="{'outside' : val.commissionCT !== null && val.commissionCT !== ''}">
+                            {{val.commissionCT === null || val.commissionCT === '' ? '___________' : val.commissionCT}}</span>
+                                ‘%</strong> वा कम्तिमा रु.
+                                <span [ngClass]="{'outside' : val.minCommissionAmountInFigCT !== null && val.minCommissionAmountInFigCT !== ''}">
+                            {{val.minCommissionAmountInFigCT === null || val.minCommissionAmountInFigCT === '' ? '___________' : val.minCommissionAmountInFigCT}}</span>
+                                ।–का दरले लाग्नेछ ।
+                            </p>
+                            <p>
+                                <strong>कर्जा अवधि समाप्ति/पुनरावलोकन मितिः </strong>
+                                {{val?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
+                                <span [ngClass]="{'outside' : val.dateOfExpiryCT !== null && val.dateOfExpiryCT !== ''}">
+                            {{val.dateOfExpiryCT === null || val.dateOfExpiryCT === '' ? '___________' : val.dateOfExpiryCT}}</span>
+                                ।
+                            </p>
+                        </td>
+                    </tr>
+                </ng-container>
+            </table>
         </div>
         <div style="width: 100%">
             <table class="table table-bordered-all print-friendly" style="border-top: 1px solid black">

@@ -127,6 +127,7 @@ export class Section2LoanTypePrintComponent implements OnInit {
     finalLoanDetails = [];
     overdraftAgainstBond = [];
     documentaryBillPurchase = [];
+    billsPurchase = [];
     autoLoanData;
     termLoanData;
 
@@ -425,6 +426,7 @@ export class Section2LoanTypePrintComponent implements OnInit {
         this.finalLoanDetails = tempArray;
         this.overdraftAgainstBond = this.loanData.filter(data => data.loanName === this.loanNameConstant.OVERDRAFT_FACILITY_AGAINST_BOND);
         this.documentaryBillPurchase = this.loanData.filter(data => data.loanName === this.loanNameConstant.DOCUMENTARY_BILL_PURCHASE_NEGOTIATION);
+        this.billsPurchase = this.loanData.filter(data => data.loanName === this.loanNameConstant.BILLS_PURCHASE);
         this.autoLoanDetails = this.loanData.filter(data => data.loanName === this.loanNameConstant.AUTO_LOAN);
         this.termLoanDetails = this.loanData.filter(data => data.loanName === this.loanNameConstant.TERM_LOAN_TO_FOR_PURCHASE_OF_VEHICLE);
     }

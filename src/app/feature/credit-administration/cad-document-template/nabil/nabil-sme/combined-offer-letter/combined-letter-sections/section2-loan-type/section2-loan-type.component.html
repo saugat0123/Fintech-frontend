@@ -138,11 +138,11 @@
                                 <strong> सीमाः
                                     <!--<ng-container *ngIf="this.tempData?.documentaryBillPurchase?.documentaryBillPurchaseFormArray[i2].complementaryOther === true">-->
                                         <ng-container>
-                                            (रु.<input
+                                            रु.<input
                                             class="form-field form-control-sm"
                                             value="{{documentaryBillPurchase[i2] ? documentaryBillPurchase[i2].loanAmountNp : ''}}"
                                             placeholder=""
-                                            type="text"/>/–)
+                                            type="text"/>/–
                                     </ng-container>
                                    <!-- <ng-container *ngIf="this.tempData?.documentaryBillPurchase?.documentaryBillPurchaseFormArray[i2].complementaryOther === false">रु.<input
                                             class="form-field form-control-sm"
@@ -205,7 +205,6 @@
                         </ng-container>
                     </tr>
                 </ng-container>
-
             </table>
         </div>
         <div>
@@ -224,6 +223,108 @@
                                      [pointNumber]="finalLoanDetails.length + autoLoanDetails.length">
             </app-term-loan-to-or-for>
         </div>
+        <div>
+            <table class="table table-bordered">
+                <ng-container *ngIf="tempData?.billPurchaseForm?.billPurchaseFormArray">
+                    <tr *ngFor="let val of tempData?.billPurchaseForm?.billPurchaseFormArray; let i3 = index"
+                        formArrayName="billsPurchase">
+                        <ng-container [formGroupName]="i3">
+                            <!--Bills Purchase-->
+                            <td width="10%">
+                                <strong>
+                                    {{
+                                    (tempData?.termLoanForm?.termLoanDetails?.length) +
+                                    (tempData?.autoLoanMasterForm?.autoLoanFormArray?.length) +
+                                    (tempData?.overDraftFacilityForm?.overdraftFacilityDetails.length) +
+                                    (tempData?.documentaryBillPurchase?.documentaryBillPurchaseFormArray.length) +
+                                    (i3 + 1) | nepaliWord}})
+                                </strong>
+                            </td>
+                            <td>
+                                <p>
+                                    <strong>बिल्स खरिद कर्जा (Bills Purchase)
+                                        <ng-container
+                                                *ngIf="tempData?.billPurchaseForm?.billPurchaseFormArray[i3]?.complementaryOther === true">
+                                            बुँदा नं.<input class="form-field form-control-sm "
+                                                            formControlName="SNOfParentLimitBillsPurchase"
+                                                            placeholder=""
+                                                            type="text"/>
+                                            <ng-container
+                                                    *ngIf="tempData?.billPurchaseForm?.billPurchaseFormArray[i3]?.complimentaryLoanSelected !== 'TOTAL LIMIT'">
+                                                को पूरक सुविधा
+                                            </ng-container>
+                                            <ng-container
+                                                    *ngIf="tempData?.billPurchaseForm?.billPurchaseFormArray[i3]?.complimentaryLoanSelected === 'TOTAL LIMIT'">
+                                                कुल सुविधाको पूरक सुविधा
+                                            </ng-container>
+                                        </ng-container>
+                                    </strong><br>
+
+                                    <strong> सीमाः
+                                        <!--                                    <ng-container *ngIf="complementaryOtherBillPurchase">-->
+                                        <ng-container>
+                                            रु.<input
+                                                class="form-field form-control-sm"
+                                                value="{{billsPurchase[i3] ? billsPurchase[i3].loanAmountNp : ''}}"
+                                                placeholder=""
+                                                type="text"/>/–
+                                        </ng-container>
+                                        <!--<ng-container *ngIf="!complementaryOtherBillPurchase">रु.<input
+                                                class="form-field form-control-sm"
+                                                value="{{ld?.loanAmountNp}}"
+                                                placeholder=""
+                                                type="text"/>
+                                            ।–
+                                        </ng-container>-->
+                                        (अक्षरेपी रु.<input class="form-field form-control-sm "
+                                                            value="{{billsPurchase[i3] ? billsPurchase[i3].loanAmountWords : ''}}"
+                                                            placeholder=""
+                                                            type="text"/>
+                                        मात्र)</strong>
+                                </p>
+                                <p>
+                                    <strong>सुरक्षणः</strong> खरिद गरिने बिल्स् , चेक, ड्राफ्ट ' <textarea
+                                        class="form-control customFont "
+                                        rows="2"
+                                        style="width: 100%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em; color: black;"
+                                        name=""
+                                        placeholder=""
+                                        formControlName="freeTextFifteen">
+                        </textarea>'
+                                </p>
+                                <p>
+                                    <strong>धरौटीः </strong><input class="form-field form-control-sm "
+                                                                   formControlName="marginInPercentageBillsPurchase"
+                                                                   placeholder=""
+                                                                   type="text"/>प्रतिशत धरौटी स्वरुप रहनेछ ।
+                                </p>
+                                <p>
+                                    <strong>शुल्कः</strong>प्रति कारोबार <strong>‘<input
+                                        class="form-field form-control-sm "
+                                        formControlName="commissionBillsPurchase"
+                                        placeholder=""
+                                        type="text"/>‘%</strong> वा
+                                    कम्तिमा रु.<input class="form-field form-control-sm "
+                                                      formControlName="commissionAmountBillsPurchase"
+                                                      placeholder=""
+                                                      type="text"/>।–का दरले लाग्नेछ ।
+                                </p>
+                                <p>
+                                    <strong>कर्जा अवधि समाप्ति/पुनरावलोकन मितिः </strong>
+                                    {{val.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
+                                    <input
+                                            class="form-field form-control-sm "
+                                            formControlName="loanExpiryDateBillsPurchase"
+                                            placeholder=""
+                                            type="text"/>।
+                                </p>
+                            </td>
+                        </ng-container>
+                    </tr>
+                </ng-container>
+            </table>
+        </div>
+
             <div>
             <table class="table table-bordered" style="margin-top:-15px">
                 <tr>
