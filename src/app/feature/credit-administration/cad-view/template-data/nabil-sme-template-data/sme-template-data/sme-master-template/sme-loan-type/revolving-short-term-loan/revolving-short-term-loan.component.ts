@@ -6,6 +6,7 @@ import {EngToNepaliNumberPipe} from '../../../../../../../../../@core/pipe/eng-t
 import {CurrencyFormatterPipe} from '../../../../../../../../../@core/pipe/currency-formatter.pipe';
 import {EngNepDatePipe} from 'nepali-patro';
 import {OfferDocument} from '../../../../../../../model/OfferDocument';
+import {DatePipe} from '@angular/common';
 
 @Component({
     selector: 'app-revolving-short-term-loan',
@@ -17,7 +18,6 @@ export class RevolvingShortTermLoanComponent implements OnInit {
     @Input() offerDocumentList: Array<OfferDocument>;
     initialInformation: any;
     revolvingShortTermLoan: FormGroup;
-    isARFinancing = false;
     isComplementaryOtherLoan = false;
     loanDetails: any = [];
     ADExpiry = false;
@@ -31,7 +31,8 @@ export class RevolvingShortTermLoanComponent implements OnInit {
                 private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
                 private engToNepNumberPipe: EngToNepaliNumberPipe,
                 private currencyFormatterPipe: CurrencyFormatterPipe,
-                private engNepDatePipe: EngNepDatePipe) {
+                private engNepDatePipe: EngNepDatePipe,
+                private datePipe: DatePipe,) {
     }
 
     ngOnInit() {
@@ -68,7 +69,7 @@ export class RevolvingShortTermLoanComponent implements OnInit {
             loanRevolvingBasis: [undefined],
             subsidyOrAgricultureLoan: [undefined],
             complementaryOther: [undefined],
-            arFinancing: [undefined],
+            // arFinancing: [undefined],
             complimentaryLoanSelected: [undefined],
             loanRevolvingPeriod: [undefined],
             loanAmount: [undefined],
@@ -87,7 +88,7 @@ export class RevolvingShortTermLoanComponent implements OnInit {
             loanRevolvingBasisTrans: [undefined],
             complementaryOtherTrans: [undefined],
             complimentaryLoanSelectedTrans: [undefined],
-            arFinancingTrans: [undefined],
+            // arFinancingTrans: [undefined],
             loanRevolvingPeriodTrans: [undefined],
             loanAmountTrans: [undefined],
             loanAmountWordsTrans: [undefined],
@@ -104,7 +105,7 @@ export class RevolvingShortTermLoanComponent implements OnInit {
             loanRevolvingBasisCT: [undefined],
             complementaryOtherCT: [undefined],
             complimentaryLoanSelectedCT: [undefined],
-            arFinancingCT: [undefined],
+            // arFinancingCT: [undefined],
             loanRevolvingPeriodCT: [undefined],
             loanAmountCT: [undefined],
             loanAmountWordsCT: [undefined],
@@ -121,11 +122,6 @@ export class RevolvingShortTermLoanComponent implements OnInit {
     checkComplimentaryOtherLoan(data) {
         this.isComplementaryOtherLoan = data;
         this.revolvingShortTermLoan.get('complementaryOther').patchValue(this.isComplementaryOtherLoan);
-    }
-
-    checkARFinancing(data) {
-        this.isARFinancing = data;
-        this.revolvingShortTermLoan.get('arFinancing').patchValue(this.isARFinancing);
     }
 
     public checkDateOfExpiry(value): void {
@@ -164,11 +160,11 @@ export class RevolvingShortTermLoanComponent implements OnInit {
         if (!ObjectUtil.isEmpty(tempComplementary)) {
             this.revolvingShortTermLoan.get('complementaryOtherTrans').patchValue(tempComplementary);
         }
-        this.revolvingShortTermLoan.get('arFinancing').patchValue(this.isARFinancing);
-        const tempArFinancing = this.revolvingShortTermLoan.get('arFinancing').value;
-        if (!ObjectUtil.isEmpty(tempArFinancing)) {
-            this.revolvingShortTermLoan.get('arFinancingTrans').patchValue(tempArFinancing);
-        }
+        // this.revolvingShortTermLoan.get('arFinancing').patchValue(this.isARFinancing);
+        // const tempArFinancing = this.revolvingShortTermLoan.get('arFinancing').value;
+        // if (!ObjectUtil.isEmpty(tempArFinancing)) {
+        //     this.revolvingShortTermLoan.get('arFinancingTrans').patchValue(tempArFinancing);
+        // }
 
         /* FOR MULTI LOAN SELECTION DATA */
         this.revolvingShortTermLoan.get('complimentaryLoanSelectedTrans').patchValue(
@@ -203,19 +199,57 @@ export class RevolvingShortTermLoanComponent implements OnInit {
 
         const dateOfExpiryType = this.revolvingShortTermLoan.get('dateOfExpiryType').value;
         let convertedDateOfExpiry;
+        let finalExpDate;
         if (dateOfExpiryType === 'AD') {
             const tempDateOfExp = this.revolvingShortTermLoan.get('dateOfExpiry').value;
-            convertedDateOfExpiry = !ObjectUtil.isEmpty(tempDateOfExp) ?
-                this.engNepDatePipe.transform(tempDateOfExp, true) : '';
+            convertedDateOfExpiry = !ObjectUtil.isEmpty(tempDateOfExp) ? this.datePipe.transform(tempDateOfExp) : '';
+            finalExpDate = this.transformEnglishDate(convertedDateOfExpiry);
         } else {
             const tempDateOfExpNep = this.revolvingShortTermLoan.get('dateOfExpiryNepali').value;
-            convertedDateOfExpiry = !ObjectUtil.isEmpty(tempDateOfExpNep) ?
+            finalExpDate = !ObjectUtil.isEmpty(tempDateOfExpNep) ?
                 tempDateOfExpNep.nDate : '';
         }
         this.revolvingShortTermLoan.get('dateOfExpiryTypeTrans').patchValue(dateOfExpiryType);
-        this.revolvingShortTermLoan.get('dateOfExpiryTrans').patchValue(convertedDateOfExpiry);
+        this.revolvingShortTermLoan.get('dateOfExpiryTrans').patchValue(finalExpDate);
         /* FOR SETTING THE VALUE OF CT */
         this.setCTValueSave();
+    }
+
+    transformEnglishDate(date) {
+        let transformedDate;
+        let monthName;
+        const dateArray = [];
+        const splittedDate = date.split(' ');
+        if (splittedDate[0] === 'Jan') {
+            monthName = 'जनवरी';
+        } else if (splittedDate[0] === 'Feb') {
+            monthName = 'फेब्रुअरी';
+        } else if (splittedDate[0] === 'Mar') {
+            monthName = 'मार्च';
+        } else if (splittedDate[0] === 'Apr') {
+            monthName = 'अप्रिल';
+        } else if (splittedDate[0] === 'May') {
+            monthName = 'मे';
+        } else if (splittedDate[0] === 'Jun') {
+            monthName = 'जुन';
+        } else if (splittedDate[0] === 'Jul') {
+            monthName = 'जुलाई';
+        } else if (splittedDate[0] === 'Aug') {
+            monthName = 'अगष्ट';
+        } else if (splittedDate[0] === 'Sep') {
+            monthName = 'सेप्टेम्बर';
+        } else if (splittedDate[0] === 'Oct') {
+            monthName = 'अक्टुबर';
+        } else if (splittedDate[0] === 'Nov') {
+            monthName = 'नोभेम्बर';
+        } else {
+            monthName = 'डिसेम्बर';
+        }
+        dateArray.push(this.engToNepNumberPipe.transform(splittedDate[1].slice(0, -1)));
+        dateArray.push(monthName + ',');
+        dateArray.push(this.engToNepNumberPipe.transform(splittedDate[2]));
+        transformedDate = dateArray.join(' ');
+        return transformedDate;
     }
 
     /* SET CT VALUE OF EACH FIELDS */
@@ -232,9 +266,9 @@ export class RevolvingShortTermLoanComponent implements OnInit {
         this.revolvingShortTermLoan.get('complimentaryLoanSelectedCT').patchValue(
             this.revolvingShortTermLoan.get('complimentaryLoanSelectedTrans').value
         );
-        this.revolvingShortTermLoan.get('arFinancingCT').patchValue(
-            this.revolvingShortTermLoan.get('arFinancingTrans').value
-        );
+        // this.revolvingShortTermLoan.get('arFinancingCT').patchValue(
+        //     this.revolvingShortTermLoan.get('arFinancingTrans').value
+        // );
         this.revolvingShortTermLoan.get('loanRevolvingPeriodCT').patchValue(
             this.revolvingShortTermLoan.get('loanRevolvingPeriodTrans').value
         );
