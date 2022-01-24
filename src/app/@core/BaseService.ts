@@ -1,6 +1,7 @@
 import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {ApiUtils} from './utils/api/ApiUtils';
+import {CryptoJsUtil} from './utils/crypto-js-util';
 
 /**
  * API are expected to be developed in rest pattern
@@ -22,7 +23,7 @@ export abstract class BaseService<T> {
 
     protected abstract getApi(): string;
 
-    public  save(obj: T): Observable<any> {
+    public save(obj: T): Observable<any> {
         const req = ApiUtils.getRequest(this.getApi());
 
         return this.http.post(req.url, obj, {headers: req.header});
@@ -46,7 +47,7 @@ export abstract class BaseService<T> {
     }
 
     public update(id: number, obj: T): Observable<any> {
-        const api = `${this.getApi()}/${id}`;
+        const api = `${this.getApi()}/${CryptoJsUtil.encryptUrl(id.toString())}`;
         const req = ApiUtils.getRequest(api);
 
         return this.http.put(req.url, obj, {headers: req.header});
@@ -109,7 +110,11 @@ export abstract class BaseService<T> {
         return this.http.get(req.url, {headers: req.header});
     }
 
-    public getPaginationWithSearchObject(searchObj: any, page: number = 1, size: number = 20): Observable<any> {
+    public getPaginationWithSearchObject(searchObj: any, page: any = 1, size: any = 20): Observable<any> {
+        console.log('this is encrypted page', CryptoJsUtil.encryptUrl(`${page}`));
+        console.log('this is encrypted page', CryptoJsUtil.decrypt(CryptoJsUtil.encryptUrl(`${page}`)));
+        page = CryptoJsUtil.encryptUrl(`${page}`);
+        size = CryptoJsUtil.encryptUrl(`${size}`);
         const api = `${this.getApi()}/list?page=${page}&size=${size}`;
         const req = ApiUtils.getRequest(api);
 

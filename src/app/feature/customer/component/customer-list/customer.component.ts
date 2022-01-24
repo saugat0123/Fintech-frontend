@@ -35,6 +35,7 @@ import {LoanStage} from '../../../loan/model/loanStage';
 import {JointFormComponent} from '../customer-form/joint-form/joint-form.component';
 import {any} from 'codelyzer/util/function';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
+import {CryptoJsUtil} from '../../../../@core/utils/crypto-js-util';
 
 @Component({
     selector: 'app-customer-component',
@@ -178,10 +179,13 @@ export class CustomerComponent implements OnInit {
     /* associate id is customer or company id*/
     customerProfile(associateId, id, customerType) {
         if (CustomerType[customerType] === CustomerType.INDIVIDUAL) {
-            this.router.navigate(['/home/customer/profile/' + associateId], {
+            console.log(associateId);
+            console.log(customerType);
+            console.log(id);
+            this.router.navigate(['/home/customer/profile/' + CryptoJsUtil.encryptUrl((associateId.toString()))], {
                 queryParams: {
-                    customerType: customerType,
-                    customerInfoId: id
+                    customerType: CryptoJsUtil.encryptUrl(customerType),
+                    customerInfoId: CryptoJsUtil.encryptUrl((id.toString()))
                 }
             });
         } else if (CustomerType[customerType] === CustomerType.INSTITUTION) {
