@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {NepaliCurrencyWordPipe} from '../../../../../../../../../@core/pipe/nepali-currency-word.pipe';
 import {EngToNepaliNumberPipe} from '../../../../../../../../../@core/pipe/eng-to-nepali-number.pipe';
 import {CurrencyFormatterPipe} from '../../../../../../../../../@core/pipe/currency-formatter.pipe';
@@ -7,6 +7,7 @@ import {EngNepDatePipe} from 'nepali-patro';
 import {ObjectUtil} from '../../../../../../../../../@core/utils/ObjectUtil';
 import {DatePipe} from '@angular/common';
 import {OfferDocument} from '../../../../../../../model/OfferDocument';
+import {LoanNameConstant} from '../../../../sme-costant/loan-name-constant';
 
 @Component({
     selector: 'app-equity-mortgaged-overdraft',
@@ -30,7 +31,9 @@ export class EquityMortgagedOverdraftComponent implements OnInit {
         {value: 'Existing'},
         {value: 'Enhancement'}
     ];
-
+    filteredList: any = [];
+    loanNameConstant = LoanNameConstant;
+    loanDetails: any = [];
     constructor(private formBuilder: FormBuilder,
                 private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
                 private engToNepNumberPipe: EngToNepaliNumberPipe,
@@ -42,6 +45,10 @@ export class EquityMortgagedOverdraftComponent implements OnInit {
     ngOnInit() {
         this.buildForm();
         this.ADExpiry = true;
+        if (!ObjectUtil.isEmpty(this.loanName)) {
+            this.loanDetails = this.loanName;
+            this.filteredListDetails(this.loanDetails);
+        }
         if (this.offerDocumentList.length > 0) {
             this.offerDocumentList.forEach(offerLetter => {
                 this.initialInformation = JSON.parse(offerLetter.initialInformation);
@@ -49,73 +56,41 @@ export class EquityMortgagedOverdraftComponent implements OnInit {
             if (!ObjectUtil.isEmpty(this.initialInformation)) {
                 this.equityMortgaged.patchValue(this.initialInformation.equityMortgaged);
             }
-            const dateOfExpiryType = this.initialInformation.equityMortgaged.dateOfExpiryType;
+            this.patchDate();
+        }
+    }
+    patchDate() {
+        for (let val = 0; val < this.initialInformation.equityMortgaged.equityMortgagedFormArray.length; val++) {
+            const dateOfExpiryType = this.initialInformation.equityMortgaged.equityMortgagedFormArray[val].dateOfExpiryType;
             if (dateOfExpiryType === 'AD') {
-                const dateOfExpiry = this.initialInformation.equityMortgaged.dateOfExpiry;
+                const dateOfExpiry = this.initialInformation.equityMortgaged.equityMortgagedFormArray[val].dateOfExpiry;
                 if (!ObjectUtil.isEmpty(dateOfExpiry)) {
-                    this.equityMortgaged.get('dateOfExpiry').patchValue(new Date(dateOfExpiry));
+                    this.equityMortgaged.get(['billPurchaseFormArray', val, 'dateOfExpiry']).patchValue(new Date(dateOfExpiry));
                 }
             } else if (dateOfExpiryType === 'BS') {
-                const dateOfExpiry = this.initialInformation.equityMortgaged.dateOfExpiryNepali;
+                const dateOfExpiry = this.initialInformation.equityMortgaged.equityMortgagedFormArray[val].dateOfExpiryNepali;
                 if (!ObjectUtil.isEmpty(dateOfExpiry)) {
-                    this.equityMortgaged.get('dateOfExpiryNepali').patchValue(dateOfExpiry);
+                    this.equityMortgaged.get(['billPurchaseFormArray', val, 'dateOfExpiryNepali']).patchValue(dateOfExpiry);
                 }
             }
         }
     }
-
     buildForm() {
         this.equityMortgaged = this.formBuilder.group({
-            subsidyOrAgricultureLoan: [undefined],
-            mortgageType: [undefined],
-            loanSubType: [undefined],
-            drawingBasis: [undefined],
-            loanAmount: [undefined],
-            loanAmountWords: [undefined],
-            drawingPower: [undefined],
-            baseRate: [undefined],
-            premiumRate: [undefined],
-            interestRate: [undefined],
-            dateOfExpiryType: ['AD'],
-            dateOfExpiry: [undefined],
-            dateOfExpiryNepali: [undefined],
-
-            /* FOR TRANSLATED FIELDS */
-            loanSubTypeTrans: [undefined],
-            drawingBasisTrans: [undefined],
-            loanAmountTrans: [undefined],
-            loanAmountWordsTrans: [undefined],
-            drawingPowerTrans: [undefined],
-            baseRateTrans: [undefined],
-            premiumRateTrans: [undefined],
-            interestRateTrans: [undefined],
-            dateOfExpiryTypeTrans: [undefined],
-            dateOfExpiryTrans: [undefined],
-
-            /* FOR CT FIELDS */
-            loanSubTypeCT: [undefined],
-            drawingBasisCT: [undefined],
-            loanAmountCT: [undefined],
-            loanAmountWordsCT: [undefined],
-            drawingPowerCT: [undefined],
-            baseRateCT: [undefined],
-            premiumRateCT: [undefined],
-            interestRateCT: [undefined],
-            dateOfExpiryTypeCT: [undefined],
-            dateOfExpiryCT: [undefined],
+            equityMortgagedFormArray: this.formBuilder.array([]),
         });
     }
 
-    public getNumAmountWord(numLabel, wordLabel): void {
-        const transformValue = this.nepaliCurrencyWordPipe.transform(this.equityMortgaged.get(numLabel).value);
-        this.equityMortgaged.get(wordLabel).patchValue(transformValue);
+    public getNumAmountWord(numLabel, wordLabel, index, arrayName): void {
+        const transformValue = this.nepaliCurrencyWordPipe.transform(this.equityMortgaged.get([arrayName, index, numLabel]).value);
+        this.equityMortgaged.get([arrayName, index, wordLabel]).patchValue(transformValue);
     }
 
-    calInterestRate() {
-        const baseRate = this.equityMortgaged.get('baseRate').value;
-        const premiumRate = this.equityMortgaged.get('premiumRate').value;
+    calInterestRate(i) {
+        const baseRate = this.equityMortgaged.get(['equityMortgagedFormArray', i, 'baseRate']).value;
+        const premiumRate = this.equityMortgaged.get(['equityMortgagedFormArray', i, 'premiumRate']).value;
         const sum = parseFloat(baseRate) + parseFloat(premiumRate);
-        this.equityMortgaged.get('interestRate').patchValue(sum);
+        this.equityMortgaged.get(['equityMortgagedFormArray', i, 'interestRate']).patchValue(sum);
     }
 
     public checkDateOfExpiry(value): void {
@@ -123,53 +98,53 @@ export class EquityMortgagedOverdraftComponent implements OnInit {
         this.BSExpiry = value === 'BS';
     }
 
-    setTranslatedVal() {
+    async setTranslatedVal(i) {
         /* SET TRANS CONDITIONS */
-        const tempLoanSubType = this.equityMortgaged.get('loanSubType').value;
+        const tempLoanSubType = this.equityMortgaged.get(['equityMortgagedFormArray', i, 'loanSubType']).value;
         if (!ObjectUtil.isEmpty(tempLoanSubType)) {
-            this.equityMortgaged.get('loanSubTypeTrans').patchValue(tempLoanSubType);
+            this.equityMortgaged.get(['equityMortgagedFormArray', i, 'loanSubTypeTrans']).patchValue(tempLoanSubType);
         }
 
-        const tempDrawingBasis = this.equityMortgaged.get('drawingBasis').value;
+        const tempDrawingBasis = this.equityMortgaged.get(['equityMortgagedFormArray', i, 'drawingBasis']).value;
         if (!ObjectUtil.isEmpty(tempDrawingBasis)) {
-            this.equityMortgaged.get('drawingBasisTrans').patchValue(tempDrawingBasis);
+            this.equityMortgaged.get(['equityMortgagedFormArray', i, 'drawingBasisTrans']).patchValue(tempDrawingBasis);
         }
         /* SET TRANS VALUE FOR OTHER FIELDS */
-        const convertedVal = this.convertNumbersToNepali(this.equityMortgaged.get('loanAmount').value, true);
-        this.equityMortgaged.get('loanAmountTrans').patchValue(convertedVal);
-        this.equityMortgaged.get('loanAmountWordsTrans').patchValue(
-            this.equityMortgaged.get('loanAmountWords').value
+        const convertedVal = this.convertNumbersToNepali(this.equityMortgaged.get(['equityMortgagedFormArray', i, 'loanAmount']).value, true);
+        this.equityMortgaged.get(['equityMortgagedFormArray', i, 'loanAmountTrans']).patchValue(convertedVal);
+        this.equityMortgaged.get(['equityMortgagedFormArray', i, 'loanAmountWordsTrans']).patchValue(
+            this.equityMortgaged.get(['equityMortgagedFormArray', i, 'loanAmountWords']).value
         );
-        const convertedDrawingPower = this.convertNumbersToNepali(this.equityMortgaged.get('drawingPower').value, false);
-        this.equityMortgaged.get('drawingPowerTrans').patchValue(convertedDrawingPower);
-        const convertedBaseRate = this.convertNumbersToNepali(this.equityMortgaged.get('baseRate').value, false);
-        this.equityMortgaged.get('baseRateTrans').patchValue(convertedBaseRate);
-        const convertedPremiumRate = this.convertNumbersToNepali(this.equityMortgaged.get('premiumRate').value, false);
-        this.equityMortgaged.get('premiumRateTrans').patchValue(convertedPremiumRate);
-        const convertedInterestRate = this.convertNumbersToNepali(this.equityMortgaged.get('interestRate').value, false);
-        this.equityMortgaged.get('interestRateTrans').patchValue(convertedInterestRate);
+        const convertedDrawingPower = this.convertNumbersToNepali(this.equityMortgaged.get(['equityMortgagedFormArray', i, 'drawingPower']).value, false);
+        this.equityMortgaged.get(['equityMortgagedFormArray', i, 'drawingPowerTrans']).patchValue(convertedDrawingPower);
+        const convertedBaseRate = this.convertNumbersToNepali(this.equityMortgaged.get(['equityMortgagedFormArray', i, 'baseRate']).value, false);
+        this.equityMortgaged.get(['equityMortgagedFormArray', i, 'baseRateTrans']).patchValue(convertedBaseRate);
+        const convertedPremiumRate = this.convertNumbersToNepali(this.equityMortgaged.get(['equityMortgagedFormArray', i, 'premiumRate']).value, false);
+        this.equityMortgaged.get(['equityMortgagedFormArray', i, 'premiumRateTrans']).patchValue(convertedPremiumRate);
+        const convertedInterestRate = this.convertNumbersToNepali(this.equityMortgaged.get(['equityMortgagedFormArray', i, 'interestRate']).value, false);
+        this.equityMortgaged.get(['equityMortgagedFormArray', i, 'interestRateTrans']).patchValue(convertedInterestRate);
         // this.equityMortgaged.get('dateOfExpiryTypeTrans').patchValue('');
         // this.equityMortgaged.get('dateOfExpiryTrans').patchValue('');
         // this.equityMortgaged.get('dateOfExpiryNepaliTrans').patchValue('');
 
         /* Converting value for date */
-        this.equityMortgaged.get('dateOfExpiryTypeTrans').patchValue(
-            this.equityMortgaged.get('dateOfExpiryType').value
+        this.equityMortgaged.get(['equityMortgagedFormArray', i, 'dateOfExpiryTypeTrans']).patchValue(
+            this.equityMortgaged.get(['equityMortgagedFormArray', i, 'dateOfExpiryType']).value
         );
-        const tempDateOfExpType = this.equityMortgaged.get('dateOfExpiryType').value;
+        const tempDateOfExpType = this.equityMortgaged.get(['equityMortgagedFormArray', i, 'dateOfExpiryType']).value;
         let tempExpDate;
         if (tempDateOfExpType === 'AD') {
-            const tempEngExpDate = this.equityMortgaged.get('dateOfExpiry').value;
+            const tempEngExpDate = this.equityMortgaged.get(['equityMortgagedFormArray', i, 'dateOfExpiry']).value;
             tempExpDate = !ObjectUtil.isEmpty(tempEngExpDate) ? this.datePipe.transform(tempEngExpDate) : '';
             const finalExpDate = this.transformEnglishDate(tempExpDate);
-            this.equityMortgaged.get('dateOfExpiryTrans').patchValue(finalExpDate);
+            this.equityMortgaged.get(['equityMortgagedFormArray', i, 'dateOfExpiryTrans']).patchValue(finalExpDate);
         } else {
-            const tempDateOfExpNep = this.equityMortgaged.get('dateOfExpiryNepali').value;
+            const tempDateOfExpNep = this.equityMortgaged.get(['equityMortgagedFormArray', i, 'dateOfExpiryNepali']).value;
             tempExpDate = !ObjectUtil.isEmpty(tempDateOfExpNep) ?
                 tempDateOfExpNep.nDate : '';
-            this.equityMortgaged.get('dateOfExpiryTrans').patchValue(tempExpDate);
+            this.equityMortgaged.get(['equityMortgagedFormArray', i, 'dateOfExpiryTrans']).patchValue(tempExpDate);
         }
-        this.setCTValue();
+        this.setCTValue(i);
         if (this.ADExpiry) {
             this.clearForm('dateOfExpiryNepali');
         }
@@ -216,36 +191,36 @@ export class EquityMortgagedOverdraftComponent implements OnInit {
     }
 
     /* SET CT VALUE OF EACH FIELDS */
-    setCTValue() {
-        this.equityMortgaged.get('loanSubTypeCT').patchValue(
-            this.equityMortgaged.get('loanSubTypeTrans').value
+    setCTValue(i) {
+        this.equityMortgaged.get(['equityMortgagedFormArray', i, 'loanSubTypeCT']).patchValue(
+            this.equityMortgaged.get(['equityMortgagedFormArray', i, 'loanSubTypeTrans']).value
         );
-        this.equityMortgaged.get('drawingBasisCT').patchValue(
-            this.equityMortgaged.get('drawingBasisTrans').value
+        this.equityMortgaged.get(['equityMortgagedFormArray', i, 'drawingBasisCT']).patchValue(
+            this.equityMortgaged.get(['equityMortgagedFormArray', i, 'drawingBasisTrans']).value
         );
-        this.equityMortgaged.get('loanAmountCT').patchValue(
-            this.equityMortgaged.get('loanAmountTrans').value
+        this.equityMortgaged.get(['equityMortgagedFormArray', i, 'loanAmountCT']).patchValue(
+            this.equityMortgaged.get(['equityMortgagedFormArray', i, 'loanAmountTrans']).value
         );
-        this.equityMortgaged.get('loanAmountWordsCT').patchValue(
-            this.equityMortgaged.get('loanAmountWordsTrans').value
+        this.equityMortgaged.get(['equityMortgagedFormArray', i, 'loanAmountWordsCT']).patchValue(
+            this.equityMortgaged.get(['equityMortgagedFormArray', i, 'loanAmountWordsTrans']).value
         );
-        this.equityMortgaged.get('drawingPowerCT').patchValue(
-            this.equityMortgaged.get('drawingPowerTrans').value
+        this.equityMortgaged.get(['equityMortgagedFormArray', i, 'drawingPowerCT']).patchValue(
+            this.equityMortgaged.get(['equityMortgagedFormArray', i, 'drawingPowerTrans']).value
         );
-        this.equityMortgaged.get('baseRateCT').patchValue(
-            this.equityMortgaged.get('baseRateTrans').value
+        this.equityMortgaged.get(['equityMortgagedFormArray', i, 'baseRateCT']).patchValue(
+            this.equityMortgaged.get(['equityMortgagedFormArray', i, 'baseRateTrans']).value
         );
-        this.equityMortgaged.get('premiumRateCT').patchValue(
-            this.equityMortgaged.get('premiumRateTrans').value
+        this.equityMortgaged.get(['equityMortgagedFormArray', i, 'premiumRateCT']).patchValue(
+            this.equityMortgaged.get(['equityMortgagedFormArray', i, 'premiumRateTrans']).value
         );
-        this.equityMortgaged.get('interestRateCT').patchValue(
-            this.equityMortgaged.get('interestRateTrans').value
+        this.equityMortgaged.get(['equityMortgagedFormArray', i, 'interestRateCT']).patchValue(
+            this.equityMortgaged.get(['equityMortgagedFormArray', i, 'interestRateTrans']).value
         );
-        this.equityMortgaged.get('dateOfExpiryTypeCT').patchValue(
-            this.equityMortgaged.get('dateOfExpiryTypeTrans').value
+        this.equityMortgaged.get(['equityMortgagedFormArray', i, 'dateOfExpiryTypeCT']).patchValue(
+            this.equityMortgaged.get(['equityMortgagedFormArray', i, 'dateOfExpiryTypeTrans']).value
         );
-        this.equityMortgaged.get('dateOfExpiryCT').patchValue(
-            this.equityMortgaged.get('dateOfExpiryTrans').value
+        this.equityMortgaged.get(['equityMortgagedFormArray', i, 'dateOfExpiryCT']).patchValue(
+            this.equityMortgaged.get(['equityMortgagedFormArray', i, 'dateOfExpiryTrans']).value
         );
     }
 
@@ -267,4 +242,59 @@ export class EquityMortgagedOverdraftComponent implements OnInit {
         }
         return finalConvertedVal;
     }
+
+    filteredListDetails(loanDetails) {
+        this.filteredList = loanDetails.filter(data => data.name === this.loanNameConstant.EQUITY_MORTGAGED_OVERDRAFT);
+        this.filteredList.forEach(value => {
+            this.addLoanFormArr();
+        });
 }
+
+    addLoanFormArr() {
+        (this.equityMortgaged.get('equityMortgagedFormArray') as FormArray).push(this.buildLoanForm());
+    }
+
+    buildLoanForm() {
+        return this.formBuilder.group({
+            subsidyOrAgricultureLoan: [undefined],
+            mortgageType: [undefined],
+            loanSubType: [undefined],
+            drawingBasis: [undefined],
+            loanAmount: [undefined],
+            loanAmountWords: [undefined],
+            drawingPower: [undefined],
+            baseRate: [undefined],
+            premiumRate: [undefined],
+            interestRate: [undefined],
+            dateOfExpiryType: ['AD'],
+            dateOfExpiry: [undefined],
+            dateOfExpiryNepali: [undefined],
+
+            /* FOR TRANSLATED FIELDS */
+            loanSubTypeTrans: [undefined],
+            drawingBasisTrans: [undefined],
+            loanAmountTrans: [undefined],
+            loanAmountWordsTrans: [undefined],
+            drawingPowerTrans: [undefined],
+            baseRateTrans: [undefined],
+            premiumRateTrans: [undefined],
+            interestRateTrans: [undefined],
+            dateOfExpiryTypeTrans: [undefined],
+            dateOfExpiryTrans: [undefined],
+
+            /* FOR CT FIELDS */
+            loanSubTypeCT: [undefined],
+            drawingBasisCT: [undefined],
+            loanAmountCT: [undefined],
+            loanAmountWordsCT: [undefined],
+            drawingPowerCT: [undefined],
+            baseRateCT: [undefined],
+            premiumRateCT: [undefined],
+            interestRateCT: [undefined],
+            dateOfExpiryTypeCT: [undefined],
+            dateOfExpiryCT: [undefined],
+        });
+    }
+}
+
+
