@@ -711,7 +711,7 @@
                                                </div>
                                            </div>
                                        </div>
-                                       <div *ngIf="i>1" class="ml-3">
+                                       <div *ngIf="basicInfo?.get('customerRelatives')['length'] > 0" class="ml-3">
                                            <button (click)="removeRelatives(i)"
                                                    class="float-right" nbButton
                                                    size="small" status="danger">remove
