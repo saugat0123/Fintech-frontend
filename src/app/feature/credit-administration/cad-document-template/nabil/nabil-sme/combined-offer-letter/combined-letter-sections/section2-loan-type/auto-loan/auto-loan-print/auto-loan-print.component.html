@@ -125,7 +125,8 @@
                     मिति
                     भित्र चुक्ता भुक्तानी गर्नु पर्नेछ ।<br>
                     <strong>कर्जा अवधि समाप्ति मितिः</strong>
-                    <span [ngClass]="{'outside' : autoLoan?.dateOfExpiryCT !== null && autoLoan?.dateOfExpiryCT !== ''}">
+                    {{autoLoan.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
+                    <span [ngClass]="{'inside' : autoLoan?.dateOfExpiryCT !== null && autoLoan?.dateOfExpiryCT !== ''}">
                         {{autoLoan?.dateOfExpiryCT === null || autoLoan?.dateOfExpiryCT === '' ? '___________' : autoLoan?.dateOfExpiryCT}}</span>
                     ।
                 </p>
@@ -223,7 +224,8 @@
                             किस्ताहरुमा तल उल्लिखित कर्जा अवधि
                             समाप्ति मिति भित्र सम्पुर्ण बाँकी बक्यौता रकम चुक्ता भुक्तानी गर्नु पर्नेछ ।</span><br>
                     <strong>कर्जा अवधि समाप्ति मितिः </strong>
-                    <span [ngClass]="{'outside' : autoLoan?.dateOfExpiryCT !== null && autoLoan?.dateOfExpiryCT !== ''}">
+                    {{autoLoan.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
+                    <span [ngClass]="{'inside' : autoLoan?.dateOfExpiryCT !== null && autoLoan?.dateOfExpiryCT !== ''}">
                         {{autoLoan?.dateOfExpiryCT === null || autoLoan?.dateOfExpiryCT === '' ? '___________' : autoLoan?.dateOfExpiryCT}}</span>
                     ।<br>
                     <span>

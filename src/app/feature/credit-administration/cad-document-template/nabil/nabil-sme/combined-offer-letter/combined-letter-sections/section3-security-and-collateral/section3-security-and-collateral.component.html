@@ -596,7 +596,7 @@
                                            [value]="this.nepaliCurrencyWordPipe.transform(personalGuarantor.gurantedAmount.en)"
                                            />
                                     मात्र) बराबरको
-                                    {{personalGuarantor.gender.en === 'FEMALE' && personalGuarantor.relationMedium.en === '0' ? 'श्रीमती' : (personalGuarantor.gender.en === 'FEMALE' && personalGuarantor.relationMedium.en === '1' ? 'सुश्री' : personalGuarantor.gender.en === 'MALE' ? 'श्रीमान्' : '')}}
+                                    {{personalGuarantor.gender.en === 'FEMALE' && personalGuarantor.relationMedium.en === '0' ? 'श्रीमती' : (personalGuarantor.gender.en === 'FEMALE' && personalGuarantor.relationMedium.en === '1' ? 'सुश्री' : personalGuarantor.gender.en === 'MALE' ? 'श्री' : '')}}
                                     <input formControlName="personalGuaranteeName"
                                            name="personalguaranteeName"
                                            type="text"
@@ -604,10 +604,10 @@
                                            placeholder="Guarantor Names"
                                            [value]="personalGuarantor.guarantorName.ct"/>
                                     ले बैंकको पक्षमा व्यक्तिगत जमानत
-                                    <span *ngIf="personalGuaranteeToBeUsedSecondary"> <!--If existing personal guarantee is continued-->
+                                    <span *ngIf="!personalGuaranteeToBeUsedSecondary"> <!--If existing personal guarantee is continued-->
                                 लेखिदिईएको यथावत कायम रहने छ ।
                             </span>
-                                    <span *ngIf="!personalGuaranteeToBeUsedSecondary"> <!--If new guarantor is proposed-->
+                                    <span *ngIf="personalGuaranteeToBeUsedSecondary"> <!--If new guarantor is proposed-->
                                 लेखिदिनु पर्नेछ ।
                             </span>
                                 </p>
@@ -637,10 +637,10 @@
                                            [value]="commonGuarantorDetails(corporateGuarantorsName, finalCorporateName)"
                                            placeholder="Corporate Guarantor Name"/>
                                     ले बैंकको पक्षमा संस्थागत जमानत
-                                    <span *ngIf="corporateGuaranteeSecondary"> <!--If existing corporate guarantee is continued-->
+                                    <span *ngIf="!corporateGuaranteeSecondary"> <!--If existing corporate guarantee is continued-->
                                 लेखिदिईएको यथावत कायम रहने छ ।
                             </span>
-                                    <span *ngIf="!corporateGuaranteeSecondary"> <!--If new corporate guarantor is required-->
+                                    <span *ngIf="corporateGuaranteeSecondary"> <!--If new corporate guarantor is required-->
                                 लेखिदिनु पर्नेछ ।
                             </span>
                                 </p>
@@ -670,10 +670,10 @@
                                            [value]="commonGuarantorDetails(crossGuarantorsName, finalCrossName)"
                                            placeholder="Corporate Guarantor Name"/>
                                     ले बैंकको पक्षमा पारस्परिक जमानत
-                                    <span *ngIf="crossGuaranteeSecondary"> <!--If existing cross guarantee is continued-->
+                                    <span *ngIf="!crossGuaranteeSecondary"> <!--If existing cross guarantee is continued-->
                                 लेखिदिईएको यथावत कायम रहने छ ।
                             </span>
-                                    <span *ngIf="!crossGuaranteeSecondary"> <!--If new cross guarantor is required-->
+                                    <span *ngIf="crossGuaranteeSecondary"> <!--If new cross guarantor is required-->
                                 लेखिदिनु पर्नेछ ।
                             </span>
                                 </p>

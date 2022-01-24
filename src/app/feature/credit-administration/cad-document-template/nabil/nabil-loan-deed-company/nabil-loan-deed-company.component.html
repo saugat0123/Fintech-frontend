@@ -1,3 +1,4 @@
+<nb-card [nbSpinner]="spinner">
 <div class="container nep text-justify">
     <form [formGroup]="form" class="nep" id="print-section">
         <div class="container nep text-justify">
@@ -12,8 +13,7 @@
                               formControlName="nameOfBranch"
                               placeholder="शाखा कार्यालय रहेको नाम"
                               type="text"/>
-                        <span class="print-only">{{individualData?.branch ? individualData.branch.ct : '______________________'}}</span>
-                       मा शाखा कार्यालय रहेको <b>नबिल बैंक लिमिटेड</b>
+                        <span class="print-only">{{individualData?.branch ? individualData.branch.ct : '______________________'}}</span>मा शाखा कार्यालय रहेको <b>नबिल बैंक लिमिटेड</b>
                        (जसलाई यस उप्रान्त <b>“धनी बैंक”</b> भनिएको छ)
                        लिखत गरी दिने ऋणीका नाम -
                        <input class="form-field form-control-sm d-print-none"
@@ -24,13 +24,13 @@
                        <input class="form-field form-control-sm d-print-none"
                               formControlName="actYearInFigure"
                               type="text"/>
-                        <span class="print-only">{{this.actYearDate ? this.actYearDate : '______________________'}}</span>
+                        <span class="print-only">{{this.actYear ? this.actYear : '______________________'}}</span>
                        बमोजिम
                        <input class="form-field form-control-sm d-print-none"
                               formControlName="authorizedBody"
                               type="text"/>
                         <span class="print-only">{{individualData?.authorizedBodyName ? individualData.authorizedBodyName.ct : '______________________'}}</span>
-                       <input class="form-field form-control-sm d-print-none"
+                        <input class="form-field form-control-sm d-print-none"
                               formControlName="headSectionDepartment"
                               placeholder="विभाग प्रमुख"
                               type="text"/>
@@ -65,8 +65,8 @@
                                   placeholder=" "
                                   type="text"/>
                                 <span class="print-only">{{partner?.ownerGrandFatherNameCT ? partner?.ownerGrandFatherNameCT : '______________________'}}</span>को
-                           <ng-container *ngIf="partner?.ownerGender === 'MALE'">नाती</ng-container>
-                           <ng-container *ngIf="partner?.ownerGender === 'FEMALE'">नातिनी</ng-container>
+                           <ng-container *ngIf="partner?.ownerGender === 'MALE'">नाती </ng-container>
+                           <ng-container *ngIf="partner?.ownerGender === 'FEMALE'">नातिनी </ng-container>
                        </ng-container>
 
                       <ng-container *ngIf="partner?.ownerGender === 'FEMALE' && partner?.ownerRelationMedium === '0'">
@@ -85,8 +85,8 @@
                                  placeholder=" "
                                  type="text"/>
                         <span class="print-only">{{partner?.ownerFatherNameCT ? partner?.ownerFatherNameCT : '______________________'}}</span>को
-                          <ng-container *ngIf="partner?.ownerGender === 'MALE'">छोरा</ng-container>
-                          <ng-container *ngIf="partner?.ownerGender === 'FEMALE'">छोरी</ng-container>
+                          <ng-container *ngIf="partner?.ownerGender === 'MALE'">छोरा </ng-container>
+                          <ng-container *ngIf="partner?.ownerGender === 'FEMALE'">छोरी </ng-container>
                       </ng-container>
 
                       <ng-container *ngIf="partner?.ownerGender === 'FEMALE' && partner?.ownerRelationMedium === '0'">
@@ -138,8 +138,8 @@
                                         placeholder=" "
                                         type="text"/>
                             <span class="print-only">{{ageCalculation(partner?.ownerDobCT) ? ageCalculation(partner?.ownerDobCT) : '______________________'}}</span>
-                      <ng-container *ngIf="partner?.ownerGender === 'MALE'">को</ng-container>
-                      <ng-container *ngIf="partner?.ownerGender === 'FEMALE'">की</ng-container>
+                      <ng-container *ngIf="partner?.ownerGender === 'MALE'"> को </ng-container>
+                      <ng-container *ngIf="partner?.ownerGender === 'FEMALE'"> की </ng-container>
                       <ng-container *ngIf="partner?.ownerGender === 'MALE'">श्री</ng-container>
                       <ng-container *ngIf="partner?.ownerGender === 'FEMALE' && partner?.ownerRelationMedium === '0'">
                           श्रीमती
@@ -245,18 +245,21 @@
                         <ng-container [formGroupName]="i">
                             <td>{{newTempData[i]?.loanNepaliName}}</td>
                             <td>{{newTempData[i]?.loanAmount}}</td>
-                            <td><input class="form-field form-control-sm d-print-none"
-                                       name="interestRateCombined"
-                                       formControlName="interestRateCombined"
-                                       placeholder=""
-                                       type="text"/>
-                                <span class="print-only">{{this.freeText ? this.freeText[i]?.interest : '______________________'}}</span></td>
+                            <td *ngIf="newTempData[i]?.interestRateExists === true">{{newTempData[i]?.interestRate ? newTempData[i]?.interestRate : '_________________'}}%</td>
+                            <td *ngIf="newTempData[i]?.interestRateExists === false"><input class="form-field form-control-sm d-print-none"
+                                                                                            name="interestRateCombined"
+                                                                                            formControlName="interestRateCombined"
+                                                                                            placeholder=""
+                                                                                            type="text"/>
+                                <span class="print-only">{{this.supportedInfo ? this.supportedInfo.combinedFreeText[i].interest : '____________________'}}</span>
+                            </td>
                             <td><input class="form-field form-control-sm d-print-none"
                                        name="dateOfExpiry"
                                        formControlName="dateOfExpiry"
                                        placeholder=""
                                        type="text"/>
-                            <span class="print-only">{{this.dateOfExpirySingle ? this.dateOfExpirySingle : '______________________'}}</span></td>
+                                <span class="print-only">{{this.supportedInfo ? this.supportedInfo.combinedFreeText[i].dateOfExpiry : '______/_______/_______'}}</span>
+                            </td>
                         </ng-container>
                     </tr>
                     </tbody>
@@ -526,26 +529,16 @@
                     </div>
                 </div>
             </div>
-            <div class="row mt-5 ml-0">
+            <div class="row mt-5 ml-0" style="padding-bottom: 30px;">
                 <div class="col-md-12 text-right">
-                    <button
-                            [useExistingCss]="true"
+                    <button [useExistingCss]="true"
                             styleSheetFile="assets/css/printStyles.scss"
-                            class="d-print-none float-right"
-                            printSectionId="print-section"
-                            nbButton
-                            size="small"
-                            status="info"
-                            outline
-                            ngxPrint
-                    >
+                            class="d-print-none float-right" printSectionId="print-section"
+                            nbButton size="small" status="info" outline ngxPrint>
                         Print &nbsp;&nbsp;
                         <em class="fa fa-print" style="color: rgb(47, 3, 168)"></em>
                     </button>
-                    <button nbButton size="small"
-                            class="d-print-none sav"
-                            status="success"
-                            (click)="submit()"
+                    <button nbButton size="small" class="d-print-none sav" status="success" (click)="submit()"
                             style="color: rgb(65,104,207); background-color: rgb(235,247,255);">Save &nbsp;&nbsp;
                         <em class="fa fa-save" style="color: rgb(47, 3, 168)"></em></button>
                 </div>
@@ -553,3 +546,4 @@
         </div>
     </form>
 </div>
+</nb-card>

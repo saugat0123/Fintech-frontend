@@ -58,6 +58,7 @@ export class Section10SecurityDocumentsPrintComponent implements OnInit {
   partnershipDeed: boolean;
   letterSetOff: boolean;
   textAreas: any;
+  newVisible = true;
   constructor( private engToNepNumberPipe: EngToNepaliNumberPipe,
                private currencyFormatPipe: CurrencyFormatterPipe) { }
 
@@ -104,6 +105,9 @@ export class Section10SecurityDocumentsPrintComponent implements OnInit {
         this.securityOwnersName.push(sw.securityOwnersNameCT);
       }
     });
+    if (!ObjectUtil.isEmpty(this.tempData) && this.tempData.smeGlobalForm.loanOption === 'New') {
+      this.newVisible = false;
+    }
   }
   getKittaNumbers(plotNumber, kittaNumbers) {
     if (plotNumber.length === 1) {

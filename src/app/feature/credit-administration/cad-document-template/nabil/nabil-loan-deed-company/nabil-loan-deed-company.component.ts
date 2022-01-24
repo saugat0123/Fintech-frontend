@@ -59,12 +59,14 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
   autoCheck = false;
   freeText1Check = false;
   freeText2Check = false;
-  actYearDate;
+  actYear;
   regDate;
   finalAmount;
   loanAmountWord;
   sanctionDate;
   dateOfExpirySingle;
+  spinner = false;
+  newData;
   constructor(
       private formBuilder: FormBuilder,
       private administrationService: CreditAdministrationService,
@@ -90,9 +92,7 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.individualData = JSON.parse(this.cadData.loanHolder.nepData);
     }
-    if (!ObjectUtil.isEmpty(this.supportedInfo)) {
-      this.freeText = this.supportedInfo.combinedFreeText;
-    }
+    this.setFreeInfo();
     if (this.cadData.offerDocumentList[0].docName === 'DDSL Without Subsidy' ||
         this.cadData.offerDocumentList[0].docName === 'Interest subsidy sanction letter' ||
         this.cadData.offerDocumentList[0].docName === 'Combined Offer Letter') {
@@ -111,9 +111,8 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.supportedInfo) && !ObjectUtil.isEmpty(this.supportedInfo.freeText2)) {
       this.freeText2Check = true;
     }
-    this.setFreeInfo();
     this.getLoanName();
-    this.setLoanDeedCompanyFormData(this.cadData);
+    this.fillForm();
   }
   primarySecurityCheck() {
     this.initialInfo.securities.primarySecurity.forEach(val => {
@@ -134,31 +133,23 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
       this.SecurityTypeCheck = true;
     }
   }
-  private setLoanDeedCompanyFormData(cadData): void {
-    if (!ObjectUtil.isEmpty(cadData)) {
-      const data = JSON.parse(cadData.loanHolder.nepData);
-      // for final Amount
-      let totalLoan = 0;
-      this.cadData.assignedLoan.forEach(val => {
-        const proposedAmount = val.proposal.proposedLimit;
-        totalLoan = totalLoan + proposedAmount;
-      });
-      this.finalAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoan));
-      this.loanAmountWord = this.nepaliCurrencyWordPipe.transform(totalLoan);
-      // for date conversion of registration date
+  fillForm() {
+    let totalLoan = 0;
+    this.cadData.assignedLoan.forEach(val => {
+      const proposedAmount = val.proposal.proposedLimit;
+      totalLoan = totalLoan + proposedAmount;
+    });
+    this.finalAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoan));
+    this.loanAmountWord = this.nepaliCurrencyWordPipe.transform(totalLoan);
+    // for date conversion of registration date
+    if (!ObjectUtil.isEmpty(this.individualData.registrationDateOption)) {
       if (this.individualData.registrationDateOption.en === 'AD') {
         this.regDate = this.engToNepaliDate.transform(this.individualData.registrationDate.en ?
-            this.individualData.registrationDate.en : this.individualData.registrationDate.en, true) || '' ;
+            this.individualData.registrationDate.en : this.individualData.registrationDate.en, true) || '';
       } else {
         this.regDate = this.individualData.registrationDate.en.nDate ? this.individualData.registrationDate.en.nDate : '';
       }
-      // for date conversion of act year date
-      if (!ObjectUtil.isEmpty(data.actYear.np)) {
-        this.actYearDate = data.actYear.np;
-      } else {
-        const convertedDate = this.datePipe.transform(data.actYear.en);
-        this.actYearDate = this.engToNepaliDate.transform(convertedDate, true);
-      }
+    }
       if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
         if (this.cadData.offerDocumentList[0].docName === 'DDSL Without Subsidy' ||
             this.cadData.offerDocumentList[0].docName === 'Class A Sanction letter') {
@@ -220,13 +211,14 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
                         this.initialInfo.timeLetterCreditForm.dateOfExpiryNepali.nDate : '';
                   }
                 }
-                const newData = {
+                this.newData = {
                   loanNepaliName: v.loanNepaliName,
+                  interestRateExists: false,
                   loanAmount: tempLoanAmount,
                   dateOfExpiry: tempDateOfExpiry,
                 };
                 this.newTempData.push(
-                    newData
+                    this.newData
                 );
               }
               // tslint:disable-next-line:max-line-length
@@ -245,13 +237,14 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
                         this.initialInfo.letterOfCreditForm.dateOfExpiryNepali.nDate : '';
                   }
                 }
-                const newData = {
+                this.newData = {
                   loanNepaliName: v.loanNepaliName,
+                  interestRateExists: false,
                   loanAmount: tempLoanAmount,
                   dateOfExpiry: tempDateOfExpiry1,
                 };
                 this.newTempData.push(
-                    newData
+                    this.newData
                 );
               }
               // tslint:disable-next-line:max-line-length
@@ -271,13 +264,14 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
                         this.initialInfo.importBillsDiscountForm.dateOfExpiryNepali.nDate : '';
                   }
                 }
-                const newData = {
+                this.newData = {
                   loanNepaliName: v.loanNepaliName,
+                  interestRateExists: false,
                   loanAmount: tempLoanAmount,
                   dateOfExpiry: tempDateOfExpiry,
                 };
                 this.newTempData.push(
-                    newData
+                    this.newData
                 );
               }
               if (v.loanName === LoanNameConstant.IMPORT_LOAN_TRUST_RECEIPT_LOAN &&
@@ -296,13 +290,19 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
                         this.initialInfo.importLoanTrust.dateOfExpiryNepali.nDate : '';
                   }
                 }
-                const newData = {
+                let importLoanInterest;
+                for (const x of this.initialInfo.importLoanTrust.interestRateCT) {
+                  importLoanInterest = x.interestRateCT;
+                }
+                this.newData = {
                   loanNepaliName: v.loanNepaliName,
+                  interestRateExists: true,
                   loanAmount: tempLoanAmount,
                   dateOfExpiry: tempDateOfExpiry,
+                  interestRate: importLoanInterest,
                 };
                 this.newTempData.push(
-                    newData
+                    this.newData
                 );
               }
               if (v.loanName === LoanNameConstant.SHORT_TERM_LOAN &&
@@ -322,13 +322,19 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
                         this.initialInfo.revolvingShortTermLoan.dateOfExpiryNepali.nDate : '';
                   }
                 }
-                const newData = {
+                let revolving;
+                for (const x of this.initialInfo.revolvingShortTermLoan.interestRateCT) {
+                  revolving = x.interestRateCT;
+                }
+                this.newData = {
                   loanNepaliName: v.loanNepaliName,
+                  interestRateExists: true,
+                  interestRate: revolving,
                   loanAmount: tempLoanAmount,
                   dateOfExpiry: tempDateOfExpiry,
                 };
                 this.newTempData.push(
-                    newData
+                    this.newData
                 );
               }
               if (v.loanName === LoanNameConstant.DEMAND_LOAN_FOR_WORKING_CAPITAL &&
@@ -345,13 +351,19 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
                   tempDateOfExpiry = this.initialInfo.demandLoanForm.dateOfExpiryNepali ?
                       this.initialInfo.demandLoanForm.dateOfExpiryNepali.nDate : '';
                 }
-                const newData = {
+                let demandLoanForm;
+                for (const x of this.initialInfo.demandLoanForm.interestRateCT) {
+                  demandLoanForm = x.interestRateCT;
+                }
+                this.newData = {
                   loanNepaliName: v.loanNepaliName,
+                  interestRateExists: true,
                   loanAmount: tempLoanAmount,
                   dateOfExpiry: tempDateOfExpiry,
+                  interestRate: demandLoanForm
                 };
                 this.newTempData.push(
-                    newData
+                    this.newData
                 );
               }
               if (v.loanName === LoanNameConstant.PRE_EXPORT_LOAN && !ObjectUtil.isEmpty(this.initialInfo.preExportForm)) {
@@ -367,13 +379,14 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
                   tempDateOfExpiry2 = this.initialInfo.preExportForm.dateOfExpiryNepali ?
                       this.initialInfo.preExportForm.dateOfExpiryNepali.nDate : '';
                 }
-                const newData = {
+                this.newData = {
                   loanNepaliName: v.loanNepaliName,
+                  interestRateExists: false,
                   loanAmount: tempLoanAmount,
                   dateOfExpiry: tempDateOfExpiry2,
                 };
                 this.newTempData.push(
-                    newData
+                    this.newData
                 );
               }
               if (v.loanName === LoanNameConstant.DOCUMENTARY_BILL_PURCHASE_NEGOTIATION &&
@@ -390,13 +403,18 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
                   tempDateOfExpiry2 = this.initialInfo.documentaryBillPurchase.dateOfExpiryNepali ?
                       this.initialInfo.documentaryBillPurchase.dateOfExpiryNepali.nDate : '';
                 }
-                const newData = {
+                let importLoanInterest;
+                for (const x of this.initialInfo.importLoanTrust.interestRateCT) {
+                  importLoanInterest = x.interestRateCT;
+                }
+                this.newData = {
                   loanNepaliName: v.loanNepaliName,
+                  interestRateExists: false,
                   loanAmount: tempLoanAmount,
                   dateOfExpiry: tempDateOfExpiry2,
                 };
                 this.newTempData.push(
-                    newData
+                    this.newData
                 );
               }
               if (v.loanName === LoanNameConstant.OVERDRAFT_LOAN_FOR_WORKING_CAPITAL_REQUIREMENT &&
@@ -413,13 +431,19 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
                   tempDateOfExpiry2 = this.initialInfo.overdraftLoanForm.dateOfExpiryNepali ?
                       this.initialInfo.overdraftLoanForm.dateOfExpiryNepali.nDate : '';
                 }
-                const newData = {
+                let overdraftLoanForm;
+                for (const x of this.initialInfo.overdraftLoanForm.interestRateCT) {
+                  overdraftLoanForm = x.interestRateCT;
+                }
+                this.newData = {
                   loanNepaliName: v.loanNepaliName,
+                  interestRateExists: true,
                   loanAmount: tempLoanAmount,
                   dateOfExpiry: tempDateOfExpiry2,
+                  interestRate: overdraftLoanForm,
                 };
                 this.newTempData.push(
-                    newData
+                    this.newData
                 );
               }
               if (v.loanName === LoanNameConstant.MORTGAGE_OVERDRAFT ||
@@ -437,13 +461,19 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
                   tempDateOfExpiry2 = this.initialInfo.equityMortgaged.dateOfExpiryNepali ?
                       this.initialInfo.equityMortgaged.dateOfExpiryNepali.nDate : '';
                 }
-                const newData = {
+                let equityMortgaged;
+                for (const x of this.initialInfo.equityMortgaged.interestRateCT) {
+                  equityMortgaged = x.interestRateCT;
+                }
+                this.newData = {
                   loanNepaliName: v.loanNepaliName,
+                  interestRateExists: true,
+                  interestRate: equityMortgaged,
                   loanAmount: tempLoanAmount,
                   dateOfExpiry: tempDateOfExpiry2,
                 };
                 this.newTempData.push(
-                    newData
+                    this.newData
                 );
               }
               // tslint:disable-next-line:max-line-length
@@ -465,13 +495,19 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
                   tempDateOfExpiry2 = this.initialInfo.overdraftFixedForm.dateOfExpiryNepali ?
                       this.initialInfo.overdraftFixedForm.dateOfExpiryNepali.nDate : '';
                 }
-                const newData = {
+                let overdraftFixedForm;
+                for (const x of this.initialInfo.overdraftFixedForm.interestRateCT) {
+                  overdraftFixedForm = x.interestRateCT;
+                }
+                this.newData = {
                   loanNepaliName: v.loanNepaliName,
+                  interestRateExists: true,
+                  interestRate: overdraftFixedForm,
                   loanAmount: tempLoanAmount,
                   dateOfExpiry: tempDateOfExpiry2,
                 };
                 this.newTempData.push(
-                    newData
+                    this.newData
                 );
               }
               // tslint:disable-next-line:max-line-length
@@ -490,13 +526,19 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
                   tempDateOfExpiry2 = this.initialInfo.overDraftFacilityForm.dateOfExpiryNepali ?
                       this.initialInfo.overDraftFacilityForm.dateOfExpiryNepali.nDate : '';
                 }
-                const newData = {
+                let overDraftFacilityForm;
+                for (const x of this.initialInfo.overDraftFacilityForm.interestRateCT) {
+                  overDraftFacilityForm = x.interestRateCT;
+                }
+                this.newData = {
                   loanNepaliName: v.loanNepaliName,
+                  interestRateExists: true,
+                  interestRate: overDraftFacilityForm,
                   loanAmount: tempLoanAmount,
                   dateOfExpiry: tempDateOfExpiry2,
                 };
                 this.newTempData.push(
-                    newData
+                    this.newData
                 );
               }
               if (v.loanName === LoanNameConstant.BRIDGE_GAP_LOAN && !ObjectUtil.isEmpty(this.initialInfo.bridgeGapLoan)) {
@@ -512,15 +554,22 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
                   tempDateOfExpiry2 = this.initialInfo.bridgeGapLoan.dateOfExpiryNepali ?
                       this.initialInfo.bridgeGapLoan.dateOfExpiryNepali.nDate : '';
                 }
-                const newData = {
+                let bridgeGapLoan;
+                for (const x of this.initialInfo.bridgeGapLoan.interestRateCT) {
+                  bridgeGapLoan = x.interestRateCT;
+                }
+                this.newData = {
                   loanNepaliName: v.loanNepaliName,
+                  interestRateExists: false,
+                  interestRate: bridgeGapLoan,
                   loanAmount: tempLoanAmount,
                   dateOfExpiry: tempDateOfExpiry2,
                 };
                 this.newTempData.push(
-                    newData
+                    this.newData
                 );
               }
+              let termLoanInterestRateCT;
               if (v.loanName === LoanNameConstant.TERM_LOAN_TO_FOR_PURCHASE_OF_VEHICLE) {
                 // tslint:disable-next-line:max-line-length
                 const tempLoanAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.cadData.assignedLoan[index].proposal.proposedLimit));
@@ -532,38 +581,52 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
                     }
                   });
                 }
-                const newData = {
+                for (const x of this.initialInfo.termLoanForm.termLoanDetails) {
+                  termLoanInterestRateCT = x.interestRateCT;
+                }
+                this.newData = {
                   loanNepaliName: v.loanNepaliName,
+                  interestRateExists: true,
                   loanAmount: tempLoanAmount,
                   dateOfExpiry: '',
+                  interestRate: termLoanInterestRateCT,
                 };
                 this.newTempData.push(
-                    newData
+                    this.newData
                 );
               }
               if (v.loanName === LoanNameConstant.MORTGAGE_TERM_LOAN_EQUITY_MORTGAGE_TERM_LOAN) {
                 // tslint:disable-next-line:max-line-length
                 const tempLoanAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.cadData.assignedLoan[index].proposal.proposedLimit));
-                const newData = {
+                let mortgageEquityTermForm;
+                for (const x of this.initialInfo.mortgageEquityTermForm.interestRateCT) {
+                  mortgageEquityTermForm = x.interestRateCT;
+                }
+                this.newData = {
                   loanNepaliName: v.loanNepaliName,
+                  interestRateExists: false,
+                  interestRate: mortgageEquityTermForm,
                   loanAmount: tempLoanAmount,
                   dateOfExpiry: '',
                 };
                 this.newTempData.push(
-                    newData
+                    this.newData
                 );
               }
               if (v.loanName === LoanNameConstant.AUTO_LOAN) {
                 // tslint:disable-next-line:max-line-length
                 const tempLoanAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.cadData.assignedLoan[index].proposal.proposedLimit));
                 this.autoCheck = true;
-                const newData = {
+                const autoLoanInterestRateCT = this.initialInfo.autoLoanMasterForm.autoLoanFormArray[0].interestRateCT;
+                this.newData = {
                   loanNepaliName: v.loanNepaliName,
+                  interestRateExists: true,
                   loanAmount: tempLoanAmount,
                   dateOfExpiry: '',
+                  interestRate: autoLoanInterestRateCT,
                 };
                 this.newTempData.push(
-                    newData
+                    this.newData
                 );
               }
               if (v.loanName === LoanNameConstant.BANK_GUARANTEE && !ObjectUtil.isEmpty(this.initialInfo.bankGuarantee)) {
@@ -579,13 +642,18 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
                   tempDateOfExpiry2 = this.initialInfo.bankGuarantee.dateOfExpiryNepali ?
                       this.initialInfo.bankGuarantee.dateOfExpiryNepali.nDate : '';
                 }
-                const newData = {
+                let importLoanInterest;
+                for (const x of this.initialInfo.importLoanTrust.interestRateCT) {
+                  importLoanInterest = x.interestRateCT;
+                }
+                this.newData = {
                   loanNepaliName: v.loanNepaliName,
+                  interestRateExists: false,
                   loanAmount: tempLoanAmount,
                   dateOfExpiry: tempDateOfExpiry2,
                 };
                 this.newTempData.push(
-                    newData
+                    this.newData
                 );
               }
               if (v.loanName === LoanNameConstant.BILLS_PURCHASE && !ObjectUtil.isEmpty(this.initialInfo.billPurchaseForm)) {
@@ -601,22 +669,27 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
                   tempDateOfExpiry2 = this.initialInfo.billPurchaseForm.dateOfExpiryNepali ?
                       this.initialInfo.billPurchaseForm.dateOfExpiryNepali.nDate : '';
                 }
-                const newData = {
+                let importLoanInterest;
+                for (const x of this.initialInfo.importLoanTrust.interestRateCT) {
+                  importLoanInterest = x.interestRateCT;
+                }
+                this.newData = {
                   loanNepaliName: v.loanNepaliName,
+                  interestRateExists: false,
                   loanAmount: tempLoanAmount,
                   dateOfExpiry: tempDateOfExpiry2,
                 };
                 this.newTempData.push(
-                    newData
+                    this.newData
                 );
               }
               this.addCombinedFreeText();
               if (this.cadData.cadFileList.length > 0) {
                 this.form.get(['combinedFreeText', index, 'dateOfExpiry']).patchValue(
-                    this.supportedInfo.combinedFreeText[index].dateOfExpiry
+                    this.supportedInfo ? this.supportedInfo.combinedFreeText[index].dateOfExpiry : ''
                 );
                 this.form.get(['combinedFreeText', index, 'interestRateCombined']).patchValue(
-                    this.supportedInfo.combinedFreeText[index].interest
+                    this.supportedInfo ? this.supportedInfo.combinedFreeText[index].interest : ''
                 );
               } else {
                 this.form.get(['combinedFreeText', index, 'dateOfExpiry']).patchValue(
@@ -627,28 +700,36 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
           }
         }
       }
-      // for date of expiry
+    // for date conversion of act year date
+    if (!ObjectUtil.isEmpty(this.individualData.radioActYearDate)) {
+      if (this.individualData.radioActYearDate.en === 'AD') {
+        this.actYear = this.engToNepNumberPipe.transform(this.individualData.actYear ?
+            this.individualData.actYear.en : this.individualData.actYear.en);
+      } else {
+        this.actYear = this.individualData.actYear ? this.individualData.actYear.en : '';
+      }
+    }
+    // for date of expiry
       if (this.cadData.offerDocumentList[0].docName !== 'Combined Offer Letter') {
         if (this.cadData.cadFileList.length > 0) {
-          const date = JSON.parse(this.cadData.cadFileList[0].supportedInformation);
+          const date = this.supportedInfo;
           this.dateOfExpirySingle = !ObjectUtil.isEmpty(date) ? date.dateOfExpirySingle : '';
         }
       }
       // for patch value
-      this.form.get('nameOfBranch').patchValue(data.branch.ct);
-      this.form.get('actName').patchValue(data.actName.ct);
-      this.form.get('actYearInFigure').patchValue(this.actYearDate ? this.actYearDate : '');
-      this.form.get('authorizedBody').patchValue(data.authorizedBodyName.ct ? data.authorizedBodyName.ct : 'नेपाल सरकार');
-      this.form.get('headSectionDepartment').patchValue(data.registeredWith.ct);
+      this.form.get('nameOfBranch').patchValue(this.individualData.branch.ct);
+      this.form.get('actName').patchValue(this.individualData.actName.ct);
+      this.form.get('actYearInFigure').patchValue(this.actYear ? this.actYear : '');
+      this.form.get('authorizedBody').patchValue(this.individualData.authorizedBodyName.ct ? this.individualData.authorizedBodyName.ct : 'नेपाल सरकार');
+      this.form.get('headSectionDepartment').patchValue(this.individualData.registeredWith.ct);
       this.form.get('registrationDate').patchValue(this.regDate ? this.regDate : '');
-      this.form.get('registrationNo').patchValue(data.registrationNo.ct);
-      this.form.get('companyName').patchValue(data.name.ct);
+      this.form.get('registrationNo').patchValue(this.individualData.registrationNo.ct);
+      this.form.get('companyName').patchValue(this.individualData.name.ct);
       this.form.get('loanAmountInFigure').patchValue(this.finalAmount ? this.finalAmount : '');
       this.form.get('loanAmountInWords').patchValue(this.loanAmountWord ? this.loanAmountWord : '');
       this.form.get('sanctionLetterIssuedDate').patchValue(this.sanctionDate ? this.sanctionDate : '');
       this.form.get('dateOfExpirySingle').patchValue(this.dateOfExpirySingle ? this.dateOfExpirySingle : '');
-    }
-    this.patchFreeText();
+      this.patchFreeText();
   }
 
   private buildForm(): FormGroup {
@@ -716,7 +797,6 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
       purposeOfLoan: this.form.get('purposeOfLoan').value ? this.form.get('purposeOfLoan').value : '',
       autoFreeText: this.form.get('autoFreeText').value ? this.form.get('autoFreeText').value : '',
       autoFreeText2: this.form.get('autoFreeText2') ? this.form.get('autoFreeText2').value : '',
-      combinedFreeText: this.freeText,
       // for witness
       witnessDistrict1: this.form.get('witnessDistrict1') ? this.form.get('witnessDistrict1').value : '',
       witnessMuni1: this.form.get('witnessMuni1') ? this.form.get('witnessMuni1').value : '',
@@ -734,6 +814,7 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
       date: this.form.get('date') ? this.form.get('date').value : '',
       days: this.form.get('days') ? this.form.get('days').value : '',
       suvam: this.form.get('suvam') ? this.form.get('suvam').value : '',
+      combinedFreeText: this.freeText,
     };
     return JSON.stringify(free1);
   }
@@ -784,7 +865,8 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
   }
   submit() {
     let flag = true;
-    if (!ObjectUtil.isEmpty(this.cadData)) {
+    this.spinner = true;
+    if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(individualCadFile => {
         if (individualCadFile.customerLoanId === this.customerLoanId && individualCadFile.cadDocument.id === this.documentId) {
           flag = false;
@@ -794,7 +876,7 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
       if (flag) {
         const cadFile = new CadFile();
         const document = new Document();
-        this.initialInfoPrint = cadFile.initialInformation;
+        cadFile.supportedInformation = this.setCombinedFreeText();
         document.id = this.documentId;
         cadFile.cadDocument = document;
         cadFile.customerLoanId = this.customerLoanId;
@@ -813,10 +895,12 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
     this.administrationService.saveCadDocumentBulk(this.cadData).subscribe(() => {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved '));
       this.dialogRef.close();
+      this.spinner = false;
       this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
     }, error => {
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save '));
       this.dialogRef.close();
+      this.spinner = false;
     });
   }
   getLoanName() {

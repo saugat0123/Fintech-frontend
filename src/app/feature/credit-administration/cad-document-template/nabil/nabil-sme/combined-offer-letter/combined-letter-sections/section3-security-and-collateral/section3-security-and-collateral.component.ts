@@ -308,10 +308,10 @@ export class Section3SecurityAndCollateralComponent implements OnInit {
     this.tempCrossguarantors = this.guarantorParsed.filter(val =>
         val.guarantorType.en === 'Cross Guarantor');
     this.tempCorporateGuarantors.forEach(i => {
-      this.corporateGuarantorsName.push(i.authorizedPersonName ? i.authorizedPersonName.ct : '');
+      this.corporateGuarantorsName.push(i.guaranteeProviderName ? i.guaranteeProviderName.ct : '');
     });
     this.tempCrossguarantors.forEach(i => {
-      this.crossGuarantorsName.push(i.authorizedPersonName ? i.authorizedPersonName.ct : '');
+      this.crossGuarantorsName.push(i.guaranteeProviderName ? i.guaranteeProviderName.ct : '');
     });
   }
 

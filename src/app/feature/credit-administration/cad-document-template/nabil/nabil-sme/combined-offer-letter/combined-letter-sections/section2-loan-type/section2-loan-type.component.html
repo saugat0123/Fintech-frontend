@@ -83,7 +83,9 @@
                                                           type="text"/>।– लाग्नेछ ।
                             </p>
                             <p *ngIf="this.loanOptionIrrevocable === 'REGULAR'">
-                                <strong>सुविधा समाप्ति/पुनरावलोकन मितिः</strong> <input
+                                <strong>सुविधा समाप्ति/पुनरावलोकन मितिः</strong>
+                                {{this.tempData?.letterOfCreditForm?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
+                                <input
                                     class="form-field form-control-sm "
                                     formControlName="loanExpiryDateIrrevocable"
                                     placeholder=""
@@ -136,11 +138,11 @@
                                                         type="text"/> मात्र)</strong><br>
                             <strong>सुरक्षणः</strong><br>
                             <span *ngIf="this.hypothecationGlobal === 'New'">१. सामानहरुको मौज्दात उपर धितोेबन्धक (Hypothecation) हकाधिकार र ऋणीले आफ्ना आसामीबाट भुक्तानी
-                                प्राप्त गर्न बाँकी रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामाहस्तान्तरण गर्नु
+                                प्राप्त गर्न बाँकी रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामा हस्तान्तरण गर्नु
                                 पर्नेछ।</span><br>
 
                             <span *ngIf="this.hypothecationGlobal === 'Existing'">१. सामानहरुको मौज्दात उपर धितोेबन्धक (Hypothecation) हकाधिकार र ऋणीले आफ्ना आसामीबाट भुक्तानी
-                                प्राप्त गर्न बाँकी रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामाहस्तान्तरण गरिदिइएको
+                                प्राप्त गर्न बाँकी रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामा हस्तान्तरण गरिदिइएको
                                 यथावतकायम रहने छ।</span><br>
                             २. अख्तियारप्राप्त व्यक्तिद्धारा स्वीकार गरिएको विनिमय–पत्र (Bill of Exchange) बैंकको पक्षमा
                             हस्तान्तरण गर्नु पर्नेछ ।<br>
@@ -161,13 +163,16 @@
                                           type="text"/>।–लाग्नेछ ।<br>
                             </p>
                             <p>
-                            <span *ngIf="this.loanOptionTimeLetter === 'REGULAR'"><strong>सुविधा समाप्ति/पुनरावलोकन मितिः</strong> <input
+                            <span *ngIf="this.loanOptionTimeLetter === 'REGULAR'"><strong>सुविधा समाप्ति/पुनरावलोकन मितिः</strong>
+                                {{this.tempData?.timeLetterCreditForm?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
+                                <input
                                     class="form-field form-control-sm "
                                     formControlName="loanExpiryDateTimeLetter"
                                     placeholder=""
                                     type="text"/><br></span>
 
-                                <span *ngIf="this.loanOptionTimeLetter === 'ONE_OFF_BASIS'"><strong>सुविधा समाप्ति मितिः</strong><input
+                                <span *ngIf="this.loanOptionTimeLetter === 'ONE_OFF_BASIS'"><strong>सुविधा समाप्ति मितिः</strong>
+                                    <input
                                         class="form-field form-control-sm "
                                         formControlName="loanExpiryDateTimeLetter2"
                                         placeholder=""
@@ -216,10 +221,10 @@
                             <strong>सुरक्षणः</strong><br>
 
                             <span *ngIf="this.hypothecationGlobal === 'New'">१. सामानहरुको मौज्दात उपर धितोेबन्धक (Hypothecation) हकाधिकार र ऋणीले आफ्ना आसामीबाट भुक्तानी
-                    प्राप्त गर्न बाँकी रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामाहस्तान्तरण गर्नु
+                    प्राप्त गर्न बाँकी रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामा हस्तान्तरण गर्नु
                     पर्नेछ ।</span><br>
                             <span *ngIf="this.hypothecationGlobal === 'Existing'">१. सामानहरुको मौज्दात उपर धितोेबन्धक (Hypothecation) हकाधिकार र ऋणीले आफ्ना आसामीबाट भुक्तानी
-                    प्राप्त गर्न बाँकी रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामाहस्तान्तरण गरिदिइएको
+                    प्राप्त गर्न बाँकी रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामा हस्तान्तरण गरिदिइएको
                     यथावत कायम रहने छ ।</span>
                             <br>
                             २. अख्तियारप्राप्त व्यक्तिद्धारा स्वीकार गरिएको विनिमय–पत्र (Bill of Exchange) बैंकको पक्षमा
@@ -243,7 +248,9 @@
                                     placeholder=""
                                     formControlName="freeTextOne">
                         </textarea>
-                            <span *ngIf="this.loanOptionBillDiscounting === 'REGULAR'"><strong>सुविधा समाप्ति/पुनरावलोकन मितिः <input
+                            <span *ngIf="this.loanOptionBillDiscounting === 'REGULAR'"><strong>सुविधा समाप्ति/पुनरावलोकन मितिः
+                                {{this.tempData?.importBillsDiscountForm?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
+                                <input
                                     class="form-field form-control-sm "
                                     formControlName="loanExpiryDateBillsDiscounting"
                                     placeholder=""
@@ -295,11 +302,11 @@
                                                     placeholder=""
                                                     type="text"/> मात्र)</strong><br>
                             <span *ngIf="this.hypothecationGlobal === 'New'"><strong>सुरक्षणः</strong> सामानहरुको मौज्दात उपर धितोेबन्धक (Hypothecation) हकाधिकार र ऋणीले आफ्ना आसामीबाट भुक्तानी
-                                प्राप्त गर्न बाँकी रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामाहस्तान्तरण गर्नु
+                                प्राप्त गर्न बाँकी रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामा हस्तान्तरण गर्नु
                                 पर्नेछ ।</span><br>
 
                             <span *ngIf="this.hypothecationGlobal === 'Existing'"><strong>सुरक्षणः</strong> सामानहरुको मौज्दात उपर धितोेबन्धक (Hypothecation) हकाधिकार र ऋणीले आफ्ना आसामीबाट भुक्तानी
-                                प्राप्त गर्न बाँकी रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामाहस्तान्तरण गरिदिइएको यथावत कायम रहने छ।</span><br>
+                                प्राप्त गर्न बाँकी रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामा हस्तान्तरण गरिदिइएको यथावत कायम रहने छ।</span><br>
 
                             <strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong> कागजात मूल्यको
                             <input class="form-field form-control-sm "
@@ -355,7 +362,9 @@
                                     placeholder=""
                                     formControlName="freeTextTwo">
                         </textarea><br>
-                            <span *ngIf="loanOptionImportLoanTrust === 'REGULAR'"><strong>सुविधा समाप्ति/पुनरावलोकन मितिः</strong><input
+                            <span *ngIf="loanOptionImportLoanTrust === 'REGULAR'"><strong>सुविधा समाप्ति/पुनरावलोकन मितिः</strong>
+                                {{this.tempData?.importLoanTrust?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
+                                <input
                                     class="form-field form-control-sm "
                                     formControlName="loanExpiryDateLoanTrust"
                                     placeholder=""
@@ -458,11 +467,11 @@
                                                     type="text"/> मात्र)</strong><br>
 
                             <span *ngIf="this.hypothecationGlobal === 'New'"><strong>सुरक्षणः</strong> सामानहरुको मौज्दात उपर धितोेबन्धक (Hypothecation) हकाधिकार र ऋणीले आफ्ना आसामीबाट भुक्तानी
-                    प्राप्त गर्न बाँकी रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामाहस्तान्तरण गर्नु
+                    प्राप्त गर्न बाँकी रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामा हस्तान्तरण गर्नु
                     पर्नेछ ।</span><br>
 
                             <span *ngIf="this.hypothecationGlobal === 'Existing'"><strong>सुरक्षणः</strong> सामानहरुको मौज्दात उपर धितोेबन्धक (Hypothecation) हकाधिकार र ऋणीले आफ्ना आसामीबाट भुक्तानी
-                    प्राप्त गर्न बाँकी रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामाहस्तान्तरण
+                    प्राप्त गर्न बाँकी रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामा हस्तान्तरण
                     गरिदिइएको यथावत कायम रहने छ।</span><br>
 
                             <span *ngIf="arFinancingShortTermLoan"><strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong> स्वीकारयोग्य
@@ -530,7 +539,9 @@
                                                          type="text"/>
                     दिन सम्म ।</span><br>
 
-                            <span *ngIf="loanOptionShortTermLoan === 'REGULAR'"><strong>कर्जा अवधि पुनरावलोकन मितिः</strong><input
+                            <span *ngIf="loanOptionShortTermLoan === 'REGULAR'"><strong>कर्जा अवधि पुनरावलोकन मितिः</strong>
+                                {{this.tempData?.revolvingShortTermLoan?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
+                                <input
                                     class="form-field form-control-sm "
                                     formControlName="loanExpiryDateShortTermLoan"
                                     placeholder=""
@@ -580,12 +591,12 @@
 
                             <span *ngIf="this.hypothecationGlobal === 'New'"><strong>सुरक्षणः</strong>
                                 सामानहरुको मौज्दात उपर धितोेबन्धक (Hypothecation) हकाधिकार र ऋणीले आफ्ना आसामीबाट भुक्तानी
-                                प्राप्त गर्न बाँकी रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामाहस्तान्तरण गर्नु
+                                प्राप्त गर्न बाँकी रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामा हस्तान्तरण गर्नु
                                 पर्नेछ ।</span><br>
 
                             <span *ngIf="this.hypothecationGlobal === 'Existing'"><strong>सुरक्षणः</strong>
                                 सामानहरुको मौज्दात उपर धितोेबन्धक (Hypothecation) हकाधिकार र ऋणीले आफ्ना आसामीबाट भुक्तानी
-                                प्राप्त गर्न बाँकी रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामाहस्तान्तरण
+                                प्राप्त गर्न बाँकी रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामा हस्तान्तरण
                                 गरिदिइएको यथावत कायम रहने छ।</span><br>
 
                             <span *ngIf="arFinancingDemandLoan"><strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong>
@@ -641,7 +652,8 @@
                     पौष र चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।</span><br>
 
                             <span><strong>कर्जा अवधि समाप्ति/पुनरावलोकन मितिः</strong>
-                            <input class="form-field form-control-sm "
+                                   {{this.tempData?.demandLoanForm?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
+                                <input class="form-field form-control-sm "
                                    formControlName="loanExpiryDateDemandLoan"
                                    placeholder=""
                                    type="text"/></span><br>
@@ -683,12 +695,12 @@
 
                             <span *ngIf="this.hypothecationGlobal === 'New'"><strong>सुरक्षणः</strong> निर्यात प्रतित पत्रको सक्कल प्रतिका साथै सामानहरुको मौज्दात उपर धितोेबन्धक
                             (Hypothecation) हकाधिकार र ऋणीले आफ्ना आसामीबाट भुक्तानी
-                    प्राप्त गर्न बाँकी रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामाहस्तान्तरण गर्नु
+                    प्राप्त गर्न बाँकी रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामा हस्तान्तरण गर्नु
                     पर्नेछ ।</span><br>
 
                             <span *ngIf="this.hypothecationGlobal === 'Existing'"><strong>सुरक्षणः</strong> निर्यात प्रतित पत्रको सक्कल प्रतिका साथै सामानहरुको मौज्दात उपर धितोेबन्धक
                             (Hypothecation) हकाधिकार र ऋणीले आफ्ना आसामीबाट भुक्तानी
-                    प्राप्त गर्न बाँकी रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामाहस्तान्तरण
+                    प्राप्त गर्न बाँकी रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामा हस्तान्तरण
                     गरिदिइएको यथावत कायम रहने छ।</span>
 
                             <br><textarea
@@ -728,7 +740,9 @@
                                                               formControlName="interestRatePreExport"
                                                               placeholder=""
                                                               type="text"/> <br>
-                            <span><strong>कर्जा अवधि समाप्ति/पुनरावलोकन मितिः </strong><input
+                            <span><strong>कर्जा अवधि समाप्ति/पुनरावलोकन मितिः </strong>
+                                {{this.tempData?.preExportForm?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
+                                <input
                                     class="form-field form-control-sm"
                                     formControlName="loanExpiryDatePreExport"
                                     placeholder=""
@@ -771,11 +785,11 @@
                             <strong>सुरक्षणः</strong><br>
 
                             <span *ngIf="this.hypothecationGlobal === 'New'">१. सामानहरुको मौज्दात उपर धितोेबन्धक (Hypothecation) हकाधिकार र ऋणीले आफ्ना आसामीबाट भुक्तानी
-                    प्राप्त गर्न बाँकी रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामाहस्तान्तरण गर्नु
+                    प्राप्त गर्न बाँकी रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामा हस्तान्तरण गर्नु
                     पर्नेछ ।</span><br>
 
                             <span *ngIf="this.hypothecationGlobal === 'Existing'">१. सामानहरुको मौज्दात उपर धितोेबन्धक (Hypothecation) हकाधिकार र ऋणीले आफ्ना आसामीबाट भुक्तानी
-                    प्राप्त गर्न बाँकी रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामाहस्तान्तरण गरिदिइएको
+                    प्राप्त गर्न बाँकी रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामा हस्तान्तरण गरिदिइएको
                     यथावत कायम रहने छ ।</span><br>
 
                             २. अख्तियारप्राप्त व्यक्तिद्धारा स्वीकार गरिएको विनिमय–पत्र (Bill of Exchange) बैंकको पक्षमा
@@ -804,7 +818,9 @@
                                                                           formControlName="loanPaymentDocumentaryBill"
                                                                           placeholder=""
                                                                           type="text"/><br>
-                            <span><strong>कर्जा अवधि समाप्ति/पुनरावलोकन मितिः</strong><input
+                            <span><strong>कर्जा अवधि समाप्ति/पुनरावलोकन मितिः</strong>
+                                {{this.tempData?.documentaryBillPurchase?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
+                                <input
                                     class="form-field form-control-sm "
                                     formControlName="loanExpiryDateDocumentaryBill"
                                     placeholder=""
@@ -828,11 +844,11 @@
                                     type="text"/> मात्र)</strong><br>
 
                             <span *ngIf="this.hypothecationGlobal === 'New'"><strong>सुरक्षणः</strong> सामानहरुको मौज्दात उपर धितोेबन्धक (Hypothecation) हकाधिकार र ऋणीले आफ्ना आसामीबाट भुक्तानी
-                    प्राप्त गर्न बाँकी रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामाहस्तान्तरण गर्नु
+                    प्राप्त गर्न बाँकी रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामा हस्तान्तरण गर्नु
                     पर्नेछ ।</span><br>
 
                             <span *ngIf="this.hypothecationGlobal === 'Existing'"><strong>सुरक्षणः</strong> सामानहरुको मौज्दात उपर धितोेबन्धक (Hypothecation) हकाधिकार र ऋणीले आफ्ना आसामीबाट भुक्तानी
-                    प्राप्त गर्न बाँकी रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामाहस्तान्तरण
+                    प्राप्त गर्न बाँकी रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामा हस्तान्तरण
                     गरिदिइएको यथावत कायम रहने छ।</span><br>
 
                             <span *ngIf="arFinancingOverdraftLoanWorking"><strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong>
@@ -887,7 +903,9 @@
                     घटाई कायम हुन आउने रकम ऋणीले ब्याज स्वरुप नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन,
                     पौष र चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।</span><br>
 
-                            <span><strong>कर्जा अवधि समाप्ति/पुनरावलोकन मितिः</strong><input
+                            <span><strong>कर्जा अवधि समाप्ति/पुनरावलोकन मितिः</strong>
+                                   {{this.tempData?.overdraftLoanForm?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
+                                <input
                                     class="form-field form-control-sm "
                                     formControlName="loanExpiryDateOverdraftLoan"
                                     placeholder=""
@@ -991,7 +1009,9 @@
                     घटाई कायम हुन आउने रकम ऋणीले ब्याज स्वरुप नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन,
                     पौष र चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।</span><br>
 
-                            <span><strong>कर्जा अवधि समाप्ति/पुनरावलोकन मितिः</strong><input
+                            <span><strong>कर्जा अवधि समाप्ति/पुनरावलोकन मितिः</strong>
+                                {{this.tempData?.equityMortgaged?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
+                                <input
                                     class="form-field form-control-sm "
                                     formControlName="loanExpiryDateMortgageOverdraft"
                                     placeholder=""
@@ -1168,7 +1188,9 @@
                             निर्धारण गरीएकोछ र सो ब्याज रकम नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र
                             चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।</span><br>
                             </p>
-                            <span><strong>कर्जा अवधि समाप्ति/पुनरावलोकन मितिः</strong><input
+                            <span><strong>कर्जा अवधि समाप्ति/पुनरावलोकन मितिः</strong>
+                                {{this.tempData?.overdraftFixedForm?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
+                                <input
                                     class="form-field form-control-sm "
                                     formControlName="loanExpiryDateOverdraftFacility"
                                     placeholder=""
@@ -1269,7 +1291,9 @@
                         निर्धारण गरीएकोछ र सो ब्याज रकम नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र
                         चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।</span><br>
                             </p>
-                            <span><strong>कर्जा अवधि समाप्ति/पुनरावलोकन मितिः</strong><input
+                            <span><strong>कर्जा अवधि समाप्ति/पुनरावलोकन मितिः</strong>
+                                {{this.tempData?.overDraftFacilityForm?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
+                                <input
                                     class="form-field form-control-sm "
                                     formControlName="loanExpiryDateAgainstBond"
                                     placeholder=""
@@ -1453,13 +1477,13 @@
                             <strong> सुरक्षण:</strong>
                             बैंकको पक्षमा काउण्टर जमानत सम्बन्धी सम्झौता (General Counter Guarantee) का साथै
                             सामानहरुको मौज्दात उपर धितोबन्धक (Hypothecation) हकाधिकार र ऋणीले आफ्ना आसामीबाट भुक्तानी प्राप्त
-                            गर्न बांकि रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामाहस्तान्तरण गर्नु पर्नेछ।
+                            गर्न बांकि रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामा हस्तान्तरण गर्नु पर्नेछ।
                         </span><br>
                                 <span *ngIf="hypothecationGlobal === 'Existing'">
                                 <strong> सुरक्षण:</strong>
                             बैंकको पक्षमा काउण्टर जमानत सम्बन्धी सम्झौता (General Counter Guarantee) का साथै
                             सामानहरुको मौज्दात उपर धितोबन्धक (Hypothecation) हकाधिकार र ऋणीले आफ्ना आसामीबाट भुक्तानी प्राप्त
-                            गर्न बांकि रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामाहस्तान्तरण
+                            गर्न बांकि रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामा हस्तान्तरण
                             गरिदिनुभएको यथावत कायम रहनेछ।
                         </span>
                             </p>
@@ -1519,7 +1543,9 @@
                             </span>
                             </p>
                             <p>
-                                <strong>सुविधा समाप्ति/पुनरावलोकन मितिः</strong> <input
+                                <strong>सुविधा समाप्ति/पुनरावलोकन मितिः</strong>
+                                {{this.tempData?.bankGuarantee?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
+                                <input
                                     class="form-field form-control-sm "
                                     formControlName="loanExpiryDateBankGuarantee1"
                                     placeholder=""
@@ -1590,7 +1616,9 @@
                                                   type="text"/>।–का दरले लाग्नेछ ।
                             </p>
                             <p>
-                                <strong>कर्जा अवधि समाप्ति/पुनरावलोकन मितिः </strong><input
+                                <strong>कर्जा अवधि समाप्ति/पुनरावलोकन मितिः </strong>
+                                {{this.tempData?.billPurchaseForm?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
+                                <input
                                     class="form-field form-control-sm "
                                     formControlName="loanExpiryDateBillsPurchase"
                                     placeholder=""
@@ -1635,7 +1663,7 @@
                 </tr>
             </table>
         </div>
-        <div class="row all">
+        <div class="row all" *ngIf="issubsidyOrAgricultureLoan === 'Yes'">
             <div class="col-md-1 all">
                 <strong><u>द्रष्टब्यः</u></strong>
             </div>
