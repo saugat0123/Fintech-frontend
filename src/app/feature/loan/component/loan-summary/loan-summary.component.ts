@@ -447,13 +447,18 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                     if (this.customerAllLoanList.filter((l) => l.id === this.loanDataHolder.id).length < 1) {
                         this.customerAllLoanList.push(this.loanDataHolder);
                     }
-                    if ((this.loanDataHolder.documentStatus.toString() === 'CLOSED')  || (this.loanDataHolder.documentStatus.toString() === 'REJECTED')) {
-                        this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => c.id === this.loanDataHolder.id);
+                    if ((this.loanDataHolder.documentStatus.toString() === 'APPROVED') ||
+                        (this.loanDataHolder.documentStatus.toString() === 'CLOSED')  ||
+                        (this.loanDataHolder.documentStatus.toString() === 'REJECTED')) {
+                        this.customerAllLoanList = this.customerAllLoanList
+                            .filter((c: any) => c.id === this.loanDataHolder.id);
                     } else {
-                        this.customerAllLoanList = this.customerAllLoanList.filter((c: any) =>  ((c.currentStage.docAction !== 'CLOSED') && (c.currentStage.docAction !== 'REJECT')));
+                        this.customerAllLoanList = this.customerAllLoanList
+                            .filter((c: any) =>  ((c.currentStage.docAction !== 'CLOSED') && (c.currentStage.docAction !== 'REJECT')));
                     }
                 } else {
-                    this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => ((c.currentStage.docAction === this.requestedLoanType)));
+                    this.customerAllLoanList = this.customerAllLoanList
+                        .filter((c: any) => ((c.currentStage.docAction === this.requestedLoanType)));
                 }
                 // push loans from combined loan if not in the existing array
                 const combinedLoans = this.customerAllLoanList
@@ -661,16 +666,22 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                 docPaths.push(doc.docPath);
             }
             const guarantorDocument = this.taggedGuarantorWithDoc;
-            for (const doc of guarantorDocument) {
-                docPaths.push(doc.docPath);
+            for (const g of guarantorDocument) {
+                for (const doc of g.docPath.split(',')) {
+                    docPaths.push(doc);
+                }
             }
             const insuranceDocument = this.insuranceWithDoc;
-            for (const doc of insuranceDocument) {
-                docPaths.push(doc.policyDocumentPath);
+            for (const i of insuranceDocument) {
+                for (const doc of i.policyDocumentPath.split(',')) {
+                    docPaths.push(doc);
+                }
             }
             const siteVisitDocument = this.siteVisitDocuments;
-            for (const doc of siteVisitDocument) {
-                docPaths.push(doc.docPath.concat(doc.docName).concat('.jpg'));
+            if (!ObjectUtil.isEmpty(this.siteVisitDocuments)) {
+                for (const doc of siteVisitDocument) {
+                    docPaths.push(doc.docPath.concat(doc.docName).concat('.jpg'));
+                }
             }
         } else {
             docPaths.push(this.loanDataHolder.zipPath);

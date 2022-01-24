@@ -15,6 +15,8 @@ export class GeneralDocumentComponent implements OnInit {
     @Input() cadData: CustomerApprovedLoanCadDocumentation;
     loanHolder: CustomerInfoData;
     customerGeneralDocument: Array<CustomerGeneralDocument>;
+    minOneInsuranceDoc = false;
+    insuranceDocList: Array<string> = new Array<string>();
 
     constructor(public service: CommonService,
                 private customerGeneralDocService: CustomerGeneralDocumentService) {
@@ -29,7 +31,21 @@ export class GeneralDocumentComponent implements OnInit {
                 if (ObjectUtil.isEmpty(this.customerGeneralDocument)) {
                     this.customerGeneralDocument = [];
                 }
+                this.customerGeneralDocument
+                    .sort((a, b) =>
+                        (a.docPath > b.docPath) ? 1 : ((b.docPath > a.docPath) ? -1 : 0));
             });
+
+            // Check if there is at least one insurance doc
+            this.loanHolder.insurance.forEach(ins => {
+                if (!ObjectUtil.isEmpty(ins.policyDocumentPath)) {
+                    this.insuranceDocList.push(ins.policyDocumentPath);
+                }
+            });
+
+            if (this.insuranceDocList.length > 0) {
+                this.minOneInsuranceDoc = true;
+            }
         }
 
 
