@@ -101,7 +101,7 @@ export class OverdraftFacilityAgainstFixedDepositComponent implements OnInit {
     }
   }
   filterLoanDetails(loanDetails) {
-    this.filteredList = loanDetails.filter(data => data.name === this.loanNameConstant.AUTO_LOAN);
+    this.filteredList = loanDetails.filter(data => data.name === this.loanNameConstant.OVERDRAFT_FACILITY_FIXED_DEPOSIT);
     this.filteredList.forEach(value => {
       this.addLoanFormArr();
     });
