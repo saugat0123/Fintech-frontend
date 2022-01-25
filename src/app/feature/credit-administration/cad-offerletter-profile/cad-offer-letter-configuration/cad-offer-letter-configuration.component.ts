@@ -28,9 +28,9 @@ import {CollateralDetail} from '../../../loan/model/collateralDetail';
 import {CollateralOwner} from '../../../loan/model/collateralOwner';
 import {NepProposedAmountFormComponent} from './nep-proposed-amount-form/nep-proposed-amount-form.component';
 import {CreditAdministrationService} from '../../service/credit-administration.service';
-import {HttpParams} from '@angular/common/http';
 import {CustomerCadInfo} from '../../../loan/model/CustomerCadInfo';
 import {RouterUtilsService} from '../../utils/router-utils.service';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-cad-offer-letter-configuration',
@@ -46,6 +46,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     @Input() collateralDetail: CollateralDetail;
     @Input() customer: Customer;
     @Output()
+    onActionChangeSpinner = false;
     customerInfoData: EventEmitter<CustomerInfoData> = new EventEmitter<CustomerInfoData>();
     guarantorList: Array<Guarantor>;
     collateralList: Array<Collateral>;
@@ -98,9 +99,11 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 private engToNepNumber: EngToNepaliNumberPipe,
                 private engToNepNumberPipe: EngToNepaliNumberPipe,
                 public datepipe: DatePipe,
+                protected ref: NbDialogRef<CadOfferLetterConfigurationComponent>,
                 private addressService: AddressService,
                 private router: RouterUtilsService,
                 private branchService: BranchService,
+                private modalService: NgbModal,
                 protected dialogRef: NbDialogRef<CadOfferLetterConfigurationComponent>) {
     }
 
@@ -777,6 +780,19 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 }
             }
         );
+    }
+
+    changeAction(template) {
+        this.onClose();
+        this.modalService.open(template);
+    }
+
+    onClose() {
+        this.modalService.dismissAll();
+    }
+
+    close() {
+        this.ref.close();
     }
 
 }

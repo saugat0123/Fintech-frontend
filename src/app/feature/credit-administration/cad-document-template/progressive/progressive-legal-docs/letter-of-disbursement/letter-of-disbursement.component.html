@@ -3,8 +3,8 @@
 
     <div class="col-md-12 viewFull">
         <form (ngSubmit)="onSubmit()" [formGroup]="form">
-            <h6 class="text-center">भूक्तानी–पत्र<br>
-                (Letter of Disbursement)</h6>
+            <h6 class="text-center"><strong>भूक्तानी–पत्र<br>
+                (Letter of Disbursement)</strong></h6>
             <p class="text-right"> मिति:
                 <input class="form-field form-control-sm nepaliFont "
                        formControlName="date"
@@ -98,16 +98,18 @@
                                          placeholder=""
                                          readonly
                                          type="text"/>
-                            गा.पा./न.पा. वडा नं <input class="form-field form-control-sm nepaliFont"
+                            गा.पा./न.पा., वडा नं. <input class="form-field form-control-sm nepaliFont"
                                                        formControlName="jagaName"
                                                        placeholder=""
                                                        readonly
                                                        type="text"/>
                             (साबिक <input class="form-field form-control-sm nepaliFont"
+                                          value="{{form.get('jillaName').value}}"
                                           formControlName="borrowerSabikVDC"
                                           placeholder=""
                                           type="text"/>
-                            गा.बि.स.वडा नं. <input class="form-field form-control-sm nepaliFont"
+                            गा.बि.स., वडा नं. <input class="form-field form-control-sm nepaliFont"
+                                                     value="{{form.get('jagaName').value}}"
                                                    formControlName="borrowerSabikWardNo"
                                                    placeholder=""
                                                    type="text"/>)
@@ -127,7 +129,7 @@
                                          placeholder=""
                                          readonly
                                          type="text"/>
-                            गा.पा./न.पा. वडा नं <input class="form-field form-control-sm nepaliFont"
+                            गा.पा./न.पा., वडा नं. <input class="form-field form-control-sm nepaliFont"
                                                        formControlName="jagaName1"
                                                        placeholder=""
                                                        readonly

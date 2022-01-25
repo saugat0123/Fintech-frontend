@@ -17,9 +17,6 @@ import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {CadDocStatus} from '../../../../model/CadDocStatus';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 import {AddressService} from '../../../../../../@core/service/baseservice/address.service';
-import {ProposalCalculationUtils} from '../../../../../loan/component/loan-summary/ProposalCalculationUtils';
-import {LoanDataKey} from '../../../../../../@core/utils/constants/loan-data-key';
-import {NepaliNumberAndWords} from '../../../../model/nepaliNumberAndWords';
 import {NepDataPersonal} from '../../../../model/nepDataPersonal';
 
 @Component({
@@ -223,8 +220,10 @@ export class OfferLetterPersonalComponent implements OnInit {
                     value.collateralPermanentDistrict.nepaliName : ''],
                 wardNo: [value.collateralWardNo],
                 jaggaDistrict: [value.collateralDistrict],
-                jaggaWard: [value.collateralMunVdcOriginal],
-                hal: [value.collateralMunVdcChanged],
+                sabikMunVdc: [value.collateralMunVdcOriginal],
+                halMunVdc: [value.collateralMunVdcChanged],
+                sabikWardNo: [value.collateralWardNoOld],
+                halWardNo: [value.wardNoNew],
                 jaggaKittaNum: [value.plotNo],
                 jaggaArea: [value.areaOfCollateral],
                 jaggaSiNum: [value.seatNo],
@@ -244,11 +243,13 @@ export class OfferLetterPersonalComponent implements OnInit {
                 collateralPerWard: [undefined],
                 collateralPerDis: [undefined],
                 jaggaDistrict: [undefined],
-                jaggaWard: [undefined],
+                sabikMunVdc: [undefined],
                 jaggaKittaNum: [undefined],
                 jaggaArea: [undefined],
                 jaggaSiNum: [undefined],
-                hal : [undefined]
+                halMunVdc : [undefined],
+                sabikWardNo: [undefined],
+                halWardNo: [undefined]
             }));
     }
 
