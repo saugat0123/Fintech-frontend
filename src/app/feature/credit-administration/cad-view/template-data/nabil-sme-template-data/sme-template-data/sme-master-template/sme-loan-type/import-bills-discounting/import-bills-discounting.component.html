@@ -18,7 +18,7 @@
                             <nb-option value="REGULAR"> Regular Basis</nb-option>
                         </nb-select>
                     </div>
-                    <div *ngIf="isComplimentryOtherLoan" class="col-md-4">
+                    <div *ngIf="importBillsDiscountForm.get(['importBillsDiscountFormArray', i, 'complementaryOther']).value" class="col-md-4">
                         <label class="font-weight-bold" for="complimentaryLoanSelected"><strong>Complimentary Loan Selection</strong></label><br>
                         <nb-select formControlName="complimentaryLoanSelected" fullWidth
                                    id="complimentaryLoanSelected"

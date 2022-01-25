@@ -31,7 +31,7 @@
                             <i> Is complimentary of other loan ? </i></nb-checkbox>
                     </div>
                 </div>
-                    <div class="col-md-4 mt-3" *ngIf="isComplimentryOtherLoan">
+                    <div class="col-md-4 mt-3" *ngIf="importLoanTrust.get(['importLoanTrustFormArray', i, 'complementaryOther']).value">
                         <label class="font-weight-bold" for="complimentaryLoanSelected"><strong>Complimentary Loan Selection</strong></label><br>
                         <nb-select placeholder="Select Complimentary Loan"
                                    fullWidth
