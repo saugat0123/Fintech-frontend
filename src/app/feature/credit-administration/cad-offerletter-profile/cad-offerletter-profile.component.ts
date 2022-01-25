@@ -206,7 +206,8 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
                 cadData: this.cadOfferLetterApprovedDoc,
                 customerInfo: this.customerInfoData,
                 customer: this.cadOfferLetterApprovedDoc.assignedLoan[0].customerInfo
-            }
+            },
+            closeOnBackdropClick: false
         }).onClose
             .subscribe(value => {
                 if (!ObjectUtil.isEmpty(value)) {

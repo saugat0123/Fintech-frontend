@@ -27,10 +27,7 @@ d<div class="row" id="print-section-{{offerLetterConst.LETTER_OF_ARRANGEMENTS}}"
                     विषयः– त्यस वित्तीय संस्थाले म/हाम्रो निमित्त रु
                     <span style="font-size: 16px" [ngClass]="{'nepaliFont' : printDocForm?.subject !== null && printDocForm?.subject !== ''}">
                         {{printDocForm?.subject === null || printDocForm?.subject === '' ? '_________________' : printDocForm?.subject}}
-                    </span> को रिभल्भिङ/ चालु पूँजी/
-                    <span [ngClass]="{'nepaliFont' : printDocForm?.punji !== null && printDocForm?.punji !== ''}">
-                        {{printDocForm?.punji === null || printDocForm?.punji === '' ? '_________________' : printDocForm?.punji}}
-                    </span>
+                    </span> को रिभल्भिङ/ चालु पूँजी/कर्जा
                     हद सम्म स्विकृत गरिएको सम्बन्धमा।
                 </strong>
                 <br>

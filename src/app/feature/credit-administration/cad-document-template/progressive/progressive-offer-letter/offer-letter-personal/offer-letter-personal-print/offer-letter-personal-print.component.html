@@ -369,13 +369,19 @@
                                             </td>
                                             <td>
                                                 साबिक:
-                                                <span [ngClass]="{'nepaliFont' : securityDetail?.jaggaWard !== null && securityDetail?.jaggaWard !== ''}">
-                                                    {{securityDetail?.jaggaWard === null || securityDetail?.jaggaWard === '' ? '' : securityDetail?.jaggaWard}}
+                                                <span [ngClass]="{'nepaliFont' : securityDetail?.sabikMunVdc !== null && securityDetail?.sabikMunVdc !== ''}">
+                                                    {{securityDetail?.sabikMunVdc === null || securityDetail?.sabikMunVdc === '' ? '' : securityDetail?.sabikMunVdc}}
+                                                </span>, वडा नं.
+                                                <span [ngClass]="{'nepaliFont' : securityDetail?.sabikWardNo !== null && securityDetail?.sabikWardNo !== ''}">
+                                                    {{securityDetail?.sabikWardNo === null || securityDetail?.sabikWardNo === '' ? '' : securityDetail?.sabikWardNo}}
                                                 </span>
                                                 <br>
                                                 हाल:
-                                                <span [ngClass]="{'nepaliFont' : securityDetail?.hal !== null && securityDetail?.hal !== ''}">
-                                                    {{securityDetail?.hal === null || securityDetail?.hal === '' ? '' : securityDetail?.hal}}
+                                                <span [ngClass]="{'nepaliFont' : securityDetail?.halMunVdc !== null && securityDetail?.halMunVdc !== ''}">
+                                                    {{securityDetail?.halMunVdc === null || securityDetail?.halMunVdc === '' ? '' : securityDetail?.halMunVdc}}
+                                                </span>, वडा नं.
+                                                <span [ngClass]="{'nepaliFont' : securityDetail?.halWardNo !== null && securityDetail?.halWardNo !== ''}">
+                                                    {{securityDetail?.halWardNo === null || securityDetail?.halWardNo === '' ? '' : securityDetail?.halWardNo}}
                                                 </span>
                                             </td>
                                             <td>
@@ -406,7 +412,7 @@
                                         {{printDocForm?.valuatorName === null || printDocForm?.valuatorName === '' ? '_________________' : printDocForm?.valuatorName}}
                                     </span>
 
-                                    बाट मुल्याङ्कित फेयस मार्केट मुल्य रु.
+                                    बाट मुल्याङ्कित फेयर मार्केट मुल्य रु.
                                     <span [ngClass]="{'nepaliFont unicode-size2' : printDocForm?.fairMarketValue !== null && printDocForm?.fairMarketValue !== ''}">
                                         {{printDocForm?.fairMarketValue === null || printDocForm?.fairMarketValue === '' ? '_________________' : printDocForm?.fairMarketValue}}
                                     </span>
@@ -415,7 +421,7 @@
                                     <span [ngClass]="{'nepaliFont unicode-size2' : printDocForm?.distressValue !== null && printDocForm?.distressValue !== ''}">
                                         {{printDocForm?.distressValue === null || printDocForm?.distressValue === '' ? '_________________' : printDocForm?.distressValue}}
                                     </span>
-                                    को जग्गा तथा सो जग्गामा भएका र भविष्यमा हुने समेतका सम्पूर्ण
+                                    को घर/जग्गा तथा सो जग्गामा भएका र भविष्यमा हुने समेतका सम्पूर्ण
                                     लिगलगापात फाइनान्सको
                                     नाममा धितो वन्धकीको लिखत`
                                     लेखी सम्वन्धित मालपोत कार्यालयमा गई रु.

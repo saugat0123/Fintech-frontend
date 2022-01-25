@@ -1,8 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
-import {ProposalCalculationUtils} from '../../../../loan/component/loan-summary/ProposalCalculationUtils';
-import {LoanDataKey} from '../../../../../@core/utils/constants/loan-data-key';
 import {NepaliNumberAndWords} from '../../../model/nepaliNumberAndWords';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {CurrencyFormatterPipe} from '../../../../../@core/pipe/currency-formatter.pipe';

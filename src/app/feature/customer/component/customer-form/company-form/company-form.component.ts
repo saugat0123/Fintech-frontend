@@ -108,7 +108,6 @@ export class CompanyFormComponent implements OnInit {
     businessTypes = BusinessType.enumObject();
     contactPerson: ContactPerson = new ContactPerson();
     allDistrict: Array<District> = Array<District>();
-    private isBlackListed: boolean;
     companyStructureList: Array<Company>;
     designationList: DesignationList = new DesignationList();
     businessAndIndustry: BusinessAndIndustry = new BusinessAndIndustry();
