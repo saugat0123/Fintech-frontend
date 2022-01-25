@@ -23,11 +23,11 @@
                         [ngClass]="{'nepaliFont uniFont':printDocForm?.districtName!==null && printDocForm?.districtName!==''}">
           {{printDocForm.districtName === null || printDocForm.districtName === '' ? '_______________' : printDocForm?.districtName}}
         </span>
-                    जिल्ला. <span
+                    जिल्ला, <span
                         [ngClass]="{'nepaliFont uniFont':printDocForm?.municipality!==null && printDocForm?.municipality!==''}">
           {{printDocForm.municipality === null || printDocForm.municipality === '' ? '_______________' : printDocForm?.municipality}}
         </span>
-                    गा.पा./न.पा./म.न.पा.वडा नं. <span
+                    गा.पा./न.पा./म.न.पा., वडा नं. <span
                         [ngClass]="{'nepaliFont':printDocForm?.wardNo!==null && printDocForm?.wardNo!==''}">
           {{printDocForm.wardNo === null || printDocForm.wardNo === '' ? '_______________' : printDocForm?.wardNo}}
         </span>
@@ -36,11 +36,11 @@
                         [ngClass]="{'nepaliFont uniFont':printDocForm?.temporaryDistrict!==null && printDocForm?.temporaryDistrict!==''}">
           {{printDocForm.temporaryDistrict === null || printDocForm.temporaryDistrict === '' ? '_______________' : printDocForm?.temporaryDistrict}}
         </span>
-                    जिल्ला <span
+                    जिल्ला, <span
                         [ngClass]="{'nepaliFont uniFont':printDocForm?.tempMunicipality!==null && printDocForm?.tempMunicipality!==''}">
           {{printDocForm.tempMunicipality === null || printDocForm.tempMunicipality === '' ? '_______________' : printDocForm?.tempMunicipality}}
         </span>
-                    गा.पा./न.पा./म.न.पा. वडा न. <span
+                    गा.पा./न.पा./म.न.पा., वडा न. <span
                         [ngClass]="{'nepaliFont':printDocForm?.tempWardNo!==null && printDocForm?.tempWardNo!==''}">
           {{printDocForm.tempWardNo === null || printDocForm.tempWardNo === '' ? '_______________' : printDocForm?.tempWardNo}}
         </span>,
@@ -51,8 +51,8 @@
           {{printDocForm.customerName === null || printDocForm.customerName === '' ? '_______________' : printDocForm?.customerName}}
         </span>
                     <strong>(ना.प्र.न. <span
-                            [ngClass]="{'nepaliFont uniFont':printDocForm?.citizenShipNo!==null && printDocForm?.citizenShipNo!==''}">
-          {{printDocForm.citizenShipNo === null || printDocForm.citizenShipNo === '' ? '_______________' : printDocForm?.citizenShipNo}}
+                            [ngClass]="{'nepaliFont':printDocForm?.citizenshipNo!==null && printDocForm?.citizenshipNo!==''}">
+          {{printDocForm.citizenshipNo === null || printDocForm.citizenshipNo === '' ? '_______________' : printDocForm?.citizenshipNo}}
         </span>
                         मिति <span [ngClass]="{'nepaliFont':printDocForm?.date!==null && printDocForm?.date!==''}">
           {{printDocForm.date === null || printDocForm.date === '' ? '_______________' : printDocForm?.date}}
@@ -89,8 +89,8 @@
           {{printDocForm.sincerlyName === null || printDocForm.sincerlyName === '' ? '_______________' : printDocForm?.sincerlyName}}
         </span>
                     <strong>(ना.प्र.नं. <span
-                            [ngClass]="{'nepaliFont uniFont':printDocForm?.sincerlyCitizenshipNo!==null && printDocForm?.sincerlyCitizenshipNo!==''}">
-          {{printDocForm.sincerlyCitizenshipNo === null || printDocForm.sincerlyCitizenshipNo === '' ? '_______________' : printDocForm?.sincerlyCitizenshipNo}}
+                            [ngClass]="{'nepaliFont':printDocForm?.citizenshipNo!==null && printDocForm?.citizenshipNo!==''}">
+          {{printDocForm.citizenshipNo === null || printDocForm.citizenshipNo === '' ? '_______________' : printDocForm?.citizenshipNo}}
         </span>
                         मिति  <span
                                 [ngClass]="{'nepaliFont':printDocForm?.sincerlyDate!==null && printDocForm?.sincerlyDate!==''}">

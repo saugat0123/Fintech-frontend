@@ -85,13 +85,15 @@
                                     [ngClass]="{'nepaliFont' : printDocForm?.jagaName !== null && printDocForm?.jagaName !== ''}">
                         {{printDocForm?.jagaName === null || printDocForm?.jagaName === '' ? '________________' : printDocForm?.jagaName}}
                         </span>(साबिक
-                            <span [ngClass]="{'nepaliFont sizefont' : printDocForm?.borrowerSabikVDC !== null && printDocForm?.borrowerSabikVDC !== ''}">
-                                                {{printDocForm?.borrowerSabikVDC === null || printDocForm?.borrowerSabikVDC === '' ? '____________________' : printDocForm?.borrowerSabikVDC}}
-                                            </span>
+                            <span
+                                    [ngClass]="{'nepaliFont sizefont' : printDocForm?.jillaName !== null && printDocForm?.jillaName !== ''}">
+                        {{printDocForm?.jillaName === null || printDocForm?.jillaName === '' ? '________________' : printDocForm?.jillaName}}
+                        </span>
                             गा.बि.स., वडा नं.
-                            <span [ngClass]="{'nepaliFont' : printDocForm?.borrowerSabikWardNo !== null && printDocForm?.borrowerSabikWardNo !== ''}">
-                                                {{printDocForm?.borrowerSabikWardNo === null || printDocForm?.borrowerSabikWardNo === '' ? '____________________' : printDocForm?.borrowerSabikWardNo}}
-                                            </span>)
+                            <span
+                                    [ngClass]="{'nepaliFont' : printDocForm?.jagaName !== null && printDocForm?.jagaName !== ''}">
+                        {{printDocForm?.jagaName === null || printDocForm?.jagaName === '' ? '________________' : printDocForm?.jagaName}}
+                        </span>)
                         </td>
                     </tr>
                     <tr>
