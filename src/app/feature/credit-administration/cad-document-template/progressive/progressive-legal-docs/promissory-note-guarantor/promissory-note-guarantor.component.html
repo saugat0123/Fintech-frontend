@@ -118,8 +118,7 @@
           </tr>
           <tr>
             <td style="text-align: right; vertical-align: top;padding-top: 10px;width: 20%">स्थायी ठेगाना :—</td>
-            <td style="text-align: left;width: 80%"><input class="form-fie
-            ld form-control-sm nepaliFont"
+            <td style="text-align: left;width: 80%"><input class="form-field form-control-sm nepaliFont"
                                                            formControlName="guarantorPermanentDistrict"
                                                            placeholder=""
                                                            readonly
@@ -129,16 +128,18 @@
                             placeholder=""
                             readonly
                             type="text"/>
-              गा.पा./न.पा.वडा नं<input class="form-field form-control-sm nepaliFont"
+              गा.पा./न.पा., वडा नं.<input class="form-field form-control-sm nepaliFont"
                                        formControlName="guarantorPermanentWardNo"
                                        placeholder=""
                                        readonly
                                        type="text"/>
               (साबिक <input class="form-field form-control-sm nepaliFont"
+                            value="{{form.get('guarantorPermanentMunicipality').value}}"
                             formControlName="guarantorSabikVDC"
                             placeholder=""
                             type="text"/>
-              गा.बि.स.वडा नं. <input class="form-field form-control-sm nepaliFont"
+              गा.बि.स., वडा नं. <input class="form-field form-control-sm nepaliFont"
+                                       value="{{form.get('guarantorPermanentWardNo').value}}"
                                      formControlName="guarantorSabikWardNo"
                                      placeholder=""
                                      type="text"/>)</td>
