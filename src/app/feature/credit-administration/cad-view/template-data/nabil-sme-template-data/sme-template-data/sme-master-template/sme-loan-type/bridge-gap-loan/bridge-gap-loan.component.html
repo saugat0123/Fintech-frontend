@@ -1,11 +1,11 @@
 <div>
     <form [formGroup]="bridgeGapLoan">
-        <div *ngFor="let val of termLoanNumber; let i = index" formArrayName="termLoanDetails">
+        <div *ngFor="let val of bridgeGapNumber; let i = index" formArrayName="bridgeGapDetails">
             <ng-container [formGroupName]="i">
                 <div class="row">
                     <div class="col-md-12 pb-2">
-                        <h5 *ngIf="termLoanNumber.length === 1">BRIDGE GAP LOAN</h5>
-                        <h5 *ngIf="termLoanNumber.length > 1">BRIDGE GAP LOAN - {{i + 1}}</h5>
+                        <h5 *ngIf="bridgeGapNumber.length === 1">BRIDGE GAP LOAN</h5>
+                        <h5 *ngIf="bridgeGapNumber.length > 1">BRIDGE GAP LOAN - {{i + 1}}</h5>
                     </div>
                     <div class="col-md-12 mt-2">
                         <nb-checkbox #complimentryOther formControlName="complementryOther"
@@ -13,11 +13,11 @@
                             <i> Is complimentary of other loan ? </i></nb-checkbox>
                     </div>
                     <div class="col-md-12 mt-2">
-                        <nb-checkbox #interestSubsidy (checkedChange)="interestSubsidyCheck(interestSubsidy.checked)"
-                                     [checked]="isInterestSubsidy">
+                        <nb-checkbox #interestSubsidy (change)="interestSubsidyCheck($event.target.checked, i)"
+                        formControlName="interestSubsidy">
                             <i>Is Interest Subsidy ?</i></nb-checkbox>
                     </div>
-                    <div class="col-md-4 mt-3" *ngIf="bridgeGapLoan.get(['termLoanDetails', i, 'complementryOther']).value">
+                    <div class="col-md-4 mt-3" *ngIf="bridgeGapLoan.get(['bridgeGapDetails', i, 'complementryOther']).value">
                         <label class="font-weight-bold" for="complimentaryLoanSelected"><strong>Complimentary Loan
                             Selection</strong></label><br>
                         <nb-select placeholder="Select Complimentary Loan"
@@ -76,7 +76,7 @@
                                status="success" type="text">
                     </div>
                 </div>
-                <div *ngIf="!isInterestSubsidy">
+                <div  *ngIf="!bridgeGapLoan.get(['bridgeGapDetails', i, 'interestSubsidy']).value">
                     <div class="row">
                         <div class="col-md-4 form-group">
                             <label class="font-weight-bold" for="baseRate">Base Rate</label>
@@ -148,7 +148,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row" *ngIf="isInterestSubsidy">
+                <div class="row" *ngIf="bridgeGapLoan.get(['bridgeGapDetails', i, 'interestSubsidy']).value">
                     <div class="col-md-4 form-group">
                         <label class="font-weight-bold" for="totalInterestRate">Total Interest Rate</label>
                         <input class="form-control" formControlName="totalInterestRate" fullWidth id="totalInterestRate"
