@@ -65,12 +65,12 @@ export class EquityMortgagedOverdraftComponent implements OnInit {
             if (dateOfExpiryType === 'AD') {
                 const dateOfExpiry = this.initialInformation.equityMortgaged.equityMortgagedFormArray[val].dateOfExpiry;
                 if (!ObjectUtil.isEmpty(dateOfExpiry)) {
-                    this.equityMortgaged.get(['equityMortgagedFormArray', val, 'dateOfExpiry']).patchValue(new Date(dateOfExpiry));
+                    this.equityMortgaged.get(['billPurchaseFormArray', val, 'dateOfExpiry']).patchValue(new Date(dateOfExpiry));
                 }
             } else if (dateOfExpiryType === 'BS') {
                 const dateOfExpiry = this.initialInformation.equityMortgaged.equityMortgagedFormArray[val].dateOfExpiryNepali;
                 if (!ObjectUtil.isEmpty(dateOfExpiry)) {
-                    this.equityMortgaged.get(['equityMortgagedFormArray', val, 'dateOfExpiryNepali']).patchValue(dateOfExpiry);
+                    this.equityMortgaged.get(['billPurchaseFormArray', val, 'dateOfExpiryNepali']).patchValue(dateOfExpiry);
                 }
             }
         }
