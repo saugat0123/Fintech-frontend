@@ -18,6 +18,7 @@ import {EngToNepaliNumberPipe} from '../../../../../../../../@core/pipe/eng-to-n
 export class Section2LoanTypeComponent implements OnInit {
     @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
     form: FormGroup;
+    initialData;
     tempData;
     tempInformation;
     loanData = [];
@@ -138,6 +139,8 @@ export class Section2LoanTypeComponent implements OnInit {
     documentaryFreeText: Array<any> = new Array<any>();
     billsPurchase = [];
     billPurchaseFreeText: Array<any> = new Array<any>();
+    equityMortgageOverdraft = [];
+    mortgageOverdraft = [];
 
     constructor(private formBuilder: FormBuilder,
                 private engToNepWord: NepaliCurrencyWordPipe,
@@ -147,6 +150,9 @@ export class Section2LoanTypeComponent implements OnInit {
     }
 
     ngOnInit() {
+        if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc)) {
+            this.initialData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
+        }
         this.buildForm();
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc)) {
             this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
@@ -247,12 +253,9 @@ export class Section2LoanTypeComponent implements OnInit {
             totalInterestRateOverdraftLoan: [undefined],
             loanExpiryDateOverdraftLoan: [undefined],
             // Mortgage Overdraft/ Other Overdraft/ Equity Mortgaged Overdraft
-            drawingPowerMortgageOverdraft: [undefined],
-            baseRateMortgageOverdraft: [undefined],
-            premiumRateMortgageOverdraft: [undefined],
-            interestRateMortgageOverdraft: [undefined],
-            totalInterestRateMortgageOverdraft: [undefined],
-            loanExpiryDateMortgageOverdraft: [undefined],
+            equityMortgageOverdraft: this.formBuilder.array([]),
+            mortgageOverdraft: this.formBuilder.array([]),
+
             // Overdraft Facility against Fixed Deposit/ Lien on Deposit Account
             nameOfFacilityOverdraftFacility: [undefined],
             nameOfFacilityOverdraftFacilityInEng: [undefined],
@@ -309,6 +312,29 @@ export class Section2LoanTypeComponent implements OnInit {
         this.setOverdraftFacilityAgainstBond();
         this.setDocumentaryBillPurchaseNegotiation();
         this.setBillsPurchase();
+        this.setEquityMortgageOverdraft();
+        this.setMortgageOverdraft();
+    }
+    setMortgageOverdraft() {
+        if (!ObjectUtil.isEmpty(this.initialData) &&
+            !ObjectUtil.isEmpty(this.initialData.equityMortgaged) &&
+            !ObjectUtil.isEmpty(this.initialData.equityMortgaged.mortgageOverdraftFormArray)) {
+            for (let a = 0; a < this.initialData.equityMortgaged.mortgageOverdraftFormArray.length; a++) {
+                (this.form.get('mortgageOverdraft') as FormArray).push(this.setEquityMortgageOverdraftForm());
+            }
+        }
+    }
+    setEquityMortgageOverdraft() {
+        if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc)) {
+            this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
+        }
+        if (!ObjectUtil.isEmpty(this.tempData) &&
+            !ObjectUtil.isEmpty(this.tempData.equityMortgaged) &&
+            !ObjectUtil.isEmpty(this.tempData.equityMortgaged.equityMortgagedFormArray)) {
+            for (let a = 0; a < this.tempData.equityMortgaged.equityMortgagedFormArray.length; a++) {
+                (this.form.get('equityMortgageOverdraft') as FormArray).push(this.setEquityMortgageOverdraftForm());
+            }
+        }
     }
     setBillsPurchase() {
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc)) {
@@ -321,7 +347,6 @@ export class Section2LoanTypeComponent implements OnInit {
                 (this.form.get('billsPurchase') as FormArray).push(this.setBillsPurchaseForm());
             }
         }
-        console.log('bills purchase form:', this.form);
     }
     setDocumentaryBillPurchaseNegotiation() {
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc)) {
@@ -348,6 +373,16 @@ export class Section2LoanTypeComponent implements OnInit {
         }
     }
 
+    setEquityMortgageOverdraftForm() {
+        return this.formBuilder.group({
+            drawingPowerMortgageOverdraft: [undefined],
+            baseRateMortgageOverdraft: [undefined],
+            premiumRateMortgageOverdraft: [undefined],
+            interestRateMortgageOverdraft: [undefined],
+            totalInterestRateMortgageOverdraft: [undefined],
+            loanExpiryDateMortgageOverdraft: [undefined],
+        });
+    }
     setBillsPurchaseForm() {
         return this.formBuilder.group({
             SNOfParentLimitBillsPurchase: [undefined],
@@ -579,7 +614,7 @@ export class Section2LoanTypeComponent implements OnInit {
                     }
                     this.overdraftLoanFormPatchValue();
                 }
-                if (v.loanName === LoanNameConstant.MORTGAGE_OVERDRAFT || v.loanName === LoanNameConstant.EQUITY_MORTGAGED_OVERDRAFT &&
+                /*if (v.loanName === LoanNameConstant.MORTGAGE_OVERDRAFT || v.loanName === LoanNameConstant.EQUITY_MORTGAGED_OVERDRAFT &&
                     !ObjectUtil.isEmpty(this.tempData.equityMortgaged)) {
                     this.isEquityMortgageOverdraft = true;
                     this.loanSubTypeEquityMortgage = this.tempData.equityMortgaged.loanSubType;
@@ -587,7 +622,7 @@ export class Section2LoanTypeComponent implements OnInit {
                     this.mortgageTypeEquityMortgage = this.tempData.equityMortgaged.mortgageType;
                     this.interestSubsidyAgEquityMortgage = this.tempData.equityMortgaged.subsidyOrAgricultureLoan;
                     this.equityMortgageFormPatchValue();
-                }
+                }*/
                 // tslint:disable-next-line:max-line-length
                 if (v.loanName === LoanNameConstant.OVERDRAFT_FACILITY_FIXED_DEPOSIT || v.loanName === LoanNameConstant.OVERDRAFT_FACILITY_LIEN_ON_DEPOSIT_ACCOUNT ||
                     v.loanName === LoanNameConstant.STL_AGAINST_FIXED_DEPOSIT ||
@@ -663,6 +698,8 @@ export class Section2LoanTypeComponent implements OnInit {
         this.overDraftFacilityFormPatchValue();
         this.documentaryBillPurchaseFormPatchValue();
         this.billPurchaseFormPatchValue();
+        this.equityMortgageFormPatchValue();
+        this.mortgageOverdraftPatchValue();
     }
 
     irrevocableLetterOfCredit() {
@@ -818,19 +855,68 @@ export class Section2LoanTypeComponent implements OnInit {
     }
 
     equityMortgageFormPatchValue() {
-        this.form.patchValue({
-            // Mortgage Overdraft/ Other Overdraft/ Equity Mortgaged Overdraft
-            // tslint:disable-next-line:max-line-length
-            drawingPowerMortgageOverdraft: this.tempData.equityMortgaged.drawingPowerCT ? this.tempData.equityMortgaged.drawingPowerCT : '',
-            baseRateMortgageOverdraft: this.tempData.equityMortgaged.baseRateCT ? this.tempData.equityMortgaged.baseRateCT : '',
-            premiumRateMortgageOverdraft: this.tempData.equityMortgaged.premiumRateCT ? this.tempData.equityMortgaged.premiumRateCT : '',
-            // tslint:disable-next-line:max-line-length
-            interestRateMortgageOverdraft: this.tempData.equityMortgaged.interestRateCT ? this.tempData.equityMortgaged.interestRateCT : '',
-            // tslint:disable-next-line:max-line-length
-            totalInterestRateMortgageOverdraft: this.tempData.equityMortgaged.interestRateCT ? this.tempData.equityMortgaged.interestRateCT : '',
-            // tslint:disable-next-line:max-line-length
-            loanExpiryDateMortgageOverdraft: this.tempData.equityMortgaged.dateOfExpiryCT ? this.tempData.equityMortgaged.dateOfExpiryCT : '',
-        });
+        if (!ObjectUtil.isEmpty(this.tempData) &&
+            !ObjectUtil.isEmpty(this.tempData.equityMortgaged) &&
+            !ObjectUtil.isEmpty(this.tempData.equityMortgaged.equityMortgagedFormArray)) {
+            for (let val = 0; val < this.tempData.equityMortgaged.equityMortgagedFormArray.length; val++) {
+                this.form.get(['equityMortgageOverdraft', val, 'drawingPowerMortgageOverdraft']).patchValue(
+                    this.tempData.equityMortgaged.equityMortgagedFormArray[val] ?
+                        this.tempData.equityMortgaged.equityMortgagedFormArray[val].drawingPowerCT : ''
+                );
+                this.form.get(['equityMortgageOverdraft', val, 'baseRateMortgageOverdraft']).patchValue(
+                    this.tempData.equityMortgaged.equityMortgagedFormArray[val] ?
+                        this.tempData.equityMortgaged.equityMortgagedFormArray[val].baseRateCT : ''
+                );
+                this.form.get(['equityMortgageOverdraft', val, 'premiumRateMortgageOverdraft']).patchValue(
+                    this.tempData.equityMortgaged.equityMortgagedFormArray[val] ?
+                        this.tempData.equityMortgaged.equityMortgagedFormArray[val].premiumRateCT : ''
+                );
+                this.form.get(['equityMortgageOverdraft', val, 'interestRateMortgageOverdraft']).patchValue(
+                    this.tempData.equityMortgaged.equityMortgagedFormArray[val] ?
+                        this.tempData.equityMortgaged.equityMortgagedFormArray[val].interestRateCT : ''
+                );
+                this.form.get(['equityMortgageOverdraft', val, 'totalInterestRateMortgageOverdraft']).patchValue(
+                    this.tempData.equityMortgaged.equityMortgagedFormArray[val] ?
+                        this.tempData.equityMortgaged.equityMortgagedFormArray[val].interestRateCT : ''
+                );
+                this.form.get(['equityMortgageOverdraft', val, 'loanExpiryDateMortgageOverdraft']).patchValue(
+                    this.tempData.equityMortgaged.equityMortgagedFormArray[val] ?
+                        this.tempData.equityMortgaged.equityMortgagedFormArray[val].dateOfExpiryCT : ''
+                );
+            }
+        }
+    }
+    mortgageOverdraftPatchValue() {
+        if (!ObjectUtil.isEmpty(this.tempData) &&
+            !ObjectUtil.isEmpty(this.tempData.equityMortgaged) &&
+            !ObjectUtil.isEmpty(this.tempData.equityMortgaged.mortgageOverdraftFormArray)) {
+            for (let val = 0; val < this.tempData.equityMortgaged.mortgageOverdraftFormArray.length; val++) {
+                this.form.get(['mortgageOverdraft', val, 'drawingPowerMortgageOverdraft']).patchValue(
+                    this.tempData.equityMortgaged.mortgageOverdraftFormArray[val] ?
+                        this.tempData.equityMortgaged.mortgageOverdraftFormArray[val].drawingPowerCT : ''
+                );
+                this.form.get(['mortgageOverdraft', val, 'baseRateMortgageOverdraft']).patchValue(
+                    this.tempData.equityMortgaged.mortgageOverdraftFormArray[val] ?
+                        this.tempData.equityMortgaged.mortgageOverdraftFormArray[val].baseRateCT : ''
+                );
+                this.form.get(['mortgageOverdraft', val, 'premiumRateMortgageOverdraft']).patchValue(
+                    this.tempData.equityMortgaged.mortgageOverdraftFormArray[val] ?
+                        this.tempData.equityMortgaged.mortgageOverdraftFormArray[val].premiumRateCT : ''
+                );
+                this.form.get(['mortgageOverdraft', val, 'interestRateMortgageOverdraft']).patchValue(
+                    this.tempData.equityMortgaged.mortgageOverdraftFormArray[val] ?
+                        this.tempData.equityMortgaged.mortgageOverdraftFormArray[val].interestRateCT : ''
+                );
+                this.form.get(['mortgageOverdraft', val, 'totalInterestRateMortgageOverdraft']).patchValue(
+                    this.tempData.equityMortgaged.mortgageOverdraftFormArray[val] ?
+                        this.tempData.equityMortgaged.mortgageOverdraftFormArray[val].interestRateCT : ''
+                );
+                this.form.get(['mortgageOverdraft', val, 'loanExpiryDateMortgageOverdraft']).patchValue(
+                    this.tempData.equityMortgaged.mortgageOverdraftFormArray[val] ?
+                        this.tempData.equityMortgaged.mortgageOverdraftFormArray[val].dateOfExpiryCT : ''
+                );
+            }
+        }
     }
 
     overdraftFixedFormPatchValue() {
@@ -1149,6 +1235,8 @@ export class Section2LoanTypeComponent implements OnInit {
         this.overdraftAgainstBond = this.loanData.filter(data => data.loanName === this.loanNameConstant.OVERDRAFT_FACILITY_AGAINST_BOND);
         this.documentaryBillPurchase = this.loanData.filter(data => data.loanName === this.loanNameConstant.DOCUMENTARY_BILL_PURCHASE_NEGOTIATION);
         this.billsPurchase = this.loanData.filter(data => data.loanName === this.loanNameConstant.BILLS_PURCHASE);
+        this.equityMortgageOverdraft = this.loanData.filter(data => data.loanName === this.loanNameConstant.EQUITY_MORTGAGED_OVERDRAFT);
+        this.mortgageOverdraft = this.loanData.filter(data => data.loanName === this.loanNameConstant.MORTGAGE_OVERDRAFT);
         this.autoLoanDetails = this.loanData.filter(data => data.loanName === this.loanNameConstant.AUTO_LOAN);
         this.termLoanDetails = this.loanData.filter(data => data.loanName === this.loanNameConstant.TERM_LOAN_TO_FOR_PURCHASE_OF_VEHICLE);
     }

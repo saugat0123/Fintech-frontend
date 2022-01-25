@@ -3,12 +3,130 @@
         <p class="text-center"><strong>स्वीकृत ऋणकर्जा सुविधाहरुको विवरण</strong></p>
         <div>
             <table class="table table-bordered">
+                <ng-container *ngIf="tempData?.equityMortgaged?.mortgageOverdraftFormArray">
+                    <tr *ngFor="let val of tempData?.equityMortgaged?.mortgageOverdraftFormArray; let i1 = index"
+                        formArrayName="mortgageOverdraft">
+                        <!--Mortgage Overdraft-->
+                        <ng-container [formGroupName]="i1">
+                            <td width="10%"><strong>{{
+                                (tempData?.termLoanForm?.termLoanDetails?.length) +
+                                (tempData?.autoLoanMasterForm?.autoLoanFormArray?.length) +
+                                (i1 + 1) | nepaliWord}})</strong></td>
+                            <td>
+                                <span><strong>अचल सम्पत्ति सुरक्षणमा आधारीत अधिविकर्ष कर्जा
+                                    (Mortgage Overdraft)</strong></span><br>
+                                <!--<span *ngIf="loanSubTypeEquityMortgage === 'EQUITY_MORTGAGE'"><strong>सुरक्षणमा आधारीत स्वपुँजी अधिविकर्ष कर्जा
+                        (Equity Mortgaged Overdraft)</strong></span><br>-->
+
+                                <strong> सीमाः रु.<input class="form-field form-control-sm "
+                                                         value="{{mortgageOverdraft[i1] ? mortgageOverdraft[i1].loanAmountNp : ''}}"
+                                                         placeholder=""
+                                                         type="text"/>।-
+                                    (अक्षरेपी रु.<input class="form-field form-control-sm "
+                                                        value="{{mortgageOverdraft[i1] ? mortgageOverdraft[i1].loanAmountWords : ''}}"
+                                                        placeholder=""
+                                                        type="text"/> मात्र)</strong><br>
+
+                                <span *ngIf="val.mortgageType === 'New' || val.mortgageType === 'Enhancement'">
+                            <strong>धितोे सुरक्षणः</strong> ऋणकर्जा उपयोग गर्नु अगावै ऋणकर्जाको सुरक्षण स्वरुपबैंकको पक्षमा सुरक्षण महलमा
+                    उल्लिखित घर/जग्गा धितोेबन्धक पारित गरी दिनु पर्नेछ ।
+                    </span><br>
+
+                                <span *ngIf="val.mortgageType === 'Existing'"><strong>धितोे सुरक्षणः</strong>
+                            ऋणकर्जा उपयोग गर्नु अगावै ऋणकर्जाको सुरक्षण स्वरुपबैंकको पक्षमा सुरक्षण महलमा
+                    उल्लिखित घर/जग्गा धितोेबन्धक पारित गरिदिइएको यथावत कायम रहने छ ।
+                    </span><br>
+                                <span *ngIf="(val.mortgageType === 'New' || val.mortgageType === 'Enhancement') && val.drawingBasis === 'DISTRESS_VALUE'">
+                            <strong> ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong>
+                        कर्जाको सुरक्षण वापत बैंकको पक्षमा धितोे लेखिदिने
+                        घर/जग्गाको बैंकको आधिकारिक मुल्याङकनकर्ता द्वारा उद्घोषित न्यूनतम मूल्य (Distress Value)
+                        को <input class="form-field form-control-sm "
+                                  formControlName="drawingPowerMortgageOverdraft"
+                                  placeholder=""
+                                  type="text"/>प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ
+                        सो बरावर कर्जा उपयोग गर्न सकिनेछ ।</span><br>
+
+                                <span *ngIf="(val.mortgageType === 'New' || val.mortgageType === 'Enhancement') && val.drawingBasis === 'MARKET_VALUE'">
+                            <strong> ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong>
+                        कर्जाको सुरक्षण वापत बैंकको पक्षमा धितोे लेखिदिने
+                        घर/जग्गाको बैंकको आधिकारिक मुल्याङकनकर्ता द्वारा उद्घोषित बजार मुल्य
+                        (Market Value)को <input class="form-field form-control-sm "
+                                                formControlName="drawingPowerMortgageOverdraft"
+                                                placeholder=""
+                                                type="text"/>प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ
+                        सो बरावर कर्जा उपयोग गर्न सकिनेछ ।</span><br>
+
+                                <span *ngIf="val.mortgageType === 'Existing' && val.drawingBasis === 'DISTRESS_VALUE'">
+                            <strong> ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong>
+                        कर्जाको सुरक्षण वापत बैंकको पक्षमा धितोे
+                        लेखिदिएको घर/जग्गाको बैंकको आधिकारिक मुल्याङकनकर्ता द्वारा उद्घोषित न्यूनतम मूल्य (Distress Value)
+                        को <input class="form-field form-control-sm "
+                                  formControlName="drawingPowerMortgageOverdraft"
+                                  placeholder=""
+                                  type="text"/>प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ
+                        सो बरावर कर्जा उपयोग गर्न सकिनेछ ।</span><br>
+
+                                <span *ngIf="val.mortgageType === 'Existing' && val.drawingBasis === 'MARKET_VALUE'">
+                            <strong> ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong>
+                        कर्जाको सुरक्षण वापत बैंकको पक्षमा धितोे
+                        लेखिदिएको घर/जग्गाको बैंकको आधिकारिक मुल्याङकनकर्ता द्वारा उद्घोषित
+                        बजार मुल्य (Market Value)को <input class="form-field form-control-sm "
+                                                           formControlName="drawingPowerMortgageOverdraft"
+                                                           placeholder=""
+                                                           type="text"/>प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ
+                        सो बरावर कर्जा उपयोग गर्न सकिनेछ ।</span><br>
+
+                                <strong>ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
+                                <input class="form-field form-control-sm "
+                                       formControlName="baseRateMortgageOverdraft"
+                                       placeholder=""
+                                       type="text"/> +
+                                <input class="form-field form-control-sm "
+                                       formControlName="premiumRateMortgageOverdraft"
+                                       placeholder=""
+                                       type="text"/> प्रतिशत
+                                ब्याज दर प्रिमियम (interest rate premium)<br>
+
+                                <span *ngIf="val.subsidyOrAgricultureLoan === 'No'">हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
+                            बार्षिक <input class="form-field form-control-sm "
+                                           formControlName="interestRateMortgageOverdraft"
+                                           placeholder=""
+                                           type="text"/>% का दर
+                    निर्धारण गरीएकोछ र सो ब्याज रकम नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र
+                    चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।</span><br>
+
+                                <span *ngIf="val.subsidyOrAgricultureLoan === 'Yes'">हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
+                            बार्षिक <input class="form-field form-control-sm "
+                                           formControlName="totalInterestRateMortgageOverdraft"
+                                           placeholder=""
+                                           type="text"/>% का दरले
+                    निर्धारण गरीएकोछ । सो निर्धारित ब्याज दरमा नेपाल राष्ट्र बैंकले ऋणीलाई दिने छुट/सहुलियत वापतको दर
+                    घटाई कायम हुन आउने रकम ऋणीले ब्याज स्वरुप नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन,
+                    पौष र चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।</span><br>
+
+                                <span><strong>कर्जा अवधि समाप्ति/पुनरावलोकन मितिः</strong>
+                                    {{val?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
+                                    <input
+                                            class="form-field form-control-sm "
+                                            formControlName="loanExpiryDateMortgageOverdraft"
+                                            placeholder=""
+                                            type="text"/></span><br>
+                            </td>
+                        </ng-container>
+                    </tr>
+                </ng-container>
+
                 <ng-container *ngIf="tempData?.overDraftFacilityForm?.overdraftFacilityDetails">
                     <tr *ngFor="let val of tempData?.overDraftFacilityForm?.overdraftFacilityDetails; let i1 = index"
                         formArrayName="overdraftFacilityAgainstBond">
                         <!--Overdraft Facility against Bond-->
                         <ng-container [formGroupName]="i1">
-                            <td width="10%"><strong>{{i1 + 1 | nepaliWord}})</strong></td>
+                            <td width="10%">
+                                <strong>
+                                    {{(tempData?.equityMortgaged?.mortgageOverdraftFormArray.length) +
+                                (tempData?.termLoanForm?.termLoanDetails?.length) +
+                                (tempData?.autoLoanMasterForm?.autoLoanFormArray?.length) +
+                                    (i1 + 1) | nepaliWord}})</strong></td>
                             <td>
                                 <strong>बचत/ऋण पत्रमा आधारीत <input class="form-field form-control-sm "
                                                                     formControlName="nameOfFacilityAgainstBond"
@@ -114,7 +232,12 @@
                         formArrayName="documentaryBillPurchaseNegotiation">
                         <!--Documentary Bill Purchase/Negotiation-->
                         <ng-container [formGroupName]="i2">
-                            <td width="10%"><strong>{{(tempData?.overDraftFacilityForm?.overdraftFacilityDetails.length) + (i2 + 1) | nepaliWord}})</strong></td>
+                            <td width="10%"><strong>{{
+                                (tempData?.termLoanForm?.termLoanDetails?.length) +
+                                (tempData?.autoLoanMasterForm?.autoLoanFormArray?.length) +
+                                (tempData?.overDraftFacilityForm?.overdraftFacilityDetails.length) +
+                                (tempData?.equityMortgaged?.mortgageOverdraftFormArray.length)
+                                + (i2 + 1) | nepaliWord}})</strong></td>
                             <td>
                     <span><strong>डकुमेन्ट्री बिल्स खरिद कर्जा (Documentary Bill Purchase/Negotiation)
                     <ng-container
@@ -205,6 +328,126 @@
                         </ng-container>
                     </tr>
                 </ng-container>
+
+                <ng-container *ngIf="tempData?.equityMortgaged?.equityMortgagedFormArray">
+                    <tr *ngFor="let val of tempData?.equityMortgaged?.equityMortgagedFormArray; let i1 = index"
+                        formArrayName="equityMortgageOverdraft">
+                        <!--Mortgage Overdraft-->
+                        <ng-container [formGroupName]="i1">
+                            <td width="10%">
+                                <strong>
+                                    {{
+                                    (tempData?.overDraftFacilityForm?.overdraftFacilityDetails.length) +
+                                    (tempData?.documentaryBillPurchase?.documentaryBillPurchaseFormArray.length) +
+                                    (tempData?.equityMortgaged?.mortgageOverdraftFormArray.length) +
+                                    (tempData?.termLoanForm?.termLoanDetails?.length) +
+                                    (tempData?.autoLoanMasterForm?.autoLoanFormArray?.length) +
+                                    (i1 + 1) | nepaliWord}})
+                                </strong>
+                            </td>
+                            <td>
+                               <!-- <span><strong>अचल सम्पत्ति सुरक्षणमा आधारीत अधिविकर्ष कर्जा
+                                    (Mortgage Overdraft)</strong></span><br>-->
+                                <span><strong>सुरक्षणमा आधारीत स्वपुँजी अधिविकर्ष कर्जा
+                        (Equity Mortgaged Overdraft)</strong></span><br>
+
+                                <strong> सीमाः रु.<input class="form-field form-control-sm "
+                                                         value="{{equityMortgageOverdraft[i1] ? equityMortgageOverdraft[i1].loanAmountNp : ''}}"
+                                                         placeholder=""
+                                                         type="text"/>।-
+                                    (अक्षरेपी रु.<input class="form-field form-control-sm "
+                                                        value="{{equityMortgageOverdraft[i1] ? equityMortgageOverdraft[i1].loanAmountWords : ''}}"
+                                                        placeholder=""
+                                                        type="text"/> मात्र)</strong><br>
+
+                                <span *ngIf="val.mortgageType === 'New' || val.mortgageType === 'Enhancement'">
+                            <strong>धितोे सुरक्षणः</strong> ऋणकर्जा उपयोग गर्नु अगावै ऋणकर्जाको सुरक्षण स्वरुपबैंकको पक्षमा सुरक्षण महलमा
+                    उल्लिखित घर/जग्गा धितोेबन्धक पारित गरी दिनु पर्नेछ ।
+                    </span><br>
+
+                                <span *ngIf="val.mortgageType === 'Existing'"><strong>धितोे सुरक्षणः</strong>
+                            ऋणकर्जा उपयोग गर्नु अगावै ऋणकर्जाको सुरक्षण स्वरुपबैंकको पक्षमा सुरक्षण महलमा
+                    उल्लिखित घर/जग्गा धितोेबन्धक पारित गरिदिइएको यथावत कायम रहने छ ।
+                    </span><br>
+                                <span *ngIf="(val.mortgageType === 'New' || val.mortgageType === 'Enhancement') && val.drawingBasis === 'DISTRESS_VALUE'">
+                            <strong> ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong>
+                        कर्जाको सुरक्षण वापत बैंकको पक्षमा धितोे लेखिदिने
+                        घर/जग्गाको बैंकको आधिकारिक मुल्याङकनकर्ता द्वारा उद्घोषित न्यूनतम मूल्य (Distress Value)
+                        को <input class="form-field form-control-sm "
+                                  formControlName="drawingPowerMortgageOverdraft"
+                                  placeholder=""
+                                  type="text"/>प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ
+                        सो बरावर कर्जा उपयोग गर्न सकिनेछ ।</span><br>
+
+                                <span *ngIf="(val.mortgageType === 'New' || val.mortgageType === 'Enhancement') && val.drawingBasis === 'MARKET_VALUE'">
+                            <strong> ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong>
+                        कर्जाको सुरक्षण वापत बैंकको पक्षमा धितोे लेखिदिने
+                        घर/जग्गाको बैंकको आधिकारिक मुल्याङकनकर्ता द्वारा उद्घोषित बजार मुल्य
+                        (Market Value)को <input class="form-field form-control-sm "
+                                                formControlName="drawingPowerMortgageOverdraft"
+                                                placeholder=""
+                                                type="text"/>प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ
+                        सो बरावर कर्जा उपयोग गर्न सकिनेछ ।</span><br>
+
+                                <span *ngIf="val.mortgageType === 'Existing' && val.drawingBasis === 'DISTRESS_VALUE'">
+                            <strong> ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong>
+                        कर्जाको सुरक्षण वापत बैंकको पक्षमा धितोे
+                        लेखिदिएको घर/जग्गाको बैंकको आधिकारिक मुल्याङकनकर्ता द्वारा उद्घोषित न्यूनतम मूल्य (Distress Value)
+                        को <input class="form-field form-control-sm "
+                                  formControlName="drawingPowerMortgageOverdraft"
+                                  placeholder=""
+                                  type="text"/>प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ
+                        सो बरावर कर्जा उपयोग गर्न सकिनेछ ।</span><br>
+
+                                <span *ngIf="val.mortgageType === 'Existing' && val.drawingBasis === 'MARKET_VALUE'">
+                            <strong> ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong>
+                        कर्जाको सुरक्षण वापत बैंकको पक्षमा धितोे
+                        लेखिदिएको घर/जग्गाको बैंकको आधिकारिक मुल्याङकनकर्ता द्वारा उद्घोषित
+                        बजार मुल्य (Market Value)को <input class="form-field form-control-sm "
+                                                           formControlName="drawingPowerMortgageOverdraft"
+                                                           placeholder=""
+                                                           type="text"/>प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ
+                        सो बरावर कर्जा उपयोग गर्न सकिनेछ ।</span><br>
+
+                                <strong>ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
+                                <input class="form-field form-control-sm "
+                                       formControlName="baseRateMortgageOverdraft"
+                                       placeholder=""
+                                       type="text"/> +
+                                <input class="form-field form-control-sm "
+                                       formControlName="premiumRateMortgageOverdraft"
+                                       placeholder=""
+                                       type="text"/> प्रतिशत
+                                ब्याज दर प्रिमियम (interest rate premium)<br>
+
+                                <span *ngIf="val.subsidyOrAgricultureLoan === 'No'">हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
+                            बार्षिक <input class="form-field form-control-sm "
+                                           formControlName="interestRateMortgageOverdraft"
+                                           placeholder=""
+                                           type="text"/>% का दर
+                    निर्धारण गरीएकोछ र सो ब्याज रकम नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र
+                    चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।</span><br>
+
+                                <span *ngIf="val.subsidyOrAgricultureLoan === 'Yes'">हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
+                            बार्षिक <input class="form-field form-control-sm "
+                                           formControlName="totalInterestRateMortgageOverdraft"
+                                           placeholder=""
+                                           type="text"/>% का दरले
+                    निर्धारण गरीएकोछ । सो निर्धारित ब्याज दरमा नेपाल राष्ट्र बैंकले ऋणीलाई दिने छुट/सहुलियत वापतको दर
+                    घटाई कायम हुन आउने रकम ऋणीले ब्याज स्वरुप नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन,
+                    पौष र चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।</span><br>
+
+                                <span><strong>कर्जा अवधि समाप्ति/पुनरावलोकन मितिः</strong>
+                                    {{val?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
+                                    <input
+                                            class="form-field form-control-sm "
+                                            formControlName="loanExpiryDateMortgageOverdraft"
+                                            placeholder=""
+                                            type="text"/></span><br>
+                            </td>
+                        </ng-container>
+                    </tr>
+                </ng-container>
             </table>
         </div>
         <div>
@@ -237,6 +480,8 @@
                                     (tempData?.autoLoanMasterForm?.autoLoanFormArray?.length) +
                                     (tempData?.overDraftFacilityForm?.overdraftFacilityDetails.length) +
                                     (tempData?.documentaryBillPurchase?.documentaryBillPurchaseFormArray.length) +
+                                    (tempData?.equityMortgaged?.mortgageOverdraftFormArray.length) +
+                                    (tempData?.equityMortgaged?.equityMortgagedFormArray.length) +
                                     (i3 + 1) | nepaliWord}})
                                 </strong>
                             </td>
