@@ -1,6 +1,5 @@
 import * as CryptoJS from 'crypto-js';
 import {environment} from '../../../environments/environment';
-import {ObjectUtil} from './ObjectUtil';
 import {LocalStorageUtil} from './local-storage-util';
 
 export class CryptoJsUtil {
@@ -20,16 +19,17 @@ export class CryptoJsUtil {
 
     public static encryptUrl(data: string): string {
         const uuid = this.uuid();
-        const encryptedData = CryptoJS.AES.encrypt(data, uuid).toString().replaceAll('/', '!') + '@' + uuid + '@' + LocalStorageUtil.getStorage().userId;
-        // @ts-ignore
-        if (ObjectUtil.isEmpty(localStorage.getItem('keys'))) {
-            const keys = [uuid];
-            localStorage.setItem('keys', JSON.stringify(keys));
-        } else  {
-            const keys = JSON.parse(localStorage.getItem('keys'));
-            keys.push(uuid);
-            localStorage.setItem('keys', JSON.stringify(keys));
-        }
+        const userId = CryptoJS.AES.encrypt(LocalStorageUtil.getStorage().userId, environment.LOCAL_STORAGE_KEY).toString().replaceAll('/', '!');
+        const encryptedData = CryptoJS.AES.encrypt(data, uuid).toString().replaceAll('/', '!') + '@' + uuid + '@' + userId;
+        // // @ts-ignore
+        // if (ObjectUtil.isEmpty(localStorage.getItem('keys'))) {
+        //     const keys = [uuid];
+        //     localStorage.setItem('keys', JSON.stringify(keys));
+        // } else  {
+        //     const keys = JSON.parse(localStorage.getItem('keys'));
+        //     keys.push(uuid);
+        //     localStorage.setItem('keys', JSON.stringify(keys));
+        // }
         return encryptedData;
     }
 
@@ -46,12 +46,10 @@ export class CryptoJsUtil {
     public static checkKey(encryptedData: string): boolean {
         const key = encryptedData.split('@');
         let hasKey = false;
-        const keys = JSON.parse(localStorage.getItem('keys'));
-        keys.forEach((d, i) => {
-            if (d === key[1] && key[2] === LocalStorageUtil.getStorage().userId) {
-                hasKey = true;
-            }
-        });
+        // @ts-ignore
+        if (this.decrypt(key[2].replaceAll('!', '/')) === LocalStorageUtil.getStorage().userId.toString()) {
+            hasKey = true;
+        }
         return hasKey;
     }
 }

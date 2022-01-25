@@ -2,6 +2,7 @@ import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {ApiUtils} from './utils/api/ApiUtils';
 import {CryptoJsUtil} from './utils/crypto-js-util';
+import {Router} from '@angular/router';
 
 /**
  * API are expected to be developed in rest pattern
@@ -61,6 +62,10 @@ export abstract class BaseService<T> {
     }
 
     public detail(id: number): Observable<any> {
+        if (!CryptoJsUtil.checkKey(id.toString())) {
+            alert('Link Has Been Expired');
+            return;
+        }
         const api = `${this.getApi()}/${id}`;
         const req = ApiUtils.getRequest(api);
 
@@ -111,8 +116,6 @@ export abstract class BaseService<T> {
     }
 
     public getPaginationWithSearchObject(searchObj: any, page: any = 1, size: any = 20): Observable<any> {
-        console.log('this is encrypted page', CryptoJsUtil.encryptUrl(`${page}`));
-        console.log('this is encrypted page', CryptoJsUtil.decrypt(CryptoJsUtil.encryptUrl(`${page}`)));
         page = CryptoJsUtil.encryptUrl(`${page}`);
         size = CryptoJsUtil.encryptUrl(`${size}`);
         const api = `${this.getApi()}/list?page=${page}&size=${size}`;

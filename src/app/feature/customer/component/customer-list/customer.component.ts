@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output, TemplateRef} from '@angular/core';
+import {Component, OnInit, TemplateRef} from '@angular/core';
 import {CustomerService} from '../../service/customer.service';
 import {PaginationUtils} from '../../../../@core/utils/PaginationUtils';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
@@ -10,7 +10,7 @@ import {LoanType} from '../../../loan/model/loanType';
 import {LoanFormService} from '../../../loan/component/loan-form/service/loan-form.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {CustomerFormComponent} from '../customer-form/individual-form/customer-form.component';
-import {NbDialogRef, NbDialogService} from '@nebular/theme';
+import {NbDialogService} from '@nebular/theme';
 import {CustomerInfoSearch, CustomerInfoService} from '../../service/customer-info.service';
 import {CustomerType} from '../../model/customerType';
 import {CompanyFormComponent} from '../customer-form/company-form/company-form.component';
@@ -27,13 +27,9 @@ import {CustomerGroupService} from '../../../admin/component/preference/services
 import {CustomerGroup} from '../../../admin/modal/customer-group';
 import {CompanyInfoService} from '../../../admin/service/company-info.service';
 import {Province} from '../../../admin/modal/province';
-import {LoanDataHolder} from '../../../loan/model/loanData';
 import {UserService} from '../../../../@core/service/user.service';
 import {DocAction} from '../../../loan/model/docAction';
-import {DocStatus} from '../../../loan/model/docStatus';
-import {LoanStage} from '../../../loan/model/loanStage';
 import {JointFormComponent} from '../customer-form/joint-form/joint-form.component';
-import {any} from 'codelyzer/util/function';
 import {ObjectUtil} from '../../../../@core/utils/ObjectUtil';
 import {CryptoJsUtil} from '../../../../@core/utils/crypto-js-util';
 
@@ -74,6 +70,7 @@ export class CustomerComponent implements OnInit {
     customerGroupList: Array<CustomerGroup>;
     provinces: Province[];
     onActionChangeSpinner = false;
+
     constructor(private customerService: CustomerService,
                 private toastService: ToastService,
                 private modalService: NgbModal,
@@ -90,7 +87,6 @@ export class CustomerComponent implements OnInit {
                 private location: AddressService,
                 private userService: UserService,
                 private search: CustomerInfoSearch
-
     ) {
     }
 
@@ -128,7 +124,7 @@ export class CustomerComponent implements OnInit {
             this.provinces = response.detail;
         });
         /* added to check if the transfer column is to be displayed*/
-            if (LocalStorageUtil.getStorage().username === 'SPADMIN' || LocalStorageUtil.getStorage().roleType === RoleType.ADMIN) {
+        if (LocalStorageUtil.getStorage().username === 'SPADMIN' || LocalStorageUtil.getStorage().roleType === RoleType.ADMIN) {
             this.transferCustomer = true;
         }
         this.buildActionForm();
@@ -179,9 +175,6 @@ export class CustomerComponent implements OnInit {
     /* associate id is customer or company id*/
     customerProfile(associateId, id, customerType) {
         if (CustomerType[customerType] === CustomerType.INDIVIDUAL) {
-            console.log(associateId);
-            console.log(customerType);
-            console.log(id);
             this.router.navigate(['/home/customer/profile/' + CryptoJsUtil.encryptUrl((associateId.toString()))], {
                 queryParams: {
                     customerType: CryptoJsUtil.encryptUrl(customerType),
@@ -189,8 +182,15 @@ export class CustomerComponent implements OnInit {
                 }
             });
         } else if (CustomerType[customerType] === CustomerType.INSTITUTION) {
-            this.router.navigate(['/home/customer/company-profile/' + associateId],
-                {queryParams: {id: id, customerType: customerType, companyInfoId: associateId, customerInfoId: id}});
+            this.router.navigate(['/home/customer/company-profile/' + CryptoJsUtil.encryptUrl((associateId.toString()))],
+                {
+                    queryParams: {
+                        id: CryptoJsUtil.encryptUrl((id.toString())),
+                        customerType: CryptoJsUtil.encryptUrl((customerType)),
+                        companyInfoId: CryptoJsUtil.encryptUrl((associateId.toString())),
+                        customerInfoId: CryptoJsUtil.encryptUrl((id.toString()))
+                    }
+                });
         }
     }
 
@@ -233,6 +233,7 @@ export class CustomerComponent implements OnInit {
         this.search.branch = undefined;
         CustomerComponent.loadData(this);
     }
+
     openChooseAcType(modal) {
         this.modalService.open(modal);
     }
@@ -387,12 +388,12 @@ export class CustomerComponent implements OnInit {
 
     onCloseJoint() {
         this.onClose();
-            this.dialogService.open(CustomerFormComponent, {
-                closeOnBackdropClick: false,
-                closeOnEsc: false,
-                hasBackdrop: false,
-                hasScroll: true
-            }).onClose.subscribe(res => CustomerComponent.loadData(this));
+        this.dialogService.open(CustomerFormComponent, {
+            closeOnBackdropClick: false,
+            closeOnEsc: false,
+            hasBackdrop: false,
+            hasScroll: true
+        }).onClose.subscribe(res => CustomerComponent.loadData(this));
     }
 
     buildActionForm(): void {
