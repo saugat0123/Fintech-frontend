@@ -29,10 +29,12 @@
                         </nb-select>
                     </div>
                     <div class="col-md-12 mt-2">
-                        <nb-checkbox #complementaryOther formControlName="complementaryOther">
+                        <nb-checkbox #complementaryOther
+                                     (change)="checkComplimetryOtherLoan($event.target.checked, i)"
+                                     formControlName="complementaryOther">
                             <i> Is complimentary of other loan ? </i></nb-checkbox>
                     </div>
-                    <div class="col-md-4 mt-3" *ngIf="isComplimentryOtherLoan">
+                    <div class="col-md-4 mt-3" *ngIf="this.letterOfCreditForm.get(['letterOfCreditFormArray', i, 'complementaryOther']).value">
                         <label class="font-weight-bold" for="complimentaryLoanSelected"><strong>Complimentary Loan Selection</strong></label><br>
                         <nb-select placeholder="Select Complimentary Loan"
                                    fullWidth

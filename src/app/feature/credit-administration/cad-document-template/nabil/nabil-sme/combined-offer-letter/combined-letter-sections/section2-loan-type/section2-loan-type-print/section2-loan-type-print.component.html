@@ -2,6 +2,84 @@
     <p class="text-center"><strong>स्वीकृत ऋणकर्जा सुविधाहरुको विवरण</strong></p>
     <div>
         <table class="table table-bordered-all print-friendly">
+            <ng-container *ngIf="tempData?.letterOfCreditForm?.letterOfCreditFormArray">
+                <tr *ngFor="let val of tempData?.letterOfCreditForm?.letterOfCreditFormArray; let i1 = index">
+                    <ng-container>
+                        <!--Irrevocable letter of credit facility-->
+                        <td style="width: 10%; border-right: 1px solid black; border-top: 1px solid black"><strong>{{i1 + 1 | nepaliWord}})</strong></td>
+                        <td style="border-top: 1px solid black">
+                            <p>
+                                <span><strong><ng-container
+                                        *ngIf="val?.loanOption === 'ONE_OFF_BASIS'"> पटके </ng-container>
+                                    <ng-container
+                                            *ngIf="val?.loanOption === 'REGULAR'"> नियमित </ng-container>
+                                    अपरिवर्तनीय प्रतित पत्र सुविधा
+                                    (Irrevocable letter of credit facility)
+                                    <ng-container *ngIf="val.complementryOther === true">बुँदा नं.
+                                <span>{{this.freeInformation ? this.freeInformation?.section2?.irrevocableLetterOfCreditFreeText[i1]?.SNOfParentLimitIrrevocable : ''}}</span>
+                         <ng-container *ngIf="val.complimentaryLoanSelected !== 'TOTAL LIMIT'"> को पूरक सुविधा</ng-container>
+                                        <ng-container *ngIf="val.complimentaryLoanSelected === 'TOTAL LIMIT'"> कुल सुविधाको पूरक सुविधा </ng-container>
+                                    </ng-container></strong></span><br>
+                            </p>
+                            <p>
+                                <strong>सीमाः
+                                    <!--<ng-container *ngIf="val.complementryOther === true">(रु.
+                                    <span>{{ld?.loanAmountNp ? ld?.loanAmountNp : ''}}</span>
+                                    ।–)</ng-container>-->
+                                    <!--<ng-container *ngIf="val.complementryOther === false">-->
+                                        <ng-container>
+                                        रु.
+                                        <span>{{irrevocableLetter[i1] ? irrevocableLetter[i1].loanAmountNp : ''}}</span>
+                                        ।–</ng-container>(अक्षरेपी रु.
+                                    <span>{{irrevocableLetter[i1] ? irrevocableLetter[i1].loanAmountWords : ''}}</span>
+                                    मात्र)</strong><br>
+                                <strong>सुरक्षणः</strong> सम्पूर्ण सम्भावित जोखिमहरु सुरक्षित भएको कम्तिमा प्रतित पत्र
+                                मूल्यको ११०% बिमालेख सहित सम्बन्धित प्रतित पत्रका सम्पूर्ण सामानहरु ।<br>
+                                <strong>धरौटीः</strong> नगद
+                                <span [ngClass]="{'outside' : val.marginInPercentageCT !== null && val.marginInPercentageCT !== ''}">
+                            {{val.marginInPercentageCT === null || val.marginInPercentageCT === '' ? '___________' : val.marginInPercentageCT}}</span>
+                                % धरौटी स्वरुप रहनेछ ।<br>
+                            </p>
+                            <!--Commission Type 1-->
+                            <p *ngIf="val.commissionType === 'COMMISSION_TYPE_1'">
+                                <strong>कमिसनः</strong> प्रति त्रैमास
+                                <span [ngClass]="{'outside' : val.commissionRateCT !== null && val.commissionRateCT !== ''}">
+                            {{val.commissionRateCT === null || val.commissionRateCT === '' ? '___________' : val.commissionRateCT}}</span>
+                                % का दरले वा कम्तिमा रु.
+                                <span [ngClass]="{'outside' : val.minimumCommissionRateCT !== null && val.minimumCommissionRateCT !== ''}">
+                            {{val.minimumCommissionRateCT === null || val.minimumCommissionRateCT === '' ? '___________' : val.minimumCommissionRateCT}}</span>।– लाग्नेछ ।
+                            </p>
+
+                            <!--Commission Type 2-->
+                            <p *ngIf="val.commissionType === 'COMMISSION_TYPE_2'">
+                                <strong>कमिसनः</strong> पहिलो त्रैमासका लागि
+                                <span [ngClass]="{'outside' : val.commissionRateFirstQuarterCT !== null && val.commissionRateFirstQuarterCT !== ''}">
+                            {{val.commissionRateFirstQuarterCT === null || val.commissionRateFirstQuarterCT === '' ? '___________' : val.commissionRateFirstQuarterCT}}</span>
+                                % का दरले र त्यस पछिका त्रैमासहरुमा
+                                <span [ngClass]="{'outside' : val.commissionRateOtherQuarterCT !== null && val.commissionRateOtherQuarterCT !== ''}">
+                            {{val.commissionRateOtherQuarterCT === null || val.commissionRateOtherQuarterCT === '' ? '___________' : val.commissionRateOtherQuarterCT}}</span>% का
+                                दरले वा कम्तिमा रु.
+                                <span [ngClass]="{'outside' : val.minimumCommissionRateCT !== null && val.minimumCommissionRateCT !== ''}">
+                            {{val.minimumCommissionRateCT === null || val.minimumCommissionRateCT === '' ? '___________' : val.minimumCommissionRateCT}}</span>
+                                ।– लाग्नेछ ।
+                            </p>
+                            <p *ngIf="val.loanOption === 'REGULAR'">
+                                <strong>सुविधा समाप्ति/पुनरावलोकन मितिः</strong>
+                                {{val?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
+                                <span [ngClass]="{'outside' : val.dateOfExpiryCT !== null && val.dateOfExpiryCT !== ''}">
+                            {{val.dateOfExpiryCT === null || val.dateOfExpiryCT === '' ? '___________' : val.dateOfExpiryCT}}
+                            </span>
+                            </p>
+                            <p *ngIf="val.loanOption === 'ONE_OFF_BASIS'">
+                                <strong>सुविधा समाप्ति मितिः</strong>
+                                <span>{{this.freeInformation ? this.freeInformation?.section2?.irrevocableLetterOfCreditFreeText[i1]?.loanExpiryDateIrrevocable2 : ''}}</span>
+                                <br>
+                            </p>
+                        </td>
+                    </ng-container>
+                </tr>
+            </ng-container>
+
             <ng-container *ngIf="tempData?.equityMortgaged?.mortgageOverdraftFormArray">
                 <tr *ngFor="let val of tempData?.equityMortgaged?.mortgageOverdraftFormArray; let i1 = index">
                     <!--Mortgage Overdraft-->
@@ -9,6 +87,7 @@
                         <td style="width: 10%; border-right: 1px solid black; border-top: 1px solid black"><strong>{{
                             (tempData?.termLoanForm?.termLoanDetails?.length) +
                             (tempData?.autoLoanMasterForm?.autoLoanFormArray?.length) +
+                            (tempData?.letterOfCreditForm?.letterOfCreditFormArray.length) +
                             (i1 + 1) | nepaliWord}})</strong></td>
                         <td style="border-top: 1px solid black">
                          <span><strong>अचल सम्पत्ति सुरक्षणमा आधारीत अधिविकर्ष कर्जा
@@ -109,6 +188,7 @@
                         (tempData?.termLoanForm?.termLoanDetails?.length) +
                         (tempData?.autoLoanMasterForm?.autoLoanFormArray?.length) +
                         (tempData?.equityMortgaged?.mortgageOverdraftFormArray.length) +
+                        (tempData?.letterOfCreditForm?.letterOfCreditFormArray.length) +
                         (i1 + 1) | nepaliWord}})</strong></td>
                     <td style="border-top: 1px solid black">
                         <strong>बचत/ऋण पत्रमा आधारीत
@@ -193,6 +273,7 @@
                             (tempData?.autoLoanMasterForm?.autoLoanFormArray?.length) +
                             (tempData?.overDraftFacilityForm?.overdraftFacilityDetails.length) +
                             (tempData?.equityMortgaged?.mortgageOverdraftFormArray.length) +
+                            (tempData?.letterOfCreditForm?.letterOfCreditFormArray.length) +
                             (i2 + 1) | nepaliWord}})
                         </strong></td>
                     <td style="border-top: 1px solid black">
@@ -274,6 +355,7 @@
                             (tempData?.equityMortgaged?.mortgageOverdraftFormArray.length) +
                             (tempData?.termLoanForm?.termLoanDetails?.length) +
                             (tempData?.autoLoanMasterForm?.autoLoanFormArray?.length) +
+                            (tempData?.letterOfCreditForm?.letterOfCreditFormArray.length) +
                             (i1 + 1) | nepaliWord}})</strong></td>
                         <td style="border-top: 1px solid black">
                          <span><strong>सुरक्षणमा आधारीत स्वपुँजी अधिविकर्ष कर्जा
@@ -400,6 +482,7 @@
                                     (tempData?.documentaryBillPurchase?.documentaryBillPurchaseFormArray.length) +
                                     (tempData?.equityMortgaged?.mortgageOverdraftFormArray.length) +
                                     (tempData?.equityMortgaged?.equityMortgagedFormArray.length) +
+                                    (tempData?.letterOfCreditForm?.letterOfCreditFormArray.length) +
                                     (i3 + 1) | nepaliWord}})</strong></td>
                             <td style="border-top: 1px solid black"><strong>
                         <span [ngClass]="{'outside' : val.loanPeriodInDaysCT !== null && val.loanPeriodInDaysCT !== ''}">
@@ -471,6 +554,7 @@
                                 (tempData?.equityMortgaged?.mortgageOverdraftFormArray.length) +
                                 (tempData?.equityMortgaged?.equityMortgagedFormArray.length) +
                                 (tempData?.importBillsDiscountForm?.importBillsDiscountFormArray.length) +
+                                (tempData?.letterOfCreditForm?.letterOfCreditFormArray.length) +
                                 (i3 + 1) | nepaliWord}})
                             </strong>
                         </td>

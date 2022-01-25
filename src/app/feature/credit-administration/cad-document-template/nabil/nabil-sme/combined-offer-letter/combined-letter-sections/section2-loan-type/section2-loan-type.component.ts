@@ -143,6 +143,8 @@ export class Section2LoanTypeComponent implements OnInit {
     mortgageOverdraft = [];
     importBillsDiscounting = [];
     importBillsFreeText: Array<any> = new Array<any>();
+    irrevocableLetter = [];
+    irrevocableLetterOfCreditFreeText: Array<any> = new Array<any>();
 
     constructor(private formBuilder: FormBuilder,
                 private engToNepWord: NepaliCurrencyWordPipe,
@@ -181,14 +183,8 @@ export class Section2LoanTypeComponent implements OnInit {
     buildForm() {
         this.form = this.formBuilder.group({
             // Irrevocable letter of credit facility
-            SNOfParentLimitIrrevocable: [undefined],
-            marginInPercentageIrrevocable: [undefined],
-            commissionRateIrrevocable: [undefined],
-            commissionAmountIrrevocable: [undefined],
-            commissionRateForFirstQuarterIrrevocable: [undefined],
-            commissionRateForOtherQuarterIrrevocable: [undefined],
-            loanExpiryDateIrrevocable: [undefined],
-            loanExpiryDateIrrevocable2: [undefined],
+            irrevocableLetterOfCredit: this.formBuilder.array([]),
+
             // Customer Acceptance for Time Letter of Credit
             SNOfParentLimitTimeLetter: [undefined],
             marginInPercentageTimeLetter: [undefined],
@@ -313,6 +309,16 @@ export class Section2LoanTypeComponent implements OnInit {
         this.setEquityMortgageOverdraft();
         this.setMortgageOverdraft();
         this.setImportBillsDiscounting();
+        this.setIrrevocableLetterOfCredit();
+    }
+    setIrrevocableLetterOfCredit() {
+        if (!ObjectUtil.isEmpty(this.initialData) &&
+            !ObjectUtil.isEmpty(this.initialData.letterOfCreditForm) &&
+            !ObjectUtil.isEmpty(this.initialData.letterOfCreditForm.letterOfCreditFormArray)) {
+            for (let a = 0; a < this.initialData.letterOfCreditForm.letterOfCreditFormArray.length; a++) {
+                (this.form.get('irrevocableLetterOfCredit') as FormArray).push(this.setIrrevocableLetterOfCreditForm());
+            }
+        }
     }
     setImportBillsDiscounting() {
         if (!ObjectUtil.isEmpty(this.initialData) &&
@@ -379,6 +385,18 @@ export class Section2LoanTypeComponent implements OnInit {
                 (this.form.get('overdraftFacilityAgainstBond') as FormArray).push(this.setOverdraftBondForm());
             }
         }
+    }
+    setIrrevocableLetterOfCreditForm() {
+        return this.formBuilder.group({
+            SNOfParentLimitIrrevocable: [undefined],
+            marginInPercentageIrrevocable: [undefined],
+            commissionRateIrrevocable: [undefined],
+            commissionAmountIrrevocable: [undefined],
+            commissionRateForFirstQuarterIrrevocable: [undefined],
+            commissionRateForOtherQuarterIrrevocable: [undefined],
+            loanExpiryDateIrrevocable: [undefined],
+            loanExpiryDateIrrevocable2: [undefined]
+        });
     }
     setImportBillsDiscountForm() {
         return this.formBuilder.group({
@@ -549,7 +567,7 @@ export class Section2LoanTypeComponent implements OnInit {
                     this.timeLetterCreditFormPatchValue();
                 }
                 // tslint:disable-next-line:max-line-length
-                if (v.loanName === LoanNameConstant.IRREVOCABLE_LETTER_OF_CREDIT_FACILITY && !ObjectUtil.isEmpty(this.tempData.letterOfCreditForm)) {
+                /*if (v.loanName === LoanNameConstant.IRREVOCABLE_LETTER_OF_CREDIT_FACILITY && !ObjectUtil.isEmpty(this.tempData.letterOfCreditForm)) {
                     this.isIrrevocableLetter = true;
                     this.loanOptionIrrevocable = this.tempData.letterOfCreditForm.loanOption;
                     this.commissionTypeIrrevocable = this.tempData.letterOfCreditForm.commissionType;
@@ -558,7 +576,7 @@ export class Section2LoanTypeComponent implements OnInit {
                         this.complementaryOtherIrrevocable = true;
                     }
                     this.irrevocableLetterOfCredit();
-                }
+                }*/
                 // tslint:disable-next-line:max-line-length
                 /*if (v.loanName === LoanNameConstant.IMPORT_BILLS_DISCOUNTING && !ObjectUtil.isEmpty(this.tempData.importBillsDiscountForm)) {
                     this.isBillDiscounting = true;
@@ -718,25 +736,40 @@ export class Section2LoanTypeComponent implements OnInit {
         this.equityMortgageFormPatchValue();
         this.mortgageOverdraftPatchValue();
         this.importBillsDiscountFormPatchValue();
+        this.irrevocableLetterOfCredit();
     }
 
     irrevocableLetterOfCredit() {
-        this.form.patchValue({
-            // Irrevocable letter of credit facility
-            // SNOfParentLimitIrrevocable: [undefined],
-            // tslint:disable-next-line:max-line-length
-            marginInPercentageIrrevocable: this.tempData.letterOfCreditForm.marginInPercentageCT ? this.tempData.letterOfCreditForm.marginInPercentageCT : '',
-            // tslint:disable-next-line:max-line-length
-            commissionRateIrrevocable: this.tempData.letterOfCreditForm.commissionRateCT ? this.tempData.letterOfCreditForm.commissionRateCT : '',
-            // tslint:disable-next-line:max-line-length
-            commissionAmountIrrevocable: this.tempData.letterOfCreditForm.minimumCommissionRateCT ? this.tempData.letterOfCreditForm.minimumCommissionRateCT : '',
-            // tslint:disable-next-line:max-line-length
-            commissionRateForFirstQuarterIrrevocable: this.tempData.letterOfCreditForm.commissionRateFirstQuarterCT ? this.tempData.letterOfCreditForm.commissionRateFirstQuarterCT : '',
-            // tslint:disable-next-line:max-line-length
-            commissionRateForOtherQuarterIrrevocable: this.tempData.letterOfCreditForm.commissionRateOtherQuarterCT ? this.tempData.letterOfCreditForm.commissionRateOtherQuarterCT : '',
-            // tslint:disable-next-line:max-line-length
-            loanExpiryDateIrrevocable: this.tempData.letterOfCreditForm.dateOfExpiryCT ? this.tempData.letterOfCreditForm.dateOfExpiryCT : '',
-        });
+        if (!ObjectUtil.isEmpty(this.tempData) &&
+            !ObjectUtil.isEmpty(this.tempData.letterOfCreditForm) &&
+            !ObjectUtil.isEmpty(this.tempData.letterOfCreditForm.letterOfCreditFormArray)) {
+            for (let val = 0; val < this.tempData.letterOfCreditForm.letterOfCreditFormArray.length; val++) {
+                this.form.get(['irrevocableLetterOfCredit', val, 'marginInPercentageIrrevocable']).patchValue(
+                    this.tempData.letterOfCreditForm.letterOfCreditFormArray[val] ?
+                        this.tempData.letterOfCreditForm.letterOfCreditFormArray[val].marginInPercentageCT : ''
+                );
+                this.form.get(['irrevocableLetterOfCredit', val, 'commissionRateIrrevocable']).patchValue(
+                    this.tempData.letterOfCreditForm.letterOfCreditFormArray[val] ?
+                        this.tempData.letterOfCreditForm.letterOfCreditFormArray[val].commissionRateCT : ''
+                );
+                this.form.get(['irrevocableLetterOfCredit', val, 'commissionAmountIrrevocable']).patchValue(
+                    this.tempData.letterOfCreditForm.letterOfCreditFormArray[val] ?
+                        this.tempData.letterOfCreditForm.letterOfCreditFormArray[val].minimumCommissionRateCT : ''
+                );
+                this.form.get(['irrevocableLetterOfCredit', val, 'commissionRateForFirstQuarterIrrevocable']).patchValue(
+                    this.tempData.letterOfCreditForm.letterOfCreditFormArray[val] ?
+                        this.tempData.letterOfCreditForm.letterOfCreditFormArray[val].commissionRateFirstQuarterCT : ''
+                );
+                this.form.get(['irrevocableLetterOfCredit', val, 'commissionRateForOtherQuarterIrrevocable']).patchValue(
+                    this.tempData.letterOfCreditForm.letterOfCreditFormArray[val] ?
+                        this.tempData.letterOfCreditForm.letterOfCreditFormArray[val].commissionRateOtherQuarterCT : ''
+                );
+                this.form.get(['irrevocableLetterOfCredit', val, 'loanExpiryDateIrrevocable']).patchValue(
+                    this.tempData.letterOfCreditForm.letterOfCreditFormArray[val] ?
+                        this.tempData.letterOfCreditForm.letterOfCreditFormArray[val].dateOfExpiryCT : ''
+                );
+            }
+        }
     }
 
 
@@ -1102,7 +1135,7 @@ export class Section2LoanTypeComponent implements OnInit {
         this.freeTextVal = {
             autoLoanFreeText: !ObjectUtil.isEmpty(tempAutoLoanFreeVal) ? tempAutoLoanFreeVal : '',
             termLoanFreeText: !ObjectUtil.isEmpty(tempTermLoanFreeVal) ? tempTermLoanFreeVal : '',
-            loanExpiryIrrevocable: this.form.get('loanExpiryDateIrrevocable2').value ? this.form.get('loanExpiryDateIrrevocable2').value : '',
+            // loanExpiryIrrevocable: this.form.get('loanExpiryDateIrrevocable2').value ? this.form.get('loanExpiryDateIrrevocable2').value : '',
             loanExpiryTimeLetter: this.form.get('loanExpiryDateTimeLetter2').value ? this.form.get('loanExpiryDateTimeLetter2').value : '',
             // freeText1: this.form.get('freeTextOne').value ? this.form.get('freeTextOne').value : '',
             freeText2: this.form.get('freeTextTwo').value ? this.form.get('freeTextTwo').value : '',
@@ -1132,7 +1165,7 @@ export class Section2LoanTypeComponent implements OnInit {
             freeText16: this.form.get('freeTextSixteen').value ? this.form.get('freeTextSixteen').value : '',
             snOfFacility: this.form.get('SNOfFacility').value ? this.form.get('SNOfFacility').value : '',
             remainDaysLoan: this.form.get('remainDaysLoanTrust').value ? this.form.get('remainDaysLoanTrust').value : '',
-            SNIrrevocable: this.form.get('SNOfParentLimitIrrevocable').value ? this.form.get('SNOfParentLimitIrrevocable').value : '',
+            // SNIrrevocable: this.form.get('SNOfParentLimitIrrevocable').value ? this.form.get('SNOfParentLimitIrrevocable').value : '',
             SNTimeLetter: this.form.get('SNOfParentLimitTimeLetter').value ? this.form.get('SNOfParentLimitTimeLetter').value : '',
             // tslint:disable-next-line:max-line-length
             // SNBillsDiscounting: this.form.get('SNOfParentLimitBillsDiscounting').value ? this.form.get('SNOfParentLimitBillsDiscounting').value : '',
@@ -1145,6 +1178,7 @@ export class Section2LoanTypeComponent implements OnInit {
             documentaryBillPurchaseFreeText: this.documentaryBillFreeText(),
             billsPurchaseFreeText: this.billsPurchaseFreeText(),
             importBillsDiscountingFreeText: this.importBillsDiscountingFreeText(),
+            irrevocableLetterOfCreditFreeText: this.irrevocableLetterOfCreditFree(),
             SNBridgeGap: this.form.get('SNOfParentLimitBridgeGap').value ? this.form.get('SNOfParentLimitBridgeGap').value : '',
             SNBankGuarantee: this.form.get('SNOfParentLimitBankGuarantee').value ? this.form.get('SNOfParentLimitBankGuarantee').value : '',
             // SNBillsPurchase: this.form.get('SNOfParentLimitBillsPurchase').value ? this.form.get('SNOfParentLimitBillsPurchase').value : '',
@@ -1153,6 +1187,22 @@ export class Section2LoanTypeComponent implements OnInit {
         return this.freeTextVal;
     }
 
+    irrevocableLetterOfCreditFree() {
+        if (!ObjectUtil.isEmpty(this.tempData) &&
+            !ObjectUtil.isEmpty(this.tempData.letterOfCreditForm) &&
+            !ObjectUtil.isEmpty(this.tempData.letterOfCreditForm.letterOfCreditFormArray)) {
+            for (let val = 0; val < this.tempData.letterOfCreditForm.letterOfCreditFormArray.length; val++) {
+                const tempFreeText = {
+                    loanExpiryDateIrrevocable2: this.form.get(['irrevocableLetterOfCredit', val, 'loanExpiryDateIrrevocable2']).value ?
+                        this.form.get(['irrevocableLetterOfCredit', val, 'loanExpiryDateIrrevocable2']).value : '',
+                    SNOfParentLimitIrrevocable: this.form.get(['irrevocableLetterOfCredit', val, 'SNOfParentLimitIrrevocable']).value ?
+                        this.form.get(['irrevocableLetterOfCredit', val, 'SNOfParentLimitIrrevocable']).value : '',
+                };
+                this.irrevocableLetterOfCreditFreeText.push(tempFreeText);
+            }
+            return this.irrevocableLetterOfCreditFreeText;
+        }
+    }
     importBillsDiscountingFreeText() {
         if (!ObjectUtil.isEmpty(this.tempData) &&
             !ObjectUtil.isEmpty(this.tempData.importBillsDiscountForm) &&
@@ -1207,6 +1257,7 @@ export class Section2LoanTypeComponent implements OnInit {
         this.setDocumentaryBillFreetext();
         this.setBillsPurchaseFreeText();
         this.setImportBillsFreeText();
+        this.setIrrevocableLetterOfCreditFreeText();
         this.form.patchValue({
             // freeTextOne: this.tempInformation ? this.tempInformation.section2.freeText1 : '',
             freeTextTwo: this.tempInformation ? this.tempInformation.section2.freeText2 : '',
@@ -1219,7 +1270,7 @@ export class Section2LoanTypeComponent implements OnInit {
             freeTextNine: this.tempInformation ? this.tempInformation.section2.freeText9 : '',
             // freeTextFifteen: this.tempInformation ? this.tempInformation.section2.freeText15 : '',
             freeTextSixteen: this.tempInformation ? this.tempInformation.section2.freeText16 : '',
-            loanExpiryDateIrrevocable2: this.tempInformation ? this.tempInformation.section2.loanExpiryIrrevocable : '',
+            // loanExpiryDateIrrevocable2: this.tempInformation ? this.tempInformation.section2.loanExpiryIrrevocable : '',
             loanExpiryDateTimeLetter2: this.tempInformation ? this.tempInformation.section2.loanExpiryTimeLetter : '',
             remainDaysShortTermLoan: this.tempInformation ? this.tempInformation.section2.remainingDaysShortTerms : '',
             interestRatePreExport: this.tempInformation ? this.tempInformation.section2.interestRatePre : '',
@@ -1228,7 +1279,7 @@ export class Section2LoanTypeComponent implements OnInit {
             loanPaymentDocumentaryBill: this.tempInformation ? this.tempInformation.section2.loanPaymentDocumentary : '',*/
             SNOfFacility: this.tempInformation ? this.tempInformation.section2.snOfFacility : '',
             remainDaysLoanTrust: this.tempInformation ? this.tempInformation.section2.remainDaysLoan : '',
-            SNOfParentLimitIrrevocable: this.tempInformation ? this.tempInformation.section2.SNIrrevocable : '',
+            // SNOfParentLimitIrrevocable: this.tempInformation ? this.tempInformation.section2.SNIrrevocable : '',
             SNOfParentLimitTimeLetter: this.tempInformation ? this.tempInformation.section2.SNTimeLetter : '',
             // SNOfParentLimitBillsDiscounting: this.tempInformation ? this.tempInformation.section2.SNBillsDiscounting : '',
             SNOfParentLimitLoanTrust: this.tempInformation ? this.tempInformation.section2.SNLoanTrust : '',
@@ -1242,6 +1293,20 @@ export class Section2LoanTypeComponent implements OnInit {
         });
     }
 
+    setIrrevocableLetterOfCreditFreeText() {
+        if (!ObjectUtil.isEmpty(this.tempInformation) &&
+            !ObjectUtil.isEmpty(this.tempInformation.section2) &&
+            !ObjectUtil.isEmpty(this.tempInformation.section2.irrevocableLetterOfCreditFreeText)) {
+            for (let val = 0; val < this.tempInformation.section2.irrevocableLetterOfCreditFreeText.length; val++) {
+                this.form.get(['irrevocableLetterOfCredit', val, 'loanExpiryDateIrrevocable2']).patchValue(
+                    this.tempInformation.section2.irrevocableLetterOfCreditFreeText[val] ?
+                        this.tempInformation.section2.irrevocableLetterOfCreditFreeText[val].loanExpiryDateIrrevocable2 : '');
+                this.form.get(['irrevocableLetterOfCredit', val, 'SNOfParentLimitIrrevocable']).patchValue(
+                    this.tempInformation.section2.irrevocableLetterOfCreditFreeText[val] ?
+                        this.tempInformation.section2.irrevocableLetterOfCreditFreeText[val].SNOfParentLimitIrrevocable : '');
+            }
+        }
+    }
     setImportBillsFreeText() {
         if (!ObjectUtil.isEmpty(this.tempInformation) &&
             !ObjectUtil.isEmpty(this.tempInformation.section2) &&
@@ -1298,6 +1363,7 @@ export class Section2LoanTypeComponent implements OnInit {
         this.equityMortgageOverdraft = this.loanData.filter(data => data.loanName === this.loanNameConstant.EQUITY_MORTGAGED_OVERDRAFT);
         this.mortgageOverdraft = this.loanData.filter(data => data.loanName === this.loanNameConstant.MORTGAGE_OVERDRAFT);
         this.importBillsDiscounting = this.loanData.filter(data => data.loanName === this.loanNameConstant.IMPORT_BILLS_DISCOUNTING);
+        this.irrevocableLetter = this.loanData.filter(data => data.loanName === this.loanNameConstant.IRREVOCABLE_LETTER_OF_CREDIT_FACILITY);
         this.autoLoanDetails = this.loanData.filter(data => data.loanName === this.loanNameConstant.AUTO_LOAN);
         this.termLoanDetails = this.loanData.filter(data => data.loanName === this.loanNameConstant.TERM_LOAN_TO_FOR_PURCHASE_OF_VEHICLE);
     }
