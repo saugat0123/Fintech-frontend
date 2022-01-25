@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {NepaliCurrencyWordPipe} from '../../../../../../../../../@core/pipe/nepali-currency-word.pipe';
 import {EngToNepaliNumberPipe} from '../../../../../../../../../@core/pipe/eng-to-nepali-number.pipe';
 import {CurrencyFormatterPipe} from '../../../../../../../../../@core/pipe/currency-formatter.pipe';
@@ -12,6 +12,7 @@ import {OfferDocument} from '../../../../../../../model/OfferDocument';
   styleUrls: ['./bridge-gap-loan.component.scss']
 })
 export class BridgeGapLoanComponent implements OnInit {
+  @Input() customerApprovedDoc;
   @Input() loanName;
   @Input() offerDocumentList: Array<OfferDocument>;
   initialInformation: any;
@@ -19,6 +20,7 @@ export class BridgeGapLoanComponent implements OnInit {
   isComplimentryOtherLoan = false;
   isInterestSubsidy = false;
   loanDetails: any = [];
+  bridgeGapNumber: Array<any> = new Array<any>();
 
   constructor(
       private formBuilder: FormBuilder,
@@ -28,6 +30,9 @@ export class BridgeGapLoanComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.bridgeGapNumber = this.customerApprovedDoc.assignedLoan.filter(val =>
+        val.loan.name === 'BRIDGE GAP LOAN');
+    console.log(this.customerApprovedDoc);
     this.buildForm();
     if (!ObjectUtil.isEmpty(this.loanName)) {
       this.loanDetails = this.loanName;
@@ -43,6 +48,12 @@ export class BridgeGapLoanComponent implements OnInit {
   }
   buildForm() {
     this.bridgeGapLoan = this.formBuilder.group({
+      bridgeGapDetails: this.formBuilder.array([])
+    });
+    this.setTermLoanForm();
+  }
+  setFormArray() {
+    return this.formBuilder.group({
       // for form data
       complementryOther: [undefined],
       interestSubsidy: [undefined],
@@ -75,76 +86,92 @@ export class BridgeGapLoanComponent implements OnInit {
       totalInterestRateCT: [undefined],
     });
   }
-  checkComplimetryOtherLoan(data) {
-    this.isComplimentryOtherLoan = data;
-    this.bridgeGapLoan.get('complementryOther').patchValue(this.isComplimentryOtherLoan);
-  }
-  interestSubsidyCheck(data) {
-    this.isInterestSubsidy = data;
-    this.bridgeGapLoan.get('interestSubsidy').patchValue(this.isInterestSubsidy);
-  }
-  public getNumAmountWord(numLabel, wordLabel): void {
-    const transformValue = this.nepaliCurrencyWordPipe.transform(this.bridgeGapLoan.get(numLabel).value);
-    this.bridgeGapLoan.get(wordLabel).patchValue(transformValue);
-  }
-  translateAndSetVal() {
-    // set translate data for subsidy
-    this.bridgeGapLoan.get('interestSubsidy').patchValue(this.isInterestSubsidy);
-    /* SET TRANS VALUE FOR CONDITIONS */
-    const tempComplemetry = this.bridgeGapLoan.get('complementryOther').value;
-    if (!ObjectUtil.isEmpty(tempComplemetry)) {
-      this.bridgeGapLoan.get('complementryOtherTrans').patchValue(tempComplemetry);
+  setTermLoanForm() {
+    for (let a = 0; a < this.bridgeGapNumber.length; a++) {
+      (this.bridgeGapLoan.get('bridgeGapDetails') as FormArray).push(this.setFormArray());
     }
-    const tempComplimentaryLoanSelected = this.bridgeGapLoan.get('complimentaryLoanSelected').value;
+  }
+  checkComplimetryOtherLoan(event, i) {
+    if (!event) {
+      this.bridgeGapLoan.get(['bridgeGapDetails', i, 'complimentaryLoanSelected']).patchValue(null);
+    }
+  }
+  interestSubsidyCheck(event, i) {
+    if (!event) {
+      this.bridgeGapLoan.get(['bridgeGapDetails', i, 'totalInterestRate']).patchValue(null);
+    }
+  }
+  public getNumAmountWord(numLabel, wordLabel, i): void {
+    const transformValue = this.nepaliCurrencyWordPipe.transform(this.bridgeGapLoan.get(['bridgeGapDetails', i,  numLabel]).value);
+    this.bridgeGapLoan.get(['bridgeGapDetails', i, wordLabel]).patchValue(transformValue);
+  }
+  translateAndSetVal(i) {
+    // set translate data for subsidy
+/*    this.bridgeGapLoan.get(['bridgeGapDetails', i, 'interestSubsidy']).patchValue(this.isInterestSubsidy);
+    */
+    const tempSubsidy = this.bridgeGapLoan.get(['bridgeGapDetails', i, 'interestSubsidy']).value;
+    if (!ObjectUtil.isEmpty(tempSubsidy)) {
+      this.bridgeGapLoan.get(['bridgeGapDetails', i, 'interestSubsidyTrans']).patchValue(tempSubsidy);
+    }
+    const tempSubsidySelected = this.bridgeGapLoan.get(['bridgeGapDetails', i, 'totalInterestRate']).value;
+    if (!ObjectUtil.isEmpty(tempSubsidySelected)) {
+      this.bridgeGapLoan.get(['bridgeGapDetails', i, 'totalInterestRateTrans']).patchValue(tempSubsidySelected);
+    }
+    /* SET TRANS VALUE FOR CONDITIONS */
+    const tempComplemetry = this.bridgeGapLoan.get(['bridgeGapDetails', i, 'complementryOther']).value;
+    if (!ObjectUtil.isEmpty(tempComplemetry)) {
+      this.bridgeGapLoan.get(['bridgeGapDetails', i, 'complementryOtherTrans']).patchValue(tempComplemetry);
+    }
+    const tempComplimentaryLoanSelected = this.bridgeGapLoan.get(['bridgeGapDetails', i, 'complimentaryLoanSelected']).value;
     if (!ObjectUtil.isEmpty(tempComplimentaryLoanSelected)) {
-      this.bridgeGapLoan.get('complimentaryLoanSelectedTrans').patchValue(tempComplimentaryLoanSelected);
+      this.bridgeGapLoan.get(['bridgeGapDetails', i, 'complimentaryLoanSelectedTrans']).patchValue(tempComplimentaryLoanSelected);
     }
     /* SET TRANS VALUE FOR OTHER NUMBER FIELDS */
-    const tempLoanAmount = this.bridgeGapLoan.get('loanAmount').value;
+    const tempLoanAmount = this.bridgeGapLoan.get(['bridgeGapDetails', i, 'loanAmount']).value;
     const convertNumber = !ObjectUtil.isEmpty(tempLoanAmount) ?
         this.convertNumbersToNepali(tempLoanAmount, true) : '';
-    this.bridgeGapLoan.get('loanAmountTrans').patchValue(convertNumber);
+    this.bridgeGapLoan.get(['bridgeGapDetails', i, 'loanAmountTrans']).patchValue(convertNumber);
 
-    this.bridgeGapLoan.get('loanAmountWordsTrans').patchValue(
-        this.bridgeGapLoan.get('loanAmountWords').value
+    this.bridgeGapLoan.get(['bridgeGapDetails', i, 'loanAmountWordsTrans']).patchValue(
+        this.bridgeGapLoan.get(['bridgeGapDetails', i, 'loanAmountWords']).value
     );
-    const baseRate1 = this.convertNumbersToNepali(this.bridgeGapLoan.get('baseRate').value, false);
-    this.bridgeGapLoan.get('baseRateTrans').patchValue(baseRate1);
-    const premiumRate1 = this.convertNumbersToNepali(this.bridgeGapLoan.get('premiumRate').value, false);
-    this.bridgeGapLoan.get('premiumRateTrans').patchValue(premiumRate1);
-    const interestRate = this.convertNumbersToNepali(this.bridgeGapLoan.get('interestRate').value, false);
-    this.bridgeGapLoan.get('interestRateTrans').patchValue(interestRate);
-    const totalinterestRate = this.convertNumbersToNepali(this.bridgeGapLoan.get('totalInterestRate').value, false);
-    this.bridgeGapLoan.get('totalInterestRateTrans').patchValue(totalinterestRate);
-    this.setCTValue();
+    const baseRate1 = this.convertNumbersToNepali(this.bridgeGapLoan.get(['bridgeGapDetails', i, 'baseRate']).value, false);
+    this.bridgeGapLoan.get(['bridgeGapDetails', i, 'baseRateTrans']).patchValue(baseRate1);
+    const premiumRate1 = this.convertNumbersToNepali(this.bridgeGapLoan.get(['bridgeGapDetails', i, 'premiumRate']).value, false);
+    this.bridgeGapLoan.get(['bridgeGapDetails', i, 'premiumRateTrans']).patchValue(premiumRate1);
+    const interestRate = this.convertNumbersToNepali(this.bridgeGapLoan.get(['bridgeGapDetails', i, 'interestRate']).value, false);
+    this.bridgeGapLoan.get(['bridgeGapDetails', i, 'interestRateTrans']).patchValue(interestRate);
+    const totalinterestRate = this.convertNumbersToNepali(this.bridgeGapLoan.get(['bridgeGapDetails', i, 'totalInterestRate']).value, false);
+    this.bridgeGapLoan.get(['bridgeGapDetails', i, 'totalInterestRateTrans']).patchValue(totalinterestRate);
+    this.setCTValue(i);
   }
-  setCTValue() {
-    this.bridgeGapLoan.get('complementryOtherCT').patchValue(
-        this.bridgeGapLoan.get('complementryOtherTrans').value
+  setCTValue(i) {
+    this.bridgeGapLoan.get(['bridgeGapDetails', i, 'complementryOtherCT']).patchValue(
+        this.bridgeGapLoan.get(['bridgeGapDetails', i, 'complementryOtherTrans']).value
     );
-    this.bridgeGapLoan.get('complimentaryLoanSelectedCT').patchValue(
-        this.bridgeGapLoan.get('complimentaryLoanSelectedTrans').value
+    this.bridgeGapLoan.get(['bridgeGapDetails', i, 'complimentaryLoanSelectedCT']).patchValue(
+        this.bridgeGapLoan.get(['bridgeGapDetails', i, 'complimentaryLoanSelectedTrans']).value
     );
-    this.bridgeGapLoan.get('interestSubsidyCT').patchValue(
-        this.bridgeGapLoan.get('interestSubsidy').value
+    this.bridgeGapLoan.get(['bridgeGapDetails', i, 'interestSubsidyCT']).patchValue(
+        this.bridgeGapLoan.get(['bridgeGapDetails', i, 'interestSubsidyTrans']).value
     );
-    this.bridgeGapLoan.get('loanAmountCT').patchValue(
-        this.bridgeGapLoan.get('loanAmountTrans').value
+    this.bridgeGapLoan.get(['bridgeGapDetails', i, 'loanAmountCT']).patchValue(
+        this.bridgeGapLoan.get(['bridgeGapDetails', i, 'loanAmountTrans']).value
     );
-    this.bridgeGapLoan.get('loanAmountWordsCT').patchValue(
-        this.bridgeGapLoan.get('loanAmountWordsTrans').value
+    this.bridgeGapLoan.get(['bridgeGapDetails', i, 'loanAmountWordsCT']).patchValue(
+        this.bridgeGapLoan.get(['bridgeGapDetails', i, 'loanAmountWordsTrans']).value
     );
-    this.bridgeGapLoan.get('baseRateCT').patchValue(
-        this.bridgeGapLoan.get('baseRateTrans').value
+    this.bridgeGapLoan.get(['bridgeGapDetails', i, 'baseRateCT']).patchValue(
+        this.bridgeGapLoan.get(['bridgeGapDetails', i, 'baseRateTrans']).value
     );
-    this.bridgeGapLoan.get('premiumRateCT').patchValue(
-        this.bridgeGapLoan.get('premiumRateTrans').value
+    this.bridgeGapLoan.get(['bridgeGapDetails', i, 'premiumRateCT']).patchValue(
+        this.bridgeGapLoan.get(['bridgeGapDetails', i, 'premiumRateTrans']).value
     );
-    this.bridgeGapLoan.get('interestRateCT').patchValue(
-        this.bridgeGapLoan.get('interestRateTrans').value
+    this.bridgeGapLoan.get(['bridgeGapDetails', i, 'interestRateCT']).patchValue(
+        this.bridgeGapLoan.get(['bridgeGapDetails', i, 'interestRateTrans']).value
     );
-    this.bridgeGapLoan.get('totalInterestRateCT').patchValue(
-        this.bridgeGapLoan.get('totalInterestRateTrans').value
+    this.bridgeGapLoan.get(['bridgeGapDetails', i, 'totalInterestRateCT']).patchValue(
+        this.bridgeGapLoan.get(['bridgeGapDetails', i, 'totalInterestRateTrans']).value
     );
   }
   /* FOR CURRENCY FORMATTER IT TAKES PARAMETER TYPE TRUE*/
@@ -161,10 +188,10 @@ export class BridgeGapLoanComponent implements OnInit {
     }
     return finalConvertedVal;
   }
-  calInterestRate() {
-    const baseRate = this.bridgeGapLoan.get('baseRate').value;
-    const premiumRate = this.bridgeGapLoan.get('premiumRate').value;
+  calInterestRate(i) {
+    const baseRate = this.bridgeGapLoan.get(['bridgeGapDetails', i, 'baseRate']).value;
+    const premiumRate = this.bridgeGapLoan.get(['bridgeGapDetails', i, 'premiumRate']).value;
     const sum = parseFloat(baseRate) + parseFloat(premiumRate);
-    this.bridgeGapLoan.get('interestRate').patchValue(sum);
+    this.bridgeGapLoan.get(['bridgeGapDetails', i, 'interestRate']).patchValue(sum);
   }
 }
