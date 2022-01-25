@@ -17,6 +17,7 @@ export class Section7SecurityClauseComponent implements OnInit {
   isGharJaggaVisible: boolean;
   isSamanMojdatVisible: boolean;
   isReceivableVisible: boolean;
+  nepaliText = 'मासिक/त्रैमासिक';
 
   constructor(private formbuilder: FormBuilder) {
   }
@@ -56,6 +57,7 @@ export class Section7SecurityClauseComponent implements OnInit {
   buildForm() {
     this.form = this.formbuilder.group({
       nameOfBranch: [undefined],
+      yearlyText: [undefined],
     });
   }
 
