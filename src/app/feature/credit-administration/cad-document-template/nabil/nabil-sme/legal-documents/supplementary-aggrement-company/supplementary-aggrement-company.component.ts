@@ -14,6 +14,7 @@ import {NbDialogRef} from '@nebular/theme';
 import {CadOfferLetterModalComponent} from '../../../../../cad-offerletter-profile/cad-offer-letter-modal/cad-offer-letter-modal.component';
 import {RouterUtilsService} from '../../../../../utils/router-utils.service';
 import {EngNepDatePipe} from 'nepali-patro';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-supplementary-aggrement-company',
@@ -42,6 +43,7 @@ export class SupplementaryAggrementCompanyComponent implements OnInit {
               private engToNepNumberPipe: EngToNepaliNumberPipe,
               private currencyFormatPipe: CurrencyFormatterPipe,
               public engToNepaliDate: EngNepDatePipe,
+              private datePipe: DatePipe
               ) { }
 
   ngOnInit() {
@@ -149,14 +151,16 @@ export class SupplementaryAggrementCompanyComponent implements OnInit {
         }
       }
       if (this.cadData.offerDocumentList[0].docName === 'Combined Offer Letter') {
-        const dateOfApproval = this.initialInfo.smeGlobalForm.dateOfApprovalType ?
+        const dateOfApprovalType = this.initialInfo.smeGlobalForm.dateOfApprovalType ?
             this.initialInfo.smeGlobalForm.dateOfApprovalType : '';
-        if (dateOfApproval === 'AD') {
-          this.sanctionDate = this.engToNepaliDate.transform(this.initialInfo.smeGlobalForm.dateOfApproval ?
-              this.initialInfo.smeGlobalForm.dateOfApprovalCT : '', true);
+        if (dateOfApprovalType === 'AD') {
+          const templateDateApproval = this.initialInfo.smeGlobalForm.dateOfApproval ?
+              this.initialInfo.smeGlobalForm.dateOfApprovalCT : '';
+          this.sanctionDate = this.initialInfo.transform(this.datePipe.transform(templateDateApproval), true);
         } else {
-          this.sanctionDate = this.initialInfo.smeGlobalForm.dateOfApprovalNepali ?
-              this.initialInfo.smeGlobalForm.dateOfApprovalNepali.nDate : '';
+          const templateDateApproval = this.initialInfo.smeGlobalForm.dateOfApprovalNepali ?
+              this.initialInfo.smeGlobalForm.dateOfApprovalNepali : '';
+          this.sanctionDate = templateDateApproval ? templateDateApproval.nDate : '';
         }
       }
     }
