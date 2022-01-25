@@ -71,10 +71,14 @@
                                 बुझीलिने गोश्वारा-पत्र (General Letter of Trust Receipt)"
                                 मा उल्लेखित शर्तबन्देज अनुरुप मेरो/हाम्रो अनुरोधमा तहांले खोलीदिएको नं.
                                 <input class="form-field disable-print form-control-sm" name="Letter of Credit No"
-                                    formControlName="letterOfCreditNo" type="text" /> मिति
+                                    formControlName="letterOfCreditNo" type="text" />
+                                <span class="print-only font-weight-bold">
+                                    {{supplementaryAgreementProprietorship?.get('letterOfCreditNo')?.value || '_________________' }}</span> मिति
                                 <input class="form-field disable-print form-control-sm"
                                     name="Letter of Credit Issued Date" formControlName="letterOfCreditIssuedDate"
                                     type="text" />
+                                <span class="print-only font-weight-bold">
+                                    {{supplementaryAgreementProprietorship?.get('letterOfCreditIssuedDate')?.value || '_________________' }}</span>
                                 को प्रतीतपत्र अन्तर्गत आयात गरी वा अन्य माध्यमबाट खरिद गरी हाम्रो जिम्मामा रहेको देहायमा
                                 उल्लेखित सुरक्षणका सामानहरुमाथि त्यस बैंकको हकाधिकार रहने गरी यो पूरक सम्झौता गरीदिएका
                                 छौं:
