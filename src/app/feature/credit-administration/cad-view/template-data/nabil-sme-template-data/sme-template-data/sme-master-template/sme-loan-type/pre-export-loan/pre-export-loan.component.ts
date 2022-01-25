@@ -1,11 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {ObjectUtil} from "../../../../../../../../../@core/utils/ObjectUtil";
-import {FormBuilder, FormGroup} from "@angular/forms";
-import {NepaliCurrencyWordPipe} from "../../../../../../../../../@core/pipe/nepali-currency-word.pipe";
-import {EngToNepaliNumberPipe} from "../../../../../../../../../@core/pipe/eng-to-nepali-number.pipe";
-import {CurrencyFormatterPipe} from "../../../../../../../../../@core/pipe/currency-formatter.pipe";
-import {DatePipe} from "@angular/common";
-import {EngNepDatePipe} from "nepali-patro";
+import {ObjectUtil} from '../../../../../../../../../@core/utils/ObjectUtil';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {NepaliCurrencyWordPipe} from '../../../../../../../../../@core/pipe/nepali-currency-word.pipe';
+import {EngToNepaliNumberPipe} from '../../../../../../../../../@core/pipe/eng-to-nepali-number.pipe';
+import {CurrencyFormatterPipe} from '../../../../../../../../../@core/pipe/currency-formatter.pipe';
+import {DatePipe} from '@angular/common';
+import {EngNepDatePipe} from 'nepali-patro';
 import {OfferDocument} from '../../../../../../../model/OfferDocument';
 
 @Component({
@@ -15,16 +15,18 @@ import {OfferDocument} from '../../../../../../../model/OfferDocument';
 })
 export class PreExportLoanComponent implements OnInit {
   @Input() loanName;
+  @Input() customerApprovedDoc;
   @Input() offerDocumentList: Array<OfferDocument>;
   initialInformation: any;
   preExportForm: FormGroup;
-  isComplimentryOtherLoan = false;
+  isComplementaryOtherLoan = false;
   dateType = [{key: 'AD', value: 'AD', checked: true}, {key: 'BS', value: 'BS'}];
   ADExpiry = false;
   BSExpiry = false;
   loanDetails: any = [];
   isMarketValue = false;
   isLetterOfCredit = false;
+  termLoanNumber: Array<any> = new Array<any>();
 
 
   constructor(private formBuilder: FormBuilder,
@@ -35,6 +37,9 @@ export class PreExportLoanComponent implements OnInit {
               private engToNepDatePipe: EngNepDatePipe) { }
 
   ngOnInit() {
+    this.termLoanNumber = this.customerApprovedDoc.assignedLoan.filter(val =>
+        val.loan.name === 'PRE-EXPORT LOAN');
+    console.log(this.customerApprovedDoc);
     this.buildForm();
     if (!ObjectUtil.isEmpty(this.loanName)) {
       this.loanDetails = this.loanName;
@@ -63,10 +68,16 @@ export class PreExportLoanComponent implements OnInit {
 
   buildForm() {
     this.preExportForm = this.formBuilder.group({
-      //for form data
-      complementryOther: [undefined],
+      termLoanDetails: this.formBuilder.array([])
+    });
+    this.setTermLoanForm();
+  }
+  setFormArray() {
+    return this.formBuilder.group({
+      // for form data
+      complementaryOther: [undefined],
       drawingBasis: [undefined],
-      complimentaryLoanSelected: [undefined],
+      complementaryLoanSelected: [undefined],
       loanAmount: [undefined],
       loanAmountWords: [undefined],
       drawingPower: [undefined],
@@ -74,10 +85,10 @@ export class PreExportLoanComponent implements OnInit {
       dateOfExpiryNepali: [undefined],
       dateOfExpiry: [undefined],
 
-      //for translated data
-      complementryOtherTrans: [undefined],
+      // for translated data
+      complementaryOtherTrans: [undefined],
       drawingBasisTrans: [undefined],
-      complimentaryLoanSelectedTrans: [undefined],
+      complementaryLoanSelectedTrans: [undefined],
       loanAmountTrans: [undefined],
       loanAmountWordsTrans: [undefined],
       drawingPowerTrans: [undefined],
@@ -85,23 +96,28 @@ export class PreExportLoanComponent implements OnInit {
       dateOfExpiryNepaliTrans: [undefined],
       dateOfExpiryTrans: [undefined],
 
-      //for corrected data
-      complementryOtherCT: [undefined],
+      // for corrected data
+      complementaryOtherCT: [undefined],
       drawingBasisCT: [undefined],
-      complimentaryLoanSelectedCT: [undefined],
+      complementaryLoanSelectedCT: [undefined],
       loanAmountCT: [undefined],
       loanAmountWordsCT: [undefined],
       drawingPowerCT: [undefined],
       dateOfExpiryTypeCT: [undefined],
       dateOfExpiryNepaliCT: [undefined],
       dateOfExpiryCT: [undefined],
-
-    })
+    });
   }
 
-  checkComplimetryOtherLoan(data) {
-    this.isComplimentryOtherLoan = data;
-    this.preExportForm.get('complementryOther').patchValue(this.isComplimentryOtherLoan);
+  setTermLoanForm() {
+    for (let a = 0; a < this.termLoanNumber.length; a++) {
+      (this.preExportForm.get('termLoanDetails') as FormArray).push(this.setFormArray());
+    }
+  }
+  checkComplementaryOtherLoan(event, i) {
+    if (!event) {
+      this.preExportForm.get(['termLoanDetails', i, 'complementaryLoanSelected']).patchValue(null);
+    }
   }
 
   public checkDateOfExpiry(value): void {
@@ -109,59 +125,59 @@ export class PreExportLoanComponent implements OnInit {
     this.BSExpiry = value === 'BS';
   }
 
-  public getNumAmountWord(numLabel, wordLabel): void {
-    const transformValue = this.nepaliCurrencyWordPipe.transform(this.preExportForm.get(numLabel).value);
-    this.preExportForm.get(wordLabel).patchValue(transformValue);
+  public getNumAmountWord(numLabel, wordLabel, i): void {
+    const transformValue = this.nepaliCurrencyWordPipe.transform(this.preExportForm.get(['termLoanDetails', i,  numLabel]).value);
+    this.preExportForm.get(['termLoanDetails', i, wordLabel]).patchValue(transformValue);
   }
 
-  translateAndSetVal() {
+  translateAndSetVal(i) {
 
     /* SET TRANS VALUE FOR CONDITIONS */
-    const tempComplimentaryLoanSelected = this.preExportForm.get('complimentaryLoanSelected').value;
-    if (!ObjectUtil.isEmpty(tempComplimentaryLoanSelected)) {
-      this.preExportForm.get('complimentaryLoanSelectedTrans').patchValue(tempComplimentaryLoanSelected);
+    const tempComplementaryLoanSelected = this.preExportForm.get(['termLoanDetails', i, 'complementaryLoanSelected']).value;
+    if (!ObjectUtil.isEmpty(tempComplementaryLoanSelected)) {
+      this.preExportForm.get(['termLoanDetails', i, 'complementaryLoanSelectedTrans']).patchValue(tempComplementaryLoanSelected);
     }
 
-    const tempComplemetry = this.preExportForm.get('complementryOther').value;
-    if (!ObjectUtil.isEmpty(tempComplemetry)) {
-      this.preExportForm.get('complementryOtherTrans').patchValue(tempComplemetry);
+    const tempComplementary = this.preExportForm.get(['termLoanDetails', i, 'complementaryOther']).value;
+    if (!ObjectUtil.isEmpty(tempComplementary)) {
+      this.preExportForm.get(['termLoanDetails', i, 'complementaryOtherTrans']).patchValue(tempComplementary);
     }
 
-    const tempDrawingBasis = this.preExportForm.get('drawingBasis').value;
+    const tempDrawingBasis = this.preExportForm.get(['termLoanDetails', i, 'drawingBasis']).value;
     if (!ObjectUtil.isEmpty(tempDrawingBasis)) {
-      this.preExportForm.get('drawingBasisTrans').patchValue(tempDrawingBasis);
+      this.preExportForm.get(['termLoanDetails', i, 'drawingBasisTrans']).patchValue(tempDrawingBasis);
     }
 
     /* SET TRANS VALUE FOR OTHER NUMBER FIELDS */
-    const tempLoanAmount = this.preExportForm.get('loanAmount').value;
+    const tempLoanAmount = this.preExportForm.get(['termLoanDetails', i, 'loanAmount']).value;
     const convertNumber = !ObjectUtil.isEmpty(tempLoanAmount) ?
         this.convertNumbersToNepali(tempLoanAmount, true) : '';
-    this.preExportForm.get('loanAmountTrans').patchValue(convertNumber);
+    this.preExportForm.get(['termLoanDetails', i, 'loanAmountTrans']).patchValue(convertNumber);
 
-    this.preExportForm.get('loanAmountWordsTrans').patchValue(
-        this.preExportForm.get('loanAmountWords').value
+    this.preExportForm.get(['termLoanDetails', i, 'loanAmountWordsTrans']).patchValue(
+        this.preExportForm.get(['termLoanDetails', i, 'loanAmountWords']).value
     );
-    const drawingPower = this.convertNumbersToNepali(this.preExportForm.get('drawingPower').value, false);
-    this.preExportForm.get('drawingPowerTrans').patchValue(drawingPower);
+    const drawingPower = this.convertNumbersToNepali(this.preExportForm.get(['termLoanDetails', i, 'drawingPower']).value, false);
+    this.preExportForm.get(['termLoanDetails', i, 'drawingPowerTrans']).patchValue(drawingPower);
 
     /* Converting value for date */
-    this.preExportForm.get('dateOfExpiryTypeTrans').patchValue(
-        this.preExportForm.get('dateOfExpiryType').value
+    this.preExportForm.get(['termLoanDetails', i, 'dateOfExpiryTypeTrans']).patchValue(
+        this.preExportForm.get(['termLoanDetails', i, 'dateOfExpiryType']).value
     );
-    const tempDateOfExpType = this.preExportForm.get('dateOfExpiryType').value;
+    const tempDateOfExpType = this.preExportForm.get(['termLoanDetails', i, 'dateOfExpiryType']).value;
     let tempExpDate;
     if (tempDateOfExpType === 'AD') {
-      const tempEngExpDate = this.preExportForm.get('dateOfExpiry').value;
+      const tempEngExpDate = this.preExportForm.get(['termLoanDetails', i, 'dateOfExpiry']).value;
       tempExpDate = !ObjectUtil.isEmpty(tempEngExpDate) ? this.datePipe.transform(tempEngExpDate) : '';
       const finalExpDate = this.transformEnglishDate(tempExpDate);
-      this.preExportForm.get('dateOfExpiryTrans').patchValue(finalExpDate);
+      this.preExportForm.get(['termLoanDetails', i, 'dateOfExpiryTrans']).patchValue(finalExpDate);
     } else {
-      const tempDateOfExpNep = this.preExportForm.get('dateOfExpiryNepali').value;
+      const tempDateOfExpNep = this.preExportForm.get(['termLoanDetails', i, 'dateOfExpiryNepali']).value;
       tempExpDate = !ObjectUtil.isEmpty(tempDateOfExpNep) ?
           tempDateOfExpNep.nDate : '';
-      this.preExportForm.get('dateOfExpiryTrans').patchValue(tempExpDate);
+      this.preExportForm.get(['termLoanDetails', i, 'dateOfExpiryTrans']).patchValue(tempExpDate);
     }
-    this.setCTValue();
+    this.setCTValue(i);
   }
 
   transformEnglishDate(date) {
@@ -201,33 +217,33 @@ export class PreExportLoanComponent implements OnInit {
     return transformedDate;
   }
 
-  setCTValue() {
-    this.preExportForm.get('complimentaryLoanSelectedCT').patchValue(
-        this.preExportForm.get('complimentaryLoanSelectedTrans').value
+  setCTValue(i) {
+    this.preExportForm.get(['termLoanDetails', i, 'complementaryLoanSelectedCT']).patchValue(
+        this.preExportForm.get(['termLoanDetails', i, 'complementaryLoanSelectedTrans']).value
     );
-    this.preExportForm.get('drawingBasisCT').patchValue(
-        this.preExportForm.get('drawingBasisTrans').value
+    this.preExportForm.get(['termLoanDetails', i, 'drawingBasisCT']).patchValue(
+        this.preExportForm.get(['termLoanDetails', i, 'drawingBasisTrans']).value
     );
-    this.preExportForm.get('complementryOtherCT').patchValue(
-        this.preExportForm.get('complementryOtherTrans').value
+    this.preExportForm.get(['termLoanDetails', i, 'complementaryOtherCT']).patchValue(
+        this.preExportForm.get(['termLoanDetails', i, 'complementaryOtherTrans']).value
     );
-    this.preExportForm.get('loanAmountCT').patchValue(
-        this.preExportForm.get('loanAmountTrans').value
+    this.preExportForm.get(['termLoanDetails', i, 'loanAmountCT']).patchValue(
+        this.preExportForm.get(['termLoanDetails', i, 'loanAmountTrans']).value
     );
-    this.preExportForm.get('loanAmountWordsCT').patchValue(
-        this.preExportForm.get('loanAmountWordsTrans').value
+    this.preExportForm.get(['termLoanDetails', i, 'loanAmountWordsCT']).patchValue(
+        this.preExportForm.get(['termLoanDetails', i, 'loanAmountWordsTrans']).value
     );
-    this.preExportForm.get('drawingPowerCT').patchValue(
-        this.preExportForm.get('drawingPowerTrans').value
+    this.preExportForm.get(['termLoanDetails', i, 'drawingPowerCT']).patchValue(
+        this.preExportForm.get(['termLoanDetails', i, 'drawingPowerTrans']).value
     );
-    this.preExportForm.get('dateOfExpiryTypeCT').patchValue(
-        this.preExportForm.get('dateOfExpiryTypeTrans').value
+    this.preExportForm.get(['termLoanDetails', i, 'dateOfExpiryTypeCT']).patchValue(
+        this.preExportForm.get(['termLoanDetails', i, 'dateOfExpiryTypeTrans']).value
     );
-    this.preExportForm.get('dateOfExpiryNepaliCT').patchValue(
-        this.preExportForm.get('dateOfExpiryNepaliTrans').value
+    this.preExportForm.get(['termLoanDetails', i, 'dateOfExpiryNepaliCT']).patchValue(
+        this.preExportForm.get(['termLoanDetails', i, 'dateOfExpiryNepaliTrans']).value
     );
-    this.preExportForm.get('dateOfExpiryCT').patchValue(
-        this.preExportForm.get('dateOfExpiryTrans').value
+    this.preExportForm.get(['termLoanDetails', i, 'dateOfExpiryCT']).patchValue(
+        this.preExportForm.get(['termLoanDetails', i, 'dateOfExpiryTrans']).value
     );
   }
 

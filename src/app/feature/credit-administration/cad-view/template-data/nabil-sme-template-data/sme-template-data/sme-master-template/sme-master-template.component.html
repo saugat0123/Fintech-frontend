@@ -31,7 +31,7 @@
                                          #demandLoanForWorkingCapital [loanName]="loanExtraDetails"></app-demand-loan-for-working-capital>
     </ng-container>
     <ng-container *ngIf="isPreExportLoan">
-    <app-pre-export-loan [offerDocumentList]="customerApprovedDoc.offerDocumentList"
+    <app-pre-export-loan [offerDocumentList]="customerApprovedDoc.offerDocumentList" [customerApprovedDoc]="customerApprovedDoc"
                          #preExportLoan [loanName]="loanExtraDetails"></app-pre-export-loan>
     </ng-container>
     <ng-container *ngIf="isDocumentaryBillPurchase">
@@ -58,6 +58,7 @@
     </ng-container>
     <ng-container *ngIf="isBridgeGapLoan">
     <app-bridge-gap-loan [offerDocumentList]="customerApprovedDoc.offerDocumentList"
+                         [customerApprovedDoc]="customerApprovedDoc"
                          #bridgeGapLoan [loanName]="loanExtraDetails"></app-bridge-gap-loan>
     </ng-container>
     <ng-container *ngIf="isTermLoanToOrFor">

@@ -1,12 +1,13 @@
 <div>
     <form [formGroup]="bankGuarantee">
+        <div *ngFor="let formDetails of bankGuarantee.get('bankGuaranteeArray')['controls']; let i = index" formArrayName="bankGuaranteeArray">
+        <ng-container [formGroupName]="i">
         <div class="row">
             <div class="col-md-12 pb-2">
-                <h5>BANK GUARANTEE</h5>
+                <h5>BANK GUARANTEE {{filteredList.length > 1 ? '- ' +( i + 1) : ''}}</h5>
             </div>
             <div class="col-md-12 mt-2">
-                <nb-checkbox #complimentryOther (checkedChange)="checkComplimetryOtherLoan(complimentryOther.checked)"
-                             [checked]="isComplimentryOtherLoan">
+                <nb-checkbox #complimentryOther formControlName="complementaryOther">
                     <i> Is complimentary of other loan ? </i></nb-checkbox>
             </div>
             <div class="col-md-4 mt-3">
@@ -18,7 +19,7 @@
                     <nb-option *ngFor="let loan of loanOptions" [value]="loan?.key"> {{loan?.value}} </nb-option>
                 </nb-select>
             </div>
-            <div class="col-md-4 mt-3" *ngIf="isComplimentryOtherLoan">
+            <div class="col-md-4 mt-3" *ngIf="bankGuarantee.get(['bankGuaranteeArray', i, 'complementaryOther']).value">
                 <label class="font-weight-bold" for="complimentaryLoanSelected"><strong>Complimentary Loan Selection</strong></label><br>
                 <nb-select placeholder="Select Complimentary Loan"
                            fullWidth
@@ -44,10 +45,10 @@
             </div>
         </div>
         <div class="row pt-4">
-            <div class="col-md-4">
+            <div class="col-md-4 form-group">
                 <label class="font-weight-bold" for="loanAmount">Loan Amount in Figure</label>
                 <input class="form-control" formControlName="loanAmount" fullWidth id="loanAmount"
-                       (input)="getNumAmountWord('loanAmount', 'loanAmountAmountWords')"
+                       (input)="getNumAmountWord('loanAmount', 'loanAmountAmountWords', i, 'bankGuaranteeArray')"
                        nbInput
                        shape="semi-round"
                        status="success" type="number">
@@ -91,7 +92,7 @@
             </div>
         </div>
         <!--IF COUNTER GUARANTEE OF OTHER BANK-->
-        <div class="row" *ngIf="bankGuarantee.get('securityType').value === 'Counter Guarantee of other bank'">
+        <div class="row" *ngIf="bankGuarantee.get(['bankGuaranteeArray', i, 'securityType']).value === 'Counter Guarantee of other bank'">
             <div class="col-md-4 form-group">
                 <label class="font-weight-bold" for="nameOfHoldingBank">Name of Bank</label>
                 <input class="form-control" formControlName="nameOfHoldingBank" fullWidth id="nameOfHoldingBank"
@@ -116,7 +117,7 @@
             </div>
         </div>
         <!--IF GUARANTEE TYPE IS CASH MARGIN-->
-        <div class="row" *ngIf="bankGuarantee.get('guaranteeType').value === 'Cash Margin'">
+        <div class="row" *ngIf="bankGuarantee.get(['bankGuaranteeArray', i, 'guaranteeType']).value === 'Cash Margin'">
             <div class="col-md-4 form-group">
                 <label class="font-weight-bold" for="marginInPercentage">Margin in Percentage (%)</label>
                 <input class="form-control" formControlName="marginInPercentage" fullWidth id="marginInPercentage"
@@ -140,7 +141,7 @@
             </div>
         </div>
         <!-- GUARANTEE TYPE IS APG/PFG/BID BOND-->
-        <div class="row" *ngIf="bankGuarantee.get('guaranteeType').value === 'APG/PFG/Bid Bond'">
+        <div class="row" *ngIf="bankGuarantee.get(['bankGuaranteeArray', i, 'guaranteeType']).value === 'APG/PFG/Bid Bond'">
             <div class="col-md-4 form-group">
                 <label class="font-weight-bold" for="commissionInPercentageAPG">Commission in Percentage (%) for
                     APG</label>
@@ -205,7 +206,7 @@
             </div>
         </div>
         <!--IF COMMISSION TYPE 1-->
-        <div class="row" *ngIf="bankGuarantee.get('commissionType').value === 'COMMISSION_TYPE_1'">
+        <div class="row" *ngIf="bankGuarantee.get(['bankGuaranteeArray', i, 'commissionType']).value === 'COMMISSION_TYPE_1'">
             <div class="col-md-4">
                 <div class="form-group">
                     <label class="ml-1 font-weight-bold">Service charge in Percentage</label>
@@ -227,7 +228,7 @@
             </div>
         </div>
         <!--IF COMMISSION TYPE 2-->
-        <div class="row" *ngIf="bankGuarantee.get('commissionType').value === 'COMMISSION_TYPE_2'">
+        <div class="row" *ngIf="bankGuarantee.get(['bankGuaranteeArray', i, 'commissionType']).value === 'COMMISSION_TYPE_2'">
             <div class="col-md-4 form-group">
                 <label class="font-weight-bold" for="commissionInPercentage2APG">Commission in Percentage (%) for
                     APG</label>
@@ -301,18 +302,18 @@
         </div>
         <div class="row">
             <div class="col-md-4 form-group">
-                <label class="font-weight-bold" for="dateOfExpiryType"> Date Of Expiry/ Review Date</label><br>
+                <label class="font-weight-bold" for="{{'dateOfExpiryType' + i}}"> Date Of Expiry/ Review Date</label><br>
                 <nb-radio-group (valueChange)="checkDateOfExpiry($event)" class="d-inline-flex"
-                                formControlName="dateOfExpiryType" id="dateOfExpiryType"
-                                name="dateOfExpiryType" status="success">
+                                formControlName="dateOfExpiryType" id="{{'dateOfExpiryType' + i}}"
+                                name="{{'dateOfExpiryType' + i}}" status="success">
                     <nb-radio *ngFor="let dType of dateType" [value]="dType.value">{{dType.key}}</nb-radio>
                 </nb-radio-group>
-                <div *ngIf="BSExpiry" style="margin-bottom: -50px;">
+                <div *ngIf="bankGuarantee.get(['bankGuaranteeArray', i, 'dateOfExpiryType']).value === dateType[1]?.value" style="margin-bottom: -50px;">
                     <nepali-patro [displayNepali]="true" [responseType]="2"
                                   formControlName="dateOfExpiryNepali">
                     </nepali-patro>
                 </div>
-                <input *ngIf="ADExpiry" [nbDatepicker]="previousDate" formControlName="dateOfExpiry"
+                <input *ngIf="bankGuarantee.get(['bankGuaranteeArray', i, 'dateOfExpiryType']).value === dateType[0]?.value" [nbDatepicker]="previousDate" formControlName="dateOfExpiry"
                        fullWidth
                        id="dateOfExpiry"
                        nbInput
@@ -337,10 +338,12 @@
         <!-- For Translation -->
         <div class="row pt-5 pb-2 pr-4" style="margin-bottom: 20px">
             <div class="col-md-12 text-right">
-                <button (click)="translateAndSetVal()" nbButton outline size="small" status="info">
+                <button (click)="translateAndSetVal(i)" nbButton outline size="small" status="info">
                     Translate Bank Guarantee Letter Details
                 </button>
             </div>
+        </div>
+        </ng-container>
         </div>
     </form>
 </div>

@@ -105,6 +105,8 @@ export class SupplementaryAggrementProprietorshipComponent implements OnInit {
     const tempFree = {
       freeTextVal : this.freeTextVal,
       date: this.supplementaryAgreementProprietorship.get('date') ? this.supplementaryAgreementProprietorship.get('date').value : '',
+      dateOfHypothecation: this.supplementaryAgreementProprietorship.get('dateOfHypothecation') ?
+          this.supplementaryAgreementProprietorship.get('dateOfHypothecation').value : '',
       witnessDistrict: this.supplementaryAgreementProprietorship.get('witnessDistrict') ? this.supplementaryAgreementProprietorship.get('witnessDistrict').value : '',
       witnessMunicipality: this.supplementaryAgreementProprietorship.
       get('witnessMunicipality') ? this.supplementaryAgreementProprietorship.get('witnessMunicipality').value : '',
@@ -121,6 +123,12 @@ export class SupplementaryAggrementProprietorshipComponent implements OnInit {
       witnessName2: this.supplementaryAgreementProprietorship.get('witnessName2') ? this.supplementaryAgreementProprietorship.get('witnessName2').value : '',
       bankStaff: this.supplementaryAgreementProprietorship.
       get('bankStaff') ? this.supplementaryAgreementProprietorship.get('bankStaff').value : '',
+      dateOfTrustReceipt: this.supplementaryAgreementProprietorship.get('dateOfTrustReceipt') ?
+          this.supplementaryAgreementProprietorship.get('dateOfTrustReceipt').value : '',
+      letterOfCreditNo: this.supplementaryAgreementProprietorship.get('letterOfCreditNo') ?
+          this.supplementaryAgreementProprietorship.get('letterOfCreditNo').value : '',
+      letterOfCreditIssuedDate: this.supplementaryAgreementProprietorship.get('dateOfHypothecation') ?
+          this.supplementaryAgreementProprietorship.get('letterOfCreditIssuedDate').value : '',
     };
     return JSON.stringify(tempFree);
   }
@@ -168,6 +176,10 @@ export class SupplementaryAggrementProprietorshipComponent implements OnInit {
     this.supplementaryAgreementProprietorship.patchValue({
       bankAddress: this.individualData.branch ? this.individualData.branch.ct : '',
       firmName: this.individualData.name ? this.individualData.name.ct : '',
+      dateOfHypothecation: this.supportedInfo.dateOfHypothecation ? this.supportedInfo.dateOfHypothecation : '',
+      dateOfTrustReceipt: this.supportedInfo.dateOfTrustReceipt ? this.supportedInfo.dateOfTrustReceipt : '',
+      letterOfCreditNo: this.supportedInfo.letterOfCreditNo ? this.supportedInfo.letterOfCreditNo : '',
+      letterOfCreditIssuedDate: this.supportedInfo.letterOfCreditIssuedDate ? this.supportedInfo.letterOfCreditIssuedDate : '',
       sanctionLetterIssuedDate: this.sanctionDate ? this.sanctionDate : '',
       loanAmountInFigure: loanAmountInFigure ? loanAmountInFigure : '',
       loanAmountInWords: loanAmountInWords ? loanAmountInWords : '',
@@ -184,13 +196,15 @@ export class SupplementaryAggrementProprietorshipComponent implements OnInit {
       bankStaff: this.supportedInfo ? this.supportedInfo.bankStaff : '',
       date: this.supportedInfo ? this.supportedInfo.date : '',
     });
-    if (!ObjectUtil.isEmpty(this.supportedInfo.freeTextVal)) {
-      for (let val = 0; val < this.supportedInfo.freeTextVal.length - 1; val++) {
-        this.addTextArea();
-      }
-      for (let i = 0; i < this.supportedInfo.freeTextVal.length; i++) {
-        // tslint:disable-next-line:max-line-length
-        this.supplementaryAgreementProprietorship.get(['securityFreeText', i, 'freeTexts']).patchValue(this.supportedInfo.freeTextVal[i].freeTexts);
+    if (!ObjectUtil.isEmpty(this.supportedInfo)) {
+      if (!ObjectUtil.isEmpty(this.supportedInfo.freeTextVal)) {
+        for (let val = 0; val < this.supportedInfo.freeTextVal.length - 1; val++) {
+          this.addTextArea();
+        }
+        for (let i = 0; i < this.supportedInfo.freeTextVal.length; i++) {
+          // tslint:disable-next-line:max-line-length
+          this.supplementaryAgreementProprietorship.get(['securityFreeText', i, 'freeTexts']).patchValue(this.supportedInfo.freeTextVal[i].freeTexts);
+        }
       }
     }
   }
