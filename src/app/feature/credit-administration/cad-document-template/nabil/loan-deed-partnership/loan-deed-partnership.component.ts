@@ -495,7 +495,7 @@ export class LoanDeedPartnershipComponent implements OnInit {
                                 }
                             }
                             let importLoanInterest;
-                            for (const x of this.initialInfo.importLoanTrust.interestRateCT) {
+                            for (const x of this.initialInfo.importLoanTrust) {
                                 importLoanInterest = x.interestRateCT;
                             }
                             this.newData = {
@@ -527,7 +527,7 @@ export class LoanDeedPartnershipComponent implements OnInit {
                                 }
                             }
                             let revolving;
-                            for (const x of this.initialInfo.revolvingShortTermLoan.interestRateCT) {
+                            for (const x of this.initialInfo.revolvingShortTermLoan) {
                                 revolving = x.interestRateCT;
                             }
                             this.newData = {
@@ -556,7 +556,7 @@ export class LoanDeedPartnershipComponent implements OnInit {
                                     this.initialInfo.demandLoanForm.dateOfExpiryNepali.nDate : '';
                             }
                             let demandLoanForm;
-                            for (const x of this.initialInfo.demandLoanForm.interestRateCT) {
+                            for (const x of this.initialInfo.demandLoanForm) {
                                 demandLoanForm = x.interestRateCT;
                             }
                             this.newData = {
@@ -608,7 +608,7 @@ export class LoanDeedPartnershipComponent implements OnInit {
                                     this.initialInfo.documentaryBillPurchase.dateOfExpiryNepali.nDate : '';
                             }
                             let importLoanInterest;
-                            for (const x of this.initialInfo.importLoanTrust.interestRateCT) {
+                            for (const x of this.initialInfo.importLoanTrust) {
                                 importLoanInterest = x.interestRateCT;
                             }
                             this.newData = {
@@ -636,7 +636,7 @@ export class LoanDeedPartnershipComponent implements OnInit {
                                     this.initialInfo.overdraftLoanForm.dateOfExpiryNepali.nDate : '';
                             }
                             let overdraftLoanForm;
-                            for (const x of this.initialInfo.overdraftLoanForm.interestRateCT) {
+                            for (const x of this.initialInfo.overdraftLoanForm) {
                                 overdraftLoanForm = x.interestRateCT;
                             }
                             this.newData = {
@@ -666,7 +666,7 @@ export class LoanDeedPartnershipComponent implements OnInit {
                                     this.initialInfo.equityMortgaged.dateOfExpiryNepali.nDate : '';
                             }
                             let equityMortgaged;
-                            for (const x of this.initialInfo.equityMortgaged.interestRateCT) {
+                            for (const x of this.initialInfo.equityMortgaged) {
                                 equityMortgaged = x.interestRateCT;
                             }
                             this.newData = {
@@ -700,7 +700,7 @@ export class LoanDeedPartnershipComponent implements OnInit {
                                     this.initialInfo.overdraftFixedForm.dateOfExpiryNepali.nDate : '';
                             }
                             let overdraftFixedForm;
-                            for (const x of this.initialInfo.overdraftFixedForm.interestRateCT) {
+                            for (const x of this.initialInfo.overdraftFixedForm) {
                                 overdraftFixedForm = x.interestRateCT;
                             }
                             this.newData = {
@@ -731,7 +731,7 @@ export class LoanDeedPartnershipComponent implements OnInit {
                                     this.initialInfo.overDraftFacilityForm.dateOfExpiryNepali.nDate : '';
                             }
                             let overDraftFacilityForm;
-                            for (const x of this.initialInfo.overDraftFacilityForm.interestRateCT) {
+                            for (const x of this.initialInfo.overDraftFacilityForm) {
                                 overDraftFacilityForm = x.interestRateCT;
                             }
                             this.newData = {
@@ -759,12 +759,12 @@ export class LoanDeedPartnershipComponent implements OnInit {
                                     this.initialInfo.bridgeGapLoan.dateOfExpiryNepali.nDate : '';
                             }
                             let bridgeGapLoan;
-                            for (const x of this.initialInfo.bridgeGapLoan.interestRateCT) {
+                            for (const x of this.initialInfo.bridgeGapLoan) {
                                 bridgeGapLoan = x.interestRateCT;
                             }
                             this.newData = {
                                 loanNepaliName: v.loanNepaliName,
-                                interestRateExists: false,
+                                interestRateExists: true,
                                 interestRate: bridgeGapLoan,
                                 loanAmount: tempLoanAmount,
                                 dateOfExpiry: tempDateOfExpiry2,
@@ -804,7 +804,7 @@ export class LoanDeedPartnershipComponent implements OnInit {
                             // tslint:disable-next-line:max-line-length
                             const tempLoanAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.cadData.assignedLoan[index].proposal.proposedLimit));
                             let mortgageEquityTermForm;
-                            for (const x of this.initialInfo.mortgageEquityTermForm.interestRateCT) {
+                            for (const x of this.initialInfo.mortgageEquityTermForm) {
                                 mortgageEquityTermForm = x.interestRateCT;
                             }
                             this.newData = {
@@ -822,7 +822,10 @@ export class LoanDeedPartnershipComponent implements OnInit {
                             // tslint:disable-next-line:max-line-length
                             const tempLoanAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.cadData.assignedLoan[index].proposal.proposedLimit));
                             this.autoCheck = true;
-                            const autoLoanInterestRateCT = this.initialInfo.autoLoanMasterForm.autoLoanFormArray[0].interestRateCT;
+                            let autoLoanInterestRateCT;
+                            for (const x of this.initialInfo.autoLoanMasterForm.autoLoanFormArray) {
+                                autoLoanInterestRateCT = x.interestRateCT;
+                            }
                             this.isAutoLoan = true;
                             this.newData = {
                                 loanNepaliName: v.loanNepaliName,
@@ -848,10 +851,6 @@ export class LoanDeedPartnershipComponent implements OnInit {
                                 tempDateOfExpiry2 = this.initialInfo.bankGuarantee.dateOfExpiryNepali ?
                                     this.initialInfo.bankGuarantee.dateOfExpiryNepali.nDate : '';
                             }
-                            let importLoanInterest;
-                            for (const x of this.initialInfo.importLoanTrust.interestRateCT) {
-                                importLoanInterest = x.interestRateCT;
-                            }
                             this.newData = {
                                 loanNepaliName: v.loanNepaliName,
                                 interestRateExists: false,
@@ -874,10 +873,6 @@ export class LoanDeedPartnershipComponent implements OnInit {
                             } else {
                                 tempDateOfExpiry2 = this.initialInfo.billPurchaseForm.dateOfExpiryNepali ?
                                     this.initialInfo.billPurchaseForm.dateOfExpiryNepali.nDate : '';
-                            }
-                            let importLoanInterest;
-                            for (const x of this.initialInfo.importLoanTrust.interestRateCT) {
-                                importLoanInterest = x.interestRateCT;
                             }
                             this.newData = {
                                 loanNepaliName: v.loanNepaliName,
