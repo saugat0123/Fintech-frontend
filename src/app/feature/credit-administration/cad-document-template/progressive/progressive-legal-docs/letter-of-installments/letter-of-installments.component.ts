@@ -1,7 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {CustomerOfferLetter} from '../../../../../loan/model/customer-offer-letter';
-import {OfferDocument} from '../../../../model/OfferDocument';
 import {NbDialogRef} from '@nebular/theme';
 import {NepaliToEngNumberPipe} from '../../../../../../@core/pipe/nepali-to-eng-number.pipe';
 import {NepaliCurrencyWordPipe} from '../../../../../../@core/pipe/nepali-currency-word.pipe';
@@ -15,7 +14,6 @@ import {ProgressiveLegalDocConst} from '../progressive-legal-doc-const';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
 import {CadFile} from '../../../../model/CadFile';
 import {Document} from '../../../../../admin/modal/document';
-import {NepDataPersonal} from '../../../../model/nepDataPersonal';
 
 @Component({
   selector: 'app-letter-of-installments',
@@ -60,7 +58,7 @@ export class LetterOfInstallmentsComponent implements OnInit {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
           const initialInfo = JSON.parse(singleCadFile.initialInformation);
           this.initialInfoPrint = initialInfo;
-          this.setGuarantorDetails(initialInfo.guarantorData);
+          //this.setGuarantorDetails(initialInfo.guarantorData);
           this.form.patchValue(this.initialInfoPrint);
         }
       });
@@ -75,6 +73,10 @@ export class LetterOfInstallmentsComponent implements OnInit {
         karjaAmount : loanAmount.numberNepali ? loanAmount.numberNepali : '',
         timePeriod : this.nepDataPersonal.tenureOfLoanInMonths ? this.nepDataPersonal.tenureOfLoanInMonths : '',
         kistaAmount : this.nepDataPersonal.installmentAmount ? this.nepDataPersonal.installmentAmount : '',
+        guarantorName: !ObjectUtil.isEmpty(this.nepaliData.guarantorDetails) ? this.nepaliData.guarantorDetails[0].guarantorName : '',
+        guarantorDistrict: !ObjectUtil.isEmpty(this.nepaliData.guarantorDetails) ? this.nepaliData.guarantorDetails[0].guarantorPermanentDistrict.nepaliName : '',
+        guarantorMunVdc: !ObjectUtil.isEmpty(this.nepaliData.guarantorDetails) ? this.nepaliData.guarantorDetails[0].guarantorPermanentMunicipality.nepaliName : '',
+        guarantorWardNo: this.nepaliData.guarantorDetails[0].guarantorPermanentWard ? this.nepaliData.guarantorDetails[0].guarantorPermanentWard : ''
         //mahina :
       });
     }
@@ -135,7 +137,10 @@ export class LetterOfInstallmentsComponent implements OnInit {
       debtorName: [undefined],
       guarantorName: [undefined],
       guarantorAddress: [undefined],
-      guarantorData: this.formBuilder.array([]),
+      guarantorDistrict: [undefined],
+      guarantorMunVdc: [undefined],
+      guarantorWardNo: [undefined],
+      //guarantorData: this.formBuilder.array([]),
       witnessName: [undefined],
       witnessCitizenshipNo: [undefined],
       witnessCitizenshipIssueDate: [undefined],
@@ -154,7 +159,7 @@ export class LetterOfInstallmentsComponent implements OnInit {
 
   });
   }
-  addGuarantor(): void {
+  /*addGuarantor(): void {
     const formArray = this.form.get('guarantorData') as FormArray;
     formArray.push(this.guarantorFormGroup());
   }
@@ -182,7 +187,7 @@ export class LetterOfInstallmentsComponent implements OnInit {
         guarantorAddress: [value.guarantorAddress],
       }));
     });
-  }
+  }*/
 
   getNumAmountWord(numLabel, wordLabel) {
     const wordLabelVar = this.nepToEngNumberPipe.transform(this.form.get(numLabel).value);

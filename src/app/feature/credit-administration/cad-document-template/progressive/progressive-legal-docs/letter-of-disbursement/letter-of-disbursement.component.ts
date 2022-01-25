@@ -15,7 +15,6 @@ import {ProgressiveLegalDocConst} from '../progressive-legal-doc-const';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
 import {CadFile} from '../../../../model/CadFile';
 import {Document} from '../../../../../admin/modal/document';
-import {NepaliNumberAndWords} from '../../../../model/nepaliNumberAndWords';
 import {EngToNepaliNumberPipe} from '../../../../../../@core/pipe/eng-to-nepali-number.pipe';
 import {CurrencyFormatterPipe} from '../../../../../../@core/pipe/currency-formatter.pipe';
 import {NepDataPersonal} from '../../../../model/nepDataPersonal';
@@ -39,7 +38,6 @@ export class LetterOfDisbursementComponent implements OnInit {
   existingOfferLetter = false;
   offerLetterDocument: OfferDocument;
   nepaliData;
-  loanAmount = new NepaliNumberAndWords();
 
   constructor(private formBuilder: FormBuilder,
               private nepToEngNumberPipe: NepaliToEngNumberPipe,
@@ -70,10 +68,10 @@ export class LetterOfDisbursementComponent implements OnInit {
       });
     }
 
+    const loanAmount = JSON.parse(this.cadData.nepData);
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
-      this.loanAmount = JSON.parse(this.cadData.nepData);
       this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
-      const customerType = JSON.parse(this.cadData.loanHolder.customerType);
+      const customerType = this.cadData.loanHolder.customerType;
       this.nepDataPersonal = JSON.parse(this.cadData.nepDataPersonal);
       if (customerType === CustomerType.INDIVIDUAL) {
         this.form.patchValue({
@@ -83,11 +81,11 @@ export class LetterOfDisbursementComponent implements OnInit {
           naPraNaName: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
           mitiName: this.nepaliData.citizenshipIssueDate ? this.nepaliData.citizenshipIssueDate : '',
           jiPrakaName: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
-          sincerlyPermanentAddress: this.nepaliData.permanentDistrict ? this.nepaliData.permanentDistrict : '',
-          jillaName: this.nepaliData.permanentMunicipality ? this.nepaliData.permanentMunicipality : '',
+          sincerlyPermanentAddress: this.nepaliData.permanentDistrict.nepaliName ? this.nepaliData.permanentDistrict.nepaliName : '',
+          jillaName: this.nepaliData.permanentMunicipalities.nepaliName ? this.nepaliData.permanentMunicipalities.nepaliName : '',
           jagaName: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
-          sincerlytempAddress: this.nepaliData.temporaryDistrict ? this.nepaliData.temporaryDistrict : '',
-          jillaName1: this.nepaliData.temporaryMunicipality ? this.nepaliData.temporaryMunicipality : '',
+          sincerlytempAddress: this.nepaliData.temporaryDistrict.nepaliName ? this.nepaliData.temporaryDistrict.nepaliName : '',
+          jillaName1: this.nepaliData.temporaryMunicipalities.nepaliName ? this.nepaliData.temporaryMunicipalities.nepaliName : '',
           jagaName1: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
           parentName: this.nepaliData.fatherName ? this.nepaliData.fatherName : '',
           grandParentName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
@@ -115,8 +113,8 @@ export class LetterOfDisbursementComponent implements OnInit {
         });
       }
     }
-    this.form.get('amount').patchValue(this.loanAmount.numberNepali);
-    this.form.get('amountInWord').patchValue(this.loanAmount.nepaliWords);
+    this.form.get('amount').patchValue(loanAmount.numberNepali);
+    this.form.get('amountInWord').patchValue(loanAmount.nepaliWords);
   }
 
 
@@ -201,8 +199,6 @@ export class LetterOfDisbursementComponent implements OnInit {
       signaturePersonPermanentDistrict: [undefined],
       signaturePersonPermanentMuniciplity: [undefined],
       signaturePersonPermanentWadNo: [undefined],
-      sabikVDC: [undefined],
-      sabikWadNo: [undefined],
       borrowerSabikVDC: [undefined],
       borrowerSabikWardNo: [undefined],
       signaturePersonTempDistrict: [undefined],
@@ -305,7 +301,6 @@ export class LetterOfDisbursementComponent implements OnInit {
           })
       );
     });
-
   }
 
   getNumAmountWord(numLabel, wordLabel) {

@@ -3,9 +3,6 @@
          nbSpinnerStatus="primary"
          nbSpinnerSize="giant">
     <nb-card-header>
-        <a (click)="closeModal()" aria-label="Close" class="close cursor"
-           data-dismiss="modal">
-            <span aria-hidden="true">×</span></a>
     </nb-card-header>
     <nb-card-body>
         <form [formGroup]="userConfigForm">
@@ -72,7 +69,8 @@
                                             (change)="getDistricts(basicInfoControls.permanentProvince?.value?.id, $event)"
                                             [ngClass]="{'is-invalid': submitted && basicInfoControls.permanentProvince.errors}"
                                             formControlName="permanentProvince"
-                                            id="permanentProvince">
+                                            id="permanentProvince"
+                                            required>
                                         <ng-option *ngFor="let provinceVal of permanentProvinceList"
                                                    [value]="provinceVal">
                                             {{provinceVal.nepaliName}}
@@ -94,7 +92,8 @@
                                             (change)="getMunicipalities(basicInfoControls?.permanentDistrict?.value?.id, $event)"
                                             [ngClass]="{'is-invalid': submitted && basicInfoControls.permanentDistrict.errors}"
                                             formControlName="permanentDistrict"
-                                            id="permanentDistrict">
+                                            id="permanentDistrict"
+                                            required>
                                         <ng-option *ngFor="let districtVal of districtList"
                                                    [value]="districtVal">
                                             {{districtVal.nepaliName}}
@@ -118,7 +117,8 @@
                                             [ngClass]="{'is-invalid': submitted && basicInfoControls.permanentMunicipalities.errors}"
                                             formControlName="permanentMunicipalities"
                                             id="permanentMunicipalities"
-                                            name="permanentMunicipalities">
+                                            name="permanentMunicipalities"
+                                            required>
                                         <ng-option *ngFor="let municipalityVal of municipalitiesList"
                                                    [value]="municipalityVal">
                                             {{municipalityVal.nepaliName}}
@@ -172,7 +172,8 @@
                                             (change)="getTemporaryDistricts(basicInfoControls.temporaryProvince?.value?.id, $event)"
                                             [ngClass]="{'is-invalid': submitted && basicInfoControls.temporaryProvince.errors}"
                                             formControlName="temporaryProvince"
-                                            id="temporaryProvince">
+                                            id="temporaryProvince"
+                                            required>
                                         <ng-option *ngFor="let provinceVal of temporaryProvinceList"
                                                    [value]="provinceVal">
                                             {{provinceVal.nepaliName}}
@@ -194,7 +195,8 @@
                                             (change)="getTemporaryMunicipalities(basicInfoControls?.temporaryDistrict?.value?.id, $event)"
                                             [ngClass]="{'is-invalid': submitted && basicInfoControls.temporaryDistrict.errors}"
                                             formControlName="temporaryDistrict"
-                                            id="temporaryDistrict">
+                                            id="temporaryDistrict"
+                                            required>
                                         <ng-option *ngFor="let districtVal of temporaryDistrictList"
                                                    [value]="districtVal">
                                             {{districtVal.nepaliName}}
@@ -218,7 +220,8 @@
                                             [ngClass]="{'is-invalid': submitted && basicInfoControls.temporaryMunicipalities.errors}"
                                             formControlName="temporaryMunicipalities"
                                             id="temporaryMunicipalities"
-                                            name="temporaryMunicipalities">
+                                            name="temporaryMunicipalities"
+                                            required>
                                         <ng-option *ngFor="let municipalityVal of temporaryMunicipalitiesList"
                                                    [value]="municipalityVal">
                                             {{municipalityVal.nepaliName}}
@@ -873,7 +876,8 @@
                                         <ng-select bindLabel="nepaliName"
                                                    (change)="getGuarantorDistricts(userConfigForm.get(['guarantorDetails', i, 'guarantorPermanentProvince'])?.value?.id, i, $event)"
                                                    id="guarantorPermanentProvince{{i}}"
-                                                   formControlName="guarantorPermanentProvince">
+                                                   formControlName="guarantorPermanentProvince"
+                                                   required>
                                             <ng-option *ngFor="let provinceVal of guarantorPermanentProvinceList"
                                                        [value]="provinceVal"> {{provinceVal.nepaliName}}
                                             </ng-option>
@@ -886,7 +890,8 @@
                                         <ng-select bindLabel="nepaliName"
                                                    (change)="getGuarantorMunicipalities(userConfigForm.get(['guarantorDetails', i, 'guarantorPermanentDistrict'])?.value?.id, i, $event)"
                                                    formControlName="guarantorPermanentDistrict"
-                                                   id="guarantorPermanentDistrict{{i}}">
+                                                   id="guarantorPermanentDistrict{{i}}"
+                                                   required>
                                             <ng-option *ngFor="let districtVal of guarantorPermanentDistrictList[i]"
                                                        [value]="districtVal" >
                                                 {{districtVal.nepaliName}}
@@ -905,7 +910,8 @@
                                         <ng-select bindLabel="nepaliName"
                                                    formControlName="guarantorPermanentMunicipality"
                                                    id="guarantorPermanentMunicipality{{i}}"
-                                                   name="guarantorPermanentMunicipality">
+                                                   name="guarantorPermanentMunicipality"
+                                                   required>
                                             <ng-option *ngFor="let municipalityVal of guarantorPerMunicipalitiesList[i]"
                                                        [value]="municipalityVal">
                                                 {{municipalityVal.nepaliName}}
@@ -939,7 +945,8 @@
                                         <ng-select bindLabel="nepaliName"
                                                    (change)="getGuarantorTemporaryDistricts(userConfigForm.get(['guarantorDetails', i, 'guarantorTemporaryProvince'])?.value?.id, i, $event)"
                                                    id="guarantorTemporaryProvince{{i}}"
-                                                   formControlName="guarantorTemporaryProvince">
+                                                   formControlName="guarantorTemporaryProvince"
+                                                   required>
                                             <ng-option *ngFor="let provinceVal of guarantorTemporaryProvinceList"
                                                        [value]="provinceVal">
                                                 {{provinceVal.nepaliName}}
@@ -953,7 +960,8 @@
                                         <ng-select bindLabel="nepaliName"
                                                    (change)="getGuarantorTemporaryMunicipalities(userConfigForm.get(['guarantorDetails', i, 'guarantorTemporaryDistrict'])?.value?.id, i, $event)"
                                                    formControlName="guarantorTemporaryDistrict"
-                                                   id="guarantorTemporaryDistrict{{i}}">
+                                                   id="guarantorTemporaryDistrict{{i}}"
+                                                   required>
                                             <ng-option *ngFor="let districtVal of guarantorTemporaryDistrictList[i]"
                                                        [value]="districtVal">
                                                 {{districtVal.nepaliName}}
@@ -972,7 +980,8 @@
                                         <ng-select bindLabel="nepaliName"
                                                    formControlName="guarantorTemporaryMunicipality"
                                                    id="guarantorTemporaryMunicipality{{i}}"
-                                                   name="guarantorTemporaryMunicipality">
+                                                   name="guarantorTemporaryMunicipality"
+                                                   required>
                                             <ng-option *ngFor="let municipalityVal of guarantorTemMunicipalitiesList[i]"
                                                        [value]="municipalityVal">
                                                 {{municipalityVal.nepaliName}}
@@ -1174,7 +1183,8 @@
                                                 bindLabel="nepaliName"
                                                 (change)="getCollateralDistricts(userConfigForm.get(['collateralDetails', i, 'collateralPermanentProvince'])?.value?.id, i, $event)"
                                                 formControlName="collateralPermanentProvince"
-                                                id="collateralPermanentProvince{{i}}">
+                                                id="collateralPermanentProvince{{i}}"
+                                                required>
                                             <ng-option *ngFor="let provinceVal of collateralPermanentProvinceList"
                                                        [value]="provinceVal">
                                                 {{provinceVal.nepaliName}}
@@ -1190,7 +1200,8 @@
                                                 bindLabel="nepaliName"
                                                 (change)="getCollateralMunicipalities(userConfigForm.get(['collateralDetails', i, 'collateralPermanentDistrict'])?.value?.id, i, $event)"
                                                 formControlName="collateralPermanentDistrict"
-                                                id="collateralPermanentDistrict{{i}}">
+                                                id="collateralPermanentDistrict{{i}}"
+                                                required>
                                             <ng-option *ngFor="let districtVal of collateralPermanentDistrictList[i]"
                                                        [value]="districtVal">
                                                 {{districtVal.nepaliName}}
@@ -1206,7 +1217,8 @@
                                                 bindLabel="nepaliName"
                                                 formControlName="collateralPermanentMunVdc"
                                                 id="collateralPermanentMunVdc{{i}}"
-                                                name="collateralPermanentMunVdc">
+                                                name="collateralPermanentMunVdc"
+                                                required>
                                             <ng-option
                                                     *ngFor="let municipalityVal of collateralPermanentMunicipalitiesList[i]"
                                                     [value]="municipalityVal">
@@ -1239,7 +1251,8 @@
                                             bindLabel="nepaliName"
                                             (change)="getCollateralTemporaryDistricts(userConfigForm.get(['collateralDetails', i, 'collateralTemporaryProvince'])?.value?.id, i, $event)"
                                             formControlName="collateralTemporaryProvince"
-                                            id="collateralTemporaryProvince{{i}}">
+                                            id="collateralTemporaryProvince{{i}}"
+                                            required>
                                         <ng-option *ngFor="let provinceVal of collateralTemporaryProvinceList"
                                                    [value]="provinceVal">
                                             {{provinceVal.nepaliName}}
@@ -1253,7 +1266,8 @@
                                             bindLabel="nepaliName"
                                             (change)="getCollateralTemporaryMunicipalities(userConfigForm.get(['collateralDetails', i, 'collateralTemporaryDistrict'])?.value?.id, i, $event)"
                                             formControlName="collateralTemporaryDistrict"
-                                            id="collateralTemporaryDistrict{{i}}">
+                                            id="collateralTemporaryDistrict{{i}}"
+                                            required>
                                         <ng-option *ngFor="let districtVal of collateralTemporaryDistrictList[i]"
                                                    [value]="districtVal">
                                             {{districtVal.nepaliName}}
@@ -1267,7 +1281,8 @@
                                             bindLabel="nepaliName"
                                             formControlName="collateralTemporaryMunVdc"
                                             id="collateralTemporaryMunVdc"
-                                            name="collateralTemporaryMunVdc">
+                                            name="collateralTemporaryMunVdc"
+                                            required>
                                         <ng-option
                                                 *ngFor="let municipalityVal of collateralTemporaryMunicipalitiesList[i]"
                                                 [value]="municipalityVal">
@@ -1532,7 +1547,8 @@
                                                 bindLabel="nepaliName"
                                                 (change)="getCollateralOwnerDistricts(userConfigForm.get(['collateralOwnerDetails', i, 'collateralOwnerPermanentProvince'])?.value?.id, i, $event)"
                                                 formControlName="collateralOwnerPermanentProvince"
-                                                id="collateralOwnerPermanentProvince{{i}}">
+                                                id="collateralOwnerPermanentProvince{{i}}"
+                                                required>
                                             <ng-option *ngFor="let provinceVal of collateralOwnerPermanentProvinceList"
                                                        [value]="provinceVal">
                                                 {{provinceVal.nepaliName}}
@@ -1547,7 +1563,8 @@
                                                 bindLabel="nepaliName"
                                                 (change)="getCollateralOwnerMunicipalities(userConfigForm.get(['collateralOwnerDetails', i, 'collateralOwnerPermanentDistrict'])?.value?.id, i, $event)"
                                                 formControlName="collateralOwnerPermanentDistrict"
-                                                id="collateralOwnerPermanentDistrict{{i}}">
+                                                id="collateralOwnerPermanentDistrict{{i}}"
+                                                required>
                                             <ng-option *ngFor="let districtVal of collateralOwnerPermanentDistrictList[i]"
                                                        [value]="districtVal">
                                                 {{districtVal.nepaliName}}
@@ -1563,7 +1580,8 @@
                                                 bindLabel="nepaliName"
                                                 formControlName="collateralOwnerPermanentMunicipalities"
                                                 id="collateralOwnerPermanentMunicipalities{{i}}"
-                                                name="collateralOwnerPermanentMunicipalities">
+                                                name="collateralOwnerPermanentMunicipalities"
+                                                required>
                                             <ng-option
                                                     *ngFor="let municipalityVal of collateralOwnerPermanentMunicipalitiesList[i]"
                                                     [value]="municipalityVal">
@@ -1742,7 +1760,7 @@
                 </nb-tab>
                 <nb-tab tabId="5" tabTitle="Branch Details">
                     <div class="col-md-12 row">
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-md-6">
                             <label class="title" for="branchName">शाखाको नाम</label>
                             <br>
                             <!--<input type="text"
@@ -1751,7 +1769,7 @@
                                    class="form-control form-control-sm nepaliFont"
                                    id="branchName"
                                    formControlName="branchName"/>-->
-                            <select class="form-control-sm form-field nepaliFont"
+                            <select class="form-control form-field nepaliFont"
                                     id="branchName" #branch1
                                     formControlName="branchName" (ngModelChange)="getBranchDetails(branch1.value)">
                                 <option [ngValue]="null" hidden>
@@ -1762,7 +1780,19 @@
                                 </option>
                             </select>
                         </div>
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-md-6">
+                            <label class="title" for="branchNameInEnglish">
+                                Branch Name</label>
+                            <input [ngClass]="{'is-invalid': submitted && basicInfoControls.branchNameInEnglish.errors}"
+                                   type="text"
+                                   placeholder="Branch Name"
+                                   id="branchNameInEnglish"
+                                   class="form-control form-control-sm" formControlName="branchNameInEnglish"/>
+                        </div>
+
+                    </div>
+                    <div class="col-md-12 row">
+                        <div class="form-group col-md-4">
                             <label class="title" for="branchDistrict">
                                 शाखा जिल्ला</label>
                             <input [ngClass]="{'is-invalid': submitted && basicInfoControls.branchDistrict.errors}"
@@ -1771,7 +1801,7 @@
                                    id="branchDistrict"
                                    class="form-control form-control-sm nepaliFont" formControlName="branchDistrict"/>
                         </div>
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-md-4">
                             <label class="title" for="branchMunVdc">
                                 शाखा नगरपालिक ⁄ गाविस</label>
                             <input [ngClass]="{'is-invalid': submitted && basicInfoControls.branchMunVdc.errors}"
@@ -1781,7 +1811,7 @@
                                    id="branchMunVdc"
                                    formControlName="branchMunVdc"/>
                         </div>
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-md-4">
                             <label class="title" for="branchWardNo">शाखा वडा नं.</label>
                             <input [ngClass]="{'is-invalid': submitted && basicInfoControls.branchWardNo.errors}"
                                    type="text"
@@ -1791,7 +1821,7 @@
                         </div>
                     </div>
                     <div class="col-md-12 row">
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-md-4">
                             <label class="title" for="branchTelNo">
                                 शाखा टेलिफोन नम्बर</label>
                             <input type="text"
@@ -1801,7 +1831,7 @@
                                    id="branchTelNo"
                                    formControlName="branchTelNo"/>
                         </div>
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-md-4">
                             <label class="title" for="branchFaxNo">
                                 शाखा फ्याक्स नम्बर</label>
                             <input [ngClass]="{'is-invalid': submitted && basicInfoControls.branchFaxNo.errors}"
@@ -1810,7 +1840,7 @@
                                    id="branchFaxNo"
                                    class="form-control form-control-sm nepaliFont" formControlName="branchFaxNo"/>
                         </div>
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-md-4">
                             <label class="title" for="branchEmail">
                                 शाखा इमेल</label>
                             <input [ngClass]="{'is-invalid': submitted && basicInfoControls.branchEmail.errors}"
@@ -1820,15 +1850,6 @@
                                    id="branchEmail"
                                    formControlName="branchEmail"/>
                         </div>
-                        <div class="form-group col-md-3">
-                            <label class="title" for="branchNameInEnglish">
-                                Branch Name</label>
-                            <input [ngClass]="{'is-invalid': submitted && basicInfoControls.branchNameInEnglish.errors}"
-                                   type="text"
-                                   placeholder="Branch Name"
-                                   id="branchNameInEnglish"
-                                   class="form-control form-control-sm" formControlName="branchNameInEnglish"/>
-                        </div>
                     </div>
                 </nb-tab>
             </nb-tabset>
@@ -1837,8 +1858,22 @@
     <nb-card-footer>
         <div class="row">
             <div class="col-md-12">
+                <button class="float-right" nbButton status="warning" (click)="changeAction(closeForm)">close</button>
                 <button class="float-right" nbButton (click)="save()">save</button>
             </div>
         </div>
     </nb-card-footer>
 </nb-card>
+<ng-template #closeForm>
+    <nb-card class="m-0 confirm-close" [nbSpinner]="onActionChangeSpinner">
+        <nb-card-header>
+            <h5>Are you sure you want to close?</h5>
+        </nb-card-header>
+        <nb-card-footer>
+            <div class="d-flex justify-content-end">
+                <button (click)="onClose(); close()" nbButton status="primary" type="submit">YES</button>
+                <button (click)="onClose()" nbButton status="warning" type="button">NO</button>
+            </div>
+        </nb-card-footer>
+    </nb-card>
+</ng-template>

@@ -2,8 +2,8 @@
 
   <div class="col-md-12 viewFull">
     <form (ngSubmit)="onSubmit()" [formGroup]="form" class="nepali">
-      <h6 class="text-center">प्रतिज्ञा पत्र<br>
-        (PROMISSORY NOTE)</h6>
+      <h6 class="text-center"><strong>प्रतिज्ञा पत्र<br>
+        (PROMISSORY NOTE)</strong></h6>
       <br>
 
       <div class="row col-md-12">
@@ -97,65 +97,66 @@
           <tr>
             <td style="text-align: right; vertical-align: top;padding-top: 10px;width: 20%">दस्तखत गर्नेको नाम :—</td>
             <td style="text-align: left;width: 80%"><input class="form-field form-control-sm nepaliFont"
-                                                           formControlName="borrowerName"
+                                                           formControlName="guarantorName"
                                                            placeholder=""
                                                            readonly
                                                            type="text"/>
               <strong>(ना.प्र.नं</strong><input class="form-field form-control-sm nepaliFont"
-                                      formControlName="borrowerCitizenshipNo"
+                                      formControlName="guarantorCitizenshipNo"
                                       placeholder=""
                                       readonly
                                       type="text"/>
               <strong>मिति</strong> <input class="form-field form-control-sm nepaliFont"
-                                 formControlName="borrowerCitizenshipIssueDate"
+                                 formControlName="guarantorCitizenshipIssueDate"
                                  placeholder=""
                                  readonly
                                  type="text"/> <strong>जि.प्र.का.</strong> <input class="form-field form-control-sm nepaliFont"
-                                                                        formControlName="borrowerCdoOffice"
+                                                                        formControlName="guarantorCdoOffice"
                                                                         placeholder=""
                                                                         readonly
                                                                         type="text"/><strong>)</strong></td>
           </tr>
           <tr>
             <td style="text-align: right; vertical-align: top;padding-top: 10px;width: 20%">स्थायी ठेगाना :—</td>
-            <td style="text-align: left;width: 80%"><input class="form-field form-control-sm nepaliFont"
-                                                           formControlName="borrowerPermanentDistrict"
+            <td style="text-align: left;width: 80%"><input class="form-fie
+            ld form-control-sm nepaliFont"
+                                                           formControlName="guarantorPermanentDistrict"
                                                            placeholder=""
                                                            readonly
                                                            type="text"/>
               जिल्ला <input class="form-field form-control-sm nepaliFont"
-                            formControlName="borrowerPermanentMunicipality"
+                            formControlName="guarantorPermanentMunicipality"
                             placeholder=""
                             readonly
                             type="text"/>
               गा.पा./न.पा.वडा नं<input class="form-field form-control-sm nepaliFont"
-                                       formControlName="borrowerPermanentWardNo"
+                                       formControlName="guarantorPermanentWardNo"
                                        placeholder=""
                                        readonly
                                        type="text"/>
               (साबिक <input class="form-field form-control-sm nepaliFont"
-                            formControlName="borrowerSabikVDC"
+                            formControlName="guarantorSabikVDC"
                             placeholder=""
                             type="text"/>
               गा.बि.स.वडा नं. <input class="form-field form-control-sm nepaliFont"
-                                     formControlName="borrowerSabikWardNo"
+                                     formControlName="guarantorSabikWardNo"
                                      placeholder=""
                                      type="text"/>)</td>
           </tr>
           <tr>
             <td style="text-align: right; vertical-align: top;padding-top: 10px;width: 20%">हालको ठेगाना :—</td>
             <td style="text-align: left;width: 80%"><input class="form-field form-control-sm nepaliFont"
-                                                           formControlName="borrowerTempDistrict"
+                                                           formControlName="guarantorTempDistrict"
                                                            placeholder=""
                                                            readonly
                                                            type="text"/>
               जिल्ला<input class="form-field form-control-sm nepaliFont"
-                           formControlName="borrowerTempMunicipality"
+                           formControlName="guarantorTempMunicipality"
                            placeholder=""
                            readonly
                            type="text"/>
               गा.पा./न.पा.वडा नं.<input class="form-field form-control-sm nepaliFont"
-                                        formControlName="borrowerTempWardNo"
+                                        formControlName="guarantorTempWardNo"
                                         placeholder=""
                                         readonly
                                         type="text"/>
@@ -164,7 +165,7 @@
           <tr>
             <td style="text-align: right;width: 20%">वावु/आमाको नाम :—</td>
             <td style="text-align: left;width: 80%"><input class="form-field form-control-sm nepaliFont"
-                                                           formControlName="borrowerParentsName"
+                                                           formControlName="guarantorParentsName"
                                                            placeholder=""
                                                            readonly
                                                            type="text"/></td>
@@ -172,7 +173,7 @@
           <tr>
             <td style="text-align: right;width: 20%">वाजे/बजैको नाम :—</td>
             <td style="text-align: left;width: 80%"><input class="form-field form-control-sm nepaliFont"
-                                                           formControlName="borrowerGrandParentsName"
+                                                           formControlName="guarantorGrandParentsName"
                                                            placeholder=""
                                                            readonly
                                                            type="text"/></td>
@@ -180,7 +181,7 @@
           <tr>
             <td style="text-align: right;width: 20%">पति/पत्निको नाम :—</td>
             <td style="text-align: left;width: 80%"><input class="form-field form-control-sm nepaliFont"
-                                                           formControlName="borrowerHusbandWifeName"
+                                                           formControlName="guarantorHusbandWifeName"
                                                            placeholder=""
                                                            readonly
                                                            type="text"/></td>

@@ -61,6 +61,7 @@ export class LoanDeedComponent implements OnInit {
                     if (!ObjectUtil.isEmpty(initialInfo.swikritiBibaran)) {
                         this.setSwikriti(initialInfo.swikritiBibaran);
                     }
+
                     if (!ObjectUtil.isEmpty(initialInfo.security)) {
                         this.setSecurity(initialInfo.security);
                     }
