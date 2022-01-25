@@ -141,6 +141,8 @@ export class Section2LoanTypeComponent implements OnInit {
     billPurchaseFreeText: Array<any> = new Array<any>();
     equityMortgageOverdraft = [];
     mortgageOverdraft = [];
+    importBillsDiscounting = [];
+    importBillsFreeText: Array<any> = new Array<any>();
 
     constructor(private formBuilder: FormBuilder,
                 private engToNepWord: NepaliCurrencyWordPipe,
@@ -195,11 +197,8 @@ export class Section2LoanTypeComponent implements OnInit {
             loanExpiryDateTimeLetter: [undefined],
             loanExpiryDateTimeLetter2: [undefined],
             // Import Bills Discounting
-            loanDaysBillsDiscounting: [undefined],
-            loanDaysBillsDiscountingInEng: [undefined],
-            SNOfParentLimitBillsDiscounting: [undefined],
-            marginInPercentageBillsDiscounting: [undefined],
-            loanExpiryDateBillsDiscounting: [undefined],
+            importBillsDiscounting: this.formBuilder.array([]),
+
             // Import Loan/ Trust Receipt Loan
             loanDaysLoanTrust: [undefined],
             loanDaysLoanTrustInEng: [undefined],
@@ -298,7 +297,6 @@ export class Section2LoanTypeComponent implements OnInit {
 
             // other Input Fields
             SNOfFacility: [undefined],
-            freeTextOne: [undefined],
             freeTextTwo: [undefined],
             freeTextThree: [undefined],
             freeTextFour: [undefined],
@@ -314,6 +312,16 @@ export class Section2LoanTypeComponent implements OnInit {
         this.setBillsPurchase();
         this.setEquityMortgageOverdraft();
         this.setMortgageOverdraft();
+        this.setImportBillsDiscounting();
+    }
+    setImportBillsDiscounting() {
+        if (!ObjectUtil.isEmpty(this.initialData) &&
+            !ObjectUtil.isEmpty(this.initialData.importBillsDiscountForm) &&
+            !ObjectUtil.isEmpty(this.initialData.importBillsDiscountForm.importBillsDiscountFormArray)) {
+            for (let a = 0; a < this.initialData.importBillsDiscountForm.importBillsDiscountFormArray.length; a++) {
+                (this.form.get('importBillsDiscounting') as FormArray).push(this.setImportBillsDiscountForm());
+            }
+        }
     }
     setMortgageOverdraft() {
         if (!ObjectUtil.isEmpty(this.initialData) &&
@@ -372,7 +380,16 @@ export class Section2LoanTypeComponent implements OnInit {
             }
         }
     }
-
+    setImportBillsDiscountForm() {
+        return this.formBuilder.group({
+            loanDaysBillsDiscounting: [undefined],
+            loanDaysBillsDiscountingInEng: [undefined],
+            marginInPercentageBillsDiscounting: [undefined],
+            loanExpiryDateBillsDiscounting: [undefined],
+            SNOfParentLimitBillsDiscounting: [undefined],
+            freeTextOne: [undefined]
+        });
+    }
     setEquityMortgageOverdraftForm() {
         return this.formBuilder.group({
             drawingPowerMortgageOverdraft: [undefined],
@@ -543,7 +560,7 @@ export class Section2LoanTypeComponent implements OnInit {
                     this.irrevocableLetterOfCredit();
                 }
                 // tslint:disable-next-line:max-line-length
-                if (v.loanName === LoanNameConstant.IMPORT_BILLS_DISCOUNTING && !ObjectUtil.isEmpty(this.tempData.importBillsDiscountForm)) {
+                /*if (v.loanName === LoanNameConstant.IMPORT_BILLS_DISCOUNTING && !ObjectUtil.isEmpty(this.tempData.importBillsDiscountForm)) {
                     this.isBillDiscounting = true;
                     this.loanOptionBillDiscounting = this.tempData.importBillsDiscountForm.loanOption;
                     this.complementaryOtherBillDiscountingName = this.tempData.importBillsDiscountForm.complimentaryLoanSelected;
@@ -551,7 +568,7 @@ export class Section2LoanTypeComponent implements OnInit {
                         this.complementaryOtherBillDiscounting = true;
                     }
                     this.importBillsDiscountFormPatchValue();
-                }
+                }*/
                 if (v.loanName === LoanNameConstant.IMPORT_LOAN_TRUST_RECEIPT_LOAN && !ObjectUtil.isEmpty(this.tempData.importLoanTrust)) {
                     this.isLoanTrustReceiptLoan = true;
                     this.loanOptionImportLoanTrust = this.tempData.importLoanTrust.loanOption;
@@ -700,6 +717,7 @@ export class Section2LoanTypeComponent implements OnInit {
         this.billPurchaseFormPatchValue();
         this.equityMortgageFormPatchValue();
         this.mortgageOverdraftPatchValue();
+        this.importBillsDiscountFormPatchValue();
     }
 
     irrevocableLetterOfCredit() {
@@ -738,19 +756,28 @@ export class Section2LoanTypeComponent implements OnInit {
     }
 
     importBillsDiscountFormPatchValue() {
-        this.form.patchValue({
-            // Import Bills Discounting
-            // tslint:disable-next-line:max-line-length
-            loanDaysBillsDiscounting: this.tempData.importBillsDiscountForm.loanPeriodInDaysCT ? this.tempData.importBillsDiscountForm.loanPeriodInDaysCT : '',
-            // tslint:disable-next-line:max-line-length
-            loanDaysBillsDiscountingInEng: this.tempData.importBillsDiscountForm.loanPeriodInDays ? this.tempData.importBillsDiscountForm.loanPeriodInDays : '',
-            // SNOfParentLimitBillsDiscounting: [undefined],
-            // tslint:disable-next-line:max-line-length
-            marginInPercentageBillsDiscounting: this.tempData.importBillsDiscountForm.marginInPercentageCT ? this.tempData.importBillsDiscountForm.marginInPercentageCT : '',
-            // tslint:disable-next-line:max-line-length
-            loanExpiryDateBillsDiscounting: this.tempData.importBillsDiscountForm.dateOfExpiryCT ? this.tempData.importBillsDiscountForm.dateOfExpiryCT : '',
-
-        });
+        if (!ObjectUtil.isEmpty(this.tempData) &&
+            !ObjectUtil.isEmpty(this.tempData.importBillsDiscountForm) &&
+            !ObjectUtil.isEmpty(this.tempData.importBillsDiscountForm.importBillsDiscountFormArray)) {
+            for (let val = 0; val < this.tempData.importBillsDiscountForm.importBillsDiscountFormArray.length; val++) {
+                this.form.get(['importBillsDiscounting', val, 'loanDaysBillsDiscounting']).patchValue(
+                    this.tempData.importBillsDiscountForm.importBillsDiscountFormArray[val] ?
+                        this.tempData.importBillsDiscountForm.importBillsDiscountFormArray[val].loanPeriodInDaysCT : ''
+                );
+                this.form.get(['importBillsDiscounting', val, 'loanDaysBillsDiscountingInEng']).patchValue(
+                    this.tempData.importBillsDiscountForm.importBillsDiscountFormArray[val] ?
+                        this.tempData.importBillsDiscountForm.importBillsDiscountFormArray[val].loanPeriodInDays : ''
+                );
+                this.form.get(['importBillsDiscounting', val, 'loanExpiryDateBillsDiscounting']).patchValue(
+                    this.tempData.importBillsDiscountForm.importBillsDiscountFormArray[val] ?
+                        this.tempData.importBillsDiscountForm.importBillsDiscountFormArray[val].dateOfExpiryCT : ''
+                );
+                this.form.get(['importBillsDiscounting', val, 'marginInPercentageBillsDiscounting']).patchValue(
+                    this.tempData.importBillsDiscountForm.importBillsDiscountFormArray[val] ?
+                        this.tempData.importBillsDiscountForm.importBillsDiscountFormArray[val].marginInPercentageCT : ''
+                );
+            }
+        }
     }
 
     importTrustFormPatchValue() {
@@ -1077,7 +1104,7 @@ export class Section2LoanTypeComponent implements OnInit {
             termLoanFreeText: !ObjectUtil.isEmpty(tempTermLoanFreeVal) ? tempTermLoanFreeVal : '',
             loanExpiryIrrevocable: this.form.get('loanExpiryDateIrrevocable2').value ? this.form.get('loanExpiryDateIrrevocable2').value : '',
             loanExpiryTimeLetter: this.form.get('loanExpiryDateTimeLetter2').value ? this.form.get('loanExpiryDateTimeLetter2').value : '',
-            freeText1: this.form.get('freeTextOne').value ? this.form.get('freeTextOne').value : '',
+            // freeText1: this.form.get('freeTextOne').value ? this.form.get('freeTextOne').value : '',
             freeText2: this.form.get('freeTextTwo').value ? this.form.get('freeTextTwo').value : '',
             remainingDaysShortTerms: this.form.get('remainDaysShortTermLoan').value ? this.form.get('remainDaysShortTermLoan').value : '',
             freeText3: this.form.get('freeTextThree').value ? this.form.get('freeTextThree').value : '',
@@ -1108,7 +1135,7 @@ export class Section2LoanTypeComponent implements OnInit {
             SNIrrevocable: this.form.get('SNOfParentLimitIrrevocable').value ? this.form.get('SNOfParentLimitIrrevocable').value : '',
             SNTimeLetter: this.form.get('SNOfParentLimitTimeLetter').value ? this.form.get('SNOfParentLimitTimeLetter').value : '',
             // tslint:disable-next-line:max-line-length
-            SNBillsDiscounting: this.form.get('SNOfParentLimitBillsDiscounting').value ? this.form.get('SNOfParentLimitBillsDiscounting').value : '',
+            // SNBillsDiscounting: this.form.get('SNOfParentLimitBillsDiscounting').value ? this.form.get('SNOfParentLimitBillsDiscounting').value : '',
             SNLoanTrust: this.form.get('SNOfParentLimitLoanTrust').value ? this.form.get('SNOfParentLimitLoanTrust').value : '',
             SNShortTermLoan: this.form.get('SNOfParentLimitShortTermLoan').value ? this.form.get('SNOfParentLimitShortTermLoan').value : '',
             SNDemandLoan: this.form.get('SNOfParentLimitDemandLoan').value ? this.form.get('SNOfParentLimitDemandLoan').value : '',
@@ -1117,12 +1144,30 @@ export class Section2LoanTypeComponent implements OnInit {
             // SNDocumentaryBill: this.form.get('SNOfParentLimitDocumentaryBill').value ? this.form.get('SNOfParentLimitDocumentaryBill').value : '',
             documentaryBillPurchaseFreeText: this.documentaryBillFreeText(),
             billsPurchaseFreeText: this.billsPurchaseFreeText(),
+            importBillsDiscountingFreeText: this.importBillsDiscountingFreeText(),
             SNBridgeGap: this.form.get('SNOfParentLimitBridgeGap').value ? this.form.get('SNOfParentLimitBridgeGap').value : '',
             SNBankGuarantee: this.form.get('SNOfParentLimitBankGuarantee').value ? this.form.get('SNOfParentLimitBankGuarantee').value : '',
             // SNBillsPurchase: this.form.get('SNOfParentLimitBillsPurchase').value ? this.form.get('SNOfParentLimitBillsPurchase').value : '',
             // freeText15: this.form.get('freeTextFifteen').value ? this.form.get('freeTextFifteen').value : '',
         };
         return this.freeTextVal;
+    }
+
+    importBillsDiscountingFreeText() {
+        if (!ObjectUtil.isEmpty(this.tempData) &&
+            !ObjectUtil.isEmpty(this.tempData.importBillsDiscountForm) &&
+            !ObjectUtil.isEmpty(this.tempData.importBillsDiscountForm.importBillsDiscountFormArray)) {
+            for (let val = 0; val < this.tempData.importBillsDiscountForm.importBillsDiscountFormArray.length; val++) {
+                const tempFreeText = {
+                    SNOfParentLimitBillsDiscounting: this.form.get(['importBillsDiscounting', val, 'SNOfParentLimitBillsDiscounting']).value ?
+                        this.form.get(['importBillsDiscounting', val, 'SNOfParentLimitBillsDiscounting']).value : '',
+                    freeTextOne: this.form.get(['importBillsDiscounting', val, 'freeTextOne']).value ?
+                        this.form.get(['importBillsDiscounting', val, 'freeTextOne']).value : '',
+                };
+                this.importBillsFreeText.push(tempFreeText);
+            }
+            return this.importBillsFreeText;
+        }
     }
     billsPurchaseFreeText() {
         if (!ObjectUtil.isEmpty(this.tempData) &&
@@ -1161,8 +1206,9 @@ export class Section2LoanTypeComponent implements OnInit {
     setFreeText() {
         this.setDocumentaryBillFreetext();
         this.setBillsPurchaseFreeText();
+        this.setImportBillsFreeText();
         this.form.patchValue({
-            freeTextOne: this.tempInformation ? this.tempInformation.section2.freeText1 : '',
+            // freeTextOne: this.tempInformation ? this.tempInformation.section2.freeText1 : '',
             freeTextTwo: this.tempInformation ? this.tempInformation.section2.freeText2 : '',
             freeTextThree: this.tempInformation ? this.tempInformation.section2.freeText3 : '',
             freeTextFour: this.tempInformation ? this.tempInformation.section2.freeText4 : '',
@@ -1184,7 +1230,7 @@ export class Section2LoanTypeComponent implements OnInit {
             remainDaysLoanTrust: this.tempInformation ? this.tempInformation.section2.remainDaysLoan : '',
             SNOfParentLimitIrrevocable: this.tempInformation ? this.tempInformation.section2.SNIrrevocable : '',
             SNOfParentLimitTimeLetter: this.tempInformation ? this.tempInformation.section2.SNTimeLetter : '',
-            SNOfParentLimitBillsDiscounting: this.tempInformation ? this.tempInformation.section2.SNBillsDiscounting : '',
+            // SNOfParentLimitBillsDiscounting: this.tempInformation ? this.tempInformation.section2.SNBillsDiscounting : '',
             SNOfParentLimitLoanTrust: this.tempInformation ? this.tempInformation.section2.SNLoanTrust : '',
             SNOfParentLimitShortTermLoan: this.tempInformation ? this.tempInformation.section2.SNShortTermLoan : '',
             SNOfParentLimitDemandLoan: this.tempInformation ? this.tempInformation.section2.SNDemandLoan : '',
@@ -1196,6 +1242,20 @@ export class Section2LoanTypeComponent implements OnInit {
         });
     }
 
+    setImportBillsFreeText() {
+        if (!ObjectUtil.isEmpty(this.tempInformation) &&
+            !ObjectUtil.isEmpty(this.tempInformation.section2) &&
+            !ObjectUtil.isEmpty(this.tempInformation.section2.importBillsDiscountingFreeText)) {
+            for (let val = 0; val < this.tempInformation.section2.importBillsDiscountingFreeText.length; val++) {
+                this.form.get(['importBillsDiscounting', val, 'SNOfParentLimitBillsDiscounting']).patchValue(
+                    this.tempInformation.section2.importBillsDiscountingFreeText[val] ?
+                        this.tempInformation.section2.importBillsDiscountingFreeText[val].SNOfParentLimitBillsDiscounting : '');
+                this.form.get(['importBillsDiscounting', val, 'freeTextOne']).patchValue(
+                    this.tempInformation.section2.importBillsDiscountingFreeText[val] ?
+                        this.tempInformation.section2.importBillsDiscountingFreeText[val].freeTextOne : '');
+            }
+        }
+    }
     setBillsPurchaseFreeText() {
         if (!ObjectUtil.isEmpty(this.tempInformation) &&
             !ObjectUtil.isEmpty(this.tempInformation.section2) &&
@@ -1237,6 +1297,7 @@ export class Section2LoanTypeComponent implements OnInit {
         this.billsPurchase = this.loanData.filter(data => data.loanName === this.loanNameConstant.BILLS_PURCHASE);
         this.equityMortgageOverdraft = this.loanData.filter(data => data.loanName === this.loanNameConstant.EQUITY_MORTGAGED_OVERDRAFT);
         this.mortgageOverdraft = this.loanData.filter(data => data.loanName === this.loanNameConstant.MORTGAGE_OVERDRAFT);
+        this.importBillsDiscounting = this.loanData.filter(data => data.loanName === this.loanNameConstant.IMPORT_BILLS_DISCOUNTING);
         this.autoLoanDetails = this.loanData.filter(data => data.loanName === this.loanNameConstant.AUTO_LOAN);
         this.termLoanDetails = this.loanData.filter(data => data.loanName === this.loanNameConstant.TERM_LOAN_TO_FOR_PURCHASE_OF_VEHICLE);
     }

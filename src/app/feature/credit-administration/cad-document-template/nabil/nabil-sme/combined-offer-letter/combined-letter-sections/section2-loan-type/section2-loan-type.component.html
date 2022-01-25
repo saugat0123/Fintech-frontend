@@ -468,6 +468,102 @@
         </div>
         <div>
             <table class="table table-bordered">
+                <ng-container *ngIf="tempData?.importBillsDiscountForm?.importBillsDiscountFormArray">
+                    <tr *ngFor="let val of tempData?.importBillsDiscountForm?.importBillsDiscountFormArray; let i3 = index"
+                        formArrayName="importBillsDiscounting">
+                        <ng-container [formGroupName]="i3">
+                            <!--Import Bills Discounting -->
+                            <td width="10%">
+                                <strong>
+                                    {{
+                                    (tempData?.termLoanForm?.termLoanDetails?.length) +
+                                    (tempData?.autoLoanMasterForm?.autoLoanFormArray?.length) +
+                                    (tempData?.overDraftFacilityForm?.overdraftFacilityDetails.length) +
+                                    (tempData?.documentaryBillPurchase?.documentaryBillPurchaseFormArray.length) +
+                                    (tempData?.equityMortgaged?.mortgageOverdraftFormArray.length) +
+                                    (tempData?.equityMortgaged?.equityMortgagedFormArray.length) +
+                                    (i3 + 1) | nepaliWord}})
+                                </strong>
+                            </td>
+                            <td><strong><input class="form-field form-control-sm "
+                                               formControlName="loanDaysBillsDiscounting"
+                                               placeholder=""
+                                               type="text"/> दिन सम्मको लागि आयात बिल्स डिस्काउन्टिङ्ग कर्जा (Import Bills
+                                Discounting For upto <input class="form-field form-control-sm "
+                                                            formControlName="loanDaysBillsDiscountingInEng"
+                                                            placeholder=""
+                                                            type="text"/> days)
+                                <ng-container *ngIf="val?.complementaryOther === true"> बुँदा नं.<input
+                                        class="form-field form-control-sm "
+                                        formControlName="SNOfParentLimitBillsDiscounting"
+                                        placeholder=""
+                                        type="text"/>
+                                    <ng-container *ngIf="val?.complimentaryLoanSelected !== 'TOTAL LIMIT'"> को पूरक सुविधा</ng-container>
+                                    <ng-container *ngIf="val?.complimentaryLoanSelected === 'TOTAL LIMIT'"> कुल सुविधाको पूरक सुविधा </ng-container>
+                                </ng-container>
+                            </strong><br>
+                                <strong>सीमाः
+                                    <!--<ng-container *ngIf="val.complementaryOther === true">-->
+                                        <ng-container>
+                                            रु.<input
+                                                class="form-field form-control-sm"
+                                                value="{{importBillsDiscounting[i3] ? importBillsDiscounting[i3].loanAmountNp: ''}}"
+                                                placeholder=""
+                                                type="text"/>/–
+                                    </ng-container>
+                                    <!--<ng-container *ngIf="val.complementaryOther === false">रु.<input
+                                            class="form-field form-control-sm"
+                                            value="{{importBillsDiscounting[i3] ? importBillsDiscounting[i3].loanAmountWords : ''}}"
+                                            placeholder=""
+                                            type="text"/>
+                                        ।–
+                                    </ng-container>-->
+                                    (अक्षरेपी रु.<input class="form-field form-control-sm "
+                                                        value="{{importBillsDiscounting[i3] ? importBillsDiscounting[i3].loanAmountWords : ''}}"
+                                                        placeholder=""
+                                                        type="text"/> मात्र)</strong><br>
+                                <strong>सुरक्षणः</strong><br>
+
+                                <span *ngIf="this.hypothecationGlobal === 'New'">१. सामानहरुको मौज्दात उपर धितोेबन्धक (Hypothecation) हकाधिकार र ऋणीले आफ्ना आसामीबाट भुक्तानी
+                    प्राप्त गर्न बाँकी रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामा हस्तान्तरण गर्नु
+                    पर्नेछ ।</span><br>
+                                <span *ngIf="this.hypothecationGlobal === 'Existing'">१. सामानहरुको मौज्दात उपर धितोेबन्धक (Hypothecation) हकाधिकार र ऋणीले आफ्ना आसामीबाट भुक्तानी
+                    प्राप्त गर्न बाँकी रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामा हस्तान्तरण गरिदिइएको
+                    यथावत कायम रहने छ ।</span>
+                                <br>
+                                २. अख्तियारप्राप्त व्यक्तिद्धारा स्वीकार गरिएको विनिमय–पत्र (Bill of Exchange) बैंकको पक्षमा
+                                हस्तान्तरण गर्नु पर्नेछ ।<br>
+
+                                <strong>डिस्काउन्ट दरः</strong> डिस्काउन्ट दर डिस्काउन्टिङ्ग गर्दाको समयमा निर्धारण गरिनेछ ।<br>
+                                <strong>धरौटीः </strong><input class="form-field form-control-sm "
+                                                               formControlName="marginInPercentageBillsDiscounting"
+                                                               placeholder=""
+                                                               type="text"/>% नगद धरौटी स्वरुप रहनेछ ।<br>
+                                <strong>कमिसनः</strong> बैंकको नियम अनुसार लाग्नेछ ।<br>
+                                <strong>कर्जा अवधि समाप्ति मितिः</strong> बिल्स डिस्काउन्टिङ्ग कागजातको म्याद समाप्ति मिति
+                                सम्म
+                                ।<br>
+                                <strong>कर्जा भुक्तानी तरिकाः </strong>
+                                <textarea
+                                        class="form-control customFont "
+                                        rows="2"
+                                        style="width: 100%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em; color: black;"
+                                        name=""
+                                        placeholder=""
+                                        formControlName="freeTextOne">
+                        </textarea>
+                                <span *ngIf="val?.loanOption === 'REGULAR'"><strong>सुविधा समाप्ति/पुनरावलोकन मितिः
+                                    {{val?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
+                                    <input
+                                            class="form-field form-control-sm "
+                                            formControlName="loanExpiryDateBillsDiscounting"
+                                            placeholder=""
+                                            type="text"/></strong></span>
+                            </td>
+                        </ng-container>
+                    </tr>
+                </ng-container>
+
                 <ng-container *ngIf="tempData?.billPurchaseForm?.billPurchaseFormArray">
                     <tr *ngFor="let val of tempData?.billPurchaseForm?.billPurchaseFormArray; let i3 = index"
                         formArrayName="billsPurchase">
@@ -482,6 +578,7 @@
                                     (tempData?.documentaryBillPurchase?.documentaryBillPurchaseFormArray.length) +
                                     (tempData?.equityMortgaged?.mortgageOverdraftFormArray.length) +
                                     (tempData?.equityMortgaged?.equityMortgagedFormArray.length) +
+                                    (tempData?.importBillsDiscountForm?.importBillsDiscountFormArray.length) +
                                     (i3 + 1) | nepaliWord}})
                                 </strong>
                             </td>
