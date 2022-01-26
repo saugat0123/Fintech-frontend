@@ -108,9 +108,10 @@ export class LoanActionCombinedModalComponent implements OnInit {
                 if (this.docAction === DocAction[DocAction.BACKWARD_TO_COMMITTEE]) {
                     this.roleService.detail(this.toRole.id).subscribe((res: any) => {
                         this.toRole = res.detail;
-                        this.individualType.form.get(['actions', i, 'toRole']).setValue(this.toRole);
+                        this.individualType.form.get(['actions', i, 'toRole']).patchValue(this.toRole);
                     });
                     this.getIndividualUserList(this.toRole, i);
+                    this.showUserList = false;
                 }
             });
             this.combinedLoan.loans.forEach((l, i) => this.individualType.solUsers.set(i, []));
