@@ -14,6 +14,7 @@ import {NbDialogRef} from '@nebular/theme';
 import {CadOfferLetterModalComponent} from '../../../../../cad-offerletter-profile/cad-offer-letter-modal/cad-offer-letter-modal.component';
 import {RouterUtilsService} from '../../../../../utils/router-utils.service';
 import {EngNepDatePipe} from 'nepali-patro';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-supplementary-aggrement-company',
@@ -42,6 +43,7 @@ export class SupplementaryAggrementCompanyComponent implements OnInit {
               private engToNepNumberPipe: EngToNepaliNumberPipe,
               private currencyFormatPipe: CurrencyFormatterPipe,
               public engToNepaliDate: EngNepDatePipe,
+              private datePipe: DatePipe
               ) { }
 
   ngOnInit() {
@@ -122,13 +124,16 @@ export class SupplementaryAggrementCompanyComponent implements OnInit {
       date: this.form.get('date') ? this.form.get('date').value : '',
       days: this.form.get('days') ? this.form.get('days').value : '',
       suvam: this.form.get('suvam') ? this.form.get('suvam').value : '',
+      dateOfHyothenciation: this.form.get('dateOfHyothenciation') ? this.form.get('dateOfHyothenciation').value : '',
+      letterOfCreditIssueDate: this.form.get('letterOfCreditIssueDate') ? this.form.get('letterOfCreditIssueDate').value : '',
+      letterOfCredit: this.form.get('letterOfCredit') ? this.form.get('letterOfCredit').value : '',
+      dateOfTrust: this.form.get('dateOfTrust') ? this.form.get('dateOfTrust').value : '',
     };
     return JSON.stringify(tempFree);
   }
   fillForm() {
     // for sanction letter date
     if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
-      console.log('hire', this.cadData);
       if (this.cadData.offerDocumentList[0].docName === 'DDSL Without Subsidy' ||
           this.cadData.offerDocumentList[0].docName === 'Class A Sanction letter') {
         const dateOfApproval = this.initialInfo.sanctionLetterDateType ? this.initialInfo.sanctionLetterDateType.en : '';
@@ -149,21 +154,22 @@ export class SupplementaryAggrementCompanyComponent implements OnInit {
         }
       }
       if (this.cadData.offerDocumentList[0].docName === 'Combined Offer Letter') {
-        const dateOfApproval = this.initialInfo.smeGlobalForm.dateOfApprovalType ?
+        const dateOfApprovalType = this.initialInfo.smeGlobalForm.dateOfApprovalType ?
             this.initialInfo.smeGlobalForm.dateOfApprovalType : '';
-        if (dateOfApproval === 'AD') {
-          this.sanctionDate = this.engToNepaliDate.transform(this.initialInfo.smeGlobalForm.dateOfApproval ?
-              this.initialInfo.smeGlobalForm.dateOfApprovalCT : '', true);
+        if (dateOfApprovalType === 'AD') {
+          const templateDateApproval = this.initialInfo.smeGlobalForm.dateOfApproval ?
+              this.initialInfo.smeGlobalForm.dateOfApprovalCT : '';
+          this.sanctionDate = this.initialInfo.transform(this.datePipe.transform(templateDateApproval), true);
         } else {
-          this.sanctionDate = this.initialInfo.smeGlobalForm.dateOfApprovalNepali ?
-              this.initialInfo.smeGlobalForm.dateOfApprovalNepali.nDate : '';
+          const templateDateApproval = this.initialInfo.smeGlobalForm.dateOfApprovalNepali ?
+              this.initialInfo.smeGlobalForm.dateOfApprovalNepali : '';
+          this.sanctionDate = templateDateApproval ? templateDateApproval.nDate : '';
         }
       }
     }
     this.form.patchValue({
       addressOfBank: this.individualData.branch ? this.individualData.branch.ct : '',
       nameOfBorrower: this.individualData.name ? this.individualData.name.ct : '',
-      // dateOfHyothenciation: this.individualData.name ? this.individualData.name.ct : '',
       loanAmountInFig: this.finalAmount ? this.finalAmount : '',
       loanAmountInWord: this.loanAmountWord ? this.loanAmountWord : '',
       sanctionLetter: this.sanctionDate ? this.sanctionDate : '',
@@ -184,6 +190,10 @@ export class SupplementaryAggrementCompanyComponent implements OnInit {
       date: this.supportedInfo ? this.supportedInfo.date : '',
       days: this.supportedInfo ? this.supportedInfo.days : '',
       suvam: this.supportedInfo ? this.supportedInfo.suvam : '',
+      dateOfHyothenciation: this.supportedInfo ? this.supportedInfo.dateOfHyothenciation : '',
+      letterOfCreditIssueDate: this.supportedInfo ? this.supportedInfo.letterOfCreditIssueDate : '',
+      letterOfCredit: this.supportedInfo ? this.supportedInfo.letterOfCredit : '',
+      dateOfTrust: this.supportedInfo ? this.supportedInfo.dateOfTrust : '',
     });
     if (!ObjectUtil.isEmpty(this.supportedInfo)) {
       if (!ObjectUtil.isEmpty(this.supportedInfo.freeTextVal)) {

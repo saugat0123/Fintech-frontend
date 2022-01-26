@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {NepaliCurrencyWordPipe} from '../../../../../../../../../@core/pipe/nepali-currency-word.pipe';
 import {EngToNepaliNumberPipe} from '../../../../../../../../../@core/pipe/eng-to-nepali-number.pipe';
 import {CurrencyFormatterPipe} from '../../../../../../../../../@core/pipe/currency-formatter.pipe';
@@ -7,6 +7,7 @@ import {DatePipe} from '@angular/common';
 import {EngNepDatePipe} from 'nepali-patro';
 import {ObjectUtil} from '../../../../../../../../../@core/utils/ObjectUtil';
 import {OfferDocument} from '../../../../../../../model/OfferDocument';
+import {LoanNameConstant} from '../../../../sme-costant/loan-name-constant';
 
 @Component({
   selector: 'app-import-loan-trust-receipt-loan',
@@ -29,7 +30,8 @@ export class ImportLoanTrustReceiptLoanComponent implements OnInit {
     {value: 'Yes'},
     {value: 'No'}
   ];
-
+  filteredList: any = [];
+  loanNameConstant = LoanNameConstant;
   constructor(private formBuilder: FormBuilder,
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
               private engToNepNumberPipe: EngToNepaliNumberPipe,
@@ -41,6 +43,7 @@ export class ImportLoanTrustReceiptLoanComponent implements OnInit {
     this.buildForm();
     if (!ObjectUtil.isEmpty(this.loanName)) {
       this.loanDetails = this.loanName;
+      this.filteredListDetails(this.loanDetails);
     }
     if (this.offerDocumentList.length > 0) {
       this.offerDocumentList.forEach(offerLetter => {
@@ -49,74 +52,33 @@ export class ImportLoanTrustReceiptLoanComponent implements OnInit {
       if (!ObjectUtil.isEmpty(this.initialInformation)) {
         this.importLoanTrust.patchValue(this.initialInformation.importLoanTrust);
       }
-      const dateOfExpiryType = this.initialInformation.importLoanTrust.dateOfExpiryType;
+      this.patchDate();
+    }
+  }
+  patchDate() {
+    for (let val = 0; val < this.initialInformation.importLoanTrust.importLoanTrustFormArray.length; val++) {
+      const dateOfExpiryType = this.initialInformation.importLoanTrust.importLoanTrustFormArray[val].dateOfExpiryType;
       if (dateOfExpiryType === 'AD') {
-        const dateOfExpiry = this.initialInformation.importLoanTrust.dateOfExpiry;
+        const dateOfExpiry = this.initialInformation.importLoanTrust.importLoanTrustFormArray[val].dateOfExpiry;
         if (!ObjectUtil.isEmpty(dateOfExpiry)) {
-          this.importLoanTrust.get('dateOfExpiry').patchValue(new Date(dateOfExpiry));
+          this.importLoanTrust.get(['importLoanTrustFormArray', val, 'dateOfExpiry']).patchValue(new Date(dateOfExpiry));
         }
       } else if (dateOfExpiryType === 'BS') {
-        const dateOfExpiry = this.initialInformation.importLoanTrust.dateOfExpiryNepali;
+        const dateOfExpiry = this.initialInformation.importLoanTrust.importLoanTrustFormArray[val].dateOfExpiryNepali;
         if (!ObjectUtil.isEmpty(dateOfExpiry)) {
-          this.importLoanTrust.get('dateOfExpiryNepali').patchValue(dateOfExpiry);
+          this.importLoanTrust.get(['importLoanTrustFormArray', val, 'dateOfExpiryNepali']).patchValue(dateOfExpiry);
         }
       }
     }
   }
-
   buildForm() {
     this.importLoanTrust = this.formBuilder.group({
-      // for form data
-      loanOption: [undefined],
-      complimentaryLoanSelected: [undefined],
-      subsidyOrAgricultureLoan: [undefined],
-      complementryOther: [undefined],
-      loanPeriod: [undefined],
-      loanAmount: [undefined],
-      loanAmountWords: [undefined],
-      drawingPower: [undefined],
-      baseRate: [undefined],
-      premiumRate: [undefined],
-      interestRate: [undefined],
-      dateOfExpiryType: [undefined],
-      dateOfExpiryNepali: [undefined],
-      dateOfExpiry: [undefined],
-
-      // for translated data
-      loanOptionTrans: [undefined],
-      complimentaryLoanSelectedTrans: [undefined],
-      complementryOtherTrans: [undefined],
-      loanPeriodTrans: [undefined],
-      loanAmountTrans: [undefined],
-      loanAmountWordsTrans: [undefined],
-      drawingPowerTrans: [undefined],
-      baseRateTrans: [undefined],
-      premiumRateTrans: [undefined],
-      interestRateTrans: [undefined],
-      dateOfExpiryTypeTrans: [undefined],
-      dateOfExpiryNepaliTrans: [undefined],
-      dateOfExpiryTrans: [undefined],
-
-      // for corrected data
-      loanOptionCT: [undefined],
-      complimentaryLoanSelectedCT: [undefined],
-      complementryOtherCT: [undefined],
-      loanPeriodCT: [undefined],
-      loanAmountCT: [undefined],
-      loanAmountWordsCT: [undefined],
-      drawingPowerCT: [undefined],
-      baseRateCT: [undefined],
-      premiumRateCT: [undefined],
-      interestRateCT: [undefined],
-      dateOfExpiryTypeCT: [undefined],
-      dateOfExpiryNepaliCT: [undefined],
-      dateOfExpiryCT: [undefined],
+      importLoanTrustFormArray: this.formBuilder.array([]),
     });
   }
 
-  checkComplimetryOtherLoan(data) {
-    this.isComplimentryOtherLoan = data;
-    this.importLoanTrust.get('complementryOther').patchValue(this.isComplimentryOtherLoan);
+  checkComplimetryOtherLoan(data, i) {
+    this.importLoanTrust.get(['importLoanTrustFormArray', i, 'complementaryOther']).patchValue(data);
   }
 
   public checkDateOfExpiry(value): void {
@@ -124,9 +86,9 @@ export class ImportLoanTrustReceiptLoanComponent implements OnInit {
     this.BSExpiry = value === 'BS';
   }
 
-  public getNumAmountWord(numLabel, wordLabel): void {
-    const transformValue = this.nepaliCurrencyWordPipe.transform(this.importLoanTrust.get(numLabel).value);
-    this.importLoanTrust.get(wordLabel).patchValue(transformValue);
+  public getNumAmountWord(numLabel, wordLabel, index, arrayName): void {
+    const transformValue = this.nepaliCurrencyWordPipe.transform(this.importLoanTrust.get([arrayName, index, numLabel]).value);
+    this.importLoanTrust.get([arrayName, index, wordLabel]).patchValue(transformValue);
   }
 
   setLoanOption(data) {
@@ -135,62 +97,64 @@ export class ImportLoanTrustReceiptLoanComponent implements OnInit {
     this.isRegularSelected = tempData === 'REGULAR';
   }
 
-  translateAndSetVal() {
+  async translateAndSetVal(i) {
 
     /* SET TRANS VALUE FOR CONDITIONS */
-    const tempLoanOptions = this.importLoanTrust.get('loanOption').value;
+    const tempLoanOptions = this.importLoanTrust.get(['importLoanTrustFormArray', i, 'loanOption']).value;
     if (!ObjectUtil.isEmpty(tempLoanOptions)) {
-      this.importLoanTrust.get('loanOptionTrans').patchValue('');
+      this.importLoanTrust.get(['importLoanTrustFormArray', i, 'loanOptionTrans']).patchValue('');
     }
 
-    const tempComplimentaryLoan = this.importLoanTrust.get('complimentaryLoanSelected').value;
+    const tempComplimentaryLoan = this.importLoanTrust.get(['importLoanTrustFormArray', i, 'complimentaryLoanSelected']).value;
     if (!ObjectUtil.isEmpty(tempComplimentaryLoan)) {
-      this.importLoanTrust.get('complimentaryLoanSelectedTrans').patchValue(tempComplimentaryLoan);
+      this.importLoanTrust.get(['importLoanTrustFormArray', i, 'complimentaryLoanSelectedTrans']).patchValue(tempComplimentaryLoan);
     }
 
-    const tempComplemetry = this.importLoanTrust.get('complementryOther').value;
+    const tempComplemetry = this.importLoanTrust.get(['importLoanTrustFormArray', i, 'complementaryOther']).value;
     if (!ObjectUtil.isEmpty(tempComplemetry)) {
-      this.importLoanTrust.get('complementryOtherTrans').patchValue(tempComplemetry);
+      this.importLoanTrust.get(['importLoanTrustFormArray', i, 'complementaryOtherTrans']).patchValue(tempComplemetry);
     }
 
     /* SET TRANS VALUE FOR OTHER NUMBER FIELDS */
-    const tempLoanAmount = this.importLoanTrust.get('loanAmount').value;
+    const tempLoanAmount = this.importLoanTrust.get(['importLoanTrustFormArray', i, 'loanAmount']).value;
     const convertNumber = !ObjectUtil.isEmpty(tempLoanAmount) ?
         this.convertNumbersToNepali(tempLoanAmount, true) : '';
-    this.importLoanTrust.get('loanAmountTrans').patchValue(convertNumber);
+    this.importLoanTrust.get(['importLoanTrustFormArray', i, 'loanAmountTrans']).patchValue(convertNumber);
 
-    this.importLoanTrust.get('loanAmountWordsTrans').patchValue(
-        this.importLoanTrust.get('loanAmountWords').value
+    this.importLoanTrust.get(['importLoanTrustFormArray', i, 'loanAmountWordsTrans']).patchValue(
+        this.importLoanTrust.get(['importLoanTrustFormArray', i, 'loanAmountWords']).value
     );
-    const drawingPower = this.convertNumbersToNepali(this.importLoanTrust.get('drawingPower').value, false);
-    this.importLoanTrust.get('drawingPowerTrans').patchValue(drawingPower);
-    const loanPeriod = this.convertNumbersToNepali(this.importLoanTrust.get('loanPeriod').value, false);
-    this.importLoanTrust.get('loanPeriodTrans').patchValue(loanPeriod);
-    const baseRate1 = this.convertNumbersToNepali(this.importLoanTrust.get('baseRate').value, false);
-    this.importLoanTrust.get('baseRateTrans').patchValue(baseRate1);
-    const premiumRate1 = this.convertNumbersToNepali(this.importLoanTrust.get('premiumRate').value, false);
-    this.importLoanTrust.get('premiumRateTrans').patchValue(premiumRate1);
-    const interestRate = this.convertNumbersToNepali(this.importLoanTrust.get('interestRate').value, false);
-    this.importLoanTrust.get('interestRateTrans').patchValue(interestRate);
+    const drawingPower = this.convertNumbersToNepali(this.importLoanTrust.get(['importLoanTrustFormArray', i, 'drawingPower']).value, false);
+    this.importLoanTrust.get(['importLoanTrustFormArray', i, 'drawingPowerTrans']).patchValue(drawingPower);
+    const loanPeriod = this.convertNumbersToNepali(this.importLoanTrust.get(['importLoanTrustFormArray', i, 'loanPeriod']).value, false);
+    this.importLoanTrust.get(['importLoanTrustFormArray', i, 'loanPeriodTrans']).patchValue(loanPeriod);
+    const baseRate1 = this.convertNumbersToNepali(this.importLoanTrust.get(['importLoanTrustFormArray', i, 'baseRate']).value, false);
+    this.importLoanTrust.get(['importLoanTrustFormArray', i, 'baseRateTrans']).patchValue(baseRate1);
+    const premiumRate1 = this.convertNumbersToNepali(this.importLoanTrust.get(['importLoanTrustFormArray', i, 'premiumRate']).value, false);
+    this.importLoanTrust.get(['importLoanTrustFormArray', i, 'premiumRateTrans']).patchValue(premiumRate1);
+    const interestRate = this.convertNumbersToNepali(this.importLoanTrust.get(['importLoanTrustFormArray', i, 'interestRate']).value, false);
+    this.importLoanTrust.get(['importLoanTrustFormArray', i, 'interestRateTrans']).patchValue(interestRate);
 
     /* Converting value for date */
-    this.importLoanTrust.get('dateOfExpiryTypeTrans').patchValue(
-        this.importLoanTrust.get('dateOfExpiryType').value
+    this.importLoanTrust.get(['importLoanTrustFormArray', i, 'dateOfExpiryTypeTrans']).patchValue(
+        this.importLoanTrust.get(['importLoanTrustFormArray', i, 'dateOfExpiryType']).value
     );
-    const tempDateOfExpType = this.importLoanTrust.get('dateOfExpiryType').value;
+    const tempDateOfExpType = this.importLoanTrust.get(['importLoanTrustFormArray', i, 'dateOfExpiryType']).value;
     let tempExpDate;
     if (tempDateOfExpType === 'AD') {
-      const tempEngExpDate = this.importLoanTrust.get('dateOfExpiry').value;
+      const tempEngExpDate = this.importLoanTrust.get(['importLoanTrustFormArray', i, 'dateOfExpiry']).value;
       tempExpDate = !ObjectUtil.isEmpty(tempEngExpDate) ? this.datePipe.transform(tempEngExpDate) : '';
-      const finalExpDate = this.transformEnglishDate(tempExpDate);
-      this.importLoanTrust.get('dateOfExpiryTrans').patchValue(finalExpDate);
+      if (!ObjectUtil.isEmpty(tempExpDate)) {
+        const finalExpDate = this.transformEnglishDate(tempExpDate);
+        this.importLoanTrust.get(['importLoanTrustFormArray', i, 'dateOfExpiryTrans']).patchValue(finalExpDate);
+      }
     } else {
-      const tempDateOfExpNep = this.importLoanTrust.get('dateOfExpiryNepali').value;
+      const tempDateOfExpNep = this.importLoanTrust.get(['importLoanTrustFormArray', i, 'dateOfExpiryNepali']).value;
       tempExpDate = !ObjectUtil.isEmpty(tempDateOfExpNep) ?
           tempDateOfExpNep.nDate : '';
-      this.importLoanTrust.get('dateOfExpiryTrans').patchValue(tempExpDate);
+      this.importLoanTrust.get(['importLoanTrustFormArray', i, 'dateOfExpiryTrans']).patchValue(tempExpDate);
     }
-    this.setCTValue();
+    this.setCTValue(i);
   }
 
   transformEnglishDate(date) {
@@ -230,45 +194,45 @@ export class ImportLoanTrustReceiptLoanComponent implements OnInit {
     return transformedDate;
   }
 
-  setCTValue() {
-    this.importLoanTrust.get('loanOptionCT').patchValue(
-        this.importLoanTrust.get('loanOptionTrans').value
+  setCTValue(i) {
+    this.importLoanTrust.get(['importLoanTrustFormArray', i, 'loanOptionCT']).patchValue(
+        this.importLoanTrust.get(['importLoanTrustFormArray', i, 'loanOptionTrans']).value
     );
-    this.importLoanTrust.get('complimentaryLoanSelectedCT').patchValue(
-        this.importLoanTrust.get('complimentaryLoanSelectedTrans').value
+    this.importLoanTrust.get(['importLoanTrustFormArray', i, 'complimentaryLoanSelectedCT']).patchValue(
+        this.importLoanTrust.get(['importLoanTrustFormArray', i, 'complimentaryLoanSelectedTrans']).value
     );
-    this.importLoanTrust.get('complementryOtherCT').patchValue(
-        this.importLoanTrust.get('complementryOtherTrans').value
+    this.importLoanTrust.get(['importLoanTrustFormArray', i, 'complementaryOtherCT']).patchValue(
+        this.importLoanTrust.get(['importLoanTrustFormArray', i, 'complementaryOtherTrans']).value
     );
-    this.importLoanTrust.get('loanAmountCT').patchValue(
-        this.importLoanTrust.get('loanAmountTrans').value
+    this.importLoanTrust.get(['importLoanTrustFormArray', i, 'loanAmountCT']).patchValue(
+        this.importLoanTrust.get(['importLoanTrustFormArray', i, 'loanAmountTrans']).value
     );
-    this.importLoanTrust.get('loanAmountWordsCT').patchValue(
-        this.importLoanTrust.get('loanAmountWordsTrans').value
+    this.importLoanTrust.get(['importLoanTrustFormArray', i, 'loanAmountWordsCT']).patchValue(
+        this.importLoanTrust.get(['importLoanTrustFormArray', i, 'loanAmountWordsTrans']).value
     );
-    this.importLoanTrust.get('drawingPowerCT').patchValue(
-        this.importLoanTrust.get('drawingPowerTrans').value
+    this.importLoanTrust.get(['importLoanTrustFormArray', i, 'drawingPowerCT']).patchValue(
+        this.importLoanTrust.get(['importLoanTrustFormArray', i, 'drawingPowerTrans']).value
     );
-    this.importLoanTrust.get('loanPeriodCT').patchValue(
-        this.importLoanTrust.get('loanPeriodTrans').value
+    this.importLoanTrust.get(['importLoanTrustFormArray', i, 'loanPeriodCT']).patchValue(
+        this.importLoanTrust.get(['importLoanTrustFormArray', i, 'loanPeriodTrans']).value
     );
-    this.importLoanTrust.get('baseRateCT').patchValue(
-        this.importLoanTrust.get('baseRateTrans').value
+    this.importLoanTrust.get(['importLoanTrustFormArray', i, 'baseRateCT']).patchValue(
+        this.importLoanTrust.get(['importLoanTrustFormArray', i, 'baseRateTrans']).value
     );
-    this.importLoanTrust.get('premiumRateCT').patchValue(
-        this.importLoanTrust.get('premiumRateTrans').value
+    this.importLoanTrust.get(['importLoanTrustFormArray', i, 'premiumRateCT']).patchValue(
+        this.importLoanTrust.get(['importLoanTrustFormArray', i, 'premiumRateTrans']).value
     );
-    this.importLoanTrust.get('interestRateCT').patchValue(
-        this.importLoanTrust.get('interestRateTrans').value
+    this.importLoanTrust.get(['importLoanTrustFormArray', i, 'interestRateCT']).patchValue(
+        this.importLoanTrust.get(['importLoanTrustFormArray', i, 'interestRateTrans']).value
     );
-    this.importLoanTrust.get('dateOfExpiryTypeCT').patchValue(
-        this.importLoanTrust.get('dateOfExpiryTypeTrans').value
+    this.importLoanTrust.get(['importLoanTrustFormArray', i, 'dateOfExpiryTypeCT']).patchValue(
+        this.importLoanTrust.get(['importLoanTrustFormArray', i, 'dateOfExpiryTypeTrans']).value
     );
-    this.importLoanTrust.get('dateOfExpiryNepaliCT').patchValue(
-        this.importLoanTrust.get('dateOfExpiryNepaliTrans').value
+    this.importLoanTrust.get(['importLoanTrustFormArray', i, 'dateOfExpiryNepaliCT']).patchValue(
+        this.importLoanTrust.get(['importLoanTrustFormArray', i, 'dateOfExpiryNepaliTrans']).value
     );
-    this.importLoanTrust.get('dateOfExpiryCT').patchValue(
-        this.importLoanTrust.get('dateOfExpiryTrans').value
+    this.importLoanTrust.get(['importLoanTrustFormArray', i, 'dateOfExpiryCT']).patchValue(
+        this.importLoanTrust.get(['importLoanTrustFormArray', i, 'dateOfExpiryTrans']).value
     );
   }
 
@@ -287,11 +251,70 @@ export class ImportLoanTrustReceiptLoanComponent implements OnInit {
     return finalConvertedVal;
   }
 
-  calInterestRate() {
-    const baseRate = this.importLoanTrust.get('baseRate').value;
-    const premiumRate = this.importLoanTrust.get('premiumRate').value;
+  calInterestRate(i) {
+    const baseRate = this.importLoanTrust.get(['importLoanTrustFormArray', i, 'baseRate']).value;
+    const premiumRate = this.importLoanTrust.get(['importLoanTrustFormArray', i, 'premiumRate']).value;
     const sum = parseFloat(baseRate) + parseFloat(premiumRate);
-    this.importLoanTrust.get('interestRate').patchValue(sum);
+    this.importLoanTrust.get(['importLoanTrustFormArray', i, 'interestRate']).patchValue(sum);
   }
 
+  filteredListDetails(loanDetails) {
+    this.filteredList = loanDetails.filter(data => data.name === this.loanNameConstant.IMPORT_LOAN_TRUST_RECEIPT_LOAN);
+    this.filteredList.forEach(value => {
+      this.addLoanFormArr();
+    });
+  }
+
+  addLoanFormArr() {
+    (this.importLoanTrust.get('importLoanTrustFormArray') as FormArray).push(this.buildLoanForm());
+  }
+
+  buildLoanForm() {
+    return this.formBuilder.group({
+      loanOption: [undefined],
+      complimentaryLoanSelected: [undefined],
+      subsidyOrAgricultureLoan: [undefined],
+      complementaryOther: [undefined],
+      loanPeriod: [undefined],
+      loanAmount: [undefined],
+      loanAmountWords: [undefined],
+      drawingPower: [undefined],
+      baseRate: [undefined],
+      premiumRate: [undefined],
+      interestRate: [undefined],
+      dateOfExpiryType: [undefined],
+      dateOfExpiryNepali: [undefined],
+      dateOfExpiry: [undefined],
+
+      // for translated data
+      loanOptionTrans: [undefined],
+      complimentaryLoanSelectedTrans: [undefined],
+      complementaryOtherTrans: [undefined],
+      loanPeriodTrans: [undefined],
+      loanAmountTrans: [undefined],
+      loanAmountWordsTrans: [undefined],
+      drawingPowerTrans: [undefined],
+      baseRateTrans: [undefined],
+      premiumRateTrans: [undefined],
+      interestRateTrans: [undefined],
+      dateOfExpiryTypeTrans: [undefined],
+      dateOfExpiryNepaliTrans: [undefined],
+      dateOfExpiryTrans: [undefined],
+
+      // for corrected data
+      loanOptionCT: [undefined],
+      complimentaryLoanSelectedCT: [undefined],
+      complementaryOtherCT: [undefined],
+      loanPeriodCT: [undefined],
+      loanAmountCT: [undefined],
+      loanAmountWordsCT: [undefined],
+      drawingPowerCT: [undefined],
+      baseRateCT: [undefined],
+      premiumRateCT: [undefined],
+      interestRateCT: [undefined],
+      dateOfExpiryTypeCT: [undefined],
+      dateOfExpiryNepaliCT: [undefined],
+      dateOfExpiryCT: [undefined],
+    });
+  }
 }

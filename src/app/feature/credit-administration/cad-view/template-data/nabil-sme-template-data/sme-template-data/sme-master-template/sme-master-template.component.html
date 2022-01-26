@@ -31,7 +31,7 @@
                                          #demandLoanForWorkingCapital [loanName]="loanExtraDetails"></app-demand-loan-for-working-capital>
     </ng-container>
     <ng-container *ngIf="isPreExportLoan">
-    <app-pre-export-loan [offerDocumentList]="customerApprovedDoc.offerDocumentList"
+    <app-pre-export-loan [offerDocumentList]="customerApprovedDoc.offerDocumentList" [customerApprovedDoc]="customerApprovedDoc"
                          #preExportLoan [loanName]="loanExtraDetails"></app-pre-export-loan>
     </ng-container>
     <ng-container *ngIf="isDocumentaryBillPurchase">
@@ -52,10 +52,13 @@
     </ng-container>
     <ng-container *ngIf="isOverdraftFacilityAgainstBond">
     <app-overdraft-facility-against-bond [offerDocumentList]="customerApprovedDoc.offerDocumentList"
-                                         #overdraftFacilityAgainstBond [loanName]="loanExtraDetails"></app-overdraft-facility-against-bond>
+                                         [customerApprovedDoc]="customerApprovedDoc"
+                                         #overdraftFacilityAgainstBond [loanName]="loanExtraDetails"
+                                         [isEdit]="isEdit"></app-overdraft-facility-against-bond>
     </ng-container>
     <ng-container *ngIf="isBridgeGapLoan">
     <app-bridge-gap-loan [offerDocumentList]="customerApprovedDoc.offerDocumentList"
+                         [customerApprovedDoc]="customerApprovedDoc"
                          #bridgeGapLoan [loanName]="loanExtraDetails"></app-bridge-gap-loan>
     </ng-container>
     <ng-container *ngIf="isTermLoanToOrFor">

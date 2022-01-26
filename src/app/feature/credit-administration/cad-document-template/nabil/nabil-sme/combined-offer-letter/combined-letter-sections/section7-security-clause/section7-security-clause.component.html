@@ -83,8 +83,11 @@
                     <li>
                         गोदाम/वेयरहाउसमा रहेको सामानको सूची, पक्षहरुको विवरण र अवधि सहित भुक्तानी दिनुपर्ने बाँकी र
                         भुक्तानी पाउनु पर्ने बाँकी रकमहरुको विस्तृत विवरण ऋणीले
-                        <strong>
-                            मासिक/त्रैमासिक
+                                <strong>
+                                    <input class="form-field form-control-sm font-weight-bold"
+                                           formControlName="yearlyText"
+                                           name="yearlyText"
+                                           type="text"/>
                         </strong>
                         रुपमा बैंकलाई बुझाउनु
                         पर्नेछ ।
@@ -211,7 +214,7 @@
                     </strong>
                 </p>
             </div>
-            <div class="row mt-3">
+            <div class="row mt-3" *ngIf="fixedDeposit">
                 <ol class="dev-list">
                     <li>
                         धितोे सुरक्षणमा रहेका मुद्दती रसिदका हकमा सो रसिद समयमै नविकरण गरी सक्कल रसिद बैंकलाई

@@ -294,9 +294,17 @@ export class PersonalGuaranteeProprietorshipComponent implements OnInit {
         }
     }
     if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.offerDocumentDetails.smeGlobalForm) {
-        issuedDate = this.englishNepaliDatePipe.transform(this.offerDocumentDetails.smeGlobalForm.dateOfApprovalCT ?
-                this.offerDocumentDetails.smeGlobalForm.dateOfApprovalCT :
-                this.offerDocumentDetails.smeGlobalForm.dateOfApprovalCT, true);
+        const dateOfApprovalType = this.offerDocumentDetails.smeGlobalForm.dateOfApprovalType ?
+            this.offerDocumentDetails.smeGlobalForm.dateOfApprovalType : '';
+        if (dateOfApprovalType === 'AD') {
+            const templateDateApproval = this.offerDocumentDetails.smeGlobalForm.dateOfApproval ?
+                this.offerDocumentDetails.smeGlobalForm.dateOfApprovalCT : '';
+            issuedDate = this.englishNepaliDatePipe.transform(this.datePipe.transform(templateDateApproval), true);
+        } else {
+            const templateDateApproval = this.offerDocumentDetails.smeGlobalForm.dateOfApprovalNepali ?
+                this.offerDocumentDetails.smeGlobalForm.dateOfApprovalNepali : '';
+            issuedDate = templateDateApproval ? templateDateApproval.nDate : '';
+        }
     }
     return issuedDate ? issuedDate : '';
   }

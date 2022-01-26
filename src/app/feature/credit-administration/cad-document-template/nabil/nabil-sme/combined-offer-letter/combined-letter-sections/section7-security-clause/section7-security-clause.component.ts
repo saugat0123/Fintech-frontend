@@ -17,6 +17,8 @@ export class Section7SecurityClauseComponent implements OnInit {
   isGharJaggaVisible: boolean;
   isSamanMojdatVisible: boolean;
   isReceivableVisible: boolean;
+  freeInformation;
+
 
   constructor(private formbuilder: FormBuilder) {
   }
@@ -26,6 +28,7 @@ export class Section7SecurityClauseComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc)) {
       this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
       this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
+      this.freeInformation = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation);
       this.fillForm();
     }
     const securities = this.tempData.securities;
@@ -56,12 +59,14 @@ export class Section7SecurityClauseComponent implements OnInit {
   buildForm() {
     this.form = this.formbuilder.group({
       nameOfBranch: [undefined],
+      yearlyText: [undefined],
     });
   }
 
   fillForm() {
     this.form.patchValue({
       nameOfBranch: this.loanHolderInfo.branch ? this.loanHolderInfo.branch.ct : '',
+      yearlyText: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.section7 : 'मासिक/त्रैमासिक',
     });
   }
 
