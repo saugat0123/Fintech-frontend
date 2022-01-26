@@ -202,12 +202,8 @@ export class LetterOfSetOffComponent implements OnInit {
         {
           nameOfBranch: this.individualData.branch.ct ?
               this.individualData.branch.ct : '',
-          grandFatherName: this.individualData.grandFatherName ?
-              this.individualData.grandFatherName.ct : this.individualData.fatherInLawName ?
-                  this.individualData.fatherInLawName.ct : '',
-          fatherName: !ObjectUtil.isEmpty(this.individualData.fatherName) ?
-              this.individualData.fatherName.ct : this.individualData.husbandName ?
-                  this.individualData.husbandName.ct : '',
+          grandFatherName: this.getGrandFatherName(),
+          fatherName: this.getFatherName(),
           identifyIssuedDistrictName: this.individualData.citizenshipIssueDistrict.ct ?
               this.individualData.citizenshipIssueDistrict.ct : '',
           dateOfIssue: citizenshipIssuedDate ? citizenshipIssuedDate : '',
@@ -238,6 +234,38 @@ export class LetterOfSetOffComponent implements OnInit {
 
         }
     );
+  }
+
+  getGrandFatherName() {
+    let grandFatherName;
+    if (!ObjectUtil.isEmpty(this.individualData)) {
+      if (this.individualData.gender.en === 'MALE') {
+        grandFatherName = this.individualData.grandFatherName ? this.individualData.grandFatherName.ct : '';
+      }
+      if (this.individualData.gender.en === 'FEMALE' && this.individualData.relationMedium.en === '0') {
+        grandFatherName = this.individualData.fatherInLawName ? this.individualData.fatherInLawName.ct : '';
+      }
+      if (this.individualData.gender.en === 'FEMALE' && this.individualData.relationMedium.en === '1') {
+        grandFatherName = this.individualData.grandFatherName ? this.individualData.grandFatherName.ct : '';
+      }
+    }
+    return grandFatherName;
+  }
+
+  getFatherName() {
+    let fatherName;
+    if (!ObjectUtil.isEmpty(this.individualData)) {
+      if (this.individualData.gender.en === 'MALE') {
+        fatherName = this.individualData.fatherName ? this.individualData.fatherName.ct : '';
+      }
+      if (this.individualData.gender.en === 'FEMALE' && this.individualData.relationMedium.en === '0') {
+        fatherName = this.individualData.husbandName ? this.individualData.husbandName.ct : '';
+      }
+      if (this.individualData.gender.en === 'FEMALE' && this.individualData.relationMedium.en === '1') {
+        fatherName = this.individualData.fatherName ? this.individualData.fatherName.ct : '';
+      }
+    }
+    return fatherName;
   }
 
   ageCalculation(startDate) {

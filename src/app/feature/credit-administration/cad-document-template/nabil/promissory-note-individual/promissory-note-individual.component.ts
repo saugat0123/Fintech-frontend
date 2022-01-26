@@ -172,13 +172,8 @@ export class PromissoryNoteIndividualComponent implements OnInit {
     this.form.patchValue(
         {
           nameofBranchLocated: this.individualData.branch.ct,
-          nameofGrandFather: this.individualData.grandFatherName ?
-              this.individualData.grandFatherName.ct :
-              this.individualData.fatherInLawName ?
-                  this.individualData.fatherInLawName.ct : '',
-          nameofFather: this.individualData.fatherName ?
-              this.individualData.fatherName.ct :
-              this.individualData.husbandName ? this.individualData.husbandName.ct : '',
+          nameofGrandFather: this.getGrandFatherName(),
+          nameofFather: this.getFatherName(),
           nameofIssuedDistrict: this.individualData.citizenshipIssueDistrict ? this.individualData.citizenshipIssueDistrict.ct : '',
           dateofIssue: citizenshipIssuedDate ? citizenshipIssuedDate : '',
           citizenshipNo: this.individualData.citizenshipNo.ct,
@@ -196,6 +191,38 @@ export class PromissoryNoteIndividualComponent implements OnInit {
           interestOd: this.tempData.yearlyInterestRateOd ? this.tempData.yearlyInterestRateOd.ct : '',
         }
     );
+  }
+
+  getGrandFatherName() {
+    let grandFatherName;
+    if (!ObjectUtil.isEmpty(this.individualData)) {
+      if (this.individualData.gender.en === 'MALE') {
+        grandFatherName = this.individualData.grandFatherName ? this.individualData.grandFatherName.ct : '';
+      }
+      if (this.individualData.gender.en === 'FEMALE' && this.individualData.relationMedium.en === '0') {
+        grandFatherName = this.individualData.fatherInLawName ? this.individualData.fatherInLawName.ct : '';
+      }
+      if (this.individualData.gender.en === 'FEMALE' && this.individualData.relationMedium.en === '1') {
+        grandFatherName = this.individualData.grandFatherName ? this.individualData.grandFatherName.ct : '';
+      }
+    }
+    return grandFatherName;
+  }
+
+  getFatherName() {
+    let fatherName;
+    if (!ObjectUtil.isEmpty(this.individualData)) {
+      if (this.individualData.gender.en === 'MALE') {
+        fatherName = this.individualData.fatherName ? this.individualData.fatherName.ct : '';
+      }
+      if (this.individualData.gender.en === 'FEMALE' && this.individualData.relationMedium.en === '0') {
+        fatherName = this.individualData.husbandName ? this.individualData.husbandName.ct : '';
+      }
+      if (this.individualData.gender.en === 'FEMALE' && this.individualData.relationMedium.en === '1') {
+        fatherName = this.individualData.fatherName ? this.individualData.fatherName.ct : '';
+      }
+    }
+    return fatherName;
   }
 
   ageCalculation(startDate) {

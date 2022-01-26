@@ -275,8 +275,8 @@ export class PersonalLoanAndPersonalOverdraftComponent implements OnInit {
             managerName: this.tempData.branchManager.ct ? this.tempData.branchManager.ct : '',
             branchName: this.loanHolderInfo.branch.ct ? this.loanHolderInfo.branch.ct : '',
             dateofApproval: finalDateOfApproval ? finalDateOfApproval : '',
-            loanExpiryDate: finalDateOfApplication ? finalDateOfApplication : '',
-            dateofApplication: finalDateOfExpiry ? finalDateOfExpiry : '',
+            loanExpiryDate: finalDateOfExpiry ? finalDateOfExpiry : '',
+            dateofApplication: finalDateOfApplication ? finalDateOfApplication : '',
             loanPeriodInMonth: this.tempData.loanPeriodInMonth.ct ? this.tempData.loanPeriodInMonth.ct : '',
         });
     }
