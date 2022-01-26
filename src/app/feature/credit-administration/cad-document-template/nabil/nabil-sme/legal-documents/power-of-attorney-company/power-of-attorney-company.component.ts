@@ -170,9 +170,17 @@ export class PowerOfAttorneyCompanyComponent implements OnInit {
       }
     }
     if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.offerDocumentDetails.smeGlobalForm) {
-      approvalDate = this.englishNepaliDatePipe.transform(this.offerDocumentDetails.smeGlobalForm.dateOfApprovalCT ?
-          this.offerDocumentDetails.smeGlobalForm.dateOfApprovalCT :
-          this.offerDocumentDetails.smeGlobalForm.dateOfApprovalCT, true);
+      const dateOfApprovalType = this.offerDocumentDetails.smeGlobalForm.dateOfApprovalType ?
+          this.offerDocumentDetails.smeGlobalForm.dateOfApprovalType : '';
+      if (dateOfApprovalType === 'AD') {
+        const templateDateApproval = this.offerDocumentDetails.smeGlobalForm.dateOfApproval ?
+            this.offerDocumentDetails.smeGlobalForm.dateOfApprovalCT : '';
+        approvalDate = this.englishNepaliDatePipe.transform(this.datePipe.transform(templateDateApproval), true);
+      } else {
+        const templateDateApproval = this.offerDocumentDetails.smeGlobalForm.dateOfApprovalNepali ?
+            this.offerDocumentDetails.smeGlobalForm.dateOfApprovalNepali : '';
+        approvalDate = templateDateApproval ? templateDateApproval.nDate : '';
+      }
     }
     if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Class A Sanction letter') {
       const sanctionLetterDate = this.offerDocumentDetails.sanctionLetterDateType ? this.offerDocumentDetails.sanctionLetterDateType.en : '';
