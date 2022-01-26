@@ -4276,9 +4276,9 @@
               </tr>
             </table>
           </div>
-          <a class="float-right" nbButton (click)="saveCustomer()">
+          <button class="float-right" nbButton (click)="saveCustomer()" [disabled]="!saveDisable">
             {{hideLoan === true ? 'Save' : 'Save & Next'}}
-          </a>
+          </button>
           <button class="float-right" nbButton (click)="openCloseTemplate(confirm)" status="info" style="margin-right: 0.5em">
             Close
           </button>

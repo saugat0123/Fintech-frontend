@@ -127,6 +127,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
     guarantorProvienceList = [];
     guarantorDistrict = [];
     guarantorMunicipalities = [];
+    saveDisable = false;
     ownerPermanentDistricts = [];
     ownerPermanentMunicipality = [];
     ownerTemporaryDistricts = [];
@@ -670,6 +671,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
                 return;
             }
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Customer'));
+            this.saveDisable = false;
             this.customerId = res.detail.customerInfoId;
             this.responseData = res.detail;
             this.activeCustomerTab = false;
@@ -677,6 +679,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
             this.activeTemplateDataTab = false;
         }, res => {
             this.spinner = false;
+            this.saveDisable = false;
             this.toastService.show(new Alert(AlertType.ERROR, res.error.message));
             this.spinner = false;
             // this.userConfigForm.get('guarantorDetails').patchValue(this.tempStoreGuarantorDetails);
@@ -2620,9 +2623,16 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
         this.spinner = true;
         const alluarantors = this.userConfigForm.get('guarantorDetails').value as FormArray;
         if (alluarantors.length > 0) {
+            if (ObjectUtil.isEmpty(this.userConfigForm.get(['guarantorDetails', index, 'gurantedAmount']).value)) {
+                this.userConfigForm.get(['guarantorDetails', index, 'gurantedAmount']).patchValue("0");
+            }
             let guarantorsDetails: any = [];
             guarantorsDetails = await this.translateService.translateForm(this.userConfigForm, 'guarantorDetails', index);
             this.spinner = false;
+            if (this.userConfigForm.get(['guarantorDetails', index, 'gurantedAmount']).value === 0) {
+                this.userConfigForm.get(['guarantorDetails', index, 'gurantedAmountTrans']).patchValue(guarantorsDetails.gurantedAmount ? guarantorsDetails.gurantedAmount : '');
+                this.userConfigForm.get(['guarantorDetails', index, 'gurantedAmountCT']).patchValue(guarantorsDetails.gurantedAmount ? guarantorsDetails.gurantedAmount : '');
+            }
             this.userConfigForm.get(['guarantorDetails', index, 'guarantorNameTrans']).patchValue(guarantorsDetails.guarantorName ? guarantorsDetails.guarantorName : '');
             this.userConfigForm.get(['guarantorDetails', index, 'guarantorNameCT']).patchValue(guarantorsDetails.guarantorName ? guarantorsDetails.guarantorName : '');
             this.userConfigForm.get(['guarantorDetails', index, 'citizenNumberTrans']).patchValue(guarantorsDetails.citizenNumber ? guarantorsDetails.citizenNumber : '');
@@ -2985,6 +2995,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
             // this.deleteCTAndTransContorls(index);
             this.userConfigForm.get(['guarantorDetails', index, 'nepData']).setValue(JSON.stringify(newArr));
             // end guarantorDetails
+            if (index === 0) {
+                this.saveDisable = true;
+            }
         }
     }
 
@@ -3712,7 +3725,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
     }
 
     translateNumberInFA(source, i) {
-        const wordLabelVar = this.engToNepaliNumberPipe.transform(this.currencyFormatterPipe.transform(this.userConfigForm.get(['guarantorDetails', i, source]).value.toString()));
+        const wordLabelVar = this.engToNepaliNumberPipe.transform(this.currencyFormatterPipe.transform(
+            this.userConfigForm.get(['guarantorDetails', i, source]).value ?
+            this.userConfigForm.get(['guarantorDetails', i, source]).value.toString(): ''));
         this.userConfigForm.get(['guarantorDetails', i, source + 'Trans']).patchValue(wordLabelVar);
         this.userConfigForm.get(['guarantorDetails', i, source + 'CT']).patchValue(wordLabelVar);
     }
