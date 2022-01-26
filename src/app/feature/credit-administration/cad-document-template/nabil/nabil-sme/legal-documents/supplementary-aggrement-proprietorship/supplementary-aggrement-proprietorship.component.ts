@@ -127,7 +127,7 @@ export class SupplementaryAggrementProprietorshipComponent implements OnInit {
           this.supplementaryAgreementProprietorship.get('dateOfTrustReceipt').value : '',
       letterOfCreditNo: this.supplementaryAgreementProprietorship.get('letterOfCreditNo') ?
           this.supplementaryAgreementProprietorship.get('letterOfCreditNo').value : '',
-      letterOfCreditIssuedDate: this.supplementaryAgreementProprietorship.get('dateOfHypothecation') ?
+      letterOfCreditIssuedDate: this.supplementaryAgreementProprietorship.get('letterOfCreditIssuedDate') ?
           this.supplementaryAgreementProprietorship.get('letterOfCreditIssuedDate').value : '',
     };
     return JSON.stringify(tempFree);
@@ -176,10 +176,10 @@ export class SupplementaryAggrementProprietorshipComponent implements OnInit {
     this.supplementaryAgreementProprietorship.patchValue({
       bankAddress: this.individualData.branch ? this.individualData.branch.ct : '',
       firmName: this.individualData.name ? this.individualData.name.ct : '',
-      dateOfHypothecation: this.supportedInfo.dateOfHypothecation ? this.supportedInfo.dateOfHypothecation : '',
-      dateOfTrustReceipt: this.supportedInfo.dateOfTrustReceipt ? this.supportedInfo.dateOfTrustReceipt : '',
-      letterOfCreditNo: this.supportedInfo.letterOfCreditNo ? this.supportedInfo.letterOfCreditNo : '',
-      letterOfCreditIssuedDate: this.supportedInfo.letterOfCreditIssuedDate ? this.supportedInfo.letterOfCreditIssuedDate : '',
+      dateOfHypothecation: this.supportedInfo ? this.supportedInfo.dateOfHypothecation : '',
+      dateOfTrustReceipt: this.supportedInfo ? this.supportedInfo.dateOfTrustReceipt : '',
+      letterOfCreditNo: this.supportedInfo ? this.supportedInfo.letterOfCreditNo : '',
+      letterOfCreditIssuedDate: this.supportedInfo ? this.supportedInfo.letterOfCreditIssuedDate : '',
       sanctionLetterIssuedDate: this.sanctionDate ? this.sanctionDate : '',
       loanAmountInFigure: loanAmountInFigure ? loanAmountInFigure : '',
       loanAmountInWords: loanAmountInWords ? loanAmountInWords : '',
