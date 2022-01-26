@@ -18,6 +18,8 @@ import {OfferDocument} from '../../../../../../../model/OfferDocument';
 export class OverdraftFacilityAgainstBondComponent implements OnInit {
     @Input() loanName;
     @Input() offerDocumentList: Array<OfferDocument>;
+    @Input() customerApprovedDoc;
+    @Input() isEdit;
     initialInformation: any;
     overDraftFacilityForm: FormGroup;
     ADExpiry = false;
@@ -30,6 +32,8 @@ export class OverdraftFacilityAgainstBondComponent implements OnInit {
         {value: 'Yes'},
         {value: 'No'}
     ];
+    overdraftFacilityNumber: Array<any> = new Array<any>();
+    forBondDetails;
 
     constructor(private formBuilder: FormBuilder,
                 private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
@@ -42,6 +46,8 @@ export class OverdraftFacilityAgainstBondComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.overdraftFacilityNumber = this.customerApprovedDoc.assignedLoan.filter(val =>
+            val.loan.name === 'OVERDRAFT FACILITY AGAINST BOND');
         this.buildForm();
         this.ADExpiry = true;
         if (this.offerDocumentList.length > 0) {
@@ -49,18 +55,24 @@ export class OverdraftFacilityAgainstBondComponent implements OnInit {
                 this.initialInformation = JSON.parse(offerLetter.initialInformation);
             });
             if (!ObjectUtil.isEmpty(this.initialInformation)) {
-                this.overDraftFacilityForm.patchValue(this.initialInformation.overDraftFacilityForm);
+                this.overDraftFacilityForm.get('overdraftFacilityDetails').patchValue(this.initialInformation.overDraftFacilityForm.overdraftFacilityDetails);
             }
-            const dateOfExpiryType = this.initialInformation.overDraftFacilityForm.dateOfExpiryType;
+            this.patchDate();
+        }
+    }
+
+    patchDate() {
+        for (let val = 0; val < this.initialInformation.overDraftFacilityForm.overdraftFacilityDetails.length; val++) {
+            const dateOfExpiryType = this.initialInformation.overDraftFacilityForm.overdraftFacilityDetails[val].dateOfExpiryType;
             if (dateOfExpiryType === 'AD') {
-                const dateOfExpiry = this.initialInformation.overDraftFacilityForm.dateOfExpiry;
+                const dateOfExpiry = this.initialInformation.overDraftFacilityForm.overdraftFacilityDetails[val].dateOfExpiry;
                 if (!ObjectUtil.isEmpty(dateOfExpiry)) {
-                    this.overDraftFacilityForm.get('dateOfExpiry').patchValue(new Date(dateOfExpiry));
+                    this.overDraftFacilityForm.get(['overdraftFacilityDetails', val, 'dateOfExpiry']).patchValue(new Date(dateOfExpiry));
                 }
             } else if (dateOfExpiryType === 'BS') {
-                const dateOfExpiry = this.initialInformation.overDraftFacilityForm.dateOfExpiryNepali;
+                const dateOfExpiry = this.initialInformation.overDraftFacilityForm.overdraftFacilityDetails[val].dateOfExpiryNepali;
                 if (!ObjectUtil.isEmpty(dateOfExpiry)) {
-                    this.overDraftFacilityForm.get('dateOfExpiryNepali').patchValue(dateOfExpiry);
+                    this.overDraftFacilityForm.get(['overdraftFacilityDetails', val, 'dateOfExpiryNepali']).patchValue(dateOfExpiry);
                 }
             }
         }
@@ -68,6 +80,21 @@ export class OverdraftFacilityAgainstBondComponent implements OnInit {
 
     buildForm() {
         this.overDraftFacilityForm = this.formBuilder.group({
+            overdraftFacilityDetails: this.formBuilder.array([]),
+        });
+        this.setOverdraftBondForm();
+        this.addBondDetails();
+    }
+
+
+    setOverdraftBondForm() {
+        for (let a = 0; a < this.overdraftFacilityNumber.length; a++) {
+            (this.overDraftFacilityForm.get('overdraftFacilityDetails') as FormArray).push(this.setFormArray());
+        }
+    }
+
+    setFormArray() {
+        return this.formBuilder.group({
             bondType: [undefined],
             subsidyOrAgricultureLoan: [undefined],
             letterOfSetOffUsed: [undefined],
@@ -115,83 +142,82 @@ export class OverdraftFacilityAgainstBondComponent implements OnInit {
             dateOfExpiryCT: [undefined],
             bondDetails: this.formBuilder.array([]),
         });
-        this.addBondDetails();
     }
 
-    public getNumAmountWord(numLabel, wordLabel): void {
-        const transformValue = this.nepaliCurrencyWordPipe.transform(this.overDraftFacilityForm.get(numLabel).value);
-        this.overDraftFacilityForm.get(wordLabel).patchValue(transformValue);
+    public getNumAmountWord(numLabel, wordLabel, i): void {
+        const transformValue = this.nepaliCurrencyWordPipe.transform(this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, numLabel]).value);
+        this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, wordLabel]).patchValue(transformValue);
     }
 
-    calInterestRate() {
-        const baseRate = this.overDraftFacilityForm.get('baseRate').value;
-        const premiumRate = this.overDraftFacilityForm.get('premiumRate').value;
+    calInterestRate(i) {
+        const baseRate = this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, 'baseRate']).value;
+        const premiumRate = this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, 'premiumRate']).value;
         const sum = parseFloat(baseRate) + parseFloat(premiumRate);
-        this.overDraftFacilityForm.get('interestRate').patchValue(sum);
+        this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, 'interestRate']).patchValue(sum.toFixed(3));
     }
 
-    public checkDateOfExpiry(value): void {
+    public checkDateOfExpiry(value, i): void {
         this.ADExpiry = value === 'AD';
         this.BSExpiry = value === 'BS';
     }
 
-    async setTranslatedVal() {
+    async setTranslatedVal(i) {
         // SET TRANS VALUE FOR CONDITIONS :
-        const bondTypeTrans = this.overDraftFacilityForm.get('bondType').value;
+        const bondTypeTrans = this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, 'bondType']).value;
         if (!ObjectUtil.isEmpty(bondTypeTrans)) {
-            this.overDraftFacilityForm.get('bondTypeTrans').patchValue(bondTypeTrans);
+            this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, 'bondTypeTrans']).patchValue(bondTypeTrans);
         }
 
-        const letterOfSetOffTrans = this.overDraftFacilityForm.get('letterOfSetOffUsed').value;
+        const letterOfSetOffTrans = this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, 'letterOfSetOffUsed']).value;
         if (!ObjectUtil.isEmpty(letterOfSetOffTrans)) {
-            this.overDraftFacilityForm.get('letterOfSetOffUsedTrans').patchValue(letterOfSetOffTrans);
+            this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, 'letterOfSetOffUsedTrans']).patchValue(letterOfSetOffTrans);
         }
 
-        const interestType = this.overDraftFacilityForm.get('interestRateType').value;
+        const interestType = this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, 'interestRateType']).value;
         if (!ObjectUtil.isEmpty(interestType)) {
-            this.overDraftFacilityForm.get('interestRateTypeTrans').patchValue(interestType);
+            this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, 'interestRateTypeTrans']).patchValue(interestType);
         }
         /* SET TRANSLATED VALUE FOR OTHER FIELDS BY USING EXISTED PIPE */
-        const convertLoanAmount = this.convertNumbersToNepali(this.overDraftFacilityForm.get('loanAmount').value, true);
-        this.overDraftFacilityForm.get('loanAmountTrans').patchValue(convertLoanAmount);
+        const convertLoanAmount = this.convertNumbersToNepali(this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, 'loanAmount']).value, true);
+        this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, 'loanAmountTrans']).patchValue(convertLoanAmount);
         /* FOR LOAN AMOUNT WORDS */
-        this.overDraftFacilityForm.get('loanAmountWordsTrans').patchValue(
-            this.overDraftFacilityForm.get('loanAmountWords').value
+        this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, 'loanAmountWordsTrans']).patchValue(
+            this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, 'loanAmountWords']).value
         );
-        const convertBondAmount = this.convertNumbersToNepali(this.overDraftFacilityForm.get('bondAmount').value, false);
-        this.overDraftFacilityForm.get('bondAmountTrans').patchValue(convertBondAmount);
-        const convertBaseRate = this.convertNumbersToNepali(this.overDraftFacilityForm.get('baseRate').value, false);
-        this.overDraftFacilityForm.get('baseRateTrans').patchValue(convertBaseRate);
-        const convertPremiumRate = this.convertNumbersToNepali(this.overDraftFacilityForm.get('premiumRate').value, false);
-        this.overDraftFacilityForm.get('premiumRateTrans').patchValue(convertPremiumRate);
-        const convertInterestRate = this.convertNumbersToNepali(this.overDraftFacilityForm.get('interestRate').value, false);
-        this.overDraftFacilityForm.get('interestRateTrans').patchValue(convertInterestRate);
+        const convertBondAmount = this.convertNumbersToNepali(this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, 'bondAmount']).value, false);
+        this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, 'bondAmountTrans']).patchValue(convertBondAmount);
+        const convertBaseRate = this.convertNumbersToNepali(this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, 'baseRate']).value, false);
+        this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, 'baseRateTrans']).patchValue(convertBaseRate);
+        const convertPremiumRate = this.convertNumbersToNepali(this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, 'premiumRate']).value, false);
+        this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, 'premiumRateTrans']).patchValue(convertPremiumRate);
+        const convertInterestRate = this.convertNumbersToNepali(this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, 'interestRate']).value, false);
+        this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, 'interestRateTrans']).patchValue(convertInterestRate);
 
-        // this.overDraftFacilityForm.get('dateOfExpiryType').patchValue('');
-        // this.overDraftFacilityForm.get('dateOfExpiry').patchValue('');
-        // this.overDraftFacilityForm.get('dateOfExpiryNepali').patchValue('');
+        // this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, dateOfExpiryType']).patchValue('');
+        // this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, dateOfExpiry']).patchValue('');
+        // this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, dateOfExpiryNepali']).patchValue('');
 
         /* Converting value for date */
-        this.overDraftFacilityForm.get('dateOfExpiryTypeTrans').patchValue(
-            this.overDraftFacilityForm.get('dateOfExpiryType').value
+        this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, 'dateOfExpiryTypeTrans']).patchValue(
+            this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, 'dateOfExpiryType']).value
         );
-        const tempDateOfExpType = this.overDraftFacilityForm.get('dateOfExpiryType').value;
+        const tempDateOfExpType = this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, 'dateOfExpiryType']).value;
         let tempExpDate;
         if (tempDateOfExpType === 'AD') {
-            const tempEngExpDate = this.overDraftFacilityForm.get('dateOfExpiry').value;
+            const tempEngExpDate = this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, 'dateOfExpiry']).value;
             tempExpDate = !ObjectUtil.isEmpty(tempEngExpDate) ? this.datePipe.transform(tempEngExpDate) : '';
             const finalExpDate = this.transformEnglishDate(tempExpDate);
-            this.overDraftFacilityForm.get('dateOfExpiryTrans').patchValue(finalExpDate);
+            this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, 'dateOfExpiryTrans']).patchValue(finalExpDate);
         } else {
-            const tempDateOfExpNep = this.overDraftFacilityForm.get('dateOfExpiryNepali').value;
+            const tempDateOfExpNep = this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, 'dateOfExpiryNepali']).value;
             tempExpDate = !ObjectUtil.isEmpty(tempDateOfExpNep) ?
                 tempDateOfExpNep.nDate : '';
-            this.overDraftFacilityForm.get('dateOfExpiryTrans').patchValue(tempExpDate);
+            this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, 'dateOfExpiryTrans']).patchValue(tempExpDate);
         }
 
         this.translateForm = this.formBuilder.group({
-            nameOfFacility: [this.overDraftFacilityForm.get('nameOfFacility').value],
-            // bondOwnerName: [this.overDraftFacilityForm.get('bondOwnerName').value]
+            nameOfFacility: [this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, 'nameOfFacility']).value],
+            // bondOwnerName: [this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, bondOwnerName']).value]
         });
 
         /* Translating Values */
@@ -199,11 +225,11 @@ export class OverdraftFacilityAgainstBondComponent implements OnInit {
 
         /* SET GOOGLE TRANSLATED VALUE BY TRANSLATION */
         if (!ObjectUtil.isEmpty(this.tdValue)) {
-            this.overDraftFacilityForm.get('nameOfFacilityTrans').patchValue(this.tdValue.nameOfFacility);
-            // this.overDraftFacilityForm.get('bondOwnerNameTrans').patchValue(this.tdValue.bondOwnerName);
+            this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, 'nameOfFacilityTrans']).patchValue(this.tdValue.nameOfFacility);
+            // this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, bondOwnerNameTrans']).patchValue(this.tdValue.bondOwnerName);
         }
 
-        this.setCTData();
+        this.setCTData(i);
     }
 
     transformEnglishDate(date) {
@@ -259,17 +285,51 @@ export class OverdraftFacilityAgainstBondComponent implements OnInit {
     }
 
     addBondDetails() {
-        (this.overDraftFacilityForm.get('bondDetails') as FormArray).push(
+        for (let a = 0; a < this.overdraftFacilityNumber.length; a++) {
+            if (this.isEdit) {
+                let temp;
+                if (this.offerDocumentList.length > 0) {
+                    this.offerDocumentList.forEach(offerLetter => {
+                        this.forBondDetails = JSON.parse(offerLetter.initialInformation);
+                    });
+                    if (!ObjectUtil.isEmpty(this.forBondDetails)) {
+                        temp = this.forBondDetails.overDraftFacilityForm.overdraftFacilityDetails;
+                    }
+                    temp[a].bondDetails.forEach((val) => {
+                        (this.overDraftFacilityForm.get(['overdraftFacilityDetails', a, 'bondDetails']) as FormArray).push(
+                            this.formBuilder.group({
+                                bondOwnerName: [undefined],
+                                bondOwnerNameTrans: [undefined],
+                                bondOwnerNameCT: [undefined],
+                            })
+                        );
+                    });
+                }
+            } else {
+                (this.overDraftFacilityForm.get(['overdraftFacilityDetails', a, 'bondDetails']) as FormArray).push(
+                    this.formBuilder.group({
+                        bondOwnerName: [undefined],
+                        bondOwnerNameTrans: [undefined],
+                        bondOwnerNameCT: [undefined],
+                    })
+                );
+            }
+        }
+    }
+
+    addBondDetails1(i) {
+        (this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, 'bondDetails']) as FormArray).push(
             this.formBuilder.group({
                 bondOwnerName: [undefined],
                 bondOwnerNameTrans: [undefined],
                 bondOwnerNameCT: [undefined],
             })
         );
+
     }
 
-    removeBondDetails(i) {
-        (this.overDraftFacilityForm.get('bondDetails') as FormArray).removeAt(i);
+    removeBondDetails(i, index) {
+        (this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, 'bondDetails']) as FormArray).removeAt(index);
     }
 
     async translate(form) {
@@ -277,55 +337,55 @@ export class OverdraftFacilityAgainstBondComponent implements OnInit {
         return translatedData;
     }
 
-    async onChangeTranslateSecurity(arrName, source, index, target) {
+    async onChangeTranslateSecurity(arrName, source, index, target, i, mainArray) {
         this.arrayForm = this.formBuilder.group({
-            formValue: this.overDraftFacilityForm.get([String(arrName), index, String(source)]).value
+            formValue: this.overDraftFacilityForm.get([String(mainArray), i, String(arrName), index, String(source)]).value
         });
         const sourceResponse = await this.translatedService.translateForm(this.arrayForm);
-        this.overDraftFacilityForm.get([String(arrName), index, String(target)]).patchValue(sourceResponse.formValue);
-        this.overDraftFacilityForm.get([String(arrName), index, String(source + 'CT')]).patchValue(sourceResponse.formValue);
+        this.overDraftFacilityForm.get([String(mainArray), i, String(arrName), index, String(target)]).patchValue(sourceResponse.formValue);
+        this.overDraftFacilityForm.get([String(mainArray), i, String(arrName), index, String(source + 'CT')]).patchValue(sourceResponse.formValue);
     }
 
     /* SET CT VALUES OF TRANSLATED DATA */
-    setCTData() {
-        this.overDraftFacilityForm.get('bondTypeCT').patchValue(
-            this.overDraftFacilityForm.get('bondTypeTrans').value
+    setCTData(i) {
+        this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, 'bondTypeCT']).patchValue(
+            this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, 'bondTypeTrans']).value
         );
-        this.overDraftFacilityForm.get('letterOfSetOffUsedCT').patchValue(
-            this.overDraftFacilityForm.get('letterOfSetOffUsedTrans').value
+        this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, 'letterOfSetOffUsedCT']).patchValue(
+            this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, 'letterOfSetOffUsedTrans']).value
         );
-        this.overDraftFacilityForm.get('interestRateTypeCT').patchValue(
-            this.overDraftFacilityForm.get('interestRateTypeTrans').value
+        this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, 'interestRateTypeCT']).patchValue(
+            this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, 'interestRateTypeTrans']).value
         );
-        this.overDraftFacilityForm.get('nameOfFacilityCT').patchValue(
-            this.overDraftFacilityForm.get('nameOfFacilityTrans').value
+        this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, 'nameOfFacilityCT']).patchValue(
+            this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, 'nameOfFacilityTrans']).value
         );
-        this.overDraftFacilityForm.get('loanAmountCT').patchValue(
-            this.overDraftFacilityForm.get('loanAmountTrans').value
+        this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, 'loanAmountCT']).patchValue(
+            this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, 'loanAmountTrans']).value
         );
-        this.overDraftFacilityForm.get('loanAmountWordsCT').patchValue(
-            this.overDraftFacilityForm.get('loanAmountWordsTrans').value
+        this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, 'loanAmountWordsCT']).patchValue(
+            this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, 'loanAmountWordsTrans']).value
         );
-        // this.overDraftFacilityForm.get('bondOwnerNameCT').patchValue(
-        //     this.overDraftFacilityForm.get('bondOwnerNameTrans').value
+        // this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, bondOwnerNameCT']).patchValue(
+        //     this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, bondOwnerNameTrans']).value
         // );
-        this.overDraftFacilityForm.get('bondAmountCT').patchValue(
-            this.overDraftFacilityForm.get('bondAmountTrans').value
+        this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, 'bondAmountCT']).patchValue(
+            this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, 'bondAmountTrans']).value
         );
-        this.overDraftFacilityForm.get('baseRateCT').patchValue(
-            this.overDraftFacilityForm.get('baseRateTrans').value
+        this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, 'baseRateCT']).patchValue(
+            this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, 'baseRateTrans']).value
         );
-        this.overDraftFacilityForm.get('premiumRateCT').patchValue(
-            this.overDraftFacilityForm.get('premiumRateTrans').value
+        this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, 'premiumRateCT']).patchValue(
+            this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, 'premiumRateTrans']).value
         );
-        this.overDraftFacilityForm.get('interestRateCT').patchValue(
-            this.overDraftFacilityForm.get('interestRateTrans').value
+        this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, 'interestRateCT']).patchValue(
+            this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, 'interestRateTrans']).value
         );
-        this.overDraftFacilityForm.get('dateOfExpiryTypeCT').patchValue(
-            this.overDraftFacilityForm.get('dateOfExpiryTypeTrans').value
+        this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, 'dateOfExpiryTypeCT']).patchValue(
+            this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, 'dateOfExpiryTypeTrans']).value
         );
-        this.overDraftFacilityForm.get('dateOfExpiryCT').patchValue(
-            this.overDraftFacilityForm.get('dateOfExpiryTrans').value
+        this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, 'dateOfExpiryCT']).patchValue(
+            this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, 'dateOfExpiryTrans']).value
         );
     }
 }

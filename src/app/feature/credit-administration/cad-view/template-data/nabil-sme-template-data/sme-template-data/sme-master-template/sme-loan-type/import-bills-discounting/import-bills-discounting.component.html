@@ -18,7 +18,7 @@
                             <nb-option value="REGULAR"> Regular Basis</nb-option>
                         </nb-select>
                     </div>
-                    <div *ngIf="isComplimentryOtherLoan" class="col-md-4">
+                    <div *ngIf="this.importBillsDiscountForm.get(['importBillsDiscountFormArray', i, 'complementaryOther']).value" class="col-md-4">
                         <label class="font-weight-bold" for="complimentaryLoanSelected"><strong>Complimentary Loan Selection</strong></label><br>
                         <nb-select formControlName="complimentaryLoanSelected" fullWidth
                                    id="complimentaryLoanSelected"
@@ -29,7 +29,9 @@
                         </nb-select>
                     </div>
                     <div class="col-md-12 mt-2">
-                        <nb-checkbox #complementaryOther formControlName="complementaryOther">
+                        <nb-checkbox #complementaryOther
+                                     (change)="checkComplimetryOtherLoan($event.target.checked, i)"
+                                     formControlName="complementaryOther">
                             <i> Is complimentary of other loan ? </i></nb-checkbox>
                     </div>
                 </div>
