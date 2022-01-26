@@ -134,6 +134,7 @@ export class Section2LoanTypePrintComponent implements OnInit {
     mortgageOverdraft = [];
     importBillsDiscounting = [];
     irrevocableLetter = [];
+    importLoanTrustReceipt = [];
 
     constructor(private engToNepWord: NepaliCurrencyWordPipe,
                 private engToNepaliDate: EngNepDatePipe,
@@ -437,5 +438,6 @@ export class Section2LoanTypePrintComponent implements OnInit {
         this.irrevocableLetter = this.loanData.filter(data => data.loanName === this.loanNameConstant.IRREVOCABLE_LETTER_OF_CREDIT_FACILITY);
         this.autoLoanDetails = this.loanData.filter(data => data.loanName === this.loanNameConstant.AUTO_LOAN);
         this.termLoanDetails = this.loanData.filter(data => data.loanName === this.loanNameConstant.TERM_LOAN_TO_FOR_PURCHASE_OF_VEHICLE);
+        this.importLoanTrustReceipt = this.loanData.filter(data => data.loanName === this.loanNameConstant.IMPORT_LOAN_TRUST_RECEIPT_LOAN);
     }
 }
