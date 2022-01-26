@@ -16,6 +16,7 @@ import {RouterUtilsService} from '../../../../utils/router-utils.service';
 import {Section6FacilitiesClauseComponent} from './combined-letter-sections/section6-facilities-clause/section6-facilities-clause.component';
 import {CommonSectionBottomComponent} from './combined-letter-sections/common-section-bottom/common-section-bottom.component';
 import {Section8InsuranceClauseComponent} from './combined-letter-sections/section8-insurance-clause/section8-insurance-clause.component';
+import {Section7SecurityClauseComponent} from './combined-letter-sections/section7-security-clause/section7-security-clause.component';
 
 @Component({
   selector: 'app-combined-offer-letter',
@@ -35,6 +36,7 @@ export class CombinedOfferLetterComponent implements OnInit {
   @ViewChild('section2', {static: false}) section2: Section2LoanTypeComponent;
   @ViewChild('section3', {static: false}) section3: Section3SecurityAndCollateralComponent;
   @ViewChild('section6', {static: false}) section6: Section6FacilitiesClauseComponent;
+  @ViewChild('section7', {static: false}) section7: Section7SecurityClauseComponent;
   @ViewChild('section9', {static: false}) section9: Section9OtherClauseComponent;
   @ViewChild('section10', {static: false}) section10: Section10SecurityDocumentsComponent;
   @ViewChild('sectionBottom', {static: false}) sectionBottom: CommonSectionBottomComponent;
@@ -118,6 +120,7 @@ export class CombinedOfferLetterComponent implements OnInit {
       freeTable: this.section3.form.get('freeTable').value,
     };
     const section6FreeText = this.section6.form.get('tenureOfLoan').value ? this.section6.form.get('tenureOfLoan').value : '';
+    const section7FreeText = this.section7.form.get('yearlyText').value ? this.section7.form.get('yearlyText').value : '';
     const section9FreeText = {
       freeText1: this.section9.form.get('freeText1').value ? this.section9.form.get('freeText1').value : '',
       freeText2: this.section9.form.get('freeText2').value ? this.section9.form.get('freeText2').value : '',
@@ -132,6 +135,7 @@ export class CombinedOfferLetterComponent implements OnInit {
       section2: section2FreeText,
       section3: section3FreeText,
       section6: section6FreeText,
+      section7: section7FreeText,
       section9: section9FreeText,
       section10: section10FreeText,
       sectionBottom: sectionBottom,

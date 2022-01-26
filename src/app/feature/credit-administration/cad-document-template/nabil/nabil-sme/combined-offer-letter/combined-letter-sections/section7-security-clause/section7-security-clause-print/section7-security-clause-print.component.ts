@@ -17,6 +17,7 @@ export class Section7SecurityClausePrintComponent implements OnInit {
   isGharJaggaVisible: boolean;
   isSamanMojdatVisible: boolean;
   isReceivableVisible: boolean;
+  freeInformation;
 
   constructor() {
   }
@@ -24,6 +25,7 @@ export class Section7SecurityClausePrintComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.customerApprovedDoc)) {
       this.loanHolderInfo = JSON.parse(this.customerApprovedDoc.loanHolder.nepData);
       this.tempData = JSON.parse(this.customerApprovedDoc.offerDocumentList[0].initialInformation);
+      this.freeInformation = JSON.parse(this.customerApprovedDoc.offerDocumentList[0].supportedInformation);
       this.branchName = this.loanHolderInfo.branch.ct;
     }
     const securities = this.tempData.securities;
