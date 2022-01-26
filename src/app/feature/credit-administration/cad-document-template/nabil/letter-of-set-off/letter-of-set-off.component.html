@@ -80,10 +80,10 @@
                                     को
                                     <span *ngIf="individualData?.gender?.en === 'MALE' else nameDetails"> श्री</span>
                                     <ng-template #nameDetails>
-                                        <span *ngIf="individualData?.relationMedium !== undefined && individualData?.relationMedium?.en === '1'">
+                                        <span *ngIf="individualData?.relationMedium !== undefined && individualData?.relationMedium?.en === '0'">
                                             श्रीमती
                                         </span>
-                                        <span *ngIf="individualData?.relationMedium !== undefined && individualData?.relationMedium?.en === '0'">
+                                        <span *ngIf="individualData?.relationMedium !== undefined && individualData?.relationMedium?.en === '1'">
                                           सुश्री
                                         </span>
                                     </ng-template>
