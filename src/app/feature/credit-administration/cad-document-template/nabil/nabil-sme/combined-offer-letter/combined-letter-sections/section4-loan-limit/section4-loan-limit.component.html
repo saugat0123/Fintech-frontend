@@ -17,7 +17,8 @@
                                 <!--Total Funded Limit-->
                                     माथि उल्लिखित कोषमा आधारित सम्पूर्ण ऋणकर्जा सुविधाहरुको कूल उपयोग कुनै पनि समयमा रु.
                                     <input class="form-field form-control-sm font-weight-bold"
-                                           formControlName="totalFundedLimitInFigure"
+                                 (input)="getNumAmountWord('totalFundedLimitInFigure', 'totalFundedLimitInWords')" class="form-control"
+                                       formControlName="totalFundedLimitInFigure"
                                            name="totalFundedLimitInFigure"
                                            type="text"/>
                                     <strong>। (अक्षरेपी रु. </strong>
@@ -74,7 +75,7 @@
                             </li>
                         </ng-container>
                         <li>
-                                माथि बुँदा बुँदामा तोकिएको ऋणकर्जा सुविधाको कूल उपयोग सीमा भन्दा कथमकदाचित बढी रकम उपयोग
+                                माथि बुँदा बुँदामा तोकिएको ऋणकर्जा सुविधाहरुको कूल उपयोग सीमा भन्दा कथमकदाचित बढी रकम उपयोग
                                 गरेमा वा उपयोग हुन गएमा त्यस्तो बढी रकम ऋणीले बैंकलाई तत्कालै तिर्नु बुझाउनु पर्नेछ ।
                                 नबुझाएमा त्यस्तो वढी रकममा बैंकको नियमानुसार अधिकतम ब्याजदरले ब्याज लाग्नेछ ।
                         </li>

@@ -6,6 +6,7 @@ import {ObjectUtil} from '../../../../../../../../../@core/utils/ObjectUtil';
 import {EngToNepaliNumberPipe} from '../../../../../../../../../@core/pipe/eng-to-nepali-number.pipe';
 import {NepaliCurrencyWordPipe} from '../../../../../../../../../@core/pipe/nepali-currency-word.pipe';
 import {OfferDocument} from '../../../../../../../model/OfferDocument';
+import {CurrencyFormatterPipe} from '../../../../../../../../../@core/pipe/currency-formatter.pipe';
 
 @Component({
   selector: 'app-sme-global-content',
@@ -62,7 +63,8 @@ export class SmeGlobalContentComponent implements OnInit {
               private translateService: SbTranslateService,
               private datePipe: DatePipe,
               public engToNepaliNumberPipe: EngToNepaliNumberPipe,
-              public currencyWordPipe: NepaliCurrencyWordPipe) { }
+              public currencyWordPipe: NepaliCurrencyWordPipe,
+              private currencyFormatter: CurrencyFormatterPipe) { }
 
   ngOnInit() {
     this.buildForm();
@@ -212,8 +214,8 @@ export class SmeGlobalContentComponent implements OnInit {
     // translating number field by number pipe
     const serviceChargeInFigure = this.globalForm.get('serviceChargeInFigure').value;
     if (!ObjectUtil.isEmpty(serviceChargeInFigure)) {
-      this.globalForm.get('serviceChargeInFigureTrans').patchValue(this.engToNepaliNumberPipe.transform(serviceChargeInFigure.toString()));
-      this.globalForm.get('serviceChargeInFigureCT').patchValue(this.engToNepaliNumberPipe.transform(serviceChargeInFigure.toString()));
+      this.globalForm.get('serviceChargeInFigureTrans').patchValue(this.engToNepaliNumberPipe.transform(this.currencyFormatter.transform(serviceChargeInFigure.toString())));
+      this.globalForm.get('serviceChargeInFigureCT').patchValue(this.engToNepaliNumberPipe.transform(this.currencyFormatter.transform(serviceChargeInFigure.toString())));
     }
 
     const tempSchemeInterestRate = this.globalForm.get('schemeInterestRate').value;
@@ -230,32 +232,32 @@ export class SmeGlobalContentComponent implements OnInit {
 
     const commitmentFee = this.globalForm.get('commitmentFee').value;
     if (!ObjectUtil.isEmpty(commitmentFee)) {
-      this.globalForm.get('commitmentFeeTrans').patchValue(this.engToNepaliNumberPipe.transform(commitmentFee.toString()));
-      this.globalForm.get('commitmentFeeCT').patchValue(this.engToNepaliNumberPipe.transform(commitmentFee.toString()));
+      this.globalForm.get('commitmentFeeTrans').patchValue(this.engToNepaliNumberPipe.transform(this.currencyFormatter.transform(commitmentFee.toString())));
+      this.globalForm.get('commitmentFeeCT').patchValue(this.engToNepaliNumberPipe.transform(this.currencyFormatter.transform(commitmentFee.toString())));
     }
 
     const totalFundedLimitInFigure = this.globalForm.get('totalFundedLimitInFigure').value;
     if (!ObjectUtil.isEmpty(totalFundedLimitInFigure)) {
-      this.globalForm.get('totalFundedLimitInFigureTrans').patchValue(this.engToNepaliNumberPipe.transform(totalFundedLimitInFigure.toString()));
-      this.globalForm.get('totalFundedLimitInFigureCT').patchValue(this.engToNepaliNumberPipe.transform(totalFundedLimitInFigure.toString()));
+      this.globalForm.get('totalFundedLimitInFigureTrans').patchValue(this.engToNepaliNumberPipe.transform(this.currencyFormatter.transform(totalFundedLimitInFigure.toString())));
+      this.globalForm.get('totalFundedLimitInFigureCT').patchValue(this.engToNepaliNumberPipe.transform(this.currencyFormatter.transform(totalFundedLimitInFigure.toString())));
     }
 
     const totalNonFundedLimitInFigure = this.globalForm.get('totalNonFundedLimitInFigure').value;
     if (!ObjectUtil.isEmpty(totalNonFundedLimitInFigure)) {
-      this.globalForm.get('totalNonFundedLimitInFigureTrans').patchValue(this.engToNepaliNumberPipe.transform(totalNonFundedLimitInFigure.toString()));
-      this.globalForm.get('totalNonFundedLimitInFigureCT').patchValue(this.engToNepaliNumberPipe.transform(totalNonFundedLimitInFigure.toString()));
+      this.globalForm.get('totalNonFundedLimitInFigureTrans').patchValue(this.engToNepaliNumberPipe.transform(this.currencyFormatter.transform(totalNonFundedLimitInFigure.toString())));
+      this.globalForm.get('totalNonFundedLimitInFigureCT').patchValue(this.engToNepaliNumberPipe.transform(this.currencyFormatter.transform(totalNonFundedLimitInFigure.toString())));
     }
 
     this.totalLimitInFigure = totalFundedLimitInFigure + totalNonFundedLimitInFigure;
     const totalLimitInFigure = this.globalForm.get('totalLimitInFigure').value;
     if (!ObjectUtil.isEmpty(totalLimitInFigure)) {
       this.globalForm.get('totalLimitInFigure').patchValue(totalLimitInFigure);
-      this.globalForm.get('totalLimitInFigureTrans').patchValue(this.engToNepaliNumberPipe.transform(totalLimitInFigure.toString()));
-      this.globalForm.get('totalLimitInFigureCT').patchValue(this.engToNepaliNumberPipe.transform(totalLimitInFigure.toString()));
+      this.globalForm.get('totalLimitInFigureTrans').patchValue(this.engToNepaliNumberPipe.transform(this.currencyFormatter.transform(totalLimitInFigure.toString())));
+      this.globalForm.get('totalLimitInFigureCT').patchValue(this.engToNepaliNumberPipe.transform(this.currencyFormatter.transform(totalLimitInFigure.toString())));
     } else {
       this.globalForm.get('totalLimitInFigure').patchValue(this.totalLimitInFigure);
-      this.globalForm.get('totalLimitInFigureTrans').patchValue(this.engToNepaliNumberPipe.transform(this.totalLimitInFigure.toString()));
-      this.globalForm.get('totalLimitInFigureCT').patchValue(this.engToNepaliNumberPipe.transform(this.totalLimitInFigure.toString()));
+      this.globalForm.get('totalLimitInFigureTrans').patchValue(this.engToNepaliNumberPipe.transform(this.currencyFormatter.transform(this.totalLimitInFigure.toString())));
+      this.globalForm.get('totalLimitInFigureCT').patchValue(this.engToNepaliNumberPipe.transform(this.currencyFormatter.transform(this.totalLimitInFigure.toString())));
     }
 
     // set date field value
