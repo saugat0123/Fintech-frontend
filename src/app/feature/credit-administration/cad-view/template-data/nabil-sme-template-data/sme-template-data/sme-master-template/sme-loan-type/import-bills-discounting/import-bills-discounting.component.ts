@@ -75,7 +75,9 @@ export class ImportBillsDiscountingComponent implements OnInit {
     }
 
     checkComplimetryOtherLoan(data, i) {
-        this.importBillsDiscountForm.get(['importBillsDiscountFormArray', i, 'complementaryOther']).patchValue(data);
+        if (!data) {
+            this.importBillsDiscountForm.get(['importBillsDiscountFormArray', i, 'complementaryOther']).patchValue(data);
+        }
     }
 
     public getNumAmountWord(numLabel, wordLabel, index, arrayName): void {

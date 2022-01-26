@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {ObjectUtil} from '../../../../../../../../../@core/utils/ObjectUtil';
 import {NepaliCurrencyWordPipe} from '../../../../../../../../../@core/pipe/nepali-currency-word.pipe';
 import {EngToNepaliNumberPipe} from '../../../../../../../../../@core/pipe/eng-to-nepali-number.pipe';
@@ -7,6 +7,7 @@ import {CurrencyFormatterPipe} from '../../../../../../../../../@core/pipe/curre
 import {EngNepDatePipe} from 'nepali-patro';
 import {OfferDocument} from '../../../../../../../model/OfferDocument';
 import {DatePipe} from '@angular/common';
+import {LoanNameConstant} from '../../../../sme-costant/loan-name-constant';
 
 @Component({
     selector: 'app-revolving-short-term-loan',
@@ -27,6 +28,8 @@ export class RevolvingShortTermLoanComponent implements OnInit {
         {value: 'Yes'},
         {value: 'No'}
     ];
+    filteredList: any = [];
+    loanNameConstant = LoanNameConstant;
     constructor(private formBuilder: FormBuilder,
                 private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
                 private engToNepNumberPipe: EngToNepaliNumberPipe,
@@ -40,6 +43,7 @@ export class RevolvingShortTermLoanComponent implements OnInit {
         this.ADExpiry = true;
         if (!ObjectUtil.isEmpty(this.loanName)) {
             this.loanDetails = this.loanName;
+            this.filteredListDetails(this.loanDetails);
         }
         if (this.offerDocumentList.length > 0) {
             this.offerDocumentList.forEach(offerLetter => {
@@ -48,16 +52,21 @@ export class RevolvingShortTermLoanComponent implements OnInit {
             if (!ObjectUtil.isEmpty(this.initialInformation)) {
                 this.revolvingShortTermLoan.patchValue(this.initialInformation.revolvingShortTermLoan);
             }
-            const dateOfExpiryType = this.initialInformation.revolvingShortTermLoan.dateOfExpiryType;
+            this.patchDate();
+        }
+    }
+    patchDate() {
+        for (let val = 0; val < this.initialInformation.revolvingShortTermLoan.revolvingShortTermLoanFormArray.length; val++) {
+            const dateOfExpiryType = this.initialInformation.revolvingShortTermLoan.revolvingShortTermLoanFormArray[val].dateOfExpiryType;
             if (dateOfExpiryType === 'AD') {
-                const dateOfExpiry = this.initialInformation.revolvingShortTermLoan.dateOfExpiry;
+                const dateOfExpiry = this.initialInformation.revolvingShortTermLoan.revolvingShortTermLoanFormArray[val].dateOfExpiry;
                 if (!ObjectUtil.isEmpty(dateOfExpiry)) {
-                    this.revolvingShortTermLoan.get('dateOfExpiry').patchValue(new Date(dateOfExpiry));
+                    this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', val, 'dateOfExpiry']).patchValue(new Date(dateOfExpiry));
                 }
             } else if (dateOfExpiryType === 'BS') {
-                const dateOfExpiry = this.initialInformation.revolvingShortTermLoan.dateOfExpiryNepali;
+                const dateOfExpiry = this.initialInformation.revolvingShortTermLoan.revolvingShortTermLoanFormArray[val].dateOfExpiryNepali;
                 if (!ObjectUtil.isEmpty(dateOfExpiry)) {
-                    this.revolvingShortTermLoan.get('dateOfExpiryNepali').patchValue(dateOfExpiry);
+                    this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', val, 'dateOfExpiryNepali']).patchValue(dateOfExpiry);
                 }
             }
         }
@@ -65,6 +74,218 @@ export class RevolvingShortTermLoanComponent implements OnInit {
 
     buildForm() {
         this.revolvingShortTermLoan = this.formBuilder.group({
+            revolvingShortTermLoanFormArray: this.formBuilder.array([]),
+        });
+    }
+    checkComplimetryOtherLoan(data, index) {
+        this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', index, 'complementaryOther']).patchValue(data);
+    }
+    public checkDateOfExpiry(value): void {
+        this.ADExpiry = value === 'AD';
+        this.BSExpiry = value === 'BS';
+    }
+
+    public getNumAmountWord(numLabel, wordLabel, index, arrayName): void {
+        const transformValue = this.nepaliCurrencyWordPipe.transform(this.revolvingShortTermLoan.get([arrayName, index, numLabel]).value);
+        this.revolvingShortTermLoan.get([arrayName, index, wordLabel]).patchValue(transformValue);
+    }
+
+    calInterestRate(i) {
+        const baseRate = this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'baseRate']).value;
+        const premiumRate = this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'premiumRate']).value;
+        const sum = parseFloat(baseRate) + parseFloat(premiumRate);
+        this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'interestRate']).patchValue(sum);
+        // Converting value from existed pipe:
+        // this.translateNumber('baseRate', 'baseRateTrans');
+        // this.translateNumber('premiumRate', 'premiumRateTrans');
+        // this.translateNumber('interestRate', 'interestRateTrans');
+    }
+
+    translateAndSetVal(i) {
+        /* SET TRANSLATION VALUE FOR CONDITIONS */
+        const tempLoanOption = this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'loanOption']).value;
+        if (!ObjectUtil.isEmpty(tempLoanOption)) {
+            this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'loanOptionTrans']).patchValue(tempLoanOption);
+        }
+        const tempLandRevolvingBasis = this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'loanRevolvingBasis']).value;
+        if (!ObjectUtil.isEmpty(tempLandRevolvingBasis)) {
+            this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'loanRevolvingBasisTrans']).patchValue(tempLandRevolvingBasis);
+        }
+        const tempComplementary = this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'complementaryOther']).value;
+        if (!ObjectUtil.isEmpty(tempComplementary)) {
+            this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'complementaryOtherTrans']).patchValue(tempComplementary);
+        }
+        // this.revolvingShortTermLoan.get('arFinancing').patchValue(this.isARFinancing);
+        // const tempArFinancing = this.revolvingShortTermLoan.get('arFinancing').value;
+        // if (!ObjectUtil.isEmpty(tempArFinancing)) {
+        //     this.revolvingShortTermLoan.get('arFinancingTrans').patchValue(tempArFinancing);
+        // }
+
+        /* FOR MULTI LOAN SELECTION DATA */
+        this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'complimentaryLoanSelectedTrans']).patchValue(
+            this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'complimentaryLoanSelected']).value
+        );
+
+        /* SET REMAINING FIELDS */
+        const tempLoanRevolvingPeriod = this.convertNumbersToNepali(this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'loanRevolvingPeriod']).value, false);
+        this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'loanRevolvingPeriodTrans']).patchValue(tempLoanRevolvingPeriod);
+
+        const tempLoanAmountTrans = this.convertNumbersToNepali(this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'loanAmount']).value, false);
+        this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'loanAmountTrans']).patchValue(tempLoanAmountTrans);
+        /* SET LOAN AMOUNT WORDS */
+        this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'loanAmountWordsTrans']).patchValue(
+            this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'loanAmountWords']).value
+        );
+
+        const convertArDays = this.convertNumbersToNepali(this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'arDays']).value, false);
+        this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'arDaysTrans']).patchValue(convertArDays);
+
+        const convertDrawingPower = this.convertNumbersToNepali(this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'drawingPower']).value, false);
+        this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'drawingPowerTrans']).patchValue(convertDrawingPower);
+
+        const convertBaseRate = this.convertNumbersToNepali(this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'baseRate']).value, false);
+        this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'baseRateTrans']).patchValue(convertBaseRate);
+
+        const convertPremiumRate = this.convertNumbersToNepali(this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'premiumRate']).value, false);
+        this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'premiumRateTrans']).patchValue(convertPremiumRate);
+
+        const convertInterestRate = this.convertNumbersToNepali(this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'interestRate']).value, false);
+        this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'interestRateTrans']).patchValue(convertInterestRate);
+
+        const dateOfExpiryType = this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'dateOfExpiryType']).value;
+        let convertedDateOfExpiry;
+        if (dateOfExpiryType === 'AD') {
+            const tempDateOfExp = this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'dateOfExpiry']).value;
+            convertedDateOfExpiry = !ObjectUtil.isEmpty(tempDateOfExp) ? this.datePipe.transform(tempDateOfExp) : '';
+            if (!ObjectUtil.isEmpty(convertedDateOfExpiry)) {
+                const finalExpDate = this.transformEnglishDate(convertedDateOfExpiry);
+                this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'dateOfExpiryTrans']).patchValue(finalExpDate);
+            }
+        } else {
+            const tempDateOfExpNep = this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'dateOfExpiryNepali']).value;
+            convertedDateOfExpiry = !ObjectUtil.isEmpty(tempDateOfExpNep) ?
+                tempDateOfExpNep.nDate : '';
+            this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'dateOfExpiryTrans']).patchValue(convertedDateOfExpiry);
+        }
+        this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'dateOfExpiryTypeTrans']).patchValue(dateOfExpiryType);
+        /* FOR SETTING THE VALUE OF CT */
+        this.setCTValueSave(i);
+    }
+
+    transformEnglishDate(date) {
+        let transformedDate;
+        let monthName;
+        const dateArray = [];
+        const splittedDate = date.split(' ');
+        if (splittedDate[0] === 'Jan') {
+            monthName = 'जनवरी';
+        } else if (splittedDate[0] === 'Feb') {
+            monthName = 'फेब्रुअरी';
+        } else if (splittedDate[0] === 'Mar') {
+            monthName = 'मार्च';
+        } else if (splittedDate[0] === 'Apr') {
+            monthName = 'अप्रिल';
+        } else if (splittedDate[0] === 'May') {
+            monthName = 'मे';
+        } else if (splittedDate[0] === 'Jun') {
+            monthName = 'जुन';
+        } else if (splittedDate[0] === 'Jul') {
+            monthName = 'जुलाई';
+        } else if (splittedDate[0] === 'Aug') {
+            monthName = 'अगष्ट';
+        } else if (splittedDate[0] === 'Sep') {
+            monthName = 'सेप्टेम्बर';
+        } else if (splittedDate[0] === 'Oct') {
+            monthName = 'अक्टुबर';
+        } else if (splittedDate[0] === 'Nov') {
+            monthName = 'नोभेम्बर';
+        } else {
+            monthName = 'डिसेम्बर';
+        }
+        dateArray.push(this.engToNepNumberPipe.transform(splittedDate[1].slice(0, -1)));
+        dateArray.push(monthName + ',');
+        dateArray.push(this.engToNepNumberPipe.transform(splittedDate[2]));
+        transformedDate = dateArray.join(' ');
+        return transformedDate;
+    }
+
+    /* SET CT VALUE OF EACH FIELDS */
+    setCTValueSave(i) {
+        this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'loanOptionCT']).patchValue(
+            this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'loanOptionTrans']).value
+        );
+        this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'loanRevolvingBasisCT']).patchValue(
+            this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'loanRevolvingBasisTrans']).value
+        );
+        this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'complementaryOtherCT']).patchValue(
+            this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'complementaryOtherTrans']).value
+        );
+        this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'complimentaryLoanSelectedCT']).patchValue(
+            this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'complimentaryLoanSelectedTrans']).value
+        );
+        // this.revolvingShortTermLoan.get('arFinancingCT').patchValue(
+        //     this.revolvingShortTermLoan.get('arFinancingTrans').value
+        // );
+        this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'loanRevolvingPeriodCT']).patchValue(
+            this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'loanRevolvingPeriodTrans']).value
+        );
+        this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'loanAmountCT']).patchValue(
+            this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'loanAmountTrans']).value
+        );
+        this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'loanAmountWordsCT']).patchValue(
+            this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'loanAmountWordsTrans']).value
+        );
+        this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'arDaysCT']).patchValue(
+            this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'arDaysTrans']).value
+        );
+        this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'drawingPowerCT']).patchValue(
+            this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'drawingPowerTrans']).value
+        );
+        this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'baseRateCT']).patchValue(
+            this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'baseRateTrans']).value
+        );
+        this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'premiumRateCT']).patchValue(
+            this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'premiumRateTrans']).value
+        );
+        this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'interestRateCT']).patchValue(
+            this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'interestRateTrans']).value
+        );
+        this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'dateOfExpiryTypeCT']).patchValue(
+            this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'dateOfExpiryTypeTrans']).value
+        );
+        this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'dateOfExpiryCT']).patchValue(
+            this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'dateOfExpiryTrans']).value
+        );
+    }
+
+    /* FOR CURRENCY FORMATTER IT TAKES PARAMETER TYPE TRUE*/
+    convertNumbersToNepali(val, type: boolean) {
+        let finalConvertedVal;
+        if (!ObjectUtil.isEmpty(val)) {
+            if (type) {
+                finalConvertedVal = this.engToNepNumberPipe.transform(
+                    this.currencyFormatterPipe.transform(val.toString())
+                );
+            } else {
+                finalConvertedVal = this.engToNepNumberPipe.transform(val.toString());
+            }
+        }
+        return finalConvertedVal;
+    }
+
+    filteredListDetails(loanDetails) {
+        this.filteredList = loanDetails.filter(data => data.name === this.loanNameConstant.SHORT_TERM_LOAN);
+        this.filteredList.forEach(value => {
+            this.addLoanFormArr();
+        });
+    }
+
+    addLoanFormArr() {
+        (this.revolvingShortTermLoan.get('revolvingShortTermLoanFormArray') as FormArray).push(this.buildLoanForm());
+    }
+
+    buildLoanForm() {
+        return this.formBuilder.group({
             loanOption: [undefined],
             loanRevolvingBasis: [undefined],
             subsidyOrAgricultureLoan: [undefined],
@@ -117,202 +338,5 @@ export class RevolvingShortTermLoanComponent implements OnInit {
             dateOfExpiryTypeCT: [undefined],
             dateOfExpiryCT: [undefined],
         });
-    }
-
-    checkComplimentaryOtherLoan(data) {
-        this.isComplementaryOtherLoan = data;
-        this.revolvingShortTermLoan.get('complementaryOther').patchValue(this.isComplementaryOtherLoan);
-    }
-
-    public checkDateOfExpiry(value): void {
-        this.ADExpiry = value === 'AD';
-        this.BSExpiry = value === 'BS';
-    }
-
-    public getNumAmountWord(numLabel, wordLabel): void {
-        const transformValue = this.nepaliCurrencyWordPipe.transform(this.revolvingShortTermLoan.get(numLabel).value);
-        this.revolvingShortTermLoan.get(wordLabel).patchValue(transformValue);
-    }
-
-    calInterestRate() {
-        const baseRate = this.revolvingShortTermLoan.get('baseRate').value;
-        const premiumRate = this.revolvingShortTermLoan.get('premiumRate').value;
-        const sum = parseFloat(baseRate) + parseFloat(premiumRate);
-        this.revolvingShortTermLoan.get('interestRate').patchValue(sum);
-        // Converting value from existed pipe:
-        // this.translateNumber('baseRate', 'baseRateTrans');
-        // this.translateNumber('premiumRate', 'premiumRateTrans');
-        // this.translateNumber('interestRate', 'interestRateTrans');
-    }
-
-    translateAndSetVal() {
-        /* SET TRANSLATION VALUE FOR CONDITIONS */
-        const tempLoanOption = this.revolvingShortTermLoan.get('loanOption').value;
-        if (!ObjectUtil.isEmpty(tempLoanOption)) {
-            this.revolvingShortTermLoan.get('loanOptionTrans').patchValue(tempLoanOption);
-        }
-        const tempLandRevolvingBasis = this.revolvingShortTermLoan.get('loanRevolvingBasis').value;
-        if (!ObjectUtil.isEmpty(tempLandRevolvingBasis)) {
-            this.revolvingShortTermLoan.get('loanRevolvingBasisTrans').patchValue(tempLandRevolvingBasis);
-        }
-        this.revolvingShortTermLoan.get('complementaryOther').patchValue(this.isComplementaryOtherLoan);
-        const tempComplementary = this.revolvingShortTermLoan.get('complementaryOther').value;
-        if (!ObjectUtil.isEmpty(tempComplementary)) {
-            this.revolvingShortTermLoan.get('complementaryOtherTrans').patchValue(tempComplementary);
-        }
-        // this.revolvingShortTermLoan.get('arFinancing').patchValue(this.isARFinancing);
-        // const tempArFinancing = this.revolvingShortTermLoan.get('arFinancing').value;
-        // if (!ObjectUtil.isEmpty(tempArFinancing)) {
-        //     this.revolvingShortTermLoan.get('arFinancingTrans').patchValue(tempArFinancing);
-        // }
-
-        /* FOR MULTI LOAN SELECTION DATA */
-        this.revolvingShortTermLoan.get('complimentaryLoanSelectedTrans').patchValue(
-            this.revolvingShortTermLoan.get('complimentaryLoanSelected').value
-        );
-
-        /* SET REMAINING FIELDS */
-        const tempLoanRevolvingPeriod = this.convertNumbersToNepali(this.revolvingShortTermLoan.get('loanRevolvingPeriod').value, false);
-        this.revolvingShortTermLoan.get('loanRevolvingPeriodTrans').patchValue(tempLoanRevolvingPeriod);
-
-        const tempLoanAmountTrans = this.convertNumbersToNepali(this.revolvingShortTermLoan.get('loanAmount').value, false);
-        this.revolvingShortTermLoan.get('loanAmountTrans').patchValue(tempLoanAmountTrans);
-        /* SET LOAN AMOUNT WORDS */
-        this.revolvingShortTermLoan.get('loanAmountWordsTrans').patchValue(
-            this.revolvingShortTermLoan.get('loanAmountWords').value
-        );
-
-        const convertArDays = this.convertNumbersToNepali(this.revolvingShortTermLoan.get('arDays').value, false);
-        this.revolvingShortTermLoan.get('arDaysTrans').patchValue(convertArDays);
-
-        const convertDrawingPower = this.convertNumbersToNepali(this.revolvingShortTermLoan.get('drawingPower').value, false);
-        this.revolvingShortTermLoan.get('drawingPowerTrans').patchValue(convertDrawingPower);
-
-        const convertBaseRate = this.convertNumbersToNepali(this.revolvingShortTermLoan.get('baseRate').value, false);
-        this.revolvingShortTermLoan.get('baseRateTrans').patchValue(convertBaseRate);
-
-        const convertPremiumRate = this.convertNumbersToNepali(this.revolvingShortTermLoan.get('premiumRate').value, false);
-        this.revolvingShortTermLoan.get('premiumRateTrans').patchValue(convertPremiumRate);
-
-        const convertInterestRate = this.convertNumbersToNepali(this.revolvingShortTermLoan.get('interestRate').value, false);
-        this.revolvingShortTermLoan.get('interestRateTrans').patchValue(convertInterestRate);
-
-        const dateOfExpiryType = this.revolvingShortTermLoan.get('dateOfExpiryType').value;
-        let convertedDateOfExpiry;
-        let finalExpDate;
-        if (dateOfExpiryType === 'AD') {
-            const tempDateOfExp = this.revolvingShortTermLoan.get('dateOfExpiry').value;
-            convertedDateOfExpiry = !ObjectUtil.isEmpty(tempDateOfExp) ? this.datePipe.transform(tempDateOfExp) : '';
-            finalExpDate = this.transformEnglishDate(convertedDateOfExpiry);
-        } else {
-            const tempDateOfExpNep = this.revolvingShortTermLoan.get('dateOfExpiryNepali').value;
-            finalExpDate = !ObjectUtil.isEmpty(tempDateOfExpNep) ?
-                tempDateOfExpNep.nDate : '';
-        }
-        this.revolvingShortTermLoan.get('dateOfExpiryTypeTrans').patchValue(dateOfExpiryType);
-        this.revolvingShortTermLoan.get('dateOfExpiryTrans').patchValue(finalExpDate);
-        /* FOR SETTING THE VALUE OF CT */
-        this.setCTValueSave();
-    }
-
-    transformEnglishDate(date) {
-        let transformedDate;
-        let monthName;
-        const dateArray = [];
-        const splittedDate = date.split(' ');
-        if (splittedDate[0] === 'Jan') {
-            monthName = 'जनवरी';
-        } else if (splittedDate[0] === 'Feb') {
-            monthName = 'फेब्रुअरी';
-        } else if (splittedDate[0] === 'Mar') {
-            monthName = 'मार्च';
-        } else if (splittedDate[0] === 'Apr') {
-            monthName = 'अप्रिल';
-        } else if (splittedDate[0] === 'May') {
-            monthName = 'मे';
-        } else if (splittedDate[0] === 'Jun') {
-            monthName = 'जुन';
-        } else if (splittedDate[0] === 'Jul') {
-            monthName = 'जुलाई';
-        } else if (splittedDate[0] === 'Aug') {
-            monthName = 'अगष्ट';
-        } else if (splittedDate[0] === 'Sep') {
-            monthName = 'सेप्टेम्बर';
-        } else if (splittedDate[0] === 'Oct') {
-            monthName = 'अक्टुबर';
-        } else if (splittedDate[0] === 'Nov') {
-            monthName = 'नोभेम्बर';
-        } else {
-            monthName = 'डिसेम्बर';
-        }
-        dateArray.push(this.engToNepNumberPipe.transform(splittedDate[1].slice(0, -1)));
-        dateArray.push(monthName + ',');
-        dateArray.push(this.engToNepNumberPipe.transform(splittedDate[2]));
-        transformedDate = dateArray.join(' ');
-        return transformedDate;
-    }
-
-    /* SET CT VALUE OF EACH FIELDS */
-    setCTValueSave() {
-        this.revolvingShortTermLoan.get('loanOptionCT').patchValue(
-            this.revolvingShortTermLoan.get('loanOptionTrans').value
-        );
-        this.revolvingShortTermLoan.get('loanRevolvingBasisCT').patchValue(
-            this.revolvingShortTermLoan.get('loanRevolvingBasisTrans').value
-        );
-        this.revolvingShortTermLoan.get('complementaryOtherCT').patchValue(
-            this.revolvingShortTermLoan.get('complementaryOtherTrans').value
-        );
-        this.revolvingShortTermLoan.get('complimentaryLoanSelectedCT').patchValue(
-            this.revolvingShortTermLoan.get('complimentaryLoanSelectedTrans').value
-        );
-        // this.revolvingShortTermLoan.get('arFinancingCT').patchValue(
-        //     this.revolvingShortTermLoan.get('arFinancingTrans').value
-        // );
-        this.revolvingShortTermLoan.get('loanRevolvingPeriodCT').patchValue(
-            this.revolvingShortTermLoan.get('loanRevolvingPeriodTrans').value
-        );
-        this.revolvingShortTermLoan.get('loanAmountCT').patchValue(
-            this.revolvingShortTermLoan.get('loanAmountTrans').value
-        );
-        this.revolvingShortTermLoan.get('loanAmountWordsCT').patchValue(
-            this.revolvingShortTermLoan.get('loanAmountWordsTrans').value
-        );
-        this.revolvingShortTermLoan.get('arDaysCT').patchValue(
-            this.revolvingShortTermLoan.get('arDaysTrans').value
-        );
-        this.revolvingShortTermLoan.get('drawingPowerCT').patchValue(
-            this.revolvingShortTermLoan.get('drawingPowerTrans').value
-        );
-        this.revolvingShortTermLoan.get('baseRateCT').patchValue(
-            this.revolvingShortTermLoan.get('baseRateTrans').value
-        );
-        this.revolvingShortTermLoan.get('premiumRateCT').patchValue(
-            this.revolvingShortTermLoan.get('premiumRateTrans').value
-        );
-        this.revolvingShortTermLoan.get('interestRateCT').patchValue(
-            this.revolvingShortTermLoan.get('interestRateTrans').value
-        );
-        this.revolvingShortTermLoan.get('dateOfExpiryTypeCT').patchValue(
-            this.revolvingShortTermLoan.get('dateOfExpiryTypeTrans').value
-        );
-        this.revolvingShortTermLoan.get('dateOfExpiryCT').patchValue(
-            this.revolvingShortTermLoan.get('dateOfExpiryTrans').value
-        );
-    }
-
-    /* FOR CURRENCY FORMATTER IT TAKES PARAMETER TYPE TRUE*/
-    convertNumbersToNepali(val, type: boolean) {
-        let finalConvertedVal;
-        if (!ObjectUtil.isEmpty(val)) {
-            if (type) {
-                finalConvertedVal = this.engToNepNumberPipe.transform(
-                    this.currencyFormatterPipe.transform(val.toString())
-                );
-            } else {
-                finalConvertedVal = this.engToNepNumberPipe.transform(val.toString());
-            }
-        }
-        return finalConvertedVal;
     }
 }

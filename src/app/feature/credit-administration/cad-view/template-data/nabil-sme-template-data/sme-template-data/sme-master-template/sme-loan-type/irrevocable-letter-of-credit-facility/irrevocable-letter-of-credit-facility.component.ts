@@ -78,7 +78,9 @@ export class IrrevocableLetterOfCreditFacilityComponent implements OnInit {
     }
 
     checkComplimetryOtherLoan(data, i) {
-        this.letterOfCreditForm.get(['letterOfCreditFormArray', i, 'complementaryOther']).patchValue(data);
+        if (!data) {
+            this.letterOfCreditForm.get(['letterOfCreditFormArray', i, 'complementaryOther']).patchValue(data);
+        }
     }
 
     public checkDateOfExpiry(value): void {

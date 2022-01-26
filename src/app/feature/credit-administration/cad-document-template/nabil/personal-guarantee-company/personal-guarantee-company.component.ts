@@ -232,27 +232,39 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
             approvalDate = this.offerDocumentDetails.dateOfApproval ? this.offerDocumentDetails.dateOfApproval.ct : ''
         }
         if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Interest subsidy sanction letter') {
-            const dateOfApprovalType = this.offerDocumentDetails.dateOfApprovalType ? this.offerDocumentDetails.dateOfApprovalType.en : '';
+            const dateOfApprovalType = this.offerDocumentDetails.dateOfApprovalType ? this.offerDocumentDetails.dateOfApprovalType : '';
             if (dateOfApprovalType === 'AD') {
-                const templateDateApproval = this.offerDocumentDetails.dateOfApproval ? this.offerDocumentDetails.dateOfApproval.en : '';
+                const templateDateApproval = this.offerDocumentDetails.dateOfApproval ? this.offerDocumentDetails.dateOfApprovalCT : '';
                 approvalDate = this.englishNepaliDatePipe.transform(this.datePipe.transform(templateDateApproval), true);
             } else {
-                const templateDateApproval = this.offerDocumentDetails.dateOfApprovalNepali ? this.offerDocumentDetails.dateOfApprovalNepali.en : '';
+                const templateDateApproval = this.offerDocumentDetails.dateOfApprovalNepali ?
+                    this.offerDocumentDetails.dateOfApprovalNepali : '';
                 approvalDate = templateDateApproval ? templateDateApproval.nDate : '';
             }
         }
-        if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.offerDocumentDetails.smeGlobalForm) {
-            approvalDate = this.englishNepaliDatePipe.transform(this.offerDocumentDetails.smeGlobalForm.dateOfApprovalCT ?
-                    this.offerDocumentDetails.smeGlobalForm.dateOfApprovalCT :
-                    this.offerDocumentDetails.smeGlobalForm.dateOfApprovalCT, true);
+        if (!ObjectUtil.isEmpty(this.offerDocumentDetails) || !ObjectUtil.isEmpty(this.offerDocumentDetails.smeGlobalForm)) {
+            const dateOfApprovalType = this.offerDocumentDetails.smeGlobalForm.dateOfApprovalType ?
+                this.offerDocumentDetails.smeGlobalForm.dateOfApprovalType.en : '';
+            if (dateOfApprovalType === 'AD') {
+                const templateDateApproval = this.offerDocumentDetails.smeGlobalForm.dateOfApproval ?
+                    this.offerDocumentDetails.smeGlobalForm.dateOfApproval.en : '';
+                approvalDate = this.englishNepaliDatePipe.transform(this.datePipe.transform(templateDateApproval), true);
+            } else {
+                const templateDateApproval = this.offerDocumentDetails.smeGlobalForm.dateOfApprovalNepali ?
+                    this.offerDocumentDetails.smeGlobalForm.dateOfApprovalNepali.en : '';
+                approvalDate = templateDateApproval ? templateDateApproval.nDate : '';
+            }
         }
         if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Class A Sanction letter') {
-            const sanctionLetterDate = this.offerDocumentDetails.sanctionLetterDateType ? this.offerDocumentDetails.sanctionLetterDateType.en : '';
+            const sanctionLetterDate = this.offerDocumentDetails.sanctionLetterDateType ?
+                this.offerDocumentDetails.sanctionLetterDateType.en : '';
             if (sanctionLetterDate === 'AD') {
-                const templateDateSanctionDate = this.offerDocumentDetails.sanctionLetterDate ? this.offerDocumentDetails.sanctionLetterDate.en : '';
+                const templateDateSanctionDate = this.offerDocumentDetails.sanctionLetterDate ?
+                    this.offerDocumentDetails.sanctionLetterDate.en : '';
                 approvalDate = this.englishNepaliDatePipe.transform(this.datePipe.transform(templateDateSanctionDate), true);
             } else {
-                const templateDateSanctionDate = this.offerDocumentDetails.sanctionLetterDateNepali ? this.offerDocumentDetails.sanctionLetterDateNepali.en : '';
+                const templateDateSanctionDate = this.offerDocumentDetails.sanctionLetterDateNepali ?
+                    this.offerDocumentDetails.sanctionLetterDateNepali.en : '';
                 approvalDate = templateDateSanctionDate ? templateDateSanctionDate.nDate : '';
             }
         }
