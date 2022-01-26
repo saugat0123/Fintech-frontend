@@ -475,6 +475,10 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                 if (this.customerAllLoanList.filter((l) => l.id === this.loanDataHolder.id).length < 1) {
                     this.customerAllLoanList.push(this.loanDataHolder);
                 }
+                // Filter loan if loan is approved
+                if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
+                    this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => c.id === this.loanDataHolder.id);
+                }
                 // push loans from combined loan if not in the existing array
                 const combinedLoans = this.customerAllLoanList
                     .filter((l) => !ObjectUtil.isEmpty(l.combinedLoan));

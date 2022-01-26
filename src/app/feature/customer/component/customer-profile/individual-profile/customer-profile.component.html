@@ -231,6 +231,7 @@
                     <nb-card-body>
                         <app-customer-group-loan (messageToEmit)="getTotalLoanAmount($event)"
                                                  [fetchType]="fetchLoan.CUSTOMER_LOAN"
+                                                 (triggerCustomerRefresh)="refreshCustomerInfo()"
                                                  [customerInfo]="customerInfo" *ngIf="customerInfo"
                                                  [formValue]="customer"></app-customer-group-loan>
                     </nb-card-body>
