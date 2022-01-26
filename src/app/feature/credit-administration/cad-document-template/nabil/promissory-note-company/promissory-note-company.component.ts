@@ -263,8 +263,8 @@ export class PromissoryNoteCompanyComponent implements OnInit {
       directorCitizenshipIssueDistrict: this.tempProprietor[0] ? this.tempProprietor[0].ownerCitizenshipIssuedDistrictCT : '',
       branchName: [this.loanHolderNepData.branch ? this.loanHolderNepData.branch.ct : ''],
       authorizedPersonAge: age ? age : '',
-      interest: (this.educationalTemplateData && this.educationalTemplateData.ct)
-          ? (this.educationalTemplateData.ct) : ((this.educationalTemplateData) ? (this.educationalTemplateData) : ('')),
+      // interest: (this.educationalTemplateData && this.educationalTemplateData.ct)
+      //     ? (this.educationalTemplateData.ct) : ((this.educationalTemplateData) ? (this.educationalTemplateData) : ('')),
     });
   }
   setJointDetailsArr(data) {
