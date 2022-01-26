@@ -8,7 +8,7 @@
                 to Purchase Vehicle)
                 <ng-container *ngIf="termLoan.complementaryOther === true"> बुँदा नं.
                     <span>
-                            {{termLoanFreeText[i]?.SNOfParentLimitAutoLoan === null || termLoanFreeText[i]?.SNOfParentLimitAutoLoan === '' ? '___________' : termLoanFreeText[i]?.SNOfParentLimitAutoLoan}}
+                            {{termLoanFreeText[i]?.SNOfParentLimitVehicleLoan === null || termLoanFreeText[i]?.SNOfParentLimitVehicleLoan === '' ? '___________' : termLoanFreeText[i]?.SNOfParentLimitVehicleLoan}}
                         </span>                        <!-- <span [ngClass]="{'outside' : letterData?.marginInPercentageCT !== null && letterData?.marginInPercentageCT !== ''}">
                                              {{letterData?.marginInPercentageCT === null || letterData?.marginInPercentageCT === '' ? '___________' : letterData?.marginInPercentageCT}}</span>
                          --><!--<input class="form-field form-control-sm "
@@ -32,7 +32,7 @@
                 )
                 <ng-container *ngIf="termLoan.complementaryOther === true"> बुँदा नं.
                     <span>
-                            {{termLoanFreeText[i]?.SNOfParentLimitAutoLoan === null || termLoanFreeText[i]?.SNOfParentLimitAutoLoan === '' ? '___________' : termLoanFreeText[i]?.SNOfParentLimitAutoLoan}}
+                            {{termLoanFreeText[i]?.SNOfParentLimitVehicleLoan === null || termLoanFreeText[i]?.SNOfParentLimitVehicleLoan === '' ? '___________' : termLoanFreeText[i]?.SNOfParentLimitVehicleLoan}}
                         </span>                        <!--<span [ngClass]="{'outside' : letterData?.marginInPercentageCT !== null && letterData?.marginInPercentageCT !== ''}">
                                             {{letterData?.marginInPercentageCT === null || letterData?.marginInPercentageCT === '' ? '___________' : letterData?.marginInPercentageCT}}</span>
                         --><!--<input class="form-field form-control-sm "
@@ -125,8 +125,8 @@
             कर्जा रकमको शुरु निकासा भएको पछिल्लोे महिना देखि अँग्रेजी पात्रोको प्रत्येक २० तारिखका दिन किस्ता भुक्तानी मिति हुनेछ ।
     </span><br>
                 <strong>सेवा शुल्कः </strong>
-                <span [ngClass]="{'outside' : termLoan?.purposeOfLoanCT !== null && termLoan?.purposeOfLoanCT !== ''}">
-                        {{termLoan?.purposeOfLoanCT === null || termLoan?.purposeOfLoanCT === '' ? '___________' : termLoan?.purposeOfLoanCT}}</span>
+                <span class="outside">
+                    <strong> {{termLoan?.termLoanFor === 'VEHICLE' ? 'सवारी साधन खरिद गर्ने' : termLoan?.purposeOfLoanCT}}</strong></span>
                 कर्जाको
                 <span [ngClass]="{'outside' : termLoan?.serviceChargeCT !== null && termLoan?.serviceChargeCT !== ''}">
                         {{termLoan?.serviceChargeCT === null || termLoan?.serviceChargeCT === '' ? '___________' : termLoan?.serviceChargeCT}}</span>

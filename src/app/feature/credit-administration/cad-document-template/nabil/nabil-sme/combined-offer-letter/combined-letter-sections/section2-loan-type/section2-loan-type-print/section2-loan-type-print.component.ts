@@ -20,6 +20,7 @@ export class Section2LoanTypePrintComponent implements OnInit {
     FDName;
     DepName;
     BondName;
+    finalBondName = [];
     FDNames: Array<String> = [];
     allFDNames;
     DepNames: Array<String> = [];
@@ -124,8 +125,15 @@ export class Section2LoanTypePrintComponent implements OnInit {
     autoLoanDetails = [];
     termLoanDetails = [];
     finalLoanDetails = [];
+    overdraftAgainstBond = [];
+    documentaryBillPurchase = [];
+    billsPurchase = [];
     autoLoanData;
     termLoanData;
+    equityMortgageOverdraft = [];
+    mortgageOverdraft = [];
+    importBillsDiscounting = [];
+    irrevocableLetter = [];
 
     constructor(private engToNepWord: NepaliCurrencyWordPipe,
                 private engToNepaliDate: EngNepDatePipe,
@@ -384,26 +392,34 @@ export class Section2LoanTypePrintComponent implements OnInit {
     }
 
     getBondName() {
-        if (!ObjectUtil.isEmpty(this.tempData.overDraftFacilityForm)) {
-            if (this.tempData.overDraftFacilityForm['bondDetails'].length === 1) {
-                const temp = this.tempData.overDraftFacilityForm['bondDetails'][0].bondOwnerNameCT;
-                this.BondName = temp;
-            } else if (this.tempData.overDraftFacilityForm['bondDetails'].length === 2) {
-                for (let i = 0; i < this.tempData.overDraftFacilityForm['bondDetails'].length; i++ ) {
-                    const temp = this.tempData.overDraftFacilityForm['bondDetails'][i].bondOwnerNameCT;
-                    this.BondNames.push(temp);
+        if (!ObjectUtil.isEmpty(this.tempData) &&
+            !ObjectUtil.isEmpty(this.tempData.overDraftFacilityForm) &&
+            !ObjectUtil.isEmpty(this.tempData.overDraftFacilityForm.overdraftFacilityDetails)) {
+            for (let val = 0; val < this.tempData.overDraftFacilityForm.overdraftFacilityDetails.length; val++) {
+                if (this.tempData.overDraftFacilityForm.overdraftFacilityDetails[val]['bondDetails'].length === 1) {
+                    const temp = this.tempData.overDraftFacilityForm.overdraftFacilityDetails[val]['bondDetails'][0].bondOwnerNameCT;
+                    this.BondName = temp;
+                } else if (this.tempData.overDraftFacilityForm.overdraftFacilityDetails[val]['bondDetails'].length === 2) {
+                    for (let i = 0; i < this.tempData.overDraftFacilityForm.overdraftFacilityDetails[val]['bondDetails'].length; i++) {
+                        const temp = this.tempData.overDraftFacilityForm.overdraftFacilityDetails[val]['bondDetails'][i].bondOwnerNameCT;
+                        this.BondNames.push(temp);
+                    }
+                    this.allBondNames = this.BondNames.join(' र ');
+                    this.BondName = this.allBondNames;
+                } else {
+                    for (let i = 0; i < this.tempData.overDraftFacilityForm.overdraftFacilityDetails[val]['bondDetails'].length - 1; i++) {
+                        const temp = this.tempData.overDraftFacilityForm.overdraftFacilityDetails[val]['bondDetails'][i].bondOwnerNameCT;
+                        this.BondNames.push(temp);
+                    }
+                    this.allBondNames = this.BondNames.join(' , ');
+                    // tslint:disable-next-line:max-line-length
+                    const temp1 = this.tempData.overDraftFacilityForm.overdraftFacilityDetails[val]['bondDetails'][this.tempData.overDraftFacilityForm.overdraftFacilityDetails[val]['bondDetails'].length - 1].bondOwnerNameCT;
+                    this.BondName = this.allBondNames + ' र ' + temp1;
                 }
-                this.allBondNames = this.BondNames.join(' र ');
-                this.BondName = this.allBondNames;
-            } else {
-                for (let i = 0; i < this.tempData.overDraftFacilityForm['bondDetails'].length - 1; i++ ) {
-                    const temp = this.tempData.overDraftFacilityForm['bondDetails'][i].bondOwnerNameCT;
-                    this.BondNames.push(temp);
-                }
-                this.allBondNames = this.BondNames.join(' , ');
-                // tslint:disable-next-line:max-line-length
-                const temp1 = this.tempData.overDraftFacilityForm['bondDetails'][this.tempData.overDraftFacilityForm['bondDetails'].length - 1].bondOwnerNameCT;
-                this.BondName = this.allBondNames + ' र ' + temp1;
+                this.finalBondName.push(this.BondName);
+                this.BondName = '';
+                this.allBondNames = '';
+                this.BondNames = [];
             }
         }
     }
@@ -412,6 +428,13 @@ export class Section2LoanTypePrintComponent implements OnInit {
         const tempArray = this.loanData.filter(data => data.loanName !== this.loanNameConstant.AUTO_LOAN &&
             data.loanName !== this.loanNameConstant.TERM_LOAN_TO_FOR_PURCHASE_OF_VEHICLE);
         this.finalLoanDetails = tempArray;
+        this.overdraftAgainstBond = this.loanData.filter(data => data.loanName === this.loanNameConstant.OVERDRAFT_FACILITY_AGAINST_BOND);
+        this.documentaryBillPurchase = this.loanData.filter(data => data.loanName === this.loanNameConstant.DOCUMENTARY_BILL_PURCHASE_NEGOTIATION);
+        this.billsPurchase = this.loanData.filter(data => data.loanName === this.loanNameConstant.BILLS_PURCHASE);
+        this.equityMortgageOverdraft = this.loanData.filter(data => data.loanName === this.loanNameConstant.EQUITY_MORTGAGED_OVERDRAFT);
+        this.mortgageOverdraft = this.loanData.filter(data => data.loanName === this.loanNameConstant.MORTGAGE_OVERDRAFT);
+        this.importBillsDiscounting = this.loanData.filter(data => data.loanName === this.loanNameConstant.IMPORT_BILLS_DISCOUNTING);
+        this.irrevocableLetter = this.loanData.filter(data => data.loanName === this.loanNameConstant.IRREVOCABLE_LETTER_OF_CREDIT_FACILITY);
         this.autoLoanDetails = this.loanData.filter(data => data.loanName === this.loanNameConstant.AUTO_LOAN);
         this.termLoanDetails = this.loanData.filter(data => data.loanName === this.loanNameConstant.TERM_LOAN_TO_FOR_PURCHASE_OF_VEHICLE);
     }
