@@ -75,7 +75,9 @@ export class BillPurchaseComponent implements OnInit {
   }
   checkComplimetryOtherLoan(data, index) {
     // this.isComplimentryOtherLoan = data;
+    if (!data) {
     this.billPurchaseForm.get(['billPurchaseFormArray', index,  'complementaryOther']).patchValue(data);
+    }
   }
 
   public checkDateOfExpiry(value): void {
