@@ -78,7 +78,9 @@ export class ImportLoanTrustReceiptLoanComponent implements OnInit {
   }
 
   checkComplimetryOtherLoan(data, i) {
-    this.importLoanTrust.get(['importLoanTrustFormArray', i, 'complementaryOther']).patchValue(data);
+    if (!data) {
+      this.importLoanTrust.get(['importLoanTrustFormArray', i, 'complementaryOther']).patchValue(data);
+    }
   }
 
   public checkDateOfExpiry(value): void {
@@ -255,7 +257,7 @@ export class ImportLoanTrustReceiptLoanComponent implements OnInit {
     const baseRate = this.importLoanTrust.get(['importLoanTrustFormArray', i, 'baseRate']).value;
     const premiumRate = this.importLoanTrust.get(['importLoanTrustFormArray', i, 'premiumRate']).value;
     const sum = parseFloat(baseRate) + parseFloat(premiumRate);
-    this.importLoanTrust.get(['importLoanTrustFormArray', i, 'interestRate']).patchValue(sum);
+    this.importLoanTrust.get(['importLoanTrustFormArray', i, 'interestRate']).patchValue(sum.toFixed(3));
   }
 
   filteredListDetails(loanDetails) {

@@ -145,6 +145,10 @@ export class Section2LoanTypeComponent implements OnInit {
     importBillsFreeText: Array<any> = new Array<any>();
     irrevocableLetter = [];
     irrevocableLetterOfCreditFreeText: Array<any> = new Array<any>();
+    importLoanTrustReceipt = [];
+    importLoanTrustReceiptFreeText: Array<any> = new Array<any>();
+    revolvingShortTerm = [];
+    revolvingShortTermFreeText: Array<any> = new Array<any>();
 
     constructor(private formBuilder: FormBuilder,
                 private engToNepWord: NepaliCurrencyWordPipe,
@@ -162,6 +166,8 @@ export class Section2LoanTypeComponent implements OnInit {
             this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
             this.tempInformation = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation);
             this.hypothecationGlobal = this.tempData.smeGlobalForm.hypothecation;
+            this.arFinancingShortTermLoan = this.tempData.smeGlobalForm.arFinancing;
+            console.log('this.arFinancing:', this.arFinancingShortTermLoan);
             if (!ObjectUtil.isEmpty(this.tempData)) {
                 this.autoLoanData = !ObjectUtil.isEmpty(this.tempData.autoLoanMasterForm) ?
                     this.tempData.autoLoanMasterForm.autoLoanFormArray : [];
@@ -196,30 +202,11 @@ export class Section2LoanTypeComponent implements OnInit {
             importBillsDiscounting: this.formBuilder.array([]),
 
             // Import Loan/ Trust Receipt Loan
-            loanDaysLoanTrust: [undefined],
-            loanDaysLoanTrustInEng: [undefined],
-            SNOfParentLimitLoanTrust: [undefined],
-            drawingPowerLoanTrust: [undefined],
-            baseRateLoanTrust: [undefined],
-            premiumRateLoanTrust: [undefined],
-            interestRateLoanTrust: [undefined],
-            totalInterestRateLoanTrust: [undefined],
-            remainDaysLoanTrust: [undefined],
-            loanExpiryDateLoanTrust: [undefined],
+            importLoanTrustReceiptLoan: this.formBuilder.array([]),
+
             // Revolving/One off basis Short Term Loan
-            loanDaysShortTermLoan: [undefined],
-            loanDaysShortTermLoanInEng: [undefined],
-            SNOfParentLimitShortTermLoan: [undefined],
-            loanMonthsShortTermLoan: [undefined],
-            loanMonthsShortTermLoanInEng: [undefined],
-            ARDaysShortTermLoan: [undefined],
-            drawingPowerShortTermLoan: [undefined],
-            baseRateShortTermLoan: [undefined],
-            premiumRateShortTermLoan: [undefined],
-            interestRateShortTermLoan: [undefined],
-            totalInterestRateShortTermLoan: [undefined],
-            remainDaysShortTermLoan: [undefined],
-            loanExpiryDateShortTermLoan: [undefined],
+            revolvingShortTermLoan: this.formBuilder.array([]),
+
             // Demand Loan for working capital
             SNOfParentLimitDemandLoan: [undefined],
             ARDaysDemandLoan: [undefined],
@@ -293,8 +280,6 @@ export class Section2LoanTypeComponent implements OnInit {
 
             // other Input Fields
             SNOfFacility: [undefined],
-            freeTextTwo: [undefined],
-            freeTextThree: [undefined],
             freeTextFour: [undefined],
             freeTextFive: [undefined],
             freeTextSix: [undefined],
@@ -310,6 +295,26 @@ export class Section2LoanTypeComponent implements OnInit {
         this.setMortgageOverdraft();
         this.setImportBillsDiscounting();
         this.setIrrevocableLetterOfCredit();
+        this.setImportLoanTrustReceiptLoan();
+        this.setRevolvingShortTermLoan();
+    }
+    setRevolvingShortTermLoan() {
+        if (!ObjectUtil.isEmpty(this.initialData) &&
+            !ObjectUtil.isEmpty(this.initialData.revolvingShortTermLoan) &&
+            !ObjectUtil.isEmpty(this.initialData.revolvingShortTermLoan.revolvingShortTermLoanFormArray)) {
+            for (let a = 0; a < this.initialData.revolvingShortTermLoan.revolvingShortTermLoanFormArray.length; a++) {
+                (this.form.get('revolvingShortTermLoan') as FormArray).push(this.setRevolvingShortTermLoanForm());
+            }
+        }
+    }
+    setImportLoanTrustReceiptLoan() {
+        if (!ObjectUtil.isEmpty(this.initialData) &&
+            !ObjectUtil.isEmpty(this.initialData.importLoanTrust) &&
+            !ObjectUtil.isEmpty(this.initialData.importLoanTrust.importLoanTrustFormArray)) {
+            for (let a = 0; a < this.initialData.importLoanTrust.importLoanTrustFormArray.length; a++) {
+                (this.form.get('importLoanTrustReceiptLoan') as FormArray).push(this.setImportLoanTrustReceiptLoanForm());
+            }
+        }
     }
     setIrrevocableLetterOfCredit() {
         if (!ObjectUtil.isEmpty(this.initialData) &&
@@ -385,6 +390,39 @@ export class Section2LoanTypeComponent implements OnInit {
                 (this.form.get('overdraftFacilityAgainstBond') as FormArray).push(this.setOverdraftBondForm());
             }
         }
+    }
+    setRevolvingShortTermLoanForm() {
+        return this.formBuilder.group({
+            loanDaysShortTermLoan: [undefined],
+            loanDaysShortTermLoanInEng: [undefined],
+            loanMonthsShortTermLoan: [undefined],
+            loanMonthsShortTermLoanInEng: [undefined],
+            ARDaysShortTermLoan: [undefined],
+            drawingPowerShortTermLoan: [undefined],
+            baseRateShortTermLoan: [undefined],
+            premiumRateShortTermLoan: [undefined],
+            interestRateShortTermLoan: [undefined],
+            totalInterestRateShortTermLoan: [undefined],
+            remainDaysShortTermLoan: [undefined],
+            loanExpiryDateShortTermLoan: [undefined],
+            SNOfParentLimitShortTermLoan: [undefined],
+            freeTextThree: [undefined],
+        });
+    }
+    setImportLoanTrustReceiptLoanForm() {
+        return this.formBuilder.group({
+            loanDaysLoanTrust: [undefined],
+            loanDaysLoanTrustInEng: [undefined],
+            SNOfParentLimitLoanTrust: [undefined],
+            drawingPowerLoanTrust: [undefined],
+            baseRateLoanTrust: [undefined],
+            premiumRateLoanTrust: [undefined],
+            interestRateLoanTrust: [undefined],
+            totalInterestRateLoanTrust: [undefined],
+            remainDaysLoanTrust: [undefined],
+            loanExpiryDateLoanTrust: [undefined],
+            freeTextTwo: [undefined]
+        });
     }
     setIrrevocableLetterOfCreditForm() {
         return this.formBuilder.group({
@@ -587,7 +625,7 @@ export class Section2LoanTypeComponent implements OnInit {
                     }
                     this.importBillsDiscountFormPatchValue();
                 }*/
-                if (v.loanName === LoanNameConstant.IMPORT_LOAN_TRUST_RECEIPT_LOAN && !ObjectUtil.isEmpty(this.tempData.importLoanTrust)) {
+                /*if (v.loanName === LoanNameConstant.IMPORT_LOAN_TRUST_RECEIPT_LOAN && !ObjectUtil.isEmpty(this.tempData.importLoanTrust)) {
                     this.isLoanTrustReceiptLoan = true;
                     this.loanOptionImportLoanTrust = this.tempData.importLoanTrust.loanOption;
                     this.complementaryOtherImportLoanTrustName = this.tempData.importLoanTrust.complimentaryLoanSelected;
@@ -596,8 +634,8 @@ export class Section2LoanTypeComponent implements OnInit {
                         this.complementaryOtherImportLoanTrust = true;
                     }
                     this.importTrustFormPatchValue();
-                }
-                if (v.loanName === LoanNameConstant.SHORT_TERM_LOAN && !ObjectUtil.isEmpty(this.tempData.revolvingShortTermLoan)) {
+                }*/
+               /* if (v.loanName === LoanNameConstant.SHORT_TERM_LOAN && !ObjectUtil.isEmpty(this.tempData.revolvingShortTermLoan)) {
                     this.isRevolvingShortTermLoan = true;
                     this.loanOptionShortTermLoan = this.tempData.revolvingShortTermLoan.loanOption;
                     this.complementaryOtherShortTermLoanName = this.tempData.revolvingShortTermLoan.complimentaryLoanSelected;
@@ -610,7 +648,7 @@ export class Section2LoanTypeComponent implements OnInit {
                         this.arFinancingShortTermLoan = true;
                     }
                     this.revolvingShortTermFormPatchValue();
-                }
+                }*/
                 if (v.loanName === LoanNameConstant.DEMAND_LOAN_FOR_WORKING_CAPITAL && !ObjectUtil.isEmpty(this.tempData.demandLoanForm)) {
                     this.isDemandLoanWorkingCapital = true;
                     this.interestSubsidyAgDemandLoan = this.tempData.demandLoanForm.subsidyOrAgricultureLoan;
@@ -737,6 +775,8 @@ export class Section2LoanTypeComponent implements OnInit {
         this.mortgageOverdraftPatchValue();
         this.importBillsDiscountFormPatchValue();
         this.irrevocableLetterOfCredit();
+        this.importTrustFormPatchValue();
+        this.revolvingShortTermFormPatchValue();
     }
 
     irrevocableLetterOfCredit() {
@@ -814,45 +854,96 @@ export class Section2LoanTypeComponent implements OnInit {
     }
 
     importTrustFormPatchValue() {
-        this.form.patchValue({
-            // Import Loan/ Trust Receipt Loan
-            loanDaysLoanTrust: this.tempData.importLoanTrust.loanPeriodCT ? this.tempData.importLoanTrust.loanPeriodCT : '',
-            loanDaysLoanTrustInEng: this.tempData.importLoanTrust.loanPeriod ? this.tempData.importLoanTrust.loanPeriod : '',
-            // SNOfParentLimitLoanTrust: [undefined],
-            drawingPowerLoanTrust: this.tempData.importLoanTrust.drawingPowerCT ? this.tempData.importLoanTrust.drawingPowerCT : '',
-            baseRateLoanTrust: this.tempData.importLoanTrust.baseRateCT ? this.tempData.importLoanTrust.baseRateCT : '',
-            premiumRateLoanTrust: this.tempData.importLoanTrust.premiumRateCT ? this.tempData.importLoanTrust.premiumRateCT : '',
-            interestRateLoanTrust: this.tempData.importLoanTrust.interestRateCT ? this.tempData.importLoanTrust.interestRateCT : '',
-            totalInterestRateLoanTrust: this.tempData.importLoanTrust.interestRateCT ? this.tempData.importLoanTrust.interestRateCT : '',
-            loanExpiryDateLoanTrust: this.tempData.importLoanTrust.dateOfExpiryCT ? this.tempData.importLoanTrust.dateOfExpiryCT : '',
-        });
+        if (!ObjectUtil.isEmpty(this.tempData) &&
+            !ObjectUtil.isEmpty(this.tempData.importLoanTrust) &&
+            !ObjectUtil.isEmpty(this.tempData.importLoanTrust.importLoanTrustFormArray)) {
+            for (let val = 0; val < this.tempData.importLoanTrust.importLoanTrustFormArray.length; val++) {
+                this.form.get(['importLoanTrustReceiptLoan', val, 'loanDaysLoanTrust']).patchValue(
+                    this.tempData.importLoanTrust.importLoanTrustFormArray[val] ?
+                        this.tempData.importLoanTrust.importLoanTrustFormArray[val].loanPeriodCT : ''
+                );
+                this.form.get(['importLoanTrustReceiptLoan', val, 'loanDaysLoanTrustInEng']).patchValue(
+                    this.tempData.importLoanTrust.importLoanTrustFormArray[val] ?
+                        this.tempData.importLoanTrust.importLoanTrustFormArray[val].loanPeriod : ''
+                );
+                this.form.get(['importLoanTrustReceiptLoan', val, 'drawingPowerLoanTrust']).patchValue(
+                    this.tempData.importLoanTrust.importLoanTrustFormArray[val] ?
+                        this.tempData.importLoanTrust.importLoanTrustFormArray[val].drawingPowerCT : ''
+                );
+                this.form.get(['importLoanTrustReceiptLoan', val, 'baseRateLoanTrust']).patchValue(
+                    this.tempData.importLoanTrust.importLoanTrustFormArray[val] ?
+                        this.tempData.importLoanTrust.importLoanTrustFormArray[val].baseRateCT : ''
+                );
+                this.form.get(['importLoanTrustReceiptLoan', val, 'premiumRateLoanTrust']).patchValue(
+                    this.tempData.importLoanTrust.importLoanTrustFormArray[val] ?
+                        this.tempData.importLoanTrust.importLoanTrustFormArray[val].premiumRateCT : ''
+                );
+                this.form.get(['importLoanTrustReceiptLoan', val, 'interestRateLoanTrust']).patchValue(
+                    this.tempData.importLoanTrust.importLoanTrustFormArray[val] ?
+                        this.tempData.importLoanTrust.importLoanTrustFormArray[val].interestRateCT : ''
+                );
+                this.form.get(['importLoanTrustReceiptLoan', val, 'totalInterestRateLoanTrust']).patchValue(
+                    this.tempData.importLoanTrust.importLoanTrustFormArray[val] ?
+                        this.tempData.importLoanTrust.importLoanTrustFormArray[val].interestRateCT : ''
+                );
+                this.form.get(['importLoanTrustReceiptLoan', val, 'loanExpiryDateLoanTrust']).patchValue(
+                    this.tempData.importLoanTrust.importLoanTrustFormArray[val] ?
+                        this.tempData.importLoanTrust.importLoanTrustFormArray[val].dateOfExpiryCT : ''
+                );
+            }
+        }
     }
-
     revolvingShortTermFormPatchValue() {
-        this.form.patchValue({
-            // Revolving/One off basis Short Term Loan
-            // tslint:disable-next-line:max-line-length
-            loanDaysShortTermLoan: this.tempData.revolvingShortTermLoan.loanRevolvingPeriodCT ? this.tempData.revolvingShortTermLoan.loanRevolvingPeriodCT : '',
-            // tslint:disable-next-line:max-line-length
-            loanDaysShortTermLoanInEng: this.tempData.revolvingShortTermLoan.loanRevolvingPeriod ? this.tempData.revolvingShortTermLoan.loanRevolvingPeriod : '',
-            // SNOfParentLimitShortTermLoan: [undefined],
-            // tslint:disable-next-line:max-line-length
-            loanMonthsShortTermLoan: this.tempData.revolvingShortTermLoan.loanRevolvingPeriodCT ? this.tempData.revolvingShortTermLoan.loanRevolvingPeriodCT : '',
-            // tslint:disable-next-line:max-line-length
-            loanMonthsShortTermLoanInEng: this.tempData.revolvingShortTermLoan.loanRevolvingPeriod ? this.tempData.revolvingShortTermLoan.loanRevolvingPeriod : '',
-            ARDaysShortTermLoan: this.tempData.revolvingShortTermLoan.arDaysCT ? this.tempData.revolvingShortTermLoan.arDaysCT : '',
-            // tslint:disable-next-line:max-line-length
-            drawingPowerShortTermLoan: this.tempData.revolvingShortTermLoan.drawingPowerCT ? this.tempData.revolvingShortTermLoan.drawingPowerCT : '',
-            baseRateShortTermLoan: this.tempData.revolvingShortTermLoan.baseRateCT ? this.tempData.revolvingShortTermLoan.baseRateCT : '',
-            // tslint:disable-next-line:max-line-length
-            premiumRateShortTermLoan: this.tempData.revolvingShortTermLoan.premiumRateCT ? this.tempData.revolvingShortTermLoan.premiumRateCT : '',
-            // tslint:disable-next-line:max-line-length
-            interestRateShortTermLoan: this.tempData.revolvingShortTermLoan.interestRateCT ? this.tempData.revolvingShortTermLoan.interestRateCT : '',
-            // tslint:disable-next-line:max-line-length
-            totalInterestRateShortTermLoan: this.tempData.revolvingShortTermLoan.interestRateCT ? this.tempData.revolvingShortTermLoan.interestRateCT : '',
-            // tslint:disable-next-line:max-line-length
-            loanExpiryDateShortTermLoan: this.tempData.revolvingShortTermLoan.dateOfExpiryCT ? this.tempData.revolvingShortTermLoan.dateOfExpiryCT : '',
-        });
+        if (!ObjectUtil.isEmpty(this.tempData) &&
+            !ObjectUtil.isEmpty(this.tempData.revolvingShortTermLoan) &&
+            !ObjectUtil.isEmpty(this.tempData.revolvingShortTermLoan.revolvingShortTermLoanFormArray)) {
+            for (let val = 0; val < this.tempData.revolvingShortTermLoan.revolvingShortTermLoanFormArray.length; val++) {
+                this.form.get(['revolvingShortTermLoan', val, 'loanDaysShortTermLoan']).patchValue(
+                    this.tempData.revolvingShortTermLoan.revolvingShortTermLoanFormArray[val] ?
+                        this.tempData.revolvingShortTermLoan.revolvingShortTermLoanFormArray[val].loanRevolvingPeriodCT : ''
+                );
+                this.form.get(['revolvingShortTermLoan', val, 'loanDaysShortTermLoanInEng']).patchValue(
+                    this.tempData.revolvingShortTermLoan.revolvingShortTermLoanFormArray[val] ?
+                        this.tempData.revolvingShortTermLoan.revolvingShortTermLoanFormArray[val].loanRevolvingPeriod : ''
+                );
+                this.form.get(['revolvingShortTermLoan', val, 'loanMonthsShortTermLoan']).patchValue(
+                    this.tempData.revolvingShortTermLoan.revolvingShortTermLoanFormArray[val] ?
+                        this.tempData.revolvingShortTermLoan.revolvingShortTermLoanFormArray[val].loanRevolvingPeriodCT : ''
+                );
+                this.form.get(['revolvingShortTermLoan', val, 'loanMonthsShortTermLoanInEng']).patchValue(
+                    this.tempData.revolvingShortTermLoan.revolvingShortTermLoanFormArray[val] ?
+                        this.tempData.revolvingShortTermLoan.revolvingShortTermLoanFormArray[val].loanRevolvingPeriod : ''
+                );
+                this.form.get(['revolvingShortTermLoan', val, 'ARDaysShortTermLoan']).patchValue(
+                    this.tempData.revolvingShortTermLoan.revolvingShortTermLoanFormArray[val] ?
+                        this.tempData.revolvingShortTermLoan.revolvingShortTermLoanFormArray[val].arDaysCT : ''
+                );
+                this.form.get(['revolvingShortTermLoan', val, 'drawingPowerShortTermLoan']).patchValue(
+                    this.tempData.revolvingShortTermLoan.revolvingShortTermLoanFormArray[val] ?
+                        this.tempData.revolvingShortTermLoan.revolvingShortTermLoanFormArray[val].drawingPowerCT : ''
+                );
+                this.form.get(['revolvingShortTermLoan', val, 'baseRateShortTermLoan']).patchValue(
+                    this.tempData.revolvingShortTermLoan.revolvingShortTermLoanFormArray[val] ?
+                        this.tempData.revolvingShortTermLoan.revolvingShortTermLoanFormArray[val].baseRateCT : ''
+                );
+                this.form.get(['revolvingShortTermLoan', val, 'premiumRateShortTermLoan']).patchValue(
+                    this.tempData.revolvingShortTermLoan.revolvingShortTermLoanFormArray[val] ?
+                        this.tempData.revolvingShortTermLoan.revolvingShortTermLoanFormArray[val].premiumRateCT : ''
+                );
+                this.form.get(['revolvingShortTermLoan', val, 'interestRateShortTermLoan']).patchValue(
+                    this.tempData.revolvingShortTermLoan.revolvingShortTermLoanFormArray[val] ?
+                        this.tempData.revolvingShortTermLoan.revolvingShortTermLoanFormArray[val].interestRateCT : ''
+                );
+                this.form.get(['revolvingShortTermLoan', val, 'totalInterestRateShortTermLoan']).patchValue(
+                    this.tempData.revolvingShortTermLoan.revolvingShortTermLoanFormArray[val] ?
+                        this.tempData.revolvingShortTermLoan.revolvingShortTermLoanFormArray[val].interestRateCT : ''
+                );
+                this.form.get(['revolvingShortTermLoan', val, 'loanExpiryDateShortTermLoan']).patchValue(
+                    this.tempData.revolvingShortTermLoan.revolvingShortTermLoanFormArray[val] ?
+                        this.tempData.revolvingShortTermLoan.revolvingShortTermLoanFormArray[val].dateOfExpiryCT : ''
+                );
+            }
+        }
     }
 
     demandLoanFormPatchValue() {
@@ -1138,9 +1229,9 @@ export class Section2LoanTypeComponent implements OnInit {
             // loanExpiryIrrevocable: this.form.get('loanExpiryDateIrrevocable2').value ? this.form.get('loanExpiryDateIrrevocable2').value : '',
             loanExpiryTimeLetter: this.form.get('loanExpiryDateTimeLetter2').value ? this.form.get('loanExpiryDateTimeLetter2').value : '',
             // freeText1: this.form.get('freeTextOne').value ? this.form.get('freeTextOne').value : '',
-            freeText2: this.form.get('freeTextTwo').value ? this.form.get('freeTextTwo').value : '',
-            remainingDaysShortTerms: this.form.get('remainDaysShortTermLoan').value ? this.form.get('remainDaysShortTermLoan').value : '',
-            freeText3: this.form.get('freeTextThree').value ? this.form.get('freeTextThree').value : '',
+            // freeText2: this.form.get('freeTextTwo').value ? this.form.get('freeTextTwo').value : '',
+            // remainingDaysShortTerms: this.form.get('remainDaysShortTermLoan').value ? this.form.get('remainDaysShortTermLoan').value : '',
+            // freeText3: this.form.get('freeTextThree').value ? this.form.get('freeTextThree').value : '',
             freeText4: this.form.get('freeTextFour').value ? this.form.get('freeTextFour').value : '',
             freeText5: this.form.get('freeTextFive').value ? this.form.get('freeTextFive').value : '',
             SulkaPreExport: this.form.get('sulkaPreExport').value ? this.form.get('sulkaPreExport').value : '',
@@ -1164,13 +1255,13 @@ export class Section2LoanTypeComponent implements OnInit {
             newEMIAutoPopulateMortgageTerm1: !ObjectUtil.isEmpty(tempMortgageEquity) ? tempMortgageEquity.newEMIAutoPopulateMortgageTerm1 : '',
             freeText16: this.form.get('freeTextSixteen').value ? this.form.get('freeTextSixteen').value : '',
             snOfFacility: this.form.get('SNOfFacility').value ? this.form.get('SNOfFacility').value : '',
-            remainDaysLoan: this.form.get('remainDaysLoanTrust').value ? this.form.get('remainDaysLoanTrust').value : '',
+            // remainDaysLoan: this.form.get('remainDaysLoanTrust').value ? this.form.get('remainDaysLoanTrust').value : '',
             // SNIrrevocable: this.form.get('SNOfParentLimitIrrevocable').value ? this.form.get('SNOfParentLimitIrrevocable').value : '',
             SNTimeLetter: this.form.get('SNOfParentLimitTimeLetter').value ? this.form.get('SNOfParentLimitTimeLetter').value : '',
             // tslint:disable-next-line:max-line-length
             // SNBillsDiscounting: this.form.get('SNOfParentLimitBillsDiscounting').value ? this.form.get('SNOfParentLimitBillsDiscounting').value : '',
-            SNLoanTrust: this.form.get('SNOfParentLimitLoanTrust').value ? this.form.get('SNOfParentLimitLoanTrust').value : '',
-            SNShortTermLoan: this.form.get('SNOfParentLimitShortTermLoan').value ? this.form.get('SNOfParentLimitShortTermLoan').value : '',
+            // SNLoanTrust: this.form.get('SNOfParentLimitLoanTrust').value ? this.form.get('SNOfParentLimitLoanTrust').value : '',
+            // SNShortTermLoan: this.form.get('SNOfParentLimitShortTermLoan').value ? this.form.get('SNOfParentLimitShortTermLoan').value : '',
             SNDemandLoan: this.form.get('SNOfParentLimitDemandLoan').value ? this.form.get('SNOfParentLimitDemandLoan').value : '',
             SNPreExport: this.form.get('SNOfParentLimitPreExport').value ? this.form.get('SNOfParentLimitPreExport').value : '',
             // tslint:disable-next-line:max-line-length
@@ -1179,6 +1270,8 @@ export class Section2LoanTypeComponent implements OnInit {
             billsPurchaseFreeText: this.billsPurchaseFreeText(),
             importBillsDiscountingFreeText: this.importBillsDiscountingFreeText(),
             irrevocableLetterOfCreditFreeText: this.irrevocableLetterOfCreditFree(),
+            importLoanTrustReceiptFreeText: this.importLoanTrustReceiptFree(),
+            shortTermLoanFreeText: this.shortTermLoanFree(),
             SNBridgeGap: this.form.get('SNOfParentLimitBridgeGap').value ? this.form.get('SNOfParentLimitBridgeGap').value : '',
             SNBankGuarantee: this.form.get('SNOfParentLimitBankGuarantee').value ? this.form.get('SNOfParentLimitBankGuarantee').value : '',
             // SNBillsPurchase: this.form.get('SNOfParentLimitBillsPurchase').value ? this.form.get('SNOfParentLimitBillsPurchase').value : '',
@@ -1187,6 +1280,42 @@ export class Section2LoanTypeComponent implements OnInit {
         return this.freeTextVal;
     }
 
+    shortTermLoanFree() {
+        if (!ObjectUtil.isEmpty(this.tempData) &&
+            !ObjectUtil.isEmpty(this.tempData.revolvingShortTermLoan) &&
+            !ObjectUtil.isEmpty(this.tempData.revolvingShortTermLoan.revolvingShortTermLoanFormArray)) {
+            for (let val = 0; val < this.tempData.revolvingShortTermLoan.revolvingShortTermLoanFormArray.length; val++) {
+                const tempFreeText = {
+                    freeTextThree: this.form.get(['revolvingShortTermLoan', val, 'freeTextThree']).value ?
+                        this.form.get(['revolvingShortTermLoan', val, 'freeTextThree']).value : '',
+                    remainDaysShortTermLoan: this.form.get(['revolvingShortTermLoan', val, 'remainDaysShortTermLoan']).value ?
+                        this.form.get(['revolvingShortTermLoan', val, 'remainDaysShortTermLoan']).value : '',
+                    SNOfParentLimitShortTermLoan: this.form.get(['revolvingShortTermLoan', val, 'SNOfParentLimitShortTermLoan']).value ?
+                        this.form.get(['revolvingShortTermLoan', val, 'SNOfParentLimitShortTermLoan']).value : '',
+                };
+                this.revolvingShortTermFreeText.push(tempFreeText);
+            }
+            return this.revolvingShortTermFreeText;
+        }
+    }
+    importLoanTrustReceiptFree() {
+        if (!ObjectUtil.isEmpty(this.tempData) &&
+            !ObjectUtil.isEmpty(this.tempData.importLoanTrust) &&
+            !ObjectUtil.isEmpty(this.tempData.importLoanTrust.importLoanTrustFormArray)) {
+            for (let val = 0; val < this.tempData.importLoanTrust.importLoanTrustFormArray.length; val++) {
+                const tempFreeText = {
+                    freeTextTwo: this.form.get(['importLoanTrustReceiptLoan', val, 'freeTextTwo']).value ?
+                        this.form.get(['importLoanTrustReceiptLoan', val, 'freeTextTwo']).value : '',
+                    remainDaysLoanTrust: this.form.get(['importLoanTrustReceiptLoan', val, 'remainDaysLoanTrust']).value ?
+                        this.form.get(['importLoanTrustReceiptLoan', val, 'remainDaysLoanTrust']).value : '',
+                    SNOfParentLimitLoanTrust: this.form.get(['importLoanTrustReceiptLoan', val, 'SNOfParentLimitLoanTrust']).value ?
+                        this.form.get(['importLoanTrustReceiptLoan', val, 'SNOfParentLimitLoanTrust']).value : '',
+                };
+                this.importLoanTrustReceiptFreeText.push(tempFreeText);
+            }
+            return this.importLoanTrustReceiptFreeText;
+        }
+    }
     irrevocableLetterOfCreditFree() {
         if (!ObjectUtil.isEmpty(this.tempData) &&
             !ObjectUtil.isEmpty(this.tempData.letterOfCreditForm) &&
@@ -1258,10 +1387,12 @@ export class Section2LoanTypeComponent implements OnInit {
         this.setBillsPurchaseFreeText();
         this.setImportBillsFreeText();
         this.setIrrevocableLetterOfCreditFreeText();
+        this.setImportLoanTrustReceiptLoanFreeText();
+        this.setRevolvingShortTermLoanFreeText();
         this.form.patchValue({
             // freeTextOne: this.tempInformation ? this.tempInformation.section2.freeText1 : '',
-            freeTextTwo: this.tempInformation ? this.tempInformation.section2.freeText2 : '',
-            freeTextThree: this.tempInformation ? this.tempInformation.section2.freeText3 : '',
+            // freeTextTwo: this.tempInformation ? this.tempInformation.section2.freeText2 : '',
+            // freeTextThree: this.tempInformation ? this.tempInformation.section2.freeText3 : '',
             freeTextFour: this.tempInformation ? this.tempInformation.section2.freeText4 : '',
             freeTextFive: this.tempInformation ? this.tempInformation.section2.freeText5 : '',
             freeTextSix: this.tempInformation ? this.tempInformation.section2.freeText6 : '',
@@ -1272,18 +1403,18 @@ export class Section2LoanTypeComponent implements OnInit {
             freeTextSixteen: this.tempInformation ? this.tempInformation.section2.freeText16 : '',
             // loanExpiryDateIrrevocable2: this.tempInformation ? this.tempInformation.section2.loanExpiryIrrevocable : '',
             loanExpiryDateTimeLetter2: this.tempInformation ? this.tempInformation.section2.loanExpiryTimeLetter : '',
-            remainDaysShortTermLoan: this.tempInformation ? this.tempInformation.section2.remainingDaysShortTerms : '',
+            // remainDaysShortTermLoan: this.tempInformation ? this.tempInformation.section2.remainingDaysShortTerms : '',
             interestRatePreExport: this.tempInformation ? this.tempInformation.section2.interestRatePre : '',
             sulkaPreExport: this.tempInformation ? this.tempInformation.section2.SulkaPreExport : '',
            /* InterestRateDocumentaryBill: this.tempInformation ? this.tempInformation.section2.interestRateDocumentary : '',
             loanPaymentDocumentaryBill: this.tempInformation ? this.tempInformation.section2.loanPaymentDocumentary : '',*/
             SNOfFacility: this.tempInformation ? this.tempInformation.section2.snOfFacility : '',
-            remainDaysLoanTrust: this.tempInformation ? this.tempInformation.section2.remainDaysLoan : '',
+            // remainDaysLoanTrust: this.tempInformation ? this.tempInformation.section2.remainDaysLoan : '',
             // SNOfParentLimitIrrevocable: this.tempInformation ? this.tempInformation.section2.SNIrrevocable : '',
             SNOfParentLimitTimeLetter: this.tempInformation ? this.tempInformation.section2.SNTimeLetter : '',
             // SNOfParentLimitBillsDiscounting: this.tempInformation ? this.tempInformation.section2.SNBillsDiscounting : '',
-            SNOfParentLimitLoanTrust: this.tempInformation ? this.tempInformation.section2.SNLoanTrust : '',
-            SNOfParentLimitShortTermLoan: this.tempInformation ? this.tempInformation.section2.SNShortTermLoan : '',
+            // SNOfParentLimitLoanTrust: this.tempInformation ? this.tempInformation.section2.SNLoanTrust : '',
+            // SNOfParentLimitShortTermLoan: this.tempInformation ? this.tempInformation.section2.SNShortTermLoan : '',
             SNOfParentLimitDemandLoan: this.tempInformation ? this.tempInformation.section2.SNDemandLoan : '',
             SNOfParentLimitPreExport: this.tempInformation ? this.tempInformation.section2.SNPreExport : '',
             // SNOfParentLimitDocumentaryBill: this.tempInformation ? this.tempInformation.section2.SNDocumentaryBill : '',
@@ -1293,6 +1424,40 @@ export class Section2LoanTypeComponent implements OnInit {
         });
     }
 
+    setRevolvingShortTermLoanFreeText() {
+        if (!ObjectUtil.isEmpty(this.tempInformation) &&
+            !ObjectUtil.isEmpty(this.tempInformation.section2) &&
+            !ObjectUtil.isEmpty(this.tempInformation.section2.shortTermLoanFreeText)) {
+            for (let val = 0; val < this.tempInformation.section2.shortTermLoanFreeText.length; val++) {
+                this.form.get(['revolvingShortTermLoan', val, 'freeTextThree']).patchValue(
+                    this.tempInformation.section2.shortTermLoanFreeText[val] ?
+                        this.tempInformation.section2.shortTermLoanFreeText[val].freeTextThree : '');
+                this.form.get(['revolvingShortTermLoan', val, 'remainDaysShortTermLoan']).patchValue(
+                    this.tempInformation.section2.shortTermLoanFreeText[val] ?
+                        this.tempInformation.section2.shortTermLoanFreeText[val].remainDaysShortTermLoan : '');
+                this.form.get(['revolvingShortTermLoan', val, 'SNOfParentLimitShortTermLoan']).patchValue(
+                    this.tempInformation.section2.shortTermLoanFreeText[val] ?
+                        this.tempInformation.section2.shortTermLoanFreeText[val].SNOfParentLimitShortTermLoan : '');
+            }
+        }
+    }
+    setImportLoanTrustReceiptLoanFreeText() {
+        if (!ObjectUtil.isEmpty(this.tempInformation) &&
+            !ObjectUtil.isEmpty(this.tempInformation.section2) &&
+            !ObjectUtil.isEmpty(this.tempInformation.section2.importLoanTrustReceiptFreeText)) {
+            for (let val = 0; val < this.tempInformation.section2.importLoanTrustReceiptFreeText.length; val++) {
+                this.form.get(['importLoanTrustReceiptLoan', val, 'freeTextTwo']).patchValue(
+                    this.tempInformation.section2.importLoanTrustReceiptFreeText[val] ?
+                        this.tempInformation.section2.importLoanTrustReceiptFreeText[val].freeTextTwo : '');
+                this.form.get(['importLoanTrustReceiptLoan', val, 'remainDaysLoanTrust']).patchValue(
+                    this.tempInformation.section2.importLoanTrustReceiptFreeText[val] ?
+                        this.tempInformation.section2.importLoanTrustReceiptFreeText[val].remainDaysLoanTrust : '');
+                this.form.get(['importLoanTrustReceiptLoan', val, 'SNOfParentLimitLoanTrust']).patchValue(
+                    this.tempInformation.section2.importLoanTrustReceiptFreeText[val] ?
+                        this.tempInformation.section2.importLoanTrustReceiptFreeText[val].SNOfParentLimitLoanTrust : '');
+            }
+        }
+    }
     setIrrevocableLetterOfCreditFreeText() {
         if (!ObjectUtil.isEmpty(this.tempInformation) &&
             !ObjectUtil.isEmpty(this.tempInformation.section2) &&
@@ -1366,5 +1531,7 @@ export class Section2LoanTypeComponent implements OnInit {
         this.irrevocableLetter = this.loanData.filter(data => data.loanName === this.loanNameConstant.IRREVOCABLE_LETTER_OF_CREDIT_FACILITY);
         this.autoLoanDetails = this.loanData.filter(data => data.loanName === this.loanNameConstant.AUTO_LOAN);
         this.termLoanDetails = this.loanData.filter(data => data.loanName === this.loanNameConstant.TERM_LOAN_TO_FOR_PURCHASE_OF_VEHICLE);
+        this.importLoanTrustReceipt = this.loanData.filter(data => data.loanName === this.loanNameConstant.IMPORT_LOAN_TRUST_RECEIPT_LOAN);
+        this.revolvingShortTerm = this.loanData.filter(data => data.loanName === this.loanNameConstant.SHORT_TERM_LOAN);
     }
 }

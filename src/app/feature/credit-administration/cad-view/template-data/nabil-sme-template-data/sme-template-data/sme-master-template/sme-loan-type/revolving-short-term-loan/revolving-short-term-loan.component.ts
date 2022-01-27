@@ -94,7 +94,7 @@ export class RevolvingShortTermLoanComponent implements OnInit {
         const baseRate = this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'baseRate']).value;
         const premiumRate = this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'premiumRate']).value;
         const sum = parseFloat(baseRate) + parseFloat(premiumRate);
-        this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'interestRate']).patchValue(sum);
+        this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'interestRate']).patchValue(sum.toFixed(3));
         // Converting value from existed pipe:
         // this.translateNumber('baseRate', 'baseRateTrans');
         // this.translateNumber('premiumRate', 'premiumRateTrans');
