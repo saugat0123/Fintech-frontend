@@ -1,18 +1,18 @@
 <div>
     <form [formGroup]="overdraftFixedForm">
-        <div *ngFor="let val of overdraftFixedForm.get('odFdFormArray')['controls']; let i = index"
-             formArrayName="odFdFormArray">
+        <div *ngFor="let val of overdraftLoanNumber; let i = index" formArrayName="odFdFormArray">
             <ng-container [formGroupName]="i">
                 <div class="row mb-2">
                     <div class="col-md-12 mt-4 mb-2">
-                        <h6> OVERDRAFT FACILITY AGAINST FIXED DEPOSIT </h6>
+                        <h6 *ngIf="overdraftLoanNumber.length === 1"> OVERDRAFT FACILITY AGAINST FIXED DEPOSIT </h6>
+                        <h6 *ngIf="overdraftLoanNumber.length > 1"> OVERDRAFT FACILITY AGAINST FIXED DEPOSIT - {{i + 1}} </h6>
                     </div>
                     <div class="col-md-4">
                         <label><strong>Sub-Loan Type</strong></label>
                         <nb-select
                                 formControlName="subLoanOption"
+                                (selectedChange)="subLoanOption($event, i)"
                                 fullWidth
-                                (selectedChange)="subLoanOption($event)"
                                 placeholder="Sub-Loan Type">
                             <nb-option value="AGAINST_FIXED_DEPOSIT">Loan Against Fixed Deposit</nb-option>
                             <nb-option value="AGAINST_DEPOSIT_ACCOUNT">Loan Against Deposit Account</nb-option>
@@ -20,10 +20,10 @@
                     </div>
                     <div class="col-md-4">
                         <label><strong>Letter of Set-Off to be used</strong></label>
+                        <!-- (selectedChange)="letterOfSetOff($event)" -->
                         <nb-select
                                 formControlName="letterOfSetOff"
                                 fullWidth
-                                (selectedChange)="letterOfSetOff($event)"
                                 placeholder="Letter Of Set-Off">
                             <nb-option value="NEW">NEW</nb-option>
                             <nb-option value="EXISTING">EXISTING</nb-option>
@@ -32,9 +32,9 @@
                     <div class="col-md-4">
                         <label><strong>Interest Rate Type</strong></label>
                         <nb-select
+                         (selectedChange)="changeInterestRateType($event)"
                                 formControlName="interestRateType"
                                 fullWidth
-                                (selectedChange)="changeInterestRateType($event)"
                                 placeholder="Interest Rate Type">
                             <nb-option value="COUPEN_RATE_FINANCING">Coupen Rate Financing</nb-option>
                             <nb-option value="BASE_RATE_FINANCING">Base Rate Financing</nb-option>
@@ -51,9 +51,8 @@
                         </div>
                     </div>
                     <div class="col-md-12 mt-2 ml-2">
-                        <nb-checkbox #additionalPremiumRate
-                                     (checkedChange)="checkadditionalPremiumRate(additionalPremiumRate.checked)"
-                                     [checked]="isAdditionalPremiumRate">
+                        <nb-checkbox formControlName="checkAdditionalPremiumRate"
+                                     (change)="checkadditionalPremiumRate1($event.target.checked, i)">
                             <i> Is additional premium rate applicable ? </i></nb-checkbox>
                     </div>
                 </div>
@@ -87,7 +86,7 @@
                 <div class="row">
                     <div class="col-md-4 form-group">
                         <label class="font-weight-bold" for="loanAmount">Loan Amount Figure</label>
-                        <input (input)="getNumAmountWord('loanAmount', 'loanAmountWords', i, 'odFdFormArray')" class="form-control"
+                        <input (input)="getNumAmountWord('loanAmount', 'loanAmountWords', i)" class="form-control"
                                formControlName="loanAmount" fullWidth
                                id="loanAmount"
                                nbInput
@@ -133,14 +132,14 @@
                     </div>
                 </div>
 
-                <div *ngIf="isFixedDeposit" class="conditional">
+                <div *ngIf="overdraftFixedForm.get(['odFdFormArray', i, 'subLoanOption']).value === 'AGAINST_FIXED_DEPOSIT'" class="conditional">
                     <div class="row">
                         <div class="col-md-4">
                             <label><strong>FD Holding Bank</strong></label>
+                            <!-- (selectedChange)="changeHoldingBank($event)" -->
                             <nb-select
                                     formControlName="holdingBank"
                                     fullWidth
-                                    (selectedChange)="changeHoldingBank($event)"
                                     placeholder="FD Holding Bank">
                                 <nb-option value="NABIL">Nabil Bank</nb-option>
                                 <nb-option value="OTHER">Other Bank</nb-option>
@@ -148,7 +147,7 @@
                         </div>
                     </div>
 
-                    <div *ngIf="isOther" class="row">
+                    <div *ngIf="overdraftFixedForm.get(['odFdFormArray', i, 'holdingBank']).value === 'OTHER'" class="row">
                         <div class="col-md-4 form-group">
                             <label class="font-weight-bold" for="nameOfHoldingBank">Name of Bank</label>
                             <input class="form-control" formControlName="nameOfHoldingBank" fullWidth
@@ -176,14 +175,14 @@
                     </div>
 
                     <ng-container
-                            *ngFor="let data of overdraftFixedForm.get('fdHolderDetails')['controls']; let index = index;"
+                            *ngFor="let data of overdraftFixedForm.get(['odFdFormArray', i, 'fdHolderDetails'])['controls']; let index = index;"
                             formArrayName="fdHolderDetails">
-                        <div [formGroupName]="index" class="row" *ngIf="isFixedDeposit">
+                        <div [formGroupName]="index" class="row" *ngIf="overdraftFixedForm.get(['odFdFormArray', i, 'subLoanOption']).value === 'AGAINST_FIXED_DEPOSIT'" >
                             <div class="col-md-4 form-group">
                                 <label class="font-weight-bold" for="nameOfFDHolder"> Name of FD Holder/s </label>
                                 <input class="form-control" formControlName="nameOfFDHolder" fullWidth
                                        id="nameOfFDHolder"
-                                       (input)="onChangeTranslateSecurity('fdHolderDetails', 'nameOfFDHolder', index, 'nameOfFDHolderTrans')"
+                                       (input)="onChangeTranslateSecurity('fdHolderDetails', 'nameOfFDHolder', index, 'nameOfFDHolderTrans', i, 'odFdFormArray')"
                                        nbInput
                                        shape="semi-round"
                                        status="success" type="text">
@@ -204,17 +203,17 @@
                                        status="success" type="text">
                             </div>
                         </div>
-                        <div *ngIf="overdraftFixedForm.get('fdHolderDetails')['length'] > 1" class="col-md-12">
-                            <button (click)="removeFDHolderDetails(index)" nbButton size="tiny" status="danger"
+                        <div *ngIf="overdraftFixedForm.get(['odFdFormArray', i, 'fdHolderDetails'])['length'] > 1" class="col-md-12">
+                            <button (click)="removeFDHolderDetails(i, index)" nbButton size="tiny" status="danger"
                                     style="position: static">
                                 <em class="fa fa-trash" style="color: white;"></em>
                             </button>
                         </div>
                     </ng-container>
 
-                    <div class="row" *ngIf="isFixedDeposit">
+                    <div class="row" *ngIf="overdraftFixedForm.get(['odFdFormArray', i, 'subLoanOption']).value === 'AGAINST_FIXED_DEPOSIT'" >
                         <div class="col-md-12">
-                            <button (click)="addFDHolderDetails()" class="float-right" nbButton size="tiny"
+                            <button (click)="addFDHolderDetails(i)" class="float-right" nbButton size="tiny"
                                     status="primary">Add
                                 FDHolder
                             </button>
@@ -249,16 +248,16 @@
                     </div>
                 </div>
 
-                <div *ngIf="isDepositAccount" class="conditional">
+                <div *ngIf="overdraftFixedForm.get(['odFdFormArray', i, 'subLoanOption']).value === 'AGAINST_DEPOSIT_ACCOUNT'"  class="conditional">
                     <ng-container
-                            *ngFor="let data of overdraftFixedForm.get('depositorDetails')['controls']; let index = index;"
+                            *ngFor="let data of overdraftFixedForm.get(['odFdFormArray', i, 'depositorDetails'])['controls']; let index = index;"
                             formArrayName="depositorDetails">
-                        <div [formGroupName]="index" class="row" *ngIf="isDepositAccount">
+                        <div [formGroupName]="index" class="row" *ngIf="overdraftFixedForm.get(['odFdFormArray', i, 'subLoanOption']).value === 'AGAINST_DEPOSIT_ACCOUNT'" >
                             <div class="col-md-4 form-group">
                                 <label class="font-weight-bold" for="nameOfDepositors"> Name of Depositor/s </label>
                                 <input class="form-control" formControlName="nameOfDepositors" fullWidth
                                        id="nameOfDepositors"
-                                       (input)="onChangeTranslateSecurity('depositorDetails', 'nameOfDepositors', index, 'nameOfDepositorsTrans')"
+                                       (input)="onChangeTranslateSecurity('depositorDetails', 'nameOfDepositors', index, 'nameOfDepositorsTrans', i, 'odFdFormArray')"
                                        nbInput
                                        shape="semi-round"
                                        status="success" type="text">
@@ -279,17 +278,17 @@
                                        status="success" type="text">
                             </div>
                         </div>
-                        <div *ngIf="overdraftFixedForm.get('depositorDetails')['length'] > 1" class="col-md-12">
-                            <button (click)="removeDepositorDetails(index)" nbButton size="tiny" status="danger"
+                        <div *ngIf="overdraftFixedForm.get(['odFdFormArray', i,'depositorDetails'])['length'] > 1" class="col-md-12">
+                            <button (click)="removeDepositorDetails(i, index)" nbButton size="tiny" status="danger"
                                     style="position: static">
                                 <em class="fa fa-trash" style="color: white;"></em>
                             </button>
                         </div>
                     </ng-container>
 
-                    <div class="row" *ngIf="isDepositAccount">
+                    <div class="row" *ngIf="overdraftFixedForm.get(['odFdFormArray', i, 'subLoanOption']).value === 'AGAINST_DEPOSIT_ACCOUNT'">
                         <div class="col-md-12">
-                            <button (click)="addDepositorDetails()" class="float-right" nbButton size="tiny"
+                            <button (click)="addDepositorDetails(i)" class="float-right" nbButton size="tiny"
                                     status="primary">Add
                                 Depositor
                             </button>
@@ -386,7 +385,7 @@
                     </div>
                 </div>
 
-                <div *ngIf="isCoupenRate" class="row">
+                <div  *ngIf="overdraftFixedForm.get(['odFdFormArray', i, 'interestRateType']).value === 'COUPEN_RATE_FINANCING'" class="row">
                     <div class="col-md-4 form-group">
                         <label class="font-weight-bold" for="totalInterestRate">Total Interest Rate</label>
                         <input class="form-control" formControlName="totalInterestRate" fullWidth id="totalInterestRate"
@@ -411,7 +410,7 @@
                     </div>
                 </div>
 
-                <div *ngIf="isCoupenRate && isAdditionalPremiumRate" class="row">
+                <div *ngIf="overdraftFixedForm?.get(['odFdFormArray', i, 'interestRateType'])?.value === 'COUPEN_RATE_FINANCING' && overdraftFixedForm?.get(['odFdFormArray', i, 'checkadditionalPremiumRate'])?.value" class="row">
                     <div class="col-md-4 form-group">
                         <label class="font-weight-bold" for="additionalPremiumRate">Additional Premium Rate</label>
                         <input class="form-control" formControlName="additionalPremiumRate" fullWidth
@@ -437,7 +436,7 @@
                     </div>
                 </div>
 
-                <div *ngIf="isBaseRate" class="conditional">
+                <div *ngIf="overdraftFixedForm.get(['odFdFormArray', i, 'interestRateType']).value === 'BASE_RATE_FINANCING'" class="conditional">
                     <div class="row">
                         <div class="col-md-4 form-group">
                             <label class="font-weight-bold" for="baseRate"> Base Rate </label>
@@ -464,7 +463,7 @@
                     <div class="row">
                         <div class="col-md-4 form-group">
                             <label class="font-weight-bold" for="premiumRate"> Premium Rate </label>
-                            <input (input)="calInterestRate(i, 'odFdFormArray')" class="form-control" formControlName="premiumRate"
+                            <input (input)="calInterestRate(i)" class="form-control" formControlName="premiumRate"
                                    fullWidth
                                    id="premiumRate"
                                    nbInput
@@ -490,7 +489,7 @@
                     <div class="row">
                         <div class="col-md-4 form-group">
                             <label class="font-weight-bold" for="interestRate"> Interest Rate </label>
-                            <input (input)="calInterestRate(i, 'odFdFormArray')" class="form-control" formControlName="interestRate"
+                            <input (input)="calInterestRate(i)" class="form-control" formControlName="interestRate"
                                    fullWidth
                                    id="interestRate"
                                    nbInput
