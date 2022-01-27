@@ -1849,6 +1849,7 @@
                        <div class="col-md-3 form-group">
                            <label><strong>IRD report obtained and attached</strong></label>
                            <select class="form-control" formControlName="irdReport">
+                               <option [value]="null" hidden>--Select Yes/No--</option>
                                <option value="YES">Yes</option>
                                <option value="NO">No</option>
                            </select>
