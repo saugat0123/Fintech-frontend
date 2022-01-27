@@ -65,6 +65,10 @@
 
         <app-counter-guarantee-company *ngSwitchCase="nabilCadTemplate.COUNTER_GUARANTEE_COMPANY"
                                             [cadData]="cadData"></app-counter-guarantee-company>
+
+        <app-counter-guarantee-proprietorship *ngSwitchCase="nabilCadTemplate.COUNTER_GUARANTEE_PROPRIETORSHIP"
+                                       [cadData]="cadData"></app-counter-guarantee-proprietorship>
+
         <app-letter-of-hypothecation-proprietorship *ngSwitchCase="nabilCadTemplate.LETTER_OF_HYPOTHECATION_PROPRIETORSHIP"
                                                     [cadData]="cadData"
                                                     [documentId]="documentId"
