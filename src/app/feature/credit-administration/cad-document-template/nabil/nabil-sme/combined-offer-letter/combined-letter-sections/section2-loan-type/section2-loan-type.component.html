@@ -660,6 +660,134 @@
                                                     (tempData?.demandLoanForm?.demandLoanFormArray.length)">
             </app-term-loan-to-or-for>
         </div>
+        <div [ngStyle]="{'margin-top' : (termLoanDetails.length > 0) ? '-17px' : '-16px'}">
+           <table class="table table-bordered">
+               <ng-container *ngIf="tempData?.bridgeGapLoan?.bridgeGapDetails">
+                   <tr *ngFor="let val of tempData?.bridgeGapLoan?.bridgeGapDetails; let i1 = index"
+                       formArrayName="bridgeGapLoan">
+                       <!--Bridge Gap Loan-->
+                       <ng-container [formGroupName]="i1">
+                           <td width="10%"><strong>{{
+                               (tempData?.termLoanForm?.termLoanDetails?.length) +
+                               (tempData?.letterOfCreditForm?.letterOfCreditFormArray.length) +
+                               (tempData?.importLoanTrust?.importLoanTrustFormArray.length) +
+                               (tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray.length) +
+                               (tempData?.timeLetterCreditForm?.timeLetterCreditFormArray.length) +
+                               (tempData?.demandLoanForm?.demandLoanFormArray.length) +
+                               (i1 + 1) | nepaliWord}})</strong>
+                           </td>
+                           <td>
+                               <p>
+                                   <strong>ब्रिज ग्याप कर्जा (Bridge Gap Loan)
+                                       <ng-container *ngIf="val.complementryOther === true"> बुँदा नं.<input
+                                               class="form-field form-control-sm "
+                                               formControlName="SNOfParentLimitBridgeGap"
+                                               placeholder=""
+                                               type="text"/>
+                                           <ng-container *ngIf="val.complimentaryLoanSelected !== 'TOTAL LIMIT'">
+                                               को पूरक सुविधा
+                                           </ng-container>
+                                           <ng-container *ngIf="val.complimentaryLoanSelected === 'TOTAL LIMIT'">
+                                               कुल सुविधाको पूरक सुविधा
+                                           </ng-container>
+                                       </ng-container>
+                                   </strong>
+                               </p>
+                               <p>
+                                   <strong>सीमाः
+                                       <!--<ng-container *ngIf="val.complementryOther === true">(रु.<input
+                                               class="form-field form-control-sm"
+                                               value="{{ld?.loanAmountNp}}"
+                                               placeholder=""
+                                               type="text"/>।–)
+                                       </ng-container>-->
+                                       <!--<ng-container *ngIf="!val.complementryOther === true">-->
+                                       <ng-container>
+                                           रु.<input
+                                               class="form-field form-control-sm"
+                                               value="{{bridgeGap[i1] ? bridgeGap[i1].loanAmountNp : ''}}"
+                                               placeholder=""
+                                               type="text"/>
+                                           ।–
+                                       </ng-container>
+                                       (अक्षरेपी रु.<input class="form-field form-control-sm "
+                                                           value="{{bridgeGap[i1] ? bridgeGap[i1].loanAmountWords : ''}}"
+                                                           placeholder=""
+                                                           type="text"/> मात्र)</strong>
+                               </p>
+                               <p>
+                                   <strong>सुरक्षणः</strong> <textarea
+                                       class="form-control customFont "
+                                       rows="2"
+                                       style="width: 100%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em; color: black;"
+                                       name=""
+                                       placeholder=""
+                                       formControlName="freeTextSix">
+                        </textarea>
+                               </p>
+                               <p>
+                                   <strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong><textarea
+                                       class="form-control customFont "
+                                       rows="2"
+                                       style="width: 100%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em; color: black;"
+                                       name=""
+                                       placeholder=""
+                                       formControlName="freeTextSeven">
+                        </textarea>
+                               </p>
+                               <p>
+                                   <strong>ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
+                                   <input class="form-field form-control-sm "
+                                          formControlName="baseRateBridgeGap"
+                                          placeholder=""
+                                          type="text"/>
+                                   +
+                                   <input class="form-field form-control-sm "
+                                          formControlName="premiumRateBridgeGap"
+                                          placeholder=""
+                                          type="text"/> प्रतिशत ब्याज दर प्रिमियम (interest rate premium)
+                               </p>
+                               <p>
+                          <span *ngIf="val.interestSubsidy !== true">हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
+                              बार्षिक <input class="form-field form-control-sm "
+                                             formControlName="interestRateBridgeGap"
+                                             placeholder=""
+                                             type="text"/>% का दर
+                    निर्धारण गरीएकोछ र सो ब्याज रकम नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र
+                    चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।</span>
+
+                                   <span *ngIf="val.interestSubsidy === true">हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
+                                बार्षिक <input class="form-field form-control-sm "
+                                               formControlName="totalInterestRateBridgeGap"
+                                               placeholder=""
+                                               type="text"/>% का दरले
+                    निर्धारण गरीएकोछ । सो निर्धारित ब्याज दरमा नेपाल राष्ट्र बैंकले ऋणीलाई दिने छुट/सहुलियत वापतको दर
+                    घटाई कायम हुन आउने रकम ऋणीले ब्याज स्वरुप नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन,
+                    पौष र चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।</span><br>
+
+                               </p>
+                               <strong>कर्जा प्रवाह तरिकाः</strong> <textarea
+                                   class="form-control customFont "
+                                   rows="2"
+                                   style="width: 100%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em; color: black;"
+                                   name=""
+                                   placeholder=""
+                                   formControlName="freeTextEight">
+                        </textarea><br>
+                               <strong>कर्जा अवधि समाप्तिः</strong> <textarea
+                                   class="form-control customFont "
+                                   rows="2"
+                                   style="width: 100%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em; color: black;"
+                                   name=""
+                                   placeholder=""
+                                   formControlName="freeTextNine">
+                        </textarea>
+                           </td>
+                       </ng-container>
+                   </tr>
+               </ng-container>
+           </table>
+        </div>
         <div>
             <app-auto-loan #autoLoanComponent
                            [customerApprovedDoc]="cadOfferLetterApprovedDoc"
@@ -668,6 +796,7 @@
                                             (tempData?.importLoanTrust?.importLoanTrustFormArray.length) +
                                             (tempData?.timeLetterCreditForm?.timeLetterCreditFormArray.length) +
                                                 (tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray.length) +
+                                                (tempData?.bridgeGapLoan?.bridgeGapDetails.length) +
                                             (tempData?.demandLoanForm?.demandLoanFormArray.length)"
                            [autoLoanData]="autoLoanData">
             </app-auto-loan>
@@ -689,6 +818,7 @@
                                 (tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray.length) +
                                 (tempData?.timeLetterCreditForm?.timeLetterCreditFormArray.length) +
                                 (tempData?.demandLoanForm?.demandLoanFormArray.length) +
+                                (tempData?.bridgeGapLoan?.bridgeGapDetails.length) +
                                 (i1 + 1) | nepaliWord}})</strong></td>
                             <td>
                                 <span><strong>अचल सम्पत्ति सुरक्षणमा आधारीत अधिविकर्ष कर्जा
@@ -809,6 +939,7 @@
                                 (tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray.length) +
                                 (tempData?.timeLetterCreditForm?.timeLetterCreditFormArray.length) +
                                 (tempData?.demandLoanForm?.demandLoanFormArray.length) +
+                                (tempData?.bridgeGapLoan?.bridgeGapDetails.length) +
                                     (i1 + 1) | nepaliWord}})</strong></td>
                             <td>
                                 <strong>बचत/ऋण पत्रमा आधारीत <input class="form-field form-control-sm "
@@ -925,6 +1056,7 @@
                                 (tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray.length) +
                                 (tempData?.timeLetterCreditForm?.timeLetterCreditFormArray.length) +
                                 (tempData?.demandLoanForm?.demandLoanFormArray.length) +
+                                (tempData?.bridgeGapLoan?.bridgeGapDetails.length) +
                                 (i2 + 1) | nepaliWord}})</strong></td>
                             <td>
                     <span><strong>डकुमेन्ट्री बिल्स खरिद कर्जा (Documentary Bill Purchase/Negotiation)
@@ -1035,6 +1167,7 @@
                                     (tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray.length) +
                                     (tempData?.timeLetterCreditForm?.timeLetterCreditFormArray.length) +
                                     (tempData?.demandLoanForm?.demandLoanFormArray.length) +
+                                    (tempData?.bridgeGapLoan?.bridgeGapDetails.length) +
                                     (i1 + 1) | nepaliWord}})
                                 </strong>
                             </td>
@@ -1165,6 +1298,7 @@
                                     (tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray.length) +
                                     (tempData?.timeLetterCreditForm?.timeLetterCreditFormArray.length) +
                                     (tempData?.demandLoanForm?.demandLoanFormArray.length) +
+                                    (tempData?.bridgeGapLoan?.bridgeGapDetails.length) +
                                     (i3 + 1) | nepaliWord}})
                                 </strong>
                             </td>
@@ -1267,6 +1401,7 @@
                                     (tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray.length) +
                                     (tempData?.timeLetterCreditForm?.timeLetterCreditFormArray.length) +
                                     (tempData?.demandLoanForm?.demandLoanFormArray.length) +
+                                    (tempData?.bridgeGapLoan?.bridgeGapDetails.length) +
                                     (i3 + 1) | nepaliWord}})
                                 </strong>
                             </td>

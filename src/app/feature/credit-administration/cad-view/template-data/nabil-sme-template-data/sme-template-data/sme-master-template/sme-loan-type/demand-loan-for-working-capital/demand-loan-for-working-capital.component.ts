@@ -41,7 +41,7 @@ export class DemandLoanForWorkingCapitalComponent implements OnInit {
               private engToNepNumberPipe: EngToNepaliNumberPipe,
               private currencyFormatterPipe: CurrencyFormatterPipe,
               private datePipe: DatePipe,
-              private engToNepWord: NepaliCurrencyWordPipe,) { }
+              private engToNepWord: NepaliCurrencyWordPipe) { }
 
   ngOnInit() {
     this.buildForm();
