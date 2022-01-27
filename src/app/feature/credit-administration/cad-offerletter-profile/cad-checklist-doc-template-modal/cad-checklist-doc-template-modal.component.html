@@ -66,7 +66,13 @@
                                               [nepaliAmount]="nepaliNumber"></app-loan-deed-proprietorship>
 
                 <app-counter-guarantee-company *ngSwitchCase="nabilCadTemplate.COUNTER_GUARANTEE_COMPANY"
-                                               [cadData]="cadData"></app-counter-guarantee-company>
+                                               [cadData]="cadData" [documentId]="documentId"
+                                               [customerLoanId]="customerLoanId"></app-counter-guarantee-company>
+
+                <app-counter-guarantee-partnership *ngSwitchCase="nabilCadTemplate.COUNTER_GUARANTEE_PARTNERSHIP"
+                                                   [cadData]="cadData"
+                                                   [documentId]="documentId"
+                                                   [customerLoanId]="customerLoanId"></app-counter-guarantee-partnership>
 
                 <app-counter-guarantee-proprietorship *ngSwitchCase="nabilCadTemplate.COUNTER_GUARANTEE_PROPRIETORSHIP"
                                                       [cadData]="cadData"
