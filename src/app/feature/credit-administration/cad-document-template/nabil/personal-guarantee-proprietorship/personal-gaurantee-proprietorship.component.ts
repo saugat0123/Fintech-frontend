@@ -237,10 +237,8 @@ export class PersonalGuaranteeProprietorshipComponent implements OnInit {
   setActYear() {
     let yearOfAct = '';
       if (!ObjectUtil.isEmpty(this.loanHolderNepData.radioActYearDate.np) && (this.loanHolderNepData.radioActYearDate.np === 'BS')) {
-          console.log(this.loanHolderNepData.actYear.np, 'nepali');
           yearOfAct = this.loanHolderNepData.actYear.np ? this.loanHolderNepData.actYear.np : '';
       } else {
-          console.log(this.loanHolderNepData.actYear.en, 'english');
         yearOfAct = this.loanHolderNepData.actYear.en ? this.loanHolderNepData.actYear.en : '' ;
       }
     return yearOfAct ? yearOfAct : '';
