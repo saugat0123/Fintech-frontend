@@ -50,9 +50,9 @@
                             </nb-select>
                         </div>
                     </div>
+<!--                    (change)="checkadditionalPremiumRate1($event.target.checked, i)"-->
                     <div class="col-md-12 mt-2 ml-2">
-                        <nb-checkbox formControlName="checkAdditionalPremiumRate"
-                                     (change)="checkadditionalPremiumRate1($event.target.checked, i)">
+                        <nb-checkbox formControlName="checkAdditionalPremiumRate">
                             <i> Is additional premium rate applicable ? </i></nb-checkbox>
                     </div>
                 </div>
@@ -410,7 +410,7 @@
                     </div>
                 </div>
 
-                <div *ngIf="overdraftFixedForm?.get(['odFdFormArray', i, 'interestRateType'])?.value === 'COUPEN_RATE_FINANCING' && overdraftFixedForm?.get(['odFdFormArray', i, 'checkadditionalPremiumRate'])?.value" class="row">
+                <div *ngIf="overdraftFixedForm?.get(['odFdFormArray', i, 'interestRateType'])?.value === 'COUPEN_RATE_FINANCING' && overdraftFixedForm.get(['odFdFormArray', i, 'checkAdditionalPremiumRate']).value" class="row">
                     <div class="col-md-4 form-group">
                         <label class="font-weight-bold" for="additionalPremiumRate">Additional Premium Rate</label>
                         <input class="form-control" formControlName="additionalPremiumRate" fullWidth

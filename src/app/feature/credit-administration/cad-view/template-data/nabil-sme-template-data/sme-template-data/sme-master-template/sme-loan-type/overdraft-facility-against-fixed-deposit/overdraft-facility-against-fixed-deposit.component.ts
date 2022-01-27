@@ -62,7 +62,6 @@ export class OverdraftFacilityAgainstFixedDepositComponent implements OnInit {
     this.overdraftLoanNumber = this.customerApprovedDoc.assignedLoan.filter(val =>
         val.loan.name === 'OVERDRAFT FACILITY FIXED DEPOSIT');
    this.buildForm();
-    console.log(this.customerApprovedDoc);
    if (!ObjectUtil.isEmpty(this.loanName)) {
      this.loanDetails = this.loanName;
    }
@@ -118,7 +117,7 @@ export class OverdraftFacilityAgainstFixedDepositComponent implements OnInit {
       letterOfSetOff: [undefined],
       interestRateType: [undefined],
       subsidyOrAgricultureLoan: [undefined],
-      checkAdditionalPremiumRate: [undefined],
+      checkAdditionalPremiumRate: [false],
       nameOfFacility: [undefined],
       loanAmount: [undefined],
       loanAmountWords: [undefined],
@@ -144,7 +143,7 @@ export class OverdraftFacilityAgainstFixedDepositComponent implements OnInit {
       subLoanOptionTrans: [undefined],
       letterOfSetOffTrans: [undefined],
       interestRateTypeTrans: [undefined],
-      checkAdditionalPremiumRateTrans: [undefined],
+      checkAdditionalPremiumRateTrans: [false],
       nameOfFacilityTrans: [undefined],
       loanAmountTrans: [undefined],
       loanAmountWordsTrans: [undefined],
@@ -170,7 +169,7 @@ export class OverdraftFacilityAgainstFixedDepositComponent implements OnInit {
       subLoanOptionCT: [undefined],
       letterOfSetOffCT: [undefined],
       interestRateTypeCT: [undefined],
-      checkAdditionalPremiumRateCT: [undefined],
+      checkAdditionalPremiumRateCT: [false],
       nameOfFacilityCT: [undefined],
       loanAmountCT: [undefined],
       loanAmountWordsCT: [undefined],
