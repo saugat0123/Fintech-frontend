@@ -99,19 +99,19 @@ export class LoanActionCombinedModalComponent implements OnInit {
 
     public changeStageType(value: 'individually' | 'combined'): void {
         if (value === 'individually') {
-            this.spinner = true;
             this.individualType.form = this.buildIndividualForm();
             this.individualType.users = new Map<number, User[]>();
             this.individualType.solUsers = new Map<number, User[]>();
             this.combinedLoan.loans.forEach((l, i) => {
                 this.individualType.users.set(i, []);
                 if (this.docAction === DocAction[DocAction.BACKWARD_TO_COMMITTEE]) {
+                    this.spinner = true;
                     this.roleService.detail(this.toRole.id).subscribe((res: any) => {
+                        this.spinner = false;
                         this.toRole = res.detail;
                         this.individualType.form.get(['actions', i, 'toRole']).patchValue(this.toRole);
                     });
                     this.getIndividualUserList(this.toRole, i);
-                    this.showUserList = false;
                 }
             });
             this.combinedLoan.loans.forEach((l, i) => this.individualType.solUsers.set(i, []));
@@ -174,21 +174,31 @@ export class LoanActionCombinedModalComponent implements OnInit {
 
     public getIndividualUserList(role, i: number) {
         this.userService.getUserListByRoleIdAndBranchIdForDocumentAction(role.id, this.branchId).subscribe((response: any) => {
-            if (this.docAction === DocAction[DocAction.BACKWARD_TO_COMMITTEE]) {
-                this.individualType.users.set(i, response.detail[0]);
-                this.spinner = false;
-            } else {
-                this.individualType.users.set(i, response.detail);
-                this.spinner = false;
-            }
+            this.individualType.users.set(i, response.detail);
             const users: User[] = response.detail;
             this.isUserPresent[i] = true;
             if (users.length === 0) {
                 this.isUserPresent[i] = false;
             } else {
-                this.individualType.form.get(['actions', i, 'toUser']).patchValue(users[0]);
-                this.individualType.form.get(['actions', i, 'toUser']).setValidators(Validators.required);
-                this.individualType.form.updateValueAndValidity();
+                if (this.docAction === DocAction[DocAction.BACKWARD_TO_COMMITTEE]) {
+                    this.spinner = true;
+                    this.showUserList = false;
+                    const committeeDefaultUser = response.detail.filter(f => f.name.toLowerCase().includes('default'));
+                    if (committeeDefaultUser.length === 0) {
+                        this.individualType.form.get(['actions', i, 'toUser'])
+                            .patchValue(response.detail[0]);
+                    } else {
+                        this.individualType.form.get(['actions', i, 'toUser'])
+                            .patchValue(committeeDefaultUser[0]);
+                    }
+                    this.spinner = false;
+                } else {
+                    this.showUserList = true;
+                    this.spinner = false;
+                    this.individualType.form.get(['actions', i, 'toUser']).patchValue(users[0]);
+                    this.individualType.form.get(['actions', i, 'toUser']).setValidators(Validators.required);
+                    this.individualType.form.updateValueAndValidity();
+                }
             }
         });
     }
