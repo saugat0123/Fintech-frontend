@@ -462,7 +462,7 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
                       this.initialInfo.equityMortgaged.dateOfExpiryNepali.nDate : '';
                 }
                 let equityMortgaged;
-                for (const x of this.initialInfo.equityMortgaged) {
+                for (const x of this.initialInfo.equityMortgaged.equityMortgagedFormArray) {
                   equityMortgaged = x.interestRateCT;
                 }
                 this.newData = {
