@@ -1,38 +1,51 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
-import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
+import {NabilOfferLetterConst} from '../../../nabil-offer-letter-const';
+import {NabilDocumentChecklist} from '../../../../admin/modal/nabil-document-checklist.enum';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {CadFile} from '../../../model/CadFile';
 import {Document} from '../../../../admin/modal/document';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
 import {CreditAdministrationService} from '../../../service/credit-administration.service';
 import {ToastService} from '../../../../../@core/utils';
-import {NepaliCurrencyWordPipe} from '../../../../../@core/pipe/nepali-currency-word.pipe';
-import {NepaliToEngNumberPipe} from '../../../../../@core/pipe/nepali-to-eng-number.pipe';
 import {NbDialogRef} from '@nebular/theme';
 import {CadOfferLetterModalComponent} from '../../../cad-offerletter-profile/cad-offer-letter-modal/cad-offer-letter-modal.component';
 import {RouterUtilsService} from '../../../utils/router-utils.service';
-import {EngNepDatePipe} from 'nepali-patro';
+import {NepaliCurrencyWordPipe} from '../../../../../@core/pipe/nepali-currency-word.pipe';
+import {NepaliToEngNumberPipe} from '../../../../../@core/pipe/nepali-to-eng-number.pipe';
 import {DatePipe} from '@angular/common';
+import {EngNepDatePipe} from 'nepali-patro';
+import {CustomerType} from '../../../../customer/model/customerType';
+import {CustomerSubType} from '../../../../customer/model/customerSubType';
 
 @Component({
-    selector: 'app-counter-guarantee-company',
-    templateUrl: './counter-guarantee-company.component.html',
-    styleUrls: ['./counter-guarantee-company.component.scss']
+    selector: 'app-counter-guarantee-proprietorship',
+    templateUrl: './counter-guarantee-proprietorship.component.html',
+    styleUrls: ['./counter-guarantee-proprietorship.component.scss']
 })
-export class CounterGuaranteeCompanyComponent implements OnInit {
+export class CounterGuaranteeProprietorshipComponent implements OnInit {
     @Input() cadData: CustomerApprovedLoanCadDocumentation;
     form: FormGroup;
     @Input() documentId: number;
     @Input() customerLoanId: number;
     individualData;
+    offerLetterConst = NabilDocumentChecklist;
+    offerDocumentChecklist = NabilOfferLetterConst;
+    nepData;
+    isInstitutional = false;
+    clientType;
+    loanHolderNepData: any;
+    initialInfoPrint;
+    customerType = CustomerType;
+    customerSubType = CustomerSubType;
 
     constructor(private formBuilder: FormBuilder,
                 private administrationService: CreditAdministrationService,
                 private toastService: ToastService,
                 private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
                 private nepToEngNumberPipe: NepaliToEngNumberPipe,
-                private dialogRef: NbDialogRef < CadOfferLetterModalComponent > ,
+                private dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
                 private routerUtilsService: RouterUtilsService,
                 public engToNepaliDate: EngNepDatePipe,
                 public datePipe: DatePipe, ) {
@@ -41,16 +54,25 @@ export class CounterGuaranteeCompanyComponent implements OnInit {
     ngOnInit() {
         this.buildForm();
         if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
+            if (this.cadData.loanHolder.customerType === 'INSTITUTION') {
+                this.isInstitutional = true;
+            }
             this.cadData.cadFileList.forEach(singleCadFile => {
                 if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
                     this.form.patchValue(JSON.parse(singleCadFile.initialInformation));
                     const initialInfo = JSON.parse(singleCadFile.initialInformation);
+                    this.initialInfoPrint = initialInfo;
                     this.form.patchValue(initialInfo);
                 }
             });
         }
         if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
             this.individualData = JSON.parse(this.cadData.loanHolder.nepData);
+            this.clientType = this.cadData.loanHolder['customerSubType'];
+
+            this.loanHolderNepData = this.cadData.loanHolder.nepData ?
+                JSON.parse(this.cadData.loanHolder.nepData) :
+                this.cadData.loanHolder.nepData;
         }
         this.fillForm();
     }
@@ -58,7 +80,6 @@ export class CounterGuaranteeCompanyComponent implements OnInit {
     buildForm() {
         this.form = this.formBuilder.group({
             nameOfBranch: [undefined],
-            bankStaff: [undefined],
             witnessDistrict: [undefined],
             witnessMunicipality: [undefined],
             WitnessWardNumber: [undefined],
@@ -69,13 +90,14 @@ export class CounterGuaranteeCompanyComponent implements OnInit {
             WitnessWardNumber2: [undefined],
             witnessAge2: [undefined],
             witnessName2: [undefined],
+            bankStaff: [undefined],
         });
     }
 
     fillForm() {
-      this.form.patchValue({
-        nameOfBranch: this.individualData.branch ? this.individualData.branch.ct : ''
-      });
+        this.form.patchValue({
+            nameOfBranch: this.individualData.branch ? this.individualData.branch.ct : ''
+        });
     }
 
     submit() {

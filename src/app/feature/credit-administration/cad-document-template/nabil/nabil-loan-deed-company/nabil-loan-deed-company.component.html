@@ -134,10 +134,10 @@
 
                       बस्ने बर्ष <input class="form-field form-control-sm d-print-none"
                                         name="ageOfPartner"
-                                        [value]="ageCalculation(partner?.ownerDobCT)"
+                                        [value]="ageCalculation(partner?.ownerDobCT.eDate)"
                                         placeholder=" "
                                         type="text"/>
-                            <span class="print-only">{{ageCalculation(partner?.ownerDobCT) ? ageCalculation(partner?.ownerDobCT) : '______________________'}}</span>
+                            <span class="print-only">{{ageCalculation(partner?.ownerDobCT.eDate) ? ageCalculation(partner?.ownerDobCT.eDate) : '______________________'}}</span>
                       <ng-container *ngIf="partner?.ownerGender === 'MALE'"> को </ng-container>
                       <ng-container *ngIf="partner?.ownerGender === 'FEMALE'"> की </ng-container>
                       <ng-container *ngIf="partner?.ownerGender === 'MALE'">श्री</ng-container>

@@ -76,7 +76,7 @@ export class Section2LoanTypePrintComponent implements OnInit {
     loanOptionShortTermLoan;
     complementaryOtherShortTermLoan = false;
     complementaryOtherShortTermLoanName;
-    arFinancingShortTermLoan = false;
+    arFinancing = false;
     interestSubsidyAgShortTermLoan;
     // Demand Loan for working capital
     complementaryOtherDemandLoan = false;
@@ -134,6 +134,11 @@ export class Section2LoanTypePrintComponent implements OnInit {
     mortgageOverdraft = [];
     importBillsDiscounting = [];
     irrevocableLetter = [];
+    importLoanTrustReceipt = [];
+    revolvingShortTerm = [];
+    customerAccentanceLetterOfCredit = [];
+    demandLoan = [];
+    bridgeGap = [];
 
     constructor(private engToNepWord: NepaliCurrencyWordPipe,
                 private engToNepaliDate: EngNepDatePipe,
@@ -150,6 +155,7 @@ export class Section2LoanTypePrintComponent implements OnInit {
                 this.freeInformation = JSON.parse(this.customerApprovedDoc.offerDocumentList[0].supportedInformation);
             }
             this.hypothecationGlobal = this.tempData.smeGlobalForm.hypothecation;
+            this.arFinancing = this.tempData.smeGlobalForm.arFinancing;
             if (!ObjectUtil.isEmpty(this.tempData)) {
                 this.autoLoanData = !ObjectUtil.isEmpty(this.tempData.autoLoanMasterForm) ?
                     this.tempData.autoLoanMasterForm.autoLoanFormArray : [];
@@ -229,9 +235,9 @@ export class Section2LoanTypePrintComponent implements OnInit {
                     if (this.tempData.revolvingShortTermLoan.complementaryOther === true) {
                         this.complementaryOtherShortTermLoan = true;
                     }
-                    if (this.tempData.revolvingShortTermLoan.arFinancing === true) {
-                        this.arFinancingShortTermLoan = true;
-                    }
+                    /*if (this.tempData.revolvingShortTermLoan.arFinancing === true) {
+                        this.arFinancing = true;
+                    }*/
                 }
                 if (v.loanName === LoanNameConstant.DEMAND_LOAN_FOR_WORKING_CAPITAL && !ObjectUtil.isEmpty(this.tempData.demandLoanForm)) {
                     this.isDemandLoanWorkingCapital = true;
@@ -437,5 +443,10 @@ export class Section2LoanTypePrintComponent implements OnInit {
         this.irrevocableLetter = this.loanData.filter(data => data.loanName === this.loanNameConstant.IRREVOCABLE_LETTER_OF_CREDIT_FACILITY);
         this.autoLoanDetails = this.loanData.filter(data => data.loanName === this.loanNameConstant.AUTO_LOAN);
         this.termLoanDetails = this.loanData.filter(data => data.loanName === this.loanNameConstant.TERM_LOAN_TO_FOR_PURCHASE_OF_VEHICLE);
+        this.importLoanTrustReceipt = this.loanData.filter(data => data.loanName === this.loanNameConstant.IMPORT_LOAN_TRUST_RECEIPT_LOAN);
+        this.revolvingShortTerm = this.loanData.filter(data => data.loanName === this.loanNameConstant.SHORT_TERM_LOAN);
+        this.customerAccentanceLetterOfCredit = this.loanData.filter(data => data.loanName === this.loanNameConstant.CUSTOMER_ACCEPTANCE_FOR_TIME_LETTER_OF_CREDIT);
+        this.demandLoan = this.loanData.filter(data => data.loanName === this.loanNameConstant.DEMAND_LOAN_FOR_WORKING_CAPITAL);
+        this.bridgeGap = this.loanData.filter(data => data.loanName === this.loanNameConstant.BRIDGE_GAP_LOAN);
     }
 }
