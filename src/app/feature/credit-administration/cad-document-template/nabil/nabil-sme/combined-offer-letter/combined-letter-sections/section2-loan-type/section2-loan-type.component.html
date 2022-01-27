@@ -106,6 +106,100 @@
                     </tr>
                 </ng-container>
 
+                <ng-container *ngIf="tempData?.timeLetterCreditForm?.timeLetterCreditFormArray">
+                    <tr *ngFor="let val of tempData?.timeLetterCreditForm?.timeLetterCreditFormArray; let i1 = index"
+                        formArrayName="customerAcceptanceLetterOfCredit">
+                        <ng-container [formGroupName]="i1">
+                            <!--Customer Acceptance for Time Letter of Credit-->
+                            <td width="10%">
+                                <strong>
+                                    {{
+                                    (tempData?.letterOfCreditForm?.letterOfCreditFormArray.length) +
+                                    (i1 + 1) | nepaliWord}})
+                                </strong>
+                            </td>
+                            <td>
+                                <span><strong>
+                                    <ng-container
+                                            *ngIf="val.loanOption === 'ONE_OFF_BASIS'"> पटके </ng-container>
+                                    <ng-container
+                                            *ngIf="val.loanOption === 'REGULAR'"> नियमित </ng-container>
+                                    समय प्रतित पत्रका लागि ग्राहक स्वीकृति (Customer Acceptance for Time of Credit)
+                                <ng-container *ngIf="val.complementaryOther === true">
+                                    बुँदा नं. <input class="form-field form-control-sm "
+                                                     formControlName="SNOfParentLimitTimeLetter"
+                                                     placeholder=""
+                                                     type="text"/>
+                                    <ng-container *ngIf="val.complimentaryLoanSelected !== 'TOTAL LIMIT'"> को पूरक सुविधा</ng-container>
+                                        <ng-container *ngIf="val.complimentaryLoanSelected === 'TOTAL LIMIT'"> कुल सुविधाको पूरक सुविधा </ng-container>
+                                </ng-container></strong></span><br>
+                                <strong>सीमाः
+                                    <!--<ng-container *ngIf="val.complementaryOther === true">(रु.<input
+                                            class="form-field form-control-sm"
+                                            value="{{ld?.loanAmountNp}}"
+                                            placeholder=""
+                                            type="text"/>।–)
+                                    </ng-container>-->
+                                    <!--<ng-container *ngIf="val.complementaryOther === false">-->
+                                        <ng-container>
+                                        रु.<input
+                                            class="form-field form-control-sm"
+                                            value="{{customerAccentanceLetterOfCredit[i1] ? customerAccentanceLetterOfCredit[i1].loanAmountNp : ''}}"
+                                            placeholder=""
+                                            type="text"/>
+                                        /–
+                                    </ng-container>
+                                    (अक्षरेपी रु.<input class="form-field form-control-sm "
+                                                        value="{{customerAccentanceLetterOfCredit[i1] ? customerAccentanceLetterOfCredit[i1].loanAmountWords : ''}}"
+                                                        placeholder=""
+                                                        type="text"/> मात्र)</strong><br>
+                                <strong>सुरक्षणः</strong><br>
+                                <span *ngIf="this.hypothecationGlobal === 'New'">१. सामानहरुको मौज्दात उपर धितोेबन्धक (Hypothecation) हकाधिकार र ऋणीले आफ्ना आसामीबाट भुक्तानी
+                                प्राप्त गर्न बाँकी रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामा हस्तान्तरण गर्नु
+                                पर्नेछ।</span>
+
+                                <span *ngIf="this.hypothecationGlobal === 'Existing'">१. सामानहरुको मौज्दात उपर धितोेबन्धक (Hypothecation) हकाधिकार र ऋणीले आफ्ना आसामीबाट भुक्तानी
+                                प्राप्त गर्न बाँकी रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामा हस्तान्तरण गरिदिइएको
+                                यथावतकायम रहने छ।</span><br>
+                                २. अख्तियारप्राप्त व्यक्तिद्धारा स्वीकार गरिएको विनिमय–पत्र (Bill of Exchange) बैंकको पक्षमा
+                                हस्तान्तरण गर्नु पर्नेछ ।<br>
+                                <p>
+                                    <strong>धरौटीः</strong> प्रतित पत्रकागजात मूल्यको <input
+                                        class="form-field form-control-sm "
+                                        formControlName="marginInPercentageTimeLetter"
+                                        placeholder=""
+                                        type="text"/>% नगद धरौटी स्वरुप
+                                    रहनेछ ।<br>
+                                    <strong>कमिसनः</strong> प्रति त्रैमास <input class="form-field form-control-sm "
+                                                                                 formControlName="commissionRateQuarterlyTimeLetter"
+                                                                                 placeholder=""
+                                                                                 type="text"/>% का दरले वा कम्तिमा
+                                    रु.<input class="form-field form-control-sm "
+                                              formControlName="commissionAmountTimeLetter"
+                                              placeholder=""
+                                              type="text"/>।–लाग्नेछ ।<br>
+                                </p>
+                                <p>
+                            <span *ngIf="val.loanOption === 'REGULAR'"><strong>सुविधा समाप्ति/पुनरावलोकन मितिः</strong>
+                                {{val?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
+                                <input
+                                        class="form-field form-control-sm "
+                                        formControlName="loanExpiryDateTimeLetter"
+                                        placeholder=""
+                                        type="text"/><br></span>
+
+                                    <span *ngIf="val.loanOption === 'ONE_OFF_BASIS'"><strong>सुविधा समाप्ति मितिः</strong>
+                                    <input
+                                            class="form-field form-control-sm "
+                                            formControlName="loanExpiryDateTimeLetter2"
+                                            placeholder=""
+                                            type="text"/><br></span>
+                                </p>
+                            </td>
+                        </ng-container>
+                    </tr>
+                </ng-container>
+
                 <ng-container *ngIf="tempData?.importLoanTrust?.importLoanTrustFormArray">
                     <tr *ngFor="let val of tempData?.importLoanTrust?.importLoanTrustFormArray; let i1 = index"
                         formArrayName="importLoanTrustReceiptLoan">
@@ -115,6 +209,7 @@
                                 <strong>
                                     {{
                                     (tempData?.letterOfCreditForm?.letterOfCreditFormArray.length) +
+                                    (tempData?.timeLetterCreditForm?.timeLetterCreditFormArray.length) +
                                     (i1 + 1) | nepaliWord}})
                                 </strong>
                             </td>
@@ -244,6 +339,7 @@
                                     {{
                                     (tempData?.letterOfCreditForm?.letterOfCreditFormArray.length) +
                                     (tempData?.importLoanTrust?.importLoanTrustFormArray.length) +
+                                    (tempData?.timeLetterCreditForm?.timeLetterCreditFormArray.length) +
                                     (i1 + 1) | nepaliWord}})
                                 </strong>
                             <td><span
@@ -348,7 +444,7 @@
                     प्राप्त गर्न बाँकी रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामा हस्तान्तरण
                     गरिदिइएको यथावत कायम रहने छ।</span><br>
 
-                                <span *ngIf="arFinancingShortTermLoan"><strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong> स्वीकारयोग्य
+                                <span *ngIf="arFinancing"><strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong> स्वीकारयोग्य
                             <input class="form-field form-control-sm "
                                    formControlName="ARDaysShortTermLoan"
                                    placeholder=""
@@ -360,7 +456,7 @@
                                    type="text"/>% बराबर रकम वा स्वीकृत
                     कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ ।</span><br>
 
-                                <span *ngIf="!arFinancingShortTermLoan"><strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong> स्वीकारयोग्य सामानहरुको मौज्दातको बजार मूल्य वा लागत
+                                <span *ngIf="!arFinancing"><strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong> स्वीकारयोग्य सामानहरुको मौज्दातको बजार मूल्य वा लागत
                     मूल्य मध्ये जुन कम हुन्छ सो र <input class="form-field form-control-sm "
                                                          formControlName="ARDaysShortTermLoan"
                                                          placeholder=""
@@ -432,6 +528,124 @@
                         </ng-container>
                     </tr>
                 </ng-container>
+
+                <ng-container *ngIf="tempData?.demandLoanForm?.demandLoanFormArray">
+                    <tr *ngFor="let val of tempData?.demandLoanForm?.demandLoanFormArray; let i1 = index"
+                        formArrayName="demandLoan">
+                        <!--Demand Loan for working capital-->
+                        <ng-container [formGroupName]="i1">
+                            <td width="10%"><strong>{{
+                                (tempData?.letterOfCreditForm?.letterOfCreditFormArray.length) +
+                                (tempData?.importLoanTrust?.importLoanTrustFormArray.length) +
+                                (tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray.length) +
+                                (tempData?.timeLetterCreditForm?.timeLetterCreditFormArray.length) +
+                                (i1 + 1) | nepaliWord}})</strong>
+                            </td>
+                            <td>
+                    <span><strong>डिमाण्ड कर्जा (Demand Loan for working capital)
+                       <ng-container *ngIf="val.complementaryOther === true"> बुँदा नं.<input
+                               class="form-field form-control-sm "
+                               formControlName="SNOfParentLimitDemandLoan"
+                               placeholder=""
+                               type="text"/>
+                       <ng-container *ngIf="val.complimentaryLoanSelected !== 'TOTAL LIMIT'"> को पूरक सुविधा</ng-container>
+                                        <ng-container *ngIf="val.complimentaryLoanSelected === 'TOTAL LIMIT'"> कुल सुविधाको पूरक सुविधा </ng-container>
+                       </ng-container></strong></span><br>
+
+                                <strong> सीमाः
+                                   <!-- <ng-container *ngIf="val.complementaryOther === true">(रु.<input
+                                            class="form-field form-control-sm"
+                                            value="{{ld?.loanAmountNp}}"
+                                            placeholder=""
+                                            type="text"/>।–)
+                                    </ng-container>-->
+                                    <!--<ng-container *ngIf="val.complementaryOther === false">-->
+                                    <ng-container>
+                                        रु.<input
+                                            class="form-field form-control-sm"
+                                            value="{{demandLoan[i1] ? demandLoan[i1].loanAmountNp : ''}}"
+                                            placeholder=""
+                                            type="text"/>
+                                        ।–
+                                    </ng-container>
+                                    (अक्षरेपी रु.<input class="form-field form-control-sm "
+                                                        value="{{demandLoan[i1] ? demandLoan[i1].loanAmountWords : ''}}"
+                                                        placeholder=""
+                                                        type="text"/> मात्र)</strong><br>
+
+                                <span *ngIf="this.hypothecationGlobal === 'New'"><strong>सुरक्षणः</strong>
+                                सामानहरुको मौज्दात उपर धितोेबन्धक (Hypothecation) हकाधिकार र ऋणीले आफ्ना आसामीबाट भुक्तानी
+                                प्राप्त गर्न बाँकी रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामा हस्तान्तरण गर्नु
+                                पर्नेछ ।</span>
+
+                                <span *ngIf="this.hypothecationGlobal === 'Existing'"><strong>सुरक्षणः</strong>
+                                सामानहरुको मौज्दात उपर धितोेबन्धक (Hypothecation) हकाधिकार र ऋणीले आफ्ना आसामीबाट भुक्तानी
+                                प्राप्त गर्न बाँकी रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामा हस्तान्तरण
+                                गरिदिइएको यथावत कायम रहने छ।</span><br>
+
+                                <span *ngIf="arFinancing"><strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong>
+                            स्वीकारयोग्य <input class="form-field form-control-sm "
+                                                formControlName="ARDaysDemandLoan"
+                                                placeholder=""
+                                                type="text"/>दिन सम्मको भुक्तानी प्राप्त गर्न बाँकी रकमहरुबाट तिर्न
+                    बाँकी रकम (Account Receivable) घटाई हुन आउने खुद चालु सम्पत्तिको
+                            <input class="form-field form-control-sm "
+                                   formControlName="drawingPowerDemandLoan"
+                                   placeholder=""
+                                   type="text"/>% बराबर रकम वा स्वीकृत
+                    कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ ।</span>
+
+                                <span *ngIf="!arFinancing"><strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong> स्वीकारयोग्य सामानहरुको मौज्दातको बजार मूल्य वा लागत
+                    मूल्य मध्ये जुन कम हुन्छ सो र <input class="form-field form-control-sm "
+                                                         formControlName="ARDaysDemandLoan"
+                                                         placeholder=""
+                                                         type="text"/>दिन सम्मको भुक्तानी प्राप्त गर्न बाँकी रकमहरुबाट तिर्न
+                    बाँकी रकम (Account Receivable) घटाई हुन आउने खुद चालु सम्पत्तिको
+                            <input class="form-field form-control-sm "
+                                   formControlName="drawingPowerDemandLoan"
+                                   placeholder=""
+                                   type="text"/>% बराबर रकम वा स्वीकृत
+                    कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ ।</span><br>
+
+                                <strong>ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
+                                <input class="form-field form-control-sm "
+                                       formControlName="baseRateDemandLoan"
+                                       placeholder=""
+                                       type="text"/> +
+                                <input class="form-field form-control-sm "
+                                       formControlName="premiumRateDemandLoan"
+                                       placeholder=""
+                                       type="text"/> प्रतिशत
+                                ब्याज दर प्रिमियम (interest rate premium)<br>
+
+                                <span *ngIf="val.subsidyOrAgricultureLoan === 'No'">हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
+                            बार्षिक <input class="form-field form-control-sm "
+                                           formControlName="interestRateDemandLoan"
+                                           placeholder=""
+                                           type="text"/>% का दर
+                    निर्धारण गरीएकोछ र सो ब्याज रकम नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र
+                    चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।</span>
+
+                                <span *ngIf="val.subsidyOrAgricultureLoan === 'Yes'">हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
+                            बार्षिक <input class="form-field form-control-sm "
+                                           formControlName="totalInterestRateDemandLoan"
+                                           placeholder=""
+                                           type="text"/>% का दरले
+                    निर्धारण गरीएकोछ । सो निर्धारित ब्याज दरमा नेपाल राष्ट्र बैंकले ऋणीलाई दिने छुट/सहुलियत वापतको दर
+                    घटाई कायम हुन आउने रकम ऋणीले ब्याज स्वरुप नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन,
+                    पौष र चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।</span><br>
+
+                                <span><strong>कर्जा अवधि समाप्ति/पुनरावलोकन मितिः</strong>
+                                    {{val?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
+                                    <input class="form-field form-control-sm "
+                                           formControlName="loanExpiryDateDemandLoan"
+                                           placeholder=""
+                                           type="text"/></span><br>
+
+                            </td>
+                        </ng-container>
+                    </tr>
+                </ng-container>
             </table>
         </div>
         <div>
@@ -441,7 +655,9 @@
                                      [termLoanData]="termLoanData"
                                      [pointNumber]="(tempData?.letterOfCreditForm?.letterOfCreditFormArray.length) +
                                                      (tempData?.importLoanTrust?.importLoanTrustFormArray.length) +
-                                                    (tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray.length)">
+                                                     (tempData?.timeLetterCreditForm?.timeLetterCreditFormArray.length) +
+                                                    (tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray.length) +
+                                                    (tempData?.demandLoanForm?.demandLoanFormArray.length)">
             </app-term-loan-to-or-for>
         </div>
         <div>
@@ -450,12 +666,15 @@
                            [loanData]="autoLoanDetails"
                            [pointNumber]="tempData?.letterOfCreditForm?.letterOfCreditFormArray.length + termLoanDetails.length +
                                             (tempData?.importLoanTrust?.importLoanTrustFormArray.length) +
-                                                (tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray.length)"
+                                            (tempData?.timeLetterCreditForm?.timeLetterCreditFormArray.length) +
+                                                (tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray.length) +
+                                            (tempData?.demandLoanForm?.demandLoanFormArray.length)"
                            [autoLoanData]="autoLoanData">
             </app-auto-loan>
         </div>
-        <div *ngIf="termLoanDetails.length > 0 || autoLoanDetails.length > 0" style="margin-top: -17px">
-            <div *ngIf="termLoanDetails.length === 0 || autoLoanDetails.length === 0" style="margin-top: -14px">
+        <!--<div *ngIf="termLoanDetails.length > 0 || autoLoanDetails.length > 0" style="margin-top: -17px">
+            <div *ngIf="termLoanDetails.length === 0 || autoLoanDetails.length === 0" style="margin-top: -14px">-->
+        <div [ngStyle]="{'margin-top' : (termLoanDetails.length > 0 || autoLoanDetails.length > 0) ? '-17px' : '-16px'}">
             <table class="table table-bordered">
                 <ng-container *ngIf="tempData?.equityMortgaged?.mortgageOverdraftFormArray">
                     <tr *ngFor="let val of tempData?.equityMortgaged?.mortgageOverdraftFormArray; let i1 = index"
@@ -468,6 +687,8 @@
                                 (tempData?.letterOfCreditForm?.letterOfCreditFormArray.length) +
                                 (tempData?.importLoanTrust?.importLoanTrustFormArray.length) +
                                 (tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray.length) +
+                                (tempData?.timeLetterCreditForm?.timeLetterCreditFormArray.length) +
+                                (tempData?.demandLoanForm?.demandLoanFormArray.length) +
                                 (i1 + 1) | nepaliWord}})</strong></td>
                             <td>
                                 <span><strong>अचल सम्पत्ति सुरक्षणमा आधारीत अधिविकर्ष कर्जा
@@ -586,6 +807,8 @@
                                 (tempData?.letterOfCreditForm?.letterOfCreditFormArray.length) +
                                 (tempData?.importLoanTrust?.importLoanTrustFormArray.length) +
                                 (tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray.length) +
+                                (tempData?.timeLetterCreditForm?.timeLetterCreditFormArray.length) +
+                                (tempData?.demandLoanForm?.demandLoanFormArray.length) +
                                     (i1 + 1) | nepaliWord}})</strong></td>
                             <td>
                                 <strong>बचत/ऋण पत्रमा आधारीत <input class="form-field form-control-sm "
@@ -700,21 +923,23 @@
                                 (tempData?.letterOfCreditForm?.letterOfCreditFormArray.length) +
                                 (tempData?.importLoanTrust?.importLoanTrustFormArray.length) +
                                 (tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray.length) +
+                                (tempData?.timeLetterCreditForm?.timeLetterCreditFormArray.length) +
+                                (tempData?.demandLoanForm?.demandLoanFormArray.length) +
                                 (i2 + 1) | nepaliWord}})</strong></td>
                             <td>
                     <span><strong>डकुमेन्ट्री बिल्स खरिद कर्जा (Documentary Bill Purchase/Negotiation)
                     <ng-container
-                            *ngIf="this.tempData?.documentaryBillPurchase?.documentaryBillPurchaseFormArray[i2].complementaryOther === true"> बुँदा नं.<input
+                            *ngIf="val.complementaryOther === true"> बुँदा नं.<input
                             class="form-field form-control-sm"
                             formControlName="SNOfParentLimitDocumentaryBill"
                             placeholder=""
                             type="text"/>
                     <ng-container
-                            *ngIf="this.tempData.documentaryBillPurchase.documentaryBillPurchaseFormArray[i2].complimentaryLoanSelected !== 'TOTAL LIMIT'">
+                            *ngIf="val.complimentaryLoanSelected !== 'TOTAL LIMIT'">
                         को पूरक सुविधा
                     </ng-container>
                         <ng-container
-                                *ngIf="this.tempData.documentaryBillPurchase.documentaryBillPurchaseFormArray[i2].complimentaryLoanSelected === 'TOTAL LIMIT'">
+                                *ngIf="val.complimentaryLoanSelected === 'TOTAL LIMIT'">
                             कुल सुविधाको पूरक सुविधा
                         </ng-container>
                     </ng-container>
@@ -722,7 +947,7 @@
                     </span>
                                 <br>
                                 <strong> सीमाः
-                                    <!--<ng-container *ngIf="this.tempData?.documentaryBillPurchase?.documentaryBillPurchaseFormArray[i2].complementaryOther === true">-->
+                                    <!--<ng-container *ngIf="val.complementaryOther === true">-->
                                         <ng-container>
                                             रु.<input
                                             class="form-field form-control-sm"
@@ -730,7 +955,7 @@
                                             placeholder=""
                                             type="text"/>/–
                                     </ng-container>
-                                   <!-- <ng-container *ngIf="this.tempData?.documentaryBillPurchase?.documentaryBillPurchaseFormArray[i2].complementaryOther === false">रु.<input
+                                   <!-- <ng-container *ngIf="val.complementaryOther === false">रु.<input
                                             class="form-field form-control-sm"
                                             value="{{documentaryBillPurchase[i2] ? documentaryBillPurchase[i2].loanAmountNp : ''}}"
                                             placeholder=""
@@ -808,6 +1033,8 @@
                                     (tempData?.letterOfCreditForm?.letterOfCreditFormArray.length) +
                                     (tempData?.importLoanTrust?.importLoanTrustFormArray.length) +
                                     (tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray.length) +
+                                    (tempData?.timeLetterCreditForm?.timeLetterCreditFormArray.length) +
+                                    (tempData?.demandLoanForm?.demandLoanFormArray.length) +
                                     (i1 + 1) | nepaliWord}})
                                 </strong>
                             </td>
@@ -915,7 +1142,6 @@
                     </tr>
                 </ng-container>
             </table>
-            </div>
         </div>
 
         <div style="margin-top: -17px">
@@ -937,6 +1163,8 @@
                                     (tempData?.letterOfCreditForm?.letterOfCreditFormArray.length) +
                                     (tempData?.importLoanTrust?.importLoanTrustFormArray.length) +
                                     (tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray.length) +
+                                    (tempData?.timeLetterCreditForm?.timeLetterCreditFormArray.length) +
+                                    (tempData?.demandLoanForm?.demandLoanFormArray.length) +
                                     (i3 + 1) | nepaliWord}})
                                 </strong>
                             </td>
@@ -1037,6 +1265,8 @@
                                     (tempData?.letterOfCreditForm?.letterOfCreditFormArray.length) +
                                     (tempData?.importLoanTrust?.importLoanTrustFormArray.length) +
                                     (tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray.length) +
+                                    (tempData?.timeLetterCreditForm?.timeLetterCreditFormArray.length) +
+                                    (tempData?.demandLoanForm?.demandLoanFormArray.length) +
                                     (i3 + 1) | nepaliWord}})
                                 </strong>
                             </td>

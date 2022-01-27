@@ -41,7 +41,7 @@ export class DemandLoanForWorkingCapitalComponent implements OnInit {
               private engToNepNumberPipe: EngToNepaliNumberPipe,
               private currencyFormatterPipe: CurrencyFormatterPipe,
               private datePipe: DatePipe,
-              private engToNepDatePipe: EngNepDatePipe) { }
+              private engToNepWord: NepaliCurrencyWordPipe,) { }
 
   ngOnInit() {
     this.buildForm();
@@ -57,18 +57,15 @@ export class DemandLoanForWorkingCapitalComponent implements OnInit {
         this.demandLoanForm.patchValue(this.initialInformation.demandLoanForm);
       }
       this.patchDate();
-      /*const dateOfExpiryType = this.initialInformation.demandLoanForm.dateOfExpiryType;
-      if (dateOfExpiryType === 'AD') {
-        const dateOfExpiry = this.initialInformation.demandLoanForm.dateOfExpiry;
-        if (!ObjectUtil.isEmpty(dateOfExpiry)) {
-          this.demandLoanForm.get('dateOfExpiry').patchValue(new Date(dateOfExpiry));
-        }
-      } else if (dateOfExpiryType === 'BS') {
-        const dateOfExpiry = this.initialInformation.demandLoanForm.dateOfExpiryNepali;
-        if (!ObjectUtil.isEmpty(dateOfExpiry)) {
-          this.demandLoanForm.get('dateOfExpiryNepali').patchValue(dateOfExpiry);
-        }
-      }*/
+    }
+    if (!ObjectUtil.isEmpty(this.filteredList)) {
+      for (let val = 0; val < this.filteredList.length; val++) {
+        const loanamountWords = this.engToNepWord.transform(this.filteredList[val].loanAmount);
+        this.demandLoanForm.get(['demandLoanFormArray', val, 'loanAmount']).patchValue(
+            this.filteredList[val] ? this.filteredList[val].loanAmount : '');
+        this.demandLoanForm.get(['demandLoanFormArray', val, 'loanAmountWords']).patchValue(
+            loanamountWords ? loanamountWords : '');
+      }
     }
   }
   patchDate() {
@@ -98,9 +95,9 @@ export class DemandLoanForWorkingCapitalComponent implements OnInit {
     this.demandLoanForm.get(['demandLoanFormArray', index, 'complementaryOther']).patchValue(data);
   }
 
-  checkARFinancing(data, index) {
+  /*checkARFinancing(data, index) {
     this.demandLoanForm.get(['demandLoanFormArray', index, 'arFinancing']).patchValue(data);
-  }
+  }*/
 
   public getNumAmountWord(numLabel, wordLabel, index, arrayName): void {
     const transformValue = this.nepaliCurrencyWordPipe.transform(this.demandLoanForm.get([arrayName, index, numLabel]).value);
@@ -118,7 +115,7 @@ export class DemandLoanForWorkingCapitalComponent implements OnInit {
     const baseRate = this.demandLoanForm.get([arrName, index, 'baseRate']).value;
     const premiumRate = this.demandLoanForm.get([arrName, index, 'premiumRate']).value;
     const sum = parseFloat(baseRate) + parseFloat(premiumRate);
-    this.demandLoanForm.get([arrName, index, 'interestRate']).patchValue(sum);
+    this.demandLoanForm.get([arrName, index, 'interestRate']).patchValue(sum.toFixed(3));
   }
 
   public checkDateOfExpiry(value): void {
@@ -135,10 +132,10 @@ export class DemandLoanForWorkingCapitalComponent implements OnInit {
     if (!ObjectUtil.isEmpty(tempComplimentaryLoanSelected)) {
       this.demandLoanForm.get(['demandLoanFormArray', index, 'complimentaryLoanSelectedTrans']).patchValue(tempComplimentaryLoanSelected);
     }
-    const tempArFinancing = this.demandLoanForm.get(['demandLoanFormArray', index, 'arFinancing']).value;
+    /*const tempArFinancing = this.demandLoanForm.get(['demandLoanFormArray', index, 'arFinancing']).value;
     if (!ObjectUtil.isEmpty(tempArFinancing)) {
       this.demandLoanForm.get(['demandLoanFormArray', index, 'arFinancingTrans']).patchValue(tempArFinancing);
-    }
+    }*/
 
     /* SET TRANS VALUE FOR OTHER NUMBER FIELDS */
     const tempLoanAmount = this.demandLoanForm.get(['demandLoanFormArray', index, 'loanAmount']).value;
@@ -227,9 +224,9 @@ export class DemandLoanForWorkingCapitalComponent implements OnInit {
     this.demandLoanForm.get(['demandLoanFormArray', index, 'complimentaryLoanSelectedCT']).patchValue(
         this.demandLoanForm.get(['demandLoanFormArray', index, 'complimentaryLoanSelectedTrans']).value
     );
-    this.demandLoanForm.get(['demandLoanFormArray', index, 'arFinancingCT']).patchValue(
+    /*this.demandLoanForm.get(['demandLoanFormArray', index, 'arFinancingCT']).patchValue(
         this.demandLoanForm.get(['demandLoanFormArray', index, 'arFinancingTrans']).value
-    );
+    );*/
     this.demandLoanForm.get(['demandLoanFormArray', index, 'loanAmountCT']).patchValue(
         this.demandLoanForm.get(['demandLoanFormArray', index, 'loanAmountTrans']).value
     );
@@ -282,7 +279,7 @@ export class DemandLoanForWorkingCapitalComponent implements OnInit {
       // for form data
       complementaryOther: [false],
       complimentaryLoanSelected: [undefined],
-      arFinancing: [false],
+      /*arFinancing: [false],*/
       subsidyOrAgricultureLoan: [undefined],
       arDays: [undefined],
       loanAmount: [undefined],
@@ -298,7 +295,7 @@ export class DemandLoanForWorkingCapitalComponent implements OnInit {
       // for translated data
       complementaryOtherTrans: [false],
       complimentaryLoanSelectedTrans: [undefined],
-      arFinancingTrans: [false],
+     /* arFinancingTrans: [false],*/
       arDaysTrans: [undefined],
       loanAmountTrans: [undefined],
       loanAmountWordsTrans: [undefined],
@@ -313,7 +310,7 @@ export class DemandLoanForWorkingCapitalComponent implements OnInit {
       // for corrected data
       complementaryOtherCT: [false],
       complimentaryLoanSelectedCT: [undefined],
-      arFinancingCT: [false],
+      /*arFinancingCT: [false],*/
       arDaysCT: [undefined],
       loanAmountCT: [undefined],
       loanAmountWordsCT: [undefined],
