@@ -300,6 +300,8 @@ export class CompanyFormComponent implements OnInit {
             } else {
                 this.addAccountNumber();
             }
+        } else {
+            this.addAccountNumber();
         }
     }
 
@@ -1116,8 +1118,10 @@ export class CompanyFormComponent implements OnInit {
 
         // swot
         submitData.swot = this.swot;
-        this.companyInfo.accountStrategy = this.formValue.accountStrategy;
-        this.companyInfo.withinLimitRemarks = this.formValue.withinLimitRemarks;
+        if (!ObjectUtil.isEmpty(this.formValue)) {
+            this.companyInfo.accountStrategy = this.formValue.accountStrategy;
+            this.companyInfo.withinLimitRemarks = this.formValue.withinLimitRemarks;
+        }
         this.companyInfo.companyJsonData = JSON.stringify(submitData);
         this.companyInfoService.save(this.companyInfo).subscribe(() => {
             this.spinner = false;

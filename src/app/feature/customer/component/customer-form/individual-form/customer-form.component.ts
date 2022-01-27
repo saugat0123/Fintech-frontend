@@ -152,6 +152,7 @@ bankingRelationshipList = BankingRelationship.enumObject();
             this.setOccupationAndIncomeSourceAndParentInput(this.formValue);
             this.occupationChange();
         } else {
+            this.addAccountNumber();
             this.createRelativesArray();
         }
          this.sameAddress = this.customer.sameAddress;
