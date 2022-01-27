@@ -35,17 +35,29 @@
                                                 type="text"/>।–)
                                         </ng-container>-->
                                         <!--<ng-container *ngIf="val.complementryOther === false">-->
-                                            <ng-container>
-                                            रु.<input
-                                                class="form-field form-control-sm"
-                                                value="{{irrevocableLetter[i1] ? irrevocableLetter[i1].loanAmountNp : ''}}"
-                                                type="text"/>
-                                            ।–
-                                        </ng-container>
-                                        (अक्षरेपी रु.<input class="form-field form-control-sm"
-                                                            value="{{irrevocableLetter[i1] ? irrevocableLetter[i1].loanAmountWords : ''}}"
-                                                            placeholder=""
-                                                            type="text"/> मात्र)</strong><br>
+<!--                                            <ng-container>-->
+<!--                                            रु.<input-->
+<!--                                                class="form-field form-control-sm"-->
+<!--                                                value="{{irrevocableLetter[i1] ? irrevocableLetter[i1].loanAmountNp : ''}}"-->
+<!--                                                [value]="val.loanAmountNp"-->
+<!--                                                type="text"/>-->
+<!--                                            ।–-->
+<!--                                        </ng-container>-->
+<!--                                        (अक्षरेपी रु.<input class="form-field form-control-sm"-->
+<!--                                                            value="{{irrevocableLetter[i1] ? irrevocableLetter[i1].loanAmountWords : ''}}"-->
+<!--                                                            placeholder=""-->
+<!--                                                            type="text"/> मात्र)</strong><br>-->
+                                  <ng-container>
+                                    रु.<input
+                                      class="form-field form-control-sm"
+                                      [value]="val.loanAmountNp"
+                                      type="text"/>
+                                    ।–
+                                  </ng-container>
+                                  (अक्षरेपी रु.<input class="form-field form-control-sm"
+                                                      [value]="val.loanAmountWords"
+                                                      placeholder=""
+                                                      type="text"/> मात्र)</strong><br>
                                     <strong>सुरक्षणः</strong> सम्पूर्ण सम्भावित जोखिमहरु सुरक्षित भएको कम्तिमा प्रतित पत्र
                                     मूल्यको
                                     ११०%
