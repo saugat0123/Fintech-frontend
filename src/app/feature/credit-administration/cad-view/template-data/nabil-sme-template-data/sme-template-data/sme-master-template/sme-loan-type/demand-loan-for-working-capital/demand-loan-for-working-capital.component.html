@@ -29,16 +29,16 @@
                     </nb-option>
                 </nb-select>
             </div>
-            <div class="col-md-12 mt-2">
+            <!--<div class="col-md-12 mt-2">
                 <nb-checkbox #arFinancing formControlName="arFinancing">
                     <i> Is AR Financing only ? </i></nb-checkbox>
-            </div>
+            </div>-->
         </div>
         <div class="row pt-4">
             <div class="col-md-4 form-group">
                 <label class="font-weight-bold" for="loanAmount">Loan Amount</label>
                 <input class="form-control" formControlName="loanAmount" fullWidth id="loanAmount"
-                       (input)="getNumAmountWord('loanAmount', 'loanAmountWords', i, 'demandLoanFormArray')"
+                       readonly
                        nbInput
                        shape="semi-round"
                        status="success" type="number">
@@ -52,6 +52,7 @@
             </div>
             <div class="col-md-4 form-group fieldMargin">
                 <input class="form-control" formControlName="loanAmountCT" fullWidth id="loanAmountCT"
+                       readonly
                        nbInput
                        shape="semi-round"
                        status="success" type="text">
@@ -61,6 +62,7 @@
             <div class="col-md-4 form-group">
                 <label class="font-weight-bold" for="loanAmountWords">Loan Amount Words</label>
                 <input class="form-control" formControlName="loanAmountWords" fullWidth id="loanAmountWords"
+                       readonly
                        nbInput
                        shape="semi-round"
                        status="success" type="text">
