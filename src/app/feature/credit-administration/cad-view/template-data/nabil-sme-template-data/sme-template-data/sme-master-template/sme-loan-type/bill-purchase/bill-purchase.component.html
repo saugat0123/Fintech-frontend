@@ -7,10 +7,11 @@
                         <h5>BILLS PURCHASE {{filteredList.length > 1 ? '- ' +( i + 1) : ''}}</h5>
                     </div>
                     <div class="col-md-12 mt-2">
-                        <nb-checkbox #complementaryOther formControlName="complementaryOther">
+                        <nb-checkbox #complementaryOther formControlName="complementaryOther"
+                                     (change)="checkComplimetryOtherLoan($event.target.checked, i)">
                             <i> Is complimentary of other loan ? </i></nb-checkbox>
                     </div>
-                    <div class="col-md-4 mt-3" *ngIf="billPurchaseForm.get(['billPurchaseFormArray', i, 'complementaryOther'])">
+                    <div class="col-md-4 mt-3" *ngIf="billPurchaseForm.get(['billPurchaseFormArray', i, 'complementaryOther']).value">
                         <label class="font-weight-bold" for="complimentaryLoanSelected"><strong>Complimentary Loan Selection</strong></label><br>
                         <nb-select placeholder="Select Complimentary Loan"
                                    fullWidth

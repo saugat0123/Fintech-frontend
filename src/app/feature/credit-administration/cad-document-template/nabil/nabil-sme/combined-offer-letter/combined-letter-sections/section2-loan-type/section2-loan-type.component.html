@@ -105,6 +105,333 @@
                         </ng-container>
                     </tr>
                 </ng-container>
+
+                <ng-container *ngIf="tempData?.importLoanTrust?.importLoanTrustFormArray">
+                    <tr *ngFor="let val of tempData?.importLoanTrust?.importLoanTrustFormArray; let i1 = index"
+                        formArrayName="importLoanTrustReceiptLoan">
+                        <ng-container [formGroupName]="i1">
+                            <!--Import Loan/ Trust Receipt Loan-->
+                            <td width="10%">
+                                <strong>
+                                    {{
+                                    (tempData?.letterOfCreditForm?.letterOfCreditFormArray.length) +
+                                    (i1 + 1) | nepaliWord}})
+                                </strong>
+                            </td>
+                            <td><span><strong><ng-container
+                                    *ngIf="val.loanOption === 'ONE_OFF_BASIS'">पटके</ng-container>
+                            <ng-container *ngIf="val.loanOption === 'REGULAR'">नियमित</ng-container>
+                            प्रतित पत्र मार्फत सामान आयात गर्नका लागि <input
+                                        class="form-field form-control-sm "
+                                        formControlName="loanDaysLoanTrust"
+                                        placeholder=""
+                                        type="text"/>
+                        दिने आयात / टि आर कर्जा
+                    (Import Loan/Trust Receipt Loan for <input class="form-field form-control-sm "
+                                                               formControlName="loanDaysLoanTrustInEng"
+                                                               placeholder=""
+                                                               type="text"/>days to
+                        finance goods imported under Letter of Credit)
+                        <ng-container *ngIf="val.complementaryOther === true">बुँदा नं. <input
+                                class="form-field form-control-sm "
+                                formControlName="SNOfParentLimitLoanTrust"
+                                placeholder=""
+                                type="text"/>
+                        <ng-container *ngIf="val.complementaryLoanSelected !== 'TOTAL LIMIT'"> को पूरक सुविधा</ng-container>
+                                        <ng-container *ngIf="val.complementaryLoanSelected === 'TOTAL LIMIT'"> कुल सुविधाको पूरक सुविधा </ng-container>
+                        </ng-container></strong></span><br>
+
+                                <strong>सीमाः
+                                    <!--<ng-container *ngIf="val.complementaryOther === true">(रु.<input
+                                            class="form-field form-control-sm"
+                                            value="{{ld?.loanAmountNp}}"
+                                            placeholder=""
+                                            type="text"/>।–)
+                                    </ng-container-->
+                                    <!--<ng-container *ngIf="val.complementaryOther === false">-->
+                                    <ng-container>
+                                        रु.<input
+                                            class="form-field form-control-sm"
+                                            value="{{importLoanTrustReceipt[i1] ? importLoanTrustReceipt[i1].loanAmountNp : ''}}"
+                                            placeholder=""
+                                            type="text"/>
+                                        ।–
+                                    </ng-container>
+                                    (अक्षरेपी रु.<input class="form-field form-control-sm "
+                                                        value="{{importLoanTrustReceipt[i1] ? importLoanTrustReceipt[i1].loanAmountWords : ''}}"
+                                                        placeholder=""
+                                                        type="text"/> मात्र)</strong><br>
+                                <span *ngIf="this.hypothecationGlobal === 'New'"><strong>सुरक्षणः</strong> सामानहरुको मौज्दात उपर धितोेबन्धक (Hypothecation) हकाधिकार र ऋणीले आफ्ना आसामीबाट भुक्तानी
+                                प्राप्त गर्न बाँकी रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामा हस्तान्तरण गर्नु
+                                पर्नेछ ।</span>
+
+                                <span *ngIf="this.hypothecationGlobal === 'Existing'"><strong>सुरक्षणः</strong> सामानहरुको मौज्दात उपर धितोेबन्धक (Hypothecation) हकाधिकार र ऋणीले आफ्ना आसामीबाट भुक्तानी
+                                प्राप्त गर्न बाँकी रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामा हस्तान्तरण गरिदिइएको यथावत कायम रहने छ।</span><br>
+
+                                <strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong> कागजात मूल्यको
+                                <input class="form-field form-control-sm "
+                                       formControlName="drawingPowerLoanTrust"
+                                       placeholder=""
+                                       type="text"/>%
+                                बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ ।<br>
+
+                                <strong>ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
+                                <input class="form-field form-control-sm "
+                                       formControlName="baseRateLoanTrust"
+                                       placeholder=""
+                                       type="text"/> +
+                                <input class="form-field form-control-sm "
+                                       formControlName="premiumRateLoanTrust"
+                                       placeholder=""
+                                       type="text"/>
+                                प्रतिशत ब्याज दर प्रिमियम(interest rate premium) <br>
+
+                                <span *ngIf="val.subsidyOrAgricultureLoan === 'No'">हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
+                            बार्षिक <input class="form-field form-control-sm "
+                                           formControlName="interestRateLoanTrust"
+                                           placeholder=""
+                                           type="text"/>%
+                            का दर निर्धारण गरीएकोछ र सो ब्याज रकम नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष
+                            र चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।</span>
+
+                                <span *ngIf="val.subsidyOrAgricultureLoan === 'Yes'">हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
+                            बार्षिक <input class="form-field form-control-sm "
+                                           formControlName="totalInterestRateLoanTrust"
+                                           placeholder=""
+                                           type="text"/>का दरले
+                            निर्धारण गरीएकोछ । सो निर्धारित ब्याज दरमा नेपाल राष्ट्र बैंकले ऋणीलाई दिने छुट/सहुलियत वापतको दर
+                            घटाई कायम हुन आउने रकम ऋणीले ब्याज स्वरुप नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन,
+                            पौष र चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।</span><br>
+
+                                <span *ngIf="val.loanOption === 'REGULAR'"><strong>कर्जा अवधि समाप्ति मितिः</strong> प्रत्येक आयात कर्जा प्रवाह
+                            (बुकिङ्ग) भएको मितिले <input class="form-field form-control-sm "
+                                                         formControlName="remainDaysLoanTrust"
+                                                         placeholder=""
+                                                         type="text"/>दिन
+                            सम्म ।</span>
+                                <span *ngIf="val.loanOption === 'ONE_OFF_BASIS'"><strong>कर्जा अवधि समाप्ति मितिः</strong> पटके आयात कर्जा प्रवाह
+                            (बुकिङ्ग) भएको मितिले <input class="form-field form-control-sm "
+                                                         formControlName="remainDaysLoanTrust"
+                                                         placeholder=""
+                                                         type="text"/>दिन सम्म ।</span><br>
+                                <strong>कर्जा भुक्तानी तरिकाः</strong><textarea
+                                        class="form-control customFont "
+                                        rows="2"
+                                        style="width: 100%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em; color: black;"
+                                        name=""
+                                        placeholder=""
+                                        formControlName="freeTextTwo">
+                        </textarea><br>
+                                <span *ngIf="val.loanOption === 'REGULAR'"><strong>सुविधा समाप्ति/पुनरावलोकन मितिः</strong>
+                                    {{val?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
+                                    <input
+                                            class="form-field form-control-sm "
+                                            formControlName="loanExpiryDateLoanTrust"
+                                            placeholder=""
+                                            type="text"/></span>
+                            </td>
+                        </ng-container>
+                    </tr>
+                </ng-container>
+
+                <ng-container *ngIf="tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray">
+                    <tr *ngFor="let val of tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray; let i1 = index"
+                        formArrayName="revolvingShortTermLoan">
+                        <ng-container [formGroupName]="i1">
+                            <!--Revolving/One off basis Short Term Loan-->
+                            <td width="10%">
+                                <strong>
+                                    {{
+                                    (tempData?.letterOfCreditForm?.letterOfCreditFormArray.length) +
+                                    (tempData?.importLoanTrust?.importLoanTrustFormArray.length) +
+                                    (i1 + 1) | nepaliWord}})
+                                </strong>
+                            <td><span
+                                    *ngIf="(val.loanOption === 'REGULAR') && (val.loanRevolvingBasis === 'DAILY')">
+                        <strong><input class="form-field form-control-sm "
+                                       formControlName="loanDaysShortTermLoan"
+                                       placeholder=""
+                                       type="text"/>दिने चक्रिय अल्पकालिन कर्जा (Resolving Short Term
+                    Loan for <input class="form-field form-control-sm "
+                                    formControlName="loanDaysShortTermLoanInEng"
+                                    placeholder=""
+                                    type="text"/>days)
+                        <ng-container *ngIf="val.complementaryOther === true"> बुँदा नं.<input
+                                class="form-field form-control-sm "
+                                formControlName="SNOfParentLimitShortTermLoan"
+                                placeholder=""
+                                type="text"/>
+                        <ng-container *ngIf="val.complimentaryLoanSelected !== 'TOTAL LIMIT'"> को पूरक सुविधा</ng-container>
+                                        <ng-container *ngIf="val.complimentaryLoanSelected === 'TOTAL LIMIT'"> कुल सुविधाको पूरक सुविधा </ng-container>
+                        </ng-container></strong></span>
+
+                                <span *ngIf="(val.loanOption === 'ONE_OFF_BASIS') && (val.loanRevolvingBasis === 'DAILY')"><strong><input
+                                        class="form-field form-control-sm "
+                                        formControlName="loanDaysShortTermLoan"
+                                        placeholder=""
+                                        type="text"/>दिने पटके अल्पकालिन कर्जा (One off Basis Short Term
+                    Loan for <input class="form-field form-control-sm "
+                                    formControlName="loanDaysShortTermLoanInEng"
+                                    placeholder=""
+                                    type="text"/>days)
+                           <ng-container *ngIf="val.complementaryOther === true"> बुँदा नं.<input
+                                   class="form-field form-control-sm "
+                                   formControlName="SNOfParentLimitShortTermLoan"
+                                   placeholder=""
+                                   type="text"/>
+                           <ng-container *ngIf="val.complimentaryLoanSelected !== 'TOTAL LIMIT'"> को पूरक सुविधा</ng-container>
+                                        <ng-container *ngIf="val.complimentaryLoanSelected === 'TOTAL LIMIT'"> कुल सुविधाको पूरक सुविधा </ng-container>
+                           </ng-container></strong></span>
+
+                                <span *ngIf="(val.loanOption === 'REGULAR') && (val.loanRevolvingBasis === 'MONTHLY')">
+                            <strong><input class="form-field form-control-sm "
+                                           formControlName="loanMonthsShortTermLoan"
+                                           placeholder=""
+                                           type="text"/>महिने चक्रिय अल्पकालिन कर्जा (Resolving Short Term
+                    Loan for <input class="form-field form-control-sm "
+                                    formControlName="loanMonthsShortTermLoanInEng"
+                                    placeholder=""
+                                    type="text"/>months)
+                                <ng-container *ngIf="val.complementaryOther === true"> बुँदा नं.<input
+                                        class="form-field form-control-sm "
+                                        formControlName="SNOfParentLimitShortTermLoan"
+                                        placeholder=""
+                                        type="text"/>
+                                <ng-container *ngIf="val.complimentaryLoanSelected !== 'TOTAL LIMIT'"> को पूरक सुविधा</ng-container>
+                                        <ng-container *ngIf="val.complimentaryLoanSelected === 'TOTAL LIMIT'"> कुल सुविधाको पूरक सुविधा </ng-container>
+                                </ng-container></strong></span>
+
+                                <span *ngIf="(val.loanOption === 'ONE_OFF_BASIS') && (val.loanRevolvingBasis === 'MONTHLY')"><strong><input
+                                        class="form-field form-control-sm "
+                                        formControlName="loanMonthsShortTermLoan"
+                                        placeholder=""
+                                        type="text"/>महिने पटके अल्पकालिन कर्जा (One off Basis Short Term
+                    Loan for <input class="form-field form-control-sm "
+                                    formControlName="loanMonthsShortTermLoanInEng"
+                                    placeholder=""
+                                    type="text"/>months)
+                            <ng-container *ngIf="val.complementaryOther === true"> बुँदा नं.<input
+                                    class="form-field form-control-sm "
+                                    formControlName="SNOfParentLimitShortTermLoan"
+                                    placeholder=""
+                                    type="text"/>
+                            <ng-container *ngIf="val.complimentaryLoanSelected !== 'TOTAL LIMIT'"> को पूरक सुविधा</ng-container>
+                                        <ng-container *ngIf="val.complimentaryLoanSelected === 'TOTAL LIMIT'"> कुल सुविधाको पूरक सुविधा </ng-container>
+                            </ng-container></strong></span><br>
+
+                                <strong> सीमाः
+                                    <!--<ng-container *ngIf="val.complementaryOther === true">(रु.<input
+                                            class="form-field form-control-sm"
+                                            value="{{ld?.loanAmountNp}}"
+                                            placeholder=""
+                                            type="text"/>।–)
+                                    </ng-container>-->
+                                    <!--<ng-container *ngIf="val.complementaryOther === false">-->
+                                    <ng-container>
+                                        रु.<input
+                                            class="form-field form-control-sm"
+                                            value="{{revolvingShortTerm[i1] ? revolvingShortTerm[i1].loanAmountNp : ''}}"
+                                            placeholder=""
+                                            type="text"/>
+                                        ।–
+                                    </ng-container>
+                                    (अक्षरेपी रु.<input class="form-field form-control-sm "
+                                                        value="{{revolvingShortTerm[i1] ? revolvingShortTerm[i1].loanAmountWords : ''}}"
+                                                        placeholder=""
+                                                        type="text"/> मात्र)</strong><br>
+
+                                <span *ngIf="this.hypothecationGlobal === 'New'"><strong>सुरक्षणः</strong> सामानहरुको मौज्दात उपर धितोेबन्धक (Hypothecation) हकाधिकार र ऋणीले आफ्ना आसामीबाट भुक्तानी
+                    प्राप्त गर्न बाँकी रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामा हस्तान्तरण गर्नु
+                    पर्नेछ ।</span><br>
+
+                                <span *ngIf="this.hypothecationGlobal === 'Existing'"><strong>सुरक्षणः</strong> सामानहरुको मौज्दात उपर धितोेबन्धक (Hypothecation) हकाधिकार र ऋणीले आफ्ना आसामीबाट भुक्तानी
+                    प्राप्त गर्न बाँकी रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामा हस्तान्तरण
+                    गरिदिइएको यथावत कायम रहने छ।</span><br>
+
+                                <span *ngIf="arFinancingShortTermLoan"><strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong> स्वीकारयोग्य
+                            <input class="form-field form-control-sm "
+                                   formControlName="ARDaysShortTermLoan"
+                                   placeholder=""
+                                   type="text"/>दिन सम्मको भुक्तानी प्राप्त गर्न बाँकी रकमहरुबाट तिर्न
+                    बाँकी रकम (Account Receivable) घटाई हुन आउने खुद चालु सम्पत्तिको
+                            <input class="form-field form-control-sm "
+                                   formControlName="drawingPowerShortTermLoan"
+                                   placeholder=""
+                                   type="text"/>% बराबर रकम वा स्वीकृत
+                    कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ ।</span><br>
+
+                                <span *ngIf="!arFinancingShortTermLoan"><strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong> स्वीकारयोग्य सामानहरुको मौज्दातको बजार मूल्य वा लागत
+                    मूल्य मध्ये जुन कम हुन्छ सो र <input class="form-field form-control-sm "
+                                                         formControlName="ARDaysShortTermLoan"
+                                                         placeholder=""
+                                                         type="text"/>दिन सम्मको भुक्तानी प्राप्त गर्न बाँकी रकमहरुबाट तिर्न
+                    बाँकी रकम (Account Receivable) घटाई हुन आउने खुद चालु सम्पत्तिको
+                            <input class="form-field form-control-sm "
+                                   formControlName="drawingPowerShortTermLoan"
+                                   placeholder=""
+                                   type="text"/>% बराबर रकम वा स्वीकृत
+                    कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ ।</span><br>
+
+                                <strong>ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
+                                <input class="form-field form-control-sm"
+                                       formControlName="baseRateShortTermLoan"
+                                       placeholder=""
+                                       type="text"/> +
+                                <input class="form-field form-control-sm"
+                                       formControlName="premiumRateShortTermLoan"
+                                       placeholder=""
+                                       type="text"/> प्रतिशत
+                                ब्याज दर प्रिमियम (interest rate premium)<br>
+
+                                <span *ngIf="val.subsidyOrAgricultureLoan === 'No'">हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
+                            बार्षिक <input class="form-field form-control-sm "
+                                           formControlName="interestRateShortTermLoan"
+                                           placeholder=""
+                                           type="text"/>% का दर
+                    निर्धारण गरीएकोछ र सो ब्याज रकम नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र
+                    चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।</span><br>
+
+                                <span *ngIf="val.subsidyOrAgricultureLoan === 'Yes'">हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
+                            बार्षिक <input class="form-field form-control-sm "
+                                           formControlName="totalInterestRateShortTermLoan"
+                                           placeholder=""
+                                           type="text"/>% का दरले
+                    निर्धारण गरीएकोछ । सो निर्धारित ब्याज दरमा नेपाल राष्ट्र बैंकले ऋणीलाई दिने छुट/सहुलियत वापतको दर
+                    घटाई कायम हुन आउने रकम ऋणीले ब्याज स्वरुप नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन,
+                    पौष र चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।</span><br>
+
+                                <span *ngIf="val.loanOption === 'REGULAR'"><strong>कर्जा अवधि समाप्ति मितिः</strong> प्रत्येक अल्पकालिन कर्जा प्रवाह
+                            (बुकिङ्ग) भएको मितिले <input class="form-field form-control-sm "
+                                                         formControlName="remainDaysShortTermLoan"
+                                                         placeholder=""
+                                                         type="text"/>
+                    दिन सम्म ।</span><br>
+                                <span *ngIf="val.loanOption === 'ONE_OFF_BASIS'"><strong>कर्जा अवधि समाप्ति मितिः</strong> पटके अल्पकालिन कर्जा प्रवाह
+                            (बुकिङ्ग) भएको मितिले <input class="form-field form-control-sm "
+                                                         formControlName="remainDaysShortTermLoan"
+                                                         placeholder=""
+                                                         type="text"/>
+                    दिन सम्म ।</span><br>
+
+                                <span *ngIf="val.loanOption === 'REGULAR'"><strong>कर्जा अवधि पुनरावलोकन मितिः</strong>
+                                    {{val?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
+                                    <input
+                                            class="form-field form-control-sm "
+                                            formControlName="loanExpiryDateShortTermLoan"
+                                            placeholder=""
+                                            type="text"/></span><br>
+                                <textarea
+                                        class="form-control customFont "
+                                        rows="2"
+                                        style="width: 100%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em; color: black;"
+                                        name=""
+                                        placeholder=""
+                                        formControlName="freeTextThree">
+                        </textarea>
+                            </td>
+                        </ng-container>
+                    </tr>
+                </ng-container>
             </table>
         </div>
         <div>
@@ -112,18 +439,23 @@
                                      [customerApprovedDoc]="cadOfferLetterApprovedDoc"
                                      [loanData]="termLoanDetails"
                                      [termLoanData]="termLoanData"
-                                     [pointNumber]="tempData?.letterOfCreditForm?.letterOfCreditFormArray.length">
+                                     [pointNumber]="(tempData?.letterOfCreditForm?.letterOfCreditFormArray.length) +
+                                                     (tempData?.importLoanTrust?.importLoanTrustFormArray.length) +
+                                                    (tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray.length)">
             </app-term-loan-to-or-for>
         </div>
         <div>
             <app-auto-loan #autoLoanComponent
                            [customerApprovedDoc]="cadOfferLetterApprovedDoc"
                            [loanData]="autoLoanDetails"
-                           [pointNumber]="tempData?.letterOfCreditForm?.letterOfCreditFormArray.length + termLoanDetails.length"
+                           [pointNumber]="tempData?.letterOfCreditForm?.letterOfCreditFormArray.length + termLoanDetails.length +
+                                            (tempData?.importLoanTrust?.importLoanTrustFormArray.length) +
+                                                (tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray.length)"
                            [autoLoanData]="autoLoanData">
             </app-auto-loan>
         </div>
-        <div style="margin-top: -17px">
+        <div *ngIf="termLoanDetails.length > 0 || autoLoanDetails.length > 0" style="margin-top: -17px">
+            <div *ngIf="termLoanDetails.length === 0 || autoLoanDetails.length === 0" style="margin-top: -14px">
             <table class="table table-bordered">
                 <ng-container *ngIf="tempData?.equityMortgaged?.mortgageOverdraftFormArray">
                     <tr *ngFor="let val of tempData?.equityMortgaged?.mortgageOverdraftFormArray; let i1 = index"
@@ -134,6 +466,8 @@
                                 (tempData?.termLoanForm?.termLoanDetails?.length) +
                                 (tempData?.autoLoanMasterForm?.autoLoanFormArray?.length) +
                                 (tempData?.letterOfCreditForm?.letterOfCreditFormArray.length) +
+                                (tempData?.importLoanTrust?.importLoanTrustFormArray.length) +
+                                (tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray.length) +
                                 (i1 + 1) | nepaliWord}})</strong></td>
                             <td>
                                 <span><strong>अचल सम्पत्ति सुरक्षणमा आधारीत अधिविकर्ष कर्जा
@@ -250,6 +584,8 @@
                                 (tempData?.termLoanForm?.termLoanDetails?.length) +
                                 (tempData?.autoLoanMasterForm?.autoLoanFormArray?.length) +
                                 (tempData?.letterOfCreditForm?.letterOfCreditFormArray.length) +
+                                (tempData?.importLoanTrust?.importLoanTrustFormArray.length) +
+                                (tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray.length) +
                                     (i1 + 1) | nepaliWord}})</strong></td>
                             <td>
                                 <strong>बचत/ऋण पत्रमा आधारीत <input class="form-field form-control-sm "
@@ -362,6 +698,8 @@
                                 (tempData?.overDraftFacilityForm?.overdraftFacilityDetails.length) +
                                 (tempData?.equityMortgaged?.mortgageOverdraftFormArray.length) +
                                 (tempData?.letterOfCreditForm?.letterOfCreditFormArray.length) +
+                                (tempData?.importLoanTrust?.importLoanTrustFormArray.length) +
+                                (tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray.length) +
                                 (i2 + 1) | nepaliWord}})</strong></td>
                             <td>
                     <span><strong>डकुमेन्ट्री बिल्स खरिद कर्जा (Documentary Bill Purchase/Negotiation)
@@ -468,6 +806,8 @@
                                     (tempData?.termLoanForm?.termLoanDetails?.length) +
                                     (tempData?.autoLoanMasterForm?.autoLoanFormArray?.length) +
                                     (tempData?.letterOfCreditForm?.letterOfCreditFormArray.length) +
+                                    (tempData?.importLoanTrust?.importLoanTrustFormArray.length) +
+                                    (tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray.length) +
                                     (i1 + 1) | nepaliWord}})
                                 </strong>
                             </td>
@@ -575,6 +915,7 @@
                     </tr>
                 </ng-container>
             </table>
+            </div>
         </div>
 
         <div style="margin-top: -17px">
@@ -594,6 +935,8 @@
                                     (tempData?.equityMortgaged?.mortgageOverdraftFormArray.length) +
                                     (tempData?.equityMortgaged?.equityMortgagedFormArray.length) +
                                     (tempData?.letterOfCreditForm?.letterOfCreditFormArray.length) +
+                                    (tempData?.importLoanTrust?.importLoanTrustFormArray.length) +
+                                    (tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray.length) +
                                     (i3 + 1) | nepaliWord}})
                                 </strong>
                             </td>
@@ -692,6 +1035,8 @@
                                     (tempData?.equityMortgaged?.equityMortgagedFormArray.length) +
                                     (tempData?.importBillsDiscountForm?.importBillsDiscountFormArray.length) +
                                     (tempData?.letterOfCreditForm?.letterOfCreditFormArray.length) +
+                                    (tempData?.importLoanTrust?.importLoanTrustFormArray.length) +
+                                    (tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray.length) +
                                     (i3 + 1) | nepaliWord}})
                                 </strong>
                             </td>
