@@ -76,7 +76,7 @@ export class Section2LoanTypePrintComponent implements OnInit {
     loanOptionShortTermLoan;
     complementaryOtherShortTermLoan = false;
     complementaryOtherShortTermLoanName;
-    arFinancingShortTermLoan = false;
+    arFinancing = false;
     interestSubsidyAgShortTermLoan;
     // Demand Loan for working capital
     complementaryOtherDemandLoan = false;
@@ -136,6 +136,8 @@ export class Section2LoanTypePrintComponent implements OnInit {
     irrevocableLetter = [];
     importLoanTrustReceipt = [];
     revolvingShortTerm = [];
+    customerAccentanceLetterOfCredit = [];
+    demandLoan = [];
 
     constructor(private engToNepWord: NepaliCurrencyWordPipe,
                 private engToNepaliDate: EngNepDatePipe,
@@ -152,7 +154,7 @@ export class Section2LoanTypePrintComponent implements OnInit {
                 this.freeInformation = JSON.parse(this.customerApprovedDoc.offerDocumentList[0].supportedInformation);
             }
             this.hypothecationGlobal = this.tempData.smeGlobalForm.hypothecation;
-            this.arFinancingShortTermLoan = this.tempData.smeGlobalForm.arFinancing;
+            this.arFinancing = this.tempData.smeGlobalForm.arFinancing;
             if (!ObjectUtil.isEmpty(this.tempData)) {
                 this.autoLoanData = !ObjectUtil.isEmpty(this.tempData.autoLoanMasterForm) ?
                     this.tempData.autoLoanMasterForm.autoLoanFormArray : [];
@@ -233,7 +235,7 @@ export class Section2LoanTypePrintComponent implements OnInit {
                         this.complementaryOtherShortTermLoan = true;
                     }
                     /*if (this.tempData.revolvingShortTermLoan.arFinancing === true) {
-                        this.arFinancingShortTermLoan = true;
+                        this.arFinancing = true;
                     }*/
                 }
                 if (v.loanName === LoanNameConstant.DEMAND_LOAN_FOR_WORKING_CAPITAL && !ObjectUtil.isEmpty(this.tempData.demandLoanForm)) {
@@ -442,5 +444,7 @@ export class Section2LoanTypePrintComponent implements OnInit {
         this.termLoanDetails = this.loanData.filter(data => data.loanName === this.loanNameConstant.TERM_LOAN_TO_FOR_PURCHASE_OF_VEHICLE);
         this.importLoanTrustReceipt = this.loanData.filter(data => data.loanName === this.loanNameConstant.IMPORT_LOAN_TRUST_RECEIPT_LOAN);
         this.revolvingShortTerm = this.loanData.filter(data => data.loanName === this.loanNameConstant.SHORT_TERM_LOAN);
+        this.customerAccentanceLetterOfCredit = this.loanData.filter(data => data.loanName === this.loanNameConstant.CUSTOMER_ACCEPTANCE_FOR_TIME_LETTER_OF_CREDIT);
+        this.demandLoan = this.loanData.filter(data => data.loanName === this.loanNameConstant.DEMAND_LOAN_FOR_WORKING_CAPITAL);
     }
 }

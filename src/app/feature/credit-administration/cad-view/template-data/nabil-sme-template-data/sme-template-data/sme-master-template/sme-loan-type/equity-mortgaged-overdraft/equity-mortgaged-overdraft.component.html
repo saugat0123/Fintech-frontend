@@ -428,12 +428,12 @@
                                         name="dateOfExpiryType" status="success">
                             <nb-radio *ngFor="let dType of dateType" [value]="dType.value">{{dType.key}}</nb-radio>
                         </nb-radio-group>
-                        <div *ngIf="equityMortgaged.get(['equityMortgagedFormArray', i, 'dateOfExpiryType']).value === dateType[1]?.value" style="margin-bottom: -50px;">
+                        <div *ngIf="equityMortgaged.get(['mortgageOverdraftFormArray', i, 'dateOfExpiryType']).value === dateType[1]?.value" style="margin-bottom: -50px;">
                             <nepali-patro [displayNepali]="true" [responseType]="2"
                                           formControlName="dateOfExpiryNepali">
                             </nepali-patro>
                         </div>
-                        <input *ngIf="equityMortgaged.get(['equityMortgagedFormArray', i, 'dateOfExpiryType']).value === dateType[0]?.value" [nbDatepicker]="nextReview" formControlName="dateOfExpiry"
+                        <input *ngIf="equityMortgaged.get(['mortgageOverdraftFormArray', i, 'dateOfExpiryType']).value === dateType[0]?.value" [nbDatepicker]="nextReview" formControlName="dateOfExpiry"
                                fullWidth
                                nbInput
                                placeholder="Select Date"
