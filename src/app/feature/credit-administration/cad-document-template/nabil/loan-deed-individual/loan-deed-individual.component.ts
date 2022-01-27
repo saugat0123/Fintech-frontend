@@ -212,14 +212,8 @@ export class LoanDeedIndividualComponent implements OnInit {
       branchName: [
         this.loanHolderNepData.branch ? this.loanHolderNepData.branch.ct : '',
       ],
-      grandFatherName: [
-        // tslint:disable-next-line:max-line-length
-        this.loanHolderNepData.grandFatherName ? this.loanHolderNepData.grandFatherName.ct : this.loanHolderNepData.fatherInLawName ? this.loanHolderNepData.fatherInLawName.ct : ''
-      ],
-      father_husbandName: [
-        // tslint:disable-next-line:max-line-length
-          this.loanHolderNepData.fatherName ? this.loanHolderNepData.fatherName.ct : this.loanHolderNepData.husbandName ? this.loanHolderNepData.husbandName.ct : ''
-      ],
+      grandFatherName: [this.getGrandFatherName()],
+      father_husbandName: [this.getFatherName()],
       district: [
         this.loanHolderNepData.permanentDistrict
           ? this.loanHolderNepData.permanentDistrict.ct
@@ -272,6 +266,39 @@ export class LoanDeedIndividualComponent implements OnInit {
       nameOfBank: [bankName ? bankName : ''],
     });
   }
+
+  getGrandFatherName() {
+    let grandFatherName;
+    if (!ObjectUtil.isEmpty(this.loanHolderNepData)) {
+      if (this.loanHolderNepData.gender.en === 'MALE') {
+        grandFatherName = this.loanHolderNepData.grandFatherName ? this.loanHolderNepData.grandFatherName.ct : '';
+      }
+      if (this.loanHolderNepData.gender.en === 'FEMALE' && this.loanHolderNepData.relationMedium.en === '0') {
+        grandFatherName = this.loanHolderNepData.fatherInLawName ? this.loanHolderNepData.fatherInLawName.ct : '';
+      }
+      if (this.loanHolderNepData.gender.en === 'FEMALE' && this.loanHolderNepData.relationMedium.en === '1') {
+        grandFatherName = this.loanHolderNepData.grandFatherName ? this.loanHolderNepData.grandFatherName.ct : '';
+      }
+    }
+    return grandFatherName;
+  }
+
+  getFatherName() {
+    let fatherName;
+    if (!ObjectUtil.isEmpty(this.loanHolderNepData)) {
+      if (this.loanHolderNepData.gender.en === 'MALE') {
+        fatherName = this.loanHolderNepData.fatherName ? this.loanHolderNepData.fatherName.ct : '';
+      }
+      if (this.loanHolderNepData.gender.en === 'FEMALE' && this.loanHolderNepData.relationMedium.en === '0') {
+        fatherName = this.loanHolderNepData.husbandName ? this.loanHolderNepData.husbandName.ct : '';
+      }
+      if (this.loanHolderNepData.gender.en === 'FEMALE' && this.loanHolderNepData.relationMedium.en === '1') {
+        fatherName = this.loanHolderNepData.fatherName ? this.loanHolderNepData.fatherName.ct : '';
+      }
+    }
+    return fatherName;
+  }
+
   addIndividualLoandeedForm() {
     this.numberOfJointCustomer = this.engToNepNumberPipe.transform('1');
     (this.loanDeedIndividual.get('loanDeedIndividuals') as FormArray).push(
