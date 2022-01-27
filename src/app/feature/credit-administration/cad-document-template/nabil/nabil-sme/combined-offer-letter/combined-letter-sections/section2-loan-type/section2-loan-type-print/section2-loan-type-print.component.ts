@@ -135,6 +135,7 @@ export class Section2LoanTypePrintComponent implements OnInit {
     importBillsDiscounting = [];
     irrevocableLetter = [];
     importLoanTrustReceipt = [];
+    revolvingShortTerm = [];
 
     constructor(private engToNepWord: NepaliCurrencyWordPipe,
                 private engToNepaliDate: EngNepDatePipe,
@@ -151,6 +152,7 @@ export class Section2LoanTypePrintComponent implements OnInit {
                 this.freeInformation = JSON.parse(this.customerApprovedDoc.offerDocumentList[0].supportedInformation);
             }
             this.hypothecationGlobal = this.tempData.smeGlobalForm.hypothecation;
+            this.arFinancingShortTermLoan = this.tempData.smeGlobalForm.arFinancing;
             if (!ObjectUtil.isEmpty(this.tempData)) {
                 this.autoLoanData = !ObjectUtil.isEmpty(this.tempData.autoLoanMasterForm) ?
                     this.tempData.autoLoanMasterForm.autoLoanFormArray : [];
@@ -230,9 +232,9 @@ export class Section2LoanTypePrintComponent implements OnInit {
                     if (this.tempData.revolvingShortTermLoan.complementaryOther === true) {
                         this.complementaryOtherShortTermLoan = true;
                     }
-                    if (this.tempData.revolvingShortTermLoan.arFinancing === true) {
+                    /*if (this.tempData.revolvingShortTermLoan.arFinancing === true) {
                         this.arFinancingShortTermLoan = true;
-                    }
+                    }*/
                 }
                 if (v.loanName === LoanNameConstant.DEMAND_LOAN_FOR_WORKING_CAPITAL && !ObjectUtil.isEmpty(this.tempData.demandLoanForm)) {
                     this.isDemandLoanWorkingCapital = true;
@@ -439,5 +441,6 @@ export class Section2LoanTypePrintComponent implements OnInit {
         this.autoLoanDetails = this.loanData.filter(data => data.loanName === this.loanNameConstant.AUTO_LOAN);
         this.termLoanDetails = this.loanData.filter(data => data.loanName === this.loanNameConstant.TERM_LOAN_TO_FOR_PURCHASE_OF_VEHICLE);
         this.importLoanTrustReceipt = this.loanData.filter(data => data.loanName === this.loanNameConstant.IMPORT_LOAN_TRUST_RECEIPT_LOAN);
+        this.revolvingShortTerm = this.loanData.filter(data => data.loanName === this.loanNameConstant.SHORT_TERM_LOAN);
     }
 }
