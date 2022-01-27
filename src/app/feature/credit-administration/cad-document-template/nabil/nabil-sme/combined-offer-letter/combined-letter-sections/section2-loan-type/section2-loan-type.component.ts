@@ -153,6 +153,8 @@ export class Section2LoanTypeComponent implements OnInit {
     customerAccentanceLetterOfCreditFreeText: Array<any> = new Array<any>();
     demandLoan = [];
     demandLoanFreeText: Array<any> = new Array<any>();
+    bridgeGap = [];
+    bridgeGapLoanFreeText: Array<any> = new Array<any>();
 
     constructor(private formBuilder: FormBuilder,
                 private engToNepWord: NepaliCurrencyWordPipe,
@@ -252,11 +254,8 @@ export class Section2LoanTypeComponent implements OnInit {
             overdraftFacilityAgainstBond: this.formBuilder.array([]),
 
             // Bridge Gap Loan
-            SNOfParentLimitBridgeGap: [undefined],
-            baseRateBridgeGap: [undefined],
-            premiumRateBridgeGap: [undefined],
-            interestRateBridgeGap: [undefined],
-            totalInterestRateBridgeGap: [undefined],
+            bridgeGapLoan: this.formBuilder.array([]),
+
             // Bank Guarantee
             SNOfParentLimitBankGuarantee: [undefined],
             nameOfBankBankGuarantee: [undefined],
@@ -275,10 +274,6 @@ export class Section2LoanTypeComponent implements OnInit {
             SNOfFacility: [undefined],
             freeTextFour: [undefined],
             freeTextFive: [undefined],
-            freeTextSix: [undefined],
-            freeTextSeven: [undefined],
-            freeTextEight: [undefined],
-            freeTextNine: [undefined],
             freeTextSixteen: [undefined],
         });
         this.setOverdraftFacilityAgainstBond();
@@ -292,6 +287,16 @@ export class Section2LoanTypeComponent implements OnInit {
         this.setRevolvingShortTermLoan();
         this.customerAcceptanceLetterOfCredit();
         this.demandLoanWorkingCapital();
+        this.bridgeGapLoan();
+    }
+    bridgeGapLoan() {
+        if (!ObjectUtil.isEmpty(this.initialData) &&
+            !ObjectUtil.isEmpty(this.initialData.bridgeGapLoan) &&
+            !ObjectUtil.isEmpty(this.initialData.bridgeGapLoan.bridgeGapDetails)) {
+            for (let a = 0; a < this.initialData.bridgeGapLoan.bridgeGapDetails.length; a++) {
+                (this.form.get('bridgeGapLoan') as FormArray).push(this.setBridgeGapLoanForm());
+            }
+        }
     }
     demandLoanWorkingCapital() {
         if (!ObjectUtil.isEmpty(this.initialData) &&
@@ -404,7 +409,19 @@ export class Section2LoanTypeComponent implements OnInit {
             }
         }
     }
-
+    setBridgeGapLoanForm() {
+        return this.formBuilder.group({
+            SNOfParentLimitBridgeGap: [undefined],
+            baseRateBridgeGap: [undefined],
+            premiumRateBridgeGap: [undefined],
+            interestRateBridgeGap: [undefined],
+            totalInterestRateBridgeGap: [undefined],
+            freeTextSix: [undefined],
+            freeTextSeven: [undefined],
+            freeTextEight: [undefined],
+            freeTextNine: [undefined],
+        });
+    }
     setDemandLoanForm() {
         return this.formBuilder.group({
             SNOfParentLimitDemandLoan: [undefined],
@@ -763,7 +780,7 @@ export class Section2LoanTypeComponent implements OnInit {
                     this.interestRateTypeFacilityAgainstBond = this.tempData.overDraftFacilityForm.interestRateType;
                     this.overDraftFacilityFormPatchValue();
                 }*/
-                if (v.loanName === LoanNameConstant.BRIDGE_GAP_LOAN && !ObjectUtil.isEmpty(this.tempData.bridgeGapLoan)) {
+                /*if (v.loanName === LoanNameConstant.BRIDGE_GAP_LOAN && !ObjectUtil.isEmpty(this.tempData.bridgeGapLoan)) {
                     this.isBridgeGapLoan = true;
                     this.complementaryOtherBridgeGapLoanName = this.tempData.bridgeGapLoan.complimentaryLoanSelected;
                     if (this.tempData.bridgeGapLoan.interestSubsidy === true) {
@@ -773,7 +790,7 @@ export class Section2LoanTypeComponent implements OnInit {
                         this.complementaryOtherBridgeGapLoan = true;
                     }
                     this.bridgeGapLoanFormPatchValue();
-                }
+                }*/
                 if (v.loanName === LoanNameConstant.TERM_LOAN_TO_FOR_PURCHASE_OF_VEHICLE) {
                     this.isTermLoanToOrFor = true;
                 }
@@ -815,6 +832,7 @@ export class Section2LoanTypeComponent implements OnInit {
         this.revolvingShortTermFormPatchValue();
         this.timeLetterCreditFormPatchValue();
         this.demandLoanFormPatchValue();
+        this.bridgeGapLoanFormPatchValue();
     }
 
     irrevocableLetterOfCredit() {
@@ -1218,15 +1236,27 @@ export class Section2LoanTypeComponent implements OnInit {
     }
 
     bridgeGapLoanFormPatchValue() {
-        this.form.patchValue({
-            // Bridge Gap Loan
-            // SNOfParentLimitBridgeGap: [undefined],
-            baseRateBridgeGap: this.tempData.bridgeGapLoan.baseRateCT ? this.tempData.bridgeGapLoan.baseRateCT : '',
-            premiumRateBridgeGap: this.tempData.bridgeGapLoan.premiumRateCT ? this.tempData.bridgeGapLoan.premiumRateCT : '',
-            interestRateBridgeGap: this.tempData.bridgeGapLoan.interestRateCT ? this.tempData.bridgeGapLoan.interestRateCT : '',
-            // tslint:disable-next-line:max-line-length
-            totalInterestRateBridgeGap: this.tempData.bridgeGapLoan.totalInterestRateCT ? this.tempData.bridgeGapLoan.totalInterestRateCT : '',
-        });
+        if (!ObjectUtil.isEmpty(this.tempData) &&
+            !ObjectUtil.isEmpty(this.tempData.bridgeGapLoan) &&
+            !ObjectUtil.isEmpty(this.tempData.bridgeGapLoan.bridgeGapDetails)) {
+            for (let index = 0; index < this.tempData.bridgeGapLoan.bridgeGapDetails.length; index++) {
+                this.form.get(['bridgeGapLoan', index, 'baseRateBridgeGap']).patchValue(
+                    this.tempData.bridgeGapLoan.bridgeGapDetails[index] ?
+                        this.tempData.bridgeGapLoan.bridgeGapDetails[index].baseRateCT : '');
+
+                this.form.get(['bridgeGapLoan', index, 'premiumRateBridgeGap']).patchValue(
+                    this.tempData.bridgeGapLoan.bridgeGapDetails[index] ?
+                        this.tempData.bridgeGapLoan.bridgeGapDetails[index].premiumRateCT : '');
+
+                this.form.get(['bridgeGapLoan', index, 'interestRateBridgeGap']).patchValue(
+                    this.tempData.bridgeGapLoan.bridgeGapDetails[index] ?
+                        this.tempData.bridgeGapLoan.bridgeGapDetails[index].interestRateCT : '');
+
+                this.form.get(['bridgeGapLoan', index, 'totalInterestRateBridgeGap']).patchValue(
+                    this.tempData.bridgeGapLoan.bridgeGapDetails[index] ?
+                        this.tempData.bridgeGapLoan.bridgeGapDetails[index].totalInterestRateCT : '');
+            }
+        }
     }
 
     bankGuaranteeFormPatchValue() {
@@ -1307,10 +1337,10 @@ export class Section2LoanTypeComponent implements OnInit {
             /*interestRateDocumentary: this.documentaryFreeText2(),
             // tslint:disable-next-line:max-line-length
             loanPaymentDocumentary: this.documentaryFreeText3(),*/
-            freeText6: this.form.get('freeTextSix').value ? this.form.get('freeTextSix').value : '',
-            freeText7: this.form.get('freeTextSeven').value ? this.form.get('freeTextSeven').value : '',
-            freeText8: this.form.get('freeTextEight').value ? this.form.get('freeTextEight').value : '',
-            freeText9: this.form.get('freeTextNine').value ? this.form.get('freeTextNine').value : '',
+            // freeText6: this.form.get('freeTextSix').value ? this.form.get('freeTextSix').value : '',
+            // freeText7: this.form.get('freeTextSeven').value ? this.form.get('freeTextSeven').value : '',
+            // freeText8: this.form.get('freeTextEight').value ? this.form.get('freeTextEight').value : '',
+            // freeText9: this.form.get('freeTextNine').value ? this.form.get('freeTextNine').value : '',
             // termLoanFreeText: !ObjectUtil.isEmpty(this.termLoanFreeText) ? this.termLoanFreeText : '',
             /*freeText10: !ObjectUtil.isEmpty(tempTermLoanFreeVal) ? tempTermLoanFreeVal.freeText10 : '',
             freeText11: !ObjectUtil.isEmpty(tempTermLoanFreeVal) ? tempTermLoanFreeVal.freeText11 : '',
@@ -1341,7 +1371,8 @@ export class Section2LoanTypeComponent implements OnInit {
             shortTermLoanFreeText: this.shortTermLoanFree(),
             customerAcceptanceFreeText: this.customerAcceptanceFree(),
             demandLoanFreeText: this.demandLoanFree(),
-            SNBridgeGap: this.form.get('SNOfParentLimitBridgeGap').value ? this.form.get('SNOfParentLimitBridgeGap').value : '',
+            bridgeGapFreeText: this.bridgeGapFree(),
+            // SNBridgeGap: this.form.get('SNOfParentLimitBridgeGap').value ? this.form.get('SNOfParentLimitBridgeGap').value : '',
             SNBankGuarantee: this.form.get('SNOfParentLimitBankGuarantee').value ? this.form.get('SNOfParentLimitBankGuarantee').value : '',
             // SNBillsPurchase: this.form.get('SNOfParentLimitBillsPurchase').value ? this.form.get('SNOfParentLimitBillsPurchase').value : '',
             // freeText15: this.form.get('freeTextFifteen').value ? this.form.get('freeTextFifteen').value : '',
@@ -1349,6 +1380,28 @@ export class Section2LoanTypeComponent implements OnInit {
         return this.freeTextVal;
     }
 
+    bridgeGapFree() {
+        if (!ObjectUtil.isEmpty(this.tempData) &&
+            !ObjectUtil.isEmpty(this.tempData.bridgeGapLoan) &&
+            !ObjectUtil.isEmpty(this.tempData.bridgeGapLoan.bridgeGapDetails)) {
+            for (let val = 0; val < this.tempData.bridgeGapLoan.bridgeGapDetails.length; val++) {
+                const tempFreeText = {
+                    SNOfParentLimitBridgeGap: this.form.get(['bridgeGapLoan', val, 'SNOfParentLimitBridgeGap']).value ?
+                        this.form.get(['bridgeGapLoan', val, 'SNOfParentLimitBridgeGap']).value : '',
+                    freeTextSix: this.form.get(['bridgeGapLoan', val, 'freeTextSix']).value ?
+                        this.form.get(['bridgeGapLoan', val, 'freeTextSix']).value : '',
+                    freeTextSeven: this.form.get(['bridgeGapLoan', val, 'freeTextSeven']).value ?
+                        this.form.get(['bridgeGapLoan', val, 'freeTextSeven']).value : '',
+                    freeTextEight: this.form.get(['bridgeGapLoan', val, 'freeTextEight']).value ?
+                        this.form.get(['bridgeGapLoan', val, 'freeTextEight']).value : '',
+                    freeTextNine: this.form.get(['bridgeGapLoan', val, 'freeTextNine']).value ?
+                        this.form.get(['bridgeGapLoan', val, 'freeTextNine']).value : '',
+                };
+                this.bridgeGapLoanFreeText.push(tempFreeText);
+            }
+            return this.bridgeGapLoanFreeText;
+        }
+    }
     demandLoanFree() {
         if (!ObjectUtil.isEmpty(this.tempData) &&
             !ObjectUtil.isEmpty(this.tempData.demandLoanForm) &&
@@ -1490,16 +1543,17 @@ export class Section2LoanTypeComponent implements OnInit {
         this.setRevolvingShortTermLoanFreeText();
         this.setCustomerAcceptanceLetterOfCreditFreeText();
         this.setDemandLoanFreeText();
+        this.setBridgeGapFreeText();
         this.form.patchValue({
             // freeTextOne: this.tempInformation ? this.tempInformation.section2.freeText1 : '',
             // freeTextTwo: this.tempInformation ? this.tempInformation.section2.freeText2 : '',
             // freeTextThree: this.tempInformation ? this.tempInformation.section2.freeText3 : '',
             freeTextFour: this.tempInformation ? this.tempInformation.section2.freeText4 : '',
             freeTextFive: this.tempInformation ? this.tempInformation.section2.freeText5 : '',
-            freeTextSix: this.tempInformation ? this.tempInformation.section2.freeText6 : '',
-            freeTextSeven: this.tempInformation ? this.tempInformation.section2.freeText7 : '',
-            freeTextEight: this.tempInformation ? this.tempInformation.section2.freeText8 : '',
-            freeTextNine: this.tempInformation ? this.tempInformation.section2.freeText9 : '',
+            // freeTextSix: this.tempInformation ? this.tempInformation.section2.freeText6 : '',
+            // freeTextSeven: this.tempInformation ? this.tempInformation.section2.freeText7 : '',
+            // freeTextEight: this.tempInformation ? this.tempInformation.section2.freeText8 : '',
+            // freeTextNine: this.tempInformation ? this.tempInformation.section2.freeText9 : '',
             // freeTextFifteen: this.tempInformation ? this.tempInformation.section2.freeText15 : '',
             freeTextSixteen: this.tempInformation ? this.tempInformation.section2.freeText16 : '',
             // loanExpiryDateIrrevocable2: this.tempInformation ? this.tempInformation.section2.loanExpiryIrrevocable : '',
@@ -1519,12 +1573,35 @@ export class Section2LoanTypeComponent implements OnInit {
             // SNOfParentLimitDemandLoan: this.tempInformation ? this.tempInformation.section2.SNDemandLoan : '',
             SNOfParentLimitPreExport: this.tempInformation ? this.tempInformation.section2.SNPreExport : '',
             // SNOfParentLimitDocumentaryBill: this.tempInformation ? this.tempInformation.section2.SNDocumentaryBill : '',
-            SNOfParentLimitBridgeGap: this.tempInformation ? this.tempInformation.section2.SNBridgeGap : '',
+            // SNOfParentLimitBridgeGap: this.tempInformation ? this.tempInformation.section2.SNBridgeGap : '',
             SNOfParentLimitBankGuarantee: this.tempInformation ? this.tempInformation.section2.SNBankGuarantee : '',
             // SNOfParentLimitBillsPurchase: this.tempInformation ? this.tempInformation.section2.SNBillsPurchase : '',
         });
     }
 
+    setBridgeGapFreeText() {
+        if (!ObjectUtil.isEmpty(this.tempInformation) &&
+            !ObjectUtil.isEmpty(this.tempInformation.section2) &&
+            !ObjectUtil.isEmpty(this.tempInformation.section2.bridgeGapFreeText)) {
+            for (let val = 0; val < this.tempInformation.section2.bridgeGapFreeText.length; val++) {
+                this.form.get(['bridgeGapLoan', val, 'SNOfParentLimitBridgeGap']).patchValue(
+                    this.tempInformation.section2.bridgeGapFreeText[val] ?
+                        this.tempInformation.section2.bridgeGapFreeText[val].SNOfParentLimitBridgeGap : '');
+                this.form.get(['bridgeGapLoan', val, 'freeTextSix']).patchValue(
+                    this.tempInformation.section2.bridgeGapFreeText[val] ?
+                        this.tempInformation.section2.bridgeGapFreeText[val].freeTextSix : '');
+                this.form.get(['bridgeGapLoan', val, 'freeTextSeven']).patchValue(
+                    this.tempInformation.section2.bridgeGapFreeText[val] ?
+                        this.tempInformation.section2.bridgeGapFreeText[val].freeTextSeven : '');
+                this.form.get(['bridgeGapLoan', val, 'freeTextEight']).patchValue(
+                    this.tempInformation.section2.bridgeGapFreeText[val] ?
+                        this.tempInformation.section2.bridgeGapFreeText[val].freeTextEight : '');
+                this.form.get(['bridgeGapLoan', val, 'freeTextNine']).patchValue(
+                    this.tempInformation.section2.bridgeGapFreeText[val] ?
+                        this.tempInformation.section2.bridgeGapFreeText[val].freeTextNine : '');
+            }
+        }
+    }
     setDemandLoanFreeText() {
         if (!ObjectUtil.isEmpty(this.tempInformation) &&
             !ObjectUtil.isEmpty(this.tempInformation.section2) &&
@@ -1661,5 +1738,6 @@ export class Section2LoanTypeComponent implements OnInit {
         this.revolvingShortTerm = this.loanData.filter(data => data.loanName === this.loanNameConstant.SHORT_TERM_LOAN);
         this.customerAccentanceLetterOfCredit = this.loanData.filter(data => data.loanName === this.loanNameConstant.CUSTOMER_ACCEPTANCE_FOR_TIME_LETTER_OF_CREDIT);
         this.demandLoan = this.loanData.filter(data => data.loanName === this.loanNameConstant.DEMAND_LOAN_FOR_WORKING_CAPITAL);
+        this.bridgeGap = this.loanData.filter(data => data.loanName === this.loanNameConstant.BRIDGE_GAP_LOAN);
     }
 }

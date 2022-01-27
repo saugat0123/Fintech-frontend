@@ -138,6 +138,7 @@ export class Section2LoanTypePrintComponent implements OnInit {
     revolvingShortTerm = [];
     customerAccentanceLetterOfCredit = [];
     demandLoan = [];
+    bridgeGap = [];
 
     constructor(private engToNepWord: NepaliCurrencyWordPipe,
                 private engToNepaliDate: EngNepDatePipe,
@@ -446,5 +447,6 @@ export class Section2LoanTypePrintComponent implements OnInit {
         this.revolvingShortTerm = this.loanData.filter(data => data.loanName === this.loanNameConstant.SHORT_TERM_LOAN);
         this.customerAccentanceLetterOfCredit = this.loanData.filter(data => data.loanName === this.loanNameConstant.CUSTOMER_ACCEPTANCE_FOR_TIME_LETTER_OF_CREDIT);
         this.demandLoan = this.loanData.filter(data => data.loanName === this.loanNameConstant.DEMAND_LOAN_FOR_WORKING_CAPITAL);
+        this.bridgeGap = this.loanData.filter(data => data.loanName === this.loanNameConstant.BRIDGE_GAP_LOAN);
     }
 }
