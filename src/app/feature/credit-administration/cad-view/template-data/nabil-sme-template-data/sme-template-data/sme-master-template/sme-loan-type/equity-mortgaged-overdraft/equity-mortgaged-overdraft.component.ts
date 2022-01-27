@@ -32,6 +32,7 @@ export class EquityMortgagedOverdraftComponent implements OnInit {
         {value: 'Enhancement'}
     ];
     filteredList: any = [];
+    filteredListMortgage: any = [];
     loanNameConstant = LoanNameConstant;
     loanDetails: any = [];
     constructor(private formBuilder: FormBuilder,
@@ -65,12 +66,27 @@ export class EquityMortgagedOverdraftComponent implements OnInit {
             if (dateOfExpiryType === 'AD') {
                 const dateOfExpiry = this.initialInformation.equityMortgaged.equityMortgagedFormArray[val].dateOfExpiry;
                 if (!ObjectUtil.isEmpty(dateOfExpiry)) {
-                    this.equityMortgaged.get(['billPurchaseFormArray', val, 'dateOfExpiry']).patchValue(new Date(dateOfExpiry));
+                    this.equityMortgaged.get(['equityMortgagedFormArray', val, 'dateOfExpiry']).patchValue(new Date(dateOfExpiry));
                 }
             } else if (dateOfExpiryType === 'BS') {
                 const dateOfExpiry = this.initialInformation.equityMortgaged.equityMortgagedFormArray[val].dateOfExpiryNepali;
                 if (!ObjectUtil.isEmpty(dateOfExpiry)) {
-                    this.equityMortgaged.get(['billPurchaseFormArray', val, 'dateOfExpiryNepali']).patchValue(dateOfExpiry);
+                    this.equityMortgaged.get(['equityMortgagedFormArray', val, 'dateOfExpiryNepali']).patchValue(dateOfExpiry);
+                }
+            }
+        }
+
+        for (let val = 0; val < this.initialInformation.equityMortgaged.mortgageOverdraftFormArray.length; val++) {
+            const dateOfExpiryType = this.initialInformation.equityMortgaged.mortgageOverdraftFormArray[val].dateOfExpiryType;
+            if (dateOfExpiryType === 'AD') {
+                const dateOfExpiry = this.initialInformation.equityMortgaged.mortgageOverdraftFormArray[val].dateOfExpiry;
+                if (!ObjectUtil.isEmpty(dateOfExpiry)) {
+                    this.equityMortgaged.get(['mortgageOverdraftFormArray', val, 'dateOfExpiry']).patchValue(new Date(dateOfExpiry));
+                }
+            } else if (dateOfExpiryType === 'BS') {
+                const dateOfExpiry = this.initialInformation.equityMortgaged.mortgageOverdraftFormArray[val].dateOfExpiryNepali;
+                if (!ObjectUtil.isEmpty(dateOfExpiry)) {
+                    this.equityMortgaged.get(['mortgageOverdraftFormArray', val, 'dateOfExpiryNepali']).patchValue(dateOfExpiry);
                 }
             }
         }
@@ -78,6 +94,7 @@ export class EquityMortgagedOverdraftComponent implements OnInit {
     buildForm() {
         this.equityMortgaged = this.formBuilder.group({
             equityMortgagedFormArray: this.formBuilder.array([]),
+            mortgageOverdraftFormArray: this.formBuilder.array([]),
         });
     }
 
@@ -90,7 +107,13 @@ export class EquityMortgagedOverdraftComponent implements OnInit {
         const baseRate = this.equityMortgaged.get(['equityMortgagedFormArray', i, 'baseRate']).value;
         const premiumRate = this.equityMortgaged.get(['equityMortgagedFormArray', i, 'premiumRate']).value;
         const sum = parseFloat(baseRate) + parseFloat(premiumRate);
-        this.equityMortgaged.get(['equityMortgagedFormArray', i, 'interestRate']).patchValue(sum);
+        this.equityMortgaged.get(['equityMortgagedFormArray', i, 'interestRate']).patchValue(sum.toFixed(3));
+    }
+    calInterestRate1(i) {
+        const baseRate = this.equityMortgaged.get(['mortgageOverdraftFormArray', i, 'baseRate']).value;
+        const premiumRate = this.equityMortgaged.get(['mortgageOverdraftFormArray', i, 'premiumRate']).value;
+        const sum = parseFloat(baseRate) + parseFloat(premiumRate);
+        this.equityMortgaged.get(['mortgageOverdraftFormArray', i, 'interestRate']).patchValue(sum.toFixed(3));
     }
 
     public checkDateOfExpiry(value): void {
@@ -145,12 +168,57 @@ export class EquityMortgagedOverdraftComponent implements OnInit {
             this.equityMortgaged.get(['equityMortgagedFormArray', i, 'dateOfExpiryTrans']).patchValue(tempExpDate);
         }
         this.setCTValue(i);
-        if (this.ADExpiry) {
-            this.clearForm('dateOfExpiryNepali');
+        // if (this.ADExpiry) {
+        //     this.clearForm('dateOfExpiryNepali');
+        // }
+        // if (this.BSExpiry) {
+        //     this.clearForm('dateOfExpiry');
+        // }
+    }
+    async setTranslatedVal1(i) {
+        /* SET TRANS CONDITIONS */
+        const tempLoanSubType = this.equityMortgaged.get(['mortgageOverdraftFormArray', i, 'loanSubType']).value;
+        if (!ObjectUtil.isEmpty(tempLoanSubType)) {
+            this.equityMortgaged.get(['mortgageOverdraftFormArray', i, 'loanSubTypeTrans']).patchValue(tempLoanSubType);
         }
-        if (this.BSExpiry) {
-            this.clearForm('dateOfExpiry');
+
+        const tempDrawingBasis = this.equityMortgaged.get(['mortgageOverdraftFormArray', i, 'drawingBasis']).value;
+        if (!ObjectUtil.isEmpty(tempDrawingBasis)) {
+            this.equityMortgaged.get(['mortgageOverdraftFormArray', i, 'drawingBasisTrans']).patchValue(tempDrawingBasis);
         }
+        /* SET TRANS VALUE FOR OTHER FIELDS */
+        const convertedVal = this.convertNumbersToNepali(this.equityMortgaged.get(['mortgageOverdraftFormArray', i, 'loanAmount']).value, true);
+        this.equityMortgaged.get(['mortgageOverdraftFormArray', i, 'loanAmountTrans']).patchValue(convertedVal);
+        this.equityMortgaged.get(['mortgageOverdraftFormArray', i, 'loanAmountWordsTrans']).patchValue(
+            this.equityMortgaged.get(['mortgageOverdraftFormArray', i, 'loanAmountWords']).value
+        );
+        const convertedDrawingPower = this.convertNumbersToNepali(this.equityMortgaged.get(['mortgageOverdraftFormArray', i, 'drawingPower']).value, false);
+        this.equityMortgaged.get(['mortgageOverdraftFormArray', i, 'drawingPowerTrans']).patchValue(convertedDrawingPower);
+        const convertedBaseRate = this.convertNumbersToNepali(this.equityMortgaged.get(['mortgageOverdraftFormArray', i, 'baseRate']).value, false);
+        this.equityMortgaged.get(['mortgageOverdraftFormArray', i, 'baseRateTrans']).patchValue(convertedBaseRate);
+        const convertedPremiumRate = this.convertNumbersToNepali(this.equityMortgaged.get(['mortgageOverdraftFormArray', i, 'premiumRate']).value, false);
+        this.equityMortgaged.get(['mortgageOverdraftFormArray', i, 'premiumRateTrans']).patchValue(convertedPremiumRate);
+        const convertedInterestRate = this.convertNumbersToNepali(this.equityMortgaged.get(['mortgageOverdraftFormArray', i, 'interestRate']).value, false);
+        this.equityMortgaged.get(['mortgageOverdraftFormArray', i, 'interestRateTrans']).patchValue(convertedInterestRate);
+
+        /* Converting value for date */
+        this.equityMortgaged.get(['mortgageOverdraftFormArray', i, 'dateOfExpiryTypeTrans']).patchValue(
+            this.equityMortgaged.get(['mortgageOverdraftFormArray', i, 'dateOfExpiryType']).value
+        );
+        const tempDateOfExpType = this.equityMortgaged.get(['mortgageOverdraftFormArray', i, 'dateOfExpiryType']).value;
+        let tempExpDate;
+        if (tempDateOfExpType === 'AD') {
+            const tempEngExpDate = this.equityMortgaged.get(['mortgageOverdraftFormArray', i, 'dateOfExpiry']).value;
+            tempExpDate = !ObjectUtil.isEmpty(tempEngExpDate) ? this.datePipe.transform(tempEngExpDate) : '';
+            const finalExpDate = this.transformEnglishDate(tempExpDate);
+            this.equityMortgaged.get(['mortgageOverdraftFormArray', i, 'dateOfExpiryTrans']).patchValue(finalExpDate);
+        } else {
+            const tempDateOfExpNep = this.equityMortgaged.get(['mortgageOverdraftFormArray', i, 'dateOfExpiryNepali']).value;
+            tempExpDate = !ObjectUtil.isEmpty(tempDateOfExpNep) ?
+                tempDateOfExpNep.nDate : '';
+            this.equityMortgaged.get(['mortgageOverdraftFormArray', i, 'dateOfExpiryTrans']).patchValue(tempExpDate);
+        }
+        this.setCTValue1(i);
     }
 
     transformEnglishDate(date) {
@@ -223,6 +291,38 @@ export class EquityMortgagedOverdraftComponent implements OnInit {
             this.equityMortgaged.get(['equityMortgagedFormArray', i, 'dateOfExpiryTrans']).value
         );
     }
+    setCTValue1(i) {
+        this.equityMortgaged.get(['mortgageOverdraftFormArray', i, 'loanSubTypeCT']).patchValue(
+            this.equityMortgaged.get(['mortgageOverdraftFormArray', i, 'loanSubTypeTrans']).value
+        );
+        this.equityMortgaged.get(['mortgageOverdraftFormArray', i, 'drawingBasisCT']).patchValue(
+            this.equityMortgaged.get(['mortgageOverdraftFormArray', i, 'drawingBasisTrans']).value
+        );
+        this.equityMortgaged.get(['mortgageOverdraftFormArray', i, 'loanAmountCT']).patchValue(
+            this.equityMortgaged.get(['mortgageOverdraftFormArray', i, 'loanAmountTrans']).value
+        );
+        this.equityMortgaged.get(['mortgageOverdraftFormArray', i, 'loanAmountWordsCT']).patchValue(
+            this.equityMortgaged.get(['mortgageOverdraftFormArray', i, 'loanAmountWordsTrans']).value
+        );
+        this.equityMortgaged.get(['mortgageOverdraftFormArray', i, 'drawingPowerCT']).patchValue(
+            this.equityMortgaged.get(['mortgageOverdraftFormArray', i, 'drawingPowerTrans']).value
+        );
+        this.equityMortgaged.get(['mortgageOverdraftFormArray', i, 'baseRateCT']).patchValue(
+            this.equityMortgaged.get(['mortgageOverdraftFormArray', i, 'baseRateTrans']).value
+        );
+        this.equityMortgaged.get(['mortgageOverdraftFormArray', i, 'premiumRateCT']).patchValue(
+            this.equityMortgaged.get(['mortgageOverdraftFormArray', i, 'premiumRateTrans']).value
+        );
+        this.equityMortgaged.get(['mortgageOverdraftFormArray', i, 'interestRateCT']).patchValue(
+            this.equityMortgaged.get(['mortgageOverdraftFormArray', i, 'interestRateTrans']).value
+        );
+        this.equityMortgaged.get(['mortgageOverdraftFormArray', i, 'dateOfExpiryTypeCT']).patchValue(
+            this.equityMortgaged.get(['mortgageOverdraftFormArray', i, 'dateOfExpiryTypeTrans']).value
+        );
+        this.equityMortgaged.get(['mortgageOverdraftFormArray', i, 'dateOfExpiryCT']).patchValue(
+            this.equityMortgaged.get(['mortgageOverdraftFormArray', i, 'dateOfExpiryTrans']).value
+        );
+    }
 
     clearForm(formControlName) {
         this.equityMortgaged.get(formControlName).setValue(null);
@@ -245,11 +345,18 @@ export class EquityMortgagedOverdraftComponent implements OnInit {
 
     filteredListDetails(loanDetails) {
         this.filteredList = loanDetails.filter(data => data.name === this.loanNameConstant.EQUITY_MORTGAGED_OVERDRAFT);
+        this.filteredListMortgage = loanDetails.filter(data => data.name === this.loanNameConstant.MORTGAGE_OVERDRAFT);
         this.filteredList.forEach(value => {
             this.addLoanFormArr();
         });
+        this.filteredListMortgage.forEach(val => {
+            this.addMortgageLoanFormArr();
+        });
 }
 
+    addMortgageLoanFormArr() {
+        (this.equityMortgaged.get('mortgageOverdraftFormArray') as FormArray).push(this.buildLoanForm());
+    }
     addLoanFormArr() {
         (this.equityMortgaged.get('equityMortgagedFormArray') as FormArray).push(this.buildLoanForm());
     }

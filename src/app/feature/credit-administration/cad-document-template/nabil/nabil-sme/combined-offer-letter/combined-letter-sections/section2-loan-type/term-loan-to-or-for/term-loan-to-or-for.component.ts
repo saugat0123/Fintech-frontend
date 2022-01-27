@@ -122,8 +122,12 @@ export class TermLoanToOrForComponent implements OnInit {
                 this.form.get(['termLoanDetails', i, 'newInstallmentPaymentAmountVehicleLoan']).patchValue(this.termLoanData[i].paymentAmountFigureCT);
                 this.form.get(['termLoanDetails', i, 'newInstallmentPaymentAmountInWordVehicleLoan']).patchValue(this.termLoanData[i].paymentAmountWordsCT);
                 this.form.get(['termLoanDetails', i, 'newInstallmentNoOfPaymentVehicleLoan']).patchValue(this.termLoanData[i].numberOfPaymentsCT);
+                if (this.termLoanData[i].termLoanFor === 'VEHICLE') {
+                    this.form.get(['termLoanDetails', i, 'newInstallmentLoanPurposeVehicleLoan']).patchValue('सवारी साधन खरिद गर्ने');
+                } else {
                 this.form.get(['termLoanDetails', i, 'newInstallmentLoanPurposeVehicleLoan']).patchValue(this.termLoanData[i].purposeOfLoanCT);
-                this.form.get(['termLoanDetails', i, 'newInstallmentServiceChargeVehicleLoan']).patchValue(this.termLoanData[i].serviceChargeCT);
+                }
+               this.form.get(['termLoanDetails', i, 'newInstallmentServiceChargeVehicleLoan']).patchValue(this.termLoanData[i].serviceChargeCT);
                 this.form.get(['termLoanDetails', i, 'annualInstallmentBaseRateVehicleLoan']).patchValue(this.termLoanData[i].baseRateCT);
                 this.form.get(['termLoanDetails', i, 'annualInstallmentPremiumRateVehicleLoan']).patchValue(this.termLoanData[i].premiumRateCT);
                 this.form.get(['termLoanDetails', i, 'annualInstallmentInterestRateVehicleLoan']).patchValue(this.termLoanData[i].interestRateCT);
@@ -154,7 +158,7 @@ export class TermLoanToOrForComponent implements OnInit {
                 freeTextTen: this.form.get(['termLoanDetails', val, 'freeTextTen']) ? this.form.get(['termLoanDetails', val, 'freeTextTen']).value : '',
                 freeTextEleven: this.form.get(['termLoanDetails', val, 'freeTextEleven']) ? this.form.get(['termLoanDetails', val, 'freeTextEleven']).value : '',
                 freeTextTwelve: this.form.get(['termLoanDetails', val, 'freeTextTwelve']) ? this.form.get(['termLoanDetails', val, 'freeTextTwelve']).value : '',
-               }
+               };
             this.termLoanFreeText.push(tempFreeText);
         }
         return this.termLoanFreeText;

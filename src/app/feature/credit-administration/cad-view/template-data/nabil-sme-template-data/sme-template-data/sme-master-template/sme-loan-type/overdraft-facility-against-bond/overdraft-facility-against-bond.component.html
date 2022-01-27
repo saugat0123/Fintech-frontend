@@ -1,9 +1,12 @@
 <div>
     <form [formGroup]="overDraftFacilityForm">
         <!-- FOR CONDITIONAL DROP DOWN  -->
+        <div *ngFor="let val of overdraftFacilityNumber; let i = index" formArrayName="overdraftFacilityDetails">
+            <ng-container [formGroupName]="i">
         <div class="row">
             <div class="col-md-12 mt-4 mb-2">
-                <h6> OVERDRAFT FACILITY AGAINST BOND </h6>
+                <h5 *ngIf="overdraftFacilityNumber.length === 1"> OVERDRAFT FACILITY AGAINST BOND </h5>
+                <h5 *ngIf="overdraftFacilityNumber.length > 1"> OVERDRAFT FACILITY AGAINST BOND - {{i+1}}</h5>
             </div>
             <div class="col-md-4">
                 <label><strong>Bond Type</strong></label>
@@ -80,7 +83,7 @@
         <div class="row">
             <div class="col-md-4 form-group">
                 <label class="font-weight-bold" for="loanAmount">Loan Amount Figure</label>
-                <input (input)="getNumAmountWord('loanAmount', 'loanAmountWords')" class="form-control"
+                <input (input)="getNumAmountWord('loanAmount', 'loanAmountWords', i)" class="form-control"
                        formControlName="loanAmount" fullWidth
                        id="loanAmount"
                        nbInput
@@ -125,13 +128,13 @@
             </div>
         </div>
 
-        <ng-container *ngFor="let data of overDraftFacilityForm.get('bondDetails')['controls']; let index = index;"
+        <ng-container *ngFor="let data of overDraftFacilityForm.get(['overdraftFacilityDetails', i, 'bondDetails'])['controls']; let index = index;"
                       formArrayName="bondDetails">
             <div [formGroupName]="index" class="row">
                 <div class="col-md-4 form-group">
                     <label class="font-weight-bold" for="bondOwnerName"> Bond Owner Name/s </label>
                     <input class="form-control" formControlName="bondOwnerName" fullWidth id="bondOwnerName"
-                           (input)="onChangeTranslateSecurity('bondDetails', 'bondOwnerName', index, 'bondOwnerNameTrans')"
+                           (input)="onChangeTranslateSecurity('bondDetails', 'bondOwnerName', index, 'bondOwnerNameTrans', i, 'overdraftFacilityDetails')"
                            nbInput
                            shape="semi-round"
                            status="success" type="text">
@@ -150,8 +153,8 @@
                            status="success" type="text">
                 </div>
             </div>
-            <div *ngIf="overDraftFacilityForm.get('bondDetails')['length'] > 1" class="col-md-12">
-                <button (click)="removeBondDetails(index)" nbButton size="tiny" status="danger"
+            <div *ngIf="overDraftFacilityForm.get(['overdraftFacilityDetails', i, 'bondDetails'])['length'] > 1" class="col-md-12">
+                <button (click)="removeBondDetails(i, index)" nbButton size="tiny" status="danger"
                         style="position: static">
                     <em class="fa fa-trash" style="color: white;"></em>
                 </button>
@@ -160,7 +163,7 @@
 
         <div class="row">
             <div class="col-md-12">
-                <button (click)="addBondDetails()" class="float-right" nbButton size="tiny" status="primary">Add
+                <button (click)="addBondDetails1(i)" class="float-right" nbButton size="tiny" status="primary">Add
                     Bond Details
                 </button>
             </div>
@@ -191,10 +194,10 @@
             </div>
         </div>
 
-        <div *ngIf="overDraftFacilityForm.get('interestRateType').value === 'BASE_RATE_FINANCING'" class="row">
+        <div *ngIf="overDraftFacilityForm.get(['overdraftFacilityDetails', i, 'interestRateType']).value === 'BASE_RATE_FINANCING'" class="row">
             <div class="col-md-4 form-group">
                 <label class="font-weight-bold" for="baseRate"> Base Rate </label>
-                <input (input)="calInterestRate()" class="form-control" formControlName="baseRate" fullWidth
+                <input (input)="calInterestRate(i)" class="form-control" formControlName="baseRate" fullWidth
                        id="baseRate"
                        nbInput
                        shape="semi-round"
@@ -215,10 +218,10 @@
             </div>
         </div>
 
-        <div *ngIf="overDraftFacilityForm.get('interestRateType').value === 'BASE_RATE_FINANCING'" class="row">
+        <div *ngIf="overDraftFacilityForm.get(['overdraftFacilityDetails', i, 'interestRateType']).value === 'BASE_RATE_FINANCING'" class="row">
             <div class="col-md-4 form-group">
                 <label class="font-weight-bold" for="premiumRate"> Premium Rate </label>
-                <input (input)="calInterestRate()" class="form-control" formControlName="premiumRate" fullWidth
+                <input (input)="calInterestRate(i)" class="form-control" formControlName="premiumRate" fullWidth
                        id="premiumRate"
                        nbInput
                        shape="semi-round"
@@ -266,18 +269,18 @@
         <!-- FOR LOAN EXPIRY / LOAN REVIEW DATE -->
         <div class="row">
             <div class="col-md-4 form-group">
-                <label class="font-weight-bold" for="dateOfExpiryType"> Loan Expiry / Next Review Date</label><br>
-                <nb-radio-group (valueChange)="checkDateOfExpiry($event)" class="d-inline-flex"
-                                formControlName="dateOfExpiryType" id="dateOfExpiryType"
-                                name="dateOfExpiryType" status="success">
+                <label class="font-weight-bold" for="{{'dateOfExpiryType'+i}}"> Loan Expiry / Next Review Date</label><br>
+                <nb-radio-group (valueChange)="checkDateOfExpiry($event, i)" class="d-inline-flex"
+                                formControlName="dateOfExpiryType" id="{{'dateOfExpiryType'+i}}"
+                                name="{{'dateOfExpiryType'+i}}" status="success">
                     <nb-radio *ngFor="let dType of dateType" [value]="dType.value">{{dType.key}}</nb-radio>
                 </nb-radio-group>
-                <div *ngIf="BSExpiry" style="margin-bottom: -50px;">
+                <div *ngIf="this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, 'dateOfExpiryType']).value === 'BS'" style="margin-bottom: -50px;">
                     <nepali-patro [displayNepali]="true" [responseType]="2"
                                   formControlName="dateOfExpiryNepali">
                     </nepali-patro>
                 </div>
-                <input *ngIf="ADExpiry" [nbDatepicker]="nextReview" formControlName="dateOfExpiry"
+                <input *ngIf="this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, 'dateOfExpiryType']).value === 'AD'" [nbDatepicker]="nextReview" formControlName="dateOfExpiry"
                        fullWidth
                        id="dateOfExpiry"
                        nbInput
@@ -304,10 +307,12 @@
         <!-- For Translation -->
         <div class="row pt-5 pb-2 pr-4">
             <div class="col-md-12 text-right">
-                <button (click)="setTranslatedVal()" nbButton outline size="small" status="info">
-                    Translate Mortgage Overdraft Details
+                <button (click)="setTranslatedVal(i)" nbButton outline size="small" status="info">
+                    Translate Overdraft Facility Against Bond Details
                 </button>
             </div>
+        </div>
+            </ng-container>
         </div>
     </form>
 </div>
