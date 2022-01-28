@@ -1,20 +1,20 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {CustomerApprovedLoanCadDocumentation} from "../../../../../model/customerApprovedLoanCadDocumentation";
-import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
-import {ObjectUtil} from "../../../../../../../@core/utils/ObjectUtil";
-import {EngToNepaliNumberPipe} from "../../../../../../../@core/pipe/eng-to-nepali-number.pipe";
-import {CurrencyFormatterPipe} from "../../../../../../../@core/pipe/currency-formatter.pipe";
-import {NepaliCurrencyWordPipe} from "../../../../../../../@core/pipe/nepali-currency-word.pipe";
-import {CadFile} from "../../../../../model/CadFile";
-import {Document} from "../../../../../../admin/modal/document";
-import {Alert, AlertType} from "../../../../../../../@theme/model/Alert";
-import {CreditAdministrationService} from "../../../../../service/credit-administration.service";
-import {ToastService} from "../../../../../../../@core/utils";
-import {NbDialogRef} from "@nebular/theme";
-import {CadOfferLetterModalComponent} from "../../../../../cad-offerletter-profile/cad-offer-letter-modal/cad-offer-letter-modal.component";
-import {RouterUtilsService} from "../../../../../utils/router-utils.service";
-import {EngNepDatePipe} from "nepali-patro";
-import {DatePipe} from "@angular/common";
+import {CustomerApprovedLoanCadDocumentation} from '../../../../../model/customerApprovedLoanCadDocumentation';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {ObjectUtil} from '../../../../../../../@core/utils/ObjectUtil';
+import {EngToNepaliNumberPipe} from '../../../../../../../@core/pipe/eng-to-nepali-number.pipe';
+import {CurrencyFormatterPipe} from '../../../../../../../@core/pipe/currency-formatter.pipe';
+import {NepaliCurrencyWordPipe} from '../../../../../../../@core/pipe/nepali-currency-word.pipe';
+import {CadFile} from '../../../../../model/CadFile';
+import {Document} from '../../../../../../admin/modal/document';
+import {Alert, AlertType} from '../../../../../../../@theme/model/Alert';
+import {CreditAdministrationService} from '../../../../../service/credit-administration.service';
+import {ToastService} from '../../../../../../../@core/utils';
+import {NbDialogRef} from '@nebular/theme';
+import {CadOfferLetterModalComponent} from '../../../../../cad-offerletter-profile/cad-offer-letter-modal/cad-offer-letter-modal.component';
+import {RouterUtilsService} from '../../../../../utils/router-utils.service';
+import {EngNepDatePipe} from 'nepali-patro';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-power-of-attorney-company',
@@ -34,7 +34,7 @@ export class PowerOfAttorneyCompanyComponent implements OnInit {
   spinner = false;
   freeText;
   dateArray: Array<any> = new Array<any>();
-
+  authorizedNameArray: Array<any> = new Array<any>();
   constructor(private formBuilder: FormBuilder,
               private engToNepNumberPipe: EngToNepaliNumberPipe,
               private currencyFormatPipe: CurrencyFormatterPipe,
@@ -58,7 +58,14 @@ export class PowerOfAttorneyCompanyComponent implements OnInit {
       this.companyInfo.forEach(val => {
         const date = this.englishNepaliDatePipe.transform(this.datePipe.transform(val.ownerCitizenshipIssuedDateCT), true);
         this.dateArray.push(date);
-      })
+        if (val.isAuthorizedPersion === true) {
+          const authorizedName = val.ownerNameCT;
+          this.authorizedNameArray.push(authorizedName);
+        } else {
+          const authorizedName = '';
+          this.authorizedNameArray.push(authorizedName);
+        }
+      });
     }
     if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
       this.offerDocumentDetails = JSON.parse(this.cadData.offerDocumentList[0].initialInformation);
@@ -101,6 +108,7 @@ export class PowerOfAttorneyCompanyComponent implements OnInit {
       authorizedVDC: [undefined],
       authorizedWardNumber: [undefined],
       authorizedName: [undefined],
+      authorizedBodyName: [undefined],
       authorizedCitizenship: [undefined],
       authorizedDateOfIssue: [undefined],
       authorizedIdentity: [undefined],
@@ -122,7 +130,7 @@ export class PowerOfAttorneyCompanyComponent implements OnInit {
   setFreeText() {
     const free = {
       freeText1: this.powerOfAttorneyCompanyForm.get('freeText1').value ? this.powerOfAttorneyCompanyForm.get('freeText1').value : '',
-      freeText2: this.powerOfAttorneyCompanyForm.get('freeText2').value ?this.powerOfAttorneyCompanyForm.get('freeText2').value : '',
+      freeText2: this.powerOfAttorneyCompanyForm.get('freeText2').value ? this.powerOfAttorneyCompanyForm.get('freeText2').value : '',
       sakshiDistrict1: this.powerOfAttorneyCompanyForm.get('sakshiDistrict1').value ? this.powerOfAttorneyCompanyForm.get('sakshiDistrict1').value : '',
       sakshiDistrict2: this.powerOfAttorneyCompanyForm.get('sakshiDistrict2').value ? this.powerOfAttorneyCompanyForm.get('sakshiDistrict2').value : '',
       sakshiMunicipality1: this.powerOfAttorneyCompanyForm.get('sakshiMunicipality1').value ? this.powerOfAttorneyCompanyForm.get('sakshiMunicipality1').value : '',
@@ -134,7 +142,7 @@ export class PowerOfAttorneyCompanyComponent implements OnInit {
       sakshiName1: this.powerOfAttorneyCompanyForm.get('sakshiName1').value ? this.powerOfAttorneyCompanyForm.get('sakshiName1').value : '',
       sakshiName2: this.powerOfAttorneyCompanyForm.get('sakshiName2').value ? this.powerOfAttorneyCompanyForm.get('sakshiName2').value : '',
       nameOfBankStaff: this.powerOfAttorneyCompanyForm.get('nameOfBankStaff').value ? this.powerOfAttorneyCompanyForm.get('nameOfBankStaff').value : '',
-    }
+    };
     return JSON.stringify(free);
   }
 
