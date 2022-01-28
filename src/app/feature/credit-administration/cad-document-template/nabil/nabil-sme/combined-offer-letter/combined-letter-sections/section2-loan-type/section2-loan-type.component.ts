@@ -953,6 +953,10 @@ export class Section2LoanTypeComponent implements OnInit {
                     this.tempData.importLoanTrust.importLoanTrustFormArray[val] ?
                         this.tempData.importLoanTrust.importLoanTrustFormArray[val].dateOfExpiryCT : ''
                 );
+                this.form.get(['importLoanTrustReceiptLoan', val, 'remainDaysLoanTrust']).patchValue(
+                    this.tempData.importLoanTrust.importLoanTrustFormArray[val] ?
+                        this.tempData.importLoanTrust.importLoanTrustFormArray[val].loanPeriodCT : ''
+                );
             }
         }
     }
@@ -1004,6 +1008,10 @@ export class Section2LoanTypeComponent implements OnInit {
                 this.form.get(['revolvingShortTermLoan', val, 'loanExpiryDateShortTermLoan']).patchValue(
                     this.tempData.revolvingShortTermLoan.revolvingShortTermLoanFormArray[val] ?
                         this.tempData.revolvingShortTermLoan.revolvingShortTermLoanFormArray[val].dateOfExpiryCT : ''
+                );
+                this.form.get(['revolvingShortTermLoan', val, 'remainDaysShortTermLoan']).patchValue(
+                    this.tempData.revolvingShortTermLoan.revolvingShortTermLoanFormArray[val] ?
+                        this.tempData.revolvingShortTermLoan.revolvingShortTermLoanFormArray[val].loanRevolvingPeriodCT : ''
                 );
             }
         }
@@ -1440,8 +1448,8 @@ export class Section2LoanTypeComponent implements OnInit {
                 const tempFreeText = {
                     freeTextThree: this.form.get(['revolvingShortTermLoan', val, 'freeTextThree']).value ?
                         this.form.get(['revolvingShortTermLoan', val, 'freeTextThree']).value : '',
-                    remainDaysShortTermLoan: this.form.get(['revolvingShortTermLoan', val, 'remainDaysShortTermLoan']).value ?
-                        this.form.get(['revolvingShortTermLoan', val, 'remainDaysShortTermLoan']).value : '',
+                    // remainDaysShortTermLoan: this.form.get(['revolvingShortTermLoan', val, 'remainDaysShortTermLoan']).value ?
+                    //     this.form.get(['revolvingShortTermLoan', val, 'remainDaysShortTermLoan']).value : '',
                     SNOfParentLimitShortTermLoan: this.form.get(['revolvingShortTermLoan', val, 'SNOfParentLimitShortTermLoan']).value ?
                         this.form.get(['revolvingShortTermLoan', val, 'SNOfParentLimitShortTermLoan']).value : '',
                 };
@@ -1458,8 +1466,8 @@ export class Section2LoanTypeComponent implements OnInit {
                 const tempFreeText = {
                     freeTextTwo: this.form.get(['importLoanTrustReceiptLoan', val, 'freeTextTwo']).value ?
                         this.form.get(['importLoanTrustReceiptLoan', val, 'freeTextTwo']).value : '',
-                    remainDaysLoanTrust: this.form.get(['importLoanTrustReceiptLoan', val, 'remainDaysLoanTrust']).value ?
-                        this.form.get(['importLoanTrustReceiptLoan', val, 'remainDaysLoanTrust']).value : '',
+                    // remainDaysLoanTrust: this.form.get(['importLoanTrustReceiptLoan', val, 'remainDaysLoanTrust']).value ?
+                    //     this.form.get(['importLoanTrustReceiptLoan', val, 'remainDaysLoanTrust']).value : '',
                     SNOfParentLimitLoanTrust: this.form.get(['importLoanTrustReceiptLoan', val, 'SNOfParentLimitLoanTrust']).value ?
                         this.form.get(['importLoanTrustReceiptLoan', val, 'SNOfParentLimitLoanTrust']).value : '',
                 };
@@ -1635,9 +1643,9 @@ export class Section2LoanTypeComponent implements OnInit {
                 this.form.get(['revolvingShortTermLoan', val, 'freeTextThree']).patchValue(
                     this.tempInformation.section2.shortTermLoanFreeText[val] ?
                         this.tempInformation.section2.shortTermLoanFreeText[val].freeTextThree : '');
-                this.form.get(['revolvingShortTermLoan', val, 'remainDaysShortTermLoan']).patchValue(
-                    this.tempInformation.section2.shortTermLoanFreeText[val] ?
-                        this.tempInformation.section2.shortTermLoanFreeText[val].remainDaysShortTermLoan : '');
+                // this.form.get(['revolvingShortTermLoan', val, 'remainDaysShortTermLoan']).patchValue(
+                //     this.tempInformation.section2.shortTermLoanFreeText[val] ?
+                //         this.tempInformation.section2.shortTermLoanFreeText[val].remainDaysShortTermLoan : '');
                 this.form.get(['revolvingShortTermLoan', val, 'SNOfParentLimitShortTermLoan']).patchValue(
                     this.tempInformation.section2.shortTermLoanFreeText[val] ?
                         this.tempInformation.section2.shortTermLoanFreeText[val].SNOfParentLimitShortTermLoan : '');
@@ -1652,9 +1660,9 @@ export class Section2LoanTypeComponent implements OnInit {
                 this.form.get(['importLoanTrustReceiptLoan', val, 'freeTextTwo']).patchValue(
                     this.tempInformation.section2.importLoanTrustReceiptFreeText[val] ?
                         this.tempInformation.section2.importLoanTrustReceiptFreeText[val].freeTextTwo : '');
-                this.form.get(['importLoanTrustReceiptLoan', val, 'remainDaysLoanTrust']).patchValue(
-                    this.tempInformation.section2.importLoanTrustReceiptFreeText[val] ?
-                        this.tempInformation.section2.importLoanTrustReceiptFreeText[val].remainDaysLoanTrust : '');
+                // this.form.get(['importLoanTrustReceiptLoan', val, 'remainDaysLoanTrust']).patchValue(
+                //     this.tempInformation.section2.importLoanTrustReceiptFreeText[val] ?
+                //         this.tempInformation.section2.importLoanTrustReceiptFreeText[val].remainDaysLoanTrust : '');
                 this.form.get(['importLoanTrustReceiptLoan', val, 'SNOfParentLimitLoanTrust']).patchValue(
                     this.tempInformation.section2.importLoanTrustReceiptFreeText[val] ?
                         this.tempInformation.section2.importLoanTrustReceiptFreeText[val].SNOfParentLimitLoanTrust : '');
