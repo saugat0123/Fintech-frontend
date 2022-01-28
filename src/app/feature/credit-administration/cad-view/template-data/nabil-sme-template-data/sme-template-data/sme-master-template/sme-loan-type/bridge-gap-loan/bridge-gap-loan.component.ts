@@ -5,6 +5,7 @@ import {EngToNepaliNumberPipe} from '../../../../../../../../../@core/pipe/eng-t
 import {CurrencyFormatterPipe} from '../../../../../../../../../@core/pipe/currency-formatter.pipe';
 import {ObjectUtil} from '../../../../../../../../../@core/utils/ObjectUtil';
 import {OfferDocument} from '../../../../../../../model/OfferDocument';
+import {LoanNameConstant} from '../../../../sme-costant/loan-name-constant';
 
 @Component({
   selector: 'app-bridge-gap-loan',
@@ -21,12 +22,15 @@ export class BridgeGapLoanComponent implements OnInit {
   isInterestSubsidy = false;
   loanDetails: any = [];
   bridgeGapNumber: Array<any> = new Array<any>();
+  loanNameConstant = LoanNameConstant;
+  filteredList: any = [];
 
   constructor(
       private formBuilder: FormBuilder,
       private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
       private engToNepNumberPipe: EngToNepaliNumberPipe,
       private currencyFormatterPipe: CurrencyFormatterPipe,
+      private engToNepWord: NepaliCurrencyWordPipe
   ) { }
 
   ngOnInit() {
@@ -36,6 +40,7 @@ export class BridgeGapLoanComponent implements OnInit {
     this.buildForm();
     if (!ObjectUtil.isEmpty(this.loanName)) {
       this.loanDetails = this.loanName;
+      this.filterLoanDetails(this.loanDetails);
     }
     if (this.offerDocumentList.length > 0) {
       this.offerDocumentList.forEach(offerLetter => {
@@ -44,6 +49,15 @@ export class BridgeGapLoanComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.initialInformation)) {
       this.bridgeGapLoan.patchValue(this.initialInformation.bridgeGapLoan);
+    }
+    if (!ObjectUtil.isEmpty(this.filteredList)) {
+      for (let val = 0; val < this.filteredList.length; val++) {
+        const loanamountWords = this.engToNepWord.transform(this.filteredList[val].loanAmount);
+        this.bridgeGapLoan.get(['bridgeGapDetails', val, 'loanAmount']).patchValue(
+            this.filteredList[val] ? this.filteredList[val].loanAmount : '');
+        this.bridgeGapLoan.get(['bridgeGapDetails', val, 'loanAmountWords']).patchValue(
+            loanamountWords ? loanamountWords : '');
+      }
     }
   }
   buildForm() {
@@ -85,6 +99,9 @@ export class BridgeGapLoanComponent implements OnInit {
       interestRateCT: [undefined],
       totalInterestRateCT: [undefined],
     });
+  }
+  filterLoanDetails(loanDetails) {
+    this.filteredList = loanDetails.filter(data => data.name === this.loanNameConstant.BRIDGE_GAP_LOAN);
   }
   setTermLoanForm() {
     for (let a = 0; a < this.bridgeGapNumber.length; a++) {
@@ -192,6 +209,6 @@ export class BridgeGapLoanComponent implements OnInit {
     const baseRate = this.bridgeGapLoan.get(['bridgeGapDetails', i, 'baseRate']).value;
     const premiumRate = this.bridgeGapLoan.get(['bridgeGapDetails', i, 'premiumRate']).value;
     const sum = parseFloat(baseRate) + parseFloat(premiumRate);
-    this.bridgeGapLoan.get(['bridgeGapDetails', i, 'interestRate']).patchValue(sum);
+    this.bridgeGapLoan.get(['bridgeGapDetails', i, 'interestRate']).patchValue(sum.toFixed(3));
   }
 }
