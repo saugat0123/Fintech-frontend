@@ -34,10 +34,8 @@ d<div class="row" id="print-section-{{offerLetterConst.LETTER_OF_ARRANGEMENTS}}"
                 <br>
                 <p>
                     उपरोक्त विषय सम्बन्धि
-                    <span [ngClass]="{'nepaliFont' : printDocForm?.customerName !== null && printDocForm?.customerName !== ''}">
-                        {{printDocForm?.customerName === null || printDocForm?.customerName === '' ? '_________________' : printDocForm?.customerName}}
-                    </span>
-                    लाई उपरोक्त ऋणको सिमा उपलब्ध
+                    <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.customerName !== null && printDocForm?.customerName !== ''}">
+                        {{printDocForm?.customerName === null || printDocForm?.customerName === '' ? '_________________' : printDocForm?.customerName}}</span>लाई उपरोक्त ऋणको सिमा उपलब्ध
                     गराईएकोमा सो को
                     लागि मैले/हामीले आजका दिनमा प्रतिज्ञा पत्र तथा अन्य कागजातमा सहीछाप गरि जारी गरि दिएकोमा
                     म/हामी त्यस वित्तीय
@@ -57,14 +55,14 @@ d<div class="row" id="print-section-{{offerLetterConst.LETTER_OF_ARRANGEMENTS}}"
                 </p>
                 <br>
                 <br>
-                <strong>भवदीय,</strong> <br><br>
+                <strong><p>भवदीय,</p></strong> <br><br>
 
                 ..............................................
                 <br>
                 ऋणीको तर्फ बाट आधिकारीक दस्तखत <br>
                 दस्तखत गर्नेको नामः
                 <span
-                    [ngClass]="{'nepaliFont' : printDocForm?.customerName !== null && printDocForm?.customerName !== ''}">
+                    [ngClass]="{'nepaliFont unicode-size' : printDocForm?.customerName !== null && printDocForm?.customerName !== ''}">
                     {{printDocForm?.customerName === null || printDocForm?.customerName === '' ? '_________________' : printDocForm?.customerName}}
                 </span>
                 <br>

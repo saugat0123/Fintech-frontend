@@ -21,9 +21,7 @@
         <p>महोदय,</p>
         <br>
         <p>त्यस वित्तीय संस्थाबाट म/हामी <span [ngClass]="{'nepaliFont' : printDocForm?.customerName !== null && printDocForm?.customerName !== ''}">
-    {{printDocForm?.customerName === null || printDocForm?.customerName === '' ? '_________________' : printDocForm?.customerName}}
-</span>
-                    लाई जारी गरिएको रु. <span
+    {{printDocForm?.customerName === null || printDocForm?.customerName === '' ? '_________________' : printDocForm?.customerName}}</span>लाई जारी गरिएको रु. <span
                             [ngClass]="{'nepaliFont unicode-size ' : printDocForm?.karjaAmount !== null && printDocForm?.karjaAmount !== ''}">
     {{printDocForm?.karjaAmount === null || printDocForm?.karjaAmount === '' ? '_________________' : printDocForm?.karjaAmount}}
 </span> कर्जाको सन्दर्भमा त्यस वित्तीय संस्थाबाट कुनै पनि समयभित्र कर्जा
@@ -48,25 +46,18 @@
         <br>
 
         <div class="row">
-          <p>भवदीय,
-<br>
-            <span [ngClass]="{'nepaliFont' : printDocForm?.debtorSign !== null && printDocForm?.debtorSign !== ''}">
-    {{printDocForm?.debtorSign === null || printDocForm?.debtorSign === '' ? '_________________' : printDocForm?.debtorSign}}
-</span>  <span> </span>
-          </p>
-          <br>
+            <div class="col-md-12">
+          <p>भवदीय,</p>
+            <br><br>
+            <span class="mt-xl-5">.......................................................</span>
             <br>
-
-          <p>ऋणीको तर्फबाट आधिकारीक दस्तखत<br> <br>
-
+          <p>ऋणीको तर्फबाट आधिकारीक दस्तखत</p>
+<p>
             दस्तखत गर्नेको नाम : <span
                     [ngClass]="{'nepaliFont' : printDocForm?.customerName !== null && printDocForm?.customerName !== ''}">
             {{printDocForm?.customerName === null || printDocForm?.customerName === '' ? '_________________' : printDocForm?.customerName}}
             </span>
-            संस्थाको छाप : <span
-                      [ngClass]="{'nepaliFont' : printDocForm?.InstitutionStamp !== null && printDocForm?.InstitutionStamp !== ''}">
-            {{printDocForm?.InstitutionStamp === null || printDocForm?.InstitutionStamp === '' ? '_________________' : printDocForm?.InstitutionStamp}}
-            </span>
+            संस्थाको छाप :..........................................
             <br>
               <br>
               म/हामी उपरोक्त व्यहोराको दृढ गर्दछु/छौं र त्यस बैंकले मुख्य ऋणीहरुलाई कुनै पनि समय वा
@@ -76,11 +67,12 @@
           </p>
         </div>
         <br>
+            <div class="col-md-12">
         <p>
           <strong>जमानीवाला</strong>
             <br>
             <br>
-              दस्तखत : .............
+              दस्तखत : .......................
               <br>
               नाम : <span [ngClass]="{'nepaliFont' : printDocForm?.guarantorName !== null && printDocForm?.guarantorName !== ''}">
     {{printDocForm?.guarantorName === null || printDocForm?.guarantorName === '' ? '_________________' : printDocForm?.guarantorName}}
@@ -97,6 +89,8 @@
               <br>
           </p>
           <br>
+      </div>
+        </div>
       </div>
         </form>
     </div>

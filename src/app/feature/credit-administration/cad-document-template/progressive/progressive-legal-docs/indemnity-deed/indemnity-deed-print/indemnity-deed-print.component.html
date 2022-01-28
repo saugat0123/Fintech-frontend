@@ -11,7 +11,7 @@
             <strong> प्रोग्रेशिभ फाइनान्स लि.</strong>
             <br>
             <strong>
-                <span [ngClass]="{'nepaliFont' : printDocForm?.branchName !== null && printDocForm?.branchName !== ''}">
+                <span [ngClass]="{'nepaliFont sizefont' : printDocForm?.branchName !== null && printDocForm?.branchName !== ''}">
                     {{printDocForm?.branchName === null || printDocForm?.branchName === '' ? '_________________' : printDocForm?.branchName}}
                 </span> शाखा कार्यालय</strong>
             <br>
@@ -62,7 +62,7 @@
                     <br>
                     <br>
                     यो क्षतिपूर्ति लिखत आजै त्यस वित्तीय संस्थाको
-                    <span [ngClass]="{'nepaliFont' : printDocForm?.branchName !== null && printDocForm?.branchName !== ''}">
+                    <span [ngClass]="{'nepaliFont sizefont' : printDocForm?.branchName !== null && printDocForm?.branchName !== ''}">
                         {{printDocForm?.branchName === null || printDocForm?.branchName === '' ? '_________________' : printDocForm?.branchName}}
                     </span>
                     शाखा कार्यालयमा बसी सहिछाप गरी दिएको छू/छौ।
@@ -80,7 +80,7 @@
                         {{printDocForm?.customerName === null || printDocForm?.customerName === '' ? '_________________' : printDocForm?.customerName}}
                     </span>
                     (ना.प्र.नं.
-                    <span [ngClass]="{'nepaliFont sizefont' : printDocForm?.sincerlyCitizenshipNo !== null && printDocForm?.sincerlyCitizenshipNo !== ''}">
+                    <span [ngClass]="{'nepaliFont' : printDocForm?.sincerlyCitizenshipNo !== null && printDocForm?.sincerlyCitizenshipNo !== ''}">
                         {{printDocForm?.sincerlyCitizenshipNo === null || printDocForm?.sincerlyCitizenshipNo === '' ? '_________________' : printDocForm?.sincerlyCitizenshipNo}}
                     </span>
                     मिति
@@ -100,13 +100,13 @@
                     <span [ngClass]="{'nepaliFont sizefont' : printDocForm?.sincerlyPermanentMunicipality !== null && printDocForm?.sincerlyPermanentMunicipality !== ''}">
                         {{printDocForm?.sincerlyPermanentMunicipality === null || printDocForm?.sincerlyPermanentMunicipality === '' ? '_________________' : printDocForm?.sincerlyPermanentMunicipality}}
                     </span>
-                    गा.पा./न.पा.वडा नं.
-                    <span [ngClass]="{'nepaliFont sizefont' : printDocForm?.sincerlyPermanentWardNo !== null && printDocForm?.sincerlyPermanentWardNo !== ''}">
+                    गा.पा./न.पा., वडा नं.
+                    <span [ngClass]="{'nepaliFont' : printDocForm?.sincerlyPermanentWardNo !== null && printDocForm?.sincerlyPermanentWardNo !== ''}">
                         {{printDocForm?.sincerlyPermanentWardNo === null || printDocForm?.sincerlyPermanentWardNo === '' ? '_________________' : printDocForm?.sincerlyPermanentWardNo}}
                     </span> (साबिक
                     <span [ngClass]="{'nepaliFont' : printDocForm?.sabikVDC !== null && printDocForm?.sabikVDC !== ''}">
                         {{printDocForm?.sabikVDC === null || printDocForm?.sabikVDC === '' ? '_________________' : printDocForm?.sabikVDC}}
-                    </span> .गा.बि.स./न.पा.वडा नं.
+                    </span> गा.बि.स./न.पा., वडा नं.
                     <span [ngClass]="{'nepaliFont' : printDocForm?.sabikWardNo !== null && printDocForm?.sabikWardNo !== ''}">
                         {{printDocForm?.sabikWardNo === null || printDocForm?.sabikWardNo === '' ? '_________________' : printDocForm?.sabikWardNo}}
                     </span> )
@@ -118,8 +118,8 @@
                     जिल्ला
                     <span [ngClass]="{'nepaliFont sizefont' : printDocForm?.sinserlyTempMunicipality !== null && printDocForm?.sinserlyTempMunicipality !== ''}">
                         {{printDocForm?.sinserlyTempMunicipality === null || printDocForm?.sinserlyTempMunicipality === '' ? '_________________' : printDocForm?.sinserlyTempMunicipality}}
-                    </span> गा.पा./न.पा.वडा नं.
-                    <span [ngClass]="{'nepaliFont sizefont' : printDocForm?.sinserlyTempWardNo !== null && printDocForm?.sinserlyTempWardNo !== ''}">
+                    </span> गा.पा./न.पा., वडा नं.
+                    <span [ngClass]="{'nepaliFont' : printDocForm?.sinserlyTempWardNo !== null && printDocForm?.sinserlyTempWardNo !== ''}">
                         {{printDocForm?.sinserlyTempWardNo === null || printDocForm?.sinserlyTempWardNo === '' ? '_________________' : printDocForm?.sinserlyTempWardNo}}
                     </span>
                     <br>

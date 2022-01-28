@@ -1119,13 +1119,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <div>
+                            <div class="row fa-pull-right">
                                 <button class="btn btn-danger float-right" (click)="removeAtIndex(i)"
                                         style="position: static">
                                     <em class="fa fa-trash" style="color: white;"></em>
                                 </button>
                             </div>
-                            <hr>
                         </div>
                     </div>
                     <button class="btn tbn-sm btn-flat btn-primary" (click)="addGuarantor()">Add Guarantor</button>
@@ -1865,7 +1864,7 @@
     </nb-card-footer>
 </nb-card>
 <ng-template #closeForm>
-    <nb-card class="m-0 confirm-close" [nbSpinner]="onActionChangeSpinner">
+    <nb-card class="m-0" [nbSpinner]="onActionChangeSpinner">
         <nb-card-header>
             <h5>Are you sure you want to close?</h5>
         </nb-card-header>

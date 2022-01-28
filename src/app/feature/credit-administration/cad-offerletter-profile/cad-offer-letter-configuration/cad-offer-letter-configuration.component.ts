@@ -473,6 +473,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
     setGuarantors(guarantorDetails: any) {
         const formArray = this.userConfigForm.get('guarantorDetails') as FormArray;
+        if (guarantorDetails.length === 0) {
+            this.addGuarantor();
+            return;
+        }
         if (!ObjectUtil.isEmpty(this.customerInfo.guarantors)) {
             if (!ObjectUtil.isEmpty(this.customerInfo.guarantors.guarantorList)) {
                 const guarantorList = this.customerInfo.guarantors.guarantorList;
@@ -575,6 +579,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
     setCollaterals(collateralDetails: any) {
         const formArray = this.userConfigForm.get('collateralDetails') as FormArray;
+        if (collateralDetails.length === 0) {
+            this.addCollateral();
+        }
         if (!ObjectUtil.isEmpty(this.customerInfo.collaterals)) {
             if (!ObjectUtil.isEmpty(this.customerInfo.collaterals.collateralList)) {
                 const collateralList = this.customerInfo.collaterals.collateralList;
@@ -651,6 +658,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
     setCollateralOwner(collateralOwnerDetails: any) {
         const formArray = this.userConfigForm.get('collateralOwnerDetails') as FormArray;
+        if (collateralOwnerDetails.length === 0) {
+            this.addCollateralOwner();
+        }
         if (!ObjectUtil.isEmpty(this.customerInfo.collaterals)) {
             if (!ObjectUtil.isEmpty(this.customerInfo.collaterals.collateralOwnerList)) {
                 const collateralOwnerList = this.customerInfo.collaterals.collateralOwnerList;

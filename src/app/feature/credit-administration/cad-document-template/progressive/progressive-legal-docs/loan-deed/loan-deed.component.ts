@@ -35,6 +35,7 @@ export class LoanDeedComponent implements OnInit {
     offerLetterDocument: OfferDocument;
     nepaliData;
     nepDataPersonal = new NepDataPersonal();
+    securityLength;
 
 
     constructor(private dialogRef: NbDialogRef<LoanDeedComponent>,
@@ -64,7 +65,10 @@ export class LoanDeedComponent implements OnInit {
 
                     if (!ObjectUtil.isEmpty(initialInfo.security)) {
                         this.setSecurity(initialInfo.security);
+                    } else {
+                        this.setSecurity(this.nepaliData.collateralDetails);
                     }
+
                     this.form.patchValue(this.initialInfoPrint);
                     this.setGuarantors(initialInfo.guarantorDetails);
                 }
@@ -98,32 +102,21 @@ export class LoanDeedComponent implements OnInit {
                 loanApprovedDate: loanAmount.initDate ? loanAmount.initDate : ''
             });
         }
-
         this.form.get(['swikritiBibaran', 0, 'loanType']).patchValue(this.nepDataPersonal.loanType);
         this.form.get(['swikritiBibaran', 0, 'loanAmountInWords']).patchValue(loanAmount.nepaliWords);
         this.form.get(['swikritiBibaran', 0, 'interestRate']).patchValue(this.nepDataPersonal.interestRate);
         this.form.get(['swikritiBibaran', 0, 'serviceFeePercent']).patchValue(this.nepDataPersonal.serviceFeePercent);
         this.form.get(['swikritiBibaran', 0, 'tenureOfLoanInYears']).patchValue(this.nepDataPersonal.tenureOfLoanInYears);
 
-        /*this.nepaliData.collateralDetails.forEach((value, i) => {
+       /* this.nepaliData.collateralDetails.forEach((value, i) => {
+            this.form.get(['security', i, 'SecuritiesOwnerName']).patchValue(value.collateralName);
             this.form.get(['security', i, 'SecuritiesDistrict']).patchValue(value.collateralDistrict);
             this.form.get(['security', i, 'SecuritiesMunicipality']).patchValue(value.collateralMunVdcOriginal);
             this.form.get(['security', i, 'SecuritiesWardNo']).patchValue(value.collateralWardNoOld);
             this.form.get(['security', i, 'SecuritiesKeyNo']).patchValue(value.plotNo);
             this.form.get(['security', i, 'SecuritiesArea']).patchValue(value.areaOfCollateral);
-            this.form.get(['security', i, 'SecuritiesOwnerName']).patchValue(value.collateralName);
-            console.log('asdfa', i);
-            if (i > 0) {
-                this.addSwikriti();
-            }
         });*/
 
-        this.form.get(['security', 0, 'SecuritiesDistrict']).patchValue(this.nepaliData.collateralDetails[0].collateralDistrict);
-        this.form.get(['security', 0, 'SecuritiesMunicipality']).patchValue(this.nepaliData.collateralDetails[0].collateralMunVdcOriginal);
-        this.form.get(['security', 0, 'SecuritiesWardNo']).patchValue(this.nepaliData.collateralDetails[0].collateralWardNoOld);
-        this.form.get(['security', 0, 'SecuritiesKeyNo']).patchValue(this.nepaliData.collateralDetails[0].plotNo);
-        this.form.get(['security', 0, 'SecuritiesArea']).patchValue(this.nepaliData.collateralDetails[0].areaOfCollateral);
-        this.form.get(['security', 0, 'SecuritiesOwnerName']).patchValue(this.nepaliData.collateralDetails[0].collateralName);
     }
     setSwikriti(data) {
         const formArray = this.form.get('swikritiBibaran') as FormArray;
@@ -153,13 +146,13 @@ export class LoanDeedComponent implements OnInit {
             formArray.push(this.formBuilder.group({
                 SecuritiesSN: [value.SecuritiesSN],
                 SecuritiesSNBibaran: [value.SecuritiesSNBibaran],
-                SecuritiesDistrict: [value.SecuritiesDistrict],
-                SecuritiesMunicipality: [value.SecuritiesMunicipality],
-                SecuritiesWardNo: [value.SecuritiesWardNo],
-                SecuritiesKeyNo: [value.SecuritiesKeyNo],
-                SecuritiesArea: [value.SecuritiesArea],
+                SecuritiesDistrict: [value.collateralDistrict],
+                SecuritiesMunicipality: [value.collateralMunVdcOriginal],
+                SecuritiesWardNo: [value.collateralWardNoOld],
+                SecuritiesKeyNo: [value.plotNo],
+                SecuritiesArea: [value.areaOfCollateral],
                 SecuritiesRegNo: [value.SecuritiesRegNo],
-                SecuritiesOwnerName: [value.SecuritiesOwnerName],
+                SecuritiesOwnerName: [value.collateralName],
             }));
         });
     }
