@@ -9,17 +9,23 @@
                 <p>
                     लिखितम् <span
                         [ngClass]="{'nepaliFont' : printDocForm?.grandParentName !== null && printDocForm?.grandParentName !== ''}">
-    {{printDocForm?.grandParentName === null || printDocForm?.grandParentName === '' ? '_________________' : printDocForm?.grandParentName}}
-</span> को
-                    नाति/नातिनि ,<span
+    {{printDocForm?.grandParentName === null || printDocForm?.grandParentName === '' ? '_________________' : printDocForm?.grandParentName}}</span>को
+                    <span *ngIf="printDocForm?.gender === '1'; else granddaughter">नाति</span>
+                    <ng-template #granddaughter>
+                        <span>नातिनि</span>
+                    </ng-template>,<span
                         [ngClass]="{'nepaliFont':printDocForm?.fatherName!==null && printDocForm?.fatherName!==''}">
-          {{printDocForm.fatherName === null || printDocForm.fatherName === '' ? '_______________' : printDocForm?.fatherName}}
-        </span>को
-                    छोरा/छोरी <span
+          {{printDocForm.fatherName === null || printDocForm.fatherName === '' ? '_______________' : printDocForm?.fatherName}}</span>को
+                    <span *ngIf="printDocForm?.gender === '1'; else daughter">छोरा</span>
+                    <ng-template #daughter>
+                        <span>छोरी</span>
+                    </ng-template> <span
                         [ngClass]="{'nepaliFont':printDocForm?.husbandName!==null && printDocForm?.husbandName!==''}">
-          {{printDocForm.husbandName === null || printDocForm.husbandName === '' ? '_______________' : printDocForm?.husbandName}}
-        </span>को
-                    पति/पत्नी <span
+          {{printDocForm.husbandName === null || printDocForm.husbandName === '' ? '_______________' : printDocForm?.husbandName}}</span>को
+                    <span *ngIf="printDocForm?.gender === '1'; else wife">पति</span>
+                    <ng-template #wife>
+                        <span>पत्नी</span>
+                    </ng-template><span
                         [ngClass]="{'nepaliFont uniFont':printDocForm?.districtName!==null && printDocForm?.districtName!==''}">
           {{printDocForm.districtName === null || printDocForm.districtName === '' ? '_______________' : printDocForm?.districtName}}
         </span>
@@ -109,7 +115,7 @@
                         [ngClass]="{'nepaliFont uniFont':printDocForm?.sincerlyPermanentMunicipality!==null && printDocForm?.sincerlyPermanentMunicipality!==''}">
           {{printDocForm.sincerlyPermanentMunicipality === null || printDocForm.sincerlyPermanentMunicipality === '' ? '_______________' : printDocForm?.sincerlyPermanentMunicipality}}
         </span>
-                    गा.पा./न.पा.वडा नं. <span
+                    गा.पा./न.पा., वडा नं. <span
                         [ngClass]="{'nepaliFont':printDocForm?.sincerlyPermanentWardNo!==null && printDocForm?.sincerlyPermanentWardNo!==''}">
           {{printDocForm.sincerlyPermanentWardNo === null || printDocForm.sincerlyPermanentWardNo === '' ? '_______________' : printDocForm?.sincerlyPermanentWardNo}}
         </span>
@@ -122,7 +128,7 @@
                         [ngClass]="{'nepaliFont uniFont':printDocForm?.sincerlyTemporaryVDCname!==null && printDocForm?.sincerlyTemporaryVDCname!==''}">
           {{printDocForm.sincerlyTemporaryVDCname === null || printDocForm.sincerlyTemporaryVDCname === '' ? '_______________' : printDocForm?.sincerlyTemporaryVDCname}}
         </span>
-                    गा.पा./न.पा.वडा नं. <span
+                    गा.पा./न.पा., वडा नं. <span
                         [ngClass]="{'nepaliFont':printDocForm?.sincerlyTemporaryWardNo!==null && printDocForm?.sincerlyTemporaryWardNo!==''}">
           {{printDocForm.sincerlyTemporaryWardNo === null || printDocForm.sincerlyTemporaryWardNo === '' ? '_______________' : printDocForm?.sincerlyTemporaryWardNo}}
         </span>
@@ -156,12 +162,12 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <td><textarea cols="30" name=""
-                                      rows="10"
+                        <td><textarea cols="20" name=""
+                                      rows="9"
                                       style="background-color: transparent;resize:none;outline:none;border:none;"></textarea>
                         </td>
-                        <td><textarea cols="30" name=""
-                                      rows="10"
+                        <td><textarea cols="20" name=""
+                                      rows="9"
                                       style="background-color: transparent;resize:none;outline:none;border:none;"></textarea>
                         </td>
                     </tr>
@@ -225,7 +231,7 @@
                             [ngClass]="{'nepaliFont':printDocForm?.name!==null && printDocForm?.name!==''}">
           {{printDocForm.name === null || printDocForm.name === '' ? '_______________' : printDocForm?.name}}
         </span>
-                        (ना.प्र.नं <span
+                        (ना.प्र.नं. <span
                                 [ngClass]="{'nepaliFont':printDocForm?.citizenNumber!==null && printDocForm?.citizenNumber!==''}">
           {{printDocForm.citizenNumber === null || printDocForm.citizenNumber === '' ? '_______________' : printDocForm?.citizenNumber}}
         </span>
@@ -243,11 +249,11 @@
                     <td class="text-left"><span
                             [ngClass]="{'nepaliFont':printDocForm?.guarantorDistrict!==null && printDocForm?.guarantorDistrict!==''}">
           {{printDocForm.guarantorDistrict === null || printDocForm.guarantorDistrict === '' ? '_______________' : printDocForm?.guarantorDistrict}}
-        </span>जिल्ला <span
+        </span>जिल्ला, <span
                                 [ngClass]="{'nepaliFont':printDocForm?.guarantorMunicipality!==null && printDocForm?.guarantorMunicipality!==''}">
           {{printDocForm.guarantorMunicipality === null || printDocForm.guarantorMunicipality === '' ? '_______________' : printDocForm?.guarantorMunicipality}}
         </span>
-                        गा.पा./न.पा.वडा नं <span
+                        गा.पा./न.पा., वडा नं. <span
                                 [ngClass]="{'nepaliFont':printDocForm?.guarantorWardNo!==null && printDocForm?.guarantorWardNo!==''}">
           {{printDocForm.guarantorWardNo === null || printDocForm.guarantorWardNo === '' ? '_______________' : printDocForm?.guarantorWardNo}}
         </span>
@@ -269,7 +275,7 @@
                             [ngClass]="{'nepaliFont':printDocForm?.name1!==null && printDocForm?.name1!==''}">
           {{printDocForm.name1 === null || printDocForm.name1 === '' ? '_______________' : printDocForm?.name1}}
         </span>
-                        (ना.प्र.नं <span
+                        (ना.प्र.नं. <span
                                 [ngClass]="{'nepaliFont':printDocForm?.citizenNumber1!==null && printDocForm?.citizenNumber1!==''}">
           {{printDocForm.citizenNumber1 === null || printDocForm.citizenNumber1 === '' ? '_______________' : printDocForm?.citizenNumber1}}
         </span>
@@ -287,11 +293,11 @@
                     <td class="text-left"><span
                             [ngClass]="{'nepaliFont':printDocForm?.guarantorDistrict1!==null && printDocForm?.guarantorDistrict1!==''}">
           {{printDocForm.guarantorDistrict1 === null || printDocForm.guarantorDistrict1 === '' ? '_______________' : printDocForm?.guarantorDistrict1}}
-        </span>जिल्ला <span
+        </span>जिल्ला, <span
                             [ngClass]="{'nepaliFont':printDocForm?.guarantorMunicipality1!==null && printDocForm?.guarantorMunicipality1!==''}">
           {{printDocForm.guarantorMunicipality1 === null || printDocForm.guarantorMunicipality1 === '' ? '_______________' : printDocForm?.guarantorMunicipality1}}
         </span>
-                        गा.पा./न.पा.वडा नं <span
+                        गा.पा./न.पा., वडा नं. <span
                                 [ngClass]="{'nepaliFont':printDocForm?.guarantorWardNo1!==null && printDocForm?.guarantorWardNo1!==''}">
           {{printDocForm.guarantorWardNo1 === null || printDocForm.guarantorWardNo1 === '' ? '_______________' : printDocForm?.guarantorWardNo1}}
         </span>

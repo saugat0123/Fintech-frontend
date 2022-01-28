@@ -100,6 +100,7 @@ export class PromissoryNoteComponent implements OnInit {
         amount: loanAmount.numberNepali ? loanAmount.numberNepali : '',
         amountInNumber: loanAmount.nepaliWords ? loanAmount.nepaliWords : '',
         branchName : this.nepaliData.branchName ? this.nepaliData.branchName : '',
+        gender: this.nepaliData.gender
       });
     }
 
@@ -176,6 +177,7 @@ export class PromissoryNoteComponent implements OnInit {
       tempMunicipality: [undefined],
       tempWardNo: [undefined],
       age: [undefined],
+      gender: [undefined],
       customerName: [undefined],
       citizenshipNo: [undefined],
       date: [undefined],
