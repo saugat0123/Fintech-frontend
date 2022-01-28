@@ -75,7 +75,7 @@ export class OfferLetterPersonalComponent implements OnInit {
                 allGuarantors = allGuarantors + guarantor.guarantorName + ', ';
             });
             allGuarantors = allGuarantors.slice(0, -2);
-            allGuarantors = allGuarantors.replace(/,(?=[^,]*$)/, ' र');
+            allGuarantors = allGuarantors.replace(/,(?=[^,]*$)/, ' /');
             const customerAddress =
                 !ObjectUtil.isEmpty(this.nepaliData.permanentMunicipalities) ? this.nepaliData.permanentMunicipalities.nepaliName : '' + ' j8f g+= ' +
                 this.nepaliData.permanentWard + ' , ' +
@@ -321,10 +321,6 @@ export class OfferLetterPersonalComponent implements OnInit {
 
     buildGuarantorDetails() {
         return this.formBuilder.group({
-            jamaniKartaName: [undefined],
-            guarantorCitizenshipNo: [undefined],
-            guarantorIssuedDate: [undefined],
-            guarantorCitizenIssuedOffice: [undefined],
             name: [undefined],
             guarantorLegalDocumentAddress: [undefined],
             officeType: [undefined],
@@ -332,6 +328,10 @@ export class OfferLetterPersonalComponent implements OnInit {
             loanApprovalDate: [undefined],
             loanApprovalNo: [undefined],
             loanHolderName: [undefined],
+            jamaniKartaName: [undefined],
+            guarantorCitizenshipNo: [undefined],
+            guarantorIssuedDate: [undefined],
+            guarantorCitizenIssuedOffice: [undefined],
             guarantorDistrict: [undefined],
             municipalityName: [undefined],
             guarantorWardNo: [undefined],
@@ -352,7 +352,7 @@ export class OfferLetterPersonalComponent implements OnInit {
     }*/
 
     addEmptyGuarantor() {
-        (this.form.get('guarantors') as FormArray).push(this.buildGuarantorDetails());
+        (this.form.get('guarantorDetails') as FormArray).push(this.buildGuarantorDetails());
     }
 
     /*addEmptyWitness() {

@@ -19,11 +19,11 @@
                                 स्थायी ठेगाना :
                                 <span [ngClass]="{'nepaliFont unicode-size5' : printDocForm?.customerMunicipality !== null && printDocForm?.customerMunicipality !== ''}">
                                     {{printDocForm?.customerMunicipality === null || printDocForm?.customerMunicipality === '' ? '_________________' : printDocForm?.customerMunicipality}}
-                                </span>
+                                </span>,
                                 वडा नं.
                                 <span [ngClass]="{'nepaliFont unicode-size2' : printDocForm?.customerWardNum !== null && printDocForm?.customerWardNum !== ''}">
                                     {{printDocForm?.customerWardNum === null || printDocForm?.customerWardNum === '' ? '_________________' : printDocForm?.customerWardNum}}
-                                </span>
+                                </span>,
                                 <span [ngClass]="{'nepaliFont unicode-size5' : printDocForm?.customerDistrict !== null && printDocForm?.customerDistrict !== ''}">
                                     {{printDocForm?.customerDistrict === null || printDocForm?.customerDistrict === '' ? '_________________' : printDocForm?.customerDistrict}}
                                 </span>
@@ -31,11 +31,11 @@
                                 हालः
                                 <span [ngClass]="{'nepaliFont unicode-size5' : printDocForm?.temporaryMunicipality !== null && printDocForm?.temporaryMunicipality !== ''}">
                                     {{printDocForm?.temporaryMunicipality === null || printDocForm?.temporaryMunicipality === '' ? '_________________' : printDocForm?.temporaryMunicipality}}
-                                </span>
+                                </span>,
                                 वडा नं.
                                 <span [ngClass]="{'nepaliFont unicode-size2' : printDocForm?.temporaryWardNum !== null && printDocForm?.temporaryWardNum !== ''}">
                                     {{printDocForm?.temporaryWardNum === null || printDocForm?.temporaryWardNum === '' ? '_________________' : printDocForm?.temporaryWardNum}}
-                                </span>
+                                </span>,
                                 <span [ngClass]="{'nepaliFont unicode-size5' : printDocForm?.temporaryDistrict !== null && printDocForm?.temporaryDistrict !== ''}">
                                     {{printDocForm?.temporaryDistrict === null || printDocForm?.temporaryDistrict === '' ? '_________________' : printDocForm?.temporaryDistrict}}
                                 </span>
@@ -226,8 +226,8 @@
                                     प्रतिशतले
                                     हुनआउने रकम रु.
 
-                                    <span [ngClass]="{'nepaliFont unicode-size2' : loanFacilityData?.serviceFeePercent !== null && loanFacilityData?.serviceFeePercent !== ''}">
-                                        {{loanFacilityData?.serviceFeePercent === null || loanFacilityData?.serviceFeePercent === '' ? '_________________' : loanFacilityData?.serviceFeePercent}}
+                                    <span [ngClass]="{'nepaliFont unicode-size2' : loanFacilityData?.serviceFeeAmount !== null && loanFacilityData?.serviceFeeAmount !== ''}">
+                                        {{loanFacilityData?.serviceFeeAmount === null || loanFacilityData?.serviceFeeAmount === '' ? '_________________' : loanFacilityData?.serviceFeeAmount}}
                                     </span>
 
                                     /–
@@ -352,13 +352,13 @@
                                                 <br>
                                                 <strong>ठेगाना :</strong>
                                                 <span [ngClass]="{'nepaliFont unicode-size' : securityDetail?.collateralPerMunVdc !== null && securityDetail?.collateralPerMunVdc !== ''}">
-                                                    {{securityDetail?.collateralPerMunVdc === null || securityDetail?.collateralPerMunVdc === '' ? '' : securityDetail?.collateralPerMunVdc}}
+                                                    {{securityDetail?.collateralPerMunVdc === null || securityDetail?.collateralPerMunVdc === '' ? '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' : securityDetail?.collateralPerMunVdc}}
                                                 </span>, वडा नं.
                                                 <span [ngClass]="{'nepaliFont unicode-size3' : securityDetail?.collateralPerWard !== null && securityDetail?.collateralPerWard !== ''}">
-                                                    {{securityDetail?.collateralPerWard === null || securityDetail?.collateralPerWard === '' ? '' : securityDetail?.collateralPerWard}}
+                                                {{securityDetail?.collateralPerWard === null || securityDetail?.collateralPerWard === '' ? '&nbsp;&nbsp;' : securityDetail?.collateralPerWard}}
                                                 </span>,
                                                 <span [ngClass]="{'nepaliFont unicode-size' : securityDetail?.collateralPerDis !== null && securityDetail?.collateralPerDis !== ''}">
-                                                    {{securityDetail?.collateralPerDis === null || securityDetail?.collateralPerDis === '' ? '' : securityDetail?.collateralPerDis}}
+                                                    {{securityDetail?.collateralPerDis === null || securityDetail?.collateralPerDis === '' ? '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' : securityDetail?.collateralPerDis}}
                                                 </span>
                                                 <br>
                                             </td>
@@ -370,18 +370,18 @@
                                             <td>
                                                 साबिक:
                                                 <span [ngClass]="{'nepaliFont' : securityDetail?.sabikMunVdc !== null && securityDetail?.sabikMunVdc !== ''}">
-                                                    {{securityDetail?.sabikMunVdc === null || securityDetail?.sabikMunVdc === '' ? '' : securityDetail?.sabikMunVdc}}
+                                                    {{securityDetail?.sabikMunVdc === null || securityDetail?.sabikMunVdc === '' ? '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' : securityDetail?.sabikMunVdc}}
                                                 </span>, वडा नं.
                                                 <span [ngClass]="{'nepaliFont' : securityDetail?.sabikWardNo !== null && securityDetail?.sabikWardNo !== ''}">
-                                                    {{securityDetail?.sabikWardNo === null || securityDetail?.sabikWardNo === '' ? '' : securityDetail?.sabikWardNo}}
+                                                    {{securityDetail?.sabikWardNo === null || securityDetail?.sabikWardNo === '' ? '&nbsp;&nbsp;' : securityDetail?.sabikWardNo}}
                                                 </span>
                                                 <br>
                                                 हाल:
                                                 <span [ngClass]="{'nepaliFont' : securityDetail?.halMunVdc !== null && securityDetail?.halMunVdc !== ''}">
-                                                    {{securityDetail?.halMunVdc === null || securityDetail?.halMunVdc === '' ? '' : securityDetail?.halMunVdc}}
+                                                    {{securityDetail?.halMunVdc === null || securityDetail?.halMunVdc === '' ? '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' : securityDetail?.halMunVdc}}
                                                 </span>, वडा नं.
                                                 <span [ngClass]="{'nepaliFont' : securityDetail?.halWardNo !== null && securityDetail?.halWardNo !== ''}">
-                                                    {{securityDetail?.halWardNo === null || securityDetail?.halWardNo === '' ? '' : securityDetail?.halWardNo}}
+                                                    {{securityDetail?.halWardNo === null || securityDetail?.halWardNo === '' ? '&nbsp;&nbsp;' : securityDetail?.halWardNo}}
                                                 </span>
                                             </td>
                                             <td>
@@ -391,7 +391,7 @@
                                             </td>
                                             <td>
                                                 <span [ngClass]="{'nepaliFont' : securityDetail?.jaggaArea !== null && securityDetail?.jaggaArea !== ''}">
-                                                    {{securityDetail?.jaggaArea === null || securityDetail?.jaggaArea === '' ? '' : securityDetail?.jaggaArea}}
+                                                    {{securityDetail?.jaggaArea === null || securityDetail?.jaggaArea === '' ? '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' : securityDetail?.jaggaArea}}
                                                 </span>
                                                 (रोपनी, वर्गमिटर, वि.क.धु)
                                             </td>
@@ -409,10 +409,7 @@
 
                                     मा
                                     <span [ngClass]="{'nepaliFont unicode-size2' : printDocForm?.valuatorName !== null && printDocForm?.valuatorName !== ''}">
-                                        {{printDocForm?.valuatorName === null || printDocForm?.valuatorName === '' ? '_________________' : printDocForm?.valuatorName}}
-                                    </span>
-
-                                    बाट मुल्याङ्कित फेयर मार्केट मुल्य रु.
+                                        {{printDocForm?.valuatorName === null || printDocForm?.valuatorName === '' ? '_________________' : printDocForm?.valuatorName}}</span>बाट मुल्याङ्कित फेयर मार्केट मुल्य रु.
                                     <span [ngClass]="{'nepaliFont unicode-size2' : printDocForm?.fairMarketValue !== null && printDocForm?.fairMarketValue !== ''}">
                                         {{printDocForm?.fairMarketValue === null || printDocForm?.fairMarketValue === '' ? '_________________' : printDocForm?.fairMarketValue}}
                                     </span>
@@ -434,10 +431,8 @@
                             <tr>
                                 <td>२.१</td>
                                 <td><strong>श्री </strong>
-                                    <span [ngClass]="{'nepaliFont unicode-size2' : printDocForm?.shreeName1 !== null && printDocForm?.shreeName1 !== ''}">
-                                        {{printDocForm?.shreeName1 === null || printDocForm?.shreeName1 === '' ? '_________________' : printDocForm?.shreeName1}}
-                                    </span>
-                                    को रु.
+                                    <span [ngClass]="{'nepaliFont unicode-size2' : printDocForm?.guarantorName !== null && printDocForm?.guarantorName !== ''}">
+                                        {{printDocForm?.guarantorName === null || printDocForm?.guarantorName === '' ? '_________________' : printDocForm?.guarantorName}}</span>को रु.
                                     <span [ngClass]="{'nepaliFont unicode-size2' : printDocForm?.amount2 !== null && printDocForm?.amount2 !== ''}">
                                         {{printDocForm?.amount2 === null || printDocForm?.amount2 === '' ? '____________' : printDocForm?.amount2}}
                                     </span>
@@ -902,7 +897,7 @@
                                                 {{printDocForm?.financeMunicipality === null || printDocForm?.financeMunicipality === '' ? '_____________' : printDocForm?.financeMunicipality}}
                                             </span>
                                             वडा नं.
-                                            <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.financeWardNum !== null && printDocForm?.financeWardNum !== ''}">
+                                            <span style="font-size: 15px;" [ngClass]="{'nepaliFont': printDocForm?.financeWardNum !== null && printDocForm?.financeWardNum !== ''}">
                                                 {{printDocForm?.financeWardNum === null || printDocForm?.financeWardNum === '' ? '_____________' : printDocForm?.financeWardNum}}
                                             </span>
                                             ,
@@ -941,7 +936,7 @@
                                             न.पा.
                                             वडा नं.
 
-                                            <span [ngClass]="{'nepaliFont unicode-size4' : printDocForm?.customerWardNum !== null && printDocForm?.customerWardNum !== ''}">
+                                            <span [ngClass]="{'nepaliFont unicode-size3' : printDocForm?.customerWardNum !== null && printDocForm?.customerWardNum !== ''}">
                                                 {{printDocForm?.customerWardNum === null || printDocForm?.customerWardNum === '' ? '________' : printDocForm?.customerWardNum}}
                                             </span>
                                             ,
@@ -1209,9 +1204,7 @@
                                     </span>
                                     बमोजिम श्री
                                     <span [ngClass]="{'nepaliFont uniFont' : guarantor?.loanHolderName !== null && guarantor?.loanHolderName !== ''}">
-                                        {{guarantor?.loanHolderName === null || guarantor?.loanHolderName === '' ? '_________________' : guarantor?.loanHolderName}}
-                                    </span>
-                                     लाई दिने/दिएकोे
+                                        {{guarantor?.loanHolderName === null || guarantor?.loanHolderName === '' ? '_________________' : guarantor?.loanHolderName}}</span>लाई दिने/दिएकोे
                                     <strong>कर्जा/सुबिधा स्वीकृती पत्र</strong>मा उल्लेखित सम्पूर्ण शर्त तथा बन्देजहरु म/हामि तपशिलमा उल्लेखित जमानतकर्ताहरुलाई पूर्ण मन्जुर छ ।
                                     उपरोक्त पत्र बमोजिम वित्तीय संस्थाबाट प्राप्त हुने ऋण कर्जा सुबिधा तथा अन्य दायित्व तिर्न बुझाउन मेरो/हाम्रो पूर्ण
                                     मन्जुरी रहेकोले यो पत्रमा स्वीकृति जनाई सही छाप गरी तपाई वित्तीय संस्थालाई दिएं/दियौं ।
@@ -1258,10 +1251,10 @@
                                                 {{guarantor?.municipalityName === null || guarantor?.municipalityName === '' ? '_________________' : guarantor?.municipalityName}}
                                             </span>
                                             <strong>
-                                                न.पा/म.न.पा
-                                                वडा नं
+                                                न.पा/म.न.पा.
+                                                वडा नं.
                                             </strong>
-                                            <span [ngClass]="{'nepaliFont uniFont' : guarantor?.guarantorWardNo !== null && guarantor?.guarantorWardNo !== ''}">
+                                            <span [ngClass]="{'nepaliFont unicode-size2' : guarantor?.guarantorWardNo !== null && guarantor?.guarantorWardNo !== ''}">
                                                 {{guarantor?.guarantorWardNo === null || guarantor?.guarantorWardNo === '' ? '______' : guarantor?.guarantorWardNo}}
                                             </span>
                                         </p>

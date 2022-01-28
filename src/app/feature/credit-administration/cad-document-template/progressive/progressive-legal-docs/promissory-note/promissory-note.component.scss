@@ -1,7 +1,7 @@
 @import "src/app/feature/credit-administration/cad-document-template/progressive/progressive-legal-docs/progressive-legal-docs.component";
 
 .fingerXap {
-  width: 500px;
+  width: 250px;
   margin: auto;
   text-align: center;
 }
@@ -27,5 +27,9 @@ border-style: none
 
 .sizeFont {
   font-size: 15px;
+}
+
+.shortInput{
+  width: 50px;
 }
 

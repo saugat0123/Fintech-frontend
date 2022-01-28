@@ -107,8 +107,6 @@ export class GuaranteeBondPersonalComponent implements OnInit {
         karjaYojana: this.nepDataPersonal.typeOfLoanInEnglish ? this.nepDataPersonal.typeOfLoanInEnglish : '',
         sriName: loanAmount.numberNepali ? loanAmount.numberNepali : '',
         sriiName: loanAmount.nepaliWords ? loanAmount.nepaliWords : ''
-
-
       });
     }
   }
