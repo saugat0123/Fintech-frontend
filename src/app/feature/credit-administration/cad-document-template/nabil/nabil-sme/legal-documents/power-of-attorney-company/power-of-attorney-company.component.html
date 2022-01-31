@@ -90,6 +90,7 @@
 
                             <!--Repeated Clause-->
                             <span *ngFor="let details of companyInfo; let i = index">
+                                <span>
                                   <input class="form-field form-control-sm d-print-none"
                                          name="authorizedDistrict"
                                          formControlName="authorizedDistrict"
@@ -98,6 +99,7 @@
                                     <strong class="print-only">
                                         {{details.ownerPermanentDistrictCT}}
                                     </strong>
+                                    </span>
                                 जिल्ला
                                 <input class="form-field form-control-sm d-print-none"
                                        name="authorizedVDC"
@@ -295,14 +297,17 @@
                             </span>
                             </p>
                             <p class="m-0">
+                                <span *ngFor="let details of companyInfo; let i = index">
                                 आधिकारिक प्रतिनिधिको नाम :
-                                <span>
-                                <input class="form-field form-control-sm d-print-none" name="authorizedName"
-                                       formControlName="authorizedName" placeholder="" type="text"/>
-                                <strong class="print-only">
-                                    __________________________________
-                                </strong>
-                            </span>
+                                    <span>
+                                        <input class="form-field form-control-sm d-print-none" name="authorizedBodyName"
+                                               formControlName="authorizedBodyName" placeholder="" type="text"
+                                               [value]="authorizedNameArray ? authorizedNameArray[i] : ''"/>
+                                        <strong class="print-only">
+                                            {{authorizedNameArray ? authorizedNameArray[i] : '_____________________'}}
+                                        </strong>
+                                    </span>
+                                </span>
                             </p>
                         </div>
                     </div>

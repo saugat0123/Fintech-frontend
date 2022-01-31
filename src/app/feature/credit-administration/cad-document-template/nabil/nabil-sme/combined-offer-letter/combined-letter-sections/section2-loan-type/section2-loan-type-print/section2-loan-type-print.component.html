@@ -418,6 +418,88 @@
                 </tr>
             </ng-container>
 
+            <ng-container *ngIf="tempData?.overdraftLoanForm?.overdraftLoanFormArray">
+                <tr *ngFor="let val of tempData?.overdraftLoanForm?.overdraftLoanFormArray; let i1 = index">
+                    <!--Overdraft Loan for Working Capital requirement-->
+                    <ng-container>
+                        <td style="width: 10%; border-right: 1px solid black; border-top: 1px solid black"><strong>{{
+                            (tempData?.letterOfCreditForm?.letterOfCreditFormArray.length) +
+                            (tempData?.importLoanTrust?.importLoanTrustFormArray.length) +
+                            (tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray.length) +
+                            (tempData?.timeLetterCreditForm?.timeLetterCreditFormArray.length) +
+                            (i1 + 1) | nepaliWord}})</strong>
+                        </td>
+                        <td style="border-top: 1px solid black">
+                            <strong>चालु पुञजीका लागि अधिविकर्ष कर्जा (Overdraft Loan for Working Capital
+                                requirement)</strong><br>
+
+                            <strong> सीमाः रु.
+                                <span>
+                                    {{overdraftLoanForWorkingCapitalLoan[i1] ? overdraftLoanForWorkingCapitalLoan[i1].loanAmountNp : ''}}
+                                </span>/- (अक्षरेपी रु.
+                                <span>
+                                    {{overdraftLoanForWorkingCapitalLoan[i1] ? overdraftLoanForWorkingCapitalLoan[i1].loanAmountWords : ''}}
+                                </span> मात्र)</strong><br>
+
+                            <span *ngIf="this.hypothecationGlobal === 'New'"><strong>सुरक्षणः</strong> सामानहरुको मौज्दात उपर धितोेबन्धक (Hypothecation) हकाधिकार र ऋणीले आफ्ना आसामीबाट भुक्तानी
+                        प्राप्त गर्न बाँकी रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामा हस्तान्तरण गर्नु
+                        पर्नेछ ।</span>
+
+                            <span *ngIf="this.hypothecationGlobal === 'Existing'"><strong>सुरक्षणः</strong> सामानहरुको मौज्दात उपर धितोेबन्धक (Hypothecation) हकाधिकार र ऋणीले आफ्ना आसामीबाट भुक्तानी
+                        प्राप्त गर्न बाँकी रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामा हस्तान्तरण
+                        गरिदिइएको यथावत कायम रहने छ।</span><br>
+
+                            <span *ngIf="arFinancing"><strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong>स्वीकारयोग्य
+                                            <span [ngClass]="{'outside' : val.arDaysCT !== null && val.arDaysCT !== ''}">
+                            {{val.arDaysCT === null || val.arDaysCT === '' ? '___________' : val.arDaysCT}}</span>
+                            दिन सम्मको भुक्तानी प्राप्त गर्न बाँकी रकमहरुबाट तिर्न बाँकी रकम (Account Receivable) घटाई हुन आउने खुद चालु सम्पत्तिको
+                                            <span [ngClass]="{'outside' : val.drawingPowerCT !== null && val.drawingPowerCT !== ''}">
+                            {{val.drawingPowerCT === null || val.drawingPowerCT === '' ? '___________' : val.drawingPowerCT}}</span>
+                            % बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ ।</span>
+
+                            <span *ngIf="!arFinancing"><strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong> स्वीकारयोग्य सामानहरुको मौज्दातको बजार मूल्य वा लागत
+                        मूल्य मध्ये जुन कम हुन्छ सो र
+                                            <span [ngClass]="{'outside' : val.arDaysCT !== null && val.arDaysCT !== ''}">
+                            {{val.arDaysCT === null || val.arDaysCT === '' ? '___________' : val.arDaysCT}}</span>
+                            दिन सम्मको भुक्तानी प्राप्त गर्न बाँकी रकमहरुबाट तिर्न बाँकी रकम (Account Receivable) घटाई हुन आउने खुद चालु सम्पत्तिको
+                                            <span [ngClass]="{'outside' : val.drawingPowerCT !== null && val.drawingPowerCT !== ''}">
+                            {{val.drawingPowerCT === null || val.drawingPowerCT === '' ? '___________' : val.drawingPowerCT}}</span>
+                            % बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ ।</span><br>
+
+                            <strong>ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
+
+                            <span [ngClass]="{'outside' : val.baseRateCT !== null && val.baseRateCT !== ''}">
+                            {{val.baseRateCT === null || val.baseRateCT === '' ? '___________' : val.baseRateCT}}</span>
+                            +
+                            <span [ngClass]="{'outside' : val.premiumRateCT !== null && val.premiumRateCT !== ''}">
+                            {{val.premiumRateCT === null || val.premiumRateCT === '' ? '___________' : val.premiumRateCT}}</span>
+                            प्रतिशत ब्याज दर प्रिमियम (interest rate premium)<br>
+                            <span *ngIf="val.subsidyOrAgricultureLoan === 'No'">हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
+                                बार्षिक
+                                            <span [ngClass]="{'outside' : val.interestRateCT !== null && val.interestRateCT !== ''}">
+                            {{val.interestRateCT === null || val.interestRateCT === '' ? '___________' : val.interestRateCT}}</span>
+                            % का दर निर्धारण गरीएकोछ र सो ब्याज रकम नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र चैत्र मसान्तमा
+                            र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।</span>
+
+                            <span *ngIf="val.subsidyOrAgricultureLoan === 'Yes'">हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
+                                बार्षिक
+                                            <span [ngClass]="{'outside' : val.interestRateCT !== null && val.interestRateCT !== ''}">
+                            {{val.interestRateCT === null || val.interestRateCT === '' ? '___________' : val.interestRateCT}}</span>
+                            % का दरले
+                        निर्धारण गरीएकोछ । सो निर्धारित ब्याज दरमा नेपाल राष्ट्र बैंकले ऋणीलाई दिने छुट/सहुलियत वापतको दर
+                        घटाई कायम हुन आउने रकम ऋणीले ब्याज स्वरुप नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन,
+                        पौष र चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।</span><br>
+
+                            <span><strong>कर्जा अवधि समाप्ति/पुनरावलोकन मितिः</strong>
+                                {{val?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
+                                <span [ngClass]="{'outside' : val.dateOfExpiryCT !== null && val.dateOfExpiryCT !== ''}">
+                            {{val.dateOfExpiryCT === null || val.dateOfExpiryCT === '' ? '___________' : val.dateOfExpiryCT}}</span>
+                        </span><br>
+                        </td>
+                    </ng-container>
+                </tr>
+            </ng-container>
+
             <ng-container *ngIf="tempData?.demandLoanForm?.demandLoanFormArray">
                 <tr *ngFor="let val of tempData?.demandLoanForm?.demandLoanFormArray; let i1 = index">
                     <!--Demand Loan for working capital-->
@@ -427,6 +509,7 @@
                             (tempData?.importLoanTrust?.importLoanTrustFormArray.length) +
                             (tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray.length) +
                             (tempData?.timeLetterCreditForm?.timeLetterCreditFormArray.length) +
+                            (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
                             (i1 + 1) | nepaliWord}})</strong>
                         </td>
                         <td style="border-top: 1px solid black">
@@ -527,7 +610,8 @@
                                        (tempData?.importLoanTrust?.importLoanTrustFormArray.length) +
                                        (tempData?.timeLetterCreditForm?.timeLetterCreditFormArray.length) +
                                        (tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray.length) +
-                                       (tempData?.demandLoanForm?.demandLoanFormArray.length)"
+                                       (tempData?.demandLoanForm?.demandLoanFormArray.length) +
+                                       (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length)"
                                        [termLoanData]="termLoanData">
         </app-term-loan-to-or-for-print>
     </div>
@@ -545,6 +629,7 @@
                             (tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray.length) +
                             (tempData?.timeLetterCreditForm?.timeLetterCreditFormArray.length) +
                             (tempData?.demandLoanForm?.demandLoanFormArray.length) +
+                            (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
                             (i1 + 1) | nepaliWord}})</strong>
                         </td>
                         <td style="border-top: 1px solid black">
@@ -621,8 +706,9 @@
                                             (tempData?.importLoanTrust?.importLoanTrustFormArray.length) +
                                             (tempData?.timeLetterCreditForm?.timeLetterCreditFormArray.length) +
                                             (tempData?.demandLoanForm?.demandLoanFormArray.length) +
-                                                (tempData?.bridgeGapLoan?.bridgeGapDetails.length) +
-                                            (tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray.length)"
+                                            (tempData?.bridgeGapLoan?.bridgeGapDetails.length) +
+                                            (tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray.length) +
+                                            (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length)"
                              [autoLoanData]="autoLoanData"
                              [freeText]="freeText">
         </app-auto-loan-print>
@@ -642,6 +728,7 @@
                             (tempData?.timeLetterCreditForm?.timeLetterCreditFormArray.length) +
                             (tempData?.demandLoanForm?.demandLoanFormArray.length) +
                             (tempData?.bridgeGapLoan?.bridgeGapDetails.length) +
+                            (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
                             (i1 + 1) | nepaliWord}})</strong></td>
                         <td style="border-top: 1px solid black">
                          <span><strong>अचल सम्पत्ति सुरक्षणमा आधारीत अधिविकर्ष कर्जा
@@ -748,6 +835,7 @@
                         (tempData?.timeLetterCreditForm?.timeLetterCreditFormArray.length) +
                         (tempData?.demandLoanForm?.demandLoanFormArray.length) +
                         (tempData?.bridgeGapLoan?.bridgeGapDetails.length) +
+                        (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
                         (i1 + 1) | nepaliWord}})</strong></td>
                     <td style="border-top: 1px solid black">
                         <strong>बचत/ऋण पत्रमा आधारीत
@@ -838,6 +926,7 @@
                             (tempData?.timeLetterCreditForm?.timeLetterCreditFormArray.length) +
                             (tempData?.demandLoanForm?.demandLoanFormArray.length) +
                             (tempData?.bridgeGapLoan?.bridgeGapDetails.length) +
+                            (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
                             (i2 + 1) | nepaliWord}})
                         </strong></td>
                     <td style="border-top: 1px solid black">
@@ -925,6 +1014,7 @@
                             (tempData?.timeLetterCreditForm?.timeLetterCreditFormArray.length) +
                             (tempData?.demandLoanForm?.demandLoanFormArray.length) +
                             (tempData?.bridgeGapLoan?.bridgeGapDetails.length) +
+                            (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
                             (i1 + 1) | nepaliWord}})</strong></td>
                         <td style="border-top: 1px solid black">
                          <span><strong>सुरक्षणमा आधारीत स्वपुँजी अधिविकर्ष कर्जा
@@ -1039,6 +1129,7 @@
                                     (tempData?.timeLetterCreditForm?.timeLetterCreditFormArray.length) +
                                     (tempData?.demandLoanForm?.demandLoanFormArray.length) +
                                     (tempData?.bridgeGapLoan?.bridgeGapDetails.length) +
+                                    (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
                                     (i3 + 1) | nepaliWord}})</strong></td>
                             <td style="border-top: 1px solid black"><strong>
                         <span [ngClass]="{'outside' : val.loanPeriodInDaysCT !== null && val.loanPeriodInDaysCT !== ''}">
@@ -1116,6 +1207,7 @@
                                 (tempData?.timeLetterCreditForm?.timeLetterCreditFormArray.length) +
                                 (tempData?.demandLoanForm?.demandLoanFormArray.length) +
                                 (tempData?.bridgeGapLoan?.bridgeGapDetails.length) +
+                                (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
                                 (i3 + 1) | nepaliWord}})
                             </strong>
                         </td>

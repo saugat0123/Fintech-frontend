@@ -208,11 +208,8 @@ export class PromissoryNoteCompanyComponent implements OnInit {
     if (!this.isInstitutional) {
       if (!ObjectUtil.isEmpty(this.individualData.dob) && !ObjectUtil.isEmpty(this.individualData.dob.en.eDate)) {
         const calAge = AgeCalculation.calculateAge(this.individualData.dob.en.eDate);
-        // age = this.engToNepNumberPipe.transform(String(calAge));
         age = this.ageCalculation(this.individualData.dob.en.eDate);
       } else {
-        // const calAge = AgeCalculation.calculateAge(this.individualData.dob.en);
-        // age = this.engToNepNumberPipe.transform(String(calAge));
         age = this.ageCalculation(this.individualData.dob.en);
       }
     }
@@ -263,47 +260,6 @@ export class PromissoryNoteCompanyComponent implements OnInit {
       directorCitizenshipIssueDistrict: this.tempProprietor[0] ? this.tempProprietor[0].ownerCitizenshipIssuedDistrictCT : '',
       branchName: [this.loanHolderNepData.branch ? this.loanHolderNepData.branch.ct : ''],
       authorizedPersonAge: age ? age : '',
-      // interest: (this.educationalTemplateData && this.educationalTemplateData.ct)
-      //     ? (this.educationalTemplateData.ct) : ((this.educationalTemplateData) ? (this.educationalTemplateData) : ('')),
-    });
-  }
-  setJointDetailsArr(data) {
-    const formArray = (this.form.get('jointDetailsArr') as FormArray);
-    if (ObjectUtil.isEmpty(data)) {
-      return;
-    }
-    data.forEach(value => {
-      // if (!ObjectUtil.isEmpty(value.nepData)) {
-      //
-      // }
-      const nepData = value;
-      const tempProprietor = value;
-      let age;
-      if (!ObjectUtil.isEmpty(tempProprietor.ownerDobCT) && !ObjectUtil.isEmpty(tempProprietor.radioOwnerDob)) {
-        const calAge = AgeCalculation.calculateAge(tempProprietor.radioOwnerDob);
-        age = this.ageCalculation(tempProprietor.radioOwnerDob);
-      } else {
-        age = this.ageCalculation(tempProprietor.radioOwnerDob);
-      }
-      let citizenshipIssuedDate;
-      if (!ObjectUtil.isEmpty(nepData.citizenshipIssueDate.en.nDate)) {
-        citizenshipIssuedDate = nepData.citizenshipIssueDate.en.nDate;
-      } else {
-        const convertedDate = this.datePipe.transform(nepData.citizenshipIssueDate.en);
-        citizenshipIssuedDate = this.engToNepaliDate.transform(convertedDate, true);
-      }
-      formArray.push(this.formBuilder.group({
-        nameofGrandFatherJoint : [nepData.grandFatherName.ct || nepData.grandFatherName.np],
-        nameofFatherJoint : [nepData.fatherName.np || nepData.fatherName.ct],
-        districtJoint : [nepData.permanentDistrict.ct],
-        vdcJoint : [nepData.permanentMunicipality.ct],
-        wardNoJoint : [nepData.permanentWard.np || nepData.permanentWard.ct],
-        ageJoint : [age ? age : ''],
-        nameofPersonJoint : [nepData.name.np || nepData.name.ct],
-        citizenshipNoJoint : [nepData.citizenNumber.np || nepData.citizenNumber.ct],
-        dateofIssueJoint : [citizenshipIssuedDate ? citizenshipIssuedDate : ''],
-        nameofIssuedDistrictJoint : [nepData.citizenshipIssueDistrict.en.nepaliName],
-      }));
     });
   }
   checkOfferLetterData() {
@@ -479,11 +435,11 @@ export class PromissoryNoteCompanyComponent implements OnInit {
   }
 
   setActYear() {
-    let yearOfAct = '';
-    if (!ObjectUtil.isEmpty(this.loanHolderNepData.radioActYearDate.en === 'AD')) {
-      yearOfAct = this.engToNepaliDate.transform(this.loanHolderNepData.actYear.en ? this.loanHolderNepData.actYear.en : this.loanHolderNepData.actYear.en, true) || '' ;
+    let yearOfAct: string;
+    if (!ObjectUtil.isEmpty(this.loanHolderNepData.radioActYearDate.np) && (this.loanHolderNepData.radioActYearDate.np === 'BS')) {
+      yearOfAct = this.loanHolderNepData.actYear.np ? this.loanHolderNepData.actYear.np : '';
     } else {
-      yearOfAct = this.loanHolderNepData.actYear.en ? this.loanHolderNepData.actYear.en : '';
+      yearOfAct = this.loanHolderNepData.actYear.en ? this.loanHolderNepData.actYear.en : '' ;
     }
     return yearOfAct ? yearOfAct : '';
   }
