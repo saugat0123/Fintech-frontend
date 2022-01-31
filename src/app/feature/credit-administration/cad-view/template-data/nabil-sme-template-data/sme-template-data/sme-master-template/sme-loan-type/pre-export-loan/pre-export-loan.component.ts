@@ -7,6 +7,7 @@ import {CurrencyFormatterPipe} from '../../../../../../../../../@core/pipe/curre
 import {DatePipe} from '@angular/common';
 import {EngNepDatePipe} from 'nepali-patro';
 import {OfferDocument} from '../../../../../../../model/OfferDocument';
+import {LoanNameConstant} from '../../../../sme-costant/loan-name-constant';
 
 @Component({
   selector: 'app-pre-export-loan',
@@ -27,6 +28,8 @@ export class PreExportLoanComponent implements OnInit {
   isMarketValue = false;
   isLetterOfCredit = false;
   termLoanNumber: Array<any> = new Array<any>();
+  filteredList: any = [];
+  loanNameConstant = LoanNameConstant;
 
 
   constructor(private formBuilder: FormBuilder,
@@ -34,7 +37,8 @@ export class PreExportLoanComponent implements OnInit {
               private engToNepNumberPipe: EngToNepaliNumberPipe,
               private currencyFormatterPipe: CurrencyFormatterPipe,
               private datePipe: DatePipe,
-              private engToNepDatePipe: EngNepDatePipe) { }
+              private engToNepDatePipe: EngNepDatePipe,
+              private engToNepWord: NepaliCurrencyWordPipe) { }
 
   ngOnInit() {
     this.termLoanNumber = this.customerApprovedDoc.assignedLoan.filter(val =>
@@ -43,6 +47,7 @@ export class PreExportLoanComponent implements OnInit {
     this.buildForm();
     if (!ObjectUtil.isEmpty(this.loanName)) {
       this.loanDetails = this.loanName;
+      this.filterLoanDetails(this.loanDetails);
     }
     if (this.offerDocumentList.length > 0) {
       this.offerDocumentList.forEach(offerLetter => {
@@ -64,6 +69,15 @@ export class PreExportLoanComponent implements OnInit {
         }
       }
     }
+    if (!ObjectUtil.isEmpty(this.filteredList)) {
+      for (let val = 0; val < this.filteredList.length; val++) {
+        const loanamountWords = this.engToNepWord.transform(this.filteredList[val].loanAmount);
+        this.preExportForm.get(['termLoanDetails', val, 'loanAmount']).patchValue(
+            this.filteredList[val] ? this.filteredList[val].loanAmount : '');
+        this.preExportForm.get(['termLoanDetails', val, 'loanAmountWords']).patchValue(
+            loanamountWords ? loanamountWords : '');
+      }
+    }
   }
 
   buildForm() {
@@ -71,6 +85,9 @@ export class PreExportLoanComponent implements OnInit {
       termLoanDetails: this.formBuilder.array([])
     });
     this.setTermLoanForm();
+  }
+  filterLoanDetails(loanDetails) {
+    this.filteredList = loanDetails.filter(data => data.name === this.loanNameConstant.PRE_EXPORT_LOAN);
   }
   setFormArray() {
     return this.formBuilder.group({

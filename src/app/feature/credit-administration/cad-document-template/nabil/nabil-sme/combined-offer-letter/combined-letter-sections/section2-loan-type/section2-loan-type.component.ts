@@ -157,6 +157,8 @@ export class Section2LoanTypeComponent implements OnInit {
     bridgeGap = [];
     bridgeGapLoanFreeText: Array<any> = new Array<any>();
     overdraftLoanForWorkingCapitalLoan = [];
+    preExportLoan = [];
+    preExportLoanFreeText: Array <any> = new Array<any>();
 
     constructor(private formBuilder: FormBuilder,
                 private engToNepWord: NepaliCurrencyWordPipe,
@@ -214,12 +216,8 @@ export class Section2LoanTypeComponent implements OnInit {
             demandLoan: this.formBuilder.array([]),
 
             // Pre-Export Loan
-            SNOfParentLimitPreExport: [undefined],
-            drawingPower1PreExport: [undefined],
-            drawingPower2PreExport: [undefined],
-            sulkaPreExport: [undefined],
-            interestRatePreExport: [undefined],
-            loanExpiryDatePreExport: [undefined],
+            preExportLoan: this.formBuilder.array([]),
+
             // Documentary Bill Purchase/Negotiation
             documentaryBillPurchaseNegotiation: this.formBuilder.array([]),
 
@@ -269,8 +267,6 @@ export class Section2LoanTypeComponent implements OnInit {
 
             // other Input Fields
             SNOfFacility: [undefined],
-            freeTextFour: [undefined],
-            freeTextFive: [undefined],
             freeTextSixteen: [undefined],
         });
         this.setOverdraftFacilityAgainstBond();
@@ -286,6 +282,16 @@ export class Section2LoanTypeComponent implements OnInit {
         this.demandLoanWorkingCapital();
         this.bridgeGapLoan();
         this.overdraftLoanForWorkingCapital();
+        this.preExportLoanForm();
+    }
+    preExportLoanForm() {
+        if (!ObjectUtil.isEmpty(this.initialData) &&
+            !ObjectUtil.isEmpty(this.initialData.preExportForm) &&
+            !ObjectUtil.isEmpty(this.initialData.preExportForm.termLoanDetails)) {
+            for (let a = 0; a < this.initialData.preExportForm.termLoanDetails.length; a++) {
+                (this.form.get('preExportLoan') as FormArray).push(this.setPreExportLoanForm());
+            }
+        }
     }
     overdraftLoanForWorkingCapital() {
         if (!ObjectUtil.isEmpty(this.initialData) &&
@@ -415,6 +421,18 @@ export class Section2LoanTypeComponent implements OnInit {
                 (this.form.get('overdraftFacilityAgainstBond') as FormArray).push(this.setOverdraftBondForm());
             }
         }
+    }
+    setPreExportLoanForm() {
+        return this.formBuilder.group({
+            SNOfParentLimitPreExport: [undefined],
+            drawingPower1PreExport: [undefined],
+            drawingPower2PreExport: [undefined],
+            sulkaPreExport: [undefined],
+            interestRatePreExport: [undefined],
+            loanExpiryDatePreExport: [undefined],
+            freeTextFour: [undefined],
+            freeTextFive: [undefined],
+        });
     }
     setOverdraftLoanForWorkingCapitalForm() {
         return this.formBuilder.group({
@@ -732,14 +750,14 @@ export class Section2LoanTypeComponent implements OnInit {
                     }
                     this.demandLoanFormPatchValue();
                 }*/
-                if (v.loanName === LoanNameConstant.PRE_EXPORT_LOAN && !ObjectUtil.isEmpty(this.tempData.preExportForm)) {
+                /*if (v.loanName === LoanNameConstant.PRE_EXPORT_LOAN && !ObjectUtil.isEmpty(this.tempData.preExportForm)) {
                     this.isPreExportLoan = true;
                     this.complementaryOtherPreExportLoanName = this.tempData.preExportForm.complimentaryLoanSelected;
-                    if (this.tempData.preExportForm.complementryOther === true) {
+                    if (this.tempData.preExportForm.complementaryOther === true) {
                         this.complementaryOtherPreExportLoan = true;
                     }
                     this.preExportFormPatchValue();
-                }
+                }*/
                /* if (v.loanName === LoanNameConstant.DOCUMENTARY_BILL_PURCHASE_NEGOTIATION &&
                     !ObjectUtil.isEmpty(this.tempData.documentaryBillPurchase)) {
                     this.isDocumentaryBillPurchase = true;
@@ -852,6 +870,7 @@ export class Section2LoanTypeComponent implements OnInit {
         this.demandLoanFormPatchValue();
         this.bridgeGapLoanFormPatchValue();
         this.overdraftLoanFormPatchValue();
+        this.preExportFormPatchValue();
     }
 
     irrevocableLetterOfCredit() {
@@ -1073,13 +1092,24 @@ export class Section2LoanTypeComponent implements OnInit {
     }
 
     preExportFormPatchValue() {
-        this.form.patchValue({
-            // Pre-Export Loan
-            // SNOfParentLimitPreExport: [undefined],
-            drawingPower1PreExport: this.tempData.preExportForm.drawingPowerCT ? this.tempData.preExportForm.drawingPowerCT : '',
-            drawingPower2PreExport: this.tempData.preExportForm.drawingPowerCT ? this.tempData.preExportForm.drawingPowerCT : '',
-            loanExpiryDatePreExport: this.tempData.preExportForm.dateOfExpiryCT ? this.tempData.preExportForm.dateOfExpiryCT : '',
-        });
+        if (!ObjectUtil.isEmpty(this.tempData) &&
+            !ObjectUtil.isEmpty(this.tempData.preExportForm) &&
+            !ObjectUtil.isEmpty(this.tempData.preExportForm.termLoanDetails)) {
+            for (let val = 0; val < this.tempData.preExportForm.termLoanDetails.length; val++) {
+                this.form.get(['preExportLoan', val, 'drawingPower1PreExport']).patchValue(
+                    this.tempData.preExportForm.termLoanDetails[val] ?
+                        this.tempData.preExportForm.termLoanDetails[val].drawingPowerCT : ''
+                );
+                this.form.get(['preExportLoan', val, 'drawingPower2PreExport']).patchValue(
+                    this.tempData.preExportForm.termLoanDetails[val] ?
+                        this.tempData.preExportForm.termLoanDetails[val].drawingPowerCT : ''
+                );
+                this.form.get(['preExportLoan', val, 'loanExpiryDatePreExport']).patchValue(
+                    this.tempData.preExportForm.termLoanDetails[val] ?
+                        this.tempData.preExportForm.termLoanDetails[val].dateOfExpiryCT : ''
+                );
+            }
+        }
     }
 
     documentaryBillPurchaseFormPatchValue() {
@@ -1378,10 +1408,10 @@ export class Section2LoanTypeComponent implements OnInit {
             // freeText2: this.form.get('freeTextTwo').value ? this.form.get('freeTextTwo').value : '',
             // remainingDaysShortTerms: this.form.get('remainDaysShortTermLoan').value ? this.form.get('remainDaysShortTermLoan').value : '',
             // freeText3: this.form.get('freeTextThree').value ? this.form.get('freeTextThree').value : '',
-            freeText4: this.form.get('freeTextFour').value ? this.form.get('freeTextFour').value : '',
-            freeText5: this.form.get('freeTextFive').value ? this.form.get('freeTextFive').value : '',
-            SulkaPreExport: this.form.get('sulkaPreExport').value ? this.form.get('sulkaPreExport').value : '',
-            interestRatePre: this.form.get('interestRatePreExport').value ? this.form.get('interestRatePreExport').value : '',
+            // freeText4: this.form.get('freeTextFour').value ? this.form.get('freeTextFour').value : '',
+            // freeText5: this.form.get('freeTextFive').value ? this.form.get('freeTextFive').value : '',
+            // SulkaPreExport: this.form.get('sulkaPreExport').value ? this.form.get('sulkaPreExport').value : '',
+            // interestRatePre: this.form.get('interestRatePreExport').value ? this.form.get('interestRatePreExport').value : '',
             // tslint:disable-next-line:max-line-length
             /*interestRateDocumentary: this.documentaryFreeText2(),
             // tslint:disable-next-line:max-line-length
@@ -1409,7 +1439,7 @@ export class Section2LoanTypeComponent implements OnInit {
             // SNLoanTrust: this.form.get('SNOfParentLimitLoanTrust').value ? this.form.get('SNOfParentLimitLoanTrust').value : '',
             // SNShortTermLoan: this.form.get('SNOfParentLimitShortTermLoan').value ? this.form.get('SNOfParentLimitShortTermLoan').value : '',
             // SNDemandLoan: this.form.get('SNOfParentLimitDemandLoan').value ? this.form.get('SNOfParentLimitDemandLoan').value : '',
-            SNPreExport: this.form.get('SNOfParentLimitPreExport').value ? this.form.get('SNOfParentLimitPreExport').value : '',
+            // SNPreExport: this.form.get('SNOfParentLimitPreExport').value ? this.form.get('SNOfParentLimitPreExport').value : '',
             // tslint:disable-next-line:max-line-length
             // SNDocumentaryBill: this.form.get('SNOfParentLimitDocumentaryBill').value ? this.form.get('SNOfParentLimitDocumentaryBill').value : '',
             documentaryBillPurchaseFreeText: this.documentaryBillFreeText(),
@@ -1421,6 +1451,7 @@ export class Section2LoanTypeComponent implements OnInit {
             customerAcceptanceFreeText: this.customerAcceptanceFree(),
             demandLoanFreeText: this.demandLoanFree(),
             bridgeGapFreeText: this.bridgeGapFree(),
+            preExportLoanFreeText: this.preExportFree(),
             // SNBridgeGap: this.form.get('SNOfParentLimitBridgeGap').value ? this.form.get('SNOfParentLimitBridgeGap').value : '',
             SNBankGuarantee: this.form.get('SNOfParentLimitBankGuarantee').value ? this.form.get('SNOfParentLimitBankGuarantee').value : '',
             // SNBillsPurchase: this.form.get('SNOfParentLimitBillsPurchase').value ? this.form.get('SNOfParentLimitBillsPurchase').value : '',
@@ -1429,6 +1460,28 @@ export class Section2LoanTypeComponent implements OnInit {
         return this.freeTextVal;
     }
 
+    preExportFree() {
+        if (!ObjectUtil.isEmpty(this.tempData) &&
+            !ObjectUtil.isEmpty(this.tempData.preExportForm) &&
+            !ObjectUtil.isEmpty(this.tempData.preExportForm.termLoanDetails)) {
+            for (let val = 0; val < this.tempData.preExportForm.termLoanDetails.length; val++) {
+                const tempFreeText = {
+                    SNOfParentLimitPreExport: this.form.get(['preExportLoan', val, 'SNOfParentLimitPreExport']).value ?
+                        this.form.get(['preExportLoan', val, 'SNOfParentLimitPreExport']).value : '',
+                    sulkaPreExport: this.form.get(['preExportLoan', val, 'sulkaPreExport']).value ?
+                        this.form.get(['preExportLoan', val, 'sulkaPreExport']).value : '',
+                    interestRatePreExport: this.form.get(['preExportLoan', val, 'interestRatePreExport']).value ?
+                        this.form.get(['preExportLoan', val, 'interestRatePreExport']).value : '',
+                    freeTextFour: this.form.get(['preExportLoan', val, 'freeTextFour']).value ?
+                        this.form.get(['preExportLoan', val, 'freeTextFour']).value : '',
+                    freeTextFive: this.form.get(['preExportLoan', val, 'freeTextFive']).value ?
+                    this.form.get(['preExportLoan', val, 'freeTextFive']).value : '',
+                };
+                this.preExportLoanFreeText.push(tempFreeText);
+            }
+            return this.preExportLoanFreeText;
+        }
+    }
     bridgeGapFree() {
         if (!ObjectUtil.isEmpty(this.tempData) &&
             !ObjectUtil.isEmpty(this.tempData.bridgeGapLoan) &&
@@ -1593,12 +1646,13 @@ export class Section2LoanTypeComponent implements OnInit {
         this.setCustomerAcceptanceLetterOfCreditFreeText();
         this.setDemandLoanFreeText();
         this.setBridgeGapFreeText();
+        this.setPreExportLoanFreeText();
         this.form.patchValue({
             // freeTextOne: this.tempInformation ? this.tempInformation.section2.freeText1 : '',
             // freeTextTwo: this.tempInformation ? this.tempInformation.section2.freeText2 : '',
             // freeTextThree: this.tempInformation ? this.tempInformation.section2.freeText3 : '',
-            freeTextFour: this.tempInformation ? this.tempInformation.section2.freeText4 : '',
-            freeTextFive: this.tempInformation ? this.tempInformation.section2.freeText5 : '',
+            // freeTextFour: this.tempInformation ? this.tempInformation.section2.freeText4 : '',
+            // freeTextFive: this.tempInformation ? this.tempInformation.section2.freeText5 : '',
             // freeTextSix: this.tempInformation ? this.tempInformation.section2.freeText6 : '',
             // freeTextSeven: this.tempInformation ? this.tempInformation.section2.freeText7 : '',
             // freeTextEight: this.tempInformation ? this.tempInformation.section2.freeText8 : '',
@@ -1608,8 +1662,8 @@ export class Section2LoanTypeComponent implements OnInit {
             // loanExpiryDateIrrevocable2: this.tempInformation ? this.tempInformation.section2.loanExpiryIrrevocable : '',
             // loanExpiryDateTimeLetter2: this.tempInformation ? this.tempInformation.section2.loanExpiryTimeLetter : '',
             // remainDaysShortTermLoan: this.tempInformation ? this.tempInformation.section2.remainingDaysShortTerms : '',
-            interestRatePreExport: this.tempInformation ? this.tempInformation.section2.interestRatePre : '',
-            sulkaPreExport: this.tempInformation ? this.tempInformation.section2.SulkaPreExport : '',
+            // interestRatePreExport: this.tempInformation ? this.tempInformation.section2.interestRatePre : '',
+            // sulkaPreExport: this.tempInformation ? this.tempInformation.section2.SulkaPreExport : '',
            /* InterestRateDocumentaryBill: this.tempInformation ? this.tempInformation.section2.interestRateDocumentary : '',
             loanPaymentDocumentaryBill: this.tempInformation ? this.tempInformation.section2.loanPaymentDocumentary : '',*/
             SNOfFacility: this.tempInformation ? this.tempInformation.section2.snOfFacility : '',
@@ -1620,7 +1674,7 @@ export class Section2LoanTypeComponent implements OnInit {
             // SNOfParentLimitLoanTrust: this.tempInformation ? this.tempInformation.section2.SNLoanTrust : '',
             // SNOfParentLimitShortTermLoan: this.tempInformation ? this.tempInformation.section2.SNShortTermLoan : '',
             // SNOfParentLimitDemandLoan: this.tempInformation ? this.tempInformation.section2.SNDemandLoan : '',
-            SNOfParentLimitPreExport: this.tempInformation ? this.tempInformation.section2.SNPreExport : '',
+            // SNOfParentLimitPreExport: this.tempInformation ? this.tempInformation.section2.SNPreExport : '',
             // SNOfParentLimitDocumentaryBill: this.tempInformation ? this.tempInformation.section2.SNDocumentaryBill : '',
             // SNOfParentLimitBridgeGap: this.tempInformation ? this.tempInformation.section2.SNBridgeGap : '',
             SNOfParentLimitBankGuarantee: this.tempInformation ? this.tempInformation.section2.SNBankGuarantee : '',
@@ -1628,6 +1682,29 @@ export class Section2LoanTypeComponent implements OnInit {
         });
     }
 
+    setPreExportLoanFreeText() {
+        if (!ObjectUtil.isEmpty(this.tempInformation) &&
+            !ObjectUtil.isEmpty(this.tempInformation.section2) &&
+            !ObjectUtil.isEmpty(this.tempInformation.section2.preExportLoanFreeText)) {
+            for (let val = 0; val < this.tempInformation.section2.preExportLoanFreeText.length; val++) {
+                this.form.get(['preExportLoan', val, 'SNOfParentLimitPreExport']).patchValue(
+                    this.tempInformation.section2.preExportLoanFreeText[val] ?
+                        this.tempInformation.section2.preExportLoanFreeText[val].SNOfParentLimitPreExport : '');
+                this.form.get(['preExportLoan', val, 'sulkaPreExport']).patchValue(
+                    this.tempInformation.section2.preExportLoanFreeText[val] ?
+                        this.tempInformation.section2.preExportLoanFreeText[val].sulkaPreExport : '');
+                this.form.get(['preExportLoan', val, 'interestRatePreExport']).patchValue(
+                    this.tempInformation.section2.preExportLoanFreeText[val] ?
+                        this.tempInformation.section2.preExportLoanFreeText[val].interestRatePreExport : '');
+                this.form.get(['preExportLoan', val, 'freeTextFour']).patchValue(
+                    this.tempInformation.section2.preExportLoanFreeText[val] ?
+                        this.tempInformation.section2.preExportLoanFreeText[val].freeTextFour : '');
+                this.form.get(['preExportLoan', val, 'freeTextFive']).patchValue(
+                    this.tempInformation.section2.preExportLoanFreeText[val] ?
+                        this.tempInformation.section2.preExportLoanFreeText[val].freeTextFive : '');
+            }
+        }
+    }
     setBridgeGapFreeText() {
         if (!ObjectUtil.isEmpty(this.tempInformation) &&
             !ObjectUtil.isEmpty(this.tempInformation.section2) &&
@@ -1789,5 +1866,6 @@ export class Section2LoanTypeComponent implements OnInit {
         this.demandLoan = this.loanData.filter(data => data.loanName === this.loanNameConstant.DEMAND_LOAN_FOR_WORKING_CAPITAL);
         this.bridgeGap = this.loanData.filter(data => data.loanName === this.loanNameConstant.BRIDGE_GAP_LOAN);
         this.overdraftLoanForWorkingCapitalLoan = this.loanData.filter(data => data.loanName === this.loanNameConstant.OVERDRAFT_LOAN_FOR_WORKING_CAPITAL_REQUIREMENT);
+        this.preExportLoan = this.loanData.filter(data => data.loanName === this.loanNameConstant.PRE_EXPORT_LOAN);
     }
 }
