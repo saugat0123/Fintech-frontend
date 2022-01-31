@@ -69,6 +69,7 @@ export class UIComponent implements OnInit, DoCheck {
     formLabel: string;
     enableMicro = environment.microLoan;
     form: FormGroup;
+    isRemitLoan = false;
 
     @ViewChild('loanConfigForm', {static: true}) loanConfigForm: NgForm;
     finalRenewWithEnhancementDocument = Array<Document>();
@@ -304,6 +305,11 @@ export class UIComponent implements OnInit, DoCheck {
 
     ngOnInit() {
         UIComponent.loadData(this);
+        if(this.selectedLoanTag === 'REMIT_LOAN')  {
+            this.isRemitLoan = true;
+        } else {
+            this.isRemitLoan = false;
+        }
     }
 
     getTemplate() {
@@ -438,6 +444,12 @@ export class UIComponent implements OnInit, DoCheck {
 
     onLoanTagChange() {
         console.log(this.selectedLoanTag);
+        if(this.selectedLoanTag === 'REMIT_LOAN')  {
+            this.isRemitLoan = true;
+        } else {
+            this.isRemitLoan = false;
+        }
+        console.log('this is remit loan', this.isRemitLoan);
     }
 
 
