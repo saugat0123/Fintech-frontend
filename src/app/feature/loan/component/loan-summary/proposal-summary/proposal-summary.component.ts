@@ -61,9 +61,11 @@ export class ProposalSummaryComponent implements OnInit {
     ngOnInit() {
         this.proposalAllData = JSON.parse(this.proposalData.data);
         this.checkedData = JSON.parse(this.proposalData.checkedData);
+        console.log(this.loanDataHolder);
         if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
             if (!ObjectUtil.isEmpty(this.loanDataHolder.customerLoanDtoList)) {
                 this.customerLoanDtoList = this.loanDataHolder.customerLoanDtoList;
+                console.log('customerLoanDtoList', this.customerLoanDtoList);
             }
         }
         this.calculateInterestRate();
@@ -95,8 +97,14 @@ export class ProposalSummaryComponent implements OnInit {
                 .map(l => JSON.parse(l.proposal.data)[key])
                 .reduce((a, b) => a + b, 0);
             if (this.customerLoanDtoList !== null && !ObjectUtil.isEmpty(this.customerLoanDtoList)) {
-                const tempCustomerLoanDtoList = this.customerLoanDtoList
-                    .filter(l => l.loanConfig.isFundable);
+                let tempCustomerLoanDtoList = [];
+                this.customerLoanDtoList.forEach(l => {
+                    if (!ObjectUtil.isEmpty(l.loanConfig)) {
+                        tempCustomerLoanDtoList = this.customerLoanDtoList.filter(l1 => l1.loanConfig.isFundable);
+                    } else {
+                        tempCustomerLoanDtoList = this.customerLoanDtoList.filter(l1 => l1.isFundable);
+                    }
+                });
                 tempCustomerLoanDtoList.forEach(cdl => {
                     numb = numb + JSON.parse(cdl.proposal.data)[key];
                 });
@@ -108,8 +116,14 @@ export class ProposalSummaryComponent implements OnInit {
                 .map(l => JSON.parse(l.proposal.data)[key])
                 .reduce((a, b) => a + b, 0);
             if (this.customerLoanDtoList !== null && !ObjectUtil.isEmpty(this.customerLoanDtoList)) {
-                const tempCustomerLoanDtoList = this.customerLoanDtoList
-                    .filter(l => !l.loanConfig.isFundable);
+                let tempCustomerLoanDtoList = [];
+                this.customerLoanDtoList.forEach(l => {
+                    if (!ObjectUtil.isEmpty(l.loanConfig)) {
+                        tempCustomerLoanDtoList = this.customerLoanDtoList.filter(l1 => !l1.loanConfig.isFundable);
+                    } else {
+                        tempCustomerLoanDtoList = this.customerLoanDtoList.filter(l1 => !l1.isFundable);
+                    }
+                });
                 tempCustomerLoanDtoList.forEach(cdl => {
                     numb = numb + JSON.parse(cdl.proposal.data)[key];
                 });
