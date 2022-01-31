@@ -37,7 +37,8 @@ export class OverdraftLoanForWorkingCapitalRequirementComponent implements OnIni
                private engToNepNumberPipe: EngToNepaliNumberPipe,
                private currencyFormatterPipe: CurrencyFormatterPipe,
                private datePipe: DatePipe,
-               private engToNepDatePipe: EngNepDatePipe) { }
+               private engToNepDatePipe: EngNepDatePipe,
+               private engToNepWord: NepaliCurrencyWordPipe) { }
 
   ngOnInit() {
     this.buildForm();
@@ -53,6 +54,15 @@ export class OverdraftLoanForWorkingCapitalRequirementComponent implements OnIni
         this.overdraftLoanForm.patchValue(this.initialInformation.overdraftLoanForm);
       }
       this.patchDate();
+    }
+    if (!ObjectUtil.isEmpty(this.filteredList)) {
+      for (let val = 0; val < this.filteredList.length; val++) {
+        const loanamountWords = this.engToNepWord.transform(this.filteredList[val].loanAmount);
+        this.overdraftLoanForm.get(['overdraftLoanFormArray', val, 'loanAmount']).patchValue(
+            this.filteredList[val] ? this.filteredList[val].loanAmount : '');
+        this.overdraftLoanForm.get(['overdraftLoanFormArray', val, 'loanAmountWords']).patchValue(
+            loanamountWords ? loanamountWords : '');
+      }
     }
   }
   filterLoanDetails(loanDetails) {
@@ -277,7 +287,7 @@ export class OverdraftLoanForWorkingCapitalRequirementComponent implements OnIni
     const baseRate = this.overdraftLoanForm.get([arrName, index, 'baseRate']).value;
     const premiumRate = this.overdraftLoanForm.get([arrName, index, 'premiumRate']).value;
     const sum = parseFloat(baseRate) + parseFloat(premiumRate);
-    this.overdraftLoanForm.get([arrName, index, 'interestRate']).patchValue(sum);
+    this.overdraftLoanForm.get([arrName, index, 'interestRate']).patchValue(sum.toFixed(3));
   }
 
 }

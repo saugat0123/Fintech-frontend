@@ -10,6 +10,7 @@ import {LoanNameConstant} from '../../../../../../cad-view/template-data/nabil-s
 import {CurrencyFormatterPipe} from '../../../../../../../../@core/pipe/currency-formatter.pipe';
 import {EngToNepaliNumberPipe} from '../../../../../../../../@core/pipe/eng-to-nepali-number.pipe';
 
+// @ts-ignore
 @Component({
     selector: 'app-section2-loan-type',
     templateUrl: './section2-loan-type.component.html',
@@ -155,6 +156,7 @@ export class Section2LoanTypeComponent implements OnInit {
     demandLoanFreeText: Array<any> = new Array<any>();
     bridgeGap = [];
     bridgeGapLoanFreeText: Array<any> = new Array<any>();
+    overdraftLoanForWorkingCapitalLoan = [];
 
     constructor(private formBuilder: FormBuilder,
                 private engToNepWord: NepaliCurrencyWordPipe,
@@ -222,13 +224,8 @@ export class Section2LoanTypeComponent implements OnInit {
             documentaryBillPurchaseNegotiation: this.formBuilder.array([]),
 
             // Overdraft Loan for Working Capital requirement
-            ARDaysOverdraftLoan: [undefined],
-            drawingPowerOverdraftLoan: [undefined],
-            baseRateOverdraftLoan: [undefined],
-            premiumRateOverdraftLoan: [undefined],
-            interestRateOverdraftLoan: [undefined],
-            totalInterestRateOverdraftLoan: [undefined],
-            loanExpiryDateOverdraftLoan: [undefined],
+            overdraftLoanForWorkingCapital: this.formBuilder.array([]),
+
             // Mortgage Overdraft/ Other Overdraft/ Equity Mortgaged Overdraft
             equityMortgageOverdraft: this.formBuilder.array([]),
             mortgageOverdraft: this.formBuilder.array([]),
@@ -288,6 +285,16 @@ export class Section2LoanTypeComponent implements OnInit {
         this.customerAcceptanceLetterOfCredit();
         this.demandLoanWorkingCapital();
         this.bridgeGapLoan();
+        this.overdraftLoanForWorkingCapital();
+    }
+    overdraftLoanForWorkingCapital() {
+        if (!ObjectUtil.isEmpty(this.initialData) &&
+            !ObjectUtil.isEmpty(this.initialData.overdraftLoanForm) &&
+            !ObjectUtil.isEmpty(this.initialData.overdraftLoanForm.overdraftLoanFormArray)) {
+            for (let a = 0; a < this.initialData.overdraftLoanForm.overdraftLoanFormArray.length; a++) {
+                (this.form.get('overdraftLoanForWorkingCapital') as FormArray).push(this.setOverdraftLoanForWorkingCapitalForm());
+            }
+        }
     }
     bridgeGapLoan() {
         if (!ObjectUtil.isEmpty(this.initialData) &&
@@ -408,6 +415,17 @@ export class Section2LoanTypeComponent implements OnInit {
                 (this.form.get('overdraftFacilityAgainstBond') as FormArray).push(this.setOverdraftBondForm());
             }
         }
+    }
+    setOverdraftLoanForWorkingCapitalForm() {
+        return this.formBuilder.group({
+            ARDaysOverdraftLoan: [undefined],
+            drawingPowerOverdraftLoan: [undefined],
+            baseRateOverdraftLoan: [undefined],
+            premiumRateOverdraftLoan: [undefined],
+            interestRateOverdraftLoan: [undefined],
+            totalInterestRateOverdraftLoan: [undefined],
+            loanExpiryDateOverdraftLoan: [undefined],
+        });
     }
     setBridgeGapLoanForm() {
         return this.formBuilder.group({
@@ -731,7 +749,7 @@ export class Section2LoanTypeComponent implements OnInit {
                     }
                     this.documentaryBillPurchaseFormPatchValue();
                 }*/
-                if (v.loanName === LoanNameConstant.OVERDRAFT_LOAN_FOR_WORKING_CAPITAL_REQUIREMENT &&
+                /*if (v.loanName === LoanNameConstant.OVERDRAFT_LOAN_FOR_WORKING_CAPITAL_REQUIREMENT &&
                     !ObjectUtil.isEmpty(this.tempData.overdraftLoanForm)) {
                     this.isOverdraftLoanWorkingCapital = true;
                     this.interestSubsidyAgOverdraftLoanWorking = this.tempData.overdraftLoanForm.subsidyOrAgricultureLoan;
@@ -739,7 +757,7 @@ export class Section2LoanTypeComponent implements OnInit {
                         this.arFinancingOverdraftLoanWorking = true;
                     }
                     this.overdraftLoanFormPatchValue();
-                }
+                }*/
                 /*if (v.loanName === LoanNameConstant.MORTGAGE_OVERDRAFT || v.loanName === LoanNameConstant.EQUITY_MORTGAGED_OVERDRAFT &&
                     !ObjectUtil.isEmpty(this.tempData.equityMortgaged)) {
                     this.isEquityMortgageOverdraft = true;
@@ -833,6 +851,7 @@ export class Section2LoanTypeComponent implements OnInit {
         this.timeLetterCreditFormPatchValue();
         this.demandLoanFormPatchValue();
         this.bridgeGapLoanFormPatchValue();
+        this.overdraftLoanFormPatchValue();
     }
 
     irrevocableLetterOfCredit() {
@@ -1085,17 +1104,39 @@ export class Section2LoanTypeComponent implements OnInit {
     }
 
     overdraftLoanFormPatchValue() {
-        this.form.patchValue({
-            // Overdraft Loan for Working Capital requirement
-            ARDaysOverdraftLoan: this.tempData.overdraftLoanForm.arDaysCT ? this.tempData.overdraftLoanForm.arDaysCT : '',
-            drawingPowerOverdraftLoan: this.tempData.overdraftLoanForm.drawingPowerCT ? this.tempData.overdraftLoanForm.drawingPowerCT : '',
-            baseRateOverdraftLoan: this.tempData.overdraftLoanForm.baseRateCT ? this.tempData.overdraftLoanForm.baseRateCT : '',
-            premiumRateOverdraftLoan: this.tempData.overdraftLoanForm.premiumRateCT ? this.tempData.overdraftLoanForm.premiumRateCT : '',
-            interestRateOverdraftLoan: this.tempData.overdraftLoanForm.interestRateCT ? this.tempData.overdraftLoanForm.interestRateCT : '',
-            // tslint:disable-next-line:max-line-length
-            totalInterestRateOverdraftLoan: this.tempData.overdraftLoanForm.interestRateCT ? this.tempData.overdraftLoanForm.interestRateCT : '',
-            loanExpiryDateOverdraftLoan: this.tempData.overdraftLoanForm.dateOfExpiryCT ? this.tempData.overdraftLoanForm.dateOfExpiryCT : '',
-        });
+        if (!ObjectUtil.isEmpty(this.tempData) &&
+            !ObjectUtil.isEmpty(this.tempData.overdraftLoanForm) &&
+            !ObjectUtil.isEmpty(this.tempData.overdraftLoanForm.overdraftLoanFormArray)) {
+            for (let index = 0; index < this.tempData.overdraftLoanForm.overdraftLoanFormArray.length; index++) {
+                this.form.get(['overdraftLoanForWorkingCapital', index, 'ARDaysOverdraftLoan']).patchValue(
+                    this.tempData.overdraftLoanForm.overdraftLoanFormArray[index] ?
+                        this.tempData.overdraftLoanForm.overdraftLoanFormArray[index].arDaysCT : '');
+
+                this.form.get(['overdraftLoanForWorkingCapital', index, 'drawingPowerOverdraftLoan']).patchValue(
+                    this.tempData.overdraftLoanForm.overdraftLoanFormArray[index] ?
+                        this.tempData.overdraftLoanForm.overdraftLoanFormArray[index].drawingPowerCT : '');
+
+                this.form.get(['overdraftLoanForWorkingCapital', index, 'baseRateOverdraftLoan']).patchValue(
+                    this.tempData.overdraftLoanForm.overdraftLoanFormArray[index] ?
+                        this.tempData.overdraftLoanForm.overdraftLoanFormArray[index].baseRateCT : '');
+
+                this.form.get(['overdraftLoanForWorkingCapital', index, 'premiumRateOverdraftLoan']).patchValue(
+                    this.tempData.overdraftLoanForm.overdraftLoanFormArray[index] ?
+                        this.tempData.overdraftLoanForm.overdraftLoanFormArray[index].premiumRateCT : '');
+
+                this.form.get(['overdraftLoanForWorkingCapital', index, 'interestRateOverdraftLoan']).patchValue(
+                    this.tempData.overdraftLoanForm.overdraftLoanFormArray[index] ?
+                        this.tempData.overdraftLoanForm.overdraftLoanFormArray[index].interestRateCT : '');
+
+                this.form.get(['overdraftLoanForWorkingCapital', index, 'totalInterestRateOverdraftLoan']).patchValue(
+                    this.tempData.overdraftLoanForm.overdraftLoanFormArray[index] ?
+                        this.tempData.overdraftLoanForm.overdraftLoanFormArray[index].interestRateCT : '');
+
+                this.form.get(['overdraftLoanForWorkingCapital', index, 'loanExpiryDateOverdraftLoan']).patchValue(
+                    this.tempData.overdraftLoanForm.overdraftLoanFormArray[index] ?
+                        this.tempData.overdraftLoanForm.overdraftLoanFormArray[index].dateOfExpiryCT : '');
+            }
+        }
     }
 
     equityMortgageFormPatchValue() {
@@ -1747,5 +1788,6 @@ export class Section2LoanTypeComponent implements OnInit {
         this.customerAccentanceLetterOfCredit = this.loanData.filter(data => data.loanName === this.loanNameConstant.CUSTOMER_ACCEPTANCE_FOR_TIME_LETTER_OF_CREDIT);
         this.demandLoan = this.loanData.filter(data => data.loanName === this.loanNameConstant.DEMAND_LOAN_FOR_WORKING_CAPITAL);
         this.bridgeGap = this.loanData.filter(data => data.loanName === this.loanNameConstant.BRIDGE_GAP_LOAN);
+        this.overdraftLoanForWorkingCapitalLoan = this.loanData.filter(data => data.loanName === this.loanNameConstant.OVERDRAFT_LOAN_FOR_WORKING_CAPITAL_REQUIREMENT);
     }
 }
