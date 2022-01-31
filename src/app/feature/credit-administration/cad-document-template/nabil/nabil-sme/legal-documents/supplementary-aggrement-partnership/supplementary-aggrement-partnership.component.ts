@@ -128,7 +128,6 @@ export class SupplementaryAggrementPartnershipComponent implements OnInit {
   fillForm() {
     // for sanction letter date
     if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
-      console.log('hire', this.cadData);
       if (this.cadData.offerDocumentList[0].docName === 'DDSL Without Subsidy' ||
           this.cadData.offerDocumentList[0].docName === 'Class A Sanction letter') {
         const dateOfApproval = this.initialInfo.sanctionLetterDateType ? this.initialInfo.sanctionLetterDateType.en : '';
@@ -185,7 +184,7 @@ export class SupplementaryAggrementPartnershipComponent implements OnInit {
       days: this.supportedInfo ? this.supportedInfo.days : '',
       suvam: this.supportedInfo ? this.supportedInfo.suvam : '',
     });
-    if (!ObjectUtil.isEmpty(this.supportedInfo.freeTextVal)) {
+    if (!ObjectUtil.isEmpty(this.supportedInfo)) {
       for (let val = 0; val < this.supportedInfo.freeTextVal.length - 1; val++) {
         this.addTextArea();
       }
