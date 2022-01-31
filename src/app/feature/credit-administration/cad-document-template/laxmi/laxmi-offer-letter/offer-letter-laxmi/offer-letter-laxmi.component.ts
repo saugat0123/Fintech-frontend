@@ -267,6 +267,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
 
             date1: [undefined],
             amount1: [undefined],
+            amount7: [undefined],
             date2: [undefined],
             amount2: [undefined],
             date3: [undefined],
@@ -555,8 +556,11 @@ export class OfferLetterLaxmiComponent implements OnInit {
     parseAssignedLoanData() {
         if (!ObjectUtil.isEmpty(this.cadData)) {
             this.cadData.assignedLoan.forEach((l, i) => {
+                this.loanType.push(l.loanType);
+                // this.loanType = l.loanType;
                 this.addPurpose(l);
             });
+            console.log('loanType', this.loanType);
             const security: Security = this.cadData.loanHolder.security;
             const siteVisit: SiteVisit = this.cadData.loanHolder.siteVisit;
             if (!ObjectUtil.isEmpty(siteVisit)) {
