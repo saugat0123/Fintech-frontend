@@ -172,7 +172,7 @@
                     <td>{{previous?.toRole.roleName}}</td>
 
                     <td>{{previous?.docAction}}</td>
-                    <td colspan="6">{{previous.comment}}</td>
+                    <td colspan="6"><span [innerHTML]="previous?.comment"></span></td>
                 </tr>
                 <tr>
                     <td>{{model?.currentStage?.lastModifiedAt | date}}</td>
@@ -181,8 +181,7 @@
                     <td>{{model?.currentStage?.toUser.name}}</td>
                     <td>{{model?.currentStage?.toRole.roleName}}</td>
                     <td>{{model?.currentStage?.docAction}}</td>
-                    <td colspan="6">{{model?.currentStage?.comment}}</td>
-
+                    <td colspan="6"><span [innerHTML]="model?.currentStage?.comment"></span></td>
                 </tr>
                 <tr class="sb-bg-dark"><td colspan="12">.</td> </tr>
             </ng-container>
