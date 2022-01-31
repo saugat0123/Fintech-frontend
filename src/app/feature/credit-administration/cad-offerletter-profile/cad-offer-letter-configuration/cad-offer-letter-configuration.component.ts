@@ -174,7 +174,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
                 this.tempGuarantorProvinceList = response.detail;
                 this.guarantorProvienceList = response.detail;
             });
-
         if (!ObjectUtil.isEmpty(this.oneFormCustomer)) {
             this.getAllEditedDistrictAndMunicipalities();
             this.dateTypeAD = true;
@@ -219,13 +218,13 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
 
         this.patchValue();
         this.patchNepData();
-        this.patchIndividualData();
         this.editedTransData();
         if (!ObjectUtil.isEmpty(this.customerInfo.nepData)) {
             const data = JSON.parse(this.customerInfo.nepData);
             this.userConfigForm.patchValue(data);
             this.setGuarantors(data.guarantorDetails);
         }
+        this.patchIndividualData();
 
     }
 
@@ -2062,6 +2061,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
         if (this.loanHolder.customerType === CustomerType.INDIVIDUAL) {
             const memberData = JSON.parse(this.oneFormCustomer.individualJsonData);
             this.userConfigForm.patchValue({
+                relationMedium: ObjectUtil.isEmpty(memberData.relationMedium) ? undefined : memberData.relationMedium,
                 fatherName: ObjectUtil.isEmpty(memberData.fatherName) ? undefined : memberData.fatherName,
                 grandFatherName: ObjectUtil.isEmpty(memberData.grandFatherName) ? undefined : memberData.grandFatherName,
                 husbandName: ObjectUtil.isEmpty(memberData.husbandName) ? undefined : memberData.husbandName,
@@ -2083,6 +2083,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
             // contactNoCT: this.translatedValues.contactNo,
             // panNoCT: this.translatedValues.panNo,
             genderCT: this.translatedValues.gender,
+            relationMediumCT: this.translatedValues.relationMedium,
             fatherNameCT: this.translatedValues.fatherName,
             grandFatherNameCT: this.translatedValues.grandFatherName,
             husbandNameCT: this.translatedValues.husbandName,
@@ -2225,7 +2226,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
             if (this.userConfigForm.get('fatherNameCT').value === null) {
                 this.userConfigForm.get('fatherNameCT').patchValue(ObjectUtil.isEmpty(this.nepData.fatherName) ? undefined : this.nepData.fatherName.ct);
             }
-
+            if (this.userConfigForm.get('relationMediumCT').value === null) {
+                this.userConfigForm.get('relationMediumCT').patchValue(ObjectUtil.isEmpty(this.nepData.relationMedium) ? undefined : this.nepData.relationMedium.ct);
+            }
             if (this.userConfigForm.get('husbandNameCT').value === null) {
                 this.userConfigForm.get('husbandNameCT').patchValue(ObjectUtil.isEmpty(this.nepData.husbandName) ? undefined : this.nepData.husbandName.ct);
             }
@@ -2409,16 +2412,17 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
         this.userConfigForm.get('permanentWardTrans').patchValue(ObjectUtil.isEmpty(this.nepData.permanentWard) ? undefined : this.nepData.permanentWard.np);
         this.userConfigForm.get('temporaryWardTrans').patchValue(ObjectUtil.isEmpty(this.nepData.temporaryWard) ? undefined : this.nepData.temporaryWard.np);
         this.userConfigForm.get('citizenshipIssueDistrictTrans').patchValue(ObjectUtil.isEmpty(this.nepData.citizenshipIssueDistrict) ? undefined : this.nepData.citizenshipIssueDistrict.ct);
-        this.userConfigForm.get('registrationNoTrans').patchValue(ObjectUtil.isEmpty(this.nepData.registrationNo) ? undefined :
-            this.loanHolder.customerType === CustomerType.INSTITUTION ?
-                this.nepData.registrationNo.ct : undefined),
+        if ( this.loanHolder.customerType === CustomerType.INSTITUTION) {
+            this.userConfigForm.get('registrationNoTrans').patchValue(ObjectUtil.isEmpty(this.nepData.registrationNo) ? undefined :
+                this.loanHolder.customerType === CustomerType.INSTITUTION ?
+                    this.nepData.registrationNo.ct : undefined);
             this.userConfigForm.get('registeredProvinceTrans').patchValue(ObjectUtil.isEmpty(this.nepData.registeredProvince) ? undefined :
                 this.loanHolder.customerType === CustomerType.INSTITUTION ?
-                    this.nepData.registeredProvince.en.nepaliName : undefined),
+                    this.nepData.registeredProvince.en.nepaliName : undefined);
             this.userConfigForm.get('registeredWardTrans').patchValue(ObjectUtil.isEmpty(this.nepData.permanentWard) ? undefined :
                 this.loanHolder.customerType === CustomerType.INSTITUTION ?
                     this.nepData.permanentWard.ct : undefined);
-
+        }
     }
 
     openCloseTemplate(template) {
