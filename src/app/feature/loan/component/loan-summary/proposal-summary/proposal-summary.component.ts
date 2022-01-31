@@ -61,11 +61,9 @@ export class ProposalSummaryComponent implements OnInit {
     ngOnInit() {
         this.proposalAllData = JSON.parse(this.proposalData.data);
         this.checkedData = JSON.parse(this.proposalData.checkedData);
-        console.log(this.loanDataHolder);
         if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
             if (!ObjectUtil.isEmpty(this.loanDataHolder.customerLoanDtoList)) {
                 this.customerLoanDtoList = this.loanDataHolder.customerLoanDtoList;
-                console.log('customerLoanDtoList', this.customerLoanDtoList);
             }
         }
         this.calculateInterestRate();
