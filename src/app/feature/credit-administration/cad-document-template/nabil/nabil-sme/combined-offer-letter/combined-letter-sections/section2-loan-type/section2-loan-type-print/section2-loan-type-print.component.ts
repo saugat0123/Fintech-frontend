@@ -140,6 +140,7 @@ export class Section2LoanTypePrintComponent implements OnInit {
     demandLoan = [];
     bridgeGap = [];
     overdraftLoanForWorkingCapitalLoan = [];
+    preExportLoan = [];
 
     constructor(private engToNepWord: NepaliCurrencyWordPipe,
                 private engToNepaliDate: EngNepDatePipe,
@@ -450,5 +451,6 @@ export class Section2LoanTypePrintComponent implements OnInit {
         this.demandLoan = this.loanData.filter(data => data.loanName === this.loanNameConstant.DEMAND_LOAN_FOR_WORKING_CAPITAL);
         this.bridgeGap = this.loanData.filter(data => data.loanName === this.loanNameConstant.BRIDGE_GAP_LOAN);
         this.overdraftLoanForWorkingCapitalLoan = this.loanData.filter(data => data.loanName === this.loanNameConstant.OVERDRAFT_LOAN_FOR_WORKING_CAPITAL_REQUIREMENT);
+        this.preExportLoan = this.loanData.filter(data => data.loanName === this.loanNameConstant.PRE_EXPORT_LOAN);
     }
 }
