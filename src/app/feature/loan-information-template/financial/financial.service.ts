@@ -125,7 +125,7 @@ export class FinancialService {
                     + Number(cashFlowStatementData.dividendDrawing[index].value)
                     + Number(cashFlowStatementData.interestExpensesCFSb[index].value)
                     + Number(cashFlowStatementData.otherAdjustments[index].value)
-                    + Number(cashFlowStatementData.additionalCapital)).toFixed(2);
+                    + Number(cashFlowStatementData.additionalCapital[index])).toFixed(2);
         } else {
             cashFlowStatementData.cashFromFinancingActivities[index].value =
                 (Number(cashFlowStatementData.paidUpCapitalEquity[index].value)
