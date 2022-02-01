@@ -141,6 +141,10 @@ export class Section2LoanTypePrintComponent implements OnInit {
     bridgeGap = [];
     overdraftLoanForWorkingCapitalLoan = [];
     preExportLoan = [];
+    equityMortgageTermLoan = [];
+    equityMortgageData;
+    mortgageTermLoan = [];
+    mortgageTermLoanData;
 
     constructor(private engToNepWord: NepaliCurrencyWordPipe,
                 private engToNepaliDate: EngNepDatePipe,
@@ -163,6 +167,10 @@ export class Section2LoanTypePrintComponent implements OnInit {
                     this.tempData.autoLoanMasterForm.autoLoanFormArray : [];
                 this.termLoanData = !ObjectUtil.isEmpty(this.tempData.termLoanForm) ?
                     this.tempData.termLoanForm.termLoanDetails : [];
+                this.equityMortgageData = !ObjectUtil.isEmpty(this.tempData.mortgageEquityTermForm) ?
+                    this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray : [];
+                this.mortgageTermLoanData = !ObjectUtil.isEmpty(this.tempData.mortgageEquityTermForm) ?
+                    this.tempData.mortgageEquityTermForm.mortgageTermFormArray : [];
             }
             this.getFDName();
             this.getDepName();
@@ -322,9 +330,9 @@ export class Section2LoanTypePrintComponent implements OnInit {
                 if (v.loanName === LoanNameConstant.TERM_LOAN_TO_FOR_PURCHASE_OF_VEHICLE) {
                     this.isTermLoanToOrFor = true;
                 }
-                if (v.loanName === LoanNameConstant.MORTGAGE_TERM_LOAN_EQUITY_MORTGAGE_TERM_LOAN) {
+                /*if (v.loanName === LoanNameConstant.MORTGAGE_TERM_LOAN_EQUITY_MORTGAGE_TERM_LOAN) {
                     this.isEquityMortgageTermLoan = true;
-                }
+                }*/
                 if (v.loanName === LoanNameConstant.AUTO_LOAN) {
                     this.isAutoLoanMaster = true;
                 }
@@ -452,5 +460,7 @@ export class Section2LoanTypePrintComponent implements OnInit {
         this.bridgeGap = this.loanData.filter(data => data.loanName === this.loanNameConstant.BRIDGE_GAP_LOAN);
         this.overdraftLoanForWorkingCapitalLoan = this.loanData.filter(data => data.loanName === this.loanNameConstant.OVERDRAFT_LOAN_FOR_WORKING_CAPITAL_REQUIREMENT);
         this.preExportLoan = this.loanData.filter(data => data.loanName === this.loanNameConstant.PRE_EXPORT_LOAN);
+        this.equityMortgageTermLoan = this.loanData.filter(data => data.loanName === this.loanNameConstant.EQUITY_MORTGAGE_TERM_LOAN);
+        this.mortgageTermLoan = this.loanData.filter(data => data.loanName === this.loanNameConstant.MORTGAGE_TERM_LOAN);
     }
 }
