@@ -42,6 +42,8 @@ export class PowerOfAttorneyPartnershipComponent implements OnInit {
   sanctionDate;
   combinedAddress;
   issueDate = [];
+  authorizedNameArray: Array<any> = new Array<any>();
+
 
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
@@ -69,14 +71,24 @@ export class PowerOfAttorneyPartnershipComponent implements OnInit {
     this.dateConvert();
     this.patchFreeText();
     this.fillForm();
+    this.auth();
+  }
+  auth() {
+    if (!ObjectUtil.isEmpty(this.cadData.assignedLoan[0])) {
+      this.companyInfo = JSON.parse(this.cadData.assignedLoan[0].companyInfo.companyJsonData);
+      this.companyInfo.forEach(val => {
+        const authorizedName = val.ownerNameCT;
+        // tslint:disable-next-line:no-unused-expression
+        this.authorizedNameArray ? this.authorizedNameArray.push(authorizedName) : '';
+      });
+    }
   }
 
   dateConvert() {
     let date;
     this.companyInfo.forEach(val => {
       if (val.radioOwnerCitizenshipIssuedDate === 'AD') {
-        date = this.engToNepaliDate.transform(val ?
-            val.ownerCitizenshipIssuedDateCT : val.ownerCitizenshipIssuedDateCT, true) || '';
+        date = this.engToNepaliDate.transform(val ? val.ownerCitizenshipIssuedDateCT : val.ownerCitizenshipIssuedDateCT, true) || '';
       } else {
         date = val ? val.ownerCitizenshipIssuedDateCT : '';
       }
@@ -86,11 +98,10 @@ export class PowerOfAttorneyPartnershipComponent implements OnInit {
       this.issueDate.push(newDate);
     });
   }
-
   buildForm() {
     this.form = this.formBuilder.group({
       nameOfBranchLocated: [undefined],
-      nameOfAuthorizedBody: [undefined],
+      authorizedBodyName: [undefined],
       // Firm Details
       districtOfFirm: [undefined],
       municipalityOfFirm: [undefined],
@@ -234,7 +245,6 @@ export class PowerOfAttorneyPartnershipComponent implements OnInit {
 
     this.form.patchValue({
       nameOfBranchLocated: this.individualData.branch ? this.individualData.branch.ct : '',
-      nameOfAuthorizedBody: this.individualData.authorizedBodyName ? this.individualData.authorizedBodyName.ct : '',
       districtOfFirm: this.individualData.registeredDistrict ? this.individualData.registeredDistrict.ct : '',
       municipalityOfFirm: this.individualData.registeredMunicipality ? this.individualData.registeredMunicipality.ct : '',
       wardNoOfFirm: this.individualData.permanentWard ? this.individualData.permanentWard.ct : '',
