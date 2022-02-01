@@ -57,6 +57,7 @@ export class DdslWithoutSubsidyPrintComponent implements OnInit {
     offerDocumentDetails;
     autoRefNum;
     sanctionDate;
+    sanctionLetterDate;
     freeInformation;
     previousSanctionDate1;
     applicationDate;
@@ -133,13 +134,12 @@ export class DdslWithoutSubsidyPrintComponent implements OnInit {
             this.autoRefNum = this.cadOfferLetterApprovedDoc.assignedLoan[0].refNo;
         }
         // date of Approval
-        const dateOfApprovalType = this.letter.sanctionLetterDateType ?
-            this.letter.sanctionLetterDateType.en : '';
-        if (dateOfApprovalType === 'AD') {
+        const dateOfApproval = this.letter.sanctionLetterDateType ? this.letter.sanctionLetterDateType.en : '';
+        if (dateOfApproval === 'AD') {
             const tempApprDate = this.letter.sanctionLetterDate ?
                 this.engNepDatePipe.transform(this.datePipe.transform(this.letter.sanctionLetterDate.en), true) :
                 '';
-            this.sanctionDate = tempApprDate ? tempApprDate : '';
+            this.sanctionLetterDate = tempApprDate ? tempApprDate : '';
         } else {
             const tempApprNepali = this.letter.sanctionLetterDateNepali ?
                 this.letter.sanctionLetterDateNepali.en : '';
