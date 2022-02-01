@@ -17,7 +17,7 @@ import { NepaliCurrencyWordPipe } from '../../../../../@core/pipe/nepali-currenc
 import { EngToNepaliNumberPipe } from '../../../../../@core/pipe/eng-to-nepali-number.pipe';
 import { CurrencyFormatterPipe } from '../../../../../@core/pipe/currency-formatter.pipe';
 import { ProposalCalculationUtils } from '../../../../loan/component/loan-summary/ProposalCalculationUtils';
-import {DatePipe} from "@angular/common";
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-personal-guarantee-company',
@@ -75,6 +75,7 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
                 const free = this.personalGuaranteeCompany.value;
                 if (this.cadInitialInfo !== null) {
                     for (let val = 0; val < free.guaranteeCompanies.length; val++) {
+                        // tslint:disable-next-line:max-line-length
                         this.personalGuaranteeCompany.get(['guaranteeCompanies', val, 'freeText']).patchValue(this.cadInitialInfo ? this.cadInitialInfo[val].freeText : '');
                         this.personalGuaranteeCompany.get(['guaranteeCompanies', val, 'sakshiDistrict1']).patchValue(this.cadInitialInfo ? this.cadInitialInfo[val].sakshiDistrict1 : '');
                         this.personalGuaranteeCompany.get(['guaranteeCompanies', val, 'sakshiDistrict2']).patchValue(this.cadInitialInfo ? this.cadInitialInfo[val].sakshiDistrict2 : '');
@@ -140,12 +141,11 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
         if (ObjectUtil.isEmpty(individualGuarantorNepData)) {
           return;
         }
-          (this.personalGuaranteeCompany.get("guaranteeCompanies") as FormArray).push(
+          (this.personalGuaranteeCompany.get('guaranteeCompanies') as FormArray).push(
               this.formBuilder.group({
                   branchName: [this.loanHolderNepData.branch ? this.loanHolderNepData.branch.ct : ''],
                   actDetails: [this.loanHolderNepData.actName.ct ? this.loanHolderNepData.actName.ct : ''],
-                  actYearInFigure: [this.loanHolderNepData.actYear.np ? this.loanHolderNepData.actYear.np :
-                                    this.loanHolderNepData.actYear.en ? this.engToNepNumberPipe.transform((this.loanHolderNepData.actYear.en).toString()) : ''],
+                  actYearInFigure: [this.setActYear()],
                   authorizedBodyName: [this.loanHolderNepData.authorizedBodyName ? this.loanHolderNepData.authorizedBodyName.ct : 'नेपाल सरकार'],
                   headDepartment: [this.loanHolderNepData.name ? this.loanHolderNepData.name.ct : ''],
                   registrationDate: [this.setRegistrationDate()],
@@ -167,18 +167,19 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
                   guarantorName: [individualGuarantorNepData.guarantorName ? individualGuarantorNepData.guarantorName.ct : ''],
                   guarantorFatherOrHusbandName: [individualGuarantorNepData.fatherName ? individualGuarantorNepData.fatherName.ct : individualGuarantorNepData.husbandName ? individualGuarantorNepData.husbandName.ct : ''],
                   grandFatherOrFatherInLaw: [individualGuarantorNepData.grandFatherName ? individualGuarantorNepData.grandFatherName.ct : individualGuarantorNepData.fatherInLawName ? individualGuarantorNepData.fatherInLawName.ct : ''],
-                  permanentDistrict: [individualGuarantorNepData.permanentDistrict ? individualGuarantorNepData.permanentDistrict.ct : '',],
-                  permanentMunicipalities: [individualGuarantorNepData.permanentMunicipality ? individualGuarantorNepData.permanentMunicipality.ct : '',],
-                  permanentWard: [individualGuarantorNepData.permanentWard ? individualGuarantorNepData.permanentWard.ct : '',],
+                  permanentDistrict: [individualGuarantorNepData.permanentDistrict ? individualGuarantorNepData.permanentDistrict.ct : ''],
+                  permanentMunicipalities: [individualGuarantorNepData.permanentMunicipality ? individualGuarantorNepData.permanentMunicipality.ct : ''],
+                  permanentWard: [individualGuarantorNepData.permanentWard ? individualGuarantorNepData.permanentWard.ct : ''],
 
-                  temporaryDistrict: [individualGuarantorNepData.temporaryDistrict ? individualGuarantorNepData.temporaryDistrict.ct : '',],
-                  temporaryMunicipalities: [individualGuarantorNepData.temporaryMunicipality ? individualGuarantorNepData.temporaryMunicipality.ct : '',],
-                  temporaryWard: [individualGuarantorNepData.temporaryWard ? individualGuarantorNepData.temporaryWard.ct : '',],
+                  temporaryDistrict: [individualGuarantorNepData.temporaryDistrict ? individualGuarantorNepData.temporaryDistrict.ct : ''],
+                  temporaryMunicipalities: [individualGuarantorNepData.temporaryMunicipality ? individualGuarantorNepData.temporaryMunicipality.ct : ''],
+                  temporaryWard: [individualGuarantorNepData.temporaryWard ? individualGuarantorNepData.temporaryWard.ct : ''],
 
-                  citizenshipNo: [individualGuarantorNepData.citizenNumber ? individualGuarantorNepData.citizenNumber.ct : '',],
-                  issuedBy: [individualGuarantorNepData.issuedPlace ? individualGuarantorNepData.issuedPlace.ct : '',],
-                  issuedDate: [this.englishNepaliDatePipe.transform(individualGuarantorNepData.citizenIssuedDate.en.eDate ? individualGuarantorNepData.citizenIssuedDate.en.eDate : individualGuarantorNepData.citizenIssuedDate.en, true) || ''
-                  ],
+                  citizenshipNo: [individualGuarantorNepData.citizenNumber ? individualGuarantorNepData.citizenNumber.ct : ''],
+                  issuedBy: [individualGuarantorNepData.issuedPlace ? individualGuarantorNepData.issuedPlace.ct : ''],
+                  // tslint:disable-next-line:max-line-length
+                  issuedDate: [!ObjectUtil.isEmpty(individualGuarantorNepData.citizenIssuedDate) ? this.englishNepaliDatePipe.transform((individualGuarantorNepData.citizenIssuedDate.en.eDate) ? (individualGuarantorNepData.citizenIssuedDate.en.eDate) : (individualGuarantorNepData.citizenIssuedDate.en), true) : '' || ''],
+
                   sakshiDistrict1: [undefined],
                   sakshiMunicipality1: [undefined],
                   sakshiWard1: [undefined],
@@ -211,7 +212,7 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
     }
 
     setApprovalDate() {
-        let approvalDate;
+        let approvalDate = '';
         if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'DDSL Without Subsidy') {
             const dateOfApproval = this.offerDocumentDetails.sanctionLetterDateType ? this.offerDocumentDetails.sanctionLetterDateType.en : '';
             if (dateOfApproval === 'AD') {
@@ -270,7 +271,15 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
         }
         return approvalDate ? approvalDate : '';
     }
-
+    setActYear() {
+        let yearOfAct = '';
+        if (!ObjectUtil.isEmpty(this.loanHolderNepData.radioActYearDate.np) && (this.loanHolderNepData.radioActYearDate.np === 'BS')) {
+            yearOfAct = this.loanHolderNepData.actYear.np ? this.loanHolderNepData.actYear.np : '';
+        } else {
+            yearOfAct = this.loanHolderNepData.actYear.en ? this.loanHolderNepData.actYear.en : '' ;
+        }
+        return yearOfAct ? yearOfAct : '';
+    }
     setLoanPurpose() {
         let loanKoPurpose = '';
         if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'DDSL Without Subsidy') {
