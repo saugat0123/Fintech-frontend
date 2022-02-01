@@ -1535,15 +1535,33 @@
           <div *ngFor="let owner of userConfigForm.get('ownerDetails')['controls']; let i = index;"
                formArrayName="ownerDetails" style="border: 1px solid rgba(255,255,255, 0.1)">
             <table [formGroupName]="i" class="table table-borderless table-4">
+              <tr *ngIf="'Share Holder\'s Detail' === detailOption || 'Partner\'s Detail' === detailOption">
+                <td>
+                  <label class="title">{{i + 1}}. Is Authorized Person</label>
+                </td>
+                <td>
+                  <select required="true" class="form-control"
+                          formControlName="isAuthorizedPerson">
+                    <option  value="null" hidden>Select Authorized Person</option>
+                    <option  value="Authorized Person Only">Authorized Person Only</option>
+                    <option value="Share Holder Only">Share Holder Only</option>
+                    <option value="Both">Both</option>
+                  </select>
+                </td>
+                <td> <input  class="form-control" type="text"
+                             formControlName="isAuthorizedPersonTrans" readonly/></td>
+                <td> <input  class="form-control" type="text"
+                             formControlName="isAuthorizedPersonCT" readonly/></td>
+              </tr>
               <tr>
                 <td>
                   <ng-container *ngIf="'Partner\'s Detail' === detailOption">
-                    <label class="title">{{i + 1}}. Partner Name</label>
+                    <label class="title">Partner Name</label>
                   </ng-container>
                   <ng-container *ngIf="'Proprietor\'s Detail' === detailOption">
                     <label class="title">{{i + 1}}. Owner Name</label>
                   </ng-container><ng-container *ngIf="'Share Holder\'s Detail' === detailOption">
-                    <label class="title">{{i + 1}}. Share Holder Name</label>
+                    <label class="title">Share Holder Name</label>
                   </ng-container>
                 </td>
                 <td>
@@ -2707,13 +2725,13 @@
                 </td>
               </tr>
               </tbody>
-              <tr *ngIf="'Share Holder\'s Detail' === detailOption">
+              <!--<tr *ngIf="'Share Holder\'s Detail' === detailOption">
                 <td colspan="4" class="text-left">
                   <nb-checkbox formControlName="isAuthorizedPersion">
                     <i>Is authorized person?</i>
                   </nb-checkbox>
                 </td>
-              </tr>
+              </tr>-->
               <tr>
                 <td class="text-left">
                   <a *ngIf="userConfigForm.get('ownerDetails')['length'] > 1" nbButton status="danger" size="tiny"
