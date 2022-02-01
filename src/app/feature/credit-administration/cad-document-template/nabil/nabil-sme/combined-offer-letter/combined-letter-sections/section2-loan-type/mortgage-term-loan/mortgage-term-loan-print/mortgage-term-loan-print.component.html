@@ -1,46 +1,43 @@
 <table class="table table-bordered-all">
-    <tr *ngFor="let val of equityMortgageData; let i = index">
+    <tr *ngFor="let val of mortgageTermLoanData; let i = index">
         <td style="width:10%; border: 1px solid black;">
             <strong>{{pointNumber + (i + 1) | nepaliWord}})</strong>
         </td>
         <td style="border:1px solid black">
             <p>
-    <!--<span *ngIf="val.termLoanFor === 'MORTGAGE_TERM_LOAN'">
-            <strong>अचल संपत्ति सुरक्षणमा आधारित आवधिक कर्जा (Mortgage Term Loan)
+    <span>
+            <strong>सुरक्षणमा आधारीत स्वपुञजी आवधिक कर्जा (Mortgage Term Loan)
                <ng-container *ngIf="val.complementaryOther === true">
                    बुँदा नं.
-                   &lt;!&ndash;<span [ngClass]="{'outside' : letterData?.marginInPercentageCT !== null && letterData?.marginInPercentageCT !== ''}">
-                       {{letterData?.marginInPercentageCT === null || letterData?.marginInPercentageCT === '' ? '___________' : letterData?.marginInPercentageCT}}</span>
-                  &ndash;&gt;&lt;!&ndash;<input class="form-field form-control-sm "
-                                           formControlName="SNOfParentLimitMortgageTerm"
-                                           placeholder=""
-                                           type="text"/>&ndash;&gt;
                    <span>
-                       {{this.freeText ? this.freeText?.section2?.equityTermLoanFreeText[i]?.SNOfParentLimitMortgageTerm : ''}}
+                       {{this.freeText ? this.freeText?.section2?.mortgageTermLoanFreeText[i]?.SNOfParentLimitMortgageTerm : ''}}
                    </span>
                     <ng-container
                             *ngIf="val.complimentaryLoanSelected !== 'TOTAL LIMIT'"> को पूरक सुविधा</ng-container>
                <ng-container
                        *ngIf="val.complimentaryLoanSelected === 'TOTAL LIMIT'"> कुल सुविधाको पूरक सुविधा </ng-container>
-               </ng-container></strong></span><br>-->
-                <span>
-            <strong>अचल संपत्ति सुरक्षणमा आधारित आवधिक कर्जा (Equity Mortgage Term Loan)
+               </ng-container></strong></span>
+               <!-- <br>
+                <span *ngIf="val.termLoanFor === 'EQUITY_MORTGAGE_TERM_LOAN'">
+            <strong>सुरक्षणमा आधारीत स्वपुञजी आवधिक कर्जा (Equity Mortgage Term Loan)
               <ng-container *ngIf="val.complementaryOther === true">
                   बुँदा नं.
                   <span>
-                       {{this.freeText ? this.freeText?.section2?.equityTermLoanFreeText[i]?.SNOfParentLimitMortgageTerm : ''}}
-                   </span>
+                       {{this.freeText ? this.freeText?.section2?.mortgageTermLoanFreeText[i]?.SNOfParentLimitMortgageTerm : ''}}
+                   </span>-->
                   <!--<span [ngClass]="{'outside' : letterData?.marginInPercentageCT !== null && letterData?.marginInPercentageCT !== ''}">
                           {{letterData?.marginInPercentageCT === null || letterData?.marginInPercentageCT === '' ? '___________' : letterData?.marginInPercentageCT}}</span>
                     --><!--<input class="form-field form-control-sm "
                                                   formControlName="SNOfParentLimitMortgageTerm"
                                                   placeholder=""
                                                   type="text"/>-->
-                   <ng-container
+                <span>
+                    <strong>
+                <ng-container
                            *ngIf="val.complimentaryLoanSelected !== 'TOTAL LIMIT'"> को पूरक सुविधा</ng-container>
                <ng-container
                        *ngIf="val.complimentaryLoanSelected === 'TOTAL LIMIT'"> कुल सुविधाको पूरक सुविधा </ng-container>
-              </ng-container></strong></span>
+              </strong></span>
             </p>
             <p>
                 <strong> सीमाः
@@ -116,7 +113,7 @@
                 <span *ngIf="val.emiPaymentType === 'ON_SUBSEQUENT_MONTH'">
         <strong>कर्जा भुक्तानी शुरुः</strong>कर्जा
         <span>
-            {{this.freeText ? this.freeText?.section2?.equityTermLoanFreeText[i]?.newEMIAutoPopulateMortgageTerm : ''}}
+            {{this.freeText ? this.freeText?.section2?.mortgageTermLoanFreeText[i]?.newEMIAutoPopulateMortgageTerm : ''}}
         </span>        <!--<input
             class="form-field form-control-sm nepaliFont"
             formControlName="newEMIAutoPopulateMortgageTerm"
@@ -192,7 +189,7 @@
 
                 <span><strong><u>साँवा/किस्ता भुक्तानी तरिका:</u></strong>
                                 स्वीकृतकर्जा रकम उपलब्ध तालिका बमोजिम शुरु निकाशा भएको मितिले
-                            
+
                                         <span [ngClass]="{'outside' : val.tenureOfLoanCT !== null && val.tenureOfLoanCT !== ''}">
                         {{val.tenureOfLoanCT === null || val.tenureOfLoanCT === '' ? '___________' : val.tenureOfLoanCT}}</span>
          वर्ष भित्र प्रति वर्ष/अर्धबार्षिक/त्रैमास/महिना रु.
@@ -265,7 +262,7 @@
                     <span [ngClass]="{'outside' : val.paymentAmountInWordsCT !== null && val.paymentAmountInWordsCT !== ''}">
                         {{val.paymentAmountInWordsCT === null || val.paymentAmountInWordsCT === '' ? '___________' : val.paymentAmountInWordsCT}}</span>
         )का दरले
-                        
+
                     <span [ngClass]="{'outside' : val.totalNumberOfPaymentsCT !== null && val.totalNumberOfPaymentsCT !== ''}">
                         {{val.totalNumberOfPaymentsCT === null || val.totalNumberOfPaymentsCT === '' ? '___________' : val.totalNumberOfPaymentsCT}}</span>
 
@@ -314,11 +311,11 @@
                         {{val.drawingPowerInPercentageCT === null || val.drawingPowerInPercentageCT === '' ? '___________' : val.drawingPowerInPercentageCT}}</span>
             प्रतिशत वा स्वीकृत ऋणकर्जा रकम मध्ये जुन कम हुन्छ सो रकम तपाईंले यस बैंकमा खोल्नु भएको चल्ती खातामा प्रवाह
             गरिनेछ ।
-        </span><br>
+        </span>
             </p>
             <p>
     <span>
-        {{this.freeText ? this.freeText?.section2?.equityTermLoanFreeText[i]?.freeTextThirteen : ''}}
+        {{this.freeText ? this.freeText?.section2?.mortgageTermLoanFreeText[i]?.freeTextThirteen : ''}}
     </span>
                 <!--<textarea
                             class="form-control customFont nepaliFont"

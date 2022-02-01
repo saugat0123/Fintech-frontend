@@ -1,6 +1,6 @@
 <form [formGroup]="form" class="all">
     <table class="table table-bordered-all">
-        <tr *ngFor="let val of equityMortgageData; let i = index" formArrayName="equityMortgageTermLoan">
+        <tr *ngFor="let val of mortgageData; let i = index" formArrayName="mortgageTermLoan">
             <ng-container [formGroupName]="i">
                 <td style="width:10%; border: 1px solid black;">
                     <strong>{{pointNumber + (i + 1) | nepaliWord}})</strong>
@@ -8,8 +8,8 @@
                 <td style="border:1px solid black">
 
                     <p>
-        <!--<span *ngIf="val.termLoanFor === 'MORTGAGE_TERM_LOAN'">
-            <strong>अचल संपत्ति सुरक्षणमा आधारित आवधिक कर्जा (Mortgage Term Loan)
+        <span>
+            <strong>सुरक्षणमा आधारीत स्वपुञजी आवधिक कर्जा (Mortgage Term Loan)
                <ng-container *ngIf="val.complementaryOther === true">
                    बुँदा नं.<input
                        class="form-field form-control-sm "
@@ -20,19 +20,7 @@
                            *ngIf="val.complimentaryLoanSelected !== 'TOTAL LIMIT'"> को पूरक सुविधा</ng-container>
                <ng-container
                        *ngIf="val.complimentaryLoanSelected === 'TOTAL LIMIT'"> कुल सुविधाको पूरक सुविधा </ng-container>
-               </ng-container></strong></span><br>-->
-                        <span>
-            <strong>अचल संपत्ति सुरक्षणमा आधारित आवधिक कर्जा (Equity Mortgage Term Loan)
-              <ng-container *ngIf="val.complementaryOther === true">
-                  बुँदा नं.<input class="form-field form-control-sm "
-                                  formControlName="SNOfParentLimitMortgageTerm"
-                                  placeholder=""
-                                  type="text"/>
-                   <ng-container
-                           *ngIf="val.complimentaryLoanSelected !== 'TOTAL LIMIT'"> को पूरक सुविधा</ng-container>
-               <ng-container
-                       *ngIf="val.complimentaryLoanSelected === 'TOTAL LIMIT'"> कुल सुविधाको पूरक सुविधा </ng-container>
-              </ng-container></strong></span>
+               </ng-container></strong></span>
                     </p>
                     <p>
                         <strong> सीमाः
@@ -368,3 +356,4 @@
         </tr>
     </table>
 </form>
+
