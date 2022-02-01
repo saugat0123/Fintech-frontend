@@ -45,6 +45,7 @@ dbr;
   }
 
   ngOnInit() {
+    console.log(this.loanDataHolder);
     if (!ObjectUtil.isEmpty(this.individual)) {
       if (!ObjectUtil.isEmpty(this.individual.individualJsonData)) {
         this.individualJsonData = JSON.parse(this.individual.individualJsonData);
@@ -60,7 +61,7 @@ dbr;
         this.isJointInfo = true;
       }
     }
-    if (this.loanDataHolder.loan.loanTag === LoanTag.getKeyByValue(LoanTag.REMIT_LOAN)) {
+    if (this.loanDataHolder.loan.loanTag === LoanTag.getKeyByValue(LoanTag.REMIT_LOAN) && this.loanDataHolder.loan.isRemit) {
       this.isRemit = true;
       if (this.isRemit) {
         this.beneficiary = JSON.parse(this.loanDataHolder.remitCustomer.beneficiaryData);

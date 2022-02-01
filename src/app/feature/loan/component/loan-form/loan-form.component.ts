@@ -602,17 +602,17 @@ export class LoanFormComponent implements OnInit {
             this.loanDocument.customerInfo.customerRelatives = customerRelatives;
         }
 
-        if (name === 'Proposal' && action && loanTag === 'MICRO_LOAN') {
-            if (this.microProposalInfo.microProposalForm.invalid && this.nextButtonAction) {
-                this.microProposalInfo.scrollToFirstInvalidControl();
-                this.microProposalInfo.submitted = true;
-                return true;
-            }
-            this.microProposalInfo.onSubmit();
-            this.loanDocument.proposal = this.microProposalInfo.proposalData;
-        }
+        // if (name === 'Proposal' && action && loanTag === 'MICRO_LOAN') {
+        //     if (this.microProposalInfo.microProposalForm.invalid && this.nextButtonAction) {
+        //         this.microProposalInfo.scrollToFirstInvalidControl();
+        //         this.microProposalInfo.submitted = true;
+        //         return true;
+        //     }
+        //     this.microProposalInfo.onSubmit();
+        //     this.loanDocument.proposal = this.microProposalInfo.proposalData;
+        // }
 
-        if (name === 'Proposal' && action && loanTag !== 'MICRO_LOAN') {
+        if (name === 'Proposal' && action) {
             if (this.proposalDetail.proposalForm.invalid && this.nextButtonAction) {
                 this.proposalDetail.scrollToFirstInvalidControl();
                 this.proposalDetail.submitted = true;

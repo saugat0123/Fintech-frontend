@@ -26,9 +26,6 @@ export class ChangeLoanComponent implements OnInit {
     @Input()
     currentLoanConfigId: number;
 
-    @Input()
-    isMicroCustomer: boolean;
-
     loanList = [];
 
     @Input()
@@ -55,14 +52,8 @@ export class ChangeLoanComponent implements OnInit {
         this.spinner = true;
         this.loanConfigService.getAllByLoanCategory(this.customerType).subscribe((response: any) => {
             this.spinner = false;
-            if (this.isMicroCustomer) {
                 // tslint:disable-next-line:max-line-length
-                this.loanList = response.detail.filter((f) => f.loanTag === 'MICRO_LOAN' && f.status === Status.ACTIVE && f.id !== this.currentLoanConfigId);
-
-            } else {
-                // tslint:disable-next-line:max-line-length
-                this.loanList = response.detail.filter((f) => f.loanTag !== 'MICRO_LOAN' && f.status === Status.ACTIVE && f.id !== this.currentLoanConfigId);
-            }
+                this.loanList = response.detail.filter((f) => f.status === Status.ACTIVE && f.id !== this.currentLoanConfigId);
         }, error => {
             this.spinner = false;
         });

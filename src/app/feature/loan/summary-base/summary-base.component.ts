@@ -87,7 +87,9 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
         this.loanConfigService.detail(this.loanConfigId).subscribe(
             (response: any) => {
                 this.loanConfig = response.detail;
-                this.isRemitLoan = this.loanConfig.loanTag === 'REMIT_LOAN';
+                if (this.loanConfig.loanTag === 'REMIT_LOAN' && this.loanConfig.isRemit) {
+                    this.isRemitLoan = true;
+                }
             }
         );
         this.userService.getLoggedInUser().subscribe(

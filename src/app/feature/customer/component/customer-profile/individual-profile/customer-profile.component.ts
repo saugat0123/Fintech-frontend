@@ -279,7 +279,6 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
             wardNumber: [this.customer.wardNumber === null ? undefined : this.customer.wardNumber, Validators.required],
             contactNumber: [this.customer.contactNumber === undefined ? undefined : this.customer.contactNumber, Validators.required],
             email: [this.customer.email === undefined ? undefined : this.customer.email, Validators.required],
-            clientType: [this.customerInfo.clientType === undefined ? undefined : this.customerInfo.clientType, Validators.required],
             maritalStatus: [this.customerInfo.maritalStatus === undefined ? undefined : this.customerInfo.maritalStatus, Validators.required],
             gender: [this.customerInfo.gender === undefined ? undefined : this.customerInfo.gender, Validators.required],
             netWorth: [this.customer.netWorth === undefined ? undefined : this.customer.netWorth, Validators.required],
@@ -364,7 +363,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     }
 
     saveBasic() {
-        this.customerService.save(this.basicForm.value).subscribe((res: any) => {
+        this.customerService.save(this.customer).subscribe((res: any) => {
             this.customer = res.detail;
             this.toastService.show(new Alert(AlertType.SUCCESS, 'SUCCESSFULLY UPDATED '));
             this.isEdited = false;
@@ -439,5 +438,13 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
             this.isEditable = res.detail;
         }); }
 
+    }
+    setWithin(event) {
+        this.customer.withinLimitRemarks = event.target.value;
+        this.customer.bankingRelationship = this.customerInfo.bankingRelationship;
+        this.customer.clientType = this.customerInfo.clientType;
+        this.customer.maritalStatus = this.customerInfo.maritalStatus;
+        this.customer.gender = this.customerInfo.gender;
+        this.customer.customerCode = this.customerInfo.customerCode;
     }
 }

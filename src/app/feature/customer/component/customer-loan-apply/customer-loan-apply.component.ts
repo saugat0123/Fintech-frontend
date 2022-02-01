@@ -45,7 +45,6 @@ export class CustomerLoanApplyComponent implements OnInit {
   selectedLoanType;
   multipleSelectedLoanType = [];
   loanTag = LoanTag;
-  microLoanList = [];
   nonMicroLoanList = [];
   isMicroCustomer: boolean;
 
@@ -67,12 +66,7 @@ export class CustomerLoanApplyComponent implements OnInit {
     this.selectedLoanType = this.multipleSelectedLoanType[0]['key'];
     this.loanConfigService.getAllByLoanCategory(this.customerType).subscribe((response: any) => {
       this.loanList = response.detail;
-      this.microLoanList = this.loanList.filter((f) => {
-        return f.loanTag === 'MICRO_LOAN';
-      });
-      this.nonMicroLoanList = this.loanList.filter((f) => {
-        return f.loanTag !== 'MICRO_LOAN';
-      });
+      this.nonMicroLoanList = this.loanList;
       this.spinner = false;
     }, (err) => {
       this.spinner = false;
