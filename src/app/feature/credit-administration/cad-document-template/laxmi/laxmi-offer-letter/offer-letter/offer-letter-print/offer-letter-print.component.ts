@@ -9,6 +9,7 @@ import {LaxmiOfferLetterConst} from '../../laxmi-offer-letter-const';
 export class OfferLetterPrintComponent implements OnInit {
     @Input() printDocForm;
     @Input() nepaliData;
+    @Input() isRemit;
     offerLetterConst = LaxmiOfferLetterConst;
 
     constructor() {

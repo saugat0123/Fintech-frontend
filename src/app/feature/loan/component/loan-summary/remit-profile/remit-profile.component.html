@@ -1,6 +1,6 @@
 <div class="row mt-1">
 <div class="col-md-12">
-    <p><strong *ngIf="loanHolder.loanCategory === 'INDIVIDUAL' && !isJointInfo && isRemit">Personal Details</strong></p>
+    <p><strong *ngIf="loanHolder?.loanCategory === 'INDIVIDUAL' && !isJointInfo && isRemit">Personal Details</strong></p>
     <ng-container *ngIf="isRemit;">
         <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small text-center">
             <thead>
@@ -13,9 +13,9 @@
             <tbody>
             <tr>
                 <td>Name</td>
-                <td class="text-left pl-1">{{(remit.beneficiaryName) ? (remit.beneficiaryName) : 'N/A'}}</td>
+                <td class="text-left pl-1">{{(remit?.beneficiaryName) ? (remit?.beneficiaryName) : 'N/A'}}</td>
                 <td>
-                    {{(remit.senderName) ? (remit.senderName) : 'N/A'}}
+                    {{(remit?.senderName) ? (remit?.senderName) : 'N/A'}}
                 </td>
             </tr>
             <tr>
@@ -28,37 +28,37 @@
             </tr>
             <tr>
                 <td>Father's Name</td>
-                <td class="text-left pl-1">{{(beneficiaryDetails.beneficiaryIdentity.benef_father_name) ? (beneficiaryDetails.beneficiaryIdentity.benef_father_name) : 'N/A'}}</td>
+                <td class="text-left pl-1">{{(beneficiaryDetails?.beneficiaryIdentity?.benef_father_name) ? (beneficiaryDetails?.beneficiaryIdentity?.benef_father_name) : 'N/A'}}</td>
                 <td>
-                    {{(senderDetails.senderIdentity.father_name) ? (senderDetails.senderIdentity.father_name) : 'N/A'}}
+                    {{(senderDetails?.senderIdentity?.father_name) ? (senderDetails?.senderIdentity?.father_name) : 'N/A'}}
                 </td>
             </tr>
             <tr>
                 <td>Grand Father's Name</td>
-                <td class="text-left pl-1">{{(beneficiaryDetails.beneficiaryIdentity.benef_grandfather) ? (beneficiaryDetails.beneficiaryIdentity.benef_grandfather) : 'N/A'}}</td>
+                <td class="text-left pl-1">{{(beneficiaryDetails?.beneficiaryIdentity?.benef_grandfather) ? (beneficiaryDetails?.beneficiaryIdentity?.benef_grandfather) : 'N/A'}}</td>
                 <td>
-                    {{(senderDetails.senderIdentity.grandfather_name) ? (senderDetails.senderIdentity.grandfather_name) : 'N/A'}}
+                    {{(senderDetails?.senderIdentity?.grandfather_name) ? (senderDetails?.senderIdentity?.grandfather_name) : 'N/A'}}
                 </td>
             </tr>
             <tr>
                 <td>Marital Status</td>
-                <td class="text-left pl-1">{{(beneficiaryDetails.beneficiaryIdentity.benef_marital_status) ? (beneficiaryDetails.beneficiaryIdentity.benef_marital_status.toUpperCase()) : 'N/A'}}</td>
+                <td class="text-left pl-1">{{(beneficiaryDetails?.beneficiaryIdentity?.benef_marital_status) ? (beneficiaryDetails?.beneficiaryIdentity?.benef_marital_status.toUpperCase()) : 'N/A'}}</td>
                 <td>
-                    {{(senderDetails.senderIdentity.relationship_status) ? (senderDetails.senderIdentity.relationship_status.toUpperCase()) : 'N/A'}}
+                    {{(senderDetails?.senderIdentity?.relationship_status) ? (senderDetails?.senderIdentity?.relationship_status?.toUpperCase()) : 'N/A'}}
                 </td>
             </tr>
             <tr>
                 <td>Home/Telephone Number</td>
 
-                <td class="text-left pl-1">{{(beneficiaryDetails.beneficiaryIdentity.benef_mob_no) ? (beneficiaryDetails.beneficiaryIdentity.benef_mob_no) : 'N/A'}}</td>
+                <td class="text-left pl-1">{{(beneficiaryDetails?.beneficiaryIdentity?.benef_mob_no) ? (beneficiaryDetails?.beneficiaryIdentity?.benef_mob_no) : 'N/A'}}</td>
                 <td>
-                    {{(senderDetails.senderIdentity.alternative_phone_no) ? (senderDetails.senderIdentity.alternative_phone_no) : 'N/A'}}
+                    {{(senderDetails?.senderIdentity?.alternative_phone_no) ? (senderDetails?.senderIdentity?.alternative_phone_no) : 'N/A'}}
                 </td>
             </tr>
             <tr>
                 <td>Estimated Net Worth</td>
                 <td class="text-left pl-1">
-                    {{(beneficiaryDetails.beneficiaryOtherDetail.benef_net_worth) ? (beneficiaryDetails.beneficiaryOtherDetail.benef_net_worth) : 'N/A'}}
+                    {{(beneficiaryDetails?.beneficiaryOtherDetail?.benef_net_worth) ? (beneficiaryDetails?.beneficiaryOtherDetail?.benef_net_worth) : 'N/A'}}
 
                 </td>
                 <td>
@@ -91,21 +91,21 @@
                     <tbody>
                     <tr *ngFor="let relative of individual?.customerRelatives">
                         <td class="text-left pl-1">
-                            {{relative.customerRelativeName}}
+                            {{relative?.customerRelativeName}}
                         </td>
 
                         <td class="text-left pl-1">
-                            {{relative.customerRelation}}
+                            {{relative?.customerRelation}}
                         </td>
                         <td class="text-right pr-1">
-                            {{relative.citizenshipNumber || 'N/A'}}
+                            {{relative?.citizenshipNumber || 'N/A'}}
                         </td>
                         <td class="text-left pl-1">
-                            {{relative.citizenshipIssuedDate | date}} ({{relative.citizenshipIssuedDate | engNepDate: false}})
+                            {{relative?.citizenshipIssuedDate | date}} ({{relative?.citizenshipIssuedDate | engNepDate: false}})
                         </td>
-                        <td class="text-left pl-1">{{relative.citizenshipIssuedPlace || 'N/A'}}</td>
+                        <td class="text-left pl-1">{{relative?.citizenshipIssuedPlace || 'N/A'}}</td>
 
-                        <td class="text-left pl-1">{{relative.age}} years</td>
+                        <td class="text-left pl-1">{{relative?.age}} years</td>
 
                     </tr>
                     </tbody>
@@ -255,10 +255,10 @@
                     </thead>
                     <tbody *ngFor="let document of newDocDetails; let i = index">
                     <ng-container *ngIf="document!==null">
-                        <td>{{(document.name) ? (i + 1) : 'N/A'}}</td>
-                        <td>{{(document.name) ? (document.name) : 'N/A'}}</td>
+                        <td>{{(document?.name) ? (i + 1) : 'N/A'}}</td>
+                        <td>{{(document?.name) ? (document?.name) : 'N/A'}}</td>
                         <td>
-                <span class="ml-1" *ngIf="document.fullpath !== null">
+                <span class="ml-1" *ngIf="document?.fullpath !== null">
                     <a (click)="opendocument(document)"><i class="fas fa-eye cursor" style="color:cornflowerblue"></i></a>
                 </span>
                         </td>

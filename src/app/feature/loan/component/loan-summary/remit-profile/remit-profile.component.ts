@@ -27,6 +27,7 @@ export class RemitProfileComponent implements OnInit {
   isJointInfo = false;
   jointInfo = [];
   ngOnInit() {
+    console.log('this is li', this.loanHolder);
     this.remit = this.loanHolder.remitCustomer;
     if (this.remit !== null || !ObjectUtil.isEmpty(this.remit)) {
       this.isNull = false;

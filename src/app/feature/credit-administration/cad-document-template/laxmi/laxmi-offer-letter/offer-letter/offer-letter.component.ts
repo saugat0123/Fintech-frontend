@@ -35,6 +35,7 @@ export class OfferLetterComponent implements OnInit {
     offerLetterDocument: OfferDocument;
     nepaliData;
     amount;
+    isRemit = false;
 
     constructor(private formBuilder: FormBuilder,
                 private nepToEngNumberPipe: NepaliToEngNumberPipe,
@@ -52,12 +53,16 @@ export class OfferLetterComponent implements OnInit {
     }
 
     ngOnInit() {
+        if (this.cadOfferLetterApprovedDoc.assignedLoan[0].loan.isRemit) {
+            this.isRemit = true;
+        }
         this.buildForm();
         this.checkOfferLetter();
     }
 
     fillForm() {
         this.amount = this.cadOfferLetterApprovedDoc.assignedLoan[0].proposal.proposedLimit;
+        console.log('amount', this.amount);
         this.nepaliData = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
         this.form.patchValue({
             customerName: this.nepaliData.name ? this.nepaliData.name : '',

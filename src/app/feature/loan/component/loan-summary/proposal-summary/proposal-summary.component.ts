@@ -73,7 +73,7 @@ export class ProposalSummaryComponent implements OnInit {
             this.checkInstallmentAmount();
         }
         if (this.loanDataHolder) {
-            if (this.loanDataHolder.loan.loanTag === LoanTag.getKeyByValue(LoanTag.REMIT_LOAN)) {
+            if (this.loanDataHolder.loan.loanTag === LoanTag.getKeyByValue(LoanTag.REMIT_LOAN) && this.loanDataHolder.loan.isRemit) {
                 this.isRemit = true;
             }
         }

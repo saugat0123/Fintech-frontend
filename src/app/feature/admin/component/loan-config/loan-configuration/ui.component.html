@@ -183,6 +183,23 @@
                 <!--                        </nb-card>-->
                 <!--                    </div>-->
                 <!--                </div>-->
+                <div class="row"*ngIf="isRemitLoan">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label><h6>Remit Loan Type</h6></label>
+                            <div class="row ml-2">
+                                <nb-radio-group class="col-md-12 d-contents form-control" id="isRemit"
+                                                [(ngModel)]="loanConfig.isRemit"
+                                                name="isRemit">
+                                    <nb-radio class="form-group" [value]=true>Not Pre-Migration
+                                    </nb-radio>
+                                    <nb-radio class="form-group" [value]=false>Pre-Migration
+                                    </nb-radio>
+                                </nb-radio-group>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="col-md-6">
                         <label for="renewable"><h6>Renewable</h6></label><br>
