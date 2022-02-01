@@ -903,6 +903,23 @@
                            [autoLoanData]="autoLoanData">
             </app-auto-loan>
         </div>
+
+        <div [ngStyle]="{'margin-top' : (termLoanDetails.length === 0 || autoLoanDetails.length === 0) ? '-15px' : '-17px'}">
+            <app-mortgage-term-loan #mortgageTermLoanComponent
+                                           [customerApprovedDoc]="cadOfferLetterApprovedDoc"
+                                           [loanData]="mortgageTermLoan"
+                                           [pointNumber]="(tempData?.termLoanForm?.termLoanDetails?.length) +
+                                (tempData?.autoLoanMasterForm?.autoLoanFormArray?.length) +
+                                (tempData?.letterOfCreditForm?.letterOfCreditFormArray.length) +
+                                (tempData?.importLoanTrust?.importLoanTrustFormArray.length) +
+                                (tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray.length) +
+                                (tempData?.timeLetterCreditForm?.timeLetterCreditFormArray.length) +
+                                (tempData?.demandLoanForm?.demandLoanFormArray.length) +
+                                (tempData?.bridgeGapLoan?.bridgeGapDetails.length) +
+                                (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length)"
+                                           [mortgageData]="mortgageTermLoanData">
+            </app-mortgage-term-loan>
+        </div>
         <!--<div *ngIf="termLoanDetails.length > 0 || autoLoanDetails.length > 0" style="margin-top: -17px">
             <div *ngIf="termLoanDetails.length === 0 || autoLoanDetails.length === 0" style="margin-top: -14px">-->
         <div [ngStyle]="{'margin-top' : (termLoanDetails.length > 0 || autoLoanDetails.length > 0) ? '-17px' : '-16px'}">
@@ -922,6 +939,7 @@
                                 (tempData?.demandLoanForm?.demandLoanFormArray.length) +
                                 (tempData?.bridgeGapLoan?.bridgeGapDetails.length) +
                                 (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
+                                (tempData?.mortgageEquityTermForm?.mortgageTermFormArray.length) +
                                 (i1 + 1) | nepaliWord}})</strong></td>
                             <td>
                                 <span><strong>अचल सम्पत्ति सुरक्षणमा आधारीत अधिविकर्ष कर्जा
@@ -1044,6 +1062,7 @@
                                 (tempData?.demandLoanForm?.demandLoanFormArray.length) +
                                 (tempData?.bridgeGapLoan?.bridgeGapDetails.length) +
                                 (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
+                                (tempData?.mortgageEquityTermForm?.mortgageTermFormArray.length) +
                                     (i1 + 1) | nepaliWord}})</strong></td>
                             <td>
                                 <strong>बचत/ऋण पत्रमा आधारीत <input class="form-field form-control-sm "
@@ -1162,6 +1181,7 @@
                                 (tempData?.demandLoanForm?.demandLoanFormArray.length) +
                                 (tempData?.bridgeGapLoan?.bridgeGapDetails.length) +
                                 (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
+                                (tempData?.mortgageEquityTermForm?.mortgageTermFormArray.length) +
                                 (i2 + 1) | nepaliWord}})</strong></td>
                             <td>
                     <span><strong>डकुमेन्ट्री बिल्स खरिद कर्जा (Documentary Bill Purchase/Negotiation)
@@ -1253,7 +1273,30 @@
                         </ng-container>
                     </tr>
                 </ng-container>
-
+            </table>
+        </div>
+        <div [ngStyle]="{'margin-top' : (tempData?.mortgageEquityTermForm?.mortgageTermFormArray.length > 0) ? '-17px' : '-16px'}">
+            <app-mortgage-equity-term-loan #mortgageEquityTermLoanComponent
+                                           [customerApprovedDoc]="cadOfferLetterApprovedDoc"
+                                           [loanData]="equityMortgageTermLoan"
+                                           [pointNumber]="(tempData?.overDraftFacilityForm?.overdraftFacilityDetails.length) +
+                                (tempData?.documentaryBillPurchase?.documentaryBillPurchaseFormArray.length) +
+                                (tempData?.equityMortgaged?.mortgageOverdraftFormArray.length) +
+                                (tempData?.termLoanForm?.termLoanDetails?.length) +
+                                (tempData?.autoLoanMasterForm?.autoLoanFormArray?.length) +
+                                (tempData?.letterOfCreditForm?.letterOfCreditFormArray.length) +
+                                (tempData?.importLoanTrust?.importLoanTrustFormArray.length) +
+                                (tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray.length) +
+                                (tempData?.timeLetterCreditForm?.timeLetterCreditFormArray.length) +
+                                (tempData?.demandLoanForm?.demandLoanFormArray.length) +
+                                (tempData?.bridgeGapLoan?.bridgeGapDetails.length) +
+                                (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
+                                (tempData?.mortgageEquityTermForm?.mortgageTermFormArray.length)"
+                                           [equityMortgageData]="equityMortgageData">
+            </app-mortgage-equity-term-loan>
+        </div>
+        <div [ngStyle]="{'margin-top' : (tempData?.mortgageEquityTermForm?.mortgageEquityTermFormArray.length > 0) ? '-17px' : '-16px'}">
+            <table class="table table-bordered">
                 <ng-container *ngIf="tempData?.equityMortgaged?.equityMortgagedFormArray">
                     <tr *ngFor="let val of tempData?.equityMortgaged?.equityMortgagedFormArray; let i1 = index"
                         formArrayName="equityMortgageOverdraft">
@@ -1274,6 +1317,8 @@
                                     (tempData?.demandLoanForm?.demandLoanFormArray.length) +
                                     (tempData?.bridgeGapLoan?.bridgeGapDetails.length) +
                                     (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
+                                    (tempData?.mortgageEquityTermForm?.mortgageEquityTermFormArray.length) +
+                                    (tempData?.mortgageEquityTermForm?.mortgageTermFormArray.length) +
                                     (i1 + 1) | nepaliWord}})
                                 </strong>
                             </td>
@@ -1406,6 +1451,8 @@
                                     (tempData?.demandLoanForm?.demandLoanFormArray.length) +
                                     (tempData?.bridgeGapLoan?.bridgeGapDetails.length) +
                                     (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
+                                    (tempData?.mortgageEquityTermForm?.mortgageEquityTermFormArray.length) +
+                                    (tempData?.mortgageEquityTermForm?.mortgageTermFormArray.length) +
                                     (i3 + 1) | nepaliWord}})
                                 </strong>
                             </td>
@@ -1510,6 +1557,8 @@
                                     (tempData?.demandLoanForm?.demandLoanFormArray.length) +
                                     (tempData?.bridgeGapLoan?.bridgeGapDetails.length) +
                                     (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
+                                    (tempData?.mortgageEquityTermForm?.mortgageEquityTermFormArray.length) +
+                                    (tempData?.mortgageEquityTermForm?.mortgageTermFormArray.length) +
                                     (i3 + 1) | nepaliWord}})
                                 </strong>
                             </td>
@@ -1627,6 +1676,8 @@
                                     (tempData?.bridgeGapLoan?.bridgeGapDetails.length) +
                                     (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
                                     (tempData?.preExportForm?.termLoanDetails.length) +
+                                    (tempData?.mortgageEquityTermForm?.mortgageEquityTermFormArray.length) +
+                                    (tempData?.mortgageEquityTermForm?.mortgageTermFormArray.length) +
                                     (i3 + 1) | nepaliWord}})
                                 </strong>
                             </td>
