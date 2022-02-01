@@ -96,6 +96,8 @@ export class OfferLetterLaxmiComponent implements OnInit {
     shareData;
     landSecurity;
     landBuildingSecurity;
+    taggedGuarantor = [];
+    corporateGuarantor = false;
 
     constructor(private formBuilder: FormBuilder,
                 private administrationService: CreditAdministrationService,
@@ -115,6 +117,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
         this.buildForm();
         this.parseAssignedLoanData();
         this.checkOfferLetter();
+        this.convertProposed();
     }
 
     checkOfferLetter() {
@@ -123,6 +126,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
         if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
             this.offerLetterDocument = new OfferDocument();
             this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.OFFER_LETTER);
+            this.fillForm();
             this.addOtherCovenants();
             this.addAcceptance();
             this.addEventDefault();
@@ -131,6 +135,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
             this.addPrecedent();
             // this.saveLoanSubLoan();
         } else {
+            // this.fillForm();
             const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
             this.initialInfoPrint = initialInfo;
             this.existingOfferLetter = true;
@@ -147,9 +152,21 @@ export class OfferLetterLaxmiComponent implements OnInit {
         }
     }
 
+    fillForm() {
+        this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
+        console.log('nepaliData', this.nepaliData);
+        // const address = this.nepaliData.perma
+        if (!ObjectUtil.isEmpty(this.nepaliData)) {
+            this.offerLetterForm.patchValue({
+                borrowerName: this.nepaliData.name,
+            });
+        }
+    }
+
     buildForm() {
         this.offerLetterForm = this.formBuilder.group({
             signature1: [undefined],
+            refNo: [undefined],
             empoweredName: [undefined],
             signature2: [undefined],
             signature3: [undefined],
@@ -268,21 +285,23 @@ export class OfferLetterLaxmiComponent implements OnInit {
             date1: [undefined],
             amount1: [undefined],
             date2: [undefined],
-            amount2: [undefined],
             date3: [undefined],
-            amount3: [undefined],
             date4: [undefined],
             date5: [undefined],
             date6: [undefined],
             date7: [undefined],
+            amount7: [undefined],
             date8: [undefined],
+            amount8: [undefined],
             date9: [undefined],
             date10: [undefined],
+            date11: [undefined],
+            date12: [undefined],
 
             // subLoantype
             samjhautapatra: [undefined],
             samjhautapatra1: [undefined],
-            samjhautapatra2: [undefined],
+            patraDate: [undefined],
             date: [undefined],
             borrowerName1: [undefined],
             address1: [undefined],
@@ -454,6 +473,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
             this.offerLetterForm.get(['purpose', i, 'premiumRate']).patchValue(null);
             this.offerLetterForm.get(['purpose', i, 'monthlyRate']).patchValue(null);
             this.offerLetterForm.get(['purpose', i, 'quarterlyRate']).patchValue(null);
+            this.offerLetterForm.get(['purpose', i, 'otherInterestRate']).patchValue(null);
         } else if (formControlName === 'repaymentMode') {
             this.offerLetterForm.get(['purpose', i, formControlName]).patchValue(value);
             this.offerLetterForm.get(['purpose', i, 'repaymentAmount']).patchValue(null);
@@ -464,6 +484,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
             this.offerLetterForm.get(['purpose', i, 'repaymentMonthly']).patchValue(null);
             this.offerLetterForm.get(['purpose', i, 'repaymentRate']).patchValue(null);
             this.offerLetterForm.get(['purpose', i, 'repaymentRate1']).patchValue(null);
+            this.offerLetterForm.get(['purpose', i, 'otherRepayment']).patchValue(null);
         } else {
             this.offerLetterForm.get(['purpose', i, formControlName]).patchValue(value);
         }
@@ -549,12 +570,46 @@ export class OfferLetterLaxmiComponent implements OnInit {
                     this.offerLetterForm.get(['purpose', i, 'maturityOtherCheck']).patchValue(checked);
                 }
                 break;
+            case 'tenureNeeded':
+                if (checked) {
+                    this.offerLetterForm.get(['purpose', i, 'tenureNeeded']).patchValue(checked);
+                    this.offerLetterForm.get(['purpose', i, 'reviewDate']).patchValue(null);
+                } else {
+                    this.offerLetterForm.get(['purpose', i, 'tenureNeeded']).patchValue(checked);
+                }
+                break;
+            case 'processingNeeded':
+                if (checked) {
+                    this.offerLetterForm.get(['purpose', i, 'processingNeeded']).patchValue(checked);
+                    this.offerLetterForm.get(['purpose', i, 'loanProcessingRate']).patchValue(null);
+                    this.offerLetterForm.get(['purpose', i, 'loanProcessingAmount']).patchValue(null);
+                } else {
+                    this.offerLetterForm.get(['purpose', i, 'processingNeeded']).patchValue(checked);
+                }
+                break;
+            case 'adNeeded':
+                if (checked) {
+                    this.offerLetterForm.get(['purpose', i, 'adNeeded']).patchValue(checked);
+                    this.offerLetterForm.get(['purpose', i, 'administrationRate']).patchValue(null);
+                    this.offerLetterForm.get(['purpose', i, 'administrationAmount']).patchValue(null);
+                } else {
+                    this.offerLetterForm.get(['purpose', i, 'adNeeded']).patchValue(checked);
+                }
+                break;
         }
     }
 
     parseAssignedLoanData() {
         if (!ObjectUtil.isEmpty(this.cadData)) {
             this.cadData.assignedLoan.forEach((l, i) => {
+                this.loanType.push(l.loanType);
+                if (!ObjectUtil.isEmpty(l.taggedGuarantors)) {
+                    l.taggedGuarantors.forEach(t => {
+                        if (t.consentOfLegalHeirs) {
+                            this.corporateGuarantor = true;
+                        }
+                    });
+                }
                 this.addPurpose(l);
             });
             const security: Security = this.cadData.loanHolder.security;
@@ -664,6 +719,8 @@ export class OfferLetterLaxmiComponent implements OnInit {
         purposeData.push(
             this.formBuilder.group({
                 loan: [data.loan.name],
+                loanLimitAmount: [data.proposal.proposedLimit],
+                loanLimitWord: [undefined],
                 isFunded: [data.loan.isFunded],
                 loanNature: [data.loan.loanNature],
                 loanType: [data.loanType],
@@ -678,6 +735,9 @@ export class OfferLetterLaxmiComponent implements OnInit {
                 drawDownPeriodNeeded: [true],
                 commissionNeeded: [true],
                 maturityNeeded: [true],
+                tenureNeeded: [true],
+                adNeeded: [true],
+                processingNeeded: [true],
                 moratariumPeriodNeeded: [true],
                 moratariumValue: [undefined],
                 maturityValue: [undefined],
@@ -716,6 +776,12 @@ export class OfferLetterLaxmiComponent implements OnInit {
                 reviewAmount: [undefined],
                 loanProcessingRate: [undefined],
                 loanProcessingAmount: [undefined],
+                otherRepayment: [undefined],
+                otherInterestRate: [undefined],
+                otherAdFeeChecked: [false],
+                otherloanProcessingChecked: [false],
+                adFeeOther: [undefined],
+                otherloanProcessing: [undefined]
             })
         );
     }
@@ -922,6 +988,16 @@ export class OfferLetterLaxmiComponent implements OnInit {
                     this.offerLetterForm.get('cashGuaranteeOther').patchValue(null);
                 }
                 break;
+            case 'otherAdFeeChecked':
+                if (event) {
+                    this.offerLetterForm.get('otherAdFeeChecked').patchValue(event);
+                    this.offerLetterForm.get('administrationAmount').patchValue(null);
+                    this.offerLetterForm.get('administrationRate').patchValue(null);
+                } else {
+                    this.offerLetterForm.get('otherAdFeeChecked').patchValue(false);
+                    this.offerLetterForm.get('adFeeOther').patchValue(null);
+                }
+                break;
         }
     }
 
@@ -1061,5 +1137,15 @@ export class OfferLetterLaxmiComponent implements OnInit {
                 }));
             });
         }
+    }
+
+    convertProposed() {
+        const data = this.offerLetterForm.get('purpose') as FormArray;
+        data.value.forEach((d, i) => {
+            const amount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(d.loanLimitAmount));
+            const word = this.nepaliCurrencyWordPipe.transform(d.loanLimitAmount);
+            this.offerLetterForm.get(['purpose', i, 'loanLimitAmount']).patchValue(amount);
+            this.offerLetterForm.get(['purpose', i, 'loanLimitWord']).patchValue(word);
+        });
     }
 }
