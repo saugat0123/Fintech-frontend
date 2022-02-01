@@ -21,7 +21,7 @@
                     <option hidden> select Loan Type</option>
                     <ng-container *ngFor="let allList of loanList">
                         <option
-                                *ngIf="allList.loanTag !== loanTag.getKeyByValue(loanTag.REMIT_LOAN)"
+                                *ngIf="!allList?.isRemit"
                                 [value]="allList.id">{{allList.name}}</option>
 
                     </ng-container>

@@ -45,7 +45,6 @@ export class LoanInformationDetailViewComponent implements OnInit {
     currentDocAction;
     fiscalYearArray = [];
     customerAllLoanList: Array<LoanDataHolder> = [];
-    isMicro = false;
     crgGammaSummary = false;
     crgGammaScore = 0;
     crgGammaGradeStatusBadge;
@@ -145,9 +144,8 @@ export class LoanInformationDetailViewComponent implements OnInit {
         this.loanConfigService.detail(this.loanConfigId).subscribe(
             (response: any) => {
                 this.loanConfig = response.detail;
-                this.isRemitLoan = this.loanConfig.loanTag === 'REMIT_LOAN';
-                if (this.loanConfig.loanTag === 'MICRO_LOAN') {
-                    this.isMicro = true;
+                if (this.loanConfig.loanTag === 'REMIT_LOAN' && this.loanConfig.isRemit) {
+                    this.isRemitLoan = true;
                 }
             }
         );

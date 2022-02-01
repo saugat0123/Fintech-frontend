@@ -467,7 +467,6 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
     const modelRef = this.modalService.open(ChangeLoanComponent, {backdrop: false});
     modelRef.componentInstance.customerType = this.customerInfo.customerType;
     modelRef.componentInstance.currentLoanConfigId = loanConfigId;
-    modelRef.componentInstance.isMicroCustomer = this.customerInfo.isMicroCustomer;
     modelRef.componentInstance.customerLoanId = id;
 
 

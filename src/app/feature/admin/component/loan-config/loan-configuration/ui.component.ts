@@ -16,7 +16,7 @@ import {NgxSpinnerService} from 'ngx-spinner';
 import {ProductModeService, ProductUtils} from '../../../service/product-mode.service';
 import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
 import {LoanTag} from '../../../../loan/model/loanTag';
-import {FormGroup, FormGroupName, NgForm} from '@angular/forms';
+import {FormGroup, NgForm} from '@angular/forms';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {CustomerType} from '../../../../customer/model/customerType';
 import {loanNature} from 'src/app/feature/admin/modal/loanNature';
@@ -110,6 +110,11 @@ export class UIComponent implements OnInit, DoCheck {
                 other.service.detail(other.id).subscribe((res: any) => {
                     other.loanConfig = res.detail;
                     other.selectedLoanTag = other.loanConfig.loanTag;
+                    if (other.selectedLoanTag === 'REMIT_LOAN') {
+                        other.isRemitLoan = true;
+                    } else {
+                        other.isRemitLoan = false;
+                    }
                     other.selectedOfferLetterIdList = new Array<number>();
                     other.loanConfig.offerLetters.forEach(selectedOfferLetter => {
                         other.selectedOfferLetterIdList.push(selectedOfferLetter.id);
@@ -305,11 +310,7 @@ export class UIComponent implements OnInit, DoCheck {
 
     ngOnInit() {
         UIComponent.loadData(this);
-        if(this.selectedLoanTag === 'REMIT_LOAN')  {
-            this.isRemitLoan = true;
-        } else {
-            this.isRemitLoan = false;
-        }
+        console.log('at first', this.selectedLoanTag);
     }
 
     getTemplate() {
@@ -443,13 +444,11 @@ export class UIComponent implements OnInit, DoCheck {
     }
 
     onLoanTagChange() {
-        console.log(this.selectedLoanTag);
         if(this.selectedLoanTag === 'REMIT_LOAN')  {
             this.isRemitLoan = true;
         } else {
             this.isRemitLoan = false;
         }
-        console.log('this is remit loan', this.isRemitLoan);
     }
 
 

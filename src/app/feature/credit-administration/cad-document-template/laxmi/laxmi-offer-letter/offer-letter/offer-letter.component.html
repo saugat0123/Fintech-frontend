@@ -50,7 +50,8 @@
                     <td>कर्जा सुविधा</td>
                     <td>
                         <ng-select formControlName="loanType">
-                            <ng-option value="विप्रेषणमा आधारित लक्ष्मी लघु कर्जा (Livelihood Improvement Loan)"><b>विप्रेषणमा आधारित लक्ष्मी लघु कर्जा (Livelihood Improvement Loan)</b></ng-option>
+                            <ng-option *ngIf="isRemit" value="विप्रेषणमा आधारित लक्ष्मी लघु कर्जा (Livelihood Improvement Loan)"><b>विप्रेषणमा आधारित लक्ष्मी लघु कर्जा (Livelihood Improvement Loan)</b></ng-option>
+                            <ng-option *ngIf="!isRemit" value="बैदेशिक  रोजगार  प्रयोजन  (Pre-Migration Loan)"><b>बैदेशिक  रोजगार  प्रयोजन  (Pre-Migration Loan)</b></ng-option>
                             <ng-option value="महिला सशक्तिकरण कर्जा (Women Empowerment Loan)"><b>विप्रेषणमा आधारित लक्ष्मी लघु कर्जा (Women Empowerment Loan)</b></ng-option>
                         </ng-select>
                     </td>
@@ -170,14 +171,16 @@
                     <td rowspan="2">
                     </td>
                     <td>१</td>
-                    <td>कर्जा तमसुक प्रतिज्ञापत्र पत्र ।
+                    <td>कर्जा तमसुक, प्रतिज्ञापत्र पत्र ।
                     </td>
                 </tr>
                 <tr>
                     <td>२</td>
                     <td>
                         <input type="text" class="form-field form-control-sm nepaliFont" formControlName="remitterName">
-                        ले गरिदिएको व्यक्तिगत जमानतको लिखत ।
+
+                        <p *ngIf="isRemit">ले गरिदिएको व्यक्तिगत जमानतको लिखत ।</p>
+                        <p *ngIf="!isRemit">ले गरिदिएको व्यक्तिगत जमानतको लिखत  र प्रतिबद्दतापत्र ।</p>
                     </td>
                 </tr>
                 <tr>
@@ -300,4 +303,4 @@
         </button>
     </div>
 </div>
-<app-offer-letter-print *ngIf="initialInfoPrint" [printDocForm]="initialInfoPrint" hidden></app-offer-letter-print>
+<app-offer-letter-print *ngIf="initialInfoPrint" [printDocForm]="initialInfoPrint" [isRemit]="isRemit" hidden></app-offer-letter-print>

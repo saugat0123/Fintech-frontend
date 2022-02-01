@@ -65,7 +65,7 @@ export class ProposalViewComponent implements OnInit {
     this.calculateInterestRate();
     this.getLoanConfig();
     this.checkInstallmentAmount();
-    if (this.loanDataHolder.loan.loanTag === LoanTag.getKeyByValue(LoanTag.REMIT_LOAN)) {
+    if (this.loanDataHolder.loan.loanTag === LoanTag.getKeyByValue(LoanTag.REMIT_LOAN) && this.loanDataHolder.loan.isRemit) {
       this.isRemit = true;
     }
   }

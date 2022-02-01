@@ -27,6 +27,7 @@
   </button>
 
   <button (click)="loanAction('backward')" *ngIf="!catalogueStatus"
+          [disabled]="!actionsList.sendBackward"
           [ngStyle]="{ 'filter' : (actionsList.sendBackward === false)? 'grayscale(100%)': 'grayscale(0%)'}"
           class="btn-sm"
           style="color:lightseagreen;">
