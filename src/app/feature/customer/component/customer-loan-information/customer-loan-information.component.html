@@ -562,7 +562,7 @@
         <a class="cursor info-label" (click)="openModel(guarantorComponentTemplate)">
           <div class="row">
             <div class="col-md-8">
-              <p class="custom-font">GUARANTOR</p>
+              <p class="custom-font">SHAREHOLDER/GUARANTOR</p>
             </div>
             <div class="col-md-4 d-flex justify-content-end">
               <span *ngIf="customerInfo?.guarantors !== null" style="color:green"
@@ -581,7 +581,7 @@
       <ng-template #guarantorComponentTemplate let-data let-ref="dialogRef">
         <nb-card class="template-css">
           <nb-card-header>
-            GUARANTOR
+            SHAREHOLDER/GUARANTOR
             <a aria-label="Close" class="close cursor"
                data-dismiss="modal" (click)="ref.close()">
                       <span style="color: red" (click)="ref.close()">
