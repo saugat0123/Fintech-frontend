@@ -37,10 +37,16 @@
                    formControlName="samjhautapatra1">
             <span class="nepaliFont print-only">
                 <b>{{offerLetterForm?.get('samjhautapatra1')?.value ? offerLetterForm?.get('samjhautapatra1')?.value : '========='}}</b></span>/
-            <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                   formControlName="samjhautapatra2">
-            <span class="nepaliFont print-only">
-                <b>{{offerLetterForm?.get('samjhautapatra2')?.value ? offerLetterForm?.get('samjhautapatra2')?.value : '========='}}</b></span><br>
+            <input [nbDatepicker]="patraDate"
+                   class="form-field form-control-sm font-size-normal disable-print"
+                   formControlName="patraDate" placeholder="Date">
+            <nb-datepicker #patraDate></nb-datepicker>
+            <span class="print-only">
+                <b>{{offerLetterForm?.get('patraDate')?.value ? offerLetterForm?.get('patraDate')?.value : '========='}}</b></span>
+            <input type="text" class="form-field form-control-sm font-size-normal disable-print"
+                   formControlName="refNo" placeholder="Ref No.">
+            <span class="print-only">
+                <b>{{offerLetterForm?.get('refNo')?.value ? offerLetterForm?.get('refNo')?.value : '========='}}</b></span><br>
             <p class="col-md-2 float-right">मिति :-
                 <input type="text"
                        class="nepaliFont form-field form-control-sm font-size-normal disable-print"
@@ -48,23 +54,25 @@
                 <b>{{offerLetterForm?.get('date')?.value ? offerLetterForm?.get('date')?.value : '========='}}</b></span>
             </p> <br>
             श्री <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                        formControlName="borrowerName1"> <span class="nepaliFont print-only">
-                <b>{{offerLetterForm?.get('borrowerName1')?.value ? offerLetterForm?.get('borrowerName1')?.value : '========='}}</b></span>
+                        formControlName="borrowerName">
+            <span class="nepaliFont print-only">
+                <b>{{offerLetterForm?.get('borrowerName')?.value ? offerLetterForm?.get('borrowerName')?.value : '========='}}</b>
+            </span>
             <br>
             ठेगाना : <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                            formControlName="address1">
+                            formControlName="address" placeholder="ठेगाना">
             <span class="nepaliFont print-only">
-                <b>{{offerLetterForm?.get('address1')?.value ? offerLetterForm?.get('address1')?.value : '========='}}</b></span><br>
+                <b>{{offerLetterForm?.get('address')?.value ? offerLetterForm?.get('address')?.value : '========='}}</b></span><br>
             सम्पर्क टेलिफोन/मोवाइल नं.:
             <input type="text"
                    class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                   formControlName="phoneNo">
+                   formControlName="phoneNo" placeholder="सम्पर्क टेलिफोन/मोवाइल नं.:">
             <span class="nepaliFont print-only">
                 <b>{{offerLetterForm?.get('phoneNo')?.value ? offerLetterForm?.get('phoneNo')?.value : '========='}}</b></span>
             <br>
             <span *ngIf="cadData?.loanHolder?.loanCategory === 'INSTITUTION'">
                 ध्यानार्थ : <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                   formControlName="attention">
+                                   formControlName="attention" placeholder="ध्यानार्थ">
                 <span class="nepaliFont print-only">
                     <b>{{offerLetterForm?.get('attention')?.value ? offerLetterForm?.get('attention')?.value : '========='}}</b>
                 </span>
@@ -673,25 +681,54 @@
                             </td>
                         </tr>
 
-                        <!--                        <tr *ngIf="data?.loanType === 'NEW_LOAN'">-->
-                        <!--                            <td>प्रशासनिक शुल्क (Administration Fee)</td>-->
-                        <!--                            <td colspan="2">कर्जाको <input type="text"-->
-                        <!--                                                           [value]="data?.administrationRate"-->
-                        <!--                                                           class="nepaliFont form-field form-control-sm font-size-normal disable-print"-->
-                        <!--                                                           formControlName="administrationRate">-->
-                        <!--                                <span class="nepaliFont print-only">-->
-                        <!--                                        <b>{{data?.administrationRate ? data?.administrationRate : '========='}}</b></span>-->
-                        <!--                                प्रतिशत प्रशासनिक शुल्क लगाई कर्जा प्रवाह गर्नु अगावै असुल उपर गरिनेछ । <br>-->
-                        <!--                                वा <br>-->
-                        <!--                                रु <input type="text"-->
-                        <!--                                          [value]="data?.administrationAmount"-->
-                        <!--                                          class="nepaliFont form-field form-control-sm font-size-normal disable-print"-->
-                        <!--                                          formControlName="administrationAmount">-->
-                        <!--                                <span class="nepaliFont print-only">-->
-                        <!--                                        <b>{{data?.administrationAmount ? data?.administrationAmount : '========='}}</b></span>-->
-                        <!--                                रकम प्रशासनिक शुल्क लगाई कर्जा प्रवाह गर्नु अगावै असुल उपर गरिनेछ ।-->
-                        <!--                            </td>-->
-                        <!--                        </tr>-->
+                        <tr *ngIf="data?.loanType === 'NEW_LOAN'">
+                            <td>
+                                <span [ngClass]="offerLetterForm?.get(['purpose', i, 'adNeeded'])?.value ? '' : 'disable-print'">
+                                    प्रशासनिक शुल्क (Administration Fee)
+                                </span>
+                                <span class="float-right disable-print">
+                                    <nb-checkbox
+                                            (change)="otherValueCheck($event?.target?.checked, i, 'adNeeded')"
+                                            [checked]="offerLetterForm?.get(['purpose', i, 'adNeeded'])?.value"><i>Needed ?</i>
+                                    </nb-checkbox>
+                                </span>
+                            </td>
+                            <td colspan="2">
+                            <span *ngIf="offerLetterForm?.get(['purpose', i, 'adNeeded'])?.value" class="text-left pl-1">
+                                <span *ngIf="!data?.otherAdFeeChecked">
+                                    कर्जाको <input type="text"
+                                                   [value]="data?.administrationRate"
+                                                   class="nepaliFont form-field form-control-sm font-size-normal disable-print">
+                                    <span class="nepaliFont print-only">
+                                        <b>{{data?.administrationRate ? data?.administrationRate : '========='}}</b>
+                                    </span>
+                                    प्रतिशत प्रशासनिक शुल्क लगाई कर्जा प्रवाह गर्नु अगावै असुल उपर गरिनेछ । <br>
+                                    वा <br>
+                                    रु <input type="text"
+                                              [value]="data?.administrationAmount"
+                                              class="nepaliFont form-field form-control-sm font-size-normal disable-print">
+                                    <span class="nepaliFont print-only">
+                                        <b>{{data?.administrationAmount ? data?.administrationAmount : '========='}}</b></span>
+                                    रकम प्रशासनिक शुल्क लगाई कर्जा प्रवाह गर्नु अगावै असुल उपर गरिनेछ ।
+                                    </span>
+                                    <span class="float-right disable-print">
+                                        <nb-checkbox (change)="valueChange($event?.target?.checked, i, 'otherAdFeeChecked')"
+                                                     [checked]="data?.otherAdFeeChecked"><i>Other</i>
+                                        </nb-checkbox>
+                                    </span>
+                                    <span *ngIf="data?.otherAdFeeChecked">
+                                        <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                                                  [value]="data?.adFeeOther"
+                                                  (change)="valueChange($event?.target?.value, i, 'adFeeOther')"
+                                                  placeholder="अन्य प्रशासनिक शुल्क"
+                                                  rows="4"></textarea>
+                                        <span class="nepaliFont print-only">
+                                            <b>{{data?.adFeeOther ? data?.adFeeOther : '========='}}</b>
+                                        </span>
+                                    </span>
+                            </span>
+                            </td>
+                        </tr>
                         <tr *ngIf="data?.loanType === 'NEW_LOAN' || data?.loanType === 'RENEWED_LOAN'">
                             <td>
                                 <span [ngClass]="offerLetterForm?.get(['purpose', i, 'processingNeeded'])?.value ? '' : 'disable-print'">
@@ -705,11 +742,12 @@
                                 </span>
                             </td>
                             <ng-container *ngIf="offerLetterForm?.get(['purpose', i, 'processingNeeded'])?.value">
-                                <td *ngIf="data?.loanType === 'NEW_LOAN'">
-                                    कर्जाको <input type="text"
-                                                   [value]="data?.loanProcessingRate"
-                                                   (change)="valueChange($event?.target?.value, i, 'loanProcessingRate')"
-                                                   class="nepaliFont form-field form-control-sm font-size-normal disable-print">
+                                <td>
+                                    <span *ngIf="!data?.otherloanProcessingChecked">
+                                        कर्जाको <input type="text"
+                                                       [value]="data?.loanProcessingRate"
+                                                       (change)="valueChange($event?.target?.value, i, 'loanProcessingRate')"
+                                                       class="nepaliFont form-field form-control-sm font-size-normal disable-print">
                                     <span class="nepaliFont print-only">
                                         <b>{{data?.loanProcessingRate ? data?.loanProcessingRate : '========='}}</b></span>
                                     प्रतिशत वा रु. <input type="text"
@@ -718,22 +756,26 @@
                                                           class="nepaliFont form-field form-control-sm font-size-normal disable-print">
                                     <span class="nepaliFont print-only">
                                         <b>{{data?.loanProcessingAmount ? data?.loanProcessingAmount : '========='}}</b></span>
-                                    प्रशासनिक शुल्क लगाई प्रवाह गर्नु अगावै असुल उपर गरिनेछ ।
-                                </td>
-                                <td *ngIf="data?.loanType === 'RENEWED_LOAN'">
-                                    कर्जाको <input type="text"
-                                                   [value]="data?.loanProcessingRate"
-                                                   (change)="valueChange($event?.target?.value, i, 'loanProcessingRate')"
-                                                   class="nepaliFont form-field form-control-sm font-size-normal disable-print">
-                                    <span class="nepaliFont print-only">
-                                        <b>{{data?.loanProcessingRate ? data?.loanProcessingRate : '========='}}</b></span>
-                                    प्रतिशत वा रु. <input type="text"
-                                                          [value]="data?.loanProcessingAmount"
-                                                          (change)="valueChange($event?.target?.value, i, 'loanProcessingAmount')"
-                                                          class="nepaliFont form-field form-control-sm font-size-normal disable-print">
-                                    <span class="nepaliFont print-only">
-                                        <b>{{data?.loanProcessingAmount ? data?.loanProcessingAmount : '========='}}</b></span>
-                                    प्रशासनिक शुल्क लगाई नवीकरण गर्नु अगावै असुल उपर गरिनेछ ।
+                                    प्रशासनिक शुल्क लगाई
+                                    <span *ngIf="data?.loanType === 'NEW_LOAN'">प्रवाह</span>
+                                    <span *ngIf="data?.loanType === 'RENEWED_LOAN'">नवीकरण</span>
+                                    गर्नु अगावै असुल उपर गरिनेछ ।
+                                    </span>
+                                    <span class="float-right disable-print">
+                                        <nb-checkbox (change)="valueChange($event?.target?.checked, i, 'otherloanProcessingChecked')"
+                                                     [checked]="data?.otherloanProcessingChecked"><i>Other</i>
+                                        </nb-checkbox>
+                                    </span>
+                                    <span *ngIf="data?.otherloanProcessingChecked">
+                                        <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                                                  (change)="valueChange($event?.target?.value, i, 'otherloanProcessing')"
+                                                  [value]="data?.otherloanProcessing"
+                                                  placeholder="अन्य प्रशासनिक शुल्क"
+                                                  rows="4"></textarea>
+                                        <span class="nepaliFont print-only">
+                                            <b>{{data?.otherloanProcessing ? data?.otherloanProcessing : '========='}}</b>
+                                        </span>
+                                    </span>
                                 </td>
                             </ng-container>
                         </tr>
@@ -1513,7 +1555,7 @@
                     <tr>
                         <td colspan="6">
                             <span *ngIf="!offerLetterForm?.get('cashlienOtherCheck')?.value">
-                                 रु. <input type="text"
+                                <input type="text"
                                        class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                                        formControlName="accountName">
                                 <span class="nepaliFont print-only">
@@ -1565,7 +1607,7 @@
                     <tr>
                         <td colspan="6">
                             <span *ngIf="!offerLetterForm?.get('loanTamsukOtherCheck')?.value">
-                                <input type="text"
+                                रु. <input type="text"
                                        class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                                        formControlName="loanAmount">
                                 <span class="nepaliFont print-only">

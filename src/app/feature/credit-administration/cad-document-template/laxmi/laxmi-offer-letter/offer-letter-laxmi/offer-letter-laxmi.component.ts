@@ -126,6 +126,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
         if (ObjectUtil.isEmpty(this.offerLetterDocument)) {
             this.offerLetterDocument = new OfferDocument();
             this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.OFFER_LETTER);
+            this.fillForm();
             this.addOtherCovenants();
             this.addAcceptance();
             this.addEventDefault();
@@ -134,6 +135,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
             this.addPrecedent();
             // this.saveLoanSubLoan();
         } else {
+            // this.fillForm();
             const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
             this.initialInfoPrint = initialInfo;
             this.existingOfferLetter = true;
@@ -150,9 +152,21 @@ export class OfferLetterLaxmiComponent implements OnInit {
         }
     }
 
+    fillForm() {
+        this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
+        console.log('nepaliData', this.nepaliData);
+        // const address = this.nepaliData.perma
+        if (!ObjectUtil.isEmpty(this.nepaliData)) {
+            this.offerLetterForm.patchValue({
+                borrowerName: this.nepaliData.name,
+            });
+        }
+    }
+
     buildForm() {
         this.offerLetterForm = this.formBuilder.group({
             signature1: [undefined],
+            refNo: [undefined],
             empoweredName: [undefined],
             signature2: [undefined],
             signature3: [undefined],
@@ -287,7 +301,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
             // subLoantype
             samjhautapatra: [undefined],
             samjhautapatra1: [undefined],
-            samjhautapatra2: [undefined],
+            patraDate: [undefined],
             date: [undefined],
             borrowerName1: [undefined],
             address1: [undefined],
@@ -573,6 +587,15 @@ export class OfferLetterLaxmiComponent implements OnInit {
                     this.offerLetterForm.get(['purpose', i, 'processingNeeded']).patchValue(checked);
                 }
                 break;
+            case 'adNeeded':
+                if (checked) {
+                    this.offerLetterForm.get(['purpose', i, 'adNeeded']).patchValue(checked);
+                    this.offerLetterForm.get(['purpose', i, 'administrationRate']).patchValue(null);
+                    this.offerLetterForm.get(['purpose', i, 'administrationAmount']).patchValue(null);
+                } else {
+                    this.offerLetterForm.get(['purpose', i, 'adNeeded']).patchValue(checked);
+                }
+                break;
         }
     }
 
@@ -713,6 +736,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
                 commissionNeeded: [true],
                 maturityNeeded: [true],
                 tenureNeeded: [true],
+                adNeeded: [true],
                 processingNeeded: [true],
                 moratariumPeriodNeeded: [true],
                 moratariumValue: [undefined],
@@ -754,6 +778,10 @@ export class OfferLetterLaxmiComponent implements OnInit {
                 loanProcessingAmount: [undefined],
                 otherRepayment: [undefined],
                 otherInterestRate: [undefined],
+                otherAdFeeChecked: [false],
+                otherloanProcessingChecked: [false],
+                adFeeOther: [undefined],
+                otherloanProcessing: [undefined]
             })
         );
     }
@@ -958,6 +986,16 @@ export class OfferLetterLaxmiComponent implements OnInit {
                 } else {
                     this.offerLetterForm.get('cashGuaranteeOtherCheck').patchValue(false);
                     this.offerLetterForm.get('cashGuaranteeOther').patchValue(null);
+                }
+                break;
+            case 'otherAdFeeChecked':
+                if (event) {
+                    this.offerLetterForm.get('otherAdFeeChecked').patchValue(event);
+                    this.offerLetterForm.get('administrationAmount').patchValue(null);
+                    this.offerLetterForm.get('administrationRate').patchValue(null);
+                } else {
+                    this.offerLetterForm.get('otherAdFeeChecked').patchValue(false);
+                    this.offerLetterForm.get('adFeeOther').patchValue(null);
                 }
                 break;
         }
