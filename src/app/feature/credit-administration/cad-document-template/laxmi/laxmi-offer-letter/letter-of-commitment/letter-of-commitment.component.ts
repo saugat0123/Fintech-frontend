@@ -71,7 +71,7 @@ export class LetterOfCommitmentComponent implements OnInit {
             this.offerLetterDocument = new OfferDocument();
             this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.LETTER_OF_COMMITMENT);
             this.fillForm();
-            if (this.cadOfferLetterApprovedDoc.assignedLoan[0].loan.loanTag === LoanTag.getKeyByValue(LoanTag.REMIT_LOAN)) {
+            if (this.cadOfferLetterApprovedDoc.assignedLoan[0].loan.loanTag === LoanTag.getKeyByValue(LoanTag.REMIT_LOAN) && this.cadOfferLetterApprovedDoc.assignedLoan[0].loan.isRemit) {
                 this.remitCountry = this.remitCountryPipe.transform(JSON.parse(
                     this.cadOfferLetterApprovedDoc.assignedLoan[0].remitCustomer.senderData).senderAddress.temp_country);
                 this.form.patchValue({

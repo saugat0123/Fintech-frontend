@@ -26,6 +26,7 @@ import {PreviousSecurity} from '../../admin/modal/previousSecurity';
 import {MicroCrgParams} from './MicroCrgParams';
 import {ReviewDate} from './reviewDate';
 import {MultiBanking} from './multiBanking';
+import {Gender} from '../../../@core/model/enum/gender';
 
 export class CustomerInfoData {
     id: number;
@@ -63,7 +64,7 @@ export class CustomerInfoData {
     customerCode: string;
     subSectorDetailCode: string;
     nepData: string;
-    gender: string;
+    gender: Gender;
     mgroupInfo: MGroup;
     synopsisCreditworthiness: MicroLoanSynopsis;
     borrowerPortFolio: BorrowerPortfolio;

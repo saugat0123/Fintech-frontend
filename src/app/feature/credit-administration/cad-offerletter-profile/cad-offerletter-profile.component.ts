@@ -86,7 +86,7 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
     }
 
     checkRemit() {
-        if (this.cadOfferLetterApprovedDoc.assignedLoan[0].loan.loanTag === LoanTag.getKeyByValue(LoanTag.REMIT_LOAN)) {
+        if (this.cadOfferLetterApprovedDoc.assignedLoan[0].loan.loanTag === LoanTag.getKeyByValue(LoanTag.REMIT_LOAN) && this.cadOfferLetterApprovedDoc.assignedLoan[0].loan.isRemit) {
             this.isRemit = true;
         }
     }

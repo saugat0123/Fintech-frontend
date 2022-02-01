@@ -79,7 +79,7 @@ export class DocumentChecklistViewLiteComponent implements OnInit {
   previewDoc(url: string, name: string, signedDoc: boolean) {
     let isRemit = false;
     this.cadData.assignedLoan.forEach((d) => {
-      if (d.loan.loanTag === LoanTag.getKeyByValue(LoanTag.REMIT_LOAN)) {
+      if (d.loan.loanTag === LoanTag.getKeyByValue(LoanTag.REMIT_LOAN) && d.loan.isRemit) {
         isRemit = true;
       }
     });

@@ -116,7 +116,6 @@
                         <td class="text-left pl-1">{{individualJsonData?.temporaryAddressLine2 || 'NA'}}</td>
                     </tr>
                 </table>
-                <app-remit-profile  [loanHolder]="loanDataHolder" [isRemit]="isRemit" [individual]="individual"  ></app-remit-profile>
             </div>
     </ng-container>
     <ng-container *ngIf="isRemit">
@@ -141,7 +140,7 @@
                         <th>Net Worth</th>
                     </tr>
                     <tr>
-                        <td class="text-left pl-1">{{loanDataHolder.loanHolder.bankingRelationship | jsonParse}}</td>
+                        <td class="text-left pl-1">{{loanDataHolder?.loanHolder?.bankingRelationship}}</td>
                         <td class="text-right pr-1">Rs. {{individual?.netWorth |currencyFormatter}}</td>
                     </tr>
                 </table>
