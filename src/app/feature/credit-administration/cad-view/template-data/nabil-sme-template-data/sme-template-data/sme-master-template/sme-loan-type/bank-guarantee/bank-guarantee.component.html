@@ -48,7 +48,7 @@
             <div class="col-md-4 form-group">
                 <label class="font-weight-bold" for="loanAmount">Loan Amount in Figure</label>
                 <input class="form-control" formControlName="loanAmount" fullWidth id="loanAmount"
-                       (input)="getNumAmountWord('loanAmount', 'loanAmountAmountWords', i, 'bankGuaranteeArray')"
+                       readonly
                        nbInput
                        shape="semi-round"
                        status="success" type="number">
@@ -62,6 +62,7 @@
             </div>
             <div class="col-md-4 form-group fieldMargin">
                 <input class="form-control" formControlName="loanAmountCT" fullWidth id="loanAmountCT"
+                       readonly
                        nbInput
                        shape="semi-round"
                        status="success" type="text">
@@ -71,6 +72,7 @@
             <div class="col-md-4 form-group">
                 <label class="font-weight-bold" for="loanAmountAmountWords">Loan Amount Words</label>
                 <input class="form-control" formControlName="loanAmountAmountWords" fullWidth id="loanAmountAmountWords"
+                       readonly
                        nbInput
                        shape="semi-round"
                        status="success" type="text">
@@ -86,6 +88,7 @@
             <div class="col-md-4 form-group fieldMargin">
                 <input class="form-control" formControlName="loanAmountAmountWordsCT" fullWidth
                        id="loanAmountAmountWordsCT"
+                       readonly
                        nbInput
                        shape="semi-round"
                        status="success" type="text">

@@ -40,6 +40,7 @@ export class MortgageOrEquityMortgageTermLoanComponent implements OnInit {
     translatedValue: any;
     loanNameConstant = LoanNameConstant;
     filteredList: any = [];
+    filteredListMortgage: any = [];
     tdValues: any = {};
     spinner = false;
     yesNoOptions = [
@@ -59,7 +60,8 @@ export class MortgageOrEquityMortgageTermLoanComponent implements OnInit {
                 private engToNepDatePipe: EngNepDatePipe,
                 private translateService: SbTranslateService,
                 private datePipe: DatePipe,
-                private translatedService: SbTranslateService) {
+                private translatedService: SbTranslateService,
+                private engToNepWord: NepaliCurrencyWordPipe) {
     }
 
     ngOnInit() {
@@ -77,6 +79,24 @@ export class MortgageOrEquityMortgageTermLoanComponent implements OnInit {
             }
             this.patchDate();
         }
+        if (!ObjectUtil.isEmpty(this.filteredList)) {
+            for (let val = 0; val < this.filteredList.length; val++) {
+                const loanamountWords = this.engToNepWord.transform(this.filteredList[val].loanAmount);
+                this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', val, 'loanAmount']).patchValue(
+                    this.filteredList[val] ? this.filteredList[val].loanAmount : '');
+                this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', val, 'loanAmountWords']).patchValue(
+                    loanamountWords ? loanamountWords : '');
+            }
+        }
+        if (!ObjectUtil.isEmpty(this.filteredListMortgage)) {
+            for (let val = 0; val < this.filteredListMortgage.length; val++) {
+                const loanamountWords = this.engToNepWord.transform(this.filteredListMortgage[val].loanAmount);
+                this.mortgageEquityTermForm.get(['mortgageTermFormArray', val, 'loanAmount']).patchValue(
+                    this.filteredListMortgage[val] ? this.filteredListMortgage[val].loanAmount : '');
+                this.mortgageEquityTermForm.get(['mortgageTermFormArray', val, 'loanAmountWords']).patchValue(
+                    loanamountWords ? loanamountWords : '');
+            }
+        }
     }
     patchDate() {
         for (let val = 0; val < this.initialInformation.mortgageEquityTermForm.mortgageEquityTermFormArray.length; val++) {
@@ -93,15 +113,38 @@ export class MortgageOrEquityMortgageTermLoanComponent implements OnInit {
                 }
             }
         }
+
+        for (let val = 0; val < this.initialInformation.mortgageEquityTermForm.mortgageTermFormArray.length; val++) {
+            const dateOfExpiryType = this.initialInformation.mortgageEquityTermForm.mortgageTermFormArray[val].dateOfExpiryType;
+            if (dateOfExpiryType === 'AD') {
+                const dateOfExpiry = this.initialInformation.mortgageEquityTermForm.mortgageTermFormArray[val].dateOfExpiry;
+                if (!ObjectUtil.isEmpty(dateOfExpiry)) {
+                    this.mortgageEquityTermForm.get(['mortgageTermFormArray', val, 'dateOfExpiry']).patchValue(new Date(dateOfExpiry));
+                }
+            } else if (dateOfExpiryType === 'BS') {
+                const dateOfExpiry = this.initialInformation.mortgageEquityTermForm.mortgageTermFormArray[val].dateOfExpiryNepali;
+                if (!ObjectUtil.isEmpty(dateOfExpiry)) {
+                    this.mortgageEquityTermForm.get(['mortgageTermFormArray', val, 'dateOfExpiryNepali']).patchValue(dateOfExpiry);
+                }
+            }
+        }
     }
     buildForm() {
         this.mortgageEquityTermForm = this.formBuilder.group({
             mortgageEquityTermFormArray: this.formBuilder.array([]),
+            mortgageTermFormArray: this.formBuilder.array([]),
         });
     }
 
     checkComplimentary(data, index) {
-        this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'complementaryOther']).patchValue(data);
+        if (!data) {
+            this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'complementaryOther']).patchValue(data);
+        }
+    }
+    checkComplimentary1(data, index) {
+        if (!data) {
+            this.mortgageEquityTermForm.get(['mortgageTermFormArray', index, 'complementaryOther']).patchValue(data);
+        }
     }
     setEquityMortgageLoan(data, i) {
         const tempData = !ObjectUtil.isEmpty(data) ? data : '';
@@ -121,9 +164,13 @@ export class MortgageOrEquityMortgageTermLoanComponent implements OnInit {
     }
 
     filterLoanDetails(loanDetails) {
-        this.filteredList = loanDetails.filter(data => data.name === this.loanNameConstant.MORTGAGE_TERM_LOAN_EQUITY_MORTGAGE_TERM_LOAN);
+        this.filteredList = loanDetails.filter(data => data.name === this.loanNameConstant.EQUITY_MORTGAGE_TERM_LOAN);
+        this.filteredListMortgage = loanDetails.filter(data => data.name === this.loanNameConstant.MORTGAGE_TERM_LOAN);
         this.filteredList.forEach(value => {
             this.addLoanFormArr();
+        });
+        this.filteredListMortgage.forEach(value => {
+            this.addMortgageLoanFormArr();
         });
     }
 
@@ -147,123 +194,123 @@ export class MortgageOrEquityMortgageTermLoanComponent implements OnInit {
         this.isMonthly = tempData === 'MONTHLY';
     }
 
-    async setTranslatedVal(index) {
+    async setTranslatedVal(index, mainArray) {
         this.spinner = true;
         /*SET TRANSLATED VALUES OR THE CONDITIONS */
-        const tempTermLoanFor = this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'termLoanFor']).value;
+        const tempTermLoanFor = this.mortgageEquityTermForm.get([mainArray, index, 'termLoanFor']).value;
         if (!ObjectUtil.isEmpty(tempTermLoanFor)) {
-            this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'termLoanForTrans']).patchValue(tempTermLoanFor);
+            this.mortgageEquityTermForm.get([mainArray, index, 'termLoanForTrans']).patchValue(tempTermLoanFor);
         }
 
-        const tempTermLoanType = this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'termLoanType']).value;
+        const tempTermLoanType = this.mortgageEquityTermForm.get([mainArray, index, 'termLoanType']).value;
         if (!ObjectUtil.isEmpty(tempTermLoanType)) {
-            this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'termLoanTypeTrans']).patchValue(tempTermLoanType);
+            this.mortgageEquityTermForm.get([mainArray, index, 'termLoanTypeTrans']).patchValue(tempTermLoanType);
         }
 
-        this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'complementaryOtherTrans']).patchValue(this.isComplementaryOther);
+        this.mortgageEquityTermForm.get([mainArray, index, 'complementaryOtherTrans']).patchValue(this.isComplementaryOther);
 
         // tslint:disable-next-line:max-line-length
-        const tempComplimentaryLoanSelected = this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'complimentaryLoanSelected']).value;
+        const tempComplimentaryLoanSelected = this.mortgageEquityTermForm.get([mainArray, index, 'complimentaryLoanSelected']).value;
         if (!ObjectUtil.isEmpty(tempComplimentaryLoanSelected)) {
             // tslint:disable-next-line:max-line-length
-            this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'complimentaryLoanSelectedTrans']).patchValue(tempComplimentaryLoanSelected);
+            this.mortgageEquityTermForm.get([mainArray, index, 'complimentaryLoanSelectedTrans']).patchValue(tempComplimentaryLoanSelected);
         }
 
-        const tempDrawingPowerBasis = this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'drawingPowerBasis']).value;
+        const tempDrawingPowerBasis = this.mortgageEquityTermForm.get([mainArray, index, 'drawingPowerBasis']).value;
         if (!ObjectUtil.isEmpty(tempDrawingPowerBasis)) {
-            this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'drawingPowerBasisTrans']).patchValue(tempDrawingPowerBasis);
+            this.mortgageEquityTermForm.get([mainArray, index, 'drawingPowerBasisTrans']).patchValue(tempDrawingPowerBasis);
         }
 
-        const tempPaymentTerms = this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'paymentTerms']).value;
+        const tempPaymentTerms = this.mortgageEquityTermForm.get([mainArray, index, 'paymentTerms']).value;
         if (!ObjectUtil.isEmpty(tempPaymentTerms)) {
-            this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'paymentTermsTrans']).patchValue(tempPaymentTerms);
+            this.mortgageEquityTermForm.get([mainArray, index, 'paymentTermsTrans']).patchValue(tempPaymentTerms);
         }
 
-        const tempEmiPaymentType = this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'emiPaymentType']).value;
+        const tempEmiPaymentType = this.mortgageEquityTermForm.get([mainArray, index, 'emiPaymentType']).value;
         if (!ObjectUtil.isEmpty(tempEmiPaymentType)) {
-            this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'emiPaymentTypeTrans']).patchValue(tempEmiPaymentType);
+            this.mortgageEquityTermForm.get([mainArray, index, 'emiPaymentTypeTrans']).patchValue(tempEmiPaymentType);
         }
 
         /* SET REMAINING TRANSLATED DATA FOR FIELDS WITH EXISTED LIBRARIES*/
-        const tempLoanAmount = this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'loanAmount']).value;
+        const tempLoanAmount = this.mortgageEquityTermForm.get([mainArray, index, 'loanAmount']).value;
         const convertNumber = !ObjectUtil.isEmpty(tempLoanAmount) ?
             this.convertNumbersToNepali(tempLoanAmount, true) : '';
-        this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'loanAmountTrans']).patchValue(convertNumber);
+        this.mortgageEquityTermForm.get([mainArray, index, 'loanAmountTrans']).patchValue(convertNumber);
 
-        this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'loanAmountWordsTrans']).patchValue(
-            this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'loanAmountWords']).value
+        this.mortgageEquityTermForm.get([mainArray, index, 'loanAmountWordsTrans']).patchValue(
+            this.mortgageEquityTermForm.get([mainArray, index, 'loanAmountWords']).value
         );
 
-        const convertedDrawingPower = this.convertNumbersToNepali(this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'drawingPowerInPercentage']).value, false);
-        this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'drawingPowerInPercentageTrans']).patchValue(convertedDrawingPower);
+        const convertedDrawingPower = this.convertNumbersToNepali(this.mortgageEquityTermForm.get([mainArray, index, 'drawingPowerInPercentage']).value, false);
+        this.mortgageEquityTermForm.get([mainArray, index, 'drawingPowerInPercentageTrans']).patchValue(convertedDrawingPower);
 
         // tslint:disable-next-line:max-line-length
-        const convertedBaseRate = this.convertNumbersToNepali(this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'baseRate']).value, false);
-        this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'baseRateTrans']).patchValue(convertedBaseRate);
+        const convertedBaseRate = this.convertNumbersToNepali(this.mortgageEquityTermForm.get([mainArray, index, 'baseRate']).value, false);
+        this.mortgageEquityTermForm.get([mainArray, index, 'baseRateTrans']).patchValue(convertedBaseRate);
 
         // tslint:disable-next-line:max-line-length
-        const convertedPremiumRate = this.convertNumbersToNepali(this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'premiumRate']).value, false);
-        this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'premiumRateTrans']).patchValue(convertedPremiumRate);
+        const convertedPremiumRate = this.convertNumbersToNepali(this.mortgageEquityTermForm.get([mainArray, index, 'premiumRate']).value, false);
+        this.mortgageEquityTermForm.get([mainArray, index, 'premiumRateTrans']).patchValue(convertedPremiumRate);
 
-        const convertedInterestRate = this.convertNumbersToNepali(this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'interestRate']).value, false);
-        this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'interestRateTrans']).patchValue(convertedInterestRate);
+        const convertedInterestRate = this.convertNumbersToNepali(this.mortgageEquityTermForm.get([mainArray, index, 'interestRate']).value, false);
+        this.mortgageEquityTermForm.get([mainArray, index, 'interestRateTrans']).patchValue(convertedInterestRate);
 
-        const tempEMIAmount = this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'emiInFigure']).value;
+        const tempEMIAmount = this.mortgageEquityTermForm.get([mainArray, index, 'emiInFigure']).value;
         const convertNumber1 = !ObjectUtil.isEmpty(tempEMIAmount) ?
             this.convertNumbersToNepali(tempEMIAmount, true) : '';
-        this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'emiInFigureTrans']).patchValue(convertNumber1);
-        this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'emiInWordsTrans']).patchValue(
-            this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'emiInWords']).value
+        this.mortgageEquityTermForm.get([mainArray, index, 'emiInFigureTrans']).patchValue(convertNumber1);
+        this.mortgageEquityTermForm.get([mainArray, index, 'emiInWordsTrans']).patchValue(
+            this.mortgageEquityTermForm.get([mainArray, index, 'emiInWords']).value
         );
-        const convertedTotalNumber = this.convertNumbersToNepali(this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'totalNumberOfInstallment']).value, false);
-        this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'totalNumberOfInstallmentTrans']).patchValue(convertedTotalNumber);
+        const convertedTotalNumber = this.convertNumbersToNepali(this.mortgageEquityTermForm.get([mainArray, index, 'totalNumberOfInstallment']).value, false);
+        this.mortgageEquityTermForm.get([mainArray, index, 'totalNumberOfInstallmentTrans']).patchValue(convertedTotalNumber);
 
-        const convertedServiceCharge = this.convertNumbersToNepali(this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'serviceCharge']).value, false);
-        this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'serviceChargeTrans']).patchValue(convertedServiceCharge);
+        const convertedServiceCharge = this.convertNumbersToNepali(this.mortgageEquityTermForm.get([mainArray, index, 'serviceCharge']).value, false);
+        this.mortgageEquityTermForm.get([mainArray, index, 'serviceChargeTrans']).patchValue(convertedServiceCharge);
 
-        const convertedTenureOfLoanTrans = this.convertNumbersToNepali(this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'tenureOfLoan']).value, false);
-        this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'tenureOfLoanTrans']).patchValue(convertedTenureOfLoanTrans);
+        const convertedTenureOfLoanTrans = this.convertNumbersToNepali(this.mortgageEquityTermForm.get([mainArray, index, 'tenureOfLoan']).value, false);
+        this.mortgageEquityTermForm.get([mainArray, index, 'tenureOfLoanTrans']).patchValue(convertedTenureOfLoanTrans);
         /* Converting value for date */
-        this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'dateOfExpiryTypeTrans']).patchValue(
-            this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'dateOfExpiryType']).value
+        this.mortgageEquityTermForm.get([mainArray, index, 'dateOfExpiryTypeTrans']).patchValue(
+            this.mortgageEquityTermForm.get([mainArray, index, 'dateOfExpiryType']).value
         );
-        const tempDateOfExpType = this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'dateOfExpiryType']).value;
+        const tempDateOfExpType = this.mortgageEquityTermForm.get([mainArray, index, 'dateOfExpiryType']).value;
         let tempExpDate;
         if (tempDateOfExpType === 'AD') {
-            const tempEngExpDate = this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'dateOfExpiry']).value;
+            const tempEngExpDate = this.mortgageEquityTermForm.get([mainArray, index, 'dateOfExpiry']).value;
             tempExpDate = !ObjectUtil.isEmpty(tempEngExpDate) ? this.datePipe.transform(tempEngExpDate) : '';
             const finalExpDate = this.transformEnglishDate(tempExpDate);
-            this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'dateOfExpiryTrans']).patchValue(finalExpDate);
+            this.mortgageEquityTermForm.get([mainArray, index, 'dateOfExpiryTrans']).patchValue(finalExpDate);
         } else {
-            const tempDateOfExpNep = this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'dateOfExpiryNepali']).value;
+            const tempDateOfExpNep = this.mortgageEquityTermForm.get([mainArray, index, 'dateOfExpiryNepali']).value;
             tempExpDate = !ObjectUtil.isEmpty(tempDateOfExpNep) ?
                 tempDateOfExpNep.nDate : '';
-            this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'dateOfExpiryTrans']).patchValue(tempExpDate);
+            this.mortgageEquityTermForm.get([mainArray, index, 'dateOfExpiryTrans']).patchValue(tempExpDate);
         }
-        const convertedPaymentAmount = this.convertNumbersToNepali(this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'paymentAmountInFigure']).value, false);
-        this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'paymentAmountInFigureTrans']).patchValue(convertedPaymentAmount);
+        const convertedPaymentAmount = this.convertNumbersToNepali(this.mortgageEquityTermForm.get([mainArray, index, 'paymentAmountInFigure']).value, false);
+        this.mortgageEquityTermForm.get([mainArray, index, 'paymentAmountInFigureTrans']).patchValue(convertedPaymentAmount);
 
-        this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'paymentAmountInWordsTrans']).patchValue(
-            this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'paymentAmountInWords']).value
+        this.mortgageEquityTermForm.get([mainArray, index, 'paymentAmountInWordsTrans']).patchValue(
+            this.mortgageEquityTermForm.get([mainArray, index, 'paymentAmountInWords']).value
         );
 
-        const convertPaymentAmount = this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'totalNumberOfPayments']).value;
-        this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'totalNumberOfPaymentsTrans']).patchValue(convertPaymentAmount);
+        const convertPaymentAmount = this.convertNumbersToNepali(this.mortgageEquityTermForm.get([mainArray, index, 'totalNumberOfPayments']).value, false);
+        this.mortgageEquityTermForm.get([mainArray, index, 'totalNumberOfPaymentsTrans']).patchValue(convertPaymentAmount);
 
         /* Constructing Form for translation */
         this.translatedFormGroup = this.formBuilder.group({
-            purposeOfLoan: [this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'purposeOfLoan']).value],
+            purposeOfLoan: [this.mortgageEquityTermForm.get([mainArray, index, 'purposeOfLoan']).value],
         });
 
         // translated by google api
         this.translatedFormGroup = this.formBuilder.group({
-        purposeOfLoan: !ObjectUtil.isEmpty(this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'purposeOfLoan']).value) ?
-                this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'purposeOfLoan']).value : '',
+        purposeOfLoan: !ObjectUtil.isEmpty(this.mortgageEquityTermForm.get([mainArray, index, 'purposeOfLoan']).value) ?
+                this.mortgageEquityTermForm.get([mainArray, index, 'purposeOfLoan']).value : '',
         });
         this.translatedValue =  await this.translateService.translateForm(this.translatedFormGroup);
         // tslint:disable-next-line:max-line-length
-        this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'purposeOfLoanTrans']).patchValue(this.translatedValue.purposeOfLoan);
-        this.setCTValues(index);
+        this.mortgageEquityTermForm.get([mainArray, index, 'purposeOfLoanTrans']).patchValue(this.translatedValue.purposeOfLoan);
+        this.setCTValues(index, mainArray);
         this.spinner = false;
     }
 
@@ -411,84 +458,87 @@ export class MortgageOrEquityMortgageTermLoanComponent implements OnInit {
         return translatedData;
     }
 
-    setCTValues(index) {
-        this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'termLoanForCT']).patchValue(
-            this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'termLoanForTrans']).value
+    setCTValues(index, mainArray) {
+        this.mortgageEquityTermForm.get([mainArray, index, 'termLoanForCT']).patchValue(
+            this.mortgageEquityTermForm.get([mainArray, index, 'termLoanForTrans']).value
         );
-        this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'termLoanTypeCT']).patchValue(
-            this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'termLoanTypeTrans']).value
+        this.mortgageEquityTermForm.get([mainArray, index, 'termLoanTypeCT']).patchValue(
+            this.mortgageEquityTermForm.get([mainArray, index, 'termLoanTypeTrans']).value
         );
-        this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'complementaryOtherCT']).patchValue(
-            this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'complementaryOtherTrans']).value
+        this.mortgageEquityTermForm.get([mainArray, index, 'complementaryOtherCT']).patchValue(
+            this.mortgageEquityTermForm.get([mainArray, index, 'complementaryOtherTrans']).value
         );
-        this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'complimentaryLoanSelectedCT']).patchValue(
-            this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'complimentaryLoanSelectedTrans']).value
+        this.mortgageEquityTermForm.get([mainArray, index, 'complimentaryLoanSelectedCT']).patchValue(
+            this.mortgageEquityTermForm.get([mainArray, index, 'complimentaryLoanSelectedTrans']).value
         );
-        this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'purposeOfLoanCT']).patchValue(
-            this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'purposeOfLoanTrans']).value
+        this.mortgageEquityTermForm.get([mainArray, index, 'purposeOfLoanCT']).patchValue(
+            this.mortgageEquityTermForm.get([mainArray, index, 'purposeOfLoanTrans']).value
         );
-        this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'loanAmountCT']).patchValue(
-            this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'loanAmountTrans']).value
+        this.mortgageEquityTermForm.get([mainArray, index, 'loanAmountCT']).patchValue(
+            this.mortgageEquityTermForm.get([mainArray, index, 'loanAmountTrans']).value
         );
-        this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'loanAmountWordsCT']).patchValue(
-            this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'loanAmountWordsTrans']).value
+        this.mortgageEquityTermForm.get([mainArray, index, 'loanAmountWordsCT']).patchValue(
+            this.mortgageEquityTermForm.get([mainArray, index, 'loanAmountWordsTrans']).value
         );
-        this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'drawingPowerBasisCT']).patchValue(
-            this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'drawingPowerBasisTrans']).value
+        this.mortgageEquityTermForm.get([mainArray, index, 'drawingPowerBasisCT']).patchValue(
+            this.mortgageEquityTermForm.get([mainArray, index, 'drawingPowerBasisTrans']).value
         );
-        this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'drawingPowerInPercentageCT']).patchValue(
-            this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'drawingPowerInPercentageTrans']).value
+        this.mortgageEquityTermForm.get([mainArray, index, 'drawingPowerInPercentageCT']).patchValue(
+            this.mortgageEquityTermForm.get([mainArray, index, 'drawingPowerInPercentageTrans']).value
         );
-        this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'baseRateCT']).patchValue(
-            this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'baseRateTrans']).value
+        this.mortgageEquityTermForm.get([mainArray, index, 'baseRateCT']).patchValue(
+            this.mortgageEquityTermForm.get([mainArray, index, 'baseRateTrans']).value
         );
-        this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'premiumRateCT']).patchValue(
-            this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'premiumRateTrans']).value
+        this.mortgageEquityTermForm.get([mainArray, index, 'premiumRateCT']).patchValue(
+            this.mortgageEquityTermForm.get([mainArray, index, 'premiumRateTrans']).value
         );
-        this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'interestRateCT']).patchValue(
-            this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'interestRateTrans']).value
+        this.mortgageEquityTermForm.get([mainArray, index, 'interestRateCT']).patchValue(
+            this.mortgageEquityTermForm.get([mainArray, index, 'interestRateTrans']).value
         );
-        this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'emiInFigureCT']).patchValue(
-            this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'emiInFigureTrans']).value
+        this.mortgageEquityTermForm.get([mainArray, index, 'emiInFigureCT']).patchValue(
+            this.mortgageEquityTermForm.get([mainArray, index, 'emiInFigureTrans']).value
         );
-        this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'emiInWordsCT']).patchValue(
-            this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'emiInWordsTrans']).value
+        this.mortgageEquityTermForm.get([mainArray, index, 'emiInWordsCT']).patchValue(
+            this.mortgageEquityTermForm.get([mainArray, index, 'emiInWordsTrans']).value
         );
-        this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'totalNumberOfInstallmentCT']).patchValue(
-            this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'totalNumberOfInstallmentTrans']).value
+        this.mortgageEquityTermForm.get([mainArray, index, 'totalNumberOfInstallmentCT']).patchValue(
+            this.mortgageEquityTermForm.get([mainArray, index, 'totalNumberOfInstallmentTrans']).value
         );
-        this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'serviceChargeCT']).patchValue(
-            this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'serviceChargeTrans']).value
+        this.mortgageEquityTermForm.get([mainArray, index, 'serviceChargeCT']).patchValue(
+            this.mortgageEquityTermForm.get([mainArray, index, 'serviceChargeTrans']).value
         );
-        this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'tenureOfLoanCT']).patchValue(
-            this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'tenureOfLoanTrans']).value
+        this.mortgageEquityTermForm.get([mainArray, index, 'tenureOfLoanCT']).patchValue(
+            this.mortgageEquityTermForm.get([mainArray, index, 'tenureOfLoanTrans']).value
         );
-        this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'dateOfExpiryTypeCT']).patchValue(
-            this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'dateOfExpiryTypeTrans']).value
+        this.mortgageEquityTermForm.get([mainArray, index, 'dateOfExpiryTypeCT']).patchValue(
+            this.mortgageEquityTermForm.get([mainArray, index, 'dateOfExpiryTypeTrans']).value
         );
-        this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'dateOfExpiryNepaliCT']).patchValue(
-            this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'dateOfExpiryNepaliTrans']).value
+        this.mortgageEquityTermForm.get([mainArray, index, 'dateOfExpiryNepaliCT']).patchValue(
+            this.mortgageEquityTermForm.get([mainArray, index, 'dateOfExpiryNepaliTrans']).value
         );
-        this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'dateOfExpiryCT']).patchValue(
-            this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'dateOfExpiryTrans']).value
+        this.mortgageEquityTermForm.get([mainArray, index, 'dateOfExpiryCT']).patchValue(
+            this.mortgageEquityTermForm.get([mainArray, index, 'dateOfExpiryTrans']).value
         );
-        this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'paymentTermsCT']).patchValue(
-            this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'paymentTermsTrans']).value
+        this.mortgageEquityTermForm.get([mainArray, index, 'paymentTermsCT']).patchValue(
+            this.mortgageEquityTermForm.get([mainArray, index, 'paymentTermsTrans']).value
         );
-        this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'paymentAmountInFigureCT']).patchValue(
-            this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'paymentAmountInFigureTrans']).value
+        this.mortgageEquityTermForm.get([mainArray, index, 'paymentAmountInFigureCT']).patchValue(
+            this.mortgageEquityTermForm.get([mainArray, index, 'paymentAmountInFigureTrans']).value
         );
-        this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'paymentAmountInWordsCT']).patchValue(
-            this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'paymentAmountInWordsTrans']).value
+        this.mortgageEquityTermForm.get([mainArray, index, 'paymentAmountInWordsCT']).patchValue(
+            this.mortgageEquityTermForm.get([mainArray, index, 'paymentAmountInWordsTrans']).value
         );
-        this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'totalNumberOfPaymentsCT']).patchValue(
-            this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'totalNumberOfPaymentsTrans']).value
+        this.mortgageEquityTermForm.get([mainArray, index, 'totalNumberOfPaymentsCT']).patchValue(
+            this.mortgageEquityTermForm.get([mainArray, index, 'totalNumberOfPaymentsTrans']).value
         );
-        this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'emiPaymentTypeCT']).patchValue(
-            this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', index, 'emiPaymentTypeTrans']).value
+        this.mortgageEquityTermForm.get([mainArray, index, 'emiPaymentTypeCT']).patchValue(
+            this.mortgageEquityTermForm.get([mainArray, index, 'emiPaymentTypeTrans']).value
         );
     }
     addLoanFormArr() {
         (this.mortgageEquityTermForm.get('mortgageEquityTermFormArray') as FormArray).push(this.buildLoanForm());
+    }
+    addMortgageLoanFormArr() {
+        (this.mortgageEquityTermForm.get('mortgageTermFormArray') as FormArray).push(this.buildLoanForm());
     }
 }

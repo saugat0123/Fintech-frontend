@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../../../../model/customerApprovedLoanCadDocumentation';
 import {ObjectUtil} from '../../../../../../../../../@core/utils/ObjectUtil';
 
@@ -12,7 +12,10 @@ export class MortgageEquityTermLoanComponent implements OnInit {
     @Input() customerApprovedDoc: CustomerApprovedLoanCadDocumentation;
     @Input() loanData;
     @Input() index;
+    @Input() pointNumber;
+    @Input() equityMortgageData;
     form: FormGroup;
+    initialData;
     tempData;
     mortgageEquity: any = {};
     termLoanForMortgageEquityTerm; mortgageTypeMortgageEquityTerm; complementaryOtherMortgageEquityTerm = false;
@@ -20,19 +23,23 @@ export class MortgageEquityTermLoanComponent implements OnInit {
     loanOptionMortgageEquityTerm; drawingPowerMortgageEquityTerm; termLoanTypeMortgageEquityTerm; complementaryOtherMortgageEquityTermName;
     tempInformation;
     newEMIAutoPopulateMortgageTerm = 'निकासा भएको पछिल्लोे महिना देखि किस्ता भुक्तानी मिति हुनेछ';
+    equityMortgageFreeText: Array <any> = new Array<any>();
 
     constructor(private formBuilder: FormBuilder,
     ) {
     }
 
     ngOnInit() {
+        if (!ObjectUtil.isEmpty(this.customerApprovedDoc)) {
+            this.initialData = JSON.parse(this.customerApprovedDoc.offerDocumentList[0].initialInformation);
+        }
         this.buildForm();
         if (!ObjectUtil.isEmpty(this.customerApprovedDoc)) {
             this.tempData = JSON.parse(this.customerApprovedDoc.offerDocumentList[0].initialInformation);
             this.tempInformation = JSON.parse(this.customerApprovedDoc.offerDocumentList[0].supportedInformation);
             this.fillForm();
         }
-        if (!ObjectUtil.isEmpty(this.tempData.mortgageEquityTermForm)) {
+        /*if (!ObjectUtil.isEmpty(this.tempData.mortgageEquityTermForm)) {
             this.termLoanForMortgageEquityTerm = this.tempData.mortgageEquityTermForm.termLoanFor;
             this.mortgageTypeMortgageEquityTerm = this.tempData.mortgageEquityTermForm.mortgageType;
             this.termLoanTypeMortgageEquityTerm = this.tempData.mortgageEquityTermForm.termLoanType;
@@ -45,13 +52,28 @@ export class MortgageEquityTermLoanComponent implements OnInit {
             if (this.tempData.mortgageEquityTermForm.complementaryOther === true) {
                 this.complementaryOtherMortgageEquityTerm = true;
             }
-        }
-        this.setFreeTextMortgage();
+        }*/
+        /*this.setFreeTextMortgage();*/
     }
 
     buildForm() {
         this.form = this.formBuilder.group({
             // Mortgage Term Loan / Equity Mortgage Term Loan
+            equityMortgageTermLoan: this.formBuilder.array([]),
+        });
+        this.setEquityMortgageTermLoan();
+    }
+    setEquityMortgageTermLoan() {
+        if (!ObjectUtil.isEmpty(this.initialData) &&
+            !ObjectUtil.isEmpty(this.initialData.mortgageEquityTermForm) &&
+            !ObjectUtil.isEmpty(this.initialData.mortgageEquityTermForm.mortgageEquityTermFormArray)) {
+            for (let a = 0; a < this.initialData.mortgageEquityTermForm.mortgageEquityTermFormArray.length; a++) {
+                (this.form.get('equityMortgageTermLoan') as FormArray).push(this.setEquityMortgageTermLoanForm());
+            }
+        }
+    }
+    setEquityMortgageTermLoanForm() {
+        return this.formBuilder.group({
             SNOfParentLimitMortgageTerm: [undefined],
             drawingPowerMortgageTerm: [undefined],
             // For New EMI Term Loan
@@ -61,7 +83,7 @@ export class MortgageEquityTermLoanComponent implements OnInit {
             newEMIAmountMortgageTerm: [undefined],
             newEMIAmountInWordMortgageTerm: [undefined],
             newEMINoOfInstallmentMortgageTerm: [undefined],
-            newEMIAutoPopulateMortgageTerm: [undefined],
+            newEMIAutoPopulateMortgageTerm: ['निकासा भएको पछिल्लोे महिना देखि किस्ता भुक्तानी मिति हुनेछ'],
             newEMILoanPurposeMortgageTerm: [undefined],
             newEMIServiceChargeMortgageTerm: [undefined],
             newEMILoanTenureMortgageTerm: [undefined],
@@ -100,113 +122,193 @@ export class MortgageEquityTermLoanComponent implements OnInit {
     }
 
     fillForm() {
-        if (!ObjectUtil.isEmpty(this.tempData.mortgageEquityTermForm)) {
-            this.form.patchValue({
-                // Mortgage Term Loan / Equity Mortgage Term Loan
-                SNOfParentLimitMortgageTerm: [undefined],
-                // tslint:disable-next-line:max-line-length
-                drawingPowerMortgageTerm: this.tempData.mortgageEquityTermForm.drawingPowerInPercentageCT ? this.tempData.mortgageEquityTermForm.drawingPowerInPercentageCT : '',
-                // For New EMI Term Loan
-                // tslint:disable-next-line:max-line-length
-                newEMIBaseRateMortgageTerm: this.tempData.mortgageEquityTermForm.baseRateCT ? this.tempData.mortgageEquityTermForm.baseRateCT : '',
-                // tslint:disable-next-line:max-line-length
-                newEMIPremiumRateMortgageTerm: this.tempData.mortgageEquityTermForm.premiumRateCT ? this.tempData.mortgageEquityTermForm.premiumRateCT : '',
-                // tslint:disable-next-line:max-line-length
-                newEMIInterestRateMortgageTerm: this.tempData.mortgageEquityTermForm.interestRateCT ? this.tempData.mortgageEquityTermForm.interestRateCT : '',
-                // tslint:disable-next-line:max-line-length
-                newEMIAmountMortgageTerm: this.tempData.mortgageEquityTermForm.emiInFigureCT ? this.tempData.mortgageEquityTermForm.emiInFigureCT : '',
-                // tslint:disable-next-line:max-line-length
-                newEMIAmountInWordMortgageTerm: this.tempData.mortgageEquityTermForm.emiInWordsCT ? this.tempData.mortgageEquityTermForm.emiInWordsCT : '',
-                // tslint:disable-next-line:max-line-length
-                newEMINoOfInstallmentMortgageTerm: this.tempData.mortgageEquityTermForm.totalNumberOfInstallmentCT ? this.tempData.mortgageEquityTermForm.totalNumberOfInstallmentCT : '',
-                // tslint:disable-next-line:max-line-length
-                newEMILoanPurposeMortgageTerm: this.tempData.mortgageEquityTermForm.purposeOfLoanCT ? this.tempData.mortgageEquityTermForm.purposeOfLoanCT : '',
-                // tslint:disable-next-line:max-line-length
-                newEMIServiceChargeMortgageTerm: this.tempData.mortgageEquityTermForm.serviceChargeCT ? this.tempData.mortgageEquityTermForm.serviceChargeCT : '',
-                // tslint:disable-next-line:max-line-length
-                newEMILoanTenureMortgageTerm: this.tempData.mortgageEquityTermForm.tenureOfLoanCT ? this.tempData.mortgageEquityTermForm.tenureOfLoanCT : '',
-                // For EMI Term Loan at the time of Annual Review of other credit limits
-                // tslint:disable-next-line:max-line-length
-                annualEMIBaseRateMortgageTerm: this.tempData.mortgageEquityTermForm.baseRateCT ? this.tempData.mortgageEquityTermForm.baseRateCT : '',
-                // tslint:disable-next-line:max-line-length
-                annualEMIPremiumRateMortgageTerm: this.tempData.mortgageEquityTermForm.premiumRateCT ? this.tempData.mortgageEquityTermForm.premiumRateCT : '',
-                // tslint:disable-next-line:max-line-length
-                annualEMIInterestRateMortgageTerm: this.tempData.mortgageEquityTermForm.interestRateCT ? this.tempData.mortgageEquityTermForm.interestRateCT : '',
-                // tslint:disable-next-line:max-line-length
-                annualEMIAmountMortgageTerm: this.tempData.mortgageEquityTermForm.emiInFigureCT ? this.tempData.mortgageEquityTermForm.emiInFigureCT : '',
-                // tslint:disable-next-line:max-line-length
-                annualEMIAmountInWordMortgageTerm: this.tempData.mortgageEquityTermForm.emiInWordsCT ? this.tempData.mortgageEquityTermForm.emiInWordsCT : '',
-                // tslint:disable-next-line:max-line-length
-                annualEMILoanExpiryDateMortgageTerm: this.tempData.mortgageEquityTermForm.dateOfExpiryCT ? this.tempData.mortgageEquityTermForm.dateOfExpiryCT : '',
-                // For New Installment Basis Term Loan
-                // tslint:disable-next-line:max-line-length
-                newInstallmentBaseRateMortgageTerm: this.tempData.mortgageEquityTermForm.baseRateCT ? this.tempData.mortgageEquityTermForm.baseRateCT : '',
-                // tslint:disable-next-line:max-line-length
-                newInstallmentPremiumRateMortgageTerm: this.tempData.mortgageEquityTermForm.premiumRateCT ? this.tempData.mortgageEquityTermForm.premiumRateCT : '',
-                // tslint:disable-next-line:max-line-length
-                newInstallmentInterestRateMortgageTerm: this.tempData.mortgageEquityTermForm.interestRateCT ? this.tempData.mortgageEquityTermForm.interestRateCT : '',
-                // tslint:disable-next-line:max-line-length
-                newInstallmentTotalInterestRateMortgageTerm: this.tempData.mortgageEquityTermForm.interestRateCT ? this.tempData.mortgageEquityTermForm.interestRateCT : '',
-                // tslint:disable-next-line:max-line-length
-                newInstallmentLoanTenureMortgageTerm: this.tempData.mortgageEquityTermForm.tenureOfLoanCT ? this.tempData.mortgageEquityTermForm.tenureOfLoanCT : '',
-                // tslint:disable-next-line:max-line-length
-                newInstallmentPaymentAmountMortgageTerm: this.tempData.mortgageEquityTermForm.paymentAmountInFigure ? this.tempData.mortgageEquityTermForm.paymentAmountInFigureCT : '',
-                // tslint:disable-next-line:max-line-length
-                newInstallmentPaymentAmountInWordMortgageTerm: this.tempData.mortgageEquityTermForm.paymentAmountInWords ? this.tempData.mortgageEquityTermForm.paymentAmountInWordsCT : '',
-                // tslint:disable-next-line:max-line-length
-                newInstallmentNoOfPaymentMortgageTerm: this.tempData.mortgageEquityTermForm.totalNumberOfPayments ? this.tempData.mortgageEquityTermForm.totalNumberOfPaymentsCT : '',
-                // tslint:disable-next-line:max-line-length
-                newInstallmentLoanPurposeMortgageTerm: this.tempData.mortgageEquityTermForm.purposeOfLoanCT ? this.tempData.mortgageEquityTermForm.purposeOfLoanCT : '',
-                // tslint:disable-next-line:max-line-length
-                newInstallmentServiceChargeMortgageTerm: this.tempData.mortgageEquityTermForm.serviceChargeCT ? this.tempData.mortgageEquityTermForm.serviceChargeCT : '',
-                // For Installment Basis Term Loan at the time of Annual Review of other credit limits
-                // tslint:disable-next-line:max-line-length
-                annualInstallmentBaseRateMortgageTerm: this.tempData.mortgageEquityTermForm.baseRateCT ? this.tempData.mortgageEquityTermForm.baseRateCT : '',
-                // tslint:disable-next-line:max-line-length
-                annualInstallmentPremiumRateMortgageTerm: this.tempData.mortgageEquityTermForm.premiumRateCT ? this.tempData.mortgageEquityTermForm.premiumRateCT : '',
-                // tslint:disable-next-line:max-line-length
-                annualInstallmentInterestRateMortgageTerm: this.tempData.mortgageEquityTermForm.interestRateCT ? this.tempData.mortgageEquityTermForm.interestRateCT : '',
-                // tslint:disable-next-line:max-line-length
-                annualInstallmentTotalInterestRateMortgageTerm: this.tempData.mortgageEquityTermForm.interestRateCT ? this.tempData.mortgageEquityTermForm.interestRateCT : '',
-                // tslint:disable-next-line:max-line-length
-                annualInstallmentPaymentAmountMortgageTerm: this.tempData.mortgageEquityTermForm.paymentAmountInFigure ? this.tempData.mortgageEquityTermForm.paymentAmountInFigureCT : '',
-                // tslint:disable-next-line:max-line-length
-                annualInstallmentPaymentAmountInWordMortgageTerm: this.tempData.mortgageEquityTermForm.paymentAmountInWords ? this.tempData.mortgageEquityTermForm.paymentAmountInWordsCT : '',
-                // tslint:disable-next-line:max-line-length
-                annualInstallmentNoOfPaymentMortgageTerm: this.tempData.mortgageEquityTermForm.totalNumberOfPayments ? this.tempData.mortgageEquityTermForm.totalNumberOfPaymentsCT : '',
-                // tslint:disable-next-line:max-line-length
-                annualInstallmentLoanExpiryDateMortgageTerm: this.tempData.mortgageEquityTermForm.dateOfExpiryCT ? this.tempData.mortgageEquityTermForm.dateOfExpiryCT : '',
-                // tslint:disable-next-line:max-line-length
-                annualInstallmentDrawingPowerMortgageTerm: this.tempData.mortgageEquityTermForm.drawingPowerInPercentageCT ? this.tempData.mortgageEquityTermForm.drawingPowerInPercentageCT : '',
-                // tslint:disable-next-line:max-line-length
-                annualInstallmentDrawingPowerMortgageTerm1: this.tempData.mortgageEquityTermForm.drawingPowerInPercentageCT ? this.tempData.mortgageEquityTermForm.drawingPowerInPercentageCT : '',
-            });
-            this.patchFreeText();
+        if (!ObjectUtil.isEmpty(this.tempData) &&
+            !ObjectUtil.isEmpty(this.tempData.mortgageEquityTermForm) &&
+            !ObjectUtil.isEmpty(this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray)) {
+            for (let val = 0; val < this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray.length; val++) {
+                this.form.get(['equityMortgageTermLoan', val, 'drawingPowerMortgageTerm']).patchValue(
+                    this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val] ?
+                        this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val].drawingPowerInPercentageCT : ''
+                );
+                this.form.get(['equityMortgageTermLoan', val, 'newEMIBaseRateMortgageTerm']).patchValue(
+                    this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val] ?
+                        this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val].baseRateCT : ''
+                );
+                this.form.get(['equityMortgageTermLoan', val, 'newEMIPremiumRateMortgageTerm']).patchValue(
+                    this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val] ?
+                        this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val].premiumRateCT : ''
+                );
+                this.form.get(['equityMortgageTermLoan', val, 'newEMIInterestRateMortgageTerm']).patchValue(
+                    this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val] ?
+                        this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val].interestRateCT : ''
+                );
+                this.form.get(['equityMortgageTermLoan', val, 'newEMIAmountMortgageTerm']).patchValue(
+                    this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val] ?
+                        this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val].emiInFigureCT : ''
+                );
+                this.form.get(['equityMortgageTermLoan', val, 'newEMIAmountInWordMortgageTerm']).patchValue(
+                    this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val] ?
+                        this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val].emiInWordsCT : ''
+                );
+                this.form.get(['equityMortgageTermLoan', val, 'newEMINoOfInstallmentMortgageTerm']).patchValue(
+                    this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val] ?
+                        this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val].totalNumberOfInstallmentCT : ''
+                );
+                this.form.get(['equityMortgageTermLoan', val, 'newEMILoanPurposeMortgageTerm']).patchValue(
+                    this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val] ?
+                        this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val].purposeOfLoanCT : ''
+                );
+                this.form.get(['equityMortgageTermLoan', val, 'newEMIServiceChargeMortgageTerm']).patchValue(
+                    this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val] ?
+                        this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val].serviceChargeCT : ''
+                );
+                this.form.get(['equityMortgageTermLoan', val, 'newEMILoanTenureMortgageTerm']).patchValue(
+                    this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val] ?
+                        this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val].tenureOfLoanCT : ''
+                );
+                this.form.get(['equityMortgageTermLoan', val, 'annualEMIBaseRateMortgageTerm']).patchValue(
+                    this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val] ?
+                        this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val].baseRateCT : ''
+                );
+                this.form.get(['equityMortgageTermLoan', val, 'annualEMIPremiumRateMortgageTerm']).patchValue(
+                    this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val] ?
+                        this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val].premiumRateCT : ''
+                );
+                this.form.get(['equityMortgageTermLoan', val, 'annualEMIInterestRateMortgageTerm']).patchValue(
+                    this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val] ?
+                        this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val].interestRateCT : ''
+                );
+                this.form.get(['equityMortgageTermLoan', val, 'annualEMIAmountMortgageTerm']).patchValue(
+                    this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val] ?
+                        this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val].emiInFigureCT : ''
+                );
+                this.form.get(['equityMortgageTermLoan', val, 'annualEMIAmountInWordMortgageTerm']).patchValue(
+                    this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val] ?
+                        this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val].emiInWordsCT : ''
+                );
+                this.form.get(['equityMortgageTermLoan', val, 'annualEMILoanExpiryDateMortgageTerm']).patchValue(
+                    this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val] ?
+                        this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val].dateOfExpiryCT : ''
+                );
+                this.form.get(['equityMortgageTermLoan', val, 'newInstallmentBaseRateMortgageTerm']).patchValue(
+                    this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val] ?
+                        this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val].baseRateCT : ''
+                );
+                this.form.get(['equityMortgageTermLoan', val, 'newInstallmentPremiumRateMortgageTerm']).patchValue(
+                    this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val] ?
+                        this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val].premiumRateCT : ''
+                );
+                this.form.get(['equityMortgageTermLoan', val, 'newInstallmentInterestRateMortgageTerm']).patchValue(
+                    this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val] ?
+                        this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val].interestRateCT : ''
+                );
+                this.form.get(['equityMortgageTermLoan', val, 'newInstallmentTotalInterestRateMortgageTerm']).patchValue(
+                    this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val] ?
+                        this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val].interestRateCT : ''
+                );
+                this.form.get(['equityMortgageTermLoan', val, 'newInstallmentLoanTenureMortgageTerm']).patchValue(
+                    this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val] ?
+                        this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val].tenureOfLoanCT : ''
+                );
+                this.form.get(['equityMortgageTermLoan', val, 'newInstallmentPaymentAmountMortgageTerm']).patchValue(
+                    this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val] ?
+                        this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val].paymentAmountInFigure : ''
+                );
+                this.form.get(['equityMortgageTermLoan', val, 'newInstallmentPaymentAmountInWordMortgageTerm']).patchValue(
+                    this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val] ?
+                        this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val].paymentAmountInWords : ''
+                );
+                this.form.get(['equityMortgageTermLoan', val, 'newInstallmentNoOfPaymentMortgageTerm']).patchValue(
+                    this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val] ?
+                        this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val].totalNumberOfPayments : ''
+                );
+                this.form.get(['equityMortgageTermLoan', val, 'newInstallmentLoanPurposeMortgageTerm']).patchValue(
+                    this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val] ?
+                        this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val].purposeOfLoanCT : ''
+                );
+                this.form.get(['equityMortgageTermLoan', val, 'newInstallmentServiceChargeMortgageTerm']).patchValue(
+                    this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val] ?
+                        this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val].serviceChargeCT : ''
+                );
+                this.form.get(['equityMortgageTermLoan', val, 'annualInstallmentBaseRateMortgageTerm']).patchValue(
+                    this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val] ?
+                        this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val].baseRateCT : ''
+                );
+                this.form.get(['equityMortgageTermLoan', val, 'annualInstallmentPremiumRateMortgageTerm']).patchValue(
+                    this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val] ?
+                        this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val].premiumRateCT : ''
+                );
+                this.form.get(['equityMortgageTermLoan', val, 'annualInstallmentInterestRateMortgageTerm']).patchValue(
+                    this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val] ?
+                        this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val].interestRateCT : ''
+                );
+                this.form.get(['equityMortgageTermLoan', val, 'annualInstallmentTotalInterestRateMortgageTerm']).patchValue(
+                    this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val] ?
+                        this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val].interestRateCT : ''
+                );
+                this.form.get(['equityMortgageTermLoan', val, 'annualInstallmentPaymentAmountMortgageTerm']).patchValue(
+                    this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val] ?
+                        this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val].paymentAmountInFigure : ''
+                );
+                this.form.get(['equityMortgageTermLoan', val, 'annualInstallmentPaymentAmountInWordMortgageTerm']).patchValue(
+                    this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val] ?
+                        this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val].paymentAmountInWords : ''
+                );
+                this.form.get(['equityMortgageTermLoan', val, 'annualInstallmentNoOfPaymentMortgageTerm']).patchValue(
+                    this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val] ?
+                        this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val].totalNumberOfPayments : ''
+                );
+                this.form.get(['equityMortgageTermLoan', val, 'annualInstallmentLoanExpiryDateMortgageTerm']).patchValue(
+                    this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val] ?
+                        this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val].dateOfExpiryCT : ''
+                );
+                this.form.get(['equityMortgageTermLoan', val, 'annualInstallmentDrawingPowerMortgageTerm']).patchValue(
+                    this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val] ?
+                        this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val].drawingPowerInPercentageCT : ''
+                );
+                this.form.get(['equityMortgageTermLoan', val, 'annualInstallmentDrawingPowerMortgageTerm1']).patchValue(
+                    this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val] ?
+                        this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray[val].drawingPowerInPercentageCT : ''
+                );
+            }
         }
+        this.patchFreeText();
     }
 
     setFreeTextMortgage() {
-        this.mortgageEquity = {
-            freeText13: this.form.get('freeTextThirteen').value ? this.form.get('freeTextThirteen').value : '',
-            SNOfParentLimitMortgageTerm: this.form.get('SNOfParentLimitMortgageTerm').value ? this.form.get('SNOfParentLimitMortgageTerm').value : '',
-            newEMIAutoPopulateMortgageTerm1: this.form.get('newEMIAutoPopulateMortgageTerm').value ? this.form.get('newEMIAutoPopulateMortgageTerm').value : '',
-        };
-        return this.mortgageEquity;
+        if (!ObjectUtil.isEmpty(this.tempData) &&
+            !ObjectUtil.isEmpty(this.tempData.mortgageEquityTermForm) &&
+            !ObjectUtil.isEmpty(this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray)) {
+            for (let val = 0; val < this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray.length; val++) {
+                const tempFreeText = {
+                    freeTextThirteen: this.form.get(['equityMortgageTermLoan', val, 'freeTextThirteen']).value ?
+                        this.form.get(['equityMortgageTermLoan', val, 'freeTextThirteen']).value : '',
+                    SNOfParentLimitMortgageTerm: this.form.get(['equityMortgageTermLoan', val, 'SNOfParentLimitMortgageTerm']).value ?
+                        this.form.get(['equityMortgageTermLoan', val, 'SNOfParentLimitMortgageTerm']).value : '',
+                    newEMIAutoPopulateMortgageTerm: this.form.get(['equityMortgageTermLoan', val, 'newEMIAutoPopulateMortgageTerm']).value ?
+                        this.form.get(['equityMortgageTermLoan', val, 'newEMIAutoPopulateMortgageTerm']).value : '',
+                };
+                this.equityMortgageFreeText.push(tempFreeText);
+            }
+            return this.equityMortgageFreeText;
+        }
     }
     patchFreeText() {
-        if (!ObjectUtil.isEmpty(this.tempInformation)) {
-            if (this.newEMIAutoPopulateMortgageTerm === this.tempInformation.section2.newEMIAutoPopulateMortgageTerm1) {
-                this.newEMIAutoPopulateMortgageTerm = 'निकासा भएको पछिल्लोे महिना देखि किस्ता भुक्तानी मिति हुनेछ';
-            }
-            if (this.tempInformation.section2.newEMIAutoPopulateMortgageTerm1 !== this.newEMIAutoPopulateMortgageTerm) {
-                this.newEMIAutoPopulateMortgageTerm = this.tempInformation.section2.newEMIAutoPopulateMortgageTerm1;
+        if (!ObjectUtil.isEmpty(this.tempInformation) &&
+            !ObjectUtil.isEmpty(this.tempInformation.section2) &&
+            !ObjectUtil.isEmpty(this.tempInformation.section2.equityTermLoanFreeText)) {
+            for (let val = 0; val < this.tempInformation.section2.equityTermLoanFreeText.length; val++) {
+                this.form.get(['equityMortgageTermLoan', val, 'freeTextThirteen']).patchValue(
+                    this.tempInformation.section2.equityTermLoanFreeText[val] ?
+                        this.tempInformation.section2.equityTermLoanFreeText[val].freeTextThirteen : '');
+                this.form.get(['equityMortgageTermLoan', val, 'SNOfParentLimitMortgageTerm']).patchValue(
+                    this.tempInformation.section2.equityTermLoanFreeText[val] ?
+                        this.tempInformation.section2.equityTermLoanFreeText[val].SNOfParentLimitMortgageTerm : '');
+                this.form.get(['equityMortgageTermLoan', val, 'newEMIAutoPopulateMortgageTerm']).patchValue(
+                    this.tempInformation.section2.equityTermLoanFreeText[val] ?
+                        this.tempInformation.section2.equityTermLoanFreeText[val].newEMIAutoPopulateMortgageTerm :
+                        'िकासा भएको पछिल्लोे महिना देखि किस्ता भुक्तानी मिति हुनेछ');
             }
         }
-        this.form.patchValue({
-            freeTextThirteen: this.tempInformation ? this.tempInformation.section2.freeText13 : '',
-            SNOfParentLimitMortgageTerm: this.tempInformation ? this.tempInformation.section2.SNOfParentLimitMortgageTerm : '',
-            newEMIAutoPopulateMortgageTerm: !ObjectUtil.isEmpty(this.newEMIAutoPopulateMortgageTerm) ? this.newEMIAutoPopulateMortgageTerm : '',
-        });
     }
-
 }

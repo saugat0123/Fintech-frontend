@@ -182,7 +182,7 @@ export class SmeMasterTemplateComponent implements OnInit {
         if (v === LoanNameConstant.TERM_LOAN_TO_FOR_PURCHASE_OF_VEHICLE) {
             this.isTermLoanToOrFor = true;
         }
-        if (v === LoanNameConstant.MORTGAGE_TERM_LOAN_EQUITY_MORTGAGE_TERM_LOAN) {
+        if (v === LoanNameConstant.MORTGAGE_TERM_LOAN || v === LoanNameConstant.EQUITY_MORTGAGE_TERM_LOAN) {
           this.isEquityMortgageTermLoan = true;
         }
         if (v === LoanNameConstant.AUTO_LOAN) {
