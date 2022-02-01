@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {FormArray, FormGroup} from '@angular/forms';
+import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 
 @Injectable({
     providedIn: 'root'
@@ -116,14 +117,24 @@ export class FinancialService {
     }
 
     cashFromFinancingActivitiesTotal(cashFlowStatementData, index) {
-        cashFlowStatementData.cashFromFinancingActivities[index].value =
-            (Number(cashFlowStatementData.paidUpCapitalEquity[index].value)
-            + Number(cashFlowStatementData.shortTermLoan[index].value)
-            + Number(cashFlowStatementData.longTermLoanReceived[index].value)
-            + Number(cashFlowStatementData.dividendDrawing[index].value)
-            + Number(cashFlowStatementData.interestExpensesCFSb[index].value)
-            + Number(cashFlowStatementData.otherAdjustments[index].value)
-            + Number(cashFlowStatementData.additionalCapital[index].value)).toFixed(2);
+        if (!ObjectUtil.isEmpty(cashFlowStatementData.additionalCapital)) {
+            cashFlowStatementData.cashFromFinancingActivities[index].value =
+                (Number(cashFlowStatementData.paidUpCapitalEquity[index].value)
+                    + Number(cashFlowStatementData.shortTermLoan[index].value)
+                    + Number(cashFlowStatementData.longTermLoanReceived[index].value)
+                    + Number(cashFlowStatementData.dividendDrawing[index].value)
+                    + Number(cashFlowStatementData.interestExpensesCFSb[index].value)
+                    + Number(cashFlowStatementData.otherAdjustments[index].value)
+                    + Number(cashFlowStatementData.additionalCapital)).toFixed(2);
+        } else {
+            cashFlowStatementData.cashFromFinancingActivities[index].value =
+                (Number(cashFlowStatementData.paidUpCapitalEquity[index].value)
+                    + Number(cashFlowStatementData.shortTermLoan[index].value)
+                    + Number(cashFlowStatementData.longTermLoanReceived[index].value)
+                    + Number(cashFlowStatementData.dividendDrawing[index].value)
+                    + Number(cashFlowStatementData.interestExpensesCFSb[index].value)
+                    + Number(cashFlowStatementData.otherAdjustments[index].value)).toFixed(2);
+        }
     }
 
     netCashFlowTotal(cashFlowStatementData, index) {
