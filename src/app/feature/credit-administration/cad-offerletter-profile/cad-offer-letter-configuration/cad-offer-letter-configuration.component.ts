@@ -4389,7 +4389,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
                        otherOwnerPassportNo : data.otherOwnerPassportNo ? data.otherOwnerPassportNo : '' ,
                        otherOwnerPassportNoTrans : data.otherOwnerPassportNoTrans ? data.otherOwnerPassportNoTrans : '' ,
                        otherOwnerPassportNoCT : data.otherOwnerPassportNoCT ? data.otherOwnerPassportNoCT : '' ,
-                       otherOwnerPassportIssuedDate : data.otherOwnerPassportIssuedDate ? data.iotherOwnerPassportIssuedDate : '' ,
+                       otherOwnerPassportIssuedDate : data.otherOwnerPassportIssuedDate ? data.otherOwnerPassportIssuedDate : '' ,
                        otherOwnerPassportIssuedDateTrans : data.otherOwnerPassportIssuedDateTrans ? data.otherOwnerPassportIssuedDateTrans : '' ,
                        otherOwnerPassportIssuedDateCT : data.otherOwnerPassportIssuedDateCT ? data.otherOwnerPassportIssuedDateCT : '' ,
                        otherOwnerPassportIssuedDateOption : data.otherOwnerPassportIssuedDateOption ? data.otherOwnerPassportIssuedDateOption : '' ,
