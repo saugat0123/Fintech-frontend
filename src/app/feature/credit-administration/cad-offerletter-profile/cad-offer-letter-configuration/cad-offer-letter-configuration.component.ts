@@ -4185,9 +4185,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
             otherOwnerPassportIssuedFrom: [undefined],
             otherOwnerPassportIssuedFromTrans: [undefined],
             otherOwnerPassportIssuedFromCT: [undefined],
-            isAuthorizedPersion: [undefined],
-            isAuthorizedPersionTrans: [undefined],
-            isAuthorizedPersionCT: [undefined],
+            isAuthorizedPerson: [undefined],
+            isAuthorizedPersonTrans: [undefined],
+            isAuthorizedPersonCT: [undefined],
         });
     }
 
@@ -4404,7 +4404,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
                        otherOwnerPassportIssuedFrom : data.otherOwnerPassportIssuedFrom ? data.otherOwnerPassportIssuedFrom : '' ,
                        otherOwnerPassportIssuedFromTrans : data.otherOwnerPassportIssuedFromTrans ? data.otherOwnerPassportIssuedFromTrans : '' ,
                        otherOwnerPassportIssuedFromCT : data.otherOwnerPassportIssuedFromCT ? data.otherOwnerPassportIssuedFromCT : '' ,
-                       isAuthorizedPersion: data.isAuthorizedPersion ? data.isAuthorizedPersion : false
+                       isAuthorizedPerson: data.isAuthorizedPerson ? data.isAuthorizedPerson : '',
+                       isAuthorizedPersonTrans: data.isAuthorizedPersonTrans ? data.isAuthorizedPersonTrans : '',
+                       isAuthorizedPersonCT: data.isAuthorizedPersonCT ? data.isAuthorizedPersonCT : ''
                    })
                );
            });
@@ -4514,6 +4516,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
             this.userConfigForm.get(['ownerDetails', i]).patchValue({
                 ownerNameTrans: ownerTranslatedData.ownerName ? ownerTranslatedData.ownerName : '',
                 ownerNameCT: ownerTranslatedData.ownerName ? ownerTranslatedData.ownerName : '',
+                isAuthorizedPersonTrans: ownerTranslatedData.isAuthorizedPerson ? ownerTranslatedData.isAuthorizedPerson : '',
+                isAuthorizedPersonCT: ownerTranslatedData.isAuthorizedPerson ? ownerTranslatedData.isAuthorizedPerson : '',
                 ownerDobTrans: this.userConfigForm.get(['ownerDetails', i, 'ownerDob']).value,
                 ownerDobCT: this.userConfigForm.get(['ownerDetails', i, 'ownerDob']).value,
                 ownerEmailTrans: ownerTranslatedData.ownerEmail ? ownerTranslatedData.ownerEmail : '',
