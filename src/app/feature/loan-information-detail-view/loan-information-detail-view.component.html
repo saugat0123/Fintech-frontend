@@ -189,7 +189,7 @@
                     : 'Borrower'}}</strong></p>
             </div>
             <!--            <app-remit-details *ngIf="isRemitLoan && isLoaded" [loanHolder]="loanHolder"></app-remit-details>-->
-            <app-detail-view-base  *ngIf="loanHolder && loanHolder && !isMicro"
+            <app-detail-view-base  *ngIf="loanHolder && loanHolder"
                                   [calendarType]="calendarType"
                                   [loanDataHolder]="loanDataHolder"
                                   [loanHolder]="loanHolder"
@@ -197,14 +197,14 @@
                                   (documents)="checkSiteVisitDocument($event)"></app-detail-view-base>
 
             <!-- Micro Detail View-->
-            <app-micro-loan-detail-view-base *ngIf="loanHolder && isMicro"
-                                             [calendarType]="calendarType"
-                                             [customerAllLoanList]="customerAllLoanList"
-                                             [fiscalYearArray]="fiscalYearArray"
-                                             [loanDataHolder]="loanDataHolder"
-                                             [loanHolder]="loanHolder"
-                                             [loanId]="id"
-                                             (documents)="checkSiteVisitDocument($event)"></app-micro-loan-detail-view-base>
+<!--            <app-micro-loan-detail-view-base *ngIf="loanHolder && isMicro"-->
+<!--                                             [calendarType]="calendarType"-->
+<!--                                             [customerAllLoanList]="customerAllLoanList"-->
+<!--                                             [fiscalYearArray]="fiscalYearArray"-->
+<!--                                             [loanDataHolder]="loanDataHolder"-->
+<!--                                             [loanHolder]="loanHolder"-->
+<!--                                             [loanId]="id"-->
+<!--                                             (documents)="checkSiteVisitDocument($event)"></app-micro-loan-detail-view-base>-->
 
             <ng-template  #allDocumentView>
                 <app-all-document-view  *ngIf="loanDataHolder" [loanDataHolder]="loanDataHolder" [siteVisitDocument]="siteVisitDocuments"></app-all-document-view>
