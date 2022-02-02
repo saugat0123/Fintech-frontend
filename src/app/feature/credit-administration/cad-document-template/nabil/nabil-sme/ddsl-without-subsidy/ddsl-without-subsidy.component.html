@@ -273,7 +273,7 @@
                                 [securityDetails]="tempData?.securities"></app-master-securities-view>
                     </div>
                 </li>
-                    <li *ngIf="securityTypeConditionFixedAssests">
+                    <li *ngIf="securityTypeConditionFixedAssests || securityTypeHypothecation">
                         <p>
                             <strong> सामान मौज्दात धितोेबन्धक हकाधिकार (Hypothecation Changes):</strong></p>
                         <p style="margin-left: 2%">बैंकबाट प्राप्त कर्जा वा सुविधा तथा ऋणीको आफ्नै श्रोत समेतबाट
@@ -302,7 +302,7 @@
                         <app-master-secondary-securities-view
                                 [securityDetails]="tempData?.securities"></app-master-secondary-securities-view>
                     </div>
-                    <p style="margin-left: 2%;"><strong> व्यक्तिगत जमानत (Personal Guarantee):</strong></p>
+                    <p style="margin-left: 2%;"><strong>१. व्यक्तिगत जमानत (Personal Guarantee):</strong></p>
                     <p class="m-0" *ngFor="let personalGuarantor of tempPersonalGuarantors">
                         <strong>रु. <input class="form-field form-control-sm "
                                            readonly

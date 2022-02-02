@@ -1,7 +1,8 @@
 import {
     Component,
     Input,
-    OnInit
+    OnInit,
+    AfterViewChecked, ChangeDetectorRef
 } from '@angular/core';
 import {
     FormBuilder,
@@ -50,7 +51,7 @@ import {
     templateUrl: './ddsl-without-subsidy.component.html',
     styleUrls: ['./ddsl-without-subsidy.component.scss']
 })
-export class DdslWithoutSubsidyComponent implements OnInit {
+export class DdslWithoutSubsidyComponent implements OnInit, AfterViewChecked {
     @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
     @Input() preview;
     @Input() letter: any;
@@ -90,6 +91,7 @@ export class DdslWithoutSubsidyComponent implements OnInit {
     finalPersonalName;
     tempLandBuilding;
     securityTypeCondition = false;
+    securityTypeHypothecation = false;
     securityTypeConditionFixedAssests = false;
     securityTypeConditionStock = false;
     securityTypeConditionAssestsPlants = false;
@@ -112,8 +114,11 @@ export class DdslWithoutSubsidyComponent implements OnInit {
         private toastService: ToastService,
         private routerUtilsService: RouterUtilsService,
         public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
+        private readonly changeDetectorRef: ChangeDetectorRef,
     ) {}
-
+    ngAfterViewChecked(): void {
+        this.changeDetectorRef.detectChanges();
+    }
     ngOnInit() {
         this.buildForm();
         // console.log('Initial Info Data', this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
@@ -139,8 +144,6 @@ export class DdslWithoutSubsidyComponent implements OnInit {
         this.checkOfferLetterData();
         this.checkPrimaryConditions();
         this.checkSecondaryConditions();
-        
-
         const securities = this.tempData.securities;
         securities.primarySecurity.forEach(pd => {
             pd.propertyDetails.forEach(p => {
@@ -315,6 +318,9 @@ export class DdslWithoutSubsidyComponent implements OnInit {
         }
         if (this.securityDetails.primarySecurity.some(s => s.securityTypeCT === 'FIXED_ASSETS')) {
             this.securityTypeConditionFixedAssests = true;
+        }
+        if (this.securityDetails.primarySecurity.some(s => s.securityTypeCT === 'HYPOTHECATION')) {
+            this.securityTypeHypothecation = true;
         }
         if (this.securityDetails.primarySecurity.some(s => s.securityTypeCT === 'STOCK')) {
             this.securityTypeConditionStock = true;
