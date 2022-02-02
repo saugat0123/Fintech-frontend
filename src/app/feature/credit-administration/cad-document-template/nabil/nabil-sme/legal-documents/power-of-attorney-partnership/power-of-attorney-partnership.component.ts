@@ -76,11 +76,9 @@ export class PowerOfAttorneyPartnershipComponent implements OnInit {
     if (!ObjectUtil.isEmpty(partnership)) {
       this.tempPartnership = JSON.parse(partnership);
     }
-    console.log(this.tempPartnership);
     for (const x of this.tempPartnership) {
       if (!ObjectUtil.isEmpty(x.ownerOtherAddressCT)) {
         this.isForeignAddress = true;
-        console.log(this.isForeignAddress);
       }
     }
     this.dateConvert();
