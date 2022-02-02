@@ -30,6 +30,7 @@ export class PowerOfAttorneyPartnershipComponent implements OnInit {
   @Input() customerLoanId: number;
   @Input() nepaliAmount: NepaliNumberAndWords;
   individualData;
+  tempPartnership;
   initialInfoPrint;
   offerLetterConst = NabilDocumentChecklist;
   form: FormGroup;
@@ -37,6 +38,7 @@ export class PowerOfAttorneyPartnershipComponent implements OnInit {
   companyInfo;
   initialInfo;
   supportedInfo;
+  isForeignAddress = false;
   finalAmount;
   loanAmountWord;
   sanctionDate;
@@ -67,6 +69,17 @@ export class PowerOfAttorneyPartnershipComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.individualData = JSON.parse(this.cadData.loanHolder.nepData);
+    }
+
+    const partnership = this.cadData.assignedLoan[0].companyInfo.companyJsonData;
+    // let tempPartnership;
+    if (!ObjectUtil.isEmpty(partnership)) {
+      this.tempPartnership = JSON.parse(partnership);
+    }
+    for (const x of this.tempPartnership) {
+      if (!ObjectUtil.isEmpty(x.ownerOtherAddressCT)) {
+        this.isForeignAddress = true;
+      }
     }
     this.dateConvert();
     this.patchFreeText();
