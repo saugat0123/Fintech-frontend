@@ -65,6 +65,7 @@ export class ExposureComponent implements OnInit, OnChanges {
             this.customerLoanList = this.cadData.assignedLoan;
         }
         if (!ObjectUtil.isEmpty(this.cadData.exposure) && !ObjectUtil.isEmpty(this.cadData.exposure.data) && !this.isHistory) {
+            this.disbursementDetails.clear();
             this.setDisbursementDetails();
             const d = JSON.parse(this.cadData.exposure.data);
 
@@ -72,6 +73,7 @@ export class ExposureComponent implements OnInit, OnChanges {
                 this.docScc = d.sccPath;
             }
         } else {
+            this.disbursementDetails.clear();
             this.addDisbursementDetail();
         }
     }

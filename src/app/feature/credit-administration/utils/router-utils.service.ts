@@ -112,7 +112,7 @@ export class RouterUtilsService {
                 } else {
                     this.routeSummaryWithStateAndEncryptPath(model);
                 }
-            } else if (user.role.roleType === RoleType.CAD_ADMIN || user.role.roleType === RoleType.CAD_SUPERVISOR) {
+            } else if ( user.role.roleType === RoleType.CAD_SUPERVISOR) {
                 this.routeSummaryWithStateAndEncryptPath(model);
             } else {
                 if (user.id.toString() === model.cadCurrentStage.toUser.id.toString()) {
