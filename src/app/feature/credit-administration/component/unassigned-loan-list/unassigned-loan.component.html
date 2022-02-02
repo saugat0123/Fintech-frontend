@@ -45,7 +45,7 @@
                         <a (click)="openAssignPopUp(model)" *ngIf="model?.totalLoan > 0 && storage.roleType == roleType.CAD_ADMIN"
                            nbTooltip="click to assign"><em
                                 class="fa fa-user"></em></a>
-                        <a (click)="pullLoan(model)" *ngIf="model?.totalLoan > 0 && storage.roleType == roleType.APPROVAL && storage.roleName.toLowerCase() === 'cad'"
+                        <a (click)="pullLoan(model)" *ngIf="model?.totalLoan > 0 && storage.roleType == roleType.APPROVAL && storage.roleName.toLowerCase() === 'csu'"
                            nbTooltip="click to pull"><em
                                 class="fas fa-angle-double-down"></em>Pull</a>
                     </td>

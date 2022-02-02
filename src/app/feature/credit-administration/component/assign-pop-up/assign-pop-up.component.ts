@@ -72,7 +72,7 @@ export class AssignPopUpComponent implements OnInit {
             this.roleListInCAD = res.detail;
             if (this.disbursementDataAssign) {
 
-                this.roleListInCAD = this.roleListInCAD.filter(c => c.role.roleName === 'CAD');
+                this.roleListInCAD = this.roleListInCAD.filter(c => c.role.roleName === 'CSU');
 
             }
             if (this.roleListInCAD.length >= 1) {

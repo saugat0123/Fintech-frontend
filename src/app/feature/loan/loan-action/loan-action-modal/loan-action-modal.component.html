@@ -78,7 +78,7 @@
                     <div *ngIf="isMaker">
                         <div class="col-md-12">
                             <nb-checkbox class="cursor" (checkedChange)="isHSOVChecked($event)"
-                                         [disabled]="dual"
+                                         [disabled]="dual || loanTag"
                                          [checked]="customerLoanHolder.isHsov">Is HSOV Needed
                             </nb-checkbox>
                         </div>
@@ -86,7 +86,7 @@
                     <div *ngIf="isMaker">
                         <div class="col-md-12">
                             <nb-checkbox class="cursor" (checkedChange)="dualApproval($event)"
-                                         [disabled]="hsov"
+                                         [disabled]="hsov || loanTag"
                                          [checked]="customerLoanHolder.dualApproval">Dual Aproval Needed
                             </nb-checkbox>
                         </div>
