@@ -24,6 +24,7 @@ export class Section5InterstPenalChargeComponent implements OnInit {
   isAutoLoanSelected = false;
   isAutoLoanEmiSelected = false;
   isMortgageTermLoanSelected = false;
+  isEquityMortgageTermLoanSelected = false;
   subsidyAgricultureSelected;
   typeOfServiceCharge;
   constructor(private formBuilder: FormBuilder) { }
@@ -98,10 +99,16 @@ export class Section5InterstPenalChargeComponent implements OnInit {
                     this.isTermLoanEmiSelected = true;
                 }
             }
-            if (data === this.loanNameConst.MORTGAGE_TERM_LOAN_EQUITY_MORTGAGE_TERM_LOAN) {
-                const tempTermMortgageKey = this.tempData.mortgageEquityTermForm;
+            if (data === this.loanNameConst.MORTGAGE_TERM_LOAN) {
+                const tempTermMortgageKey = this.tempData.mortgageEquityTermForm.mortgageTermFormArray;
                 if (tempTermMortgageKey.termLoanType === 'NEW_EMI_TERM_LOAN' || tempTermMortgageKey.termLoanType === 'NEW_ANNUAL_REVIEW') {
                     this.isMortgageTermLoanSelected = true;
+                }
+            }
+            if (data === this.loanNameConst.EQUITY_MORTGAGE_TERM_LOAN) {
+                const tempTermMortgageKey = this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray;
+                if (tempTermMortgageKey.termLoanType === 'NEW_EMI_TERM_LOAN' || tempTermMortgageKey.termLoanType === 'NEW_ANNUAL_REVIEW') {
+                    this.isEquityMortgageTermLoanSelected = true;
                 }
             }
         });

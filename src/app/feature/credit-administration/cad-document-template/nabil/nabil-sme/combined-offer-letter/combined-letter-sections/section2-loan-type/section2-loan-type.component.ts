@@ -9,6 +9,7 @@ import {AutoLoanComponent} from './auto-loan/auto-loan.component';
 import {LoanNameConstant} from '../../../../../../cad-view/template-data/nabil-sme-template-data/sme-costant/loan-name-constant';
 import {CurrencyFormatterPipe} from '../../../../../../../../@core/pipe/currency-formatter.pipe';
 import {EngToNepaliNumberPipe} from '../../../../../../../../@core/pipe/eng-to-nepali-number.pipe';
+import {MortgageTermLoanComponent} from './mortgage-term-loan/mortgage-term-loan.component';
 
 // @ts-ignore
 @Component({
@@ -28,6 +29,7 @@ export class Section2LoanTypeComponent implements OnInit {
     @ViewChild('termLoanToOrForComponent', {static: false}) termLoanToOrForComponent: TermLoanToOrForComponent;
     @ViewChild('mortgageEquityTermLoanComponent', {static: false}) mortgageEquityTermLoanComponent: MortgageEquityTermLoanComponent;
     @ViewChild('autoLoanComponent', {static: false}) autoLoanComponent: AutoLoanComponent;
+    @ViewChild('mortgageTermLoanComponent', {static: false}) mortgageTermLoanComponent: MortgageTermLoanComponent;
     FDName;
     DepName;
     BondName;
@@ -159,6 +161,10 @@ export class Section2LoanTypeComponent implements OnInit {
     overdraftLoanForWorkingCapitalLoan = [];
     preExportLoan = [];
     preExportLoanFreeText: Array <any> = new Array<any>();
+    equityMortgageTermLoan = [];
+    equityMortgageData;
+    mortgageTermLoan = [];
+    mortgageTermLoanData;
 
     constructor(private formBuilder: FormBuilder,
                 private engToNepWord: NepaliCurrencyWordPipe,
@@ -182,6 +188,10 @@ export class Section2LoanTypeComponent implements OnInit {
                     this.tempData.autoLoanMasterForm.autoLoanFormArray : [];
                 this.termLoanData = !ObjectUtil.isEmpty(this.tempData.termLoanForm) ?
                     this.tempData.termLoanForm.termLoanDetails : [];
+                this.equityMortgageData = !ObjectUtil.isEmpty(this.tempData.mortgageEquityTermForm) ?
+                    this.tempData.mortgageEquityTermForm.mortgageEquityTermFormArray : [];
+                this.mortgageTermLoanData = !ObjectUtil.isEmpty(this.tempData.mortgageEquityTermForm) ?
+                    this.tempData.mortgageEquityTermForm.mortgageTermFormArray : [];
             }
             this.getFDName();
             this.getDepName();
@@ -830,9 +840,9 @@ export class Section2LoanTypeComponent implements OnInit {
                 if (v.loanName === LoanNameConstant.TERM_LOAN_TO_FOR_PURCHASE_OF_VEHICLE) {
                     this.isTermLoanToOrFor = true;
                 }
-                if (v.loanName === LoanNameConstant.MORTGAGE_TERM_LOAN_EQUITY_MORTGAGE_TERM_LOAN) {
+                /*if (v.loanName === LoanNameConstant.MORTGAGE_TERM_LOAN_EQUITY_MORTGAGE_TERM_LOAN) {
                     this.isEquityMortgageTermLoan = true;
-                }
+                }*/
                 if (v.loanName === LoanNameConstant.AUTO_LOAN) {
                     this.isAutoLoanMaster = true;
                 }
@@ -1396,12 +1406,18 @@ export class Section2LoanTypeComponent implements OnInit {
             tempAutoLoanFreeVal = this.autoLoanComponent.setFreeTextAutoLoan();
         }
         let tempMortgageEquity;
-        if (this.isEquityMortgageTermLoan) {
+        if (this.equityMortgageTermLoan.length > 0) {
             tempMortgageEquity = this.mortgageEquityTermLoanComponent.setFreeTextMortgage();
+        }
+        let tempMortgageTermLoan;
+        if (this.mortgageTermLoanData.length > 0) {
+            tempMortgageTermLoan = this.mortgageTermLoanComponent.setFreeTextMortgage();
         }
         this.freeTextVal = {
             autoLoanFreeText: !ObjectUtil.isEmpty(tempAutoLoanFreeVal) ? tempAutoLoanFreeVal : '',
             termLoanFreeText: !ObjectUtil.isEmpty(tempTermLoanFreeVal) ? tempTermLoanFreeVal : '',
+            equityTermLoanFreeText: !ObjectUtil.isEmpty(tempMortgageEquity) ? tempMortgageEquity : '',
+            mortgageTermLoanFreeText: !ObjectUtil.isEmpty(tempMortgageTermLoan) ? tempMortgageTermLoan : '',
             // loanExpiryIrrevocable: this.form.get('loanExpiryDateIrrevocable2').value ? this.form.get('loanExpiryDateIrrevocable2').value : '',
             // loanExpiryTimeLetter: this.form.get('loanExpiryDateTimeLetter2').value ? this.form.get('loanExpiryDateTimeLetter2').value : '',
             // freeText1: this.form.get('freeTextOne').value ? this.form.get('freeTextOne').value : '',
@@ -1426,9 +1442,9 @@ export class Section2LoanTypeComponent implements OnInit {
             freeText12: !ObjectUtil.isEmpty(tempTermLoanFreeVal) ? tempTermLoanFreeVal.freeText12 : '',
             SNLimitVehicleLoan: !ObjectUtil.isEmpty(tempTermLoanFreeVal) ? tempTermLoanFreeVal.SNLimitVehicleLoan : '',
             newEMISubsequentVehicleLoan1: !ObjectUtil.isEmpty(tempTermLoanFreeVal) ? tempTermLoanFreeVal.newEMISubsequentVehicleLoan1 : '',*/
-            freeText13: !ObjectUtil.isEmpty(tempMortgageEquity) ? tempMortgageEquity.freeText13 : '',
-            SNOfParentLimitMortgageTerm: !ObjectUtil.isEmpty(tempMortgageEquity) ? tempMortgageEquity.SNOfParentLimitMortgageTerm : '',
-            newEMIAutoPopulateMortgageTerm1: !ObjectUtil.isEmpty(tempMortgageEquity) ? tempMortgageEquity.newEMIAutoPopulateMortgageTerm1 : '',
+            // freeText13: !ObjectUtil.isEmpty(tempMortgageEquity) ? tempMortgageEquity.freeText13 : '',
+            // SNOfParentLimitMortgageTerm: !ObjectUtil.isEmpty(tempMortgageEquity) ? tempMortgageEquity.SNOfParentLimitMortgageTerm : '',
+            // newEMIAutoPopulateMortgageTerm1: !ObjectUtil.isEmpty(tempMortgageEquity) ? tempMortgageEquity.newEMIAutoPopulateMortgageTerm1 : '',
             freeText16: this.form.get('freeTextSixteen').value ? this.form.get('freeTextSixteen').value : '',
             snOfFacility: this.form.get('SNOfFacility').value ? this.form.get('SNOfFacility').value : '',
             // remainDaysLoan: this.form.get('remainDaysLoanTrust').value ? this.form.get('remainDaysLoanTrust').value : '',
@@ -1867,5 +1883,7 @@ export class Section2LoanTypeComponent implements OnInit {
         this.bridgeGap = this.loanData.filter(data => data.loanName === this.loanNameConstant.BRIDGE_GAP_LOAN);
         this.overdraftLoanForWorkingCapitalLoan = this.loanData.filter(data => data.loanName === this.loanNameConstant.OVERDRAFT_LOAN_FOR_WORKING_CAPITAL_REQUIREMENT);
         this.preExportLoan = this.loanData.filter(data => data.loanName === this.loanNameConstant.PRE_EXPORT_LOAN);
+        this.equityMortgageTermLoan = this.loanData.filter(data => data.loanName === this.loanNameConstant.EQUITY_MORTGAGE_TERM_LOAN);
+        this.mortgageTermLoan = this.loanData.filter(data => data.loanName === this.loanNameConstant.MORTGAGE_TERM_LOAN);
     }
 }

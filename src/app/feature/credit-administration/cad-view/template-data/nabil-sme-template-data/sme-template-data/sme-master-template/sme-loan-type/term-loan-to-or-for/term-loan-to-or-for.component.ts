@@ -8,6 +8,7 @@ import {SbTranslateService} from '../../../../../../../../../@core/service/sbtra
 import {DatePipe} from '@angular/common';
 import {EngNepDatePipe} from 'nepali-patro';
 import {OfferDocument} from '../../../../../../../model/OfferDocument';
+import {LoanNameConstant} from '../../../../sme-costant/loan-name-constant';
 
 @Component({
   selector: 'app-term-loan-to-or-for',
@@ -46,6 +47,8 @@ export class TermLoanToOrForComponent implements OnInit {
   termLoanNumber: Array<any> = new Array<any>();
   isSubsidySelected = false;
   initialInformation: any;
+  filteredList: any = [];
+  loanNameConstant = LoanNameConstant;
 
   constructor(private formBuilder: FormBuilder,
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
@@ -53,7 +56,8 @@ export class TermLoanToOrForComponent implements OnInit {
               private engToNepNumberPipe: EngToNepaliNumberPipe,
               private translateService: SbTranslateService,
               private engToNepDatePipe: EngNepDatePipe,
-              private datePipe: DatePipe) { }
+              private datePipe: DatePipe,
+              private engToNepWord: NepaliCurrencyWordPipe) { }
 
   ngOnInit() {
     this.termLoanNumber = this.customerApprovedDoc.assignedLoan.filter(val =>
@@ -61,6 +65,7 @@ export class TermLoanToOrForComponent implements OnInit {
     this.buildForm();
     if (!ObjectUtil.isEmpty(this.loanName)) {
       this.loanDetails = this.loanName;
+      this.filteredListDetails(this.loanDetails);
     }
     if (this.isEdit) {
       if (this.offerDocumentList.length > 0) {
@@ -74,6 +79,18 @@ export class TermLoanToOrForComponent implements OnInit {
       //Loan Application Date
       this.patchDate();
     }
+    if (!ObjectUtil.isEmpty(this.filteredList)) {
+      for (let val = 0; val < this.filteredList.length; val++) {
+        const loanamountWords = this.engToNepWord.transform(this.filteredList[val].loanAmount);
+        this.termLoanForm.get(['termLoanDetails', val, 'loanAmount']).patchValue(
+            this.filteredList[val] ? this.filteredList[val].loanAmount : '');
+        this.termLoanForm.get(['termLoanDetails', val, 'loanAmountWords']).patchValue(
+            loanamountWords ? loanamountWords : '');
+      }
+    }
+  }
+  filteredListDetails(loanDetails) {
+    this.filteredList = loanDetails.filter(data => data.name === this.loanNameConstant.TERM_LOAN_TO_FOR_PURCHASE_OF_VEHICLE);
   }
 
   patchDate() {

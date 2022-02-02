@@ -18,6 +18,7 @@ export class Section5InterestPenalChargePrintComponent implements OnInit {
   isTermLoanSelected = false;
   isTermLoanEmiSelected = false;
   isMortgageTermLoanSelected = false;
+  isEquityMortgageTermLoanSelected = false;
   loanName: any = [];
   loanScheme;
   loanSchemeSelected;
@@ -65,10 +66,16 @@ export class Section5InterestPenalChargePrintComponent implements OnInit {
           this.isTermLoanEmiSelected = true;
         }
       }
-      if (data === this.loanNameConst.MORTGAGE_TERM_LOAN_EQUITY_MORTGAGE_TERM_LOAN) {
-        const tempTermMortgageKey = this.letterData.mortgageEquityTermForm;
+      if (data === this.loanNameConst.MORTGAGE_TERM_LOAN) {
+        const tempTermMortgageKey = this.letterData.mortgageEquityTermForm.mortgageTermFormArray;
         if (tempTermMortgageKey.termLoanType === 'NEW_EMI_TERM_LOAN' || tempTermMortgageKey.termLoanType === 'NEW_ANNUAL_REVIEW') {
           this.isMortgageTermLoanSelected = true;
+        }
+      }
+      if (data === this.loanNameConst.EQUITY_MORTGAGE_TERM_LOAN) {
+        const tempTermMortgageKey = this.letterData.mortgageEquityTermForm.mortgageEquityTermFormArray;
+        if (tempTermMortgageKey.termLoanType === 'NEW_EMI_TERM_LOAN' || tempTermMortgageKey.termLoanType === 'NEW_ANNUAL_REVIEW') {
+          this.isEquityMortgageTermLoanSelected = true;
         }
       }
     });
