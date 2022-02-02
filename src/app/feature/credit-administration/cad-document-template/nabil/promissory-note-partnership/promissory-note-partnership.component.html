@@ -105,30 +105,40 @@
                                     <span
                                         *ngIf="x?.ownerGender === 'FEMALE' && x?.ownerRelationMedium === '0'">श्रीमती </span>
                                 </ng-container>
-                                <input class="form-field disable-print form-control-sm" name="district"
-                                    formControlName="district" placeholder=" " type="text"
-                                    [value]="x?.ownerPermanentDistrictCT" />
-                                <span
-                                    class="print-only font-weight-bold">{{this.district ? this.district : "___________________________"}}</span>
-                                जिल्ला <input class="form-field disable-print form-control-sm" name="vdc"
-                                    formControlName="vdc" placeholder=" " type="text"
-                                    [value]="x?.ownerPermanentMunicipalityCT" />
-                                <span
-                                    class="print-only font-weight-bold">{{this.vdc ? this.vdc : "___________________________"}}</span>
-                                <span *ngIf="this.loanHolderNepData.registeredMunType.en === '0'">
-                                    न.पा. ,
-                                </span>
-                                <span *ngIf="this.loanHolderNepData.registeredMunType.en === '1'">
-                                    गा.वि.स. ,
-                                </span>
-                                <span *ngIf="this.loanHolderNepData.registeredMunType.en === '2'">
-                                    गाँउपालिका ,
-                                </span>
-                                वडा नं. <input class="form-field disable-print form-control-sm" name="wardNumber"
-                                    formControlName="wardNumber" placeholder="" type="text"
-                                    [value]="x?.ownerPermanentWardNoCT" />
-                                <span
-                                    class="print-only font-weight-bold">{{this.wardNumber ? this.wardNumber : "___________________________"}}</span>
+                                <ng-container *ngIf="isForeignAddress">
+                                    <input class="form-field form-control-sm  disable-print"
+                                            name="foreignAddress" [value]="x?.ownerOtherAddressCT" 
+                                            placeholder="" type="text" />
+                                    <span
+                                            class="print-only font-weight-bold">{{ this?.foreignAddress ? this?.foreignAddress : '_________________'}}</span>
+                                            ठेगाना
+                                </ng-container>
+                                <ng-container *ngIf="!isForeignAddress">
+                                    <input class="form-field disable-print form-control-sm" name="district"
+                                        formControlName="district" placeholder=" " type="text"
+                                        [value]="x?.ownerPermanentDistrictCT" />
+                                    <span
+                                        class="print-only font-weight-bold">{{this.district ? this.district : "___________________________"}}</span>
+                                    जिल्ला <input class="form-field disable-print form-control-sm" name="vdc"
+                                        formControlName="vdc" placeholder=" " type="text"
+                                        [value]="x?.ownerPermanentMunicipalityCT" />
+                                    <span
+                                        class="print-only font-weight-bold">{{this.vdc ? this.vdc : "___________________________"}}</span>
+                                    <span *ngIf="this.loanHolderNepData.registeredMunType.en === '0'">
+                                        न.पा. ,
+                                    </span>
+                                    <span *ngIf="this.loanHolderNepData.registeredMunType.en === '1'">
+                                        गा.वि.स. ,
+                                    </span>
+                                    <span *ngIf="this.loanHolderNepData.registeredMunType.en === '2'">
+                                        गाँउपालिका ,
+                                    </span>
+                                    वडा नं. <input class="form-field disable-print form-control-sm" name="wardNumber"
+                                        formControlName="wardNumber" placeholder="" type="text"
+                                        [value]="x?.ownerPermanentWardNoCT" />
+                                    <span
+                                        class="print-only font-weight-bold">{{this.wardNumber ? this.wardNumber : "___________________________"}}</span>
+                                    </ng-container>
                                 बस्ने बर्ष <input class="form-field disable-print form-control-sm" name="age"
                                     formControlName="age" placeholder=" " type="text"
                                     [value]="ageCalculation(x?.ownerDobCT.eDate)" />

@@ -102,6 +102,7 @@ export class PromissoryNoteCompanyComponent implements OnInit {
   offerLetterDocument;
   educationalTemplateData;
   selectiveArr = [];
+  isForeignAddress = false;
 
   constructor(private formBuilder: FormBuilder,
     private administrationService: CreditAdministrationService,
@@ -131,6 +132,16 @@ export class PromissoryNoteCompanyComponent implements OnInit {
         }
       });
     }
+    const proprietor = this.cadData.assignedLoan[0].companyInfo.companyJsonData;
+    // let tempProprietor;
+    if (!ObjectUtil.isEmpty(proprietor)) {
+      this.tempProprietor = JSON.parse(proprietor);
+    }
+    for (const x of this.tempProprietor){
+      if (!ObjectUtil.isEmpty(x.ownerOtherAddressCT)){
+        this.isForeignAddress = true;
+      }
+    }
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.individualData = JSON.parse(this.cadData.loanHolder.nepData);
       this.clientType = this.cadData.loanHolder['customerSubType'];
@@ -139,6 +150,7 @@ export class PromissoryNoteCompanyComponent implements OnInit {
         JSON.parse(this.cadData.loanHolder.nepData) :
         this.cadData.loanHolder.nepData;
     }
+    
     this.fillform();
   }
 
@@ -160,6 +172,7 @@ export class PromissoryNoteCompanyComponent implements OnInit {
       grandfatherName: [undefined],
       fatherName: [undefined],
       district: [undefined],
+      foreignAddress: [undefined],
       municipality: [undefined],
       wardNumber: [undefined],
       authorizedPersonAge: [undefined],
@@ -183,11 +196,6 @@ export class PromissoryNoteCompanyComponent implements OnInit {
     });
   }
   fillform() {
-    const proprietor = this.cadData.assignedLoan[0].companyInfo.companyJsonData;
-    // let tempProprietor;
-    if (!ObjectUtil.isEmpty(proprietor)) {
-      this.tempProprietor = JSON.parse(proprietor);
-    }
     let totalLoan = 0;
     this.cadData.assignedLoan.forEach(val => {
       const proposedAmount = val.proposal.proposedLimit;
@@ -253,6 +261,7 @@ export class PromissoryNoteCompanyComponent implements OnInit {
       grandfatherName: this.tempProprietor[0] ? this.tempProprietor[0].ownerGrandFatherNameCT : '',
       fatherName: this.tempProprietor[0] ? this.tempProprietor[0].ownerFatherNameCT : '',
       district: this.tempProprietor[0] ? this.tempProprietor[0].ownerPermanentDistrictCT : '',
+      foreignAddress: this.tempProprietor[0] ? this.tempProprietor[0].ownerOtherAddressCT : '',
       municipality: this.tempProprietor[0] ? this.tempProprietor[0].ownerPermanentMunicipalityCT : '',
       wardNumber: this.tempProprietor[0] ? this.tempProprietor[0].ownerPermanentWardNoCT : '',
       directorName: this.tempProprietor[0] ? this.tempProprietor[0].ownerNameCT : '',

@@ -137,6 +137,15 @@
                                                                         <span
                                                                             *ngIf="i?.ownerGender === 'FEMALE' && i?.ownerRelationMedium === '0'">श्रीमती </span>
                                                                     </ng-container>
+                                                                    <ng-container *ngIf="isForeignAddress">
+                                                                        <input class="form-field form-control-sm  disable-print"
+                                                                                name="foreignAddress" formControlName="foreignAddress"
+                                                                                placeholder="" type="text" />
+                                                                        <span
+                                                                                class="print-only font-weight-bold">{{ form?.get('foreignAddress')?.value ? form?.get('foreignAddress')?.value : '_________________'}}</span>
+                                                                                ठेगाना
+                                                                    </ng-container>
+                                                                    <ng-container *ngIf="!isForeignAddress">
                                                                 <input class="form-field form-control-sm  disable-print"
                                                                         name="district" formControlName="district"
                                                                         placeholder="" type="text" />
@@ -162,7 +171,7 @@
                                                                         name="wardNumber" formControlName="wardNumber"
                                                                         placeholder="" type="text" />
                                                                 <span
-                                                                        class="print-only font-weight-bold">{{ form?.get('wardNumber')?.value ? form?.get('wardNumber')?.value : '_________________'}}</span>
+                                                                        class="print-only font-weight-bold">{{ form?.get('wardNumber')?.value ? form?.get('wardNumber')?.value : '_________________'}}</span></ng-container>
                                                                 बस्ने बर्ष 
                                                                 <input class="form-field form-control-sm  disable-print"
                                                                         name="authorizedPersonAge"
