@@ -4,4 +4,6 @@ export class CompanyLocations {
   houseNumber: string;
   streetName: string;
   address: string;
+  projectAddress: string;
+  correspondenceAddress: string;
 }

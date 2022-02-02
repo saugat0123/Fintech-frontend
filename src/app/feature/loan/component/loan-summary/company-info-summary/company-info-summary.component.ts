@@ -20,6 +20,8 @@ export class CompanyInfoSummaryComponent implements OnInit {
   contact = [];
   additionalInfoJsonData;
   companyLocationData;
+  projectAddress;
+  correspondenceAddress;
   @Input() approveSheet;
   client = environment.client;
   clientName = Clients;
@@ -31,6 +33,8 @@ export class CompanyInfoSummaryComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.companyJsonData)) {
       this.companyJsonData = JSON.parse(this.companyInfo.companyJsonData);
       this.companyLocationData = JSON.parse(this.companyInfo.companyLocations.address);
+      this.projectAddress = JSON.parse(this.companyInfo.companyLocations.projectAddress);
+      this.correspondenceAddress = JSON.parse(this.companyInfo.companyLocations.correspondenceAddress);
       this.contact = JSON.parse(this.companyInfo.contactPersons);
     }
   }
