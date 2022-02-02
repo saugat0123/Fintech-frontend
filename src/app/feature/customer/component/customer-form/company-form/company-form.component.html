@@ -101,7 +101,7 @@
                                    </div>
                                    <div class="text-left pl-1">
                                        <input (click)="addAccountNumber()" class="btn btn-sm btn-flat btn-primary"
-                                              type="button" value="+"/>
+                                              type="button" value="Add Account No."/>
                                    </div>
                                </ng-container>
                                </div>
@@ -747,6 +747,30 @@
                            </div>
 
                        </div>
+                       <div class="row">
+                           <div class="col-md-4">
+                               <div class="form-group">
+                                   <label for="registrationDistrict"><strong>Registration District</strong></label>
+                                   <select formControlName="registrationDistrict" id="registrationDistrict"
+                                           [ngClass]="{'is-invalid':submitted &&  form.issuePlace?.errors}" class="form-control">
+                                       <option [value]="null">Select Registration District</option>
+                                       <option  *ngFor="let district of allDistrict" [value]="district?.name">
+                                           {{district?.name}}</option>
+                                   </select>
+                               </div>
+                           </div>
+                           <div class="col-md-4">
+                               <div class="form-group">
+                                   <label for="udhyogBibag">Registered at Udhyog Bibhag?</label>
+                                   <select formControlName="udhyogBibag" id="udhyogBibag"
+                                           [ngClass]="{'is-invalid':submitted &&  form.udhyogBibag?.errors}" class="form-control">
+                                       <option [value]="null">--Select Yes/No--</option>
+                                       <option value="Yes">Yes</option>
+                                       <option value="No">No</option>
+                                   </select>
+                               </div>
+                           </div>
+                       </div>
                        <hr>
 
                        <div class="box-header with-border">
@@ -1011,7 +1035,15 @@
                                </div>
                            </div>-->
                            <div class="col-md-12">
+                               <label><b>Registered Address</b></label>
                                <app-common-address #companyLocation [address]="companyAddress"></app-common-address>
+                           </div>
+                           <div class="col-md-12">
+                               <label><b>Project Address</b></label>
+                               <app-common-address #companyProjectLocation [address]="companyProjectAddress"></app-common-address>
+                           </div>
+                           <div class="col-md-12">
+                               <app-common-address #companyCorrespondenceLocation [address]="companyCorrespondenceAddress"></app-common-address>
                            </div>
                        </div>
                        <hr>
