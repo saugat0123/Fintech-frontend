@@ -32,7 +32,8 @@ export class ImportBillsDiscountingComponent implements OnInit {
                 private engToNepNumberPipe: EngToNepaliNumberPipe,
                 private currencyFormatterPipe: CurrencyFormatterPipe,
                 private datePipe: DatePipe,
-                private engToNepDatePipe: EngNepDatePipe) {
+                private engToNepDatePipe: EngNepDatePipe,
+                private engToNepWord: NepaliCurrencyWordPipe) {
     }
 
     ngOnInit() {
@@ -50,6 +51,15 @@ export class ImportBillsDiscountingComponent implements OnInit {
                 this.importBillsDiscountForm.patchValue(this.initialInformation.importBillsDiscountForm);
             }
             this.patchDate();
+        }
+        if (!ObjectUtil.isEmpty(this.filteredList)) {
+            for (let val = 0; val < this.filteredList.length; val++) {
+                const loanamountWords = this.engToNepWord.transform(this.filteredList[val].loanAmount);
+                this.importBillsDiscountForm.get(['importBillsDiscountFormArray', val, 'loanAmount']).patchValue(
+                    this.filteredList[val] ? this.filteredList[val].loanAmount : '');
+                this.importBillsDiscountForm.get(['importBillsDiscountFormArray', val, 'loanAmountWords']).patchValue(
+                    loanamountWords ? loanamountWords : '');
+            }
         }
     }
     patchDate() {

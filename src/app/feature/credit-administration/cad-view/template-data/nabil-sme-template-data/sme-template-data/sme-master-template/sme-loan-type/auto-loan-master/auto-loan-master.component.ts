@@ -48,7 +48,8 @@ export class AutoLoanMasterComponent implements OnInit {
               private engToNepNumberPipe: EngToNepaliNumberPipe,
               private translateService: SbTranslateService,
               private engToNepDatePipe: EngNepDatePipe,
-              private datePipe: DatePipe) { }
+              private datePipe: DatePipe,
+              private engToNepWord: NepaliCurrencyWordPipe) { }
 
   ngOnInit() {
     this.buildForm();
@@ -64,6 +65,15 @@ export class AutoLoanMasterComponent implements OnInit {
         this.autoLoanMasterForm.patchValue(this.initialInformation.autoLoanMasterForm);
       }
       this.patchDate();
+    }
+    if (!ObjectUtil.isEmpty(this.filteredList)) {
+      for (let val = 0; val < this.filteredList.length; val++) {
+        const loanamountWords = this.engToNepWord.transform(this.filteredList[val].loanAmount);
+        this.autoLoanMasterForm.get(['autoLoanFormArray', val, 'loanAmount']).patchValue(
+            this.filteredList[val] ? this.filteredList[val].loanAmount : '');
+        this.autoLoanMasterForm.get(['autoLoanFormArray', val, 'loanAmountWords']).patchValue(
+            loanamountWords ? loanamountWords : '');
+      }
     }
   }
 

@@ -800,11 +800,29 @@ export class LoanDeedPartnershipComponent implements OnInit {
                                 this.newData
                             );
                         }
-                        if (v.loanName === LoanNameConstant.MORTGAGE_TERM_LOAN_EQUITY_MORTGAGE_TERM_LOAN) {
+                        if (v.loanName === LoanNameConstant.MORTGAGE_TERM_LOAN) {
                             // tslint:disable-next-line:max-line-length
                             const tempLoanAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.cadData.assignedLoan[index].proposal.proposedLimit));
                             let mortgageEquityTermForm;
-                            for (const x of this.initialInfo.mortgageEquityTermForm) {
+                            for (const x of this.initialInfo.mortgageEquityTermForm.mortgageTermFormArray) {
+                                mortgageEquityTermForm = x.interestRateCT;
+                            }
+                            this.newData = {
+                                loanNepaliName: v.loanNepaliName,
+                                interestRateExists: false,
+                                interestRate: mortgageEquityTermForm,
+                                loanAmount: tempLoanAmount,
+                                dateOfExpiry: '',
+                            };
+                            this.newTempData.push(
+                                this.newData
+                            );
+                        }
+                        if (v.loanName === LoanNameConstant.EQUITY_MORTGAGE_TERM_LOAN) {
+                            // tslint:disable-next-line:max-line-length
+                            const tempLoanAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.cadData.assignedLoan[index].proposal.proposedLimit));
+                            let mortgageEquityTermForm;
+                            for (const x of this.initialInfo.mortgageEquityTermForm.mortgageEquityTermFormArray) {
                                 mortgageEquityTermForm = x.interestRateCT;
                             }
                             this.newData = {
