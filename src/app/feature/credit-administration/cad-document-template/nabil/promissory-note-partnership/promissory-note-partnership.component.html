@@ -105,7 +105,8 @@
                                     <span
                                         *ngIf="x?.ownerGender === 'FEMALE' && x?.ownerRelationMedium === '0'">श्रीमती </span>
                                 </ng-container>
-                                <ng-container *ngIf="isForeignAddress">
+                                <ng-container *ngIf="(x?.ownerNationality === 'Indian' || x?.ownerNationality === 'Other')
+                                        && x?.foreignAddressOption === 'Foreign'">
                                     <input class="form-field form-control-sm  disable-print"
                                             name="foreignAddress" [value]="x?.ownerOtherAddressCT" 
                                             placeholder="" type="text" />
@@ -113,7 +114,7 @@
                                             class="print-only font-weight-bold">{{ this?.foreignAddress ? this?.foreignAddress : '_________________'}}</span>
                                             ठेगाना
                                 </ng-container>
-                                <ng-container *ngIf="!isForeignAddress">
+                                <ng-container *ngIf="x?.ownerNationality === 'Nepali' || x?.foreignAddressOption === 'Local'">
                                     <input class="form-field disable-print form-control-sm" name="district"
                                         formControlName="district" placeholder=" " type="text"
                                         [value]="x?.ownerPermanentDistrictCT" />
