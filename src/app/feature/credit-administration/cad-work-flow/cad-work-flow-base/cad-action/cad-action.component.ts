@@ -136,12 +136,12 @@ export class CadActionComponent implements OnInit, OnChanges {
             }
             this.cadOfferLetterApprovedDoc.previousList.forEach((data) => {
                 if (!ObjectUtil.isEmpty(data.toUser)) {
-                    if (data.toUser.id.toString() === this.currentUserId && data.fromRole.roleType !== 'CAD_ADMIN') {
+                    if (data.toUser.id.toString() === this.currentUserId) {
                         this.toUser = data.fromUser;
                         this.toRole = data.fromRole;
                         throw this.breakException;
                     }
-                } else if (data.toRole.id.toString() === this.roleId && data.fromRole.roleType !== 'CAD_ADMIN') {
+                } else if (data.toRole.id.toString() === this.roleId) {
                     this.toUser = data.fromUser;
                     this.toRole = data.fromRole;
                     throw this.breakException;
@@ -167,7 +167,7 @@ export class CadActionComponent implements OnInit, OnChanges {
         }
 
         // CAD is fixed patched role
-        if (storage.roleName === 'CAD') {
+        if (storage.roleName === 'CSU') {
             this.missingDraftDoc = this.cadOfferLetterApprovedDoc.offerDocumentList.filter(value =>
                 value.draftPath === undefined || value.draftPath === null).length > 0;
         }
@@ -479,7 +479,7 @@ export class CadActionComponent implements OnInit, OnChanges {
             user = this.currentCADStage.fromUser.name + ' (' + this.currentCADStage.fromRole.roleName + ')';
         }
         // tslint:disable-next-line:max-line-length
-        if ((this.currentCADStage.fromRole.roleType === this.roleType.CAD_ADMIN) || (this.currentCADStage.fromRole.roleType === this.roleType.CAD_SUPERVISOR)) {
+        if ((this.currentCADStage.fromRole.roleType === this.roleType.CAD_SUPERVISOR)) {
             this.isBackwardDisabled = true;
 
         } else {

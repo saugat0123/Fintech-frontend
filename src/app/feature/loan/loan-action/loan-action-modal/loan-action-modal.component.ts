@@ -21,6 +21,7 @@ import {RoleType} from '../../../admin/modal/roleType';
 import {RoleService} from '../../../admin/component/role-permission/role.service';
 import {Editor} from '../../../../@core/utils/constants/editor';
 import {Clients} from '../../../../../environments/Clients';
+import {LoanTag} from '../../model/loanTag';
 
 @Component({
     selector: 'app-loan-action-modal',
@@ -57,6 +58,7 @@ export class LoanActionModalComponent implements OnInit {
     hsovRole: any;
     dual: any;
     hsov: any;
+    loanTag = false;
 
     // selectedRoleForSol:Role = undefined;
 
@@ -79,6 +81,9 @@ export class LoanActionModalComponent implements OnInit {
         this.roleId = parseInt(LocalStorageUtil.getStorage().roleId, 10);
         this.conditionalDataLoad();
         if (!ObjectUtil.isEmpty(this.customerLoanHolder)) {
+            if (this.customerLoanHolder.loan.loanTag === LoanTag.getKeyByValue(LoanTag.REMIT_LOAN)) {
+                this.loanTag = true;
+            }
             this.isHSOVChecked(this.customerLoanHolder.isHsov);
             this.dualApproval(this.customerLoanHolder.dualApproval);
         }

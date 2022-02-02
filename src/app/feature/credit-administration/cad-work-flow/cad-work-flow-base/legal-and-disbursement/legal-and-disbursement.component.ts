@@ -80,7 +80,7 @@ export class LegalAndDisbursementComponent implements OnInit {
             } else {
                 this.isRoleLegal = false;
             }
-            if (this.user.role.roleName === 'CAD') {
+            if (this.user.role.roleName === 'CSU') {
                 this.isCad = true;
             }
         });

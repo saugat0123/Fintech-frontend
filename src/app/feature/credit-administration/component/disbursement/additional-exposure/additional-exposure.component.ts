@@ -67,7 +67,7 @@ export class AdditionalExposureComponent implements OnInit, OnChanges {
         this.creditAdministrationService.getRoleInCad().subscribe(value => {
             this.cadRoleList = value.detail;
             this.cadRoleList = this.cadRoleList.filter(value1 => value1.role.roleType !== RoleType.MAKER);
-            this.toRole = this.cadRoleList.filter(value1 => value1.role.roleName === 'CAD')[0].role.id;
+            this.toRole = this.cadRoleList.filter(value1 => value1.role.roleName === 'CSU')[0].role.id;
         });
         this.initial();
         this.buildDocForm();
