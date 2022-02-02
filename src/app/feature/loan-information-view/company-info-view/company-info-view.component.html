@@ -116,6 +116,10 @@
                 <th>PAN Registration Office</th>
                 <th>PAN Registration Date(AD/BS)</th>
                 <th>Registration Expiry Date(AD/BS)</th>
+                <th>VAT Registration Date</th>
+                <th>VAT Registration Office</th>
+                <th>Registration District</th>
+                <th>Registered at Udhyog Bibhag?</th>
             </tr>
             </thead>
             <tbody>
@@ -123,28 +127,38 @@
                 <td class="text-left pl-1">{{formValue?.legalStatus?.corporateStructure?.name}}</td>
                 <td class="text-left pl-1">{{registeredOffice[formValue?.legalStatus?.registeredOffice]}}</td>
                 <td class="text-left pl-1">{{formValue?.legalStatus?.registeredUnderAct}}</td>
-                <td class="text-right pr-1">{{formValue?.legalStatus?.registrationDate | date}} ({{formValue?.legalStatus?.registrationDate | engNepDate: false}})</td>
+                <td class="text-right pr-1">
+                    {{formValue?.legalStatus?.registrationDate ? (formValue?.legalStatus?.registrationDate | date) : 'NA'}}
+                    ({{formValue?.legalStatus?.registrationDate? (formValue?.legalStatus?.registrationDate | engNepDate: false) : 'NA'}})</td>
                 <td class="text-right pr-1">{{formValue?.legalStatus?.regIssuedPlace}}</td>
                 <td class="text-left pl-1">{{formValue?.legalStatus?.panRegistrationOffice}}</td>
-                <td class="text-left pl-1">{{formValue?.legalStatus?.panRegistrationDate | date}} ({{formValue?.legalStatus?.panRegistrationDate |engNepDate: false}})</td>
-                <td class="text-left pl-1">{{formValue?.legalStatus?.registrationExpiryDate | date}} ({{formValue?.legalStatus?.registrationExpiryDate | engNepDate: false}})</td>
+                <td class="text-left pl-1">
+                    {{formValue?.legalStatus?.panRegistrationDate ? (formValue?.legalStatus?.panRegistrationDate | date) : 'NA'}}
+                    ({{formValue?.legalStatus?.panRegistrationDate? (formValue?.legalStatus?.panRegistrationDate |engNepDate: false) : 'NA'}})</td>
+                <td class="text-left pl-1">
+                    {{formValue?.legalStatus?.registrationExpiryDate ? (formValue?.legalStatus?.registrationExpiryDate | date) : 'NA'}}
+                    ({{formValue?.legalStatus?.registrationExpiryDate ? (formValue?.legalStatus?.registrationExpiryDate | engNepDate: false) : 'NA'}})</td>
+                <td class="text-left pl-1">
+                    {{formValue?.legalStatus?.vatRegistrationDate ? (formValue?.legalStatus?.vatRegistrationDate | date) : 'NA'}}
+                    ({{formValue?.legalStatus?.vatRegistrationDate? (formValue?.legalStatus?.vatRegistrationDate |engNepDate: false) : 'NA'}})</td>
+                <td class="text-left pl-1">{{formValue?.legalStatus?.vatRegistrationOffice}}</td>
+                <td class="text-left pl-1">{{formValue?.legalStatus?.registrationDistrict}}</td>
+                <td class="text-left pl-1">{{formValue?.legalStatus?.udhyogBibhag}}</td>
             </tr>
-            <tr>
-                <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-                    <thead>
-                    <tr class="sb-bg-dark text-white">
-                        <th>Vat Registration Date</th>
-                        <th>Vat Registration Office</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>{{formValue?.legalStatus?.vatRegistrationDate | date}} ({{formValue?.legalStatus?.vatRegistrationDate |engNepDate: false}})</td>
-                        <td>{{formValue?.legalStatus?.vatRegistrationOffice}}</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </tr>
+<!--            <tr>-->
+<!--                <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">-->
+<!--                    <thead>-->
+<!--                    <tr class="sb-bg-dark text-white">-->
+<!--                        -->
+<!--                    </tr>-->
+<!--                    </thead>-->
+<!--                    <tbody>-->
+<!--                    <tr>-->
+<!--                        -->
+<!--                    </tr>-->
+<!--                    </tbody>-->
+<!--                </table>-->
+<!--            </tr>-->
             </tbody>
         </table>
         <table
@@ -209,14 +223,17 @@
             <tr class="text-white sb-bg-dark">
                 <th colspan="5">Company Location Detail</th>
             </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td colspan="4"><b>Registered Address</b></td>
+            </tr>
             <tr class="text-white sb-bg-dark">
                 <th>Address</th>
                 <th>Ward</th>
                 <th>Address Line 1</th>
                 <th>Address Line 2</th>
             </tr>
-            </thead>
-            <tbody>
             <tr>
                 <td class="text-left pl-1">
                     ({{companyLocationData?.province?.name}},{{companyLocationData?.district?.name}}
@@ -225,6 +242,46 @@
                 <td class="text-right pr-1"> {{companyLocationData?.ward}}</td>
                 <td class="text-left pl-1"> {{companyLocationData?.address1}}</td>
                 <td class="text-left pl-1"> {{companyLocationData?.address2}}</td>
+            </tr>
+            </tbody>
+            <tbody>
+            <tr>
+                <td colspan="4"><b>Project Address</b></td>
+            </tr>
+            <tr class="text-white sb-bg-dark">
+                <th>Address</th>
+                <th>Ward</th>
+                <th>Address Line 1</th>
+                <th>Address Line 2</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1">
+                    ({{projectAddress?.province?.name}},{{projectAddress?.district?.name}}
+                    , {{projectAddress?.municipalityVdc?.name}})
+                </td>
+                <td class="text-right pr-1"> {{projectAddress?.ward}}</td>
+                <td class="text-left pl-1"> {{projectAddress?.address1}}</td>
+                <td class="text-left pl-1"> {{projectAddress?.address2}}</td>
+            </tr>
+            </tbody>
+            <tbody>
+            <tr>
+                <td colspan="4"><b>Correspondence Address</b></td>
+            </tr>
+            <tr class="text-white sb-bg-dark">
+                <th>Address</th>
+                <th>Ward</th>
+                <th>Address Line 1</th>
+                <th>Address Line 2</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1">
+                    ({{correspondenceAddress?.province?.name}},{{correspondenceAddress?.district?.name}}
+                    , {{correspondenceAddress?.municipalityVdc?.name}})
+                </td>
+                <td class="text-right pr-1"> {{correspondenceAddress?.ward}}</td>
+                <td class="text-left pl-1"> {{correspondenceAddress?.address1}}</td>
+                <td class="text-left pl-1"> {{correspondenceAddress?.address2}}</td>
             </tr>
             </tbody>
         </table>
