@@ -187,8 +187,8 @@ export class PersonalGuaranteePartnershipComponent implements OnInit {
       guarantorTemporaryMunicipality: [undefined],
       guarantorTemporaryWard: [undefined],
       guarantorCitizenNumber: [undefined],
-      guarantorCitzenIssuedPlace: [undefined],
-      guarantorCitzenIssuedDate: [undefined],
+      guarantorCitizenIssuedPlace: [undefined],
+      guarantorCitizenIssuedDate: [undefined],
       year: [undefined],
       month: [undefined],
       day: [undefined],
@@ -238,8 +238,8 @@ export class PersonalGuaranteePartnershipComponent implements OnInit {
           guarantorTemporaryMunicipality: [individualGuarantorNepData.temporaryMunicipality ? individualGuarantorNepData.temporaryMunicipality.ct : ''],
           guarantorTemporaryWard: [individualGuarantorNepData.temporaryWard ? individualGuarantorNepData.temporaryWard.ct : ''],
           guarantorCitizenNumber: [individualGuarantorNepData.citizenNumber ? individualGuarantorNepData.citizenNumber.ct : ''],
-          guarantorCitzenIssuedPlace: [individualGuarantorNepData.issuedPlace ? individualGuarantorNepData.issuedPlace.ct : ''],
-          guarantorCitzenIssuedDate: [!ObjectUtil.isEmpty(individualGuarantorNepData.citizenIssuedDate) ? this.englishNepaliDatePipe.transform((individualGuarantorNepData.citizenIssuedDate.en.eDate) ? (individualGuarantorNepData.citizenIssuedDate.en.eDate) : (individualGuarantorNepData.citizenIssuedDate.en), true) : '' || ''],
+          guarantorCitizenIssuedPlace: [individualGuarantorNepData.issuedPlace ? individualGuarantorNepData.issuedPlace.ct : ''],
+          guarantorCitizenIssuedDate: [!ObjectUtil.isEmpty(individualGuarantorNepData.citizenIssuedDate) ? this.englishNepaliDatePipe.transform((individualGuarantorNepData.citizenIssuedDate.en.eDate) ? (individualGuarantorNepData.citizenIssuedDate.en.eDate) : (individualGuarantorNepData.citizenIssuedDate.en), true) : '' || ''],
 
             year: [todayDate[2]],
           month: [todayDate[1]],
@@ -293,51 +293,59 @@ export class PersonalGuaranteePartnershipComponent implements OnInit {
     return regDate ? regDate : '';
    }
 
-   setIssuedDate() {
+  setIssuedDate() {
     let issuedDate = '';
     if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'DDSL Without Subsidy') {
-        const dateOfApproval = this.offerDocumentDetails.sanctionLetterDateType ? this.offerDocumentDetails.sanctionLetterDateType.en : '';
-        if (dateOfApproval === 'AD') {
-            issuedDate = this.offerDocumentDetails.sanctionLetterDate ? this.offerDocumentDetails.sanctionLetterDate.ct : '';
-        } else {
-            issuedDate = this.offerDocumentDetails.sanctionLetterDateNepali ? this.offerDocumentDetails.sanctionLetterDateNepali.ct : '';
-        }
+      const dateOfApproval = this.offerDocumentDetails.sanctionLetterDateType ? this.offerDocumentDetails.sanctionLetterDateType.en : '';
+      if (dateOfApproval === 'AD') {
+        issuedDate = this.offerDocumentDetails.sanctionLetterDate ? this.offerDocumentDetails.sanctionLetterDate.ct : '';
+      } else {
+        issuedDate = this.offerDocumentDetails.sanctionLetterDateNepali ? this.offerDocumentDetails.sanctionLetterDateNepali.ct : '';
+      }
     }
     if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Kisan Karja Subsidy') {
-        const dateOfApprovalType = this.offerDocumentDetails.dateOfApprovalType ? this.offerDocumentDetails.dateOfApprovalType.en : '';
-        if (dateOfApprovalType === 'AD') {
-            issuedDate = this.offerDocumentDetails.dateOfApproval ? this.offerDocumentDetails.dateOfApproval.ct : '';
-        } else {
-            issuedDate = this.offerDocumentDetails.dateOfApprovalNepali ? this.offerDocumentDetails.dateOfApprovalNepali.ct : '';
-        }
+      const dateOfApprovalType = this.offerDocumentDetails.dateOfApprovalType ? this.offerDocumentDetails.dateOfApprovalType.en : '';
+      if (dateOfApprovalType === 'AD') {
+        issuedDate = this.offerDocumentDetails.dateOfApproval ? this.offerDocumentDetails.dateOfApproval.ct : '';
+      } else {
+        issuedDate = this.offerDocumentDetails.dateOfApprovalNepali ? this.offerDocumentDetails.dateOfApprovalNepali.ct : '';
+      }
     }
     if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Udyamsil Karja Subsidy') {
-        issuedDate = this.offerDocumentDetails.dateOfApproval ? this.offerDocumentDetails.dateOfApproval.ct : ''
+      issuedDate = this.offerDocumentDetails.dateOfApproval ? this.offerDocumentDetails.dateOfApproval.ct : '';
     }
     if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Interest subsidy sanction letter') {
-        const dateOfApprovalType = this.offerDocumentDetails.dateOfApprovalType ? this.offerDocumentDetails.dateOfApprovalType.en : '';
-        if (dateOfApprovalType === 'AD') {
-            const templateDateApproval = this.offerDocumentDetails.dateOfApproval ? this.offerDocumentDetails.dateOfApproval.en : '';
-            issuedDate = this.englishNepaliDatePipe.transform(this.datePipe.transform(templateDateApproval), true);
-        } else {
-            const templateDateApproval = this.offerDocumentDetails.dateOfApprovalNepali ? this.offerDocumentDetails.dateOfApprovalNepali.en : '';
-            issuedDate = templateDateApproval ? templateDateApproval.nDate : '';
-        }
+      const dateOfApprovalType = this.offerDocumentDetails.dateOfApprovalType ? this.offerDocumentDetails.dateOfApprovalType.en : '';
+      if (dateOfApprovalType === 'AD') {
+        const templateDateApproval = this.offerDocumentDetails.dateOfApproval ? this.offerDocumentDetails.dateOfApproval.en : '';
+        issuedDate = this.englishNepaliDatePipe.transform(this.datePipe.transform(templateDateApproval), true);
+      } else {
+        const templateDateApproval = this.offerDocumentDetails.dateOfApprovalNepali ? this.offerDocumentDetails.dateOfApprovalNepali.en : '';
+        issuedDate = templateDateApproval ? templateDateApproval.nDate : '';
+      }
     }
     if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Class A Sanction letter') {
-        const sanctionLetterDate = this.offerDocumentDetails.sanctionLetterDateType ? this.offerDocumentDetails.sanctionLetterDateType.en : '';
-        if (sanctionLetterDate === 'AD') {
-            const templateDateSanctionDate = this.offerDocumentDetails.sanctionLetterDate ? this.offerDocumentDetails.sanctionLetterDate.en : '';
-            issuedDate = this.englishNepaliDatePipe.transform(this.datePipe.transform(templateDateSanctionDate), true);
-        } else {
-            const templateDateSanctionDate = this.offerDocumentDetails.sanctionLetterDateNepali ? this.offerDocumentDetails.sanctionLetterDateNepali.en : '';
-            issuedDate = templateDateSanctionDate ? templateDateSanctionDate.nDate : '';
-        }
+      const sanctionLetterDate = this.offerDocumentDetails.sanctionLetterDateType ? this.offerDocumentDetails.sanctionLetterDateType.en : '';
+      if (sanctionLetterDate === 'AD') {
+        const templateDateSanctionDate = this.offerDocumentDetails.sanctionLetterDate ? this.offerDocumentDetails.sanctionLetterDate.en : '';
+        issuedDate = this.englishNepaliDatePipe.transform(this.datePipe.transform(templateDateSanctionDate), true);
+      } else {
+        const templateDateSanctionDate = this.offerDocumentDetails.sanctionLetterDateNepali ? this.offerDocumentDetails.sanctionLetterDateNepali.en : '';
+        issuedDate = templateDateSanctionDate ? templateDateSanctionDate.nDate : '';
+      }
     }
     if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.offerDocumentDetails.smeGlobalForm) {
-        issuedDate = this.englishNepaliDatePipe.transform(this.offerDocumentDetails.smeGlobalForm.dateOfApprovalCT ?
-                this.offerDocumentDetails.smeGlobalForm.dateOfApprovalCT :
-                this.offerDocumentDetails.smeGlobalForm.dateOfApprovalCT, true);
+      const dateOfApprovalType = this.offerDocumentDetails.smeGlobalForm.dateOfApprovalType ?
+          this.offerDocumentDetails.smeGlobalForm.dateOfApprovalType : '';
+      if (dateOfApprovalType === 'AD') {
+        const templateDateApproval = this.offerDocumentDetails.smeGlobalForm.dateOfApproval ?
+            this.offerDocumentDetails.smeGlobalForm.dateOfApprovalCT : '';
+        issuedDate = this.englishNepaliDatePipe.transform(this.datePipe.transform(templateDateApproval), true);
+      } else {
+        const templateDateApproval = this.offerDocumentDetails.smeGlobalForm.dateOfApprovalNepali ?
+            this.offerDocumentDetails.smeGlobalForm.dateOfApprovalNepali : '';
+        issuedDate = templateDateApproval ? templateDateApproval.nDate : '';
+      }
     }
     return issuedDate ? issuedDate : '';
   }
