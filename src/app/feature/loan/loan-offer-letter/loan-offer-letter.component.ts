@@ -99,22 +99,22 @@ export class LoanOfferLetterComponent implements OnInit {
     static loadData(other: LoanOfferLetterComponent) {
         other.spinnerService.show();
         other.catalogueService.search.committee = 'true';
-        if (other.isCAD_ADMIN) {
-            // tslint:disable-next-line:max-line-length
-            other.customerOfferLetterService.getIssuedOfferLetter(other.catalogueService.search, other.page, 10).subscribe((response: any) => {
-                other.loanDataHolderList = response.detail.content;
-                other.pageable = PaginationUtils.getPageable(response.detail);
-                other.loanDataHolderList.forEach(() => other.toggleArray.push({toggled: false}));
-                other.spinner = false;
-                other.spinnerService.hide();
-
-            }, error => {
-                other.spinnerService.hide();
-                console.error(error);
-                other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loans!'));
-                other.spinner = false;
-            });
-        } else {
+        // if (other.isCAD_ADMIN) {
+        //     // tslint:disable-next-line:max-line-length
+        //     other.customerOfferLetterService.getIssuedOfferLetter(other.catalogueService.search, other.page, 10).subscribe((response: any) => {
+        //         other.loanDataHolderList = response.detail.content;
+        //         other.pageable = PaginationUtils.getPageable(response.detail);
+        //         other.loanDataHolderList.forEach(() => other.toggleArray.push({toggled: false}));
+        //         other.spinner = false;
+        //         other.spinnerService.hide();
+        //
+        //     }, error => {
+        //         other.spinnerService.hide();
+        //         console.error(error);
+        //         other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loans!'));
+        //         other.spinner = false;
+        //     });
+        // } else {
             // tslint:disable-next-line:max-line-length
             other.customerOfferLetterService.getAssignedOfferLetter(other.catalogueService.search, other.page, 10).subscribe((response: any) => {
                 other.assignedOfferLetterList = response.detail.content;
@@ -128,7 +128,7 @@ export class LoanOfferLetterComponent implements OnInit {
                 other.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loans!'));
                 other.spinner = false;
             });
-        }
+        // }
     }
 
     ngOnInit() {
@@ -147,9 +147,6 @@ export class LoanOfferLetterComponent implements OnInit {
         this.roleAccess = LocalStorageUtil.getStorage().roleAccess;
         if (LocalStorageUtil.getStorage().roleType === RoleType.MAKER) {
             this.roleType = true;
-        }
-        if (LocalStorageUtil.getStorage().roleType === RoleType.CAD_ADMIN) {
-            this.isCAD_ADMIN = true;
         }
         if (this.roleAccess === RoleAccess.SPECIFIC) {
             this.accessSpecific = true;
