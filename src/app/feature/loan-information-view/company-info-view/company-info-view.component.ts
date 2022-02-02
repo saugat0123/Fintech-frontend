@@ -33,6 +33,8 @@ export class CompanyInfoViewComponent implements OnInit {
   registeredOffice: typeof RegisteredOfficeList = RegisteredOfficeList;
   businessGiven: BusinessGiven;
   companyLocationData;
+  projectAddress;
+  correspondenceAddress;
   srdbAffiliatedId = false;
   disableCrgAlpha = environment.disableCrgAlpha;
   client = environment.client;
@@ -52,9 +54,13 @@ export class CompanyInfoViewComponent implements OnInit {
       this.businessAndIndustry = JSON.parse(this.formValue.businessAndIndustry);
       this.businessGiven = JSON.parse(this.formValue.businessGiven);
       this.companyLocationData = JSON.parse(this.formValue.companyLocations.address);
+      this.projectAddress = JSON.parse(this.formValue.companyLocations.projectAddress);
+      this.correspondenceAddress = JSON.parse(this.formValue.companyLocations.correspondenceAddress);
     }
     if (!ObjectUtil.isEmpty(this.customerInfo)) {
-      this.bankingRelation = JSON.parse(this.customerInfo.bankingRelationship);
+      if (!ObjectUtil.isEmpty(this.customerInfo.bankingRelationship)) {
+        this.bankingRelation = JSON.parse(this.customerInfo.bankingRelationship);
+      }
     }
   }
 

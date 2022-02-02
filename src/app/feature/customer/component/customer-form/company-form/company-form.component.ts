@@ -73,6 +73,8 @@ export class CompanyFormComponent implements OnInit {
     @Input() clientTypeInput: any;
 
     @ViewChild('companyLocation', {static: true}) companyLocation: CommonAddressComponent;
+    @ViewChild('companyProjectLocation', {static: true}) companyProjectLocation: CommonAddressComponent;
+    @ViewChild('companyCorrespondenceLocation', {static: true}) companyCorrespondenceLocation: CommonAddressComponent;
     @ViewChildren('shareholderKyc') shareholderKyc: QueryList<OwnerKycApplicableComponent>;
     calendarType = 'AD';
     microEnabled: boolean = environment.microLoan;
@@ -153,6 +155,8 @@ export class CompanyFormComponent implements OnInit {
     registeredOffice = RegisteredOfficeList.enumObject();
     businessGiven: BusinessGiven = new BusinessGiven();
     companyAddress;
+    companyProjectAddress;
+    companyCorrespondenceAddress;
     srdbAffiliatedId = false;
     disableCrgAlpha = environment.disableCrgAlpha;
     microCustomerType: string;
@@ -222,6 +226,12 @@ export class CompanyFormComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.companyInfo)) {
             if (FormUtils.isJson(this.companyInfo.companyLocations.address)) {
                 this.companyAddress = JSON.parse(this.companyInfo.companyLocations.address);
+            }
+            if (FormUtils.isJson(this.companyInfo.companyLocations.projectAddress)) {
+                this.companyProjectAddress = JSON.parse(this.companyInfo.companyLocations.projectAddress);
+            }
+            if (FormUtils.isJson(this.companyInfo.companyLocations.correspondenceAddress)) {
+                this.companyCorrespondenceAddress = JSON.parse(this.companyInfo.companyLocations.correspondenceAddress);
             }
         }
         this.buildForm();
@@ -431,6 +441,12 @@ export class CompanyFormComponent implements OnInit {
                 || ObjectUtil.isEmpty(this.companyInfo.legalStatus)
                 || ObjectUtil.isEmpty(this.companyInfo.legalStatus.registrationExpiryDate)) ? undefined :
                 new Date(this.companyInfo.legalStatus.registrationExpiryDate)],
+            registrationDistrict: [(ObjectUtil.isEmpty(this.companyInfo)
+                || ObjectUtil.isEmpty(this.companyInfo.legalStatus)) ? undefined :
+                this.companyInfo.legalStatus.registrationDistrict],
+            udhyogBibag: [(ObjectUtil.isEmpty(this.companyInfo)
+                || ObjectUtil.isEmpty(this.companyInfo.legalStatus)) ? undefined :
+                this.companyInfo.legalStatus.udhyogBibhag],
             // capital
             authorizedCapital: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.capital)) ? undefined :
@@ -935,9 +951,12 @@ export class CompanyFormComponent implements OnInit {
         }
 
         this.companyLocation.onSubmit();
+        this.companyProjectLocation.onSubmit();
+        this.companyCorrespondenceLocation.onSubmit();
         if (this.companyInfoFormGroup.invalid ||
             ((this.disableCrgAlpha || this.microCustomer) ? false : this.bankingRelationComponent.bankingRelationForm.invalid)
-            || this.companyLocation.addressForm.invalid) {
+            || this.companyLocation.addressForm.invalid || this.companyProjectLocation.addressForm.invalid
+            || this.companyCorrespondenceLocation.addressForm.invalid) {
             this.spinner = false;
             this.toastService.show(new Alert(AlertType.WARNING, 'Check Validation'));
             this.scrollToFirstInvalidControl();
@@ -979,6 +998,8 @@ export class CompanyFormComponent implements OnInit {
         this.legalStatus.vatRegistrationDate = this.companyInfoFormGroup.get('vatRegistrationDate').value;
         this.legalStatus.panRegistrationDate = this.companyInfoFormGroup.get('panRegistrationDate').value;
         this.legalStatus.registrationExpiryDate = this.companyInfoFormGroup.get('registrationExpiryDate').value;
+        this.legalStatus.registrationDistrict = this.companyInfoFormGroup.get('registrationDistrict').value;
+        this.legalStatus.udhyogBibhag = this.companyInfoFormGroup.get('udhyogBibag').value;
         this.legalStatus.regIssuedPlace = this.companyInfoFormGroup.get('regIssuedPlace').value;
         this.companyInfo.legalStatus = this.legalStatus;
         // capital
@@ -1012,6 +1033,8 @@ export class CompanyFormComponent implements OnInit {
         this.locations.id = this.companyInfoFormGroup.get('locationId').value;
         this.locations.version = this.companyInfoFormGroup.get('locationVersion').value;
         this.locations.address = JSON.stringify(this.companyLocation.submitData);
+        this.locations.projectAddress = JSON.stringify(this.companyProjectLocation.submitData);
+        this.locations.correspondenceAddress = JSON.stringify(this.companyCorrespondenceLocation.submitData);
         this.locations.houseNumber = this.companyInfoFormGroup.get('houseNumber').value;
         this.locations.streetName = this.companyInfoFormGroup.get('streetName').value;
         this.companyInfo.companyLocations = this.locations;

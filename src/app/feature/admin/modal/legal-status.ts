@@ -16,4 +16,6 @@ export class LegalStatus {
     regIssuedPlace: string;
     vatRegistrationOffice: string;
     vatRegistrationDate: Date;
+    registrationDistrict: string;
+    udhyogBibhag: string;
 }

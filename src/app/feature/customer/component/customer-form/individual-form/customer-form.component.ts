@@ -155,7 +155,6 @@ bankingRelationshipList = BankingRelationship.enumObject();
             this.addAccountNumber();
             this.createRelativesArray();
         }
-         this.sameAddress = this.customer.sameAddress;
     }
 
     onCloseCreateCustomer() {
