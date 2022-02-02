@@ -40,7 +40,8 @@ export class EquityMortgagedOverdraftComponent implements OnInit {
                 private engToNepNumberPipe: EngToNepaliNumberPipe,
                 private currencyFormatterPipe: CurrencyFormatterPipe,
                 private engToNepDatePipe: EngNepDatePipe,
-                private datePipe: DatePipe) {
+                private datePipe: DatePipe,
+                private engToNepWord: NepaliCurrencyWordPipe) {
     }
 
     ngOnInit() {
@@ -58,6 +59,24 @@ export class EquityMortgagedOverdraftComponent implements OnInit {
                 this.equityMortgaged.patchValue(this.initialInformation.equityMortgaged);
             }
             this.patchDate();
+        }
+        if (!ObjectUtil.isEmpty(this.filteredList)) {
+            for (let val = 0; val < this.filteredList.length; val++) {
+                const loanamountWords = this.engToNepWord.transform(this.filteredList[val].loanAmount);
+                this.equityMortgaged.get(['equityMortgagedFormArray', val, 'loanAmount']).patchValue(
+                    this.filteredList[val] ? this.filteredList[val].loanAmount : '');
+                this.equityMortgaged.get(['equityMortgagedFormArray', val, 'loanAmountWords']).patchValue(
+                    loanamountWords ? loanamountWords : '');
+            }
+        }
+        if (!ObjectUtil.isEmpty(this.filteredListMortgage)) {
+            for (let val = 0; val < this.filteredListMortgage.length; val++) {
+                const loanamountWords = this.engToNepWord.transform(this.filteredListMortgage[val].loanAmount);
+                this.equityMortgaged.get(['mortgageOverdraftFormArray', val, 'loanAmount']).patchValue(
+                    this.filteredListMortgage[val] ? this.filteredListMortgage[val].loanAmount : '');
+                this.equityMortgaged.get(['mortgageOverdraftFormArray', val, 'loanAmountWords']).patchValue(
+                    loanamountWords ? loanamountWords : '');
+            }
         }
     }
     patchDate() {
