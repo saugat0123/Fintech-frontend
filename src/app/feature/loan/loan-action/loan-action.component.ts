@@ -77,7 +77,7 @@ export class LoanActionComponent implements OnInit, OnChanges {
             this.isMaker = true;
         }
 
-        if (roleName.toLowerCase() === 'cad' || roleType === RoleType.MAKER) {
+        if (roleName.toLowerCase() === 'csu' || roleType === RoleType.MAKER) {
             this.showCadDocumentRoute = true;
         }
         this.committeeRole = roleType === RoleType.COMMITTEE;

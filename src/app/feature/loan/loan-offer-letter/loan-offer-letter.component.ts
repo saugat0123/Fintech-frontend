@@ -138,7 +138,7 @@ export class LoanOfferLetterComponent implements OnInit {
             });
 
         this.getUserListForFilter();
-        if (LocalStorageUtil.getStorage().roleName === 'CAD') {
+        if (LocalStorageUtil.getStorage().roleName === 'CSU') {
             this.roleName = true;
         }
         this.buildFilterForm();

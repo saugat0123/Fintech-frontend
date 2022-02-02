@@ -46,7 +46,7 @@ export class FilterComponent implements OnInit {
 
         this.buildFilterForm();
         this.userService.getLoggedInUser().subscribe(res => {
-            if (res.detail.role.roleType === RoleType.CAD_ADMIN || res.detail.role.roleType === RoleType.CAD_SUPERVISOR) {
+            if (res.detail.role.roleType === RoleType.CAD_SUPERVISOR) {
                 this.showPossessionUnder = true;
                 this.getCadRoleList();
             }

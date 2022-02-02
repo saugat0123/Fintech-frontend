@@ -121,7 +121,7 @@ export class OfferLetterActionComponent implements OnInit {
                     this.isApprovedDisabled = false;
                 }
 
-                if (roleName === 'CAD') {
+                if (roleName === 'CSU') {
                     this.isForwardDisabled = true;
                     this.isApprovedDisabled = false;
                 }

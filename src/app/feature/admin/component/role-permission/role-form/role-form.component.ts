@@ -89,7 +89,7 @@ export class RoleFormComponent implements OnInit {
             this.role.roleAccess = RoleAccess.OWN;
         }
 
-        if (this.role.roleType === RoleType.CAD_SUPERVISOR || this.role.roleType === RoleType.CAD_ADMIN || this.role.roleType === RoleType.CAD_LEGAL) {
+        if (this.role.roleType === RoleType.CAD_SUPERVISOR || this.role.roleType === RoleType.CAD_LEGAL) {
             this.showAuthority = false;
         }
     }
