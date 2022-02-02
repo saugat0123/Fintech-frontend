@@ -924,94 +924,6 @@
 <!--                </div>-->
 <!--            </ng-template>-->
 
-
-            <div class="row" *ngIf="loanCategory === 'INDIVIDUAL' && isJointInfo">
-                <div class="col-md-12">
-                    <p><strong>Details of Borrower</strong></p>
-                </div>
-
-            </div>
-            <div *ngIf="loanDataHolder?.dmsLoanFile !== null" class="row">
-                <div class="col-md-12">
-                    <p><strong>Detail of Present Proposal of the Facility</strong></p>
-                    <table class="table table-bordered text-center table-sm sb-small">
-                        <tbody>
-                        <tr>
-                            <th>Credit Facility</th>
-                            <td>{{loanDataHolder?.loan?.name}}</td>
-
-                            <th>Loan Category</th>
-                            <td>{{loanDataHolder?.loanCategory === 'INDIVIDUAL' ? 'PERSONAL'
-                                : 'BUSINESS'}}</td>
-
-                            <th>Proposed Limit</th>
-                            <td>{{dmsLoanFile?.proposedAmount
-                            || loanDataHolder?.proposal?.proposedLimit | currencyFormatter}}</td>
-
-                            <th>Interest Rate</th>
-                            <td>{{dmsLoanFile?.interestRate || loanDataHolder?.proposal?.interestRate}} %</td>
-
-                            <th>Tenure Duration In Month</th>
-                            <td>{{(dmsLoanFile?.tenureDuration
-                                || loanDataHolder?.proposal?.tenureDurationInMonths)}}</td>
-
-                        </tr>
-                        <tr>
-                            <th>Loan Administration Fee</th>
-                            <td>{{dmsLoanFile?.serviceChargeType === 'Flat' ? ' NRs. ' : ''}}
-                                {{dmsLoanFile?.serviceChargeAmount || loanDataHolder?.proposal?.serviceCharge}}
-                                {{dmsLoanFile?.serviceChargeType === 'Percentage' ? ' %' : ''}}
-                            </td>
-
-                            <th>FMV Funding Percentage</th>
-                            <td>{{dmsLoanFile?.fmvFundingPercent}} %</td>
-
-                            <th>Total FMV</th>
-                            <td>{{dmsLoanFile?.fmvTotal | currencyFormatter}}</td>
-
-                            <th>Total DV</th>
-                            <td>{{dmsLoanFile?.distressValue | currencyFormatter}}</td>
-
-                            <th>Total Loan Limit</th>
-                            <td>{{dmsLoanFile?.totalLoanLimit | currencyFormatter}}</td>
-                        </tr>
-                        <tr>
-                            <th *ngIf="loanDataHolder.loanCategory === 'INDIVIDUAL'">Individual Exposure</th>
-                            <td *ngIf="loanDataHolder.loanCategory === 'INDIVIDUAL'">{{dmsLoanFile?.individualExposure | currencyFormatter}}</td>
-
-                            <th *ngIf="loanDataHolder.loanCategory === 'INSTITUTION'">Institution Exposure</th>
-                            <td *ngIf="loanDataHolder.loanCategory === 'INSTITUTION'">{{dmsLoanFile?.institutionExposure | currencyFormatter}}</td>
-
-                            <th>Group Exposure</th>
-                            <td>{{dmsLoanFile?.groupExpo | currencyFormatter}}</td>
-
-                            <th *ngIf="loanDataHolder.loanCategory === 'INDIVIDUAL'">Interest Coverage Ratio
-                            </th>
-                            <td *ngIf="loanDataHolder.loanCategory === 'INDIVIDUAL'">{{dmsLoanFile?.incomeCoverageRatio}}</td>
-
-                            <th *ngIf="loanDataHolder.loanCategory === 'INSTITUTION'">Debt Service Coverage
-                                Ratio
-                            </th>
-                            <td *ngIf="loanDataHolder.loanCategory === 'INSTITUTION'">{{dmsLoanFile?.debtServiceCoverageRatio}}</td>
-
-                            <th *ngIf="loanDataHolder.loanCategory === 'INSTITUTION'">Dealing Product Name</th>
-                            <td *ngIf="loanDataHolder.loanCategory === 'INSTITUTION'">{{dmsLoanFile?.dealingProductName}}</td>
-                        </tr>
-                        <tr>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div *ngIf="loanDataHolder?.dmsLoanFile !== null" class="row mt-3">
-                <div class="col-md-12">
-                    <p><strong>Security Offered</strong></p>
-                    <p><label *ngFor="let security of securities; let i = index">{{i + 1}}
-                        . {{Security[security]}}&nbsp;&nbsp;</label>
-                    </p>
-                </div>
-            </div>
-
             <!--<div class="row mt-3">
                 <div class="col-md-6">
                     <p style="font-size: 15px"><strong>Service Charge Type</strong></p>
@@ -1034,25 +946,6 @@
                     </table>
                 </div>
             </div>-->
-
-
-            <div *ngIf="loanDataHolder?.dmsLoanFile !== null" class="row mt-3">
-                <div class="col-md-12">
-                    <p><strong>Recommendation and Conclusion</strong></p>
-                    <p class="border text-justify p-1">
-                        {{dmsLoanFile?.recommendationConclusion}}
-                    </p>
-                </div>
-            </div>
-
-            <div *ngIf="loanDataHolder?.dmsLoanFile !== null" class="row mt-3">
-                <div class="col-md-12">
-                    <p><strong>Waiver</strong></p>
-                    <p class="border text-justify p-1">
-                        {{dmsLoanFile?.waiver}}
-                    </p>
-                </div>
-            </div>
             <div *ngIf="loanDataHolder?.customerInfo?.withinLimitRemarks">
                 <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                     <tr class="sb-bg-dark text-white">

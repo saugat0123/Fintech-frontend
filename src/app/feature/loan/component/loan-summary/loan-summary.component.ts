@@ -8,7 +8,6 @@ import {ActivatedRoute, NavigationEnd, Router} from '@angular/router';
 import {LoanFormService} from '../loan-form/service/loan-form.service';
 import {DmsLoanService} from '../loan-main-template/dms-loan-file/dms-loan-service';
 import {LoanConfigService} from '../../../admin/component/loan-config/loan-config.service';
-import {DmsLoanFile} from '../../../admin/modal/dms-loan-file';
 import {ApiConfig} from '../../../../@core/utils/api/ApiConfig';
 import {LoanActionService} from '../../loan-action/service/loan-action.service';
 import {ApprovalLimitService} from '../../../admin/component/approvallimit/approval-limit.service';
@@ -70,7 +69,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
 
     docMsg;
     rootDocLength;
-    dmsLoanFile: DmsLoanFile = new DmsLoanFile();
     loan: string;
     index = 0;
     currentIndex: number;
@@ -473,37 +471,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         this.previousList = this.loanDataHolder.previousList;
         this.currentDocAction = this.loanDataHolder.currentStage.docAction.toString();
         this.id = this.loanDataHolder.id;
-        this.dmsLoanFile = this.loanDataHolder.dmsLoanFile;
-        if (this.dmsLoanFile !== undefined && this.dmsLoanFile !== null) {
-            this.securities = this.dmsLoanFile.securities;
-            this.documents = JSON.parse(this.dmsLoanFile.documentPath);
-            if (this.documents !== null) {
-                this.documentNames = [];
-                this.documentUrls = [];
-                for (this.document of this.documents) {
-                    this.documentNamesSplit = this.document.split(':');
-                    if (!this.documentNames.includes(this.documentNamesSplit[0])) {
-                        this.documentNames.push(this.documentNamesSplit[0]);
-                        this.documentUrls.push(this.documentNamesSplit[1]);
-                    }
-                }
-
-                if (LoanType[this.loanDataHolder.loanType] === LoanType.NEW_LOAN) {
-                    this.rootDocLength = this.loanDataHolder.loan.initial.length;
-                }
-                if (LoanType[this.loanDataHolder.loanType] === LoanType.RENEWED_LOAN) {
-                    this.rootDocLength = this.loanDataHolder.loan.renew.length;
-                }
-
-                if (LoanType[this.loanDataHolder.loanType] === LoanType.CLOSURE_LOAN) {
-                    this.rootDocLength = this.loanDataHolder.loan.closure.length;
-                }
-
-                const filledDocLength = this.documentNames.length;
-                this.docMsg = filledDocLength + ' out of ' + this.rootDocLength + ' document has been uploaded';
-            }
-        }
-
         // Offer Letter Documents
         if (this.loanDataHolder.customerOfferLetter && this.loanDataHolder.customerOfferLetter.customerOfferLetterPath) {
             this.loanDataHolder.customerOfferLetter.customerOfferLetterPath.forEach(offerLetterPath => {
