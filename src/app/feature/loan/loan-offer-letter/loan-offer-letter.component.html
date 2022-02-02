@@ -69,17 +69,17 @@
                         </select>
                     </div>
 
-                    <div class="col-md-3" *ngIf="isCAD_ADMIN">
-                        <select class="custom-select" (change)="selectedAssign($event.target)"
-                                formControlName="postApprovalAssignStatus">
-                            <option [value]="null" selected hidden>Select Assigned Type</option>
-                            <option [value]="null">All Types</option>
-                            <option [value]="'ASSIGNED'">Assigned Document
-                            </option>
-                            <option [value]="'NOT_ASSIGNED'">Not Assigned Document
-                            </option>
-                        </select>
-                    </div>
+<!--                    <div class="col-md-3" *ngIf="isCAD_ADMIN">-->
+<!--                        <select class="custom-select" (change)="selectedAssign($event.target)"-->
+<!--                                formControlName="postApprovalAssignStatus">-->
+<!--                            <option [value]="null" selected hidden>Select Assigned Type</option>-->
+<!--                            <option [value]="null">All Types</option>-->
+<!--                            <option [value]="'ASSIGNED'">Assigned Document-->
+<!--                            </option>-->
+<!--                            <option [value]="'NOT_ASSIGNED'">Not Assigned Document-->
+<!--                            </option>-->
+<!--                        </select>-->
+<!--                    </div>-->
 
                     <div class="col-md-3 mb-3" *ngIf="isCAD_ADMIN && isAssignSelected">
 

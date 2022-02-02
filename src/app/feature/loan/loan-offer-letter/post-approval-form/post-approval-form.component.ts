@@ -121,9 +121,6 @@ export class PostApprovalFormComponent implements OnInit {
         if (LocalStorageUtil.getStorage().roleType === RoleType.MAKER) {
             this.roleType = true;
         }
-        if (LocalStorageUtil.getStorage().roleType === RoleType.CAD_ADMIN) {
-            this.isCAD_ADMIN = true;
-        }
         if (this.roleAccess === RoleAccess.SPECIFIC) {
             this.accessSpecific = true;
         } else if (this.roleAccess === RoleAccess.ALL) {
