@@ -72,6 +72,7 @@ export class DdslWithoutSubsidyPrintComponent implements OnInit {
     securityDetails: any;
     tempLandBuilding;
     securityTypeCondition = false;
+    securityTypeHypothecation = false;
     securityTypeConditionFixedAssests = false;
     securityTypeConditionStock = false;
     securityTypeConditionAssestsPlants = false;
@@ -87,7 +88,7 @@ export class DdslWithoutSubsidyPrintComponent implements OnInit {
     kittaNumbers: Array < any > = new Array < any > ();
     plotNumber;
     guarantorAmount;
-    guarantorAmountWords
+    guarantorAmountWords;
 
     constructor(public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
         public engToNepNumberPipe: EngToNepaliNumberPipe,
@@ -98,7 +99,6 @@ export class DdslWithoutSubsidyPrintComponent implements OnInit {
     ngOnInit() {
         // this.selectedSecurity = this.security;
         // this.loanLimitVal = this.loanLimit;
-        
         this.guarantorData = this.cadOfferLetterApprovedDoc.assignedLoan[0].taggedGuarantors;
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc)) {
             this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
@@ -257,6 +257,9 @@ export class DdslWithoutSubsidyPrintComponent implements OnInit {
         }
         if (this.securityDetails.primarySecurity.some(s => s.securityTypeCT === 'FIXED_ASSETS')) {
             this.securityTypeConditionFixedAssests = true;
+        }
+        if (this.securityDetails.primarySecurity.some(s => s.securityTypeCT === 'HYPOTHECATION')) {
+            this.securityTypeHypothecation = true;
         }
         if (this.securityDetails.primarySecurity.some(s => s.securityTypeCT === 'STOCK')) {
             this.securityTypeConditionStock = true;
