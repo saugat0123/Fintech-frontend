@@ -30,7 +30,7 @@
                     </div>
                 </div>
 
-                <div class="row" *ngIf="this.commonPrimarySecurity.get(['securityDetails', i,'securityType']).value != securityType[0]?.key && this.commonPrimarySecurity.get(['securityDetails', i,'securityType']).value != securityType[1]?.key">
+                <div class="row" *ngIf="this.commonPrimarySecurity.get(['securityDetails', i,'securityType']).value != securityType[0]?.key && this.commonPrimarySecurity.get(['securityDetails', i,'securityType']).value != securityType[1]?.key && this.commonPrimarySecurity.get(['securityDetails', i,'securityType']).value != securityType[2]?.key">
                     <div class="form-group col-md-4">
                         <label for="marginInPercentage">Margin In Percentage (%)</label>
                         <input (input)="translateSecurityNumber('securityDetails', 'marginInPercentage', i, 'marginInPercentageTrans')"
@@ -51,6 +51,30 @@
                                nbInput status="success" type="text">
                     </div>
                 </div>
+                <!-- FOR HYPOTHECATION SECTION -->
+                <div *ngIf="this.commonPrimarySecurity.get(['securityDetails', i,'securityType']).value === securityType[2]?.key">
+                    <div class="row">
+                        <div class="col-md-4 mb-2">
+                            <label><strong> Hypothecation Purpose </strong></label>
+                            <nb-select
+                                    (selectedChange)="setDefaultCTAndTransVal('hypothecationPurpose', false, 'securityDetails', i)"
+                                    formControlName="hypothecationPurpose"
+                                    fullWidth
+                                    placeholder="Hypothecation Purpose">
+                                <nb-option *ngFor="let hypo of hypoContents"
+                                           [value]="hypo.value"> {{hypo.value}}</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 m-2" *ngIf="this.commonPrimarySecurity.get(['securityDetails', i,'securityType']).value === securityType[2]?.key">
+                    <nb-checkbox #insuranceRequired
+                                 (checkedChange)="checkInsuranceRequired(insuranceRequired.checked, i)"
+                                 [checked]="formControls.securityDetails[i]?.insuranceRequired.value"
+                                 formControlName="insuranceRequired">
+                        <i> Insurance Required </i></nb-checkbox>
+                </div>
+
                 <div *ngIf="this.commonPrimarySecurity.get(['securityDetails', i,'securityType']).value === securityType[0]?.key || this.commonPrimarySecurity.get(['securityDetails', i,'securityType']).value === securityType[1]?.key">
                     <div class="row">
                             <div class="form-group col-md-4">
@@ -98,7 +122,6 @@
                                        type="text">
                             </div>
                         </div>
-
                     <div class="row">
                         <div class="form-group col-md-4">
                             <label for="securityOwnersName">Land Owner Name</label>

@@ -21,6 +21,7 @@ export class CommonSecuritySectionPrimaryComponent implements OnInit {
   allDistrictList = [];
   provinceList = [];
   municipalityListForSecurities = [];
+  hypoContents = [{value: 'For Trading Unit'}, {value: 'For Manufacturing Case'}];
   securityType = [{key: 'LAND', value: 'Land'},
     {key: 'LAND_AND_BUILDING', value: 'Land And Building'},
     {key: 'HYPOTHECATION', value: 'Hypothecation'},
@@ -85,6 +86,9 @@ export class CommonSecuritySectionPrimaryComponent implements OnInit {
 
   setSecurityDetailsArr() {
     return this.formBuilder.group({
+      hypothecationPurpose: [undefined],
+      hypothecationPurposeTrans: [undefined],
+      hypothecationPurposeCT: [undefined],
       securityType: [undefined],
       securityTypeTrans: [undefined],
       securityTypeCT: [undefined],
