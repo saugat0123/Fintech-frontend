@@ -22,6 +22,7 @@ import {CustomerType} from '../../../../customer/model/customerType';
 import {loanNature} from 'src/app/feature/admin/modal/loanNature';
 import {financedAssets} from 'src/app/feature/admin/modal/financedAssets';
 import {environment} from '../../../../../../environments/environment';
+import {ValidationForm} from '../enums/validation-form';
 
 
 @Component({
@@ -69,6 +70,9 @@ export class UIComponent implements OnInit, DoCheck {
     formLabel: string;
     enableMicro = environment.microLoan;
     form: FormGroup;
+    loanValOption = ['YES', 'NO'];
+    selectedLoanValidation: string = this.loanValOption[0];
+    validationOptions = ValidationForm.enumObject();
 
     @ViewChild('loanConfigForm', {static: true}) loanConfigForm: NgForm;
     finalRenewWithEnhancementDocument = Array<Document>();
@@ -109,6 +113,7 @@ export class UIComponent implements OnInit, DoCheck {
                 other.service.detail(other.id).subscribe((res: any) => {
                     other.loanConfig = res.detail;
                     other.selectedLoanTag = other.loanConfig.loanTag;
+                    other.selectedLoanValidation = other.loanConfig.validationForm;
                     other.selectedOfferLetterIdList = new Array<number>();
                     other.loanConfig.offerLetters.forEach(selectedOfferLetter => {
                         other.selectedOfferLetterIdList.push(selectedOfferLetter.id);
@@ -413,6 +418,7 @@ export class UIComponent implements OnInit, DoCheck {
         this.loanConfig.offerLetters = this.selectedOfferLetterList;
         this.loanConfig.loanCategory = this.selectedLoanCategory;
         this.loanConfig.loanTag = this.selectedLoanTag;
+        this.loanConfig.validationForm = this.selectedLoanValidation;
 
         this.service.save(this.loanConfig).subscribe(() => {
                 if (this.loanConfig.id == null) {

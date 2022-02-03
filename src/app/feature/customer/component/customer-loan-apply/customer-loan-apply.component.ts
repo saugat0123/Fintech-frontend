@@ -15,6 +15,10 @@ import {CustomerType} from '../../model/customerType';
 import {LoanConfig} from '../../../admin/modal/loan-config';
 import {CustomerInfoService} from '../../service/customer-info.service';
 import {LoanTag} from '../../../loan/model/loanTag';
+import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
+import * as CryptoJS from 'crypto-js';
+import {NgxSpinnerService} from 'ngx-spinner';
+import {ValidationForm} from '../../../admin/component/loan-config/enums/validation-form';
 
 @Component({
   selector: 'app-customer-loan-apply',
@@ -56,7 +60,8 @@ export class CustomerLoanApplyComponent implements OnInit {
       private customerLoanService: LoanFormService,
       private combinedLoanService: CombinedLoanService,
       private toastService: ToastService,
-      private customerInfoService: CustomerInfoService
+      private customerInfoService: CustomerInfoService,
+      private spinnerService: NgxSpinnerService
   ) {
   }
 
@@ -88,6 +93,25 @@ export class CustomerLoanApplyComponent implements OnInit {
         this.existingCombinedLoan.version = loan.combinedLoan.version;
       }
     });
+  }
+
+  encryptUrl(id, key: String) {
+    const i = CryptoJS.AES.encrypt(id.toString(), key).toString();
+    /*const test = CryptoJS.AES.decrypt(i.toString(), 'id').toString(CryptoJS.enc.Utf8);
+    console.log('Decrypted Value of the Token', test);*/
+    return i;
+  }
+
+  getATStorage() {
+    const storage = LocalStorageUtil.getStorage();
+    return storage.at;
+  }
+
+  removeSpecialCharacters(data) {
+    // Replaced Text
+    const cipherText = data.replace(/\+/g, 'pl1U2ops').replace(/\//g, 's1L2a3S4h').replace(/=/g, 'e1Q2u3A4l');
+    console.log(cipherText);
+    return cipherText;
   }
 
   openLoanForm(isCombined: boolean, removeFromCombined = false) {
@@ -122,8 +146,22 @@ export class CustomerLoanApplyComponent implements OnInit {
       });
     } else {
       this.activeModal.dismiss();
+      this.spinnerService.show();
       this.loanConfigService.detail(this.applyForm.loanId).subscribe(res => {
         const loanConfig: LoanConfig = res.detail;
+        console.log(ValidationForm.keysEnum(ValidationForm.HOME_LOAN_VALIDATION));
+        if (loanConfig.validationForm === ValidationForm.keysEnum(ValidationForm.HOME_LOAN_VALIDATION)) {
+          console.log('Actual Access Token ', this.getATStorage());
+          const encryptAt = this.encryptUrl(this.getATStorage(), 'at');
+          const encryptId = this.encryptUrl(this.customerInfo.id, 'id');
+          const encryptLoanId = this.removeSpecialCharacters(this.encryptUrl(loanConfig.id, 'loanConfigId'));
+          const finalEncryptedAt = this.removeSpecialCharacters(encryptAt);
+          const finalEncryptedId = this.removeSpecialCharacters(encryptId);
+          window.location.href = `http://localhost:4200/#/home/preprocess/${finalEncryptedId}/${finalEncryptedAt}/${encryptLoanId}
+                      ?loanType=${this.selectedLoanType}&customerType=${this.paramProp.customerType}&customerProfileId=${this.associateId}&loanCategory=${this.customerType} `;
+          this.spinnerService.hide();
+          return;
+        }
         if (ObjectUtil.isEmpty(loanConfig.loanTag)) {
           this.toastService.show(new Alert(AlertType.INFO, 'Configure Loan Tag From Loan Configuration'));
           return;
@@ -173,6 +211,7 @@ export class CustomerLoanApplyComponent implements OnInit {
   }
 
   routeToLoanForm() {
+    console.log('This is the loan Selected type::: ', this.selectedLoanType);
     this.router.navigate(['/home/loan/loanForm'], {
       queryParams: {
         loanId: this.applyForm.loanId,

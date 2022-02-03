@@ -25,6 +25,7 @@ export class ProposalComponent implements OnInit {
   @Input() formValue: Proposal;
   @Input() loanIds;
   @Input() loanType;
+  @Input() preProcessDetails;
   proposalForm: FormGroup;
   proposalData: Proposal = new Proposal();
   formDataForEdit: Object;
@@ -238,6 +239,7 @@ export class ProposalComponent implements OnInit {
       settlementAmount: [undefined],
       groupExposure: this.formBuilder.array([]),
     });
+    this.checkProceedDetails();
   }
 
   setValidatorForPrepaymentField () {
@@ -636,6 +638,18 @@ export class ProposalComponent implements OnInit {
         }));
       });
     }
+  }
+
+  checkProceedDetails() {
+    if (!ObjectUtil.isEmpty(this.preProcessDetails.data)) {
+      const parsedDetails = JSON.parse(this.preProcessDetails.data);
+      this.setProceedDetails(parsedDetails);
+    }
+  }
+
+  setProceedDetails(details) {
+    this.proposalForm.get('moratoriumPeriod').patchValue(details.moratoriumPeriod);
+    this.proposalForm.get('proposedLimit').patchValue(details.loanAmount);
   }
 
   removeGroupExposureData(index: number) {

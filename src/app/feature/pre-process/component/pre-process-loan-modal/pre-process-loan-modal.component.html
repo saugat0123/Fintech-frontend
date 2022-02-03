@@ -1,0 +1,98 @@
+<nb-card accent="primary" [nbSpinner]="spinner">
+    <nb-card-header>
+        <strong>Loan Details</strong>
+        <a (click)="close()" aria-label="Close" class="close cursor pull-right"
+           data-dismiss="modal">
+            <span aria-hidden="true">×</span></a>
+    </nb-card-header>
+    <nb-card-body>
+        <div class="row ">
+            <div class="col-md-12 text-center">
+                <h3> Home Loan Details </h3>
+            </div>
+        </div>
+        <hr class="mb-5">
+        <div class="row m-2">
+            <div class="col-md-4 mb-5">
+                <span class="font-weight-bold customFont">Purpose : </span>
+                <span class="customFont"> {{ parsedData?.purposeOfLoan}} </span>
+            </div>
+            <div class="col-md-4 mb-5">
+                <span class="font-weight-bold customFont">Customer Segments : </span>
+                <span class="customFont"> {{ parsedData?.customerSegment | replace:'_':' '}} </span>
+            </div>
+            <div class="col-md-4 mb-5">
+                <span class="font-weight-bold customFont">Date Of Birth : </span>
+                <span class="customFont"> {{ parsedData?.dob | date}} </span>
+            </div>
+            <div class="col-md-4 mb-5">
+                <span class="font-weight-bold customFont">Nationality : </span>
+                <span class="customFont"> {{ parsedData?.nationality}} </span>
+            </div>
+            <div class="col-md-4 mb-5">
+                <span class="font-weight-bold customFont">Loan Amount : </span>
+                <span class="customFont"> {{ parsedData?.loanAmount}} </span>
+            </div>
+            <div class="col-md-4 mb-5">
+                <span class="font-weight-bold customFont">Debt Burden Ratio (DBR) : </span>
+                <span class="customFont"> {{ parsedData?.debtBurdenRatio}} </span>
+            </div>
+            <div class="col-md-4 mb-5">
+                <span class="font-weight-bold customFont">Term : </span>
+                <span class="customFont"> {{ parsedData?.loanTerm}} </span>
+            </div>
+            <div class="col-md-4 mb-5">
+                <span class="font-weight-bold customFont">Interst Rate: </span>
+                <span class="customFont"> {{ parsedData?.interestRate}} </span>
+            </div>
+            <div class="col-md-4 mb-5">
+                <span class="font-weight-bold customFont">Fee / Charges : </span>
+                <span class="customFont"> {{ parsedData?.feeCharges}} </span>
+            </div>
+            <div class="col-md-4 mb-5">
+                <span class="font-weight-bold customFont">Pre-Payment : </span>
+                <span class="customFont"> {{ parsedData?.feeCharges}} </span>
+            </div>
+            <div class="col-md-4 mb-5">
+                <span class="font-weight-bold customFont">Moratorium Period : </span>
+                <span class="customFont"> {{ parsedData?.moratoriumPeriod}} </span>
+            </div>
+
+            <div class="col-md-4 mb-5">
+                <span class="font-weight-bold customFont">Loan To Value: </span>
+                <span class="customFont"> {{ parsedData?.loanToValue}} </span>
+            </div>
+
+            <div class="col-md-4 mb-5">
+                <span class="font-weight-bold customFont">Selected Security: </span>
+                <span class="customFont"> {{ parsedData?.selectedSecurity}} </span>
+            </div>
+
+            <div class="col-md-4 mb-5">
+                <span class="font-weight-bold customFont">FMV: </span>
+                <span class="customFont"> {{ parsedData?.fmv}} </span>
+            </div>
+
+            <div class="col-md-4 mb-5">
+                <span class="font-weight-bold customFont">Thaili Amount: </span>
+                <span class="customFont"> {{ parsedData?.thailiAmount}} </span>
+            </div>
+
+            <div class="col-md-4 mb-5">
+                <span class="font-weight-bold customFont">Total Elapsed Time: </span>
+                <span class="customFont"> {{ parsedData?.totalElapsedTime}} </span>
+            </div>
+
+            <div class="col-md-4 mb-5">
+                <span class="font-weight-bold customFont">Select Insurance: </span>
+                <span class="customFont"> {{ parsedData?.selectedInsurance | replace:'_':' '}} </span>
+            </div>
+        </div>
+    </nb-card-body>
+    <nb-card-footer>
+        <div class="col-md-12 text-right">
+            <button nbButton status="info" class="mr-1" (click)="redirectPage()"> Edit </button>
+            <button nbButton status="primary" (click)="submit()"> Save & Proceed</button>
+        </div>
+    </nb-card-footer>
+</nb-card>

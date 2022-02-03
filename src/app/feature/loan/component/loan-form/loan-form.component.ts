@@ -59,6 +59,8 @@ import {environment} from '../../../../../environments/environment';
 import {MicroProposalComponent} from '../../../micro-loan/form-component/micro-proposal/micro-proposal.component';
 import {CrgMicroComponent} from '../../../loan-information-template/crg-micro/crg-micro.component';
 import {MicroCustomerType} from '../../../../@core/model/enum/micro-customer-type';
+import {PreProcessModel} from '../../../pre-process/model/preProcess.model';
+import {PreProcessService} from '../../../pre-process/service/pre-process.service';
 
 @Component({
   selector: 'app-loan-form',
@@ -135,6 +137,8 @@ export class LoanFormComponent implements OnInit {
 
   showDocStatusDropDown = true;
   isBlackListed = false;
+  preProccessId;
+  preProcess: PreProcessModel = new PreProcessModel();
 
   @ViewChild('priorityFormNav', {static: false})
   priorityFormNav: ElementRef;
@@ -207,6 +211,7 @@ export class LoanFormComponent implements OnInit {
   loanTypeKeyValue = LoanType;
   loanType;
   nbSpinner = false;
+  preDetails: any;
 
   constructor(
       private loanDataService: LoanDataService,
@@ -227,7 +232,8 @@ export class LoanFormComponent implements OnInit {
       private customerInfoService: CustomerInfoService,
       private companyInfoService: CompanyInfoService,
       private commonRoutingUtilsService: CommonRoutingUtilsService,
-      protected riskQuestionService: RiskGradingService
+      protected riskQuestionService: RiskGradingService,
+      protected preProcessService: PreProcessService,
   ) {
   }
 
@@ -246,7 +252,8 @@ export class LoanFormComponent implements OnInit {
             customerProfileId: null,  // CustomerInfo->associateId
             customerType: null,
             customerInfoId: null,   // CustomerInfo->id
-            loanType: null
+            loanType: null,
+            preProcessId: null,
           };
 
           this.allId = paramsValue;
@@ -303,6 +310,16 @@ export class LoanFormComponent implements OnInit {
             this.priorityForm.get('priority').patchValue('MEDIUM');
             this.docStatusForm.get('documentStatus').patchValue(DocStatus.value(DocStatus.DISCUSSION));
             this.populateTemplate();
+          }
+
+          if (!ObjectUtil.isEmpty(this.allId.preProcessId)) {
+            this.preProcessService.detail(this.allId.preProcessId).subscribe((res) => {
+              this.preProcess = res.detail;
+              /*console.log('Pre Process Details ', this.preProcess);*/
+            }, error => {
+              console.log(error);
+            });
+            this.preDetails = this.preProcess.data;
           }
 
         });

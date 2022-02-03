@@ -227,6 +227,20 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-6">
+                        <label><strong>Loan Validation</strong></label>
+                        <ng-select #loanValidation="ngModel" [items]="validationOptions"
+                                   bindLabel="value"
+                                   bindValue="key" name="loanValidation"
+                                   [required]="true"
+                                   [(ngModel)]="selectedLoanValidation"
+                                   (change)="onLoanTagChange()"
+                                   placeholder="Select Loan Validation">
+                        </ng-select>
+                        <div *ngIf="loanConfigForm.submitted && loanValidation.invalid">
+                            <small class="text-danger">Please Select the options!</small>
+                        </div>
+                    </div>
                 </div>
                 <br>
                 <span><h6>Documents</h6></span>

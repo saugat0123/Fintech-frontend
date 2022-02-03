@@ -433,6 +433,13 @@
                         </div>
                     </nb-card-body>
                 </nb-card>
+
+                <!-- customer Pre Process -->
+                <app-raised-pre-process-view [customerInfoDetails]="customerInfo"
+                                             [customerInfoId]="customerInfoId"
+                                             [customerProfileId]="associateId"
+                                             [customerType]="filterLoanCat">
+                </app-raised-pre-process-view>
             </div>
         </div>
 

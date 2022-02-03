@@ -51,7 +51,7 @@ export class LoanDataHolder extends BaseEntity {
     ciclList: Array<Cicl>;
     ciclRemarks: string;
     insurance: Array<Insurance>;
-    documentStatus: DocStatus;
+    documentStatus: string;
     customerDocument: Array<CustomerDocuments>;
     siteVisit: SiteVisit;
     financial: Financial;
@@ -59,7 +59,7 @@ export class LoanDataHolder extends BaseEntity {
     security: Security;
     guarantor: GuarantorDetail;
     taggedGuarantors: Array<Guarantor>;
-    priority: Priority;
+    priority: string;
     createdAt: Date;
     previousList: LoanStage[] = [];
     previousStageList: string;
