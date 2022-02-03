@@ -18,10 +18,36 @@ export class Section2LoanTypePrintComponent implements OnInit {
     @Input() freeText;
     @Input() index;
     FDName;
+    FDNameStl;
+    FDNameDl;
     DepName;
     BondName;
     finalBondName = [];
     FDNames: Array<String> = [];
+    FDNamesStl: Array<String> = [];
+    FDNamesDl: Array<String> = [];
+    finalDepNameOverdraftLien = [];
+    finalDepNameStlLien = [];
+    finalDepNameDlLien = [];
+    DepNameOverdraftLien;
+    DepNameStlLien;
+    DepNameDlLien;
+    // Dep Names Array
+    DepNamesOverdraftLien: Array<String> = [];
+    DepNamesStlLien: Array<String> = [];
+    DepNamesDlLien: Array<String> = [];
+    // All Dep Names
+    allDepNamesOverdraftLien;
+    allDepNamesStlLien;
+    allDepNamesDlLien;
+    // Final FD Array
+    finalFdName = [];
+    finalFdNameStl = [];
+    finalFdNameDl = [];
+    // All FD Names
+    allFdNames;
+    allFdNamesStl;
+    allFdNamesDl;
     allFDNames;
     DepNames: Array<String> = [];
     allDepNames;
@@ -145,6 +171,13 @@ export class Section2LoanTypePrintComponent implements OnInit {
     equityMortgageData;
     mortgageTermLoan = [];
     mortgageTermLoanData;
+    overdraftFacilityFixedDeposit = [];
+    overdraftFacilityLienDeposit = [];
+    stlFixedDeposit = [];
+    stlLienDeposit = [];
+    dlFixedDeposit = [];
+    dlLienDeposit = [];
+    bankGuaranteeLoan = [];
 
     constructor(private engToNepWord: NepaliCurrencyWordPipe,
                 private engToNepaliDate: EngNepDatePipe,
@@ -358,53 +391,104 @@ export class Section2LoanTypePrintComponent implements OnInit {
     }
 
     getFDName() {
-        if (!ObjectUtil.isEmpty(this.tempData.overdraftFixedForm)) {
-            if (this.tempData.overdraftFixedForm['fdHolderDetails'].length === 1) {
-                const temp = this.tempData.overdraftFixedForm['fdHolderDetails'][0].nameOfFDHolderCT;
-                this.FDName = temp;
-            } else if (this.tempData.overdraftFixedForm['fdHolderDetails'].length === 2) {
-                for (let i = 0; i < this.tempData.overdraftFixedForm['fdHolderDetails'].length; i++ ) {
-                    const temp = this.tempData.overdraftFixedForm['fdHolderDetails'][i].nameOfFDHolderCT;
-                    this.FDNames.push(temp);
+        if (!ObjectUtil.isEmpty(this.tempData) &&
+            !ObjectUtil.isEmpty(this.tempData.overdraftFixedForm)) {
+            if (!ObjectUtil.isEmpty(this.tempData.overdraftFixedForm.odFdFormArray)) {
+                this.getFixedDepositors(this.tempData.overdraftFixedForm.odFdFormArray,
+                    this.FDName, this.FDNames, this.allFdNames, this.finalFdName);
+            }
+            if (!ObjectUtil.isEmpty(this.tempData.overdraftFixedForm.stlAgainstFixedDepositFormArray)) {
+                this.getFixedDepositors(this.tempData.overdraftFixedForm.stlAgainstFixedDepositFormArray,
+                    this.FDNameStl, this.FDNamesStl, this.allFdNamesStl, this.finalFdNameStl);
+            }
+            if (!ObjectUtil.isEmpty(this.tempData.overdraftFixedForm.dlAgainstFixedDepositFormArray)) {
+                this.getFixedDepositors(this.tempData.overdraftFixedForm.dlAgainstFixedDepositFormArray,
+                    this.FDNameDl, this.FDNamesDl, this.allFdNamesDl, this.finalFdNameDl);
+            }
+        }
+    }
+
+    getFixedDepositors(mainArray, name, names, allNames, finalName) {
+        for (let val = 0; val < mainArray.length; val++) {
+            if (mainArray[val]['fdHolderDetails'].length > 0) {
+                if (mainArray[val]['fdHolderDetails'].length === 1) {
+                    const temp = mainArray[val]['fdHolderDetails'][0].nameOfFDHolderCT;
+                    name = temp;
+                } else if (mainArray[val]['fdHolderDetails'].length === 2) {
+                    for (let i = 0; i < mainArray[val]['fdHolderDetails'].length; i++) {
+                        const temp = mainArray[val]['fdHolderDetails'][i].nameOfFDHolderCT;
+                        names.push(temp);
+                    }
+                    allNames = names.join(' र ');
+                    name = allNames;
+                } else {
+                    for (let i = 0; i < mainArray[val]['fdHolderDetails'].length - 1; i++) {
+                        const temp = mainArray[val]['fdHolderDetails'][i].nameOfFDHolderCT;
+                        names.push(temp);
+                    }
+                    allNames = names.join(' , ');
+                    // tslint:disable-next-line:max-line-length
+                    const temp1 = mainArray[val]['fdHolderDetails'][mainArray[val]['fdHolderDetails'].length - 1].nameOfFDHolderCT;
+                    name = allNames + ' र ' + temp1;
                 }
-                this.allFDNames = this.FDNames.join(' र ');
-                this.FDName = this.allFDNames;
-            } else {
-                for (let i = 0; i < this.tempData.overdraftFixedForm['fdHolderDetails'].length - 1; i++ ) {
-                    const temp = this.tempData.overdraftFixedForm['fdHolderDetails'][i].nameOfFDHolderCT;
-                    this.FDNames.push(temp);
-                }
-                this.allFDNames = this.FDNames.join(' , ');
-                // tslint:disable-next-line:max-line-length
-                const temp1 = this.tempData.overdraftFixedForm['fdHolderDetails'][this.tempData.overdraftFixedForm['fdHolderDetails'].length - 1].nameOfFDHolderCT;
-                this.FDName = this.allFDNames + ' र ' + temp1;
+                finalName.push(name);
+                name = '';
+                allNames = '';
+                names = [];
             }
         }
     }
 
     getDepName() {
-        if (!ObjectUtil.isEmpty(this.tempData.overdraftFixedForm)) {
-            if (this.tempData.overdraftFixedForm['depositorDetails'].length === 1) {
-                const temp = this.tempData.overdraftFixedForm['depositorDetails'][0].nameOfDepositorsCT;
-                this.DepName = temp;
-            } else if (this.tempData.overdraftFixedForm['depositorDetails'].length === 2) {
-                for (let i = 0; i < this.tempData.overdraftFixedForm['depositorDetails'].length; i++ ) {
-                    const temp = this.tempData.overdraftFixedForm['depositorDetails'][i].nameOfDepositorsCT;
-                    this.DepNames.push(temp);
-                }
-                this.allDepNames = this.DepNames.join(' र ');
-                this.DepName = this.allDepNames;
-            } else {
-                for (let i = 0; i < this.tempData.overdraftFixedForm['depositorDetails'].length - 1; i++ ) {
-                    const temp = this.tempData.overdraftFixedForm['depositorDetails'][i].nameOfDepositorsCT;
-                    this.DepNames.push(temp);
-                }
-                this.allDepNames = this.DepNames.join(' , ');
-                // tslint:disable-next-line:max-line-length
-                const temp1 = this.tempData.overdraftFixedForm['depositorDetails'][this.tempData.overdraftFixedForm['depositorDetails'].length - 1].nameOfDepositorsCT;
-                this.DepName = this.allDepNames + ' र ' + temp1;
+        if (!ObjectUtil.isEmpty(this.tempData) &&
+            !ObjectUtil.isEmpty(this.tempData.overdraftFixedForm)) {
+            if (!ObjectUtil.isEmpty(this.tempData.overdraftFixedForm.overdraftLienOnDepositFormArray)) {
+                this.getDepositor(this.tempData.overdraftFixedForm.overdraftLienOnDepositFormArray,
+                    this.DepNameOverdraftLien, this.DepNamesOverdraftLien, this.allDepNamesOverdraftLien, this.finalDepNameOverdraftLien);
+            }
+            if (!ObjectUtil.isEmpty(this.tempData.overdraftFixedForm.stlLienOnDepositFormArray)) {
+                this.getDepositor(this.tempData.overdraftFixedForm.stlLienOnDepositFormArray,
+                    this.DepNameStlLien, this.DepNamesStlLien, this.allDepNamesStlLien, this.finalDepNameStlLien);
+            }
+            if (!ObjectUtil.isEmpty(this.tempData.overdraftFixedForm.dlAgainstLienOnDepositFormArray)) {
+                this.getDepositor(this.tempData.overdraftFixedForm.dlAgainstLienOnDepositFormArray,
+                    this.DepNameDlLien, this.DepNamesDlLien, this.allDepNamesDlLien, this.finalDepNameDlLien);
             }
         }
+    }
+
+    getDepositor(mainArray, name, names, allNames, finalName) {
+        if (mainArray.length > 0) {
+            for (let val = 0; val < mainArray.length; val++) {
+                if (mainArray[val]['depositorDetails'].length > 0) {
+                    if (mainArray[val]['depositorDetails'].length === 1) {
+                        const temp = mainArray[val]['depositorDetails'][0].nameOfDepositorsCT;
+                        name = temp;
+                    } else if (mainArray[val]['depositorDetails'].length === 2) {
+                        for (let i = 0; i < mainArray[val]['depositorDetails'].length; i++) {
+                            const temp = mainArray[val]['depositorDetails'][i].nameOfDepositorsCT;
+                            names.push(temp);
+                        }
+                        allNames = names.join(' र ');
+                        name = allNames;
+                    } else {
+                        for (let i = 0; i < mainArray[val]['depositorDetails'].length - 1; i++) {
+                            const temp = mainArray[val]['depositorDetails'][i].nameOfDepositorsCT;
+                            names.push(temp);
+                        }
+                        allNames = names.join(' , ');
+                        // tslint:disable-next-line:max-line-length
+                        const temp1 = mainArray[val]['depositorDetails'][mainArray[val]['depositorDetails'].length - 1].nameOfDepositorsCT;
+                        name = allNames + ' र ' + temp1;
+                    }
+                }
+                finalName.push(name);
+                name = '';
+                allNames = '';
+                names = [];
+            }
+        }
+        console.log('Final Depositors:', this.finalDepNameOverdraftLien);
     }
 
     getBondName() {
@@ -462,5 +546,12 @@ export class Section2LoanTypePrintComponent implements OnInit {
         this.preExportLoan = this.loanData.filter(data => data.loanName === this.loanNameConstant.PRE_EXPORT_LOAN);
         this.equityMortgageTermLoan = this.loanData.filter(data => data.loanName === this.loanNameConstant.EQUITY_MORTGAGE_TERM_LOAN);
         this.mortgageTermLoan = this.loanData.filter(data => data.loanName === this.loanNameConstant.MORTGAGE_TERM_LOAN);
+        this.overdraftFacilityFixedDeposit = this.loanData.filter(data => data.loanName === this.loanNameConstant.OVERDRAFT_FACILITY_FIXED_DEPOSIT);
+        this.overdraftFacilityLienDeposit = this.loanData.filter(data => data.loanName === this.loanNameConstant.OVERDRAFT_FACILITY_LIEN_ON_DEPOSIT_ACCOUNT);
+        this.stlFixedDeposit = this.loanData.filter(data => data.loanName === this.loanNameConstant.STL_AGAINST_FIXED_DEPOSIT);
+        this.stlLienDeposit = this.loanData.filter(data => data.loanName === this.loanNameConstant.STL_LIEN_ON_DEPOSIT_ACCOUNT);
+        this.dlFixedDeposit = this.loanData.filter(data => data.loanName === this.loanNameConstant.DL_AGAINST_FIXED_DEPOSIT);
+        this.dlLienDeposit = this.loanData.filter(data => data.loanName === this.loanNameConstant.DL_LIEN_ON_DEPOSIT_ACCOUNT);
+        this.bankGuaranteeLoan = this.loanData.filter(data => data.loanName === this.loanNameConstant.BANK_GUARANTEE);
     }
 }

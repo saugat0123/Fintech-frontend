@@ -56,7 +56,8 @@
         <ng-container *ngIf="isOverDraftFacilityFixedDeposit">
             <app-overdraft-facility-against-fixed-deposit [offerDocumentList]="customerApprovedDoc.offerDocumentList"
                 [customerApprovedDoc]="customerApprovedDoc" #overdraftFacilityAgainstFixedDeposit
-                [loanName]="loanExtraDetails"></app-overdraft-facility-against-fixed-deposit>
+                [loanName]="loanExtraDetails"
+                [isEdit]="isEdit"></app-overdraft-facility-against-fixed-deposit>
         </ng-container>
         <ng-container *ngIf="isOverdraftFacilityAgainstBond">
             <app-overdraft-facility-against-bond [offerDocumentList]="customerApprovedDoc.offerDocumentList"

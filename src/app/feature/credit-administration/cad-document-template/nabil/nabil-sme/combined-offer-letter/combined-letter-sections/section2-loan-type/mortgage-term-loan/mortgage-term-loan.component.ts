@@ -288,7 +288,7 @@ export class MortgageTermLoanComponent implements OnInit {
         this.form.get(['mortgageTermLoan', val, 'newEMIAutoPopulateMortgageTerm']).patchValue(
             this.tempInformation.section2.mortgageTermLoanFreeText[val] ?
                 this.tempInformation.section2.mortgageTermLoanFreeText[val].newEMIAutoPopulateMortgageTerm :
-                'िकासा भएको पछिल्लोे महिना देखि किस्ता भुक्तानी मिति हुनेछ');
+                'निकासा भएको पछिल्लोे महिना देखि किस्ता भुक्तानी मिति हुनेछ');
       }
     }
   }

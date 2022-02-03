@@ -429,7 +429,7 @@
                                             value="{{revolvingShortTerm[i1] ? revolvingShortTerm[i1].loanAmountNp : ''}}"
                                             placeholder=""
                                             type="text"/>
-                                        ।–
+                                        /–
                                     </ng-container>
                                     (अक्षरेपी रु.<input class="form-field form-control-sm "
                                                         value="{{revolvingShortTerm[i1] ? revolvingShortTerm[i1].loanAmountWords : ''}}"
@@ -745,6 +745,147 @@
                         </ng-container>
                     </tr>
                 </ng-container>
+
+                <ng-container *ngIf="tempData?.bankGuarantee?.bankGuaranteeArray">
+                    <tr *ngFor="let val of tempData?.bankGuarantee?.bankGuaranteeArray; let i1 = index"
+                        formArrayName="bankGuarantee">
+                        <!--Bank Guarantee-->
+                        <ng-container [formGroupName]="i1">
+                            <td width="10%"><strong>{{
+                                (tempData?.letterOfCreditForm?.letterOfCreditFormArray.length) +
+                                (tempData?.importLoanTrust?.importLoanTrustFormArray.length) +
+                                (tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray.length) +
+                                (tempData?.timeLetterCreditForm?.timeLetterCreditFormArray.length) +
+                                (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
+                                (tempData?.demandLoanForm?.demandLoanFormArray.length) +
+                                (i1 + 1) | nepaliWord}})</strong>
+                            </td>
+                            <td>
+                                <p>
+                                    <strong>बैंक जमानत सुविधा (Bank Guarantee)
+                                        <ng-container *ngIf="val.complementaryOther === true"> बुँदा नं.<input
+                                                class="form-field form-control-sm "
+                                                formControlName="SNOfParentLimitBankGuarantee"
+                                                placeholder=""
+                                                type="text"/>
+                                            <ng-container *ngIf="val.complimentaryLoanSelected !== 'TOTAL LIMIT'"> को पूरक सुविधा</ng-container>
+                                            <ng-container *ngIf="val.complimentaryLoanSelected === 'TOTAL LIMIT'"> कुल सुविधाको पूरक सुविधा </ng-container>
+                                        </ng-container>
+                                    </strong><br>
+
+                                    <strong> सीमाः
+                                        <!--<ng-container *ngIf="val.complementaryOther === true">-->
+                                        <!--<ng-container>
+                                            (रु.<input
+                                                class="form-field form-control-sm"
+                                                value="{{bankGuaranteeLoan[i1] ? bankGuaranteeLoan[i1].loanAmountNp : ''}}"
+                                                placeholder=""
+                                                type="text">/–)
+                                        </ng-container>-->
+                                        <!--<ng-container *ngIf="!val.complementaryOther === true">-->
+                                            <ng-container>
+                                            रु.<input
+                                                class="form-field form-control-sm"
+                                                value="{{bankGuaranteeLoan[i1] ? bankGuaranteeLoan[i1].loanAmountNp : ''}}"
+                                                placeholder=""
+                                                type="text"/>
+                                            /–
+                                        </ng-container>
+                                        (अक्षरेपी रु.
+                                        <input class="form-field form-control-sm "
+                                                            value="{{bankGuaranteeLoan[i1] ? bankGuaranteeLoan[i1].loanAmountWords : ''}}"
+                                                            placeholder=""
+                                                            type="text"/>
+                                        मात्र)</strong>
+                                </p>
+                                <p *ngIf="val.securityType === 'General Counter Guarantee'">
+                                    <strong> सुरक्षण:</strong>बैंकको पक्षमा काउण्टर जमानत सम्बन्धी सम्झौता (General Counter
+                                    Guarantee)
+                                </p>
+                                <!--OR-->
+                                <p *ngIf="val.securityType === 'General Counter Guarantee and Hypothecation'">
+                        <span *ngIf="hypothecationGlobal === 'New'">
+                            <strong> सुरक्षण:</strong>
+                            बैंकको पक्षमा काउण्टर जमानत सम्बन्धी सम्झौता (General Counter Guarantee) का साथै
+                            सामानहरुको मौज्दात उपर धितोबन्धक (Hypothecation) हकाधिकार र ऋणीले आफ्ना आसामीबाट भुक्तानी प्राप्त
+                            गर्न बांकि रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामा हस्तान्तरण गर्नु पर्नेछ।
+                        </span>
+                                    <span *ngIf="hypothecationGlobal === 'Existing'">
+                                <strong> सुरक्षण:</strong>
+                            बैंकको पक्षमा काउण्टर जमानत सम्बन्धी सम्झौता (General Counter Guarantee) का साथै
+                            सामानहरुको मौज्दात उपर धितोबन्धक (Hypothecation) हकाधिकार र ऋणीले आफ्ना आसामीबाट भुक्तानी प्राप्त
+                            गर्न बांकि रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामा हस्तान्तरण
+                            गरिदिनुभएको यथावत कायम रहनेछ।
+                        </span>
+                                </p>
+                                <p *ngIf="val.securityType === 'Counter Guarantee of other bank'">
+                                    <strong>सुरक्षणः</strong> <input class="form-field form-control-sm "
+                                                                     formControlName="nameOfBankBankGuarantee"
+                                                                     placeholder=""
+                                                                     type="text"/> बैंकले यस बैंकलाई जारी गरिएको काउण्टर
+                                    जमानत
+                                    पत्र ।
+                                </p>
+                                <p *ngIf="val.guaranteeType === 'Cash Margin'">
+                                    <strong>धरौटी:</strong> नगद <input class="form-field form-control-sm "
+                                                                       formControlName="marginInPercentageBankGuarantee"
+                                                                       placeholder=""
+                                                                       type="text"/>% धरौटी स्वरुप रहनेछ ।
+                                </p>
+                                <!--OR-->
+                                <p *ngIf="val.guaranteeType === 'APG/PFG/Bid Bond'">
+                                    अग्रिम भुक्तानी बैंक जमानत (Advance Payment Guarantee) को
+                                    हकमा <input class="form-field form-control-sm "
+                                                formControlName="commissionAPGBankGuarantee"
+                                                placeholder=""
+                                                type="text"/>% नगद र कार्य
+                                    सम्पादन बैंक जमानत (Performance Bond) तथा बोलपत्र बैंक जमानत (Bid Bond)को हकमा
+                                    <input class="form-field form-control-sm "
+                                           formControlName="commissionBidBondBankGuarantee"
+                                           placeholder=""
+                                           type="text"/>% नगद धरौटी स्वरुप रहनेछ ।<br>
+                                    <span *ngIf="val.commissionType === 'COMMISSION_TYPE_1'"> <strong>कमिसन:</strong> प्रति त्रैमास <input
+                                            class="form-field form-control-sm "
+                                            formControlName="serviceChargeBankGuarantee"
+                                            placeholder=""
+                                            type="text"/>% का दरले वा कम्तिमा रु.
+                                <input class="form-field form-control-sm "
+                                       formControlName="minimumServiceChargeBankGuarantee"
+                                       placeholder=""
+                                       type="text"/>/– लाग्नेछ ।
+                            </span> <br>
+                                    <span *ngIf="val.commissionType === 'COMMISSION_TYPE_2'">
+                                    अग्रिम भुक्तानी बैंक जमानत (Advance Payment Guarantee) को हकमा प्रति बैकं जमानत प्रति त्रैमास
+                                <input class="form-field form-control-sm "
+                                       formControlName="commissionAPG1BankGuarantee"
+                                       placeholder=""
+                                       type="text"/>% का दरलेर कार्य सम्पादन बैंक जमानत (Performance Bond) तथा बोलपत्र बैंक
+                                जमानत
+                                (Bid Bond) को हकमा प्रति बैकं जमानत प्रति त्रैमास <input
+                                            class="form-field form-control-sm "
+                                            formControlName="commissionBidBond1BankGuarantee"
+                                            placeholder=""
+                                            type="text"/>% का दरले वा कम्तिमा
+                                रु.
+                                <input class="form-field form-control-sm "
+                                       formControlName="minimumServiceChargeBankGuarantee"
+                                       placeholder=""
+                                       type="text"/>/–लाग्नेछ ।
+                            </span>
+                                </p>
+                                <p>
+                                    <strong>सुविधा समाप्ति/पुनरावलोकन मितिः</strong>
+                                    {{val?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
+                                    <input
+                                            class="form-field form-control-sm "
+                                            formControlName="loanExpiryDateBankGuarantee1"
+                                            placeholder=""
+                                            type="text"/>
+                                </p>
+                            </td>
+                        </ng-container>
+                    </tr>
+                </ng-container>
             </table>
         </div>
         <div>
@@ -757,7 +898,8 @@
                                                      (tempData?.timeLetterCreditForm?.timeLetterCreditFormArray.length) +
                                                     (tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray.length) +
                                                     (tempData?.demandLoanForm?.demandLoanFormArray.length) +
-                                                    (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length)">
+                                                    (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
+                                                    (tempData?.bankGuarantee?.bankGuaranteeArray.length)">
             </app-term-loan-to-or-for>
         </div>
         <div [ngStyle]="{'margin-top' : (termLoanDetails.length > 0) ? '-17px' : '-16px'}">
@@ -775,6 +917,7 @@
                                (tempData?.timeLetterCreditForm?.timeLetterCreditFormArray.length) +
                                (tempData?.demandLoanForm?.demandLoanFormArray.length) +
                                (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
+                               (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
                                (i1 + 1) | nepaliWord}})</strong>
                            </td>
                            <td>
@@ -899,7 +1042,8 @@
                                                 (tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray.length) +
                                                 (tempData?.bridgeGapLoan?.bridgeGapDetails.length) +
                                             (tempData?.demandLoanForm?.demandLoanFormArray.length) +
-                                            (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length)"
+                                            (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
+                                            (tempData?.bankGuarantee?.bankGuaranteeArray.length)"
                            [autoLoanData]="autoLoanData">
             </app-auto-loan>
         </div>
@@ -916,7 +1060,8 @@
                                 (tempData?.timeLetterCreditForm?.timeLetterCreditFormArray.length) +
                                 (tempData?.demandLoanForm?.demandLoanFormArray.length) +
                                 (tempData?.bridgeGapLoan?.bridgeGapDetails.length) +
-                                (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length)"
+                                (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
+                                (tempData?.bankGuarantee?.bankGuaranteeArray.length)"
                                            [mortgageData]="mortgageTermLoanData">
             </app-mortgage-term-loan>
         </div>
@@ -940,6 +1085,7 @@
                                 (tempData?.bridgeGapLoan?.bridgeGapDetails.length) +
                                 (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
                                 (tempData?.mortgageEquityTermForm?.mortgageTermFormArray.length) +
+                                (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
                                 (i1 + 1) | nepaliWord}})</strong></td>
                             <td>
                                 <span><strong>अचल सम्पत्ति सुरक्षणमा आधारीत अधिविकर्ष कर्जा
@@ -1045,6 +1191,538 @@
                     </tr>
                 </ng-container>
 
+                <ng-container *ngIf="tempData?.overdraftFixedForm?.dlAgainstFixedDepositFormArray">
+                    <tr *ngFor="let val of tempData?.overdraftFixedForm?.dlAgainstFixedDepositFormArray; let i1 = index"
+                        formArrayName="dlFixedDeposit">
+                        <!--DL against Fixed Deposit-->
+                        <ng-container [formGroupName]="i1">
+                            <td width="10%">
+                                <strong>
+                                    {{(tempData?.equityMortgaged?.mortgageOverdraftFormArray.length) +
+                                (tempData?.termLoanForm?.termLoanDetails?.length) +
+                                (tempData?.autoLoanMasterForm?.autoLoanFormArray?.length) +
+                                (tempData?.letterOfCreditForm?.letterOfCreditFormArray.length) +
+                                (tempData?.importLoanTrust?.importLoanTrustFormArray.length) +
+                                (tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray.length) +
+                                (tempData?.timeLetterCreditForm?.timeLetterCreditFormArray.length) +
+                                (tempData?.demandLoanForm?.demandLoanFormArray.length) +
+                                (tempData?.bridgeGapLoan?.bridgeGapDetails.length) +
+                                (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
+                                (tempData?.mortgageEquityTermForm?.mortgageTermFormArray.length) +
+                                (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
+                                (i1 + 1) | nepaliWord}})</strong>
+                            </td>
+                            <td>
+                                <!--<span *ngIf="subLoanOptionOverdraftFixedForm === 'AGAINST_FIXED_DEPOSIT'">-->
+                                <span>
+                                    <strong>निक्षेप मौज्दातमा आधारीत
+                                        <input class="form-field form-control-sm "
+                                           formControlName="nameOfFacilityOverdraftFacility"
+                                           placeholder=""
+                                           type="text"/>
+                                        कर्जा (
+                                        <input class="form-field form-control-sm "
+                                              formControlName="nameOfFacilityOverdraftFacilityInEng"
+                                              placeholder=""
+                                              type="text"/>
+                                        Facility against Fixed Deposit)
+                                    </strong>
+                                </span>
+
+                                <!--<span *ngIf="subLoanOptionOverdraftFixedForm === 'AGAINST_DEPOSIT_ACCOUNT'">
+                                    <strong>
+                                        निक्षेप मौज्दातमा आधारीत
+                                        <input class="form-field form-control-sm "
+                                          formControlName="nameOfFacilityOverdraftFacility"
+                                          placeholder=""
+                                          type="text"/>
+                                        कर्जा (
+                                        <input class="form-field form-control-sm "
+                                            formControlName="nameOfFacilityOverdraftFacilityInEng"
+                                            placeholder=""
+                                            type="text"/>
+                                        Facility against Lien on Deposit Account)
+                                    </strong>
+                                </span>-->
+                                <br>
+
+                                <strong>
+                                    सीमाः रु.
+                                    <input class="form-field form-control-sm "
+                                                         value="{{dlFixedDeposit[i1] ? dlFixedDeposit[i1].loanAmountNp : ''}}"
+                                                         placeholder=""
+                                                         type="text"/>/-
+                                    (अक्षरेपी रु.
+                                    <input class="form-field form-control-sm "
+                                                        value="{{dlFixedDeposit[i1] ? dlFixedDeposit[i1].loanAmountWords : ''}}"
+                                                        placeholder=""
+                                                        type="text"/>
+                                    मात्र)
+                                </strong>
+                                <br>
+
+                                <!--<p *ngIf="subLoanOptionOverdraftFixedForm === 'AGAINST_FIXED_DEPOSIT' && holdingBankOverdraftFixedForm === 'NABIL'">-->
+                                <p *ngIf="val.holdingBank === 'NABIL'">
+                                    <strong>सुरक्षणः</strong>
+                                    नबिल बैंकद्वारा जारी गरिएको
+                                    <input class="form-field form-control-sm "
+                                           formControlName="nameOfFDHolderOverdraftFacility"
+                                           placeholder=""
+                                           type="text"/>
+                                    हरुको नाममा रहेको कम्तिमा
+                                    रु.
+                                    <input class="form-field form-control-sm "
+                                              formControlName="FDAmountOverdraftFacility"
+                                              placeholder=""
+                                              type="text"/>/–
+                                    बराबरको मुद्धती रसिद उपर बैंकले उल्लिखित रसिद वापतको रकम कर्जामा
+                                    समायोजन गर्न सक्ने अधिकार सहितको बैंकको पक्षमा जारी गरिदिइएको/गरिने मोजरापत्र
+                                    (Letter of Set-off) ।
+                                </p>
+                                <!--<p *ngIf="subLoanOptionOverdraftFixedForm === 'AGAINST_FIXED_DEPOSIT' && val.holdingBank === 'OTHER'">-->
+                                <p *ngIf="val.holdingBank === 'OTHER'">
+                                    <strong>सुरक्षणः</strong>
+                                    <input class="form-field form-control-sm "
+                                           formControlName="nameOfBankOverdraftFacility"
+                                           placeholder=""
+                                           type="text"/>
+                                    बैंकद्वारा जारी गरिएको
+                                    <input class="form-field form-control-sm "
+                                           formControlName="nameOfFDHolderOverdraftFacility"
+                                           placeholder=""
+                                           type="text"/>
+                                    हरुको नाममा रहेको कम्तिमा
+                                    रु.
+                                    <input class="form-field form-control-sm "
+                                           formControlName="FDAmountOverdraftFacility"
+                                           placeholder=""
+                                           type="text"/>/–
+                                    बराबरको मुद्धती रसिद उपर बैंकले उल्लिखित रसिद वापतको रकम कर्जामा
+                                    समायोजन गर्न सक्ने अधिकार सहितको बैंकको पक्षमा जारी गरिदिइएको/गरिने मोजरापत्र
+                                    (Letter of Set-off) ।
+                                </p>
+                                <!--OR-->
+                                <!--<p *ngIf="subLoanOptionOverdraftFixedForm === 'AGAINST_DEPOSIT_ACCOUNT'">
+                                    <span *ngIf="val.letterOfSetOff === 'EXISTING'">
+                                        <strong>सुरक्षणः</strong>
+                                        नबिल बैंकमा खोलिएको
+                                        <input class="form-field form-control-sm "
+                                               formControlName="nameOfDepositorOverdraftFacility"
+                                               placeholder=""
+                                               type="text"/>
+                                        को नाममा रहेको
+                                        <ng-container *ngIf="accountTypeOverdraftFixedForm === 'CURRENT_ACCOUNT'">
+                                            चल्ति
+                                        </ng-container>
+                                        <ng-container *ngIf="accountTypeOverdraftFixedForm === 'SAVING_ACCOUNT'">
+                                            बचत
+                                        </ng-container>
+                                        <ng-container *ngIf="accountTypeOverdraftFixedForm === 'CALL_ACCOUNT'">
+                                            कल
+                                        </ng-container>
+                                        खाता नं. ‘‘
+                                        <input class="form-field form-control-sm "
+                                              formControlName="accountNoOverdraftFacility"
+                                              placeholder=""
+                                              type="text"/>‘‘
+                                        मा रहेको मौज्दात रु.
+                                        <input class="form-field form-control-sm "
+                                              formControlName="amountOverdraftFacility"
+                                              placeholder=""
+                                              type="text"/>
+                                        बराबरको रकममा ग्रहणाधिकार कायम गरी
+                                        उक्त रकम बरावर कर्जामा समायोजन गर्न सक्ने अधिकार सहितको बैंकको पक्षमा जारी गरिदिइएको
+                                        मोजरापत्र (Letter of Set-off) ।
+                                    </span>
+                                    <br>
+
+                                    <span *ngIf="val.letterOfSetOff === 'NEW'">
+                                        <strong>सुरक्षणः</strong>
+                                        नबिल बैंकमा खोलिएको
+                                        <input
+                                            class="form-field form-control-sm "
+                                            formControlName="nameOfDepositorOverdraftFacility"
+                                            placeholder=""
+                                            type="text"/>
+                                        को नाममा रहेको
+                                        <ng-container *ngIf="accountTypeOverdraftFixedForm === 'CURRENT_ACCOUNT'">
+                                            चल्ति
+                                        </ng-container>
+                                        <ng-container *ngIf="accountTypeOverdraftFixedForm === 'SAVING_ACCOUNT'">
+                                            बचत
+                                        </ng-container>
+                                        <ng-container *ngIf="accountTypeOverdraftFixedForm === 'CALL_ACCOUNT'">
+                                            कल
+                                        </ng-container>
+                                        खाता नं. ‘‘
+                                        <input class="form-field form-control-sm "
+                                              formControlName="accountNoOverdraftFacility"
+                                              placeholder=""
+                                              type="text"/>
+                                        ‘‘मा रहेको मौज्दात रु.
+                                        <input class="form-field form-control-sm "
+                                              formControlName="amountOverdraftFacility"
+                                              placeholder=""
+                                              type="text"/>
+                                        बराबरको रकममा ग्रहणाधिकार कायम गरी
+                                        उक्त रकम बरावर कर्जामा समायोजन गर्न सक्ने अधिकार सहितको बैंकको पक्षमा जारी गरिने
+                                        मोजरापत्र (Letter of Set-off) ।
+                                    </span>
+                                </p>-->
+                                <p>
+                                    <!--<span *ngIf="subLoanOptionOverdraftFixedForm === 'AGAINST_FIXED_DEPOSIT'">-->
+                                    <span>
+                                        <strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong>
+                                        मुद्धती रसिदको मौज्दातको
+                                        <input class="form-field form-control-sm "
+                                               formControlName="drawingPowerOverdraftFacility"
+                                               placeholder=""
+                                               type="text"/>
+                                        प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ ।
+                                    </span>
+
+                                    <!--<span *ngIf="subLoanOptionOverdraftFixedForm === 'AGAINST_DEPOSIT_ACCOUNT'">
+                                        <strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong>
+                                        खातामा रोक्का राखिएका मौज्दातको
+                                        <input class="form-field form-control-sm "
+                                               formControlName="drawingPowerOverdraftFacility"
+                                               placeholder=""
+                                               type="text"/>
+                                        प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ ।
+                                    </span>-->
+                                </p>
+                                <!--<p *ngIf="interestRateTypeOverdraftFixedForm === 'COUPEN_RATE_FINANCING'">-->
+                                <p *ngIf="val.interestRateType === 'COUPEN_RATE_FINANCING'">
+                                    <span>
+                                        <strong>ब्याज दरः</strong>
+                                        <!--<ng-container *ngIf="checkAdditionalPremiumRateOverdraftFixedForm">-->
+                                        <ng-container *ngIf="val.checkAdditionalPremiumRate === true">
+                                            मुद्धति रसिदमा प्राप्त हुने ब्याज दरमा थप
+                                            <input class="form-field form-control-sm "
+                                                   formControlName="additionalPremiumOverdraftFacility"
+                                                   placeholder=""
+                                                   type="text"/>
+                                            प्रतिशत वा कम्तिमा
+                                        </ng-container>
+                                        बार्षिक
+                                        <input class="form-field form-control-sm "
+                                               formControlName="couponInterestRateOverdraftFacility"
+                                               placeholder=""
+                                               type="text"/>
+                                        का दरले नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात
+                                        आषाढ, आश्विन, पौष र चैत्र मसान्तमा र/वा कर्जा चुक्ता भुक्तान भएको अवस्थामा तिर्नु बुझाउनु पर्नेछ ।
+                                    </span>
+                                </p>
+                                <!--<p *ngIf="interestRateTypeOverdraftFixedForm === 'BASE_RATE_FINANCING'">-->
+                                <p *ngIf="val.interestRateType === 'BASE_RATE_FINANCING'">
+                                    <span>
+                                        <strong>
+                                            ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)
+                                        </strong>
+                                        <input class="form-field form-control-sm "
+                                           formControlName="baseRateOverdraftFacility"
+                                           placeholder=""
+                                           type="text"/>
+                                        +
+                                        <input class="form-field form-control-sm "
+                                           formControlName="premiumRateOverdraftFacility"
+                                           placeholder=""
+                                               type="text"/>
+                                        प्रतिशत ब्याज दर प्रिमियम (interest rate premium)
+                                    </span>
+                                <br/>
+                                <!-- <span *ngIf="interestSubsidyAgOverdraftFixedForm === 'No'">-->
+                                <span *ngIf="val.subsidyOrAgricultureLoan === 'No'">
+                                        हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate) बार्षिक
+                                        <input class="form-field form-control-sm "
+                                               formControlName="interestRateOverdraftFacility"
+                                               placeholder=""
+                                               type="text"/>
+                                        % का दर
+                                        निर्धारण गरीएकोछ र सो ब्याज रकम नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र
+                                        चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।
+                                </span>
+                                </p>
+                                <span>
+                                    <strong>कर्जा अवधि समाप्ति/पुनरावलोकन मितिः</strong>
+                                    {{val?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
+                                    <input
+                                            class="form-field form-control-sm "
+                                            formControlName="loanExpiryDateOverdraftFacility"
+                                            placeholder=""
+                                            type="text"/>
+                                </span>
+                            </td>
+                        </ng-container>
+                    </tr>
+                </ng-container>
+
+                <ng-container *ngIf="tempData?.overdraftFixedForm?.dlAgainstLienOnDepositFormArray">
+                    <tr *ngFor="let val of tempData?.overdraftFixedForm?.dlAgainstLienOnDepositFormArray; let i1 = index"
+                        formArrayName="dlLienDeposit">
+                        <!--DL Lien on Deposit Account-->
+                        <ng-container [formGroupName]="i1">
+                            <td width="10%">
+                                <strong>
+                                    {{(tempData?.equityMortgaged?.mortgageOverdraftFormArray.length) +
+                                (tempData?.termLoanForm?.termLoanDetails?.length) +
+                                (tempData?.autoLoanMasterForm?.autoLoanFormArray?.length) +
+                                (tempData?.letterOfCreditForm?.letterOfCreditFormArray.length) +
+                                (tempData?.importLoanTrust?.importLoanTrustFormArray.length) +
+                                (tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray.length) +
+                                (tempData?.timeLetterCreditForm?.timeLetterCreditFormArray.length) +
+                                (tempData?.demandLoanForm?.demandLoanFormArray.length) +
+                                (tempData?.bridgeGapLoan?.bridgeGapDetails.length) +
+                                (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
+                                (tempData?.mortgageEquityTermForm?.mortgageTermFormArray.length) +
+                                (tempData?.overdraftFixedForm?.dlAgainstFixedDepositFormArray.length) +
+                                (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
+                                (i1 + 1) | nepaliWord}})</strong>
+                            </td>
+                            <td>
+                                <!--<span *ngIf="subLoanOptionOverdraftFixedForm === 'AGAINST_FIXED_DEPOSIT'">
+                                    <strong>निक्षेप मौज्दातमा आधारीत
+                                        <input class="form-field form-control-sm "
+                                               formControlName="nameOfFacilityOverdraftFacility"
+                                               placeholder=""
+                                               type="text"/>
+                                        कर्जा (
+                                        <input class="form-field form-control-sm "
+                                               formControlName="nameOfFacilityOverdraftFacilityInEng"
+                                               placeholder=""
+                                               type="text"/>
+                                        Facility against Fixed Deposit)
+                                    </strong>
+                                </span>-->
+
+                                <!--<span *ngIf="subLoanOptionOverdraftFixedForm === 'AGAINST_DEPOSIT_ACCOUNT'">-->
+                                <span>
+                                    <strong>
+                                        निक्षेप मौज्दातमा आधारीत
+                                        <input class="form-field form-control-sm "
+                                          formControlName="nameOfFacilityOverdraftFacility"
+                                          placeholder=""
+                                          type="text"/>
+                                        कर्जा (
+                                        <input class="form-field form-control-sm "
+                                            formControlName="nameOfFacilityOverdraftFacilityInEng"
+                                            placeholder=""
+                                            type="text"/>
+                                        Facility against Lien on Deposit Account)
+                                    </strong>
+                                </span>
+                                <br>
+
+                                <strong>
+                                    सीमाः रु.
+                                    <input class="form-field form-control-sm "
+                                           value="{{dlLienDeposit[i1] ? dlLienDeposit[i1].loanAmountNp : ''}}"
+                                           placeholder=""
+                                           type="text"/>/-
+                                    (अक्षरेपी रु.
+                                    <input class="form-field form-control-sm "
+                                           value="{{dlLienDeposit[i1] ? dlLienDeposit[i1].loanAmountWords : ''}}"
+                                           placeholder=""
+                                           type="text"/>
+                                    मात्र)
+                                </strong>
+                                <br>
+
+                                <!--<p *ngIf="subLoanOptionOverdraftFixedForm === 'AGAINST_FIXED_DEPOSIT' && holdingBankOverdraftFixedForm === 'NABIL'">
+                                <p *ngIf="val.holdingBank === 'NABIL'">
+                                    <strong>सुरक्षणः</strong>
+                                    नबिल बैंकद्वारा जारी गरिएको
+                                    <input class="form-field form-control-sm "
+                                           formControlName="nameOfFDHolderOverdraftFacility"
+                                           placeholder=""
+                                           type="text"/>
+                                    हरुको नाममा रहेको कम्तिमा
+                                    रु.
+                                    <input class="form-field form-control-sm "
+                                           formControlName="FDAmountOverdraftFacility"
+                                           placeholder=""
+                                           type="text"/>/–
+                                    बराबरको मुद्धती रसिद उपर बैंकले उल्लिखित रसिद वापतको रकम कर्जामा
+                                    समायोजन गर्न सक्ने अधिकार सहितको बैंकको पक्षमा जारी गरिदिइएको/गरिने मोजरापत्र
+                                    (Letter of Set-off) ।
+                                </p>
+                                <p *ngIf="subLoanOptionOverdraftFixedForm === 'AGAINST_FIXED_DEPOSIT' && val.holdingBank === 'OTHER'">
+                                <p *ngIf="val.holdingBank === 'OTHER'">
+                                    <strong>सुरक्षणः</strong>
+                                    <input class="form-field form-control-sm "
+                                           formControlName="nameOfBankOverdraftFacility"
+                                           placeholder=""
+                                           type="text"/>
+                                    बैंकद्वारा जारी गरिएको
+                                    <input class="form-field form-control-sm "
+                                           formControlName="nameOfFDHolderOverdraftFacility"
+                                           placeholder=""
+                                           type="text"/>
+                                    हरुको नाममा रहेको कम्तिमा
+                                    रु.
+                                    <input class="form-field form-control-sm "
+                                           formControlName="FDAmountOverdraftFacility"
+                                           placeholder=""
+                                           type="text"/>/–
+                                    बराबरको मुद्धती रसिद उपर बैंकले उल्लिखित रसिद वापतको रकम कर्जामा
+                                    समायोजन गर्न सक्ने अधिकार सहितको बैंकको पक्षमा जारी गरिदिइएको/गरिने मोजरापत्र
+                                    (Letter of Set-off) ।
+                                </p>-->
+                                <!--OR-->
+                                <!--<p *ngIf="subLoanOptionOverdraftFixedForm === 'AGAINST_DEPOSIT_ACCOUNT'">-->
+                                <p>
+                                    <span *ngIf="val.letterOfSetOff === 'EXISTING'">
+                                        <strong>सुरक्षणः</strong>
+                                        नबिल बैंकमा खोलिएको
+                                        <input class="form-field form-control-sm "
+                                               formControlName="nameOfDepositorOverdraftFacility"
+                                               placeholder=""
+                                               type="text"/>
+                                        को नाममा रहेको
+                                        <ng-container *ngIf="val.accountType === 'CURRENT_ACCOUNT'">
+                                            चल्ति
+                                        </ng-container>
+                                        <ng-container *ngIf="val.accountType === 'SAVING_ACCOUNT'">
+                                            बचत
+                                        </ng-container>
+                                        <ng-container *ngIf="val.accountType === 'CALL_ACCOUNT'">
+                                            कल
+                                        </ng-container>
+                                        खाता नं. ‘‘
+                                        <input class="form-field form-control-sm "
+                                              formControlName="accountNoOverdraftFacility"
+                                              placeholder=""
+                                              type="text"/>‘‘
+                                        मा रहेको मौज्दात रु.
+                                        <input class="form-field form-control-sm "
+                                              formControlName="amountOverdraftFacility"
+                                              placeholder=""
+                                              type="text"/>
+                                        बराबरको रकममा ग्रहणाधिकार कायम गरी
+                                        उक्त रकम बरावर कर्जामा समायोजन गर्न सक्ने अधिकार सहितको बैंकको पक्षमा जारी गरिदिइएको
+                                        मोजरापत्र (Letter of Set-off) ।
+                                    </span>
+                                    <span *ngIf="val.letterOfSetOff === 'NEW'">
+                                        <strong>सुरक्षणः</strong>
+                                        नबिल बैंकमा खोलिएको
+                                        <input
+                                            class="form-field form-control-sm "
+                                            formControlName="nameOfDepositorOverdraftFacility"
+                                            placeholder=""
+                                            type="text"/>
+                                        को नाममा रहेको
+                                        <ng-container *ngIf="val.accountType === 'CURRENT_ACCOUNT'">
+                                            चल्ति
+                                        </ng-container>
+                                        <ng-container *ngIf="val.accountType === 'SAVING_ACCOUNT'">
+                                            बचत
+                                        </ng-container>
+                                        <ng-container *ngIf="val.accountType === 'CALL_ACCOUNT'">
+                                            कल
+                                        </ng-container>
+                                        खाता नं. ‘‘
+                                        <input class="form-field form-control-sm "
+                                              formControlName="accountNoOverdraftFacility"
+                                              placeholder=""
+                                              type="text"/>
+                                        ‘‘मा रहेको मौज्दात रु.
+                                        <input class="form-field form-control-sm "
+                                              formControlName="amountOverdraftFacility"
+                                              placeholder=""
+                                              type="text"/>
+                                        बराबरको रकममा ग्रहणाधिकार कायम गरी
+                                        उक्त रकम बरावर कर्जामा समायोजन गर्न सक्ने अधिकार सहितको बैंकको पक्षमा जारी गरिने
+                                        मोजरापत्र (Letter of Set-off) ।
+                                    </span>
+                                </p>
+                                <p>
+                                    <!--<span *ngIf="subLoanOptionOverdraftFixedForm === 'AGAINST_FIXED_DEPOSIT'">-->
+                                    <!--<span>
+                                        <strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong>
+                                        मुद्धती रसिदको मौज्दातको
+                                        <input class="form-field form-control-sm "
+                                               formControlName="drawingPowerOverdraftFacility"
+                                               placeholder=""
+                                               type="text"/>
+                                        प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ ।
+                                    </span>-->
+
+                                    <span>
+                                        <strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong>
+                                        खातामा रोक्का राखिएका मौज्दातको
+                                        <input class="form-field form-control-sm "
+                                               formControlName="drawingPowerOverdraftFacility"
+                                               placeholder=""
+                                               type="text"/>
+                                        प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ ।
+                                    </span>
+                                </p>
+                                <!--<p *ngIf="interestRateTypeOverdraftFixedForm === 'COUPEN_RATE_FINANCING'">-->
+                                <p *ngIf="val.interestRateType === 'COUPEN_RATE_FINANCING'">
+                                    <span>
+                                        <strong>ब्याज दरः</strong>
+                                        <!--<ng-container *ngIf="checkAdditionalPremiumRateOverdraftFixedForm">-->
+                                        <ng-container *ngIf="val.checkAdditionalPremiumRate === true">
+                                            मुद्धति रसिदमा प्राप्त हुने ब्याज दरमा थप
+                                            <input class="form-field form-control-sm "
+                                                   formControlName="additionalPremiumOverdraftFacility"
+                                                   placeholder=""
+                                                   type="text"/>
+                                            प्रतिशत वा कम्तिमा
+                                        </ng-container>
+                                        बार्षिक
+                                        <input class="form-field form-control-sm "
+                                               formControlName="couponInterestRateOverdraftFacility"
+                                               placeholder=""
+                                               type="text"/>
+                                        का दरले नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात
+                                        आषाढ, आश्विन, पौष र चैत्र मसान्तमा र/वा कर्जा चुक्ता भुक्तान भएको अवस्थामा तिर्नु बुझाउनु पर्नेछ ।
+                                    </span>
+                                </p>
+                                <!--<p *ngIf="interestRateTypeOverdraftFixedForm === 'BASE_RATE_FINANCING'">-->
+                                <p *ngIf="val.interestRateType === 'BASE_RATE_FINANCING'">
+                                    <span>
+                                        <strong>
+                                            ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)
+                                        </strong>
+                                        <input class="form-field form-control-sm "
+                                               formControlName="baseRateOverdraftFacility"
+                                               placeholder=""
+                                               type="text"/>
+                                        +
+                                        <input class="form-field form-control-sm "
+                                               formControlName="premiumRateOverdraftFacility"
+                                               placeholder=""
+                                               type="text"/>
+                                        प्रतिशत ब्याज दर प्रिमियम (interest rate premium)
+                                    </span>
+                                    <br>
+                                    <!-- <span *ngIf="interestSubsidyAgOverdraftFixedForm === 'No'">-->
+                                    <span *ngIf="val.subsidyOrAgricultureLoan === 'No'">
+                                        हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate) बार्षिक
+                                        <input class="form-field form-control-sm "
+                                               formControlName="interestRateOverdraftFacility"
+                                               placeholder=""
+                                               type="text"/>
+                                        % का दर
+                                        निर्धारण गरीएकोछ र सो ब्याज रकम नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र
+                                        चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।
+                                    </span>
+                                </p>
+                                <span>
+                                    <strong>कर्जा अवधि समाप्ति/पुनरावलोकन मितिः</strong>
+                                    {{val?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
+                                    <input
+                                            class="form-field form-control-sm "
+                                            formControlName="loanExpiryDateOverdraftFacility"
+                                            placeholder=""
+                                            type="text"/>
+                                </span>
+                            </td>
+                        </ng-container>
+                    </tr>
+                </ng-container>
+
                 <ng-container *ngIf="tempData?.overDraftFacilityForm?.overdraftFacilityDetails">
                     <tr *ngFor="let val of tempData?.overDraftFacilityForm?.overdraftFacilityDetails; let i1 = index"
                         formArrayName="overdraftFacilityAgainstBond">
@@ -1063,6 +1741,9 @@
                                 (tempData?.bridgeGapLoan?.bridgeGapDetails.length) +
                                 (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
                                 (tempData?.mortgageEquityTermForm?.mortgageTermFormArray.length) +
+                                (tempData?.overdraftFixedForm?.dlAgainstFixedDepositFormArray.length) +
+                                (tempData?.overdraftFixedForm?.dlAgainstLienOnDepositFormArray.length) +
+                                (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
                                     (i1 + 1) | nepaliWord}})</strong></td>
                             <td>
                                 <strong>बचत/ऋण पत्रमा आधारीत <input class="form-field form-control-sm "
@@ -1164,6 +1845,742 @@
                     </tr>
                 </ng-container>
 
+                <ng-container *ngIf="tempData?.overdraftFixedForm?.odFdFormArray">
+                    <tr *ngFor="let val of tempData?.overdraftFixedForm?.odFdFormArray; let i1 = index"
+                        formArrayName="overdraftFacilityFixedDeposit">
+                        <!--Overdraft Facility against Fixed Deposit-->
+                        <ng-container [formGroupName]="i1">
+                            <td width="10%">
+                                <strong>
+                                    {{(tempData?.termLoanForm?.termLoanDetails?.length) +
+                                (tempData?.autoLoanMasterForm?.autoLoanFormArray?.length) +
+                                (tempData?.overDraftFacilityForm?.overdraftFacilityDetails.length) +
+                                (tempData?.equityMortgaged?.mortgageOverdraftFormArray.length) +
+                                (tempData?.letterOfCreditForm?.letterOfCreditFormArray.length) +
+                                (tempData?.importLoanTrust?.importLoanTrustFormArray.length) +
+                                (tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray.length) +
+                                (tempData?.timeLetterCreditForm?.timeLetterCreditFormArray.length) +
+                                (tempData?.demandLoanForm?.demandLoanFormArray.length) +
+                                (tempData?.bridgeGapLoan?.bridgeGapDetails.length) +
+                                (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
+                                (tempData?.mortgageEquityTermForm?.mortgageTermFormArray.length) +
+                                (tempData?.overdraftFixedForm?.dlAgainstFixedDepositFormArray.length) +
+                                (tempData?.overdraftFixedForm?.dlAgainstLienOnDepositFormArray.length) +
+                                (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
+                                (i1 + 1) | nepaliWord}})</strong>
+                            </td>
+                            <td>
+                                <span>
+                                    <strong>निक्षेप मौज्दातमा आधारीत
+                                        <input class="form-field form-control-sm "
+                                               formControlName="nameOfFacilityOverdraftFacility"
+                                               placeholder=""
+                                               type="text"/>
+                                        कर्जा (
+                                        <input class="form-field form-control-sm "
+                                               formControlName="nameOfFacilityOverdraftFacilityInEng"
+                                               placeholder=""
+                                               type="text"/>
+                                        Facility against Fixed Deposit)
+                                    </strong>
+                                </span>
+                                <br>
+
+                                <strong>
+                                    सीमाः रु.
+                                    <input class="form-field form-control-sm "
+                                           value="{{overdraftFacilityFixedDeposit[i1] ? overdraftFacilityFixedDeposit[i1].loanAmountNp : ''}}"
+                                           placeholder=""
+                                           type="text"/>/-
+                                    (अक्षरेपी रु.
+                                    <input class="form-field form-control-sm "
+                                           value="{{overdraftFacilityFixedDeposit[i1] ? overdraftFacilityFixedDeposit[i1].loanAmountWords : ''}}"
+                                           placeholder=""
+                                           type="text"/>
+                                    मात्र)
+                                </strong>
+                                <br>
+
+                                <p *ngIf="val.holdingBank === 'NABIL'">
+                                    <strong>सुरक्षणः</strong>
+                                    नबिल बैंकद्वारा जारी गरिएको
+                                    <input class="form-field form-control-sm "
+                                           formControlName="nameOfFDHolderOverdraftFacility"
+                                           placeholder=""
+                                           type="text"/>
+                                    हरुको नाममा रहेको कम्तिमा
+                                    रु.
+                                    <input class="form-field form-control-sm "
+                                           formControlName="FDAmountOverdraftFacility"
+                                           placeholder=""
+                                           type="text"/>/–
+                                    बराबरको मुद्धती रसिद उपर बैंकले उल्लिखित रसिद वापतको रकम कर्जामा
+                                    समायोजन गर्न सक्ने अधिकार सहितको बैंकको पक्षमा जारी गरिदिइएको/गरिने मोजरापत्र
+                                    (Letter of Set-off) ।
+                                </p>
+                                <p *ngIf="val.holdingBank === 'OTHER'">
+                                    <strong>सुरक्षणः</strong>
+                                    <input class="form-field form-control-sm "
+                                           formControlName="nameOfBankOverdraftFacility"
+                                           placeholder=""
+                                           type="text"/>
+                                    बैंकद्वारा जारी गरिएको
+                                    <input class="form-field form-control-sm "
+                                           formControlName="nameOfFDHolderOverdraftFacility"
+                                           placeholder=""
+                                           type="text"/>
+                                    हरुको नाममा रहेको कम्तिमा
+                                    रु.
+                                    <input class="form-field form-control-sm "
+                                           formControlName="FDAmountOverdraftFacility"
+                                           placeholder=""
+                                           type="text"/>/–
+                                    बराबरको मुद्धती रसिद उपर बैंकले उल्लिखित रसिद वापतको रकम कर्जामा
+                                    समायोजन गर्न सक्ने अधिकार सहितको बैंकको पक्षमा जारी गरिदिइएको/गरिने मोजरापत्र
+                                    (Letter of Set-off) ।
+                                </p>
+                                <p>
+                                    <span>
+                                        <strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong>
+                                        मुद्धती रसिदको मौज्दातको
+                                        <input class="form-field form-control-sm "
+                                               formControlName="drawingPowerOverdraftFacility"
+                                               placeholder=""
+                                               type="text"/>
+                                        प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ ।
+                                    </span>
+
+                                </p>
+                                <p *ngIf="val.interestRateType === 'COUPEN_RATE_FINANCING'">
+                                    <span>
+                                        <strong>ब्याज दरः</strong>
+                                        <ng-container *ngIf="val.checkAdditionalPremiumRate === true">
+                                            मुद्धति रसिदमा प्राप्त हुने ब्याज दरमा थप
+                                            <input class="form-field form-control-sm "
+                                                   formControlName="additionalPremiumOverdraftFacility"
+                                                   placeholder=""
+                                                   type="text"/>
+                                            प्रतिशत वा कम्तिमा
+                                        </ng-container>
+                                        बार्षिक
+                                        <input class="form-field form-control-sm "
+                                               formControlName="couponInterestRateOverdraftFacility"
+                                               placeholder=""
+                                               type="text"/>
+                                        का दरले नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात
+                                        आषाढ, आश्विन, पौष र चैत्र मसान्तमा र/वा कर्जा चुक्ता भुक्तान भएको अवस्थामा तिर्नु बुझाउनु पर्नेछ ।
+                                    </span>
+                                </p>
+                                <p *ngIf="val.interestRateType === 'BASE_RATE_FINANCING'">
+                                    <span>
+                                        <strong>
+                                            ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)
+                                        </strong>
+                                        <input class="form-field form-control-sm "
+                                               formControlName="baseRateOverdraftFacility"
+                                               placeholder=""
+                                               type="text"/>
+                                        +
+                                        <input class="form-field form-control-sm "
+                                               formControlName="premiumRateOverdraftFacility"
+                                               placeholder=""
+                                               type="text"/>
+                                        प्रतिशत ब्याज दर प्रिमियम (interest rate premium)
+                                    </span>
+                                    <br>
+                                    <span *ngIf="val.subsidyOrAgricultureLoan === 'No'">
+                                        हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate) बार्षिक
+                                        <input class="form-field form-control-sm "
+                                               formControlName="interestRateOverdraftFacility"
+                                               placeholder=""
+                                               type="text"/>
+                                        % का दर
+                                        निर्धारण गरीएकोछ र सो ब्याज रकम नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र
+                                        चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।
+                                    </span>
+                                </p>
+                                <span>
+                                    <strong>कर्जा अवधि समाप्ति/पुनरावलोकन मितिः</strong>
+                                    {{val?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
+                                    <input
+                                            class="form-field form-control-sm "
+                                            formControlName="loanExpiryDateOverdraftFacility"
+                                            placeholder=""
+                                            type="text"/>
+                                </span>
+                            </td>
+                        </ng-container>
+                    </tr>
+                </ng-container>
+
+                <ng-container *ngIf="tempData?.overdraftFixedForm?.overdraftLienOnDepositFormArray">
+                    <tr *ngFor="let val of tempData?.overdraftFixedForm?.overdraftLienOnDepositFormArray; let i1 = index"
+                        formArrayName="overdraftfacilityLienDeposit">
+                        <!--Overdraft Facility Lien on Deposit Account-->
+                        <ng-container [formGroupName]="i1">
+                            <td width="10%">
+                                <strong>
+                                    {{(tempData?.termLoanForm?.termLoanDetails?.length) +
+                                (tempData?.autoLoanMasterForm?.autoLoanFormArray?.length) +
+                                (tempData?.overDraftFacilityForm?.overdraftFacilityDetails.length) +
+                                (tempData?.equityMortgaged?.mortgageOverdraftFormArray.length) +
+                                (tempData?.letterOfCreditForm?.letterOfCreditFormArray.length) +
+                                (tempData?.importLoanTrust?.importLoanTrustFormArray.length) +
+                                (tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray.length) +
+                                (tempData?.timeLetterCreditForm?.timeLetterCreditFormArray.length) +
+                                (tempData?.demandLoanForm?.demandLoanFormArray.length) +
+                                (tempData?.bridgeGapLoan?.bridgeGapDetails.length) +
+                                (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
+                                (tempData?.mortgageEquityTermForm?.mortgageTermFormArray.length) +
+                                (tempData?.overdraftFixedForm?.dlAgainstFixedDepositFormArray.length) +
+                                (tempData?.overdraftFixedForm?.odFdFormArray.length) +
+                                (tempData?.overdraftFixedForm?.dlAgainstLienOnDepositFormArray.length) +
+                                (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
+                                (i1 + 1) | nepaliWord}})</strong>
+                            </td>
+                            <td>
+                                <span>
+                                    <strong>
+                                        निक्षेप मौज्दातमा आधारीत
+                                        <input class="form-field form-control-sm "
+                                               formControlName="nameOfFacilityOverdraftFacility"
+                                               placeholder=""
+                                               type="text"/>
+                                        कर्जा (
+                                        <input class="form-field form-control-sm "
+                                               formControlName="nameOfFacilityOverdraftFacilityInEng"
+                                               placeholder=""
+                                               type="text"/>
+                                        Facility against Lien on Deposit Account)
+                                    </strong>
+                                </span>
+                                <br>
+
+                                <strong>
+                                    सीमाः रु.
+                                    <input class="form-field form-control-sm "
+                                           value="{{overdraftFacilityLienDeposit[i1] ? overdraftFacilityLienDeposit[i1].loanAmountNp : ''}}"
+                                           placeholder=""
+                                           type="text"/>/-
+                                    (अक्षरेपी रु.
+                                    <input class="form-field form-control-sm "
+                                           value="{{overdraftFacilityLienDeposit[i1] ? overdraftFacilityLienDeposit[i1].loanAmountWords : ''}}"
+                                           placeholder=""
+                                           type="text"/>
+                                    मात्र)
+                                </strong>
+                                <br>
+                                <p>
+                                    <span *ngIf="val.letterOfSetOff === 'EXISTING'">
+                                        <strong>सुरक्षणः</strong>
+                                        नबिल बैंकमा खोलिएको
+                                        <input class="form-field form-control-sm "
+                                               formControlName="nameOfDepositorOverdraftFacility"
+                                               placeholder=""
+                                               type="text"/>
+                                        को नाममा रहेको
+                                        <ng-container *ngIf="val.accountType === 'CURRENT_ACCOUNT'">
+                                            चल्ति
+                                        </ng-container>
+                                        <ng-container *ngIf="val.accountType === 'SAVING_ACCOUNT'">
+                                            बचत
+                                        </ng-container>
+                                        <ng-container *ngIf="val.accountType === 'CALL_ACCOUNT'">
+                                            कल
+                                        </ng-container>
+                                        खाता नं. ‘‘
+                                        <input class="form-field form-control-sm "
+                                               formControlName="accountNoOverdraftFacility"
+                                               placeholder=""
+                                               type="text"/>‘‘
+                                        मा रहेको मौज्दात रु.
+                                        <input class="form-field form-control-sm "
+                                               formControlName="amountOverdraftFacility"
+                                               placeholder=""
+                                               type="text"/>
+                                        बराबरको रकममा ग्रहणाधिकार कायम गरी
+                                        उक्त रकम बरावर कर्जामा समायोजन गर्न सक्ने अधिकार सहितको बैंकको पक्षमा जारी गरिदिइएको
+                                        मोजरापत्र (Letter of Set-off) ।
+                                    </span>
+                                    <span *ngIf="val.letterOfSetOff === 'NEW'">
+                                        <strong>सुरक्षणः</strong>
+                                        नबिल बैंकमा खोलिएको
+                                        <input
+                                                class="form-field form-control-sm "
+                                                formControlName="nameOfDepositorOverdraftFacility"
+                                                placeholder=""
+                                                type="text"/>
+                                        को नाममा रहेको
+                                        <ng-container *ngIf="val.accountType === 'CURRENT_ACCOUNT'">
+                                            चल्ति
+                                        </ng-container>
+                                        <ng-container *ngIf="val.accountType === 'SAVING_ACCOUNT'">
+                                            बचत
+                                        </ng-container>
+                                        <ng-container *ngIf="val.accountType === 'CALL_ACCOUNT'">
+                                            कल
+                                        </ng-container>
+                                        खाता नं. ‘‘
+                                        <input class="form-field form-control-sm "
+                                               formControlName="accountNoOverdraftFacility"
+                                               placeholder=""
+                                               type="text"/>
+                                        ‘‘मा रहेको मौज्दात रु.
+                                        <input class="form-field form-control-sm "
+                                               formControlName="amountOverdraftFacility"
+                                               placeholder=""
+                                               type="text"/>
+                                        बराबरको रकममा ग्रहणाधिकार कायम गरी
+                                        उक्त रकम बरावर कर्जामा समायोजन गर्न सक्ने अधिकार सहितको बैंकको पक्षमा जारी गरिने
+                                        मोजरापत्र (Letter of Set-off) ।
+                                    </span>
+                                </p>
+                                <p>
+                                    <span>
+                                        <strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong>
+                                        खातामा रोक्का राखिएका मौज्दातको
+                                        <input class="form-field form-control-sm "
+                                               formControlName="drawingPowerOverdraftFacility"
+                                               placeholder=""
+                                               type="text"/>
+                                        प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ ।
+                                    </span>
+                                </p>
+                                <p *ngIf="val.interestRateType === 'COUPEN_RATE_FINANCING'">
+                                    <span>
+                                        <strong>ब्याज दरः</strong>
+                                        <!--<ng-container *ngIf="checkAdditionalPremiumRateOverdraftFixedForm">-->
+                                        <ng-container *ngIf="val.checkAdditionalPremiumRate === true">
+                                            मुद्धति रसिदमा प्राप्त हुने ब्याज दरमा थप
+                                            <input class="form-field form-control-sm "
+                                                   formControlName="additionalPremiumOverdraftFacility"
+                                                   placeholder=""
+                                                   type="text"/>
+                                            प्रतिशत वा कम्तिमा
+                                        </ng-container>
+                                        बार्षिक
+                                        <input class="form-field form-control-sm "
+                                               formControlName="couponInterestRateOverdraftFacility"
+                                               placeholder=""
+                                               type="text"/>
+                                        का दरले नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात
+                                        आषाढ, आश्विन, पौष र चैत्र मसान्तमा र/वा कर्जा चुक्ता भुक्तान भएको अवस्थामा तिर्नु बुझाउनु पर्नेछ ।
+                                    </span>
+                                </p>
+                                <!--<p *ngIf="interestRateTypeOverdraftFixedForm === 'BASE_RATE_FINANCING'">-->
+                                <p *ngIf="val.interestRateType === 'BASE_RATE_FINANCING'">
+                                    <span>
+                                        <strong>
+                                            ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)
+                                        </strong>
+                                        <input class="form-field form-control-sm "
+                                               formControlName="baseRateOverdraftFacility"
+                                               placeholder=""
+                                               type="text"/>
+                                        +
+                                        <input class="form-field form-control-sm "
+                                               formControlName="premiumRateOverdraftFacility"
+                                               placeholder=""
+                                               type="text"/>
+                                        प्रतिशत ब्याज दर प्रिमियम (interest rate premium)
+                                    </span>
+                                <br>
+                                <!-- <span *ngIf="interestSubsidyAgOverdraftFixedForm === 'No'">-->
+                                <span *ngIf="val.subsidyOrAgricultureLoan === 'No'">
+                                        हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate) बार्षिक
+                                        <input class="form-field form-control-sm "
+                                               formControlName="interestRateOverdraftFacility"
+                                               placeholder=""
+                                               type="text"/>
+                                        % का दर
+                                        निर्धारण गरीएकोछ र सो ब्याज रकम नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र
+                                        चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।
+                                    </span>
+                                </p>
+                                <span>
+                                    <strong>कर्जा अवधि समाप्ति/पुनरावलोकन मितिः</strong>
+                                    {{val?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
+                                    <input
+                                            class="form-field form-control-sm "
+                                            formControlName="loanExpiryDateOverdraftFacility"
+                                            placeholder=""
+                                            type="text"/>
+                                </span>
+                            </td>
+                        </ng-container>
+                    </tr>
+                </ng-container>
+
+                <ng-container *ngIf="tempData?.overdraftFixedForm?.stlAgainstFixedDepositFormArray">
+                    <tr *ngFor="let val of tempData?.overdraftFixedForm?.stlAgainstFixedDepositFormArray; let i1 = index"
+                        formArrayName="stlFixedDeposit">
+                        <!--STL against Fixed Deposit-->
+                        <ng-container [formGroupName]="i1">
+                            <td width="10%">
+                                <strong>
+                                    {{(tempData?.termLoanForm?.termLoanDetails?.length) +
+                                (tempData?.autoLoanMasterForm?.autoLoanFormArray?.length) +
+                                (tempData?.overDraftFacilityForm?.overdraftFacilityDetails.length) +
+                                (tempData?.equityMortgaged?.mortgageOverdraftFormArray.length) +
+                                (tempData?.letterOfCreditForm?.letterOfCreditFormArray.length) +
+                                (tempData?.importLoanTrust?.importLoanTrustFormArray.length) +
+                                (tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray.length) +
+                                (tempData?.timeLetterCreditForm?.timeLetterCreditFormArray.length) +
+                                (tempData?.demandLoanForm?.demandLoanFormArray.length) +
+                                (tempData?.bridgeGapLoan?.bridgeGapDetails.length) +
+                                (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
+                                (tempData?.mortgageEquityTermForm?.mortgageTermFormArray.length) +
+                                (tempData?.overdraftFixedForm?.dlAgainstFixedDepositFormArray.length) +
+                                (tempData?.overdraftFixedForm?.odFdFormArray.length) +
+                                (tempData?.overdraftFixedForm?.dlAgainstLienOnDepositFormArray.length) +
+                                (tempData?.overdraftFixedForm?.overdraftLienOnDepositFormArray.length) +
+                                (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
+                                (i1 + 1) | nepaliWord}})</strong>
+                            </td>
+                            <td>
+                                <span>
+                                    <strong>निक्षेप मौज्दातमा आधारीत
+                                        <input class="form-field form-control-sm "
+                                               formControlName="nameOfFacilityOverdraftFacility"
+                                               placeholder=""
+                                               type="text"/>
+                                        कर्जा (
+                                        <input class="form-field form-control-sm "
+                                               formControlName="nameOfFacilityOverdraftFacilityInEng"
+                                               placeholder=""
+                                               type="text"/>
+                                        Facility against Fixed Deposit)
+                                    </strong>
+                                </span>
+                                <br>
+
+                                <strong>
+                                    सीमाः रु.
+                                    <input class="form-field form-control-sm "
+                                           value="{{stlFixedDeposit[i1] ? stlFixedDeposit[i1].loanAmountNp : ''}}"
+                                           placeholder=""
+                                           type="text"/>/-
+                                    (अक्षरेपी रु.
+                                    <input class="form-field form-control-sm "
+                                           value="{{stlFixedDeposit[i1] ? stlFixedDeposit[i1].loanAmountWords : ''}}"
+                                           placeholder=""
+                                           type="text"/>
+                                    मात्र)
+                                </strong>
+                                <br>
+
+                                <p *ngIf="val.holdingBank === 'NABIL'">
+                                    <strong>सुरक्षणः</strong>
+                                    नबिल बैंकद्वारा जारी गरिएको
+                                    <input class="form-field form-control-sm "
+                                           formControlName="nameOfFDHolderOverdraftFacility"
+                                           placeholder=""
+                                           type="text"/>
+                                    हरुको नाममा रहेको कम्तिमा
+                                    रु.
+                                    <input class="form-field form-control-sm "
+                                           formControlName="FDAmountOverdraftFacility"
+                                           placeholder=""
+                                           type="text"/>/–
+                                    बराबरको मुद्धती रसिद उपर बैंकले उल्लिखित रसिद वापतको रकम कर्जामा
+                                    समायोजन गर्न सक्ने अधिकार सहितको बैंकको पक्षमा जारी गरिदिइएको/गरिने मोजरापत्र
+                                    (Letter of Set-off) ।
+                                </p>
+                                <p *ngIf="val.holdingBank === 'OTHER'">
+                                    <strong>सुरक्षणः</strong>
+                                    <input class="form-field form-control-sm "
+                                           formControlName="nameOfBankOverdraftFacility"
+                                           placeholder=""
+                                           type="text"/>
+                                    बैंकद्वारा जारी गरिएको
+                                    <input class="form-field form-control-sm "
+                                           formControlName="nameOfFDHolderOverdraftFacility"
+                                           placeholder=""
+                                           type="text"/>
+                                    हरुको नाममा रहेको कम्तिमा
+                                    रु.
+                                    <input class="form-field form-control-sm "
+                                           formControlName="FDAmountOverdraftFacility"
+                                           placeholder=""
+                                           type="text"/>/–
+                                    बराबरको मुद्धती रसिद उपर बैंकले उल्लिखित रसिद वापतको रकम कर्जामा
+                                    समायोजन गर्न सक्ने अधिकार सहितको बैंकको पक्षमा जारी गरिदिइएको/गरिने मोजरापत्र
+                                    (Letter of Set-off) ।
+                                </p>
+                                <p>
+                                    <span>
+                                        <strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong>
+                                        मुद्धती रसिदको मौज्दातको
+                                        <input class="form-field form-control-sm "
+                                               formControlName="drawingPowerOverdraftFacility"
+                                               placeholder=""
+                                               type="text"/>
+                                        प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ ।
+                                    </span>
+
+                                </p>
+                                <p *ngIf="val.interestRateType === 'COUPEN_RATE_FINANCING'">
+                                    <span>
+                                        <strong>ब्याज दरः</strong>
+                                        <ng-container *ngIf="val.checkAdditionalPremiumRate === true">
+                                            मुद्धति रसिदमा प्राप्त हुने ब्याज दरमा थप
+                                            <input class="form-field form-control-sm "
+                                                   formControlName="additionalPremiumOverdraftFacility"
+                                                   placeholder=""
+                                                   type="text"/>
+                                            प्रतिशत वा कम्तिमा
+                                        </ng-container>
+                                        बार्षिक
+                                        <input class="form-field form-control-sm "
+                                               formControlName="couponInterestRateOverdraftFacility"
+                                               placeholder=""
+                                               type="text"/>
+                                        का दरले नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात
+                                        आषाढ, आश्विन, पौष र चैत्र मसान्तमा र/वा कर्जा चुक्ता भुक्तान भएको अवस्थामा तिर्नु बुझाउनु पर्नेछ ।
+                                    </span>
+                                </p>
+                                <p *ngIf="val.interestRateType === 'BASE_RATE_FINANCING'">
+                                    <span>
+                                        <strong>
+                                            ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)
+                                        </strong>
+                                        <input class="form-field form-control-sm "
+                                               formControlName="baseRateOverdraftFacility"
+                                               placeholder=""
+                                               type="text"/>
+                                        +
+                                        <input class="form-field form-control-sm "
+                                               formControlName="premiumRateOverdraftFacility"
+                                               placeholder=""
+                                               type="text"/>
+                                        प्रतिशत ब्याज दर प्रिमियम (interest rate premium)
+                                    </span>
+                                    <br>
+                                    <span *ngIf="val.subsidyOrAgricultureLoan === 'No'">
+                                        हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate) बार्षिक
+                                        <input class="form-field form-control-sm "
+                                               formControlName="interestRateOverdraftFacility"
+                                               placeholder=""
+                                               type="text"/>
+                                        % का दर
+                                        निर्धारण गरीएकोछ र सो ब्याज रकम नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र
+                                        चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।
+                                    </span>
+                                </p>
+                                <span>
+                                    <strong>कर्जा अवधि समाप्ति/पुनरावलोकन मितिः</strong>
+                                    {{val?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
+                                    <input
+                                            class="form-field form-control-sm "
+                                            formControlName="loanExpiryDateOverdraftFacility"
+                                            placeholder=""
+                                            type="text"/>
+                                </span>
+                            </td>
+                        </ng-container>
+                    </tr>
+                </ng-container>
+
+                <ng-container *ngIf="tempData?.overdraftFixedForm?.stlLienOnDepositFormArray">
+                    <tr *ngFor="let val of tempData?.overdraftFixedForm?.stlLienOnDepositFormArray; let i1 = index"
+                        formArrayName="stlLienDeposit">
+                        <!--STL Lien on Deposit Account-->
+                        <ng-container [formGroupName]="i1">
+                            <td width="10%">
+                                <strong>
+                                    {{(tempData?.termLoanForm?.termLoanDetails?.length) +
+                                (tempData?.autoLoanMasterForm?.autoLoanFormArray?.length) +
+                                (tempData?.overDraftFacilityForm?.overdraftFacilityDetails.length) +
+                                (tempData?.equityMortgaged?.mortgageOverdraftFormArray.length) +
+                                (tempData?.letterOfCreditForm?.letterOfCreditFormArray.length) +
+                                (tempData?.importLoanTrust?.importLoanTrustFormArray.length) +
+                                (tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray.length) +
+                                (tempData?.timeLetterCreditForm?.timeLetterCreditFormArray.length) +
+                                (tempData?.demandLoanForm?.demandLoanFormArray.length) +
+                                (tempData?.bridgeGapLoan?.bridgeGapDetails.length) +
+                                (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
+                                (tempData?.mortgageEquityTermForm?.mortgageTermFormArray.length) +
+                                (tempData?.overdraftFixedForm?.dlAgainstFixedDepositFormArray.length) +
+                                (tempData?.overdraftFixedForm?.odFdFormArray.length) +
+                                (tempData?.overdraftFixedForm?.stlAgainstFixedDepositFormArray.length) +
+                                (tempData?.overdraftFixedForm?.dlAgainstLienOnDepositFormArray.length) +
+                                (tempData?.overdraftFixedForm?.overdraftLienOnDepositFormArray.length) +
+                                (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
+                                (i1 + 1) | nepaliWord}})</strong>
+                            </td>
+                            <td>
+                                <span>
+                                    <strong>
+                                        निक्षेप मौज्दातमा आधारीत
+                                        <input class="form-field form-control-sm "
+                                               formControlName="nameOfFacilityOverdraftFacility"
+                                               placeholder=""
+                                               type="text"/>
+                                        कर्जा (
+                                        <input class="form-field form-control-sm "
+                                               formControlName="nameOfFacilityOverdraftFacilityInEng"
+                                               placeholder=""
+                                               type="text"/>
+                                        Facility against Lien on Deposit Account)
+                                    </strong>
+                                </span>
+                                <br>
+
+                                <strong>
+                                    सीमाः रु.
+                                    <input class="form-field form-control-sm "
+                                           value="{{stlLienDeposit[i1] ? stlLienDeposit[i1].loanAmountNp : ''}}"
+                                           placeholder=""
+                                           type="text"/>/-
+                                    (अक्षरेपी रु.
+                                    <input class="form-field form-control-sm "
+                                           value="{{stlLienDeposit[i1] ? stlLienDeposit[i1].loanAmountWords : ''}}"
+                                           placeholder=""
+                                           type="text"/>
+                                    मात्र)
+                                </strong>
+                                <br>
+                                <p>
+                                    <span *ngIf="val.letterOfSetOff === 'EXISTING'">
+                                        <strong>सुरक्षणः</strong>
+                                        नबिल बैंकमा खोलिएको
+                                        <input class="form-field form-control-sm "
+                                               formControlName="nameOfDepositorOverdraftFacility"
+                                               placeholder=""
+                                               type="text"/>
+                                        को नाममा रहेको
+                                        <ng-container *ngIf="val.accountType === 'CURRENT_ACCOUNT'">
+                                            चल्ति
+                                        </ng-container>
+                                        <ng-container *ngIf="val.accountType === 'SAVING_ACCOUNT'">
+                                            बचत
+                                        </ng-container>
+                                        <ng-container *ngIf="val.accountType === 'CALL_ACCOUNT'">
+                                            कल
+                                        </ng-container>
+                                        खाता नं. ‘‘
+                                        <input class="form-field form-control-sm "
+                                               formControlName="accountNoOverdraftFacility"
+                                               placeholder=""
+                                               type="text"/>‘‘
+                                        मा रहेको मौज्दात रु.
+                                        <input class="form-field form-control-sm "
+                                               formControlName="amountOverdraftFacility"
+                                               placeholder=""
+                                               type="text"/>
+                                        बराबरको रकममा ग्रहणाधिकार कायम गरी
+                                        उक्त रकम बरावर कर्जामा समायोजन गर्न सक्ने अधिकार सहितको बैंकको पक्षमा जारी गरिदिइएको
+                                        मोजरापत्र (Letter of Set-off) ।
+                                    </span>
+                                    <span *ngIf="val.letterOfSetOff === 'NEW'">
+                                        <strong>सुरक्षणः</strong>
+                                        नबिल बैंकमा खोलिएको
+                                        <input
+                                                class="form-field form-control-sm "
+                                                formControlName="nameOfDepositorOverdraftFacility"
+                                                placeholder=""
+                                                type="text"/>
+                                        को नाममा रहेको
+                                        <ng-container *ngIf="val.accountType === 'CURRENT_ACCOUNT'">
+                                            चल्ति
+                                        </ng-container>
+                                        <ng-container *ngIf="val.accountType === 'SAVING_ACCOUNT'">
+                                            बचत
+                                        </ng-container>
+                                        <ng-container *ngIf="val.accountType === 'CALL_ACCOUNT'">
+                                            कल
+                                        </ng-container>
+                                        खाता नं. ‘‘
+                                        <input class="form-field form-control-sm "
+                                               formControlName="accountNoOverdraftFacility"
+                                               placeholder=""
+                                               type="text"/>
+                                        ‘‘मा रहेको मौज्दात रु.
+                                        <input class="form-field form-control-sm "
+                                               formControlName="amountOverdraftFacility"
+                                               placeholder=""
+                                               type="text"/>
+                                        बराबरको रकममा ग्रहणाधिकार कायम गरी
+                                        उक्त रकम बरावर कर्जामा समायोजन गर्न सक्ने अधिकार सहितको बैंकको पक्षमा जारी गरिने
+                                        मोजरापत्र (Letter of Set-off) ।
+                                    </span>
+                                </p>
+                                <p>
+                                    <span>
+                                        <strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong>
+                                        खातामा रोक्का राखिएका मौज्दातको
+                                        <input class="form-field form-control-sm "
+                                               formControlName="drawingPowerOverdraftFacility"
+                                               placeholder=""
+                                               type="text"/>
+                                        प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ ।
+                                    </span>
+                                </p>
+                                <p *ngIf="val.interestRateType === 'COUPEN_RATE_FINANCING'">
+                                    <span>
+                                        <strong>ब्याज दरः</strong>
+                                        <!--<ng-container *ngIf="checkAdditionalPremiumRateOverdraftFixedForm">-->
+                                        <ng-container *ngIf="val.checkAdditionalPremiumRate === true">
+                                            मुद्धति रसिदमा प्राप्त हुने ब्याज दरमा थप
+                                            <input class="form-field form-control-sm "
+                                                   formControlName="additionalPremiumOverdraftFacility"
+                                                   placeholder=""
+                                                   type="text"/>
+                                            प्रतिशत वा कम्तिमा
+                                        </ng-container>
+                                        बार्षिक
+                                        <input class="form-field form-control-sm "
+                                               formControlName="couponInterestRateOverdraftFacility"
+                                               placeholder=""
+                                               type="text"/>
+                                        का दरले नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात
+                                        आषाढ, आश्विन, पौष र चैत्र मसान्तमा र/वा कर्जा चुक्ता भुक्तान भएको अवस्थामा तिर्नु बुझाउनु पर्नेछ ।
+                                    </span>
+                                </p>
+                                <!--<p *ngIf="interestRateTypeOverdraftFixedForm === 'BASE_RATE_FINANCING'">-->
+                                <p *ngIf="val.interestRateType === 'BASE_RATE_FINANCING'">
+                                    <span>
+                                        <strong>
+                                            ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)
+                                        </strong>
+                                        <input class="form-field form-control-sm "
+                                               formControlName="baseRateOverdraftFacility"
+                                               placeholder=""
+                                               type="text"/>
+                                        +
+                                        <input class="form-field form-control-sm "
+                                               formControlName="premiumRateOverdraftFacility"
+                                               placeholder=""
+                                               type="text"/>
+                                        प्रतिशत ब्याज दर प्रिमियम (interest rate premium)
+                                    </span>
+                                <br>
+                                <!-- <span *ngIf="interestSubsidyAgOverdraftFixedForm === 'No'">-->
+                                <span *ngIf="val.subsidyOrAgricultureLoan === 'No'">
+                                        हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate) बार्षिक
+                                        <input class="form-field form-control-sm "
+                                               formControlName="interestRateOverdraftFacility"
+                                               placeholder=""
+                                               type="text"/>
+                                        % का दर
+                                        निर्धारण गरीएकोछ र सो ब्याज रकम नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र
+                                        चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।
+                                </span>
+                                </p>
+                                <span>
+                                    <strong>कर्जा अवधि समाप्ति/पुनरावलोकन मितिः</strong>
+                                    {{val?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
+                                    <input
+                                            class="form-field form-control-sm "
+                                            formControlName="loanExpiryDateOverdraftFacility"
+                                            placeholder=""
+                                            type="text"/>
+                                </span>
+                            </td>
+                        </ng-container>
+                    </tr>
+                </ng-container>
+
                 <ng-container *ngIf="tempData?.documentaryBillPurchase?.documentaryBillPurchaseFormArray">
                     <tr *ngFor="let val of tempData?.documentaryBillPurchase?.documentaryBillPurchaseFormArray; let i2 = index"
                         formArrayName="documentaryBillPurchaseNegotiation">
@@ -1182,6 +2599,13 @@
                                 (tempData?.bridgeGapLoan?.bridgeGapDetails.length) +
                                 (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
                                 (tempData?.mortgageEquityTermForm?.mortgageTermFormArray.length) +
+                                (tempData?.overdraftFixedForm?.dlAgainstFixedDepositFormArray.length) +
+                                (tempData?.overdraftFixedForm?.odFdFormArray.length) +
+                                (tempData?.overdraftFixedForm?.dlAgainstLienOnDepositFormArray.length) +
+                                (tempData?.overdraftFixedForm?.overdraftLienOnDepositFormArray.length) +
+                                (tempData?.overdraftFixedForm?.stlLienOnDepositFormArray.length) +
+                                (tempData?.overdraftFixedForm?.stlAgainstFixedDepositFormArray.length) +
+                                (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
                                 (i2 + 1) | nepaliWord}})</strong></td>
                             <td>
                     <span><strong>डकुमेन्ट्री बिल्स खरिद कर्जा (Documentary Bill Purchase/Negotiation)
@@ -1291,7 +2715,14 @@
                                 (tempData?.demandLoanForm?.demandLoanFormArray.length) +
                                 (tempData?.bridgeGapLoan?.bridgeGapDetails.length) +
                                 (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
-                                (tempData?.mortgageEquityTermForm?.mortgageTermFormArray.length)"
+                                (tempData?.mortgageEquityTermForm?.mortgageTermFormArray.length) +
+                                (tempData?.overdraftFixedForm?.dlAgainstFixedDepositFormArray.length) +
+                                (tempData?.overdraftFixedForm?.odFdFormArray.length) +
+                                (tempData?.overdraftFixedForm?.stlAgainstFixedDepositFormArray.length) +
+                                (tempData?.overdraftFixedForm?.dlAgainstLienOnDepositFormArray.length) +
+                                (tempData?.overdraftFixedForm?.overdraftLienOnDepositFormArray.length) +
+                                (tempData?.overdraftFixedForm?.stlLienOnDepositFormArray.length) +
+                                (tempData?.bankGuarantee?.bankGuaranteeArray.length)"
                                            [equityMortgageData]="equityMortgageData">
             </app-mortgage-equity-term-loan>
         </div>
@@ -1319,6 +2750,13 @@
                                     (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
                                     (tempData?.mortgageEquityTermForm?.mortgageEquityTermFormArray.length) +
                                     (tempData?.mortgageEquityTermForm?.mortgageTermFormArray.length) +
+                                    (tempData?.overdraftFixedForm?.dlAgainstFixedDepositFormArray.length) +
+                                    (tempData?.overdraftFixedForm?.odFdFormArray.length) +
+                                    (tempData?.overdraftFixedForm?.stlAgainstFixedDepositFormArray.length) +
+                                    (tempData?.overdraftFixedForm?.dlAgainstLienOnDepositFormArray.length) +
+                                    (tempData?.overdraftFixedForm?.overdraftLienOnDepositFormArray.length) +
+                                    (tempData?.overdraftFixedForm?.stlLienOnDepositFormArray.length) +
+                                    (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
                                     (i1 + 1) | nepaliWord}})
                                 </strong>
                             </td>
@@ -1453,6 +2891,13 @@
                                     (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
                                     (tempData?.mortgageEquityTermForm?.mortgageEquityTermFormArray.length) +
                                     (tempData?.mortgageEquityTermForm?.mortgageTermFormArray.length) +
+                                    (tempData?.overdraftFixedForm?.dlAgainstFixedDepositFormArray.length) +
+                                    (tempData?.overdraftFixedForm?.odFdFormArray.length) +
+                                    (tempData?.overdraftFixedForm?.stlAgainstFixedDepositFormArray.length) +
+                                    (tempData?.overdraftFixedForm?.dlAgainstLienOnDepositFormArray.length) +
+                                    (tempData?.overdraftFixedForm?.overdraftLienOnDepositFormArray.length) +
+                                    (tempData?.overdraftFixedForm?.stlLienOnDepositFormArray.length) +
+                                    (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
                                     (i3 + 1) | nepaliWord}})
                                 </strong>
                             </td>
@@ -1559,6 +3004,13 @@
                                     (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
                                     (tempData?.mortgageEquityTermForm?.mortgageEquityTermFormArray.length) +
                                     (tempData?.mortgageEquityTermForm?.mortgageTermFormArray.length) +
+                                    (tempData?.overdraftFixedForm?.dlAgainstFixedDepositFormArray.length) +
+                                    (tempData?.overdraftFixedForm?.odFdFormArray.length) +
+                                    (tempData?.overdraftFixedForm?.stlAgainstFixedDepositFormArray.length) +
+                                    (tempData?.overdraftFixedForm?.dlAgainstLienOnDepositFormArray.length) +
+                                    (tempData?.overdraftFixedForm?.overdraftLienOnDepositFormArray.length) +
+                                    (tempData?.overdraftFixedForm?.stlLienOnDepositFormArray.length) +
+                                    (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
                                     (i3 + 1) | nepaliWord}})
                                 </strong>
                             </td>
@@ -1678,6 +3130,13 @@
                                     (tempData?.preExportForm?.termLoanDetails.length) +
                                     (tempData?.mortgageEquityTermForm?.mortgageEquityTermFormArray.length) +
                                     (tempData?.mortgageEquityTermForm?.mortgageTermFormArray.length) +
+                                    (tempData?.overdraftFixedForm?.dlAgainstFixedDepositFormArray.length) +
+                                    (tempData?.overdraftFixedForm?.odFdFormArray.length) +
+                                    (tempData?.overdraftFixedForm?.stlAgainstFixedDepositFormArray.length) +
+                                    (tempData?.overdraftFixedForm?.dlAgainstLienOnDepositFormArray.length) +
+                                    (tempData?.overdraftFixedForm?.overdraftLienOnDepositFormArray.length) +
+                                    (tempData?.overdraftFixedForm?.stlLienOnDepositFormArray.length) +
+                                    (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
                                     (i3 + 1) | nepaliWord}})
                                 </strong>
                             </td>
