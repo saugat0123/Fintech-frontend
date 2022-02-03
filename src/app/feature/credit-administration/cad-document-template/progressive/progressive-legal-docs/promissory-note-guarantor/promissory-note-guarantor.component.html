@@ -2,6 +2,9 @@
 
   <div class="col-md-12 viewFull">
     <form (ngSubmit)="onSubmit()" [formGroup]="form" class="nepali">
+      <div *ngFor="let guarantor of form.get('guarantorDetails')['controls']; index as i"
+           formArrayName="guarantorDetails" class="mt-4">
+        <div [formGroupName]="i">
       <h6 class="text-center"><strong>प्रतिज्ञा पत्र<br>
         (PROMISSORY NOTE)</strong></h6>
       <br>
@@ -35,11 +38,18 @@
                                                   formControlName="borrowerPermanentDistrict"
                                                   placeholder=""
                                                    readonly
-                                                  type="text"/> जिल्ला, <input class="form-field form-control-sm nepaliFont unicode-size"
+                                                  type="text"/> जिल्ला, <input class="form-field form-control-sm nepaliFont unicode-size" *ngIf="form.get('borrowerPermanentMunType').value === '0'; else borrowerPermanentVdc"
                                                                               formControlName="borrowerPermanentMunicipality"
                                                                               placeholder=""
                                                                               readonly
                                                                               type="text"/>
+          <ng-template #borrowerPermanentVdc>
+            <input class="form-field form-control-sm nepaliFont"
+                   formControlName="borrowerPermanentVdc"
+                   placeholder=""
+                   readonly
+                   type="text"/>
+          </ng-template>
           गा.पा./न.पा./म.न.पा., वडा नं. <input class="form-field form-control-sm nepaliFont shortInput"
                                              formControlName="borrowerPermanentWardNo"
                                              placeholder=""
@@ -49,10 +59,18 @@
                                                                                        placeholder=""
                                                                                         readonly
                                                                                        type="text"/> जिल्ला <input class="form-field form-control-sm nepaliFont unicode-size"
+                                                                                                                   *ngIf="form.get('borrowerTemporaryMunType').value === '0'; else borrowerTemporaryVdc"
                                                                                                                    formControlName="borrowerTempMunicipality"
                                                                                                                    placeholder=""
                                                                                                                    readonly
                                                                                                                    type="text"/>
+          <ng-template #borrowerTemporaryVdc>
+            <input class="form-field form-control-sm nepaliFont"
+                   formControlName="borrowerTemporaryVdc"
+                   placeholder=""
+                   readonly
+                   type="text"/>
+          </ng-template>
           गा.पा./न.पा./म.न.पा., वडा न.<input class="form-field form-control-sm nepaliFont shortInput"
                                             formControlName="borrowerTempWardNo"
                                             placeholder=""
@@ -92,9 +110,6 @@
           तुरुन्त तिर्न बुझाउन प्रतिज्ञा र कबुल गर्दछु/छौं ।</p>
 
       </div>
-      <div *ngFor="let guarantor of form.get('guarantorDetails')['controls']; index as i"
-           formArrayName="guarantorDetails" class="mt-4">
-        <div [formGroupName]="i">
       <p class="text-center"><strong>भवदीय,</strong></p>
       <br>
 
@@ -131,23 +146,30 @@
           </tr>
           <tr>
             <td style="text-align: right; vertical-align: top;padding-top: 10px;width: 20%">स्थायी ठेगाना :—</td>
-            <td style="text-align: left;width: 80%"><input class="form-field form-control-sm nepaliFont"
+            <td style="text-align: left;width: 80%"><input class="form-field form-control-sm nepaliFont unicode-size"
                                                            formControlName="guarantorPermanentDistrict"
                                                            placeholder=""
                                                            readonly
                                                            type="text"/>
-              जिल्ला, <input class="form-field form-control-sm nepaliFont"
+              जिल्ला, <input class="form-field form-control-sm nepaliFont unicode-size"
+                             *ngIf="form.get(['guarantorDetails', i,'guarantorPermanentMunType']).value === '0'; else guarantorPermanentVdc"
                             formControlName="guarantorPermanentMunicipality"
                             placeholder=""
                             readonly
                             type="text"/>
+              <ng-template #guarantorPermanentVdc>
+                <input class="form-field form-control-sm nepaliFont"
+                       formControlName="guarantorPermanentVdc"
+                       placeholder=""
+                       readonly
+                       type="text"/>
+              </ng-template>
               गा.पा./न.पा., वडा नं.<input class="form-field form-control-sm nepaliFont shortInput"
                                        formControlName="guarantorPermanentWardNo"
                                        placeholder=""
                                        readonly
                                        type="text"/>
               (साबिक <input class="form-field form-control-sm nepaliFont"
-
                             formControlName="guarantorSabikVDC"
                             placeholder=""
                             type="text"/>
@@ -158,16 +180,24 @@
           </tr>
           <tr>
             <td style="text-align: right; vertical-align: top;padding-top: 10px;width: 20%">हालको ठेगाना :—</td>
-            <td style="text-align: left;width: 80%"><input class="form-field form-control-sm nepaliFont"
+            <td style="text-align: left;width: 80%"><input class="form-field form-control-sm nepaliFont unicode-size"
                                                            formControlName="guarantorTempDistrict"
                                                            placeholder=""
                                                            readonly
                                                            type="text"/>
-              जिल्ला,<input class="form-field form-control-sm nepaliFont"
+              जिल्ला,<input class="form-field form-control-sm nepaliFont unicode-size"
+                            *ngIf="form.get(['guarantorDetails', i,'guarantorTemporaryMunType']).value === '0'; else guarantorTemporaryVdc"
                            formControlName="guarantorTempMunicipality"
                            placeholder=""
                            readonly
                            type="text"/>
+              <ng-template #guarantorTemporaryVdc>
+                <input class="form-field form-control-sm nepaliFont"
+                       formControlName="guarantorTemporaryVdc"
+                       placeholder=""
+                       readonly
+                       type="text"/>
+              </ng-template>
               गा.पा./न.पा., वडा नं.<input class="form-field form-control-sm nepaliFont shortInput"
                                         formControlName="guarantorTempWardNo"
                                         placeholder=""
@@ -218,9 +248,6 @@
           </tr>
           </tbody>
         </table>
-
-      </div>
-        </div>
       </div>
       <br>
       <strong> साक्षी :</strong>
@@ -402,6 +429,8 @@
                            type="text"/>। </p>
 
       </div>
+        </div>
+      </div>
       <div class="col-md-12">
         <button class="btn btn-primary float-right" nbButton status="success" type="submit">
           Save
@@ -409,6 +438,7 @@
       </div>
       <!--  </div>
       </div>-->
+
     </form>
     <button [disabled]="!initialInfoPrint"
             [useExistingCss]="true"

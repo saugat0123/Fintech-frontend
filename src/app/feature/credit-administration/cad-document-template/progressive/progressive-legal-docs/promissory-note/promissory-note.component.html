@@ -32,8 +32,17 @@
                     <input class="form-field nepaliFont form-control-sm sizeFont"
                                     formControlName="districtName"
                                     type="text">
-                    जिल्ला, <input class="form-field nepaliFont form-control-sm sizeFont" formControlName="municipality"
+                    जिल्ला, <input class="form-field nepaliFont form-control-sm sizeFont"
+                                   *ngIf="form.get('borrowerPermanentMunType').value === '0'; else borrowerPermanentVdc"
+                                   formControlName="municipality"
                                  type="text">
+                    <ng-template #borrowerPermanentVdc>
+                        <input class="form-field form-control-sm nepaliFont"
+                               formControlName="borrowerPermanentVdc"
+                               placeholder=""
+                               readonly
+                               type="text"/>
+                    </ng-template>
                     गा.पा./न.पा./म.न.पा., वडा नं. <input class="form-field nepaliFont form-control-sm shortInput"
                                                        formControlName="wardNo" type="text">
                     स्थायी ठेगाना भई
@@ -41,8 +50,16 @@
                               formControlName="temporaryDistrict"
                               type="text">
                     जिल्ला, <input class="form-field nepaliFont form-control-sm sizeFont"
+                                   *ngIf="form.get('borrowerTemporaryMunType').value === '0'; else borrowerTemporaryVdc"
                                  formControlName="tempMunicipality"
                                  type="text">
+                    <ng-template #borrowerTemporaryVdc>
+                        <input class="form-field form-control-sm nepaliFont"
+                               formControlName="borrowerTemporaryVdc"
+                               placeholder=""
+                               readonly
+                               type="text"/>
+                    </ng-template>
                     गा.पा./न.पा./म.न.पा., वडा नं. <input class="form-field nepaliFont form-control-sm shortInput"
                                                        formControlName="tempWardNo" type="text">,
                     बस्ने बर्ष <input class="form-field nepaliFont form-control-sm" formControlName="age"
@@ -96,6 +113,7 @@
                                             value="{{form.get('districtName').value}}"
                                             type="text">
                     जिल्ला, <input class="form-field nepaliFont form-control-sm sizeFont"
+                                   *ngIf="form.get('borrowerPermanentMunType').value === '0'; else borrowerPermanentVdc"
                                   value="{{form.get('municipality').value}}"
                                   type="text">
                     गा.पा./न.पा., वडा नं. <input class="form-field nepaliFont form-control-sm shortInput"
@@ -106,6 +124,7 @@
                                         value="{{form.get('temporaryDistrict').value}}"
                                         type="text">
                     जिल्ला, <input class="form-field nepaliFont form-control-sm sizeFont"
+                                   *ngIf="form.get('borrowerTemporaryMunType').value === '0'; else borrowerTemporaryVdc"
                                   value="{{form.get('tempMunicipality').value}}"
                                   type="text">
                     गा.पा./न.पा., वडा नं. <input class="form-field nepaliFont form-control-sm shortInput"

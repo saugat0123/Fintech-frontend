@@ -76,8 +76,9 @@ export class LetterOfInstallmentsComponent implements OnInit {
         guarantorName: !ObjectUtil.isEmpty(this.nepaliData.guarantorDetails) ? this.nepaliData.guarantorDetails[0].guarantorName : '',
         guarantorDistrict: !ObjectUtil.isEmpty(this.nepaliData.guarantorDetails) ? this.nepaliData.guarantorDetails[0].guarantorPermanentDistrict.nepaliName : '',
         guarantorMunVdc: !ObjectUtil.isEmpty(this.nepaliData.guarantorDetails) ? this.nepaliData.guarantorDetails[0].guarantorPermanentMunicipality.nepaliName : '',
-        guarantorWardNo: this.nepaliData.guarantorDetails[0].guarantorPermanentWard ? this.nepaliData.guarantorDetails[0].guarantorPermanentWard : ''
-        //mahina :
+        guarantorWardNo: this.nepaliData.guarantorDetails[0].guarantorPermanentWard ? this.nepaliData.guarantorDetails[0].guarantorPermanentWard : '',
+        guarantorPermanentMunType: this.nepaliData.guarantorDetails[0].guarantorPermanentMunType ? this.nepaliData.guarantorDetails[0].guarantorPermanentMunType : '',
+        guarantorPermanentVdc: this.nepaliData.guarantorDetails[0].guarantorPermanentVdc ? this.nepaliData.guarantorDetails[0].guarantorPermanentVdc : '',
       });
     }
   }
@@ -156,6 +157,8 @@ export class LetterOfInstallmentsComponent implements OnInit {
       witnessMunicipality1: [undefined],
       witnessWardNo1: [undefined],
      installmentAmount: [undefined],
+      guarantorPermanentMunType: [undefined],
+      guarantorPermanentVdc: [undefined],
 
   });
   }

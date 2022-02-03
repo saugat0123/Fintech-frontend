@@ -53,9 +53,9 @@ export class PromissoryNoteGuarantorComponent implements OnInit {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
           const initialInfo = JSON.parse(singleCadFile.initialInformation);
           this.initialInfoPrint = initialInfo;
-          if (!ObjectUtil.isEmpty(initialInfo.guarantorDetails)) {
+          /*if (!ObjectUtil.isEmpty(initialInfo.guarantorDetails)) {
             this.setGuarantorDetails(initialInfo.guarantorDetails);
-          }
+          }*/
           if (initialInfo.witnessDetails) {
             this.setWitnessDetails(initialInfo.witnessDetails);
           }
@@ -67,26 +67,8 @@ export class PromissoryNoteGuarantorComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       const loanAmount = JSON.parse(this.cadData.nepData);
       this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
-      this.form.patchValue({
-        borrowerName: this.nepaliData.name ? this.nepaliData.name : '',
-        borrowerPermanentMunicipality: this.nepaliData.permanentMunicipalities.nepaliName ? this.nepaliData.permanentMunicipalities.nepaliName : '',
-        borrowerPermanentWardNo: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
-        borrowerPermanentDistrict: this.nepaliData.permanentDistrict.nepaliName ? this.nepaliData.permanentDistrict.nepaliName : '',
-        borrowerCitizenshipNo: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
-        borrowerCitizenshipIssueDate: this.nepaliData.citizenshipIssueDate ? this.nepaliData.citizenshipIssueDate : '',
-        borrowerCdoOffice: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
-        borrowerParentsName: this.nepaliData.fatherName ? this.nepaliData.fatherName : '',
-        borrowerGrandParentsName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
-        borrowerHusbandWifeName : this.nepaliData.husbandName ? this.nepaliData.husbandName : '',
-        borrowerTempMunicipality: this.nepaliData.temporaryMunicipalities.nepaliName ? this.nepaliData.temporaryMunicipalities.nepaliName : '',
-        borrowerTempWardNo: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
-        borrowerTempDistrict: this.nepaliData.temporaryDistrict.nepaliName ? this.nepaliData.temporaryDistrict.nepaliName : '',
-        age: this.nepaliData.age ? this.nepaliData.age : '',
-        financeBranch : this.nepaliData.branchName ? this.nepaliData.branchName : '',
-        amount: loanAmount.numberNepali ? loanAmount.numberNepali : '',
-        amountInWords: loanAmount.nepaliWords ? loanAmount.nepaliWords : '',
-        gender: this.nepaliData.gender
-      });
+      console.log('nepaliData', this.nepaliData);
+      this.setGuarantorDetails(this.nepaliData.guarantorDetails);
     }
   }
 
@@ -156,13 +138,15 @@ export class PromissoryNoteGuarantorComponent implements OnInit {
       financeBranch: [undefined],
       sabikVdcMun: [undefined],
       age: [undefined],
-      gender :[undefined],
+      gender : [undefined],
       relationship: [undefined],
       date: [undefined],
       borrowerName: [undefined],
       borrowerPermanentDistrict: [undefined],
       borrowerPermanentMunicipality: [undefined],
       borrowerPermanentWardNo: [undefined],
+      borrowerPermanentMunType: [undefined],
+      borrowerPermanentVdc: [undefined],
       borrowerParentsName: [undefined],
       borrowerGrandParentsName: [undefined],
       borrowerHusbandWifeName: [undefined],
@@ -170,6 +154,8 @@ export class PromissoryNoteGuarantorComponent implements OnInit {
       borrowerTempDistrict: [undefined],
       borrowerTempMunicipality: [undefined],
       borrowerTempWardNo: [undefined],
+      borrowerTemporaryMunType: [undefined],
+      borrowerTemporaryVdc: [undefined],
       borrowerCitizenshipIssueDate: [undefined],
       borrowerCdoOffice: [undefined],
       borrowerSabikVDC: [undefined],
@@ -267,6 +253,7 @@ export class PromissoryNoteGuarantorComponent implements OnInit {
       this.addGuarantor();
       return;
     }
+    const loanAmount = JSON.parse(this.cadData.nepData);
     data.forEach((value) => {
       formArray.push(this.formBuilder.group({
         guarantorName: [value.guarantorName],
@@ -282,10 +269,7 @@ export class PromissoryNoteGuarantorComponent implements OnInit {
               value.guarantorPermanentMunicipality.nepaliName : ''
         ],
         guarantorPermanentWardNo: [value.guarantorPermanentWard],
-        guarantorSabikVDC: [
-          !ObjectUtil.isEmpty(value.guarantorPermanentMunicipality) ?
-              value.guarantorPermanentMunicipality.nepaliName : ''
-        ],
+        guarantorSabikVDC: [value.guarantorSabikVDC],
         guarantorSabikWardNo: [value.guarantorPermanentWard],
         guarantorTempDistrict: [
           !ObjectUtil.isEmpty(value.guarantorTemporaryDistrict) ?
@@ -299,6 +283,53 @@ export class PromissoryNoteGuarantorComponent implements OnInit {
         guarantorHusbandWifeName: [value.guarantorSpouseName],
         guarantorGrandParentsName: [value.guarantorGrandfatherName],
         guarantorParentsName: [value.guarantorFatherName],
+        guarantorPermanentMunType: [value.guarantorPermanentMunType],
+        guarantorPermanentVdc: [value.guarantorPermanentVdc],
+        guarantorTemporaryMunType: [value.guarantorTemporaryMunType],
+        guarantorTemporaryVdc: [value.guarantorTemporaryVdc],
+        borrowerName: this.nepaliData.name ? this.nepaliData.name : '',
+        borrowerPermanentMunicipality: !ObjectUtil.isEmpty(this.nepaliData.permanentMunicipalities) ? this.nepaliData.permanentMunicipalities.nepaliName : '',
+        borrowerPermanentWardNo: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
+        borrowerPermanentDistrict: !ObjectUtil.isEmpty(this.nepaliData.permanentDistrict) ? this.nepaliData.permanentDistrict.nepaliName : '',
+        borrowerCitizenshipNo: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
+        borrowerCitizenshipIssueDate: this.nepaliData.citizenshipIssueDate ? this.nepaliData.citizenshipIssueDate : '',
+        borrowerCdoOffice: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
+        borrowerParentsName: this.nepaliData.fatherName ? this.nepaliData.fatherName : '',
+        borrowerGrandParentsName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
+        borrowerHusbandWifeName : this.nepaliData.husbandName ? this.nepaliData.husbandName : '',
+        borrowerTempMunicipality: !ObjectUtil.isEmpty(this.nepaliData.temporaryMunicipalities) ? this.nepaliData.temporaryMunicipalities.nepaliName : '',
+        borrowerTempWardNo: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
+        borrowerTempDistrict: !ObjectUtil.isEmpty(this.nepaliData.temporaryDistrict) ? this.nepaliData.temporaryDistrict.nepaliName : '',
+        age: this.nepaliData.age ? this.nepaliData.age : '',
+        financeBranch : this.nepaliData.branchName ? this.nepaliData.branchName : '',
+        amount: loanAmount.numberNepali ? loanAmount.numberNepali : '',
+        amountInWords: loanAmount.nepaliWords ? loanAmount.nepaliWords : '',
+        gender: this.nepaliData.gender ? this.nepaliData.gender : '',
+        borrowerPermanentMunType: this.nepaliData.permanentMunType ? this.nepaliData.permanentMunType : '',
+        borrowerPermanentVdc: this.nepaliData.permanentVdc ? this.nepaliData.permanentVdc : '',
+        borrowerTemporaryMunType: this.nepaliData.temporaryMunType ? this.nepaliData.temporaryMunType : '',
+        borrowerTemporaryVdc: this.nepaliData.temporaryVdc ? this.nepaliData.temporaryVdc : '',
+        witnessName: [value.witnessName],
+        witnessCitizenshipNo: [value.witnessCitizenshipNo],
+        witnessCitizenshipIssueDate: [value.witnessCitizenshipIssueDate],
+        witnessCDOoffice: [value.witnessCDOoffice],
+        witnessIssuedPlace: [value.witnessIssuedPlace],
+        witnessMunicipality: [value.witnessMunicipality],
+        witnessWardNo: [value.witnessWardNo],
+        witnessName1: [value.witnessName1],
+        witnessCitizenshipNo1: [value.witnessCitizenshipNo1],
+        witnessCitizenshipIssueDate1: [value.witnessCitizenshipIssueDate1],
+        witnessCDOoffice1: [value.witnessCDOoffice1],
+        witnessIssuedPlace1: [value.witnessIssuedPlace1],
+        witnessMunicipality1: [value.witnessMunicipality1],
+        witnessWardNo1: [value.witnessWardNo1],
+        IdentifiedGuarantorName: [value.IdentifiedGuarantorName],
+        IdentifiedHintNo: [value.IdentifiedHintNo],
+        itiSambatYear: [value.itiSambatYear],
+        itiSambatMonth: [value.itiSambatMonth],
+        itiSambatDay: [value.itiSambatDay],
+        itiSambatTime: [value.itiSambatTime],
+        itiSambatRojSubham: [value.itiSambatRojSubham],
       }));
     });
   }
@@ -331,6 +362,54 @@ export class PromissoryNoteGuarantorComponent implements OnInit {
       guarantorHusbandWifeName: [undefined],
       guarantorGrandParentsName: [undefined],
       guarantorParentsName: [undefined],
+      guarantorPermanentMunType: [0],
+      guarantorPermanentVdc: [undefined],
+      guarantorTemporaryMunType: [1],
+      guarantorTemporaryVdc: [undefined],
+      borrowerName: [undefined],
+      borrowerPermanentMunicipality: [undefined],
+      borrowerPermanentWardNo: [undefined],
+      borrowerPermanentDistrict: [undefined],
+      borrowerCitizenshipNo: [undefined],
+      borrowerCitizenshipIssueDate: [undefined],
+      borrowerCdoOffice: [undefined],
+      borrowerParentsName: [undefined],
+      borrowerGrandParentsName: [undefined],
+      borrowerHusbandWifeName : [undefined],
+      borrowerTempMunicipality: [undefined],
+      borrowerTempWardNo: [undefined],
+      borrowerTempDistrict: [undefined],
+      age: [undefined],
+      financeBranch : [undefined],
+      amount: [undefined],
+      amountInWords: [undefined],
+      gender: [undefined],
+      borrowerPermanentMunType: [undefined],
+      borrowerPermanentVdc: [undefined],
+      borrowerTemporaryMunType: [undefined],
+      borrowerTemporaryVdc: [undefined],
+      witnessName: [undefined],
+      witnessCitizenshipNo: [undefined],
+      witnessCitizenshipIssueDate: [undefined],
+      witnessCDOoffice: [undefined],
+      witnessIssuedPlace: [undefined],
+      witnessMunicipality: [undefined],
+      witnessWardNo: [undefined],
+      witnessName1: [undefined],
+      witnessCitizenshipNo1: [undefined],
+      witnessCitizenshipIssueDate1: [undefined],
+      witnessCDOoffice1: [undefined],
+      witnessIssuedPlace1: [undefined],
+      witnessMunicipality1: [undefined],
+      witnessWardNo1: [undefined],
+      IdentifiedGuarantorName: [undefined],
+      IdentifiedHintNo: [undefined],
+      branchName: [undefined],
+      itiSambatYear: [undefined],
+      itiSambatMonth: [undefined],
+      itiSambatDay: [undefined],
+      itiSambatTime: [undefined],
+      itiSambatRojSubham: [undefined],
     });
   }
 
