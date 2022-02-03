@@ -177,6 +177,7 @@ export class Section2LoanTypePrintComponent implements OnInit {
     stlLienDeposit = [];
     dlFixedDeposit = [];
     dlLienDeposit = [];
+    bankGuaranteeLoan = [];
 
     constructor(private engToNepWord: NepaliCurrencyWordPipe,
                 private engToNepaliDate: EngNepDatePipe,
@@ -551,5 +552,6 @@ export class Section2LoanTypePrintComponent implements OnInit {
         this.stlLienDeposit = this.loanData.filter(data => data.loanName === this.loanNameConstant.STL_LIEN_ON_DEPOSIT_ACCOUNT);
         this.dlFixedDeposit = this.loanData.filter(data => data.loanName === this.loanNameConstant.DL_AGAINST_FIXED_DEPOSIT);
         this.dlLienDeposit = this.loanData.filter(data => data.loanName === this.loanNameConstant.DL_LIEN_ON_DEPOSIT_ACCOUNT);
+        this.bankGuaranteeLoan = this.loanData.filter(data => data.loanName === this.loanNameConstant.BANK_GUARANTEE);
     }
 }

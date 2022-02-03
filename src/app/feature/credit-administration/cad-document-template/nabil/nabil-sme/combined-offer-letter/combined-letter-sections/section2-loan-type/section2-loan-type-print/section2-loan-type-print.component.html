@@ -25,12 +25,12 @@
                                 <strong>सीमाः
                                     <!--<ng-container *ngIf="val.complementryOther === true">(रु.
                                     <span>{{ld?.loanAmountNp ? ld?.loanAmountNp : ''}}</span>
-                                    ।–)</ng-container>-->
+                                    /–)</ng-container>-->
                                     <!--<ng-container *ngIf="val.complementryOther === false">-->
                                         <ng-container>
                                         रु.
                                         <span>{{irrevocableLetter[i1] ? irrevocableLetter[i1].loanAmountNp : ''}}</span>
-                                        ।–</ng-container>(अक्षरेपी रु.
+                                        /–</ng-container>(अक्षरेपी रु.
                                     <span>{{irrevocableLetter[i1] ? irrevocableLetter[i1].loanAmountWords : ''}}</span>
                                     मात्र)</strong><br>
                                 <strong>सुरक्षणः</strong> सम्पूर्ण सम्भावित जोखिमहरु सुरक्षित भएको कम्तिमा प्रतित पत्र
@@ -47,7 +47,7 @@
                             {{val.commissionRateCT === null || val.commissionRateCT === '' ? '___________' : val.commissionRateCT}}</span>
                                 % का दरले वा कम्तिमा रु.
                                 <span [ngClass]="{'outside' : val.minimumCommissionRateCT !== null && val.minimumCommissionRateCT !== ''}">
-                            {{val.minimumCommissionRateCT === null || val.minimumCommissionRateCT === '' ? '___________' : val.minimumCommissionRateCT}}</span>।– लाग्नेछ ।
+                            {{val.minimumCommissionRateCT === null || val.minimumCommissionRateCT === '' ? '___________' : val.minimumCommissionRateCT}}</span>/– लाग्नेछ ।
                             </p>
 
                             <!--Commission Type 2-->
@@ -61,7 +61,7 @@
                                 दरले वा कम्तिमा रु.
                                 <span [ngClass]="{'outside' : val.minimumCommissionRateCT !== null && val.minimumCommissionRateCT !== ''}">
                             {{val.minimumCommissionRateCT === null || val.minimumCommissionRateCT === '' ? '___________' : val.minimumCommissionRateCT}}</span>
-                                ।– लाग्नेछ ।
+                                /– लाग्नेछ ।
                             </p>
                             <p *ngIf="val.loanOption === 'REGULAR'">
                                 <strong>सुविधा समाप्ति/पुनरावलोकन मितिः</strong>
@@ -145,7 +145,7 @@
                             वा कम्तिमा रु.
                             <span [ngClass]="{'outside' : val.minimumCommissionAmountCT !== null && val.minimumCommissionAmountCT !== ''}">
                             {{val.minimumCommissionAmountCT === null || val.minimumCommissionAmountCT === '' ? '___________' : val.minimumCommissionAmountCT}}</span>
-                            ।–लाग्नेछ ।<br>
+                            /–लाग्नेछ ।<br>
                             <span *ngIf="val.loanOption === 'REGULAR'"><strong>सुविधा समाप्ति/पुनरावलोकन मितिः</strong>
                                 {{val?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
                                 <span [ngClass]="{'outside' : val.dateOfExpiryCT !== null && val.dateOfExpiryCT !== ''}">
@@ -599,6 +599,116 @@
                     </ng-container>
                 </tr>
             </ng-container>
+
+            <ng-container *ngIf="tempData?.bankGuarantee?.bankGuaranteeArray">
+                <tr *ngFor="let val of tempData?.bankGuarantee?.bankGuaranteeArray; let i1 = index">
+                    <!--Bank Guarantee-->
+                    <ng-container>
+                        <td style="width: 10%; border-right: 1px solid black; border-top: 1px solid black"><strong>{{
+                            (tempData?.letterOfCreditForm?.letterOfCreditFormArray.length) +
+                            (tempData?.importLoanTrust?.importLoanTrustFormArray.length) +
+                            (tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray.length) +
+                            (tempData?.timeLetterCreditForm?.timeLetterCreditFormArray.length) +
+                            (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
+                            (tempData?.demandLoanForm?.demandLoanFormArray.length) +
+                            (i1 + 1) | nepaliWord}})</strong>
+                        </td>
+                        <td style="border-top: 1px solid black">
+                            <p>
+                                <strong>बैंक जमानत सुविधा (Bank Guarantee)
+                                    <ng-container *ngIf="val.complementaryOther === true"> बुँदा नं.
+                                        <span>
+                                            {{this.freeInformation ? this.freeInformation?.section2?.bankGuaranteeFreeText[i1]?.SNOfParentLimitBankGuarantee : ''}}
+                                        </span>
+                                        <ng-container *ngIf="val.complimentaryLoanSelected !== 'TOTAL LIMIT'"> को पूरक सुविधा</ng-container>
+                                        <ng-container *ngIf="val.complimentaryLoanSelected === 'TOTAL LIMIT'"> कुल सुविधाको पूरक सुविधा </ng-container>
+                                    </ng-container></strong><br>
+
+                                <strong> सीमाः
+                                    <!--<ng-container *ngIf="val.complementaryOther === true">
+                                        (</ng-container> -->
+                                    रु.
+                                    <span>{{bankGuaranteeLoan[i1] ? bankGuaranteeLoan[i1].loanAmountNp : ''}}</span>
+                                    /-
+                                    <!--<ng-container *ngIf="val.complementaryOther === true">)</ng-container>-->
+                                    (अक्षरेपी रु.
+                                    <span>{{bankGuaranteeLoan[i1] ? bankGuaranteeLoan[i1].loanAmountWords : ''}}</span> मात्र)</strong>
+                            </p>
+                            <p *ngIf="val.securityType === 'General Counter Guarantee'">
+                                <strong> सुरक्षणक्ष:</strong>बैंकको पक्षमा काउण्टर जमानत सम्बन्धी सम्झौता (General Counter
+                                Guarantee)
+                            </p>
+                            <!--OR-->
+                            <p *ngIf="val.securityType === 'General Counter Guarantee and Hypothecation'">
+                            <span *ngIf="hypothecationGlobal === 'New'">
+                                <strong> सुरक्षणक्ष:</strong>
+                                बैंकको पक्षमा काउण्टर जमानत सम्बन्धी सम्झौता (General Counter Guarantee) का साथै
+                                सामानहरुको मौज्दात उपर धितोबन्धक (Hypothecation) हकाधिकार र ऋणीले आफ्ना आसामीबाट भुक्तानी प्राप्त
+                                गर्न बांकि रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामा हस्तान्तरण गर्नु पर्नेछ।
+                            </span>
+                                <span *ngIf="hypothecationGlobal === 'Existing'">
+                                <strong> सुरक्षणक्ष:</strong>
+                                बैंकको पक्षमा काउण्टर जमानत सम्बन्धी सम्झौता (General Counter Guarantee) का साथै
+                                सामानहरुको मौज्दात उपर धितोबन्धक (Hypothecation) हकाधिकार र ऋणीले आफ्ना आसामीबाट भुक्तानी प्राप्त
+                                गर्न बांकि रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामा हस्तान्तरण
+                                गरिदिनुभएको यथावत कायम रहनेछ।
+                            </span>
+                            </p>
+                            <p *ngIf="val.securityType === 'Counter Guarantee of other bank'">
+                                <strong>सुरक्षणः</strong>
+                                <span [ngClass]="{'outside' : val.nameOfHoldingBankCT !== null && val.nameOfHoldingBankCT !== ''}">
+                            {{val.nameOfHoldingBankCT === null || val.nameOfHoldingBankCT === '' ? '___________' : val.nameOfHoldingBankCT}}</span>
+                                बैंकले यस बैंकलाई जारी गरिएको काउण्टर जमानत पत्र ।
+                            </p>
+                            <p *ngIf="val.guaranteeType  === 'Cash Margin'">
+                                <strong>धरौटी:</strong> नगद
+                                <span [ngClass]="{'outside' : val.marginInPercentageCT !== null && val.marginInPercentageCT !== ''}">
+                            {{val.marginInPercentageCT === null || val.marginInPercentageCT === '' ? '___________' : val.marginInPercentageCT}}</span>
+                                % धरौटी स्वरुप रहनेछ ।
+                            </p>
+                            <!--OR-->
+                            <p *ngIf="val.guaranteeType  === 'APG/PFG/Bid Bond'">
+                                अग्रिम भुक्तानी बैंक जमानत (Advance Payment Guarantee) को
+                                हकमा
+                                <span [ngClass]="{'outside' : val.commissionInPercentageAPGCT !== null && val.commissionInPercentageAPGCT !== ''}">
+                            {{val.commissionInPercentageAPGCT === null || val.commissionInPercentageAPGCT === '' ? '___________' : val.commissionInPercentageAPGCT}}</span>
+                                % नगद र कार्य सम्पादन बैंक जमानत (Performance Bond) तथा बोलपत्र बैंक जमानत (Bid Bond)को हकमा
+                                <span [ngClass]="{'outside' : val.commissionInPercentageBidBondCT !== null && val.commissionInPercentageBidBondCT !== ''}">
+                            {{val.commissionInPercentageBidBondCT === null || val.commissionInPercentageBidBondCT === '' ? '___________' : val.commissionInPercentageBidBondCT}}</span>
+                                % नगद धरौटी स्वरुप रहनेछ ।<br>
+                                <span *ngIf="val.commissionType === 'COMMISSION_TYPE_1'"> <strong>कमिसन:</strong> प्रति त्रैमास
+                            <span [ngClass]="{'outside' : val.serviceChargeInPercentCT !== null && val.serviceChargeInPercentCT !== ''}">
+                            {{val.serviceChargeInPercentCT === null || val.serviceChargeInPercentCT === '' ? '___________' : val.serviceChargeInPercentCT}}</span>
+                            % का दरले वा कम्तिमा रु.
+                            <span [ngClass]="{'outside' : val.minServiceChargeInFigure1CT !== null && val.minServiceChargeInFigure1CT !== ''}">
+                            {{val.minServiceChargeInFigure1CT === null || val.minServiceChargeInFigure1CT === '' ? '___________' : val.minServiceChargeInFigure1CT}}</span>
+                            /– लाग्नेछ ।
+                            </span>
+                                <span *ngIf="val.commissionType === 'COMMISSION_TYPE_2'">
+                                        अग्रिम भुक्तानी बैंक जमानत (Advance Payment Guarantee) को हकमा प्रति बैकं जमानत प्रति त्रैमास
+
+                            <span [ngClass]="{'outside' : val.commissionInPercentage2APGCT !== null && val.commissionInPercentage2APGCT !== ''}">
+                            {{val.commissionInPercentage2APGCT === null || val.commissionInPercentage2APGCT === '' ? '___________' : val.commissionInPercentage2APGCT}}</span>
+                            % का दरलेर कार्य सम्पादन बैंक जमानत (Performance
+                            Bond) तथा बोलपत्र बैंक जमानत (Bid Bond) को हकमा प्रति बैकं जमानत प्रति त्रैमास
+                            <span [ngClass]="{'outside' : val.commissionInPercentage2BidBondCT !== null && val.commissionInPercentage2BidBondCT !== ''}">
+                            {{val.commissionInPercentage2BidBondCT === null || val.commissionInPercentage2BidBondCT === '' ? '___________' : val.commissionInPercentage2BidBondCT}}</span>
+                            %का दरले वा कम्तिमा रु.
+                            <span [ngClass]="{'outside' : val.minServiceChargeInFigure1CT !== null && val.minServiceChargeInFigure1CT !== ''}">
+                            {{val.minServiceChargeInFigure1CT === null || val.minServiceChargeInFigure1CT === '' ? '___________' : val.minServiceChargeInFigure1CT}}</span>
+                            /–लाग्नेछ ।
+                            </span>
+                            </p>
+                            <p>
+                                सुविधा समाप्ति/पुनरावलोकन मितिः
+                                {{val?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
+                                <span [ngClass]="{'outside' : val.dateOfExpiryCT !== null && val.dateOfExpiryCT !== ''}">
+                            {{val.dateOfExpiryCT === null || val.dateOfExpiryCT === '' ? '___________' : val.dateOfExpiryCT}}</span>
+                            </p>
+                        </td>
+                    </ng-container>
+                </tr>
+            </ng-container>
         </table>
     </div>
     <div style="width: 100%">
@@ -611,7 +721,8 @@
                                        (tempData?.timeLetterCreditForm?.timeLetterCreditFormArray.length) +
                                        (tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray.length) +
                                        (tempData?.demandLoanForm?.demandLoanFormArray.length) +
-                                       (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length)"
+                                       (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
+                                       (tempData?.bankGuarantee?.bankGuaranteeArray.length)"
                                        [termLoanData]="termLoanData">
         </app-term-loan-to-or-for-print>
     </div>
@@ -630,6 +741,7 @@
                             (tempData?.timeLetterCreditForm?.timeLetterCreditFormArray.length) +
                             (tempData?.demandLoanForm?.demandLoanFormArray.length) +
                             (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
+                            (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
                             (i1 + 1) | nepaliWord}})</strong>
                         </td>
                         <td style="border-top: 1px solid black">
@@ -708,7 +820,8 @@
                                             (tempData?.demandLoanForm?.demandLoanFormArray.length) +
                                             (tempData?.bridgeGapLoan?.bridgeGapDetails.length) +
                                             (tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray.length) +
-                                            (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length)"
+                                            (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
+                                            (tempData?.bankGuarantee?.bankGuaranteeArray.length)"
                              [autoLoanData]="autoLoanData"
                              [freeText]="freeText">
         </app-auto-loan-print>
@@ -728,7 +841,8 @@
                             (tempData?.timeLetterCreditForm?.timeLetterCreditFormArray.length) +
                             (tempData?.demandLoanForm?.demandLoanFormArray.length) +
                             (tempData?.bridgeGapLoan?.bridgeGapDetails.length) +
-                            (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length)"
+                            (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
+                            (tempData?.bankGuarantee?.bankGuaranteeArray.length)"
                                              [mortgageTermLoanData]="mortgageTermLoanData">
         </app-mortgage-term-loan-print>
     </div>
@@ -750,6 +864,7 @@
                             (tempData?.bridgeGapLoan?.bridgeGapDetails.length) +
                             (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
                             (tempData?.mortgageEquityTermForm?.mortgageTermFormArray.length) +
+                            (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
                             (i1 + 1) | nepaliWord}})</strong></td>
                         <td style="border-top: 1px solid black">
                          <span><strong>अचल सम्पत्ति सुरक्षणमा आधारीत अधिविकर्ष कर्जा
@@ -858,6 +973,7 @@
                         (tempData?.bridgeGapLoan?.bridgeGapDetails.length) +
                         (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
                         (tempData?.mortgageEquityTermForm?.mortgageTermFormArray.length) +
+                        (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
                         (i1 + 1) | nepaliWord}})</strong></td>
                     <td style="border-top: 1px solid black">
                         <!--<span *ngIf="subLoanOptionOverdraftFixedForm === 'AGAINST_FIXED_DEPOSIT'">-->
@@ -1060,6 +1176,7 @@
                         (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
                         (tempData?.mortgageEquityTermForm?.mortgageTermFormArray.length) +
                         (tempData?.overdraftFixedForm?.dlAgainstFixedDepositFormArray.length) +
+                        (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
                         (i1 + 1) | nepaliWord}})</strong></td>
                     <td style="border-top: 1px solid black">
                         <!--<span *ngIf="subLoanOptionOverdraftFixedForm === 'AGAINST_FIXED_DEPOSIT'">
@@ -1276,6 +1393,7 @@
                         (tempData?.mortgageEquityTermForm?.mortgageTermFormArray.length) +
                         (tempData?.overdraftFixedForm?.dlAgainstFixedDepositFormArray.length) +
                         (tempData?.overdraftFixedForm?.dlAgainstLienOnDepositFormArray.length) +
+                        (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
                         (i1 + 1) | nepaliWord}})</strong></td>
                     <td style="border-top: 1px solid black">
                         <strong>बचत/ऋण पत्रमा आधारीत
@@ -1369,6 +1487,7 @@
                         (tempData?.mortgageEquityTermForm?.mortgageTermFormArray.length) +
                         (tempData?.overdraftFixedForm?.dlAgainstFixedDepositFormArray.length) +
                         (tempData?.overdraftFixedForm?.dlAgainstLienOnDepositFormArray.length) +
+                        (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
                         (i1 + 1) | nepaliWord}})</strong></td>
                     <td style="border-top: 1px solid black">
                         <span>
@@ -1513,6 +1632,7 @@
                         (tempData?.overdraftFixedForm?.dlAgainstFixedDepositFormArray.length) +
                         (tempData?.overdraftFixedForm?.odFdFormArray.length) +
                         (tempData?.overdraftFixedForm?.dlAgainstLienOnDepositFormArray.length) +
+                        (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
                         (i1 + 1) | nepaliWord}})</strong></td>
                     <td style="border-top: 1px solid black">
                         <span>
@@ -1670,6 +1790,7 @@
                         (tempData?.overdraftFixedForm?.odFdFormArray.length) +
                         (tempData?.overdraftFixedForm?.dlAgainstLienOnDepositFormArray.length) +
                         (tempData?.overdraftFixedForm?.overdraftLienOnDepositFormArray.length) +
+                        (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
                         (i1 + 1) | nepaliWord}})</strong></td>
                     <td style="border-top: 1px solid black">
                         <span>
@@ -1816,6 +1937,7 @@
                         (tempData?.overdraftFixedForm?.stlAgainstFixedDepositFormArray.length) +
                         (tempData?.overdraftFixedForm?.dlAgainstLienOnDepositFormArray.length) +
                         (tempData?.overdraftFixedForm?.overdraftLienOnDepositFormArray.length) +
+                        (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
                         (i1 + 1) | nepaliWord}})</strong></td>
                     <td style="border-top: 1px solid black">
                         <span>
@@ -1976,6 +2098,7 @@
                             (tempData?.overdraftFixedForm?.overdraftLienOnDepositFormArray.length) +
                             (tempData?.overdraftFixedForm?.stlLienOnDepositFormArray.length) +
                             (tempData?.overdraftFixedForm?.stlAgainstFixedDepositFormArray.length) +
+                            (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
                             (i2 + 1) | nepaliWord}})
                         </strong></td>
                     <td style="border-top: 1px solid black">
@@ -2072,7 +2195,8 @@
                             (tempData?.overdraftFixedForm?.odFdFormArray.length) +
                             (tempData?.overdraftFixedForm?.overdraftLienOnDepositFormArray.length) +
                             (tempData?.overdraftFixedForm?.stlLienOnDepositFormArray.length) +
-                            (tempData?.overdraftFixedForm?.stlAgainstFixedDepositFormArray.length)"
+                            (tempData?.overdraftFixedForm?.stlAgainstFixedDepositFormArray.length) +
+                            (tempData?.bankGuarantee?.bankGuaranteeArray.length)"
                                              [equityMortgageData]="equityMortgageData">
         </app-mortgage-equity-term-loan-print>
     </div>
@@ -2103,6 +2227,7 @@
                             (tempData?.overdraftFixedForm?.overdraftLienOnDepositFormArray.length) +
                             (tempData?.overdraftFixedForm?.stlLienOnDepositFormArray.length) +
                             (tempData?.overdraftFixedForm?.stlAgainstFixedDepositFormArray.length) +
+                            (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
                             (i1 + 1) | nepaliWord}})</strong></td>
                         <td style="border-top: 1px solid black">
                          <span><strong>सुरक्षणमा आधारीत स्वपुँजी अधिविकर्ष कर्जा
@@ -2226,6 +2351,7 @@
                                     (tempData?.overdraftFixedForm?.overdraftLienOnDepositFormArray.length) +
                                     (tempData?.overdraftFixedForm?.stlLienOnDepositFormArray.length) +
                                     (tempData?.overdraftFixedForm?.stlAgainstFixedDepositFormArray.length) +
+                                    (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
                                     (i3 + 1) | nepaliWord}})</strong></td>
                             <td style="border-top: 1px solid black"><strong>
                         <span [ngClass]="{'outside' : val.loanPeriodInDaysCT !== null && val.loanPeriodInDaysCT !== ''}">
@@ -2312,6 +2438,7 @@
                                 (tempData?.overdraftFixedForm?.overdraftLienOnDepositFormArray.length) +
                                 (tempData?.overdraftFixedForm?.stlLienOnDepositFormArray.length) +
                                 (tempData?.overdraftFixedForm?.stlAgainstFixedDepositFormArray.length) +
+                                (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
                                 (i3 + 1) | nepaliWord}})
                             </strong>
                         </td>
@@ -2399,6 +2526,7 @@
                                 (tempData?.overdraftFixedForm?.overdraftLienOnDepositFormArray.length) +
                                 (tempData?.overdraftFixedForm?.stlLienOnDepositFormArray.length) +
                                 (tempData?.overdraftFixedForm?.stlAgainstFixedDepositFormArray.length) +
+                                (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
                                 (i3 + 1) | nepaliWord}})
                             </strong>
                         </td>
@@ -2448,7 +2576,7 @@
                                 ‘%</strong> वा कम्तिमा रु.
                                 <span [ngClass]="{'outside' : val.minCommissionAmountInFigCT !== null && val.minCommissionAmountInFigCT !== ''}">
                             {{val.minCommissionAmountInFigCT === null || val.minCommissionAmountInFigCT === '' ? '___________' : val.minCommissionAmountInFigCT}}</span>
-                                ।–का दरले लाग्नेछ ।
+                                /–का दरले लाग्नेछ ।
                             </p>
                             <p>
                                 <strong>कर्जा अवधि समाप्ति/पुनरावलोकन मितिः </strong>

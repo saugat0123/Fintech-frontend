@@ -75,7 +75,7 @@ export class BankGuaranteeComponent implements OnInit {
         const loanamountWords = this.engToNepWord.transform(this.filteredList[val].loanAmount);
         this.bankGuarantee.get(['bankGuaranteeArray', val, 'loanAmount']).patchValue(
             this.filteredList[val] ? this.filteredList[val].loanAmount : '');
-        this.bankGuarantee.get(['bankGuaranteeArray', val, 'loanAmountWords']).patchValue(
+        this.bankGuarantee.get(['bankGuaranteeArray', val, 'loanAmountAmountWords']).patchValue(
             loanamountWords ? loanamountWords : '');
       }
     }
