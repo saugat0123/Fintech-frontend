@@ -429,7 +429,7 @@
                                             value="{{revolvingShortTerm[i1] ? revolvingShortTerm[i1].loanAmountNp : ''}}"
                                             placeholder=""
                                             type="text"/>
-                                        ।–
+                                        /–
                                     </ng-container>
                                     (अक्षरेपी रु.<input class="form-field form-control-sm "
                                                         value="{{revolvingShortTerm[i1] ? revolvingShortTerm[i1].loanAmountWords : ''}}"
@@ -745,6 +745,147 @@
                         </ng-container>
                     </tr>
                 </ng-container>
+
+                <ng-container *ngIf="tempData?.bankGuarantee?.bankGuaranteeArray">
+                    <tr *ngFor="let val of tempData?.bankGuarantee?.bankGuaranteeArray; let i1 = index"
+                        formArrayName="bankGuarantee">
+                        <!--Bank Guarantee-->
+                        <ng-container [formGroupName]="i1">
+                            <td width="10%"><strong>{{
+                                (tempData?.letterOfCreditForm?.letterOfCreditFormArray.length) +
+                                (tempData?.importLoanTrust?.importLoanTrustFormArray.length) +
+                                (tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray.length) +
+                                (tempData?.timeLetterCreditForm?.timeLetterCreditFormArray.length) +
+                                (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
+                                (tempData?.demandLoanForm?.demandLoanFormArray.length) +
+                                (i1 + 1) | nepaliWord}})</strong>
+                            </td>
+                            <td>
+                                <p>
+                                    <strong>बैंक जमानत सुविधा (Bank Guarantee)
+                                        <ng-container *ngIf="val.complementaryOther === true"> बुँदा नं.<input
+                                                class="form-field form-control-sm "
+                                                formControlName="SNOfParentLimitBankGuarantee"
+                                                placeholder=""
+                                                type="text"/>
+                                            <ng-container *ngIf="val.complimentaryLoanSelected !== 'TOTAL LIMIT'"> को पूरक सुविधा</ng-container>
+                                            <ng-container *ngIf="val.complimentaryLoanSelected === 'TOTAL LIMIT'"> कुल सुविधाको पूरक सुविधा </ng-container>
+                                        </ng-container>
+                                    </strong><br>
+
+                                    <strong> सीमाः
+                                        <!--<ng-container *ngIf="val.complementaryOther === true">-->
+                                        <!--<ng-container>
+                                            (रु.<input
+                                                class="form-field form-control-sm"
+                                                value="{{bankGuaranteeLoan[i1] ? bankGuaranteeLoan[i1].loanAmountNp : ''}}"
+                                                placeholder=""
+                                                type="text">/–)
+                                        </ng-container>-->
+                                        <!--<ng-container *ngIf="!val.complementaryOther === true">-->
+                                            <ng-container>
+                                            रु.<input
+                                                class="form-field form-control-sm"
+                                                value="{{bankGuaranteeLoan[i1] ? bankGuaranteeLoan[i1].loanAmountNp : ''}}"
+                                                placeholder=""
+                                                type="text"/>
+                                            /–
+                                        </ng-container>
+                                        (अक्षरेपी रु.
+                                        <input class="form-field form-control-sm "
+                                                            value="{{bankGuaranteeLoan[i1] ? bankGuaranteeLoan[i1].loanAmountWords : ''}}"
+                                                            placeholder=""
+                                                            type="text"/>
+                                        मात्र)</strong>
+                                </p>
+                                <p *ngIf="val.securityType === 'General Counter Guarantee'">
+                                    <strong> सुरक्षण:</strong>बैंकको पक्षमा काउण्टर जमानत सम्बन्धी सम्झौता (General Counter
+                                    Guarantee)
+                                </p>
+                                <!--OR-->
+                                <p *ngIf="val.securityType === 'General Counter Guarantee and Hypothecation'">
+                        <span *ngIf="hypothecationGlobal === 'New'">
+                            <strong> सुरक्षण:</strong>
+                            बैंकको पक्षमा काउण्टर जमानत सम्बन्धी सम्झौता (General Counter Guarantee) का साथै
+                            सामानहरुको मौज्दात उपर धितोबन्धक (Hypothecation) हकाधिकार र ऋणीले आफ्ना आसामीबाट भुक्तानी प्राप्त
+                            गर्न बांकि रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामा हस्तान्तरण गर्नु पर्नेछ।
+                        </span>
+                                    <span *ngIf="hypothecationGlobal === 'Existing'">
+                                <strong> सुरक्षण:</strong>
+                            बैंकको पक्षमा काउण्टर जमानत सम्बन्धी सम्झौता (General Counter Guarantee) का साथै
+                            सामानहरुको मौज्दात उपर धितोबन्धक (Hypothecation) हकाधिकार र ऋणीले आफ्ना आसामीबाट भुक्तानी प्राप्त
+                            गर्न बांकि रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामा हस्तान्तरण
+                            गरिदिनुभएको यथावत कायम रहनेछ।
+                        </span>
+                                </p>
+                                <p *ngIf="val.securityType === 'Counter Guarantee of other bank'">
+                                    <strong>सुरक्षणः</strong> <input class="form-field form-control-sm "
+                                                                     formControlName="nameOfBankBankGuarantee"
+                                                                     placeholder=""
+                                                                     type="text"/> बैंकले यस बैंकलाई जारी गरिएको काउण्टर
+                                    जमानत
+                                    पत्र ।
+                                </p>
+                                <p *ngIf="val.guaranteeType === 'Cash Margin'">
+                                    <strong>धरौटी:</strong> नगद <input class="form-field form-control-sm "
+                                                                       formControlName="marginInPercentageBankGuarantee"
+                                                                       placeholder=""
+                                                                       type="text"/>% धरौटी स्वरुप रहनेछ ।
+                                </p>
+                                <!--OR-->
+                                <p *ngIf="val.guaranteeType === 'APG/PFG/Bid Bond'">
+                                    अग्रिम भुक्तानी बैंक जमानत (Advance Payment Guarantee) को
+                                    हकमा <input class="form-field form-control-sm "
+                                                formControlName="commissionAPGBankGuarantee"
+                                                placeholder=""
+                                                type="text"/>% नगद र कार्य
+                                    सम्पादन बैंक जमानत (Performance Bond) तथा बोलपत्र बैंक जमानत (Bid Bond)को हकमा
+                                    <input class="form-field form-control-sm "
+                                           formControlName="commissionBidBondBankGuarantee"
+                                           placeholder=""
+                                           type="text"/>% नगद धरौटी स्वरुप रहनेछ ।<br>
+                                    <span *ngIf="val.commissionType === 'COMMISSION_TYPE_1'"> <strong>कमिसन:</strong> प्रति त्रैमास <input
+                                            class="form-field form-control-sm "
+                                            formControlName="serviceChargeBankGuarantee"
+                                            placeholder=""
+                                            type="text"/>% का दरले वा कम्तिमा रु.
+                                <input class="form-field form-control-sm "
+                                       formControlName="minimumServiceChargeBankGuarantee"
+                                       placeholder=""
+                                       type="text"/>/– लाग्नेछ ।
+                            </span> <br>
+                                    <span *ngIf="val.commissionType === 'COMMISSION_TYPE_2'">
+                                    अग्रिम भुक्तानी बैंक जमानत (Advance Payment Guarantee) को हकमा प्रति बैकं जमानत प्रति त्रैमास
+                                <input class="form-field form-control-sm "
+                                       formControlName="commissionAPG1BankGuarantee"
+                                       placeholder=""
+                                       type="text"/>% का दरलेर कार्य सम्पादन बैंक जमानत (Performance Bond) तथा बोलपत्र बैंक
+                                जमानत
+                                (Bid Bond) को हकमा प्रति बैकं जमानत प्रति त्रैमास <input
+                                            class="form-field form-control-sm "
+                                            formControlName="commissionBidBond1BankGuarantee"
+                                            placeholder=""
+                                            type="text"/>% का दरले वा कम्तिमा
+                                रु.
+                                <input class="form-field form-control-sm "
+                                       formControlName="minimumServiceChargeBankGuarantee"
+                                       placeholder=""
+                                       type="text"/>/–लाग्नेछ ।
+                            </span>
+                                </p>
+                                <p>
+                                    <strong>सुविधा समाप्ति/पुनरावलोकन मितिः</strong>
+                                    {{val?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
+                                    <input
+                                            class="form-field form-control-sm "
+                                            formControlName="loanExpiryDateBankGuarantee1"
+                                            placeholder=""
+                                            type="text"/>
+                                </p>
+                            </td>
+                        </ng-container>
+                    </tr>
+                </ng-container>
             </table>
         </div>
         <div>
@@ -757,7 +898,8 @@
                                                      (tempData?.timeLetterCreditForm?.timeLetterCreditFormArray.length) +
                                                     (tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray.length) +
                                                     (tempData?.demandLoanForm?.demandLoanFormArray.length) +
-                                                    (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length)">
+                                                    (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
+                                                    (tempData?.bankGuarantee?.bankGuaranteeArray.length)">
             </app-term-loan-to-or-for>
         </div>
         <div [ngStyle]="{'margin-top' : (termLoanDetails.length > 0) ? '-17px' : '-16px'}">
@@ -775,6 +917,7 @@
                                (tempData?.timeLetterCreditForm?.timeLetterCreditFormArray.length) +
                                (tempData?.demandLoanForm?.demandLoanFormArray.length) +
                                (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
+                               (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
                                (i1 + 1) | nepaliWord}})</strong>
                            </td>
                            <td>
@@ -899,7 +1042,8 @@
                                                 (tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray.length) +
                                                 (tempData?.bridgeGapLoan?.bridgeGapDetails.length) +
                                             (tempData?.demandLoanForm?.demandLoanFormArray.length) +
-                                            (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length)"
+                                            (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
+                                            (tempData?.bankGuarantee?.bankGuaranteeArray.length)"
                            [autoLoanData]="autoLoanData">
             </app-auto-loan>
         </div>
@@ -916,7 +1060,8 @@
                                 (tempData?.timeLetterCreditForm?.timeLetterCreditFormArray.length) +
                                 (tempData?.demandLoanForm?.demandLoanFormArray.length) +
                                 (tempData?.bridgeGapLoan?.bridgeGapDetails.length) +
-                                (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length)"
+                                (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
+                                (tempData?.bankGuarantee?.bankGuaranteeArray.length)"
                                            [mortgageData]="mortgageTermLoanData">
             </app-mortgage-term-loan>
         </div>
@@ -940,6 +1085,7 @@
                                 (tempData?.bridgeGapLoan?.bridgeGapDetails.length) +
                                 (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
                                 (tempData?.mortgageEquityTermForm?.mortgageTermFormArray.length) +
+                                (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
                                 (i1 + 1) | nepaliWord}})</strong></td>
                             <td>
                                 <span><strong>अचल सम्पत्ति सुरक्षणमा आधारीत अधिविकर्ष कर्जा
@@ -1063,6 +1209,7 @@
                                 (tempData?.bridgeGapLoan?.bridgeGapDetails.length) +
                                 (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
                                 (tempData?.mortgageEquityTermForm?.mortgageTermFormArray.length) +
+                                (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
                                 (i1 + 1) | nepaliWord}})</strong>
                             </td>
                             <td>
@@ -1329,6 +1476,7 @@
                                 (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
                                 (tempData?.mortgageEquityTermForm?.mortgageTermFormArray.length) +
                                 (tempData?.overdraftFixedForm?.dlAgainstFixedDepositFormArray.length) +
+                                (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
                                 (i1 + 1) | nepaliWord}})</strong>
                             </td>
                             <td>
@@ -1595,6 +1743,7 @@
                                 (tempData?.mortgageEquityTermForm?.mortgageTermFormArray.length) +
                                 (tempData?.overdraftFixedForm?.dlAgainstFixedDepositFormArray.length) +
                                 (tempData?.overdraftFixedForm?.dlAgainstLienOnDepositFormArray.length) +
+                                (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
                                     (i1 + 1) | nepaliWord}})</strong></td>
                             <td>
                                 <strong>बचत/ऋण पत्रमा आधारीत <input class="form-field form-control-sm "
@@ -1717,6 +1866,7 @@
                                 (tempData?.mortgageEquityTermForm?.mortgageTermFormArray.length) +
                                 (tempData?.overdraftFixedForm?.dlAgainstFixedDepositFormArray.length) +
                                 (tempData?.overdraftFixedForm?.dlAgainstLienOnDepositFormArray.length) +
+                                (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
                                 (i1 + 1) | nepaliWord}})</strong>
                             </td>
                             <td>
@@ -1885,6 +2035,7 @@
                                 (tempData?.overdraftFixedForm?.dlAgainstFixedDepositFormArray.length) +
                                 (tempData?.overdraftFixedForm?.odFdFormArray.length) +
                                 (tempData?.overdraftFixedForm?.dlAgainstLienOnDepositFormArray.length) +
+                                (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
                                 (i1 + 1) | nepaliWord}})</strong>
                             </td>
                             <td>
@@ -2083,6 +2234,7 @@
                                 (tempData?.overdraftFixedForm?.odFdFormArray.length) +
                                 (tempData?.overdraftFixedForm?.dlAgainstLienOnDepositFormArray.length) +
                                 (tempData?.overdraftFixedForm?.overdraftLienOnDepositFormArray.length) +
+                                (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
                                 (i1 + 1) | nepaliWord}})</strong>
                             </td>
                             <td>
@@ -2253,6 +2405,7 @@
                                 (tempData?.overdraftFixedForm?.stlAgainstFixedDepositFormArray.length) +
                                 (tempData?.overdraftFixedForm?.dlAgainstLienOnDepositFormArray.length) +
                                 (tempData?.overdraftFixedForm?.overdraftLienOnDepositFormArray.length) +
+                                (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
                                 (i1 + 1) | nepaliWord}})</strong>
                             </td>
                             <td>
@@ -2452,6 +2605,7 @@
                                 (tempData?.overdraftFixedForm?.overdraftLienOnDepositFormArray.length) +
                                 (tempData?.overdraftFixedForm?.stlLienOnDepositFormArray.length) +
                                 (tempData?.overdraftFixedForm?.stlAgainstFixedDepositFormArray.length) +
+                                (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
                                 (i2 + 1) | nepaliWord}})</strong></td>
                             <td>
                     <span><strong>डकुमेन्ट्री बिल्स खरिद कर्जा (Documentary Bill Purchase/Negotiation)
@@ -2567,7 +2721,8 @@
                                 (tempData?.overdraftFixedForm?.stlAgainstFixedDepositFormArray.length) +
                                 (tempData?.overdraftFixedForm?.dlAgainstLienOnDepositFormArray.length) +
                                 (tempData?.overdraftFixedForm?.overdraftLienOnDepositFormArray.length) +
-                                (tempData?.overdraftFixedForm?.stlLienOnDepositFormArray.length)"
+                                (tempData?.overdraftFixedForm?.stlLienOnDepositFormArray.length) +
+                                (tempData?.bankGuarantee?.bankGuaranteeArray.length)"
                                            [equityMortgageData]="equityMortgageData">
             </app-mortgage-equity-term-loan>
         </div>
@@ -2601,6 +2756,7 @@
                                     (tempData?.overdraftFixedForm?.dlAgainstLienOnDepositFormArray.length) +
                                     (tempData?.overdraftFixedForm?.overdraftLienOnDepositFormArray.length) +
                                     (tempData?.overdraftFixedForm?.stlLienOnDepositFormArray.length) +
+                                    (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
                                     (i1 + 1) | nepaliWord}})
                                 </strong>
                             </td>
@@ -2741,6 +2897,7 @@
                                     (tempData?.overdraftFixedForm?.dlAgainstLienOnDepositFormArray.length) +
                                     (tempData?.overdraftFixedForm?.overdraftLienOnDepositFormArray.length) +
                                     (tempData?.overdraftFixedForm?.stlLienOnDepositFormArray.length) +
+                                    (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
                                     (i3 + 1) | nepaliWord}})
                                 </strong>
                             </td>
@@ -2853,6 +3010,7 @@
                                     (tempData?.overdraftFixedForm?.dlAgainstLienOnDepositFormArray.length) +
                                     (tempData?.overdraftFixedForm?.overdraftLienOnDepositFormArray.length) +
                                     (tempData?.overdraftFixedForm?.stlLienOnDepositFormArray.length) +
+                                    (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
                                     (i3 + 1) | nepaliWord}})
                                 </strong>
                             </td>
@@ -2978,6 +3136,7 @@
                                     (tempData?.overdraftFixedForm?.dlAgainstLienOnDepositFormArray.length) +
                                     (tempData?.overdraftFixedForm?.overdraftLienOnDepositFormArray.length) +
                                     (tempData?.overdraftFixedForm?.stlLienOnDepositFormArray.length) +
+                                    (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
                                     (i3 + 1) | nepaliWord}})
                                 </strong>
                             </td>
