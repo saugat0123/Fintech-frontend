@@ -20,13 +20,13 @@
                                formControlName="districtOfFirm"
                                placeholder=" "
                                type="text"/>
-                        <span class="print-only">{{this.individualData.registeredDistrict ? this.individualData.registeredDistrict.ct : ''}}</span>
+                        <span class="print-only">{{this.individualData.registeredDistrict ? this.individualData.registeredDistrict.ct : '___________________________'}}</span>
                         जिल्ला, <input class="form-field form-control-sm d-print-none"
                                        name="municipalityOfFirm"
                                        formControlName="municipalityOfFirm"
                                        placeholder=" "
                                        type="text"/>
-                        <span class="print-only">{{this.individualData.registeredMunicipality ? this.individualData.registeredMunicipality.ct : ''}}</span>
+                        <span class="print-only">{{this.individualData.registeredMunicipality ? this.individualData.registeredMunicipality.ct : '___________________________'}}</span>
                         <ng-container *ngIf="this.individualData?.registeredMunType === '0'"> न.पा</ng-container>
                         <ng-container *ngIf="this.individualData?.registeredMunType === '1'"> गा.वि.स.</ng-container>
                         <ng-container *ngIf="this.individualData?.registeredMunType === '2'"> गाँउपालिका</ng-container>
@@ -35,42 +35,42 @@
                                       formControlName="wardNoOfFirm"
                                       placeholder=" "
                                       type="text"/>
-                        <span class="print-only">{{this.individualData.permanentWard ? this.individualData.permanentWard.ct : ''}}</span>,
+                        <span class="print-only">{{this.individualData.permanentWard ? this.individualData.permanentWard.ct : '___________________________'}}</span>,
                         <input class="form-field form-control-sm d-print-none"
                                name="addressOfFirm"
                                formControlName="addressOfFirm"
                                placeholder=" "
                                type="text"/>
-                        <span class="print-only">{{this.individualData.registeredStreetTole ? this.individualData.registeredStreetTole.ct : ''}}</span>
+                        <span class="print-only">{{this.individualData.registeredStreetTole ? this.individualData.registeredStreetTole.ct : '___________________________'}}</span>
                         मा कार्यालय रहेको
                         श्री <input class="form-field form-control-sm d-print-none"
                                     name="firmName"
                                     formControlName="firmName"
                                     placeholder=" "
                                     type="text"/>
-                        <span class="print-only">{{this.individualData.name ? this.individualData.name.ct : ''}}</span>
+                        <span class="print-only">{{this.individualData.name ? this.individualData.name.ct : '___________________________'}}</span>
                         (साझेदारी फर्म) को <input class="form-field form-control-sm d-print-none"
                                                   name="freeText1"
                                                   formControlName="freeText1"
                                                   placeholder=" "
                                                   type="text"/>
-                        <!--<span class="print-only">{{this.individualData.name ? this.individualData.name.ct : ''}}</span>-->
-                        जसलाई यसपछि ऋणी भनिएको छ, को हकमा एवं तर्फबाट ऐ. का अख्तियारप्राप्त साझदार
+                        <span class="print-only">{{this.supportedInfo ? (this.supportedInfo.freeText1 ? this.supportedInfo.freeText1 : '__________________________') : '__________________________'}}</span>
+                        जसलाई यसपछि ऋणी भनिएको छ, को हकमा एवं तर्फबाट ऐ. का अख्तियारप्राप्त साझेदार
                         <ng-container *ngFor="let partner of companyInfo; let i = index">
-                            <ng-container
-                                    *ngIf="partner?.ownerNationality === 'Nepali' || partner?.foreignAddressOption === 'Local'">
+                            <ng-container *ngIf="!isForeignAddress">
+<!--                                *ngIf="partner?.ownerNationality === 'Nepali' || partner?.foreignAddressOption === 'Local'">-->
                                 <input class="form-field form-control-sm d-print-none"
                                        name="districtOfPartner"
                                        [value]="partner?.ownerPermanentDistrictCT"
                                        placeholder=" "
                                        type="text"/>
-                                <span class="print-only">{{partner ? partner?.ownerPermanentDistrictCT : ''}}</span>
+                                <span class="print-only">{{partner ? partner?.ownerPermanentDistrictCT : '___________________________'}}</span>
                                 जिल्ला <input class="form-field form-control-sm d-print-none"
                                               name="vdcNameOfPartner"
                                               [value]="partner?.ownerPermanentMunicipalityCT"
                                               placeholder=" "
                                               type="text"/>
-                                <span class="print-only">{{partner ? partner?.ownerPermanentMunicipalityCT : ''}}</span>
+                                <span class="print-only">{{partner ? partner?.ownerPermanentMunicipalityCT : '___________________________'}}</span>
                                 <ng-container *ngIf="partner?.ownerPermanentAddressRadio === '0'">न.पा</ng-container>
                                 <ng-container *ngIf="partner?.ownerPermanentAddressRadio === '1'">गा.वि.स.
                                 </ng-container>
@@ -81,7 +81,7 @@
                                               [value]="partner?.ownerPermanentWardNoCT"
                                               placeholder=" "
                                               type="text"/>
-                                <span class="print-only">{{partner ? partner?.ownerPermanentWardNoCT : ''}}</span>
+                                <span class="print-only">{{partner ? partner?.ownerPermanentWardNoCT : '___________________________'}}</span>
                             </ng-container>
                             <ng-container *ngIf="(partner?.ownerNationality === 'Indian' || partner?.ownerNationality === 'Other')
                              && partner?.foreignAddressOption === 'Foreign'">
@@ -90,7 +90,7 @@
                                        [value]="partner?.ownerOtherAddressCT"
                                        placeholder=" "
                                        type="text"/>
-                                <span class="print-only">{{partner ? partner?.ownerOtherAddressCT : ''}}</span>
+                                <span class="print-only">{{partner ? partner?.ownerOtherAddressCT : '___________________________'}}</span>
                             </ng-container>
                             बस्ने
                             <ng-container *ngIf="partner?.ownerGender === 'MALE'">श्री</ng-container>
@@ -107,27 +107,27 @@
                                    [value]="partner?.ownerNameCT"
                                    placeholder=" "
                                    type="text"/>
-                            <span class="print-only">{{partner ? partner?.ownerNameCT : ''}}</span>
+                            <span class="print-only">{{partner ? partner?.ownerNameCT : '___________________________'}}</span>
                             <ng-container *ngIf="partner?.ownerNationality === 'Nepali'">
                                 (ना.प्र.नं..<input class="form-field form-control-sm d-print-none"
                                                    name="citizenNoOfPartner"
                                                    [value]="partner?.ownerCitizenshipNoCT"
                                                    placeholder=" "
                                                    type="text"/>
-                                <span class="print-only">{{partner ? partner?.ownerCitizenshipNoCT : ''}}</span>
+                                <span class="print-only">{{partner ? partner?.ownerCitizenshipNoCT : '___________________________'}}</span>
                                 (मिति <input class="form-field form-control-sm d-print-none"
                                              name="issueDateOfPartner"
                                              [value]="this.issueDate[i].issueDate"
                                              placeholder=" "
                                              type="text"/>
-                                <span class="print-only">{{this.issueDate ? this.issueDate[i].issueDate : ''}}</span>
+                                <span class="print-only">{{this.issueDate ? this.issueDate[i].issueDate : '___________________________'}}</span>
                                 जिल्ला प्रशासन कार्यालय
                                 <input class="form-field form-control-sm d-print-none"
                                        name="issueDistrictOfPartner"
                                        [value]="partner?.ownerCitizenshipIssuedDistrictCT"
                                        placeholder=" "
                                        type="text"/>
-                                <span class="print-only">{{partner ? partner?.ownerCitizenshipIssuedDistrictCT : ''}}</span>)
+                                <span class="print-only">{{partner ? partner?.ownerCitizenshipIssuedDistrictCT : '___________________________'}}</span>)
                                 र
                             </ng-container>
                         </ng-container>
@@ -137,14 +137,14 @@
                                formControlName="nameOfBranchLocated"
                                placeholder=" "
                                type="text"/>
-                        <span class="print-only">{{this.individualData.branch ? this.individualData.branch.ct : ''}}</span>
+                        <span class="print-only">{{this.individualData.branch ? this.individualData.branch.ct : '___________________________'}}</span>
                         शाखा मार्फत मेरो/हाम्रो नाममा जारी भएको मिति
                         <input class="form-field form-control-sm d-print-none"
                                name="sanctionLetterIssuedDate"
                                formControlName="sanctionLetterIssuedDate"
                                placeholder=" "
                                type="text"/>
-                        <span class="print-only">{{this.sanctionDate ? this.sanctionDate : ''}}</span>
+                        <span class="print-only">{{this.sanctionDate ? this.sanctionDate : '___________________________'}}</span>
                         को ऋण स्वीकृती पत्रानुसार मेरो/हाम्रो नाममा कुल कर्जा
                         रु <input class="form-field form-control-sm outside disable-print col-2"
                                   (input)="getNumAmountWord('loanAmountInFigure', 'loanAmountInWords')"
@@ -152,13 +152,13 @@
                                   formControlName="loanAmountInFigure"
                                   placeholder="ऋण रकम"
                                   type="text"/>
-                        <span class="print-only">{{this.finalAmount ? this.finalAmount : ''}}</span>।
+                        <span class="print-only">{{this.finalAmount ? this.finalAmount : '___________________________'}}</span>।
                         (अक्षरेपी <input class="form-field form-control-sm outside disable-print col-2"
                                          name="loanAmountInWords"
                                          formControlName="loanAmountInWords"
                                          placeholder="रकम"
                                          type="text"/>
-                        <span class="print-only">{{this.loanAmountWord ? this.loanAmountWord : ''}}</span>मात्र)
+                        <span class="print-only">{{this.loanAmountWord ? this.loanAmountWord : '___________________________'}}</span>मात्र)
                         स्वीकृत गर्दा तोकिएको शर्त बमोजिम हामी ऋणीले भुक्तानी प्राप्त गर्न बांकी रहेको (Account
                         Receivables) रकम र स्वीकारयोग्य चेक, ड्राफ्ट, बील, वित्तीय उपकरण आदि हामी ऋणीको हकमा बुझीलिन
                         नबिल बैंक लिमिटेड (जसले यसका अधिकारप्राप्त कर्मचारी वा प्रतिनिधिलाई समेत जनाउनेछ) लाई यसै
@@ -210,7 +210,7 @@
                                    formControlName="nameOfBranchLocated"
                                    placeholder=" "
                                    type="text"/>
-                            <span class="print-only">{{this.individualData.branch ? this.individualData.branch.ct : ''}}</span>
+                            <span class="print-only">{{this.individualData.branch ? this.individualData.branch.ct : '___________________________'}}</span>
                             कार्यालयमा बसी देहायका साक्षीको रोहवरमा यो वारेसनामामा सहीछाप गरीदियौं ।
                         </p>
                     </div>
@@ -226,7 +226,7 @@
                                              formControlName="firmName"
                                              placeholder=" "
                                              type="text"/>
-                                    <span class="print-only">{{this.individualData.name ? this.individualData.name.ct : ''}}</span>
+                                    <span class="print-only">{{this.individualData.name ? this.individualData.name.ct : '___________________________'}}</span>
                                 </td>
                             </tr>
                             <tr>
@@ -236,18 +236,21 @@
                                              formControlName="addressOfBorrower"
                                              placeholder=" "
                                              type="text"/>
-                                    <span class="print-only">{{this.combinedAddress ? this.combinedAddress : ''}}</span>
+                                    <span class="print-only">{{this.combinedAddress ? this.combinedAddress : '___________________________'}}</span>
                                 </td>
                             </tr>
                             <tr>
-                                <td width="50%">आधिकारिक प्रतिनिधिको नाम</td>
-                                <td>: <input class="form-field form-control-sm d-print-none"
-                                             name="nameOfAuthorizedBody"
-                                             formControlName="nameOfAuthorizedBody"
-                                             placeholder=" "
-                                             type="text"/>
-                                    <span class="print-only">{{this.individualData.authorizedBodyName ? this.individualData.authorizedBodyName.ct : ''}}</span>
-                                </td>
+                                <span *ngFor="let details of companyInfo; let i = index">
+                                    <td width="50%">आधिकारिक प्रतिनिधिको नाम</td>
+                                    <td>: <input class="form-field form-control-sm d-print-none"
+                                                 name="authorizedBodyName"
+                                                 formControlName="authorizedBodyName"
+                                                 placeholder=" "
+                                                 type="text"
+                                                 [value]="authorizedNameArray ? authorizedNameArray[i] : '___________________________'"/>
+                                        <span class="print-only">{{authorizedNameArray ? authorizedNameArray[i] : '_____________________'}}</span>
+                                    </td>
+                                </span>
                             </tr>
                             </tbody>
                         </table>

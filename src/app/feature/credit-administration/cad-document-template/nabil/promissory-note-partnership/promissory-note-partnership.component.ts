@@ -60,6 +60,8 @@ export class PromissoryNotePartnershipComponent implements OnInit {
   directorCitizenshipNumber;
   citizenshipIssueDate;
   citizenshipIssueDistrict;
+  foreignAddress;
+  isForeignAddress: boolean = true;
 
 
   constructor(
@@ -396,6 +398,11 @@ export class PromissoryNotePartnershipComponent implements OnInit {
       this.age = i.ownerDobCT;
       this.nameOfPartner = i.ownerNameCT;
       this.directorCitizenshipNumber = i.ownerCitizenshipNoCT;
+      
+      if (!ObjectUtil.isEmpty(i.ownerOtherAddress)){
+        this.foreignAddress = i.ownerOtherAddressCT;
+        this.isForeignAddress = true;
+      }
 
       if (i.radioOwnerCitizenshipIssuedDate === 'AD') {
         this.citizenshipIssueDate = this.engToNepaliDate.transform(i.ownerCitizenshipIssuedDateCT, true);
@@ -417,12 +424,21 @@ export class PromissoryNotePartnershipComponent implements OnInit {
     return regDate ? regDate : '';
   }
 
+  // setActYear() {
+  //   let yearOfAct = '';
+  //   if (!ObjectUtil.isEmpty(this.loanHolderNepData.radioActYearDate.en === 'AD')) {
+  //     yearOfAct = this.engToNepaliDate.transform(this.loanHolderNepData.actYear.en ? this.loanHolderNepData.actYear.en : this.loanHolderNepData.actYear.en, true) || '' ;
+  //   } else {
+  //     yearOfAct = this.loanHolderNepData.actYear.en ? this.loanHolderNepData.actYear.en : '';
+  //   }
+  //   return yearOfAct ? yearOfAct : '';
+  // }
   setActYear() {
     let yearOfAct = '';
-    if (!ObjectUtil.isEmpty(this.loanHolderNepData.radioActYearDate.en === 'AD')) {
-      yearOfAct = this.engToNepaliDate.transform(this.loanHolderNepData.actYear.en ? this.loanHolderNepData.actYear.en : this.loanHolderNepData.actYear.en, true) || '' ;
+    if (!ObjectUtil.isEmpty(this.loanHolderNepData.radioActYearDate.np) && (this.loanHolderNepData.radioActYearDate.np === 'BS')) {
+      yearOfAct = this.loanHolderNepData.actYear.np ? this.loanHolderNepData.actYear.np : '';
     } else {
-      yearOfAct = this.loanHolderNepData.actYear.en ? this.loanHolderNepData.actYear.en : '';
+      yearOfAct = this.loanHolderNepData.actYear.en ? this.loanHolderNepData.actYear.en : '' ;
     }
     return yearOfAct ? yearOfAct : '';
   }

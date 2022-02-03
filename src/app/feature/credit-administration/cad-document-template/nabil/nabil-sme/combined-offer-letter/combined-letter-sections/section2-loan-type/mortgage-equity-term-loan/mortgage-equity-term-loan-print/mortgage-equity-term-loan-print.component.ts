@@ -16,12 +16,9 @@ export class MortgageEquityTermLoanPrintComponent implements OnInit {
   @Input() customerApprovedDoc;
   @Input() freeText;
   @Input() loanData;
-  @Input() index;
+  @Input() pointNumber;
+  @Input() equityMortgageData;
   tempData;
-  mortgageEquity: any = {};
-  termLoanForMortgageEquityTerm; mortgageTypeMortgageEquityTerm; complementaryOtherMortgageEquityTerm = false;
-  emiPaymentTypeMortgageEquityTerm; interestSubAgMortgageEquityTerm; paymentTermMortgageEquityTerm;
-  loanOptionMortgageEquityTerm; drawingPowerMortgageEquityTerm; termLoanTypeMortgageEquityTerm; complementaryOtherMortgageEquityTermName
 
   constructor() { }
 
@@ -29,7 +26,7 @@ export class MortgageEquityTermLoanPrintComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.customerApprovedDoc)) {
       this.tempData = JSON.parse(this.customerApprovedDoc.offerDocumentList[0].initialInformation);
     }
-    if (!ObjectUtil.isEmpty(this.tempData.mortgageEquityTermForm)) {
+    /*if (!ObjectUtil.isEmpty(this.tempData.mortgageEquityTermForm)) {
       this.termLoanForMortgageEquityTerm = this.tempData.mortgageEquityTermForm.termLoanFor;
       this.mortgageTypeMortgageEquityTerm = this.tempData.mortgageEquityTermForm.mortgageType;
       this.termLoanTypeMortgageEquityTerm = this.tempData.mortgageEquityTermForm.termLoanType;
@@ -42,7 +39,7 @@ export class MortgageEquityTermLoanPrintComponent implements OnInit {
       if (this.tempData.mortgageEquityTermForm.complementaryOther === true) {
         this.complementaryOtherMortgageEquityTerm = true;
       }
-    }
+    }*/
   }
 
 }

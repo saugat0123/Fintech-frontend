@@ -52,6 +52,7 @@ export class BankGuaranteeComponent implements OnInit {
               private currencyFormatterPipe: CurrencyFormatterPipe,
               private translateService: SbTranslateService,
               private engToNepaliNumberPipe: EngToNepaliNumberPipe,
+              private engToNepWord: NepaliCurrencyWordPipe
               ) { }
 
   ngOnInit() {
@@ -68,6 +69,15 @@ export class BankGuaranteeComponent implements OnInit {
         this.bankGuarantee.patchValue(this.initialInformation.bankGuarantee);
       }
       this.patchDate();
+    }
+    if (!ObjectUtil.isEmpty(this.filteredList)) {
+      for (let val = 0; val < this.filteredList.length; val++) {
+        const loanamountWords = this.engToNepWord.transform(this.filteredList[val].loanAmount);
+        this.bankGuarantee.get(['bankGuaranteeArray', val, 'loanAmount']).patchValue(
+            this.filteredList[val] ? this.filteredList[val].loanAmount : '');
+        this.bankGuarantee.get(['bankGuaranteeArray', val, 'loanAmountWords']).patchValue(
+            loanamountWords ? loanamountWords : '');
+      }
     }
   }
   filterLoanDetails(loanDetails) {

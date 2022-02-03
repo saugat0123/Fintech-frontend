@@ -57,6 +57,7 @@ export class DdslWithoutSubsidyPrintComponent implements OnInit {
     offerDocumentDetails;
     autoRefNum;
     sanctionDate;
+    sanctionLetterDate;
     freeInformation;
     previousSanctionDate1;
     applicationDate;
@@ -71,6 +72,7 @@ export class DdslWithoutSubsidyPrintComponent implements OnInit {
     securityDetails: any;
     tempLandBuilding;
     securityTypeCondition = false;
+    securityTypeHypothecation = false;
     securityTypeConditionFixedAssests = false;
     securityTypeConditionStock = false;
     securityTypeConditionAssestsPlants = false;
@@ -86,7 +88,7 @@ export class DdslWithoutSubsidyPrintComponent implements OnInit {
     kittaNumbers: Array < any > = new Array < any > ();
     plotNumber;
     guarantorAmount;
-    guarantorAmountWords
+    guarantorAmountWords;
 
     constructor(public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
         public engToNepNumberPipe: EngToNepaliNumberPipe,
@@ -97,7 +99,6 @@ export class DdslWithoutSubsidyPrintComponent implements OnInit {
     ngOnInit() {
         // this.selectedSecurity = this.security;
         // this.loanLimitVal = this.loanLimit;
-        
         this.guarantorData = this.cadOfferLetterApprovedDoc.assignedLoan[0].taggedGuarantors;
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc)) {
             this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
@@ -133,13 +134,12 @@ export class DdslWithoutSubsidyPrintComponent implements OnInit {
             this.autoRefNum = this.cadOfferLetterApprovedDoc.assignedLoan[0].refNo;
         }
         // date of Approval
-        const dateOfApprovalType = this.letter.sanctionLetterDateType ?
-            this.letter.sanctionLetterDateType.en : '';
-        if (dateOfApprovalType === 'AD') {
+        const dateOfApproval = this.letter.sanctionLetterDateType ? this.letter.sanctionLetterDateType.en : '';
+        if (dateOfApproval === 'AD') {
             const tempApprDate = this.letter.sanctionLetterDate ?
                 this.engNepDatePipe.transform(this.datePipe.transform(this.letter.sanctionLetterDate.en), true) :
                 '';
-            this.sanctionDate = tempApprDate ? tempApprDate : '';
+            this.sanctionLetterDate = tempApprDate ? tempApprDate : '';
         } else {
             const tempApprNepali = this.letter.sanctionLetterDateNepali ?
                 this.letter.sanctionLetterDateNepali.en : '';
@@ -257,6 +257,9 @@ export class DdslWithoutSubsidyPrintComponent implements OnInit {
         }
         if (this.securityDetails.primarySecurity.some(s => s.securityTypeCT === 'FIXED_ASSETS')) {
             this.securityTypeConditionFixedAssests = true;
+        }
+        if (this.securityDetails.primarySecurity.some(s => s.securityTypeCT === 'HYPOTHECATION')) {
+            this.securityTypeHypothecation = true;
         }
         if (this.securityDetails.primarySecurity.some(s => s.securityTypeCT === 'STOCK')) {
             this.securityTypeConditionStock = true;

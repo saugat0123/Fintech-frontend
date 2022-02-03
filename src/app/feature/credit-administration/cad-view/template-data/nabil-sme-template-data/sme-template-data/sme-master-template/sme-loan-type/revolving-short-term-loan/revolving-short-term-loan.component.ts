@@ -35,7 +35,8 @@ export class RevolvingShortTermLoanComponent implements OnInit {
                 private engToNepNumberPipe: EngToNepaliNumberPipe,
                 private currencyFormatterPipe: CurrencyFormatterPipe,
                 private engNepDatePipe: EngNepDatePipe,
-                private datePipe: DatePipe,) {
+                private datePipe: DatePipe,
+                private engToNepWord: NepaliCurrencyWordPipe) {
     }
 
     ngOnInit() {
@@ -53,6 +54,15 @@ export class RevolvingShortTermLoanComponent implements OnInit {
                 this.revolvingShortTermLoan.patchValue(this.initialInformation.revolvingShortTermLoan);
             }
             this.patchDate();
+        }
+        if (!ObjectUtil.isEmpty(this.filteredList)) {
+            for (let val = 0; val < this.filteredList.length; val++) {
+                const loanamountWords = this.engToNepWord.transform(this.filteredList[val].loanAmount);
+                this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', val, 'loanAmount']).patchValue(
+                    this.filteredList[val] ? this.filteredList[val].loanAmount : '');
+                this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', val, 'loanAmountWords']).patchValue(
+                    loanamountWords ? loanamountWords : '');
+            }
         }
     }
     patchDate() {

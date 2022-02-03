@@ -18,7 +18,6 @@ import { EngToNepaliNumberPipe } from '../../../../../@core/pipe/eng-to-nepali-n
 import { CurrencyFormatterPipe } from '../../../../../@core/pipe/currency-formatter.pipe';
 import { ProposalCalculationUtils } from '../../../../loan/component/loan-summary/ProposalCalculationUtils';
 import {DatePipe} from '@angular/common';
-import {flattenInheritedDirectiveMetadata} from '@angular/compiler-cli/src/ngtsc/metadata/src/inheritance';
 
 @Component({
   selector: 'app-personal-guarantee-company',
@@ -45,16 +44,7 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
   loanPurpose = 'व्यापार/ व्यवसाय संचालन';
   spinner = false;
   cadInitialInfo;
-  localVisible: boolean;
-  foreignVisible: boolean;
-  localTempVisible: boolean;
-  foreignTempVisible: boolean;
-  citizenNoVisible: boolean;
-  adharNoVisible: boolean;
-  embassyNoVisible: boolean;
-  passportNoVisible: boolean;
-  otherPassportNoVisible: boolean;
-
+  individualGuarantorNepDataArray: Array<any> = new Array<any>();
 
     constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
@@ -85,6 +75,7 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
                 const free = this.personalGuaranteeCompany.value;
                 if (this.cadInitialInfo !== null) {
                     for (let val = 0; val < free.guaranteeCompanies.length; val++) {
+                        // tslint:disable-next-line:max-line-length
                         this.personalGuaranteeCompany.get(['guaranteeCompanies', val, 'freeText']).patchValue(this.cadInitialInfo ? this.cadInitialInfo[val].freeText : '');
                         this.personalGuaranteeCompany.get(['guaranteeCompanies', val, 'sakshiDistrict1']).patchValue(this.cadInitialInfo ? this.cadInitialInfo[val].sakshiDistrict1 : '');
                         this.personalGuaranteeCompany.get(['guaranteeCompanies', val, 'sakshiDistrict2']).patchValue(this.cadInitialInfo ? this.cadInitialInfo[val].sakshiDistrict2 : '');
@@ -142,69 +133,19 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
 
   taggedPersonalGuarantorsDetailsForm() {
     if (!ObjectUtil.isEmpty(this.taggedGuarantorsDetailsInLoan)) {
-        console.log('TaggedGuarantorsDetailsLoan Length:', this.taggedGuarantorsDetailsInLoan);
       this.taggedGuarantorsDetailsInLoan.forEach((val) => {
         const individualGuarantorNepData = val.nepData
-            ? JSON.parse(val.nepData)
-            : val.nepData;
+          ? JSON.parse(val.nepData)
+          : val.nepData;
+        this.individualGuarantorNepDataArray.push(individualGuarantorNepData);
         if (ObjectUtil.isEmpty(individualGuarantorNepData)) {
           return;
         }
-        // if (!ObjectUtil.isEmpty(individualGuarantorNepData.guarantorNationality)) {
-        //   if ((individualGuarantorNepData.guarantorNationality === 'Nepali') ||
-        //       (individualGuarantorNepData.guarantorNationality === 'Indian' && (!ObjectUtil.isEmpty(individualGuarantorNepData.guarantorForeignAddressOption) && individualGuarantorNepData.guarantorForeignAddressOption.en === 'Local')) ||
-        //       (individualGuarantorNepData.guarantorNationality === 'Other' && (!ObjectUtil.isEmpty(individualGuarantorNepData.guarantorForeignAddressOption) && individualGuarantorNepData.guarantorForeignAddressOption.en === 'Local'))) {
-        //     this.localVisible = true;
-        //   } else {
-        //     this.localVisible = false;
-        //   }
-        // }
-        // if (!ObjectUtil.isEmpty(individualGuarantorNepData.guarantorForeignAddressOption)) {
-        //   if (individualGuarantorNepData.guarantorForeignAddressOption.en === 'Foreign') {
-        //     this.foreignVisible = true;
-        //   } else {
-        //     this.foreignVisible = false;
-        //   }
-        // }
-        // if (!ObjectUtil.isEmpty(individualGuarantorNepData.guarantorNationality)) {
-        //   if ((individualGuarantorNepData.guarantorNationality === 'Nepali' && individualGuarantorNepData.isSameTemporaryAndPermanent === true) ||
-        //       (individualGuarantorNepData.guarantorNationality === 'Indian' && (!ObjectUtil.isEmpty(individualGuarantorNepData.guarantorForeignAddressOptionTemp) && individualGuarantorNepData.guarantorForeignAddressOptionTemp.en === 'Local')) ||
-        //       (individualGuarantorNepData.guarantorNationality === 'Other' && (!ObjectUtil.isEmpty(individualGuarantorNepData.guarantorForeignAddressOptionTemp) && individualGuarantorNepData.guarantorForeignAddressOptionTemp.en === 'Local'))) {
-        //     this.localTempVisible = true;
-        //   } else {
-        //     this.localTempVisible = false;
-        //   }
-        // }
-        // if (!ObjectUtil.isEmpty(individualGuarantorNepData.guarantorForeignAddressOptionTemp)) {
-        //   if (individualGuarantorNepData.guarantorForeignAddressOptionTemp.en === 'Foreign') {
-        //     this.foreignTempVisible = true;
-        //   } else {
-        //     this.foreignTempVisible = false;
-        //   }
-        // }
-        // if (!ObjectUtil.isEmpty(individualGuarantorNepData.guarantorNationality) && individualGuarantorNepData.guarantorNationality === 'Nepali') {
-        //   this.citizenNoVisible = true;
-        // }
-        // if (!ObjectUtil.isEmpty(individualGuarantorNepData.guarantorNationality)) {
-        //   if (individualGuarantorNepData.guarantorNationality === 'Indian' && individualGuarantorNepData.indianGuarantorDetailOption.en === 'Embassy Certificate') {
-        //     this.embassyNoVisible = true;
-        //   }
-        //   if (individualGuarantorNepData.guarantorNationality === 'Indian' && individualGuarantorNepData.indianGuarantorDetailOption.en === 'Adhar Card') {
-        //     this.adharNoVisible = true;
-        //   }
-        //   if (individualGuarantorNepData.guarantorNationality === 'Indian') {
-        //     this.passportNoVisible = true;
-        //   }
-        // }
-        // if (!ObjectUtil.isEmpty(individualGuarantorNepData.guarantorNationality) && individualGuarantorNepData.guarantorNationality === 'Other') {
-        //   this.otherPassportNoVisible = true;
-        // }
           (this.personalGuaranteeCompany.get('guaranteeCompanies') as FormArray).push(
               this.formBuilder.group({
                   branchName: [this.loanHolderNepData.branch ? this.loanHolderNepData.branch.ct : ''],
                   actDetails: [this.loanHolderNepData.actName.ct ? this.loanHolderNepData.actName.ct : ''],
-                  actYearInFigure: [this.loanHolderNepData.actYear.np ? this.loanHolderNepData.actYear.np :
-                                    this.loanHolderNepData.actYear.en ? this.engToNepNumberPipe.transform((this.loanHolderNepData.actYear.en).toString()) : ''],
+                  actYearInFigure: [this.setActYear()],
                   authorizedBodyName: [this.loanHolderNepData.authorizedBodyName ? this.loanHolderNepData.authorizedBodyName.ct : 'नेपाल सरकार'],
                   headDepartment: [this.loanHolderNepData.name ? this.loanHolderNepData.name.ct : ''],
                   registrationDate: [this.setRegistrationDate()],
@@ -257,6 +198,7 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
       });
     }
   }
+
     setRegistrationDate() {
         let expiryDate = '';
         if (this.loanHolderNepData.registrationDateOption.en === 'AD') {
@@ -324,6 +266,15 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
     return issuedDate ? issuedDate : '';
   }
 
+    setActYear() {
+        let yearOfAct = '';
+        if (!ObjectUtil.isEmpty(this.loanHolderNepData.radioActYearDate.np) && (this.loanHolderNepData.radioActYearDate.np === 'BS')) {
+            yearOfAct = this.loanHolderNepData.actYear.np ? this.loanHolderNepData.actYear.np : '';
+        } else {
+            yearOfAct = this.loanHolderNepData.actYear.en ? this.loanHolderNepData.actYear.en : '' ;
+        }
+        return yearOfAct ? yearOfAct : '';
+    }
     setLoanPurpose() {
         let loanKoPurpose = '';
         if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'DDSL Without Subsidy') {

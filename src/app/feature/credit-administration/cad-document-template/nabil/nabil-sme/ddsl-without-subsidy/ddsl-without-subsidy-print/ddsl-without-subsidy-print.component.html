@@ -4,7 +4,7 @@
             <p>
                 स्वीकृती पत्र नं.- <strong>{{autoRefNum ? autoRefNum : '_______________________'}}</strong><br></p>
             <p><strong>ऋणकर्जा सुविधा स्वीकृति पत्र</strong><br></p>
-            <p> मिति: वि.सं. <strong>{{sanctionDate ? sanctionDate : ''}}</strong><br></p>
+            <p> मिति: वि.सं. <strong>{{sanctionLetterDate ? sanctionLetterDate : ''}}</strong><br></p>
             <p>
                 श्री
                 <span [ngClass]="{'outside' : loanHolderInfo?.name.ct !== null && loanHolderInfo?.name.ct !== ''}"><strong>
@@ -206,7 +206,7 @@
                             </app-master-securities-view>
                         </div>
                     </li>
-                    <li *ngIf="securityTypeConditionFixedAssests || securityTypeSecondaryConditionFixedAssests">
+                    <li *ngIf="securityTypeConditionFixedAssests || securityTypeSecondaryConditionFixedAssests || securityTypeHypothecation">
                         <p>
                             <strong> सामान मौज्दात धितोेबन्धक हकाधिकार (Hypothecation Changes):</strong>
                         </p>
@@ -242,7 +242,7 @@
                         (अक्षरेपी
                         रु.
                         <span class="font-weight-bold">{{this.nepaliCurrencyWordPipe.transform(personalGuarantor.gurantedAmount.en)}}</span>
-                        मात्र)</strong> बराबरको
+                        मात्र)</strong> बराबरको श्री
                         <span class="font-weight-bold">{{personalGuarantor.guarantorName.ct}}</span>
                     ले एक्लै वा संयुक्त रुपमा बैंकको पक्षमा व्यक्तिगत जमानत लेखिदिनु पर्नेछ ।
                 </p>

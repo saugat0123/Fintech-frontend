@@ -1,7 +1,7 @@
 <nb-card [nbSpinner]="spinner">
 <div class="container text-justify">
   <form [formGroup]="personalGuaranteeCompany" id="print-section">
-    <div class="row" *ngFor="let guaranteeCompany of taggedGuarantorsDetailsInLoan; let i = index"
+    <div class="row" *ngFor="let guaranteeCompany of individualGuarantorNepDataArray; let i = index"
         formArrayName="guaranteeCompanies">
         <div class="col-md-12" [formGroupName]="i">
             <div class="form-group align">
@@ -338,17 +338,11 @@
                                         </p>
                                     </ng-container>
                                     <p class="lh-30">
-<!--                                        <ng-container *ngIf="citizenNoVisible">ना.प्र.नं. : </ng-container>-->
-<!--                                        <ng-container *ngIf="embassyNoVisible">दूतावास नं : </ng-container>-->
-<!--                                        <ng-container *ngIf="adharNoVisible">आधार कार्ड नं : </ng-container>-->
-<!--                                        <ng-container *ngIf="passportNoVisible">राहदानी नं : </ng-container>-->
-<!--                                        <ng-container *ngIf="otherPassportNoVisible">राहदानी नं : </ng-container>-->
                                         <ng-container *ngIf="guaranteeCompany?.guarantorNationality === 'Nepali'">ना.प्र.नं. : </ng-container>
                                         <ng-container *ngIf="guaranteeCompany?.guarantorNationality === 'Indian' && guaranteeCompany?.indianGuarantorDetailOption.en === 'Embassy Certificate'">दूतावास नं : </ng-container>
                                         <ng-container *ngIf="guaranteeCompany?.guarantorNationality === 'Indian' && guaranteeCompany?.indianGuarantorDetailOption.en === 'Adhar Card'">आधार कार्ड नं : </ng-container>
-                                        <ng-container *ngIf="guaranteeCompany?.guarantorNationality === 'Indian'">राहदानी नं : </ng-container>
+                                        <ng-container *ngIf="guaranteeCompany?.guarantorNationality === 'Indian' && guaranteeCompany?.indianGuarantorDetailOption.en === 'Passport'">राहदानी नं : </ng-container>
                                         <ng-container *ngIf="guaranteeCompany?.guarantorNationality === 'Other'">राहदानी नं : </ng-container>
-<!--                                        ना.प्र.नं. : -->
                                         <span>
                                             <input class="form-field form-control-sm d-print-none" name="citizenshipNo"
                                                 formControlName="citizenshipNo" placeholder="" type="text"/>

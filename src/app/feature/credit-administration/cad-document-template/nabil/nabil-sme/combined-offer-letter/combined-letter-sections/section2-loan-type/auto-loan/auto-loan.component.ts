@@ -150,7 +150,7 @@ export class AutoLoanComponent implements OnInit {
                 SNOfParentLimitAutoLoan: this.form.get(['autoLoanDetails', val, 'SNOfParentLimitAutoLoan']).value ? this.form.get(['autoLoanDetails', val, 'SNOfParentLimitAutoLoan']).value : '',
                 freeText14: this.form.get(['autoLoanDetails', val, 'freeTextFourteen']).value ? this.form.get(['autoLoanDetails', val, 'freeTextFourteen']).value : '',
                 newEMIAutoPopulateAutoLoan1: this.form.get(['autoLoanDetails', val, 'newEMIAutoPopulateAutoLoan']).value ? this.form.get(['autoLoanDetails', val, 'newEMIAutoPopulateAutoLoan']).value : '',
-            }
+            };
             this.autoLoanFreeText.push(tempFreeText);
         }
         return this.autoLoanFreeText;
