@@ -26,14 +26,15 @@ export class PowerOfAttorneyCompanyComponent implements OnInit {
   @Input() documentId: number;
   @Input() customerLoanId: number;
   powerOfAttorneyCompanyForm: FormGroup;
-  companyInfo: any;
+  companyInfo: any = [];
   offerDocumentDetails: any;
   loanHolderNepData: any;
   finalAmount;
   loanAmountWord;
   spinner = false;
   freeText;
-  dateArray: Array<any> = new Array<any>();
+  savedFreeText: Array<any> = new Array<any>();
+  issueDate = [];
   authorizedNameArray: Array<any> = new Array<any>();
   constructor(private formBuilder: FormBuilder,
               private engToNepNumberPipe: EngToNepaliNumberPipe,
@@ -50,15 +51,14 @@ export class PowerOfAttorneyCompanyComponent implements OnInit {
   ngOnInit() {
     this.setData();
     this.buildForm();
+    this.setSavedFreeText();
   }
 
   setData() {
     if (!ObjectUtil.isEmpty(this.cadData.assignedLoan[0])) {
       this.companyInfo = JSON.parse(this.cadData.assignedLoan[0].companyInfo.companyJsonData);
       this.companyInfo.forEach(val => {
-        const date = this.englishNepaliDatePipe.transform(this.datePipe.transform(val.ownerCitizenshipIssuedDateCT), true);
-        this.dateArray.push(date);
-        if (val.isAuthorizedPersion === true) {
+        if (val.isAuthorizedPerson === 'Authorized Person Only' || val.isAuthorizedPerson === 'Both') {
           const authorizedName = val.ownerNameCT;
           this.authorizedNameArray.push(authorizedName);
         } else {
@@ -66,6 +66,7 @@ export class PowerOfAttorneyCompanyComponent implements OnInit {
           this.authorizedNameArray.push(authorizedName);
         }
       });
+      this.dateConvert();
     }
     if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
       this.offerDocumentDetails = JSON.parse(this.cadData.offerDocumentList[0].initialInformation);
@@ -89,6 +90,34 @@ export class PowerOfAttorneyCompanyComponent implements OnInit {
     this.loanAmountWord = this.nepaliCurrencyWordPipe.transform(totalLoan);
   }
 
+  dateConvert() {
+    let date;
+    this.companyInfo.forEach(val => {
+      if (val.radioOwnerCitizenshipIssuedDate === 'AD') {
+        date = this.englishNepaliDatePipe.transform(val ?
+            val.ownerCitizenshipIssuedDateCT : val.ownerCitizenshipIssuedDateCT, true) || '';
+      } else {
+        date = val ? val.ownerCitizenshipIssuedDateCT : '';
+      }
+      const newDate = {
+        issueDate : date
+      };
+      this.issueDate.push(newDate);
+    });
+  }
+
+  setSavedFreeText() {
+    this.companyInfo.forEach((v, index) => {
+      this.addFreeTextArray();
+      if (this.cadData.cadFileList.length > 0) {
+        this.powerOfAttorneyCompanyForm.get(['freeTextArray', index, 'freeText2']).patchValue(
+            this.freeText.freeTextArray ? this.freeText.freeTextArray[index].freeText2 : ''
+        );
+      }
+    });
+  }
+
+
   buildForm() {
     this.powerOfAttorneyCompanyForm = this.formBuilder.group({
       districtOfCompany: [this.loanHolderNepData.registeredDistrict ? this.loanHolderNepData.registeredDistrict.ct : ''],
@@ -97,21 +126,13 @@ export class PowerOfAttorneyCompanyComponent implements OnInit {
       streetName: [this.loanHolderNepData.registeredStreetTole ? this.loanHolderNepData.registeredStreetTole.ct : ''],
       nameOfBorrower: [this.loanHolderNepData.name ? this.loanHolderNepData.name.ct : ''],
       freeText1: [this.freeText ? this.freeText.freeText1 : ''],
-      freeText2: [this.freeText ? this.freeText.freeText2 : ''],
 
       branchName: [this.loanHolderNepData.branch ? this.loanHolderNepData.branch.ct : ''],
       sanctionLetterIssuedDate: [this.setApprovalDate()],
       loanAmountInFigure: [this.finalAmount ? this.finalAmount : ''],
       loanAmountInWords: [this.loanAmountWord ? this.loanAmountWord : ''],
 
-      authorizedDistrict: [undefined],
-      authorizedVDC: [undefined],
-      authorizedWardNumber: [undefined],
-      authorizedName: [undefined],
       authorizedBodyName: [undefined],
-      authorizedCitizenship: [undefined],
-      authorizedDateOfIssue: [undefined],
-      authorizedIdentity: [undefined],
 
       sakshiDistrict1: [this.freeText ? this.freeText.sakshiDistrict1 : ''],
       sakshiDistrict2: [this.freeText ? this.freeText.sakshiDistrict2 : ''],
@@ -124,13 +145,30 @@ export class PowerOfAttorneyCompanyComponent implements OnInit {
       sakshiName1: [this.freeText ? this.freeText.sakshiName1 : ''],
       sakshiName2: [this.freeText ? this.freeText.sakshiName2 : ''],
       nameOfBankStaff: [this.freeText ? this.freeText.nameOfBankStaff : ''],
+      freeTextArray: this.formBuilder.array([]),
+    });
+  }
+  freeTextForm() {
+    return this.formBuilder.group({
+      freeText2: ['सञ्चालक/प्रबन्ध सञ्चालक/प्रमुख कार्यकारी अधिकृत/'],
+       // freeText2: [undefined],
     });
   }
 
+  addFreeTextArray() {
+    (this.powerOfAttorneyCompanyForm.get('freeTextArray') as FormArray).push(this.freeTextForm());
+  }
+
   setFreeText() {
+    for (let i = 0; i < this.companyInfo.length; i++) {
+      const tempFreeText = {
+        freeText2: this.powerOfAttorneyCompanyForm.get(['freeTextArray', i, 'freeText2']) ?
+            this.powerOfAttorneyCompanyForm.get(['freeTextArray', i, 'freeText2']).value : '',
+      };
+      this.savedFreeText.push(tempFreeText);
+    }
     const free = {
       freeText1: this.powerOfAttorneyCompanyForm.get('freeText1').value ? this.powerOfAttorneyCompanyForm.get('freeText1').value : '',
-      freeText2: this.powerOfAttorneyCompanyForm.get('freeText2').value ? this.powerOfAttorneyCompanyForm.get('freeText2').value : '',
       sakshiDistrict1: this.powerOfAttorneyCompanyForm.get('sakshiDistrict1').value ? this.powerOfAttorneyCompanyForm.get('sakshiDistrict1').value : '',
       sakshiDistrict2: this.powerOfAttorneyCompanyForm.get('sakshiDistrict2').value ? this.powerOfAttorneyCompanyForm.get('sakshiDistrict2').value : '',
       sakshiMunicipality1: this.powerOfAttorneyCompanyForm.get('sakshiMunicipality1').value ? this.powerOfAttorneyCompanyForm.get('sakshiMunicipality1').value : '',
@@ -142,6 +180,7 @@ export class PowerOfAttorneyCompanyComponent implements OnInit {
       sakshiName1: this.powerOfAttorneyCompanyForm.get('sakshiName1').value ? this.powerOfAttorneyCompanyForm.get('sakshiName1').value : '',
       sakshiName2: this.powerOfAttorneyCompanyForm.get('sakshiName2').value ? this.powerOfAttorneyCompanyForm.get('sakshiName2').value : '',
       nameOfBankStaff: this.powerOfAttorneyCompanyForm.get('nameOfBankStaff').value ? this.powerOfAttorneyCompanyForm.get('nameOfBankStaff').value : '',
+      freeTextArray: this.savedFreeText
     };
     return JSON.stringify(free);
   }
