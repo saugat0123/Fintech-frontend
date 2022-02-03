@@ -137,6 +137,8 @@ export class Section2LoanTypeComponent implements OnInit {
     stlLienDeposit = [];
     dlFixedDeposit = [];
     dlLienDeposit = [];
+    bankGuaranteeLoan = [];
+    bankGuaranteeFree: Array <any> = new Array<any>();
 
     constructor(private formBuilder: FormBuilder,
                 private engToNepWord: NepaliCurrencyWordPipe,
@@ -225,16 +227,8 @@ export class Section2LoanTypeComponent implements OnInit {
             bridgeGapLoan: this.formBuilder.array([]),
 
             // Bank Guarantee
-            SNOfParentLimitBankGuarantee: [undefined],
-            nameOfBankBankGuarantee: [undefined],
-            marginInPercentageBankGuarantee: [undefined],
-            commissionAPGBankGuarantee: [undefined],
-            commissionBidBondBankGuarantee: [undefined],
-            serviceChargeBankGuarantee: [undefined],
-            minimumServiceChargeBankGuarantee: [undefined],
-            commissionAPG1BankGuarantee: [undefined],
-            commissionBidBond1BankGuarantee: [undefined],
-            loanExpiryDateBankGuarantee1: [undefined],
+            bankGuarantee: this.formBuilder.array([]),
+
             // Bills Purchase
             billsPurchase: this.formBuilder.array([]),
 
@@ -262,6 +256,16 @@ export class Section2LoanTypeComponent implements OnInit {
         this.setStlLienDeposit();
         this.setDlFixedDeposit();
         this.setDlLienDeposit();
+        this.setBankGuarantee();
+    }
+    setBankGuarantee() {
+        if (!ObjectUtil.isEmpty(this.initialData) &&
+            !ObjectUtil.isEmpty(this.initialData.bankGuarantee) &&
+            !ObjectUtil.isEmpty(this.initialData.bankGuarantee.bankGuaranteeArray)) {
+            for (let a = 0; a < this.initialData.bankGuarantee.bankGuaranteeArray.length; a++) {
+                (this.form.get('bankGuarantee') as FormArray).push(this.setBankGuaranteeForm());
+            }
+        }
     }
     setOverdraftFixedDeposti() {
         if (!ObjectUtil.isEmpty(this.initialData) &&
@@ -454,6 +458,20 @@ export class Section2LoanTypeComponent implements OnInit {
                 (this.form.get('overdraftFacilityAgainstBond') as FormArray).push(this.setOverdraftBondForm());
             }
         }
+    }
+    setBankGuaranteeForm() {
+        return this.formBuilder.group({
+            SNOfParentLimitBankGuarantee: [undefined],
+            nameOfBankBankGuarantee: [undefined],
+            marginInPercentageBankGuarantee: [undefined],
+            commissionAPGBankGuarantee: [undefined],
+            commissionBidBondBankGuarantee: [undefined],
+            serviceChargeBankGuarantee: [undefined],
+            minimumServiceChargeBankGuarantee: [undefined],
+            commissionAPG1BankGuarantee: [undefined],
+            commissionBidBond1BankGuarantee: [undefined],
+            loanExpiryDateBankGuarantee1: [undefined]
+        });
     }
     setDepositForm() {
         return this.formBuilder.group({
@@ -805,7 +823,7 @@ export class Section2LoanTypeComponent implements OnInit {
                 if (v.loanName === LoanNameConstant.AUTO_LOAN) {
                     this.isAutoLoanMaster = true;
                 }
-                if (v.loanName === LoanNameConstant.BANK_GUARANTEE && !ObjectUtil.isEmpty(this.tempData.bankGuarantee)) {
+                /*if (v.loanName === LoanNameConstant.BANK_GUARANTEE && !ObjectUtil.isEmpty(this.tempData.bankGuarantee)) {
                     this.isBankGuarantee = true;
                     this.securityTypeBankGuarantee = this.tempData.bankGuarantee.securityType;
                     this.guaranteeTypeBankGuarantee = this.tempData.bankGuarantee.guaranteeType;
@@ -815,7 +833,7 @@ export class Section2LoanTypeComponent implements OnInit {
                         this.complementaryOtherBankGuarantee = true;
                     }
                     this.bankGuaranteeFormPatchValue();
-                }
+                }*/
             });
         }
         this.overDraftFacilityFormPatchValue();
@@ -832,6 +850,7 @@ export class Section2LoanTypeComponent implements OnInit {
         this.bridgeGapLoanFormPatchValue();
         this.overdraftLoanFormPatchValue();
         this.preExportFormPatchValue();
+        this.bankGuaranteeFormPatchValue();
         if (this.overdraftFacilityFixedDeposit.length > 0) {
             this.overdraftFixedFormPatchValue('overdraftFacilityFixedDeposit',
                 this.tempData.overdraftFixedForm.odFdFormArray, this.finalFdName, 'fixedDeposit');
@@ -1364,27 +1383,47 @@ export class Section2LoanTypeComponent implements OnInit {
     }
 
     bankGuaranteeFormPatchValue() {
-        this.form.patchValue({
-            // Bank Guarantee
-            // SNOfParentLimitBankGuarantee: [undefined],
-            // tslint:disable-next-line:max-line-length
-            nameOfBankBankGuarantee: this.tempData.bankGuarantee.nameOfHoldingBankCT ? this.tempData.bankGuarantee.nameOfHoldingBankCT : '',
-            // tslint:disable-next-line:max-line-length
-            marginInPercentageBankGuarantee: this.tempData.bankGuarantee.marginInPercentageCT ? this.tempData.bankGuarantee.marginInPercentageCT : '',
-            // tslint:disable-next-line:max-line-length
-            commissionAPGBankGuarantee: this.tempData.bankGuarantee.commissionInPercentageAPGCT ? this.tempData.bankGuarantee.commissionInPercentageAPGCT : '',
-            // tslint:disable-next-line:max-line-length
-            commissionBidBondBankGuarantee: this.tempData.bankGuarantee.commissionInPercentageBidBondCT ? this.tempData.bankGuarantee.commissionInPercentageBidBondCT : '',
-            // tslint:disable-next-line:max-line-length
-            serviceChargeBankGuarantee: this.tempData.bankGuarantee.serviceChargeInPercentCT ? this.tempData.bankGuarantee.serviceChargeInPercentCT : '',
-            // tslint:disable-next-line:max-line-length
-            minimumServiceChargeBankGuarantee: this.tempData.bankGuarantee.minServiceChargeInFigure1CT ? this.tempData.bankGuarantee.minServiceChargeInFigure1CT : '',
-            // tslint:disable-next-line:max-line-length
-            commissionAPG1BankGuarantee: this.tempData.bankGuarantee.commissionInPercentage2APGCT ? this.tempData.bankGuarantee.commissionInPercentage2APGCT : '',
-            // tslint:disable-next-line:max-line-length
-            commissionBidBond1BankGuarantee: this.tempData.bankGuarantee.commissionInPercentage2BidBondCT ? this.tempData.bankGuarantee.commissionInPercentage2BidBondCT : '',
-            loanExpiryDateBankGuarantee1: this.tempData.bankGuarantee.dateOfExpiryCT ? this.tempData.bankGuarantee.dateOfExpiryCT : '',
-        });
+        if (!ObjectUtil.isEmpty(this.tempData) &&
+            !ObjectUtil.isEmpty(this.tempData.bankGuarantee) &&
+            !ObjectUtil.isEmpty(this.tempData.bankGuarantee.bankGuaranteeArray)) {
+            for (let index = 0; index < this.tempData.bankGuarantee.bankGuaranteeArray.length; index++) {
+                this.form.get(['bankGuarantee', index, 'nameOfBankBankGuarantee']).patchValue(
+                    this.tempData.bankGuarantee.bankGuaranteeArray[index] ?
+                        this.tempData.bankGuarantee.bankGuaranteeArray[index].nameOfHoldingBankCT : '');
+
+                this.form.get(['bankGuarantee', index, 'marginInPercentageBankGuarantee']).patchValue(
+                    this.tempData.bankGuarantee.bankGuaranteeArray[index] ?
+                        this.tempData.bankGuarantee.bankGuaranteeArray[index].marginInPercentageCT : '');
+
+                this.form.get(['bankGuarantee', index, 'commissionAPGBankGuarantee']).patchValue(
+                    this.tempData.bankGuarantee.bankGuaranteeArray[index] ?
+                        this.tempData.bankGuarantee.bankGuaranteeArray[index].commissionInPercentageAPGCT : '');
+
+                this.form.get(['bankGuarantee', index, 'commissionBidBondBankGuarantee']).patchValue(
+                    this.tempData.bankGuarantee.bankGuaranteeArray[index] ?
+                        this.tempData.bankGuarantee.bankGuaranteeArray[index].commissionInPercentageBidBondCT : '');
+
+                this.form.get(['bankGuarantee', index, 'serviceChargeBankGuarantee']).patchValue(
+                    this.tempData.bankGuarantee.bankGuaranteeArray[index] ?
+                        this.tempData.bankGuarantee.bankGuaranteeArray[index].serviceChargeInPercentCT : '');
+
+                this.form.get(['bankGuarantee', index, 'minimumServiceChargeBankGuarantee']).patchValue(
+                    this.tempData.bankGuarantee.bankGuaranteeArray[index] ?
+                        this.tempData.bankGuarantee.bankGuaranteeArray[index].minServiceChargeInFigure1CT : '');
+
+                this.form.get(['bankGuarantee', index, 'commissionAPG1BankGuarantee']).patchValue(
+                    this.tempData.bankGuarantee.bankGuaranteeArray[index] ?
+                        this.tempData.bankGuarantee.bankGuaranteeArray[index].commissionInPercentage2APGCT : '');
+
+                this.form.get(['bankGuarantee', index, 'commissionBidBond1BankGuarantee']).patchValue(
+                    this.tempData.bankGuarantee.bankGuaranteeArray[index] ?
+                        this.tempData.bankGuarantee.bankGuaranteeArray[index].commissionInPercentage2BidBondCT : '');
+
+                this.form.get(['bankGuarantee', index, 'loanExpiryDateBankGuarantee1']).patchValue(
+                    this.tempData.bankGuarantee.bankGuaranteeArray[index] ?
+                        this.tempData.bankGuarantee.bankGuaranteeArray[index].dateOfExpiryCT : '');
+            }
+        }
     }
 
     billPurchaseFormPatchValue() {
@@ -1445,11 +1484,25 @@ export class Section2LoanTypeComponent implements OnInit {
             demandLoanFreeText: this.demandLoanFree(),
             bridgeGapFreeText: this.bridgeGapFree(),
             preExportLoanFreeText: this.preExportFree(),
-            SNBankGuarantee: this.form.get('SNOfParentLimitBankGuarantee').value ? this.form.get('SNOfParentLimitBankGuarantee').value : '',
+            bankGuaranteeFreeText: this.bankGuaranteeFreeText(),
         };
         return this.freeTextVal;
     }
 
+    bankGuaranteeFreeText() {
+        if (!ObjectUtil.isEmpty(this.tempData) &&
+            !ObjectUtil.isEmpty(this.tempData.bankGuarantee) &&
+            !ObjectUtil.isEmpty(this.tempData.bankGuarantee.bankGuaranteeArray)) {
+            for (let val = 0; val < this.tempData.bankGuarantee.bankGuaranteeArray.length; val++) {
+                const tempFreeText = {
+                    SNOfParentLimitBankGuarantee: this.form.get(['bankGuarantee', val, 'SNOfParentLimitBankGuarantee']).value ?
+                        this.form.get(['bankGuarantee', val, 'SNOfParentLimitBankGuarantee']).value : '',
+                };
+                this.bankGuaranteeFree.push(tempFreeText);
+            }
+            return this.bankGuaranteeFree;
+        }
+    }
     preExportFree() {
         if (!ObjectUtil.isEmpty(this.tempData) &&
             !ObjectUtil.isEmpty(this.tempData.preExportForm) &&
@@ -1637,6 +1690,7 @@ export class Section2LoanTypeComponent implements OnInit {
         this.setDemandLoanFreeText();
         this.setBridgeGapFreeText();
         this.setPreExportLoanFreeText();
+        this.setBankGuaranteeFreeText();
         this.form.patchValue({
             freeTextSixteen: this.tempInformation ? this.tempInformation.section2.freeText16 : '',
             SNOfFacility: this.tempInformation ? this.tempInformation.section2.snOfFacility : '',
@@ -1644,6 +1698,17 @@ export class Section2LoanTypeComponent implements OnInit {
         });
     }
 
+    setBankGuaranteeFreeText() {
+        if (!ObjectUtil.isEmpty(this.tempInformation) &&
+            !ObjectUtil.isEmpty(this.tempInformation.section2) &&
+            !ObjectUtil.isEmpty(this.tempInformation.section2.bankGuaranteeFreeText)) {
+            for (let val = 0; val < this.tempInformation.section2.bankGuaranteeFreeText.length; val++) {
+                this.form.get(['bankGuarantee', val, 'SNOfParentLimitBankGuarantee']).patchValue(
+                    this.tempInformation.section2.bankGuaranteeFreeText[val] ?
+                        this.tempInformation.section2.bankGuaranteeFreeText[val].SNOfParentLimitBankGuarantee : '');
+            }
+        }
+    }
     setPreExportLoanFreeText() {
         if (!ObjectUtil.isEmpty(this.tempInformation) &&
             !ObjectUtil.isEmpty(this.tempInformation.section2) &&
@@ -1837,5 +1902,6 @@ export class Section2LoanTypeComponent implements OnInit {
         this.stlLienDeposit = this.loanData.filter(data => data.loanName === this.loanNameConstant.STL_LIEN_ON_DEPOSIT_ACCOUNT);
         this.dlFixedDeposit = this.loanData.filter(data => data.loanName === this.loanNameConstant.DL_AGAINST_FIXED_DEPOSIT);
         this.dlLienDeposit = this.loanData.filter(data => data.loanName === this.loanNameConstant.DL_LIEN_ON_DEPOSIT_ACCOUNT);
+        this.bankGuaranteeLoan = this.loanData.filter(data => data.loanName === this.loanNameConstant.BANK_GUARANTEE);
     }
 }
