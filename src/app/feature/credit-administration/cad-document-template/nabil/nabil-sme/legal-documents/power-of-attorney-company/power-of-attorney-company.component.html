@@ -75,88 +75,105 @@
                             <input class="form-field form-control-sm d-print-none" name="freeText1"
                                    formControlName="freeText1" placeholder="" type="text"/>
                             <strong class="print-only">
-                                {{this.freeText ? this.freeText.freeText1 : ''}}
+                                {{this.freeText ? this.freeText.freeText1 : '___________________________'}}
                             </strong>
                         </span>
                             जसलाई यसपछि ऋणी भनिएको छ,
-                            को हकमा एवं तर्फबाट ऐ. का अख्तियारप्राप्त सञ्चालक/प्रबन्ध सञ्चालक/प्रमुख कार्यकारी अधिकृत/
-                            <span>
-                            <input class="form-field form-control-sm d-print-none" name="freeText2"
-                                   formControlName="freeText2" placeholder="" type="text"/>
-                            <strong class="print-only">
-                                {{this.freeText ? this.freeText.freeText2 : ''}}
-                            </strong>
-                        </span>,
+                            को हकमा एवं तर्फबाट ऐ. का
 
                             <!--Repeated Clause-->
-                            <span *ngFor="let details of companyInfo; let i = index">
-                                <span>
-                                  <input class="form-field form-control-sm d-print-none"
-                                         name="authorizedDistrict"
-                                         formControlName="authorizedDistrict"
-                                         [value]="details.ownerPermanentDistrictCT"
-                                         placeholder="" type="text"/>
-                                    <strong class="print-only">
-                                        {{details.ownerPermanentDistrictCT}}
-                                    </strong>
-                                    </span>
-                                जिल्ला
-                                <input class="form-field form-control-sm d-print-none"
-                                       name="authorizedVDC"
-                                       formControlName="authorizedVDC"
-                                       [value]="details.ownerPermanentMunicipalityCT"
-                                       placeholder="" type="text"/>
-                                    <strong class="print-only">
-                                        {{details.ownerPermanentMunicipalityCT}}
-                                    </strong>
-                                {{details.ownerPermanentAddressRadio === '0' ?  'न.पा.' : details.ownerPermanentAddressRadio === '1' ? 'गा.वि.स.' : details.ownerPermanentAddressRadio === '2' ? 'गाँउपालिका' : ''}},
-                                वडा नं.
+                            <ng-container
+                                    *ngFor="let free of powerOfAttorneyCompanyForm.get(['freeTextArray'])['controls']; let i = index"
+                                    formArrayName="freeTextArray">
+                                <ng-container [formGroupName]="i">
+                                    अख्तियारप्राप्त
+                                    <span>
                                     <input class="form-field form-control-sm d-print-none"
-                                           name="authorizedWardNumber"
-                                           formControlName="authorizedWardNumber"
-                                           [value]="details.ownerPermanentWardNoCT"
+                                           style="width: 40%" name="freeText2"
+                                           formControlName="freeText2"
                                            placeholder="" type="text"/>
-                                <strong class="print-only">
-                                    {{details.ownerPermanentWardNoCT}}
-                                </strong>
-                                बस्ने श्री.
+                                    <strong class="print-only">
+                                        {{this.freeText ? this.freeText.freeTextArray[i]?.freeText2 : '___________________________'}}
+                                    </strong>
+                                </span>
+                                </ng-container>
+                                ,
+                                <ng-container
+                                        *ngIf="companyInfo[i]?.ownerNationality === 'Nepali' || companyInfo[i]?.foreignAddressOption === 'Local'">
+                                    <input class="form-field form-control-sm d-print-none"
+                                           name="authorizedDistrict"
+                                           [value]="companyInfo[i]?.ownerPermanentDistrictCT"
+                                           placeholder=" "
+                                           type="text"/>
+                                    <span class="print-only">{{companyInfo[i] ? companyInfo[i]?.ownerPermanentDistrictCT : ''}}</span>
+                                    जिल्ला <input class="form-field form-control-sm d-print-none"
+                                                  name="authorizedVDC"
+                                                  [value]="companyInfo[i]?.ownerPermanentMunicipalityCT"
+                                                  placeholder=" "
+                                                  type="text"/>
+                                    <span class="print-only">{{companyInfo[i] ? companyInfo[i]?.ownerPermanentMunicipalityCT : ''}}</span>
+                                    <ng-container *ngIf="companyInfo[i]?.ownerPermanentAddressRadio === '0'"> न.पा
+                                    </ng-container>
+                                    <ng-container *ngIf="companyInfo[i]?.ownerPermanentAddressRadio === '1'"> गा.वि.स.
+                                    </ng-container>
+                                    <ng-container *ngIf="companyInfo[i]?.ownerPermanentAddressRadio === '2'"> गाँउपालिका
+                                    </ng-container>
+                                    वडा नं <input class="form-field form-control-sm d-print-none"
+                                                  name="authorizedWardNumber"
+                                                  [value]="companyInfo[i]?.ownerPermanentWardNoCT"
+                                                  placeholder=" "
+                                                  type="text"/>
+                                    <span class="print-only">{{companyInfo[i] ? companyInfo[i]?.ownerPermanentWardNoCT : ''}}</span>
+                                </ng-container>
+                                <ng-container *ngIf="(companyInfo[i]?.ownerNationality === 'Indian' || companyInfo[i]?.ownerNationality === 'Other')
+                             && companyInfo[i]?.foreignAddressOption === 'Foreign'">
+                                    <input class="form-field form-control-sm d-print-none"
+                                           name="otherAddress"
+                                           [value]="companyInfo[i]?.ownerOtherAddressCT"
+                                           placeholder=" "
+                                           type="text"/>
+                                    <span class="print-only">{{companyInfo[i] ? companyInfo[i]?.ownerOtherAddressCT : ''}}</span>
+                                </ng-container>
+                                बस्ने
+                                <ng-container *ngIf="companyInfo[i]?.ownerGender === 'MALE'"> श्री</ng-container>
+                                <ng-container
+                                        *ngIf="companyInfo[i]?.ownerGender === 'FEMALE' && companyInfo[i]?.ownerRelationMedium === '0'">
+                                    श्रीमती
+                                </ng-container>
+                                <ng-container
+                                        *ngIf="companyInfo[i]?.ownerGender === 'FEMALE' && companyInfo[i]?.ownerRelationMedium === '1'">
+                                    सुश्री
+                                </ng-container>
                                 <input class="form-field form-control-sm d-print-none"
                                        name="authorizedName"
-                                       formControlName="authorizedName"
-                                       [value]="details.ownerNameCT"
-                                       placeholder="" type="text"/>
-                                <strong class="print-only">
-                                    {{details.ownerNameCT}}
-                                </strong>
-                                (ना.प्र.नं .
-                                <input class="form-field form-control-sm d-print-none"
-                                       name="authorizedCitizenship"
-                                       formControlName="authorizedCitizenship"
-                                       [value]="details.ownerCitizenshipNoCT"
-                                       placeholder="" type="text"/>
-                                <strong class="print-only">
-                                    {{details.ownerCitizenshipNoCT}}
-                                </strong>
-                                , जारी मिति
-                                <input class="form-field form-control-sm d-print-none"
-                                       name="authorizedDateOfIssue"
-                                       formControlName="authorizedDateOfIssue"
-                                       [value]="dateArray ? dateArray[i] : ''"
-                                       placeholder="" type="text"/>
-                                <strong class="print-only">
-                                    {{dateArray ? dateArray[i] : ''}}
-                                </strong>
-                            , जिल्ला प्रशासन कार्यालय
-                                <input class="form-field form-control-sm d-print-none"
-                                       name="authorizedIdentity"
-                                       formControlName="authorizedIdentity"
-                                       [value]="details.ownerCitizenshipIssuedDistrictCT"
-                                       placeholder="" type="text"/>
-                                <strong class="print-only">
-                                    {{details.ownerCitizenshipIssuedDistrictCT}}
-                                </strong>
-                                ) ,
-                            </span>
+                                       [value]="companyInfo[i]?.ownerNameCT"
+                                       placeholder=" "
+                                       type="text"/>
+                                <ng-container *ngIf="(companyInfo[i]?.ownerNationality === 'Indian' || companyInfo[i]?.ownerNationality === 'Other')
+                             && companyInfo[i]?.foreignAddressOption === 'Foreign'">, </ng-container>
+                                <span class="print-only">{{companyInfo[i] ? companyInfo[i]?.ownerNameCT : ''}}</span>
+                                <ng-container *ngIf="companyInfo[i]?.ownerNationality === 'Nepali'">
+                                    (ना.प्र.नं..<input class="form-field form-control-sm d-print-none"
+                                                       name="authorizedCitizenship"
+                                                       [value]="companyInfo[i]?.ownerCitizenshipNoCT"
+                                                       placeholder=" "
+                                                       type="text"/>
+                                    <span class="print-only">{{companyInfo[i] ? companyInfo[i]?.ownerCitizenshipNoCT : ''}}</span>
+                                    (मिति <input class="form-field form-control-sm d-print-none"
+                                                 name="authorizedDateOfIssue"
+                                                 [value]="this.issueDate[i].issueDate"
+                                                 placeholder=" "
+                                                 type="text"/>
+                                    <span class="print-only">{{this.issueDate ? this.issueDate[i].issueDate : ''}}</span>
+                                    जिल्ला प्रशासन कार्यालय
+                                    <input class="form-field form-control-sm d-print-none"
+                                           name="authorizedIdentity"
+                                           [value]="companyInfo[i]?.ownerCitizenshipIssuedDistrictCT"
+                                           placeholder=" "
+                                           type="text"/>
+                                    <span class="print-only">{{companyInfo[i] ? companyInfo[i]?.ownerCitizenshipIssuedDistrictCT : ''}}</span>),
+                                </ng-container>
+                            </ng-container>
                             <!--Repeated Clause Finished-->
 
                             आगे म/हामी ऋणीको अनुरोधमा नबिल बैंक लिमिटेडको
