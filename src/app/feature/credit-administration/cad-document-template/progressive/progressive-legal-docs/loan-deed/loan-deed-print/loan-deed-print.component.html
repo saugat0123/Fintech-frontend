@@ -30,19 +30,37 @@
                     गरी दिनेका नाम <span
                         [ngClass]="{'nepaliFont unicode-size':printDocForm?.grandParentName!==null && printDocForm.grandParentName!==''}">
             {{printDocForm?.grandParentName === null || printDocForm?.grandParentName === '' ? '________________' : printDocForm.grandParentName }}</span>को
-                    नाति/नातिनि <span
+                    <span *ngIf="printDocForm?.gender === '1'; else granddaughter">नाति</span>
+                    <ng-template #granddaughter>
+                        <span>नातिनि</span>
+                    </ng-template> <span
                         [ngClass]="{'nepaliFont unicode-size':printDocForm?.parentName!==null && printDocForm.parentName!==''}">
-            {{printDocForm?.parentName === null || printDocForm?.parentName === '' ? '________________' : printDocForm.parentName }}</span>को छोरा/छोरी <span
+            {{printDocForm?.parentName === null || printDocForm?.parentName === '' ? '________________' : printDocForm.parentName }}</span>को
+                    <span *ngIf="printDocForm?.gender === '1'; else daughter">छोरा</span>
+                    <ng-template #daughter>
+                        <span>छोरी</span>
+                    </ng-template>
+                    <span
                         [ngClass]="{'nepaliFont unicode-size':printDocForm?.husbandWifeName!==null && printDocForm.husbandWifeName!==''}">
             {{printDocForm?.husbandWifeName === null || printDocForm?.husbandWifeName === '' ? '________________' : printDocForm.husbandWifeName }}</span>को
-                    पति/पत्नी <span
+                    <span *ngIf="printDocForm?.gender === '1'; else wife">पति</span>
+                    <ng-template #wife>
+                        <span>पत्नी</span>
+                    </ng-template>
+                    <span
                         [ngClass]="{'nepaliFont sizeFont':printDocForm?.likhitDistrict!==null && printDocForm.likhitDistrict!==''}">
             {{printDocForm?.likhitDistrict === null || printDocForm?.likhitDistrict === '' ? '________________' : printDocForm.likhitDistrict }}
           </span>
                     जिल्ला,<span
+                        *ngIf="printDocForm?.borrowerPermanentMunType === '0'; else borrowerPermanentVdc"
                         [ngClass]="{'nepaliFont sizeFont':printDocForm?.likhitMunicipality!==null && printDocForm.likhitMunicipality!==''}">
             {{printDocForm?.likhitMunicipality === null || printDocForm?.likhitMunicipality === '' ? '________________' : printDocForm.likhitMunicipality }}
           </span>
+                    <ng-template #borrowerPermanentVdc>
+                   <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.borrowerPermanentVdc !== null && printDocForm?.borrowerPermanentVdc !== ''}">
+                {{printDocForm?.borrowerPermanentVdc === null || printDocForm?.borrowerPermanentVdc === '' ? '_________________' : printDocForm?.borrowerPermanentVdc}}
+              </span>
+                    </ng-template>
                     गा.पा./न.पा./उ.म.न.पा./म.न.पा., वडा नं.<span
                         [ngClass]="{'nepaliFont':printDocForm?.likhitWardNo!==null && printDocForm.likhitWardNo!==''}">
             {{printDocForm?.likhitWardNo === null || printDocForm?.likhitWardNo === '' ? '________________' : printDocForm.likhitWardNo }}
@@ -63,9 +81,14 @@
 
                     जिल्ला,
                     <span
+                            *ngIf="printDocForm?.borrowerTemporaryMunType === '0'; else borrowerTemporaryVdc"
                             [ngClass]="{'nepaliFont sizeFont':printDocForm?.tempVDC!==null && printDocForm.tempVDC!==''}">
             {{printDocForm?.tempVDC === null || printDocForm?.tempVDC === '' ? '________________' : printDocForm.tempVDC }}
           </span>
+                    <ng-template #borrowerTemporaryVdc>
+                   <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.borrowerTemporaryVdc !== null && printDocForm?.borrowerTemporaryVdc !== ''}">
+                {{printDocForm?.borrowerTemporaryVdc === null || printDocForm?.borrowerTemporaryVdc === '' ? '_________________' : printDocForm?.borrowerTemporaryVdc}}</span>
+                    </ng-template>
                     गा.पा./न.पा./उ.म.न.पा./म.न.पा., वडा नं.<span
                         [ngClass]="{'nepaliFont':printDocForm?.tempWardNo!==null && printDocForm.tempWardNo!==''}">
             {{printDocForm?.tempWardNo === null || printDocForm?.tempWardNo === '' ? '________________' : printDocForm.tempWardNo }}
@@ -190,20 +213,20 @@
                     <table class="table table-bordered text-center border-dark">
                         <thead>
                         <tr>
-                            <th width="5%">सि.नं.</th>
+                            <th style="width:5%">सि.नं.</th>
                             <th>धितोको बिवरण
                             </th>
-                            <th width="10%">जिल्ला</th>
-                            <th width="10%">गा.पा./न.पा./ <br>
+                            <th style="width:10%">जिल्ला</th>
+                            <th style="width:10%">गा.पा./न.पा./ <br>
                                 म.न.पा.
                             </th>
-                            <th width="7%">वडा नं.</th>
-                            <th width="10%">
+                            <th style="width:10%">वडा नं.</th>
+                            <th style="width:10%">
                                 कि.नं
                             </th>
-                            <th width="10%">क्षेत्रफल</th>
-                            <th width="10%">रजिष्टेशन नं.</th>
-                            <th width="28%">धनीको नाम थर र वतन</th>
+                            <th style="width:10%">क्षेत्रफल</th>
+                            <th style="width:10%">रजिष्टेशन नं.</th>
+                            <th style="width:28%">धनीको नाम थर र वतन</th>
                         </tr>
                         </thead>
                         <tbody>

@@ -90,7 +90,11 @@ export class LetterOfDisbursementComponent implements OnInit {
           parentName: this.nepaliData.fatherName ? this.nepaliData.fatherName : '',
           grandParentName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
           husbandWifeName: this.nepaliData.husbandName ? this.nepaliData.husbandName : '',
-          accNumber: this.nepaliData.accountNo ? this.nepaliData.accountNo : ''
+          accNumber: this.nepaliData.accountNo ? this.nepaliData.accountNo : '',
+          borrowerPermanentMunType: this.nepaliData.permanentMunType ? this.nepaliData.permanentMunType : '',
+          borrowerPermanentVdc: this.nepaliData.permanentVdc ? this.nepaliData.permanentVdc : '',
+          borrowerTemporaryMunType: this.nepaliData.temporaryMunType ? this.nepaliData.temporaryMunType : '',
+          borrowerTemporaryVdc: this.nepaliData.temporaryVdc ? this.nepaliData.temporaryVdc : ''
         });
       } else {
         this.form.patchValue({
@@ -199,6 +203,7 @@ export class LetterOfDisbursementComponent implements OnInit {
       signaturePersonPermanentDistrict: [undefined],
       signaturePersonPermanentMuniciplity: [undefined],
       signaturePersonPermanentWadNo: [undefined],
+      borrowerSabikDistrict: [undefined],
       borrowerSabikVDC: [undefined],
       borrowerSabikWardNo: [undefined],
       signaturePersonTempDistrict: [undefined],
@@ -255,7 +260,11 @@ export class LetterOfDisbursementComponent implements OnInit {
       witnessCDOoffice1: [undefined],
       witnessIssuedPlace1: [undefined],
       witnessMunicipality1: [undefined],
-      witnessWardNo1: [undefined]
+      witnessWardNo1: [undefined],
+      borrowerPermanentMunType: [undefined],
+      borrowerPermanentVdc: [undefined],
+      borrowerTemporaryMunType: [undefined],
+      borrowerTemporaryVdc: [undefined],
     });
   }
 

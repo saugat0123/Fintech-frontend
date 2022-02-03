@@ -65,9 +65,8 @@ export class LoanDeedComponent implements OnInit {
 
                     if (!ObjectUtil.isEmpty(initialInfo.security)) {
                         this.setSecurity(initialInfo.security);
-                    } else {
-                        this.setSecurity(this.nepaliData.collateralDetails);
                     }
+
 
                     this.form.patchValue(this.initialInfoPrint);
                     this.setGuarantors(initialInfo.guarantorDetails);
@@ -90,16 +89,21 @@ export class LoanDeedComponent implements OnInit {
                 husbandWifeName: this.nepaliData.husbandName ? this.nepaliData.husbandName : '',
                 customerName: this.nepaliData.name ? this.nepaliData.name : '',
                 age: this.nepaliData.age ? this.nepaliData.age : '',
-                likhitDistrict: this.nepaliData.permanentDistrict.nepaliName ? this.nepaliData.permanentDistrict.nepaliName : '',
-                likhitMunicipality: this.nepaliData.permanentMunicipalities.nepaliName ? this.nepaliData.permanentMunicipalities.nepaliName : '',
+                likhitDistrict: !ObjectUtil.isEmpty(this.nepaliData.permanentDistrict) ? this.nepaliData.permanentDistrict.nepaliName : '',
+                likhitMunicipality: !ObjectUtil.isEmpty(this.nepaliData.permanentMunicipalities) ? this.nepaliData.permanentMunicipalities.nepaliName : '',
                 likhitWardNo: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
-                tempVDC: this.nepaliData.temporaryMunicipalities.nepaliName ? this.nepaliData.temporaryMunicipalities.nepaliName : '',
-                staDistrict: this.nepaliData.temporaryDistrict.nepaliName ? this.nepaliData.temporaryDistrict.nepaliName : '',
+                tempVDC: !ObjectUtil.isEmpty(this.nepaliData.temporaryMunicipalities) ? this.nepaliData.temporaryMunicipalities.nepaliName : '',
+                staDistrict: !ObjectUtil.isEmpty(this.nepaliData.temporaryDistrict) ? this.nepaliData.temporaryDistrict.nepaliName : '',
                 tempWardNo: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
                 citizenshipNo: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
                 date: this.nepaliData.citizenshipIssueDate ? this.nepaliData.citizenshipIssueDate : '',
                 cdoOffice: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
-                loanApprovedDate: loanAmount.initDate ? loanAmount.initDate : ''
+                loanApprovedDate: loanAmount.initDate ? loanAmount.initDate : '',
+                gender: this.nepaliData.gender ? this.nepaliData.gender : '',
+                borrowerPermanentMunType: this.nepaliData.permanentMunType ? this.nepaliData.permanentMunType : '',
+                borrowerPermanentVdc: this.nepaliData.permanentVdc ? this.nepaliData.permanentVdc : '',
+                borrowerTemporaryMunType: this.nepaliData.temporaryMunType ? this.nepaliData.temporaryMunType : '',
+                borrowerTemporaryVdc: this.nepaliData.temporaryVdc ? this.nepaliData.temporaryVdc : ''
             });
         }
         this.form.get(['swikritiBibaran', 0, 'loanType']).patchValue(this.nepDataPersonal.loanType);
@@ -116,6 +120,8 @@ export class LoanDeedComponent implements OnInit {
             this.form.get(['security', i, 'SecuritiesKeyNo']).patchValue(value.plotNo);
             this.form.get(['security', i, 'SecuritiesArea']).patchValue(value.areaOfCollateral);
         });*/
+
+        this.setSecurity(this.nepaliData.collateralDetails);
 
     }
     setSwikriti(data) {
@@ -209,6 +215,7 @@ export class LoanDeedComponent implements OnInit {
             grandParentName: [undefined],
             parentName: [undefined],
             husbandWifeName: [undefined],
+            gender: [undefined],
             likhitDistrict: [undefined],
             likhitMunicipality: [undefined],
             likhitWardNo: [undefined],
@@ -275,7 +282,11 @@ export class LoanDeedComponent implements OnInit {
             witnessCDOoffice1: [undefined],
             witnessIssuedPlace1: [undefined],
             witnessMunicipality1: [undefined],
-            witnessWardNo1: [undefined]
+            witnessWardNo1: [undefined],
+            borrowerPermanentMunType: [undefined],
+            borrowerPermanentVdc: [undefined],
+            borrowerTemporaryMunType: [undefined],
+            borrowerTemporaryVdc: [undefined]
         });
     }
 
