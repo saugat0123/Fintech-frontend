@@ -335,7 +335,8 @@
                                             <span class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeProprietorship", i, "grandFatherOrFatherInLaw"]).value || '_____________________'}}</span>
                                         </span>
                                         </p>
-                                        <ng-container *ngIf="(guarantorProprietorship?.guarantorNationality === 'Indian' || guarantorProprietorship?.guarantorNationality === 'Other') && guarantorProprietorship?.guarantorForeignAddressOption.en === 'Foreign'">
+                                        <ng-container *ngIf="(guarantorProprietorship?.guarantorNationality === 'Nepali') ||
+                                        ((guarantorProprietorship?.guarantorNationality === 'Indian' ||  guarantorProprietorship?.guarantorNationality === 'Other') && guarantorProprietorship?.guarantorForeignAddressOption.en === 'Local')">
                                         <p class="lh-30">
                                             स्थायी ठेगाना :
                                             <span>
