@@ -49,8 +49,8 @@ export class PowerOfAttorneyProprietorshipComponent implements OnInit {
   issueDate = [];
   tempProprietor;
   proprietor;
-  nagarpalika = false;
-  citizenshipIssueDate;
+  companyInfo;
+  authorizedNameArray: Array<any> = new Array<any>();
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
@@ -64,7 +64,19 @@ export class PowerOfAttorneyProprietorshipComponent implements OnInit {
               private nepToEngNumberPipe: NepaliToEngNumberPipe, ) { }
 
   ngOnInit() {
-    console.log(this.cadData);
+    if (!ObjectUtil.isEmpty(this.cadData.assignedLoan[0])) {
+      this.companyInfo = JSON.parse(this.cadData.assignedLoan[0].companyInfo.companyJsonData);
+      this.companyInfo.forEach(val => {
+        if (val.isAuthorizedPerson === 'Authorized Person Only' || val.isAuthorizedPerson === 'Both') {
+          const authorizedName = val.ownerNameCT;
+          this.authorizedNameArray.push(authorizedName);
+        } else {
+          const authorizedName = '';
+          this.authorizedNameArray.push(authorizedName);
+        }
+      });
+      this.dateConvert();
+    }
     this.buildForm();
     if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
       this.initialInfo = JSON.parse(this.cadData.offerDocumentList[0].initialInformation);
@@ -73,47 +85,44 @@ export class PowerOfAttorneyProprietorshipComponent implements OnInit {
       this.individualData = JSON.parse(this.cadData.loanHolder.nepData);
     }
     this.tempProprietor = JSON.parse(this.cadData.assignedLoan[0].companyInfo.companyJsonData);
-    // this.dateConvert();
     this.patchFreeText();
     this.fillForm();
-    this.ProprietorDetails();
+    // this.ProprietorDetails();
   }
-  ProprietorDetails() {
-    for (const i of this.tempProprietor) {
-      if (i.radioOwnerCitizenshipIssuedDate === 'AD') {
-        this.citizenshipIssueDate = this.engToNepaliDate.transform(i.ownerCitizenshipIssuedDateCT, true);
-      } else {
-        this.citizenshipIssueDate = i.ownerCitizenshipIssuedDateCT;
-      }
-      this.form.patchValue({
-        nameOfProprietor: i.ownerNameCT ? i.ownerNameCT : '',
-        citizenshipNo: i.ownerCitizenshipNoCT ? i.ownerCitizenshipNoCT : '',
-        proprietorDistrict: i.ownerPermanentDistrictCT ? i.ownerPermanentDistrictCT : '',
-        proprietorMunicipality: i.ownerPermanentMunicipalityCT ? i.ownerPermanentMunicipalityCT : '',
-        proprietorWardNo: i.ownerPermanentWardNoCT ? i.ownerPermanentWardNoCT : '',
-        nameOfIdentityIssuedDistrict: i.ownerCitizenshipIssuedDistrictCT ? i.ownerCitizenshipIssuedDistrictCT : '',
-      });
-      if (i.ownerTemporaryMunicipality.municipalityType === 'RURAL_MUNICIPALITY') {
-        this.nagarpalika = true;
-      }
-    }
-  }
-  //
-  // dateConvert() {
-  //   let date;
-  //   this.tempProprietor.forEach(val => {
-  //     if (val.radioOwnerCitizenshipIssuedDate === 'AD') {
-  //       date = this.engToNepaliDate.transform(val ?
-  //           val.ownerCitizenshipIssuedDateCT : val.ownerCitizenshipIssuedDateCT, true) || '';
+  // ProprietorDetails() {
+  //   for (const i of this.tempProprietor) {
+  //     if (i.radioOwnerCitizenshipIssuedDate === 'AD') {
+  //       this.citizenshipIssueDate = this.engToNepaliDate.transform(i.ownerCitizenshipIssuedDateCT, true);
   //     } else {
-  //       date = val ? val.ownerCitizenshipIssuedDateCT : '';
+  //       this.citizenshipIssueDate = i.ownerCitizenshipIssuedDateCT;
   //     }
-  //     const newDate = {
-  //       issueDate : date
-  //     };
-  //     this.issueDate.push(newDate);
-  //   });
+  //     this.form.patchValue({
+  //       nameOfProprietor: i.ownerNameCT ? i.ownerNameCT : '',
+  //       proprietorDistrict: i.ownerPermanentDistrictCT ? i.ownerPermanentDistrictCT : '',
+  //       proprietorMunicipality: i.ownerPermanentMunicipalityCT ? i.ownerPermanentMunicipalityCT : '',
+  //       proprietorWardNo: i.ownerPermanentWardNoCT ? i.ownerPermanentWardNoCT : '',
+  //       nameOfIdentityIssuedDistrict: i.ownerCitizenshipIssuedDistrictCT ? i.ownerCitizenshipIssuedDistrictCT : '',
+  //     });
+  //     if (i.ownerTemporaryMunicipality.municipalityType === 'RURAL_MUNICIPALITY') {
+  //       this.nagarpalika = true;
+  //     }
+  //   }
   // }
+  dateConvert() {
+    let date;
+    this.companyInfo.forEach(val => {
+      if (val.radioOwnerCitizenshipIssuedDate === 'AD') {
+        date = this.engToNepaliDate.transform(val ?
+            val.ownerCitizenshipIssuedDateCT : val.ownerCitizenshipIssuedDateCT, true) || '';
+      } else {
+        date = val ? val.ownerCitizenshipIssuedDateCT : '';
+      }
+      const newDate = {
+        issueDate : date
+      };
+      this.issueDate.push(newDate);
+    });
+  }
 
   buildForm() {
     this.form = this.formBuilder.group({
@@ -132,7 +141,6 @@ export class PowerOfAttorneyProprietorshipComponent implements OnInit {
       addressOfBorrower: [undefined],
       nameOfProprietor: [undefined],
       citizenshipNo: [undefined],
-      dateOfIssue: [undefined],
       nameOfIdentityIssuedDistrict: [undefined],
       nameOfBorrowerFirm: [undefined],
       addressOfBorrowerFirm: [undefined],
