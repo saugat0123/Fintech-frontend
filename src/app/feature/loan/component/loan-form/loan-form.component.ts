@@ -620,6 +620,7 @@ export class LoanFormComponent implements OnInit {
             }
             this.proposalDetail.onSubmit();
             this.loanDocument.proposal = this.proposalDetail.proposalData;
+            this.loanDocument.loanHolder.incomeFromAccount = this.proposalDetail.incomeFromAccountDataResponse;
         }
 
         if (name === 'Loan Document' && action) {

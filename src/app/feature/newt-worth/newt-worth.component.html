@@ -1,6 +1,6 @@
 <div class="row" *ngIf="individualJsonData?.total">
-<h6>Net Worth</h6>
     <div class="col-md-12">
+        <h6>Net Worth</h6>
         <table class="table table-condensed table-bordered table-sm table-responsive-md sb-small">
             <thead>
             <tr class="sb-bg-dark text-white">
@@ -22,8 +22,10 @@
                 <td>Rs. {{individualJsonData?.depositOther}}</td>
 
             </tr>
-            <tr *ngIf="individualJsonData?.shares.length > 0">
-                <td colspan="2"><b>Shares & Securities</b></td>
+            <tr>
+                <div *ngIf="individualJsonData?.shares.length > 0" >
+                    <td colspan="2"><b>Shares & Securities</b></td>
+                </div>
             </tr>
             <tr *ngFor="let data of individualJsonData?.shares">
                 <ng-container >
@@ -31,8 +33,10 @@
                     <td>{{data?.amount}}</td>
                 </ng-container>
             </tr>
-            <tr *ngIf="individualJsonData?.realState.length > 0">
-                <td colspan="2"><b>Real Estate (Land and Building)</b></td>
+            <tr >
+                <div  *ngIf="individualJsonData?.realState.length > 0">
+                    <td colspan="2"><b>Real Estate (Land and Building)</b></td>
+                </div>
             </tr>
             <tr *ngFor="let data of individualJsonData?.realState">
                 <ng-container >
@@ -40,8 +44,10 @@
                     <td>{{data?.amount}}</td>
                 </ng-container>
             </tr>
-            <tr *ngIf="individualJsonData?.vehicle.length > 0">
-                <td colspan="2"><b>Vehicles</b></td>
+            <tr >
+                <div *ngIf="individualJsonData?.vehicle.length > 0">
+                    <td colspan="2"><b>Vehicles</b></td>
+                </div>
             </tr>
             <tr *ngFor="let data of individualJsonData?.vehicle">
                 <ng-container >

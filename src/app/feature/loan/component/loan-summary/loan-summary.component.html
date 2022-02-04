@@ -753,10 +753,10 @@
             </ng-template>
         </div>
         <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl" [ciclValue]="loanDataHolder?.loanHolder?.cicl"></app-cicl-view>
-        <app-newt-worth [individualJsonData]="individualJsonData"></app-newt-worth>
     </div>
 </div>
             </ng-container>
+            <app-newt-worth [individualJsonData]="individualJsonData"></app-newt-worth>
 
             <div class="row mt-1">
                 <div class = "col-md-12" *ngIf="isRemitLoan">

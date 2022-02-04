@@ -144,7 +144,6 @@
                         <td class="text-right pr-1">Rs. {{individual?.netWorth |currencyFormatter}}</td>
                     </tr>
                 </table>
-                <app-newt-worth [individualJsonData]="individualJsonData"></app-newt-worth>
 
 <!--                <table  class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">-->
 <!--                    <tr  class="text-white sb-bg-dark">-->
@@ -169,6 +168,7 @@
 <!--                </table>-->
             </div>
         </div>
+        <app-newt-worth [individualJsonData]="individualJsonData"></app-newt-worth>
         <div class="row mt-1" *ngIf="isRemit">
             <div class="col-md-12">
                 <p><b> Financial/ Repayment Ability: Primary Source of Income</b></p>

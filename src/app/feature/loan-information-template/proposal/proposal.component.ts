@@ -317,7 +317,9 @@ export class ProposalComponent implements OnInit {
 
   onSubmit() {
     // Proposal Form Data--
-    this.earning.submitForm();
+    if(this.incomeChecked) {
+      this.earning.submitForm();
+    }
     if (!ObjectUtil.isEmpty(this.formValue)) {
       this.proposalData = this.formValue;
     }
@@ -735,7 +737,8 @@ export class ProposalComponent implements OnInit {
     }
     this.incomeFromAccountDataResponse = data;
     this.customerInfoService.saveLoanInfo(this.incomeFromAccountDataResponse, this.customerInfo.id, TemplateName.INCOME_FROM_ACCOUNT)
-        .subscribe(() => {
+        .subscribe((res) => {
+          this.incomeFromAccountDataResponse = res.detail;
           this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved EARNING, PROFITABILITY AND PRICING'));
         }, error => {
           this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save EARNING, PROFITABILITY AND PRICING)!'));

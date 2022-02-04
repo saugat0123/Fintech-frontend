@@ -917,8 +917,9 @@
                                 </div>
                             </div>
                             <nb-checkbox (change)="checkChecked($event.target.checked,'income')"
-                                         [checked]="riskChecked"><b>EARNING, PROFITABILITY AND PRICING</b>
-                            <app-income-from-account [incomeFromAccountDataResponse]="incomeFromAccountDataResponse"
+                                         [checked]="incomeChecked"><b>EARNING, PROFITABILITY AND PRICING</b>
+                            </nb-checkbox>
+                            <app-income-from-account *ngIf="incomeChecked" [incomeFromAccountDataResponse]="incomeFromAccountDataResponse"
                                                      [customerInfo]="customerInfo"
                                                      #earning
                                                      (incomeFromAccountDataEmitter)="saveIncomeFromAccount($event)">

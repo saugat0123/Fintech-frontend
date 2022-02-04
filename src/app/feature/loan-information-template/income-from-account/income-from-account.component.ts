@@ -51,7 +51,7 @@ export class IncomeFromAccountComponent implements OnInit {
     if (LocalStorageUtil.getStorage().bankUtil.AFFILIATED_ID === AffiliateId.SRDB) {
       this.srdbAffiliatedId = true;
     }
-    if (ObjectUtil.isEmpty(this.customerInfo)) {
+    if (!ObjectUtil.isEmpty(this.customerInfo)) {
       if (this.customerInfo.customerType === 'INDIVIDUAL') {
         this.individual = true;
         this.incomeFormGroup.get('accountTransactionForm').enable();
