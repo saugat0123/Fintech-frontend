@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {ObjectUtil} from "../../../../../../../../@core/utils/ObjectUtil";
-import {DatePipe} from "@angular/common";
-import {EngNepDatePipe} from "nepali-patro";
+import {ObjectUtil} from '../../../../../../../../@core/utils/ObjectUtil';
+import {DatePipe} from '@angular/common';
+import {EngNepDatePipe} from 'nepali-patro';
 
 @Component({
   selector: 'app-section1-introduction',
@@ -16,6 +16,7 @@ export class Section1IntroductionComponent implements OnInit {
   tempApplicationDate: any;
   tempSanctionDate: any;
   loanOption: any;
+  freeInformation;
   constructor(private formBuilder: FormBuilder,
               private datePipe: DatePipe,
               private engToNepaliDate: EngNepDatePipe) { }
@@ -24,6 +25,7 @@ export class Section1IntroductionComponent implements OnInit {
     this.buildForm();
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc)) {
       this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
+      this.freeInformation = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation);
       this.fillForm();
       this.loanOption = this.tempData.smeGlobalForm.loanOption;
     }
@@ -37,6 +39,7 @@ export class Section1IntroductionComponent implements OnInit {
       dateOfApplication: [undefined],
       prevSanctionLetterDate: [undefined],
      firstAdditionalDetails: [undefined],
+      textField: [undefined],
     });
   }
 
@@ -54,6 +57,7 @@ export class Section1IntroductionComponent implements OnInit {
     this.section1.patchValue({
       dateOfApplication: this.tempApplicationDate ? this.tempApplicationDate : '',
       prevSanctionLetterDate: this.tempSanctionDate ? this.tempSanctionDate : '',
-    })
+      textField: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.section1 : 'थप/अतिरिक्त',
+    });
   }
 }
