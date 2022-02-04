@@ -865,7 +865,6 @@
                     <div *ngFor="let guarantor of userConfigForm.get('guarantorDetails')['controls']; let i = index;"
                          class="form-group" formArrayName="guarantorDetails">
                         <div [formGroupName]="i">
-                            <hr *ngIf="i !== 0">
                             <div class="row">
                                 <div class="col">
                                     <div class="form-group">
@@ -1158,6 +1157,11 @@
                                         style="position: static">
                                     <em class="fa fa-trash" style="color: white;"></em>
                                 </button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                <hr>
                                 </div>
                             </div>
                         </div>
