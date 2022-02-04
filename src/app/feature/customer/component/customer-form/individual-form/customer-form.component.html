@@ -775,50 +775,76 @@
                            </div>
                        </div>
                        <div class="row" *ngIf="!microCustomer">
-                           <div class="col-md-12">
+                           <div class="col-md-12 form-group">
+                               <h6><strong>Additional Description</strong></h6>
+                               <nb-checkbox (change)="onChecked($event.target.checked,'income')"
+                                            [checked]="incomeRiskChecked">
+                                   <b>Income Risk & Mitigation</b>
+                               </nb-checkbox>
+                           </div>
+                           <div class="col-md-12" *ngIf="incomeRiskChecked">
                                <div class="form-group">
                                    <label><strong>Income Risk & Mitigation</strong></label>
                                    <ckeditor id="incomeRisk" formControlName="incomeRisk" name="incomeRisk" type="text"
                                              [config]="ckeConfig"
-                                             [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.incomeRisk.errors }"></ckeditor>
-                                   <div *ngIf="(submitted) && basicInfoControls.incomeRisk.invalid"
+                                             [ngClass]="{ 'is-invalid': (submitted) && incomeRiskChecked && basicInfoControls.incomeRisk.errors }"></ckeditor>
+                                   <div *ngIf="(submitted) && incomeRiskChecked && basicInfoControls.incomeRisk.invalid"
                                         class="text-danger">
-                                       <div *ngIf="basicInfoControls.incomeRisk.errors.required">
+                                       <div *ngIf="incomeRiskChecked && basicInfoControls.incomeRisk.errors.required">
                                            Income Risk is required
                                        </div>
                                    </div>
                                </div>
                            </div>
-                           <div class="col-md-12" *ngIf="!microCustomer">
+                           <div class="col-md-12 form-group">
+                               <nb-checkbox (change)="onChecked($event.target.checked,'security')"
+                                            [checked]="securityRiskChecked">
+                                   <b>Security Risk & Mitigation</b>
+                               </nb-checkbox>
+                           </div>
+
+                           <div class="col-md-12" *ngIf="securityRiskChecked">
                                <div class="form-group">
                                    <label><strong>Security Risk & Mitigation</strong></label>
                                    <ckeditor id="securityRisk" formControlName="securityRisk" name="securityRisk"
                                              [config]="ckeConfig"
-                                             [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.securityRisk.errors }"></ckeditor>
-                                   <div *ngIf="(submitted) && basicInfoControls.securityRisk.invalid"
+                                             [ngClass]="{ 'is-invalid': (submitted) && securityRiskChecked && basicInfoControls.securityRisk.errors }"></ckeditor>
+                                   <div *ngIf="(submitted) && securityRiskChecked &&basicInfoControls.securityRisk.invalid"
                                         class="text-danger">
-                                       <div *ngIf="basicInfoControls.securityRisk.errors.required">
+                                       <div *ngIf="securityRiskChecked && basicInfoControls.securityRisk.errors.required">
                                            Security Risk is required
                                        </div>
                                    </div>
                                </div>
                            </div>
-                           <div class="col-md-12" *ngIf="!microCustomer">
+                           <div class="col-md-12 form-group">
+                               <nb-checkbox (change)="onChecked($event.target.checked,'succession')"
+                                            [checked]="successionRiskChecked">
+                                   <b>Succession Risk & Mitigation</b>
+                               </nb-checkbox>
+                           </div>
+                           <div class="col-md-12" *ngIf="successionRiskChecked">
                                <div class="form-group">
                                    <label><strong>Succession Risk & Mitigation</strong></label>
                                    <ckeditor id="successionRisk" formControlName="successionRisk" name="successionRisk"
                                              [config]="ckeConfig"
-                                             [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.successionRisk.errors }"></ckeditor>
-                                   <div *ngIf="(submitted) && basicInfoControls.successionRisk.invalid"
+                                             [ngClass]="{ 'is-invalid': (submitted) && successionRiskChecked && basicInfoControls.successionRisk.errors }"></ckeditor>
+                                   <div *ngIf="(submitted) && successionRiskChecked && basicInfoControls.successionRisk.invalid"
                                         class="text-danger">
-                                       <div *ngIf="basicInfoControls.successionRisk.errors.required">
+                                       <div *ngIf="successionRiskChecked && basicInfoControls.successionRisk.errors.required">
                                            Succession Risk is required
                                        </div>
                                    </div>
                                </div>
                            </div>
+                           <div class="col-md-12 form-group">
+                               <nb-checkbox (change)="onChecked($event.target.checked,'banking')"
+                                            [checked]="bankingRelationChecked">
+                                   <b>Banking Relationship</b>
+                               </nb-checkbox>
+                           </div>
                        </div>
-                       <div>
+                       <div *ngIf="bankingRelationChecked">
                            <nb-card class="card-height">
                                <nb-card-header>
                                    <label for="bankingRelationship"><h6>Banking Relationship</h6></label>
@@ -846,6 +872,63 @@
                        </div>
 
                    <div class="col-4">
+                       <table
+                               class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                           <thead>
+                           <tr class="sb-bg-dark text-white">
+                               <th>Assets</th>
+                               <th>Amount</th>
+                           </tr>
+                           </thead>
+                           <tbody class="text-left">
+                           <tr>
+                               <td colspan="2"><b>Deposit</b></td>
+                           </tr>
+                           <tr>
+                               <td>With Laxmi Bank</td>
+                               <td><input nbInput type="number"></td>
+
+                           </tr>
+                           <tr>
+                               <td>With other Financial Institution</td>
+                               <td><input nbInput type="number"></td>
+
+                           </tr>
+                           <tr>
+                               <td colspan="1"><b>Shares & Securities</b></td>
+                               <td colspan="1"><a href="javascript: void(0)" (click)="addKeyValue('shares')"><i class="fa fa-plus" nbTooltip="Add Shares & security"></i></a></td>
+                           </tr>
+                           <tr *ngFor="let controls of basicInfo.get('shares')['controls'];let i = index" formArrayName="shares" [formGroupName]="i">
+                               <td><input nbInput type="text" formControlName="assets"></td>
+                               <td><input nbInput type="number" formControlName="amount"> <a href="javascript: void(0)" (click)="removeValue('shares', i)"><i class="fa fa-minus" nbTooltip="Delete Row"></i></a></td>
+                           </tr>
+                           <tr>
+                               <td><b>Real Estate (Land and Building)</b></td>
+                               <td colspan="1"><a href="javascript: void(0)" (click)="addKeyValue('realState')"><i class="fa fa-plus" nbTooltip="Add Real Estate (Land and Building)"></i></a></td>
+
+                           </tr>
+                           <tr *ngFor="let controls of basicInfo.get('realState')['controls'];let i = index" formArrayName="realState" [formGroupName]="i">
+                               <td><input nbInput type="text" formControlName="assets"></td>
+                               <td><input nbInput type="number" formControlName="amount"> <a href="javascript: void(0)" (click)="removeValue('realState', i)"><i class="fa fa-minus" nbTooltip="Delete Row"></i></a></td>
+                           </tr>
+                           <tr>
+                           <td colspan="2"><b>Vehicles</b></td>
+                               <td colspan="1"><a href="javascript: void(0)" (click)="addKeyValue('vehicle')"><i class="fa fa-plus" nbTooltip="Add Vehicles"></i></a></td>
+
+                           </tr>
+                           <tr>
+                           <tr *ngFor="let controls of basicInfo.get('vehicle')['controls'];let i = index" formArrayName="vehicle" [formGroupName]="i">
+                               <td><input nbInput type="text" formControlName="vehicle"></td>
+                               <td><input nbInput type="number" formControlName="amount"> <a href="javascript: void(0)" (click)="removeValue('vehicle', i)"><i class="fa fa-minus" nbTooltip="Delete Row"></i></a></td>
+                           </tr>
+                           </tr>
+                           <tr>
+                               <td class="text-right"><b>Total:</b></td>
+                               <td><input nbInput type="number"></td>
+                           </tr>
+                           </tbody>
+
+                       </table>
                            <label><strong>Net worth</strong></label>
                            <input id="netWorth" formControlName="netWorth" name="netWorth" type="text"
                                   class="form-control" placeholder="Net Worth Amount"
