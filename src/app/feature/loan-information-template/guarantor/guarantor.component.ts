@@ -182,7 +182,6 @@ export class GuarantorComponent implements OnInit {
       ],
       grandFatherName: [
         ObjectUtil.setUndefinedIfNull(data.grandFatherName),
-        Validators.required
       ],
       relationship: [
         ObjectUtil.setUndefinedIfNull(data.relationship),

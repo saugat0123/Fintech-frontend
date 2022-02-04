@@ -655,7 +655,7 @@
                                                     class="form-control" formControlName="swapCharge"
                                                     id="swapCharge"
                                                     name="swapCharge" placeholder="Swap Charge"
-                                                    type="number" appDecimalNumber/>
+                                                    type = 'number' appDecimalNumber/>
                                     </div>
                                 </div>
 
@@ -916,6 +916,8 @@
                                     </div>
                                 </div>
                             </div>
+                            <nb-checkbox (change)="checkChecked($event.target.checked,'income')"
+                                         [checked]="riskChecked"><b>EARNING, PROFITABILITY AND PRICING</b>
                             <app-income-from-account [incomeFromAccountDataResponse]="incomeFromAccountDataResponse"
                                                      [customerInfo]="customerInfo"
                                                      #earning

@@ -71,6 +71,7 @@ export class ProposalComponent implements OnInit {
   existInterestLimit: number;
   showInterestAmount = true;
   legalDocs;
+  incomeChecked = false;
   subsidyLoanType = [
     {value: 'Literate Youth Self Employment Loan'},
     {value: 'Project Loan For Youth Returning From Foreign'},
@@ -329,6 +330,7 @@ export class ProposalComponent implements OnInit {
       swapChargeChecked: this.swapChargeChecked,
       subsidizedLoanChecked: this.subsidizedLoanChecked,
       deviationChecked: this.deviationChecked,
+      incomeChecked: this.incomeChecked,
     };
     this.proposalData.checkedData = JSON.stringify(mergeChecked);
 
@@ -419,6 +421,10 @@ export class ProposalComponent implements OnInit {
           this.proposalForm.get('deviationConclusionRecommendation').setValue(null);
         }
         break;
+      case 'income': {
+        this.incomeChecked = event;
+      }
+      break;
     }
   }
 
@@ -430,6 +436,7 @@ export class ProposalComponent implements OnInit {
       this.checkChecked(data['swapChargeChecked'], 'swapCharge');
       this.checkChecked(data['subsidizedLoanChecked'], 'subsidizedLoan');
       this.checkChecked(data['deviationChecked'], 'deviation');
+      this.checkChecked(data['incomeChecked'], 'income');
     }
   }
 
