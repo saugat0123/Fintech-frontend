@@ -65,9 +65,7 @@ export class PromissoryNoteGuarantorComponent implements OnInit {
     }
 
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
-      const loanAmount = JSON.parse(this.cadData.nepData);
       this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
-      console.log('nepaliData', this.nepaliData);
       this.setGuarantorDetails(this.nepaliData.guarantorDetails);
     }
   }
