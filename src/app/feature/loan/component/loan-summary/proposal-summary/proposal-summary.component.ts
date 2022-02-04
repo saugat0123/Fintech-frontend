@@ -56,22 +56,13 @@ export class ProposalSummaryComponent implements OnInit, OnChanges {
     @Input() loanCategory;
     customerLoanDtoList: CustomerLoanDto[];
     array = [];
+    dtoArray = [];
 
     constructor(private activatedRoute: ActivatedRoute,
                 private loanConfigService: LoanConfigService) {
     }
 
     ngOnInit() {
-        // this.proposalAllData = JSON.parse(this.proposalData.data);
-        // this.checkedData = JSON.parse(this.proposalData.checkedData);
-        // if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
-        //     if (!ObjectUtil.isEmpty(this.loanDataHolder.customerLoanDtoList)) {
-        //         this.customerLoanDtoList = this.loanDataHolder.customerLoanDtoList;
-        //     }
-        // }
-        // this.calculateInterestRate();
-        // this.getLoanConfig();
-        // this.checkInstallmentAmount();
     }
 
     public getTotal(key: string): number {
@@ -213,8 +204,6 @@ export class ProposalSummaryComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        console.log('called from proposal');
-        console.log('customerAllLoanList', this.customerAllLoanList);
         this.proposalAllData = JSON.parse(this.proposalData.data);
         this.checkedData = JSON.parse(this.proposalData.checkedData);
         if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
@@ -225,10 +214,10 @@ export class ProposalSummaryComponent implements OnInit, OnChanges {
         this.calculateInterestRate();
         this.getLoanConfig();
         this.checkInstallmentAmount();
-        this.loanConfigSet();
+        this.loanConfig();
     }
 
-    private loanConfigSet() {
+    private loanConfig() {
         this.customerAllLoanList.forEach(c => {
             const config = {
                 isFundable: c.loan.isFundable,
@@ -262,6 +251,43 @@ export class ProposalSummaryComponent implements OnInit, OnChanges {
             }
             this.array.push(config);
         });
-        console.log('array', this.array);
+        if (!ObjectUtil.isEmpty(this.customerLoanDtoList)) {
+            this.customerLoanDtoList.forEach(cd => {
+                let dtoCfonfig;
+                if (!ObjectUtil.isEmpty(cd.loanConfig)) {
+                    dtoCfonfig = {
+                        isFundable: cd.loanConfig.isFundable,
+                        fundableNonFundableSelcted: !ObjectUtil.isEmpty(cd.loanConfig.isFundable),
+                        isFixedDeposit: cd.loanConfig.loanTag === 'FIXED_DEPOSIT',
+                        isGeneral: cd.loanConfig.loanTag === 'GENERAL',
+                        isShare: cd.loanConfig.loanTag === 'SHARE_SECURITY',
+                        isVehicle: cd.loanConfig.loanTag === 'VEHICLE',
+                        loanNature: cd.loanConfig.loanNature,
+                        loanNatureSelected: false,
+                        isTerminating: false,
+                        isRevolving: false,
+                    };
+                }
+                if (!ObjectUtil.isEmpty(dtoCfonfig.loanNature)) {
+                    dtoCfonfig.loanNatureSelected = true;
+                    if (dtoCfonfig.loanNature.toString() === 'Terminating') {
+                        dtoCfonfig.isTerminating = true;
+                    } else {
+                        dtoCfonfig.isRevolving = true;
+                    }
+                    if (dtoCfonfig.isRevolving) {
+                        dtoCfonfig.isGeneral = false;
+                    }
+                }
+                if (!dtoCfonfig.isFundable) {
+                    dtoCfonfig.isGeneral = false;
+                }
+                if (dtoCfonfig.isFixedDeposit) {
+                    dtoCfonfig.loanNatureSelected = false;
+                    dtoCfonfig.fundableNonFundableSelcted = false;
+                }
+                this.dtoArray.push(dtoCfonfig);
+            });
+        }
     }
 }
