@@ -75,10 +75,18 @@
                readonly
                type="text"/>
       जिल्ला, <input class="form-field form-control-sm nepaliFont unicode-size"
+                     *ngIf="form.get('borrowerPermanentMunType').value === '0'; else borrowerPermanentVdc"
                     formControlName="borrowerPermanentMunicipality"
                     placeholder=""
                     readonly
                     type="text"/>
+      <ng-template #borrowerPermanentVdc>
+        <input class="form-field form-control-sm nepaliFont"
+               formControlName="borrowerPermanentVdc"
+               placeholder=""
+               readonly
+               type="text"/>
+      </ng-template>
       गा.पा./न.पा., वडा नं.<input class="form-field form-control-sm nepaliFont"
                                formControlName="borrowerPermanentWardNo"
                                placeholder=""
@@ -101,10 +109,18 @@
                readonly
                type="text"/>
       जिल्ला,<input class="form-field form-control-sm nepaliFont unicode-size"
+                    *ngIf="form.get('borrowerTemporaryMunType').value === '0'; else borrowerTemporaryVdc"
                    formControlName="borrowerTempMunicipality"
                    placeholder=""
                    readonly
                    type="text"/>
+      <ng-template #borrowerTemporaryVdc>
+        <input class="form-field form-control-sm nepaliFont"
+               formControlName="borrowerTemporaryVdc"
+               placeholder=""
+               readonly
+               type="text"/>
+      </ng-template>
       गा.पा./न.पा., वडा नं.<input class="form-field form-control-sm nepaliFont"
                                 formControlName="borrowerTempWardNo"
                                 placeholder=""
