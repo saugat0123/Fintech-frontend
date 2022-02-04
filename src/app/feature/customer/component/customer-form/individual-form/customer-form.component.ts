@@ -499,6 +499,14 @@ bankingRelationshipList = BankingRelationship.enumObject();
             shares: this.formBuilder.array([]),
             realState: this.formBuilder.array([]),
             vehicle: this.formBuilder.array([]),
+            depositBank: [ObjectUtil.isEmpty(this.individualJsonData) ? 0 :
+                this.individualJsonData.depositBank],
+            depositOther: [ObjectUtil.isEmpty(this.individualJsonData) ? 0 :
+                this.individualJsonData.depositOther],
+            total: [ObjectUtil.isEmpty(this.individualJsonData) ? 0 :
+                this.individualJsonData.total],
+
+
         });
 
         this.onCustomerTypeChange(this.microCustomer);
@@ -787,8 +795,8 @@ bankingRelationshipList = BankingRelationship.enumObject();
     addKeyValue(formControl: string) {
         (this.basicInfo.get(formControl) as FormArray).push(
             this.formBuilder.group({
-                assets: [undefined],
-                amount: [undefined],
+                assets: undefined,
+                amount: 0,
             })
         );
     }
@@ -803,8 +811,8 @@ bankingRelationshipList = BankingRelationship.enumObject();
         const form = this.basicInfo.get(formControl) as FormArray;
         data.forEach(l => {
             form.push(this.formBuilder.group({
-                assets: l.assets,
-                amount: l.amount
+                assets: [l.assets],
+                amount: [l.amount]
             }));
         });
     }
@@ -839,5 +847,21 @@ bankingRelationshipList = BankingRelationship.enumObject();
                 break;
 
         }
+    }
+    calculate() {
+        let total = this.basicInfo.get('depositBank').value + this.basicInfo.get('depositOther').value;
+        total += this.getArrayTotal('shares');
+        total += this.getArrayTotal('vehicle');
+        total += this.getArrayTotal('realState');
+        this.basicInfo.get('total').patchValue(total);
+    }
+    getArrayTotal(formControl): number {
+        let total = 0;
+        console.log(this.basicInfo.get(formControl).value);
+        (this.basicInfo.get(formControl).value).forEach((d, i) => {
+            console.log(d);
+            total += d.amount;
+        });
+        return total;
     }
 }

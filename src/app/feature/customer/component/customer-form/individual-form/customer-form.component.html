@@ -886,42 +886,52 @@
                            </tr>
                            <tr>
                                <td>With Laxmi Bank</td>
-                               <td><input nbInput type="number"></td>
+                               <td><input nbInput formControlName="depositBank" (change)="calculate()" type="number"></td>
 
                            </tr>
                            <tr>
                                <td>With other Financial Institution</td>
-                               <td><input nbInput type="number"></td>
+                               <td><input nbInput formControlName="depositOther" (change)="calculate()" type="number"></td>
 
                            </tr>
                            <tr>
                                <td colspan="1"><b>Shares & Securities</b></td>
-                               <td colspan="1"><a href="javascript: void(0)" (click)="addKeyValue('shares')"><i class="fa fa-plus" nbTooltip="Add Shares & security"></i></a></td>
+                               <td colspan="1"><a class="float-right" href="javascript: void(0)" (click)="addKeyValue('shares')"><i class="fa fa-plus" nbTooltip="Add Shares & security"></i></a></td>
                            </tr>
-                           <tr *ngFor="let controls of basicInfo.get('shares')['controls'];let i = index" formArrayName="shares" [formGroupName]="i">
-                               <td><input nbInput type="text" formControlName="assets"></td>
-                               <td><input nbInput type="number" formControlName="amount"> <a href="javascript: void(0)" (click)="removeValue('shares', i)"><i class="fa fa-minus" nbTooltip="Delete Row"></i></a></td>
-                           </tr>
+                           <tr *ngFor="let controls of basicInfo.get('shares')['controls'];let i = index" formArrayName="shares">
+                               <ng-container [formGroupName]="i">
+                                   <td><input nbInput type="text" formControlName="assets"></td>
+                                   <td><input nbInput type="number" (change)="calculate()" formControlName="amount"> <a   *ngIf="basicInfo?.get('shares')['length'] > 1" href="javascript: void(0)" (click)="removeValue('shares', i)"><i class="fa fa-times-circle px-4" nbTooltip="Delete Row"></i></a></td>
+                               </ng-container>
+                                </tr>
                            <tr>
                                <td><b>Real Estate (Land and Building)</b></td>
-                               <td colspan="1"><a href="javascript: void(0)" (click)="addKeyValue('realState')"><i class="fa fa-plus" nbTooltip="Add Real Estate (Land and Building)"></i></a></td>
+                               <td colspan="1"><a class="float-right" href="javascript: void(0)" (click)="addKeyValue('realState')"><i class="fa fa-plus" nbTooltip="Add Real Estate (Land and Building)"></i></a></td>
 
                            </tr>
-                           <tr *ngFor="let controls of basicInfo.get('realState')['controls'];let i = index" formArrayName="realState" [formGroupName]="i">
-                               <td><input nbInput type="text" formControlName="assets"></td>
-                               <td><input nbInput type="number" formControlName="amount"> <a href="javascript: void(0)" (click)="removeValue('realState', i)"><i class="fa fa-minus" nbTooltip="Delete Row"></i></a></td>
+
+                           <tr *ngFor="let controls of basicInfo.get('realState')['controls'];let i = index" formArrayName="realState">
+                               <ng-container [formGroupName]="i">
+                                   <td><input nbInput type="text" formControlName="assets"></td>
+                                   <td><input nbInput type="number" (change)="calculate()" formControlName="amount"> <a *ngIf="basicInfo?.get('realState')['length'] > 1" href="javascript: void(0)" (click)="removeValue('realState', i)"><i class="fa fa-times-circle px-4" nbTooltip="Delete Row"></i></a></td>
+                               </ng-container>
                            </tr>
                            <tr>
-                           <td colspan="2"><b>Vehicles</b></td>
-                               <td colspan="1"><a href="javascript: void(0)" (click)="addKeyValue('vehicle')"><i class="fa fa-plus" nbTooltip="Add Vehicles"></i></a></td>
+                           <td><b>Vehicles</b></td>
+                               <td colspan="1"><a class="float-right" href="javascript: void(0)" (click)="addKeyValue('vehicle')"><i class="fa fa-plus" nbTooltip="Add Vehicles"></i></a></td>
                            </tr>
-                           <tr *ngFor="let controls of basicInfo.get('vehicle')['controls'];let i = index" formArrayName="vehicle" [formGroupName]="i">
-                               <td><input nbInput type="text" formControlName="vehicle"></td>
-                               <td><input nbInput type="number" formControlName="amount"> <a href="javascript: void(0)" (click)="removeValue('vehicle', i)"><i class="fa fa-minus" nbTooltip="Delete Row"></i></a></td>
+                           <tr *ngFor="let controls of basicInfo.get('vehicle')['controls'];let i = index" formArrayName="vehicle">
+                               <ng-container [formGroupName]="i">
+                                   <td><input nbInput type="text" formControlName="assets"></td>
+                                   <td>
+                                       <input nbInput type="number" (change)="calculate()" formControlName="amount">
+                                       <a *ngIf="basicInfo?.get('vehicle')['length'] > 1" href="javascript: void(0)" (click)="removeValue('vehicle', i)"><i class="fa fa-times-circle px-4" nbTooltip="Delete Row"></i></a>
+                                   </td>
+                               </ng-container>
                            </tr>
                            <tr>
                                <td class="text-right"><b>Total:</b></td>
-                               <td><input nbInput type="number"></td>
+                               <td><input nbInput formControlName="total" (change)="calculate()" type="number"></td>
                            </tr>
                            </tbody>
 

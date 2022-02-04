@@ -46,6 +46,7 @@ import {SiteVisitDocument} from '../../../loan-information-template/security/sec
 import * as JSZip from 'jszip';
 import * as JSZipUtils from 'jszip-utils/lib/index.js';
 import {saveAs as importedSaveAs} from 'file-saver';
+import {IndividualJsonData} from '../../../admin/modal/IndividualJsonData';
 
 @Component({
     selector: 'app-loan-summary',
@@ -189,7 +190,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     beneficiary;
     dbr;
     individual;
-    individualJsonData;
+    individualJsonData: IndividualJsonData;
     riskInfo;
     senderDetails;
     bankingRelation;
