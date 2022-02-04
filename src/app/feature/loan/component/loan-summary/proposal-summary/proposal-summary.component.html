@@ -44,7 +44,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let loan of customerAllLoanList"
+            <tr *ngFor="let loan of customerAllLoanList; let i = index;"
                 [class.font-weight-bold]="proposalData?.id === loan?.proposal?.id">
                 <td class="text-left pl-1">
                     <ng-container
@@ -109,6 +109,9 @@
                     && ((loan?.proposal?.data | jsonParse)?.existingServiceCharge === null)
                     && ((loan?.proposal?.data | jsonParse)?.existCommissionPercentage === null)">-</span>
                 </td>
+
+                Interest::: {{(array[i]?.isFundable && (array[i]?.loanNature === 'Terminating' || array[i]?.loanNature === 'Revolving'))
+                    || array[i]?.isFixedDeposit || array[i]?.isVehicle || array[i]?.isShare || array[i]?.isGeneral}}
 
                 <td>
                     <span *ngIf="loan?.loan?.isFundable && loan?.loan?.loanNature !== null">
