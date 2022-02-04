@@ -65,8 +65,8 @@
                                   placeholder=" "
                                   type="text"/>
                                 <span class="print-only">{{partner?.ownerGrandFatherNameCT ? partner?.ownerGrandFatherNameCT : '______________________'}}</span>को
-                           <ng-container *ngIf="partner?.ownerGender === 'MALE'">नाती </ng-container>
-                           <ng-container *ngIf="partner?.ownerGender === 'FEMALE'">नातिनी </ng-container>
+                           <ng-container *ngIf="partner?.ownerGender === 'MALE'"> नाती </ng-container>
+                           <ng-container *ngIf="partner?.ownerGender === 'FEMALE'"> नातिनी </ng-container>
                        </ng-container>
 
                       <ng-container *ngIf="partner?.ownerGender === 'FEMALE' && partner?.ownerRelationMedium === '0'">
@@ -85,8 +85,8 @@
                                  placeholder=" "
                                  type="text"/>
                         <span class="print-only">{{partner?.ownerFatherNameCT ? partner?.ownerFatherNameCT : '______________________'}}</span>को
-                          <ng-container *ngIf="partner?.ownerGender === 'MALE'">छोरा </ng-container>
-                          <ng-container *ngIf="partner?.ownerGender === 'FEMALE'">छोरी </ng-container>
+                          <ng-container *ngIf="partner?.ownerGender === 'MALE'"> छोरा </ng-container>
+                          <ng-container *ngIf="partner?.ownerGender === 'FEMALE'"> छोरी </ng-container>
                       </ng-container>
 
                       <ng-container *ngIf="partner?.ownerGender === 'FEMALE' && partner?.ownerRelationMedium === '0'">
@@ -111,9 +111,9 @@
                                 placeholder=" "
                                 type="text"/>
                                 <span class="print-only">{{partner?.ownerPermanentMunicipalityCT ? partner?.ownerPermanentMunicipalityCT : '______________________'}}</span>
-                          <ng-container *ngIf="partner?.ownerPermanentAddressRadio === '0'">न.पा</ng-container>
-                          <ng-container *ngIf="partner?.ownerPermanentAddressRadio === '1'">गा.वि.स.</ng-container>
-                          <ng-container *ngIf="partner?.ownerPermanentAddressRadio === '2'">गाँउपालिका</ng-container>
+                          <ng-container *ngIf="partner?.ownerPermanentAddressRadio === '0'"> न.पा </ng-container>
+                          <ng-container *ngIf="partner?.ownerPermanentAddressRadio === '1'"> गा.वि.स. </ng-container>
+                          <ng-container *ngIf="partner?.ownerPermanentAddressRadio === '2'"> गाँउपालिका </ng-container>
                           वडा नं <input class="form-field form-control-sm d-print-none"
                                         name="wardNoOfPartner"
                                         [value]="partner?.ownerPermanentWardNoCT"
@@ -138,9 +138,9 @@
                                         placeholder=" "
                                         type="text"/>
                             <span class="print-only">{{ageCalculation(partner?.ownerDobCT.eDate) ? ageCalculation(partner?.ownerDobCT.eDate) : '______________________'}}</span>
-                      <ng-container *ngIf="partner?.ownerGender === 'MALE'"> को </ng-container>
-                      <ng-container *ngIf="partner?.ownerGender === 'FEMALE'"> की </ng-container>
-                      <ng-container *ngIf="partner?.ownerGender === 'MALE'">श्री</ng-container>
+                      <ng-container *ngIf="partner?.ownerGender === 'MALE'">को </ng-container>
+                      <ng-container *ngIf="partner?.ownerGender === 'FEMALE'">की </ng-container>
+                      <ng-container *ngIf="partner?.ownerGender === 'MALE'"> श्री </ng-container>
                       <ng-container *ngIf="partner?.ownerGender === 'FEMALE' && partner?.ownerRelationMedium === '0'">
                           श्रीमती
                       </ng-container>
@@ -455,7 +455,7 @@
                                    placeholder=""
                                    type="text"/>
                             <span class="print-only">{{this.supportedInfo ? (this.supportedInfo?.witnessDistrict2 ? this.supportedInfo.witnessDistrict2 : '__________________________') : '__________________________'}}</span>
-                            जिल्ला<input class="form-field form-control-sm d-print-none"
+                            जिल्ला <input class="form-field form-control-sm d-print-none"
                                          name="witnessMuni2"
                                          formControlName="witnessMuni2"
                                          placeholder=""

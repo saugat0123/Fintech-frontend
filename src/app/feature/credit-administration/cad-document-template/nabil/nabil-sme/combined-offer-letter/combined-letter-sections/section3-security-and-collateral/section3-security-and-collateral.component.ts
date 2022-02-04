@@ -72,6 +72,7 @@ export class Section3SecurityAndCollateralComponent implements OnInit {
   ckEditorConfig = TableMaker.CK_CONFIG;
   freeTextVal;
   table;
+  freeInformation;
 
   constructor(private formBuilder: FormBuilder,
               public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe) { }
@@ -82,6 +83,7 @@ export class Section3SecurityAndCollateralComponent implements OnInit {
       this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
       this.securityDetails = this.tempData.securities;
       this.guarantorData = this.cadOfferLetterApprovedDoc.assignedLoan[0].taggedGuarantors;
+      this.freeInformation = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation);
       if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation)) {
         this.freeTextVal = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation);
         this.form.get('freeText2').patchValue(this.freeTextVal.section3.freeText2);
@@ -101,6 +103,7 @@ export class Section3SecurityAndCollateralComponent implements OnInit {
 
   buildForm() {
     this.form = this.formBuilder.group({
+      textField: [undefined],
       otherBorrowingClientName: [undefined],
       nameOfMemberBank: [undefined],
       freeBankName: [undefined],
@@ -141,6 +144,7 @@ export class Section3SecurityAndCollateralComponent implements OnInit {
     this.form.patchValue({
       guarantorAmount: guarantorAmount,
       guarantorAmountInWords: guarantorName,
+      textField: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.section3 : 'थप/अतिरिक्त',
     });
   }
 
