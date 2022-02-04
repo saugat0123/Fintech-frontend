@@ -11,6 +11,7 @@ import {ObjectUtil} from '../../../../../../../../../@core/utils/ObjectUtil';
 export class TermLoanToOrForComponent implements OnInit {
     @Input() customerApprovedDoc: CustomerApprovedLoanCadDocumentation;
     @Input() loanData;
+    @Input() letterData;
     @Input() pointNumber;
     @Input() termLoanData;
     form: FormGroup;
