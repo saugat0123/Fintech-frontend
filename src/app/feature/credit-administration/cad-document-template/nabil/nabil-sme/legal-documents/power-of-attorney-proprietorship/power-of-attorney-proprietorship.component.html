@@ -68,71 +68,87 @@
 
                                 (प्रोप्राईटरशीप फर्म) को प्रोप्राईटर जसलाई यसपछि ऋणी भनिएको छ, को हकमा एवं तर्फबाट ऐ. का
                                 अख्तियारप्राप्त प्रोप्राईटर
-                                <ng-container *ngFor="let i of tempProprietor">
-                                <input
-                                        class="form-field disable-print form-control-sm"
-                                        name="proprietorDistrict"
-                                        formControlName="proprietorDistrict"
-                                        placeholder=""
-                                        type="text"
-                                        [value]="i?.ownerPermanentDistrictCT ? i?.ownerPermanentDistrictCT : ''"
+                                <ng-container *ngFor="let i of tempProprietor; let a = index">
+                                    <ng-container *ngIf="i?.ownerNationality === 'Nepali' || i?.foreignAddressOption === 'Local'">
+                                        <input
+                                                class="form-field disable-print form-control-sm"
+                                                name="proprietorDistrict"
+                                                formControlName="proprietorDistrict"
+                                                placeholder=""
+                                                type="text"
+                                                [value]="i?.ownerPermanentDistrictCT ? i?.ownerPermanentDistrictCT : ''"
 
-                                />
-                                <span class=" print-only font-weight-bold">{{i?.ownerPermanentDistrictCT ? i?.ownerPermanentDistrictCT : "_________________"}}</span>
+                                        />
+                                        <span class=" print-only font-weight-bold">{{i?.ownerPermanentDistrictCT ? i?.ownerPermanentDistrictCT : "_________________"}}</span>
 
-                                जिल्ला, <input class="form-field disable-print form-control-sm"
-                                               name="proprietorMunicipality "
-                                               formControlName="proprietorMunicipality"
+                                        जिल्ला, <input class="form-field disable-print form-control-sm"
+                                                       name="proprietorMunicipality "
+                                                       formControlName="proprietorMunicipality"
+                                                       placeholder=""
+                                                       type="text"
+                                                       [value]="i?.ownerPermanentMunicipalityCT ? i?.ownerPermanentMunicipalityCT : ''"
+                                        />
+                                        <span class=" print-only font-weight-bold">{{i?.ownerPermanentMunicipalityCT ? i?.ownerPermanentMunicipalityCT : "_________________"}}</span>
+                                        <ng-container *ngIf="i?.ownerPermanentAddressRadio === '0'">न.पा</ng-container>
+                                        <ng-container *ngIf="i?.ownerPermanentAddressRadio === '1'">गा.वि.स.
+                                        </ng-container>
+                                        <ng-container *ngIf="i?.ownerPermanentAddressRadio === '2'">गाँउपालिका
+                                        </ng-container>
+                                        वडा नं.
+                                        <input class="form-field disable-print form-control-sm"
+                                               name="proprietorWardNo"
+                                               formControlName="proprietorWardNo"
                                                placeholder=""
                                                type="text"
-                                               [value]="i?.ownerPermanentMunicipalityCT ? i?.ownerPermanentMunicipalityCT : ''"
-                                />
-                                <span class=" print-only font-weight-bold">{{i?.ownerPermanentMunicipalityCT ? i?.ownerPermanentMunicipalityCT : "_________________"}}</span>
-                                <ng-container *ngIf="this.nagarpalika === true"> न.पा</ng-container>
-                                <ng-container *ngIf="this.nagarpalika === false"> गा.वि.स.</ng-container>
-                                वडा नं.
+                                               [value]="i?.ownerPermanentWardNoCT ? i?.ownerPermanentWardNoCT : ''"
+                                        />
+                                        <span class=" print-only font-weight-bold">{{i?.ownerPermanentWardNoCT ? i?.ownerPermanentWardNoCT : "_________________"}}</span>
+                                    </ng-container>
+                                    <ng-container *ngIf="(i?.ownerNationality === 'Indian' || i?.ownerNationality === 'Other') && i?.foreignAddressOption === 'Foreign'">
+                                        <input class="form-field form-control-sm d-print-none"
+                                               name="otherAddress"
+                                               [value]="i?.ownerOtherAddressCT"
+                                               placeholder=" "
+                                               type="text"/>
+                                        <span class="print-only">{{i ? i?.ownerOtherAddressCT : '___________________________'}}</span>
+                                    </ng-container>
+                                बस्ने
+                                <ng-container *ngIf="i?.ownerGender === 'MALE'">श्री</ng-container>
+                                <ng-container
+                                        *ngIf="i?.ownerGender === 'FEMALE' && i?.ownerRelationMedium === '0'">
+                                    श्रीमती
+                                </ng-container>
+                                <ng-container
+                                        *ngIf="i?.ownerGender === 'FEMALE' && i?.ownerRelationMedium === '1'">
+                                    सुश्री
+                                </ng-container>
                                 <input class="form-field disable-print form-control-sm"
-                                       name="proprietorWardNo"
-                                       formControlName="proprietorWardNo"
-                                       placeholder=""
-                                       type="text"
-                                       [value]="i?.ownerPermanentWardNoCT ? i?.ownerPermanentWardNoCT : ''"
-                                />
-                                <span class=" print-only font-weight-bold">{{i?.ownerPermanentWardNoCT ? i?.ownerPermanentWardNoCT : "_________________"}}</span>
-
-
-                                बस्ने श्री <input class="form-field disable-print form-control-sm"
-                                                  name="nameOfProprietor"
-                                                  formControlName="nameOfProprietor"
-                                                  placeholder=""
-                                                  type="text"
-                                                  [value]="i?.ownerNameCT ? i?.ownerNameCT : ''"
-                                />
+                                              name="authorizedName"
+                                              placeholder=""
+                                              type="text"
+                                              [value]="i?.ownerNameCT ? i?.ownerNameCT : ''"
+                            />
                                     <span class=" print-only font-weight-bold">{{i?.ownerNameCT ? i?.ownerNameCT : "_________________"}}</span>
-
-
-                                (ना.प्र.नं . <input
+                                    <ng-container *ngIf="i?.ownerNationality === 'Nepali'">
+                                    (ना.प्र.नं .
+                                    <input
                                         class="form-field disable-print form-control-sm"
                                         name="citizenshipNo"
-                                        formControlName="citizenshipNo"
                                         placeholder=""
                                         type="text"
                                         [value]="i?.ownerCitizenshipNoCT ? i?.ownerCitizenshipNoCT : ''"
-                                />
-                                    <span class=" print-only font-weight-bold">{{i?.ownerCitizenshipNoCT ? i?.ownerCitizenshipNoCT : "_________________"}}</span>
+                                    />
+                                    <span class=" print-only font-weight-bold">{{i ? i?.ownerCitizenshipNoCT : "_________________"}}</span>
 
 
                                 जारी मिति <input class="form-field disable-print form-control-sm"
                                                  name="dateOfIssue"
-                                                 formControlName="dateOfIssue"
+                                                 [value]="this.issueDate[a].issueDate"
                                                  placeholder=""
                                                  type="text"
-                                                 [value]="citizenshipIssueDate"
-                                />
-                                <span class=" print-only font-weight-bold">{{citizenshipIssueDate ? citizenshipIssueDate : "_________________"}}</span>
-
-
-                                जिल्ला प्रशासन कार्यालय <input
+                                                 />
+                                <span class="print-only">{{this.issueDate ? this.issueDate[a].issueDate : '___________________________'}}</span>
+                                        जिल्ला प्रशासन कार्यालय <input
                                         class="form-field disable-print form-control-sm"
                                         name="nameOfIdentityIssuedDistrict"
                                         formControlName="nameOfIdentityIssuedDistrict"
@@ -141,6 +157,7 @@
                                         [value]="i?.ownerCitizenshipIssuedDistrictCT ? i?.ownerCitizenshipIssuedDistrictCT : ''"
                                 />
                                     <span class=" print-only font-weight-bold">{{i?.ownerCitizenshipIssuedDistrictCT ? i?.ownerCitizenshipIssuedDistrictCT : "_________________"}}</span>
+                                </ng-container>
                                 </ng-container> आगे मरहामी ऋणीको अनुरोधमा नबिल बैंक लिमिटेडको <input
                                         class="form-field disable-print form-control-sm"
                                         name="nameOfBranchLocated"
@@ -172,7 +189,7 @@
 
 
                                 (अक्षरेपी
-                                <input class="form-field disable-print form-control-sm"
+                                <input class="form-field disable-print form-control-sm outside"
                                        name="loanAmountInWords"
                                        formControlName="loanAmountInWords"
                                        placeholder=""
