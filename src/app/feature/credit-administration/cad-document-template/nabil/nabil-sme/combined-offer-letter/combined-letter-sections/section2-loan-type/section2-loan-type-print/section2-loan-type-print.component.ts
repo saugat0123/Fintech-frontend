@@ -18,33 +18,55 @@ export class Section2LoanTypePrintComponent implements OnInit {
     @Input() freeText;
     @Input() index;
     FDName;
+    FDNameStl;
+    FDNameDl;
     DepName;
     BondName;
+    BondNameDl;
+    BondNameStl;
     finalBondName = [];
+    finalBondNameDl = [];
+    finalBondNameStl = [];
     FDNames: Array<String> = [];
+    FDNamesStl: Array<String> = [];
+    FDNamesDl: Array<String> = [];
+    finalDepNameOverdraftLien = [];
+    finalDepNameStlLien = [];
+    finalDepNameDlLien = [];
+    DepNameOverdraftLien;
+    DepNameStlLien;
+    DepNameDlLien;
+    // Dep Names Array
+    DepNamesOverdraftLien: Array<String> = [];
+    DepNamesStlLien: Array<String> = [];
+    DepNamesDlLien: Array<String> = [];
+    // All Dep Names
+    allDepNamesOverdraftLien;
+    allDepNamesStlLien;
+    allDepNamesDlLien;
+    // Final FD Array
+    finalFdName = [];
+    finalFdNameStl = [];
+    finalFdNameDl = [];
+    // All FD Names
+    allFdNames;
+    allFdNamesStl;
+    allFdNamesDl;
     allFDNames;
     DepNames: Array<String> = [];
     allDepNames;
     BondNames: Array<String> = [];
+    BondNamesDl: Array<String> = [];
+    BondNamesStl: Array<String> = [];
     allBondNames;
+    allBondNamesDl;
+    allBondNamesStl;
     loanNameConstant = LoanNameConstant;
     tempData;
     freeInformation;
     loanExpiryDateIrrevocable;
     loanData = [];
-    isCustomerAcceptance = false;
     isIrrevocableLetter = false;
-    isBillDiscounting = false;
-    isLoanTrustReceiptLoan = false;
-    isRevolvingShortTermLoan = false;
-    isDemandLoanWorkingCapital = false;
-    isPreExportLoan = false;
-    isDocumentaryBillPurchase = false;
-    isOverdraftLoanWorkingCapital = false;
-    isEquityMortgageOverdraft = false;
-    isOverDraftFacilityFixedDeposit = false;
-    isOverdraftFacilityAgainstBond = false;
-    isBridgeGapLoan = false;
     isTermLoanToOrFor = false;
     isEquityMortgageTermLoan = false;
     isAutoLoanMaster = false;
@@ -55,67 +77,17 @@ export class Section2LoanTypePrintComponent implements OnInit {
     issubsidyOrAgricultureLoan;
     // Irrevocable letter of credit facility
     loanOptionIrrevocable;
-    commissionTypeIrrevocable;
-    complementaryOtherIrrevocable = false;
-    complementaryOtherIrrevocableTeName;
-    // Customer Acceptance for Time Letter of Credit
     loanOptionTimeLetter;
-    complementaryOtherTimeLetter = false;
-    complementaryOtherTimeLetterName;
-    // Import Bills Discounting
-    loanOptionBillDiscounting;
-    complementaryOtherBillDiscounting = false;
-    complementaryOtherBillDiscountingName;
-    // Import Loan/ Trust Receipt Loan
     loanOptionImportLoanTrust;
-    complementaryOtherImportLoanTrust = false;
-    complementaryOtherImportLoanTrustName;
     interestSubsidyAgImportLoanTrust;
-    // Revolving/One off basis Short Term Loan
-    loanRevolvingBasisShortTermLoan;
-    loanOptionShortTermLoan;
-    complementaryOtherShortTermLoan = false;
-    complementaryOtherShortTermLoanName;
     arFinancing = false;
-    interestSubsidyAgShortTermLoan;
-    // Demand Loan for working capital
-    complementaryOtherDemandLoan = false;
-    complementaryOtherDemandLoanName;
-    arFinancingDemandLoan = false;
-    interestSubsidyAgDemandLoan;
-    // Pre- Export Loan
-    complementaryOtherPreExportLoan = false;
-    complementaryOtherPreExportLoanName;
-    // Documentary Bill Purchase/Negotiation
-    complementaryOtherDocumentaryBill = false;
-    complementaryOtherDocumentaryBillName;
-    // Overdraft Loan for Working Capital requirement
-    arFinancingOverdraftLoanWorking = false;
-    interestSubsidyAgOverdraftLoanWorking;
-    // Mortgage Overdraft/ Other Overdraft/ Equity Mortgaged Overdraft
-    loanSubTypeEquityMortgage;
-    drawingBasisEquityMortgage;
-    mortgageTypeEquityMortgage;
-    interestSubsidyAgEquityMortgage;
     // Overdraft Facility against Fixed Deposit/ Lien on Deposit Account
     subLoanOptionOverdraftFixedForm;
     holdingBankOverdraftFixedForm;
     letterOfSetOffOverdraftFixedForm;
     interestRateTypeOverdraftFixedForm;
     interestSubsidyAgOverdraftFixedForm;
-    checkAdditionalPremiumRateOverdraftFixedForm = false;
-    accountTypeOverdraftFixedForm;
-    // Overdraft Facility against Bond
-    letterOfSetOffFacilityAgainstBond;
-    interestSubsidyAgFacilityAgainstBond;
     interestRateTypeFacilityAgainstBond;
-    // Bridge Gap Loan
-    complementaryOtherBridgeGapLoan = false;
-    complementaryOtherBridgeGapLoanName;
-    interestSubsidyAgBridgeGapLoan = false;
-    // Bank Guarantee
-    complementaryOtherBankGuarantee = false;
-    complementaryOtherBankGuaranteeName;
     securityTypeBankGuarantee;
     guaranteeTypeBankGuarantee;
     commissionTypeBankGuarantee;
@@ -145,6 +117,15 @@ export class Section2LoanTypePrintComponent implements OnInit {
     equityMortgageData;
     mortgageTermLoan = [];
     mortgageTermLoanData;
+    overdraftFacilityFixedDeposit = [];
+    overdraftFacilityLienDeposit = [];
+    stlFixedDeposit = [];
+    stlLienDeposit = [];
+    dlFixedDeposit = [];
+    dlLienDeposit = [];
+    bankGuaranteeLoan = [];
+    stlAgainstBond = [];
+    dlAgainstBond = [];
 
     constructor(private engToNepWord: NepaliCurrencyWordPipe,
                 private engToNepaliDate: EngNepDatePipe,
@@ -199,243 +180,160 @@ export class Section2LoanTypePrintComponent implements OnInit {
     private checkLoanName(): void {
         if (this.finalLoanDetails.length > 0) {
             this.finalLoanDetails.forEach(v => {
-                // tslint:disable-next-line:max-line-length
-                if (v.loanName === LoanNameConstant.CUSTOMER_ACCEPTANCE_FOR_TIME_LETTER_OF_CREDIT && !ObjectUtil.isEmpty(this.tempData.timeLetterCreditForm)) {
-                    this.isCustomerAcceptance = true;
-                    this.loanOptionTimeLetter = this.tempData.timeLetterCreditForm.loanOption;
-                    this.complementaryOtherTimeLetterName = this.tempData.timeLetterCreditForm.complimentaryLoanSelected;
-                    if (this.tempData.timeLetterCreditForm.complementryOther === true) {
-                        this.complementaryOtherTimeLetter = true;
-                    }
-                }
-                // tslint:disable-next-line:max-line-length
-                if (v.loanName === LoanNameConstant.IRREVOCABLE_LETTER_OF_CREDIT_FACILITY && !ObjectUtil.isEmpty(this.tempData.letterOfCreditForm)) {
-                    this.isIrrevocableLetter = true;
-                    this.loanOptionIrrevocable = this.tempData.letterOfCreditForm.loanOption;
-                    this.commissionTypeIrrevocable = this.tempData.letterOfCreditForm.commissionType;
-                    this.complementaryOtherIrrevocableTeName = this.tempData.letterOfCreditForm.complimentaryLoanSelected;
-                    if (this.tempData.letterOfCreditForm.complementryOther === true) {
-                        this.complementaryOtherIrrevocable = true;
-                    }
-                }
-                // tslint:disable-next-line:max-line-length
-                if (v.loanName === LoanNameConstant.IMPORT_BILLS_DISCOUNTING && !ObjectUtil.isEmpty(this.tempData.importBillsDiscountForm)) {
-                    this.isBillDiscounting = true;
-                    this.loanOptionBillDiscounting = this.tempData.importBillsDiscountForm.loanOption;
-                    this.complementaryOtherBillDiscountingName = this.tempData.importBillsDiscountForm.complimentaryLoanSelected;
-                    if (this.tempData.importBillsDiscountForm.complementryOther === true) {
-                        this.complementaryOtherBillDiscounting = true;
-                    }
-                }
-                if (v.loanName === LoanNameConstant.IMPORT_LOAN_TRUST_RECEIPT_LOAN && !ObjectUtil.isEmpty(this.tempData.importLoanTrust)) {
-                    this.isLoanTrustReceiptLoan = true;
-                    this.loanOptionImportLoanTrust = this.tempData.importLoanTrust.loanOption;
-                    this.complementaryOtherImportLoanTrustName = this.tempData.importLoanTrust.complimentaryLoanSelected;
-                    this.interestSubsidyAgImportLoanTrust = this.tempData.importLoanTrust.subsidyOrAgricultureLoan;
-                    if (this.tempData.importLoanTrust.complementryOther === true) {
-                        this.complementaryOtherImportLoanTrust = true;
-                    }
-                }
-                if (v.loanName === LoanNameConstant.SHORT_TERM_LOAN && !ObjectUtil.isEmpty(this.tempData.revolvingShortTermLoan)) {
-                    this.isRevolvingShortTermLoan = true;
-                    this.loanOptionShortTermLoan = this.tempData.revolvingShortTermLoan.loanOption;
-                    this.complementaryOtherShortTermLoanName = this.tempData.revolvingShortTermLoan.complimentaryLoanSelected;
-                    this.loanRevolvingBasisShortTermLoan = this.tempData.revolvingShortTermLoan.loanRevolvingBasis;
-                    this.interestSubsidyAgShortTermLoan = this.tempData.revolvingShortTermLoan.subsidyOrAgricultureLoan;
-                    if (this.tempData.revolvingShortTermLoan.complementaryOther === true) {
-                        this.complementaryOtherShortTermLoan = true;
-                    }
-                    /*if (this.tempData.revolvingShortTermLoan.arFinancing === true) {
-                        this.arFinancing = true;
-                    }*/
-                }
-                if (v.loanName === LoanNameConstant.DEMAND_LOAN_FOR_WORKING_CAPITAL && !ObjectUtil.isEmpty(this.tempData.demandLoanForm)) {
-                    this.isDemandLoanWorkingCapital = true;
-                    this.interestSubsidyAgDemandLoan = this.tempData.demandLoanForm.subsidyOrAgricultureLoan;
-                    this.complementaryOtherDemandLoanName = this.tempData.demandLoanForm.complimentaryLoanSelected;
-                    if (this.tempData.demandLoanForm.complementryOther === true) {
-                        this.complementaryOtherDemandLoan = true;
-                    }
-                    if (this.tempData.demandLoanForm.arFinancing === true) {
-                        this.arFinancingDemandLoan = true;
-                    }
-                }
-                if (v.loanName === LoanNameConstant.PRE_EXPORT_LOAN && !ObjectUtil.isEmpty(this.tempData.preExportForm)) {
-                    this.isPreExportLoan = true;
-                    this.complementaryOtherPreExportLoanName = this.tempData.preExportForm.complimentaryLoanSelected;
-                    if (this.tempData.preExportForm.complementryOther === true) {
-                        this.complementaryOtherPreExportLoan = true;
-                    }
-                }
-                if (v.loanName === LoanNameConstant.DOCUMENTARY_BILL_PURCHASE_NEGOTIATION &&
-                    !ObjectUtil.isEmpty(this.tempData.documentaryBillPurchase)) {
-                    this.isDocumentaryBillPurchase = true;
-                    this.complementaryOtherDocumentaryBillName = this.tempData.documentaryBillPurchase.complimentaryLoanSelected;
-                    if (this.tempData.documentaryBillPurchase.complementryOther === true) {
-                        this.complementaryOtherDocumentaryBill = true;
-                    }
-                }
-                if (v.loanName === LoanNameConstant.OVERDRAFT_LOAN_FOR_WORKING_CAPITAL_REQUIREMENT &&
-                    !ObjectUtil.isEmpty(this.tempData.overdraftLoanForm)) {
-                    this.isOverdraftLoanWorkingCapital = true;
-                    this.interestSubsidyAgOverdraftLoanWorking = this.tempData.overdraftLoanForm.subsidyOrAgricultureLoan;
-                    if (this.tempData.overdraftLoanForm.arFinancing === true) {
-                        this.arFinancingOverdraftLoanWorking = true;
-                    }
-                }
-                if (v.loanName === LoanNameConstant.MORTGAGE_OVERDRAFT || v.loanName === LoanNameConstant.EQUITY_MORTGAGED_OVERDRAFT &&
-                    !ObjectUtil.isEmpty(this.tempData.equityMortgaged)) {
-                    this.isEquityMortgageOverdraft = true;
-                    this.loanSubTypeEquityMortgage = this.tempData.equityMortgaged.loanSubType;
-                    this.drawingBasisEquityMortgage = this.tempData.equityMortgaged.drawingBasis;
-                    this.mortgageTypeEquityMortgage = this.tempData.equityMortgaged.mortgageType;
-                    this.interestSubsidyAgEquityMortgage = this.tempData.equityMortgaged.subsidyOrAgricultureLoan;
-                }
-                // tslint:disable-next-line:max-line-length
-                if (v.loanName === LoanNameConstant.OVERDRAFT_FACILITY_FIXED_DEPOSIT || v.loanName === LoanNameConstant.OVERDRAFT_FACILITY_LIEN_ON_DEPOSIT_ACCOUNT ||
-                    v.loanName === LoanNameConstant.STL_AGAINST_FIXED_DEPOSIT ||
-                    v.loanName === LoanNameConstant.STL_LIEN_ON_DEPOSIT_ACCOUNT ||
-                    v.loanName === LoanNameConstant.DL_AGAINST_FIXED_DEPOSIT ||
-                    v.loanName === LoanNameConstant.DL_LIEN_ON_DEPOSIT_ACCOUNT &&
-                    !ObjectUtil.isEmpty(this.tempData.overdraftFixedForm)) {
-                    this.isOverDraftFacilityFixedDeposit = true;
-                    this.subLoanOptionOverdraftFixedForm = this.tempData.overdraftFixedForm.subLoanOption;
-                    this.holdingBankOverdraftFixedForm = this.tempData.overdraftFixedForm.holdingBank;
-                    this.letterOfSetOffOverdraftFixedForm = this.tempData.overdraftFixedForm.letterOfSetOff;
-                    this.interestRateTypeOverdraftFixedForm = this.tempData.overdraftFixedForm.interestRateType;
-                    this.interestSubsidyAgOverdraftFixedForm = this.tempData.overdraftFixedForm.subsidyOrAgricultureLoan;
-                    this.accountTypeOverdraftFixedForm = this.tempData.overdraftFixedForm.accountType;
-                    if (this.tempData.overdraftFixedForm.checkAdditionalPremiumRate === true) {
-                        this.checkAdditionalPremiumRateOverdraftFixedForm = true;
-                    }
-                }
-                // tslint:disable-next-line:max-line-length
-                if (v.loanName === LoanNameConstant.OVERDRAFT_FACILITY_AGAINST_BOND || v.loanName === LoanNameConstant.STL_FACILITY_AGAINST_BOND ||
-                    v.loanName === LoanNameConstant.DL_FACILITY_AGAINST_BOND && !ObjectUtil.isEmpty(this.tempData.overDraftFacilityForm)) {
-                    this.isOverdraftFacilityAgainstBond = true;
-                    this.letterOfSetOffFacilityAgainstBond = this.tempData.overDraftFacilityForm.letterOfSetOffUsed;
-                    this.interestSubsidyAgFacilityAgainstBond = this.tempData.overDraftFacilityForm.subsidyOrAgricultureLoan;
-                    this.interestRateTypeFacilityAgainstBond = this.tempData.overDraftFacilityForm.interestRateType;
-                }
-                if (v.loanName === LoanNameConstant.BRIDGE_GAP_LOAN && !ObjectUtil.isEmpty(this.tempData.bridgeGapLoan)) {
-                    this.isBridgeGapLoan = true;
-                    this.complementaryOtherBridgeGapLoanName = this.tempData.bridgeGapLoan.complimentaryLoanSelected;
-                    if (this.tempData.bridgeGapLoan.interestSubsidy === true) {
-                        this.interestSubsidyAgBridgeGapLoan = true;
-                    }
-                    if (this.tempData.bridgeGapLoan.complementryOther === true) {
-                        this.complementaryOtherBridgeGapLoan = true;
-                    }
-                }
                 if (v.loanName === LoanNameConstant.TERM_LOAN_TO_FOR_PURCHASE_OF_VEHICLE) {
                     this.isTermLoanToOrFor = true;
                 }
-                /*if (v.loanName === LoanNameConstant.MORTGAGE_TERM_LOAN_EQUITY_MORTGAGE_TERM_LOAN) {
-                    this.isEquityMortgageTermLoan = true;
-                }*/
                 if (v.loanName === LoanNameConstant.AUTO_LOAN) {
                     this.isAutoLoanMaster = true;
-                }
-                if (v.loanName === LoanNameConstant.BANK_GUARANTEE && !ObjectUtil.isEmpty(this.tempData.bankGuarantee)) {
-                    this.isBankGuarantee = true;
-                    this.securityTypeBankGuarantee = this.tempData.bankGuarantee.securityType;
-                    this.guaranteeTypeBankGuarantee = this.tempData.bankGuarantee.guaranteeType;
-                    this.commissionTypeBankGuarantee = this.tempData.bankGuarantee.commissionType;
-                    this.complementaryOtherBankGuaranteeName = this.tempData.bankGuarantee.complimentaryLoanSelected;
-                    if (this.tempData.bankGuarantee.complementryOther === true) {
-                        this.complementaryOtherBankGuarantee = true;
-                    }
-                }
-                if (v.loanName === LoanNameConstant.BILLS_PURCHASE && !ObjectUtil.isEmpty(this.tempData.billPurchaseForm)) {
-                    this.isBillPurchase = true;
-                    this.complementaryOtherBillPurchaseName = this.tempData.billPurchaseForm.complimentaryLoanSelected;
-                    if (this.tempData.billPurchaseForm.complementryOther === true) {
-                        this.complementaryOtherBillPurchase = true;
-                    }
                 }
             });
         }
     }
 
     getFDName() {
-        if (!ObjectUtil.isEmpty(this.tempData.overdraftFixedForm)) {
-            if (this.tempData.overdraftFixedForm['fdHolderDetails'].length === 1) {
-                const temp = this.tempData.overdraftFixedForm['fdHolderDetails'][0].nameOfFDHolderCT;
-                this.FDName = temp;
-            } else if (this.tempData.overdraftFixedForm['fdHolderDetails'].length === 2) {
-                for (let i = 0; i < this.tempData.overdraftFixedForm['fdHolderDetails'].length; i++ ) {
-                    const temp = this.tempData.overdraftFixedForm['fdHolderDetails'][i].nameOfFDHolderCT;
-                    this.FDNames.push(temp);
+        if (!ObjectUtil.isEmpty(this.tempData) &&
+            !ObjectUtil.isEmpty(this.tempData.overdraftFixedForm)) {
+            if (!ObjectUtil.isEmpty(this.tempData.overdraftFixedForm.odFdFormArray)) {
+                this.getFixedDepositors(this.tempData.overdraftFixedForm.odFdFormArray,
+                    this.FDName, this.FDNames, this.allFdNames, this.finalFdName);
+            }
+            if (!ObjectUtil.isEmpty(this.tempData.overdraftFixedForm.stlAgainstFixedDepositFormArray)) {
+                this.getFixedDepositors(this.tempData.overdraftFixedForm.stlAgainstFixedDepositFormArray,
+                    this.FDNameStl, this.FDNamesStl, this.allFdNamesStl, this.finalFdNameStl);
+            }
+            if (!ObjectUtil.isEmpty(this.tempData.overdraftFixedForm.dlAgainstFixedDepositFormArray)) {
+                this.getFixedDepositors(this.tempData.overdraftFixedForm.dlAgainstFixedDepositFormArray,
+                    this.FDNameDl, this.FDNamesDl, this.allFdNamesDl, this.finalFdNameDl);
+            }
+        }
+    }
+
+    getFixedDepositors(mainArray, name, names, allNames, finalName) {
+        for (let val = 0; val < mainArray.length; val++) {
+            if (mainArray[val]['fdHolderDetails'].length > 0) {
+                if (mainArray[val]['fdHolderDetails'].length === 1) {
+                    const temp = mainArray[val]['fdHolderDetails'][0].nameOfFDHolderCT;
+                    name = temp;
+                } else if (mainArray[val]['fdHolderDetails'].length === 2) {
+                    for (let i = 0; i < mainArray[val]['fdHolderDetails'].length; i++) {
+                        const temp = mainArray[val]['fdHolderDetails'][i].nameOfFDHolderCT;
+                        names.push(temp);
+                    }
+                    allNames = names.join(' र ');
+                    name = allNames;
+                } else {
+                    for (let i = 0; i < mainArray[val]['fdHolderDetails'].length - 1; i++) {
+                        const temp = mainArray[val]['fdHolderDetails'][i].nameOfFDHolderCT;
+                        names.push(temp);
+                    }
+                    allNames = names.join(' , ');
+                    // tslint:disable-next-line:max-line-length
+                    const temp1 = mainArray[val]['fdHolderDetails'][mainArray[val]['fdHolderDetails'].length - 1].nameOfFDHolderCT;
+                    name = allNames + ' र ' + temp1;
                 }
-                this.allFDNames = this.FDNames.join(' र ');
-                this.FDName = this.allFDNames;
-            } else {
-                for (let i = 0; i < this.tempData.overdraftFixedForm['fdHolderDetails'].length - 1; i++ ) {
-                    const temp = this.tempData.overdraftFixedForm['fdHolderDetails'][i].nameOfFDHolderCT;
-                    this.FDNames.push(temp);
-                }
-                this.allFDNames = this.FDNames.join(' , ');
-                // tslint:disable-next-line:max-line-length
-                const temp1 = this.tempData.overdraftFixedForm['fdHolderDetails'][this.tempData.overdraftFixedForm['fdHolderDetails'].length - 1].nameOfFDHolderCT;
-                this.FDName = this.allFDNames + ' र ' + temp1;
+                finalName.push(name);
+                name = '';
+                allNames = '';
+                names = [];
             }
         }
     }
 
     getDepName() {
-        if (!ObjectUtil.isEmpty(this.tempData.overdraftFixedForm)) {
-            if (this.tempData.overdraftFixedForm['depositorDetails'].length === 1) {
-                const temp = this.tempData.overdraftFixedForm['depositorDetails'][0].nameOfDepositorsCT;
-                this.DepName = temp;
-            } else if (this.tempData.overdraftFixedForm['depositorDetails'].length === 2) {
-                for (let i = 0; i < this.tempData.overdraftFixedForm['depositorDetails'].length; i++ ) {
-                    const temp = this.tempData.overdraftFixedForm['depositorDetails'][i].nameOfDepositorsCT;
-                    this.DepNames.push(temp);
+        if (!ObjectUtil.isEmpty(this.tempData) &&
+            !ObjectUtil.isEmpty(this.tempData.overdraftFixedForm)) {
+            if (!ObjectUtil.isEmpty(this.tempData.overdraftFixedForm.overdraftLienOnDepositFormArray)) {
+                this.getDepositor(this.tempData.overdraftFixedForm.overdraftLienOnDepositFormArray,
+                    this.DepNameOverdraftLien, this.DepNamesOverdraftLien, this.allDepNamesOverdraftLien, this.finalDepNameOverdraftLien);
+            }
+            if (!ObjectUtil.isEmpty(this.tempData.overdraftFixedForm.stlLienOnDepositFormArray)) {
+                this.getDepositor(this.tempData.overdraftFixedForm.stlLienOnDepositFormArray,
+                    this.DepNameStlLien, this.DepNamesStlLien, this.allDepNamesStlLien, this.finalDepNameStlLien);
+            }
+            if (!ObjectUtil.isEmpty(this.tempData.overdraftFixedForm.dlAgainstLienOnDepositFormArray)) {
+                this.getDepositor(this.tempData.overdraftFixedForm.dlAgainstLienOnDepositFormArray,
+                    this.DepNameDlLien, this.DepNamesDlLien, this.allDepNamesDlLien, this.finalDepNameDlLien);
+            }
+        }
+    }
+
+    getDepositor(mainArray, name, names, allNames, finalName) {
+        if (mainArray.length > 0) {
+            for (let val = 0; val < mainArray.length; val++) {
+                if (mainArray[val]['depositorDetails'].length > 0) {
+                    if (mainArray[val]['depositorDetails'].length === 1) {
+                        const temp = mainArray[val]['depositorDetails'][0].nameOfDepositorsCT;
+                        name = temp;
+                    } else if (mainArray[val]['depositorDetails'].length === 2) {
+                        for (let i = 0; i < mainArray[val]['depositorDetails'].length; i++) {
+                            const temp = mainArray[val]['depositorDetails'][i].nameOfDepositorsCT;
+                            names.push(temp);
+                        }
+                        allNames = names.join(' र ');
+                        name = allNames;
+                    } else {
+                        for (let i = 0; i < mainArray[val]['depositorDetails'].length - 1; i++) {
+                            const temp = mainArray[val]['depositorDetails'][i].nameOfDepositorsCT;
+                            names.push(temp);
+                        }
+                        allNames = names.join(' , ');
+                        // tslint:disable-next-line:max-line-length
+                        const temp1 = mainArray[val]['depositorDetails'][mainArray[val]['depositorDetails'].length - 1].nameOfDepositorsCT;
+                        name = allNames + ' र ' + temp1;
+                    }
                 }
-                this.allDepNames = this.DepNames.join(' र ');
-                this.DepName = this.allDepNames;
-            } else {
-                for (let i = 0; i < this.tempData.overdraftFixedForm['depositorDetails'].length - 1; i++ ) {
-                    const temp = this.tempData.overdraftFixedForm['depositorDetails'][i].nameOfDepositorsCT;
-                    this.DepNames.push(temp);
-                }
-                this.allDepNames = this.DepNames.join(' , ');
-                // tslint:disable-next-line:max-line-length
-                const temp1 = this.tempData.overdraftFixedForm['depositorDetails'][this.tempData.overdraftFixedForm['depositorDetails'].length - 1].nameOfDepositorsCT;
-                this.DepName = this.allDepNames + ' र ' + temp1;
+                finalName.push(name);
+                name = '';
+                allNames = '';
+                names = [];
             }
         }
     }
 
     getBondName() {
         if (!ObjectUtil.isEmpty(this.tempData) &&
-            !ObjectUtil.isEmpty(this.tempData.overDraftFacilityForm) &&
-            !ObjectUtil.isEmpty(this.tempData.overDraftFacilityForm.overdraftFacilityDetails)) {
-            for (let val = 0; val < this.tempData.overDraftFacilityForm.overdraftFacilityDetails.length; val++) {
-                if (this.tempData.overDraftFacilityForm.overdraftFacilityDetails[val]['bondDetails'].length === 1) {
-                    const temp = this.tempData.overDraftFacilityForm.overdraftFacilityDetails[val]['bondDetails'][0].bondOwnerNameCT;
-                    this.BondName = temp;
-                } else if (this.tempData.overDraftFacilityForm.overdraftFacilityDetails[val]['bondDetails'].length === 2) {
-                    for (let i = 0; i < this.tempData.overDraftFacilityForm.overdraftFacilityDetails[val]['bondDetails'].length; i++) {
-                        const temp = this.tempData.overDraftFacilityForm.overdraftFacilityDetails[val]['bondDetails'][i].bondOwnerNameCT;
-                        this.BondNames.push(temp);
+            !ObjectUtil.isEmpty(this.tempData.overDraftFacilityForm)) {
+            if (!ObjectUtil.isEmpty(this.tempData.overDraftFacilityForm.overdraftFacilityDetails)) {
+                this.getBondDetails(this.tempData.overDraftFacilityForm.overdraftFacilityDetails,
+                    this.BondName, this.BondNames, this.allBondNames, this.finalBondName);
+            }
+            if (!ObjectUtil.isEmpty(this.tempData.overDraftFacilityForm.dlAgainstBondFormArray)) {
+                this.getBondDetails(this.tempData.overDraftFacilityForm.dlAgainstBondFormArray,
+                    this.BondNameDl, this.BondNamesDl, this.allBondNamesDl, this.finalBondNameDl);
+            }
+            if (!ObjectUtil.isEmpty(this.tempData.overDraftFacilityForm.stlAgainstBondFormArray)) {
+                this.getBondDetails(this.tempData.overDraftFacilityForm.stlAgainstBondFormArray,
+                    this.BondNameStl, this.BondNamesStl, this.allBondNamesStl, this.finalBondNameStl);
+            }
+        }
+    }
+    getBondDetails(mainArray, name, names, allNames, finalName) {
+        for (let val = 0; val < mainArray.length; val++) {
+            if (mainArray[val]['bondDetails'].length > 0) {
+                if (mainArray[val]['bondDetails'].length === 1) {
+                    const temp = mainArray[val]['bondDetails'][0].bondOwnerNameCT;
+                    name = temp;
+                } else if (mainArray[val]['bondDetails'].length === 2) {
+                    for (let i = 0; i < mainArray[val]['bondDetails'].length; i++) {
+                        const temp = mainArray[val]['bondDetails'][i].bondOwnerNameCT;
+                        names.push(temp);
                     }
-                    this.allBondNames = this.BondNames.join(' र ');
-                    this.BondName = this.allBondNames;
+                    allNames = names.join(' र ');
+                    name = allNames;
                 } else {
-                    for (let i = 0; i < this.tempData.overDraftFacilityForm.overdraftFacilityDetails[val]['bondDetails'].length - 1; i++) {
-                        const temp = this.tempData.overDraftFacilityForm.overdraftFacilityDetails[val]['bondDetails'][i].bondOwnerNameCT;
-                        this.BondNames.push(temp);
+                    for (let i = 0; i < mainArray[val]['bondDetails'].length - 1; i++) {
+                        const temp = mainArray[val]['bondDetails'][i].bondOwnerNameCT;
+                        names.push(temp);
                     }
-                    this.allBondNames = this.BondNames.join(' , ');
+                    allNames = names.join(' , ');
                     // tslint:disable-next-line:max-line-length
-                    const temp1 = this.tempData.overDraftFacilityForm.overdraftFacilityDetails[val]['bondDetails'][this.tempData.overDraftFacilityForm.overdraftFacilityDetails[val]['bondDetails'].length - 1].bondOwnerNameCT;
-                    this.BondName = this.allBondNames + ' र ' + temp1;
+                    const temp1 = mainArray[val]['bondDetails'][mainArray[val]['bondDetails'].length - 1].bondOwnerNameCT;
+                    name = allNames + ' र ' + temp1;
                 }
-                this.finalBondName.push(this.BondName);
-                this.BondName = '';
-                this.allBondNames = '';
-                this.BondNames = [];
+                finalName.push(name);
+                name = '';
+                allNames = '';
+                names = [];
             }
         }
     }
@@ -462,5 +360,14 @@ export class Section2LoanTypePrintComponent implements OnInit {
         this.preExportLoan = this.loanData.filter(data => data.loanName === this.loanNameConstant.PRE_EXPORT_LOAN);
         this.equityMortgageTermLoan = this.loanData.filter(data => data.loanName === this.loanNameConstant.EQUITY_MORTGAGE_TERM_LOAN);
         this.mortgageTermLoan = this.loanData.filter(data => data.loanName === this.loanNameConstant.MORTGAGE_TERM_LOAN);
+        this.overdraftFacilityFixedDeposit = this.loanData.filter(data => data.loanName === this.loanNameConstant.OVERDRAFT_FACILITY_FIXED_DEPOSIT);
+        this.overdraftFacilityLienDeposit = this.loanData.filter(data => data.loanName === this.loanNameConstant.OVERDRAFT_FACILITY_LIEN_ON_DEPOSIT_ACCOUNT);
+        this.stlFixedDeposit = this.loanData.filter(data => data.loanName === this.loanNameConstant.STL_AGAINST_FIXED_DEPOSIT);
+        this.stlLienDeposit = this.loanData.filter(data => data.loanName === this.loanNameConstant.STL_LIEN_ON_DEPOSIT_ACCOUNT);
+        this.dlFixedDeposit = this.loanData.filter(data => data.loanName === this.loanNameConstant.DL_AGAINST_FIXED_DEPOSIT);
+        this.dlLienDeposit = this.loanData.filter(data => data.loanName === this.loanNameConstant.DL_LIEN_ON_DEPOSIT_ACCOUNT);
+        this.bankGuaranteeLoan = this.loanData.filter(data => data.loanName === this.loanNameConstant.BANK_GUARANTEE);
+        this.stlAgainstBond = this.loanData.filter(data => data.loanName === this.loanNameConstant.STL_FACILITY_AGAINST_BOND);
+        this.dlAgainstBond = this.loanData.filter(data => data.loanName === this.loanNameConstant.DL_FACILITY_AGAINST_BOND);
     }
 }

@@ -19,6 +19,7 @@ export class OverdraftFacilityAgainstFixedDepositComponent implements OnInit {
   @Input() loanName;
   @Input() customerApprovedDoc;
   @Input() offerDocumentList: Array<OfferDocument>;
+  @Input() isEdit;
   initialInformation: any;
   overdraftFixedForm: FormGroup;
   loanDetails: any = [];
@@ -47,7 +48,12 @@ export class OverdraftFacilityAgainstFixedDepositComponent implements OnInit {
   filteredList: any = [];
   loanNameConstant = LoanNameConstant;
   overdraftLoanNumber: Array<any> = new Array<any>();
-
+  filteredListLien: any = [];
+  filteredListStl: any = [];
+  filteredListStlLien: any = [];
+  filteredListDL: any = [];
+  filteredListDlLien: any = [];
+  initialData;
 
   constructor(private formBuilder: FormBuilder,
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
@@ -56,58 +62,154 @@ export class OverdraftFacilityAgainstFixedDepositComponent implements OnInit {
               private engToNepNumberPipe: EngToNepaliNumberPipe,
               private currencyFormatterPipe: CurrencyFormatterPipe,
               private translateService: SbTranslateService,
-              private translatedService: SbTranslateService ) { }
+              private translatedService: SbTranslateService,
+              private engToNepWord: NepaliCurrencyWordPipe) { }
 
   ngOnInit() {
+    if (!ObjectUtil.isEmpty(this.customerApprovedDoc)) {
+      this.initialData = JSON.parse(this.customerApprovedDoc.offerDocumentList[0].initialInformation);
+    }
     this.overdraftLoanNumber = this.customerApprovedDoc.assignedLoan.filter(val =>
         val.loan.name === 'OVERDRAFT FACILITY FIXED DEPOSIT');
    this.buildForm();
    if (!ObjectUtil.isEmpty(this.loanName)) {
      this.loanDetails = this.loanName;
+     this.filterLoanDetails(this.loanDetails);
    }
     if (this.offerDocumentList.length > 0) {
       this.offerDocumentList.forEach(offerLetter => {
         this.initialInformation = JSON.parse(offerLetter.initialInformation);
       });
       if (!ObjectUtil.isEmpty(this.initialInformation)) {
-        this.overdraftFixedForm.get('odFdFormArray').patchValue(this.initialInformation.overdraftFixedForm.odFdFormArray);
+        this.overdraftFixedForm.patchValue(this.initialInformation.overdraftFixedForm);
       }
-/*      const dateOfExpiryType = this.initialInformation.overdraftFixedForm.dateOfExpiryType;
-      if (dateOfExpiryType === 'AD') {
-        const dateOfExpiry = this.initialInformation.overdraftFixedForm.dateOfExpiry;
-        if (!ObjectUtil.isEmpty(dateOfExpiry)) {
-          this.overdraftFixedForm.get('dateOfExpiry').patchValue(new Date(dateOfExpiry));
-        }
-      } else if (dateOfExpiryType === 'BS') {
-        const dateOfExpiry = this.initialInformation.overdraftFixedForm.dateOfExpiryNepali;
-        if (!ObjectUtil.isEmpty(dateOfExpiry)) {
-          this.overdraftFixedForm.get('dateOfExpiryNepali').patchValue(dateOfExpiry);
-        }
-      }*/
-      this.patchDate();
+      Object.keys(this.initialInformation.overdraftFixedForm).forEach((val) => {
+        this.patchDate(val);
+      });
+    }
+    if (!ObjectUtil.isEmpty(this.filteredList)) {
+      this.loanAmountPatch(this.filteredList, 'odFdFormArray');
+    }
+    if (!ObjectUtil.isEmpty(this.filteredListLien)) {
+      this.loanAmountPatch(this.filteredListLien, 'overdraftLienOnDepositFormArray');
+    }
+    if (!ObjectUtil.isEmpty(this.filteredListStl)) {
+      this.loanAmountPatch(this.filteredListStl, 'stlAgainstFixedDepositFormArray');
+    }
+    if (!ObjectUtil.isEmpty(this.filteredListStlLien)) {
+      this.loanAmountPatch(this.filteredListStlLien, 'stlLienOnDepositFormArray');
+    }
+    if (!ObjectUtil.isEmpty(this.filteredListDL)) {
+      this.loanAmountPatch(this.filteredListDL, 'dlAgainstFixedDepositFormArray');
+    }
+    if (!ObjectUtil.isEmpty(this.filteredListDlLien)) {
+      this.loanAmountPatch(this.filteredListDlLien, 'dlAgainstLienOnDepositFormArray');
     }
   }
-  patchDate() {
-    for (let val = 0; val < this.initialInformation.overdraftFixedForm.odFdFormArray.length; val++) {
-      const dateOfExpiryType = this.initialInformation.overdraftFixedForm.odFdFormArray[val].dateOfExpiryType;
+  loanAmountPatch(array, formArray) {
+    for (let val = 0; val < array.length; val++) {
+      const loanamountWords = this.engToNepWord.transform(array[val].loanAmount);
+      this.overdraftFixedForm.get([formArray, val, 'loanAmount']).patchValue(
+          array[val] ? array[val].loanAmount : '');
+      this.overdraftFixedForm.get([formArray, val, 'loanAmountWords']).patchValue(
+          loanamountWords ? loanamountWords : '');
+    }
+  }
+  filterLoanDetails(loanDetails) {
+    this.filteredList = loanDetails.filter(data => data.name === this.loanNameConstant.OVERDRAFT_FACILITY_FIXED_DEPOSIT);
+    this.filteredListLien = loanDetails.filter(data => data.name === this.loanNameConstant.OVERDRAFT_FACILITY_LIEN_ON_DEPOSIT_ACCOUNT);
+    this.filteredListStl = loanDetails.filter(data => data.name === this.loanNameConstant.STL_AGAINST_FIXED_DEPOSIT);
+    this.filteredListStlLien = loanDetails.filter(data => data.name === this.loanNameConstant.STL_LIEN_ON_DEPOSIT_ACCOUNT);
+    this.filteredListDL = loanDetails.filter(data => data.name === this.loanNameConstant.DL_AGAINST_FIXED_DEPOSIT);
+    this.filteredListDlLien = loanDetails.filter(data => data.name === this.loanNameConstant.DL_LIEN_ON_DEPOSIT_ACCOUNT);
+    this.filteredList.forEach((value, i) => {
+      this.setTermLoanForm();
+      if (this.isEdit) {
+        this.setFixedDepositors('odFdFormArray', i, this.initialData.overdraftFixedForm.odFdFormArray[i].fdHolderDetails);
+      }
+    });
+    this.filteredListLien.forEach((value, i) => {
+      this.setOverdraftLienLoanForm();
+      if (this.isEdit) {
+        this.setDepositors('overdraftLienOnDepositFormArray', i, this.initialData.overdraftFixedForm.overdraftLienOnDepositFormArray[i].depositorDetails);
+      }
+    });
+    this.filteredListStl.forEach((value, i) => {
+      this.setStlLoanForm();
+      if (this.isEdit) {
+        this.setFixedDepositors('stlAgainstFixedDepositFormArray', i, this.initialData.overdraftFixedForm.stlAgainstFixedDepositFormArray[i].fdHolderDetails);
+      }
+    });
+    this.filteredListStlLien.forEach((value, i) => {
+      this.setStlLienLoanForm();
+      if (this.isEdit) {
+        this.setDepositors('stlLienOnDepositFormArray', i, this.initialData.overdraftFixedForm.stlLienOnDepositFormArray[i].depositorDetails);
+      }
+    });
+    this.filteredListDL.forEach((value, i) => {
+      this.setDlLoanForm();
+      if (this.isEdit) {
+        this.setFixedDepositors('dlAgainstFixedDepositFormArray', i, this.initialData.overdraftFixedForm.dlAgainstFixedDepositFormArray[i].fdHolderDetails);
+      }
+    });
+    this.filteredListDlLien.forEach((value, i) => {
+      this.setDlLienLoanForm();
+      if (this.isEdit) {
+        this.setDepositors('dlAgainstLienOnDepositFormArray', i, this.initialData.overdraftFixedForm.dlAgainstLienOnDepositFormArray[i].depositorDetails);
+      }
+    });
+  }
+  setFixedDepositors(patchingArray, ind, nestArray) {
+    if (nestArray.length > 0) {
+      for (let a = 0; a < nestArray.length; a++) {
+        (this.overdraftFixedForm.get([patchingArray, ind, 'fdHolderDetails']) as FormArray).push(
+            this.formBuilder.group({
+              nameOfFDHolder: [undefined],
+              nameOfFDHolderTrans: [undefined],
+              nameOfFDHolderCT: [undefined],
+            })
+        );
+      }
+    }
+  }
+  setDepositors(patchingArray, ind, nestArray) {
+    if (nestArray.length > 0) {
+      for (let a = 0; a < nestArray.length; a++) {
+        (this.overdraftFixedForm.get([patchingArray, ind, 'depositorDetails']) as FormArray).push(
+            this.formBuilder.group({
+              nameOfDepositors: [undefined],
+              nameOfDepositorsTrans: [undefined],
+              nameOfDepositorsCT: [undefined],
+            })
+        );
+      }
+    }
+  }
+  patchDate(mainArray) {
+    for (let val = 0; val < mainArray.length; val++) {
+      const dateOfExpiryType = mainArray[val].dateOfExpiryType;
       if (dateOfExpiryType === 'AD') {
-        const dateOfExpiry = this.initialInformation.overdraftFixedForm.odFdFormArray[val].dateOfExpiry;
+        const dateOfExpiry = mainArray[val].dateOfExpiry;
         if (!ObjectUtil.isEmpty(dateOfExpiry)) {
-          this.overdraftFixedForm.get(['odFdFormArray', val, 'dateOfExpiry']).patchValue(new Date(dateOfExpiry));
+          this.overdraftFixedForm.get([mainArray, val, 'dateOfExpiry']).patchValue(new Date(dateOfExpiry));
         }
       } else if (dateOfExpiryType === 'BS') {
-        const dateOfExpiry = this.initialInformation.overdraftFixedForm.odFdFormArray[val].dateOfExpiryNepali;
+        const dateOfExpiry = mainArray[val].dateOfExpiryNepali;
         if (!ObjectUtil.isEmpty(dateOfExpiry)) {
-          this.overdraftFixedForm.get(['odFdFormArray', val, 'dateOfExpiryNepali']).patchValue(dateOfExpiry);
+          this.overdraftFixedForm.get([mainArray, val, 'dateOfExpiryNepali']).patchValue(dateOfExpiry);
         }
       }
     }
   }
   buildForm() {
     this.overdraftFixedForm = this.formBuilder.group({
-      odFdFormArray: this.formBuilder.array([])
+      odFdFormArray: this.formBuilder.array([]),
+      overdraftLienOnDepositFormArray: this.formBuilder.array([]),
+      stlAgainstFixedDepositFormArray: this.formBuilder.array([]),
+      stlLienOnDepositFormArray: this.formBuilder.array([]),
+      dlAgainstFixedDepositFormArray: this.formBuilder.array([]),
+      dlAgainstLienOnDepositFormArray: this.formBuilder.array([]),
     });
-    this.setTermLoanForm();
   }
   buildLoanForm() {
     return this.formBuilder.group({
@@ -195,12 +297,25 @@ export class OverdraftFacilityAgainstFixedDepositComponent implements OnInit {
     });
   }
   setTermLoanForm() {
-    for (let a = 0; a < this.overdraftLoanNumber.length; a++) {
-      (this.overdraftFixedForm.get('odFdFormArray') as FormArray).push(this.buildLoanForm());
-    }
+    (this.overdraftFixedForm.get('odFdFormArray') as FormArray).push(this.buildLoanForm());
+  }
+  setOverdraftLienLoanForm() {
+    (this.overdraftFixedForm.get('overdraftLienOnDepositFormArray') as FormArray).push(this.buildLoanForm());
+  }
+  setStlLoanForm() {
+    (this.overdraftFixedForm.get('stlAgainstFixedDepositFormArray') as FormArray).push(this.buildLoanForm());
+  }
+  setStlLienLoanForm() {
+    (this.overdraftFixedForm.get('stlLienOnDepositFormArray') as FormArray).push(this.buildLoanForm());
+  }
+  setDlLoanForm() {
+    (this.overdraftFixedForm.get('dlAgainstFixedDepositFormArray') as FormArray).push(this.buildLoanForm());
+  }
+  setDlLienLoanForm() {
+    (this.overdraftFixedForm.get('dlAgainstLienOnDepositFormArray') as FormArray).push(this.buildLoanForm());
   }
 
-  subLoanOption(data, i) {
+  subLoanOption(data, i, mainArray) {
     const tempData = !ObjectUtil.isEmpty(data) ? data : '';
     this.isFixedDeposit = tempData === 'AGAINST_FIXED_DEPOSIT';
     this.isDepositAccount = tempData === 'AGAINST_DEPOSIT_ACCOUNT';
@@ -212,7 +327,7 @@ export class OverdraftFacilityAgainstFixedDepositComponent implements OnInit {
     this.isExisting = tempData === 'EXISTING';
   }
 
-  changeInterestRateType(data) {
+  changeInterestRateType(data, mainArray) {
     const tempData = !ObjectUtil.isEmpty(data) ? data : '';
     this.isCoupenRate = tempData === 'COUPEN_RATE_FINANCING';
     this.isBaseRate = tempData === 'BASE_RATE_FINANCING';
@@ -248,11 +363,11 @@ export class OverdraftFacilityAgainstFixedDepositComponent implements OnInit {
   //   const sum = parseFloat(baseRate) + parseFloat(premiumRate);
   //   this.overdraftFixedForm.get([arrName, index, 'interestRate']).patchValue(sum);
   // }
-  calInterestRate(i) {
-    const baseRate = this.overdraftFixedForm.get(['odFdFormArray', i, 'baseRate']).value;
-    const premiumRate = this.overdraftFixedForm.get(['odFdFormArray', i, 'premiumRate']).value;
+  calInterestRate(i, mainArray) {
+    const baseRate = this.overdraftFixedForm.get([mainArray, i, 'baseRate']).value;
+    const premiumRate = this.overdraftFixedForm.get([mainArray, i, 'premiumRate']).value;
     const sum = parseFloat(baseRate) + parseFloat(premiumRate);
-    this.overdraftFixedForm.get(['odFdFormArray', i, 'interestRate']).patchValue(sum.toFixed(3));
+    this.overdraftFixedForm.get([mainArray, i, 'interestRate']).patchValue(sum.toFixed(3));
 }
 
   public checkDateOfExpiry(value): void {
@@ -260,111 +375,111 @@ export class OverdraftFacilityAgainstFixedDepositComponent implements OnInit {
     this.BSExpiry = value === 'BS';
   }
 
-  async translateAndSetVal(index) {
+  async translateAndSetVal(index, mainArray) {
 
     /* SET TRANS VALUE FOR CONDITIONS */
-    const tempLoanOptions = this.overdraftFixedForm.get(['odFdFormArray', index, 'subLoanOption']).value;
+    const tempLoanOptions = this.overdraftFixedForm.get([mainArray, index, 'subLoanOption']).value;
     if (!ObjectUtil.isEmpty(tempLoanOptions)) {
-      this.overdraftFixedForm.get(['odFdFormArray', index, 'subLoanOptionTrans']).patchValue(tempLoanOptions);
+      this.overdraftFixedForm.get([mainArray, index, 'subLoanOptionTrans']).patchValue(tempLoanOptions);
     }
 
-    const templetterOfSetOff = this.overdraftFixedForm.get(['odFdFormArray', index, 'letterOfSetOff']).value;
+    const templetterOfSetOff = this.overdraftFixedForm.get([mainArray, index, 'letterOfSetOff']).value;
     if (!ObjectUtil.isEmpty(templetterOfSetOff)) {
-      this.overdraftFixedForm.get(['odFdFormArray', index, 'letterOfSetOffTrans']).patchValue(templetterOfSetOff);
+      this.overdraftFixedForm.get([mainArray, index, 'letterOfSetOffTrans']).patchValue(templetterOfSetOff);
     }
 
-    const tempinterestRateType = this.overdraftFixedForm.get(['odFdFormArray', index, 'interestRateType']).value;
+    const tempinterestRateType = this.overdraftFixedForm.get([mainArray, index, 'interestRateType']).value;
     if (!ObjectUtil.isEmpty(tempinterestRateType)) {
-      this.overdraftFixedForm.get(['odFdFormArray', index, 'interestRateTypeTrans']).patchValue(tempinterestRateType);
+      this.overdraftFixedForm.get([mainArray, index, 'interestRateTypeTrans']).patchValue(tempinterestRateType);
     }
-    const tempComplementary = this.overdraftFixedForm.get(['odFdFormArray', index, 'additionalPremiumRate']).value;
+    const tempComplementary = this.overdraftFixedForm.get([mainArray, index, 'additionalPremiumRate']).value;
     if (!ObjectUtil.isEmpty(tempComplementary)) {
-      this.overdraftFixedForm.get(['odFdFormArray', index, 'additionalPremiumRateTrans']).patchValue(tempComplementary);
+      this.overdraftFixedForm.get([mainArray, index, 'additionalPremiumRateTrans']).patchValue(tempComplementary);
     }
-    const tempadditionalPremiumRate = this.overdraftFixedForm.get(['odFdFormArray', index, 'checkAdditionalPremiumRate']).value;
+    const tempadditionalPremiumRate = this.overdraftFixedForm.get([mainArray, index, 'checkAdditionalPremiumRate']).value;
     if (!ObjectUtil.isEmpty(tempadditionalPremiumRate)) {
-      this.overdraftFixedForm.get(['odFdFormArray', index, 'checkAdditionalPremiumRateTrans']).patchValue(tempadditionalPremiumRate);
+      this.overdraftFixedForm.get([mainArray, index, 'checkAdditionalPremiumRateTrans']).patchValue(tempadditionalPremiumRate);
     }
 
-    const tempholdingBank = this.overdraftFixedForm.get(['odFdFormArray', index, 'holdingBank']).value;
+    const tempholdingBank = this.overdraftFixedForm.get([mainArray, index, 'holdingBank']).value;
     if (!ObjectUtil.isEmpty(tempholdingBank)) {
-      this.overdraftFixedForm.get(['odFdFormArray', index, 'holdingBankTrans']).patchValue(tempholdingBank);
+      this.overdraftFixedForm.get([mainArray, index, 'holdingBankTrans']).patchValue(tempholdingBank);
     }
 
-    const tempaccountType = this.overdraftFixedForm.get(['odFdFormArray', index, 'accountType']).value;
+    const tempaccountType = this.overdraftFixedForm.get([mainArray, index, 'accountType']).value;
     if (!ObjectUtil.isEmpty(tempaccountType)) {
-      this.overdraftFixedForm.get(['odFdFormArray', index, 'accountTypeTrans']).patchValue(tempaccountType);
+      this.overdraftFixedForm.get([mainArray, index, 'accountTypeTrans']).patchValue(tempaccountType);
     }
 
     /* SET TRANS VALUE FOR OTHER NUMBER FIELDS */
-    const tempLoanAmount = this.overdraftFixedForm.get(['odFdFormArray', index, 'loanAmount']).value;
+    const tempLoanAmount = this.overdraftFixedForm.get([mainArray, index, 'loanAmount']).value;
     const convertNumber = !ObjectUtil.isEmpty(tempLoanAmount) ?
         this.convertNumbersToNepali(tempLoanAmount, true) : '';
-    this.overdraftFixedForm.get(['odFdFormArray', index, 'loanAmountTrans']).patchValue(convertNumber);
+    this.overdraftFixedForm.get([mainArray, index, 'loanAmountTrans']).patchValue(convertNumber);
 
-    this.overdraftFixedForm.get(['odFdFormArray', index, 'loanAmountWordsTrans']).patchValue(
-        this.overdraftFixedForm.get(['odFdFormArray', index, 'loanAmountWords']).value
+    this.overdraftFixedForm.get([mainArray, index, 'loanAmountWordsTrans']).patchValue(
+        this.overdraftFixedForm.get([mainArray, index, 'loanAmountWords']).value
     );
 
-    const tempFDAmount = this.overdraftFixedForm.get(['odFdFormArray', index, 'FdAmountInFigure']).value;
+    const tempFDAmount = this.overdraftFixedForm.get([mainArray, index, 'FdAmountInFigure']).value;
     const convertNumber1 = !ObjectUtil.isEmpty(tempFDAmount) ?
         this.convertNumbersToNepali(tempFDAmount, true) : '';
-    this.overdraftFixedForm.get(['odFdFormArray', index, 'FdAmountInFigureTrans']).patchValue(convertNumber1);
+    this.overdraftFixedForm.get([mainArray, index, 'FdAmountInFigureTrans']).patchValue(convertNumber1);
 
-    const tempAmount = this.overdraftFixedForm.get(['odFdFormArray', index, 'amountInFigure']).value;
+    const tempAmount = this.overdraftFixedForm.get([mainArray, index, 'amountInFigure']).value;
     const convertNumber2 = !ObjectUtil.isEmpty(tempAmount) ?
         this.convertNumbersToNepali(tempAmount, true) : '';
-    this.overdraftFixedForm.get(['odFdFormArray', index, 'amountInFigureTrans']).patchValue(convertNumber2);
+    this.overdraftFixedForm.get([mainArray, index, 'amountInFigureTrans']).patchValue(convertNumber2);
 
-    const convertaccountNumber = this.convertNumbersToNepali(this.overdraftFixedForm.get(['odFdFormArray', index, 'accountNumber']).value, false);
-    this.overdraftFixedForm.get(['odFdFormArray', index, 'accountNumberTrans']).patchValue(convertaccountNumber);
-    const convertdrawingPower = this.convertNumbersToNepali(this.overdraftFixedForm.get(['odFdFormArray', index, 'drawingPower']).value, false);
-    this.overdraftFixedForm.get(['odFdFormArray', index, 'drawingPowerTrans']).patchValue(convertdrawingPower);
-    const converttotalInterestRate = this.convertNumbersToNepali(this.overdraftFixedForm.get(['odFdFormArray', index, 'totalInterestRate']).value, false);
-    this.overdraftFixedForm.get(['odFdFormArray', index, 'totalInterestRateTrans']).patchValue(converttotalInterestRate);
-    const convertadditionalPremiumRate = this.convertNumbersToNepali(this.overdraftFixedForm.get(['odFdFormArray', index, 'additionalPremiumRate']).value, false);
-    this.overdraftFixedForm.get(['odFdFormArray', index, 'additionalPremiumRateTrans']).patchValue(convertadditionalPremiumRate);
-    const convertbaseRate = this.convertNumbersToNepali(this.overdraftFixedForm.get(['odFdFormArray', index, 'baseRate']).value, false);
-    this.overdraftFixedForm.get(['odFdFormArray', index, 'baseRateTrans']).patchValue(convertbaseRate);
-    const convertpremiumRate = this.convertNumbersToNepali(this.overdraftFixedForm.get(['odFdFormArray', index, 'premiumRate']).value, false);
-    this.overdraftFixedForm.get(['odFdFormArray', index, 'premiumRateTrans']).patchValue(convertpremiumRate);
-    const convertinterestRate = this.convertNumbersToNepali(this.overdraftFixedForm.get(['odFdFormArray', index, 'interestRate']).value, false);
-    this.overdraftFixedForm.get(['odFdFormArray', index, 'interestRateTrans']).patchValue(convertinterestRate);
+    const convertaccountNumber = this.convertNumbersToNepali(this.overdraftFixedForm.get([mainArray, index, 'accountNumber']).value, false);
+    this.overdraftFixedForm.get([mainArray, index, 'accountNumberTrans']).patchValue(convertaccountNumber);
+    const convertdrawingPower = this.convertNumbersToNepali(this.overdraftFixedForm.get([mainArray, index, 'drawingPower']).value, false);
+    this.overdraftFixedForm.get([mainArray, index, 'drawingPowerTrans']).patchValue(convertdrawingPower);
+    const converttotalInterestRate = this.convertNumbersToNepali(this.overdraftFixedForm.get([mainArray, index, 'totalInterestRate']).value, false);
+    this.overdraftFixedForm.get([mainArray, index, 'totalInterestRateTrans']).patchValue(converttotalInterestRate);
+    const convertadditionalPremiumRate = this.convertNumbersToNepali(this.overdraftFixedForm.get([mainArray, index, 'additionalPremiumRate']).value, false);
+    this.overdraftFixedForm.get([mainArray, index, 'additionalPremiumRateTrans']).patchValue(convertadditionalPremiumRate);
+    const convertbaseRate = this.convertNumbersToNepali(this.overdraftFixedForm.get([mainArray, index, 'baseRate']).value, false);
+    this.overdraftFixedForm.get([mainArray, index, 'baseRateTrans']).patchValue(convertbaseRate);
+    const convertpremiumRate = this.convertNumbersToNepali(this.overdraftFixedForm.get([mainArray, index, 'premiumRate']).value, false);
+    this.overdraftFixedForm.get([mainArray, index, 'premiumRateTrans']).patchValue(convertpremiumRate);
+    const convertinterestRate = this.convertNumbersToNepali(this.overdraftFixedForm.get([mainArray, index, 'interestRate']).value, false);
+    this.overdraftFixedForm.get([mainArray, index, 'interestRateTrans']).patchValue(convertinterestRate);
 
     /* Converting value for date */
-    this.overdraftFixedForm.get(['odFdFormArray', index, 'dateOfExpiryTypeTrans']).patchValue(
-        this.overdraftFixedForm.get(['odFdFormArray', index, 'dateOfExpiryType']).value
+    this.overdraftFixedForm.get([mainArray, index, 'dateOfExpiryTypeTrans']).patchValue(
+        this.overdraftFixedForm.get([mainArray, index, 'dateOfExpiryType']).value
     );
-    const tempDateOfExpType = this.overdraftFixedForm.get(['odFdFormArray', index, 'dateOfExpiryType']).value;
+    const tempDateOfExpType = this.overdraftFixedForm.get([mainArray, index, 'dateOfExpiryType']).value;
     let tempExpDate;
     if (tempDateOfExpType === 'AD') {
-      const tempEngExpDate = this.overdraftFixedForm.get(['odFdFormArray', index, 'dateOfExpiry']).value;
+      const tempEngExpDate = this.overdraftFixedForm.get([mainArray, index, 'dateOfExpiry']).value;
       tempExpDate = !ObjectUtil.isEmpty(tempEngExpDate) ? this.datePipe.transform(tempEngExpDate) : '';
       const finalExpDate = this.transformEnglishDate(tempExpDate);
-      this.overdraftFixedForm.get(['odFdFormArray', index, 'dateOfExpiryTrans']).patchValue(finalExpDate);
+      this.overdraftFixedForm.get([mainArray, index, 'dateOfExpiryTrans']).patchValue(finalExpDate);
     } else {
-      const tempDateOfExpNep = this.overdraftFixedForm.get(['odFdFormArray', index, 'dateOfExpiryNepali']).value;
+      const tempDateOfExpNep = this.overdraftFixedForm.get([mainArray, index, 'dateOfExpiryNepali']).value;
       tempExpDate = !ObjectUtil.isEmpty(tempDateOfExpNep) ?
           tempDateOfExpNep.nDate : '';
-      this.overdraftFixedForm.get(['odFdFormArray', index, 'dateOfExpiryTrans']).patchValue(tempExpDate);
+      this.overdraftFixedForm.get([mainArray, index, 'dateOfExpiryTrans']).patchValue(tempExpDate);
     }
 
     // translated by google api
     this.translatedFormGroup = this.formBuilder.group({
-      nameOfHoldingBank: this.overdraftFixedForm.get(['odFdFormArray', index, 'nameOfHoldingBank']).value,
+      nameOfHoldingBank: this.overdraftFixedForm.get([mainArray, index, 'nameOfHoldingBank']).value,
       // nameOfFDHolder: this.overdraftFixedForm.get('nameOfFDHolder').value,
-      nameOfDepositors: this.overdraftFixedForm.get(['odFdFormArray', index, 'nameOfDepositors']).value,
-      nameOfFacility: this.overdraftFixedForm.get(['odFdFormArray', index, 'nameOfFacility']).value,
+      nameOfDepositors: this.overdraftFixedForm.get([mainArray, index, 'nameOfDepositors']).value,
+      nameOfFacility: this.overdraftFixedForm.get([mainArray, index, 'nameOfFacility']).value,
     });
 
     this.translatedValue =  await this.translateService.translateForm(this.translatedFormGroup);
 
-    this.overdraftFixedForm.get(['odFdFormArray', index, 'nameOfHoldingBankTrans']).patchValue(this.translatedValue.nameOfHoldingBank);
+    this.overdraftFixedForm.get([mainArray, index, 'nameOfHoldingBankTrans']).patchValue(this.translatedValue.nameOfHoldingBank);
     // this.overdraftFixedForm.get().patchValue(this.translatedValue.nameOfFDHolder);
-    this.overdraftFixedForm.get(['odFdFormArray', index, 'nameOfDepositorsTrans']).patchValue(this.translatedValue.nameOfDepositors);
-    this.overdraftFixedForm.get(['odFdFormArray', index, 'nameOfFacilityTrans']).patchValue(this.translatedValue.nameOfFacility);
+    this.overdraftFixedForm.get([mainArray, index, 'nameOfDepositorsTrans']).patchValue(this.translatedValue.nameOfDepositors);
+    this.overdraftFixedForm.get([mainArray, index, 'nameOfFacilityTrans']).patchValue(this.translatedValue.nameOfFacility);
 
-    this.setCTValue(index);
+    this.setCTValue(index, mainArray);
   }
 
   transformEnglishDate(date) {
@@ -404,74 +519,74 @@ export class OverdraftFacilityAgainstFixedDepositComponent implements OnInit {
     return transformedDate;
   }
 
-  setCTValue(index) {
-    this.overdraftFixedForm.get(['odFdFormArray', index, 'subLoanOptionCT']).patchValue(
-        this.overdraftFixedForm.get(['odFdFormArray', index, 'subLoanOptionTrans']).value
+  setCTValue(index, mainArray) {
+    this.overdraftFixedForm.get([mainArray, index, 'subLoanOptionCT']).patchValue(
+        this.overdraftFixedForm.get([mainArray, index, 'subLoanOptionTrans']).value
     );
-    this.overdraftFixedForm.get(['odFdFormArray', index, 'letterOfSetOffCT']).patchValue(
-        this.overdraftFixedForm.get(['odFdFormArray', index, 'letterOfSetOffTrans']).value
+    this.overdraftFixedForm.get([mainArray, index, 'letterOfSetOffCT']).patchValue(
+        this.overdraftFixedForm.get([mainArray, index, 'letterOfSetOffTrans']).value
     );
-    this.overdraftFixedForm.get(['odFdFormArray', index, 'interestRateTypeCT']).patchValue(
-        this.overdraftFixedForm.get(['odFdFormArray', index, 'interestRateTypeTrans']).value
+    this.overdraftFixedForm.get([mainArray, index, 'interestRateTypeCT']).patchValue(
+        this.overdraftFixedForm.get([mainArray, index, 'interestRateTypeTrans']).value
     );
-    this.overdraftFixedForm.get(['odFdFormArray', index, 'checkAdditionalPremiumRateCT']).patchValue(
-        this.overdraftFixedForm.get(['odFdFormArray', index, 'checkAdditionalPremiumRateTrans']).value
+    this.overdraftFixedForm.get([mainArray, index, 'checkAdditionalPremiumRateCT']).patchValue(
+        this.overdraftFixedForm.get([mainArray, index, 'checkAdditionalPremiumRateTrans']).value
     );
-    this.overdraftFixedForm.get(['odFdFormArray', index, 'holdingBankCT']).patchValue(
-        this.overdraftFixedForm.get(['odFdFormArray', index, 'holdingBankTrans']).value
+    this.overdraftFixedForm.get([mainArray, index, 'holdingBankCT']).patchValue(
+        this.overdraftFixedForm.get([mainArray, index, 'holdingBankTrans']).value
     );
-    this.overdraftFixedForm.get(['odFdFormArray', index, 'accountTypeCT']).patchValue(
-        this.overdraftFixedForm.get(['odFdFormArray', index, 'accountTypeTrans']).value
+    this.overdraftFixedForm.get([mainArray, index, 'accountTypeCT']).patchValue(
+        this.overdraftFixedForm.get([mainArray, index, 'accountTypeTrans']).value
     );
-    this.overdraftFixedForm.get(['odFdFormArray', index, 'loanAmountCT']).patchValue(
-        this.overdraftFixedForm.get(['odFdFormArray', index, 'loanAmountTrans']).value
+    this.overdraftFixedForm.get([mainArray, index, 'loanAmountCT']).patchValue(
+        this.overdraftFixedForm.get([mainArray, index, 'loanAmountTrans']).value
     );
-    this.overdraftFixedForm.get(['odFdFormArray', index, 'loanAmountWordsCT']).patchValue(
-        this.overdraftFixedForm.get(['odFdFormArray', index, 'loanAmountWordsTrans']).value
+    this.overdraftFixedForm.get([mainArray, index, 'loanAmountWordsCT']).patchValue(
+        this.overdraftFixedForm.get([mainArray, index, 'loanAmountWordsTrans']).value
     );
-    this.overdraftFixedForm.get(['odFdFormArray', index, 'FdAmountInFigureCT']).patchValue(
-        this.overdraftFixedForm.get(['odFdFormArray', index, 'FdAmountInFigureTrans']).value
+    this.overdraftFixedForm.get([mainArray, index, 'FdAmountInFigureCT']).patchValue(
+        this.overdraftFixedForm.get([mainArray, index, 'FdAmountInFigureTrans']).value
     );
-    this.overdraftFixedForm.get(['odFdFormArray', index, 'amountInFigureCT']).patchValue(
-        this.overdraftFixedForm.get(['odFdFormArray', index, 'amountInFigureTrans']).value
+    this.overdraftFixedForm.get([mainArray, index, 'amountInFigureCT']).patchValue(
+        this.overdraftFixedForm.get([mainArray, index, 'amountInFigureTrans']).value
     );
-    this.overdraftFixedForm.get(['odFdFormArray', index, 'accountNumberCT']).patchValue(
-        this.overdraftFixedForm.get(['odFdFormArray', index, 'accountNumberTrans']).value
+    this.overdraftFixedForm.get([mainArray, index, 'accountNumberCT']).patchValue(
+        this.overdraftFixedForm.get([mainArray, index, 'accountNumberTrans']).value
     );
-    this.overdraftFixedForm.get(['odFdFormArray', index, 'drawingPowerCT']).patchValue(
-        this.overdraftFixedForm.get(['odFdFormArray', index, 'drawingPowerTrans']).value
+    this.overdraftFixedForm.get([mainArray, index, 'drawingPowerCT']).patchValue(
+        this.overdraftFixedForm.get([mainArray, index, 'drawingPowerTrans']).value
     );
-    this.overdraftFixedForm.get(['odFdFormArray', index, 'totalInterestRateCT']).patchValue(
-        this.overdraftFixedForm.get(['odFdFormArray', index, 'totalInterestRateTrans']).value
+    this.overdraftFixedForm.get([mainArray, index, 'totalInterestRateCT']).patchValue(
+        this.overdraftFixedForm.get([mainArray, index, 'totalInterestRateTrans']).value
     );
-    this.overdraftFixedForm.get(['odFdFormArray', index, 'additionalPremiumRateCT']).patchValue(
-        this.overdraftFixedForm.get(['odFdFormArray', index, 'additionalPremiumRateTrans']).value
+    this.overdraftFixedForm.get([mainArray, index, 'additionalPremiumRateCT']).patchValue(
+        this.overdraftFixedForm.get([mainArray, index, 'additionalPremiumRateTrans']).value
     );
-    this.overdraftFixedForm.get(['odFdFormArray', index, 'baseRateCT']).patchValue(
-        this.overdraftFixedForm.get(['odFdFormArray', index, 'baseRateTrans']).value
+    this.overdraftFixedForm.get([mainArray, index, 'baseRateCT']).patchValue(
+        this.overdraftFixedForm.get([mainArray, index, 'baseRateTrans']).value
     );
-    this.overdraftFixedForm.get(['odFdFormArray', index, 'premiumRateCT']).patchValue(
-        this.overdraftFixedForm.get(['odFdFormArray', index, 'premiumRateTrans']).value
+    this.overdraftFixedForm.get([mainArray, index, 'premiumRateCT']).patchValue(
+        this.overdraftFixedForm.get([mainArray, index, 'premiumRateTrans']).value
     );
-    this.overdraftFixedForm.get(['odFdFormArray', index, 'interestRateCT']).patchValue(
-        this.overdraftFixedForm.get(['odFdFormArray', index, 'interestRateTrans']).value
+    this.overdraftFixedForm.get([mainArray, index, 'interestRateCT']).patchValue(
+        this.overdraftFixedForm.get([mainArray, index, 'interestRateTrans']).value
     );
-    this.overdraftFixedForm.get(['odFdFormArray', index, 'dateOfExpiryTypeCT']).patchValue(
-        this.overdraftFixedForm.get(['odFdFormArray', index, 'dateOfExpiryTypeTrans']).value
+    this.overdraftFixedForm.get([mainArray, index, 'dateOfExpiryTypeCT']).patchValue(
+        this.overdraftFixedForm.get([mainArray, index, 'dateOfExpiryTypeTrans']).value
     );
-    this.overdraftFixedForm.get(['odFdFormArray', index, 'dateOfExpiryCT']).patchValue(
-        this.overdraftFixedForm.get(['odFdFormArray', index, 'dateOfExpiryTrans']).value
+    this.overdraftFixedForm.get([mainArray, index, 'dateOfExpiryCT']).patchValue(
+        this.overdraftFixedForm.get([mainArray, index, 'dateOfExpiryTrans']).value
     );
-    this.overdraftFixedForm.get(['odFdFormArray', index, 'nameOfHoldingBankCT']).patchValue(
+    this.overdraftFixedForm.get([mainArray, index, 'nameOfHoldingBankCT']).patchValue(
         this.translatedValue.nameOfHoldingBank
     );
     // this.overdraftFixedForm.get('nameOfFDHolderCT').patchValue(
     //     this.translatedValue.nameOfFDHolder
     // );
-    this.overdraftFixedForm.get(['odFdFormArray', index, 'nameOfDepositorsCT']).patchValue(
+    this.overdraftFixedForm.get([mainArray, index, 'nameOfDepositorsCT']).patchValue(
         this.translatedValue.nameOfDepositors
     );
-    this.overdraftFixedForm.get(['odFdFormArray', index, 'nameOfFacilityCT']).patchValue(
+    this.overdraftFixedForm.get([mainArray, index, 'nameOfFacilityCT']).patchValue(
         this.translatedValue.nameOfFacility
     );
   }
@@ -491,8 +606,8 @@ export class OverdraftFacilityAgainstFixedDepositComponent implements OnInit {
     return finalConvertedVal;
   }
 
-  addDepositorDetails(i) {
-    (this.overdraftFixedForm.get(['odFdFormArray', i, 'depositorDetails']) as FormArray).push(
+  addDepositorDetails(i, mainArray) {
+    (this.overdraftFixedForm.get([mainArray, i, 'depositorDetails']) as FormArray).push(
         this.formBuilder.group({
           nameOfDepositors: [undefined],
           nameOfDepositorsTrans: [undefined],
@@ -501,12 +616,12 @@ export class OverdraftFacilityAgainstFixedDepositComponent implements OnInit {
     );
   }
 
-  removeDepositorDetails(i, index) {
-    (this.overdraftFixedForm.get(['odFdFormArray', i, 'depositorDetails']) as FormArray).removeAt(index);
+  removeDepositorDetails(i, index, mainArray) {
+    (this.overdraftFixedForm.get([mainArray, i, 'depositorDetails']) as FormArray).removeAt(index);
   }
 
-  addFDHolderDetails(i) {
-    (this.overdraftFixedForm.get(['odFdFormArray', i, 'fdHolderDetails']) as FormArray).push(
+  addFDHolderDetails(i, mainArray) {
+    (this.overdraftFixedForm.get([mainArray, i, 'fdHolderDetails']) as FormArray).push(
         this.formBuilder.group({
           nameOfFDHolder: [undefined],
           nameOfFDHolderTrans: [undefined],
@@ -515,8 +630,8 @@ export class OverdraftFacilityAgainstFixedDepositComponent implements OnInit {
     );
   }
 
-  removeFDHolderDetails(i, index) {
-    (this.overdraftFixedForm.get(['odFdFormArray', i, 'fdHolderDetails']) as FormArray).removeAt(index);
+  removeFDHolderDetails(i, index, mainArray) {
+    (this.overdraftFixedForm.get([mainArray, i, 'fdHolderDetails']) as FormArray).removeAt(index);
   }
 
   async onChangeTranslateSecurity(arrName, source, index, target, i, mainArray) {

@@ -25,12 +25,12 @@
                                 <strong>सीमाः
                                     <!--<ng-container *ngIf="val.complementryOther === true">(रु.
                                     <span>{{ld?.loanAmountNp ? ld?.loanAmountNp : ''}}</span>
-                                    ।–)</ng-container>-->
+                                    /–)</ng-container>-->
                                     <!--<ng-container *ngIf="val.complementryOther === false">-->
                                         <ng-container>
                                         रु.
                                         <span>{{irrevocableLetter[i1] ? irrevocableLetter[i1].loanAmountNp : ''}}</span>
-                                        ।–</ng-container>(अक्षरेपी रु.
+                                        /–</ng-container>(अक्षरेपी रु.
                                     <span>{{irrevocableLetter[i1] ? irrevocableLetter[i1].loanAmountWords : ''}}</span>
                                     मात्र)</strong><br>
                                 <strong>सुरक्षणः</strong> सम्पूर्ण सम्भावित जोखिमहरु सुरक्षित भएको कम्तिमा प्रतित पत्र
@@ -47,7 +47,7 @@
                             {{val.commissionRateCT === null || val.commissionRateCT === '' ? '___________' : val.commissionRateCT}}</span>
                                 % का दरले वा कम्तिमा रु.
                                 <span [ngClass]="{'outside' : val.minimumCommissionRateCT !== null && val.minimumCommissionRateCT !== ''}">
-                            {{val.minimumCommissionRateCT === null || val.minimumCommissionRateCT === '' ? '___________' : val.minimumCommissionRateCT}}</span>।– लाग्नेछ ।
+                            {{val.minimumCommissionRateCT === null || val.minimumCommissionRateCT === '' ? '___________' : val.minimumCommissionRateCT}}</span>/– लाग्नेछ ।
                             </p>
 
                             <!--Commission Type 2-->
@@ -61,7 +61,7 @@
                                 दरले वा कम्तिमा रु.
                                 <span [ngClass]="{'outside' : val.minimumCommissionRateCT !== null && val.minimumCommissionRateCT !== ''}">
                             {{val.minimumCommissionRateCT === null || val.minimumCommissionRateCT === '' ? '___________' : val.minimumCommissionRateCT}}</span>
-                                ।– लाग्नेछ ।
+                                /– लाग्नेछ ।
                             </p>
                             <p *ngIf="val.loanOption === 'REGULAR'">
                                 <strong>सुविधा समाप्ति/पुनरावलोकन मितिः</strong>
@@ -145,7 +145,7 @@
                             वा कम्तिमा रु.
                             <span [ngClass]="{'outside' : val.minimumCommissionAmountCT !== null && val.minimumCommissionAmountCT !== ''}">
                             {{val.minimumCommissionAmountCT === null || val.minimumCommissionAmountCT === '' ? '___________' : val.minimumCommissionAmountCT}}</span>
-                            ।–लाग्नेछ ।<br>
+                            /–लाग्नेछ ।<br>
                             <span *ngIf="val.loanOption === 'REGULAR'"><strong>सुविधा समाप्ति/पुनरावलोकन मितिः</strong>
                                 {{val?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
                                 <span [ngClass]="{'outside' : val.dateOfExpiryCT !== null && val.dateOfExpiryCT !== ''}">
@@ -599,6 +599,116 @@
                     </ng-container>
                 </tr>
             </ng-container>
+
+            <ng-container *ngIf="tempData?.bankGuarantee?.bankGuaranteeArray">
+                <tr *ngFor="let val of tempData?.bankGuarantee?.bankGuaranteeArray; let i1 = index">
+                    <!--Bank Guarantee-->
+                    <ng-container>
+                        <td style="width: 10%; border-right: 1px solid black; border-top: 1px solid black"><strong>{{
+                            (tempData?.letterOfCreditForm?.letterOfCreditFormArray.length) +
+                            (tempData?.importLoanTrust?.importLoanTrustFormArray.length) +
+                            (tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray.length) +
+                            (tempData?.timeLetterCreditForm?.timeLetterCreditFormArray.length) +
+                            (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
+                            (tempData?.demandLoanForm?.demandLoanFormArray.length) +
+                            (i1 + 1) | nepaliWord}})</strong>
+                        </td>
+                        <td style="border-top: 1px solid black">
+                            <p>
+                                <strong>बैंक जमानत सुविधा (Bank Guarantee)
+                                    <ng-container *ngIf="val.complementaryOther === true"> बुँदा नं.
+                                        <span>
+                                            {{this.freeInformation ? this.freeInformation?.section2?.bankGuaranteeFreeText[i1]?.SNOfParentLimitBankGuarantee : ''}}
+                                        </span>
+                                        <ng-container *ngIf="val.complimentaryLoanSelected !== 'TOTAL LIMIT'"> को पूरक सुविधा</ng-container>
+                                        <ng-container *ngIf="val.complimentaryLoanSelected === 'TOTAL LIMIT'"> कुल सुविधाको पूरक सुविधा </ng-container>
+                                    </ng-container></strong><br>
+
+                                <strong> सीमाः
+                                    <!--<ng-container *ngIf="val.complementaryOther === true">
+                                        (</ng-container> -->
+                                    रु.
+                                    <span>{{bankGuaranteeLoan[i1] ? bankGuaranteeLoan[i1].loanAmountNp : ''}}</span>
+                                    /-
+                                    <!--<ng-container *ngIf="val.complementaryOther === true">)</ng-container>-->
+                                    (अक्षरेपी रु.
+                                    <span>{{bankGuaranteeLoan[i1] ? bankGuaranteeLoan[i1].loanAmountWords : ''}}</span> मात्र)</strong>
+                            </p>
+                            <p *ngIf="val.securityType === 'General Counter Guarantee'">
+                                <strong> सुरक्षणक्ष:</strong>बैंकको पक्षमा काउण्टर जमानत सम्बन्धी सम्झौता (General Counter
+                                Guarantee)
+                            </p>
+                            <!--OR-->
+                            <p *ngIf="val.securityType === 'General Counter Guarantee and Hypothecation'">
+                            <span *ngIf="hypothecationGlobal === 'New'">
+                                <strong> सुरक्षणक्ष:</strong>
+                                बैंकको पक्षमा काउण्टर जमानत सम्बन्धी सम्झौता (General Counter Guarantee) का साथै
+                                सामानहरुको मौज्दात उपर धितोबन्धक (Hypothecation) हकाधिकार र ऋणीले आफ्ना आसामीबाट भुक्तानी प्राप्त
+                                गर्न बांकि रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामा हस्तान्तरण गर्नु पर्नेछ।
+                            </span>
+                                <span *ngIf="hypothecationGlobal === 'Existing'">
+                                <strong> सुरक्षणक्ष:</strong>
+                                बैंकको पक्षमा काउण्टर जमानत सम्बन्धी सम्झौता (General Counter Guarantee) का साथै
+                                सामानहरुको मौज्दात उपर धितोबन्धक (Hypothecation) हकाधिकार र ऋणीले आफ्ना आसामीबाट भुक्तानी प्राप्त
+                                गर्न बांकि रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामा हस्तान्तरण
+                                गरिदिनुभएको यथावत कायम रहनेछ।
+                            </span>
+                            </p>
+                            <p *ngIf="val.securityType === 'Counter Guarantee of other bank'">
+                                <strong>सुरक्षणः</strong>
+                                <span [ngClass]="{'outside' : val.nameOfHoldingBankCT !== null && val.nameOfHoldingBankCT !== ''}">
+                            {{val.nameOfHoldingBankCT === null || val.nameOfHoldingBankCT === '' ? '___________' : val.nameOfHoldingBankCT}}</span>
+                                बैंकले यस बैंकलाई जारी गरिएको काउण्टर जमानत पत्र ।
+                            </p>
+                            <p *ngIf="val.guaranteeType  === 'Cash Margin'">
+                                <strong>धरौटी:</strong> नगद
+                                <span [ngClass]="{'outside' : val.marginInPercentageCT !== null && val.marginInPercentageCT !== ''}">
+                            {{val.marginInPercentageCT === null || val.marginInPercentageCT === '' ? '___________' : val.marginInPercentageCT}}</span>
+                                % धरौटी स्वरुप रहनेछ ।
+                            </p>
+                            <!--OR-->
+                            <p *ngIf="val.guaranteeType  === 'APG/PFG/Bid Bond'">
+                                अग्रिम भुक्तानी बैंक जमानत (Advance Payment Guarantee) को
+                                हकमा
+                                <span [ngClass]="{'outside' : val.commissionInPercentageAPGCT !== null && val.commissionInPercentageAPGCT !== ''}">
+                            {{val.commissionInPercentageAPGCT === null || val.commissionInPercentageAPGCT === '' ? '___________' : val.commissionInPercentageAPGCT}}</span>
+                                % नगद र कार्य सम्पादन बैंक जमानत (Performance Bond) तथा बोलपत्र बैंक जमानत (Bid Bond)को हकमा
+                                <span [ngClass]="{'outside' : val.commissionInPercentageBidBondCT !== null && val.commissionInPercentageBidBondCT !== ''}">
+                            {{val.commissionInPercentageBidBondCT === null || val.commissionInPercentageBidBondCT === '' ? '___________' : val.commissionInPercentageBidBondCT}}</span>
+                                % नगद धरौटी स्वरुप रहनेछ ।<br>
+                                <span *ngIf="val.commissionType === 'COMMISSION_TYPE_1'"> <strong>कमिसन:</strong> प्रति त्रैमास
+                            <span [ngClass]="{'outside' : val.serviceChargeInPercentCT !== null && val.serviceChargeInPercentCT !== ''}">
+                            {{val.serviceChargeInPercentCT === null || val.serviceChargeInPercentCT === '' ? '___________' : val.serviceChargeInPercentCT}}</span>
+                            % का दरले वा कम्तिमा रु.
+                            <span [ngClass]="{'outside' : val.minServiceChargeInFigure1CT !== null && val.minServiceChargeInFigure1CT !== ''}">
+                            {{val.minServiceChargeInFigure1CT === null || val.minServiceChargeInFigure1CT === '' ? '___________' : val.minServiceChargeInFigure1CT}}</span>
+                            /– लाग्नेछ ।
+                            </span>
+                                <span *ngIf="val.commissionType === 'COMMISSION_TYPE_2'">
+                                        अग्रिम भुक्तानी बैंक जमानत (Advance Payment Guarantee) को हकमा प्रति बैकं जमानत प्रति त्रैमास
+
+                            <span [ngClass]="{'outside' : val.commissionInPercentage2APGCT !== null && val.commissionInPercentage2APGCT !== ''}">
+                            {{val.commissionInPercentage2APGCT === null || val.commissionInPercentage2APGCT === '' ? '___________' : val.commissionInPercentage2APGCT}}</span>
+                            % का दरलेर कार्य सम्पादन बैंक जमानत (Performance
+                            Bond) तथा बोलपत्र बैंक जमानत (Bid Bond) को हकमा प्रति बैकं जमानत प्रति त्रैमास
+                            <span [ngClass]="{'outside' : val.commissionInPercentage2BidBondCT !== null && val.commissionInPercentage2BidBondCT !== ''}">
+                            {{val.commissionInPercentage2BidBondCT === null || val.commissionInPercentage2BidBondCT === '' ? '___________' : val.commissionInPercentage2BidBondCT}}</span>
+                            %का दरले वा कम्तिमा रु.
+                            <span [ngClass]="{'outside' : val.minServiceChargeInFigure1CT !== null && val.minServiceChargeInFigure1CT !== ''}">
+                            {{val.minServiceChargeInFigure1CT === null || val.minServiceChargeInFigure1CT === '' ? '___________' : val.minServiceChargeInFigure1CT}}</span>
+                            /–लाग्नेछ ।
+                            </span>
+                            </p>
+                            <p>
+                                सुविधा समाप्ति/पुनरावलोकन मितिः
+                                {{val?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
+                                <span [ngClass]="{'outside' : val.dateOfExpiryCT !== null && val.dateOfExpiryCT !== ''}">
+                            {{val.dateOfExpiryCT === null || val.dateOfExpiryCT === '' ? '___________' : val.dateOfExpiryCT}}</span>
+                            </p>
+                        </td>
+                    </ng-container>
+                </tr>
+            </ng-container>
         </table>
     </div>
     <div style="width: 100%">
@@ -611,7 +721,8 @@
                                        (tempData?.timeLetterCreditForm?.timeLetterCreditFormArray.length) +
                                        (tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray.length) +
                                        (tempData?.demandLoanForm?.demandLoanFormArray.length) +
-                                       (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length)"
+                                       (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
+                                       (tempData?.bankGuarantee?.bankGuaranteeArray.length)"
                                        [termLoanData]="termLoanData">
         </app-term-loan-to-or-for-print>
     </div>
@@ -630,6 +741,7 @@
                             (tempData?.timeLetterCreditForm?.timeLetterCreditFormArray.length) +
                             (tempData?.demandLoanForm?.demandLoanFormArray.length) +
                             (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
+                            (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
                             (i1 + 1) | nepaliWord}})</strong>
                         </td>
                         <td style="border-top: 1px solid black">
@@ -708,7 +820,8 @@
                                             (tempData?.demandLoanForm?.demandLoanFormArray.length) +
                                             (tempData?.bridgeGapLoan?.bridgeGapDetails.length) +
                                             (tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray.length) +
-                                            (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length)"
+                                            (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
+                                            (tempData?.bankGuarantee?.bankGuaranteeArray.length)"
                              [autoLoanData]="autoLoanData"
                              [freeText]="freeText">
         </app-auto-loan-print>
@@ -728,7 +841,8 @@
                             (tempData?.timeLetterCreditForm?.timeLetterCreditFormArray.length) +
                             (tempData?.demandLoanForm?.demandLoanFormArray.length) +
                             (tempData?.bridgeGapLoan?.bridgeGapDetails.length) +
-                            (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length)"
+                            (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
+                            (tempData?.bankGuarantee?.bankGuaranteeArray.length)"
                                              [mortgageTermLoanData]="mortgageTermLoanData">
         </app-mortgage-term-loan-print>
     </div>
@@ -750,6 +864,7 @@
                             (tempData?.bridgeGapLoan?.bridgeGapDetails.length) +
                             (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
                             (tempData?.mortgageEquityTermForm?.mortgageTermFormArray.length) +
+                            (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
                             (i1 + 1) | nepaliWord}})</strong></td>
                         <td style="border-top: 1px solid black">
                          <span><strong>अचल सम्पत्ति सुरक्षणमा आधारीत अधिविकर्ष कर्जा
@@ -843,6 +958,525 @@
                 </tr>
             </ng-container>
 
+            <ng-container *ngIf="tempData?.overdraftFixedForm?.dlAgainstFixedDepositFormArray">
+                <tr *ngFor="let val of tempData?.overdraftFixedForm?.dlAgainstFixedDepositFormArray; let i1 = index">
+                    <!--DL against Fixed Deposit-->
+                    <td style="width: 10%; border-right: 1px solid black; border-top: 1px solid black"><strong>{{
+                        (tempData?.equityMortgaged?.mortgageOverdraftFormArray.length) +
+                        (tempData?.termLoanForm?.termLoanDetails?.length) +
+                        (tempData?.autoLoanMasterForm?.autoLoanFormArray?.length) +
+                        (tempData?.letterOfCreditForm?.letterOfCreditFormArray.length) +
+                        (tempData?.importLoanTrust?.importLoanTrustFormArray.length) +
+                        (tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray.length) +
+                        (tempData?.timeLetterCreditForm?.timeLetterCreditFormArray.length) +
+                        (tempData?.demandLoanForm?.demandLoanFormArray.length) +
+                        (tempData?.bridgeGapLoan?.bridgeGapDetails.length) +
+                        (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
+                        (tempData?.mortgageEquityTermForm?.mortgageTermFormArray.length) +
+                        (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
+                        (i1 + 1) | nepaliWord}})</strong></td>
+                    <td style="border-top: 1px solid black">
+                        <!--<span *ngIf="subLoanOptionOverdraftFixedForm === 'AGAINST_FIXED_DEPOSIT'">-->
+                        <span>
+                            <strong>निक्षेप मौज्दातमा आधारीत
+                                            <span [ngClass]="{'outside' : val.nameOfFacilityCT !== null && val.nameOfFacilityCT !== ''}">
+                                                {{val.nameOfFacilityCT === null || val.nameOfFacilityCT === '' ? '___________' : val.nameOfFacilityCT}}</span>
+                                कर्जा (
+                                <span [ngClass]="{'outside' : val.nameOfFacility !== null && val.nameOfFacility !== ''}">
+                                    {{val.nameOfFacility === null || val.nameOfFacility === '' ? '___________' : val.nameOfFacility}}</span>
+                                Facility against Fixed Deposit)
+                            </strong>
+                        </span>
+
+                        <!--<span *ngIf="subLoanOptionOverdraftFixedForm === 'AGAINST_DEPOSIT_ACCOUNT'">
+                            <strong>
+                                निक्षेप मौज्दातमा आधारीत\
+                                <span [ngClass]="{'outside' : val.nameOfFacilityCT !== null && val.nameOfFacilityCT !== ''}">
+                                    {{val.nameOfFacilityCT === null || val.nameOfFacilityCT === '' ? '___________' : val.nameOfFacilityCT}}
+                                </span>
+                            कर्जा(
+                                <span [ngClass]="{'outside' : val.nameOfFacility !== null && val.nameOfFacility !== ''}">
+                                    {{val.nameOfFacility === null || val.nameOfFacility === '' ? '___________' : val.nameOfFacility}}
+                                </span>
+                                Facility against Lien on Deposit Account)
+                            </strong>
+                        </span>-->
+                        <br>
+                        <strong>
+                            सीमाः रु.
+                            <span>
+                                {{dlFixedDeposit[i1] ? dlFixedDeposit[i1].loanAmountNp : ''}}
+                            </span>/-
+                            (अक्षरेपी रु.
+                            <span>
+                                {{dlFixedDeposit[i1] ? dlFixedDeposit[i1].loanAmountWords : ''}}
+                            </span>
+                            मात्र)
+                        </strong>
+                        <br>
+
+                        <!--<p *ngIf="subLoanOptionOverdraftFixedForm === 'AGAINST_FIXED_DEPOSIT' && holdingBankOverdraftFixedForm === 'NABIL'">-->
+                        <p *ngIf="val.holdingBank === 'NABIL'">
+                            <strong>सुरक्षणः</strong>
+                            नबिल बैंकद्घारा जारी गरिएको
+                            <span>
+                                <strong>
+                                    {{this.finalFdNameDl ? this.finalFdNameDl[i1] : ''}}
+                                </strong>
+                            </span>
+                            हरुको नाममा रहेको कम्तिमा रु.
+                            <span [ngClass]="{'outside' : val.FdAmountInFigureCT !== null && val.FdAmountInFigureCT !== ''}">
+                                {{val.FdAmountInFigureCT === null || val.FdAmountInFigureCT === '' ? '___________' : val.FdAmountInFigureCT}}
+                            </span>
+                            /– बराबरको मुद्धती रसिद उपर बैंकले उल्लिखित रसिद वापतको रकम कर्जामा
+                            समायोजन गर्न सक्ने अधिकार सहितको बैंकको पक्षमा जारी गरिदिइएको/गरिने मोजरापत्र (Letter of Set-off) ।
+                        </p>
+                        <!--<p *ngIf="subLoanOptionOverdraftFixedForm === 'AGAINST_FIXED_DEPOSIT' && holdingBankOverdraftFixedForm === 'OTHER'">-->
+                        <p *ngIf="val.holdingBank === 'OTHER'">
+                            <strong>सुरक्षणः</strong>
+                            <span [ngClass]="{'outside' : val.holdingBankCT !== null && val.holdingBankCT !== ''}">
+                                {{val.holdingBankCT === null || val.holdingBankCT === '' ? '___________' : val.holdingBankCT}}
+                            </span>
+                            बैंकद्घारा जारी गरिएको
+                            <span>
+                                <strong>
+                                    {{this.finalFdNameDl ? this.finalFdNameDl[i1] : ''}}
+                                </strong>
+                            </span>
+                            हरुको नाममा रहेको कम्तिमा रु.
+                            <span [ngClass]="{'outside' : val.FdAmountInFigureCT !== null && val.FdAmountInFigureCT !== ''}">
+                                {{val.FdAmountInFigureCT === null || val.FdAmountInFigureCT === '' ? '___________' : val.FdAmountInFigureCT}}
+                            </span>
+                            /–बराबरको मुद्धती रसिद उपर बैंकले उल्लिखित रसिद वापतको रकम कर्जामा
+                            समायोजन गर्न सक्ने अधिकार सहितको बैंकको पक्षमा जारी गरिदिइएको/गरिने मोजरापत्र (Letter of Set-off) ।
+                        </p>
+                        <!--OR-->
+                        <!--<p *ngIf="subLoanOptionOverdraftFixedForm === 'AGAINST_DEPOSIT_ACCOUNT'">
+                            <span *ngIf="letterOfSetOffOverdraftFixedForm === 'EXISTING'"><strong>सुरक्षणः</strong> नबिल बैंकमा खोलिएको
+                                            <span>{{this.DepName ? this.DepName : ''}}</span>
+                                को नाममा रहेको
+                                <ng-container *ngIf="val.accountType === 'CURRENT_ACCOUNT'">चल्ति </ng-container>
+                                <ng-container *ngIf="val.accountType === 'SAVING_ACCOUNT'">बचत </ng-container>
+                                <ng-container *ngIf="val.accountType === 'CALL_ACCOUNT'">कल </ng-container>
+                                खाता नं. ‘‘
+                                            <span [ngClass]="{'outside' : val.accountNumberCT !== null && val.accountNumberCT !== ''}">
+                            {{val.accountNumberCT === null || val.accountNumberCT === '' ? '___________' : val.accountNumberCT}}</span>
+                                ‘‘मा रहेको मौज्दात रु.
+                                            <span [ngClass]="{'outside' : val.amountInFigureCT !== null && val.amountInFigureCT !== ''}">
+                            {{val.amountInFigureCT === null || val.amountInFigureCT === '' ? '___________' : val.amountInFigureCT}}</span>
+                                 बराबरको रकममा ग्रहणाधिकार कायम गरी
+                                        उक्त रकम बरावर कर्जामा समायोजन गर्न सक्ने अधिकार सहितको बैंकको पक्षमा जारी गरिदिइएको
+                                मोजरापत्र (Letter of Set-off) ।</span><br>
+
+                            <span *ngIf="letterOfSetOffOverdraftFixedForm === 'NEW'"><strong>सुरक्षणः</strong> नबिल बैंकमा खोलिएको
+                                <span>{{this.DepName ? this.DepName : ''}}</span>को
+                                नाममा रहेको
+                                <ng-container *ngIf="val.accountType === 'CURRENT_ACCOUNT'">चल्ति </ng-container>
+                                <ng-container *ngIf="val.accountType === 'SAVING_ACCOUNT'">बचत </ng-container>
+                                <ng-container *ngIf="val.accountType === 'CALL_ACCOUNT'">कल </ng-container>
+                                खाता नं. ‘‘
+                                            <span [ngClass]="{'outside' : val.accountNumberCT !== null && val.accountNumberCT !== ''}">
+                            {{val.accountNumberCT === null || val.accountNumberCT === '' ? '___________' : val.accountNumberCT}}</span>
+                                ‘‘मा रहेको मौज्दात रु.
+                                            <span [ngClass]="{'outside' : val.amountInFigureCT !== null && val.amountInFigureCT !== ''}">
+                            {{val.amountInFigureCT === null || val.amountInFigureCT === '' ? '___________' : val.amountInFigureCT}}</span>
+                                    बराबरको रकममा ग्रहणाधिकार कायम गरी
+                            उक्त रकम बरावर कर्जामा समायोजन गर्न सक्ने अधिकार सहितको बैंकको पक्षमा जारी गरिने
+                                मोजरापत्र (Letter of Set-off) ।</span>
+                        </p>-->
+                        <p>
+                            <!--<span *ngIf="subLoanOptionOverdraftFixedForm === 'AGAINST_FIXED_DEPOSIT'">-->
+                            <span>
+                                <strong>
+                                    ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):
+                                </strong>
+                                मुद्धती रसिदको मौज्दातको
+                                <span [ngClass]="{'outside' : val.drawingPowerCT !== null && val.drawingPowerCT !== ''}">
+                                    {{val.drawingPowerCT === null || val.drawingPowerCT === '' ? '___________' : val.drawingPowerCT}}
+                                </span>
+                                प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग
+                                गर्न सकिनेछ ।
+                            </span>
+
+                            <!--<span *ngIf="subLoanOptionOverdraftFixedForm === 'AGAINST_DEPOSIT_ACCOUNT'">
+                                <strong>
+                                    ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):
+                                </strong>
+                                खातामा रोक्का राखिएका मौज्दातको
+                                <span [ngClass]="{'outside' : val.drawingPowerCT !== null && val.drawingPowerCT !== ''}">
+                                    {{val.drawingPowerCT === null || val.drawingPowerCT === '' ? '___________' : val.drawingPowerCT}}
+                                </span>
+                                प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग
+                                गर्न सकिनेछ ।
+                            </span>-->
+                        </p>
+                        <p *ngIf="val.interestRateType === 'COUPEN_RATE_FINANCING'">
+                            <strong>
+                                ब्याज दरः
+                            </strong>
+                            <ng-container *ngIf="val.checkAdditionalPremiumRate === true">
+                                मुद्धति रसिदमा प्राप्त हुने ब्याज दरमा थप
+                                <span [ngClass]="{'outside' : val.additionalPremiumRateCT !== null && val.additionalPremiumRateCT !== ''}">
+                                    {{val.additionalPremiumRateCT === null || val.additionalPremiumRateCT === '' ? '___________' : val.additionalPremiumRateCT}}
+                                </span>
+                                प्रतिशत वा कम्तिमा
+                            </ng-container>
+                            बार्षिक
+                            <span [ngClass]="{'outside' : val.totalInterestRateCT !== null && val.totalInterestRateCT !== ''}">
+                                {{val.totalInterestRateCT === null || val.totalInterestRateCT === '' ? '___________' : val.totalInterestRateCT}}
+                            </span>
+                            का दरले नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ,
+                            आश्विन, पौष र चैत्र मसान्तमा र/वा कर्जा चुक्ता भुक्तान भएको अवस्थामा तिर्नु बुझाउनु पर्नेछ ।
+                        </p>
+                        <p *ngIf="val.interestRateType === 'BASE_RATE_FINANCING'">
+                            <strong>
+                                ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)
+                            </strong>
+                            <span [ngClass]="{'outside' : val.baseRateCT !== null && val.baseRateCT !== ''}">
+                                {{val.baseRateCT === null || val.baseRateCT === '' ? '___________' : val.baseRateCT}}
+                            </span>
+                            +
+                            <span [ngClass]="{'outside' : val.premiumRateCT !== null && val.premiumRateCT !== ''}">
+                                {{val.premiumRateCT === null || val.premiumRateCT === '' ? '___________' : val.premiumRateCT}}
+                            </span>
+                            प्रतिशत ब्याज दर प्रिमियम (interest rate premium)
+                        <br/>
+                        <!--<span *ngIf="interestSubsidyAgOverdraftFixedForm === 'No'">-->
+                        <span *ngIf="val.subsidyOrAgricultureLoan === 'No'">
+                            हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate) बार्षिक
+                            <span [ngClass]="{'outside' : val.interestRateCT !== null && val.interestRateCT !== ''}">
+                                {{val.interestRateCT === null || val.interestRateCT === '' ? '___________' : val.interestRateCT}}
+                            </span>
+                            % का दर निर्धारण गरीएकोछ र सो ब्याज रकम नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र
+                            चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।
+                        </span>
+                        </p>
+                        <span><strong>कर्जा अवधि समाप्ति/पुनरावलोकन मितिः</strong>
+                            {{val?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
+                            <span [ngClass]="{'outside' : val.dateOfExpiryCT !== null && val.dateOfExpiryCT !== ''}">
+                            {{val.dateOfExpiryCT === null || val.dateOfExpiryCT === '' ? '___________' : val.dateOfExpiryCT}}</span>
+                        </span>
+                    </td>
+                </tr>
+            </ng-container>
+
+            <ng-container *ngIf="tempData?.overDraftFacilityForm?.dlAgainstBondFormArray">
+                <tr *ngFor="let val of tempData?.overDraftFacilityForm?.dlAgainstBondFormArray; let i1 = index">
+                    <!--DL Facility against Bond-->
+                    <td style="width: 10%; border-right: 1px solid black; border-top: 1px solid black"><strong>{{
+                        (tempData?.equityMortgaged?.mortgageOverdraftFormArray.length) +
+                        (tempData?.termLoanForm?.termLoanDetails?.length) +
+                        (tempData?.autoLoanMasterForm?.autoLoanFormArray?.length) +
+                        (tempData?.letterOfCreditForm?.letterOfCreditFormArray.length) +
+                        (tempData?.importLoanTrust?.importLoanTrustFormArray.length) +
+                        (tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray.length) +
+                        (tempData?.timeLetterCreditForm?.timeLetterCreditFormArray.length) +
+                        (tempData?.demandLoanForm?.demandLoanFormArray.length) +
+                        (tempData?.bridgeGapLoan?.bridgeGapDetails.length) +
+                        (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
+                        (tempData?.mortgageEquityTermForm?.mortgageTermFormArray.length) +
+                        (tempData?.overdraftFixedForm?.dlAgainstFixedDepositFormArray.length) +
+                        (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
+                        (i1 + 1) | nepaliWord}})</strong></td>
+                    <td style="border-top: 1px solid black">
+                        <strong>बचत/ऋण पत्रमा आधारीत
+                            <span [ngClass]="{'outside' : val.nameOfFacilityCT !== null && val.nameOfFacilityCT !== ''}">
+                            {{val.nameOfFacilityCT === null || val.nameOfFacilityCT === '' ? '___________' : val.nameOfFacilityCT}}</span>
+                            कर्जा (
+                            <span [ngClass]="{'outside' : val.nameOfFacility !== null && val.nameOfFacility !== ''}">
+                            {{val.nameOfFacility === null || val.nameOfFacility === '' ? '___________' : val.nameOfFacility}}</span>
+                            Facility against Bond)</strong><br>
+                        <strong>सीमाः रु.
+                            <span>{{dlAgainstBond[i1] ? dlAgainstBond[i1].loanAmountNp : '_____________'}}</span>।-
+                            (अक्षरेपी रु.
+                            <span>{{dlAgainstBond[i1] ? dlAgainstBond[i1].loanAmountWords : '______________________'}}</span> मात्र)</strong><br>
+                        <p *ngIf="val.letterOfSetOffUsed === 'EXISTING'">
+                            <span><strong>सुरक्षणः</strong>
+                                <span>
+                                    <strong>
+                                        {{this.finalBondNameDl ? this.finalBondNameDl[i1] : '_________________'}}
+                                    </strong>
+                                </span>हरुको नाममा रहेको कम्तिमा रु.
+                                            <span [ngClass]="{'outside' : val.bondAmountCT !== null && val.bondAmountCT !== ''}">
+                            {{val.bondAmountCT === null || val.bondAmountCT === '' ? '___________' : val.bondAmountCT}}</span>
+                                ।-( बराबरको
+                                            <span [ngClass]="{'outside' : val.bondTypeCT !== null && val.bondTypeCT !== ''}">
+                            {{val.bondTypeCT === null || val.bondTypeCT === '' ? '___________' : val.bondTypeCT}}</span>
+                                यस बैंकले उल्लिखित
+                                            <span [ngClass]="{'outside' : val.bondTypeCT !== null && val.bondTypeCT !== ''}">
+                            {{val.bondTypeCT === null || val.bondTypeCT === '' ? '___________' : val.bondTypeCT}}</span>
+                       वापतको रकम र सोमा प्राप्त हुने ब्याज समेत कर्जामा समायोजन गर्न सक्ने अधिकार सहितका
+                        बैंकको पक्षमा जारी गरिदिइएको मोजरापत्र (Letter of Set-off) ।</span>
+                        </p>
+                        <p *ngIf="val.letterOfSetOffUsed === 'NEW'">
+                            <span><strong>सुरक्षणः</strong>
+                                <span>
+                                    <strong>
+                                        {{this.finalBondNameDl ? this.finalBondNameDl[i1] : '_________________'}}
+                                    </strong>
+                                </span>हरुको
+                                नाममा रहेको कम्तिमा रु.
+                                            <span [ngClass]="{'outside' : val.bondAmountCT  !== null && val.bondAmountCT  !== ''}">
+                            {{val.bondAmountCT  === null || val.bondAmountCT  === '' ? '___________' : val.bondAmountCT }}</span>
+                                ।-( बराबरको
+                                            <span [ngClass]="{'outside' : val.bondTypeCT !== null && val.bondTypeCT !== ''}">
+                            {{val.bondTypeCT === null || val.bondTypeCT === '' ? '___________' : val.bondTypeCT}}</span>
+                                यस बैंकले उल्लिखित
+                                            <span [ngClass]="{'outside' : val.bondTypeCT !== null && val.bondTypeCT !== ''}">
+                            {{val.bondTypeCT === null || val.bondTypeCT === '' ? '___________' : val.bondTypeCT}}</span>
+                                वापतको रकम र सोमा प्राप्त हुने ब्याज समेत कर्जामा समायोजन गर्न सक्ने अधिकार सहितका
+                                बैंकको पक्षमा जारी गरिने मोजरापत्र (Letter of Set-off) ।</span>
+                        </p>
+                        <p>
+                            <strong>ब्याज दरः</strong> बार्षिक
+                            <span [ngClass]="{'outside' : val.interestRateCT !== null && val.interestRateCT !== ''}">
+                            {{val.interestRateCT === null || val.interestRateCT === '' ? '___________' : val.interestRateCT}}</span>
+                            % का दरले नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ,
+                            आश्विन, पौष र चैत्र मसान्तमा र/वा कर्जा चुक्ता भुक्तान भएको अवस्थामा तिर्नु बुझाउनु पर्नेछ ।
+                        </p>
+                        <p *ngIf="val.interestRateType === 'BASE_RATE_FINANCING'">
+                            <strong>ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
+
+                            <span [ngClass]="{'outside' : val.baseRateCT !== null && val.baseRateCT !== ''}">
+                            {{val.baseRateCT === null || val.baseRateCT === '' ? '___________' : val.baseRateCT}}</span>
+                            +
+                            <span [ngClass]="{'outside' : val.premiumRateCT  !== null && val.premiumRateCT  !== ''}">
+                            {{val.premiumRateCT  === null || val.premiumRateCT  === '' ? '___________' : val.premiumRateCT }}</span>
+                            प्रतिशत ब्याज दर प्रिमियम (interest rate premium)
+                            <span *ngIf="val.subsidyOrAgricultureLoan === 'No'">हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
+                                बार्षिक
+                                            <span [ngClass]="{'outside' : val.interestRateCT !== null && val.interestRateCT !== ''}">
+                            {{val.interestRateCT === null || val.interestRateCT === '' ? '___________' : val.interestRateCT}}</span>
+                            % का दर
+                            निर्धारण गरीएकोछ र सो ब्याज रकम नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र
+                            चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।</span><br>
+                        </p>
+                        <span><strong>कर्जा अवधि समाप्ति/पुनरावलोकन मितिः</strong>
+                            {{this.val?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
+                            <span [ngClass]="{'outside' : val.dateOfExpiryCT !== null && val.dateOfExpiryCT !== ''}">
+                            {{val.interestRateCT === null || val.dateOfExpiryCT === '' ? '___________' : val.dateOfExpiryCT}}</span>
+                        </span><br>
+                    </td>
+                </tr>
+            </ng-container>
+
+            <ng-container *ngIf="tempData?.overdraftFixedForm?.dlAgainstLienOnDepositFormArray">
+                <tr *ngFor="let val of tempData?.overdraftFixedForm?.dlAgainstLienOnDepositFormArray; let i1 = index">
+                    <!--DL Lien on Deposit Account-->
+                    <td style="width: 10%; border-right: 1px solid black; border-top: 1px solid black"><strong>{{
+                        (tempData?.equityMortgaged?.mortgageOverdraftFormArray.length) +
+                        (tempData?.termLoanForm?.termLoanDetails?.length) +
+                        (tempData?.autoLoanMasterForm?.autoLoanFormArray?.length) +
+                        (tempData?.letterOfCreditForm?.letterOfCreditFormArray.length) +
+                        (tempData?.importLoanTrust?.importLoanTrustFormArray.length) +
+                        (tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray.length) +
+                        (tempData?.timeLetterCreditForm?.timeLetterCreditFormArray.length) +
+                        (tempData?.demandLoanForm?.demandLoanFormArray.length) +
+                        (tempData?.bridgeGapLoan?.bridgeGapDetails.length) +
+                        (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
+                        (tempData?.mortgageEquityTermForm?.mortgageTermFormArray.length) +
+                        (tempData?.overdraftFixedForm?.dlAgainstFixedDepositFormArray.length) +
+                        (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
+                        (tempData?.overDraftFacilityForm?.dlAgainstBondFormArray.length) +
+                        (i1 + 1) | nepaliWord}})</strong></td>
+                    <td style="border-top: 1px solid black">
+                        <!--<span *ngIf="subLoanOptionOverdraftFixedForm === 'AGAINST_FIXED_DEPOSIT'">
+                            <strong>निक्षेप मौज्दातमा आधारीत
+                                            <span [ngClass]="{'outside' : val.nameOfFacilityCT !== null && val.nameOfFacilityCT !== ''}">
+                                                {{val.nameOfFacilityCT === null || val.nameOfFacilityCT === '' ? '___________' : val.nameOfFacilityCT}}</span>
+                                कर्जा (
+                                <span [ngClass]="{'outside' : val.nameOfFacility !== null && val.nameOfFacility !== ''}">
+                                    {{val.nameOfFacility === null || val.nameOfFacility === '' ? '___________' : val.nameOfFacility}}</span>
+                                Facility against Fixed Deposit)
+                            </strong>
+                        </span>-->
+
+                       <!-- <span *ngIf="subLoanOptionOverdraftFixedForm === 'AGAINST_DEPOSIT_ACCOUNT'">-->
+                        <span>
+                            <strong>
+                                निक्षेप मौज्दातमा आधारीत
+                                <span [ngClass]="{'outside' : val.nameOfFacilityCT !== null && val.nameOfFacilityCT !== ''}">
+                                    {{val.nameOfFacilityCT === null || val.nameOfFacilityCT === '' ? '___________' : val.nameOfFacilityCT}}
+                                </span>
+                            कर्जा(
+                                <span [ngClass]="{'outside' : val.nameOfFacility !== null && val.nameOfFacility !== ''}">
+                                    {{val.nameOfFacility === null || val.nameOfFacility === '' ? '___________' : val.nameOfFacility}}
+                                </span>
+                                Facility against Lien on Deposit Account)
+                            </strong>
+                        </span>
+                        <br>
+                        <strong>
+                            सीमाः रु.
+                            <span>
+                                {{dlLienDeposit[i1] ? dlLienDeposit[i1].loanAmountNp : ''}}
+                            </span>/-
+                            (अक्षरेपी रु.
+                            <span>
+                                {{dlLienDeposit[i1] ? dlLienDeposit[i1].loanAmountWords : ''}}
+                            </span>
+                            मात्र)
+                        </strong>
+                        <br>
+
+                        <!--<p *ngIf="subLoanOptionOverdraftFixedForm === 'AGAINST_FIXED_DEPOSIT' && holdingBankOverdraftFixedForm === 'NABIL'">
+                        <p *ngIf="val.holdingBank === 'NABIL'">
+                            <strong>सुरक्षणः</strong>
+                            नबिल बैंकद्घारा जारी गरिएको
+                            <span>
+                                <strong>
+                                    {{this.finalFdNameDl ? this.finalFdNameDl[val] : ''}}
+                                </strong>
+                            </span>
+                            हरुको नाममा रहेको कम्तिमा रु.
+                            <span [ngClass]="{'outside' : val.FdAmountInFigureCT !== null && val.FdAmountInFigureCT !== ''}">
+                                {{val.FdAmountInFigureCT === null || val.FdAmountInFigureCT === '' ? '___________' : val.FdAmountInFigureCT}}
+                            </span>
+                            /– बराबरको मुद्धती रसिद उपर बैंकले उल्लिखित रसिद वापतको रकम कर्जामा
+                            समायोजन गर्न सक्ने अधिकार सहितको बैंकको पक्षमा जारी गरिदिइएको/गरिने मोजरापत्र (Letter of Set-off) ।
+                        </p>
+                        &lt;!&ndash;<p *ngIf="subLoanOptionOverdraftFixedForm === 'AGAINST_FIXED_DEPOSIT' && holdingBankOverdraftFixedForm === 'OTHER'">&ndash;&gt;
+                        <p *ngIf="val.holdingBank === 'OTHER'">
+                            <strong>सुरक्षणः</strong>
+                            <span [ngClass]="{'outside' : val.holdingBankCT !== null && val.holdingBankCT !== ''}">
+                                {{val.holdingBankCT === null || val.holdingBankCT === '' ? '___________' : val.holdingBankCT}}
+                            </span>
+                            बैंकद्घारा जारी गरिएको
+                            <span>
+                                <strong>
+                                    {{this.finalFdNameDl ? this.finalFdNameDl[val] : ''}}
+                                </strong>
+                            </span>
+                            हरुको नाममा रहेको कम्तिमा रु.
+                            <span [ngClass]="{'outside' : val.FdAmountInFigureCT !== null && val.FdAmountInFigureCT !== ''}">
+                                {{val.FdAmountInFigureCT === null || val.FdAmountInFigureCT === '' ? '___________' : val.FdAmountInFigureCT}}
+                            </span>
+                            /–बराबरको मुद्धती रसिद उपर बैंकले उल्लिखित रसिद वापतको रकम कर्जामा
+                            समायोजन गर्न सक्ने अधिकार सहितको बैंकको पक्षमा जारी गरिदिइएको/गरिने मोजरापत्र (Letter of Set-off) ।
+                        </p>-->
+                        <!--OR-->
+                        <!--<p *ngIf="subLoanOptionOverdraftFixedForm === 'AGAINST_DEPOSIT_ACCOUNT'">-->
+                        <p>
+                            <span *ngIf="val.letterOfSetOff === 'EXISTING'"><strong>सुरक्षणः</strong> नबिल बैंकमा खोलिएको
+                                            <span>
+                                                <strong>
+                                                    {{this.finalDepNameDlLien ? this.finalDepNameDlLien[i1] : ''}}
+                                                </strong>
+                                            </span>
+                                को नाममा रहेको
+                                <ng-container *ngIf="val.accountType === 'CURRENT_ACCOUNT'">चल्ति </ng-container>
+                                <ng-container *ngIf="val.accountType === 'SAVING_ACCOUNT'">बचत </ng-container>
+                                <ng-container *ngIf="val.accountType === 'CALL_ACCOUNT'">कल </ng-container>
+                                खाता नं. ‘‘
+                                <span [ngClass]="{'outside' : val.accountNumberCT !== null && val.accountNumberCT !== ''}">
+                                    {{val.accountNumberCT === null || val.accountNumberCT === '' ? '___________' : val.accountNumberCT}}</span>
+                                ‘‘मा रहेको मौज्दात रु.
+                                <span [ngClass]="{'outside' : val.amountInFigureCT !== null && val.amountInFigureCT !== ''}">
+                                    {{val.amountInFigureCT === null || val.amountInFigureCT === '' ? '___________' : val.amountInFigureCT}}
+                                </span>
+                                बराबरको रकममा ग्रहणाधिकार कायम गरी
+                                उक्त रकम बरावर कर्जामा समायोजन गर्न सक्ने अधिकार सहितको बैंकको पक्षमा जारी गरिदिइएको
+                                मोजरापत्र (Letter of Set-off) ।
+                            </span>
+
+                            <span *ngIf="val.letterOfSetOff === 'NEW'"><strong>सुरक्षणः</strong> नबिल बैंकमा खोलिएको
+                                <span>
+                                    <strong>
+                                     {{this.finalDepNameDlLien ? this.finalDepNameDlLien[i1] : ''}}
+                                    </strong>
+                                </span>
+                                को नाममा रहेको
+                                <ng-container *ngIf="val.accountType === 'CURRENT_ACCOUNT'">चल्ति </ng-container>
+                                <ng-container *ngIf="val.accountType === 'SAVING_ACCOUNT'">बचत </ng-container>
+                                <ng-container *ngIf="val.accountType === 'CALL_ACCOUNT'">कल </ng-container>
+                                खाता नं. ‘‘
+                                <span [ngClass]="{'outside' : val.accountNumberCT !== null && val.accountNumberCT !== ''}">
+                                    {{val.accountNumberCT === null || val.accountNumberCT === '' ? '___________' : val.accountNumberCT}}</span>
+                                ‘‘मा रहेको मौज्दात रु.
+                                <span [ngClass]="{'outside' : val.amountInFigureCT !== null && val.amountInFigureCT !== ''}">
+                                    {{val.amountInFigureCT === null || val.amountInFigureCT === '' ? '___________' : val.amountInFigureCT}}
+                                </span>
+                                बराबरको रकममा ग्रहणाधिकार कायम गरी
+                                उक्त रकम बरावर कर्जामा समायोजन गर्न सक्ने अधिकार सहितको बैंकको पक्षमा जारी गरिने
+                                मोजरापत्र (Letter of Set-off) ।
+                            </span>
+                        </p>
+                        <p>
+                            <!--<span *ngIf="subLoanOptionOverdraftFixedForm === 'AGAINST_FIXED_DEPOSIT'">
+                                <strong>
+                                    ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):
+                                </strong>
+                                मुद्धती रसिदको मौज्दातको
+                                <span [ngClass]="{'outside' : val.drawingPowerCT !== null && val.drawingPowerCT !== ''}">
+                                    {{val.drawingPowerCT === null || val.drawingPowerCT === '' ? '___________' : val.drawingPowerCT}}
+                                </span>
+                                प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग
+                                गर्न सकिनेछ ।
+                            </span>-->
+
+                            <!--<span *ngIf="subLoanOptionOverdraftFixedForm === 'AGAINST_DEPOSIT_ACCOUNT'">-->
+                            <span>
+                                <strong>
+                                    ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):
+                                </strong>
+                                खातामा रोक्का राखिएका मौज्दातको
+                                <span [ngClass]="{'outside' : val.drawingPowerCT !== null && val.drawingPowerCT !== ''}">
+                                    {{val.drawingPowerCT === null || val.drawingPowerCT === '' ? '___________' : val.drawingPowerCT}}
+                                </span>
+                                प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग
+                                गर्न सकिनेछ ।
+                            </span>
+                        </p>
+                        <p *ngIf="val.interestRateType === 'COUPEN_RATE_FINANCING'">
+                            <strong>
+                                ब्याज दरः
+                            </strong>
+                            <ng-container *ngIf="val.checkAdditionalPremiumRate === true">
+                                मुद्धति रसिदमा प्राप्त हुने ब्याज दरमा थप
+                                <span [ngClass]="{'outside' : val.additionalPremiumRateCT !== null && val.additionalPremiumRateCT !== ''}">
+                                    {{val.additionalPremiumRateCT === null || val.additionalPremiumRateCT === '' ? '___________' : val.additionalPremiumRateCT}}
+                                </span>
+                                प्रतिशत वा कम्तिमा
+                            </ng-container>
+                            बार्षिक
+                            <span [ngClass]="{'outside' : val.totalInterestRateCT !== null && val.totalInterestRateCT !== ''}">
+                                {{val.totalInterestRateCT === null || val.totalInterestRateCT === '' ? '___________' : val.totalInterestRateCT}}
+                            </span>
+                            का दरले नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ,
+                            आश्विन, पौष र चैत्र मसान्तमा र/वा कर्जा चुक्ता भुक्तान भएको अवस्थामा तिर्नु बुझाउनु पर्नेछ ।
+                        </p>
+                        <p *ngIf="val.interestRateType === 'BASE_RATE_FINANCING'">
+                            <strong>
+                                ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)
+                            </strong>
+                            <span [ngClass]="{'outside' : val.baseRateCT !== null && val.baseRateCT !== ''}">
+                                {{val.baseRateCT === null || val.baseRateCT === '' ? '___________' : val.baseRateCT}}
+                            </span>
+                            +
+                            <span [ngClass]="{'outside' : val.premiumRateCT !== null && val.premiumRateCT !== ''}">
+                                {{val.premiumRateCT === null || val.premiumRateCT === '' ? '___________' : val.premiumRateCT}}
+                            </span>
+                            प्रतिशत ब्याज दर प्रिमियम (interest rate premium)
+                        <br/>
+                        <!--<span *ngIf="interestSubsidyAgOverdraftFixedForm === 'No'">-->
+                        <span *ngIf="val.subsidyOrAgricultureLoan === 'No'">
+                            हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate) बार्षिक
+                            <span [ngClass]="{'outside' : val.interestRateCT !== null && val.interestRateCT !== ''}">
+                                {{val.interestRateCT === null || val.interestRateCT === '' ? '___________' : val.interestRateCT}}
+                            </span>
+                            % का दर निर्धारण गरीएकोछ र सो ब्याज रकम नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र
+                            चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।
+                        </span>
+                        </p>
+                        <span><strong>कर्जा अवधि समाप्ति/पुनरावलोकन मितिः</strong>
+                            {{val?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
+                            <span [ngClass]="{'outside' : val.dateOfExpiryCT !== null && val.dateOfExpiryCT !== ''}">
+                            {{val.dateOfExpiryCT === null || val.dateOfExpiryCT === '' ? '___________' : val.dateOfExpiryCT}}</span>
+                        </span>
+                    </td>
+                </tr>
+            </ng-container>
+
             <ng-container *ngIf="tempData?.overDraftFacilityForm?.overdraftFacilityDetails">
                 <tr *ngFor="let val of tempData?.overDraftFacilityForm?.overdraftFacilityDetails; let i1 = index">
                     <!--Overdraft Facility against Bond-->
@@ -858,6 +1492,10 @@
                         (tempData?.bridgeGapLoan?.bridgeGapDetails.length) +
                         (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
                         (tempData?.mortgageEquityTermForm?.mortgageTermFormArray.length) +
+                        (tempData?.overdraftFixedForm?.dlAgainstFixedDepositFormArray.length) +
+                        (tempData?.overdraftFixedForm?.dlAgainstLienOnDepositFormArray.length) +
+                        (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
+                        (tempData?.overDraftFacilityForm?.dlAgainstBondFormArray.length) +
                         (i1 + 1) | nepaliWord}})</strong></td>
                     <td style="border-top: 1px solid black">
                         <strong>बचत/ऋण पत्रमा आधारीत
@@ -933,6 +1571,723 @@
                 </tr>
             </ng-container>
 
+            <ng-container *ngIf="tempData?.overdraftFixedForm?.odFdFormArray">
+                <tr *ngFor="let val of tempData?.overdraftFixedForm?.odFdFormArray; let i1 = index">
+                    <!--Overdraft Facility against Fixed Deposit-->
+                    <td style="width: 10%; border-right: 1px solid black; border-top: 1px solid black"><strong>{{
+                        (tempData?.termLoanForm?.termLoanDetails?.length) +
+                        (tempData?.autoLoanMasterForm?.autoLoanFormArray?.length) +
+                        (tempData?.overDraftFacilityForm?.overdraftFacilityDetails.length) +
+                        (tempData?.equityMortgaged?.mortgageOverdraftFormArray.length) +
+                        (tempData?.letterOfCreditForm?.letterOfCreditFormArray.length) +
+                        (tempData?.importLoanTrust?.importLoanTrustFormArray.length) +
+                        (tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray.length) +
+                        (tempData?.timeLetterCreditForm?.timeLetterCreditFormArray.length) +
+                        (tempData?.demandLoanForm?.demandLoanFormArray.length) +
+                        (tempData?.bridgeGapLoan?.bridgeGapDetails.length) +
+                        (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
+                        (tempData?.mortgageEquityTermForm?.mortgageTermFormArray.length) +
+                        (tempData?.overdraftFixedForm?.dlAgainstFixedDepositFormArray.length) +
+                        (tempData?.overdraftFixedForm?.dlAgainstLienOnDepositFormArray.length) +
+                        (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
+                        (tempData?.overDraftFacilityForm?.dlAgainstBondFormArray.length) +
+                        (i1 + 1) | nepaliWord}})</strong></td>
+                    <td style="border-top: 1px solid black">
+                        <span>
+                            <strong>निक्षेप मौज्दातमा आधारीत
+                                            <span [ngClass]="{'outside' : val.nameOfFacilityCT !== null && val.nameOfFacilityCT !== ''}">
+                                                {{val.nameOfFacilityCT === null || val.nameOfFacilityCT === '' ? '___________' : val.nameOfFacilityCT}}</span>
+                                कर्जा (
+                                <span [ngClass]="{'outside' : val.nameOfFacility !== null && val.nameOfFacility !== ''}">
+                                    {{val.nameOfFacility === null || val.nameOfFacility === '' ? '___________' : val.nameOfFacility}}</span>
+                                Facility against Fixed Deposit)
+                            </strong>
+                        </span>
+
+                        <br>
+                        <strong>
+                            सीमाः रु.
+                            <span>
+                                {{overdraftFacilityFixedDeposit[i1] ? overdraftFacilityFixedDeposit[i1].loanAmountNp : ''}}
+                            </span>/-
+                            (अक्षरेपी रु.
+                            <span>
+                                {{overdraftFacilityFixedDeposit[i1] ? overdraftFacilityFixedDeposit[i1].loanAmountWords : ''}}
+                            </span>
+                            मात्र)
+                        </strong>
+                        <br>
+
+                        <p *ngIf="val.holdingBank === 'NABIL'">
+                            <strong>सुरक्षणः</strong>
+                            नबिल बैंकद्घारा जारी गरिएको
+                            <span>
+                                <strong>
+                                    {{this.finalFdName ? this.finalFdName[i1] : ''}}
+                                </strong>
+                            </span>
+                            हरुको नाममा रहेको कम्तिमा रु.
+                            <span [ngClass]="{'outside' : val.FdAmountInFigureCT !== null && val.FdAmountInFigureCT !== ''}">
+                                {{val.FdAmountInFigureCT === null || val.FdAmountInFigureCT === '' ? '___________' : val.FdAmountInFigureCT}}
+                            </span>
+                            /– बराबरको मुद्धती रसिद उपर बैंकले उल्लिखित रसिद वापतको रकम कर्जामा
+                            समायोजन गर्न सक्ने अधिकार सहितको बैंकको पक्षमा जारी गरिदिइएको/गरिने मोजरापत्र (Letter of Set-off) ।
+                        </p>
+                        <p *ngIf="val.holdingBank === 'OTHER'">
+                            <strong>सुरक्षणः</strong>
+                            <span [ngClass]="{'outside' : val.holdingBankCT !== null && val.holdingBankCT !== ''}">
+                                {{val.holdingBankCT === null || val.holdingBankCT === '' ? '___________' : val.holdingBankCT}}
+                            </span>
+                            बैंकद्घारा जारी गरिएको
+                            <span>
+                                <strong>
+                                    {{this.finalFdName ? this.finalFdName[i1] : ''}}
+                                </strong>
+                            </span>
+                            हरुको नाममा रहेको कम्तिमा रु.
+                            <span [ngClass]="{'outside' : val.FdAmountInFigureCT !== null && val.FdAmountInFigureCT !== ''}">
+                                {{val.FdAmountInFigureCT === null || val.FdAmountInFigureCT === '' ? '___________' : val.FdAmountInFigureCT}}
+                            </span>
+                            /–बराबरको मुद्धती रसिद उपर बैंकले उल्लिखित रसिद वापतको रकम कर्जामा
+                            समायोजन गर्न सक्ने अधिकार सहितको बैंकको पक्षमा जारी गरिदिइएको/गरिने मोजरापत्र (Letter of Set-off) ।
+                        </p>
+
+                        <p>
+                            <span>
+                                <strong>
+                                    ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):
+                                </strong>
+                                मुद्धती रसिदको मौज्दातको
+                                <span [ngClass]="{'outside' : val.drawingPowerCT !== null && val.drawingPowerCT !== ''}">
+                                    {{val.drawingPowerCT === null || val.drawingPowerCT === '' ? '___________' : val.drawingPowerCT}}
+                                </span>
+                                प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग
+                                गर्न सकिनेछ ।
+                            </span>
+
+                        </p>
+                        <p *ngIf="val.interestRateType === 'COUPEN_RATE_FINANCING'">
+                            <strong>
+                                ब्याज दरः
+                            </strong>
+                            <ng-container *ngIf="val.checkAdditionalPremiumRate === true">
+                                मुद्धति रसिदमा प्राप्त हुने ब्याज दरमा थप
+                                <span [ngClass]="{'outside' : val.additionalPremiumRateCT !== null && val.additionalPremiumRateCT !== ''}">
+                                    {{val.additionalPremiumRateCT === null || val.additionalPremiumRateCT === '' ? '___________' : val.additionalPremiumRateCT}}
+                                </span>
+                                प्रतिशत वा कम्तिमा
+                            </ng-container>
+                            बार्षिक
+                            <span [ngClass]="{'outside' : val.totalInterestRateCT !== null && val.totalInterestRateCT !== ''}">
+                                {{val.totalInterestRateCT === null || val.totalInterestRateCT === '' ? '___________' : val.totalInterestRateCT}}
+                            </span>
+                            का दरले नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ,
+                            आश्विन, पौष र चैत्र मसान्तमा र/वा कर्जा चुक्ता भुक्तान भएको अवस्थामा तिर्नु बुझाउनु पर्नेछ ।
+                        </p>
+                        <p *ngIf="val.interestRateType === 'BASE_RATE_FINANCING'">
+                            <strong>
+                                ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)
+                            </strong>
+                            <span [ngClass]="{'outside' : val.baseRateCT !== null && val.baseRateCT !== ''}">
+                                {{val.baseRateCT === null || val.baseRateCT === '' ? '___________' : val.baseRateCT}}
+                            </span>
+                            +
+                            <span [ngClass]="{'outside' : val.premiumRateCT !== null && val.premiumRateCT !== ''}">
+                                {{val.premiumRateCT === null || val.premiumRateCT === '' ? '___________' : val.premiumRateCT}}
+                            </span>
+                            प्रतिशत ब्याज दर प्रिमियम (interest rate premium)
+                        <br/>
+                        <!--<span *ngIf="interestSubsidyAgOverdraftFixedForm === 'No'">-->
+                        <span *ngIf="val.subsidyOrAgricultureLoan === 'No'">
+                            हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate) बार्षिक
+                            <span [ngClass]="{'outside' : val.interestRateCT !== null && val.interestRateCT !== ''}">
+                                {{val.interestRateCT === null || val.interestRateCT === '' ? '___________' : val.interestRateCT}}
+                            </span>
+                            % का दर निर्धारण गरीएकोछ र सो ब्याज रकम नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र
+                            चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।
+                        </span>
+                        </p>
+                        <span><strong>कर्जा अवधि समाप्ति/पुनरावलोकन मितिः</strong>
+                            {{val?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
+                            <span [ngClass]="{'outside' : val.dateOfExpiryCT !== null && val.dateOfExpiryCT !== ''}">
+                            {{val.dateOfExpiryCT === null || val.dateOfExpiryCT === '' ? '___________' : val.dateOfExpiryCT}}</span>
+                        </span>
+                    </td>
+                </tr>
+            </ng-container>
+
+            <ng-container *ngIf="tempData?.overdraftFixedForm?.overdraftLienOnDepositFormArray">
+                <tr *ngFor="let val of tempData?.overdraftFixedForm?.overdraftLienOnDepositFormArray; let i1 = index">
+                    <!--Overdraft Facility Lien on Deposit Account-->
+                    <td style="width: 10%; border-right: 1px solid black; border-top: 1px solid black"><strong>{{
+                        (tempData?.termLoanForm?.termLoanDetails?.length) +
+                        (tempData?.autoLoanMasterForm?.autoLoanFormArray?.length) +
+                        (tempData?.overDraftFacilityForm?.overdraftFacilityDetails.length) +
+                        (tempData?.equityMortgaged?.mortgageOverdraftFormArray.length) +
+                        (tempData?.letterOfCreditForm?.letterOfCreditFormArray.length) +
+                        (tempData?.importLoanTrust?.importLoanTrustFormArray.length) +
+                        (tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray.length) +
+                        (tempData?.timeLetterCreditForm?.timeLetterCreditFormArray.length) +
+                        (tempData?.demandLoanForm?.demandLoanFormArray.length) +
+                        (tempData?.bridgeGapLoan?.bridgeGapDetails.length) +
+                        (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
+                        (tempData?.mortgageEquityTermForm?.mortgageTermFormArray.length) +
+                        (tempData?.overdraftFixedForm?.dlAgainstFixedDepositFormArray.length) +
+                        (tempData?.overdraftFixedForm?.odFdFormArray.length) +
+                        (tempData?.overdraftFixedForm?.dlAgainstLienOnDepositFormArray.length) +
+                        (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
+                        (tempData?.overDraftFacilityForm?.dlAgainstBondFormArray.length) +
+                        (i1 + 1) | nepaliWord}})</strong></td>
+                    <td style="border-top: 1px solid black">
+                        <span>
+                            <strong>
+                                निक्षेप मौज्दातमा आधारीत
+                                <span [ngClass]="{'outside' : val.nameOfFacilityCT !== null && val.nameOfFacilityCT !== ''}">
+                                    {{val.nameOfFacilityCT === null || val.nameOfFacilityCT === '' ? '___________' : val.nameOfFacilityCT}}
+                                </span>
+                            कर्जा(
+                                <span [ngClass]="{'outside' : val.nameOfFacility !== null && val.nameOfFacility !== ''}">
+                                    {{val.nameOfFacility === null || val.nameOfFacility === '' ? '___________' : val.nameOfFacility}}
+                                </span>
+                                Facility against Lien on Deposit Account)
+                            </strong>
+                        </span>
+                        <br>
+                        <strong>
+                            सीमाः रु.
+                            <span>
+                                {{overdraftFacilityLienDeposit[i1] ? overdraftFacilityLienDeposit[i1].loanAmountNp : ''}}
+                            </span>/-
+                            (अक्षरेपी रु.
+                            <span>
+                                {{overdraftFacilityLienDeposit[i1] ? overdraftFacilityLienDeposit[i1].loanAmountWords : ''}}
+                            </span>
+                            मात्र)
+                        </strong>
+                        <br>
+
+                        <p>
+                            <span *ngIf="val.letterOfSetOff === 'EXISTING'"><strong>सुरक्षणः</strong> नबिल बैंकमा खोलिएको
+                                            <span>
+                                                <strong>
+                                                    {{this.finalDepNameOverdraftLien ? this.finalDepNameOverdraftLien[i1] : ''}}
+                                                </strong>
+                                            </span>
+                                को नाममा रहेको
+                                <ng-container *ngIf="val.accountType === 'CURRENT_ACCOUNT'">चल्ति </ng-container>
+                                <ng-container *ngIf="val.accountType === 'SAVING_ACCOUNT'">बचत </ng-container>
+                                <ng-container *ngIf="val.accountType === 'CALL_ACCOUNT'">कल </ng-container>
+                                खाता नं. ‘‘
+                                <span [ngClass]="{'outside' : val.accountNumberCT !== null && val.accountNumberCT !== ''}">
+                                    {{val.accountNumberCT === null || val.accountNumberCT === '' ? '___________' : val.accountNumberCT}}</span>
+                                ‘‘मा रहेको मौज्दात रु.
+                                <span [ngClass]="{'outside' : val.amountInFigureCT !== null && val.amountInFigureCT !== ''}">
+                                    {{val.amountInFigureCT === null || val.amountInFigureCT === '' ? '___________' : val.amountInFigureCT}}
+                                </span>
+                                बराबरको रकममा ग्रहणाधिकार कायम गरी
+                                उक्त रकम बरावर कर्जामा समायोजन गर्न सक्ने अधिकार सहितको बैंकको पक्षमा जारी गरिदिइएको
+                                मोजरापत्र (Letter of Set-off) ।
+                            </span>
+
+                            <span *ngIf="val.letterOfSetOff === 'NEW'"><strong>सुरक्षणः</strong> नबिल बैंकमा खोलिएको
+                                <span>
+                                    <strong>
+                                        {{this.finalDepNameOverdraftLien ? this.finalDepNameOverdraftLien[i1] : ''}}
+                                    </strong>
+                                </span>
+                                को नाममा रहेको
+                                <ng-container *ngIf="val.accountType === 'CURRENT_ACCOUNT'">चल्ति </ng-container>
+                                <ng-container *ngIf="val.accountType === 'SAVING_ACCOUNT'">बचत </ng-container>
+                                <ng-container *ngIf="val.accountType === 'CALL_ACCOUNT'">कल </ng-container>
+                                खाता नं. ‘‘
+                                <span [ngClass]="{'outside' : val.accountNumberCT !== null && val.accountNumberCT !== ''}">
+                                    {{val.accountNumberCT === null || val.accountNumberCT === '' ? '___________' : val.accountNumberCT}}</span>
+                                ‘‘मा रहेको मौज्दात रु.
+                                <span [ngClass]="{'outside' : val.amountInFigureCT !== null && val.amountInFigureCT !== ''}">
+                                    {{val.amountInFigureCT === null || val.amountInFigureCT === '' ? '___________' : val.amountInFigureCT}}
+                                </span>
+                                बराबरको रकममा ग्रहणाधिकार कायम गरी
+                                उक्त रकम बरावर कर्जामा समायोजन गर्न सक्ने अधिकार सहितको बैंकको पक्षमा जारी गरिने
+                                मोजरापत्र (Letter of Set-off) ।
+                            </span>
+                        </p>
+                        <p>
+                            <span>
+                                <strong>
+                                    ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):
+                                </strong>
+                                खातामा रोक्का राखिएका मौज्दातको
+                                <span [ngClass]="{'outside' : val.drawingPowerCT !== null && val.drawingPowerCT !== ''}">
+                                    {{val.drawingPowerCT === null || val.drawingPowerCT === '' ? '___________' : val.drawingPowerCT}}
+                                </span>
+                                प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग
+                                गर्न सकिनेछ ।
+                            </span>
+                        </p>
+                        <p *ngIf="val.interestRateType === 'COUPEN_RATE_FINANCING'">
+                            <strong>
+                                ब्याज दरः
+                            </strong>
+                            <ng-container *ngIf="val.checkAdditionalPremiumRate === true">
+                                मुद्धति रसिदमा प्राप्त हुने ब्याज दरमा थप
+                                <span [ngClass]="{'outside' : val.additionalPremiumRateCT !== null && val.additionalPremiumRateCT !== ''}">
+                                    {{val.additionalPremiumRateCT === null || val.additionalPremiumRateCT === '' ? '___________' : val.additionalPremiumRateCT}}
+                                </span>
+                                प्रतिशत वा कम्तिमा
+                            </ng-container>
+                            बार्षिक
+                            <span [ngClass]="{'outside' : val.totalInterestRateCT !== null && val.totalInterestRateCT !== ''}">
+                                {{val.totalInterestRateCT === null || val.totalInterestRateCT === '' ? '___________' : val.totalInterestRateCT}}
+                            </span>
+                            का दरले नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ,
+                            आश्विन, पौष र चैत्र मसान्तमा र/वा कर्जा चुक्ता भुक्तान भएको अवस्थामा तिर्नु बुझाउनु पर्नेछ ।
+                        </p>
+                        <p *ngIf="val.interestRateType === 'BASE_RATE_FINANCING'">
+                            <strong>
+                                ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)
+                            </strong>
+                            <span [ngClass]="{'outside' : val.baseRateCT !== null && val.baseRateCT !== ''}">
+                                {{val.baseRateCT === null || val.baseRateCT === '' ? '___________' : val.baseRateCT}}
+                            </span>
+                            +
+                            <span [ngClass]="{'outside' : val.premiumRateCT !== null && val.premiumRateCT !== ''}">
+                                {{val.premiumRateCT === null || val.premiumRateCT === '' ? '___________' : val.premiumRateCT}}
+                            </span>
+                            प्रतिशत ब्याज दर प्रिमियम (interest rate premium)
+                        <br/>
+                        <!--<span *ngIf="interestSubsidyAgOverdraftFixedForm === 'No'">-->
+                        <span *ngIf="val.subsidyOrAgricultureLoan === 'No'">
+                            हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate) बार्षिक
+                            <span [ngClass]="{'outside' : val.interestRateCT !== null && val.interestRateCT !== ''}">
+                                {{val.interestRateCT === null || val.interestRateCT === '' ? '___________' : val.interestRateCT}}
+                            </span>
+                            % का दर निर्धारण गरीएकोछ र सो ब्याज रकम नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र
+                            चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।
+                        </span>
+                        </p>
+                        <span><strong>कर्जा अवधि समाप्ति/पुनरावलोकन मितिः</strong>
+                            {{val?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
+                            <span [ngClass]="{'outside' : val.dateOfExpiryCT !== null && val.dateOfExpiryCT !== ''}">
+                            {{val.dateOfExpiryCT === null || val.dateOfExpiryCT === '' ? '___________' : val.dateOfExpiryCT}}</span>
+                        </span>
+                    </td>
+                </tr>
+            </ng-container>
+
+            <ng-container *ngIf="tempData?.overdraftFixedForm?.stlAgainstFixedDepositFormArray">
+                <tr *ngFor="let val of tempData?.overdraftFixedForm?.stlAgainstFixedDepositFormArray; let i1 = index">
+                    <!--STL against Fixed Deposit-->
+                    <td style="width: 10%; border-right: 1px solid black; border-top: 1px solid black"><strong>{{
+                        (tempData?.termLoanForm?.termLoanDetails?.length) +
+                        (tempData?.autoLoanMasterForm?.autoLoanFormArray?.length) +
+                        (tempData?.overDraftFacilityForm?.overdraftFacilityDetails.length) +
+                        (tempData?.equityMortgaged?.mortgageOverdraftFormArray.length) +
+                        (tempData?.letterOfCreditForm?.letterOfCreditFormArray.length) +
+                        (tempData?.importLoanTrust?.importLoanTrustFormArray.length) +
+                        (tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray.length) +
+                        (tempData?.timeLetterCreditForm?.timeLetterCreditFormArray.length) +
+                        (tempData?.demandLoanForm?.demandLoanFormArray.length) +
+                        (tempData?.bridgeGapLoan?.bridgeGapDetails.length) +
+                        (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
+                        (tempData?.mortgageEquityTermForm?.mortgageTermFormArray.length) +
+                        (tempData?.overdraftFixedForm?.dlAgainstFixedDepositFormArray.length) +
+                        (tempData?.overdraftFixedForm?.odFdFormArray.length) +
+                        (tempData?.overdraftFixedForm?.dlAgainstLienOnDepositFormArray.length) +
+                        (tempData?.overdraftFixedForm?.overdraftLienOnDepositFormArray.length) +
+                        (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
+                        (tempData?.overDraftFacilityForm?.dlAgainstBondFormArray.length) +
+                        (i1 + 1) | nepaliWord}})</strong></td>
+                    <td style="border-top: 1px solid black">
+                        <span>
+                            <strong>निक्षेप मौज्दातमा आधारीत
+                                            <span [ngClass]="{'outside' : val.nameOfFacilityCT !== null && val.nameOfFacilityCT !== ''}">
+                                                {{val.nameOfFacilityCT === null || val.nameOfFacilityCT === '' ? '___________' : val.nameOfFacilityCT}}</span>
+                                कर्जा (
+                                <span [ngClass]="{'outside' : val.nameOfFacility !== null && val.nameOfFacility !== ''}">
+                                    {{val.nameOfFacility === null || val.nameOfFacility === '' ? '___________' : val.nameOfFacility}}</span>
+                                Facility against Fixed Deposit)
+                            </strong>
+                        </span>
+
+                        <br>
+                        <strong>
+                            सीमाः रु.
+                            <span>
+                                {{stlFixedDeposit[i1] ? stlFixedDeposit[i1].loanAmountNp : ''}}
+                            </span>/-
+                            (अक्षरेपी रु.
+                            <span>
+                                {{stlFixedDeposit[i1] ? stlFixedDeposit[i1].loanAmountWords : ''}}
+                            </span>
+                            मात्र)
+                        </strong>
+                        <br>
+
+                        <p *ngIf="val.holdingBank === 'NABIL'">
+                            <strong>सुरक्षणः</strong>
+                            नबिल बैंकद्घारा जारी गरिएको
+                            <span>
+                                <strong>
+                                    {{this.finalFdNameStl ? this.finalFdNameStl[i1] : ''}}
+                                </strong>
+                            </span>
+                            हरुको नाममा रहेको कम्तिमा रु.
+                            <span [ngClass]="{'outside' : val.FdAmountInFigureCT !== null && val.FdAmountInFigureCT !== ''}">
+                                {{val.FdAmountInFigureCT === null || val.FdAmountInFigureCT === '' ? '___________' : val.FdAmountInFigureCT}}
+                            </span>
+                            /– बराबरको मुद्धती रसिद उपर बैंकले उल्लिखित रसिद वापतको रकम कर्जामा
+                            समायोजन गर्न सक्ने अधिकार सहितको बैंकको पक्षमा जारी गरिदिइएको/गरिने मोजरापत्र (Letter of Set-off) ।
+                        </p>
+                        <p *ngIf="val.holdingBank === 'OTHER'">
+                            <strong>सुरक्षणः</strong>
+                            <span [ngClass]="{'outside' : val.holdingBankCT !== null && val.holdingBankCT !== ''}">
+                                {{val.holdingBankCT === null || val.holdingBankCT === '' ? '___________' : val.holdingBankCT}}
+                            </span>
+                            बैंकद्घारा जारी गरिएको
+                            <span>
+                                <strong>
+                                    {{this.finalFdNameStl ? this.finalFdNameStl[i1] : ''}}
+                                </strong>
+                            </span>
+                            हरुको नाममा रहेको कम्तिमा रु.
+                            <span [ngClass]="{'outside' : val.FdAmountInFigureCT !== null && val.FdAmountInFigureCT !== ''}">
+                                {{val.FdAmountInFigureCT === null || val.FdAmountInFigureCT === '' ? '___________' : val.FdAmountInFigureCT}}
+                            </span>
+                            /–बराबरको मुद्धती रसिद उपर बैंकले उल्लिखित रसिद वापतको रकम कर्जामा
+                            समायोजन गर्न सक्ने अधिकार सहितको बैंकको पक्षमा जारी गरिदिइएको/गरिने मोजरापत्र (Letter of Set-off) ।
+                        </p>
+
+                        <p>
+                            <span>
+                                <strong>
+                                    ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):
+                                </strong>
+                                मुद्धती रसिदको मौज्दातको
+                                <span [ngClass]="{'outside' : val.drawingPowerCT !== null && val.drawingPowerCT !== ''}">
+                                    {{val.drawingPowerCT === null || val.drawingPowerCT === '' ? '___________' : val.drawingPowerCT}}
+                                </span>
+                                प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग
+                                गर्न सकिनेछ ।
+                            </span>
+
+                        </p>
+                        <p *ngIf="val.interestRateType === 'COUPEN_RATE_FINANCING'">
+                            <strong>
+                                ब्याज दरः
+                            </strong>
+                            <ng-container *ngIf="val.checkAdditionalPremiumRate === true">
+                                मुद्धति रसिदमा प्राप्त हुने ब्याज दरमा थप
+                                <span [ngClass]="{'outside' : val.additionalPremiumRateCT !== null && val.additionalPremiumRateCT !== ''}">
+                                    {{val.additionalPremiumRateCT === null || val.additionalPremiumRateCT === '' ? '___________' : val.additionalPremiumRateCT}}
+                                </span>
+                                प्रतिशत वा कम्तिमा
+                            </ng-container>
+                            बार्षिक
+                            <span [ngClass]="{'outside' : val.totalInterestRateCT !== null && val.totalInterestRateCT !== ''}">
+                                {{val.totalInterestRateCT === null || val.totalInterestRateCT === '' ? '___________' : val.totalInterestRateCT}}
+                            </span>
+                            का दरले नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ,
+                            आश्विन, पौष र चैत्र मसान्तमा र/वा कर्जा चुक्ता भुक्तान भएको अवस्थामा तिर्नु बुझाउनु पर्नेछ ।
+                        </p>
+                        <p *ngIf="val.interestRateType === 'BASE_RATE_FINANCING'">
+                            <strong>
+                                ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)
+                            </strong>
+                            <span [ngClass]="{'outside' : val.baseRateCT !== null && val.baseRateCT !== ''}">
+                                {{val.baseRateCT === null || val.baseRateCT === '' ? '___________' : val.baseRateCT}}
+                            </span>
+                            +
+                            <span [ngClass]="{'outside' : val.premiumRateCT !== null && val.premiumRateCT !== ''}">
+                                {{val.premiumRateCT === null || val.premiumRateCT === '' ? '___________' : val.premiumRateCT}}
+                            </span>
+                            प्रतिशत ब्याज दर प्रिमियम (interest rate premium)
+                        <br/>
+                        <!--<span *ngIf="interestSubsidyAgOverdraftFixedForm === 'No'">-->
+                        <span *ngIf="val.subsidyOrAgricultureLoan === 'No'">
+                            हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate) बार्षिक
+                            <span [ngClass]="{'outside' : val.interestRateCT !== null && val.interestRateCT !== ''}">
+                                {{val.interestRateCT === null || val.interestRateCT === '' ? '___________' : val.interestRateCT}}
+                            </span>
+                            % का दर निर्धारण गरीएकोछ र सो ब्याज रकम नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र
+                            चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।
+                        </span>
+                        </p>
+                        <span><strong>कर्जा अवधि समाप्ति/पुनरावलोकन मितिः</strong>
+                            {{val?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
+                            <span [ngClass]="{'outside' : val.dateOfExpiryCT !== null && val.dateOfExpiryCT !== ''}">
+                            {{val.dateOfExpiryCT === null || val.dateOfExpiryCT === '' ? '___________' : val.dateOfExpiryCT}}</span>
+                        </span>
+                    </td>
+                </tr>
+            </ng-container>
+
+            <ng-container *ngIf="tempData?.overDraftFacilityForm?.stlAgainstBondFormArray">
+                <tr *ngFor="let val of tempData?.overDraftFacilityForm?.stlAgainstBondFormArray; let i1 = index">
+                    <!--STL Facility against Bond-->
+                    <td style="width: 10%; border-right: 1px solid black; border-top: 1px solid black"><strong>{{
+                        (tempData?.termLoanForm?.termLoanDetails?.length) +
+                        (tempData?.autoLoanMasterForm?.autoLoanFormArray?.length) +
+                        (tempData?.overDraftFacilityForm?.overdraftFacilityDetails.length) +
+                        (tempData?.equityMortgaged?.mortgageOverdraftFormArray.length) +
+                        (tempData?.letterOfCreditForm?.letterOfCreditFormArray.length) +
+                        (tempData?.importLoanTrust?.importLoanTrustFormArray.length) +
+                        (tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray.length) +
+                        (tempData?.timeLetterCreditForm?.timeLetterCreditFormArray.length) +
+                        (tempData?.demandLoanForm?.demandLoanFormArray.length) +
+                        (tempData?.bridgeGapLoan?.bridgeGapDetails.length) +
+                        (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
+                        (tempData?.mortgageEquityTermForm?.mortgageTermFormArray.length) +
+                        (tempData?.overdraftFixedForm?.dlAgainstFixedDepositFormArray.length) +
+                        (tempData?.overdraftFixedForm?.odFdFormArray.length) +
+                        (tempData?.overdraftFixedForm?.stlAgainstFixedDepositFormArray.length) +
+                        (tempData?.overdraftFixedForm?.dlAgainstLienOnDepositFormArray.length) +
+                        (tempData?.overdraftFixedForm?.overdraftLienOnDepositFormArray.length) +
+                        (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
+                        (tempData?.overDraftFacilityForm?.dlAgainstBondFormArray.length) +
+                        (i1 + 1) | nepaliWord}})</strong></td>
+                    <td style="border-top: 1px solid black">
+                        <strong>बचत/ऋण पत्रमा आधारीत
+                            <span [ngClass]="{'outside' : val.nameOfFacilityCT !== null && val.nameOfFacilityCT !== ''}">
+                            {{val.nameOfFacilityCT === null || val.nameOfFacilityCT === '' ? '___________' : val.nameOfFacilityCT}}</span>
+                            कर्जा (
+                            <span [ngClass]="{'outside' : val.nameOfFacility !== null && val.nameOfFacility !== ''}">
+                            {{val.nameOfFacility === null || val.nameOfFacility === '' ? '___________' : val.nameOfFacility}}</span>
+                            Facility against Bond)</strong><br>
+                        <strong>सीमाः रु.
+                            <span>{{stlAgainstBond[i1] ? stlAgainstBond[i1].loanAmountNp : '_____________'}}</span>।-
+                            (अक्षरेपी रु.
+                            <span>{{stlAgainstBond[i1] ? stlAgainstBond[i1].loanAmountWords : '______________________'}}</span> मात्र)</strong><br>
+                        <p *ngIf="val.letterOfSetOffUsed === 'EXISTING'">
+                            <span><strong>सुरक्षणः</strong>
+                                <span>
+                                    <strong>
+                                        {{this.finalBondNameStl ? this.finalBondNameStl[i1] : '_________________'}}
+                                    </strong>
+                                </span>हरुको नाममा रहेको कम्तिमा रु.
+                                            <span [ngClass]="{'outside' : val.bondAmountCT !== null && val.bondAmountCT !== ''}">
+                            {{val.bondAmountCT === null || val.bondAmountCT === '' ? '___________' : val.bondAmountCT}}</span>
+                                ।-( बराबरको
+                                            <span [ngClass]="{'outside' : val.bondTypeCT !== null && val.bondTypeCT !== ''}">
+                            {{val.bondTypeCT === null || val.bondTypeCT === '' ? '___________' : val.bondTypeCT}}</span>
+                                यस बैंकले उल्लिखित
+                                            <span [ngClass]="{'outside' : val.bondTypeCT !== null && val.bondTypeCT !== ''}">
+                            {{val.bondTypeCT === null || val.bondTypeCT === '' ? '___________' : val.bondTypeCT}}</span>
+                       वापतको रकम र सोमा प्राप्त हुने ब्याज समेत कर्जामा समायोजन गर्न सक्ने अधिकार सहितका
+                        बैंकको पक्षमा जारी गरिदिइएको मोजरापत्र (Letter of Set-off) ।</span>
+                        </p>
+                        <p *ngIf="val.letterOfSetOffUsed === 'NEW'">
+                            <span><strong>सुरक्षणः</strong>
+                                <span>
+                                    <strong>
+                                        {{this.finalBondNameStl ? this.finalBondNameStl[i1] : '_________________'}}
+                                    </strong>
+                                </span>हरुको
+                                नाममा रहेको कम्तिमा रु.
+                                            <span [ngClass]="{'outside' : val.bondAmountCT  !== null && val.bondAmountCT  !== ''}">
+                            {{val.bondAmountCT  === null || val.bondAmountCT  === '' ? '___________' : val.bondAmountCT }}</span>
+                                ।-( बराबरको
+                                            <span [ngClass]="{'outside' : val.bondTypeCT !== null && val.bondTypeCT !== ''}">
+                            {{val.bondTypeCT === null || val.bondTypeCT === '' ? '___________' : val.bondTypeCT}}</span>
+                                यस बैंकले उल्लिखित
+                                            <span [ngClass]="{'outside' : val.bondTypeCT !== null && val.bondTypeCT !== ''}">
+                            {{val.bondTypeCT === null || val.bondTypeCT === '' ? '___________' : val.bondTypeCT}}</span>
+                                वापतको रकम र सोमा प्राप्त हुने ब्याज समेत कर्जामा समायोजन गर्न सक्ने अधिकार सहितका
+                                बैंकको पक्षमा जारी गरिने मोजरापत्र (Letter of Set-off) ।</span>
+                        </p>
+                        <p>
+                            <strong>ब्याज दरः</strong> बार्षिक
+                            <span [ngClass]="{'outside' : val.interestRateCT !== null && val.interestRateCT !== ''}">
+                            {{val.interestRateCT === null || val.interestRateCT === '' ? '___________' : val.interestRateCT}}</span>
+                            % का दरले नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ,
+                            आश्विन, पौष र चैत्र मसान्तमा र/वा कर्जा चुक्ता भुक्तान भएको अवस्थामा तिर्नु बुझाउनु पर्नेछ ।
+                        </p>
+                        <p *ngIf="val.interestRateType === 'BASE_RATE_FINANCING'">
+                            <strong>ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
+
+                            <span [ngClass]="{'outside' : val.baseRateCT !== null && val.baseRateCT !== ''}">
+                            {{val.baseRateCT === null || val.baseRateCT === '' ? '___________' : val.baseRateCT}}</span>
+                            +
+                            <span [ngClass]="{'outside' : val.premiumRateCT  !== null && val.premiumRateCT  !== ''}">
+                            {{val.premiumRateCT  === null || val.premiumRateCT  === '' ? '___________' : val.premiumRateCT }}</span>
+                            प्रतिशत ब्याज दर प्रिमियम (interest rate premium)
+                            <span *ngIf="val.subsidyOrAgricultureLoan === 'No'">हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
+                                बार्षिक
+                                            <span [ngClass]="{'outside' : val.interestRateCT !== null && val.interestRateCT !== ''}">
+                            {{val.interestRateCT === null || val.interestRateCT === '' ? '___________' : val.interestRateCT}}</span>
+                            % का दर
+                            निर्धारण गरीएकोछ र सो ब्याज रकम नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र
+                            चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।</span><br>
+                        </p>
+                        <span><strong>कर्जा अवधि समाप्ति/पुनरावलोकन मितिः</strong>
+                            {{this.val?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
+                            <span [ngClass]="{'outside' : val.dateOfExpiryCT !== null && val.dateOfExpiryCT !== ''}">
+                            {{val.interestRateCT === null || val.dateOfExpiryCT === '' ? '___________' : val.dateOfExpiryCT}}</span>
+                        </span><br>
+                    </td>
+                </tr>
+            </ng-container>
+
+            <ng-container *ngIf="tempData?.overdraftFixedForm?.stlLienOnDepositFormArray">
+                <tr *ngFor="let val of tempData?.overdraftFixedForm?.stlLienOnDepositFormArray; let i1 = index">
+                    <!--STL Lien on Deposit Account-->
+                    <td style="width: 10%; border-right: 1px solid black; border-top: 1px solid black"><strong>{{
+                        (tempData?.termLoanForm?.termLoanDetails?.length) +
+                        (tempData?.autoLoanMasterForm?.autoLoanFormArray?.length) +
+                        (tempData?.overDraftFacilityForm?.overdraftFacilityDetails.length) +
+                        (tempData?.equityMortgaged?.mortgageOverdraftFormArray.length) +
+                        (tempData?.letterOfCreditForm?.letterOfCreditFormArray.length) +
+                        (tempData?.importLoanTrust?.importLoanTrustFormArray.length) +
+                        (tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray.length) +
+                        (tempData?.timeLetterCreditForm?.timeLetterCreditFormArray.length) +
+                        (tempData?.demandLoanForm?.demandLoanFormArray.length) +
+                        (tempData?.bridgeGapLoan?.bridgeGapDetails.length) +
+                        (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
+                        (tempData?.mortgageEquityTermForm?.mortgageTermFormArray.length) +
+                        (tempData?.overdraftFixedForm?.dlAgainstFixedDepositFormArray.length) +
+                        (tempData?.overdraftFixedForm?.odFdFormArray.length) +
+                        (tempData?.overdraftFixedForm?.stlAgainstFixedDepositFormArray.length) +
+                        (tempData?.overdraftFixedForm?.dlAgainstLienOnDepositFormArray.length) +
+                        (tempData?.overdraftFixedForm?.overdraftLienOnDepositFormArray.length) +
+                        (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
+                        (tempData?.overDraftFacilityForm?.dlAgainstBondFormArray.length) +
+                        (tempData?.overDraftFacilityForm?.stlAgainstBondFormArray.length) +
+                        (i1 + 1) | nepaliWord}})</strong></td>
+                    <td style="border-top: 1px solid black">
+                        <span>
+                            <strong>
+                                निक्षेप मौज्दातमा आधारीत
+                                <span [ngClass]="{'outside' : val.nameOfFacilityCT !== null && val.nameOfFacilityCT !== ''}">
+                                    {{val.nameOfFacilityCT === null || val.nameOfFacilityCT === '' ? '___________' : val.nameOfFacilityCT}}
+                                </span>
+                            कर्जा(
+                                <span [ngClass]="{'outside' : val.nameOfFacility !== null && val.nameOfFacility !== ''}">
+                                    {{val.nameOfFacility === null || val.nameOfFacility === '' ? '___________' : val.nameOfFacility}}
+                                </span>
+                                Facility against Lien on Deposit Account)
+                            </strong>
+                        </span>
+                        <br>
+                        <strong>
+                            सीमाः रु.
+                            <span>
+                                {{stlLienDeposit[i1] ? stlLienDeposit[i1].loanAmountNp : ''}}
+                            </span>/-
+                            (अक्षरेपी रु.
+                            <span>
+                                {{stlLienDeposit[i1] ? stlLienDeposit[i1].loanAmountWords : ''}}
+                            </span>
+                            मात्र)
+                        </strong>
+                        <br>
+
+                        <p>
+                            <span *ngIf="val.letterOfSetOff === 'EXISTING'"><strong>सुरक्षणः</strong> नबिल बैंकमा खोलिएको
+                                            <span>
+                                                <strong>
+                                                    {{this.finalDepNameStlLien ? this.finalDepNameStlLien[i1] : ''}}
+                                                </strong>
+                                            </span>
+                                को नाममा रहेको
+                                <ng-container *ngIf="val.accountType === 'CURRENT_ACCOUNT'">चल्ति </ng-container>
+                                <ng-container *ngIf="val.accountType === 'SAVING_ACCOUNT'">बचत </ng-container>
+                                <ng-container *ngIf="val.accountType === 'CALL_ACCOUNT'">कल </ng-container>
+                                खाता नं. ‘‘
+                                <span [ngClass]="{'outside' : val.accountNumberCT !== null && val.accountNumberCT !== ''}">
+                                    {{val.accountNumberCT === null || val.accountNumberCT === '' ? '___________' : val.accountNumberCT}}</span>
+                                ‘‘मा रहेको मौज्दात रु.
+                                <span [ngClass]="{'outside' : val.amountInFigureCT !== null && val.amountInFigureCT !== ''}">
+                                    {{val.amountInFigureCT === null || val.amountInFigureCT === '' ? '___________' : val.amountInFigureCT}}
+                                </span>
+                                बराबरको रकममा ग्रहणाधिकार कायम गरी
+                                उक्त रकम बरावर कर्जामा समायोजन गर्न सक्ने अधिकार सहितको बैंकको पक्षमा जारी गरिदिइएको
+                                मोजरापत्र (Letter of Set-off) ।
+                            </span>
+
+                            <span *ngIf="val.letterOfSetOff === 'NEW'"><strong>सुरक्षणः</strong> नबिल बैंकमा खोलिएको
+                                <span>
+                                    <strong>
+                                        {{this.finalDepNameStlLien ? this.finalDepNameStlLien[i1] : ''}}
+                                    </strong>
+                                </span>
+                                को नाममा रहेको
+                                <ng-container *ngIf="val.accountType === 'CURRENT_ACCOUNT'">चल्ति </ng-container>
+                                <ng-container *ngIf="val.accountType === 'SAVING_ACCOUNT'">बचत </ng-container>
+                                <ng-container *ngIf="val.accountType === 'CALL_ACCOUNT'">कल </ng-container>
+                                खाता नं. ‘‘
+                                <span [ngClass]="{'outside' : val.accountNumberCT !== null && val.accountNumberCT !== ''}">
+                                    {{val.accountNumberCT === null || val.accountNumberCT === '' ? '___________' : val.accountNumberCT}}</span>
+                                ‘‘मा रहेको मौज्दात रु.
+                                <span [ngClass]="{'outside' : val.amountInFigureCT !== null && val.amountInFigureCT !== ''}">
+                                    {{val.amountInFigureCT === null || val.amountInFigureCT === '' ? '___________' : val.amountInFigureCT}}
+                                </span>
+                                बराबरको रकममा ग्रहणाधिकार कायम गरी
+                                उक्त रकम बरावर कर्जामा समायोजन गर्न सक्ने अधिकार सहितको बैंकको पक्षमा जारी गरिने
+                                मोजरापत्र (Letter of Set-off) ।
+                            </span>
+                        </p>
+                        <p>
+                            <span>
+                                <strong>
+                                    ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):
+                                </strong>
+                                खातामा रोक्का राखिएका मौज्दातको
+                                <span [ngClass]="{'outside' : val.drawingPowerCT !== null && val.drawingPowerCT !== ''}">
+                                    {{val.drawingPowerCT === null || val.drawingPowerCT === '' ? '___________' : val.drawingPowerCT}}
+                                </span>
+                                प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग
+                                गर्न सकिनेछ ।
+                            </span>
+                        </p>
+                        <p *ngIf="val.interestRateType === 'COUPEN_RATE_FINANCING'">
+                            <strong>
+                                ब्याज दरः
+                            </strong>
+                            <ng-container *ngIf="val.checkAdditionalPremiumRate === true">
+                                मुद्धति रसिदमा प्राप्त हुने ब्याज दरमा थप
+                                <span [ngClass]="{'outside' : val.additionalPremiumRateCT !== null && val.additionalPremiumRateCT !== ''}">
+                                    {{val.additionalPremiumRateCT === null || val.additionalPremiumRateCT === '' ? '___________' : val.additionalPremiumRateCT}}
+                                </span>
+                                प्रतिशत वा कम्तिमा
+                            </ng-container>
+                            बार्षिक
+                            <span [ngClass]="{'outside' : val.totalInterestRateCT !== null && val.totalInterestRateCT !== ''}">
+                                {{val.totalInterestRateCT === null || val.totalInterestRateCT === '' ? '___________' : val.totalInterestRateCT}}
+                            </span>
+                            का दरले नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ,
+                            आश्विन, पौष र चैत्र मसान्तमा र/वा कर्जा चुक्ता भुक्तान भएको अवस्थामा तिर्नु बुझाउनु पर्नेछ ।
+                        </p>
+                        <p *ngIf="val.interestRateType === 'BASE_RATE_FINANCING'">
+                            <strong>
+                                ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)
+                            </strong>
+                            <span [ngClass]="{'outside' : val.baseRateCT !== null && val.baseRateCT !== ''}">
+                                {{val.baseRateCT === null || val.baseRateCT === '' ? '___________' : val.baseRateCT}}
+                            </span>
+                            +
+                            <span [ngClass]="{'outside' : val.premiumRateCT !== null && val.premiumRateCT !== ''}">
+                                {{val.premiumRateCT === null || val.premiumRateCT === '' ? '___________' : val.premiumRateCT}}
+                            </span>
+                            प्रतिशत ब्याज दर प्रिमियम (interest rate premium)
+                            <br/>
+                        <!--<span *ngIf="interestSubsidyAgOverdraftFixedForm === 'No'">-->
+                        <span *ngIf="val.subsidyOrAgricultureLoan === 'No'">
+                            हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate) बार्षिक
+                            <span [ngClass]="{'outside' : val.interestRateCT !== null && val.interestRateCT !== ''}">
+                                {{val.interestRateCT === null || val.interestRateCT === '' ? '___________' : val.interestRateCT}}
+                            </span>
+                            % का दर निर्धारण गरीएकोछ र सो ब्याज रकम नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र
+                            चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।
+                        </span>
+                        </p>
+                        <span><strong>कर्जा अवधि समाप्ति/पुनरावलोकन मितिः</strong>
+                            {{val?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
+                            <span [ngClass]="{'outside' : val.dateOfExpiryCT !== null && val.dateOfExpiryCT !== ''}">
+                            {{val.dateOfExpiryCT === null || val.dateOfExpiryCT === '' ? '___________' : val.dateOfExpiryCT}}</span>
+                        </span>
+                    </td>
+                </tr>
+            </ng-container>
+
             <ng-container *ngIf="tempData?.documentaryBillPurchase?.documentaryBillPurchaseFormArray">
                 <tr *ngFor="let val of tempData?.documentaryBillPurchase?.documentaryBillPurchaseFormArray; let i2 = index">
                     <!--Documentary Bill Purchase/Negotiation-->
@@ -950,6 +2305,15 @@
                             (tempData?.bridgeGapLoan?.bridgeGapDetails.length) +
                             (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
                             (tempData?.mortgageEquityTermForm?.mortgageTermFormArray.length) +
+                            (tempData?.overdraftFixedForm?.dlAgainstFixedDepositFormArray.length) +
+                            (tempData?.overdraftFixedForm?.dlAgainstLienOnDepositFormArray.length) +
+                            (tempData?.overdraftFixedForm?.odFdFormArray.length) +
+                            (tempData?.overdraftFixedForm?.overdraftLienOnDepositFormArray.length) +
+                            (tempData?.overdraftFixedForm?.stlLienOnDepositFormArray.length) +
+                            (tempData?.overdraftFixedForm?.stlAgainstFixedDepositFormArray.length) +
+                            (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
+                            (tempData?.overDraftFacilityForm?.dlAgainstBondFormArray.length) +
+                            (tempData?.overDraftFacilityForm?.stlAgainstBondFormArray.length) +
                             (i2 + 1) | nepaliWord}})
                         </strong></td>
                     <td style="border-top: 1px solid black">
@@ -1040,7 +2404,16 @@
                             (tempData?.demandLoanForm?.demandLoanFormArray.length) +
                             (tempData?.bridgeGapLoan?.bridgeGapDetails.length) +
                             (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
-                            (tempData?.mortgageEquityTermForm?.mortgageTermFormArray.length)"
+                            (tempData?.mortgageEquityTermForm?.mortgageTermFormArray.length) +
+                            (tempData?.overdraftFixedForm?.dlAgainstFixedDepositFormArray.length) +
+                            (tempData?.overdraftFixedForm?.dlAgainstLienOnDepositFormArray.length) +
+                            (tempData?.overdraftFixedForm?.odFdFormArray.length) +
+                            (tempData?.overdraftFixedForm?.overdraftLienOnDepositFormArray.length) +
+                            (tempData?.overdraftFixedForm?.stlLienOnDepositFormArray.length) +
+                            (tempData?.overdraftFixedForm?.stlAgainstFixedDepositFormArray.length) +
+                            (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
+                            (tempData?.overDraftFacilityForm?.dlAgainstBondFormArray.length) +
+                            (tempData?.overDraftFacilityForm?.stlAgainstBondFormArray.length)"
                                              [equityMortgageData]="equityMortgageData">
         </app-mortgage-equity-term-loan-print>
     </div>
@@ -1065,6 +2438,15 @@
                             (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
                             (tempData?.mortgageEquityTermForm?.mortgageEquityTermFormArray.length) +
                             (tempData?.mortgageEquityTermForm?.mortgageTermFormArray.length) +
+                            (tempData?.overdraftFixedForm?.dlAgainstFixedDepositFormArray.length) +
+                            (tempData?.overdraftFixedForm?.dlAgainstLienOnDepositFormArray.length) +
+                            (tempData?.overdraftFixedForm?.odFdFormArray.length) +
+                            (tempData?.overdraftFixedForm?.overdraftLienOnDepositFormArray.length) +
+                            (tempData?.overdraftFixedForm?.stlLienOnDepositFormArray.length) +
+                            (tempData?.overdraftFixedForm?.stlAgainstFixedDepositFormArray.length) +
+                            (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
+                            (tempData?.overDraftFacilityForm?.dlAgainstBondFormArray.length) +
+                            (tempData?.overDraftFacilityForm?.stlAgainstBondFormArray.length) +
                             (i1 + 1) | nepaliWord}})</strong></td>
                         <td style="border-top: 1px solid black">
                          <span><strong>सुरक्षणमा आधारीत स्वपुँजी अधिविकर्ष कर्जा
@@ -1182,6 +2564,15 @@
                                     (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
                                     (tempData?.mortgageEquityTermForm?.mortgageEquityTermFormArray.length) +
                                     (tempData?.mortgageEquityTermForm?.mortgageTermFormArray.length) +
+                                    (tempData?.overdraftFixedForm?.dlAgainstFixedDepositFormArray.length) +
+                                    (tempData?.overdraftFixedForm?.dlAgainstLienOnDepositFormArray.length) +
+                                    (tempData?.overdraftFixedForm?.odFdFormArray.length) +
+                                    (tempData?.overdraftFixedForm?.overdraftLienOnDepositFormArray.length) +
+                                    (tempData?.overdraftFixedForm?.stlLienOnDepositFormArray.length) +
+                                    (tempData?.overdraftFixedForm?.stlAgainstFixedDepositFormArray.length) +
+                                    (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
+                                    (tempData?.overDraftFacilityForm?.dlAgainstBondFormArray.length) +
+                                    (tempData?.overDraftFacilityForm?.stlAgainstBondFormArray.length) +
                                     (i3 + 1) | nepaliWord}})</strong></td>
                             <td style="border-top: 1px solid black"><strong>
                         <span [ngClass]="{'outside' : val.loanPeriodInDaysCT !== null && val.loanPeriodInDaysCT !== ''}">
@@ -1262,6 +2653,15 @@
                                 (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
                                 (tempData?.mortgageEquityTermForm?.mortgageEquityTermFormArray.length) +
                                 (tempData?.mortgageEquityTermForm?.mortgageTermFormArray.length) +
+                                (tempData?.overdraftFixedForm?.dlAgainstFixedDepositFormArray.length) +
+                                (tempData?.overdraftFixedForm?.dlAgainstLienOnDepositFormArray.length) +
+                                (tempData?.overdraftFixedForm?.odFdFormArray.length) +
+                                (tempData?.overdraftFixedForm?.overdraftLienOnDepositFormArray.length) +
+                                (tempData?.overdraftFixedForm?.stlLienOnDepositFormArray.length) +
+                                (tempData?.overdraftFixedForm?.stlAgainstFixedDepositFormArray.length) +
+                                (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
+                                (tempData?.overDraftFacilityForm?.dlAgainstBondFormArray.length) +
+                                (tempData?.overDraftFacilityForm?.stlAgainstBondFormArray.length) +
                                 (i3 + 1) | nepaliWord}})
                             </strong>
                         </td>
@@ -1343,6 +2743,15 @@
                                 (tempData?.preExportForm?.termLoanDetails.length) +
                                 (tempData?.mortgageEquityTermForm?.mortgageEquityTermFormArray.length) +
                                 (tempData?.mortgageEquityTermForm?.mortgageTermFormArray.length) +
+                                (tempData?.overdraftFixedForm?.dlAgainstFixedDepositFormArray.length) +
+                                (tempData?.overdraftFixedForm?.dlAgainstLienOnDepositFormArray.length) +
+                                (tempData?.overdraftFixedForm?.odFdFormArray.length) +
+                                (tempData?.overdraftFixedForm?.overdraftLienOnDepositFormArray.length) +
+                                (tempData?.overdraftFixedForm?.stlLienOnDepositFormArray.length) +
+                                (tempData?.overdraftFixedForm?.stlAgainstFixedDepositFormArray.length) +
+                                (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
+                                (tempData?.overDraftFacilityForm?.dlAgainstBondFormArray.length) +
+                                (tempData?.overDraftFacilityForm?.stlAgainstBondFormArray.length) +
                                 (i3 + 1) | nepaliWord}})
                             </strong>
                         </td>
@@ -1392,7 +2801,7 @@
                                 ‘%</strong> वा कम्तिमा रु.
                                 <span [ngClass]="{'outside' : val.minCommissionAmountInFigCT !== null && val.minCommissionAmountInFigCT !== ''}">
                             {{val.minCommissionAmountInFigCT === null || val.minCommissionAmountInFigCT === '' ? '___________' : val.minCommissionAmountInFigCT}}</span>
-                                ।–का दरले लाग्नेछ ।
+                                /–का दरले लाग्नेछ ।
                             </p>
                             <p>
                                 <strong>कर्जा अवधि समाप्ति/पुनरावलोकन मितिः </strong>
