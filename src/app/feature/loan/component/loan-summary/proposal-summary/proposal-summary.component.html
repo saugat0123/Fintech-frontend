@@ -91,10 +91,9 @@
                             COM:{{(loan?.proposal?.data | jsonParse)?.existCommissionPercentage || '0'}} %
                         </span>
                     </span>
-                    <span *ngIf="(loan?.loan?.loanNature !== null && loan?.loan?.isFundable !== null
-                            && loan?.loan?.isFundable && LoanType[loan?.loanType] !== LoanType?.NEW_LOAN)
-                            || (loan?.loan?.loanTag === 'VEHICLE' ||  loan?.loan?.loanTag === 'SHARE_SECURITY'
-                            || loan?.loan?.loanTag === 'GENERAL')">
+                    <span *ngIf="((array[i]?.isFundable && (array[i]?.loanNature === 'Terminating' || array[i]?.loanNature === 'Revolving')
+                    && array[i]?.loanNatureSelected && array[i]?.fundableNonFundableSelcted) || array[i]?.isVehicle || array[i]?.isShare ||
+                    array[i]?.isGeneral) && LoanType[loan?.loanType] !== LoanType?.NEW_LOAN">
                         <span *ngIf="(loan?.proposal?.data | jsonParse)?.serviceChargeMethod === 'FLAT' && (loan?.proposal?.data | jsonParse)?.existingServiceCharge !== null">
                             SC: {{client === clientName?.SHINE_RESUNGA ? '' : 'Rs. '}} {{(loan?.proposal?.data | jsonParse)?.existingServiceCharge}}</span>
                         <span *ngIf="(loan?.proposal?.data | jsonParse)?.serviceChargeMethod === 'PERCENT' && (loan?.proposal?.data | jsonParse)?.existingServiceCharge !== null">
@@ -200,9 +199,9 @@
                             COM:{{(loanDto?.proposal?.data | jsonParse)?.existCommissionPercentage || '0'}} %
                         </span>
                     </span>
-                    <span *ngIf="(loanDto?.loanConfig?.loanNature !== null && loanDto?.loanConfig?.isFundable !== null
-                        && loanDto?.loanConfig?.isFundable && LoanType[loanDto?.loanType] !== LoanType?.NEW_LOAN)
-                        || loanDto?.loanConfig?.loanTag !== 'FIXED_DEPOSIT'">
+                    <span *ngIf="((dtoArray[ii]?.isFundable && (dtoArray[ii]?.loanNature === 'Terminating' || dtoArray[ii]?.loanNature === 'Revolving')
+                    && dtoArray[ii]?.loanNatureSelected && dtoArray[ii]?.fundableNonFundableSelcted) || dtoArray[ii]?.isVehicle || dtoArray[ii]?.isShare
+                    || dtoArray[ii]?.isGeneral) && LoanType[loanDto?.loanType] !== LoanType?.NEW_LOAN">
                         <span *ngIf="(loanDto?.proposal?.data | jsonParse)?.serviceChargeMethod === 'FLAT' && (loanDto?.proposal?.data | jsonParse)?.existingServiceCharge !== null">
                             SC: {{client === clientName?.SHINE_RESUNGA ? '' : 'Rs. '}} {{(loanDto?.proposal?.data | jsonParse)?.existingServiceCharge}}</span>
                         <span *ngIf="(loanDto?.proposal?.data | jsonParse)?.serviceChargeMethod === 'PERCENT' && (loanDto?.proposal?.data | jsonParse)?.existingServiceCharge !== null">
