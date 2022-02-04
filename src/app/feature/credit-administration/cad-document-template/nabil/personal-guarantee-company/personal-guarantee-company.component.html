@@ -1,7 +1,7 @@
 <nb-card [nbSpinner]="spinner">
 <div class="container text-justify">
   <form [formGroup]="personalGuaranteeCompany" id="print-section">
-    <div class="row" *ngFor="let guaranteeCompany of personalGuaranteeCompany.get('guaranteeCompanies')['controls']; let i = index"
+    <div class="row" *ngFor="let guaranteeCompany of individualGuarantorNepDataArray; let i = index"
         formArrayName="guaranteeCompanies">
         <div class="col-md-12" [formGroupName]="i">
             <div class="form-group align">
@@ -271,6 +271,8 @@
                                             <strong class="print-only">{{personalGuaranteeCompany.get(["guaranteeCompanies", i, "grandFatherOrFatherInLaw"]).value}}</strong>
                                         </span>
                                     </p>
+                                    <ng-container *ngIf="(guaranteeCompany?.guarantorNationality === 'Nepali') ||
+                                    ((guaranteeCompany?.guarantorNationality === 'Indian' ||  guaranteeCompany?.guarantorNationality === 'Other') && guaranteeCompany?.guarantorForeignAddressOption.en === 'Local')">
                                     <p class="lh-30">
                                         स्थायी ठेगाना : 
                                         <span>
@@ -291,6 +293,19 @@
                                             <strong class="print-only">{{personalGuaranteeCompany.get(["guaranteeCompanies", i, "permanentWard"]).value}}</strong>
                                         </span>
                                     </p>
+                                    </ng-container>
+                                    <ng-container *ngIf="(guaranteeCompany?.guarantorNationality === 'Indian' || guaranteeCompany?.guarantorNationality === 'Other') && guaranteeCompany?.guarantorForeignAddressOption.en === 'Foreign'">
+                                    <p class="lh-30">
+                                        स्थायी ठेगाना :
+                                        <span>
+                                            <input class="form-field form-control-sm d-print-none" name="guarantorForeignAddress"
+                                                   formControlName="guarantorForeignAddress" placeholder="" type="text"/>
+                                            <strong class="print-only">{{personalGuaranteeCompany.get(["guaranteeCompanies", i, "guarantorForeignAddress"]).value}}</strong>
+                                        </span>
+                                    </p>
+                                    </ng-container>
+                                    <ng-container *ngIf="(guaranteeCompany?.guarantorNationality === 'Nepali') ||
+                                    ((guaranteeCompany?.guarantorNationality === 'Indian' || guaranteeCompany?.guarantorNationality === 'Other') && guaranteeCompany?.guarantorForeignAddressOptionTemp.en === 'Local')">
                                     <p class="lh-30">
                                         हालको ठेगाना : 
                                         <span>
@@ -311,8 +326,23 @@
                                             <strong class="print-only">{{personalGuaranteeCompany.get(["guaranteeCompanies", i, "temporaryWard"]).value}}</strong>
                                         </span>
                                     </p>
+                                    </ng-container>
+                                    <ng-container  *ngIf="(guaranteeCompany?.guarantorNationality === 'Indian' || guaranteeCompany?.guarantorNationality === 'Other') && guaranteeCompany?.guarantorForeignAddressOptionTemp.en === 'Foreign'">
+                                        <p class="lh-30">
+                                            हालको ठेगाना :
+                                            <span>
+                                            <input class="form-field form-control-sm d-print-none" name="guarantorTempForeignAddress"
+                                                   formControlName="guarantorTempForeignAddress" placeholder="" type="text"/>
+                                            <strong class="print-only">{{personalGuaranteeCompany.get(["guaranteeCompanies", i, "guarantorTempForeignAddress"]).value}}</strong>
+                                        </span>
+                                        </p>
+                                    </ng-container>
                                     <p class="lh-30">
-                                        ना.प्र.नं. : 
+                                        <ng-container *ngIf="guaranteeCompany?.guarantorNationality === 'Nepali'">ना.प्र.नं. : </ng-container>
+                                        <ng-container *ngIf="guaranteeCompany?.guarantorNationality === 'Indian' && guaranteeCompany?.indianGuarantorDetailOption.en === 'Embassy Certificate'">दूतावास नं : </ng-container>
+                                        <ng-container *ngIf="guaranteeCompany?.guarantorNationality === 'Indian' && guaranteeCompany?.indianGuarantorDetailOption.en === 'Adhar Card'">आधार कार्ड नं : </ng-container>
+                                        <ng-container *ngIf="guaranteeCompany?.guarantorNationality === 'Indian' && guaranteeCompany?.indianGuarantorDetailOption.en === 'Passport'">राहदानी नं : </ng-container>
+                                        <ng-container *ngIf="guaranteeCompany?.guarantorNationality === 'Other'">राहदानी नं : </ng-container>
                                         <span>
                                             <input class="form-field form-control-sm d-print-none" name="citizenshipNo"
                                                 formControlName="citizenshipNo" placeholder="" type="text"/>
