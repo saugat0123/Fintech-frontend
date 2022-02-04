@@ -21,16 +21,34 @@
                     शाखा कार्यालय (जसलाई यस उप्रान्त यस लिखतमा <strong>“धनी वित्तीय संस्था”</strong> भनिएको) लिखत
                     गरी दिनेका नाम<input class="form-field nepaliFont form-control-sm" formControlName="grandParentName"
                                          type="text">को
-                    नाति/नातिनि<input class="form-field nepaliFont form-control-sm" formControlName="parentName"
+                    <span *ngIf="form.get('gender').value === '1'; else granddaughter">नाति</span>
+                    <ng-template #granddaughter>
+                        <span>नातिनि</span>
+                    </ng-template>
+                    <input class="form-field nepaliFont form-control-sm" formControlName="parentName"
                                       type="text">
-                    को छोरा/छोरी <input class="form-field nepaliFont form-control-sm" formControlName="husbandWifeName"
+                    को <span *ngIf="form.get('gender').value === '1'; else daughter">छोरा</span>
+                    <ng-template #daughter>
+                        <span>छोरी</span>
+                    </ng-template> <input class="form-field nepaliFont form-control-sm" formControlName="husbandWifeName"
                                         type="text">को
-                    पति/पत्नी<input class="form-field nepaliFont form-control-sm uniCodeFont"
+                    <span *ngIf="form.get('gender').value === '1'; else wife">पति</span>
+                    <ng-template #wife>
+                        <span>पत्नी</span>
+                    </ng-template><input class="form-field nepaliFont form-control-sm uniCodeFont"
                                     formControlName="likhitDistrict"
                                     type="text">
                     जिल्ला,<input class="form-field nepaliFont form-control-sm uniCodeFont"
+                                  *ngIf="form.get('borrowerPermanentMunType').value === '0'; else borrowerPermanentVdc"
                                  formControlName="likhitMunicipality"
                                  type="text">
+                    <ng-template #borrowerPermanentVdc>
+                        <input class="form-field form-control-sm nepaliFont"
+                               formControlName="borrowerPermanentVdc"
+                               placeholder=""
+                               readonly
+                               type="text"/>
+                    </ng-template>
                     गा.पा./न.पा./म.न.पा., वडा नं.<input class="form-field nepaliFont form-control-sm"
                                                        formControlName="likhitWardNo" type="text">
                     (साबिक <input class="form-field nepaliFont form-control-sm"
@@ -40,8 +58,17 @@
                     स्थायी ठेगाना भई हाल <input class="form-field nepaliFont form-control-sm uniCodeFont" formControlName="tempVDC"
                                                 type="text">
 
-                    जिल्ला,<input class="form-field nepaliFont form-control-sm uniCodeFont" formControlName="staDistrict"
+                    जिल्ला,<input class="form-field nepaliFont form-control-sm uniCodeFont"
+                                  *ngIf="form.get('borrowerTemporaryMunType').value === '0'; else borrowerTemporaryVdc"
+                                  formControlName="staDistrict"
                                  type="text">
+                    <ng-template #borrowerTemporaryVdc>
+                        <input class="form-field form-control-sm nepaliFont"
+                               formControlName="borrowerTemporaryVdc"
+                               placeholder=""
+                               readonly
+                               type="text"/>
+                    </ng-template>
                     गा.पा./न.पा./म.न.पा., वडा नं.<input class="form-field nepaliFont form-control-sm"
                                                        formControlName="tempWardNo" type="text">
                     स्थित<input class="form-field nepaliFont form-control-sm"
@@ -113,7 +140,7 @@
                             <table class="table-bordered table text-center ">
                                 <thead>
                                 <tr>
-                                    <th width="5%">सि.नं.</th>
+                                    <th style="width:5%">सि.नं.</th>
                                     <th>ऋणकर्जा वा बैंकिङ्ग
                                         सूबिधा किसिम
                                     </th>
@@ -176,25 +203,25 @@
                 <table class="table table-bordered text-center table-responsive-md">
                     <thead>
                     <tr>
-                        <th width="5%">सि.नं.</th>
+                        <th style="width:5%">सि.नं.</th>
                         <th>धितोको बिवरण
                         </th>
-                        <th width="10%">जिल्ला</th>
-                        <th width="10%">गा.पा./न.पा./ <br>
+                        <th style="width:10%">जिल्ला</th>
+                        <th style="width:10%">गा.पा./न.पा./ <br>
                             म.न.पा.
                         </th>
-                        <th width="7%">वडा नं.</th>
-                        <th width="10%">
+                        <th style="width:10%">वडा नं.</th>
+                        <th style="width:10%">
                             कि.नं
                         </th>
-                        <th width="10%">क्षेत्रफल</th>
-                        <th width="10%">रजिष्टेशन नं.</th>
-                        <th width="28%">धनीको नाम थर र वतन</th>
-                        <th>
+                        <th style="width:10%">क्षेत्रफल</th>
+                        <th style="width:10%">रजिष्टेशन नं.</th>
+                        <th style="width:28%">धनीको नाम थर र वतन</th>
+                       <!-- <th>
                             <button (click)="addSecurity()" class="btn btn-primary btn-sm float-right "
                                     size="tiny"
                                     type="button">स्वीकृत थप्नुहोस्<em class="fas fa-plus"></em></button>
-                        </th>
+                        </th>-->
                     </tr>
                     </thead>
                     <tbody *ngFor="let guarantor of form.get('security')['controls']; let i=index"
@@ -231,7 +258,7 @@
                                    formControlName="SecuritiesOwnerName"
                                    readonly
                                    type="text"></td>
-                        <td>
+                        <!--<td>
                             <button (click)="removeSecurity(i)"
                                     class="ml-2 mt-1 br-5 btn-danger btn-sm btn-flat"
                                     *ngIf="form.get('security')['length']>1"
@@ -240,7 +267,7 @@
                                     स्वीकृत हटाउनुहोस्
                                 </em>
                             </button>
-                        </td>
+                        </td>-->
                     </tr>
                     </tbody>
                 </table>

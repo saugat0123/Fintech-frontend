@@ -86,8 +86,10 @@ export class MortgageDeedComponent implements OnInit {
         creditorNameNepali4: this.nepaliData.collateralOwnerDetails[0].collateralOwnerName ? this.nepaliData.collateralOwnerDetails[0].collateralOwnerName : '',
         creditorNameEnglish4: this.nepaliData.collateralOwnerDetails[0].collateralOwnerNameInEnglish ? this.nepaliData.collateralOwnerDetails[0].collateralOwnerNameInEnglish : '',
         dateOfBirth3: this.nepaliData.collateralOwnerDetails[0].collateralOwnerDOB ? this.nepaliData.collateralOwnerDetails[0].collateralOwnerDOB : '',
-        address3: collateralOwnerAddress ? collateralOwnerAddress : '',
-        sex3: this.nepaliData.collateralOwnerDetails[0].collateralOwnerGender ? this.nepaliData.collateralOwnerDetails[0].collateralOwnerGender : '',
+        district3: this.nepaliData.collateralOwnerDetails[0].collateralOwnerPermanentDistrict.nepaliName ? this.nepaliData.collateralOwnerDetails[0].collateralOwnerPermanentDistrict.nepaliName : '',
+        wardNo3: this.nepaliData.collateralOwnerDetails[0].collateralOwnerPermanentWard ? this.nepaliData.collateralOwnerDetails[0].collateralOwnerPermanentWard : '',
+        municipality3: this.nepaliData.collateralOwnerDetails[0].collateralOwnerPermanentMunicipalities.nepaliName ? this.nepaliData.collateralOwnerDetails[0].collateralOwnerPermanentMunicipalities.nepaliName : '',
+        sex3: this.nepaliData.collateralOwnerDetails[0].collateralOwnerGender ? this.nepaliData.collateralOwnerDetails[0].collateralOwnerGender === '1' ? 'पुरुष' : 'महिला' : '',
         creditorCitizenshipNo2: this.nepaliData.collateralOwnerDetails[0].collateralOwnerCitizenshipNo ? this.nepaliData.collateralOwnerDetails[0].collateralOwnerCitizenshipNo : '',
         creditorCitizenshipOfficeAddress2: this.nepaliData.collateralOwnerDetails[0].collateralOwnerCitizenshipIssueDistrict ? this.nepaliData.collateralOwnerDetails[0].collateralOwnerCitizenshipIssueDistrict : '',
         jaggaDhaniSanketNo: this.nepaliData.collateralOwnerDetails[0].collateralOwnerCodeNo ? this.nepaliData.collateralOwnerDetails[0].collateralOwnerCodeNo : '',
@@ -98,19 +100,8 @@ export class MortgageDeedComponent implements OnInit {
         creditorSpouse2: this.nepaliData.collateralOwnerDetails[0].collateralOwnerSpouse ? this.nepaliData.collateralOwnerDetails[0].collateralOwnerSpouse : '',
         creditorMotherName2: this.nepaliData.collateralOwnerDetails[0].collateralOwnerMotherName ? this.nepaliData.collateralOwnerDetails[0].collateralOwnerMotherName : '',
         creditorGrandMotherName2: this.nepaliData.collateralOwnerDetails[0].collateralOwnerGrandMotherName ? this.nepaliData.collateralOwnerDetails[0].collateralOwnerMotherName : '',
-        jaggaPradeshNo: this.nepaliData.collateralDetails[0].collateralProvinceNo ? this.nepaliData.collateralDetails[0].collateralProvinceNo : '',
-        jaggaDistrict: this.nepaliData.collateralDetails[0].collateralDistrict ? this.nepaliData.collateralDetails[0].collateralDistrict : '',
-        sawikMunicipality: this.nepaliData.collateralDetails[0].collateralMunVdcOriginal ? this.nepaliData.collateralDetails[0].collateralMunVdcOriginal : '',
-        sawikWardNo: this.nepaliData.collateralDetails[0].collateralWardNoOld ? this.nepaliData.collateralDetails[0].collateralWardNoOld : '',
-        sawikTole: this.nepaliData.collateralDetails[0].toleOld ? this.nepaliData.collateralDetails[0].toleOld : '',
-        halMunicipality: this.nepaliData.collateralDetails[0].collateralMunVdcChanged ? this.nepaliData.collateralDetails[0].collateralMunVdcChanged : '',
-        halWardNo: this.nepaliData.collateralDetails[0].wardNoNew ? this.nepaliData.collateralDetails[0].wardNoNew : '',
-        halTole: this.nepaliData.collateralDetails[0].toleNew ? this.nepaliData.collateralDetails[0].toleNew : '',
-        seatNo: this.nepaliData.collateralDetails[0].seatNo ? this.nepaliData.collateralDetails[0].seatNo : '',
-        kittaNoAnka: this.nepaliData.collateralDetails[0].plotNo ? this.nepaliData.collateralDetails[0].plotNo : '',
-        area: this.nepaliData.collateralDetails[0].areaOfCollateral ? this.nepaliData.collateralDetails[0].areaOfCollateral : '',
-        type: this.nepaliData.collateralDetails[0].collateralType ? this.nepaliData.collateralDetails[0].collateralType : '',
       });
+      this.setCollateralDetails(this.nepaliData.collateralDetails);
     }
 
     const customerAddress =
@@ -120,7 +111,9 @@ export class MortgageDeedComponent implements OnInit {
     this.form.get(['rinBibaran', 0, 'creditorNameNepali2']).patchValue(this.nepaliData.name);
     this.form.get(['rinBibaran', 0, 'creditorNameEnglish2']).patchValue(this.nepaliData.nameInEnglish);
     this.form.get(['rinBibaran', 0, 'dateOfBirth1']).patchValue(this.nepaliData.dob);
-    this.form.get(['rinBibaran', 0, 'address1']).patchValue(customerAddress);
+    this.form.get(['rinBibaran', 0, 'district1']).patchValue(this.nepaliData.permanentDistrict.nepaliName);
+    this.form.get(['rinBibaran', 0, 'wardNo1']).patchValue(this.nepaliData.permanentWard);
+    this.form.get(['rinBibaran', 0, 'municipality1']).patchValue(this.nepaliData.permanentMunicipalities.nepaliName);
     this.form.get(['rinBibaran', 0, 'sex1']).patchValue(this.nepaliData.gender === '1' ? 'पुरुष' : 'महिला');
     this.form.get(['rinBibaran', 0, 'creditorCitizenshipNo1']).patchValue(this.nepaliData.citizenshipNo);
     this.form.get(['rinBibaran', 0, 'creditorCitizenshipIssueDate1']).patchValue(this.nepaliData.citizenshipIssueDate);
@@ -328,6 +321,7 @@ export class MortgageDeedComponent implements OnInit {
       fatwalaName: [undefined],
       fatwalaPosition: [undefined],
       guarantorDetails: this.formBuilder.array([]),
+      collateralDetails: this.formBuilder.array([]),
       rinBibaran: this.formBuilder.array([]),
       jillaName: [undefined],
       cityName: [undefined],
@@ -348,7 +342,10 @@ export class MortgageDeedComponent implements OnInit {
       witnessMunicipality1: [undefined],
       panNo: [undefined],
       dartaDate4: [undefined],
-      witnessWardNo1 : [undefined]
+      witnessWardNo1 : [undefined],
+      district3: [undefined],
+      wardNo3: [undefined],
+      municipality3: [undefined],
 
     });
   }
@@ -357,6 +354,13 @@ export class MortgageDeedComponent implements OnInit {
     const wordLabelVar = this.nepToEngNumberPipe.transform(this.form.get(numLabel).value);
     const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
     this.form.get(wordLabel).patchValue(returnVal);
+  }
+
+  getPlotNoWord(numLabel, wordLabel, index) {
+    const wordLabelVar = this.nepToEngNumberPipe.transform(this.form.get(['collateralDetails', index, numLabel]).value);
+    const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
+    const lastIndexOfSpace = returnVal.lastIndexOf(' ');
+    this.form.get(['collateralDetails', index, wordLabel]).patchValue(returnVal.substring(0, lastIndexOfSpace));
   }
 
   addGuarantor(): void {
@@ -409,6 +413,9 @@ export class MortgageDeedComponent implements OnInit {
       creditorSpouse1: [undefined],
       creditorGrandFatherName1: [undefined],
       creditorGrandMotherName1: [undefined],
+      district1: [undefined],
+      wardNo1: [undefined],
+      municipality1: [undefined],
     });
 
   }
@@ -435,8 +442,89 @@ export class MortgageDeedComponent implements OnInit {
         creditorSpouse1: [value.creditorSpouse1],
         creditorGrandFatherName1: [value.creditorGrandFatherName1],
         creditorGrandMotherName1: [value.creditorGrandMotherName1],
+        district1: [value.district1],
+        wardNo1: [value.wardNo1],
+        municipality1: [value.municipality1],
       }));
     });
+  }
+
+  setCollateralDetails(data) {
+    const formArray = this.form.get('collateralDetails') as FormArray;
+    if (data.length === 0) {
+      this.addEmptyCollateralDetails();
+      return;
+    }
+    data.forEach(value => {
+      formArray.push(this.formBuilder.group({
+        jaggaPradeshNo: [value.collateralProvinceNo],
+        name: [value.collateralName],
+        parentName: [value.collateralFatherName],
+        grandParentName: [value.collateralGrandFatherName],
+        address: [
+              !ObjectUtil.isEmpty(value.collateralPermanentMunVdc) ?
+                  value.collateralPermanentMunVdc.nepaliName : ''] + ', j8f g+= ' +
+            [value.collateralPermanentWardNo] + ', ' +
+            [!ObjectUtil.isEmpty(value.collateralPermanentDistrict) ?
+                value.collateralPermanentDistrict.nepaliName : ''],
+        collateralPerMunVdc: [!ObjectUtil.isEmpty(value.collateralPermanentMunVdc) ?
+            value.collateralPermanentMunVdc.nepaliName : ''],
+        collateralPerWard: [value.collateralPermanentWardNo],
+        collateralPerDis: [!ObjectUtil.isEmpty(value.collateralPermanentDistrict) ?
+            value.collateralPermanentDistrict.nepaliName : ''],
+        wardNo: [value.collateralWardNo],
+        //jaggaDistrict: [value.collateralDistrict],
+        sawikMunicipality: [value.collateralMunVdcOriginal],
+        halMunicipality: [value.collateralMunVdcChanged],
+        sawikWardNo: [value.collateralWardNoOld],
+        sawikTole: [value.toleOld],
+        halWardNo: [value.wardNoNew],
+        halTole: [value.toleNew],
+        kittaNoAnka: [value.plotNo],
+        area: [value.areaOfCollateral],
+        seatNo: [value.seatNo],
+        Khanda: [value.Khanda],
+        type: [value.collateralType],
+        kaifiyat: [value.kaifiyat],
+        sawikDistrict: [value.collateralDistrict],
+        halDistrict: [value.halDistrict],
+        kittaNoWord: [value.kittaNoWord],
+      }));
+    });
+  }
+
+  addEmptyCollateralDetails() {
+    (this.form.get('collateralDetails') as FormArray).push(
+        this.formBuilder.group({
+          name: [undefined],
+          parentName: [undefined],
+          grandParentName: [undefined],
+          wardNo: [undefined],
+          address: [undefined],
+          collateralPerMunVdc: [undefined],
+          collateralPerWard: [undefined],
+          collateralPerDis: [undefined],
+          jaggaDistrict: [undefined],
+          sawikMunicipality: [undefined],
+          halMunicipality: [undefined],
+          sawikWardNo: [undefined],
+          sawikTole: [undefined],
+          halWardNo: [undefined],
+          halTole: [undefined],
+          kittaNoAnka: [undefined],
+          area: [undefined],
+          seatNo: [undefined],
+          Khanda: [undefined],
+          type: [undefined],
+          kaifiyat: [undefined],
+          sawikDistrict: [undefined],
+          halDistrict: [undefined],
+          kittaNoWord: [undefined],
+        }));
+  }
+
+  removeCollateralDetails(index) {
+    (this.form.get('collateralDetails') as FormArray).removeAt(index);
   }
 
 }

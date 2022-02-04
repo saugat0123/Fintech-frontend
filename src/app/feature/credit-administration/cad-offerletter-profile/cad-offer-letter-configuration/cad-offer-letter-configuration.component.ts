@@ -255,14 +255,16 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             permanentDistrict: [undefined],
             permanentMunicipalities: [undefined],
             permanentMunType: [0],
+            permanentWard: [undefined],
+            permanentVdc: [undefined],
             temporaryProvince: [undefined],
             temporaryDistrict: [undefined],
             temporaryMunicipalities: [undefined],
-            permanentWard: [undefined],
-            customerEmail: [undefined],
-            contactNumber: [undefined],
             temporaryWard: [undefined],
             temporaryMunType: [1],
+            temporaryVdc: [undefined],
+            customerEmail: [undefined],
+            contactNumber: [undefined],
             guarantorDetails: this.formBuilder.array([]),
             collateralDetails: this.formBuilder.array([]),
             citizenshipIssueDistrict: [undefined],
@@ -418,11 +420,13 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             guarantorPermanentDistrict: [undefined],
             guarantorPermanentMunicipality: [undefined],
             guarantorPermanentWard: [undefined],
+            guarantorPermanentVdc: [undefined],
             guarantorTemporaryMunType: [1],
             guarantorTemporaryProvince: [undefined],
             guarantorTemporaryDistrict: [undefined],
             guarantorTemporaryMunicipality: [undefined],
             guarantorTemporaryWard: [undefined],
+            guarantorTemporaryVdc: [undefined]
         });
     }
 
@@ -431,10 +435,12 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             collateralName: '',
             collateralFatherName: '',
             collateralGrandFatherName: '',
+            collateralPermanentMunType: [0],
             collateralPermanentProvince: '',
             collateralPermanentDistrict: '',
             collateralPermanentMunVdc: '',
             collateralPermanentWardNo: '',
+            collateralTemporaryMunType: [1],
             collateralTemporaryProvince: '',
             collateralTemporaryDistrict: '',
             collateralTemporaryMunVdc: '',
@@ -504,11 +510,13 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 guarantorPermanentDistrict: [value.guarantorPermanentDistrict],
                 guarantorPermanentMunicipality: [value.guarantorPermanentMunicipality],
                 guarantorPermanentWard: [value.guarantorPermanentWard],
+                guarantorPermanentVdc: [value.guarantorPermanentVdc],
                 guarantorTemporaryMunType: [value.guarantorTemporaryMunType],
                 guarantorTemporaryProvince: [value.guarantorTemporaryProvince],
                 guarantorTemporaryDistrict: [value.guarantorTemporaryDistrict],
                 guarantorTemporaryMunicipality: [value.guarantorTemporaryMunicipality],
-                guarantorTemporaryWard: [value.guarantorTemporaryWard]
+                guarantorTemporaryWard: [value.guarantorTemporaryWard],
+                guarantorTemporaryVdc : [value.guarantorTemporaryVdc]
             }));
             this.getGuarantorDistricts(value.guarantorPermanentProvince, i);
             this.getGuarantorMunicipalities(value.guarantorPermanentDistrict, i);
@@ -594,10 +602,12 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 collateralName: [value.collateralName],
                 collateralFatherName: [value.collateralFatherName],
                 collateralGrandFatherName: [value.collateralGrandFatherName],
+                collateralPermanentMunType: [value.collateralPermanentMunType],
                 collateralPermanentProvince: [value.collateralPermanentProvince],
                 collateralPermanentDistrict: [value.collateralPermanentDistrict],
                 collateralPermanentMunVdc: [value.collateralPermanentMunVdc],
                 collateralPermanentWardNo: [value.collateralPermanentWardNo],
+                collateralTemporaryMunType: [value.collateralTemporaryMunType],
                 collateralTemporaryProvince: [value.collateralTemporaryProvince],
                 collateralTemporaryDistrict: [value.collateralTemporaryDistrict],
                 collateralTemporaryMunVdc: [value.collateralTemporaryMunVdc],
@@ -697,6 +707,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     patchAddressObject(): void {
         if (!ObjectUtil.isEmpty(this.customerInfo.nepData)) {
             const data = JSON.parse(this.customerInfo.nepData);
+            console.log('data', data);
             this.userConfigForm.patchValue(data);
             this.setCollaterals(data.collateralDetails);
             this.setCollateralOwner(data.collateralOwnerDetails);

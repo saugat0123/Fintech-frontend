@@ -23,8 +23,16 @@
                                    placeholder="" type="text"/>
                     जिल्ला,
                     <input class="form-field form-control-sm nepaliFont unicode-size"
+                           *ngIf="form.get('borrowerPermanentMunType').value === '0'; else borrowerPermanentVdc"
                            formControlName="perMunicipality"
                            placeholder="" type="text"/>
+                    <ng-template #borrowerPermanentVdc>
+                        <input class="form-field form-control-sm nepaliFont"
+                               formControlName="borrowerPermanentVdc"
+                               placeholder=""
+                               readonly
+                               type="text"/>
+                    </ng-template>
                     न.पा./गा.वि.स., वडा नं.
                     <input class="form-field form-control-sm nepaliFont shortInput"
                            formControlName="perWardNo"
@@ -32,10 +40,16 @@
                     बस्ने
                     <input class="form-field form-control-sm nepaliFont " formControlName="grandFatherName"
                            placeholder="" type="text"/>को
-                    नाति/नातिनी
+                    <span *ngIf="form.get('gender').value === '1'; else granddaughter">नाति</span>
+                    <ng-template #granddaughter>
+                        <span>नातिनि</span>
+                    </ng-template>
                     <input class="form-field form-control-sm nepaliFont " formControlName="fatherName"
                            placeholder="" type="text"/>
-                    को छोरा/छोरी वर्ष
+                    को <span *ngIf="form.get('gender').value === '1'; else daughter">छोरा</span>
+                    <ng-template #daughter>
+                        <span>छोरी</span>
+                    </ng-template> वर्ष
                     <input class="form-field form-control-sm nepaliFont shortInput" formControlName="loanHolderAge"
                            placeholder="" type="text"/>को
                     <input class="form-field form-control-sm nepaliFont " formControlName="loanHolderName"

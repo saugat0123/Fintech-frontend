@@ -89,22 +89,37 @@
                         <td style="text-align: right; vertical-align: top;padding-top: 10px;width: 20%"> स्थायी ठेगाना
                             :-
                         </td>
-                        <td style="text-align: left;width: 80%"><input class="form-field form-control-sm nepaliFont "
+                        <td style="text-align: left;width: 80%"><input class="form-field form-control-sm nepaliFont sizefont"
                                                                        formControlName="sincerlyPermanentAddress"
                                                                        placeholder=""
                                                                        readonly
                                                                        type="text"/>
-                            जिल्ला,<input class="form-field form-control-sm nepaliFont"
+                            जिल्ला,<input class="form-field form-control-sm nepaliFont sizefont"
+                                          *ngIf="form.get('borrowerPermanentMunType').value === '0'; else borrowerPermanentVdc"
                                          formControlName="jillaName"
                                          placeholder=""
                                          readonly
                                          type="text"/>
+                            <ng-template #borrowerPermanentVdc>
+                                <input class="form-field form-control-sm nepaliFont"
+                                       formControlName="borrowerPermanentVdc"
+                                       placeholder=""
+                                       readonly
+                                       type="text"/>
+                            </ng-template>
                             गा.पा./न.पा., वडा नं. <input class="form-field form-control-sm nepaliFont shortInput"
                                                        formControlName="jagaName"
                                                        placeholder=""
                                                        readonly
                                                        type="text"/>
-                            (साबिक <input class="form-field form-control-sm nepaliFont"
+                            (साबिक
+                            <input class="form-field form-control-sm nepaliFont sizefont"
+                                   value="{{form.get('sincerlyPermanentAddress').value}}"
+                                   formControlName="borrowerSabikDistrict"
+                                   placeholder=""
+                                   type="text"/>,
+                            <input class="form-field form-control-sm nepaliFont sizefont"
+                                   *ngIf="form.get('borrowerPermanentMunType').value === '0'; else borrowerPermanentVdc"
                                           value="{{form.get('jillaName').value}}"
                                           formControlName="borrowerSabikVDC"
                                           placeholder=""
@@ -120,16 +135,24 @@
                         <td class="text-right" style="vertical-align: top; padding-top: 10px;width: 20%">हालको ठेगाना
                             :-
                         </td>
-                        <td style="text-align: left;width: 80%"><input class="form-field form-control-sm nepaliFont "
+                        <td style="text-align: left;width: 80%"><input class="form-field form-control-sm nepaliFont sizefont"
                                                                        formControlName="sincerlytempAddress"
                                                                        placeholder=""
                                                                        readonly
                                                                        type="text"/>
-                            जिल्ला,<input class="form-field form-control-sm nepaliFont"
+                            जिल्ला,<input class="form-field form-control-sm nepaliFont sizefont"
+                                          *ngIf="form.get('borrowerTemporaryMunType').value === '0'; else borrowerTemporaryVdc"
                                          formControlName="jillaName1"
                                          placeholder=""
                                          readonly
                                          type="text"/>
+                            <ng-template #borrowerTemporaryVdc>
+                                <input class="form-field form-control-sm nepaliFont"
+                                       formControlName="borrowerTemporaryVdc"
+                                       placeholder=""
+                                       readonly
+                                       type="text"/>
+                            </ng-template>
                             गा.पा./न.पा., वडा नं. <input class="form-field form-control-sm nepaliFont shortInput"
                                                        formControlName="jagaName1"
                                                        placeholder=""

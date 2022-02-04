@@ -86,6 +86,9 @@ export class LetterOfAgreementComponent implements OnInit {
         companyName: this.nepaliData.companyName ? this.nepaliData.companyName : '',
         loanAmount: loanAmount.numberNepali ? loanAmount.numberNepali : '',
         loanAmountWords: loanAmount.nepaliWords ? loanAmount.nepaliWords : '',
+        gender: this.nepaliData.gender ?  this.nepaliData.gender : '',
+        borrowerPermanentMunType: this.nepaliData.permanentMunType ? this.nepaliData.permanentMunType : '',
+        borrowerPermanentVdc: this.nepaliData.permanentVdc ? this.nepaliData.permanentVdc : '',
       });
     }
   }
@@ -133,28 +136,6 @@ export class LetterOfAgreementComponent implements OnInit {
 
   buildForm() {
     this.form = this.formBuilder.group({
-      // district: [undefined],
-      // municipality: [undefined],
-      // wadNo: [undefined],
-      // grandParentName: [undefined],
-      // parentName: [undefined],
-      // age: [undefined],
-      // customerName: [undefined],
-      // municipalityWadNo: [undefined],
-      // tolName: [undefined],
-      // malpotOffice: [undefined],
-      // regNo: [undefined],
-      // date: [undefined],
-      // PassedDistrict: [undefined],
-      // PassedMunicipality: [undefined],
-      // PassedWadNo: [undefined],
-      // companyName: [undefined],
-      // amount: [undefined],
-      // amountInWord: [undefined],
-      // itiYear: [undefined],
-      // itiMonth: [undefined],
-      // itiDate: [undefined],
-      // itiSambat: [undefined]
       tole: [undefined],
       perDistrict: [undefined],
       perMunicipality: [undefined],
@@ -180,7 +161,10 @@ export class LetterOfAgreementComponent implements OnInit {
       itiYear: [undefined],
       itiMonth: [undefined],
       itiDate: [undefined],
-      itiSambat: [undefined]
+      itiSambat: [undefined],
+      gender: [undefined],
+      borrowerPermanentMunType: [undefined],
+      borrowerPermanentVdc: [undefined],
     });
   }
 

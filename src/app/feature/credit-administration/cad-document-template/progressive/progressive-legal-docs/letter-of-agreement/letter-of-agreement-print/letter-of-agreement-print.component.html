@@ -15,9 +15,16 @@
                   {{printDocForm?.perDistrict === null || printDocForm?.perDistrict === '' ? '_________________' : printDocForm?.perDistrict}}
               </span>
               जिल्ला
-              <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.perMunicipality !== null && printDocForm?.perMunicipality !== ''}">
+              <span
+                      *ngIf="printDocForm?.borrowerPermanentMunType === '0'; else borrowerPermanentVdc"
+                      [ngClass]="{'nepaliFont unicode-size' : printDocForm?.perMunicipality !== null && printDocForm?.perMunicipality !== ''}">
                   {{printDocForm?.perMunicipality === null || printDocForm?.perMunicipality === '' ? '_________________' : printDocForm?.perMunicipality}}
               </span>
+              <ng-template #borrowerPermanentVdc>
+                   <span [ngClass]="{'nepaliFont uniFont' : printDocForm?.borrowerPermanentVdc !== null && printDocForm?.borrowerPermanentVdc !== ''}">
+                {{printDocForm?.borrowerPermanentVdc === null || printDocForm?.borrowerPermanentVdc === '' ? '_________________' : printDocForm?.borrowerPermanentVdc}}
+              </span>
+              </ng-template>
               न.पा./गा.वि.स. वडा नं.
               <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.perWardNo !== null && printDocForm?.perWardNo !== ''}">
                   {{printDocForm?.perWardNo === null || printDocForm?.perWardNo === '' ? '_________________' : printDocForm?.perWardNo}}
@@ -27,10 +34,18 @@
                   {{printDocForm?.grandFatherName === null || printDocForm?.grandFatherName === '' ? '_________________' : printDocForm?.grandFatherName}}
               </span>
               को
-              नाति/नातिनी
+              <span *ngIf="printDocForm?.gender === '1'; else granddaughter">नाति</span>
+              <ng-template #granddaughter>
+                  <span>नातिनि</span>
+              </ng-template>
               <span [ngClass]="{'nepaliFont' : printDocForm?.fatherName !== null && printDocForm?.fatherName !== ''}">
                   {{printDocForm?.fatherName === null || printDocForm?.fatherName === '' ? '_________________' : printDocForm?.fatherName}}
-              </span>को छोरा/छोरी वर्ष
+              </span>को
+              <span *ngIf="printDocForm?.gender === '1'; else daughter">छोरा</span>
+              <ng-template #daughter>
+                  <span>छोरी</span>
+              </ng-template>
+              वर्ष
               <span [ngClass]="{'nepaliFont' : printDocForm?.loanHolderAge !== null && printDocForm?.loanHolderAge !== ''}">
                   {{printDocForm?.loanHolderAge === null || printDocForm?.loanHolderAge === '' ? '_________________' : printDocForm?.loanHolderAge}}
               </span>को
