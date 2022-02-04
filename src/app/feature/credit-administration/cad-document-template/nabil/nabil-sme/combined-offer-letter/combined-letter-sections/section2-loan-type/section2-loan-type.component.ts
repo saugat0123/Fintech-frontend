@@ -165,6 +165,7 @@ export class Section2LoanTypeComponent implements OnInit {
     equityMortgageData;
     mortgageTermLoan = [];
     mortgageTermLoanData;
+    loanOption: any;
 
     constructor(private formBuilder: FormBuilder,
                 private engToNepWord: NepaliCurrencyWordPipe,
@@ -176,6 +177,7 @@ export class Section2LoanTypeComponent implements OnInit {
     ngOnInit() {
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc)) {
             this.initialData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
+            this.loanOption = this.initialData.smeGlobalForm.loanOption;
         }
         this.buildForm();
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc)) {

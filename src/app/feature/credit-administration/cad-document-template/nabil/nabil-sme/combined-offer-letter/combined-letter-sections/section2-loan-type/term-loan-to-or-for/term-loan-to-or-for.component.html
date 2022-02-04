@@ -71,7 +71,7 @@
                                 formControlName="freeTextTen">
                 </textarea>
                     </p>
-                    <p>
+                    <p *ngIf="tempData.smeGlobalForm.loanOption !== 'Plain Renewal'">
                         <strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong>
                         <textarea
                                 class="form-control customFont"
