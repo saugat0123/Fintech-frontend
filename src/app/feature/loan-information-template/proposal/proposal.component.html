@@ -916,6 +916,11 @@
                                     </div>
                                 </div>
                             </div>
+                            <app-income-from-account [incomeFromAccountDataResponse]="incomeFromAccountDataResponse"
+                                                     [customerInfo]="customerInfo"
+                                                     #earning
+                                                     (incomeFromAccountDataEmitter)="saveIncomeFromAccount($event)">
+                            </app-income-from-account>
                             <div class="col-md-12 form-group">
                                 <button nbButton (click)="openCadSetup(datax)"><b>Setup Security Schedule</b>
                                 </button>

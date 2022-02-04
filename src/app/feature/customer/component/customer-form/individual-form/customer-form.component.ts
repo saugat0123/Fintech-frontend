@@ -534,6 +534,9 @@ bankingRelationshipList = BankingRelationship.enumObject();
         individualJsonData.realState = this.basicInfoControls.realState.value;
         individualJsonData.vehicle = this.basicInfoControls.vehicle.value;
         individualJsonData.checkedData = checkedData;
+        individualJsonData.depositOther = this.basicInfoControls.depositOther.value;
+        individualJsonData.depositBank = this.basicInfoControls.depositBank.value;
+        individualJsonData.total = this.basicInfoControls.total.value;
         if (this.microCustomer) {
             individualJsonData.microCustomerDetail = this.microIndividualFormComponent.microCustomerForm.value;
         }
@@ -857,9 +860,7 @@ bankingRelationshipList = BankingRelationship.enumObject();
     }
     getArrayTotal(formControl): number {
         let total = 0;
-        console.log(this.basicInfo.get(formControl).value);
         (this.basicInfo.get(formControl).value).forEach((d, i) => {
-            console.log(d);
             total += d.amount;
         });
         return total;

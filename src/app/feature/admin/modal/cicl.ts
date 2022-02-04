@@ -24,5 +24,5 @@ export class CiclArray {
   createdAt: Date;
   lastModifiedAt: Date;
   version: number;
-  cibCharge: number;
+  cibCharge: string;
 }

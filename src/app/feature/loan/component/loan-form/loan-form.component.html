@@ -123,7 +123,7 @@
                         </div>
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name === 'Proposal' && loanTag">
-                        <app-proposal *ngIf="loanTag !== 'MICRO_LOAN'" [formValue]="loadProposal()" [loanType]="loanType" #proposalInfo></app-proposal>
+                        <app-proposal *ngIf="loanTag !== 'MICRO_LOAN'" [formValue]="loadProposal()" [customerInfo]="loanHolder" [loanType]="loanType" #proposalInfo></app-proposal>
                         <app-micro-proposal *ngIf="loanTag === 'MICRO_LOAN'" [formValue]="loadProposal()" [loanType]="loanType" #microProposalInfo></app-micro-proposal>
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name === 'CICL'">

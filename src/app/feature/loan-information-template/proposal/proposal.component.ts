@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnInit} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Proposal} from '../../admin/modal/proposal';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
@@ -14,6 +14,10 @@ import {NumberUtils} from '../../../@core/utils/number-utils';
 import {environment} from '../../../../environments/environment';
 import {Clients} from '../../../../environments/Clients';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {IncomeFromAccount} from '../../admin/modal/incomeFromAccount';
+import {TemplateName} from '../../customer/model/templateName';
+import {CustomerInfoService} from '../../customer/service/customer-info.service';
+import {IncomeFromAccountComponent} from '../income-from-account/income-from-account.component';
 
 @Component({
   selector: 'app-proposal',
@@ -27,6 +31,8 @@ export class ProposalComponent implements OnInit {
   @Input() formValue: Proposal;
   @Input() loanIds;
   @Input() loanType;
+  @Input() customerInfo;
+  @ViewChild('earning', {static: false}) earning: IncomeFromAccountComponent;
   proposalForm: FormGroup;
   proposalData: Proposal = new Proposal();
   formDataForEdit: Object;
@@ -81,13 +87,16 @@ export class ProposalComponent implements OnInit {
   groupExposureData;
   isAllExposureFieldNull = false;
   files = [];
+  incomeFromAccountDataResponse;
   constructor(private formBuilder: FormBuilder,
               private loanConfigService: LoanConfigService,
               private activatedRoute: ActivatedRoute,
               private toastService: ToastService,
               private baseInterestService: BaseInterestService,
               private el: ElementRef,
-              private nbService: NgbModal) {
+              private nbService: NgbModal,
+              private customerInfoService: CustomerInfoService,
+  ) {
   }
 
   ngOnInit() {
@@ -188,7 +197,9 @@ export class ProposalComponent implements OnInit {
         }
       }
     }
-
+    if (!ObjectUtil.isEmpty(this.customerInfo.incomeFromAccount)) {
+      this.incomeFromAccountDataResponse = this.customerInfo.incomeFromAccount;
+    }
   }
 
   buildForm() {
@@ -305,6 +316,7 @@ export class ProposalComponent implements OnInit {
 
   onSubmit() {
     // Proposal Form Data--
+    this.earning.submitForm();
     if (!ObjectUtil.isEmpty(this.formValue)) {
       this.proposalData = this.formValue;
     }
@@ -710,4 +722,17 @@ export class ProposalComponent implements OnInit {
       files: JSON.stringify(data)
     });
   }
+  saveIncomeFromAccount(data: IncomeFromAccount) {
+    if (ObjectUtil.isEmpty(this.incomeFromAccountDataResponse)) {
+      this.incomeFromAccountDataResponse = new IncomeFromAccount();
+    }
+    this.incomeFromAccountDataResponse = data;
+    this.customerInfoService.saveLoanInfo(this.incomeFromAccountDataResponse, this.customerInfo.id, TemplateName.INCOME_FROM_ACCOUNT)
+        .subscribe(() => {
+          this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved EARNING, PROFITABILITY AND PRICING'));
+        }, error => {
+          this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save EARNING, PROFITABILITY AND PRICING)!'));
+        });
+  }
+
 }
