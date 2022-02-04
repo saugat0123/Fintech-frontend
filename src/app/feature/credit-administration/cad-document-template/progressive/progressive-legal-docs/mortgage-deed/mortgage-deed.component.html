@@ -252,17 +252,20 @@ s
           नेपाल अधिराज्यभरमा मेरो र मेरो परिवारको नाममा हद बन्दी भन्दा बढिज जग्गा छैन।</p>
         <div>
           <table class="table  table-bordered">
-            <tbody>
+            <tbody
+                    *ngFor="let collateral of form.get('collateralOwnerDetails')['controls']; index as i"
+                    formArrayName="collateralOwnerDetails" class="mt-4">
+            <span [formGroupName]="i">
             <tr>
 
               <td>नाम थर :-<input class="form-control-sm form-field nepaliFont"
-                                  formControlName="creditorNameNepali4"
+                                  formControlName="collateralOwnerName"
                                   type="text"></td>
               <td>नाम थर (अंग्रेजीमा) :-<input class="form-control-sm form-field "
-                                               formControlName="creditorNameEnglish4"
+                                               formControlName="collateralOwnerNameInEnglish"
                                                type="text"></td>
               <td>जन्म मिति :- <input class="form-control-sm form-field nepaliFont"
-                                     formControlName="dateOfBirth3"
+                                     formControlName="collateralOwnerDOB"
                                      type="text">
               </td>
               <td rowspan="4">
@@ -288,67 +291,68 @@ s
             </tr>
             <tr>
               <td colspan="2">ठेगाना : <input class="form-control-sm form-field nepaliFont unicode-size"
-                                              formControlName="municipality3"
+                                              formControlName="collateralOwnerPermanentMunicipalities"
                                               type="text">, वडा नं.
                 <input class="form-control-sm form-field nepaliFont"
-                       formControlName="wardNo3"
+                       formControlName="collateralOwnerPermanentWard"
                        type="text">,
                 <input class="form-control-sm form-field nepaliFont unicode-size"
-                       formControlName="district3"
+                       formControlName="collateralOwnerPermanentDistrict"
                        type="text">
               </td>
 
               <td>लिङ्ग : <input class="form-control-sm form-field nepaliFont unicode-size"
-                                  formControlName="sex3"
+                                  formControlName="collateralOwnerGender"
                                   type="text">
               </td>
             </tr>
 
             <tr>
               <td>ना.प्र.प.नं. :<input class="form-control-sm form-field nepaliFont"
-                                     formControlName="creditorCitizenshipNo2"
+                                     formControlName="collateralOwnerCitizenshipNo"
                                      type="text">
               </td>
               <td>नागरिकता जारी गर्ने कार्यालय र स्थान : <input
                   class="form-control-sm form-field nepaliFont"
-                  formControlName="creditorCitizenshipOfficeAddress2"
+                  formControlName="collateralOwnerCitizenshipIssueDistrict"
                   type="text"><br>
               </td>
               <td>
                 जग्गाधनी संकेत नंं. :<input class="form-control-sm form-field nepaliFont"
-                                             formControlName="jaggaDhaniSanketNo"
+                                             formControlName="collateralOwnerCodeNo"
                                              type="text">
                 मोबाईल नम्बर :<input class="form-control-sm form-field nepaliFont"
-                                        formControlName="creditorMobileNo2"
+                                        formControlName="collateralOwnerMobileNo"
                                         type="text"><br>
 
               </td>
             <tr>
               <td>जारी मिति : <input class="form-control-sm form-field nepaliFont"
-                                      formControlName="creditorCitizenshipIssueDate2"
+                                      formControlName="collateralOwnerCitizenshipIssueDate"
                                       type="text">
               </td>
               <td>बाबुको नाम :<input class="form-control-sm form-field nepaliFont"
-                                      formControlName="creditorFatherName2"
+                                      formControlName="collateralOwnerFatherName"
                                       type="text">
               </td>
               <td>बाजेको नाम :<input class="form-control-sm form-field nepaliFont"
-                                      formControlName="creditorGrandFatherName2"
+                                      formControlName="collateralOwnerGrandFatherName"
                                       type="text">
               </td>
             </tr>
             <td>पति/पत्निको नाम : <input class="form-control-sm form-field nepaliFont"
-                                          formControlName="creditorSpouse2"
+                                          formControlName="collateralOwnerSpouse"
                                           type="text">
             </td>
             <td>आमाको नाम :<input class="form-control-sm form-field nepaliFont"
-                                   formControlName="creditorMotherName2"
+                                   formControlName="collateralOwnerMotherName"
                                    type="text">
             </td>
             <td>बजैको नाम :<input class="form-control-sm form-field nepaliFont"
-                                   formControlName="creditorGrandMotherName2"
+                                   formControlName="collateralOwnerGrandMotherName"
                                    type="text">
             </td>
+              </span>
             </tbody>
           </table>
         </div>
@@ -471,7 +475,6 @@ s
               </td>
               <td>
                 जिल्ला :<input class="form-control-sm form-field nepaliFont"
-                                value="{{form.get(['collateralDetails', i, 'sawikDistrict']).value}}"
                                 formControlName="halDistrict"
                                 type="text"><br>
                 म.न.पा./उ.म.न.पा /न.पा./गा.बि.स.:<input
@@ -697,7 +700,6 @@ s
 
           यो लिखत मैले भने बमोजिम/म धितो सुरक्षणकर्ता <input
               class="form-control-sm form-field nepaliFont"
-              value="{{form.get('creditorNameNepali4').value}}"
               formControlName="dhitoSurakchanKarta"
               type="text">
           स्वयंले तयार गरेको हो भनी सही गर्नेको नाम: <input
