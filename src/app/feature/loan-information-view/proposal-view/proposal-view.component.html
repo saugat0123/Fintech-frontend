@@ -359,7 +359,7 @@
   <div class="col-md-12">
     <table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small ">
       <tr class="text-white sb-bg-dark">
-        <th *ngIf="client === clientName?.SHINE_RESUNGA && isRevolving">Interest and Principal Repayment Frequency</th>
+        <th *ngIf="client === clientName?.SHINE_RESUNGA && isFundable">Interest and Principal Repayment Frequency</th>
         <th *ngIf="isFixedDeposit">Coupon Rate</th>
         <th *ngIf="isFixedDeposit">Premium On Coupon Rate</th>
         <th *ngIf="loanNatureSelected && fundableNonFundableSelcted && isFundable && isRevolving && client !== clientName?.SHINE_RESUNGA">Tenure of each deal</th>
