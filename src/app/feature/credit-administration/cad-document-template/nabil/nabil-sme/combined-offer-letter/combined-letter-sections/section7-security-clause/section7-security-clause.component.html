@@ -160,8 +160,9 @@
             </div>
         </div>
         <!--       Applicable incase of receivables only as security -->
-        <div class="col-md-12 row" *ngIf="isReceivableVisible">
-            <div class="row mt-4">
+        <!--<div class="col-md-12 row" *ngIf="isReceivableVisible">-->
+        <div class="col-md-12" *ngIf="isFinancing">
+        <div class="row mt-3">
                 <p class="m-0">
                     <strong>
                         <u>
