@@ -287,8 +287,10 @@
                 {{termLoan.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
                 <span [ngClass]="{'outside' : termLoan?.dateOfExpiryCT !== null && termLoan?.dateOfExpiryCT !== ''}">
                         {{termLoan?.dateOfExpiryCT === null || termLoan?.dateOfExpiryCT === '' ? '___________' : termLoan?.dateOfExpiryCT}}</span>
+            </p>
+            <br/>
                 <strong>कर्जा प्रवाह तरिकाः</strong>
-                <span style="text-align: justify">
+                <span style="text-align: justify; line-height: 1.9em; font-size: 19px">
                         {{termLoanFreeText[i]?.freeTextTwelve === null || termLoanFreeText[i]?.freeTextTwelve === '' ? '___________' : termLoanFreeText[i]?.freeTextTwelve}}
                     </span>                     <!--<textarea
                         class="form-control customFont nepaliFont"
@@ -298,7 +300,6 @@
                         placeholder=""
                         formControlName="freeTextTwelve">
                     </textarea>-->
-            </p>
         </td>
     </tr>
 </table>

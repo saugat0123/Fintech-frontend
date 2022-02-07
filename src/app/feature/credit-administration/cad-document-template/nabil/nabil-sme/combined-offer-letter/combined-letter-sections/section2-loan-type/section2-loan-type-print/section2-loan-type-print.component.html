@@ -241,15 +241,19 @@
 
                             <span *ngIf="val.loanOption === 'REGULAR'"><strong>कर्जा अवधि समाप्ति मितिः</strong> प्रत्येक आयात कर्जा प्रवाह
                                 (बुकिङ्ग) भएको मितिले
-                            <span>
-                                {{this.freeInformation ? this.freeInformation?.section2?.importLoanTrustReceiptFreeText[i1].remainDaysLoanTrust : ''}}
-                            </span>
+                            <!--<span> -->
+                                <span [ngClass]="{'outside' : val.loanPeriodCT !== null && val.loanPeriodCT !== ''}">
+                            {{val.loanPeriodCT === null || val.loanPeriodCT === '' ? '___________' : val.loanPeriodCT}}</span>
+                                <!--{{this.freeInformation ? this.freeInformation?.section2?.importLoanTrustReceiptFreeText[i1].remainDaysLoanTrust : ''}}-->
+                            <!--</span>-->
                             दिन सम्म ।</span>
                             <span *ngIf="val.loanOption === 'ONE_OFF_BASIS'"><strong>कर्जा अवधि समाप्ति मितिः</strong> पटके आयात कर्जा प्रवाह
                                 (बुकिङ्ग) भएको मितिले
-                            <span>
+                                <span [ngClass]="{'outside' : val.loanPeriodCT !== null && val.loanPeriodCT !== ''}">
+                            {{val.loanPeriodCT === null || val.loanPeriodCT === '' ? '___________' : val.loanPeriodCT}}</span>
+                            <!--<span>
                                 {{this.freeInformation ? this.freeInformation?.section2?.importLoanTrustReceiptFreeText[i1].remainDaysLoanTrust : ''}}
-                            </span>
+                            </span>-->
                            दिन सम्म ।</span>
                             <br>
                             <strong>कर्जा भुक्तानी तरिकाः</strong>
@@ -400,11 +404,15 @@
 
                             <span *ngIf="val.loanOption === 'REGULAR'"><strong>कर्जा अवधि समाप्ति मितिः</strong> प्रत्येक अल्पकालिन कर्जा प्रवाह
                                     (बुकिङ्ग) भएको मितिले
-                                <span>{{this.freeInformation ? this.freeInformation?.section2?.shortTermLoanFreeText[i1]?.remainDaysShortTermLoan : ''}}</span>
+                                <span [ngClass]="{'outside' : val.loanRevolvingPeriodCT !== null && val.loanRevolvingPeriodCT !== ''}">
+                            {{val.loanRevolvingPeriodCT === null || val.loanRevolvingPeriodCT === '' ? '___________' : val.loanRevolvingPeriodCT}}</span>
+                                <!--<span>{{this.freeInformation ? this.freeInformation?.section2?.shortTermLoanFreeText[i1]?.remainDaysShortTermLoan : ''}}</span>-->
                             दिन सम्म ।</span>
                             <span *ngIf="val.loanOption === 'ONE_OFF_BASIS'"><strong>कर्जा अवधि समाप्ति मितिः</strong> पटके अल्पकालिन कर्जा प्रवाह
                                 (बुकिङ्ग) भएको मितिले
-                            <span>{{this.freeInformation ? this.freeInformation?.section2?.shortTermLoanFreeText[i1]?.remainDaysShortTermLoan : ''}}</span>
+                                <span [ngClass]="{'outside' : val.loanRevolvingPeriodCT !== null && val.loanRevolvingPeriodCT !== ''}">
+                            {{val.loanRevolvingPeriodCT === null || val.loanRevolvingPeriodCT === '' ? '___________' : val.loanRevolvingPeriodCT}}</span>
+                            <!--<span>{{this.freeInformation ? this.freeInformation?.section2?.shortTermLoanFreeText[i1]?.remainDaysShortTermLoan : ''}}</span>-->
                         दिन सम्म ।</span><br>
 
                             <span *ngIf="val.loanOption === 'REGULAR'"><strong>कर्जा अवधि पुनरावलोकन मितिः</strong>
