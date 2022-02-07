@@ -53,12 +53,12 @@ export class Section4LoanLimitComponent implements OnInit {
   }
   fillForm() {
     this.section4.patchValue({
-      totalFundedLimitInFigure: this.tempData.smeGlobalForm.totalFundedLimitInFigureCT ? this.tempData.smeGlobalForm.totalFundedLimitInFigureCT : '',
-      totalFundedLimitInWords: this.tempData.smeGlobalForm.totalFundedLimitInWordsCT ? this.tempData.smeGlobalForm.totalFundedLimitInWordsCT : '',
-      totalNonFundedLimitInFigure: this.tempData.smeGlobalForm.totalNonFundedLimitInFigureCT ? this.tempData.smeGlobalForm.totalNonFundedLimitInFigureCT : '',
-      totalNonFundedLimitInWords: this.tempData.smeGlobalForm.totalNonFundedLimitInWordsCT ? this.tempData.smeGlobalForm.totalNonFundedLimitInWordsCT : '',
-      totalLimitInFigure: this.tempData.smeGlobalForm.totalLimitInFigureCT ? this.tempData.smeGlobalForm.totalLimitInFigureCT : '',
-      totalLimitInWords: this.tempData.smeGlobalForm.totalLimitInWordsCT ? this.tempData.smeGlobalForm.totalLimitInWordsCT : '',
+      totalFundedLimitInFigure: this.tempData.smeGlobalForm.totalFundedLimitInFigure ? this.tempData.smeGlobalForm.totalFundedLimitInFigureCT : '',
+      totalFundedLimitInWords: this.tempData.smeGlobalForm.totalFundedLimitInWords ? this.tempData.smeGlobalForm.totalFundedLimitInWordsCT : '',
+      totalNonFundedLimitInFigure: this.tempData.smeGlobalForm.totalNonFundedLimitInFigure ? this.tempData.smeGlobalForm.totalNonFundedLimitInFigureCT : '',
+      totalNonFundedLimitInWords: this.tempData.smeGlobalForm.totalNonFundedLimitInWords ? this.tempData.smeGlobalForm.totalNonFundedLimitInWordsCT : '',
+      totalLimitInFigure: this.tempData.smeGlobalForm.totalLimitInFigure ? this.tempData.smeGlobalForm.totalLimitInFigureCT : '',
+      totalLimitInWords: this.tempData.smeGlobalForm.totalLimitInWords ? this.tempData.smeGlobalForm.totalLimitInWordsCT : '',
     });
   }
   checkIsComplementary(tempD) {
