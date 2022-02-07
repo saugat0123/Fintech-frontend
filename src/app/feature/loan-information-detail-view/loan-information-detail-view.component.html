@@ -27,7 +27,7 @@
         <div>
             <div class="align-content-center">
                 <app-loan-action
-                        *ngIf="loanDataHolder && loaded && this.loanDataHolder.currentStage.docAction.toString()!== docAction.value(docAction.APPROVED)"
+                        *ngIf="loanDataHolder && loaded && showRibbon"
                         [isDetailedView]="true"
                         [branchId]="loanDataHolder?.branch?.id"
                         [catalogueStatus]="false"

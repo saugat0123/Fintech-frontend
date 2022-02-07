@@ -1,7 +1,10 @@
+<!--<app-loan-summary *ngIf="customerLoan?.id"-->
+<!--                  [loanData]="customerLoan"-->
+<!--                  [loanConfig]="customerLoan?.loan"-->
+<!--                  [nepaliDate]="''">-->
+<!--</app-loan-summary>-->
 
-
-<app-loan-summary *ngIf="customerLoan?.id"
-                  [loanData]="customerLoan"
-                  [loanConfig]="customerLoan?.loan"
-                  [nepaliDate]="''">
-</app-loan-summary>
+<app-gamma-loan-summary  *ngIf="customerLoan?.id"
+                         [loanData]="customerLoan"
+                         [loanConfig]="customerLoan?.loan"
+                         [nepaliDate]="''"></app-gamma-loan-summary>

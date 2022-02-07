@@ -15,5 +15,6 @@ export class CustomerLoanDto {
     proposal: Proposal;
     loanType: LoanType;
     createdAt?: Date;
+    isFundable: boolean;
     loanConfig: LoanConfig;
 }

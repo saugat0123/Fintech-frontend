@@ -37,6 +37,7 @@ import {PreviousSecuritySummaryComponent} from '../../../loan-information-view/p
 import {NepaliPatroModule} from 'nepali-patro';
 import {SignatureSectionComponent} from './signature-section/signature-section.component';
 import {LoanActionComponent} from '../../loan-action/loan-action.component';
+import {GammaLoanSummaryComponent} from '../gamma-loan-summary/gamma-loan-summary.component';
 
 
 
@@ -60,7 +61,8 @@ const COMPONENTS = [
     ProposalTermsAndConditionSummeryComponent,
     // ApprovalSheetComponent,
     RoleHierarchyChainComponent,
-    NtaMegaSummaryComponent
+    NtaMegaSummaryComponent,
+    GammaLoanSummaryComponent
 ];
 
 const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
@@ -103,7 +105,8 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
         CompanyInfoSummaryComponent,
         ApprovalSheetDocumentListComponent,
         SignatureSectionComponent,
-        LoanActionComponent
+        LoanActionComponent,
+        GammaLoanSummaryComponent
     ],
     entryComponents: [...ENTRY_COMPONENTS]
 })
