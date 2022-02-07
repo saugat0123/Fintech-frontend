@@ -268,23 +268,25 @@ export class ProposalSummaryComponent implements OnInit, OnChanges {
                         isRevolving: false,
                     };
                 }
-                if (!ObjectUtil.isEmpty(dtoCfonfig.loanNature)) {
-                    dtoCfonfig.loanNatureSelected = true;
-                    if (dtoCfonfig.loanNature.toString() === 'Terminating') {
-                        dtoCfonfig.isTerminating = true;
-                    } else {
-                        dtoCfonfig.isRevolving = true;
+                if (!ObjectUtil.isEmpty(dtoCfonfig)) {
+                    if (!ObjectUtil.isEmpty(dtoCfonfig.loanNature)) {
+                        dtoCfonfig.loanNatureSelected = true;
+                        if (dtoCfonfig.loanNature.toString() === 'Terminating') {
+                            dtoCfonfig.isTerminating = true;
+                        } else {
+                            dtoCfonfig.isRevolving = true;
+                        }
+                        if (dtoCfonfig.isRevolving) {
+                            dtoCfonfig.isGeneral = false;
+                        }
                     }
-                    if (dtoCfonfig.isRevolving) {
+                    if (!dtoCfonfig.isFundable) {
                         dtoCfonfig.isGeneral = false;
                     }
-                }
-                if (!dtoCfonfig.isFundable) {
-                    dtoCfonfig.isGeneral = false;
-                }
-                if (dtoCfonfig.isFixedDeposit) {
-                    dtoCfonfig.loanNatureSelected = false;
-                    dtoCfonfig.fundableNonFundableSelcted = false;
+                    if (dtoCfonfig.isFixedDeposit) {
+                        dtoCfonfig.loanNatureSelected = false;
+                        dtoCfonfig.fundableNonFundableSelcted = false;
+                    }
                 }
                 this.dtoArray.push(dtoCfonfig);
             });
