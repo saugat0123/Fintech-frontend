@@ -367,9 +367,9 @@ export class LoanActionComponent implements OnInit, OnChanges {
                 deferredDocs = deferredDocs.filter((d) => (
                     !ObjectUtil.isEmpty(d.checkType) && d.checkType === EnumUtils.getEnum(DocumentCheckType, DocumentCheckType.DEFERRAL)
                 ));
+                const uploadedDocIds = this.loanDataHolder.customerDocument.map(d => d.document.id);
+                this.hasDeferredDocs = !deferredDocs.every(d => uploadedDocIds.includes(d.id));
             }
-            const uploadedDocIds = this.loanDataHolder.customerDocument.map(d => d.document.id);
-            this.hasDeferredDocs = !deferredDocs.every(d => uploadedDocIds.includes(d.id));
         });
     }
 

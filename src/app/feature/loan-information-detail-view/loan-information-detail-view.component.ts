@@ -62,6 +62,7 @@ export class LoanInformationDetailViewComponent implements OnInit {
     loaded = false;
     docAction = DocAction;
     siteVisitDocuments: Array<SiteVisitDocument>;
+    showRibbon = false;
     constructor(private loanConfigService: LoanConfigService,
                 private activatedRoute: ActivatedRoute,
                 private customerLoanService: LoanFormService,
@@ -80,6 +81,7 @@ export class LoanInformationDetailViewComponent implements OnInit {
         this.loadSummary();
         this.customerLoanService.detail(this.customerId).subscribe(response => {
             this.loanDataHolder = response.detail;
+            this.activeRibbon();
             this.spinner = false;
             this.loaded = true;
             this.id = this.loanDataHolder.id;
@@ -224,5 +226,15 @@ export class LoanInformationDetailViewComponent implements OnInit {
 
     checkSiteVisitDocument(event: any) {
         this.siteVisitDocuments = event;
+    }
+
+    activeRibbon() {
+        if (this.loanDataHolder.currentStage.docAction.toString() === DocAction.value(DocAction.APPROVED) ||
+            this.loanDataHolder.currentStage.docAction.toString() === DocAction.value(DocAction.CLOSED) ||
+            this.loanDataHolder.currentStage.docAction.toString() === DocAction.value(DocAction.REJECT)) {
+            this.showRibbon = false;
+        } else {
+            this.showRibbon = true;
+        }
     }
 }

@@ -482,7 +482,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-4" *ngIf="loanNatureSelected && isRevolving && client === clientName?.SHINE_RESUNGA">
+                                <div class="col-md-4" *ngIf="isFundable">
                                     <div class="form-group">
                                         <label class="title" for="interestPrincipalRepayment"><strong>Interest and Principal Repayment Frequency</strong></label>
                                         <select [ngClass]="{ 'is-invalid': (submitted ) && formControls.interestPrincipalRepayment.errors }"
