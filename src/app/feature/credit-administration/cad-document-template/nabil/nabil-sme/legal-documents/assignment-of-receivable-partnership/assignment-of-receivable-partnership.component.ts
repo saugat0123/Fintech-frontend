@@ -43,6 +43,7 @@ export class AssignmentOfReceivablePartnershipComponent implements OnInit {
   loanAmountWord;
   sanctionDate;
   issueDate = [];
+  foreignAddress;
 
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
@@ -184,6 +185,11 @@ export class AssignmentOfReceivablePartnershipComponent implements OnInit {
   }
 
   fillForm() {
+    for (const x of this.companyInfo) {
+      if (!ObjectUtil.isEmpty(x.ownerOtherAddress)) {
+        this.foreignAddress = x.ownerOtherAddressCT;
+      }
+    }
     let totalLoan = 0;
     this.cadData.assignedLoan.forEach(val => {
       const proposedAmount = val.proposal.proposedLimit;

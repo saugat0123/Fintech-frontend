@@ -61,7 +61,7 @@ export class PromissoryNotePartnershipComponent implements OnInit {
   citizenshipIssueDate;
   citizenshipIssueDistrict;
   foreignAddress;
-  isForeignAddress: boolean = true;
+  isForeignAddress = true;
 
 
   constructor(
@@ -398,8 +398,7 @@ export class PromissoryNotePartnershipComponent implements OnInit {
       this.age = i.ownerDobCT;
       this.nameOfPartner = i.ownerNameCT;
       this.directorCitizenshipNumber = i.ownerCitizenshipNoCT;
-      
-      if (!ObjectUtil.isEmpty(i.ownerOtherAddress)){
+      if (!ObjectUtil.isEmpty(i.ownerOtherAddress)) {
         this.foreignAddress = i.ownerOtherAddressCT;
         this.isForeignAddress = true;
       }
