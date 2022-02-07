@@ -111,7 +111,7 @@
                                             name="foreignAddress" [value]="x?.ownerOtherAddressCT" 
                                             placeholder="" type="text" />
                                     <span
-                                            class="print-only font-weight-bold">{{ this?.foreignAddress ? this?.foreignAddress : '_________________'}}</span>
+                                            class="print-only font-weight-bold">{{ foreignAddress ? foreignAddress : '_________________'}}</span>
                                             ठेगाना
                                 </ng-container>
                                 <ng-container *ngIf="x?.ownerNationality === 'Nepali' || x?.foreignAddressOption === 'Local'">
