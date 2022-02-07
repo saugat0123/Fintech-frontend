@@ -122,13 +122,13 @@
                                 <span class="print-only">{{partner ? partner?.ownerPermanentWardNoCT : ''}}</span>
                             </ng-container>
                             <ng-container *ngIf="(partner?.ownerNationality === 'Indian' || partner?.ownerNationality === 'Other')
-                             && partner?.foreignAddressOption === 'Foreign'">
-                                <input class="form-field form-control-sm d-print-none"
-                                       name="otherAddress"
-                                       [value]="partner?.ownerOtherAddressCT"
-                                       placeholder=" "
-                                       type="text"/>
-                                <span class="print-only">{{partner ? partner?.ownerOtherAddressCT : ''}}</span>
+                                        && partner?.foreignAddressOption === 'Foreign'">
+                                <input class="form-field form-control-sm  disable-print"
+                                       name="foreignAddress" [value]="partner?.ownerOtherAddressCT"
+                                       placeholder="" type="text" />
+                                <span
+                                        class="print-only font-weight-bold">{{ foreignAddress ? foreignAddress : '_________________'}}</span>
+                                ठेगाना
                             </ng-container>
                             बस्ने
                             <ng-container *ngIf="partner?.ownerGender === 'MALE'">श्री</ng-container>

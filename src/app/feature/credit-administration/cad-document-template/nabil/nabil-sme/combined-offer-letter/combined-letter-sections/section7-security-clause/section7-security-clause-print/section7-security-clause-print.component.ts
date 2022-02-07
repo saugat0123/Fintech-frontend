@@ -18,6 +18,7 @@ export class Section7SecurityClausePrintComponent implements OnInit {
   isSamanMojdatVisible: boolean;
   isReceivableVisible: boolean;
   freeInformation;
+  isFinancing = false;
 
   constructor() {
   }
@@ -27,6 +28,7 @@ export class Section7SecurityClausePrintComponent implements OnInit {
       this.tempData = JSON.parse(this.customerApprovedDoc.offerDocumentList[0].initialInformation);
       this.freeInformation = JSON.parse(this.customerApprovedDoc.offerDocumentList[0].supportedInformation);
       this.branchName = this.loanHolderInfo.branch.ct;
+      this.isFinancing = this.tempData.smeGlobalForm.arFinancing;
     }
     const securities = this.tempData.securities;
     this.mortgageType1 = this.tempData.smeGlobalForm.mortgageType;
