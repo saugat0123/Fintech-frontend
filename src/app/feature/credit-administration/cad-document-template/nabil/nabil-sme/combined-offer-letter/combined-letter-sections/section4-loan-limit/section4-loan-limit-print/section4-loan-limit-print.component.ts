@@ -103,7 +103,6 @@ export class Section4LoanLimitPrintComponent implements OnInit {
       });
     }
     if (!ObjectUtil.isEmpty(tempD.termLoanForm)) {
-      console.log('term loan details:', tempD);
       tempD.termLoanForm.termLoanDetails.forEach(val => {
         if (val.complementaryOther === true) {
           termLoanFlag = true;

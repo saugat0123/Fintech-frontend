@@ -387,6 +387,9 @@ export class SmeGlobalContentComponent implements OnInit {
   checkARFinancing(data) {
     this.isARFinancing = data;
     this.globalForm.get('arFinancing').patchValue(this.isARFinancing);
+    if (this.isARFinancing === false) {
+      this.globalForm.get('borrowerNaturalPerson').patchValue('No');
+    }
   }
 
   toggleShow() {
