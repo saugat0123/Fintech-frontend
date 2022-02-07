@@ -106,7 +106,6 @@ export class TermLoanToOrForComponent implements OnInit {
                 this.form.get(['termLoanDetails', i, 'newEMIAmountVehicleLoan']).patchValue(this.termLoanData[i].emiInfigureCT);
                 this.form.get(['termLoanDetails', i, 'newEMIAmountInWordVehicleLoan']).patchValue(this.termLoanData[i].emiInWordsCT);
                 this.form.get(['termLoanDetails', i, 'newEMINoOfInstallmentVehicleLoan']).patchValue(this.termLoanData[i].numberOfInstallmentCT);
-                this.form.get(['termLoanDetails', i, 'newEMILoanPurposeVehicleLoan']).patchValue(this.termLoanData[i].purposeOfLoanCT);
                 this.form.get(['termLoanDetails', i, 'newEMIServiceChargeVehicleLoan']).patchValue(this.termLoanData[i].serviceChargeCT);
                 this.form.get(['termLoanDetails', i, 'newEMILoanTenureVehicleLoan']).patchValue(this.termLoanData[i].tenureOfLoanCT);
                 this.form.get(['termLoanDetails', i, 'annualEMIBaseRateVehicleLoan']).patchValue(this.termLoanData[i].baseRateCT);
@@ -125,8 +124,10 @@ export class TermLoanToOrForComponent implements OnInit {
                 this.form.get(['termLoanDetails', i, 'newInstallmentNoOfPaymentVehicleLoan']).patchValue(this.termLoanData[i].numberOfPaymentsCT);
                 if (this.termLoanData[i].termLoanFor === 'VEHICLE') {
                     this.form.get(['termLoanDetails', i, 'newInstallmentLoanPurposeVehicleLoan']).patchValue('सवारी साधन खरिद गर्ने');
+                    this.form.get(['termLoanDetails', i, 'newEMILoanPurposeVehicleLoan']).patchValue('सवारी साधन खरिद गर्ने');
                 } else {
                 this.form.get(['termLoanDetails', i, 'newInstallmentLoanPurposeVehicleLoan']).patchValue(this.termLoanData[i].purposeOfLoanCT);
+                this.form.get(['termLoanDetails', i, 'newEMILoanPurposeVehicleLoan']).patchValue(this.termLoanData[i].purposeOfLoanCT);
                 }
                this.form.get(['termLoanDetails', i, 'newInstallmentServiceChargeVehicleLoan']).patchValue(this.termLoanData[i].serviceChargeCT);
                 this.form.get(['termLoanDetails', i, 'annualInstallmentBaseRateVehicleLoan']).patchValue(this.termLoanData[i].baseRateCT);
