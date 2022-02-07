@@ -45,6 +45,7 @@ export class PowerOfAttorneyPartnershipComponent implements OnInit {
   combinedAddress;
   issueDate = [];
   authorizedNameArray: Array<any> = new Array<any>();
+  isAuth = false;
 
 
   constructor(private formBuilder: FormBuilder,
@@ -90,9 +91,11 @@ export class PowerOfAttorneyPartnershipComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData.assignedLoan[0])) {
       this.companyInfo = JSON.parse(this.cadData.assignedLoan[0].companyInfo.companyJsonData);
       this.companyInfo.forEach(val => {
-        const authorizedName = val.ownerNameCT;
-        // tslint:disable-next-line:no-unused-expression
-        this.authorizedNameArray ? this.authorizedNameArray.push(authorizedName) : '';
+        if (val.isAuthorizedPerson === 'Authorized Person Only' || val.isAuthorizedPerson === 'Both') {
+          const authorizedName = val.ownerNameCT;
+          this.authorizedNameArray.push(authorizedName);
+          this.isAuth = true;
+        }
       });
     }
   }

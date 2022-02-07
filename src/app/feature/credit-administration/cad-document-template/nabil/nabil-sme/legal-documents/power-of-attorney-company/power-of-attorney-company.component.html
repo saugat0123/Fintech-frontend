@@ -313,8 +313,8 @@
                                 </strong>
                             </span>
                             </p>
-                            <p class="m-0">
-                                <span *ngFor="let details of companyInfo; let i = index">
+                            <p class="m-0" *ngIf="isAuth">
+                                <span *ngFor="let details of authorizedNameArray; let i = index">
                                 आधिकारिक प्रतिनिधिको नाम :
                                     <span>
                                         <input class="form-field form-control-sm d-print-none" name="authorizedBodyName"

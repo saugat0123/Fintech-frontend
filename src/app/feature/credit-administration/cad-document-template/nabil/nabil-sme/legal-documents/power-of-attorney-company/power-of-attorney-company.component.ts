@@ -31,6 +31,7 @@ export class PowerOfAttorneyCompanyComponent implements OnInit {
   loanHolderNepData: any;
   finalAmount;
   loanAmountWord;
+  isAuth = false;
   spinner = false;
   freeText;
   savedFreeText: Array<any> = new Array<any>();
@@ -61,9 +62,7 @@ export class PowerOfAttorneyCompanyComponent implements OnInit {
         if (val.isAuthorizedPerson === 'Authorized Person Only' || val.isAuthorizedPerson === 'Both') {
           const authorizedName = val.ownerNameCT;
           this.authorizedNameArray.push(authorizedName);
-        } else {
-          const authorizedName = '';
-          this.authorizedNameArray.push(authorizedName);
+          this.isAuth = true;
         }
       });
       this.dateConvert();
