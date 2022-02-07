@@ -397,6 +397,10 @@ export class OfferLetterLaxmiComponent implements OnInit {
             collateralChecked: [false],
             peGuaranteeCheck: [true],
             coGuaranteeCheck: [false],
+            currentAssetsNeeded: [true],
+            cashMarginNeeded: [true],
+            personalSecurityNeeded: [true],
+            cashLienNeeded: [true],
         });
     }
 
@@ -1098,6 +1102,36 @@ export class OfferLetterLaxmiComponent implements OnInit {
                     // this.offerLetterForm.get('peGuaranteeCheck').patchValue(false);
                 } else {
                     this.offerLetterForm.get('coGuaranteeCheck').patchValue(false);
+                }
+                break;
+            case 'currentAssetsNeeded':
+                if (event) {
+                    this.offerLetterForm.get('currentAssetsNeeded').patchValue(event);
+                } else {
+                    this.offerLetterForm.get('currentAssetsNeeded').patchValue(false);
+                }
+                break;
+            case 'cashMarginNeeded':
+                if (event) {
+                    this.offerLetterForm.get('cashMarginNeeded').patchValue(event);
+                } else {
+                    this.offerLetterForm.get('cashMarginNeeded').patchValue(false);
+                }
+                break;
+            case 'personalSecurityNeeded':
+                if (event) {
+                    this.offerLetterForm.get('personalSecurityNeeded').patchValue(event);
+                    this.offerLetterForm.get('personalLoanOther').patchValue(null);
+                } else {
+                    this.offerLetterForm.get('personalSecurityNeeded').patchValue(false);
+                }
+                break;
+            case 'cashLienNeeded':
+                if (event) {
+                    this.offerLetterForm.get('cashLienNeeded').patchValue(event);
+                    this.offerLetterForm.get('cashlienOther').patchValue(null);
+                } else {
+                    this.offerLetterForm.get('cashLienNeeded').patchValue(false);
                 }
                 break;
         }

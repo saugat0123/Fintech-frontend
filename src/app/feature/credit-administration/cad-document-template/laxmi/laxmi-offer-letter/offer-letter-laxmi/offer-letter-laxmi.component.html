@@ -1054,33 +1054,33 @@
             <!-- New / Enhancement Loan case:-->
             <ng-container>
                 <table class="table table-bordered table-responsive-md table-sm sb-small">
-                    <tbody>
                     <tr>
                         <th class="sn pt-2"><ul><li></li></ul></th>
-                        <th>
-                            <span class="text-center disable-print">
-                                <nb-checkbox (change)="otherCheck($event?.target?.checked, 'fixedChecked')"
-                                             [checked]="offerLetterForm?.get('fixedChecked').value"><i>Fixed Assets Collateral Security</i>
-                                </nb-checkbox>  &nbsp;&nbsp;&nbsp;
-                                <nb-checkbox (change)="otherCheck($event?.target?.checked, 'collateralChecked')"
-                                             [checked]="offerLetterForm?.get('collateralChecked').value"><i>Cross-Collateralized Security</i>
-                                </nb-checkbox>
-                            </span>
+                        <th colspan="6">
+                            <span class="text-center">
+                                    <nb-checkbox (change)="otherCheck($event?.target?.checked, 'fixedChecked')"
+                                                 [checked]="offerLetterForm?.get('fixedChecked').value"><i>Fixed Assets Collateral Security</i>
+                                    </nb-checkbox>  &nbsp;&nbsp;&nbsp;
+                                    <nb-checkbox (change)="otherCheck($event?.target?.checked, 'collateralChecked')"
+                                                 [checked]="offerLetterForm?.get('collateralChecked').value"><i>Cross-Collateralized Security</i>
+                                    </nb-checkbox>
+                                </span>
                         </th>
                     </tr>
+                    <tbody>
 <!--                    <ng-container *ngIf="securityPresent">-->
                         <tr>
                             <th></th>
-                            <th>जग्गाधनीको नाम</th>
-                            <th>जिल्ला</th>
-                            <th>गा.पा./न.पा.</th>
-                            <th>वडा नं.</th>
-                            <th>कि.नं.</th>
-                            <th>क्षेत्रफल</th>
+                            <th colspan="1">जग्गाधनीको नाम</th>
+                            <th colspan="1">जिल्ला</th>
+                            <th colspan="1">गा.पा./न.पा.</th>
+                            <th colspan="1">वडा नं.</th>
+                            <th colspan="1">कि.नं.</th>
+                            <th colspan="1">क्षेत्रफल</th>
                         </tr>
                         <ng-container>
                             <tr *ngFor="let securityData of offerLetterForm?.get('security')?.value; let ii = index">
-                                <td *ngIf="offerLetterForm.get('security')['length'] > 0">
+                                <td *ngIf="offerLetterForm?.get('security')['length'] > 0" class="disable-print">
                                     <input (click)="removeSecurity(ii)"
                                            class="align-self-end btn btn-sm btn-danger btn-primary"
                                            type="button" value="Delete"/>
@@ -1366,10 +1366,10 @@
                     <tr>
                         <th class="sn pt-2"><ul><li></li></ul></th>
                         <td>
-                            <span class="disable-print float-right">
+                            <span class="disable-print">
                                 <nb-checkbox (change)="otherCheck($event?.target?.checked, 'peGuaranteeCheck')"
                                              [checked]="offerLetterForm?.get('peGuaranteeCheck')?.value"><i>Personal Guarantee</i>
-                                </nb-checkbox>
+                                </nb-checkbox> &nbsp;&nbsp;&nbsp;
                                 <nb-checkbox (change)="otherCheck($event?.target?.checked, 'coGuaranteeCheck')"
                                              [checked]="offerLetterForm?.get('coGuaranteeCheck')?.value"><i>Corporate Guarantee</i>
                                 </nb-checkbox>
@@ -1422,7 +1422,8 @@
                             </span>
                         </td>
                     </tr>
-                    <tr *ngIf="offerLetterForm?.get('peGuaranteeCheck')?.value">
+                    <tr *ngIf="offerLetterForm?.get('coGuaranteeCheck')?.value">
+                        <td></td>
                         <td colspan="6">
                             <span *ngIf="!offerLetterForm?.get('coGuaranteeOtherCheck')?.value">
                                 <input type="text"
@@ -1472,9 +1473,18 @@
                     <tbody>
                     <ng-container>
                         <tr>
-                            <th colspan="6">Security as Current assets</th>
+                            <th><ul><li></li></ul></th>
+                            <th>
+                                <span class="disable-print">
+                                    <nb-checkbox
+                                            (change)="otherCheck($event?.target?.checked, 'currentAssetsNeeded')"
+                                            [checked]="offerLetterForm?.get('currentAssetsNeeded')?.value"><i>Security as Current Assets Needed ?</i>
+                                    </nb-checkbox>
+                                </span>
+                            </th>
                         </tr>
-                        <tr>
+                        <tr *ngIf="offerLetterForm?.get('currentAssetsNeeded')?.value">
+                            <td></td>
                             <td colspan="6">
                                 <span *ngIf="!offerLetterForm?.get('currentAssetsOtherCheck')?.value">
                                     ऋणीको सम्पूर्ण <strong>चालु सम्पत्ति</strong> उपर हाइपोथिकेसन (Hypothecation
@@ -1511,11 +1521,19 @@
                     </ng-container>
                     </tbody>
                     <tbody>
-                    <ng-container>
+                    <ng-container *ngIf="offerLetterForm?.get('fixedChecked').value">
+<!--                        <tr>-->
+<!--                            <th><ul><li></li></ul></th>-->
+<!--                            <th colspan="6">-->
+<!--                                <span class="float-right disable-print">-->
+<!--                                    <nb-checkbox (change)="otherCheck($event?.target?.checked, 'currentAssetsNeeded')"-->
+<!--                                                 [checked]="offerLetterForm?.get(['purpose', 'currentAssetsNeeded'])?.value"><i>Security as Current Assets Needed ?</i>-->
+<!--                                    </nb-checkbox>-->
+<!--                                </span>-->
+<!--                            </th>-->
+<!--                        </tr>-->
                         <tr>
-                            <th colspan="6">Fixed Assets Collateral</th>
-                        </tr>
-                        <tr>
+                            <td><ul><li></li></ul></td>
                             <td colspan="6">
                                 <span *ngIf="!offerLetterForm?.get('fixedAssetOtherCheck')?.value">
                                     ऋणीको सम्पूर्ण <strong>स्थिर सम्पत्ति</strong> उपर हाइपोथिकेसन (Hypothecation
@@ -1551,11 +1569,21 @@
                     </ng-container>
                     </tbody>
                     <tbody>
-                    <tr>
-                        <th colspan="6">Security as Cash Margin</th>
-                    </tr>
-                    <tr>
-                        <td colspan="6">
+                    <ng-container>
+                        <tr>
+                            <th class="sn pt-2"><ul><li></li></ul></th>
+                            <th colspan="6">
+                                <span class="disable-print">
+                                    <nb-checkbox (change)="otherCheck($event?.target?.checked, 'cashMarginNeeded')"
+                                                 [checked]="offerLetterForm?.get('cashMarginNeeded')?.value"><i>Security as Cash Margin Needed ?</i>
+                                    </nb-checkbox>
+                                </span>
+                            </th>
+                        </tr>
+                        <ng-container *ngIf="offerLetterForm?.get('cashMarginNeeded')?.value">
+                            <tr>
+                                <td><ul><li></li></ul></td>
+                                <td colspan="6">
                             <span *ngIf="!offerLetterForm?.get('cashLetterOtherCheck')?.value">
                                 प्रतितपत्र सुविधा उपयोगको आधारमा
                             <input type="text"
@@ -1565,22 +1593,23 @@
                                         <b>{{offerLetterForm?.get('letterCM').value ? offerLetterForm?.get('letterCM').value : '========='}}</b></span>
                                 प्रतिशत नगद मार्जिन जम्मा गर्नु पर्नेछ ।
                             </span>
-                            <span class="disable-print float-right">
+                                    <span class="disable-print float-right">
                                 <nb-checkbox (change)="otherCheck($event?.target?.checked, 'cashLetterOtherCheck')"
                                              [checked]="offerLetterForm?.get('cashLetterOtherCheck')?.value"><i>Other</i>
                                 </nb-checkbox>
                             </span>
-                            <span *ngIf="offerLetterForm?.get('cashLetterOtherCheck')?.value">
+                                    <span *ngIf="offerLetterForm?.get('cashLetterOtherCheck')?.value">
                                     <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
                                               formControlName="cashLetterOther"
                                               placeholder="प्रतितपत्र सुविधा उपयोगको आधारमा" rows="4"></textarea>
                                 <span class="nepaliFont print-only">
                                     <b>{{offerLetterForm?.get('cashLetterOther')?.value ? offerLetterForm?.get('cashLetterOtherCheck')?.value : '========='}}</b></span>
                             </span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="6">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><ul><li></li></ul></td>
+                                <td colspan="6">
                             <span *ngIf="!offerLetterForm?.get('cashGuaranteeOtherCheck')?.value">
                                 ग्यारेण्टी सुविधा उपयोगको आधारमा
                             <input type="text"
@@ -1590,26 +1619,36 @@
                                         <b>{{offerLetterForm?.get('guarnateeCM').value ? offerLetterForm?.get('guarnateeCM').value : '========='}}</b></span>
                                 प्रतिशत नगद मार्जिन जम्मा गर्नु पर्नेछ ।
                             </span>
-                            <span class="disable-print float-right">
+                                    <span class="disable-print float-right">
                                 <nb-checkbox (change)="otherCheck($event?.target?.checked, 'cashGuaranteeOtherCheck')"
                                              [checked]="offerLetterForm?.get('cashGuaranteeOtherCheck')?.value"><i>Other</i>
                                 </nb-checkbox>
                             </span>
-                            <span *ngIf="offerLetterForm?.get('cashGuaranteeOtherCheck')?.value">
+                                    <span *ngIf="offerLetterForm?.get('cashGuaranteeOtherCheck')?.value">
                                     <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
                                               formControlName="cashGuaranteeOther"
                                               placeholder="ग्यारेण्टी सुविधा उपयोगको आधारमा" rows="4"></textarea>
                                 <span class="nepaliFont print-only">
                                     <b>{{offerLetterForm?.get('cashGuaranteeOther')?.value ? offerLetterForm?.get('cashGuaranteeOtherCheck')?.value : '========='}}</b></span>
                                 </span>
-                        </td>
-                    </tr>
+                                </td>
+                            </tr>
+                        </ng-container>
+                    </ng-container>
                     </tbody>
                     <tbody>
                     <tr>
-                        <th colspan="6">Security in case of Personal loan (Declaration)</th>
+                        <th><ul><li></li></ul></th>
+                        <th colspan="6">
+                            <span class="disable-print">
+                                <nb-checkbox (change)="otherCheck($event?.target?.checked, 'personalSecurityNeeded')"
+                                             [checked]="offerLetterForm?.get('personalSecurityNeeded')?.value"><i>Security in case of Personal loan (Declaration) Needed ?</i>
+                                </nb-checkbox>
+                            </span>
+                        </th>
                     </tr>
-                    <tr>
+                    <tr *ngIf="offerLetterForm?.get('personalSecurityNeeded')?.value">
+                        <td></td>
                         <td colspan="6">
                             <span *ngIf="!offerLetterForm?.get('personalLoanOtherCheck')?.value">
                                 ऋणी तथा ऋणीको एकाघर परिवारको नाममा दर्ता कायम रहेको अन्य कसैको हक दावी नलाग्ने
@@ -1641,9 +1680,17 @@
                     </tbody>
                     <tbody>
                     <tr>
-                        <th colspan="6">Security as Cash lien</th>
+                        <th class="pt-2 sn"><ul><li></li></ul></th>
+                        <th colspan="6">
+                                <span class="disable-print">
+                                    <nb-checkbox (change)="otherCheck($event?.target?.checked, 'cashLienNeeded')"
+                                                 [checked]="offerLetterForm?.get('cashLienNeeded')?.value"><i>Security as Cash lien Needed ?</i>
+                                    </nb-checkbox>
+                                </span>
+                        </th>
                     </tr>
-                    <tr>
+                    <tr *ngIf="offerLetterForm?.get('cashLienNeeded')?.value">
+                        <td></td>
                         <td colspan="6">
                             <span *ngIf="!offerLetterForm?.get('cashlienOtherCheck')?.value">
                                 <input type="text"
@@ -1696,6 +1743,7 @@
                     </tbody>
                     <tbody>
                     <tr>
+                        <th class="pt-2 sn"><ul><li></li></ul></th>
                         <td colspan="6">
                             <span *ngIf="!offerLetterForm?.get('loanTamsukOtherCheck')?.value">
                                 रु. <input type="text"
@@ -1736,6 +1784,7 @@
                     </tbody>
                     <tbody>
                     <tr>
+                        <th class="pt-2 sn"><ul><li></li></ul></th>
                         <td colspan="6">
                             <span *ngIf="!offerLetterForm?.get('promiseOtherCheck')?.value">
                                 रु<input type="text"
