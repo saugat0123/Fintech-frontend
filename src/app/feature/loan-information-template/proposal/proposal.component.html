@@ -478,12 +478,18 @@
                                 <div class="col-md-4"
                                      *ngIf="(client !== clientName?.SHINE_RESUNGA) && ((loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral)">
                                     <div class="form-group">
-                                        <label class="title" for="commitmentFee"><strong>Commitment Fee (in%)</strong></label>
+                                        <label class="title" for="commitmentFee"><strong>Commitment Fee (in%)</strong>
+                                        <nb-checkbox (change)="checkChecked($event.target.checked,'commitment')"
+                                                     [checked]="commitmentChecked"><b>Add Variable</b>
+                                        </nb-checkbox>
+                                        </label>
                                         <input
                                                 class="form-control"
                                                 formControlName="commitmentFee" id="commitmentFee"
                                                 name="commitmentFee"
-                                                placeholder="Commitment Fee" type="number" appDecimalNumber/>
+                                                placeholder="Commitment Fee"
+                                                [type]="commitmentChecked?'text':'number'"
+                                                />
                                         <!--                    <div *ngIf="(submitted) && formControls.commitmentFee.invalid"-->
                                         <!--                         class="invalid-feedback">-->
                                         <!--                      <span *ngIf="formControls.commitmentFee.errors.required">Commitment Fee is required.</span>-->
@@ -513,12 +519,18 @@
                                 <div class="col-md-4"
                                      *ngIf="(client !== clientName?.SHINE_RESUNGA) && ((loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isShare || isGeneral)">
                                     <div class="form-group>">
-                                        <label class="title"> <strong>Prepayment Charge (in%) </strong></label>
+                                        <label class="title"> <strong>Prepayment Charge (in%)
+                                            <nb-checkbox (change)="checkChecked($event.target.checked,'prepayment')"
+                                                         [checked]="prepaymentChargeChecked"><b>Add Variable</b>
+                                            </nb-checkbox>
+                                        </strong></label>
                                         <input
                                                 [ngClass]="{ 'is-invalid': (submitted) && formControls.prepaymentCharge.errors }"
                                                 class="form-control" formControlName="prepaymentCharge"
                                                 id="prepaymentCharge" name="prepaymentCharge"
-                                                placeholder="Prepayment Charge" appDecimalNumber>
+                                                [type]="prepaymentChargeChecked?'text':'number'"
+                                                placeholder="Prepayment Charge"
+                                        >
                                         <div *ngIf="(submitted) && formControls.prepaymentCharge.errors"
                                              class="invalid-feedback">
                                             <div *ngIf="formControls.prepaymentCharge.errors.required">
@@ -651,11 +663,14 @@
                                                     value="PERCENT"><strong> % </strong>
                                             <input formControlName="swapChargeMethod" name="swapChargeMethod"
                                                    type="radio" value="FLAT"><strong> Flat</strong>
+                                        <nb-checkbox (change)="checkChecked($event.target.checked,'swapDoubleCharge')"
+                                                     [checked]="swapDoubleChargeChecked"><b>Add Variable</b>
+                                        </nb-checkbox>
                                             <input  [ngClass]="{ 'is-invalid': (submitted) && formControls.swapCharge.errors }"
                                                     class="form-control" formControlName="swapCharge"
                                                     id="swapCharge"
                                                     name="swapCharge" placeholder="Swap Charge"
-                                                    type = 'number' appDecimalNumber/>
+                                                    [type] = "swapDoubleChargeChecked?'text':'number'" appDecimalNumber/>
                                     </div>
                                 </div>
 

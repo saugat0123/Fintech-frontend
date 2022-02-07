@@ -73,6 +73,9 @@ export class ProposalComponent implements OnInit {
   showInterestAmount = true;
   legalDocs;
   incomeChecked = false;
+  commitmentChecked = false;
+  swapDoubleChargeChecked = false;
+  prepaymentChargeChecked = false;
   subsidyLoanType = [
     {value: 'Literate Youth Self Employment Loan'},
     {value: 'Project Loan For Youth Returning From Foreign'},
@@ -334,6 +337,9 @@ export class ProposalComponent implements OnInit {
       subsidizedLoanChecked: this.subsidizedLoanChecked,
       deviationChecked: this.deviationChecked,
       incomeChecked: this.incomeChecked,
+      commitmentChecked: this.commitmentChecked,
+      swapDoubleChargeChecked: this.swapDoubleChargeChecked,
+      prepaymentChargeChecked: this.prepaymentChargeChecked,
     };
     this.proposalData.checkedData = JSON.stringify(mergeChecked);
 
@@ -428,6 +434,18 @@ export class ProposalComponent implements OnInit {
         this.incomeChecked = event;
       }
       break;
+      case 'commitment': {
+        this.commitmentChecked = event;
+      }
+      break;
+      case 'swapDoubleCharge': {
+        this.swapDoubleChargeChecked = event;
+      }
+      break;
+      case 'prepayment': {
+        this.prepaymentChargeChecked = event;
+      }
+      break;
     }
   }
 
@@ -440,6 +458,9 @@ export class ProposalComponent implements OnInit {
       this.checkChecked(data['subsidizedLoanChecked'], 'subsidizedLoan');
       this.checkChecked(data['deviationChecked'], 'deviation');
       this.checkChecked(data['incomeChecked'], 'income');
+      this.checkChecked(data['commitmentChecked'], 'commitment');
+      this.checkChecked(data['swapDoubleChargeChecked'], 'swapDoubleCharge');
+      this.checkChecked(data['prepaymentChargeChecked'], 'prepayment');
     }
   }
 
