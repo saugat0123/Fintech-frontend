@@ -313,7 +313,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
             autoModel: [undefined],
 
             // other Clauses
-            reviewDate: [undefined],
+            reviewDate1: [undefined],
             premiumRate: [undefined],
             monthlyRate: [undefined],
             quaterlyRate: [undefined],
@@ -393,6 +393,10 @@ export class OfferLetterLaxmiComponent implements OnInit {
             loanTamsukOther: [undefined],
             promiseOtherCheck: [false],
             promiseOther: [undefined],
+            fixedChecked: [true],
+            collateralChecked: [false],
+            peGuaranteeCheck: [true],
+            coGuaranteeCheck: [false],
         });
     }
 
@@ -491,6 +495,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
     }
 
     otherValueCheck(checked, i, formControlName) {
+        console.log('checked', checked, 'i',  i);
         switch (formControlName) {
             case 'drawDownCheck':
                 if (checked) {
@@ -596,6 +601,53 @@ export class OfferLetterLaxmiComponent implements OnInit {
                     this.offerLetterForm.get(['purpose', i, 'adNeeded']).patchValue(checked);
                 }
                 break;
+            case 'repaymentNeeded':
+                if (checked) {
+                    this.offerLetterForm.get(['purpose', i, 'repaymentNeeded']).patchValue(checked);
+                    this.offerLetterForm.get(['purpose', i, 'otherRepayment']).patchValue(null);
+                    this.offerLetterForm.get(['purpose', i, 'repaymentAmount']).patchValue(null);
+                    this.offerLetterForm.get(['purpose', i, 'repaymentAmountWord']).patchValue(null);
+                    this.offerLetterForm.get(['purpose', i, 'repaymentMonthly']).patchValue(null);
+                    this.offerLetterForm.get(['purpose', i, 'repaymentRate']).patchValue(null);
+                    this.offerLetterForm.get(['purpose', i, 'repaymentRate1']).patchValue(null);
+                    this.offerLetterForm.get(['purpose', i, 'repaymentAmount1']).patchValue(null);
+                    this.offerLetterForm.get(['purpose', i, 'repaymentAmount2']).patchValue(null);
+                    this.offerLetterForm.get(['purpose', i, 'repaymentAmount3']).patchValue(null);
+                } else {
+                    this.offerLetterForm.get(['purpose', i, 'repaymentNeeded']).patchValue(checked);
+                }
+                break;
+            case 'inPercentage':
+                if (checked) {
+                    this.offerLetterForm.get(['purpose', i, 'inPercentage']).patchValue(checked);
+                    this.offerLetterForm.get(['purpose', i, 'administrationRate']).patchValue(null);
+                    this.offerLetterForm.get(['purpose', i, 'adFeeOther']).patchValue(null);
+                    this.offerLetterForm.get(['purpose', i, 'otherAdFeeChecked']).patchValue(false);
+                } else {
+                    this.offerLetterForm.get(['purpose', i, 'inPercentage']).patchValue(checked);
+                }
+                break;
+            case 'inAmount':
+                if (checked) {
+                    this.offerLetterForm.get(['purpose', i, 'inAmount']).patchValue(checked);
+                    this.offerLetterForm.get(['purpose', i, 'administrationAmount']).patchValue(null);
+                    this.offerLetterForm.get(['purpose', i, 'adFeeOther']).patchValue(null);
+                    this.offerLetterForm.get(['purpose', i, 'otherAdFeeChecked']).patchValue(false);
+                } else {
+                    this.offerLetterForm.get(['purpose', i, 'inAmount']).patchValue(checked);
+                }
+                break;
+            case 'otherAdFeeChecked':
+                if (checked) {
+                    this.offerLetterForm.get(['purpose', i, 'otherAdFeeChecked']).patchValue(checked);
+                    this.offerLetterForm.get(['purpose', i, 'administrationAmount']).patchValue(null);
+                    this.offerLetterForm.get(['purpose', i, 'administrationRate']).patchValue(null);
+                    this.offerLetterForm.get(['purpose', i, 'inAmount']).patchValue(false);
+                    this.offerLetterForm.get(['purpose', i, 'inPercentage']).patchValue(false);
+                } else {
+                    this.offerLetterForm.get(['purpose', i, 'otherAdFeeChecked']).patchValue(checked);
+                }
+                break;
         }
     }
 
@@ -638,80 +690,104 @@ export class OfferLetterLaxmiComponent implements OnInit {
             }
 
             // security Data patch
-            this.selectedArray.forEach(s => {
-                if (s === 'LandSecurity') {
-                    this.addSecurity(this.securityData['initialForm']['landDetails']);
-                }
-                // if (s === 'Land and Building Security') {
-                //     this.addSecurity(this.securityData['initialForm']['landBuilding']);
-                // }
-                // if (s === 'ApartmentSecurity') {
-                //     this.addSecurity(this.securityData['initialForm']['buildingDetails']);
-                // }
-                // if (s === 'VehicleSecurity') {
-                //     this.addVehicleSecurity(this.securityData['initialForm']['vehicleDetails']);
-                // }
-                if (s === 'ShareSecurity') {
-                    this.addShareSecurity(this.shareData);
-                }
-            });
+            // this.selectedArray.forEach(s => {
+            //     if (s === 'LandSecurity') {
+            //         this.addSecurity(this.securityData['initialForm']['landDetails']);
+            //     }
+            //     // if (s === 'Land and Building Security') {
+            //     //     this.addSecurity(this.securityData['initialForm']['landBuilding']);
+            //     // }
+            //     // if (s === 'ApartmentSecurity') {
+            //     //     this.addSecurity(this.securityData['initialForm']['buildingDetails']);
+            //     // }
+            //     // if (s === 'VehicleSecurity') {
+            //     //     this.addVehicleSecurity(this.securityData['initialForm']['vehicleDetails']);
+            //     // }
+            //     if (s === 'ShareSecurity') {
+            //         this.addShareSecurity(this.shareData);
+            //     }
+            // });
         }
     }
 
-    addSecurity(data) {
-        console.log('data', data);
+    addSecurity() {
         const security = this.offerLetterForm.get('security') as FormArray;
-        if (!ObjectUtil.isEmpty(data)) {
-            data.forEach(d => {
-                security.push(
-                    this.formBuilder.group({
-                        ownerName: [d.ownerNepali],
-                        district: [undefined],
-                        vdc: [undefined],
-                        wardNo: [undefined],
-                        plotNumber: [d.plotNumber],
-                        area: [d.area]
-                    })
-                );
-            });
-        }
+        security.push(
+            this.formBuilder.group({
+                ownerName: [undefined],
+                district: [undefined],
+                vdc: [undefined],
+                wardNo: [undefined],
+                plotNumber: [undefined],
+                area: [undefined]
+            })
+        );
     }
 
-    addShareSecurity(data) {
-        const shareSecurityDetail = data.shareSecurityDetails;
-        const security = this.offerLetterForm.get('shareSecurity') as FormArray;
-        if (!ObjectUtil.isEmpty(shareSecurityDetail)) {
-            shareSecurityDetail.forEach(d => {
-                security.push(
-                    this.formBuilder.group({
-                        shareHolderName: [undefined],
-                        companyName: [d.companyName],
-                        totalShareUnit: [d.totalShareUnit],
-                        shareType: [d.shareType],
-                    })
-                );
-            });
-        }
+    addShareSecurity() {
+        const shSecurity = this.offerLetterForm.get('shareSecurity') as FormArray;
+        shSecurity.push(
+            this.formBuilder.group({
+                shareHolderName: [undefined],
+                companyName: [undefined],
+                totalShareUnit: [undefined],
+                shareType: [undefined],
+            })
+        );
+        // const shareSecurityDetail = data.shareSecurityDetails;
+        // const security = this.offerLetterForm.get('shareSecurity') as FormArray;
+        // if (!ObjectUtil.isEmpty(shareSecurityDetail)) {
+        //     shareSecurityDetail.forEach(d => {
+        //         security.push(
+        //             this.formBuilder.group({
+        //                 shareHolderName: [undefined],
+        //                 companyName: [d.companyName],
+        //                 totalShareUnit: [d.totalShareUnit],
+        //                 shareType: [d.shareType],
+        //             })
+        //         );
+        //     });
+        // }
     }
 
-    addVehicleSecurity(data) {
-        const security = this.offerLetterForm.get('vehicleSecurity') as FormArray;
-        if (!ObjectUtil.isEmpty(data)) {
-            data.forEach(d => {
-                security.push(
-                    this.formBuilder.group({
-                        vehicleDetail: [undefined],
-                        engineNumber: [d.engineNumber],
-                        chassisNumber: [d.chassisNumber],
-                        model: [d.model]
-                    })
-                );
-            });
-        }
+    addVehicleSecurity() {
+        const vSecurity = this.offerLetterForm.get('vehicleSecurity') as FormArray;
+        vSecurity.push(
+            this.formBuilder.group({
+                vehicleDetail: [undefined],
+                engineNumber: [undefined],
+                chassisNumber: [undefined],
+                model: [undefined]
+            })
+        );
+        // const security = this.offerLetterForm.get('vehicleSecurity') as FormArray;
+        // if (!ObjectUtil.isEmpty(data)) {
+        //     data.forEach(d => {
+        //         security.push(
+        //             this.formBuilder.group({
+        //                 vehicleDetail: [undefined],
+        //                 engineNumber: [d.engineNumber],
+        //                 chassisNumber: [d.chassisNumber],
+        //                 model: [d.model]
+        //             })
+        //         );
+        //     });
+        // }
     }
 
-    securityValueChange(value: any, i: number, formControlName) {
-        this.offerLetterForm.get(['shareSecurity', i, formControlName]).patchValue(value);
+    securityValueChange(value: any, i: number, securityType, formControlName) {
+        switch (securityType) {
+            case 'collateralSecurity':
+                this.offerLetterForm.get(['security', i, formControlName]).patchValue(value);
+                break;
+            case 'shareSecurity':
+                this.offerLetterForm.get(['shareSecurity', i, formControlName]).patchValue(value);
+                break;
+            case 'vehicleSecurity':
+                this.offerLetterForm.get(['vehicleSecurity', i, formControlName]).patchValue(value);
+                break;
+        }
+        // this.offerLetterForm.get(['shareSecurity', i, formControlName]).patchValue(value);
     }
 
     addPurpose(data) {
@@ -719,6 +795,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
         purposeData.push(
             this.formBuilder.group({
                 loan: [data.loan.name],
+                loanTag: [data.loan.loanTag],
                 loanLimitAmount: [data.proposal.proposedLimit],
                 loanLimitWord: [undefined],
                 isFunded: [data.loan.isFunded],
@@ -734,10 +811,13 @@ export class OfferLetterLaxmiComponent implements OnInit {
                 moratariumOtherCheck: [false],
                 drawDownPeriodNeeded: [true],
                 commissionNeeded: [true],
+                repaymentNeeded: [true],
                 maturityNeeded: [true],
+                inAmount: [true],
+                inPercentage: [true],
                 tenureNeeded: [true],
                 adNeeded: [true],
-                processingNeeded: [true],
+                // processingNeeded: [true],
                 moratariumPeriodNeeded: [true],
                 moratariumValue: [undefined],
                 maturityValue: [undefined],
@@ -774,14 +854,14 @@ export class OfferLetterLaxmiComponent implements OnInit {
                 administrationAmount: [undefined],
                 reviewRate: [undefined],
                 reviewAmount: [undefined],
-                loanProcessingRate: [undefined],
-                loanProcessingAmount: [undefined],
+                // loanProcessingRate: [undefined],
+                // loanProcessingAmount: [undefined],
                 otherRepayment: [undefined],
                 otherInterestRate: [undefined],
                 otherAdFeeChecked: [false],
-                otherloanProcessingChecked: [false],
+                // otherloanProcessingChecked: [false],
                 adFeeOther: [undefined],
-                otherloanProcessing: [undefined]
+                // otherloanProcessing: [undefined]
             })
         );
     }
@@ -988,14 +1068,36 @@ export class OfferLetterLaxmiComponent implements OnInit {
                     this.offerLetterForm.get('cashGuaranteeOther').patchValue(null);
                 }
                 break;
-            case 'otherAdFeeChecked':
+            case 'fixedChecked':
                 if (event) {
-                    this.offerLetterForm.get('otherAdFeeChecked').patchValue(event);
-                    this.offerLetterForm.get('administrationAmount').patchValue(null);
-                    this.offerLetterForm.get('administrationRate').patchValue(null);
+                    this.offerLetterForm.get('fixedChecked').patchValue(event);
+                    this.offerLetterForm.get('collateralChecked').patchValue(false);
                 } else {
-                    this.offerLetterForm.get('otherAdFeeChecked').patchValue(false);
-                    this.offerLetterForm.get('adFeeOther').patchValue(null);
+                    this.offerLetterForm.get('fixedChecked').patchValue(false);
+                }
+                break;
+            case 'collateralChecked':
+                if (event) {
+                    this.offerLetterForm.get('collateralChecked').patchValue(event);
+                    this.offerLetterForm.get('fixedChecked').patchValue(false);
+                } else {
+                    this.offerLetterForm.get('collateralChecked').patchValue(false);
+                }
+                break;
+            case 'peGuaranteeCheck':
+                if (event) {
+                    this.offerLetterForm.get('peGuaranteeCheck').patchValue(event);
+                    // this.offerLetterForm.get('coGuaranteeCheck').patchValue(false);
+                } else {
+                    this.offerLetterForm.get('peGuaranteeCheck').patchValue(false);
+                }
+                break;
+            case 'coGuaranteeCheck':
+                if (event) {
+                    this.offerLetterForm.get('coGuaranteeCheck').patchValue(event);
+                    // this.offerLetterForm.get('peGuaranteeCheck').patchValue(false);
+                } else {
+                    this.offerLetterForm.get('coGuaranteeCheck').patchValue(false);
                 }
                 break;
         }
@@ -1147,5 +1249,17 @@ export class OfferLetterLaxmiComponent implements OnInit {
             this.offerLetterForm.get(['purpose', i, 'loanLimitAmount']).patchValue(amount);
             this.offerLetterForm.get(['purpose', i, 'loanLimitWord']).patchValue(word);
         });
+    }
+
+    removeSecurity(ii: number) {
+        (<FormArray>this.offerLetterForm.get('security')).removeAt(ii);
+    }
+
+    removeShareSecurity(iv: number) {
+        (<FormArray>this.offerLetterForm.get('shareSecurity')).removeAt(iv);
+    }
+
+    removeVehicle(iii: number) {
+        (<FormArray>this.offerLetterForm.get('vehicleSecurity')).removeAt(iii);
     }
 }
