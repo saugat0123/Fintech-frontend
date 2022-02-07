@@ -313,17 +313,24 @@
                                 </strong>
                             </span>
                             </p>
-                            <p class="m-0">
-                                <span *ngFor="let details of companyInfo; let i = index">
+                            <p class="m-0" *ngIf="isAuth">
+                                <span *ngFor="let details of authorizedNameArray; let i = index">
                                 आधिकारिक प्रतिनिधिको नाम :
                                     <span>
-                                        <input class="form-field form-control-sm d-print-none" name="authorizedBodyName"
-                                               formControlName="authorizedBodyName" placeholder="" type="text"
+                                        <input class="form-field form-control-sm d-print-none" placeholder="" type="text"
                                                [value]="authorizedNameArray ? authorizedNameArray[i] : ''"/>
                                         <strong class="print-only">
                                             {{authorizedNameArray ? authorizedNameArray[i] : '_____________________'}}
                                         </strong>
                                     </span>
+                                </span>
+                            </p>
+                            <p class="m-0" *ngIf="isAuth1">
+                                आधिकारिक प्रतिनिधिको नाम :
+                                    <span>
+                                        <input class="form-field form-control-sm d-print-none" name="authorizedBodyName"
+                                               formControlName="authorizedBodyName" placeholder="" type="text"/>
+                                        <span class="print-only">{{this.freeText ? (this.freeText?.authorizedBodyName ? this.freeText?.authorizedBodyName : '__________________________') : '__________________________'}}</span>
                                 </span>
                             </p>
                         </div>
