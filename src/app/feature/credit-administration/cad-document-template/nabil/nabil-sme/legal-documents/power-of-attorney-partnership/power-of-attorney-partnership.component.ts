@@ -46,6 +46,7 @@ export class PowerOfAttorneyPartnershipComponent implements OnInit {
   issueDate = [];
   authorizedNameArray: Array<any> = new Array<any>();
   isAuth = false;
+  isAuth1 = false;
 
 
   constructor(private formBuilder: FormBuilder,
@@ -95,6 +96,8 @@ export class PowerOfAttorneyPartnershipComponent implements OnInit {
           const authorizedName = val.ownerNameCT;
           this.authorizedNameArray.push(authorizedName);
           this.isAuth = true;
+        } else {
+          this.isAuth1 = true;
         }
       });
     }
@@ -159,6 +162,7 @@ export class PowerOfAttorneyPartnershipComponent implements OnInit {
       witnessAge2: this.form.get('witnessAge2') ? this.form.get('witnessAge2').value : '',
       witnessName2: this.form.get('witnessName2') ? this.form.get('witnessName2').value : '',
       karmachariName: this.form.get('karmachariName') ? this.form.get('karmachariName').value : '',
+      authorizedBodyName: this.form.get('authorizedBodyName') ? this.form.get('authorizedBodyName').value : '',
     };
     return JSON.stringify(free1);
   }
@@ -259,6 +263,14 @@ export class PowerOfAttorneyPartnershipComponent implements OnInit {
           (this.individualData.permanentWard ? this.individualData.permanentWard.ct : '');
     }
 
+    this.companyInfo.forEach(val => {
+      if (val.isAuthorizedPerson === 'Partner Only') {
+        this.form.patchValue({
+          authorizedBodyName: this.supportedInfo ? this.supportedInfo.authorizedBodyName : ''
+        });
+      }
+    });
+
     this.form.patchValue({
       nameOfBranchLocated: this.individualData.branch ? this.individualData.branch.ct : '',
       districtOfFirm: this.individualData.registeredDistrict ? this.individualData.registeredDistrict.ct : '',
@@ -282,7 +294,7 @@ export class PowerOfAttorneyPartnershipComponent implements OnInit {
       witnessAge2: this.supportedInfo ? this.supportedInfo.witnessAge2 : '',
       witnessName2: this.supportedInfo ? this.supportedInfo.witnessName2 : '',
       karmachariName: this.supportedInfo ? this.supportedInfo.karmachariName : '',
-
+      authorizedBodyName: this.supportedInfo ? this.supportedInfo.authorizedBodyName : '',
     });
   }
 
