@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Proposal} from '../../admin/modal/proposal';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
@@ -33,6 +33,7 @@ export class ProposalComponent implements OnInit {
   @Input() loanType;
   @Input() customerInfo;
   @ViewChild('earning', {static: false}) earning: IncomeFromAccountComponent;
+  @Output() emitter = new EventEmitter();
   proposalForm: FormGroup;
   proposalData: Proposal = new Proposal();
   formDataForEdit: Object;
@@ -317,7 +318,7 @@ export class ProposalComponent implements OnInit {
 
   onSubmit() {
     // Proposal Form Data--
-    if(this.incomeChecked) {
+    if (this.incomeChecked) {
       this.earning.submitForm();
     }
     if (!ObjectUtil.isEmpty(this.formValue)) {
@@ -738,7 +739,8 @@ export class ProposalComponent implements OnInit {
     this.incomeFromAccountDataResponse = data;
     this.customerInfoService.saveLoanInfo(this.incomeFromAccountDataResponse, this.customerInfo.id, TemplateName.INCOME_FROM_ACCOUNT)
         .subscribe((res) => {
-          this.incomeFromAccountDataResponse = res.detail;
+          console.log('this is scavead');
+          this.emitter.emit(res.detail);
           this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved EARNING, PROFITABILITY AND PRICING'));
         }, error => {
           this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save EARNING, PROFITABILITY AND PRICING)!'));
