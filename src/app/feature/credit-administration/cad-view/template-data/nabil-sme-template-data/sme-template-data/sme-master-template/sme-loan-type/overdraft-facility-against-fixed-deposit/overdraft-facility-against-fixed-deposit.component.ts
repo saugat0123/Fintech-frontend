@@ -66,7 +66,7 @@ export class OverdraftFacilityAgainstFixedDepositComponent implements OnInit {
               private engToNepWord: NepaliCurrencyWordPipe) { }
 
   ngOnInit() {
-    if (!ObjectUtil.isEmpty(this.customerApprovedDoc)) {
+    if (!ObjectUtil.isEmpty(this.customerApprovedDoc) && this.offerDocumentList.length > 0) {
       this.initialData = JSON.parse(this.customerApprovedDoc.offerDocumentList[0].initialInformation);
     }
     this.overdraftLoanNumber = this.customerApprovedDoc.assignedLoan.filter(val =>
