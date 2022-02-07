@@ -220,7 +220,7 @@
                         <table class="table-borderless">
                             <tbody>
                             <tr>
-                                <td width="50%">ऋणी/फर्म/कम्पनी/संस्थाको नाम</td>
+                                <td width="70%">ऋणी/फर्म/कम्पनी/संस्थाको नाम</td>
                                 <td>: <input class="form-field form-control-sm d-print-none"
                                              name="firmName"
                                              formControlName="firmName"
@@ -230,7 +230,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td width="50%">ठेगाना</td>
+                                <td width="70%">ठेगाना</td>
                                 <td>: <input class="form-field form-control-sm d-print-none"
                                              name="firmName"
                                              formControlName="addressOfBorrower"
@@ -240,17 +240,25 @@
                                 </td>
                             </tr>
                             <tr>
-                                <span *ngFor="let details of companyInfo; let i = index">
-                                    <td width="50%">आधिकारिक प्रतिनिधिको नाम</td>
-                                    <td>: <input class="form-field form-control-sm d-print-none"
-                                                 name="authorizedBodyName"
-                                                 formControlName="authorizedBodyName"
-                                                 placeholder=" "
-                                                 type="text"
-                                                 [value]="authorizedNameArray ? authorizedNameArray[i] : '___________________________'"/>
-                                        <span class="print-only">{{authorizedNameArray ? authorizedNameArray[i] : '_____________________'}}</span>
+                                <ng-container *ngIf="isAuth">
+                                    <span *ngFor="let details of authorizedNameArray; let i = index">
+                                        <td width="70%">आधिकारिक प्रतिनिधिको नाम</td>
+                                        <td>: <input class="form-field form-control-sm d-print-none"
+                                                     placeholder=" "
+                                                     type="text"
+                                                     [value]="authorizedNameArray ? authorizedNameArray[i] : ''"/>
+                                            <span class="print-only">{{authorizedNameArray ? authorizedNameArray[i] : '_____________________'}}</span>
+                                        </td>
+                                    </span>
+                                </ng-container>
+                                <ng-container class="m-0" *ngIf="isAuth1">
+                                    <td width="70%">आधिकारिक प्रतिनिधिको नाम</td>
+                                    <td>:
+                                        <input class="form-field form-control-sm d-print-none" name="authorizedBodyName"
+                                               formControlName="authorizedBodyName" placeholder="" type="text"/>
+                                        <span class="print-only">{{this.supportedInfo ? (this.supportedInfo?.authorizedBodyName ? this.supportedInfo?.authorizedBodyName : '__________________________') : '__________________________'}}</span>
                                     </td>
-                                </span>
+                                </ng-container>
                             </tr>
                             </tbody>
                         </table>
