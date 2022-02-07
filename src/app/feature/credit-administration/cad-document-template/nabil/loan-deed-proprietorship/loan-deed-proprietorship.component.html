@@ -87,8 +87,8 @@
                          type="text"/>
                   <span class="print-only">{{partner?.ownerGrandFatherNameCT ? partner?.ownerGrandFatherNameCT : ''}}</span>
                 </span> को
-                <ng-container *ngIf="partner?.ownerGender === 'MALE'">नाती </ng-container>
-                <ng-container *ngIf="partner?.ownerGender === 'FEMALE'">नातिनी </ng-container>
+                <ng-container *ngIf="partner?.ownerGender === 'MALE'"> नाती </ng-container>
+                <ng-container *ngIf="partner?.ownerGender === 'FEMALE'"> नातिनी </ng-container>
               </ng-container>
               <ng-container
                   *ngIf="partner?.ownerGender === 'FEMALE' && partner?.ownerRelationMedium === '0'">
@@ -113,8 +113,8 @@
                          type="text"/>
                   <span class="print-only">{{partner?.ownerFatherNameCT ? partner?.ownerFatherNameCT : ''}}</span>
                 </span> को
-                <ng-container *ngIf="partner?.ownerGender === 'MALE'">छोरा </ng-container>
-                <ng-container *ngIf="partner?.ownerGender === 'FEMALE'">छोरी </ng-container>
+                <ng-container *ngIf="partner?.ownerGender === 'MALE'"> छोरा </ng-container>
+                <ng-container *ngIf="partner?.ownerGender === 'FEMALE'"> छोरी </ng-container>
               </ng-container>
               <ng-container
                   *ngIf="partner?.ownerGender === 'FEMALE' && partner?.ownerRelationMedium === '0'">
@@ -149,10 +149,10 @@
                          type="text"/>
                   <span class="print-only">{{partner?.ownerPermanentMunicipalityCT ? partner?.ownerPermanentMunicipalityCT : ''}}</span>
                 </span>
-                <ng-container *ngIf="partner?.ownerPermanentAddressRadio === '0'">न.पा </ng-container>
-                <ng-container *ngIf="partner?.ownerPermanentAddressRadio === '1'">गा.वि.स.
+                <ng-container *ngIf="partner?.ownerPermanentAddressRadio === '0'"> न.पा </ng-container>
+                <ng-container *ngIf="partner?.ownerPermanentAddressRadio === '1'"> गा.वि.स.
                 </ng-container>
-                <ng-container *ngIf="partner?.ownerPermanentAddressRadio === '2'">गाँउपालिका
+                <ng-container *ngIf="partner?.ownerPermanentAddressRadio === '2'"> गाँउपालिका
                 </ng-container>
                 वडा नं
                 <span>
@@ -190,7 +190,7 @@
 
               <ng-container *ngIf="partner?.ownerGender === 'MALE'">को </ng-container>
               <ng-container *ngIf="partner?.ownerGender === 'FEMALE'">की </ng-container>
-              <ng-container *ngIf="partner?.ownerGender === 'MALE'">श्री </ng-container>
+              <ng-container *ngIf="partner?.ownerGender === 'MALE'"> श्री </ng-container>
               <ng-container
                   *ngIf="partner?.ownerGender === 'FEMALE' && partner?.ownerRelationMedium === '0'">
                 श्रीमती

@@ -347,7 +347,7 @@
                         <strong><input class="form-field form-control-sm "
                                        formControlName="loanDaysShortTermLoan"
                                        placeholder=""
-                                       type="text"/>दिने चक्रिय अल्पकालिन कर्जा (Resolving Short Term
+                                       type="text"/>दिने चक्रिय अल्पकालिन कर्जा (Revolving Short Term
                     Loan for <input class="form-field form-control-sm "
                                     formControlName="loanDaysShortTermLoanInEng"
                                     placeholder=""
@@ -383,7 +383,7 @@
                             <strong><input class="form-field form-control-sm "
                                            formControlName="loanMonthsShortTermLoan"
                                            placeholder=""
-                                           type="text"/>महिने चक्रिय अल्पकालिन कर्जा (Resolving Short Term
+                                           type="text"/>महिने चक्रिय अल्पकालिन कर्जा (Revolving Short Term
                     Loan for <input class="form-field form-control-sm "
                                     formControlName="loanMonthsShortTermLoanInEng"
                                     placeholder=""
@@ -542,7 +542,7 @@
                                 (i1 + 1) | nepaliWord}})</strong>
                             </td>
                             <td>
-                                <strong>चालु पुञजीका लागि अधिविकर्ष कर्जा (Overdraft Loan for Working Capital
+                                <strong>चालु पुँजीका लागि अधिविकर्ष कर्जा (Overdraft Loan for Working Capital
                                     requirement)</strong><br>
 
                                 <strong> सीमाः रु.<input class="form-field form-control-sm "
@@ -682,7 +682,7 @@
                                 प्राप्त गर्न बाँकी रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामा हस्तान्तरण
                                 गरिदिइएको यथावत कायम रहने छ।</span><br>
 
-                                <span *ngIf="arFinancing"><strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong>
+                                <span *ngIf="arFinancing || loanOption !== 'Plain Renewal'"><strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong>
                             स्वीकारयोग्य <input class="form-field form-control-sm "
                                                 formControlName="ARDaysDemandLoan"
                                                 placeholder=""
@@ -694,7 +694,7 @@
                                    type="text"/>% बराबर रकम वा स्वीकृत
                     कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ ।</span>
 
-                                <span *ngIf="!arFinancing"><strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong> स्वीकारयोग्य सामानहरुको मौज्दातको बजार मूल्य वा लागत
+                                <span *ngIf="!arFinancing || loanOption !== 'Plain Renewal'"><strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong> स्वीकारयोग्य सामानहरुको मौज्दातको बजार मूल्य वा लागत
                     मूल्य मध्ये जुन कम हुन्छ सो र <input class="form-field form-control-sm "
                                                          formControlName="ARDaysDemandLoan"
                                                          placeholder=""

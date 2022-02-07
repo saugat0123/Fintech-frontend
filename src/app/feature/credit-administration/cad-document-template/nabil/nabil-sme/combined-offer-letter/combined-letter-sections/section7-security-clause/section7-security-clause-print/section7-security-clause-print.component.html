@@ -1,16 +1,12 @@
 <!--Clauses related to security-->
-<div class="row" style="line-height: 1.9em">
-    <div class="col-md-12 row">
-        <div class="row mt-2">
-            <p class="m-0">
-                <strong>
-                    सुरक्षणहरु सम्बन्धित शर्तहरु
-                </strong>
-            </p>
-        </div>
+<div class="text-justify nep">
+    <form>
+        <div class="service-contions mt-5" style="padding-left:10px; padding-right: 20px">
+            <p><strong>सुरक्षणहरु सम्बन्धित शर्तहरु</strong></p>
+            <div class="row mt-3" *ngIf="isGharJaggaVisible">
+                <div class="col-sm-12">
+
         <!--        Applicable incase of land/building as security-->
-        <div class="col-md-12"  *ngIf="isGharJaggaVisible">
-            <div class="row mt-4">
                 <p class="m-0">
                     <strong>
                         <u>
@@ -68,8 +64,8 @@
             </div>
         </div>
         <!--        Applicable incase of Hypothecation/AR as security-->
-        <div class="col-md-12 row" *ngIf="isSamanMojdatVisible || isReceivableVisible">
-            <div class="row mt-4">
+        <div class="row mt-4" *ngIf="isSamanMojdatVisible || isReceivableVisible">
+            <div class="col-sm-12">
                 <p class="m-0">
                     <strong>
                         <u>
@@ -158,8 +154,9 @@
             </div>
         </div>
         <!--       Applicable incase of receivables only as security -->
-        <div class="col-md-12 row" *ngIf="isReceivableVisible">
-            <div class="row mt-4">
+        <!--<div class="row mt-3" *ngIf="isReceivableVisible">-->
+            <div class="row mt-3" *ngIf="isFinancing">
+            <div class="col-sm-12">
                 <p class="m-0">
                     <strong>
                         <u>
@@ -202,8 +199,8 @@
             </div>
         </div>
         <!--      Applicable incase of bond/fixed deposit/debenture as security -->
-        <div class="col-md-12 row" *ngIf="fixedDeposit">
-            <div class="row mt-4">
+        <div class="row mt-3" *ngIf="fixedDeposit">
+            <div class="col-sm-12">
                 <p class="m-0">
                     <strong>
                         <u>
@@ -228,5 +225,6 @@
             </div>
         </div>
     </div>
+    </form>
 </div>
 
