@@ -98,7 +98,7 @@
                                        formControlName="firmWardNumber" placeholder=""
                                        type="text"/>
                                 <span
-                                        class="print-only font-weight-bold">{{ form?.get('firmWardNumber')?.value ? form?.get('firmWardNumber')?.value : '_________________'}}</span>
+                                        class="print-only font-weight-bold">{{ form?.get('firmWardNumber')?.value ? form?.get('firmWardNumber')?.value : '_________________'}}, </span>
                                 <input class="form-field form-control-sm  disable-print"
                                        name="firmAddress" formControlName="firmAddress"
                                        placeholder="" type="text"/>
@@ -110,118 +110,197 @@
                                        placeholder="" type="text"/>
                                 <span
                                         class="print-only font-weight-bold">{{ form?.get('companyName')?.value ? form?.get('companyName')?.value : '_________________'}}</span>
-                                को अख्तियार प्राप्त
-                                <ng-container *ngFor="let i of tempProprietor">
-                                    <input class="form-field form-control-sm  disable-print"
-                                           name="grandfatherName"
-                                           formControlName="grandfatherName" placeholder=""
-                                           type="text"/>
-                                    <span
-                                            class="print-only font-weight-bold">{{ form?.get('grandfatherName')?.value ? form?.get('grandfatherName')?.value : '_________________'}}</span>
-                                    को
-                                    <ng-container>
-                                        <span *ngIf="i?.ownerGender === 'MALE'">नाति </span>
-                                        <span
-                                                *ngIf="i?.ownerGender === 'FEMALE' && i?.ownerRelationMedium === '1'">नातिनी </span>
-                                        <span
-                                                *ngIf="i?.ownerGender === 'FEMALE' && i?.ownerRelationMedium === '0'">बुहारी </span>
-                                    </ng-container>
-                                    <input class="form-field form-control-sm  disable-print"
-                                           name="fatherName" formControlName="fatherName"
-                                           placeholder="" type="text"/>
-                                    <span
-                                            class="print-only font-weight-bold">{{ form?.get('fatherName')?.value ? form?.get('fatherName')?.value : '_________________'}}</span>
-                                    को
-                                    <ng-container>
-                                        <span *ngIf="i?.ownerGender === 'MALE'">छोरा </span>
-                                        <span
-                                                *ngIf="i?.ownerGender === 'FEMALE' && i?.ownerRelationMedium === '1'">छोरी </span>
-                                        <span
-                                                *ngIf="i?.ownerGender === 'FEMALE' && i?.ownerRelationMedium === '0'">श्रीमती </span>
-                                    </ng-container>
-                                    <ng-container *ngIf="(i?.ownerNationality === 'Indian' || i?.ownerNationality === 'Other')
-                                        && i?.foreignAddressOption === 'Foreign'">
+                                को अख्तियार प्राप्त :-
+                                <ng-container *ngFor="let val of tempProprietor; let i = index" formArrayName="authorDetails">
+                                    <ng-container [formGroupName]="i">
                                         <input class="form-field form-control-sm  disable-print"
-                                               name="foreignAddress" formControlName="foreignAddress"
-                                               placeholder="" type="text"/>
-                                        <span
-                                                class="print-only font-weight-bold">{{ form?.get('foreignAddress')?.value ? form?.get('foreignAddress')?.value : '_________________'}}</span>
-                                        ठेगाना
-                                    </ng-container>
-                                    <ng-container
-                                            *ngIf="i?.ownerNationality === 'Nepali' || i?.foreignAddressOption === 'Local'">
+                                               name="grandfatherName"
+                                               formControlName="grandfatherName" placeholder=""
+                                               type="text"
+                                        />
+                                        <span class="print-only font-weight-bold">
+                                            {{ val.ownerGrandFatherNameCT ? val.ownerGrandFatherNameCT : '_________________'}}
+                                        </span>
+                                        को
+                                        <ng-container>
+                                            <span *ngIf="val?.ownerGender === 'MALE'">नाति </span>
+                                            <span
+                                                    *ngIf="val?.ownerGender === 'FEMALE' && val?.ownerRelationMedium === '1'">नातिनी </span>
+                                            <span
+                                                    *ngIf="val?.ownerGender === 'FEMALE' && val?.ownerRelationMedium === '0'">बुहारी </span>
+                                        </ng-container>
                                         <input class="form-field form-control-sm  disable-print"
-                                               name="district" formControlName="district"
-                                               placeholder="" type="text"/>
-                                        <span
-                                                class="print-only font-weight-bold">{{ form?.get('district')?.value ? form?.get('district')?.value : '_________________'}}</span>
-                                        जिल्ला
+                                               name="fatherName" formControlName="fatherName"
+                                               placeholder="" type="text">
+                                        <span class="print-only font-weight-bold">
+                                            {{ val.ownerFatherNameCT ? val.ownerFatherNameCT : '_________________'}}
+                                        </span>
+                                        को
+                                        <ng-container>
+                                            <span *ngIf="val?.ownerGender === 'MALE'">छोरा </span>
+                                            <span
+                                                    *ngIf="val?.ownerGender === 'FEMALE' && val?.ownerRelationMedium === '1'">छोरी </span>
+                                            <span
+                                                    *ngIf="val?.ownerGender === 'FEMALE' && val?.ownerRelationMedium === '0'">श्रीमती </span>
+                                        </ng-container>
+                                        <ng-container *ngIf="(val?.ownerNationality === 'Indian' || val?.ownerNationality === 'Other')
+                                            && val?.foreignAddressOption === 'Foreign'">
+                                            <input class="form-field form-control-sm  disable-print"
+                                                   name="foreignAddress" formControlName="foreignAddress"
+                                                   placeholder="" type="text"/>
+                                            <span class="print-only font-weight-bold">
+                                                {{ val.ownerOtherAddressCT ? val.ownerOtherAddressCT : '_________________'}}
+                                            </span>
+                                            ठेगाना,
+                                        </ng-container>
+                                        <ng-container
+                                                *ngIf="val?.ownerNationality === 'Nepali' || val?.foreignAddressOption === 'Local'">
+                                            <input class="form-field form-control-sm  disable-print"
+                                                   name="district" formControlName="district"
+                                                   placeholder="" type="text"/>
+                                            <span class="print-only font-weight-bold">
+                                                {{ val.ownerPermanentDistrictCT ? val.ownerPermanentDistrictCT : '_________________'}}
+                                            </span>
+                                            जिल्ला,
+                                            <input class="form-field form-control-sm  disable-print"
+                                                   name="municipality"
+                                                   formControlName="municipality" placeholder=""
+                                                   type="text"/>
+                                            <span class="print-only font-weight-bold">
+                                                {{ val.ownerPermanentMunicipalityCT ? val.ownerPermanentMunicipalityCT : '_________________'}}
+                                            </span>
+                                            <span *ngIf="this.loanHolderNepData.registeredMunType.en === '0'">
+                                                                                    न.पा. ,
+                                                                                </span>
+                                            <span *ngIf="this.loanHolderNepData.registeredMunType.en === '1'">
+                                                                                    गा.वि.स. ,
+                                                                                </span>
+                                            <span *ngIf="this.loanHolderNepData.registeredMunType.en === '2'">
+                                                                                    गाँउपालिका ,
+                                                                                </span> वडा नं.
+                                            <input class="form-field form-control-sm  disable-print"
+                                                   name="wardNumber" formControlName="wardNumber"
+                                                   placeholder="" type="text"/>
+                                            <span class="print-only font-weight-bold">
+                                                {{ val.ownerPermanentWardNoCT ? val.ownerPermanentWardNoCT : '_________________'}}
+                                            </span>,
+                                        </ng-container>
+                                        बस्ने बर्ष
                                         <input class="form-field form-control-sm  disable-print"
-                                               name="municipality"
-                                               formControlName="municipality" placeholder=""
+                                               name="authorizedPersonAge"
+                                               formControlName="authorizedPersonAge"
+                                               placeholder="" type="text"
+                                        />
+                                        <span class="print-only font-weight-bold">
+                                            {{ ageArray[i] ? ageArray[i] : '_________________'}}
+                                        </span>
+                                        <ng-container>
+                                            <span *ngIf="val?.ownerGender === 'MALE'"> को </span>
+                                            <span *ngIf="val?.ownerGender === 'FEMALE'"> की </span>
+                                        </ng-container>
+                                        <ng-container>
+                                            <span *ngIf="val?.ownerGender === 'MALE'">श्री </span>
+                                            <span *ngIf="val?.ownerGender === 'FEMALE' && val?.ownerRelationMedium === '1'">सुश्री </span>
+                                            <span *ngIf="val?.ownerGender === 'FEMALE' && val?.ownerRelationMedium === '0'">श्रीमती </span>
+                                        </ng-container>
+                                        <input class="form-field form-control-sm  disable-print"
+                                               name="directorName"
+                                               formControlName="directorName" placeholder=""
                                                type="text"/>
-                                        <span
-                                                class="print-only font-weight-bold">{{ form?.get('municipality')?.value ? form?.get('municipality')?.value : '_________________'}}</span>
-                                        <span *ngIf="this.loanHolderNepData.registeredMunType.en === '0'">
-                                                                                न.पा. ,
-                                                                            </span>
-                                        <span *ngIf="this.loanHolderNepData.registeredMunType.en === '1'">
-                                                                                गा.वि.स. ,
-                                                                            </span>
-                                        <span *ngIf="this.loanHolderNepData.registeredMunType.en === '2'">
-                                                                                गाँउपालिका ,
-                                                                            </span> वडा नं.
+                                        <span class="print-only font-weight-bold">
+                                            {{ val.ownerNameCT ? val.ownerNameCT : '_________________'}}
+                                        </span>
+                                        (
+                                        <span *ngIf="val?.ownerNationality === 'Other'">
+                                        राहदानी नंः
+                                            <input class="form-field form-control-sm  disable-print"
+                                                   name="directorOtherPassportNumber"
+                                                   formControlName="directorOtherPassportNumber"
+                                                   placeholder="" type="text"/>
+                                            <span class="print-only font-weight-bold">
+                                                {{ val.otherOwnerPassportNoCT ? val.otherOwnerPassportNoCT : '_________________'}}
+                                            </span>
+                                        </span>
+                                        <span *ngIf="val?.ownerNationality === 'Indian' && val?.indianOwnerDetailOption === 'Passport'">
+                                        राहदानी नंः
+                                            <input class="form-field form-control-sm  disable-print"
+                                                   name="directorIndianPassportNumber"
+                                                   formControlName="directorIndianPassportNumber"
+                                                   placeholder="" type="text"/>
+                                            <span class="print-only font-weight-bold">
+                                                {{ val.indianOwnerPassportNoCT ? val.indianOwnerPassportNoCT : '_________________'}}
+                                            </span>
+                                        </span>
+                                        <span *ngIf="val?.ownerNationality === 'Indian' && val?.indianOwnerDetailOption === 'Adhar Card'">
+                                        आधार कार्ड नंः
+                                            <input class="form-field form-control-sm  disable-print"
+                                                   name="directorIndianAadhaarNumber"
+                                                   formControlName="directorIndianAadhaarNumber"
+                                                   placeholder="" type="text"/>
+                                            <span class="print-only font-weight-bold">
+                                                {{ val.indianOwnerAdharCardNoCT ? val.indianOwnerAdharCardNoCT : '_________________'}}
+                                            </span>
+                                        </span>
+                                        <span *ngIf="val?.ownerNationality === 'Indian' && val?.indianOwnerDetailOption === 'Embassy Certificate'">
+                                        दूतावास नंः
+                                            <input class="form-field form-control-sm  disable-print"
+                                                   name="directorIndianEmbassyNumber"
+                                                   formControlName="directorIndianEmbassyNumber"
+                                                   placeholder="" type="text"/>
+                                            <span class="print-only font-weight-bold">
+                                                {{ val.indianEmbassyNoCT ? val.indianEmbassyNoCT : '_________________'}}
+                                            </span>
+                                        </span>
+                                        <span *ngIf="val?.ownerNationality === 'Nepali'">
+                                            ना.प्र.नं.
+                                            <input class="form-field form-control-sm  disable-print"
+                                                   name="directorCitizenshipNumber"
+                                                   formControlName="directorCitizenshipNumber"
+                                                   placeholder="" type="text"/>
+                                            <span class="print-only font-weight-bold">
+                                                {{ val.ownerCitizenshipNoCT ? val.ownerCitizenshipNoCT : '_________________'}}
+                                            </span>
+                                        </span>
+                                        , जारी मिति
                                         <input class="form-field form-control-sm  disable-print"
-                                               name="wardNumber" formControlName="wardNumber"
+                                               name="directorCitizenshipIssueDate"
+                                               formControlName="directorCitizenshipIssueDate"
                                                placeholder="" type="text"/>
-                                        <span
-                                                class="print-only font-weight-bold">{{ form?.get('wardNumber')?.value ? form?.get('wardNumber')?.value : '_________________'}}</span>
+                                        <span class="print-only font-weight-bold">
+                                            {{ dateArray[i] ? dateArray[i] : '_________________'}}
+                                        </span>
+                                        <span *ngIf="(val?.ownerNationality === 'Indian' && val?.indianOwnerDetailOption === 'Passport') ||
+                                                        val?.ownerNationality === 'Other'">
+                                        , म्याद सकिने मितिः
+                                            <input class="form-field form-control-sm  disable-print"
+                                                   name="passportValidityDate"
+                                                   formControlName="passportValidityDate"
+                                                   placeholder="" type="text"/>
+                                            <span class="print-only font-weight-bold">
+                                                {{ dateValidityArray[i] ? dateValidityArray[i] : '_________________'}}
+                                            </span>
+                                        </span>
+                                        , जारी गर्ने कार्यालय
+                                        <input class="form-field form-control-sm  disable-print"
+                                               name="directorCitizenshipIssueDistrict"
+                                               formControlName="directorCitizenshipIssueDistrict"
+                                               placeholder="" type="text"/>
+                                        <span class="print-only font-weight-bold">
+                                            {{ issuedPlaceArray[i] ? issuedPlaceArray[i] : '_________________'}}
+                                        </span>
+                                        )-१,
                                     </ng-container>
-                                    बस्ने बर्ष
-                                    <input class="form-field form-control-sm  disable-print"
-                                           name="authorizedPersonAge"
-                                           formControlName="authorizedPersonAge"
-                                           placeholder="" type="text"/>
-                                    <span
-                                            class="print-only font-weight-bold">{{ form?.get('authorizedPersonAge')?.value ? form?.get('authorizedPersonAge')?.value : '_________________'}}</span>
-                                    <ng-container>
-                                        <span *ngIf="i?.ownerGender === 'MALE'"> को </span>
-                                        <span *ngIf="i?.ownerGender === 'FEMALE'"> की </span>
-                                    </ng-container>
-                                    <ng-container>
-                                        <span *ngIf="i?.ownerGender === 'MALE'">श्री </span>
-                                        <span *ngIf="i?.ownerGender === 'FEMALE' && i?.ownerRelationMedium === '1'">सुश्री </span>
-                                        <span *ngIf="i?.ownerGender === 'FEMALE' && i?.ownerRelationMedium === '0'">श्रीमती </span>
-                                    </ng-container>
-                                    <input class="form-field form-control-sm  disable-print"
-                                           name="directorName"
-                                           formControlName="directorName" placeholder=""
-                                           type="text"/>
-                                    <span
-                                            class="print-only font-weight-bold">{{ form?.get('directorName')?.value ? form?.get('directorName')?.value : '_________________'}}</span>
-                                    (ना.प्र.नं.
-                                    <input class="form-field form-control-sm  disable-print"
-                                           name="directorCitizenshipNumber"
-                                           formControlName="directorCitizenshipNumber"
-                                           placeholder="" type="text"/>
-                                    <span
-                                            class="print-only font-weight-bold">{{ form?.get('directorCitizenshipNumber')?.value ? form?.get('directorCitizenshipNumber')?.value : '_________________'}}</span>
-                                    , जारी मिति
-                                    <input class="form-field form-control-sm  disable-print"
-                                           name="directorCitizenshipIssueDate"
-                                           formControlName="directorCitizenshipIssueDate"
-                                           placeholder="" type="text"/>
-                                    <span
-                                            class="print-only font-weight-bold">{{ form?.get('directorCitizenshipIssueDate')?.value ? form?.get('directorCitizenshipIssueDate')?.value : '_________________'}}</span>
-                                    , जारी गर्ने कार्यालय
-                                    <input class="form-field form-control-sm  disable-print"
-                                           name="directorCitizenshipIssueDistrict"
-                                           formControlName="directorCitizenshipIssueDistrict"
-                                           placeholder="" type="text"/>
-                                    <span
-                                            class="print-only font-weight-bold">{{ form?.get('directorCitizenshipIssueDistrict')?.value ? form?.get('directorCitizenshipIssueDistrict')?.value : '_________________'}}</span>
                                 </ng-container>
-                                )–१ आगे, तपाई श्री नविल बैंक लिमिटेडले भुक्तानी माग
+                                समेत जम्मा <input class="form-field form-control-sm disable-print"
+                                                  name="totalPeople"
+                                                  formControlName="totalPeople"
+                                                  placeholder=""
+                                                  type="text"/>
+                                <span class="print-only font-weight-bold">
+                                    {{form.get('totalPeople').value ? form.get('totalPeople').value : "_____________________"}}
+                                </span>
+                                जना
+                                आगे, तपाई श्री नविल बैंक लिमिटेडले भुक्तानी माग
                                 गरेका बखत तपाईलाई वा तपाईले निर्देशन
                                 दिएको वा अह्राएको ब्यक्ति/संस्थालाई <strong>रु.
                                 <input class="form-field form-control-sm  disable-print"
@@ -230,7 +309,7 @@
                                        placeholder="" type="text"/>
                                 <span
                                         class="print-only font-weight-bold">{{ form?.get('loanamountinFigure')?.value ? form?.get('loanamountinFigure')?.value : '_________________'}}</span>
-                                । (अक्षरेपी
+                                /- (अक्षरेपी
                                 <input class="form-field form-control-sm  disable-print col-3"
                                        name="loanamountinWords"
                                        formControlName="loanamountinWords"
@@ -372,5 +451,5 @@
         </div>
     </form>
 </div>
-<app-promissory-note-company-print *ngIf="initialInfoPrint" [letterData]="initialInfoPrint" hidden>
-</app-promissory-note-company-print>
+<!--<app-promissory-note-company-print *ngIf="initialInfoPrint" [letterData]="initialInfoPrint" hidden>
+</app-promissory-note-company-print>-->
