@@ -1044,7 +1044,9 @@ export class SecurityInitialFormComponent implements OnInit {
             const formControls = this.securityForm.get('landDetails') as FormArray;
             formControls.controls.forEach(f => {
                 f.get('owner').clearValidators();
+                f.get('ownerNepali').clearValidators();
                 f.get('owner').updateValueAndValidity();
+                f.get('ownerNepali').updateValueAndValidity();
             });
         }
         if (this.selectedSecurity === 'VehicleSecurity') {
