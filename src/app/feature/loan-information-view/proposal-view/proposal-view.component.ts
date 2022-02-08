@@ -9,7 +9,7 @@ import {ActivatedRoute, Params} from '@angular/router';
 import {LoanConfigService} from '../../admin/component/loan-config/loan-config.service';
 import {ProductUtils} from '../../admin/service/product-mode.service';
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
-import {CustomerLoanDto} from '../../loan/model/CustomerLoanDto';
+import {CustomerLoanDto} from '../../loan/model/customerLoanDto';
 
 @Component({
   selector: 'app-proposal-view',

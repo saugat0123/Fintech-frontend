@@ -62,7 +62,7 @@
                                 #type="ngModel" [ngClass]="{ 'is-invalid': f.submitted && type.invalid }" required disabled>
                             <option [ngValue]="undefined" hidden>Approval Type</option>
                             <option value="INDIVIDUAL">INDIVIDUAL</option>
-                            <option value="INSTITUTION">INSTITUTION</option>
+                            <option value="INSTITUTION">CORPORATE</option>
                         </select>
                         <div *ngIf="f.submitted && type.invalid" class="invalid-feedback">
                             <div *ngIf="type.errors.required">Type is required</div>
