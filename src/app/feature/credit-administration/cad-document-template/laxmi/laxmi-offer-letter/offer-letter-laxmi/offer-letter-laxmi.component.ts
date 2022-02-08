@@ -1390,4 +1390,8 @@ export class OfferLetterLaxmiComponent implements OnInit {
                 break;
         }
     }
+
+    customerDetailChange(value: any, type) {
+        this.offerLetterForm.get(type).patchValue(value);
+    }
 }

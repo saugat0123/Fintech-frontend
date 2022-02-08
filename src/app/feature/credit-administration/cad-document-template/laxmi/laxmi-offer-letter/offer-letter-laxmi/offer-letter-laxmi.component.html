@@ -64,13 +64,13 @@
             </div>
 
             श्री <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                        formControlName="borrowerName">
+                        formControlName="borrowerName" (change)="customerDetailChange($event?.target?.value, 'borrowerName')">
             <span class="nepaliFont print-only">
                 <b>{{offerLetterForm?.get('borrowerName')?.value ? offerLetterForm?.get('borrowerName')?.value : '========='}}</b>
             </span>
             <br>
             ठेगाना : <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                            formControlName="address" placeholder="ठेगाना">
+                            formControlName="address" placeholder="ठेगाना" (change)="customerDetailChange($event?.target?.value, 'address')">
             <span class="nepaliFont print-only">
                 <b>{{offerLetterForm?.get('address')?.value ? offerLetterForm?.get('address')?.value : '========='}}</b></span><br>
             सम्पर्क टेलिफोन/मोवाइल नं.:
@@ -2824,11 +2824,11 @@
                                 ऋणी <br>
                                 श्री <input type="text"
                                             class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                            formControlName="borrowerName">
+                                            formControlName="borrowerName" (change)="customerDetailChange($event?.target?.value, 'borrowerName')">
                                 <span class="nepaliFont print-only"><b>{{offerLetterForm?.get('borrowerName').value ? offerLetterForm?.get('borrowerName').value : '========='}}</b> </span><br>
                                 ठेगाना : <input type="text"
                                                 class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                                formControlName="address">
+                                                formControlName="address" (change)="customerDetailChange($event?.target?.value, 'address')">
                                 <span class="nepaliFont print-only"><b>{{offerLetterForm?.get('address').value ? offerLetterForm?.get('address').value : '========='}}</b></span><br>
                                 <br>
                                 सम्पर्क टेलिफोन/मोवाइल नं. : <input type="text"
