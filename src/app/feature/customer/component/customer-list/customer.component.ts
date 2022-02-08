@@ -182,11 +182,14 @@ export class CustomerComponent implements OnInit {
         if (CustomerType.INDIVIDUAL === CustomerType[this.customerType]) {
             this.openChooseAcType(chooseAcType);
         } else if (CustomerType.INSTITUTION === CustomerType[this.customerType]) {
-            this.dialogService.open(CompanyFormComponent, {
+        this.dialogService.open(CompanyFormComponent, {
                 closeOnBackdropClick: true,
                 closeOnEsc: false,
                 hasBackdrop: false,
-                hasScroll: true
+                hasScroll: true,
+            context: {
+                    customerType: 'INSTITUTION'
+            }
             }).onClose.subscribe(res => CustomerComponent.loadData(this));
         }
     }

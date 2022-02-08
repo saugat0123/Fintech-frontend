@@ -41,7 +41,6 @@ import {CompanyOtherDetailComponent} from './company-other-detail/company-other-
 import {CompanyJsonData} from '../../../../admin/modal/CompanyJsonData';
 import {MarketScenarioComponent} from './market-scenario/market-scenario.component';
 import {Editor} from '../../../../../@core/utils/constants/editor';
-import {WhiteSpaceValidation} from '../../../../loan/model/whiteSpaceValidation';
 import {CustomerService} from '../../../../admin/service/customer.service';
 import {RegisteredOfficeList} from '../../../../admin/modal/registeredOfficeList';
 import {BusinessGiven} from '../../../../admin/modal/businessGiven';
@@ -56,6 +55,7 @@ import {environment} from '../../../../../../environments/environment';
 import {Clients} from '../../../../../../environments/Clients';
 import {MicroCompanyFormComponentComponent} from '../../../../micro-loan/form-component/micro-company-form-component/micro-company-form-component.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {CustomerType} from '../../../model/customerType';
 
 @Component({
     selector: 'app-company-form',
@@ -69,6 +69,7 @@ export class CompanyFormComponent implements OnInit {
     @Input() subSectorDetailCodeInput: any;
     @Input() customerCode: any;
     @Input() clientTypeInput: any;
+    @Input() customerType: any;
 
     @ViewChild('companyLocation', {static: true}) companyLocation: CommonAddressComponent;
     @ViewChildren('shareholderKyc') shareholderKyc: QueryList<OwnerKycApplicableComponent>;
@@ -186,6 +187,7 @@ export class CompanyFormComponent implements OnInit {
     // todo replace all objectutil checking with patch value method
 
     ngOnInit() {
+
         if (LocalStorageUtil.getStorage().bankUtil.AFFILIATED_ID === AffiliateId.SRDB) {
             this.srdbAffiliatedId = true;
         }
@@ -642,7 +644,8 @@ export class CompanyFormComponent implements OnInit {
             dateOfBirth: [undefined],
             addressLine1: [undefined, Validators.required],
             addressLine2: [undefined],
-            type: [null, Validators.required]
+            type: [null, Validators.required],
+            netWorth: [undefined, Validators.required]
         });
     }
 
@@ -682,6 +685,7 @@ export class CompanyFormComponent implements OnInit {
     }
 
     setProprietors(data): FormArray {
+        console.log(data, 'propeitersJsonData:::::::::::::');
         const controls = this.companyInfoFormGroup.get('proprietors') as FormArray;
         this.addressList = new Array<Address>(data.length);
         let proprietorIndex = 0;
@@ -710,7 +714,8 @@ export class CompanyFormComponent implements OnInit {
                 grandFatherName: [proprietors.grandFatherName === null ? null : proprietors.grandFatherName],
                 addressLine1: [proprietors.addressLine1 === null ? null : proprietors.addressLine1],
                 addressLine2: [proprietors.addressLine2 === null ? null : proprietors.addressLine2],
-                type: [proprietors.type === undefined ? '' : proprietors.type, Validators.required]
+                type: [proprietors.type === undefined ? '' : proprietors.type, Validators.required],
+                netWorth: [proprietors.netWorth === undefined ? '' : proprietors.netWorth, Validators.required]
             }));
         });
         return controls;
@@ -958,6 +963,7 @@ export class CompanyFormComponent implements OnInit {
             proprietors.addressLine1 = this.getProprietor()[proprietorsIndex].addressLine1;
             proprietors.addressLine2 = this.getProprietor()[proprietorsIndex].addressLine2;
             proprietors.type = this.getProprietor()[proprietorsIndex].type;
+            proprietors.netWorth = this.getProprietor()[proprietorsIndex].netWorth;
             let province = new Province();
             province = this.getProprietor()[proprietorsIndex].province;
             proprietors.province = (!ObjectUtil.isEmpty(this.getProprietor()[proprietorsIndex].province)) ? province : undefined;
