@@ -127,12 +127,12 @@ export class OfferLetterLaxmiComponent implements OnInit {
             this.offerLetterDocument = new OfferDocument();
             this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.OFFER_LETTER);
             this.fillForm();
-            this.addOtherCovenants();
-            this.addAcceptance();
-            this.addEventDefault();
-            this.addEventDefault1();
-            this.addRepresentation();
-            this.addPrecedent();
+            // this.addOtherCovenants();
+            // this.addAcceptance();
+            // this.addEventDefault();
+            // this.addEventDefault1();
+            // this.addRepresentation();
+            // this.addPrecedent();
             // this.saveLoanSubLoan();
         } else {
             // this.fillForm();
@@ -141,6 +141,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
             this.existingOfferLetter = true;
             this.offerLetterForm.patchValue(initialInfo);
             this.arrayOfSubloan = initialInfo.subLoanType;
+            this.fillForm();
             // this.setSubLoanData(initialInfo.purpose);
             this.setOtherCovenants(initialInfo.covenant);
             this.setAcceptance(initialInfo.acceptance);
@@ -148,6 +149,9 @@ export class OfferLetterLaxmiComponent implements OnInit {
             this.setEventDefaul1(initialInfo.eventDefault1);
             this.setRepresentation(initialInfo.representation);
             this.setPrecedent(initialInfo.precedent);
+            this.setSecrityData(initialInfo.security);
+            this.setVehicleData(initialInfo.vehicleSecurity);
+            this.setShareData(initialInfo.shareSecurity);
             console.log('initialInfo', initialInfo);
         }
     }
@@ -174,7 +178,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
             designation3: [undefined],
             name2: [undefined],
             name3: [undefined],
-            contactNumber: [undefined],
+            // contactNumber: [undefined],
             address: [undefined],
             borrowerName: [undefined],
             branchName: [undefined],
@@ -401,6 +405,10 @@ export class OfferLetterLaxmiComponent implements OnInit {
             cashMarginNeeded: [true],
             personalSecurityNeeded: [true],
             cashLienNeeded: [true],
+            collateralSecurityNeeded: [true],
+            vehicleSecurityNeeded: [true],
+            shareSecurityNeeded: [true],
+            guaranteeNeeded: [true],
         });
     }
 
@@ -1134,6 +1142,35 @@ export class OfferLetterLaxmiComponent implements OnInit {
                     this.offerLetterForm.get('cashLienNeeded').patchValue(false);
                 }
                 break;
+            case 'collateralSecurityNeeded':
+                if (event) {
+                    this.offerLetterForm.get('collateralSecurityNeeded').patchValue(event);
+                    // this.offerLetterForm.get('cashlienOther').patchValue(null);
+                } else {
+                    this.offerLetterForm.get('collateralSecurityNeeded').patchValue(false);
+                }
+                break;
+            case 'vehicleSecurityNeeded':
+                if (event) {
+                    this.offerLetterForm.get('vehicleSecurityNeeded').patchValue(event);
+                } else {
+                    this.offerLetterForm.get('vehicleSecurityNeeded').patchValue(false);
+                }
+                break;
+            case 'shareSecurityNeeded':
+                if (event) {
+                    this.offerLetterForm.get('shareSecurityNeeded').patchValue(event);
+                } else {
+                    this.offerLetterForm.get('shareSecurityNeeded').patchValue(false);
+                }
+                break;
+            case 'guaranteeNeeded':
+                if (event) {
+                    this.offerLetterForm.get('guaranteeNeeded').patchValue(event);
+                } else {
+                    this.offerLetterForm.get('guaranteeNeeded').patchValue(false);
+                }
+                break;
         }
     }
 
@@ -1277,6 +1314,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
 
     convertProposed() {
         const data = this.offerLetterForm.get('purpose') as FormArray;
+        console.log('data', data);
         data.value.forEach((d, i) => {
             const amount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(d.loanLimitAmount));
             const word = this.nepaliCurrencyWordPipe.transform(d.loanLimitAmount);
@@ -1295,5 +1333,49 @@ export class OfferLetterLaxmiComponent implements OnInit {
 
     removeVehicle(iii: number) {
         (<FormArray>this.offerLetterForm.get('vehicleSecurity')).removeAt(iii);
+    }
+
+    setSecrityData(data) {
+        const dataArray = this.offerLetterForm.get('security') as FormArray;
+        if (!ObjectUtil.isEmpty(data)) {
+            data.forEach(singleData => {
+                dataArray.push(this.formBuilder.group({
+                    ownerName: [singleData.ownerName],
+                    district: [singleData.district],
+                    vdc: [singleData.vdc],
+                    wardNo: [singleData.wardNo],
+                    plotNumber: [singleData.plotNumber],
+                    area: [singleData.area]
+                }));
+            });
+        }
+    }
+
+    setVehicleData(data) {
+        const dataArray = this.offerLetterForm.get('vehicleSecurity') as FormArray;
+        if (!ObjectUtil.isEmpty(data)) {
+            data.forEach(singleData => {
+                dataArray.push(this.formBuilder.group({
+                    vehicleDetail: [singleData.vehicleDetail],
+                    engineNumber: [singleData.engineNumber],
+                    chassisNumber: [singleData.chassisNumber],
+                    model: [singleData.model]
+                }));
+            });
+        }
+    }
+
+    setShareData(data) {
+        const dataArray = this.offerLetterForm.get('shareSecurity') as FormArray;
+        if (!ObjectUtil.isEmpty(data)) {
+            data.forEach(singleData => {
+                dataArray.push(this.formBuilder.group({
+                    shareHolderName: [singleData.shareHolderName],
+                    companyName: [singleData.companyName],
+                    totalShareUnit: [singleData.totalShareUnit],
+                    shareType: [singleData.shareType],
+                }));
+            });
+        }
     }
 }
