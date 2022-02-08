@@ -2,7 +2,7 @@
     <nb-card-header>
         <div class="clearfix" *ngIf="!isOpened">
             <div class="float-left">
-                <button nbButton size="small" status="primary" [nbTooltip]="backwardToolTip"
+                <button nbButton size="small" status="primary" [nbTooltip]="unAssign?'Un Assign Loan':backwardToolTip"
                       [disabled]="isBackwardDisabled"
                         (click)="unAssign?openPopUp(pullDocument):approvedForwardBackward(sendForwardBackward,'BACKWARD',false)">RETURN
                 </button>
