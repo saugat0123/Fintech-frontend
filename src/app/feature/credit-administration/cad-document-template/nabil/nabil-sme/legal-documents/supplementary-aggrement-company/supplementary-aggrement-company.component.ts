@@ -157,13 +157,11 @@ export class SupplementaryAggrementCompanyComponent implements OnInit {
         const dateOfApprovalType = this.initialInfo.smeGlobalForm.dateOfApprovalType ?
             this.initialInfo.smeGlobalForm.dateOfApprovalType : '';
         if (dateOfApprovalType === 'AD') {
-          const templateDateApproval = this.initialInfo.smeGlobalForm.dateOfApproval ?
-              this.initialInfo.smeGlobalForm.dateOfApprovalCT : '';
-          this.sanctionDate = this.initialInfo.transform(this.datePipe.transform(templateDateApproval), true);
+          this.sanctionDate = this.engToNepaliDate.transform(this.initialInfo.smeGlobalForm.dateOfApproval ?
+              this.initialInfo.smeGlobalForm.dateOfApprovalCT : '', true);
         } else {
-          const templateDateApproval = this.initialInfo.smeGlobalForm.dateOfApprovalNepali ?
-              this.initialInfo.smeGlobalForm.dateOfApprovalNepali : '';
-          this.sanctionDate = templateDateApproval ? templateDateApproval.nDate : '';
+          this.sanctionDate = this.initialInfo.smeGlobalForm.dateOfApprovalNepali ?
+              this.initialInfo.smeGlobalForm.dateOfApprovalNepali.nDate : '';
         }
       }
     }
