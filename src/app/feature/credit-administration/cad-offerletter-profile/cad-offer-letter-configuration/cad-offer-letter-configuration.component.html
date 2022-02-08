@@ -1741,9 +1741,7 @@
                 </td>
               </tr>
               <tr *ngIf="configForm?.clientType?.value == clientType.INSTITUTION &&
-             (userConfigForm.get(['ownerDetails', i, 'ownerGender']).value == 'FEMALE'
-              || userConfigForm.get(['ownerDetails', i, 'ownerGender']).value == 'MALE' ||
-              userConfigForm.get(['ownerDetails', i, 'ownerGender']).value == 'OTHERS') &&
+              userConfigForm.get(['ownerDetails', i, 'ownerGender']).value == 'FEMALE' &&
               !(userConfigForm.get(['ownerDetails', i, 'ownerRelationMedium']).value == 0)">
                 <td>
                   <label class="title">Grand Father Name</label>
@@ -1763,10 +1761,48 @@
                 </td>
               </tr>
               <tr *ngIf="configForm?.clientType?.value == clientType.INSTITUTION &&
-            (userConfigForm.get(['ownerDetails', i, 'ownerGender']).value == 'FEMALE' ||
-             userConfigForm.get(['ownerDetails', i, 'ownerGender']).value == 'MALE'
-             || userConfigForm.get(['ownerDetails', i, 'ownerGender']).value == 'OTHERS') &&
+             (userConfigForm.get(['ownerDetails', i, 'ownerGender']).value == 'MALE' ||
+              userConfigForm.get(['ownerDetails', i, 'ownerGender']).value == 'OTHERS')">
+                <td>
+                  <label class="title">Grand Father Name</label>
+                </td>
+                <td>
+                  <input class="form-control "
+                         formControlName="ownerGrandFatherName"
+                         (keyup)="autoTrans('ownerGrandFatherName',i)"
+                         name="grandFatherName" placeholder="Grand Father Name"
+                         type="text"/>
+                </td>
+                <td><input class="form-control" type="text"
+                           formControlName="ownerGrandFatherNameTrans" readonly/></td>
+                <td>
+                  <input class="form-control" formControlName="ownerGrandFatherNameCT" type="text"
+                  />
+                </td>
+              </tr>
+              <tr *ngIf="configForm?.clientType?.value == clientType.INSTITUTION &&
+              userConfigForm.get(['ownerDetails', i, 'ownerGender']).value == 'FEMALE' &&
              !(userConfigForm.get(['ownerDetails', i, 'ownerRelationMedium']).value == 0)">
+                <td>
+                  <label class="title">Father Name</label>
+                </td>
+                <td>
+                  <input class="form-control "
+                         formControlName="ownerFatherName"
+                         (keyup)="autoTrans('ownerFatherName',i)"
+                         name="fatherName" placeholder="Father Name"
+                         type="text"/>
+                </td>
+                <td><input class="form-control" type="text"
+                           formControlName="ownerFatherNameTrans" readonly/></td>
+                <td>
+                  <input class="form-control" formControlName="ownerFatherNameCT" type="text"
+                  />
+                </td>
+              </tr>
+              <tr *ngIf="configForm?.clientType?.value == clientType.INSTITUTION &&
+            (userConfigForm.get(['ownerDetails', i, 'ownerGender']).value == 'MALE'
+             || userConfigForm.get(['ownerDetails', i, 'ownerGender']).value == 'OTHERS')">
                 <td>
                   <label class="title">Father Name</label>
                 </td>
