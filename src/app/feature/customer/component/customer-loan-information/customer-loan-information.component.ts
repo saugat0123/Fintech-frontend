@@ -337,7 +337,7 @@ export class CustomerLoanInformationComponent implements OnInit {
         this.customerInfoService.saveLoanInfo(this.shareSecurity, this.customerInfoId, TemplateName.SHARE_SECURITY)
         .subscribe(() => {
             this.spinner.hide();
-            this.itemSecurity.close();
+            this.nbDialogRef.close();
             this.triggerCustomerRefresh.emit(true);
         }, error => {
             this.spinner.hide();
