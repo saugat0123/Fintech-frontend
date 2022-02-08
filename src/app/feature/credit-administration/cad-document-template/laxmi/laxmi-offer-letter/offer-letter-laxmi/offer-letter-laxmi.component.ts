@@ -117,7 +117,6 @@ export class OfferLetterLaxmiComponent implements OnInit {
         this.buildForm();
         this.parseAssignedLoanData();
         this.checkOfferLetter();
-        this.convertProposed();
     }
 
     checkOfferLetter() {
@@ -127,6 +126,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
             this.offerLetterDocument = new OfferDocument();
             this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.OFFER_LETTER);
             this.fillForm();
+            this.convertProposed();
             // this.addOtherCovenants();
             // this.addAcceptance();
             // this.addEventDefault();
@@ -158,7 +158,6 @@ export class OfferLetterLaxmiComponent implements OnInit {
 
     fillForm() {
         this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
-        console.log('nepaliData', this.nepaliData);
         // const address = this.nepaliData.perma
         if (!ObjectUtil.isEmpty(this.nepaliData)) {
             this.offerLetterForm.patchValue({
@@ -507,7 +506,6 @@ export class OfferLetterLaxmiComponent implements OnInit {
     }
 
     otherValueCheck(checked, i, formControlName) {
-        console.log('checked', checked, 'i',  i);
         switch (formControlName) {
             case 'drawDownCheck':
                 if (checked) {
@@ -685,17 +683,17 @@ export class OfferLetterLaxmiComponent implements OnInit {
                     this.currentAssetstPresent = true;
                 }
             }
-            if (!ObjectUtil.isEmpty(security)) {
-                this.securityPresent = true;
-                this.securityData = JSON.parse(security.approvedData);
-                this.selectedArray = this.securityData.selectedArray;
-                if (this.selectedArray.length > 0) {
-                    this.multipleSecurity = true;
-                }
-                if (this.securityData.collateralSiteVisit) {
-                    this.isCollateral = true;
-                }
-            }
+            // if (!ObjectUtil.isEmpty(security)) {
+            //     this.securityPresent = true;
+            //     this.securityData = JSON.parse(security.approvedData);
+            //     this.selectedArray = this.securityData.selectedArray;
+            //     if (this.selectedArray.length > 0) {
+            //         this.multipleSecurity = true;
+            //     }
+            //     if (this.securityData.collateralSiteVisit) {
+            //         this.isCollateral = true;
+            //     }
+            // }
             const shareSecurity: ShareSecurity = this.cadData.loanHolder.shareSecurity;
             if (!ObjectUtil.isEmpty(shareSecurity)) {
                 this.shareData = JSON.parse(shareSecurity.approvedData);
@@ -1314,11 +1312,10 @@ export class OfferLetterLaxmiComponent implements OnInit {
 
     convertProposed() {
         const data = this.offerLetterForm.get('purpose') as FormArray;
-        console.log('data', data);
         data.value.forEach((d, i) => {
-            const amount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(d.loanLimitAmount));
+            const limitData = this.nepaliNumber.transform(d.loanLimitAmount, 'preeti');
             const word = this.nepaliCurrencyWordPipe.transform(d.loanLimitAmount);
-            this.offerLetterForm.get(['purpose', i, 'loanLimitAmount']).patchValue(amount);
+            this.offerLetterForm.get(['purpose', i, 'loanLimitAmount']).patchValue(limitData);
             this.offerLetterForm.get(['purpose', i, 'loanLimitWord']).patchValue(word);
         });
     }
@@ -1376,6 +1373,21 @@ export class OfferLetterLaxmiComponent implements OnInit {
                     shareType: [singleData.shareType],
                 }));
             });
+        }
+    }
+
+    convertProposedAmount(value , i: number, type) {
+        switch (type) {
+            case 'purpose':
+                const word = this.nepaliCurrencyWordPipe.transform(this.nepaliToEnglishPipe.transform(value));
+                this.offerLetterForm.get(['purpose', i, 'loanLimitAmount']).patchValue(value);
+                this.offerLetterForm.get(['purpose', i, 'loanLimitWord']).patchValue(word);
+                break;
+            case 'repaymentAmount' :
+                const word1 = this.nepaliCurrencyWordPipe.transform(this.nepaliToEnglishPipe.transform(value));
+                this.offerLetterForm.get(['purpose', i, 'repaymentAmount']).patchValue(value);
+                this.offerLetterForm.get(['purpose', i, 'repaymentAmountWord']).patchValue(word1);
+                break;
         }
     }
 }
