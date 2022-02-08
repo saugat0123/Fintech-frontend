@@ -1254,7 +1254,25 @@
                                                   type="text">
                                        </div>
                                    </div>
+                                   <div class="col-md-4">
+                                       <div class="form-group" *ngIf="customerType === 'INSTITUTION'">
+                                           <label for="share"><strong>Net Worth</strong></label>
+                                           <input [ngClass]="{ 'is-invalid': (submitted) && proprietor.get('netWorth').errors }" class="form-control" formControlName="netWorth"
+                                                  id="netWorth"
+                                                  name="share" placeholder="Net Worth"
+                                                  type="text"/>
+                                           <div
+                                                   *ngIf="(submitted) && proprietor.get('netWorth').invalid"
+                                                   class="invalid-feedback">
+                                               <div *ngIf="proprietor.get('netWorth').errors.required">
+                                                   Net Worth is required
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
                                </div>
+                               </div>
+
                                <hr>
                                <div *ngIf="client != clientName.MEGA">
                                <div class="row">
@@ -1273,7 +1291,6 @@
                                </div>
                                </div>
                            </div>
-                       </div>
 
                        <div class="row">
                            <div class="col-md-6 pl-5" *ngIf="client === clientName?.MEGA">
