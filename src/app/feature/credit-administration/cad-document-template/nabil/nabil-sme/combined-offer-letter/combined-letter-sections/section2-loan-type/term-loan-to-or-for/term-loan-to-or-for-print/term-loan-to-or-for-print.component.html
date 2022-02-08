@@ -198,7 +198,13 @@
 
                                         <span [ngClass]="{'outside' : termLoan?.tenureOfLoanCT !== null && termLoan?.tenureOfLoanCT !== ''}">
                         {{termLoan?.tenureOfLoanCT === null || termLoan?.tenureOfLoanCT === '' ? '___________' : termLoan?.tenureOfLoanCT}}</span>
-         वर्ष भित्र प्रति वर्ष/अर्धबार्षिक/त्रैमास/महिना रु.
+         वर्ष भित्र प्रति
+                    <ng-container *ngIf="termLoan.paymentTerms === 'YEARLY'"> वर्ष </ng-container>
+                                <ng-container
+                                        *ngIf="termLoan.paymentTerms === 'SEMI_YEARLY'"> अर्धबार्षिक </ng-container>
+                                <ng-container *ngIf="termLoan.paymentTerms === 'QUARTERLY'"> त्रैमास </ng-container>
+                                <ng-container *ngIf="termLoan.paymentTerms === 'MONTHLY'"> महिना </ng-container>
+                    रु.
                                         <span [ngClass]="{'outside' : termLoan?.paymentAmountFigureCT !== null && termLoan?.paymentAmountFigureCT !== ''}">
                         {{termLoan?.paymentAmountFigureCT === null || termLoan?.paymentAmountFigureCT === '' ? '___________' : termLoan?.paymentAmountFigureCT}}</span>
         ।— अक्षरेपी
@@ -281,8 +287,10 @@
                 {{termLoan.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
                 <span [ngClass]="{'outside' : termLoan?.dateOfExpiryCT !== null && termLoan?.dateOfExpiryCT !== ''}">
                         {{termLoan?.dateOfExpiryCT === null || termLoan?.dateOfExpiryCT === '' ? '___________' : termLoan?.dateOfExpiryCT}}</span>
+            </p>
+            <br/>
                 <strong>कर्जा प्रवाह तरिकाः</strong>
-                <span style="text-align: justify">
+                <span style="text-align: justify; line-height: 1.9em; font-size: 19px">
                         {{termLoanFreeText[i]?.freeTextTwelve === null || termLoanFreeText[i]?.freeTextTwelve === '' ? '___________' : termLoanFreeText[i]?.freeTextTwelve}}
                     </span>                     <!--<textarea
                         class="form-control customFont nepaliFont"
@@ -292,7 +300,6 @@
                         placeholder=""
                         formControlName="freeTextTwelve">
                     </textarea>-->
-            </p>
         </td>
     </tr>
 </table>

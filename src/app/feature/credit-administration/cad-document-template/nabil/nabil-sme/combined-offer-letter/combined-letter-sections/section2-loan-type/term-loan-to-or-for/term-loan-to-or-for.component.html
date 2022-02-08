@@ -215,7 +215,12 @@
                                    formControlName="newInstallmentLoanTenureVehicleLoan"
                                    placeholder=""
                                    type="text"/> वर्ष भित्र प्रति
-                                वर्ष/अर्धबार्षिक/त्रैमास/महिना रु.<input class="form-field form-control-sm "
+                            <ng-container *ngIf="termLoan.paymentTerms === 'YEARLY'"> वर्ष </ng-container>
+                                <ng-container
+                                        *ngIf="termLoan.paymentTerms === 'SEMI_YEARLY'"> अर्धबार्षिक </ng-container>
+                                <ng-container *ngIf="termLoan.paymentTerms === 'QUARTERLY'"> त्रैमास </ng-container>
+                                <ng-container *ngIf="termLoan.paymentTerms === 'MONTHLY'"> महिना </ng-container>
+                                रु.<input class="form-field form-control-sm "
                                                                          formControlName="newInstallmentPaymentAmountVehicleLoan"
                                                                          placeholder=""
                                                                          type="text"/>।—
@@ -308,7 +313,8 @@
                         <input class="form-field form-control-sm "
                                                                          formControlName="annualInstallmentLoanExpiryDateVehicleLoan"
                                                                          placeholder=""
-                                                                         type="text"/> ।<br>
+                                                                         type="text"/> ।
+                    </p>
                         <strong>कर्जा प्रवाह तरिकाः</strong>
                         <textarea
                                 class="form-control customFont"
@@ -318,7 +324,6 @@
                                 placeholder=""
                                 formControlName="freeTextTwelve">
                     </textarea>
-                    </p>
                 </td>
             </ng-container>
         </tr>

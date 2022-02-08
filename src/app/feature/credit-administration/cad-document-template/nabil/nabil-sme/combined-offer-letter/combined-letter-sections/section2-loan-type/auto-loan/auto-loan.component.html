@@ -261,8 +261,11 @@
                         <input class="form-field form-control-sm "
                                                                          formControlName="annualInstallmentLoanExpiryDateAutoLoan"
                                                                          placeholder=""
-                                                                         type="text"/> ।<br>
-                        <span>
+                                                                         type="text"/> ।
+                    </p>
+                    <br>
+                        <!--<span *ngIf="!this.form.get(['autoLoanDetails', i, 'disbursementClause']).value">-->
+                    <span>
                 <strong>कर्जा प्रवाह तरिकाः</strong> सवारी साधनको व्यापक (Comprehensive) बिमालेख सहित बैंकको नाममा
                 दर्ता गरीदिनुका साथै आवश्यक सम्पूर्ण कर्जा/सुरक्षण कागजपत्रहरु सहीछाप भई बैंकलाई प्राप्त भएपश्चात सवारी
                 साधनको कर बिजक/भ्याट बिलको <input class="form-field form-control-sm "
@@ -276,16 +279,22 @@
                                 placeholder=""
                                 type="text"/> वा उसको
                 प्रतिनिधिलाई सो रकम बैंक ड्राफ्ट मार्फत वा खातामा रकम स्थानान्तरण गरी भुक्तानी गरिनेछ ।
-        </span><br>
-                        <span><strong>कर्जा प्रवाह तरिकाः</strong><textarea
+        </span>
+                    <br>
+                    <!--<nb-checkbox #disbursementClause formControlName="disbursementClause">
+                        <i>Other Clause ? </i></nb-checkbox>-->
+                        <!--<span *ngIf="this.form.get(['autoLoanDetails', i, 'disbursementClause']).value">-->
+                    <span>
+                            <!--<strong>कर्जा प्रवाह तरिकाः</strong>-->
+                        <textarea
                                 class="form-control"
                                 rows="2"
-                                style="width: 100%;display: block;margin-right: auto;margin-left: 0; color: black;"
+                                style="width: 100%;display: block;margin-right: auto;margin-left: 0; color: black;font-size: 19px"
                                 name="freeTextFourteen"
                                 placeholder=""
                                 formControlName="freeTextFourteen">
         </textarea></span>
-                    </p>
+
                 </td>
             </ng-container>
         </tr>

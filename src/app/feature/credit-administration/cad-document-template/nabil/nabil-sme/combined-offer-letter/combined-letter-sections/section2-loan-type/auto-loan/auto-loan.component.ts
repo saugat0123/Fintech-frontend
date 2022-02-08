@@ -89,6 +89,7 @@ export class AutoLoanComponent implements OnInit {
                 loanAmountInWords: [undefined],
                 // Free Text
                 freeTextFourteen: [undefined],
+                // disbursementClause: [undefined],
             })
         );
     }
@@ -140,7 +141,7 @@ export class AutoLoanComponent implements OnInit {
                     this.tempInformation ?
                         this.tempInformation.section2.autoLoanFreeText[i].newEMIAutoPopulateAutoLoan1 :
                         'निकासा भएको पछिल्लोे महिना देखि किस्ता भुक्तानी मिति हुनेछ');
-                }
+            }
             }
         }
 

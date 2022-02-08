@@ -172,7 +172,11 @@ export class BankGuaranteeComponent implements OnInit {
     const convertCommissionBidBond = this.convertNumbersToNepali(this.bankGuarantee.get(['bankGuaranteeArray', index, 'commissionInPercentageBidBond']).value, false);
     this.bankGuarantee.get(['bankGuaranteeArray', index, 'commissionInPercentageBidBondTrans']).patchValue(convertCommissionBidBond);
     const convertCommission2BidBond = this.convertNumbersToNepali(this.bankGuarantee.get(['bankGuaranteeArray', index, 'commissionInPercentage2BidBond']).value, false);
-    this.bankGuarantee.get(['bankGuaranteeArray', index, 'commissionInPercentage2BidBondTrans']).patchValue(convertCommissionBidBond);
+    this.bankGuarantee.get(['bankGuaranteeArray', index, 'commissionInPercentage2BidBondTrans']).patchValue(convertCommission2BidBond);
+    const convertcommissionInPercentage2PFG = this.convertNumbersToNepali(this.bankGuarantee.get(['bankGuaranteeArray', index, 'commissionInPercentage2PFG']).value, false);
+    this.bankGuarantee.get(['bankGuaranteeArray', index, 'commissionInPercentage2PFGTrans']).patchValue(convertcommissionInPercentage2PFG);
+    const convertmarginInPercentagePFG = this.convertNumbersToNepali(this.bankGuarantee.get(['bankGuaranteeArray', index, 'marginInPercentagePFG']).value, false);
+    this.bankGuarantee.get(['bankGuaranteeArray', index, 'marginInPercentagePFGTrans']).patchValue(convertmarginInPercentagePFG);
     const serviceChargeInPercent = this.bankGuarantee.get(['bankGuaranteeArray', index, 'serviceChargeInPercent']).value;
     if (!ObjectUtil.isEmpty(serviceChargeInPercent)) {
       // tslint:disable-next-line:max-line-length
@@ -292,6 +296,12 @@ export class BankGuaranteeComponent implements OnInit {
     this.bankGuarantee.get(['bankGuaranteeArray', index, 'dateOfExpiryCT']).patchValue(
         this.bankGuarantee.get(['bankGuaranteeArray', index, 'dateOfExpiryTrans']).value
     );
+    this.bankGuarantee.get(['bankGuaranteeArray', index, 'commissionInPercentage2PFGCT']).patchValue(
+        this.bankGuarantee.get(['bankGuaranteeArray', index, 'commissionInPercentage2PFGTrans']).value
+    );
+    this.bankGuarantee.get(['bankGuaranteeArray', index, 'marginInPercentagePFGCT']).patchValue(
+        this.bankGuarantee.get(['bankGuaranteeArray', index, 'marginInPercentagePFGTrans']).value
+    );
   }
   /* FOR CURRENCY FORMATTER IT TAKES PARAMETER TYPE TRUE*/
   convertNumbersToNepali(val, type: boolean) {
@@ -367,6 +377,12 @@ export class BankGuaranteeComponent implements OnInit {
       complimentaryLoanSelected: [undefined],
       complimentaryLoanSelectedTrans: [undefined],
       complimentaryLoanSelectedCT: [undefined],
+      commissionInPercentage2PFG: [undefined],
+      commissionInPercentage2PFGTrans: [undefined],
+      commissionInPercentage2PFGCT: [undefined],
+      marginInPercentagePFG: [undefined],
+      marginInPercentagePFGTrans: [undefined],
+      marginInPercentagePFGCT: [undefined]
     });
   }
   addLoanFormArr() {

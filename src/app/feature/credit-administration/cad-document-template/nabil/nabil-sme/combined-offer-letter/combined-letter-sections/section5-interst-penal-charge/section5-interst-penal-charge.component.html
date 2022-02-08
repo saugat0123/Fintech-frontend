@@ -365,11 +365,11 @@
                                     <strong>ऋण प्रतिबद्धता शुल्क:</strong>
                                     <br>
                                     <!--This clause is applicables only in case of new term loan/auto loan-->
-                                    <span *ngIf="isAutoLoanSelected || isTermLoanSelected; else workingCapital">
+                                    <span *ngIf="isAutoLoanSelected || termSelected">
                                             स्वीकृत दीर्घकालिन कर्जा सीमा पुर्ण वा आंशिक रुपमा उपयोग नभएमा सो उपयोग नभएको कर्जा सीमामा <strong>०.१५</strong> प्रतिशतका दरले प्रतिबद्धता शुल्क लाग्नेछ ।
                                         </span>
                                     <!--For working capital loan-->
-                                    <ng-template #workingCapital>
+                                    <ng-template *ngIf="isWorkingCapitalLoan" #workingCapital>
                                         <span>
                                             अल्पकालिन तथा चालु पुँजी प्रकृतिका कोषमा आधारित स्वीकृत कर्जा सुविधाका हकमा स्वीकृत कर्जा सीमाको औसत उपयोग
                                             <input class="form-field form-control-sm font-weight-bold"
