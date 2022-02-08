@@ -81,7 +81,9 @@ export class AssignmentOfReceivableProprietorshipComponent implements OnInit {
 
   dateConvert() {
     let date;
+    let date2;
     this.companyInfo.forEach(val => {
+      if (val.ownerNationality === 'Nepali') {
       if (val.radioOwnerCitizenshipIssuedDate === 'AD') {
         date = this.engToNepaliDate.transform(val ?
             val.ownerCitizenshipIssuedDateCT : val.ownerCitizenshipIssuedDateCT, true) || '';
@@ -92,6 +94,73 @@ export class AssignmentOfReceivableProprietorshipComponent implements OnInit {
         issueDate : date
       };
       this.issueDate.push(newDate);
+    }
+      if (val.ownerNationality === 'Indian' && val.indianOwnerDetailOption === 'Passport') {
+        if (val.indianOwnerPassportIssuedDateOption === 'AD') {
+          date = this.engToNepaliDate.transform(val ?
+              val.indianOwnerPassportIssuedDateCT : val.indianOwnerPassportIssuedDateCT, true) || '';
+        }
+        if (val.indianOwnerPassportValidityDateOption === 'AD') {
+          date2 = this.engToNepaliDate.transform(val ?
+              val.indianOwnerPassportValidityDateCT : val.indianOwnerPassportValidityDateCT, true) || '';
+        }
+        if (val.indianOwnerPassportIssuedDateOption === 'BS') {
+          date = val ? val.indianOwnerPassportIssuedDateCT.nDate : '';
+        }
+        if (val.indianOwnerPassportValidityDateOption === 'BS') {
+          date2 = val ? val.indianOwnerPassportValidityDateCT.nDate : '';
+        }
+        const newDate = {
+          issueDate : date,
+          validDate : date2
+        };
+        this.issueDate.push(newDate);
+      }
+      if (val.ownerNationality === 'Indian' && val.indianOwnerDetailOption === 'Adhar Card') {
+        if (val.indianOwnerAdharCardIssuedDateOption === 'AD') {
+          date = this.engToNepaliDate.transform(val ?
+              val.indianOwnerAdharCardIssuedDateCT : val.indianOwnerAdharCardIssuedDateCT, true) || '';
+        } else {
+          date = val ? val.indianOwnerAdharCardIssuedDateCT.nDate : '';
+        }
+        const newDate = {
+          issueDate : date,
+        };
+        this.issueDate.push(newDate);
+      }
+      if (val.ownerNationality === 'Indian' && val.indianOwnerDetailOption === 'Embassy Certificate') {
+        if (val.indianEmbassyIssuedDateOption === 'AD') {
+          date = this.engToNepaliDate.transform(val ?
+              val.indianEmbassyIssuedDateCT : val.indianEmbassyIssuedDateCT, true) || '';
+        } else {
+          date = val ? val.indianEmbassyIssuedDateCT.nDate : '';
+        }
+        const newDate = {
+          issueDate : date,
+        };
+        this.issueDate.push(newDate);
+      }
+      if (val.ownerNationality === 'Other') {
+        if (val.otherOwnerPassportIssuedDateOption === 'AD') {
+          date = this.engToNepaliDate.transform(val ?
+              val.otherOwnerPassportIssuedDateCT : val.otherOwnerPassportIssuedDateCT, true) || '';
+        }
+        if (val.otherOwnerPassportValidityDateOption === 'AD') {
+          date2 = this.engToNepaliDate.transform(val ?
+              val.otherOwnerPassportValidityDateCT : val.otherOwnerPassportValidityDateCT, true) || '';
+        }
+        if (val.otherOwnerPassportIssuedDateOption === 'BS') {
+          date = val ? val.otherOwnerPassportIssuedDate.nDate : '';
+        }
+        if (val.otherOwnerPassportValidityDateOption === 'BS') {
+          date2 = val ? val.otherOwnerPassportValidityDateCT.nDate : '';
+        }
+        const newDate = {
+          issueDate : date,
+          validDate : date2
+        };
+        this.issueDate.push(newDate);
+      }
     });
   }
 
