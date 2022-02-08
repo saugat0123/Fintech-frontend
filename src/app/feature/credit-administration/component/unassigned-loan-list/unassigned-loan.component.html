@@ -45,7 +45,7 @@
                         <a (click)="openAssignPopUp(model)" *ngIf="model?.totalLoan > 0 && storage?.roleType !== roleType?.MAKER"
                            nbTooltip="click to assign"><em
                                 class="fa fa-user"></em></a>
-                        <a (click)="openPopUp(pullDocument,model)" *ngIf="model?.totalLoan > 0 && storage.roleType == roleType.MAKER && !productUtils?.CAD_ADMIN_ENABLE"
+                        <a (click)="openPopUp(pullDocument,model)" *ngIf="model?.totalLoan > 0 && storage.roleType === roleType.MAKER && !productUtils?.CAD_ADMIN_ENABLE"
                            nbTooltip="click to pull"><em
                                 class="fas fa-angle-double-down"></em></a>
                     </td>

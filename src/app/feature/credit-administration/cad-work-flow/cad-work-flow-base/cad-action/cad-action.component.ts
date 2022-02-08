@@ -88,7 +88,8 @@ export class CadActionComponent implements OnInit, OnChanges {
     isForApproveMaker = false;
     selectedTemplate;
     commentVar;
-
+    unAssign = false;
+    productUtil = LocalStorageUtil.getStorage().productUtil;
     constructor(private router: ActivatedRoute,
                 private route: Router,
                 private loanActionService: LoanActionService,
@@ -118,6 +119,11 @@ export class CadActionComponent implements OnInit, OnChanges {
         this.backwardTooltipMessageAndShowHideBackward();
 
         this.checkForwardValidMessage();
+        if (!this.productUtil.CAD_ADMIN_ENABLE && this.currentCADStage.docAction === 'PULLED'
+            && this.isMaker && this.currentCADStage.fromUser.id.toString() === this.currentUserId
+            && this.currentStatus === 'OFFER_PENDING') {
+            this.unAssign = true;
+        }
     }
 
     checkForwardValidMessage() {
@@ -159,7 +165,15 @@ export class CadActionComponent implements OnInit, OnChanges {
         this.isActionClicked.emit(this.isOpened);
         this.isForApproveMaker = false;
     }
-
+    close() {
+        this.modalService.dismissAll();
+    }
+    openPopUp(template) {
+        this.modalService.open(template, {
+            size: 'xl',
+            windowClass: 'on-pull-click full-width modal'
+        });
+    }
     closeNb() {
         this.dialogRef.close();
         this.isOpened = false;
@@ -387,5 +401,17 @@ export class CadActionComponent implements OnInit, OnChanges {
     ngOnChanges(changes: SimpleChanges): void {
         this.checkForwardValidMessage();
     }
+
+    unAssignAssignedLoan() {
+        this.cadService.unAssignAssignedLoan(this.cadId).subscribe(() => {
+            this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Unassigned Loan'));
+            this.route.navigateByUrl('/home/credit');
+            this.modalService.dismissAll();
+        }, err => {
+            this.toastService.show(new Alert(AlertType.DANGER, 'Something Went Wrong'));
+            this.modalService.dismissAll();
+        });
+    }
+
 
 }

@@ -3,7 +3,8 @@
         <div class="clearfix" *ngIf="!isOpened">
             <div class="float-left">
                 <button nbButton size="small" status="primary" [nbTooltip]="backwardToolTip"
-                      [disabled]="isBackwardDisabled"  (click)="approvedForwardBackward(sendForwardBackward,'BACKWARD',false)">RETURN
+                      [disabled]="isBackwardDisabled"
+                        (click)="unAssign?openPopUp(pullDocument):approvedForwardBackward(sendForwardBackward,'BACKWARD',false)">RETURN
                 </button>
                 <button nbButton size="small" outline status="success" shape="rectangle"
                         *ngIf="!isMaker && showHideReturnToRm" (click)="approvedForwardBackward(sendForwardBackward,'BACKWARD',true)">RETURN TO
@@ -141,3 +142,33 @@
         </div>
     </div>
 </ng-template>
+<ng-template #pullDocument>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Un-Assign Loan Document</h4>
+        <a class="close pull-right cursor" aria-label="Close" (click)="close()">
+            <span aria-hidden="true">&times;</span>
+        </a>
+    </div>
+    <div class="modal-body">
+        Are you sure the loan file will move to UnAssigned Loan?
+
+
+        <div class="col-md-12">
+            <form>
+                <div class="d-flex justify-content-end">
+                    <div class="px-2">
+                        <button type="submit" class="btn btn-danger btn-sm btn-flat fa-pull-left" (click)="close()">
+                            NO
+                        </button>
+                    </div>
+                    <button type="submit" class="btn btn-sm btn-success float-right" (click)="unAssignAssignedLoan()">YES
+                    </button>
+                </div>
+            </form>
+
+        </div>
+
+
+    </div>
+</ng-template>
+
