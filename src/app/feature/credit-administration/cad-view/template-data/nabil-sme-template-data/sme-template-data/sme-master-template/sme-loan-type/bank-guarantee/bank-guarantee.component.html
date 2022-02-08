@@ -147,7 +147,7 @@
         <!-- GUARANTEE TYPE IS APG/PFG/BID BOND-->
         <div class="row" *ngIf="bankGuarantee.get(['bankGuaranteeArray', i, 'guaranteeType']).value === 'APG/PFG/Bid Bond'">
             <div class="col-md-4 form-group">
-                <label class="font-weight-bold" for="commissionInPercentageAPG">Commission in Percentage (%) for
+                <label class="font-weight-bold" for="commissionInPercentageAPG">Margin in Percentage (%) for
                     APG</label>
                 <input class="form-control" formControlName="commissionInPercentageAPG" fullWidth
                        id="commissionInPercentageAPG"
@@ -170,9 +170,33 @@
                        shape="semi-round"
                        status="success" type="text">
             </div>
+            <div class="col-md-4 form-group">
+                <label class="font-weight-bold" for="marginInPercentagePFG">Margin in Percentage (%) for
+                    PFG</label>
+                <input class="form-control" formControlName="marginInPercentagePFG" fullWidth
+                       id="marginInPercentagePFG"
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="number">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="marginInPercentagePFGTrans" fullWidth
+                       id="marginInPercentagePFGTrans"
+                       readonly
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="marginInPercentagePFGCT" fullWidth
+                       id="marginInPercentagePFGCT"
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
             <!--IF GUARANTEE TYPE IS APG/PFG/BID BOND and COMMISSION TYPE 2-->
             <div class="col-md-4 form-group">
-                <label class="font-weight-bold" for="commissionInPercentageBidBond">Commission in Percentage (%) for Bid
+                <label class="font-weight-bold" for="commissionInPercentageBidBond">Margin in Percentage (%) for Bid
                     Bond</label>
                 <input class="form-control" formControlName="commissionInPercentageBidBond" fullWidth
                        id="commissionInPercentageBidBond"
@@ -253,6 +277,30 @@
             <div class="col-md-4 form-group fieldMargin">
                 <input class="form-control" formControlName="commissionInPercentage2APGCT" fullWidth
                        id="commissionInPercentage2APGCT"
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+            <div class="col-md-4 form-group">
+                <label class="font-weight-bold" for="commissionInPercentage2PFG">Commission in Percentage (%) for
+                    PFG</label>
+                <input class="form-control" formControlName="commissionInPercentage2PFG" fullWidth
+                       id="commissionInPercentage2PFG"
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="number">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="commissionInPercentage2PFGTrans" fullWidth
+                       id="commissionInPercentage2PFGTrans"
+                       readonly
+                       nbInput
+                       shape="semi-round"
+                       status="success" type="text">
+            </div>
+            <div class="col-md-4 form-group fieldMargin">
+                <input class="form-control" formControlName="commissionInPercentage2PFGCT" fullWidth
+                       id="commissionInPercentage2PFGCT"
                        nbInput
                        shape="semi-round"
                        status="success" type="text">
