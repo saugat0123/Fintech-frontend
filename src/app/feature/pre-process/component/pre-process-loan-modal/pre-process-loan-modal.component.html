@@ -34,10 +34,6 @@
                 <span class="customFont"> {{ parsedData?.loanAmount}} </span>
             </div>
             <div class="col-md-4 mb-5">
-                <span class="font-weight-bold customFont">Debt Burden Ratio (DBR) : </span>
-                <span class="customFont"> {{ parsedData?.debtBurdenRatio}} </span>
-            </div>
-            <div class="col-md-4 mb-5">
                 <span class="font-weight-bold customFont">Term : </span>
                 <span class="customFont"> {{ parsedData?.loanTerm}} </span>
             </div>
@@ -59,13 +55,13 @@
             </div>
 
             <div class="col-md-4 mb-5">
-                <span class="font-weight-bold customFont">Loan To Value: </span>
-                <span class="customFont"> {{ parsedData?.loanToValue}} </span>
+                <span class="font-weight-bold customFont">Loan To Value Purpose</span>
+                <span class="customFont"> {{ parsedData?.loanToValuePurpose}} </span>
             </div>
 
             <div class="col-md-4 mb-5">
-                <span class="font-weight-bold customFont">Selected Security: </span>
-                <span class="customFont"> {{ parsedData?.selectedSecurity}} </span>
+                <span class="font-weight-bold customFont">Loan To Value: </span>
+                <span class="customFont"> {{ parsedData?.loanToValue}} </span>
             </div>
 
             <div class="col-md-4 mb-5">
@@ -78,9 +74,29 @@
                 <span class="customFont"> {{ parsedData?.thailiAmount}} </span>
             </div>
 
+            <div class="col-md-4 mb-5" *ngIf="parsedData?.loanToValuePurpose === 'Construction and Renovation/Extension'">
+                <span class="font-weight-bold customFont"> Construction / Renovation Cost </span>
+                <span class="customFont"> {{parsedData?.constructionCost}}</span>
+            </div>
+
+            <div class="col-md-4 mb-5">
+                <span class="font-weight-bold customFont"> Total Monthly Gross Income</span>
+                <span class="customFont"> {{parsedData?.totalMonthlyGrossIncome}}</span>
+            </div>
+
+            <div class="col-md-4 mb-5">
+                <span class="font-weight-bold customFont">Debt Burden Ratio (DBR) : </span>
+                <span class="customFont"> {{ parsedData?.debtBurdenRatio}} </span>
+            </div>
+
             <div class="col-md-4 mb-5">
                 <span class="font-weight-bold customFont">Total Elapsed Time: </span>
                 <span class="customFont"> {{ parsedData?.totalElapsedTime}} </span>
+            </div>
+
+            <div class="col-md-4 mb-5">
+                <span class="font-weight-bold customFont">Selected Security: </span>
+                <span class="customFont"> {{ parsedData?.selectedSecurity | replace:'_':' '}} </span>
             </div>
 
             <div class="col-md-4 mb-5">
