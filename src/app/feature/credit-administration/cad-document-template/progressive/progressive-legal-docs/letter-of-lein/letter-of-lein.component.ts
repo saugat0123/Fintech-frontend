@@ -15,9 +15,6 @@ import {ProgressiveLegalDocConst} from '../progressive-legal-doc-const';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
 import {CadFile} from '../../../../model/CadFile';
 import {Document} from '../../../../../admin/modal/document';
-import {ProposalCalculationUtils} from '../../../../../loan/component/loan-summary/ProposalCalculationUtils';
-import {LoanDataKey} from '../../../../../../@core/utils/constants/loan-data-key';
-import {NepaliNumberAndWords} from '../../../../model/nepaliNumberAndWords';
 import {EngToNepaliNumberPipe} from '../../../../../../@core/pipe/eng-to-nepali-number.pipe';
 import {CurrencyFormatterPipe} from '../../../../../../@core/pipe/currency-formatter.pipe';
 
@@ -45,10 +42,7 @@ export class LetterOfLeinComponent implements OnInit {
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
-              private routerUtilsService: RouterUtilsService,
-              private customerOfferLetterService: CustomerOfferLetterService,
-              private engToNepNumberPipe: EngToNepaliNumberPipe,
-              private currencyFormatPipe: CurrencyFormatterPipe) {
+              private routerUtilsService: RouterUtilsService) {
   }
 
   ngOnInit() {

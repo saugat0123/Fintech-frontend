@@ -31,14 +31,9 @@
               <span [ngClass]="{'nepaliFont unicode-size' : guarantor?.borrowerPermanentDistrict !== null && guarantor?.borrowerPermanentDistrict !== ''}">
                 {{guarantor?.borrowerPermanentDistrict === null || guarantor?.borrowerPermanentDistrict === '' ? '_________________' : guarantor?.borrowerPermanentDistrict}}
               </span>जिल्ला,
-              <span *ngIf="guarantor?.borrowerPermanentMunType === '0'; else borrowerPermanentVdc" [ngClass]="{'nepaliFont unicode-size' : guarantor?.borrowerPermanentMunicipality !== null && guarantor?.borrowerPermanentMunicipality !== ''}">
+              <span [ngClass]="{'nepaliFont unicode-size' : guarantor?.borrowerPermanentMunicipality !== null && guarantor?.borrowerPermanentMunicipality !== ''}">
                 {{guarantor?.borrowerPermanentMunicipality === null || guarantor?.borrowerPermanentMunicipality === '' ? '_________________' : guarantor?.borrowerPermanentMunicipality}}
               </span>
-              <ng-template #borrowerPermanentVdc>
-                   <span [ngClass]="{'nepaliFont uniFont' : guarantor?.borrowerPermanentVdc !== null && guarantor?.borrowerPermanentVdc !== ''}">
-                {{guarantor?.borrowerPermanentVdc === null || guarantor?.borrowerPermanentVdc === '' ? '_________________' : guarantor?.borrowerPermanentVdc}}
-              </span>
-              </ng-template>
               गा.पा./न.पा./म.न.पा., वडा नं.
               <span [ngClass]="{'nepaliFont' : guarantor?.borrowerPermanentWardNo !== null && guarantor?.borrowerPermanentWardNo !== ''}">
                 {{guarantor?.borrowerPermanentWardNo === null || guarantor?.borrowerPermanentWardNo === '' ? '_________________' : guarantor?.borrowerPermanentWardNo}}
@@ -46,13 +41,9 @@
               <span [ngClass]="{'nepaliFont unicode-size' : guarantor?.borrowerTempDistrict !== null && guarantor?.borrowerTempDistrict !== ''}">
                 {{guarantor?.borrowerTempDistrict === null || guarantor?.borrowerTempDistrict === '' ? '_________________' : guarantor?.borrowerTempDistrict}}
               </span>जिल्ला,
-              <span *ngIf="guarantor?.borrowerTemporaryMunType === '0'; else borrowerTemporaryVdc"  [ngClass]="{'nepaliFont unicode-size' : guarantor?.borrowerTempMunicipality !== null && guarantor?.borrowerTempMunicipality !== ''}">
+              <span [ngClass]="{'nepaliFont unicode-size' : guarantor?.borrowerTempMunicipality !== null && guarantor?.borrowerTempMunicipality !== ''}">
                 {{guarantor?.borrowerTempMunicipality === null || guarantor?.borrowerTempMunicipality === '' ? '_________________' : guarantor?.borrowerTempMunicipality}}
               </span>
-              <ng-template #borrowerTemporaryVdc>
-                   <span [ngClass]="{'nepaliFont uniFont' : guarantor?.borrowerTemporaryVdc !== null && guarantor?.borrowerTemporaryVdc !== ''}">
-                {{guarantor?.borrowerTemporaryVdc === null || guarantor?.borrowerTemporaryVdc === '' ? '_________________' : guarantor?.borrowerTemporaryVdc}}</span>
-              </ng-template>
               गा.पा./न.पा./म.न.पा., वडा न.
               <span [ngClass]="{'nepaliFont' : guarantor?.borrowerTempWardNo !== null && guarantor?.borrowerTempWardNo !== ''}">
                 {{guarantor?.borrowerTempWardNo === null || guarantor?.borrowerTempWardNo === '' ? '_________________' : guarantor?.borrowerTempWardNo}}
@@ -121,15 +112,9 @@
 </span>
                         जिल्ला,
                         <span
-                                *ngIf="guarantor?.guarantorPermanentMunType === '0'; else guarantorPermanentVdc"
                                 [ngClass]="{'nepaliFont unicode-size' : guarantor?.guarantorPermanentMunicipality !== null && guarantor?.guarantorPermanentMunicipality !== ''}">
     {{guarantor?.guarantorPermanentMunicipality === null || guarantor?.guarantorPermanentMunicipality === '' ? '_________________' : guarantor?.guarantorPermanentMunicipality}}
 </span>
-                        <ng-template #guarantorPermanentVdc>
-                   <span [ngClass]="{'nepaliFont uniFont' : guarantor?.guarantorPermanentVdc !== null && guarantor?.guarantorPermanentVdc !== ''}">
-                {{guarantor?.guarantorPermanentVdc === null || guarantor?.guarantorPermanentVdc === '' ? '_________________' : guarantor?.guarantorPermanentVdc}}
-              </span>
-                        </ng-template>
                         गा.पा./न.पा., वडा नं.
                         <span [ngClass]="{'nepaliFont' : guarantor?.guarantorPermanentWardNo !== null && guarantor?.guarantorPermanentWardNo !== ''}">
     {{guarantor?.guarantorPermanentWardNo === null || guarantor?.guarantorPermanentWardNo === '' ? '_________________' : guarantor?.guarantorPermanentWardNo}}
@@ -151,15 +136,9 @@
 </span>
                         जिल्ला,
                         <span
-                                *ngIf="guarantor?.guarantorTemporaryMunType === '0'; else guarantorTemporaryVdc"
                                 [ngClass]="{'nepaliFont unicode-size' : guarantor?.guarantorTempMunicipality !== null && guarantor?.guarantorTempMunicipality !== ''}">
     {{guarantor?.guarantorTempMunicipality === null || guarantor?.guarantorTempMunicipality === '' ? '_________________' : guarantor?.guarantorTempMunicipality}}
 </span>
-                        <ng-template #guarantorTemporaryVdc>
-                   <span [ngClass]="{'nepaliFont uniFont' : guarantor?.guarantorTemporaryVdc !== null && guarantor?.guarantorTemporaryVdc !== ''}">
-                {{guarantor?.guarantorTemporaryVdc === null || guarantor?.guarantorTemporaryVdc === '' ? '_________________' : guarantor?.guarantorTemporaryVdc}}
-              </span>
-                        </ng-template>
                         गा.पा./न.पा., वडा नं.
                         <span [ngClass]="{'nepaliFont' : guarantor?.guarantorTempWardNo !== null && guarantor?.guarantorTempWardNo !== ''}">
     {{guarantor?.guarantorTempWardNo === null || guarantor?.guarantorTempWardNo === '' ? '_________________' : guarantor?.guarantorTempWardNo}}

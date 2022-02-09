@@ -77,15 +77,9 @@
                         <td style="text-align: left"><span
                                 class="nepaliFont sizefont">{{printDocForm?.sincerlyPermanentAddress}}</span>
                             जिल्ला, <span
-                                    *ngIf="printDocForm?.borrowerPermanentMunType === '0'; else borrowerPermanentVdc"
                                     [ngClass]="{'nepaliFont sizefont' : printDocForm?.jillaName !== null && printDocForm?.jillaName !== ''}">
                         {{printDocForm?.jillaName === null || printDocForm?.jillaName === '' ? '________________' : printDocForm?.jillaName}}
                         </span>
-                            <ng-template #borrowerPermanentVdc>
-                   <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.borrowerPermanentVdc !== null && printDocForm?.borrowerPermanentVdc !== ''}">
-                {{printDocForm?.borrowerPermanentVdc === null || printDocForm?.borrowerPermanentVdc === '' ? '_________________' : printDocForm?.borrowerPermanentVdc}}
-              </span>
-                            </ng-template>
                             गा.पा./न.पा., वडा नं.<span
                                     [ngClass]="{'nepaliFont' : printDocForm?.jagaName !== null && printDocForm?.jagaName !== ''}">
                         {{printDocForm?.jagaName === null || printDocForm?.jagaName === '' ? '________________' : printDocForm?.jagaName}}
@@ -94,7 +88,7 @@
                                     [ngClass]="{'nepaliFont sizefont' : printDocForm?.sincerlyPermanentAddress !== null && printDocForm?.sincerlyPermanentAddress !== ''}">
                         {{printDocForm?.sincerlyPermanentAddress === null || printDocForm?.sincerlyPermanentAddress === '' ? '________________' : printDocForm?.sincerlyPermanentAddress}}
                         </span>,
-                            <span *ngIf="printDocForm?.borrowerPermanentMunType === '0'; else borrowerPermanentVdc"
+                            <span
                                     [ngClass]="{'nepaliFont sizefont' : printDocForm?.jillaName !== null && printDocForm?.jillaName !== ''}">
                         {{printDocForm?.jillaName === null || printDocForm?.jillaName === '' ? '________________' : printDocForm?.jillaName}}
                         </span>
@@ -112,14 +106,9 @@
                         {{printDocForm?.sincerlytempAddress === null || printDocForm?.sincerlytempAddress === '' ? '________________' : printDocForm?.sincerlytempAddress}}
                         </span>
                             जिल्ला, <span
-                                    *ngIf="printDocForm?.borrowerTemporaryMunType === '0'; else borrowerTemporaryVdc"
                                     [ngClass]="{'nepaliFont sizefont' : printDocForm?.jillaName1 !== null && printDocForm?.jillaName1 !== ''}">
                         {{printDocForm?.jillaName1 === null || printDocForm?.jillaName1 === '' ? '________________' : printDocForm?.jillaName1}}
                         </span>
-                            <ng-template #borrowerTemporaryVdc>
-                   <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.borrowerTemporaryVdc !== null && printDocForm?.borrowerTemporaryVdc !== ''}">
-                {{printDocForm?.borrowerTemporaryVdc === null || printDocForm?.borrowerTemporaryVdc === '' ? '_________________' : printDocForm?.borrowerTemporaryVdc}}</span>
-                            </ng-template>
                             गा.पा./न.पा., वडा नं.
                             <span
                                     [ngClass]="{'nepaliFont' : printDocForm?.jagaName1 !== null && printDocForm?.jagaName1 !== ''}">

@@ -113,8 +113,8 @@ export class OfferLetterPersonalComponent implements OnInit {
                 valuatorName: this.nepaliData.valuatorName ? this.nepaliData.valuatorName : '',
                 fairMarketValue: this.nepaliData.fairMarketValue ? this.nepaliData.fairMarketValue : '',
                 distressValue: this.nepaliData.distressValue ? this.nepaliData.distressValue : '',
-                amount3: this.loanAmount.numberNepali ? this.loanAmount.numberNepali : '',
-                amountInWords3: this.loanAmount.nepaliWords ? this.loanAmount.nepaliWords : '',
+                amount3: !ObjectUtil.isEmpty(this.loanAmount) ? this.loanAmount.numberNepali : '',
+                amountInWords3: !ObjectUtil.isEmpty(this.loanAmount) ? this.loanAmount.nepaliWords : '',
             });
             this.setEmptyGuarantors(this.nepaliData.guarantorDetails);
             this.setSecurityDetails(this.nepaliData.collateralDetails);
@@ -179,8 +179,8 @@ export class OfferLetterPersonalComponent implements OnInit {
     }
 
     setLoanFacilityData() {
-        this.form.get(['loanFacilityTable', 0, 'amount']).patchValue(this.loanAmount.numberNepali);
-        this.form.get(['loanFacilityTable', 0, 'amountInWords']).patchValue(this.loanAmount.nepaliWords);
+        this.form.get(['loanFacilityTable', 0, 'amount']).patchValue(!ObjectUtil.isEmpty(this.loanAmount) ? this.loanAmount.numberNepali : '');
+        this.form.get(['loanFacilityTable', 0, 'amountInWords']).patchValue(!ObjectUtil.isEmpty(this.loanAmount) ? this.loanAmount.nepaliWords : '');
         this.form.get(['loanFacilityTable', 0, 'loanPurpose']).patchValue(this.nepDataPersonal.purposeOfLoan);
         this.form.get(['loanFacilityTable', 0, 'interestFinalRate']).patchValue(this.nepDataPersonal.interestRate);
         this.form.get(['loanFacilityTable', 0, 'interestBaseRate']).patchValue(this.nepDataPersonal.baseRate);
@@ -249,7 +249,7 @@ export class OfferLetterPersonalComponent implements OnInit {
                 jaggaSiNum: [undefined],
                 halMunVdc : [undefined],
                 sabikWardNo: [undefined],
-                halWardNo: [undefined]
+                halWardNo: [undefined],
             }));
     }
 
@@ -287,9 +287,9 @@ export class OfferLetterPersonalComponent implements OnInit {
                 name: [value.name],
                 officeType: [value.officeType],
                 branchName: [value.branchName],
-                loanApprovalDate: this.loanAmount.initDate,
-                loanApprovalNo: this.loanAmount.loanApprovalNo,
-                loanHolderName: this.nepaliData.name,
+                loanApprovalDate: [!ObjectUtil.isEmpty(this.loanAmount) ? this.loanAmount.initDate : ''],
+                loanApprovalNo: [!ObjectUtil.isEmpty(this.loanAmount) ? this.loanAmount.loanApprovalNo : ''],
+                loanHolderName: [this.nepaliData.name],
                 guarantorDistrict: [
                     !ObjectUtil.isEmpty(value.guarantorPermanentDistrict) ?
                         value.guarantorPermanentDistrict.nepaliName : ''
@@ -451,7 +451,7 @@ export class OfferLetterPersonalComponent implements OnInit {
             witnessName: [undefined],
             witnessAddress: [undefined],
             witnessName2: [undefined],
-            witnessAddress2: [undefined]
+            witnessAddress2: [undefined],
         });
     }
 

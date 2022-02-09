@@ -52,15 +52,9 @@
             {{printDocForm?.likhitDistrict === null || printDocForm?.likhitDistrict === '' ? '________________' : printDocForm.likhitDistrict }}
           </span>
                     जिल्ला,<span
-                        *ngIf="printDocForm?.borrowerPermanentMunType === '0'; else borrowerPermanentVdc"
                         [ngClass]="{'nepaliFont sizeFont':printDocForm?.likhitMunicipality!==null && printDocForm.likhitMunicipality!==''}">
             {{printDocForm?.likhitMunicipality === null || printDocForm?.likhitMunicipality === '' ? '________________' : printDocForm.likhitMunicipality }}
           </span>
-                    <ng-template #borrowerPermanentVdc>
-                   <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.borrowerPermanentVdc !== null && printDocForm?.borrowerPermanentVdc !== ''}">
-                {{printDocForm?.borrowerPermanentVdc === null || printDocForm?.borrowerPermanentVdc === '' ? '_________________' : printDocForm?.borrowerPermanentVdc}}
-              </span>
-                    </ng-template>
                     गा.पा./न.पा./उ.म.न.पा./म.न.पा., वडा नं.<span
                         [ngClass]="{'nepaliFont':printDocForm?.likhitWardNo!==null && printDocForm.likhitWardNo!==''}">
             {{printDocForm?.likhitWardNo === null || printDocForm?.likhitWardNo === '' ? '________________' : printDocForm.likhitWardNo }}
@@ -81,14 +75,9 @@
 
                     जिल्ला,
                     <span
-                            *ngIf="printDocForm?.borrowerTemporaryMunType === '0'; else borrowerTemporaryVdc"
                             [ngClass]="{'nepaliFont sizeFont':printDocForm?.tempVDC!==null && printDocForm.tempVDC!==''}">
             {{printDocForm?.tempVDC === null || printDocForm?.tempVDC === '' ? '________________' : printDocForm.tempVDC }}
           </span>
-                    <ng-template #borrowerTemporaryVdc>
-                   <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.borrowerTemporaryVdc !== null && printDocForm?.borrowerTemporaryVdc !== ''}">
-                {{printDocForm?.borrowerTemporaryVdc === null || printDocForm?.borrowerTemporaryVdc === '' ? '_________________' : printDocForm?.borrowerTemporaryVdc}}</span>
-                    </ng-template>
                     गा.पा./न.पा./उ.म.न.पा./म.न.पा., वडा नं.<span
                         [ngClass]="{'nepaliFont':printDocForm?.tempWardNo!==null && printDocForm.tempWardNo!==''}">
             {{printDocForm?.tempWardNo === null || printDocForm?.tempWardNo === '' ? '________________' : printDocForm.tempWardNo }}

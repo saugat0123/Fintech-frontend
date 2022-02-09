@@ -82,10 +82,6 @@ export class LetterOfContinuityComponent implements OnInit {
                 borrowerTempMunicipality: this.nepaliData.temporaryMunicipalities.nepaliName ? this.nepaliData.temporaryMunicipalities.nepaliName : '',
                 borrowerTempWardNo: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
                 borrowerTempDistrict: this.nepaliData.temporaryDistrict.nepaliName ? this.nepaliData.temporaryDistrict.nepaliName : '',
-                borrowerPermanentMunType: this.nepaliData.permanentMunType ? this.nepaliData.permanentMunType : '',
-                borrowerPermanentVdc: this.nepaliData.permanentVdc ? this.nepaliData.permanentVdc : '',
-                borrowerTemporaryMunType: this.nepaliData.temporaryMunType ? this.nepaliData.temporaryMunType : '',
-                borrowerTemporaryVdc: this.nepaliData.temporaryVdc ? this.nepaliData.temporaryVdc : ''
             });
         }
         this.form.get('amount').patchValue(loanAmount.numberNepali);
@@ -177,10 +173,6 @@ export class LetterOfContinuityComponent implements OnInit {
             witnessIssuedPlace1: [undefined],
             witnessMunicipality1: [undefined],
             witnessWardNo1: [undefined],
-            borrowerPermanentMunType: [undefined],
-            borrowerPermanentVdc: [undefined],
-            borrowerTemporaryMunType: [undefined],
-            borrowerTemporaryVdc: [undefined],
         });
     }
 

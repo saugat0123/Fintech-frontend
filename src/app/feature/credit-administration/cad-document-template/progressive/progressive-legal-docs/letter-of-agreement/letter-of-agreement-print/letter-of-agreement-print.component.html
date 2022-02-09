@@ -16,15 +16,10 @@
               </span>
               जिल्ला
               <span
-                      *ngIf="printDocForm?.borrowerPermanentMunType === '0'; else borrowerPermanentVdc"
                       [ngClass]="{'nepaliFont unicode-size' : printDocForm?.perMunicipality !== null && printDocForm?.perMunicipality !== ''}">
                   {{printDocForm?.perMunicipality === null || printDocForm?.perMunicipality === '' ? '_________________' : printDocForm?.perMunicipality}}
               </span>
-              <ng-template #borrowerPermanentVdc>
-                   <span [ngClass]="{'nepaliFont uniFont' : printDocForm?.borrowerPermanentVdc !== null && printDocForm?.borrowerPermanentVdc !== ''}">
-                {{printDocForm?.borrowerPermanentVdc === null || printDocForm?.borrowerPermanentVdc === '' ? '_________________' : printDocForm?.borrowerPermanentVdc}}
-              </span>
-              </ng-template>
+
               न.पा./गा.वि.स. वडा नं.
               <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.perWardNo !== null && printDocForm?.perWardNo !== ''}">
                   {{printDocForm?.perWardNo === null || printDocForm?.perWardNo === '' ? '_________________' : printDocForm?.perWardNo}}

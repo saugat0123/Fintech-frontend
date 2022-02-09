@@ -91,10 +91,6 @@ export class LetterOfDisbursementComponent implements OnInit {
           grandParentName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
           husbandWifeName: this.nepaliData.husbandName ? this.nepaliData.husbandName : '',
           accNumber: this.nepaliData.accountNo ? this.nepaliData.accountNo : '',
-          borrowerPermanentMunType: this.nepaliData.permanentMunType ? this.nepaliData.permanentMunType : '',
-          borrowerPermanentVdc: this.nepaliData.permanentVdc ? this.nepaliData.permanentVdc : '',
-          borrowerTemporaryMunType: this.nepaliData.temporaryMunType ? this.nepaliData.temporaryMunType : '',
-          borrowerTemporaryVdc: this.nepaliData.temporaryVdc ? this.nepaliData.temporaryVdc : ''
         });
       } else {
         this.form.patchValue({
@@ -261,10 +257,6 @@ export class LetterOfDisbursementComponent implements OnInit {
       witnessIssuedPlace1: [undefined],
       witnessMunicipality1: [undefined],
       witnessWardNo1: [undefined],
-      borrowerPermanentMunType: [undefined],
-      borrowerPermanentVdc: [undefined],
-      borrowerTemporaryMunType: [undefined],
-      borrowerTemporaryVdc: [undefined],
     });
   }
 

@@ -100,10 +100,6 @@ export class LoanDeedComponent implements OnInit {
                 cdoOffice: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
                 loanApprovedDate: loanAmount.initDate ? loanAmount.initDate : '',
                 gender: this.nepaliData.gender ? this.nepaliData.gender : '',
-                borrowerPermanentMunType: this.nepaliData.permanentMunType ? this.nepaliData.permanentMunType : '',
-                borrowerPermanentVdc: this.nepaliData.permanentVdc ? this.nepaliData.permanentVdc : '',
-                borrowerTemporaryMunType: this.nepaliData.temporaryMunType ? this.nepaliData.temporaryMunType : '',
-                borrowerTemporaryVdc: this.nepaliData.temporaryVdc ? this.nepaliData.temporaryVdc : ''
             });
         }
         this.form.get(['swikritiBibaran', 0, 'loanType']).patchValue(this.nepDataPersonal.loanType);
@@ -282,11 +278,7 @@ export class LoanDeedComponent implements OnInit {
             witnessCDOoffice1: [undefined],
             witnessIssuedPlace1: [undefined],
             witnessMunicipality1: [undefined],
-            witnessWardNo1: [undefined],
-            borrowerPermanentMunType: [undefined],
-            borrowerPermanentVdc: [undefined],
-            borrowerTemporaryMunType: [undefined],
-            borrowerTemporaryVdc: [undefined]
+            witnessWardNo1: [undefined]
         });
     }
 
