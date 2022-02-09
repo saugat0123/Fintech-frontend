@@ -126,13 +126,13 @@ export class EquityMortgagedOverdraftComponent implements OnInit {
         const baseRate = this.equityMortgaged.get(['equityMortgagedFormArray', i, 'baseRate']).value;
         const premiumRate = this.equityMortgaged.get(['equityMortgagedFormArray', i, 'premiumRate']).value;
         const sum = parseFloat(baseRate) + parseFloat(premiumRate);
-        this.equityMortgaged.get(['equityMortgagedFormArray', i, 'interestRate']).patchValue(sum.toFixed(3));
+        this.equityMortgaged.get(['equityMortgagedFormArray', i, 'interestRate']).patchValue(sum.toFixed(2));
     }
     calInterestRate1(i) {
         const baseRate = this.equityMortgaged.get(['mortgageOverdraftFormArray', i, 'baseRate']).value;
         const premiumRate = this.equityMortgaged.get(['mortgageOverdraftFormArray', i, 'premiumRate']).value;
         const sum = parseFloat(baseRate) + parseFloat(premiumRate);
-        this.equityMortgaged.get(['mortgageOverdraftFormArray', i, 'interestRate']).patchValue(sum.toFixed(3));
+        this.equityMortgaged.get(['mortgageOverdraftFormArray', i, 'interestRate']).patchValue(sum.toFixed(2));
     }
 
     public checkDateOfExpiry(value): void {
@@ -159,9 +159,9 @@ export class EquityMortgagedOverdraftComponent implements OnInit {
         );
         const convertedDrawingPower = this.convertNumbersToNepali(this.equityMortgaged.get(['equityMortgagedFormArray', i, 'drawingPower']).value, false);
         this.equityMortgaged.get(['equityMortgagedFormArray', i, 'drawingPowerTrans']).patchValue(convertedDrawingPower);
-        const convertedBaseRate = this.convertNumbersToNepali(this.equityMortgaged.get(['equityMortgagedFormArray', i, 'baseRate']).value, false);
+        const convertedBaseRate = this.convertNumbersToNepali(this.equityMortgaged.get(['equityMortgagedFormArray', i, 'baseRate']).value.toFixed(2), false);
         this.equityMortgaged.get(['equityMortgagedFormArray', i, 'baseRateTrans']).patchValue(convertedBaseRate);
-        const convertedPremiumRate = this.convertNumbersToNepali(this.equityMortgaged.get(['equityMortgagedFormArray', i, 'premiumRate']).value, false);
+        const convertedPremiumRate = this.convertNumbersToNepali(this.equityMortgaged.get(['equityMortgagedFormArray', i, 'premiumRate']).value.toFixed(2), false);
         this.equityMortgaged.get(['equityMortgagedFormArray', i, 'premiumRateTrans']).patchValue(convertedPremiumRate);
         const convertedInterestRate = this.convertNumbersToNepali(this.equityMortgaged.get(['equityMortgagedFormArray', i, 'interestRate']).value, false);
         this.equityMortgaged.get(['equityMortgagedFormArray', i, 'interestRateTrans']).patchValue(convertedInterestRate);
@@ -213,9 +213,9 @@ export class EquityMortgagedOverdraftComponent implements OnInit {
         );
         const convertedDrawingPower = this.convertNumbersToNepali(this.equityMortgaged.get(['mortgageOverdraftFormArray', i, 'drawingPower']).value, false);
         this.equityMortgaged.get(['mortgageOverdraftFormArray', i, 'drawingPowerTrans']).patchValue(convertedDrawingPower);
-        const convertedBaseRate = this.convertNumbersToNepali(this.equityMortgaged.get(['mortgageOverdraftFormArray', i, 'baseRate']).value, false);
+        const convertedBaseRate = this.convertNumbersToNepali(this.equityMortgaged.get(['mortgageOverdraftFormArray', i, 'baseRate']).value.toFixed(2), false);
         this.equityMortgaged.get(['mortgageOverdraftFormArray', i, 'baseRateTrans']).patchValue(convertedBaseRate);
-        const convertedPremiumRate = this.convertNumbersToNepali(this.equityMortgaged.get(['mortgageOverdraftFormArray', i, 'premiumRate']).value, false);
+        const convertedPremiumRate = this.convertNumbersToNepali(this.equityMortgaged.get(['mortgageOverdraftFormArray', i, 'premiumRate']).value.toFixed(2), false);
         this.equityMortgaged.get(['mortgageOverdraftFormArray', i, 'premiumRateTrans']).patchValue(convertedPremiumRate);
         const convertedInterestRate = this.convertNumbersToNepali(this.equityMortgaged.get(['mortgageOverdraftFormArray', i, 'interestRate']).value, false);
         this.equityMortgaged.get(['mortgageOverdraftFormArray', i, 'interestRateTrans']).patchValue(convertedInterestRate);
