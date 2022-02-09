@@ -3,7 +3,6 @@
                        [customerAllLoanList]="customerAllLoanList"
                        [proposalData]="proposalData"
                        [loanDataHolder]="loanDataHolder"></app-proposal-view>
-    <app-security-schedule [proposal]="proposalData" ></app-security-schedule>
 </div>
 <app-individual-view *ngIf="loanDataHolder?.loanCategory === 'INDIVIDUAL'"
                      [calendarType]="calendarType"
@@ -20,7 +19,7 @@
                        [customerInfo]="loanHolder"></app-company-info-view>
 <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl" [ciclValue]="loanDataHolder?.loanHolder?.cicl"></app-cicl-view>
 
-<div *ngIf="megaGroupEnabled">
+<div *ngIf="megaGroupEnabled && loanDataHolder?.loanHolder.mgroupInfo">
     <app-m-group-summary [mGroup]="loanDataHolder?.loanHolder.mgroupInfo"></app-m-group-summary>
 </div>
 
@@ -46,6 +45,7 @@
 <app-security-view *ngIf="loanHolder?.security?.data" [security]="loanHolder?.security"
                    [shareSecurityData]="loanHolder?.shareSecurity"
                    [securityId]="securityId"
+                   [proposal]="proposalData"
                    [collateralData]="loanDataHolder?.collateralSiteVisits"
                    [docStatus]="loanDataHolder?.documentStatus"
                    (downloadSiteVisitDocument)="checkSiteVisitDocument($event)"></app-security-view>

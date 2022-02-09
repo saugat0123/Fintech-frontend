@@ -16,5 +16,7 @@ export class IndividualJsonData {
     vehicle: Array<any>;
     depositBank: number;
     depositOther: number;
+    depositBankRemark: string;
+    depositOtherRemark: string;
     total: number;
 }

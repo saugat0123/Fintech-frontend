@@ -885,12 +885,16 @@
                                <td colspan="2"><b>Deposit</b></td>
                            </tr>
                            <tr>
-                               <td>With Laxmi Bank</td>
+                               <td>
+                                   <input nbInput formControlName="depositBankRemark" value="With Laxmi Bank" type="text">
+                               </td>
                                <td><input nbInput formControlName="depositBank" (change)="calculate()" type="number"></td>
 
                            </tr>
                            <tr>
-                               <td>With other Financial Institution</td>
+                               <td>
+                                   <input nbInput formControlName="depositOtherRemark" value="With other Financial Institution"  type="text">
+                               </td>
                                <td><input nbInput formControlName="depositOther" (change)="calculate()" type="number"></td>
 
                            </tr>

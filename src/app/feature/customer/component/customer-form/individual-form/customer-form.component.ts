@@ -503,6 +503,10 @@ bankingRelationshipList = BankingRelationship.enumObject();
                 this.individualJsonData.depositBank],
             depositOther: [ObjectUtil.isEmpty(this.individualJsonData) ? 0 :
                 this.individualJsonData.depositOther],
+            depositBankRemark: [ObjectUtil.isEmpty(this.individualJsonData) ? 0 :
+                this.individualJsonData.depositBankRemark],
+            depositOtherRemark: [ObjectUtil.isEmpty(this.individualJsonData) ? 0 :
+                this.individualJsonData.depositOtherRemark],
             total: [ObjectUtil.isEmpty(this.individualJsonData) ? 0 :
                 this.individualJsonData.total],
 
@@ -536,6 +540,8 @@ bankingRelationshipList = BankingRelationship.enumObject();
         individualJsonData.checkedData = checkedData;
         individualJsonData.depositOther = this.basicInfoControls.depositOther.value;
         individualJsonData.depositBank = this.basicInfoControls.depositBank.value;
+        individualJsonData.depositOtherRemark = this.basicInfoControls.depositOtherRemark.value;
+        individualJsonData.depositBankRemark = this.basicInfoControls.depositBankRemark.value;
         individualJsonData.total = this.basicInfoControls.total.value;
         if (this.microCustomer) {
             individualJsonData.microCustomerDetail = this.microIndividualFormComponent.microCustomerForm.value;

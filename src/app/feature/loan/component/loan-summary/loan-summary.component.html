@@ -472,7 +472,6 @@
                         [customerAllLoanList]="customerAllLoanList"
                         [proposalData]="proposalData"
                         [loanDataHolder]="loanDataHolder"></app-proposal-summary>
-                <app-security-schedule [proposal]="proposalData"></app-security-schedule>
             </ng-container>
             <nb-accordion *ngIf="isRemitLoan">
                 <nb-accordion-item>
@@ -694,69 +693,69 @@
 <!--                <td class="text-center pl-1">{{(loanData?.loanHolder.bankingRelationship) ? (loanData?.loanHolder.bankingRelationship | jsonParse).creditRelationship ==='true'?'Yes':'No' : 'N/A' }}</td>-->
 <!--            </tr>-->
 <!--        </table>-->
-        <div class="row">
-         <ng-container *ngIf="!isJointInfo && individual; else bankingRelationship; " >
-             <div class="col-md-12">
-                 <p><strong>Banking Relationship</strong></p>
-                 <table  class="table table-condensed table-bordered table-sm table-responsive-md sb-small">
-                     <tr class="text-white sb-bg-dark">
-                         <th>Banking Relationship</th>
-                         <th>Net Worth</th>
-                     </tr>
-                     <tr>
-                         <td class="text-left pl-1">{{loanDataHolder.loanHolder?.bankingRelationship ? individual? (loanDataHolder.loanHolder.bankingRelationship | jsonParse): (loanDataHolder.loanHolder.bankingRelationship | jsonParse)?.bankingRelationship: 'N/A'}}</td>
-                         <td class="text-right pr-1">Rs. {{(loanDataHolder.customerInfo?.netWorth)? (loanDataHolder?.customerInfo.netWorth |currencyFormatter):'N/A'}}</td>
-                     </tr>
-                 </table>
-             </div>
-         </ng-container>
-            <ng-template #bankingRelationship>
-                <ng-container *ngIf="individual; else institutional;">
-                    <div class="col-md-12">
-                        <p><strong>Banking Relationship</strong></p>
-                        <table  class="table table-condensed table-bordered table-sm table-responsive-md sb-small">
-                            <tr class="text-white sb-bg-dark">
-                                <th>Banking Relationship</th>
-                                <th>Net Worth</th>
-                            </tr>
-                            <tr>
-                                <td class="text-left pl-1">{{riskInfo?.bankingRelationship ? riskInfo.bankingRelationship: 'N/A'}}</td>
-                                <td class="text-right pr-1">Rs. {{(riskInfo?.netWorth)? (riskInfo?.netWorth |currencyFormatter):'N/A'}}</td>
-                            </tr>
-                        </table>
-                    </div>
-                </ng-container>
-                <ng-template #institutional>
-                    <div class="col-md-12">
-                        <table
-                                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-                            <tr class="text-white sb-bg-dark">
-                                <th colspan="2">Company Relationship with Bank</th>
-                            </tr>
-                            <tr>
-                                <th class="text-white sb-bg-dark">Banking Relationship</th>
-                                <td class="text-left pl-1">{{bankingRelation?.bankingRelationship}}</td>
-                            </tr>
-                            <tr>
-                                <th class="text-white sb-bg-dark">Account Turnover
-                                </th>
-                                <td class="text-left pl-1">{{bankingRelation?.accountTurnover}}</td>
-                            </tr>
-                            <tr>
-                                <th class="text-white sb-bg-dark">Repayment History</th>
-                                <td class="text-left pl-1">{{bankingRelation?.repaymentHistory}}</td>
-                            </tr>
-                            <tr *ngIf="!isIndividual">
-                                <td colspan="2">
-                                    <app-income-from-account-view *ngIf="bankingRelation?.accountTransactionForm !== null"
-                                                                  [individual]="isIndividual"  [data]="(bankingRelation)"></app-income-from-account-view>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                </ng-template>
-            </ng-template>
-        </div>
+<!--        <div class="row">-->
+<!--         <ng-container *ngIf="!isJointInfo && individual; else bankingRelationship; " >-->
+<!--             <div class="col-md-12">-->
+<!--                 <p><strong>Banking Relationship</strong></p>-->
+<!--                 <table  class="table table-condensed table-bordered table-sm table-responsive-md sb-small">-->
+<!--                     <tr class="text-white sb-bg-dark">-->
+<!--                         <th>Banking Relationship</th>-->
+<!--                         <th>Net Worth</th>-->
+<!--                     </tr>-->
+<!--                     <tr>-->
+<!--                         <td class="text-left pl-1">{{loanDataHolder.loanHolder?.bankingRelationship ? individual? (loanDataHolder.loanHolder.bankingRelationship | jsonParse): (loanDataHolder.loanHolder.bankingRelationship | jsonParse)?.bankingRelationship: 'N/A'}}</td>-->
+<!--                         <td class="text-right pr-1">Rs. {{(loanDataHolder.customerInfo?.netWorth)? (loanDataHolder?.customerInfo.netWorth |currencyFormatter):'N/A'}}</td>-->
+<!--                     </tr>-->
+<!--                 </table>-->
+<!--             </div>-->
+<!--         </ng-container>-->
+<!--            <ng-template #bankingRelationship>-->
+<!--                <ng-container *ngIf="individual; else institutional;">-->
+<!--                    <div class="col-md-12">-->
+<!--                        <p><strong>Banking Relationship</strong></p>-->
+<!--                        <table  class="table table-condensed table-bordered table-sm table-responsive-md sb-small">-->
+<!--                            <tr class="text-white sb-bg-dark">-->
+<!--                                <th>Banking Relationship</th>-->
+<!--                                <th>Net Worth</th>-->
+<!--                            </tr>-->
+<!--                            <tr>-->
+<!--                                <td class="text-left pl-1">{{riskInfo?.bankingRelationship ? riskInfo.bankingRelationship: 'N/A'}}</td>-->
+<!--                                <td class="text-right pr-1">Rs. {{(riskInfo?.netWorth)? (riskInfo?.netWorth |currencyFormatter):'N/A'}}</td>-->
+<!--                            </tr>-->
+<!--                        </table>-->
+<!--                    </div>-->
+<!--                </ng-container>-->
+<!--                <ng-template #institutional>-->
+<!--                    <div class="col-md-12">-->
+<!--                        <table-->
+<!--                                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">-->
+<!--                            <tr class="text-white sb-bg-dark">-->
+<!--                                <th colspan="2">Company Relationship with Bank</th>-->
+<!--                            </tr>-->
+<!--                            <tr>-->
+<!--                                <th class="text-white sb-bg-dark">Banking Relationship</th>-->
+<!--                                <td class="text-left pl-1">{{bankingRelation?.bankingRelationship}}</td>-->
+<!--                            </tr>-->
+<!--                            <tr>-->
+<!--                                <th class="text-white sb-bg-dark">Account Turnover-->
+<!--                                </th>-->
+<!--                                <td class="text-left pl-1">{{bankingRelation?.accountTurnover}}</td>-->
+<!--                            </tr>-->
+<!--                            <tr>-->
+<!--                                <th class="text-white sb-bg-dark">Repayment History</th>-->
+<!--                                <td class="text-left pl-1">{{bankingRelation?.repaymentHistory}}</td>-->
+<!--                            </tr>-->
+<!--                            <tr *ngIf="!isIndividual">-->
+<!--                                <td colspan="2">-->
+<!--                                    <app-income-from-account-view *ngIf="bankingRelation?.accountTransactionForm !== null"-->
+<!--                                                                  [individual]="isIndividual"  [data]="(bankingRelation)"></app-income-from-account-view>-->
+<!--                                </td>-->
+<!--                            </tr>-->
+<!--                        </table>-->
+<!--                    </div>-->
+<!--                </ng-template>-->
+<!--            </ng-template>-->
+<!--        </div>-->
         <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl" [ciclValue]="loanDataHolder?.loanHolder?.cicl"></app-cicl-view>
     </div>
 </div>
@@ -1091,7 +1090,7 @@
                 </table>
             </div>
 
-            <div *ngIf="megaGroupEnabled">
+            <div *ngIf="megaGroupEnabled && loanDataHolder?.loanHolder.mgroupInfo">
                 <app-m-group-summary [mGroup]="loanDataHolder?.loanHolder.mgroupInfo"></app-m-group-summary>
             </div>
 
@@ -1129,6 +1128,7 @@
                                   [isCollateralSiteVisit]="isCollateralSiteVisit"
                                   [collateralData]="loanDataHolder?.collateralSiteVisits"
                                   [docStatus]="loanDataHolder?.documentStatus"
+                                  [proposal]="proposalData"
                                   (downloadSiteVisitDocument)="checkSiteVisitDocument($event)"
                                   [isApproveSecurity]="approvedSecurityAsProposed"></app-security-summary>
             <app-security-approved-summary *ngIf="approvedSecurity && !approvedSecurityAsProposed"
