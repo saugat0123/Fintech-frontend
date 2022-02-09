@@ -68,7 +68,6 @@ export class TermLoanToOrForComponent implements OnInit {
             newInstallmentBaseRateVehicleLoan: [undefined],
             newInstallmentPremiumRateVehicleLoan: [undefined],
             newInstallmentInterestRateVehicleLoan: [undefined],
-            newInstallmentTotalInterestRateVehicleLoan: [undefined],
             newInstallmentLoanTenureVehicleLoan: [undefined],
             newInstallmentPaymentAmountVehicleLoan: [undefined],
             newInstallmentPaymentAmountInWordVehicleLoan: [undefined],
@@ -79,7 +78,6 @@ export class TermLoanToOrForComponent implements OnInit {
             annualInstallmentBaseRateVehicleLoan: [undefined],
             annualInstallmentPremiumRateVehicleLoan: [undefined],
             annualInstallmentInterestRateVehicleLoan: [undefined],
-            annualInstallmentTotalInterestRateVehicleLoan: [undefined],
             annualInstallmentPaymentAmountVehicleLoan: [undefined],
             annualInstallmentPaymentAmountInWordVehicleLoan: [undefined],
             annualInstallmentNoOfPaymentVehicleLoan: [undefined],
@@ -117,7 +115,6 @@ export class TermLoanToOrForComponent implements OnInit {
                 this.form.get(['termLoanDetails', i, 'newInstallmentBaseRateVehicleLoan']).patchValue(this.termLoanData[i].baseRateCT);
                 this.form.get(['termLoanDetails', i, 'newInstallmentPremiumRateVehicleLoan']).patchValue(this.termLoanData[i].premiumRateCT);
                 this.form.get(['termLoanDetails', i, 'newInstallmentInterestRateVehicleLoan']).patchValue(this.termLoanData[i].interestRateCT);
-                this.form.get(['termLoanDetails', i, 'newInstallmentTotalInterestRateVehicleLoan']).patchValue(this.termLoanData[i].subsidyInterestRateCT);
                 this.form.get(['termLoanDetails', i, 'newInstallmentLoanTenureVehicleLoan']).patchValue(this.termLoanData[i].tenureOfLoanCT);
                 this.form.get(['termLoanDetails', i, 'newInstallmentPaymentAmountVehicleLoan']).patchValue(this.termLoanData[i].paymentAmountFigureCT);
                 this.form.get(['termLoanDetails', i, 'newInstallmentPaymentAmountInWordVehicleLoan']).patchValue(this.termLoanData[i].paymentAmountWordsCT);
@@ -133,7 +130,6 @@ export class TermLoanToOrForComponent implements OnInit {
                 this.form.get(['termLoanDetails', i, 'annualInstallmentBaseRateVehicleLoan']).patchValue(this.termLoanData[i].baseRateCT);
                 this.form.get(['termLoanDetails', i, 'annualInstallmentPremiumRateVehicleLoan']).patchValue(this.termLoanData[i].premiumRateCT);
                 this.form.get(['termLoanDetails', i, 'annualInstallmentInterestRateVehicleLoan']).patchValue(this.termLoanData[i].interestRateCT);
-                this.form.get(['termLoanDetails', i, 'annualInstallmentTotalInterestRateVehicleLoan']).patchValue(this.termLoanData[i].subsidyInterestRateCT);
                 this.form.get(['termLoanDetails', i, 'annualInstallmentPaymentAmountVehicleLoan']).patchValue(this.termLoanData[i].paymentAmountFigureCT);
                 this.form.get(['termLoanDetails', i, 'annualInstallmentPaymentAmountInWordVehicleLoan']).patchValue(this.termLoanData[i].paymentAmountWordsCT);
                 this.form.get(['termLoanDetails', i, 'annualInstallmentNoOfPaymentVehicleLoan']).patchValue(this.termLoanData[i].numberOfPaymentsCT);
