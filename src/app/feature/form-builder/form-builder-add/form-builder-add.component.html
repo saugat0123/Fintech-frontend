@@ -153,15 +153,6 @@
 
                 <nb-card style="height:70vh;overflow: auto;" [ngStyle]="{'margin-right':collapseHorz ? '-8%' : '-5%' }">
                     <nb-card-header>
-                        <div class="clearfix" *ngIf="isDatePresent">
-                            <div class="float-right">
-                                <nb-radio-group [(ngModel)]="calendarType" class="close d-inline-flex"
-                                                name="basicInfoCalendarType">
-                                    <nb-radio value="AD">AD</nb-radio>
-                                    <nb-radio value="BS">BS</nb-radio>
-                                </nb-radio-group>
-                            </div>
-                        </div>
                         <input #title="ngModel" type="text" placeholder="form Title" [(ngModel)]="formTitle"
                                [ngClass]="{ 'is-invalid': title.invalid && !formTitle }" required
                                class="form-control form-control-sm"/>

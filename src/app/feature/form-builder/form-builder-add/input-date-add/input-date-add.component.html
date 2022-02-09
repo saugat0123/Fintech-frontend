@@ -20,11 +20,7 @@
 <!--           class="form-control form-control-sm"-->
 <!--           [placeholder]="field?.settings[1]?.value" readonly>-->
     <input type="date"
-           *ngIf="calendarType === 'AD'"
            class="form-control form-control-sm"
            [placeholder]="field?.settings[1]?.value" >
-    <app-calendar
-            *ngIf="calendarType === 'BS'"
-    ></app-calendar>
 <!--    <nb-datepicker #date></nb-datepicker>-->
 </div>

@@ -51,9 +51,6 @@
                  name="idRegDate"
                  placeholder="Issued Date"
                  readonly="readonly">
-          <app-calendar [ePreDate]="search.get('idRegDate')?.value"
-                        *ngIf="calendarType === 'BS'"
-                        (messageToEmit)="search.get('idRegDate').patchValue($event?.eDate)"></app-calendar>
           <nb-datepicker #customerCitizenshipIssuedDate></nb-datepicker>
           <div *ngIf="submitted && searchControls.idRegDate.errors"
                class="invalid-feedback">

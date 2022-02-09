@@ -1,13 +1,4 @@
 <p *ngIf="!fromProfile" class="text-center"><b>Credit CheckList</b></p>
-    <div class="row">
-        <div class="col-md-12 text-right" *ngIf="fromProfile">
-            <nb-radio-group [(ngModel)]="calendarType" class="d-inline-flex"
-                            name="securityInitialInfoCalendarType">
-                <nb-radio value="AD">AD</nb-radio>
-                <nb-radio value="BS">BS</nb-radio>
-            </nb-radio-group>
-        </div>
-    </div>
     <div class="row mt-4">
         <div class="col-md-12">
             <form [formGroup]="formGroupCheckList">
@@ -24,10 +15,6 @@
                                 <input *ngIf="calendarType === 'AD'" [nbDatepicker]="dateOfChecklist"
                                        class="form-control "
                                        formControlName="dateCheckList" placeholder="Date of checklist">
-                                <app-calendar
-                                        (messageToEmit)="formGroupCheckList.get('dateCheckList').patchValue($event?.eDate)"
-                                        *ngIf="calendarType === 'BS'"
-                                        [ePreDate]="formGroupCheckList.get('dateCheckList').value"></app-calendar>
                                 <nb-datepicker #dateOfChecklist></nb-datepicker>
                             </ng-container>
                             <span *ngIf="!fromProfile"> {{dataForEdit?.dateCheckList | date}} ({{dataForEdit?.dateCheckList | engNepDate: false}})</span>
@@ -175,10 +162,6 @@
                                                        class="form-control"
                                                        formControlName="dateValuation"
                                                        placeholder="Date of last valuation">
-                                                <app-calendar
-                                                        (messageToEmit)="formGroupCheckList.get('dateValuation').patchValue($event?.eDate)"
-                                                        *ngIf="calendarType === 'BS'"
-                                                        [ePreDate]="formGroupCheckList.get('dateValuation').value"></app-calendar>
                                                 <nb-datepicker #dateOfLastValuation></nb-datepicker>
                                             </div>
                                         </div>
@@ -240,10 +223,6 @@
                                                        class="form-control "
                                                        formControlName="callReportDate"
                                                        placeholder="Eg: 2020-01-01">
-                                                <app-calendar
-                                                        (messageToEmit)="formGroupCheckList.get('callReportDate').patchValue($event?.eDate)"
-                                                        *ngIf="calendarType === 'BS'"
-                                                        [ePreDate]="formGroupCheckList.get('callReportDate').value"></app-calendar>
                                                 <nb-datepicker #dateCall></nb-datepicker>
                                             </div>
                                         </div>
