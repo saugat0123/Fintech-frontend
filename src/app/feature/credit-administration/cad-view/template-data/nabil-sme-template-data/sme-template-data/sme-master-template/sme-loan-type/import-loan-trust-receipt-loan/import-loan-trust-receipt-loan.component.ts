@@ -140,9 +140,9 @@ export class ImportLoanTrustReceiptLoanComponent implements OnInit {
     this.importLoanTrust.get(['importLoanTrustFormArray', i, 'drawingPowerTrans']).patchValue(drawingPower);
     const loanPeriod = this.convertNumbersToNepali(this.importLoanTrust.get(['importLoanTrustFormArray', i, 'loanPeriod']).value, false);
     this.importLoanTrust.get(['importLoanTrustFormArray', i, 'loanPeriodTrans']).patchValue(loanPeriod);
-    const baseRate1 = this.convertNumbersToNepali(this.importLoanTrust.get(['importLoanTrustFormArray', i, 'baseRate']).value, false);
+    const baseRate1 = this.convertNumbersToNepali(this.importLoanTrust.get(['importLoanTrustFormArray', i, 'baseRate']).value.toFixed(2), false);
     this.importLoanTrust.get(['importLoanTrustFormArray', i, 'baseRateTrans']).patchValue(baseRate1);
-    const premiumRate1 = this.convertNumbersToNepali(this.importLoanTrust.get(['importLoanTrustFormArray', i, 'premiumRate']).value, false);
+    const premiumRate1 = this.convertNumbersToNepali(this.importLoanTrust.get(['importLoanTrustFormArray', i, 'premiumRate']).value.toFixed(2), false);
     this.importLoanTrust.get(['importLoanTrustFormArray', i, 'premiumRateTrans']).patchValue(premiumRate1);
     const interestRate = this.convertNumbersToNepali(this.importLoanTrust.get(['importLoanTrustFormArray', i, 'interestRate']).value, false);
     this.importLoanTrust.get(['importLoanTrustFormArray', i, 'interestRateTrans']).patchValue(interestRate);
@@ -267,7 +267,7 @@ export class ImportLoanTrustReceiptLoanComponent implements OnInit {
     const baseRate = this.importLoanTrust.get(['importLoanTrustFormArray', i, 'baseRate']).value;
     const premiumRate = this.importLoanTrust.get(['importLoanTrustFormArray', i, 'premiumRate']).value;
     const sum = parseFloat(baseRate) + parseFloat(premiumRate);
-    this.importLoanTrust.get(['importLoanTrustFormArray', i, 'interestRate']).patchValue(sum.toFixed(3));
+    this.importLoanTrust.get(['importLoanTrustFormArray', i, 'interestRate']).patchValue(sum.toFixed(2));
   }
 
   filteredListDetails(loanDetails) {

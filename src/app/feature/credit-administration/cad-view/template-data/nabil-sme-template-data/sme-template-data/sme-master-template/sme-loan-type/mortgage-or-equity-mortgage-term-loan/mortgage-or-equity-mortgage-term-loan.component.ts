@@ -178,7 +178,7 @@ export class MortgageOrEquityMortgageTermLoanComponent implements OnInit {
         const baseRate = this.mortgageEquityTermForm.get([arrName, index, 'baseRate']).value;
         const premiumRate = this.mortgageEquityTermForm.get([arrName, index, 'premiumRate']).value;
         const sum = parseFloat(baseRate) + parseFloat(premiumRate);
-        this.mortgageEquityTermForm.get([arrName, index, 'interestRate']).patchValue(sum.toFixed(3));
+        this.mortgageEquityTermForm.get([arrName, index, 'interestRate']).patchValue(sum.toFixed(2));
     }
 
     public checkDateOfExpiry(value): void {
@@ -245,11 +245,11 @@ export class MortgageOrEquityMortgageTermLoanComponent implements OnInit {
         this.mortgageEquityTermForm.get([mainArray, index, 'drawingPowerInPercentageTrans']).patchValue(convertedDrawingPower);
 
         // tslint:disable-next-line:max-line-length
-        const convertedBaseRate = this.convertNumbersToNepali(this.mortgageEquityTermForm.get([mainArray, index, 'baseRate']).value, false);
+        const convertedBaseRate = this.convertNumbersToNepali(this.mortgageEquityTermForm.get([mainArray, index, 'baseRate']).value.toFixed(2), false);
         this.mortgageEquityTermForm.get([mainArray, index, 'baseRateTrans']).patchValue(convertedBaseRate);
 
         // tslint:disable-next-line:max-line-length
-        const convertedPremiumRate = this.convertNumbersToNepali(this.mortgageEquityTermForm.get([mainArray, index, 'premiumRate']).value, false);
+        const convertedPremiumRate = this.convertNumbersToNepali(this.mortgageEquityTermForm.get([mainArray, index, 'premiumRate']).value.toFixed(2), false);
         this.mortgageEquityTermForm.get([mainArray, index, 'premiumRateTrans']).patchValue(convertedPremiumRate);
 
         const convertedInterestRate = this.convertNumbersToNepali(this.mortgageEquityTermForm.get([mainArray, index, 'interestRate']).value, false);

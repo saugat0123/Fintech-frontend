@@ -242,7 +242,7 @@ export class TermLoanToOrForComponent implements OnInit {
     const baseRate = this.termLoanForm.get(['termLoanDetails', i, 'baseRate']).value;
     const premiumRate = this.termLoanForm.get(['termLoanDetails', i, 'premiumRate']).value;
     const sum = parseFloat(baseRate) + parseFloat(premiumRate);
-    this.termLoanForm.get(['termLoanDetails', i, 'interestRate']).patchValue(sum.toFixed(3));
+    this.termLoanForm.get(['termLoanDetails', i, 'interestRate']).patchValue(sum.toFixed(2));
   }
 
   setEMIPaymentType(data, i) {

@@ -104,7 +104,7 @@ export class RevolvingShortTermLoanComponent implements OnInit {
         const baseRate = this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'baseRate']).value;
         const premiumRate = this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'premiumRate']).value;
         const sum = parseFloat(baseRate) + parseFloat(premiumRate);
-        this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'interestRate']).patchValue(sum.toFixed(3));
+        this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'interestRate']).patchValue(sum.toFixed(2));
         // Converting value from existed pipe:
         // this.translateNumber('baseRate', 'baseRateTrans');
         // this.translateNumber('premiumRate', 'premiumRateTrans');
@@ -153,10 +153,10 @@ export class RevolvingShortTermLoanComponent implements OnInit {
         const convertDrawingPower = this.convertNumbersToNepali(this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'drawingPower']).value, false);
         this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'drawingPowerTrans']).patchValue(convertDrawingPower);
 
-        const convertBaseRate = this.convertNumbersToNepali(this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'baseRate']).value, false);
+        const convertBaseRate = this.convertNumbersToNepali(this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'baseRate']).value.toFixed(2), false);
         this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'baseRateTrans']).patchValue(convertBaseRate);
 
-        const convertPremiumRate = this.convertNumbersToNepali(this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'premiumRate']).value, false);
+        const convertPremiumRate = this.convertNumbersToNepali(this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'premiumRate']).value.toFixed(2), false);
         this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'premiumRateTrans']).patchValue(convertPremiumRate);
 
         const convertInterestRate = this.convertNumbersToNepali(this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'interestRate']).value, false);
