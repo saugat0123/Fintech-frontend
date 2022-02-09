@@ -45,7 +45,7 @@ export class CommonSectionTopPrintComponent implements OnInit {
       const sanctionLetDate = this.tempData.smeGlobalForm.dateOfApproval ? this.tempData.smeGlobalForm.dateOfApprovalCT : '';
       this.sanctionLetterDate = this.engToNepaliDate.transform(sanctionLetDate, true);
     } else {
-      const sanctionLetDate = this.tempData.smeGlobalForm.dateOfApproval ? this.tempData.smeGlobalForm.dateOfApprovalCT : '';
+      const sanctionLetDate = this.tempData.smeGlobalForm.dateOfApprovalCT ? this.tempData.smeGlobalForm.dateOfApprovalCT : '';
       this.sanctionLetterDate = sanctionLetDate ? sanctionLetDate : '';
     }
   }

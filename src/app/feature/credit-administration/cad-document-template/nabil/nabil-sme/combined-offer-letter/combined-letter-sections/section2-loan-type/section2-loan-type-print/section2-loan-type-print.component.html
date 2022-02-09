@@ -683,7 +683,9 @@
                                 % नगद र कार्य सम्पादन बैंक जमानत (Performance Bond) तथा बोलपत्र बैंक जमानत (Bid Bond)को हकमा
                                 <span [ngClass]="{'outside' : val.commissionInPercentageBidBondCT !== null && val.commissionInPercentageBidBondCT !== ''}">
                             {{val.commissionInPercentageBidBondCT === null || val.commissionInPercentageBidBondCT === '' ? '___________' : val.commissionInPercentageBidBondCT}}</span>
-                                % नगद धरौटी स्वरुप रहनेछ ।<br>
+                                % नगद धरौटी स्वरुप रहनेछ ।
+                            </p>
+                            <p>
                                 <span *ngIf="val.commissionType === 'COMMISSION_TYPE_1'"> <strong>कमिसन:</strong> प्रति त्रैमास
                             <span [ngClass]="{'outside' : val.serviceChargeInPercentCT !== null && val.serviceChargeInPercentCT !== ''}">
                             {{val.serviceChargeInPercentCT === null || val.serviceChargeInPercentCT === '' ? '___________' : val.serviceChargeInPercentCT}}</span>
@@ -704,7 +706,7 @@
                             %का दरले वा कम्तिमा रु.
                             <span [ngClass]="{'outside' : val.minServiceChargeInFigure1CT !== null && val.minServiceChargeInFigure1CT !== ''}">
                             {{val.minServiceChargeInFigure1CT === null || val.minServiceChargeInFigure1CT === '' ? '___________' : val.minServiceChargeInFigure1CT}}</span>
-                            /–लाग्नेछ ।
+                            /– लाग्नेछ ।
                             </span>
                             </p>
                             <p>
