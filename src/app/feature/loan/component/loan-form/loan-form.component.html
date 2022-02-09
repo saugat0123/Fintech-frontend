@@ -47,6 +47,12 @@
                 </form>
             </div>
 
+            <div class="col-md-3">
+                <form  id="creditRisk" [formGroup]="creditRisk">
+                    <label><strong>Credit Risk</strong></label>
+                    <input type = "number" nbInput formControlName="creditRisk" fullWidth>
+                </form>
+            </div>
 
             <div *ngIf="showDocStatusDropDown" class="col-md-3">
                 <form [formGroup]="docStatusForm">

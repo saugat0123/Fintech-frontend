@@ -49,8 +49,6 @@ export class ProposalComponent implements OnInit {
   checkedDataEdit;
   ckeConfig;
   checkApproved = false;
-  absoluteSelected = false;
-  customSelected = false;
   isFundable = false;
   fundableNonFundableSelcted = false;
   isFixedDeposit = false;
@@ -72,10 +70,11 @@ export class ProposalComponent implements OnInit {
   existInterestLimit: number;
   showInterestAmount = true;
   legalDocs;
-  incomeChecked = false;
   commitmentChecked = false;
   swapDoubleChargeChecked = false;
   prepaymentChargeChecked = false;
+  purposeChecked = false;
+  debtChecked = false;
   subsidyLoanType = [
     {value: 'Literate Youth Self Employment Loan'},
     {value: 'Project Loan For Youth Returning From Foreign'},
@@ -93,6 +92,24 @@ export class ProposalComponent implements OnInit {
   isAllExposureFieldNull = false;
   files = [];
   incomeFromAccountDataResponse;
+  purposes: Array<string> = [
+    'Purchase of Land',
+    'Construction of Building',
+    'Purchase of Apartments and Independent Units',
+    'Home Improvement',
+    'Home Improvement',
+    'Purchase of Residential Building',
+    'Investment in Business',
+    'Investment in Fixed Assets',
+    'Investment in Financial Assets (Securities)',
+    'Repayment of Personal Debt',
+    'Social Obligations/Functions',
+    'Family Expenses',
+    'Debt Consolidation',
+    'Home Improvement, Repair and Maintenance',
+    'Debt Consolidation',
+    'To Finance Tertiary Education',
+    'To Finance Post-Secondary Education'];
   constructor(private formBuilder: FormBuilder,
               private loanConfigService: LoanConfigService,
               private activatedRoute: ActivatedRoute,
@@ -114,9 +131,6 @@ export class ProposalComponent implements OnInit {
       this.proposalForm.patchValue(this.formDataForEdit);
       this.setCheckedData(this.checkedDataEdit);
       this.interestLimit = this.formDataForEdit['interestRate'];
-      this.proposalForm.get('dateOfExpiry').patchValue(!ObjectUtil.isEmpty(this.formValue.dateOfExpiry)
-          ? new Date(this.formValue.dateOfExpiry) : undefined);
-      this.checkLimitExpiryBuildValidation(this.formValue.limitExpiryMethod);
       this.existInterestLimit = this.formDataForEdit['existInterestRate'];
       if (!ObjectUtil.isEmpty(this.formValue.groupExposure)) {
         this.groupExposureData = JSON.parse(this.formValue.groupExposure);
@@ -183,11 +197,10 @@ export class ProposalComponent implements OnInit {
             this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Loan Type!'));
           });
         });
-    this.proposalForm.get('interestRate').valueChanges.subscribe(value => this.proposalForm.get('premiumRateOnBaseRate')
-    .patchValue((Number(value) - Number(this.proposalForm.get('baseRate').value)).toFixed(2)));
-    this.proposalForm.get('baseRate').valueChanges.subscribe(value => this.proposalForm.get('premiumRateOnBaseRate')
-    .patchValue((Number(this.proposalForm.get('interestRate').value) - Number(value)).toFixed(2)));
-    this.proposalForm.get('limitExpiryMethod').valueChanges.subscribe(value => this.checkLimitExpiryBuildValidation(value));
+    this.proposalForm.get('premiumRateOnBaseRate').valueChanges.subscribe(value => this.proposalForm.get('interestRate')
+    .patchValue((Number(value) + Number(this.proposalForm.get('baseRate').value)).toFixed(2)));
+    this.proposalForm.get('baseRate').valueChanges.subscribe(value => this.proposalForm.get('interestRate')
+    .patchValue((Number(this.proposalForm.get('premiumRateOnBaseRate').value) + Number(value)).toFixed(2)));
     this.checkInstallmentAmount();
     this.proposalForm.get('proposedLimit').valueChanges.subscribe(value => this.proposalForm.get('principalAmount')
         .patchValue(Number(value)));
@@ -232,11 +245,6 @@ export class ProposalComponent implements OnInit {
       collateralRequirement: [undefined, Validators.required],
       swapCharge: [undefined],
       subsidizedLoan: [undefined],
-      limitExpiryMethod: [undefined, Validators.required],
-      duration: [undefined, Validators.required],
-      condition: [undefined, Validators.required],
-      frequency: [undefined,  Validators.required],
-      dateOfExpiry: [undefined,  Validators.required],
       remark: [undefined],
       cashMargin: [undefined],
       commissionPercentage: [undefined],
@@ -321,9 +329,6 @@ export class ProposalComponent implements OnInit {
 
   onSubmit() {
     // Proposal Form Data--
-    if (this.incomeChecked) {
-      this.earning.submitForm();
-    }
     if (!ObjectUtil.isEmpty(this.formValue)) {
       this.proposalData = this.formValue;
     }
@@ -336,10 +341,11 @@ export class ProposalComponent implements OnInit {
       swapChargeChecked: this.swapChargeChecked,
       subsidizedLoanChecked: this.subsidizedLoanChecked,
       deviationChecked: this.deviationChecked,
-      incomeChecked: this.incomeChecked,
       commitmentChecked: this.commitmentChecked,
       swapDoubleChargeChecked: this.swapDoubleChargeChecked,
       prepaymentChargeChecked: this.prepaymentChargeChecked,
+      purposeChecked: this.purposeChecked,
+      debtChecked: this.debtChecked,
     };
     this.proposalData.checkedData = JSON.stringify(mergeChecked);
 
@@ -349,11 +355,6 @@ export class ProposalComponent implements OnInit {
     this.proposalData.outStandingLimit = this.proposalForm.get('outStandingLimit').value;
     this.proposalData.collateralRequirement = this.proposalForm.get('collateralRequirement').value;
     this.proposalData.tenureDurationInMonths = this.proposalForm.get('tenureDurationInMonths').value;
-    this.proposalData.limitExpiryMethod = this.proposalForm.get('limitExpiryMethod').value;
-    this.proposalData.duration = this.proposalForm.get('duration').value;
-    this.proposalData.dateOfExpiry = this.proposalForm.get('dateOfExpiry').value;
-    this.proposalData.frequency = this.proposalForm.get('frequency').value;
-    this.proposalData.condition = this.proposalForm.get('condition').value;
     this.proposalData.cashMargin = this.proposalForm.get('cashMargin').value;
     this.proposalData.commissionPercentage = this.proposalForm.get('commissionPercentage').value;
     this.proposalData.commissionFrequency = this.proposalForm.get('commissionFrequency').value;
@@ -430,10 +431,6 @@ export class ProposalComponent implements OnInit {
           this.proposalForm.get('deviationConclusionRecommendation').setValue(null);
         }
         break;
-      case 'income': {
-        this.incomeChecked = event;
-      }
-      break;
       case 'commitment': {
         this.commitmentChecked = event;
       }
@@ -444,6 +441,14 @@ export class ProposalComponent implements OnInit {
       break;
       case 'prepayment': {
         this.prepaymentChargeChecked = event;
+      }
+      break;
+      case 'purpose': {
+        this.purposeChecked = event;
+      }
+      break;
+      case 'debt': {
+        this.debtChecked = event;
       }
       break;
     }
@@ -457,10 +462,11 @@ export class ProposalComponent implements OnInit {
       this.checkChecked(data['swapChargeChecked'], 'swapCharge');
       this.checkChecked(data['subsidizedLoanChecked'], 'subsidizedLoan');
       this.checkChecked(data['deviationChecked'], 'deviation');
-      this.checkChecked(data['incomeChecked'], 'income');
       this.checkChecked(data['commitmentChecked'], 'commitment');
       this.checkChecked(data['swapDoubleChargeChecked'], 'swapDoubleCharge');
       this.checkChecked(data['prepaymentChargeChecked'], 'prepayment');
+      this.checkChecked(data['purposeChecked'], 'purpose');
+      this.checkChecked(data['debtChecked'], 'debt');
     }
   }
 
@@ -551,37 +557,6 @@ export class ProposalComponent implements OnInit {
   setCollateralRequirement(collateralRequirement) {
     if (ObjectUtil.isEmpty(this.proposalForm.get('collateralRequirement').value)) {
       this.proposalForm.get('collateralRequirement').patchValue(collateralRequirement);
-    }
-  }
-
-  checkLimitExpiryBuildValidation(limitExpiry) {
-    if (limitExpiry === 'ABSOLUTE') {
-      this.absoluteSelected = true;
-      this.customSelected = false;
-      this.proposalForm.get('dateOfExpiry').setValidators([Validators.required]);
-      this.proposalForm.get('dateOfExpiry').updateValueAndValidity();
-      this.proposalForm.get('duration').clearValidators();
-      this.proposalForm.get('duration').patchValue(undefined);
-      this.proposalForm.get('duration').updateValueAndValidity();
-      this.proposalForm.get('condition').clearValidators();
-      this.proposalForm.get('condition').updateValueAndValidity();
-      this.proposalForm.get('condition').patchValue(undefined);
-      this.proposalForm.get('frequency').clearValidators();
-      this.proposalForm.get('frequency').updateValueAndValidity();
-      this.proposalForm.get('frequency').patchValue(undefined);
-    } else if (limitExpiry === 'CUSTOM') {
-      this.customSelected = true;
-      this.absoluteSelected = false;
-      this.proposalForm.get('duration').setValidators([Validators.required]);
-      this.proposalForm.get('duration').updateValueAndValidity();
-      this.proposalForm.get('condition').setValidators([Validators.required]);
-      this.proposalForm.get('condition').updateValueAndValidity();
-      this.proposalForm.get('frequency').setValidators([Validators.required]);
-      this.proposalForm.get('frequency').updateValueAndValidity();
-      this.proposalForm.get('dateOfExpiry').clearValidators();
-      this.proposalForm.get('dateOfExpiry').updateValueAndValidity();
-      this.proposalForm.get('dateOfExpiry').patchValue(undefined);
-
     }
   }
 
@@ -752,20 +727,6 @@ export class ProposalComponent implements OnInit {
     this.proposalForm.patchValue({
       files: JSON.stringify(data)
     });
-  }
-  saveIncomeFromAccount(data: IncomeFromAccount) {
-    if (ObjectUtil.isEmpty(this.incomeFromAccountDataResponse)) {
-      this.incomeFromAccountDataResponse = new IncomeFromAccount();
-    }
-    this.incomeFromAccountDataResponse = data;
-    this.customerInfoService.saveLoanInfo(this.incomeFromAccountDataResponse, this.customerInfo.id, TemplateName.INCOME_FROM_ACCOUNT)
-        .subscribe((res) => {
-          console.log('this is scavead');
-          this.emitter.emit(res.detail);
-          this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved EARNING, PROFITABILITY AND PRICING'));
-        }, error => {
-          this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save EARNING, PROFITABILITY AND PRICING)!'));
-        });
   }
 
 }

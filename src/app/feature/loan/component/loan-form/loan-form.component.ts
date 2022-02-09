@@ -131,6 +131,7 @@ export class LoanFormComponent implements OnInit {
 
     docStatusForm: FormGroup;
     loanTypeForm: FormGroup;
+    creditRisk: FormGroup;
     nextButtonAction = false;
 
     loan: LoanConfig = new LoanConfig();
@@ -249,6 +250,7 @@ export class LoanFormComponent implements OnInit {
         this.buildPriorityForm();
         this.buildApprovingLevelForm();
         this.buildDocStatusForm();
+        this.buildCreditRiskForm();
 
         this.activatedRoute.queryParams.subscribe(
             (paramsValue: Params) => {
@@ -300,6 +302,8 @@ export class LoanFormComponent implements OnInit {
                                 this.showDocStatusDropDown = false;
                             }
                             this.docStatusForm.get('documentStatus').patchValue(this.loanDocument.documentStatus);
+                            this.creditRisk.get('creditRisk').patchValue(this.loanDocument.creditRisk);
+
                             this.populateTemplate();
                             this.loanDataReady = true;
                         }, error => {
@@ -344,6 +348,11 @@ export class LoanFormComponent implements OnInit {
     buildApprovingLevelForm() {
         this.approvingLevelForm = this.formBuilder.group({
             approvingLevel: [undefined, Validators.required]
+        });
+    }
+    buildCreditRiskForm() {
+        this.creditRisk = this.formBuilder.group({
+            creditRisk: [undefined, Validators.required]
         });
     }
 
@@ -806,6 +815,7 @@ export class LoanFormComponent implements OnInit {
             this.loanDocument.priority = this.priorityForm.get('priority').value;
             this.loanDocument.approvingLevel = this.approvingLevelForm.get('approvingLevel').value;
             this.loanDocument.documentStatus = this.docStatusForm.get('documentStatus').value;
+            this.loanDocument.creditRisk = this.creditRisk.get('creditRisk').value;
             this.loanDocument.loanType = this.loanType;
             this.loanDocument.loanCategory = this.allId.loanCategory;
             if (CustomerType[this.loanHolder.customerType] === CustomerType.INSTITUTION) {
