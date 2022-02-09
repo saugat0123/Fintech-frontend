@@ -30,21 +30,17 @@
             </ng-template>
             <div class="row">
                 <div class="col-sm-12">
-                    रेफ नं.: कर्जा सुविधा प्रस्तावपत्र/सम्झौतापत्र/
-                    <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                           formControlName="samjhautapatra">
-                    <span class="nepaliFont font-size-normal print-only">
-                <b>{{offerLetterForm?.get('samjhautapatra')?.value ? offerLetterForm?.get('samjhautapatra')?.value : '========='}}</b></span>/
-                    <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                           formControlName="samjhautapatra1">
-                    <span class="nepaliFont font-size-normal print-only">
-                <b>{{offerLetterForm?.get('samjhautapatra1')?.value ? offerLetterForm?.get('samjhautapatra1')?.value : '========='}}</b></span>/
+                    रेफ नं.: LXBL/
+                    <input type="text" class="form-field form-control-sm font-size-normal disable-print"
+                           formControlName="branchCode">
+                    <span class="font-size-normal print-only">
+                <b>{{offerLetterForm?.get('branchCode')?.value ? offerLetterForm?.get('branchCode')?.value : '========='}}</b></span>/
                     <input [nbDatepicker]="patraDate"
                            class="form-field form-control-sm font-size-normal disable-print"
                            formControlName="patraDate" placeholder="Date">
                     <nb-datepicker #patraDate></nb-datepicker>
                     <span class="print-only">
-                <b>{{offerLetterForm?.get('patraDate')?.value ? offerLetterForm?.get('patraDate')?.value : '========='}}</b></span>
+                <b>{{offerLetterForm?.get('patraDate')?.value ? (offerLetterForm?.get('patraDate')?.value | date) : '========='}}</b></span>
                     <input type="text" class="form-field form-control-sm font-size-normal disable-print"
                            formControlName="refNo" placeholder="Ref No.">
                     <span class="print-only">
@@ -55,22 +51,24 @@
                 <div class="col-sm-12 text-right">
                     मिति :-
                     <span><input type="text"
-                           class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                           formControlName="date"></span>
-                        <span class="nepaliFont print-only">
+                                 class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                 formControlName="date"></span>
+                    <span class="nepaliFont print-only">
                             <b>{{offerLetterForm?.get('date')?.value ? offerLetterForm?.get('date')?.value : '========='}}</b>
                         </span>
                 </div>
             </div>
 
             श्री <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                        formControlName="borrowerName" (change)="customerDetailChange($event?.target?.value, 'borrowerName')">
+                        formControlName="borrowerName"
+                        (change)="customerDetailChange($event?.target?.value, 'borrowerName')">
             <span class="nepaliFont print-only">
                 <b>{{offerLetterForm?.get('borrowerName')?.value ? offerLetterForm?.get('borrowerName')?.value : '========='}}</b>
             </span>
             <br>
             ठेगाना : <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                            formControlName="address" placeholder="ठेगाना" (change)="customerDetailChange($event?.target?.value, 'address')">
+                            formControlName="address" placeholder="ठेगाना"
+                            (change)="customerDetailChange($event?.target?.value, 'address')">
             <span class="nepaliFont print-only">
                 <b>{{offerLetterForm?.get('address')?.value ? offerLetterForm?.get('address')?.value : '========='}}</b></span><br>
             सम्पर्क टेलिफोन/मोवाइल नं.:
@@ -80,8 +78,9 @@
             <span class="nepaliFont print-only">
                 <b>{{offerLetterForm?.get('phoneNo')?.value ? offerLetterForm?.get('phoneNo')?.value : '========='}}</b></span>
             <br>
-            <span *ngIf="cadData?.loanHolder?.loanCategory === 'INSTITUTION'">
-                ध्यानार्थ : <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+            <span *ngIf="cadData?.loanHolder?.customerType === 'INSTITUTION'">
+                ध्यानार्थ : <input type="text"
+                                   class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                                    formControlName="attention" placeholder="ध्यानार्थ">
                 <span class="nepaliFont print-only">
                     <b>{{offerLetterForm?.get('attention')?.value ? offerLetterForm?.get('attention')?.value : '========='}}</b>
@@ -96,8 +95,10 @@
                 नविकरण/पुनरावलोकन गरिएको ब्यहोरा सहर्ष जानकारी गराउदछौं
             </ng-container>
             <ng-template #otherLoanType>
-                तपाई (अब उप्रान्त ऋणी भनिएको) ले लक्ष्मी बैंक (अब उप्रान्त बैंक भनिएको) मा पेश गरेको कर्जा आवेदन उपर कारवाही
-                हुँदा यसमा उल्लेखित शर्त वन्देजहरु पालना गर्न स्वीकार गरी यसपत्रबाट माग गरिएको धितो सुरक्षण उपलव्ध गराउने
+                तपाई (अब उप्रान्त ऋणी भनिएको) ले लक्ष्मी बैंक (अब उप्रान्त बैंक भनिएको) मा पेश गरेको कर्जा आवेदन उपर
+                कारवाही
+                हुँदा यसमा उल्लेखित शर्त वन्देजहरु पालना गर्न स्वीकार गरी यसपत्रबाट माग गरिएको धितो सुरक्षण उपलव्ध
+                गराउने
                 शर्तमा देहाय वमोजिमको कर्जा सुविधा स्वीकृत गरिएको ब्यहोरा सहर्ष जानकारी गराउदछौं ।
             </ng-template>
             <br>
@@ -124,17 +125,19 @@
                         <tr>
                             <td>स्वीकृत कर्जा सीमा (Approved Loan Limit)</td>
                             <td>अधिकतम रु
-                                <input type="text" class="form-field nepaliFont form-control-sm font-size-normal disable-print"
+                                <input type="text"
+                                       class="form-field nepaliFont form-control-sm font-size-normal disable-print"
                                        [value]="data?.loanLimitAmount"
                                        (change)="convertProposedAmount($event?.target?.value, i, 'purpose')">
                                 <span class="nepaliFont font-size-normal print-only">
-                                    <b>{{offerLetterForm?.get(['purpose', i ,'loanLimitAmount'])?.value ? offerLetterForm?.get(['purpose', i ,'loanLimitAmount'])?.value : '========='}}</b>
+                                    <b>{{offerLetterForm?.get(['purpose', i, 'loanLimitAmount'])?.value ? offerLetterForm?.get(['purpose', i, 'loanLimitAmount'])?.value : '========='}}</b>
                                 </span> /– (अक्षरेपी रुपैयाँ
-                                <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                       [value]="offerLetterForm?.get(['purpose', i ,'loanLimitWord'])?.value"
-                                       readonly>
-                                <span class="nepaliFont font-size-normal print-only">
-                                    <b>{{offerLetterForm?.get(['purpose', i ,'loanLimitWord'])?.value ? offerLetterForm?.get(['purpose', i ,'loanLimitWord'])?.value : '========='}}</b>
+<!--                                <input type="text"-->
+<!--                                       class="nepaliFont form-field form-control-sm font-size-normal disable-print"-->
+<!--                                       [value]="offerLetterForm?.get(['purpose', i ,'loanLimitWord'])?.value"-->
+<!--                                       readonly>-->
+                                <span class="nepaliFont font-size-normal">
+                                    <b>{{offerLetterForm?.get(['purpose', i, 'loanLimitWord'])?.value ? offerLetterForm?.get(['purpose', i, 'loanLimitWord'])?.value : '========='}}</b>
                                 </span> मात्र)
                             </td>
                         </tr>
@@ -145,7 +148,7 @@
                                         [value]="offerLetterForm?.get(['purpose', i, 'purpose'])?.value"
                                         name="workingCapitalPurpose"
                                         (change)="valueChange($event?.target?.value, i, 'purpose')">
-                                    <option [value]="null">Select Purpose</option>
+                                    <option [value]="null" hidden>Select Purpose</option>
                                     <option *ngFor="let pur of purpose"
                                             [value]="pur?.value">{{pur?.value}}</option>
                                 </select>
@@ -308,7 +311,7 @@
                                                 (change)="valueChange($event?.target?.value, i, 'repaymentMode')"
                                                 id="repayment"
                                                 name="repayment">
-                                            <option [value]="null">Select Repayment</option>
+                                            <option [value]="null" hidden>Select Repayment</option>
                                             <option value="FIXED">निश्चित ईएमआई योजना</option>
                                             <option value="MIXED">मिश्रित दर भुक्तानी</option>
                                             <option value="QUARTERLY">त्रैमासिक मूल किस्ता</option>
@@ -328,20 +331,20 @@
                                     </span>
                                     <span *ngIf="data?.repaymentMode === 'FIXED'">
                                         करिब <strong>रु. <input type="text"
-                                                        [value]="data?.repaymentAmount"
-                                                        (change)="convertProposedAmount($event?.target?.value, i, 'repaymentAmount')"
-                                                        class="nepaliFont form-field form-control-sm font-size-normal disable-print">
+                                                                [value]="data?.repaymentAmount"
+                                                                (change)="convertProposedAmount($event?.target?.value, i, 'repaymentAmount')"
+                                                                class="nepaliFont form-field form-control-sm font-size-normal disable-print">
                                         <span class="nepaliFont font-size-normal print-only">
                                             <b>{{data?.repaymentAmount ? data?.repaymentAmount : '========='}}</b></span> /– (अक्षरेपी रुपैयाँ
-                                        <input type="text"
-                                               [value]="data?.repaymentAmountWord"
-                                                class="nepaliFont form-field form-control-sm font-size-normal disable-print">
-                                        <span class="nepaliFont font-size-normal print-only">
+<!--                                        <input type="text"-->
+<!--                                               [value]="data?.repaymentAmountWord"-->
+<!--                                               class="nepaliFont form-field form-control-sm font-size-normal disable-print">-->
+                                        <span class="nepaliFont font-size-normal">
                                             <b>{{data?.repaymentAmountWord ? data?.repaymentAmountWord : '========='}}</b></span> मात्र)</strong> का
                                         <input type="text"
-                                   [value]="data?.repaymentMonthly"
-                                   (change)="valueChange($event?.target?.value, i, 'repaymentMonthly')"
-                                   class="nepaliFont form-field form-control-sm font-size-normal disable-print">
+                                               [value]="data?.repaymentMonthly"
+                                               (change)="valueChange($event?.target?.value, i, 'repaymentMonthly')"
+                                               class="nepaliFont form-field form-control-sm font-size-normal disable-print">
                                 <span class="nepaliFont font-size-normal print-only">
                                         <b>{{data?.repaymentMonthly ? data?.repaymentMonthly : '========='}}</b></span> वरावरी मासिक किस्तामा (साँवा तथा व्याज) कर्जा
                             भुक्तानी गर्नु पर्नेछ । कर्जाको भुक्तानी कर्जा प्रवाह भएको आगामी
@@ -368,10 +371,10 @@
                                        class="nepaliFont form-field form-control-sm font-size-normal disable-print">
                                     <span class="nepaliFont font-size-normal print-only">
                                         <b>{{data?.repaymentAmount ? data?.repaymentAmount : '========='}}</b></span> ।– (अक्षरेपी रुपैयाँ
-                                <input type="text"
-                                       [value]="data?.repaymentAmountWord"
-                                       class="nepaliFont form-field form-control-sm font-size-normal disable-print">
-                                    <span class="nepaliFont font-size-normal print-only">
+<!--                                <input type="text"-->
+<!--                                       [value]="data?.repaymentAmountWord"-->
+<!--                                       class="nepaliFont form-field form-control-sm font-size-normal disable-print">-->
+                                    <span class="nepaliFont font-size-normal">
                                         <b>{{data?.repaymentAmountWord ? data?.repaymentAmountWord : '========='}}</b></span> मात्र)
                                 का दरले मासिक </strong> किस्ता (साँवा तथा व्याज) मा कर्जा भुक्तानी गर्नु पर्नेछ । <br>
                             तत्पश्चात्को अवधी सम्मको व्याजदर बैंकबाट प्रकाशित हुने आधार दरमा
@@ -510,9 +513,9 @@
                             <ng-container *ngIf="offerLetterForm?.get(['purpose', i, 'tenureNeeded'])?.value">
                                 <td colspan="2" *ngIf="data?.loanNature === 'Revolving'">
                                     कर्जा प्रवाह भएको मितिले <input type="text"
-                                                (change)="valueChange($event?.target?.value, i, 'reviewDate')"
-                                                [value]="data?.reviewDate"
-                                                class="nepaliFont form-field form-control-sm font-size-normal disable-print">
+                                                                    (change)="valueChange($event?.target?.value, i, 'reviewDate')"
+                                                                    [value]="data?.reviewDate"
+                                                                    class="nepaliFont form-field form-control-sm font-size-normal disable-print">
                                     <span class="nepaliFont font-size-normal print-only">
                                         <b>{{data?.reviewDate ? data?.reviewDate : '========='}}</b></span>
                                     मा कर्जा तथा सुविधाको पुनरावलोकन गरिने र सो मिति सम्म उपभोग गर्न सकिनेछ ।
@@ -521,9 +524,9 @@
                                 </td>
                                 <td colspan="2" *ngIf="data?.loanNature === 'Terminating'">
                                     कर्जा प्रवाह भएको मितिले <input type="text"
-                                                [value]="data?.reviewDate"
-                                                (change)="valueChange($event?.target?.value, i, 'reviewDate')"
-                                                class="nepaliFont form-field form-control-sm font-size-normal disable-print">
+                                                                    [value]="data?.reviewDate"
+                                                                    (change)="valueChange($event?.target?.value, i, 'reviewDate')"
+                                                                    class="nepaliFont form-field form-control-sm font-size-normal disable-print">
                                     <span class="nepaliFont font-size-normal print-only">
                                         <b>{{data?.reviewDate ? data?.reviewDate : '========='}}</b></span>
                                     सम्ममा कर्जा चुक्ता गर्नुपर्नेछ ।
@@ -539,7 +542,7 @@
                                         [value]="data?.rateMode"
                                         (change)="valueChange($event?.target?.value, i, 'rateMode')"
                                         name="rateMode">
-                                    <option [value]=null>Select Rate</option>
+                                    <option [value]="null">Select Rate</option>
                                     <option value="BASE">आधार दर</option>
                                     <option value="MIXED">मिश्रित दर</option>
                                     <option value="FIXED">निश्चित दर</option>
@@ -716,7 +719,8 @@
                                 </span>
                             </td>
                             <td colspan="2">
-                                <span *ngIf="offerLetterForm?.get(['purpose', i, 'adNeeded'])?.value" class="text-left pl-1">
+                                <span *ngIf="offerLetterForm?.get(['purpose', i, 'adNeeded'])?.value"
+                                      class="text-left pl-1">
                                     <span class="text-center disable-print">
                                         <nb-checkbox
                                                 (change)="otherValueCheck($event?.target?.checked, i, 'inPercentage')"
@@ -726,8 +730,9 @@
                                                 (change)="otherValueCheck($event?.target?.checked, i, 'inAmount')"
                                                 [checked]="offerLetterForm?.get(['purpose', i, 'inAmount'])?.value"><i>In Amount</i>
                                         </nb-checkbox>  &nbsp;&nbsp;&nbsp;
-                                        <nb-checkbox (change)="otherValueCheck($event?.target?.checked, i, 'otherAdFeeChecked')"
-                                                     [checked]="data?.otherAdFeeChecked"><i>Other</i>
+                                        <nb-checkbox
+                                                (change)="otherValueCheck($event?.target?.checked, i, 'otherAdFeeChecked')"
+                                                [checked]="data?.otherAdFeeChecked"><i>Other</i>
                                         </nb-checkbox>
                                     </span>
                                     <br>
@@ -755,11 +760,12 @@
                                         </span>
                                     </span>
                                     <span *ngIf="data?.otherAdFeeChecked">
-                                        <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
-                                                  [value]="data?.adFeeOther"
-                                                  (change)="valueChange($event?.target?.value, i, 'adFeeOther')"
-                                                  placeholder="अन्य प्रशासनिक शुल्क"
-                                                  rows="4"></textarea>
+                                        <textarea
+                                                class="form-control nepaliFont form-field font-size-normal disable-print"
+                                                [value]="data?.adFeeOther"
+                                                (change)="valueChange($event?.target?.value, i, 'adFeeOther')"
+                                                placeholder="अन्य प्रशासनिक शुल्क"
+                                                rows="4"></textarea>
                                         <span class="nepaliFont font-size-normal print-only">
                                             <b>{{data?.adFeeOther ? data?.adFeeOther : '========='}}</b>
                                         </span>
@@ -882,15 +888,15 @@
                         <ng-container *ngIf="offerLetterForm?.get('prepaymentCharge').value; else notPrepayment">
                             <span *ngIf="!offerLetterForm?.get('prepaymentOtherCheck').value">
 <!--                            प्रथम पटक कर्जा प्रवाह भएको मितिबाट कर्जा चुक्ता गर्नुपर्ने अवधि अगावै कर्जा चुक्ता गरेमा देहाय-->
-<!--                        बमोजिमको अग्रीम भुक्तानी शुल्क <strong>(Prepayment Charge)</strong> बुझाउनु पर्नेछ । <br>-->
-<!--                        (१) २ वर्ष भित्र कर्जाको अग्र्रीम भुक्तानी गरेमा <strong><u>भुक्तानी गरेको रकममा-->
-<!--                            ०.७५</u></strong> प्रतिशत । <br>-->
-<!--                        (२) २ वर्ष देखी ५ वर्ष भित्र कर्जाको अग्र्रीम भुक्तानी गरेमा <strong><u>भुक्तानी गरेको रकममा-->
-<!--                            ०.३७५</u></strong> प्रतिशत । <br>-->
-<!--                        (३) ५ वर्ष भन्दा पछि कर्जाको अग्र्रीम भुक्तानी गरेमा <strong><u>भुक्तानी गरेको रकममा-->
-<!--                            ०.१५</u></strong> प्रतिशत । <br>-->
-<!--                        यधपी स्थिर व्याजदरमा प्रवाह भएका <strong>Amortizing</strong> प्रकृतिका कर्जाको हकमा <strong><u>भुक्तानी-->
-<!--                            गरेको रकममा ०.७५</u></strong> प्रतिशत ।-->
+                                <!--                        बमोजिमको अग्रीम भुक्तानी शुल्क <strong>(Prepayment Charge)</strong> बुझाउनु पर्नेछ । <br>-->
+                                <!--                        (१) २ वर्ष भित्र कर्जाको अग्र्रीम भुक्तानी गरेमा <strong><u>भुक्तानी गरेको रकममा-->
+                                <!--                            ०.७५</u></strong> प्रतिशत । <br>-->
+                                <!--                        (२) २ वर्ष देखी ५ वर्ष भित्र कर्जाको अग्र्रीम भुक्तानी गरेमा <strong><u>भुक्तानी गरेको रकममा-->
+                                <!--                            ०.३७५</u></strong> प्रतिशत । <br>-->
+                                <!--                        (३) ५ वर्ष भन्दा पछि कर्जाको अग्र्रीम भुक्तानी गरेमा <strong><u>भुक्तानी गरेको रकममा-->
+                                <!--                            ०.१५</u></strong> प्रतिशत । <br>-->
+                                <!--                        यधपी स्थिर व्याजदरमा प्रवाह भएका <strong>Amortizing</strong> प्रकृतिका कर्जाको हकमा <strong><u>भुक्तानी-->
+                                <!--                            गरेको रकममा ०.७५</u></strong> प्रतिशत ।-->
                                 प्रथम पटक कर्जा प्रवाह भएको मितिबाट कर्जा पुर्ण चुक्ता गर्नुपर्ने अवधि अगावै कर्जा चुक्ता गरेमा त्यस अनुसार चुक्ता गरिएको रकममा नेपाल राष्ट्र
                                 बैंकको निर्देशन बमोजिम यस बैंकको प्रचलित नियम अनुसार अग्रीम भुक्तानी शुल्क ९एचभउबथmभलत ऋजबचनभ० ऋणीबाट असुल उपर गरिनेछ ।
                         </span>
@@ -1069,16 +1075,21 @@
                                 <nb-checkbox (change)="otherCheck($event?.target?.checked, 'collateralChecked')"
                                              [checked]="offerLetterForm?.get('collateralChecked')?.value"><i>Cross-Collateralized Security</i>
                                 </nb-checkbox>  &nbsp;&nbsp;&nbsp;
-<!--                                <nb-checkbox (change)="otherCheck($event?.target?.checked, 'collateralSecurityNeeded')"-->
-<!--                                             [checked]="offerLetterForm?.get('collateralSecurityNeeded')?.value"><i>Collateral Security Needed ?</i>-->
-<!--                                </nb-checkbox>-->
+                                <!--                                <nb-checkbox (change)="otherCheck($event?.target?.checked, 'collateralSecurityNeeded')"-->
+                                <!--                                             [checked]="offerLetterForm?.get('collateralSecurityNeeded')?.value"><i>Collateral Security Needed ?</i>-->
+                                <!--                                </nb-checkbox>-->
                             </span>
                         </th>
                     </tr>
                     <tbody>
-                    <ng-container *ngIf="offerLetterForm?.get('collateralSecurityNeeded')?.value">
+                    <ng-container
+                            *ngIf="offerLetterForm?.get('collateralChecked')?.value || offerLetterForm?.get('fixedChecked')?.value">
                         <tr [ngClass]="offerLetterForm?.get('security')['length'] === 0 ? 'print-only1' : ''">
-                            <th colspan="1"class="sn"><ul><li></li></ul></th>
+                            <th colspan="1" class="sn">
+                                <ul>
+                                    <li></li>
+                                </ul>
+                            </th>
                             <th colspan="1">जग्गाधनीको नाम</th>
                             <th colspan="1">जिल्ला</th>
                             <th colspan="1">गा.पा./न.पा.</th>
@@ -1096,55 +1107,55 @@
                                     </span>
                                 </td>
                                 <td colspan="1"><input type="text"
-                                           [value]="offerLetterForm?.get(['security', ii, 'ownerName'])?.value"
-                                           placeholder="मालिकको नाम"
-                                           (change)="securityValueChange($event?.target?.value, ii, 'collateralSecurity', 'ownerName')"
-                                           class="nepaliFont form-field form-control-sm font-size-normal disable-print">
+                                                       [value]="offerLetterForm?.get(['security', ii, 'ownerName'])?.value"
+                                                       placeholder="मालिकको नाम"
+                                                       (change)="securityValueChange($event?.target?.value, ii, 'collateralSecurity', 'ownerName')"
+                                                       class="nepaliFont form-field form-control-sm font-size-normal disable-print">
                                     <span class="nepaliFont font-size-normal print-only">
                                         <b>{{offerLetterForm?.get(['security', ii, 'ownerName'])?.value ?
                                             offerLetterForm?.get(['security', ii, 'ownerName'])?.value : '========='}}</b></span>
                                 </td>
                                 <td colspan="1"><input type="text"
-                                           [value]="offerLetterForm?.get(['security', ii, 'district'])?.value"
-                                           placeholder="जिल्ला"
-                                           (change)="securityValueChange($event?.target?.value, ii, 'collateralSecurity','district')"
-                                           class="nepaliFont form-field form-control-sm font-size-normal disable-print">
+                                                       [value]="offerLetterForm?.get(['security', ii, 'district'])?.value"
+                                                       placeholder="जिल्ला"
+                                                       (change)="securityValueChange($event?.target?.value, ii, 'collateralSecurity','district')"
+                                                       class="nepaliFont form-field form-control-sm font-size-normal disable-print">
                                     <span class="nepaliFont font-size-normal print-only">
                                         <b>{{offerLetterForm?.get(['security', ii, 'district'])?.value ?
                                             offerLetterForm?.get(['security', ii, 'district'])?.value : '========='}}</b></span>
                                 </td>
                                 <td colspan="1"><input type="text"
-                                           [value]="offerLetterForm?.get(['security', ii, 'vdc'])?.value"
-                                           placeholder="गा.पा./न.पा."
-                                           (change)="securityValueChange($event?.target?.value, ii, 'collateralSecurity', 'vdc')"
-                                           class="nepaliFont form-field form-control-sm font-size-normal disable-print">
+                                                       [value]="offerLetterForm?.get(['security', ii, 'vdc'])?.value"
+                                                       placeholder="गा.पा./न.पा."
+                                                       (change)="securityValueChange($event?.target?.value, ii, 'collateralSecurity', 'vdc')"
+                                                       class="nepaliFont form-field form-control-sm font-size-normal disable-print">
                                     <span class="nepaliFont font-size-normal print-only">
                                         <b>{{offerLetterForm?.get(['security', ii, 'vdc'])?.value ?
                                             offerLetterForm?.get(['security', ii, 'vdc'])?.value : '========='}}</b></span>
                                 </td>
                                 <td colspan="1"><input type="text"
-                                           [value]="offerLetterForm?.get(['security', ii, 'wardNo'])?.value"
-                                           placeholder="वडा नं."
-                                           (change)="securityValueChange($event?.target?.value, ii, 'collateralSecurity', 'wardNo')"
-                                           class="nepaliFont form-field form-control-sm font-size-normal disable-print">
+                                                       [value]="offerLetterForm?.get(['security', ii, 'wardNo'])?.value"
+                                                       placeholder="वडा नं."
+                                                       (change)="securityValueChange($event?.target?.value, ii, 'collateralSecurity', 'wardNo')"
+                                                       class="nepaliFont form-field form-control-sm font-size-normal disable-print">
                                     <span class="nepaliFont font-size-normal print-only">
                                         <b>{{offerLetterForm?.get(['security', ii, 'wardNo'])?.value ?
                                             offerLetterForm?.get(['security', ii, 'wardNo'])?.value : '========='}}</b></span>
                                 </td>
                                 <td colspan="1"><input type="text"
-                                           [value]="offerLetterForm?.get(['security', ii, 'area'])?.value"
-                                           placeholder="वडा नं."
-                                           (change)="securityValueChange($event?.target?.value, ii, 'collateralSecurity', 'area')"
-                                           class="nepaliFont form-field form-control-sm font-size-normal disable-print">
+                                                       [value]="offerLetterForm?.get(['security', ii, 'area'])?.value"
+                                                       placeholder="वडा नं."
+                                                       (change)="securityValueChange($event?.target?.value, ii, 'collateralSecurity', 'area')"
+                                                       class="nepaliFont form-field form-control-sm font-size-normal disable-print">
                                     <span class="nepaliFont font-size-normal print-only">
                                         <b>{{offerLetterForm?.get(['security', ii, 'area'])?.value ?
                                             offerLetterForm?.get(['security', ii, 'area'])?.value : '========='}}</b></span>
                                 </td>
                                 <td colspan="1"><input type="text"
-                                           [value]="offerLetterForm?.get(['security', ii, 'plotNumber'])?.value"
-                                           placeholder="वडा नं."
-                                           (change)="securityValueChange($event?.target?.value, ii, 'collateralSecurity', 'plotNumber')"
-                                           class="nepaliFont form-field form-control-sm font-size-normal disable-print">
+                                                       [value]="offerLetterForm?.get(['security', ii, 'plotNumber'])?.value"
+                                                       placeholder="वडा नं."
+                                                       (change)="securityValueChange($event?.target?.value, ii, 'collateralSecurity', 'plotNumber')"
+                                                       class="nepaliFont form-field form-control-sm font-size-normal disable-print">
                                     <span class="nepaliFont font-size-normal print-only">
                                         <b>{{offerLetterForm?.get(['security', ii, 'plotNumber'])?.value ?
                                             offerLetterForm?.get(['security', ii, 'plotNumber'])?.value : '========='}}</b></span>
@@ -1166,13 +1177,13 @@
                                                               class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                                                               formControlName="date1">
                                             <span class="print-only nepaliFont font-size-normal">
-                                                <b>{{offerLetterForm?.get('date1')?.value ? offerLetterForm?.get('date1')?.value: '======='}}</b>
+                                                <b>{{offerLetterForm?.get('date1')?.value ? offerLetterForm?.get('date1')?.value : '======='}}</b>
                                             </span> मा रु
                                             <input type="text"
                                                    class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                                                    formControlName="amount1">
                                             <span class="print-only nepaliFont font-size-normal">
-                                                <b>{{offerLetterForm?.get('amount1')?.value ? offerLetterForm?.get('amount1')?.value: '======='}}</b>
+                                                <b>{{offerLetterForm?.get('amount1')?.value ? offerLetterForm?.get('amount1')?.value : '======='}}</b>
                                             </span>प्राप्त) </strong>
                                     </ng-container>
                                     <ng-template #otherLoanType10>
@@ -1205,14 +1216,14 @@
                                     ।– गरी जम्मा रु
                                     <input type="text"
                                            class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                           formControlName="totalConsumptionAmount">
+                                           formControlName="totalConsumptionAmount" (change)="convertAmount($event?.target?.value, 'totalConsumptionAmount')">
                                     <span class="nepaliFont font-size-normal print-only">
                                 <b>{{offerLetterForm?.get('totalConsumptionAmount')?.value ? offerLetterForm?.get('totalConsumptionAmount')?.value : '========='}}</b></span>
                                     /– (अक्षरेपी रुपैया
-                                    <input type="text"
-                                           class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                           formControlName="totalConsumptionAmountWord">
-                                    <span class="nepaliFont font-size-normal print-only">
+<!--                                    <input type="text"-->
+<!--                                           class="nepaliFont form-field form-control-sm font-size-normal disable-print"-->
+<!--                                           formControlName="totalConsumptionAmountWord">-->
+                                    <span class="nepaliFont font-size-normal">
                                 <b>{{offerLetterForm?.get('totalConsumptionAmountWord')?.value ? offerLetterForm?.get('totalConsumptionAmountWord')?.value : '========='}}</b></span>
                                     मात्र) को सुरक्षण वापत बैंकको नाममा धितो वन्धकीको लिखत (Cross Collateralised Deed)
                                     लेखी सम्बन्धित मालपोत कार्यालयमा गई पारित
@@ -1246,7 +1257,11 @@
                     </tr>
                     <ng-container *ngIf="offerLetterForm?.get('vehicleSecurityNeeded')?.value">
                         <tr [ngClass]="offerLetterForm.get('vehicleSecurity')['length'] === 0 ? 'print-only1' : ''">
-                            <th colspan="1" class="sn pt-2"><ul><li></li></ul></th>
+                            <th colspan="1" class="sn pt-2">
+                                <ul>
+                                    <li></li>
+                                </ul>
+                            </th>
                             <th colspan="2">सवारीको विवरण</th>
                             <th colspan="2">इन्जिन नं.</th>
                             <th colspan="1">चेसिस नं.</th>
@@ -1255,7 +1270,8 @@
                         <ng-container>
                             <tr *ngFor="let vehicleData of offerLetterForm?.get('vehicleSecurity')?.value; let iii = index">
                                 <td colspan="1">
-                                    <span *ngIf="offerLetterForm.get('vehicleSecurity')['length'] > 0" class="disable-print">
+                                    <span *ngIf="offerLetterForm.get('vehicleSecurity')['length'] > 0"
+                                          class="disable-print">
                                         <input (click)="removeVehicle(iii)"
                                                class="align-self-end btn btn-sm btn-danger btn-primary"
                                                type="button" value="Delete"/>
@@ -1270,10 +1286,10 @@
                                         <b>{{vehicleData?.vehicleDetail ? vehicleData?.vehicleDetail : '========='}}</b></span>
                                 </td>
                                 <td colspan="2"><input type="text"
-                                           [value]="vehicleData?.engineNumber"
-                                           placeholder="इन्जिन नं."
-                                           (change)="securityValueChange($event?.target?.value, iii, 'vehicleSecurity', 'engineNumber')"
-                                           class="nepaliFont form-field form-control-sm font-size-normal disable-print">
+                                                       [value]="vehicleData?.engineNumber"
+                                                       placeholder="इन्जिन नं."
+                                                       (change)="securityValueChange($event?.target?.value, iii, 'vehicleSecurity', 'engineNumber')"
+                                                       class="nepaliFont form-field form-control-sm font-size-normal disable-print">
                                     <span class="nepaliFont font-size-normal print-only">
                                         <b>{{vehicleData?.engineNumber ? vehicleData?.engineNumber : '========='}}</b></span>
                                 </td>
@@ -1301,7 +1317,8 @@
                             </div>
                             <tr>
                                 <td colspan="1"></td>
-                                <td colspan="6">उक्त सवारी सधानहरु बैंकको कर्जा चुक्ता नहुन्जेल सम्मको लागि कर्जाको सुरक्षण
+                                <td colspan="6">उक्त सवारी सधानहरु बैंकको कर्जा चुक्ता नहुन्जेल सम्मको लागि कर्जाको
+                                    सुरक्षण
                                     वापत धितोको रुपमा प्रदान
                                     <ng-container *ngIf="loanType?.includes('RENEWED_LOAN'); else otherLoanType8">
                                         गराएको यथावत रहने छ । <br>
@@ -1330,8 +1347,12 @@
                         </th>
                     </tr>
                     <ng-container *ngIf="offerLetterForm?.get('shareSecurityNeeded')?.value">
-                        <tr>
-                            <th colspan="1" class="sn pt-2"><ul><li></li></ul></th>
+                        <tr *ngIf="offerLetterForm.get('shareSecurity')['length'] === 0 ? 'print-only1' : ''">
+                            <th colspan="1" class="sn pt-2">
+                                <ul>
+                                    <li></li>
+                                </ul>
+                            </th>
                             <th colspan="2">शेयरधनीको नाम</th>
                             <th colspan="2">धितोमा दिने शेयर रहेको कम्पनीको विवरण</th>
                             <th colspan="1">शेयर संख्या</th>
@@ -1340,7 +1361,8 @@
                         <ng-container>
                             <tr *ngFor="let shareData of offerLetterForm?.get('shareSecurity')?.value; let iv = index">
                                 <td colspan="1">
-                                    <span *ngIf="offerLetterForm.get('shareSecurity')['length'] > 0" class="disable-print">
+                                    <span *ngIf="offerLetterForm.get('shareSecurity')['length'] > 0"
+                                          class="disable-print">
                                         <input (click)="removeShareSecurity(iv)"
                                                class="align-self-end btn btn-sm btn-danger btn-primary"
                                                type="button" value="Delete"/>
@@ -1385,8 +1407,10 @@
                             </div>
                             <tr>
                                 <td colspan="1"></td>
-                                <td colspan="6">उक्त शेयरहरु र सोमा प्राप्त हुने वोनश शेयर, नगद लाभांश, हकप्रदबाट प्राप्त
-                                    हुने शेयर लगायतका सम्पूर्ण शेयरहरु बैंकको कर्जा चुक्ता नहुन्जेल सम्मका लागि कर्जाको सुरक्षण
+                                <td colspan="6">उक्त शेयरहरु र सोमा प्राप्त हुने वोनश शेयर, नगद लाभांश, हकप्रदबाट
+                                    प्राप्त
+                                    हुने शेयर लगायतका सम्पूर्ण शेयरहरु बैंकको कर्जा चुक्ता नहुन्जेल सम्मका लागि कर्जाको
+                                    सुरक्षण
                                     वापत धितोको रुपमा प्रदान
                                     <ng-container *ngIf="loanType?.includes('RENEWED_LOAN'); else otherLoanType7">
                                         गराएको यथावत रहने छ । <br>
@@ -1411,17 +1435,23 @@
                     </tbody>
                     <tbody>
                     <tr class="print-only1">
-                        <th class="sn pt-2"><ul><li></li></ul></th>
+                        <th class="sn pt-2">
+                            <ul>
+                                <li></li>
+                            </ul>
+                        </th>
                         <td>
                             <nb-checkbox (change)="otherCheck($event?.target?.checked, 'peGuaranteeCheck')"
-                                         [checked]="offerLetterForm?.get('peGuaranteeCheck')?.value"><i>Personal Guarantee</i>
+                                         [checked]="offerLetterForm?.get('peGuaranteeCheck')?.value"><i>Personal
+                                Guarantee</i>
                             </nb-checkbox> &nbsp;&nbsp;&nbsp;
                             <nb-checkbox (change)="otherCheck($event?.target?.checked, 'coGuaranteeCheck')"
-                                         [checked]="offerLetterForm?.get('coGuaranteeCheck')?.value"><i>Corporate Guarantee</i>
+                                         [checked]="offerLetterForm?.get('coGuaranteeCheck')?.value"><i>Corporate
+                                Guarantee</i>
                             </nb-checkbox> &nbsp;&nbsp;&nbsp;
-<!--                            <nb-checkbox (change)="otherCheck($event?.target?.checked, 'guaranteeNeeded')"-->
-<!--                                         [checked]="offerLetterForm?.get('guaranteeNeeded')?.value"><i>Guarantee Needed ?</i>-->
-<!--                            </nb-checkbox>-->
+                            <!--                            <nb-checkbox (change)="otherCheck($event?.target?.checked, 'guaranteeNeeded')"-->
+                            <!--                                         [checked]="offerLetterForm?.get('guaranteeNeeded')?.value"><i>Guarantee Needed ?</i>-->
+                            <!--                            </nb-checkbox>-->
                         </td>
                     </tr>
                     <ng-container *ngIf="offerLetterForm?.get('guaranteeNeeded')?.value">
@@ -1438,13 +1468,13 @@
                                         <b>{{offerLetterForm?.get('personalName').value ? offerLetterForm?.get('personalName').value : '========='}}</b></span> को
                             <input type="text"
                                    class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                   formControlName="personalAmount">
+                                   formControlName="personalAmount" (change)="convertAmount($event?.target?.value, 'personalAmount')">
                                  <span class="nepaliFont font-size-normal print-only">
                                         <b>{{offerLetterForm?.get('personalAmount').value ? offerLetterForm?.get('personalAmount').value : '========='}}</b></span> /– (अक्षरेपी रुपैयाँ
-                            <input type="text"
-                                   class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                   formControlName="personalAmountWord">
-                                <span class="nepaliFont font-size-normal print-only">
+<!--                            <input type="text"-->
+<!--                                   class="nepaliFont form-field form-control-sm font-size-normal disable-print"-->
+<!--                                   formControlName="personalAmountWord">-->
+                                <span class="nepaliFont font-size-normal">
                                         <b>{{offerLetterForm?.get('personalAmountWord').value ? offerLetterForm?.get('personalAmountWord').value : '========='}}</b></span>
                                 मात्र) को <strong>व्यक्तिगत जमानतको</strong>
                             लिखत बैंकलाई उपलब्ध
@@ -1492,10 +1522,10 @@
                                    formControlName="corporateAmount">
                                 <span class="nepaliFont font-size-normal print-only">
                                         <b>{{offerLetterForm?.get('corporateAmount').value ? offerLetterForm?.get('corporateAmount').value : '========='}}</b></span> /– (अक्षरेपी रुपैयाँ
-                            <input type="text"
-                                   class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                   formControlName="corporateAmountWord">
-                                <span class="nepaliFont font-size-normal print-only">
+<!--                            <input type="text"-->
+<!--                                   class="nepaliFont form-field form-control-sm font-size-normal disable-print"-->
+<!--                                   formControlName="corporateAmountWord">-->
+                                <span class="nepaliFont font-size-normal">
                                         <b>{{offerLetterForm?.get('corporateAmountWord').value ? offerLetterForm?.get('corporateAmountWord').value : '========='}}</b></span>
                                 मात्र) को <strong>संस्थागत जमानतको</strong>
                             लिखत बैंकलाई उपलब्ध
@@ -1534,12 +1564,15 @@
                     <ng-container>
                         <tr class="print-only1">
                             <th colspan="1">
-                                <ul><li></li></ul>
+                                <ul>
+                                    <li></li>
+                                </ul>
                             </th>
                             <th colspan="6">
                                 <nb-checkbox
                                         (change)="otherCheck($event?.target?.checked, 'currentAssetsNeeded')"
-                                        [checked]="offerLetterForm?.get('currentAssetsNeeded')?.value"><i>Security as Current Assets Needed ?</i>
+                                        [checked]="offerLetterForm?.get('currentAssetsNeeded')?.value"><i>Security as
+                                    Current Assets Needed ?</i>
                                 </nb-checkbox>
                             </th>
                         </tr>
@@ -1592,16 +1625,16 @@
                     </tbody>
                     <tbody>
                     <ng-container *ngIf="offerLetterForm?.get('fixedChecked').value">
-<!--                        <tr>-->
-<!--                            <th><ul><li></li></ul></th>-->
-<!--                            <th colspan="6">-->
-<!--                                <span class="float-right disable-print">-->
-<!--                                    <nb-checkbox (change)="otherCheck($event?.target?.checked, 'currentAssetsNeeded')"-->
-<!--                                                 [checked]="offerLetterForm?.get(['purpose', 'currentAssetsNeeded'])?.value"><i>Security as Current Assets Needed ?</i>-->
-<!--                                    </nb-checkbox>-->
-<!--                                </span>-->
-<!--                            </th>-->
-<!--                        </tr>-->
+                        <!--                        <tr>-->
+                        <!--                            <th><ul><li></li></ul></th>-->
+                        <!--                            <th colspan="6">-->
+                        <!--                                <span class="float-right disable-print">-->
+                        <!--                                    <nb-checkbox (change)="otherCheck($event?.target?.checked, 'currentAssetsNeeded')"-->
+                        <!--                                                 [checked]="offerLetterForm?.get(['purpose', 'currentAssetsNeeded'])?.value"><i>Security as Current Assets Needed ?</i>-->
+                        <!--                                    </nb-checkbox>-->
+                        <!--                                </span>-->
+                        <!--                            </th>-->
+                        <!--                        </tr>-->
                         <tr>
                             <td colspan="1">
                                 <span class="print-only">
@@ -1615,8 +1648,8 @@
                                     <ng-container *ngIf="loanType?.includes('RENEWED_LOAN'); else otherLoanType4">
                                         बैंकलाई उपलब्ध गराएको यथावत रहने छ । <br>
                                         <strong> (मिति <input type="text"
-                                                          class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                                          formControlName="date8">
+                                                              class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                                              formControlName="date8">
                                             <span class="nepaliFont font-size-normal print-only">
                                                 <b>{{offerLetterForm.get('date8')?.value ? offerLetterForm.get('date8')?.value : '========='}}</b>
                                             </span> मा रु
@@ -1651,10 +1684,15 @@
                     <tbody>
                     <ng-container>
                         <tr class="print-only1">
-                            <th colspan="1" class="sn pt-2"><ul><li></li></ul></th>
+                            <th colspan="1" class="sn pt-2">
+                                <ul>
+                                    <li></li>
+                                </ul>
+                            </th>
                             <th colspan="6">
                                 <nb-checkbox (change)="otherCheck($event?.target?.checked, 'cashMarginNeeded')"
-                                             [checked]="offerLetterForm?.get('cashMarginNeeded')?.value"><i>Security as Cash Margin Needed ?</i>
+                                             [checked]="offerLetterForm?.get('cashMarginNeeded')?.value"><i>Security as
+                                    Cash Margin Needed ?</i>
                                 </nb-checkbox>
                             </th>
                         </tr>
@@ -1690,7 +1728,11 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="1"><ul><li></li></ul></td>
+                                <td colspan="1">
+                                    <span class="print-only">
+                                        <ul><li></li></ul>
+                                    </span>
+                                </td>
                                 <td colspan="6">
                             <span *ngIf="!offerLetterForm?.get('cashGuaranteeOtherCheck')?.value">
                                 ग्यारेण्टी सुविधा उपयोगको आधारमा
@@ -1720,10 +1762,15 @@
                     </tbody>
                     <tbody>
                     <tr class="print-only1">
-                        <th colspan="1"><ul><li></li></ul></th>
+                        <th colspan="1">
+                            <ul>
+                                <li></li>
+                            </ul>
+                        </th>
                         <th colspan="6">
                             <nb-checkbox (change)="otherCheck($event?.target?.checked, 'personalSecurityNeeded')"
-                                         [checked]="offerLetterForm?.get('personalSecurityNeeded')?.value"><i>Security in case of Personal loan (Declaration) Needed ?</i>
+                                         [checked]="offerLetterForm?.get('personalSecurityNeeded')?.value"><i>Security
+                                in case of Personal loan (Declaration) Needed ?</i>
                             </nb-checkbox>
                         </th>
                     </tr>
@@ -1765,10 +1812,15 @@
                     </tbody>
                     <tbody>
                     <tr class="print-only1">
-                        <th colspan="1" class="sn"><ul><li></li></ul></th>
+                        <th colspan="1" class="sn">
+                            <ul>
+                                <li></li>
+                            </ul>
+                        </th>
                         <th colspan="6">
                             <nb-checkbox (change)="otherCheck($event?.target?.checked, 'cashLienNeeded')"
-                                         [checked]="offerLetterForm?.get('cashLienNeeded')?.value"><i>Security as Cash lien Needed ?</i>
+                                         [checked]="offerLetterForm?.get('cashLienNeeded')?.value"><i>Security as Cash
+                                lien Needed ?</i>
                             </nb-checkbox>
                         </th>
                     </tr>
@@ -1791,13 +1843,13 @@
                                         <b>{{offerLetterForm?.get('accountNo').value ? offerLetterForm?.get('accountNo').value : '========='}}</b></span>मा
                             <strong> रु. <input type="text"
                                                 class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                                formControlName="accountAmount">
+                                                formControlName="accountAmount" (change)="convertAmount($event?.target?.value, 'accountAmount')">
                                 <span class="nepaliFont font-size-normal print-only">
                                         <b>{{offerLetterForm?.get('accountAmount').value ? offerLetterForm?.get('accountAmount').value : '========='}}</b></span>/–
-                                (अक्षरेपी रुपैयाँ <input type="text"
-                                                         class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                                         formControlName="accountAmountWord">
-                                <span class="nepaliFont font-size-normal print-only">
+<!--                                (अक्षरेपी रुपैयाँ <input type="text"-->
+<!--                                                         class="nepaliFont form-field form-control-sm font-size-normal disable-print"-->
+<!--                                                         formControlName="accountAmountWord">-->
+                                <span class="nepaliFont font-size-normal">
                                         <b>{{offerLetterForm?.get('accountAmountWord').value ? offerLetterForm?.get('accountAmountWord').value : '========='}}</b></span>मात्र) </strong>
                             लिएको कर्जा चुक्ता नहुञ्जेल सम्मका लागि यस बैंकको नाममा लियन (ष्भिल) राखीदिन मञ्जुर गरी
                             दिएको लिखत
@@ -1831,18 +1883,22 @@
                     </tbody>
                     <tbody>
                     <tr>
-                        <th colspan="1" class="pt-2 sn"><ul><li></li></ul></th>
+                        <th colspan="1" class="pt-2 sn">
+                            <ul>
+                                <li></li>
+                            </ul>
+                        </th>
                         <td colspan="6">
                             <span *ngIf="!offerLetterForm?.get('loanTamsukOtherCheck')?.value">
                                 रु. <input type="text"
-                                       class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                       formControlName="loanAmount">
-                                <span class="nepaliFont font-size-normal print-only">
+                                           class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                           formControlName="loanAmount" (change)="convertAmount($event?.target?.value, 'loanAmount')">
+                                <span class="nepaliFont print-only font-size-normal">
                                         <b>{{offerLetterForm?.get('loanAmount').value ? offerLetterForm?.get('loanAmount').value : '========='}}</b></span>/– (अक्षरेपी रुपैयाँ
-                            <input type="text"
-                                   class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                   formControlName="loanAmountWord">
-                                <span class="nepaliFont font-size-normal print-only">
+<!--                            <input type="text"-->
+<!--                                   class="nepaliFont form-field form-control-sm font-size-normal disable-print"-->
+<!--                                   formControlName="loanAmountWord">-->
+                                <span class="nepaliFont font-size-normal">
                                         <b>{{offerLetterForm?.get('loanAmountWord').value ? offerLetterForm?.get('loanAmountWord').value : '========='}}</b></span>मात्र) को <strong>कर्जा तमसुकमा</strong> सही छाप
                             गरी बैंकलाई उपलव्ध
                                 <ng-container *ngIf="loanType?.includes('RENEWED_LOAN'); else otherLoanType2">
@@ -1875,18 +1931,22 @@
                     </tbody>
                     <tbody>
                     <tr>
-                        <th colspan="1" class="pt-2 sn"><ul><li></li></ul></th>
+                        <th colspan="1" class="pt-2 sn">
+                            <ul>
+                                <li></li>
+                            </ul>
+                        </th>
                         <td colspan="6">
                             <span *ngIf="!offerLetterForm?.get('promiseOtherCheck')?.value">
                                 रु<input type="text"
                                          class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                         formControlName="promiseAmount">
+                                         formControlName="promiseAmount" (change)="convertAmount($event?.target?.value, 'promiseAmount')">
                                 <span class="nepaliFont font-size-normal print-only">
                                         <b>{{offerLetterForm?.get('promiseAmount').value ? offerLetterForm?.get('promiseAmount').value : '========='}}</b></span>/– (अक्षरेपी रुपैयाँ
-                            <input type="text"
-                                   class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                   formControlName="promiseAmountWord">
-                                <span class="nepaliFont font-size-normal print-only">
+<!--                            <input type="text"-->
+<!--                                   class="nepaliFont form-field form-control-sm font-size-normal disable-print"-->
+<!--                                   formControlName="promiseAmountWord">-->
+                                <span class="nepaliFont font-size-normal">
                                         <b>{{offerLetterForm?.get('promiseAmountWord').value ? offerLetterForm?.get('promiseAmountWord').value : '========='}}</b></span>मात्र) को <strong>प्रतिज्ञापत्रमा</strong> सही
                                 छाप गरी बैंकलाई उपलव्ध
                                 <ng-container *ngIf="loanType?.includes('RENEWED_LOAN'); else otherLoanType1">
@@ -2824,11 +2884,13 @@
                                 ऋणी <br>
                                 श्री <input type="text"
                                             class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                            formControlName="borrowerName" (change)="customerDetailChange($event?.target?.value, 'borrowerName')">
+                                            formControlName="borrowerName"
+                                            (change)="customerDetailChange($event?.target?.value, 'borrowerName')">
                                 <span class="nepaliFont print-only"><b>{{offerLetterForm?.get('borrowerName').value ? offerLetterForm?.get('borrowerName').value : '========='}}</b> </span><br>
                                 ठेगाना : <input type="text"
                                                 class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                                formControlName="address" (change)="customerDetailChange($event?.target?.value, 'address')">
+                                                formControlName="address"
+                                                (change)="customerDetailChange($event?.target?.value, 'address')">
                                 <span class="nepaliFont print-only"><b>{{offerLetterForm?.get('address').value ? offerLetterForm?.get('address').value : '========='}}</b></span><br>
                                 <br>
                                 सम्पर्क टेलिफोन/मोवाइल नं. : <input type="text"

@@ -127,6 +127,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
             this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.OFFER_LETTER);
             this.fillForm();
             this.convertProposed();
+            // this.offerLetterForm.get('').patchValue(new Date());
             // this.addOtherCovenants();
             // this.addAcceptance();
             // this.addEventDefault();
@@ -302,8 +303,6 @@ export class OfferLetterLaxmiComponent implements OnInit {
             date12: [undefined],
 
             // subLoantype
-            samjhautapatra: [undefined],
-            samjhautapatra1: [undefined],
             patraDate: [undefined],
             date: [undefined],
             borrowerName1: [undefined],
@@ -408,6 +407,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
             vehicleSecurityNeeded: [true],
             shareSecurityNeeded: [true],
             guaranteeNeeded: [true],
+            branchCode: [undefined]
         });
     }
 
@@ -674,6 +674,10 @@ export class OfferLetterLaxmiComponent implements OnInit {
                 }
                 this.addPurpose(l);
             });
+            this.offerLetterForm.get('branchCode').patchValue(this.cadData.loanHolder.branch.branchCode);
+            // patch today date while generating offer letter
+            const offerLetterDate = new Date();
+            this.offerLetterForm.get('patraDate').patchValue(offerLetterDate);
             const security: Security = this.cadData.loanHolder.security;
             const siteVisit: SiteVisit = this.cadData.loanHolder.siteVisit;
             if (!ObjectUtil.isEmpty(siteVisit)) {
@@ -683,40 +687,10 @@ export class OfferLetterLaxmiComponent implements OnInit {
                     this.currentAssetstPresent = true;
                 }
             }
-            // if (!ObjectUtil.isEmpty(security)) {
-            //     this.securityPresent = true;
-            //     this.securityData = JSON.parse(security.approvedData);
-            //     this.selectedArray = this.securityData.selectedArray;
-            //     if (this.selectedArray.length > 0) {
-            //         this.multipleSecurity = true;
-            //     }
-            //     if (this.securityData.collateralSiteVisit) {
-            //         this.isCollateral = true;
-            //     }
-            // }
             const shareSecurity: ShareSecurity = this.cadData.loanHolder.shareSecurity;
             if (!ObjectUtil.isEmpty(shareSecurity)) {
                 this.shareData = JSON.parse(shareSecurity.approvedData);
             }
-
-            // security Data patch
-            // this.selectedArray.forEach(s => {
-            //     if (s === 'LandSecurity') {
-            //         this.addSecurity(this.securityData['initialForm']['landDetails']);
-            //     }
-            //     // if (s === 'Land and Building Security') {
-            //     //     this.addSecurity(this.securityData['initialForm']['landBuilding']);
-            //     // }
-            //     // if (s === 'ApartmentSecurity') {
-            //     //     this.addSecurity(this.securityData['initialForm']['buildingDetails']);
-            //     // }
-            //     // if (s === 'VehicleSecurity') {
-            //     //     this.addVehicleSecurity(this.securityData['initialForm']['vehicleDetails']);
-            //     // }
-            //     if (s === 'ShareSecurity') {
-            //         this.addShareSecurity(this.shareData);
-            //     }
-            // });
         }
     }
 
@@ -1393,5 +1367,35 @@ export class OfferLetterLaxmiComponent implements OnInit {
 
     customerDetailChange(value: any, type) {
         this.offerLetterForm.get(type).patchValue(value);
+    }
+
+    convertAmount(value, type) {
+        switch (type) {
+            case 'promiseAmount':
+                const word = this.nepaliCurrencyWordPipe.transform(this.nepaliToEnglishPipe.transform(value));
+                this.offerLetterForm.get(type).patchValue(value);
+                this.offerLetterForm.get('promiseAmountWord').patchValue(word);
+                break;
+            case 'totalConsumptionAmount':
+                const totalword = this.nepaliCurrencyWordPipe.transform(this.nepaliToEnglishPipe.transform(value));
+                this.offerLetterForm.get(type).patchValue(value);
+                this.offerLetterForm.get('totalConsumptionAmountWord').patchValue(totalword);
+                break;
+            case 'personalAmount':
+                const word1 = this.nepaliCurrencyWordPipe.transform(this.nepaliToEnglishPipe.transform(value));
+                this.offerLetterForm.get(type).patchValue(value);
+                this.offerLetterForm.get('personalAmountWord').patchValue(word1);
+                break;
+            case 'accountAmount':
+                const word2 = this.nepaliCurrencyWordPipe.transform(this.nepaliToEnglishPipe.transform(value));
+                this.offerLetterForm.get(type).patchValue(value);
+                this.offerLetterForm.get('accountAmountWord').patchValue(word2);
+                break;
+            case 'loanAmount':
+                const word3 = this.nepaliCurrencyWordPipe.transform(this.nepaliToEnglishPipe.transform(value));
+                this.offerLetterForm.get(type).patchValue(value);
+                this.offerLetterForm.get('loanAmountWord').patchValue(word3);
+                break;
+        }
     }
 }
