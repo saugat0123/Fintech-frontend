@@ -153,10 +153,10 @@ export class RevolvingShortTermLoanComponent implements OnInit {
         const convertDrawingPower = this.convertNumbersToNepali(this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'drawingPower']).value, false);
         this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'drawingPowerTrans']).patchValue(convertDrawingPower);
 
-        const convertBaseRate = this.convertNumbersToNepali(this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'baseRate']).value.toFixed(2), false);
+        const convertBaseRate = this.convertNumbersToNepali(this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'baseRate']).value ? this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'baseRate']).value.toFixed(2) : '', false);
         this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'baseRateTrans']).patchValue(convertBaseRate);
 
-        const convertPremiumRate = this.convertNumbersToNepali(this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'premiumRate']).value.toFixed(2), false);
+        const convertPremiumRate = this.convertNumbersToNepali(this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'premiumRate']).value ? this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'premiumRate']).value.toFixed(2) : '', false);
         this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'premiumRateTrans']).patchValue(convertPremiumRate);
 
         const convertInterestRate = this.convertNumbersToNepali(this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'interestRate']).value, false);
