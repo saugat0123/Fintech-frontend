@@ -299,35 +299,6 @@
                 </div>
             </div>
 
-            <div *ngIf="this.termLoanForm.get(['termLoanDetails', i, 'termLoanType']).value === 'NEW_INSTALLMENT_BASIS' ||
-                        this.termLoanForm.get(['termLoanDetails', i, 'termLoanType']).value === 'INSTALLMENT_ANNUAL_REVIEW'">
-                <div class="row">
-                    <div class="col-md-4 form-group">
-                        <label class="font-weight-bold" for="subsidyInterestRate">Interest Rate (if Subsidy)</label>
-                        <input class="form-control" formControlName="subsidyInterestRate" fullWidth
-                               id="subsidyInterestRate"
-                               nbInput
-                               shape="semi-round"
-                               status="success" type="number">
-                    </div>
-                    <div class="col-md-4 form-group fieldMargin">
-                        <input class="form-control" formControlName="subsidyInterestRateTrans" fullWidth
-                               id="subsidyInterestRateTrans"
-                               readonly
-                               nbInput
-                               shape="semi-round"
-                               status="success" type="text">
-                    </div>
-                    <div class="col-md-4 form-group fieldMargin">
-                        <input class="form-control" formControlName="subsidyInterestRateCT" fullWidth
-                               id="subsidyInterestRateCT"
-                               nbInput
-                               shape="semi-round"
-                               status="success" type="text">
-                    </div>
-                </div>
-            </div>
-
             <!--        Payment Amount for Installment-->
             <div *ngIf="this.termLoanForm.get(['termLoanDetails', i, 'termLoanType']).value === 'NEW_INSTALLMENT_BASIS' ||
                         this.termLoanForm.get(['termLoanDetails', i, 'termLoanType']).value === 'INSTALLMENT_ANNUAL_REVIEW'">
