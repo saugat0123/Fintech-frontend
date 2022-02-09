@@ -29,15 +29,10 @@
                         [ngClass]="{'nepaliFont uniFont':printDocForm?.districtName!==null && printDocForm?.districtName!==''}">
           {{printDocForm.districtName === null || printDocForm.districtName === '' ? '_______________' : printDocForm?.districtName}}
         </span>
-                    जिल्ला, <span *ngIf="printDocForm?.borrowerPermanentMunType === '0'; else borrowerPermanentVdc"
+                    जिल्ला, <span
                         [ngClass]="{'nepaliFont uniFont':printDocForm?.municipality!==null && printDocForm?.municipality!==''}">
           {{printDocForm.municipality === null || printDocForm.municipality === '' ? '_______________' : printDocForm?.municipality}}
         </span>
-                    <ng-template #borrowerPermanentVdc>
-                   <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.borrowerPermanentVdc !== null && printDocForm?.borrowerPermanentVdc !== ''}">
-                {{printDocForm?.borrowerPermanentVdc === null || printDocForm?.borrowerPermanentVdc === '' ? '_________________' : printDocForm?.borrowerPermanentVdc}}
-              </span>
-                    </ng-template>
                     गा.पा./न.पा./म.न.पा., वडा नं. <span
                         [ngClass]="{'nepaliFont':printDocForm?.wardNo!==null && printDocForm?.wardNo!==''}">
           {{printDocForm.wardNo === null || printDocForm.wardNo === '' ? '_______________' : printDocForm?.wardNo}}
@@ -48,14 +43,9 @@
           {{printDocForm.temporaryDistrict === null || printDocForm.temporaryDistrict === '' ? '_______________' : printDocForm?.temporaryDistrict}}
         </span>
                     जिल्ला, <span
-                        *ngIf="printDocForm?.borrowerTemporaryMunType === '0'; else borrowerTemporaryVdc"
                         [ngClass]="{'nepaliFont uniFont':printDocForm?.tempMunicipality!==null && printDocForm?.tempMunicipality!==''}">
           {{printDocForm.tempMunicipality === null || printDocForm.tempMunicipality === '' ? '_______________' : printDocForm?.tempMunicipality}}
         </span>
-                    <ng-template #borrowerTemporaryVdc>
-                   <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.borrowerTemporaryVdc !== null && printDocForm?.borrowerTemporaryVdc !== ''}">
-                {{printDocForm?.borrowerTemporaryVdc === null || printDocForm?.borrowerTemporaryVdc === '' ? '_________________' : printDocForm?.borrowerTemporaryVdc}}</span>
-                    </ng-template>
                     गा.पा./न.पा./म.न.पा., वडा न. <span
                         [ngClass]="{'nepaliFont':printDocForm?.tempWardNo!==null && printDocForm?.tempWardNo!==''}">
           {{printDocForm.tempWardNo === null || printDocForm.tempWardNo === '' ? '_______________' : printDocForm?.tempWardNo}}
@@ -118,7 +108,7 @@
                         [ngClass]="{'nepaliFont uniFont':printDocForm?.districtName!==null && printDocForm?.districtName!==''}">
           {{printDocForm.districtName === null || printDocForm.districtName === '' ? '_______________' : printDocForm?.districtName}}
         </span>
-                    जिल्ला <span *ngIf="printDocForm?.borrowerPermanentMunType === '0'; else borrowerPermanentVdc"
+                    जिल्ला <span
                                  [ngClass]="{'nepaliFont uniFont':printDocForm?.municipality!==null && printDocForm?.municipality!==''}">
           {{printDocForm.municipality === null || printDocForm.municipality === '' ? '_______________' : printDocForm?.municipality}}
         </span>
@@ -132,7 +122,6 @@
           {{printDocForm.temporaryDistrict === null || printDocForm.temporaryDistrict === '' ? '_______________' : printDocForm?.temporaryDistrict}}
         </span>
                     जिल्ला <span
-                        *ngIf="printDocForm?.borrowerTemporaryMunType === '0'; else borrowerTemporaryVdc"
                         [ngClass]="{'nepaliFont uniFont':printDocForm?.tempMunicipality!==null && printDocForm?.tempMunicipality!==''}">
           {{printDocForm.tempMunicipality === null || printDocForm.tempMunicipality === '' ? '_______________' : printDocForm?.tempMunicipality}}
         </span>

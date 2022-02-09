@@ -87,8 +87,6 @@ export class LetterOfAgreementComponent implements OnInit {
         loanAmount: loanAmount.numberNepali ? loanAmount.numberNepali : '',
         loanAmountWords: loanAmount.nepaliWords ? loanAmount.nepaliWords : '',
         gender: this.nepaliData.gender ?  this.nepaliData.gender : '',
-        borrowerPermanentMunType: this.nepaliData.permanentMunType ? this.nepaliData.permanentMunType : '',
-        borrowerPermanentVdc: this.nepaliData.permanentVdc ? this.nepaliData.permanentVdc : '',
       });
     }
   }
@@ -163,8 +161,6 @@ export class LetterOfAgreementComponent implements OnInit {
       itiDate: [undefined],
       itiSambat: [undefined],
       gender: [undefined],
-      borrowerPermanentMunType: [undefined],
-      borrowerPermanentVdc: [undefined],
     });
   }
 

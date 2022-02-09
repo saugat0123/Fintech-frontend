@@ -39,16 +39,8 @@
                                     formControlName="likhitDistrict"
                                     type="text">
                     जिल्ला,<input class="form-field nepaliFont form-control-sm uniCodeFont"
-                                  *ngIf="form.get('borrowerPermanentMunType').value === '0'; else borrowerPermanentVdc"
                                  formControlName="likhitMunicipality"
                                  type="text">
-                    <ng-template #borrowerPermanentVdc>
-                        <input class="form-field form-control-sm nepaliFont"
-                               formControlName="borrowerPermanentVdc"
-                               placeholder=""
-                               readonly
-                               type="text"/>
-                    </ng-template>
                     गा.पा./न.पा./म.न.पा., वडा नं.<input class="form-field nepaliFont form-control-sm"
                                                        formControlName="likhitWardNo" type="text">
                     (साबिक <input class="form-field nepaliFont form-control-sm"
@@ -59,16 +51,8 @@
                                                 type="text">
 
                     जिल्ला,<input class="form-field nepaliFont form-control-sm uniCodeFont"
-                                  *ngIf="form.get('borrowerTemporaryMunType').value === '0'; else borrowerTemporaryVdc"
                                   formControlName="staDistrict"
                                  type="text">
-                    <ng-template #borrowerTemporaryVdc>
-                        <input class="form-field form-control-sm nepaliFont"
-                               formControlName="borrowerTemporaryVdc"
-                               placeholder=""
-                               readonly
-                               type="text"/>
-                    </ng-template>
                     गा.पा./न.पा./म.न.पा., वडा नं.<input class="form-field nepaliFont form-control-sm"
                                                        formControlName="tempWardNo" type="text">
                     स्थित<input class="form-field nepaliFont form-control-sm"

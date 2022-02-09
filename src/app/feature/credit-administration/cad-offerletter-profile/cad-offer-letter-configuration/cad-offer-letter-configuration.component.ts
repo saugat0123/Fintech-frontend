@@ -257,12 +257,14 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             permanentMunType: [0],
             permanentWard: [undefined],
             permanentVdc: [undefined],
+            permanentVdcWard: [undefined],
             temporaryProvince: [undefined],
             temporaryDistrict: [undefined],
             temporaryMunicipalities: [undefined],
             temporaryWard: [undefined],
             temporaryMunType: [1],
             temporaryVdc: [undefined],
+            temporaryVdcWard: [undefined],
             customerEmail: [undefined],
             contactNumber: [undefined],
             guarantorDetails: this.formBuilder.array([]),
@@ -421,12 +423,14 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             guarantorPermanentMunicipality: [undefined],
             guarantorPermanentWard: [undefined],
             guarantorPermanentVdc: [undefined],
+            guarantorPermanentVdcWard: [undefined],
             guarantorTemporaryMunType: [1],
             guarantorTemporaryProvince: [undefined],
             guarantorTemporaryDistrict: [undefined],
             guarantorTemporaryMunicipality: [undefined],
             guarantorTemporaryWard: [undefined],
-            guarantorTemporaryVdc: [undefined]
+            guarantorTemporaryVdc: [undefined],
+            guarantorTemporaryVdcWard: [undefined]
         });
     }
 
@@ -457,7 +461,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             toleNew: '',
             toleOld: '',
             plotNoOld: '',
-            collateralType: ''
+            collateralType: '',
+            collateralPermanentVdc: '',
+            collateralTemporaryVdc: ''
         });
     }
 
@@ -511,12 +517,14 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 guarantorPermanentMunicipality: [value.guarantorPermanentMunicipality],
                 guarantorPermanentWard: [value.guarantorPermanentWard],
                 guarantorPermanentVdc: [value.guarantorPermanentVdc],
+                guarantorPermanentVdcWard: [value.guarantorPermanentVdcWard],
                 guarantorTemporaryMunType: [value.guarantorTemporaryMunType],
                 guarantorTemporaryProvince: [value.guarantorTemporaryProvince],
                 guarantorTemporaryDistrict: [value.guarantorTemporaryDistrict],
                 guarantorTemporaryMunicipality: [value.guarantorTemporaryMunicipality],
                 guarantorTemporaryWard: [value.guarantorTemporaryWard],
-                guarantorTemporaryVdc : [value.guarantorTemporaryVdc]
+                guarantorTemporaryVdc : [value.guarantorTemporaryVdc],
+                guarantorTemporaryVdcWard: [value.guarantorTemporaryVdcWard]
             }));
             this.getGuarantorDistricts(value.guarantorPermanentProvince, i);
             this.getGuarantorMunicipalities(value.guarantorPermanentDistrict, i);
@@ -624,7 +632,11 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 toleNew: [value.toleNew],
                 toleOld: [value.toleOld],
                 plotNoOld: [value.plotNoOld],
-                collateralType: [value.collateralType]
+                collateralType: [value.collateralType],
+                collateralPermanentVdc: [value.collateralPermanentVdc],
+                collateralPermanentVdcWard: [value.collateralPermanentVdcWard],
+                collateralTemporaryVdc: [value.collateralTemporaryVdc],
+                collateralTemporaryVdcWard: [value.collateralTemporaryVdcWard]
 
             }));
             this.getCollateralDistricts(value.collateralPermanentProvince, i);
@@ -658,7 +670,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             collateralOwnerPermanentMunicipalities: '',
             collateralOwnerPermanentWard: '',
             collateralOwnerMobileNo: '',
-            collateralOwnerCodeNo: ''
+            collateralOwnerCodeNo: '',
+            collateralOwnerPermanentVdc: '',
+            collateralOwnerPermanentVdcWard: ''
         });
     }
 
@@ -697,7 +711,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 collateralOwnerPermanentMunicipalities: [value.collateralOwnerPermanentMunicipalities],
                 collateralOwnerPermanentWard: [value.collateralOwnerPermanentWard],
                 collateralOwnerMobileNo: [value.collateralOwnerMobileNo],
-                collateralOwnerCodeNo: [value.collateralOwnerCodeNo]
+                collateralOwnerCodeNo: [value.collateralOwnerCodeNo],
+                collateralOwnerPermanentVdc: [value.collateralOwnerPermanentVdc],
+                collateralOwnerPermanentVdcWard: [value.collateralOwnerPermanentVdcWard]
             }));
             this.getCollateralOwnerDistricts(value.collateralOwnerPermanentProvince, i);
             this.getCollateralOwnerMunicipalities(value.collateralOwnerPermanentDistrict, i);

@@ -1,6 +1,9 @@
 <div [nbSpinner]="spinner" class="row nepali" id="{{offerLetterConst.GUARANTEE_BOND_PERSONAL}}">
     <div class="col-md-12 viewFull">
         <form (ngSubmit)="onSubmit()" [formGroup]="form">
+            <div *ngFor="let guarantor of form.get('guarantorDetails')['controls']; index as i"
+                 formArrayName="guarantorDetails" class="mt-4">
+                <div [formGroupName]="i">
             <div class="nep">
                 <div class="text-center" style="margin-top:20px;">
                     <strong>बिषयः व्यक्तिगत जमानत</strong>
@@ -28,10 +31,7 @@
 
                                            formControlName="husbandWifeName"
                                            type="text">
-                    को/की पति/पत्नी <input class="form-control-sm form-field nepaliFont"
-
-                                           formControlName="sasuSasura"
-                                           type="text">
+                    को/की पति/पत्नी,
                     नागरिकता वमोजिम <input class="form-control-sm form-field nepaliFont uniFont"
 
                                            formControlName="district"
@@ -94,10 +94,7 @@
 
                                      formControlName="buttonhusbandName"
                                      type="text"> को/की
-                    पति/पत्नी <input class="form-control-sm form-field nepaliFont"
-
-                                     formControlName="buttonSasuSasura"
-                                     type="text">,
+                    पति/पत्नी,
                     नागरिकता वमोजिम <input class="form-control-sm form-field nepaliFont uniFont"
 
                                            formControlName="buttonDistrict"
@@ -153,10 +150,7 @@
 
                                            formControlName="husName"
                                            type="text">
-                    को/की पति/पत्नी <input class="form-control-sm form-field nepaliFont"
-
-                                           formControlName="saSura"
-                                           type="text">,
+                    को/की पति/पत्नी,
                     नागरिकता वमोजिम <input class="form-control-sm form-field nepaliFont uniFont"
 
                                            formControlName="districtName"
@@ -363,35 +357,35 @@
                     दस्तखत :-........................
                     <br>
                     जमानी दिनेको नाम :- <input class="form-control-sm form-field nepaliFont"
-                                               value="{{form.get('namName').value}}"
+                                               value="{{form.get(['guarantorDetails', i,'namName']).value}}"
                                                formControlName="guaranteeNAme"
                                                type="text">
 
                     (ना.प्र.नं. <input class="form-control-sm form-field nepaliFont"
-                                       value="{{form.get('citizenshipNo').value}}"
+                                       value="{{form.get(['guarantorDetails', i,'citizenshipNo']).value}}"
                                        formControlName="guaranteeCitizenshipNo"
                                        type="text">
                     मिति <input class="form-control-sm form-field nepaliFont"
-                                value="{{form.get('date').value}}"
+                                value="{{form.get(['guarantorDetails', i,'date']).value}}"
                                 formControlName="guaranteeIssueDate"
                                 type="text">
                     जि.प्र.का. <input class="form-control-sm form-field nepaliFont"
-                                      value="{{form.get('cdoOffice').value}}"
+                                      value="{{form.get(['guarantorDetails', i,'cdoOffice']).value}}"
                                       formControlName="guaranteeCdoOffice"
                                       type="text">)
                     <br>
 
                     ठेगाना :-स्थायी
                     <input class="form-control-sm form-field nepaliFont uniFont"
-                           value="{{form.get('district').value}}"
+                           value="{{form.get(['guarantorDetails', i,'district']).value}}"
                            formControlName="guaranteePermanentDistrict"
                            type="text">
                     जिल्ला, <input class="form-control-sm form-field nepaliFont uniFont"
-                                  value="{{form.get('municipality').value}}"
+                                  value="{{form.get(['guarantorDetails', i,'municipality']).value}}"
                                   formControlName="guaranteePermanentMunicipality"
                                   type="text">
                     गा.पा./न.पा., वडा नं.<input class="form-control-sm form-field nepaliFont shortInput"
-                                              value="{{form.get('wardNo').value}}"
+                                              value="{{form.get(['guarantorDetails', i,'wardNo']).value}}"
                                               formControlName="guaranteePermanentWardNo"
                                               type="text">
                     (साबिक <input class="form-control-sm form-field nepaliFont"
@@ -403,32 +397,32 @@
                     <br>
                     हालको ठेगानाः
                     <input class="form-control-sm form-field nepaliFont uniFont"
-                           value="{{form.get('tempDistrict').value}}"
+                           value="{{form.get(['guarantorDetails', i,'tempDistrict']).value}}"
                            formControlName="guaranteeTempDistrict"
                            type="text">
                     जिल्ला, <input class="form-control-sm form-field nepaliFont uniFont"
-                                  value="{{form.get('tempMunicipality').value}}"
+                                  value="{{form.get(['guarantorDetails', i,'tempMunicipality']).value}}"
                                   formControlName="guaranteeTempMunicipality"
                                   type="text">
                     गा.पा./न.पा., वडा नं. <input class="form-control-sm form-field nepaliFont shortInput"
-                                               value="{{form.get('tempWardNo').value}}"
+                                               value="{{form.get(['guarantorDetails', i,'tempWardNo']).value}}"
                                                formControlName="guaranteeTempWardNo"
                                                type="text">
 
                     <br>
                     <br>
                     वावु/आमाको नाम :- <input class="form-control-sm form-field nepaliFont"
-                                             value="{{form.get('parentName').value}}"
+                                             value="{{form.get(['guarantorDetails', i,'parentName']).value}}"
                                              formControlName="fatherMotherName"
                                              type="text">
                     <br>
                     वाजे/बजैको नाम :- <input class="form-control-sm form-field nepaliFont"
-                                             value="{{form.get('grandParentName').value}}"
+                                             value="{{form.get(['guarantorDetails', i,'grandParentName']).value}}"
                                              formControlName="grandFatherGrandmomName"
                                              type="text">
                     <br>
                     पति/पत्निको नाम :- <input class="form-control-sm form-field nepaliFont"
-                                              value="{{form.get('husbandWifeName').value}}"
+                                              value="{{form.get(['guarantorDetails', i,'husbandWifeName']).value}}"
                                               formControlName="husbandWifeName"
                                               type="text">
 
@@ -576,6 +570,8 @@
                                formControlName="itiSambatRojSubham"
                                type="text"> रोज शुभम्।
                 </p>
+            </div>
+                </div>
             </div>
 
             <div class="col-md-12">

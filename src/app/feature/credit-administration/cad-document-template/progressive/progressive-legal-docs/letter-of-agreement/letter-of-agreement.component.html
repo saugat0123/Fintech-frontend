@@ -23,16 +23,8 @@
                                    placeholder="" type="text"/>
                     जिल्ला,
                     <input class="form-field form-control-sm nepaliFont unicode-size"
-                           *ngIf="form.get('borrowerPermanentMunType').value === '0'; else borrowerPermanentVdc"
                            formControlName="perMunicipality"
                            placeholder="" type="text"/>
-                    <ng-template #borrowerPermanentVdc>
-                        <input class="form-field form-control-sm nepaliFont"
-                               formControlName="borrowerPermanentVdc"
-                               placeholder=""
-                               readonly
-                               type="text"/>
-                    </ng-template>
                     न.पा./गा.वि.स., वडा नं.
                     <input class="form-field form-control-sm nepaliFont shortInput"
                            formControlName="perWardNo"

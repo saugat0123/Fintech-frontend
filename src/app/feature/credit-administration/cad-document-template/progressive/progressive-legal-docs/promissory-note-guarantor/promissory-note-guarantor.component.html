@@ -38,18 +38,12 @@
                                                   formControlName="borrowerPermanentDistrict"
                                                   placeholder=""
                                                    readonly
-                                                  type="text"/> जिल्ला, <input class="form-field form-control-sm nepaliFont unicode-size" *ngIf="form.get('borrowerPermanentMunType').value === '0'; else borrowerPermanentVdc"
+                                                  type="text"/> जिल्ला, <input class="form-field form-control-sm nepaliFont unicode-size"
                                                                               formControlName="borrowerPermanentMunicipality"
                                                                               placeholder=""
                                                                               readonly
                                                                               type="text"/>
-          <ng-template #borrowerPermanentVdc>
-            <input class="form-field form-control-sm nepaliFont"
-                   formControlName="borrowerPermanentVdc"
-                   placeholder=""
-                   readonly
-                   type="text"/>
-          </ng-template>
+
           गा.पा./न.पा./म.न.पा., वडा नं. <input class="form-field form-control-sm nepaliFont shortInput"
                                              formControlName="borrowerPermanentWardNo"
                                              placeholder=""
@@ -59,18 +53,10 @@
                                                                                        placeholder=""
                                                                                         readonly
                                                                                        type="text"/> जिल्ला <input class="form-field form-control-sm nepaliFont unicode-size"
-                                                                                                                   *ngIf="form.get('borrowerTemporaryMunType').value === '0'; else borrowerTemporaryVdc"
                                                                                                                    formControlName="borrowerTempMunicipality"
                                                                                                                    placeholder=""
                                                                                                                    readonly
                                                                                                                    type="text"/>
-          <ng-template #borrowerTemporaryVdc>
-            <input class="form-field form-control-sm nepaliFont"
-                   formControlName="borrowerTemporaryVdc"
-                   placeholder=""
-                   readonly
-                   type="text"/>
-          </ng-template>
           गा.पा./न.पा./म.न.पा., वडा न.<input class="form-field form-control-sm nepaliFont shortInput"
                                             formControlName="borrowerTempWardNo"
                                             placeholder=""
@@ -152,18 +138,10 @@
                                                            readonly
                                                            type="text"/>
               जिल्ला, <input class="form-field form-control-sm nepaliFont unicode-size"
-                             *ngIf="form.get(['guarantorDetails', i,'guarantorPermanentMunType']).value === '0'; else guarantorPermanentVdc"
                             formControlName="guarantorPermanentMunicipality"
                             placeholder=""
                             readonly
                             type="text"/>
-              <ng-template #guarantorPermanentVdc>
-                <input class="form-field form-control-sm nepaliFont"
-                       formControlName="guarantorPermanentVdc"
-                       placeholder=""
-                       readonly
-                       type="text"/>
-              </ng-template>
               गा.पा./न.पा., वडा नं.<input class="form-field form-control-sm nepaliFont shortInput"
                                        formControlName="guarantorPermanentWardNo"
                                        placeholder=""
@@ -186,18 +164,10 @@
                                                            readonly
                                                            type="text"/>
               जिल्ला,<input class="form-field form-control-sm nepaliFont unicode-size"
-                            *ngIf="form.get(['guarantorDetails', i,'guarantorTemporaryMunType']).value === '0'; else guarantorTemporaryVdc"
                            formControlName="guarantorTempMunicipality"
                            placeholder=""
                            readonly
                            type="text"/>
-              <ng-template #guarantorTemporaryVdc>
-                <input class="form-field form-control-sm nepaliFont"
-                       formControlName="guarantorTemporaryVdc"
-                       placeholder=""
-                       readonly
-                       type="text"/>
-              </ng-template>
               गा.पा./न.पा., वडा नं.<input class="form-field form-control-sm nepaliFont shortInput"
                                         formControlName="guarantorTempWardNo"
                                         placeholder=""

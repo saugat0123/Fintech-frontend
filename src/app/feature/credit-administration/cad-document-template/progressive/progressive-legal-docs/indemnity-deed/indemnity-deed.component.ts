@@ -81,10 +81,6 @@ export class IndemnityDeedComponent implements OnInit {
                 amountInWord: loanAmount.nepaliWords ? loanAmount.nepaliWords : '',
                 branchName : this.nepaliData.branchName ? this.nepaliData.branchName : '',
                 chaltiKhata: this.nepaliData.accountNo ? this.nepaliData.accountNo : '',
-                borrowerPermanentMunType: this.nepaliData.permanentMunType ? this.nepaliData.permanentMunType : '',
-                borrowerPermanentVdc: this.nepaliData.permanentVdc ? this.nepaliData.permanentVdc : '',
-                borrowerTemporaryMunType: this.nepaliData.temporaryMunType ? this.nepaliData.temporaryMunType : '',
-                borrowerTemporaryVdc: this.nepaliData.temporaryVdc ? this.nepaliData.temporaryVdc : ''
             });
         }
     }
@@ -189,10 +185,6 @@ export class IndemnityDeedComponent implements OnInit {
             guarantorPermanentMunicipality1: [undefined],
             guarantorPermanentWardNo1: [undefined],
             issuedPlace1: [undefined],
-            borrowerPermanentMunType: [undefined],
-            borrowerPermanentVdc: [undefined],
-            borrowerTemporaryMunType: [undefined],
-            borrowerTemporaryVdc: [undefined],
         });
     }
 

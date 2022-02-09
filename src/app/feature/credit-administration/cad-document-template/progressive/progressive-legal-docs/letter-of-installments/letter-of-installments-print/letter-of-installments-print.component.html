@@ -79,15 +79,10 @@
 </span>
               <br>
               ठेगाना : <span
-                *ngIf="printDocForm?.guarantorPermanentMunType === '0'; else guarantorPermanentVdc"
                 [ngClass]="{'nepaliFont unicode-size' : printDocForm?.guarantorMunVdc !== null && printDocForm?.guarantorMunVdc !== ''}">
     {{printDocForm?.guarantorMunVdc === null || printDocForm?.guarantorMunVdc === '' ? '_________________' : printDocForm?.guarantorMunVdc}}
 </span>
-            <ng-template #guarantorPermanentVdc>
-                   <span [ngClass]="{'nepaliFont uniFont' : printDocForm?.guarantorPermanentVdc !== null && printDocForm?.guarantorPermanentVdc !== ''}">
-                {{printDocForm?.guarantorPermanentVdc === null || printDocForm?.guarantorPermanentVdc === '' ? '_________________' : printDocForm?.guarantorPermanentVdc}}
-              </span>
-            </ng-template>, वडा नं. <span [ngClass]="{'nepaliFont' : printDocForm?.guarantorWardNo !== null && printDocForm?.guarantorWardNo !== ''}">
+            , वडा नं. <span [ngClass]="{'nepaliFont' : printDocForm?.guarantorWardNo !== null && printDocForm?.guarantorWardNo !== ''}">
     {{printDocForm?.guarantorWardNo === null || printDocForm?.guarantorWardNo === '' ? '_________________' : printDocForm?.guarantorWardNo}}
 </span>,
             <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.guarantorDistrict !== null && printDocForm?.guarantorDistrict !== ''}">
