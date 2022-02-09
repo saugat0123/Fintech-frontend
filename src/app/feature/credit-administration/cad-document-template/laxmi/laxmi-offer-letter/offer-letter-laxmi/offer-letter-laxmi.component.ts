@@ -52,27 +52,6 @@ export class OfferLetterLaxmiComponent implements OnInit {
     offerLetterDocument;
     hasSubLoanType = false;
     purpose = LaxmiPurpose.enumObject();
-    tempPurposeFlag = {
-        workingCapitalOther: false,
-        selectShareLoanOther: false,
-        selectGoldOther: false,
-        selectHomeEquityOther: false,
-        selectBridgeOther: false,
-        selectCapitalOther: false,
-        selectFixedAssetsOther: false,
-        selectVehicleOther: false,
-        selectRefinancingOther: false,
-        selectLetterOther: false,
-        selectLoanAgainstOther: false,
-        selectLoanAgainstTOther: false,
-        selectPurchaseOther: false,
-        selectConstructionOther: false,
-        selectHireOther: false,
-        selectcommercialOther: false,
-        selectBidOther: false,
-        selectPerformanceOther: false,
-        selectPersonalOther: false,
-    };
     ckeConfig = NepaliEditor.CK_CONFIG;
     existingOfferLetter = false;
     multipleSecurity = false;
@@ -158,7 +137,6 @@ export class OfferLetterLaxmiComponent implements OnInit {
 
     fillForm() {
         this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
-        // const address = this.nepaliData.perma
         if (!ObjectUtil.isEmpty(this.nepaliData)) {
             this.offerLetterForm.patchValue({
                 borrowerName: this.nepaliData.name,
@@ -177,114 +155,34 @@ export class OfferLetterLaxmiComponent implements OnInit {
             designation3: [undefined],
             name2: [undefined],
             name3: [undefined],
-            // contactNumber: [undefined],
             address: [undefined],
             borrowerName: [undefined],
             branchName: [undefined],
             telephoneNumber: [undefined],
             faxNumber: [undefined],
             subLoanType: [undefined],
-
-            // new/enhance Security
-            fixedAssetsCollateral: this.formBuilder.array([]),
-            landOwnerName1: [undefined],
-            securityDistrict1: [undefined],
-            securityVdc1: [undefined],
-            securityWard1: [undefined],
-            securityKitta1: [undefined],
-            securityArea1: [undefined],
-
-            vehicleDetails: [undefined],
-            engineNo: [undefined],
-            chasisNo: [undefined],
-            vehicleNo: [undefined],
-
-            shareOwnerName: [undefined],
-            shareCompanyName: [undefined],
-            shareUnit: [undefined],
-            shareType: [undefined],
-
             personalName: [undefined],
             personalAmount: [undefined],
             personalAmountWord: [undefined],
-
             corporateName: [undefined],
             corporateAmount: [undefined],
             corporateAmountWord: [undefined],
-
             letterCM: [undefined],
             guarnateeCM: [undefined],
-
             accountName: [undefined],
             accountNo: [undefined],
             accountAmount: [undefined],
             accountAmountWord: [undefined],
-
             loanAmount: [undefined],
             loanAmountWord: [undefined],
             promiseAmount: [undefined],
             promiseAmountWord: [undefined],
-
             ligLoan: [undefined],
             landLoanAmount: [undefined],
             loanBorrower: [undefined],
             consumptionAmount: [undefined],
             totalConsumptionAmount: [undefined],
             totalConsumptionAmountWord: [undefined],
-
-            // renew
-            landOwnerName2: [undefined],
-            securityDistrict2: [undefined],
-            securityVdc2: [undefined],
-            securityWard2: [undefined],
-            securityKitta2: [undefined],
-            securityArea2: [undefined],
-
-            landOwnerName3: [undefined],
-            securityDistrict3: [undefined],
-            securityVdc3: [undefined],
-            securityWard3: [undefined],
-            securityKitta3: [undefined],
-            securityArea3: [undefined],
-
-            vehicleDetails1: [undefined],
-            engineNo1: [undefined],
-            chasisNo1: [undefined],
-            vehicleNo1: [undefined],
-
-            shareOwnerName1: [undefined],
-            shareCompanyName1: [undefined],
-            shareUnit1: [undefined],
-            shareType1: [undefined],
-
-            personalName1: [undefined],
-            personalAmount1: [undefined],
-            personalAmountWord1: [undefined],
-
-            corporateName1: [undefined],
-            corporateAmount1: [undefined],
-            corporateAmountWord1: [undefined],
-
-            letterCM1: [undefined],
-            guarnateeCM1: [undefined],
-
-            accountName1: [undefined],
-            accountNo1: [undefined],
-            accountAmount1: [undefined],
-            accountAmountWord1: [undefined],
-
-            loanAmount1: [undefined],
-            loanAmountWord1: [undefined],
-            promiseAmount1: [undefined],
-            promiseAmountWord1: [undefined],
-
-            ligLoan1: [undefined],
-            landLoanAmount1: [undefined],
-            loanBorrower1: [undefined],
-            consumptionAmount1: [undefined],
-            totalConsumptionAmount1: [undefined],
-            totalConsumptionAmountWord1: [undefined],
-
             date1: [undefined],
             amount1: [undefined],
             date2: [undefined],
@@ -301,51 +199,14 @@ export class OfferLetterLaxmiComponent implements OnInit {
             date11: [undefined],
             date12: [undefined],
 
-            // subLoantype
             patraDate: [undefined],
             date: [undefined],
-            borrowerName1: [undefined],
-            address1: [undefined],
             phoneNo: [undefined],
             attention: [undefined],
-            workingRate: [undefined],
-            workingLandBuildingRate: [undefined],
-            autoRate: [undefined],
-            autoModel: [undefined],
-
-            // other Clauses
-            reviewDate1: [undefined],
-            premiumRate: [undefined],
-            monthlyRate: [undefined],
-            quaterlyRate: [undefined],
-            anurupRate: [undefined],
-            interestMonth: [undefined],
-            interestPremiumRate: [undefined],
-            interestRate: [undefined],
-            repaymentAmount: [undefined],
-            repaymentAmountWord: [undefined],
-            repaymentMonthly: [undefined],
-            repaymentMonthlyRate: [undefined],
-            repaymentMonth: [undefined],
-            repaymentAmount1: [undefined],
-            repaymentAmountWord1: [undefined],
-            totalBorrowerAmount: [undefined],
-            borrowerAmount: [undefined],
-            borrowerAmount1: [undefined],
-            borrowerAmount2: [undefined],
-            administrationRate: [undefined],
-            administrationAmount: [undefined],
-            reviewRate: [undefined],
-            reviewAmount: [undefined],
-
-            educationOther: [undefined],
-            commercialOther: [undefined],
-            educationPurpose: [undefined],
-            commercialPurpose: [undefined],
             swapFee: [true],
             otherSwapFeeChecked: [false],
             swapFeeOther: [undefined],
-            agmiPurpose: [undefined],
+            // agmiPurpose: [undefined],
             prepaymentCharge: [true],
             prepaymentOtherCheck: [false],
             prepaymentOther: [undefined],
@@ -361,7 +222,6 @@ export class OfferLetterLaxmiComponent implements OnInit {
             penalInterest: [true],
             penalInterestOtherCheck: [false],
             penalInterestOther: [undefined],
-            educationalDrawdown: [undefined],
             purpose: this.formBuilder.array([]),
             covenant: this.formBuilder.array([]),
             eventDefault: this.formBuilder.array([]),
@@ -412,7 +272,6 @@ export class OfferLetterLaxmiComponent implements OnInit {
 
     submit() {
         this.spinner = true;
-        // this.cadData.docStatus = CadDocStatus.OFFER_PENDING;
         if (this.existingOfferLetter) {
             this.cadData.offerDocumentList.forEach(singleCadFile => {
                 if (singleCadFile.docName.toString() ===
@@ -723,20 +582,6 @@ export class OfferLetterLaxmiComponent implements OnInit {
                 shareType: [undefined],
             })
         );
-        // const shareSecurityDetail = data.shareSecurityDetails;
-        // const security = this.offerLetterForm.get('shareSecurity') as FormArray;
-        // if (!ObjectUtil.isEmpty(shareSecurityDetail)) {
-        //     shareSecurityDetail.forEach(d => {
-        //         security.push(
-        //             this.formBuilder.group({
-        //                 shareHolderName: [undefined],
-        //                 companyName: [d.companyName],
-        //                 totalShareUnit: [d.totalShareUnit],
-        //                 shareType: [d.shareType],
-        //             })
-        //         );
-        //     });
-        // }
     }
 
     addVehicleSecurity() {
@@ -749,19 +594,6 @@ export class OfferLetterLaxmiComponent implements OnInit {
                 model: [undefined]
             })
         );
-        // const security = this.offerLetterForm.get('vehicleSecurity') as FormArray;
-        // if (!ObjectUtil.isEmpty(data)) {
-        //     data.forEach(d => {
-        //         security.push(
-        //             this.formBuilder.group({
-        //                 vehicleDetail: [undefined],
-        //                 engineNumber: [d.engineNumber],
-        //                 chassisNumber: [d.chassisNumber],
-        //                 model: [d.model]
-        //             })
-        //         );
-        //     });
-        // }
     }
 
     securityValueChange(value: any, i: number, securityType, formControlName) {
@@ -776,7 +608,6 @@ export class OfferLetterLaxmiComponent implements OnInit {
                 this.offerLetterForm.get(['vehicleSecurity', i, formControlName]).patchValue(value);
                 break;
         }
-        // this.offerLetterForm.get(['shareSecurity', i, formControlName]).patchValue(value);
     }
 
     addPurpose(data) {
@@ -1400,6 +1231,11 @@ export class OfferLetterLaxmiComponent implements OnInit {
                 const word3 = this.nepaliCurrencyWordPipe.transform(this.nepaliToEnglishPipe.transform(value));
                 this.offerLetterForm.get(type).patchValue(value);
                 this.offerLetterForm.get('loanAmountWord').patchValue(word3);
+                break;
+            case 'corporateAmount':
+                const word4 = this.nepaliCurrencyWordPipe.transform(this.nepaliToEnglishPipe.transform(value));
+                this.offerLetterForm.get(type).patchValue(value);
+                this.offerLetterForm.get('corporateAmountWord').patchValue(word4);
                 break;
         }
     }
