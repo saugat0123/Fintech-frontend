@@ -96,11 +96,11 @@ input::-webkit-input-placeholder {
 }
 
 @media print  {
-  .print-only1 {
-    display: none !important;
-  }
-  .disable-print {
+  .print-only1, .hide-during-print {
     display: none !important;
   }
 
+  print-data {
+    display: inline !important;
+  }
 }
