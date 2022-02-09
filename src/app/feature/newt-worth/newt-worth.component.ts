@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {Proposal} from '../admin/modal/proposal';
 
 @Component({
   selector: 'app-newt-worth',
@@ -8,8 +9,12 @@ import {Component, Input, OnInit} from '@angular/core';
 export class NewtWorthComponent implements OnInit {
 
   constructor() { }
-  @Input() individualJsonData;
+  @Input() proposal: Proposal;
+  individualJsonData;
+  mergedChecked;
   ngOnInit() {
+    this.individualJsonData = JSON.parse(this.proposal.data);
+    this.mergedChecked = JSON.parse(this.proposal.checkedData);
   }
 
 }

@@ -745,8 +745,12 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label><strong>Income Risk & Mitigation</strong></label>
-                            <ckeditor [ngClass]="{ 'is-invalid': (submitted) && basicJointInfo.get('incomeRisk').errors }"
+                            <h6><strong>Additional Description</strong></h6>
+                            <nb-checkbox (change)="onChecked($event.target.checked,'income')"
+                                         [checked]="incomeRiskChecked">
+                                <b>Income Risk & Mitigation</b>
+                            </nb-checkbox>
+                            <ckeditor *ngIf="incomeRiskChecked" [ngClass]="{ 'is-invalid': (submitted) && basicJointInfo.get('incomeRisk').errors }"
                                       id="incomeRisk" formControlName="incomeRisk"
                                       [config]="ckeConfig"></ckeditor>
                             <div *ngIf="(submitted) && basicJointInfo.get('incomeRisk').invalid"
@@ -759,8 +763,12 @@
                     </div>
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label><strong>Security Risk & Mitigation</strong></label>
-                            <ckeditor [ngClass]="{ 'is-invalid': (submitted) && basicJointInfo.get('securityRisk').errors }"
+                            <nb-checkbox (change)="onChecked($event.target.checked,'security')"
+                                         [checked]="securityRiskChecked">
+                                <label><strong>Security Risk & Mitigation</strong></label>
+                            </nb-checkbox>
+
+                            <ckeditor *ngIf="securityRiskChecked" [ngClass]="{ 'is-invalid': (submitted) && basicJointInfo.get('securityRisk').errors }"
                                       id="securityRisk" formControlName="securityRisk"
                                       [config]="ckeConfig"></ckeditor>
                             <div *ngIf="(submitted) && basicJointInfo.get('securityRisk').invalid"
@@ -773,8 +781,12 @@
                     </div>
                     <div class="col-md-12">
                         <div class="form-group">
-                            <label><strong>Succession Risk & Mitigation</strong></label>
-                            <ckeditor [ngClass]="{ 'is-invalid': (submitted) && basicJointInfo.get('successionRisk').errors }"
+                            <nb-checkbox (change)="onChecked($event.target.checked,'succession')"
+                                         [checked]="successionRiskChecked">
+                                <label><strong>Succession Risk & Mitigation</strong></label>
+                            </nb-checkbox>
+
+                            <ckeditor *ngIf="successionRiskChecked" [ngClass]="{ 'is-invalid': (submitted) && basicJointInfo.get('successionRisk').errors }"
                                       id="successionRisk" formControlName="successionRisk"
                                       [config]="ckeConfig"></ckeditor>
                             <div *ngIf="(submitted) && basicJointInfo.get('successionRisk').invalid"
@@ -785,14 +797,13 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div *ngIf="!crgLambdaDisabled">
-                    <nb-card class="card-height">
-                        <nb-card-header>
-                            <label for="bankingRelationship"><h6>Banking Relationship</h6></label>
-                        </nb-card-header>
-                        <nb-card-body>
-                            <div class="form-group">
+                    <div *ngIf="!crgLambdaDisabled" class="col-md-12">
+                        <div class="form-group">
+                            <nb-checkbox (change)="onChecked($event.target.checked,'banking')"
+                                         [checked]="bankingRelationChecked">
+                                <label for="bankingRelationship"><strong>Banking Relationship</strong></label>
+                            </nb-checkbox>
+                            <div class="form-group" *ngIf="bankingRelationChecked">
 
                                 <nb-radio-group class="d-contents form-control"
                                                 formControlName="bankingRelationship"
@@ -810,10 +821,10 @@
                                     </div>
                                 </div>
                             </div>
-
-                        </nb-card-body>
-                    </nb-card>
+                        </div>
+                    </div>
                 </div>
+
                 <div *ngIf="!crgLambdaDisabled" class="col-4">
                     <label><strong>Net worth</strong></label>
                     <input id="netWorth" formControlName="netWorth" name="netWorth" type="text"

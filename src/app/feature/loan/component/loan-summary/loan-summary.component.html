@@ -760,7 +760,7 @@
     </div>
 </div>
             </ng-container>
-            <app-newt-worth [individualJsonData]="individualJsonData"></app-newt-worth>
+            <app-newt-worth *ngIf="proposalData?.data" [proposal]="proposalData"></app-newt-worth>
 
             <div class="row mt-1">
                 <div class = "col-md-12" *ngIf="isRemitLoan">

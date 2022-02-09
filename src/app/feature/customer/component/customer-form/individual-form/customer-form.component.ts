@@ -167,28 +167,25 @@ bankingRelationshipList = BankingRelationship.enumObject();
             } else {
                 this.addAccountNumber();
             }
-            if (!ObjectUtil.isEmpty(this.individualJsonData.vehicle)) {
-                this.setFormData(this.individualJsonData.vehicle, 'vehicle');
-            } else {
-                this.addKeyValue('vehicle');
-            }
-            if (!ObjectUtil.isEmpty(this.individualJsonData.realState)) {
-                this.setFormData(this.individualJsonData.realState, 'realState');
-            } else {
-                this.addKeyValue('realState');
-            }
-            if (!ObjectUtil.isEmpty(this.individualJsonData.shares)) {
-                this.setFormData(this.individualJsonData.shares, 'shares');
-            } else {
-                this.addKeyValue('shares');
-            }
+            // if (!ObjectUtil.isEmpty(this.individualJsonData.vehicle)) {
+            //     this.setFormData(this.individualJsonData.vehicle, 'vehicle');
+            // } else {
+            //     this.addKeyValue('vehicle');
+            // }
+            // if (!ObjectUtil.isEmpty(this.individualJsonData.realState)) {
+            //     this.setFormData(this.individualJsonData.realState, 'realState');
+            // } else {
+            //     this.addKeyValue('realState');
+            // }
+            // if (!ObjectUtil.isEmpty(this.individualJsonData.shares)) {
+            //     this.setFormData(this.individualJsonData.shares, 'shares');
+            // } else {
+            //     this.addKeyValue('shares');
+            // }
             this.setOccupationAndIncomeSourceAndParentInput(this.formValue);
             this.occupationChange();
         } else {
             this.addAccountNumber();
-            this.addKeyValue('share');
-            this.addKeyValue('vehicle');
-            this.addKeyValue('realState');
             this.createRelativesArray();
         }
     }
@@ -496,19 +493,19 @@ bankingRelationshipList = BankingRelationship.enumObject();
                 this.customerLegalDocumentAddress],
             sameAddress: [this.customer.sameAddress === undefined ? undefined : this.customer.sameAddress],
             accountDetails: this.formBuilder.array([]),
-            shares: this.formBuilder.array([]),
-            realState: this.formBuilder.array([]),
-            vehicle: this.formBuilder.array([]),
-            depositBank: [ObjectUtil.isEmpty(this.individualJsonData) ? 0 :
-                this.individualJsonData.depositBank],
-            depositOther: [ObjectUtil.isEmpty(this.individualJsonData) ? 0 :
-                this.individualJsonData.depositOther],
-            depositBankRemark: [ObjectUtil.isEmpty(this.individualJsonData) ? 0 :
-                this.individualJsonData.depositBankRemark],
-            depositOtherRemark: [ObjectUtil.isEmpty(this.individualJsonData) ? 0 :
-                this.individualJsonData.depositOtherRemark],
-            total: [ObjectUtil.isEmpty(this.individualJsonData) ? 0 :
-                this.individualJsonData.total],
+            // shares: this.formBuilder.array([]),
+            // realState: this.formBuilder.array([]),
+            // vehicle: this.formBuilder.array([]),
+            // depositBank: [ObjectUtil.isEmpty(this.individualJsonData) ? 0 :
+            //     this.individualJsonData.depositBank],
+            // depositOther: [ObjectUtil.isEmpty(this.individualJsonData) ? 0 :
+            //     this.individualJsonData.depositOther],
+            // depositBankRemark: [ObjectUtil.isEmpty(this.individualJsonData) ? 0 :
+            //     this.individualJsonData.depositBankRemark],
+            // depositOtherRemark: [ObjectUtil.isEmpty(this.individualJsonData) ? 0 :
+            //     this.individualJsonData.depositOtherRemark],
+            // total: [ObjectUtil.isEmpty(this.individualJsonData) ? 0 :
+            //     this.individualJsonData.total],
 
 
         });
@@ -534,15 +531,15 @@ bankingRelationshipList = BankingRelationship.enumObject();
         individualJsonData.grandFatherName = this.basicInfoControls.grandFatherName.value;
         individualJsonData.fatherName = this.basicInfoControls.fatherName.value;
         individualJsonData.accountDetails = this.basicInfoControls.accountDetails.value;
-        individualJsonData.shares = this.basicInfoControls.shares.value;
-        individualJsonData.realState = this.basicInfoControls.realState.value;
-        individualJsonData.vehicle = this.basicInfoControls.vehicle.value;
-        individualJsonData.checkedData = checkedData;
-        individualJsonData.depositOther = this.basicInfoControls.depositOther.value;
-        individualJsonData.depositBank = this.basicInfoControls.depositBank.value;
-        individualJsonData.depositOtherRemark = this.basicInfoControls.depositOtherRemark.value;
-        individualJsonData.depositBankRemark = this.basicInfoControls.depositBankRemark.value;
-        individualJsonData.total = this.basicInfoControls.total.value;
+        // individualJsonData.shares = this.basicInfoControls.shares.value;
+        // individualJsonData.realState = this.basicInfoControls.realState.value;
+        // individualJsonData.vehicle = this.basicInfoControls.vehicle.value;
+        // individualJsonData.checkedData = checkedData;
+        // individualJsonData.depositOther = this.basicInfoControls.depositOther.value;
+        // individualJsonData.depositBank = this.basicInfoControls.depositBank.value;
+        // individualJsonData.depositOtherRemark = this.basicInfoControls.depositOtherRemark.value;
+        // individualJsonData.depositBankRemark = this.basicInfoControls.depositBankRemark.value;
+        // individualJsonData.total = this.basicInfoControls.total.value;
         if (this.microCustomer) {
             individualJsonData.microCustomerDetail = this.microIndividualFormComponent.microCustomerForm.value;
         }

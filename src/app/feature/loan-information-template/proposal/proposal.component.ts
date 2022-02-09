@@ -36,7 +36,7 @@ export class ProposalComponent implements OnInit {
   @Output() emitter = new EventEmitter();
   proposalForm: FormGroup;
   proposalData: Proposal = new Proposal();
-  formDataForEdit: Object;
+  formDataForEdit: any;
   minimumAmountLimit = 0;
   collateralRequirement;
   interestLimit: number;
@@ -75,6 +75,7 @@ export class ProposalComponent implements OnInit {
   prepaymentChargeChecked = false;
   purposeChecked = false;
   debtChecked = false;
+  netChecked = false;
   subsidyLoanType = [
     {value: 'Literate Youth Self Employment Loan'},
     {value: 'Project Loan For Youth Returning From Foreign'},
@@ -127,6 +128,21 @@ export class ProposalComponent implements OnInit {
     this.checkLoanTypeAndBuildForm();
     if (!ObjectUtil.isEmpty(this.formValue) && this.formValue.data !== null) {
       this.formDataForEdit = JSON.parse(this.formValue.data);
+      if (!ObjectUtil.isEmpty(this.formDataForEdit.vehicle)) {
+        this.setFormData(this.formDataForEdit.vehicle, 'vehicle');
+      } else {
+        this.addKeyValue('vehicle');
+      }
+      if (!ObjectUtil.isEmpty(this.formDataForEdit.realState)) {
+        this.setFormData(this.formDataForEdit.realState, 'realState');
+      } else {
+        this.addKeyValue('realState');
+      }
+      if (!ObjectUtil.isEmpty(this.formDataForEdit.shares)) {
+        this.setFormData(this.formDataForEdit.shares, 'shares');
+      } else {
+        this.addKeyValue('shares');
+      }
       this.checkedDataEdit = JSON.parse(this.formValue.checkedData);
       this.proposalForm.patchValue(this.formDataForEdit);
       this.setCheckedData(this.checkedDataEdit);
@@ -285,6 +301,14 @@ export class ProposalComponent implements OnInit {
       groupExposure: this.formBuilder.array([]),
       files: [undefined],
       deviationConclusionRecommendation: [undefined],
+      shares: this.formBuilder.array([]),
+      realState: this.formBuilder.array([]),
+      vehicle: this.formBuilder.array([]),
+      depositBank: [undefined],
+      depositOther: [undefined],
+      depositBankRemark: [undefined],
+      depositOtherRemark: [undefined],
+      total: [undefined],
     });
   }
 
@@ -346,6 +370,7 @@ export class ProposalComponent implements OnInit {
       prepaymentChargeChecked: this.prepaymentChargeChecked,
       purposeChecked: this.purposeChecked,
       debtChecked: this.debtChecked,
+      netChecked: this.netChecked,
     };
     this.proposalData.checkedData = JSON.stringify(mergeChecked);
 
@@ -451,6 +476,10 @@ export class ProposalComponent implements OnInit {
         this.debtChecked = event;
       }
       break;
+      case 'net': {
+        this.netChecked = event;
+      }
+      break;
     }
   }
 
@@ -467,6 +496,7 @@ export class ProposalComponent implements OnInit {
       this.checkChecked(data['prepaymentChargeChecked'], 'prepayment');
       this.checkChecked(data['purposeChecked'], 'purpose');
       this.checkChecked(data['debtChecked'], 'debt');
+      this.checkChecked(data['netChecked'], 'net');
     }
   }
 
@@ -729,4 +759,38 @@ export class ProposalComponent implements OnInit {
     });
   }
 
+  calculate() {
+    let total = this.proposalForm.get('depositBank').value + this.proposalForm.get('depositOther').value;
+    total += this.getArrayTotal('shares');
+    total += this.getArrayTotal('vehicle');
+    total += this.getArrayTotal('realState');
+    this.proposalForm.get('total').patchValue(total);
+  }
+  getArrayTotal(formControl): number {
+    let total = 0;
+    (this.proposalForm.get(formControl).value).forEach((d, i) => {
+      total += d.amount;
+    });
+    return total;
+  }
+  setFormData(data, formControl) {
+    const form = this.proposalForm.get(formControl) as FormArray;
+    data.forEach(l => {
+      form.push(this.formBuilder.group({
+        assets: [l.assets],
+        amount: [l.amount]
+      }));
+    });
+  }
+  removeValue(formControl: string, index: number) {
+    (<FormArray>this.proposalForm.get(formControl)).removeAt(index);
+  }
+  addKeyValue(formControl: string) {
+    (this.proposalForm.get(formControl) as FormArray).push(
+        this.formBuilder.group({
+          assets: undefined,
+          amount: 0,
+        })
+    );
+  }
 }

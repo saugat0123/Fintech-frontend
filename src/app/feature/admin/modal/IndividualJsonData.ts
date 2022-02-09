@@ -11,12 +11,4 @@ export class IndividualJsonData {
     fatherName: string;
     accountDetails: [];
     checkedData: any;
-    shares: Array<any>;
-    realState: Array<any>;
-    vehicle: Array<any>;
-    depositBank: number;
-    depositOther: number;
-    depositBankRemark: string;
-    depositOtherRemark: string;
-    total: number;
 }

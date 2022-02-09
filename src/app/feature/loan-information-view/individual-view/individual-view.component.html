@@ -168,7 +168,7 @@
 <!--&lt;!&ndash;                </table>&ndash;&gt;-->
 <!--            </div>-->
 <!--        </div>-->
-        <app-newt-worth [individualJsonData]="individualJsonData"></app-newt-worth>
+        <app-newt-worth *ngIf="loanDataHolder?.proposal?.data" [proposal]="loanDataHolder?.proposal"></app-newt-worth>
         <div class="row mt-1" *ngIf="isRemit">
             <div class="col-md-12">
                 <p><b> Financial/ Repayment Ability: Primary Source of Income</b></p>
@@ -440,24 +440,30 @@
         <tr>
             <td colspan="2" class="text-left pl-1" [innerHTML]="riskInfo?.introduction | safeHtml"></td>
         </tr>
-        <tr class="text-white sb-bg-dark">
-            <th colspan="2">Income Risk & Mitigation</th>
-        </tr>
-        <tr>
-            <td colspan="2" class="text-left pl-1" [innerHTML]="riskInfo?.incomeRisk | safeHtml"></td>
-        </tr>
+        <ng-container *ngIf="(riskInfo?.checkedData | jsonParse)?.incomeRiskChecked">
+            <tr class="text-white sb-bg-dark">
+                <th colspan="2">Income Risk & Mitigation</th>
+            </tr>
+            <tr>
+                <td colspan="2" class="text-left pl-1" [innerHTML]="riskInfo?.incomeRisk | safeHtml"></td>
+            </tr>
+        </ng-container>
+        <ng-container *ngIf="(riskInfo?.checkedData | jsonParse)?.securityRiskChecked">
         <tr class="text-white sb-bg-dark">
             <th colspan="2">Security Risk & Mitigation</th>
         </tr>
         <tr>
             <td colspan="2" class="text-left pl-1" [innerHTML]="riskInfo?.securityRisk | safeHtml"></td>
         </tr>
+        </ng-container>
+        <ng-container *ngIf="(riskInfo?.checkedData | jsonParse)?.successionRiskChecked">
         <tr class="text-white sb-bg-dark">
             <th colspan="2">Succession Risk & Mitigation</th>
         </tr>
         <tr>
             <td colspan="2" class="text-left pl-1" [innerHTML]="riskInfo?.successionRisk | safeHtml"></td>
         </tr>
+        </ng-container>
 <!--        <tr class="text-white sb-bg-dark">-->
 <!--            <th>Banking Relationship</th>-->
 <!--            <th>Net Worth</th>-->
