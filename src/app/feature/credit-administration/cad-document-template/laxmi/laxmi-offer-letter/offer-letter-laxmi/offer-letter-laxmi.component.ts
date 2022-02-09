@@ -20,7 +20,6 @@ import {LaxmiPurpose} from '../../../../../loan/model/laxmi-purpose';
 import {NepaliEditor} from '../../../../../../@core/utils/constants/nepaliEditor';
 import {OfferDocument} from '../../../../model/OfferDocument';
 import {LaxmiOfferLetterConst} from '../laxmi-offer-letter-const';
-import {CadDocStatus} from '../../../../model/CadDocStatus';
 import {Security} from '../../../../../loan/model/security';
 import {ShareSecurity} from '../../../../../admin/modal/shareSecurity';
 import {SiteVisit} from '../../../../../admin/modal/siteVisit';
@@ -441,8 +440,10 @@ export class OfferLetterLaxmiComponent implements OnInit {
     }
 
     log(loan, data) {
-        const data12 = {loan: loan.loanName, isFunded: loan.isFunded,
-            loanNature: loan.loanNature, subLoan: data, commissionFrequency: loan.commissionFrequency};
+        const data12 = {
+            loan: loan.loanName, isFunded: loan.isFunded,
+            loanNature: loan.loanNature, subLoan: data, commissionFrequency: loan.commissionFrequency
+        };
         this.arrayOfSubloan.push(data12);
     }
 
@@ -452,11 +453,15 @@ export class OfferLetterLaxmiComponent implements OnInit {
         if (!ObjectUtil.isEmpty(arrUniq)) {
             arrUniq.forEach((d, i) => {
                 if (!ObjectUtil.isEmpty(this.offerLetterForm.get(['purpose', i]))) {
-                    this.offerLetterForm.get(['purpose', i]).patchValue({loan: d.loan, subLoan: d.subLoan, isFunded: d.isFunded,
-                        loanNature: d.loanNature, commissionFrequency: d.commissionFrequency});
+                    this.offerLetterForm.get(['purpose', i]).patchValue({
+                        loan: d.loan, subLoan: d.subLoan, isFunded: d.isFunded,
+                        loanNature: d.loanNature, commissionFrequency: d.commissionFrequency
+                    });
                 } else {
-                    this.offerLetterForm.get(['purpose', i]).patchValue({loan: d.loan, subLoan: d.subLoan, isFunded: d.isFunded,
-                        loanNature: d.loanNature, commissionFrequency: d.commissionFrequency});
+                    this.offerLetterForm.get(['purpose', i]).patchValue({
+                        loan: d.loan, subLoan: d.subLoan, isFunded: d.isFunded,
+                        loanNature: d.loanNature, commissionFrequency: d.commissionFrequency
+                    });
                 }
             });
         }
@@ -1350,7 +1355,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
         }
     }
 
-    convertProposedAmount(value , i: number, type) {
+    convertProposedAmount(value, i: number, type) {
         switch (type) {
             case 'purpose':
                 const word = this.nepaliCurrencyWordPipe.transform(this.nepaliToEnglishPipe.transform(value));
