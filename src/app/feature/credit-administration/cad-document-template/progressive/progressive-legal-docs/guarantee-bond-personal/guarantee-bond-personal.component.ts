@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {CustomerOfferLetter} from '../../../../../loan/model/customer-offer-letter';
 import {OfferDocument} from '../../../../model/OfferDocument';
 import {NbDialogRef} from '@nebular/theme';
@@ -61,54 +61,15 @@ export class GuaranteeBondPersonalComponent implements OnInit {
     }
 
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
-      const loanAmount = JSON.parse(this.cadData.nepData);
       this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
       this.nepDataPersonal = JSON.parse(this.cadData.nepDataPersonal);
-      console.log('asdf', this.nepaliData);
-
+      this.setGuarantors(this.nepaliData.guarantorDetails);
       this.form.patchValue({
-        customerName: this.nepaliData.name ? this.nepaliData.name : '',
-        sincerlyCitizenshipNo: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
-        sincerlyDate: this.nepaliData.citizenshipIssueDate ? this.nepaliData.citizenshipIssueDate : '',
-        sincerlyCdOoffice: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
-        district: this.nepaliData.guarantorDetails[0].guarantorPermanentDistrict.nepaliName ? this.nepaliData.guarantorDetails[0].guarantorPermanentDistrict.nepaliName : '',
-        municipality: this.nepaliData.guarantorDetails[0].guarantorPermanentMunicipality.nepaliName ? this.nepaliData.guarantorDetails[0].guarantorPermanentMunicipality.nepaliName : '',
-        wardNo: this.nepaliData.guarantorDetails[0].guarantorPermanentWard ? this.nepaliData.guarantorDetails[0].guarantorPermanentWard : '',
-        tempDistrict: this.nepaliData.guarantorDetails[0].guarantorTemporaryDistrict.nepaliName ? this.nepaliData.guarantorDetails[0].guarantorTemporaryDistrict.nepaliName : '',
-        tempMunicipality: this.nepaliData.guarantorDetails[0].guarantorTemporaryMunicipality.nepaliName ? this.nepaliData.guarantorDetails[0].guarantorTemporaryMunicipality.nepaliName : '',
-        tempWardNo: this.nepaliData.guarantorDetails[0].guarantorTemporaryWard ? this.nepaliData.guarantorDetails[0].guarantorTemporaryWard : '',
-        parentName: this.nepaliData.guarantorDetails[0].guarantorFatherName ? this.nepaliData.guarantorDetails[0].guarantorFatherName : '',
-        grandParentName: this.nepaliData.guarantorDetails[0].guarantorGrandfatherName ? this.nepaliData.guarantorDetails[0].guarantorGrandfatherName : '',
-        husbandWifeName: this.nepaliData.guarantorDetails[0].guarantorSpouseName ? this.nepaliData.guarantorDetails[0].guarantorSpouseName : '',
-        amount: loanAmount.numberNepali ? loanAmount.numberNepali : '',
-        amountInWord: loanAmount.nepaliWords ? loanAmount.nepaliWords : '',
-        branchName : this.nepaliData.branchName ? this.nepaliData.branchName : '',
-        chaltiKhata: this.nepaliData.accountNo ? this.nepaliData.accountNo : '',
-        buttonCitizenshipNo: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
-        buttonDate: this.nepaliData.citizenshipIssueDate ? this.nepaliData.citizenshipIssueDate : '',
-        buttonCdoOffice: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
-        age: this.nepaliData.guarantorDetails[0].guarantorAge ? this.nepaliData.guarantorDetails[0].guarantorAge : '',
-        namName: this.nepaliData.guarantorDetails[0].guarantorName ? this.nepaliData.guarantorDetails[0].guarantorName : '',
-        newName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
-        buttonParentName: this.nepaliData.fatherName ? this.nepaliData.fatherName : '',
-        buttonhusbandName: this.nepaliData.husbandName ? this. nepaliData.husbandName : '',
-        buttonDistrict: this.nepaliData.permanentDistrict.nepaliName ? this.nepaliData.permanentDistrict.nepaliName : '',
-        buttonMunicipalityt: this.nepaliData.permanentMunicipalities.nepaliName ? this.nepaliData.permanentMunicipalities.nepaliName : '',
-        buttonWardNo: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
-        buttonTempDistrict: this.nepaliData.temporaryDistrict.nepaliName ? this.nepaliData.temporaryDistrict.nepaliName : '',
-        buttonTempMuniciplity: this.nepaliData.temporaryMunicipalities.nepaliName ? this.nepaliData.temporaryMunicipalities.nepaliName : '',
-        buttonTempWardNo: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
-        date: this.nepaliData.guarantorDetails[0].issuedYear ? this.nepaliData.guarantorDetails[0].issuedYear : '',
-        cdoOffice: this.nepaliData.guarantorDetails[0].issuedPlace ? this.nepaliData.guarantorDetails[0].issuedPlace : '',
-        citizenshipNo: this.nepaliData.guarantorDetails[0].citizenNumber ? this.nepaliData.guarantorDetails[0].citizenNumber : '',
-        buttonAge: this.nepaliData.age ? this.nepaliData.age : '',
-        borrowerName: this.nepaliData.name ? this.nepaliData.name : '',
-        personalLoan: this.nepDataPersonal.loanType ? this.nepDataPersonal.loanType : '',
-        karjaYojana: this.nepDataPersonal.typeOfLoanInEnglish ? this.nepDataPersonal.typeOfLoanInEnglish : '',
-        sriName: loanAmount.numberNepali ? loanAmount.numberNepali : '',
-        sriiName: loanAmount.nepaliWords ? loanAmount.nepaliWords : ''
+
       });
     }
+
+
   }
 
 
@@ -159,7 +120,6 @@ export class GuaranteeBondPersonalComponent implements OnInit {
       grandParentName: [undefined],
       parentName: [undefined],
       husbandName: [undefined],
-      sasuSasura: [undefined],
       district: [undefined],
       municipality: [undefined],
       wardNo: [undefined],
@@ -174,7 +134,6 @@ export class GuaranteeBondPersonalComponent implements OnInit {
       buttonGrandParentName: [undefined],
       buttonParentName: [undefined],
       buttonhusbandName: [undefined],
-      buttonSasuSasura: [undefined],
       buttonDistrict: [undefined],
       buttonMunicipalityt: [undefined],
       buttonWardNo: [undefined],
@@ -216,7 +175,6 @@ export class GuaranteeBondPersonalComponent implements OnInit {
       sriiName: [undefined],
       parName: [undefined],
       husName: [undefined],
-      saSura: [undefined],
       districtName: [undefined],
       municipalityName: [undefined],
       wardNoName: [undefined],
@@ -252,7 +210,7 @@ export class GuaranteeBondPersonalComponent implements OnInit {
     this.form.get(wordLabel).patchValue(returnVal);
   }
 
- /* guarantorFormGroup(): FormGroup {
+  guarantorFormGroup(): FormGroup {
     return this.formBuilder.group({
       name: [undefined],
       citizenNumber: [undefined],
@@ -260,12 +218,91 @@ export class GuaranteeBondPersonalComponent implements OnInit {
       guarantorCDOoffice: [undefined],
       guarantorDistrict: [undefined],
       guarantorMunicipality: [undefined],
-      guarantorWadNo: [undefined]
+      guarantorWardNo: [undefined],
+      customerName: [undefined],
+      sincerlyCitizenshipNo: [undefined],
+      sincerlyDate: [undefined],
+      sincerlyCdOoffice: [undefined],
+      district: [undefined],
+      municipality: [undefined],
+      wardNo: [undefined],
+      tempDistrict: [undefined],
+      tempMunicipality: [undefined],
+      tempWardNo: [undefined],
+      parentName: [undefined],
+      grandParentName: [undefined],
+      husbandWifeName: [undefined],
+      amount: [undefined],
+      amountInWord: [undefined],
+      branchName : [undefined],
+      chaltiKhata: [undefined],
+      buttonCitizenshipNo: [undefined],
+      buttonDate: [undefined],
+      buttonCdoOffice: [undefined],
+      age: [undefined],
+      namName: [undefined],
+      newName: [undefined],
+      buttonParentName: [undefined],
+      buttonhusbandName: [undefined],
+      buttonDistrict: [undefined],
+      buttonMunicipalityt: [undefined],
+      buttonWardNo: [undefined],
+      buttonTempDistrict: [undefined],
+      buttonTempMuniciplity: [undefined],
+      buttonTempWardNo: [undefined],
+      date: [undefined],
+      cdoOffice: [undefined],
+      citizenshipNo: [undefined],
+      buttonAge: [undefined],
+      borrowerName: [undefined],
+      personalLoan: [undefined],
+      karjaYojana: [undefined],
+      sriName: [undefined],
+      sriiName: [undefined],
+      buttonGrandParentName: [undefined],
+      buttonWifeName: [undefined],
+      parName: [undefined],
+      husName: [undefined],
+      districtName: [undefined],
+      guaranteeNAme: [undefined],
+      guaranteeCitizenshipNo: [undefined],
+      guaranteeIssueDate: [undefined],
+      guaranteeCdoOffice: [undefined],
+      guaranteePermanentDistrict: [undefined],
+      guaranteePermanentMunicipality: [undefined],
+      guaranteePermanentWardNo: [undefined],
+      guaranteeTempDistrict: [undefined],
+      guaranteeTempMunicipality: [undefined],
+      guaranteeTempWardNo: [undefined],
+      fatherMotherName: [undefined],
+      grandFatherGrandmomName: [undefined],
+      karmachariName: [undefined],
+      karmachariSanketNo: [undefined],
+      itiSambatYear: [undefined],
+      itiSambatMonth: [undefined],
+      itiSambatDate: [undefined],
+      itiSambatRojSubham: [undefined],
+      sahiName: [undefined],
+      tempMunicipalityName: [undefined],
+      buttonDateName: [undefined],
+      buttonCdoOfficeName: [undefined],
+      buttonCitizenshipNoName: [undefined],
+      buttonAgeName: [undefined],
+      sirName: [undefined],
+      name1: [undefined],
+      citizenNumber1: [undefined],
+      issuedYear1: [undefined],
+      guarantorCDOoffice1: [undefined],
+      guarantorDistrict1: [undefined],
+      guarantorMunicipality1: [undefined],
+      guarantorWardNo1: [undefined],
+      tempWardNo2: [undefined],
     });
 
-  }*/
+  }
 
- /* setGuarantors(data) {
+  setGuarantors(data) {
+    const loanAmount = JSON.parse(this.cadData.nepData);
     const formArray = this.form.get('guarantorDetails') as FormArray;
     if (data.length === 0) {
       this.addMoreGuarantor();
@@ -279,15 +316,116 @@ export class GuaranteeBondPersonalComponent implements OnInit {
         guarantorCDOoffice: [value.guarantorCDOoffice],
         guarantorDistrict: [value.guarantorDistrict],
         guarantorMunicipality: [value.guarantorMunicipality],
-        guarantorWadNo: [value.guarantorWadNo]
+        guarantorWardNo: [value.guarantorWardNo],
+        customerName: this.nepaliData.name ? this.nepaliData.name : '',
+        sincerlyCitizenshipNo: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
+        sincerlyDate: this.nepaliData.citizenshipIssueDate ? this.nepaliData.citizenshipIssueDate : '',
+        sincerlyCdOoffice: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
+        district: [
+          !ObjectUtil.isEmpty(value.guarantorPermanentDistrict) ?
+              value.guarantorPermanentDistrict.nepaliName : ''
+        ],
+        municipality: [
+          !ObjectUtil.isEmpty(value.guarantorPermanentMunicipality) ?
+              value.guarantorPermanentMunicipality.nepaliName : ''
+        ],
+        wardNo: [value.guarantorPermanentWard],
+        sabikVDC: [value.sabikVDC],
+        sabikWaNo: [value.sabikWaNo],
+        tempDistrict: [
+          !ObjectUtil.isEmpty(value.guarantorTemporaryDistrict) ?
+              value.guarantorTemporaryDistrict.nepaliName : ''
+        ],
+        tempMunicipality: [
+          !ObjectUtil.isEmpty(value.guarantorTemporaryMunicipality) ?
+              value.guarantorTemporaryMunicipality.nepaliName : ''
+        ],
+        tempWardNo: [value.guarantorTemporaryWard],
+        parentName: [value.guarantorFatherName],
+        grandParentName: [value.guarantorGrandfatherName],
+        husbandWifeName: [value.guarantorSpouseName],
+        amount: loanAmount.numberNepali ? loanAmount.numberNepali : '',
+        amountInWord: loanAmount.nepaliWords ? loanAmount.nepaliWords : '',
+        branchName : this.nepaliData.branchName ? this.nepaliData.branchName : '',
+        chaltiKhata: this.nepaliData.accountNo ? this.nepaliData.accountNo : '',
+        buttonCitizenshipNo: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
+        buttonDate: this.nepaliData.citizenshipIssueDate ? this.nepaliData.citizenshipIssueDate : '',
+        buttonCdoOffice: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
+        age: [value.guarantorAge],
+        namName: [value.guarantorName],
+        newName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
+        buttonParentName: this.nepaliData.fatherName ? this.nepaliData.fatherName : '',
+        buttonhusbandName: this.nepaliData.husbandName ? this. nepaliData.husbandName : '',
+        buttonDistrict: [!ObjectUtil.isEmpty(this.nepaliData.permanentDistrict) ?
+            this.nepaliData.permanentDistrict.nepaliName : ''],
+        buttonMunicipalityt: [!ObjectUtil.isEmpty(this.nepaliData.permanentMunicipalities) ?
+            this.nepaliData.permanentMunicipalities.nepaliName : ''],
+        buttonWardNo: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
+        buttonTempDistrict: [!ObjectUtil.isEmpty(this.nepaliData.temporaryDistrict) ?
+            this.nepaliData.temporaryDistrict.nepaliName : ''],
+        buttonTempMuniciplity: [!ObjectUtil.isEmpty(this.nepaliData.temporaryMunicipalities) ?
+                this.nepaliData.temporaryMunicipalities.nepaliName : ''
+        ],
+        buttonTempWardNo: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
+        date: [value.issuedYear],
+        cdoOffice: [value.issuedPlace],
+        citizenshipNo: [value.citizenNumber],
+        buttonAge: this.nepaliData.age ? this.nepaliData.age : '',
+        borrowerName: this.nepaliData.name ? this.nepaliData.name : '',
+        personalLoan: this.nepDataPersonal.loanType ? this.nepDataPersonal.loanType : '',
+        karjaYojana: this.nepDataPersonal.typeOfLoanInEnglish ? this.nepDataPersonal.typeOfLoanInEnglish : '',
+        sriName: loanAmount.numberNepali ? loanAmount.numberNepali : '',
+        sriiName: loanAmount.nepaliWords ? loanAmount.nepaliWords : '',
+        buttonGrandParentName: [value.buttonGrandParentName],
+        buttonWifeName: [value.buttonWifeName],
+        parName: [value.parName],
+        husName: [value.husName],
+        districtName: [value.districtName],
+        municipalityName: [value.municipalityName],
+        wardNoName: [value.wardNoName],
+        tempDistrictName: [value.tempDistrictName],
+        guaranteeNAme: [value.guaranteeNAme],
+        guaranteeCitizenshipNo: [value.guaranteeCitizenshipNo],
+        guaranteeIssueDate: [value.guaranteeIssueDate],
+        guaranteeCdoOffice: [value.guaranteeCdoOffice],
+        guaranteePermanentDistrict: [value.guaranteePermanentDistrict],
+        guaranteePermanentMunicipality: [value.guaranteePermanentMunicipality],
+        guaranteePermanentWardNo: [value.guaranteePermanentWardNo],
+        guaranteeTempDistrict: [value.guaranteeTempDistrict],
+        guaranteeTempMunicipality: [value.guaranteeTempMunicipality],
+        guaranteeTempWardNo: [value.guaranteeTempWardNo],
+        fatherMotherName: [value.fatherMotherName],
+        grandFatherGrandmomName: [value.grandFatherGrandmomName],
+        karmachariName: [value.karmachariName],
+        karmachariSanketNo: [value.karmachariSanketNo],
+        itiSambatYear: [value.itiSambatYear],
+        itiSambatMonth: [value.itiSambatMonth],
+        itiSambatDate: [value.itiSambatDate],
+        itiSambatRojSubham: [value.itiSambatRojSubham],
+        sahiName: [value.sahiName],
+        tempMunicipalityName: [value.tempMunicipalityName],
+        buttonDateName: [value.buttonDateName],
+        buttonCdoOfficeName: [value.buttonCdoOfficeName],
+        buttonCitizenshipNoName: [value.buttonCitizenshipNoName],
+        buttonAgeName: [value.buttonAgeName],
+        sirName: [value.sirName],
+        name1: [value.name1],
+        citizenNumber1: [value.citizenNumber1],
+        issuedYear1: [value.issuedYear1],
+        guarantorCDOoffice1: [value.guarantorCDOoffice1],
+        guarantorDistrict1: [value.guarantorDistrict1],
+        guarantorMunicipality1: [value.guarantorMunicipality1],
+        guarantorWardNo1: [value.guarantorWardNo1],
+        tempWardNo2: [value.tempWardNo2],
+
       }));
     });
-  }*/
+  }
 
-  /*addMoreGuarantor(): void {
+  addMoreGuarantor(): void {
     const formArray = this.form.get('guarantorDetails') as FormArray;
     formArray.push(this.guarantorFormGroup());
-  }*/
+  }
 
  /* removeGuarantor(index: number): void {
     const formArray = this.form.get('guarantorDetails') as FormArray;

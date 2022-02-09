@@ -52,4 +52,9 @@ export class NepDataPersonal {
     toleOld: string;
     plotNoOld: string;
     collateralType: string;
+    numberNepali: string;
+    nepaliWords: string;
+    engNumber: number;
+    initDate: string;
+
 }

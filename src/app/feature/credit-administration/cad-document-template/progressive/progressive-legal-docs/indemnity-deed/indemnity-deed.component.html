@@ -89,15 +89,7 @@
                                            formControlName="sincerlyPermanentDistrict" placeholder=""
                                            type="text"/>
                     जिल्ला, <input class="form-field form-control-sm nepaliFont sizefont"
-                                   *ngIf="form.get('borrowerPermanentMunType').value === '0'; else borrowerPermanentVdc"
                                   formControlName="sincerlyPermanentMunicipality" placeholder="" type="text"/>
-                    <ng-template #borrowerPermanentVdc>
-                        <input class="form-field form-control-sm nepaliFont"
-                               formControlName="borrowerPermanentVdc"
-                               placeholder=""
-                               readonly
-                               type="text"/>
-                    </ng-template>
                     गा.पा./न.पा., वडा
                     नं.
                     <input class="form-field form-control-sm nepaliFont"
@@ -111,15 +103,7 @@
                                          formControlName="sinserlyTempDistrict" placeholder="" type="text"/>
                     जिल्ला,
                     <input class="form-field form-control-sm nepaliFont sizefont"
-                           *ngIf="form.get('borrowerTemporaryMunType').value === '0'; else borrowerTemporaryVdc"
                            formControlName="sinserlyTempMunicipality" placeholder="" type="text"/>
-                    <ng-template #borrowerTemporaryVdc>
-                        <input class="form-field form-control-sm nepaliFont"
-                               formControlName="borrowerTemporaryVdc"
-                               placeholder=""
-                               readonly
-                               type="text"/>
-                    </ng-template>
                     गा.पा./न.पा., वडा नं.
                     <input class="form-field form-control-sm nepaliFont" formControlName="sinserlyTempWardNo"
                            placeholder="" type="text"/>

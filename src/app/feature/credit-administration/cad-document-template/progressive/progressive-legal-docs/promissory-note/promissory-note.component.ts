@@ -89,10 +89,6 @@ export class PromissoryNoteComponent implements OnInit {
         amountInNumber: loanAmount.nepaliWords ? loanAmount.nepaliWords : '',
         branchName : this.nepaliData.branchName ? this.nepaliData.branchName : '',
         gender: this.nepaliData.gender ? this.nepaliData.gender : '',
-        borrowerPermanentMunType: this.nepaliData.permanentMunType ? this.nepaliData.permanentMunType : '',
-        borrowerPermanentVdc: this.nepaliData.permanentVdc ? this.nepaliData.permanentVdc : '',
-        borrowerTemporaryMunType: this.nepaliData.temporaryMunType ? this.nepaliData.temporaryMunType : '',
-        borrowerTemporaryVdc: this.nepaliData.temporaryVdc ? this.nepaliData.temporaryVdc : ''
       });
     }
 
@@ -203,10 +199,6 @@ export class PromissoryNoteComponent implements OnInit {
       guarantorDistrict1: [undefined],
       guarantorMunicipality1: [undefined],
       guarantorWardNo1: [undefined],
-      borrowerPermanentMunType: [undefined],
-      borrowerPermanentVdc: [undefined],
-      borrowerTemporaryMunType: [undefined],
-      borrowerTemporaryVdc: [undefined]
     });
   }
 

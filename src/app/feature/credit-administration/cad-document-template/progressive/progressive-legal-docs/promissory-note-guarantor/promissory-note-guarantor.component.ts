@@ -68,6 +68,9 @@ export class PromissoryNoteGuarantorComponent implements OnInit {
       this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
       this.setGuarantorDetails(this.nepaliData.guarantorDetails);
     }
+
+    this.form.patchValue({
+    });
   }
 
   onSubmit(): void {
@@ -143,8 +146,6 @@ export class PromissoryNoteGuarantorComponent implements OnInit {
       borrowerPermanentDistrict: [undefined],
       borrowerPermanentMunicipality: [undefined],
       borrowerPermanentWardNo: [undefined],
-      borrowerPermanentMunType: [undefined],
-      borrowerPermanentVdc: [undefined],
       borrowerParentsName: [undefined],
       borrowerGrandParentsName: [undefined],
       borrowerHusbandWifeName: [undefined],
@@ -152,8 +153,6 @@ export class PromissoryNoteGuarantorComponent implements OnInit {
       borrowerTempDistrict: [undefined],
       borrowerTempMunicipality: [undefined],
       borrowerTempWardNo: [undefined],
-      borrowerTemporaryMunType: [undefined],
-      borrowerTemporaryVdc: [undefined],
       borrowerCitizenshipIssueDate: [undefined],
       borrowerCdoOffice: [undefined],
       borrowerSabikVDC: [undefined],
@@ -268,7 +267,7 @@ export class PromissoryNoteGuarantorComponent implements OnInit {
         ],
         guarantorPermanentWardNo: [value.guarantorPermanentWard],
         guarantorSabikVDC: [value.guarantorSabikVDC],
-        guarantorSabikWardNo: [value.guarantorPermanentWard],
+        guarantorSabikWardNo: [value.guarantorSabikWardNo],
         guarantorTempDistrict: [
           !ObjectUtil.isEmpty(value.guarantorTemporaryDistrict) ?
               value.guarantorTemporaryDistrict.nepaliName : ''
@@ -281,10 +280,6 @@ export class PromissoryNoteGuarantorComponent implements OnInit {
         guarantorHusbandWifeName: [value.guarantorSpouseName],
         guarantorGrandParentsName: [value.guarantorGrandfatherName],
         guarantorParentsName: [value.guarantorFatherName],
-        guarantorPermanentMunType: [value.guarantorPermanentMunType],
-        guarantorPermanentVdc: [value.guarantorPermanentVdc],
-        guarantorTemporaryMunType: [value.guarantorTemporaryMunType],
-        guarantorTemporaryVdc: [value.guarantorTemporaryVdc],
         borrowerName: this.nepaliData.name ? this.nepaliData.name : '',
         borrowerPermanentMunicipality: !ObjectUtil.isEmpty(this.nepaliData.permanentMunicipalities) ? this.nepaliData.permanentMunicipalities.nepaliName : '',
         borrowerPermanentWardNo: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
@@ -303,10 +298,6 @@ export class PromissoryNoteGuarantorComponent implements OnInit {
         amount: loanAmount.numberNepali ? loanAmount.numberNepali : '',
         amountInWords: loanAmount.nepaliWords ? loanAmount.nepaliWords : '',
         gender: this.nepaliData.gender ? this.nepaliData.gender : '',
-        borrowerPermanentMunType: this.nepaliData.permanentMunType ? this.nepaliData.permanentMunType : '',
-        borrowerPermanentVdc: this.nepaliData.permanentVdc ? this.nepaliData.permanentVdc : '',
-        borrowerTemporaryMunType: this.nepaliData.temporaryMunType ? this.nepaliData.temporaryMunType : '',
-        borrowerTemporaryVdc: this.nepaliData.temporaryVdc ? this.nepaliData.temporaryVdc : '',
         witnessName: [value.witnessName],
         witnessCitizenshipNo: [value.witnessCitizenshipNo],
         witnessCitizenshipIssueDate: [value.witnessCitizenshipIssueDate],
@@ -360,10 +351,6 @@ export class PromissoryNoteGuarantorComponent implements OnInit {
       guarantorHusbandWifeName: [undefined],
       guarantorGrandParentsName: [undefined],
       guarantorParentsName: [undefined],
-      guarantorPermanentMunType: [0],
-      guarantorPermanentVdc: [undefined],
-      guarantorTemporaryMunType: [1],
-      guarantorTemporaryVdc: [undefined],
       borrowerName: [undefined],
       borrowerPermanentMunicipality: [undefined],
       borrowerPermanentWardNo: [undefined],
@@ -382,10 +369,6 @@ export class PromissoryNoteGuarantorComponent implements OnInit {
       amount: [undefined],
       amountInWords: [undefined],
       gender: [undefined],
-      borrowerPermanentMunType: [undefined],
-      borrowerPermanentVdc: [undefined],
-      borrowerTemporaryMunType: [undefined],
-      borrowerTemporaryVdc: [undefined],
       witnessName: [undefined],
       witnessCitizenshipNo: [undefined],
       witnessCitizenshipIssueDate: [undefined],

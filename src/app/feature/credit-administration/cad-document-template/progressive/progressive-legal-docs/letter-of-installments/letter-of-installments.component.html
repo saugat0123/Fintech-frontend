@@ -121,17 +121,9 @@
                                 type="text"/>
                     <br>
                     ठेगाना :<input class="form-field form-control-sm nepaliFont unicode-size"
-                                   *ngIf="form.get('guarantorPermanentMunType').value === '0'; else guarantorPermanentVdc"
                                    formControlName="guarantorMunVdc"
                                    placeholder=""
-                                   type="text"/>
-                        <ng-template #guarantorPermanentVdc>
-                            <input class="form-field form-control-sm nepaliFont"
-                                   formControlName="guarantorPermanentVdc"
-                                   placeholder=""
-                                   readonly
-                                   type="text"/>
-                        </ng-template>, वडा नं.
+                                   type="text"/>, वडा नं.
                         <input class="form-field form-control-sm nepaliFont"
                                formControlName="guarantorWardNo"
                                placeholder=""
