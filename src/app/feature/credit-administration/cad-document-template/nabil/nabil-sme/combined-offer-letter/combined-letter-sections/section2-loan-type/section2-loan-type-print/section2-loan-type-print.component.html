@@ -255,11 +255,13 @@
                                 {{this.freeInformation ? this.freeInformation?.section2?.importLoanTrustReceiptFreeText[i1].remainDaysLoanTrust : ''}}
                             </span>-->
                            दिन सम्म ।</span>
-                            <br>
-                            <strong>कर्जा भुक्तानी तरिकाः</strong>
-                            <span>
-                                {{this.freeInformation ? this.freeInformation?.section2?.importLoanTrustReceiptFreeText[i1].freeTextTwo : ''}}
-                            </span><br>
+                            <ng-container *ngIf="this.freeInformation && this.freeInformation?.section2?.importLoanTrustReceiptFreeText[i1].freeTextTwo">
+                                <br/>
+                                <strong>कर्जा भुक्तानी तरिकाः</strong>
+                                <span>
+                                    {{this.freeInformation ? this.freeInformation?.section2?.importLoanTrustReceiptFreeText[i1].freeTextTwo : ''}}
+                                </span>
+                            </ng-container><br>
                             <span *ngIf="val.loanOption === 'REGULAR'"><strong>सुविधा समाप्ति/पुनरावलोकन मितिः</strong>
                                 {{val?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
                                 <span [ngClass]="{'outside' : val.dateOfExpiryCT !== null && val.dateOfExpiryCT !== ''}">
@@ -683,7 +685,9 @@
                                 % नगद र कार्य सम्पादन बैंक जमानत (Performance Bond) तथा बोलपत्र बैंक जमानत (Bid Bond)को हकमा
                                 <span [ngClass]="{'outside' : val.commissionInPercentageBidBondCT !== null && val.commissionInPercentageBidBondCT !== ''}">
                             {{val.commissionInPercentageBidBondCT === null || val.commissionInPercentageBidBondCT === '' ? '___________' : val.commissionInPercentageBidBondCT}}</span>
-                                % नगद धरौटी स्वरुप रहनेछ ।<br>
+                                % नगद धरौटी स्वरुप रहनेछ ।
+                            </p>
+                            <p>
                                 <span *ngIf="val.commissionType === 'COMMISSION_TYPE_1'"> <strong>कमिसन:</strong> प्रति त्रैमास
                             <span [ngClass]="{'outside' : val.serviceChargeInPercentCT !== null && val.serviceChargeInPercentCT !== ''}">
                             {{val.serviceChargeInPercentCT === null || val.serviceChargeInPercentCT === '' ? '___________' : val.serviceChargeInPercentCT}}</span>
@@ -704,7 +708,7 @@
                             %का दरले वा कम्तिमा रु.
                             <span [ngClass]="{'outside' : val.minServiceChargeInFigure1CT !== null && val.minServiceChargeInFigure1CT !== ''}">
                             {{val.minServiceChargeInFigure1CT === null || val.minServiceChargeInFigure1CT === '' ? '___________' : val.minServiceChargeInFigure1CT}}</span>
-                            /–लाग्नेछ ।
+                            /– लाग्नेछ ।
                             </span>
                             </p>
                             <p>
@@ -2356,11 +2360,11 @@
 
                         <span *ngIf="this.hypothecationGlobal === 'New'">१. सामानहरुको मौज्दात उपर धितोेबन्धक (Hypothecation) हकाधिकार र ऋणीले आफ्ना आसामीबाट भुक्तानी
                         प्राप्त गर्न बाँकी रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामा हस्तान्तरण गर्नु
-                        पर्नेछ ।</span><br>
+                        पर्नेछ ।</span>
 
                         <span *ngIf="this.hypothecationGlobal === 'Existing'">१. सामानहरुको मौज्दात उपर धितोेबन्धक (Hypothecation) हकाधिकार र ऋणीले आफ्ना आसामीबाट भुक्तानी
                         प्राप्त गर्न बाँकी रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामा हस्तान्तरण गरिदिइएको
-                        यथावत कायम रहने छ ।</span><br>
+                        यथावत कायम रहने छ ।</span>
 
                         २. अख्तियारप्राप्त व्यक्तिद्धारा स्वीकार गरिएको विनिमय–पत्र (Bill of Exchange) बैंकको पक्षमा
                         हस्तान्तरण गर्नु पर्नेछ ।<br>
@@ -2379,11 +2383,14 @@
                         <span>
                             {{this.freeInformation ? this.freeInformation?.section2?.documentaryBillPurchaseFreeText[i2]?.InterestRateDocumentaryBill : '___________'}}
                         </span>
+                        <ng-container *ngIf="this.freeInformation && this.freeInformation?.section2?.documentaryBillPurchaseFreeText[i2]?.loanPaymentDocumentaryBill">
+                            <br/>
+                            <strong>कर्जा भुक्तानी तरिकाः </strong>
+                            <span>
+                                {{this.freeInformation ? this.freeInformation?.section2?.documentaryBillPurchaseFreeText[i2]?.loanPaymentDocumentaryBill : '___________'}}
+                            </span>
+                        </ng-container>
                         <br>
-                        <strong>कर्जा भुक्तानी तरिकाः </strong>
-                        <span>
-                            {{this.freeInformation ? this.freeInformation?.section2?.documentaryBillPurchaseFreeText[i2]?.loanPaymentDocumentaryBill : '___________'}}
-                        </span><br>
                         <span><strong>कर्जा अवधि समाप्ति/पुनरावलोकन मितिः</strong>
                             {{val?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
                             <span [ngClass]="{'outside' : val.dateOfExpiryCT !== null && val.dateOfExpiryCT !== ''}">
@@ -2626,9 +2633,15 @@
                                 % नगद धरौटी स्वरुप रहनेछ ।<br>
                                 <strong>कमिसनः</strong> बैंकको नियम अनुसार लाग्नेछ ।<br>
                                 <strong>कर्जा अवधि समाप्ति मितिः</strong> बिल्स डिस्काउन्टिङ्ग कागजातको म्याद समाप्ति मिति सम्म
-                                ।<br>
-                                <strong>कर्जा भुक्तानी तरिकाः </strong>
-                                <span>{{this.freeInformation ? this.freeInformation?.section2?.importBillsDiscountingFreeText[i3].freeTextOne : ''}}</span><br>
+                                ।
+                                <ng-container *ngIf="this.freeInformation && this.freeInformation?.section2?.importBillsDiscountingFreeText[i3].freeTextOne">
+                                    <br/>
+                                    <strong>कर्जा भुक्तानी तरिकाः </strong>
+                                    <span>
+                                        {{this.freeInformation ? this.freeInformation?.section2?.importBillsDiscountingFreeText[i3].freeTextOne : ''}}
+                                    </span>
+                                </ng-container>
+                                <br>
                                 <span *ngIf="val?.loanOption === 'REGULAR'"><strong>सुविधा समाप्ति/पुनरावलोकन मितिः </strong>
                                     {{val?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
                                     <span [ngClass]="{'outside' :val.dateOfExpiryCT !== null &&val.dateOfExpiryCT !== ''}">

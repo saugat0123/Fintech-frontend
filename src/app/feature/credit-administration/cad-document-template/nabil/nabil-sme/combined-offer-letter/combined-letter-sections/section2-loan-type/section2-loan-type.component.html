@@ -843,7 +843,11 @@
                                     <input class="form-field form-control-sm "
                                            formControlName="commissionBidBondBankGuarantee"
                                            placeholder=""
-                                           type="text"/>% नगद धरौटी स्वरुप रहनेछ ।<br>
+                                           type="text"/>% नगद धरौटी स्वरुप रहनेछ ।
+                                </p>
+
+                                <!--For Commission Clause -->
+                                <p>
                                     <span *ngIf="val.commissionType === 'COMMISSION_TYPE_1'"> <strong>कमिसन:</strong> प्रति त्रैमास <input
                                             class="form-field form-control-sm "
                                             formControlName="serviceChargeBankGuarantee"
@@ -853,7 +857,7 @@
                                        formControlName="minimumServiceChargeBankGuarantee"
                                        placeholder=""
                                        type="text"/>/– लाग्नेछ ।
-                            </span> <br>
+                            </span>
                                     <span *ngIf="val.commissionType === 'COMMISSION_TYPE_2'">
                                     अग्रिम भुक्तानी बैंक जमानत (Advance Payment Guarantee) को हकमा प्रति बैकं जमानत प्रति त्रैमास
                                 <input class="form-field form-control-sm "
@@ -870,7 +874,7 @@
                                 <input class="form-field form-control-sm "
                                        formControlName="minimumServiceChargeBankGuarantee"
                                        placeholder=""
-                                       type="text"/>/–लाग्नेछ ।
+                                       type="text"/>/– लाग्नेछ ।
                             </span>
                                 </p>
                                 <p>
