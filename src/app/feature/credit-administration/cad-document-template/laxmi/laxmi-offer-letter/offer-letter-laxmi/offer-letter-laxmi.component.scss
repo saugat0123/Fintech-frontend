@@ -94,3 +94,10 @@ input::-webkit-input-placeholder {
 .page-break {
   page-break-after: always;
 }
+
+@media print  {
+  .print-only1 {
+    display: none !important;
+  }
+
+}
