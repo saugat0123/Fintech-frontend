@@ -610,7 +610,7 @@
                 </div>
             </div>
 
-            <div class="row mt-1" *ngIf="loanDataHolder.loanCategory === 'INDIVIDUAL'" >
+            <div class="row mt-1" *ngIf="loanDataHolder.loanCategory === 'INDIVIDUAL' && !isJointInfo " >
                 <div class="col-md-12">
                     <p><strong *ngIf="!isJointInfo">Address Verification</strong></p>
                     <table *ngIf="!isJointInfo" class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
@@ -930,12 +930,11 @@
 <!--            </ng-template>-->
 
 
-            <div class="row" *ngIf="loanCategory === 'INDIVIDUAL' && isJointInfo">
-                <div class="col-md-12">
-                    <p><strong>Details of Borrower</strong></p>
-                </div>
-
-            </div>
+<!--            <div class="row" *ngIf="loanCategory === 'INDIVIDUAL' && isJointInfo">-->
+<!--                <div class="col-md-12">-->
+<!--                    <p><strong>Details of Borrower</strong></p>-->
+<!--                </div>-->
+<!--            </div>-->
             <div *ngIf="loanDataHolder?.dmsLoanFile !== null" class="row">
                 <div class="col-md-12">
                     <p><strong>Detail of Present Proposal of the Facility</strong></p>

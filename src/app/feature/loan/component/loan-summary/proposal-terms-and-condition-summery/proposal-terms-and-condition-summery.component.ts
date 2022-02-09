@@ -13,9 +13,15 @@ export class ProposalTermsAndConditionSummeryComponent implements OnInit {
   @Input() loanDataHolder: LoanDataHolder;
   client = environment.client;
   clientName = Clients;
+  checked = false;
   constructor() { }
 
   ngOnInit() {
+    this.customerAllLoanList.forEach((d) => {
+      if (JSON.parse(d.proposal.checkedData).debtChecked) {
+        this.checked = true;
+      }
+    });
   }
 
 }

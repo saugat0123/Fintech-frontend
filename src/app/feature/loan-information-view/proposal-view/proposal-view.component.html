@@ -465,11 +465,11 @@
       <tr>
         <td class="text-left pl-1" [innerHTML]="proposalAllData?.remark || 'N/A' | safeHtml"></td>
       </tr>
-      <tr class="text-white sb-bg-dark" *ngIf="client !== clientName?.LAXMIBANK">
+      <tr class="text-white sb-bg-dark">
         <th>Purpose of Loan</th>
       </tr>
       <tr>
-        <td class="text-left pl-1" *ngIf="client !== clientName?.LAXMIBANK" [innerHTML]="proposalAllData?.purposeOfLoan || 'N/A' | safeHtml"></td>
+        <td class="text-left pl-1"  [innerHTML]="proposalAllData?.purposeOfLoan || 'N/A' | safeHtml"></td>
       </tr>
       <ng-container *ngIf="checkedData?.waiverChecked">
         <tr class="text-white sb-bg-dark">

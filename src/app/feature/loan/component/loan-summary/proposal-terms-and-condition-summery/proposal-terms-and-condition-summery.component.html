@@ -1,6 +1,6 @@
 <div class="py-2">
     <div *ngIf="client === clientName.LAXMIBANK; else otherBank">
-        <span><strong>Debt Structure and Control</strong></span>
+        <span *ngIf="checked"><strong>Debt Structure and Control</strong></span>
     </div>
     <ng-template #otherBank>
         <span><strong>Terms And Condition</strong></span>
