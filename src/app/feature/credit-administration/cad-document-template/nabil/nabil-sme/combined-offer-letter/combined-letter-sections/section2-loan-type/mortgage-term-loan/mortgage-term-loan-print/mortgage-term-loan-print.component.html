@@ -10,7 +10,7 @@
                <ng-container *ngIf="val.complementaryOther === true">
                    बुँदा नं.
                    <span>
-                       {{this.freeText ? this.freeText?.section2?.mortgageTermLoanFreeText[i]?.SNOfParentLimitMortgageTerm : ''}}
+                       {{this.freeText ? this.freeText?.section2?.mortgageTermLoanFreeText[i]?.SNOfParentLimitMortgageTerm : '_______'}}
                    </span>
                     <ng-container
                             *ngIf="val.complimentaryLoanSelected !== 'TOTAL LIMIT'"> को पूरक सुविधा</ng-container>
@@ -110,7 +110,8 @@
                         {{val.totalNumberOfInstallmentCT === null || val.totalNumberOfInstallmentCT === '' ? '___________' : val.totalNumberOfInstallmentCT}}</span>
         सम मासिक किस्ता (Equated Monthly Installment) हरुमा चुक्ता भुक्तानी गर्नु पर्नेछ ।
     </span><br>
-                <span *ngIf="val.emiPaymentType === 'ON_SUBSEQUENT_MONTH'">
+                <span *ngIf="val.emiPaymentType === 'ON_SUBSEQUENT_MONTH' &&
+                        this.freeText?.section2?.mortgageTermLoanFreeText[i]?.newEMIAutoPopulateMortgageTerm">
         <strong>कर्जा भुक्तानी शुरुः</strong>कर्जा
         <span>
             {{this.freeText ? this.freeText?.section2?.mortgageTermLoanFreeText[i]?.newEMIAutoPopulateMortgageTerm : ''}}
@@ -313,7 +314,7 @@
             गरिनेछ ।
         </span>
             </p>
-            <p>
+            <p *ngIf="this.freeText?.section2?.mortgageTermLoanFreeText[i]?.freeTextThirteen">
     <span>
         {{this.freeText ? this.freeText?.section2?.mortgageTermLoanFreeText[i]?.freeTextThirteen : ''}}
     </span>
