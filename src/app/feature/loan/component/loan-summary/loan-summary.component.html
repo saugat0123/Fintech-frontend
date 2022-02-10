@@ -458,14 +458,6 @@
                     </tbody>
                 </table>
             </div>
-
-            <div *ngIf="loanCategory === 'INSTITUTION'" class="row">
-                <div class="col-md-12">
-                    <app-company-info-summary [approveSheet]="notApprove"
-                            [companyInfo]="loanDataHolder?.companyInfo"
-                            [loanDataHolder]="loanDataHolder"></app-company-info-summary>
-                </div>
-            </div>
             <ng-container *ngIf="proposalData?.data !== null">
                 <app-proposal-summary
                         *ngIf="proposalSummary"
@@ -473,7 +465,15 @@
                         [proposalData]="proposalData"
                         [loanDataHolder]="loanDataHolder"></app-proposal-summary>
             </ng-container>
-            <app-security-summary *ngIf="securitySummary && loanDataHolder?.loanHolder?.clientType === 'CONSUMER_FINANCE'"
+            <div *ngIf="loanCategory === 'INSTITUTION' && loanDataHolder?.loanHolder?.clientType !== 'SMALL_BUSINESS_FINANCIAL_SERVICES'" class="row">
+                <div class="col-md-12">
+                    <app-company-info-summary [approveSheet]="notApprove"
+                                              [companyInfo]="loanDataHolder?.companyInfo"
+                                              [loanDataHolder]="loanDataHolder"></app-company-info-summary>
+                </div>
+            </div>
+            <app-security-summary *ngIf="securitySummary && (loanDataHolder?.loanHolder?.clientType === 'CONSUMER_FINANCE' ||
+            loanDataHolder?.loanHolder?.clientType === 'SMALL_BUSINESS_FINANCIAL_SERVICES')"
                                   [formData]="securityData" [shareSecurity]="shareSecurityData"
                                   [collateralSiteVisitDetail]="collateralSiteVisitDetail"
                                   [securityId]="securityId"
@@ -484,6 +484,18 @@
                                   [proposal]="proposalData"
                                   (downloadSiteVisitDocument)="checkSiteVisitDocument($event)"
                                   [isApproveSecurity]="approvedSecurityAsProposed"></app-security-summary>
+            <app-security-approved-summary *ngIf="approvedSecurity && !approvedSecurityAsProposed && (loanDataHolder?.loanHolder?.clientType === 'CONSUMER_FINANCE' ||
+            loanDataHolder?.loanHolder?.clientType === 'SMALL_BUSINESS_FINANCIAL_SERVICES')"
+                                           [formData]="approvedSecurityData" [shareSecurity]="approvedShareSecurityData"
+                                           [collateralSiteVisitDetail]="collateralSiteVisitDetail"
+                                           [securityId]="securityId"
+                                           [siteVisitDocuments]="siteVisitDocuments"
+                                           [isCollateralSiteVisit]="isCollateralSiteVisit"
+                                           [collateralData]="loanDataHolder?.collateralSiteVisits"
+                                           [docStatus]="loanDataHolder?.documentStatus"
+                                           (downloadSiteVisitDocument)="checkSiteVisitDocument($event)">
+            </app-security-approved-summary>
+
             <nb-accordion *ngIf="isRemitLoan">
                 <nb-accordion-item>
                     <nb-accordion-item-header class="disable-print sb-small sb-bg-secondary text-white"><h6>Video KYC</h6></nb-accordion-item-header>
@@ -667,7 +679,13 @@
                     <app-remit-profile  [isRemit]="isRemitLoan" [individual]="individual" [loanHolder]="loanDataHolder" ></app-remit-profile>
                 </div>
             </div>
-
+            <div *ngIf="loanCategory === 'INSTITUTION' && loanDataHolder?.loanHolder?.clientType === 'SMALL_BUSINESS_FINANCIAL_SERVICES'" class="row">
+                <div class="col-md-12">
+                    <app-company-info-summary [approveSheet]="notApprove"
+                                              [companyInfo]="loanDataHolder?.companyInfo"
+                                              [loanDataHolder]="loanDataHolder"></app-company-info-summary>
+                </div>
+            </div>
             <ng-container *ngIf="isRemitLoan">
                 <div class="row mt-1">
                     <div class="col-md-12">
@@ -683,90 +701,6 @@
             <ng-container>
 <div class="row  mt-1">
     <div class="col-md-12">
-<!--        <table  class="table table-condensed table-bordered table-sm table-responsive-md sb-small">-->
-<!--            <tr  class="text-white sb-bg-dark">-->
-<!--                <th colspan="2">Banking Relationship</th>-->
-<!--            </tr>-->
-<!--            <tr>-->
-<!--                <td class="text-center pl-1">CIB Report Obtained</td>-->
-<!--                <td class="text-center pl-1">{{(loanData?.loanHolder.bankingRelationship) ? (loanData?.loanHolder.bankingRelationship | jsonParse).cibReport ==='true'?'Yes':'No' : 'N/A' }}</td>-->
-<!--            </tr>-->
-<!--            <tr>-->
-<!--                <td class="text-center pl-1">Any existing Credit Relationship with other BFIs?</td>-->
-<!--                <td class="text-center pl-1">{{(loanData?.loanHolder.bankingRelationship) ? (loanData?.loanHolder.bankingRelationship |jsonParse).bfi ==='true'?'Yes':'No' : 'N/A' }}</td>-->
-<!--            </tr>-->
-<!--            <tr *ngIf="(loanData.loanHolder.bankingRelationship | jsonParse).bfi === 'false'">-->
-<!--                <td class="text-center pl-1">Remarks</td>-->
-<!--                <td class="text-center pl-1" [innerHTML]="(loanData?.loanHolder.bankingRelationship) ? ((loanData?.loanHolder.bankingRelationship | jsonParse).remarks | safeHtml) : 'N/A'"></td>-->
-<!--            </tr>-->
-<!--            <tr>-->
-<!--                <td class="text-center pl-1">Any credit relationship with Laxmi Bank?(Including Group)</td>-->
-<!--                <td class="text-center pl-1">{{(loanData?.loanHolder.bankingRelationship) ? (loanData?.loanHolder.bankingRelationship | jsonParse).creditRelationship ==='true'?'Yes':'No' : 'N/A' }}</td>-->
-<!--            </tr>-->
-<!--        </table>-->
-<!--        <div class="row">-->
-<!--         <ng-container *ngIf="!isJointInfo && individual; else bankingRelationship; " >-->
-<!--             <div class="col-md-12">-->
-<!--                 <p><strong>Banking Relationship</strong></p>-->
-<!--                 <table  class="table table-condensed table-bordered table-sm table-responsive-md sb-small">-->
-<!--                     <tr class="text-white sb-bg-dark">-->
-<!--                         <th>Banking Relationship</th>-->
-<!--                         <th>Net Worth</th>-->
-<!--                     </tr>-->
-<!--                     <tr>-->
-<!--                         <td class="text-left pl-1">{{loanDataHolder.loanHolder?.bankingRelationship ? individual? (loanDataHolder.loanHolder.bankingRelationship | jsonParse): (loanDataHolder.loanHolder.bankingRelationship | jsonParse)?.bankingRelationship: 'N/A'}}</td>-->
-<!--                         <td class="text-right pr-1">Rs. {{(loanDataHolder.customerInfo?.netWorth)? (loanDataHolder?.customerInfo.netWorth |currencyFormatter):'N/A'}}</td>-->
-<!--                     </tr>-->
-<!--                 </table>-->
-<!--             </div>-->
-<!--         </ng-container>-->
-<!--            <ng-template #bankingRelationship>-->
-<!--                <ng-container *ngIf="individual; else institutional;">-->
-<!--                    <div class="col-md-12">-->
-<!--                        <p><strong>Banking Relationship</strong></p>-->
-<!--                        <table  class="table table-condensed table-bordered table-sm table-responsive-md sb-small">-->
-<!--                            <tr class="text-white sb-bg-dark">-->
-<!--                                <th>Banking Relationship</th>-->
-<!--                                <th>Net Worth</th>-->
-<!--                            </tr>-->
-<!--                            <tr>-->
-<!--                                <td class="text-left pl-1">{{riskInfo?.bankingRelationship ? riskInfo.bankingRelationship: 'N/A'}}</td>-->
-<!--                                <td class="text-right pr-1">Rs. {{(riskInfo?.netWorth)? (riskInfo?.netWorth |currencyFormatter):'N/A'}}</td>-->
-<!--                            </tr>-->
-<!--                        </table>-->
-<!--                    </div>-->
-<!--                </ng-container>-->
-<!--                <ng-template #institutional>-->
-<!--                    <div class="col-md-12">-->
-<!--                        <table-->
-<!--                                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">-->
-<!--                            <tr class="text-white sb-bg-dark">-->
-<!--                                <th colspan="2">Company Relationship with Bank</th>-->
-<!--                            </tr>-->
-<!--                            <tr>-->
-<!--                                <th class="text-white sb-bg-dark">Banking Relationship</th>-->
-<!--                                <td class="text-left pl-1">{{bankingRelation?.bankingRelationship}}</td>-->
-<!--                            </tr>-->
-<!--                            <tr>-->
-<!--                                <th class="text-white sb-bg-dark">Account Turnover-->
-<!--                                </th>-->
-<!--                                <td class="text-left pl-1">{{bankingRelation?.accountTurnover}}</td>-->
-<!--                            </tr>-->
-<!--                            <tr>-->
-<!--                                <th class="text-white sb-bg-dark">Repayment History</th>-->
-<!--                                <td class="text-left pl-1">{{bankingRelation?.repaymentHistory}}</td>-->
-<!--                            </tr>-->
-<!--                            <tr *ngIf="!isIndividual">-->
-<!--                                <td colspan="2">-->
-<!--                                    <app-income-from-account-view *ngIf="bankingRelation?.accountTransactionForm !== null"-->
-<!--                                                                  [individual]="isIndividual"  [data]="(bankingRelation)"></app-income-from-account-view>-->
-<!--                                </td>-->
-<!--                            </tr>-->
-<!--                        </table>-->
-<!--                    </div>-->
-<!--                </ng-template>-->
-<!--            </ng-template>-->
-<!--        </div>-->
         <div *ngIf="individual && loanDataHolder?.loanHolder?.clientType === 'CONSUMER_FINANCE'">
             <app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0 && loanDataHolder?.loanHolder?.clientType === 'CONSUMER_FINANCE'"
                                 [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
@@ -775,23 +709,52 @@
             <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl" [ciclValue]="loanDataHolder?.loanHolder?.cicl" [loanDataHolder]="loanDataHolder"></app-cicl-view>
             <h2>DBR</h2>
             <ng-container *ngIf="checkedData?.waiverChecked">
-                <tr class="text-white sb-bg-dark">
-                    <th>Waiver</th>
-                </tr>
-                <tr>
-                    <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.waiverConclusionRecommendation || 'N/A' | safeHtml"></span></td>
-                </tr>
+                <table>
+                    <tr class="text-white sb-bg-dark">
+                        <th>Waiver</th>
+                    </tr>
+                    <tr>
+                        <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.waiverConclusionRecommendation || 'N/A' | safeHtml"></span></td>
+                    </tr>
+                </table>
             </ng-container>
             <ng-container *ngIf="checkedData?.deviationChecked">
-                <tr class="text-white sb-bg-dark">
-                    <th>Deviation</th>
-                </tr>
-                <tr>
-                    <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.deviationConclusionRecommendation || 'N/A' | safeHtml"></span></td>
-                </tr>
+                <table>
+                    <tr class="text-white sb-bg-dark">
+                        <th>Deviation</th>
+                    </tr>
+                    <tr>
+                        <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.deviationConclusionRecommendation || 'N/A' | safeHtml"></span></td>
+                    </tr>
+                </table>
             </ng-container>
         </div>
-        <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl && loanDataHolder?.loanHolder?.clientType === 'CONSUMER_FINANCE'" [ciclValue]="loanDataHolder?.loanHolder?.cicl" [loanDataHolder]="loanDataHolder"></app-cicl-view>
+        <div *ngIf="!individual &&loanDataHolder?.loanHolder?.clientType === 'SMALL_BUSINESS_FINANCIAL_SERVICES' ">
+            <app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0 && loanDataHolder?.loanHolder?.clientType === 'CONSUMER_FINANCE'"
+                                [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
+            <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl"  [ciclValue]="loanDataHolder?.loanHolder?.cicl" [loanDataHolder]="loanDataHolder"></app-cicl-view>
+            <ng-container *ngIf="checkedData?.waiverChecked">
+                <table>
+                    <tr class="text-white sb-bg-dark">
+                        <th>Waiver</th>
+                    </tr>
+                    <tr>
+                        <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.waiverConclusionRecommendation || 'N/A' | safeHtml"></span></td>
+                    </tr>
+                </table>
+            </ng-container>
+            <ng-container *ngIf="checkedData?.deviationChecked">
+                <table>
+                    <tr class="text-white sb-bg-dark">
+                        <th>Deviation</th>
+                    </tr>
+                    <tr>
+                        <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.deviationConclusionRecommendation || 'N/A' | safeHtml"></span></td>
+                    </tr>
+                </table>
+            </ng-container>
+        </div>
+        <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl && loanDataHolder?.loanHolder?.clientType !== 'CONSUMER_FINANCE'&& loanDataHolder?.loanHolder?.clientType !== 'SMALL_BUSINESS_FINANCIAL_SERVICES'"  [ciclValue]="loanDataHolder?.loanHolder?.cicl" [loanDataHolder]="loanDataHolder"></app-cicl-view>
 
     </div>
 </div>
@@ -1154,7 +1117,7 @@
                                                     [proposalData]="proposalData"></app-proposal-justification-summary>
             </div>
 
-            <app-security-summary *ngIf="securitySummary && loanDataHolder?.loanHolder?.clientType !== 'CONSUMER_FINANCE'"
+            <app-security-summary *ngIf="securitySummary && loanDataHolder?.loanHolder?.clientType !== 'CONSUMER_FINANCE' &&  loanDataHolder?.loanHolder?.clientType !== 'SMALL_BUSINESS_FINANCIAL_SERVICES'"
                                   [formData]="securityData" [shareSecurity]="shareSecurityData"
                                   [collateralSiteVisitDetail]="collateralSiteVisitDetail"
                                   [securityId]="securityId"
@@ -1165,7 +1128,8 @@
                                   [proposal]="proposalData"
                                   (downloadSiteVisitDocument)="checkSiteVisitDocument($event)"
                                   [isApproveSecurity]="approvedSecurityAsProposed"></app-security-summary>
-            <app-security-approved-summary *ngIf="approvedSecurity && !approvedSecurityAsProposed"
+            <app-security-approved-summary *ngIf="approvedSecurity && !approvedSecurityAsProposed &&
+loanDataHolder?.loanHolder?.clientType !== 'CONSUMER_FINANCE' &&  loanDataHolder?.loanHolder?.clientType !== 'SMALL_BUSINESS_FINANCIAL_SERVICES'"
                     [formData]="approvedSecurityData" [shareSecurity]="approvedShareSecurityData"
                     [collateralSiteVisitDetail]="collateralSiteVisitDetail"
                     [securityId]="securityId"
@@ -1217,7 +1181,7 @@
 
             <br>
             <div>
-                <app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0 && loanDataHolder?.loanHolder?.clientType !== 'CONSUMER_FINANCE'"
+                <app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0 && loanDataHolder?.loanHolder?.clientType !== 'CONSUMER_FINANCE' && loanDataHolder?.loanHolder?.clientType !== 'SMALL_BUSINESS_FINANCIAL_SERVICES'"
                                     [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
             </div>
             <div class="row mt-3">
