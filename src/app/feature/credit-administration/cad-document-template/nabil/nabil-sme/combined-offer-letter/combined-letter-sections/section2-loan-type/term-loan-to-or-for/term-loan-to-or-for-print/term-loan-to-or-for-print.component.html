@@ -230,8 +230,8 @@
                     <!--/एक बर्ष/छ महिना/तिन महिना/एक महिना (Auto select according to an above selection)-->
                             पश्चात प्रथम किस्ता भुक्तानी हुनेछ ।</span><br>
                 <strong>सेवा शुल्कः </strong>
-                <span [ngClass]="{'outside' : termLoan?.purposeOfLoanCT !== null && termLoan?.purposeOfLoanCT !== ''}">
-                        {{termLoan?.purposeOfLoanCT === null || termLoan?.purposeOfLoanCT === '' ? '___________' : termLoan?.purposeOfLoanCT}}</span>
+                <span class="font-weight-bold">
+                        {{termLoan?.termLoanFor === 'VEHICLE' ? 'सवारी साधन खरिद गर्ने' : termLoan?.purposeOfLoanCT}}</span>
                 कर्जाको
                 <span [ngClass]="{'outside' : termLoan?.serviceChargeCT !== null && termLoan?.serviceChargeCT !== ''}">
                         {{termLoan?.serviceChargeCT === null || termLoan?.serviceChargeCT === '' ? '___________' : termLoan?.serviceChargeCT}}</span>

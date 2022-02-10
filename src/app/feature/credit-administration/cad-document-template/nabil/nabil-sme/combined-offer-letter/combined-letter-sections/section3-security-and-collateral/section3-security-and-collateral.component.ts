@@ -144,7 +144,8 @@ export class Section3SecurityAndCollateralComponent implements OnInit {
     this.form.patchValue({
       guarantorAmount: guarantorAmount,
       guarantorAmountInWords: guarantorName,
-      textField: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.section3 : 'थप/अतिरिक्त',
+      textField: (!ObjectUtil.isEmpty(this.freeInformation) && !ObjectUtil.isEmpty(this.freeInformation.section3.textField)) ?
+          this.freeInformation.section3.textField : 'थप/अतिरिक्त',
     });
   }
 
