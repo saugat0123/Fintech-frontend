@@ -56,7 +56,7 @@
                     रु.<span>{{loanData[i]?.loanAmountWords ? loanData[i]?.loanAmountWords : ''}}</span>
                     मात्र)</strong>
             </p>
-            <p>
+            <p *ngIf="termLoanFreeText[i]?.freeTextTen">
                 <strong>सुरक्षणः</strong>
                 <span style="text-align: justify">
                         {{termLoanFreeText[i]?.freeTextTen === null || termLoanFreeText[i]?.freeTextTen === '' ? '___________' : termLoanFreeText[i]?.freeTextTen}}
@@ -69,7 +69,7 @@
                        formControlName="freeTextTen">
                    </textarea>-->
             </p>
-            <p>
+            <p *ngIf="termLoanFreeText[i]?.freeTextEleven">
                 <strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong>
                 <span>
                         {{termLoanFreeText[i]?.freeTextEleven === null || termLoanFreeText[i]?.freeTextEleven === '' ? '___________' : termLoanFreeText[i]?.freeTextEleven}}
@@ -110,16 +110,19 @@
             {{termLoan?.numberOfInstallmentCT === null || termLoan?.numberOfInstallmentCT === '' ? '___________' : termLoan?.numberOfInstallmentCT}}</span>
          सम मासिक किस्ता (Equated Monthly Installment) हरुमा चुक्ता भुक्तानी गर्नु पर्नेछ ।
     </span><br>
-                <span *ngIf="termLoan.emiPaymentType === 'SUBSEQUENT_MONTH'"><strong>कर्जा भुक्तानी शुरुः</strong> कर्जा
-<span>
-            <strong>
-          {{termLoanFreeText[i]?.newEMISubsequentVehicleLoan === null || termLoanFreeText[i]?.newEMISubsequentVehicleLoan === '' ? '___________' : termLoanFreeText[i]?.newEMISubsequentVehicleLoan}}
-            </strong>
-        </span>                        <!--<input class="form-field form-control-sm "
+                <span *ngIf="termLoan.emiPaymentType === 'SUBSEQUENT_MONTH' &&
+                            termLoanFreeText[i]?.newEMISubsequentVehicleLoan">
+                    <strong>कर्जा भुक्तानी शुरुः</strong> कर्जा
+                    <span>
+                        <strong>
+                            {{termLoanFreeText[i]?.newEMISubsequentVehicleLoan === null || termLoanFreeText[i]?.newEMISubsequentVehicleLoan === '' ? '___________' : termLoanFreeText[i]?.newEMISubsequentVehicleLoan}}
+                        </strong>
+                    </span>                        <!--<input class="form-field form-control-sm "
                                                  formControlName="newEMISubsequentVehicleLoan"
                                                  value="निकासा भएको पछिल्लोे महिना देखि किस्ता भुक्तानी मिति हुनेछ"
                                                  type="text"/>--> ।
-                    <!--( निकासा भएको पछिल्लोे महिना देखि किस्ता भुक्तानी मिति हुनेछ )(auto Populate)..........--></span><br>
+                    <!--( निकासा भएको पछिल्लोे महिना देखि किस्ता भुक्तानी मिति हुनेछ )(auto Populate)..........-->
+                </span><br>
 
                 <span *ngIf="termLoan.emiPaymentType === 'EVERY_20TH'">
             कर्जा रकमको शुरु निकासा भएको पछिल्लोे महिना देखि अँग्रेजी पात्रोको प्रत्येक २० तारिखका दिन किस्ता भुक्तानी मिति हुनेछ ।
@@ -288,11 +291,12 @@
                 <span [ngClass]="{'outside' : termLoan?.dateOfExpiryCT !== null && termLoan?.dateOfExpiryCT !== ''}">
                         {{termLoan?.dateOfExpiryCT === null || termLoan?.dateOfExpiryCT === '' ? '___________' : termLoan?.dateOfExpiryCT}}</span>
             </p>
-            <br/>
-                <strong>कर्जा प्रवाह तरिकाः</strong>
+            <p *ngIf="termLoanFreeText[i]?.freeTextTwelve">
+                <strong style="font-size: 19px">कर्जा प्रवाह तरिकाः</strong>
                 <span style="text-align: justify; line-height: 1.9em; font-size: 19px">
                         {{termLoanFreeText[i]?.freeTextTwelve === null || termLoanFreeText[i]?.freeTextTwelve === '' ? '___________' : termLoanFreeText[i]?.freeTextTwelve}}
-                    </span>                     <!--<textarea
+                    </span>
+            </p><!--<textarea
                         class="form-control customFont nepaliFont"
                         rows="2"
                         style="width: 100%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em; color: black;"

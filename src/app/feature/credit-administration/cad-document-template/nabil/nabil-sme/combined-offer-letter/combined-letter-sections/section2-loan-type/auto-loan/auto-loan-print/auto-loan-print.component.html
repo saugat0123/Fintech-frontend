@@ -76,7 +76,8 @@
                         {{autoLoan?.numberOfInstallmentCT === null || autoLoan?.numberOfInstallmentCT === '' ? '___________' : autoLoan?.numberOfInstallmentCT}}</span>
                                 सम मासिक किस्ता (Equated Monthly Installment) हरुमा चुक्ता भुक्तानी गर्नु पर्नेछ ।
                         </span><br>
-                    <span *ngIf="autoLoan.emiPaymentType === 'SUBSEQUENT_MONTH'">
+                    <span *ngIf="autoLoan.emiPaymentType === 'SUBSEQUENT_MONTH' &&
+                        autoLoanFreeText[i]?.newEMIAutoPopulateAutoLoan1">
         <strong>कर्जा भुक्तानी शुरुः</strong>कर्जा
         <span>
             <strong>
