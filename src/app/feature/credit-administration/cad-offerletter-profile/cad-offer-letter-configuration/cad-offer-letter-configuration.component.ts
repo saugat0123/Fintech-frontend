@@ -463,7 +463,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             plotNoOld: '',
             collateralType: '',
             collateralPermanentVdc: '',
-            collateralTemporaryVdc: ''
+            collateralTemporaryVdc: '',
+            dhitoBibaran: '',
+            regNo: ''
         });
     }
 
@@ -636,7 +638,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 collateralPermanentVdc: [value.collateralPermanentVdc],
                 collateralPermanentVdcWard: [value.collateralPermanentVdcWard],
                 collateralTemporaryVdc: [value.collateralTemporaryVdc],
-                collateralTemporaryVdcWard: [value.collateralTemporaryVdcWard]
+                collateralTemporaryVdcWard: [value.collateralTemporaryVdcWard],
+                dhitoBibaran: [value.dhitoBibaran],
+                regNo: [value.regNo]
 
             }));
             this.getCollateralDistricts(value.collateralPermanentProvince, i);
