@@ -236,13 +236,19 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             }
         });
     }
-
+    consumerFinance = false;
+    smallBusiness = false;
     ngOnInit() {
         if (this.loanConfig.loanTag === 'REMIT_LOAN' && this.loanConfig.isRemit) {
             this.isRemitLoan = true;
         }
         this.loanDataHolder = this.loanData;
-        if (this.loanDataHolder.loanCategory === 'INDIVIDUAL') {
+        if (this.loanDataHolder.loanHolder.clientType === 'CONSUMER_FINANCE') {
+            this.consumerFinance = true;
+        } else  if (this.loanDataHolder.loanHolder.clientType === 'SMALL_BUSINESS_FINANCIAL_SERVICES') {
+            this.smallBusiness = true;
+        }
+            if (this.loanDataHolder.loanCategory === 'INDIVIDUAL') {
             this.isIndividual = true;
         }
         this.individual = this.loanDataHolder.customerInfo;

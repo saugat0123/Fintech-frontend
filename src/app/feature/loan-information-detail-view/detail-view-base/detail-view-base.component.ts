@@ -51,6 +51,8 @@ export class DetailViewBaseComponent implements OnInit {
   checkedData;
   proposalAllData;
   financial;
+  consumerFinance = false;
+  smallBusiness = false;
   constructor(private customerLoanService: LoanFormService,
               private combinedLoanService: CombinedLoanService,
               private fiscalYearService: FiscalYearService) {
@@ -79,6 +81,11 @@ export class DetailViewBaseComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.bankingRelationship)) {
       this.bankingRelation = JSON.parse(this.loanDataHolder.loanHolder.bankingRelationship);
+    }
+    if (this.loanDataHolder.loanHolder.clientType === 'CONSUMER_FINANCE') {
+      this.consumerFinance = true;
+    } else  if (this.loanDataHolder.loanHolder.clientType === 'SMALL_BUSINESS_FINANCIAL_SERVICES') {
+      this.smallBusiness = true;
     }
     if (!ObjectUtil.isEmpty(this.loanHolder.financial)) {
       if (!ObjectUtil.isEmpty(this.loanHolder.financial.data)) {
