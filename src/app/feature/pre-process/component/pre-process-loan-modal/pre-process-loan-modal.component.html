@@ -55,14 +55,26 @@
             </div>
 
             <div class="col-md-4 mb-5">
-                <span class="font-weight-bold customFont">Loan To Value Purpose</span>
+                <span class="font-weight-bold customFont">Loan To Value Type: </span>
                 <span class="customFont"> {{ parsedData?.loanToValuePurpose}} </span>
             </div>
 
-            <div class="col-md-4 mb-5">
-                <span class="font-weight-bold customFont">Loan To Value: </span>
-                <span class="customFont"> {{ parsedData?.loanToValue}} </span>
-            </div>
+            <ng-container  *ngIf="parsedData?.loanToValuePurpose === 'For the First Home Buyer'">
+                <div class="col-md-4 mb-5">
+                    <span class="font-weight-bold customFont">Total Area of House/Apartment: </span>
+                    <span class="customFont"> {{ parsedData?.totalAreaHouse}} sq ft.</span>
+                </div>
+
+                <div class="col-md-4 mb-5">
+                    <span class="font-weight-bold customFont">Borrower availing other loan: </span>
+                    <span class="customFont"> {{ parsedData?.availingLoan }} </span>
+                </div>
+
+                <div class="col-md-4 mb-5">
+                    <span class="font-weight-bold customFont">Rental Income: </span>
+                    <span class="customFont"> {{ parsedData?.rentalIncome }} </span>
+                </div>
+            </ng-container>
 
             <div class="col-md-4 mb-5">
                 <span class="font-weight-bold customFont">FMV: </span>
@@ -74,13 +86,18 @@
                 <span class="customFont"> {{ parsedData?.thailiAmount}} </span>
             </div>
 
+            <div class="col-md-4 mb-5">
+                <span class="font-weight-bold customFont">Loan To Value: </span>
+                <span class="customFont"> {{ parsedData?.loanToValue}} </span>
+            </div>
+
             <div class="col-md-4 mb-5" *ngIf="parsedData?.loanToValuePurpose === 'Construction and Renovation/Extension'">
-                <span class="font-weight-bold customFont"> Construction / Renovation Cost </span>
+                <span class="font-weight-bold customFont"> Construction / Renovation Cost: </span>
                 <span class="customFont"> {{parsedData?.constructionCost}}</span>
             </div>
 
             <div class="col-md-4 mb-5">
-                <span class="font-weight-bold customFont"> Total Monthly Gross Income</span>
+                <span class="font-weight-bold customFont"> Total Monthly Gross Income: </span>
                 <span class="customFont"> {{parsedData?.totalMonthlyGrossIncome}}</span>
             </div>
 
