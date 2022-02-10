@@ -19,6 +19,7 @@ export class SecuritySummaryComponent implements OnInit {
     @Input() formData: Object;
     @Input() shareSecurity;
     @Input() collateralData;
+    @Input() proposal;
     landSelected = false;
     apartmentSelected = false;
     plantSelected = false;

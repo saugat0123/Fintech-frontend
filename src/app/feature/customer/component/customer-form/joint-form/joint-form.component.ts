@@ -77,6 +77,10 @@ export class JointFormComponent implements OnInit {
   version: number;
   ckeConfig = Editor.CK_CONFIG;
   checkSameAddress: false;
+    incomeRiskChecked = false;
+    securityRiskChecked = false;
+    successionRiskChecked = false;
+    bankingRelationChecked = false;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -105,7 +109,24 @@ export class JointFormComponent implements OnInit {
         this.customer.clientType = this.individualJsonData.clientType;
         this.customer.subsectorDetail = this.subSectorInput;
         this.clientTypeInput = this.customer.clientType;
-        this.basicJointInfo.get('clientType').patchValue(this.customer.clientType);
+          if (!ObjectUtil.isEmpty(this.individualJsonData.checkedData)) {
+              this.individualJsonData.checkedData = JSON.parse(this.individualJsonData.checkedData);
+              this.incomeRiskChecked = this.individualJsonData.checkedData.incomeRiskChecked;
+              this.bankingRelationChecked = this.individualJsonData.checkedData.bankingRelationChecked;
+              this.successionRiskChecked = this.individualJsonData.checkedData.successionRiskChecked;
+              this.securityRiskChecked = this.individualJsonData.checkedData.securityRiskChecked;
+          } else {
+              if (!ObjectUtil.isEmpty(this.individualJsonData.incomeRisk)) {
+                  this.incomeRiskChecked = true;
+              } else if (!ObjectUtil.isEmpty(this.individualJsonData.securityRisk)) {
+                  this.securityRiskChecked = true;
+              } else if (!ObjectUtil.isEmpty(this.individualJsonData.successionRisk)) {
+                  this.successionRiskChecked = true;
+              } else if (!ObjectUtil.isEmpty(this.customer.bankingRelationship)) {
+                  this.bankingRelationChecked = true;
+              }
+          }
+          this.basicJointInfo.get('clientType').patchValue(this.customer.clientType);
         this.basicJointInfo.get('subsectorDetail').patchValue(this.customer.subsectorDetail);
         this.basicJointInfo.get('introduction').patchValue(this.individualJsonData.introduction);
         this.basicJointInfo.get('incomeRisk').patchValue(this.individualJsonData.incomeRisk);
@@ -172,7 +193,7 @@ export class JointFormComponent implements OnInit {
             netWorth: [jointDetail.netWorth],
             customerRelations: this.formBuilder.array([]),
             checkSameAddress: [jointDetail.checkSameAddress],
-              accountDetails: this.formBuilder.array([])
+              accountDetails: this.formBuilder.array([]),
           })
       );
         const secControl = this.basicJointInfo.get(['jointCustomerInfo', i, 'customerRelations']) as FormArray;
@@ -285,6 +306,12 @@ export class JointFormComponent implements OnInit {
   }
 
   onSubmit(value) {
+      const checkedData = {
+          incomeRiskChecked: this.incomeRiskChecked,
+          securityRiskChecked: this.securityRiskChecked,
+          successionRiskChecked: this.successionRiskChecked,
+          bankingRelationChecked: this.bankingRelationChecked,
+      };
     this.spinner = true;
     this.submitted = true;
     const tempId = this.basicJointInfo.get('jointCustomerInfo')['controls'][0].get('citizenshipNumber').value;
@@ -327,7 +354,8 @@ export class JointFormComponent implements OnInit {
               .get('citizenshipIssuedDate').value;
           this.customer.dob = this.basicJointInfo.get('jointCustomerInfo')['controls'][0].get('dob').value;
           // to json
-          this.customer.jointInfo = JSON.stringify(value);
+            this.basicJointInfo.get('checkedData').patchValue(JSON.stringify(checkedData));
+          this.customer.jointInfo = JSON.stringify(this.basicJointInfo.value);
           this.customerService.save(this.customer).subscribe(res => {
             this.spinner = false;
             this.close();
@@ -381,6 +409,7 @@ export class JointFormComponent implements OnInit {
       successionRisk: [undefined],
       bankingRelationship: [undefined],
       netWorth: [undefined],
+      checkedData: [undefined],
       jointCustomerInfo: this.formBuilder.array([])
     });
   }
@@ -581,5 +610,29 @@ export class JointFormComponent implements OnInit {
             accountNo: [undefined]
         });
     }
+    onChecked(event, type) {
+        switch (type) {
+            case 'income' : {
+                this.incomeRiskChecked = event;
+            }
+                break;
+            case 'security' : {
+                this.securityRiskChecked = event;
+            }
+                break;
+
+            case 'succession' : {
+                this.successionRiskChecked = event;
+            }
+                break;
+
+            case 'banking' : {
+                this.bankingRelationChecked = event;
+            }
+                break;
+
+        }
+    }
+
 
 }

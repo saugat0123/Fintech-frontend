@@ -47,6 +47,12 @@
                 </form>
             </div>
 
+            <div class="col-md-3">
+                <form  id="creditRisk" [formGroup]="creditRisk">
+                    <label><strong>Credit Risk</strong></label>
+                    <input type = "number" nbInput formControlName="creditRisk" fullWidth>
+                </form>
+            </div>
 
             <div *ngIf="showDocStatusDropDown" class="col-md-3">
                 <form [formGroup]="docStatusForm">
@@ -123,7 +129,7 @@
                         </div>
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name === 'Proposal' && loanTag">
-                        <app-proposal *ngIf="loanTag !== 'MICRO_LOAN'" [formValue]="loadProposal()" [loanType]="loanType" #proposalInfo></app-proposal>
+                        <app-proposal *ngIf="loanTag !== 'MICRO_LOAN'" [formValue]="loadProposal()" (emitter)="updateIncome($event)" [customerInfo]="loanHolder" [loanType]="loanType" #proposalInfo></app-proposal>
                         <app-micro-proposal *ngIf="loanTag === 'MICRO_LOAN'" [formValue]="loadProposal()" [loanType]="loanType" #microProposalInfo></app-micro-proposal>
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name === 'CICL'">
@@ -263,7 +269,7 @@
                             </button>
 
                             <button nbButton status="info"
-                                    (click)="save()" *ngIf="nextTabId === totalTabCount"
+                                    (click)="proposalDetail?.incomeChecked?selectChild(selectedTab, true, loanTag): save(true)" *ngIf="nextTabId === totalTabCount"
                                     [disabled]="isBlackListed">
                                 Save
                             </button>

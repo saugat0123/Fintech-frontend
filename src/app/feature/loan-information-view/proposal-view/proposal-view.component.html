@@ -1,3 +1,9 @@
+<table *ngIf="loanDataHolder?.loanHolder?.clientType === 'CONSUMER_FINANCE'">
+  <tr>
+    <td><strong>Purpose of Loan:</strong></td>
+    <td class="text-left pl-1" [innerHTML]="proposalAllData?.purposeOfLoan || 'N/A' | safeHtml"></td>
+  </tr>
+</table>
 <div class="row mt-1">
   <div class="col-md-12 sb-small">
     <p><strong>Facility Schedule: </strong> <em class="text-danger sb-small"> &nbsp;Bold row indicates
@@ -465,13 +471,15 @@
       <tr>
         <td class="text-left pl-1" [innerHTML]="proposalAllData?.remark || 'N/A' | safeHtml"></td>
       </tr>
-      <tr class="text-white sb-bg-dark" *ngIf="client !== clientName?.LAXMIBANK">
-        <th>Purpose of Loan</th>
-      </tr>
-      <tr>
-        <td class="text-left pl-1" *ngIf="client !== clientName?.LAXMIBANK" [innerHTML]="proposalAllData?.purposeOfLoan || 'N/A' | safeHtml"></td>
-      </tr>
-      <ng-container *ngIf="checkedData?.waiverChecked">
+      <ng-template #otherLoan>
+        <tr class="text-white sb-bg-dark">
+          <th>Purpose of Loan</th>
+        </tr>
+        <tr>
+          <td class="text-left pl-1"  [innerHTML]="proposalAllData?.purposeOfLoan || 'N/A' | safeHtml"></td>
+        </tr>
+      </ng-template>
+      <ng-container *ngIf="checkedData?.waiverChecked && loanDataHolder?.loanHolder?.clientType!=='CONSUMER_FINANCE'">
         <tr class="text-white sb-bg-dark">
           <th>Waiver</th>
         </tr>
@@ -479,7 +487,7 @@
           <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.waiverConclusionRecommendation || 'N/A' | safeHtml"></span></td>
         </tr>
       </ng-container>
-      <ng-container *ngIf="checkedData?.deviationChecked">
+      <ng-container *ngIf="checkedData?.deviationChecked && loanDataHolder?.loanHolder?.clientType!=='CONSUMER_FINANCE'">
         <tr class="text-white sb-bg-dark">
           <th>Deviation</th>
         </tr>

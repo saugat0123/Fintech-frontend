@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output, ElementRef} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Cicl, CiclArray} from '../../admin/modal/cicl';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
@@ -34,6 +34,7 @@ export class CiclComponent implements OnInit {
   relationlist;
   ciclRelation = CiclRelationListEnum.pair();
   ciclHistory = false;
+  variableChecked = false;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -68,7 +69,10 @@ export class CiclComponent implements OnInit {
     } else if (ciclList.nameOfBorrower !== null) {
         this.ciclHistory = true;
     }
-
+    if (!ObjectUtil.isEmpty(this.ciclValue.cibRemark)) {
+        this.variableChecked = JSON.parse(this.ciclValue.cibRemark).checked;
+        this.ciclValue.cibCharge = JSON.parse(this.ciclValue.cibRemark).value;
+    }
     this.buildCiclForm();
     this.relationlist = this.relationshipList.relation;
   }
@@ -76,7 +80,8 @@ export class CiclComponent implements OnInit {
     this.ciclForm = this.formBuilder.group({
       ciclArray: this.formBuilder.array([]),
       ciclRemarks: [ObjectUtil.isEmpty(this.ciclValue) ? '' : this.ciclValue.remarks],
-      cibCharge: [ObjectUtil.isEmpty(this.ciclValue) ? undefined : this.ciclValue.cibCharge]
+      cibCharge: [ObjectUtil.isEmpty(this.ciclValue) ? undefined : this.ciclValue.cibCharge],
+      cibRemark: [ObjectUtil.isEmpty(this.ciclValue) ? undefined : this.ciclValue.cibRemark],
     });
     if (!ObjectUtil.isEmpty(this.ciclList)) {
       if ((this.ciclList.length > 0)) {
@@ -215,7 +220,17 @@ export class CiclComponent implements OnInit {
     }
     // uncomment if value is need
     this.ciclValue.remarks = this.ciclForm.get('ciclRemarks').value === undefined ? '' : this.ciclForm.get('ciclRemarks').value;
-    this.ciclValue.cibCharge = this.ciclForm.get('cibCharge').value === undefined ? '' : this.ciclForm.get('cibCharge').value;
+      if (!this.variableChecked) {
+          this.ciclValue.cibCharge = this.ciclForm.get('cibCharge').value === undefined ? '' : this.ciclForm.get('cibCharge').value;
+          this.ciclValue.cibRemark = null;
+      } else {
+          const ciclRemark = {
+              value: this.ciclForm.get('cibCharge').value === undefined ? '' : this.ciclForm.get('cibCharge').value,
+              checked: true
+          };
+          this.ciclValue.cibRemark = JSON.stringify(ciclRemark);
+          this.ciclValue.cibCharge = null;
+      }
     this.ciclValue.data = JSON.stringify(this.ciclList);
     this.ciclDataEmitter.emit(this.ciclValue);
   }
@@ -228,4 +243,7 @@ export class CiclComponent implements OnInit {
       }
   }
 
+  variableCheck(event) {
+      this.variableChecked = event;
+  }
 }

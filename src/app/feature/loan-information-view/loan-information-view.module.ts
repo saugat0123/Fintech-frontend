@@ -26,6 +26,7 @@ import {NepaliPatroModule} from 'nepali-patro';
 import {RemitProfileComponent} from '../loan/component/loan-summary/remit-profile/remit-profile.component';
 import {SecurityScheduleComponent} from '../loan/component/security-schedule/security-schedule.component';
 import {FinancialJsonParserComponent} from '../loan/component/loan-summary/financial-json-parser/financial-json-parser.component';
+import {NetWorthModule} from '../newt-worth/net-worth-module';
 
 
 @NgModule({
@@ -77,6 +78,7 @@ import {FinancialJsonParserComponent} from '../loan/component/loan-summary/finan
         NgSelectModule,
         NepaliCalendarModule,
         NepaliPatroModule,
+        NetWorthModule,
     ],
     entryComponents: [
         AllDocumentViewComponent

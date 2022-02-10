@@ -8,6 +8,7 @@ import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
 import {AffiliateId} from '../../../@core/utils/constants/affiliateId';
 import {environment} from '../../../../environments/environment';
 import {CompanyInfo} from '../../admin/modal/company-info';
+import {CustomerInfoData} from '../../loan/model/customerInfoData';
 
 @Component({
   selector: 'app-income-from-account',
@@ -18,7 +19,7 @@ export class IncomeFromAccountComponent implements OnInit {
   @Input() incomeFromAccountDataResponse: IncomeFromAccount;
   @Input() fromProfile;
   @Output() incomeFromAccountDataEmitter = new EventEmitter();
-  @Input() companyInfo: CompanyInfo;
+  @Input() customerInfo: CustomerInfoData;
   incomeDataObject = new IncomeFromAccount();
   incomeFormGroup: FormGroup;
   submitted = false;
@@ -45,15 +46,18 @@ export class IncomeFromAccountComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log('this si customer info', this.customerInfo);
     this.buildForm();
     if (LocalStorageUtil.getStorage().bankUtil.AFFILIATED_ID === AffiliateId.SRDB) {
       this.srdbAffiliatedId = true;
     }
-    if (ObjectUtil.isEmpty(this.companyInfo)) {
-      this.individual = true;
-      this.incomeFormGroup.get('accountTransactionForm').enable();
-    } else {
-      this.incomeFormGroup.get('accountTransactionForm').disable();
+    if (!ObjectUtil.isEmpty(this.customerInfo)) {
+      if (this.customerInfo.customerType === 'INDIVIDUAL') {
+        this.individual = true;
+        this.incomeFormGroup.get('accountTransactionForm').enable();
+      } else {
+        this.incomeFormGroup.get('accountTransactionForm').disable();
+      }
     }
     if (!ObjectUtil.isEmpty(this.incomeFromAccountDataResponse)) {
       this.dataForEdit = JSON.parse(this.incomeFromAccountDataResponse.data);

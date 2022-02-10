@@ -19,6 +19,7 @@ import {CustomerWisePendingComponent} from '../component/dashboard/customer-wise
 import {SafePipe} from './memo/pipe/safe.pipe';
 import {ErrorPageComponent} from './error-page/error-page.component';
 import { VideoKycComponent } from './video-kyc/video-kyc.component';
+import { NewtWorthComponent } from './newt-worth/newt-worth.component';
 
 
 @NgModule({

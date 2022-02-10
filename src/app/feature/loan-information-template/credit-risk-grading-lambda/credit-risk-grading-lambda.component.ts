@@ -152,10 +152,10 @@ export class CreditRiskGradingLambdaComponent implements OnInit {
             this.repaymentHistoryMap.get(incomeFromAccountParsed.accountTransactionForm.repaymentTrackWithCurrentBank));
       }
     } else {
-      this.missingAlerts.push({
-        type: 'danger',
-        message: 'No data detected for grade automation in Income From Account section!',
-      });
+      // this.missingAlerts.push({
+      //   type: 'danger',
+      //   message:  'No data detected for grade automation in Income From Account section!',
+      // });
     }
 
     if (!ObjectUtil.isEmpty(this.ciCl)) {
@@ -305,7 +305,7 @@ export class CreditRiskGradingLambdaComponent implements OnInit {
     } else {
       this.missingAlerts.push({
         type: 'danger',
-        message: 'No Data detected for grade automation in "Income from account" or "Financial" section!',
+        message:  'No Data detected for grade automation in "Income from account" or "Financial" section!',
       });
     }
   }
