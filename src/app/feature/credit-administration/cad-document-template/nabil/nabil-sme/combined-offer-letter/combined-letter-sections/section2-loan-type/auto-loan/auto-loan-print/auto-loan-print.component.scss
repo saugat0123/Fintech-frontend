@@ -1,3 +1,6 @@
+* {
+  text-align: justify;
+}
 p {
   font-size: 19px !important;
   line-height: 1.9em !important;
@@ -11,4 +14,10 @@ p {
 }
 .inside {
   font-weight: normal !important;
+}
+@media print {
+  tr {
+    page-break-inside: initial;
+    display: block;
+  }
 }
