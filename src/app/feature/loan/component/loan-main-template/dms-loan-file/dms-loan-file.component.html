@@ -417,7 +417,7 @@
               </div>
               <div *ngIf="!personal" class="col-md-4">
                 <div class="form-group">
-                  <label for="institutionExposure"><strong>Institution Exposure</strong></label>
+                  <label for="institutionExposure"><strong>Corporate Exposure</strong></label>
                   <input [ngClass]="{ 'is-invalid':submitted && form.institutionExposure.errors}"
                          class="form-control rounded" formControlName="institutionExposure"
                          id="institutionExposure"
@@ -426,7 +426,7 @@
                   <div *ngIf="submitted && form.institutionExposure.errors"
                        class="invalid-feedback">
                     <div *ngIf="form.institutionExposure.errors.required">
-                      Institution Exposure is required
+                      Corporate Exposure is required
                     </div>
                   </div>
                 </div>
