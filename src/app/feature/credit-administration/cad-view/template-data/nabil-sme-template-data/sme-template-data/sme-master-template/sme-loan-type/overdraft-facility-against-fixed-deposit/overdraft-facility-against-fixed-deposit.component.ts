@@ -367,7 +367,7 @@ export class OverdraftFacilityAgainstFixedDepositComponent implements OnInit {
     const baseRate = this.overdraftFixedForm.get([mainArray, i, 'baseRate']).value;
     const premiumRate = this.overdraftFixedForm.get([mainArray, i, 'premiumRate']).value;
     const sum = parseFloat(baseRate) + parseFloat(premiumRate);
-    this.overdraftFixedForm.get([mainArray, i, 'interestRate']).patchValue(sum.toFixed(3));
+    this.overdraftFixedForm.get([mainArray, i, 'interestRate']).patchValue(sum.toFixed(2));
 }
 
   public checkDateOfExpiry(value): void {
@@ -439,9 +439,9 @@ export class OverdraftFacilityAgainstFixedDepositComponent implements OnInit {
     this.overdraftFixedForm.get([mainArray, index, 'totalInterestRateTrans']).patchValue(converttotalInterestRate);
     const convertadditionalPremiumRate = this.convertNumbersToNepali(this.overdraftFixedForm.get([mainArray, index, 'additionalPremiumRate']).value, false);
     this.overdraftFixedForm.get([mainArray, index, 'additionalPremiumRateTrans']).patchValue(convertadditionalPremiumRate);
-    const convertbaseRate = this.convertNumbersToNepali(this.overdraftFixedForm.get([mainArray, index, 'baseRate']).value, false);
+    const convertbaseRate = this.convertNumbersToNepali(this.overdraftFixedForm.get([mainArray, index, 'baseRate']).value ? this.overdraftFixedForm.get([mainArray, index, 'baseRate']).value.toFixed(2) : '', false);
     this.overdraftFixedForm.get([mainArray, index, 'baseRateTrans']).patchValue(convertbaseRate);
-    const convertpremiumRate = this.convertNumbersToNepali(this.overdraftFixedForm.get([mainArray, index, 'premiumRate']).value, false);
+    const convertpremiumRate = this.convertNumbersToNepali(this.overdraftFixedForm.get([mainArray, index, 'premiumRate']).value ? this.overdraftFixedForm.get([mainArray, index, 'premiumRate']).value.toFixed(2) : '', false);
     this.overdraftFixedForm.get([mainArray, index, 'premiumRateTrans']).patchValue(convertpremiumRate);
     const convertinterestRate = this.convertNumbersToNepali(this.overdraftFixedForm.get([mainArray, index, 'interestRate']).value, false);
     this.overdraftFixedForm.get([mainArray, index, 'interestRateTrans']).patchValue(convertinterestRate);

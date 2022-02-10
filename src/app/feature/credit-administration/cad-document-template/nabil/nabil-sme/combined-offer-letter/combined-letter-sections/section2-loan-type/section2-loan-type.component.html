@@ -694,7 +694,9 @@
                                    type="text"/>% बराबर रकम वा स्वीकृत
                     कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ ।</span>
 
-                                <span *ngIf="!arFinancing || loanOption !== 'Plain Renewal'"><strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong> स्वीकारयोग्य सामानहरुको मौज्दातको बजार मूल्य वा लागत
+                                <span *ngIf="!arFinancing || loanOption !== 'Plain Renewal'">
+                                    <br>
+                                    <strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong> स्वीकारयोग्य सामानहरुको मौज्दातको बजार मूल्य वा लागत
                     मूल्य मध्ये जुन कम हुन्छ सो र <input class="form-field form-control-sm "
                                                          formControlName="ARDaysDemandLoan"
                                                          placeholder=""

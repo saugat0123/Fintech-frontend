@@ -123,9 +123,9 @@ export class OverdraftLoanForWorkingCapitalRequirementComponent implements OnIni
     this.overdraftLoanForm.get(['overdraftLoanFormArray', index, 'drawingPowerTrans']).patchValue(drawingPower);
     const arDays = this.convertNumbersToNepali(this.overdraftLoanForm.get(['overdraftLoanFormArray', index, 'arDays']).value, false);
     this.overdraftLoanForm.get(['overdraftLoanFormArray', index, 'arDaysTrans']).patchValue(arDays);
-    const baseRate = this.convertNumbersToNepali(this.overdraftLoanForm.get(['overdraftLoanFormArray', index, 'baseRate']).value, false);
+    const baseRate = this.convertNumbersToNepali(this.overdraftLoanForm.get(['overdraftLoanFormArray', index, 'baseRate']).value ? this.overdraftLoanForm.get(['overdraftLoanFormArray', index, 'baseRate']).value.toFixed(2) : '', false);
     this.overdraftLoanForm.get(['overdraftLoanFormArray', index, 'baseRateTrans']).patchValue(baseRate);
-    const premiumRate = this.convertNumbersToNepali(this.overdraftLoanForm.get(['overdraftLoanFormArray', index, 'premiumRate']).value, false);
+    const premiumRate = this.convertNumbersToNepali(this.overdraftLoanForm.get(['overdraftLoanFormArray', index, 'premiumRate']).value ? this.overdraftLoanForm.get(['overdraftLoanFormArray', index, 'premiumRate']).value.toFixed(2) : '', false);
     this.overdraftLoanForm.get(['overdraftLoanFormArray', index, 'premiumRateTrans']).patchValue(premiumRate);
     const interestRate = this.convertNumbersToNepali(this.overdraftLoanForm.get(['overdraftLoanFormArray', index, 'interestRate']).value, false);
     this.overdraftLoanForm.get(['overdraftLoanFormArray', index, 'interestRateTrans']).patchValue(interestRate);
@@ -287,7 +287,7 @@ export class OverdraftLoanForWorkingCapitalRequirementComponent implements OnIni
     const baseRate = this.overdraftLoanForm.get([arrName, index, 'baseRate']).value;
     const premiumRate = this.overdraftLoanForm.get([arrName, index, 'premiumRate']).value;
     const sum = parseFloat(baseRate) + parseFloat(premiumRate);
-    this.overdraftLoanForm.get([arrName, index, 'interestRate']).patchValue(sum.toFixed(3));
+    this.overdraftLoanForm.get([arrName, index, 'interestRate']).patchValue(sum.toFixed(2));
   }
 
 }

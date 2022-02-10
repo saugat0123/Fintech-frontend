@@ -230,7 +230,7 @@ export class OverdraftFacilityAgainstBondComponent implements OnInit {
         const baseRate = this.overDraftFacilityForm.get([mainArray, i, 'baseRate']).value;
         const premiumRate = this.overDraftFacilityForm.get([mainArray, i, 'premiumRate']).value;
         const sum = parseFloat(baseRate) + parseFloat(premiumRate);
-        this.overDraftFacilityForm.get([mainArray, i, 'interestRate']).patchValue(sum.toFixed(3));
+        this.overDraftFacilityForm.get([mainArray, i, 'interestRate']).patchValue(sum.toFixed(2));
     }
 
     public checkDateOfExpiry(value, i): void {
@@ -263,9 +263,9 @@ export class OverdraftFacilityAgainstBondComponent implements OnInit {
         );
         const convertBondAmount = this.convertNumbersToNepali(this.overDraftFacilityForm.get([mainArray, i, 'bondAmount']).value, false);
         this.overDraftFacilityForm.get([mainArray, i, 'bondAmountTrans']).patchValue(convertBondAmount);
-        const convertBaseRate = this.convertNumbersToNepali(this.overDraftFacilityForm.get([mainArray, i, 'baseRate']).value, false);
+        const convertBaseRate = this.convertNumbersToNepali(this.overDraftFacilityForm.get([mainArray, i, 'baseRate']).value.toFixed(2), false);
         this.overDraftFacilityForm.get([mainArray, i, 'baseRateTrans']).patchValue(convertBaseRate);
-        const convertPremiumRate = this.convertNumbersToNepali(this.overDraftFacilityForm.get([mainArray, i, 'premiumRate']).value, false);
+        const convertPremiumRate = this.convertNumbersToNepali(this.overDraftFacilityForm.get([mainArray, i, 'premiumRate']).value.toFixed(2), false);
         this.overDraftFacilityForm.get([mainArray, i, 'premiumRateTrans']).patchValue(convertPremiumRate);
         const convertInterestRate = this.convertNumbersToNepali(this.overDraftFacilityForm.get([mainArray, i, 'interestRate']).value, false);
         this.overDraftFacilityForm.get([mainArray, i, 'interestRateTrans']).patchValue(convertInterestRate);

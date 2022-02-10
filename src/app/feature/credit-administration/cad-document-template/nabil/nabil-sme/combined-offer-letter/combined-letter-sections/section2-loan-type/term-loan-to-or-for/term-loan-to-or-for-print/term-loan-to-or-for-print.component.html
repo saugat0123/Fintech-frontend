@@ -189,8 +189,8 @@
 
                 <span *ngIf="termLoan.subsidyOrAgricultureLoan === 'Yes'">हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
                                 बार्षिक
-                                        <span [ngClass]="{'outside' : termLoan?.subsidyInterestRateCT !== null && termLoan?.subsidyInterestRateCT !== ''}">
-                        {{termLoan?.subsidyInterestRateCT === null || termLoan?.subsidyInterestRateCT === '' ? '___________' : termLoan?.subsidyInterestRateCT}}</span>
+                                        <span [ngClass]="{'outside' : termLoan?.interestRateCT !== null && termLoan?.interestRateCT !== ''}">
+                        {{termLoan?.interestRateCT === null || termLoan?.interestRateCT === '' ? '___________' : termLoan?.interestRateCT}}</span>
         % का दरले
         निर्धारण गरीएकोछ । सो निर्धारित ब्याज दरमा नेपाल राष्ट्र बैंकले ऋणीलाई दिने छुट/सहुलियत वापतको दर
         घटाई कायम हुन आउने रकम ऋणीले ब्याज स्वरुप नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन,
@@ -260,8 +260,8 @@
 
                 <span *ngIf="termLoan.subsidyOrAgricultureLoan === 'Yes'">हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
                                 बार्षिक
-                                        <span [ngClass]="{'outside' : termLoan?.subsidyInterestRateCT  !== null && termLoan?.subsidyInterestRateCT  !== ''}">
-                        {{termLoan?.subsidyInterestRateCT === null || termLoan?.subsidyInterestRateCT === '' ? '___________' : termLoan?.subsidyInterestRateCT }}</span>
+                                        <span [ngClass]="{'outside' : termLoan?.interestRateCT  !== null && termLoan?.interestRateCT  !== ''}">
+                        {{termLoan?.interestRateCT === null || termLoan?.interestRateCT === '' ? '___________' : termLoan?.interestRateCT }}</span>
         % का दरले
                             निर्धारण गरीएकोछ । सो निर्धारित ब्याज दरमा नेपाल राष्ट्र बैंकले ऋणीलाई दिने छुट/सहुलियत वापतको दर
                             घटाई कायम हुन आउने रकम ऋणीले ब्याज स्वरुप नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन,

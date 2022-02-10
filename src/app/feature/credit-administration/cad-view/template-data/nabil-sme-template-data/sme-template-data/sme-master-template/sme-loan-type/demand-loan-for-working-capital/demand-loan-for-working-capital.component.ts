@@ -115,7 +115,7 @@ export class DemandLoanForWorkingCapitalComponent implements OnInit {
     const baseRate = this.demandLoanForm.get([arrName, index, 'baseRate']).value;
     const premiumRate = this.demandLoanForm.get([arrName, index, 'premiumRate']).value;
     const sum = parseFloat(baseRate) + parseFloat(premiumRate);
-    this.demandLoanForm.get([arrName, index, 'interestRate']).patchValue(sum.toFixed(3));
+    this.demandLoanForm.get([arrName, index, 'interestRate']).patchValue(sum.toFixed(2));
   }
 
   public checkDateOfExpiry(value): void {
@@ -150,9 +150,9 @@ export class DemandLoanForWorkingCapitalComponent implements OnInit {
     this.demandLoanForm.get(['demandLoanFormArray', index, 'drawingPowerTrans']).patchValue(drawingPower);
     const arDays = this.convertNumbersToNepali(this.demandLoanForm.get(['demandLoanFormArray', index, 'arDays']).value, false);
     this.demandLoanForm.get(['demandLoanFormArray', index, 'arDaysTrans']).patchValue(arDays);
-    const baseRate = this.convertNumbersToNepali(this.demandLoanForm.get(['demandLoanFormArray', index, 'baseRate']).value, false);
+    const baseRate = this.convertNumbersToNepali(this.demandLoanForm.get(['demandLoanFormArray', index, 'baseRate']).value.toFixed(2), false);
     this.demandLoanForm.get(['demandLoanFormArray', index, 'baseRateTrans']).patchValue(baseRate);
-    const premiumRate = this.convertNumbersToNepali(this.demandLoanForm.get(['demandLoanFormArray', index, 'premiumRate']).value, false);
+    const premiumRate = this.convertNumbersToNepali(this.demandLoanForm.get(['demandLoanFormArray', index, 'premiumRate']).value.toFixed(2), false);
     this.demandLoanForm.get(['demandLoanFormArray', index, 'premiumRateTrans']).patchValue(premiumRate);
     const interestRate = this.convertNumbersToNepali(this.demandLoanForm.get(['demandLoanFormArray', index, 'interestRate']).value, false);
     this.demandLoanForm.get(['demandLoanFormArray', index, 'interestRateTrans']).patchValue(interestRate);
