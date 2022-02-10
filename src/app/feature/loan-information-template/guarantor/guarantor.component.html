@@ -442,18 +442,18 @@
                                                    name="grandFatherName"
                                                    placeholder="Grandfather's Name"
                                                    type="text"/>
-                                            <div *ngIf="(submitted) && guarantorDetails.get('grandFatherName').invalid"
-                                                 class="invalid-feedback">
-                                                <div *ngIf="guarantorDetails.get('grandFatherName').errors.required">
-                                                    Guarantors Grandfathers name is required
-                                                </div>
-                                            </div>
-                                            <div *ngIf="(addMore) && guarantorDetails.get('grandFatherName').invalid"
-                                                 class="alert-warning">
-                                                <div *ngIf="guarantorDetails.get('grandFatherName').errors.required">
-                                                    Please fill Guarantors Grandfathers name
-                                                </div>
-                                            </div>
+<!--                                            <div *ngIf="(submitted) && guarantorDetails.get('grandFatherName').invalid"-->
+<!--                                                 class="invalid-feedback">-->
+<!--                                                <div *ngIf="guarantorDetails.get('grandFatherName').errors.required">-->
+<!--                                                    Guarantors Grandfathers name is required-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                            <div *ngIf="(addMore) && guarantorDetails.get('grandFatherName').invalid"-->
+<!--                                                 class="alert-warning">-->
+<!--                                                <div *ngIf="guarantorDetails.get('grandFatherName').errors.required">-->
+<!--                                                    Please fill Guarantors Grandfathers name-->
+<!--                                                </div>-->
+<!--                                            </div>-->
                                         </div>
                                     </div>
                                     <div class="col-md-4">
@@ -839,13 +839,13 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label><strong>Relationship</strong></label>
+                                        <label><strong>Relationship with Borrower </strong></label>
                                         <select [ngClass]="{ 'is-invalid': (submitted) && guarantorDetails.get('relationship').errors }"
                                                class="form-control form-control-sm-error rounded"
                                                formControlName="relationship"
                                                id="relationship"
                                                name="relationship">
-                                            <option [value]="null">--Select Relationship--</option>
+                                            <option [value]="null">--Select Relationship with Borrower --</option>
                                             <option *ngFor="let relationship of relationList" [ngValue]="relationship.id">{{relationship.name}}</option>
                                         </select>
                                         <div *ngIf="(submitted) && guarantorDetails.get('relationship').invalid"

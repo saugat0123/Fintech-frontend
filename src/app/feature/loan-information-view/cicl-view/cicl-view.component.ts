@@ -3,6 +3,7 @@ import {Cicl, CiclArray} from '../../admin/modal/cicl';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {CiclRelationListEnum} from '../../loan/model/ciclRelationListEnum';
 import {environment} from '../../../../environments/environment';
+import {LoanDataHolder} from '../../loan/model/loanData';
 
 @Component({
   selector: 'app-cicl-view',
@@ -12,6 +13,7 @@ import {environment} from '../../../../environments/environment';
 export class CiclViewComponent implements OnInit {
 
   @Input() ciclValue: CiclArray;
+  @Input() loanDataHolder: LoanDataHolder;
   ciclList: Array<Cicl> = new Array<Cicl>();
   ciclRelationList = CiclRelationListEnum;
 

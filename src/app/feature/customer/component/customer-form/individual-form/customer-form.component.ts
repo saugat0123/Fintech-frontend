@@ -116,6 +116,10 @@ bankingRelationshipList = BankingRelationship.enumObject();
     clientName = Clients;
     ckeConfig = Editor.CK_CONFIG;
     private relation = ['Grand Father', 'Father'];
+    incomeRiskChecked = false;
+    securityRiskChecked = false;
+    successionRiskChecked = false;
+    bankingRelationChecked = false;
 
     ngOnInit() {
         this.getProvince();
@@ -126,6 +130,20 @@ bankingRelationshipList = BankingRelationship.enumObject();
         if (!ObjectUtil.isEmpty(this.formValue)) {
             if (!ObjectUtil.isEmpty(this.formValue.individualJsonData)) {
                 this.individualJsonData = JSON.parse(this.formValue.individualJsonData);
+            }
+            if (!ObjectUtil.isEmpty(this.individualJsonData.checkedData)) {
+                this.incomeRiskChecked = this.individualJsonData.checkedData.incomeRiskChecked;
+                this.bankingRelationChecked = this.individualJsonData.checkedData.bankingRelationChecked;
+                this.successionRiskChecked = this.individualJsonData.checkedData.successionRiskChecked;
+                this.securityRiskChecked = this.individualJsonData.checkedData.securityRiskChecked;
+            } else {
+                if (!ObjectUtil.isEmpty(this.individualJsonData.incomeRisk)) {
+                    this.incomeRiskChecked = true;
+                } else if (!ObjectUtil.isEmpty(this.individualJsonData.securityRisk)) {
+                    this.securityRiskChecked = true;
+                } else if (!ObjectUtil.isEmpty(this.individualJsonData.successionRisk)) {
+                    this.successionRiskChecked = true;
+                }
             }
             this.microCustomer = this.formValue.isMicroCustomer;
             this.customerDetailField.showFormField = true;
@@ -149,6 +167,21 @@ bankingRelationshipList = BankingRelationship.enumObject();
             } else {
                 this.addAccountNumber();
             }
+            // if (!ObjectUtil.isEmpty(this.individualJsonData.vehicle)) {
+            //     this.setFormData(this.individualJsonData.vehicle, 'vehicle');
+            // } else {
+            //     this.addKeyValue('vehicle');
+            // }
+            // if (!ObjectUtil.isEmpty(this.individualJsonData.realState)) {
+            //     this.setFormData(this.individualJsonData.realState, 'realState');
+            // } else {
+            //     this.addKeyValue('realState');
+            // }
+            // if (!ObjectUtil.isEmpty(this.individualJsonData.shares)) {
+            //     this.setFormData(this.individualJsonData.shares, 'shares');
+            // } else {
+            //     this.addKeyValue('shares');
+            // }
             this.setOccupationAndIncomeSourceAndParentInput(this.formValue);
             this.occupationChange();
         } else {
@@ -437,7 +470,7 @@ bankingRelationshipList = BankingRelationship.enumObject();
                 undefined : JSON.parse(this.customer.bankingRelationship), this.crgLambdaDisabled ? undefined : []],
             netWorth: [this.customer.netWorth === undefined ?
                 undefined : this.customer.netWorth,
-                this.crgLambdaDisabled ? undefined : [ Validators.pattern(Pattern.NUMBER_DOUBLE)]],
+                this.crgLambdaDisabled ? undefined : [Validators.pattern(Pattern.NUMBER_DOUBLE)]],
             subsectorDetail: [this.customer.subsectorDetail === undefined ? undefined : this.customer.subsectorDetail],
             clientType: [this.customer.clientType === undefined ? undefined : this.customer.clientType, Validators.required],
             temporaryProvince: [this.customer.temporaryProvince === null ? undefined :
@@ -459,13 +492,34 @@ bankingRelationshipList = BankingRelationship.enumObject();
             customerLegalDocumentAddress: [this.customerLegalDocumentAddress == null ? undefined :
                 this.customerLegalDocumentAddress],
             sameAddress: [this.customer.sameAddress === undefined ? undefined : this.customer.sameAddress],
-            accountDetails: this.formBuilder.array([])
+            accountDetails: this.formBuilder.array([]),
+            // shares: this.formBuilder.array([]),
+            // realState: this.formBuilder.array([]),
+            // vehicle: this.formBuilder.array([]),
+            // depositBank: [ObjectUtil.isEmpty(this.individualJsonData) ? 0 :
+            //     this.individualJsonData.depositBank],
+            // depositOther: [ObjectUtil.isEmpty(this.individualJsonData) ? 0 :
+            //     this.individualJsonData.depositOther],
+            // depositBankRemark: [ObjectUtil.isEmpty(this.individualJsonData) ? 0 :
+            //     this.individualJsonData.depositBankRemark],
+            // depositOtherRemark: [ObjectUtil.isEmpty(this.individualJsonData) ? 0 :
+            //     this.individualJsonData.depositOtherRemark],
+            // total: [ObjectUtil.isEmpty(this.individualJsonData) ? 0 :
+            //     this.individualJsonData.total],
+
+
         });
 
         this.onCustomerTypeChange(this.microCustomer);
     }
 
     setIndividualJsonData() {
+        const checkedData = {
+            incomeRiskChecked: this.incomeRiskChecked,
+            securityRiskChecked: this.securityRiskChecked,
+            successionRiskChecked: this.successionRiskChecked,
+            bankingRelationChecked: this.bankingRelationChecked,
+        };
         const individualJsonData = new IndividualJsonData();
         individualJsonData.incomeRisk = this.basicInfoControls.incomeRisk.value;
         individualJsonData.securityRisk = this.basicInfoControls.securityRisk.value;
@@ -477,6 +531,15 @@ bankingRelationshipList = BankingRelationship.enumObject();
         individualJsonData.grandFatherName = this.basicInfoControls.grandFatherName.value;
         individualJsonData.fatherName = this.basicInfoControls.fatherName.value;
         individualJsonData.accountDetails = this.basicInfoControls.accountDetails.value;
+        // individualJsonData.shares = this.basicInfoControls.shares.value;
+        // individualJsonData.realState = this.basicInfoControls.realState.value;
+        // individualJsonData.vehicle = this.basicInfoControls.vehicle.value;
+        // individualJsonData.checkedData = checkedData;
+        // individualJsonData.depositOther = this.basicInfoControls.depositOther.value;
+        // individualJsonData.depositBank = this.basicInfoControls.depositBank.value;
+        // individualJsonData.depositOtherRemark = this.basicInfoControls.depositOtherRemark.value;
+        // individualJsonData.depositBankRemark = this.basicInfoControls.depositBankRemark.value;
+        // individualJsonData.total = this.basicInfoControls.total.value;
         if (this.microCustomer) {
             individualJsonData.microCustomerDetail = this.microIndividualFormComponent.microCustomerForm.value;
         }
@@ -687,7 +750,7 @@ bankingRelationshipList = BankingRelationship.enumObject();
         }
     }
 
-    resetValue()  {
+    resetValue() {
         this.basicInfo.get('temporaryAddressLine1').patchValue(null);
         this.basicInfo.get('temporaryAddressLine2').patchValue(null);
         this.basicInfo.get('temporaryProvince').patchValue(null);
@@ -735,11 +798,30 @@ bankingRelationshipList = BankingRelationship.enumObject();
             })
         );
     }
-
+    addKeyValue(formControl: string) {
+        (this.basicInfo.get(formControl) as FormArray).push(
+            this.formBuilder.group({
+                assets: undefined,
+                amount: 0,
+            })
+        );
+    }
+    removeValue(formControl: string, index: number) {
+        (<FormArray>this.basicInfo.get(formControl)).removeAt(index);
+    }
     removeAccount(index: number) {
         (<FormArray>this.basicInfo.get('accountDetails')).removeAt(index);
     }
 
+    setFormData(data, formControl) {
+        const form = this.basicInfo.get(formControl) as FormArray;
+        data.forEach(l => {
+            form.push(this.formBuilder.group({
+                assets: [l.assets],
+                amount: [l.amount]
+            }));
+        });
+    }
     setAccountNumber(data) {
         const account = this.basicInfo.get('accountDetails') as FormArray;
         data.forEach(l => {
@@ -747,5 +829,43 @@ bankingRelationshipList = BankingRelationship.enumObject();
                 accountNo: [l.accountNo]
             }));
         });
+    }
+
+    onChecked(event, type) {
+        switch (type) {
+            case 'income' : {
+                this.incomeRiskChecked = event;
+            }
+                break;
+            case 'security' : {
+                this.securityRiskChecked = event;
+            }
+                break;
+
+            case 'succession' : {
+                this.successionRiskChecked = event;
+            }
+                break;
+
+            case 'banking' : {
+                this.bankingRelationChecked = event;
+            }
+                break;
+
+        }
+    }
+    calculate() {
+        let total = this.basicInfo.get('depositBank').value + this.basicInfo.get('depositOther').value;
+        total += this.getArrayTotal('shares');
+        total += this.getArrayTotal('vehicle');
+        total += this.getArrayTotal('realState');
+        this.basicInfo.get('total').patchValue(total);
+    }
+    getArrayTotal(formControl): number {
+        let total = 0;
+        (this.basicInfo.get(formControl).value).forEach((d, i) => {
+            total += d.amount;
+        });
+        return total;
     }
 }

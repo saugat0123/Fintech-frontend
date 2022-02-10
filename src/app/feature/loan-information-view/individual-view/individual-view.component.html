@@ -131,43 +131,43 @@
         </div>
     </ng-container>
     <div class="col-md-12 ">
-        <div class="row" *ngIf="loanDataHolder.loanHolder.bankingRelationship !== null">
-            <div class="col-md-12">
-                <p><strong>Banking Relationship</strong></p>
-                <table  class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-                    <tr class="text-white sb-bg-dark">
-                        <th>Banking Relationship</th>
-                        <th>Net Worth</th>
-                    </tr>
-                    <tr>
-                        <td class="text-left pl-1">{{loanDataHolder?.loanHolder?.bankingRelationship}}</td>
-                        <td class="text-right pr-1">Rs. {{individual?.netWorth |currencyFormatter}}</td>
-                    </tr>
-                </table>
-
+<!--        <div class="row" *ngIf="loanDataHolder.loanHolder.bankingRelationship !== null">-->
+<!--            <div class="col-md-12">-->
+<!--                <p><strong>Banking Relationship</strong></p>-->
 <!--                <table  class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">-->
-<!--                    <tr  class="text-white sb-bg-dark">-->
-<!--                        <th colspan="2">Banking Relationship</th>-->
+<!--                    <tr class="text-white sb-bg-dark">-->
+<!--                        <th>Banking Relationship</th>-->
+<!--                        <th>Net Worth</th>-->
 <!--                    </tr>-->
 <!--                    <tr>-->
-<!--                        <td class="text-center pl-1">CIB Report Obtained</td>-->
-<!--                        <td class="text-center pl-1">{{(loanDataHolder?.loanHolder.bankingRelationship) ? (loanDataHolder?.loanHolder.bankingRelationship | jsonParse).cibReport ==='true'?'Yes':'No' : 'N/A' }}</td>-->
-<!--                    </tr>-->
-<!--                    <tr>-->
-<!--                        <td class="text-center pl-1">Any existing Credit Relationship with other BFIs?</td>-->
-<!--                        <td class="text-center pl-1">{{(loanDataHolder?.loanHolder.bankingRelationship) ? (loanDataHolder?.loanHolder.bankingRelationship |jsonParse).bfi ==='true'?'Yes':'No' : 'N/A' }}</td>-->
-<!--                    </tr>-->
-<!--                    <tr *ngIf="(loanDataHolder.loanHolder.bankingRelationship | jsonParse).bfi === 'false'">-->
-<!--                        <td class="text-center pl-1">Remarks</td>-->
-<!--                        <td class="text-center pl-1" [innerHTML]="(loanDataHolder?.loanHolder.bankingRelationship) ? ((loanDataHolder?.loanHolder.bankingRelationship | jsonParse).remarks | safeHtml) : 'N/A'"></td>-->
-<!--                    </tr>-->
-<!--                    <tr>-->
-<!--                        <td class="text-center pl-1">Any credit relationship with Laxmi Bank?(Including Group)</td>-->
-<!--                        <td class="text-center pl-1">{{(loanDataHolder?.loanHolder.bankingRelationship) ? (loanDataHolder?.loanHolder.bankingRelationship | jsonParse).creditRelationship ==='true'?'Yes':'No' : 'N/A' }}</td>-->
+<!--                        <td class="text-left pl-1">{{loanDataHolder?.loanHolder?.bankingRelationship}}</td>-->
+<!--                        <td class="text-right pr-1">Rs. {{individual?.netWorth |currencyFormatter}}</td>-->
 <!--                    </tr>-->
 <!--                </table>-->
-            </div>
-        </div>
+
+<!--&lt;!&ndash;                <table  class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <tr  class="text-white sb-bg-dark">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <th colspan="2">Banking Relationship</th>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <td class="text-center pl-1">CIB Report Obtained</td>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <td class="text-center pl-1">{{(loanDataHolder?.loanHolder.bankingRelationship) ? (loanDataHolder?.loanHolder.bankingRelationship | jsonParse).cibReport ==='true'?'Yes':'No' : 'N/A' }}</td>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <td class="text-center pl-1">Any existing Credit Relationship with other BFIs?</td>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <td class="text-center pl-1">{{(loanDataHolder?.loanHolder.bankingRelationship) ? (loanDataHolder?.loanHolder.bankingRelationship |jsonParse).bfi ==='true'?'Yes':'No' : 'N/A' }}</td>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <tr *ngIf="(loanDataHolder.loanHolder.bankingRelationship | jsonParse).bfi === 'false'">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <td class="text-center pl-1">Remarks</td>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <td class="text-center pl-1" [innerHTML]="(loanDataHolder?.loanHolder.bankingRelationship) ? ((loanDataHolder?.loanHolder.bankingRelationship | jsonParse).remarks | safeHtml) : 'N/A'"></td>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <td class="text-center pl-1">Any credit relationship with Laxmi Bank?(Including Group)</td>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <td class="text-center pl-1">{{(loanDataHolder?.loanHolder.bankingRelationship) ? (loanDataHolder?.loanHolder.bankingRelationship | jsonParse).creditRelationship ==='true'?'Yes':'No' : 'N/A' }}</td>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </tr>&ndash;&gt;-->
+<!--&lt;!&ndash;                </table>&ndash;&gt;-->
+<!--            </div>-->
+<!--        </div>-->
         <div class="row mt-1" *ngIf="isRemit">
             <div class="col-md-12">
                 <p><b> Financial/ Repayment Ability: Primary Source of Income</b></p>
@@ -222,35 +222,43 @@
             <tr>
                 <td colspan="2" class="text-left pl-1" [innerHTML]="individual?.introduction | safeHtml"></td>
             </tr>
-            <tr class="text-white sb-bg-dark">
-                <th colspan="2">Income Risk & Mitigation</th>
-            </tr>
-            <tr>
-                <td colspan="2" class="text-left pl-1"
-                    [innerHTML]="individualJsonData?.incomeRisk || 'N/A' | safeHtml"></td>
-            </tr>
-            <tr class="text-white sb-bg-dark">
-                <th colspan="2">Security Risk & Mitigation</th>
-            </tr>
-            <tr>
-                <td colspan="2" class="text-left pl-1"
-                    [innerHTML]="individualJsonData?.securityRisk || 'N/A' | safeHtml"></td>
-            </tr>
-            <tr class="text-white sb-bg-dark">
-                <th colspan="2">Succession Risk & Mitigation</th>
-            </tr>
-            <tr>
-                <td colspan="2" class="text-left pl-1"
-                    [innerHTML]="individualJsonData?.successionRisk || 'N/A'  | safeHtml"></td>
-            </tr>
-            <tr *ngIf="!crgLambdaDisabled" class="text-white sb-bg-dark">
-                <th>Banking Relationship</th>
-                <th>Net Worth</th>
-            </tr>
-            <tr *ngIf="!crgLambdaDisabled">
-                <td class="text-left pl-1">{{(customerInfo?.bankingRelationship) ? (customerInfo?.bankingRelationship | jsonParse) : 'N/A' }}</td>
-                <td class="text-right pr-1">Rs. {{individual?.netWorth |currencyFormatter}}</td>
-            </tr>
+            <ng-container *ngIf="individualJsonData !== null">
+            <ng-container *ngIf="(individualJsonData?.checkedData)?.incomeRiskChecked">
+                <tr class="text-white sb-bg-dark">
+                    <th colspan="2">Income Risk & Mitigation</th>
+                </tr>
+                <tr>
+                    <td colspan="2" class="text-left pl-1"
+                        [innerHTML]="individualJsonData?.incomeRisk || 'N/A' | safeHtml"></td>
+                </tr>
+            </ng-container>
+            <ng-container *ngIf="(individualJsonData?.checkedData)?.securityRiskChecked">
+                <tr class="text-white sb-bg-dark">
+                    <th colspan="2">Security Risk & Mitigation</th>
+                </tr>
+                <tr>
+                    <td colspan="2" class="text-left pl-1"
+                        [innerHTML]="individualJsonData?.securityRisk || 'N/A' | safeHtml"></td>
+                </tr>
+            </ng-container>
+            <ng-container *ngIf="(individualJsonData?.checkedData)?.successionRiskChecked">
+                <tr class="text-white sb-bg-dark">
+                    <th colspan="2">Succession Risk & Mitigation</th>
+                </tr>
+                <tr>
+                    <td colspan="2" class="text-left pl-1"
+                        [innerHTML]="individualJsonData?.successionRisk || 'N/A'  | safeHtml"></td>
+                </tr>
+            </ng-container>
+            </ng-container>
+<!--            <tr *ngIf="!crgLambdaDisabled" class="text-white sb-bg-dark">-->
+<!--                <th>Banking Relationship</th>-->
+<!--                <th>Net Worth</th>-->
+<!--            </tr>-->
+<!--            <tr *ngIf="!crgLambdaDisabled">-->
+<!--                <td class="text-left pl-1">{{(customerInfo?.bankingRelationship) ? (customerInfo?.bankingRelationship | jsonParse) : 'N/A' }}</td>-->
+<!--                <td class="text-right pr-1">Rs. {{individual?.netWorth |currencyFormatter}}</td>-->
+<!--            </tr>-->
         </table>
     </div>
 
@@ -431,32 +439,38 @@
         <tr>
             <td colspan="2" class="text-left pl-1" [innerHTML]="riskInfo?.introduction | safeHtml"></td>
         </tr>
-        <tr class="text-white sb-bg-dark">
-            <th colspan="2">Income Risk & Mitigation</th>
-        </tr>
-        <tr>
-            <td colspan="2" class="text-left pl-1" [innerHTML]="riskInfo?.incomeRisk | safeHtml"></td>
-        </tr>
+        <ng-container *ngIf="(riskInfo?.checkedData | jsonParse)?.incomeRiskChecked">
+            <tr class="text-white sb-bg-dark">
+                <th colspan="2">Income Risk & Mitigation</th>
+            </tr>
+            <tr>
+                <td colspan="2" class="text-left pl-1" [innerHTML]="riskInfo?.incomeRisk | safeHtml"></td>
+            </tr>
+        </ng-container>
+        <ng-container *ngIf="(riskInfo?.checkedData | jsonParse)?.securityRiskChecked">
         <tr class="text-white sb-bg-dark">
             <th colspan="2">Security Risk & Mitigation</th>
         </tr>
         <tr>
             <td colspan="2" class="text-left pl-1" [innerHTML]="riskInfo?.securityRisk | safeHtml"></td>
         </tr>
+        </ng-container>
+        <ng-container *ngIf="(riskInfo?.checkedData | jsonParse)?.successionRiskChecked">
         <tr class="text-white sb-bg-dark">
             <th colspan="2">Succession Risk & Mitigation</th>
         </tr>
         <tr>
             <td colspan="2" class="text-left pl-1" [innerHTML]="riskInfo?.successionRisk | safeHtml"></td>
         </tr>
-        <tr class="text-white sb-bg-dark">
-            <th>Banking Relationship</th>
-            <th>Net Worth</th>
-        </tr>
-        <tr>
-            <td class="text-left pl-1">{{riskInfo?.bankingRelationship}}</td>
-            <td class="text-right pr-1">Rs. {{riskInfo?.netWorth |currencyFormatter}}</td>
-        </tr>
+        </ng-container>
+<!--        <tr class="text-white sb-bg-dark">-->
+<!--            <th>Banking Relationship</th>-->
+<!--            <th>Net Worth</th>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--            <td class="text-left pl-1">{{riskInfo?.bankingRelationship}}</td>-->
+<!--            <td class="text-right pr-1">Rs. {{riskInfo?.netWorth |currencyFormatter}}</td>-->
+<!--        </tr>-->
         </tbody>
     </table>
 </div>

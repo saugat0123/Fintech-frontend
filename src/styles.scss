@@ -15,7 +15,9 @@
 //sb solution
 $color-bank: #F58229;
 $color-bank-dark: #F58229;
-
+* {
+  font-family: Cambria, Georgia, serif;
+}
 .bank-hr {
   height: 1px;
   background-color: $color-bank;

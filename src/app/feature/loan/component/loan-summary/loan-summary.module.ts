@@ -39,6 +39,9 @@ import {RemitDetailsComponent} from './remit-details/remit-details.component';
 import {VideoKycModule} from '../../../video-kyc/video-kyc.module';
 import {MultiBankingSummaryComponent} from './multi-banking-summary/multi-banking-summary.component';
 import {SecurityApprovedSummaryComponent} from './security-approved-summary/security-approved-summary.component';
+import {FeatureModule} from '../../../feature.module';
+import {NetWorthModule} from '../../../newt-worth/net-worth-module';
+import {DbrModule} from '../../../dbr/dbr.module';
 
 
 const COMPONENTS = [
@@ -81,7 +84,9 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
         NgSelectModule,
         NepaliPatroModule,
         VideoKycModule,
-        LoanInformationViewModule
+        NetWorthModule,
+        LoanInformationViewModule,
+        DbrModule,
     ],
     exports: [
         LoanSummaryComponent,

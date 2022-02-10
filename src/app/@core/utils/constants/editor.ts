@@ -1,7 +1,7 @@
 export class Editor {
   static CK_CONFIG = {
     allowedContent: false,
-    font_names: 'Arial;Times New Roman;Verdana',
+    font_names: 'Arial;Times New Roman;Verdana;Cambria',
     toolbarGroups: [
       { name: 'document', groups: ['mode', 'document', 'doctools'] },
       { name: 'clipboard', groups: ['clipboard', 'undo'] },

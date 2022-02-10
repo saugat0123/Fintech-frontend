@@ -1,6 +1,6 @@
 <div class="col-md-12 ">
   <div class="row">
-    <p ><strong>Security Details</strong></p>
+    <p ><strong>Security Schedule</strong></p>
   </div>
   <div *ngIf="landSelected" class="row">
     <ng-container  *ngFor="let landDetails of securityData['initialForm']['landDetails']; let i= index">
@@ -68,7 +68,7 @@
         <th>Staff Representative Name 1</th>
         <th>Staff Representative Designation 2</th>
         <th>Staff Representative Name 2</th>
-        <th>Collateral Owner Relationship</th>
+        <th>Collateral Owner Relationship With Borrower</th>
       </tr>
 
       <tr>
@@ -205,9 +205,9 @@
           <th>House Number</th>
           <th>Total building area (Sqf)</th>
           <th>Cost per sqf</th>
-          <th>Total cost</th>
+          <th>Total Cost Of Building</th>
           <th>Type of Property</th>
-          <th>Collateral Owner Relationship</th>
+          <th>Collateral Owner Relationship With Borrower</th>
         </tr>
         </thead>
         <tbody>
@@ -404,7 +404,7 @@
           <th colspan="3">Owner</th>
           <th colspan="2">Stock Location</th>
           <th colspan="2">Value</th>
-          <th>Collateral Owner Relationship</th>
+          <th>Collateral Owner Relationship With Borrower</th>
         </tr>
         <tr>
           <td rowspan="4">{{i + 1}}</td>
@@ -1128,7 +1128,7 @@
       </table>
     </div>
   </div>
-
+  <app-security-schedule [proposal]="proposal" ></app-security-schedule>
   <div class="row" *ngIf="!crgLambdaDisabled && !disableCrgAlphaParams ">
     <table class="table table-sm table-bordered text-center table-sm sb-small">
       <thead>

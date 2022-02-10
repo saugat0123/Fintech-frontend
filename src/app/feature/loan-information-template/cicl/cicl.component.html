@@ -17,7 +17,10 @@
         <div class="col-md-4 form-group">
           <label><b>Cib Charge</b></label>
           <input class="form-control" formControlName="cibCharge"
-                 type="number" placeholder="Cib Charge">
+                 [type]="variableChecked?'text':'number'" placeholder="Cib Charge">
+          <nb-checkbox
+                  (change)="variableCheck($event?.target?.checked)"
+            [checked]="variableChecked">Add Variable</nb-checkbox>
         </div>
       </div>
       <hr>

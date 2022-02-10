@@ -22,6 +22,7 @@ import {RoleService} from '../../../admin/component/role-permission/role.service
 import {Editor} from '../../../../@core/utils/constants/editor';
 import {Clients} from '../../../../../environments/Clients';
 import {LoanTag} from '../../model/loanTag';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
     selector: 'app-loan-action-modal',
@@ -72,7 +73,8 @@ export class LoanActionModalComponent implements OnInit {
         private router: Router,
         private socketService: SocketService,
         private approvalRoleHierarchyService: ApprovalRoleHierarchyService,
-        private roleService: RoleService
+        private roleService: RoleService,
+        private spinnerService: NgxSpinnerService
     ) {
     }
 
@@ -147,7 +149,7 @@ export class LoanActionModalComponent implements OnInit {
     }
 
     public onSubmit() {
-
+        this.spinnerService.show();
         const comment = this.formAction.value.comment;
         const docAction = this.formAction.value.docAction;
         const docActionMSG = this.formAction.value.docActionMsg;
@@ -167,9 +169,11 @@ export class LoanActionModalComponent implements OnInit {
             };
             this.loanFormService.sendLegalDocumentBackToSenderOrAgent(sendDocToRemit).subscribe((res) => {
                 this.nbDialogRef.close();
+                this.spinnerService.hide();
 
             }, error => {
                 this.nbDialogRef.close();
+                this.spinnerService.hide();
 
                 console.log(error);
             });
@@ -195,11 +199,13 @@ export class LoanActionModalComponent implements OnInit {
                         'remarks': this.formAction.value.comment
                     };
                     this.loanFormService.postLoanBackToSenderOrAgent(beneficiaryObj).subscribe(res => {
+                        this.spinnerService.hide();
                         if (verified === true) {
                             this.postAction();
                             this.nbDialogRef.close();
                         }
                     }, error => {
+                        this.spinnerService.hide();
                         console.log(error);
                     });
                 } else if (this.isRemitLoan && docAction === 'APPROVED') {
@@ -209,11 +215,13 @@ export class LoanActionModalComponent implements OnInit {
                         'remarks': this.formAction.value.comment
                     };
                     this.loanFormService.postLoanBackToSenderOrAgent(beneficiaryObj).subscribe(res => {
+                        this.spinnerService.hide();
                         if (verified === true) {
                             this.postAction();
                             this.nbDialogRef.close();
                         }
                     }, error => {
+                        this.spinnerService.hide();
                         console.log(error);
                     });
 
@@ -224,11 +232,13 @@ export class LoanActionModalComponent implements OnInit {
                         'remarks': this.formAction.value.comment
                     };
                     this.loanFormService.postLoanBackToSenderOrAgent(beneficiaryObj).subscribe(res => {
+                        this.spinnerService.hide();
                         if (verified === true) {
                             this.postAction();
                             this.nbDialogRef.close();
                         }
                     }, error => {
+                        this.spinnerService.hide();
                         console.log(error);
                     });
 

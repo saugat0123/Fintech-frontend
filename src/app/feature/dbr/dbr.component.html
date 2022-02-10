@@ -1,0 +1,31 @@
+<div class="row">
+    <div class="col-md-12">
+        <p><strong>Debt Burden Ratio:</strong></p>
+        <table class="table table-condensed table-bordered table-responsive-sm table-sm sb-small text-center">
+            <thead>
+            <tr class="text-white sb-bg-dark">
+                <th>Particualrs</th>
+                <th>DBR</th>
+            </tr>
+            </thead>
+            <tbody>
+<tr>
+    <td>Gross Monthly Income (GMI)</td>
+    <td>{{financialData?.initialForm?.totalIncome}}</td>
+</tr>
+<tr *ngFor="let data of financialData?.initialForm?.expensesOfBorrower;">
+    <td>{{data?.particulars}}</td>
+    <td>{{data?.amount}}</td>
+</tr>
+<tr>
+    <td>Total Monthly Obligation</td>
+    <td>{{financialData?.initialForm?.totalBankObligation}}</td>
+</tr>
+<tr>
+    <td>Gross DBR (EMI/GMI)</td>
+    <td>{{(proposalData?.installmentAmount/(financialData?.initialForm?.totalIncome))}}</td>
+</tr>
+            </tbody>
+        </table>
+    </div>
+</div>
