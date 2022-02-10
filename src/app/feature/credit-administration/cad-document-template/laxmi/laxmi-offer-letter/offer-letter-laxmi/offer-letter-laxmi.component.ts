@@ -79,7 +79,6 @@ export class OfferLetterLaxmiComponent implements OnInit {
     taggedGuarantor = [];
     corporateGuarantor = false;
     loanShortForm1: string;
-    englishDate;
 
     constructor(private formBuilder: FormBuilder,
                 private administrationService: CreditAdministrationService,
@@ -192,7 +191,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
             date11: [undefined],
             date12: [undefined],
 
-            patraDate: [ObjectUtil.isEmpty(this.englishDate) ? undefined : new Date(this.englishDate)],
+            patraDate: [undefined],
             date: [undefined],
             phoneNo: [undefined],
             attention: [undefined],
