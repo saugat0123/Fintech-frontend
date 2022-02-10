@@ -13,16 +13,11 @@ import {NepaliToEngNumberPipe} from '../../../../../../@core/pipe/nepali-to-eng-
 import {NepaliNumberPipe} from '../../../../../../@core/pipe/nepali-number.pipe';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
-import {LoanType} from '../../../../../loan/model/loanType';
-import {SubLoanType} from '../../../../../loan/model/subLoanType';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {LaxmiPurpose} from '../../../../../loan/model/laxmi-purpose';
 import {NepaliEditor} from '../../../../../../@core/utils/constants/nepaliEditor';
 import {OfferDocument} from '../../../../model/OfferDocument';
 import {LaxmiOfferLetterConst} from '../laxmi-offer-letter-const';
-import {Security} from '../../../../../loan/model/security';
-import {ShareSecurity} from '../../../../../admin/modal/shareSecurity';
-import {SiteVisit} from '../../../../../admin/modal/siteVisit';
 import {ClientTypeShortFormPipe} from '../../../../../../@core/pipe/client-type-short-form.pipe';
 
 @Component({
@@ -44,41 +39,11 @@ export class OfferLetterLaxmiComponent implements OnInit {
     cadCheckListEnum = CadCheckListTemplateEnum;
     offerLetterConst = LaxmiOfferLetterConst;
     nepaliData;
-    proposedAmount;
-    customerInfo;
-    loanName = [];
-    loanTypes = LoanType;
-    subloanTypes;
-    subloanType;
-    subloanTypeEnum = SubLoanType;
     offerLetterDocument;
-    hasSubLoanType = false;
     purpose = LaxmiPurpose.enumObject();
     ckeConfig = NepaliEditor.CK_CONFIG;
     existingOfferLetter = false;
-    multipleSecurity = false;
-    selectedArray = [];
-    arrayOfSubloan = [];
-    test111 = [];
-    subLoanData = [];
     loanType = [];
-    commissionTime = ['त्रैमासिक', 'मासिक', 'Other'];
-    loanWithSubloan = [];
-    loanNature = [];
-    loanWithOutSubLoan = [];
-    proposalData = [];
-    commissionFrequency = [];
-    securityPresent = false;
-    siteVisitPresent = false;
-    currentAssetstPresent = false;
-    isCollateral = false;
-    securityData;
-    shareData;
-    landSecurity;
-    landBuildingSecurity;
-    taggedGuarantor = [];
-    corporateGuarantor = false;
-    loanShortForm1: string;
 
     constructor(private formBuilder: FormBuilder,
                 private administrationService: CreditAdministrationService,
@@ -95,7 +60,6 @@ export class OfferLetterLaxmiComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log('cadData', this.cadData);
         this.buildForm();
         this.parseAssignedLoanData();
         this.checkOfferLetter();
@@ -113,7 +77,6 @@ export class OfferLetterLaxmiComponent implements OnInit {
             const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
             this.existingOfferLetter = true;
             this.offerLetterForm.patchValue(initialInfo);
-            this.arrayOfSubloan = initialInfo.subLoanType;
             this.setOtherCovenants(initialInfo.covenant);
             this.setAcceptance(initialInfo.acceptance);
             this.setEventDefaul(initialInfo.eventDefault);
@@ -124,6 +87,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
             this.setVehicleData(initialInfo.vehicleSecurity);
             this.setShareData(initialInfo.shareSecurity);
             this.initialInfoPrint = initialInfo;
+            console.log(initialInfo);
         }
     }
 
@@ -152,7 +116,6 @@ export class OfferLetterLaxmiComponent implements OnInit {
             branchName: [undefined],
             telephoneNumber: [undefined],
             faxNumber: [undefined],
-            subLoanType: [undefined],
             personalName: [undefined],
             personalAmount: [undefined],
             personalAmountWord: [undefined],
@@ -480,13 +443,6 @@ export class OfferLetterLaxmiComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.cadData)) {
             this.cadData.assignedLoan.forEach((l, i) => {
                 this.loanType.push(l.loanType);
-                if (!ObjectUtil.isEmpty(l.taggedGuarantors)) {
-                    l.taggedGuarantors.forEach(t => {
-                        if (t.consentOfLegalHeirs) {
-                            this.corporateGuarantor = true;
-                        }
-                    });
-                }
                 this.addPurpose(l);
             });
             const loanShortForm = this.clientTypeShort.transform(this.cadData.loanHolder.clientType);
