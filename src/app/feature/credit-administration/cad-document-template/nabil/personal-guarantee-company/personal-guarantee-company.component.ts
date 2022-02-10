@@ -178,6 +178,7 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
                   citizenshipNo: [this.setIdentityNo(individualGuarantorNepData)],
                   issuedBy: [this.setIdentityIssuedPlace(individualGuarantorNepData)],
                   issuedDate: [this.setIdentityIssuedDate(individualGuarantorNepData)],
+                  passportExpiryDate: [this.setValidityDate(individualGuarantorNepData)],
                   sakshiDistrict1: [undefined],
                   sakshiMunicipality1: [undefined],
                   sakshiWard1: [undefined],
@@ -446,5 +447,19 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
       }
       return identityIssuedPlace ? identityIssuedPlace : '';
     }
+  }
+  setValidityDate(individualGuarantorNepData) {
+    let passportValidityDate = '';
+    if (!ObjectUtil.isEmpty(individualGuarantorNepData.guarantorNationality)) {
+      if (individualGuarantorNepData.guarantorNationality === 'Indian') {
+        if (!ObjectUtil.isEmpty(individualGuarantorNepData.indianGuarantorDetailOption) && individualGuarantorNepData.indianGuarantorDetailOption.en === 'Passport') {
+          passportValidityDate = !ObjectUtil.isEmpty(individualGuarantorNepData.passportValidityDate) ? this.englishNepaliDatePipe.transform((individualGuarantorNepData.passportValidityDate.en) ? (individualGuarantorNepData.passportValidityDate.en) : (individualGuarantorNepData.passportValidityDate.en), true) : '' || '';
+        }
+      }
+        if (individualGuarantorNepData.guarantorNationality === 'Other') {
+          passportValidityDate = !ObjectUtil.isEmpty(individualGuarantorNepData.otherGuarantorPassportValidityDate) ? this.englishNepaliDatePipe.transform((individualGuarantorNepData.otherGuarantorPassportValidityDate.en) ? (individualGuarantorNepData.otherGuarantorPassportValidityDate.en) : (individualGuarantorNepData.otherGuarantorPassportValidityDate.en), true) : '' || '';
+        }
+        return passportValidityDate ? passportValidityDate : '';
+      }
   }
 }
