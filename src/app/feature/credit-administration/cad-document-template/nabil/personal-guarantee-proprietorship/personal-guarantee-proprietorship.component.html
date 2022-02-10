@@ -78,11 +78,11 @@
                                 <span *ngIf="this.loanHolderNepData.registeredMunType.en === '2'" class="print-only">
                                     गाँउपालिका ,
                                 </span>                                    वडा नं
-                                    <input class="form-field form-control-sm d-print-none" name="wardNumOfFirm"
-                                           formControlName="wardNumOfFirm" placeholder="" type="text"/>
+                                <input class="form-field form-control-sm d-print-none" name="wardNumOfFirm"
+                                       formControlName="wardNumOfFirm" placeholder="" type="text"/>
                                 <span class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeProprietorship", i, "wardNumOfFirm"]).value || '_____________________'}}</span>,
-                                    <input class="form-field form-control-sm d-print-none" name="addressOfFirm"
-                                           formControlName="addressOfFirm" placeholder="" type="text"/>
+                                <input class="form-field form-control-sm d-print-none" name="addressOfFirm"
+                                       formControlName="addressOfFirm" placeholder="" type="text"/>
                                 <span class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeProprietorship", i, "addressOfFirm"]).value || '_____________________'}}</span>
                                 मा कार्यालय रहेको श्री
                                 <span>
@@ -337,29 +337,29 @@
                                         </p>
                                         <ng-container *ngIf="(guarantorProprietorship?.guarantorNationality === 'Nepali') ||
                                         ((guarantorProprietorship?.guarantorNationality === 'Indian' ||  guarantorProprietorship?.guarantorNationality === 'Other') && guarantorProprietorship?.guarantorForeignAddressOption.en === 'Local')">
-                                        <p class="lh-30">
-                                            स्थायी ठेगाना :
-                                            <span>
+                                            <p class="lh-30">
+                                                स्थायी ठेगाना :
+                                                <span>
                                             <input class="form-field form-control-sm d-print-none"
                                                    name="permanentDistrict"
                                                    formControlName="permanentDistrict" placeholder="" type="text"/>
                                             <span class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeProprietorship", i, "permanentDistrict"]).value || '_____________________'}}</span>
                                         </span>
-                                            , जिल्ला :
-                                            <span>
+                                                , जिल्ला :
+                                                <span>
                                             <input class="form-field form-control-sm d-print-none"
                                                    name="permanentMunicipalities"
                                                    formControlName="permanentMunicipalities" placeholder=""
                                                    type="text"/>
                                             <span class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeProprietorship", i, "permanentMunicipalities"]).value || '_____________________'}}</span>
                                         </span>
-                                            , गा.वि.स./नगर वडा नं. :
-                                            <span>
+                                                , गा.वि.स./नगर वडा नं. :
+                                                <span>
                                             <input class="form-field form-control-sm d-print-none" name="permanentWard"
                                                    formControlName="permanentWard" placeholder="" type="text"/>
                                             <span class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeProprietorship", i, "permanentWard"]).value || '_____________________'}}</span>
                                         </span>
-                                        </p>
+                                            </p>
                                         </ng-container>
                                         <ng-container *ngIf="(guarantorProprietorship?.guarantorNationality === 'Indian' || guarantorProprietorship?.guarantorNationality === 'Other') && guarantorProprietorship?.guarantorForeignAddressOption.en === 'Foreign'">
                                             <p class="lh-30">
@@ -430,6 +430,14 @@
                                                    formControlName="issuedDate" placeholder="" type="text"/>
                                             <span class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeProprietorship", i, "issuedDate"]).value || '_____________________'}}</span>
                                         </span>
+                                            <ng-container *ngIf="(guarantorProprietorship?.guarantorNationality === 'Indian' && guarantorProprietorship?.indianGuarantorDetailOption.en === 'Passport') || guarantorProprietorship?.guarantorNationality === 'Other'">
+                                                , म्याद सकिने मिति :
+                                                <span>
+                                            <input class="form-field form-control-sm d-print-none" name="passportExpiryDate"
+                                                   formControlName="passportExpiryDate" placeholder="" type="text"/>
+                                            <strong class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeProprietorship", i, "passportExpiryDate"]).value || '_____________________'}}</strong>
+                                        </span>
+                                            </ng-container>
                                         </p>
                                         <br>
                                         <br>
@@ -477,16 +485,16 @@
         <div class="row mt-5 ml-0">
             <div class="col-md-12 text-right">
                 <button
-                    [useExistingCss]="true"
-                    styleSheetFile="assets/css/printStyles.scss"
-                    printSectionId="personalGuaranteeProprietorshipPrint"
-                    class="d-print-none float-right"
-                    printSectionId="print-section"
-                    nbButton
-                    size="small"
-                    status="info"
-                    outline
-                    ngxPrint
+                        [useExistingCss]="true"
+                        styleSheetFile="assets/css/printStyles.scss"
+                        printSectionId="personalGuaranteeProprietorshipPrint"
+                        class="d-print-none float-right"
+                        printSectionId="print-section"
+                        nbButton
+                        size="small"
+                        status="info"
+                        outline
+                        ngxPrint
                 >
                     Print &nbsp;&nbsp;
                     <em class="fa fa-print" style="color: rgb(47, 3, 168)"></em>
