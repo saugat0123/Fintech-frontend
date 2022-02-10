@@ -99,6 +99,10 @@ input::-webkit-input-placeholder {
   .print-only1 {
     display: none !important;
   }
+  .print-only {
+    display: inline;
+  }
+
   .disable-print {
     display: none !important;
   }
