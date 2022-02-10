@@ -71,7 +71,7 @@
                                 formControlName="freeTextTen">
                 </textarea>
                     </p>
-                    <p>
+                    <p *ngIf="tempData.smeGlobalForm.loanOption !== 'Plain Renewal'">
                         <strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong>
                         <textarea
                                 class="form-control customFont"
@@ -202,7 +202,7 @@
 
                         <span *ngIf="termLoan.subsidyOrAgricultureLoan === 'Yes'">हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
                                 बार्षिक <input class="form-field form-control-sm "
-                                               formControlName="newInstallmentTotalInterestRateVehicleLoan"
+                                               formControlName="newInstallmentInterestRateVehicleLoan"
                                                placeholder=""
                                                type="text"/>% का दरले
                             निर्धारण गरीएकोछ । सो निर्धारित ब्याज दरमा नेपाल राष्ट्र बैंकले ऋणीलाई दिने छुट/सहुलियत वापतको दर
@@ -215,7 +215,12 @@
                                    formControlName="newInstallmentLoanTenureVehicleLoan"
                                    placeholder=""
                                    type="text"/> वर्ष भित्र प्रति
-                                वर्ष/अर्धबार्षिक/त्रैमास/महिना रु.<input class="form-field form-control-sm "
+                            <ng-container *ngIf="termLoan.paymentTerms === 'YEARLY'"> वर्ष </ng-container>
+                                <ng-container
+                                        *ngIf="termLoan.paymentTerms === 'SEMI_YEARLY'"> अर्धबार्षिक </ng-container>
+                                <ng-container *ngIf="termLoan.paymentTerms === 'QUARTERLY'"> त्रैमास </ng-container>
+                                <ng-container *ngIf="termLoan.paymentTerms === 'MONTHLY'"> महिना </ng-container>
+                                रु.<input class="form-field form-control-sm "
                                                                          formControlName="newInstallmentPaymentAmountVehicleLoan"
                                                                          placeholder=""
                                                                          type="text"/>।—
@@ -275,7 +280,7 @@
 
                         <span *ngIf="termLoan.subsidyOrAgricultureLoan === 'Yes'">हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
                                 बार्षिक <input class="form-field form-control-sm "
-                                               formControlName="annualInstallmentTotalInterestRateVehicleLoan"
+                                               formControlName="annualInstallmentInterestRateVehicleLoan"
                                                placeholder=""
                                                type="text"/>% का दरले
                             निर्धारण गरीएकोछ । सो निर्धारित ब्याज दरमा नेपाल राष्ट्र बैंकले ऋणीलाई दिने छुट/सहुलियत वापतको दर
@@ -308,7 +313,8 @@
                         <input class="form-field form-control-sm "
                                                                          formControlName="annualInstallmentLoanExpiryDateVehicleLoan"
                                                                          placeholder=""
-                                                                         type="text"/> ।<br>
+                                                                         type="text"/> ।
+                    </p>
                         <strong>कर्जा प्रवाह तरिकाः</strong>
                         <textarea
                                 class="form-control customFont"
@@ -318,7 +324,6 @@
                                 placeholder=""
                                 formControlName="freeTextTwelve">
                     </textarea>
-                    </p>
                 </td>
             </ng-container>
         </tr>

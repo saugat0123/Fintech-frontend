@@ -31,6 +31,8 @@ export class PowerOfAttorneyCompanyComponent implements OnInit {
   loanHolderNepData: any;
   finalAmount;
   loanAmountWord;
+  isAuth = false;
+  isAuth1 = false;
   spinner = false;
   freeText;
   savedFreeText: Array<any> = new Array<any>();
@@ -51,6 +53,7 @@ export class PowerOfAttorneyCompanyComponent implements OnInit {
   ngOnInit() {
     this.setData();
     this.buildForm();
+    this.patchData();
     this.setSavedFreeText();
   }
 
@@ -61,9 +64,9 @@ export class PowerOfAttorneyCompanyComponent implements OnInit {
         if (val.isAuthorizedPerson === 'Authorized Person Only' || val.isAuthorizedPerson === 'Both') {
           const authorizedName = val.ownerNameCT;
           this.authorizedNameArray.push(authorizedName);
+          this.isAuth = true;
         } else {
-          const authorizedName = '';
-          this.authorizedNameArray.push(authorizedName);
+          this.isAuth1 = true;
         }
       });
       this.dateConvert();
@@ -92,17 +95,86 @@ export class PowerOfAttorneyCompanyComponent implements OnInit {
 
   dateConvert() {
     let date;
+    let date2;
     this.companyInfo.forEach(val => {
-      if (val.radioOwnerCitizenshipIssuedDate === 'AD') {
-        date = this.englishNepaliDatePipe.transform(val ?
-            val.ownerCitizenshipIssuedDateCT : val.ownerCitizenshipIssuedDateCT, true) || '';
-      } else {
-        date = val ? val.ownerCitizenshipIssuedDateCT : '';
+      if (val.ownerNationality === 'Nepali') {
+        if (val.radioOwnerCitizenshipIssuedDate === 'AD') {
+          date = this.englishNepaliDatePipe.transform(val ?
+              val.ownerCitizenshipIssuedDateCT : val.ownerCitizenshipIssuedDateCT, true) || '';
+        } else {
+          date = val ? val.ownerCitizenshipIssuedDateCT.nDate : '';
+        }
+        const newDate = {
+          issueDate : date
+        };
+        this.issueDate.push(newDate);
       }
-      const newDate = {
-        issueDate : date
-      };
-      this.issueDate.push(newDate);
+      if (val.ownerNationality === 'Indian' && val.indianOwnerDetailOption === 'Passport') {
+        if (val.indianOwnerPassportIssuedDateOption === 'AD') {
+          date = this.englishNepaliDatePipe.transform(val ?
+              val.indianOwnerPassportIssuedDateCT : val.indianOwnerPassportIssuedDateCT, true) || '';
+        }
+        if (val.indianOwnerPassportValidityDateOption === 'AD') {
+          date2 = this.englishNepaliDatePipe.transform(val ?
+              val.indianOwnerPassportValidityDateCT : val.indianOwnerPassportValidityDateCT, true) || '';
+        }
+        if (val.indianOwnerPassportIssuedDateOption === 'BS') {
+          date = val ? val.indianOwnerPassportIssuedDateCT.nDate : '';
+        }
+        if (val.indianOwnerPassportValidityDateOption === 'BS') {
+          date2 = val ? val.indianOwnerPassportValidityDateCT.nDate : '';
+        }
+        const newDate = {
+          issueDate : date,
+          validDate : date2
+        };
+        this.issueDate.push(newDate);
+      }
+      if (val.ownerNationality === 'Indian' && val.indianOwnerDetailOption === 'Adhar Card') {
+        if (val.indianOwnerAdharCardIssuedDateOption === 'AD') {
+          date = this.englishNepaliDatePipe.transform(val ?
+              val.indianOwnerAdharCardIssuedDateCT : val.indianOwnerAdharCardIssuedDateCT, true) || '';
+        } else {
+          date = val ? val.indianOwnerAdharCardIssuedDateCT.nDate : '';
+        }
+        const newDate = {
+          issueDate : date,
+        };
+        this.issueDate.push(newDate);
+      }
+      if (val.ownerNationality === 'Indian' && val.indianOwnerDetailOption === 'Embassy Certificate') {
+        if (val.indianEmbassyIssuedDateOption === 'AD') {
+          date = this.englishNepaliDatePipe.transform(val ?
+              val.indianEmbassyIssuedDateCT : val.indianEmbassyIssuedDateCT, true) || '';
+        } else {
+          date = val ? val.indianEmbassyIssuedDateCT.nDate : '';
+        }
+        const newDate = {
+          issueDate : date,
+        };
+        this.issueDate.push(newDate);
+      }
+      if (val.ownerNationality === 'Other') {
+        if (val.otherOwnerPassportIssuedDateOption === 'AD') {
+          date = this.englishNepaliDatePipe.transform(val ?
+              val.otherOwnerPassportIssuedDateCT : val.otherOwnerPassportIssuedDateCT, true) || '';
+        }
+        if (val.otherOwnerPassportValidityDateOption === 'AD') {
+          date2 = this.englishNepaliDatePipe.transform(val ?
+              val.otherOwnerPassportValidityDateCT : val.otherOwnerPassportValidityDateCT, true) || '';
+        }
+        if (val.otherOwnerPassportIssuedDateOption === 'BS') {
+          date = val ? val.otherOwnerPassportIssuedDate.nDate : '';
+        }
+        if (val.otherOwnerPassportValidityDateOption === 'BS') {
+          date2 = val ? val.otherOwnerPassportValidityDateCT.nDate : '';
+        }
+        const newDate = {
+          issueDate : date,
+          validDate : date2
+        };
+        this.issueDate.push(newDate);
+      }
     });
   }
 
@@ -132,8 +204,6 @@ export class PowerOfAttorneyCompanyComponent implements OnInit {
       loanAmountInFigure: [this.finalAmount ? this.finalAmount : ''],
       loanAmountInWords: [this.loanAmountWord ? this.loanAmountWord : ''],
 
-      authorizedBodyName: [undefined],
-
       sakshiDistrict1: [this.freeText ? this.freeText.sakshiDistrict1 : ''],
       sakshiDistrict2: [this.freeText ? this.freeText.sakshiDistrict2 : ''],
       sakshiMunicipality1: [this.freeText ? this.freeText.sakshiMunicipality1 : ''],
@@ -145,8 +215,17 @@ export class PowerOfAttorneyCompanyComponent implements OnInit {
       sakshiName1: [this.freeText ? this.freeText.sakshiName1 : ''],
       sakshiName2: [this.freeText ? this.freeText.sakshiName2 : ''],
       nameOfBankStaff: [this.freeText ? this.freeText.nameOfBankStaff : ''],
+      authorizedBodyName: [undefined],
       freeTextArray: this.formBuilder.array([]),
     });
+  }
+  patchData() {
+    this.companyInfo.forEach(val => {
+    if (val.isAuthorizedPerson === 'Share Holder Only') {
+      this.powerOfAttorneyCompanyForm.patchValue({
+        authorizedBodyName: this.freeText ? this.freeText.authorizedBodyName : ''
+      });
+    }});
   }
   freeTextForm() {
     return this.formBuilder.group({
@@ -180,6 +259,7 @@ export class PowerOfAttorneyCompanyComponent implements OnInit {
       sakshiName1: this.powerOfAttorneyCompanyForm.get('sakshiName1').value ? this.powerOfAttorneyCompanyForm.get('sakshiName1').value : '',
       sakshiName2: this.powerOfAttorneyCompanyForm.get('sakshiName2').value ? this.powerOfAttorneyCompanyForm.get('sakshiName2').value : '',
       nameOfBankStaff: this.powerOfAttorneyCompanyForm.get('nameOfBankStaff').value ? this.powerOfAttorneyCompanyForm.get('nameOfBankStaff').value : '',
+      authorizedBodyName: this.powerOfAttorneyCompanyForm.get('authorizedBodyName').value ? this.powerOfAttorneyCompanyForm.get('authorizedBodyName').value : '',
       freeTextArray: this.savedFreeText
     };
     return JSON.stringify(free);

@@ -152,9 +152,9 @@ export class BridgeGapLoanComponent implements OnInit {
     this.bridgeGapLoan.get(['bridgeGapDetails', i, 'loanAmountWordsTrans']).patchValue(
         this.bridgeGapLoan.get(['bridgeGapDetails', i, 'loanAmountWords']).value
     );
-    const baseRate1 = this.convertNumbersToNepali(this.bridgeGapLoan.get(['bridgeGapDetails', i, 'baseRate']).value, false);
+    const baseRate1 = this.convertNumbersToNepali(this.bridgeGapLoan.get(['bridgeGapDetails', i, 'baseRate']).value.toFixed(2), false);
     this.bridgeGapLoan.get(['bridgeGapDetails', i, 'baseRateTrans']).patchValue(baseRate1);
-    const premiumRate1 = this.convertNumbersToNepali(this.bridgeGapLoan.get(['bridgeGapDetails', i, 'premiumRate']).value, false);
+    const premiumRate1 = this.convertNumbersToNepali(this.bridgeGapLoan.get(['bridgeGapDetails', i, 'premiumRate']).value.toFixed(2), false);
     this.bridgeGapLoan.get(['bridgeGapDetails', i, 'premiumRateTrans']).patchValue(premiumRate1);
     const interestRate = this.convertNumbersToNepali(this.bridgeGapLoan.get(['bridgeGapDetails', i, 'interestRate']).value, false);
     this.bridgeGapLoan.get(['bridgeGapDetails', i, 'interestRateTrans']).patchValue(interestRate);
@@ -209,6 +209,6 @@ export class BridgeGapLoanComponent implements OnInit {
     const baseRate = this.bridgeGapLoan.get(['bridgeGapDetails', i, 'baseRate']).value;
     const premiumRate = this.bridgeGapLoan.get(['bridgeGapDetails', i, 'premiumRate']).value;
     const sum = parseFloat(baseRate) + parseFloat(premiumRate);
-    this.bridgeGapLoan.get(['bridgeGapDetails', i, 'interestRate']).patchValue(sum.toFixed(3));
+    this.bridgeGapLoan.get(['bridgeGapDetails', i, 'interestRate']).patchValue(sum.toFixed(2));
   }
 }

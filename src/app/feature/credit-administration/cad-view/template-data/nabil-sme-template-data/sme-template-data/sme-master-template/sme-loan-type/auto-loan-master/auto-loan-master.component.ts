@@ -144,7 +144,7 @@ export class AutoLoanMasterComponent implements OnInit {
     const baseRate = this.autoLoanMasterForm.get([arrName, index, 'baseRate']).value;
     const premiumRate = this.autoLoanMasterForm.get([arrName, index, 'premiumRate']).value;
     const sum = parseFloat(baseRate) + parseFloat(premiumRate);
-    this.autoLoanMasterForm.get([arrName, index, 'interestRate']).patchValue(sum.toFixed(3));
+    this.autoLoanMasterForm.get([arrName, index, 'interestRate']).patchValue(sum.toFixed(2));
   }
 
   public checkDateOfExpiry(value): void {
@@ -227,10 +227,10 @@ export class AutoLoanMasterComponent implements OnInit {
         this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'paymentAmountWords']).value
     );
 
-    const tempBaseRate = this.convertNumbersToNepali(this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'baseRate']).value, false);
+    const tempBaseRate = this.convertNumbersToNepali(this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'baseRate']).value.toFixed(2), false);
     this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'baseRateTrans']).patchValue(tempBaseRate);
     const tempPremiumRate = this.convertNumbersToNepali(this.autoLoanMasterForm.get(
-        ['autoLoanFormArray', index, 'premiumRate']).value, false);
+        ['autoLoanFormArray', index, 'premiumRate']).value.toFixed(2), false);
     this.autoLoanMasterForm.get(['autoLoanFormArray', index, 'premiumRateTrans']).patchValue(tempPremiumRate);
     const tempInterestRate = this.convertNumbersToNepali(this.autoLoanMasterForm.get(
         ['autoLoanFormArray', index, 'interestRate']).value, false);

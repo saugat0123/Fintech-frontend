@@ -89,6 +89,7 @@ export class AutoLoanComponent implements OnInit {
                 loanAmountInWords: [undefined],
                 // Free Text
                 freeTextFourteen: [undefined],
+                disbursementClause: [undefined],
             })
         );
     }
@@ -140,7 +141,9 @@ export class AutoLoanComponent implements OnInit {
                     this.tempInformation ?
                         this.tempInformation.section2.autoLoanFreeText[i].newEMIAutoPopulateAutoLoan1 :
                         'निकासा भएको पछिल्लोे महिना देखि किस्ता भुक्तानी मिति हुनेछ');
-                }
+                this.form.get(['autoLoanDetails', i, 'disbursementClause']).patchValue(
+                    this.tempInformation ? this.tempInformation.section2.autoLoanFreeText[i].disbursementClause : '');
+            }
             }
         }
 
@@ -150,6 +153,7 @@ export class AutoLoanComponent implements OnInit {
                 SNOfParentLimitAutoLoan: this.form.get(['autoLoanDetails', val, 'SNOfParentLimitAutoLoan']).value ? this.form.get(['autoLoanDetails', val, 'SNOfParentLimitAutoLoan']).value : '',
                 freeText14: this.form.get(['autoLoanDetails', val, 'freeTextFourteen']).value ? this.form.get(['autoLoanDetails', val, 'freeTextFourteen']).value : '',
                 newEMIAutoPopulateAutoLoan1: this.form.get(['autoLoanDetails', val, 'newEMIAutoPopulateAutoLoan']).value ? this.form.get(['autoLoanDetails', val, 'newEMIAutoPopulateAutoLoan']).value : '',
+                disbursementClause: this.form.get(['autoLoanDetails', val, 'disbursementClause']).value ? this.form.get(['autoLoanDetails', val, 'disbursementClause']).value : '',
             };
             this.autoLoanFreeText.push(tempFreeText);
         }

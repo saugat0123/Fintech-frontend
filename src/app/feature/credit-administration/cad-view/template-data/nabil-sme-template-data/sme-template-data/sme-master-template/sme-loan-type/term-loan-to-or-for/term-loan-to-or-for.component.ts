@@ -146,7 +146,6 @@ export class TermLoanToOrForComponent implements OnInit {
       dateOfExpiryType: [undefined],
       dateOfExpiryNepali: [undefined],
       dateOfExpiry: [undefined],
-      subsidyInterestRate: [undefined],
       paymentTerms: [undefined],
       paymentAmountFigure: [undefined],
       paymentAmountWords: [undefined],
@@ -172,7 +171,6 @@ export class TermLoanToOrForComponent implements OnInit {
       dateOfExpiryTypeTrans: [undefined],
       dateOfExpiryNepaliTrans: [undefined],
       dateOfExpiryTrans: [undefined],
-      subsidyInterestRateTrans: [undefined],
       paymentTermsTrans: [undefined],
       paymentAmountFigureTrans: [undefined],
       paymentAmountWordsTrans: [undefined],
@@ -198,7 +196,6 @@ export class TermLoanToOrForComponent implements OnInit {
       dateOfExpiryTypeCT: [undefined],
       dateOfExpiryNepaliCT: [undefined],
       dateOfExpiryCT: [undefined],
-      subsidyInterestRateCT: [undefined],
       paymentTermsCT: [undefined],
       paymentAmountFigureCT: [undefined],
       paymentAmountWordsCT: [undefined],
@@ -242,7 +239,7 @@ export class TermLoanToOrForComponent implements OnInit {
     const baseRate = this.termLoanForm.get(['termLoanDetails', i, 'baseRate']).value;
     const premiumRate = this.termLoanForm.get(['termLoanDetails', i, 'premiumRate']).value;
     const sum = parseFloat(baseRate) + parseFloat(premiumRate);
-    this.termLoanForm.get(['termLoanDetails', i, 'interestRate']).patchValue(sum.toFixed(3));
+    this.termLoanForm.get(['termLoanDetails', i, 'interestRate']).patchValue(sum.toFixed(2));
   }
 
   setEMIPaymentType(data, i) {
@@ -325,9 +322,9 @@ export class TermLoanToOrForComponent implements OnInit {
 
     const tempPurposeOfLoan = this.convertNumbersToNepali(this.termLoanForm.get(['termLoanDetails', i, 'purposeOfLoan']).value, false);
     this.termLoanForm.get(['termLoanDetails', i, 'purposeOfLoanTrans']).patchValue(tempPurposeOfLoan);
-    const tempBaseRate = this.convertNumbersToNepali(this.termLoanForm.get(['termLoanDetails', i, 'baseRate']).value, false);
+    const tempBaseRate = this.convertNumbersToNepali(this.termLoanForm.get(['termLoanDetails', i, 'baseRate']).value.toFixed(2), false);
     this.termLoanForm.get(['termLoanDetails', i, 'baseRateTrans']).patchValue(tempBaseRate);
-    const tempPremiumRate = this.convertNumbersToNepali(this.termLoanForm.get(['termLoanDetails', i, 'premiumRate']).value, false);
+    const tempPremiumRate = this.convertNumbersToNepali(this.termLoanForm.get(['termLoanDetails', i, 'premiumRate']).value.toFixed(2), false);
     this.termLoanForm.get(['termLoanDetails', i, 'premiumRateTrans']).patchValue(tempPremiumRate);
     const tempInterestRate = this.convertNumbersToNepali(this.termLoanForm.get(['termLoanDetails', i, 'interestRate']).value, false);
     this.termLoanForm.get(['termLoanDetails', i, 'interestRateTrans']).patchValue(tempInterestRate);
@@ -337,8 +334,6 @@ export class TermLoanToOrForComponent implements OnInit {
     this.termLoanForm.get(['termLoanDetails', i, 'serviceChargeTrans']).patchValue(tempServiceCharge);
     const tempTenureOfLoan = this.convertNumbersToNepali(this.termLoanForm.get(['termLoanDetails', i, 'tenureOfLoan']).value, false);
     this.termLoanForm.get(['termLoanDetails', i, 'tenureOfLoanTrans']).patchValue(tempTenureOfLoan);
-    const tempSubsidyInterestRate = this.convertNumbersToNepali(this.termLoanForm.get(['termLoanDetails', i, 'subsidyInterestRate']).value, false);
-    this.termLoanForm.get(['termLoanDetails', i, 'subsidyInterestRateTrans']).patchValue(tempSubsidyInterestRate);
     const tempNumberOfPayments = this.convertNumbersToNepali(this.termLoanForm.get(['termLoanDetails', i, 'numberOfPayments']).value, false);
     this.termLoanForm.get(['termLoanDetails', i, 'numberOfPaymentsTrans']).patchValue(tempNumberOfPayments);
 
@@ -469,9 +464,6 @@ export class TermLoanToOrForComponent implements OnInit {
     );
     this.termLoanForm.get(['termLoanDetails', i, 'dateOfExpiryCT']).patchValue(
         this.termLoanForm.get(['termLoanDetails', i, 'dateOfExpiryTrans']).value
-    );
-    this.termLoanForm.get(['termLoanDetails', i, 'subsidyInterestRateCT']).patchValue(
-        this.termLoanForm.get(['termLoanDetails', i, 'subsidyInterestRateTrans']).value
     );
     this.termLoanForm.get(['termLoanDetails', i, 'paymentTermsCT']).patchValue(
         this.termLoanForm.get(['termLoanDetails', i, 'paymentTermsTrans']).value

@@ -45,6 +45,8 @@ export class PowerOfAttorneyPartnershipComponent implements OnInit {
   combinedAddress;
   issueDate = [];
   authorizedNameArray: Array<any> = new Array<any>();
+  isAuth = false;
+  isAuth1 = false;
 
 
   constructor(private formBuilder: FormBuilder,
@@ -90,25 +92,99 @@ export class PowerOfAttorneyPartnershipComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData.assignedLoan[0])) {
       this.companyInfo = JSON.parse(this.cadData.assignedLoan[0].companyInfo.companyJsonData);
       this.companyInfo.forEach(val => {
-        const authorizedName = val.ownerNameCT;
-        // tslint:disable-next-line:no-unused-expression
-        this.authorizedNameArray ? this.authorizedNameArray.push(authorizedName) : '';
+        if (val.isAuthorizedPerson === 'Authorized Person Only' || val.isAuthorizedPerson === 'Both') {
+          const authorizedName = val.ownerNameCT;
+          this.authorizedNameArray.push(authorizedName);
+          this.isAuth = true;
+        } else {
+          this.isAuth1 = true;
+        }
       });
     }
   }
 
   dateConvert() {
     let date;
+    let date2;
     this.companyInfo.forEach(val => {
-      if (val.radioOwnerCitizenshipIssuedDate === 'AD') {
-        date = this.engToNepaliDate.transform(val ? val.ownerCitizenshipIssuedDateCT : val.ownerCitizenshipIssuedDateCT, true) || '';
-      } else {
-        date = val ? val.ownerCitizenshipIssuedDateCT : '';
+      if (val.ownerNationality === 'Nepali') {
+        if (val.radioOwnerCitizenshipIssuedDate === 'AD') {
+          date = this.engToNepaliDate.transform(val ?
+              val.ownerCitizenshipIssuedDateCT : val.ownerCitizenshipIssuedDateCT, true) || '';
+        } else {
+          date = val ? val.ownerCitizenshipIssuedDateCT.nDate : '';
+        }
+        const newDate = {
+          issueDate : date
+        };
+        this.issueDate.push(newDate);
       }
-      const newDate = {
-        issueDate : date
-      };
-      this.issueDate.push(newDate);
+      if (val.ownerNationality === 'Indian' && val.indianOwnerDetailOption === 'Passport') {
+        if (val.indianOwnerPassportIssuedDateOption === 'AD') {
+          date = this.engToNepaliDate.transform(val ?
+              val.indianOwnerPassportIssuedDateCT : val.indianOwnerPassportIssuedDateCT, true) || '';
+        }
+        if (val.indianOwnerPassportValidityDateOption === 'AD') {
+          date2 = this.engToNepaliDate.transform(val ?
+              val.indianOwnerPassportValidityDateCT : val.indianOwnerPassportValidityDateCT, true) || '';
+        }
+        if (val.indianOwnerPassportIssuedDateOption === 'BS') {
+          date = val ? val.indianOwnerPassportIssuedDateCT.nDate : '';
+        }
+        if (val.indianOwnerPassportValidityDateOption === 'BS') {
+          date2 = val ? val.indianOwnerPassportValidityDateCT.nDate : '';
+        }
+        const newDate = {
+          issueDate : date,
+          validDate : date2
+        };
+        this.issueDate.push(newDate);
+      }
+      if (val.ownerNationality === 'Indian' && val.indianOwnerDetailOption === 'Adhar Card') {
+        if (val.indianOwnerAdharCardIssuedDateOption === 'AD') {
+          date = this.engToNepaliDate.transform(val ?
+              val.indianOwnerAdharCardIssuedDateCT : val.indianOwnerAdharCardIssuedDateCT, true) || '';
+        } else {
+          date = val ? val.indianOwnerAdharCardIssuedDateCT.nDate : '';
+        }
+        const newDate = {
+          issueDate : date,
+        };
+        this.issueDate.push(newDate);
+      }
+      if (val.ownerNationality === 'Indian' && val.indianOwnerDetailOption === 'Embassy Certificate') {
+        if (val.indianEmbassyIssuedDateOption === 'AD') {
+          date = this.engToNepaliDate.transform(val ?
+              val.indianEmbassyIssuedDateCT : val.indianEmbassyIssuedDateCT, true) || '';
+        } else {
+          date = val ? val.indianEmbassyIssuedDateCT.nDate : '';
+        }
+        const newDate = {
+          issueDate : date,
+        };
+        this.issueDate.push(newDate);
+      }
+      if (val.ownerNationality === 'Other') {
+        if (val.otherOwnerPassportIssuedDateOption === 'AD') {
+          date = this.engToNepaliDate.transform(val ?
+              val.otherOwnerPassportIssuedDateCT : val.otherOwnerPassportIssuedDateCT, true) || '';
+        }
+        if (val.otherOwnerPassportValidityDateOption === 'AD') {
+          date2 = this.engToNepaliDate.transform(val ?
+              val.otherOwnerPassportValidityDateCT : val.otherOwnerPassportValidityDateCT, true) || '';
+        }
+        if (val.otherOwnerPassportIssuedDateOption === 'BS') {
+          date = val ? val.otherOwnerPassportIssuedDate.nDate : '';
+        }
+        if (val.otherOwnerPassportValidityDateOption === 'BS') {
+          date2 = val ? val.otherOwnerPassportValidityDateCT.nDate : '';
+        }
+        const newDate = {
+          issueDate : date,
+          validDate : date2
+        };
+        this.issueDate.push(newDate);
+      }
     });
   }
   buildForm() {
@@ -156,6 +232,7 @@ export class PowerOfAttorneyPartnershipComponent implements OnInit {
       witnessAge2: this.form.get('witnessAge2') ? this.form.get('witnessAge2').value : '',
       witnessName2: this.form.get('witnessName2') ? this.form.get('witnessName2').value : '',
       karmachariName: this.form.get('karmachariName') ? this.form.get('karmachariName').value : '',
+      authorizedBodyName: this.form.get('authorizedBodyName') ? this.form.get('authorizedBodyName').value : '',
     };
     return JSON.stringify(free1);
   }
@@ -256,6 +333,14 @@ export class PowerOfAttorneyPartnershipComponent implements OnInit {
           (this.individualData.permanentWard ? this.individualData.permanentWard.ct : '');
     }
 
+    this.companyInfo.forEach(val => {
+      if (val.isAuthorizedPerson === 'Partner Only') {
+        this.form.patchValue({
+          authorizedBodyName: this.supportedInfo ? this.supportedInfo.authorizedBodyName : ''
+        });
+      }
+    });
+
     this.form.patchValue({
       nameOfBranchLocated: this.individualData.branch ? this.individualData.branch.ct : '',
       districtOfFirm: this.individualData.registeredDistrict ? this.individualData.registeredDistrict.ct : '',
@@ -279,7 +364,7 @@ export class PowerOfAttorneyPartnershipComponent implements OnInit {
       witnessAge2: this.supportedInfo ? this.supportedInfo.witnessAge2 : '',
       witnessName2: this.supportedInfo ? this.supportedInfo.witnessName2 : '',
       karmachariName: this.supportedInfo ? this.supportedInfo.karmachariName : '',
-
+      authorizedBodyName: this.supportedInfo ? this.supportedInfo.authorizedBodyName : '',
     });
   }
 

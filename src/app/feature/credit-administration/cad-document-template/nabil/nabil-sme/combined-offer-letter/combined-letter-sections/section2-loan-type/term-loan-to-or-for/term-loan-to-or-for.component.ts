@@ -11,6 +11,7 @@ import {ObjectUtil} from '../../../../../../../../../@core/utils/ObjectUtil';
 export class TermLoanToOrForComponent implements OnInit {
     @Input() customerApprovedDoc: CustomerApprovedLoanCadDocumentation;
     @Input() loanData;
+    @Input() letterData;
     @Input() pointNumber;
     @Input() termLoanData;
     form: FormGroup;
@@ -67,7 +68,6 @@ export class TermLoanToOrForComponent implements OnInit {
             newInstallmentBaseRateVehicleLoan: [undefined],
             newInstallmentPremiumRateVehicleLoan: [undefined],
             newInstallmentInterestRateVehicleLoan: [undefined],
-            newInstallmentTotalInterestRateVehicleLoan: [undefined],
             newInstallmentLoanTenureVehicleLoan: [undefined],
             newInstallmentPaymentAmountVehicleLoan: [undefined],
             newInstallmentPaymentAmountInWordVehicleLoan: [undefined],
@@ -78,7 +78,6 @@ export class TermLoanToOrForComponent implements OnInit {
             annualInstallmentBaseRateVehicleLoan: [undefined],
             annualInstallmentPremiumRateVehicleLoan: [undefined],
             annualInstallmentInterestRateVehicleLoan: [undefined],
-            annualInstallmentTotalInterestRateVehicleLoan: [undefined],
             annualInstallmentPaymentAmountVehicleLoan: [undefined],
             annualInstallmentPaymentAmountInWordVehicleLoan: [undefined],
             annualInstallmentNoOfPaymentVehicleLoan: [undefined],
@@ -105,7 +104,6 @@ export class TermLoanToOrForComponent implements OnInit {
                 this.form.get(['termLoanDetails', i, 'newEMIAmountVehicleLoan']).patchValue(this.termLoanData[i].emiInfigureCT);
                 this.form.get(['termLoanDetails', i, 'newEMIAmountInWordVehicleLoan']).patchValue(this.termLoanData[i].emiInWordsCT);
                 this.form.get(['termLoanDetails', i, 'newEMINoOfInstallmentVehicleLoan']).patchValue(this.termLoanData[i].numberOfInstallmentCT);
-                this.form.get(['termLoanDetails', i, 'newEMILoanPurposeVehicleLoan']).patchValue(this.termLoanData[i].purposeOfLoanCT);
                 this.form.get(['termLoanDetails', i, 'newEMIServiceChargeVehicleLoan']).patchValue(this.termLoanData[i].serviceChargeCT);
                 this.form.get(['termLoanDetails', i, 'newEMILoanTenureVehicleLoan']).patchValue(this.termLoanData[i].tenureOfLoanCT);
                 this.form.get(['termLoanDetails', i, 'annualEMIBaseRateVehicleLoan']).patchValue(this.termLoanData[i].baseRateCT);
@@ -117,21 +115,21 @@ export class TermLoanToOrForComponent implements OnInit {
                 this.form.get(['termLoanDetails', i, 'newInstallmentBaseRateVehicleLoan']).patchValue(this.termLoanData[i].baseRateCT);
                 this.form.get(['termLoanDetails', i, 'newInstallmentPremiumRateVehicleLoan']).patchValue(this.termLoanData[i].premiumRateCT);
                 this.form.get(['termLoanDetails', i, 'newInstallmentInterestRateVehicleLoan']).patchValue(this.termLoanData[i].interestRateCT);
-                this.form.get(['termLoanDetails', i, 'newInstallmentTotalInterestRateVehicleLoan']).patchValue(this.termLoanData[i].subsidyInterestRateCT);
                 this.form.get(['termLoanDetails', i, 'newInstallmentLoanTenureVehicleLoan']).patchValue(this.termLoanData[i].tenureOfLoanCT);
                 this.form.get(['termLoanDetails', i, 'newInstallmentPaymentAmountVehicleLoan']).patchValue(this.termLoanData[i].paymentAmountFigureCT);
                 this.form.get(['termLoanDetails', i, 'newInstallmentPaymentAmountInWordVehicleLoan']).patchValue(this.termLoanData[i].paymentAmountWordsCT);
                 this.form.get(['termLoanDetails', i, 'newInstallmentNoOfPaymentVehicleLoan']).patchValue(this.termLoanData[i].numberOfPaymentsCT);
                 if (this.termLoanData[i].termLoanFor === 'VEHICLE') {
                     this.form.get(['termLoanDetails', i, 'newInstallmentLoanPurposeVehicleLoan']).patchValue('सवारी साधन खरिद गर्ने');
+                    this.form.get(['termLoanDetails', i, 'newEMILoanPurposeVehicleLoan']).patchValue('सवारी साधन खरिद गर्ने');
                 } else {
                 this.form.get(['termLoanDetails', i, 'newInstallmentLoanPurposeVehicleLoan']).patchValue(this.termLoanData[i].purposeOfLoanCT);
+                this.form.get(['termLoanDetails', i, 'newEMILoanPurposeVehicleLoan']).patchValue(this.termLoanData[i].purposeOfLoanCT);
                 }
                this.form.get(['termLoanDetails', i, 'newInstallmentServiceChargeVehicleLoan']).patchValue(this.termLoanData[i].serviceChargeCT);
                 this.form.get(['termLoanDetails', i, 'annualInstallmentBaseRateVehicleLoan']).patchValue(this.termLoanData[i].baseRateCT);
                 this.form.get(['termLoanDetails', i, 'annualInstallmentPremiumRateVehicleLoan']).patchValue(this.termLoanData[i].premiumRateCT);
                 this.form.get(['termLoanDetails', i, 'annualInstallmentInterestRateVehicleLoan']).patchValue(this.termLoanData[i].interestRateCT);
-                this.form.get(['termLoanDetails', i, 'annualInstallmentTotalInterestRateVehicleLoan']).patchValue(this.termLoanData[i].subsidyInterestRateCT);
                 this.form.get(['termLoanDetails', i, 'annualInstallmentPaymentAmountVehicleLoan']).patchValue(this.termLoanData[i].paymentAmountFigureCT);
                 this.form.get(['termLoanDetails', i, 'annualInstallmentPaymentAmountInWordVehicleLoan']).patchValue(this.termLoanData[i].paymentAmountWordsCT);
                 this.form.get(['termLoanDetails', i, 'annualInstallmentNoOfPaymentVehicleLoan']).patchValue(this.termLoanData[i].numberOfPaymentsCT);

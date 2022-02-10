@@ -391,8 +391,7 @@
                                       [config]="ckEditorConfig"></ckeditor>
 
                             <!--Applicable only Auto loan and termloan for vehicle is required-->
-
-                            <li *ngIf="this.tempData?.autoLoanMasterForm?.autoLoanTypeCT !== null || this.tempData?.termLoanForm?.termLoanForCT === 'VEHICLE'">
+                            <li *ngIf="vehicleRegister">
                                 <strong> सवारी साधन दर्ता (Vehicle Registration): </strong>
                                 <p class="m-0">
                                     सवारी साधन कर्जाबाट खरिद गरिएका सवारी साधनको व्यापक (Comprehensive) बिमा सहित बैंकको
@@ -432,7 +431,9 @@
                             <strong>
                                 ख.
                                 <u>
-                                    थप/सहायक सुरक्षण (Additional/ Secondary Security)
+                                    <input class="form-field form-control-sm"
+                                           formControlName="textField"
+                                           type="text"/> सुरक्षण (Additional/ Secondary Security)
                                 </u>
                             </strong>
                         </p>

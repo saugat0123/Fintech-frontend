@@ -76,7 +76,8 @@
                         {{autoLoan?.numberOfInstallmentCT === null || autoLoan?.numberOfInstallmentCT === '' ? '___________' : autoLoan?.numberOfInstallmentCT}}</span>
                                 सम मासिक किस्ता (Equated Monthly Installment) हरुमा चुक्ता भुक्तानी गर्नु पर्नेछ ।
                         </span><br>
-                    <span *ngIf="autoLoan.emiPaymentType === 'SUBSEQUENT_MONTH'">
+                    <span *ngIf="autoLoan.emiPaymentType === 'SUBSEQUENT_MONTH' &&
+                        autoLoanFreeText[i]?.newEMIAutoPopulateAutoLoan1">
         <strong>कर्जा भुक्तानी शुरुः</strong>कर्जा
         <span>
             <strong>
@@ -227,8 +228,11 @@
                     {{autoLoan.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
                     <span [ngClass]="{'inside' : autoLoan?.dateOfExpiryCT !== null && autoLoan?.dateOfExpiryCT !== ''}">
                         {{autoLoan?.dateOfExpiryCT === null || autoLoan?.dateOfExpiryCT === '' ? '___________' : autoLoan?.dateOfExpiryCT}}</span>
-                    ।<br>
-                    <span>
+                    ।
+                </p>
+                <p *ngIf="!autoLoan.vehiclePurchased">
+                    <span style="font-size: 19px; line-height: 1.9em"
+                    *ngIf="autoLoanFreeText[i]?.disbursementClause === null || autoLoanFreeText[i]?.disbursementClause === ''">
         <strong>कर्जा प्रवाह तरिकाः</strong> सवारी साधनको व्यापक (Comprehensive) बिमालेख सहित बैंकको नाममा
         दर्ता गरीदिनुका साथै आवश्यक सम्पूर्ण कर्जा/सुरक्षण कागजपत्रहरु सहीछाप भई बैंकलाई प्राप्त भएपश्चात सवारी
         साधनको कर बिजक/भ्याट बिलको
@@ -241,9 +245,10 @@
                         {{autoLoan?.nameOfDealerCT === null || autoLoan?.nameOfDealerCT === '' ? '___________' : autoLoan?.nameOfDealerCT}}</span>
          वा उसको
         प्रतिनिधिलाई सो रकम बैंक ड्राफ्ट मार्फत वा खातामा रकम स्थानान्तरण गरी भुक्तानी गरिनेछ ।
-        </span><br>
-                    <span><strong>कर्जा प्रवाह तरिकाः</strong>
-                            <span>
+        </span>
+                    <span *ngIf="autoLoanFreeText[i]?.disbursementClause === true">
+                        <strong style="font-size: 19px; line-height: 1.9em">कर्जा प्रवाह तरिकाः</strong>
+                            <span style="font-size: 19px; line-height: 1.9em">
                                 {{autoLoanFreeText[i]?.freeText14 === null || autoLoanFreeText[i]?.freeText14 === '' ? '___________' : autoLoanFreeText[i]?.freeText14}}
                             </span>
                        </span>

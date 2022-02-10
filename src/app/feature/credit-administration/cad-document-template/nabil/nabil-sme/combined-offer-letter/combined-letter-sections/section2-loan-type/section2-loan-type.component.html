@@ -347,7 +347,7 @@
                         <strong><input class="form-field form-control-sm "
                                        formControlName="loanDaysShortTermLoan"
                                        placeholder=""
-                                       type="text"/>दिने चक्रिय अल्पकालिन कर्जा (Resolving Short Term
+                                       type="text"/>दिने चक्रिय अल्पकालिन कर्जा (Revolving Short Term
                     Loan for <input class="form-field form-control-sm "
                                     formControlName="loanDaysShortTermLoanInEng"
                                     placeholder=""
@@ -383,7 +383,7 @@
                             <strong><input class="form-field form-control-sm "
                                            formControlName="loanMonthsShortTermLoan"
                                            placeholder=""
-                                           type="text"/>महिने चक्रिय अल्पकालिन कर्जा (Resolving Short Term
+                                           type="text"/>महिने चक्रिय अल्पकालिन कर्जा (Revolving Short Term
                     Loan for <input class="form-field form-control-sm "
                                     formControlName="loanMonthsShortTermLoanInEng"
                                     placeholder=""
@@ -542,7 +542,7 @@
                                 (i1 + 1) | nepaliWord}})</strong>
                             </td>
                             <td>
-                                <strong>चालु पुञजीका लागि अधिविकर्ष कर्जा (Overdraft Loan for Working Capital
+                                <strong>चालु पुँजीका लागि अधिविकर्ष कर्जा (Overdraft Loan for Working Capital
                                     requirement)</strong><br>
 
                                 <strong> सीमाः रु.<input class="form-field form-control-sm "
@@ -682,7 +682,7 @@
                                 प्राप्त गर्न बाँकी रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामा हस्तान्तरण
                                 गरिदिइएको यथावत कायम रहने छ।</span><br>
 
-                                <span *ngIf="arFinancing"><strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong>
+                                <span *ngIf="arFinancing || loanOption !== 'Plain Renewal'"><strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong>
                             स्वीकारयोग्य <input class="form-field form-control-sm "
                                                 formControlName="ARDaysDemandLoan"
                                                 placeholder=""
@@ -694,7 +694,9 @@
                                    type="text"/>% बराबर रकम वा स्वीकृत
                     कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ ।</span>
 
-                                <span *ngIf="!arFinancing"><strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong> स्वीकारयोग्य सामानहरुको मौज्दातको बजार मूल्य वा लागत
+                                <span *ngIf="!arFinancing || loanOption !== 'Plain Renewal'">
+                                    <br>
+                                    <strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong> स्वीकारयोग्य सामानहरुको मौज्दातको बजार मूल्य वा लागत
                     मूल्य मध्ये जुन कम हुन्छ सो र <input class="form-field form-control-sm "
                                                          formControlName="ARDaysDemandLoan"
                                                          placeholder=""
@@ -834,7 +836,7 @@
                                 </p>
                                 <!--OR-->
                                 <p *ngIf="val.guaranteeType === 'APG/PFG/Bid Bond'">
-                                    अग्रिम भुक्तानी बैंक जमानत (Advance Payment Guarantee) को
+                                    <strong>धरौटी:</strong> अग्रिम भुक्तानी बैंक जमानत (Advance Payment Guarantee) को
                                     हकमा <input class="form-field form-control-sm "
                                                 formControlName="commissionAPGBankGuarantee"
                                                 placeholder=""
@@ -843,7 +845,11 @@
                                     <input class="form-field form-control-sm "
                                            formControlName="commissionBidBondBankGuarantee"
                                            placeholder=""
-                                           type="text"/>% नगद धरौटी स्वरुप रहनेछ ।<br>
+                                           type="text"/>% नगद धरौटी स्वरुप रहनेछ ।
+                                </p>
+
+                                <!--For Commission Clause -->
+                                <p>
                                     <span *ngIf="val.commissionType === 'COMMISSION_TYPE_1'"> <strong>कमिसन:</strong> प्रति त्रैमास <input
                                             class="form-field form-control-sm "
                                             formControlName="serviceChargeBankGuarantee"
@@ -853,9 +859,9 @@
                                        formControlName="minimumServiceChargeBankGuarantee"
                                        placeholder=""
                                        type="text"/>/– लाग्नेछ ।
-                            </span> <br>
+                            </span>
                                     <span *ngIf="val.commissionType === 'COMMISSION_TYPE_2'">
-                                    अग्रिम भुक्तानी बैंक जमानत (Advance Payment Guarantee) को हकमा प्रति बैकं जमानत प्रति त्रैमास
+                                    <strong>कमिसन:</strong> अग्रिम भुक्तानी बैंक जमानत (Advance Payment Guarantee) को हकमा प्रति बैकं जमानत प्रति त्रैमास
                                 <input class="form-field form-control-sm "
                                        formControlName="commissionAPG1BankGuarantee"
                                        placeholder=""
@@ -870,7 +876,7 @@
                                 <input class="form-field form-control-sm "
                                        formControlName="minimumServiceChargeBankGuarantee"
                                        placeholder=""
-                                       type="text"/>/–लाग्नेछ ।
+                                       type="text"/>/– लाग्नेछ ।
                             </span>
                                 </p>
                                 <p>
@@ -1457,6 +1463,127 @@
                     </tr>
                 </ng-container>
 
+                <ng-container *ngIf="tempData?.overDraftFacilityForm?.dlAgainstBondFormArray">
+                    <tr *ngFor="let val of tempData?.overDraftFacilityForm?.dlAgainstBondFormArray; let i1 = index"
+                        formArrayName="dlAgainstBond">
+                        <!--DL Facility against Bond-->
+                        <ng-container [formGroupName]="i1">
+                            <td width="10%">
+                                <strong>
+                                    {{(tempData?.equityMortgaged?.mortgageOverdraftFormArray.length) +
+                                (tempData?.termLoanForm?.termLoanDetails?.length) +
+                                (tempData?.autoLoanMasterForm?.autoLoanFormArray?.length) +
+                                (tempData?.letterOfCreditForm?.letterOfCreditFormArray.length) +
+                                (tempData?.importLoanTrust?.importLoanTrustFormArray.length) +
+                                (tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray.length) +
+                                (tempData?.timeLetterCreditForm?.timeLetterCreditFormArray.length) +
+                                (tempData?.demandLoanForm?.demandLoanFormArray.length) +
+                                (tempData?.bridgeGapLoan?.bridgeGapDetails.length) +
+                                (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
+                                (tempData?.mortgageEquityTermForm?.mortgageTermFormArray.length) +
+                                (tempData?.overdraftFixedForm?.dlAgainstFixedDepositFormArray.length) +
+                                (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
+                                (i1 + 1) | nepaliWord}})</strong></td>
+                            <td>
+                                <strong>बचत/ऋण पत्रमा आधारीत <input class="form-field form-control-sm "
+                                                                    formControlName="nameOfFacilityAgainstBond"
+                                                                    placeholder=""
+                                                                    type="text"/>
+                                    कर्जा (<input class="form-field form-control-sm "
+                                                  formControlName="nameOfFacilityAgainstBondInEng"
+                                                  placeholder=""
+                                                  type="text"/>
+                                    against
+                                    Bond)</strong><br>
+
+                                <strong>सीमाः रु.<input class="form-field form-control-sm "
+                                                        value="{{dlAgainstBond[i1] ? dlAgainstBond[i1].loanAmountNp : ''}}"
+                                                        placeholder=""
+                                                        type="text"/>।-
+                                    (अक्षरेपी रु.<input class="form-field form-control-sm "
+                                                        value="{{dlAgainstBond[i1] ? dlAgainstBond[i1].loanAmountWords : ''}}"
+                                                        placeholder=""
+                                                        type="text"/> मात्र)</strong><br>
+                                <p *ngIf="val.letterOfSetOffUsed === 'EXISTING'">
+                        <span><strong>सुरक्षणः</strong><input class="form-field form-control-sm "
+                                                              formControlName="ownerNameAgainstBond"
+                                                              placeholder=""
+                                                              type="text"/>हरुको
+                            नाममा रहेको कम्तिमा रु.<input class="form-field form-control-sm "
+                                                          formControlName="bondAmountAgainstBond"
+                                                          placeholder=""
+                                                          type="text"/>।-( बराबरको
+                   <input class="form-field form-control-sm"
+                          formControlName="bondTypeAgainstBond"
+                          placeholder=""
+                          type="text"/> यस बैंकले उल्लिखित <input class="form-field form-control-sm "
+                                                                  formControlName="bondTypeAgainstBond"
+                                                                  placeholder=""
+                                                                  type="text"/>
+                   वापतको रकम र सोमा प्राप्त हुने ब्याज समेत कर्जामा समायोजन गर्न सक्ने अधिकार सहितका
+                    बैंकको पक्षमा जारी गरिदिइएको मोजरापत्र (Letter of Set-off) ।</span>
+                                </p>
+                                <p *ngIf="val.letterOfSetOffUsed === 'NEW'">
+                        <span><strong>सुरक्षणः</strong><input class="form-field form-control-sm "
+                                                              formControlName="ownerNameAgainstBond"
+                                                              placeholder=""
+                                                              type="text"/>हरुको
+                            नाममा रहेको कम्तिमा रु.<input class="form-field form-control-sm "
+                                                          formControlName="bondAmountAgainstBond"
+                                                          placeholder=""
+                                                          type="text"/>।-( बराबरको
+                    <input class="form-field form-control-sm "
+                           formControlName="bondTypeAgainstBond"
+                           placeholder=""
+                           type="text"/> यस बैंकले उल्लिखित <input class="form-field form-control-sm "
+                                                                   formControlName="bondTypeAgainstBond"
+                                                                   placeholder=""
+                                                                   type="text"/>
+                            वापतको रकम र सोमा प्राप्त हुने ब्याज समेत कर्जामा समायोजन गर्न सक्ने अधिकार सहितका
+                    बैंकको पक्षमा जारी गरिने मोजरापत्र (Letter of Set-off) ।</span>
+                                </p>
+                                <p>
+                                    <strong>ब्याज दरः</strong> बार्षिक <input class="form-field form-control-sm "
+                                                                              formControlName="totalInterestRateAgainstBond"
+                                                                              placeholder=""
+                                                                              type="text"/>% का दरले नेपाली पात्रो
+                                    बमोजिम
+                                    प्रत्येक
+                                    त्रैमास अर्थात आषाढ,
+                                    आश्विन, पौष र चैत्र मसान्तमा र/वा कर्जा चुक्ता भुक्तान भएको अवस्थामा तिर्नु बुझाउनु
+                                    पर्नेछ ।
+                                </p>
+                                <p *ngIf="val.interestRateType === 'BASE_RATE_FINANCING'">
+                                    <strong>ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
+                                    <input class="form-field form-control-sm"
+                                           formControlName="baseRateAgainstBond"
+                                           placeholder=""
+                                           type="text"/>
+                                    +
+                                    <input class="form-field form-control-sm"
+                                           formControlName="premiumRateAgainstBond"
+                                           placeholder=""
+                                           type="text"/> प्रतिशत ब्याज दर प्रिमियम (interest rate premium)<br>
+                                    <span *ngIf="val.subsidyOrAgricultureLoan === 'No'">हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
+                            बार्षिक <input class="form-field form-control-sm "
+                                           formControlName="interestRateAgainstBond"
+                                           placeholder=""
+                                           type="text"/>% का दर
+                        निर्धारण गरीएकोछ र सो ब्याज रकम नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र
+                        चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।</span><br>
+                                </p>
+                                <span><strong>कर्जा अवधि समाप्ति/पुनरावलोकन मितिः</strong>
+                                    {{val.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
+                                    <input
+                                            class="form-field form-control-sm "
+                                            formControlName="loanExpiryDateAgainstBond"
+                                            placeholder=""
+                                            type="text"/></span><br>
+                            </td>
+                        </ng-container>
+                    </tr>
+                </ng-container>
+
                 <ng-container *ngIf="tempData?.overdraftFixedForm?.dlAgainstLienOnDepositFormArray">
                     <tr *ngFor="let val of tempData?.overdraftFixedForm?.dlAgainstLienOnDepositFormArray; let i1 = index"
                         formArrayName="dlLienDeposit">
@@ -1477,6 +1604,7 @@
                                 (tempData?.mortgageEquityTermForm?.mortgageTermFormArray.length) +
                                 (tempData?.overdraftFixedForm?.dlAgainstFixedDepositFormArray.length) +
                                 (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
+                                (tempData?.overDraftFacilityForm?.dlAgainstBondFormArray.length) +
                                 (i1 + 1) | nepaliWord}})</strong>
                             </td>
                             <td>
@@ -1744,6 +1872,7 @@
                                 (tempData?.overdraftFixedForm?.dlAgainstFixedDepositFormArray.length) +
                                 (tempData?.overdraftFixedForm?.dlAgainstLienOnDepositFormArray.length) +
                                 (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
+                                (tempData?.overDraftFacilityForm?.dlAgainstBondFormArray.length) +
                                     (i1 + 1) | nepaliWord}})</strong></td>
                             <td>
                                 <strong>बचत/ऋण पत्रमा आधारीत <input class="form-field form-control-sm "
@@ -1867,6 +1996,7 @@
                                 (tempData?.overdraftFixedForm?.dlAgainstFixedDepositFormArray.length) +
                                 (tempData?.overdraftFixedForm?.dlAgainstLienOnDepositFormArray.length) +
                                 (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
+                                (tempData?.overDraftFacilityForm?.dlAgainstBondFormArray.length) +
                                 (i1 + 1) | nepaliWord}})</strong>
                             </td>
                             <td>
@@ -2036,6 +2166,7 @@
                                 (tempData?.overdraftFixedForm?.odFdFormArray.length) +
                                 (tempData?.overdraftFixedForm?.dlAgainstLienOnDepositFormArray.length) +
                                 (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
+                                (tempData?.overDraftFacilityForm?.dlAgainstBondFormArray.length) +
                                 (i1 + 1) | nepaliWord}})</strong>
                             </td>
                             <td>
@@ -2235,6 +2366,7 @@
                                 (tempData?.overdraftFixedForm?.dlAgainstLienOnDepositFormArray.length) +
                                 (tempData?.overdraftFixedForm?.overdraftLienOnDepositFormArray.length) +
                                 (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
+                                (tempData?.overDraftFacilityForm?.dlAgainstBondFormArray.length) +
                                 (i1 + 1) | nepaliWord}})</strong>
                             </td>
                             <td>
@@ -2381,6 +2513,133 @@
                     </tr>
                 </ng-container>
 
+                <ng-container *ngIf="tempData?.overDraftFacilityForm?.stlAgainstBondFormArray">
+                    <tr *ngFor="let val of tempData?.overDraftFacilityForm?.stlAgainstBondFormArray; let i1 = index"
+                        formArrayName="stlAgainstBond">
+                        <!--STL Facility against Bond-->
+                        <ng-container [formGroupName]="i1">
+                            <td width="10%">
+                                <strong>
+                                    {{(tempData?.termLoanForm?.termLoanDetails?.length) +
+                                (tempData?.autoLoanMasterForm?.autoLoanFormArray?.length) +
+                                (tempData?.overDraftFacilityForm?.overdraftFacilityDetails.length) +
+                                (tempData?.equityMortgaged?.mortgageOverdraftFormArray.length) +
+                                (tempData?.letterOfCreditForm?.letterOfCreditFormArray.length) +
+                                (tempData?.importLoanTrust?.importLoanTrustFormArray.length) +
+                                (tempData?.revolvingShortTermLoan?.revolvingShortTermLoanFormArray.length) +
+                                (tempData?.timeLetterCreditForm?.timeLetterCreditFormArray.length) +
+                                (tempData?.demandLoanForm?.demandLoanFormArray.length) +
+                                (tempData?.bridgeGapLoan?.bridgeGapDetails.length) +
+                                (tempData?.overdraftLoanForm?.overdraftLoanFormArray.length) +
+                                (tempData?.mortgageEquityTermForm?.mortgageTermFormArray.length) +
+                                (tempData?.overdraftFixedForm?.dlAgainstFixedDepositFormArray.length) +
+                                (tempData?.overdraftFixedForm?.odFdFormArray.length) +
+                                (tempData?.overdraftFixedForm?.stlAgainstFixedDepositFormArray.length) +
+                                (tempData?.overdraftFixedForm?.dlAgainstLienOnDepositFormArray.length) +
+                                (tempData?.overdraftFixedForm?.overdraftLienOnDepositFormArray.length) +
+                                (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
+                                (tempData?.overDraftFacilityForm?.dlAgainstBondFormArray.length) +
+                                (i1 + 1) | nepaliWord}})</strong></td>
+                            <td>
+                                <strong>बचत/ऋण पत्रमा आधारीत <input class="form-field form-control-sm "
+                                                                    formControlName="nameOfFacilityAgainstBond"
+                                                                    placeholder=""
+                                                                    type="text"/>
+                                    कर्जा (<input class="form-field form-control-sm "
+                                                  formControlName="nameOfFacilityAgainstBondInEng"
+                                                  placeholder=""
+                                                  type="text"/>
+                                    against
+                                    Bond)</strong><br>
+
+                                <strong>सीमाः रु.<input class="form-field form-control-sm "
+                                                        value="{{stlAgainstBond[i1] ? stlAgainstBond[i1].loanAmountNp : ''}}"
+                                                        placeholder=""
+                                                        type="text"/>।-
+                                    (अक्षरेपी रु.<input class="form-field form-control-sm "
+                                                        value="{{stlAgainstBond[i1] ? stlAgainstBond[i1].loanAmountWords : ''}}"
+                                                        placeholder=""
+                                                        type="text"/> मात्र)</strong><br>
+                                <p *ngIf="val.letterOfSetOffUsed === 'EXISTING'">
+                        <span><strong>सुरक्षणः</strong><input class="form-field form-control-sm "
+                                                              formControlName="ownerNameAgainstBond"
+                                                              placeholder=""
+                                                              type="text"/>हरुको
+                            नाममा रहेको कम्तिमा रु.<input class="form-field form-control-sm "
+                                                          formControlName="bondAmountAgainstBond"
+                                                          placeholder=""
+                                                          type="text"/>।-( बराबरको
+                   <input class="form-field form-control-sm"
+                          formControlName="bondTypeAgainstBond"
+                          placeholder=""
+                          type="text"/> यस बैंकले उल्लिखित <input class="form-field form-control-sm "
+                                                                  formControlName="bondTypeAgainstBond"
+                                                                  placeholder=""
+                                                                  type="text"/>
+                   वापतको रकम र सोमा प्राप्त हुने ब्याज समेत कर्जामा समायोजन गर्न सक्ने अधिकार सहितका
+                    बैंकको पक्षमा जारी गरिदिइएको मोजरापत्र (Letter of Set-off) ।</span>
+                                </p>
+                                <p *ngIf="val.letterOfSetOffUsed === 'NEW'">
+                        <span><strong>सुरक्षणः</strong><input class="form-field form-control-sm "
+                                                              formControlName="ownerNameAgainstBond"
+                                                              placeholder=""
+                                                              type="text"/>हरुको
+                            नाममा रहेको कम्तिमा रु.<input class="form-field form-control-sm "
+                                                          formControlName="bondAmountAgainstBond"
+                                                          placeholder=""
+                                                          type="text"/>।-( बराबरको
+                    <input class="form-field form-control-sm "
+                           formControlName="bondTypeAgainstBond"
+                           placeholder=""
+                           type="text"/> यस बैंकले उल्लिखित <input class="form-field form-control-sm "
+                                                                   formControlName="bondTypeAgainstBond"
+                                                                   placeholder=""
+                                                                   type="text"/>
+                            वापतको रकम र सोमा प्राप्त हुने ब्याज समेत कर्जामा समायोजन गर्न सक्ने अधिकार सहितका
+                    बैंकको पक्षमा जारी गरिने मोजरापत्र (Letter of Set-off) ।</span>
+                                </p>
+                                <p>
+                                    <strong>ब्याज दरः</strong> बार्षिक <input class="form-field form-control-sm "
+                                                                              formControlName="totalInterestRateAgainstBond"
+                                                                              placeholder=""
+                                                                              type="text"/>% का दरले नेपाली पात्रो
+                                    बमोजिम
+                                    प्रत्येक
+                                    त्रैमास अर्थात आषाढ,
+                                    आश्विन, पौष र चैत्र मसान्तमा र/वा कर्जा चुक्ता भुक्तान भएको अवस्थामा तिर्नु बुझाउनु
+                                    पर्नेछ ।
+                                </p>
+                                <p *ngIf="val.interestRateType === 'BASE_RATE_FINANCING'">
+                                    <strong>ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
+                                    <input class="form-field form-control-sm"
+                                           formControlName="baseRateAgainstBond"
+                                           placeholder=""
+                                           type="text"/>
+                                    +
+                                    <input class="form-field form-control-sm"
+                                           formControlName="premiumRateAgainstBond"
+                                           placeholder=""
+                                           type="text"/> प्रतिशत ब्याज दर प्रिमियम (interest rate premium)<br>
+                                    <span *ngIf="val.subsidyOrAgricultureLoan === 'No'">हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
+                            बार्षिक <input class="form-field form-control-sm "
+                                           formControlName="interestRateAgainstBond"
+                                           placeholder=""
+                                           type="text"/>% का दर
+                        निर्धारण गरीएकोछ र सो ब्याज रकम नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र
+                        चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।</span><br>
+                                </p>
+                                <span><strong>कर्जा अवधि समाप्ति/पुनरावलोकन मितिः</strong>
+                                    {{val.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
+                                    <input
+                                            class="form-field form-control-sm "
+                                            formControlName="loanExpiryDateAgainstBond"
+                                            placeholder=""
+                                            type="text"/></span><br>
+                            </td>
+                        </ng-container>
+                    </tr>
+                </ng-container>
+
                 <ng-container *ngIf="tempData?.overdraftFixedForm?.stlLienOnDepositFormArray">
                     <tr *ngFor="let val of tempData?.overdraftFixedForm?.stlLienOnDepositFormArray; let i1 = index"
                         formArrayName="stlLienDeposit">
@@ -2406,6 +2665,8 @@
                                 (tempData?.overdraftFixedForm?.dlAgainstLienOnDepositFormArray.length) +
                                 (tempData?.overdraftFixedForm?.overdraftLienOnDepositFormArray.length) +
                                 (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
+                                (tempData?.overDraftFacilityForm?.dlAgainstBondFormArray.length) +
+                                (tempData?.overDraftFacilityForm?.stlAgainstBondFormArray.length) +
                                 (i1 + 1) | nepaliWord}})</strong>
                             </td>
                             <td>
@@ -2606,6 +2867,8 @@
                                 (tempData?.overdraftFixedForm?.stlLienOnDepositFormArray.length) +
                                 (tempData?.overdraftFixedForm?.stlAgainstFixedDepositFormArray.length) +
                                 (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
+                                (tempData?.overDraftFacilityForm?.dlAgainstBondFormArray.length) +
+                                (tempData?.overDraftFacilityForm?.stlAgainstBondFormArray.length) +
                                 (i2 + 1) | nepaliWord}})</strong></td>
                             <td>
                     <span><strong>डकुमेन्ट्री बिल्स खरिद कर्जा (Documentary Bill Purchase/Negotiation)
@@ -2722,7 +2985,9 @@
                                 (tempData?.overdraftFixedForm?.dlAgainstLienOnDepositFormArray.length) +
                                 (tempData?.overdraftFixedForm?.overdraftLienOnDepositFormArray.length) +
                                 (tempData?.overdraftFixedForm?.stlLienOnDepositFormArray.length) +
-                                (tempData?.bankGuarantee?.bankGuaranteeArray.length)"
+                                (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
+                                (tempData?.overDraftFacilityForm?.dlAgainstBondFormArray.length) +
+                                (tempData?.overDraftFacilityForm?.stlAgainstBondFormArray.length)"
                                            [equityMortgageData]="equityMortgageData">
             </app-mortgage-equity-term-loan>
         </div>
@@ -2757,6 +3022,8 @@
                                     (tempData?.overdraftFixedForm?.overdraftLienOnDepositFormArray.length) +
                                     (tempData?.overdraftFixedForm?.stlLienOnDepositFormArray.length) +
                                     (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
+                                    (tempData?.overDraftFacilityForm?.dlAgainstBondFormArray.length) +
+                                    (tempData?.overDraftFacilityForm?.stlAgainstBondFormArray.length) +
                                     (i1 + 1) | nepaliWord}})
                                 </strong>
                             </td>
@@ -2898,6 +3165,8 @@
                                     (tempData?.overdraftFixedForm?.overdraftLienOnDepositFormArray.length) +
                                     (tempData?.overdraftFixedForm?.stlLienOnDepositFormArray.length) +
                                     (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
+                                    (tempData?.overDraftFacilityForm?.dlAgainstBondFormArray.length) +
+                                    (tempData?.overDraftFacilityForm?.stlAgainstBondFormArray.length) +
                                     (i3 + 1) | nepaliWord}})
                                 </strong>
                             </td>
@@ -3011,6 +3280,8 @@
                                     (tempData?.overdraftFixedForm?.overdraftLienOnDepositFormArray.length) +
                                     (tempData?.overdraftFixedForm?.stlLienOnDepositFormArray.length) +
                                     (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
+                                    (tempData?.overDraftFacilityForm?.dlAgainstBondFormArray.length) +
+                                    (tempData?.overDraftFacilityForm?.stlAgainstBondFormArray.length) +
                                     (i3 + 1) | nepaliWord}})
                                 </strong>
                             </td>
@@ -3137,6 +3408,8 @@
                                     (tempData?.overdraftFixedForm?.overdraftLienOnDepositFormArray.length) +
                                     (tempData?.overdraftFixedForm?.stlLienOnDepositFormArray.length) +
                                     (tempData?.bankGuarantee?.bankGuaranteeArray.length) +
+                                    (tempData?.overDraftFacilityForm?.dlAgainstBondFormArray.length) +
+                                    (tempData?.overDraftFacilityForm?.stlAgainstBondFormArray.length) +
                                     (i3 + 1) | nepaliWord}})
                                 </strong>
                             </td>
