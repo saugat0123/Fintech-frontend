@@ -2257,18 +2257,18 @@ export class SecurityInitialFormComponent implements OnInit {
     calConsiderValue(type, index) {
         switch (type) {
             case 'land':
-                const considerValue = (Number(this.securityForm.get(['landDetails', index, 'distressValue']).value)
-                    * Number(this.securityForm.get(['landDetails', index, 'landRate']).value));
+                const considerValue = (Number(this.securityForm.get(['landDetails', index, 'landRate']).value) / 100
+                    * Number(this.securityForm.get(['landDetails', index, 'distressValue']).value));
                 this.securityForm.get(['landDetails', index, 'landConsideredValue']).patchValue(considerValue);
                 break;
             case 'landBuilding':
-                const landBuildingConValue = (Number(this.securityForm.get(['landBuilding', index, 'distressValue']).value)
-                    * Number(this.securityForm.get(['landBuilding', index, 'landBuildingRate']).value));
+                const landBuildingConValue = (Number(this.securityForm.get(['landBuilding', index, 'landBuildingRate']).value) / 100 *
+                    Number(this.securityForm.get(['landBuilding', index, 'distressValue']).value));
                 this.securityForm.get(['landBuilding', index, 'landConsideredValue']).patchValue(landBuildingConValue);
                 break;
             case 'lbUnderConstruction':
-                const lbUnderConValue = (Number(this.securityForm.get(['landBuilding', index, 'distressValueConstruction']).value)
-                    * Number(this.securityForm.get(['landBuilding', index, 'landbuildingUnderRate']).value));
+                const lbUnderConValue = (Number(this.securityForm.get(['landBuilding', index, 'landbuildingUnderRate']).value) / 100 *
+                    Number(this.securityForm.get(['landBuilding', index, 'distressValueConstruction']).value));
                 this.securityForm.get(['landBuilding', index, 'landConsideredValueConstruction']).patchValue(lbUnderConValue);
                 break;
         }
