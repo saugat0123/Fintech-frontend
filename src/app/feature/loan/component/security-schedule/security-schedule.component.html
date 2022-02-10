@@ -1,11 +1,10 @@
 <div class="row mt-1">
     <div class="col-md-12">
         <table class="table table-bordered text-center table-sm sb-small" *ngIf="files!==null">
-            <thead class="sb-bg-dark">
-            </thead>
             <tbody>
             <tr *ngFor="let data of files; let index = index">
-                <td colspan="2" class="text-left">{{data.name}}</td>
+                <td class="text-left">{{(index +2)}}</td>
+                <td  class="text-left">{{data.name}}</td>
             </tr>
             </tbody>
         </table>
