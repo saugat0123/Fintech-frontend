@@ -13,12 +13,15 @@
             </p>
         </div>
 
-        <div class="row d-flex justify-content-between" style="margin-top: 50px">
+        <div class="row d-flex justify-content-between" style="margin-top: 70px">
             <div class="right-content">
                 <p>
+                    <br>
+                    _______________________
+                    <br>
                         <span
                               [ngClass]="{'outside': letter?.smeGlobalForm.nameOfRelationshipManagerCT !== null && letter?.smeGlobalForm.nameOfRelationshipManagerCT !== ''}">
-                                {{letter?.smeGlobalForm.nameOfRelationshipManagerCT === null || letter?.smeGlobalForm.nameOfRelationshipManagerCT === "" ? "_______" : letter?.smeGlobalForm.nameOfRelationshipManagerCT}}
+                                {{letter?.smeGlobalForm.nameOfRelationshipManagerCT === null || letter?.smeGlobalForm.nameOfRelationshipManagerCT === "" ? "_______________________" : letter?.smeGlobalForm.nameOfRelationshipManagerCT}}
                         </span>
                     <br>
                     <span>{{freeInformation ? freeInformation.sectionBottom.position : 'सम्पर्क अधिकृत'}}</span>
@@ -34,9 +37,12 @@
 
             <div class="left-content">
                 <p>
+                    <br>
+                    _______________________
+                    <br>
                         <span
                               [ngClass]="{'outside': letter?.smeGlobalForm.nameOfBranchManagerCT !== null && letter?.smeGlobalForm.nameOfBranchManagerCT !== ''}">
-                                {{letter?.smeGlobalForm.nameOfBranchManagerCT === null || letter?.smeGlobalForm.nameOfBranchManagerCT === "" ? "_______" : letter?.smeGlobalForm.nameOfBranchManagerCT}}
+                                {{letter?.smeGlobalForm.nameOfBranchManagerCT === null || letter?.smeGlobalForm.nameOfBranchManagerCT === "" ? "_______________________" : letter?.smeGlobalForm.nameOfBranchManagerCT}}
                         </span>
                     <br>
                     <span>{{freeInformation ? freeInformation.sectionBottom.position1 : 'सम्पर्क प्रबन्धक'}}</span>
