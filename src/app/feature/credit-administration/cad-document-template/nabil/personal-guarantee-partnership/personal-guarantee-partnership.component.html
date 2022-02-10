@@ -432,6 +432,14 @@
                                                type="text"/>
                                         <span class="print-only nepaliFont font-size-normal">{{form.get(['guarantorsPartnership', i, 'guarantorCitizenIssuedDate']).value || "==========================="}}</span>
                                         </span>
+                                        <ng-container *ngIf="(guarantors?.guarantorNationality === 'Indian' && guarantors?.indianGuarantorDetailOption.en === 'Passport') || guarantors?.guarantorNationality === 'Other'">
+                                            , म्याद सकिने मिति :
+                                            <span>
+                                            <input class="form-field form-control-sm d-print-none" name="passportExpiryDate"
+                                                   formControlName="passportExpiryDate" placeholder="" type="text"/>
+                                            <strong class="print-only">{{form.get(["guarantorsPartnership", i, "passportExpiryDate"]).value || "==========================="}}</strong>
+                                        </span>
+                                        </ng-container>
                                     </p>
                                     </div>
                                 </div>

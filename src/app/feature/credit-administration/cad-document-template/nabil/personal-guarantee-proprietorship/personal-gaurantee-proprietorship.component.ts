@@ -152,7 +152,7 @@ export class PersonalGuaranteeProprietorshipComponent implements OnInit {
                         issuedBy: [this.setIdentityIssuedPlace(individualGuarantorNepData)],
                         // tslint:disable-next-line:max-line-length
                         issuedDate: [this.setIdentityIssuedDate(individualGuarantorNepData)],
-
+                        passportExpiryDate: [this.setValidityDate(individualGuarantorNepData)],
                         year: [todayDate[2]],
                         month: [todayDate[1]],
                         day: [todayDate[0]],
@@ -377,6 +377,20 @@ export class PersonalGuaranteeProprietorshipComponent implements OnInit {
         identityIssuedDate = !ObjectUtil.isEmpty(individualGuarantorNepData.otherGuarantorPassportIssuedDate) ? this.englishNepaliDatePipe.transform((individualGuarantorNepData.otherGuarantorPassportIssuedDate.en) ? (individualGuarantorNepData.otherGuarantorPassportIssuedDate.en) : (individualGuarantorNepData.otherGuarantorPassportIssuedDate.en), true) : '' || '';
       }
       return identityIssuedDate ? identityIssuedDate : '';
+    }
+  }
+  setValidityDate(individualGuarantorNepData) {
+    let passportValidityDate = '';
+    if (!ObjectUtil.isEmpty(individualGuarantorNepData.guarantorNationality)) {
+      if (individualGuarantorNepData.guarantorNationality === 'Indian') {
+        if (!ObjectUtil.isEmpty(individualGuarantorNepData.indianGuarantorDetailOption) && individualGuarantorNepData.indianGuarantorDetailOption.en === 'Passport') {
+          passportValidityDate = !ObjectUtil.isEmpty(individualGuarantorNepData.passportValidityDate) ? this.englishNepaliDatePipe.transform((individualGuarantorNepData.passportValidityDate.en) ? (individualGuarantorNepData.passportValidityDate.en) : (individualGuarantorNepData.passportValidityDate.en), true) : '' || '';
+        }
+      }
+      if (individualGuarantorNepData.guarantorNationality === 'Other') {
+        passportValidityDate = !ObjectUtil.isEmpty(individualGuarantorNepData.otherGuarantorPassportValidityDate) ? this.englishNepaliDatePipe.transform((individualGuarantorNepData.otherGuarantorPassportValidityDate.en) ? (individualGuarantorNepData.otherGuarantorPassportValidityDate.en) : (individualGuarantorNepData.otherGuarantorPassportValidityDate.en), true) : '' || '';
+      }
+      return passportValidityDate ? passportValidityDate : '';
     }
   }
 }
