@@ -251,10 +251,6 @@
                                        name="landValuatorDate" placeholder="Valuated Date"
                                        [nbDatepicker]="landValuatorDate"
                                        type="text"/>
-                                <app-calendar
-                                        (messageToEmit)="securityForm.get(['landDetails',i,'landValuatorDate']).patchValue($event?.eDate)"
-                                        *ngIf="calendarType === 'BS'"
-                                        [ePreDate]="securityForm.get(['landDetails',i,'landValuatorDate']).value"></app-calendar>
                                 <nb-datepicker #landValuatorDate></nb-datepicker>
                             </div>
                         </div>
@@ -335,10 +331,6 @@
                                        name="ownershipTransferDate" placeholder="Ownership transfer date"
                                        [nbDatepicker]="ownershipDate"
                                        *ngIf="calendarType === 'AD'">
-                                <app-calendar
-                                        (messageToEmit)="securityForm.get(['landDetails',i,'ownershipTransferDate']).patchValue($event?.eDate)"
-                                        *ngIf="calendarType === 'BS'"
-                                        [ePreDate]="securityForm.get(['landDetails',i,'ownershipTransferDate']).value"></app-calendar>
                                 <nb-datepicker #ownershipDate></nb-datepicker>
                             </div>
                         </div>
@@ -751,10 +743,6 @@
                                                name="ApartmentValuatorDate" placeholder="Valuated Date"
                                                [nbDatepicker]="ApartmentValuatorDate"
                                                type="text"/>
-                                        <app-calendar
-                                                (messageToEmit)="securityForm.get(['buildingDetails',i,'ApartmentValuatorDate']).patchValue($event?.eDate)"
-                                                *ngIf="calendarType === 'BS'"
-                                                [ePreDate]="securityForm.get(['buildingDetails',i,'ApartmentValuatorDate']).value"></app-calendar>
                                         <nb-datepicker #ApartmentValuatorDate></nb-datepicker>
                                     </div>
                                 </div>
@@ -1577,10 +1565,6 @@
                                            name="buildingValuatorDate"
                                            placeholder="Valuated Date"
                                            type="text"/>
-                                    <app-calendar
-                                            (messageToEmit)="securityForm.get(['landBuilding',i,'buildingValuatorDate']).patchValue($event?.eDate)"
-                                            *ngIf="calendarType === 'BS'"
-                                            [ePreDate]="securityForm.get(['landBuilding',i,'buildingValuatorDate']).value"></app-calendar>
                                     <nb-datepicker
                                         #buildingValuatorDate></nb-datepicker>
                                 </div>
@@ -1666,10 +1650,6 @@
                                            name="ownershipTransferDate" placeholder="Ownership transfer date"
                                            [nbDatepicker]="ownershipDate"
                                            *ngIf="calendarType === 'AD'">
-                                    <app-calendar
-                                            (messageToEmit)="securityForm.get(['landBuilding',i,'ownershipTransferDate']).patchValue($event?.eDate)"
-                                            *ngIf="calendarType === 'BS'"
-                                            [ePreDate]="securityForm.get(['landBuilding',i,'ownershipTransferDate']).value"></app-calendar>
                                     <nb-datepicker #ownershipDate></nb-datepicker>
                                 </div>
                             </div>
@@ -2076,10 +2056,6 @@
                                        name="plantMachineryValuatorDate" placeholder="Valuated Date"
                                        [nbDatepicker]="plantMachineryValuatorDate"
                                        type="text"/>
-                                <app-calendar
-                                        (messageToEmit)="securityForm.get(['plantDetails',i,'plantMachineryValuatorDate']).patchValue($event?.eDate)"
-                                        *ngIf="calendarType === 'BS'"
-                                        [ePreDate]="securityForm.get(['plantDetails',i,'plantMachineryValuatorDate']).value"></app-calendar>
                                 <nb-datepicker #plantMachineryValuatorDate></nb-datepicker>
                             </div>
                         </div>
@@ -2225,10 +2201,6 @@
                                         class="form-control" formControlName="registrationDate" fullWidth
                                         id="registrationDate" name="registrationDate"
                                         nbInput placeholder="Registration Date" *ngIf="calendarType === 'AD'">
-                                <app-calendar
-                                        (messageToEmit)="securityForm.get(['vehicleDetails',i,'registrationDate']).patchValue($event?.eDate)"
-                                        *ngIf="calendarType === 'BS'"
-                                        [ePreDate]="securityForm.get(['vehicleDetails',i,'registrationDate']).value"></app-calendar>
                                 <nb-datepicker #registrationDate></nb-datepicker>
                             </div>
                         </div>
@@ -2319,10 +2291,6 @@
                                        name="vehicleQuotationDate" placeholder="Quotation Date"
                                        [nbDatepicker]="vehicaleQuotationDate"
                                        type="text"/>
-                                <app-calendar
-                                        (messageToEmit)="securityForm.get(['vehicleDetails',i,'vehicleQuotationDate']).patchValue($event?.eDate)"
-                                        *ngIf="calendarType === 'BS'"
-                                        [ePreDate]="securityForm.get(['vehicleDetails',i,'vehicleQuotationDate']).value"></app-calendar>
                                 <nb-datepicker #vehicaleQuotationDate></nb-datepicker>
                             </div>
                         </div>
@@ -2369,10 +2337,6 @@
                                        name="vehicalValuatorDate" placeholder="Valuated Date"
                                        [nbDatepicker]="vehicalValuatorDate"
                                        type="text"/>
-                                <app-calendar
-                                        (messageToEmit)="securityForm.get(['vehicleDetails',i,'vehicalValuatorDate']).patchValue($event?.eDate)"
-                                        *ngIf="calendarType === 'BS'"
-                                        [ePreDate]="securityForm.get(['vehicleDetails',i,'vehicalValuatorDate']).value"></app-calendar>
                                 <nb-datepicker #vehicalValuatorDate></nb-datepicker>
                             </div>
                         </div>
@@ -2441,10 +2405,6 @@
                                        *ngIf="calendarType === 'AD'"
                                        name="ownershipTransferDate" placeholder="Ownership transfer date"
                                        [nbDatepicker]="ownershipDate">
-                                <app-calendar
-                                        (messageToEmit)="securityForm.get(['vehicleDetails',i,'ownershipTransferDate']).patchValue($event?.eDate)"
-                                        *ngIf="calendarType === 'BS'"
-                                        [ePreDate]="securityForm.get(['vehicleDetails',i,'ownershipTransferDate']).value"></app-calendar>
                                 <nb-datepicker #ownershipDate></nb-datepicker>
                             </div>
                         </div>
@@ -2544,9 +2504,6 @@
                                 <label class="title">FD Tenure Start Date<strong></strong></label>
                                 <input *ngIf="calendarType === 'AD'" [nbDatepicker]="tenureStartDate"
                                        class="form-control" formControlName="tenureStartDate" placeholder="FD Tenure Start Date">
-                                <app-calendar *ngIf="calendarType === 'BS'"
-                                              (messageToEmit)="securityForm.get(['fixedDepositDetails',i,'tenureStartDate']).patchValue($event?.eDate)"
-                                              [ePreDate]="securityForm.get(['fixedDepositDetails',i,'tenureStartDate']).value"></app-calendar>
                                 <nb-datepicker #tenureStartDate></nb-datepicker>
                             </div>
                         </div>
@@ -2569,9 +2526,6 @@
                                 <input *ngIf="calendarType === 'AD'" [nbDatepicker]="expiryDate"
                                        class="form-control rounded" formControlName="expiryDate"
                                        nbInput placeholder="Expiry Date">
-                                <app-calendar *ngIf="calendarType === 'BS'"
-                                              (messageToEmit)="securityForm.get(['fixedDepositDetails',i,'expiryDate']).patchValue($event?.eDate)"
-                                              [ePreDate]="securityForm.get(['fixedDepositDetails',i,'expiryDate']).value"></app-calendar>
                                 <nb-datepicker #expiryDate></nb-datepicker>
                             </div>
                         </div>
@@ -3150,10 +3104,6 @@
                                        name="policyStartDate" placeholder="Insurance Policy Start date"
                                        [nbDatepicker]="insurancePolicyDate"
                                        *ngIf="calendarType === 'AD'">
-                                <app-calendar
-                                        (messageToEmit)="securityForm.get(['insurancePolicy',i,'policyStartDate']).patchValue($event?.eDate)"
-                                        *ngIf="calendarType === 'BS'"
-                                        [ePreDate]="securityForm.get(['insurancePolicy',i,'policyStartDate']).value"></app-calendar>
                                 <nb-datepicker #insurancePolicyDate></nb-datepicker>
                             </div>
                         </div>
@@ -3164,10 +3114,6 @@
                                 <input class="form-control rounded" formControlName="maturityDate"
                                        name="policyStartDate" placeholder="Maturity Date" [nbDatepicker]="maturityDate"
                                        *ngIf="calendarType === 'AD'">
-                                <app-calendar
-                                        (messageToEmit)="securityForm.get(['insurancePolicy',i,'maturityDate']).patchValue($event?.eDate)"
-                                        *ngIf="calendarType === 'BS'"
-                                        [ePreDate]="securityForm.get(['insurancePolicy',i,'maturityDate']).value"></app-calendar>
                                 <nb-datepicker #maturityDate></nb-datepicker>
                             </div>
                         </div>
@@ -3197,10 +3143,6 @@
                                        name="earlySurrenderDate" placeholder="Earliest Surrender Date"
                                        [nbDatepicker]="earlySurrenderDate"
                                        *ngIf="calendarType === 'AD'">
-                                <app-calendar
-                                        (messageToEmit)="securityForm.get(['insurancePolicy',i,'earlySurrenderDate']).patchValue($event?.eDate)"
-                                        *ngIf="calendarType === 'BS'"
-                                        [ePreDate]="securityForm.get(['insurancePolicy',i,'earlySurrenderDate']).value"></app-calendar>
                                 <nb-datepicker #earlySurrenderDate></nb-datepicker>
                             </div>
                         </div>

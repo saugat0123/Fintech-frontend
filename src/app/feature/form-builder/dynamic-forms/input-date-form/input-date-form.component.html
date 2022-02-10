@@ -4,20 +4,17 @@
     <sup class="text-danger"
          *ngIf="field?.settings[3]?.value">*</sup>
 <!--    <input nbInput-->
-<!--            *ngIf="calendarType === 'AD'" [nbDatepicker]="datePick"-->
+<!--             [nbDatepicker]="datePick"-->
 <!--           class="form-control form-control-sm"-->
 <!--           [ngClass]="{ 'is-invalid': (submitted) &&  dynamicFormControl(field.id)?.errors && field?.settings[3]?.value }"-->
 <!--           [formControlName]="field?.id"-->
 <!--           [placeholder]="field?.settings[1]?.value" readonly>-->
     <input type="date"
-           *ngIf="calendarType === 'AD'"
+           
            class="form-control form-control-sm"
            [ngClass]="{ 'is-invalid': (submitted) &&  dynamicFormControl(field.id)?.errors && field?.settings[3]?.value }"
            [formControlName]="field?.id"
            [placeholder]="field?.settings[1]?.value" >
-    <app-calendar
-            *ngIf="calendarType === 'BS'"
-    ></app-calendar>
 <!--    <nb-datepicker #datePick></nb-datepicker>-->
     <div *ngIf="(submitted) && dynamicFormControl(field.id)?.errors"
          class="invalid-feedback">

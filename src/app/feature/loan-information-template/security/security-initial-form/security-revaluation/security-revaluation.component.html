@@ -21,10 +21,6 @@
                                    name="reValuationDate" placeholder="Valuated Date"
                                    [nbDatepicker]="valuatedDate"
                                    type="text"/>
-                            <app-calendar
-                                    (messageToEmit)="formGroup.get('reValuationDate').patchValue($event?.eDate)"
-                                    *ngIf="calendarType === 'BS'"
-                                    [ePreDate]="formGroup.get('reValuationDate').value"></app-calendar>
                             <nb-datepicker #valuatedDate></nb-datepicker>
                         </div>
                     </div>

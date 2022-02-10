@@ -1,10 +1,5 @@
 <div class="col-md-12">
     <div class="d-flex justify-content-end">
-        <nb-radio-group [(ngModel)]="calendarType" class="d-inline-flex"
-                        name="guarantorCalendarType">
-            <nb-radio value="AD">AD</nb-radio>
-            <nb-radio value="BS">BS</nb-radio>
-        </nb-radio-group>
     </div>
 </div>
 <nb-card [nbSpinner]="spinner"
@@ -174,10 +169,6 @@
                            *ngIf="calendarType === 'AD'"
                            [ngClass]="{ 'is-invalid': (business) && siteVisitFormGroup.get('businessSiteVisitDetails')?.get('dateOfVisit')?.errors }"
                            id="dateOfVisit" placeholder="date of visit">
-                    <app-calendar
-                            [ePreDate]="siteVisitFormGroup.get('businessSiteVisitDetails')?.get('dateOfVisit')?.value"
-                            *ngIf="calendarType === 'BS'"
-                            (messageToEmit)="siteVisitFormGroup.get('businessSiteVisitDetails')?.get('dateOfVisit').patchValue($event?.eDate)"></app-calendar>
                     <nb-datepicker #datepicker3></nb-datepicker>
                     <div *ngIf="(business) && siteVisitFormGroup.get('businessSiteVisitDetails')?.get('dateOfVisit')?.invalid"
                          class="invalid-feedback">
@@ -309,10 +300,6 @@
                            formControlName="dateOfInspection"
                            id="dateOfInspection" placeholder="date of inspection"
                            *ngIf="calendarType === 'AD'">
-                    <app-calendar
-                            [ePreDate]="siteVisitFormGroup.get('currentAssetsInspectionDetails')?.get('dateOfInspection')?.value"
-                            *ngIf="calendarType === 'BS'"
-                            (messageToEmit)="siteVisitFormGroup.get('currentAssetsInspectionDetails')?.get('dateOfInspection').patchValue($event?.eDate)"></app-calendar>
 
                     <nb-datepicker #datepicker1 ></nb-datepicker>
                     <div *ngIf="(current) && siteVisitFormGroup.get('currentAssetsInspectionDetails')?.get('dateOfInspection')?.invalid"
@@ -392,10 +379,6 @@
                             <label class="title" for="expiryDate">Expiry Date</label>
                             <input [nbDatepicker]="datepicker2" class="form-control" formControlName="expiryDate"
                                    id="expiryDate" placeholder="expiry date" *ngIf="calendarType === 'AD'">
-                            <app-calendar
-                                    [ePreDate]="siteVisitFormGroup.get('currentAssetsInspectionDetails')?.get('insuranceVerification')?.get('expiryDate')?.value"
-                                    *ngIf="calendarType === 'BS'"
-                                    (messageToEmit)="siteVisitFormGroup.get('currentAssetsInspectionDetails')?.get('insuranceVerification')?.get('expiryDate').patchValue($event?.eDate)"></app-calendar>
 
                             <nb-datepicker #datepicker2></nb-datepicker>
                         </div>
