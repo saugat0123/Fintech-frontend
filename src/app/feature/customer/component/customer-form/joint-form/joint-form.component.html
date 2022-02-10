@@ -7,11 +7,6 @@
             <span aria-hidden="true" class="text-white">×</span></a>
     </nb-card-header>
     <nb-card-body>
-        <nb-radio-group [(ngModel)]="calendarType" class="close d-inline-flex"
-                        name="basicInfoCalendarType">
-            <nb-radio value="AD">AD</nb-radio>
-            <nb-radio value="BS">BS</nb-radio>
-        </nb-radio-group>
         <div class="form-group">
             <nb-tabset fullWidth>
                 <nb-tab tabTitle="Joint Customer Detail">
@@ -141,16 +136,13 @@
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="dob{{i}}"><strong>Date of birth</strong></label>
-                                                    <input [nbDatepicker]="dob" *ngIf="calendarType === 'AD'"
+                                                    <input [nbDatepicker]="dob" 
                                                            [ngClass]="{ 'is-invalid': (submitted) && joinCustomerInfo.get('dob').errors }"
                                                            class="form-control date-pick" formControlName="dob"
                                                            id="dob{{i}}"
                                                            name="dob{{i}}"
                                                            placeholder="Customer Date of birth"
                                                            readonly>
-                                                    <input *ngIf="calendarType === 'BS'" formControlName="dob" hidden>
-                                                    <app-calendar *ngIf="calendarType === 'BS'" [ePreDate]="joinCustomerInfo.get('dob').value"
-                                                                  (messageToEmit)="joinCustomerInfo.get('dob').patchValue($event?.eDate)"></app-calendar>
                                                     <nb-datepicker #dob></nb-datepicker>
                                                     <div *ngIf="submitted && joinCustomerInfo.get('dob').errors"
                                                          class="small text-danger">
@@ -237,15 +229,11 @@
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="customerCitizenshipIssuedDate{{i}}"><strong>Issued Date</strong></label>
-                                                    <input *ngIf="calendarType === 'AD'" [nbDatepicker]="customerCitizenshipIssuedDate"
+                                                    <input  [nbDatepicker]="customerCitizenshipIssuedDate"
                                                            [ngClass]="{ 'is-invalid': (submitted) && joinCustomerInfo.get('citizenshipIssuedDate').errors }"
                                                            class="form-control" formControlName="citizenshipIssuedDate"
                                                            id="customerCitizenshipIssuedDate{{i}}"
                                                            name="customerCitizenshipIssuedDate{{i}}">
-                                                    <input *ngIf="calendarType === 'BS'" formControlName="citizenshipIssuedDate" hidden>
-                                                    <app-calendar [ePreDate]="joinCustomerInfo.get('citizenshipIssuedDate')?.value"
-                                                                  *ngIf="calendarType === 'BS'"
-                                                                  (messageToEmit)="joinCustomerInfo.get('citizenshipIssuedDate').patchValue($event?.eDate)"></app-calendar>
                                                     <nb-datepicker #customerCitizenshipIssuedDate></nb-datepicker>
                                                     <div *ngIf="submitted && joinCustomerInfo.get('citizenshipIssuedDate').errors"
                                                          class="small text-danger">
@@ -627,16 +615,13 @@
                                                         <div class="col-md-2">
                                                             <div class="form-group">
                                                                 <label><strong>Issued Date</strong></label>
-                                                                <input [nbDatepicker]="relationCitizenIssueDate1" *ngIf="calendarType === 'AD'"
+                                                                <input [nbDatepicker]="relationCitizenIssueDate1" 
                                                                        [ngClass]="{ 'is-invalid': (submitted) && joinCustomerInfo.get('citizenshipIssuedDate1').errors }"
                                                                        class="form-control"
                                                                        formControlName="citizenshipIssuedDate1"
                                                                        id="citizenshipIssuedDate1{{i}}"
                                                                        name="citizenshipIssuedDate1{{i}}"
                                                                        readonly>
-                                                                <app-calendar [ePreDate]="joinCustomerInfo.get('citizenshipIssuedDate1')?.value"
-                                                                              *ngIf="calendarType === 'BS'"
-                                                                              (messageToEmit)="joinCustomerInfo.get('citizenshipIssuedDate1').patchValue($event?.eDate)"></app-calendar>
                                                                 <nb-datepicker #relationCitizenIssueDate1></nb-datepicker>
                                                                 <div *ngIf="submitted && joinCustomerInfo.get('citizenshipIssuedDate1').errors"
                                                                      class="small text-danger">
@@ -705,16 +690,13 @@
                                                 <div class="col-md-2">
                                                     <div class="form-group">
                                                         <label><strong>Issued Date</strong></label>
-                                                        <input [nbDatepicker]="relationCitizenIssueDate2" *ngIf="calendarType === 'AD'"
+                                                        <input [nbDatepicker]="relationCitizenIssueDate2" 
                                                                [ngClass]="{ 'is-invalid': (submitted) && joinCustomerInfo.get('citizenshipIssuedDate2').errors }"
                                                                class="form-control"
                                                                formControlName="citizenshipIssuedDate2"
                                                                id="citizenshipIssuedDate2{{i}}"
                                                                name="citizenshipIssuedDate2{{i}}"
                                                                readonly>
-                                                        <app-calendar [ePreDate]="joinCustomerInfo.get('citizenshipIssuedDate2')?.value"
-                                                                      *ngIf="calendarType === 'BS'"
-                                                                      (messageToEmit)="joinCustomerInfo.get('citizenshipIssuedDate2').patchValue($event?.eDate)"></app-calendar>
                                                         <nb-datepicker #relationCitizenIssueDate2></nb-datepicker>
                                                         <div *ngIf="submitted && joinCustomerInfo.get('citizenshipIssuedDate2').errors"
                                                              class="small text-danger">
@@ -772,15 +754,12 @@
                                                 <div class="col-md-2">
                                                     <div class="form-group">
                                                         <label><strong>Issued Date</strong></label>
-                                                        <input *ngIf="calendarType === 'AD'" nbInput
+                                                        <input  nbInput
                                                                [nbDatepicker]="relationCitizenIssueDate3"
                                                                class="form-control"
                                                                formControlName="citizenshipIssuedDate3"
                                                                id="citizenshipIssuedDate3{{i}}"
                                                                name="citizenshipIssuedDate3{{i}}">
-                                                        <app-calendar [ePreDate]="joinCustomerInfo.get('citizenshipIssuedDate3')?.value"
-                                                                      *ngIf="calendarType === 'BS'"
-                                                                      (messageToEmit)="joinCustomerInfo.get('citizenshipIssuedDate3').patchValue($event?.eDate)"></app-calendar>
                                                         <nb-datepicker #relationCitizenIssueDate3></nb-datepicker>
                                                     </div>
                                                 </div>
@@ -826,15 +805,12 @@
                                                 <div class="col-md-2">
                                                     <div class="form-group">
                                                         <label><strong>Issued Date</strong></label>
-                                                        <input *ngIf="calendarType === 'AD'" nbInput
+                                                        <input  nbInput
                                                                [nbDatepicker]="relationCitizenIssueDate4"
                                                                class="form-control"
                                                                formControlName="citizenshipIssuedDate4"
                                                                id="citizenshipIssuedDate4{{i}}"
                                                                name="citizenshipIssuedDate4{{i}}">
-                                                        <app-calendar [ePreDate]="joinCustomerInfo.get('citizenshipIssuedDate4')?.value"
-                                                                      *ngIf="calendarType === 'BS'"
-                                                                      (messageToEmit)="joinCustomerInfo.get('citizenshipIssuedDate4').patchValue($event?.eDate)"></app-calendar>
                                                         <nb-datepicker #relationCitizenIssueDate4></nb-datepicker>
                                                     </div>
                                                 </div>
@@ -880,15 +856,12 @@
                                                 <div class="col-md-2">
                                                     <div class="form-group">
                                                         <label><strong>Issued Date</strong></label>
-                                                        <input *ngIf="calendarType === 'AD'" nbInput
+                                                        <input  nbInput
                                                                [nbDatepicker]="relationCitizenIssueDate5"
                                                                class="form-control"
                                                                formControlName="citizenshipIssuedDate5"
                                                                id="citizenshipIssuedDate5{{i}}"
                                                                name="citizenshipIssuedDate5{{i}}">
-                                                        <app-calendar [ePreDate]="joinCustomerInfo.get('citizenshipIssuedDate5')?.value"
-                                                                      *ngIf="calendarType === 'BS'"
-                                                                      (messageToEmit)="joinCustomerInfo.get('citizenshipIssuedDate5').patchValue($event?.eDate)"></app-calendar>
                                                         <nb-datepicker #relationCitizenIssueDate5></nb-datepicker>
                                                     </div>
                                                 </div>

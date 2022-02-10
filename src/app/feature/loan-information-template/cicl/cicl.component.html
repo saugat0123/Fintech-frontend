@@ -4,13 +4,6 @@
   </nb-card-header>
   <nb-card-body>
     <div class="col-md-12">
-      <div class="d-flex justify-content-end">
-        <nb-radio-group [(ngModel)]="calendarType" class="d-inline-flex"
-                        name="guarantorCalendarType">
-          <nb-radio value="AD">AD</nb-radio>
-          <nb-radio value="BS">BS</nb-radio>
-        </nb-radio-group>
-      </div>
     </div>
     <form [formGroup]="ciclForm">
       <div class="row">
@@ -104,9 +97,6 @@
                        formControlName="obtaineddate" placeholder="Obtained Date"
                        id="obtaineddate"
                        type="text"/>
-                <input formControlName="obtaineddate" *ngIf="calendarType === 'BS'" hidden>
-                <app-calendar [ePreDate]="cicl.get('obtaineddate').value" *ngIf="calendarType === 'BS'"
-                              (messageToEmit)="cicl.get('obtaineddate').patchValue($event?.eDate)"></app-calendar>
                 <nb-datepicker #obtainedDatePicker></nb-datepicker>
                 <div *ngIf="(submitted) && cicl.get('obtaineddate').errors" class="invalid-feedback">
                   <span *ngIf="(cicl.get('obtaineddate').errors.required)">Obtained date is required</span>

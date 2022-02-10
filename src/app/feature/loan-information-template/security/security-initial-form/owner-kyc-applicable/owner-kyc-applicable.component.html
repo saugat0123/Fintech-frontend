@@ -62,9 +62,6 @@
                                    formControlName="issuedDate"
                                    id="issuedDate" placeholder="Issued Date"
                                    type="text"/>
-                            <input formControlName="issuedDate" *ngIf="calendarType === 'BS'" hidden>
-                            <app-calendar [ePreDate]="kyc.get('issuedDate').value" *ngIf="calendarType === 'BS'"
-                                          (messageToEmit)="kyc.get('issuedDate').patchValue($event?.eDate)"></app-calendar>
                             <nb-datepicker #relationCitizenIssueDate></nb-datepicker>
                         </div>
                     </div>

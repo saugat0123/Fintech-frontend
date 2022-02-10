@@ -1,11 +1,5 @@
 <nb-card>
     <nb-card-body>
-        <div class="d-flex justify-content-end">
-            <nb-radio-group [(ngModel)]="calendarType" class="d-inline-flex" name="companyInfoCalendarType">
-                <nb-radio value="AD">AD</nb-radio>
-                <nb-radio value="BS">BS</nb-radio>
-            </nb-radio-group>
-        </div>
         <div class="form-group">
             <form (ngSubmit)="onSubmit()" [formGroup]="companyInfoFormGroup">
                 <div>
@@ -40,14 +34,12 @@
                         <div *ngIf="companyFormField.showFormField" class="col-md-4">
                             <div class="form-group">
                                 <label for="companyEstablishmentDate"><strong>Establishment Date</strong></label>
-                                <input *ngIf="calendarType === 'AD'" [nbDatepicker]="establishmentPicker"
+                                <input  [nbDatepicker]="establishmentPicker"
                                        [ngClass]="{ 'is-invalid':submitted && form.companyEstablishmentDate.errors}"
                                        class="form-control rounded"
                                        formControlName="companyEstablishmentDate"
                                        id="companyEstablishmentDate" placeholder="Enter Establishment Date"
                                        type="text"/>
-                                <app-calendar [ePreDate]="companyInfoFormGroup.get('companyEstablishmentDate').value" *ngIf="calendarType === 'BS'"
-                                              (messageToEmit)="companyInfoFormGroup.get('companyEstablishmentDate').patchValue($event?.eDate)"></app-calendar>
 
                                 <nb-datepicker #establishmentPicker></nb-datepicker>
                                 <div *ngIf="submitted && form.companyEstablishmentDate.errors"
@@ -190,12 +182,10 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="registrationDate"><strong>Registration Date</strong></label>
-                            <input *ngIf="calendarType === 'AD'" id="registrationDate" formControlName="registrationDate"
+                            <input  id="registrationDate" formControlName="registrationDate"
                                    [nbDatepicker]="registrationDate" name="registrationDate"
                                    class="form-control" placeholder="Registration Date"
                                    [ngClass]="{ 'is-invalid':submitted && form.registrationDate.errors}">
-                            <app-calendar [ePreDate]="companyInfoFormGroup.get('registrationDate').value" *ngIf="calendarType === 'BS'"
-                                          (messageToEmit)="companyInfoFormGroup.get('registrationDate').patchValue($event?.eDate)"></app-calendar>
                             <nb-datepicker #registrationDate></nb-datepicker>
                             <div *ngIf="submitted && form.registrationDate.errors" class="invalid-feedback">
                                 <div *ngIf="form.registrationDate.errors.required || form.registrationDate.errors.beforeToday">
@@ -226,12 +216,10 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="panRegistrationDate"><strong>PAN/VAT Registration Date</strong></label>
-                            <input *ngIf="calendarType === 'AD'" id="panRegistrationDate" formControlName="panRegistrationDate"
+                            <input  id="panRegistrationDate" formControlName="panRegistrationDate"
                                    [nbDatepicker]="panRegistrationDate" name="panRegistrationDate"
                                    class="form-control" placeholder="PAN/VAT Registration Date"
                                    [ngClass]="{ 'is-invalid':submitted && form.panRegistrationDate.errors}">
-                            <app-calendar [ePreDate]="companyInfoFormGroup.get('panRegistrationDate').value" *ngIf="calendarType === 'BS'"
-                                          (messageToEmit)="companyInfoFormGroup.get('panRegistrationDate').patchValue($event?.eDate)"></app-calendar>
                             <nb-datepicker #panRegistrationDate></nb-datepicker>
                             <div *ngIf="submitted && form.panRegistrationDate.errors" class="invalid-feedback">
                                 <div *ngIf="form.panRegistrationDate.errors.required ||
@@ -244,12 +232,10 @@
                   <div class="col-md-4">
                   <div class="form-group">
                     <label for="registrationExpiryDate"><strong>PAN/VAT Registration  Expiry Date</strong></label>
-                    <input *ngIf="calendarType === 'AD'" id="registrationExpiryDate" formControlName="registrationExpiryDate"
+                    <input  id="registrationExpiryDate" formControlName="registrationExpiryDate"
                            [nbDatepicker]="registrationExpiryDate" name="registrationExpiryDate"
                            class="form-control" placeholder="PAN/VAT Registration Expiry Date"
                            [ngClass]="{ 'is-invalid':submitted && form.registrationExpiryDate.errors}">
-                      <app-calendar [ePreDate]="companyInfoFormGroup.get('registrationExpiryDate').value" *ngIf="calendarType === 'BS'"
-                                    (messageToEmit)="companyInfoFormGroup.get('registrationExpiryDate').patchValue($event?.eDate)"></app-calendar>
                     <nb-datepicker #registrationExpiryDate></nb-datepicker>
                     <div *ngIf="submitted && form.registrationExpiryDate.errors" class="invalid-feedback">
                       <div *ngIf="form.registrationExpiryDate.errors.required">

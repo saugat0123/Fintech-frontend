@@ -10,11 +10,6 @@
         <h4 class="modal-title pull-left text-white">{{formLabel}} Customer</h4>
     </nb-card-header>
     <nb-card-body>
-        <nb-radio-group [(ngModel)]="calendarType" class="close d-inline-flex"
-                        name="basicInfoCalendarType">
-            <nb-radio value="AD">AD</nb-radio>
-            <nb-radio value="BS">BS</nb-radio>
-        </nb-radio-group>
         <div *ngIf="microEnabled">
             <nb-checkbox #checkboxComponent [(ngModel)]="microCustomer" class="d-inline-flex" (ngModelChange)="onCustomerTypeChange(checkboxComponent.checked)">Micro Customer</nb-checkbox>
         </div>
@@ -163,16 +158,13 @@
                            <div class="col-md-4">
                                <div class="form-group">
                                    <label for="dob"><strong>Date of birth</strong></label>
-                                   <input [nbDatepicker]="dob" *ngIf="calendarType === 'AD'"
+                                   <input [nbDatepicker]="dob"
                                           [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.dob.errors }"
                                           class="form-control date-pick" formControlName="dob"
                                           id="dob"
                                           name="dob"
                                           placeholder="Customer Date of birth"
                                           readonly>
-                                   <input *ngIf="calendarType === 'BS'" formControlName="dob" hidden>
-                                   <app-calendar *ngIf="calendarType === 'BS'" [ePreDate]="basicInfo.get('dob').value"
-                                                 (messageToEmit)="basicInfo.get('dob').patchValue($event?.eDate)"></app-calendar>
                                    <nb-datepicker #dob></nb-datepicker>
                                    <div *ngIf="submitted && basicInfoControls.dob.errors"
                                         class="small text-danger">
@@ -271,17 +263,12 @@
                            <div class="col-md-4">
                                <div class="form-group">
                                    <label for="customerCitizenshipIssuedDate"><strong>Issued Date</strong></label>
-                                   <input *ngIf="calendarType === 'AD'" [nbDatepicker]="customerCitizenshipIssuedDate"
+                                   <input [nbDatepicker]="customerCitizenshipIssuedDate"
                                           [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.citizenshipIssuedDate.errors }"
                                           class="form-control" formControlName="citizenshipIssuedDate"
                                           id="customerCitizenshipIssuedDate"
                                           name="customerCitizenshipIssuedDate"
                                    >
-                                   <input *ngIf="calendarType === 'BS'" formControlName="citizenshipIssuedDate" hidden>
-
-                            <app-calendar [ePreDate]="basicInfo.get('citizenshipIssuedDate')?.value"
-                                          *ngIf="calendarType === 'BS'"
-                                          (messageToEmit)="basicInfo.get('citizenshipIssuedDate').patchValue($event?.eDate)"></app-calendar>
                             <nb-datepicker #customerCitizenshipIssuedDate></nb-datepicker>
                             <div *ngIf="submitted && basicInfoControls.citizenshipIssuedDate.errors"
                                  class="small text-danger">
@@ -658,17 +645,12 @@
                                        <div class="col-md-2">
                                            <div class="form-group">
                                                <label><strong>Issued Date</strong></label>
-                                               <input *ngIf="calendarType === 'AD'" nbInput
+                                               <input nbInput
                                                       [nbDatepicker]="relationCitizenIssueDate"
                                                       class="form-control"
                                                       formControlName="citizenshipIssuedDate"
                                                       [ngClass]="{ 'is-invalid': (submitted) && relatives.get('citizenshipIssuedDate').errors }"
                                                >
-                                               <input *ngIf="calendarType === 'BS'" formControlName="citizenshipIssuedDate"
-                                                      hidden>
-                                               <app-calendar [ePreDate]="relatives.get('citizenshipIssuedDate').value"
-                                                             *ngIf="calendarType === 'BS'"
-                                                             (messageToEmit)="relatives.get('citizenshipIssuedDate').patchValue($event?.eDate)"></app-calendar>
 
                                                <nb-datepicker #relationCitizenIssueDate></nb-datepicker>
                                                <div *ngIf="submitted && relatives.get('citizenshipIssuedDate').errors"

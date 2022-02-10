@@ -20,7 +20,7 @@
                         <th>Down Payment</th>
                         <th>Remaining Amount</th>
                         <th>Registration Number</th>
-                        <th>Registration Date(AD/BS)</th>
+                        <th>Registration Date</th>
                         <th>Engine Number</th>
                     </tr>
                     <tr>
@@ -36,13 +36,13 @@
                     <tr class="sb-bg-secondary text-white">
                         <th>Chassis Number</th>
                         <th>Showroom Commission</th>
-                        <th>Valuated Date(AD/BS)</th>
+                        <th>Valuated Date</th>
                         <th *ngIf="vehicleDetails?.vehicleOtherBranchChecked === true">Valuator Branch</th>
                         <th>Valautor Name</th>
                         <th>Valuator Representative Name</th>
                         <th>Staff Representative Name 1</th>
                         <th>Staff Representative Name 2</th>
-                        <th>Quotation Date(AD/BS)</th>
+                        <th>Quotation Date</th>
                     </tr>
                     <tr>
                         <td class="text-right pr-1">{{vehicleDetails?.chassisNumber}}</td>
@@ -101,7 +101,7 @@
 
                     <tr class="sb-bg-secondary text-white">
                         <th>Considered Value</th>
-                        <th>Valuated Date(AD/BS)</th>
+                        <th>Valuated Date</th>
                         <th *ngIf="landDetails?.landOtherBranchChecked === true">Valuator Branch</th>
                         <th colspan="2">Valautor Name</th>
                         <th>Valuator Representative Name</th>
@@ -128,11 +128,11 @@
                                 <th>Name</th>
                                 <th>Citizenship Number</th>
                                 <th>Issued District</th>
-                                <th>Issued Date(AD/BS)</th>
+                                <th>Issued Date</th>
                                 <th>Mobile Number</th>
                                 <th>Address</th>
                                 <ng-container>
-                                    <th>Ownership Transfer Date(AD/BS)</th>
+                                    <th>Ownership Transfer Date</th>
                                     <th class="text-left pl-1">Ownership Transfer Through</th>
                                     <th *ngIf="landDetails?.ownershipTransferThrough == 'SALE'">Has transfer date elapsed by 1 Yrs plus 35 days? </th>
                                     <th *ngIf="landDetails?.ownershipTransferThrough == 'FAMILY_SEPARATION'">Has transfer date elapsed by 3 month?</th>
@@ -174,7 +174,7 @@
                           <td></td>
                       </tr>
                       <tr class="sb-bg-secondary text-white">
-                          <th>ReValuation Date(AD/BS)</th>
+                          <th>ReValuation Date</th>
                           <th colspan="1">Valuator name</th>
                           <th colspan="1">ReValuation Considered Value</th>
                           <th colspan="1">ReValuation DV</th>
@@ -245,7 +245,7 @@
 
                     </tr>
                     <tr class="text-center sb-bg-dark text-white">
-                        <th>Valuated Date(AD/BS)</th>
+                        <th>Valuated Date</th>
                         <th *ngIf="landBuilding?.landBuildingOtherBranchChecked === true">Valuator Branch</th>
                         <th>Valautor Name</th>
                         <th>Considered Value</th>
@@ -272,7 +272,7 @@
                                 <th>Name</th>
                                 <th>Citizenship Number</th>
                                 <th>Issued District</th>
-                                <th>Issued Date(AD/BS)</th>
+                                <th>Issued Date</th>
                                 <th>Mobile Number</th>
                                 <th>Address</th>
                                 <th>Remark</th>
@@ -295,7 +295,7 @@
                     <tr class="text-center sb-bg-dark text-white">
                         <th>Address as per Legal Document</th>
                         <ng-container>
-                            <th>Ownership Transfer Date(AD/BS)</th>
+                            <th>Ownership Transfer Date</th>
                             <th class="text-left pl-1">Ownership Transfer Through</th>
                             <th *ngIf="landBuilding?.ownershipTransferThrough == 'SALE'">Has transfer date elapsed by 1 Yrs plus 35 days? </th>
                             <th *ngIf="landBuilding?.ownershipTransferThrough == 'FAMILY_SEPARATION'">Has transfer date elapsed by 3 month?</th>
@@ -327,7 +327,7 @@
                             <td colspan="9"></td>
                         </tr>
                         <tr class="sb-bg-secondary text-white">
-                            <th>ReValuation Date(AD/BS)</th>
+                            <th>ReValuation Date</th>
                             <th colspan="1">Valuator name</th>
                             <th colspan="1">ReValuation Considered Value</th>
                             <th colspan="1">ReValuation DV</th>
@@ -419,7 +419,7 @@
                         <td class="text-right pr-1"><strong>Rs. {{buildingDetails?.buildingDistressValue | currencyFormatter}}</strong></td>
                     </tr>
                     <tr class="text-center sb-bg-secondary text-white">
-                        <th>Valuated Date(AD/BS)</th>
+                        <th>Valuated Date</th>
                         <th *ngIf="buildingDetails?.apartmentOtherBranchChecked === true">Valuator Branch</th>
                         <th>Valautor Name</th>
                         <th>Valuator Representative Name</th>
@@ -441,7 +441,7 @@
                             <td colspan="8"></td>
                         </tr>
                         <tr class="sb-bg-secondary text-white">
-                            <th>ReValuation Date(AD/BS)</th>
+                            <th>ReValuation Date</th>
                             <th colspan="1">Valuator name</th>
                             <th colspan="1">ReValuation Considered Value</th>
                             <th colspan="1">ReValuation DV</th>
@@ -539,7 +539,7 @@
                         <th>Downpay</th>
                         <th *ngIf="plantDetails?.plantOtherBranchChecked === true">Valuator Branch</th>
                         <th>Valautor Name</th>
-                        <th>Valuated Date(AD/BS)</th>
+                        <th>Valuated Date</th>
                         <th>Representative Name</th>
                         <th>Staff Representative Name 1</th>
                         <th>Staff Representative Name 2</th>
@@ -572,7 +572,7 @@
                         <th class="sn">S.N</th>
                         <th>FD Receipt Number</th>
                         <th>Amount</th>
-                        <th>Expiry Date(AD/BS)</th>
+                        <th>Expiry Date</th>
                         <th>Coupon Rate</th>
                         <th>Beneficiary</th>
                         <th>Remarks</th>
@@ -673,7 +673,7 @@
                                 <th>Name</th>
                                 <th>Citizenship Number</th>
                                 <th>Issued District</th>
-                                <th>Issued Date(AD/BS)</th>
+                                <th>Issued Date</th>
                                 <th>Mobile Number</th>
                                 <th>Address</th>
                                 <th>Remark</th>
@@ -815,7 +815,7 @@
                     <tr class="sb-bg-dark text-white">
                         <th>S.N</th>
                         <th>Security</th>
-                        <th>Site Visit Date(AD/BS)</th>
+                        <th>Site Visit Date</th>
                         <th>Comments about FAC</th>
                     </tr>
                     <tr *ngFor="let siteVisit of siteVisitJson; let k = index">
@@ -870,11 +870,11 @@
                         <th>S.N</th>
                         <th>Insured Amount</th>
                         <th>Insurance Company</th>
-                        <th>Policy Start Date(AD/BS)</th>
-                        <th>Maturity Date(AD/BS)</th>
+                        <th>Policy Start Date</th>
+                        <th>Maturity Date</th>
                         <th>Insurance Policy Type</th>
                         <th>Surrender Value</th>
-                        <th>Early Surrender Date(AD/BS)</th>
+                        <th>Early Surrender Date</th>
                         <th>Considered Value</th>
                         <th>Cash Back Amount</th>
                     </tr>
