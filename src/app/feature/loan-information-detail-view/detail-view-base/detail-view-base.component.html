@@ -24,6 +24,11 @@
                        [loanId]="loanId"
                        [loanDataHolder]="loanDataHolder"
                        [customerInfo]="loanHolder"></app-company-info-view>
+<app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0 && loanDataHolder?.loanHolder?.clientType === 'CONSUMER_FINANCE'"
+                    [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
+<app-financial-view *ngIf="loanHolder?.financial && isIndividual && loanDataHolder?.loanHolder?.clientType === 'CONSUMER_FINANCE'"
+                    [customerType]="loanHolder?.customerType"
+                    [formData]="loanHolder?.financial"></app-financial-view>
 <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl" [ciclValue]="loanDataHolder?.loanHolder?.cicl" [loanDataHolder]="loanDataHolder"></app-cicl-view>
 
 <div *ngIf="megaGroupEnabled && loanDataHolder?.loanHolder.mgroupInfo">
@@ -62,7 +67,7 @@
                             [docStatus]="loanDataHolder?.documentStatus"
                             [collateralData]="loanDataHolder?.collateralSiteVisits"
                             (downloadSiteVisitDocument)="checkSiteVisitDocument($event)"></app-security-approved-view>
-<app-financial-view *ngIf="loanHolder?.financial && isIndividual"
+<app-financial-view *ngIf="loanHolder?.financial && isIndividual && loanDataHolder?.loanHolder?.clientType !== 'CONSUMER_FINANCE'"
                     [customerType]="loanHolder?.customerType"
                     [formData]="loanHolder?.financial"></app-financial-view>
 <div *ngIf="financialKeys?.length > 0 && !isIndividual">
@@ -87,7 +92,7 @@
         *ngIf="loanDataHolder?.creditRiskGradingLambda"
         [lambdaData]="loanDataHolder?.creditRiskGradingLambda">
 </app-crg-lambda-detail-view>
-<app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0"
+<app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0 && loanDataHolder?.loanHolder?.clientType !== 'CONSUMER_FINANCE'"
                     [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
 <app-site-visit-view *ngIf="loanHolder?.siteVisit"
                      [siteVisit]="loanHolder?.siteVisit"></app-site-visit-view>

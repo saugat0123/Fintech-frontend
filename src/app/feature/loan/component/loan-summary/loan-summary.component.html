@@ -767,6 +767,10 @@
 <!--                </ng-template>-->
 <!--            </ng-template>-->
 <!--        </div>-->
+        <app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0 && loanDataHolder?.loanHolder?.clientType === 'CONSUMER_FINANCE'"
+                            [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
+        <app-financial-summary *ngIf="financialSummary && individual && loanDataHolder?.loanHolder?.clientType !== 'CONSUMER_FINANCE'" [formData]="financialData"
+                               [loanType]="loanDataHolder?.loanCategory"></app-financial-summary>
         <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl" [ciclValue]="loanDataHolder?.loanHolder?.cicl" [loanDataHolder]="loanDataHolder"></app-cicl-view>
     </div>
 </div>
@@ -1151,7 +1155,7 @@
                     (downloadSiteVisitDocument)="checkSiteVisitDocument($event)">
 
             </app-security-approved-summary>
-            <app-financial-summary *ngIf="financialSummary && individual" [formData]="financialData"
+            <app-financial-summary *ngIf="financialSummary && individual && loanDataHolder?.loanHolder?.clientType !== 'CONSUMER_FINANCE'" [formData]="financialData"
                                    [loanType]="loanDataHolder?.loanCategory"></app-financial-summary>
 
 <!--            <app-financial-json-parser></app-financial-json-parser>-->
@@ -1192,7 +1196,7 @@
 
             <br>
             <div>
-                <app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0"
+                <app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0 && loanDataHolder?.loanHolder?.clientType !== 'CONSUMER_FINANCE'"
                                     [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
             </div>
             <div class="row mt-3">
