@@ -85,7 +85,7 @@ export class PersonalGuaranteeProprietorshipComponent implements OnInit {
 
     buildForm() {
         this.personalGuaranteeProprietorship = this.formBuilder.group({
-          guaranteeProprietorship: this.formBuilder.array([]),
+            guaranteeProprietorship: this.formBuilder.array([]),
         });
         this.calulation();
         this.taggedPersonalGuarantorsDetailsForm();
@@ -105,7 +105,7 @@ export class PersonalGuaranteeProprietorshipComponent implements OnInit {
                 const individualGuarantorNepData = val.nepData
                     ? JSON.parse(val.nepData)
                     : val.nepData;
-              this.individualGuarantorNepDataArray.push(individualGuarantorNepData);
+                this.individualGuarantorNepDataArray.push(individualGuarantorNepData);
                 if (ObjectUtil.isEmpty(individualGuarantorNepData)) {
                     return;
                 }
@@ -152,7 +152,7 @@ export class PersonalGuaranteeProprietorshipComponent implements OnInit {
                         issuedBy: [this.setIdentityIssuedPlace(individualGuarantorNepData)],
                         // tslint:disable-next-line:max-line-length
                         issuedDate: [this.setIdentityIssuedDate(individualGuarantorNepData)],
-
+                        passportExpiryDate: [this.setValidityDate(individualGuarantorNepData)],
                         year: [todayDate[2]],
                         month: [todayDate[1]],
                         day: [todayDate[0]],
@@ -177,26 +177,26 @@ export class PersonalGuaranteeProprietorshipComponent implements OnInit {
     }
 
     setLoanPurpose() {
-      let loanKoPurpose = '';
-      if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'DDSL Without Subsidy') {
-        loanKoPurpose = this.offerDocumentDetails.purposeOfLoan.ct;
-      }
-      if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Kisan Karja Subsidy') {
-        loanKoPurpose = this.offerDocumentDetails.purposeOfLoan.ct;
-      }
-      if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Udyamsil Karja Subsidy') {
-        loanKoPurpose = this.offerDocumentDetails.purposeOfLoan.ct;
-      }
-      if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Udyamsil Karja Subsidy') {
-        loanKoPurpose = this.offerDocumentDetails.purposeOfLoan.ct;
-      }
-      if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.offerDocumentDetails.mortgageEquityTermForm) {
-        loanKoPurpose = this.offerDocumentDetails.mortgageEquityTermForm.purposeOfLoanCT;
-      }
-      if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.offerDocumentDetails.autoLoanMasterForm) {
-        loanKoPurpose = this.offerDocumentDetails.autoLoanMasterForm.purposeOfLoanCT;
-      }
-      return loanKoPurpose ? loanKoPurpose : this.loanPurpose;
+        let loanKoPurpose = '';
+        if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'DDSL Without Subsidy') {
+            loanKoPurpose = this.offerDocumentDetails.purposeOfLoan.ct;
+        }
+        if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Kisan Karja Subsidy') {
+            loanKoPurpose = this.offerDocumentDetails.purposeOfLoan.ct;
+        }
+        if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Udyamsil Karja Subsidy') {
+            loanKoPurpose = this.offerDocumentDetails.purposeOfLoan.ct;
+        }
+        if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Udyamsil Karja Subsidy') {
+            loanKoPurpose = this.offerDocumentDetails.purposeOfLoan.ct;
+        }
+        if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.offerDocumentDetails.mortgageEquityTermForm) {
+            loanKoPurpose = this.offerDocumentDetails.mortgageEquityTermForm.purposeOfLoanCT;
+        }
+        if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.offerDocumentDetails.autoLoanMasterForm) {
+            loanKoPurpose = this.offerDocumentDetails.autoLoanMasterForm.purposeOfLoanCT;
+        }
+        return loanKoPurpose ? loanKoPurpose : this.loanPurpose;
     }
 
     submit() {
@@ -237,146 +237,160 @@ export class PersonalGuaranteeProprietorshipComponent implements OnInit {
             this.dialogRef.close();
         });
     }
-  setActYear() {
-    let yearOfAct = '';
-      if (!ObjectUtil.isEmpty(this.loanHolderNepData.radioActYearDate.np) && (this.loanHolderNepData.radioActYearDate.np === 'BS')) {
-          yearOfAct = this.loanHolderNepData.actYear.np ? this.loanHolderNepData.actYear.np : '';
-      } else {
-        yearOfAct = this.loanHolderNepData.actYear.en ? this.loanHolderNepData.actYear.en : '' ;
-      }
-    return yearOfAct ? yearOfAct : '';
-  }
-
-  setRegistrationDate() {
-    let regDate = '';
-    if (this.loanHolderNepData.registrationDateOption.en === 'AD') {
-      regDate = this.englishNepaliDatePipe.transform(this.loanHolderNepData.registrationDate.en ? this.loanHolderNepData.registrationDate.en : this.loanHolderNepData.registrationDate.en, true) || '' ;
-    } else {
-      regDate = this.loanHolderNepData.registrationDate.en.nDate ? this.loanHolderNepData.registrationDate.en.nDate : '';
-    }
-    return regDate ? regDate : '';
-  }
-  setIssuedDate() {
-    let issuedDate = '';
-    if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'DDSL Without Subsidy') {
-        const dateOfApproval = this.offerDocumentDetails.sanctionLetterDateType ? this.offerDocumentDetails.sanctionLetterDateType.en : '';
-        if (dateOfApproval === 'AD') {
-            issuedDate = this.offerDocumentDetails.sanctionLetterDate ? this.offerDocumentDetails.sanctionLetterDate.ct : '';
+    setActYear() {
+        let yearOfAct = '';
+        if (!ObjectUtil.isEmpty(this.loanHolderNepData.radioActYearDate.np) && (this.loanHolderNepData.radioActYearDate.np === 'BS')) {
+            yearOfAct = this.loanHolderNepData.actYear.np ? this.loanHolderNepData.actYear.np : '';
         } else {
-            issuedDate = this.offerDocumentDetails.sanctionLetterDateNepali ? this.offerDocumentDetails.sanctionLetterDateNepali.ct : '';
+            yearOfAct = this.loanHolderNepData.actYear.en ? this.loanHolderNepData.actYear.en : '' ;
         }
+        return yearOfAct ? yearOfAct : '';
     }
-    if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Kisan Karja Subsidy') {
-        const dateOfApprovalType = this.offerDocumentDetails.dateOfApprovalType ? this.offerDocumentDetails.dateOfApprovalType.en : '';
-        if (dateOfApprovalType === 'AD') {
+
+    setRegistrationDate() {
+        let regDate = '';
+        if (this.loanHolderNepData.registrationDateOption.en === 'AD') {
+            regDate = this.englishNepaliDatePipe.transform(this.loanHolderNepData.registrationDate.en ? this.loanHolderNepData.registrationDate.en : this.loanHolderNepData.registrationDate.en, true) || '' ;
+        } else {
+            regDate = this.loanHolderNepData.registrationDate.en.nDate ? this.loanHolderNepData.registrationDate.en.nDate : '';
+        }
+        return regDate ? regDate : '';
+    }
+    setIssuedDate() {
+        let issuedDate = '';
+        if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'DDSL Without Subsidy') {
+            const dateOfApproval = this.offerDocumentDetails.sanctionLetterDateType ? this.offerDocumentDetails.sanctionLetterDateType.en : '';
+            if (dateOfApproval === 'AD') {
+                issuedDate = this.offerDocumentDetails.sanctionLetterDate ? this.offerDocumentDetails.sanctionLetterDate.ct : '';
+            } else {
+                issuedDate = this.offerDocumentDetails.sanctionLetterDateNepali ? this.offerDocumentDetails.sanctionLetterDateNepali.ct : '';
+            }
+        }
+        if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Kisan Karja Subsidy') {
+            const dateOfApprovalType = this.offerDocumentDetails.dateOfApprovalType ? this.offerDocumentDetails.dateOfApprovalType.en : '';
+            if (dateOfApprovalType === 'AD') {
+                issuedDate = this.offerDocumentDetails.dateOfApproval ? this.offerDocumentDetails.dateOfApproval.ct : '';
+            } else {
+                issuedDate = this.offerDocumentDetails.dateOfApprovalNepali ? this.offerDocumentDetails.dateOfApprovalNepali.ct : '';
+            }
+        }
+        if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Udyamsil Karja Subsidy') {
             issuedDate = this.offerDocumentDetails.dateOfApproval ? this.offerDocumentDetails.dateOfApproval.ct : '';
-        } else {
-            issuedDate = this.offerDocumentDetails.dateOfApprovalNepali ? this.offerDocumentDetails.dateOfApprovalNepali.ct : '';
         }
-    }
-    if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Udyamsil Karja Subsidy') {
-        issuedDate = this.offerDocumentDetails.dateOfApproval ? this.offerDocumentDetails.dateOfApproval.ct : '';
-    }
-    if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Interest subsidy sanction letter') {
-        const dateOfApprovalType = this.offerDocumentDetails.dateOfApprovalType ? this.offerDocumentDetails.dateOfApprovalType.en : '';
-        if (dateOfApprovalType === 'AD') {
-            const templateDateApproval = this.offerDocumentDetails.dateOfApproval ? this.offerDocumentDetails.dateOfApproval.en : '';
-            issuedDate = this.englishNepaliDatePipe.transform(this.datePipe.transform(templateDateApproval), true);
-        } else {
-            const templateDateApproval = this.offerDocumentDetails.dateOfApprovalNepali ? this.offerDocumentDetails.dateOfApprovalNepali.en : '';
-            issuedDate = templateDateApproval ? templateDateApproval.nDate : '';
+        if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Interest subsidy sanction letter') {
+            const dateOfApprovalType = this.offerDocumentDetails.dateOfApprovalType ? this.offerDocumentDetails.dateOfApprovalType.en : '';
+            if (dateOfApprovalType === 'AD') {
+                const templateDateApproval = this.offerDocumentDetails.dateOfApproval ? this.offerDocumentDetails.dateOfApproval.en : '';
+                issuedDate = this.englishNepaliDatePipe.transform(this.datePipe.transform(templateDateApproval), true);
+            } else {
+                const templateDateApproval = this.offerDocumentDetails.dateOfApprovalNepali ? this.offerDocumentDetails.dateOfApprovalNepali.en : '';
+                issuedDate = templateDateApproval ? templateDateApproval.nDate : '';
+            }
         }
-    }
-    if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Class A Sanction letter') {
-        const sanctionLetterDate = this.offerDocumentDetails.sanctionLetterDateType ? this.offerDocumentDetails.sanctionLetterDateType.en : '';
-        if (sanctionLetterDate === 'AD') {
-            const templateDateSanctionDate = this.offerDocumentDetails.sanctionLetterDate ? this.offerDocumentDetails.sanctionLetterDate.en : '';
-            issuedDate = this.englishNepaliDatePipe.transform(this.datePipe.transform(templateDateSanctionDate), true);
-        } else {
-            const templateDateSanctionDate = this.offerDocumentDetails.sanctionLetterDateNepali ? this.offerDocumentDetails.sanctionLetterDateNepali.en : '';
-            issuedDate = templateDateSanctionDate ? templateDateSanctionDate.nDate : '';
+        if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Class A Sanction letter') {
+            const sanctionLetterDate = this.offerDocumentDetails.sanctionLetterDateType ? this.offerDocumentDetails.sanctionLetterDateType.en : '';
+            if (sanctionLetterDate === 'AD') {
+                const templateDateSanctionDate = this.offerDocumentDetails.sanctionLetterDate ? this.offerDocumentDetails.sanctionLetterDate.en : '';
+                issuedDate = this.englishNepaliDatePipe.transform(this.datePipe.transform(templateDateSanctionDate), true);
+            } else {
+                const templateDateSanctionDate = this.offerDocumentDetails.sanctionLetterDateNepali ? this.offerDocumentDetails.sanctionLetterDateNepali.en : '';
+                issuedDate = templateDateSanctionDate ? templateDateSanctionDate.nDate : '';
+            }
         }
-    }
-    if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.offerDocumentDetails.smeGlobalForm) {
-        const dateOfApprovalType = this.offerDocumentDetails.smeGlobalForm.dateOfApprovalType ?
-            this.offerDocumentDetails.smeGlobalForm.dateOfApprovalType : '';
-        if (dateOfApprovalType === 'AD') {
-            const templateDateApproval = this.offerDocumentDetails.smeGlobalForm.dateOfApproval ?
-                this.offerDocumentDetails.smeGlobalForm.dateOfApprovalCT : '';
-            issuedDate = this.englishNepaliDatePipe.transform(this.datePipe.transform(templateDateApproval), true);
-        } else {
-            const templateDateApproval = this.offerDocumentDetails.smeGlobalForm.dateOfApprovalNepali ?
-                this.offerDocumentDetails.smeGlobalForm.dateOfApprovalNepali : '';
-            issuedDate = templateDateApproval ? templateDateApproval.nDate : '';
+        if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.offerDocumentDetails.smeGlobalForm) {
+            const dateOfApprovalType = this.offerDocumentDetails.smeGlobalForm.dateOfApprovalType ?
+                this.offerDocumentDetails.smeGlobalForm.dateOfApprovalType : '';
+            if (dateOfApprovalType === 'AD') {
+                const templateDateApproval = this.offerDocumentDetails.smeGlobalForm.dateOfApproval ?
+                    this.offerDocumentDetails.smeGlobalForm.dateOfApprovalCT : '';
+                issuedDate = this.englishNepaliDatePipe.transform(this.datePipe.transform(templateDateApproval), true);
+            } else {
+                const templateDateApproval = this.offerDocumentDetails.smeGlobalForm.dateOfApprovalNepali ?
+                    this.offerDocumentDetails.smeGlobalForm.dateOfApprovalNepali : '';
+                issuedDate = templateDateApproval ? templateDateApproval.nDate : '';
+            }
         }
+        return issuedDate ? issuedDate : '';
     }
-    return issuedDate ? issuedDate : '';
-  }
 
-  setIdentityNo(individualGuarantorNepData) {
-    let identityNumber = '';
-    if (!ObjectUtil.isEmpty(individualGuarantorNepData.guarantorNationality)) {
-      if (individualGuarantorNepData.guarantorNationality === 'Nepali') {
-        identityNumber = !ObjectUtil.isEmpty(individualGuarantorNepData.citizenNumber) ? individualGuarantorNepData.citizenNumber.ct : '';
-      }
-      if (individualGuarantorNepData.guarantorNationality === 'Indian') {
-        if (!ObjectUtil.isEmpty(individualGuarantorNepData.indianGuarantorDetailOption) && individualGuarantorNepData.indianGuarantorDetailOption.en === 'Embassy Certificate') {
-          identityNumber = !ObjectUtil.isEmpty(individualGuarantorNepData.embassyNo) ? individualGuarantorNepData.embassyNo.ct : '';
+    setIdentityNo(individualGuarantorNepData) {
+        let identityNumber = '';
+        if (!ObjectUtil.isEmpty(individualGuarantorNepData.guarantorNationality)) {
+            if (individualGuarantorNepData.guarantorNationality === 'Nepali') {
+                identityNumber = !ObjectUtil.isEmpty(individualGuarantorNepData.citizenNumber) ? individualGuarantorNepData.citizenNumber.ct : '';
+            }
+            if (individualGuarantorNepData.guarantorNationality === 'Indian') {
+                if (!ObjectUtil.isEmpty(individualGuarantorNepData.indianGuarantorDetailOption) && individualGuarantorNepData.indianGuarantorDetailOption.en === 'Embassy Certificate') {
+                    identityNumber = !ObjectUtil.isEmpty(individualGuarantorNepData.embassyNo) ? individualGuarantorNepData.embassyNo.ct : '';
 
-        } else if (!ObjectUtil.isEmpty(individualGuarantorNepData.indianGuarantorDetailOption) && individualGuarantorNepData.indianGuarantorDetailOption.en === 'Adhar Card') {
-          identityNumber = !ObjectUtil.isEmpty(individualGuarantorNepData.adharCardNo) ? individualGuarantorNepData.adharCardNo.ct : '';
-        } else {
-          identityNumber = !ObjectUtil.isEmpty(individualGuarantorNepData.passportNo) ? individualGuarantorNepData.passportNo.ct : '';
+                } else if (!ObjectUtil.isEmpty(individualGuarantorNepData.indianGuarantorDetailOption) && individualGuarantorNepData.indianGuarantorDetailOption.en === 'Adhar Card') {
+                    identityNumber = !ObjectUtil.isEmpty(individualGuarantorNepData.adharCardNo) ? individualGuarantorNepData.adharCardNo.ct : '';
+                } else {
+                    identityNumber = !ObjectUtil.isEmpty(individualGuarantorNepData.passportNo) ? individualGuarantorNepData.passportNo.ct : '';
+                }
+            }
+            if (individualGuarantorNepData.guarantorNationality === 'Other') {
+                identityNumber = !ObjectUtil.isEmpty(individualGuarantorNepData.otherGuarantorPassportNo) ? individualGuarantorNepData.otherGuarantorPassportNo.ct : '';
+            }
+            return identityNumber ? identityNumber : '';
         }
-      }
-      if (individualGuarantorNepData.guarantorNationality === 'Other') {
-        identityNumber = !ObjectUtil.isEmpty(individualGuarantorNepData.otherGuarantorPassportNo) ? individualGuarantorNepData.otherGuarantorPassportNo.ct : '';
-      }
-      return identityNumber ? identityNumber : '';
     }
-  }
-  setIdentityIssuedPlace(individualGuarantorNepData) {
-    let identityIssuedPlace = '';
-    if (!ObjectUtil.isEmpty(individualGuarantorNepData.guarantorNationality)) {
-      if (individualGuarantorNepData.guarantorNationality === 'Nepali') {
-        identityIssuedPlace = !ObjectUtil.isEmpty(individualGuarantorNepData.issuedPlace) ? individualGuarantorNepData.issuedPlace.ct : '';
-      }
-      if (individualGuarantorNepData.guarantorNationality === 'Indian') {
-        if (!ObjectUtil.isEmpty(individualGuarantorNepData.indianGuarantorDetailOption) && individualGuarantorNepData.indianGuarantorDetailOption.en === 'Embassy Certificate') {
-          identityIssuedPlace = !ObjectUtil.isEmpty(individualGuarantorNepData.embassyIssuedFrom) ? individualGuarantorNepData.embassyIssuedFrom.ct : '';
+    setIdentityIssuedPlace(individualGuarantorNepData) {
+        let identityIssuedPlace = '';
+        if (!ObjectUtil.isEmpty(individualGuarantorNepData.guarantorNationality)) {
+            if (individualGuarantorNepData.guarantorNationality === 'Nepali') {
+                identityIssuedPlace = !ObjectUtil.isEmpty(individualGuarantorNepData.issuedPlace) ? individualGuarantorNepData.issuedPlace.ct : '';
+            }
+            if (individualGuarantorNepData.guarantorNationality === 'Indian') {
+                if (!ObjectUtil.isEmpty(individualGuarantorNepData.indianGuarantorDetailOption) && individualGuarantorNepData.indianGuarantorDetailOption.en === 'Embassy Certificate') {
+                    identityIssuedPlace = !ObjectUtil.isEmpty(individualGuarantorNepData.embassyIssuedFrom) ? individualGuarantorNepData.embassyIssuedFrom.ct : '';
 
-        } else if (!ObjectUtil.isEmpty(individualGuarantorNepData.indianGuarantorDetailOption) && individualGuarantorNepData.indianGuarantorDetailOption.en === 'Adhar Card') {
-          identityIssuedPlace = !ObjectUtil.isEmpty(individualGuarantorNepData.adharCardIssuedFrom) ? individualGuarantorNepData.adharCardIssuedFrom.ct : '';
-        } else {
-          identityIssuedPlace = !ObjectUtil.isEmpty(individualGuarantorNepData.passportIssuedFrom) ? individualGuarantorNepData.passportIssuedFrom.ct : '';
+                } else if (!ObjectUtil.isEmpty(individualGuarantorNepData.indianGuarantorDetailOption) && individualGuarantorNepData.indianGuarantorDetailOption.en === 'Adhar Card') {
+                    identityIssuedPlace = !ObjectUtil.isEmpty(individualGuarantorNepData.adharCardIssuedFrom) ? individualGuarantorNepData.adharCardIssuedFrom.ct : '';
+                } else {
+                    identityIssuedPlace = !ObjectUtil.isEmpty(individualGuarantorNepData.passportIssuedFrom) ? individualGuarantorNepData.passportIssuedFrom.ct : '';
+                }
+            }
+            if (individualGuarantorNepData.guarantorNationality === 'Other') {
+                identityIssuedPlace = !ObjectUtil.isEmpty(individualGuarantorNepData.otherGuarantorPassportIssuedFrom) ? individualGuarantorNepData.otherGuarantorPassportIssuedFrom.ct : '';
+            }
+            return identityIssuedPlace ? identityIssuedPlace : '';
         }
-      }
-      if (individualGuarantorNepData.guarantorNationality === 'Other') {
-        identityIssuedPlace = !ObjectUtil.isEmpty(individualGuarantorNepData.otherGuarantorPassportIssuedFrom) ? individualGuarantorNepData.otherGuarantorPassportIssuedFrom.ct : '';
-      }
-      return identityIssuedPlace ? identityIssuedPlace : '';
     }
-  }
-  setIdentityIssuedDate(individualGuarantorNepData) {
-    let identityIssuedDate = '';
-    if (!ObjectUtil.isEmpty(individualGuarantorNepData.guarantorNationality)) {
-      if (individualGuarantorNepData.guarantorNationality === 'Nepali') {
-        identityIssuedDate = !ObjectUtil.isEmpty(individualGuarantorNepData.citizenIssuedDate) ? this.englishNepaliDatePipe.transform((individualGuarantorNepData.citizenIssuedDate.en.eDate) ? (individualGuarantorNepData.citizenIssuedDate.en.eDate) : (individualGuarantorNepData.citizenIssuedDate.en), true) : '' || '';
-      }
-      if (individualGuarantorNepData.guarantorNationality === 'Indian') {
-        if (!ObjectUtil.isEmpty(individualGuarantorNepData.indianGuarantorDetailOption) && individualGuarantorNepData.indianGuarantorDetailOption.en === 'Embassy Certificate') {
-          identityIssuedDate = !ObjectUtil.isEmpty(individualGuarantorNepData.embassyIssuedDate) ? this.englishNepaliDatePipe.transform((individualGuarantorNepData.embassyIssuedDate.en) ? (individualGuarantorNepData.embassyIssuedDate.en) : (individualGuarantorNepData.embassyIssuedDate.en), true) : '' || '';
+    setIdentityIssuedDate(individualGuarantorNepData) {
+        let identityIssuedDate = '';
+        if (!ObjectUtil.isEmpty(individualGuarantorNepData.guarantorNationality)) {
+            if (individualGuarantorNepData.guarantorNationality === 'Nepali') {
+                identityIssuedDate = !ObjectUtil.isEmpty(individualGuarantorNepData.citizenIssuedDate) ? this.englishNepaliDatePipe.transform((individualGuarantorNepData.citizenIssuedDate.en.eDate) ? (individualGuarantorNepData.citizenIssuedDate.en.eDate) : (individualGuarantorNepData.citizenIssuedDate.en), true) : '' || '';
+            }
+            if (individualGuarantorNepData.guarantorNationality === 'Indian') {
+                if (!ObjectUtil.isEmpty(individualGuarantorNepData.indianGuarantorDetailOption) && individualGuarantorNepData.indianGuarantorDetailOption.en === 'Embassy Certificate') {
+                    identityIssuedDate = !ObjectUtil.isEmpty(individualGuarantorNepData.embassyIssuedDate) ? this.englishNepaliDatePipe.transform((individualGuarantorNepData.embassyIssuedDate.en) ? (individualGuarantorNepData.embassyIssuedDate.en) : (individualGuarantorNepData.embassyIssuedDate.en), true) : '' || '';
 
-        } else if (!ObjectUtil.isEmpty(individualGuarantorNepData.indianGuarantorDetailOption) && individualGuarantorNepData.indianGuarantorDetailOption.en === 'Adhar Card') {
-          identityIssuedDate = !ObjectUtil.isEmpty(individualGuarantorNepData.adharCardIssuedDate) ? this.englishNepaliDatePipe.transform((individualGuarantorNepData.adharCardIssuedDate.en) ? (individualGuarantorNepData.adharCardIssuedDate.en) : (individualGuarantorNepData.adharCardIssuedDate.en), true) : '' || '';
-        } else {
-          identityIssuedDate = !ObjectUtil.isEmpty(individualGuarantorNepData.passportIssuedDate) ? this.englishNepaliDatePipe.transform((individualGuarantorNepData.passportIssuedDate.en) ? (individualGuarantorNepData.passportIssuedDate.en) : (individualGuarantorNepData.passportIssuedDate.en), true) : '' || '';
+                } else if (!ObjectUtil.isEmpty(individualGuarantorNepData.indianGuarantorDetailOption) && individualGuarantorNepData.indianGuarantorDetailOption.en === 'Adhar Card') {
+                    identityIssuedDate = !ObjectUtil.isEmpty(individualGuarantorNepData.adharCardIssuedDate) ? this.englishNepaliDatePipe.transform((individualGuarantorNepData.adharCardIssuedDate.en) ? (individualGuarantorNepData.adharCardIssuedDate.en) : (individualGuarantorNepData.adharCardIssuedDate.en), true) : '' || '';
+                } else {
+                    identityIssuedDate = !ObjectUtil.isEmpty(individualGuarantorNepData.passportIssuedDate) ? this.englishNepaliDatePipe.transform((individualGuarantorNepData.passportIssuedDate.en) ? (individualGuarantorNepData.passportIssuedDate.en) : (individualGuarantorNepData.passportIssuedDate.en), true) : '' || '';
+                }
+            }
+            if (individualGuarantorNepData.guarantorNationality === 'Other') {
+                identityIssuedDate = !ObjectUtil.isEmpty(individualGuarantorNepData.otherGuarantorPassportIssuedDate) ? this.englishNepaliDatePipe.transform((individualGuarantorNepData.otherGuarantorPassportIssuedDate.en) ? (individualGuarantorNepData.otherGuarantorPassportIssuedDate.en) : (individualGuarantorNepData.otherGuarantorPassportIssuedDate.en), true) : '' || '';
+            }
+            return identityIssuedDate ? identityIssuedDate : '';
         }
-      }
-      if (individualGuarantorNepData.guarantorNationality === 'Other') {
-        identityIssuedDate = !ObjectUtil.isEmpty(individualGuarantorNepData.otherGuarantorPassportIssuedDate) ? this.englishNepaliDatePipe.transform((individualGuarantorNepData.otherGuarantorPassportIssuedDate.en) ? (individualGuarantorNepData.otherGuarantorPassportIssuedDate.en) : (individualGuarantorNepData.otherGuarantorPassportIssuedDate.en), true) : '' || '';
-      }
-      return identityIssuedDate ? identityIssuedDate : '';
     }
-  }
+    setValidityDate(individualGuarantorNepData) {
+        let passportValidityDate = '';
+        if (!ObjectUtil.isEmpty(individualGuarantorNepData.guarantorNationality)) {
+            if (individualGuarantorNepData.guarantorNationality === 'Indian') {
+                if (!ObjectUtil.isEmpty(individualGuarantorNepData.indianGuarantorDetailOption) && individualGuarantorNepData.indianGuarantorDetailOption.en === 'Passport') {
+                    passportValidityDate = !ObjectUtil.isEmpty(individualGuarantorNepData.passportValidityDate) ? this.englishNepaliDatePipe.transform((individualGuarantorNepData.passportValidityDate.en) ? (individualGuarantorNepData.passportValidityDate.en) : (individualGuarantorNepData.passportValidityDate.en), true) : '' || '';
+                }
+            }
+            if (individualGuarantorNepData.guarantorNationality === 'Other') {
+                passportValidityDate = !ObjectUtil.isEmpty(individualGuarantorNepData.otherGuarantorPassportValidityDate) ? this.englishNepaliDatePipe.transform((individualGuarantorNepData.otherGuarantorPassportValidityDate.en) ? (individualGuarantorNepData.otherGuarantorPassportValidityDate.en) : (individualGuarantorNepData.otherGuarantorPassportValidityDate.en), true) : '' || '';
+            }
+            return passportValidityDate ? passportValidityDate : '';
+        }
+    }
 }
