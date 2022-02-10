@@ -1,3 +1,9 @@
+<table *ngIf="loanDataHolder?.loanHolder?.clientType === 'CONSUMER_FINANCE'">
+    <tr>
+        <td><strong>Purpose of Loan:</strong></td>
+        <td class="text-left pl-1" [innerHTML]="proposalAllData?.purposeOfLoan || 'N/A' | safeHtml"></td>
+    </tr>
+</table>
 <div class="row mt-1">
     <div class="col-md-12 sb-small">
         <p><strong>Facility Schedule</strong> <em class="text-danger sb-small"> &nbsp;Bold row indicates

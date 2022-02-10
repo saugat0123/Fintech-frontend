@@ -22,7 +22,7 @@ import {CustomerLoanDto} from '../../../model/customerLoanDto';
 export class ProposalSummaryComponent implements OnInit {
     @Input() proposalData: Proposal;
     @Input() customerAllLoanList: LoanDataHolder[];
-    @Input() loanDataHolder;
+    @Input() loanDataHolder: LoanDataHolder;
     @Input() approveSheet;
     public DocStatus = DocStatus;
     public LoanType = LoanType;

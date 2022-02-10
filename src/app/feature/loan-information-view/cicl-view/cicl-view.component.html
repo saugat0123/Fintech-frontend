@@ -47,12 +47,13 @@
       </tr>
       <td class="text-justify px-2" style="overflow-wrap: break-word; "><span
               [innerHTML]="ciclValue?.remarks | safeHtml"></span></td>
-      <tr *ngIf="!crgLambdaDisabled" class="sb-bg-dark text-white">
+      <tr *ngIf="!crgLambdaDisabled && ciclValue?.repaymentTrack" class="sb-bg-dark text-white">
         <th>Repayment track in other BFIs</th>
       </tr>
       <tr *ngIf="!crgLambdaDisabled">
         <td>{{ciclValue?.repaymentTrack}}</td>
       </tr>
     </table>
+    <app-newt-worth *ngIf="loanDataHolder?.proposal?.data" [proposal]="loanDataHolder?.proposal"></app-newt-worth>
   </div>
 </div>

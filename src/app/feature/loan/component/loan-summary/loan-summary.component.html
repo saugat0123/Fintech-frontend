@@ -473,6 +473,17 @@
                         [proposalData]="proposalData"
                         [loanDataHolder]="loanDataHolder"></app-proposal-summary>
             </ng-container>
+            <app-security-summary *ngIf="securitySummary && loanDataHolder?.loanHolder?.clientType === 'CONSUMER_FINANCE'"
+                                  [formData]="securityData" [shareSecurity]="shareSecurityData"
+                                  [collateralSiteVisitDetail]="collateralSiteVisitDetail"
+                                  [securityId]="securityId"
+                                  [siteVisitDocuments]="siteVisitDocuments"
+                                  [isCollateralSiteVisit]="isCollateralSiteVisit"
+                                  [collateralData]="loanDataHolder?.collateralSiteVisits"
+                                  [docStatus]="loanDataHolder?.documentStatus"
+                                  [proposal]="proposalData"
+                                  (downloadSiteVisitDocument)="checkSiteVisitDocument($event)"
+                                  [isApproveSecurity]="approvedSecurityAsProposed"></app-security-summary>
             <nb-accordion *ngIf="isRemitLoan">
                 <nb-accordion-item>
                     <nb-accordion-item-header class="disable-print sb-small sb-bg-secondary text-white"><h6>Video KYC</h6></nb-accordion-item-header>
@@ -756,12 +767,10 @@
 <!--                </ng-template>-->
 <!--            </ng-template>-->
 <!--        </div>-->
-        <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl" [ciclValue]="loanDataHolder?.loanHolder?.cicl"></app-cicl-view>
+        <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl" [ciclValue]="loanDataHolder?.loanHolder?.cicl" [loanDataHolder]="loanDataHolder"></app-cicl-view>
     </div>
 </div>
             </ng-container>
-            <app-newt-worth *ngIf="proposalData?.data" [proposal]="proposalData"></app-newt-worth>
-
             <div class="row mt-1">
                 <div class = "col-md-12" *ngIf="isRemitLoan">
                     <p><b> Financial/ Repayment Ability: Primary Source of Income</b></p>
@@ -1119,7 +1128,8 @@
                                                     [customerAllLoanList]="customerAllLoanList"
                                                     [proposalData]="proposalData"></app-proposal-justification-summary>
             </div>
-            <app-security-summary *ngIf="securitySummary"
+
+            <app-security-summary *ngIf="securitySummary && loanDataHolder?.loanHolder?.clientType !== 'CONSUMER_FINANCE'"
                                   [formData]="securityData" [shareSecurity]="shareSecurityData"
                                   [collateralSiteVisitDetail]="collateralSiteVisitDetail"
                                   [securityId]="securityId"

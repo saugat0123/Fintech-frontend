@@ -4,6 +4,13 @@
                        [proposalData]="proposalData"
                        [loanDataHolder]="loanDataHolder"></app-proposal-view>
 </div>
+<app-security-view *ngIf="loanHolder?.security?.data && loanDataHolder?.loanHolder?.clientType === 'CONSUMER_FINANCE'" [security]="loanHolder?.security"
+                   [shareSecurityData]="loanHolder?.shareSecurity"
+                   [securityId]="securityId"
+                   [proposal]="proposalData"
+                   [collateralData]="loanDataHolder?.collateralSiteVisits"
+                   [docStatus]="loanDataHolder?.documentStatus"
+                   (downloadSiteVisitDocument)="checkSiteVisitDocument($event)"></app-security-view>
 <app-individual-view *ngIf="loanDataHolder?.loanCategory === 'INDIVIDUAL'"
                      [calendarType]="calendarType"
                      [loanDataHolder]="loanDataHolder"
@@ -17,7 +24,7 @@
                        [loanId]="loanId"
                        [loanDataHolder]="loanDataHolder"
                        [customerInfo]="loanHolder"></app-company-info-view>
-<app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl" [ciclValue]="loanDataHolder?.loanHolder?.cicl"></app-cicl-view>
+<app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl" [ciclValue]="loanDataHolder?.loanHolder?.cicl" [loanDataHolder]="loanDataHolder"></app-cicl-view>
 
 <div *ngIf="megaGroupEnabled && loanDataHolder?.loanHolder.mgroupInfo">
     <app-m-group-summary [mGroup]="loanDataHolder?.loanHolder.mgroupInfo"></app-m-group-summary>
@@ -42,7 +49,7 @@
                                         [proposalData]="proposalData"></app-proposal-justification-summary>
 </div>
 
-<app-security-view *ngIf="loanHolder?.security?.data" [security]="loanHolder?.security"
+<app-security-view *ngIf="loanHolder?.security?.data && loanDataHolder?.loanHolder?.clientType!== 'CONSUMER_FINANCE'" [security]="loanHolder?.security"
                    [shareSecurityData]="loanHolder?.shareSecurity"
                    [securityId]="securityId"
                    [proposal]="proposalData"

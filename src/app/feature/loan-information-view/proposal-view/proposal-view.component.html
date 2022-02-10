@@ -1,4 +1,11 @@
 <div class="row mt-1">
+  <table *ngIf="loanDataHolder?.loanHolder?.clientType === 'CONSUMER_FINANCE'; else otherLoan;">
+    <tr>
+      <td><strong>Purpose Of Loan:</strong></td>
+      <td class="text-left pl-1" [innerHTML]="proposalAllData?.purposeOfLoan || 'N/A' | safeHtml"></td>
+
+    </tr>
+  </table>
   <div class="col-md-12 sb-small">
     <p><strong>Facility Schedule: </strong> <em class="text-danger sb-small"> &nbsp;Bold row indicates
       current loan proposal</em></p>
@@ -465,12 +472,14 @@
       <tr>
         <td class="text-left pl-1" [innerHTML]="proposalAllData?.remark || 'N/A' | safeHtml"></td>
       </tr>
-      <tr class="text-white sb-bg-dark">
-        <th>Purpose of Loan</th>
-      </tr>
-      <tr>
-        <td class="text-left pl-1"  [innerHTML]="proposalAllData?.purposeOfLoan || 'N/A' | safeHtml"></td>
-      </tr>
+      <ng-template #otherLoan>
+        <tr class="text-white sb-bg-dark">
+          <th>Purpose of Loan</th>
+        </tr>
+        <tr>
+          <td class="text-left pl-1"  [innerHTML]="proposalAllData?.purposeOfLoan || 'N/A' | safeHtml"></td>
+        </tr>
+      </ng-template>
       <ng-container *ngIf="checkedData?.waiverChecked">
         <tr class="text-white sb-bg-dark">
           <th>Waiver</th>
