@@ -683,7 +683,7 @@
                             </p>
                             <!--OR-->
                             <p *ngIf="val.guaranteeType  === 'APG/PFG/Bid Bond'">
-                                अग्रिम भुक्तानी बैंक जमानत (Advance Payment Guarantee) को
+                                <strong>धरौटी:</strong> अग्रिम भुक्तानी बैंक जमानत (Advance Payment Guarantee) को
                                 हकमा
                                 <span [ngClass]="{'outside' : val.commissionInPercentageAPGCT !== null && val.commissionInPercentageAPGCT !== ''}">
                             {{val.commissionInPercentageAPGCT === null || val.commissionInPercentageAPGCT === '' ? '___________' : val.commissionInPercentageAPGCT}}</span>
@@ -702,7 +702,7 @@
                             /– लाग्नेछ ।
                             </span>
                                 <span *ngIf="val.commissionType === 'COMMISSION_TYPE_2'">
-                                        अग्रिम भुक्तानी बैंक जमानत (Advance Payment Guarantee) को हकमा प्रति बैकं जमानत प्रति त्रैमास
+                                  <strong>कमिसन:</strong> अग्रिम भुक्तानी बैंक जमानत (Advance Payment Guarantee) को हकमा प्रति बैकं जमानत प्रति त्रैमास
 
                             <span [ngClass]="{'outside' : val.commissionInPercentage2APGCT !== null && val.commissionInPercentage2APGCT !== ''}">
                             {{val.commissionInPercentage2APGCT === null || val.commissionInPercentage2APGCT === '' ? '___________' : val.commissionInPercentage2APGCT}}</span>
