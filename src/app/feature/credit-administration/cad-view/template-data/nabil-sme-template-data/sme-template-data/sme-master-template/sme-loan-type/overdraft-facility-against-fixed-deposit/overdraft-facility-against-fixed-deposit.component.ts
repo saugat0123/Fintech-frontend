@@ -439,13 +439,20 @@ export class OverdraftFacilityAgainstFixedDepositComponent implements OnInit {
     this.overdraftFixedForm.get([mainArray, index, 'totalInterestRateTrans']).patchValue(converttotalInterestRate);
     const convertadditionalPremiumRate = this.convertNumbersToNepali(this.overdraftFixedForm.get([mainArray, index, 'additionalPremiumRate']).value, false);
     this.overdraftFixedForm.get([mainArray, index, 'additionalPremiumRateTrans']).patchValue(convertadditionalPremiumRate);
-    const convertbaseRate = this.convertNumbersToNepali(this.overdraftFixedForm.get([mainArray, index, 'baseRate']).value ? this.overdraftFixedForm.get([mainArray, index, 'baseRate']).value.toFixed(2) : '', false);
-    this.overdraftFixedForm.get([mainArray, index, 'baseRateTrans']).patchValue(convertbaseRate);
-    const convertpremiumRate = this.convertNumbersToNepali(this.overdraftFixedForm.get([mainArray, index, 'premiumRate']).value ? this.overdraftFixedForm.get([mainArray, index, 'premiumRate']).value.toFixed(2) : '', false);
-    this.overdraftFixedForm.get([mainArray, index, 'premiumRateTrans']).patchValue(convertpremiumRate);
-    const convertinterestRate = this.convertNumbersToNepali(this.overdraftFixedForm.get([mainArray, index, 'interestRate']).value, false);
-    this.overdraftFixedForm.get([mainArray, index, 'interestRateTrans']).patchValue(convertinterestRate);
-
+    // const convertbaseRate = this.convertNumbersToNepali(this.overdraftFixedForm.get([mainArray, index, 'baseRate']).value ? this.overdraftFixedForm.get([mainArray, index, 'baseRate']).value.toFixed(2) : '', false);
+    // this.overdraftFixedForm.get([mainArray, index, 'baseRateTrans']).patchValue(convertbaseRate);
+    // const convertpremiumRate = this.convertNumbersToNepali(this.overdraftFixedForm.get([mainArray, index, 'premiumRate']).value ? this.overdraftFixedForm.get([mainArray, index, 'premiumRate']).value.toFixed(2) : '', false);
+    // this.overdraftFixedForm.get([mainArray, index, 'premiumRateTrans']).patchValue(convertpremiumRate);
+    // const convertinterestRate = this.convertNumbersToNepali(this.overdraftFixedForm.get([mainArray, index, 'interestRate']).value, false);
+    // this.overdraftFixedForm.get([mainArray, index, 'interestRateTrans']).patchValue(convertinterestRate);
+    if (this.overdraftFixedForm.get([mainArray, index, 'interestRateType']).value === 'BASE_RATE_FINANCING'){
+      const convertbaseRate = this.convertNumbersToNepali(this.overdraftFixedForm.get([mainArray, index, 'baseRate']).value ? this.overdraftFixedForm.get([mainArray, index, 'baseRate']).value.toFixed(2) : 0, false);
+      this.overdraftFixedForm.get([mainArray, index, 'baseRateTrans']).patchValue(convertbaseRate);
+      const convertpremiumRate = this.convertNumbersToNepali(this.overdraftFixedForm.get([mainArray, index, 'premiumRate']).value ? this.overdraftFixedForm.get([mainArray, index, 'premiumRate']).value.toFixed(2) : 0, false);
+      this.overdraftFixedForm.get([mainArray, index, 'premiumRateTrans']).patchValue(convertpremiumRate);
+      const convertinterestRate = this.convertNumbersToNepali(this.overdraftFixedForm.get([mainArray, index, 'interestRate']).value, false);
+      this.overdraftFixedForm.get([mainArray, index, 'interestRateTrans']).patchValue(convertinterestRate);
+    }
     /* Converting value for date */
     this.overdraftFixedForm.get([mainArray, index, 'dateOfExpiryTypeTrans']).patchValue(
         this.overdraftFixedForm.get([mainArray, index, 'dateOfExpiryType']).value
