@@ -48,7 +48,8 @@ export class DetailViewBaseComponent implements OnInit {
   requestedLoanType;
   approvedSecurity = false;
   approveSecurityAsProposed = false;
-
+  checkedData;
+  proposalAllData;
   constructor(private customerLoanService: LoanFormService,
               private combinedLoanService: CombinedLoanService,
               private fiscalYearService: FiscalYearService) {
@@ -109,6 +110,10 @@ export class DetailViewBaseComponent implements OnInit {
           this.approveSecurityAsProposed = false;
         }
       }
+    }
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.proposal)) {
+      this.checkedData = JSON.parse(this.loanDataHolder.proposal.checkedData);
+      this.proposalAllData = JSON.parse(this.loanDataHolder.proposal.data);
     }
   }
 

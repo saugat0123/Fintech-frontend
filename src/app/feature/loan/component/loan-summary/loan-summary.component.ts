@@ -203,6 +203,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     initialSecurity = false;
     approvedSecurity = false;
     approvedSecurityAsProposed = false;
+    checkedData;
+    proposalAllData;
 
     constructor(
         @Inject(DOCUMENT) private _document: Document,
@@ -256,6 +258,10 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                 this.jointInfo.push(jointCustomerInfo.jointCustomerInfo);
                 this.isJointInfo = true;
             }
+        }
+        if (!ObjectUtil.isEmpty(this.loanDataHolder.proposal)) {
+            this.checkedData = JSON.parse(this.loanDataHolder.proposal.checkedData);
+            this.proposalAllData = JSON.parse(this.loanDataHolder.proposal.data);
         }
         this.loadSummary();
         this.roleType = LocalStorageUtil.getStorage().roleType;

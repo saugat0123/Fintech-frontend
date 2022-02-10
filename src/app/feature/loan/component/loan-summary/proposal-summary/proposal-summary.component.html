@@ -435,17 +435,17 @@
 
     <div class="col-md-12">
         <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small ">
-            <ng-container *ngIf="checkedData?.waiverChecked">
+            <ng-container *ngIf="checkedData?.waiverChecked && loanDataHolder?.loanHolder?.clientType !== 'CONSUMER_FINANCE'">
                 <tr class="text-white sb-bg-dark">
-                    <th>Waiver/Deviation</th>
+                    <th>Waiver</th>
                 </tr>
                 <tr>
                     <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.waiverConclusionRecommendation || 'N/A' | safeHtml"></span></td>
                 </tr>
             </ng-container>
-            <ng-container *ngIf="checkedData?.deviationChecked">
+            <ng-container *ngIf="checkedData?.deviationChecked && loanDataHolder?.loanHolder?.clientType !== 'CONSUMER_FINANCE'">
                 <tr class="text-white sb-bg-dark">
-                    <th>Waiver/Deviation</th>
+                    <th>Deviation</th>
                 </tr>
                 <tr>
                     <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.deviationConclusionRecommendation || 'N/A' | safeHtml"></span></td>

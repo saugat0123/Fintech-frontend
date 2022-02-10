@@ -24,12 +24,32 @@
                        [loanId]="loanId"
                        [loanDataHolder]="loanDataHolder"
                        [customerInfo]="loanHolder"></app-company-info-view>
-<app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0 && loanDataHolder?.loanHolder?.clientType === 'CONSUMER_FINANCE'"
-                    [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
-<app-financial-view *ngIf="loanHolder?.financial && isIndividual && loanDataHolder?.loanHolder?.clientType === 'CONSUMER_FINANCE'"
-                    [customerType]="loanHolder?.customerType"
-                    [formData]="loanHolder?.financial"></app-financial-view>
-<app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl" [ciclValue]="loanDataHolder?.loanHolder?.cicl" [loanDataHolder]="loanDataHolder"></app-cicl-view>
+<div *ngIf="loanDataHolder?.loanHolder?.clientType === 'CONSUMER_FINANCE'">
+    <app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0"
+                        [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
+    <app-financial-view *ngIf="loanHolder?.financial && isIndividual && loanDataHolder?.loanHolder?.clientType === 'CONSUMER_FINANCE'"
+                        [customerType]="loanHolder?.customerType"
+                        [formData]="loanHolder?.financial"></app-financial-view>
+    <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl" [ciclValue]="loanDataHolder?.loanHolder?.cicl" [loanDataHolder]="loanDataHolder"></app-cicl-view>
+    <ng-container *ngIf="checkedData?.waiverChecked">
+        <tr class="text-white sb-bg-dark">
+            <th>Waiver</th>
+        </tr>
+        <tr>
+            <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.waiverConclusionRecommendation || 'N/A' | safeHtml"></span></td>
+        </tr>
+    </ng-container>
+    <ng-container *ngIf="checkedData?.deviationChecked">
+        <tr class="text-white sb-bg-dark">
+            <th>Deviation</th>
+        </tr>
+        <tr>
+            <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.deviationConclusionRecommendation || 'N/A' | safeHtml"></span></td>
+        </tr>
+    </ng-container>
+
+</div>
+<app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl && loanDataHolder?.loanHolder?.clientType !== 'CONSUMER_FINANCE'" [ciclValue]="loanDataHolder?.loanHolder?.cicl" [loanDataHolder]="loanDataHolder"></app-cicl-view>
 
 <div *ngIf="megaGroupEnabled && loanDataHolder?.loanHolder.mgroupInfo">
     <app-m-group-summary [mGroup]="loanDataHolder?.loanHolder.mgroupInfo"></app-m-group-summary>
