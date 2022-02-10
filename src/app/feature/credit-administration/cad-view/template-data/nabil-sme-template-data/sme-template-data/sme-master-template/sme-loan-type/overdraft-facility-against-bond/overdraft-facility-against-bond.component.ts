@@ -263,13 +263,14 @@ export class OverdraftFacilityAgainstBondComponent implements OnInit {
         );
         const convertBondAmount = this.convertNumbersToNepali(this.overDraftFacilityForm.get([mainArray, i, 'bondAmount']).value, false);
         this.overDraftFacilityForm.get([mainArray, i, 'bondAmountTrans']).patchValue(convertBondAmount);
-        const convertBaseRate = this.convertNumbersToNepali(this.overDraftFacilityForm.get([mainArray, i, 'baseRate']).value.toFixed(2), false);
-        this.overDraftFacilityForm.get([mainArray, i, 'baseRateTrans']).patchValue(convertBaseRate);
-        const convertPremiumRate = this.convertNumbersToNepali(this.overDraftFacilityForm.get([mainArray, i, 'premiumRate']).value.toFixed(2), false);
-        this.overDraftFacilityForm.get([mainArray, i, 'premiumRateTrans']).patchValue(convertPremiumRate);
-        const convertInterestRate = this.convertNumbersToNepali(this.overDraftFacilityForm.get([mainArray, i, 'interestRate']).value, false);
-        this.overDraftFacilityForm.get([mainArray, i, 'interestRateTrans']).patchValue(convertInterestRate);
-
+        if (this.overDraftFacilityForm.get([mainArray, i, 'interestRateType']).value === 'BASE_RATE_FINANCING') {
+            const convertBaseRate = this.convertNumbersToNepali(this.overDraftFacilityForm.get([mainArray, i, 'baseRate']).value ? this.overDraftFacilityForm.get([mainArray, i, 'baseRate']).value.toFixed(2) : 0, false);
+            this.overDraftFacilityForm.get([mainArray, i, 'baseRateTrans']).patchValue(convertBaseRate);
+            const convertPremiumRate = this.convertNumbersToNepali(this.overDraftFacilityForm.get([mainArray, i, 'premiumRate']).value ? this.overDraftFacilityForm.get([mainArray, i, 'premiumRate']).value.toFixed(2) : 0, false);
+            this.overDraftFacilityForm.get([mainArray, i, 'premiumRateTrans']).patchValue(convertPremiumRate);
+            const convertInterestRate = this.convertNumbersToNepali(this.overDraftFacilityForm.get([mainArray, i, 'interestRate']).value, false);
+            this.overDraftFacilityForm.get([mainArray, i, 'interestRateTrans']).patchValue(convertInterestRate);
+        }
         // this.overDraftFacilityForm.get([mainArray, i, dateOfExpiryType']).patchValue('');
         // this.overDraftFacilityForm.get([mainArray, i, dateOfExpiry']).patchValue('');
         // this.overDraftFacilityForm.get([mainArray, i, dateOfExpiryNepali']).patchValue('');
