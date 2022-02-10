@@ -26,6 +26,7 @@ import {DisbursementConvertPipe} from './pipe/disbursement-convert.pipe';
 import {RemitCountryConvertPipe} from './pipe/remit-country-convert.pipe';
 import {ClientTypePipe} from './pipe/client-type.pipe';
 import {FinancialKeysPipe} from './pipe/financial-keys.pipe';
+import { ClientTypeShortFormPipe } from './pipe/client-type-short-form.pipe';
 
 
 const DATA_SERVICES = [];
@@ -97,8 +98,9 @@ const UTILITY_MODULES = [
         NepaliNumberPipe,
 DisbursementConvertPipe,
         RemitCountryConvertPipe,
-        ClientTypePipe
-    ], entryComponents: [LoginPopUp], providers: [NepaliNumberPipe, RemitCountryConvertPipe, ClientTypePipe]
+        ClientTypePipe,
+        ClientTypeShortFormPipe
+    ], entryComponents: [LoginPopUp], providers: [NepaliNumberPipe, RemitCountryConvertPipe, ClientTypePipe, ClientTypeShortFormPipe]
 })
 export class CoreModule {
     constructor(@Optional() @SkipSelf() parentModule: CoreModule) {

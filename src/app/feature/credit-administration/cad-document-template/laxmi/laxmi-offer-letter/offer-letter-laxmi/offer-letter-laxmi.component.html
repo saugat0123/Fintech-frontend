@@ -1,50 +1,22 @@
 <div [nbSpinner]="spinner" class="row" id="print-section-{{cadCheckListEnum.OFFER_LETTER_LAXMI}}">
     <div class="col-md-12 viewFull">
         <form (ngSubmit)="submit()" [formGroup]="offerLetterForm" class="text-justify nepali">
-            <ng-template #select>
-                <div class="card">
-                    <div class="card-header">
-                        Change Loan
-                        <a (click)="close()" aria-label="Close" class="close cursor"><span
-                                aria-hidden="true">×</span></a>
-                    </div>
-                    <div class="card-body" *ngFor="let data of loanWithSubloan; let i = index">
-                        <div class="col-md-12">
-                            <label>{{data?.loanName}}</label>
-                        </div>
-                        <div class="col-md-12">
-                            <select id="majorSourceIncomeType" class="form-control"
-                                    formControlName="subLoanType" (change)="log(data, $event.target.value)">
-                                <option value="null" hidden selected>--Select Options--</option>
-                                <option *ngFor="let m of data?.subLoanName"
-                                        [value]="m?.value">{{m?.value}}</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div>
-                        <button (click)="saveLoanSubLoan()" type="submit" class="btn btn-primary float-right pr-2"
-                                nbButton status="success">Save
-                        </button>
-                    </div>
-                </div>
-            </ng-template>
             <div class="row">
                 <div class="col-sm-12">
-                    रेफ नं.: LXBL/
+                    रेफ नं.: <u> LXBL /
                     <input type="text" class="form-field form-control-sm font-size-normal disable-print"
-                           formControlName="branchCode">
+                           formControlName="branchCode" readonly>
                     <span class="font-size-normal print-only">
                 <b>{{offerLetterForm?.get('branchCode')?.value ? offerLetterForm?.get('branchCode')?.value : '========='}}</b></span>/
-                    <input [nbDatepicker]="patraDate"
-                           class="form-field form-control-sm font-size-normal disable-print"
-                           formControlName="patraDate" placeholder="Date">
-                    <nb-datepicker #patraDate></nb-datepicker>
+                    <input class="form-field form-control-sm font-size-normal disable-print"
+                           formControlName="patraDate" placeholder="Date" type="date">
+<!--                    <nb-datepicker #patraDate></nb-datepicker>-->
                     <span class="print-only">
-                <b>{{offerLetterForm?.get('patraDate')?.value ? (offerLetterForm?.get('patraDate')?.value | date) : '========='}}</b></span>
+                <b>{{offerLetterForm?.get('patraDate')?.value ? (offerLetterForm?.get('patraDate')?.value | date) : '========='}}</b></span>/
                     <input type="text" class="form-field form-control-sm font-size-normal disable-print"
-                           formControlName="refNo" placeholder="Ref No.">
+                           formControlName="refNo" placeholder="Ref No." readonly>
                     <span class="print-only">
-                <b>{{offerLetterForm?.get('refNo')?.value ? offerLetterForm?.get('refNo')?.value : '========='}}</b></span><br>
+                <b>{{offerLetterForm?.get('refNo')?.value ? offerLetterForm?.get('refNo')?.value : '========='}}</b></span></u>
                 </div>
             </div>
             <div class="row">
@@ -2959,8 +2931,8 @@
                 </button>
             </div>
         </form>
-        <button [disabled]="!initialInfoPrint" class="btn btn-primary d-print-none"
-                [useExistingCss]="true"
+        <button [disabled]="!initialInfoPrint" class="btn btn-primary d-print-none" [nbSpinner]="buttonSpinner"
+                [useExistingCss]="true" (click)="checkOfferLetter()"
                 printSectionId="print-section-{{cadCheckListEnum.OFFER_LETTER_LAXMI}}"
                 ngxPrint>print
         </button>

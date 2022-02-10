@@ -23,6 +23,7 @@ import {LaxmiOfferLetterConst} from '../laxmi-offer-letter-const';
 import {Security} from '../../../../../loan/model/security';
 import {ShareSecurity} from '../../../../../admin/modal/shareSecurity';
 import {SiteVisit} from '../../../../../admin/modal/siteVisit';
+import {ClientTypeShortFormPipe} from '../../../../../../@core/pipe/client-type-short-form.pipe';
 
 @Component({
     selector: 'app-offer-letter-laxmi',
@@ -38,6 +39,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
     @ViewChild('select', {static: true}) modal: TemplateRef<any>;
     offerLetterForm: FormGroup;
     spinner = false;
+    buttonSpinner = false;
     initialInfoPrint;
     cadCheckListEnum = CadCheckListTemplateEnum;
     offerLetterConst = LaxmiOfferLetterConst;
@@ -76,6 +78,8 @@ export class OfferLetterLaxmiComponent implements OnInit {
     landBuildingSecurity;
     taggedGuarantor = [];
     corporateGuarantor = false;
+    loanShortForm1: string;
+    englishDate;
 
     constructor(private formBuilder: FormBuilder,
                 private administrationService: CreditAdministrationService,
@@ -87,7 +91,8 @@ export class OfferLetterLaxmiComponent implements OnInit {
                 private engToNepNumberPipe: EngToNepaliNumberPipe,
                 private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
                 private nepaliToEnglishPipe: NepaliToEngNumberPipe,
-                private nepaliNumber: NepaliNumberPipe) {
+                private nepaliNumber: NepaliNumberPipe,
+                private clientTypeShort: ClientTypeShortFormPipe) {
     }
 
     ngOnInit() {
@@ -105,22 +110,11 @@ export class OfferLetterLaxmiComponent implements OnInit {
             this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.OFFER_LETTER);
             this.fillForm();
             this.convertProposed();
-            // this.offerLetterForm.get('').patchValue(new Date());
-            // this.addOtherCovenants();
-            // this.addAcceptance();
-            // this.addEventDefault();
-            // this.addEventDefault1();
-            // this.addRepresentation();
-            // this.addPrecedent();
-            // this.saveLoanSubLoan();
         } else {
-            // this.fillForm();
             const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
             this.existingOfferLetter = true;
             this.offerLetterForm.patchValue(initialInfo);
             this.arrayOfSubloan = initialInfo.subLoanType;
-            this.fillForm();
-            // this.setSubLoanData(initialInfo.purpose);
             this.setOtherCovenants(initialInfo.covenant);
             this.setAcceptance(initialInfo.acceptance);
             this.setEventDefaul(initialInfo.eventDefault);
@@ -130,7 +124,6 @@ export class OfferLetterLaxmiComponent implements OnInit {
             this.setSecrityData(initialInfo.security);
             this.setVehicleData(initialInfo.vehicleSecurity);
             this.setShareData(initialInfo.shareSecurity);
-            console.log('initialInfo', initialInfo);
             this.initialInfoPrint = initialInfo;
         }
     }
@@ -199,7 +192,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
             date11: [undefined],
             date12: [undefined],
 
-            patraDate: [undefined],
+            patraDate: [ObjectUtil.isEmpty(this.englishDate) ? undefined : new Date(this.englishDate)],
             date: [undefined],
             phoneNo: [undefined],
             attention: [undefined],
@@ -298,49 +291,8 @@ export class OfferLetterLaxmiComponent implements OnInit {
         });
     }
 
-    log(loan, data) {
-        const data12 = {
-            loan: loan.loanName, isFunded: loan.isFunded,
-            loanNature: loan.loanNature, subLoan: data, commissionFrequency: loan.commissionFrequency
-        };
-        this.arrayOfSubloan.push(data12);
-    }
-
-    saveLoanSubLoan() {
-        const arrUniq = [...new Map(this.arrayOfSubloan.map(v => [v.loan, v])).values()];
-        this.arrayOfSubloan = arrUniq;
-        if (!ObjectUtil.isEmpty(arrUniq)) {
-            arrUniq.forEach((d, i) => {
-                if (!ObjectUtil.isEmpty(this.offerLetterForm.get(['purpose', i]))) {
-                    this.offerLetterForm.get(['purpose', i]).patchValue({
-                        loan: d.loan, subLoan: d.subLoan, isFunded: d.isFunded,
-                        loanNature: d.loanNature, commissionFrequency: d.commissionFrequency
-                    });
-                } else {
-                    this.offerLetterForm.get(['purpose', i]).patchValue({
-                        loan: d.loan, subLoan: d.subLoan, isFunded: d.isFunded,
-                        loanNature: d.loanNature, commissionFrequency: d.commissionFrequency
-                    });
-                }
-            });
-        }
-        this.close();
-    }
-
     close() {
         this.modalService.dismissAll();
-    }
-
-    checkSubLoanType() {
-        if ((this.loanName.includes('DEMAND LOAN') ||
-            this.loanName.includes('TERM LOAN') ||
-            this.loanName.includes('HOME LOAN') ||
-            this.loanName.includes('SANA BYAWASAI KARJA') ||
-            this.loanName.includes('SANA BYAWASAI KARJA - LITE') ||
-            this.loanName.includes('BANK GUARANTEE') ||
-            this.loanName.includes('TRUST RECEIPT LOAN')) && this.offerLetterForm.get('subLoanType').value === null) {
-            this.hasSubLoanType = true;
-        }
     }
 
     valueChange(value, i, formControlName) {
@@ -538,28 +490,16 @@ export class OfferLetterLaxmiComponent implements OnInit {
                 }
                 this.addPurpose(l);
             });
-            this.offerLetterForm.get('branchCode').patchValue(this.cadData.loanHolder.branch.branchCode);
-            // patch today date while generating offer letter
+            const loanShortForm = this.clientTypeShort.transform(this.cadData.loanHolder.clientType);
+            const branchCode = this.cadData.loanHolder.branch.branchCode.concat('-').concat(loanShortForm);
+            this.offerLetterForm.get('branchCode').patchValue(branchCode);
             const offerLetterDate = new Date();
-           const referenceNumber = (offerLetterDate.getFullYear().toString())
-               .concat(offerLetterDate.getMonth().toString())
-               .concat(offerLetterDate.getDay().toString())
-               .concat(this.cadData.id);
-            console.log(referenceNumber);
-            this.offerLetterForm.get('patraDate').patchValue(offerLetterDate);
-            const security: Security = this.cadData.loanHolder.security;
-            const siteVisit: SiteVisit = this.cadData.loanHolder.siteVisit;
-            if (!ObjectUtil.isEmpty(siteVisit)) {
-                this.siteVisitPresent = true;
-                const siteVisitData = JSON.parse(siteVisit.data);
-                if (siteVisitData.currentAssetsInspectionFormChecked) {
-                    this.currentAssetstPresent = true;
-                }
-            }
-            const shareSecurity: ShareSecurity = this.cadData.loanHolder.shareSecurity;
-            if (!ObjectUtil.isEmpty(shareSecurity)) {
-                this.shareData = JSON.parse(shareSecurity.approvedData);
-            }
+            const refNumber = (offerLetterDate.getFullYear().toString())
+                .concat(offerLetterDate.getMonth().toString())
+                .concat(offerLetterDate.getDay().toString()).concat('/')
+                .concat((this.cadData.id).toString().padStart(4, '0'));
+            this.offerLetterForm.get('refNo').patchValue(refNumber);
+            // this.offerLetterForm.get('patraDate').patchValue(offerLetterDate);
         }
     }
 
@@ -679,14 +619,10 @@ export class OfferLetterLaxmiComponent implements OnInit {
                 administrationAmount: [undefined],
                 reviewRate: [undefined],
                 reviewAmount: [undefined],
-                // loanProcessingRate: [undefined],
-                // loanProcessingAmount: [undefined],
                 otherRepayment: [undefined],
                 otherInterestRate: [undefined],
                 otherAdFeeChecked: [false],
-                // otherloanProcessingChecked: [false],
                 adFeeOther: [undefined],
-                // otherloanProcessing: [undefined]
             })
         );
     }
@@ -920,7 +856,6 @@ export class OfferLetterLaxmiComponent implements OnInit {
             case 'coGuaranteeCheck':
                 if (event) {
                     this.offerLetterForm.get('coGuaranteeCheck').patchValue(event);
-                    // this.offerLetterForm.get('peGuaranteeCheck').patchValue(false);
                 } else {
                     this.offerLetterForm.get('coGuaranteeCheck').patchValue(false);
                 }
