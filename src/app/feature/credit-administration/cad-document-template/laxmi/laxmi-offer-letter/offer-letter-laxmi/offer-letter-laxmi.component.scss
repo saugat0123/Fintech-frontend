@@ -103,4 +103,8 @@ input::-webkit-input-placeholder {
     display: inline;
   }
 
+  .disable-print {
+    display: none !important;
+  }
+
 }

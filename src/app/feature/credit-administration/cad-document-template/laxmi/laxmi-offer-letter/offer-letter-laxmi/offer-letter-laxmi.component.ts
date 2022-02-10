@@ -116,7 +116,6 @@ export class OfferLetterLaxmiComponent implements OnInit {
         } else {
             // this.fillForm();
             const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
-            this.initialInfoPrint = initialInfo;
             this.existingOfferLetter = true;
             this.offerLetterForm.patchValue(initialInfo);
             this.arrayOfSubloan = initialInfo.subLoanType;
@@ -132,6 +131,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
             this.setVehicleData(initialInfo.vehicleSecurity);
             this.setShareData(initialInfo.shareSecurity);
             console.log('initialInfo', initialInfo);
+            this.initialInfoPrint = initialInfo;
         }
     }
 
@@ -541,6 +541,11 @@ export class OfferLetterLaxmiComponent implements OnInit {
             this.offerLetterForm.get('branchCode').patchValue(this.cadData.loanHolder.branch.branchCode);
             // patch today date while generating offer letter
             const offerLetterDate = new Date();
+           const referenceNumber = (offerLetterDate.getFullYear().toString())
+               .concat(offerLetterDate.getMonth().toString())
+               .concat(offerLetterDate.getDay().toString())
+               .concat(this.cadData.id);
+            console.log(referenceNumber);
             this.offerLetterForm.get('patraDate').patchValue(offerLetterDate);
             const security: Security = this.cadData.loanHolder.security;
             const siteVisit: SiteVisit = this.cadData.loanHolder.siteVisit;
