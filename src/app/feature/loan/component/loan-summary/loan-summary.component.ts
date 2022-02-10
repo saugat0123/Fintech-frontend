@@ -205,6 +205,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     approvedSecurityAsProposed = false;
     checkedData;
     proposalAllData;
+    financial;
 
     constructor(
         @Inject(DOCUMENT) private _document: Document,
@@ -300,6 +301,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         // Setting financial data---
         if (!ObjectUtil.isEmpty(this.loanDataHolder.financial)) {
             this.financialData = this.loanDataHolder.financial;
+            this.financial = JSON.parse(this.financialData.data);
             this.financialSummary = true;
         }
 

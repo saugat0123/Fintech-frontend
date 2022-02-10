@@ -37,6 +37,7 @@
                         [customerType]="loanHolder?.customerType"
                         [formData]="loanHolder?.financial"></app-financial-view>
     <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl" [ciclValue]="loanDataHolder?.loanHolder?.cicl" [loanDataHolder]="loanDataHolder"></app-cicl-view>
+    <app-dbr [financialData] =  "financial" [proposalData]="proposalData"> </app-dbr>
     <ng-container *ngIf="checkedData?.waiverChecked">
         <tr class="text-white sb-bg-dark">
             <th>Waiver</th>
@@ -58,7 +59,7 @@
     <app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0"
                         [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
     <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl" [ciclValue]="loanDataHolder?.loanHolder?.cicl" [loanDataHolder]="loanDataHolder"></app-cicl-view>
-    <div *ngIf="financialKeys?.length > 0 && !isIndividual && loanDataHolder?.loanHolder?.clientType !== 'SMALL_BUSINESS_FINANCIAL_SERVICES'">
+    <div *ngIf="financialKeys?.length > 0 && !isIndividual && loanDataHolder?.loanHolder?.clientType === 'SMALL_BUSINESS_FINANCIAL_SERVICES'">
         <ng-container  *ngFor="let title of financialKeys">
             <h6>{{title | financialPipe}}</h6>
             <hr>
@@ -67,6 +68,9 @@
             </div>
         </ng-container>
     </div>
+    <app-nta-mega-summary *ngIf="loanDataHolder?.loanHolder?.netTradingAssets && fiscalYearArray?.length > 0  && loanDataHolder?.loanHolder?.clientType === 'SMALL_BUSINESS_FINANCIAL_SERVICES'"
+                          [fiscalYears]="fiscalYearArray"
+                          [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-nta-mega-summary>
 
     <ng-container *ngIf="checkedData?.waiverChecked">
         <tr class="text-white sb-bg-dark">
@@ -86,7 +90,7 @@
     </ng-container>
 
 </div>
-<app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl && loanDataHolder?.loanHolder?.clientType !== 'CONSUMER_FINANCE'" [ciclValue]="loanDataHolder?.loanHolder?.cicl" [loanDataHolder]="loanDataHolder"></app-cicl-view>
+<app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl && loanDataHolder?.loanHolder?.clientType !== 'CONSUMER_FINANCE' && loanDataHolder?.loanHolder?.clientType !== 'SMALL_BUSINESS_FINANCIAL_SERVICES'" [ciclValue]="loanDataHolder?.loanHolder?.cicl" [loanDataHolder]="loanDataHolder"></app-cicl-view>
 
 <div *ngIf="megaGroupEnabled && loanDataHolder?.loanHolder.mgroupInfo">
     <app-m-group-summary [mGroup]="loanDataHolder?.loanHolder.mgroupInfo"></app-m-group-summary>
@@ -158,7 +162,7 @@
                             [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-net-trading-assets>
  -->
 <ng-container *ngIf="(client === clientName?.ICFC) || (client === clientName?.LAXMIBANK); else otherBank">
-    <app-nta-mega-summary *ngIf="loanHolder?.netTradingAssets && fiscalYearArray?.length > 0"
+    <app-nta-mega-summary *ngIf="loanHolder?.netTradingAssets && fiscalYearArray?.length > 0  && loanDataHolder?.loanHolder?.clientType !== 'SMALL_BUSINESS_FINANCIAL_SERVICES'"
                           [fiscalYears]="fiscalYearArray"
                           [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-nta-mega-summary>
 </ng-container>

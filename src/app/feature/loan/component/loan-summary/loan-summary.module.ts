@@ -41,6 +41,7 @@ import {MultiBankingSummaryComponent} from './multi-banking-summary/multi-bankin
 import {SecurityApprovedSummaryComponent} from './security-approved-summary/security-approved-summary.component';
 import {FeatureModule} from '../../../feature.module';
 import {NetWorthModule} from '../../../newt-worth/net-worth-module';
+import {DbrModule} from '../../../dbr/dbr.module';
 
 
 const COMPONENTS = [
@@ -84,7 +85,8 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
         NepaliPatroModule,
         VideoKycModule,
         NetWorthModule,
-        LoanInformationViewModule
+        LoanInformationViewModule,
+        DbrModule,
     ],
     exports: [
         LoanSummaryComponent,

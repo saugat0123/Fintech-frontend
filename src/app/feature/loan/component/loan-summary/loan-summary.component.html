@@ -707,7 +707,7 @@
             <app-financial-summary *ngIf="financialSummary && individual && loanDataHolder?.loanHolder?.clientType === 'CONSUMER_FINANCE'" [formData]="financialData"
                                    [loanType]="loanDataHolder?.loanCategory"></app-financial-summary>
             <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl" [ciclValue]="loanDataHolder?.loanHolder?.cicl" [loanDataHolder]="loanDataHolder"></app-cicl-view>
-            <h2>DBR</h2>
+            <app-dbr [financialData] =  "financial" [proposalData]="proposalData"> </app-dbr>
             <ng-container *ngIf="checkedData?.waiverChecked">
                 <table>
                     <tr class="text-white sb-bg-dark">
@@ -733,6 +733,9 @@
             <app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0 && loanDataHolder?.loanHolder?.clientType === 'CONSUMER_FINANCE'"
                                 [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
             <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl"  [ciclValue]="loanDataHolder?.loanHolder?.cicl" [loanDataHolder]="loanDataHolder"></app-cicl-view>
+            <app-nta-mega-summary *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0 && loanDataHolder?.loanHolder?.clientType === 'SMALL_BUSINESS_FINANCIAL_SERVICES'"
+                                  [fiscalYears]="fiscalYearArray"
+                                  [netTradingAssetsData]="netTradingAssetsData"></app-nta-mega-summary>
             <ng-container *ngIf="checkedData?.waiverChecked">
                 <table>
                     <tr class="text-white sb-bg-dark">
@@ -1147,7 +1150,7 @@ loanDataHolder?.loanHolder?.clientType !== 'CONSUMER_FINANCE' &&  loanDataHolder
 
             <hr>
             <ng-container *ngIf="(client === clientName?.ICFC) || (client === clientName?.LAXMIBANK); else otherBank">
-                <app-nta-mega-summary *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0"
+                <app-nta-mega-summary *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0 && loanDataHolder?.loanHolder?.clientType !== 'SMALL_BUSINESS_FINANCIAL_SERVICES'"
                                       [fiscalYears]="fiscalYearArray"
                                       [netTradingAssetsData]="netTradingAssetsData"></app-nta-mega-summary>
             </ng-container>
