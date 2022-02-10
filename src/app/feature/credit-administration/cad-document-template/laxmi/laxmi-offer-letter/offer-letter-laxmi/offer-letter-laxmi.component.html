@@ -2823,7 +2823,7 @@
             <br>
 
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-sm-12">
                     <table class="table table-bordered table-responsive-md text-center table-sm sb-small">
                         <tr>
                             <td class="text-left pl-1">
@@ -2848,13 +2848,6 @@
                                                    formControlName="faxNumber">
                                 <span class="nepaliFont print-only"><b>{{offerLetterForm?.get('faxNumber').value ? offerLetterForm?.get('faxNumber').value : '========='}}</b> </span>
                             </td>
-                        </tr>
-                    </table>
-                </div>
-
-                <div class="col-md-6">
-                    <table class="table table-bordered table-responsive-md text-center table-sm sb-small">
-                        <tr>
                             <td class="text-left pl-1">
                                 ऋणी <br>
                                 श्री <input type="text"
@@ -2877,42 +2870,46 @@
                     </table>
                 </div>
             </div>
-
             <br>
-
-            <p class="text-center">बैंकको तर्फवाट</p>
             <div class="row">
-                <div class="col-md-6">
-                    <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                           formControlName="signature3">
-                    <span class="nepaliFont print-only"><b>{{offerLetterForm?.get('signature3').value ? offerLetterForm?.get('signature3').value : '========='}}</b> </span>
-                    <br>
-                    नाम : <input type="text"
-                                 class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                 formControlName="name3">
-                    <span class="nepaliFont print-only"><b>{{offerLetterForm?.get('name3').value ? offerLetterForm?.get('name3').value : '========='}}</b></span>
-                    <br>
-                    पद : <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                formControlName="designation3">
-                    <span class="nepaliFont print-only"><b>{{offerLetterForm?.get('designation3').value ? offerLetterForm?.get('designation3').value : '========='}}</b></span>
-                    <br>
-                    लक्ष्मी बैंक लि.
-                </div>
-                <div class="col-md-6">
-                    <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                           formControlName="signature2">
-                    <span class="nepaliFont print-only"><b>{{offerLetterForm?.get('signature2').value ? offerLetterForm?.get('signature2').value : '========='}}</b></span>
-                    <br>
-                    नाम : <input type="text"
-                                 class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                 formControlName="name2">
-                    <span class="nepaliFont print-only"><b>{{offerLetterForm?.get('name2').value ? offerLetterForm?.get('name2').value : '========='}}</b></span>
-                    <br>
-                    पद : <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                formControlName="designation2">
-                    <span class="nepaliFont print-only"><b>{{offerLetterForm?.get('designation2').value ? offerLetterForm?.get('designation2').value : '========='}}</b></span>
-                    <br>
-                    लक्ष्मी बैंक लि.
+                <div class="col-sm-12">
+                    <p class="text-center">बैंकको तर्फवाट</p>
+                    <table class="table table-borderless table-responsive-md text-center table-sm sb-small">
+                        <tr>
+                            <td>
+                                <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                       formControlName="signature3">
+                                <span class="nepaliFont print-only"><b>{{offerLetterForm?.get('signature3').value ? offerLetterForm?.get('signature3').value : '========='}}</b> </span>
+                                <br>
+                                नाम : <input type="text"
+                                             class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                             formControlName="name3">
+                                <span class="nepaliFont print-only"><b>{{offerLetterForm?.get('name3').value ? offerLetterForm?.get('name3').value : '========='}}</b></span>
+                                <br>
+                                पद : <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                            formControlName="designation3">
+                                <span class="nepaliFont print-only"><b>{{offerLetterForm?.get('designation3').value ? offerLetterForm?.get('designation3').value : '========='}}</b></span>
+                                <br>
+                                लक्ष्मी बैंक लि.
+                            </td>
+                            <td>
+                                <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                       formControlName="signature2">
+                                <span class="nepaliFont print-only"><b>{{offerLetterForm?.get('signature2').value ? offerLetterForm?.get('signature2').value : '========='}}</b></span>
+                                <br>
+                                नाम : <input type="text"
+                                             class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                             formControlName="name2">
+                                <span class="nepaliFont print-only"><b>{{offerLetterForm?.get('name2').value ? offerLetterForm?.get('name2').value : '========='}}</b></span>
+                                <br>
+                                पद : <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                            formControlName="designation2">
+                                <span class="nepaliFont print-only"><b>{{offerLetterForm?.get('designation2').value ? offerLetterForm?.get('designation2').value : '========='}}</b></span>
+                                <br>
+                                लक्ष्मी बैंक लि.
+                            </td>
+                        </tr>
+                    </table>
                 </div>
             </div>
 
