@@ -297,6 +297,8 @@ export class GuaranteeBondPersonalComponent implements OnInit {
       guarantorMunicipality1: [undefined],
       guarantorWardNo1: [undefined],
       tempWardNo2: [undefined],
+      sabikMunicipality: [undefined],
+      sabikWardNo: [undefined],
     });
 
   }
@@ -311,8 +313,8 @@ export class GuaranteeBondPersonalComponent implements OnInit {
     data.forEach(value => {
       formArray.push(this.formBuilder.group({
         name: [value.name],
-        citizenNumber: [value.citizenNumber],
-        issuedYear: [value.issuedYear],
+        citizenNo: [value.citizenNo],
+        issuedYr: [value.issuedYr],
         guarantorCDOoffice: [value.guarantorCDOoffice],
         guarantorDistrict: [value.guarantorDistrict],
         guarantorMunicipality: [value.guarantorMunicipality],
@@ -384,18 +386,22 @@ export class GuaranteeBondPersonalComponent implements OnInit {
         municipalityName: [value.municipalityName],
         wardNoName: [value.wardNoName],
         tempDistrictName: [value.tempDistrictName],
-        guaranteeNAme: [value.guaranteeNAme],
-        guaranteeCitizenshipNo: [value.guaranteeCitizenshipNo],
-        guaranteeIssueDate: [value.guaranteeIssueDate],
-        guaranteeCdoOffice: [value.guaranteeCdoOffice],
-        guaranteePermanentDistrict: [value.guaranteePermanentDistrict],
-        guaranteePermanentMunicipality: [value.guaranteePermanentMunicipality],
-        guaranteePermanentWardNo: [value.guaranteePermanentWardNo],
-        guaranteeTempDistrict: [value.guaranteeTempDistrict],
-        guaranteeTempMunicipality: [value.guaranteeTempMunicipality],
-        guaranteeTempWardNo: [value.guaranteeTempWardNo],
-        fatherMotherName: [value.fatherMotherName],
-        grandFatherGrandmomName: [value.grandFatherGrandmomName],
+        guaranteeNAme: [value.guarantorName],
+        guaranteeCitizenshipNo: [value.citizenNumber],
+        guaranteeIssueDate: [value.issuedYear],
+        guaranteeCdoOffice: [value.issuedPlace],
+        guaranteePermanentDistrict: [!ObjectUtil.isEmpty(value.guarantorPermanentDistrict) ?
+            value.guarantorPermanentDistrict.nepaliName : ''],
+        guaranteePermanentMunicipality: [!ObjectUtil.isEmpty(value.guarantorPermanentMunicipality) ?
+            value.guarantorPermanentMunicipality.nepaliName : ''],
+        guaranteePermanentWardNo: [value.guarantorPermanentWard],
+        guaranteeTempDistrict: [ !ObjectUtil.isEmpty(value.guarantorTemporaryDistrict) ?
+            value.guarantorTemporaryDistrict.nepaliName : ''],
+        guaranteeTempMunicipality: [!ObjectUtil.isEmpty(value.guarantorTemporaryMunicipality) ?
+            value.guarantorTemporaryMunicipality.nepaliName : ''],
+        guaranteeTempWardNo: [value.guarantorTemporaryWard],
+        fatherMotherName: [value.guarantorFatherName],
+        grandFatherGrandmomName: [value.guarantorGrandfatherName],
         karmachariName: [value.karmachariName],
         karmachariSanketNo: [value.karmachariSanketNo],
         itiSambatYear: [value.itiSambatYear],
@@ -417,6 +423,8 @@ export class GuaranteeBondPersonalComponent implements OnInit {
         guarantorMunicipality1: [value.guarantorMunicipality1],
         guarantorWardNo1: [value.guarantorWardNo1],
         tempWardNo2: [value.tempWardNo2],
+        sabikMunicipality: [value.sabikMunicipality],
+        sabikWardNo: [value.sabikWardNo]
 
       }));
     });

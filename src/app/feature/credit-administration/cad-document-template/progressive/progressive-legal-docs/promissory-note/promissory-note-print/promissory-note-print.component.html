@@ -1,4 +1,4 @@
-<div class="row" id="print-section-{{offerLetterConst.PROMISSORY_NOTE}}">
+<div class="row margin" id="print-section-{{offerLetterConst.PROMISSORY_NOTE}}">
 
     <div class="col-md-12 viewFull">
         <form class="nepali">
@@ -86,7 +86,7 @@
                 </p>
             </div>
             <p class="text-center mb-5"><strong>भवदीय,</strong></p>
-            <div style="margin-left: 12rem">
+            <div style="margin-left: 10rem">
                 <p>
                     दस्तखत :-........................................<br>
                     दस्तखत गर्नेको नाम :-  <span [ngClass]="{'nepaliFont unicode-size':printDocForm?.customerName!==null && printDocForm?.customerName!==''}">
@@ -144,34 +144,30 @@
                     पति/पत्निको नाम : <span
                         [ngClass]="{'nepaliFont unicode-size':printDocForm?.husbandName!==null && printDocForm?.husbandName!==''}">
           {{printDocForm.husbandName === null || printDocForm.husbandName === '' ? '_______________' : printDocForm?.husbandName}}
-        </span>
-                </p>
-            </div>
-            <p class="text-center"><strong>औठा छाप</strong>
-            <div class="text-center">
-                <table class="table  table-bordered fingerXap">
-                    <thead>
-                    <tr>
-                        <th>दाँ.</th>
-                        <th>बाँ.</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td><textarea cols="20" name=""
-                                      rows="9"
-                                      style="background-color: transparent;resize:none;outline:none;border:none;"></textarea>
-                        </td>
-                        <td><textarea cols="20" name=""
-                                      rows="9"
-                                      style="background-color: transparent;resize:none;outline:none;border:none;"></textarea>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+        </span></p>
+                <strong>औठा छाप</strong>
 
+                    <table class="table  table-bordered fingerXap mt-n4">
+                        <thead>
+                        <tr>
+                            <th>दाँ.</th>
+                            <th>बाँ.</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td><textarea cols="20" name=""
+                                          rows="9"
+                                          style="background-color: transparent;resize:none;outline:none;border:none;"></textarea>
+                            </td>
+                            <td><textarea cols="20" name=""
+                                          rows="9"
+                                          style="background-color: transparent;resize:none;outline:none;border:none;"></textarea>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
             </div>
-            <br>
             <!--<div class="row">
                 <b class="text-left">साक्षी :</b>
                 <br>
@@ -210,9 +206,8 @@
                     </div>
                 </div>
             </div>-->
-            <br>
-            <div>
-            <p><strong class="text-left mb-lg-5">साक्षी :</strong></p>
+            <div class="col">
+            <strong class="text-left mb-lg-5">साक्षी :</strong><br>
             <table class="table table-responsive-md table-borderless">
                 <thead>
                 <tr>
@@ -302,7 +297,7 @@
                 </tbody>
             </table>
             </div>
-            <div>
+            <div class="col">
                 <strong>सनाखत साक्षी</strong>
                 <br>
                 <p>ऋणीले मेरो मेरो सामुन्नेमा सहीछाप गरेको ठीक साचो हो भनी सहीछाप गर्ने
@@ -336,7 +331,6 @@
                             [ngClass]="{'nepaliFont':printDocForm?.ItisambatRojSubham!==null && printDocForm?.ItisambatRojSubham!==''}">
           {{printDocForm.ItisambatRojSubham === null || printDocForm.ItisambatRojSubham === '' ? '_______________' : printDocForm?.ItisambatRojSubham}}
         </span> ।</p>
-                <br>
             </div>
         </form>
     </div>

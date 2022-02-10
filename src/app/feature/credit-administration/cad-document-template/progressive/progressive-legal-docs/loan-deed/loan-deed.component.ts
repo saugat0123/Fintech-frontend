@@ -98,7 +98,6 @@ export class LoanDeedComponent implements OnInit {
                 citizenshipNo: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
                 date: this.nepaliData.citizenshipIssueDate ? this.nepaliData.citizenshipIssueDate : '',
                 cdoOffice: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
-                loanApprovedDate: loanAmount.initDate ? loanAmount.initDate : '',
                 gender: this.nepaliData.gender ? this.nepaliData.gender : '',
             });
         }
@@ -147,13 +146,13 @@ export class LoanDeedComponent implements OnInit {
         data.forEach((value) => {
             formArray.push(this.formBuilder.group({
                 SecuritiesSN: [value.SecuritiesSN],
-                SecuritiesSNBibaran: [value.SecuritiesSNBibaran],
+                SecuritiesSNBibaran: [value.dhitoBibaran],
                 SecuritiesDistrict: [value.collateralDistrict],
                 SecuritiesMunicipality: [value.collateralMunVdcOriginal],
                 SecuritiesWardNo: [value.collateralWardNoOld],
                 SecuritiesKeyNo: [value.plotNo],
                 SecuritiesArea: [value.areaOfCollateral],
-                SecuritiesRegNo: [value.SecuritiesRegNo],
+                SecuritiesRegNo: [value.regNo],
                 SecuritiesOwnerName: [value.collateralName],
             }));
         });
