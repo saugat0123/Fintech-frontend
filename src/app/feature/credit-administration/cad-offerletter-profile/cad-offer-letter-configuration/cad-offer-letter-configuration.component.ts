@@ -141,6 +141,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
     institutionalActYear: any;
     headingSubType: any;
     detailOption: any;
+    translatedFormGroup: FormGroup;
 
     constructor(private formBuilder: FormBuilder,
                 private titleCasePipe: TitleCasePipe,
@@ -3994,6 +3995,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
             ownerDob: [undefined],
             ownerDobTrans: [undefined],
             ownerDobCT: [undefined],
+            ownerDobNepali: [undefined],
+            ownerDobNepaliTrans: [undefined],
+            ownerDobNepaliCT: [undefined],
             ownerEmail: [undefined],
             ownerEmailTrans: [undefined],
             ownerEmailCT: [undefined],
@@ -4028,6 +4032,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
             radioOwnerDobTrans: [undefined],
             radioOwnerDobCT: [undefined],
             nepData: [undefined],
+            ownerCitizenshipIssuedDateNepali: [undefined],
+            ownerCitizenshipIssuedDateNepaliTrans: [undefined],
+            ownerCitizenshipIssuedDateNepaliCT: [undefined],
 
             // Relations Details
 
@@ -4173,12 +4180,18 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
             otherOwnerPassportIssuedDate: [undefined],
             otherOwnerPassportIssuedDateTrans: [undefined],
             otherOwnerPassportIssuedDateCT: [undefined],
+            otherOwnerPassportIssuedDateNepali: [undefined],
+            otherOwnerPassportIssuedDateNepaliTrans: [undefined],
+            otherOwnerPassportIssuedDateNepaliCT: [undefined],
             otherOwnerPassportIssuedDateOption: [undefined],
             otherOwnerPassportIssuedDateOptionTrans: [undefined],
             otherOwnerPassportIssuedDateOptionCT: [undefined],
             otherOwnerPassportValidityDate: [undefined],
             otherOwnerPassportValidityDateTrans: [undefined],
             otherOwnerPassportValidityDateCT: [undefined],
+            otherOwnerPassportValidityDateNepali: [undefined],
+            otherOwnerPassportValidityDateNepaliTrans: [undefined],
+            otherOwnerPassportValidityDateNepaliCT: [undefined],
             otherOwnerPassportValidityDateOption: [undefined],
             otherOwnerPassportValidityDateOptionTrans: [undefined],
             otherOwnerPassportValidityDateOptionCT: [undefined],
@@ -4206,9 +4219,12 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
                        ownerName : data.ownerName ? data.ownerName : '' ,
                        ownerNameTrans : data.ownerNameTrans ? data.ownerNameTrans : '' ,
                        ownerNameCT : data.ownerNameCT ? data.ownerNameCT : '' ,
-                       ownerDob: ObjectUtil.isEmpty(data.ownerDob) ? undefined : data.ownerDobCT.eDate ? data.ownerDobCT.eDate : data.ownerDobCT ,
+                       ownerDob: ObjectUtil.isEmpty(data.ownerDob) ? undefined : data.ownerDob ? new Date(data.ownerDob) : '' ,
                        ownerDobTrans : data.ownerDobTrans ? data.ownerDobTrans : '' ,
                        ownerDobCT : data.ownerDobCT ? data.ownerDobCT : '' ,
+                       ownerDobNepali: ObjectUtil.isEmpty(data.ownerDobNepaliCT) ? undefined : data.ownerDobNepaliCT ? data.ownerDobNepaliCT : '' ,
+                       ownerDobNepaliTrans : data.ownerDobNepaliTrans ? data.ownerDobNepaliTrans : '' ,
+                       ownerDobNepaliCT : data.ownerDobNepaliCT ? data.ownerDobNepaliCT : '' ,
                        ownerEmail : data.ownerEmail ? data.ownerEmail : '' ,
                        ownerEmailTrans : data.ownerEmailTrans ? data.ownerEmailTrans : '' ,
                        ownerEmailCT : data.ownerEmailCT ? data.ownerEmailCT : '' ,
@@ -4227,9 +4243,14 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
                        ownerCitizenshipIssuedDistrict : data.ownerCitizenshipIssuedDistrict ? data.ownerCitizenshipIssuedDistrict : '' ,
                        ownerCitizenshipIssuedDistrictTrans : data.ownerCitizenshipIssuedDistrictTrans ? data.ownerCitizenshipIssuedDistrictTrans : '' ,
                        ownerCitizenshipIssuedDistrictCT : data.ownerCitizenshipIssuedDistrictCT ? data.ownerCitizenshipIssuedDistrictCT : '' ,
-                       ownerCitizenshipIssuedDate : data.ownerCitizenshipIssuedDate ? data.ownerCitizenshipIssuedDate : '' ,
+                       ownerCitizenshipIssuedDate : data.ownerCitizenshipIssuedDate !== '' ?
+                               new Date(data.ownerCitizenshipIssuedDate) : '' ,
+                       ownerCitizenshipIssuedDateNepali : data.ownerCitizenshipIssuedDateNepali !== '' ?
+                           data.ownerCitizenshipIssuedDateNepali : '' ,
                        ownerCitizenshipIssuedDateTrans : data.ownerCitizenshipIssuedDateTrans ? data.ownerCitizenshipIssuedDateTrans : '' ,
                        ownerCitizenshipIssuedDateCT : data.ownerCitizenshipIssuedDateCT ? data.ownerCitizenshipIssuedDateCT : '' ,
+                       ownerCitizenshipIssuedDateNepaliTrans : data.ownerCitizenshipIssuedDateNepaliTrans ? data.ownerCitizenshipIssuedDateNepaliTrans : '' ,
+                       ownerCitizenshipIssuedDateNepaliCT : data.ownerCitizenshipIssuedDateNepaliCT ? data.ownerCitizenshipIssuedDateNepaliCT : '' ,
                        radioOwnerCitizenshipIssuedDate : data.radioOwnerCitizenshipIssuedDate ? data.radioOwnerCitizenshipIssuedDate : '' ,
                        radioOwnerCitizenshipIssuedDateTrans : data.radioOwnerCitizenshipIssuedDateTrans ? data.radioOwnerCitizenshipIssuedDateTrans : '' ,
                        radioOwnerCitizenshipIssuedDateCT : data.radioOwnerCitizenshipIssuedDateCT ? data.radioOwnerCitizenshipIssuedDateCT : '' ,
@@ -4273,7 +4294,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
                        ownerRelationMedium : data.ownerRelationMedium ? data.ownerRelationMedium : '' ,
                        ownerRelationMediumTrans : data.ownerRelationMediumTrans ? data.ownerRelationMediumTrans : '' ,
                        ownerRelationMediumCT : data.ownerRelationMediumCT ? data.ownerRelationMediumCT : '' ,
-                       ownerDobDateType : data.ownerDobDateType ? 'AD' : '' ,
+                       ownerDobDateType : data.ownerDobDateType ? data.ownerDobDateType : '' ,
                        ownerDobDateTypeTrans : data.ownerDobDateTypeTrans ? data.ownerDobDateTypeTrans : '' ,
                        ownerDobDateTypeCT : data.ownerDobDateTypeCT ? data.ownerDobDateTypeCT : '' ,
 
@@ -4338,7 +4359,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
                        indianEmbassyNo : data.indianEmbassyNo ? data.indianEmbassyNo : '' ,
                        indianEmbassyNoTrans : data.indianEmbassyNoTrans ? data.indianEmbassyNoTrans : '' ,
                        indianEmbassyNoCT : data.indianEmbassyNoCT ? data.indianEmbassyNoCT : '' ,
-                       indianEmbassyIssuedDate : data.indianEmbassyIssuedDate ? data.indianEmbassyIssuedDate : '' ,
+                       indianEmbassyIssuedDate : data.indianEmbassyIssuedDate ? new Date(data.indianEmbassyIssuedDate) : '',
                        indianEmbassyIssuedDateTrans : data.indianEmbassyIssuedDateTrans ? data.indianEmbassyIssuedDateTrans : '' ,
                        indianEmbassyIssuedDateCT : data.indianEmbassyIssuedDateCT ? data.indianEmbassyIssuedDateCT : '' ,
                        indianEmbassyIssuedFrom : data.indianEmbassyIssuedFrom ? data.indianEmbassyIssuedFrom : '' ,
@@ -4353,13 +4374,13 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
                        indianOwnerPassportNo : data.indianOwnerPassportNo ? data.indianOwnerPassportNo : '' ,
                        indianOwnerPassportNoTrans : data.indianOwnerPassportNoTrans ? data.indianOwnerPassportNoTrans : '' ,
                        indianOwnerPassportNoCT : data.indianOwnerPassportNoCT ? data.indianOwnerPassportNoCT : '' ,
-                       indianOwnerPassportIssuedDate : data.indianOwnerPassportIssuedDate ? data.indianOwnerPassportIssuedDate : '' ,
+                       indianOwnerPassportIssuedDate : data.indianOwnerPassportIssuedDate ? new Date(data.indianOwnerPassportIssuedDate) : '' ,
                        indianOwnerPassportIssuedDateTrans : data.indianOwnerPassportIssuedDateTrans ? data.indianOwnerPassportIssuedDateTrans : '' ,
                        indianOwnerPassportIssuedDateCT : data.indianOwnerPassportIssuedDateCT ? data.indianOwnerPassportIssuedDateCT : '' ,
                        indianOwnerPassportIssuedDateOption : data.indianOwnerPassportIssuedDateOption ? data.indianOwnerPassportIssuedDateOption : '' ,
                        indianOwnerPassportIssuedDateOptionTrans : data.indianOwnerPassportIssuedDateOption ? data.indianOwnerPassportIssuedDateOption : '' ,
                        indianOwnerPassportIssuedDateOptionCT : data.indianOwnerPassportIssuedDateOptionCT ? data.indianOwnerPassportIssuedDateOptionCT : '' ,
-                       indianOwnerPassportValidityDate : data.indianOwnerPassportValidityDate ? data.indianOwnerPassportValidityDate : '' ,
+                       indianOwnerPassportValidityDate : data.indianOwnerPassportValidityDate ? new Date(data.indianOwnerPassportValidityDate) : '' ,
                        indianOwnerPassportValidityDateTrans : data.indianOwnerPassportValidityDateTrans ? data.indianOwnerPassportValidityDateTrans : '' ,
                        indianOwnerPassportValidityDateCT : data.indianOwnerPassportValidityDateCT ? data.indianOwnerPassportValidityDateCT : '' ,
                        indianOwnerPassportValidityDateOption : data.indianOwnerPassportValidityDateOption ? data.indianOwnerPassportValidityDateOption : '' ,
@@ -4374,7 +4395,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
                        indianOwnerAdharCardNo : data.indianOwnerAdharCardNo ? data.indianOwnerAdharCardNo : '' ,
                        indianOwnerAdharCardNoTrans : data.indianOwnerAdharCardNoTrans ? data.indianOwnerAdharCardNoTrans : '' ,
                        indianOwnerAdharCardNoCT : data.indianOwnerAdharCardNoCT ? data.indianOwnerAdharCardNoCT : '' ,
-                       indianOwnerAdharCardIssuedDate : data.indianOwnerAdharCardIssuedDate ? data.indianOwnerAdharCardIssuedDate : '' ,
+                       indianOwnerAdharCardIssuedDate : data.indianOwnerAdharCardIssuedDate ? new Date(data.indianOwnerAdharCardIssuedDate) : '' ,
                        indianOwnerAdharCardIssuedDateTrans : data.indianOwnerAdharCardIssuedDateTrans ? data.indianOwnerAdharCardIssuedDateTrans : '' ,
                        indianOwnerAdharCardIssuedDateCT : data.indianOwnerAdharCardIssuedDateCT ? data.indianOwnerAdharCardIssuedDateCT : '' ,
                        indianOwnerAdharCardIssuedDateOption : data.indianOwnerAdharCardIssuedDateOption ? data.indianOwnerAdharCardIssuedDateOption : '' ,
@@ -4389,15 +4410,21 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
                        otherOwnerPassportNo : data.otherOwnerPassportNo ? data.otherOwnerPassportNo : '' ,
                        otherOwnerPassportNoTrans : data.otherOwnerPassportNoTrans ? data.otherOwnerPassportNoTrans : '' ,
                        otherOwnerPassportNoCT : data.otherOwnerPassportNoCT ? data.otherOwnerPassportNoCT : '' ,
-                       otherOwnerPassportIssuedDate : data.otherOwnerPassportIssuedDate ? data.otherOwnerPassportIssuedDate : '' ,
+                       otherOwnerPassportIssuedDate : data.otherOwnerPassportIssuedDate !== '' ? new Date(data.otherOwnerPassportIssuedDate) : '' ,
+                       otherOwnerPassportIssuedDateNepali : data.otherOwnerPassportIssuedDateNepali !== '' ? data.otherOwnerPassportIssuedDateNepali : '' ,
                        otherOwnerPassportIssuedDateTrans : data.otherOwnerPassportIssuedDateTrans ? data.otherOwnerPassportIssuedDateTrans : '' ,
                        otherOwnerPassportIssuedDateCT : data.otherOwnerPassportIssuedDateCT ? data.otherOwnerPassportIssuedDateCT : '' ,
+                       otherOwnerPassportIssuedDateNepaliTrans : data.otherOwnerPassportIssuedDateNepaliTrans ? data.otherOwnerPassportIssuedDateNepaliTrans : '' ,
+                       otherOwnerPassportIssuedDateNepaliCT : data.otherOwnerPassportIssuedDateNepaliCT ? data.otherOwnerPassportIssuedDateNepaliCT : '' ,
                        otherOwnerPassportIssuedDateOption : data.otherOwnerPassportIssuedDateOption ? data.otherOwnerPassportIssuedDateOption : '' ,
                        otherOwnerPassportIssuedDateOptionTrans : data.otherOwnerPassportIssuedDateOptionTrans ? data.otherOwnerPassportIssuedDateOptionTrans : '' ,
                        otherOwnerPassportIssuedDateOptionCT : data.otherOwnerPassportIssuedDateOptionCT ? data.otherOwnerPassportIssuedDateOptionCT : '' ,
-                       otherOwnerPassportValidityDate : data.otherOwnerPassportValidityDate ? data.otherOwnerPassportValidityDate : '' ,
+                       otherOwnerPassportValidityDate : data.otherOwnerPassportValidityDate !== '' ? new Date(data.otherOwnerPassportValidityDate) : '' ,
                        otherOwnerPassportValidityDateTrans : data.otherOwnerPassportValidityDateTrans ? data.otherOwnerPassportValidityDateTrans : '' ,
                        otherOwnerPassportValidityDateCT : data.otherOwnerPassportValidityDateCT ? data.otherOwnerPassportValidityDateCT : '' ,
+                       otherOwnerPassportValidityDateNepali : data.otherOwnerPassportValidityDateNepali !== '' ? data.otherOwnerPassportValidityDateNepali : '' ,
+                       otherOwnerPassportValidityDateNepaliTrans : data.otherOwnerPassportValidityDateNepaliTrans ? data.otherOwnerPassportValidityDateNepaliTrans : '' ,
+                       otherOwnerPassportValidityDateNepaliCT : data.otherOwnerPassportValidityDateNepaliCT ? data.otherOwnerPassportValidityDateNepaliCT : '' ,
                        otherOwnerPassportValidityDateOption : data.otherOwnerPassportValidityDateOption ? data.otherOwnerPassportValidityDateOption : '' ,
                        otherOwnerPassportValidityDateOptionTrans : data.otherOwnerPassportValidityDateOptionTrans ? data.otherOwnerPassportValidityDateOptionTrans : '' ,
                        otherOwnerPassportValidityDateOptionCT : data.otherOwnerPassportValidityDateOptionCT ? data.otherOwnerPassportValidityDateOptionCT : '' ,
@@ -4510,7 +4537,66 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
         if (allOwnerData.length > 0) {
             let ownerTranslatedData: any = [];
             this.spinner = true;
-            ownerTranslatedData = await this.translateService.translateForm(this.userConfigForm, 'ownerDetails', i);
+            this.translatedFormGroup = this.formBuilder.group({
+                ownerName: this.userConfigForm.get(['ownerDetails', i, 'ownerName']).value,
+                isAuthorizedPerson: this.userConfigForm.get(['ownerDetails', i, 'isAuthorizedPerson']).value,
+                ownerEmail: this.userConfigForm.get(['ownerDetails', i, 'ownerEmail']).value,
+                ownerContactNo: this.userConfigForm.get(['ownerDetails', i, 'ownerContactNo']).value,
+                ownerGender: this.userConfigForm.get(['ownerDetails', i, 'ownerGender']).value,
+                ownerMaritalStatus: this.userConfigForm.get(['ownerDetails', i, 'ownerMaritalStatus']).value,
+                ownerCitizenshipNo: this.userConfigForm.get(['ownerDetails', i, 'ownerCitizenshipNo']).value,
+                radioOwnerCitizenshipIssuedDate: this.userConfigForm.get(['ownerDetails', i, 'radioOwnerCitizenshipIssuedDate']).value,
+                ownerPanNo: this.userConfigForm.get(['ownerDetails', i, 'ownerPanNo']).value,
+                ownerSharePercentage: this.userConfigForm.get(['ownerDetails', i, 'ownerSharePercentage']).value,
+                radioOwnerDob: this.userConfigForm.get(['ownerDetails', i, 'radioOwnerDob']).value,
+                foreignAddressOption: this.userConfigForm.get(['ownerDetails', i, 'foreignAddressOption']).value,
+                foreignAddressOptionTemp: this.userConfigForm.get(['ownerDetails', i, 'foreignAddressOptionTemp']).value,
+                ownerOtherAddress: this.userConfigForm.get(['ownerDetails', i, 'ownerOtherAddress']).value,
+                ownerOtherAddressTemp: this.userConfigForm.get(['ownerDetails', i, 'ownerOtherAddressTemp']).value,
+
+                ownerFatherName: this.userConfigForm.get(['ownerDetails', i, 'ownerFatherName']).value,
+                ownerGrandFatherName: this.userConfigForm.get(['ownerDetails', i, 'ownerGrandFatherName']).value,
+                ownerFatherInLawName: this.userConfigForm.get(['ownerDetails', i, 'ownerFatherInLawName']).value,
+                ownerHusbandName: this.userConfigForm.get(['ownerDetails', i, 'ownerHusbandName']).value,
+                ownerRelationMedium: this.userConfigForm.get(['ownerDetails', i, 'ownerRelationMedium']).value,
+                ownerDobDateType: this.userConfigForm.get(['ownerDetails', i, 'ownerDobDateType']).value,
+
+                ownerPermanentWardNo: this.userConfigForm.get(['ownerDetails', i, 'ownerPermanentWardNo']).value,
+                ownerPermanentStreetTole: this.userConfigForm.get(['ownerDetails', i, 'ownerPermanentStreetTole']).value,
+
+                ownerTemporaryWardNo: this.userConfigForm.get(['ownerDetails', i, 'ownerTemporaryWardNo']).value,
+                ownerTemporaryStreetTole: this.userConfigForm.get(['ownerDetails', i, 'ownerTemporaryStreetTole']).value,
+
+                ownerPermanentAddressRadio: this.userConfigForm.get(['ownerDetails', i, 'ownerPermanentAddressRadio']).value,
+                ownerTemporaryAddressRadio: this.userConfigForm.get(['ownerDetails', i, 'ownerTemporaryAddressRadio']).value,
+
+                ownerNationality: this.userConfigForm.get(['ownerDetails', i, 'ownerNationality']).value,
+                indianOwnerDetailOption: this.userConfigForm.get(['ownerDetails', i, 'indianOwnerDetailOption']).value,
+                indianEmbassyNo: this.userConfigForm.get(['ownerDetails', i, 'indianEmbassyNo']).value,
+
+                indianEmbassyIssuedFrom: this.userConfigForm.get(['ownerDetails', i, 'indianEmbassyIssuedFrom']).value,
+                indianEmbassyIssuedDateOption: this.userConfigForm.get(['ownerDetails', i, 'indianEmbassyIssuedDateOption']).value,
+
+                indianOwnerPassportNo: this.userConfigForm.get(['ownerDetails', i, 'indianOwnerPassportNo']).value,
+
+                indianOwnerPassportIssuedDateOption: this.userConfigForm.get(['ownerDetails', i, 'indianOwnerPassportIssuedDateOption']).value,
+                indianOwnerPassportValidityDateOption: this.userConfigForm.get(['ownerDetails', i, 'indianOwnerPassportValidityDateOption']).value,
+                indianOwnerPassportIssuedFrom: this.userConfigForm.get(['ownerDetails', i, 'indianOwnerPassportIssuedFrom']).value,
+
+                indianOwnerAdharCardNo: this.userConfigForm.get(['ownerDetails', i, 'indianOwnerAdharCardNo']).value,
+
+                indianOwnerAdharCardIssuedDateOption: this.userConfigForm.get(['ownerDetails', i, 'indianOwnerAdharCardIssuedDateOption']).value,
+                indianOwnerAdharCardIssuedFrom: this.userConfigForm.get(['ownerDetails', i, 'indianOwnerAdharCardIssuedFrom']).value,
+
+                otherOwnerPassportNo: this.userConfigForm.get(['ownerDetails', i, 'otherOwnerPassportNo']).value,
+                otherOwnerPassportIssuedDateOption: this.userConfigForm.get(['ownerDetails', i, 'otherOwnerPassportIssuedDateOption']).value,
+
+                otherOwnerPassportValidityDateOption: this.userConfigForm.get(['ownerDetails', i, 'otherOwnerPassportValidityDateOption']).value,
+                otherOwnerPassportIssuedFrom: this.userConfigForm.get(['ownerDetails', i, 'otherOwnerPassportIssuedFrom']).value,
+            });
+            // ownerTranslatedData = await this.translateService.translateForm(this.userConfigForm, 'ownerDetails', i);
+            ownerTranslatedData = await this.translateService.translateForm(this.translatedFormGroup);
+
 
             // patch translated value
             this.userConfigForm.get(['ownerDetails', i]).patchValue({
@@ -4520,6 +4606,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
                 isAuthorizedPersonCT: ownerTranslatedData.isAuthorizedPerson ? ownerTranslatedData.isAuthorizedPerson : '',
                 ownerDobTrans: this.userConfigForm.get(['ownerDetails', i, 'ownerDob']).value,
                 ownerDobCT: this.userConfigForm.get(['ownerDetails', i, 'ownerDob']).value,
+                ownerDobNepaliTrans: this.userConfigForm.get(['ownerDetails', i, 'ownerDobNepali']).value,
+                ownerDobNepaliCT: this.userConfigForm.get(['ownerDetails', i, 'ownerDobNepali']).value,
                 ownerEmailTrans: ownerTranslatedData.ownerEmail ? ownerTranslatedData.ownerEmail : '',
                 ownerEmailCT: ownerTranslatedData.ownerEmail ? ownerTranslatedData.ownerEmail : '',
                 ownerContactNoTrans: ownerTranslatedData.ownerContactNo ? ownerTranslatedData.ownerContactNo : '',
@@ -4534,6 +4622,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
                 ownerCitizenshipIssuedDistrictCT: this.userConfigForm.get(['ownerDetails', i, 'ownerCitizenshipIssuedDistrict']).value,
                 ownerCitizenshipIssuedDateTrans: this.userConfigForm.get(['ownerDetails', i, 'ownerCitizenshipIssuedDate']).value,
                 ownerCitizenshipIssuedDateCT: this.userConfigForm.get(['ownerDetails', i, 'ownerCitizenshipIssuedDate']).value,
+                ownerCitizenshipIssuedDateNepaliTrans: this.userConfigForm.get(['ownerDetails', i, 'ownerCitizenshipIssuedDateNepali']).value,
+                ownerCitizenshipIssuedDateNepaliCT: this.userConfigForm.get(['ownerDetails', i, 'ownerCitizenshipIssuedDateNepali']).value,
                 radioOwnerCitizenshipIssuedDateTrans: ownerTranslatedData.radioOwnerCitizenshipIssuedDate ? ownerTranslatedData.radioOwnerCitizenshipIssuedDate : '',
                 radioOwnerCitizenshipIssuedDateCT: ownerTranslatedData.radioOwnerCitizenshipIssuedDate ? ownerTranslatedData.radioOwnerCitizenshipIssuedDate : '',
                 ownerPanNoTrans: ownerTranslatedData.ownerPanNo ? ownerTranslatedData.ownerPanNo : '',
@@ -4662,10 +4752,14 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
                 otherOwnerPassportNoCT: ownerTranslatedData.otherOwnerPassportNo ? ownerTranslatedData.otherOwnerPassportNo : '',
                 otherOwnerPassportIssuedDateTrans: this.userConfigForm.get(['ownerDetails', i, 'otherOwnerPassportIssuedDate']).value,
                 otherOwnerPassportIssuedDateCT: this.userConfigForm.get(['ownerDetails', i, 'otherOwnerPassportIssuedDate']).value,
+                otherOwnerPassportIssuedDateNepaliTrans: this.userConfigForm.get(['ownerDetails', i, 'otherOwnerPassportIssuedDateNepali']).value,
+                otherOwnerPassportIssuedDateNepaliCT: this.userConfigForm.get(['ownerDetails', i, 'otherOwnerPassportIssuedDateNepali']).value,
                 otherOwnerPassportIssuedDateOptionTrans: ownerTranslatedData.otherOwnerPassportIssuedDateOption ? ownerTranslatedData.otherOwnerPassportIssuedDateOption : '',
                 otherOwnerPassportIssuedDateOptionCT: ownerTranslatedData.otherOwnerPassportIssuedDateOption ? ownerTranslatedData.otherOwnerPassportIssuedDateOption : '',
                 otherOwnerPassportValidityDateTrans: this.userConfigForm.get(['ownerDetails', i, 'otherOwnerPassportValidityDate']).value,
                 otherOwnerPassportValidityDateCT: this.userConfigForm.get(['ownerDetails', i, 'otherOwnerPassportValidityDate']).value,
+                otherOwnerPassportValidityDateNepaliTrans: this.userConfigForm.get(['ownerDetails', i, 'otherOwnerPassportValidityDateNepali']).value,
+                otherOwnerPassportValidityDateNepaliCT: this.userConfigForm.get(['ownerDetails', i, 'otherOwnerPassportValidityDateNepali']).value,
                 otherOwnerPassportValidityDateOptionTrans: ownerTranslatedData.otherOwnerPassportValidityDateOption ? ownerTranslatedData.otherOwnerPassportValidityDateOption : '',
                 otherOwnerPassportValidityDateOptionCT: ownerTranslatedData.otherOwnerPassportValidityDateOption ? ownerTranslatedData.otherOwnerPassportValidityDateOption : '',
                 otherOwnerPassportIssuedFromTrans: ownerTranslatedData.otherOwnerPassportIssuedFrom ? ownerTranslatedData.otherOwnerPassportIssuedFrom : '',
