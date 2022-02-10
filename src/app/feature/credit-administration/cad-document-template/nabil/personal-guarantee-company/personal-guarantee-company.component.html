@@ -360,6 +360,14 @@
                                                 formControlName="issuedDate" placeholder="" type="text"/>
                                             <strong class="print-only">{{personalGuaranteeCompany.get(["guaranteeCompanies", i, "issuedDate"]).value}}</strong>
                                         </span>
+                                        <ng-container *ngIf="(guaranteeCompany?.guarantorNationality === 'Indian' && guaranteeCompany?.indianGuarantorDetailOption.en === 'Passport') || guaranteeCompany?.guarantorNationality === 'Other'">
+                                            , म्याद सकिने मिति :
+                                            <span>
+                                            <input class="form-field form-control-sm d-print-none" name="passportExpiryDate"
+                                                   formControlName="passportExpiryDate" placeholder="" type="text"/>
+                                            <strong class="print-only">{{personalGuaranteeCompany.get(["guaranteeCompanies", i, "passportExpiryDate"]).value || '_____________________'}}</strong>
+                                        </span>
+                                        </ng-container>
                                     </p>
                                 </div>
                             </div>
