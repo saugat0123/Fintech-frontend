@@ -235,7 +235,11 @@ export class LoanActionModalComponent implements OnInit {
                 } else {
                     if (verified === true) {
                         this.postAction();
-                        this.nbDialogRef.close();
+                        this.spinner = true;
+                        setTimeout(() => {
+                            this.spinner = false;
+                            this.nbDialogRef.close();
+                        }, 8000);
                     }
                 }
             });
