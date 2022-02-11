@@ -147,6 +147,7 @@ export class CompanyFormComponent implements OnInit {
     companyAddress;
     srdbAffiliatedId = false;
     disableCrgAlpha = environment.disableCrgAlpha;
+    @Input() customerType: any;
     constructor(
         private formBuilder: FormBuilder,
         private commonLocation: AddressService,
@@ -642,7 +643,8 @@ export class CompanyFormComponent implements OnInit {
             dateOfBirth: [undefined],
             addressLine1: [undefined, Validators.required],
             addressLine2: [undefined],
-            type: [null, Validators.required]
+            type: [null, Validators.required],
+            netWorth: [undefined, Validators.required]
         });
     }
 
@@ -710,7 +712,8 @@ export class CompanyFormComponent implements OnInit {
                 grandFatherName: [proprietors.grandFatherName === null ? null : proprietors.grandFatherName],
                 addressLine1: [proprietors.addressLine1 === null ? null : proprietors.addressLine1],
                 addressLine2: [proprietors.addressLine2 === null ? null : proprietors.addressLine2],
-                type: [proprietors.type === undefined ? '' : proprietors.type, Validators.required]
+                type: [proprietors.type === undefined ? '' : proprietors.type, Validators.required],
+                netWorth: [proprietors.netWorth === undefined ? '' : proprietors.netWorth, Validators.required]
             }));
         });
         return controls;
@@ -958,6 +961,7 @@ export class CompanyFormComponent implements OnInit {
             proprietors.addressLine1 = this.getProprietor()[proprietorsIndex].addressLine1;
             proprietors.addressLine2 = this.getProprietor()[proprietorsIndex].addressLine2;
             proprietors.type = this.getProprietor()[proprietorsIndex].type;
+            proprietors.netWorth = this.getProprietor()[proprietorsIndex].netWorth;
             let province = new Province();
             province = this.getProprietor()[proprietorsIndex].province;
             proprietors.province = (!ObjectUtil.isEmpty(this.getProprietor()[proprietorsIndex].province)) ? province : undefined;
