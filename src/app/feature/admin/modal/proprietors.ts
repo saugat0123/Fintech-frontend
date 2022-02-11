@@ -20,4 +20,5 @@ export class Proprietors {
     issuedPlace: string;
     fatherName: string;
     grandFatherName: string;
+    netWorth: string;
 }
