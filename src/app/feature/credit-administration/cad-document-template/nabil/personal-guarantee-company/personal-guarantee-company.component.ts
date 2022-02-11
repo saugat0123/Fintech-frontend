@@ -269,7 +269,7 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
 
     setActYear() {
         let yearOfAct = '';
-        if (!ObjectUtil.isEmpty(this.loanHolderNepData.radioActYearDate.np) && (this.loanHolderNepData.radioActYearDate.np === 'BS')) {
+        if (!ObjectUtil.isEmpty(this.loanHolderNepData.radioActYearDate) && (this.loanHolderNepData.radioActYearDate.np === 'BS')) {
             yearOfAct = this.loanHolderNepData.actYear.np ? this.loanHolderNepData.actYear.np : '';
         } else {
             yearOfAct = this.loanHolderNepData.actYear.en ? this.loanHolderNepData.actYear.en : '' ;
@@ -329,7 +329,7 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
                 date: this.personalGuaranteeCompany.get(['guaranteeCompanies', val, 'date']).value ? this.personalGuaranteeCompany.get(['guaranteeCompanies', val, 'date']).value : '',
                 day: this.personalGuaranteeCompany.get(['guaranteeCompanies', val, 'day']).value ? this.personalGuaranteeCompany.get(['guaranteeCompanies', val, 'day']).value : '',
 
-        }
+        };
         this.freeText.push(tempFreeText);
     }
     return JSON.stringify(this.freeText);
@@ -384,7 +384,11 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
       let identityIssuedDate = '';
       if (!ObjectUtil.isEmpty(individualGuarantorNepData.guarantorNationality)) {
         if (individualGuarantorNepData.guarantorNationality === 'Nepali') {
-          identityIssuedDate = !ObjectUtil.isEmpty(individualGuarantorNepData.citizenIssuedDate) ? this.englishNepaliDatePipe.transform((individualGuarantorNepData.citizenIssuedDate.en.eDate) ? (individualGuarantorNepData.citizenIssuedDate.en.eDate) : (individualGuarantorNepData.citizenIssuedDate.en), true) : '' || '';
+          if (!ObjectUtil.isEmpty(individualGuarantorNepData.radioCitizenIssuedDate) && (individualGuarantorNepData.radioCitizenIssuedDate.en === 'AD')) {
+            identityIssuedDate = !ObjectUtil.isEmpty(individualGuarantorNepData.citizenIssuedDate) ? this.englishNepaliDatePipe.transform((individualGuarantorNepData.citizenIssuedDate.en) ? (individualGuarantorNepData.citizenIssuedDate.en) : (individualGuarantorNepData.citizenIssuedDate.en), true) : '' || '';
+          } else {
+            identityIssuedDate = !ObjectUtil.isEmpty(individualGuarantorNepData.citizenIssuedDate) ? individualGuarantorNepData.citizenIssuedDate.en.nDate : '';
+          }
         }
         if (individualGuarantorNepData.guarantorNationality === 'Indian') {
           if (!ObjectUtil.isEmpty(individualGuarantorNepData.indianGuarantorDetailOption) && individualGuarantorNepData.indianGuarantorDetailOption.en === 'Embassy Certificate') {
@@ -397,7 +401,11 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
           }
         }
         if (individualGuarantorNepData.guarantorNationality === 'Other') {
-          identityIssuedDate = !ObjectUtil.isEmpty(individualGuarantorNepData.otherGuarantorPassportIssuedDate) ? this.englishNepaliDatePipe.transform((individualGuarantorNepData.otherGuarantorPassportIssuedDate.en) ? (individualGuarantorNepData.otherGuarantorPassportIssuedDate.en) : (individualGuarantorNepData.otherGuarantorPassportIssuedDate.en), true) : '' || '';
+          if (!ObjectUtil.isEmpty(individualGuarantorNepData.otherGuarantorPassportIssuedDateOption) && (individualGuarantorNepData.otherGuarantorPassportIssuedDate === 'AD')) {
+            identityIssuedDate = !ObjectUtil.isEmpty(individualGuarantorNepData.otherGuarantorPassportIssuedDate) ? this.englishNepaliDatePipe.transform((individualGuarantorNepData.otherGuarantorPassportIssuedDate.en) ? (individualGuarantorNepData.otherGuarantorPassportIssuedDate.en) : (individualGuarantorNepData.otherGuarantorPassportIssuedDate.en), true) : '' || '';
+          } else {
+            identityIssuedDate = !ObjectUtil.isEmpty(individualGuarantorNepData.otherGuarantorPassportIssuedDate) ? individualGuarantorNepData.otherGuarantorPassportIssuedDate.en.nDate : '';
+          }
         }
         return identityIssuedDate ? identityIssuedDate : '';
       }
