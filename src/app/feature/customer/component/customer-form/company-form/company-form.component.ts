@@ -644,7 +644,7 @@ export class CompanyFormComponent implements OnInit {
             addressLine1: [undefined, Validators.required],
             addressLine2: [undefined],
             type: [null, Validators.required],
-            netWorth: [undefined, Validators.required]
+            netWorth: [undefined]
         });
     }
 
@@ -713,7 +713,7 @@ export class CompanyFormComponent implements OnInit {
                 addressLine1: [proprietors.addressLine1 === null ? null : proprietors.addressLine1],
                 addressLine2: [proprietors.addressLine2 === null ? null : proprietors.addressLine2],
                 type: [proprietors.type === undefined ? '' : proprietors.type, Validators.required],
-                netWorth: [proprietors.netWorth === undefined ? '' : proprietors.netWorth, Validators.required]
+                netWorth: [proprietors.netWorth === undefined ? '' : proprietors.netWorth]
             }));
         });
         return controls;
