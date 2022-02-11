@@ -59,7 +59,6 @@ export class Section5InterstPenalChargeComponent implements OnInit {
       serviceChargeInWords: [undefined],
       detailsOfFacility: [undefined],
       serviceChargeInPercentage: [undefined],
-        numberText: [undefined],
     });
   }
 
