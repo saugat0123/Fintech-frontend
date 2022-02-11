@@ -323,7 +323,6 @@
               <td><label class="title">Father In Law Name</label></td>
               <td><input class="form-control "
                          formControlName="fatherInLawName"
-
                          name="fatherInLawName" placeholder="Father In Law Name"
                          type="text"/></td>
               <td><input disabled readonly class="form-control"
@@ -2168,8 +2167,7 @@
                     Relation</label>
                 </td>
                 <td>
-                  <select class="form-control" formControlName="relationship"
-                  >
+                  <select class="form-control" formControlName="relationship">
                     <option hidden [value]="null">Select Relation</option>
                     <option *ngFor="let relationship of relationshipList"
                             [value]="relationship?.value">{{relationship?.value}}</option>
@@ -2188,7 +2186,7 @@
                   <option value="null" hidden>Select Gender</option>
                   <option [selected]="userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'MALE'" value="MALE">Male</option>
                   <option [selected]="userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'FEMALE'"
-                          value="MALE" value="FEMALE">Female</option>
+                          value="FEMALE">Female</option>
                   <option [selected]="userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'OTHERS'"
                           value="OTHERS">Others</option>
                 </select>
@@ -2215,9 +2213,11 @@
                     <option value="1">Father Relation</option>
                   </select>
                 </td>
+                <td><input class="form-control" type="text"
+                           formControlName="relationMediumTrans" readonly/></td>
                 <td>
+                  <input class="form-control" formControlName="relationMediumCT" type="text"/>
                 </td>
-                <td></td>
               </tr>
               <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL && (userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'FEMALE' && userConfigForm.get(['guarantorDetails', i, 'relationMedium']).value == 0)">
                 <td><label class="title">Husband Name</label></td>
