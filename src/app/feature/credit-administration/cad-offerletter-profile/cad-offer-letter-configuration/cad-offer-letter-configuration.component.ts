@@ -621,10 +621,13 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
             nepData.issuedPlace ? nepData.issuedPlace.ct = this.userConfigForm.get(['guarantorDetails', index, 'issuedPlaceCT']).value : '';
 
             nepData.relationship ? nepData.relationship.ct = this.userConfigForm.get(['guarantorDetails', index, 'relationshipCT']).value : '';
+            nepData.relationMedium ? nepData.relationMedium.ct = this.userConfigForm.get(['guarantorDetails', index, 'relationMediumCT']).value : '';
             nepData.citizenNumber ? nepData.citizenNumber.ct = this.userConfigForm.get(['guarantorDetails', index, 'citizenNumberCT']).value : '';
             nepData.gender ? nepData.gender.ct = this.userConfigForm.get(['guarantorDetails', index, 'genderCT']).value : '';
             nepData.grandFatherName ? nepData.grandFatherName.ct = this.userConfigForm.get(['guarantorDetails', index, 'grandFatherNameCT']).value : '';
             nepData.fatherName ? nepData.fatherName.ct = this.userConfigForm.get(['guarantorDetails', index, 'fatherNameCT']).value : '';
+            nepData.husbandName ? nepData.husbandName.ct = this.userConfigForm.get(['guarantorDetails', index, 'husbandNameCT']).value : '';
+            nepData.fatherInLawName ? nepData.fatherInLawName.ct = this.userConfigForm.get(['guarantorDetails', index, 'fatherInLawNameCT']).value : '';
 
             nepData.permanentDistrict ? nepData.permanentDistrict.ct = this.userConfigForm.get(['guarantorDetails', index, 'permanentDistrictCT']).value : '';
             nepData.permanentProvince ? nepData.permanentProvince.ct = this.userConfigForm.get(['guarantorDetails', index, 'permanentProvinceCT']).value : '';
@@ -662,10 +665,13 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
             nepData.issuedPlace ? nepData.issuedPlace.ct = this.userConfigForm.get(['guarantorDetails', index, 'issuedPlaceCT']).value : '';
 
             nepData.relationship ? nepData.relationship.ct = this.userConfigForm.get(['guarantorDetails', index, 'relationshipCT']).value : '';
+            nepData.relationMedium ? nepData.relationMedium.ct = this.userConfigForm.get(['guarantorDetails', index, 'relationMediumCT']).value : '';
             nepData.citizenNumber ? nepData.citizenNumber.ct = this.userConfigForm.get(['guarantorDetails', index, 'citizenNumberCT']).value : '';
             nepData.gender ? nepData.gender.ct = this.userConfigForm.get(['guarantorDetails', index, 'genderCT']).value : '';
             nepData.grandFatherName ? nepData.grandFatherName.ct = this.userConfigForm.get(['guarantorDetails', index, 'grandFatherNameCT']).value : '';
             nepData.fatherName ? nepData.fatherName.ct = this.userConfigForm.get(['guarantorDetails', index, 'fatherNameCT']).value : '';
+            nepData.husbandName ? nepData.husbandName.ct = this.userConfigForm.get(['guarantorDetails', index, 'husbandNameCT']).value : '';
+            nepData.fatherInLawName ? nepData.fatherInLawName.ct = this.userConfigForm.get(['guarantorDetails', index, 'fatherInLawNameCT']).value : '';
 
             nepData.permanentDistrict ? nepData.permanentDistrict.ct = this.userConfigForm.get(['guarantorDetails', index, 'permanentDistrictCT']).value : '';
             nepData.permanentProvince ? nepData.permanentProvince.ct = this.userConfigForm.get(['guarantorDetails', index, 'permanentProvinceCT']).value : '';
@@ -684,10 +690,13 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
             nepData.issuedPlace ? nepData.issuedPlace.en = this.userConfigForm.get(['guarantorDetails', index, 'issuedPlace']).value : '';
 
             nepData.relationship ? nepData.relationship.en = this.userConfigForm.get(['guarantorDetails', index, 'relationship']).value : '';
+            nepData.relationMedium ? nepData.relationMedium.en = this.userConfigForm.get(['guarantorDetails', index, 'relationMedium']).value : '';
             nepData.citizenNumber ? nepData.citizenNumber.en = this.userConfigForm.get(['guarantorDetails', index, 'citizenNumber']).value : '';
             nepData.gender ? nepData.gender.en = this.userConfigForm.get(['guarantorDetails', index, 'gender']).value : '';
             nepData.grandFatherName ? nepData.grandFatherName.en = this.userConfigForm.get(['guarantorDetails', index, 'grandFatherName']).value : '';
             nepData.fatherName ? nepData.fatherName.en = this.userConfigForm.get(['guarantorDetails', index, 'fatherName']).value : '';
+            nepData.husbandName ? nepData.husbandName.en = this.userConfigForm.get(['guarantorDetails', index, 'husbandName']).value : '';
+            nepData.fatherInLawName ? nepData.fatherInLawName.en = this.userConfigForm.get(['guarantorDetails', index, 'fatherInLawName']).value : '';
 
             nepData.permanentDistrict ? nepData.permanentDistrict.en = this.userConfigForm.get(['guarantorDetails', index, 'permanentDistrict']).value : '';
             nepData.permanentProvince ? nepData.permanentProvince.en = this.userConfigForm.get(['guarantorDetails', index, 'permanentProvince']).value : '';
@@ -710,10 +719,13 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
             nepData.issuedPlace ? nepData.issuedPlace.np = this.userConfigForm.get(['guarantorDetails', index, 'issuedPlaceTrans']).value : '';
 
             nepData.relationship ? nepData.relationship.np = this.userConfigForm.get(['guarantorDetails', index, 'relationshipTrans']).value : '';
+            nepData.relationMedium ? nepData.relationMedium.np = this.userConfigForm.get(['guarantorDetails', index, 'relationMediumTrans']).value : '';
             nepData.citizenNumber ? nepData.citizenNumber.np = this.userConfigForm.get(['guarantorDetails', index, 'citizenNumberTrans']).value : '';
             nepData.gender ? nepData.gender.np = this.userConfigForm.get(['guarantorDetails', index, 'genderTrans']).value : '';
             nepData.grandFatherName ? nepData.grandFatherName.np = this.userConfigForm.get(['guarantorDetails', index, 'grandFatherNameTrans']).value : '';
             nepData.fatherName ? nepData.fatherName.np = this.userConfigForm.get(['guarantorDetails', index, 'fatherNameTrans']).value : '';
+            nepData.husbandName ? nepData.husbandName.np = this.userConfigForm.get(['guarantorDetails', index, 'husbandNameTrans']).value : '';
+            nepData.fatherInLawName ? nepData.fatherInLawName.np = this.userConfigForm.get(['guarantorDetails', index, 'fatherInLawNameTrans']).value : '';
 
             nepData.permanentDistrict ? nepData.permanentDistrict.np = this.userConfigForm.get(['guarantorDetails', index, 'permanentDistrictTrans']).value : '';
             nepData.permanentProvince ? nepData.permanentProvince.np = this.userConfigForm.get(['guarantorDetails', index, 'permanentProvinceTrans']).value : '';
@@ -1005,6 +1017,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
             genderTrans: [undefined],
             relationMediumCT: [undefined],
             relationMedium: [undefined],
+            relationMediumTrans: [undefined],
             husbandNameCT: [undefined],
             husbandName: [undefined],
             husbandNameTrans: [undefined],
@@ -1100,6 +1113,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
                 genderTrans: [ObjectUtil.isEmpty(nepaData.gender) ? undefined : nepaData.gender.np],
                 relationMediumCT: [ObjectUtil.isEmpty(nepaData.relationMedium) ? undefined : nepaData.relationMedium.ct],
                 relationMedium: [ObjectUtil.isEmpty(nepaData.relationMedium) ? undefined : nepaData.relationMedium.en],
+                relationMediumTrans: [ObjectUtil.isEmpty(nepaData.relationMedium) ? undefined : nepaData.relationMedium.np],
                 husbandNameCT: [ObjectUtil.isEmpty(nepaData.husbandName) ? undefined : nepaData.husbandName.ct],
                 husbandName: [ObjectUtil.isEmpty(nepaData.husbandName) ? undefined : nepaData.husbandName.en],
                 husbandNameTrans: [ObjectUtil.isEmpty(nepaData.husbandName) ? undefined : nepaData.husbandName.np],
@@ -1439,6 +1453,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
                 ? this.userConfigForm.get(['guarantorDetails', index, 'relationship']).value : '');
             this.userConfigForm.get(['guarantorDetails', index, 'relationshipCT']).patchValue(this.userConfigForm.get(['guarantorDetails', index, 'relationship']).value
                 ? this.userConfigForm.get(['guarantorDetails', index, 'relationship']).value : '');
+            this.userConfigForm.get(['guarantorDetails', index, 'relationMediumTrans']).patchValue(this.userConfigForm.get(['guarantorDetails', index, 'relationMedium']).value
+                ? this.userConfigForm.get(['guarantorDetails', index, 'relationMedium']).value : '');
+            this.userConfigForm.get(['guarantorDetails', index, 'relationMediumCT']).patchValue(this.userConfigForm.get(['guarantorDetails', index, 'relationMedium']).value
+                ? this.userConfigForm.get(['guarantorDetails', index, 'relationMedium']).value : '');
 
             this.addressFromGroup = this.formBuilder.group({
                 permanentProvince: this.userConfigForm.get(['guarantorDetails', index, 'permanentProvince']).value ? this.userConfigForm.get(['guarantorDetails', index, 'permanentProvince']).value.name : '',
