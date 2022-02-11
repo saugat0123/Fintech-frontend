@@ -76,7 +76,7 @@ export class CommonSectionTopComponent implements OnInit {
     }
     // address of customer
     const customerAddress = this.loanHolderInfo.registeredMunicipality.ct + '-' +
-        this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.registeredDistrict.ct + ' ,' +
+        this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.registeredDistrict.ct + ', ' +
         this.loanHolderInfo.registeredProvince.ct + ' प्रदेश ';
     this.form.patchValue({
       referenceNumber: autoRefNumber ? autoRefNumber : '',
