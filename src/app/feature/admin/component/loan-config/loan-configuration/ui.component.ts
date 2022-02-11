@@ -71,12 +71,13 @@ export class UIComponent implements OnInit, DoCheck {
     enableMicro = environment.microLoan;
     form: FormGroup;
     loanValOption = ['YES', 'NO'];
-    selectedLoanValidation: string = this.loanValOption[0];
+    selectedLoanValidation: string;
     validationOptions = ValidationForm.enumObject();
 
     @ViewChild('loanConfigForm', {static: true}) loanConfigForm: NgForm;
     finalRenewWithEnhancementDocument = Array<Document>();
     renewWithEnhancementDocumentList = [];
+    enableValidation = environment.validation;
 
     constructor(
         private loanTemplateService: LoanTemplateService,

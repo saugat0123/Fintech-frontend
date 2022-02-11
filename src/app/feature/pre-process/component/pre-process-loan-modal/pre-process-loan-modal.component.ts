@@ -19,6 +19,7 @@ import {LoanFormService} from '../../../loan/component/loan-form/service/loan-fo
 import {LoanConfig} from '../../../admin/modal/loan-config';
 import {CustomerInfoData} from '../../../loan/model/customerInfoData';
 import {LoanTag} from '../../../loan/model/loanTag';
+import {environment} from '../../../../../environments/environment';
 
 @Component({
     selector: 'app-pre-process-loan-modal',
@@ -46,6 +47,7 @@ export class PreProcessLoanModalComponent implements OnInit {
         {id: 'LOW', name: 'Low'},
 
     ];
+    validateUrl = environment.validationUrl;
 
     constructor(private nbDialogService: NbDialogService,
                 private dialogRef: NbDialogRef<PreProcessLoanModalComponent>,
@@ -81,14 +83,12 @@ export class PreProcessLoanModalComponent implements OnInit {
         const finalEncryptedId = this.removeSpecialCharacters(this.encryptUrl(this.customerInfoId, 'id'));
         const encryptLoanId = this.removeSpecialCharacters(this.encryptUrl(this.loanConfigId, 'loanConfigId'));
         // window.location.href = `http://localhost:4200/#/home/preprocess/${finalEncryptedId}/${finalEncryptedAt}/${encryptLoanId}`;
-        window.location.href = `http://localhost:4200/#/home/preprocess/${finalEncryptedId}/${finalEncryptedAt}/${encryptLoanId}
-                      ?loanType=${this.loanType}&customerType=${this.customerType}&customerProfileId=${this.customerProfileId}&loanCategory=${this.customerType} `;
+        window.location.href = `${this.validateUrl}/#/home/preprocess/${finalEncryptedId}/${finalEncryptedAt}/${encryptLoanId}
+        ?loanType=${this.loanType}&customerType=${this.customerType}&customerProfileId=${this.customerProfileId}&loanCategory=${this.customerType} `;
     }
 
     encryptUrl(id, key: String) {
         const i = CryptoJS.AES.encrypt(id.toString(), key).toString();
-        /*const test = CryptoJS.AES.decrypt(i.toString(), 'id').toString(CryptoJS.enc.Utf8);
-        console.log('Decrypted Value of the Token', test);*/
         return i;
     }
 
@@ -100,7 +100,6 @@ export class PreProcessLoanModalComponent implements OnInit {
     removeSpecialCharacters(data) {
         // Replaced Text
         const cipherText = data.replace(/\+/g, 'pl1U2ops').replace(/\//g, 's1L2a3S4h').replace(/=/g, 'e1Q2u3A4l');
-        console.log(cipherText);
         return cipherText;
     }
 
@@ -126,8 +125,6 @@ export class PreProcessLoanModalComponent implements OnInit {
         await this.saveLoanDetails(this.loanData);
 
         this.routeToLoanForm();
-
-        console.log('This is the final Loan Data ', this.loanData);
     }
 
     close() {

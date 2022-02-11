@@ -227,7 +227,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6" *ngIf="enableValidation">
                         <label><strong>Loan Validation</strong></label>
                         <ng-select #loanValidation="ngModel" [items]="validationOptions"
                                    bindLabel="value"

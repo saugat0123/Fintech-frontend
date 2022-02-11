@@ -8,6 +8,7 @@ import {CustomerType} from '../../../customer/model/customerType';
 import {Router} from '@angular/router';
 import {LoanType} from '../../../loan/model/loanType';
 import {CustomerInfoData} from '../../../loan/model/customerInfoData';
+import {environment} from '../../../../../environments/environment';
 
 @Component({
     selector: 'app-raised-pre-process-view',
@@ -23,6 +24,7 @@ export class RaisedPreProcessViewComponent implements OnInit {
     selectedLoan: any;
     loanLists = [];
     showOptions = false;
+    isValidationEnabled = environment.validation;
 
     constructor(private preProcessService: PreProcessService,
                 private toastService: ToastService,

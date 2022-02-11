@@ -29,7 +29,9 @@ export const environment = {
   SBS_GROUP: false,
   MEGA_GROUP: true,
   versionCheckUrl: 'http://localhost:84/version.json',
-  autoReload: true
+  autoReload: true,
+  validation: false,
+  validationUrl: 'http://localhost:4200/'
 };
 
 /*

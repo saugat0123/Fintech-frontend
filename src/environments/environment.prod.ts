@@ -15,5 +15,7 @@ export const environment = {
   MEGA_GROUP: false,
   microLoan: true,
   versionCheckUrl: 'http://localhost:84/version.json',
-  autoReload: true
+  autoReload: true,
+  validation: true,
+  validationUrl: 'http://localhost:4200/'
 };

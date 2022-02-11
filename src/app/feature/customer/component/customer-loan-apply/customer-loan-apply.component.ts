@@ -19,6 +19,7 @@ import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 import * as CryptoJS from 'crypto-js';
 import {NgxSpinnerService} from 'ngx-spinner';
 import {ValidationForm} from '../../../admin/component/loan-config/enums/validation-form';
+import {environment} from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-customer-loan-apply',
@@ -52,6 +53,7 @@ export class CustomerLoanApplyComponent implements OnInit {
   microLoanList = [];
   nonMicroLoanList = [];
   isMicroCustomer: boolean;
+  validateUrl = environment.validationUrl;
 
   constructor(
       public activeModal: NgbActiveModal,
@@ -149,7 +151,6 @@ export class CustomerLoanApplyComponent implements OnInit {
       this.spinnerService.show();
       this.loanConfigService.detail(this.applyForm.loanId).subscribe(res => {
         const loanConfig: LoanConfig = res.detail;
-        console.log(ValidationForm.keysEnum(ValidationForm.HOME_LOAN_VALIDATION));
         if (loanConfig.validationForm === ValidationForm.keysEnum(ValidationForm.HOME_LOAN_VALIDATION)) {
           console.log('Actual Access Token ', this.getATStorage());
           const encryptAt = this.encryptUrl(this.getATStorage(), 'at');
@@ -157,8 +158,8 @@ export class CustomerLoanApplyComponent implements OnInit {
           const encryptLoanId = this.removeSpecialCharacters(this.encryptUrl(loanConfig.id, 'loanConfigId'));
           const finalEncryptedAt = this.removeSpecialCharacters(encryptAt);
           const finalEncryptedId = this.removeSpecialCharacters(encryptId);
-          window.location.href = `http://localhost:4200/#/home/preprocess/${finalEncryptedId}/${finalEncryptedAt}/${encryptLoanId}
-                      ?loanType=${this.selectedLoanType}&customerType=${this.paramProp.customerType}&customerProfileId=${this.associateId}&loanCategory=${this.customerType} `;
+          window.location.href = `${this.validateUrl}/#/home/preprocess/${finalEncryptedId}/${finalEncryptedAt}/${encryptLoanId}
+          ?loanType=${this.selectedLoanType}&customerType=${this.paramProp.customerType}&customerProfileId=${this.associateId}&loanCategory=${this.customerType} `;
           this.spinnerService.hide();
           return;
         }
@@ -211,7 +212,6 @@ export class CustomerLoanApplyComponent implements OnInit {
   }
 
   routeToLoanForm() {
-    console.log('This is the loan Selected type::: ', this.selectedLoanType);
     this.router.navigate(['/home/loan/loanForm'], {
       queryParams: {
         loanId: this.applyForm.loanId,
