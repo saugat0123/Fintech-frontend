@@ -411,7 +411,8 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
         }
     }
 
-  setIdentityNo(individualGuarantorNepData) {
+
+    setIdentityNo(individualGuarantorNepData) {
     let identityNumber = '';
     if (!ObjectUtil.isEmpty(individualGuarantorNepData.guarantorNationality)) {
       if (individualGuarantorNepData.guarantorNationality === 'Nepali') {

@@ -387,6 +387,7 @@ export class PersonalGuaranteeProprietorshipComponent implements OnInit {
             return identityIssuedDate ? identityIssuedDate : '';
         }
     }
+
     setValidityDate(individualGuarantorNepData) {
         let passportValidityDate = '';
         if (!ObjectUtil.isEmpty(individualGuarantorNepData.guarantorNationality)) {
