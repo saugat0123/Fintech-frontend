@@ -9,7 +9,7 @@
             <strong>सुरक्षणमा आधारीत स्वपुञजी आवधिक कर्जा (Mortgage Term Loan)
                <ng-container *ngIf="val.complementaryOther === true">
                    बुँदा नं.
-                   <span>
+                   <span class="nepaliFont">
                        {{this.freeText ? this.freeText?.section2?.mortgageTermLoanFreeText[i]?.SNOfParentLimitMortgageTerm : '_______'}}
                    </span>
                     <ng-container
@@ -113,7 +113,7 @@
                 <span *ngIf="val.emiPaymentType === 'ON_SUBSEQUENT_MONTH' &&
                         this.freeText?.section2?.mortgageTermLoanFreeText[i]?.newEMIAutoPopulateMortgageTerm">
         <strong>कर्जा भुक्तानी शुरुः</strong>कर्जा
-        <span>
+        <span class="nepaliFont">
             {{this.freeText ? this.freeText?.section2?.mortgageTermLoanFreeText[i]?.newEMIAutoPopulateMortgageTerm : ''}}
         </span>        <!--<input
             class="form-field form-control-sm nepaliFont"
@@ -315,7 +315,7 @@
         </span>
             </p>
             <p *ngIf="this.freeText?.section2?.mortgageTermLoanFreeText[i]?.freeTextThirteen">
-    <span>
+    <span class="nepaliFont">
         {{this.freeText ? this.freeText?.section2?.mortgageTermLoanFreeText[i]?.freeTextThirteen : ''}}
     </span>
                 <!--<textarea

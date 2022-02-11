@@ -222,7 +222,7 @@
                                     <span *ngIf="data.paripassuContentsCT === 'EXISTING'"> <!--If existing paripassu is continued-->
                                 गरिदिनु भएको यथावत कायम रहने छ ।
                            </span>
-                                    <span>{{this.free?.section3?.freeText2}}</span>
+                                    <span class="nepaliFont">{{this.free?.section3?.freeText2}}</span>
                                 </p>
                             </li>
 
@@ -533,7 +533,7 @@
                             </li>
 
                             <div class="optional" *ngIf="securityTypeSecondarySharePledgeCondition">
-                                <span>{{this.free?.section3?.freeText5}}</span>
+                                <span class="nepaliFont">{{this.free?.section3?.freeText5}}</span>
                                 <app-share-pledge-securities
                                         [securityDetails]="letterData?.securities">
                                 </app-share-pledge-securities>
