@@ -152,7 +152,6 @@ export class CustomerLoanApplyComponent implements OnInit {
       this.loanConfigService.detail(this.applyForm.loanId).subscribe(res => {
         const loanConfig: LoanConfig = res.detail;
         if (loanConfig.validationForm === ValidationForm.keysEnum(ValidationForm.HOME_LOAN_VALIDATION)) {
-          console.log('Actual Access Token ', this.getATStorage());
           const encryptAt = this.encryptUrl(this.getATStorage(), 'at');
           const encryptId = this.encryptUrl(this.customerInfo.id, 'id');
           const encryptLoanId = this.removeSpecialCharacters(this.encryptUrl(loanConfig.id, 'loanConfigId'));

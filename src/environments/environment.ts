@@ -30,7 +30,7 @@ export const environment = {
   MEGA_GROUP: true,
   versionCheckUrl: 'http://localhost:84/version.json',
   autoReload: true,
-  validation: false,
+  validation: true,
   validationUrl: 'http://localhost:4200/'
 };
 
