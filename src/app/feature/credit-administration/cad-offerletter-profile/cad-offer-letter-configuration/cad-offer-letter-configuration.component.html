@@ -3496,9 +3496,11 @@
                     <option value="1">Father Relation</option>
                   </select>
                 </td>
+                <td><input class="form-control" type="text"
+                           formControlName="relationMediumTrans" readonly/></td>
                 <td>
+                  <input class="form-control" formControlName="relationMediumCT" type="text"/>
                 </td>
-                <td></td>
               </tr>
               <tr *ngIf="(userConfigForm.get(['guarantorDetails', i, 'gender']).value == 'FEMALE' && userConfigForm.get(['guarantorDetails', i, 'relationMedium']).value == 0)">
                 <td><label class="title">Husband Name</label></td>
