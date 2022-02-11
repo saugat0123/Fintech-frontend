@@ -107,4 +107,11 @@ input::-webkit-input-placeholder {
     display: none !important;
   }
 
+  .nepaliFont {
+    &.font-size-normal {
+      font-size: 18px !important;
+      font-family: Preeti !important;
+    }
+  }
+
 }
