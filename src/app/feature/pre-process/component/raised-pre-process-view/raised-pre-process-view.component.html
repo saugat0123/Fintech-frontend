@@ -3,28 +3,6 @@
         Newly Raised
     </nb-card-header>
     <nb-card-body>
-        <!--<table
-                class="table table-bordered table-hover table-sm sb-small text-center"
-                style="max-height: 400px;overflow-y: auto">
-            <thead>
-            <tr class="sb-bg-dark text-white">
-                <th>S.N</th>
-                <th>Loan Facility</th>
-                <th>Status</th>
-                <th>Created On</th>
-                <th>Action</th>
-            </tr>
-            <tr *ngFor="let processDetails of customerPreProcessData; let index = index">
-                <td>{{ index + 1}}</td>
-                <td>{{ processDetails?.loanConfig?.name}}</td>
-                <td>{{ processDetails?.status}}</td>
-                <td>{{ processDetails?.createdAt | date}}</td>
-                <td>{{ index + 1}}</td>
-            </tr>
-            </thead>
-            <tbody>
-            </tbody>
-        </table>-->
         <div class="col-md-12 form-group">
             <nb-select [(ngModel)]="selectedLoan"
                        fullWidth

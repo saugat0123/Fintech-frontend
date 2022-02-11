@@ -35,14 +35,12 @@ export class RaisedPreProcessViewComponent implements OnInit {
     ngOnInit() {
         /* For Pre process Details */
         this.getPreProcessDetails();
-        console.log('This is customer info id', this.customerInfoId);
     }
 
     getPreProcessDetails() {
         this.preProcessService.getPreProcessList(this.customerInfoId).subscribe((res: any) => {
             this.customerPreProcessData = res.detail;
             this.getLoanName(this.customerPreProcessData);
-            console.log('Customer Pre Process Details ::', this.customerPreProcessData);
         }, error => {
             this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
         });
@@ -52,7 +50,6 @@ export class RaisedPreProcessViewComponent implements OnInit {
         if (details.length > 0) {
             const tempData = details.filter((val: any) => val.status === 'RAISED');
             this.loanLists = tempData;
-            console.log('This is loan lists::', tempData);
             /*details.forEach(data => {
                 if (data.status === 'PENDING') {
                     this.loanLists.push(data);
@@ -68,7 +65,6 @@ export class RaisedPreProcessViewComponent implements OnInit {
     }
 
     openModal() {
-        console.log('Open Modal', this.customerType);
         const dialog = this.modalService.open(PreProcessLoanModalComponent, {
             context: {
                 preProcessDetails: this.selectedLoan,
