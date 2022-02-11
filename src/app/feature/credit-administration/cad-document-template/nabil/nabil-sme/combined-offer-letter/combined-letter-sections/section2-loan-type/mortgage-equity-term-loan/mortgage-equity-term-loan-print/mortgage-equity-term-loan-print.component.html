@@ -27,7 +27,7 @@
             <strong>अचल संपत्ति सुरक्षणमा आधारित आवधिक कर्जा (Equity Mortgage Term Loan)
               <ng-container *ngIf="val.complementaryOther === true">
                   बुँदा नं.
-                  <span>
+                  <span class="nepaliFont">
                        {{this.freeText ? this.freeText?.section2?.equityTermLoanFreeText[i]?.SNOfParentLimitMortgageTerm : '_______'}}
                    </span>
                   <!--<span [ngClass]="{'outside' : letterData?.marginInPercentageCT !== null && letterData?.marginInPercentageCT !== ''}">
@@ -317,8 +317,8 @@
             गरिनेछ ।
         </span><br>
             </p>
-            <p *ngIf="this.freeText?.section2?.equityTermLoanFreeText[i]?.freeTextThirteen">
-    <span>
+            <p class="nepaliFont" *ngIf="this.freeText?.section2?.equityTermLoanFreeText[i]?.freeTextThirteen">
+    <span class="nepaliFont">
         {{this.freeText ? this.freeText?.section2?.equityTermLoanFreeText[i]?.freeTextThirteen : ''}}
     </span>
                 <!--<textarea

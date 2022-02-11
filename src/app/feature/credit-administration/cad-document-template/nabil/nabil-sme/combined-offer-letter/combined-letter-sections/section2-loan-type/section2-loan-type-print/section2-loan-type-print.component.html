@@ -261,7 +261,7 @@
                             <ng-container *ngIf="this.freeInformation && this.freeInformation?.section2?.importLoanTrustReceiptFreeText[i1].freeTextTwo">
                                 <br/>
                                 <strong>कर्जा भुक्तानी तरिकाः</strong>
-                                <span>
+                                <span class="nepaliFont">
                                     {{this.freeInformation ? this.freeInformation?.section2?.importLoanTrustReceiptFreeText[i1].freeTextTwo : ''}}
                                 </span>
                             </ng-container><br>
@@ -425,7 +425,7 @@
                                 <span [ngClass]="{'outside' : val.dateOfExpiryCT !== null && val.dateOfExpiryCT !== ''}">
                             {{val.dateOfExpiryCT === null || val.dateOfExpiryCT === '' ? '___________' : val.dateOfExpiryCT}}</span>
                         </span>
-                            <p class="m-0" *ngIf="this.freeInformation && this.freeInformation?.section2?.shortTermLoanFreeText[i1]?.freeTextThree">
+                            <p class="m-0 nepaliFont" *ngIf="this.freeInformation && this.freeInformation?.section2?.shortTermLoanFreeText[i1]?.freeTextThree">
                                 {{this.freeInformation ? this.freeInformation?.section2?.shortTermLoanFreeText[i1]?.freeTextThree : ''}}
                             </p>
                         </td>
@@ -781,11 +781,11 @@
                             </p>
                             <p class="m-0" *ngIf="this.freeInformation && this.freeInformation?.section2?.bridgeGapFreeText[i1]?.freeTextSix">
                                 <strong>सुरक्षणः</strong>
-                                <span>{{this.freeInformation ? this.freeInformation?.section2?.bridgeGapFreeText[i1]?.freeTextSix : ''}}</span>
+                                <span class="nepaliFont">{{this.freeInformation ? this.freeInformation?.section2?.bridgeGapFreeText[i1]?.freeTextSix : ''}}</span>
                             </p>
                             <p class="m-0" *ngIf="this.freeInformation && this.freeInformation?.section2?.bridgeGapFreeText[i1]?.freeTextSeven">
                                 <strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong>
-                                <span>{{this.freeInformation ? this.freeInformation?.section2?.bridgeGapFreeText[i1]?.freeTextSeven : ''}}</span>
+                                <span class="nepaliFont">{{this.freeInformation ? this.freeInformation?.section2?.bridgeGapFreeText[i1]?.freeTextSeven : ''}}</span>
                             </p>
                             <p>
                                 <strong>ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
@@ -818,11 +818,11 @@
                             </p>
                             <p class="m-0" *ngIf="this.freeInformation && this.freeInformation?.section2?.bridgeGapFreeText[i1]?.freeTextEight">
                                 <strong>कर्जा प्रवाह तरिकाः</strong>
-                                <span>{{this.freeInformation ? this.freeInformation?.section2?.bridgeGapFreeText[i1]?.freeTextEight : ''}}</span>
+                                <span class="nepaliFont">{{this.freeInformation ? this.freeInformation?.section2?.bridgeGapFreeText[i1]?.freeTextEight : ''}}</span>
                             </p>
                             <p class="m-0" *ngIf="this.freeInformation && this.freeInformation?.section2?.bridgeGapFreeText[i1]?.freeTextNine">
                                 <strong>कर्जा अवधि समाप्तिः</strong>
-                                <span>{{this.freeInformation ? this.freeInformation?.section2?.bridgeGapFreeText[i1]?.freeTextNine : ''}}</span>
+                                <span class="nepaliFont">{{this.freeInformation ? this.freeInformation?.section2?.bridgeGapFreeText[i1]?.freeTextNine : ''}}</span>
                             </p>
                         </td>
                     </ng-container>
@@ -2646,7 +2646,7 @@
                                 <ng-container *ngIf="this.freeInformation && this.freeInformation?.section2?.importBillsDiscountingFreeText[i3].freeTextOne">
                                     <br/>
                                     <strong>कर्जा भुक्तानी तरिकाः </strong>
-                                    <span>
+                                    <span class="nepaliFont">
                                         {{this.freeInformation ? this.freeInformation?.section2?.importBillsDiscountingFreeText[i3].freeTextOne : ''}}
                                     </span>
                                 </ng-container>
@@ -2720,7 +2720,7 @@
                         प्राप्त गर्न बाँकी रकमहरु (Account Receivables) बैंकले संकलन गर्न सक्ने अख्तियारनामा हस्तान्तरण
                         गरिदिइएको यथावत कायम रहने छ।</span>
 
-                            <span>{{this.freeInformation ? this.freeInformation?.section2?.preExportLoanFreeText[i3]?.freeTextFour : ''}}</span>
+                            <span class="nepaliFont">{{this.freeInformation ? this.freeInformation?.section2?.preExportLoanFreeText[i3]?.freeTextFour : ''}}</span>
                             <br>
 
                             <span><strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong> स्वीकारयोग्य सामानहरुको मौज्दातको बजार मूल्य वा लागत
@@ -2733,7 +2733,7 @@
                             % बराबर रकम वा स्वीकृत
                         कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ ।</span>
 
-                            <p class="m-0" *ngIf="this.freeInformation && this.freeInformation?.section2?.preExportLoanFreeText[i3]?.freeTextFive">
+                            <p class="m-0 nepaliFont" *ngIf="this.freeInformation && this.freeInformation?.section2?.preExportLoanFreeText[i3]?.freeTextFive">
                                 {{this.freeInformation ? this.freeInformation?.section2?.preExportLoanFreeText[i3]?.freeTextFive : ''}}
                             </p>
                             <p class="m-0" *ngIf="this.freeInformation && this.freeInformation?.section2?.preExportLoanFreeText[i3]?.sulkaPreExport">
