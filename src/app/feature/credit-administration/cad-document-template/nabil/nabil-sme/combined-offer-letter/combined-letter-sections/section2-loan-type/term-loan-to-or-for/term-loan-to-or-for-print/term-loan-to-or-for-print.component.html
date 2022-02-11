@@ -58,7 +58,7 @@
             </p>
             <p *ngIf="termLoanFreeText[i]?.freeTextTen">
                 <strong>सुरक्षणः</strong>
-                <span style="text-align: justify">
+                <span style="text-align: justify" class="nepaliFont">
                         {{termLoanFreeText[i]?.freeTextTen === null || termLoanFreeText[i]?.freeTextTen === '' ? '___________' : termLoanFreeText[i]?.freeTextTen}}
                     </span>                    <!--<textarea
                        class="form-control customFont nepaliFont"
@@ -69,9 +69,9 @@
                        formControlName="freeTextTen">
                    </textarea>-->
             </p>
-            <p *ngIf="termLoanFreeText[i]?.freeTextEleven">
+            <p class="nepaliFont" *ngIf="termLoanFreeText[i]?.freeTextEleven">
                 <strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong>
-                <span>
+                <span class="nepaliFont">
                         {{termLoanFreeText[i]?.freeTextEleven === null || termLoanFreeText[i]?.freeTextEleven === '' ? '___________' : termLoanFreeText[i]?.freeTextEleven}}
                     </span>                       <!--<textarea
                         class="form-control customFont nepaliFont"
@@ -293,7 +293,7 @@
             </p>
             <p *ngIf="termLoanFreeText[i]?.freeTextTwelve">
                 <strong style="font-size: 19px">कर्जा प्रवाह तरिकाः</strong>
-                <span style="text-align: justify; line-height: 1.9em; font-size: 19px">
+                <span style="text-align: justify; line-height: 1.9em; font-size: 19px" class="nepaliFont">
                         {{termLoanFreeText[i]?.freeTextTwelve === null || termLoanFreeText[i]?.freeTextTwelve === '' ? '___________' : termLoanFreeText[i]?.freeTextTwelve}}
                     </span>
             </p><!--<textarea

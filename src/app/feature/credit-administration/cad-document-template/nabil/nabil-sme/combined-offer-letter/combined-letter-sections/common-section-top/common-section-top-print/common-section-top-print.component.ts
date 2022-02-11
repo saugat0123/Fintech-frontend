@@ -37,7 +37,7 @@ export class CommonSectionTopPrintComponent implements OnInit {
       this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
       this.addressOfBorrower = this.loanHolderInfo.registeredMunicipality.ct + '-' +
           this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.registeredDistrict.ct +
-          ' ,' + this.loanHolderInfo.registeredProvince.ct;
+          ', ' + this.loanHolderInfo.registeredProvince.ct;
     }
     // date of Approval
     const previousSanctionType  = this.tempData.smeGlobalForm.dateOfApprovalType ? this.tempData.smeGlobalForm.dateOfApprovalType : '';
