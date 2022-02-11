@@ -380,11 +380,11 @@
                                             स्वीकृत दीर्घकालिन कर्जा सीमा पुर्ण वा आंशिक रुपमा उपयोग नभएमा सो उपयोग नभएको कर्जा सीमामा <strong>०.१५</strong> प्रतिशतका दरले प्रतिबद्धता शुल्क लाग्नेछ ।
                                         </span>
                             <!--For working capital loan-->
-                            <ng-template *ngIf="isWorkingCapitalLoan" #workingCapitalCondition>
+                            <ng-container *ngIf="isWorkingCapitalLoan">
                                     <span>
                                         अल्पकालिन तथा चालु पुँजी प्रकृतिका कोषमा आधारित स्वीकृत कर्जा सुविधाका हकमा स्वीकृत कर्जा सीमाको औसत उपयोग <strong>६०</strong> प्रतिशत भन्दा कम उपयोग भएमा कम उपयोग भएको औसत कर्जा रकमको <strong>०.१५</strong> प्रतिशतका दरले प्रतिबद्घता शुल्क नवीकरण/पुनरावलोकन गरीएको समयमा वा बैंकले मागेको समयमा तिर्नु बुझाउनु पर्नेछ ।
                                     </span>
-                            </ng-template>
+                            </ng-container>
                         </p>
                     </li>
                     <li>
@@ -396,12 +396,11 @@
                                 ऋण प्रशासनिक शुल्क बापत रु.
                                 <span><strong>
                                     {{this.letterData.smeGlobalForm.serviceChargeInFigureCT ? this.letterData.smeGlobalForm.serviceChargeInFigureCT : ''}}
-                                </strong></span>
-                                । (अक्षरेपी रु.
+                                </strong></span>/- (अक्षरेपी रु.
                                 <span><strong>
                                     {{this.letterData.smeGlobalForm.serviceChargeInWordsCT ? this.letterData.smeGlobalForm.serviceChargeInWordsCT : ''}}
                                 </strong></span>
-                                मात्र)
+                                 मात्र)
                             </ng-container>
                             <ng-container *ngIf="typeOfServiceCharge === 'Service Charge In Percentage'">
                                 स्वीकृत
@@ -425,7 +424,7 @@
                     <li>
                             तपाई ऋणी तथा तपाई संग सम्बन्धित व्यक्ति/फर्म/कम्पनीहरुको साख सूचना प्रदान गरे बापत
                             प्रति
-                            सूचना रु.२,०००। शुल्क लाग्नेछ । उक्त शुल्क तपाईको खातामा खर्च जनाई कट्टा गरी लिईनेछ
+                            सूचना रु.२,०००/- शुल्क लाग्नेछ । उक्त शुल्क तपाईको खातामा खर्च जनाई कट्टा गरी लिईनेछ
                             ।
                     </li>
                 </ol>

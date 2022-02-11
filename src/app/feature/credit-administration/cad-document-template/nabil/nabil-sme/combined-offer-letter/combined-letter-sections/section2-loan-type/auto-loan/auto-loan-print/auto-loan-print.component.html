@@ -21,9 +21,8 @@
                     <strong> सीमाः
                         <ng-container *ngIf="autoLoan.complementaryOther === true">(</ng-container>
                         रु.
-                        <span>{{loanData[i]?.loanAmountNp ? loanData[i]?.loanAmountNp : ''}}</span>
-                        ।-
-                        <ng-container *ngIf="autoLoan.complementaryOther === true">)</ng-container>
+                        <span>{{loanData[i]?.loanAmountNp ? loanData[i]?.loanAmountNp : ''}}</span>/-
+                        <ng-container *ngIf="autoLoan.complementaryOther === true">) </ng-container>
                         (अक्षरेपी रु.
                         <span>{{loanData[i]?.loanAmountWords ? loanData[i]?.loanAmountWords : ''}}</span>
                         मात्र)</strong><br>
@@ -33,8 +32,8 @@
                     <ng-container *ngIf="autoLoan.vehiclePurchased === true"> गरिएको</ng-container>
                     <ng-container *ngIf="autoLoan.vehiclePurchased === false"> गरिने</ng-container>
                     सवारी साधन बैंकको नाममा दर्ता
-                    <ng-container *ngIf="autoLoan.vehicleRegistered === true"> गरिदिनुपर्नेछ</ng-container>
-                    <ng-container *ngIf="autoLoan.vehicleRegistered === false"> गरिदिइएको यथावत कायम रहनेछ
+                    <ng-container *ngIf="autoLoan.vehicleRegistered === false"> गरिदिनुपर्नेछ</ng-container>
+                    <ng-container *ngIf="autoLoan.vehicleRegistered === true"> गरिदिइएको यथावत कायम रहनेछ
                     </ng-container>
                     ।
                 </p>
@@ -67,8 +66,7 @@
                             <strong>साँवा रब्याज भुक्तानी तरिकाः</strong> साँवा र ब्याज सहितको यसैसाथ संलग्न अनुमानित तालिका बमोजिम मासिक
                             रु.
                     <span [ngClass]="{'outside' : autoLoan?.emiInfigureCT !== null && autoLoan?.emiInfigureCT !== ''}">
-                        {{autoLoan?.emiInfigureCT === null || autoLoan?.emiInfigureCT === '' ? '___________' : autoLoan?.emiInfigureCT}}</span>
-        |- (अक्षरेपि रु.
+                        {{autoLoan?.emiInfigureCT === null || autoLoan?.emiInfigureCT === '' ? '___________' : autoLoan?.emiInfigureCT}}</span>/- (अक्षरेपि रु.
                     <span [ngClass]="{'outside' : autoLoan?.emiInWordsCT !== null && autoLoan?.emiInWordsCT !== ''}">
                         {{autoLoan?.emiInWordsCT === null || autoLoan?.emiInWordsCT === '' ? '___________' : autoLoan?.emiInWordsCT}}</span>
          मात्र) का दरले
