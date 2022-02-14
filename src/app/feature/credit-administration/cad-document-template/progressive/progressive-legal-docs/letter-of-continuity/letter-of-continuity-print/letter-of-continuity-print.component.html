@@ -1,7 +1,7 @@
 <div class="row" id="print-section-{{offerLetterConst.LETTER_OF_CONTINUITY}}">
 
   <div class="col-md-12 viewFull">
-    <form>
+    <form class="margin">
       <h6 class="text-center"><strong>निरन्तरताको पत्र</strong><br>
         (Letter of Continuity)</h6>
       <strong class="text-left">
@@ -14,7 +14,7 @@
       <br>
       <br>
       <div class="row col-md-12">
-        <p>
+        <p style="line-height: 1.6">
           महोदय,<br>
           म/हामीले लिएको ऋण कर्जाको लागि मैले/हामीले गरि दिएको यसै साथ संलग्न प्रतिज्ञा पत्रमा उल्लेख
           भएको रु.
@@ -36,17 +36,17 @@
       </div>
       <p class="text-center mb-xl-5"><strong>भवदीय,</strong></p>
       <div class="row col-md-12 Sincerely mt-xl-5">
-        <table>
+        <table class="table table-bordered">
           <thead>
           <tr>
-            <td style="text-align: right;width: 20%">दस्तखत :—</td>
-            <td style="text-align: left;width: 80%">............................</td>
+            <td style="text-align: right;width: 20%;">दस्तखत :</td>
+            <td style="text-align: left;width: 80%;">............................</td>
           </tr>
           </thead>
           <tbody>
           <tr>
-            <td style="text-align: right; vertical-align: top;width: 20%">दस्तखत गर्नेको नाम :—</td>
-            <td style="text-align: left">
+            <td style="text-align: right; vertical-align: top;width: 20%;">दस्तखत गर्नेको नाम :</td>
+            <td style="text-align: left; vertical-align: top;">
               <span [ngClass]="{'nepaliFont unicode-size2' : printDocForm?.borrowerName !== null && printDocForm?.borrowerName !== ''}">
                                                 {{printDocForm?.borrowerName === null || printDocForm?.borrowerName === '' ? '____________________' : printDocForm?.borrowerName}}
                                             </span>&nbsp;
@@ -64,7 +64,7 @@
                                             </span><strong>)</strong></td>
           </tr>
           <tr>
-            <td style="text-align: right; vertical-align: top;width: 20%">स्थायी ठेगाना :—</td>
+            <td style="text-align: right; vertical-align: top;width: 20%">स्थायी ठेगाना :</td>
             <td style="text-align: left">
               <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.borrowerPermanentDistrict !== null && printDocForm?.borrowerPermanentDistrict !== ''}">
                                                 {{printDocForm?.borrowerPermanentDistrict === null || printDocForm?.borrowerPermanentDistrict === '' ? '____________________' : printDocForm?.borrowerPermanentDistrict}}
@@ -88,7 +88,7 @@
                                             </span>)</td>
           </tr>
           <tr>
-            <td style="text-align: right; vertical-align: top;width: 20%">हालको ठेगाना :—</td>
+            <td style="text-align: right; vertical-align: top;width: 20%">हालको ठेगाना :</td>
             <td style="text-align: left">
               <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.borrowerTempDistrict !== null && printDocForm?.borrowerTempDistrict !== ''}">
                                                 {{printDocForm?.borrowerTempDistrict === null || printDocForm?.borrowerTempDistrict === '' ? '____________________' : printDocForm?.borrowerTempDistrict}}
@@ -105,7 +105,7 @@
             </td>
           </tr>
           <tr>
-            <td style="text-align: right;width: 20%">वावु/आमाको नाम :—</td>
+            <td style="text-align: right;width: 20%">वावु/आमाको नाम :</td>
             <td style="text-align: left">
               <span [ngClass]="{'nepaliFont unicode-size2' : printDocForm?.borrowerParentsName !== null && printDocForm?.borrowerParentsName !== ''}">
                                                 {{printDocForm?.borrowerParentsName === null || printDocForm?.borrowerParentsName === '' ? '____________________' : printDocForm?.borrowerParentsName}}
@@ -113,7 +113,7 @@
             </td>
           </tr>
           <tr>
-            <td style="text-align: right;width: 20%">वाजे/बजैको नाम :—</td>
+            <td style="text-align: right;width: 20%">वाजे/बजैको नाम :</td>
             <td style="text-align: left">
               <span [ngClass]="{'nepaliFont unicode-size2' : printDocForm?.borrowerGrandParentsName !== null && printDocForm?.borrowerGrandParentsName !== ''}">
                                                 {{printDocForm?.borrowerGrandParentsName === null || printDocForm?.borrowerGrandParentsName === '' ? '____________________' : printDocForm?.borrowerGrandParentsName}}
@@ -121,7 +121,7 @@
             </td>
           </tr>
           <tr>
-            <td style="text-align: right;width: 20%">पति/पत्निको नाम :—</td>
+            <td style="text-align: right;width: 20%">पति/पत्निको नाम :</td>
             <td style="text-align: left">
               <span [ngClass]="{'nepaliFont unicode-size2' : printDocForm?.borrowerHusbandWifeName !== null && printDocForm?.borrowerHusbandWifeName !== ''}">
                                                 {{printDocForm?.borrowerHusbandWifeName === null || printDocForm?.borrowerHusbandWifeName === '' ? '____________________' : printDocForm?.borrowerHusbandWifeName}}
@@ -129,7 +129,7 @@
           </tr>
           <tr>
               <td style="text-align: right; width: 20%; vertical-align: top">औठा छाप :</td>
-              <td style="text-align: left"><table class="table table-bordered mt-n1" id="fingerXap">
+              <td style="text-align: left"><table class="table table-bordered mt-n2" id="fingerXap">
                   <thead>
                   <tr>
                       <th>दाँ.</th>
@@ -139,11 +139,11 @@
                   <tbody>
                   <tr>
                       <td><textarea cols="10" name=""
-                                    rows="5"
+                                    rows="6"
                                     style="background-color: transparent;resize:none;outline:none;border:none;"></textarea>
                       </td>
                       <td><textarea cols="10" name=""
-                                    rows="5"
+                                    rows="6"
                                     style="background-color: transparent;resize:none;outline:none;border:none;"></textarea>
                       </td>
                   </tr>
@@ -152,9 +152,8 @@
           </tr>
           </tbody>
         </table>
-
       </div>
-      <p><strong> साक्षी :</strong></p>
+      <p class="mt-n2"><strong> साक्षी :</strong></p>
 
 
       <!--<div *ngFor="let guarantor of printDocForm?.guarantorDetails; index as i"
@@ -236,6 +235,7 @@
                     [ngClass]="{'nepaliFont' : printDocForm?.witnessWardNo !== null && printDocForm?.witnessWardNo !== ''}">
                         {{printDocForm?.witnessWardNo === null || printDocForm?.witnessWardNo === '' ? '__________' : printDocForm?.witnessWardNo}}
                     </span></p>
+        <br>
         <p>दस्तखत:.............................<br>
             २. नाम:<span
                 [ngClass]="{'nepaliFont unicode-size2' : printDocForm?.witnessName1 !== null && printDocForm?.witnessName1 !== ''}">
@@ -268,7 +268,6 @@
 
 
       <div class="row col-md-12">
-        <br>
         <p><strong class="text-left">सनाखत साक्षी</strong>
           <br>
           ऋणीले मेरो सामुन्नेमा सहीछाप गरेको ठीक साँचो हो भनी सहीछाप गर्ने धनी वित्तीय
@@ -282,7 +281,7 @@
           <span [ngClass]="{'nepaliFont' : printDocForm?.IdentifiedHintNo !== null && printDocForm?.IdentifiedHintNo !== ''}">
                                                 {{printDocForm?.IdentifiedHintNo === null || printDocForm?.IdentifiedHintNo === '' ? '____________________' : printDocForm?.IdentifiedHintNo}}
                                             </span>)
-          <br>
+          <br><br>
           ईति सम्बत
           <span [ngClass]="{'nepaliFont' : printDocForm?.ItisambatYear !== null && printDocForm?.ItisambatYear !== ''}">
                                                 {{printDocForm?.ItisambatYear === null || printDocForm?.ItisambatYear === '' ? '____________________' : printDocForm?.ItisambatYear}}

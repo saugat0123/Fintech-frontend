@@ -67,6 +67,20 @@ export class AuthorityToDebtAccountComponent implements OnInit {
 
       this.form.patchValue({
         customerName: this.nepaliData.name ? this.nepaliData.name : '',
+        BranchName: this.nepaliData.branchName ? this.nepaliData.branchName : '',
+        accNumber: this.nepaliData.accountNo ? this.nepaliData.accountNo : '',
+        sincerlyname: this.nepaliData.name ? this.nepaliData.name : '',
+        naPraNaName: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
+        mitiName: this.nepaliData.citizenshipIssueDate ? this.nepaliData.citizenshipIssueDate : '',
+        jiPrakaName: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
+        sincerlyPermanentAddress: !ObjectUtil.isEmpty(this.nepaliData.permanentDistrict) ? this.nepaliData.permanentDistrict.nepaliName : '',
+        jillaName: !ObjectUtil.isEmpty(this.nepaliData.permanentMunicipalities) ? this.nepaliData.permanentMunicipalities.nepaliName : '',
+        jagaName: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
+        sincerlytempAddress: !ObjectUtil.isEmpty(this.nepaliData.temporaryDistrict) ? this.nepaliData.temporaryDistrict.nepaliName : '',
+        jillaName1: !ObjectUtil.isEmpty(this.nepaliData.temporaryMunicipalities) ? this.nepaliData.temporaryMunicipalities.nepaliName : '',
+        jagaName1: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
+        parentName: this.nepaliData.fatherName ? this.nepaliData.fatherName : '',
+        grandParentsName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
       });
     }
   }

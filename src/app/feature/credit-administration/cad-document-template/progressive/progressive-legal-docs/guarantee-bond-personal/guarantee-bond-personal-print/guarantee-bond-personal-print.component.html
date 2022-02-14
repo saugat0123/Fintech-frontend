@@ -1,7 +1,7 @@
 <div id="print-section-{{offerLetterConst.GUARANTEE_BOND_PERSONAL}}">
     <div class="col-md-12 viewFull">
         <form>
-            <div *ngFor="let guarantor of printDocForm?.guarantorDetails; index as i">
+            <div *ngFor="let guarantor of printDocForm?.guarantorDetails; index as i" class="margin">
             <div class="nepali">
                 <div class="text-center">
                     <strong>बिषयः व्यक्तिगत जमानत</strong>
@@ -26,11 +26,16 @@
                             {{guarantor?.parentName === null || guarantor?.parentName === '' ? '_________________' : guarantor?.parentName}}
                         </span>
                     को/की छोरा/छोरी <span
-                        [ngClass]="{'nepaliFont unicode-size2' : guarantor?.husbandName !== null && guarantor?.husbandName !== ''}">
-                            {{guarantor?.husbandName === null || guarantor?.husbandName === '' ? '_________________' : guarantor?.husbandName}}
+                        [ngClass]="{'nepaliFont unicode-size2' : guarantor?.husbandWifeName !== null && guarantor?.husbandWifeName !== ''}">
+                            {{guarantor?.husbandWifeName === null || guarantor?.husbandWifeName === '' ? '_________________' : guarantor?.husbandWifeName}}
                         </span>
                     को/की पति/पत्नी,
                     नागरिकता वमोजिम
+                    <span
+                        [ngClass]="{'nepaliFont unicode-size' : guarantor?.district !== null && guarantor?.district !== ''}">
+                            {{guarantor?.district === null || guarantor?.district === '' ? '_________________' : guarantor?.district}}
+                        </span>
+                    जिल्ला,
                     साविक
                     <span
                             [ngClass]="{'nepaliFont unicode-size2' : guarantor?.sabikMunicipality !== null && guarantor?.sabikMunicipality !== ''}">
@@ -43,10 +48,6 @@
                         </span>,
                     (परिवर्तीत ठेगाना)
                     <span
-                        [ngClass]="{'nepaliFont unicode-size' : guarantor?.district !== null && guarantor?.district !== ''}">
-                            {{guarantor?.district === null || guarantor?.district === '' ? '_________________' : guarantor?.district}}
-                        </span>
-                    जिल्ला, <span
                         [ngClass]="{'nepaliFont unicode-size' : guarantor?.municipality !== null && guarantor?.municipality !== ''}">
                                 {{guarantor?.municipality === null || guarantor?.municipality === '' ? '_________________' : guarantor?.municipality}}
                             </span>
@@ -96,8 +97,8 @@
     {{guarantor?.buttonParentName === null || guarantor?.buttonParentName === '' ? '_________________' : guarantor?.buttonParentName}}
 </span> को/की
                     छोरा/छोरी <span
-                        [ngClass]="{'nepaliFont unicode-size2' : guarantor?.buttonHusbandName !== null && guarantor?.buttonHusbandName !== ''}">
-                        {{guarantor?.buttonHusbandName === null || guarantor?.buttonHusbandName === '' ? '_________________' : guarantor?.buttonHusbandName}}
+                        [ngClass]="{'nepaliFont unicode-size2' : guarantor?.buttonhusbandName !== null && guarantor?.buttonhusbandName !== ''}">
+                        {{guarantor?.buttonhusbandName === null || guarantor?.buttonhusbandName === '' ? '_________________' : guarantor?.buttonhusbandName}}
                     </span> को/की
                     पति/पत्नी,
                     नागरिकता वमोजिम <span
@@ -435,9 +436,7 @@
 </span>
 
                 </p>
-                <br>
                 औठा छाप
-
                 <div>
                     <table style="width: 35%;" class="table  table-bordered text-center">
 
@@ -538,7 +537,7 @@
                     [ngClass]="{'nepaliFont' : guarantor?.karmachariSanketNo !== null && guarantor?.karmachariSanketNo !== ''}">
     {{guarantor?.karmachariSanketNo === null || guarantor?.karmachariSanketNo === '' ? '_________________' : guarantor?.karmachariSanketNo}}
 </span> )
-    <p class="text-center">
+    <p class="text-center mt-2">
                 ईति सम्बत <span
                     [ngClass]="{'nepaliFont' : guarantor?.itiSambatYear !== null && guarantor?.itiSambatYear !== ''}">
     {{guarantor?.itiSambatYear === null || guarantor?.itiSambatYear === '' ? '_________________' : guarantor?.itiSambatYear}}
@@ -563,4 +562,3 @@
 
     </div>
 </div>
-

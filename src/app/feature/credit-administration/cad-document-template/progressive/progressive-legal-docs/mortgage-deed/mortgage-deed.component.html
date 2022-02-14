@@ -1,12 +1,8 @@
 <html>
 <head>
-  <style type="text/css" media="screen">
-    @page land {size: A4 landscape; }
-    .landscape {page:land;}
-  </style>
 </head>
 <body>
-<div [nbSpinner]="spinner" class="row landscape" class="row" id="{{offerLetterConst.MORTGAGE_DEED}}">
+<div [nbSpinner]="spinner" class="row landscape" id="{{offerLetterConst.MORTGAGE_DEED}}">
   <div class="col-md-12 viewFull">
     <form (ngSubmit)="onSubmit()" [formGroup]="form">
       <div class="row justify-content-end">

@@ -63,9 +63,9 @@ export class LoanDeedComponent implements OnInit {
                         this.setSwikriti(initialInfo.swikritiBibaran);
                     }
 
-                    if (!ObjectUtil.isEmpty(initialInfo.security)) {
+                    /*if (!ObjectUtil.isEmpty(initialInfo.security)) {
                         this.setSecurity(initialInfo.security);
-                    }
+                    }*/
 
 
                     this.form.patchValue(this.initialInfoPrint);
