@@ -39,7 +39,7 @@
                         [customerType]="loanHolder?.customerType"
                         [formData]="loanHolder?.financial"></app-financial-view>
     <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl" [ciclValue]="loanDataHolder?.loanHolder?.cicl" [loanDataHolder]="loanDataHolder"></app-cicl-view>
-    <app-dbr [financialData] =  "financial" [proposalData]="proposalData"> </app-dbr>
+    <app-dbr *ngIf="financial" [financialData] =  "financial" [proposalData]="proposalData"> </app-dbr>
     <ng-container *ngIf="checkedData?.waiverChecked">
         <tr class="text-white sb-bg-dark">
             <th>Waiver</th>
@@ -72,7 +72,7 @@
     </div>
     <app-nta-mega-summary *ngIf="loanDataHolder?.loanHolder?.netTradingAssets && fiscalYearArray?.length > 0  && smallBusiness"
                           [fiscalYears]="fiscalYearArray"
-                          [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-nta-mega-summary>
+                          [netTradingAssetsData]="loanDataHolder?.loanHolder?.netTradingAssets"></app-nta-mega-summary>
 
     <ng-container *ngIf="checkedData?.waiverChecked">
         <tr class="text-white sb-bg-dark">

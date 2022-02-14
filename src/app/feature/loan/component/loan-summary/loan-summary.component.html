@@ -781,7 +781,7 @@
             <app-financial-summary *ngIf="financialSummary && individual" [formData]="financialData"
                                    [loanType]="loanDataHolder?.loanCategory"></app-financial-summary>
             <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl" [ciclValue]="loanDataHolder?.loanHolder?.cicl" [loanDataHolder]="loanDataHolder"></app-cicl-view>
-            <app-dbr [financialData] =  "financial" [proposalData]="proposalData"> </app-dbr>
+            <app-dbr *ngIf="financial" [financialData] =  "financial" [proposalData]="proposalData"> </app-dbr>
             <ng-container *ngIf="checkedData?.waiverChecked">
                 <table>
                     <tr class="text-white sb-bg-dark">
