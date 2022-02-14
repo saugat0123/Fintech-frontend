@@ -39,8 +39,7 @@
                                             रु.<input
                                                 class="form-field form-control-sm"
                                                 value="{{irrevocableLetter[i1] ? irrevocableLetter[i1].loanAmountNp : ''}}"
-                                                type="text"/>
-                                            ।–
+                                                type="text"/>/–
                                         </ng-container>
                                         (अक्षरेपी रु.<input class="form-field form-control-sm"
                                                             value="{{irrevocableLetter[i1] ? irrevocableLetter[i1].loanAmountWords : ''}}"
@@ -66,7 +65,7 @@
                                     रु.<input class="form-field form-control-sm"
                                               formControlName="commissionAmountIrrevocable"
                                               placeholder=""
-                                              type="text"/>।– लाग्नेछ ।
+                                              type="text"/>/– लाग्नेछ ।
                                 </p>
 
                                 <!--Commission Type 2-->
@@ -177,7 +176,7 @@
                                     रु.<input class="form-field form-control-sm "
                                               formControlName="commissionAmountTimeLetter"
                                               placeholder=""
-                                              type="text"/>।–लाग्नेछ ।<br>
+                                              type="text"/>।– लाग्नेछ ।<br>
                                 </p>
                                 <p>
                             <span *ngIf="val.loanOption === 'REGULAR'"><strong>सुविधा समाप्ति/पुनरावलोकन मितिः</strong>
@@ -366,7 +365,7 @@
                                         formControlName="loanDaysShortTermLoan"
                                         placeholder=""
                                         type="text"/>दिने पटके अल्पकालिन कर्जा (One off Basis Short Term
-                    Loan for <input class="form-field form-control-sm "
+                    Loan for <input class="form-field form-control-sm nepaliFont"
                                     formControlName="loanDaysShortTermLoanInEng"
                                     placeholder=""
                                     type="text"/>days)
@@ -428,8 +427,7 @@
                                             class="form-field form-control-sm"
                                             value="{{revolvingShortTerm[i1] ? revolvingShortTerm[i1].loanAmountNp : ''}}"
                                             placeholder=""
-                                            type="text"/>
-                                        /–
+                                            type="text"/>/–
                                     </ng-container>
                                     (अक्षरेपी रु.<input class="form-field form-control-sm "
                                                         value="{{revolvingShortTerm[i1] ? revolvingShortTerm[i1].loanAmountWords : ''}}"
@@ -573,7 +571,7 @@
                                    formControlName="drawingPowerOverdraftLoan"
                                    placeholder=""
                                    type="text"/>% बराबर रकम वा स्वीकृत
-                    कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ ।</span>
+                    कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ ।</span><br>
 
                                 <span *ngIf="!arFinancing"><strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong> स्वीकारयोग्य सामानहरुको मौज्दातको बजार मूल्य वा लागत
                     मूल्य मध्ये जुन कम हुन्छ सो र <input class="form-field form-control-sm "
@@ -1117,7 +1115,7 @@
                             ऋणकर्जा उपयोग गर्नु अगावै ऋणकर्जाको सुरक्षण स्वरुपबैंकको पक्षमा सुरक्षण महलमा
                     उल्लिखित घर/जग्गा धितोेबन्धक पारित गरिदिइएको यथावत कायम रहने छ ।
                     </span>
-                                <span *ngIf="(val.mortgageType === 'New' || val.mortgageType === 'Enhancement') && val.drawingBasis === 'DISTRESS_VALUE'">
+                                <span *ngIf="(val.mortgageType === 'New' || val.mortgageType === 'Enhancement') && val.drawingBasis === 'DISTRESS_VALUE'"><br>
                             <strong> ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong>
                         कर्जाको सुरक्षण वापत बैंकको पक्षमा धितोे लेखिदिने
                         घर/जग्गाको बैंकको आधिकारिक मुल्याङकनकर्ता द्वारा उद्घोषित न्यूनतम मूल्य (Distress Value)
@@ -1127,17 +1125,17 @@
                                   type="text"/>प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ
                         सो बरावर कर्जा उपयोग गर्न सकिनेछ ।</span>
 
-                                <span *ngIf="(val.mortgageType === 'New' || val.mortgageType === 'Enhancement') && val.drawingBasis === 'MARKET_VALUE'">
+                                <span *ngIf="(val.mortgageType === 'New' || val.mortgageType === 'Enhancement') && val.drawingBasis === 'MARKET_VALUE'"><br>
                             <strong> ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong>
                         कर्जाको सुरक्षण वापत बैंकको पक्षमा धितोे लेखिदिने
                         घर/जग्गाको बैंकको आधिकारिक मुल्याङकनकर्ता द्वारा उद्घोषित बजार मुल्य
-                        (Market Value)को <input class="form-field form-control-sm "
+                        (Market Value) को <input class="form-field form-control-sm "
                                                 formControlName="drawingPowerMortgageOverdraft"
                                                 placeholder=""
                                                 type="text"/>प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ
                         सो बरावर कर्जा उपयोग गर्न सकिनेछ ।</span>
 
-                                <span *ngIf="val.mortgageType === 'Existing' && val.drawingBasis === 'DISTRESS_VALUE'">
+                                <span *ngIf="val.mortgageType === 'Existing' && val.drawingBasis === 'DISTRESS_VALUE'"><br>
                             <strong> ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong>
                         कर्जाको सुरक्षण वापत बैंकको पक्षमा धितोे
                         लेखिदिएको घर/जग्गाको बैंकको आधिकारिक मुल्याङकनकर्ता द्वारा उद्घोषित न्यूनतम मूल्य (Distress Value)
@@ -1147,11 +1145,11 @@
                                   type="text"/>प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ
                         सो बरावर कर्जा उपयोग गर्न सकिनेछ ।</span>
 
-                                <span *ngIf="val.mortgageType === 'Existing' && val.drawingBasis === 'MARKET_VALUE'">
+                                <span *ngIf="val.mortgageType === 'Existing' && val.drawingBasis === 'MARKET_VALUE'"><br>
                             <strong> ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong>
                         कर्जाको सुरक्षण वापत बैंकको पक्षमा धितोे
                         लेखिदिएको घर/जग्गाको बैंकको आधिकारिक मुल्याङकनकर्ता द्वारा उद्घोषित
-                        बजार मुल्य (Market Value)को <input class="form-field form-control-sm "
+                        बजार मुल्य (Market Value) को <input class="form-field form-control-sm "
                                                            formControlName="drawingPowerMortgageOverdraft"
                                                            placeholder=""
                                                            type="text"/>प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ
@@ -3065,7 +3063,7 @@
                             <strong> ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong>
                         कर्जाको सुरक्षण वापत बैंकको पक्षमा धितोे लेखिदिने
                         घर/जग्गाको बैंकको आधिकारिक मुल्याङकनकर्ता द्वारा उद्घोषित बजार मुल्य
-                        (Market Value)को <input class="form-field form-control-sm "
+                        (Market Value) को <input class="form-field form-control-sm "
                                                 formControlName="drawingPowerMortgageOverdraft"
                                                 placeholder=""
                                                 type="text"/>प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ
@@ -3085,7 +3083,7 @@
                             <strong> ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong>
                         कर्जाको सुरक्षण वापत बैंकको पक्षमा धितोे
                         लेखिदिएको घर/जग्गाको बैंकको आधिकारिक मुल्याङकनकर्ता द्वारा उद्घोषित
-                        बजार मुल्य (Market Value)को <input class="form-field form-control-sm "
+                        बजार मुल्य (Market Value) को <input class="form-field form-control-sm "
                                                            formControlName="drawingPowerMortgageOverdraft"
                                                            placeholder=""
                                                            type="text"/>प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ
