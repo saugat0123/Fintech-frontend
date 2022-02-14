@@ -27,14 +27,14 @@ export class SecurityScheduleComponent implements OnInit {
         this.files = JSON.parse(JSON.parse(this.proposal.data).files);
       }
     }
-    this.fixedAssets = this.loanDataHolder.security.totalSecurityAmount - Number((JSON.parse(this.proposal.data).proposedLimit));
-    if (this.fixedAssets < 0) {
-      this.fixedAssets = Math.abs(this.fixedAssets);
-    } else {
-      this.fixedAssets = 0;
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.security) && !ObjectUtil.isEmpty(this.loanDataHolder.proposal)) {
+      this.fixedAssets = this.loanDataHolder.security.totalSecurityAmount - Number((JSON.parse(this.proposal.data).proposedLimit));
+      if (this.fixedAssets < 0) {
+        this.fixedAssets = Math.abs(this.fixedAssets);
+      } else {
+        this.fixedAssets = 0;
+      }
     }
-    console.log('this is security form data', this.fixedAssets);
-    console.log('this is security form data', this.proposal);
   }
 }
 

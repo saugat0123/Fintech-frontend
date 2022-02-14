@@ -17,7 +17,7 @@
                             [docStatus]="loanDataHolder?.documentStatus"
                             [collateralData]="loanDataHolder?.collateralSiteVisits"
                             (downloadSiteVisitDocument)="checkSiteVisitDocument($event)"></app-security-approved-view>
-<app-security-schedule [loanDataHolder]="loanDataHolder"></app-security-schedule>
+<app-security-schedule *ngIf="smallBusiness || consumerFinance" [loanDataHolder]="loanDataHolder"></app-security-schedule>
 
 <app-individual-view *ngIf="loanDataHolder?.loanCategory === 'INDIVIDUAL'"
                      [calendarType]="calendarType"
@@ -130,6 +130,8 @@
                             [docStatus]="loanDataHolder?.documentStatus"
                             [collateralData]="loanDataHolder?.collateralSiteVisits"
                             (downloadSiteVisitDocument)="checkSiteVisitDocument($event)"></app-security-approved-view>
+<app-security-schedule *ngIf="!smallBusiness && !consumerFinance" [loanDataHolder]="loanDataHolder"></app-security-schedule>
+
 <app-financial-view *ngIf="loanHolder?.financial && isIndividual && !consumerFinance"
                     [customerType]="loanHolder?.customerType"
                     [formData]="loanHolder?.financial"></app-financial-view>
