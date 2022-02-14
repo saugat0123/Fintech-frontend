@@ -45,6 +45,7 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
     approvalSheetActive = false;
     loanTag = LoanTag;
     isRemitLoan = false;
+    spinner = false;
 
     constructor(private userService: UserService,
                 private loanFormService: LoanFormService,
@@ -69,8 +70,10 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
 
 
     loadSummary() {
+        this.spinner = true
         this.activatedRoute.queryParams.subscribe(
             (paramsValue: Params) => {
+                this.spinner = false;
                 this.allId = {
                     loanConfigId: null,
                     customerId: null,
@@ -86,6 +89,7 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
         this.id = this.activatedRoute.snapshot.params['id'];
         this.loanConfigService.detail(this.loanConfigId).subscribe(
             (response: any) => {
+                this.spinner = false;
                 this.loanConfig = response.detail;
                 if (this.loanConfig.loanTag === 'REMIT_LOAN' && this.loanConfig.isRemit) {
                     this.isRemitLoan = true;
@@ -109,7 +113,9 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
         this.actionsList.sendBackward = false;
         this.actionsList.rejected = false;
         this.actionsList.closed = false;
+        this.spinner = true;
         this.loanFormService.detail(this.customerId).subscribe(async (response: any) => {
+            this.spinner = false;
             this.loanDataHolder = response.detail;
             if (!ObjectUtil.isEmpty(this.loanDataHolder.remitCustomer)) {
                 this.beneficiaryId = this.loanDataHolder.remitCustomer.beneficiaryId;

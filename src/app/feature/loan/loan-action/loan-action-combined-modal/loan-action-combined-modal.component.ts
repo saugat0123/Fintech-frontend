@@ -65,6 +65,7 @@ export class LoanActionCombinedModalComponent implements OnInit {
     isSolUserPresentForCombine = true;
     isUserNotPresentForCombine = false;
     showUserList = true;
+    spinner = false;
 
     constructor(
         public nbDialogRef: NbDialogRef<LoanActionCombinedModalComponent>,
@@ -81,8 +82,10 @@ export class LoanActionCombinedModalComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.spinner = true;
         this.roleId = parseInt(LocalStorageUtil.getStorage().roleId, 10);
         this.combinedLoanService.detail(this.combinedLoanId).subscribe((response) => {
+            this.spinner = false;
             this.combinedLoan = response.detail;
             this.combinedLoan.loans.forEach((l, i) => {
                 this.isUserPresent[i] = true;
@@ -90,6 +93,7 @@ export class LoanActionCombinedModalComponent implements OnInit {
                 this.preSelectedSolUser[i] = {isSol: l.isSol, solUser: l.solUser};
             });
         }, error => {
+            this.spinner = true;
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Failed to load combined loan'));
         });
@@ -106,7 +110,9 @@ export class LoanActionCombinedModalComponent implements OnInit {
         } else if (value === 'combined') {
             this.combinedType.form = this.buildCombinedForm();
             if (this.docAction === DocAction[DocAction.BACKWARD_TO_COMMITTEE]) {
+                this.spinner = true;
                 this.roleService.detail(this.toRole.id).subscribe((res: any) => {
+                    this.spinner = false;
                     this.toRole = res.detail;
                     this.combinedType.form.patchValue({
                         toRole: this.toRole
@@ -125,6 +131,7 @@ export class LoanActionCombinedModalComponent implements OnInit {
     public getCombinedUserList(role) {
         this.isUserNotPresentForCombine = false;
         this.showUserList = true;
+        this.spinner = true;
         this.roleService.detail(role.id).subscribe((res: any) => {
             role = res.detail;
         });
@@ -157,6 +164,7 @@ export class LoanActionCombinedModalComponent implements OnInit {
             } else if (this.combinedType.userList.length === 0) {
                 this.isUserNotPresentForCombine = true;
             }
+            this.spinner = false;
         });
     }
 
