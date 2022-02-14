@@ -62,13 +62,11 @@ export class LoanActionComponent implements OnInit, OnChanges {
     }
 
     ngOnInit() {
-        this.spinner = true
         this.loanFormService.detail(this.id).subscribe((data) => {
             this.customerLoanHolder = data.detail;
             if (LocalStorageUtil.getStorage().userId === this.customerLoanHolder.currentStage.toUser.id.toString()) {
                 this.fileUnder = true;
             }
-            this.spinner = false;
         });
         this.status = this.customerLoanHolder.documentStatus;
         const roleName: string = LocalStorageUtil.getStorage().roleName;
