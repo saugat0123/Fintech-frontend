@@ -105,9 +105,40 @@
                             </div>
                             <div>
                                 <strong>Credit Risk Score:</strong>
-                                <span class="badge badge-info"
-                                      style="font-size: 11px">{{loanDataHolder?.creditRisk}}</span>
+                                <p class="badge badge-info"
+                                      style="font-size: 11px">{{loanDataHolder?.creditRisk}}</p>
                             </div>
+                            <div class="clearfix">
+                                <div *ngIf="isRemitLoan" class="float-left"><span><strong>Beneficiary No.: </strong>{{beneficiary?.beneficiaryIdentity?.benef_mob_no}}</span></div>
+                                <div *ngIf="loanDataHolder?.isHsov" class="float-left"><span><strong>HSOV Enabled: </strong>YES</span></div>
+                                <div *ngIf="loanDataHolder?.dualApproval" class="float-left"><span><strong>Dual Approval Enabled.: </strong>YES</span></div>
+                                <br>
+                                <div *ngIf="isRemitLoan" class="float-left"><span><strong>Remitter Citizenship Number: </strong>{{senderDetails?.senderIdentity?.sender_citizen}}</span></div>
+                                <br>
+                                <div class="float-left"><span><strong>Ref. No: </strong>{{loanDataHolder?.refNo}}</span></div>
+                                <br>
+                                <div class="float-left"><span><strong>Origination Branch/Code: </strong>{{loanDataHolder?.branch?.branchCode}}</span></div>
+                                <br>
+                                <div class="float-left"><span><strong>Product: </strong>{{loanDataHolder?.loan?.name + " "+ loanDataHolder?.loan?.shortNames}}</span></div>
+                                <br>
+                                <div class="float-left" *ngIf="loanDataHolder?.loanHolder?.reviewDate">
+                            <span><strong>Review Date: </strong>
+                                <ng-container *ngIf="naChecked; else date">
+                                    {{'NA'}}
+                                </ng-container>
+                                <ng-template #date>
+                                    <br>
+                                    Last Review Date: {{reviewDateData?.lastReviewDate ? (reviewDateData?.lastReviewDate | date) : 'NA'}} <br>
+                                    Next Review Date: {{reviewDateData?.nextReviewDate ? (reviewDateData?.nextReviewDate | date) : 'NA'}}
+                                </ng-template>
+                            </span>
+                                </div>
+                                <br>
+                                <div class="float-right" *ngIf="loanDataHolder?.isSol">
+                                    <span><strong>Final Approver: </strong>{{loanDataHolder?.solUser?.name}}</span></div>
+
+                            </div>
+
                         </div>
                         <div class="col-md-6">
                             <div class="report-header">
@@ -143,41 +174,41 @@
                 </div>
             </div>
             <hr class="print-line">
-            <div class="row ">
-                <div class="col-md-12 sb-small">
-                    <div class="clearfix">
-                        <div *ngIf="isRemitLoan" class="float-left"><span><strong>Beneficiary No.: </strong>{{beneficiary?.beneficiaryIdentity?.benef_mob_no}}</span></div>
-                        <div *ngIf="loanDataHolder?.isHsov" class="float-left"><span><strong>HSOV Enabled: </strong>YES</span></div>
-                        <div *ngIf="loanDataHolder?.dualApproval" class="float-left"><span><strong>Dual Approval Enabled.: </strong>YES</span></div>
-                        <br>
-                        <div *ngIf="isRemitLoan" class="float-left"><span><strong>Remitter Citizenship Number: </strong>{{senderDetails?.senderIdentity?.sender_citizen}}</span></div>
-                        <br>
-                        <div class="float-left"><span><strong>Ref. No: </strong>{{loanDataHolder?.refNo}}</span></div>
-                        <br>
-                        <div class="float-left"><span><strong>Origination Branch/Code: </strong>{{loanDataHolder?.branch?.branchCode}}</span></div>
-                        <br>
-                        <div class="float-left"><span><strong>Product: </strong>{{loanDataHolder?.loan?.name + " "+ loanDataHolder?.loan?.shortNames}}</span></div>
-                        <br>
-                        <div class="float-left" *ngIf="loanDataHolder?.loanHolder?.reviewDate">
-                            <span><strong>Review Date: </strong>
-                                <ng-container *ngIf="naChecked; else date">
-                                    {{'NA'}}
-                                </ng-container>
-                                <ng-template #date>
-                                    <br>
-                                    Last Review Date: {{reviewDateData?.lastReviewDate ? (reviewDateData?.lastReviewDate | date) : 'NA'}} <br>
-                                    Next Review Date: {{reviewDateData?.nextReviewDate ? (reviewDateData?.nextReviewDate | date) : 'NA'}}
-                                </ng-template>
-                            </span>
-                        </div>
-                        <br>
-                        <div class="float-right" *ngIf="loanDataHolder?.isSol">
-                            <span><strong>Final Approver: </strong>{{loanDataHolder?.solUser?.name}}</span></div>
+<!--            <div class="row ">-->
+<!--                <div class="col-md-12 sb-small">-->
+<!--                    <div class="clearfix">-->
+<!--                        <div *ngIf="isRemitLoan" class="float-left"><span><strong>Beneficiary No.: </strong>{{beneficiary?.beneficiaryIdentity?.benef_mob_no}}</span></div>-->
+<!--                        <div *ngIf="loanDataHolder?.isHsov" class="float-left"><span><strong>HSOV Enabled: </strong>YES</span></div>-->
+<!--                        <div *ngIf="loanDataHolder?.dualApproval" class="float-left"><span><strong>Dual Approval Enabled.: </strong>YES</span></div>-->
+<!--                        <br>-->
+<!--                        <div *ngIf="isRemitLoan" class="float-left"><span><strong>Remitter Citizenship Number: </strong>{{senderDetails?.senderIdentity?.sender_citizen}}</span></div>-->
+<!--                        <br>-->
+<!--                        <div class="float-left"><span><strong>Ref. No: </strong>{{loanDataHolder?.refNo}}</span></div>-->
+<!--                        <br>-->
+<!--                        <div class="float-left"><span><strong>Origination Branch/Code: </strong>{{loanDataHolder?.branch?.branchCode}}</span></div>-->
+<!--                        <br>-->
+<!--                        <div class="float-left"><span><strong>Product: </strong>{{loanDataHolder?.loan?.name + " "+ loanDataHolder?.loan?.shortNames}}</span></div>-->
+<!--                        <br>-->
+<!--                        <div class="float-left" *ngIf="loanDataHolder?.loanHolder?.reviewDate">-->
+<!--                            <span><strong>Review Date: </strong>-->
+<!--                                <ng-container *ngIf="naChecked; else date">-->
+<!--                                    {{'NA'}}-->
+<!--                                </ng-container>-->
+<!--                                <ng-template #date>-->
+<!--                                    <br>-->
+<!--                                    Last Review Date: {{reviewDateData?.lastReviewDate ? (reviewDateData?.lastReviewDate | date) : 'NA'}} <br>-->
+<!--                                    Next Review Date: {{reviewDateData?.nextReviewDate ? (reviewDateData?.nextReviewDate | date) : 'NA'}}-->
+<!--                                </ng-template>-->
+<!--                            </span>-->
+<!--                        </div>-->
+<!--                        <br>-->
+<!--                        <div class="float-right" *ngIf="loanDataHolder?.isSol">-->
+<!--                            <span><strong>Final Approver: </strong>{{loanDataHolder?.solUser?.name}}</span></div>-->
 
-                    </div>
+<!--                    </div>-->
 
-                </div>
-            </div>
+<!--                </div>-->
+<!--            </div>-->
 
             <hr class="print-line disable-print">
 
@@ -493,6 +524,8 @@
                                            [docStatus]="loanDataHolder?.documentStatus"
                                            (downloadSiteVisitDocument)="checkSiteVisitDocument($event)">
             </app-security-approved-summary>
+            <app-security-schedule  *ngIf="(consumerFinance || smallBusiness)" [loanDataHolder]="loanDataHolder"></app-security-schedule>
+
 
             <nb-accordion *ngIf="isRemitLoan">
                 <nb-accordion-item>
@@ -502,6 +535,7 @@
                     </nb-accordion-item-body>
                 </nb-accordion-item>
             </nb-accordion>
+            <p><strong *ngIf="consumerFinance">Applicant/Guarantor Profile</strong></p>
             <div *ngIf="isJointInfo" class="row">
                 <div class="col-md-12 text-center">
                     <p><strong>Joint Details</strong></p>
@@ -702,6 +736,48 @@
         <div *ngIf="individual && consumerFinance">
             <app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0"
                                 [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
+            <div class="row" *ngIf="individual?.customerRelatives?.length > 0">
+                <div class="col-md-12">
+                    <p><strong>Family Details</strong></p>
+                    <table
+                            class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+                        <thead>
+                        <tr class="text-white sb-bg-dark">
+                            <th>Name</th>
+                            <th>Undivided Family Member</th>
+                            <th>Citizenship no.</th>
+                            <th>Citizenship Issued Date(AD/BS)</th>
+                            <th>Citizenship Issued District</th>
+                            <th>Age</th>
+
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let relative of individual?.customerRelatives">
+                            <td class="text-left pl-1">
+                                {{relative?.customerRelativeName}}
+                            </td>
+
+                            <td class="text-left pl-1">
+                                {{relative?.customerRelation}}
+                            </td>
+                            <td class="text-right pr-1">
+                                {{relative?.citizenshipNumber || 'N/A'}}
+                            </td>
+                            <td class="text-left pl-1">
+                                {{relative?.citizenshipIssuedDate | date}} ({{relative?.citizenshipIssuedDate | engNepDate: false}})
+                            </td>
+                            <td class="text-left pl-1">{{relative?.citizenshipIssuedPlace || 'N/A'}}</td>
+
+                            <td class="text-left pl-1">{{relative?.age}} years</td>
+
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
             <app-financial-summary *ngIf="financialSummary && individual" [formData]="financialData"
                                    [loanType]="loanDataHolder?.loanCategory"></app-financial-summary>
             <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl" [ciclValue]="loanDataHolder?.loanHolder?.cicl" [loanDataHolder]="loanDataHolder"></app-cicl-view>
@@ -1140,6 +1216,8 @@
                     (downloadSiteVisitDocument)="checkSiteVisitDocument($event)">
 
             </app-security-approved-summary>
+            <app-security-schedule  *ngIf="(!consumerFinance && !smallBusiness)" [loanDataHolder]="loanDataHolder"></app-security-schedule>
+
             <app-financial-summary *ngIf="financialSummary && individual && loanDataHolder?.loanHolder?.clientType !== 'CONSUMER_FINANCE'" [formData]="financialData"
                                    [loanType]="loanDataHolder?.loanCategory"></app-financial-summary>
 

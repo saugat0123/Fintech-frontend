@@ -303,10 +303,12 @@ export class CreditRiskGradingLambdaComponent implements OnInit {
         this.setValueForCriteria('incomeRoutingThroughBank', 'New Customer with no account history', 0, 'N/A');
       }
     } else {
-      this.missingAlerts.push({
-        type: 'danger',
-        message:  'No Data detected for grade automation in "Income from account" or "Financial" section!',
-      });
+      if (ObjectUtil.isEmpty(this.financialData)) {
+        this.missingAlerts.push({
+          type: 'danger',
+          message: 'No Data detected for grade automation in "Financial" section!',
+        });
+      }
     }
   }
 
