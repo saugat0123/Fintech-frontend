@@ -81,6 +81,7 @@ export class AuthorityToDebtAccountComponent implements OnInit {
         jagaName1: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
         parentName: this.nepaliData.fatherName ? this.nepaliData.fatherName : '',
         grandParentsName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
+        husbandWifeName: this.nepaliData.husbandName ? this.nepaliData.husbandName : ''
       });
     }
   }
@@ -139,6 +140,7 @@ export class AuthorityToDebtAccountComponent implements OnInit {
       sincerlytempAddress: [undefined],
       parentName: [undefined],
       grandParentName: [undefined],
+      husbandWifeName: [undefined],
       clientName: [undefined],
       BranchName: [undefined],
       itisambatYear: [undefined],

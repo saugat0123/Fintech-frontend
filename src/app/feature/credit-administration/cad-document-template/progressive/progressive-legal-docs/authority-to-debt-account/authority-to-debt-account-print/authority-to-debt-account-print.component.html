@@ -116,8 +116,11 @@
                 [ngClass]="{'nepaliFont unicode-size2' : printDocForm?.grandParentsName !== null && printDocForm?.grandParentsName !== ''}">
     {{printDocForm?.grandParentsName === null || printDocForm?.grandParentsName === '' ? '_________________' : printDocForm?.grandParentsName}}
 </span>
-
-
+            <br>
+            पति/पत्निको नाम :-
+            <span [ngClass]="{'nepaliFont unicode-size2':printDocForm?.husbandWifeName!==null && printDocForm?.husbandWifeName!==''}" >
+            {{printDocForm?.husbandWifeName===null||printDocForm?.husbandWifeName===''?'________________':printDocForm?.husbandWifeName }}
+          </span>
         </p>
     </div>
         </form>
