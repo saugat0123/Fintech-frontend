@@ -48,7 +48,11 @@ export class DetailViewBaseComponent implements OnInit {
   requestedLoanType;
   approvedSecurity = false;
   approveSecurityAsProposed = false;
-
+  checkedData;
+  proposalAllData;
+  financial;
+  consumerFinance = false;
+  smallBusiness = false;
   constructor(private customerLoanService: LoanFormService,
               private combinedLoanService: CombinedLoanService,
               private fiscalYearService: FiscalYearService) {
@@ -78,9 +82,15 @@ export class DetailViewBaseComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.bankingRelationship)) {
       this.bankingRelation = JSON.parse(this.loanDataHolder.loanHolder.bankingRelationship);
     }
+    if (this.loanDataHolder.loanHolder.clientType === 'CONSUMER_FINANCE') {
+      this.consumerFinance = true;
+    } else  if (this.loanDataHolder.loanHolder.clientType === 'SMALL_BUSINESS_FINANCIAL_SERVICES') {
+      this.smallBusiness = true;
+    }
     if (!ObjectUtil.isEmpty(this.loanHolder.financial)) {
       if (!ObjectUtil.isEmpty(this.loanHolder.financial.data)) {
         this.financialData = JSON.parse(this.loanHolder.financial.data);
+        this.financial = JSON.parse(this.financialData.data);
         this.financialKeys = Object.keys(this.financialData);
       }
     }
@@ -109,6 +119,10 @@ export class DetailViewBaseComponent implements OnInit {
           this.approveSecurityAsProposed = false;
         }
       }
+    }
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.proposal)) {
+      this.checkedData = JSON.parse(this.loanDataHolder.proposal.checkedData);
+      this.proposalAllData = JSON.parse(this.loanDataHolder.proposal.data);
     }
   }
 

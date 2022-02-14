@@ -23,21 +23,23 @@
         </div>
     </div>
 </form>
-<table border="1" class="table-sm table-responsive table-hover border-white">
-    <thead>
-    <tr class="text-white sb-bg-dark">
-        <td><strong>Particular</strong></td>
-        <td *ngFor="let header of audited"><strong>{{header.audited}}</strong></td>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let schema of financialJson.schema; let i = index">
-        <td class="text-white sb-bg-dark"><strong>{{schema}}</strong></td>
-        <ng-container>
-            <td style="background: #706e6e;"
-                class="text-white" *ngFor="let data of audited">
-                {{financialJson?.data[i][data.index] === 0.00 || financialJson?.data[i][data.index] === undefined ? '' : (financialJson?.data[i][data.index]) | roundvalue}}</td>
-               </ng-container>
-    </tr>
-    </tbody>
-</table>
+<div class="col-md-12">
+    <table border="1" class="table-sm table-responsive table-hover border-white">
+        <thead>
+        <tr class=" sb-bg-dark">
+            <td><strong>Particular</strong></td>
+            <td *ngFor="let header of audited"><strong>{{header.audited}}</strong></td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let schema of financialJson.schema; let i = index">
+            <td class=" sb-bg-dark"><strong>{{schema}}</strong></td>
+            <ng-container>
+                <td style="background: #706e6e;"
+                    class="text-white" *ngFor="let data of audited">
+                    {{financialJson?.data[i][data.index] === 0.00 || financialJson?.data[i][data.index] === undefined ? '' : (financialJson?.data[i][data.index]) | roundvalue}}</td>
+            </ng-container>
+        </tr>
+        </tbody>
+    </table>
+</div>

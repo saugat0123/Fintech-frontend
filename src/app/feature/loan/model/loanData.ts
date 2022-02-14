@@ -109,4 +109,5 @@ export class LoanDataHolder extends BaseEntity {
     collateralSiteVisits: Array<CollateralSiteVisitDto>;
     zipPath: String;
     remitCustomer: any;
+    creditRisk: number;
 }

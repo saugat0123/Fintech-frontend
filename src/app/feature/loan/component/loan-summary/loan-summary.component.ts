@@ -46,6 +46,7 @@ import {SiteVisitDocument} from '../../../loan-information-template/security/sec
 import * as JSZip from 'jszip';
 import * as JSZipUtils from 'jszip-utils/lib/index.js';
 import {saveAs as importedSaveAs} from 'file-saver';
+import {IndividualJsonData} from '../../../admin/modal/IndividualJsonData';
 
 @Component({
     selector: 'app-loan-summary',
@@ -189,7 +190,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     beneficiary;
     dbr;
     individual;
-    individualJsonData;
+    individualJsonData: IndividualJsonData;
     riskInfo;
     senderDetails;
     bankingRelation;
@@ -202,6 +203,9 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     initialSecurity = false;
     approvedSecurity = false;
     approvedSecurityAsProposed = false;
+    checkedData;
+    proposalAllData;
+    financial;
 
     constructor(
         @Inject(DOCUMENT) private _document: Document,
@@ -232,13 +236,19 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             }
         });
     }
-
+    consumerFinance = false;
+    smallBusiness = false;
     ngOnInit() {
         if (this.loanConfig.loanTag === 'REMIT_LOAN' && this.loanConfig.isRemit) {
             this.isRemitLoan = true;
         }
         this.loanDataHolder = this.loanData;
-        if (this.loanDataHolder.loanCategory === 'INDIVIDUAL') {
+        if (this.loanDataHolder.loanHolder.clientType === 'CONSUMER_FINANCE') {
+            this.consumerFinance = true;
+        } else  if (this.loanDataHolder.loanHolder.clientType === 'SMALL_BUSINESS_FINANCIAL_SERVICES') {
+            this.smallBusiness = true;
+        }
+            if (this.loanDataHolder.loanCategory === 'INDIVIDUAL') {
             this.isIndividual = true;
         }
         this.individual = this.loanDataHolder.customerInfo;
@@ -255,6 +265,10 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                 this.jointInfo.push(jointCustomerInfo.jointCustomerInfo);
                 this.isJointInfo = true;
             }
+        }
+        if (!ObjectUtil.isEmpty(this.loanDataHolder.proposal)) {
+            this.checkedData = JSON.parse(this.loanDataHolder.proposal.checkedData);
+            this.proposalAllData = JSON.parse(this.loanDataHolder.proposal.data);
         }
         this.loadSummary();
         this.roleType = LocalStorageUtil.getStorage().roleType;
@@ -293,6 +307,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         // Setting financial data---
         if (!ObjectUtil.isEmpty(this.loanDataHolder.financial)) {
             this.financialData = this.loanDataHolder.financial;
+            this.financial = JSON.parse(this.financialData.data);
             this.financialSummary = true;
         }
 

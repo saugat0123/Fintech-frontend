@@ -10,4 +10,5 @@ export class IndividualJsonData {
     grandFatherName: string;
     fatherName: string;
     accountDetails: [];
+    checkedData: any;
 }

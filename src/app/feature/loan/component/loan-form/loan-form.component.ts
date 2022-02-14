@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 import {LoanDataService} from '../../service/loan-data.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 
@@ -58,7 +58,6 @@ import {RiskGradingService} from '../../../credit-risk-grading/service/risk-grad
 import {environment} from '../../../../../environments/environment';
 import {Clients} from '../../../../../environments/Clients';
 import {MicroProposalComponent} from '../../../micro-loan/form-component/micro-proposal/micro-proposal.component';
-import {MicroCrgParams} from '../../model/MicroCrgParams';
 import {CrgMicroComponent} from '../../../loan-information-template/crg-micro/crg-micro.component';
 import {MicroCustomerType} from '../../../../@core/model/enum/micro-customer-type';
 
@@ -132,6 +131,7 @@ export class LoanFormComponent implements OnInit {
 
     docStatusForm: FormGroup;
     loanTypeForm: FormGroup;
+    creditRisk: FormGroup;
     nextButtonAction = false;
 
     loan: LoanConfig = new LoanConfig();
@@ -250,6 +250,7 @@ export class LoanFormComponent implements OnInit {
         this.buildPriorityForm();
         this.buildApprovingLevelForm();
         this.buildDocStatusForm();
+        this.buildCreditRiskForm();
 
         this.activatedRoute.queryParams.subscribe(
             (paramsValue: Params) => {
@@ -301,6 +302,8 @@ export class LoanFormComponent implements OnInit {
                                 this.showDocStatusDropDown = false;
                             }
                             this.docStatusForm.get('documentStatus').patchValue(this.loanDocument.documentStatus);
+                            this.creditRisk.get('creditRisk').patchValue(this.loanDocument.creditRisk);
+
                             this.populateTemplate();
                             this.loanDataReady = true;
                         }, error => {
@@ -345,6 +348,11 @@ export class LoanFormComponent implements OnInit {
     buildApprovingLevelForm() {
         this.approvingLevelForm = this.formBuilder.group({
             approvingLevel: [undefined, Validators.required]
+        });
+    }
+    buildCreditRiskForm() {
+        this.creditRisk = this.formBuilder.group({
+            creditRisk: [undefined, Validators.required]
         });
     }
 
@@ -620,6 +628,7 @@ export class LoanFormComponent implements OnInit {
             }
             this.proposalDetail.onSubmit();
             this.loanDocument.proposal = this.proposalDetail.proposalData;
+
         }
 
         if (name === 'Loan Document' && action) {
@@ -788,7 +797,7 @@ export class LoanFormComponent implements OnInit {
         this.isBlackListed = isBlackListed;
     }
 
-    save() {
+    save(action) {
         if (this.priorityForm.invalid) {
             this.scrollNavService.scrollNavigateTo(this.priorityFormNav);
             return;
@@ -796,15 +805,17 @@ export class LoanFormComponent implements OnInit {
         this.nextButtonAction = true;
         this.spinner.show();
 
-        if (this.selectChild(this.selectedTab, true, this.loanTag)) {
+        if (this.selectChild(this.selectedTab, action, this.loanTag)) {
             this.spinner.hide();
             this.nextButtonAction = false;
             return;
         } else {
+            // this.loanDocument.loanHolder = this.proposalDetail.incomeFromAccountDataResponse;
             this.loanDocument.loan = this.loan;
             this.loanDocument.priority = this.priorityForm.get('priority').value;
             this.loanDocument.approvingLevel = this.approvingLevelForm.get('approvingLevel').value;
             this.loanDocument.documentStatus = this.docStatusForm.get('documentStatus').value;
+            this.loanDocument.creditRisk = this.creditRisk.get('creditRisk').value;
             this.loanDocument.loanType = this.loanType;
             this.loanDocument.loanCategory = this.allId.loanCategory;
             if (CustomerType[this.loanHolder.customerType] === CustomerType.INSTITUTION) {
@@ -815,8 +826,8 @@ export class LoanFormComponent implements OnInit {
                 this.toastService.show(new Alert(AlertType.ERROR, 'Customer cannot be empty! Please search customer'));
                 return;
             }
+            console.log('data ');
             this.loanFormService.save(this.loanDocument).subscribe((response: any) => {
-
                 this.loanDocument = response.detail;
                 this.customerLoanId = this.loanDocument.id;
                 this.loanDocument = new LoanDataHolder();
@@ -840,4 +851,9 @@ export class LoanFormComponent implements OnInit {
         const loanHolder = this.loanDocument.loanHolder;
         this.commonRoutingUtilsService.loadCustomerProfile(loanHolder.associateId, loanHolder.id, loanHolder.customerType);
     }
+
+   updateIncome(event) {
+       this.loanDocument.loanHolder = event;
+       this.save(false);
+   }
 }

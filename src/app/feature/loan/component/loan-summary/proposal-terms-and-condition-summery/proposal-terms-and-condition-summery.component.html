@@ -1,6 +1,6 @@
 <div class="py-2">
     <div *ngIf="client === clientName.LAXMIBANK; else otherBank">
-        <span><strong>Debt Structure and Control</strong></span>
+        <span *ngIf="checked"><strong>Debt Structure and Control</strong></span>
     </div>
     <ng-template #otherBank>
         <span><strong>Terms And Condition</strong></span>
@@ -8,17 +8,19 @@
   <hr>
   <div class="py-2">
     <ol>
-      <li class="col-md-12" *ngFor="let data of customerAllLoanList;let i = index">
-        <div class="row sb-medium">
-          <span [class.font-weight-bold]="data?.proposal.id == loanDataHolder?.proposal?.id"><u>{{data.loan.name}}({{data.createdAt | date}} ({{data.createdAt | engNepDate: false}})) :</u></span>
-          <div class="row col-md-12">
-<!--            <div>-->
-              <span  [innerHTML]="(data.proposal.data | jsonParse)?.termsAndCondition || 'NA' "></span>
-<!--            </div>-->
-          </div>
-        </div>
-        <hr>
-      </li>
+        <ng-container *ngFor="let data of customerAllLoanList;let i = index">
+            <li class="col-md-12" *ngIf="(data?.proposal?.checkedData | jsonParse)?.debtChecked">
+                <div class="row sb-medium" >
+                    <span [class.font-weight-bold]="data?.proposal.id == loanDataHolder?.proposal?.id"><u>{{data.loan.name}}({{data.createdAt | date}} ({{data.createdAt | engNepDate: false}})) :</u></span>
+                    <div class="row col-md-12">
+                        <!--            <div>-->
+                        <span  [innerHTML]="(data.proposal.data | jsonParse)?.termsAndCondition || 'NA' "></span>
+                        <!--            </div>-->
+                    </div>
+                </div>
+                <hr>
+            </li>
+        </ng-container>
     </ol>
   </div>
 </div>
