@@ -61,6 +61,7 @@ export class LoanActionVerificationComponent implements OnInit {
     }, error => {
       this.falseCredentialMessage = ObjectUtil.isEmpty(error.error.errorDescription) ? '' : error.error.errorDescription;
       this.falseCredential = true;
+      this.spinner = false;
     });
   }
 
