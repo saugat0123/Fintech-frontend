@@ -95,7 +95,9 @@ export class DetailViewBaseComponent implements OnInit {
     }
     if (this.loanDataHolder.loanCategory === 'INDIVIDUAL') {
       this.isIndividual = true;
-      this.financial = JSON.parse(this.financialData.data);
+      if(!ObjectUtil.isEmpty(this.financialData)) {
+        this.financial = JSON.parse(this.financialData.data);
+      }
     }
     if (!ObjectUtil.isEmpty(this.loanHolder.security)) {
       if (!ObjectUtil.isEmpty(this.loanHolder.security.approvedData)) {
