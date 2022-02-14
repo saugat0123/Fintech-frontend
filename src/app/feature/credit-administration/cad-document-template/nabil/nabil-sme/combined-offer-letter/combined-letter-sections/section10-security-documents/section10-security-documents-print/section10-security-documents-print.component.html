@@ -137,7 +137,9 @@
                 </li>
                 <ng-container *ngIf="freeText?.section10[0].additionalGuarantorDetails !== null && freeText?.section10[0].additionalGuarantorDetails !== ''">
                     <li *ngFor="let textArea of freeText?.section10; index as i">
-                        {{ textArea.additionalGuarantorDetails }}
+                        <span class="nepaliFont">
+                            {{ textArea.additionalGuarantorDetails }}
+                        </span>
                     </li>
                 </ng-container>
             </ul>

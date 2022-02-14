@@ -145,16 +145,19 @@
                         ऋण सुविधा स्वीकृति पत्रको उल्लंघन भएको मानिनेछ ।
                     </li>
                     <li *ngIf="freeText?.section9.freeText1">
-                        {{freeText?.section9.freeText1}}
+                        <span class="nepaliFont">
+                            {{freeText?.section9.freeText1}}
+                        </span>
                     </li>
                 </ol>
             </div>
         </div>
     </div>
 
-    <div class="row col-md-12">
+    <div class="col-md-12 viewFull">
         <strong>अन्य शर्तहरु</strong>
         <div class="row mt-2">
+            <div class="col-md-12">
             <ol class="conditions-list">
                 <li>
                     बैंकको पक्षमा धितोेबन्धक वा अन्य जुनसुकै रुपमा हक सुरक्षित रहेको सम्पत्तिहरु/सुरक्षणहरु
@@ -235,9 +238,12 @@
                     भुक्तानी माग गर्ने/रद्द गर्ने अधिकार बैंकमा सुरक्षित रहनेछ ।
                 </li>
                 <li *ngIf="freeText?.section9.freeText2">
-                    {{freeText?.section9.freeText2}}
+                    <span class="nepaliFont">
+                        {{freeText?.section9.freeText2}}
+                    </span>
                 </li>
             </ol>
+                </div>
         </div>
     </div>
 </div>
