@@ -189,6 +189,7 @@ export class LoanActionModalComponent implements OnInit {
             });
             dialogRef.onClose.subscribe((verified: boolean) => {
                 if (docAction === 'SEND_BACK_TO_SENDER' || docAction === 'SEND_BACK_TO_AGENT') {
+                    this.spinner = true;
                     const beneficiaryObj = {
                         'beneficiaryId': this.beneficiaryId,
                         'status': docAction,
@@ -196,13 +197,16 @@ export class LoanActionModalComponent implements OnInit {
                     };
                     this.loanFormService.postLoanBackToSenderOrAgent(beneficiaryObj).subscribe(res => {
                         if (verified === true) {
+                            this.spinner = false;
                             this.postAction();
                             this.nbDialogRef.close();
                         }
                     }, error => {
+                        this.spinner = false;
                         console.log(error);
                     });
                 } else if (this.isRemitLoan && docAction === 'APPROVED') {
+                    this.spinner = true;
                     const beneficiaryObj = {
                         'beneficiaryId': this.beneficiaryId,
                         'status': docAction,
@@ -211,9 +215,11 @@ export class LoanActionModalComponent implements OnInit {
                     this.loanFormService.postLoanBackToSenderOrAgent(beneficiaryObj).subscribe(res => {
                         if (verified === true) {
                             this.postAction();
+                            this.spinner = false;
                             this.nbDialogRef.close();
                         }
                     }, error => {
+                        this.spinner = false;
                         console.log(error);
                     });
 
@@ -226,7 +232,11 @@ export class LoanActionModalComponent implements OnInit {
                     this.loanFormService.postLoanBackToSenderOrAgent(beneficiaryObj).subscribe(res => {
                         if (verified === true) {
                             this.postAction();
+                            this.spinner = true;
+                        setTimeout(() => {
+                            this.spinner = false;
                             this.nbDialogRef.close();
+                        }, 4000);
                         }
                     }, error => {
                         console.log(error);

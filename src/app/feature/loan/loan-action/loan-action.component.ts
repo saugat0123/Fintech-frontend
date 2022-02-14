@@ -50,6 +50,7 @@ export class LoanActionComponent implements OnInit, OnChanges {
     docStatus = DocStatus;
     currentUser = LocalStorageUtil.getStorage().roleName.toLowerCase();
     fileUnder = false;
+    spinner = false;
 
     constructor(
         private alertService: AlertService,
@@ -61,11 +62,13 @@ export class LoanActionComponent implements OnInit, OnChanges {
     }
 
     ngOnInit() {
+        this.spinner = true
         this.loanFormService.detail(this.id).subscribe((data) => {
             this.customerLoanHolder = data.detail;
             if (LocalStorageUtil.getStorage().userId === this.customerLoanHolder.currentStage.toUser.id.toString()) {
                 this.fileUnder = true;
             }
+            this.spinner = false;
         });
         this.status = this.customerLoanHolder.documentStatus;
         const roleName: string = LocalStorageUtil.getStorage().roleName;
@@ -306,12 +309,15 @@ export class LoanActionComponent implements OnInit, OnChanges {
     }
 
     public deleteCustomerLoan() {
+        this.spinner = true;
         this.loanFormService.deleteLoanCustomer(this.id).subscribe((res: any) => {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Document Has been Successfully Deleted'));
                 this.router.navigate(['/home/pending']);
+                this.spinner = false;
             },
             error => {
                 this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
+                this.spinner = false;
             });
     }
 

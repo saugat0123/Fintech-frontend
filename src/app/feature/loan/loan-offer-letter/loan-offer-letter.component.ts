@@ -311,12 +311,15 @@ export class LoanOfferLetterComponent implements OnInit {
 
     confirm() {
         this.onClose();
+        this.spinner = true;
         this.loanFormService.postLoanAction(this.formAction.value).subscribe((response: any) => {
+            this.spinner = false;
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Document Has been Successfully ' +
                 this.formAction.get('docAction').value));
 
             LoanOfferLetterComponent.loadData(this);
         }, error => {
+            this.spinner = false;
             this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
 
         });
