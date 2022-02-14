@@ -31,12 +31,15 @@
                    [loanConfig]="loanConfig"
                    [loanData]="loanDataHolder"
                    [nepaliDate]="nepaliDate"></app-micro-loan-summary>
-           <app-loan-summary *ngSwitchDefault
-                   (changeToApprovalSheetActive)="activeApprovalSheet()"
-                             [loanConfig]="loanConfig"
-                             [loanData]="loanDataHolder"
-                             [nepaliDate]="nepaliDate">
-           </app-loan-summary>
+<!--           <app-loan-summary *ngSwitchDefault-->
+<!--                   (changeToApprovalSheetActive)="activeApprovalSheet()"-->
+<!--                             [loanConfig]="loanConfig"-->
+<!--                             [loanData]="loanDataHolder"-->
+<!--                             [nepaliDate]="nepaliDate">-->
+<!--           </app-loan-summary>-->
+           <app-credit-facility-report [loanDataHolder]="loanDataHolder"
+                                       [nepaliDate]="nepaliDate"
+                                       [loanConfig]="loanConfig"></app-credit-facility-report>
        </ng-container>
         </ng-container>
 
