@@ -7,7 +7,7 @@
             <p *ngIf="termLoan.termLoanFor === 'VEHICLE'"><strong>सवारी साधन खरिद गर्न आवधिक कर्जा (Term Loan
                 to Purchase Vehicle)
                 <ng-container *ngIf="termLoan.complementaryOther === true"> बुँदा नं.
-                    <span>
+                    <span class="nepaliFont">
                             {{termLoanFreeText[i]?.SNOfParentLimitVehicleLoan === null || termLoanFreeText[i]?.SNOfParentLimitVehicleLoan === '' ? '___________' : termLoanFreeText[i]?.SNOfParentLimitVehicleLoan}}
                         </span>                        <!-- <span [ngClass]="{'outside' : letterData?.marginInPercentageCT !== null && letterData?.marginInPercentageCT !== ''}">
                                              {{letterData?.marginInPercentageCT === null || letterData?.marginInPercentageCT === '' ? '___________' : letterData?.marginInPercentageCT}}</span>
@@ -31,7 +31,7 @@
                         {{termLoan?.purposeOfLoan === null || termLoan?.purposeOfLoan === '' ? '___________' : termLoan?.purposeOfLoan}}</span>
                 )
                 <ng-container *ngIf="termLoan.complementaryOther === true"> बुँदा नं.
-                    <span>
+                    <span class="nepaliFont">
                             {{termLoanFreeText[i]?.SNOfParentLimitVehicleLoan === null || termLoanFreeText[i]?.SNOfParentLimitVehicleLoan === '' ? '___________' : termLoanFreeText[i]?.SNOfParentLimitVehicleLoan}}
                         </span>                        <!--<span [ngClass]="{'outside' : letterData?.marginInPercentageCT !== null && letterData?.marginInPercentageCT !== ''}">
                                             {{letterData?.marginInPercentageCT === null || letterData?.marginInPercentageCT === '' ? '___________' : letterData?.marginInPercentageCT}}</span>
@@ -69,7 +69,7 @@
                        formControlName="freeTextTen">
                    </textarea>-->
             </p>
-            <p class="nepaliFont" *ngIf="termLoanFreeText[i]?.freeTextEleven">
+            <p *ngIf="termLoanFreeText[i]?.freeTextEleven">
                 <strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong>
                 <span class="nepaliFont">
                         {{termLoanFreeText[i]?.freeTextEleven === null || termLoanFreeText[i]?.freeTextEleven === '' ? '___________' : termLoanFreeText[i]?.freeTextEleven}}
@@ -113,7 +113,7 @@
                 <span *ngIf="termLoan.emiPaymentType === 'SUBSEQUENT_MONTH' &&
                             termLoanFreeText[i]?.newEMISubsequentVehicleLoan">
                     <strong>कर्जा भुक्तानी शुरुः</strong> कर्जा
-                    <span>
+                    <span class="nepaliFont">
                         <strong>
                             {{termLoanFreeText[i]?.newEMISubsequentVehicleLoan === null || termLoanFreeText[i]?.newEMISubsequentVehicleLoan === '' ? '___________' : termLoanFreeText[i]?.newEMISubsequentVehicleLoan}}
                         </strong>
@@ -293,7 +293,7 @@
             </p>
             <p *ngIf="termLoanFreeText[i]?.freeTextTwelve">
                 <strong style="font-size: 19px">कर्जा प्रवाह तरिकाः</strong>
-                <span style="text-align: justify; line-height: 1.9em; font-size: 19px" class="nepaliFont">
+                <span style="text-align: justify; line-height: 1.9em" class="nepaliFont">
                         {{termLoanFreeText[i]?.freeTextTwelve === null || termLoanFreeText[i]?.freeTextTwelve === '' ? '___________' : termLoanFreeText[i]?.freeTextTwelve}}
                     </span>
             </p><!--<textarea

@@ -163,6 +163,7 @@ export class Section2LoanTypeComponent implements OnInit {
     }
 
     ngOnInit() {
+        console.log('Cad Data;', this.cadOfferLetterApprovedDoc);
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc)) {
             this.initialData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
             this.loanOption = this.initialData.smeGlobalForm.loanOption;
