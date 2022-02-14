@@ -6,6 +6,10 @@
                 <td class="text-left">{{(index +1)}}</td>
                 <td  class="text-left">{{data.name}}</td>
             </tr>
+            <tr *ngIf="fixedAssets">
+                <td>Expected Loss Given Default</td>
+                <td>{{fixedAssets}}</td>
+            </tr>
             </tbody>
         </table>
 

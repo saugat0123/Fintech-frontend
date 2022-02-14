@@ -24,7 +24,7 @@
     </div>
 </form>
 <div class="col-md-12">
-    <table border="1" class="table-sm table-responsive table-hover border-white">
+    <table border="1" class="table-sm table-responsive table-hover ">
         <thead>
         <tr class=" sb-bg-dark">
             <td><strong>Particular</strong></td>
@@ -36,7 +36,7 @@
             <td class=" sb-bg-dark"><strong>{{schema}}</strong></td>
             <ng-container>
                 <td style="background: #706e6e;"
-                    class="text-white" *ngFor="let data of audited">
+                     *ngFor="let data of audited">
                     {{financialJson?.data[i][data.index] === 0.00 || financialJson?.data[i][data.index] === undefined ? '' : (financialJson?.data[i][data.index]) | roundvalue}}</td>
             </ng-container>
         </tr>

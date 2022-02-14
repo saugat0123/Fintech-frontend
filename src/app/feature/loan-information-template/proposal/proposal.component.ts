@@ -309,6 +309,7 @@ export class ProposalComponent implements OnInit {
       depositBankRemark: [undefined],
       depositOtherRemark: [undefined],
       total: [undefined],
+      totals: [undefined],
     });
   }
 
