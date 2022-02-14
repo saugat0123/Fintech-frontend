@@ -20,108 +20,108 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-4 removeMarginRight">
-                    <p>Customer & Address</p>
+                <div class="col-md-12">
                     <table class="table table-responsive-md table-bordered table-condensed table-sm text-left sb-small">
                         <tr>
-                            <td>Name</td>
-                            <td class="text-left pl-1">test1</td>
+                            <td>Customer & Address:</td>
+                            <td>Obligor Group & Location</td>
+                            <td>Risk Grade: </td>
                         </tr>
                         <tr>
-                            <td>Permanent Address</td>
-                            <td class="text-left pl-1">test2</td>
-                        </tr>
-                        <tr>
-                            <td>Current Address</td>
-                            <td class="text-left pl-1">test3</td>
-                        </tr>
-                        <tr>
-                            <td>Contact No.</td>
-                            <td class="text-right pr-1">test4</td>
-                        </tr>
-                        <tr>
-                            <td>Contact Person</td>
-                            <td class="text-left pl-1">test5</td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="col-md-4 removeMarginRight removeMarginLeft">
-                    <p>Obligor Group & Location</p>
-                    <table class="table table-responsive-md table-bordered table-condensed table-sm text-left sb-small">
-                        <tr>
-                            <td>Name</td>
-                            <td class="text-left pl-1">Name</td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="col-md-4 removeMarginLeft addMarginRight">
-                    <table class="table table-responsive-md table-bordered table-condensed table-sm text-left sb-small">
-                        <tr>
-                            <td>Risk Grade</td>
-                            <td class="text-right pr-1">Name</td>
-                        </tr>
-                        <tr>
+                            <td>Name: Mr. {{loanDataHolder?.loanHolder.name}}</td>
+                            <td rowspan="7">Name: to be Created</td>
                             <td>Basel Risk</td>
-                            <td>Name</td>
                         </tr>
                         <tr>
-                            <td>NRB Sector Code</td>
-                            <td>Name</td>
+                            <td>Permanent Address:
+                                {{loanDataHolder?.customerInfo?.province?.name}}, {{loanDataHolder?.customerInfo?.district?.name}},
+                                {{loanDataHolder?.customerInfo?.municipalities?.name}}, {{loanDataHolder?.customerInfo?.wardNumber}}</td>
+                            <td>NRB Sector Code: </td>
                         </tr>
                         <tr>
-                            <td>NRB Security Code</td>
-                            <td>Name</td>
+                            <td>Current Address:
+                                {{loanDataHolder?.customerInfo?.temporaryProvince?.name}}, {{loanDataHolder?.customerInfo?.temporaryDistrict?.name}},
+                                {{loanDataHolder?.customerInfo?.temporaryMunicipalities?.name}}, {{loanDataHolder?.customerInfo?.temporaryWardNumber}}</td>
+                            <td>NRB Security Code: </td>
                         </tr>
                         <tr>
+                            <td>Contact No.: {{loanDataHolder?.customerInfo?.contactNumber}}</td>
                             <td>NRB Product Code</td>
-                            <td>Name</td>
                         </tr>
                         <tr>
+                            <td rowspan="3">Contact Person:</td>
                             <td>Risk Type</td>
-                            <td>Name</td>
                         </tr>
                         <tr>
-                            <td>SIS Sector/Sub-Sector Code</td>
-                            <td>Name</td>
+                            <td> SIS Sector/Sub-Sector Code:</td>
                         </tr>
                         <tr>
-                            <td>SIS Collateral Code</td>
-                            <td>Name</td>
+                            <td>SIS Collateral Code:</td>
                         </tr>
                     </table>
                 </div>
             </div>
-<!--            <div class="row">-->
-<!--                <div class="col-md-12">-->
-<!--                    <table class="table table-responsive-md table-bordered table-condensed table-sm text-center sb-small">-->
-<!--                        <tr class="sb-bg-dark text-white">-->
-<!--                            <td rowspan="2" colspan="1">Facilities</td>-->
-<!--                            <td colspan="2">Existing</td>-->
-<!--                            <td colspan="2">Proposed Limit</td>-->
-<!--                            <td colspan="1" rowspan="2">Pricing</td>-->
-<!--                            <td colspan="1" rowspan="2">Tenure</td>-->
-<!--                            <td colspan="1" rowspan="2">Security</td>-->
-<!--                        </tr>-->
-<!--                        <tr class="sb-bg-dark text-white">-->
-<!--                            <td colspan="1">Funded</td>-->
-<!--                            <td colspan="1">Non-Funded</td>-->
-<!--                            <td colspan="1">Funded</td>-->
-<!--                            <td colspan="1">Non-Funded</td>-->
-<!--                        </tr>-->
-<!--                        <tr>-->
-<!--                            <td colspan="1" class="text-left pl-1">test1</td>-->
-<!--                            <td colspan="1" class="text-left pl-1">test2</td>-->
-<!--                            <td colspan="1" class="text-left pl-1">test3</td>-->
-<!--                            <td colspan="1" class="text-left pl-1">test4</td>-->
-<!--                            <td colspan="1" class="text-left pl-1">test1</td>-->
-<!--                            <td colspan="1" class="text-left pl-1">test2</td>-->
-<!--                            <td colspan="1" class="text-left pl-1">test3</td>-->
-<!--                            <td colspan="1" class="text-left pl-1">test4</td>-->
-<!--                        </tr>-->
-<!--                    </table>-->
-<!--                </div>-->
-<!--            </div>-->
-<!--            <div class="row">-->
+            <div class="row">
+                <div class="col-md-12">
+                    <table class="table table-responsive-md table-bordered table-condensed table-sm text-center sb-small">
+                        <tr class="sb-bg-dark text-white">
+                            <td rowspan="2" colspan="1">Facilities</td>
+                            <td colspan="2">Existing</td>
+                            <td colspan="2">Proposed Limit</td>
+                            <td colspan="1" rowspan="2">Pricing</td>
+                            <td colspan="1" rowspan="2">Tenure</td>
+                            <td colspan="1" rowspan="2">Security</td>
+                        </tr>
+                        <tr class="sb-bg-dark text-white">
+                            <td colspan="1">Funded</td>
+                            <td colspan="1">Non-Funded</td>
+                            <td colspan="1">Funded</td>
+                            <td colspan="1">Non-Funded</td>
+                        </tr>
+                        <tr *ngFor="let dto of customerLoanDtoList">
+                            <td colspan="1" class="text-left pl-1">{{dto?.name}}</td>
+                            <td colspan="1" class="text-left pl-1">
+                                <span *ngIf="dto?.loanConfig?.isFundable">
+                                    {{(dto?.proposal?.data | jsonParse)?.existingLimit | currencyFormatter}}
+                                </span>
+                                <span *ngIf="!dto?.loanConfig?.isFundable">-</span>
+                            </td>
+                            <td colspan="1" class="text-left pl-1">
+                                <span *ngIf="!dto?.loanConfig?.isFundable">
+                                    {{(dto?.proposal?.data | jsonParse)?.existingLimit | currencyFormatter}}
+                                </span>
+                                <span *ngIf="dto?.loanConfig?.isFundable">-</span>
+                            </td>
+                            <td colspan="1" class="text-left pl-1">
+                                <span *ngIf="dto?.loanConfig?.isFundable">
+                                    {{dto?.proposal?.proposedLimit | currencyFormatter}}
+                                </span>
+                                <span *ngIf="!dto?.loanConfig?.isFundable">-</span>
+                            </td>
+                            <td colspan="1" class="text-left pl-1">
+                                <span *ngIf="!dto?.loanConfig?.isFundable">
+                                    {{dto?.proposal?.proposedLimit | currencyFormatter}}
+                                </span>
+                                <span *ngIf="dto?.loanConfig?.isFundable">-</span>
+                            </td>
+                            <td colspan="1" class="text-left pl-1">
+                                <span>
+                                    ... % pa ...
+                                </span>
+                            </td>
+                            <td colspan="1" class="text-left pl-1">
+                                <span>... years from the date of disbursement</span>
+                            </td>
+                            <td colspan="1" class="text-left pl-1">
+                                <span>
+                                    Registered mort
+                                </span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
 <!--                <div class="col-md-12">-->
 <!--                    <table class="table table-responsive-md table-bordered table-condensed table-sm text-center sb-small">-->
 <!--                        <tr class="sb-bg-dark text-white">-->
@@ -205,33 +205,16 @@
 <!--                        </tr>-->
 <!--                        </tbody>-->
 <!--                    </table>-->
+                    <div class="col-md-8">
+<!--                        <app-signature-section [loanDataHolder]="loanDataHolder"> </app-signature-section>-->
+                        signature
+                    </div>
+                    <div class="col-md-4">
+                        Personal Guarantee of Mrs...... (Spouse of the borrower) of NPR ..... Mio. <br>
+                        Consent of Ms. .... <br>
+                        <b>Total</b> <br>
+                    </div>
 <!--                </div>-->
-<!--            </div>-->
-            <div class="row">
-                <div class="col-md-4 removeMarginRight">
-                    <table class="table table-responsive-md table-bordered table-responsive-sm table-condensed table-sm text-center sb-small">
-                        <tr>
-                            <td>12</td>
-                            <td>asdfasfd</td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="col-md-4 removeMarginRight removeMarginLeft">
-                    <table class="table table-responsive-md table-bordered table-responsive-sm table-condensed table-sm text-center sb-small">
-                        <tr>
-                            <td>13</td>
-                            <td>asdfds</td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="col-md-4 removeMarginLeft">
-                    <table class="table table-responsive-md table-bordered table-responsive-sm table-condensed table-sm text-center sb-small">
-                        <tr>
-                            <td>14</td>
-                            <td>afdsaf</td>
-                        </tr>
-                    </table>
-                </div>
             </div>
         </nb-card-body>
     </nb-card>
