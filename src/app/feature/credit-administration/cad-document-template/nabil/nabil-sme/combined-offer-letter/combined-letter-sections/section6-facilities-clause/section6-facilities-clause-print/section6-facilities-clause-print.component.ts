@@ -38,12 +38,9 @@ export class Section6FacilitiesClausePrintComponent implements OnInit {
     this.getLoanName();
     this.checkLoanName();
     this.isApplicable();
+    this.checkOneOffFacility();
   }
   private checkLoanName(): void {
-    const tempD = this.tempData;
-    if (!ObjectUtil.isEmpty(tempD)) {
-      this.isOneOffFacility = this.checkOneOffFacility(tempD);
-    }
     if (this.loanData.length > 0) {
       this.loanData.forEach(v => {
         if (v === LoanNameConstant.IRREVOCABLE_LETTER_OF_CREDIT_FACILITY) {
@@ -70,14 +67,34 @@ export class Section6FacilitiesClausePrintComponent implements OnInit {
     });
   }
 
-  checkOneOffFacility(tempD) {
-    if ((!ObjectUtil.isEmpty(tempD.letterOfCreditForm) && tempD.letterOfCreditForm.loanOption === 'ONE_OFF_BASIS') ||
-        (!ObjectUtil.isEmpty(tempD.timeLetterCreditForm) && tempD.timeLetterCreditForm.loanOption === 'ONE_OFF_BASIS') ||
-        (!ObjectUtil.isEmpty(tempD.importLoanTrust) && tempD.importLoanTrust.loanOption === 'ONE_OFF_BASIS') ||
-        (!ObjectUtil.isEmpty(tempD.revolvingShortTermLoan) && tempD.revolvingShortTermLoan.loanOption === 'ONE_OFF_BASIS')) {
-      return true;
-    } else {
-      return false;
+  checkOneOffFacility() {
+    if (!ObjectUtil.isEmpty(this.tempData.letterOfCreditForm)) {
+      this.tempData.letterOfCreditForm.letterOfCreditFormArray.forEach(val => {
+        if (val.loanOption === 'ONE_OFF_BASIS') {
+          this.isOneOffFacility = true;
+        }
+      });
+    }
+    if (!ObjectUtil.isEmpty(this.tempData.timeLetterCreditForm)) {
+      this.tempData.timeLetterCreditForm.timeLetterCreditFormArray.forEach(val => {
+        if (val.loanOption === 'ONE_OFF_BASIS') {
+          this.isOneOffFacility = true;
+        }
+      });
+    }
+    if (!ObjectUtil.isEmpty(this.tempData.importLoanTrust)) {
+      this.tempData.importLoanTrust.importLoanTrustFormArray.forEach(val => {
+        if (val.loanOption === 'ONE_OFF_BASIS') {
+          this.isOneOffFacility = true;
+        }
+      });
+    }
+    if (!ObjectUtil.isEmpty(this.tempData.revolvingShortTermLoan)) {
+      this.tempData.revolvingShortTermLoan.revolvingShortTermLoanFormArray.forEach(val => {
+        if (val.loanOption === 'ONE_OFF_BASIS') {
+          this.isOneOffFacility = true;
+        }
+      });
     }
   }
   isApplicable() {

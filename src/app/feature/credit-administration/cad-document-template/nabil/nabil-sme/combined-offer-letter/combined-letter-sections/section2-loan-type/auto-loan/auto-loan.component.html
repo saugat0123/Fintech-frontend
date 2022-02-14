@@ -29,7 +29,7 @@
                                       formControlName="loanAmountInFigure"
                                       placeholder=""
                                       type="text"/>/-
-                            <ng-container *ngIf="autoLoan.complementaryOther === true">)</ng-container>
+                            <ng-container *ngIf="autoLoan.complementaryOther === true">) </ng-container>
                             (अक्षरेपी रु.<input class="form-field form-control-sm "
                                                 formControlName="loanAmountInWords"
                                                 placeholder=""
@@ -41,8 +41,8 @@
                         <ng-container *ngIf="autoLoan.vehiclePurchased === true"> गरिएको</ng-container>
                         <ng-container *ngIf="autoLoan.vehiclePurchased === false"> गरिने</ng-container>
                         सवारी साधन बैंकको नाममा दर्ता
-                        <ng-container *ngIf="autoLoan.vehicleRegistered === true"> गरिदिनुपर्नेछ</ng-container>
-                        <ng-container *ngIf="autoLoan.vehicleRegistered === false"> गरिदिइएको यथावत कायम रहनेछ
+                        <ng-container *ngIf="autoLoan.vehicleRegistered === false"> गरिदिनुपर्नेछ</ng-container>
+                        <ng-container *ngIf="autoLoan.vehicleRegistered === true"> गरिदिइएको यथावत कायम रहनेछ
                         </ng-container>
                         ।
                     </p>
@@ -79,7 +79,7 @@
                             रु.<input class="form-field form-control-sm "
                                       formControlName="newEMIAmountAutoLoan"
                                       placeholder=""
-                                      type="text"/>|-
+                                      type="text"/>/-
                                 (अक्षरेपि रु. <input class="form-field form-control-sm "
                                                      formControlName="newEMIAmountInWordAutoLoan"
                                                      placeholder=""
