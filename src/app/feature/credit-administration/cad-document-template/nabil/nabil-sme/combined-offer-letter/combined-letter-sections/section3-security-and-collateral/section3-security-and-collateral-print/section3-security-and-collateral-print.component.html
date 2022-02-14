@@ -327,7 +327,7 @@
                                     </span>
                                 </p>
                             </li>
-                            <div *ngIf="this.free !== null" class="row" [innerHTML]="table | safeHtml" style="margin-left:1em; width:90%;">
+                            <div *ngIf="this.free !== null" class="row nepaliFont" [innerHTML]="table | safeHtml" style="margin-left:1em; width:90%;">
                             </div>
 
                             <!--Applicable only Auto loan and termloan for vehicle is required-->
@@ -442,7 +442,7 @@
                                 </div>
                             </li>
 
-                            <div class="pb-4" class="pb-4" *ngIf="securityTypeSecondaryCondition">
+                            <div class="pb-4" *ngIf="securityTypeSecondaryCondition">
                                 <app-master-secondary-securities-view
                                         [securityDetails]="letterData?.securities"></app-master-secondary-securities-view>
                             </div>
