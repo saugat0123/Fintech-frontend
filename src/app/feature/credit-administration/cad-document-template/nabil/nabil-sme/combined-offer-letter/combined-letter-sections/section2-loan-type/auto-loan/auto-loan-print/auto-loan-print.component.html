@@ -7,7 +7,7 @@
                 <p>
                     <strong>सवारी साधन कर्जा (Auto Loan)
                         <ng-container *ngIf="autoLoan.complementaryOther === true"> बुँदा नं.
-                            <span>
+                            <span class="nepaliFont">
                                 {{autoLoanFreeText[i]?.SNOfParentLimitAutoLoan === null || autoLoanFreeText[i]?.SNOfParentLimitAutoLoan === '' ? '___________' : autoLoanFreeText[i]?.SNOfParentLimitAutoLoan}}
                             </span>
                             <ng-container *ngIf="autoLoan.complimentaryLoanSelected !== 'TOTAL LIMIT'"> को पूरक सुविधा
@@ -77,7 +77,7 @@
                     <span *ngIf="autoLoan.emiPaymentType === 'SUBSEQUENT_MONTH' &&
                         autoLoanFreeText[i]?.newEMIAutoPopulateAutoLoan1">
         <strong>कर्जा भुक्तानी शुरुः</strong>कर्जा
-        <span>
+        <span class="nepaliFont">
             <strong>
           {{autoLoanFreeText[i]?.newEMIAutoPopulateAutoLoan1 === null || autoLoanFreeText[i]?.newEMIAutoPopulateAutoLoan1 === '' ? '___________' : autoLoanFreeText[i]?.newEMIAutoPopulateAutoLoan1}}
             </strong>
@@ -245,7 +245,7 @@
         </span>
                     <span *ngIf="autoLoanFreeText[i]?.disbursementClause === true">
                         <strong style="font-size: 19px; line-height: 1.9em">कर्जा प्रवाह तरिकाः</strong>
-                            <span style="font-size: 19px; line-height: 1.9em" class="nepaliFont">
+                            <span style="line-height: 1.9em" class="nepaliFont">
                                 {{autoLoanFreeText[i]?.freeText14 === null || autoLoanFreeText[i]?.freeText14 === '' ? '___________' : autoLoanFreeText[i]?.freeText14}}
                             </span>
                        </span>

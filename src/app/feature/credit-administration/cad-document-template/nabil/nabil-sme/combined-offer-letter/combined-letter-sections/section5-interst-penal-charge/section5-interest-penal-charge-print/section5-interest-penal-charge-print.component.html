@@ -236,7 +236,7 @@
                             <strong> अग्रिम भुक्तानी शुल्क र/वा स्वाप (Swap) शुल्क </strong>लाग्नेछ तर उल्लिखित
                             दरहरु समय समयमा नेपाल राष्ट्र बैंकको निर्देशन बमोजिम परिवर्तन भई थप/घट हुनसक्नेछन ।
                         </p>
-                        <table class="table table-sm table-bordered text-center table-sm sb-small"
+                        <table class="table table-bordered text-center"
                                style="width: 80%;margin-left:auto;margin-right:auto">
                             <tr>
                                 <td style="width: 50%">
@@ -271,7 +271,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="2">
+                                <td colspan="2" style="text-align: justify">
                                     नेपाल राष्ट्र बैंकको निर्देशन बमोजिम रु ५० लाखसम्मको सीमा कायम भएको जुनसुकै
                                     प्रकारको कर्जा भुक्तानी गर्दा अग्रिम भुक्तानी शूल्क लाग्ने छैन । सो
                                     सीमाभन्दा
@@ -307,12 +307,10 @@
                         <strong> हर्जाना ब्याज (Penal Interest) तथा बिलम्ब भुक्तानी शुल्कहरु (Late Payment
                             Fee) </strong>
                         </p>
-                        <p class="m-0">
-                        <span style="font-weight: normal">
+                        <p style="font-weight: normal" class="m-0">
                         साँवा र ब्याज रकम निर्धारित भुक्तानी मिति वा कर्जा समाप्ति मितिमा भुक्तानी नभएमा
                         देहाय
                         बमोजिमका दरले थप हर्जाना ब्याज लाग्नेछ ।
-                        </span>
                         </p>
                         <ng-container class="m-0">
                         <ul style="list-style-type: 'क.'">
@@ -374,18 +372,19 @@
                         <p class="m-0">
                             <strong>ऋण प्रतिबद्धता शुल्क:</strong>
                             </p>
-                        <p class="m-0">
+                        <p class="m-0" *ngIf="termSelected || isAutoLoanSelected">
                             <!--This clause is applicables only in case of new term loan/auto loan-->
-                            <span *ngIf="termSelected || isAutoLoanSelected">
-                                            स्वीकृत दीर्घकालिन कर्जा सीमा पुर्ण वा आंशिक रुपमा उपयोग नभएमा सो उपयोग नभएको कर्जा सीमामा <strong>०.१५</strong> प्रतिशतका दरले प्रतिबद्धता शुल्क लाग्नेछ ।
-                                        </span>
-                            <!--For working capital loan-->
-                            <ng-container *ngIf="isWorkingCapitalLoan">
-                                    <span>
-                                        अल्पकालिन तथा चालु पुँजी प्रकृतिका कोषमा आधारित स्वीकृत कर्जा सुविधाका हकमा स्वीकृत कर्जा सीमाको औसत उपयोग <strong>६०</strong> प्रतिशत भन्दा कम उपयोग भएमा कम उपयोग भएको औसत कर्जा रकमको <strong>०.१५</strong> प्रतिशतका दरले प्रतिबद्घता शुल्क नवीकरण/पुनरावलोकन गरीएको समयमा वा बैंकले मागेको समयमा तिर्नु बुझाउनु पर्नेछ ।
-                                    </span>
-                            </ng-container>
+                            स्वीकृत दीर्घकालिन कर्जा सीमा पुर्ण वा आंशिक रुपमा उपयोग नभएमा सो उपयोग नभएको कर्जा सीमामा
+                            <strong>०.१५</strong> प्रतिशतका दरले प्रतिबद्धता शुल्क लाग्नेछ ।
                         </p>
+                            <!--For working capital loan-->
+                        <p class="m-0" *ngIf="isWorkingCapitalLoan">
+                            अल्पकालिन तथा चालु पुँजी प्रकृतिका कोषमा आधारित स्वीकृत कर्जा सुविधाका हकमा स्वीकृत कर्जा
+                            सीमाको औसत उपयोग <strong>६०</strong> प्रतिशत भन्दा कम उपयोग भएमा कम उपयोग भएको औसत कर्जा
+                            रकमको <strong>०.१५</strong> प्रतिशतका दरले प्रतिबद्घता शुल्क नवीकरण/पुनरावलोकन गरीएको समयमा
+                            वा बैंकले मागेको समयमा तिर्नु बुझाउनु पर्नेछ ।
+                        </p>
+
                     </li>
                     <li>
                         <p class="m-0">
