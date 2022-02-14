@@ -19,7 +19,7 @@ export class CollateralSiteVisitComponent implements OnInit {
   @Input() loanDataHolder: LoanDataHolder;
   url;
   securityData;
-  collateralSiteVisits;
+  collateralSiteVisits = [];
     vehicleSelected = false;
     landSelected = false;
     hypothecation = false;
@@ -212,6 +212,7 @@ export class CollateralSiteVisitComponent implements OnInit {
             }
           });
     }
+      console.log(' i am here', this.loanDataHolder);
   }
     viewDocument(url: string, name: string) {
         const viewDocName = name.concat(this.fileType);
