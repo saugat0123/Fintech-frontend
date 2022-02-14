@@ -1811,6 +1811,7 @@
                     </table>
                 </div>
             </div>
+            <app-collateral-site-visit *ngIf="loanDataHolder?.loanHolder?.security" [loanDataHolder]="loanDataHolder"></app-collateral-site-visit>
         </nb-card-body>
     </nb-card>
 </section>
