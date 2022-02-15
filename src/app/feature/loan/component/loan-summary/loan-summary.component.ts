@@ -184,6 +184,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     securityId: number;
     siteVisitDocuments: Array<SiteVisitDocument>;
     requestedLoanType;
+    @Output() customerLoanList = new EventEmitter();
 
     constructor(
         @Inject(DOCUMENT) private _document: Document,
@@ -476,6 +477,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                         console.error(err);
                     });
                 }
+                this.customerLoanList.emit(this.customerAllLoanList);
             }, error => {
                 console.error(error);
             });

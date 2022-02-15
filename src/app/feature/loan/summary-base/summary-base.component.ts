@@ -47,7 +47,8 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
 
     loanSummaryActive = true;
     approvalSheetActive = false;
-    loanTag= LoanTag;
+    loanTag = LoanTag;
+    customerAllLoanList;
 
     constructor(private userService: UserService,
                 private loanFormService: LoanFormService,
@@ -225,5 +226,9 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
     activeLoanSummary() {
         this.approvalSheetActive = false;
         this.loanSummaryActive = true;
+    }
+
+    customerLoanList(event) {
+        this.customerAllLoanList = event;
     }
 }

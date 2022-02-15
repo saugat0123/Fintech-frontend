@@ -78,35 +78,41 @@
                             <td colspan="1">Funded</td>
                             <td colspan="1">Non-Funded</td>
                         </tr>
-                        <tr *ngFor="let dto of customerLoanDtoList">
-                            <td colspan="1" class="text-left pl-1">{{dto?.name}}</td>
-                            <td colspan="1" class="text-left pl-1">
-                                <span *ngIf="dto?.loanConfig?.isFundable">
-                                    {{(dto?.proposal?.data | jsonParse)?.existingLimit | currencyFormatter}}
+                        <tr *ngFor="let data of customerAllLoanList">
+                            <td colspan="1" class="text-left pl-1">{{data?.loan?.name}}</td>
+                            <td colspan="1" class="text-right pr-1">
+                                <span *ngIf="data?.loan?.isFundable">
+                                    <span *ngIf="(data?.proposal?.data | jsonParse)?.existingLimit">
+                                        {{(data?.proposal?.data | jsonParse)?.existingLimit | currencyFormatter}}
+                                    </span>
                                 </span>
-                                <span *ngIf="!dto?.loanConfig?.isFundable">-</span>
+                                <span *ngIf="(!data?.loan?.isFundable) || !(data?.proposal?.data | jsonParse)?.existingLimit">-</span>
                             </td>
-                            <td colspan="1" class="text-left pl-1">
-                                <span *ngIf="!dto?.loanConfig?.isFundable">
-                                    {{(dto?.proposal?.data | jsonParse)?.existingLimit | currencyFormatter}}
+                            <td colspan="1" class="text-right pr-1">
+                                <span *ngIf="!data?.loan?.isFundable">
+                                    <span *ngIf="(data?.proposal?.data | jsonParse)?.existingLimit">
+                                        {{(data?.proposal?.data | jsonParse)?.existingLimit | currencyFormatter}}
+                                    </span>
                                 </span>
-                                <span *ngIf="dto?.loanConfig?.isFundable">-</span>
+                                <span *ngIf="(data?.loan?.isFundable) || !(data?.proposal?.data | jsonParse)?.existingLimit">-</span>
                             </td>
-                            <td colspan="1" class="text-left pl-1">
-                                <span *ngIf="dto?.loanConfig?.isFundable">
-                                    {{dto?.proposal?.proposedLimit | currencyFormatter}}
+                            <td colspan="1" class="text-right pr-1">
+                                <span *ngIf="data?.loan?.isFundable">
+                                    {{data?.proposal?.proposedLimit | currencyFormatter}}
                                 </span>
-                                <span *ngIf="!dto?.loanConfig?.isFundable">-</span>
+                                <span *ngIf="(!data?.loan?.isFundable) || (data?.proposal?.proposedLimit < 0)">-</span>
                             </td>
-                            <td colspan="1" class="text-left pl-1">
-                                <span *ngIf="!dto?.loanConfig?.isFundable">
-                                    {{dto?.proposal?.proposedLimit | currencyFormatter}}
+                            <td colspan="1" class="text-right pr-1">
+                                <span *ngIf="!data?.loan?.isFundable">
+                                    {{data?.proposal?.proposedLimit | currencyFormatter}}
                                 </span>
-                                <span *ngIf="dto?.loanConfig?.isFundable">-</span>
+                                <span *ngIf="(data?.loan?.isFundable) || (data?.proposal?.proposedLimit < 0)">-</span>
                             </td>
-                            <td colspan="1" class="text-left pl-1">
+                            <td colspan="1" class="text-right pr-1">
                                 <span>
-                                    ... % pa ...
+                                    ... % pa (BR% + ...%)
+
+                                    Loan Processing Fee: ...%of the limit
                                 </span>
                             </td>
                             <td colspan="1" class="text-left pl-1">
@@ -114,9 +120,127 @@
                             </td>
                             <td colspan="1" class="text-left pl-1">
                                 <span>
-                                    Registered mort
+                                    Registered mortgage over
+                                    Owner:
+                                    Location:       Ward No.:
+                                    Plot No.: ......., Area: ...... sq.m
+
+                                    Valuation Date and Valuator: ........;.......Pvt.Ltd.
+                                </span>
+                                <table>
+                                    <tr>
+                                        <td>Particulars</td>
+                                        <td>MV</td>
+                                        <td>FMV</td>
+                                        <td>DV</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Land</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Buinding</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Total</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr *ngFor="let dto of customerLoanDtoList">
+                            <td colspan="1" class="text-left pl-1">{{dto?.name}}</td>
+                            <td colspan="1" class="text-right pr-1">
+                                <span *ngIf="dto?.loanConfig?.isFundable">
+                                    <span *ngIf="(dto?.proposal?.data | jsonParse)?.existingLimit">
+                                        {{(dto?.proposal?.data | jsonParse)?.existingLimit | currencyFormatter}}
+                                    </span>
+                                </span>
+                                <span *ngIf="(!dto?.loanConfig?.isFundable) || (!(dto?.proposal?.data | jsonParse)?.existingLimit)">-</span>
+                            </td>
+                            <td colspan="1" class="text-right pr-1">
+                                <span *ngIf="!dto?.loanConfig?.isFundable">
+                                    <span *ngIf="(dto?.proposal?.data | jsonParse)?.existingLimit">
+                                        {{(dto?.proposal?.data | jsonParse)?.existingLimit | currencyFormatter}}
+                                    </span>
+                                </span>
+                                <span *ngIf="(dto?.loanConfig?.isFundable) || (!(dto?.proposal?.data | jsonParse)?.existingLimit)">-</span>
+                            </td>
+                            <td colspan="1" class="text-right pr-1">
+                                <span *ngIf="dto?.loanConfig?.isFundable">
+                                    {{dto?.proposal?.proposedLimit | currencyFormatter}}
+                                </span>
+                                <span *ngIf="(!dto?.loanConfig?.isFundable) || (dto?.proposal?.proposedLimit < 0)">-</span>
+                            </td>
+                            <td colspan="1" class="text-right pr-1">
+                                <span *ngIf="!dto?.loanConfig?.isFundable">
+                                    {{dto?.proposal?.proposedLimit | currencyFormatter}}
+                                </span>
+                                <span *ngIf="(dto?.loanConfig?.isFundable) || (dto?.proposal?.proposedLimit < 0)">-</span>
+                            </td>
+                            <td colspan="1" class="text-right pr-1">
+                                <span>
+                                    ... % pa (BR% + ...%)
+
+                                    Loan Processing Fee: ...%of the limit
                                 </span>
                             </td>
+                            <td colspan="1" class="text-left pl-1">
+                                <span>... years from the date of disbursement</span>
+                            </td>
+                            <td colspan="1" class="text-left pl-1">
+                                <span>
+                                    Registered mortgage over
+                                    Owner:
+                                    Location:       Ward No.:
+                                    Plot No.: ......., Area: ...... sq.m
+
+                                    Valuation Date and Valuator: ........;.......Pvt.Ltd.
+                                </span>
+                                <table>
+                                    <tr>
+                                        <td>Particulars</td>
+                                        <td>MV</td>
+                                        <td>FMV</td>
+                                        <td>DV</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Land</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Buinding</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Total</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Total</td>
+                            <td>{{getTotalFundable('existingLimit', true, customerAllLoanList) | currencyFormatter}}</td>
+                            <td>{{getTotalFundable('existingLimit', false, customerAllLoanList) | currencyFormatter}}</td>
+                            <td>{{getTotalFundable('proposedLimit', true, customerAllLoanList) | currencyFormatter}}</td>
+                            <td>{{getTotalFundable('proposedLimit', false, customerAllLoanList) | currencyFormatter}}</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                         </tr>
                     </table>
                 </div>
@@ -206,6 +330,20 @@
 <!--                        </tbody>-->
 <!--                    </table>-->
                     <div class="col-md-8">
+                        <table>
+                            <tr>
+                                <td><span>Branch/Unit Originating CFR</span>
+                                    <span>Prepared By:</span>
+                                    Recommended By:
+                                    Reviewed By:
+                                    Approved By
+                                </td>
+                                <td>
+                                    Approved by:
+
+                                </td>
+                            </tr>
+                        </table>
 <!--                        <app-signature-section [loanDataHolder]="loanDataHolder"> </app-signature-section>-->
                         signature
                     </div>
@@ -213,6 +351,12 @@
                         Personal Guarantee of Mrs...... (Spouse of the borrower) of NPR ..... Mio. <br>
                         Consent of Ms. .... <br>
                         <b>Total</b> <br>
+                        Tangible: NPR ..... Mio
+                        Intangible: .... Mio
+                        Security Coverage: Ratio for funded Facility of NPR .... Mio.
+
+                        a. Land & Building :- .....% at FMV
+                        b. Personal Guarantee :- 100%.
                     </div>
 <!--                </div>-->
             </div>
