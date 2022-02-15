@@ -167,21 +167,6 @@ bankingRelationshipList = BankingRelationship.enumObject();
             } else {
                 this.addAccountNumber();
             }
-            // if (!ObjectUtil.isEmpty(this.individualJsonData.vehicle)) {
-            //     this.setFormData(this.individualJsonData.vehicle, 'vehicle');
-            // } else {
-            //     this.addKeyValue('vehicle');
-            // }
-            // if (!ObjectUtil.isEmpty(this.individualJsonData.realState)) {
-            //     this.setFormData(this.individualJsonData.realState, 'realState');
-            // } else {
-            //     this.addKeyValue('realState');
-            // }
-            // if (!ObjectUtil.isEmpty(this.individualJsonData.shares)) {
-            //     this.setFormData(this.individualJsonData.shares, 'shares');
-            // } else {
-            //     this.addKeyValue('shares');
-            // }
             this.setOccupationAndIncomeSourceAndParentInput(this.formValue);
             this.occupationChange();
         } else {
@@ -493,21 +478,6 @@ bankingRelationshipList = BankingRelationship.enumObject();
                 this.customerLegalDocumentAddress],
             sameAddress: [this.customer.sameAddress === undefined ? undefined : this.customer.sameAddress],
             accountDetails: this.formBuilder.array([]),
-            // shares: this.formBuilder.array([]),
-            // realState: this.formBuilder.array([]),
-            // vehicle: this.formBuilder.array([]),
-            // depositBank: [ObjectUtil.isEmpty(this.individualJsonData) ? 0 :
-            //     this.individualJsonData.depositBank],
-            // depositOther: [ObjectUtil.isEmpty(this.individualJsonData) ? 0 :
-            //     this.individualJsonData.depositOther],
-            // depositBankRemark: [ObjectUtil.isEmpty(this.individualJsonData) ? 0 :
-            //     this.individualJsonData.depositBankRemark],
-            // depositOtherRemark: [ObjectUtil.isEmpty(this.individualJsonData) ? 0 :
-            //     this.individualJsonData.depositOtherRemark],
-            // total: [ObjectUtil.isEmpty(this.individualJsonData) ? 0 :
-            //     this.individualJsonData.total],
-
-
         });
 
         this.onCustomerTypeChange(this.microCustomer);
@@ -531,15 +501,7 @@ bankingRelationshipList = BankingRelationship.enumObject();
         individualJsonData.grandFatherName = this.basicInfoControls.grandFatherName.value;
         individualJsonData.fatherName = this.basicInfoControls.fatherName.value;
         individualJsonData.accountDetails = this.basicInfoControls.accountDetails.value;
-        // individualJsonData.shares = this.basicInfoControls.shares.value;
-        // individualJsonData.realState = this.basicInfoControls.realState.value;
-        // individualJsonData.vehicle = this.basicInfoControls.vehicle.value;
-        // individualJsonData.checkedData = checkedData;
-        // individualJsonData.depositOther = this.basicInfoControls.depositOther.value;
-        // individualJsonData.depositBank = this.basicInfoControls.depositBank.value;
-        // individualJsonData.depositOtherRemark = this.basicInfoControls.depositOtherRemark.value;
-        // individualJsonData.depositBankRemark = this.basicInfoControls.depositBankRemark.value;
-        // individualJsonData.total = this.basicInfoControls.total.value;
+        individualJsonData.checkedData = checkedData;
         if (this.microCustomer) {
             individualJsonData.microCustomerDetail = this.microIndividualFormComponent.microCustomerForm.value;
         }
@@ -798,30 +760,10 @@ bankingRelationshipList = BankingRelationship.enumObject();
             })
         );
     }
-    addKeyValue(formControl: string) {
-        (this.basicInfo.get(formControl) as FormArray).push(
-            this.formBuilder.group({
-                assets: undefined,
-                amount: 0,
-            })
-        );
-    }
-    removeValue(formControl: string, index: number) {
-        (<FormArray>this.basicInfo.get(formControl)).removeAt(index);
-    }
     removeAccount(index: number) {
         (<FormArray>this.basicInfo.get('accountDetails')).removeAt(index);
     }
 
-    setFormData(data, formControl) {
-        const form = this.basicInfo.get(formControl) as FormArray;
-        data.forEach(l => {
-            form.push(this.formBuilder.group({
-                assets: [l.assets],
-                amount: [l.amount]
-            }));
-        });
-    }
     setAccountNumber(data) {
         const account = this.basicInfo.get('accountDetails') as FormArray;
         data.forEach(l => {
@@ -853,19 +795,5 @@ bankingRelationshipList = BankingRelationship.enumObject();
                 break;
 
         }
-    }
-    calculate() {
-        let total = this.basicInfo.get('depositBank').value + this.basicInfo.get('depositOther').value;
-        total += this.getArrayTotal('shares');
-        total += this.getArrayTotal('vehicle');
-        total += this.getArrayTotal('realState');
-        this.basicInfo.get('total').patchValue(total);
-    }
-    getArrayTotal(formControl): number {
-        let total = 0;
-        (this.basicInfo.get(formControl).value).forEach((d, i) => {
-            total += d.amount;
-        });
-        return total;
     }
 }

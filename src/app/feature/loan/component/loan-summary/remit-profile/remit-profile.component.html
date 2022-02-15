@@ -151,47 +151,6 @@
             </div>
         </div>
     </ng-container>
-    <div class="row" *ngIf="individual?.customerRelatives?.length > 0 && loanHolder?.loanHolder?.clientType!=='CONSUMER_FINANCE'">
-        <div class="col-md-12">
-            <p class="header"><strong>Family Details</strong></p>
-            <table
-                    class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-                <thead>
-                <tr class="text-white sb-bg-dark">
-                    <th>Name</th>
-                    <th>Undivided Family Member</th>
-                    <th>Citizenship no.</th>
-                    <th>Citizenship Issued Date(AD/BS)</th>
-                    <th>Citizenship Issued District</th>
-                    <th>Age</th>
-
-
-                </tr>
-                </thead>
-                <tbody>
-                <tr *ngFor="let relative of individual?.customerRelatives">
-                    <td class="text-left pl-1">
-                        {{relative?.customerRelativeName}}
-                    </td>
-
-                    <td class="text-left pl-1">
-                        {{relative?.customerRelation}}
-                    </td>
-                    <td class="text-right pr-1">
-                        {{relative?.citizenshipNumber || 'N/A'}}
-                    </td>
-                    <td class="text-left pl-1">
-                        {{relative?.citizenshipIssuedDate | date}} ({{relative?.citizenshipIssuedDate | engNepDate: false}})
-                    </td>
-                    <td class="text-left pl-1">{{relative?.citizenshipIssuedPlace || 'N/A'}}</td>
-
-                    <td class="text-left pl-1">{{relative?.age}} years</td>
-
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
 
     <ng-container *ngIf="isRemit">
         <div class="row">
