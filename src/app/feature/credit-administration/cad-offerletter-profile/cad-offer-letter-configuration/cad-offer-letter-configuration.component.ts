@@ -292,6 +292,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
             registrationDate: [undefined],
             registrationDateCT: [undefined],
             registrationDateTrans: [undefined],
+            registrationDateNepali: [undefined],
+            registrationDateNepaliCT: [undefined],
+            registrationDateNepaliTrans: [undefined],
             registeredMunicipality: [undefined],
             registeredMunicipalityCT: [undefined],
             registeredMunicipalityTrans: [undefined, Validators.required],
@@ -504,7 +507,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
         this.oneFormCustomer.contactNumber = this.userConfigForm.get('contactNo').value;
         this.oneFormCustomer.gender = this.userConfigForm.get('gender').value;
         // this.oneFormCustomer.establishmentDate = this.userConfigForm.get('citizenshipIssueDate').value;
-        if (this.loanHolder.customerType === CustomerType.INSTITUTION) {
+        /*if (this.loanHolder.customerType === CustomerType.INSTITUTION) {
             if (this.userConfigForm.get('registrationDateOption').value === 'AD') {
                 this.oneFormCustomer.establishmentDate = new Date(this.userConfigForm.get('registrationDate').value);
             } else {
@@ -521,7 +524,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
             } else {
                 this.oneFormCustomer.establishmentDate = new Date(this.userConfigForm.get('registrationDate').value.eDate);
             }
-        }
+        }*/
         const customer = {
             relationMedium: this.userConfigForm.get('relationMedium').value,
             husbandName: this.userConfigForm.get('husbandName').value,
@@ -3722,11 +3725,15 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
                 genderCT: ObjectUtil.isEmpty(nepData.gender) ? undefined : nepData.gender.np,
                 permanentProvinceCT: ObjectUtil.isEmpty(nepData.permanentProvince) ? undefined : nepData.permanentProvince.np,
                 permanentDistrictCT: ObjectUtil.isEmpty(nepData.permanentDistrict) ? undefined : nepData.permanentDistrict.np,
-                registrationDateOption: ObjectUtil.isEmpty(nepData.registrationDateOption) ? undefined : 'AD',
-                registrationDate: ObjectUtil.isEmpty(nepData.registrationDate) ? undefined : nepData.registrationDate.en.eDate ?
-                    nepData.registrationDate.en.eDate : nepData.registrationDate.en,
+                registrationDateOption: ObjectUtil.isEmpty(nepData.registrationDateOption) ? undefined : nepData.registrationDateOption.en,
+                registrationDate: ObjectUtil.isEmpty(nepData.registrationDate) ? undefined : new Date(nepData.registrationDate.en),
                 registrationDateTrans:  ObjectUtil.isEmpty(this.userConfigForm.get('registrationDate').value) ? undefined : this.userConfigForm.get('registrationDate').value,
                 registrationDateCT:  ObjectUtil.isEmpty(this.userConfigForm.get('registrationDate').value) ? undefined : this.userConfigForm.get('registrationDate').value,
+
+                registrationDateNepali: ObjectUtil.isEmpty(nepData.registrationDateNepali) ? undefined : nepData.registrationDateNepali.en,
+                registrationDateNepaliTrans:  ObjectUtil.isEmpty(this.userConfigForm.get('registrationDateNepali').value) ? undefined : this.userConfigForm.get('registrationDateNepali').value,
+                registrationDateNepaliCT:  ObjectUtil.isEmpty(this.userConfigForm.get('registrationDateNepali').value) ? undefined : this.userConfigForm.get('registrationDateNepali').value,
+
                 // permanentMunicipality: ObjectUtil.isEmpty(nepData.permanentMunicipality) ? undefined : nepData.permanentMunicipality.np,
                 temporaryProvinceCT: ObjectUtil.isEmpty(nepData.temporaryProvince) ? undefined : nepData.temporaryProvince.np,
                 temporaryDistrictCT: ObjectUtil.isEmpty(nepData.temporaryDistrict) ? undefined : nepData.temporaryDistrict.np,
@@ -3871,6 +3878,21 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
     async translateActYear(fieldName: any) {
         const wordLabelVar = this.engToNepaliNumberPipe.transform(this.userConfigForm.get(fieldName).value.toString());
         this.userConfigForm.get(fieldName).patchValue(wordLabelVar);
+    }
+
+    actYearTr(val, fieldName) {
+        if (val === 'BS') {
+            const wordLabelVar = this.engToNepaliNumberPipe.transform(this.userConfigForm.get(fieldName).value.toString());
+            this.userConfigForm.get(fieldName).patchValue(wordLabelVar);
+        }
+    }
+
+    guarantorActYearTr(val, fieldName, i) {
+        if (val === 'BS') {
+            const wordLabelVar = this.engToNepaliNumberPipe.transform(this.userConfigForm.get(
+                ['guarantorDetails', i, fieldName]).value.toString());
+            this.userConfigForm.get(['guarantorDetails', i , fieldName]).patchValue(wordLabelVar);
+        }
     }
 
     async translateGuaActYear(fieldName: any, i: number) {
