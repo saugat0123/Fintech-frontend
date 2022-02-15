@@ -1,4 +1,4 @@
-<table *ngIf="loanDataHolder?.loanHolder?.clientType === 'CONSUMER_FINANCE'">
+<table>
     <tr>
         <td><p><strong>Purpose of Loan:</strong></p></td>
         <td class="text-left" style="display: flex" [innerHTML]="proposalAllData?.purposeOfLoan || 'N/A' | safeHtml"></td>
