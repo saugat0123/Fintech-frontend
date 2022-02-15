@@ -142,6 +142,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
     headingSubType: any;
     detailOption: any;
     translatedFormGroup: FormGroup;
+    guarantorTranslatedFormGroup: FormGroup;
 
     constructor(private formBuilder: FormBuilder,
                 private titleCasePipe: TitleCasePipe,
@@ -942,6 +943,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
             if (this.userConfigForm.get(['guarantorDetails', index, 'guarantorNationality']).value === 'Other' &&
                 this.actionType === 'Edit' && this.customerType === CustomerType.INSTITUTION) {
                 nepData['guarantorNationality'] = this.userConfigForm.get(['guarantorDetails', index, 'guarantorNationality']).value,
+                nepData['otherGuarantorPassportIssuedDateOption'] = this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportIssuedDateOption']).value,
+                nepData['otherGuarantorPassportValidityDateOption'] = this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportValidityDateOption']).value,
                 nepData['otherGuarantorPassportNo'] = {
                     en: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportNo']).value,
                     np: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportNoTrans']).value,
@@ -962,11 +965,32 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
                     np: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportIssuedFromTrans']).value,
                     ct: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportIssuedFromCT']).value,
                 };
+                nepData['otherGuarantorPassportIssuedDateNepali'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportIssuedDateNepali']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportIssuedDateNepaliTrans']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportIssuedDateNepaliCT']).value,
+                };
+                nepData['otherGuarantorPassportValidityDateNepali'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportValidityDateNepali']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportValidityDateNepaliTrans']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportValidityDateNepaliCT']).value,
+                };
             }
 
             if (this.userConfigForm.get(['guarantorDetails', index, 'guarantorNationality']).value === 'Nepali' && this.actionType === 'Edit' &&
                 this.customerType === CustomerType.INSTITUTION) {
                 nepData['guarantorNationality'] = this.userConfigForm.get(['guarantorDetails', index, 'guarantorNationality']).value,
+                nepData['radioCitizenIssuedDate'] = this.userConfigForm.get(['guarantorDetails', index, 'radioCitizenIssuedDate']).value,
+                nepData['citizenIssuedDateNepali'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDateNepali']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDateNepaliTrans']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDateNepaliCT']).value,
+                };
+                nepData['citizenIssuedDate'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDateTrans']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDateCT']).value,
+                };
                 nepData['otherGuarantorPassportNo'] = {
                     en: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportNo']).value,
                     np: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportNoTrans']).value,
@@ -1243,6 +1267,12 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
                     ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegistrationDateCT']).value,
                 };
 
+                nepData['guarantorRegistrationDateNepali'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegistrationDateNepali']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegistrationDateNepaliTrans']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegistrationDateNepaliCT']).value,
+                };
+
                 nepData['guarantorRegistrationDateOption'] = {
                     en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegistrationDateOption']).value,
                     np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegistrationDateOptionTrans']).value,
@@ -1250,14 +1280,14 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
                 };
             }
 
-            if (this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegistrationDateOption']).value === 'AD' && this.actionType === 'Edit' &&
+            /*if (this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegistrationDateOption']).value === 'AD' && this.actionType === 'Edit' &&
                 this.customerType === CustomerType.INSTITUTION && nepData.guarantorRegistrationDateOption.ct === 'BS') {
                 nepData['guarantorRegistrationDate'] = {
                     en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegistrationDate']).value.eDate,
                     np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegistrationDate']).value.nDate,
                     ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegistrationDate']).value.nDate,
                 };
-            }
+            }*/
 
             if (this.userConfigForm.get(['guarantorDetails', index, 'guarantorActYearOption']).value === 'AD' && this.actionType === 'Edit' &&
                 this.customerType === CustomerType.INSTITUTION && nepData.guarantorActYearOption.ct === 'BS' &&
@@ -1719,6 +1749,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
             citizenIssuedDate: [undefined],
             citizenIssuedDateTrans: [undefined],
             citizenIssuedDateCT: [undefined],
+            citizenIssuedDateNepali: [undefined],
+            citizenIssuedDateNepaliTrans: [undefined],
+            citizenIssuedDateNepaliCT: [undefined],
 
 
             // only for Institutional customer
@@ -1782,6 +1815,12 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
             otherGuarantorPassportIssuedFrom: [undefined],
             otherGuarantorPassportIssuedFromTrans: [undefined],
             otherGuarantorPassportIssuedFromCT: [undefined],
+            otherGuarantorPassportIssuedDateNepali: [undefined],
+            otherGuarantorPassportIssuedDateNepaliTrans: [undefined],
+            otherGuarantorPassportIssuedDateNepaliCT: [undefined],
+            otherGuarantorPassportValidityDateNepali: [undefined],
+            otherGuarantorPassportValidityDateNepaliTrans: [undefined],
+            otherGuarantorPassportValidityDateNepaliCT: [undefined],
 
             otherGuarantorPassportIssuedDateOption: [undefined],
             otherGuarantorPassportIssuedDateOptionTrans: [undefined],
@@ -1855,6 +1894,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
             guarantorRegistrationDateOption: [undefined],
             guarantorRegistrationDateOptionTrans: [undefined],
             guarantorRegistrationDateOptionCT: [undefined],
+            guarantorRegistrationDateNepali: [undefined],
+            guarantorRegistrationDateNepaliTrans: [undefined],
+            guarantorRegistrationDateNepaliCT: [undefined],
 
             guarantorIssuedDistrict: [undefined],
             guarantorIssuedDistrictTrans: [undefined],
@@ -1953,7 +1995,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
 
             const nepaData = JSON.parse(value.nepData);
 
-            let citizenIssuedDate: any;
+            /*let citizenIssuedDate: any;
             if (!ObjectUtil.isEmpty(nepaData.radioCitizenIssuedDate) && nepaData.radioCitizenIssuedDate.en === 'BS') {
                 citizenIssuedDate = nepaData.citizenIssuedDate.en.eDate;
             } else {
@@ -1962,7 +2004,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
                 } else {
                     citizenIssuedDate = undefined;
                 }
-            }
+            }*/
 
             if (!ObjectUtil.isEmpty(nepaData.guarantorType)) {
                 if (nepaData.guarantorType.en !== 'Personal Guarantor') {
@@ -2049,8 +2091,16 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
                 nepData: [value.nepData],
                 guarantorTemporaryMunicipalityOrVdc: [ObjectUtil.isEmpty(nepaData.guarantorTemporaryMunicipalityOrVdc) ?
                     undefined : nepaData.guarantorTemporaryMunicipalityOrVdc.en],
-                radioCitizenIssuedDate: ['AD'],
-                citizenIssuedDate: citizenIssuedDate,
+                radioCitizenIssuedDate: nepaData.radioCitizenIssuedDate ? nepaData.radioCitizenIssuedDate : '',
+                citizenIssuedDate: !ObjectUtil.isEmpty(nepaData.citizenIssuedDate) ? new Date(nepaData.citizenIssuedDate.en) : '',
+                citizenIssuedDateTrans: !ObjectUtil.isEmpty(nepaData.citizenIssuedDate) ? nepaData.citizenIssuedDate.en : '',
+                citizenIssuedDateCT: !ObjectUtil.isEmpty(nepaData.citizenIssuedDate) ? nepaData.citizenIssuedDate.en : '',
+
+                citizenIssuedDateNepali: !ObjectUtil.isEmpty(nepaData.citizenIssuedDateNepali) ?
+                    nepaData.citizenIssuedDateNepali.en : '',
+                citizenIssuedDateNepaliTrans: !ObjectUtil.isEmpty(nepaData.citizenIssuedDateNepali) ? nepaData.citizenIssuedDateNepali.en : '',
+                citizenIssuedDateNepaliCT: !ObjectUtil.isEmpty(nepaData.citizenIssuedDateNepali) ? nepaData.citizenIssuedDateNepali.en : '',
+
                 guarantorPermanentMunicipalityOrVdcCT: [ObjectUtil.isEmpty(nepaData.guarantorPermanentMunicipalityOrVdc) ?
                     undefined : nepaData.guarantorPermanentMunicipalityOrVdc.np],
                 guarantorTemporaryMunicipalityOrVdcCT: [ObjectUtil.isEmpty(nepaData.guarantorTemporaryMunicipalityOrVdc) ?
@@ -2083,7 +2133,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
                 embassyNoCT: ObjectUtil.isEmpty(nepaData.embassyNo) ?
                     undefined : nepaData.embassyNo.ct,
                 embassyIssuedDate: ObjectUtil.isEmpty(nepaData.embassyIssuedDate) ?
-                    undefined : nepaData.embassyIssuedDate.en,
+                    undefined : new Date(nepaData.embassyIssuedDate.en),
                 embassyIssuedDateTrans:  ObjectUtil.isEmpty(nepaData.embassyIssuedDate) ?
                     undefined : nepaData.embassyIssuedDate.np,
                 embassyIssuedDateCT:  ObjectUtil.isEmpty(nepaData.embassyIssuedDate) ?
@@ -2103,13 +2153,13 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
                 passportNoCT:  ObjectUtil.isEmpty(nepaData.passportNo) ?
                     undefined : nepaData.passportNo.ct,
                 passportIssuedDate: ObjectUtil.isEmpty(nepaData.passportIssuedDate) ?
-                    undefined : nepaData.passportIssuedDate.en,
+                    undefined : new Date(nepaData.passportIssuedDate.en),
                 passportIssuedDateTrans: ObjectUtil.isEmpty(nepaData.passportIssuedDate) ?
                     undefined : nepaData.passportIssuedDate.np,
                 passportIssuedDateCT: ObjectUtil.isEmpty(nepaData.passportIssuedDate) ?
                     undefined : nepaData.passportIssuedDate.ct,
                 passportValidityDate: ObjectUtil.isEmpty(nepaData.passportIssuedDate) ?
-                    undefined : nepaData.passportIssuedDate.en,
+                    undefined : new Date(nepaData.passportIssuedDate.en),
                 passportValidityDateTrans: ObjectUtil.isEmpty(nepaData.passportIssuedDate) ?
                     undefined : nepaData.passportIssuedDate.np,
                 passportValidityDateCT: ObjectUtil.isEmpty(nepaData.passportIssuedDate) ?
@@ -2129,7 +2179,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
                 adharCardNoCT: ObjectUtil.isEmpty(nepaData.adharCardNo) ?
                     undefined : nepaData.adharCardNo.ct,
                 adharCardIssuedDate: ObjectUtil.isEmpty(nepaData.adharCardIssuedDate) ?
-                    undefined : nepaData.adharCardIssuedDate.en,
+                    undefined : new Date(nepaData.adharCardIssuedDate.en),
                 adharCardIssuedDateTrans: ObjectUtil.isEmpty(nepaData.adharCardIssuedDate) ?
                     undefined : nepaData.adharCardIssuedDate.np,
                 adharCardIssuedDateCT:  ObjectUtil.isEmpty(nepaData.adharCardIssuedDate) ?
@@ -2149,13 +2199,13 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
                 otherGuarantorPassportNoCT: ObjectUtil.isEmpty(nepaData.otherGuarantorPassportNo) ?
                     undefined : nepaData.otherGuarantorPassportNo.ct,
                 otherGuarantorPassportIssuedDate: ObjectUtil.isEmpty(nepaData.otherGuarantorPassportIssuedDate) ?
-                    undefined : nepaData.otherGuarantorPassportIssuedDate.en,
+                    undefined : new Date(nepaData.otherGuarantorPassportIssuedDate.en),
                 otherGuarantorPassportIssuedDateTrans: ObjectUtil.isEmpty(nepaData.otherGuarantorPassportIssuedDate) ?
                     undefined : nepaData.otherGuarantorPassportIssuedDate.np,
                 otherGuarantorPassportIssuedDateCT: ObjectUtil.isEmpty(nepaData.otherGuarantorPassportIssuedDate) ?
                     undefined : nepaData.otherGuarantorPassportIssuedDate.ct,
                 otherGuarantorPassportValidityDate: ObjectUtil.isEmpty(nepaData.otherGuarantorPassportValidityDate) ?
-                    undefined : nepaData.otherGuarantorPassportValidityDate.en,
+                    undefined : new Date(nepaData.otherGuarantorPassportValidityDate.en),
                 otherGuarantorPassportValidityDateTrans: ObjectUtil.isEmpty(nepaData.otherGuarantorPassportValidityDate) ?
                     undefined : nepaData.otherGuarantorPassportValidityDate.np,
                 otherGuarantorPassportValidityDateCT:  ObjectUtil.isEmpty(nepaData.otherGuarantorPassportValidityDate) ?
@@ -2166,11 +2216,25 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
                     undefined : nepaData.otherGuarantorPassportIssuedFrom.np,
                 otherGuarantorPassportIssuedFromCT: ObjectUtil.isEmpty(nepaData.otherGuarantorPassportIssuedFrom) ?
                     undefined : nepaData.otherGuarantorPassportIssuedFrom.ct,
+                otherGuarantorPassportIssuedDateNepali: ObjectUtil.isEmpty(nepaData.otherGuarantorPassportIssuedDateNepali) ?
+                    undefined : nepaData.otherGuarantorPassportIssuedDateNepali.en,
+                otherGuarantorPassportIssuedDateNepaliTrans: ObjectUtil.isEmpty(nepaData.otherGuarantorPassportIssuedDateNepali) ?
+                    undefined : nepaData.otherGuarantorPassportIssuedDateNepali.np,
+                otherGuarantorPassportIssuedDateNepaliCT: ObjectUtil.isEmpty(nepaData.otherGuarantorPassportIssuedDateNepali) ?
+                    undefined : nepaData.otherGuarantorPassportIssuedDateNepali.ct,
+                otherGuarantorPassportValidityDateNepali: ObjectUtil.isEmpty(nepaData.otherGuarantorPassportValidityDateNepali) ?
+                    undefined : nepaData.otherGuarantorPassportValidityDateNepali.en,
+                otherGuarantorPassportValidityDateNepaliTrans: ObjectUtil.isEmpty(nepaData.otherGuarantorPassportValidityDateNepali) ?
+                    undefined : nepaData.otherGuarantorPassportValidityDateNepali.np,
+                otherGuarantorPassportValidityDateNepaliCT:  ObjectUtil.isEmpty(nepaData.otherGuarantorPassportValidityDateNepali) ?
+                    undefined : nepaData.otherGuarantorPassportValidityDateNepali.ct,
 
-                otherGuarantorPassportIssuedDateOption: ['AD'],
+                otherGuarantorPassportIssuedDateOption: nepaData.otherGuarantorPassportIssuedDateOption ?
+                    nepaData.otherGuarantorPassportIssuedDateOption : '',
                 otherGuarantorPassportIssuedDateOptionTrans: [undefined],
                 otherGuarantorPassportIssuedDateOptionCT: [undefined],
-                otherGuarantorPassportValidityDateOption: ['AD'],
+                otherGuarantorPassportValidityDateOption: nepaData.otherGuarantorPassportValidityDateOption ?
+                    nepaData.otherGuarantorPassportValidityDateOption : '',
                 otherGuarantorPassportValidityDateOptionCT: [undefined],
                 otherGuarantorPassportValidityDateOptionTrans: [undefined],
 
@@ -2270,11 +2334,16 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
                     undefined : nepaData.guarantorRegistrationNo.np,
                 guarantorRegistrationNoCT: ObjectUtil.isEmpty(nepaData.guarantorRegistrationNo) ?
                     undefined : nepaData.guarantorRegistrationNo.ct,
-                guarantorRegistrationDate: ObjectUtil.isEmpty(nepaData.guarantorRegistrationDate) ? undefined : nepaData.guarantorRegistrationDate.en,
+                guarantorRegistrationDate: ObjectUtil.isEmpty(nepaData.guarantorRegistrationDate) ? undefined : new Date(nepaData.guarantorRegistrationDate.en),
                 guarantorRegistrationDateTrans: ObjectUtil.isEmpty(nepaData.guarantorRegistrationDate) ?
                     undefined : nepaData.guarantorRegistrationDate.en,
                 guarantorRegistrationDateCT: ObjectUtil.isEmpty(nepaData.guarantorRegistrationDate) ?
                     undefined : nepaData.guarantorRegistrationDate.en,
+                guarantorRegistrationDateNepali: ObjectUtil.isEmpty(nepaData.guarantorRegistrationDateNepali) ? undefined : nepaData.guarantorRegistrationDateNepali.en,
+                guarantorRegistrationDateNepaliTrans: ObjectUtil.isEmpty(nepaData.guarantorRegistrationDateNepali) ?
+                    undefined : nepaData.guarantorRegistrationDateNepali.en,
+                guarantorRegistrationDateNepaliCT: ObjectUtil.isEmpty(nepaData.guarantorRegistrationDateNepali) ?
+                    undefined : nepaData.guarantorRegistrationDateNepali.en,
                 guarantorRegistrationDateOption:  ObjectUtil.isEmpty(nepaData.guarantorRegistrationDateOption) ?
                     undefined : nepaData.guarantorRegistrationDateOption.en,
                 guarantorRegistrationDateOptionTrans: ObjectUtil.isEmpty(nepaData.guarantorRegistrationDateOption) ?
@@ -2389,7 +2458,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
                 guarantorMaritalStatusCT: [ObjectUtil.isEmpty(nepaData.guarantorMaritalStatus) ? undefined : nepaData.guarantorMaritalStatus.ct],
 
                 radioCitizenIssuedDateCT: [undefined],
-                citizenIssuedDateCT: [undefined],
+                // citizenIssuedDateCT: [undefined],
                 id: [value.id],
 
             }));
@@ -2646,7 +2715,57 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
                 this.userConfigForm.get(['guarantorDetails', index, 'gurantedAmount']).patchValue("0");
             }
             let guarantorsDetails: any = [];
-            guarantorsDetails = await this.translateService.translateForm(this.userConfigForm, 'guarantorDetails', index);
+            this.guarantorTranslatedFormGroup = this.formBuilder.group({
+                gurantedAmount: this.userConfigForm.get(['guarantorDetails', index, 'gurantedAmount']).value,
+                guarantorName: this.userConfigForm.get(['guarantorDetails', index, 'guarantorName']).value,
+                citizenNumber: this.userConfigForm.get(['guarantorDetails', index, 'citizenNumber']).value,
+                gender: this.userConfigForm.get(['guarantorDetails', index, 'gender']).value,
+                guarantorMaritalStatus: this.userConfigForm.get(['guarantorDetails', index, 'guarantorMaritalStatus']).value,
+                husbandName: this.userConfigForm.get(['guarantorDetails', index, 'husbandName']).value,
+                fatherInLawName: this.userConfigForm.get(['guarantorDetails', index, 'fatherInLawName']).value,
+                grandFatherName: this.userConfigForm.get(['guarantorDetails', index, 'grandFatherName']).value,
+                fatherName: this.userConfigForm.get(['guarantorDetails', index, 'fatherName']).value,
+                permanentStreetTole: this.userConfigForm.get(['guarantorDetails', index, 'permanentStreetTole']).value,
+                temporaryStreetTole: this.userConfigForm.get(['guarantorDetails', index, 'temporaryStreetTole']).value,
+                guarantorNationality: this.userConfigForm.get(['guarantorDetails', index, 'guarantorNationality']).value,
+                embassyNo: this.userConfigForm.get(['guarantorDetails', index, 'embassyNo']).value,
+                embassyIssuedFrom: this.userConfigForm.get(['guarantorDetails', index, 'embassyIssuedFrom']).value,
+                passportNo: this.userConfigForm.get(['guarantorDetails', index, 'passportNo']).value,
+                passportIssuedFrom: this.userConfigForm.get(['guarantorDetails', index, 'passportIssuedFrom']).value,
+                adharCardNo: this.userConfigForm.get(['guarantorDetails', index, 'adharCardNo']).value,
+                adharCardIssuedFrom: this.userConfigForm.get(['guarantorDetails', index, 'adharCardIssuedFrom']).value,
+                indianGuarantorDetailOption: this.userConfigForm.get(['guarantorDetails', index, 'indianGuarantorDetailOption']).value,
+                otherGuarantorPassportNo: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportNo']).value,
+                otherGuarantorPassportIssuedFrom: this.userConfigForm.get(
+                    ['guarantorDetails', index, 'otherGuarantorPassportIssuedFrom']).value,
+                otherGuarantorPassportIssuedDateOption: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportIssuedDateOption']).value,
+                otherGuarantorPassportValidityDateOption: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportValidityDateOption']).value,
+                guarantorForeignAddressOption: this.userConfigForm.get(['guarantorDetails', index, 'guarantorForeignAddressOption']).value,
+                guarantorForeignAddressOptionTemp: this.userConfigForm.get(
+                    ['guarantorDetails', index, 'guarantorForeignAddressOptionTemp']).value,
+                guarantorOtherAddress: this.userConfigForm.get(['guarantorDetails', index, 'guarantorOtherAddress']).value,
+                guarantorOtherAddressTemp: this.userConfigForm.get(['guarantorDetails', index, 'guarantorOtherAddressTemp']).value,
+                guarantorType: this.userConfigForm.get(['guarantorDetails', index, 'guarantorType']).value,
+                guaranteeProviderName: this.userConfigForm.get(['guarantorDetails', index, 'guaranteeProviderName']).value,
+                authorizedPersonName: this.userConfigForm.get(['guarantorDetails', index, 'authorizedPersonName']).value,
+                guarantorActName: this.userConfigForm.get(['guarantorDetails', index, 'guarantorActName']).value,
+                guarantorActYear: this.userConfigForm.get(['guarantorDetails', index, 'guarantorActYear']).value,
+                guarantorActYearOption: this.userConfigForm.get(['guarantorDetails', index, 'guarantorActYearOption']).value,
+                guarantorAuthorizedBodyName: this.userConfigForm.get(['guarantorDetails', index, 'guarantorAuthorizedBodyName']).value,
+                guarantorRegisteredWith: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegisteredWith']).value,
+                guarantorRegistrationNo: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegistrationNo']).value,
+                guarantorRegistrationDateOption: this.userConfigForm.get(
+                    ['guarantorDetails', index, 'guarantorRegistrationDateOption']).value,
+                guarantorPanNo: this.userConfigForm.get(['guarantorDetails', index, 'guarantorPanNo']).value,
+                guarantorRegisteredType: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegisteredType']).value,
+                guarantorRegisteredWardNo: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegisteredWardNo']).value,
+                guarantorRegisteredStreetTole: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegisteredStreetTole']).value,
+                guarantorCurrentType: this.userConfigForm.get(['guarantorDetails', index, 'guarantorCurrentType']).value,
+                guarantorCurrentWardNo: this.userConfigForm.get(['guarantorDetails', index, 'guarantorCurrentWardNo']).value,
+                guarantorCurrentStreetTole: this.userConfigForm.get(['guarantorDetails', index, 'guarantorCurrentStreetTole']).value,
+            });
+            // guarantorsDetails = await this.translateService.translateForm(this.userConfigForm, 'guarantorDetails', index);
+            guarantorsDetails = await this.translateService.translateForm(this.guarantorTranslatedFormGroup);
             this.spinner = false;
             if (this.userConfigForm.get(['guarantorDetails', index, 'gurantedAmount']).value === 0) {
                 this.userConfigForm.get(['guarantorDetails', index, 'gurantedAmountTrans']).patchValue(guarantorsDetails.gurantedAmount ? guarantorsDetails.gurantedAmount : '');
@@ -2702,6 +2821,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
                     guarantorsDetails.guarantorNationality : '',
                 guarantorNationalityCT : guarantorsDetails.guarantorNationality ?
                     guarantorsDetails.guarantorNationality : '',
+                citizenIssuedDateTrans: this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).value,
+                citizenIssuedDateCT: this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).value,
+                citizenIssuedDateNepaliTrans: this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDateNepali']).value,
+                citizenIssuedDateNepaliCT: this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDateNepali']).value,
 
                 // for indian guarantor
                 // embassy details
@@ -2709,10 +2832,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
                     guarantorsDetails.embassyNo : '',
                 embassyNoCT: guarantorsDetails.embassyNo ?
                     guarantorsDetails.embassyNo : '',
-                embassyIssuedDateTrans: guarantorsDetails.embassyIssuedDate ?
-                    guarantorsDetails.embassyIssuedDate : '',
-                embassyIssuedDateCT: guarantorsDetails.embassyIssuedDate ?
-                    guarantorsDetails.embassyIssuedDate : '',
+                embassyIssuedDateTrans: this.userConfigForm.get(['guarantorDetails', index, 'embassyIssuedDate']).value ?
+                    this.userConfigForm.get(['guarantorDetails', index, 'embassyIssuedDate']).value : '',
+                embassyIssuedDateCT: this.userConfigForm.get(['guarantorDetails', index, 'embassyIssuedDate']).value ?
+                    this.userConfigForm.get(['guarantorDetails', index, 'embassyIssuedDate']).value : '',
                 embassyIssuedFromTrans: guarantorsDetails.embassyIssuedFrom ?
                     guarantorsDetails.embassyIssuedFrom : '',
                 embassyIssuedFromCT: guarantorsDetails.embassyIssuedFrom ?
@@ -2723,14 +2846,14 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
                     guarantorsDetails.passportNo : '',
                 passportNoCT:  guarantorsDetails.passportNo ?
                     guarantorsDetails.passportNo : '',
-                passportIssuedDateTrans:  guarantorsDetails.passportIssuedDate ?
-                    guarantorsDetails.passportIssuedDate : '',
-                passportIssuedDateCT:  guarantorsDetails.passportIssuedDate ?
-                    guarantorsDetails.passportIssuedDate : '',
-                passportValidityDateTrans:  guarantorsDetails.passportValidityDate ?
-                    guarantorsDetails.passportValidityDate : '',
-                passportValidityDateCT: guarantorsDetails.passportValidityDate ?
-                    guarantorsDetails.passportValidityDate : '',
+                passportIssuedDateTrans:  this.userConfigForm.get(['guarantorDetails', index, 'passportIssuedDate']).value ?
+                    this.userConfigForm.get(['guarantorDetails', index, 'passportIssuedDate']).value : '',
+                passportIssuedDateCT:  this.userConfigForm.get(['guarantorDetails', index, 'passportIssuedDate']).value ?
+                    this.userConfigForm.get(['guarantorDetails', index, 'passportIssuedDate']).value : '',
+                passportValidityDateTrans:  this.userConfigForm.get(['guarantorDetails', index, 'passportValidityDate']).value ?
+                    this.userConfigForm.get(['guarantorDetails', index, 'passportValidityDate']).value : '',
+                passportValidityDateCT: this.userConfigForm.get(['guarantorDetails', index, 'passportValidityDate']).value ?
+                    this.userConfigForm.get(['guarantorDetails', index, 'passportValidityDate']).value : '',
                 passportIssuedFromTrans: guarantorsDetails.passportIssuedFrom ?
                     guarantorsDetails.passportIssuedFrom : '',
                 passportIssuedFromCT: guarantorsDetails.passportIssuedFrom ?
@@ -2741,10 +2864,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
                     guarantorsDetails.adharCardNo : '',
                 adharCardNoCT: guarantorsDetails.adharCardNo ?
                     guarantorsDetails.adharCardNo : '',
-                adharCardIssuedDateTrans: guarantorsDetails.adharCardIssuedDate ?
-                    guarantorsDetails.adharCardIssuedDate : '',
-                adharCardIssuedDateCT: guarantorsDetails.adharCardIssuedDate ?
-                    guarantorsDetails.adharCardIssuedDate : '',
+                adharCardIssuedDateTrans: this.userConfigForm.get(['guarantorDetails', index, 'adharCardIssuedDate']).value ?
+                    this.userConfigForm.get(['guarantorDetails', index, 'adharCardIssuedDate']).value : '',
+                adharCardIssuedDateCT: this.userConfigForm.get(['guarantorDetails', index, 'adharCardIssuedDate']).value ?
+                    this.userConfigForm.get(['guarantorDetails', index, 'adharCardIssuedDate']).value : '',
                 adharCardIssuedFromTrans: guarantorsDetails.adharCardIssuedFrom ?
                     guarantorsDetails.adharCardIssuedFrom : '',
                 adharCardIssuedFromCT: guarantorsDetails.adharCardIssuedFrom ?
@@ -2759,18 +2882,26 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
                     guarantorsDetails.otherGuarantorPassportNo : '',
                 otherGuarantorPassportNoCT: guarantorsDetails.otherGuarantorPassportNo ?
                     guarantorsDetails.otherGuarantorPassportNo : '',
-                otherGuarantorPassportIssuedDateTrans: guarantorsDetails.otherGuarantorPassportIssuedDate ?
-                    guarantorsDetails.otherGuarantorPassportIssuedDate : '',
-                otherGuarantorPassportIssuedDateCT: guarantorsDetails.otherGuarantorPassportIssuedDate ?
-                    guarantorsDetails.otherGuarantorPassportIssuedDate : '',
-                otherGuarantorPassportValidityDateTrans: guarantorsDetails.otherGuarantorPassportValidityDate ?
-                    guarantorsDetails.otherGuarantorPassportValidityDate : '',
-                otherGuarantorPassportValidityDateCT: guarantorsDetails.otherGuarantorPassportValidityDate ?
-                    guarantorsDetails.otherGuarantorPassportValidityDate : '',
+                otherGuarantorPassportIssuedDateTrans: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportIssuedDate']).value ?
+                    this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportIssuedDate']).value : '',
+                otherGuarantorPassportIssuedDateCT: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportIssuedDate']).value ?
+                    this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportIssuedDate']).value : '',
+                otherGuarantorPassportValidityDateTrans: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportValidityDate']).value ?
+                    this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportValidityDate']).value : '',
+                otherGuarantorPassportValidityDateCT: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportValidityDate']).value ?
+                    this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportValidityDate']).value : '',
                 otherGuarantorPassportIssuedFromTrans: guarantorsDetails.otherGuarantorPassportIssuedFrom ?
                     guarantorsDetails.otherGuarantorPassportIssuedFrom : '',
                 otherGuarantorPassportIssuedFromCT: guarantorsDetails.otherGuarantorPassportIssuedFrom ?
                     guarantorsDetails.otherGuarantorPassportIssuedFrom : '',
+                otherGuarantorPassportIssuedDateNepaliTrans: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportIssuedDateNepali']).value ?
+                    this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportIssuedDateNepali']).value : '',
+                otherGuarantorPassportIssuedDateNepaliCT: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportIssuedDateNepali']).value ?
+                    this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportIssuedDateNepali']).value : '',
+                otherGuarantorPassportValidityDateNepaliTrans: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportValidityDateNepali']).value ?
+                    this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportValidityDateNepali']).value : '',
+                otherGuarantorPassportValidityDateNepaliCT: this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportValidityDateNepali']).value ?
+                    this.userConfigForm.get(['guarantorDetails', index, 'otherGuarantorPassportValidityDateNepali']).value : '',
 
                 otherGuarantorPassportIssuedDateOptionTrans: guarantorsDetails.otherGuarantorPassportIssuedDateOption ?
                     guarantorsDetails.otherGuarantorPassportIssuedDateOption : '',
@@ -2840,10 +2971,14 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
                     guarantorsDetails.guarantorRegistrationNo : '',
                 guarantorRegistrationNoCT: guarantorsDetails.guarantorRegistrationNo ?
                     guarantorsDetails.guarantorRegistrationNo : '',
-                guarantorRegistrationDateTrans: guarantorsDetails.guarantorRegistrationDate ?
-                    guarantorsDetails.guarantorRegistrationDate : '',
-                guarantorRegistrationDateCT: guarantorsDetails.guarantorRegistrationDate ?
-                    guarantorsDetails.guarantorRegistrationDate : '',
+                guarantorRegistrationDateTrans: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegistrationDate']).value ?
+                    this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegistrationDate']).value : '',
+                guarantorRegistrationDateCT: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegistrationDate']).value ?
+                    this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegistrationDate']).value : '',
+                guarantorRegistrationDateNepaliTrans: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegistrationDateNepali']).value ?
+                    this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegistrationDateNepali']).value : '',
+                guarantorRegistrationDateNepaliCT: this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegistrationDateNepali']).value ?
+                    this.userConfigForm.get(['guarantorDetails', index, 'guarantorRegistrationDateNepali']).value : '',
                 guarantorRegistrationDateOptionTrans: guarantorsDetails.guarantorRegistrationDateOption ?
                     guarantorsDetails.guarantorRegistrationDateOption : '',
                 guarantorRegistrationDateOptionCT: guarantorsDetails.guarantorRegistrationDateOption ?
@@ -3752,7 +3887,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
     translateNumberInFA(source, i) {
         const wordLabelVar = this.engToNepaliNumberPipe.transform(this.currencyFormatterPipe.transform(
             this.userConfigForm.get(['guarantorDetails', i, source]).value ?
-            this.userConfigForm.get(['guarantorDetails', i, source]).value.toString(): ''));
+            this.userConfigForm.get(['guarantorDetails', i, source]).value.toString() : ''));
         this.userConfigForm.get(['guarantorDetails', i, source + 'Trans']).patchValue(wordLabelVar);
         this.userConfigForm.get(['guarantorDetails', i, source + 'CT']).patchValue(wordLabelVar);
     }
