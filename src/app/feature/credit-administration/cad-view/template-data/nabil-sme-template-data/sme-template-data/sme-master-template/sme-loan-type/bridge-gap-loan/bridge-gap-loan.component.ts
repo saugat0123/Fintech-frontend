@@ -16,6 +16,7 @@ export class BridgeGapLoanComponent implements OnInit {
   @Input() customerApprovedDoc;
   @Input() loanName;
   @Input() offerDocumentList: Array<OfferDocument>;
+  @Input() cadDocAssignedLoan;
   initialInformation: any;
   bridgeGapLoan: FormGroup;
   isComplimentryOtherLoan = false;
@@ -24,6 +25,7 @@ export class BridgeGapLoanComponent implements OnInit {
   bridgeGapNumber: Array<any> = new Array<any>();
   loanNameConstant = LoanNameConstant;
   filteredList: any = [];
+  filteredLoanIdList: any = [];
 
   constructor(
       private formBuilder: FormBuilder,
@@ -58,6 +60,7 @@ export class BridgeGapLoanComponent implements OnInit {
         this.bridgeGapLoan.get(['bridgeGapDetails', val, 'loanAmountWords']).patchValue(
             loanamountWords ? loanamountWords : '');
       }
+      this.setLoanId();
     }
   }
   buildForm() {
@@ -98,6 +101,7 @@ export class BridgeGapLoanComponent implements OnInit {
       premiumRateCT: [undefined],
       interestRateCT: [undefined],
       totalInterestRateCT: [undefined],
+      loanId: [undefined],
     });
   }
   filterLoanDetails(loanDetails) {
@@ -210,5 +214,14 @@ export class BridgeGapLoanComponent implements OnInit {
     const premiumRate = this.bridgeGapLoan.get(['bridgeGapDetails', i, 'premiumRate']).value;
     const sum = parseFloat(baseRate) + parseFloat(premiumRate);
     this.bridgeGapLoan.get(['bridgeGapDetails', i, 'interestRate']).patchValue(sum.toFixed(2));
+  }
+
+  setLoanId() {
+    this.filteredLoanIdList = this.cadDocAssignedLoan.filter(data =>
+        data.loan.name === this.loanNameConstant.BRIDGE_GAP_LOAN);
+    this.filteredList.forEach((val, i) => {
+      this.bridgeGapLoan.get(['bridgeGapDetails', i, 'loanId']).patchValue(
+          this.filteredLoanIdList[i].proposal.id);
+    });
   }
 }
