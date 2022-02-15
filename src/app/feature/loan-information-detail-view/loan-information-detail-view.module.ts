@@ -9,7 +9,6 @@ import {LoanInformationTemplateModule} from '../loan-information-template/loan-i
 import {LoanSummaryModule} from '../loan/component/loan-summary/loan-summary.module';
 import {DetailViewBaseComponent} from './detail-view-base/detail-view-base.component';
 import {MicroLoanModule} from '../micro-loan/micro-loan.module';
-import {CreditChecklistViewComponent} from '../loan-information-view/credit-checklist-view/credit-checklist-view.component';
 import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
 import {CoreModule} from '../../@core/core.module';
 import {CbsGroupModule} from '../cbs-group/cbs-group.module';
@@ -19,10 +18,8 @@ import {DbrModule} from '../dbr/dbr.module';
 
 
 @NgModule({
-    declarations: [LoanInformationDetailViewComponent, CreditChecklistViewComponent, DetailViewBaseComponent, SecurityApprovedViewComponent],
-    exports: [
-        CreditChecklistViewComponent
-    ],
+    declarations: [LoanInformationDetailViewComponent, DetailViewBaseComponent, SecurityApprovedViewComponent],
+    exports: [],
     imports: [
         CommonModule,
         LoanInformationViewModule,

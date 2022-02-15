@@ -731,6 +731,33 @@
         <div *ngIf="individual">
             <app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0"
                                 [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
+            <div *ngIf="minOneGuarantorDoc" class="row">
+                <div class="col-md-12">
+                    <p class="header"><strong>Guarantor Documents</strong></p>
+                    <table class="table table-condensed table-bordered table-sm sb-small text-center">
+                        <thead>
+                        <tr class="text-white sb-bg-dark">
+                            <th>S.N</th>
+                            <th>Guarantor</th>
+                            <th>Document</th>
+                            <th>Checked</th>
+                        </tr>
+                        </thead>
+                        <tbody *ngFor="let singleDoc of taggedGuarantorWithDoc; let i = index">
+                        <tr *ngIf="singleDoc?.docPath">
+                            <td>{{i + 1}}</td>
+                            <td class="text-left pl-1">{{singleDoc?.name}}</td>
+                            <td class="text-left pl-1">Net Worth Document</td>
+                            <td>
+                                <i class="fa fa-check" *ngIf="singleDoc?.docPath"></i>
+                                <i class="fa fa-times" *ngIf="!singleDoc?.docPath"></i>
+                            </td>
+
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
             <div class="row" *ngIf="individual?.customerRelatives?.length > 0">
                 <div class="col-md-12">
                     <p><strong class="header">Family Details</strong></p>
@@ -778,7 +805,7 @@
             <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl" [ciclValue]="loanDataHolder?.loanHolder?.cicl" [loanDataHolder]="loanDataHolder"></app-cicl-view>
             <app-dbr *ngIf="financial" [financialData] =  "financial" [proposalData]="proposalData"> </app-dbr>
             <ng-container *ngIf="checkedData?.waiverChecked">
-                <table>
+                <table  class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small" >
                     <tr class="text-white sb-bg-dark">
                         <th>Waiver</th>
                     </tr>
@@ -1157,35 +1184,35 @@
                 </table>
             </div>
 
-            <div *ngIf="megaGroupEnabled && loanDataHolder?.loanHolder.mgroupInfo">
-                <app-m-group-summary [mGroup]="loanDataHolder?.loanHolder.mgroupInfo"></app-m-group-summary>
-            </div>
+<!--            <div *ngIf="megaGroupEnabled && loanDataHolder?.loanHolder.mgroupInfo">-->
+<!--                <app-m-group-summary [mGroup]="loanDataHolder?.loanHolder.mgroupInfo"></app-m-group-summary>-->
+<!--            </div>-->
 
-            <div *ngIf="sbsGroupEnabled">
-                <app-customer-group-summary *ngIf="loanDataHolder?.loanHolder?.customerGroup"
-                                            [groupDto]="loanDataHolder?.groupSummaryDto"
-                                            [customerInfoData]="loanDataHolder.loanHolder"></app-customer-group-summary>
-            </div>
-            <div *ngIf="productUtils.CBS_ENABLE">
-                <div class="row mt-5">
-                    <div class="col-md-12">
-                        <p class="header"><strong>Group Details</strong>
-                        </p>
-                    </div>
-                    <div class="col-md-12">
-                        <app-cbs-table [customerInfo]="loanDataHolder.loanHolder"
-                                       *ngIf="loanDataHolder"></app-cbs-table>
-                    </div>
-                </div>
-            </div>
+<!--            <div *ngIf="sbsGroupEnabled">-->
+<!--                <app-customer-group-summary *ngIf="loanDataHolder?.loanHolder?.customerGroup"-->
+<!--                                            [groupDto]="loanDataHolder?.groupSummaryDto"-->
+<!--                                            [customerInfoData]="loanDataHolder.loanHolder"></app-customer-group-summary>-->
+<!--            </div>-->
+<!--            <div *ngIf="productUtils.CBS_ENABLE">-->
+<!--                <div class="row mt-5">-->
+<!--                    <div class="col-md-12">-->
+<!--                        <p class="header"><strong>Group Details</strong>-->
+<!--                        </p>-->
+<!--                    </div>-->
+<!--                    <div class="col-md-12">-->
+<!--                        <app-cbs-table [customerInfo]="loanDataHolder.loanHolder"-->
+<!--                                       *ngIf="loanDataHolder"></app-cbs-table>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
             <div *ngIf="!productUtils.CBS_ENABLE">
-                <app-collateral-summary
-                        *ngIf="customerAllLoanList?.length > 0 && loanDataHolder?.security"
-                        [customerAllLoanList]="customerAllLoanList"
-                        [security]="loanDataHolder?.security"></app-collateral-summary>
-                <app-proposal-justification-summary *ngIf="proposalSummary"
-                                                    [customerAllLoanList]="customerAllLoanList"
-                                                    [proposalData]="proposalData"></app-proposal-justification-summary>
+<!--                <app-collateral-summary-->
+<!--                        *ngIf="customerAllLoanList?.length > 0 && loanDataHolder?.security"-->
+<!--                        [customerAllLoanList]="customerAllLoanList"-->
+<!--                        [security]="loanDataHolder?.security"></app-collateral-summary>-->
+<!--                <app-proposal-justification-summary *ngIf="proposalSummary"-->
+<!--                                                    [customerAllLoanList]="customerAllLoanList"-->
+<!--                                                    [proposalData]="proposalData"></app-proposal-justification-summary>-->
             </div>
 
 
@@ -1193,23 +1220,23 @@
 <!--            <app-financial-json-parser></app-financial-json-parser>-->
 
             <hr>
-            <ng-container *ngIf="(client === clientName?.ICFC) || (client === clientName?.LAXMIBANK); else otherBank">
-                <app-nta-mega-summary *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0 && loanDataHolder?.loanHolder?.clientType !== 'SMALL_BUSINESS_FINANCIAL_SERVICES'"
-                                      [fiscalYears]="fiscalYearArray"
-                                      [netTradingAssetsData]="netTradingAssetsData"></app-nta-mega-summary>
-            </ng-container>
+<!--            <ng-container *ngIf="(client === clientName?.ICFC) || (client === clientName?.LAXMIBANK); else otherBank">-->
+<!--                <app-nta-mega-summary *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0 && loanDataHolder?.loanHolder?.clientType !== 'SMALL_BUSINESS_FINANCIAL_SERVICES'"-->
+<!--                                      [fiscalYears]="fiscalYearArray"-->
+<!--                                      [netTradingAssetsData]="netTradingAssetsData"></app-nta-mega-summary>-->
+<!--            </ng-container>-->
 
-            <ng-template #otherBank>
-                <app-nta-summary *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0"
-                                 [fiscalYears]="fiscalYearArray"
-                                 [netTradingAssetsData]="netTradingAssetsData"></app-nta-summary>
-            </ng-template>
+<!--            <ng-template #otherBank>-->
+<!--                <app-nta-summary *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0"-->
+<!--                                 [fiscalYears]="fiscalYearArray"-->
+<!--                                 [netTradingAssetsData]="netTradingAssetsData"></app-nta-summary>-->
+<!--            </ng-template>-->
 
             <app-income-from-account-summery *ngIf="incomeFromAccountSummary" [individual]="isIndividual"
                                              [formData]="incomeFromAccountData"></app-income-from-account-summery>
             <br>
 
-            <app-multi-banking-summary *ngIf="multiBankingSummary"
+            <app-multi-banking-summary *ngIf="multiBankingSummary && !individual"
                                        [formData]="multiBankingData"></app-multi-banking-summary>
             <div *ngIf="loanCategory === 'INSTITUTION' && loanData?.loanHolder.data !== null" >
                 <div class="col-md-12">
@@ -1223,44 +1250,40 @@
                 </app-comments>
 <!--                <app-comments-summary *ngIf="commentsSummary"-->
 <!--                                             [formData]="dataFromComments"></app-comments-summary>-->
-                <app-previous-security-summary *ngIf="previousSecuritySummary" [formData]="dataFromPreviousSecurity"></app-previous-security-summary>
+<!--                <app-previous-security-summary *ngIf="previousSecuritySummary" [formData]="dataFromPreviousSecurity"></app-previous-security-summary>-->
             </div>
-            <div class="row mt-3">
-                <div class="col-md-12">
-                    <app-sitevist-summary-component *ngIf="siteVisitSummary"
-                                                    [formData]="siteVisitData"
-                                                    [loanType]="loanDataHolder?.loanCategory"></app-sitevist-summary-component>
-                </div>
-            </div>
+<!--            <div class="row mt-3">-->
+<!--                <div class="col-md-12">-->
+<!--                    <app-sitevist-summary-component *ngIf="siteVisitSummary"-->
+<!--                                                    [formData]="siteVisitData"-->
+<!--                                                    [loanType]="loanDataHolder?.loanCategory"></app-sitevist-summary-component>-->
+<!--                </div>-->
+<!--            </div>-->
 
-            <div *ngIf="loanDataHolder?.documentStatus?.toString()==='APPROVED'">
+<!--            <div *ngIf="loanDataHolder?.documentStatus?.toString()==='APPROVED'">-->
 
-                <app-report-summary
-                        [approved]="true"
-                        *ngIf="loanDataHolder?.reportingInfoLog"
-                        [reportingInfoLevelLog]="loanDataHolder?.reportingInfoLog">
-                </app-report-summary>
-            </div>
-            <div *ngIf="loanDataHolder?.documentStatus?.toString() !=='APPROVED'">
-                <span><strong>Loan Reporting Information</strong></span>
-                <app-report-summary
-                        [approved]="false"
-                        *ngIf="loanDataHolder?.reportingInfoLevels && loanDataHolder?.reportingInfoLevels?.length > 0; else noinfo"
-                        [reportingInfoLevels]="loanDataHolder?.reportingInfoLevels"></app-report-summary>
-                <ng-template #noinfo>
-                    <p>No any information tagged</p>
-                </ng-template>
-            </div>
-            <div *ngIf="loanDataHolder?.loanHolder?.reportingInfoLevels && loanDataHolder?.loanHolder?.reportingInfoLevels?.length > 0 && client !== clientName?.SHINE_RESUNGA">
-                <span><strong>Customer Reporting Information</strong></span>
-                <app-report-summary
-                        [approved]="false"
-                        [reportingInfoLevels]="loanDataHolder?.loanHolder?.reportingInfoLevels"></app-report-summary>
-            </div>
-
-            <app-insurance-summary *ngIf="loanDataHolder?.insurance"
-                                   [insurance]="loanDataHolder?.insurance"></app-insurance-summary>
-
+<!--                <app-report-summary-->
+<!--                        [approved]="true"-->
+<!--                        *ngIf="loanDataHolder?.reportingInfoLog"-->
+<!--                        [reportingInfoLevelLog]="loanDataHolder?.reportingInfoLog">-->
+<!--                </app-report-summary>-->
+<!--            </div>-->
+<!--            <div *ngIf="loanDataHolder?.documentStatus?.toString() !=='APPROVED'">-->
+<!--                <span><strong>Loan Reporting Information</strong></span>-->
+<!--                <app-report-summary-->
+<!--                        [approved]="false"-->
+<!--                        *ngIf="loanDataHolder?.reportingInfoLevels && loanDataHolder?.reportingInfoLevels?.length > 0; else noinfo"-->
+<!--                        [reportingInfoLevels]="loanDataHolder?.reportingInfoLevels"></app-report-summary>-->
+<!--                <ng-template #noinfo>-->
+<!--                    <p>No any information tagged</p>-->
+<!--                </ng-template>-->
+<!--            </div>-->
+<!--            <div *ngIf="loanDataHolder?.loanHolder?.reportingInfoLevels && loanDataHolder?.loanHolder?.reportingInfoLevels?.length > 0 && client !== clientName?.SHINE_RESUNGA">-->
+<!--                <span><strong>Customer Reporting Information</strong></span>-->
+<!--                <app-report-summary-->
+<!--                        [approved]="false"-->
+<!--                        [reportingInfoLevels]="loanDataHolder?.loanHolder?.reportingInfoLevels"></app-report-summary>-->
+<!--            </div>-->
 
             <div class="row">
                 <div class="col-md-12 disable-print">
@@ -1307,123 +1330,85 @@
                     </table>
                 </div>
             </div>
-            <div *ngIf="loanDataHolder?.loanHolder?.customerGeneralDocuments?.length > 0 " class="row disable-print">
-                <div class="col-md-12">
-                    <table class="table table-condensed table-bordered table-sm sb-small text-center">
+<!--            <div *ngIf="loanDataHolder?.loanHolder?.customerGeneralDocuments?.length > 0 " class="row disable-print">-->
+<!--                <div class="col-md-12">-->
+<!--                    <table class="table table-condensed table-bordered table-sm sb-small text-center">-->
 
-                        <tr class="text-white sb-bg-dark">
-                            <th colspan="4"> Customer General Document
-                            </th>
-                        </tr>
-                        <tr class="text-white sb-bg-dark">
-                            <th>SN</th>
-                            <th>Document</th>
-                            <th *ngIf="loanDataHolder?.documentStatus?.toString()!=='APPROVED'">Preview</th>
-                            <th>Download</th>
-                        </tr>
-                        <tr *ngFor="let generalDoc of loanDataHolder?.loanHolder?.customerGeneralDocuments; let i=index">
-                            <td>{{i + 1}}</td>
-                            <td class="text-left pl-1">{{generalDoc?.document?.displayName}}</td>
-                            <td *ngIf="loanDataHolder?.documentStatus?.toString()!=='APPROVED'">
-                                <i (click)="previewOfferLetterDocument(generalDoc?.docPath,generalDoc?.document?.displayName)"
-                                   class="fas fa-eye"></i></td>
-                            <td>
-                                <ng-container *ngIf="loanDataHolder?.documentStatus?.toString()!=='APPROVED' || !loanDataHolder?.zipPath">
-                                    <i (click)="downloadCustomerDocument(generalDoc?.docPath,generalDoc?.document?.displayName)"
-                                       class="fas fa-download"
-                                       style="cursor: pointer"></i>
-                                </ng-container>
-                                <ng-container *ngIf="loanDataHolder?.documentStatus?.toString()==='APPROVED' && loanDataHolder?.zipPath">
-                                    <i (click)="downloadCustomerDocument(loanDataHolder?.zipPath, loanDataHolder?.id + '-documents')"
-                                       aria-hidden="true" class="fa fa-download"
-                                       style="cursor: pointer"></i>
-                                </ng-container>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-            <div *ngIf="minOneGuarantorDoc" class="row disable-print">
-                <div class="col-md-12">
-                    <p class="header"><strong>Guarantor Documents</strong></p>
-                    <table class="table table-condensed table-bordered table-sm sb-small text-center">
-                        <thead>
-                        <tr class="text-white sb-bg-dark">
-                            <th>S.N</th>
-                            <th>Guarantor</th>
-                            <th>Document</th>
-                            <th *ngIf="loanDataHolder?.documentStatus?.toString()!=='APPROVED'">Preview</th>
-                            <th>Download</th>
-                        </tr>
-                        </thead>
-                        <tbody *ngFor="let singleDoc of taggedGuarantorWithDoc; let i = index">
-                        <tr *ngIf="singleDoc?.docPath">
-                            <td>{{i + 1}}</td>
-                            <td class="text-left pl-1">{{singleDoc?.name}}</td>
-                            <td>Net Worth Document</td>
-                            <td *ngIf="loanDataHolder?.documentStatus?.toString()!=='APPROVED'">
-                                <i (click)="previewOfferLetterDocument(singleDoc?.docPath,singleDoc?.name + 'Net Worth Doc')"
-                                   class="fas fa-eye"></i></td>
+<!--                        <tr class="text-white sb-bg-dark">-->
+<!--                            <th colspan="4"> Customer General Document-->
+<!--                            </th>-->
+<!--                        </tr>-->
+<!--                        <tr class="text-white sb-bg-dark">-->
+<!--                            <th>SN</th>-->
+<!--                            <th>Document</th>-->
+<!--                            <th *ngIf="loanDataHolder?.documentStatus?.toString()!=='APPROVED'">Preview</th>-->
+<!--                            <th>Download</th>-->
+<!--                        </tr>-->
+<!--                        <tr *ngFor="let generalDoc of loanDataHolder?.loanHolder?.customerGeneralDocuments; let i=index">-->
+<!--                            <td>{{i + 1}}</td>-->
+<!--                            <td class="text-left pl-1">{{generalDoc?.document?.displayName}}</td>-->
+<!--                            <td *ngIf="loanDataHolder?.documentStatus?.toString()!=='APPROVED'">-->
+<!--                                <i (click)="previewOfferLetterDocument(generalDoc?.docPath,generalDoc?.document?.displayName)"-->
+<!--                                   class="fas fa-eye"></i></td>-->
+<!--                            <td>-->
+<!--                                <ng-container *ngIf="loanDataHolder?.documentStatus?.toString()!=='APPROVED' || !loanDataHolder?.zipPath">-->
+<!--                                    <i (click)="downloadCustomerDocument(generalDoc?.docPath,generalDoc?.document?.displayName)"-->
+<!--                                       class="fas fa-download"-->
+<!--                                       style="cursor: pointer"></i>-->
+<!--                                </ng-container>-->
+<!--                                <ng-container *ngIf="loanDataHolder?.documentStatus?.toString()==='APPROVED' && loanDataHolder?.zipPath">-->
+<!--                                    <i (click)="downloadCustomerDocument(loanDataHolder?.zipPath, loanDataHolder?.id + '-documents')"-->
+<!--                                       aria-hidden="true" class="fa fa-download"-->
+<!--                                       style="cursor: pointer"></i>-->
+<!--                                </ng-container>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+<!--                    </table>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <div *ngIf="minOneInsuranceDoc" class="row disable-print">-->
+<!--                <div class="col-md-12">-->
+<!--                    <p class="header"><strong>Insurance Documents</strong></p>-->
+<!--                    <table class="table table-condensed table-bordered table-sm sb-small text-center">-->
+<!--                        <thead>-->
+<!--                        <tr class="text-white sb-bg-dark">-->
+<!--                            <th>S.N</th>-->
+<!--                            <th>Policy Number</th>-->
+<!--                            <th>Company</th>-->
+<!--                            <th>Document</th>-->
+<!--                            <th *ngIf="loanDataHolder?.documentStatus?.toString()!=='APPROVED'">Preview</th>-->
+<!--                            <th>Download</th>-->
+<!--                        </tr>-->
+<!--                        </thead>-->
+<!--                        <tbody *ngFor="let singleDoc of insuranceWithDoc; let i = index">-->
+<!--                        <tr *ngIf="singleDoc.policyDocumentPath">-->
+<!--                            <td>{{i + 1}}</td>-->
+<!--                            <td class="text-right pr-1">{{singleDoc?.policyNumber}}</td>-->
+<!--                            <td class="text-left pl-1">{{singleDoc?.company}}</td>-->
+<!--                            <td class="text-left pl-1">Insurance Policy</td>-->
+<!--                            <td *ngIf="loanDataHolder?.documentStatus?.toString()!=='APPROVED'">-->
+<!--                                <i (click)="previewOfferLetterDocument(singleDoc?.policyDocumentPath,singleDoc.policyNumber+' Insurance Policy Document')"-->
+<!--                                   class="fas fa-eye"></i></td>-->
 
-                            <td>
-                                <ng-container *ngIf="loanDataHolder?.documentStatus?.toString()!=='APPROVED' || !loanDataHolder?.zipPath">
-                                    <i (click)="downloadCustomerDocument(singleDoc?.docPath, singleDoc?.name+' Net Worth Doc')"
-                                       aria-hidden="true" class="fa fa-download"
-                                       style="cursor: pointer"></i>
-                                </ng-container>
-                                <ng-container *ngIf="loanDataHolder?.documentStatus?.toString()==='APPROVED' && loanDataHolder?.zipPath">
-                                    <i (click)="downloadCustomerDocument(loanDataHolder?.zipPath, loanDataHolder?.id + '-documents')"
-                                       aria-hidden="true" class="fa fa-download"
-                                       style="cursor: pointer"></i>
-                                </ng-container>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div *ngIf="minOneInsuranceDoc" class="row disable-print">
-                <div class="col-md-12">
-                    <p class="header"><strong>Insurance Documents</strong></p>
-                    <table class="table table-condensed table-bordered table-sm sb-small text-center">
-                        <thead>
-                        <tr class="text-white sb-bg-dark">
-                            <th>S.N</th>
-                            <th>Policy Number</th>
-                            <th>Company</th>
-                            <th>Document</th>
-                            <th *ngIf="loanDataHolder?.documentStatus?.toString()!=='APPROVED'">Preview</th>
-                            <th>Download</th>
-                        </tr>
-                        </thead>
-                        <tbody *ngFor="let singleDoc of insuranceWithDoc; let i = index">
-                        <tr *ngIf="singleDoc.policyDocumentPath">
-                            <td>{{i + 1}}</td>
-                            <td class="text-right pr-1">{{singleDoc?.policyNumber}}</td>
-                            <td class="text-left pl-1">{{singleDoc?.company}}</td>
-                            <td class="text-left pl-1">Insurance Policy</td>
-                            <td *ngIf="loanDataHolder?.documentStatus?.toString()!=='APPROVED'">
-                                <i (click)="previewOfferLetterDocument(singleDoc?.policyDocumentPath,singleDoc.policyNumber+' Insurance Policy Document')"
-                                   class="fas fa-eye"></i></td>
-
-                            <td>
-                                <ng-container *ngIf="loanDataHolder?.documentStatus?.toString()!=='APPROVED' || !loanDataHolder?.zipPath">
-                                    <i (click)="downloadCustomerDocument(singleDoc?.policyDocumentPath, singleDoc?.policyNumber+' Insurance Policy Document')"
-                                       aria-hidden="true" class="fa fa-download"
-                                       style="cursor: pointer"></i>
-                                </ng-container>
-                                <ng-container *ngIf="loanDataHolder?.documentStatus?.toString()==='APPROVED' && loanDataHolder?.zipPath">
-                                    <i (click)="downloadCustomerDocument(loanDataHolder?.zipPath, loanDataHolder?.id + '-documents')"
-                                       aria-hidden="true" class="fa fa-download"
-                                       style="cursor: pointer"></i>
-                                </ng-container>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
+<!--                            <td>-->
+<!--                                <ng-container *ngIf="loanDataHolder?.documentStatus?.toString()!=='APPROVED' || !loanDataHolder?.zipPath">-->
+<!--                                    <i (click)="downloadCustomerDocument(singleDoc?.policyDocumentPath, singleDoc?.policyNumber+' Insurance Policy Document')"-->
+<!--                                       aria-hidden="true" class="fa fa-download"-->
+<!--                                       style="cursor: pointer"></i>-->
+<!--                                </ng-container>-->
+<!--                                <ng-container *ngIf="loanDataHolder?.documentStatus?.toString()==='APPROVED' && loanDataHolder?.zipPath">-->
+<!--                                    <i (click)="downloadCustomerDocument(loanDataHolder?.zipPath, loanDataHolder?.id + '-documents')"-->
+<!--                                       aria-hidden="true" class="fa fa-download"-->
+<!--                                       style="cursor: pointer"></i>-->
+<!--                                </ng-container>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+<!--                        </tbody>-->
+<!--                    </table>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            <app-insurance-summary *ngIf="loanDataHolder?.insurance"-->
+<!--                                   [insurance]="loanDataHolder?.insurance"></app-insurance-summary>-->
             <div class="print-only">
                 <div *ngIf="loanDataHolder?.customerDocument?.length > 0" class="row ">
                     <div class="col-md-12">
@@ -1474,33 +1459,6 @@
                         </table>
                     </div>
                 </div>
-                <div *ngIf="minOneGuarantorDoc" class="row">
-                    <div class="col-md-12">
-                        <p class="header"><strong>Guarantor Documents</strong></p>
-                        <table class="table table-condensed table-bordered table-sm sb-small text-center">
-                            <thead>
-                            <tr class="text-white sb-bg-dark">
-                                <th>S.N</th>
-                                <th>Guarantor</th>
-                                <th>Document</th>
-                                <th>Checked</th>
-                            </tr>
-                            </thead>
-                            <tbody *ngFor="let singleDoc of taggedGuarantorWithDoc; let i = index">
-                            <tr *ngIf="singleDoc?.docPath">
-                                <td>{{i + 1}}</td>
-                                <td class="text-left pl-1">{{singleDoc?.name}}</td>
-                                <td class="text-left pl-1">Net Worth Document</td>
-                                <td>
-                                    <i class="fa fa-check" *ngIf="singleDoc?.docPath"></i>
-                                    <i class="fa fa-times" *ngIf="!singleDoc?.docPath"></i>
-                                </td>
-
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
                 <div *ngIf="minOneInsuranceDoc" class="row ">
                     <div class="col-md-12">
                         <p class="header"><strong>Insurance Documents</strong></p>
@@ -1530,41 +1488,41 @@
                     </div>
                 </div>
             </div>
-            <div *ngIf="loanDataHolder?.cadDocument?.length > 0  && showCadDoc" class="row disable-print">
-                <div class="col-md-12">
-                    <p class="header"><strong >Cad Documents</strong></p>
-                    <table class="table table-condensed table-bordered table-sm sb-small text-center">
-                        <thead class="text-white sb-bg-dark">
-                        <tr>
-                            <th>S.N</th>
-                            <th>Document</th>
-                            <th>Preview</th>
-                            <th>Download</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr *ngFor="let singleDoc of loanDataHolder?.cadDocument; let i = index">
-                            <td>{{i + 1}}</td>
-                            <td class="text-left pl-1">{{singleDoc?.document?.name}}</td>
-                            <td>
-                                <i (click)="previewOfferLetterDocument(singleDoc?.documentPath, singleDoc?.document?.name)"
-                                   class="fas fa-eye"></i></td>
-                            <td>
-                                <i (click)="downloadCustomerDocument(singleDoc?.documentPath, singleDoc?.document?.name)"
-                                   aria-hidden="true" class="fa fa-download"
-                                   style="cursor: pointer"></i>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+<!--            <div *ngIf="loanDataHolder?.cadDocument?.length > 0  && showCadDoc" class="row disable-print">-->
+<!--                <div class="col-md-12">-->
+<!--                    <p class="header"><strong >Cad Documents</strong></p>-->
+<!--                    <table class="table table-condensed table-bordered table-sm sb-small text-center">-->
+<!--                        <thead class="text-white sb-bg-dark">-->
+<!--                        <tr>-->
+<!--                            <th>S.N</th>-->
+<!--                            <th>Document</th>-->
+<!--                            <th>Preview</th>-->
+<!--                            <th>Download</th>-->
+<!--                        </tr>-->
+<!--                        </thead>-->
+<!--                        <tbody>-->
+<!--                        <tr *ngFor="let singleDoc of loanDataHolder?.cadDocument; let i = index">-->
+<!--                            <td>{{i + 1}}</td>-->
+<!--                            <td class="text-left pl-1">{{singleDoc?.document?.name}}</td>-->
+<!--                            <td>-->
+<!--                                <i (click)="previewOfferLetterDocument(singleDoc?.documentPath, singleDoc?.document?.name)"-->
+<!--                                   class="fas fa-eye"></i></td>-->
+<!--                            <td>-->
+<!--                                <i (click)="downloadCustomerDocument(singleDoc?.documentPath, singleDoc?.document?.name)"-->
+<!--                                   aria-hidden="true" class="fa fa-download"-->
+<!--                                   style="cursor: pointer"></i>-->
+<!--                            </td>-->
+<!--                        </tr>-->
+<!--                        </tbody>-->
+<!--                    </table>-->
+<!--                </div>-->
+<!--            </div>-->
 
 
-            <div class="row justify-content-end px-3 disable-print">{{docMsg}}</div>
-            <app-proposal-terms-and-condition-summery *ngIf="loanDataHolder && customerAllLoanList"
-                                                      [customerAllLoanList]="customerAllLoanList"
-                                                      [loanDataHolder]="loanDataHolder"></app-proposal-terms-and-condition-summery>
+<!--            <div class="row justify-content-end px-3 disable-print">{{docMsg}}</div>-->
+<!--            <app-proposal-terms-and-condition-summery *ngIf="loanDataHolder && customerAllLoanList"-->
+<!--                                                      [customerAllLoanList]="customerAllLoanList"-->
+<!--                                                      [loanDataHolder]="loanDataHolder"></app-proposal-terms-and-condition-summery>-->
 
             <div class="row mt-3">
                 <div class="col-md-12">
@@ -1686,6 +1644,8 @@
                 </div>
             </div>
             <br>
+            <app-credit-checklist-view *ngIf="loanDataHolder.loanHolder?.creditChecklist" [formData]="loanDataHolder.loanHolder?.creditChecklist"
+                                       [fromProfile]="false" [customerType]="loanDataHolder.loanHolder?.customerType"></app-credit-checklist-view>
             <app-collateral-site-visit *ngIf="loanDataHolder?.loanHolder?.security" [loanDataHolder]="loanDataHolder"></app-collateral-site-visit>
 
             <div *ngIf="loanDataHolder?.customerOfferLetter"
