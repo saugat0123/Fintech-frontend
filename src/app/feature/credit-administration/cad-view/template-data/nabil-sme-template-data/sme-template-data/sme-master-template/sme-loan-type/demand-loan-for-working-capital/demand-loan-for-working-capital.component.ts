@@ -18,6 +18,7 @@ import {LoanNameConstant} from '../../../../sme-costant/loan-name-constant';
 export class DemandLoanForWorkingCapitalComponent implements OnInit {
   @Input() loanName;
   @Input() offerDocumentList: Array<OfferDocument>;
+  @Input() cadDocAssignedLoan;
   initialInformation: any;
   demandLoanForm: FormGroup;
   translatedFormGroup: FormGroup;
@@ -34,6 +35,7 @@ export class DemandLoanForWorkingCapitalComponent implements OnInit {
     {value: 'Yes'},
     {value: 'No'}
   ];
+  filteredLoanIdList: any = [];
 
   constructor(private formBuilder: FormBuilder,
               private translateService: SbTranslateService,
@@ -67,6 +69,7 @@ export class DemandLoanForWorkingCapitalComponent implements OnInit {
             loanamountWords ? loanamountWords : '');
       }
     }
+    this.setLoanId();
   }
   patchDate() {
     for (let val = 0; val < this.initialInformation.demandLoanForm.demandLoanFormArray.length; val++) {
@@ -322,11 +325,20 @@ export class DemandLoanForWorkingCapitalComponent implements OnInit {
       dateOfExpiryNepaliCT: [undefined],
       dateOfExpiryCT: [undefined],
 
+      loanId: [undefined],
     });
   }
   addLoanFormArr() {
     (this.demandLoanForm.get('demandLoanFormArray') as FormArray).push(this.buildLoanForm());
   }
 
+  setLoanId() {
+    this.filteredLoanIdList = this.cadDocAssignedLoan.filter(data =>
+        data.loan.name === this.loanNameConstant.DEMAND_LOAN_FOR_WORKING_CAPITAL);
+    this.filteredList.forEach((val, i) => {
+      this.demandLoanForm.get(['demandLoanFormArray', i, 'loanId']).patchValue(
+          this.filteredLoanIdList[i].proposal.id);
+    });
+  }
 
 }

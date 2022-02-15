@@ -17,6 +17,7 @@ import {LoanNameConstant} from '../../../../sme-costant/loan-name-constant';
 export class DocumentaryBillPurchaseNegotiationComponent implements OnInit {
   @Input() loanName;
   @Input() offerDocumentList: Array<OfferDocument>;
+  @Input() cadDocAssignedLoan;
   initialInformation: any;
   documentaryBillPurchase: FormGroup;
   isComplimentryOtherLoan = false;
@@ -27,6 +28,7 @@ export class DocumentaryBillPurchaseNegotiationComponent implements OnInit {
   isMarketValue = false;
   filteredList: any = [];
   loanNameConstant = LoanNameConstant;
+  filteredLoanIdList: any = [];
   constructor(
       private formBuilder: FormBuilder,
       private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
@@ -61,6 +63,7 @@ export class DocumentaryBillPurchaseNegotiationComponent implements OnInit {
             loanamountWords ? loanamountWords : '');
       }
     }
+    this.setLoanId();
   }
   patchDate() {
     for (let val = 0; val < this.initialInformation.documentaryBillPurchase.documentaryBillPurchaseFormArray.length; val++) {
@@ -268,6 +271,16 @@ export class DocumentaryBillPurchaseNegotiationComponent implements OnInit {
         dateOfExpiryTypeCT: [undefined],
         dateOfExpiryNepaliCT: [undefined],
         dateOfExpiryCT: [undefined],
+        loanId: [undefined],
+    });
+  }
+
+  setLoanId() {
+    this.filteredLoanIdList = this.cadDocAssignedLoan.filter(data =>
+        data.loan.name === this.loanNameConstant.DOCUMENTARY_BILL_PURCHASE_NEGOTIATION);
+    this.filteredList.forEach((val, i) => {
+      this.documentaryBillPurchase.get(['documentaryBillPurchaseFormArray', i, 'loanId']).patchValue(
+          this.filteredLoanIdList[i].proposal.id);
     });
   }
 }

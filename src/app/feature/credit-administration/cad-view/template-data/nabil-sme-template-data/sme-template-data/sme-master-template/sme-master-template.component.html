@@ -10,44 +10,53 @@
         <!-- Type of sme loan start here-->
         <ng-container *ngIf="isIrrevocableLetter">
             <app-irrevocable-letter-of-credit-facility [offerDocumentList]="customerApprovedDoc.offerDocumentList"
-                #irrevocableLetterOfCreditFacility [loanName]="loanExtraDetails">
+                #irrevocableLetterOfCreditFacility [loanName]="loanExtraDetails"
+                [cadDocAssignedLoan]="customerApprovedDoc.assignedLoan">
             </app-irrevocable-letter-of-credit-facility>
         </ng-container>
         <ng-container *ngIf="isCustomerAcceptance">
             <app-customer-acceptance-for-time-letter-of-credit
                 [offerDocumentList]="customerApprovedDoc.offerDocumentList" #customerAcceptanceLetterOfCredit
-                [loanName]="loanExtraDetails"></app-customer-acceptance-for-time-letter-of-credit>
+                [loanName]="loanExtraDetails"
+                [cadDocAssignedLoan]="customerApprovedDoc.assignedLoan"></app-customer-acceptance-for-time-letter-of-credit>
         </ng-container>
         <ng-container *ngIf="isBillDiscounting">
             <app-import-bills-discounting [offerDocumentList]="customerApprovedDoc.offerDocumentList"
-                #importBillsDiscounting [loanName]="loanExtraDetails"></app-import-bills-discounting>
+                #importBillsDiscounting [loanName]="loanExtraDetails"
+                [cadDocAssignedLoan]="customerApprovedDoc.assignedLoan"></app-import-bills-discounting>
         </ng-container>
         <ng-container *ngIf="isLoanTrustReceiptLoan">
             <app-import-loan-trust-receipt-loan [offerDocumentList]="customerApprovedDoc.offerDocumentList"
-                #importLoanTrustReceiptLoan [loanName]="loanExtraDetails"></app-import-loan-trust-receipt-loan>
+                #importLoanTrustReceiptLoan [loanName]="loanExtraDetails"
+                [cadDocAssignedLoan]="customerApprovedDoc.assignedLoan"></app-import-loan-trust-receipt-loan>
         </ng-container>
         <ng-container *ngIf="isRevolvingShortTermLoan">
             <app-revolving-short-term-loan [offerDocumentList]="customerApprovedDoc.offerDocumentList"
-                #revolvingShortTermLoan [loanName]="loanExtraDetails"></app-revolving-short-term-loan>
+                #revolvingShortTermLoan [loanName]="loanExtraDetails"
+                [cadDocAssignedLoan]="customerApprovedDoc.assignedLoan"></app-revolving-short-term-loan>
         </ng-container>
         <ng-container *ngIf="isDemandLoanWorkingCapital">
             <app-demand-loan-for-working-capital [offerDocumentList]="customerApprovedDoc.offerDocumentList"
-                #demandLoanForWorkingCapital [loanName]="loanExtraDetails"></app-demand-loan-for-working-capital>
+                #demandLoanForWorkingCapital [loanName]="loanExtraDetails"
+                [cadDocAssignedLoan]="customerApprovedDoc.assignedLoan"></app-demand-loan-for-working-capital>
         </ng-container>
         <ng-container *ngIf="isPreExportLoan">
             <app-pre-export-loan [offerDocumentList]="customerApprovedDoc.offerDocumentList"
-                [customerApprovedDoc]="customerApprovedDoc" #preExportLoan [loanName]="loanExtraDetails">
+                [customerApprovedDoc]="customerApprovedDoc" #preExportLoan [loanName]="loanExtraDetails"
+                                 [cadDocAssignedLoan]="customerApprovedDoc.assignedLoan">
             </app-pre-export-loan>
         </ng-container>
         <ng-container *ngIf="isDocumentaryBillPurchase">
             <app-documentary-bill-purchase-negotiation [offerDocumentList]="customerApprovedDoc.offerDocumentList"
-                #documentaryBillPurchaseNegotiation [loanName]="loanExtraDetails">
+                #documentaryBillPurchaseNegotiation [loanName]="loanExtraDetails"
+                                                       [cadDocAssignedLoan]="customerApprovedDoc.assignedLoan">
             </app-documentary-bill-purchase-negotiation>
         </ng-container>
         <ng-container *ngIf="isOverdraftLoanWorkingCapital">
             <app-overdraft-loan-for-working-capital-requirement
                 [offerDocumentList]="customerApprovedDoc.offerDocumentList" #overdraftLoanForWorkingCapitalRequirement
-                [loanName]="loanExtraDetails"></app-overdraft-loan-for-working-capital-requirement>
+                [loanName]="loanExtraDetails"
+                [cadDocAssignedLoan]="customerApprovedDoc.assignedLoan"></app-overdraft-loan-for-working-capital-requirement>
         </ng-container>
         <ng-container *ngIf="isEquityMortgageOverdraft">
             <app-equity-mortgaged-overdraft [offerDocumentList]="customerApprovedDoc.offerDocumentList"
@@ -89,7 +98,8 @@
         </ng-container>
         <ng-container *ngIf="isBillPurchase">
             <app-bill-purchase [offerDocumentList]="customerApprovedDoc.offerDocumentList" #billPurchaseComponent
-                [loanName]="loanExtraDetails"></app-bill-purchase>
+                [loanName]="loanExtraDetails"
+                               [cadDocAssignedLoan]="customerApprovedDoc.assignedLoan"></app-bill-purchase>
         </ng-container>
         <!-- Type of sme loan end here-->
         <app-sme-security [offerDocumentList]="customerApprovedDoc.offerDocumentList" #masterSecurity

@@ -17,6 +17,7 @@ import {LoanNameConstant} from '../../../../sme-costant/loan-name-constant';
 export class ImportLoanTrustReceiptLoanComponent implements OnInit {
   @Input() loanName;
   @Input() offerDocumentList: Array<OfferDocument>;
+  @Input() cadDocAssignedLoan;
   initialInformation: any;
   importLoanTrust: FormGroup;
   isComplimentryOtherLoan = false;
@@ -32,6 +33,7 @@ export class ImportLoanTrustReceiptLoanComponent implements OnInit {
   ];
   filteredList: any = [];
   loanNameConstant = LoanNameConstant;
+  filteredLoanIdList: any = [];
   constructor(private formBuilder: FormBuilder,
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
               private engToNepNumberPipe: EngToNepaliNumberPipe,
@@ -64,6 +66,7 @@ export class ImportLoanTrustReceiptLoanComponent implements OnInit {
             loanamountWords ? loanamountWords : '');
       }
     }
+    this.setLoanId();
   }
   patchDate() {
     for (let val = 0; val < this.initialInformation.importLoanTrust.importLoanTrustFormArray.length; val++) {
@@ -327,6 +330,17 @@ export class ImportLoanTrustReceiptLoanComponent implements OnInit {
       dateOfExpiryTypeCT: [undefined],
       dateOfExpiryNepaliCT: [undefined],
       dateOfExpiryCT: [undefined],
+
+      loanId: [undefined],
+    });
+  }
+
+  setLoanId() {
+    this.filteredLoanIdList = this.cadDocAssignedLoan.filter(data =>
+        data.loan.name === this.loanNameConstant.IMPORT_LOAN_TRUST_RECEIPT_LOAN);
+    this.filteredList.forEach((val, i) => {
+      this.importLoanTrust.get(['importLoanTrustFormArray', i, 'loanId']).patchValue(
+          this.filteredLoanIdList[i].proposal.id);
     });
   }
 }
