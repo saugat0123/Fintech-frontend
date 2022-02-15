@@ -11,9 +11,9 @@
                             <td>CFR/CA Ref.:</td>
                         </tr>
                         <tr>
-                            <td class="text-left pl-1">test1</td>
-                            <td class="text-left pl-1">test2</td>
-                            <td class="text-left pl-1">test3</td>
+                            <td class="text-left pl-1">{{loanDataHolder?.branch?.name}}</td>
+                            <td class="text-left pl-1">{{loanDataHolder?.createdAt}}</td>
+                            <td class="text-left pl-1">{{'NA'}}</td>
                             <td class="text-left pl-1">{{loanDataHolder?.refNo}}</td>
                         </tr>
                     </table>
@@ -65,6 +65,9 @@
                     </table>
                 </div>
             </div>
+            <li class="sb-medium"><span><sup>*</sup> IR : Interest Rate ,<sup>*</sup> BR : Base Rate ,<sup>*</sup> PR : Premium Rate ,
+                <sup>*</sup> COM : Commission ,<sup>*</sup> CM : Cash margin, <sup>*</sup> CIC : CIC Charge, <sup>*</sup> LSC : Loan Swap Charge</span>
+            </li>
             <div class="row">
                 <div class="col-md-12">
                     <table class="table table-responsive-md table-bordered table-condensed table-sm text-center sb-small">
@@ -129,17 +132,30 @@
                                         CM: {{ ((data?.proposal?.data | jsonParse)?.cashMargin)}} %,</span>
                                     COM:{{(data?.proposal?.data | jsonParse)?.commissionPercentage}} %
                                 </span>
+                                <span *ngIf="loanDataHolder?.loanHolder?.cicl">
+                                    CIC:{{loanDataHolder?.loanHolder?.cicl?.cibCharge}}
+                                </span>
+                                <span *ngIf="(data?.proposal?.checkedData | jsonParse)?.swapChargeChecked">
+                                    <span *ngIf="(data?.proposal?.data | jsonParse)?.swapChargeMethod == 'FLAT'">
+                                        LSC: Rs.  {{((data?.proposal?.data | jsonParse)?.swapCharge || 0) | currencyFormatter}},</span>
+                                    <span *ngIf="(data?.proposal?.data | jsonParse)?.swapChargeMethod == 'PERCENT'">
+                                        LSC: {{(data?.proposal?.data | jsonParse)?.swapCharge}} %,</span>
+                                </span>
                             </td>
                             <td colspan="1" class="text-left pl-1">
-                                <span>... years from the date of disbursement</span>
+                                <span *ngIf="(array[i]?.loanNatureSelected && array[i]?.fundableNonFundableSelcted && array[i]?.isFundable && array[i]?.isTerminating)
+                                    || array[i]?.isVehicle || array[i]?.isShare || array[i]?.isGeneral">
+                                    {{array[i]?.tenureInMonth}} years from the date of disbursement
+                                </span>
+                                <span *ngIf="!((array[i]?.loanNatureSelected && array[i]?.fundableNonFundableSelcted && array[i]?.isFundable && array[i]?.isTerminating)
+                                    || array[i]?.isVehicle || array[i]?.isShare || array[i]?.isGeneral)" class="text-right pr-1">-</span>
                             </td>
                             <td colspan="1" class="text-left pl-1">
                                 <span>
-                                    Registered mortgage over
-                                    Owner:
-                                    Location:       Ward No.:
-                                    Plot No.: ......., Area: ...... sq.m
-
+                                    Registered mortgage over <br>
+                                    Owner: <br>
+                                    Location:       Ward No.: <br>
+                                    Plot No.: ......., Area: ...... sq.m <br>
                                     Valuation Date and Valuator: ........;.......Pvt.Ltd.
                                 </span>
                                 <table>
@@ -217,9 +233,23 @@
                                         CM: {{ ((dto?.proposal?.data | jsonParse)?.cashMargin)}} %,</span>
                                     COM:{{(dto?.proposal?.data | jsonParse)?.commissionPercentage}} %
                                 </span>
+                                <span *ngIf="loanDataHolder?.loanHolder?.cicl">
+                                    CIC:{{loanDataHolder?.loanHolder?.cicl?.cibCharge}}
+                                </span>
+                                <span *ngIf="(dto?.proposal?.checkedData | jsonParse)?.swapChargeChecked">
+                                    <span *ngIf="(dto?.proposal?.data | jsonParse)?.swapChargeMethod == 'FLAT'">
+                                        LSC: Rs.  {{((dto?.proposal?.data | jsonParse)?.swapCharge || 0) | currencyFormatter}},</span>
+                                    <span *ngIf="(dto?.proposal?.data | jsonParse)?.swapChargeMethod == 'PERCENT'">
+                                        LSC: {{(dto?.proposal?.data | jsonParse)?.swapCharge}} %,</span>
+                                </span>
                             </td>
                             <td colspan="1" class="text-left pl-1">
-                                <span>... years from the date of disbursement</span>
+                                <span *ngIf="(dtoArray[ii]?.loanNatureSelected && dtoArray[ii]?.fundableNonFundableSelcted && dtoArray[ii]?.isFundable && dtoArray[ii]?.isTerminating)
+                                    || dtoArray[ii]?.isVehicle || dtoArray[ii]?.isShare || dtoArray[ii]?.isGeneral">
+                                    {{dtoArray[ii]?.tenureInMonth}} years from the date of disbursement
+                                </span>
+                                <span *ngIf="!((dtoArray[ii]?.loanNatureSelected && dtoArray[ii]?.fundableNonFundableSelcted && dtoArray[ii]?.isFundable && dtoArray[ii]?.isTerminating)
+                                    || dtoArray[ii]?.isVehicle || dtoArray[ii]?.isShare || dtoArray[ii]?.isGeneral)" class="text-right pr-1">-</span>
                             </td>
                             <td colspan="1" class="text-left pl-1">
                                 <span>
@@ -227,7 +257,6 @@
                                     Owner:
                                     Location:       Ward No.:
                                     Plot No.: ......., Area: ...... sq.m
-
                                     Valuation Date and Valuator: ........;.......Pvt.Ltd.
                                 </span>
                                 <table>
@@ -276,29 +305,7 @@
                     <table class="table table-responsive-md table-bordered table-condensed table-sm text-center sb-small">
                         <tr>
                             <td class="col-md-8">
-                                <div class="row justify-content-between px-3">
-                                    <div *ngFor="let previous of signatureAllList; let i = index">
-                                        <div class="signature-block" *ngIf="!previous.fromUser.name.toLowerCase().includes('default')">
-                                            <div class="text-center p-2 bg-light mb-2 sb-small sb-bg-dark text-white">
-                                                <span>{{loanHandler(i, signatureAllList.length, (previous.docAction.toString() === 'RE_INITIATE') ? previous?.toRole?.authorityLabel : previous?.fromRole?.authorityLabel)}}</span>
-                                            </div>
-                                            <hr class="border-dark m-0">
-                                            <div class="row justify-content-center signature mx-auto">
-                                                <div class="print-only signature-padding"></div>
-                                                <img align="middle" alt="signature"
-                                                     class="img-thumbnail border-0 signature-height signature-width"
-                                                     src="{{(previous.docAction.toString() === 'RE_INITIATE') ? (previous.toUser?.signatureImage === null ? '' : RootUrl + '/' + previous.toUser?.signatureImage) : (previous.fromUser?.signatureImage === null ? '' : RootUrl + '/' + previous.fromUser?.signatureImage)}}"/>
-                                            </div>
-                                            <div class="text-center signature-detail sb-bg-secondary text-white">
-                                                <p class="m-0 sb-small">{{(previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.name : previous?.fromUser?.name}}</p>
-                                                <p class="m-0 sb-small">({{(previous.docAction.toString() === 'RE_INITIATE') ? previous?.toRole?.roleName : previous?.fromRole?.roleName}}
-                                                    )</p>
-                                                <p class="m-0 sb-small">{{previous?.lastModifiedAt | date}}
-                                                    ({{previous?.lastModifiedAt | engNepDate: false}})</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <app-signature-section [loanDataHolder]="loanDataHolder"></app-signature-section>
                             </td>
                             <td class="col-md-4">
                                 Personal Guarantee of Mrs...... (Spouse of the borrower) of NPR ..... Mio. <br>

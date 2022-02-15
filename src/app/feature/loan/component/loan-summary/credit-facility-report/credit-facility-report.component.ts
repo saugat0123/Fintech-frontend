@@ -3,7 +3,6 @@ import {LoanDataHolder} from '../../../model/loanData';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {CustomerLoanDto} from '../../../model/customerLoanDto';
 import {ApiConfig} from '../../../../../@core/utils/api/ApiConfig';
-import {LoanStage} from '../../../model/loanStage';
 
 @Component({
   selector: 'app-credit-facility-report',
@@ -15,14 +14,15 @@ export class CreditFacilityReportComponent implements OnInit, OnChanges {
   @Input() nepaliDate;
   @Input() loanConfig;
   @Input() customerLoanList: LoanDataHolder[];
-  @Input() signatureAllList: Array<LoanStage> = new Array<LoanStage>();
-  customerLoanDtoList: Array<CustomerLoanDto>;
+  // @Input() signatureAllList;
+  customerLoanDtoList: CustomerLoanDto[];
   customerFundedLoanList: LoanDataHolder[];
   customerNonFundedLoanList: LoanDataHolder[];
   customerAllLoanList: LoanDataHolder[];
   RootUrl = ApiConfig.URL;
   array = [];
   dtoArray = [];
+  signatureList;
 
   constructor() { }
 
@@ -30,26 +30,11 @@ export class CreditFacilityReportComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes): void {
-    console.log('loanDataHolder', this.loanDataHolder);
     this.customerAllLoanList = this.customerLoanList;
     if (!ObjectUtil.isEmpty(this.loanDataHolder.customerLoanDtoList)) {
       this.customerLoanDtoList = this.loanDataHolder.customerLoanDtoList;
     }
     this.getAllLoanConfig();
-  }
-
-  public getTotal(key: string): number {
-    const tempList = this.customerAllLoanList
-        .filter(l => JSON.parse(l.proposal.data)[key]);
-    let total = tempList
-        .map(l => JSON.parse(l.proposal.data)[key])
-        .reduce((a, b) => a + b, 0);
-    if (this.customerLoanDtoList !== null && !ObjectUtil.isEmpty(this.customerLoanDtoList)) {
-      this.customerLoanDtoList.forEach(cdl => {
-        total += JSON.parse(cdl.proposal.data)[key];
-      });
-    }
-    return this.isNumber(total);
   }
 
   public getTotalFundable(key: string, funded: boolean, loanList: LoanDataHolder[]): number {
@@ -113,34 +98,10 @@ export class CreditFacilityReportComponent implements OnInit, OnChanges {
     }
   }
 
-  loanHandler(index: number, length: number, label: string) {
-    if (index === length - 1 && index !== 0) {
-      if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
-        return 'APPROVED BY:';
-      } else if (this.loanDataHolder.documentStatus.toString() === 'REJECTED') {
-        return 'REJECTED BY:';
-      } else if (this.loanDataHolder.documentStatus.toString() === 'CLOSED') {
-        return 'CLOSED BY:';
-      }
-    }
-    if (!ObjectUtil.isEmpty(label)) {
-      return label;
-    } else {
-      if (index === 0) {
-        if (this.signatureAllList[index].docAction.toString() === 'RE_INITIATE') {
-          return 'RE INITIATED:';
-        } else {
-          return 'INITIATED BY:';
-        }
-      } else {
-        return 'SUPPORTED BY:';
-      }
-    }
-  }
-
   private getAllLoanConfig() {
     if (!ObjectUtil.isEmpty(this.customerAllLoanList)) {
       this.customerAllLoanList.forEach(c => {
+        const tenure = ((JSON.parse(c.proposal.data)).tenureDurationInMonths) / 12;
         const config = {
           isFundable: c.loan.isFundable,
           fundableNonFundableSelcted: !ObjectUtil.isEmpty(c.loan.isFundable),
@@ -152,6 +113,7 @@ export class CreditFacilityReportComponent implements OnInit, OnChanges {
           loanNatureSelected: false,
           isTerminating: false,
           isRevolving: false,
+          tenureInMonth: tenure
         };
         if (!ObjectUtil.isEmpty(config.loanNature)) {
           config.loanNatureSelected = true;
@@ -176,6 +138,7 @@ export class CreditFacilityReportComponent implements OnInit, OnChanges {
     }
     if (!ObjectUtil.isEmpty(this.customerLoanDtoList)) {
       this.customerLoanDtoList.forEach(cd => {
+        const dtoTenure = ((JSON.parse(cd.proposal.data)).tenureDurationInMonths) / 12;
         const dtoCfonfig = {
           isFundable: cd.loanConfig.isFundable,
           fundableNonFundableSelcted: !ObjectUtil.isEmpty(cd.loanConfig.isFundable),
@@ -187,6 +150,7 @@ export class CreditFacilityReportComponent implements OnInit, OnChanges {
           loanNatureSelected: false,
           isTerminating: false,
           isRevolving: false,
+          tenureInMonth: dtoTenure
         };
         if (!ObjectUtil.isEmpty(dtoCfonfig.loanNature)) {
           dtoCfonfig.loanNatureSelected = true;

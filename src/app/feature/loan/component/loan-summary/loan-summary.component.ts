@@ -729,9 +729,5 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     checkSiteVisitDocument(event: any) {
         this.siteVisitDocuments = event;
     }
-
-    signatureAllList(event) {
-        this.signatureList.emit(event);
-    }
 }
 
