@@ -384,10 +384,10 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
         let identityIssuedDate = '';
         if (!ObjectUtil.isEmpty(individualGuarantorNepData.guarantorNationality)) {
             if (individualGuarantorNepData.guarantorNationality === 'Nepali') {
-                if (!ObjectUtil.isEmpty(individualGuarantorNepData.radioCitizenIssuedDate) && (individualGuarantorNepData.radioCitizenIssuedDate.en === 'AD')) {
+                if (!ObjectUtil.isEmpty(individualGuarantorNepData.radioCitizenIssuedDate) && (individualGuarantorNepData.radioCitizenIssuedDate === 'AD')) {
                     identityIssuedDate = !ObjectUtil.isEmpty(individualGuarantorNepData.citizenIssuedDate) ? this.englishNepaliDatePipe.transform((individualGuarantorNepData.citizenIssuedDate.en) ? (individualGuarantorNepData.citizenIssuedDate.en) : (individualGuarantorNepData.citizenIssuedDate.en), true) : '' || '';
                 } else {
-                    identityIssuedDate = !ObjectUtil.isEmpty(individualGuarantorNepData.citizenIssuedDate) ? individualGuarantorNepData.citizenIssuedDate.en.nDate : '';
+                    identityIssuedDate = !ObjectUtil.isEmpty(individualGuarantorNepData.citizenIssuedDateNepali) ? individualGuarantorNepData.citizenIssuedDateNepali.en.nDate : '';
                 }
             }
             if (individualGuarantorNepData.guarantorNationality === 'Indian') {
@@ -404,7 +404,7 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
                 if (!ObjectUtil.isEmpty(individualGuarantorNepData.otherGuarantorPassportIssuedDateOption) && (individualGuarantorNepData.otherGuarantorPassportIssuedDate === 'AD')) {
                     identityIssuedDate = !ObjectUtil.isEmpty(individualGuarantorNepData.otherGuarantorPassportIssuedDate) ? this.englishNepaliDatePipe.transform((individualGuarantorNepData.otherGuarantorPassportIssuedDate.en) ? (individualGuarantorNepData.otherGuarantorPassportIssuedDate.en) : (individualGuarantorNepData.otherGuarantorPassportIssuedDate.en), true) : '' || '';
                 } else {
-                    identityIssuedDate = !ObjectUtil.isEmpty(individualGuarantorNepData.otherGuarantorPassportIssuedDate) ? individualGuarantorNepData.otherGuarantorPassportIssuedDate.en.nDate : '';
+                    identityIssuedDate = !ObjectUtil.isEmpty(individualGuarantorNepData.otherGuarantorPassportIssuedDateNepali) ? individualGuarantorNepData.otherGuarantorPassportIssuedDateNepali.en.nDate : '';
                 }
             }
             return identityIssuedDate ? identityIssuedDate : '';
@@ -466,7 +466,11 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
                 }
             }
             if (individualGuarantorNepData.guarantorNationality === 'Other') {
-                passportValidityDate = !ObjectUtil.isEmpty(individualGuarantorNepData.otherGuarantorPassportValidityDate) ? this.englishNepaliDatePipe.transform((individualGuarantorNepData.otherGuarantorPassportValidityDate.en) ? (individualGuarantorNepData.otherGuarantorPassportValidityDate.en) : (individualGuarantorNepData.otherGuarantorPassportValidityDate.en), true) : '' || '';
+                if (!ObjectUtil.isEmpty(individualGuarantorNepData.otherGuarantorPassportValidityDateOption) && individualGuarantorNepData.otherGuarantorPassportValidityDateOption === 'AD') {
+                    passportValidityDate = !ObjectUtil.isEmpty(individualGuarantorNepData.otherGuarantorPassportValidityDate) ? this.englishNepaliDatePipe.transform((individualGuarantorNepData.otherGuarantorPassportValidityDate.en.eDate) ? (individualGuarantorNepData.otherGuarantorPassportValidityDate.en) : (individualGuarantorNepData.otherGuarantorPassportValidityDate.en), true) : '' || '';
+                } else {
+                    passportValidityDate = !ObjectUtil.isEmpty(individualGuarantorNepData.otherGuarantorPassportValidityDateNepali.en) ? individualGuarantorNepData.otherGuarantorPassportValidityDateNepali.en.nDate : '';
+                }
             }
             return passportValidityDate ? passportValidityDate : '';
         }
