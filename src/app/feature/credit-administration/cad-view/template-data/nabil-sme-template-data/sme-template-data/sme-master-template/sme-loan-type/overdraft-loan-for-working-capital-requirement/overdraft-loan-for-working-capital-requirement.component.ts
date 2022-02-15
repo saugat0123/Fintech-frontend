@@ -17,6 +17,7 @@ import {LoanNameConstant} from '../../../../sme-costant/loan-name-constant';
 export class OverdraftLoanForWorkingCapitalRequirementComponent implements OnInit {
   @Input() loanName;
   @Input() offerDocumentList: Array<OfferDocument>;
+  @Input() cadDocAssignedLoan;
   initialInformation: any;
   overdraftLoanForm: FormGroup;
   translatedFormGroup: FormGroup;
@@ -31,6 +32,7 @@ export class OverdraftLoanForWorkingCapitalRequirementComponent implements OnIni
     {value: 'Yes'},
     {value: 'No'}
   ];
+  filteredLoanIdList: any =[];
 
   constructor( private formBuilder: FormBuilder,
                private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
@@ -64,6 +66,7 @@ export class OverdraftLoanForWorkingCapitalRequirementComponent implements OnIni
             loanamountWords ? loanamountWords : '');
       }
     }
+    this.setLoanId();
   }
   filterLoanDetails(loanDetails) {
     this.filteredList = loanDetails.filter(data => data.name === this.loanNameConstant.OVERDRAFT_LOAN_FOR_WORKING_CAPITAL_REQUIREMENT);
@@ -278,6 +281,8 @@ export class OverdraftLoanForWorkingCapitalRequirementComponent implements OnIni
       dateOfExpiryTypeCT: [undefined],
       dateOfExpiryCT: [undefined],
       dateOfExpiryNepaliCT: [undefined],
+
+      loanId: [undefined],
     });
   }
   addLoanFormArr() {
@@ -288,6 +293,14 @@ export class OverdraftLoanForWorkingCapitalRequirementComponent implements OnIni
     const premiumRate = this.overdraftLoanForm.get([arrName, index, 'premiumRate']).value;
     const sum = parseFloat(baseRate) + parseFloat(premiumRate);
     this.overdraftLoanForm.get([arrName, index, 'interestRate']).patchValue(sum.toFixed(2));
+  }
+  setLoanId() {
+    this.filteredLoanIdList = this.cadDocAssignedLoan.filter(data =>
+        data.loan.name === this.loanNameConstant.OVERDRAFT_LOAN_FOR_WORKING_CAPITAL_REQUIREMENT);
+    this.filteredList.forEach((val, i) => {
+      this.overdraftLoanForm.get(['overdraftLoanFormArray', i, 'loanId']).patchValue(
+          this.filteredLoanIdList[i].proposal.id);
+    });
   }
 
 }

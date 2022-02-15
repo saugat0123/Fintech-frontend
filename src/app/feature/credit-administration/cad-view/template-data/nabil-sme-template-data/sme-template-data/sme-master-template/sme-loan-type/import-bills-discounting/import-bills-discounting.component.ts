@@ -17,6 +17,7 @@ import {LoanNameConstant} from '../../../../sme-costant/loan-name-constant';
 export class ImportBillsDiscountingComponent implements OnInit {
     @Input() loanName;
     @Input() offerDocumentList: Array<OfferDocument>;
+    @Input() cadDocAssignedLoan;
     initialInformation: any;
     importBillsDiscountForm: FormGroup;
     isComplimentryOtherLoan = false;
@@ -27,6 +28,7 @@ export class ImportBillsDiscountingComponent implements OnInit {
     displayField = false;
     filteredList: any = [];
     loanNameConstant = LoanNameConstant;
+    filteredLoanIdList: any = [];
     constructor(private formBuilder: FormBuilder,
                 private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
                 private engToNepNumberPipe: EngToNepaliNumberPipe,
@@ -61,6 +63,7 @@ export class ImportBillsDiscountingComponent implements OnInit {
                     loanamountWords ? loanamountWords : '');
             }
         }
+        this.setLoanId();
     }
     patchDate() {
         for (let val = 0; val < this.initialInformation.importBillsDiscountForm.importBillsDiscountFormArray.length; val++) {
@@ -282,6 +285,17 @@ export class ImportBillsDiscountingComponent implements OnInit {
             dateOfExpiryTypeCT: [undefined],
             // dateOfExpiryNepaliCT: [undefined],
             dateOfExpiryCT: [undefined],
+
+            loanId: [undefined],
+        });
+    }
+
+    setLoanId() {
+        this.filteredLoanIdList = this.cadDocAssignedLoan.filter(data =>
+            data.loan.name === this.loanNameConstant.IMPORT_BILLS_DISCOUNTING);
+        this.filteredList.forEach((val, i) => {
+            this.importBillsDiscountForm.get(['importBillsDiscountFormArray', i, 'loanId']).patchValue(
+                this.filteredLoanIdList[i].proposal.id);
         });
     }
 }
