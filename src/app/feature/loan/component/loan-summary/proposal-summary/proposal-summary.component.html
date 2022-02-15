@@ -1,7 +1,7 @@
 <table *ngIf="loanDataHolder?.loanHolder?.clientType === 'CONSUMER_FINANCE'">
     <tr>
         <td><p><strong>Purpose of Loan:</strong></p></td>
-        <td class="text-left pl-1" [innerHTML]="proposalAllData?.purposeOfLoan || 'N/A' | safeHtml"></td>
+        <td class="text-left" style="display: flex" [innerHTML]="proposalAllData?.purposeOfLoan || 'N/A' | safeHtml"></td>
     </tr>
 </table>
 <div class="row mt-1">

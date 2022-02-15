@@ -72,7 +72,7 @@
         </div>
     </ng-container>
     <ng-container>
-        <p><strong>Borrower Details</strong></p>
+        <p class="header"><strong>Borrower Details</strong></p>
         <div class="row" *ngIf="loanHolder.loanCategory === 'INDIVIDUAL' && !isJointInfo">
             <div class="col-md-12">
                 <div>
@@ -153,7 +153,7 @@
     </ng-container>
     <div class="row" *ngIf="individual?.customerRelatives?.length > 0 && loanHolder?.loanHolder?.clientType!=='CONSUMER_FINANCE'">
         <div class="col-md-12">
-            <p><strong>Family Details</strong></p>
+            <p class="header"><strong>Family Details</strong></p>
             <table
                     class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
                 <thead>
@@ -196,7 +196,7 @@
     <ng-container *ngIf="isRemit">
         <div class="row">
             <div class="col-md-12">
-                <p class="text-left"><strong>Remit Loan Document</strong></p>
+                <p class="text-left header"><strong>Remit Loan Document</strong></p>
                 <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small text-center">
                     <thead>
                     <tr class="text-white sb-bg-dark">

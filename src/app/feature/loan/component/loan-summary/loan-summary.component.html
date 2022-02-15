@@ -89,24 +89,24 @@
                             <div>
                                 <strong> Priority:</strong>
                                 <span class="badge badge-danger"
-                                      style="font-size: 11px">{{loanDataHolder.priority?.toString() | titlecase}}</span>
+                                      >{{loanDataHolder.priority?.toString() | titlecase}}</span>
                             </div>
 
                             <div>
                                 <strong> Approving Level:</strong>
                                 <span class="badge badge-danger"
-                                      style="font-size: 11px">{{loanDataHolder.approvingLevel?.toString() | titlecase}}</span>
+                                      >{{loanDataHolder.approvingLevel?.toString() | titlecase}}</span>
                             </div>
 
                             <div>
                                 <strong>Loan Status:</strong>
                                 <span class="badge badge-info"
-                                      style="font-size: 11px">{{loanDataHolder.documentStatus?.toString() | titlecase}}</span>
+                                      >{{loanDataHolder.documentStatus?.toString() | titlecase}}</span>
                             </div>
                             <div>
                                 <strong>Credit Risk Score:</strong>
                                 <p class="badge badge-info"
-                                      style="font-size: 11px">{{loanDataHolder?.creditRisk}}</p>
+                                      >{{loanDataHolder?.creditRisk}}</p>
                             </div>
                             <div class="clearfix">
                                 <div *ngIf="isRemitLoan" class="float-left"><span><strong>Beneficiary No.: </strong>{{beneficiary?.beneficiaryIdentity?.benef_mob_no}}</span></div>
@@ -535,10 +535,10 @@
                     </nb-accordion-item-body>
                 </nb-accordion-item>
             </nb-accordion>
-            <p><strong *ngIf="consumerFinance">Applicant/Guarantor Profile</strong></p>
+            <p class="header"><strong *ngIf="consumerFinance">Applicant/Guarantor Profile</strong></p>
             <div *ngIf="isJointInfo" class="row">
                 <div class="col-md-12 text-center">
-                    <p><strong>Joint Details</strong></p>
+                    <p class="header"><strong >Joint Details</strong></p>
                     <table
                             class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
                         <thead>
@@ -614,7 +614,7 @@
                         </tbody>
                     </table>
                     <table *ngIf="loanDataHolder.loanCategory === 'INDIVIDUAL'" class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-                        <p><strong> Address Verification</strong></p>
+                        <p class="header"><strong > Address Verification</strong></p>
                         <tr class="text-white sb-bg-dark">
                             <th colspan="7">Permanent Address</th>
                         </tr>
@@ -667,7 +667,7 @@
 
             <div class="row mt-1" *ngIf="loanDataHolder.loanCategory === 'INDIVIDUAL' && !isJointInfo " >
                 <div class="col-md-12">
-                    <p><strong *ngIf="!isJointInfo">Address Verification</strong></p>
+                    <p><strong *ngIf="!isJointInfo" class ="header">Address Verification</strong></p>
                     <table *ngIf="!isJointInfo" class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
                         <tr class="text-white sb-bg-dark">
                             <th colspan="6">Permanent Address</th>
@@ -721,7 +721,7 @@
             <ng-container *ngIf="isRemitLoan">
                 <div class="row mt-1">
                     <div class="col-md-12">
-                        <p><b>Proposal</b></p>
+                        <p><b class="header">Proposal</b></p>
                         <table class="table table-condensed table-bordered table-sm table-responsive-md sb-small">
                             <tr>
                                 <th>{{(loanDataHolder.remitCustomer.senderData | jsonParse).senderBanking.loan_purpose}}</th>
@@ -738,7 +738,7 @@
                                 [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
             <div class="row" *ngIf="individual?.customerRelatives?.length > 0">
                 <div class="col-md-12">
-                    <p><strong>Family Details</strong></p>
+                    <p><strong class="header">Family Details</strong></p>
                     <table
                             class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
                         <thead>
@@ -838,7 +838,7 @@
             </ng-container>
             <div class="row mt-1">
                 <div class = "col-md-12" *ngIf="isRemitLoan">
-                    <p><b> Financial/ Repayment Ability: Primary Source of Income</b></p>
+                    <p><b class="header"> Financial/ Repayment Ability: Primary Source of Income</b></p>
                     <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small text-center">
                         <thead class="sb-bg-dark">
                         <tr>
@@ -884,7 +884,7 @@
             </div>
 <div class="row mt-1">
     <div class="col-md-12" *ngIf="isRemitLoan">
-        <p><b>DBR Calculation: ( To be calculated at Base Rate +2)</b></p>
+        <p><b class="header">DBR Calculation: ( To be calculated at Base Rate +2)</b></p>
         <table
                 class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <thead class="sb-bg-dark">
@@ -1011,7 +1011,7 @@
 <!--            </div>-->
             <div *ngIf="loanDataHolder?.dmsLoanFile !== null" class="row">
                 <div class="col-md-12">
-                    <p><strong>Detail of Present Proposal of the Facility</strong></p>
+                    <p class="header"><strong>Detail of Present Proposal of the Facility</strong></p>
                     <table class="table table-bordered text-center table-sm sb-small">
                         <tbody>
                         <tr>
@@ -1083,7 +1083,7 @@
             </div>
             <div *ngIf="loanDataHolder?.dmsLoanFile !== null" class="row mt-3">
                 <div class="col-md-12">
-                    <p><strong>Security Offered</strong></p>
+                    <p class="header"><strong>Security Offered</strong></p>
                     <p><label *ngFor="let security of securities; let i = index">{{i + 1}}
                         . {{Security[security]}}&nbsp;&nbsp;</label>
                     </p>
@@ -1116,7 +1116,7 @@
 
             <div *ngIf="loanDataHolder?.dmsLoanFile !== null" class="row mt-3">
                 <div class="col-md-12">
-                    <p><strong>Recommendation and Conclusion</strong></p>
+                    <p class="header"><strong>Recommendation and Conclusion</strong></p>
                     <p class="border text-justify p-1">
                         {{dmsLoanFile?.recommendationConclusion}}
                     </p>
@@ -1125,7 +1125,7 @@
 
             <div *ngIf="loanDataHolder?.dmsLoanFile !== null" class="row mt-3">
                 <div class="col-md-12">
-                    <p><strong>Waiver</strong></p>
+                    <p class="header"><strong>Waiver</strong></p>
                     <p class="border text-justify p-1">
                         {{dmsLoanFile?.waiver}}
                     </p>
@@ -1175,7 +1175,7 @@
             <div *ngIf="productUtils.CBS_ENABLE">
                 <div class="row mt-5">
                     <div class="col-md-12">
-                        <p><strong>Group Details</strong>
+                        <p class="header"><strong>Group Details</strong>
                         </p>
                     </div>
                     <div class="col-md-12">
@@ -1244,7 +1244,7 @@
                                        [formData]="multiBankingData"></app-multi-banking-summary>
             <div *ngIf="loanCategory === 'INSTITUTION' && loanData?.loanHolder.data !== null" >
                 <div class="col-md-12">
-                    <p><strong>Comments</strong>
+                    <p class="header"><strong>Comments</strong>
                     </p>
                 </div>
                 <app-comments
@@ -1315,7 +1315,7 @@
             <hr>
             <div *ngIf="loanDataHolder?.customerDocument?.length > 0" class="row disable-print">
                 <div class="col-md-12">
-                    <p><strong>Loan Documents</strong></p>
+                    <p class="header"><strong>Loan Documents</strong></p>
                 </div>
                 <div class="col-md-12">
                     <table class="table table-condensed table-bordered table-sm sb-small text-center">
@@ -1382,7 +1382,7 @@
             </div>
             <div *ngIf="minOneGuarantorDoc" class="row disable-print">
                 <div class="col-md-12">
-                    <p><strong>Guarantor Documents</strong></p>
+                    <p class="header"><strong>Guarantor Documents</strong></p>
                     <table class="table table-condensed table-bordered table-sm sb-small text-center">
                         <thead>
                         <tr class="text-white sb-bg-dark">
@@ -1421,7 +1421,7 @@
             </div>
             <div *ngIf="minOneInsuranceDoc" class="row disable-print">
                 <div class="col-md-12">
-                    <p><strong>Insurance Documents</strong></p>
+                    <p class="header"><strong>Insurance Documents</strong></p>
                     <table class="table table-condensed table-bordered table-sm sb-small text-center">
                         <thead>
                         <tr class="text-white sb-bg-dark">
@@ -1464,7 +1464,7 @@
             <div class="print-only">
                 <div *ngIf="loanDataHolder?.customerDocument?.length > 0" class="row ">
                     <div class="col-md-12">
-                        <p><strong>Loan Documents</strong></p>
+                        <p class="header"><strong>Loan Documents</strong></p>
                     </div>
                     <div class="col-md-12">
                         <table class="table table-condensed table-bordered table-sm sb-small text-center">
@@ -1513,7 +1513,7 @@
                 </div>
                 <div *ngIf="minOneGuarantorDoc" class="row">
                     <div class="col-md-12">
-                        <p><strong>Guarantor Documents</strong></p>
+                        <p class="header"><strong>Guarantor Documents</strong></p>
                         <table class="table table-condensed table-bordered table-sm sb-small text-center">
                             <thead>
                             <tr class="text-white sb-bg-dark">
@@ -1540,7 +1540,7 @@
                 </div>
                 <div *ngIf="minOneInsuranceDoc" class="row ">
                     <div class="col-md-12">
-                        <p><strong>Insurance Documents</strong></p>
+                        <p class="header"><strong>Insurance Documents</strong></p>
                         <table class="table table-condensed table-bordered table-sm sb-small text-center">
                             <thead>
                             <tr class="text-white sb-bg-dark">
@@ -1569,7 +1569,7 @@
             </div>
             <div *ngIf="loanDataHolder?.cadDocument?.length > 0  && showCadDoc" class="row disable-print">
                 <div class="col-md-12">
-                    <p><strong>Cad Documents</strong></p>
+                    <p class="header"><strong >Cad Documents</strong></p>
                     <table class="table table-condensed table-bordered table-sm sb-small text-center">
                         <thead class="text-white sb-bg-dark">
                         <tr>
@@ -1605,7 +1605,7 @@
 
             <div class="row mt-3">
                 <div class="col-md-12">
-                    <p><strong>Authority Section</strong></p>
+                    <p class="header"><strong >Authority Section</strong></p>
                     <table
                             class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                         <thead>
@@ -1699,7 +1699,7 @@
             <div *ngIf="signatureList.length > 0" class="row justify-content-between px-3"
                  id="signatureDiv">
                 <div class="col-md-12 print-only">
-                    <p><strong>Approval Chain</strong></p>
+                    <p class="header"><strong>Approval Chain</strong></p>
                 </div>
                 <div *ngFor="let previous of signatureList; let i=index;"
                      class="col-md-2 padding-0-125">
@@ -1729,7 +1729,7 @@
                  class="row justify-content-between pt-5 disable-print"
                  id="offerLetterDiv">
                 <div class="col-md-12">
-                    <p><strong>Offer Letter Authority Section</strong></p>
+                    <p class="header"><strong>Offer Letter Authority Section</strong></p>
                 </div>
                 <div class="col-md-12">
                     <table
