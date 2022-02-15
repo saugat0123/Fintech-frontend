@@ -17,6 +17,7 @@ import {LoanNameConstant} from '../../../../sme-costant/loan-name-constant';
 export class CustomerAcceptanceForTimeLetterOfCreditComponent implements OnInit {
   @Input() loanName;
   @Input() offerDocumentList: Array<OfferDocument>;
+  @Input() cadDocAssignedLoan;
   initialInformation: any;
   timeLetterCreditForm: FormGroup;
   isComplimentryOtherLoan = false;
@@ -28,6 +29,7 @@ export class CustomerAcceptanceForTimeLetterOfCreditComponent implements OnInit 
   isRegularSelected = false;
   loanNameConstant = LoanNameConstant;
   filteredList: any = [];
+  filteredLoanIdList: any = [];
   constructor(private formBuilder: FormBuilder,
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
               private engToNepNumberPipe: EngToNepaliNumberPipe,
@@ -52,6 +54,7 @@ export class CustomerAcceptanceForTimeLetterOfCreditComponent implements OnInit 
       }
       this.patchDate();
     }
+
     if (!ObjectUtil.isEmpty(this.filteredList)) {
       for (let val = 0; val < this.filteredList.length; val++) {
         const loanamountWords = this.engToNepWord.transform(this.filteredList[val].loanAmount);
@@ -61,6 +64,7 @@ export class CustomerAcceptanceForTimeLetterOfCreditComponent implements OnInit 
             loanamountWords ? loanamountWords : '');
       }
     }
+    this.setLoanId();
   }
   patchDate() {
     for (let val = 0; val < this.initialInformation.timeLetterCreditForm.timeLetterCreditFormArray.length; val++) {
@@ -298,6 +302,17 @@ export class CustomerAcceptanceForTimeLetterOfCreditComponent implements OnInit 
       dateOfExpiryTypeCT: [undefined],
       dateOfExpiryNepaliCT: [undefined],
       dateOfExpiryCT: [undefined],
+
+      loanId: [undefined],
+    });
+  }
+
+  setLoanId() {
+    this.filteredLoanIdList = this.cadDocAssignedLoan.filter(data =>
+        data.loan.name === this.loanNameConstant.CUSTOMER_ACCEPTANCE_FOR_TIME_LETTER_OF_CREDIT);
+    this.filteredList.forEach((val, i) => {
+      this.timeLetterCreditForm.get(['timeLetterCreditFormArray', i, 'loanId']).patchValue(
+          this.filteredLoanIdList[i].proposal.id);
     });
   }
 }

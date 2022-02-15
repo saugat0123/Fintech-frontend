@@ -17,6 +17,7 @@ import {LoanNameConstant} from '../../../../sme-costant/loan-name-constant';
 export class BillPurchaseComponent implements OnInit {
   @Input() loanName;
   @Input() offerDocumentList: Array<OfferDocument>;
+  @Input() cadDocAssignedLoan;
   initialInformation: any;
   billPurchaseForm: FormGroup;
   isComplimentryOtherLoan = false;
@@ -27,6 +28,7 @@ export class BillPurchaseComponent implements OnInit {
   isMarketValue = false;
   filteredList: any = [];
   loanNameConstant = LoanNameConstant;
+  filteredLoanIdList: any = [];
   constructor(
       private formBuilder: FormBuilder,
       private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
@@ -61,6 +63,7 @@ export class BillPurchaseComponent implements OnInit {
             loanamountWords ? loanamountWords : '');
       }
     }
+    this.setLoanId();
   }
   patchDate() {
     for (let val = 0; val < this.initialInformation.billPurchaseForm.billPurchaseFormArray.length; val++) {
@@ -276,6 +279,16 @@ export class BillPurchaseComponent implements OnInit {
         dateOfExpiryTypeCT: [undefined],
         dateOfExpiryNepaliCT: [undefined],
         dateOfExpiryCT: [undefined],
+        loanId: [undefined],
+    });
+  }
+
+  setLoanId() {
+    this.filteredLoanIdList = this.cadDocAssignedLoan.filter(data =>
+        data.loan.name === this.loanNameConstant.BILLS_PURCHASE);
+    this.filteredList.forEach((val, i) => {
+      this.billPurchaseForm.get(['billPurchaseFormArray', i, 'loanId']).patchValue(
+          this.filteredLoanIdList[i].proposal.id);
     });
   }
 
