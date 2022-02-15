@@ -15,6 +15,7 @@ export class SignatureSectionComponent implements OnInit {
   // approval feature and filter signature approval sheet
   @Input() loanDataHolder: LoanDataHolder;
   @Output() commentApproval = new EventEmitter<boolean>();
+  @Output() signature = new EventEmitter();
   breakException: any;
   RootUrl = ApiConfig.URL;
   signatureList: Array<LoanStage> = new Array<LoanStage>();
@@ -72,6 +73,8 @@ export class SignatureSectionComponent implements OnInit {
         this.signatureList = [];
       }
     }
+    this.signature.emit(this.signatureList);
+    // console.log(this,this.signature);
   }
 
   /**

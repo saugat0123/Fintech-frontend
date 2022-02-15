@@ -2,6 +2,8 @@ import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {LoanDataHolder} from '../../../model/loanData';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {CustomerLoanDto} from '../../../model/customerLoanDto';
+import {ApiConfig} from '../../../../../@core/utils/api/ApiConfig';
+import {LoanStage} from '../../../model/loanStage';
 
 @Component({
   selector: 'app-credit-facility-report',
@@ -10,11 +12,17 @@ import {CustomerLoanDto} from '../../../model/customerLoanDto';
 })
 export class CreditFacilityReportComponent implements OnInit, OnChanges {
   @Input() loanDataHolder: LoanDataHolder;
+  @Input() nepaliDate;
+  @Input() loanConfig;
   @Input() customerLoanList: LoanDataHolder[];
+  @Input() signatureAllList: Array<LoanStage> = new Array<LoanStage>();
   customerLoanDtoList: Array<CustomerLoanDto>;
   customerFundedLoanList: LoanDataHolder[];
   customerNonFundedLoanList: LoanDataHolder[];
   customerAllLoanList: LoanDataHolder[];
+  RootUrl = ApiConfig.URL;
+  array = [];
+  dtoArray = [];
 
   constructor() { }
 
@@ -24,10 +32,10 @@ export class CreditFacilityReportComponent implements OnInit, OnChanges {
   ngOnChanges(changes): void {
     console.log('loanDataHolder', this.loanDataHolder);
     this.customerAllLoanList = this.customerLoanList;
-    console.log('customerAllLoanList', this.customerAllLoanList);
     if (!ObjectUtil.isEmpty(this.loanDataHolder.customerLoanDtoList)) {
       this.customerLoanDtoList = this.loanDataHolder.customerLoanDtoList;
     }
+    this.getAllLoanConfig();
   }
 
   public getTotal(key: string): number {
@@ -82,7 +90,6 @@ export class CreditFacilityReportComponent implements OnInit, OnChanges {
   }
 
   fundedAndNonfundedList(loanList: LoanDataHolder[]) {
-    console.log('loanList', loanList);
     if (!ObjectUtil.isEmpty(loanList)) {
       this.customerFundedLoanList = loanList.filter((l) => l.loan.isFundable);
       if (ObjectUtil.isEmpty(this.customerFundedLoanList)) {
@@ -103,6 +110,104 @@ export class CreditFacilityReportComponent implements OnInit, OnChanges {
       return 0;
     } else {
       return value;
+    }
+  }
+
+  loanHandler(index: number, length: number, label: string) {
+    if (index === length - 1 && index !== 0) {
+      if (this.loanDataHolder.documentStatus.toString() === 'APPROVED') {
+        return 'APPROVED BY:';
+      } else if (this.loanDataHolder.documentStatus.toString() === 'REJECTED') {
+        return 'REJECTED BY:';
+      } else if (this.loanDataHolder.documentStatus.toString() === 'CLOSED') {
+        return 'CLOSED BY:';
+      }
+    }
+    if (!ObjectUtil.isEmpty(label)) {
+      return label;
+    } else {
+      if (index === 0) {
+        if (this.signatureAllList[index].docAction.toString() === 'RE_INITIATE') {
+          return 'RE INITIATED:';
+        } else {
+          return 'INITIATED BY:';
+        }
+      } else {
+        return 'SUPPORTED BY:';
+      }
+    }
+  }
+
+  private getAllLoanConfig() {
+    if (!ObjectUtil.isEmpty(this.customerAllLoanList)) {
+      this.customerAllLoanList.forEach(c => {
+        const config = {
+          isFundable: c.loan.isFundable,
+          fundableNonFundableSelcted: !ObjectUtil.isEmpty(c.loan.isFundable),
+          isFixedDeposit: c.loan.loanTag === 'FIXED_DEPOSIT',
+          isGeneral: c.loan.loanTag === 'GENERAL',
+          isShare: c.loan.loanTag === 'SHARE_SECURITY',
+          isVehicle: c.loan.loanTag === 'VEHICLE',
+          loanNature: c.loan.loanNature,
+          loanNatureSelected: false,
+          isTerminating: false,
+          isRevolving: false,
+        };
+        if (!ObjectUtil.isEmpty(config.loanNature)) {
+          config.loanNatureSelected = true;
+          if (config.loanNature.toString() === 'Terminating') {
+            config.isTerminating = true;
+          } else {
+            config.isRevolving = true;
+          }
+          if (config.isRevolving) {
+            config.isGeneral = false;
+          }
+        }
+        if (!config.isFundable) {
+          config.isGeneral = false;
+        }
+        if (config.isFixedDeposit) {
+          config.loanNatureSelected = false;
+          config.fundableNonFundableSelcted = false;
+        }
+        this.array.push(config);
+      });
+    }
+    if (!ObjectUtil.isEmpty(this.customerLoanDtoList)) {
+      this.customerLoanDtoList.forEach(cd => {
+        const dtoCfonfig = {
+          isFundable: cd.loanConfig.isFundable,
+          fundableNonFundableSelcted: !ObjectUtil.isEmpty(cd.loanConfig.isFundable),
+          isFixedDeposit: cd.loanConfig.loanTag === 'FIXED_DEPOSIT',
+          isGeneral: cd.loanConfig.loanTag === 'GENERAL',
+          isShare: cd.loanConfig.loanTag === 'SHARE_SECURITY',
+          isVehicle: cd.loanConfig.loanTag === 'VEHICLE',
+          loanNature: cd.loanConfig.loanNature,
+          loanNatureSelected: false,
+          isTerminating: false,
+          isRevolving: false,
+        };
+        if (!ObjectUtil.isEmpty(dtoCfonfig.loanNature)) {
+          dtoCfonfig.loanNatureSelected = true;
+          if (dtoCfonfig.loanNature.toString() === 'Terminating') {
+            dtoCfonfig.isTerminating = true;
+          } else {
+            dtoCfonfig.isRevolving = true;
+          }
+          if (dtoCfonfig.isRevolving) {
+            dtoCfonfig.isGeneral = false;
+          }
+        }
+        if (!dtoCfonfig.isFundable) {
+          dtoCfonfig.isGeneral = false;
+        }
+        if (dtoCfonfig.isFixedDeposit) {
+          dtoCfonfig.loanNatureSelected = false;
+          dtoCfonfig.fundableNonFundableSelcted = false;
+        }
+        this.dtoArray.push(dtoCfonfig);
+      });
     }
   }
 }

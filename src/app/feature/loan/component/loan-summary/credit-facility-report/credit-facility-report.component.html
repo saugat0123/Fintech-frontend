@@ -14,7 +14,7 @@
                             <td class="text-left pl-1">test1</td>
                             <td class="text-left pl-1">test2</td>
                             <td class="text-left pl-1">test3</td>
-                            <td class="text-left pl-1">test4</td>
+                            <td class="text-left pl-1">{{loanDataHolder?.refNo}}</td>
                         </tr>
                     </table>
                 </div>
@@ -25,7 +25,7 @@
                         <tr>
                             <td>Customer & Address:</td>
                             <td>Obligor Group & Location</td>
-                            <td>Risk Grade: </td>
+                            <td>Risk Grade:</td>
                         </tr>
                         <tr>
                             <td>Name: Mr. {{loanDataHolder?.loanHolder.name}}</td>
@@ -34,15 +34,19 @@
                         </tr>
                         <tr>
                             <td>Permanent Address:
-                                {{loanDataHolder?.customerInfo?.province?.name}}, {{loanDataHolder?.customerInfo?.district?.name}},
-                                {{loanDataHolder?.customerInfo?.municipalities?.name}}, {{loanDataHolder?.customerInfo?.wardNumber}}</td>
-                            <td>NRB Sector Code: </td>
+                                {{loanDataHolder?.customerInfo?.province?.name}}
+                                , {{loanDataHolder?.customerInfo?.district?.name}},
+                                {{loanDataHolder?.customerInfo?.municipalities?.name}}
+                                , {{loanDataHolder?.customerInfo?.wardNumber}}</td>
+                            <td>NRB Sector Code:</td>
                         </tr>
                         <tr>
                             <td>Current Address:
-                                {{loanDataHolder?.customerInfo?.temporaryProvince?.name}}, {{loanDataHolder?.customerInfo?.temporaryDistrict?.name}},
-                                {{loanDataHolder?.customerInfo?.temporaryMunicipalities?.name}}, {{loanDataHolder?.customerInfo?.temporaryWardNumber}}</td>
-                            <td>NRB Security Code: </td>
+                                {{loanDataHolder?.customerInfo?.temporaryProvince?.name}}
+                                , {{loanDataHolder?.customerInfo?.temporaryDistrict?.name}},
+                                {{loanDataHolder?.customerInfo?.temporaryMunicipalities?.name}}
+                                , {{loanDataHolder?.customerInfo?.temporaryWardNumber}}</td>
+                            <td>NRB Security Code:</td>
                         </tr>
                         <tr>
                             <td>Contact No.: {{loanDataHolder?.customerInfo?.contactNumber}}</td>
@@ -78,7 +82,7 @@
                             <td colspan="1">Funded</td>
                             <td colspan="1">Non-Funded</td>
                         </tr>
-                        <tr *ngFor="let data of customerAllLoanList">
+                        <tr *ngFor="let data of customerAllLoanList; let i=index">
                             <td colspan="1" class="text-left pl-1">{{data?.loan?.name}}</td>
                             <td colspan="1" class="text-right pr-1">
                                 <span *ngIf="data?.loan?.isFundable">
@@ -109,10 +113,21 @@
                                 <span *ngIf="(data?.loan?.isFundable) || (data?.proposal?.proposedLimit < 0)">-</span>
                             </td>
                             <td colspan="1" class="text-right pr-1">
-                                <span>
-                                    ... % pa (BR% + ...%)
-
-                                    Loan Processing Fee: ...%of the limit
+                                <span *ngIf="(array[i]?.isFundable && (array[i]?.loanNature === 'Terminating' || array[i]?.loanNature === 'Revolving'))
+                                || array[i]?.isFixedDeposit || array[i]?.isVehicle || array[i]?.isShare || array[i]?.isGeneral">
+                                    IR : {{(data?.proposal?.data | jsonParse)?.interestRate}} %,
+                                </span>
+                                <span *ngIf="(array[i]?.isFundable && (array[i]?.loanNature === 'Terminating' || array[i]?.loanNature === 'Revolving')
+                                    && array[i]?.loanNatureSelected && array[i]?.fundableNonFundableSelcted) || array[i]?.isVehicle || array[i]?.isShare || array[i]?.isGeneral">
+                                    BR : {{ (data?.proposal?.data | jsonParse)?.baseRate}} %,
+                                    PR : {{ (data?.proposal?.data | jsonParse)?.premiumRateOnBaseRate}} %,
+                                </span>
+                                <span *ngIf="!array[i]?.isFundable && array[i]?.fundableNonFundableSelcted">
+                                    <span *ngIf="(data?.proposal?.data | jsonParse)?.cashMarginMethod == 'FLAT'">
+                                        CM: Rs.  {{ ((data?.proposal?.data | jsonParse)?.cashMargin || 0) | currencyFormatter}},</span>
+                                    <span *ngIf="(data?.proposal?.data | jsonParse)?.cashMarginMethod == 'PERCENT'">
+                                        CM: {{ ((data?.proposal?.data | jsonParse)?.cashMargin)}} %,</span>
+                                    COM:{{(data?.proposal?.data | jsonParse)?.commissionPercentage}} %
                                 </span>
                             </td>
                             <td colspan="1" class="text-left pl-1">
@@ -155,7 +170,7 @@
                                 </table>
                             </td>
                         </tr>
-                        <tr *ngFor="let dto of customerLoanDtoList">
+                        <tr *ngFor="let dto of customerLoanDtoList; let ii = index">
                             <td colspan="1" class="text-left pl-1">{{dto?.name}}</td>
                             <td colspan="1" class="text-right pr-1">
                                 <span *ngIf="dto?.loanConfig?.isFundable">
@@ -186,10 +201,21 @@
                                 <span *ngIf="(dto?.loanConfig?.isFundable) || (dto?.proposal?.proposedLimit < 0)">-</span>
                             </td>
                             <td colspan="1" class="text-right pr-1">
-                                <span>
-                                    ... % pa (BR% + ...%)
-
-                                    Loan Processing Fee: ...%of the limit
+                                <span *ngIf="(dtoArray[ii]?.isFundable && (dtoArray[ii]?.loanNature === 'Terminating' || dtoArray[ii]?.loanNature === 'Revolving'))
+                                || dtoArray[ii]?.isFixedDeposit || dtoArray[ii]?.isVehicle || dtoArray[ii]?.isShare || dtoArray[ii]?.isGeneral">
+                                    IR : {{(dto?.proposal?.data | jsonParse)?.interestRate}} %,
+                                </span>
+                                <span *ngIf="(dtoArray[ii]?.isFundable && (dtoArray[ii]?.loanNature === 'Terminating' || dtoArray[ii]?.loanNature === 'Revolving')
+                                    && dtoArray[ii]?.loanNatureSelected && dtoArray[ii]?.fundableNonFundableSelcted) || dtoArray[ii]?.isVehicle || dtoArray[ii]?.isShare || dtoArray[ii]?.isGeneral">
+                                    BR : {{ (dto?.proposal?.data | jsonParse)?.baseRate}} %,
+                                    PR : {{ (dto?.proposal?.data | jsonParse)?.premiumRateOnBaseRate}} %,
+                                </span>
+                                <span *ngIf="!dtoArray[ii]?.isFundable && dtoArray[ii]?.fundableNonFundableSelcted">
+                                    <span *ngIf="(dto?.proposal?.data | jsonParse)?.cashMarginMethod == 'FLAT'">
+                                        CM: Rs.  {{ ((dto?.proposal?.data | jsonParse)?.cashMargin || 0) | currencyFormatter}},</span>
+                                    <span *ngIf="(dto?.proposal?.data | jsonParse)?.cashMarginMethod == 'PERCENT'">
+                                        CM: {{ ((dto?.proposal?.data | jsonParse)?.cashMargin)}} %,</span>
+                                    COM:{{(dto?.proposal?.data | jsonParse)?.commissionPercentage}} %
                                 </span>
                             </td>
                             <td colspan="1" class="text-left pl-1">
@@ -233,132 +259,61 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>Total</td>
-                            <td>{{getTotalFundable('existingLimit', true, customerAllLoanList) | currencyFormatter}}</td>
-                            <td>{{getTotalFundable('existingLimit', false, customerAllLoanList) | currencyFormatter}}</td>
-                            <td>{{getTotalFundable('proposedLimit', true, customerAllLoanList) | currencyFormatter}}</td>
-                            <td>{{getTotalFundable('proposedLimit', false, customerAllLoanList) | currencyFormatter}}</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <th>Total</th>
+                            <th>{{getTotalFundable('existingLimit', true, customerAllLoanList) | currencyFormatter}}</th>
+                            <th>{{getTotalFundable('existingLimit', false, customerAllLoanList) | currencyFormatter}}</th>
+                            <th>{{getTotalFundable('proposedLimit', true, customerAllLoanList) | currencyFormatter}}</th>
+                            <th>{{getTotalFundable('proposedLimit', false, customerAllLoanList) | currencyFormatter}}</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
                         </tr>
                     </table>
                 </div>
             </div>
             <div class="row">
-<!--                <div class="col-md-12">-->
-<!--                    <table class="table table-responsive-md table-bordered table-condensed table-sm text-center sb-small">-->
-<!--                        <tr class="sb-bg-dark text-white">-->
-<!--                            <th>S.N</th>-->
-<!--                            <th>Date</th>-->
-<!--                            <th>From User</th>-->
-<!--                            <th>To User</th>-->
-<!--                            <th>Status</th>-->
-<!--                            <th class="cmt-width">Remarks</th>-->
-<!--                        </tr>-->
-<!--                        <tbody>-->
-<!--                        <tr *ngFor="let previousList of loanDataHolder?.previousList ; let i = index">-->
-<!--                            <td>{{i + 1}}</td>-->
-<!--                            <td class="text-left pl-1">-->
-<!--                                {{previousList?.lastModifiedAt | date}} ({{previousList?.lastModifiedAt | engNepDate: false}})-->
-<!--                            </td>-->
-<!--                            <td class="text-left">-->
-<!--                                <div class="pl-1">-->
-<!--                                    {{previousList?.fromUser?.name}}</div>-->
-<!--                                <div class="pl-1">-->
-<!--                                    <span>({{previousList?.fromRole?.roleName}})</span>-->
-<!--                                </div>-->
-<!--                            </td>-->
+                <div class="col-md-12">
+                    <table class="table table-responsive-md table-bordered table-condensed table-sm text-center sb-small">
+                        <tr>
+                            <td class="col-md-8">
+                                <div class="row justify-content-between px-3">
+                                    <div *ngFor="let previous of signatureAllList; let i = index">
+                                        <div class="signature-block" *ngIf="!previous.fromUser.name.toLowerCase().includes('default')">
+                                            <div class="text-center p-2 bg-light mb-2 sb-small sb-bg-dark text-white">
+                                                <span>{{loanHandler(i, signatureAllList.length, (previous.docAction.toString() === 'RE_INITIATE') ? previous?.toRole?.authorityLabel : previous?.fromRole?.authorityLabel)}}</span>
+                                            </div>
+                                            <hr class="border-dark m-0">
+                                            <div class="row justify-content-center signature mx-auto">
+                                                <div class="print-only signature-padding"></div>
+                                                <img align="middle" alt="signature"
+                                                     class="img-thumbnail border-0 signature-height signature-width"
+                                                     src="{{(previous.docAction.toString() === 'RE_INITIATE') ? (previous.toUser?.signatureImage === null ? '' : RootUrl + '/' + previous.toUser?.signatureImage) : (previous.fromUser?.signatureImage === null ? '' : RootUrl + '/' + previous.fromUser?.signatureImage)}}"/>
+                                            </div>
+                                            <div class="text-center signature-detail sb-bg-secondary text-white">
+                                                <p class="m-0 sb-small">{{(previous.docAction.toString() === 'RE_INITIATE') ? previous?.toUser?.name : previous?.fromUser?.name}}</p>
+                                                <p class="m-0 sb-small">({{(previous.docAction.toString() === 'RE_INITIATE') ? previous?.toRole?.roleName : previous?.fromRole?.roleName}}
+                                                    )</p>
+                                                <p class="m-0 sb-small">{{previous?.lastModifiedAt | date}}
+                                                    ({{previous?.lastModifiedAt | engNepDate: false}})</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="col-md-4">
+                                Personal Guarantee of Mrs...... (Spouse of the borrower) of NPR ..... Mio. <br>
+                                Consent of Ms. .... <br>
+                                <b>Total</b> <br>
+                                Tangible: NPR ..... Mio
+                                Intangible: .... Mio
+                                Security Coverage: Ratio for funded Facility of NPR .... Mio.
 
-<!--                            <td class="text-left">-->
-<!--                                <div class="pl-1">-->
-<!--                                    {{previousList?.toUser?.name}}</div>-->
-<!--                                <div class="pl-1">-->
-<!--                                    ({{previousList?.toRole?.roleName}})-->
-<!--                                </div>-->
-<!--                            </td>-->
-
-<!--                            <td class="text-left pl-1">{{previousList?.docAction | loanStatusPipe }}</td>-->
-<!--                            <td class="text-left">-->
-<!--&lt;!&ndash;                                <div class="pl-1 disable-print" [innerHTML]="customSafePipe(&ndash;&gt;-->
-<!--&lt;!&ndash;                                    previousList?.comment?.length > 50 ?&ndash;&gt;-->
-<!--&lt;!&ndash;                                    previousList?.comment?.substring(0, 49) :&ndash;&gt;-->
-<!--&lt;!&ndash;                                    previousList?.comment)">&ndash;&gt;-->
-<!--&lt;!&ndash;                                </div>&ndash;&gt;-->
-<!--&lt;!&ndash;                                <a (click)="open(previousList?.comment)"&ndash;&gt;-->
-<!--&lt;!&ndash;                                   *ngIf="previousList?.comment?.length > 50"&ndash;&gt;-->
-<!--&lt;!&ndash;                                   class="text-left pl-1 disable-print">read more ....</a>&ndash;&gt;-->
-<!--&lt;!&ndash;                                <div>&ndash;&gt;-->
-<!--&lt;!&ndash;                                    <span class="pl-1 print-only justify-content" [innerHTML]="previousList?.comment | safeHtml"></span>&ndash;&gt;-->
-<!--&lt;!&ndash;                                </div>&ndash;&gt;-->
-<!--                            </td>-->
-<!--                        </tr>-->
-<!--                        <tr>-->
-<!--                            <td>{{1}}</td>-->
-<!--                            <td class="text-left pl-1">{{loanDataHolder?.currentStage?.lastModifiedAt | date}} ({{loanDataHolder?.currentStage?.lastModifiedAt | engNepDate: false}})</td>-->
-<!--                            <td class="text-left">-->
-<!--                                <div class="pl-1">-->
-<!--                                    {{loanDataHolder?.currentStage?.fromUser?.name}}</div>-->
-<!--                                <div class="pl-1">-->
-<!--                                    <span>({{loanDataHolder?.currentStage?.fromRole?.roleName}})</span>-->
-<!--                                </div>-->
-<!--                            </td>-->
-
-<!--                            <td class="text-left">-->
-<!--                                <div class="pl-1">-->
-<!--                                    {{loanDataHolder?.currentStage?.toUser?.name}}</div>-->
-<!--                                <div class="pl-1">-->
-<!--                                    <span>({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>-->
-<!--                                </div>-->
-<!--                            </td>-->
-
-<!--                            <td class="text-left pl-1">{{loanDataHolder?.currentStage?.docAction | loanStatusPipe }}</td>-->
-<!--                            <td class="text-left">-->
-<!--&lt;!&ndash;                                <div class="pl-1 disable-print">&ndash;&gt;-->
-<!--&lt;!&ndash;                                    <span [innerHTML]="customSafePipe(loanDataHolder?.currentStage?.comment?.length > 50 ?&ndash;&gt;-->
-<!--&lt;!&ndash;                                    loanDataHolder?.currentStage?.comment?.substring(0, 49) :&ndash;&gt;-->
-<!--&lt;!&ndash;                                    loanDataHolder?.currentStage?.comment)"></span>&ndash;&gt;-->
-<!--&lt;!&ndash;                                </div>&ndash;&gt;-->
-<!--&lt;!&ndash;                                <a (click)="open(loanDataHolder.currentStage.comment)"&ndash;&gt;-->
-<!--&lt;!&ndash;                                   *ngIf="loanDataHolder?.currentStage?.comment?.length > 50"&ndash;&gt;-->
-<!--&lt;!&ndash;                                   class="text-left pl-1 disable-print">read more ....</a>&ndash;&gt;-->
-<!--&lt;!&ndash;                                <div>&ndash;&gt;-->
-<!--&lt;!&ndash;                                    <span class="pl-1 print-only text-justify pr-1" [innerHTML]="loanDataHolder?.currentStage?.comment | safeHtml"></span>&ndash;&gt;-->
-<!--&lt;!&ndash;                                </div>&ndash;&gt;-->
-<!--                            </td>-->
-<!--                        </tr>-->
-<!--                        </tbody>-->
-<!--                    </table>-->
-                    <div class="col-md-8">
-                        <table>
-                            <tr>
-                                <td><span>Branch/Unit Originating CFR</span>
-                                    <span>Prepared By:</span>
-                                    Recommended By:
-                                    Reviewed By:
-                                    Approved By
-                                </td>
-                                <td>
-                                    Approved by:
-
-                                </td>
-                            </tr>
-                        </table>
-<!--                        <app-signature-section [loanDataHolder]="loanDataHolder"> </app-signature-section>-->
-                        signature
-                    </div>
-                    <div class="col-md-4">
-                        Personal Guarantee of Mrs...... (Spouse of the borrower) of NPR ..... Mio. <br>
-                        Consent of Ms. .... <br>
-                        <b>Total</b> <br>
-                        Tangible: NPR ..... Mio
-                        Intangible: .... Mio
-                        Security Coverage: Ratio for funded Facility of NPR .... Mio.
-
-                        a. Land & Building :- .....% at FMV
-                        b. Personal Guarantee :- 100%.
-                    </div>
-<!--                </div>-->
+                                a. Land & Building :- .....% at FMV
+                                b. Personal Guarantee :- 100%.
+                            </td>
+                        </tr>
+                    </table>
+                </div>
             </div>
         </nb-card-body>
     </nb-card>

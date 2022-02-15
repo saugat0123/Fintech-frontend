@@ -33,10 +33,12 @@
                    [nepaliDate]="nepaliDate"></app-micro-loan-summary>
            <app-credit-facility-report [loanDataHolder]="loanDataHolder"
                                        [nepaliDate]="nepaliDate"
-                                       [loanConfig]="loanConfig" [customerLoanList]="customerAllLoanList"></app-credit-facility-report>
+                                       [loanConfig]="loanConfig"
+                                       [customerLoanList]="customerAllLoanList" [signatureAllList]="signatureAllList"></app-credit-facility-report>
            <app-loan-summary *ngSwitchDefault
                    (changeToApprovalSheetActive)="activeApprovalSheet()"
                              (customerLoanList)="customerLoanList($event)"
+                             (signatureList)="signatureListFromSummary($event)"
                              [loanConfig]="loanConfig"
                              [loanData]="loanDataHolder"
                              [nepaliDate]="nepaliDate">
