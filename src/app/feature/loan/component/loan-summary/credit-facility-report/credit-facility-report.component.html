@@ -3,6 +3,7 @@
         <nb-card-body>
             <div class="row">
                 <div class="col-md-12">
+                    <p class="text-center report-header-sub-heading"><strong>Credit Facilities Report</strong></p>
                     <table class="table table-responsive-md table-bordered table-responsive-sm table-condensed table-sm text-center sb-small">
                         <tr class="sb-bg-dark text-white">
                             <td>Originating Branch</td>
@@ -12,7 +13,7 @@
                         </tr>
                         <tr>
                             <td class="text-left pl-1">{{loanDataHolder?.branch?.name}}</td>
-                            <td class="text-left pl-1">{{loanDataHolder?.createdAt}}</td>
+                            <td class="text-left pl-1">{{loanDataHolder?.createdAt | date}}</td>
                             <td class="text-left pl-1">{{'NA'}}</td>
                             <td class="text-left pl-1">{{loanDataHolder?.refNo}}</td>
                         </tr>
@@ -90,7 +91,7 @@
                             <td colspan="1" class="text-right pr-1">
                                 <span *ngIf="data?.loan?.isFundable">
                                     <span *ngIf="(data?.proposal?.data | jsonParse)?.existingLimit">
-                                        {{(data?.proposal?.data | jsonParse)?.existingLimit | currencyFormatter}}
+                                        Rs. {{(data?.proposal?.data | jsonParse)?.existingLimit | currencyFormatter}}
                                     </span>
                                 </span>
                                 <span *ngIf="(!data?.loan?.isFundable) || !(data?.proposal?.data | jsonParse)?.existingLimit">-</span>
@@ -98,20 +99,20 @@
                             <td colspan="1" class="text-right pr-1">
                                 <span *ngIf="!data?.loan?.isFundable">
                                     <span *ngIf="(data?.proposal?.data | jsonParse)?.existingLimit">
-                                        {{(data?.proposal?.data | jsonParse)?.existingLimit | currencyFormatter}}
+                                        Rs. {{(data?.proposal?.data | jsonParse)?.existingLimit | currencyFormatter}}
                                     </span>
                                 </span>
                                 <span *ngIf="(data?.loan?.isFundable) || !(data?.proposal?.data | jsonParse)?.existingLimit">-</span>
                             </td>
                             <td colspan="1" class="text-right pr-1">
                                 <span *ngIf="data?.loan?.isFundable">
-                                    {{data?.proposal?.proposedLimit | currencyFormatter}}
+                                    Rs. {{data?.proposal?.proposedLimit | currencyFormatter}}
                                 </span>
                                 <span *ngIf="(!data?.loan?.isFundable) || (data?.proposal?.proposedLimit < 0)">-</span>
                             </td>
                             <td colspan="1" class="text-right pr-1">
                                 <span *ngIf="!data?.loan?.isFundable">
-                                    {{data?.proposal?.proposedLimit | currencyFormatter}}
+                                    Rs. {{data?.proposal?.proposedLimit | currencyFormatter}}
                                 </span>
                                 <span *ngIf="(data?.loan?.isFundable) || (data?.proposal?.proposedLimit < 0)">-</span>
                             </td>
@@ -191,7 +192,7 @@
                             <td colspan="1" class="text-right pr-1">
                                 <span *ngIf="dto?.loanConfig?.isFundable">
                                     <span *ngIf="(dto?.proposal?.data | jsonParse)?.existingLimit">
-                                        {{(dto?.proposal?.data | jsonParse)?.existingLimit | currencyFormatter}}
+                                        Rs. {{(dto?.proposal?.data | jsonParse)?.existingLimit | currencyFormatter}}
                                     </span>
                                 </span>
                                 <span *ngIf="(!dto?.loanConfig?.isFundable) || (!(dto?.proposal?.data | jsonParse)?.existingLimit)">-</span>
@@ -199,20 +200,20 @@
                             <td colspan="1" class="text-right pr-1">
                                 <span *ngIf="!dto?.loanConfig?.isFundable">
                                     <span *ngIf="(dto?.proposal?.data | jsonParse)?.existingLimit">
-                                        {{(dto?.proposal?.data | jsonParse)?.existingLimit | currencyFormatter}}
+                                        Rs. {{(dto?.proposal?.data | jsonParse)?.existingLimit | currencyFormatter}}
                                     </span>
                                 </span>
                                 <span *ngIf="(dto?.loanConfig?.isFundable) || (!(dto?.proposal?.data | jsonParse)?.existingLimit)">-</span>
                             </td>
                             <td colspan="1" class="text-right pr-1">
                                 <span *ngIf="dto?.loanConfig?.isFundable">
-                                    {{dto?.proposal?.proposedLimit | currencyFormatter}}
+                                    Rs. {{dto?.proposal?.proposedLimit | currencyFormatter}}
                                 </span>
                                 <span *ngIf="(!dto?.loanConfig?.isFundable) || (dto?.proposal?.proposedLimit < 0)">-</span>
                             </td>
                             <td colspan="1" class="text-right pr-1">
                                 <span *ngIf="!dto?.loanConfig?.isFundable">
-                                    {{dto?.proposal?.proposedLimit | currencyFormatter}}
+                                    Rs. {{dto?.proposal?.proposedLimit | currencyFormatter}}
                                 </span>
                                 <span *ngIf="(dto?.loanConfig?.isFundable) || (dto?.proposal?.proposedLimit < 0)">-</span>
                             </td>
@@ -288,11 +289,11 @@
                             </td>
                         </tr>
                         <tr>
-                            <th>Total</th>
-                            <th>{{getTotalFundable('existingLimit', true, customerAllLoanList) | currencyFormatter}}</th>
-                            <th>{{getTotalFundable('existingLimit', false, customerAllLoanList) | currencyFormatter}}</th>
-                            <th>{{getTotalFundable('proposedLimit', true, customerAllLoanList) | currencyFormatter}}</th>
-                            <th>{{getTotalFundable('proposedLimit', false, customerAllLoanList) | currencyFormatter}}</th>
+                            <th class="text-left pl-1">Total</th>
+                            <th class="text-right pr-1">Rs. {{getTotalFundable('existingLimit', true, customerAllLoanList) | currencyFormatter}}</th>
+                            <th class="text-right pr-1">Rs. {{getTotalFundable('existingLimit', false, customerAllLoanList) | currencyFormatter}}</th>
+                            <th class="text-right pr-1">Rs. {{getTotalFundable('proposedLimit', true, customerAllLoanList) | currencyFormatter}}</th>
+                            <th class="text-right pr-1">Rs. {{getTotalFundable('proposedLimit', false, customerAllLoanList) | currencyFormatter}}</th>
                             <th></th>
                             <th></th>
                             <th></th>

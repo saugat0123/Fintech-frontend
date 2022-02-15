@@ -12,9 +12,7 @@ import {ApiConfig} from '../../../../../@core/utils/api/ApiConfig';
 export class CreditFacilityReportComponent implements OnInit, OnChanges {
   @Input() loanDataHolder: LoanDataHolder;
   @Input() nepaliDate;
-  @Input() loanConfig;
   @Input() customerLoanList: LoanDataHolder[];
-  // @Input() signatureAllList;
   customerLoanDtoList: CustomerLoanDto[];
   customerFundedLoanList: LoanDataHolder[];
   customerNonFundedLoanList: LoanDataHolder[];
@@ -101,7 +99,7 @@ export class CreditFacilityReportComponent implements OnInit, OnChanges {
   private getAllLoanConfig() {
     if (!ObjectUtil.isEmpty(this.customerAllLoanList)) {
       this.customerAllLoanList.forEach(c => {
-        const tenure = ((JSON.parse(c.proposal.data)).tenureDurationInMonths) / 12;
+        const tenure = (((JSON.parse(c.proposal.data)).tenureDurationInMonths) / 12).toFixed(2);
         const config = {
           isFundable: c.loan.isFundable,
           fundableNonFundableSelcted: !ObjectUtil.isEmpty(c.loan.isFundable),
@@ -138,7 +136,7 @@ export class CreditFacilityReportComponent implements OnInit, OnChanges {
     }
     if (!ObjectUtil.isEmpty(this.customerLoanDtoList)) {
       this.customerLoanDtoList.forEach(cd => {
-        const dtoTenure = ((JSON.parse(cd.proposal.data)).tenureDurationInMonths) / 12;
+        const dtoTenure = (((JSON.parse(cd.proposal.data)).tenureDurationInMonths) / 12).toFixed(2);
         const dtoCfonfig = {
           isFundable: cd.loanConfig.isFundable,
           fundableNonFundableSelcted: !ObjectUtil.isEmpty(cd.loanConfig.isFundable),

@@ -31,10 +31,6 @@
                    [loanConfig]="loanConfig"
                    [loanData]="loanDataHolder"
                    [nepaliDate]="nepaliDate"></app-micro-loan-summary>
-           <app-credit-facility-report [loanDataHolder]="loanDataHolder"
-                                       [nepaliDate]="nepaliDate"
-                                       [loanConfig]="loanConfig"
-                                       [customerLoanList]="customerAllLoanList"></app-credit-facility-report>
            <app-loan-summary *ngSwitchDefault
                    (changeToApprovalSheetActive)="activeApprovalSheet()"
                              (customerLoanList)="customerLoanList($event)"
