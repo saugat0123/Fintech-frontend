@@ -71,96 +71,8 @@
                 Please specify relationship between the above mentoined parties <b>( Applicant and PG holder/migrant worker must be immediate family members)</b> </p>
         </div>
     </ng-container>
-        <div class="row" *ngIf="individual?.customerRelatives?.length > 0">
-            <div class="col-md-12">
-                <p><strong>Family Details</strong></p>
-                <table
-                        class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-                    <thead>
-                    <tr class="text-white sb-bg-dark">
-                        <th>Name</th>
-                        <th>Undivided Family Member</th>
-                        <th>Citizenship no.</th>
-                        <th>Citizenship Issued Date(AD/BS)</th>
-                        <th>Citizenship Issued District</th>
-                        <th>Age</th>
-
-
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr *ngFor="let relative of individual?.customerRelatives">
-                        <td class="text-left pl-1">
-                            {{relative?.customerRelativeName}}
-                        </td>
-
-                        <td class="text-left pl-1">
-                            {{relative?.customerRelation}}
-                        </td>
-                        <td class="text-right pr-1">
-                            {{relative?.citizenshipNumber || 'N/A'}}
-                        </td>
-                        <td class="text-left pl-1">
-                            {{relative?.citizenshipIssuedDate | date}} ({{relative?.citizenshipIssuedDate | engNepDate: false}})
-                        </td>
-                        <td class="text-left pl-1">{{relative?.citizenshipIssuedPlace || 'N/A'}}</td>
-
-                        <td class="text-left pl-1">{{relative?.age}} years</td>
-
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    <ng-template #relation>
-        <div class="row mt-1">
-            <div class="col-md-12">
-                <p><strong>{{(isRemit)?('Undivided Family Information Summary'):'Family Details'}}</strong></p>
-                <div>
-                    <table
-                            class="table table-condensed table-bordered table-sm table-responsive-lg text-center sb-small">
-                        <thead>
-                        </thead>
-                        <tbody>
-                        <ng-container>
-                            <tr class="text-white sb-bg-dark">
-                                <th>S.N</th>
-                                <th>Name</th>
-                                <th>Age</th>
-                                <th>Undivided Family Member</th>
-                                <th>Profession</th>
-                            </tr>
-                            <tr>
-                                <td class="text-left pl-1">1</td>
-                                <td class="text-left pl-1">{{(beneficiaryDetails?.beneficiaryIdentity.benef_grandfather)?beneficiaryDetails?.beneficiaryIdentity.benef_grandfather : 'NA'}}</td>
-                                <td class="text-right pr-1"></td>
-                                <td class="text-left pl-1">Grand Father</td>
-                                <td class="text-left pl-1"></td>
-                            </tr>
-                            <tr>
-                                <td class="text-left pl-1">2</td>
-                                <td class="text-left pl-1">{{(beneficiaryDetails?.beneficiaryIdentity.benef_father_name)?beneficiaryDetails?.beneficiaryIdentity.benef_father_name : 'NA'}}</td>
-                                <td class="text-right pr-1"></td>
-                                <td class="text-left pl-1">Father</td>
-                                <td class="text-left pl-1"></td>
-                            </tr>
-                            <tr>
-                                <td class="text-left pl-1">3</td>
-                                <td class="text-left pl-1">{{(beneficiaryDetails?.beneficiaryIdentity.benef_mother_name)?beneficiaryDetails?.beneficiaryIdentity.benef_mother_name :'NA'}}</td>
-                                <td class="text-right pr-1"></td>
-                                <td class="text-left pl-1">Mother</td>
-                                <td class="text-left pl-1"></td>
-                            </tr>
-                        </ng-container>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </ng-template>
-
     <ng-container>
-        <p><strong>Individual Details</strong></p>
+        <p><strong>Borrower Details</strong></p>
         <div class="row" *ngIf="loanHolder.loanCategory === 'INDIVIDUAL' && !isJointInfo">
             <div class="col-md-12">
                 <div>
@@ -239,6 +151,48 @@
             </div>
         </div>
     </ng-container>
+    <div class="row" *ngIf="individual?.customerRelatives?.length > 0 && loanHolder?.loanHolder?.clientType!=='CONSUMER_FINANCE'">
+        <div class="col-md-12">
+            <p><strong>Family Details</strong></p>
+            <table
+                    class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+                <thead>
+                <tr class="text-white sb-bg-dark">
+                    <th>Name</th>
+                    <th>Undivided Family Member</th>
+                    <th>Citizenship no.</th>
+                    <th>Citizenship Issued Date(AD/BS)</th>
+                    <th>Citizenship Issued District</th>
+                    <th>Age</th>
+
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let relative of individual?.customerRelatives">
+                    <td class="text-left pl-1">
+                        {{relative?.customerRelativeName}}
+                    </td>
+
+                    <td class="text-left pl-1">
+                        {{relative?.customerRelation}}
+                    </td>
+                    <td class="text-right pr-1">
+                        {{relative?.citizenshipNumber || 'N/A'}}
+                    </td>
+                    <td class="text-left pl-1">
+                        {{relative?.citizenshipIssuedDate | date}} ({{relative?.citizenshipIssuedDate | engNepDate: false}})
+                    </td>
+                    <td class="text-left pl-1">{{relative?.citizenshipIssuedPlace || 'N/A'}}</td>
+
+                    <td class="text-left pl-1">{{relative?.age}} years</td>
+
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
     <ng-container *ngIf="isRemit">
         <div class="row">
             <div class="col-md-12">

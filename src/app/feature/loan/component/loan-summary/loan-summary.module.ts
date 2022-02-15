@@ -42,6 +42,7 @@ import {SecurityApprovedSummaryComponent} from './security-approved-summary/secu
 import {FeatureModule} from '../../../feature.module';
 import {NetWorthModule} from '../../../newt-worth/net-worth-module';
 import {DbrModule} from '../../../dbr/dbr.module';
+import { CollateralSiteVisitComponent } from './collateral-site-visit/collateral-site-visit.component';
 
 
 const COMPONENTS = [
@@ -71,7 +72,7 @@ const COMPONENTS = [
 const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
 
 @NgModule({
-    declarations: [...COMPONENTS, ApprovalSheetConfigComponent, ApprovalSheetInfoComponent, ApprovalSheetDocumentListComponent, MGroupSummaryComponent, CommentsSummaryComponent, PreviousSecuritySummaryComponent, RemitDetailsComponent, SecurityApprovedSummaryComponent, SecurityApprovedSummaryComponent],
+    declarations: [...COMPONENTS, ApprovalSheetConfigComponent, ApprovalSheetInfoComponent, ApprovalSheetDocumentListComponent, MGroupSummaryComponent, CommentsSummaryComponent, PreviousSecuritySummaryComponent, RemitDetailsComponent, SecurityApprovedSummaryComponent, SecurityApprovedSummaryComponent, CollateralSiteVisitComponent],
     imports: [
         CommonModule,
         ThemeModule,
