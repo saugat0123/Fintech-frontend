@@ -352,7 +352,8 @@
               <td>
                 <div class="row">
                   <div class="col-md-4">
-                    <select required="true" class="form-control" #actYearVal formControlName="radioActYearDate">
+                    <select required="true" class="form-control" #actYearVal formControlName="radioActYearDate"
+                            (change)="actYearTr($event.target.value,'actYear')">
                       <option value="null" hidden>AD/BS</option>
                       <option value="AD">AD</option>
                       <option value="BS">BS</option>
@@ -458,7 +459,7 @@
                   </div>
                   <div class="col-md-8">
                     <nepali-patro *ngIf="registrationDateVal.value ==='BS'"
-                                  formControlName="registrationDate" [responseType]="2" [displayNepali]="true">
+                                  formControlName="registrationDateNepali" [responseType]="2" [displayNepali]="true">
                     </nepali-patro>
                     <input [nbDatepicker]="registrationDateAD" *ngIf="registrationDateVal.value ==='AD'"
                            class="form-control form-control-sm-error rounded" formControlName="registrationDate"
@@ -2920,7 +2921,8 @@
                       <!--                     </nb-radio-group>-->
                       <select required="true" class="form-control"
                               #guarantorActYearOption
-                              formControlName="guarantorActYearOption">
+                              formControlName="guarantorActYearOption"
+                              (change)="guarantorActYearTr($event.target.value,'guarantorActYear', i)">
                         <option  value="null" hidden>AD/BS</option>
                         <option  value="AD">AD</option>
                         <option value="BS">BS</option>
@@ -3037,7 +3039,7 @@
                     </div>
                     <div class="col-md-8">
                       <nepali-patro *ngIf="guarantorRegistrationDateOption.value ==='BS'"
-                                    formControlName="guarantorRegistrationDate" [responseType]="2"
+                                    formControlName="guarantorRegistrationDateNepali" [responseType]="2"
                                     [displayNepali]="true">
                       </nepali-patro>
                       <input [nbDatepicker]="guarantorRegistrationYearAD"
@@ -3655,7 +3657,7 @@
                     </div>
                     <div class="col-md-8">
                       <nepali-patro *ngIf="citizenshipIssueDateVal.value ==='BS'"
-                                    formControlName="citizenIssuedDate" [responseType]="2"
+                                    formControlName="citizenIssuedDateNepali" [responseType]="2"
                                     [displayNepali]="true">
                       </nepali-patro>
                       <input [nbDatepicker]="citizenshipDate"
@@ -3912,7 +3914,7 @@
                     </div>
                     <div class="col-md-8">
                       <nepali-patro *ngIf="otherGuaPassportIssuedDateOption.value ==='BS'"
-                                    formControlName="otherGuarantorPassportIssuedDate" [responseType]="2"
+                                    formControlName="otherGuarantorPassportIssuedDateNepali" [responseType]="2"
                                     [displayNepali]="true">
                       </nepali-patro>
                       <input [nbDatepicker]="otherGuaPassIssueDate"
@@ -3942,7 +3944,7 @@
                     </div>
                     <div class="col-md-8">
                       <nepali-patro *ngIf="otherGuaPassportValidityDateOption.value ==='BS'"
-                                    formControlName="otherGuarantorPassportValidityDate" [responseType]="2"
+                                    formControlName="otherGuarantorPassportValidityDateNepali" [responseType]="2"
                                     [displayNepali]="true">
                       </nepali-patro>
                       <input [nbDatepicker]="otherguaPassValidityDate"

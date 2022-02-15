@@ -17,6 +17,7 @@ import {LoanNameConstant} from '../../../../sme-costant/loan-name-constant';
 export class RevolvingShortTermLoanComponent implements OnInit {
     @Input() loanName;
     @Input() offerDocumentList: Array<OfferDocument>;
+    @Input() cadDocAssignedLoan;
     initialInformation: any;
     revolvingShortTermLoan: FormGroup;
     isComplementaryOtherLoan = false;
@@ -30,6 +31,7 @@ export class RevolvingShortTermLoanComponent implements OnInit {
     ];
     filteredList: any = [];
     loanNameConstant = LoanNameConstant;
+    filteredLoanIdList: any = [];
     constructor(private formBuilder: FormBuilder,
                 private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
                 private engToNepNumberPipe: EngToNepaliNumberPipe,
@@ -64,6 +66,7 @@ export class RevolvingShortTermLoanComponent implements OnInit {
                     loanamountWords ? loanamountWords : '');
             }
         }
+        this.setLoanId();
     }
     patchDate() {
         for (let val = 0; val < this.initialInformation.revolvingShortTermLoan.revolvingShortTermLoanFormArray.length; val++) {
@@ -347,6 +350,17 @@ export class RevolvingShortTermLoanComponent implements OnInit {
             interestRateCT: [undefined],
             dateOfExpiryTypeCT: [undefined],
             dateOfExpiryCT: [undefined],
+
+            loanId: [undefined],
+        });
+    }
+
+    setLoanId() {
+        this.filteredLoanIdList = this.cadDocAssignedLoan.filter(data =>
+            data.loan.name === this.loanNameConstant.SHORT_TERM_LOAN);
+        this.filteredList.forEach((val, i) => {
+            this.revolvingShortTermLoan.get(['revolvingShortTermLoanFormArray', i, 'loanId']).patchValue(
+                this.filteredLoanIdList[i].proposal.id);
         });
     }
 }

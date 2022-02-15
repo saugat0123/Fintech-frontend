@@ -17,6 +17,7 @@ import {LoanNameConstant} from '../../../../sme-costant/loan-name-constant';
 export class IrrevocableLetterOfCreditFacilityComponent implements OnInit {
     @Input() loanName;
     @Input() offerDocumentList: Array<OfferDocument>;
+    @Input() cadDocAssignedLoan;
     initialInformation: any;
     letterOfCreditForm: FormGroup;
     isComplimentryOtherLoan = false;
@@ -30,6 +31,7 @@ export class IrrevocableLetterOfCreditFacilityComponent implements OnInit {
     filteredList: any = [];
     loanNameConstant = LoanNameConstant;
     displayField = false;
+    filteredLoanIdList: any = [];
     constructor(private formBuilder: FormBuilder,
                 private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
                 private engToNepNumberPipe: EngToNepaliNumberPipe,
@@ -64,6 +66,7 @@ export class IrrevocableLetterOfCreditFacilityComponent implements OnInit {
                     loanamountWords ? loanamountWords : '');
             }
         }
+        this.setLoanId();
     }
     patchDate() {
         for (let val = 0; val < this.initialInformation.letterOfCreditForm.letterOfCreditFormArray.length; val++) {
@@ -335,6 +338,17 @@ export class IrrevocableLetterOfCreditFacilityComponent implements OnInit {
             dateOfExpiryTypeCT: [undefined],
             dateOfExpiryNepaliCT: [undefined],
             dateOfExpiryCT: [undefined],
+
+            loanId: [undefined],
+        });
+    }
+
+    setLoanId() {
+        this.filteredLoanIdList = this.cadDocAssignedLoan.filter(data =>
+            data.loan.name === this.loanNameConstant.IRREVOCABLE_LETTER_OF_CREDIT_FACILITY);
+        this.filteredList.forEach((val, i) => {
+            this.letterOfCreditForm.get(['letterOfCreditFormArray', i, 'loanId']).patchValue(
+                this.filteredLoanIdList[i].proposal.id);
         });
     }
 }

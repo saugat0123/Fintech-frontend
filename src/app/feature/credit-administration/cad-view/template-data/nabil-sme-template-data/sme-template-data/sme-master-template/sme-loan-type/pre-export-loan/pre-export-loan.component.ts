@@ -18,6 +18,7 @@ export class PreExportLoanComponent implements OnInit {
   @Input() loanName;
   @Input() customerApprovedDoc;
   @Input() offerDocumentList: Array<OfferDocument>;
+  @Input() cadDocAssignedLoan;
   initialInformation: any;
   preExportForm: FormGroup;
   isComplementaryOtherLoan = false;
@@ -30,6 +31,7 @@ export class PreExportLoanComponent implements OnInit {
   termLoanNumber: Array<any> = new Array<any>();
   filteredList: any = [];
   loanNameConstant = LoanNameConstant;
+  filteredLoanIdList: any = [];
 
 
   constructor(private formBuilder: FormBuilder,
@@ -78,6 +80,7 @@ export class PreExportLoanComponent implements OnInit {
             loanamountWords ? loanamountWords : '');
       }
     }
+    this.setLoanId();
   }
 
   buildForm() {
@@ -123,6 +126,8 @@ export class PreExportLoanComponent implements OnInit {
       dateOfExpiryTypeCT: [undefined],
       dateOfExpiryNepaliCT: [undefined],
       dateOfExpiryCT: [undefined],
+
+      loanId: [undefined],
     });
   }
 
@@ -283,5 +288,14 @@ export class PreExportLoanComponent implements OnInit {
     const tempData = !ObjectUtil.isEmpty(data) ? data : '';
     this.isMarketValue = tempData === 'MARKET_VALUE';
     this.isLetterOfCredit = tempData === 'LETTER_OF_CREDIT';
+  }
+
+  setLoanId() {
+    this.filteredLoanIdList = this.cadDocAssignedLoan.filter(data =>
+        data.loan.name === this.loanNameConstant.PRE_EXPORT_LOAN);
+    this.filteredList.forEach((val, i) => {
+      this.preExportForm.get(['termLoanDetails', i, 'loanId']).patchValue(
+          this.filteredLoanIdList[i].proposal.id);
+    });
   }
 }
