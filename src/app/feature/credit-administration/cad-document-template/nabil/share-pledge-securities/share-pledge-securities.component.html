@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-sm-12">
         <table class="table table-bordered table-sm sb-small text-center">
-            <thead>
+            <tbody>
             <tr>
                 <th>
                     क्र.सं.
@@ -19,7 +19,7 @@
                     शेयर धनीे नं.
                 </th>
             </tr>
-            </thead>
+            </tbody>
             <tbody>
             <tr *ngFor="let data of this.tempDetails; let index = index">
                 <td>{{this.engToNepaliNumberPipe.transform((index + 1).toString())}}.</td>
