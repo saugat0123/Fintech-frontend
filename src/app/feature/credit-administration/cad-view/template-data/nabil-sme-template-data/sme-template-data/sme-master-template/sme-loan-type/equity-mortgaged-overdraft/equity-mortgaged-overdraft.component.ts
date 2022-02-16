@@ -17,6 +17,7 @@ import {LoanNameConstant} from '../../../../sme-costant/loan-name-constant';
 export class EquityMortgagedOverdraftComponent implements OnInit {
     @Input() loanName;
     @Input() offerDocumentList: Array<OfferDocument>;
+    @Input() cadDocAssignedLoan;
     initialInformation: any;
     equityMortgaged: FormGroup;
     ADExpiry = false;
@@ -35,6 +36,8 @@ export class EquityMortgagedOverdraftComponent implements OnInit {
     filteredListMortgage: any = [];
     loanNameConstant = LoanNameConstant;
     loanDetails: any = [];
+    filteredLoanIdList: any = [];
+    filteredLoanMortgageIdList: any = [];
     constructor(private formBuilder: FormBuilder,
                 private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
                 private engToNepNumberPipe: EngToNepaliNumberPipe,
@@ -78,6 +81,7 @@ export class EquityMortgagedOverdraftComponent implements OnInit {
                     loanamountWords ? loanamountWords : '');
             }
         }
+        this.setLoanId();
     }
     patchDate() {
         for (let val = 0; val < this.initialInformation.equityMortgaged.equityMortgagedFormArray.length; val++) {
@@ -419,7 +423,26 @@ export class EquityMortgagedOverdraftComponent implements OnInit {
             interestRateCT: [undefined],
             dateOfExpiryTypeCT: [undefined],
             dateOfExpiryCT: [undefined],
+            loanId: [undefined],
         });
+    }
+    setLoanId() {
+        this.filteredLoanIdList = this.cadDocAssignedLoan.filter(data =>
+            data.loan.name === this.loanNameConstant.EQUITY_MORTGAGED_OVERDRAFT);
+        this.filteredLoanMortgageIdList = this.cadDocAssignedLoan.filter(data =>
+            data.loan.name === this.loanNameConstant.MORTGAGE_OVERDRAFT);
+        if (!ObjectUtil.isEmpty(this.filteredList)) {
+            this.filteredList.forEach((val, i) => {
+                this.equityMortgaged.get(['equityMortgagedFormArray', i, 'loanId']).patchValue(
+                    this.filteredLoanIdList[i].proposal.id);
+            });
+        }
+        if (!ObjectUtil.isEmpty(this.filteredListMortgage)) {
+            this.filteredListMortgage.forEach((val, i) => {
+                this.equityMortgaged.get(['mortgageOverdraftFormArray', i, 'loanId']).patchValue(
+                    this.filteredLoanMortgageIdList[i].proposal.id);
+            });
+        }
     }
 }
 

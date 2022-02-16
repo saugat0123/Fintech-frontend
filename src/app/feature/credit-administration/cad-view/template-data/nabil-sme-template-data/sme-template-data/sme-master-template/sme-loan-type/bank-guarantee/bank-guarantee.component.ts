@@ -18,6 +18,7 @@ import {LoanNameConstant} from '../../../../sme-costant/loan-name-constant';
 export class BankGuaranteeComponent implements OnInit {
   @Input() loanName;
   @Input() offerDocumentList: Array<OfferDocument>;
+  @Input() cadDocAssignedLoan;
   initialInformation: any;
   bankGuarantee: FormGroup;
   isComplimentryOtherLoan = false;
@@ -44,6 +45,7 @@ export class BankGuaranteeComponent implements OnInit {
     {key: 'ONE_OFF_BASIS', value: 'One Off Basis'},
     {key: 'REGULAR', value: 'Regular'}
   ];
+  filteredLoanIdList: any = [];
   constructor(private formBuilder: FormBuilder,
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
               private engToNepDatePipe: EngNepDatePipe,
@@ -79,6 +81,7 @@ export class BankGuaranteeComponent implements OnInit {
             loanamountWords ? loanamountWords : '');
       }
     }
+    this.setLoanId();
   }
   filterLoanDetails(loanDetails) {
     this.filteredList = loanDetails.filter(data => data.name === this.loanNameConstant.BANK_GUARANTEE);
@@ -382,10 +385,20 @@ export class BankGuaranteeComponent implements OnInit {
       commissionInPercentage2PFGCT: [undefined],
       marginInPercentagePFG: [undefined],
       marginInPercentagePFGTrans: [undefined],
-      marginInPercentagePFGCT: [undefined]
+      marginInPercentagePFGCT: [undefined],
+      loanId: [undefined],
     });
   }
   addLoanFormArr() {
     (this.bankGuarantee.get('bankGuaranteeArray') as FormArray).push(this.buildLoanForm());
+  }
+
+  setLoanId() {
+    this.filteredLoanIdList = this.cadDocAssignedLoan.filter(data =>
+        data.loan.name === this.loanNameConstant.BANK_GUARANTEE);
+    this.filteredList.forEach((val, i) => {
+      this.bankGuarantee.get(['bankGuaranteeArray', i, 'loanId']).patchValue(
+          this.filteredLoanIdList[i].proposal.id);
+    });
   }
 }
