@@ -62,7 +62,11 @@ export class PromissoryNotePartnershipComponent implements OnInit {
   citizenshipIssueDistrict;
   foreignAddress;
   isForeignAddress = true;
-
+  tempPro;
+  ageArray: Array <any> = new Array <any>();
+  dateArray: Array <any> = new Array <any>();
+  dateValidityArray: Array <any> = new Array <any>();
+  issuedPlaceArray: Array <any> = new Array<any>();
 
   constructor(
       private formBuilder: FormBuilder,
@@ -122,16 +126,6 @@ export class PromissoryNotePartnershipComponent implements OnInit {
       wardNumberOfFirm: [undefined],
       addressOfFirm: [undefined],
       nameOfFirm: [undefined],
-      nameOfGrandfather: [undefined],
-      nameOfFather: [undefined],
-      district: [undefined],
-      vdc: [undefined],
-      wardNumber: [undefined],
-      age: [undefined],
-      nameOfPartner: [undefined],
-      directorCitizenshipNumber: [undefined],
-      citizenshipIssueDate: [undefined],
-      citizenshipIssueDistrict: [undefined],
       interestPerApprovedCFR: [undefined],
       nameOfBranch: [undefined],
       bankStaff: [undefined],
@@ -145,6 +139,44 @@ export class PromissoryNotePartnershipComponent implements OnInit {
       WitnessWardNumber2: [undefined],
       witnessAge2: [undefined],
       witnessName2: [undefined],
+      totalPeople: [undefined],
+      partnerDetails: this.formBuilder.array([]),
+    });
+    this.setPartners();
+  }
+  setPartners() {
+    if (!ObjectUtil.isEmpty(this.cadData.assignedLoan[0]) &&
+        !ObjectUtil.isEmpty(this.cadData.assignedLoan[0].companyInfo) &&
+        !ObjectUtil.isEmpty(this.cadData.assignedLoan[0].companyInfo.companyJsonData)) {
+      const partners = this.cadData.assignedLoan[0].companyInfo.companyJsonData;
+      if (!ObjectUtil.isEmpty(partners)) {
+        this.tempPro = JSON.parse(partners);
+        /*const tem = JSON.parse(partners);
+        this.tempPro = tem.filter(val => val.isAuthorizedPerson === 'Partner Only' || val.isAuthorizedPerson === 'Both');*/
+      }
+      this.tempPro.forEach(val => {
+        (this.form.get('partnerDetails') as FormArray).push(this.setAuthorDetailsForm());
+      });
+    }
+  }
+  setAuthorDetailsForm() {
+    return this.formBuilder.group({
+      nameOfGrandfather: [undefined],
+      nameOfFather: [undefined],
+      foreignAddress: [undefined],
+      district: [undefined],
+      vdc: [undefined],
+      wardNumber: [undefined],
+      age: [undefined],
+      nameOfPartner: [undefined],
+      directorCitizenshipNumber: [undefined],
+      citizenshipIssueDate: [undefined],
+      citizenshipIssueDistrict: [undefined],
+      passportValidityDate: [undefined],
+      directorOtherPassportNumber: [undefined],
+      directorIndianPassportNumber: [undefined],
+      directorIndianAadhaarNumber: [undefined],
+      directorIndianEmbassyNumber: [undefined]
     });
   }
   fillform() {
@@ -152,7 +184,10 @@ export class PromissoryNotePartnershipComponent implements OnInit {
     // let tempProprietor;
     if (!ObjectUtil.isEmpty(proprietor)) {
       this.tempProprietor = JSON.parse(proprietor);
+      /*const tempo =  JSON.parse(proprietor);
+      this.tempProprietor = tempo.filter(val => val.isAuthorizedPerson === 'Partner Only' || val.isAuthorizedPerson === 'Both');*/
     }
+    console.log('TempData:', this.tempProprietor);
     let totalLoan = 0;
     this.cadData.assignedLoan.forEach(val => {
       const proposedAmount = val.proposal.proposedLimit;
@@ -173,13 +208,16 @@ export class PromissoryNotePartnershipComponent implements OnInit {
       }
     }
     if (this.isInstitutional) {
-      if (!ObjectUtil.isEmpty(this.tempProprietor[0].ownerDobDateType) && this.tempProprietor.length > 0) {
-        if (this.tempProprietor[0].ownerDobDateType === undefined) {
-          letAge = this.engToNepNumberPipe.transform(AgeCalculation.calculateAge(this.tempProprietor[0].ownerDob).toString());
-        } else {
-          letAge = this.engToNepNumberPipe.transform(AgeCalculation.calculateAge(this.tempProprietor[0].ownerDob).toString());
+      this.tempProprietor.forEach((val) => {
+        if (!ObjectUtil.isEmpty(val.ownerDobDateType) && this.tempProprietor.length > 0) {
+          if (val.ownerDobDateType === 'AD') {
+            letAge = this.engToNepNumberPipe.transform(AgeCalculation.calculateAge(val.ownerDob).toString());
+          } else {
+            letAge = this.engToNepNumberPipe.transform(AgeCalculation.calculateAge(val.ownerDobNepali.eDate).toString());
+          }
+          this.ageArray.push(letAge);
         }
-      }
+      });
     }
 
 
@@ -195,6 +233,10 @@ export class PromissoryNotePartnershipComponent implements OnInit {
     }
     this.checkOfferLetterData();
     this.forPrint();
+    let totalPeop = 1;
+    if (!ObjectUtil.isEmpty(this.tempProprietor)) {
+      totalPeop = this.tempProprietor.length;
+    }
     this.form.patchValue({
       actDetails: [this.loanHolderNepData.actName ? this.loanHolderNepData.actName.ct : ''],
       actYearInFigure: [this.setActYear()],
@@ -211,12 +253,51 @@ export class PromissoryNotePartnershipComponent implements OnInit {
       loanAmountinFigure: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(finalAmount)),
       loanAmountInWords: this.nepaliCurrencyWordPipe.transform(loanAmountWord),
       nameOfBranch: [this.loanHolderNepData.branch ? this.loanHolderNepData.branch.ct : ''],
-      interestPerApprovedCFR: (this.educationalTemplateData && this.educationalTemplateData.ct)
+      /*interestPerApprovedCFR: (this.educationalTemplateData && this.educationalTemplateData.ct)
           ? (this.educationalTemplateData.ct)
           : ((this.educationalTemplateData) ? (this.educationalTemplateData)
-              : ('')),
-      nameOfGrandfather: this.grandFatherName ? this.grandFatherName : '',
+              : ('')),*/
+      totalPeople: this.engToNepNumberPipe.transform(totalPeop.toString()) ? this.engToNepNumberPipe.transform(totalPeop.toString()) : '',
     });
+    this.fillPartnerDetails(this.tempProprietor);
+  }
+  fillPartnerDetails(data) {
+    if (this.tempProprietor.length > 0 && !ObjectUtil.isEmpty(data)) {
+      for (let val = 0; val < this.tempProprietor.length; val++) {
+        this.form.get(['partnerDetails', val, 'nameOfGrandfather']).patchValue(
+            this.tempProprietor[val] ? this.tempProprietor[val].ownerGrandFatherNameCT : '');
+        this.form.get(['partnerDetails', val, 'nameOfFather']).patchValue(
+            this.tempProprietor[val] ? this.tempProprietor[val].ownerFatherNameCT : '');
+        this.form.get(['partnerDetails', val, 'foreignAddress']).patchValue(
+            this.tempProprietor[val] ? this.tempProprietor[val].ownerOtherAddressCT : '');
+        this.form.get(['partnerDetails', val, 'district']).patchValue(
+            this.tempProprietor[val] ? this.tempProprietor[val].ownerPermanentDistrictCT : '');
+        this.form.get(['partnerDetails', val, 'vdc']).patchValue(
+            this.tempProprietor[val] ? this.tempProprietor[val].ownerPermanentMunicipalityCT : '');
+        this.form.get(['partnerDetails', val, 'wardNumber']).patchValue(
+            this.tempProprietor[val] ? this.tempProprietor[val].ownerPermanentWardNoCT : '');
+        this.form.get(['partnerDetails', val, 'age']).patchValue(
+            this.ageArray[val] ? this.ageArray[val] : '');
+        this.form.get(['partnerDetails', val, 'nameOfPartner']).patchValue(
+            this.tempProprietor[val] ? this.tempProprietor[val].ownerNameCT : '');
+        this.form.get(['partnerDetails', val, 'directorCitizenshipNumber']).patchValue(
+            this.tempProprietor[val] ? this.tempProprietor[val].ownerCitizenshipNoCT : '');
+        this.form.get(['partnerDetails', val, 'citizenshipIssueDate']).patchValue(
+            this.dateArray[val] ? this.dateArray[val] : '');
+        this.form.get(['partnerDetails', val, 'citizenshipIssueDistrict']).patchValue(
+            this.issuedPlaceArray[val] ? this.issuedPlaceArray[val] : '');
+        this.form.get(['partnerDetails', val, 'passportValidityDate']).patchValue(
+            this.dateValidityArray[val] ? this.dateValidityArray[val] : '');
+        this.form.get(['partnerDetails', val, 'directorOtherPassportNumber']).patchValue(
+            this.tempProprietor[val] ? this.tempProprietor[val].otherOwnerPassportNoCT : '');
+        this.form.get(['partnerDetails', val, 'directorIndianPassportNumber']).patchValue(
+            this.tempProprietor[val] ? this.tempProprietor[val].indianOwnerPassportNoCT : '');
+        this.form.get(['partnerDetails', val, 'directorIndianAadhaarNumber']).patchValue(
+            this.tempProprietor[val] ? this.tempProprietor[val].indianOwnerAdharCardNoCT : '');
+        this.form.get(['partnerDetails', val, 'directorIndianEmbassyNumber']).patchValue(
+            this.tempProprietor[val] ? this.tempProprietor[val].indianEmbassyNoCT : '');
+      }
+    }
   }
   ageCalculation(startDate) {
     startDate = this.datePipe.transform(startDate, 'MMMM d, y, h:mm:ss a z');
@@ -379,12 +460,53 @@ export class PromissoryNotePartnershipComponent implements OnInit {
           this.educationalTemplateData = educationalOfferData.autoLoanMasterForm.autoLoanFormArray.interestRateCT;
         }
       }
-      for (const i of this.tempProprietor) {
-        if (i.radioOwnerCitizenshipIssuedDate === 'AD') {
-          this.form.get('citizenshipIssueDate').patchValue(this.engToNepaliDate.transform(i.ownerCitizenshipIssuedDateCT, true));
-        } else {
-          this.form.get('citizenshipIssueDate').patchValue(i.ownerCitizenshipIssuedDateCT);
-        }
+      if (!ObjectUtil.isEmpty(this.tempProprietor)) {
+        let tempDate;
+        let validityDate = '';
+        let tempIssuedPlace;
+        this.tempProprietor.forEach(val => {
+          if (val.ownerNationality === 'Nepali') {
+            if (val.radioOwnerCitizenshipIssuedDate === 'AD') {
+              tempDate = this.engToNepaliDate.transform(val.ownerCitizenshipIssuedDateCT, true);
+            } else {
+              tempDate = val.ownerCitizenshipIssuedDateNepaliCT.nDate;
+            }
+            tempIssuedPlace = val.ownerCitizenshipIssuedDistrictCT ? val.ownerCitizenshipIssuedDistrictCT : '';
+          }
+          // For Indian National with Passport
+          if (val.ownerNationality === 'Indian' && val.indianOwnerDetailOption === 'Passport') {
+            tempDate = this.engToNepaliDate.transform(val.indianOwnerPassportIssuedDate, true);
+            validityDate = this.engToNepaliDate.transform(val.indianOwnerPassportValidityDateCT, true);
+            tempIssuedPlace = val.indianOwnerPassportIssuedFromCT ? val.indianOwnerPassportIssuedFromCT : '';
+          }
+          // For Indian National with Aadhaar Card
+          if (val.ownerNationality === 'Indian' && val.indianOwnerDetailOption === 'Adhar Card') {
+            tempDate = this.engToNepaliDate.transform(val.indianOwnerAdharCardIssuedDate, true);
+            tempIssuedPlace = val.indianOwnerAdharCardIssuedFromCT ? val.indianOwnerAdharCardIssuedFromCT : '';
+          }
+          // For Indian National with Embassy
+          if (val.ownerNationality === 'Indian' && val.indianOwnerDetailOption === 'Embassy Certificate') {
+            tempDate = this.engToNepaliDate.transform(val.indianEmbassyIssuedDate, true);
+            tempIssuedPlace = val.indianEmbassyIssuedFromCT ? val.indianEmbassyIssuedFromCT : '';
+          }
+          // For Other Nationals
+          if (val.ownerNationality === 'Other') {
+            if (val.otherOwnerPassportIssuedDateOption === 'AD') {
+              tempDate = this.engToNepaliDate.transform(val.otherOwnerPassportIssuedDateCT, true);
+            } else {
+              tempDate = val.otherOwnerPassportIssuedDateNepaliCT.nDate;
+            }
+            if (val.otherOwnerPassportValidityDateOption === 'AD') {
+              validityDate = this.engToNepaliDate.transform(val.otherOwnerPassportValidityDateCT, true);
+            } else {
+              validityDate = val.otherOwnerPassportValidityDateNepaliCT.nDate;
+            }
+            tempIssuedPlace = val.otherOwnerPassportIssuedFromCT ? val.otherOwnerPassportIssuedFromCT : '';
+          }
+          this.dateArray.push(tempDate);
+          this.dateValidityArray.push(validityDate);
+          this.issuedPlaceArray.push(tempIssuedPlace);
+        });
       }
     }
   }
@@ -418,7 +540,7 @@ export class PromissoryNotePartnershipComponent implements OnInit {
     if (this.loanHolderNepData.registrationDateOption.en === 'AD') {
       regDate = this.engToNepaliDate.transform(this.loanHolderNepData.registrationDate.en ? this.loanHolderNepData.registrationDate.en : this.loanHolderNepData.registrationDate.en, true) || '' ;
     } else {
-      regDate = this.loanHolderNepData.registrationDate.en.nDate ? this.loanHolderNepData.registrationDate.en.nDate : '';
+      regDate = this.loanHolderNepData.registrationDateNepali ? this.loanHolderNepData.registrationDateNepali.en.nDate : '';
     }
     return regDate ? regDate : '';
   }

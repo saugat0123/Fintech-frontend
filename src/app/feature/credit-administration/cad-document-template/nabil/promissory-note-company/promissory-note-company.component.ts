@@ -456,7 +456,7 @@ export class PromissoryNoteCompanyComponent implements OnInit {
             if (val.radioOwnerCitizenshipIssuedDate === 'AD') {
               tempDate = this.engToNepaliDate.transform(val.ownerCitizenshipIssuedDateCT, true);
             } else {
-              tempDate = val.ownerCitizenshipIssuedDateCT.nDate;
+              tempDate = val.ownerCitizenshipIssuedDateNepaliCT.nDate;
             }
             tempIssuedPlace = val.ownerCitizenshipIssuedDistrictCT ? val.ownerCitizenshipIssuedDistrictCT : '';
           }
@@ -481,12 +481,12 @@ export class PromissoryNoteCompanyComponent implements OnInit {
             if (val.otherOwnerPassportIssuedDateOption === 'AD') {
               tempDate = this.engToNepaliDate.transform(val.otherOwnerPassportIssuedDateCT, true);
             } else {
-              tempDate = val.otherOwnerPassportIssuedDateCT.nDate;
+              tempDate = val.otherOwnerPassportIssuedDateNepaliCT.nDate;
             }
             if (val.otherOwnerPassportValidityDateOption === 'AD') {
               validityDate = this.engToNepaliDate.transform(val.otherOwnerPassportValidityDateCT, true);
             } else {
-              validityDate = val.otherOwnerPassportValidityDateCT.nDate;
+              validityDate = val.otherOwnerPassportValidityDateNepaliCT.nDate;
             }
             tempIssuedPlace = val.otherOwnerPassportIssuedFromCT ? val.otherOwnerPassportIssuedFromCT : '';
           }
