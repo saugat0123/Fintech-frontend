@@ -376,7 +376,7 @@ export class CatalogueComponent implements OnInit {
     changeAction() {
         this.onActionChangeSpinner = true;
         this.loanDataHolder.loanType = this.tempLoanType;
-        this.loanFormService.renewLoan(this.loanDataHolder).subscribe(() => {
+        this.loanFormService.renewLoan(this.loanDataHolder).subscribe((res: any) => {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully updated loan type.'));
                 this.modalService.dismissAll('Close modal');
                 this.tempLoanType = null;
@@ -384,6 +384,12 @@ export class CatalogueComponent implements OnInit {
                 this.catalogueService.search.documentStatus = DocStatus.value(DocStatus.APPROVED);
                 this.onSearch();
                 this.onActionChangeSpinner = false;
+                this.router.navigate(['/home/loan/summary'], {
+                queryParams: {
+                    loanConfigId: res.detail.loan.id,
+                    customerId: res.detail.id
+                }
+            });
             }, error => {
             this.onActionChangeSpinner = false;
             this.toastService.show(new Alert(AlertType.ERROR, 'Unable to update loan type.'));
