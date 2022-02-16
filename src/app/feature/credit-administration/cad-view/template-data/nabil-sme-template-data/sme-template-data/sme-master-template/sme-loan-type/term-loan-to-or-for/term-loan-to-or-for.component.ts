@@ -20,6 +20,7 @@ export class TermLoanToOrForComponent implements OnInit {
   @Input() customerApprovedDoc;
   @Input() offerDocumentList: Array<OfferDocument>;
   @Input() isEdit = false;
+  @Input() cadDocAssignedLoan;
   termLoanForm: FormGroup;
   loanDetails: any = [];
   isComplementaryOtherLoan = false;
@@ -49,6 +50,7 @@ export class TermLoanToOrForComponent implements OnInit {
   initialInformation: any;
   filteredList: any = [];
   loanNameConstant = LoanNameConstant;
+  filteredLoanIdList: any = [];
 
   constructor(private formBuilder: FormBuilder,
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
@@ -76,7 +78,7 @@ export class TermLoanToOrForComponent implements OnInit {
       if (!ObjectUtil.isEmpty(this.initialInformation)) {
         this.termLoanForm.get('termLoanDetails').patchValue(this.initialInformation.termLoanForm.termLoanDetails);
       }
-      //Loan Application Date
+      // Loan Application Date
       this.patchDate();
     }
     if (!ObjectUtil.isEmpty(this.filteredList)) {
@@ -88,6 +90,7 @@ export class TermLoanToOrForComponent implements OnInit {
             loanamountWords ? loanamountWords : '');
       }
     }
+    this.setLoanId();
   }
   filteredListDetails(loanDetails) {
     this.filteredList = loanDetails.filter(data => data.name === this.loanNameConstant.TERM_LOAN_TO_FOR_PURCHASE_OF_VEHICLE);
@@ -200,7 +203,7 @@ export class TermLoanToOrForComponent implements OnInit {
       paymentAmountFigureCT: [undefined],
       paymentAmountWordsCT: [undefined],
       numberOfPaymentsCT: [undefined],
-
+      loanId: [undefined],
     });
   }
 
@@ -492,6 +495,15 @@ export class TermLoanToOrForComponent implements OnInit {
       }
     }
     return finalConvertedVal;
+  }
+
+  setLoanId() {
+    this.filteredLoanIdList = this.cadDocAssignedLoan.filter(data =>
+        data.loan.name === this.loanNameConstant.TERM_LOAN_TO_FOR_PURCHASE_OF_VEHICLE);
+    this.filteredList.forEach((val, i) => {
+      this.termLoanForm.get(['termLoanDetails', i, 'loanId']).patchValue(
+          this.filteredLoanIdList[i].proposal.id);
+    });
   }
 
 }

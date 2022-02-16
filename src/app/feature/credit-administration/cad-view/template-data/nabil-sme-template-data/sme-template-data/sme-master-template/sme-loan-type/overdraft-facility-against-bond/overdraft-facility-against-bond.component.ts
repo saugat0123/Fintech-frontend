@@ -21,6 +21,7 @@ export class OverdraftFacilityAgainstBondComponent implements OnInit {
     @Input() offerDocumentList: Array<OfferDocument>;
     @Input() customerApprovedDoc;
     @Input() isEdit;
+    @Input() cadDocAssignedLoan;
     initialInformation: any;
     overDraftFacilityForm: FormGroup;
     ADExpiry = false;
@@ -41,6 +42,9 @@ export class OverdraftFacilityAgainstBondComponent implements OnInit {
     filteredList: any = [];
     filteredListDl: any = [];
     filteredListStl: any = [];
+    filteredLoanIdList: any = [];
+    filteredLoanStlIdList: any = [];
+    filteredLoanDLIdList: any = [];
 
     constructor(private formBuilder: FormBuilder,
                 private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
@@ -86,6 +90,7 @@ export class OverdraftFacilityAgainstBondComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.filteredListStl)) {
             this.loanAmountPatch(this.filteredListStl, 'stlAgainstBondFormArray');
         }
+        this.setLoanId();
     }
     loanAmountPatch(array, formArray) {
         for (let val = 0; val < array.length; val++) {
@@ -218,6 +223,7 @@ export class OverdraftFacilityAgainstBondComponent implements OnInit {
             dateOfExpiryTypeCT: [undefined],
             dateOfExpiryCT: [undefined],
             bondDetails: this.formBuilder.array([]),
+            loanId: [undefined],
         });
     }
 
@@ -465,5 +471,31 @@ export class OverdraftFacilityAgainstBondComponent implements OnInit {
         this.overDraftFacilityForm.get([mainArray, i, 'dateOfExpiryCT']).patchValue(
             this.overDraftFacilityForm.get([mainArray, i, 'dateOfExpiryTrans']).value
         );
+    }
+    setLoanId() {
+        this.filteredLoanIdList = this.cadDocAssignedLoan.filter(data =>
+            data.loan.name === this.loanNameConstant.OVERDRAFT_FACILITY_AGAINST_BOND);
+        this.filteredLoanStlIdList = this.cadDocAssignedLoan.filter(data =>
+            data.loan.name === this.loanNameConstant.STL_FACILITY_AGAINST_BOND);
+        this.filteredLoanDLIdList = this.cadDocAssignedLoan.filter(data =>
+            data.loan.name === this.loanNameConstant.DL_FACILITY_AGAINST_BOND);
+        if (!ObjectUtil.isEmpty(this.filteredList)) {
+            this.filteredList.forEach((val, i) => {
+                this.overDraftFacilityForm.get(['overdraftFacilityDetails', i, 'loanId']).patchValue(
+                    this.filteredLoanIdList[i].proposal.id);
+            });
+        }
+        if (!ObjectUtil.isEmpty(this.filteredListStl)) {
+            this.filteredListStl.forEach((val, i) => {
+                this.overDraftFacilityForm.get(['stlAgainstBondFormArray', i, 'loanId']).patchValue(
+                    this.filteredLoanStlIdList[i].proposal.id);
+            });
+        }
+        if (!ObjectUtil.isEmpty(this.filteredListDl)) {
+            this.filteredListDl.forEach((val, i) => {
+                this.overDraftFacilityForm.get(['dlAgainstBondFormArray', i, 'loanId']).patchValue(
+                    this.filteredLoanDLIdList[i].proposal.id);
+            });
+        }
     }
 }

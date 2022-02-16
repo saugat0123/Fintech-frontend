@@ -60,41 +60,49 @@
         </ng-container>
         <ng-container *ngIf="isEquityMortgageOverdraft">
             <app-equity-mortgaged-overdraft [offerDocumentList]="customerApprovedDoc.offerDocumentList"
-                #equityMortgagedOverdraft [loanName]="loanExtraDetails"></app-equity-mortgaged-overdraft>
+                #equityMortgagedOverdraft [loanName]="loanExtraDetails"
+                                            [cadDocAssignedLoan]="customerApprovedDoc.assignedLoan"></app-equity-mortgaged-overdraft>
         </ng-container>
         <ng-container *ngIf="isOverDraftFacilityFixedDeposit">
             <app-overdraft-facility-against-fixed-deposit [offerDocumentList]="customerApprovedDoc.offerDocumentList"
                 [customerApprovedDoc]="customerApprovedDoc" #overdraftFacilityAgainstFixedDeposit
                 [loanName]="loanExtraDetails"
-                [isEdit]="isEdit"></app-overdraft-facility-against-fixed-deposit>
+                [isEdit]="isEdit"
+                [cadDocAssignedLoan]="customerApprovedDoc.assignedLoan"></app-overdraft-facility-against-fixed-deposit>
         </ng-container>
         <ng-container *ngIf="isOverdraftFacilityAgainstBond">
             <app-overdraft-facility-against-bond [offerDocumentList]="customerApprovedDoc.offerDocumentList"
                 [customerApprovedDoc]="customerApprovedDoc" #overdraftFacilityAgainstBond [loanName]="loanExtraDetails"
-                [isEdit]="isEdit"></app-overdraft-facility-against-bond>
+                [isEdit]="isEdit"
+                [cadDocAssignedLoan]="customerApprovedDoc.assignedLoan"></app-overdraft-facility-against-bond>
         </ng-container>
         <ng-container *ngIf="isBridgeGapLoan">
             <app-bridge-gap-loan [offerDocumentList]="customerApprovedDoc.offerDocumentList"
-                [customerApprovedDoc]="customerApprovedDoc" #bridgeGapLoan [loanName]="loanExtraDetails">
+                [customerApprovedDoc]="customerApprovedDoc" #bridgeGapLoan [loanName]="loanExtraDetails"
+                                 [cadDocAssignedLoan]="customerApprovedDoc.assignedLoan">
             </app-bridge-gap-loan>
         </ng-container>
         <ng-container *ngIf="isTermLoanToOrFor">
             <app-term-loan-to-or-for #termLoanToOrFor [loanName]="loanExtraDetails"
                 [customerApprovedDoc]="customerApprovedDoc" [offerDocumentList]="customerApprovedDoc.offerDocumentList"
-                [isEdit]="isEdit"></app-term-loan-to-or-for>
+                [isEdit]="isEdit"
+                                     [cadDocAssignedLoan]="customerApprovedDoc.assignedLoan"></app-term-loan-to-or-for>
         </ng-container>
         <ng-container *ngIf="isEquityMortgageTermLoan">
             <app-mortgage-or-equity-mortgage-term-loan [offerDocumentList]="customerApprovedDoc.offerDocumentList"
-                #mortgageOrEquityMortgageTermLoanComponent [loanName]="loanExtraDetails">
+                #mortgageOrEquityMortgageTermLoanComponent [loanName]="loanExtraDetails"
+                                                       [cadDocAssignedLoan]="customerApprovedDoc.assignedLoan">
             </app-mortgage-or-equity-mortgage-term-loan>
         </ng-container>
         <ng-container *ngIf="isAutoLoanMaster">
             <app-auto-loan-master [offerDocumentList]="customerApprovedDoc.offerDocumentList" #autoLoanMasterComponent
-                [loanName]="loanExtraDetails"></app-auto-loan-master>
+                [loanName]="loanExtraDetails"
+                                  [cadDocAssignedLoan]="customerApprovedDoc.assignedLoan"></app-auto-loan-master>
         </ng-container>
         <ng-container *ngIf="isBankGuarantee">
             <app-bank-guarantee [offerDocumentList]="customerApprovedDoc.offerDocumentList" #bankGuaranteeComponent
-                [loanName]="loanExtraDetails"></app-bank-guarantee>
+                [loanName]="loanExtraDetails"
+                                [cadDocAssignedLoan]="customerApprovedDoc.assignedLoan"></app-bank-guarantee>
         </ng-container>
         <ng-container *ngIf="isBillPurchase">
             <app-bill-purchase [offerDocumentList]="customerApprovedDoc.offerDocumentList" #billPurchaseComponent
