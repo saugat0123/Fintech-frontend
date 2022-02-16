@@ -186,7 +186,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     siteVisitDocuments: Array<SiteVisitDocument>;
     requestedLoanType;
     @Output() customerLoanList = new EventEmitter();
-    @Output() signatureList = new EventEmitter();
 
     constructor(
         @Inject(DOCUMENT) private _document: Document,

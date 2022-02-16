@@ -49,7 +49,6 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
     approvalSheetActive = false;
     loanTag = LoanTag;
     customerAllLoanList;
-    signatureAllList;
 
     constructor(private userService: UserService,
                 private loanFormService: LoanFormService,
@@ -231,9 +230,5 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
 
     customerLoanList(event) {
         this.customerAllLoanList = event;
-    }
-
-    signatureListFromSummary(e) {
-        this.signatureAllList = e;
     }
 }
