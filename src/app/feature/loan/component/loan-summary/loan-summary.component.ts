@@ -99,6 +99,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     financialData: Financial = new Financial();
     shareSecurityData: ShareSecurity = new ShareSecurity();
     proposalData: Proposal;
+    proposalView: any;
     guarantorData = [];
     financialSummary = false;
     siteVisitSummary = false;
@@ -374,6 +375,9 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         }
         if (!ObjectUtil.isEmpty(this.loanDataHolder.proposal)) {
             this.proposalData = this.loanDataHolder.proposal;
+            
+            this.proposalView = JSON.parse(this.proposalData.data);
+            console.log('proposalData.data: ', this.proposalView);
             this.proposalSummary = true;
         }
 
