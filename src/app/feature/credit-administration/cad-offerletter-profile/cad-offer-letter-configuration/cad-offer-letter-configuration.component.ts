@@ -2094,7 +2094,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
                 nepData: [value.nepData],
                 guarantorTemporaryMunicipalityOrVdc: [ObjectUtil.isEmpty(nepaData.guarantorTemporaryMunicipalityOrVdc) ?
                     undefined : nepaData.guarantorTemporaryMunicipalityOrVdc.en],
-                radioCitizenIssuedDate: nepaData.radioCitizenIssuedDate ? nepaData.radioCitizenIssuedDate : '',
+                radioCitizenIssuedDate:
+                    this.customerType === CustomerType.INDIVIDUAL ? (nepaData.radioCitizenIssuedDate ?
+                            nepaData.radioCitizenIssuedDate.en : '') :
+                        nepaData.radioCitizenIssuedDate ? nepaData.radioCitizenIssuedDate : '',
                 citizenIssuedDate: !ObjectUtil.isEmpty(nepaData.citizenIssuedDate) ? new Date(nepaData.citizenIssuedDate.en) : '',
                 citizenIssuedDateTrans: !ObjectUtil.isEmpty(nepaData.citizenIssuedDate) ? nepaData.citizenIssuedDate.en : '',
                 citizenIssuedDateCT: !ObjectUtil.isEmpty(nepaData.citizenIssuedDate) ? nepaData.citizenIssuedDate.en : '',
