@@ -48,49 +48,347 @@
         <td>{{(cadFile?.data | jsonParse)?.acInfo?.operativeAc}}</td>
       </tr>
     </table>
-    <p><b>1.Exposure Details</b></p>
+    <p class="header"><b>1. Approved Facilities </b></p>
     <app-exposure-view [cadOfferLetterApprovedDoc]="cadFile" [displayHistory]="false" [fromScc]="true"> </app-exposure-view>
-    <p><b>2.Fees And Commission</b></p>
+    <p class="header"><b>2. CIB and KYC </b></p>
+    <table class="table table-bordered table-hover table-sm sb-small text-center ">
+      <thead>
+      <tr class="text-white sb-bg-dark">
+      <th>CIB Obtained On</th>
+      <th>STR Obtained On</th>
+      <th>IFT Obtained On</th>
+      <th>KYC(Aanushuchi 2.6) Obtained On</th>
+      <th>Declaration Obtained On</th>
+      <th>CA Approved By/ Date</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>
+          <input class="disable-print" type="text" nbInput disabled>
+          <span class="print-only"><b>This is the data</b></span>
+        </td>
+        <td>
+          <input class="disable-print" type="text" nbInput disabled>
+          <span class="print-only"><b>This is the data</b></span>
+        </td>
+        <td>
+          <input class="disable-print" type="text" nbInput disabled>
+          <span class="print-only"><b>This is the data</b></span>
+        </td>
+        <td>
+          <input class="disable-print" type="text" nbInput disabled>
+          <span class="print-only"><b>This is the data</b></span>
+        </td>
+        <td>
+          <input class="disable-print" type="text" nbInput disabled>
+          <span class="print-only"><b>This is the data</b></span>
+        </td>
+        <td>
+          <input class="disable-print" type="text" nbInput disabled>
+          <span class="print-only"><b>This is the data</b></span>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <p class="header"><b>3.Basel and Codes</b></p>
+    <table class="table table-bordered table-hover table-sm sb-small text-center ">
+      <thead>
+      <tr class="text-white sb-bg-dark">
+        <th>Basel II Category</th>
+        <th>NRB Sector/Sub sector Code</th>
+        <th>NAICS Code</th>
+        <th>Industry Classification</th>
+        <th>CUstomer Group Code</th>
+        <th>Business Unit Code</th>
+        <th>ESRM Code</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>
+          <input class="disable-print" type="text" nbInput disabled>
+          <span class="print-only"><b>This is the data</b></span>
+        </td>
+        <td>
+          <input class="disable-print" type="text" nbInput disabled>
+          <span class="print-only"><b>This is the data</b></span>
+        </td>
+        <td>
+          <input class="disable-print" type="text" nbInput disabled>
+          <span class="print-only"><b>This is the data</b></span>
+        </td>
+        <td>
+          <input class="disable-print" type="text" nbInput disabled>
+          <span class="print-only"><b>This is the data</b></span>
+        </td>
+        <td>
+          <input class="disable-print" type="text" nbInput disabled>
+          <span class="print-only"><b>This is the data</b></span>
+        </td>
+        <td>
+          <input class="disable-print" type="text" nbInput disabled>
+          <span class="print-only"><b>This is the data</b></span>
+        </td>
+        <td>
+          <input class="disable-print" type="text" nbInput disabled>
+          <span class="print-only"><b>This is the data</b></span>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <p class="header"><b>4.Fees And Commission</b></p>
     <app-fees-commissions-view [cadOfferLetterApprovedDoc]="cadFile"></app-fees-commissions-view>
-    <p><b>3.Document CheckList</b></p>
+  <p class="header"><b>5. Credit Risk Mitigants (CRM)</b></p>
+    <table class="table table-bordered table-hover table-sm sb-small text-center ">
+      <thead>
+      <tr class="text-white sb-bg-dark">
+        <th colspan="2">Eligible Collaterals</th>
+        <th>Remarks</th>
+        <th>Value</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>1</td>
+        <td> Cash Deposit (as well as certificates of deposit or fixed deposits or other deposits) with Laxmi Bank </td>
+        <td>
+          <input class="disable-print" type="text" nbInput disabled>
+          <span class="print-only"><b>This is the data</b></span></td>
+        <td>
+          <input class="disable-print" type="text" nbInput disabled>
+          <span class="print-only"><b>This is the data</b></span>
+        </td>
+      </tr>
+
+      <tr>
+        <td>2</td>
+        <td> Fixed Deposit Receipts/ Certificates of deposits / other deposits of other banks, who fulfill the capital adequacy requirements, subject to a 20% supervisory haircut.<td>
+          <input class="disable-print" type="text" nbInput disabled>
+          <span class="print-only"><b>This is the data</b></span></td>
+        <td>
+          <input class="disable-print" type="text" nbInput disabled>
+          <span class="print-only"><b>This is the data</b></span>
+        </td>
+      </tr>
+
+      <tr>
+        <td>3</td>
+        <td> Gold <td>
+          <input class="disable-print" type="text" nbInput disabled>
+          <span class="print-only"><b>This is the data</b></span></td>
+        <td>
+          <input class="disable-print" type="text" nbInput disabled>
+          <span class="print-only"><b>This is the data</b></span>
+        </td>
+      </tr>
+
+      <tr>
+        <td>4</td>
+        <td> Securities issued by the Government of Nepal and Nepal Rastra Bank  <td>
+          <input class="disable-print" type="text" nbInput disabled>
+          <span class="print-only"><b>This is the data</b></span></td>
+        <td>
+          <input class="disable-print" type="text" nbInput disabled>
+          <span class="print-only"><b>This is the data</b></span>
+        </td>
+      </tr>
+
+      <tr>
+        <td>5</td>
+        <td> Guarantee of the Government <td>
+          <input class="disable-print" type="text" nbInput disabled>
+          <span class="print-only"><b>This is the data</b></span></td>
+        <td>
+          <input class="disable-print" type="text" nbInput disabled>
+          <span class="print-only"><b>This is the data</b></span>
+        </td>
+      </tr>
+
+      <tr>
+        <td>6</td>
+        <td> Financial guarantee/ counter guarantee of domestic banks who meet the minimum capital adequacy requirements subject to haircut of 20%.<td>
+          <input class="disable-print" type="text" nbInput disabled>
+          <span class="print-only"><b>This is the data</b></span></td>
+        <td>
+          <input class="disable-print" type="text" nbInput disabled>
+          <span class="print-only"><b>This is the data</b></span>
+        </td>
+      </tr>
+
+      <tr>
+        <td>7</td>
+        <td>Securities/ Financial guarantee/ Counter guarantee issued by sovereigns (Country)<td>
+          <input class="disable-print" type="text" nbInput disabled>
+          <span class="print-only"><b>This is the data</b></span></td>
+        <td>
+          <input class="disable-print" type="text" nbInput disabled>
+          <span class="print-only"><b>This is the data</b></span>
+        </td>
+      </tr>
+
+      <tr>
+        <td>8</td>
+        <td> Securities/ Financial guarantee/ Counter guarantee issued by MDBs.  <td>
+          <input class="disable-print" type="text" nbInput disabled>
+          <span class="print-only"><b>This is the data</b></span></td>
+        <td>
+          <input class="disable-print" type="text" nbInput disabled>
+          <span class="print-only"><b>This is the data</b></span>
+        </td>
+      </tr>
+
+      <tr>
+        <td>9</td>
+        <td>Securities / Financial guarantee/ Counter guarantee issued by banks with ECA rating 2 or better. The supervisory haircut shall be 20% and 50% for the banks with ECA rating of 0-1 and 2 respectively. <td>
+          <input class="disable-print" type="text" nbInput disabled>
+          <span class="print-only"><b>This is the data</b></span></td>
+        <td>
+          <input class="disable-print" type="text" nbInput disabled>
+          <span class="print-only"><b>This is the data</b></span>
+        </td>
+      </tr>
+
+      </tbody>
+    </table>
+    <p class="header"><b>6.Document CheckList</b></p>
     <app-document-checklist-view [cadData]="cadFile" *ngIf="!cadCheckListListVersion"></app-document-checklist-view>
     <app-document-checklist-view-lite [cadData]="cadFile" *ngIf="cadCheckListListVersion"></app-document-checklist-view-lite>
+<p class="header"><b>7. Valuation; Drawdown and Repayment Schedule</b></p>
+    <table class="table table-bordered table-hover table-sm sb-small text-center ">
+      <thead>
+      <tr class="text-white sb-bg-dark">
+        <th>Valuation</th>
+        <th>Makuri Ref. No. from Valuator Assignment Process</th>
+        <th>Verification of Signature of Valuator</th>
+        <th>Draw down %under NTA</th>
+        <th>Draw down %under FMV</th>
+        <th>Draw down %under Tax Invoice</th>
+        <th>Declaration Obtained On</th>
+      </tr>
+      <tr class="text-white sb-bg-dark">
+        <th colspan="2">Full Report</th>
+        <th colspan ="3">YES/NO</th>
+        <th>EMI Start Date</th>
+        <th>EMI ENd Date</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>
+          <input class="disable-print" type="text" nbInput disabled>
+          <span class="print-only"><b>This is the data</b></span>
+        </td>
+        <td>
+          <input class="disable-print" type="text" nbInput disabled>
+          <span class="print-only"><b>This is the data</b></span>
+        </td>
+        <td>
+          <input class="disable-print" type="text" nbInput disabled>
+          <span class="print-only"><b>This is the data</b></span>
+        </td>
+        <td>
+          <input class="disable-print" type="text" nbInput disabled>
+          <span class="print-only"><b>This is the data</b></span>
+        </td>
+        <td>
+          <input class="disable-print" type="text" nbInput disabled>
+          <span class="print-only"><b>This is the data</b></span>
+        </td>
+        <td>
+          <input class="disable-print" type="text" nbInput disabled>
+          <span class="print-only"><b>This is the data</b></span>
+        </td>
+        <td>
+          <input class="disable-print" type="text" nbInput disabled>
+          <span class="print-only"><b>This is the data</b></span>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <div>
+      <p><b>Notes:</b></p>
+      <ckeditor class="disable-print"
+                [config]="ckeConfig"></ckeditor>
+      <span class="print-only">"This is data</span>
+    </div>
+    <div>
+      <p class="header"><b>8.Discrepancy: </b></p>
+      <ckeditor class="disable-print"
+                [config]="ckeConfig"></ckeditor>
+      <span class="print-only">"This is data</span>
+    </div>
 
-    <p><b>4.Mode Of Payment</b></p>
-    <ol>
-      <li>Issuance of MC Favoring Ms <b>{{(cadFile?.data | jsonParse)?.acInfo?.issuanceOfMc || '...........'}}</b></li>
-      <li>Credit to Ac No :<b>{{(cadFile?.data | jsonParse)?.acInfo?.accountNo || '...........'}}</b> AC Name: <b>{{(cadFile?.data | jsonParse)?.acInfo?.accountName || '...........'}}</b> against purchase of <b>{{(cadFile?.data | jsonParse)?.acInfo?.againstPurchaseOf || '...........'}}</b></li>
-    </ol>
+    <div>
+      <p class="header"><b>9.Receipt of Lodgment: </b></p>
+      <p>This is to certify that the original copies of all the documents listed in the point no. 6 (Document Check List) above have been received for lodgment in the vault</p>
+    </div>
+    <div class="row text-center">
+      <div class="col-md-4">
+        .................................<br>
+        Name Of Custodian
+      </div>
+      <div class="col-md-4">
+        .................................<br>
 
-    <div class="row border">
-      <div class="col-md-3 border">
-        <p><b><u>Prepared by</u></b></p>
-        <p>Name:.....................</p>
-        <div class="box"></div>
-        <p><b>RO/RM</b></p>
+        Signature
       </div>
-      <div class="col-md-3 border">
-        <p><b><u>Recommended by</u></b></p>
-        <p>Name:.....................</p>
-        <div class="box"></div>
-        <p><b>OI/BM</b></p>
-      </div>
-      <div class="col-md-3 border">
-        <p><b><u>System Inputted by</u></b></p>
-        <p>Name:.....................</p>
-        <div class="box"></div>
-        <p><b>CAD/CSU</b></p>
-      </div>
-      <div class="col-md-3 border">
-        <p><b><u>Approved by</u></b></p>
-        <p class="hide">.</p>
-        <div class="box"></div>
-        <p><b>Head-CAD/CSU</b></p>
+      <div class="col-md-4">
+        .................................<br>
+
+        Vault Lodgment No.
       </div>
     </div>
-    <hr>
-    <p><b>5.Declaration:</b></p><hr>
-    <i>This is to certify that the original copies of all the documents as listed in the point 3 (Documentation Check Lists) are executed properly and are found in order.</i>
+    <div>
+      <p class="header"><b>10.	Instruction to Credit Operations:: </b></p>
+      <ckeditor class="disable-print"
+                [config]="ckeConfig"></ckeditor>
+      <span class="print-only">"This is data</span>
+    </div>
+<!--    <p><b>4.Mode Of Payment</b></p>-->
+<!--    <ol>-->
+<!--      <li>Issuance of MC Favoring Ms <b>{{(cadFile?.data | jsonParse)?.acInfo?.issuanceOfMc || '...........'}}</b></li>-->
+<!--      <li>Credit to Ac No :<b>{{(cadFile?.data | jsonParse)?.acInfo?.accountNo || '...........'}}</b> AC Name: <b>{{(cadFile?.data | jsonParse)?.acInfo?.accountName || '...........'}}</b> against purchase of <b>{{(cadFile?.data | jsonParse)?.acInfo?.againstPurchaseOf || '...........'}}</b></li>-->
+<!--    </ol>-->
+
+    <div class="row">
+
+      <div class="col-md-3 border">
+        <p><b><u>Prepared by</u></b></p>
+<!--        <p>Name:.....................</p>-->
+        <div class="box"></div>
+        <p><b>CSU/Branch</b></p>
+      </div>
+      <div class="col-md-2 border">
+        <p><b><u>Reviewed By</u></b></p>
+<!--        <p>Name:.....................</p>-->
+        <div class="box"></div>
+        <p><b>BM</b></p>
+      </div>
+      <div class="col-md-2 border">
+        <p><b><u> Vetted  by</u></b></p>
+<!--        <p>Name:.....................</p>-->
+        <div class="box"></div>
+        <p><b>Legal</b></p>
+      </div>
+      <div class="col-md-2 border">
+        <p><b><u>Verified By</u></b></p>
+<!--        <p class="hide">.</p>-->
+        <div class="box"></div>
+        <p><b>CRC</b></p>
+      </div>
+      <div class="col-md-3 border">
+        <p><b><u>Disbursed By</u></b></p>
+<!--        <p class="hide">.</p>-->
+        <div class="box"></div>
+        <p><b>COPI</b></p>
+      </div>
+
+
+      </div>
+<!--    <hr>-->
+<!--    <p><b>5.Declaration:</b></p><hr>-->
+<!--    <i>This is to certify that the original copies of all the documents as listed in the point 3 (Documentation Check Lists) are executed properly and are found in order.</i>-->
 
   </nb-card-body>
   <nb-card-footer class="disable-print">

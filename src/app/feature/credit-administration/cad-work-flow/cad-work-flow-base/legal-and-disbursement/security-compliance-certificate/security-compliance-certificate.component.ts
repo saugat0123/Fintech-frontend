@@ -12,6 +12,7 @@ import {CustomerType} from '../../../../../customer/model/customerType';
 import {LocalStorageUtil} from '../../../../../../@core/utils/local-storage-util';
 import {RoleType} from '../../../../../admin/modal/roleType';
 import {CadDocStatus} from '../../../../model/CadDocStatus';
+import {Editor} from '../../../../../../@core/utils/constants/editor';
 
 @Component({
   selector: 'app-security-compliance-certificate',
@@ -32,6 +33,7 @@ export class SecurityComplianceCertificateComponent implements OnInit {
   isMaker = false;
   spinner = false;
   docStatus = CadDocStatus;
+  ckeConfig;
 
 
 
@@ -46,6 +48,7 @@ export class SecurityComplianceCertificateComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.configEditor();
     this.getCompanyPan();
     this.setSccRefNumber();
     this.getSecurityCode();
@@ -133,6 +136,8 @@ export class SecurityComplianceCertificateComponent implements OnInit {
      }
    }
   }
-
+  configEditor() {
+    this.ckeConfig = Editor.CK_CONFIG;
+  }
 
 }
