@@ -170,5 +170,9 @@
       display: table-footer-group
     }
 
+    .pagebreak {
+      page-break-after: always !important;
+    }
+
   }
 }
