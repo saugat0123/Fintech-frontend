@@ -380,8 +380,8 @@ export class LoanFormComponent implements OnInit {
                 });
 
                 this.templateList.forEach((value, index) => {
-                    if ((this.loanDocument.customerInfo.isMicroCustomer ||
-                        environment.disableCrgLambda) && value.name === 'Credit Risk Grading - Lambda') {
+                    // this.loanDocument.customerInfo.isMicroCustomer ||
+                    if ((environment.disableCrgLambda) && value.name === 'Credit Risk Grading - Lambda') {
                         this.templateList.splice(index, 1);
                     }
                 });

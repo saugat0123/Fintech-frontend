@@ -4,20 +4,20 @@
                        [proposalData]="proposalData"
                        [loanDataHolder]="loanDataHolder"></app-proposal-view>
 </div>
-<app-security-view *ngIf="loanHolder?.security?.data && (smallBusiness || consumerFinance)" [security]="loanHolder?.security"
+<app-security-view *ngIf="loanHolder?.security?.data" [security]="loanHolder?.security"
                    [shareSecurityData]="loanHolder?.shareSecurity"
                    [securityId]="securityId"
                    [proposal]="proposalData"
                    [collateralData]="loanDataHolder?.collateralSiteVisits"
                    [docStatus]="loanDataHolder?.documentStatus"
                    (downloadSiteVisitDocument)="checkSiteVisitDocument($event)"></app-security-view>
-<app-security-approved-view *ngIf="approvedSecurity && !approveSecurityAsProposed  && (smallBusiness || consumerFinance)" [security]="loanHolder?.security"
+<app-security-approved-view *ngIf="approvedSecurity && !approveSecurityAsProposed" [security]="loanHolder?.security"
                             [shareSecurityData]="loanDataHolder?.shareSecurity"
                             [securityId]="securityId"
                             [docStatus]="loanDataHolder?.documentStatus"
                             [collateralData]="loanDataHolder?.collateralSiteVisits"
                             (downloadSiteVisitDocument)="checkSiteVisitDocument($event)"></app-security-approved-view>
-<app-security-schedule *ngIf="smallBusiness || consumerFinance" [loanDataHolder]="loanDataHolder"></app-security-schedule>
+<app-security-schedule  [loanDataHolder]="loanDataHolder"></app-security-schedule>
 
 <app-individual-view *ngIf="loanDataHolder?.loanCategory === 'INDIVIDUAL'"
                      [calendarType]="calendarType"
@@ -32,10 +32,10 @@
                        [loanId]="loanId"
                        [loanDataHolder]="loanDataHolder"
                        [customerInfo]="loanHolder"></app-company-info-view>
-<div *ngIf="consumerFinance">
-    <app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0"
-                        [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
-    <app-financial-view *ngIf="loanHolder?.financial && isIndividual && consumerFinance"
+<app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0"
+                    [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
+<div *ngIf="isIndividual">
+    <app-financial-view *ngIf="loanHolder?.financial && isIndividual"
                         [customerType]="loanHolder?.customerType"
                         [formData]="loanHolder?.financial"></app-financial-view>
     <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl" [ciclValue]="loanDataHolder?.loanHolder?.cicl" [loanDataHolder]="loanDataHolder"></app-cicl-view>
@@ -57,11 +57,10 @@
         </tr>
     </ng-container>
 
-</div><div *ngIf="smallBusiness">
-    <app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0"
-                        [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
+</div>
+<div *ngIf="!isIndividual">
     <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl" [ciclValue]="loanDataHolder?.loanHolder?.cicl" [loanDataHolder]="loanDataHolder"></app-cicl-view>
-    <div *ngIf="financialKeys?.length > 0 && !isIndividual && smallBusiness">
+    <div *ngIf="financialKeys?.length > 0 && !isIndividual ">
         <ng-container  *ngFor="let title of financialKeys">
             <h6>{{title | financialPipe}}</h6>
             <hr>
@@ -70,7 +69,7 @@
             </div>
         </ng-container>
     </div>
-    <app-nta-mega-summary *ngIf="loanDataHolder?.loanHolder?.netTradingAssets && fiscalYearArray?.length > 0  && smallBusiness"
+    <app-nta-mega-summary *ngIf="loanDataHolder?.loanHolder?.netTradingAssets && fiscalYearArray?.length > 0"
                           [fiscalYears]="fiscalYearArray"
                           [netTradingAssetsData]="loanDataHolder?.loanHolder?.netTradingAssets"></app-nta-mega-summary>
 
@@ -92,7 +91,6 @@
     </ng-container>
 
 </div>
-<app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl && !consumerFinance && !smallBusiness" [ciclValue]="loanDataHolder?.loanHolder?.cicl" [loanDataHolder]="loanDataHolder"></app-cicl-view>
 
 <div *ngIf="megaGroupEnabled && loanDataHolder?.loanHolder.mgroupInfo">
     <app-m-group-summary [mGroup]="loanDataHolder?.loanHolder.mgroupInfo"></app-m-group-summary>
@@ -117,33 +115,7 @@
                                         [proposalData]="proposalData"></app-proposal-justification-summary>
 </div>
 
-<app-security-view *ngIf="loanHolder?.security?.data && !consumerFinance && !smallBusiness" [security]="loanHolder?.security"
-                   [shareSecurityData]="loanHolder?.shareSecurity"
-                   [securityId]="securityId"
-                   [proposal]="proposalData"
-                   [collateralData]="loanDataHolder?.collateralSiteVisits"
-                   [docStatus]="loanDataHolder?.documentStatus"
-                   (downloadSiteVisitDocument)="checkSiteVisitDocument($event)"></app-security-view>
-<app-security-approved-view *ngIf="approvedSecurity && !approveSecurityAsProposed  && !consumerFinance && !smallBusiness" [security]="loanHolder?.security"
-                            [shareSecurityData]="loanDataHolder?.shareSecurity"
-                            [securityId]="securityId"
-                            [docStatus]="loanDataHolder?.documentStatus"
-                            [collateralData]="loanDataHolder?.collateralSiteVisits"
-                            (downloadSiteVisitDocument)="checkSiteVisitDocument($event)"></app-security-approved-view>
-<app-security-schedule *ngIf="!smallBusiness && !consumerFinance" [loanDataHolder]="loanDataHolder"></app-security-schedule>
 
-<app-financial-view *ngIf="loanHolder?.financial && isIndividual && !consumerFinance"
-                    [customerType]="loanHolder?.customerType"
-                    [formData]="loanHolder?.financial"></app-financial-view>
-<div *ngIf="financialKeys?.length > 0 && !isIndividual && !smallBusiness">
-    <ng-container  *ngFor="let title of financialKeys">
-        <h6>{{title | financialPipe}}</h6>
-        <hr>
-        <div class="row">
-            <app-financial-json-parser [financialJson]="financialData[title] | jsonParse"></app-financial-json-parser>
-        </div>
-    </ng-container>
-</div>
 <app-crg-gamma-detail-view
         *ngIf="loanDataHolder?.crgGamma"
         [formData]="loanDataHolder?.crgGamma">
@@ -157,25 +129,12 @@
         *ngIf="loanDataHolder?.creditRiskGradingLambda"
         [lambdaData]="loanDataHolder?.creditRiskGradingLambda">
 </app-crg-lambda-detail-view>
-<app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0 && !consumerFinance && !smallBusiness"
-                    [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
 <app-site-visit-view *ngIf="loanHolder?.siteVisit"
                      [siteVisit]="loanHolder?.siteVisit"></app-site-visit-view>
 <!--    <app-net-trading-assets *ngIf="loanHolder?.netTradingAssets"
                             [fromProfile]="false"
                             [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-net-trading-assets>
  -->
-<ng-container *ngIf="(client === clientName?.ICFC) || (client === clientName?.LAXMIBANK); else otherBank">
-    <app-nta-mega-summary *ngIf="loanHolder?.netTradingAssets && fiscalYearArray?.length > 0  && !smallBusiness"
-                          [fiscalYears]="fiscalYearArray"
-                          [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-nta-mega-summary>
-</ng-container>
-
-<ng-template #otherBank>
-    <app-nta-summary *ngIf="loanHolder?.netTradingAssets && fiscalYearArray?.length > 0"
-                     [fiscalYears]="fiscalYearArray"
-                     [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-nta-summary>
-</ng-template>
 <app-income-from-account-view *ngIf="!isIndividual" [individual]="isIndividual"
                               [data]="(bankingRelation)"></app-income-from-account-view>
 <div *ngIf="loanDataHolder?.loanCategory.toLowerCase() === 'institution' && loanDataHolder.loanHolder?.data  !==null">

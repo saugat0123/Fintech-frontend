@@ -1,6 +1,6 @@
 <div *ngIf="guarantorData?.length > 0" class="row">
   <div class="col-md-12 text-center">
-    <p class="float-left"><strong>Shareholder/Guarantor Details</strong></p>
+    <p class="float-left header"><strong>Shareholder/Guarantor Details</strong></p>
     <table *ngFor="let guarantor of guarantorData; let i= index"
            class="table table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small">
       <thead>
@@ -13,19 +13,19 @@
           <th>Legal Status</th>
           <th>Registration Number</th>
           <th>Registration Date</th>
-          <th>Registration With</th>
+<!--          <th>Registration With</th>-->
           <th>Group Name</th>
         </ng-container>
         <ng-template #notConsent>
           <th>Gender</th>
           <th>Passport Number</th>
-          <th>Passport Issued Date</th>
-          <th>Passport Issued Place</th>
+<!--          <th>Passport Issued Date</th>-->
+<!--          <th>Passport Issued Place</th>-->
           <th>Nationality</th>
         </ng-template>
         <th>PAN Number</th>
-        <th>PAN Issued Date</th>
-        <th>PAN Issued Place</th>
+<!--        <th>PAN Issued Date</th>-->
+<!--        <th>PAN Issued Place</th>-->
         <th>Email</th>
         <th>Shareholding Type</th>
         <th>Guarantor</th>
@@ -37,20 +37,20 @@
         <ng-container *ngIf="guarantor?.consentOfLegalHeirs; else notConsent1">
           <td class="text-left pl-1">{{guarantor?.legalStatus}}</td>
           <td class="text-left pl-1">{{guarantor?.registrationNumber}}</td>
-          <td class="text-left pl-1">{{guarantor?.registrationDate ? (guarantor?.registrationDate | date) : 'NA'}}</td>
+<!--          <td class="text-left pl-1">{{guarantor?.registrationDate ? (guarantor?.registrationDate | date) : 'NA'}}</td>-->
           <td class="text-left pl-1">{{guarantor?.registrationWith}}</td>
           <td class="text-left pl-1">{{guarantor?.groupName ? guarantor?.groupName : 'NA'}}</td>
         </ng-container>
         <ng-template #notConsent1>
           <td class="text-left pl-1">{{guarantor?.gender}}</td>
           <td class="text-left pl-1">{{guarantor?.passNumber}}</td>
-          <td class="text-left pl-1">{{guarantor?.passIssueDate ? (guarantor?.passIssueDate | date) : 'NA'}}</td>
-          <td class="text-left pl-1">{{guarantor?.passIssuedPlace}}</td>
+<!--          <td class="text-left pl-1">{{guarantor?.passIssueDate ? (guarantor?.passIssueDate | date) : 'NA'}}</td>-->
+<!--          <td class="text-left pl-1">{{guarantor?.passIssuedPlace}}</td>-->
           <td class="text-left pl-1">{{guarantor?.nationality}}</td>
         </ng-template>
         <td class="text-left pl-1">{{guarantor?.passIssuedPlace}}</td>
-        <td class="text-left pl-1">{{guarantor?.panIssueDate ? (guarantor?.panIssueDate | date) : 'NA'}}</td>
-        <td class="text-left pl-1">{{guarantor?.panIssuedPlace}}</td>
+<!--        <td class="text-left pl-1">{{guarantor?.panIssueDate ? (guarantor?.panIssueDate | date) : 'NA'}}</td>-->
+<!--        <td class="text-left pl-1">{{guarantor?.panIssuedPlace}}</td>-->
         <td class="text-left pl-1">{{guarantor?.email}}</td>
         <td class="text-left pl-1">{{guarantor?.shareHolding}}</td>
         <td class="text-left pl-1">{{guarantor?.guarantor}}</td>
@@ -63,8 +63,8 @@
         <th>Shareholding %</th>
         <td>Profession</td>
         <td>Net Worth</td>
-        <th>Address 1</th>
-        <th>Address 2</th>
+<!--        <th>Address 1</th>-->
+<!--        <th>Address 2</th>-->
         <th>Province</th>
         <th>District</th>
         <th>Municipalities</th>
@@ -79,8 +79,8 @@
         <td class="text-right pr-1">{{guarantor?.sharePercent}}</td>
         <td class="text-left pl-1">{{Occupation[guarantor?.profession]}}</td>
         <td class="text-left pl-1">{{guarantor?.netWorth}}</td>
-        <td class="text-left pl-1">{{guarantor?.permanentAddressLineOne}}</td>
-        <td class="text-left pl-1">{{guarantor?.permanentAddressLineTwo}}</td>
+<!--        <td class="text-left pl-1">{{guarantor?.permanentAddressLineOne}}</td>-->
+<!--        <td class="text-left pl-1">{{guarantor?.permanentAddressLineTwo}}</td>-->
         <td class="text-left pl-1">{{guarantor?.province?.name}}</td>
         <td class="text-left pl-1">{{guarantor?.district?.name}}</td>
         <td class="text-left pl-1">{{guarantor?.municipalities?.name}}</td>
@@ -93,7 +93,7 @@
       <thead>
       <tr class="text-white sb-bg-dark">
         <th>Temporary Address 1</th>
-        <th>Temporary Address 2</th>
+<!--        <th>Temporary Address 2</th>-->
         <th>Temporary Province</th>
         <th>Temporary District</th>
         <th>Temporary Municipalities</th>
@@ -110,7 +110,7 @@
       <tbody>
       <tr>
         <td class="text-right pr-1">{{guarantor?.temporaryAddressLineOne}}</td>
-        <td class="text-right pr-1">{{guarantor?.temporaryAddressLineTwo}}</td>
+<!--        <td class="text-right pr-1">{{guarantor?.temporaryAddressLineTwo}}</td>-->
         <td class="text-left pl-1">{{guarantor?.provinceTemporary?.name}}</td>
         <td class="text-left pl-1">{{guarantor?.districtTemporary?.name}}</td>
         <td class="text-left pl-1">{{guarantor?.municipalitiesTemporary?.name}}</td>
@@ -131,12 +131,12 @@
         <th>Issued Year(AD/BS)</th>
         <th>Issued Place</th>
         <th>Management Team</th>
-        <th>Management Team Designation</th>
-        <th>Member of Board Director</th>
+<!--        <th>Management Team Designation</th>-->
+<!--        <th>Member of Board Director</th>-->
         <th>No. of BOD Member</th>
-        <th>No. of Female Directors</th>
-        <th>No. of Directors from marginalized community group</th>
-        <th>No. of Directors from marginalized community group</th>
+<!--        <th>No. of Female Directors</th>-->
+<!--        <th>No. of Directors from marginalized community group</th>-->
+<!--        <th>No. of Directors from marginalized community group</th>-->
       </tr>
       </thead>
       <tbody>
@@ -148,12 +148,12 @@
           ({{guarantor?.issuedYear ? (guarantor?.issuedYear | engNepDate: false) : 'NA'}})</td>
         <td class="text-left pl-1">{{guarantor?.issuedPlace}}</td>
         <td class="text-left pl-1">{{guarantor?.managementTeam}}</td>
-        <td class="text-left pl-1">{{guarantor?.managementDesignation}}</td>
-        <td class="text-left pl-1">{{guarantor?.boardDirector}}</td>
+<!--        <td class="text-left pl-1">{{guarantor?.managementDesignation}}</td>-->
+<!--        <td class="text-left pl-1">{{guarantor?.boardDirector}}</td>-->
         <td class="text-right pr-1">{{guarantor?.bodNumber}}</td>
-        <td class="text-right pr-1">{{guarantor?.bodFemaleDirector}}</td>
-        <td class="text-right pr-1">{{guarantor?.marginalisedDirector}}</td>
-        <td class="text-right pr-1">{{guarantor?.femaleMarDirector}}</td>
+<!--        <td class="text-right pr-1">{{guarantor?.bodFemaleDirector}}</td>-->
+<!--        <td class="text-right pr-1">{{guarantor?.marginalisedDirector}}</td>-->
+<!--        <td class="text-right pr-1">{{guarantor?.femaleMarDirector}}</td>-->
       </tr>
       </tbody>
       <tr class="text-white sb-bg-dark">
