@@ -48,23 +48,23 @@
                         )
 
                         <br>
-                        ठेगाना :-स्थायी<input class="form-field nepaliFont form-control-sm"
+                        ठेगाना :-स्थायी<input class="form-field nepaliFont form-control-sm unicode-size16"
                                               formControlName="sincerlyPermanentDistrict"
                                               type="text">
-                        जिल्ला <input class="form-field nepaliFont form-control-sm"
+                        जिल्ला <input class="form-field nepaliFont form-control-sm unicode-size16"
                                       formControlName="sincerlyPermanentMunicipality"
                                       type="text">
-                        गा.पा./न.पा.वडा नं.<input class="form-field nepaliFont form-control-sm"
+                        गा.पा./न.पा., वडा नं.<input class="form-field nepaliFont form-control-sm"
                                                   formControlName="sincerlyPermanentWadNo"
                                                   type="text">
                         <br>
-                        हालको ठेगाना :-<input class="form-field nepaliFont form-control-sm"
+                        हालको ठेगाना :-<input class="form-field nepaliFont form-control-sm unicode-size16"
                                             formControlName="sincerlyTemporaryDistrict"
                                             type="text">
-                        जिल्ला <input class="form-field nepaliFont form-control-sm"
+                        जिल्ला <input class="form-field nepaliFont form-control-sm unicode-size16"
                                       formControlName="sincerlyTemporaryVDCname"
                                       type="text">
-                        गा.पा./न.पा.वडा नं.<input class="form-field nepaliFont form-control-sm"
+                        गा.पा./न.पा., वडा नं.<input class="form-field nepaliFont form-control-sm"
                                                   formControlName="sincerlyTemporaryWadNo"
                                                   type="text">
 
@@ -77,6 +77,12 @@
                         बाजेको नाम :-<input class="form-field nepaliFont form-control-sm"
                                                formControlName="sincerlyGrandParentName"
                                                type="text">
+                        <br>
+                        पति/पत्नीको नामः
+                        <input class="form-control-sm form-field nepaliFont"
+                               type="text"
+                               readonly
+                               formControlName="spouseOrFatherName">
                         <br>
                         स्थायी लेखा नं. :-<input class="form-field nepaliFont form-control-sm"
                                                 formControlName="sincerlyLekhaNo"
@@ -110,6 +116,9 @@
                     </div>
                     <br>
                     <br>
+                    <div *ngFor="let guarantor of form.get('guarantorDetails')['controls']; index as i"
+                         formArrayName="guarantorDetails" class="mt-4">
+                        <div [formGroupName]="i">
                     <p>
                     दस्तखत :- .......................
                     <br>
@@ -136,33 +145,43 @@
                                                formControlName="jamanatRegCDO"
                                                type="text"> )
                     <br>
-                    ठेगाना :—स्थायी <input class="form-field nepaliFont form-control-sm"
+                    ठेगाना :—स्थायी <input class="form-field nepaliFont form-control-sm unicode-size16"
                                            formControlName="jamanatPermanentAddress"
                                            type="text">
-                    जिल्ला <input class="form-field nepaliFont form-control-sm"
+                    जिल्ला <input class="form-field nepaliFont form-control-sm unicode-size16"
                                   formControlName="jamanatDistrict"
                                   type="text">
-                    गा.पा./न.पा.वडा नं <input class="form-field nepaliFont form-control-sm"
+                    गा.पा./न.पा., वडा नं <input class="form-field nepaliFont form-control-sm"
                                               formControlName="jamanatWadNo"
                                               type="text">
                     <br>
-                    हालको ठेगाना :- <input class="form-field nepaliFont form-control-sm"
+                    हालको ठेगाना :- <input class="form-field nepaliFont form-control-sm unicode-size16"
                                         formControlName="jamanatTemporaryAddress"
                                         type="text">
-                    जिल्ला <input class="form-field nepaliFont form-control-sm"
+                    जिल्ला <input class="form-field nepaliFont form-control-sm unicode-size16"
                                   formControlName="jamanatTemporaryDistrict"
                                   type="text">
-                    गा.पा./न.पा.वडा नं <input class="form-field nepaliFont form-control-sm"
+                    गा.पा./न.पा., वडा नं <input class="form-field nepaliFont form-control-sm"
                                               formControlName="jamanatTemporaryWadNo"
                                               type="text">
-                    <br>
-                    पतिको नाम :—  <input class="form-field nepaliFont form-control-sm"
-                                         formControlName="jamanatHusbandName"
-                                         type="text">
-                    <br>
-                    ससुराको नाम :- <input class="form-field nepaliFont form-control-sm"
-                                          formControlName="jamanatSasuraName"
-                                          type="text">
+                        <br>
+                        बूबाको नाम :
+                        <input class="form-control-sm form-field nepaliFont"
+                               formControlName="jamanatParentName"
+                               readonly
+                               type="text">
+                        <br>
+                        बाजेको नाम :
+                        <input class="form-control-sm form-field nepaliFont"
+                               formControlName="jamanatGrandParentName"
+                               readonly
+                               type="text">
+                        <br>
+                        पति/पत्नीको नामः
+                        <input class="form-control-sm form-field nepaliFont"
+                               type="text"
+                               readonly
+                               formControlName="jamanatSpouseName">
                     <br>
                     औठा छाप :-
                     </p>
@@ -185,6 +204,17 @@
                         </table>
 
                     </div>
+                            <div *ngIf="form.get('guarantorDetails')['length']>1" class="col-md-3 float-right">
+                                <button (click)="removeGuarantor(i)"
+                                        class="ml-2 mt-1 br-5 btn-danger btn-sm btn-flat"
+                                        value="Delete">
+                                    <em class="fas fa-trash" style="color: white;">
+                                        Delete Guarantor
+                                    </em>
+                                </button>
+                            </div>
+                    </div>
+                        </div>
                 </div>
                 <br>
                     <strong class="text-left">साक्षी : </strong>

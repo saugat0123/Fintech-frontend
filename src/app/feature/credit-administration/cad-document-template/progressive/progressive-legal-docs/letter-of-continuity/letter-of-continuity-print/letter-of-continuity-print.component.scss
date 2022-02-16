@@ -1,16 +1,15 @@
 @import '../../progressive-legal-docs.component';
 
-//*{
-//margin-left:20px;
-//margin-right:10px;
-//
-//}
+.margin {
+  margin: 1in 0 0 1in;
+}
+
 @media print {
   .page-break { page-break-before: always; }
 }
-*{
+/**{
   line-height: 1.9em;
-}
+}*/
 .tableGuarantor {
   width:100%;
   height: 120px;

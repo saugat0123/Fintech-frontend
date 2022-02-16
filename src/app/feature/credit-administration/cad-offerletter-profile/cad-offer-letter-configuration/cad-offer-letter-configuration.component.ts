@@ -463,7 +463,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             plotNoOld: '',
             collateralType: '',
             collateralPermanentVdc: '',
+            collateralPermanentVdcWard: '',
             collateralTemporaryVdc: '',
+            collateralTemporaryVdcWard: '',
             dhitoBibaran: '',
             regNo: ''
         });

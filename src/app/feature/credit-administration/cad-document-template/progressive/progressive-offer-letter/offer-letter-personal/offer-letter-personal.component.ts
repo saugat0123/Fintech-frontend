@@ -17,7 +17,6 @@ import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {CadDocStatus} from '../../../../model/CadDocStatus';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 import {AddressService} from '../../../../../../@core/service/baseservice/address.service';
-import {NepDataPersonal} from '../../../../model/nepDataPersonal';
 
 @Component({
     selector: 'app-offer-letter-personal',
@@ -37,7 +36,7 @@ export class OfferLetterPersonalComponent implements OnInit {
     nepaliData;
     districtList;
     loanAmount;
-    nepDataPersonal = new NepDataPersonal();
+    nepDataPersonal;
 
     constructor(private formBuilder: FormBuilder,
                 private nepToEngNumberPipe: NepaliToEngNumberPipe,

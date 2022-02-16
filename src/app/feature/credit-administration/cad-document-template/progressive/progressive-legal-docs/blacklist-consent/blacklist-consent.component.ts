@@ -33,6 +33,7 @@ export class BlacklistConsentComponent implements OnInit {
   existingOfferLetter = false;
   offerLetterDocument: OfferDocument;
   nepaliData;
+  nepDataPersonal;
 
   constructor(private dialogRef: NbDialogRef<BlacklistConsentComponent>,
               private formBuilder: FormBuilder,
@@ -40,8 +41,7 @@ export class BlacklistConsentComponent implements OnInit {
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
-              private routerUtilsService: RouterUtilsService,
-              private customerOfferLetterService: CustomerOfferLetterService) {
+              private routerUtilsService: RouterUtilsService) {
   }
 
   ngOnInit() {
@@ -50,50 +50,45 @@ export class BlacklistConsentComponent implements OnInit {
   }
 
   fillForm() {
-    if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
+      if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
           const initialInfo = JSON.parse(singleCadFile.initialInformation);
           this.initialInfoPrint = initialInfo;
           this.form.patchValue(this.initialInfoPrint);
-          if (!ObjectUtil.isEmpty(initialInfo.guarantorDetails)) {
+          /*if (!ObjectUtil.isEmpty(initialInfo.guarantorDetails)) {
             this.setGuarantorDetails(initialInfo.guarantorDetails);
-          }
+          }*/
         }
       });
+    }
+
+    if (!ObjectUtil.isEmpty(this.cadData.nepDataPersonal)) {
+      this.nepDataPersonal = JSON.parse(this.cadData.nepDataPersonal);
     }
 
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
 
       this.form.patchValue({
-        customerName: this.nepaliData.name ? this.nepaliData.name : '',
+        sincerlyName: this.nepaliData.name ? this.nepaliData.name : '',
+        sincerlyPermanentMunicipality: !ObjectUtil.isEmpty(this.nepaliData.permanentMunicipalities) ? this.nepaliData.permanentMunicipalities.nepaliName : '',
+        sincerlyPermanentWadNo: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
+        sincerlyPermanentDistrict: !ObjectUtil.isEmpty(this.nepaliData.permanentDistrict) ? this.nepaliData.permanentDistrict.nepaliName : '',
+        sincerlyCitizenshipNo: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
+        sincerlyDate: this.nepaliData.citizenshipIssueDate ? this.nepaliData.citizenshipIssueDate : '',
+        sincerlyCDOoffice: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
+        sincerlyParentName: this.nepaliData.fatherName ? this.nepaliData.fatherName : '',
+        sincerlyGrandParentName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
+        sincerlyTemporaryVDCname: !ObjectUtil.isEmpty(this.nepaliData.temporaryMunicipalities) ? this.nepaliData.temporaryMunicipalities.nepaliName : '',
+        sincerlyTemporaryWadNo: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
+        sincerlyTemporaryDistrict: !ObjectUtil.isEmpty(this.nepaliData.temporaryDistrict) ? this.nepaliData.temporaryDistrict.nepaliName : '',
+        sincerlyKarja: this.nepDataPersonal.loanType ? this.nepDataPersonal.loanType : '',
+        spouseOrFatherName: this.nepaliData.husbandName ? this.nepaliData.husbandName : ''
       });
     }
-
-
+    this.setGuarantorDetails(this.nepaliData.guarantorDetails);
   }
-
-
-  setGuarantorDetails(data) {
-    const formArray = this.form.get('guarantorDetails') as FormArray;
-    if (data.length === 0) {
-      this.addGuarantor();
-      return;
-    }
-    data.forEach((value) => {
-      formArray.push(this.formBuilder.group({
-        name: [value.name],
-        citizenNumber: [value.citizenNumber],
-        issuedYear: [value.issuedYear],
-        guarantorCDOoffice: [value.guarantorCDOoffice],
-        guarantorDistrict: [value.guarantorDistrict],
-        guarantorMunicipality: [value.guarantorMunicipality],
-        guarantorWadNo: [value.guarantorWadNo]
-      }));
-    });
-  }
-
 
   submit(): void {
     let flag = true;
@@ -193,7 +188,8 @@ export class BlacklistConsentComponent implements OnInit {
       witnessCDOoffice1: [undefined],
       witnessIssuedPlace1: [undefined],
       witnessMunicipality1: [undefined],
-      witnessWardNo1: [undefined]
+      witnessWardNo1: [undefined],
+      spouseOrFatherName: [undefined]
 
     });
 
@@ -210,13 +206,54 @@ export class BlacklistConsentComponent implements OnInit {
 
   guarantorFormGroup(): FormGroup {
     return this.formBuilder.group({
-      name: [undefined],
-      citizenNumber: [undefined],
-      issuedYear: [undefined],
-      guarantorCDOoffice: [undefined],
-      guarantorDistrict: [undefined],
-      guarantorMunicipality: [undefined],
-      guarantorWadNo: [undefined]
+      jamanatName: [undefined],
+      jamanatNPN: [undefined],
+      jamanatDate: [undefined],
+      jamanatJPK: [undefined],
+      jamanatRegNo: [undefined],
+      jamanatRegDate: [undefined],
+      jamanatRegCDO: [undefined],
+      jamanatPermanentAddress: [undefined],
+      jamanatDistrict: [undefined],
+      jamanatWadNo: [undefined],
+      jamanatTemporaryAddress: [undefined],
+      jamanatTemporaryDistrict: [undefined],
+      jamanatTemporaryWadNo: [undefined],
+      jamanatParentName: [undefined],
+      jamanatGrandParentName: [undefined],
+      jamanatSpouseName: [undefined],
+    });
+  }
+
+  setGuarantorDetails(data) {
+    const formArray = this.form.get('guarantorDetails') as FormArray;
+    if (data.length === 0) {
+      this.addGuarantor();
+      return;
+    }
+    data.forEach((value) => {
+      formArray.push(this.formBuilder.group({
+        jamanatName: [value.guarantorName],
+        jamanatNPN: [value.citizenNumber],
+        jamanatDate: [value.issuedYear],
+        jamanatJPK: [value.issuedPlace],
+        jamanatRegNo: [value.jamanatRegNo],
+        jamanatRegDate: [value.jamanatRegDate],
+        jamanatRegCDO: [value.jamanatRegCDO],
+        jamanatPermanentAddress: [ !ObjectUtil.isEmpty(value.guarantorPermanentDistrict) ?
+            value.guarantorPermanentDistrict.nepaliName : ''],
+        jamanatDistrict: [!ObjectUtil.isEmpty(value.guarantorPermanentMunicipality) ?
+            value.guarantorPermanentMunicipality.nepaliName : ''],
+        jamanatWadNo: [value.guarantorPermanentWard],
+        jamanatTemporaryAddress: [ !ObjectUtil.isEmpty(value.guarantorTemporaryDistrict) ?
+            value.guarantorTemporaryDistrict.nepaliName : ''],
+        jamanatTemporaryDistrict: [!ObjectUtil.isEmpty(value.guarantorTemporaryMunicipality) ?
+            value.guarantorTemporaryMunicipality.nepaliName : ''],
+        jamanatTemporaryWadNo: [value.guarantorTemporaryWard],
+        jamanatParentName: [value.guarantorFatherName],
+        jamanatGrandParentName: [value.guarantorGrandfatherName],
+        jamanatSpouseName: [value.guarantorSpouseName],
+      }));
     });
   }
 

@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {CustomerOfferLetter} from '../../../../../loan/model/customer-offer-letter';
 import {OfferDocument} from '../../../../model/OfferDocument';
@@ -18,7 +18,8 @@ import {Document} from '../../../../../admin/modal/document';
 @Component({
   selector: 'app-guarantee-bond-personal',
   templateUrl: './guarantee-bond-personal.component.html',
-  styleUrls: ['./guarantee-bond-personal.component.scss']
+  styleUrls: ['./guarantee-bond-personal.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class GuaranteeBondPersonalComponent implements OnInit {
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
