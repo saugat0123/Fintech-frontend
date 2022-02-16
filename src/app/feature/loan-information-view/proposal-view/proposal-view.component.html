@@ -405,6 +405,14 @@
       <tr>
         <td class="text-left pl-1" [innerHTML]="proposalAllData?.remark || 'N/A' | safeHtml"></td>
       </tr>
+      <ng-container *ngIf="checkedData?.swapChargeChecked">
+        <tr class="text-white sb-bg-dark">
+          <th>Swap Charge</th>
+        </tr>
+        <tr>
+          <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.swapCharge || 'N/A' | safeHtml"></span></td>
+        </tr>
+      </ng-container>
       <ng-container *ngIf="checkedData?.waiverChecked">
         <tr class="text-white sb-bg-dark">
           <th>Waiver/Deviation</th>

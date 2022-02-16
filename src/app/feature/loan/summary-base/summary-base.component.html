@@ -33,10 +33,12 @@
                    [nepaliDate]="nepaliDate"></app-micro-loan-summary>
            <app-loan-summary *ngSwitchDefault
                    (changeToApprovalSheetActive)="activeApprovalSheet()"
+                             (customerLoanList)="customerLoanList($event)"
                              [loanConfig]="loanConfig"
                              [loanData]="loanDataHolder"
                              [nepaliDate]="nepaliDate">
            </app-loan-summary>
+
        </ng-container>
         </ng-container>
 
