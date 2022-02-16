@@ -65,10 +65,12 @@ export class CommonSectionBottomComponent implements OnInit {
     });
     // position value
     if (!ObjectUtil.isEmpty(this.freeInformation)) {
-      if (this.position === this.freeInformation.sectionBottom.position) {
+      if ((this.position === this.freeInformation.sectionBottom.position) ||
+          this.freeInformation.sectionBottom.position === '') {
         this.position = 'सम्पर्क अधिकृत';
       }
-      if (this.position1 === this.freeInformation.sectionBottom.position1) {
+      if ((this.position1 === this.freeInformation.sectionBottom.position1) ||
+          this.freeInformation.sectionBottom.position1 === '') {
         this.position1 = 'सम्पर्क प्रबन्धक';
       }
       if (this.freeInformation.sectionBottom.position !== this.position) {

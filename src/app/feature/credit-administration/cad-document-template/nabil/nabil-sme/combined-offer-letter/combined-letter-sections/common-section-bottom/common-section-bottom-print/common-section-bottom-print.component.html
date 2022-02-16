@@ -24,12 +24,10 @@
                                 {{letter?.smeGlobalForm.nameOfRelationshipManagerCT === null || letter?.smeGlobalForm.nameOfRelationshipManagerCT === "" ? "_______________________" : letter?.smeGlobalForm.nameOfRelationshipManagerCT}}
                         </span>
                     <br>
-                    <span *ngIf="(freeInformation !== null || freeInformation !== '') &&
-                    (freeInformation.sectionBottom.position === 'सम्पर्क अधिकृत')">
+                    <span *ngIf="freeInformation?.sectionBottom?.position === 'सम्पर्क अधिकृत'">
                         {{freeInformation ? freeInformation.sectionBottom.position : 'सम्पर्क अधिकृत'}}
                     </span>
-                    <span *ngIf="(freeInformation !== null || freeInformation !== '') &&
-                    (freeInformation.sectionBottom.position !== 'सम्पर्क अधिकृत')"
+                    <span *ngIf="freeInformation?.sectionBottom?.position !== 'सम्पर्क अधिकृत'"
                             class="nepaliFont">
                         {{freeInformation ? freeInformation.sectionBottom.position : 'सम्पर्क अधिकृत'}}
                     </span>
@@ -53,12 +51,10 @@
                                 {{letter?.smeGlobalForm.nameOfBranchManagerCT === null || letter?.smeGlobalForm.nameOfBranchManagerCT === "" ? "_______________________" : letter?.smeGlobalForm.nameOfBranchManagerCT}}
                         </span>
                     <br>
-                    <span *ngIf="(freeInformation !== null || freeInformation !== '') &&
-                         (freeInformation.sectionBottom.position1 === 'सम्पर्क प्रबन्धक')">
+                    <span *ngIf="freeInformation?.sectionBottom?.position1 === 'सम्पर्क प्रबन्धक'">
                         {{freeInformation ? freeInformation.sectionBottom.position1 : 'सम्पर्क प्रबन्धक'}}
                     </span>
-                    <span *ngIf="(freeInformation !== null || freeInformation !== '') &&
-                        (freeInformation.sectionBottom.position1 !== 'सम्पर्क प्रबन्धक')"
+                    <span *ngIf="freeInformation?.sectionBottom?.position1 !== 'सम्पर्क प्रबन्धक'"
                           class="nepaliFont">
                         {{freeInformation ? freeInformation.sectionBottom.position1 : 'सम्पर्क प्रबन्धक'}}
                     </span>

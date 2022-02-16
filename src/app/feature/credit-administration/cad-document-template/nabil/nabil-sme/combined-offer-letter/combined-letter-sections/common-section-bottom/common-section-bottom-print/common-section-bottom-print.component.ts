@@ -26,10 +26,10 @@ export class CommonSectionBottomPrintComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.freeInformation = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation);
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
       this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
       this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
+      this.freeInformation = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation);
       this.branchName = this.loanHolderInfo.branch.ct;
     }
     this.isNaturalPerson = this.tempData.smeGlobalForm.borrowerNaturalPerson;

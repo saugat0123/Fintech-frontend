@@ -18,6 +18,7 @@ import {OfferDocument} from '../../../../../../../model/OfferDocument';
 export class AutoLoanMasterComponent implements OnInit {
   @Input() loanName;
   @Input() offerDocumentList: Array<OfferDocument>;
+  @Input() cadDocAssignedLoan;
   initialInformation: any;
   loanDetails: any = [];
   autoLoanMasterForm: FormGroup;
@@ -41,6 +42,7 @@ export class AutoLoanMasterComponent implements OnInit {
   loanNameConstant = LoanNameConstant;
   dateType = [{key: 'AD', value: 'AD', checked: true}, {key: 'BS', value: 'BS'}];
   filteredList: any = [];
+  filteredLoanIdList: any = [];
 
   constructor(private formBuilder: FormBuilder,
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
@@ -75,6 +77,7 @@ export class AutoLoanMasterComponent implements OnInit {
             loanamountWords ? loanamountWords : '');
       }
     }
+    this.setLoanId();
   }
 
   patchDate() {
@@ -505,6 +508,7 @@ export class AutoLoanMasterComponent implements OnInit {
       paymentAmountWordsCT: [undefined],
       numberOfPaymentsCT: [undefined],
       paymentTermsCT: [undefined],
+      loanId: [undefined],
     });
   }
 
@@ -514,6 +518,15 @@ export class AutoLoanMasterComponent implements OnInit {
 
   removeLoanFormArr(i) {
     (this.autoLoanMasterForm.get('autoLoanFormArray') as FormArray).removeAt(i);
+  }
+
+  setLoanId() {
+    this.filteredLoanIdList = this.cadDocAssignedLoan.filter(data =>
+        data.loan.name === this.loanNameConstant.AUTO_LOAN);
+    this.filteredList.forEach((val, i) => {
+      this.autoLoanMasterForm.get(['autoLoanFormArray', i, 'loanId']).patchValue(
+          this.filteredLoanIdList[i].proposal.id);
+    });
   }
 
 }
