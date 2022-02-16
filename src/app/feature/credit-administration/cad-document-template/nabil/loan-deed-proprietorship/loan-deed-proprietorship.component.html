@@ -89,6 +89,7 @@
                 </span> को
                 <ng-container *ngIf="partner?.ownerGender === 'MALE'"> नाती </ng-container>
                 <ng-container *ngIf="partner?.ownerGender === 'FEMALE'"> नातिनी </ng-container>
+                <ng-container *ngIf="partner?.ownerGender === 'OTHERS'"> नाती/नातिनी </ng-container>
               </ng-container>
               <ng-container
                   *ngIf="partner?.ownerGender === 'FEMALE' && partner?.ownerRelationMedium === '0'">
@@ -115,6 +116,7 @@
                 </span> को
                 <ng-container *ngIf="partner?.ownerGender === 'MALE'"> छोरा </ng-container>
                 <ng-container *ngIf="partner?.ownerGender === 'FEMALE'"> छोरी </ng-container>
+                <ng-container *ngIf="partner?.ownerGender === 'OTHERS'"> छोरा/छोरी/श्रीमती </ng-container>
               </ng-container>
               <ng-container
                   *ngIf="partner?.ownerGender === 'FEMALE' && partner?.ownerRelationMedium === '0'">
@@ -178,18 +180,27 @@
                 </span>
               </ng-container>
               बस्ने बर्ष
-              <span>
+              <span *ngIf="partner?.ownerDobDateType === 'BS'">
                 <input class="form-field form-control-sm disable-print"
                        name="ageOfPartner"
                        formControlName="ageOfPartner"
-                       [value]="ageCalculation(partner?.ownerDob.eDate)"
+                       [value]="ageCalculation(partner?.ownerDobNepali.eDate)"
                        placeholder=" "
                        type="text"/>
-                <span class="print-only">{{ageCalculation(partner ? partner?.ownerDob.eDate : '_____________________________')}}</span>
+                <span class="print-only">{{ageCalculation(partner ? partner?.ownerDobNepali.eDate : '_____________________________')}}</span>
               </span>
-
-              <ng-container *ngIf="partner?.ownerGender === 'MALE'">को </ng-container>
-              <ng-container *ngIf="partner?.ownerGender === 'FEMALE'">की </ng-container>
+              <span *ngIf="partner?.ownerDobDateType === 'AD'">
+                <input class="form-field form-control-sm disable-print"
+                       name="ageOfPartner"
+                       formControlName="ageOfPartner"
+                       [value]="ageCalculation(partner?.ownerDob)"
+                       placeholder=" "
+                       type="text"/>
+                <span class="print-only">{{ageCalculation(partner ? partner?.ownerDob : '_____________________________')}}</span>
+              </span>
+              <ng-container *ngIf="partner?.ownerGender === 'MALE'"> को </ng-container>
+              <ng-container *ngIf="partner?.ownerGender === 'OTHERS'"> को/की श्री/श्रीमती/सुश्री </ng-container>
+              <ng-container *ngIf="partner?.ownerGender === 'FEMALE'"> की </ng-container>
               <ng-container *ngIf="partner?.ownerGender === 'MALE'"> श्री </ng-container>
               <ng-container
                   *ngIf="partner?.ownerGender === 'FEMALE' && partner?.ownerRelationMedium === '0'">
@@ -207,9 +218,9 @@
                        placeholder=" "
                        type="text"/>
                 <span class="print-only">{{partner?.ownerNameCT ? partner?.ownerNameCT : ''}}</span>
-              </span>
+              </span> (जसलाई यसपछि “ऋणी” भनिएको छ),
             </ng-container>
-            (जसलाई यसपछि “ऋणी” भनिएको छ), आगे म ऋणीलाई
+             आगे म ऋणीलाई
             <span>
               <input class="form-field form-control-sm disable-print"
                      name="purposeOfLoan"
@@ -481,111 +492,111 @@
               <p class="text-center"><strong><u>साक्षी</u></strong></p>
               <p>
               १.
-              <input class="form-field form-control-sm disable-print"
+              <input class="form-field form-control-sm disable-print nepaliFont"
                      name="districtOfWitness1"
                      formControlName="districtOfWitness1"
                      type="text"/>
-                <span class="print-only">{{form.get('districtOfWitness1')?.value ? form.get('districtOfWitness1')?.value : '_____________________'}}</span>
+                <span class="print-only nepaliFont">{{form.get('districtOfWitness1')?.value ? form.get('districtOfWitness1')?.value : '===================================='}}</span>
               जिल्ला
-              <input class="form-field form-control-sm disable-print"
+              <input class="form-field form-control-sm disable-print nepaliFont"
                      name="vdcOrMunOfWitness1"
                      formControlName="vdcOrMunOfWitness1"
                      type="text"/>
-                <span class="print-only">{{form.get('vdcOrMunOfWitness1')?.value || '_____________________'}}</span>
+                <span class="print-only nepaliFont">{{form.get('vdcOrMunOfWitness1')?.value || '===================================='}}</span>
               न.पा/गा.वि.स. वडा नं.
-              <input class="form-field form-control-sm disable-print"
+              <input class="form-field form-control-sm disable-print nepaliFont"
                      name="wardOfWitness1"
                      formControlName="wardOfWitness1"
                      type="text"/>
-                <span class="print-only">{{form.get('wardOfWitness1')?.value || '_____________________'}}</span>
+                <span class="print-only nepaliFont">{{form.get('wardOfWitness1')?.value || '===================================='}}</span>
               बस्ने बर्ष.
-              <input class="form-field form-control-sm disable-print"
+              <input class="form-field form-control-sm disable-print nepaliFont"
                      name="ageOfWitness1"
                      formControlName="ageOfWitness1"
                      type="text"/>
-                <span class="print-only">{{form.get('ageOfWitness1')?.value || '_____________________'}}</span>
+                <span class="print-only nepaliFont">{{form.get('ageOfWitness1')?.value || '===================================='}}</span>
               को/की
-              <input class="form-field form-control-sm disable-print"
+              <input class="form-field form-control-sm disable-print nepaliFont"
                      name="nameOfWitness1"
                      formControlName="nameOfWitness1"
                      type="text"/>
-                <span class="print-only">{{form.get('nameOfWitness1')?.value || '_____________________'}}</span>
+                <span class="print-only nepaliFont">{{form.get('nameOfWitness1')?.value || '===================================='}}</span>
               </p>
               <p>
               २.
-              <input class="form-field form-control-sm disable-print"
+              <input class="form-field form-control-sm disable-print nepaliFont"
                      name="districtOfWitness2"
                      formControlName="districtOfWitness2"
                      type="text"/>
-                <span class="print-only">{{form.get('districtOfWitness2')?.value || '_____________________'}}</span>
+                <span class="print-only nepaliFont">{{form.get('districtOfWitness2')?.value || '===================================='}}</span>
               जिल्ला
-              <input class="form-field form-control-sm disable-print"
+              <input class="form-field form-control-sm disable-print nepaliFont"
                      name="vdcOrMunOfWitness2"
                      formControlName="vdcOrMunOfWitness2"
                      type="text"/>
-                <span class="print-only">{{form.get('vdcOrMunOfWitness2')?.value || '_____________________'}}</span>
+                <span class="print-only nepaliFont">{{form.get('vdcOrMunOfWitness2')?.value || '===================================='}}</span>
               न.पा/गा.वि.स. वडा नं.
-              <input class="form-field form-control-sm disable-print"
+              <input class="form-field form-control-sm disable-print nepaliFont"
                      name="wardOfWitness2"
                      formControlName="wardOfWitness2"
                      type="text"/>
-                <span class="print-only">{{form.get('wardOfWitness2')?.value || '_____________________'}}</span>
+                <span class="print-only nepaliFont">{{form.get('wardOfWitness2')?.value || '===================================='}}</span>
               बस्ने बर्ष.
               <input class="form-field form-control-sm disable-print"
                      name="ageOfWitness2"
                      formControlName="ageOfWitness2"
                      type="text"/>
-                <span class="print-only">{{form.get('ageOfWitness2')?.value || '_____________________'}}</span>
+                <span class="print-only nepaliFont">{{form.get('ageOfWitness2')?.value || '===================================='}}</span>
               को/की
-              <input class="form-field form-control-sm disable-print"
+              <input class="form-field form-control-sm disable-print nepaliFont"
                      name="nameOfWitness2"
                      formControlName="nameOfWitness2"
                      type="text"/>
-                <span class="print-only">{{form.get('nameOfWitness2')?.value || '_____________________'}}</span>
+                <span class="print-only nepaliFont">{{form.get('nameOfWitness2')?.value || '===================================='}}</span>
               </p>
               <p>
               ३. कारणीले प्रस्तुत लिखत मेरो सामुन्ने सहिछाप गरेको हो भनी सनाखत गर्ने नविल बैंक
               लिमिटेडका कर्मचारी
-              <input class="form-field form-control-sm disable-print"
+              <input class="form-field form-control-sm disable-print nepaliFont"
                      name="nameOfBankStaff"
                      formControlName="nameOfBankStaff"
                      type="text"/>
-                <span class="print-only">{{form.get('nameOfBankStaff')?.value || '_____________________'}}</span>
+                <span class="print-only nepaliFont">{{form.get('nameOfBankStaff')?.value || '===================================='}}</span>
               </p>
             </div>
             <div class="mt-lg-3">
               <div class="col-md-12">
                 <p class="text-center">
                   ईति सम्वत्
-                  <input class="form-field form-control-sm disable-print"
+                  <input class="form-field form-control-sm disable-print nepaliFont"
                          name="etiYear"
                          formControlName="etiYear"
                          type="text"/>
-                  <span class="print-only"><b>{{form.get('etiYear')?.value || '_____________________'}}</b></span>
+                  <span class="print-only nepaliFont"><b>{{form.get('etiYear')?.value || '===================================='}}</b></span>
                   साल
-                  <input class="form-field form-control-sm disable-print"
+                  <input class="form-field form-control-sm disable-print nepaliFont"
                          name="etiMonth"
                          formControlName="etiMonth"
                          type="text"/>
-                  <span class="print-only">{{form.get('etiMonth')?.value || '_____________________'}}</span>
+                  <span class="print-only nepaliFont">{{form.get('etiMonth')?.value || '===================================='}}</span>
                   महिना
-                  <input class="form-field form-control-sm disable-print"
+                  <input class="form-field form-control-sm disable-print nepaliFont"
                          name="etiDay"
                          formControlName="etiDay"
                          type="text"/>
-                  <span class="print-only">{{form.get('etiDay')?.value || '_____________________'}}</span>
+                  <span class="print-only nepaliFont">{{form.get('etiDay')?.value || '===================================='}}</span>
                   गते रोज
-                  <input class="form-field form-control-sm disable-print"
+                  <input class="form-field form-control-sm disable-print nepaliFont"
                          name="roj"
                          formControlName="roj"
                          type="text"/>
-                  <span class="print-only">{{form.get('roj')?.value || '_____________________'}}</span>
+                  <span class="print-only nepaliFont">{{form.get('roj')?.value || '===================================='}}</span>
                   शुभम्
-                  <input class="form-field form-control-sm disable-print"
+                  <input class="form-field form-control-sm disable-print nepaliFont"
                          name="shuvam"
                          formControlName="shuvam"
                          type="text"/>
-                  <span class="print-only">{{form.get('shuvam')?.value || '_____________________'}}</span>
+                  <span class="print-only nepaliFont">{{form.get('shuvam')?.value || '===================================='}}</span>
                 </p>
               </div>
             </div>
@@ -598,13 +609,8 @@
                   printSectionId="loanDeedProprietorship"
                   class="d-print-none float-right"
                   printSectionId="print-section"
-                  nbButton
-                  size="small"
-                  status="info"
-                  outline
-                  ngxPrint
-              >
-                Print &nbsp;&nbsp;
+                  nbButton size="small" status="info" outline ngxPrint>
+                  Print &nbsp;&nbsp;
                 <em class="fa fa-print" style="color: rgb(47, 3, 168)"></em>
               </button>
               <button nbButton size="small"
