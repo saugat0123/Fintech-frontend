@@ -18,6 +18,7 @@ import {LoanNameConstant} from '../../../../sme-costant/loan-name-constant';
 export class MortgageOrEquityMortgageTermLoanComponent implements OnInit {
     @Input() loanName;
     @Input() offerDocumentList: Array<OfferDocument>;
+    @Input() cadDocAssignedLoan;
     initialInformation: any;
     mortgageEquityTermForm: FormGroup;
     isComplementaryOther = false;
@@ -52,6 +53,8 @@ export class MortgageOrEquityMortgageTermLoanComponent implements OnInit {
         {value: 'Existing'},
         {value: 'Enhancement'}
     ];
+    filteredLoanIdList: any = [];
+    filteredLoanMortgageIdList: any = [];
 
     constructor(private formBuilder: FormBuilder,
                 private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
@@ -97,6 +100,7 @@ export class MortgageOrEquityMortgageTermLoanComponent implements OnInit {
                     loanamountWords ? loanamountWords : '');
             }
         }
+        this.setLoanId();
     }
     patchDate() {
         for (let val = 0; val < this.initialInformation.mortgageEquityTermForm.mortgageEquityTermFormArray.length; val++) {
@@ -450,7 +454,8 @@ export class MortgageOrEquityMortgageTermLoanComponent implements OnInit {
             paymentAmountInFigureCT: [undefined],
             paymentAmountInWordsCT: [undefined],
             totalNumberOfPaymentsCT: [undefined],
-            emiPaymentTypeCT: [undefined]
+            emiPaymentTypeCT: [undefined],
+            loanId: [undefined],
         });
     }
     async translate(form) {
@@ -540,5 +545,23 @@ export class MortgageOrEquityMortgageTermLoanComponent implements OnInit {
     }
     addMortgageLoanFormArr() {
         (this.mortgageEquityTermForm.get('mortgageTermFormArray') as FormArray).push(this.buildLoanForm());
+    }
+    setLoanId() {
+        this.filteredLoanIdList = this.cadDocAssignedLoan.filter(data =>
+            data.loan.name === this.loanNameConstant.EQUITY_MORTGAGE_TERM_LOAN);
+        this.filteredLoanMortgageIdList = this.cadDocAssignedLoan.filter(data =>
+            data.loan.name === this.loanNameConstant.MORTGAGE_TERM_LOAN);
+        if (!ObjectUtil.isEmpty(this.filteredList)) {
+            this.filteredList.forEach((val, i) => {
+                this.mortgageEquityTermForm.get(['mortgageEquityTermFormArray', i, 'loanId']).patchValue(
+                    this.filteredLoanIdList[i].proposal.id);
+            });
+        }
+        if (!ObjectUtil.isEmpty(this.filteredListMortgage)) {
+            this.filteredListMortgage.forEach((val, i) => {
+                this.mortgageEquityTermForm.get(['mortgageTermFormArray', i, 'loanId']).patchValue(
+                    this.filteredLoanMortgageIdList[i].proposal.id);
+            });
+        }
     }
 }

@@ -20,6 +20,7 @@ export class OverdraftFacilityAgainstFixedDepositComponent implements OnInit {
   @Input() customerApprovedDoc;
   @Input() offerDocumentList: Array<OfferDocument>;
   @Input() isEdit;
+  @Input() cadDocAssignedLoan;
   initialInformation: any;
   overdraftFixedForm: FormGroup;
   loanDetails: any = [];
@@ -54,6 +55,12 @@ export class OverdraftFacilityAgainstFixedDepositComponent implements OnInit {
   filteredListDL: any = [];
   filteredListDlLien: any = [];
   initialData;
+  filteredLoanIdList: any = [];
+  filteredLoanLienIdList: any = [];
+  filteredLoanStlIdList: any = [];
+  filteredLoanStlLienIdList: any = [];
+  filteredLoanDLIdList: any = [];
+  filteredLoanDlLienIdList: any = [];
 
   constructor(private formBuilder: FormBuilder,
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
@@ -105,6 +112,7 @@ export class OverdraftFacilityAgainstFixedDepositComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.filteredListDlLien)) {
       this.loanAmountPatch(this.filteredListDlLien, 'dlAgainstLienOnDepositFormArray');
     }
+    this.setLoanId();
   }
   loanAmountPatch(array, formArray) {
     for (let val = 0; val < array.length; val++) {
@@ -294,6 +302,7 @@ export class OverdraftFacilityAgainstFixedDepositComponent implements OnInit {
       dateOfExpiryTypeCT: [undefined],
       fdHolderDetails: this.formBuilder.array([]),
       depositorDetails: this.formBuilder.array([]),
+      loanId: [undefined],
     });
   }
   setTermLoanForm() {
@@ -648,6 +657,56 @@ export class OverdraftFacilityAgainstFixedDepositComponent implements OnInit {
     const sourceResponse = await this.translatedService.translateForm(this.arrayForm);
     this.overdraftFixedForm.get([String(mainArray), i, String(arrName), index, String(target)]).patchValue(sourceResponse.formValue);
     this.overdraftFixedForm.get([String(mainArray), i, String(arrName), index, String(source + 'CT')]).patchValue(sourceResponse.formValue);
-}
+  }
+  setLoanId() {
+    this.filteredLoanIdList = this.cadDocAssignedLoan.filter(data =>
+        data.loan.name === this.loanNameConstant.OVERDRAFT_FACILITY_FIXED_DEPOSIT);
+    this.filteredLoanLienIdList = this.cadDocAssignedLoan.filter(data =>
+        data.loan.name === this.loanNameConstant.OVERDRAFT_FACILITY_LIEN_ON_DEPOSIT_ACCOUNT);
+    this.filteredLoanStlIdList = this.cadDocAssignedLoan.filter(data =>
+        data.loan.name === this.loanNameConstant.STL_AGAINST_FIXED_DEPOSIT);
+    this.filteredLoanStlLienIdList = this.cadDocAssignedLoan.filter(data =>
+        data.loan.name === this.loanNameConstant.STL_LIEN_ON_DEPOSIT_ACCOUNT);
+    this.filteredLoanDLIdList = this.cadDocAssignedLoan.filter(data =>
+        data.loan.name === this.loanNameConstant.DL_AGAINST_FIXED_DEPOSIT);
+    this.filteredLoanDlLienIdList = this.cadDocAssignedLoan.filter(data =>
+        data.loan.name === this.loanNameConstant.DL_LIEN_ON_DEPOSIT_ACCOUNT);
+    if (!ObjectUtil.isEmpty(this.filteredList)) {
+      this.filteredList.forEach((val, i) => {
+        this.overdraftFixedForm.get(['odFdFormArray', i, 'loanId']).patchValue(
+            this.filteredLoanIdList[i].proposal.id);
+      });
+    }
+    if (!ObjectUtil.isEmpty(this.filteredListLien)) {
+      this.filteredListLien.forEach((val, i) => {
+        this.overdraftFixedForm.get(['overdraftLienOnDepositFormArray', i, 'loanId']).patchValue(
+            this.filteredLoanLienIdList[i].proposal.id);
+      });
+    }
+    if (!ObjectUtil.isEmpty(this.filteredListStl)) {
+      this.filteredListStl.forEach((val, i) => {
+        this.overdraftFixedForm.get(['stlAgainstFixedDepositFormArray', i, 'loanId']).patchValue(
+            this.filteredLoanStlIdList[i].proposal.id);
+      });
+    }
+    if (!ObjectUtil.isEmpty(this.filteredListStlLien)) {
+      this.filteredListStlLien.forEach((val, i) => {
+        this.overdraftFixedForm.get(['stlLienOnDepositFormArray', i, 'loanId']).patchValue(
+            this.filteredLoanStlLienIdList[i].proposal.id);
+      });
+    }
+    if (!ObjectUtil.isEmpty(this.filteredListDL)) {
+      this.filteredListDL.forEach((val, i) => {
+        this.overdraftFixedForm.get(['dlAgainstFixedDepositFormArray', i, 'loanId']).patchValue(
+            this.filteredLoanDLIdList[i].proposal.id);
+      });
+    }
+    if (!ObjectUtil.isEmpty(this.filteredListDlLien)) {
+      this.filteredListDlLien.forEach((val, i) => {
+        this.overdraftFixedForm.get(['dlAgainstLienOnDepositFormArray', i, 'loanId']).patchValue(
+            this.filteredLoanDlLienIdList[i].proposal.id);
+      });
+    }
+  }
 
 }
