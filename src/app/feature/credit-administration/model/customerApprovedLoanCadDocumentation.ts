@@ -27,6 +27,6 @@ export class CustomerApprovedLoanCadDocumentation extends BaseEntity {
     additionalDocumentList: Array<AdditionalDocument>;
     nepData: any;
     requiredDocument: Array<Document>;
-
+    sccData: string;
 
 }

@@ -48,7 +48,8 @@
         <td>{{(cadFile?.data | jsonParse)?.acInfo?.operativeAc}}</td>
       </tr>
     </table>
-    <p class="header"><b>1. Approved Facilities </b></p>
+    <form [formGroup]="sccForm">
+      <p class="header"><b>1. Approved Facilities </b></p>
     <app-exposure-view [cadOfferLetterApprovedDoc]="cadFile" [displayHistory]="false" [fromScc]="true"> </app-exposure-view>
     <p class="header"><b>2. CIB and KYC </b></p>
     <table class="table table-bordered table-hover table-sm sb-small text-center ">
@@ -56,7 +57,7 @@
       <tr class="text-white sb-bg-dark">
       <th>CIB Obtained On</th>
       <th>STR Obtained On</th>
-      <th>IFT Obtained On</th>
+      <th>IFF Obtained On</th>
       <th>KYC(Aanushuchi 2.6) Obtained On</th>
       <th>Declaration Obtained On</th>
       <th>CA Approved By/ Date</th>
@@ -65,28 +66,28 @@
       <tbody>
       <tr>
         <td>
-          <input class="disable-print" type="text" nbInput disabled>
-          <span class="print-only"><b>This is the data</b></span>
+          <input class="disable-print" formControlName="cibObtained" type="text" nbInput [disabled]="!isMaker">
+          <span class="print-only">{{sccData?.cibObtained}}</span>
         </td>
         <td>
-          <input class="disable-print" type="text" nbInput disabled>
-          <span class="print-only"><b>This is the data</b></span>
+          <input class="disable-print" formControlName="strObtained" type="text" nbInput [disabled]="!isMaker">
+          <span class="print-only">{{sccData?.strObtained}}</span>
         </td>
         <td>
-          <input class="disable-print" type="text" nbInput disabled>
-          <span class="print-only"><b>This is the data</b></span>
+          <input class="disable-print" formControlName="iffObtained" type="text" nbInput [disabled]="!isMaker">
+          <span class="print-only">{{sccData?.iffObtained}}</span>
         </td>
         <td>
-          <input class="disable-print" type="text" nbInput disabled>
-          <span class="print-only"><b>This is the data</b></span>
+          <input class="disable-print" formControlName="kyc" type="text" nbInput [disabled]="!isMaker">
+          <span class="print-only">{{sccData?.kyc}}</span>
         </td>
         <td>
-          <input class="disable-print" type="text" nbInput disabled>
-          <span class="print-only"><b>This is the data</b></span>
+          <input class="disable-print" formControlName="declaration" type="text" nbInput [disabled]="!isMaker">
+          <span class="print-only">{{sccData?.declaration}}</span>
         </td>
         <td>
-          <input class="disable-print" type="text" nbInput disabled>
-          <span class="print-only"><b>This is the data</b></span>
+          <input class="disable-print" formControlName="caApproved" type="text" nbInput [disabled]="!isMaker">
+          <span class="print-only">{{sccData?.caApproved}}</span>
         </td>
       </tr>
       </tbody>
@@ -107,32 +108,32 @@
       <tbody>
       <tr>
         <td>
-          <input class="disable-print" type="text" nbInput disabled>
-          <span class="print-only"><b>This is the data</b></span>
+          <input class="disable-print" formControlName="baseII" type="text" nbInput [disabled]="!isMaker">
+          <span class="print-only">{{sccData?.baseII}}</span>
         </td>
         <td>
-          <input class="disable-print" type="text" nbInput disabled>
-          <span class="print-only"><b>This is the data</b></span>
+          <input class="disable-print" formControlName="nrbSector" type="text" nbInput [disabled]="!isMaker">
+          <span class="print-only">{{sccData?.nrbSector}}</span>
         </td>
         <td>
-          <input class="disable-print" type="text" nbInput disabled>
-          <span class="print-only"><b>This is the data</b></span>
+          <input class="disable-print" formControlName="naics" type="text" nbInput [disabled]="!isMaker">
+          <span class="print-only">{{sccData?.naics}}</span>
         </td>
         <td>
-          <input class="disable-print" type="text" nbInput disabled>
-          <span class="print-only"><b>This is the data</b></span>
+          <input class="disable-print" formControlName="industry" type="text" nbInput [disabled]="!isMaker">
+          <span class="print-only">{{sccData?.industry}}</span>
         </td>
         <td>
-          <input class="disable-print" type="text" nbInput disabled>
-          <span class="print-only"><b>This is the data</b></span>
+          <input class="disable-print" formControlName="customerCode" type="text" nbInput [disabled]="!isMaker">
+          <span class="print-only">{{sccData?.customerCode}}</span>
         </td>
         <td>
-          <input class="disable-print" type="text" nbInput disabled>
-          <span class="print-only"><b>This is the data</b></span>
+          <input class="disable-print" formControlName="businessUnit" type="text" nbInput [disabled]="!isMaker">
+          <span class="print-only">{{sccData?.businessUnit}}</span>
         </td>
         <td>
-          <input class="disable-print" type="text" nbInput disabled>
-          <span class="print-only"><b>This is the data</b></span>
+          <input class="disable-print" formControlName="esrm" type="text" nbInput [disabled]="!isMaker">
+          <span class="print-only">{{sccData?.esrm}}</span>
         </td>
       </tr>
       </tbody>
@@ -153,99 +154,117 @@
         <td>1</td>
         <td> Cash Deposit (as well as certificates of deposit or fixed deposits or other deposits) with Laxmi Bank </td>
         <td>
-          <input class="disable-print" type="text" nbInput disabled>
-          <span class="print-only"><b>This is the data</b></span></td>
+          <input class="disable-print" formControlName="cashDeposit" type="text" nbInput [disabled]="!isMaker">
+          <span class="print-only">{{sccData?.cashDeposit}}</span>
+        </td>
         <td>
-          <input class="disable-print" type="text" nbInput disabled>
-          <span class="print-only"><b>This is the data</b></span>
+          <input class="disable-print" formControlName="cashDepositValue" type="text" nbInput [disabled]="!isMaker">
+          <span class="print-only">{{sccData?.cashDepositValue}}</span>
         </td>
       </tr>
 
       <tr>
         <td>2</td>
-        <td> Fixed Deposit Receipts/ Certificates of deposits / other deposits of other banks, who fulfill the capital adequacy requirements, subject to a 20% supervisory haircut.<td>
-          <input class="disable-print" type="text" nbInput disabled>
-          <span class="print-only"><b>This is the data</b></span></td>
+        <td> Fixed Deposit Receipts/ Certificates of deposits / other deposits of other banks, who fulfill the capital adequacy requirements, subject to a 20% supervisory haircut.</td>
         <td>
-          <input class="disable-print" type="text" nbInput disabled>
-          <span class="print-only"><b>This is the data</b></span>
+          <input class="disable-print" formControlName="fixDeposit" type="text" nbInput [disabled]="!isMaker">
+          <span class="print-only">{{sccData?.fixDeposit}}</span>
+        </td>
+        <td>
+          <input class="disable-print" formControlName="fixDepositValue" type="text" nbInput [disabled]="!isMaker">
+          <span class="print-only">{{sccData?.fixDepositValue}}</span>
         </td>
       </tr>
 
       <tr>
         <td>3</td>
-        <td> Gold <td>
-          <input class="disable-print" type="text" nbInput disabled>
-          <span class="print-only"><b>This is the data</b></span></td>
+        <td> Gold </td>
         <td>
-          <input class="disable-print" type="text" nbInput disabled>
-          <span class="print-only"><b>This is the data</b></span>
+          <input class="disable-print" formControlName="gold" type="text" nbInput [disabled]="!isMaker">
+          <span class="print-only">{{sccData?.gold}}</span>
+        </td>
+        <td>
+          <input class="disable-print" formControlName="goldValue" type="text" nbInput [disabled]="!isMaker">
+          <span class="print-only">{{sccData?.goldValue}}</span>
         </td>
       </tr>
 
       <tr>
         <td>4</td>
-        <td> Securities issued by the Government of Nepal and Nepal Rastra Bank  <td>
-          <input class="disable-print" type="text" nbInput disabled>
-          <span class="print-only"><b>This is the data</b></span></td>
+        <td> Securities issued by the Government of Nepal and Nepal Rastra Bank  </td>
         <td>
-          <input class="disable-print" type="text" nbInput disabled>
-          <span class="print-only"><b>This is the data</b></span>
+          <input class="disable-print" formControlName="securities" type="text" nbInput [disabled]="!isMaker">
+          <span class="print-only">{{sccData?.securities}}</span>
+        </td>
+        <td>
+          <input class="disable-print" formControlName="securitiesValue" type="text" nbInput [disabled]="!isMaker">
+          <span class="print-only">{{sccData?.securitiesValue}}</span>
         </td>
       </tr>
 
       <tr>
         <td>5</td>
-        <td> Guarantee of the Government <td>
-          <input class="disable-print" type="text" nbInput disabled>
-          <span class="print-only"><b>This is the data</b></span></td>
+        <td> Guarantee of the Government </td>
         <td>
-          <input class="disable-print" type="text" nbInput disabled>
-          <span class="print-only"><b>This is the data</b></span>
+          <input class="disable-print" formControlName="government" type="text" nbInput [disabled]="!isMaker">
+          <span class="print-only">{{sccData?.government}}</span>
+        </td>
+        <td>
+          <input class="disable-print" formControlName="governmentValue" type="text" nbInput [disabled]="!isMaker">
+          <span class="print-only">{{sccData?.governmentValue}}</span>
         </td>
       </tr>
 
       <tr>
         <td>6</td>
-        <td> Financial guarantee/ counter guarantee of domestic banks who meet the minimum capital adequacy requirements subject to haircut of 20%.<td>
-          <input class="disable-print" type="text" nbInput disabled>
-          <span class="print-only"><b>This is the data</b></span></td>
+        <td> Financial guarantee/ counter guarantee of domestic banks who meet the minimum capital adequacy requirements subject to haircut of 20%.</td>
         <td>
-          <input class="disable-print" type="text" nbInput disabled>
-          <span class="print-only"><b>This is the data</b></span>
+          <input class="disable-print" formControlName="financial" type="text" nbInput [disabled]="!isMaker">
+          <span class="print-only">{{sccData?.financial}}</span>
+        </td>
+        <td>
+          <input class="disable-print" formControlName="financialValue" type="text" nbInput [disabled]="!isMaker">
+          <span class="print-only">{{sccData?.financialValue}}</span>
         </td>
       </tr>
 
       <tr>
         <td>7</td>
-        <td>Securities/ Financial guarantee/ Counter guarantee issued by sovereigns (Country)<td>
-          <input class="disable-print" type="text" nbInput disabled>
-          <span class="print-only"><b>This is the data</b></span></td>
+        <td>Securities/ Financial guarantee/ Counter guarantee issued by sovereigns (Country)</td>
         <td>
-          <input class="disable-print" type="text" nbInput disabled>
-          <span class="print-only"><b>This is the data</b></span>
+          <input class="disable-print" formControlName="counter" type="text" nbInput [disabled]="!isMaker">
+          <span class="print-only">{{sccData?.counter}}</span>
+        </td>
+        <td>
+          <input class="disable-print" formControlName="counterValue" type="text" nbInput [disabled]="!isMaker">
+          <span class="print-only">{{sccData?.counterValue}}</span>
         </td>
       </tr>
 
       <tr>
         <td>8</td>
-        <td> Securities/ Financial guarantee/ Counter guarantee issued by MDBs.  <td>
-          <input class="disable-print" type="text" nbInput disabled>
-          <span class="print-only"><b>This is the data</b></span></td>
+        <td> Securities/ Financial guarantee/ Counter guarantee issued by MDBs.  </td>
         <td>
-          <input class="disable-print" type="text" nbInput disabled>
-          <span class="print-only"><b>This is the data</b></span>
+          <input class="disable-print" formControlName="guarantee" type="text" nbInput [disabled]="!isMaker">
+          <span class="print-only">{{sccData?.guarantee}}</span>
+        </td>
+        <td>
+          <input class="disable-print" formControlName="guaranteeValue" type="text" nbInput [disabled]="!isMaker">
+          <span class="print-only">{{sccData?.guaranteeValue}}</span>
         </td>
       </tr>
 
       <tr>
         <td>9</td>
-        <td>Securities / Financial guarantee/ Counter guarantee issued by banks with ECA rating 2 or better. The supervisory haircut shall be 20% and 50% for the banks with ECA rating of 0-1 and 2 respectively. <td>
-          <input class="disable-print" type="text" nbInput disabled>
-          <span class="print-only"><b>This is the data</b></span></td>
+        <td>Securities / Financial guarantee/ Counter guarantee issued by banks with ECA rating 2 or better. The supervisory haircut shall be 20% and 50% for the banks with ECA rating of 0-1 and 2 respectively. </td>
         <td>
-          <input class="disable-print" type="text" nbInput disabled>
-          <span class="print-only"><b>This is the data</b></span>
+          <input class="disable-print" formControlName="eca" type="text" nbInput [disabled]="!isMaker">
+          <span class="print-only">{{sccData?.eca}}</span>
+        </td>
+        <td>
+          <input class="disable-print" formControlName="ecaValue" type="text" nbInput [disabled]="!isMaker">
+          <span class="print-only">{{sccData?.ecaValue}}</span>
+
         </td>
       </tr>
 
@@ -276,32 +295,32 @@
       <tbody>
       <tr>
         <td>
-          <input class="disable-print" type="text" nbInput disabled>
-          <span class="print-only"><b>This is the data</b></span>
+          <input class="disable-print" formControlName="valuation" type="text" nbInput [disabled]="!isMaker">
+          <span class="print-only">{{sccData?.valuation}}</span>
         </td>
         <td>
-          <input class="disable-print" type="text" nbInput disabled>
-          <span class="print-only"><b>This is the data</b></span>
+          <input class="disable-print" formControlName="makuri" type="text" nbInput [disabled]="!isMaker">
+          <span class="print-only">{{sccData?.makuri}}</span>
         </td>
         <td>
-          <input class="disable-print" type="text" nbInput disabled>
-          <span class="print-only"><b>This is the data</b></span>
+          <input class="disable-print" formControlName="verification" type="text" nbInput [disabled]="!isMaker">
+          <span class="print-only">{{sccData?.verification}}</span>
         </td>
         <td>
-          <input class="disable-print" type="text" nbInput disabled>
-          <span class="print-only"><b>This is the data</b></span>
+          <input class="disable-print" formControlName="drawDownNTA" type="text" nbInput [disabled]="!isMaker">
+          <span class="print-only">{{sccData?.drawDownNTA}}</span>
         </td>
         <td>
-          <input class="disable-print" type="text" nbInput disabled>
-          <span class="print-only"><b>This is the data</b></span>
+          <input class="disable-print" formControlName="drawDownFMV" type="text" nbInput [disabled]="!isMaker">
+          <span class="print-only">{{sccData?.drawDownFMV}}</span>
         </td>
         <td>
-          <input class="disable-print" type="text" nbInput disabled>
-          <span class="print-only"><b>This is the data</b></span>
+          <input class="disable-print" formControlName="drawDownTax" type="text" nbInput [disabled]="!isMaker">
+          <span class="print-only">{{sccData?.drawDownTax}}</span>
         </td>
         <td>
-          <input class="disable-print" type="text" nbInput disabled>
-          <span class="print-only"><b>This is the data</b></span>
+          <input class="disable-print" formControlName="obtained" type="text" nbInput [disabled]="!isMaker">
+          <span class="print-only">{{sccData?.obtained}}</span>
         </td>
       </tr>
       </tbody>
@@ -309,14 +328,16 @@
     <div>
       <p><b>Notes:</b></p>
       <ckeditor class="disable-print"
+                formControlName="notes"
                 [config]="ckeConfig"></ckeditor>
-      <span class="print-only">"This is data</span>
+      <span class="print-only" [innerHTML]="sccData?.notes || 'N/A' | safeHtml"></span>
     </div>
     <div>
       <p class="header"><b>8.Discrepancy: </b></p>
       <ckeditor class="disable-print"
+                formControlName="discrepancy"
                 [config]="ckeConfig"></ckeditor>
-      <span class="print-only">"This is data</span>
+      <span class="print-only" [innerHTML]="sccData?.discrepancy || 'N/A' | safeHtml"></span>
     </div>
 
     <div>
@@ -342,8 +363,9 @@
     <div>
       <p class="header"><b>10.	Instruction to Credit Operations:: </b></p>
       <ckeditor class="disable-print"
+                formControlName="instruction"
                 [config]="ckeConfig"></ckeditor>
-      <span class="print-only">"This is data</span>
+      <span class="print-only" [innerHTML]="sccData?.instruction || 'N/A' | safeHtml"></span>
     </div>
 <!--    <p><b>4.Mode Of Payment</b></p>-->
 <!--    <ol>-->
@@ -351,7 +373,7 @@
 <!--      <li>Credit to Ac No :<b>{{(cadFile?.data | jsonParse)?.acInfo?.accountNo || '...........'}}</b> AC Name: <b>{{(cadFile?.data | jsonParse)?.acInfo?.accountName || '...........'}}</b> against purchase of <b>{{(cadFile?.data | jsonParse)?.acInfo?.againstPurchaseOf || '...........'}}</b></li>-->
 <!--    </ol>-->
 
-    <div class="row">
+    <div class="row header">
 
       <div class="col-md-3 border">
         <p><b><u>Prepared by</u></b></p>
@@ -389,10 +411,11 @@
 <!--    <hr>-->
 <!--    <p><b>5.Declaration:</b></p><hr>-->
 <!--    <i>This is to certify that the original copies of all the documents as listed in the point 3 (Documentation Check Lists) are executed properly and are found in order.</i>-->
-
+    </form>
   </nb-card-body>
   <nb-card-footer class="disable-print">
     <button (click)="onClose()" nbButton  status="primary" size="small" class="float-right mr-2">Close</button>
+    <button (click)="onSave()" nbButton  status="primary" size="small" class="float-right mr-2">Save</button>
     <button [useExistingCss]="true"  ngxPrint printSectionId="print-block"  status="primary"  size="small" class="float-right mr-2" nbButton styleSheetFile="assets/css/printStyles.scss"><i class="fa fa-print"></i>-Print</button>
   </nb-card-footer>
 </nb-card>

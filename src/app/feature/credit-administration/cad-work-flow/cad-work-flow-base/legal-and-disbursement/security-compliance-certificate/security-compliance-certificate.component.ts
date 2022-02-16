@@ -13,6 +13,8 @@ import {LocalStorageUtil} from '../../../../../../@core/utils/local-storage-util
 import {RoleType} from '../../../../../admin/modal/roleType';
 import {CadDocStatus} from '../../../../model/CadDocStatus';
 import {Editor} from '../../../../../../@core/utils/constants/editor';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-security-compliance-certificate',
@@ -34,6 +36,9 @@ export class SecurityComplianceCertificateComponent implements OnInit {
   spinner = false;
   docStatus = CadDocStatus;
   ckeConfig;
+  sccForm: FormGroup;
+  sccData;
+  sumbit = false;
 
 
 
@@ -43,11 +48,18 @@ export class SecurityComplianceCertificateComponent implements OnInit {
               private nbDialogService: NbDialogService,
               private toastService: ToastService,
               private routerUtilsService: RouterUtilsService,
-              private companyInfoService: CompanyInfoService
+              private companyInfoService: CompanyInfoService,
+              private formBuilder: FormBuilder,
+              private spinnerService: NgxSpinnerService
   ) {
   }
 
   ngOnInit() {
+    this.buildSccForm();
+    if (!ObjectUtil.isEmpty(this.cadFile.sccData)) {
+      this.sccData = JSON.parse(this.cadFile.sccData);
+      this.sccForm.patchValue(this.sccData);
+    }
     this.configEditor();
     this.getCompanyPan();
     this.setSccRefNumber();
@@ -57,6 +69,51 @@ export class SecurityComplianceCertificateComponent implements OnInit {
     }
   }
 
+  buildSccForm() {
+    this.sccForm = this.formBuilder.group({
+      cibObtained: [undefined],
+      strObtained: [undefined],
+      iffObtained: [undefined],
+      kyc: [undefined],
+      declaration: [undefined],
+      caApproved: [undefined],
+      baseII: [undefined],
+      nrbSector: [undefined],
+      naics: [undefined],
+      industry: [undefined],
+      customerCode: [undefined],
+      businessUnit: [undefined],
+      esrm: [undefined],
+      cashDeposit: [undefined],
+      cashDepositValue: [undefined],
+      fixDeposit: [undefined],
+      fixDepositValue: [undefined],
+      gold: [undefined],
+      goldValue: [undefined],
+      securities: [undefined],
+      securitiesValue: [undefined],
+      government: [undefined],
+      governmentValue: [undefined],
+      financial: [undefined],
+      financialValue: [undefined],
+      counter: [undefined],
+      counterValue: [undefined],
+      guarantee: [undefined],
+      guaranteeValue: [undefined],
+      eca: [undefined],
+      ecaValue: [undefined],
+      valuation: [undefined],
+      makuri: [undefined],
+      verification: [undefined],
+      drawDownNTA: [undefined],
+      drawDownFMV: [undefined],
+      drawDownTax: [undefined],
+      obtained: [undefined],
+      notes: [undefined],
+      discrepancy: [undefined],
+      instruction: [undefined],
+    });
+  }
   getCompanyPan() {
     if (!ObjectUtil.isEmpty(this.cadFile) && this.cadFile.loanHolder.customerType === this.customerType.INSTITUTION) {
       this.companyInfoService.detail(this.cadFile.loanHolder.associateId).subscribe((res: any) => {
@@ -72,7 +129,10 @@ export class SecurityComplianceCertificateComponent implements OnInit {
     }
   }
 
-
+  onSave() {
+    this.sumbit = true;
+    this.save();
+  }
   onClose() {
     this.dialogRef.close();
   }
@@ -83,43 +143,54 @@ export class SecurityComplianceCertificateComponent implements OnInit {
 
   uploadDoc(event) {
     this.uploadFile = event.target.files[0];
+    this.sumbit = false;
   }
 
   save() {
     this.spinner = true;
-    const formData: FormData = new FormData();
-    formData.append('file', this.uploadFile);
-    formData.append('customerInfoId', this.cadFile.loanHolder.id.toString());
-    formData.append('cadId', this.cadFile.id.toString());
-    formData.append('docName', new Date().toString());
-    formData.append('branchId', this.cadFile.loanHolder.branch.id.toString());
-    if (ObjectUtil.isEmpty(this.cadFile.exposure)) {
-      this.spinner= false;
-      this.modelClose();
-      this.toastService.show(new Alert(AlertType.WARNING, 'Exposure details are missing'));
-      return;
-    }
-    this.creditAdministrationService.getSccDocPath(formData).subscribe((res: any) => {
-      const mergeData = {
-        disbursementDetails: this.cadFile.exposure ? JSON.parse(this.cadFile.exposure.data).disbursementDetails : {},
-        sccPath: res.detail
-      };
-      this.cadFile.exposure.data = JSON.stringify(mergeData);
-      this.creditAdministrationService.saveCadDocumentBulk(this.cadFile).subscribe((response: any) => {
+    this.spinnerService.show();
+    if (this.sumbit) {
+      this.cadFile.sccData = JSON.stringify(this.sccForm.value);
+    } else {
+      const formData: FormData = new FormData();
+      formData.append('file', this.uploadFile);
+      formData.append('customerInfoId', this.cadFile.loanHolder.id.toString());
+      formData.append('cadId', this.cadFile.id.toString());
+      formData.append('docName', new Date().toString());
+      formData.append('branchId', this.cadFile.loanHolder.branch.id.toString());
+      if (ObjectUtil.isEmpty(this.cadFile.exposure)) {
+        this.spinner = false;
+        this.spinnerService.hide();
         this.modelClose();
-        this.onClose();
-        this.spinner= false;
-        this.routerUtilsService.reloadCadProfileRouteWithActiveTab(this.cadFile.id, 0);
-        this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully upload SCC File'));
+        this.toastService.show(new Alert(AlertType.WARNING, 'Exposure details are missing'));
+        return;
+      }
+      this.creditAdministrationService.getSccDocPath(formData).subscribe((res: any) => {
+        const mergeData = {
+          disbursementDetails: this.cadFile.exposure ? JSON.parse(this.cadFile.exposure.data).disbursementDetails : {},
+          sccPath: res.detail
+        };
+        this.spinnerService.hide();
+        this.cadFile.exposure.data = JSON.stringify(mergeData);
       }, error => {
-        this.modelClose();
-        this.spinner= false;
         console.log(error);
+        this.spinnerService.hide();
+        this.spinner = false;
         this.toastService.show(new Alert(AlertType.ERROR, error));
       });
+    }
+    this.creditAdministrationService.saveCadDocumentBulk(this.cadFile).subscribe((response: any) => {
+      this.modelClose();
+      this.onClose();
+      this.spinnerService.hide();
+      this.spinner = false;
+      this.routerUtilsService.reloadCadProfileRouteWithActiveTab(this.cadFile.id, 0);
+      this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully upload SCC File'));
     }, error => {
+      this.modelClose();
+      this.spinner = false;
+      this.spinnerService.hide();
       console.log(error);
-      this.spinner= false;
       this.toastService.show(new Alert(AlertType.ERROR, error));
     });
   }
