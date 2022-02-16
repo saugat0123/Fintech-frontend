@@ -137,7 +137,6 @@
                       बस्ने बर्ष <span *ngIf="partner?.ownerDobDateType === 'BS'">
                                 <input class="form-field form-control-sm disable-print"
                                        name="ageOfPartner"
-                                       formControlName="ageOfPartner"
                                        [value]="ageCalculation(partner?.ownerDobNepali.eDate)"
                                        placeholder=" "
                                        type="text"/>
@@ -146,7 +145,6 @@
                       <span *ngIf="partner?.ownerDobDateType === 'AD'">
                             <input class="form-field form-control-sm disable-print"
                                    name="ageOfPartner"
-                                   formControlName="ageOfPartner"
                                    [value]="ageCalculation(partner?.ownerDob)"
                                    placeholder=" "
                                    type="text"/>
