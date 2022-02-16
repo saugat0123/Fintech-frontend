@@ -39,10 +39,6 @@
                         <th>Valuated Date(AD/BS)</th>
                         <th *ngIf="vehicleDetails?.vehicleOtherBranchChecked === true">Valuator Branch</th>
                         <th>Valautor Name</th>
-                        <th>Valuator Representative Name</th>
-                        <th>Staff Representative Name 1</th>
-                        <th>Staff Representative Name 2</th>
-                        <th>Quotation Date(AD/BS)</th>
                     </tr>
                     <tr>
                         <td class="text-right pr-1">{{vehicleDetails?.chassisNumber}}</td>
@@ -50,10 +46,6 @@
                         <td class="text-left pl-1">{{vehicleDetails?.vehicalValuatorDate | date}} ({{vehicleDetails?.vehicalValuatorDate | engNepDate: false}})</td>
                         <td *ngIf="vehicleDetails?.vehicleOtherBranchChecked === true" class="text-left pl-1">{{vehicleDetails?.vehicalBranch?.name || 'N/A'}}</td>
                         <td class="text-left pl-1">{{vehicleDetails?.vehicalValuator?.name || 'N/A'}}</td>
-                        <td class="text-left pl-1">{{vehicleDetails?.vehicalValuatorRepresentative}}</td>
-                        <td class="text-left pl-1">{{vehicleDetails?.vehicalStaffRepresentativeName}}</td>
-                        <td class="text-left pl-1">{{vehicleDetails?.vehicaleStaffRepresentativeName2}}</td>
-                        <td class="text-right pr-1">{{vehicleDetails?.vehicleQuotationDate | date}} ({{vehicleDetails?.vehicleQuotationDate | engNepDate: false}})</td>
                     </tr>
 
                     <tr class="sb-bg-dark text-white">
@@ -105,10 +97,6 @@
                         <th>Valuated Date(AD/BS)</th>
                         <th *ngIf="landDetails?.landOtherBranchChecked === true">Valuator Branch</th>
                         <th colspan="2">Valautor Name</th>
-                        <th>Valuator Representative Name</th>
-                        <th>Staff Representative Name 1</th>
-                        <th>Staff Representative Name 2</th>
-                        <th>Revaluation Done ?</th>
                     </tr>
 
                     <tr>
@@ -117,10 +105,6 @@
                         <td class="text-left pl-1">{{landDetails?.landValuatorDate | date}} ({{landDetails?.landValuatorDate | engNepDate: false}})</td>
                         <td *ngIf="landDetails?.landOtherBranchChecked === true" class="text-left pl-1">{{landDetails?.landBranch?.name || 'N/A'}}</td>
                         <td colspan="2" class="text-left pl-1">{{landDetails?.landValuator?.name || 'N/A'}}</td>
-                        <td class="text-left pl-1">{{landDetails?.landValuatorRepresentative}}</td>
-                        <td class="text-left pl-1">{{landDetails?.landStaffRepresentativeName}}</td>
-                        <td class="text-left pl-1">{{landDetails?.landStaffRepresentativeName2}}</td>
-                        <td class="text-left pl-1">{{landDetails?.revaluationData?.isReValuated | booleanConvert}}</td>
                     </tr>
 
                     <ng-container>
@@ -256,10 +240,7 @@
                         <th>Valautor Name</th>
                         <th>Realisable Value</th>
                         <th>Rate</th>
-                        <th>Valuator Representative Name</th>
-                        <th>Staff Representative Name 1</th>
                         <th>Collateral Owner Relationship With Borrower</th>
-                        <th>Staff Representative Name 2</th>
                     </tr>
                     <tr>
                         <td class="text-left pl-1">{{landBuilding?.buildingValuatorDate | date}} ({{landBuilding?.buildingValuatorDate |engNepDate: false}})</td>
@@ -267,10 +248,7 @@
                         <td class="text-left pl-1">{{landBuilding?.buildingValuator?.name || 'N/A'}}</td>
                         <td class="text-right pr-1">Rs. {{landBuilding?.landConsideredValue | currencyFormatter}}</td>
                         <td class="text-right pr-1">Rs. {{landBuilding?.landBuildingRate | currencyFormatter}}</td>
-                        <td class="text-left pl-1">{{landBuilding?.buildingValuatorRepresentative}}</td>
-                        <td class="text-left pl-1">{{landBuilding?.buildingStaffRepresentativeName}}</td>
                         <td class="text-left pl-1">{{landBuilding?.landBuildingCollateralOwnerRelationship}}</td>
-                        <td class="text-left pl-1">{{landBuilding?.landBuildingStaffRepresentativeName2}}</td>
                     </tr>
 
                     <ng-container>
@@ -434,18 +412,12 @@
                         <th>Valuated Date(AD/BS)</th>
                         <th *ngIf="buildingDetails?.apartmentOtherBranchChecked === true">Valuator Branch</th>
                         <th>Valautor Name</th>
-                        <th>Valuator Representative Name</th>
-                        <th>Staff Representative Name 1</th>
-                        <th>Staff Representative Name 2</th>
                         <th>Revaluation Done ?</th>
                     </tr>
                     <tr>
                         <td class="text-left pl-1">{{buildingDetails?.ApartmentValuatorDate | date}} ({{buildingDetails?.ApartmentValuatorDate |engNepDate: false}})</td>
                         <td *ngIf="buildingDetails?.apartmentOtherBranchChecked === true" class="text-left pl-1">{{buildingDetails?.apartmentBranch?.name || 'N/A'}}</td>
                         <td class="text-left pl-1">{{buildingDetails?.ApartmentValuator?.name || 'N/A'}}</td>
-                        <td class="text-left pl-1">{{buildingDetails?.ApartmentValuatorRepresentative}}</td>
-                        <td class="text-left pl-1">{{buildingDetails?.ApartmentStaffRepresentativeName}}</td>
-                        <td class="text-left pl-1">{{buildingDetails?.apartmentStaffRepresentativeName2}}</td>
                         <td class="text-left pl-1">{{buildingDetails?.revaluationData?.isReValuated | booleanConvert}}</td>
                     </tr>
                     <ng-container *ngIf="buildingDetails?.revaluationData != null && buildingDetails?.revaluationData?.isReValuated">
@@ -551,10 +523,6 @@
                         <th>Downpay</th>
                         <th *ngIf="plantDetails?.plantOtherBranchChecked === true">Valuator Branch</th>
                         <th>Valautor Name</th>
-                        <th>Valuated Date(AD/BS)</th>
-                        <th>Representative Name</th>
-                        <th>Staff Representative Name 1</th>
-                        <th>Staff Representative Name 2</th>
                     </tr>
                     <tr>
                         <td>{{i + 1}}</td>
@@ -564,10 +532,6 @@
                         <td class="text-right pr-1">Rs. {{plantDetails?.downPay | currencyFormatter}}</td>
                         <td *ngIf="plantDetails?.plantOtherBranchChecked === true">{{plantDetails?.plantBranch?.name || 'N/A'}}</td>
                         <td class="text-left pl-1">{{plantDetails?.plantMachineryValuator?.name || 'N/A'}}</td>
-                        <td class="text-left pl-1">{{plantDetails?.plantMachineryValuatorDate | date}} ({{plantDetails?.plantMachineryValuatorDate |engNepDate: false}})</td>
-                        <td class="text-left pl-1">{{plantDetails?.plantMachineryValuatorRepresentative}}</td>
-                        <td class="text-left pl-1">{{plantDetails?.plantMachineryStaffRepresentativeName}}</td>
-                        <td class="text-left pl-1">{{plantDetails?.plantMachineryStaffRepresentativeName2}}</td>
                     </tr>
                     </thead>
                 </table>
