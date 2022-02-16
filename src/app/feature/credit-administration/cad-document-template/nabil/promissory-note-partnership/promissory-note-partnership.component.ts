@@ -67,6 +67,8 @@ export class PromissoryNotePartnershipComponent implements OnInit {
   dateArray: Array <any> = new Array <any>();
   dateValidityArray: Array <any> = new Array <any>();
   issuedPlaceArray: Array <any> = new Array<any>();
+  spinner = false;
+  tempData;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -80,7 +82,7 @@ export class PromissoryNotePartnershipComponent implements OnInit {
       private nepToEngNumberPipe: NepaliToEngNumberPipe,
       public datePipe: DatePipe,
       public engToNepaliDate: EngNepDatePipe,
-      private customerService: CustomerService
+      private customerService: CustomerService,
   ) { }
 
   async ngOnInit() {
@@ -108,6 +110,9 @@ export class PromissoryNotePartnershipComponent implements OnInit {
       this.loanHolderNepData = this.cadData.loanHolder.nepData ?
         JSON.parse(this.cadData.loanHolder.nepData) :
         this.cadData.loanHolder.nepData;
+    }
+    if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
+      this.tempData = JSON.parse(this.cadData.offerDocumentList[0].initialInformation);
     }
     this.fillform();
   }
@@ -187,7 +192,6 @@ export class PromissoryNotePartnershipComponent implements OnInit {
       /*const tempo =  JSON.parse(proprietor);
       this.tempProprietor = tempo.filter(val => val.isAuthorizedPerson === 'Partner Only' || val.isAuthorizedPerson === 'Both');*/
     }
-    console.log('TempData:', this.tempProprietor);
     let totalLoan = 0;
     this.cadData.assignedLoan.forEach(val => {
       const proposedAmount = val.proposal.proposedLimit;
@@ -248,8 +252,10 @@ export class PromissoryNotePartnershipComponent implements OnInit {
       addressOfFirm: [this.loanHolderNepData.registeredStreetTole ? this.loanHolderNepData.registeredStreetTole.ct : ''],
       vdcOfFirm: this.loanHolderNepData.registeredMunicipality ? this.loanHolderNepData.registeredMunicipality.ct : '',
       nameOfFirm: this.loanHolderNepData.name ? this.loanHolderNepData.name.ct : '',
-      loanamountinFigure: finalAmount,
-      loanamountinWords: loanAmountWord,
+      loanamountinFigure: (this.tempData.smeGlobalForm && this.tempData.smeGlobalForm.totalLimitInFigureCT ) ?
+          this.tempData.smeGlobalForm.totalLimitInFigureCT : '',
+      loanamountinWords: (this.tempData.smeGlobalForm && this.tempData.smeGlobalForm.totalLimitInWordsCT ) ?
+          this.tempData.smeGlobalForm.totalLimitInWordsCT : '',
       loanAmountinFigure: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(finalAmount)),
       loanAmountInWords: this.nepaliCurrencyWordPipe.transform(loanAmountWord),
       nameOfBranch: [this.loanHolderNepData.branch ? this.loanHolderNepData.branch.ct : ''],
@@ -265,9 +271,19 @@ export class PromissoryNotePartnershipComponent implements OnInit {
     if (this.tempProprietor.length > 0 && !ObjectUtil.isEmpty(data)) {
       for (let val = 0; val < this.tempProprietor.length; val++) {
         this.form.get(['partnerDetails', val, 'nameOfGrandfather']).patchValue(
-            this.tempProprietor[val] ? this.tempProprietor[val].ownerGrandFatherNameCT : '');
+            this.tempProprietor[val] &&
+            ((this.tempProprietor[val].ownerGender === 'MALE') || (this.tempProprietor[val].ownerGender === 'OTHERS') ||
+                (this.tempProprietor[val].ownerGender === 'FEMALE' && this.tempProprietor[val].ownerRelationMedium === '1')) ?
+                this.tempProprietor[val].ownerGrandFatherNameCT :
+                (this.tempProprietor[val].ownerGender === 'FEMALE' && this.tempProprietor[val].ownerRelationMedium === '0') ?
+                    this.tempProprietor[val].ownerFatherInLawNameCT : '');
         this.form.get(['partnerDetails', val, 'nameOfFather']).patchValue(
-            this.tempProprietor[val] ? this.tempProprietor[val].ownerFatherNameCT : '');
+            this.tempProprietor[val] &&
+            ((this.tempProprietor[val].ownerGender === 'MALE') || (this.tempProprietor[val].ownerGender === 'OTHERS') ||
+                (this.tempProprietor[val].ownerGender === 'FEMALE' && this.tempProprietor[val].ownerRelationMedium === '1')) ?
+                this.tempProprietor[val].ownerFatherNameCT :
+                (this.tempProprietor[val].ownerGender === 'FEMALE' && this.tempProprietor[val].ownerRelationMedium === '0') ?
+                    this.tempProprietor[val].ownerHusbandNameCT : '');
         this.form.get(['partnerDetails', val, 'foreignAddress']).patchValue(
             this.tempProprietor[val] ? this.tempProprietor[val].ownerOtherAddressCT : '');
         this.form.get(['partnerDetails', val, 'district']).patchValue(
@@ -309,6 +325,7 @@ export class PromissoryNotePartnershipComponent implements OnInit {
     return this.engToNepNumberPipe.transform(yr.toString());
   }
   submit() {
+    this.spinner = true;
     let flag = true;
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
@@ -339,11 +356,13 @@ export class PromissoryNotePartnershipComponent implements OnInit {
     this.administrationService.saveCadDocumentBulk(this.cadData).subscribe(() => {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved '));
       this.dialogRef.close();
+      this.spinner = false;
       this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
     }, error => {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save '));
       this.dialogRef.close();
+      this.spinner = false;
     });
   }
   getNumAmountWord(numLabel, wordLabel) {
