@@ -1,4 +1,4 @@
-@import '../../progressive-legal-docs.component';
+//@import '../../progressive-legal-docs.component';
 
 .fingerXap {
   width: 500px;
@@ -15,4 +15,46 @@ table {
 }
 .unicode-size2{
  font-size: 24px;
+}
+
+@media print {
+  @page :first {
+    margin: 1.06in 0in 1in 1.06in;
+  }
+  @page {
+    margin: 1.5in 0in 1in 1.06in !important;
+  }
+
+  /*.page-break-tr {
+    page-break-inside: initial;
+    display: block;
+  }*/
+
+  /*tr {
+    page-break-inside: initial;
+    //display: block;
+  }*/
+
+  .pageBreak {
+    page-break-before: always !important;
+    page-break-after: always !important;
+  }
+  ::-webkit-input-placeholder { /* WebKit browsers */
+    color: transparent;
+  }
+  :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: transparent;
+  }
+  ::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: transparent;
+  }
+  :-ms-input-placeholder { /* Internet Explorer 10+ */
+    color: transparent;
+  }
+}
+.nepali {
+  font-size: 16px;
+  line-height: 1.5;
+  //margin: 10px 50px;
+  @extend .text-justify !optional;
 }
