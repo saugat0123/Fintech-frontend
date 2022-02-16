@@ -94,6 +94,7 @@
                                     type="text"/>
                         <span class="print-only">{{this.individualData?.name ? this.individualData?.name.ct : ''}}</span>को तर्फबाट अख्तियार प्राप्त ऐ.का.
                         <ng-container *ngFor="let partner of companyInfo; let i = index">
+                        <ng-container *ngIf="partner?.isAuthorizedPerson !== 'Share Holder Only'">
                             <ng-container
                                     *ngIf="partner?.ownerNationality === 'Nepali' || partner?.foreignAddressOption === 'Local'">
                                 <input class="form-field form-control-sm d-print-none"
@@ -261,6 +262,7 @@
                                        type="text"/>
                                 <span class="print-only">{{partner ? partner?.indianEmbassyIssuedFromCT : ''}}</span>),
                             </ng-container>
+                        </ng-container>
                         </ng-container>
                         आगे मेरो/हाम्रो नाममा तपाई धनी बैंकबाट मेरो/हाम्रो
                         <input class="form-field form-control-sm d-print-none"
