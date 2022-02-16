@@ -63,9 +63,9 @@ export class LoanDeedComponent implements OnInit {
                         this.setSwikriti(initialInfo.swikritiBibaran);
                     }
 
-                    /*if (!ObjectUtil.isEmpty(initialInfo.security)) {
+                    if (!ObjectUtil.isEmpty(initialInfo.security)) {
                         this.setSecurity(initialInfo.security);
-                    }*/
+                    }
 
 
                     this.form.patchValue(this.initialInfoPrint);
@@ -107,18 +107,30 @@ export class LoanDeedComponent implements OnInit {
         this.form.get(['swikritiBibaran', 0, 'serviceFeePercent']).patchValue(this.nepDataPersonal.serviceFeePercent);
         this.form.get(['swikritiBibaran', 0, 'tenureOfLoanInYears']).patchValue(this.nepDataPersonal.tenureOfLoanInYears);
 
-       /* this.nepaliData.collateralDetails.forEach((value, i) => {
-            this.form.get(['security', i, 'SecuritiesOwnerName']).patchValue(value.collateralName);
-            this.form.get(['security', i, 'SecuritiesDistrict']).patchValue(value.collateralDistrict);
-            this.form.get(['security', i, 'SecuritiesMunicipality']).patchValue(value.collateralMunVdcOriginal);
-            this.form.get(['security', i, 'SecuritiesWardNo']).patchValue(value.collateralWardNoOld);
-            this.form.get(['security', i, 'SecuritiesKeyNo']).patchValue(value.plotNo);
-            this.form.get(['security', i, 'SecuritiesArea']).patchValue(value.areaOfCollateral);
-        });*/
+        this.nepaliData.collateralDetails.forEach((value, i) => {
+            try {
+                this.setSecurityDetails(value, i);
+            } catch (error) {
+                this.addSecurity();
+                this.setSecurityDetails(value, i);
+            }
+        });
 
-        this.setSecurity(this.nepaliData.collateralDetails);
+
+
+        //this.setSecurity(this.nepaliData.collateralDetails);
 
     }
+
+    setSecurityDetails(value, i) {
+        this.form.get(['security', i, 'SecuritiesOwnerName']).patchValue(value.collateralName);
+        this.form.get(['security', i, 'SecuritiesDistrict']).patchValue(value.collateralDistrict);
+        this.form.get(['security', i, 'SecuritiesMunicipality']).patchValue(value.collateralMunVdcOriginal);
+        this.form.get(['security', i, 'SecuritiesWardNo']).patchValue(value.collateralWardNoOld);
+        this.form.get(['security', i, 'SecuritiesKeyNo']).patchValue(value.plotNo);
+        this.form.get(['security', i, 'SecuritiesArea']).patchValue(value.areaOfCollateral);
+    }
+
     setSwikriti(data) {
         const formArray = this.form.get('swikritiBibaran') as FormArray;
         (this.form.get('swikritiBibaran') as FormArray).clear();
@@ -198,7 +210,6 @@ export class LoanDeedComponent implements OnInit {
             this.dialogRef.close();
         });
     }
-
 
     buildForm() {
         this.form = this.formBuilder.group({

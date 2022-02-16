@@ -1,9 +1,10 @@
 @import '../../progressive-legal-docs.component';
 
-//*{
-//margin-left:20px;
-//margin-right:10px;
-//}
+.margin {
+  margin-top: 1in;
+  margin-left: 1in;
+}
+
 .viewFull {
   max-height: 85vh;
   text-align: justify;
