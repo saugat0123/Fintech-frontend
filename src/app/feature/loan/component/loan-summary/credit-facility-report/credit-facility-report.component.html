@@ -1,157 +1,159 @@
-<section class="enable-print">
-    <nb-card>
-        <nb-card-body>
-            <div class="row">
-                <div class="col-md-12">
-                    <p class="text-center report-header-sub-heading"><strong>Credit Facilities Report</strong></p>
-                    <table class="table table-responsive-md table-bordered table-responsive-sm table-condensed table-sm text-center sb-small">
-                        <tr class="sb-bg-dark text-white">
-                            <td>Originating Branch</td>
-                            <td>Date</td>
-                            <td>Next Review</td>
-                            <td>CFR/CA Ref.:</td>
-                        </tr>
-                        <tr>
-                            <td class="text-left pl-1">{{loanDataHolder?.branch?.name}}</td>
-                            <td class="text-left pl-1">{{loanDataHolder?.createdAt | date}}</td>
-                            <td class="text-left pl-1">{{'NA'}}</td>
-                            <td class="text-left pl-1">{{loanDataHolder?.refNo}}</td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <table class="table table-responsive-md table-bordered table-condensed table-sm text-left sb-small">
-                        <tr>
-                            <td>Customer & Address:</td>
-                            <td>Obligor Group & Location</td>
-                            <td>Risk Grade:</td>
-                        </tr>
-                        <tr>
-                            <td>Name: Mr. {{loanDataHolder?.loanHolder.name}}</td>
-                            <td rowspan="7">Name: to be Created</td>
-                            <td>Basel Risk</td>
-                        </tr>
-                        <tr>
-                            <td>Permanent Address:
-                                {{loanDataHolder?.customerInfo?.province?.name}}
-                                , {{loanDataHolder?.customerInfo?.district?.name}},
-                                {{loanDataHolder?.customerInfo?.municipalities?.name}}
-                                , {{loanDataHolder?.customerInfo?.wardNumber}}</td>
-                            <td>NRB Sector Code:</td>
-                        </tr>
-                        <tr>
-                            <td>Current Address:
-                                {{loanDataHolder?.customerInfo?.temporaryProvince?.name}}
-                                , {{loanDataHolder?.customerInfo?.temporaryDistrict?.name}},
-                                {{loanDataHolder?.customerInfo?.temporaryMunicipalities?.name}}
-                                , {{loanDataHolder?.customerInfo?.temporaryWardNumber}}</td>
-                            <td>NRB Security Code:</td>
-                        </tr>
-                        <tr>
-                            <td>Contact No.: {{loanDataHolder?.customerInfo?.contactNumber}}</td>
-                            <td>NRB Product Code</td>
-                        </tr>
-                        <tr>
-                            <td rowspan="3">Contact Person:</td>
-                            <td>Risk Type</td>
-                        </tr>
-                        <tr>
-                            <td> SIS Sector/Sub-Sector Code:</td>
-                        </tr>
-                        <tr>
-                            <td>SIS Collateral Code:</td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-            <li class="sb-medium"><span><sup>*</sup> IR : Interest Rate ,<sup>*</sup> BR : Base Rate ,<sup>*</sup> PR : Premium Rate ,
-                <sup>*</sup> COM : Commission ,<sup>*</sup> CM : Cash margin, <sup>*</sup> CIC : CIC Charge, <sup>*</sup> LSC : Loan Swap Charge</span>
-            </li>
-            <div class="row">
-                <div class="col-md-12">
-                    <table class="table table-responsive-md table-bordered table-condensed table-sm text-center sb-small">
-                        <tr class="sb-bg-dark text-white">
-                            <td rowspan="2" colspan="1">Facilities</td>
-                            <td colspan="2">Existing</td>
-                            <td colspan="2">Proposed Limit</td>
-                            <td colspan="1" rowspan="2">Pricing</td>
-                            <td colspan="1" rowspan="2">Tenure</td>
-                            <td colspan="1" rowspan="2">Security</td>
-                        </tr>
-                        <tr class="sb-bg-dark text-white">
-                            <td colspan="1">Funded</td>
-                            <td colspan="1">Non-Funded</td>
-                            <td colspan="1">Funded</td>
-                            <td colspan="1">Non-Funded</td>
-                        </tr>
-                        <tr *ngFor="let data of customerAllLoanList; let i=index">
-                            <td colspan="1" class="text-left pl-1">{{data?.loan?.name}}</td>
-                            <td colspan="1" class="text-right pr-1">
+<div class="row">
+    <div class="col-md-12">
+        <h6 class="text-center">Credit Facilities Report</h6>
+        <table class="table table-responsive-md table-bordered table-responsive-sm table-condensed table-sm text-center sb-small">
+            <tr class="sb-bg-dark text-white">
+                <td>Originating Branch</td>
+                <td>Date</td>
+                <td>Next Review</td>
+                <td>CFR/CA Ref.:</td>
+            </tr>
+            <tr>
+                <td class="text-left pl-1">{{loanDataHolder?.branch?.name}}</td>
+                <td class="text-left pl-1">{{loanDataHolder?.createdAt | date}}</td>
+                <td class="text-left pl-1">{{'NA'}}</td>
+                <td class="text-left pl-1">{{loanDataHolder?.refNo}}</td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-responsive-md table-bordered table-condensed table-sm text-left sb-small">
+            <tr>
+                <td>Customer & Address:</td>
+                <td>Obligor Group & Location</td>
+                <td>Risk Grade:</td>
+            </tr>
+            <tr>
+                <td>Name: Mr. {{loanDataHolder?.loanHolder.name}}</td>
+                <td rowspan="7">Name: to be Created</td>
+                <td>Basel Risk</td>
+            </tr>
+            <tr>
+                <td>Permanent Address:
+                    {{loanDataHolder?.customerInfo?.province?.name}}
+                    , {{loanDataHolder?.customerInfo?.district?.name}},
+                    {{loanDataHolder?.customerInfo?.municipalities?.name}}
+                    , {{loanDataHolder?.customerInfo?.wardNumber}}</td>
+                <td>NRB Sector Code:</td>
+            </tr>
+            <tr>
+                <td>Current Address:
+                    {{loanDataHolder?.customerInfo?.temporaryProvince?.name}}
+                    , {{loanDataHolder?.customerInfo?.temporaryDistrict?.name}},
+                    {{loanDataHolder?.customerInfo?.temporaryMunicipalities?.name}}
+                    , {{loanDataHolder?.customerInfo?.temporaryWardNumber}}</td>
+                <td>NRB Security Code:</td>
+            </tr>
+            <tr>
+                <td>Contact No.: {{loanDataHolder?.customerInfo?.contactNumber}}</td>
+                <td>NRB Product Code</td>
+            </tr>
+            <tr>
+                <td rowspan="3">Contact Person:</td>
+                <td>Risk Type</td>
+            </tr>
+            <tr>
+                <td> SIS Sector/Sub-Sector Code:</td>
+            </tr>
+            <tr>
+                <td>SIS Collateral Code:</td>
+            </tr>
+        </table>
+    </div>
+</div>
+<ul>
+    <li class="sb-medium"><span><sup>*</sup> IR : Interest Rate ,<sup>*</sup> BR : Base Rate ,<sup>*</sup> PR : Premium Rate ,
+                    <sup>*</sup> COM : Commission ,<sup>*</sup> CM : Cash margin, <sup>*</sup> CIC : CIC Charge, <sup>*</sup> LSC : Loan Swap Charge</span>
+    </li>
+</ul>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-responsive-md table-bordered table-condensed table-sm text-center sb-small">
+            <tr class="sb-bg-dark text-white">
+                <td rowspan="2" colspan="1">Facilities</td>
+                <td colspan="2">Existing</td>
+                <td colspan="2">Proposed Limit</td>
+                <td colspan="1" rowspan="2">Pricing</td>
+                <td colspan="1" rowspan="2">Tenure</td>
+                <td colspan="1" rowspan="2">Security</td>
+            </tr>
+            <tr class="sb-bg-dark text-white">
+                <td colspan="1">Funded</td>
+                <td colspan="1">Non-Funded</td>
+                <td colspan="1">Funded</td>
+                <td colspan="1">Non-Funded</td>
+            </tr>
+            <tr *ngFor="let data of customerAllLoanList; let i=index">
+                <td colspan="1" class="text-left pl-1">{{data?.loan?.name}}</td>
+                <td colspan="1" class="text-right pr-1">
                                 <span *ngIf="data?.loan?.isFundable">
                                     <span *ngIf="(data?.proposal?.data | jsonParse)?.existingLimit">
                                         Rs. {{(data?.proposal?.data | jsonParse)?.existingLimit | currencyFormatter}}
                                     </span>
                                 </span>
-                                <span *ngIf="(!data?.loan?.isFundable) || !(data?.proposal?.data | jsonParse)?.existingLimit">-</span>
-                            </td>
-                            <td colspan="1" class="text-right pr-1">
+                    <span *ngIf="(!data?.loan?.isFundable) || !(data?.proposal?.data | jsonParse)?.existingLimit">-</span>
+                </td>
+                <td colspan="1" class="text-right pr-1">
                                 <span *ngIf="!data?.loan?.isFundable">
                                     <span *ngIf="(data?.proposal?.data | jsonParse)?.existingLimit">
                                         Rs. {{(data?.proposal?.data | jsonParse)?.existingLimit | currencyFormatter}}
                                     </span>
                                 </span>
-                                <span *ngIf="(data?.loan?.isFundable) || !(data?.proposal?.data | jsonParse)?.existingLimit">-</span>
-                            </td>
-                            <td colspan="1" class="text-right pr-1">
+                    <span *ngIf="(data?.loan?.isFundable) || !(data?.proposal?.data | jsonParse)?.existingLimit">-</span>
+                </td>
+                <td colspan="1" class="text-right pr-1">
                                 <span *ngIf="data?.loan?.isFundable">
                                     Rs. {{data?.proposal?.proposedLimit | currencyFormatter}}
                                 </span>
-                                <span *ngIf="(!data?.loan?.isFundable) || (data?.proposal?.proposedLimit < 0)">-</span>
-                            </td>
-                            <td colspan="1" class="text-right pr-1">
+                    <span *ngIf="(!data?.loan?.isFundable) || (data?.proposal?.proposedLimit < 0)">-</span>
+                </td>
+                <td colspan="1" class="text-right pr-1">
                                 <span *ngIf="!data?.loan?.isFundable">
                                     Rs. {{data?.proposal?.proposedLimit | currencyFormatter}}
                                 </span>
-                                <span *ngIf="(data?.loan?.isFundable) || (data?.proposal?.proposedLimit < 0)">-</span>
-                            </td>
-                            <td colspan="1" class="text-right pr-1">
+                    <span *ngIf="(data?.loan?.isFundable) || (data?.proposal?.proposedLimit < 0)">-</span>
+                </td>
+                <td colspan="1" class="text-right pr-1">
                                 <span *ngIf="(array[i]?.isFundable && (array[i]?.loanNature === 'Terminating' || array[i]?.loanNature === 'Revolving'))
                                 || array[i]?.isFixedDeposit || array[i]?.isVehicle || array[i]?.isShare || array[i]?.isGeneral">
                                     IR : {{(data?.proposal?.data | jsonParse)?.interestRate}} %,
                                 </span>
-                                <span *ngIf="(array[i]?.isFundable && (array[i]?.loanNature === 'Terminating' || array[i]?.loanNature === 'Revolving')
+                    <span *ngIf="(array[i]?.isFundable && (array[i]?.loanNature === 'Terminating' || array[i]?.loanNature === 'Revolving')
                                     && array[i]?.loanNatureSelected && array[i]?.fundableNonFundableSelcted) || array[i]?.isVehicle || array[i]?.isShare || array[i]?.isGeneral">
                                     BR : {{ (data?.proposal?.data | jsonParse)?.baseRate}} %,
                                     PR : {{ (data?.proposal?.data | jsonParse)?.premiumRateOnBaseRate}} %,
                                 </span>
-                                <span *ngIf="!array[i]?.isFundable && array[i]?.fundableNonFundableSelcted">
+                    <span *ngIf="!array[i]?.isFundable && array[i]?.fundableNonFundableSelcted">
                                     <span *ngIf="(data?.proposal?.data | jsonParse)?.cashMarginMethod == 'FLAT'">
-                                        CM: Rs.  {{ ((data?.proposal?.data | jsonParse)?.cashMargin || 0) | currencyFormatter}},</span>
+                                        CM: Rs.  {{ ((data?.proposal?.data | jsonParse)?.cashMargin || 0) | currencyFormatter}}
+                                        ,</span>
                                     <span *ngIf="(data?.proposal?.data | jsonParse)?.cashMarginMethod == 'PERCENT'">
                                         CM: {{ ((data?.proposal?.data | jsonParse)?.cashMargin)}} %,</span>
                                     COM:{{(data?.proposal?.data | jsonParse)?.commissionPercentage}} %
                                 </span>
-                                <span *ngIf="loanDataHolder?.loanHolder?.cicl">
+                    <span *ngIf="loanDataHolder?.loanHolder?.cicl">
                                     CIC:{{loanDataHolder?.loanHolder?.cicl?.cibCharge}}
                                 </span>
-                                <span *ngIf="(data?.proposal?.checkedData | jsonParse)?.swapChargeChecked">
+                    <span *ngIf="(data?.proposal?.checkedData | jsonParse)?.swapChargeChecked">
                                     <span *ngIf="(data?.proposal?.data | jsonParse)?.swapChargeMethod == 'FLAT'">
-                                        LSC: Rs.  {{((data?.proposal?.data | jsonParse)?.swapCharge || 0) | currencyFormatter}},</span>
+                                        LSC: Rs.  {{((data?.proposal?.data | jsonParse)?.swapCharge || 0) | currencyFormatter}}
+                                        ,</span>
                                     <span *ngIf="(data?.proposal?.data | jsonParse)?.swapChargeMethod == 'PERCENT'">
                                         LSC: {{(data?.proposal?.data | jsonParse)?.swapCharge}} %,</span>
                                 </span>
-                            </td>
-                            <td colspan="1" class="text-left pl-1">
+                </td>
+                <td colspan="1" class="text-left pl-1">
                                 <span *ngIf="(array[i]?.loanNatureSelected && array[i]?.fundableNonFundableSelcted && array[i]?.isFundable && array[i]?.isTerminating)
                                     || array[i]?.isVehicle || array[i]?.isShare || array[i]?.isGeneral">
                                     {{array[i]?.tenureInMonth}} years from the date of disbursement
                                 </span>
-                                <span *ngIf="!((array[i]?.loanNatureSelected && array[i]?.fundableNonFundableSelcted && array[i]?.isFundable && array[i]?.isTerminating)
-                                    || array[i]?.isVehicle || array[i]?.isShare || array[i]?.isGeneral)" class="text-right pr-1">-</span>
-                            </td>
-                            <td colspan="1" class="text-left pl-1">
+                    <span *ngIf="!((array[i]?.loanNatureSelected && array[i]?.fundableNonFundableSelcted && array[i]?.isFundable && array[i]?.isTerminating)
+                                    || array[i]?.isVehicle || array[i]?.isShare || array[i]?.isGeneral)"
+                          class="text-right pr-1">-</span>
+                </td>
+                <td colspan="1" class="text-left pl-1">
                                 <span>
                                     Registered mortgage over <br>
                                     Owner: <br>
@@ -159,170 +161,174 @@
                                     Plot No.: ......., Area: ...... sq.m <br>
                                     Valuation Date and Valuator: ........;.......Pvt.Ltd.
                                 </span>
-                                <table>
-                                    <tr>
-                                        <td>Particulars</td>
-                                        <td>MV</td>
-                                        <td>FMV</td>
-                                        <td>DV</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Land</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Buinding</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Total</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                </table>
-                            </td>
+                    <table>
+                        <tr>
+                            <td>Particulars</td>
+                            <td>MV</td>
+                            <td>FMV</td>
+                            <td>DV</td>
                         </tr>
-                        <tr *ngFor="let dto of customerLoanDtoList; let ii = index">
-                            <td colspan="1" class="text-left pl-1">{{dto?.name}}</td>
-                            <td colspan="1" class="text-right pr-1">
+                        <tr>
+                            <td>Land</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Buinding</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Total</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr *ngFor="let dto of customerLoanDtoList; let ii = index">
+                <td colspan="1" class="text-left pl-1">{{dto?.name}}</td>
+                <td colspan="1" class="text-right pr-1">
                                 <span *ngIf="dto?.loanConfig?.isFundable">
                                     <span *ngIf="(dto?.proposal?.data | jsonParse)?.existingLimit">
                                         Rs. {{(dto?.proposal?.data | jsonParse)?.existingLimit | currencyFormatter}}
                                     </span>
                                 </span>
-                                <span *ngIf="(!dto?.loanConfig?.isFundable) || (!(dto?.proposal?.data | jsonParse)?.existingLimit)">-</span>
-                            </td>
-                            <td colspan="1" class="text-right pr-1">
+                    <span *ngIf="(!dto?.loanConfig?.isFundable) || (!(dto?.proposal?.data | jsonParse)?.existingLimit)">-</span>
+                </td>
+                <td colspan="1" class="text-right pr-1">
                                 <span *ngIf="!dto?.loanConfig?.isFundable">
                                     <span *ngIf="(dto?.proposal?.data | jsonParse)?.existingLimit">
                                         Rs. {{(dto?.proposal?.data | jsonParse)?.existingLimit | currencyFormatter}}
                                     </span>
                                 </span>
-                                <span *ngIf="(dto?.loanConfig?.isFundable) || (!(dto?.proposal?.data | jsonParse)?.existingLimit)">-</span>
-                            </td>
-                            <td colspan="1" class="text-right pr-1">
+                    <span *ngIf="(dto?.loanConfig?.isFundable) || (!(dto?.proposal?.data | jsonParse)?.existingLimit)">-</span>
+                </td>
+                <td colspan="1" class="text-right pr-1">
                                 <span *ngIf="dto?.loanConfig?.isFundable">
                                     Rs. {{dto?.proposal?.proposedLimit | currencyFormatter}}
                                 </span>
-                                <span *ngIf="(!dto?.loanConfig?.isFundable) || (dto?.proposal?.proposedLimit < 0)">-</span>
-                            </td>
-                            <td colspan="1" class="text-right pr-1">
+                    <span *ngIf="(!dto?.loanConfig?.isFundable) || (dto?.proposal?.proposedLimit < 0)">-</span>
+                </td>
+                <td colspan="1" class="text-right pr-1">
                                 <span *ngIf="!dto?.loanConfig?.isFundable">
                                     Rs. {{dto?.proposal?.proposedLimit | currencyFormatter}}
                                 </span>
-                                <span *ngIf="(dto?.loanConfig?.isFundable) || (dto?.proposal?.proposedLimit < 0)">-</span>
-                            </td>
-                            <td colspan="1" class="text-right pr-1">
+                    <span *ngIf="(dto?.loanConfig?.isFundable) || (dto?.proposal?.proposedLimit < 0)">-</span>
+                </td>
+                <td colspan="1" class="text-right pr-1">
                                 <span *ngIf="(dtoArray[ii]?.isFundable && (dtoArray[ii]?.loanNature === 'Terminating' || dtoArray[ii]?.loanNature === 'Revolving'))
                                 || dtoArray[ii]?.isFixedDeposit || dtoArray[ii]?.isVehicle || dtoArray[ii]?.isShare || dtoArray[ii]?.isGeneral">
                                     IR : {{(dto?.proposal?.data | jsonParse)?.interestRate}} %,
                                 </span>
-                                <span *ngIf="(dtoArray[ii]?.isFundable && (dtoArray[ii]?.loanNature === 'Terminating' || dtoArray[ii]?.loanNature === 'Revolving')
+                    <span *ngIf="(dtoArray[ii]?.isFundable && (dtoArray[ii]?.loanNature === 'Terminating' || dtoArray[ii]?.loanNature === 'Revolving')
                                     && dtoArray[ii]?.loanNatureSelected && dtoArray[ii]?.fundableNonFundableSelcted) || dtoArray[ii]?.isVehicle || dtoArray[ii]?.isShare || dtoArray[ii]?.isGeneral">
                                     BR : {{ (dto?.proposal?.data | jsonParse)?.baseRate}} %,
                                     PR : {{ (dto?.proposal?.data | jsonParse)?.premiumRateOnBaseRate}} %,
                                 </span>
-                                <span *ngIf="!dtoArray[ii]?.isFundable && dtoArray[ii]?.fundableNonFundableSelcted">
+                    <span *ngIf="!dtoArray[ii]?.isFundable && dtoArray[ii]?.fundableNonFundableSelcted">
                                     <span *ngIf="(dto?.proposal?.data | jsonParse)?.cashMarginMethod == 'FLAT'">
-                                        CM: Rs.  {{ ((dto?.proposal?.data | jsonParse)?.cashMargin || 0) | currencyFormatter}},</span>
+                                        CM: Rs.  {{ ((dto?.proposal?.data | jsonParse)?.cashMargin || 0) | currencyFormatter}}
+                                        ,</span>
                                     <span *ngIf="(dto?.proposal?.data | jsonParse)?.cashMarginMethod == 'PERCENT'">
                                         CM: {{ ((dto?.proposal?.data | jsonParse)?.cashMargin)}} %,</span>
                                     COM:{{(dto?.proposal?.data | jsonParse)?.commissionPercentage}} %
                                 </span>
-                                <span *ngIf="loanDataHolder?.loanHolder?.cicl">
+                    <span *ngIf="loanDataHolder?.loanHolder?.cicl">
                                     CIC:{{loanDataHolder?.loanHolder?.cicl?.cibCharge}}
                                 </span>
-                                <span *ngIf="(dto?.proposal?.checkedData | jsonParse)?.swapChargeChecked">
+                    <span *ngIf="(dto?.proposal?.checkedData | jsonParse)?.swapChargeChecked">
                                     <span *ngIf="(dto?.proposal?.data | jsonParse)?.swapChargeMethod == 'FLAT'">
-                                        LSC: Rs.  {{((dto?.proposal?.data | jsonParse)?.swapCharge || 0) | currencyFormatter}},</span>
+                                        LSC: Rs.  {{((dto?.proposal?.data | jsonParse)?.swapCharge || 0) | currencyFormatter}}
+                                        ,</span>
                                     <span *ngIf="(dto?.proposal?.data | jsonParse)?.swapChargeMethod == 'PERCENT'">
                                         LSC: {{(dto?.proposal?.data | jsonParse)?.swapCharge}} %,</span>
                                 </span>
-                            </td>
-                            <td colspan="1" class="text-left pl-1">
+                </td>
+                <td colspan="1" class="text-left pl-1">
                                 <span *ngIf="(dtoArray[ii]?.loanNatureSelected && dtoArray[ii]?.fundableNonFundableSelcted && dtoArray[ii]?.isFundable && dtoArray[ii]?.isTerminating)
                                     || dtoArray[ii]?.isVehicle || dtoArray[ii]?.isShare || dtoArray[ii]?.isGeneral">
                                     {{dtoArray[ii]?.tenureInMonth}} years from the date of disbursement
                                 </span>
-                                <span *ngIf="!((dtoArray[ii]?.loanNatureSelected && dtoArray[ii]?.fundableNonFundableSelcted && dtoArray[ii]?.isFundable && dtoArray[ii]?.isTerminating)
-                                    || dtoArray[ii]?.isVehicle || dtoArray[ii]?.isShare || dtoArray[ii]?.isGeneral)" class="text-right pr-1">-</span>
-                            </td>
-                            <td colspan="1" class="text-left pl-1">
+                    <span *ngIf="!((dtoArray[ii]?.loanNatureSelected && dtoArray[ii]?.fundableNonFundableSelcted && dtoArray[ii]?.isFundable && dtoArray[ii]?.isTerminating)
+                                    || dtoArray[ii]?.isVehicle || dtoArray[ii]?.isShare || dtoArray[ii]?.isGeneral)"
+                          class="text-right pr-1">-</span>
+                </td>
+                <td colspan="1" class="text-left pl-1">
                                 <span>
-                                    Registered mortgage over
-                                    Owner:
-                                    Location:       Ward No.:
-                                    Plot No.: ......., Area: ...... sq.m
+                                    Registered mortgage over <br>
+                                    Owner: <br>
+                                    Location:       Ward No.: <br>
+                                    Plot No.: ......., Area: ...... sq.m <br>
                                     Valuation Date and Valuator: ........;.......Pvt.Ltd.
                                 </span>
-                                <table>
-                                    <tr>
-                                        <td>Particulars</td>
-                                        <td>MV</td>
-                                        <td>FMV</td>
-                                        <td>DV</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Land</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Buinding</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Total</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                    </tr>
-                                </table>
-                            </td>
+                    <table>
+                        <tr>
+                            <td>Particulars</td>
+                            <td>MV</td>
+                            <td>FMV</td>
+                            <td>DV</td>
                         </tr>
                         <tr>
-                            <th class="text-left pl-1">Total</th>
-                            <th class="text-right pr-1">Rs. {{getTotalFundable('existingLimit', true, customerAllLoanList) | currencyFormatter}}</th>
-                            <th class="text-right pr-1">Rs. {{getTotalFundable('existingLimit', false, customerAllLoanList) | currencyFormatter}}</th>
-                            <th class="text-right pr-1">Rs. {{getTotalFundable('proposedLimit', true, customerAllLoanList) | currencyFormatter}}</th>
-                            <th class="text-right pr-1">Rs. {{getTotalFundable('proposedLimit', false, customerAllLoanList) | currencyFormatter}}</th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
+                            <td>Land</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Buinding</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td>Total</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                         </tr>
                     </table>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <table class="table table-responsive-md table-bordered table-condensed table-sm text-center sb-small">
-                        <tr>
-                            <td class="col-md-8">
-                                <app-signature-section [loanDataHolder]="loanDataHolder"></app-signature-section>
-                            </td>
-                            <td class="col-md-4">
-                                Personal Guarantee of Mrs...... (Spouse of the borrower) of NPR ..... Mio. <br>
-                                Consent of Ms. .... <br>
-                                <b>Total</b> <br>
-                                Tangible: NPR ..... Mio
-                                Intangible: .... Mio
-                                Security Coverage: Ratio for funded Facility of NPR .... Mio.
+                </td>
+            </tr>
+            <tr>
+                <th class="text-left pl-1">Total</th>
+                <th class="text-right pr-1">
+                    Rs. {{getTotalFundable('existingLimit', true, customerAllLoanList) | currencyFormatter}}</th>
+                <th class="text-right pr-1">
+                    Rs. {{getTotalFundable('existingLimit', false, customerAllLoanList) | currencyFormatter}}</th>
+                <th class="text-right pr-1">
+                    Rs. {{getTotalFundable('proposedLimit', true, customerAllLoanList) | currencyFormatter}}</th>
+                <th class="text-right pr-1">
+                    Rs. {{getTotalFundable('proposedLimit', false, customerAllLoanList) | currencyFormatter}}</th>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-responsive-md table-bordered table-condensed table-sm text-center sb-small">
+            <tr>
+                <td style="width: 70%">
+                    <app-signature-section [loanDataHolder]="loanDataHolder"></app-signature-section>
+                </td>
+                <td style="width: 30%">
+                    Personal Guarantee of Mrs...... (Spouse of the borrower) of NPR ..... Mio. <br>
+                    Consent of Ms. .... <br>
+                    <b>Total</b> <br>
+                    Tangible: NPR ..... Mio
+                    Intangible: .... Mio
+                    Security Coverage: Ratio for funded Facility of NPR .... Mio.
 
-                                a. Land & Building :- .....% at FMV
-                                b. Personal Guarantee :- 100%.
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-        </nb-card-body>
-    </nb-card>
-</section>
+                    a. Land & Building :- .....% at FMV
+                    b. Personal Guarantee :- 100%.
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
