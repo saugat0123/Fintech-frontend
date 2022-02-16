@@ -27,6 +27,7 @@ import {RemitProfileComponent} from '../loan/component/loan-summary/remit-profil
 import {SecurityScheduleComponent} from '../loan/component/security-schedule/security-schedule.component';
 import {FinancialJsonParserComponent} from '../loan/component/loan-summary/financial-json-parser/financial-json-parser.component';
 import {NetWorthModule} from '../newt-worth/net-worth-module';
+import {CreditChecklistViewComponent} from './credit-checklist-view/credit-checklist-view.component';
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import {NetWorthModule} from '../newt-worth/net-worth-module';
         CrgLambdaDetailViewComponent,
         RemitProfileComponent,
         SecurityScheduleComponent,
-        FinancialJsonParserComponent
+        FinancialJsonParserComponent,
+        CreditChecklistViewComponent
     ],
     exports: [
         InsuranceViewComponent,
@@ -67,7 +69,8 @@ import {NetWorthModule} from '../newt-worth/net-worth-module';
         CrgLambdaDetailViewComponent,
         RemitProfileComponent,
         SecurityScheduleComponent,
-        FinancialJsonParserComponent
+        FinancialJsonParserComponent,
+        CreditChecklistViewComponent
     ],
     imports: [
         CommonModule,

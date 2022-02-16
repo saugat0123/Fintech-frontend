@@ -4,11 +4,11 @@
             <tbody>
             <tr *ngFor="let data of files; let index = index">
                 <td class="text-left">{{(index +1)}}</td>
-                <td  class="text-left">{{data.name}}</td>
+                <td  class="text-left">{{data?.name}}</td>
             </tr>
-            <tr *ngIf="fixedAssets">
+            <tr>
                 <td>Expected Loss Given Default</td>
-                <td>{{fixedAssets}}</td>
+                <td class="text-left">{{fixedAssets?fixedAssets:'0'}}</td>
             </tr>
             </tbody>
         </table>
