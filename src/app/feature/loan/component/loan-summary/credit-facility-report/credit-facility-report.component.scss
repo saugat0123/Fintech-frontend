@@ -17,7 +17,7 @@
   .signature-height {
     height: 50px;
   }
-  .signature-width{
+  .signature-width {
     width: 50px;
   }
   .report-logo {
@@ -152,11 +152,23 @@
       }
     }
 
-    table { page-break-after:auto }
-    tr    { page-break-inside:avoid; page-break-after:auto }
-    td    { page-break-inside:avoid; page-break-after:auto }
-    thead { display:table-header-group }
-    tfoot { display:table-footer-group }
+    table {
+      page-break-after: auto
+    }
+    tr {
+      page-break-inside: avoid;
+      page-break-after: auto
+    }
+    td {
+      page-break-inside: avoid;
+      page-break-after: auto
+    }
+    thead {
+      display: table-header-group
+    }
+    tfoot {
+      display: table-footer-group
+    }
 
   }
 }
