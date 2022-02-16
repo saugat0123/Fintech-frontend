@@ -122,6 +122,10 @@ export class SupplementaryAggrementPartnershipComponent implements OnInit {
       date: this.form.get('date') ? this.form.get('date').value : '',
       days: this.form.get('days') ? this.form.get('days').value : '',
       suvam: this.form.get('suvam') ? this.form.get('suvam').value : '',
+      dateOfHyothenciation: this.form.get('dateOfHyothenciation') ? this.form.get('dateOfHyothenciation').value : '',
+      letterOfCreditIssueDate: this.form.get('letterOfCreditIssueDate') ? this.form.get('letterOfCreditIssueDate').value : '',
+      letterOfCredit: this.form.get('letterOfCredit') ? this.form.get('letterOfCredit').value : '',
+      dateOfTrust: this.form.get('dateOfTrust') ? this.form.get('dateOfTrust').value : '',
     };
     return JSON.stringify(tempFree);
   }
@@ -183,6 +187,10 @@ export class SupplementaryAggrementPartnershipComponent implements OnInit {
       date: this.supportedInfo ? this.supportedInfo.date : '',
       days: this.supportedInfo ? this.supportedInfo.days : '',
       suvam: this.supportedInfo ? this.supportedInfo.suvam : '',
+      dateOfHyothenciation: this.supportedInfo ? this.supportedInfo.dateOfHyothenciation : '',
+      letterOfCreditIssueDate: this.supportedInfo ? this.supportedInfo.letterOfCreditIssueDate : '',
+      letterOfCredit: this.supportedInfo ? this.supportedInfo.letterOfCredit : '',
+      dateOfTrust: this.supportedInfo ? this.supportedInfo.dateOfTrust : '',
     });
     if (!ObjectUtil.isEmpty(this.supportedInfo)) {
       for (let val = 0; val < this.supportedInfo.freeTextVal.length - 1; val++) {
