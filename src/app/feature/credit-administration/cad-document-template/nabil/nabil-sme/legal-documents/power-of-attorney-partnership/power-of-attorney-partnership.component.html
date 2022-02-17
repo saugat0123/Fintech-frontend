@@ -49,12 +49,12 @@
                                     placeholder=" "
                                     type="text"/>
                         <span class="print-only">{{this.individualData.name ? this.individualData.name.ct : '___________________________'}}</span>
-                        (साझेदारी फर्म) को <input class="form-field form-control-sm d-print-none"
+                        (साझेदारी फर्म) को <input class="form-field form-control-sm d-print-none nepaliFont"
                                                   name="freeText1"
                                                   formControlName="freeText1"
                                                   placeholder=" "
                                                   type="text"/>
-                        <span class="print-only">{{this.supportedInfo ? (this.supportedInfo.freeText1 ? this.supportedInfo.freeText1 : '__________________________') : '__________________________'}}</span>
+                        <span class="print-only nepaliFont">{{this.supportedInfo ? (this.supportedInfo.freeText1 ? this.supportedInfo.freeText1 : '__________________________') : '__________________________'}}</span>
                         जसलाई यसपछि ऋणी भनिएको छ, को हकमा एवं तर्फबाट ऐ. का अख्तियारप्राप्त साझेदार
                         <ng-container *ngFor="let partner of companyInfo; let i = index">
                             <ng-container *ngIf="!isForeignAddress">
@@ -348,9 +348,9 @@
                                 <ng-container class="m-0" *ngIf="isAuth1">
                                     <td width="70%">आधिकारिक प्रतिनिधिको नाम</td>
                                     <td>:
-                                        <input class="form-field form-control-sm d-print-none" name="authorizedBodyName"
+                                        <input class="form-field form-control-sm d-print-none nepaliFont" name="authorizedBodyName"
                                                formControlName="authorizedBodyName" placeholder="" type="text"/>
-                                        <span class="print-only">{{this.supportedInfo ? (this.supportedInfo?.authorizedBodyName ? this.supportedInfo?.authorizedBodyName : '__________________________') : '__________________________'}}</span>
+                                        <span class="print-only nepaliFont">{{this.supportedInfo ? (this.supportedInfo?.authorizedBodyName ? this.supportedInfo?.authorizedBodyName : '__________________________') : '__________________________'}}</span>
                                     </td>
                                 </ng-container>
                             </tr>
@@ -361,77 +361,77 @@
                     <div class="mt-5">
                         <p class="text-center"><strong><u>साक्षी</u></strong></p>
                         <ol class="conditions-list">
-                            <li><input class="form-field form-control-sm d-print-none"
+                            <li><input class="form-field form-control-sm d-print-none nepaliFont"
                                        name="witnessDistrict1"
                                        formControlName="witnessDistrict1"
                                        placeholder=""
                                        type="text"/>
-                                <span class="print-only">{{this.supportedInfo ? (this.supportedInfo.witnessDistrict1 ? this.supportedInfo.witnessDistrict1 : '__________________________') : '__________________________'}}</span>
-                                जिल्ला <input class="form-field form-control-sm d-print-none"
+                                <span class="print-only nepaliFont">{{this.supportedInfo ? (this.supportedInfo.witnessDistrict1 ? this.supportedInfo.witnessDistrict1 : '__________________________') : '__________________________'}}</span>
+                                जिल्ला <input class="form-field form-control-sm d-print-none nepaliFont"
                                               name="witnessMuni1"
                                               formControlName="witnessMuni1"
                                               placeholder=""
                                               type="text"/>
-                                <span class="print-only">{{this.supportedInfo ? (this.supportedInfo.witnessMuni1 ? this.supportedInfo.witnessMuni1 : '__________________________') : '__________________________'}}</span>
+                                <span class="print-only nepaliFont">{{this.supportedInfo ? (this.supportedInfo.witnessMuni1 ? this.supportedInfo.witnessMuni1 : '__________________________') : '__________________________'}}</span>
                                 न.पा/गा.वि.स.
-                                वडा नं. <input class="form-field form-control-sm d-print-none"
+                                वडा नं. <input class="form-field form-control-sm d-print-none nepaliFont"
                                                name="witnessWard1"
                                                formControlName="witnessWard1"
                                                placeholder=""
                                                type="text"/>
-                                <span class="print-only">{{this.supportedInfo ? (this.supportedInfo.witnessWard1 ? this.supportedInfo.witnessWard1 : '__________________________') : '__________________________'}}</span>
-                                बस्ने बर्ष. <input class="form-field form-control-sm d-print-none"
+                                <span class="print-only nepaliFont">{{this.supportedInfo ? (this.supportedInfo.witnessWard1 ? this.supportedInfo.witnessWard1 : '__________________________') : '__________________________'}}</span>
+                                बस्ने बर्ष. <input class="form-field form-control-sm d-print-none nepaliFont"
                                                    name="witnessAge1"
                                                    formControlName="witnessAge1"
                                                    placeholder=""
                                                    type="text"/>
-                                <span class="print-only">{{this.supportedInfo ? (this.supportedInfo.witnessAge1 ? this.supportedInfo.witnessAge1 : '__________________________') : '__________________________'}}</span>
-                                को/की <input class="form-field form-control-sm d-print-none"
+                                <span class="print-only nepaliFont">{{this.supportedInfo ? (this.supportedInfo.witnessAge1 ? this.supportedInfo.witnessAge1 : '__________________________') : '__________________________'}}</span>
+                                को/की <input class="form-field form-control-sm d-print-none nepaliFont"
                                              name="witnessName1"
                                              formControlName="witnessName1"
                                              placeholder=""
                                              type="text"/>
-                                <span class="print-only">{{this.supportedInfo ? (this.supportedInfo.witnessName1 ? this.supportedInfo.witnessName1 : '__________________________') : '__________________________'}}</span><br>
+                                <span class="print-only nepaliFont">{{this.supportedInfo ? (this.supportedInfo.witnessName1 ? this.supportedInfo.witnessName1 : '__________________________') : '__________________________'}}</span><br>
                             </li>
-                            <li><input class="form-field form-control-sm d-print-none"
+                            <li><input class="form-field form-control-sm d-print-none nepaliFont"
                                        name="witnessDistrict2"
                                        formControlName="witnessDistrict2"
                                        placeholder=""
                                        type="text"/>
-                                <span class="print-only">{{this.supportedInfo ? (this.supportedInfo.witnessDistrict2 ? this.supportedInfo.witnessDistrict2 : '__________________________') : '__________________________'}}</span>
-                                जिल्ला<input class="form-field form-control-sm d-print-none"
+                                <span class="print-only nepaliFont">{{this.supportedInfo ? (this.supportedInfo.witnessDistrict2 ? this.supportedInfo.witnessDistrict2 : '__________________________') : '__________________________'}}</span>
+                                जिल्ला<input class="form-field form-control-sm d-print-none nepaliFont"
                                              name="witnessMuni2"
                                              formControlName="witnessMuni2"
                                              placeholder=""
                                              type="text"/>
-                                <span class="print-only">{{this.supportedInfo ? (this.supportedInfo.witnessMuni2 ? this.supportedInfo.witnessMuni2 : '__________________________') : '__________________________'}}</span>
+                                <span class="print-only nepaliFont">{{this.supportedInfo ? (this.supportedInfo.witnessMuni2 ? this.supportedInfo.witnessMuni2 : '__________________________') : '__________________________'}}</span>
                                 न.पा/गा.वि.स.
-                                वडा नं. <input class="form-field form-control-sm d-print-none"
+                                वडा नं. <input class="form-field form-control-sm d-print-none nepaliFont"
                                                name="witnessWard2"
                                                formControlName="witnessWard2"
                                                placeholder=""
                                                type="text"/>
-                                <span class="print-only">{{this.supportedInfo ? (this.supportedInfo.witnessWard2 ? this.supportedInfo.witnessWard2 : '__________________________') : '__________________________'}}</span>
-                                बस्ने बर्ष. <input class="form-field form-control-sm d-print-none"
+                                <span class="print-only nepaliFont">{{this.supportedInfo ? (this.supportedInfo.witnessWard2 ? this.supportedInfo.witnessWard2 : '__________________________') : '__________________________'}}</span>
+                                बस्ने बर्ष. <input class="form-field form-control-sm d-print-none nepaliFont"
                                                    name="witnessAge2"
                                                    formControlName="witnessAge2"
                                                    placeholder=""
                                                    type="text"/>
-                                <span class="print-only">{{this.supportedInfo ? (this.supportedInfo.witnessAge2 ? this.supportedInfo.witnessAge2 : '__________________________') : '__________________________'}}</span>
-                                को/की <input class="form-field form-control-sm d-print-none"
+                                <span class="print-only nepaliFont">{{this.supportedInfo ? (this.supportedInfo.witnessAge2 ? this.supportedInfo.witnessAge2 : '__________________________') : '__________________________'}}</span>
+                                को/की <input class="form-field form-control-sm d-print-none nepaliFont"
                                              name="witnessName2"
                                              formControlName="witnessName2"
                                              placeholder=""
                                              type="text"/>
-                                <span class="print-only">{{this.supportedInfo ? (this.supportedInfo.witnessName2 ? this.supportedInfo.witnessName2 : '__________________________') : '__________________________'}}</span>
+                                <span class="print-only nepaliFont">{{this.supportedInfo ? (this.supportedInfo.witnessName2 ? this.supportedInfo.witnessName2 : '__________________________') : '__________________________'}}</span>
                             </li>
                             <li> कारणीले प्रस्तुत लिखत मेरो सामुन्ने सहिछाप गरेको हो भनी सनाखत गर्ने नविल बैंक
-                                लिमिटेडका कर्मचारी <input class="form-field form-control-sm d-print-none"
+                                लिमिटेडका कर्मचारी <input class="form-field form-control-sm d-print-none nepaliFont"
                                                           name="karmachariName"
                                                           formControlName="karmachariName"
                                                           placeholder=""
                                                           type="text"/>
-                                <span class="print-only">{{this.supportedInfo ? (this.supportedInfo.karmachariName ? this.supportedInfo.karmachariName : '__________________________') : '__________________________'}}</span>
+                                <span class="print-only nepaliFont">{{this.supportedInfo ? (this.supportedInfo.karmachariName ? this.supportedInfo.karmachariName : '__________________________') : '__________________________'}}</span>
                             </li>
                         </ol>
                     </div>
