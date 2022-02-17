@@ -637,8 +637,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
             if (issueDateType === 'AD') {
                 this.userConfigForm.value.guarantorDetails[index].citizenIssuedDate = this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).value;
             } else if (issueDateType === 'BS') {
-                const issueDate = this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).value.eDate;
-                this.userConfigForm.value.guarantorDetails[index].citizenIssuedDate = new Date(issueDate);
+                const issueDate = this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDateNepali']).value.eDate;
+                this.userConfigForm.value.guarantorDetails[index].citizenIssuedDateNepali = issueDate;
             }
             // this.deleteCTAndTransContorls(index);
         });
@@ -662,13 +662,13 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
         if (this.customerType === CustomerType.INSTITUTION && this.actionType === 'Edit') {
             data.customerSubType = this.instSubType(this.loanHolder.customerSubType);
         }
-        data.guarantorDetails.forEach((value, index) => {
+       /* data.guarantorDetails.forEach((value, index) => {
             const issueDateType = value.radioCitizenIssuedDate;
             if (issueDateType === 'BS') {
                 const issueDate = value.citizenIssuedDate.eDate;
                 data.guarantorDetails[index].citizenIssuedDate = new Date(issueDate);
             }
-        });
+        });*/
         this.cadOneformService.saveCustomer(data).subscribe(res => {
             this.spinner = false;
             if (this.hideLoan === true) {
@@ -820,6 +820,21 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
             nepData.guarantorNationality ? nepData.guarantorNationality =  this.userConfigForm.get(['guarantorDetails', index, 'guarantorNationality']).value : '';
 
             // test-------
+
+            if (this.actionType === 'Edit' && this.customerType === CustomerType.INDIVIDUAL) {
+                nepData['guarantorNationality'] = this.userConfigForm.get(['guarantorDetails', index, 'guarantorNationality']).value,
+                    nepData['radioCitizenIssuedDate'] = this.userConfigForm.get(['guarantorDetails', index, 'radioCitizenIssuedDate']).value,
+                    nepData['citizenIssuedDateNepali'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDateNepali']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDateNepaliTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDateNepaliCT']).value,
+                    };
+                nepData['citizenIssuedDate'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDate']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDateTrans']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDateCT']).value,
+                };
+            }
 
             if (this.userConfigForm.get(['guarantorDetails', index, 'indianGuarantorDetailOption']).value === 'Passport' && this.actionType === 'Edit' &&
             this.customerType === CustomerType.INSTITUTION) {
@@ -2094,10 +2109,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
                 nepData: [value.nepData],
                 guarantorTemporaryMunicipalityOrVdc: [ObjectUtil.isEmpty(nepaData.guarantorTemporaryMunicipalityOrVdc) ?
                     undefined : nepaData.guarantorTemporaryMunicipalityOrVdc.en],
-                radioCitizenIssuedDate:
-                    this.customerType === CustomerType.INDIVIDUAL ? (nepaData.radioCitizenIssuedDate ?
-                            nepaData.radioCitizenIssuedDate.en : '') :
-                        nepaData.radioCitizenIssuedDate ? nepaData.radioCitizenIssuedDate : '',
+                radioCitizenIssuedDate: nepaData.radioCitizenIssuedDate ? nepaData.radioCitizenIssuedDate : '',
                 citizenIssuedDate: !ObjectUtil.isEmpty(nepaData.citizenIssuedDate) ? new Date(nepaData.citizenIssuedDate.en) : '',
                 citizenIssuedDateTrans: !ObjectUtil.isEmpty(nepaData.citizenIssuedDate) ? nepaData.citizenIssuedDate.en : '',
                 citizenIssuedDateCT: !ObjectUtil.isEmpty(nepaData.citizenIssuedDate) ? nepaData.citizenIssuedDate.en : '',
