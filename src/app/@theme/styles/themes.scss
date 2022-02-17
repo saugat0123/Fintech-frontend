@@ -108,17 +108,9 @@ $nb-themes: nb-register-theme((
 
   * {
     font-family: Cambria, Georgia, serif;
-    font-size: 14px;
-
+    font-size: 21px !important;
   }
-  div{
-    p{
-      strong{
 
-        font-size: 20px;
-      }
-    }
-  }
 
   .disable-print {
     display: none;

@@ -195,3 +195,8 @@ nb-card.videoKyc {
   height: 90vh !important;
   overflow-x: hidden;
 }
+@media print {
+  .header {
+    padding-top: 32px !important;
+  }
+}

@@ -478,11 +478,14 @@
                                 <div class="col-md-4"
                                      *ngIf="(client !== clientName?.SHINE_RESUNGA) && ((loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral)">
                                     <div class="form-group">
-                                        <label class="title" for="commitmentFee"><strong>Commitment Fee (in%)</strong>
-                                        <nb-checkbox (change)="checkChecked($event.target.checked,'commitment')"
-                                                     [checked]="commitmentChecked"><b>Add Variable</b>
-                                        </nb-checkbox>
-                                        </label>
+                                        <div class="variable">
+                                            <label class="title" for="commitmentFee"><strong>Commitment Fee (in%)</strong>
+                                            </label>
+                                            &nbsp;
+                                            <nb-checkbox (change)="checkChecked($event.target.checked,'commitment')"
+                                                         [checked]="commitmentChecked"><b>Add Variable</b>
+                                            </nb-checkbox>
+                                        </div>
                                         <input
                                                 class="form-control"
                                                 formControlName="commitmentFee" id="commitmentFee"
@@ -519,11 +522,13 @@
                                 <div class="col-md-4"
                                      *ngIf="(client !== clientName?.SHINE_RESUNGA) && ((loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isShare || isGeneral)">
                                     <div class="form-group>">
-                                        <label class="title"> <strong>Prepayment Charge (in%)
+                                        <div class="variable">
+                                            <label class="title"> <strong>Prepayment Charge (in%)
+                                            </strong></label> &nbsp;
                                             <nb-checkbox (change)="checkChecked($event.target.checked,'prepayment')"
                                                          [checked]="prepaymentChargeChecked"><b>Add Variable</b>
                                             </nb-checkbox>
-                                        </strong></label>
+                                        </div>
                                         <input
                                                 [ngClass]="{ 'is-invalid': (submitted) && formControls.prepaymentCharge.errors }"
                                                 class="form-control" formControlName="prepaymentCharge"
@@ -564,15 +569,18 @@
                                                  [checked]="swapChargeChecked"><b>Swap Charge<em class="sb-medium">(if any)</em></b>
                                     </nb-checkbox>
                                     <div *ngIf="swapChargeChecked">
+                                        <div class="variable">
                                             <input
                                                     formControlName="swapChargeMethod"
                                                     name="swapChargeMethod" type="radio"
                                                     value="PERCENT"><strong> % </strong>
                                             <input formControlName="swapChargeMethod" name="swapChargeMethod"
                                                    type="radio" value="FLAT"><strong> Flat</strong>
-                                        <nb-checkbox (change)="checkChecked($event.target.checked,'swapDoubleCharge')"
-                                                     [checked]="swapDoubleChargeChecked"><b>Add Variable</b>
-                                        </nb-checkbox>
+                                                    &nbsp;
+                                                <nb-checkbox (change)="checkChecked($event.target.checked,'swapDoubleCharge')"
+                                                             [checked]="swapDoubleChargeChecked"><b>Add Variable</b>
+                                                </nb-checkbox>
+                                        </div>
                                             <input  [ngClass]="{ 'is-invalid': (submitted) && formControls.swapCharge.errors }"
                                                     class="form-control" formControlName="swapCharge"
                                                     id="swapCharge"
@@ -663,11 +671,13 @@
                                 </div>
                                 <div class="col-md-12" >
                                     <div class="form-group">
-                                        <label class="title"><b>Purpose of Loan</b></label>
-                                        <nb-checkbox (change)="checkChecked($event.target.checked,'purpose')"
-                                                     [checked]="purposeChecked">
-                                        <b>Others</b>
-                                    </nb-checkbox>
+                                        <div class="d-flex align-items-center">
+                                            <label style="margin-bottom: 0px; margin-right: 10px;" class="title"><b>Purpose of Loan</b></label>
+                                            <nb-checkbox (change)="checkChecked($event.target.checked,'purpose')"
+                                                         [checked]="purposeChecked">
+                                                <b>Others</b>
+                                            </nb-checkbox>
+                                        </div>
                                         <ng-select *ngIf="!purposeChecked" [items]="purposes"
                                                    [multiple]="false"
                                                    bindLabel="name"
