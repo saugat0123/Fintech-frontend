@@ -1,7 +1,7 @@
 <div *ngIf="!isBusinessLoan">
   <div class="row mt-3">
     <div class="col-md-12">
-      <p class="header"><strong>Financial Position and Repayment Capacity of the Borrower</strong></p>
+      <p class="header"><strong>Income Source</strong></p>
       <div class="row">
         <div class="col-md-12">
           <table class="table table-bordered text-right table-sm sb-small text-center">
@@ -12,7 +12,7 @@
             <tr class="text-white sb-bg-dark">
               <th>S.N</th>
               <th>Source of Income</th>
-              <th>Organization</th>
+              <th>Type</th>
               <th>Amount</th>
               <th>Age Of Income Generated</th>
               <th>Remarks</th>
@@ -37,97 +37,97 @@
           </table>
         </div>
       </div>
-      <div class="row">
-        <div class="col-md-12">
-          <table class="table table-bordered table-sm sb-small text-center">
-            <thead>
-            <tr>
-              <th class="text-center" colspan="5">Bank Obligation of Borrower</th>
-            </tr>
-            <tr class="text-white sb-bg-dark">
-              <th>S.N</th>
-              <th>Particulars</th>
-              <th>Amount</th>
-              <th>Remarks</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let expensesOfBorrower of financialData?.initialForm?.expensesOfBorrower; let i = index;">
-              <td>{{i + 1}}</td>
-              <td class="text-left pl-1">{{expensesOfBorrower.particulars}}</td>
-              <td class="text-right pr-1">Rs. {{expensesOfBorrower.amount | currencyFormatter}}</td>
-              <td class="text-left pl-1">{{expensesOfBorrower.remarks}}</td>
-            </tr>
-            <tr>
-              <td class="text-left pl-1" colspan="3"><strong>Total Bank Obligation</strong></td>
-              <td colspan="2" class="text-right pr-1">
-                <strong>Rs. {{financialData?.initialForm?.totalExpense | currencyFormatter}}</strong>
-              </td>
-            </tr>
-            <tr>
-              <td class="text-left pl-1" colspan="3"><strong>Net Saving</strong></td>
-              <td colspan="2" class="text-right pr-1">
-                <strong>Rs. {{financialData?.initialForm?.netSaving | currencyFormatter}}</strong>
-              </td>
-            </tr>
-            <tr>
-              <td class="text-left pl-1" colspan="3"><strong>Total EMI of client including present proposal</strong></td>
-              <td colspan="2" class="text-right pr-1">
-                <strong>Rs. {{financialData?.initialForm?.emiWithProposal | currencyFormatter}}</strong>
-              </td>
-            </tr>
-            <tr>
-              <td class="text-left pl-1" colspan="3"><strong>Total EMI and interest expenses to Gross income</strong></td>
-              <td colspan="2" class="text-right pr-1">
-                <strong>{{financialData?.initialForm?.totalEMIInterest}}</strong>
-              </td>
-            </tr>
-            <tr>
-              <td class="text-left pl-1" colspan="3"><strong>EMI / Net Monthly Income</strong></td>
-              <td colspan="2" class="text-right pr-1">
-                <strong>{{financialData?.initialForm?.emiNetMonthly | currencyFormatter}}</strong>
-              </td>
-            </tr>
+<!--      <div class="row">-->
+<!--        <div class="col-md-12">-->
+<!--          <table class="table table-bordered table-sm sb-small text-center">-->
+<!--            <thead>-->
+<!--            <tr>-->
+<!--              <th class="text-center" colspan="5">Bank Obligation of Borrower</th>-->
+<!--            </tr>-->
+<!--            <tr class="text-white sb-bg-dark">-->
+<!--              <th>S.N</th>-->
+<!--              <th>Particulars</th>-->
+<!--              <th>Amount</th>-->
+<!--              <th>Remarks</th>-->
+<!--            </tr>-->
+<!--            </thead>-->
+<!--            <tbody>-->
+<!--            <tr *ngFor="let expensesOfBorrower of financialData?.initialForm?.expensesOfBorrower; let i = index;">-->
+<!--              <td>{{i + 1}}</td>-->
+<!--              <td class="text-left pl-1">{{expensesOfBorrower.particulars}}</td>-->
+<!--              <td class="text-right pr-1">Rs. {{expensesOfBorrower.amount | currencyFormatter}}</td>-->
+<!--              <td class="text-left pl-1">{{expensesOfBorrower.remarks}}</td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--              <td class="text-left pl-1" colspan="3"><strong>Total Bank Obligation</strong></td>-->
+<!--              <td colspan="2" class="text-right pr-1">-->
+<!--                <strong>Rs. {{financialData?.initialForm?.totalExpense | currencyFormatter}}</strong>-->
+<!--              </td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--              <td class="text-left pl-1" colspan="3"><strong>Net Saving</strong></td>-->
+<!--              <td colspan="2" class="text-right pr-1">-->
+<!--                <strong>Rs. {{financialData?.initialForm?.netSaving | currencyFormatter}}</strong>-->
+<!--              </td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--              <td class="text-left pl-1" colspan="3"><strong>Total EMI of client including present proposal</strong></td>-->
+<!--              <td colspan="2" class="text-right pr-1">-->
+<!--                <strong>Rs. {{financialData?.initialForm?.emiWithProposal | currencyFormatter}}</strong>-->
+<!--              </td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--              <td class="text-left pl-1" colspan="3"><strong>Total EMI and interest expenses to Gross income</strong></td>-->
+<!--              <td colspan="2" class="text-right pr-1">-->
+<!--                <strong>{{financialData?.initialForm?.totalEMIInterest}}</strong>-->
+<!--              </td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--              <td class="text-left pl-1" colspan="3"><strong>EMI / Net Monthly Income</strong></td>-->
+<!--              <td colspan="2" class="text-right pr-1">-->
+<!--                <strong>{{financialData?.initialForm?.emiNetMonthly | currencyFormatter}}</strong>-->
+<!--              </td>-->
+<!--            </tr>-->
 
 
-            <tr class="text-white sb-bg-dark">
-              <th colspan="4">Note</th>
-            </tr>
-            <tr>
-              <td class="text-left pl-1" colspan="4">{{financialData?.initialForm?.note}}</td>
-            </tr>
+<!--            <tr class="text-white sb-bg-dark">-->
+<!--              <th colspan="4">Note</th>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--              <td class="text-left pl-1" colspan="4">{{financialData?.initialForm?.note}}</td>-->
+<!--            </tr>-->
 
-            </tbody>
-          </table>
-        </div>
-      </div>
+<!--            </tbody>-->
+<!--          </table>-->
+<!--        </div>-->
+<!--      </div>-->
     </div>
   </div>
 </div>
 
-<table *ngIf="!isBusinessLoan" class="table table-condensed  table-sm table-bordered table-responsive-md text-center table-sm sb-small">
-  <thead>
-  <tr class="text-white sb-bg-dark">
-    <th colspan="5">Borrower Repayment Capacity</th>
-  </tr>
-  <tr  class="text-white sb-bg-dark">
-    <th>Gross Total Income</th>
-    <th>Existing Obligation at other Bank</th>
-    <th>Proposed and Existing Obligation at Our Bank</th>
-    <th>Total Bank Obligation</th>
-    <th>Total Bank Obligation to Gross Income Ratio</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr>
-    <td class="text-right pr-1">Rs. {{financialData?.initialForm?.totalIncome | currencyFormatter}}</td>
-    <td class="text-right pr-1">Rs. {{financialData?.initialForm?.existingObligationOtherBank | currencyFormatter}}</td>
-    <td class="text-right pr-1">Rs. {{financialData?.initialForm?.totalObligationCurrentBank | currencyFormatter}}</td>
-    <td class="text-right pr-1">Rs. {{financialData?.initialForm?.totalBankObligation | currencyFormatter}}</td>
-    <td class="text-right pr-1">{{financialData?.initialForm?.obligationGrossIncomeRatio}}</td>
-  </tr>
-  </tbody>
-</table>
+<!--<table *ngIf="!isBusinessLoan" class="table table-condensed  table-sm table-bordered table-responsive-md text-center table-sm sb-small">-->
+<!--  <thead>-->
+<!--  <tr class="text-white sb-bg-dark">-->
+<!--    <th colspan="5">Borrower Repayment Capacity</th>-->
+<!--  </tr>-->
+<!--  <tr  class="text-white sb-bg-dark">-->
+<!--    <th>Gross Total Income</th>-->
+<!--    <th>Existing Obligation at other Bank</th>-->
+<!--    <th>Proposed and Existing Obligation at Our Bank</th>-->
+<!--    <th>Total Bank Obligation</th>-->
+<!--    <th>Total Bank Obligation to Gross Income Ratio</th>-->
+<!--  </tr>-->
+<!--  </thead>-->
+<!--  <tbody>-->
+<!--  <tr>-->
+<!--    <td class="text-right pr-1">Rs. {{financialData?.initialForm?.totalIncome | currencyFormatter}}</td>-->
+<!--    <td class="text-right pr-1">Rs. {{financialData?.initialForm?.existingObligationOtherBank | currencyFormatter}}</td>-->
+<!--    <td class="text-right pr-1">Rs. {{financialData?.initialForm?.totalObligationCurrentBank | currencyFormatter}}</td>-->
+<!--    <td class="text-right pr-1">Rs. {{financialData?.initialForm?.totalBankObligation | currencyFormatter}}</td>-->
+<!--    <td class="text-right pr-1">{{financialData?.initialForm?.obligationGrossIncomeRatio}}</td>-->
+<!--  </tr>-->
+<!--  </tbody>-->
+<!--</table>-->
 
 
 <div *ngIf="isBusinessLoan && (loanDataHolder?.companyInfo?.microCustomerType != 'DIRECT')">
