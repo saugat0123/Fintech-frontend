@@ -326,7 +326,7 @@ export class ConstructionLoanComponent implements OnInit {
     const baseRate = this.constructionLoanForm.get('baseRate').value;
     const premiumRate = this.constructionLoanForm.get('premiumRate').value;
     const sum = parseFloat(baseRate) + parseFloat(premiumRate);
-    this.constructionLoanForm.get('interestRate').patchValue(sum);
+    this.constructionLoanForm.get('interestRate').patchValue(sum.toFixed(2));
   }
 
   private initSecuritiesForm(): FormGroup {

@@ -332,7 +332,7 @@ submit(): void {
         const baseRate = this.nepToEngNumberPipe.transform(this.retailProfessionalLoan.get(baseRateName).value);
         const premiumRate = this.nepToEngNumberPipe.transform(this.retailProfessionalLoan.get(premiumRateName).value);
         const calculatedValue = parseFloat(baseRate) + parseFloat(premiumRate);
-        const finalVal = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(calculatedValue));
+        const finalVal = this.engToNepNumberPipe.transform(calculatedValue.toFixed(2));
         this.retailProfessionalLoan.get('interestRate').patchValue(finalVal);
     }
 

@@ -202,7 +202,7 @@ export class PersonalLoanAndPersonalOverdraftTemplateEditComponent implements On
     const baseRate = this.form.get('baseRate').value;
     const premiumRate = this.form.get('premiumRate').value;
     const sum = parseFloat(baseRate) + parseFloat(premiumRate);
-    this.form.get('yearlyInterestRate').patchValue(sum);
+    this.form.get('yearlyInterestRate').patchValue(sum.toFixed(2));
     this.translateNumber('baseRate', 'baseRateTransVal');
     this.translateNumber('premiumRate', 'premiumRateTransVal');
     this.translateNumber('yearlyInterestRate', 'yearlyInterestRateTransVal');
