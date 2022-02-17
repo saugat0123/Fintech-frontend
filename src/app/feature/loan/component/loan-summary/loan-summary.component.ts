@@ -47,6 +47,7 @@ import {flatten} from '@angular/compiler';
 import * as JSZip from 'jszip';
 import * as JSZipUtils from 'jszip-utils/lib/index.js';
 import {saveAs as importedSaveAs} from 'file-saver';
+import {DocStatus} from '../../model/docStatus';
 
 @Component({
     selector: 'app-loan-summary',
@@ -186,6 +187,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     siteVisitDocuments: Array<SiteVisitDocument>;
     requestedLoanType;
     @Output() customerLoanList = new EventEmitter();
+    zipDocumentName;
+    hidePreviewButton = false;
 
     constructor(
         @Inject(DOCUMENT) private _document: Document,
@@ -228,6 +231,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         this.loadSummary();
         this.roleType = LocalStorageUtil.getStorage().roleType;
         this.checkDocUploadConfig();
+        this.checkDocumentStatus();
     }
 
     ngOnDestroy(): void {
@@ -376,7 +380,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         }
         if (!ObjectUtil.isEmpty(this.loanDataHolder.proposal)) {
             this.proposalData = this.loanDataHolder.proposal;
-            
             this.proposalView = JSON.parse(this.proposalData.data);
             console.log('proposalData.data: ', this.proposalView);
             this.proposalSummary = true;
@@ -731,6 +734,23 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
 
     checkSiteVisitDocument(event: any) {
         this.siteVisitDocuments = event;
+    }
+
+    checkDocumentStatus() {
+        if (this.loanDataHolder.documentStatus.toString() === DocStatus.value(DocStatus.APPROVED) ||
+            this.loanDataHolder.documentStatus.toString() === DocStatus.value(DocStatus.REJECTED) ||
+            this.loanDataHolder.documentStatus.toString() === DocStatus.value(DocStatus.CLOSED)) {
+            this.hidePreviewButton = true;
+            if (this.loanDataHolder.documentStatus.toString() === DocStatus.value(DocStatus.APPROVED)) {
+                this.zipDocumentName = '-approved-documents';
+            } else if (this.loanDataHolder.documentStatus.toString() === DocStatus.value(DocStatus.CLOSED)) {
+                this.zipDocumentName = '-closed-documents';
+            } else {
+                this.zipDocumentName = '-rejected-documents';
+            }
+        } else {
+            this.hidePreviewButton = false;
+        }
     }
 }
 
