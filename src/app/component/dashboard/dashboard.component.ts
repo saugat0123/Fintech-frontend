@@ -15,6 +15,7 @@ import {LocalStorageUtil} from '../../@core/utils/local-storage-util';
 import {LoanConfig} from '../../feature/admin/modal/loan-config';
 import {RolePermissionService} from '../../feature/admin/component/role-permission/role-permission.service';
 import {CreditAdministrationService} from '../../feature/credit-administration/service/credit-administration.service';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 
 @Component({
@@ -66,7 +67,8 @@ export class DashboardComponent implements OnInit, AfterContentInit {
         private modalService: NgbModal,
         private route: Router,
         private rolePermissionService: RolePermissionService,
-        private creditAdministrationService: CreditAdministrationService
+        private creditAdministrationService: CreditAdministrationService,
+        private spinner: NgxSpinnerService
     ) {
     }
 
@@ -94,6 +96,7 @@ export class DashboardComponent implements OnInit, AfterContentInit {
     }
 
     ngOnInit() {
+        this.spinner.hide();
         this.breadcrumbService.notify(this.title);
 
         this.permissionService.getPermissionOf('DASHBOARD').subscribe(
