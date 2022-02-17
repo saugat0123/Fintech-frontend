@@ -7,11 +7,11 @@ import {ApiConfig} from '../../../@core/utils/api/ApiConfig';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {ProductUtils} from '../../admin/service/product-mode.service';
 import {LocalStorageUtil} from '../../../@core/utils/local-storage-util';
-import {AffiliateId} from '../../../@core/utils/constants/affiliateId';
 import * as JSZip from 'jszip';
 import * as JSZipUtils from 'jszip-utils/lib/index.js';
 import {saveAs as importedSaveAs} from 'file-saver';
 import {SiteVisitDocument} from '../../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
+import {DocStatus} from '../../loan/model/docStatus';
 
 
 @Component({
@@ -28,6 +28,8 @@ export class AllDocumentViewComponent implements OnInit {
   insuranceWithDoc = [];
   showCadDoc;
   productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
+  hidePreviewButton = false;
+  documentName;
 
   constructor(private dmsLoanService: DmsLoanService,
               private toastService: ToastService,
@@ -57,6 +59,7 @@ export class AllDocumentViewComponent implements OnInit {
       }
     }
     this.showCadDoc = this.productUtils.CAD_LITE_VERSION;
+    this.checkDocumentStatus();
   }
 
   downloadCustomerDocument(documentPath, documentName) {
@@ -117,8 +120,9 @@ export class AllDocumentViewComponent implements OnInit {
           docPaths.push(doc);
         }
       }
+      // Collateral SiteVisit Document
       const siteVisitDocument = this.siteVisitDocument;
-      if (!ObjectUtil.isEmpty(this.siteVisitDocument)) {
+      if (!ObjectUtil.isEmpty(siteVisitDocument)) {
         for (const doc of siteVisitDocument) {
           docPaths.push(doc.docPath.concat(doc.docName).concat('.jpg'));
         }
@@ -160,6 +164,23 @@ export class AllDocumentViewComponent implements OnInit {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Files has been downloaded!'));
     } else {
       this.toastService.show(new Alert(AlertType.ERROR, 'No file found!!!'));
+    }
+  }
+
+  checkDocumentStatus() {
+    if (this.loanDataHolder.documentStatus.toString() === DocStatus.value(DocStatus.APPROVED) ||
+        this.loanDataHolder.documentStatus.toString() === DocStatus.value(DocStatus.REJECTED) ||
+        this.loanDataHolder.documentStatus.toString() === DocStatus.value(DocStatus.CLOSED)) {
+      this.hidePreviewButton = true;
+      if (this.loanDataHolder.documentStatus.toString() === DocStatus.value(DocStatus.APPROVED)) {
+        this.documentName = '-approved-documents';
+      } else if (this.loanDataHolder.documentStatus.toString() === DocStatus.value(DocStatus.CLOSED)) {
+        this.documentName = '-closed-documents';
+      } else {
+        this.documentName = '-rejected-documents';
+      }
+    } else {
+      this.hidePreviewButton = false;
     }
   }
 
