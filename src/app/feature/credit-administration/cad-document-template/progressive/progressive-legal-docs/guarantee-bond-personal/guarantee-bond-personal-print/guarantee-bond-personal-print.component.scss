@@ -18,22 +18,10 @@ table {
 }
 
 @media print {
-  @page :first {
-    margin: 1.06in 0in 1in 1.06in;
-  }
+
   @page {
-    margin: 1.5in 0in 1in 1.06in !important;
+    margin: 1.5in 0in 0.5in 1.06in !important;
   }
-
-  /*.page-break-tr {
-    page-break-inside: initial;
-    display: block;
-  }*/
-
-  /*tr {
-    page-break-inside: initial;
-    //display: block;
-  }*/
 
   .pageBreak {
     page-break-before: always !important;
@@ -55,6 +43,9 @@ table {
 .nepali {
   font-size: 16px;
   line-height: 1.5;
-  //margin: 10px 50px;
   @extend .text-justify !optional;
+}
+
+.page-break {
+  page-break-after: always;
 }
