@@ -119,11 +119,11 @@
                         <tr>
                             <td width="20%"><strong>कर्जाको प्रकार:</strong></td>
                             <td width="40%">
-                                <input class="form-field form-control-sm "
+                                <input class="form-field form-control-sm"
                                        readonly
                                        formControlName="loanSubType"
                                        name="loanSubType"
-                                       style="width: 200px"
+                                       style="width: 80%"
                                        type="text"/>
                             </td>
                             <td width="40%">
@@ -131,7 +131,7 @@
                                        readonly
                                        formControlName="loanSubTypeEn"
                                        name="loanSubTypeEn"
-                                       style="width: 200px"
+                                       style="width: 80%"
                                        type="text"/>
                             </td>
                         </tr>
@@ -143,23 +143,23 @@
                                                    formControlName="purposeOfLoan"
                                                    name="purposeOfLoan"
                                                    placeholder="Purpose of Loan"
-                                                   style="width: 200px"
+                                                   style="width: 100%"
                                                    type="text"/>
                             </td>
                         </tr>
                         <tr>
                             <td><strong> कर्जा रु.(Loan Amount)</strong></td>
-                            <td colspan="2"><input (input)="getNumAmountWord('loanAmountInFigure', 'loanAmountInWords')"
+                            <td colspan="2">रु. <input (input)="getNumAmountWord('loanAmountInFigure', 'loanAmountInWords')"
                                                    class="form-field form-control-sm"
                                                    formControlName="loanAmountInFigure"
                                                    name="loanAmountInFigure"
                                                    placeholder="ऋण रकम"
-                                                   type="text"/>
-                                ( अक्षेरुपी रु.<input class="form-field form-control-sm"
+                                                   type="text"/> /-
+                                (अक्षेरुपी रु.<input class="form-field form-control-sm"
                                                       formControlName="loanAmountInWords"
                                                       name="loanAmountInWords"
                                                       placeholder="अक्षेरुपी "
-                                                      type="text"/> मात्र )
+                                                      type="text"/> मात्र)
                             </td>
                         </tr>
                         <tr>
@@ -219,14 +219,14 @@
                                          formControlName="premiumRate"
                                          name="premiumRate"
                                          placeholder=" "
-                                         type="text"/>प्रतिशत
+                                         type="text"/> प्रतिशत
                                 व्याज दर प्रिमियम (Interest Rate Premium)
                                 हाल उपरँक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
                                 बार्षिक <input class="form-field form-control-sm"
                                                formControlName="totalInterestRate"
                                                name="totalInterestRate"
                                                placeholder=" "
-                                               type="text"/>। का दरले निर्धारण गरीएकोछ । सो निर्धारित ब्याज
+                                               type="text"/> प्रतिशत का दरले निर्धारण गरीएकोछ । सो निर्धारित ब्याज
                                 दरमा नेपाल राष्ट्र बैंकले ऋणीलाई दिने छुट/सहुलियत वापतको दर घटाई कायम हुन आउने रकम
                                 ऋणीले ब्याज स्वरुप मासिक तिर्नु बुझाउनु पर्नेछ ।
                             </td>
@@ -264,13 +264,13 @@
                                                                             formControlName="marginInPercentageMotor"
                                                                             name="marginInPercentageMotor"
                                                                             placeholder=" "
-                                                                            type="text"/> । प्रतिशत वा
+                                                                            type="text"/> प्रतिशत वा
                                 गोरेटो बाटो भएको (Foot trail access) को हकमा बजार मुल्य (Market Value) को
                                 <input class="form-field form-control-sm"
                                        formControlName="marginInPercentageFoot"
                                        name="marginInPercentageFoot"
                                        placeholder=" "
-                                       type="text"/>। प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो
+                                       type="text"/> प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो
                                 बरावर रकम तपाईंको निवेदन बमोजिम यस बैंकमा खोल्नु भएको चल्ती खातामा प्रवाह गरिनेछ ।
                             </span>
                             <span *ngIf="!securityTypeCondition">
@@ -288,7 +288,7 @@
                         </tr>
                     </table>
                 </div>
-                <p style="padding-left: 1em">द्रष्टब्यः माथि उल्लेखित ऋणकर्जा सुविधाहरु सहुलियतपुर्ण कर्जा हुन् । सहुलियतपुर्ण कर्जाका लागि ब्याज
+                <p style="padding-left: 1em"><strong>द्रष्टब्यः </strong> माथि उल्लेखित ऋणकर्जा सुविधाहरु सहुलियतपुर्ण कर्जा हुन् । सहुलियतपुर्ण कर्जाका लागि ब्याज
                     अनुदान सम्बन्धि एकिकृत कार्यविधि,
                     २०७५, दोस्रो संशोधन, २०७६ र तेस्रो संशोधन, २०७७ बमोजिमको हुन आउने अनुदान ब्याज भुक्तानीका लागि नेपाल
                     राष्ट्र बैंक समक्ष
@@ -302,95 +302,57 @@
                     नगर्नका
                     साथै अघिल्लो प्रदान गरिएका अनुदानहरु पनि फिर्ता माग गर्ने बैंकको अधिकार सुरक्षित रहेनछ ।
                 </p><br>
-                <div mt-5>
-                        <div class="col-sm-12">
-                            <ol class="conditions-list orderd-list">
-                                <strong>सुरक्षण विवरणः </strong>
-
-                                <p>
-                                    <strong> क. </strong> प्राथमिक/थप सुरक्षण (Primary/Secondary Security)
-                                </p>
-                                <li *ngIf="securityTypeCondition"><strong> </strong>
-                                    घर/जग्गा धितोेबन्धक हकाधिकार(Mortgage Charges):<br>
-                                    स्वीकृत ऋणकर्जा प्रवाह गर्नु अगावै ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा देहाय
-                                    बमोजिमको घर/जग्गा धितोबन्धक पारित/रोक्का गरिदिनु पर्नेछ ।
-                                    <div class="pb-4">
-                                        <app-master-securities-view
-                                                [securityDetails]="tempData?.securities"></app-master-securities-view>
-                                    </div>
-<!--                                    <table class="table table-bordered">-->
-<!--                                        <tr>-->
-<!--                                            <td rowspan="2">घर/जग्गा धनीको नाम थर (Land Owner Name)</td>-->
-<!--                                            <td colspan="3">घर/जग्गाको अवस्थिति</td>-->
-<!--                                            <td rowspan="2">सिट नं. (Sheet No.)</td>-->
-<!--                                            <td rowspan="2">कित्ता नं. Plot No.)</td>-->
-<!--                                            <td rowspan="2">क्षेत्रफल (Area in Sq m/Ropani/Bigha)</td>-->
-<!--                                        </tr>-->
-<!--                                        <tr>-->
-<!--                                            <td>जिल्ला (District)</td>-->
-<!--                                            <td>नगर/गा.वि.स. (VDC/Munc)</td>-->
-<!--                                            <td>वडा नं. (Ward No.)</td>-->
-<!--                                        </tr>-->
-<!--                                        <tr>-->
-<!--                                            <td><input class="form-field form-control-sm"-->
-<!--                                                       formControlName="landOwnerName"-->
-<!--                                                       type="text"/></td>-->
-<!--                                            <td><input class="form-field form-control-sm"-->
-<!--                                                       formControlName="district"-->
-<!--                                                       type="text"/></td>-->
-<!--                                            <td><input class="form-field form-control-sm"-->
-<!--                                                       formControlName="VDCMuni"-->
-<!--                                                       type="text"/></td>-->
-<!--                                            <td><input class="form-field form-control-sm"-->
-<!--                                                       formControlName="wardNo"-->
-<!--                                                       type="text"/></td>-->
-<!--                                            <td><input class="form-field form-control-sm"-->
-<!--                                                       formControlName="sheetNo"-->
-<!--                                                       type="text"/></td>-->
-<!--                                            <td><input class="form-field form-control-sm"-->
-<!--                                                       formControlName="plotNo"-->
-<!--                                                       type="text"/></td>-->
-<!--                                            <td><input class="form-field form-control-sm"-->
-<!--                                                       formControlName="areaInSq"-->
-<!--                                                       type="text"/></td>-->
-<!--                                        </tr>-->
-<!--                                    </table>-->
-                                </li>
-                                <li *ngIf="securityTypeConditionFixedAssests"><strong> सामान मौज्दात धितोेबन्धक हकाधिकार </strong>(Hypothecation Charges)
-                                    <br>
-                                    बैंकबाट प्राप्त कर्जा वा सुविधा तथा ऋणीको आफ्नै श्रोत समेतबाट खरिद गरेको जहासुकै
-                                    रहे भएको कच्चा पदार्थ प्रशोधित वा
-                                    अर्ध प्रशोधित कच्चा पदार्थ, तयारी सामान, पशुपन्छी, दाना, अण्डा, भ्याक्सिन/औषधि,
-                                    कृषि उपज आदी लगायतका सम्पूर्ण सामानहरुको
-                                    मौज्दात, टहरा, उपकरण लगायत परियोजना संग सम्बन्धित सम्पूर्ण चल अचल सम्पत्तिहरु यस
-                                    बैंकको पक्षमा धितोबन्धक हकाधिकार कायम गरिदिनु पर्नेछ ।
-                                </li>
-                                <li *ngIf="securityTypeConditionDocuments">
-                                    <strong> हस्तान्तरण </strong>(Assignment):<br>
-                                    ऋणीले आफ्ना आसामीबाट भुक्तानी प्राप्त गर्न बांकि रकमहरु (Account Receivables)
-                                    बैंकले संकलन गर्न सक्ने अख्तियारनामा हस्तान्तरण गरिदिनु पर्नेछ ।
-                                </li>
-                                <li>
-                                    <strong> व्यक्तिगत जमानत</strong>(Personal Guarantee)<br>
-                                    रु.<input class="form-field form-control-sm"
-                                              formControlName="totalAmountInFigure"
-                                              [value]="guarantorParse(guarantorData[0].nepData, 'gurantedAmount')"
-                                              placeholder=" "
-                                              type="text"/>(अक्षरेपी रु.<input class="form-field form-control-sm"
-                                                                               formControlName="totalAmountInWords"
-                                                                               [value]="nepaliCurrencyWordPipe.transform(guarantorParse(guarantorData[0].nepData, 'gurantedAmount', 'en'))"
-                                                                               placeholder=" "
-                                                                               type="text"/> मात्र)
-                                    बराबरको <input class="form-field form-control-sm"
-                                                   formControlName="guarantorName"
-                                                   [value]="commonGuarantorDetails(personalGuarantorsName, finalPersonalName)"
-                                                   placeholder=" "
-                                                   type="text"/>
-                                    ले बैंकको पक्षमा व्यक्तिगत जमानत लेखिदिनु पर्नेछ ।
-                                </li>
-                            </ol>
-                        </div>
+                <div>
+                    <div class="col-sm-12">
+                        <ol class="conditions-list orderd-list">
+                            <strong>सुरक्षण विवरणः </strong>
+                            <p>
+                                <strong> क. </strong> प्राथमिक/थप सुरक्षण (Primary/Secondary Security)
+                            </p>
+                            <li *ngIf="securityTypeCondition"><strong>
+                                घर/जग्गा धितोेबन्धक हकाधिकार </strong>(Mortgage Charges):<br>
+                                स्वीकृत ऋणकर्जा प्रवाह गर्नु अगावै ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा देहाय
+                                बमोजिमको घर/जग्गा धितोबन्धक पारित/रोक्का गरिदिनु पर्नेछ ।
+                                <div class="pb-4">
+                                    <app-master-securities-view
+                                            [securityDetails]="tempData?.securities"></app-master-securities-view>
+                                </div>
+                            </li>
+                            <li *ngIf="securityTypeConditionFixedAssests"><strong> सामान मौज्दात धितोेबन्धक हकाधिकार </strong>(Hypothecation Charges)
+                                <br>
+                                बैंकबाट प्राप्त कर्जा वा सुविधा तथा ऋणीको आफ्नै श्रोत समेतबाट खरिद गरेको जहासुकै
+                                रहे भएको कच्चा पदार्थ प्रशोधित वा
+                                अर्ध प्रशोधित कच्चा पदार्थ, तयारी सामान, पशुपन्छी, दाना, अण्डा, भ्याक्सिन/औषधि,
+                                कृषि उपज आदी लगायतका सम्पूर्ण सामानहरुको
+                                मौज्दात, टहरा, उपकरण लगायत परियोजना संग सम्बन्धित सम्पूर्ण चल अचल सम्पत्तिहरु यस
+                                बैंकको पक्षमा धितोबन्धक हकाधिकार कायम गरिदिनु पर्नेछ ।
+                            </li>
+                            <li *ngIf="securityTypeConditionDocuments">
+                                <strong> हस्तान्तरण </strong>(Assignment):<br>
+                                ऋणीले आफ्ना आसामीबाट भुक्तानी प्राप्त गर्न बांकि रकमहरु (Account Receivables)
+                                बैंकले संकलन गर्न सक्ने अख्तियारनामा हस्तान्तरण गरिदिनु पर्नेछ ।
+                            </li>
+                            <li>
+                                <strong> व्यक्तिगत जमानत</strong> (Personal Guarantee):<br>
+                                रु.<input class="form-field form-control-sm"
+                                          formControlName="totalAmountInFigure"
+                                          [value]="guarantorParse(guarantorData[0].nepData, 'gurantedAmount')"
+                                          placeholder=" "
+                                          type="text"/> /- (अक्षरेपी रु.<input class="form-field form-control-sm"
+                                                                           formControlName="totalAmountInWords"
+                                                                           [value]="nepaliCurrencyWordPipe.transform(guarantorParse(guarantorData[0].nepData, 'gurantedAmount', 'en'))"
+                                                                           placeholder=" "
+                                                                           type="text"/> मात्र)
+                                बराबरको <input class="form-field form-control-sm"
+                                               formControlName="guarantorName"
+                                               [value]="commonGuarantorDetails(personalGuarantorsName, finalPersonalName)"
+                                               placeholder=" "
+                                               type="text"/>
+                                ले बैंकको पक्षमा व्यक्तिगत जमानत लेखिदिनु पर्नेछ ।
+                            </li>
+                        </ol>
                     </div>
+                </div>
 
                 <div class="service-contions mt-5">
                         <div class="col-sm-12">
@@ -398,8 +360,7 @@
                                     <strong>व्याज सम्बन्धी शर्तहरुः</strong>
                                 <li>हरेक त्रैमास (आषाढ, आश्विन, पौष र चैत्र मसान्त) को समाप्ति पश्चात बैंकको
                                     आधिकारिक वेव साईट (Website)
-                                    तथा राष्ट्रियस्तरको पत्रिकामा त्रैमासिक औसत आधार दर (Quarterly Average Base Rate
-                                    ) प्रकाशित गरिनेछ ।
+                                    तथा राष्ट्रियस्तरको पत्रिकामा त्रैमासिक औसत आधार दर (Quarterly Average Base Rate) प्रकाशित गरिनेछ ।
                                     यसरी हरेक त्रैमास समाप्त भएपछि प्रकाशित हुने पछिल्लो त्रैमासिक औसत आधार दर
                                     (Quarterly Average Base Rate)
                                     मा माथि उल्लेख भए बमोजिमको ब्याज दर प्रिमियम (Interest Rate Premium) थप गरी
@@ -411,14 +372,14 @@
                                     कारणबाट कर्जा तथा सापटमा लाग्ने ब्याज दर बैंकको आधिकारिक वेव साईट (Website) मा
                                     प्रत्येक त्रैमास अर्थात
                                     आषाढ, आश्विन, पौष र चैत्र मसान्तको प्रकाशन गरीने त्रैमासिक औसत आधार दर
-                                    (Quarterly Average Base Rate )
+                                    (Quarterly Average Base Rate)
                                     मा जतिले परिवर्र्तन हुनेछ सोहि अनुपातमा प्रत्येक त्रैमास पछिको महिनाहरु अर्थात
                                     श्रावण, कार्तिक, माघ र बैशाखको पहिलो दिनबाट
                                     ब्याज दर समायोजन तथा संसोधन गरीनेछ ।
                                 </li>
                                 <li>बैंकको त्रैमासिक औसत आधार दर (Quarterly Average Base Rate) मा हुने उतार
                                     चढाबको कारणबाट सम मासिक
-                                    किस्ता (EMI- Equated Monthly Installment ) भुक्तानी हुने प्रकृतिका कर्जाहरुको
+                                    किस्ता (EMI- Equated Monthly Installment) भुक्तानी हुने प्रकृतिका कर्जाहरुको
                                     हकमा निर्धारीत मासिक किस्ता रकम
                                     तथा किस्ता भुक्तानी तालिकामा परीवर्तन गरिने छैन । परिवर्तनशिल ब्याज दरको कारण
                                     अन्तिम किस्ता भुक्तानी मितिमा यदी कुनै साँवा/ब्याज
@@ -438,7 +399,7 @@
                                     संशोधनको जानकारी बैंकको आधिकारिक (Website)
                                     वा पत्रपत्रिका मार्फत सार्वजनिक सुचना जारी गरी परिवर्तित व्याज दर लागु गरिनेछ ।
                                     उक्त परिवर्तित व्याज दरको जानकारी ऋणी आफै बैंकको
-                                    आधिकारिक(Website) र/वा पत्रपत्रिका मार्फत प्राप्त गरी तिर्न बुझाउन मन्जुर गर्दछ
+                                    आधिकारिक (Website) र/वा पत्रपत्रिका मार्फत प्राप्त गरी तिर्न बुझाउन मन्जुर गर्दछ
                                     ।
                                 </li>
                                 <li>उल्लिखित ब्याज दर प्रिमियम (interest rate premium) नेपाल राष्ट्र बैंकबाट
@@ -447,7 +408,7 @@
                                 </li>
                             </ol>
                         </div>
-                        <div class="service-contions mt-5">
+                        <div class="service-contions mt-4">
                                 <div class="col-sm-12" style="padding-left: 2em">
                                     <ol class="conditions-list orderd-list">
                                         <strong>कर्जा उपयोग सीमाः</strong>
@@ -457,12 +418,11 @@
                                                    formControlName="totalLimitFigure"
                                                    name="totalLimitFigure"
                                                    placeholder="ऋण रकम"
-                                                   type="text"/>
-                                            ( अक्षेरुपी रु.<input class="form-field form-control-sm"
+                                                   type="text"/> /- (अक्षेरुपी रु.<input class="form-field form-control-sm"
                                                                   formControlName="totalLimitWords"
                                                                   name="totalLimitWords"
                                                                   placeholder="अक्षेरुपी "
-                                                                  type="text"/> मात्र ) भन्दा बढी हुनु हुनेछैन ।
+                                                                  type="text"/> मात्र) भन्दा बढी हुनु हुनेछैन ।
                                         </li>
                                         <li>माथि बुँदामा/बुँदा बुँदामा तोकिएको ऋणकर्जा सुविधाको कूल उपयोग सीमा भन्दा
                                             कथमकदाचित बढी रकम उपयोग गरेमा
@@ -553,8 +513,8 @@
                                             </ol>
                                         </div>
                                 </div>
-                                        <div class="service-contions mt-5">
-                                                <ol class="conditions-list orderd-list" style="margin-top: 15em;margin-left: 2em;">
+                                        <div class="service-contions">
+                                                <ol class="conditions-list orderd-list" style="margin-left: 2em;">
                                                     <strong>ऋण तथा सुबिधाहरु सम्बन्धित शर्तहरु , दीर्घकालीन
                                                         कर्जा </strong>
                                                     <li>
@@ -636,7 +596,6 @@
                                                         लाग्नेछ ।
                                                     </li>
                                                 </ol>
-
                                         </div>
                                     </div>
                                     <div class="service-contions mt-5">
@@ -765,7 +724,6 @@
                                                 नदिने अधिकार बैंकमा सुरक्षित रहनेछ ।
                                             </li>
                                         </ol>
-
                                 </div>
                                 <div class="service-contions">
                                         <ol class="conditions-list orderd-list">
@@ -923,7 +881,6 @@
                                                     class="form-control nepaliFont"
                                                     rows="2"
                                                     style="width: 95%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em;"
-                                                    placeholder="Extra Financial Clause"
                                                     name="firstAdditionalDetails"
                                                     formControlName="firstAdditionalDetails">
                                             </textarea></li>
@@ -1024,7 +981,6 @@
                                                     class="form-control nepaliFont"
                                                     rows="2"
                                                     style="width: 95%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em;"
-                                                    placeholder="Additional Others Clause"
                                                     name="secondAdditionalDetails"
                                                     formControlName="secondAdditionalDetails">
                                             </textarea></li>
@@ -1051,24 +1007,22 @@
                                                            formControlName="amountInFigure"
                                                            name="amountInFigure"
                                                            placeholder=" "
-                                                           type="text"/>/- मात्र)बराबरको प्रतिज्ञा पत्र (Promissory
-                                                Note)
+                                                           type="text"/> /- बराबरको प्रतिज्ञा पत्र (Promissory Note)
                                             </li>
                                             <li>निरन्तरताको लिखत (Letter of Continuity )</li>
                                             <li>रु.<input class="form-field form-control-sm"
                                                           formControlName="amountInFigure"
                                                           name="amountInFigure"
                                                           placeholder=" "
-                                                          type="text"/>/- को श्री(सम्पत्ति धितोरसुरक्षण लेखीदिएको गोश्वारा(General Letter of Hypothecation)
-                                                सहित पूरक सम्झौता (Supplementary Agreement)
+                                                          type="text"/>/- बराबरकोे पूरक सम्झौता (Supplementary Agreement) सहित
+                                                श्री-सम्पत्ति धितो/सुरक्षण लेखीदिएको गोश्वारा-पत्र (General Letter of Hypothecation)
                                             </li>
                                             <li> रु.<input class="form-field form-control-sm"
                                                            formControlName="amountInFigure"
                                                            name="amountInFigure"
                                                            placeholder=" "
-                                                           type="text"/>/- (बराबरकोे वारेसनामा (Power of Attorney) सहित
-                                                भुक्तानी प्राप्त गर्न
-                                                बांकी रकम संकलन गर्ने अख्तियारनामा (Assignment of Receivables) ।
+                                                           type="text"/> /- बराबरकोे वारेसनामा (Power of Attorney) सहित
+                                                भुक्तानी प्राप्त गर्न बांकी रकम संकलन गर्ने अख्तियारनामा (Assignment of Receivables) ।
                                             </li>
                                             <li> रु.<input class="form-field form-control-sm"
                                                            formControlName="amountInFigure"
@@ -1106,7 +1060,6 @@
                                                     class="form-control nepaliFont"
                                                     rows="2"
                                                     style="width: 95%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em;"
-                                                    placeholder="Extra Security documents parts"
                                                     name="thirdAdditionalDetails"
                                                     formControlName="thirdAdditionalDetails">
                                             </textarea></li>
@@ -1287,14 +1240,13 @@
                                                 विवाहिता दिदी, बहिनी, भिनाजु, ज्वाईं, भतिजा, भतिजी, साला, साली, सासु,
                                                 ससुरा, काका, काकी, मामा,
                                                 माईजु, भाञ्जा, भाञ्जी, नाति, नातिनी, नातिनी बुहारी,
-                                                नातिनी ज्वाइँ समेतलाई बुझाउनेछ ।)
+                                                नातिनी ज्वाइँ समेतलाई बुझाउनेछ ।
                                             </li>
                                             <li><textarea
                                                     class="form-control nepaliFont"
                                                     rows="2"
                                                     style="width: 95%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em;"
                                                     name="fourthAdditionalDetails"
-                                                    placeholder="Extra Other terms & conditions-as per NRB circular"
                                                     formControlName="fourthAdditionalDetails">
                                             </textarea></li>
                                         </ol>
