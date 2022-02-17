@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges, TemplateRef, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, TemplateRef, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
 import {ToastService} from '../../../@core/utils';
 import {AlertService} from '../../../@theme/components/alert/alert.service';
@@ -51,6 +51,7 @@ export class LoanActionComponent implements OnInit, OnChanges {
     currentUser = LocalStorageUtil.getStorage().roleName.toLowerCase();
     fileUnder = false;
     spinner = false;
+    @Output() emitter = new EventEmitter();
 
     constructor(
         private alertService: AlertService,
@@ -278,6 +279,9 @@ export class LoanActionComponent implements OnInit, OnChanges {
                 hasBackdrop: false,
                 hasScroll: true
             });
+            this.dialogRef.onClose.subscribe(d => {
+                this.emitter.emit(true);
+            });
 
         } else {
             context.combinedLoanId = this.combinedLoanId;
@@ -290,6 +294,9 @@ export class LoanActionComponent implements OnInit, OnChanges {
                         hasBackdrop: false,
                         hasScroll: true
                     });
+            this.dialogRef.onClose.subscribe(d => {
+                this.emitter.emit(true);
+            });
 
         }
         this.isOpen = true;

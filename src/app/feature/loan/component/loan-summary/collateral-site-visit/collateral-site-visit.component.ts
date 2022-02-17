@@ -212,7 +212,6 @@ export class CollateralSiteVisitComponent implements OnInit {
             }
           });
     }
-      console.log(' i am here', this.loanDataHolder);
   }
     viewDocument(url: string, name: string) {
         const viewDocName = name.concat(this.fileType);
