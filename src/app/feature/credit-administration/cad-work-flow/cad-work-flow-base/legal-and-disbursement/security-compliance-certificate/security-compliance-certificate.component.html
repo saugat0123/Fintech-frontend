@@ -96,15 +96,33 @@
           <nb-datepicker #iffObtained></nb-datepicker>
         </td>
         <td>
-          <input class="disable-print" formControlName="kyc" type="text" nbInput [disabled]="!isMaker">
+          <input [nbDatepicker]="kyc"
+                 class="form-control rounded disable-print"
+                 formControlName="kyc"
+                 [disabled]="!isMaker"
+                 id="kyc" placeholder="Enter the date"
+                 type="text"/>
+          <nb-datepicker #kyc></nb-datepicker>
           <span class="print-only">{{sccData?.kyc}}</span>
         </td>
         <td>
-          <input class="disable-print" formControlName="declaration" type="text" nbInput [disabled]="!isMaker">
+          <input [nbDatepicker]="declaration"
+                 class="form-control rounded disable-print"
+                 formControlName="declaration"
+                 [disabled]="!isMaker"
+                 id="declaration" placeholder="Enter the date"
+                 type="text"/>
+          <nb-datepicker #declaration></nb-datepicker>
           <span class="print-only">{{sccData?.declaration}}</span>
         </td>
         <td>
-          <input class="disable-print" formControlName="caApproved" type="text" nbInput [disabled]="!isMaker">
+          <input [nbDatepicker]="caApproved"
+                 class="form-control rounded disable-print"
+                 formControlName="caApproved"
+                 [disabled]="!isMaker"
+                 id="caApproved" placeholder="Enter the date"
+                 type="text"/>
+          <nb-datepicker #caApproved></nb-datepicker>
           <span class="print-only">{{sccData?.caApproved}}</span>
         </td>
       </tr>

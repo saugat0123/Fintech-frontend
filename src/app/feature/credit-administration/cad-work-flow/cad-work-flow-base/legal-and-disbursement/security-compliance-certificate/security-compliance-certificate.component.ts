@@ -41,7 +41,6 @@ export class SecurityComplianceCertificateComponent implements OnInit {
   sumbit = false;
 
 
-
   constructor(protected dialogRef: NbDialogRef<SecurityComplianceCertificateComponent>,
               private creditAdministrationService: CreditAdministrationService,
               private ngbModal: NgbModal,
@@ -55,11 +54,10 @@ export class SecurityComplianceCertificateComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.buildSccForm();
     if (!ObjectUtil.isEmpty(this.cadFile.sccData)) {
       this.sccData = JSON.parse(this.cadFile.sccData);
-      this.sccForm.patchValue(this.sccData);
     }
+    this.buildSccForm();
     this.configEditor();
     this.getCompanyPan();
     this.setSccRefNumber();
@@ -71,49 +69,97 @@ export class SecurityComplianceCertificateComponent implements OnInit {
 
   buildSccForm() {
     this.sccForm = this.formBuilder.group({
-      cibObtained: [undefined],
-      strObtained: [undefined],
-      iffObtained: [undefined],
-      kyc: [undefined],
-      declaration: [undefined],
-      caApproved: [undefined],
-      baseII: [undefined],
-      nrbSector: [undefined],
-      naics: [undefined],
-      industry: [undefined],
-      customerCode: [undefined],
-      businessUnit: [undefined],
-      esrm: [undefined],
-      cashDeposit: [undefined],
-      cashDepositValue: [undefined],
-      fixDeposit: [undefined],
-      fixDepositValue: [undefined],
-      gold: [undefined],
-      goldValue: [undefined],
-      securities: [undefined],
-      securitiesValue: [undefined],
-      government: [undefined],
-      governmentValue: [undefined],
-      financial: [undefined],
-      financialValue: [undefined],
-      counter: [undefined],
-      counterValue: [undefined],
-      guarantee: [undefined],
-      guaranteeValue: [undefined],
-      eca: [undefined],
-      ecaValue: [undefined],
-      valuation: [undefined],
-      makuri: [undefined],
-      verification: [undefined],
-      drawDownNTA: [undefined],
-      drawDownFMV: [undefined],
-      drawDownTax: [undefined],
-      obtained: [undefined],
-      notes: [undefined],
-      discrepancy: [undefined],
-      instruction: [undefined],
+      cibObtained: [ObjectUtil.isEmpty(this.sccData) ? new Date() :
+          ObjectUtil.isEmpty(this.sccData.cibObtained) ? new Date() :
+              new Date(this.sccData.cibObtained)],
+      strObtained: [ObjectUtil.isEmpty(this.sccData) ? new Date() :
+          ObjectUtil.isEmpty(this.sccData.cibObtained) ? new Date() :
+              new Date(this.sccData.cibObtained)],
+      iffObtained: [ObjectUtil.isEmpty(this.sccData) ? new Date() :
+          ObjectUtil.isEmpty(this.sccData.cibObtained) ? new Date() :
+              new Date(this.sccData.cibObtained)],
+      kyc: [ObjectUtil.isEmpty(this.sccData) ? new Date() :
+          ObjectUtil.isEmpty(this.sccData.cibObtained) ? new Date() :
+              new Date(this.sccData.cibObtained)],
+      declaration: [ObjectUtil.isEmpty(this.sccData) ? new Date() :
+          ObjectUtil.isEmpty(this.sccData.cibObtained) ? new Date() :
+              new Date(this.sccData.cibObtained)],
+      caApproved: [ObjectUtil.isEmpty(this.sccData) ? new Date() :
+          ObjectUtil.isEmpty(this.sccData.cibObtained) ? new Date() :
+              new Date(this.sccData.cibObtained)],
+      baseII: [ObjectUtil.isEmpty(this.sccData) ? undefined :
+          ObjectUtil.isEmpty(this.sccData.baseII) ? undefined : this.sccData.baseII],
+      nrbSector: [ObjectUtil.isEmpty(this.sccData) ? undefined :
+          ObjectUtil.isEmpty(this.sccData.nrbSector) ? undefined : this.sccData.nrbSector],
+      naics: [ObjectUtil.isEmpty(this.sccData) ? undefined :
+          ObjectUtil.isEmpty(this.sccData.naics) ? undefined : this.sccData.naics],
+      industry: [ObjectUtil.isEmpty(this.sccData) ? undefined :
+          ObjectUtil.isEmpty(this.sccData.industry) ? undefined : this.sccData.industry],
+      customerCode: [ObjectUtil.isEmpty(this.sccData) ? undefined :
+          ObjectUtil.isEmpty(this.sccData.customerCode) ? undefined : this.sccData.customerCode],
+      businessUnit: [ObjectUtil.isEmpty(this.sccData) ? undefined :
+          ObjectUtil.isEmpty(this.sccData.businessUnit) ? undefined : this.sccData.businessUnit],
+      esrm: [ObjectUtil.isEmpty(this.sccData) ? undefined :
+          ObjectUtil.isEmpty(this.sccData.esrm) ? undefined : this.sccData.esrm],
+      cashDeposit: [ObjectUtil.isEmpty(this.sccData) ? undefined :
+          ObjectUtil.isEmpty(this.sccData.cashDeposit) ? undefined : this.sccData.cashDeposit],
+      cashDepositValue: [ObjectUtil.isEmpty(this.sccData) ? undefined :
+          ObjectUtil.isEmpty(this.sccData.cashDepositValue) ? undefined : this.sccData.cashDepositValue],
+      fixDeposit: [ObjectUtil.isEmpty(this.sccData) ? undefined :
+          ObjectUtil.isEmpty(this.sccData.fixDeposit) ? undefined : this.sccData.fixDeposit],
+      fixDepositValue: [ObjectUtil.isEmpty(this.sccData) ? undefined :
+          ObjectUtil.isEmpty(this.sccData.fixDepositValue) ? undefined : this.sccData.fixDepositValue],
+      gold: [ObjectUtil.isEmpty(this.sccData) ? undefined :
+          ObjectUtil.isEmpty(this.sccData.gold) ? undefined : this.sccData.gold],
+      goldValue: [ObjectUtil.isEmpty(this.sccData) ? undefined :
+          ObjectUtil.isEmpty(this.sccData.goldValue) ? undefined : this.sccData.goldValue],
+      securities: [ObjectUtil.isEmpty(this.sccData) ? undefined :
+          ObjectUtil.isEmpty(this.sccData.securities) ? undefined : this.sccData.securities],
+      securitiesValue: [ObjectUtil.isEmpty(this.sccData) ? undefined :
+          ObjectUtil.isEmpty(this.sccData.securitiesValue) ? undefined : this.sccData.securitiesValue],
+      government: [ObjectUtil.isEmpty(this.sccData) ? undefined :
+          ObjectUtil.isEmpty(this.sccData.government) ? undefined : this.sccData.government],
+      governmentValue: [ObjectUtil.isEmpty(this.sccData) ? undefined :
+          ObjectUtil.isEmpty(this.sccData.governmentValue) ? undefined : this.sccData.governmentValue],
+      financial: [ObjectUtil.isEmpty(this.sccData) ? undefined :
+          ObjectUtil.isEmpty(this.sccData.financial) ? undefined : this.sccData.financial],
+      financialValue: [ObjectUtil.isEmpty(this.sccData) ? undefined :
+          ObjectUtil.isEmpty(this.sccData.financialValue) ? undefined : this.sccData.financialValue],
+      counter: [ObjectUtil.isEmpty(this.sccData) ? undefined :
+          ObjectUtil.isEmpty(this.sccData.counter) ? undefined : this.sccData.counter],
+      counterValue: [ObjectUtil.isEmpty(this.sccData) ? undefined :
+          ObjectUtil.isEmpty(this.sccData.counterValue) ? undefined : this.sccData.counterValue],
+      guarantee: [ObjectUtil.isEmpty(this.sccData) ? undefined :
+          ObjectUtil.isEmpty(this.sccData.guarantee) ? undefined : this.sccData.guarantee],
+      guaranteeValue: [ObjectUtil.isEmpty(this.sccData) ? undefined :
+          ObjectUtil.isEmpty(this.sccData.guaranteeValue) ? undefined : this.sccData.guaranteeValue],
+      eca: [ObjectUtil.isEmpty(this.sccData) ? undefined :
+          ObjectUtil.isEmpty(this.sccData.eca) ? undefined : this.sccData.eca],
+      ecaValue: [ObjectUtil.isEmpty(this.sccData) ? undefined :
+          ObjectUtil.isEmpty(this.sccData.ecaValue) ? undefined : this.sccData.ecaValue],
+      valuation: [ObjectUtil.isEmpty(this.sccData) ? undefined :
+          ObjectUtil.isEmpty(this.sccData.valuation) ? undefined : this.sccData.valuation],
+      makuri: [ObjectUtil.isEmpty(this.sccData) ? undefined :
+          ObjectUtil.isEmpty(this.sccData.makuri) ? undefined : this.sccData.makuri],
+      verification: [ObjectUtil.isEmpty(this.sccData) ? undefined :
+          ObjectUtil.isEmpty(this.sccData.verification) ? undefined : this.sccData.verification],
+      drawDownNTA: [ObjectUtil.isEmpty(this.sccData) ? undefined :
+          ObjectUtil.isEmpty(this.sccData.drawDownNTA) ? undefined : this.sccData.drawDownNTA],
+      drawDownFMV: [ObjectUtil.isEmpty(this.sccData) ? undefined :
+          ObjectUtil.isEmpty(this.sccData.drawDownFMV) ? undefined : this.sccData.drawDownFMV],
+      drawDownTax: [ObjectUtil.isEmpty(this.sccData) ? undefined :
+          ObjectUtil.isEmpty(this.sccData.drawDownTax) ? undefined : this.sccData.drawDownTax],
+      obtained: [ObjectUtil.isEmpty(this.sccData) ? undefined :
+          ObjectUtil.isEmpty(this.sccData.obtained) ? undefined : this.sccData.obtained],
+      notes: [ObjectUtil.isEmpty(this.sccData) ? undefined :
+          ObjectUtil.isEmpty(this.sccData.notes) ? undefined : this.sccData.notes],
+      discrepancy: [ObjectUtil.isEmpty(this.sccData) ? undefined :
+          ObjectUtil.isEmpty(this.sccData.discrepancy) ? undefined : this.sccData.discrepancy],
+      instruction: [ObjectUtil.isEmpty(this.sccData) ? undefined :
+          ObjectUtil.isEmpty(this.sccData.instruction) ? undefined : this.sccData.instruction],
     });
   }
+
   getCompanyPan() {
     if (!ObjectUtil.isEmpty(this.cadFile) && this.cadFile.loanHolder.customerType === this.customerType.INSTITUTION) {
       this.companyInfoService.detail(this.cadFile.loanHolder.associateId).subscribe((res: any) => {
@@ -139,6 +185,7 @@ export class SecurityComplianceCertificateComponent implements OnInit {
     this.sumbit = true;
     this.save();
   }
+
   onClose() {
     this.dialogRef.close();
   }
@@ -206,13 +253,14 @@ export class SecurityComplianceCertificateComponent implements OnInit {
   }
 
   getSecurityCode() {
-    if ( !ObjectUtil.isEmpty(this.cadFile) && !ObjectUtil.isEmpty(this.cadFile.data)) {
-     const accountData = JSON.parse(this.cadFile.data);
-     if (!ObjectUtil.isEmpty(accountData)) {
-       this.securityCode = ObjectUtil.separateFirstDash(accountData.acInfo.securityType);
-     }
-   }
+    if (!ObjectUtil.isEmpty(this.cadFile) && !ObjectUtil.isEmpty(this.cadFile.data)) {
+      const accountData = JSON.parse(this.cadFile.data);
+      if (!ObjectUtil.isEmpty(accountData)) {
+        this.securityCode = ObjectUtil.separateFirstDash(accountData.acInfo.securityType);
+      }
+    }
   }
+
   configEditor() {
     this.ckeConfig = Editor.CK_CONFIG;
   }
