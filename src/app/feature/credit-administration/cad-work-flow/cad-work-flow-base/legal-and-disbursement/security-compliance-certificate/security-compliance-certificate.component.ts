@@ -123,10 +123,16 @@ export class SecurityComplianceCertificateComponent implements OnInit {
   }
 
   setSccRefNumber() {
-    if (!ObjectUtil.isEmpty(this.cadFile.exposure)) {
-      const exposureHistoryData = JSON.parse(this.cadFile.exposure.historyData);
-      this.sccRefNumber = String().concat(this.affiliatedId.toString()).concat('-cad-').concat(this.cadFile.id.toString()).concat('-dis-').concat(exposureHistoryData ? exposureHistoryData.length : 0);
-    }
+    const date = new Date();
+    // tslint:disable-next-line:no-bitwise
+    let firstPart: any = (Math.random() * 46656) | 0;
+    // tslint:disable-next-line:no-bitwise
+    let secondPart: any = (Math.random() * 46656) | 0;
+    firstPart = ('000' + firstPart.toString(36)).slice(-3);
+    secondPart = ('000' + secondPart.toString(36)).slice(-3);
+    const random = firstPart + secondPart;
+    const first = `SCC/${this.cadFile.assignedLoan[0].branch.branchCode}/`;
+    this.sccRefNumber = first + random.toString().concat((this.cadFile.id).toString().padStart(4, '0'));
   }
 
   onSave() {

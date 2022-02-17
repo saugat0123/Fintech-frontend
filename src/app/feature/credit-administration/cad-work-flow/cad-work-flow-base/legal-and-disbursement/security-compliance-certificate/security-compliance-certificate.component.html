@@ -66,16 +66,34 @@
       <tbody>
       <tr>
         <td>
-          <input class="disable-print" formControlName="cibObtained" type="text" nbInput [disabled]="!isMaker">
           <span class="print-only">{{sccData?.cibObtained}}</span>
+          <input [nbDatepicker]="cibPicked"
+                 class="form-control rounded disable-print"
+                 formControlName="cibObtained"
+                 [disabled]="!isMaker"
+                 id="cibObtained" placeholder="Enter the date"
+                 type="text"/>
+          <nb-datepicker #cibPicked></nb-datepicker>
         </td>
         <td>
-          <input class="disable-print" formControlName="strObtained" type="text" nbInput [disabled]="!isMaker">
           <span class="print-only">{{sccData?.strObtained}}</span>
+          <input [nbDatepicker]="strObtained"
+                 class="form-control rounded disable-print"
+                 formControlName="cibObtained"
+                 [disabled]="!isMaker"
+                 id="strObtained" placeholder="Enter the date"
+                 type="text"/>
+          <nb-datepicker #strObtained></nb-datepicker>
         </td>
         <td>
-          <input class="disable-print" formControlName="iffObtained" type="text" nbInput [disabled]="!isMaker">
           <span class="print-only">{{sccData?.iffObtained}}</span>
+          <input [nbDatepicker]="iffObtained"
+                 class="form-control rounded disable-print"
+                 formControlName="cibObtained"
+                 [disabled]="!isMaker"
+                 id="iffObtained" placeholder="Enter the date"
+                 type="text"/>
+          <nb-datepicker #iffObtained></nb-datepicker>
         </td>
         <td>
           <input class="disable-print" formControlName="kyc" type="text" nbInput [disabled]="!isMaker">
