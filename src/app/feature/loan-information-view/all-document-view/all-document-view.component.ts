@@ -12,6 +12,7 @@ import * as JSZip from 'jszip';
 import * as JSZipUtils from 'jszip-utils/lib/index.js';
 import {saveAs as importedSaveAs} from 'file-saver';
 import {SiteVisitDocument} from '../../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
+import {DocStatus} from '../../loan/model/docStatus';
 
 
 @Component({
@@ -28,7 +29,8 @@ export class AllDocumentViewComponent implements OnInit {
   insuranceWithDoc = [];
   showCadDoc;
   productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
-  affiliatedId;
+  hidePreviewButton = false;
+  documentName;
 
   constructor(private dmsLoanService: DmsLoanService,
               private toastService: ToastService,
@@ -37,7 +39,6 @@ export class AllDocumentViewComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.affiliatedId = LocalStorageUtil.getStorage().bankUtil.AFFILIATED_ID = AffiliateId.SRDB;
     if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
       if (!ObjectUtil.isEmpty(this.loanDataHolder.taggedGuarantors)) {
         this.loanDataHolder.taggedGuarantors.forEach(value => {
@@ -59,6 +60,7 @@ export class AllDocumentViewComponent implements OnInit {
       }
     }
     this.showCadDoc = this.productUtils.CAD_LITE_VERSION;
+    this.checkDocumentStatus();
   }
 
   downloadCustomerDocument(documentPath, documentName) {
@@ -115,7 +117,7 @@ export class AllDocumentViewComponent implements OnInit {
       for (const doc of insuranceDocument) {
         docPaths.push(doc.policyDocumentPath);
       }
-      // Collateral Document
+      // Collateral SiteVisit Document
       const siteVisitDocument = this.siteVisitDocument;
       if (!ObjectUtil.isEmpty(siteVisitDocument)) {
         for (const doc of siteVisitDocument) {
@@ -159,6 +161,23 @@ export class AllDocumentViewComponent implements OnInit {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Files has been downloaded!'));
     } else {
       this.toastService.show(new Alert(AlertType.ERROR, 'No file found!!!'));
+    }
+  }
+
+  checkDocumentStatus() {
+    if (this.loanDataHolder.documentStatus.toString() === DocStatus.value(DocStatus.APPROVED) ||
+        this.loanDataHolder.documentStatus.toString() === DocStatus.value(DocStatus.REJECTED) ||
+        this.loanDataHolder.documentStatus.toString() === DocStatus.value(DocStatus.CLOSED)) {
+      this.hidePreviewButton = true;
+      if (this.loanDataHolder.documentStatus.toString() === DocStatus.value(DocStatus.APPROVED)) {
+        this.documentName = '-documents';
+      } else if (this.loanDataHolder.documentStatus.toString() === DocStatus.value(DocStatus.CLOSED)) {
+        this.documentName = '-closed-documents';
+      } else {
+        this.documentName = '-rejected-documents';
+      }
+    } else {
+      this.hidePreviewButton = false;
     }
   }
 
