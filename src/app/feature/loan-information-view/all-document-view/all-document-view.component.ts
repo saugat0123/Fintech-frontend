@@ -59,6 +59,7 @@ export class AllDocumentViewComponent implements OnInit {
       }
     }
     this.showCadDoc = this.productUtils.CAD_LITE_VERSION;
+    this.checkDocumentStatus();
   }
 
   downloadCustomerDocument(documentPath, documentName) {
