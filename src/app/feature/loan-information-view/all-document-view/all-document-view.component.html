@@ -3,10 +3,10 @@
           <span>
             <b>All Documents</b>
             <button class="float-right sb-small sb-bg-dark text-white disable-print"
-                    *ngIf="!hidePreviewButton || !loanDataHolder?.zipPath"
+                    *ngIf="!hidePreviewButton"
                     (click)="getDocPath()"> Download All Document</button>
             <button class="float-right sb-small sb-bg-dark text-white disable-print"
-                    *ngIf="hidePreviewButton || loanDataHolder?.zipPath"
+                    *ngIf="hidePreviewButton"
                     (click)="downloadCustomerDocument(loanDataHolder?.zipPath, loanDataHolder?.id + documentName)"> Download All Document</button>
           </span>
   </nb-card-header>

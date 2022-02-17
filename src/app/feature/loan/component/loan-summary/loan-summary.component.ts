@@ -47,6 +47,7 @@ import * as JSZip from 'jszip';
 import * as JSZipUtils from 'jszip-utils/lib/index.js';
 import {saveAs as importedSaveAs} from 'file-saver';
 import {IndividualJsonData} from '../../../admin/modal/IndividualJsonData';
+import {DocStatus} from '../../model/docStatus';
 
 @Component({
     selector: 'app-loan-summary',
@@ -206,6 +207,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     checkedData;
     proposalAllData;
     financial;
+    zipDocumentName;
+    hidePreviewButton = false;
 
     constructor(
         @Inject(DOCUMENT) private _document: Document,
@@ -908,6 +911,23 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
 
     checkSiteVisitDocument(event: any) {
         this.siteVisitDocuments = event;
+    }
+
+    checkDocumentStatus() {
+        if (this.loanDataHolder.documentStatus.toString() === DocStatus.value(DocStatus.APPROVED) ||
+            this.loanDataHolder.documentStatus.toString() === DocStatus.value(DocStatus.REJECTED) ||
+            this.loanDataHolder.documentStatus.toString() === DocStatus.value(DocStatus.CLOSED)) {
+            this.hidePreviewButton = true;
+            if (this.loanDataHolder.documentStatus.toString() === DocStatus.value(DocStatus.APPROVED)) {
+                this.zipDocumentName = '-documents';
+            } else if (this.loanDataHolder.documentStatus.toString() === DocStatus.value(DocStatus.CLOSED)) {
+                this.zipDocumentName = '-closed-documents';
+            } else {
+                this.zipDocumentName = '-rejected-documents';
+            }
+        } else {
+            this.hidePreviewButton = false;
+        }
     }
 }
 
