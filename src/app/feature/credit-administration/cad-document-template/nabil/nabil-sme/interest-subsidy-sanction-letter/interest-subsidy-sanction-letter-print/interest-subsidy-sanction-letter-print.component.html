@@ -103,8 +103,7 @@
                             {{letter?.loanSubType.ct === null || letter?.loanSubType.ct === '' ? '___________' : letter?.loanSubType.ct}}</span>
                         </td>
                         <td>
-                            <span
-                                    [ngClass]="{'outside' : letter?.loanSubType.en.eData !== null && letter?.loanSubType.en.eData !== ''}">
+                            <span [ngClass]="{'outside' : letter?.loanSubType.en.eData !== null && letter?.loanSubType.en.eData !== ''}">
                             {{letter?.loanSubType.en.eData === null || letter?.loanSubType.en.eData === '' ? '___________' : letter?.loanSubType.en.eData}}</span>
                         </td>
                     </tr>
@@ -118,12 +117,12 @@
                     </tr>
                     <tr>
                         <td><strong> कर्जा रु. (Loan Amount)</strong></td>
-                        <td colspan="2"><span class="font-weight-bold">
+                        <td colspan="2">रु. <span class="font-weight-bold">
                                             {{engToNepNumberPipe.transform(currencyFormatPipe.transform(proposedAmount))}}
                                         </span>
-                            / (अक्षरेपि रु. <span
+                            /- (अक्षरेपि रु. <span
                                     class="unicodeResize">{{ nepaliCurrencyWordPipe.transform(proposedAmount) }}</span>
-                            मात्र )
+                            मात्र)
                         </td>
                     </tr>
                     <tr>
@@ -151,18 +150,16 @@
                                     [ngClass]="{'font-weight-bold': letter?.securities.primarySecurity[0].marginInPercentageMotorCT !== null && letter?.securities.primarySecurity[0].marginInPercentageMotorCT !== ''}">
                                         {{letter?.securities.primarySecurity[0].marginInPercentageMotorCT === null || letter?.securities.primarySecurity[0].marginInPercentageMotorCT === "" ? "___________" : letter?.securities.primarySecurity[0].marginInPercentageMotorCT}}
                                         </span>
-
                             प्रतिशत वा गोरेटो बाटो भएको (Foot trail access)
                             को हकमा बजार मुल्य (Market value) को <span
                                     [ngClass]="{'font-weight-bold': letter?.securities.primarySecurity[0].marginInPercentageFootCT !== null && letter?.securities.primarySecurity[0].marginInPercentageFootCT !== ''}">
                                         {{letter?.securities.primarySecurity[0].marginInPercentageFootCT === null || letter?.securities.primarySecurity[0].marginInPercentageFootCT === "" ? "___________" : letter?.securities.primarySecurity[0].marginInPercentageFootCT}}
                                         </span>
-                            प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ ।
+                             प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ ।
                             </span>
                         <span *ngIf="!securityTypeCondition">
                             सुरक्षण महलमा उल्लिखित सामानहरुको मौज्दात, उपकरण लगायत परियोजना संग सम्बन्धित सम्पूर्ण
-                            चल
-                            अचल सम्पत्तीहरुको मुल्यको <span
+                            चल अचल सम्पत्तीहरुको मुल्यको <span
                                 [ngClass]="{'font-weight-bold': letter?.securities.primarySecurity[0].marginInPercentageCT !== null && letter?.securities.primarySecurity[0].marginInPercentageCT !== ''}">
                                         {{letter?.securities.primarySecurity[0].marginInPercentageCT === null || letter?.securities.primarySecurity[0].marginInPercentageCT === "" ? "___________" : letter?.securities.primarySecurity[0].marginInPercentageCT}}
                                         </span> प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये
@@ -179,13 +176,13 @@
                             +
                             <span [ngClass]="{'font-weight-bold': letter?.premiumRate.ct !== null && letter?.premiumRate.ct !== ''}">
                                             {{letter?.premiumRate.ct === null || letter?.premiumRate.ct === "" ? "___________" : letter?.premiumRate.ct}}
-                                        </span>प्रतिशत
+                                        </span> प्रतिशत
                             व्याज दर प्रिमियम (Interest Rate Premium)
                             हाल उपरँक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
                             बार्षिक <span
                                     [ngClass]="{'font-weight-bold': letter?.interestRate.ct !== null && letter?.interestRate.ct !== ''}">
                                             {{letter?.interestRate.ct === null || letter?.interestRate.ct === "" ? "___________" : letter?.interestRate.ct}}
-                                        </span>। का दरले निर्धारण गरीएकोछ । सो निर्धारित ब्याज
+                                        </span> प्रतिशत का दरले निर्धारण गरीएकोछ । सो निर्धारित ब्याज
                             दरमा नेपाल राष्ट्र बैंकले ऋणीलाई दिने छुट/सहुलियत वापतको दर घटाई कायम हुन आउने रकम
                             ऋणीले ब्याज स्वरुप मासिक तिर्नु बुझाउनु पर्नेछ ।
                         </td>
@@ -222,11 +219,11 @@
                             को हकमा बजार मुल्य (Market Value) को <span
                                 [ngClass]="{'font-weight-bold': letter?.securities.primarySecurity[0].marginInPercentageMotorCT !== null && letter?.securities.primarySecurity[0].marginInPercentageMotorCT !== ''}">
                                         {{letter?.securities.primarySecurity[0].marginInPercentageMotorCT === null || letter?.securities.primarySecurity[0].marginInPercentageMotorCT === "" ? "___________" : letter?.securities.primarySecurity[0].marginInPercentageMotorCT}}
-                                        </span> । प्रतिशत वा
+                                        </span> प्रतिशत वा
                             गोरेटो बाटो भएको (Foot trail access) को हकमा बजार मुल्य (Market Value) को
                             <span [ngClass]="{'font-weight-bold': letter?.securities.primarySecurity[0].marginInPercentageFootCT !== null && letter?.securities.primarySecurity[0].marginInPercentageFootCT !== ''}">
                                         {{letter?.securities.primarySecurity[0].marginInPercentageFootCT === null || letter?.securities.primarySecurity[0].marginInPercentageFootCT === "" ? "___________" : letter?.securities.primarySecurity[0].marginInPercentageFootCT}}
-                                        </span>। प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो
+                                        </span> प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो
                             बरावर रकम तपाईंको निवेदन बमोजिम यस बैंकमा खोल्नु भएको चल्ती खातामा प्रवाह गरिनेछ ।
                         </span>
                         <span *ngIf="!securityTypeCondition">
@@ -242,7 +239,7 @@
                     </tr>
                 </table>
             </div>
-            <p style="padding-left: 1em">द्रष्टब्यः माथि उल्लेखित ऋणकर्जा सुविधाहरु सहुलियतपुर्ण कर्जा हुन् । सहुलियतपुर्ण कर्जाका लागि ब्याज
+            <p style="padding-left: 1em"><strong>द्रष्टब्यः </strong>माथि उल्लेखित ऋणकर्जा सुविधाहरु सहुलियतपुर्ण कर्जा हुन् । सहुलियतपुर्ण कर्जाका लागि ब्याज
                 अनुदान सम्बन्धि एकिकृत कार्यविधि,
                 २०७५, दोस्रो संशोधन, २०७६ र तेस्रो संशोधन, २०७७ बमोजिमको हुन आउने अनुदान ब्याज भुक्तानीका लागि नेपाल
                 राष्ट्र बैंक समक्ष
@@ -256,7 +253,7 @@
                 नगर्नका
                 साथै अघिल्लो प्रदान गरिएका अनुदानहरु पनि फिर्ता माग गर्ने बैंकको अधिकार सुरक्षित रहेनछ ।
             </p><br>
-            <div class="service-contions mt-5">
+            <div class="service-contions mt-4">
                 <div class="col-sm-12">
                     <ol class="conditions-list orderd-list">
                         <strong><u>सुरक्षण विवरण: </u></strong>
@@ -265,40 +262,16 @@
                             <strong><u>क. प्राथमिक/थप सुरक्षण (Primary/Secondary Security)</u></strong>
                         </p>
                         <li *ngIf="securityTypeCondition"><strong> </strong>
-                            <strong>घर/जग्गा धितोेबन्धक हकाधिकार </strong>(Mortgage Charges):(Applicable if Land & building has
-                            been purposed in approved CFR)<br>
+                            <strong>घर/जग्गा धितोेबन्धक हकाधिकार </strong>(Mortgage Charges):<br>
                             स्वीकृत ऋणकर्जा प्रवाह गर्नु अगावै ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा देहाय
                             बमोजिमको घर/जग्गा धितोबन्धक पारित/रोक्का गरिदिनु पर्नेछ ।
                             <div class="pb-4">
                                 <app-master-securities-view
                                         [securityDetails]="tempData?.securities"></app-master-securities-view>
                             </div>
-                            <!--<table class="table table-bordered table-hover hello">
-                                <tr>
-                                    <td rowspan="2">घर/जग्गा धनीको नाम थर (Land Owner Name)</td>
-                                    <td colspan="3">घर/जग्गाको अवस्थिति</td>
-                                    <td rowspan="2">सिट नं. (Sheet No.)</td>
-                                    <td rowspan="2">कित्ता नं. Plot No.)</td>
-                                    <td rowspan="2">क्षेत्रफल (Area in Sq m/Ropani/Bigha)</td>
-                                </tr>
-                                <tr>
-                                    <td>जिल्ला (District)</td>
-                                    <td>नगर/गा.वि.स. (VDC/Munc)</td>
-                                    <td>वडा नं. (Ward No.)</td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                            </table>-->
                         </li>
                         <li *ngIf="securityTypeConditionFixedAssests"><strong> सामान मौज्दात धितोेबन्धक
-                            हकाधिकार </strong>(Hypothecation Charges)
+                            हकाधिकार </strong>(Hypothecation Charges):
                             <br>
                             बैंकबाट प्राप्त कर्जा वा सुविधा तथा ऋणीको आफ्नै श्रोत समेतबाट खरिद गरेको जहासुकै
                             रहे भएको कच्चा पदार्थ प्रशोधित वा
@@ -308,55 +281,50 @@
                             बैंकको पक्षमा धितोबन्धक हकाधिकार कायम गरिदिनु पर्नेछ ।
                         </li>
                         <li *ngIf="securityTypeConditionDocuments">
-                            <strong> हस्तान्तरण </strong>-(Assignment):<br>
+                            <strong> हस्तान्तरण </strong>(Assignment):<br>
                             ऋणीले आफ्ना आसामीबाट भुक्तानी प्राप्त गर्न बांकि रकमहरु (Account Receivables)
                             बैंकले संकलन गर्न सक्ने अख्तियारनामा हस्तान्तरण गरिदिनु पर्नेछ ।
                         </li>
                         <li>
-                            <strong> व्यक्तिगत जमानत</strong>(Personal Guarantee)<br>
+                            <strong> व्यक्तिगत जमानत</strong> (Personal Guarantee):<br>
                             रु.<span class="font-weight-bold">
-                                            {{
-                            guarantorParse(guarantorData[0].nepData, "gurantedAmount")
-                            }}
-                                            </span>
-                            /- (अक्षरेपि रु.
+                            {{guarantorParse(guarantorData[0].nepData, "gurantedAmount")}}
+                        </span> /- (अक्षरेपि रु.
                             <span class="font-weight-bold">{{nepaliCurrencyWordPipe.transform(guarantorParse(guarantorData[0].nepData, "gurantedAmount", "en"))}}</span>
-                            /- मात्र)
-                            बराबरको <span class="font-weight-bold">
-                                            {{ commonGuarantorDetails(personalGuarantorsName, finalPersonalName) }}
-                                            </span>
+                             मात्र) बराबरको <span class="font-weight-bold">
+                            {{ commonGuarantorDetails(personalGuarantorsName, finalPersonalName) }}
+                        </span>
                             ले बैंकको पक्षमा व्यक्तिगत जमानत लेखिदिनु पर्नेछ ।
                         </li>
                     </ol>
                 </div>
             </div>
             <div>
-                <div class="col-sm-12 pageBreak">
+                <div class="col-sm-12">
                     <ol class="conditions-list orderd-list">
                         <strong>व्याज सम्बन्धी शर्तहरु: </strong>
                         <li>हरेक त्रैमास (आषाढ, आश्विन, पौष र चैत्र मसान्त) को समाप्ति पश्चात बैंकको
                             आधिकारिक वेव साईट (Website)
-                            तथा राष्ट्रियस्तरको पत्रिकामा त्रैमासिक औसत आधार दर (Quarterly Average Base Rate
-                            ) प्रकाशित गरिनेछ ।
+                            तथा राष्ट्रियस्तरको पत्रिकामा त्रैमासिक औसत आधार दर (Quarterly Average Base Rate) प्रकाशित गरिनेछ ।
                             यसरी हरेक त्रैमास समाप्त भएपछि प्रकाशित हुने पछिल्लो त्रैमासिक औसत आधार दर
                             (Quarterly Average Base Rate)
                             मा माथि उल्लेख भए बमोजिमको ब्याज दर प्रिमियम (Interest Rate Premium) थप गरी
                             त्रैमासिक रुपमा ब्याज दर
                             निर्धारण गरिनेछ।
                         </li>
-                        <li> बैंकको त्रैमासिक औसत आधार दर (Quarterly Average Base Rate ) मा हुने उतार
+                        <li> बैंकको त्रैमासिक औसत आधार दर (Quarterly Average Base Rate) मा हुने उतार
                             चढाबको
                             कारणबाट कर्जा तथा सापटमा लाग्ने ब्याज दर बैंकको आधिकारिक वेव साईट (Website) मा
                             प्रत्येक त्रैमास अर्थात
                             आषाढ, आश्विन, पौष र चैत्र मसान्तको प्रकाशन गरीने त्रैमासिक औसत आधार दर
-                            (Quarterly Average Base Rate )
+                            (Quarterly Average Base Rate)
                             मा जतिले परिवर्र्तन हुनेछ सोहि अनुपातमा प्रत्येक त्रैमास पछिको महिनाहरु अर्थात
                             श्रावण, कार्तिक, माघ र बैशाखको पहिलो दिनबाट
                             ब्याज दर समायोजन तथा संसोधन गरीनेछ ।
                         </li>
                         <li>बैंकको त्रैमासिक औसत आधार दर (Quarterly Average Base Rate) मा हुने उतार
                             चढाबको कारणबाट सम मासिक
-                            किस्ता (EMI- Equated Monthly Installment ) भुक्तानी हुने प्रकृतिका कर्जाहरुको
+                            किस्ता (EMI- Equated Monthly Installment) भुक्तानी हुने प्रकृतिका कर्जाहरुको
                             हकमा निर्धारीत मासिक किस्ता रकम
                             तथा किस्ता भुक्तानी तालिकामा परीवर्तन गरिने छैन । परिवर्तनशिल ब्याज दरको कारण
                             अन्तिम किस्ता भुक्तानी मितिमा यदी कुनै साँवा/ब्याज
@@ -376,7 +344,7 @@
                             संशोधनको जानकारी बैंकको आधिकारिक (Website)
                             वा पत्रपत्रिका मार्फत सार्वजनिक सुचना जारी गरी परिवर्तित व्याज दर लागु गरिनेछ ।
                             उक्त परिवर्तित व्याज दरको जानकारी ऋणी आफै बैंकको
-                            आधिकारिक(Website) र/वा पत्रपत्रिका मार्फत प्राप्त गरी तिर्न बुझाउन मन्जुर गर्दछ ।
+                            आधिकारिक (Website) र/वा पत्रपत्रिका मार्फत प्राप्त गरी तिर्न बुझाउन मन्जुर गर्दछ ।
                         </li>
                         <li>उल्लिखित ब्याज दर प्रिमियम (interest rate premium) नेपाल राष्ट्र बैंकबाट
                             जारी निर्देशन बमोजिम समय समयमा परिवर्तन गर्न सकिनेछ र सोहि अनुसार परिवर्तित
@@ -384,7 +352,7 @@
                         </li>
                     </ol>
                 </div>
-                <div class="service-contions mt-5">
+                <div class="service-contions mt-4">
                     <div class="col-sm-12" style="padding-left: 2em">
                         <ol class="conditions-list orderd-list">
                             <strong><u>कर्जा उपयोग सीमा: </u></strong>
@@ -392,9 +360,9 @@
                                 <span class="font-weight-bold">
                                             {{engToNepNumberPipe.transform(currencyFormatPipe.transform(proposedAmount))}}
                                         </span>
-                                / (अक्षरेपि रु. <span
+                                /- (अक्षरेपि रु. <span
                                         class="unicodeResize">{{ nepaliCurrencyWordPipe.transform(proposedAmount) }}</span>
-                                मात्र ) भन्दा बढी हुनु हुनेछैन ।
+                                मात्र) भन्दा बढी हुनु हुनेछैन ।
                             </li>
                             <li>माथि बुँदामा/बुँदा बुँदामा तोकिएको ऋणकर्जा सुविधाको कूल उपयोग सीमा भन्दा
                                 कथमकदाचित बढी रकम उपयोग गरेमा
@@ -410,7 +378,7 @@
                             </li>
                         </ol>
                     </div>
-                    <div class="service-contions mt-5">
+                    <div class="service-contions mt-4">
                         <div class="col-sm-12">
                             <p style="margin-left: 2.8rem">
                                 <strong><u>थप/अतिरिक्त शुल्क र हर्जाना व्याज तथा सो सम्बन्धी
@@ -422,8 +390,7 @@
                             <ol class="conditions-list orderd-list" style="padding-left: 2em">
                                 <li>
                                     <strong> हर्जाना ब्याज (Penal Interest) तथा बिलम्ब भुक्तानी
-                                        शुल्कहरु (Late Payment
-                                        Fee)</strong>
+                                        शुल्कहरु (Late Payment Fee)</strong>
                                     <p class="m-0">
                                         साँवा र ब्याज रकम निर्धारित भुक्तानी मिति वा कर्जा समाप्ति मितिमा
                                         भुक्तानी नभएमा देहाय
@@ -469,7 +436,7 @@
                                     </p>
                                 <li>तपाई ऋणी तथा तपाई संग सम्बन्धित व्यक्ति/फर्म/कम्पनीहरुको साख
                                     सूचना
-                                    प्रदान गरे बापत प्रति सूचना रु.२,०००। शुल्क लाग्नेछ । उक्त शुल्क
+                                    प्रदान गरे बापत प्रति सूचना रु.२,०००/- शुल्क लाग्नेछ । उक्त शुल्क
                                     तपाईको खातामा खर्च जनाई
                                     कट्टा गरी लिईनेछ ।
                                 </li>
@@ -485,7 +452,7 @@
                         </div>
                     </div>
                     <br><br>
-                    <div class="service-contions mt-5">
+                    <div class="service-contions mt-4">
                         <ol class="conditions-list orderd-list">
                             <strong>ऋण तथा सुबिधाहरु सम्बन्धित शर्तहरु , दीर्घकालीन
                                 कर्जा </strong>
@@ -507,8 +474,7 @@
                         </ol>
 
                     </div>
-                    <div mt-5>
-
+                    <div>
                         <ol class="conditions-list orderd-list">
                             <strong><u>सुरक्षणहरु सम्बन्धित शर्तहरु </u></strong><br>
                             <ng-container *ngIf="securityTypeCondition">
@@ -561,10 +527,10 @@
                                 <li> ऋणकर्जा सुविधाको सुरक्षण स्वरुप बैंकको पक्षमा धितोेबन्धक
                                     लेखीदिएको घर/जग्गाहरु फुकुवा
                                     गर्दाको बखत फुकुवा शुल्क वापत प्रति धितोबन्धक
-                                    तमसुक रु.१,०००। का दरले धितो फुकुवा शुल्क लाग्नेछ । साथै बैंकको
+                                    तमसुक रु.१,०००/- का दरले धितो फुकुवा शुल्क लाग्नेछ । साथै बैंकको
                                     पक्षमा धितोेबन्धक लेखीदिएको
                                     घर/जग्गाहरुको जग्गाधनी प्रमाणपत्र निश्चित
-                                    समयको लागि माग गरी फिर्ता लैजांदा प्रति पटक रु.५००।– दरल शुल्क
+                                    समयको लागि माग गरी फिर्ता लैजांदा प्रति पटक रु.५००/- दरल शुल्क
                                     लाग्नेछ ।
                                 </li>
                             </ng-container>
@@ -598,7 +564,7 @@
 
                 </div>
             </div>
-            <div mt-5>
+            <div>
                 <ol class="conditions-list orderd-list" style="padding-left: 2em">
                     <strong><u>बिमा सम्बन्धी शर्तहरु </u></strong>
                     <li *ngIf="securityTypeConditionStock">ऋणीले आफ्नोे खर्चमा आगलागी, भुकम्प, दंगा/हड्ताल,
@@ -701,9 +667,8 @@
                         नदिने अधिकार बैंकमा सुरक्षित रहनेछ।
                     </li>
                 </ol>
-
             </div>
-            <div mt-5>
+            <div>
                 <ol class="conditions-list orderd-list" style="padding-left: 2em">
                     <strong>बित्तीय शर्तहरु </strong>
                     <li> सम्पूर्ण ऋणकर्जाहरुको ब्याज, किस्ता, शुल्क, कमिसन, मार्जिन, हर्जाना
@@ -727,7 +692,7 @@
                     <li>माथि उल्लिखित हर्जाना ब्याज (Penal Interest) तथा बिलम्ब भुक्तानी
                         शुल्क (Late Payment
                         Fee) र अन्य सेवा सुविधा बापत तिर्नु बुझाउनु पर्ने शुल्क बैंकले
-                        आफ्नो आधिकारिक(website) मा सूचना प्रकाशित गरी समय समयमा परिवर्तन गर्न
+                        आफ्नो आधिकारिक (website) मा सूचना प्रकाशित गरी समय समयमा परिवर्तन गर्न
                         सक्नेछ र यसरी
                         प्रकाशित गरी शुल्क, दस्तुर तथा व्याज दरहरु परीवर्तन गरेमा माथि उल्लिखित
                         शुल्क, दस्तुर तथा व्याजदरहरु समेत परिवर्तन भएको मानिनेछ । सो परिवर्तित
@@ -864,7 +829,7 @@
                     </li>
                 </ol>
             </div>
-            <div mt-5>
+            <div>
                 <div class="col-sm-12" style="padding-left: 2em">
                     <ol class="conditions-list orderd-list">
                         <strong>अन्य शर्तहरु: </strong>
@@ -961,7 +926,7 @@
                 </div>
             </div>
 
-            <div mt-5>
+            <div>
                 <ul class="conditions-list orderd-list" style="padding-left: 2em">
                     <strong><u>कागजपत्रहरु </u></strong>
 
@@ -974,55 +939,39 @@
                         पेश गर्नुपर्नेछ ।
                     </li>
                     <li> रु.<span class="font-weight-bold">
-                                                {{ engToNepNumberPipe.transform(currencyFormatPipe.transform(proposedAmount))}}
-                                            </span>/- मात्र )(बराबरको प्रतिज्ञा पत्र (Promissory
-                        Note)
+                        {{ engToNepNumberPipe.transform(currencyFormatPipe.transform(proposedAmount))}}
+                    </span> /- बराबरको प्रतिज्ञा पत्र (Promissory Note)
                     </li>
-                    <li>निरन्तरताको लिखत (Letter of Continuity )</li>
+                    <li>निरन्तरताको लिखत (Letter of Continuity)</li>
                     <li>रु.<span class="font-weight-bold">
-                                            {{
-                        engToNepNumberPipe.transform(
-                            currencyFormatPipe.transform(proposedAmount)
-                        )
-                        }}
-                                            </span>/- ( को श्री(सम्पत्ति धितोरसुरक्षण लेखीदिएको गोश्वारा(General Letter of Hypothecation)
-                        सहित पूरक सम्झौता (Supplementary Agreement)
+                            {{engToNepNumberPipe.transform(currencyFormatPipe.transform(proposedAmount))}}
+                    </span> /- बराबरकोे पूरक सम्झौता (Supplementary Agreement) सहित
+                        श्री-सम्पत्ति धितो/सुरक्षण लेखीदिएको गोश्वारा-पत्र (General Letter of Hypothecation)
                     </li>
                     <li> रु.<span class="font-weight-bold">
-                                            {{
-                        engToNepNumberPipe.transform(
-                            currencyFormatPipe.transform(proposedAmount)
-                        )
-                        }}
-                                            </span>/- (बराबरकोे वारेसनामा (Power of Attorney) सहित
-                        भुक्तानी प्राप्त गर्न
-                        बांकी रकम संकलन गर्ने अख्तियारनामा (Assignment of Receivables) ।
+                        {{engToNepNumberPipe.transform(currencyFormatPipe.transform(proposedAmount))}}
+                    </span> /- बराबरकोे वारेसनामा (Power of Attorney) सहित
+                        भुक्तानी प्राप्त गर्न बांकी रकम संकलन गर्ने अख्तियारनामा (Assignment of Receivables)
                     </li>
                     <li> रु.<span class="font-weight-bold">
-                                            {{
-                        engToNepNumberPipe.transform(
-                            currencyFormatPipe.transform(proposedAmount)
-                        )
-                        }}
-                                            </span>/- (बराबरको ऋणतमसुक (Loan Deed).
+                        {{engToNepNumberPipe.transform(currencyFormatPipe.transform(proposedAmount))}}
+                    </span> /- बराबरको ऋणतमसुक (Loan Deed)
                     </li>
                     <li *ngFor="let personalGuarantor of tempPersonalGuarantors"> रु.<span class="font-weight-bold">
                                             {{personalGuarantor.gurantedAmount.ct}}
-                                            </span>/- (बराबरको
+                                            </span> /- बराबरको
                         {{personalGuarantor.gender.en === 'FEMALE' && personalGuarantor.relationMedium.en === '0' ? 'श्रीमती' : (personalGuarantor.gender.en === 'FEMALE' && personalGuarantor.relationMedium.en === '1' ? 'सुश्री' : personalGuarantor.gender.en === 'MALE' ? 'श्रीमान्' : '')}}
                         <span class="font-weight-bold">
                             {{personalGuarantor.guarantorName.ct}}
                                             <!--{{ commonGuarantorDetails(personalGuarantorsName, finalPersonalName) }}-->
-                                            </span> ले बैंकको पक्षमा लेखिदिनुपर्ने
-                        व्यक्तिगत जमानत (Personal Guarantee)
+                        </span> ले बैंकको पक्षमा लेखिदिनुपर्ने व्यक्तिगत जमानत (Personal Guarantee)
                     </li>
                     <li> जमानीकर्ताको सम्पत्ति विवरण (wealth statement of Guarantor)
                     </li>
                     <li> बहु बैंकिङ्ग घोषणापत्र (Multiple Banking Declaration)
                     </li>
                     <li>ऋणी फर्मले यस बैंकको ऋणकर्जा सुविधा समेत गरी अन्य बैंक तथा वित्तिय
-                        संस्थाबाट रु.१ करोड भन्दा बढी
-                        कर्जा उपभोग नगरेको उदघोषण पत्र ।
+                        संस्थाबाट रु.१ करोड भन्दा बढी कर्जा उपभोग नगरेको उदघोषण पत्र ।
                     </li>
                     <li> बविमालेख घोषणा पत्र (Insurance Declaration Statement)
                     </li>
@@ -1192,7 +1141,7 @@
                         विवाहिता दिदी, बहिनी, भिनाजु, ज्वाईं, भतिजा, भतिजी, साला, साली, सासु,
                         ससुरा, काका, काकी, मामा,
                         माईजु, भाञ्जा, भाञ्जी, नाति, नातिनी, नातिनी बुहारी,
-                        नातिनी ज्वाइँ समेतलाई बुझाउनेछ ।)
+                        नातिनी ज्वाइँ समेतलाई बुझाउनेछ ।
                     </li>
                     <li *ngIf="freeInformation?.fourthText">
                         <span style="font-size: 29px" class="nepaliFont">{{freeInformation ? freeInformation.fourthText : ''}}</span>
