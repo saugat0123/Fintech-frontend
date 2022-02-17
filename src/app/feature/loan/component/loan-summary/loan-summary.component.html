@@ -125,6 +125,20 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <b>TO: {{loanDataHolder?.currentStage?.toUser?.name}} ({{loanDataHolder?.currentStage?.toRole?.roleName}})</b>
+                    <br>
+                    <b>THROUGH: {{loanDataHolder?.currentStage?.fromUser?.name}} ({{loanDataHolder?.currentStage?.fromRole?.roleName}})</b>
+                    <br>
+                    <b>FROM: </b> <br>
+                    <b>CLIENT NAME: {{loanDataHolder?.loanHolder?.name}}</b> <br>
+                    <b>GROUP: </b> <br>
+                    <b>ACCOUNT NUMBER:</b> <br>
+                    <b>CUSTOMER ID: {{loanDataHolder?.loanHolder?.customerCode}}</b> <br>
+                    <b>DATE: {{loanDataHolder?.createdAt}}</b>
+                </div>
+            </div>
             <hr class="print-line">
             <div class="row">
                 <div class="col-md-12">
@@ -454,6 +468,7 @@
                                     <th>Relation Name</th>
                                     <th>Citizenship no.</th>
                                     <th>Citizenship Issued Date (AD/BS)</th>
+                                    <th>Net Worth</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -472,83 +487,86 @@
                                         {{relative?.citizenshipIssuedDate ? (relative?.citizenshipIssuedDate | date) : 'NA'}}
                                         ({{ relative?.citizenshipIssuedDate ? (relative.citizenshipIssuedDate | engNepDate: false) : 'NA'}})
                                     </td>
-
+                                    <td class="text-right pr-1">
+                                        Rs. {{relative?.relativeNetWorth}}
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                    <div>
-                        <table
-                            class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-                            <thead>
-                                <tr class="text-white sb-bg-dark">
-                                    <th>Name</th>
-                                    <th>Date Of Birth(AD/BS)</th>
-                                    <th>Age</th>
-                                    <th>Citizenship Number</th>
-                                    <th>Mobile Number</th>
-                                    <th>LandLine Number</th>
-                                    <th>Occupation</th>
-                                    <th>Income Source</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="text-left">
-                                    <td class="pl-1">{{loanDataHolder?.customerInfo?.customerName}}</td>
-                                    <td class="pl-1">{{loanDataHolder?.customerInfo?.dob | date}}
-                                        ({{loanDataHolder?.customerInfo?.dob | engNepDate: false}})</td>
-                                    <td class="text-left pl-1">{{calculateAge(loanDataHolder?.customerInfo?.dob)}} years
-                                    </td>
-                                    <td class="text-right pr-1">{{loanDataHolder?.customerInfo?.citizenshipNumber}}</td>
-                                    <td class="text-right pr-1">{{loanDataHolder?.customerInfo?.contactNumber}}</td>
-                                    <td class="text-right pr-1">{{loanDataHolder?.customerInfo?.landLineNumber}}</td>
-                                    <td class="pl-1">
-                                        {{(loanDataHolder?.customerInfo?.occupation | jsonParse)?.multipleOccupation || 'NA'}}
-                                    </td>
-                                    <td class="pl-1">
-                                        {{(loanDataHolder?.customerInfo?.incomeSource | jsonParse)?.multipleIncome || 'NA'}}
-                                    </td>
+
+<!--                    <div>-->
+<!--                        <table-->
+<!--                            class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">-->
+<!--                            <thead>-->
+<!--                                <tr class="text-white sb-bg-dark">-->
+<!--                                    <th>Name</th>-->
+<!--                                    <th>Date Of Birth(AD/BS)</th>-->
+<!--                                    <th>Age</th>-->
+<!--                                    <th>Citizenship Number</th>-->
+<!--                                    <th>Mobile Number</th>-->
+<!--                                    <th>LandLine Number</th>-->
+<!--                                    <th>Occupation</th>-->
+<!--                                    <th>Income Source</th>-->
+<!--                                </tr>-->
+<!--                            </thead>-->
+<!--                            <tbody>s-->
+<!--                                <tr class="text-left">-->
+<!--                                    <td class="pl-1">{{loanDataHolder?.customerInfo?.customerName}}</td>-->
+<!--                                    <td class="pl-1">{{loanDataHolder?.customerInfo?.dob | date}}-->
+<!--                                        ({{loanDataHolder?.customerInfo?.dob | engNepDate: false}})</td>-->
+<!--                                    <td class="text-left pl-1">{{calculateAge(loanDataHolder?.customerInfo?.dob)}} years-->
+<!--                                    </td>-->
+<!--                                    <td class="text-right pr-1">{{loanDataHolder?.customerInfo?.citizenshipNumber}}</td>-->
+<!--                                    <td class="text-right pr-1">{{loanDataHolder?.customerInfo?.contactNumber}}</td>-->
+<!--                                    <td class="text-right pr-1">{{loanDataHolder?.customerInfo?.landLineNumber}}</td>-->
+<!--                                    <td class="pl-1">-->
+<!--                                        {{(loanDataHolder?.customerInfo?.occupation | jsonParse)?.multipleOccupation || 'NA'}}-->
+<!--                                    </td>-->
+<!--                                    <td class="pl-1">-->
+<!--                                        {{(loanDataHolder?.customerInfo?.incomeSource | jsonParse)?.multipleIncome || 'NA'}}-->
+<!--                                    </td>-->
 
 
-                                </tr>
-                                <tr class="text-white sb-bg-dark">
-                                    <th>Customer Client Type</th>
-                                    <th>SubSector</th>
-                                    <!--<td>Address as per Legal Document</td>-->
-                                </tr>
-                                <tr>
-                                    <td class="text-left pl-1">{{loanDataHolder?.loanHolder['clientType']}}</td>
-                                    <td class="text-left pl-1">
-                                        {{loanDataHolder?.loanHolder['subsectorDetail'] || 'N/A'}}</td>
-                                    <!--<td>{{loanDataHolder?.customerInfo?.customerLegalDocumentAddress}}</td>-->
+<!--                                </tr>-->
+<!--                                <tr class="text-white sb-bg-dark">-->
+<!--                                    <th>Customer Client Type</th>-->
+<!--                                    <th>SubSector</th>-->
+<!--                                    &lt;!&ndash;<td>Address as per Legal Document</td>&ndash;&gt;-->
+<!--                                </tr>-->
+<!--                                <tr>-->
+<!--                                    <td class="text-left pl-1">{{loanDataHolder?.loanHolder['clientType']}}</td>-->
+<!--                                    <td class="text-left pl-1">-->
+<!--                                        {{loanDataHolder?.loanHolder['subsectorDetail'] || 'N/A'}}</td>-->
+<!--                                    &lt;!&ndash;<td>{{loanDataHolder?.customerInfo?.customerLegalDocumentAddress}}</td>&ndash;&gt;-->
 
-                                </tr>
-                            </tbody>
-                        </table>
-                        <!--                        <table class="print-only table table-bordered text-center table-sm sb-small"-->
-                        <!--                               id="print-borrower-table">-->
-                        <!--                            <thead>-->
-                        <!--                            <tr class="text-white sb-bg-dark">-->
-                        <!--                                <th>Name</th>-->
-                        <!--                                <th>Date Of Birth</th>-->
-                        <!--                                <th>Citizenship Number</th>-->
-                        <!--                                <th>Mobile Number</th>-->
-                        <!--                                <th>Occupation</th>-->
-                        <!--                                <th>Income Source</th>-->
-                        <!--                            </tr>-->
-                        <!--                            </thead>-->
-                        <!--                            <tbody>-->
-                        <!--                            <tr>-->
-                        <!--                                <td>{{loanDataHolder?.customerInfo?.customerName}}</td>-->
-                        <!--                                <td>{{loanDataHolder?.customerInfo?.dob | date}}</td>-->
-                        <!--                                <td>{{loanDataHolder?.customerInfo?.citizenshipNumber}}</td>-->
-                        <!--                                <td>{{loanDataHolder?.customerInfo?.contactNumber}}</td>-->
-                        <!--                                <td>{{loanDataHolder?.customerInfo?.occupation}}</td>-->
-                        <!--                                <td>{{loanDataHolder?.customerInfo?.incomeSource}}</td>-->
-                        <!--                            </tr>-->
-                        <!--                            </tbody>-->
-                        <!--                        </table>-->
-                    </div>
+<!--                                </tr>-->
+<!--                            </tbody>-->
+<!--                        </table>-->
+<!--                        &lt;!&ndash;                        <table class="print-only table table-bordered text-center table-sm sb-small"&ndash;&gt;-->
+<!--                        &lt;!&ndash;                               id="print-borrower-table">&ndash;&gt;-->
+<!--                        &lt;!&ndash;                            <thead>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                            <tr class="text-white sb-bg-dark">&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                <th>Name</th>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                <th>Date Of Birth</th>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                <th>Citizenship Number</th>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                <th>Mobile Number</th>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                <th>Occupation</th>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                <th>Income Source</th>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                            </tr>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                            </thead>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                            <tbody>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                            <tr>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                <td>{{loanDataHolder?.customerInfo?.customerName}}</td>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                <td>{{loanDataHolder?.customerInfo?.dob | date}}</td>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                <td>{{loanDataHolder?.customerInfo?.citizenshipNumber}}</td>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                <td>{{loanDataHolder?.customerInfo?.contactNumber}}</td>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                <td>{{loanDataHolder?.customerInfo?.occupation}}</td>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                                <td>{{loanDataHolder?.customerInfo?.incomeSource}}</td>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                            </tr>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                            </tbody>&ndash;&gt;-->
+<!--                        &lt;!&ndash;                        </table>&ndash;&gt;-->
+<!--                    </div>-->
 
                 </div>
             </div>
@@ -658,9 +676,48 @@
             <div *ngIf="!productUtils.CBS_ENABLE">
                 <app-proposal-justification-summary *ngIf="proposalSummary" [customerAllLoanList]="customerAllLoanList"
                     [proposalData]="proposalData"></app-proposal-justification-summary>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="mt-2"><strong>Source of Income</strong></p>
+                    <table class="table table-bordered text-right table-sm sb-small text-center">
+                        <thead>
+                        <tr>
+                            <th class="text-center" colspan="6">Monthly Income</th>
+                        </tr>
+                        <tr class="text-white sb-bg-dark">
+                            <th>S.N</th>
+                            <th>Source of Income</th>
+                            <th>Organization</th>
+                            <th>Amount</th>
+                            <th>Age Of Income Generated</th>
+                            <th>Remarks</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let incomeOfBorrower of incomeDataOnly?.initialForm?.incomeOfBorrower; let i = index;">
+                            <td>{{i + 1}}</td>
+                            <td class="text-left pl-1">{{incomeOfBorrower.incomeSource}}</td>
+                            <td class="text-left pl-1">{{incomeOfBorrower.organization}}</td>
+                            <td class="text-right pr-1">Rs. {{incomeOfBorrower.amount | currencyFormatter}}</td>
+                            <td>{{incomeOfBorrower.ageOfIncomeGenerated|| '0'}} months</td>
+                            <td class="text-left pl-1">{{incomeOfBorrower.remarks}}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-left pl-1" colspan="3"><strong>Total Income</strong></td>
+                            <td colspan="3" class="text-right pr-1">
+                                <strong>Rs. {{incomeDataOnly?.initialForm?.totalIncome | currencyFormatter}}</strong>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div *ngIf="!productUtils.CBS_ENABLE">
                 <app-collateral-summary *ngIf="customerAllLoanList?.length > 0 && loanDataHolder?.security"
-                    [customerAllLoanList]="customerAllLoanList" [security]="loanDataHolder?.security">
+                                        [customerAllLoanList]="customerAllLoanList" [security]="loanDataHolder?.security">
                 </app-collateral-summary>
+
             </div>
             <div class="mt-3">
                 <app-income-from-account-summery *ngIf="incomeFromAccountSummary" [formData]="incomeFromAccountData">
@@ -691,10 +748,33 @@
                 </div>
             </div>
         </section>
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="mt-2"><strong>Repayment</strong></p>
+                    <ol>
+                        <li>{{'emi amount'}} equal monthly installments commencing from the 10th of every Gregorian calendar from the next month of initial drawdown.
+                            The client shall serve interest on the loan outstanding during the first month, calculated on the daily debit outstanding fron the date of disbursement.</li>
+                        <li>The above mentioned loan when repaid in the part or full shall not be reinstated bt the extend of the amount repaid/settled.</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <p class="mt-2"><strong>Mode of Disbursement</strong></p>
+                    <ul>
+                        <li>We shall disbuse loan amount of NRP ..... Mio or .... % of FMV of the real estate collateral whichever is lowered by crediting the current accountof Mr. ....
+                        maintained at ....  Branch or issued Managers Cheque in the name of Seller or as per request of the application upon the completion of security documents</li>
+                        <li>Execution of all the security</li>
+                        <li></li>
+                        <li></li>
+                        <li>Completion of security documentation</li>
+                    </ul>
+                </div>
+            </div>
 
             <div class="mt-3">
-                <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl" [ciclValue]="loanDataHolder?.loanHolder?.cicl">
-                </app-cicl-view>
+                <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl" [ciclValue]="loanDataHolder?.loanHolder?.cicl"></app-cicl-view>
             </div>
 
 
@@ -731,6 +811,31 @@
             <div class="row mt-3">
                 <div class="col-md-12">
                     <p><strong>Recommendation: </strong></p>
+                    <table class="table table-bordered text-right table-sm sb-small text-center">
+                        <thead>
+                        <tr>
+                            <th class="text-center" colspan="6">Recommend as Follows</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="text-white sb-bg-dark">
+                            <th>Proposal</th>
+                        </tr>
+                        <tr>
+                            <td>The client has requested us to provide .....</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span>Pricing:</span> <br>
+                                <span>Interest: ...... % p.a (BR + 0.59%)</span> <br>
+                                Loan Administrative Fee:.... % of the approve limit
+                                CIC charge: On actual basis
+                                Prepayment Charge: As per NRB
+                                Swap Charge: AS per NRB
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
                     <!-- <p class="border text-justify p-1">
                         {{proposalView?.summeryRecommendation}}
                     </p> -->

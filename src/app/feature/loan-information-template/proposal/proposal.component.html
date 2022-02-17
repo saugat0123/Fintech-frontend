@@ -679,6 +679,29 @@
                                         </span>
                                     </div>
                                 </div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group" style="max-height: 300px !important;height: 250px;">
+                                        <strong>Purpose</strong>
+                                        <ckeditor formControlName="purposeOfLoan"
+                                                  [style]="{height:'250px !important;'}"
+                                                  placeholder="Purpose"
+                                                  required
+                                                  [config]="ckeConfig"
+                                                  [ngClass]="{'is-invalid': formControls.purposeOfLoan.invalid && submitted}">
+                                        </ckeditor>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="col-md-12" style="padding-top: 70px;">
+                                    <div *ngIf="submitted">
+                                        <span *ngIf="formControls.purposeOfLoan.invalid" class="text-danger">
+                                            <sup>*</sup> Purpose is required!
+                                        </span>
+                                    </div>
+                                </div>
+
+
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="title" for="disbursementCriteria"><strong>Disbursement Criteria</strong></label>
