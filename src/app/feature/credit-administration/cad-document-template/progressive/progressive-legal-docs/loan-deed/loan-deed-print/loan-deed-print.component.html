@@ -1,13 +1,9 @@
 <div class="row" id="print-section-{{offerLetterConst.LOAN_DEED}}">
-
-    <div class="col-md-12 viewFull">
-        <form class="nepali margin">
-            <h6 class="text-center"><strong>बिषयः कर्जा तमसुक</strong><br>
-            </h6>
-
+    <div class="col-md-12">
+        <form class="nepali">
+            <h6 class="text-center"><strong><u>बिषयः कर्जा तमसुक</u></strong></h6>
             <br>
-            <div class="row">
-                <p>
+                <p class="text-justify">
                     लिखितम् धनीका नाम प्रचलित वित्तीय संस्था तथा वित्तीय संस्था सम्बन्धी ऐन,
                     बमोजिम दर्ता भई काठमाण्डौ जिल्ला, काठमाण्डौ महानगरपालिका वडा नं. २२ स्थित
                     रजिष्टर्ड कार्यालय रहेको <strong>प्रोग्रेशिभ फाईनान्स लिमिटेडको</strong>
@@ -151,14 +147,11 @@
                     रोहबरमा तपाई धनीव बित्तिय संस्थाको कार्यालयमा बसी यो लिखतमा सहीछाप गरी तपाई धनी वित्तीय
                     संस्थालाई दिया/दियौं।
                 </p>
-            </div>
-            <br>
             <p [ngClass]="{'page-break': printDocForm.swikritiBibaran?.length > 4}"></p>
-
             <p class="text-center"><strong><u>स्वीकृत ऋणकर्जाको बिवरण</u></strong></p>
             <div>
                 <div>
-                    <table style="border: 1px; width:100%" class="table-bordered table text-center ">
+                    <table style="border: 1px; width:100%" class="table-bordered text-center">
                         <thead>
                         <tr>
                             <th style="width: 5%">सि.नं.</th>
@@ -190,16 +183,13 @@
                         </tr>
                         </tbody>
                     </table>
-                    <br>
                 </div>
             </div>
             <br>
-            <br>
-            <p class="page-break"></p>
             <p class="text-center"><strong><u>धितो सुरक्षण बापत रहेको/रहने सम्पत्तीको विवरण</u></strong></p>
             <div>
                 <div>
-                    <table class="table table-bordered text-center border-dark">
+                    <table class="table-bordered text-center border-dark">
                         <thead>
                         <tr>
                             <th style="width:5%">सि.नं.</th>
@@ -236,8 +226,8 @@
                     <br>
                 </div>
             </div>
-            <p><strong>साक्षी:</strong></p>
             <table class="mt-5">
+                <caption style="caption-side: top"><strong>साक्षी:</strong></caption>
                 <tr>
                     <td>दस्तखत:</td>
                     <td>.............................</td>
@@ -316,6 +306,10 @@
                                             </span></td>
                 </tr>
             </table>
+            लिखत तयार पार्ने: <span
+                [ngClass]="{'nepaliFont':printDocForm.likhat!==null && printDocForm.likhat!==''}">
+          {{printDocForm?.likhat === null || printDocForm?.likhat === null ? '________________' : printDocForm.likhat}}
+      </span>
 
 
 

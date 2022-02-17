@@ -1,7 +1,7 @@
 <div id="print-section-{{offerLetterConst.GUARANTEE_BOND_PERSONAL}}">
     <div class="col-md-12">
-        <form>
             <div *ngFor="let guarantor of printDocForm?.guarantorDetails; index as i">
+                <form>
                 <div class="nepali">
                     <div class="text-center">
                         <strong>बिषयः व्यक्तिगत जमानत</strong>
@@ -63,197 +63,143 @@
                             {{guarantor?.cdoOffice === null || guarantor?.cdoOffice === '' ? '_________________' : guarantor?.cdoOffice}}
                         </span> जारी गरिएको ना.प्र.प.नं.
                         <span [ngClass]="{'nepaliFont' : guarantor?.citizenshipNo !== null && guarantor?.citizenshipNo !== ''}">
-    {{guarantor?.citizenshipNo === null || guarantor?.citizenshipNo === '' ? '_________________' : guarantor?.citizenshipNo}}
-</span> भएको
-                        बर्ष <span [ngClass]="{'nepaliFont' : guarantor?.age!== null && guarantor?.age !== ''}">
-    {{guarantor?.age === null || guarantor?.age === '' ? '_________________' : guarantor?.age}}
-</span> को/की श्री/श्रीमती/सुश्री <span
-                            [ngClass]="{'nepaliFont unicode-size2' : guarantor?.namName!== null && guarantor?.namName !== ''}">
-    {{guarantor?.namName === null || guarantor?.namName === '' ? '_________________' : guarantor?.namName}}
-</span>(जसलाई यस पछि ‘जमानतकर्ता’ भनिएको)
-                        आगे म 'जमानतकर्ता' श्री/श्रीमती/सूश्री<span
-                            [ngClass]="{'nepaliFont unicode-size2' : guarantor?.buttonGrandParentName !== null && guarantor?.buttonGrandParentName !== ''}">
-    {{guarantor?.buttonGrandParentName === null || guarantor?.buttonGrandParentName === '' ? '_________________' : guarantor?.buttonGrandParentName}}
-</span> को/की एकाघर सगोलको/की पति/पत्नी/बाबु/आमा/छोरा/बूहारी/दाजूभाइ वा<span
-                            [ngClass]="{'nepaliFont unicode-size2' : guarantor?.newName !== null && guarantor?.newName !== ''}">
-    {{guarantor?.newName === null || guarantor?.newName === '' ? '_________________' : guarantor?.newName}}
-</span>
-                        को/की नाति/नातिनी <span
-                            [ngClass]="{'nepaliFont unicode-size2' : guarantor?.buttonParentName !== null && guarantor?.buttonParentName !== ''}">
-    {{guarantor?.buttonParentName === null || guarantor?.buttonParentName === '' ? '_________________' : guarantor?.buttonParentName}}
-</span> को/की
-                        छोरा/छोरी <span
-                            [ngClass]="{'nepaliFont unicode-size2' : guarantor?.buttonhusbandName !== null && guarantor?.buttonhusbandName !== ''}">
-                        {{guarantor?.buttonhusbandName === null || guarantor?.buttonhusbandName === '' ? '_________________' : guarantor?.buttonhusbandName}}
-                    </span> को/की
-                        पति/पत्नी,
-                        नागरिकता वमोजिम <span
-                            [ngClass]="{'nepaliFont unicode-size' : guarantor?.buttonDistrict !== null && guarantor?.buttonDistrict !== ''}">
-                        {{guarantor?.buttonDistrict === null || guarantor?.buttonDistrict === '' ? '_________________' : guarantor?.buttonDistrict}}
-                    </span>
-                        जिल्ला, <span
-                            [ngClass]="{'nepaliFont unicode-size' : guarantor?.buttonMunicipality !== null && guarantor?.buttonMunicipality !== ''}">
-                        {{guarantor?.buttonMunicipality === null || guarantor?.buttonMunicipality === '' ? '_________________' : guarantor?.buttonMunicipality}}
-                    </span>
-                        न.पा./गा.वि.स.,
-                        वडा नं. <span
+                            {{guarantor?.citizenshipNo === null || guarantor?.citizenshipNo === '' ? '_________________' : guarantor?.citizenshipNo}}
+                        </span> भएको बर्ष
+                        <span [ngClass]="{'nepaliFont' : guarantor?.age!== null && guarantor?.age !== ''}">
+                            {{guarantor?.age === null || guarantor?.age === '' ? '_________________' : guarantor?.age}}
+                        </span> को/की श्री/श्रीमती/सुश्री
+                        <span [ngClass]="{'nepaliFont unicode-size2' : guarantor?.namName!== null && guarantor?.namName !== ''}">
+                            {{guarantor?.namName === null || guarantor?.namName === '' ? '_________________' : guarantor?.namName}}
+                        </span>(जसलाई यस पछि ‘जमानतकर्ता’ भनिएको)
+                        आगे म 'जमानतकर्ता' श्री/श्रीमती/सूश्री
+                        <span [ngClass]="{'nepaliFont unicode-size2' : guarantor?.buttonGrandParentName !== null && guarantor?.buttonGrandParentName !== ''}">
+                            {{guarantor?.buttonGrandParentName === null || guarantor?.buttonGrandParentName === '' ? '_________________' : guarantor?.buttonGrandParentName}}
+                        </span> को/की एकाघर सगोलको/की पति/पत्नी/बाबु/आमा/छोरा/बूहारी/दाजूभाइ वा
+                        <span [ngClass]="{'nepaliFont unicode-size2' : guarantor?.newName !== null && guarantor?.newName !== ''}">
+                            {{guarantor?.newName === null || guarantor?.newName === '' ? '_________________' : guarantor?.newName}}
+                        </span>
+                        को/की नाति/नातिनी
+                        <span [ngClass]="{'nepaliFont unicode-size2' : guarantor?.buttonParentName !== null && guarantor?.buttonParentName !== ''}">
+                            {{guarantor?.buttonParentName === null || guarantor?.buttonParentName === '' ? '_________________' : guarantor?.buttonParentName}}
+                        </span> को/की छोरा/छोरी
+                        <span [ngClass]="{'nepaliFont unicode-size2' : guarantor?.buttonhusbandName !== null && guarantor?.buttonhusbandName !== ''}">
+                            {{guarantor?.buttonhusbandName === null || guarantor?.buttonhusbandName === '' ? '_________________' : guarantor?.buttonhusbandName}}
+                        </span> को/की पति/पत्नी, नागरिकता वमोजिम
+                        <span [ngClass]="{'nepaliFont unicode-size' : guarantor?.buttonDistrict !== null && guarantor?.buttonDistrict !== ''}">
+                            {{guarantor?.buttonDistrict === null || guarantor?.buttonDistrict === '' ? '_________________' : guarantor?.buttonDistrict}}
+                        </span>
+                        जिल्ला,
+                        <span [ngClass]="{'nepaliFont unicode-size' : guarantor?.buttonMunicipality !== null && guarantor?.buttonMunicipality !== ''}">
+                            {{guarantor?.buttonMunicipality === null || guarantor?.buttonMunicipality === '' ? '_________________' : guarantor?.buttonMunicipality}}
+                        </span>
+                        न.पा./गा.वि.स., वडा नं. <span
                             [ngClass]="{'nepaliFont' : guarantor?.buttonWardNo !== null && guarantor?.buttonWardNo !== ''}">
                         {{guarantor?.buttonWardNo === null || guarantor?.buttonWardNo === '' ? '_________________' : guarantor?.buttonWardNo}}</span>
-                        ,
-                        स्थायी ठेगाना
-                        भै हाल सोही स्थानमा वा <span
-                            [ngClass]="{'nepaliFont unicode-size' : guarantor?.buttonTempDistrict !== null && guarantor?.buttonTempDistrict !== ''}">
-                        {{guarantor?.buttonTempDistrict === null || guarantor?.buttonTempDistrict === '' ? '_________________' : guarantor?.buttonTempDistrict}}
-                    </span>
-                        जिल्ला <span
-                            [ngClass]="{'nepaliFont unicode-size' : guarantor?.buttonTempMuniciplity !== null && guarantor?.buttonTempMuniciplity !== ''}">
-                        {{guarantor?.buttonTempMuniciplity === null || guarantor?.buttonTempMuniciplity === '' ? '_________________' : guarantor?.buttonTempMuniciplity}}
-                    </span>
-                        न.पा./गा.पा.,
-                        वडा नं. <span
-                            [ngClass]="{'nepaliFont' : guarantor?.buttonTempWardNo !== null && guarantor?.buttonTempWardNo !== ''}">
-                        {{guarantor?.buttonTempWardNo === null || guarantor?.buttonTempWardNo === '' ? '_________________' : guarantor?.buttonTempWardNo}}</span>,
-                        बस्ने
-                        मिति <span
-                            [ngClass]="{'nepaliFont' : guarantor?.buttonDate !== null && guarantor?.buttonDate !== ''}">
+                        , स्थायी ठेगाना भै हाल सोही स्थानमा वा
+                        <span [ngClass]="{'nepaliFont unicode-size' : guarantor?.buttonTempDistrict !== null && guarantor?.buttonTempDistrict !== ''}">
+                            {{guarantor?.buttonTempDistrict === null || guarantor?.buttonTempDistrict === '' ? '_________________' : guarantor?.buttonTempDistrict}}
+                        </span>
+                        जिल्ला
+                        <span [ngClass]="{'nepaliFont unicode-size' : guarantor?.buttonTempMuniciplity !== null && guarantor?.buttonTempMuniciplity !== ''}">
+                            {{guarantor?.buttonTempMuniciplity === null || guarantor?.buttonTempMuniciplity === '' ? '_________________' : guarantor?.buttonTempMuniciplity}}
+                        </span>
+                        न.पा./गा.पा., वडा नं.
+                        <span [ngClass]="{'nepaliFont' : guarantor?.buttonTempWardNo !== null && guarantor?.buttonTempWardNo !== ''}">
+                            {{guarantor?.buttonTempWardNo === null || guarantor?.buttonTempWardNo === '' ? '_________________' : guarantor?.buttonTempWardNo}}</span>,
+                        बस्ने मिति
+                        <span [ngClass]="{'nepaliFont' : guarantor?.buttonDate !== null && guarantor?.buttonDate !== ''}">
                             {{guarantor?.buttonDate === null || guarantor?.buttonDate === '' ? '_________________' : guarantor?.buttonDate}}
-                        </span> मा जिल्ला प्रशासन
-                        कार्यालय,
+                        </span> मा जिल्ला प्रशासन कार्यालय,
                         <span [ngClass]="{'nepaliFont unicode-size2' : guarantor?.buttonCdoOffice !== null && guarantor?.buttonCdoOffice !== ''}">
-                    {{guarantor?.buttonCdoOffice === null || guarantor?.buttonCdoOffice === '' ? '_________________' : guarantor?.buttonCdoOffice}}
-                </span> जारी गरिएको
-                        ना.प्र.प.नं. <span
-                            [ngClass]="{'nepaliFont' : guarantor?.buttonCitizenshipNo !== null && guarantor?.buttonCitizenshipNo !== ''}">
-                        {{guarantor?.buttonCitizenshipNo === null || guarantor?.buttonCitizenshipNo === '' ? '_________________' : guarantor?.buttonCitizenshipNo}}
-                    </span> भएको
-                        बर्ष <span
-                            [ngClass]="{'nepaliFont' : guarantor?.buttonAge !== null && guarantor?.buttonAge !== ''}">
-                        {{guarantor?.buttonAge === null || guarantor?.buttonAge === '' ? '_________________' : guarantor?.buttonAge}}
-                </span> को/की श्री/श्रीमती/सुश्री <span
-                            [ngClass]="{'nepaliFont unicode-size2' : guarantor?.buttonWifeName !== null && guarantor?.buttonWifeName !== ''}">
+                            {{guarantor?.buttonCdoOffice === null || guarantor?.buttonCdoOffice === '' ? '_________________' : guarantor?.buttonCdoOffice}}
+                        </span> जारी गरिएको ना.प्र.प.नं.
+                        <span [ngClass]="{'nepaliFont' : guarantor?.buttonCitizenshipNo !== null && guarantor?.buttonCitizenshipNo !== ''}">
+                            {{guarantor?.buttonCitizenshipNo === null || guarantor?.buttonCitizenshipNo === '' ? '_________________' : guarantor?.buttonCitizenshipNo}}
+                        </span> भएको बर्ष
+                        <span [ngClass]="{'nepaliFont' : guarantor?.buttonAge !== null && guarantor?.buttonAge !== ''}">
+                            {{guarantor?.buttonAge === null || guarantor?.buttonAge === '' ? '_________________' : guarantor?.buttonAge}}
+                        </span> को/की श्री/श्रीमती/सुश्री
+                        <span [ngClass]="{'nepaliFont unicode-size2' : guarantor?.buttonWifeName !== null && guarantor?.buttonWifeName !== ''}">
                             {{guarantor?.buttonWifeName === null || guarantor?.buttonWifeName === '' ? '_________________' : guarantor?.buttonWifeName}}
-                </span> –१,
-                        को/की नाति/नातिनी
-                        <span
-                                [ngClass]="{'nepaliFont unicode-size2' : guarantor?.parName !== null && guarantor?.parName !== ''}">
+                        </span> –१, को/की नाति/नातिनी
+                        <span [ngClass]="{'nepaliFont unicode-size2' : guarantor?.parName !== null && guarantor?.parName !== ''}">
                             {{guarantor?.parName === null || guarantor?.parName === '' ? '_________________' : guarantor?.parName}}
                         </span>
-                        को/की छोरा/छोरी <span
-                            [ngClass]="{'nepaliFont unicode-size2' : guarantor?.husName !== null && guarantor?.husName !== ''}">
+                        को/की छोरा/छोरी
+                        <span [ngClass]="{'nepaliFont unicode-size2' : guarantor?.husName !== null && guarantor?.husName !== ''}">
                             {{guarantor?.husName === null || guarantor?.husName === '' ? '_________________' : guarantor?.husName}}
                         </span>
-                        को/की पति/पत्नी,
-                        नागरिकता वमोजिम <span
-                            [ngClass]="{'nepaliFont unicode-size2' : guarantor?.districtName !== null && guarantor?.districtName !== ''}">
-                        {{guarantor?.districtName === null || guarantor?.districtName === '' ? '_________________' : guarantor?.districtName}}
-                    </span>
-                        जिल्ला <span
-                            [ngClass]="{'nepaliFont unicode-size2' : guarantor?.municipalityName !== null && guarantor?.municipalityName !== ''}">
-                        {{guarantor?.municipalityName === null || guarantor?.municipalityName === '' ? '_________________' : guarantor?.municipalityName}}
-                    </span>
-                        न.पा./गा.वि.स., वडा न.<span
-                            [ngClass]="{'nepaliFont' : guarantor?.wardNoName !== null && guarantor?.wardNoName !== ''}">
-                        {{guarantor?.wardNoName === null || guarantor?.wardNoName === '' ? '_________________' : guarantor?.wardNoName}}</span>,
-                        स्थायी ठेगाना भै हाल सोही स्थानमा वा <span
-                            [ngClass]="{'nepaliFont unicode-size2' : guarantor?.tempDistrictName !== null && guarantor?.tempDistrictName !== ''}">
-                        {{guarantor?.tempDistrictName === null || guarantor?.tempDistrictName === '' ? '_________________' : guarantor?.tempDistrictName}}
-                    </span>
-                        जिल्ला <span
-                            [ngClass]="{'nepaliFont unicode-size2' : guarantor?.tempMunicipalityName !== null && guarantor?.tempMunicipalityName !== ''}">
-                        {{guarantor?.tempMunicipalityName === null || guarantor?.tempMunicipalityName === '' ? '_________________' : guarantor?.tempMunicipalityName}}
-                    </span>
-                        न.पा./गा.पा.,
-                        वडा नं. <span
-                            [ngClass]="{'nepaliFont' : guarantor?.tempWardNo !== null && guarantor?.tempWardNo!== ''}">
-                        {{guarantor?.tempWardNo === null || guarantor?.tempWardNo === '' ? '_________________' : guarantor?.tempWardNo}}</span>,
-                        बस्ने मिति <span
-                            [ngClass]="{'nepaliFont' : guarantor?.buttonDateName !== null && guarantor?.buttonDateName !== ''}">
-    {{guarantor?.buttonDateName === null || guarantor?.buttonDateName === '' ? '_________________' : guarantor?.buttonDateName}}
-</span> मा जिल्ला प्रशासन कार्यालय,
-                        <span
-                                [ngClass]="{'nepaliFont unicode-size2' : guarantor?.buttonCdoOfficeName !== null && guarantor?.buttonCdoOfficeName !== ''}">
-    {{guarantor?.buttonCdoOfficeName === null || guarantor?.buttonCdoOfficeName === '' ? '_________________' : guarantor?.buttonCdoOfficeName}}
-</span> जारी गरिएको
-                        ना.प्र.प.नं. <span
-                            [ngClass]="{'nepaliFont' : guarantor?.buttonCitizenshipNoName !== null && guarantor?.buttonCitizenshipNoName !== ''}">
-    {{guarantor?.buttonCitizenshipNoName === null || guarantor?.buttonCitizenshipNoName === '' ? '_________________' : guarantor?.buttonCitizenshipNoName}}
-</span>
-                        भएको बर्ष <span
-                            [ngClass]="{'nepaliFont' : guarantor?.buttonAgeName !== null && guarantor?.buttonAgeName !== ''}">
-    {{guarantor?.buttonAgeName === null || guarantor?.buttonAgeName === '' ? '_________________' : guarantor?.buttonAgeName}}
-</span>
-                        को/की श्री/श्रीमती/सुश्री <span
-                            [ngClass]="{'nepaliFont unicode-size2' : guarantor?.sirName !== null && guarantor?.sirName !== ''}">
-    {{guarantor?.sirName === null || guarantor?.sirName === '' ? '_________________' : guarantor?.sirName}}
-</span>,
-                        –१, समेत जम्मा जना–२ (यस पछि “ऋणी” भनी सम्बोधन गरिएको) ले रिभल्भिङ्ग कर्जा <strong>(Revolving
-                        Loan)</strong> / आवधिक कर्जा
-                        <strong>(Term Loan)</strong> अन्तर्गत घर / आवाश कर्जा योजना <strong>(Housing Loan
-                        Scheme)</strong> / जग्गा खरिद कर्जा योजना
-                        <strong>(Land Loan Scheme)</strong> / व्यक्तिगत कर्जा योजना
-                        <strong>(Personal Loan Scheme)</strong> /<span
-                            [ngClass]="{'nepaliFont unicode-size2' : guarantor?.personalLoan !== null && guarantor?.personalLoan !== ''}">
-    {{guarantor?.personalLoan === null || guarantor?.personalLoan === '' ? '_________________' : guarantor?.personalLoan}}
-</span>
-                        कर्जा योजना <strong>(</strong><span
-                            [ngClass]="{'' : guarantor?.karjaYojana !== null && guarantor?.karjaYojana !== ''}">{{guarantor?.karjaYojana === null || guarantor?.karjaYojana === '' ? '_________________' : guarantor?.karjaYojana}}
-                </span>
+                        को/की पति/पत्नी, नागरिकता वमोजिम
+                        <span [ngClass]="{'nepaliFont unicode-size2' : guarantor?.districtName !== null && guarantor?.districtName !== ''}">
+                            {{guarantor?.districtName === null || guarantor?.districtName === '' ? '_________________' : guarantor?.districtName}}
+                        </span>
+                        जिल्ला
+                        <span [ngClass]="{'nepaliFont unicode-size2' : guarantor?.municipalityName !== null && guarantor?.municipalityName !== ''}">
+                            {{guarantor?.municipalityName === null || guarantor?.municipalityName === '' ? '_________________' : guarantor?.municipalityName}}
+                        </span>
+                        न.पा./गा.वि.स., वडा न.
+                        <span [ngClass]="{'nepaliFont' : guarantor?.wardNoName !== null && guarantor?.wardNoName !== ''}">
+                            {{guarantor?.wardNoName === null || guarantor?.wardNoName === '' ? '_________________' : guarantor?.wardNoName}}</span>,
+                        स्थायी ठेगाना भै हाल सोही स्थानमा वा
+                        <span [ngClass]="{'nepaliFont unicode-size2' : guarantor?.tempDistrictName !== null && guarantor?.tempDistrictName !== ''}">
+                            {{guarantor?.tempDistrictName === null || guarantor?.tempDistrictName === '' ? '_________________' : guarantor?.tempDistrictName}}
+                        </span>
+                        जिल्ला
+                        <span [ngClass]="{'nepaliFont unicode-size2' : guarantor?.tempMunicipalityName !== null && guarantor?.tempMunicipalityName !== ''}">
+                            {{guarantor?.tempMunicipalityName === null || guarantor?.tempMunicipalityName === '' ? '_________________' : guarantor?.tempMunicipalityName}}
+                        </span>
+                        न.पा./गा.पा., वडा नं.
+                        <span [ngClass]="{'nepaliFont' : guarantor?.tempWardNo !== null && guarantor?.tempWardNo!== ''}">
+                            {{guarantor?.tempWardNo === null || guarantor?.tempWardNo === '' ? '_________________' : guarantor?.tempWardNo}}</span>,
+                        बस्ने मिति
+                        <span [ngClass]="{'nepaliFont' : guarantor?.buttonDateName !== null && guarantor?.buttonDateName !== ''}">
+                            {{guarantor?.buttonDateName === null || guarantor?.buttonDateName === '' ? '_________________' : guarantor?.buttonDateName}}
+                        </span> मा जिल्ला प्रशासन कार्यालय,
+                        <span [ngClass]="{'nepaliFont unicode-size2' : guarantor?.buttonCdoOfficeName !== null && guarantor?.buttonCdoOfficeName !== ''}">
+                            {{guarantor?.buttonCdoOfficeName === null || guarantor?.buttonCdoOfficeName === '' ? '_________________' : guarantor?.buttonCdoOfficeName}}
+                        </span> जारी गरिएको ना.प्र.प.नं.
+                        <span [ngClass]="{'nepaliFont' : guarantor?.buttonCitizenshipNoName !== null && guarantor?.buttonCitizenshipNoName !== ''}">
+                            {{guarantor?.buttonCitizenshipNoName === null || guarantor?.buttonCitizenshipNoName === '' ? '_________________' : guarantor?.buttonCitizenshipNoName}}
+                        </span>
+                        भएको बर्ष
+                        <span [ngClass]="{'nepaliFont' : guarantor?.buttonAgeName !== null && guarantor?.buttonAgeName !== ''}">
+                            {{guarantor?.buttonAgeName === null || guarantor?.buttonAgeName === '' ? '_________________' : guarantor?.buttonAgeName}}
+                        </span>
+                        को/की श्री/श्रीमती/सुश्री
+                        <span [ngClass]="{'nepaliFont unicode-size2' : guarantor?.sirName !== null && guarantor?.sirName !== ''}">
+                            {{guarantor?.sirName === null || guarantor?.sirName === '' ? '_________________' : guarantor?.sirName}}
+                        </span>, –१, समेत जम्मा जना–२ (यस पछि “ऋणी” भनी सम्बोधन गरिएको) ले रिभल्भिङ्ग कर्जा <strong>(Revolving Loan)</strong>
+                        / आवधिक कर्जा<strong>(Term Loan)</strong> अन्तर्गत घर / आवाश कर्जा योजना <strong>(Housing Loan Scheme)</strong> /
+                        जग्गा खरिद कर्जा योजना<strong>(Land Loan Scheme)</strong> / व्यक्तिगत कर्जा योजना<strong>(Personal Loan Scheme)</strong> /
+                        <span [ngClass]="{'nepaliFont unicode-size2' : guarantor?.personalLoan !== null && guarantor?.personalLoan !== ''}">
+                            {{guarantor?.personalLoan === null || guarantor?.personalLoan === '' ? '_________________' : guarantor?.personalLoan}}
+                        </span>
+                        कर्जा योजना <strong>(</strong>
+                        <span [ngClass]="{'' : guarantor?.karjaYojana !== null && guarantor?.karjaYojana !== ''}">
+                            {{guarantor?.karjaYojana === null || guarantor?.karjaYojana === '' ? '_________________' : guarantor?.karjaYojana}}
+                        </span>
                         <strong>Loan Scheme)</strong>
-                        शीर्षकमा धनी
-                        वित्तीय संस्था बाट यस
-                        अघि लिएको तथा यस पछि लिने ऋण कर्जा तथा बैंकिग सुविधाको सुरक्षण वापत ब्यक्तिगत जमानी
-                        बसीदिन’ भनी
-                        मलाई अनूरोध गरे
-                        बमोजिम ब्यक्तिगत जमानी बस्न मन्जुर छ् छ्नै भनी मलाई सोध्न’ भएकोमा मेरो चित्त बुझयो। निज
-                        ऋणीले तपाई
-                        धनी वित्तीय संस्थाबाट
-                        एकै पटक वा पटक पटक गरी यस पछि लिने/यस अघि लिएको रु.<span
-                            [ngClass]="{'nepaliFont unicode-size' : guarantor?.sriName !== null && guarantor?.sriName !== ''}">
-    {{guarantor?.sriName === null || guarantor?.sriName === '' ? '_________________' : guarantor?.sriName}}
-</span>
-                        (अक्षरुपी रुपैयां <span
-                            [ngClass]="{'nepaliFont unicode-size' : guarantor?.sriiName !== null && guarantor?.sriiName !== ''}">
-    {{guarantor?.sriiName === null || guarantor?.sriiName === '' ? '_________________' : guarantor?.sriiName}}
-</span>रुपौया मात्र) सम्मको नगद कर्जा ऋण कर्जा लगायत अन्य बैंकिङ सुविधा र त्यसको साँवा, ब्याज,
-                        थप ब्याज कमिसन दस्तुर
-                        आदि
-                        तथा ऋण
-                        असुलउपर गर्ने
-                        सम्बन्धमा लाग्ने खर्च तथा उल्लेखित ऋणीसगको कारोबार वा असुलीको क्रममा लाग्न सक्ने कानुनी
-                        खर्च लगायत
-                        उक्त ऋण कर्जा तथा बैंकिङ
-                        सुविधाको जरियाबाट तपाई धनी वित्तीय संस्था उपर उत्पन्न हुन सक्ने थप दायित्व लगायत अन्य
-                        सम्पूर्ण
-                        रकमको जमानत स्वरुप यो ब्यक्तिगत
-                        जमानीको कागज गरिदिएको/की छु। धनी वित्तीय संस्थाबाट ऋणीले लिएको ऋण कर्जा तथा बैंकिग
-                        सुविधा तथा
-                        भविष्यमा ऋणी उपर
-                        सृजित अन्य कुनै थप दायित्व वापतको साँवा, ब्याज, हर्जना ब्याज लगायतको सम्पूर्ण रकम नतिरे
-                        नबुझाए वा
-                        तिर्न बुझाउन आलटाल
-                        गरे वा धनी वित्तीय संस्था र ऋणी बीचको शर्त संझौता बमोजिम ऋणीले पालना गर्नुपर्न कुनै पनि
-                        शर्तबन्देजहरु ऋणीले पालना नगरेमा वा
-                        कर्जाका शर्तबन्देजहरु उल्लंघन गरेमा धनी वित्तीय संस्थाले माग गर्नासाथ ऋणीका नामको
-                        सम्पूर्ण कर्जा
-                        चुक्ता फछ्र्यौट गर्ने दायित्व म
-                        जमानीकर्ताको हुनेछ म जमानीकर्ताले यस जमानीको लिखत बमोजिमको दायित्व पुरा नगरेमा वा आलटाल
-                        गरेमा वा यस
-                        जमानीको लिखतमा
-                        उल्लेखित कुनै पनि शर्तबन्देजहरु पालना नगरेमा वा उलंघन गरेमा तपाई धनी वित्तीय संस्थाले मेरो
-                        तथा मेरा
-                        परिवारका सदस्यहरुको तत्काल हक
-                        भएको वा हुन सक्ने चल अचल श्री सम्पत्ति जायजेथाबाट ऋणीका नामको कर्जा/बक्यौता असुल उपर
-                        गरिलिनुहोला।
-                        पछि अर्काले खाएको
-                        लिएको ऋणकर्जा मैले तिर्न बुझाउन पर्ने होईन भनी कहिं कतै उजूबाजूर गर्ने वा बादबिवाद खिचलो
-                        गर्ने छ्नै। गरे यसै जमानतको कागजले
-                        बदर होस् भनी किनारका साक्षीका रोहबरमा धनी वित्तीय संस्थाको कार्यालमा बसी धनी वित्तीय
-                        संस्थाले
-                        प्रस्तावित गरे बमोजिम मेरो जमानीका थप
-                        सर्तहरु देहाय बमोजिम हुन गरी लिखतको सम्पूर्ण ब्यहोरा पढी वाची सो को मतलव तथा परिणाम
-                        समेत बुझी
-                        आफ्नो स्वतन्त्र मन्जुरीले यो
-                        ब्यक्तिगत जमानतको कागजमा सहिछाप गरी तपाई धनी वित्तीय संस्थालाई दिए।
+                        शीर्षकमा धनी वित्तीय संस्था बाट यस अघि लिएको तथा यस पछि लिने ऋण कर्जा तथा बैंकिग सुविधाको सुरक्षण वापत ब्यक्तिगत जमानी
+                        बसीदिन’ भनी मलाई अनूरोध गरे बमोजिम ब्यक्तिगत जमानी बस्न मन्जुर छ् छ्नै भनी मलाई सोध्न’ भएकोमा मेरो चित्त बुझयो। निज
+                        ऋणीले तपाई धनी वित्तीय संस्थाबाट एकै पटक वा पटक पटक गरी यस पछि लिने/यस अघि लिएको रु.
+                        <span [ngClass]="{'nepaliFont unicode-size' : guarantor?.sriName !== null && guarantor?.sriName !== ''}">
+                            {{guarantor?.sriName === null || guarantor?.sriName === '' ? '_________________' : guarantor?.sriName}}
+                        </span>
+                        (अक्षरुपी रुपैयां
+                        <span [ngClass]="{'nepaliFont unicode-size' : guarantor?.sriiName !== null && guarantor?.sriiName !== ''}">
+                            {{guarantor?.sriiName === null || guarantor?.sriiName === '' ? '_________________' : guarantor?.sriiName}}
+                        </span> रुपौया मात्र) सम्मको नगद कर्जा ऋण कर्जा लगायत अन्य बैंकिङ सुविधा र त्यसको साँवा, ब्याज, थप ब्याज कमिसन दस्तुर
+                        आदि तथा ऋण असुलउपर गर्ने सम्बन्धमा लाग्ने खर्च तथा उल्लेखित ऋणीसगको कारोबार वा असुलीको क्रममा लाग्न सक्ने कानुनी खर्च लगायत उक्त ऋण कर्जा तथा बैंकिङ
+                        सुविधाको जरियाबाट तपाई धनी वित्तीय संस्था उपर उत्पन्न हुन सक्ने थप दायित्व लगायत अन्य सम्पूर्ण रकमको जमानत स्वरुप यो ब्यक्तिगत जमानीको कागज
+                        गरिदिएको/की छु। धनी वित्तीय संस्थाबाट ऋणीले लिएको ऋण कर्जा तथा बैंकिग सुविधा तथा भविष्यमा ऋणी उपर सृजित अन्य कुनै थप दायित्व वापतको साँवा,
+                        ब्याज, हर्जना ब्याज लगायतको सम्पूर्ण रकम नतिरे नबुझाए वा तिर्न बुझाउन आलटाल गरे वा धनी वित्तीय संस्था र ऋणी बीचको शर्त संझौता बमोजिम ऋणीले
+                        पालना गर्नुपर्न कुनै पनि शर्तबन्देजहरु ऋणीले पालना नगरेमा वा कर्जाका शर्तबन्देजहरु उल्लंघन गरेमा धनी वित्तीय संस्थाले माग गर्नासाथ ऋणीका नामको सम्पूर्ण
+                        कर्जा चुक्ता फछ्र्यौट गर्ने दायित्व म जमानीकर्ताको हुनेछ म जमानीकर्ताले यस जमानीको लिखत बमोजिमको दायित्व पुरा नगरेमा वा आलटाल गरेमा वा यस
+                        जमानीको लिखतमा उल्लेखित कुनै पनि शर्तबन्देजहरु पालना नगरेमा वा उलंघन गरेमा तपाई धनी वित्तीय संस्थाले मेरो तथा मेरा परिवारका सदस्यहरुको तत्काल
+                        हक भएको वा हुन सक्ने चल अचल श्री सम्पत्ति जायजेथाबाट ऋणीका नामको कर्जा/बक्यौता असुल उपर गरिलिनुहोला। पछि अर्काले खाएको लिएको ऋणकर्जा मैले
+                        तिर्न बुझाउन पर्ने होईन भनी कहिं कतै उजूबाजूर गर्ने वा बादबिवाद खिचलो गर्ने छ्नै। गरे यसै जमानतको कागजले बदर होस् भनी किनारका साक्षीका रोहबरमा
+                        धनी वित्तीय संस्थाको कार्यालमा बसी धनी वित्तीय संस्थाले प्रस्तावित गरे बमोजिम मेरो जमानीका थप सर्तहरु देहाय बमोजिम हुन गरी लिखतको सम्पूर्ण ब्यहोरा
+                        पढी वाची सो को मतलव तथा परिणाम समेत बुझी आफ्नो स्वतन्त्र मन्जुरीले यो ब्यक्तिगत जमानतको कागजमा सहिछाप गरी तपाई धनी वित्तीय संस्थालाई दिए।
                     </p>
                     <div>
                         <p class="text-center"><strong>जमानीका थप शर्तहरु</strong></p>
@@ -267,86 +213,51 @@
                         </tr>
                         <tr>
                             <td style="vertical-align: top">२.</td>
-                            <td>म/हामीलाई जमानतबाट फुर्सद दिएको कुराको धनी वित्तीय संस्थाले आधिकारिक लिखित सूचना
-                                नदिएसम्म यो
-                                मेरो/हाम्रो जमानत बहाल रहनेछ । यस जमानी अन्तरगतको दायित्व पूरा गर्ने सम्बन्धमा धनी
-                                वित्तीय संस्थाले
-                                कुनै
-                                प्रकारको सहुलियत वा थप समय प्रदान गरेको खण्डमा समेत मेरो/हाम्रो जमानतको निरन्तरतामा कुनै
-                                प्रतिकूल
-                                असर
-                                पर्ने छैन । कथंकदाचित धनी वित्तीय संस्थाले म/हामीलाई जमानतबाट फूर्सद दिएको सूचना प्रदान
-                                गरे पश्चात्
-                                पनि ऋणीका
-                                नाममा कुनै प्रकारको बाँकी बक्यौता वा दायित्व देखिन गएको अवस्थामा समेत मेरो/हाम्रो जमानत
-                                बहाल रहेको
-                                अवधि भरको
-                                ऋणीका नामको सम्पूर्ण बाँकी बक्यौता वा दायित्व म/हामी जमानतकर्ताले चुक्ता फछ्र्यौट
-                                गनुपर्ने कुरामा
-                                म/हामी जमानतकर्ताको पूर्ण मञ्जूरी छ ।
+                            <td>म/हामीलाई जमानतबाट फुर्सद दिएको कुराको धनी वित्तीय संस्थाले आधिकारिक लिखित सूचना नदिएसम्म यो मेरो/हाम्रो जमानत
+                                बहाल रहनेछ । यस जमानी अन्तरगतको दायित्व पूरा गर्ने सम्बन्धमा धनी वित्तीय संस्थाले कुनै प्रकारको सहुलियत वा थप समय
+                                प्रदान गरेको खण्डमा समेत मेरो/हाम्रो जमानतको निरन्तरतामा कुनै प्रतिकूल असर पर्ने छैन । कथंकदाचित धनी वित्तीय संस्थाले
+                                म/हामीलाई जमानतबाट फूर्सद दिएको सूचना प्रदान गरे पश्चात् पनि ऋणीका नाममा कुनै प्रकारको बाँकी बक्यौता वा दायित्व देखिन
+                                गएको अवस्थामा समेत मेरो/हाम्रो जमानत बहाल रहेको अवधि भरको ऋणीका नामको सम्पूर्ण बाँकी बक्यौता वा दायित्व म/हामी
+                                जमानतकर्ताले चुक्ता फछ्र्यौट गनुपर्ने कुरामा म/हामी जमानतकर्ताको पूर्ण मञ्जूरी छ ।
                             </td>
                         </tr>
                         <tr>
                             <td style="vertical-align: top">३.</td>
                             <td>यस जमानतमा अंकित रकम कै सम्बन्धमा धनी वित्तीय संस्थाले म/हामीबाट अन्य कुनै जमानत वा धितो
                                 सुरक्षण लिएको अवस्थामा यो जमानत त्यस्तो सुरक्षण वा जमानतको अतिरिक्त सुरक्षणको रुपमा रहने
-                                छ ।
-                                कुनै पनि अवस्थामा यो जमानत त्यस्तो सुरक्षण वा जमानतको प्रतिकूल हुने छैन ।
+                                छ । कुनै पनि अवस्थामा यो जमानत त्यस्तो सुरक्षण वा जमानतको प्रतिकूल हुने छैन ।
                             </td>
                         </tr>
                         <tr>
                             <td style="vertical-align: top">४.</td>
-                            <td>यस जमानतमा अंकित रकम कै सम्बन्धमा धनी वित्तीय संस्थाले म/हामी जमानतकर्तालाई ऋणीका नामको
-                                बक्यौताका
-                                सम्बन्धमा तपाई धनी वित्तीय संस्थाले आफ्नो तजविच वा स्वेच्छामा हामीलाई एक्लाएक्लै
-                                (Severally) वा अन्य
-                                जमानतकर्ता समेतसंग सामुहिक रुपमा (Jointly) दायित्वधिन बनाउन सक्ने कूरामा मेरो/हाम्रो
-                                मन्जुरी छ ।
-                                पछि केही गरी एकै ऋण कर्जाका सम्बन्धमा अन्य जमानतकर्ता समेतसंग जमानत लिएकोमा बराबरीको
-                                हिसाबले
+                            <td>यस जमानतमा अंकित रकम कै सम्बन्धमा धनी वित्तीय संस्थाले म/हामी जमानतकर्तालाई ऋणीका नामको बक्यौताका
+                                सम्बन्धमा तपाई धनी वित्तीय संस्थाले आफ्नो तजविच वा स्वेच्छामा हामीलाई एक्लाएक्लै (Severally) वा अन्य
+                                जमानतकर्ता समेतसंग सामुहिक रुपमा (Jointly) दायित्वधिन बनाउन सक्ने कूरामा मेरो/हाम्रो मन्जुरी छ ।
+                                पछि केही गरी एकै ऋण कर्जाका सम्बन्धमा अन्य जमानतकर्ता समेतसंग जमानत लिएकोमा बराबरीको हिसाबले
                                 दायित्व विभाजन हूनूपर्छ भनी कूनै व्यहोराले वादविवाद गर्ने छैन ।
                             </td>
                         </tr>
                         <tr>
                             <td style="vertical-align: top">५.</td>
-                            <td>कुनै पनि समयमा ऋणीले यस जमानीमा अंकित कर्जाको साँवा, ब्याजको कूनै आंसिक भूक्तानी गरेमा
-                                वा
-                                कर्जाको
-                                खाता फछ्र्यौट गरेमा वा ऋणीको धनी वित्तीय संस्थासंगको बैंक खातामा कुनै भूक्तानी योग्य
-                                निक्षेप देखिएमा
-                                समेत यो
-                                जमानी अन्तरगतको दायित्वको निरन्तरमा कुनै प्रतिकुल असर पर्ने वा जमानी अन्तरगतको दायित्व
-                                पूरा भएको
-                                मानिने छैन ।
+                            <td>कुनै पनि समयमा ऋणीले यस जमानीमा अंकित कर्जाको साँवा, ब्याजको कूनै आंसिक भूक्तानी गरेमा वा कर्जाको
+                                खाता फछ्र्यौट गरेमा वा ऋणीको धनी वित्तीय संस्थासंगको बैंक खातामा कुनै भूक्तानी योग्य निक्षेप देखिएमा समेत यो
+                                जमानी अन्तरगतको दायित्वको निरन्तरमा कुनै प्रतिकुल असर पर्ने वा जमानी अन्तरगतको दायित्व पूरा भएको मानिने छैन ।
                             </td>
                         </tr>
                         <tr>
                             <td style="vertical-align: top">६.</td>
-                            <td>यस जमानीमा अंकित कर्जा/बक्यौताका सम्बन्धमा तपाई धनी वित्तीय संस्थाले आवश्यक र उचित ठहराए
-                                बमोजिम
-                                म/हामीलाई कुनै पूर्व
-                                नदिई ऋणीलाई वा मलाई कुनै प्रकारको सहुलियत वा थप समयावधि प्रदान गरेमा वा ऋणी र तपाई धनी
-                                वित्तीय
-                                संस्थाबीच कर्जा/बक्यौताका
-                                सम्बन्धमा कुनै किसिमको सहमति वा समझदारी कायम भएमा वा कर्जाको सूरक्षणको रुपमा तपाई धनी
-                                वित्तीय
-                                संस्थाले म/हामी जमानतकर्तासंग
-                                वा ऋणीसंग वा अन्य कसैसंग लिएको कुनै धितो सुरक्षण फुकुवा गरिदिएमा, अदलबदल गरेमा, नवीकरण
-                                गरेमा वा धितो
-                                सुरक्षणबाट रकम असूलउपर
-                                गरेमा वा कर्जाको सूरक्षणको रुपमा रहेको धितो सुरक्षणलाई कुनै किसिमले ब्यवस्था गरेमा समेत
-                                मेरो/हाम्रो
-                                यस जमानत बमोजिमको दायित्वमा कुनै
-                                प्रतिकूल असर पर्ने छैन ।
+                            <td>यस जमानीमा अंकित कर्जा/बक्यौताका सम्बन्धमा तपाई धनी वित्तीय संस्थाले आवश्यक र उचित ठहराए बमोजिम
+                                म/हामीलाई कुनै पूर्व नदिई ऋणीलाई वा मलाई कुनै प्रकारको सहुलियत वा थप समयावधि प्रदान गरेमा वा ऋणी र तपाई धनी
+                                वित्तीय संस्थाबीच कर्जा/बक्यौताका सम्बन्धमा कुनै किसिमको सहमति वा समझदारी कायम भएमा वा कर्जाको सूरक्षणको रुपमा
+                                तपाई धनी वित्तीय संस्थाले म/हामी जमानतकर्तासंग वा ऋणीसंग वा अन्य कसैसंग लिएको कुनै धितो सुरक्षण फुकुवा गरिदिएमा,
+                                अदलबदल गरेमा, नवीकरण गरेमा वा धितो सुरक्षणबाट रकम असूलउपर गरेमा वा कर्जाको सूरक्षणको रुपमा रहेको धितो सुरक्षणलाई
+                                कुनै किसिमले ब्यवस्था गरेमा समेत मेरो/हाम्रो यस जमानत बमोजिमको दायित्वमा कुनै प्रतिकूल असर पर्ने छैन ।
                             </td>
                         </tr>
                         <tr>
                             <td style="vertical-align: top">७.</td>
-                            <td>यस जमानीमा अंकित कर्जाका सम्बन्धमा कुनै प्रकारको लाभांश, आंशिक तथा कर्जाको सूरक्षणमा
-                                रहेको कुनै
-                                पनि किसिमको धितोबाट आर्जित
-                                रकम धनी वित्तीय संस्थाले फाईदा पुग्ने गरी आफूलाई उचित लागे बमोजिम बुझिलिएमा म/हामी
-                                जमानीकर्ताको
+                            <td>यस जमानीमा अंकित कर्जाका सम्बन्धमा कुनै प्रकारको लाभांश, आंशिक तथा कर्जाको सूरक्षणमा रहेको कुनै पनि किसिमको
+                                धितोबाट आर्जित रकम धनी वित्तीय संस्थाले फाईदा पुग्ने गरी आफूलाई उचित लागे बमोजिम बुझिलिएमा म/हामी जमानीकर्ताको
                                 मञ्जुरी छ ।
                             </td>
                         </tr>
@@ -369,53 +280,36 @@
                         </tr>
                         <tr>
                             <td style="vertical-align: top">१०.</td>
-                            <td>यस जमानीमा अंकित कर्जा/बक्यौताका सम्बन्धमा तपाई धनी वित्तीय संस्थासंगको ऋणीको कुनै पनि
-                                बैंक खाता
-                                तथा बैंक स्टेटमेन्टमा
-                                उल्लेख भएको विवरण म/हामी जमानतकर्तालाई पूर्ण रुपले स्वीकार्य हुने छ । ऋणीको
-                                कर्जा/बक्यौताका
-                                सम्बन्धमा त्यस्तो बैंक खाता वा स्टेटमेन्टमा
-                                उल्लेखित विवरण नै अन्तिम प्रमाणको रुपमा रहनेछ ।
+                            <td>यस जमानीमा अंकित कर्जा/बक्यौताका सम्बन्धमा तपाई धनी वित्तीय संस्थासंगको ऋणीको कुनै पनि बैंक खाता तथा बैंक
+                                स्टेटमेन्टमा उल्लेख भएको विवरण म/हामी जमानतकर्तालाई पूर्ण रुपले स्वीकार्य हुने छ । ऋणीको कर्जा/बक्यौताका
+                                सम्बन्धमा त्यस्तो बैंक खाता वा स्टेटमेन्टमा उल्लेखित विवरण नै अन्तिम प्रमाणको रुपमा रहनेछ ।
                             </td>
                         </tr>
                         <tr>
                             <td style="vertical-align: top">११.</td>
-                            <td>यस जमानत बमोजिमको रकमको भूक्तानी माग गर्ने सम्बन्धमा धनी वित्तीय संस्थाको अधिकार प्राप्त
-                                कुनै
-                                पनि कर्मचारीले हस्ताक्षर गरी
-                                पठाउने सूचना वा पत्रलाई रित पूर्वक जमानत रकमको भूक्तानी माग भएको मान्नेछु/छौं ।
+                            <td>यस जमानत बमोजिमको रकमको भूक्तानी माग गर्ने सम्बन्धमा धनी वित्तीय संस्थाको अधिकार प्राप्त कुनै पनि कर्मचारीले
+                                हस्ताक्षर गरी पठाउने सूचना वा पत्रलाई रित पूर्वक जमानत रकमको भूक्तानी माग भएको मान्नेछु/छौं ।
                             </td>
                         </tr>
                         <tr>
                             <td style="vertical-align: top">१२.</td>
-                            <td>नेपाल राष्ट्र बैंकको निर्देशिका वा अन्य प्रचलित कानून बमोजिम म/हामी जमानतकर्तालाई कर्जा
-                                सूचना
-                                केन्द वा प्रचलित कानून बमोजिम
-                                अन्य कूनै निकायको निर्देशन पालन गर्नू पर्ने अवस्थामा वित्तीय संस्थाले सो निर्देशन र/वा
-                                कानुनी
-                                प्रावधान बमोजिम कार्य गरेमा समेत म/हामी
-                                जमानतकर्ताको पूर्ण मञ्जूरी हुनेछ ।
+                            <td>नेपाल राष्ट्र बैंकको निर्देशिका वा अन्य प्रचलित कानून बमोजिम म/हामी जमानतकर्तालाई कर्जा सूचना केन्द वा प्रचलित कानून
+                                बमोजिम अन्य कूनै निकायको निर्देशन पालन गर्नू पर्ने अवस्थामा वित्तीय संस्थाले सो निर्देशन र/वा कानुनी प्रावधान बमोजिम
+                                कार्य गरेमा समेत म/हामी जमानतकर्ताको पूर्ण मञ्जूरी हुनेछ ।
                             </td>
                         </tr>
                         <tr>
                             <td style="vertical-align: top">१३.</td>
-                            <td>यस जमानीमा नपरेका अन्य कुराहरु, बैंक तथा वित्तीय संस्था सम्बन्धी प्रचलित कानून, बैंक तथा
-                                वित्तीय
-                                संस्थाको ऋण असूली ऐन, २०५८ तथा
-                                प्रचलित कम्पनी सम्बन्धि कानून बमोजिम हुनेछन ।
+                            <td>यस जमानीमा नपरेका अन्य कुराहरु, बैंक तथा वित्तीय संस्था सम्बन्धी प्रचलित कानून, बैंक तथा वित्तीय
+                                संस्थाको ऋण असूली ऐन, २०५८ तथा प्रचलित कम्पनी सम्बन्धि कानून बमोजिम हुनेछन ।
                             </td>
                         </tr>
                         <tr>
                             <td style="vertical-align: top">१४.</td>
-                            <td>यस जमानतमा उल्लिखित रकमको भूक्तानी माग गर्ने सम्बन्धमा वा म/हामी जमानतकर्ता र धनी
-                                वित्तीय संस्था
-                                बीचको कुनै किसिमको
-                                पत्राचारको क्रममा मेरा/हाम्रा नाममा धनी वित्तीय संस्थाबाट जारी हुने सूचना वा पत्राचार
-                                म/हामी
-                                स्वयंलाई प्रदान गरेमा वा मैले/हामीले धनी वित्तीय
-                                संस्थालाई अन्तिम पटक उपलब्ध गराएको ठेगानामा छोडिदिएमा वा मेरो/हाम्रो कारोबारको ठेगानामा
-                                वा निवासको
-                                ठेगानामा हुलाक मार्फत पठाईदिएमा
+                            <td>यस जमानतमा उल्लिखित रकमको भूक्तानी माग गर्ने सम्बन्धमा वा म/हामी जमानतकर्ता र धनी वित्तीय संस्था
+                                बीचको कुनै किसिमको पत्राचारको क्रममा मेरा/हाम्रा नाममा धनी वित्तीय संस्थाबाट जारी हुने सूचना वा पत्राचार
+                                म/हामी स्वयंलाई प्रदान गरेमा वा मैले/हामीले धनी वित्तीय संस्थालाई अन्तिम पटक उपलब्ध गराएको ठेगानामा छोडिदिएमा वा
+                                मेरो/हाम्रो कारोबारको ठेगानामा वा निवासको ठेगानामा हुलाक मार्फत पठाईदिएमा
                                 वा कुनै पनि समाचारपत्रमा सूचना प्रकाशित गरिएमा रितपूर्वक पठाएको मान्नेछु/छौं ।
                             </td>
                         </tr>
@@ -522,10 +416,10 @@
                             </td>
                         </tr>
                     </table>
-                        <div class="row">
+                        <div class="row" style="overflow: visible;">
                             <p><strong>साक्षी :</strong></p>
                                 <table>
-                                    <tr style="page-break-inside: initial">
+                                    <tr>
                                         <td>दस्तखत:</td>
                                         <td>.................................</td>
                                     </tr>
@@ -564,74 +458,80 @@
                                     {{guarantor?.guarantorWardNo === null || guarantor?.guarantorWardNo === '' ? '________________' : guarantor.guarantorWardNo }}</span></td>
                                     </tr>
                                 </table>
-                            <div class="col-md-6">
-                                <p class="mt-5">
-                                    दस्तखत:.............................<br>
-                                    २. नाम: <span
-                                        [ngClass]="{'nepaliFont unicode-size2':guarantor?.name1!==null && guarantor.name1!==''}">
+                            <table class="mt-5">
+                                <tr>
+                                    <td>दस्तखत:</td>
+                                    <td>.................................</td>
+                                </tr>
+                                <tr style="page-break-inside: initial">
+                                    <td>२. नाम:</td>
+                                    <td><span
+                                            [ngClass]="{'nepaliFont unicode-size2':guarantor?.name1!==null && guarantor.name1!==''}">
                                 {{guarantor?.name1 === null || guarantor?.name1 === '' ? '________________' : guarantor.name1 }}
                               </span>
-                                    (ना.प्र.नं. <span
-                                        [ngClass]="{'nepaliFont':guarantor?.citizenNumber1!==null && guarantor.citizenNumber1!==''}">
-                                    {{guarantor?.citizenNumber1 === null || guarantor?.citizenNumber1 === '' ? '________________' : guarantor.citizenNumber1 }}
+                                        (ना.प्र.नं. <span
+                                                [ngClass]="{'nepaliFont':guarantor?.citizenNo1!==null && guarantor.citizenNo1!==''}">
+                                    {{guarantor?.citizenNo1 === null || guarantor?.citizenNo1 === '' ? '________________' : guarantor.citizenNo1 }}
                                   </span>
-                                    मिति <span
-                                        [ngClass]="{'nepaliFont':guarantor?.issuedYear1!==null && guarantor.issuedYear1!==''}">
-                                    {{guarantor?.issuedYear1 === null || guarantor?.issuedYear1 === '' ? '________________' : guarantor.issuedYear1 }}
+                                        मिति <span
+                                                [ngClass]="{'nepaliFont':guarantor?.issuedYr1!==null && guarantor.issuedYr1!==''}">
+                                    {{guarantor?.issuedYr1 === null || guarantor?.issuedYr1 === '' ? '________________' : guarantor.issuedYr1 }}
                                   </span>
 
-                                    जि.प्र.का.<span
-                                        [ngClass]="{'nepaliFont unicode-size2':guarantor?.guarantorCDOoffice1!==null && guarantor.guarantorCDOoffice1!==''}">
+                                        जि.प्र.का.<span
+                                                [ngClass]="{'nepaliFont unicode-size2':guarantor?.guarantorCDOoffice1!==null && guarantor.guarantorCDOoffice1!==''}">
                                     {{guarantor?.guarantorCDOoffice1 === null || guarantor?.guarantorCDOoffice1 === '' ? '________________' : guarantor.guarantorCDOoffice1 }}
-                                  </span>)<br>
-                                    ठेगानाः
-                                    <span
+                                  </span>)</td>
+                                </tr>
+                                <tr style="page-break-inside: initial">
+                                    <td>ठेगानाः</td>
+                                    <td><span
                                             [ngClass]="{'nepaliFont unicode-size2':guarantor?.guarantorDistrict1!==null && guarantor.guarantorDistrict1!==''}">
                                 {{guarantor?.guarantorDistrict1 === null || guarantor?.guarantorDistrict1 === '' ? '________________' : guarantor.guarantorDistrict1 }}
                               </span>
-                                    जिल्ला, <span
-                                        [ngClass]="{'nepaliFont unicode-size2':guarantor?.guarantorMunicipality1!==null && guarantor.guarantorMunicipality1!==''}">
+                                        जिल्ला, <span
+                                                [ngClass]="{'nepaliFont unicode-size2':guarantor?.guarantorMunicipality1!==null && guarantor.guarantorMunicipality1!==''}">
                                     {{guarantor?.guarantorMunicipality1 === null || guarantor?.guarantorMunicipality1 === '' ? '________________' : guarantor.guarantorMunicipality1 }}
                                   </span>
-                                    गा.पा./म.न.पा., वडा नं.<span
-                                        [ngClass]="{'nepaliFont':guarantor?.guarantorWardNo1!==null && guarantor.guarantorWardNo1!==''}">
-                                    {{guarantor?.guarantorWardNo1 === null || guarantor?.guarantorWardNo1 === '' ? '________________' : guarantor.guarantorWardNo1 }}</span>
-                                </p>
-                            </div>
+                                        गा.पा./म.न.पा., वडा नं.<span
+                                                [ngClass]="{'nepaliFont':guarantor?.guarantorWardNo1!==null && guarantor.guarantorWardNo1!==''}">
+                                    {{guarantor?.guarantorWardNo1 === null || guarantor?.guarantorWardNo1 === '' ? '________________' : guarantor.guarantorWardNo1 }}</span></td>
+                                </tr>
+                            </table>
+
                         </div>
                     <br>
                     <p><strong>सनाखत साक्षी</strong></p>
                     ऋणीले मेरो सामुन्नेमा सहीछाप गरेको ठीक साचो हो भनी सहीछाप गर्ने धनी फाइनान्समा कार्यरत
-                    कर्मचारी <span
-                        [ngClass]="{'nepaliFont' : guarantor?.karmachariName !== null && guarantor?.karmachariName !== ''}">
-    {{guarantor?.karmachariName === null || guarantor?.karmachariName === '' ? '_________________' : guarantor?.karmachariName}}
-</span>
-                    (कर्मचारी संकेत नं. <span
-                        [ngClass]="{'nepaliFont' : guarantor?.karmachariSanketNo !== null && guarantor?.karmachariSanketNo !== ''}">
-    {{guarantor?.karmachariSanketNo === null || guarantor?.karmachariSanketNo === '' ? '_________________' : guarantor?.karmachariSanketNo}}
-</span> )
+                    कर्मचारी
+                    <span [ngClass]="{'nepaliFont' : guarantor?.karmachariName !== null && guarantor?.karmachariName !== ''}">
+                        {{guarantor?.karmachariName === null || guarantor?.karmachariName === '' ? '_________________' : guarantor?.karmachariName}}
+                    </span>
+                    (कर्मचारी संकेत नं.
+                    <span [ngClass]="{'nepaliFont' : guarantor?.karmachariSanketNo !== null && guarantor?.karmachariSanketNo !== ''}">
+                        {{guarantor?.karmachariSanketNo === null || guarantor?.karmachariSanketNo === '' ? '_________________' : guarantor?.karmachariSanketNo}}
+                    </span> )
                     <p class="text-center mt-2">
-                        ईति सम्बत <span
-                            [ngClass]="{'nepaliFont' : guarantor?.itiSambatYear !== null && guarantor?.itiSambatYear !== ''}">
-    {{guarantor?.itiSambatYear === null || guarantor?.itiSambatYear === '' ? '_________________' : guarantor?.itiSambatYear}}
-</span>
-                        साल <span
-                            [ngClass]="{'nepaliFont' : guarantor?.itiSambatMonth !== null && guarantor?.itiSambatMonth !== ''}">
-    {{guarantor?.itiSambatMonth === null || guarantor?.itiSambatMonth === '' ? '_________________' : guarantor?.itiSambatMonth}}
-</span>
-                        महिना <span
-                            [ngClass]="{'nepaliFont' : guarantor?.itiSambatDate !== null && guarantor?.itiSambatDate !== ''}">
-    {{guarantor?.itiSambatDate === null || guarantor?.itiSambatDate === '' ? '_________________' : guarantor?.itiSambatDate}}
-</span>
-                        गते <span
-                            [ngClass]="{'nepaliFont' : guarantor?.itiSambatRojSumbham !== null && guarantor?.itiSambatRojSumbham !== ''}">
-    {{guarantor?.itiSambatRojSumbham === null || guarantor?.itiSambatRojSumbham === '' ? '_________________' : guarantor?.itiSambatRojSumbham}}
-</span> रोज शुभम्।
+                        ईति सम्बत
+                        <span [ngClass]="{'nepaliFont' : guarantor?.itiSambatYear !== null && guarantor?.itiSambatYear !== ''}">
+                            {{guarantor?.itiSambatYear === null || guarantor?.itiSambatYear === '' ? '_________________' : guarantor?.itiSambatYear}}
+                        </span>
+                        साल
+                        <span [ngClass]="{'nepaliFont' : guarantor?.itiSambatMonth !== null && guarantor?.itiSambatMonth !== ''}">
+                            {{guarantor?.itiSambatMonth === null || guarantor?.itiSambatMonth === '' ? '_________________' : guarantor?.itiSambatMonth}}
+                        </span>
+                        महिना
+                        <span [ngClass]="{'nepaliFont' : guarantor?.itiSambatDate !== null && guarantor?.itiSambatDate !== ''}">
+                            {{guarantor?.itiSambatDate === null || guarantor?.itiSambatDate === '' ? '_________________' : guarantor?.itiSambatDate}}
+                        </span>
+                        गते
+                        <span [ngClass]="{'nepaliFont' : guarantor?.itiSambatRojSumbham !== null && guarantor?.itiSambatRojSumbham !== ''}">
+                            {{guarantor?.itiSambatRojSumbham === null || guarantor?.itiSambatRojSumbham === '' ? '_________________' : guarantor?.itiSambatRojSumbham}}
+                        </span> रोज शुभम्।
                     </p>
                 </div>
+                </form>
                 <p [ngClass]="{'page-break': printDocForm.guarantorDetails?.length > 1}"></p>
             </div>
-        </form>
-
     </div>
 </div>
