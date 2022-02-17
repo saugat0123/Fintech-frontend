@@ -288,7 +288,8 @@ export class LoanDeedComponent implements OnInit {
             witnessCDOoffice1: [undefined],
             witnessIssuedPlace1: [undefined],
             witnessMunicipality1: [undefined],
-            witnessWardNo1: [undefined]
+            witnessWardNo1: [undefined],
+            likhat :[undefined]
         });
     }
 
