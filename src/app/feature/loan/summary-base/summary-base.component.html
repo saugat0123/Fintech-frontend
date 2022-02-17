@@ -12,6 +12,7 @@
                 [id]="customerId"
                 [loanCategory]="loanCategory"
                 [beneficiaryId]="beneficiaryId"
+                (emitter)="showSpinner($event)"
                 [loanConfigId]="loanConfigId"
                 [isRemitLoan]="isRemitLoan"
                 [loanFlags]="loanDataHolder?.loanHolder?.loanFlags"

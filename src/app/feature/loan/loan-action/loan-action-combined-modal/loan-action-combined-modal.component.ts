@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {CombinedLoanService} from '../../../service/combined-loan.service';
 import {CombinedLoan} from '../../model/combined-loan';
@@ -66,6 +66,7 @@ export class LoanActionCombinedModalComponent implements OnInit {
     isUserNotPresentForCombine = false;
     showUserList = true;
     spinner = false;
+    @Output() emitter = new EventEmitter();
 
     constructor(
         public nbDialogRef: NbDialogRef<LoanActionCombinedModalComponent>,
@@ -207,6 +208,9 @@ export class LoanActionCombinedModalComponent implements OnInit {
                     toUser: this.combinedType.form.get('toUser').value,
                     toRole: this.combinedType.form.get('toRole').value, action: this.docAction
                 }
+            });
+            this.nbDialogRef.onClose.subscribe(d => {
+                this.emitter.emit(true);
             });
             dialogRef.onClose.subscribe((verified: boolean) => {
                 if (verified === true) {
