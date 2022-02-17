@@ -21,6 +21,7 @@ import { CadOfferLetterModalComponent } from "../../../cad-offerletter-profile/c
 import { EngNepDatePipe } from "nepali-patro";
 import { ProposalCalculationUtils } from "../../../../loan/component/loan-summary/ProposalCalculationUtils";
 import { LoanDataKey } from "../../../../../@core/utils/constants/loan-data-key";
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: "app-personal-guarantee-individual",
@@ -57,7 +58,8 @@ export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
     private englishNepaliDatePipe: EngNepDatePipe,
     private nepPercentWordPipe: NepaliPercentWordPipe,
     private dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
-    private routerUtilsService: RouterUtilsService
+    private routerUtilsService: RouterUtilsService,
+    private datePipe: DatePipe,
   ) {}
 
   ngOnChanges() {
@@ -221,11 +223,16 @@ export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
               }
           }
         let citznIssuedDate: any;
-        if (!ObjectUtil.isEmpty(individualGuarantorNepData.citizenIssuedDate)) {
-            citznIssuedDate = individualGuarantorNepData.citizenIssuedDate && individualGuarantorNepData.citizenIssuedDate.en.eDate ? individualGuarantorNepData.citizenIssuedDate.en.eDate : individualGuarantorNepData.citizenIssuedDate.en ? individualGuarantorNepData.citizenIssuedDate.en : '';
+        if (!ObjectUtil.isEmpty(individualGuarantorNepData.citizenIssuedDate) &&
+            individualGuarantorNepData.radioCitizenIssuedDate === 'AD') {
+            citznIssuedDate = individualGuarantorNepData.citizenIssuedDate ? this.englishNepaliDatePipe.transform(individualGuarantorNepData.citizenIssuedDate.en || '', true) : '';
+        }
+        if (!ObjectUtil.isEmpty(individualGuarantorNepData.citizenIssuedDateNepali) &&
+            individualGuarantorNepData.radioCitizenIssuedDate === 'BS') {
+            citznIssuedDate = individualGuarantorNepData.citizenIssuedDateNepali ? individualGuarantorNepData.citizenIssuedDateNepali.en.nDate : '';
         }
         (
-          this.guarantorindividualGroup.get("individualGuarantors") as FormArray
+          this.guarantorindividualGroup.get('individualGuarantors') as FormArray
         ).push(
           this.formBuilder.group({
             branchName: [this.loanHolderNepData.branch ? this.loanHolderNepData.branch.ct : ''],
@@ -280,9 +287,7 @@ export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
             guarantorCitzenIssuedPlace: [
               individualGuarantorNepData.issuedPlace ? individualGuarantorNepData.issuedPlace.ct : '',
             ],
-            guarantorCitzenIssuedDate: [
-              this.englishNepaliDatePipe.transform(citznIssuedDate || '', true)  || ''
-            ],
+            guarantorCitzenIssuedDate: [citznIssuedDate],
             gurantedAmount: [this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(individualGuarantorNepData.gurantedAmount ? individualGuarantorNepData.gurantedAmount.en : ''))],
             year: [undefined],
             month: [undefined],
