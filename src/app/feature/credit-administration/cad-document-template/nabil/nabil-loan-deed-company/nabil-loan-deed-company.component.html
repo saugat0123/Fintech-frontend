@@ -284,7 +284,7 @@
                         formControlName="loanAmountInFigure"
                         placeholder="ऋण रकम"
                         type="text"/>
-                        <span class="print-only">{{this.finalAmount ? this.finalAmount : '______________________'}}</span>/-
+                        <span class="print-only">{{this.finalAmount ? this.finalAmount : '______________________'}}</span> /-
                     (अक्षरेपी <input class="form-field form-control-sm d-print-none"
                                      name="loanAmountInWords"
                                      formControlName="loanAmountInWords"
@@ -302,7 +302,7 @@
                                type="text"/>
                         <span class="print-only">{{this.supportedInfo ? this.supportedInfo.autoFreeText2 : autoFreeText2}}</span><br>
                         <table class="table-bordered mt-2" style="width: 100%">
-                            <thead>
+                            <tbody>
                             <tr>
                                 <th>घरजग्गा धनी</th>
                                 <th>जिल्ला</th>
@@ -311,7 +311,7 @@
                                 <th>कित्ता नं.</th>
                                 <th>क्षेत्रफल</th>
                             </tr>
-                            </thead>
+                            </tbody>
                             <tbody *ngFor="let security of initialInfo?.securities.primarySecurity; let i = index">
                             <ng-container
                                     *ngIf="security?.securityType === 'LAND' || security?.securityType === 'LAND_AND_BUILDING'">
@@ -336,7 +336,7 @@
                         उपरोक्त ऋणकर्जा तथा बैंकिग सुविधाको सुरक्षण वापत देहाय बमोजिमको घरजग्गा तपाई
                         धनी बैंकको नाममा धितो बन्धक पारित गरिदिएका छौं।<br>
                         <table class="table-bordered mt-2" style="width: 100%">
-                            <thead>
+                            <tbody>
                             <tr>
                                 <th>घरजग्गा धनी</th>
                                 <th>जिल्ला</th>
@@ -345,7 +345,7 @@
                                 <th>कित्ता नं.</th>
                                 <th>क्षेत्रफल</th>
                             </tr>
-                            </thead>
+                            </tbody>
                             <tbody *ngFor="let security of initialInfo.securities.secondarySecurity; let i = index">
                             <ng-container
                                     *ngIf="security?.securityType === 'LAND' || security?.securityType === 'LAND_AND_BUILDING'">
