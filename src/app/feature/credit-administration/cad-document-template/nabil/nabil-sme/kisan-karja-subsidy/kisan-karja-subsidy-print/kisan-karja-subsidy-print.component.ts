@@ -56,12 +56,12 @@ export class KisanKarjaSubsidyPrintComponent implements OnInit {
     this.freeInformation = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation);
     this.guarantorData = this.cadOfferLetterApprovedDoc.assignedLoan[0].taggedGuarantors;
     this.guarantor = JSON.parse(this.guarantorData[0].nepData);
-    if(ObjectUtil.isEmpty(this.freeInformation)){
+    if (ObjectUtil.isEmpty(this.freeInformation)) {
       this.autoPopulate1 = 'सम्पर्क अधिकृत';
     } else {
       this.autoPopulate1 = this.freeInformation.autoPopulate1;
     }
-    if(ObjectUtil.isEmpty(this.freeInformation)){
+    if (ObjectUtil.isEmpty(this.freeInformation)) {
       this.autoPopulate2 = 'शाखा प्रबन्धक/बरिष्ठ सम्पर्क प्रबन्धक';
     } else {
       this.autoPopulate2 = this.freeInformation.autoPopulate2;
