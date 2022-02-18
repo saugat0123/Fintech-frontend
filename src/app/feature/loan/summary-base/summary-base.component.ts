@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {UserService} from '../../../@core/service/user.service';
 import {LoanFormService} from '../component/loan-form/service/loan-form.service';
 import {LoanActionService} from '../loan-action/service/loan-action.service';
@@ -21,6 +21,8 @@ import {DocumentCheckType} from '../../../@core/model/enum/document-check-type.e
 import {Document} from '../../admin/modal/document';
 import {EnumUtils} from '../../../@core/utils/enums.utils';
 import {LoanTag} from '../model/loanTag';
+import { CustomerType } from '../../customer/model/customerType';
+import { CustomerInfoData } from '../model/customerInfoData';
 
 @Component({
     selector: 'app-summary-base',
@@ -28,7 +30,7 @@ import {LoanTag} from '../model/loanTag';
     styleUrls: ['./summary-base.component.scss']
 })
 export class SummaryBaseComponent implements OnInit, OnDestroy {
-
+    customerType;
     navigationSubscription;
     actionsList: ActionModel = new ActionModel();
     allId;
@@ -118,6 +120,7 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
         this.actionsList.closed = false;
         this.loanFormService.detail(this.customerId).subscribe(async (response: any) => {
             this.loanDataHolder = response.detail;
+            this.customerType = this.loanDataHolder.loanCategory;
             this.loanCategory = this.loanDataHolder.loanCategory;
             this.currentIndex = this.loanDataHolder.previousList.length;
 
