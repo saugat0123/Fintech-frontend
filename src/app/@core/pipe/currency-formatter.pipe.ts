@@ -8,7 +8,7 @@ export class CurrencyFormatterPipe implements PipeTransform {
     transform(value: number): string {
 
         // use this if nepali formatter is need
-        value = Math.round(value);
+        // value = Math.round(value);
         const result = value.toString().split('.');
         let lastThree = result[0].substring(result[0].length - 3);
         const otherNumbers = result[0].substring(0, result[0].length - 3);

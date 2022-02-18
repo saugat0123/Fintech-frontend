@@ -332,7 +332,7 @@ export class HomeLandAndBuildingLoanEditComponent implements OnInit {
     const baseRate = this.landBuildingForm.get('baseRate').value;
     const premiumRate = this.landBuildingForm.get('premiumRate').value;
     const sum = parseFloat(baseRate) + parseFloat(premiumRate);
-    this.landBuildingForm.get('interestRate').patchValue(sum);
+    this.landBuildingForm.get('interestRate').patchValue(sum.toFixed(2));
   }
   loanChecked(data) {
     this.loanLimit = data;

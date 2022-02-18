@@ -147,7 +147,7 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
         this.regDate = this.engToNepaliDate.transform(this.individualData.registrationDate.en ?
             this.individualData.registrationDate.en : this.individualData.registrationDate.en, true) || '';
       } else {
-        this.regDate = this.individualData.registrationDate.en.nDate ? this.individualData.registrationDate.en.nDate : '';
+        this.regDate = this.individualData.registrationDateNepali.en ? this.individualData.registrationDateNepali.en.nDate : '';
       }
     }
       if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {

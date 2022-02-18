@@ -344,7 +344,7 @@ export class LoanDeedPartnershipComponent implements OnInit {
                 this.registrationDate = this.engToNepaliDate.transform(this.individualData.registrationDate ?
                     this.individualData.registrationDate.en : this.individualData.registrationDate.en, true) || '';
             } else {
-                this.registrationDate = this.individualData.registrationDate.en ? this.individualData.registrationDate.en.nDate : '';
+                this.registrationDate = this.individualData.registrationDateNepali.en ? this.individualData.registrationDateNepali.en.nDate : '';
             }
         }
         if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
@@ -1266,7 +1266,7 @@ export class LoanDeedPartnershipComponent implements OnInit {
                 this.actYear = this.engToNepNumberPipe.transform(this.individualData.actYear ?
                     this.individualData.actYear.en : this.individualData.actYear.en) || '२०२०';
             } else {
-                this.actYear = this.individualData.actYear ? this.individualData.actYear.en.nDate : '२०२०';
+                this.actYear = this.individualData.actYear ? this.individualData.actYear.en : '२०२०';
             }
         }
         if (this.cadData.offerDocumentList[0].docName !== 'Combined Offer Letter') {

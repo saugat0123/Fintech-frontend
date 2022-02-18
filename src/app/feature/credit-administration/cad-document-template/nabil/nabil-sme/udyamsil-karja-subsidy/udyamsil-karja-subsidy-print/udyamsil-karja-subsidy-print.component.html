@@ -82,7 +82,7 @@
                         <td><strong>कर्जाको उद्देश्य: </strong>
                         </td>
                         <td>
-                                 <span [ngClass]="{'nepaliFont outside' : letter?.purposeOfLoan.ct !== null && letter?.purposeOfLoan.ct !== ''}">
+                                 <span [ngClass]="{'font-weight-bold outside' : letter?.purposeOfLoan.ct !== null && letter?.purposeOfLoan.ct !== ''}">
                                 {{letter?.purposeOfLoan.ct === null || letter?.purposeOfLoan.ct === '' ? '___________' : letter?.purposeOfLoan.ct }}</span>
                         </td>
                     </tr>
@@ -91,11 +91,11 @@
                         </td>
                         <td>
                             <strong> रु.
-                                <span [ngClass]="{'nepaliFont' : letter?.loanAmountFigure.ct !== null && letter?.loanAmountFigure.ct !== ''}">
+                                <span [ngClass]="{'' : letter?.loanAmountFigure.ct !== null && letter?.loanAmountFigure.ct !== ''}">
                                 {{letter?.loanAmountFigure.ct === null || letter?.loanAmountFigure.ct === '' ? '___________' : letter?.loanAmountFigure.ct}}</span>
-                                ।-
+                                /-
                                 (अक्षरेपी रु.
-                                <span [ngClass]="{'nepaliFont' : letter?.loanAmountFigureWords.ct !== null && letter?.loanAmountFigureWords.ct !== ''}">
+                                <span [ngClass]="{'' : letter?.loanAmountFigureWords.ct !== null && letter?.loanAmountFigureWords.ct !== ''}">
                                 {{letter?.loanAmountFigureWords.ct === null || letter?.loanAmountFigureWords.ct === '' ? '___________' : letter?.loanAmountFigureWords.ct}}</span>
                                 मात्र)
                             </strong>
@@ -106,7 +106,7 @@
                             <i>(Drawing Power)</i> </strong>
                         </td>
                         <td>
-                            <span [ngClass]="{'nepaliFont' : letter?.marginInPercentage.ct !== null && letter?.marginInPercentage.ct !== ''}">
+                            <span [ngClass]="{'font-weight-bold' : letter?.marginInPercentage.ct !== null && letter?.marginInPercentage.ct !== ''}">
                                 {{letter?.marginInPercentage.ct === null || letter?.marginInPercentage.ct === '' ? '___________' : letter?.marginInPercentage.ct}}
                             </span>
                             प्रतिशत वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ।
@@ -117,7 +117,7 @@
                         </td>
                         <td>
                             <strong>त्रैमासिक औसत आधार दर (Quarterly Average Base Rate) </strong>
-                            <span [ngClass]="{'nepalifont': letter?.baseRate.ct !== null && letter?.baseRate.ct !== ''}">
+                            <span [ngClass]="{'font-weight-bold': letter?.baseRate.ct !== null && letter?.baseRate.ct !== ''}">
                                     {{letter?.baseRate.ct === null || letter?.baseRate.ct === "" ? "___________" : letter?.baseRate.ct}}
                             </span>
                             +
@@ -226,7 +226,7 @@
             </div>
 
             <div class="" *ngIf="interestSubsidy == true">
-                <h6>द्रष्टब्यः </h6>
+                <h6><strong>द्रष्टब्यः </strong></h6>
                 <ol class="conditions-list orderd-list">
                     <!-- Applicable incase of interest subsidy loan -->
                     <li>
@@ -262,7 +262,7 @@
                 </ol>
             </div>
             <div>
-                <h6><u>सुरक्षण विवरणः </u></h6>
+                <h6><strong><u>सुरक्षण विवरणः </u></strong></h6>
                 <ol class="conditions-list orderd-list">
                     <li>
                         <strong> सामान मौज्दात धितोेबन्धक हकाधिकार (Hypothecation Charges) </strong>
@@ -287,7 +287,7 @@
                 </ol>
             </div>
             <div>
-                <h6><u>व्याज सम्बन्धी शर्तहरुः </u></h6>
+                <h6><strong><u>व्याज सम्बन्धी शर्तहरुः </u></strong></h6>
                 <ol class="conditions-list orderd-list">
                     <li>
                         हरेक त्रैमास (आषाढ, आश्विन, पौष र चैत्र मसान्त) को समाप्ति पश्चात बैंकको
@@ -338,9 +338,8 @@
             </div>
 
             <div>
-                <h6><u>थप/अतिरिक्त शुल्क र हर्जाना व्याज तथा सो सम्बन्धी शर्तहरुः </u></h6>
+                <h6><strong><u>थप/अतिरिक्त शुल्क र हर्जाना व्याज तथा सो सम्बन्धी शर्तहरुः </u></strong></h6>
                 <ol class="conditions-list orderd-list">
-
                     <!-- not applicable incase of interest subsidy loan -->
                     <li *ngIf="!interestSubsidy == true">
                         <strong>अग्रिम भुक्तानी शुल्क र/वा स्वाप (Swap) शुल्कः </strong>
@@ -473,8 +472,8 @@
             </div>
 
             <div class="col-sm-12">
-                <h6><u> ऋण तथा सुबिधाहरु सम्बन्धित शर्तहरु </u></h6>
-                <h6><u> दीर्घकालीन कर्जा </u></h6>
+                <h6><strong><u> ऋण तथा सुबिधाहरु सम्बन्धित शर्तहरु </u></strong></h6>
+                <h6><strong><u> दीर्घकालीन कर्जा </u></strong></h6>
                 <ol class="conditions-list orderd-list">
                     <li>
                         दीर्घकालीन ऋण कर्जा सीमा आंशिक वा पूर्ण भुक्तानी भए पश्चातः भुक्तानी भएको
@@ -491,8 +490,8 @@
             </div>
 
             <div class="">
-                <h6>सुरक्षणहरु सम्बन्धित शर्तहरु</h6>
-                <h6><u>घर तथा जग्गा धितोे सुरक्षण</u></h6>
+                <h6><strong>सुरक्षणहरु सम्बन्धित शर्तहरु</strong></h6>
+                <h6><strong><u>घर तथा जग्गा धितोे सुरक्षण</u></strong></h6>
                 <ol class="conditions-list orderd-list">
                     <li>
                         माथि उल्लिखित घर/जग्गा बैंकको पक्षमा धितोेबन्धक पारित गर्दा लाग्ने सरकारी राजश्व,
@@ -532,12 +531,12 @@
             </div>
 
             <div class="">
-                <h6><u>सामानको मौज्दात र भुक्तानी प्राप्त गर्न बाँकी रकमहरुको सुरक्षण</u></h6>
+                <h6><strong><u>सामानको मौज्दात र भुक्तानी प्राप्त गर्न बाँकी रकमहरुको सुरक्षण</u></strong></h6>
                 <ol class="conditions-list orderd-list">
                     <li>
                         गोदाम/वेयरहाउसमा रहेको सामानको सूची, पक्षहरुको विवरण र अवधि सहित
                         भुक्तानी दिनुपर्ने बाँकी र भुक्तानी पाउनु पर्ने बाञकी रकमहरुको विस्तृत विवरण
-                        ऋणीले त्रैमासिक रुपमा बैंकलाई बुझाउनु पर्नेछ।
+                        ऋणीले <strong>त्रैमासिक</strong> रुपमा बैंकलाई बुझाउनु पर्नेछ।
                     </li>
                     <li>
                         ऋणी संस्थाको सम्पूर्ण चल/अचल सम्पतिहरु र सो संग सम्बन्धित अभिलेखहरु जुनसुकै
@@ -568,7 +567,7 @@
             </div>
 
             <div class="">
-                <h6>बिमा सम्बन्धी शर्तहरु</h6>
+                <h6><strong>बिमा सम्बन्धी शर्तहरु</strong></h6>
                 <ol class="conditions-list orderd-list">
                     <li>
                         ऋणीले आफ्नोे खर्चमा आगलागी, सेधमारी, भुकम्प, दंगा/हड्ताल, दुर्भावनापूर्ण क्षति र
@@ -631,7 +630,7 @@
             </div>
 
             <div style="margin-left: 10px">
-                <h6><u>बित्तीय शर्तहरु </u></h6>
+                <h6><strong><u>बित्तीय शर्तहरु </u></strong></h6>
                 <ol class="conditions-list orderd-list">
                     <li>
                         सम्पूर्ण ऋणकर्जाहरुको ब्याज, किस्ता, शुल्क, कमिसन, मार्जिन, हर्जाना ब्याज र अन्य बाँकी
@@ -761,7 +760,7 @@
             </div>
 
             <div class="">
-                <h6><u>अन्य शर्तहरु </u></h6>
+                <h6><strong><u>अन्य शर्तहरु </u></strong></h6>
                 <ol class="conditions-list orderd-list">
                     <li>
                         बैंकको पक्षमा धितोेबन्धक वा अन्य जुनसुकै रुपमा हक सुरक्षित रहेको सम्पत्तिहरु/सुरक्षणहरु
@@ -833,8 +832,6 @@
                         ऋणी/ऋणी फर्म/ऋणी
                         कम्पनी/ऋणी संस्था मञ्जुर गर्दछ।
                     </li>
-                    <!-- ---------------------- -->
-
                     <li>
                         तहां फर्मको दर्ता प्रमाणपत्रको अवधि समाप्त हुन अगावै सम्बन्धित कार्यालयबाट नविकरण गर्ने
                         दायित्व ऋणी फर्मका
@@ -853,8 +850,8 @@
                     </li>
                 </ol>
             </div>
-            <div class="">
-                <h6><u>कागजपत्रहरुः स्वीकृत कूल ऋणकर्जा सिमाको लागिः </u></h6>
+            <div>
+                <h6><strong><u>कागजपत्रहरुः स्वीकृत कूल ऋणकर्जा सिमाको लागिः </u></strong></h6>
                 <ul>
                     <li *ngIf="tempData?.requiredDocuments?.requiredLegalDocument?.requiredDocument.includes('Promissory Note')">
                         प्रतिज्ञा पत्र। (Promissory Note)
