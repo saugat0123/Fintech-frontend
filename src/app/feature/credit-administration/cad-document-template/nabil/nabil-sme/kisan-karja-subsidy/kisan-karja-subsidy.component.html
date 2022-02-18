@@ -86,7 +86,7 @@
                             <tr>
                                 <td style="width: 15%"><strong>कर्जाको उद्देश्य: </strong></td>
                                 <td>
-                                    <textarea class="form-control customFont "
+                                    <textarea class="form-control nepaliFont"
                                               placeholder="कर्जाको उद्देश्य"
                                               style="width: 60%;padding: 5px;margin-top: 10px" name="freeText"
                                               formControlName="purposeOfLoan">
@@ -142,15 +142,15 @@
                                     आवधिक कर्जाको हकमा संलग्न अनुमानित भुक्तानी तालिका बमोजिम चुक्ता भुक्तानी गर्नु
                                     पर्नेछ ।
                                     साथै अल्पकालिन कर्जाको हकमा देहाय बामोजिम हुनेछ ।<br>
-                                    क. अल्पकालिन कर्जा १: <textarea class="form-control customFont "
+                                    क. अल्पकालिन कर्जा १: <textarea class="form-control nepaliFont"
                                         style="width: 60%;padding: 5px;margin-top: 10px" name="freeText"
                                         formControlName="firstAdditionalDetails">
                                             </textarea><br>
-                                    ख. अल्पकालिन कर्जा २: <textarea class="form-control customFont "
+                                    ख. अल्पकालिन कर्जा २: <textarea class="form-control nepaliFont"
                                         style="width: 60%;padding: 5px;margin-top: 10px" name="freeText"
                                         formControlName="secondAdditionalDetails">
                                             </textarea><br>
-                                    ग. अल्पकालिन कर्जा ३: <textarea class="form-control customFont "
+                                    ग. अल्पकालिन कर्जा ३: <textarea class="form-control nepaliFont"
                                         style="width: 60%;padding: 5px;margin-top: 10px" name="freeText"
                                         formControlName="thirdAdditionalDetails">
                                             </textarea>
@@ -234,13 +234,13 @@
                                                 [value]="guarantor?.securityOwnersMunicipalityCT" style="width: 200px"
                                                 type="text" />
                                             वडा नंः <input class="form-field form-control-sm" readonly name="wardNo"
-                                                [value]="guarantor?.securityOwnersPlotNoCT" style="width: 200px"
+                                                [value]="guarantor?.securityOwnersWardNoCT" style="width: 200px"
                                                 type="text" />
                                             किता नं.<input class="form-field form-control-sm" readonly name="plotNo"
-                                                [value]="guarantor?.securityOwnersLandAreaCT" style="width: 200px"
+                                                [value]="guarantor?.securityOwnersPlotNoCT" style="width: 200px"
                                                 type="text" />
                                             क्षेत्रफल <input class="form-field form-control-sm" readonly readonly
-                                                name="areaRopaniBigha" [value]="guarantor?.securityOwnersSheetNoCT"
+                                                name="areaRopaniBigha" [value]="guarantor?.securityOwnersLandAreaCT"
                                                 style="width: 200px" type="text" />
                                         </div>
                                     </span>
@@ -282,7 +282,7 @@
                             </tr>
                         </table>
                         <p>
-                            <textarea class="form-control customFont " rows="5"
+                            <textarea class="form-control nepaliFont" rows="5"
                                 style="margin-left:2%;display: block;margin-left: auto;margin-right: auto;padding: 5px;width: 80%"
                                 name="freeText" formControlName="fourthAdditionalDetails">
                                             </textarea><br>
@@ -320,23 +320,16 @@
                                         <!-- - Applicable incase of interest subsidy loan-->
                                         <li *ngIf="!this.tempData.interestSubsidy.en === false">
                                             <strong>
-                                                सहुलियत पुर्ण कर्जा अन्तर्गत निक्षेप तथा कर्जा सुरक्षण कोष (Deposit and
-                                                Guarantee Fund) मा सुरक्षण गरिने ऋणकर्जाको लागि उक्त ऋणकर्जाको सुरक्षण
-                                                गर्दा लाग्ने सुरक्षण शुल्क वापतको रकम ऋणी स्वयमलेनै तिर्नु व्यहोर्नु
-                                                पर्नेछ । उक्त सुरक्षण शुल्क वापत हाल बार्षिक
-                                                <input class="form-field form-control-sm" readonly
-                                                    formControlName="rateNrbCircular" name="rateNrbCircular"
-                                                    type="text" />
-                                                प्रतिशतका दरले हुन आउने रकम अर्धबार्षिक रुपमा प्रत्येक श्रावण र माघ
-                                                महिनाको ३ गते भित्रै तिर्नुबुझाउनु पर्नेछ । उक्त शुल्क बापत ऋणीले पौष र
-                                                आषाढ मसान्तमा तिर्न बाँकी रहेको साँवा र ब्याज रकमको
-                                                <input class="form-field form-control-sm" readonly
-                                                    formControlName="rateNrbCircular" name="rateNrbCircular"
-                                                    type="text" /> प्रतिशतका दरले हुन आउने रकम ऋणीले यस बैंकमा रहेको
-                                                चल्ती खातामा जम्मा गर्नुपर्नेछ । सो सुरक्षण शुल्क दर यदी परिवर्तन भएमा
-                                                परिवर्तित दरले ऋणीको यस बैंकमा रहेको खाताबाट कट्टा गरि असुल उपर गरिनेछ ।
-                                                उल्लिखित बमोजिमको शुल्क तिर्नबुझाउन तथा खातामा जम्मा गर्न र खाताबाट
-                                                कट्टृा गरी लिन ऋणी मञ्जुर गर्दछ ।
+                                                सहुलियत पुर्ण कर्जा अन्तर्गत निक्षेप तथा कर्जा सुरक्षण कोष (Deposit and Credit Guarantee
+                                                Fund) मा सुरक्षण गरिने ऋणकर्जाको लागि उक्त ऋणकर्जाको सुरक्षण गर्दा लाग्ने सुरक्षण शुल्क
+                                                वापतको रकम ऋणी स्वयमलेनै तिर्नु व्यहोर्नु पर्नेछ । सो सुरक्षण शुल्क वापत हाल बार्षिक ०.४० प्रतिशतका
+                                                दरले हुन आउने रकम ऋणीले अर्धबार्षिक रुपमा प्रत्येक श्रावण र माघ महिनाको १ गते तिर्नु बुझाउनु
+                                                पर्नेछ । यसरी शुल्क बुझाउन तोकिएको अवधिभित्र/मितिमा ऋणीले आफ्नो बैंक खातामा प्रयाप्त
+                                                मात्रामा रकम जम्मा गरिदिनुपर्नेछ । उक्त शुल्क बापत ऋणीले पौष र आषाढ मसान्तमा तिर्न बाँकी
+                                                रहेको साँवा र ब्याज रकमको ०.२० प्रतिशतका दरले हुन आउने रकम शुल्क स्वरुप तिर्नबुझाउनु पर्नेछ ।
+                                                सो सुरक्षण शुल्क दर यदी परिवर्तन भएमा परिवर्तित दरले ऋणीको यस बैंकमा रहेको खाताबाट कट्टा गरि
+                                                असुल उपर गरिनेछ । उल्लिखित बमोजिमको शुल्क तिर्नबुझाउन तथा खातामा जम्मा गर्न र खाताबाट कट्टा
+                                                गरी लिन ऋणी मञ्जुर गर्दछ ।
                                             </strong>
                                             <br>
                                         </li>
@@ -389,9 +382,9 @@
                                                 (Quarterly Average Base Rate)</strong>
                                             मा जतिले परिवर्र्तन हुनेछ सोहि अनुपातमा प्रत्येक त्रैमास पछिको महिनाहरुको
                                             पहिलो दिनबाट ब्याज दर समायोजन तथा संसोधन तथा पुनरावलोकन गरीनेछ ।
-                                            संशोधनको जानकारी बैंकको आधिकारिक वेव साईट ९ध्भदकष्तभ०वा पत्रपत्रिका मार्फत
+                                            संशोधनको जानकारी बैंकको आधिकारिक वेव साईट (Website)वा पत्रपत्रिका मार्फत
                                             सार्वजनिक सुचना जारी गरी परिवर्तित व्याज दर लागु भइ उक्त परिवर्तित
-                                            व्याज दरको जानकारी ऋणी आफै बैंकको आधिकारिक वेव साईट ९ध्भदकष्तभ०र/वा
+                                            व्याज दरको जानकारी ऋणी आफै बैंकको आधिकारिक वेव साईट (Website)र/वा
                                             पत्रपत्रिका मार्फत प्राप्त गरी तिर्न बुझाउन मन्जुर गर्दछ ।
                                         </li>
                                         <li *ngIf="this.tempData.repaymentType.en === 'EMI_BASIS'">
@@ -453,7 +446,7 @@
                                                     प्रतिशत हर्जाना थप गरी वा बैंकले समय समयमा तोकेको दरले थप हर्जाना
                                                     व्याज लाग्नेछ । बैंकले निर्धारण गरेको ब्याजदर प्रिमियम (Interest
                                                     Rate Premium) र <strong>त्रैमासिक औसत</strong>
-                                                    आधार दर (<strong>Quaterly Average</strong> Base Rate) बैंकको
+                                                    आधार दर (<strong>Quarterly Average</strong> Base Rate) बैंकको
                                                     आधिकारिक वेब साईट (Website)
                                                     वा समय समयमा बैंकले त्रैमासिक रुपमा प्रकाशित गरेको ब्याज दर सम्बन्धि
                                                     सुचना अनुसार कायम रहने छ ।
@@ -479,7 +472,7 @@
                                 </div>
                             </div>
                         </div>
-                        <textarea id="freeText" class="form-control customFont " rows="5"
+                        <textarea id="freeText" class="form-control nepaliFont" rows="5"
                             style="margin-left:2%;display: block;margin-left: auto;margin-right: auto;padding: 5px;width: 80%"
                             name="freeText" formControlName="fifthAdditionalDetails">
                                             </textarea><br><br>
@@ -815,7 +808,7 @@
 
                                             </li>
                                             <li>
-                                                <textarea class="form-control  customFont" rows="3"
+                                                <textarea class="form-control nepaliFont" rows="3"
                                                     formControlName="sixthAdditionalDetails" name="extraFinancialClause"
                                                     placeholder="अतिरिक्त वित्तीय खण्ड"
                                                     style="width: 95%;padding: 5px;margin-top: 10px;"
@@ -881,7 +874,7 @@
 
                                         <!--Applicable in case of proprietor ship firm/partnership firm only-->
                                         <li
-                                            *ngIf="cadOfferLetterApprovedDoc.loanHolder['customerSubType'] === 'Proprietorship' || cadOfferLetterApprovedDoc.loanHolder['customerSubType'] === 'Partnership' || cadOfferLetterApprovedDoc?.loanHolder['customerType'] === 'INSTITUTION'">
+                                            *ngIf="(cadOfferLetterApprovedDoc.loanHolder['customerSubType'] === 'Proprietorship' || cadOfferLetterApprovedDoc.loanHolder['customerSubType'] === 'Partnership') && cadOfferLetterApprovedDoc?.loanHolder['customerType'] === 'INSTITUTION'">
                                             प्रचलित ऐन, नियम, नेपाल राष्ट्र बैंकको निर्देशन तथा यस बैंकको निति, नियम तथा
                                             तिनमा समय समयमा हुने सँशोधन सहितको शर्तहरु पालना गर्न ऋणी/ऋणी फर्म/ऋणी
                                             कम्पनी/ऋणी संस्था मञ्जुर गर्नुका साथै माथि उल्लिखित सम्पुर्ण समेतबाट स्वीकृत
@@ -897,7 +890,7 @@
                                             भुक्तानी माग गर्ने/रद्द गर्ने अधिकार बैंकमा सुरक्षित रहनेछ ।
                                         </li>
                                         <li>
-                                            <textarea class="form-control  customFont" rows="5"
+                                            <textarea class="form-control  nepaliFont" rows="5"
                                                 formControlName="seventhAdditionalDetails" name="additionalOthersClause"
                                                 placeholder="अतिरिक्त अन्य खण्ड"
                                                 style="width: 95%;padding: 5px;margin-top: 10px;"
@@ -948,7 +941,7 @@
                                             पक्षमा बिमालेख ।
                                         </li>
                                         <li>
-                                            <textarea class="form-control  customFont" rows="5"
+                                            <textarea class="form-control  nepaliFont" rows="5"
                                                 formControlName="eighthAdditionalDetails"
                                                 name="extraSecurityDocumentParts"
                                                 placeholder="अतिरिक्त सुरक्षा कागजात भागहरू"
@@ -978,7 +971,7 @@
                                     formControlName="relationshipOfficerName" name="relationshipOfficerName"
                                     type="text" />
                                 <p>
-                                    <input class="form-field form-control-sm " formControlName="autoPopulate1"
+                                    <input class="form-field form-control-sm nepaliFont" formControlName="autoPopulate1"
                                         type="text" />
                                 </p>
                                 <p>
@@ -992,7 +985,7 @@
                                 <input class="form-field form-control-sm " readonly formControlName="branchManager"
                                     name="branchManager" type="text" />
                                 <p>
-                                    <input class="form-field form-control-sm " formControlName="autoPopulate2"
+                                    <input class="form-field form-control-sm nepaliFont" formControlName="autoPopulate2"
                                         type="text" />
                                 </p>
                                 <p>
@@ -1130,15 +1123,25 @@
                             </p>
                             <ol class="conditions-list orderd-list font-weight-bold">
                                 <li>
-                                    ____________________ जिल्ला
-                                    ______________________ गा.वि.स/न.पा,
-                                    वडा नंं. _________
-                                    बस्ने श्री ____________________________
+                                    <input class="form-field form-control-sm nepaliFont"
+                                           formControlName="sakshiDistrict" name="sakshiDistrict"
+                                           type="text"/> जिल्ला
+                                    <input class="form-field form-control-sm nepaliFont"
+                                           formControlName="sakshiMunicipality" name="sakshiMunicipality"
+                                           type="text"/> गा.वि.स/न.पा,
+                                    वडा नंं. <input class="form-field form-control-sm nepaliFont"
+                                                    formControlName="sakshiWardNo" name="sakshiWardNo"
+                                                    type="text"/>
+                                    बस्ने श्री <input class="form-field form-control-sm nepaliFont"
+                                                      formControlName="sakshiName" name="sakshiName"
+                                                      type="text"/>
                                 </li>
                                 <li>
                                     कारणीले प्रस्तुत लिखत मेरो सामुन्ने सही छाप गरेको हो भनी सनाखत गर्ने नबिल बैंक लि.
                                     का कर्मचारी श्री
-                                    ____________________________
+                                    <input class="form-field form-control-sm nepaliFont"
+                                           formControlName="staffName" name="staffName"
+                                           type="text"/>
                                 </li>
                             </ol>
                         </div>
