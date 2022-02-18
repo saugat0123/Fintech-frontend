@@ -35,6 +35,7 @@ export class CiclComponent implements OnInit {
   relationlist;
   ciclRelation = CiclRelationListEnum.pair();
   ciclHistory = false;
+  chargeChecked = false;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -78,7 +79,9 @@ export class CiclComponent implements OnInit {
     this.ciclForm = this.formBuilder.group({
       ciclArray: this.formBuilder.array([]),
       ciclRemarks: [ObjectUtil.isEmpty(this.ciclValue) ? '' : this.ciclValue.remarks],
-      cibCharge: [ObjectUtil.isEmpty(this.ciclValue) ? undefined : this.ciclValue.cibCharge]
+      cibCharge: [ObjectUtil.isEmpty(this.ciclValue) ? undefined : this.ciclValue.cibCharge],
+      cibDate: [ObjectUtil.isEmpty(this.ciclValue) ? undefined :
+          ObjectUtil.isEmpty(this.ciclValue.cibDate) ? undefined : new Date(this.ciclValue.cibDate)]
     });
     if (!ObjectUtil.isEmpty(this.ciclList)) {
       if ((this.ciclList.length > 0)) {
@@ -212,6 +215,7 @@ export class CiclComponent implements OnInit {
     // uncomment if value is need
     this.ciclValue.remarks = this.ciclForm.get('ciclRemarks').value === undefined ? '' : this.ciclForm.get('ciclRemarks').value;
     this.ciclValue.cibCharge = this.ciclForm.get('cibCharge').value === undefined ? '' : this.ciclForm.get('cibCharge').value;
+    this.ciclValue.cibDate = this.ciclForm.get('cibDate').value === undefined ? '' : this.ciclForm.get('cibDate').value;
     this.ciclValue.data = JSON.stringify(this.ciclList);
     this.ciclDataEmitter.emit(this.ciclValue);
   }
@@ -224,4 +228,11 @@ export class CiclComponent implements OnInit {
       }
   }
 
+    checkChecked(checked) {
+        if (checked) {
+            this.chargeChecked = true;
+        } else {
+            this.chargeChecked = false;
+        }
+    }
 }

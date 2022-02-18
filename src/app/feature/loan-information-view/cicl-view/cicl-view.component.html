@@ -1,6 +1,7 @@
 <div class="row">
   <div class="col-md-12 text-center">
     <p class="text-left"><strong>CICL</strong></p>
+    <p class="text-left pl-1">As per CIC dated <b>{{ciclValue?.cibDate ? (ciclValue?.cibDate | date) : 'NA'}}</b> the client and proposed guarantor are not blacklisted and do not avail any loans from other BFIs. </p>
     <p class="text-center sb-small"><b>Cib Charge:</b> Rs {{ciclValue?.cibCharge | currencyFormatter}}</p>
     <div *ngIf="ciclList.length !== 0">
       <table

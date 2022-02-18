@@ -752,9 +752,9 @@
                 <div class="col-md-12">
                     <p class="mt-2"><strong>Repayment</strong></p>
                     <ol>
-                        <li>{{'emi amount'}} equal monthly installments commencing from the 10th of every Gregorian calendar from the next month of initial drawdown.
+                        <li><b>{{proposalView?.installmentAmount}}</b> equal monthly installments commencing from the 10th of every Gregorian calendar from the next month of initial drawdown.
                             The client shall serve interest on the loan outstanding during the first month, calculated on the daily debit outstanding fron the date of disbursement.</li>
-                        <li>The above mentioned loan when repaid in the part or full shall not be reinstated bt the extend of the amount repaid/settled.</li>
+                        <li>The above mentioned loan when repaid in the part or full shall not be reinstated by the extend of the amount repaid/settled.</li>
                     </ol>
                 </div>
             </div>
@@ -763,12 +763,12 @@
                 <div class="col-md-12">
                     <p class="mt-2"><strong>Mode of Disbursement</strong></p>
                     <ul>
-                        <li>We shall disbuse loan amount of NRP ..... Mio or .... % of FMV of the real estate collateral whichever is lowered by crediting the current accountof Mr. ....
-                        maintained at ....  Branch or issued Managers Cheque in the name of Seller or as per request of the application upon the completion of security documents</li>
-                        <li>Execution of all the security</li>
-                        <li></li>
-                        <li></li>
-                        <li>Completion of security documentation</li>
+                        <li>We shall disburse loan amount of NRP <b>{{proposalData?.proposedLimit}}</b> Mio or .... % of FMV of the real estate collateral whichever is lowered by crediting the current account of
+                            Mr. <b>{{loanDataHolder?.loanHolder?.name}}</b> maintained at <b>{{loanDataHolder?.branch?.name}}</b> Branch or issued Managers Cheque in the name of Seller or as per request of the
+                            application upon the completion of security documents</li>
+                        <li>Execution of all the security documents including mortgaged of proposed collateral.</li>
+                        <li>Letter of undertaking to the seller shall be issued at the request of buyer.</li>
+                        <li>Completion of security documentations</li>
                     </ul>
                 </div>
             </div>
@@ -811,28 +811,28 @@
             <div class="row mt-3">
                 <div class="col-md-12">
                     <p><strong>Recommendation: </strong></p>
-                    <table class="table table-bordered text-right table-sm sb-small text-center">
+                    <table class="table table-bordered table-responsive-md table-sm sb-small text-center">
                         <thead>
                         <tr>
                             <th class="text-center" colspan="6">Recommend as Follows</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr class="text-white sb-bg-dark">
-                            <th>Proposal</th>
-                        </tr>
-                        <tr>
-                            <td>The client has requested us to provide .....</td>
-                        </tr>
                         <tr>
                             <td>
+                                Proposal: The client has requested us to provide {{proposalView?.proposedLimit}}<br>
+                            </td>
+                            <td *ngFor="let cl of customerAllLoanList">
                                 <span>Pricing:</span> <br>
-                                <span>Interest: ...... % p.a (BR + 0.59%)</span> <br>
-                                Loan Administrative Fee:.... % of the approve limit
+                                <span>Interest: {{(cl?.proposal?.data | jsonParse)?.interestRate}} % p.a (BR + 0.59%)</span> <br>
+                                Loan Administrative Fee: {{(cl?.proposal?.data | jsonParse)?.serviceCharge}} % of the approve limit
                                 CIC charge: On actual basis
                                 Prepayment Charge: As per NRB
                                 Swap Charge: AS per NRB
                             </td>
+                        </tr>
+                        <tr>
+
                         </tr>
                         </tbody>
                     </table>
