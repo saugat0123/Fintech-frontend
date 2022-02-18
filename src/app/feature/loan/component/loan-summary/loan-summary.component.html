@@ -763,15 +763,16 @@
             </div>
 
             <div class="row">
-                <div class="col-md-12">
-                    <p class="mt-2"><strong>Mode of Disbursement</strong></p>
+                <div class="col-md-12" *ngFor="let cal of customerAllLoanList">
+                    <p class="mt-2"><strong>Mode of Disbursement of {{cal?.loan?.name}}</strong></p>
+                    <p>This loan shall be disbursed as under:</p>
                     <ul>
-                        <li>We shall disburse loan amount of NRP <b>{{proposalData?.proposedLimit}}</b> Mio or .... % of FMV of the real estate collateral whichever is lowered by crediting the current account of
-                            Mr. <b>{{loanDataHolder?.loanHolder?.name}}</b> maintained at <b>{{loanDataHolder?.branch?.name}}</b> Branch or issued Managers Cheque in the name of Seller or as per request of the
-                            application upon the completion of security documents</li>
+                        <li>We shall disburse loan amount of NRP <b>{{cal?.proposal.proposedLimit}}</b> Mio or .... % of FMV of the real estate collateral whichever is lowered by crediting the current account of
+                            Mr. <b>{{cal?.loanHolder?.name}}</b> maintained at <b>{{cal?.branch?.name}}</b> Branch or issued Managers Cheque in the name of Seller or as per request of the
+                            application upon the completion of security documents.</li>
                         <li>Execution of all the security documents including mortgaged of proposed collateral.</li>
                         <li>Letter of undertaking to the seller shall be issued at the request of buyer.</li>
-                        <li>Completion of security documentations</li>
+                        <li>Completion of security documentations.</li>
                     </ul>
                 </div>
             </div>
