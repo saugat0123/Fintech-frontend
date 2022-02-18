@@ -487,7 +487,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                         console.error(err);
                     });
                 }
-                console.log('customerAllLoanList', this.customerAllLoanList);
                 this.customerLoanList.emit(this.customerAllLoanList);
             }, error => {
                 console.error(error);

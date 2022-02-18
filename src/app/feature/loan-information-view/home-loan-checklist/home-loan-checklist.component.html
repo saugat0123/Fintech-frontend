@@ -1,0 +1,59 @@
+<div class="col-md-12">
+    <div class="form-group">
+        <span *ngFor="let data of customerAllLoanList">
+            <table class="table table-bordered table-responsive table-hover" style="overflow-x: hidden"
+                   *ngIf="data?.loan?.loanTag === 'HOME_LOAN'">
+            <tr>
+                <th colspan="4">{{data?.loan?.name}}</th>
+            </tr>
+            <thead class="font-weight-bold">
+            <tr>
+                <td class="sn">S.N</td>
+                <td>Particulars</td>
+                <td>YES</td>
+                <th>NO</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>1.</td>
+                <td colspan="2">
+                    Area of the House / Apartment to be purchased or constructed shall not be exceeded by 3,000 square feet. Also house /Apartment to be
+                    purchased or constructed shall be occupied solely by the borrower?
+                </td>
+                <td>{{(data?.proposal?.data | jsonParse)?.yesNo1}}</td>
+            </tr>
+            <tr>
+                <td>2.</td>
+                <td colspan="2">
+                    Has the borrower availed any loan to buy or construct a house or apartment before form any Bank or Financial Institutions (BFI’s)?
+                </td>
+                <td>{{(data?.proposal?.data | jsonParse)?.yesNo2}}</td>
+            </tr>
+            <tr>
+                <td>3.</td>
+                <td colspan="2">
+                    Rented income considered for repayment purpose?
+                </td>
+                <td>{{(data?.proposal?.data | jsonParse)?.yesNo3}}</td>
+            </tr>
+            <tr>
+                <td>4.</td>
+                <td colspan="2">
+                    Monthly installments shall remain same even after increase in interest rate in future and repayment modality will be
+                    structured accordingly. This debt covenant shall be included in Offer Letter
+                </td>
+                <td>{{(data?.proposal?.data | jsonParse)?.yesNo4}}</td>
+            </tr>
+            <tr>
+                <td>5.</td>
+                <td colspan="2">
+                    Checklist regarding above clauses (1-3) has been duly filled by borrower
+                </td>
+                <td>{{(data?.proposal?.data | jsonParse)?.yesNo5}}</td>
+            </tr>
+            </tbody>
+        </table>
+        </span>
+    </div>
+</div>
