@@ -368,7 +368,7 @@
         <th>Collateral requirement (in%)</th>
       </tr>
       <tr>
-        <td *ngIf="client === clientName?.SHINE_RESUNGA && isRevolving" class="text-left pl-1">{{proposalAllData?.interestPrincipalRepayment}}</td>
+        <td *ngIf="client === clientName?.SHINE_RESUNGA && isFundable" class="text-left pl-1">{{proposalAllData?.interestPrincipalRepayment}}</td>
         <th *ngIf="isFixedDeposit" class="text-right pr-1">{{proposalAllData?.couponRate}}</th>
         <th *ngIf="isFixedDeposit" class="text-right pr-1">{{proposalAllData?.premiumOnCouponRate}}</th>
         <td *ngIf="loanNatureSelected && fundableNonFundableSelcted && isFundable && isRevolving && client !== clientName?.SHINE_RESUNGA" class="text-right pr-1">{{proposalAllData?.tenorOfEachDeal || 'N/A'}}</td>
