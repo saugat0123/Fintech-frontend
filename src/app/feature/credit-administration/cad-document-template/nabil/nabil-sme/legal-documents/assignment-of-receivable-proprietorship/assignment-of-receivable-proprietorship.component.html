@@ -20,7 +20,7 @@
                                formControlName="nameOfBranchLocated"
                                placeholder=" "
                                type="text"/>
-                        <span class="print-only">{{this.individualData?.branch ? this.individualData?.branch.ct : ''}}</span>
+                        <span class="print-only">{{this.individualData?.branch ? this.individualData?.branch.ct : '______________________'}}</span>
                         मा शाखा कार्यालय रहेको श्री <strong>नबिल बैंक लिमिटेड </strong>
                         (जसलाई यस लिखतमा यस पछि <strong>"धनी बैंक"</strong> भनिएको छ), धितो
                         दिई सुरक्षणको लिखत गरीदिने
@@ -28,71 +28,71 @@
                                name="actName"
                                formControlName="actName"
                                type="text"/>
-                        <span class="print-only">{{this.individualData?.actName ? this.individualData?.actName.ct : ''}}</span>
+                        <span class="print-only">{{this.individualData?.actName ? this.individualData?.actName.ct : '______________________'}}</span>
                         ऐन <input class="form-field form-control-sm d-print-none"
                                  name="yearInFigure"
                                  formControlName="yearInFigure"
                                  type="text"/>
-                        <span class="print-only">{{this.actYear ? this.actYear : ''}}</span>
+                        <span class="print-only">{{this.actYear ? this.actYear : '______________________'}}</span>
                         बमोजिम
                         <input class="form-field form-control-sm d-print-none"
                                name="nameOfAuthorizedBody"
                                formControlName="nameOfAuthorizedBody"
                                placeholder=" "
                                type="text"/>
-                        <span class="print-only">{{this.individualData?.authorizedBodyName ? this.individualData?.authorizedBodyName.ct : ''}}</span>,
+                        <span class="print-only">{{this.individualData?.authorizedBodyName ? this.individualData?.authorizedBodyName.ct : '______________________'}}</span>,
                         <input class="form-field form-control-sm d-print-none"
                                name="nameOfDepartment"
                                formControlName="nameOfDepartment"
                                placeholder=" "
                                type="text"/>
-                        <span class="print-only">{{this.individualData?.registeredWith ? this.individualData?.registeredWith.ct : ''}}</span>
+                        <span class="print-only">{{this.individualData?.registeredWith ? this.individualData?.registeredWith.ct : '______________________'}}</span>
                         विभाग/कार्यालयमा मिति <input class="form-field form-control-sm d-print-none"
                                                     name="dateOfRegistration"
                                                     formControlName="dateOfRegistration"
                                                     placeholder=" "
                                                     type="text"/>
-                        <span class="print-only">{{this.registrationDate ? this.registrationDate : ''}}</span> मा
+                        <span class="print-only">{{this.registrationDate ? this.registrationDate : '______________________'}}</span> मा
                         न. <input class="form-field form-control-sm d-print-none"
                                  name="registrationNo"
                                  formControlName="registrationNo"
                                  placeholder=" "
                                  type="text"/>
-                        <span class="print-only">{{this.individualData?.registrationNo ? this.individualData?.registrationNo.ct : ''}}</span>
+                        <span class="print-only">{{this.individualData?.registrationNo ? this.individualData?.registrationNo.ct : '______________________'}}</span>
                         अन्तर्गत दर्ता भई
                         <input class="form-field form-control-sm d-print-none"
                                name="districtOfFirm"
                                formControlName="districtOfFirm"
                                placeholder=" "
                                type="text"/>
-                        <span class="print-only">{{this.individualData?.registeredDistrict ? this.individualData?.registeredDistrict.ct : ''}}</span>
+                        <span class="print-only">{{this.individualData?.registeredDistrict ? this.individualData?.registeredDistrict.ct : '______________________'}}</span>
                         जिल्ला, <input class="form-field form-control-sm d-print-none"
                                        name="municipalityOfFirm"
                                        formControlName="municipalityOfFirm"
                                        placeholder=" "
                                        type="text"/>
-                        <span class="print-only">{{this.individualData?.registeredMunicipality ? this.individualData?.registeredMunicipality.ct : ''}}</span>
+                        <span class="print-only">{{this.individualData?.registeredMunicipality ? this.individualData?.registeredMunicipality.ct : '______________________'}}</span>
                         <ng-container *ngIf="this.individualData?.registeredMunType === '0'"> न.पा</ng-container>
                         <ng-container *ngIf="this.individualData?.registeredMunType === '1'"> गा.वि.स.</ng-container>
-                        <ng-container *ngIf="this.individualData?.registeredMunType === '2'"> गाँउपालिका</ng-container>
-                        , वडा नं <input class="form-field form-control-sm d-print-none"
+                        <ng-container *ngIf="this.individualData?.registeredMunType === '2'"> गाँउपालिका</ng-container>,
+                        वडा नं <input class="form-field form-control-sm d-print-none"
                                         name="wardNoOfFirm"
                                         formControlName="wardNoOfFirm"
                                         placeholder=" "
                                         type="text"/>
-                        <span class="print-only">{{this.individualData?.permanentWard ? this.individualData?.permanentWard.ct : ''}}</span>,
+                        <span class="print-only">{{this.individualData?.permanentWard ? this.individualData?.permanentWard.ct : '______________________'}}</span>,
                         <input class="form-field form-control-sm d-print-none"
                                name="addressOfFirm"
                                formControlName="addressOfFirm"
                                placeholder=" "
                                type="text"/>
-                        <span class="print-only">{{this.individualData?.registeredStreetTole ? this.individualData?.registeredStreetTole.ct : ''}}</span>मा कार्यालय रहेको
+                        <span class="print-only">{{this.individualData?.registeredStreetTole ? this.individualData?.registeredStreetTole.ct : '______________________'}}</span>मा कार्यालय रहेको
                         श्री <input class="form-field form-control-sm d-print-none"
                                     name="firmName"
                                     formControlName="firmName"
                                     placeholder=" "
                                     type="text"/>
-                        <span class="print-only">{{this.individualData?.name ? this.individualData?.name.ct : ''}}</span>को तर्फबाट अख्तियार प्राप्त ऐ.का.
+                        <span class="print-only">{{this.individualData?.name ? this.individualData?.name.ct : '______________________'}}</span>को तर्फबाट अख्तियार प्राप्त ऐ.का.
                         <ng-container *ngFor="let partner of companyInfo; let i = index">
                             <ng-container
                                     *ngIf="partner?.ownerNationality === 'Nepali' || partner?.foreignAddressOption === 'Local'">
@@ -101,13 +101,13 @@
                                        [value]="partner?.ownerPermanentDistrictCT"
                                        placeholder=" "
                                        type="text"/>
-                                <span class="print-only">{{partner ?partner?.ownerPermanentDistrictCT : ''}}</span>
+                                <span class="print-only">{{partner ?partner?.ownerPermanentDistrictCT : '______________________'}}</span>
                                 जिल्ला <input class="form-field form-control-sm d-print-none"
                                               name="vdcNameOfPartner"
                                               [value]="partner?.ownerPermanentMunicipalityCT"
                                               placeholder=" "
                                               type="text"/>
-                                <span class="print-only">{{partner ? partner?.ownerPermanentMunicipalityCT : ''}}</span>
+                                <span class="print-only">{{partner ? partner?.ownerPermanentMunicipalityCT : '______________________'}}</span>
                                 <ng-container *ngIf="partner?.ownerPermanentAddressRadio === '0'"> न.पा</ng-container>
                                 <ng-container *ngIf="partner?.ownerPermanentAddressRadio === '1'"> गा.वि.स.
                                 </ng-container>
@@ -118,7 +118,7 @@
                                               [value]="partner?.ownerPermanentWardNoCT"
                                               placeholder=" "
                                               type="text"/>
-                                <span class="print-only">{{partner ? partner?.ownerPermanentWardNoCT : ''}}</span>
+                                <span class="print-only">{{partner ? partner?.ownerPermanentWardNoCT : '______________________'}}</span>
                             </ng-container>
                             <ng-container *ngIf="(partner?.ownerNationality === 'Indian' || partner?.ownerNationality === 'Other')
                              && partner?.foreignAddressOption === 'Foreign'">
@@ -127,7 +127,7 @@
                                        [value]="partner?.ownerOtherAddressCT"
                                        placeholder=" "
                                        type="text"/>
-                                <span class="print-only">{{partner ? partner?.ownerOtherAddressCT : ''}}</span>
+                                <span class="print-only">{{partner ? partner?.ownerOtherAddressCT : '______________________'}}</span>
                             </ng-container>
                             बस्ने
                             <ng-container *ngIf="partner?.ownerGender === 'MALE'"> श्री </ng-container>
@@ -144,27 +144,27 @@
                                    [value]="partner?.ownerNameCT"
                                    placeholder=" "
                                    type="text"/>
-                            <span class="print-only">{{partner ? partner?.ownerNameCT : ''}}</span>
+                            <span class="print-only">{{partner ? partner?.ownerNameCT : '______________________'}}</span>
                             <ng-container *ngIf="partner?.ownerNationality === 'Nepali'">
                                 (ना.प्र.नं. <input class="form-field form-control-sm d-print-none"
                                                    name="citizenNoOfPartner"
                                                    [value]="partner?.ownerCitizenshipNoCT"
                                                    placeholder=" "
                                                    type="text"/>
-                                <span class="print-only">{{partner ? partner?.ownerCitizenshipNoCT : ''}}</span>
+                                <span class="print-only">{{partner ? partner?.ownerCitizenshipNoCT : '______________________'}}</span>
                                 मिति <input class="form-field form-control-sm d-print-none"
                                              name="issueDateOfPartner"
                                              [value]="this.issueDate[i].issueDate"
                                              placeholder=" "
                                              type="text"/>
-                                <span class="print-only">{{this.issueDate ? this.issueDate[i].issueDate : ''}}</span>
+                                <span class="print-only">{{this.issueDate ? this.issueDate[i].issueDate : '______________________'}}</span>
                                 जिल्ला प्रशासन कार्यालय
                                 <input class="form-field form-control-sm d-print-none"
                                        name="issueDistrictOfPartner"
                                        [value]="partner?.ownerCitizenshipIssuedDistrictCT"
                                        placeholder=" "
                                        type="text"/>
-                                <span class="print-only">{{partner ? partner?.ownerCitizenshipIssuedDistrictCT : ''}}</span>),
+                                <span class="print-only">{{partner ? partner?.ownerCitizenshipIssuedDistrictCT : '______________________'}}</span>),
                             </ng-container>
                             <ng-container *ngIf="partner?.ownerNationality === 'Indian' &&
                                  partner?.indianOwnerDetailOption === 'Passport'">
@@ -173,25 +173,25 @@
                                                     [value]="partner?.indianOwnerPassportNoCT"
                                                     placeholder=" "
                                                     type="text"/>
-                                <span class="print-only">{{partner ? partner?.indianOwnerPassportNoCT : ''}}</span>
+                                <span class="print-only">{{partner ? partner?.indianOwnerPassportNoCT : '______________________'}}</span>
                                 जारी मिति <input class="form-field form-control-sm d-print-none"
                                                  name="issueDateOfPartner"
                                                  [value]="this.issueDate[i].issueDate"
                                                  placeholder=" "
                                                  type="text"/>
-                                <span class="print-only">{{this.issueDate ? this.issueDate[i].issueDate : ''}}</span>
+                                <span class="print-only">{{this.issueDate ? this.issueDate[i].issueDate : '______________________'}}</span>
                                 म्याद सकिने मिति <input class="form-field form-control-sm d-print-none"
                                                         name="authorizedDateOfValid"
                                                         [value]="this.issueDate[i].validDate"
                                                         placeholder=" "
                                                         type="text"/>
-                                <span class="print-only">{{this.issueDate ? this.issueDate[i].validDate : ''}}</span>,
+                                <span class="print-only">{{this.issueDate ? this.issueDate[i].validDate : '______________________'}}</span>,
                                 <input class="form-field form-control-sm d-print-none"
                                        name="indianOwnerPassportIssuedFromCT"
                                        [value]="partner?.indianOwnerPassportIssuedFromCT"
                                        placeholder=" "
                                        type="text"/>
-                                <span class="print-only">{{partner ? partner?.indianOwnerPassportIssuedFromCT : ''}}</span>),
+                                <span class="print-only">{{partner ? partner?.indianOwnerPassportIssuedFromCT : '______________________'}}</span>),
                             </ng-container>
                             <ng-container *ngIf="partner?.ownerNationality === 'Other'">
                                 (राहदानी नं. <input class="form-field form-control-sm d-print-none"
@@ -199,25 +199,25 @@
                                                     [value]="partner?.otherOwnerPassportNoCT"
                                                     placeholder=" "
                                                     type="text"/>
-                                <span class="print-only">{{partner ? partner?.otherOwnerPassportNoCT : ''}}</span>
+                                <span class="print-only">{{partner ? partner?.otherOwnerPassportNoCT : '______________________'}}</span>
                                 जारी मिति <input class="form-field form-control-sm d-print-none"
                                                  name="issueDateOfPartner"
                                                  [value]="this.issueDate[i].issueDate"
                                                  placeholder=" "
                                                  type="text"/>
-                                <span class="print-only">{{this.issueDate ? this.issueDate[i].issueDate : ''}}</span>
+                                <span class="print-only">{{this.issueDate ? this.issueDate[i].issueDate : '______________________'}}</span>
                                 म्याद सकिने मिति <input class="form-field form-control-sm d-print-none"
                                                         name="authorizedDateOfValid"
                                                         [value]="this.issueDate[i].validDate"
                                                         placeholder=" "
                                                         type="text"/>
-                                <span class="print-only">{{this.issueDate ? this.issueDate[i].validDate : ''}}</span>,
+                                <span class="print-only">{{this.issueDate ? this.issueDate[i].validDate : '______________________'}}</span>,
                                 <input class="form-field form-control-sm d-print-none"
                                        name="otherOwnerPassportIssuedFromCT"
                                        [value]="partner?.otherOwnerPassportIssuedFromCT"
                                        placeholder=" "
                                        type="text"/>
-                                <span class="print-only">{{partner ? partner?.otherOwnerPassportIssuedFromCT : ''}}</span>),
+                                <span class="print-only">{{partner ? partner?.otherOwnerPassportIssuedFromCT : '______________________'}}</span>),
                             </ng-container>
                             <ng-container *ngIf="partner?.ownerNationality === 'Indian' &&
                                  partner?.indianOwnerDetailOption === 'Adhar Card'">
@@ -226,19 +226,19 @@
                                                     [value]="partner?.indianOwnerAdharCardNoCT"
                                                     placeholder=" "
                                                     type="text"/>
-                                <span class="print-only">{{partner ? partner?.indianOwnerAdharCardNoCT : ''}}</span>
+                                <span class="print-only">{{partner ? partner?.indianOwnerAdharCardNoCT : '______________________'}}</span>
                                 जारी मिति <input class="form-field form-control-sm d-print-none"
                                                  name="issueDateOfPartner"
                                                  [value]="this.issueDate[i].issueDate"
                                                  placeholder=" "
                                                  type="text"/>
-                                <span class="print-only">{{this.issueDate ? this.issueDate[i].issueDate : ''}}</span>,
+                                <span class="print-only">{{this.issueDate ? this.issueDate[i].issueDate : '______________________'}}</span>,
                                 <input class="form-field form-control-sm d-print-none"
                                        name="authorizedIdentity"
                                        [value]="partner?.indianOwnerAdharCardIssuedFromCT"
                                        placeholder=" "
                                        type="text"/>
-                                <span class="print-only">{{partner ? partner?.indianOwnerAdharCardIssuedFromCT : ''}}</span>),
+                                <span class="print-only">{{partner ? partner?.indianOwnerAdharCardIssuedFromCT : '______________________'}}</span>),
                             </ng-container>
                             <ng-container *ngIf="partner?.ownerNationality === 'Indian' &&
                                  partner?.indianOwnerDetailOption === 'Embassy Certificate'">
@@ -247,19 +247,19 @@
                                                     [value]="partner?.indianEmbassyNoCT"
                                                     placeholder=" "
                                                     type="text"/>
-                                <span class="print-only">{{partner ? partner?.indianEmbassyNoCT : ''}}</span>
+                                <span class="print-only">{{partner ? partner?.indianEmbassyNoCT : '______________________'}}</span>
                                 जारी मिति <input class="form-field form-control-sm d-print-none"
                                                  name="issueDateOfPartner"
                                                  [value]="this.issueDate[i].issueDate"
                                                  placeholder=" "
                                                  type="text"/>
-                                <span class="print-only">{{this.issueDate ? this.issueDate[i].issueDate : ''}}</span>,
+                                <span class="print-only">{{this.issueDate ? this.issueDate[i].issueDate : '______________________'}}</span>,
                                 <input class="form-field form-control-sm d-print-none"
                                        name="indianEmbassyIssuedFromCT"
                                        [value]="partner?.indianEmbassyIssuedFromCT"
                                        placeholder=" "
                                        type="text"/>
-                                <span class="print-only">{{partner ? partner?.indianEmbassyIssuedFromCT : ''}}</span>),
+                                <span class="print-only">{{partner ? partner?.indianEmbassyIssuedFromCT : '______________________'}}</span>),
                             </ng-container>
                         </ng-container>
                         आगे मेरो/हाम्रो नाममा तपाई धनी बैंकबाट मेरो/हाम्रो
@@ -276,13 +276,13 @@
                                   formControlName="loanAmountInFigure"
                                   placeholder="ऋण रकम"
                                   type="text"/>
-                        <span class="print-only">{{this.finalAmount ? this.finalAmount : ''}}</span>।
+                        <span class="print-only">{{this.finalAmount ? this.finalAmount : '______________________'}}</span>/-
                         (अक्षरेपी <input class="form-field form-control-sm outside disable-print col-2"
                                          name="loanAmountInWords"
                                          formControlName="loanAmountInWords"
                                          placeholder="रकम"
                                          type="text"/>
-                        <span class="print-only">{{this.loanAmountWord ? this.loanAmountWord : ''}}</span> मात्र)
+                        <span class="print-only">{{this.loanAmountWord ? this.loanAmountWord : '______________________'}}</span> मात्र)
                         सम्मको विभिन्न ऋण कर्जा तथा बैकिङ्ग सुविधा स्वीकृत भएको हुँदा हामीले सो सिमा (Limit) भित्र रही
                         हाल उपयोग गरिरहेको वा पछि उपयोग गर्ने उल्लेखित ऋणकर्जा तथा बैकिङ्ग सुविधा र सोमा तपाई धनी बैंकको
                         नियमानुसार लाग्ने व्याज, फि, कमिशन, पेनाल्टी, दस्तुर, ऋण असूलीमा हुने खर्च लगायतका अन्य सम्पूर्ण
@@ -301,7 +301,7 @@
                                formControlName="sanctionLetterIssuedDate"
                                placeholder=" "
                                type="text"/>
-                        <span class="print-only">{{this.sanctionDate ? this.sanctionDate : ''}}</span>
+                        <span class="print-only">{{this.sanctionDate ? this.sanctionDate : '______________________'}}</span>
                         को ऋण स्वीकृति पत्रमा चुक्ता गर्नुपर्ने भनेको म्यादभित्र वा उल्लेखित ऋणकर्जा तथा बैकिङ्ग सुविधा
                         नवीकरण भएको खण्डमा नवीकरण गर्ने ऋण प्रस्ताव पत्रले चुक्ता गर्नुपर्ने भनेको म्याद भित्र वा सो
                         भन्दा अगावै तपाई धनी बैंकबाट माग भएमा माग गरेको भाखा भित्र नबुझाएमा वा सोको भाखा म्याद नाघेमा वा
