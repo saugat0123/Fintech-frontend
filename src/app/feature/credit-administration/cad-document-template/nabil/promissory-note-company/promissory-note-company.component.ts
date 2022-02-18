@@ -577,7 +577,8 @@ export class PromissoryNoteCompanyComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.loanHolderNepData.radioActYearDate.np) && (this.loanHolderNepData.radioActYearDate.np === 'BS')) {
       yearOfAct = this.loanHolderNepData.actYear.np ? this.loanHolderNepData.actYear.np : '';
     } else {
-      yearOfAct = this.loanHolderNepData.actYear.en ? this.loanHolderNepData.actYear.en : '' ;
+      yearOfAct = this.engToNepNumberPipe.transform(this.loanHolderNepData.actYear.en ?
+          this.loanHolderNepData.actYear.en : this.loanHolderNepData.actYear.en, true) || '';
     }
     return yearOfAct ? yearOfAct : '';
   }
