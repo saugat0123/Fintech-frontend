@@ -37,6 +37,7 @@ import {PreviousSecuritySummaryComponent} from '../../../loan-information-view/p
 import {NepaliPatroModule} from 'nepali-patro';
 import {SignatureSectionComponent} from './signature-section/signature-section.component';
 import { CreditFacilityReportComponent } from './credit-facility-report/credit-facility-report.component';
+import { SmeLoanSummaryComponent } from './sme-loan-summary/sme-loan-summary.component';
 
 
 
@@ -66,7 +67,7 @@ const COMPONENTS = [
 const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
 
 @NgModule({
-    declarations: [...COMPONENTS, ApprovalSheetConfigComponent, ApprovalSheetInfoComponent, ApprovalSheetDocumentListComponent, MGroupSummaryComponent, CommentsSummaryComponent, PreviousSecuritySummaryComponent, SignatureSectionComponent, CreditFacilityReportComponent],
+    declarations: [...COMPONENTS, ApprovalSheetConfigComponent, ApprovalSheetInfoComponent, ApprovalSheetDocumentListComponent, MGroupSummaryComponent, CommentsSummaryComponent, PreviousSecuritySummaryComponent, SignatureSectionComponent, CreditFacilityReportComponent, SmeLoanSummaryComponent],
     imports: [
         CommonModule,
         ThemeModule,
@@ -102,7 +103,8 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
         PreviousSecuritySummaryComponent,
         RoleHierarchyChainComponent,
         SignatureSectionComponent,
-        CreditFacilityReportComponent
+        CreditFacilityReportComponent,
+        SmeLoanSummaryComponent
     ],
     entryComponents: [...ENTRY_COMPONENTS]
 })
