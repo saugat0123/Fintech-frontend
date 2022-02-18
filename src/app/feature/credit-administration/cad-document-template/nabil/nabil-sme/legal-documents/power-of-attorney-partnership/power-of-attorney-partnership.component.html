@@ -10,7 +10,13 @@
                     <div class="col-md-12 mt-5 d-flex justify-content-between" style="margin-left: -11px">
                         <div class="right-content"></div>
                         <div class="left-content">
-                            मिति: .........../.........../...........
+                            मिति: <input
+                                class="form-field disable-print form-control-sm nepaliFont"
+                                name="date"
+                                formControlName="date"
+                                placeholder="मिति"
+                                type="text"/>
+                            <span class=" print-only font-weight-bold nepaliFont">{{form.get('date').value ? form.get('date').value : "====================================="}}</span><br>
                         </div>
                     </div>
                     <p class="mt-2">

@@ -201,6 +201,7 @@ export class PowerOfAttorneyCompanyComponent implements OnInit {
       nameOfBankStaff: [this.freeText ? this.freeText.nameOfBankStaff : ''],
       authorizedBodyName: [undefined],
       freeTextArray: this.formBuilder.array([]),
+      date: [undefined],
     });
   }
   patchData() {
@@ -244,7 +245,8 @@ export class PowerOfAttorneyCompanyComponent implements OnInit {
       sakshiName2: this.powerOfAttorneyCompanyForm.get('sakshiName2').value ? this.powerOfAttorneyCompanyForm.get('sakshiName2').value : '',
       nameOfBankStaff: this.powerOfAttorneyCompanyForm.get('nameOfBankStaff').value ? this.powerOfAttorneyCompanyForm.get('nameOfBankStaff').value : '',
       authorizedBodyName: this.powerOfAttorneyCompanyForm.get('authorizedBodyName').value ? this.powerOfAttorneyCompanyForm.get('authorizedBodyName').value : '',
-      freeTextArray: this.savedFreeText
+      freeTextArray: this.savedFreeText,
+      date: this.powerOfAttorneyCompanyForm.get('date').value ? this.powerOfAttorneyCompanyForm.get('date').value : '',
     };
     return JSON.stringify(free);
   }
