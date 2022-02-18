@@ -1254,6 +1254,16 @@
                                                   type="text">
                                        </div>
                                    </div>
+                                   <div class="col-md-4" *ngIf="client !== clientName.MEGA">
+                                       <div class="form-group">
+                                           <label for="contactNumber"><strong>Net Worth</strong></label>
+                                           <input
+                                                  class="form-control" formControlName="netWorth" id="netWorth"
+                                                  name="netWorth"
+                                                  placeholder="Net Worth"
+                                                  type="text">
+                                       </div>
+                                   </div>
                                </div>
                                <hr>
                                <div *ngIf="client != clientName.MEGA">
