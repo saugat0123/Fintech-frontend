@@ -335,14 +335,14 @@ export class LoanDeedProprietorshipComponent implements OnInit {
     });
     this.finalAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoan));
     this.loanAmountWord = this.nepaliCurrencyWordPipe.transform(totalLoan);
-
+    console.log('individual info ::', this.individualData);
     // for date conversion of registration date
     if (!ObjectUtil.isEmpty(this.individualData.registrationDateOption)) {
       if (this.individualData.registrationDateOption.en === 'AD') {
         this.registrationDate = this.engToNepaliDate.transform(this.individualData.registrationDate ?
             this.individualData.registrationDate.en : this.individualData.registrationDate.en, true) || '';
       } else {
-        this.registrationDate = this.individualData.registrationDate.en ? this.individualData.registrationDate.en.nDate : '';
+        this.registrationDate = this.individualData.registrationDateNepali.en ? this.individualData.registrationDateNepali.en.nDate : '';
       }
     }
     if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
@@ -1276,7 +1276,7 @@ export class LoanDeedProprietorshipComponent implements OnInit {
       nameOfAuthorizedBody: !ObjectUtil.isEmpty(this.individualData.authorizedBodyName) ?
           this.individualData.authorizedBodyName.ct : this.nameOfAuthorizedBody,
       nameOfDepartment: this.individualData.registeredWith ? this.individualData.registeredWith.ct : '',
-      dateOfRegistration: this.setRegistrationDate(),
+      dateOfRegistration: this.registrationDate,
       registrationNo: this.individualData.registrationNo ? this.individualData.registrationNo.ct : '',
       firmName: this.individualData.name ? this.individualData.name.ct : '',
       loanAmountInFigure: this.finalAmount ? this.finalAmount : '',
@@ -1308,16 +1308,6 @@ export class LoanDeedProprietorshipComponent implements OnInit {
     return this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(value));
   }
 
-  setRegistrationDate() {
-    let regDate = '';
-    if (this.individualData.registrationDateOption.en === 'AD') {
-      regDate = this.engToNepaliDate.transform(this.individualData.registrationDate.en ?
-          this.individualData.registrationDate.en : this.individualData.registrationDate.en, true) || '' ;
-    } else {
-      regDate = this.individualData.registrationDate.en.nDate ? this.individualData.registrationDate.en.nDate : '';
-    }
-    return regDate ? regDate : '';
-  }
   setLoanPurpose() {
     let loanKoPurpose = '';
     if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'DDSL Without Subsidy') {
