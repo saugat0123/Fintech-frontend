@@ -19,7 +19,7 @@
                 <th>Loan Facility</th>
                 <th>Proposed Limit</th>
                 <th>Existing Limit</th>
-                <th>Outstanding Limit</th>
+                <th>Outstanding Balance</th>
                 <th>Type</th>
                 <th>Created On(AD/BS)</th>
                 <th>Last Modified Date</th>
@@ -188,7 +188,7 @@
                 <th>Loan Facility</th>
                 <th>Proposed Limit</th>
                 <th>Existing Limit</th>
-                <th>Outstanding Limit</th>
+                <th>Outstanding Balance</th>
                 <th>Type</th>
                 <th>Status</th>
                 <th>Loan Nature</th>
@@ -203,7 +203,7 @@
             <tr  class="sb-bg-secondary text-white">
                 <td></td>
                 <td>Funded</td>
-                <td class="text-right pr-1">Rs. {{fundedProposedTotal}}</td>
+                <td class="text-right pr-1">Rs. {{fundedProposedTotal + approvedFundedProposedTotal}}</td>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -224,8 +224,8 @@
                 <td>{{loanData?.documentStatus}}</td>
                 <td>{{loanData?.loan?.loanNature}}</td>
                 <td>{{loanData?.proposal?.cashMarginOrFac}}</td>
-                <td>{{loanData?.loan?.createdAt|date}}</td>
-                <td>{{loanData?.loan?.lastModifiedAt|date}}</td>
+                <td>{{loanData?.loan?.createdAt|engNepDate: false}}</td>
+                <td>{{loanData?.loan?.lastModifiedAt|engNepDate: false}}</td>
                 <td>{{loanData?.proposal?.collateralRequirement}}%</td>
                 <td>{{(loanData?.proposal?.collateralRequirement * loanData?.proposal?.proposedLimit)/100}}</td>
                 <td></td>
@@ -240,8 +240,8 @@
                 <td>{{data?.documentStatus}}</td>
                 <td>{{data?.loan?.loanNature}}</td>
                 <td>{{data?.proposal?.cashMarginOrFac}}</td>
-                <td>{{data?.proposal?.createdAt|date}}</td>
-                <td>{{data?.proposal?.lastModifiedAt | date}}</td>
+                <td>{{data?.proposal?.createdAt|engNepDate: false}}</td>
+                <td>{{data?.proposal?.lastModifiedAt | engNepDate: false}}</td>
                 <td>{{data?.proposal?.collateralRequirement}}%</td>
                 <td>{{(data?.proposal?.collateralRequirement * data?.proposal?.proposedLimit)/100}}</td>
             </tr>
@@ -249,7 +249,7 @@
                 <tr class="sb-bg-secondary text-white">
                     <td></td>
                     <td>Non Funded</td>
-                    <td class="text-right pr-1">Rs. {{NonFundedProposedTotal}}</td>
+                    <td class="text-right pr-1">Rs. {{NonFundedProposedTotal + approvedNonFundedProposedTotal}}</td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -271,14 +271,14 @@
                 <td>{{loanData?.documentStatus}}</td>
                 <td>{{loanData?.loan?.loanNature}}</td>
                 <td>{{loanData?.proposal?.cashMarginOrFac}}</td>
-                <td>{{loanData?.loan?.createdAt|date}}</td>
-                <td>{{loanData?.loan?.lastModifiedAt|date}}</td>
+                <td>{{loanData?.loan?.createdAt|engNepDate: false}}</td>
+                <td>{{loanData?.loan?.lastModifiedAt|engNepDate: false}}</td>
                 <td>{{loanData?.proposal?.collateralRequirement}}%</td>
                 <td>{{(loanData?.proposal?.collateralRequirement * loanData?.proposal?.proposedLimit)/100}}</td>
                 <td></td>
             </tr>
             <tr *ngFor="let data of nonFundedListFromDto; let i=index">
-                <td>{{i+2}}</td>
+                <td>{{i+1}}</td>
                 <td>{{data?.name}}</td>
                 <td>{{data?.proposal.proposedLimit}}</td>
                 <td>{{data?.proposal.proposedLimit}}</td>
@@ -291,6 +291,15 @@
                 <td>{{data?.proposal?.lastModifiedAt |date}}</td>
                 <td>{{data?.proposal?.collateralRequirement}}%</td>
                 <td>{{(data?.proposal?.collateralRequirement * data?.proposal?.proposedLimit)/100}}</td>
+            </tr>
+            <tr class="sb-bg-secondary text-white">
+                <td></td>
+                <td>Total</td>
+                <td class="text-right pr-1">Rs. {{totalProposedAmount | currencyFormatter}} </td>
+                <td> Rs {{existingLimitTotal | currencyFormatter}}</td>
+                <td> Rs {{outstandingLimitTotal | currencyFormatter}}</td>
+                <td colspan="7"></td>
+                <td class="text-right pr-1">Rs. {{totalCollateralView| currencyFormatter}}</td>
             </tr>
 
             </tbody>
