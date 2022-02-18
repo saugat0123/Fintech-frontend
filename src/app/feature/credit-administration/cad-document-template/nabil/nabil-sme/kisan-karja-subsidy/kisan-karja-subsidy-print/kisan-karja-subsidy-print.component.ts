@@ -77,7 +77,7 @@ export class KisanKarjaSubsidyPrintComponent implements OnInit {
       this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
       this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
       this.customerAddress = this.loanHolderInfo.registeredMunicipality.ct + '-' +
-          this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.registeredDistrict.ct + ' ,' +
+          this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.registeredDistrict.ct + ', ' +
           this.loanHolderInfo.registeredProvince.ct;
       this.branchName = this.loanHolderInfo.branch.ct;
     }
