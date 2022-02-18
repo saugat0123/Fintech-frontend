@@ -32,7 +32,7 @@ export class KisanKarjaSubsidyComponent implements OnInit {
     selectedArray = [];
     afterSave = false;
     autoPopulate1 = 'सम्पर्क अधिकृत';
-    autoPopulate2 = 'शाखा प्रबन्धक/बरिष्ठ सम्पर्क प्रबन्धक';
+    autoPopulate2 = 'शाखा प्रबन्धक÷बरिष्ठ सम्पर्क प्रबन्धक';
     kisanKarjaSubsidy: FormGroup;
     spinner = false;
     @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
@@ -86,6 +86,7 @@ export class KisanKarjaSubsidyComponent implements OnInit {
             // tslint:disable-next-line:max-line-length
             this.offerDocumentDetails = this.cadOfferLetterApprovedDoc.offerDocumentList[0] ? JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation) : '';
         }
+        console.log('this.offerDocumentDetails', this.offerDocumentDetails);
         this.checkOfferLetterData();
         /* this.guarantorDetails();*/
     }
@@ -118,7 +119,7 @@ export class KisanKarjaSubsidyComponent implements OnInit {
             plotNo: [undefined],
             area: [undefined],
             nameOfPersonalGuarantor: [undefined],
-            rateNrbCircular: [undefined],
+           // rateNrbCircular: [undefined],
             relationshipOfficerName: [undefined],
             branchName: [undefined],
             branchManager: [undefined],
@@ -134,6 +135,11 @@ export class KisanKarjaSubsidyComponent implements OnInit {
             eighthAdditionalDetails: [undefined],
             autoPopulate1: [undefined],
             autoPopulate2: [undefined],
+            sakshiDistrict: [undefined],
+            sakshiMunicipality: [undefined],
+            sakshiWardNo: [undefined],
+            sakshiName: [undefined],
+            staffName: [undefined],
         });
     }
 
@@ -239,7 +245,7 @@ export class KisanKarjaSubsidyComponent implements OnInit {
             // purposeOfLoan: this.tempData.purposeOfLoan ? this.tempData.purposeOfLoan.ct : '',
             drawingPower: this.tempData.marginInPercentage ? this.tempData.marginInPercentage.ct : '',
             commitmentFee: this.tempData.commitmentFee ? this.tempData.commitmentFee.ct : '',
-            rateNrbCircular: this.tempData.circularRate ? this.tempData.circularRate.ct : '',
+           // rateNrbCircular: this.tempData.circularRate ? this.tempData.circularRate.ct : '',
             baseRate: this.tempData.baseRate ? this.tempData.baseRate.ct : '',
             premiumRate: this.tempData.premiumRate ? this.tempData.premiumRate.ct : '',
             yearlyInterestRate: this.tempData.interestRate ? this.tempData.interestRate.ct : '',
@@ -269,6 +275,11 @@ export class KisanKarjaSubsidyComponent implements OnInit {
             totalTenureOfLoan: this.tempData.totalTenureOfLoan ? this.tempData.totalTenureOfLoan.ct : '',
             typeOfLoan: this.tempData.repaymentType ? this.tempData.repaymentType.ct : '',
             serviceCharge: this.tempData.serviceCharge ? this.tempData.serviceCharge.ct : '',
+            sakshiDistrict: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.sakshiDistrict : '',
+            sakshiMunicipality: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.sakshiMunicipality : '',
+            sakshiWardNo: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.sakshiWardNo : '',
+            sakshiName: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.sakshiName : '',
+            staffName: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.staffName : '',
         });
 
     }
@@ -335,6 +346,11 @@ export class KisanKarjaSubsidyComponent implements OnInit {
             eighthText: this.kisanKarjaSubsidy.get('eighthAdditionalDetails').value,
             autoPopulate1: !ObjectUtil.isEmpty(this.kisanKarjaSubsidy.get('autoPopulate1').value) ? this.kisanKarjaSubsidy.get('autoPopulate1').value : this.autoPopulate1,
             autoPopulate2: !ObjectUtil.isEmpty(this.kisanKarjaSubsidy.get('autoPopulate2').value) ? this.kisanKarjaSubsidy.get('autoPopulate2').value : this.autoPopulate2,
+            sakshiDistrict: this.kisanKarjaSubsidy.get('sakshiDistrict').value,
+            sakshiMunicipality: this.kisanKarjaSubsidy.get('sakshiMunicipality').value,
+            sakshiWardNo: this.kisanKarjaSubsidy.get('sakshiWardNo').value,
+            sakshiName: this.kisanKarjaSubsidy.get('sakshiName').value,
+            staffName: this.kisanKarjaSubsidy.get('staffName').value,
         };
     }
 
