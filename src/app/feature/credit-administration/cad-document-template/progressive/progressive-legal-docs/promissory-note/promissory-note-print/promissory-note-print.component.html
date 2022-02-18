@@ -6,7 +6,7 @@
                 (PROMISSORY NOTE)</h6></strong>
 
             <div class="row">
-                <p style="line-height: 1.6">
+                <p style="line-height: normal">
                     लिखितम् <span
                         [ngClass]="{'nepaliFont unicode-size' : printDocForm?.grandParentName !== null && printDocForm?.grandParentName !== ''}">
     {{printDocForm?.grandParentName === null || printDocForm?.grandParentName === '' ? '_________________' : printDocForm?.grandParentName}}</span>को
@@ -48,8 +48,7 @@
         </span>
                     गा.पा./न.पा./म.न.पा., वडा न. <span
                         [ngClass]="{'nepaliFont':printDocForm?.tempWardNo!==null && printDocForm?.tempWardNo!==''}">
-          {{printDocForm.tempWardNo === null || printDocForm.tempWardNo === '' ? '_______________' : printDocForm?.tempWardNo}}
-        </span>,
+          {{printDocForm.tempWardNo === null || printDocForm.tempWardNo === '' ? '_______________' : printDocForm?.tempWardNo}}</span>,
                     बस्ने बर्ष <span [ngClass]="{'nepaliFont':printDocForm?.age!==null && printDocForm?.age!==''}">
           {{printDocForm.age === null || printDocForm.age === '' ? '_______________' : printDocForm?.age}}
         </span>को
@@ -65,8 +64,7 @@
         </span>
                         <strong>जि.प्र.का.</strong> <span
                                 [ngClass]="{'nepaliFont unicode-size':printDocForm?.cdoOffice!==null && printDocForm?.cdoOffice!==''}">
-          {{printDocForm.cdoOffice === null || printDocForm.cdoOffice === '' ? '_______________' : printDocForm?.cdoOffice}}
-        </span><strong>)</strong>
+          {{printDocForm.cdoOffice === null || printDocForm.cdoOffice === '' ? '_______________' : printDocForm?.cdoOffice}}</span><strong>)</strong>
                     ले यस <strong> प्रोग्रेशिभ फाईनान्स लिमिटेड</strong> <span
                         [ngClass]="{'nepaliFont uniFont':printDocForm?.branchName!==null && printDocForm?.branchName!==''}">
           {{printDocForm.branchName === null || printDocForm.branchName === '' ? '_______________' : printDocForm?.branchName}}
@@ -106,8 +104,7 @@
         </span>
                             <strong>जि.प्र.का.</strong> <span
                                     [ngClass]="{'nepaliFont unicode-size':printDocForm?.cdoOffice!==null && printDocForm?.cdoOffice!==''}">
-          {{printDocForm.cdoOffice === null || printDocForm.cdoOffice === '' ? '_______________' : printDocForm?.cdoOffice}}
-        </span> <strong>)</strong></td>
+          {{printDocForm.cdoOffice === null || printDocForm.cdoOffice === '' ? '_______________' : printDocForm?.cdoOffice}}</span><strong>)</strong></td>
                     </tr>
                     <tr>
                         <td class="text-right">स्थायी ठेगाना :-</td>
@@ -161,7 +158,7 @@
         </span></td>
                     </tr>
                     <tr>
-                        <td class="text-right"><strong>औठा छाप</strong></td>
+                        <td class="text-right" style="vertical-align: top"><strong>औठा छाप</strong></td>
                         <td><table class="table  table-bordered fingerXap">
                             <thead>
                             <tr>
