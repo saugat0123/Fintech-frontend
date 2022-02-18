@@ -194,11 +194,11 @@
                         <input class="form-control" formControlName="totalTenureOfLoan" fullWidth id="totalTenureOfLoan"
                                nbInput status="success" type="number">
                     </div>
-                    <div class="form-group">
-                        <label for="commitmentFee">Total Commitment Fee (%)</label>
-                        <input class="form-control" formControlName="commitmentFee" fullWidth id="commitmentFee"
-                               nbInput status="success" type="number">
-                    </div>
+<!--                    <div class="form-group">-->
+<!--                        <label for="commitmentFee">Total Commitment Fee (%)</label>-->
+<!--                        <input class="form-control" formControlName="commitmentFee" fullWidth id="commitmentFee"-->
+<!--                               nbInput status="success" type="number">-->
+<!--                    </div>-->
                     <div class="form-group">
                         <label for="nameOfStaff">Name of ARO/RO/RM/ARM</label>
                         <input class="form-control" formControlName="nameOfStaff" fullWidth id="nameOfStaff"
@@ -355,12 +355,12 @@
                                id="totalTenureOfLoanTrans"
                                nbInput status="success" type="text" readonly>
                     </div>
-                    <div class="form-group">
-                        <label for="commitmentFeeTrans">Total Commitment Fee (%) Translation </label>
-                        <input class="form-control" formControlName="commitmentFeeTrans" fullWidth
-                               id="commitmentFeeTrans"
-                               nbInput status="success" type="text" readonly>
-                    </div>
+<!--                    <div class="form-group">-->
+<!--                        <label for="commitmentFeeTrans">Total Commitment Fee (%) Translation </label>-->
+<!--                        <input class="form-control" formControlName="commitmentFeeTrans" fullWidth-->
+<!--                               id="commitmentFeeTrans"-->
+<!--                               nbInput status="success" type="text" readonly>-->
+<!--                    </div>-->
                     <div class="form-group">
                         <label for="nameOfStaffTrans">Name of ARO/RO/RM/ARM Translation </label>
                         <input class="form-control" formControlName="nameOfStaffTrans" fullWidth id="nameOfStaffTrans"
@@ -611,16 +611,16 @@
                             Total Tenure of Loan is required
                         </span>
                     </div>
-                    <div class="form-group">
-                        <label for="commitmentFeeCT">Total Commitment Fee (%) CT</label>
-                        <input [ngClass]="{ 'is-invalid':submitted && FormControls.commitmentFeeCT.errors }"
-                               class="form-control" formControlName="commitmentFeeCT" fullWidth id="commitmentFeeCT"
-                               nbInput status="success"
-                               type="text">
-                        <span *ngIf="submitted && FormControls.commitmentFeeCT.invalid" class="text-danger">
-                            Total Commitment Fee is required
-                        </span>
-                    </div>
+<!--                    <div class="form-group">-->
+<!--                        <label for="commitmentFeeCT">Total Commitment Fee (%) CT</label>-->
+<!--                        <input [ngClass]="{ 'is-invalid':submitted && FormControls.commitmentFeeCT.errors }"-->
+<!--                               class="form-control" formControlName="commitmentFeeCT" fullWidth id="commitmentFeeCT"-->
+<!--                               nbInput status="success"-->
+<!--                               type="text">-->
+<!--                        <span *ngIf="submitted && FormControls.commitmentFeeCT.invalid" class="text-danger">-->
+<!--                            Total Commitment Fee is required-->
+<!--                        </span>-->
+<!--                    </div>-->
                     <div class="form-group">
                         <label for="nameOfStaffCT">Name of ARO/RO/RM/ARM CT</label>
                         <input [ngClass]="{ 'is-invalid':submitted && FormControls.nameOfStaffCT.errors }"
