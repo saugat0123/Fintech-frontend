@@ -818,6 +818,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
             nepData.guarantorPermanentMunicipalityOrVdc ? nepData.guarantorPermanentMunicipalityOrVdc.en = this.userConfigForm.get(['guarantorDetails', index, 'guarantorPermanentMunicipalityOrVdc']).value : '';
             nepData.guarantorTemporaryMunicipalityOrVdc ? nepData.guarantorTemporaryMunicipalityOrVdc.en = this.userConfigForm.get(['guarantorDetails', index, 'guarantorTemporaryMunicipalityOrVdc']).value : '';
             nepData.guarantorNationality ? nepData.guarantorNationality =  this.userConfigForm.get(['guarantorDetails', index, 'guarantorNationality']).value : '';
+            nepData.radioCitizenIssuedDate ? nepData.radioCitizenIssuedDate =  this.userConfigForm.get(['guarantorDetails', index, 'radioCitizenIssuedDate']).value : '';
 
             // test-------
 
@@ -3700,14 +3701,14 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
             //         this.institutionalActYear = undefined;
             //     }
             // }
-            let registrationDate: any;
+            /*let registrationDate: any;
             if (this.customerType === CustomerType.INSTITUTION) {
                 if (this.nepData.registrationDateOption.en === 'BS') {
                     registrationDate = this.nepData.registrationDate.en;
                 } else {
                     registrationDate = this.oneFormCustomer.establishmentDate;
                 }
-            }
+            }*/
             this.userConfigForm.patchValue({
                 panNo: ObjectUtil.isEmpty(nepData.panNo) ? undefined : nepData.panNo.en,
                 branchCT: ObjectUtil.isEmpty(nepData.branch) ? undefined : nepData.branch.ct,
