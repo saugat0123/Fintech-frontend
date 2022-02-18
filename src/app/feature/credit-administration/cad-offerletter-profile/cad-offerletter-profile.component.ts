@@ -70,6 +70,7 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
     toggleArray: { toggled: boolean }[] = [];
 
     roleType = LocalStorageUtil.getStorage().roleType;
+    productUtils = LocalStorageUtil.getStorage().productUtil;
 
     ngOnInit() {
         this.initial();

@@ -16,7 +16,7 @@ export class IcfcOfferLetterComponent implements OnInit {
 
     constructor(
         private dialogRef: NbDialogRef<IcfcOfferLetterComponent>,
-        private modalService: NgbModal,) {
+        private modalService: NgbModal) {
     }
 
     ngOnInit() {

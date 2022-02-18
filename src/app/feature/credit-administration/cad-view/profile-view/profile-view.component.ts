@@ -44,7 +44,7 @@ export class ProfileViewComponent implements OnInit {
     roleType = LocalStorageUtil.getStorage().roleType;
     offerLetterConst = ExcelOfferLetterConst;
     responseCadData: EventEmitter<CustomerApprovedLoanCadDocumentation> = new EventEmitter<CustomerApprovedLoanCadDocumentation>();
-
+    productUtils = LocalStorageUtil.getStorage().productUtil;
     constructor(
         public commonService: CommonService,
         public routerUtilsService: RouterUtilsService,
