@@ -62,6 +62,7 @@ export class CiclComponent implements OnInit {
   ngOnInit() {
     if (!ObjectUtil.isEmpty(this.ciclValue)) {
       this.ciclList = JSON.parse(this.ciclValue.data);
+      this.setCheckedData(JSON.parse(this.ciclValue.checkedData));
     } else {
       this.ciclValue = new CiclArray();
     }
@@ -216,6 +217,10 @@ export class CiclComponent implements OnInit {
     this.ciclValue.remarks = this.ciclForm.get('ciclRemarks').value === undefined ? '' : this.ciclForm.get('ciclRemarks').value;
     this.ciclValue.cibCharge = this.ciclForm.get('cibCharge').value === undefined ? '' : this.ciclForm.get('cibCharge').value;
     this.ciclValue.cibDate = this.ciclForm.get('cibDate').value === undefined ? '' : this.ciclForm.get('cibDate').value;
+      const mergeChecked = {
+          chargeChecked: this.chargeChecked,
+      };
+    this.ciclValue.checkedData = JSON.stringify(mergeChecked);
     this.ciclValue.data = JSON.stringify(this.ciclList);
     this.ciclDataEmitter.emit(this.ciclValue);
   }
@@ -233,6 +238,12 @@ export class CiclComponent implements OnInit {
             this.chargeChecked = true;
         } else {
             this.chargeChecked = false;
+        }
+    }
+
+    setCheckedData(data) {
+        if (!ObjectUtil.isEmpty(data)) {
+            this.checkChecked(data['chargeChecked']);
         }
     }
 }

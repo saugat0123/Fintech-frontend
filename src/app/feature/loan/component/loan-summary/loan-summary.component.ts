@@ -252,7 +252,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             this.financialData = this.loanDataHolder.financial;
             if (!ObjectUtil.isEmpty(this.financialData)) {
                 this.incomeDataOnly = JSON.parse(this.financialData.data);
-                console.log('incomeDataOnly', this.incomeDataOnly);
             }
         }
 
@@ -386,7 +385,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         if (!ObjectUtil.isEmpty(this.loanDataHolder.proposal)) {
             this.proposalData = this.loanDataHolder.proposal;
             this.proposalView = JSON.parse(this.proposalData.data);
-            console.log('proposalData.data: ', this.proposalView);
             this.proposalSummary = true;
         }
 
@@ -489,6 +487,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                         console.error(err);
                     });
                 }
+                console.log('customerAllLoanList', this.customerAllLoanList);
                 this.customerLoanList.emit(this.customerAllLoanList);
             }, error => {
                 console.error(error);

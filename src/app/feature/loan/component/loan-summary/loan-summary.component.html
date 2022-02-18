@@ -808,37 +808,35 @@
                 </div>
             </div>
 
-            <div class="row mt-3">
+            <div class="row">
                 <div class="col-md-12">
                     <p><strong>Recommendation: </strong></p>
                     <table class="table table-bordered table-responsive-md table-sm sb-small text-center">
                         <thead>
                         <tr>
-                            <th class="text-center" colspan="6">Recommend as Follows</th>
+                            <th class="text-left" colspan="6">Recommend as Follows</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
                             <td>
-                                Proposal: The client has requested us to provide {{proposalView?.proposedLimit}}<br>
-                            </td>
-                            <td *ngFor="let cl of customerAllLoanList">
-                                <span>Pricing:</span> <br>
-                                <span>Interest: {{(cl?.proposal?.data | jsonParse)?.interestRate}} % p.a (BR + 0.59%)</span> <br>
-                                Loan Administrative Fee: {{(cl?.proposal?.data | jsonParse)?.serviceCharge}} % of the approve limit
-                                CIC charge: On actual basis
-                                Prepayment Charge: As per NRB
-                                Swap Charge: AS per NRB
+                                <p>Proposal:</p>
+                                <p>The client has requested us to provide Rs. <b>{{proposalView?.proposedLimit}}</b></p>
                             </td>
                         </tr>
-                        <tr>
-
+                        <tr *ngFor="let cl of customerAllLoanList" class="text-left pl-1">
+                            <td>
+                                <span>Pricing: {{cl?.loan?.name}}</span> <br>
+                                <span>Interest: <b>{{(cl?.proposal?.data | jsonParse)?.interestRate}}</b> % p.a (BR + 0.59%)</span> <br>
+                                Loan Administrative Fee: <b>{{(cl?.proposal?.data | jsonParse)?.serviceCharge}}</b> % of the approve limit
+                                <br>
+                                CIC charge: <b>{{(cl?.loanHolder?.cicl.data | jsonParse)?.cibCharge}}</b> <br>
+                                Prepayment Charge: <b>{{(cl?.proposal?.data | jsonParse)?.prepaymentCharge}}</b> <br>
+                                Swap Charge: <b>{{(cl?.proposal?.data | jsonParse)?.swapCharge}}</b>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
-                    <!-- <p class="border text-justify p-1">
-                        {{proposalView?.summeryRecommendation}}
-                    </p> -->
                     <span [innerHTML]="proposalView?.summeryRecommendation || 'N/A' | safeHtml"></span>
                 </div>
             </div>
