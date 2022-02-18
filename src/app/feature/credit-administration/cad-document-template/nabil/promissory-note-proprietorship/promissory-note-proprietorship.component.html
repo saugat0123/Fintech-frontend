@@ -25,7 +25,7 @@
                                               type="text"/>
                                     <span class="print-only font-weight-bold">
                                         {{(this.tempData.smeGlobalForm && this.tempData.smeGlobalForm.totalLimitInFigureCT ) ?
-                                        this.tempData.smeGlobalForm.totalLimitInFigureCT : '_________________'}}</span>।
+                                        this.tempData.smeGlobalForm.totalLimitInFigureCT : '_________________'}}</span>/-
                                     (अक्षरेपी <input class="form-field form-control-sm outside disable-print col-2"
                                                      name="loanAmountInWords"
                                                      formControlName="loanAmountInWords"
@@ -88,8 +88,7 @@
                                 <ng-container *ngIf="this.individualData?.registeredMunType === '1'"> गा.वि.स.
                                 </ng-container>
                                 <ng-container *ngIf="this.individualData?.registeredMunType === '2'"> गाँउपालिका
-                                </ng-container>
-                                , वडा नं <input class="form-field form-control-sm d-print-none"
+                                </ng-container>, वडा नं <input class="form-field form-control-sm d-print-none"
                                                 name="wardNoOfFirm"
                                                 formControlName="wardNoOfFirm"
                                                 placeholder=" "
@@ -200,9 +199,9 @@
                                                       type="text"/>
                                     <span class="print-only font-weight-bold">
                                         {{ageArray[i] ? ageArray[i] : '__________'}}</span>
-                                    <ng-container *ngIf="partner?.ownerGender === 'MALE'"> को </ng-container>
+                                    <ng-container *ngIf="partner?.ownerGender === 'MALE' || partner?.ownerGender === 'OTHERS'"> को </ng-container>
                                     <ng-container *ngIf="partner?.ownerGender === 'FEMALE'"> की </ng-container>
-                                    <ng-container *ngIf="partner?.ownerGender === 'MALE'"> श्री </ng-container>
+                                    <ng-container *ngIf="partner?.ownerGender === 'MALE' || partner?.ownerGender === 'OTHERS'"> श्री </ng-container>
                                     <ng-container
                                             *ngIf="partner?.ownerGender === 'FEMALE' && partner?.ownerRelationMedium === '0'">
                                         श्रीमती
@@ -269,8 +268,7 @@
                                                                placeholder=" "
                                                                type="text"/>
                                             <span class="print-only font-weight-bold">{{partner ? partner?.ownerCitizenshipNoCT : ''}}</span>
-                                        </span>
-                                        , जारी मिति <input class="form-field form-control-sm d-print-none"
+                                        </span>, जारी मिति <input class="form-field form-control-sm d-print-none"
                                                     name="issueDateOfPartner"
                                                     [value]="dateArray[i] ? dateArray[i] : ''"
                                                     placeholder=" "
@@ -278,8 +276,7 @@
                                         <span class="print-only font-weight-bold">
                                             {{dateArray[i] ? dateArray[i] : ''}}</span>
                                         <span *ngIf="(partner?.ownerNationality === 'Indian' && partner?.indianOwnerDetailOption === 'Passport') ||
-                                                        partner?.ownerNationality === 'Other'">
-                                        , म्याद सकिने मितिः
+                                                        partner?.ownerNationality === 'Other'">, म्याद सकिने मितिः
                                             <input class="form-field form-control-sm  disable-print"
                                                    name="passportValidityDate"
                                                    formControlName="passportValidityDate"
@@ -319,7 +316,7 @@
                                               type="text"/>
                                     <span class="print-only font-weight-bold">
                                         {{(this.tempData.smeGlobalForm && this.tempData.smeGlobalForm.totalLimitInFigureCT ) ?
-                                        this.tempData.smeGlobalForm.totalLimitInFigureCT : '_________________'}}</span>।
+                                        this.tempData.smeGlobalForm.totalLimitInFigureCT : '_________________'}}</span>/-
                                     (अक्षरेपी <input class="form-field form-control-sm outside disable-print col-2"
                                                      name="loanAmountInWords"
                                                      formControlName="loanAmountInWords"

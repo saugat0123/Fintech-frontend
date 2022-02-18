@@ -19,14 +19,14 @@
                                         <span
                                             class="print-only font-weight-bold">
                                             {{(this.tempData.smeGlobalForm && this.tempData.smeGlobalForm.totalLimitInFigureCT ) ?
-                                            this.tempData.smeGlobalForm.totalLimitInFigureCT : '_________________'}}</span>
+                                            this.tempData.smeGlobalForm.totalLimitInFigureCT : '_________________'}}</span>/-
                                         <br>
 
                                         (अक्षरेपी <input class="form-field form-control-sm  disable-print col-3"
                                             name="loanamountinWords" formControlName="loanamountinWords" placeholder=""
                                             type="text" /><span
                                             class="print-only font-weight-bold">{{ form?.get('loanamountinWords')?.value ? form?.get('loanamountinWords')?.value : '_________________'}}</span>
-                                        मात्र ।)</strong>
+                                        मात्र )</strong>
                                 </p>
                             </div>
                             <br>
@@ -59,13 +59,13 @@
                             <span
                                 class="print-only font-weight-bold">{{form?.get('vdcOfFirm')?.value ? form?.get('vdcOfFirm')?.value : "___________________________"}}</span>
                             <span *ngIf="this.loanHolderNepData.registeredMunType.en === '0'">
-                                न.पा. ,
+                                न.पा.,
                             </span>
                             <span *ngIf="this.loanHolderNepData.registeredMunType.en === '1'">
-                                गा.वि.स. ,
+                                गा.वि.स.,
                             </span>
                             <span *ngIf="this.loanHolderNepData.registeredMunType.en === '2'">
-                                गाँउपालिका ,
+                                गाँउपालिका,
                             </span> वडा नं <input class="form-field disable-print form-control-sm"
                                 name="wardNumberOfFirm" formControlName="wardNumberOfFirm" placeholder=" "
                                 type="text" />
@@ -95,7 +95,7 @@
                                         {{x.ownerFatherInLawNameCT ? x.ownerFatherInLawNameCT : "_____________________"}}</span>
                                     को
                                     <ng-container>
-                                        <span *ngIf="x?.ownerGender === 'MALE'">नाति </span>
+                                        <span *ngIf="x?.ownerGender === 'MALE' || (x?.ownerGender === 'OTHERS')">नाति </span>
                                         <span
                                                 *ngIf="x?.ownerGender === 'FEMALE' && x?.ownerRelationMedium === '1'">नातिनी </span>
                                         <span
@@ -147,13 +147,13 @@
                                                 class="print-only font-weight-bold">
                                             {{x.ownerPermanentMunicipalityCT ? x.ownerPermanentMunicipalityCT : "_____________________"}}</span>
                                         <span *ngIf="this.loanHolderNepData.registeredMunType.en === '0'">
-                                        न.पा. ,
+                                        न.पा.,
                                     </span>
                                         <span *ngIf="this.loanHolderNepData.registeredMunType.en === '1'">
-                                        गा.वि.स. ,
+                                        गा.वि.स.,
                                     </span>
                                         <span *ngIf="this.loanHolderNepData.registeredMunType.en === '2'">
-                                        गाँउपालिका ,
+                                        गाँउपालिका,
                                     </span>
                                         वडा नं.
                                         <input class="form-field disable-print form-control-sm"
@@ -171,11 +171,11 @@
                                         {{ageArray[i] ? ageArray[i] : '_________________'}}
                                     </span>
                                     <ng-container>
-                                        <span *ngIf="x?.ownerGender === 'MALE'"> को </span>
+                                        <span *ngIf="x?.ownerGender === 'MALE' || x?.ownerGender === 'OTHERS'"> को </span>
                                         <span *ngIf="x?.ownerGender === 'FEMALE'"> की </span>
                                     </ng-container>
                                     <ng-container>
-                                        <span *ngIf="x?.ownerGender === 'MALE'">श्री</span>
+                                        <span *ngIf="x?.ownerGender === 'MALE' || x?.ownerGender === 'OTHERS'">श्री</span>
                                         <span *ngIf="x?.ownerGender === 'FEMALE' && x?.ownerRelationMedium === '1'">सुश्री </span>
                                         <span *ngIf="x?.ownerGender === 'FEMALE' && x?.ownerRelationMedium === '0'">श्रीमती </span>
                                     </ng-container>
@@ -233,8 +233,7 @@
                                         <span class="print-only font-weight-bold">
                                             {{ x.ownerCitizenshipNoCT ? x.ownerCitizenshipNoCT : '_____________________'}}
                                         </span>
-                                    </span>
-                                    , जारी मिति
+                                    </span>, जारी मिति
                                     <input class="form-field disable-print form-control-sm"
                                                      name="citizenshipIssueDate" formControlName="citizenshipIssueDate"
                                                      placeholder=" "
@@ -243,8 +242,7 @@
                                         {{ dateArray[i] ? dateArray[i] : '_________________'}}
                                     </span>
                                     <span *ngIf="(x?.ownerNationality === 'Indian' && x?.indianOwnerDetailOption === 'Passport') ||
-                                                        x?.ownerNationality === 'Other'">
-                                        , म्याद सकिने मितिः
+                                                        x?.ownerNationality === 'Other'">, म्याद सकिने मितिः
                                             <input class="form-field form-control-sm  disable-print"
                                                    name="passportValidityDate"
                                                    formControlName="passportValidityDate"
@@ -252,8 +250,7 @@
                                             <span class="print-only font-weight-bold">
                                                 {{ dateValidityArray[i] ? dateValidityArray[i] : '_________________'}}
                                             </span>
-                                        </span>
-                                    , जारी गर्ने कार्यालय
+                                        </span>, जारी गर्ने कार्यालय
                                     <input class="form-field disable-print form-control-sm"
                                                                  name="citizenshipIssueDistrict"
                                                                  formControlName="citizenshipIssueDistrict"
