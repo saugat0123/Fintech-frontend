@@ -30,14 +30,27 @@
                    (changeToApprovalSheetActive)="activeApprovalSheet()"
                    [loanConfig]="loanConfig"
                    [loanData]="loanDataHolder"
-                   [nepaliDate]="nepaliDate"></app-micro-loan-summary>
-           <app-loan-summary *ngSwitchDefault
-                   (changeToApprovalSheetActive)="activeApprovalSheet()"
-                             (customerLoanList)="customerLoanList($event)"
-                             [loanConfig]="loanConfig"
-                             [loanData]="loanDataHolder"
-                             [nepaliDate]="nepaliDate">
-           </app-loan-summary>
+                   [nepaliDate]="nepaliDate"></app-micro-loan-summary>  
+
+                <ng-container *ngSwitchDefault>     
+
+                    <app-loan-summary *ngIf="customerType === 'INDIVIDUAL'"
+                            (changeToApprovalSheetActive)="activeApprovalSheet()"
+                                      (customerLoanList)="customerLoanList($event)"
+                                      [loanConfig]="loanConfig"
+                                      [loanData]="loanDataHolder"
+                                      [nepaliDate]="nepaliDate">
+                    </app-loan-summary>
+         
+                    <app-sme-loan-summary *ngIf="customerType === 'INSTITUTION'"
+                            (changeToApprovalSheetActive)="activeApprovalSheet()"
+                                      (customerLoanList)="customerLoanList($event)"
+                                      [loanConfig]="loanConfig"
+                                      [loanData]="loanDataHolder"
+                                      [nepaliDate]="nepaliDate">
+                    </app-sme-loan-summary>
+
+                </ng-container>
 
        </ng-container>
         </ng-container>
