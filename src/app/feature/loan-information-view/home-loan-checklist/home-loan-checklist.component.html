@@ -3,15 +3,14 @@
         <span *ngFor="let data of customerAllLoanList">
             <table class="table table-bordered table-responsive table-hover" style="overflow-x: hidden"
                    *ngIf="data?.loan?.loanTag === 'HOME_LOAN'">
+            <thead class="font-weight-bold">
             <tr>
                 <th colspan="4">{{data?.loan?.name}}</th>
             </tr>
-            <thead class="font-weight-bold">
             <tr>
                 <td class="sn">S.N</td>
-                <td>Particulars</td>
-                <td>YES</td>
-                <th>NO</th>
+                <td colspan="2">Particulars</td>
+                <td>YES/NO</td>
             </tr>
             </thead>
             <tbody>

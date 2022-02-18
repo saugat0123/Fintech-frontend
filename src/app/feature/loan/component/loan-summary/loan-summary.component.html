@@ -135,8 +135,8 @@
                     <b>CLIENT NAME: {{loanDataHolder?.loanHolder?.name}}</b> <br>
                     <b>GROUP: </b> <br>
                     <b>ACCOUNT NUMBER:</b> <br>
-                    <b>CUSTOMER ID: {{loanDataHolder?.loanHolder?.customerCode}}</b> <br>
-                    <b>DATE: {{loanDataHolder?.createdAt}}</b>
+                    <b>CUSTOMER ID: {{loanDataHolder?.loanHolder?.customerCode || 'NA'}}</b> <br>
+                    <b>DATE: {{loanDataHolder?.createdAt ? (loanDataHolder?.createdAt | date) : 'NA'}}</b>
                 </div>
             </div>
             <hr class="print-line">
