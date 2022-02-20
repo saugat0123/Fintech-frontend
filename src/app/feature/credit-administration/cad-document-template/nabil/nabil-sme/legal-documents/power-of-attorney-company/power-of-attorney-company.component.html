@@ -14,12 +14,18 @@
                         </p>
                     </div>
                 </div>
-                <div class="row" style="float: right">
+                <div class="row">
                     <div class="col-md-12">
-                        <p>मिति: ............................</p>
+                        <p class="text-right">मिति: <input
+                                class="form-field disable-print form-control-sm nepaliFont"
+                                name="date"
+                                formControlName="date"
+                                placeholder="मिति"
+                                type="text"/>
+                            <span class=" print-only font-weight-bold nepaliFont">{{powerOfAttorneyCompanyForm.get('date').value ? powerOfAttorneyCompanyForm.get('date').value : "====================================="}}</span></p>
                     </div>
                 </div>
-                <div class="row" style="margin-top: 3em">
+                <div class="row">
                     <div class="col-md-12">
                         <p class="m-0">
                             प्रचलित कानून बमोजिम दर्ता भई
@@ -88,13 +94,13 @@
                                 <ng-container [formGroupName]="i">
                                     अख्तियारप्राप्त
                                     <span>
-                                    <input class="form-field form-control-sm d-print-none nepaliFont"
+                                    <input class="form-field d-print-none nepaliFont"
                                            style="width: 40%" name="freeText2"
                                            formControlName="freeText2"
                                            placeholder="" type="text"/>
-                                    <strong class="print-only nepaliFont">
+                                    <span class="print-only nepaliFont" style="font-size: 19px">
                                         {{this.freeText ? this.freeText.freeTextArray[i]?.freeText2 : '====================================='}}
-                                    </strong>
+                                    </span>
                                 </span>
                                 </ng-container>
                                 ,
