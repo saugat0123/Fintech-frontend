@@ -13,6 +13,8 @@ import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerAppro
 import {AssignPopUpComponent} from '../../assign-pop-up/assign-pop-up.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {LocalStorageUtil} from '../../../../../@core/utils/local-storage-util';
+import {Role} from '../../../../admin/modal/role';
 
 @Component({
     selector: 'app-disbursement-pending',
@@ -22,7 +24,7 @@ import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 export class DisbursementPendingComponent implements OnInit {
 
     // todo dynamic search obj for approve , pending
-    searchObj = {docStatus: 'DISBURSEMENT_PENDING'};
+    searchObj = {docStatus: 'DISBURSEMENT_PENDING', isCadFile: 'true'};
     page = 1;
     spinner = false;
     pageable: Pageable = new Pageable();
@@ -34,7 +36,9 @@ export class DisbursementPendingComponent implements OnInit {
 
     user: User = new User();
     roleType = RoleType;
-
+    storage = LocalStorageUtil.getStorage();
+    cadData;
+    productUtils = LocalStorageUtil.getStorage().productUtil;
     constructor(private service: CreditAdministrationService,
                 private router: Router,
                 private routeService: RouterUtilsService,
@@ -74,6 +78,7 @@ export class DisbursementPendingComponent implements OnInit {
     }
 
     loadProfile(cadDocumentId, model) {
+        console.log('this is cad', cadDocumentId);
         this.routeService.routeOnConditionProfileOrSummary(cadDocumentId, model);
     }
 
@@ -87,7 +92,16 @@ export class DisbursementPendingComponent implements OnInit {
             this.user = res.detail;
         });
     }
-
+        openPopUp(template, data) {
+        this.cadData = data;
+        this.modalService.open(template, {
+            size: 'xl',
+            windowClass: 'on-pull-click full-width modal'
+        });
+    }
+    onClose() {
+        this.modalService.dismissAll();
+    }
     openAssignPopUp(data: CustomerApprovedLoanCadDocumentation) {
         const comp = this.modalService.open(AssignPopUpComponent);
         const dataCad = {
@@ -109,6 +123,34 @@ export class DisbursementPendingComponent implements OnInit {
             console.log('When exposure closes');
         }, () => {
             DisbursementPendingComponent.loadData(this);
+        });
+    }
+    pullLoan(data) {
+        const user = new User();
+        user.id = +LocalStorageUtil.getStorage().userId;
+        const role = new Role();
+        role.id = +LocalStorageUtil.getStorage().roleId;
+        this.spinnerService.show();
+        const obj = {
+            customerLoanDtoList: data.assignedLoan,
+            toUser: user ,
+            toRole: role,
+            documentStatus: 'DISBURSEMENT_PENDING',
+            docAction: 'PULLED',
+            comment: 'Pulled To Own Bucket',
+            loanHolderId: data.loanHolder.id,
+            cadId: ObjectUtil.isEmpty(data.id) ? undefined : data.id
+        };
+        this.service.assignLoanToUser(obj).subscribe(res => {
+            this.spinnerService.hide();
+            this.loadProfile(data.id,data);
+            // this.toastService.success('Successfully Pulled Loan');
+            this.modalService.dismissAll();
+            // this.routerService.navigateByUrl('/home/credit/offer-pending');
+        }, err => {
+            this.spinnerService.hide();
+            this.modalService.dismissAll();
+            // this.toastService.danger('Something Went Wrong');
         });
     }
 
