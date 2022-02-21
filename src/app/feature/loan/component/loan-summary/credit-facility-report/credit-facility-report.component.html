@@ -123,7 +123,7 @@
                     <span *ngIf="(array[i]?.isFundable && (array[i]?.loanNature === 'Terminating' || array[i]?.loanNature === 'Revolving')
                                     && array[i]?.loanNatureSelected && array[i]?.fundableNonFundableSelcted) || array[i]?.isVehicle || array[i]?.isShare || array[i]?.isGeneral">
                                     BR : {{ (data?.proposal?.data | jsonParse)?.baseRate}} %,
-                                    PR : {{ (data?.proposal?.data | jsonParse)?.premiumRateOnBaseRate}} %,
+                                    PR : {{ (data?.proposal?.data | jsonParse)?.premiumRateOnBaseRate}} %, <br>
                                 </span>
                     <span *ngIf="!array[i]?.isFundable && array[i]?.fundableNonFundableSelcted">
                                     <span *ngIf="(data?.proposal?.data | jsonParse)?.cashMarginMethod == 'FLAT'">
@@ -133,6 +133,7 @@
                                         CM: {{ ((data?.proposal?.data | jsonParse)?.cashMargin)}} %,</span>
                                     COM:{{(data?.proposal?.data | jsonParse)?.commissionPercentage}} %
                                 </span>
+                    <br>
                     <span *ngIf="loanDataHolder?.loanHolder?.cicl">
                                     CIC:{{loanDataHolder?.loanHolder?.cicl?.cibCharge}}
                                 </span>

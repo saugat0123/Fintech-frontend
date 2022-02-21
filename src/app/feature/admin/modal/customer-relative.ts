@@ -8,4 +8,5 @@ export class CustomerRelative {
     citizenshipIssuedDate: Date;
     citizenshipIssuedPlace: string;
     age: number;
+    relativeNetWorth: number;
 }

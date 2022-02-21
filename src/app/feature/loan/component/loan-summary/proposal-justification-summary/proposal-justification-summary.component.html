@@ -9,23 +9,15 @@
                 </div>
 
                 <div>
+                    <div class="row sb-small" ><strong>Purpose :</strong></div>
+                    <div class="sb-small">
+                        <span [innerHTML]="(data.proposal.data |jsonParse)?.purposeOfLoan || 'NA' | safeHtml"></span>
+                    </div>
+                </div>
+                <div>
                     <div class="row sb-small" ><strong>Justification of limit :</strong></div>
                     <div class="sb-small">
                         <span [innerHTML]="(data.proposal.data |jsonParse)?.borrowerInformation || 'NA' | safeHtml"></span>
-                    </div>
-                </div>
-
-                <div>
-                    <div class="row sb-small"><strong> Disbursement criteria :</strong></div>
-                    <div class="sb-small">
-                        <span [innerHTML]="(data.proposal.data |jsonParse)?.disbursementCriteria || 'NA' | safeHtml"></span>
-                    </div>
-                </div>
-
-                <div>
-                    <div class="row sb-small"><strong> Repayment criteria :</strong></div>
-                    <div class="sb-small">
-                        <span [innerHTML]="(data?.proposal?.data | jsonParse)?.repayment || 'NA' | safeHtml"></span>
                     </div>
                 </div>
                 <hr>
