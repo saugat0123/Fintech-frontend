@@ -162,7 +162,7 @@ export class PromissoryNoteIndividualComponent implements OnInit {
         }
       } else {
         if (!ObjectUtil.isEmpty(this.individualData.dobNepali)) {
-          age = this.engToNepNumberPipe.transform(AgeCalculation.calculateAge(this.individualData.dob.en.eDate).toString());
+          age = this.engToNepNumberPipe.transform(AgeCalculation.calculateAge(this.individualData.dobNepali.en.eDate).toString());
         }
       }
       /*if (!ObjectUtil.isEmpty(this.individualData.dob) && !ObjectUtil.isEmpty(this.individualData)) {

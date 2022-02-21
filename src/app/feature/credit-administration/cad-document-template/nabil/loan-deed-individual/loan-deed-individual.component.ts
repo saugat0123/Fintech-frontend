@@ -132,15 +132,20 @@ export class LoanDeedIndividualComponent implements OnInit {
     const daysInNumber = new Date().getDay();
     let age: any;
     let ageNepaliNumber: string;
-    if (!ObjectUtil.isEmpty(this.loanHolderNepData) && !ObjectUtil.isEmpty(this.loanHolderNepData.dob)) {
-      if(this.loanHolderNepData.dob.en.eDate === undefined) {
-        age = AgeCalculation.calculateAge(this.loanHolderNepData.dob.en);
+    if (!ObjectUtil.isEmpty(this.loanHolderNepData) &&
+        !ObjectUtil.isEmpty(this.loanHolderNepData.dobDateType) &&
+        !ObjectUtil.isEmpty(this.loanHolderNepData.dobDateType.en)) {
+      if (this.loanHolderNepData.dobDateType.en === 'AD') {
+        if (!ObjectUtil.isEmpty(this.loanHolderNepData.dob)) {
+          age = AgeCalculation.calculateAge(this.loanHolderNepData.dob.en).toString();
+        }
       } else {
-        age = AgeCalculation.calculateAge(this.loanHolderNepData.dob.en.eDate);
+        if (!ObjectUtil.isEmpty(this.loanHolderNepData.dobNepali)) {
+          age = AgeCalculation.calculateAge(this.loanHolderNepData.dobNepali.en.eDate).toString();
+        }
       }
-        ageNepaliNumber = this.engToNepNumberPipe.transform(String(age));
+      ageNepaliNumber = this.engToNepNumberPipe.transform(String(age));
     }
-
 
     let approvedDate: any;
     this.docName = this.cadData.offerDocumentList ? this.cadData.offerDocumentList[0].docName : '';
