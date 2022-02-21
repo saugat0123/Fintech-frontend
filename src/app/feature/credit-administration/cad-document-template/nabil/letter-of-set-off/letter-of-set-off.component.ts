@@ -151,21 +151,33 @@ export class LetterOfSetOffComponent implements OnInit {
     const finalAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoan));
     const loanAmountWord = this.nepaliCurrencyWordPipe.transform(totalLoan);
     let citizenshipIssuedDate;
-    if (!ObjectUtil.isEmpty(this.individualData.citizenshipIssueDate.en.nDate)) {
-      citizenshipIssuedDate = this.individualData.citizenshipIssueDate.en.nDate;
-    } else {
-      const convertedDate = this.datePipe.transform(this.individualData.citizenshipIssueDate.en);
-      citizenshipIssuedDate = this.engToNepaliDate.transform(convertedDate, true);
+    if (!ObjectUtil.isEmpty(this.individualData) &&
+        !ObjectUtil.isEmpty(this.individualData.issuedDate) &&
+        !ObjectUtil.isEmpty(this.individualData.issuedDate.en)) {
+      if (this.individualData.issuedDate.en === 'AD') {
+        if (!ObjectUtil.isEmpty(this.individualData.citizenshipIssueDate)) {
+          const convertedDate = this.datePipe.transform(this.individualData.citizenshipIssueDate.en);
+          citizenshipIssuedDate = this.engToNepaliDate.transform(convertedDate, true);
+        }
+      } else {
+        if (!ObjectUtil.isEmpty(this.individualData.citizenshipIssueDateNepali)) {
+          citizenshipIssuedDate = this.individualData.citizenshipIssueDateNepali.en.nDate;
+        }
+      }
     }
     let age;
-    if (!ObjectUtil.isEmpty(this.individualData.dob) && !ObjectUtil.isEmpty(this.individualData.dob.en.eDate)) {
-      const calAge = AgeCalculation.calculateAge(this.individualData.dob.en.eDate);
-      // age = this.engToNepNumberPipe.transform(String(calAge));
-      age = this.ageCalculation(this.individualData.dob.en.eDate);
-    } else {
-      // const calAge = AgeCalculation.calculateAge(this.individualData.dob.en);
-      // age = this.engToNepNumberPipe.transform(String(calAge));
-      age = this.ageCalculation(this.individualData.dob.en);
+    if (!ObjectUtil.isEmpty(this.individualData) &&
+        !ObjectUtil.isEmpty(this.individualData.dobDateType) &&
+        !ObjectUtil.isEmpty(this.individualData.dobDateType.en)) {
+      if (this.individualData.dobDateType.en === 'AD') {
+        if (!ObjectUtil.isEmpty(this.individualData.dob)) {
+          age = this.engToNepNumberPipe.transform(AgeCalculation.calculateAge(this.individualData.dob.en).toString());
+        }
+      } else {
+        if (!ObjectUtil.isEmpty(this.individualData.dobNepali)) {
+          age = this.engToNepNumberPipe.transform(AgeCalculation.calculateAge(this.individualData.dobNepali.en.eDate).toString());
+        }
+      }
     }
     let length = 1;
     if (!ObjectUtil.isEmpty(this.jointInfoData)) {

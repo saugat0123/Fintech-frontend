@@ -125,7 +125,7 @@
                     </select>
                   </div>
                   <div class="col-md-8">
-                    <nepali-patro *ngIf="DobDateVal.value ==='BS'" formControlName="dob" [responseType]="2"
+                    <nepali-patro *ngIf="DobDateVal.value ==='BS'" formControlName="dobNepali" [responseType]="2"
                                   [displayNepali]="true">
                     </nepali-patro>
                     <input [nbDatepicker]="DobDate" *ngIf="DobDateVal.value ==='AD'"
@@ -482,7 +482,7 @@
                   </div>
                   <div class="col-md-8">
                     <nepali-patro *ngIf="citizenshipIssueDateVal.value ==='BS'"
-                                  formControlName="citizenshipIssueDate" [responseType]="2" [displayNepali]="true">
+                                  formControlName="citizenshipIssueDateNepali" [responseType]="2" [displayNepali]="true">
                     </nepali-patro>
                     <input [nbDatepicker]="citizenshipIssueDate" *ngIf="citizenshipIssueDateVal.value ==='AD'"
                            class="form-control form-control-sm-error rounded" formControlName="citizenshipIssueDate"
