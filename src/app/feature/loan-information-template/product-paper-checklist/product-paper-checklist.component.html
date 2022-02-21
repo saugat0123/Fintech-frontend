@@ -6,7 +6,10 @@
         <table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
             <thead class="sb-bg-dark">
             <tr>
-                <th>COMPLIANCE TO PRODUCT PAPER - CHECKLIST </th>
+                <th [colSpan]="fromLoan?'2':'3'">COMPLIANCE TO PRODUCT PAPER - CHECKLIST </th>
+                <th *ngIf="fromLoan"><button nbButton (click)="yesToAll()">Yes To All</button></th>
+                <th *ngIf="fromLoan"><button nbButton (click)="noToAll()">No To All</button></th>
+                <th *ngIf="fromLoan"><button nbButton (click)="naToAll()">Na To All</button></th>
             </tr>
             <tr>
                 <th>S.N.</th>
@@ -31,7 +34,7 @@
                         <input [value]="option" formControlName="ciclDate" name="ciclDate" type="radio">
                     </td>
                 </ng-container>
-                <td *ngIf="!fromLoan">{{formData?.ciclDate}}</td>
+                <td *ngIf="!fromLoan">{{formData?.ciclDate || 'Na'}}</td>
             </tr>
             <tr>
                 <td>2</td>
@@ -51,7 +54,7 @@
                         <input [value]="option" formControlName="negative" name="negative" type="radio">
                     </td>
                 </ng-container>
-                <td *ngIf="!fromLoan">{{formData?.negative}}</td>
+                <td *ngIf="!fromLoan">{{formData?.negative || 'Na'}}</td>
             </tr>
             <tr>
                 <td>4</td>
@@ -61,7 +64,7 @@
                         <input [value]="option" formControlName="reference" name="reference" type="radio">
                     </td>
                 </ng-container>
-                <td *ngIf="!fromLoan">{{formData?.reference}}</td>
+                <td *ngIf="!fromLoan">{{formData?.reference || 'Na'}}</td>
             </tr>
             <tr>
                 <td>5</td>
@@ -71,7 +74,7 @@
                         <input [value]="option" formControlName="statements" name="statements" type="radio">
                     </td>
                 </ng-container>
-                <td *ngIf="!fromLoan">{{formData?.statements}}</td>
+                <td *ngIf="!fromLoan">{{formData?.statements || 'Na'}}</td>
             </tr>
             <tr class="sb-bg-dark">
                 <td><b>B</b></td>
@@ -85,7 +88,7 @@
                         <input [value]="option" formControlName="lalPurja" name="lalPurja" type="radio">
                     </td>
                 </ng-container>
-                <td *ngIf="!fromLoan">{{formData?.lalPurja}}</td>
+                <td *ngIf="!fromLoan">{{formData?.lalPurja || 'Na'}}</td>
             </tr>
             <tr>
                 <td>2</td>
@@ -95,7 +98,7 @@
                         <input [value]="option" formControlName="bluePrint" name="bluePrint" type="radio">
                     </td>
                 </ng-container>
-                <td *ngIf="!fromLoan">{{formData?.bluePrint}}</td>
+                <td *ngIf="!fromLoan">{{formData?.bluePrint || 'Na'}}</td>
             </tr>
             <tr>
                 <td>3</td>
@@ -105,7 +108,7 @@
                         <input [value]="option" formControlName="boundary" name="boundary" type="radio">
                     </td>
                 </ng-container>
-                <td *ngIf="!fromLoan">{{formData?.boundary}}</td>
+                <td *ngIf="!fromLoan">{{formData?.boundary || 'Na'}}</td>
             </tr>
             <tr>
                 <td>4</td>
@@ -115,7 +118,7 @@
                         <input [value]="option" formControlName="bcc" name="bcc" type="radio">
                     </td>
                 </ng-container>
-                <td *ngIf="!fromLoan">{{formData?.bcc}}</td>
+                <td *ngIf="!fromLoan">{{formData?.bcc || 'Na'}}</td>
             </tr>
             <tr>
                 <td>5</td>
@@ -125,7 +128,7 @@
                         <input [value]="option" formControlName="bca" name="bca" type="radio">
                     </td>
                 </ng-container>
-                <td *ngIf="!fromLoan">{{formData?.bca}}</td>
+                <td *ngIf="!fromLoan">{{formData?.bca || 'Na'}}</td>
             </tr>
             <tr>
                 <td>6</td>
@@ -151,7 +154,7 @@
                         <input [value]="option" formControlName="salaryCertificate" name="salaryCertificate" type="radio">
                     </td>
                 </ng-container>
-                <td *ngIf="!fromLoan">{{formData?.salaryCertificate}}</td>
+                <td *ngIf="!fromLoan">{{formData?.salaryCertificate || 'Na'}}</td>
             </tr>
             <tr>
                 <td>2</td>
@@ -163,7 +166,7 @@
                         <input [value]="option" formControlName="pension" name="pension" type="radio">
                     </td>
                 </ng-container>
-                <td *ngIf="!fromLoan">{{formData?.pension}}</td>
+                <td *ngIf="!fromLoan">{{formData?.pension || 'Na'}}</td>
             </tr>
             <tr>
                 <td>3</td>
@@ -175,7 +178,7 @@
                         <input [value]="option" formControlName="rental" name="rental" type="radio">
                     </td>
                 </ng-container>
-                <td *ngIf="!fromLoan">{{formData?.rental}}</td>
+                <td *ngIf="!fromLoan">{{formData?.rental || 'Na'}}</td>
             </tr>
             <tr>
                 <td>4</td>
@@ -187,7 +190,7 @@
                         <input [value]="option" formControlName="professional" name="professional" type="radio">
                     </td>
                 </ng-container>
-                <td *ngIf="!fromLoan">{{formData?.professional}}</td>
+                <td *ngIf="!fromLoan">{{formData?.professional || 'Na'}}</td>
             </tr>
             <tr>
                 <td>5</td>
@@ -199,7 +202,7 @@
                         <input [value]="option" formControlName="businessIncome" name="businessIncome" type="radio">
                     </td>
                 </ng-container>
-                <td *ngIf="!fromLoan">{{formData?.businessIncome}}</td>
+                <td *ngIf="!fromLoan">{{formData?.businessIncome || 'Na'}}</td>
             </tr>
             <tr>
                 <td>6</td>
@@ -241,7 +244,7 @@
                         <input [value]="option" formControlName="loanAmount" name="loanAmount" type="radio">
                     </td>
                 </ng-container>
-                <td *ngIf="!fromLoan">{{formData?.loanAmount}}</td>
+                <td *ngIf="!fromLoan">{{formData?.loanAmount || 'Na'}}</td>
             </tr>
             <tr>
                 <td>2</td>
@@ -253,7 +256,7 @@
                         <input [value]="option" formControlName="creditChain" name="creditChain" type="radio">
                     </td>
                 </ng-container>
-                <td *ngIf="!fromLoan">{{formData?.creditChain}}</td>
+                <td *ngIf="!fromLoan">{{formData?.creditChain || 'Na'}}</td>
             </tr>
             <tr>
                 <td>3</td>
@@ -265,7 +268,7 @@
                         <input [value]="option" formControlName="loanTenure" name="loanTenure" type="radio">
                     </td>
                 </ng-container>
-                <td *ngIf="!fromLoan">{{formData?.loanTenure}}</td>
+                <td *ngIf="!fromLoan">{{formData?.loanTenure || 'Na'}}</td>
             </tr>
             <tr>
                 <td>4</td>
@@ -277,7 +280,7 @@
                         <input [value]="option" formControlName="loanAmountMax" name="loanAmountMax" type="radio">
                     </td>
                 </ng-container>
-                <td *ngIf="!fromLoan">{{formData?.loanAmountMax}}</td>
+                <td *ngIf="!fromLoan">{{formData?.loanAmountMax || 'Na'}}</td>
             </tr>
             <tr>
                 <td>5</td>
@@ -292,7 +295,7 @@
                         <input [value]="option" formControlName="ltv" name="ltv" type="radio">
                     </td>
                 </ng-container>
-                <td *ngIf="!fromLoan">{{formData?.ltv}}</td>
+                <td *ngIf="!fromLoan">{{formData?.ltv || 'Na'}}</td>
             </tr>
             <tr>
                 <td>6</td>
@@ -304,7 +307,7 @@
                         <input [value]="option" formControlName="groupExposure" name="groupExposure" type="radio">
                     </td>
                 </ng-container>
-                <td *ngIf="!fromLoan">{{formData?.groupExposure}}</td>
+                <td *ngIf="!fromLoan">{{formData?.groupExposure || 'Na'}}</td>
             </tr>
             <tr class="sb-bg-dark">
                 <td><b>B</b></td>
@@ -320,7 +323,7 @@
                         <input [value]="option" formControlName="ageOfBorrower" name="ageOfBorrower" type="radio">
                     </td>
                 </ng-container>
-                <td *ngIf="!fromLoan">{{formData?.ageOfBorrower}}</td>
+                <td *ngIf="!fromLoan">{{formData?.ageOfBorrower || 'Na'}}</td>
             </tr>
             <tr>
                 <td>2</td>
@@ -332,7 +335,7 @@
                         <input [value]="option" formControlName="ageOfCoBorrower" name="ageOfCoBorrower" type="radio">
                     </td>
                 </ng-container>
-                <td *ngIf="!fromLoan">{{formData?.ageOfCoBorrower}}</td>
+                <td *ngIf="!fromLoan">{{formData?.ageOfCoBorrower || 'Na'}}</td>
             </tr>
             <tr class="sb-bg-dark">
                 <td><b>C</b></td>
@@ -348,7 +351,7 @@
                         <input [value]="option" formControlName="dbr" name="dbr" type="radio">
                     </td>
                 </ng-container>
-                <td *ngIf="!fromLoan">{{formData?.dbr}}</td>
+                <td *ngIf="!fromLoan">{{formData?.dbr || 'Na'}}</td>
             </tr>
             <tr class="sb-bg-dark">
                 <td><b>D</b></td>
@@ -364,7 +367,7 @@
                         <input [value]="option" formControlName="interestRate" name="interestRate" type="radio">
                     </td>
                 </ng-container>
-                <td *ngIf="!fromLoan">{{formData?.interestRate}}</td>
+                <td *ngIf="!fromLoan">{{formData?.interestRate || 'Na'}}</td>
             </tr>
             <tr>
                 <td>2</td>
@@ -376,7 +379,7 @@
                         <input [value]="option" formControlName="loanFee" name="loanFee" type="radio">
                     </td>
                 </ng-container>
-                <td *ngIf="!fromLoan">{{formData?.loanFee}}</td>
+                <td *ngIf="!fromLoan">{{formData?.loanFee || 'Na'}}</td>
             </tr>
             <tr>
                 <td>3</td>
@@ -388,7 +391,7 @@
                         <input [value]="option" formControlName="commitmentFee" name="commitmentFee" type="radio">
                     </td>
                 </ng-container>
-                <td *ngIf="!fromLoan">{{formData?.commitmentFee}}</td>
+                <td *ngIf="!fromLoan">{{formData?.commitmentFee || 'Na'}}</td>
             </tr>
             <tr>
                 <td>4</td>
@@ -400,7 +403,7 @@
                         <input [value]="option" formControlName="swapFee" name="swapFee" type="radio">
                     </td>
                 </ng-container>
-                <td *ngIf="!fromLoan">{{formData?.swapFee}}</td>
+                <td *ngIf="!fromLoan">{{formData?.swapFee || 'Na'}}</td>
             </tr>
 
             </tbody>
