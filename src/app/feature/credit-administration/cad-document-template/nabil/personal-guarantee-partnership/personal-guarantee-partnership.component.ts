@@ -72,9 +72,7 @@ export class PersonalGuaranteePartnershipComponent implements OnInit {
     this.taggedPersonalGuarantorsDetailsForm();
   }
   removeIndividualGuarantors(i) {
-    (
-        this.form.get('guarantorsPartnership') as FormArray
-    ).removeAt(i);
+    (this.form.get('guarantorsPartnership') as FormArray).removeAt(i);
   }
   loadPersonalGuarantorData() {
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.assignedLoan)) {
@@ -207,54 +205,56 @@ export class PersonalGuaranteePartnershipComponent implements OnInit {
     const daysInNumber = new Date().getDay();
     if (!ObjectUtil.isEmpty(this.taggedGuarantorsDetailsInLoan)) {
       this.taggedGuarantorsDetailsInLoan.forEach((val) => {
-        const individualGuarantorNepData = val.nepData
-            ? JSON.parse(val.nepData)
-            : val.nepData;
-        this.individualGuarantorNepDataArray.push(individualGuarantorNepData);
-        if (ObjectUtil.isEmpty(individualGuarantorNepData)) {
-          return;
+        if (JSON.parse(val.nepData).guarantorType.en === 'Personal Guarantor') {
+          const individualGuarantorNepData = val.nepData
+              ? JSON.parse(val.nepData)
+              : val.nepData;
+          if (ObjectUtil.isEmpty(individualGuarantorNepData)) {
+            return;
+          }
+          this.individualGuarantorNepDataArray.push(individualGuarantorNepData);
+          (this.form.get('guarantorsPartnership') as FormArray).push(
+              this.formBuilder.group({
+                branchName: [this.loanHolderNepData.branch ? this.loanHolderNepData.branch.ct : ''],
+                actDetails: [!ObjectUtil.isEmpty(this.loanHolderNepData.actName) ? this.loanHolderNepData.actName.ct : this.nameOfAct],
+                actYearInFigure: [this.setActYear()],
+                headDepartment: [!ObjectUtil.isEmpty(this.loanHolderNepData.authorizedBodyName) ? this.loanHolderNepData.authorizedBodyName.ct : this.nameOfAuthorizedBody],
+                registrationDate: [this.setRegistrationDate()],
+                registrationNo: [this.loanHolderNepData.registrationNo.ct ? this.loanHolderNepData.registrationNo.ct : ''],
+                registeredDistrict: [this.loanHolderNepData.registeredDistrict.ct ? this.loanHolderNepData.registeredDistrict.ct : ''],
+                municipalityOfFirm: [this.loanHolderNepData.registeredMunicipality.ct ? this.loanHolderNepData.registeredMunicipality.ct : ''],
+                wardNumOfFirm: [this.loanHolderNepData.permanentWard.ct ? this.loanHolderNepData.permanentWard.ct : ''],
+                addressOfFirm: [this.loanHolderNepData.registeredStreetTole.ct ? this.loanHolderNepData.registeredStreetTole.ct : ''],
+                loaneeName: [this.loanHolderNepData.name ? this.loanHolderNepData.name.ct : ''],
+                loanPurpose: [this.setLoanPurpose()],
+                letterIssuedDate: [this.setIssuedDate()],
+                loanAmount: [this.nepaliNumber.numberNepali],
+                loanAmountInWord: [this.nepaliNumber.nepaliWords],
+                approvedLoanAmountInWord: [this.nepaliCurrencyWordPipe.transform(individualGuarantorNepData.gurantedAmount.en)],
+                approvedLoanAmount: [this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(individualGuarantorNepData.gurantedAmount.en))],
+                guarantorName: [individualGuarantorNepData.guarantorName ? individualGuarantorNepData.guarantorName.ct : ''],
+                guarantorFatherOrHusbandName: [individualGuarantorNepData.fatherName ? individualGuarantorNepData.fatherName.ct : individualGuarantorNepData.husbandName ? individualGuarantorNepData.husbandName.ct : ''],
+                guarantorGrandFatherName: [individualGuarantorNepData.fatherName ? individualGuarantorNepData.fatherName.ct : ''],
+                guarantorPermanentDistrict: [individualGuarantorNepData.permanentDistrict ? individualGuarantorNepData.permanentDistrict.ct : ''],
+                guarantorPermanentMunicipality: [individualGuarantorNepData.permanentMunicipality ? individualGuarantorNepData.permanentMunicipality.ct : ''],
+                guarantorPermanentWard: [individualGuarantorNepData.permanentWard ? individualGuarantorNepData.permanentWard.ct : ''],
+                guarantorForeignAddress: [!ObjectUtil.isEmpty(individualGuarantorNepData.guarantorOtherAddress) ? individualGuarantorNepData.guarantorOtherAddress.ct : ''],
+                guarantorTemporaryDistrict: [individualGuarantorNepData.temporaryDistrict ? individualGuarantorNepData.temporaryDistrict.ct : ''],
+                guarantorTemporaryMunicipality: [individualGuarantorNepData.temporaryMunicipality ? individualGuarantorNepData.temporaryMunicipality.ct : ''],
+                guarantorTemporaryWard: [individualGuarantorNepData.temporaryWard ? individualGuarantorNepData.temporaryWard.ct : ''],
+                guarantorTempForeignAddress: [!ObjectUtil.isEmpty(individualGuarantorNepData.guarantorOtherAddressTemp) ? individualGuarantorNepData.guarantorOtherAddressTemp.ct : ''],
+                guarantorCitizenNumber: [this.setIdentityNo(individualGuarantorNepData)],
+                guarantorCitizenIssuedPlace: [this.setIdentityIssuedPlace(individualGuarantorNepData)],
+                guarantorCitizenIssuedDate: [this.setIdentityIssuedDate(individualGuarantorNepData)],
+                passportExpiryDate: [this.setValidityDate(individualGuarantorNepData)],
+                year: [todayDate[2]],
+                month: [todayDate[1]],
+                day: [todayDate[0]],
+                date: [this.engToNepNumberPipe.transform(String(daysInNumber + 1))],
+                freeText: [undefined]
+              })
+          );
         }
-        (this.form.get('guarantorsPartnership') as FormArray).push(
-         this.formBuilder.group({
-          branchName: [this.loanHolderNepData.branch ? this.loanHolderNepData.branch.ct : ''],
-          actDetails: [!ObjectUtil.isEmpty(this.loanHolderNepData.actName) ? this.loanHolderNepData.actName.ct : this.nameOfAct],
-          actYearInFigure: [this.setActYear()],
-          headDepartment: [!ObjectUtil.isEmpty(this.loanHolderNepData.authorizedBodyName) ? this.loanHolderNepData.authorizedBodyName.ct : this.nameOfAuthorizedBody],
-          registrationDate: [this.setRegistrationDate()],
-          registrationNo: [this.loanHolderNepData.registrationNo.ct ? this.loanHolderNepData.registrationNo.ct : ''],
-          registeredDistrict: [this.loanHolderNepData.registeredDistrict.ct ? this.loanHolderNepData.registeredDistrict.ct : ''],
-          municipalityOfFirm: [this.loanHolderNepData.registeredMunicipality.ct ? this.loanHolderNepData.registeredMunicipality.ct : ''],
-          wardNumOfFirm: [this.loanHolderNepData.permanentWard.ct ? this.loanHolderNepData.permanentWard.ct : ''],
-          addressOfFirm: [this.loanHolderNepData.registeredStreetTole.ct ? this.loanHolderNepData.registeredStreetTole.ct : ''],
-          loaneeName: [this.loanHolderNepData.name ? this.loanHolderNepData.name.ct : ''],
-          loanPurpose: [this.setLoanPurpose()],
-          letterIssuedDate: [this.setIssuedDate()],
-          loanAmount: [this.nepaliNumber.numberNepali],
-          loanAmountInWord: [this.nepaliNumber.nepaliWords],
-          approvedLoanAmountInWord: [this.nepaliCurrencyWordPipe.transform(individualGuarantorNepData.gurantedAmount.en)],
-          approvedLoanAmount: [this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(individualGuarantorNepData.gurantedAmount.en))],
-          guarantorName: [individualGuarantorNepData.guarantorName ? individualGuarantorNepData.guarantorName.ct : ''],
-          guarantorFatherOrHusbandName: [individualGuarantorNepData.fatherName ? individualGuarantorNepData.fatherName.ct : individualGuarantorNepData.husbandName ? individualGuarantorNepData.husbandName.ct : ''],
-          guarantorGrandFatherName: [individualGuarantorNepData.fatherName ? individualGuarantorNepData.fatherName.ct : ''],
-          guarantorPermanentDistrict: [individualGuarantorNepData.permanentDistrict ? individualGuarantorNepData.permanentDistrict.ct : ''],
-          guarantorPermanentMunicipality: [individualGuarantorNepData.permanentMunicipality ? individualGuarantorNepData.permanentMunicipality.ct : ''],
-          guarantorPermanentWard: [individualGuarantorNepData.permanentWard ? individualGuarantorNepData.permanentWard.ct : ''],
-           guarantorForeignAddress: [!ObjectUtil.isEmpty(individualGuarantorNepData.guarantorOtherAddress) ? individualGuarantorNepData.guarantorOtherAddress.ct : ''],
-          guarantorTemporaryDistrict: [individualGuarantorNepData.temporaryDistrict ? individualGuarantorNepData.temporaryDistrict.ct : ''],
-          guarantorTemporaryMunicipality: [individualGuarantorNepData.temporaryMunicipality ? individualGuarantorNepData.temporaryMunicipality.ct : ''],
-          guarantorTemporaryWard: [individualGuarantorNepData.temporaryWard ? individualGuarantorNepData.temporaryWard.ct : ''],
-           guarantorTempForeignAddress: [!ObjectUtil.isEmpty(individualGuarantorNepData.guarantorOtherAddressTemp) ? individualGuarantorNepData.guarantorOtherAddressTemp.ct : ''],
-          guarantorCitizenNumber: [this.setIdentityNo(individualGuarantorNepData)],
-          guarantorCitizenIssuedPlace: [this.setIdentityIssuedPlace(individualGuarantorNepData)],
-          guarantorCitizenIssuedDate: [this.setIdentityIssuedDate(individualGuarantorNepData)],
-           passportExpiryDate: [this.setValidityDate(individualGuarantorNepData)],
-            year: [todayDate[2]],
-          month: [todayDate[1]],
-          day: [todayDate[0]],
-          date: [this.engToNepNumberPipe.transform(String(daysInNumber + 1))],
-          freeText: [undefined]
-        })
-        );
       });
     }
   }
@@ -283,19 +283,25 @@ export class PersonalGuaranteePartnershipComponent implements OnInit {
   }
   setActYear() {
     let yearOfAct = '';
-    if (!ObjectUtil.isEmpty(this.loanHolderNepData.radioActYearDate.np) && (this.loanHolderNepData.radioActYearDate.np === 'BS')) {
-      yearOfAct = this.loanHolderNepData.actYear.np ? this.loanHolderNepData.actYear.np : '';
-    } else {
-      yearOfAct = this.loanHolderNepData.actYear.en ? this.loanHolderNepData.actYear.en : '' ;
+    if (!ObjectUtil.isEmpty(this.loanHolderNepData.radioActYearDate.np)) {
+      if (this.loanHolderNepData.radioActYearDate.np === 'BS') {
+        yearOfAct = this.loanHolderNepData.actYear ? this.loanHolderNepData.actYear.en : '';
+      } else {
+        yearOfAct = this.engToNepNumberPipe.transform(this.loanHolderNepData.actYear.en ?
+            this.loanHolderNepData.actYear.en : '');
+      }
     }
     return yearOfAct ? yearOfAct : '';
   }
   setRegistrationDate() {
     let regDate = '';
-    if (this.loanHolderNepData.registrationDateOption.en === 'AD') {
-      regDate = this.englishNepaliDatePipe.transform(this.loanHolderNepData.registrationDate.en ? this.loanHolderNepData.registrationDate.en : this.loanHolderNepData.registrationDate.en, true) || '' ;
-    } else {
-      regDate = this.loanHolderNepData.registrationDate.en.nDate ? this.loanHolderNepData.registrationDate.en.nDate : '';
+    if (!ObjectUtil.isEmpty(this.loanHolderNepData.registrationDateOption)) {
+      if (this.loanHolderNepData.registrationDateOption.en === 'AD') {
+        regDate = this.englishNepaliDatePipe.transform(this.loanHolderNepData.registrationDate ?
+            this.loanHolderNepData.registrationDate.en : this.loanHolderNepData.registrationDate.en, true) || '';
+      } else {
+        regDate = this.loanHolderNepData.registrationDateNepali.en ? this.loanHolderNepData.registrationDateNepali.en.nDate : '';
+      }
     }
     return regDate ? regDate : '';
    }
