@@ -57,6 +57,7 @@ import { FinancialUploadViewComponent } from './financial/financial-upload-view/
 import {LoanSummaryModule} from '../loan/component/loan-summary/loan-summary.module';
 import {LoanInformationViewModule} from '../loan-information-view/loan-information-view.module';
 import {SecurityApprovedFormComponent} from './security/security-approved-form/security-approved-form.component';
+import { ProductPaperChecklistComponent } from './product-paper-checklist/product-paper-checklist.component';
 
 const COMPONENTS = [
     SiteVisitComponent,

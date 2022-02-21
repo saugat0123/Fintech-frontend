@@ -248,7 +248,13 @@
                     </ng-template>
 
                 </ngb-tab>
+                <ngb-tab title="Product Paper Checklist">
+                    <ng-template ngbTabContent>
+                        <app-product-paper-checklist [product]="loanDocument?.loanType?.toString()" [fromLoan]="true"></app-product-paper-checklist>
+                    </ng-template>
+                </ngb-tab>
             </ngb-tabset>
+
 
             <div class="justify-content-center" style="padding-bottom: 20px">
                 <div class="col-md-12">
