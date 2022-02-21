@@ -16,6 +16,7 @@ export class CiclViewComponent implements OnInit {
   ciclRelationList = CiclRelationListEnum;
 
   crgLambdaDisabled = environment.disableCrgLambda;
+  checkedDdata;
 
   constructor() {
   }
@@ -23,6 +24,7 @@ export class CiclViewComponent implements OnInit {
   ngOnInit() {
     if (!ObjectUtil.isEmpty(this.ciclValue)) {
       this.ciclList = JSON.parse(this.ciclValue.data);
+      this.checkedDdata = JSON.parse(this.ciclValue.checkedData);
     }
   }
 

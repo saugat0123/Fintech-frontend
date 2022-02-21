@@ -51,13 +51,18 @@ export class ProposalComponent implements OnInit {
   isGeneral = false;
   isVehicle = false;
   isShare = false;
+  isHomeLoan = false;
   loanEnumType = LoanType;
   showInstallmentAmount = false;
   showRepaymentMode = false;
   swapChargeChecked = false;
+  swapChargeVar = false;
   subsidizedLoanChecked = false;
   othersSubsidyLoan = false;
   existInterestLimit: number;
+  yesNo = [
+    {value: 'Yes'},
+    {value: 'No'}];
 
   subsidyLoanType = [
     {value: 'Literate Youth Self Employment Loan'},
@@ -126,6 +131,7 @@ export class ProposalComponent implements OnInit {
             this.isGeneral = response.detail.loanTag === 'GENERAL';
             this.isShare = response.detail.loanTag === 'SHARE_SECURITY';
             this.isVehicle = response.detail.loanTag === 'VEHICLE';
+            this.isHomeLoan = response.detail.loanTag === 'HOME_LOAN';
             this.loanNature = response.detail.loanNature;
             if (!ObjectUtil.isEmpty(this.loanNature)) {
               this.loanNatureSelected = true;
@@ -237,6 +243,11 @@ export class ProposalComponent implements OnInit {
       existCommissionPercentage: [undefined],
       settlementAmount: [undefined],
       groupExposure: this.formBuilder.array([]),
+      yesNo1: [undefined],
+      yesNo2: [undefined],
+      yesNo3: [undefined],
+      yesNo4: [undefined],
+      yesNo5: [undefined],
     });
   }
 
@@ -291,7 +302,8 @@ export class ProposalComponent implements OnInit {
       waiverChecked: this.waiverChecked,
       riskChecked: this.riskChecked,
       swapChargeChecked: this.swapChargeChecked,
-      subsidizedLoanChecked: this.subsidizedLoanChecked
+      subsidizedLoanChecked: this.subsidizedLoanChecked,
+      swapChargeVar: this.swapChargeVar
     };
     this.proposalData.checkedData = JSON.stringify(mergeChecked);
 
@@ -374,6 +386,15 @@ export class ProposalComponent implements OnInit {
           this.proposalForm.get('subsidyLoanType').setValue(null);
         }
         break;
+      case 'swapChVar':
+        if (event) {
+          this.swapChargeVar = true;
+        } else {
+          this.swapChargeVar = false;
+          // this.proposalForm.get('subsidizedLoan').setValue(null);
+          // this.proposalForm.get('subsidyLoanType').setValue(null);
+        }
+        break;
     }
   }
 
@@ -384,6 +405,7 @@ export class ProposalComponent implements OnInit {
       this.checkChecked(data['riskChecked'], 'risk');
       this.checkChecked(data['swapChargeChecked'], 'swapCharge');
       this.checkChecked(data['subsidizedLoanChecked'], 'subsidizedLoan');
+      this.checkChecked(data['swapChargeVar'], 'swapChVar');
     }
   }
 
