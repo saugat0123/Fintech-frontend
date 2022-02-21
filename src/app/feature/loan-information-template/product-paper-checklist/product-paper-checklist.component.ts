@@ -1,28 +1,32 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {LoanDataHolder} from '../../loan/model/loanData';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
+import {LoanConfigService} from '../../admin/component/loan-config/loan-config.service';
+import {LoanConfig} from '../../admin/modal/loan-config';
 
 @Component({
   selector: 'app-product-paper-checklist',
   templateUrl: './product-paper-checklist.component.html',
   styleUrls: ['./product-paper-checklist.component.scss']
 })
-export class ProductPaperChecklistComponent implements OnInit {
+export class ProductPaperChecklistComponent implements OnInit{
 
   constructor(
-      private formBuilder: FormBuilder
+      private formBuilder: FormBuilder,
+      private loanService: LoanConfigService
   ) { }
-  @Input() product;
+  @Input() loan: LoanConfig;
   @Input() fromLoan;
   @Input() loanDataHolder: LoanDataHolder;
+  @Output() checkList = new EventEmitter();
   paperForm: FormGroup;
   yesNo = ['Yes', 'No', 'Na'];
   formData;
   ngOnInit() {
     this.buildForm();
-    if (!ObjectUtil.isEmpty(this.loanDataHolder.productPaper)) {
-      this.formData = JSON.parse(this.loanDataHolder.productPaper);
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.paperProductChecklist)) {
+      this.formData = JSON.parse(this.loanDataHolder.paperProductChecklist);
       this.paperForm.patchValue(this.formData);
     }
   }
@@ -59,6 +63,9 @@ export class ProductPaperChecklistComponent implements OnInit {
       commitmentFee: [undefined],
       swapFee: [undefined],
     });
+  }
+  save() {
+    this.checkList.emit(this.paperForm.value);
   }
 }
 

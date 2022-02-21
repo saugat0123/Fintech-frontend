@@ -1,408 +1,409 @@
 <script src="product-paper-checklist.component.ts"></script>
 <div class ="col-md-12" id ="paper-checklist">
-<p><strong>Product: {{product}}</strong></p>
-<!--    section one-->
-    <table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-        <thead class="sb-bg-dark">
-        <tr>
-            <th [colSpan]="fromLoan?5:3">COMPLIANCE TO PRODUCT PAPER - CHECKLIST </th>
-        </tr>
-        <tr>
+<p><strong>Product: {{loan?.name}}</strong></p>
+    <form [formGroup]="paperForm">
+        <!--    section one-->
+        <table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+            <thead class="sb-bg-dark">
+            <tr>
+                <th>COMPLIANCE TO PRODUCT PAPER - CHECKLIST </th>
+            </tr>
+            <tr>
+                <th>S.N.</th>
+                <th>Section 1 - Document Checklist</th>
+                <th *ngIf="fromLoan">Yes</th>
+                <th *ngIf="fromLoan">No</th>
+                <th *ngIf="fromLoan">NA</th>
+                <th *ngIf="!fromLoan">YES/NO</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="sb-bg-dark">
+                <td><b>A</b></td>
+                <td><b>Net Worth & Credit Information</b></td>
+            </tr>
+            <!--       first net worth section-->
+            <tr>
+                <td>1</td>
+                <td>CICL report dated .......2021 obtained</td>
+                <ng-container *ngIf="fromLoan">
+                    <td  *ngFor="let option of yesNo" >
+                        <input [value]="option" formControlName="ciclDate" name="ciclDate" type="radio">
+                    </td>
+                </ng-container>
+                <td *ngIf="!fromLoan">{{formData?.ciclDate}}</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Internal Hot List and Rejection List checked</td>
+                <ng-container *ngIf="fromLoan">
+                    <td  *ngFor="let option of yesNo" >
+                        <input [value]="option" formControlName="internal" name="internal" type="radio">
+                    </td>
+                </ng-container>
+                <td *ngIf="!fromLoan">{{formData?.internal}}</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Negative List (of Business/Profession) checked</td>
+                <ng-container *ngIf="fromLoan">
+                    <td  *ngFor="let option of yesNo" >
+                        <input [value]="option" formControlName="negative" name="negative" type="radio">
+                    </td>
+                </ng-container>
+                <td *ngIf="!fromLoan">{{formData?.negative}}</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Credit reference if the applicants/guarantor maintains credit relationship with other FIs.</td>
+                <ng-container *ngIf="fromLoan">
+                    <td  *ngFor="let option of yesNo" >
+                        <input [value]="option" formControlName="reference" name="reference" type="radio">
+                    </td>
+                </ng-container>
+                <td *ngIf="!fromLoan">{{formData?.reference}}</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>Personal/Business bank account statements.</td>
+                <ng-container *ngIf="fromLoan">
+                    <td  *ngFor="let option of yesNo" >
+                        <input [value]="option" formControlName="statements" name="statements" type="radio">
+                    </td>
+                </ng-container>
+                <td *ngIf="!fromLoan">{{formData?.statements}}</td>
+            </tr>
+            <tr class="sb-bg-dark">
+                <td><b>B</b></td>
+                <td><b>Fixed Asset Collateral Documents</b></td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Copy of the Land Ownership Certificate (Lal Purja)</td>
+                <ng-container *ngIf="fromLoan">
+                    <td  *ngFor="let option of yesNo" >
+                        <input [value]="option" formControlName="lalPurja" name="lalPurja" type="radio">
+                    </td>
+                </ng-container>
+                <td *ngIf="!fromLoan">{{formData?.lalPurja}}</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Blueprint/Trace of the Land (Napi Naksa)</td>
+                <ng-container *ngIf="fromLoan">
+                    <td  *ngFor="let option of yesNo" >
+                        <input [value]="option" formControlName="bluePrint" name="bluePrint" type="radio">
+                    </td>
+                </ng-container>
+                <td *ngIf="!fromLoan">{{formData?.bluePrint}}</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Boundary (Char Killa) Certificate</td>
+                <ng-container *ngIf="fromLoan">
+                    <td  *ngFor="let option of yesNo" >
+                        <input [value]="option" formControlName="boundary" name="boundary" type="radio">
+                    </td>
+                </ng-container>
+                <td *ngIf="!fromLoan">{{formData?.boundary}}</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Building Completion Certificate if building also considered as collateral 			</td>
+                <ng-container *ngIf="fromLoan">
+                    <td  *ngFor="let option of yesNo" >
+                        <input [value]="option" formControlName="bcc" name="bcc" type="radio">
+                    </td>
+                </ng-container>
+                <td *ngIf="!fromLoan">{{formData?.bcc}}</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>Building Construction Approval (Nirman ijajat patra)</td>
+                <ng-container *ngIf="fromLoan">
+                    <td  *ngFor="let option of yesNo" >
+                        <input [value]="option" formControlName="bca" name="bca" type="radio">
+                    </td>
+                </ng-container>
+                <td *ngIf="!fromLoan">{{formData?.bca}}</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>Photograph of Fixed Asset Collateral showing clear road access of minimum 8 feet width</td>
+                <ng-container *ngIf="fromLoan">
+                    <td  *ngFor="let option of yesNo" >
+                        <input [value]="option" formControlName="fac" name="fac" type="radio">
+                    </td>
+                </ng-container>
+                <td *ngIf="!fromLoan">{{formData?.fac}}</td>
+            </tr>
+            <tr class="sb-bg-dark">
+                <td><b>C</b></td>
+                <td><b>Fixed Asset Collateral Documents</b></td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>
+                    Salary Certificate issued by employer (dated within last 60 days of loan application)
+                </td>
+                <ng-container *ngIf="fromLoan">
+                    <td  *ngFor="let option of yesNo" >
+                        <input [value]="option" formControlName="salaryCertificate" name="salaryCertificate" type="radio">
+                    </td>
+                </ng-container>
+                <td *ngIf="!fromLoan">{{formData?.salaryCertificate}}</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>
+                    Pensioners: Pension book/Identification
+                </td>
+                <ng-container *ngIf="fromLoan">
+                    <td  *ngFor="let option of yesNo" >
+                        <input [value]="option" formControlName="pension" name="pension" type="radio">
+                    </td>
+                </ng-container>
+                <td *ngIf="!fromLoan">{{formData?.pension}}</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>
+                    Rental income: Copy of rental agreement/contract supported by Land ownership certificate of the property rented.
+                </td>
+                <ng-container *ngIf="fromLoan">
+                    <td  *ngFor="let option of yesNo" >
+                        <input [value]="option" formControlName="rental" name="rental" type="radio">
+                    </td>
+                </ng-container>
+                <td *ngIf="!fromLoan">{{formData?.rental}}</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>
+                    Professionals (Medical practitioners, Engineers and Chartered Accountants): Copy of academic qualification and certified income statement
+                </td>
+                <ng-container *ngIf="fromLoan">
+                    <td  *ngFor="let option of yesNo" >
+                        <input [value]="option" formControlName="professional" name="professional" type="radio">
+                    </td>
+                </ng-container>
+                <td *ngIf="!fromLoan">{{formData?.professional}}</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>
+                    Business income (self-employed applicants): Financial statements of the past 2 years supported by firm registration certificate and tax/PAN certificate.
+                </td>
+                <ng-container *ngIf="fromLoan">
+                    <td  *ngFor="let option of yesNo" >
+                        <input [value]="option" formControlName="businessIncome" name="businessIncome" type="radio">
+                    </td>
+                </ng-container>
+                <td *ngIf="!fromLoan">{{formData?.businessIncome}}</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>
+                    Agriculture income (applicants owning agricultural land) : Income substantiating documents certified by Administrative Office of Nepal Government like Ward Office
+                </td>
+                <ng-container *ngIf="fromLoan">
+                    <td  *ngFor="let option of yesNo" >
+                        <input [value]="option" formControlName="agricultureIncome" name="agricultureIncome" type="radio">
+                    </td>
+                </ng-container>
+                <td *ngIf="!fromLoan">{{formData?.agricultureIncome}}</td>
+            </tr>
+
+            </tbody>
+        </table>
+        <!--   section two-->
+        <table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+            <thead class="sb-bg-dark">
             <th>S.N.</th>
-            <th>Section 1 - Document Checklist</th>
-            <th *ngIf="fromLoan">Yes</th>
-            <th *ngIf="fromLoan">No</th>
+            <th> Section 2 - Compliance To HMLN Product Paper Parameters</th>
+            <th *ngIf="fromLoan">YES</th>
+            <th *ngIf="fromLoan">NO</th>
             <th *ngIf="fromLoan">NA</th>
             <th *ngIf="!fromLoan">YES/NO</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr class="sb-bg-dark">
-        <td><b>A</b></td>
-            <td><b>Net Worth & Credit Information</b></td>
-        </tr>
-<!--       first net worth section-->
-        <tr>
-            <td>1</td>
-            <td>CICL report dated .......2021 obtained</td>
-            <ng-container *ngIf="fromLoan">
-                <td  *ngFor="let option of yesNo" >
-                    <input [value]="option" formControlName="ciclDate" name="ciclDate" type="radio">
+            </thead>
+            <tbody>
+            <tr class="sb-bg-dark">
+                <td><b>A</b></td>
+                <td><b>Loan Structure</b></td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>
+                    Loan amount is within the delegated CAD (Both Account and Group Exposure)
                 </td>
-            </ng-container>
-            <td *ngIf="!fromLoan">{{formData?.ciclDate}}</td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>Internal Hot List and Rejection List checked</td>
-            <ng-container *ngIf="fromLoan">
-                <td  *ngFor="let option of yesNo" >
-                    <input [value]="option" formControlName="internal" name="internal" type="radio">
+                <ng-container *ngIf="fromLoan">
+                    <td  *ngFor="let option of yesNo" >
+                        <input [value]="option" formControlName="loanAmount" name="loanAmount" type="radio">
+                    </td>
+                </ng-container>
+                <td *ngIf="!fromLoan">{{formData?.loanAmount}}</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>
+                    Credit chain checked and verified
                 </td>
-            </ng-container>
-            <td *ngIf="!fromLoan">{{formData?.internal}}</td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>Negative List (of Business/Profession) checked</td>
-            <ng-container *ngIf="fromLoan">
-                <td  *ngFor="let option of yesNo" >
-                    <input [value]="option" formControlName="negative" name="negative" type="radio">
+                <ng-container *ngIf="fromLoan">
+                    <td  *ngFor="let option of yesNo" >
+                        <input [value]="option" formControlName="creditChain" name="creditChain" type="radio">
+                    </td>
+                </ng-container>
+                <td *ngIf="!fromLoan">{{formData?.creditChain}}</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>
+                    Loan Tenure: Minimum 12 months and Maximum 480 months or as per Product Paper
                 </td>
-            </ng-container>
-            <td *ngIf="!fromLoan">{{formData?.negative}}</td>
-        </tr>
-        <tr>
-            <td>4</td>
-            <td>Credit reference if the applicants/guarantor maintains credit relationship with other FIs.</td>
-            <ng-container *ngIf="fromLoan">
-                <td  *ngFor="let option of yesNo" >
-                    <input [value]="option" formControlName="reference" name="reference" type="radio">
+                <ng-container *ngIf="fromLoan">
+                    <td  *ngFor="let option of yesNo" >
+                        <input [value]="option" formControlName="loanTenure" name="loanTenure" type="radio">
+                    </td>
+                </ng-container>
+                <td *ngIf="!fromLoan">{{formData?.loanTenure}}</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>
+                    Loan Amount: Minimum 250K and Maximum 50,000K
                 </td>
-            </ng-container>
-            <td *ngIf="!fromLoan">{{formData?.reference}}</td>
-        </tr>
-        <tr>
-            <td>5</td>
-            <td>Personal/Business bank account statements.</td>
-            <ng-container *ngIf="fromLoan">
-                <td  *ngFor="let option of yesNo" >
-                    <input [value]="option" formControlName="statements" name="statements" type="radio">
-                </td>
-            </ng-container>
-            <td *ngIf="!fromLoan">{{formData?.statements}}</td>
-        </tr>
-        <tr class="sb-bg-dark">
-            <td><b>B</b></td>
-            <td><b>Fixed Asset Collateral Documents</b></td>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>Copy of the Land Ownership Certificate (Lal Purja)</td>
-            <ng-container *ngIf="fromLoan">
-                <td  *ngFor="let option of yesNo" >
-                    <input [value]="option" formControlName="lalPurja" name="lalPurja" type="radio">
-                </td>
-            </ng-container>
-            <td *ngIf="!fromLoan">{{formData?.lalPurja}}</td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>Blueprint/Trace of the Land (Napi Naksa)</td>
-            <ng-container *ngIf="fromLoan">
-                <td  *ngFor="let option of yesNo" >
-                    <input [value]="option" formControlName="bluePrint" name="bluePrint" type="radio">
-                </td>
-            </ng-container>
-            <td *ngIf="!fromLoan">{{formData?.bluePrint}}</td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>Boundary (Char Killa) Certificate</td>
-            <ng-container *ngIf="fromLoan">
-                <td  *ngFor="let option of yesNo" >
-                    <input [value]="option" formControlName="boundary" name="boundary" type="radio">
-                </td>
-            </ng-container>
-            <td *ngIf="!fromLoan">{{formData?.boundary}}</td>
-        </tr>
-        <tr>
-            <td>4</td>
-            <td>Building Completion Certificate if building also considered as collateral 			</td>
-            <ng-container *ngIf="fromLoan">
-                <td  *ngFor="let option of yesNo" >
-                    <input [value]="option" formControlName="bcc" name="bcc" type="radio">
-                </td>
-            </ng-container>
-            <td *ngIf="!fromLoan">{{formData?.bcc}}</td>
-        </tr>
-        <tr>
-            <td>5</td>
-            <td>Building Construction Approval (Nirman ijajat patra)</td>
-            <ng-container *ngIf="fromLoan">
-                <td  *ngFor="let option of yesNo" >
-                    <input [value]="option" formControlName="bca" name="bca" type="radio">
-                </td>
-            </ng-container>
-            <td *ngIf="!fromLoan">{{formData?.bca}}</td>
-        </tr>
-        <tr>
-            <td>6</td>
-            <td>Photograph of Fixed Asset Collateral showing clear road access of minimum 8 feet width</td>
-            <ng-container *ngIf="fromLoan">
-                <td  *ngFor="let option of yesNo" >
-                    <input [value]="option" formControlName="fac" name="fac" type="radio">
-                </td>
-            </ng-container>
-            <td *ngIf="!fromLoan">{{formData?.fac}}</td>
-        </tr>
-        <tr class="sb-bg-dark">
-            <td><b>C</b></td>
-            <td><b>Fixed Asset Collateral Documents</b></td>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>
-                Salary Certificate issued by employer (dated within last 60 days of loan application)
-            </td>
-            <ng-container *ngIf="fromLoan">
-                <td  *ngFor="let option of yesNo" >
-                    <input [value]="option" formControlName="salaryCertificate" name="salaryCertificate" type="radio">
-                </td>
-            </ng-container>
-            <td *ngIf="!fromLoan">{{formData?.salaryCertificate}}</td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>
-                Pensioners: Pension book/Identification
-            </td>
-            <ng-container *ngIf="fromLoan">
-                <td  *ngFor="let option of yesNo" >
-                    <input [value]="option" formControlName="pension" name="pension" type="radio">
-                </td>
-            </ng-container>
-            <td *ngIf="!fromLoan">{{formData?.pension}}</td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>
-                Rental income: Copy of rental agreement/contract supported by Land ownership certificate of the property rented.
-            </td>
-            <ng-container *ngIf="fromLoan">
-                <td  *ngFor="let option of yesNo" >
-                    <input [value]="option" formControlName="rental" name="rental" type="radio">
-                </td>
-            </ng-container>
-            <td *ngIf="!fromLoan">{{formData?.rental}}</td>
-        </tr>
-        <tr>
-            <td>4</td>
-            <td>
-                Professionals (Medical practitioners, Engineers and Chartered Accountants): Copy of academic qualification and certified income statement
-            </td>
-            <ng-container *ngIf="fromLoan">
-                <td  *ngFor="let option of yesNo" >
-                    <input [value]="option" formControlName="professional" name="professional" type="radio">
-                </td>
-            </ng-container>
-            <td *ngIf="!fromLoan">{{formData?.professional}}</td>
-        </tr>
-        <tr>
-            <td>5</td>
-            <td>
-                Business income (self-employed applicants): Financial statements of the past 2 years supported by firm registration certificate and tax/PAN certificate.
-            </td>
-            <ng-container *ngIf="fromLoan">
-                <td  *ngFor="let option of yesNo" >
-                    <input [value]="option" formControlName="businessIncome" name="businessIncome" type="radio">
-                </td>
-            </ng-container>
-            <td *ngIf="!fromLoan">{{formData?.businessIncome}}</td>
-        </tr>
-        <tr>
-            <td>6</td>
-            <td>
-                Agriculture income (applicants owning agricultural land) : Income substantiating documents certified by Administrative Office of Nepal Government like Ward Office
-            </td>
-            <ng-container *ngIf="fromLoan">
-                <td  *ngFor="let option of yesNo" >
-                    <input [value]="option" formControlName="agricultureIncome" name="agricultureIncome" type="radio">
-                </td>
-            </ng-container>
-            <td *ngIf="!fromLoan">{{formData?.agricultureIncome}}</td>
-        </tr>
+                <ng-container *ngIf="fromLoan">
+                    <td  *ngFor="let option of yesNo" >
+                        <input [value]="option" formControlName="loanAmountMax" name="loanAmountMax" type="radio">
+                    </td>
+                </ng-container>
+                <td *ngIf="!fromLoan">{{formData?.loanAmountMax}}</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>Loan to Value (LTV):
+                    Property located inside/outside Kathmandu valley: Maximum 60% of the FMV.
+                    <b>First Home Buyer</b> -Maximum 70% of FMV
+                    <br>- All the criteria as per NRB Directive 3/078 – 11.4.Kha has been met
 
-        </tbody>
-    </table>
-<!--   section two-->
-    <table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-    <thead>
-    <th>S.N.</th>
-    <th> Section 2 - Compliance To HMLN Product Paper Parameters</th>
-    <th *ngIf="fromLoan">YES</th>
-    <th *ngIf="fromLoan">NO</th>
-    <th *ngIf="fromLoan">NA</th>
-    <th *ngIf="!fromLoan">YES/NO</th>
-    </thead>
-        <tbody>
-        <tr class="sb-bg-dark">
-            <td><b>A</b></td>
-            <td><b>Loan Structure</b></td>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>
-              Loan amount is within the delegated CAD (Both Account and Group Exposure)
-            </td>
-            <ng-container *ngIf="fromLoan">
-                <td  *ngFor="let option of yesNo" >
-                    <input [value]="option" formControlName="loanAmount" name="loanAmount" type="radio">
                 </td>
-            </ng-container>
-            <td *ngIf="!fromLoan">{{formData?.loanAmount}}</td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>
-                Credit chain checked and verified
-            </td>
-            <ng-container *ngIf="fromLoan">
-                <td  *ngFor="let option of yesNo" >
-                    <input [value]="option" formControlName="creditChain" name="creditChain" type="radio">
+                <ng-container *ngIf="fromLoan">
+                    <td  *ngFor="let option of yesNo" >
+                        <input [value]="option" formControlName="ltv" name="ltv" type="radio">
+                    </td>
+                </ng-container>
+                <td *ngIf="!fromLoan">{{formData?.ltv}}</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>
+                    Group exposure aggregated, as per the NRB’s definition of a group (If applicable)
                 </td>
-            </ng-container>
-            <td *ngIf="!fromLoan">{{formData?.creditChain}}</td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>
-            	Loan Tenure: Minimum 12 months and Maximum 480 months or as per Product Paper
-            </td>
-            <ng-container *ngIf="fromLoan">
-                <td  *ngFor="let option of yesNo" >
-                    <input [value]="option" formControlName="loanTenure" name="loanTenure" type="radio">
+                <ng-container *ngIf="fromLoan">
+                    <td  *ngFor="let option of yesNo" >
+                        <input [value]="option" formControlName="groupExposure" name="groupExposure" type="radio">
+                    </td>
+                </ng-container>
+                <td *ngIf="!fromLoan">{{formData?.groupExposure}}</td>
+            </tr>
+            <tr class="sb-bg-dark">
+                <td><b>B</b></td>
+                <td><b>Age of Borrower/Guarantor</b></td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>
+                    Age of Borrower: Minimum 21 years at the time of application and 70 years at the time of maturity of the Loan
                 </td>
-            </ng-container>
-            <td *ngIf="!fromLoan">{{formData?.loanTenure}}</td>
-        </tr>
-        <tr>
-            <td>4</td>
-            <td>
-              	Loan Amount: Minimum 250K and Maximum 50,000K
-            </td>
-            <ng-container *ngIf="fromLoan">
-                <td  *ngFor="let option of yesNo" >
-                    <input [value]="option" formControlName="loanAmountMax" name="loanAmountMax" type="radio">
+                <ng-container *ngIf="fromLoan">
+                    <td  *ngFor="let option of yesNo" >
+                        <input [value]="option" formControlName="ageOfBorrower" name="ageOfBorrower" type="radio">
+                    </td>
+                </ng-container>
+                <td *ngIf="!fromLoan">{{formData?.ageOfBorrower}}</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>
+                    Age of borrower, co-borrower or guarantor has not exceeded 70 years at the time of loan application
                 </td>
-            </ng-container>
-            <td *ngIf="!fromLoan">{{formData?.loanAmountMax}}</td>
-        </tr>
-        <tr>
-            <td>5</td>
-            <td>
-                Loan to Value (LTV):
-                Property located inside/outside Kathmandu valley: Maximum 60% of the FMV.
-               <b>First Home Buyer</b> -Maximum 70% of FMV
-                - All the criteria as per NRB Directive 3/078 – 11.4.Kha has been met
+                <ng-container *ngIf="fromLoan">
+                    <td  *ngFor="let option of yesNo" >
+                        <input [value]="option" formControlName="ageOfCoBorrower" name="ageOfCoBorrower" type="radio">
+                    </td>
+                </ng-container>
+                <td *ngIf="!fromLoan">{{formData?.ageOfCoBorrower}}</td>
+            </tr>
+            <tr class="sb-bg-dark">
+                <td><b>C</b></td>
+                <td><b>Debt Burden Ratio (DBR)</b></td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>
+                    DBR: Maximum 50% of GMI and 60% of GMI for First Home Buyer.
+                </td>
+                <ng-container *ngIf="fromLoan">
+                    <td  *ngFor="let option of yesNo" >
+                        <input [value]="option" formControlName="dbr" name="dbr" type="radio">
+                    </td>
+                </ng-container>
+                <td *ngIf="!fromLoan">{{formData?.dbr}}</td>
+            </tr>
+            <tr class="sb-bg-dark">
+                <td><b>D</b></td>
+                <td><b>Interest Rate & Fees</b></td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>
+                    Interest rate: As per latest scheme rate
+                </td>
+                <ng-container *ngIf="fromLoan">
+                    <td  *ngFor="let option of yesNo" >
+                        <input [value]="option" formControlName="interestRate" name="interestRate" type="radio">
+                    </td>
+                </ng-container>
+                <td *ngIf="!fromLoan">{{formData?.interestRate}}</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>
+                    Loan Administration Fee:  As per SSC or Product Paper
+                </td>
+                <ng-container *ngIf="fromLoan">
+                    <td  *ngFor="let option of yesNo" >
+                        <input [value]="option" formControlName="loanFee" name="loanFee" type="radio">
+                    </td>
+                </ng-container>
+                <td *ngIf="!fromLoan">{{formData?.loanFee}}</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>
+                    Commitment fee: As per Product Paper / Internal Circular / SSC / Latest NRB directive
+                </td>
+                <ng-container *ngIf="fromLoan">
+                    <td  *ngFor="let option of yesNo" >
+                        <input [value]="option" formControlName="commitmentFee" name="commitmentFee" type="radio">
+                    </td>
+                </ng-container>
+                <td *ngIf="!fromLoan">{{formData?.commitmentFee}}</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>
+                    Swap Fee: As per Product Paper / Internal Circular / SSC / Latest NRB directive
+                </td>
+                <ng-container *ngIf="fromLoan">
+                    <td  *ngFor="let option of yesNo" >
+                        <input [value]="option" formControlName="swapFee" name="swapFee" type="radio">
+                    </td>
+                </ng-container>
+                <td *ngIf="!fromLoan">{{formData?.swapFee}}</td>
+            </tr>
 
-            </td>
-            <ng-container *ngIf="fromLoan">
-                <td  *ngFor="let option of yesNo" >
-                    <input [value]="option" formControlName="ltv" name="ltv" type="radio">
-                </td>
-            </ng-container>
-            <td *ngIf="!fromLoan">{{formData?.ltv}}</td>
-        </tr>
-        <tr>
-            <td>6</td>
-            <td>
-                Group exposure aggregated, as per the NRB’s definition of a group (If applicable)
-            </td>
-            <ng-container *ngIf="fromLoan">
-                <td  *ngFor="let option of yesNo" >
-                    <input [value]="option" formControlName="groupExposure" name="groupExposure" type="radio">
-                </td>
-            </ng-container>
-            <td *ngIf="!fromLoan">{{formData?.groupExposure}}</td>
-        </tr>
-        <tr class="sb-bg-dark">
-            <td><b>B</b></td>
-            <td><b>Age of Borrower/Guarantor</b></td>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>
-                Age of Borrower: Minimum 21 years at the time of application and 70 years at the time of maturity of the Loan
-            </td>
-            <ng-container *ngIf="fromLoan">
-                <td  *ngFor="let option of yesNo" >
-                    <input [value]="option" formControlName="ageOfBorrower" name="ageOfBorrower" type="radio">
-                </td>
-            </ng-container>
-            <td *ngIf="!fromLoan">{{formData?.ageOfBorrower}}</td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>
-                Age of borrower, co-borrower or guarantor has not exceeded 70 years at the time of loan application
-            </td>
-            <ng-container *ngIf="fromLoan">
-                <td  *ngFor="let option of yesNo" >
-                    <input [value]="option" formControlName="ageOfCoBorrower" name="ageOfCoBorrower" type="radio">
-                </td>
-            </ng-container>
-            <td *ngIf="!fromLoan">{{formData?.ageOfCoBorrower}}</td>
-        </tr>
-        <tr class="sb-bg-dark">
-            <td><b>C</b></td>
-            <td><b>Debt Burden Ratio (DBR)</b></td>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>
-                DBR: Maximum 50% of GMI and 60% of GMI for First Home Buyer.
-            </td>
-            <ng-container *ngIf="fromLoan">
-                <td  *ngFor="let option of yesNo" >
-                    <input [value]="option" formControlName="dbr" name="dbr" type="radio">
-                </td>
-            </ng-container>
-            <td *ngIf="!fromLoan">{{formData?.dbr}}</td>
-        </tr>
-        <tr class="sb-bg-dark">
-            <td><b>D</b></td>
-            <td><b>Interest Rate & Fees</b></td>
-        </tr>
-        <tr>
-            <td>1</td>
-            <td>
-                Interest rate: As per latest scheme rate
-            </td>
-            <ng-container *ngIf="fromLoan">
-                <td  *ngFor="let option of yesNo" >
-                    <input [value]="option" formControlName="interestRate" name="interestRate" type="radio">
-                </td>
-            </ng-container>
-            <td *ngIf="!fromLoan">{{formData?.interestRate}}</td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>
-                Loan Administration Fee:  As per SSC or Product Paper
-            </td>
-            <ng-container *ngIf="fromLoan">
-                <td  *ngFor="let option of yesNo" >
-                    <input [value]="option" formControlName="loanFee" name="loanFee" type="radio">
-                </td>
-            </ng-container>
-            <td *ngIf="!fromLoan">{{formData?.loanFee}}</td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>
-                Commitment fee: As per Product Paper / Internal Circular / SSC / Latest NRB directive
-            </td>
-            <ng-container *ngIf="fromLoan">
-                <td  *ngFor="let option of yesNo" >
-                    <input [value]="option" formControlName="commitmentFee" name="commitmentFee" type="radio">
-                </td>
-            </ng-container>
-            <td *ngIf="!fromLoan">{{formData?.commitmentFee}}</td>
-        </tr>
-        <tr>
-            <td>4</td>
-            <td>
-                Swap Fee: As per Product Paper / Internal Circular / SSC / Latest NRB directive
-            </td>
-            <ng-container *ngIf="fromLoan">
-                <td  *ngFor="let option of yesNo" >
-                    <input [value]="option" formControlName="swapFee" name="swapFee" type="radio">
-                </td>
-            </ng-container>
-            <td *ngIf="!fromLoan">{{formData?.swapFee}}</td>
-        </tr>
-
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    </form>
 </div>

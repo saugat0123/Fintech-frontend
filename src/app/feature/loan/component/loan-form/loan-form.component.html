@@ -128,7 +128,10 @@
                                                    [loanId]="id"></app-company-info-view>
                         </div>
                     </ng-template>
-                    <ng-template ngbTabContent *ngIf="allList.name === 'Proposal' && loanTag">
+                    <ng-template  *ngIf="allList.name === 'Product Paper Checklist' && loanTag" ngbTabContent>
+                        <app-product-paper-checklist (checkList)="updateChecklist($event)" [loanDataHolder]="loanDocument" [loan]="loans" [fromLoan]="true"></app-product-paper-checklist>
+                    </ng-template>
+                    <ng-template ngbTabContent *ngIf="allList.name === 'Proposal' && loanTag" #productPaperChecklist>
                         <app-proposal *ngIf="loanTag !== 'MICRO_LOAN'" [formValue]="loadProposal()" (emitter)="updateIncome($event)" [customerInfo]="loanHolder" [loanType]="loanType" #proposalInfo></app-proposal>
                         <app-micro-proposal *ngIf="loanTag === 'MICRO_LOAN'" [formValue]="loadProposal()" [loanType]="loanType" #microProposalInfo></app-micro-proposal>
                     </ng-template>
@@ -247,11 +250,6 @@
                         </div>
                     </ng-template>
 
-                </ngb-tab>
-                <ngb-tab title="Product Paper Checklist">
-                    <ng-template ngbTabContent>
-                        <app-product-paper-checklist [product]="loanDocument?.loanType?.toString()" [fromLoan]="true"></app-product-paper-checklist>
-                    </ng-template>
                 </ngb-tab>
             </ngb-tabset>
 

@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {LoanDataService} from '../../service/loan-data.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 
@@ -60,6 +60,7 @@ import {Clients} from '../../../../../environments/Clients';
 import {MicroProposalComponent} from '../../../micro-loan/form-component/micro-proposal/micro-proposal.component';
 import {CrgMicroComponent} from '../../../loan-information-template/crg-micro/crg-micro.component';
 import {MicroCustomerType} from '../../../../@core/model/enum/micro-customer-type';
+import {ProductPaperChecklistComponent} from '../../../loan-information-template/product-paper-checklist/product-paper-checklist.component';
 
 @Component({
     selector: 'app-loan-form',
@@ -214,11 +215,15 @@ export class LoanFormComponent implements OnInit {
 
     @ViewChild('microProposalInfo', {static: false})
     microProposalInfo: MicroProposalComponent;
+    @ViewChild('productPaperChecklist', {static: false})
+    productPaperChecklistComponent: ProductPaperChecklistComponent;
 
     loanTag: string;
     loanHolder = new CustomerInfoData();
     loanTypeKeyValue = LoanType;
     loanType;
+    checklistData;
+    loans;
 
 
 
@@ -366,6 +371,7 @@ export class LoanFormComponent implements OnInit {
 
     populateTemplate() {
         this.loanConfigService.detail(this.id).subscribe((response: any) => {
+            this.loans = response.detail;
             this.loanTag = response.detail.loanTag;
             // this.templateList = response.detail.templateList;
             this.templateList = new DefaultLoanTemplate().DEFAULT_TEMPLATE;
@@ -630,6 +636,10 @@ export class LoanFormComponent implements OnInit {
             this.loanDocument.proposal = this.proposalDetail.proposalData;
 
         }
+        if (name === 'Product Paper Checklist' && action) {
+            this.productPaperChecklistComponent.save();
+            this.loanDocument.paperProductChecklist = JSON.stringify(this.checklistData);
+        }
 
         if (name === 'Loan Document' && action) {
             this.loanDocument.customerDocument = this.customerDocument.customerDocumentArray;
@@ -855,5 +865,9 @@ export class LoanFormComponent implements OnInit {
    updateIncome(event) {
        this.loanDocument.loanHolder = event;
        this.save(false);
+   }
+   updateChecklist(event) {
+        this.checklistData = event;
+       console.log('this is the data', event);
    }
 }

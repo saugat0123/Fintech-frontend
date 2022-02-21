@@ -1644,6 +1644,7 @@
                 </div>
             </div>
             <br>
+            <app-product-paper-checklist [fromLoan]="false" [loanDataHolder]="loanDataHolder" [loan]="loanDataHolder?.loan"></app-product-paper-checklist>
             <app-credit-checklist-view *ngIf="loanDataHolder.loanHolder?.creditChecklist" [formData]="loanDataHolder.loanHolder?.creditChecklist"
                                        [fromProfile]="false" [customerType]="loanDataHolder.loanHolder?.customerType"></app-credit-checklist-view>
             <app-collateral-site-visit *ngIf="loanDataHolder?.loanHolder?.security" [loanDataHolder]="loanDataHolder"></app-collateral-site-visit>
