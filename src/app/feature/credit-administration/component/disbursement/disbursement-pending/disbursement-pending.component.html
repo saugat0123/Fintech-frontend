@@ -45,6 +45,7 @@
                          !productUtils?.CAD_ADMIN_ENABLE && model?.cadCurrentStage?.toRole?.roleName.toLowerCase() === 'cad' && model?.cadCurrentStage?.toUser?.id.toString() !== storage?.userId"
                            nbTooltip="click to pull"><em
                                 class="fas fa-angle-double-down"></em></a>
+                        <a href="javascript:void(0)" *ngIf="model?.cadCurrentStage?.toUser?.id.toString() === storage?.userId" (click)="loadProfile(model?.id,model)" style="color:green">PULLED</a>
                     </td>
                     <td>
                         <a class="px-2 cursor"
