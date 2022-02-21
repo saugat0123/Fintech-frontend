@@ -10,6 +10,10 @@
                 <td>Expected Loss Given Default</td>
                 <td class="text-left">{{fixedAssets?fixedAssets:'0'}}</td>
             </tr>
+            <tr>
+                <td>Loan to Security Ratio (Total Loan/Total RV)</td>
+                <td class="text-left">{{loanToSecurity?.toFixed(2) || '0'}}</td>
+            </tr>
             </tbody>
         </table>
 
