@@ -215,7 +215,7 @@ export class LoanFormComponent implements OnInit {
 
     @ViewChild('microProposalInfo', {static: false})
     microProposalInfo: MicroProposalComponent;
-    @ViewChild('productPaperChecklist', {static: false})
+    @ViewChild('productPaperChecklistComponent', {static: false})
     productPaperChecklistComponent: ProductPaperChecklistComponent;
 
     loanTag: string;

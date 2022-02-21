@@ -129,7 +129,7 @@
                         </div>
                     </ng-template>
                     <ng-template  *ngIf="allList.name === 'Product Paper Checklist' && loanTag" ngbTabContent>
-                        <app-product-paper-checklist (checkList)="updateChecklist($event)" [loanDataHolder]="loanDocument" [loan]="loans" [fromLoan]="true"></app-product-paper-checklist>
+                        <app-product-paper-checklist #productPaperChecklistComponent (checkList)="updateChecklist($event)" [loanDataHolder]="loanDocument" [loan]="loans" [fromLoan]="true"></app-product-paper-checklist>
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name === 'Proposal' && loanTag" #productPaperChecklist>
                         <app-proposal *ngIf="loanTag !== 'MICRO_LOAN'" [formValue]="loadProposal()" (emitter)="updateIncome($event)" [customerInfo]="loanHolder" [loanType]="loanType" #proposalInfo></app-proposal>
