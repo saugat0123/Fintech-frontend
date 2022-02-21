@@ -197,6 +197,7 @@ export class PowerOfAttorneyPartnershipComponent implements OnInit {
       witnessAge2: [undefined],
       witnessName2: [undefined],
       karmachariName: [undefined],
+      date: [undefined],
     });
   }
 
@@ -215,6 +216,7 @@ export class PowerOfAttorneyPartnershipComponent implements OnInit {
       witnessName2: this.form.get('witnessName2') ? this.form.get('witnessName2').value : '',
       karmachariName: this.form.get('karmachariName') ? this.form.get('karmachariName').value : '',
       authorizedBodyName: this.form.get('authorizedBodyName') ? this.form.get('authorizedBodyName').value : '',
+      date: this.form.get('date') ? this.form.get('date').value : '',
     };
     return JSON.stringify(free1);
   }
@@ -347,6 +349,7 @@ export class PowerOfAttorneyPartnershipComponent implements OnInit {
       witnessName2: this.supportedInfo ? this.supportedInfo.witnessName2 : '',
       karmachariName: this.supportedInfo ? this.supportedInfo.karmachariName : '',
       authorizedBodyName: this.supportedInfo ? this.supportedInfo.authorizedBodyName : '',
+      date: this.supportedInfo ? this.supportedInfo.date : '',
     });
   }
 
