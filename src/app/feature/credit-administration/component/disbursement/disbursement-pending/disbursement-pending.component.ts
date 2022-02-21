@@ -78,7 +78,6 @@ export class DisbursementPendingComponent implements OnInit {
     }
 
     loadProfile(cadDocumentId, model) {
-        console.log('this is cad', cadDocumentId);
         this.routeService.routeOnConditionProfileOrSummary(cadDocumentId, model);
     }
 
@@ -143,7 +142,7 @@ export class DisbursementPendingComponent implements OnInit {
         };
         this.service.assignLoanToUser(obj).subscribe(res => {
             this.spinnerService.hide();
-            this.loadProfile(data.id,data);
+            this.routeService.loadProfileWithState(data.id,data);
             // this.toastService.success('Successfully Pulled Loan');
             this.modalService.dismissAll();
             // this.routerService.navigateByUrl('/home/credit/offer-pending');

@@ -41,7 +41,8 @@
                            *ngIf="productUtils?.CAD_ADMIN_ENABLE"
                            nbTooltip="click to assign"><em
                             class="fa fa-user"></em></a>
-                        <a (click)="openPopUp(pullDocument,model)" *ngIf="user?.role?.roleType === roleType.APPROVAL && !productUtils?.CAD_ADMIN_ENABLE && model?.cadCurrentStage?.toUser === null"
+                        <a (click)="openPopUp(pullDocument,model)" *ngIf="user?.role?.roleType === roleType.APPROVAL &&
+                         !productUtils?.CAD_ADMIN_ENABLE && model?.cadCurrentStage?.toRole?.roleName.toLowerCase() === 'cad' && model?.cadCurrentStage?.toUser?.id.toString() !== storage?.userId"
                            nbTooltip="click to pull"><em
                                 class="fas fa-angle-double-down"></em></a>
                     </td>
