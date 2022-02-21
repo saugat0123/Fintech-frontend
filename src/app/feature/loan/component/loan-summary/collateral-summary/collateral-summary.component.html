@@ -9,7 +9,7 @@
         <p><strong>Security Exposure Details</strong></p>
     </ng-template>
 </div>
-<div class="row mb-2">
+<div class="row mb-2" *ngIf="loanData.documentStatus !== 'APPROVED'">
     <div class="col-md-12">
         <table
                 class="table table-bordered table-responsive-md table-sm sb-small text-center">
@@ -19,9 +19,10 @@
                 <th>Loan Facility</th>
                 <th>Proposed Limit</th>
                 <th>Existing Limit</th>
-                <th>Outstanding Limit</th>
+                <th>Outstanding Balance</th>
                 <th>Type</th>
                 <th>Created On(AD/BS)</th>
+                <th>Last Modified Date</th>
                 <th>Collateral Req%</th>
                 <th>Required Collateral</th>
             </tr>
@@ -31,6 +32,7 @@
                 <td></td>
                 <td>Funded</td>
                 <td class="text-right pr-1">Rs. {{fundedProposedTotal}}</td>
+                <td></td>
                 <td></td>
                 <td></td>
                 <td colspan="3">
@@ -54,6 +56,7 @@
 <!--                    </td>-->
                     <td class="text-left pl-1">{{loanType[model?.loanType] || model?.loanType}}</td>
                     <td class="text-left pl-1">{{model?.createdAt | date}} ({{model?.createdAt | engNepDate: false}})</td>
+                    <td class="text-left pl-1">{{model?.createdAt | date}} ({{model?.lastModifiedAt | engNepDate: false}})</td>
                     <td class="text-right pr-1">{{model?.proposal?.collateralRequirement}}</td>
                     <td class="text-right pr-1">Rs. {{(model?.proposal?.collateralRequirement * model?.proposal?.proposedLimit) / 100 |currencyFormatter}}
                     </td>
@@ -74,6 +77,7 @@
                     </td>
                     <td class="text-left pl-1">{{loanType[data?.loanType] || data?.loanType}}</td>
                     <td class="text-left pl-1">{{data?.createdAt | date}} ({{data?.createdAt | engNepDate: false}})</td>
+                    <td class="text-left pl-1">{{data?.lastModifiedAt | date}} ({{data?.lastModifiedAt | engNepDate: false}})</td>
                     <td class="text-right pr-1">{{data?.proposal?.collateralRequirement}}</td>
                     <td class="text-right pr-1">Rs. {{(data?.proposal?.collateralRequirement * data?.proposal?.proposedLimit) / 100 |currencyFormatter}}
                     </td>
@@ -84,6 +88,7 @@
                 <td></td>
                 <td>Non Funded</td>
                 <td class="text-right pr-1">Rs. {{NonFundedProposedTotal}}</td>
+                <td></td>
                 <td></td>
                 <td></td>
                 <td colspan="3"></td>
@@ -100,6 +105,7 @@
                     <td></td>
                     <td class="text-left pl-1">{{loanType[model?.loanType] || model?.loanType}}</td>
                     <td class="text-left pl-1">{{model?.createdAt | date}} ({{model?.createdAt | engNepDate: false}})</td>
+                    <td class="text-left pl-1">{{model?.lastModifiedAt | date}} ({{model?.lastModifiedAt | engNepDate: false}})</td>
                     <td class="text-right pr-1">{{model?.proposal?.collateralRequirement}}</td>
                     <td class="text-right pr-1">Rs.
                         {{(model?.proposal?.collateralRequirement * model?.proposal?.proposedLimit) / 100 |currencyFormatter}}
@@ -123,6 +129,7 @@
                 </td>
                 <td class="text-left pl-1">{{loanType[data?.loanType] || data?.loanType}}</td>
                 <td class="text-left pl-1">{{data?.createdAt | date}} ({{data?.createdAt | engNepDate: false}})</td>
+                <td class="text-left pl-1">{{data?.lastModifiedAt | date}} ({{data?.lastModifiedAt | engNepDate: false}})</td>
                 <td class="text-right pr-1">{{data?.proposal?.collateralRequirement}}</td>
                 <td class="text-right pr-1">Rs. {{(data?.proposal?.collateralRequirement * data?.proposal?.proposedLimit) / 100 |currencyFormatter}}
                 </td>
@@ -171,3 +178,163 @@
         </div>
     </ng-container>
 </div>
+<div class="row mb-2" *ngIf="loanData.documentStatus === 'APPROVED'">
+    <div class="col-md-12">
+        <table
+                class="table table-bordered table-responsive-md table-sm sb-small text-center">
+            <thead>
+            <tr class="sb-bg-dark text-white">
+                <th>S.N</th>
+                <th>Loan Facility</th>
+                <th>Proposed Limit</th>
+                <th>Existing Limit</th>
+                <th>Outstanding Balance</th>
+                <th>Type</th>
+                <th>Status</th>
+                <th>Loan Nature</th>
+                <th>FAC/Cashmargin</th>
+                <th>Created On(AD/BS)</th>
+                <th>Last Modified On(AD/BS)</th>
+                <th>Collateral Req%</th>
+                <th>Required Collateral</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr  class="sb-bg-secondary text-white">
+                <td></td>
+                <td>Funded</td>
+                <td class="text-right pr-1">Rs. {{fundedProposedTotal + approvedFundedProposedTotal}}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td colspan="3">
+                <td class="text-right pr-1">Rs. {{fundedCollateralTotal | currencyFormatter}}</td>
+            </tr>
+
+            <tr *ngIf="loanData?.loan?.isFundable">
+                <td>{{1}}</td>
+                <td>{{loanData?.loan?.name}}</td>
+                <td>{{loanData?.proposal?.proposedLimit}}</td>
+                <td>{{loanData?.proposal?.proposedLimit}}</td>
+                <td>{{loanData?.proposal?.outStandingLimit}}</td>
+                <td>{{loanData?.loanType}}</td>
+                <td>{{loanData?.documentStatus}}</td>
+                <td>{{loanData?.loan?.loanNature}}</td>
+                <td>{{loanData?.proposal?.cashMarginOrFac}}</td>
+                <td>{{loanData?.loan?.createdAt|engNepDate: false}}</td>
+                <td>{{loanData?.loan?.lastModifiedAt|engNepDate: false}}</td>
+                <td>{{loanData?.proposal?.collateralRequirement}}%</td>
+                <td>{{(loanData?.proposal?.collateralRequirement * loanData?.proposal?.proposedLimit)/100}}</td>
+                <td></td>
+            </tr>
+            <tr *ngFor="let data of fundedListFromDto; let i=index">
+                <td>{{i+1}}</td>
+                <td>{{data?.name}}</td>
+                <td>{{data?.proposal.proposedLimit}}</td>
+                <td>{{data?.proposal.proposedLimit}}</td>
+                <td>{{data?.proposal?.outStandingLimit}}</td>
+                <td>{{data?.loanType}}</td>
+                <td>{{data?.documentStatus}}</td>
+                <td>{{data?.loan?.loanNature}}</td>
+                <td>{{data?.proposal?.cashMarginOrFac}}</td>
+                <td>{{data?.proposal?.createdAt|engNepDate: false}}</td>
+                <td>{{data?.proposal?.lastModifiedAt | engNepDate: false}}</td>
+                <td>{{data?.proposal?.collateralRequirement}}%</td>
+                <td>{{(data?.proposal?.collateralRequirement * data?.proposal?.proposedLimit)/100}}</td>
+            </tr>
+            <ng-container>
+                <tr class="sb-bg-secondary text-white">
+                    <td></td>
+                    <td>Non Funded</td>
+                    <td class="text-right pr-1">Rs. {{NonFundedProposedTotal + approvedNonFundedProposedTotal}}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td colspan="3"></td>
+                    <td class="text-right pr-1">Rs. {{nonFundedCollateralTotalView | currencyFormatter}}</td>
+
+                </tr>
+            </ng-container>
+            <tr *ngIf="!loanData?.loan?.isFundable">
+                <td>{{1}}</td>
+                <td>{{loanData?.loan?.name}}</td>
+                <td>{{loanData?.proposal?.proposedLimit}}</td>
+                <td>{{loanData?.proposal?.proposedLimit}}</td>
+                <td>{{loanData?.proposal?.outStandingLimit}}</td>
+                <td>{{loanData?.loanType}}</td>
+                <td>{{loanData?.documentStatus}}</td>
+                <td>{{loanData?.loan?.loanNature}}</td>
+                <td>{{loanData?.proposal?.cashMarginOrFac}}</td>
+                <td>{{loanData?.loan?.createdAt|engNepDate: false}}</td>
+                <td>{{loanData?.loan?.lastModifiedAt|engNepDate: false}}</td>
+                <td>{{loanData?.proposal?.collateralRequirement}}%</td>
+                <td>{{(loanData?.proposal?.collateralRequirement * loanData?.proposal?.proposedLimit)/100}}</td>
+                <td></td>
+            </tr>
+            <tr *ngFor="let data of nonFundedListFromDto; let i=index">
+                <td>{{i+1}}</td>
+                <td>{{data?.name}}</td>
+                <td>{{data?.proposal.proposedLimit}}</td>
+                <td>{{data?.proposal.proposedLimit}}</td>
+                <td>{{data?.proposal?.outStandingLimit}}</td>
+                <td>{{data?.loanType}}</td>
+                <td>{{data?.documentStatus}}</td>
+                <td>{{data?.loan?.loanNature}}</td>
+                <td>{{data?.proposal?.cashMarginOrFac}}</td>
+                <td>{{data?.proposal?.createdAt|date}}</td>
+                <td>{{data?.proposal?.lastModifiedAt |date}}</td>
+                <td>{{data?.proposal?.collateralRequirement}}%</td>
+                <td>{{(data?.proposal?.collateralRequirement * data?.proposal?.proposedLimit)/100}}</td>
+            </tr>
+            <tr class="sb-bg-secondary text-white">
+                <td></td>
+                <td>Total</td>
+                <td class="text-right pr-1">Rs. {{totalProposedAmount | currencyFormatter}} </td>
+                <td> Rs {{existingLimitTotal | currencyFormatter}}</td>
+                <td> Rs {{outstandingLimitTotal | currencyFormatter}}</td>
+                <td colspan="7"></td>
+                <td class="text-right pr-1">Rs. {{totalCollateralView| currencyFormatter}}</td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+    <ng-container *ngIf="securityExposure">
+        <div class="col-md-2 sb-small">
+            <mark class="alert-warning text">Total Required Collateral:</mark>
+            <strong>Rs.{{totalCollateral | currencyFormatter}}</strong>
+        </div>
+        <div class="col-md-2 sb-small">
+            <mark class="alert-warning">Total FMV/Considered Value:</mark>
+            <strong>Rs.{{security?.totalSecurityAmount |currencyFormatter}}</strong>
+        </div>
+        <div class="col-md-2 sb-small" *ngIf="loanTag ">
+            <mark class="alert-warning">Total Distress Value:</mark>
+            <strong>Rs.{{security?.totalDistressAmount |currencyFormatter}}</strong>
+        </div>
+        <div class="col-md-2 sb-small">
+            <mark class="alert-warning">Surplus/(Deficit):</mark>
+            <strong> Rs. {{security?.totalSecurityAmount - totalCollateral |currencyFormatter}}</strong>
+        </div>
+        <div  class="col-md-2 sb-small">
+            <mark class="alert-warning">Coverage%:</mark>
+            <strong>{{coverage |number : '1.0-2'}}%</strong>
+        </div>
+        <div  class="col-md-2 sb-small" >
+            <mark class="alert-warning">Loan Exposure FMV:</mark>
+            <strong>{{loanExposureFmv| number : '1.0-2'}}%</strong>
+        </div>
+        <div  class="col-md-2 sb-small" *ngIf="loanTag ">
+            <mark class="alert-warning">Loan Exposure Dv:</mark>
+            <strong>{{loanExposureDv| number : '1.0-2'}}%</strong>
+        </div>
+    </ng-container>
+</div>
+
+
