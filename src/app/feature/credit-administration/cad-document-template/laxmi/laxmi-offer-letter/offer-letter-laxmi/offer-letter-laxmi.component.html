@@ -5,11 +5,11 @@
                 <div class="col-sm-12">
                     रेफ नं.: <u> LXBL /
                     <input type="text" class="form-field form-control-sm font-size-normal disable-print"
-                           formControlName="branchCode" readonly>
+                           formControlName="branchCode" readonly placeholder="Branch Code">
                     <span class="font-size-normal print-only">
                 <b>{{offerLetterForm?.get('branchCode')?.value ? offerLetterForm?.get('branchCode')?.value : '========='}}</b></span>/
                     <input class="form-field form-control-sm font-size-normal disable-print"
-                           formControlName="patraDate" placeholder="Date" type="date">
+                           formControlName="patraDate" placeholder="Date" type="date" [value]="offerLetterForm?.get('patraDate')?.value ? (offerLetterForm?.get('patraDate')?.value | date) : 'NA'">
                     <!--                    <nb-datepicker #patraDate></nb-datepicker>-->
                     <span class="print-only">
                 <b>{{offerLetterForm?.get('patraDate')?.value ? (offerLetterForm?.get('patraDate')?.value | date) : '========='}}</b></span>/
@@ -80,8 +80,8 @@
             प्रतिलिपिमा दस्तखत गरी बैंकलाई बुझाउनु पर्नेछ । यद्यपी सो अवधी पश्चात प्राप्त भएमा स्वीकार गर्ने वा नगर्ने
             पूर्ण अधिकार बैंकमा निहित हुनेछ ।
 
-            <ng-container *ngFor="let data of offerLetterForm?.get('purpose')?.value; let i = index">
-                <table class="table table-bordered table-responsive-md text-left pl-1 table-sm sb-small">
+            <ng-container *ngFor="let data of offerLetterForm?.get('purpose')['controls']; let i = index" formArrayName="purpose" >
+                <table [formGroupName]="i" class="table table-bordered table-responsive-md text-left pl-1 table-sm sb-small">
                     <thead>
                     <ng-container>
                         <tr class="sb-bg-dark">
@@ -89,7 +89,7 @@
                                 <b> सुविधा (Facility) </b>
                             </th>
                             <th width="49%">
-                                <b>{{data?.loan}}</b>
+                                <b>{{offerLetterForm?.get(['purpose', i, 'loan'])?.value}}</b>
                             </th>
                         </tr>
                     </ng-container>
@@ -101,15 +101,11 @@
                             <td>अधिकतम रु
                                 <input type="text"
                                        class="form-field nepaliFont form-control-sm font-size-normal disable-print"
-                                       [value]="data?.loanLimitAmount"
+                                       [value]="offerLetterForm?.get(['purpose', i, 'loanLimitAmount'])?.value"
                                        (change)="convertProposedAmount($event?.target?.value, i, 'purpose')">
                                 <span class="nepaliFont font-size-normal print-only">
                                     <b>{{offerLetterForm?.get(['purpose', i, 'loanLimitAmount'])?.value ? offerLetterForm?.get(['purpose', i, 'loanLimitAmount'])?.value : '========='}}</b>
                                 </span> /– (अक्षरेपी रुपैयाँ
-                                <!--                                <input type="text"-->
-                                <!--                                       class="nepaliFont form-field form-control-sm font-size-normal disable-print"-->
-                                <!--                                       [value]="offerLetterForm?.get(['purpose', i ,'loanLimitWord'])?.value"-->
-                                <!--                                       readonly>-->
                                 <span class="font-size-normal">
                                     <b>{{offerLetterForm?.get(['purpose', i, 'loanLimitWord'])?.value ? offerLetterForm?.get(['purpose', i, 'loanLimitWord'])?.value : '========='}}</b>
                                 </span> मात्र)
@@ -173,7 +169,7 @@
                             </td>
                         </tr>
 
-                        <tr *ngIf="data?.loanNature === 'Terminating'">
+                        <tr *ngIf="offerLetterForm?.get(['purpose', i, 'loanNature'])?.value === 'Terminating'">
                             <td>
                                 <span [ngClass]="offerLetterForm?.get(['purpose', i, 'drawDownPeriodNeeded'])?.value ? '' : 'disable-print'">
                                      कर्जा झिक्न पाउने अवधि (Drawdown Period)
@@ -219,7 +215,7 @@
                             </td>
                         </tr>
 
-                        <tr *ngIf="data?.loanNature === 'Terminating'">
+                        <tr *ngIf="offerLetterForm?.get(['purpose', i, 'loanNature'])?.value === 'Terminating'">
                             <td>
                                 <span [ngClass]="offerLetterForm?.get(['purpose', i, 'moratariumPeriodNeeded'])?.value ? '' : 'disable-print'">
                                     सांवाको किस्ता तिर्ने छुट अवधि (Moratarium Period)
@@ -281,7 +277,7 @@
                                 <span *ngIf="offerLetterForm?.get(['purpose', i, 'repaymentNeeded'])?.value">
                                     <span>
                                         <select class="custom-select disable-print"
-                                                [value]="data?.repaymentMode"
+                                                [value]="offerLetterForm?.get(['purpose', i, 'repaymentMode'])?.value"
                                                 (change)="valueChange($event?.target?.value, i, 'repaymentMode')"
                                                 id="repayment"
                                                 name="repayment">
@@ -292,7 +288,7 @@
                                             <option value="OTHER">Other</option>
                                         </select>
                                     </span>
-                                    <span *ngIf="data?.repaymentMode === 'OTHER'">
+                                    <span *ngIf="offerLetterForm?.get(['purpose', i, 'repaymentMode'])?.value === 'OTHER'">
                                     <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
                                               [value]="offerLetterForm.get(['purpose', i,'otherRepayment'])?.value"
                                               (change)="valueChange($event?.target?.value, i, 'otherRepayment')"
@@ -303,61 +299,68 @@
                                                 offerLetterForm?.get(['purpose', i, 'otherRepayment'])?.value : '========='}}</b>
                                         </span>
                                     </span>
-                                    <span *ngIf="data?.repaymentMode === 'FIXED'">
+                                    <span *ngIf="offerLetterForm?.get(['purpose', i, 'repaymentMode'])?.value === 'FIXED'">
                                         करिब <strong>रु. <input type="text"
-                                                                [value]="data?.repaymentAmount"
+                                                                [value]="offerLetterForm?.get(['purpose', i, 'repaymentAmount'])?.value"
                                                                 (change)="convertProposedAmount($event?.target?.value, i, 'repaymentAmount')"
                                                                 class="nepaliFont form-field form-control-sm font-size-normal disable-print">
                                         <span class="nepaliFont font-size-normal print-only">
-                                            <b>{{data?.repaymentAmount ? data?.repaymentAmount : '========='}}</b></span> /– (अक्षरेपी रुपैयाँ
+                                            <b>{{offerLetterForm?.get(['purpose', i, 'repaymentAmount'])?.value ?
+                                                offerLetterForm?.get(['purpose', i, 'repaymentAmount'])?.value : '========='}}</b></span> /– (अक्षरेपी रुपैयाँ
                                         <!--                                        <input type="text"-->
                                         <!--                                               [value]="data?.repaymentAmountWord"-->
                                         <!--                                               class="nepaliFont form-field form-control-sm font-size-normal disable-print">-->
                                         <span class="font-size-normal">
-                                            <b>{{data?.repaymentAmountWord ? data?.repaymentAmountWord : '========='}}</b></span> मात्र)</strong> का
+                                            <b>{{offerLetterForm?.get(['purpose', i, 'repaymentAmountWord'])?.value ?
+                                                offerLetterForm?.get(['purpose', i, 'repaymentAmountWord'])?.value : '========='}}</b></span> मात्र)</strong> का
                                         <input type="text"
-                                               [value]="data?.repaymentMonthly"
+                                               [value]="offerLetterForm?.get(['purpose', i, 'repaymentMonthly'])?.value"
                                                (change)="valueChange($event?.target?.value, i, 'repaymentMonthly')"
                                                class="nepaliFont form-field form-control-sm font-size-normal disable-print">
                                 <span class="nepaliFont font-size-normal print-only">
-                                        <b>{{data?.repaymentMonthly ? data?.repaymentMonthly : '========='}}</b></span> वरावरी मासिक किस्तामा (साँवा तथा व्याज) कर्जा
+                                        <b>{{offerLetterForm?.get(['purpose', i, 'repaymentMonthly'])?.value ?
+                                            offerLetterForm?.get(['purpose', i, 'repaymentMonthly'])?.value : '========='}}</b></span>
+                                        वरावरी मासिक किस्तामा (साँवा तथा व्याज) कर्जा
                             भुक्तानी गर्नु पर्नेछ । कर्जाको भुक्तानी कर्जा प्रवाह भएको आगामी
                             अंग्रेजी महिनाकोे १४ तारीख देखि सुरु गरी प्रत्येक अंग्रेजी महिनाको १४ तारीखमा किस्ता भुक्तानी
                             गर्नु पर्नेछ । अंतिम किस्ताको हकमा तोकीएको किस्ता रकमभन्दा केही घटी/बढी हुनसक्छ ।
                             </span>
-                                    <span *ngIf="data?.repaymentMode === 'MIXED'">
+                                    <span *ngIf="offerLetterForm?.get(['purpose', i, 'repaymentMode'])?.value === 'MIXED'">
                                 बैंकले लागु गरेको हालको कर्जा स्कीम योजना अनुरुप वार्षिक
                             <input type="text"
-                                   [value]="data?.repaymentRate"
+                                   [value]="offerLetterForm?.get(['purpose', i, 'repaymentRate'])?.value"
                                    (change)="valueChange($event?.target?.value, i, 'repaymentRate')"
                                    class="nepaliFont form-field form-control-sm font-size-normal disable-print">
                                     <span class="nepaliFont font-size-normal print-only">
-                                        <b>{{data?.repaymentRate ? data?.repaymentRate : '========='}}</b></span> प्रतिशत ब्याजका दरले कर्जा प्रवाह भएको मितिले
+                                        <b>{{offerLetterForm?.get(['purpose', i, 'repaymentRate'])?.value ? offerLetterForm?.get(['purpose', i, 'repaymentRate'])?.value : '========='}}</b></span> प्रतिशत ब्याजका दरले कर्जा प्रवाह भएको मितिले
                             <input type="text"
-                                   [value]="data?.repaymentMonthly"
+                                   [value]="offerLetterForm?.get(['purpose', i, 'repaymentMonthly'])?.value"
                                    (change)="valueChange($event?.target?.value, i, 'repaymentMonthly')"
                                    class="nepaliFont form-field form-control-sm font-size-normal disable-print">
                                     <span class="nepaliFont font-size-normal print-only">
-                                        <b>{{data?.repaymentMonthly ? data?.repaymentMonthly : '========='}}</b></span> महिना सम्म करिव <strong> रु.
+                                        <b>{{offerLetterForm?.get(['purpose', i, 'repaymentMonthly'])?.value ?
+                                            offerLetterForm?.get(['purpose', i, 'repaymentMonthly'])?.value : '========='}}</b></span> महिना सम्म करिव <strong> रु.
                                 <input type="text"
-                                       [value]="data?.repaymentAmount"
+                                       [value]="offerLetterForm?.get(['purpose', i, 'repaymentAmount'])?.value"
                                        (change)="convertProposedAmount($event?.target?.value, i, 'repaymentAmount')"
                                        class="nepaliFont form-field form-control-sm font-size-normal disable-print">
                                     <span class="nepaliFont font-size-normal print-only">
-                                        <b>{{data?.repaymentAmount ? data?.repaymentAmount : '========='}}</b></span> ।– (अक्षरेपी रुपैयाँ
+                                        <b>{{offerLetterForm?.get(['purpose', i, 'repaymentAmount'])?.value ?
+                                            offerLetterForm?.get(['purpose', i, 'repaymentAmount'])?.value : '========='}}</b></span> ।– (अक्षरेपी रुपैयाँ
                                         <!--                                <input type="text"-->
                                         <!--                                       [value]="data?.repaymentAmountWord"-->
                                         <!--                                       class="nepaliFont form-field form-control-sm font-size-normal disable-print">-->
                                     <span class="font-size-normal">
-                                        <b>{{data?.repaymentAmountWord ? data?.repaymentAmountWord : '========='}}</b></span> मात्र)
+                                        <b>{{offerLetterForm?.get(['purpose', i, 'repaymentAmountWord'])?.value ?
+                                            offerLetterForm?.get(['purpose', i, 'repaymentAmountWord'])?.value : '========='}}</b></span> मात्र)
                                 का दरले मासिक </strong> किस्ता (साँवा तथा व्याज) मा कर्जा भुक्तानी गर्नु पर्नेछ । <br>
                             तत्पश्चात्को अवधी सम्मको व्याजदर बैंकबाट प्रकाशित हुने आधार दरमा
                             <input type="text"
-                                   [value]="data?.repaymentRate1"
+                                   [value]="offerLetterForm?.get(['purpose', i, 'repaymentRate1'])?.value"
                                    (change)="valueChange($event?.target?.value, i, 'repaymentRate1')"
                                    class="nepaliFont form-field form-control-sm font-size-normal disable-print">
                                     <span class="nepaliFont font-size-normal print-only">
-                                        <b>{{data?.repaymentRate1 ? data?.repaymentRate1 : '========='}}</b></span>
+                                        <b>{{offerLetterForm?.get(['purpose', i, 'repaymentRate1'])?.value ? offerLetterForm?.get(['purpose', i, 'repaymentRate1'])?.value : '========='}}</b></span>
                                     प्रतिशत प्रिमियम दर जोडीे जम्मा कायम हुन आउने
                             ब्याज दरले मासिक किस्ता रकम (साँवा तथा व्याज) भुक्तानी गर्नुपर्नेछ । कर्जाको भुक्तानी पुरा कर्जा
                             प्रवाह भएको वा
@@ -365,14 +368,14 @@
                             महिनाको १४ तारीखमा किस्ता भुक्तानी गर्नु पर्नेछ । अन्तिम किस्ताको हकमा तोकीएको किस्ता रकमभन्दा
                             केही घटी/बढी हुनसक्छ ।
                             </span>
-                                    <span *ngIf="data?.repaymentMode === 'QUARTERLY'">
+                                    <span *ngIf="offerLetterForm?.get(['purpose', i, 'repaymentMode'])?.value === 'QUARTERLY'">
                                 निम्न उल्लेखित तालिका बमोजिम ऋणीले जम्मा
                                         <input type="text"
-                                               [value]="data?.repaymentAmount"
+                                               [value]="offerLetterForm?.get(['purpose', i, 'repaymentAmount'])?.value"
                                                (change)="valueChange($event?.target?.value, i, 'repaymentAmount')"
                                                class="nepaliFont form-field form-control-sm font-size-normal disable-print">
                                     <span class="nepaliFont font-size-normal print-only">
-                                        <b>{{data?.repaymentAmount ? data?.repaymentAmount : '========='}}</b></span>
+                                        <b>{{offerLetterForm?.get(['purpose', i, 'repaymentAmount'])?.value ? offerLetterForm?.get(['purpose', i, 'repaymentAmount'])?.value : '========='}}</b></span>
                                     त्रैमासिक किस्ता मा कर्जा (साँवा)भुक्तानी गर्नु पर्नेछ ।
                                     <table class="table table-bordered table-responsive-md table-sm sb-small">
                                         <tr class="sb-bg-dark">
@@ -382,31 +385,31 @@
                                         <tr>
                                             <td>१–४</td>
                                             <td>रु. <input type="text"
-                                                           [value]="data?.repaymentAmount1"
+                                                           [value]="offerLetterForm?.get(['purpose', i, 'repaymentAmount1'])?.value"
                                                            (change)="valueChange($event?.target?.value, i, 'repaymentAmount1')"
                                                            class="nepaliFont form-field form-control-sm font-size-normal disable-print">
                                                 <span class="nepaliFont font-size-normal print-only">
-                                        <b>{{data?.repaymentAmount1 ? data?.repaymentAmount1 : '========='}}</b></span>/-
+                                        <b>{{offerLetterForm?.get(['purpose', i, 'repaymentAmount1'])?.value ? offerLetterForm?.get(['purpose', i, 'repaymentAmount1'])?.value : '========='}}</b></span>/-
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>५–८</td>
                                             <td>रु. <input type="text"
-                                                           [value]="data?.repaymentAmount2"
+                                                           [value]="offerLetterForm?.get(['purpose', i, 'repaymentAmount2'])?.value"
                                                            (change)="valueChange($event?.target?.value, i, 'repaymentAmount2')"
                                                            class="nepaliFont form-field form-control-sm font-size-normal disable-print">
                                                 <span class="nepaliFont font-size-normal print-only">
-                                        <b>{{data?.repaymentAmount2 ? data?.repaymentAmount2 : '========='}}</b></span>/-
+                                        <b>{{offerLetterForm?.get(['purpose', i, 'repaymentAmount2'])?.value ? offerLetterForm?.get(['purpose', i, 'repaymentAmount2'])?.value : '========='}}</b></span>/-
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>९–१२</td>
                                             <td>रु. <input type="text"
-                                                           [value]="data?.repaymentAmount3"
+                                                           [value]="offerLetterForm?.get(['purpose', i, 'repaymentAmount3'])?.value"
                                                            (change)="valueChange($event?.target?.value, i, 'repaymentAmount3')"
                                                            class="nepaliFont form-field form-control-sm font-size-normal disable-print">
                                                 <span class="nepaliFont font-size-normal print-only">
-                                        <b>{{data?.repaymentAmount3 ? data?.repaymentAmount3 : '========='}}</b></span>/-
+                                        <b>{{offerLetterForm?.get(['purpose', i, 'repaymentAmount3'])?.value ? offerLetterForm?.get(['purpose', i, 'repaymentAmount3'])?.value : '========='}}</b></span>/-
                                             </td>
                                         </tr>
                                     </table>
@@ -432,7 +435,7 @@
                             <td>
                                 <ng-container *ngIf="offerLetterForm?.get(['purpose', i, 'maturityNeeded'])?.value">
                                     <span *ngIf="!offerLetterForm?.get(['purpose', i, 'maturityOtherCheck'])?.value">
-                                        <span *ngIf="data?.loanNature === 'Terminating'">
+                                        <span *ngIf="offerLetterForm?.get(['purpose', i, 'loanNature'])?.value === 'Terminating'">
                                     मिति <input type="text"
                                                 [value]="offerLetterForm?.get(['purpose', i, 'maturityDate'])?.value"
                                                 (change)="valueChange($event?.target?.value, i, 'maturityDate')"
@@ -443,7 +446,7 @@
                                     गर्ने मिति जुनसुकै उल्लेख भएको भए पनि बैंकले माग गर्नासाथ बैंकको सम्पूर्ण लेना रकम
                                     भुक्तानी गर्नु पर्ने छ ।
                                 </span>
-                                        <span *ngIf="data?.loanNature === 'Revolving'">
+                                        <span *ngIf="offerLetterForm?.get(['purpose', i, 'loanNature'])?.value === 'Revolving'">
                                     कर्जा प्रवाह भएको मितिले
                                     <input type="text"
                                            (change)="valueChange($event?.target?.value, i, 'maturityDate')"
@@ -487,24 +490,25 @@
                                 </span>
                             </td>
                             <ng-container *ngIf="offerLetterForm?.get(['purpose', i, 'tenureNeeded'])?.value">
-                                <td colspan="2" *ngIf="data?.loanNature === 'Revolving'">
+                                <td colspan="2" *ngIf="offerLetterForm?.get(['purpose', i, 'loanNature'])?.value === 'Revolving'">
                                     कर्जा प्रवाह भएको मितिले <input type="text"
                                                                     (change)="valueChange($event?.target?.value, i, 'reviewDate')"
-                                                                    [value]="data?.reviewDate"
+                                                                    [value]="offerLetterForm?.get(['purpose', i, 'reviewDate'])?.value"
                                                                     class="nepaliFont form-field form-control-sm font-size-normal disable-print">
                                     <span class="nepaliFont font-size-normal print-only">
-                                        <b>{{data?.reviewDate ? data?.reviewDate : '========='}}</b></span>
+                                        <b>{{offerLetterForm?.get(['purpose', i, 'reviewDate'])?.value ? offerLetterForm?.get(['purpose', i, 'reviewDate'])?.value : '========='}}</b></span>
                                     मा कर्जा तथा सुविधाको पुनरावलोकन गरिने र सो मिति सम्म उपभोग गर्न सकिनेछ ।
                                     पुनरावलोकन गर्ने मिति जुनसुकै उल्लेख भएको भएतापनि
                                     बैंकले माग गर्नासाथ बैंकको सम्पूर्ण लेना रकम भुक्तानी गर्नु पर्नेछ ।
                                 </td>
-                                <td colspan="2" *ngIf="data?.loanNature === 'Terminating'">
+                                <td colspan="2" *ngIf="offerLetterForm?.get(['purpose', i, 'loanNature'])?.value === 'Terminating'">
                                     कर्जा प्रवाह भएको मितिले <input type="text"
-                                                                    [value]="data?.reviewDate"
+                                                                    [value]="offerLetterForm?.get(['purpose', i, 'reviewDate'])?.value"
                                                                     (change)="valueChange($event?.target?.value, i, 'reviewDate')"
                                                                     class="nepaliFont form-field form-control-sm font-size-normal disable-print">
                                     <span class="nepaliFont font-size-normal print-only">
-                                        <b>{{data?.reviewDate ? data?.reviewDate : '========='}}</b></span>
+                                        <b>{{offerLetterForm?.get(['purpose', i, 'reviewDate'])?.value ?
+                                            offerLetterForm?.get(['purpose', i, 'reviewDate'])?.value : '========='}}</b></span>
                                     सम्ममा कर्जा चुक्ता गर्नुपर्नेछ ।
                                 </td>
                             </ng-container>
@@ -515,7 +519,7 @@
                             <td colspan="2">
                             <span>
                                 <select class="custom-select disable-print"
-                                        [value]="data?.rateMode"
+                                        [value]="offerLetterForm?.get(['purpose', i, 'rateMode'])?.value"
                                         (change)="valueChange($event?.target?.value, i, 'rateMode')"
                                         name="rateMode">
                                     <option [value]="null">Select Rate</option>
@@ -525,7 +529,7 @@
                                     <option value="OTHER">Other</option>
                                 </select>
                             </span>
-                                <span *ngIf="data?.rateMode === 'OTHER'">
+                                <span *ngIf="offerLetterForm?.get(['purpose', i, 'rateMode'])?.value === 'OTHER'">
                                     <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
                                               [value]="offerLetterForm.get(['purpose', i,'otherInterestRate'])?.value"
                                               (change)="valueChange($event?.target?.value, i, 'otherInterestRate')"
@@ -535,14 +539,14 @@
                                     <b>{{offerLetterForm?.get(['purpose', i, 'otherInterestRate'])?.value ?
                                         offerLetterForm?.get(['purpose', i, 'otherInterestRate'])?.value : '========='}}</b></span>
                                 </span>
-                                <span *ngIf="data?.rateMode === 'BASE'">
+                                <span *ngIf="offerLetterForm?.get(['purpose', i, 'rateMode'])?.value === 'BASE'">
                                 बैंकको प्रचलित मासिक आधार दर (Monthly Base Rate) मा प्रिमियम दर (Premium Rate)
                             <input type="text"
-                                   [value]="data?.premiumRate"
+                                   [value]="offerLetterForm?.get(['purpose', i, 'premiumRate'])?.value"
                                    (change)="valueChange($event?.target?.value, i, 'premiumRate')"
                                    class="nepaliFont form-field form-control-sm font-size-normal disable-print">
                                 <span class="nepaliFont print-only">
-                                        <b>{{data?.premiumRate ? data?.premiumRate : '========='}}</b></span>
+                                        <b>{{offerLetterForm?.get(['purpose', i, 'premiumRate'])?.value ? offerLetterForm?.get(['purpose', i, 'premiumRate'])?.value : '========='}}</b></span>
                                 थप गरी जम्मा कायम हुन आउने ब्याज दर लागु भई असुल उपर
                             गरिनेछ । उक्त आधार दर चालु त्रैमासिक अवधि भरको लागि अपरिवर्तनीय हुनेछ । <br>
                             यधपि ग्रेस अवधि वा स्वीकृत कर्जा सुविधा झिक्न पाउने अवधि (Moratorium or Drawdown period) भित्र
@@ -559,19 +563,21 @@
                             दिन असुल उपर गरिनेछ । <br>
                             बैंकको हालको मासिक आधार दर (Monthly Base Rate)
                             <input type="text"
-                                   [value]="data?.monthlyRate"
+                                   [value]="offerLetterForm?.get(['purpose', i, 'monthlyRate'])?.value"
                                    (change)="valueChange($event?.target?.value, i, 'monthlyRate')"
                                    class="nepaliFont form-field form-control-sm font-size-normal disable-print">
                                 <span class="nepaliFont font-size-normal print-only">
-                                        <b>{{data?.monthlyRate ? data?.monthlyRate : '========='}}</b></span>
+                                        <b>{{offerLetterForm?.get(['purpose', i, 'monthlyRate'])?.value ?
+                                            offerLetterForm?.get(['purpose', i, 'monthlyRate'])?.value : '========='}}</b></span>
                                 प्रतिशत तथा त्रैमासिक औसत आधार दर (Quarterly Average Base
                             Rate)
                             <input type="text"
-                                   [value]="data?.quarterlyRate"
+                                   [value]="offerLetterForm?.get(['purpose', i, 'quarterlyRate'])?.value"
                                    (change)="valueChange($event?.target?.value, i, 'quarterlyRate')"
                                    class="nepaliFont form-field form-control-sm font-size-normal disable-print">
                                 <span class="nepaliFont font-size-normal print-only">
-                                        <b>{{data?.quarterlyRate ? data?.quarterlyRate : '========='}}</b></span>
+                                        <b>{{offerLetterForm?.get(['purpose', i, 'quarterlyRate'])?.value ?
+                                            offerLetterForm?.get(['purpose', i, 'quarterlyRate'])?.value : '========='}}</b></span>
                                 प्रतिशत रहेको छ । सो दरमा हुने परिवर्तन ऋणीको
                             जानकारीको लागि मासिक रुपमा बैंकको आधिकारिक वेवसाईट <u>www.laxmibank.com</u> मा राखिनेछ र साथै
                             राष्ट्रिय दैनिकमा पनि प्रकाशित गरिनेछ । <br>
@@ -580,29 +586,32 @@
                             हानी नोक्सानी पु¥याउने कार्य गरेको पाइएमा यस कर्जा प्रस्तावपत्रमा तोकिएको प्रिमियम दर परिवर्तन
                             गरी वा थप गरी लागु गर्न सकिनेछ ।
                             </span>
-                                <span *ngIf="data?.rateMode === 'MIXED'">
+                                <span *ngIf="offerLetterForm?.get(['purpose', i, 'rateMode'])?.value === 'MIXED'">
                                 बैंकको स्कीम योजना अनुरुप ब्याज दर
                                     <input type="text"
-                                           [value]="data?.premiumRate"
+                                           [value]="offerLetterForm?.get(['purpose', i, 'premiumRate'])?.value"
                                            (change)="valueChange($event?.target?.value, i, 'premiumRate')"
                                            class="nepaliFont form-field form-control-sm font-size-normal disable-print">
                                     <span class="nepaliFont font-size-normal print-only">
-                                        <b>{{data?.premiumRate ? data?.premiumRate : '========='}}</b></span>
+                                        <b>{{offerLetterForm?.get(['purpose', i, 'premiumRate'])?.value ?
+                                            offerLetterForm?.get(['purpose', i, 'premiumRate'])?.value: '========='}}</b></span>
                                     <strong>प्रतिशत</strong> लगाइएको छ । उक्त व्याज दर
                                     <input type="text"
-                                           [value]="data?.monthlyRate"
+                                           [value]="offerLetterForm?.get(['purpose', i, 'monthlyRate'])?.value"
                                            (change)="valueChange($event?.target?.value, i, 'monthlyRate')"
                                            class="nepaliFont form-field form-control-sm font-size-normal disable-print">
                                     <span class="nepaliFont font-size-normal print-only">
-                                        <b>{{data?.monthlyRate ? data?.monthlyRate : '========='}}</b></span>
+                                        <b>{{offerLetterForm?.get(['purpose', i, 'monthlyRate'])?.value ?
+                                            offerLetterForm?.get(['purpose', i, 'monthlyRate'])?.value : '========='}}</b></span>
                                     <strong>महिना</strong> सम्मलाई परिवर्तन गरिने छैन ।
                                     तत्पश्चात बैंकको कायमी आधार दर र प्रिमियम दर
                                     <input type="text"
-                                           [value]="data?.quarterlyRate"
+                                           [value]="offerLetterForm?.get(['purpose', i, 'quarterlyRate'])?.value"
                                            (change)="valueChange($event?.target?.value, i, 'quarterlyRate')"
                                            class="nepaliFont form-field form-control-sm font-size-normal disable-print">
                                     <span class="nepaliFont font-size-normal print-only">
-                                        <b>{{data?.quarterlyRate ? data?.quarterlyRate : '========='}}</b></span>
+                                        <b>{{offerLetterForm?.get(['purpose', i, 'quarterlyRate'])?.value ?
+                                            offerLetterForm?.get(['purpose', i, 'quarterlyRate'])?.value : '========='}}</b></span>
                                     <strong>प्रतिशत जोडी</strong> जम्मा हुन आउने ब्याज
                                     दर प्रचलित नियमानुसार निर्धारित भई लागू हुनेछ ।
                             <br>
@@ -619,13 +628,14 @@
                             हानी नोक्सानी पु¥याउने कार्य गरेको पाइएमा यस कर्जा प्रस्तावपत्रमा तोकिएको प्रिमियम दर परिवर्तन
                             गरी वा थप गरी लागु गर्न सकिनेछ ।
                             </span>
-                                <span *ngIf="data?.rateMode === 'FIXED'">
+                                <span *ngIf="offerLetterForm?.get(['purpose', i, 'rateMode'])?.value === 'FIXED'">
                                 <input type="text"
-                                       [value]="data?.premiumRate"
+                                       [value]="offerLetterForm?.get(['purpose', i, 'premiumRate'])?.value"
                                        (change)="valueChange($event?.target?.value, i, 'premiumRate')"
                                        class="nepaliFont form-field form-control-sm font-size-normal disable-print">
                                 <span class="nepaliFont font-size-normal print-only">
-                                        <b>{{data?.premiumRate ? data?.premiumRate : '========='}}</b></span>
+                                        <b>{{offerLetterForm?.get(['purpose', i, 'premiumRate'])?.value ?
+                                            offerLetterForm?.get(['purpose', i, 'premiumRate'])?.value : '========='}}</b></span>
                                 प्रतिशत वार्षिक व्याजदरले तिर्न बाँकी कर्जा
                                 तथा सुविधामा ब्याज गणना गरी मासिक रुपमा अंगे्रजी महिनाको १४ तारिखमा/नेपाली महिनाको
                                 अन्तमा/त्रैमासिक
@@ -634,7 +644,7 @@
                             </td>
                         </tr>
 
-                        <tr *ngIf="!data?.isFunded && data?.isFunded !== null">
+                        <tr *ngIf="!offerLetterForm?.get(['purpose', i, 'isFunded'])?.value || offerLetterForm?.get(['purpose', i, 'isFunded'])?.value !== null">
                             <td>
                                 <span [ngClass]="offerLetterForm?.get(['purpose', i, 'commissionNeeded'])?.value ? '' : 'disable-print'">कमिसन (Commission)</span>
                                 <span class="float-right disable-print">
@@ -647,7 +657,8 @@
                             <td>
                                 <ng-container *ngIf="offerLetterForm?.get(['purpose', i, 'commissionNeeded'])?.value">
                                     <ng-container
-                                            *ngIf="data?.commissionFrequency === 'QUARTER' || data?.commissionFrequency === 'MONTH'">
+                                            *ngIf="offerLetterForm?.get(['purpose', i, 'commissionFrequency'])?.value === 'QUARTER' ||
+                                                offerLetterForm?.get(['purpose', i, 'commissionFrequency'])?.value === 'MONTH'">
                                         <input type="text" [value]="offerLetterForm?.get(['purpose', i, 'rate']).value"
                                                (change)="valueChange($event?.target?.value, i, 'rate')"
                                                class="nepaliFont form-field form-control-sm font-size-normal disable-print">
@@ -656,9 +667,9 @@
                                         offerLetterForm?.get(['purpose', i, 'rate'])?.value : '========='}}</b></span>
                                         प्रतिशत प्रति
                                     </ng-container>
-                                    <span *ngIf="data?.commissionFrequency === 'QUARTER'; else monthly">त्रैमासिक |</span>
+                                    <span *ngIf="offerLetterForm?.get(['purpose', i, 'commissionFrequency'])?.value === 'QUARTER'; else monthly">त्रैमासिक |</span>
                                     <ng-template #monthly>
-                                        <span *ngIf="data?.commissionFrequency === 'MONTH'; else other">मासिक |</span>
+                                        <span *ngIf="offerLetterForm?.get(['purpose', i, 'commissionFrequency'])?.value === 'MONTH'; else other">मासिक |</span>
                                     </ng-template>
                                     <ng-template #other>
                                     <span class="disable-print float-right">
@@ -682,7 +693,7 @@
                             </td>
                         </tr>
 
-                        <tr *ngIf="data?.loanType === 'NEW_LOAN'">
+                        <tr *ngIf="offerLetterForm?.get(['purpose', i, 'loanType'])?.value === 'NEW_LOAN'">
                             <td>
                                 <span [ngClass]="offerLetterForm?.get(['purpose', i, 'adNeeded'])?.value ? '' : 'disable-print'">
                                     प्रशासनिक शुल्क (Administration Fee)
@@ -708,107 +719,70 @@
                                         </nb-checkbox>  &nbsp;&nbsp;&nbsp;
                                         <nb-checkbox
                                                 (change)="otherValueCheck($event?.target?.checked, i, 'otherAdFeeChecked')"
-                                                [checked]="data?.otherAdFeeChecked"><i>Other</i>
+                                                [checked]="offerLetterForm?.get(['purpose', i, 'otherAdFeeChecked'])?.value"><i>Other</i>
                                         </nb-checkbox>
                                     </span>
                                     <br>
-                                    <span *ngIf="!data?.otherAdFeeChecked">
+                                    <span *ngIf="!offerLetterForm?.get(['purpose', i, 'otherAdFeeChecked'])?.value">
                                         <span>
                                             <span *ngIf="offerLetterForm?.get(['purpose', i, 'inPercentage'])?.value">
                                                 कर्जाको <input type="text"
-                                                               [value]="data?.administrationRate"
+                                                               [value]="offerLetterForm?.get(['purpose', i, 'administrationRate'])?.value"
                                                                (change)="valueChange($event?.target?.value, i, 'administrationRate')"
                                                                class="nepaliFont form-field form-control-sm font-size-normal disable-print">
                                                 <span class="nepaliFont font-size-normal print-only">
-                                                    <b>{{data?.administrationRate ? data?.administrationRate : '========='}}</b>
+                                                    <b>{{offerLetterForm?.get(['purpose', i, 'administrationRate'])?.value ?
+                                                        offerLetterForm?.get(['purpose', i, 'administrationRate'])?.value : '========='}}</b>
                                                 </span>
                                                 प्रतिशत प्रशासनिक शुल्क लगाई कर्जा प्रवाह गर्नु अगावै असुल उपर गरिनेछ । <br>
                                             </span>
                                             <span *ngIf="offerLetterForm?.get(['purpose', i, 'inAmount'])?.value">
                                                 रु <input type="text"
                                                           (change)="valueChange($event?.target?.value, i, 'administrationAmount')"
-                                                          [value]="data?.administrationAmount"
+                                                          [value]="offerLetterForm?.get(['purpose', i, 'administrationAmount'])?.value"
                                                           class="nepaliFont form-field form-control-sm font-size-normal disable-print">
                                                 <span class="nepaliFont font-size-normal print-only">
-                                                    <b>{{data?.administrationAmount ? data?.administrationAmount : '========='}}</b></span>
+                                                    <b>{{offerLetterForm?.get(['purpose', i, 'administrationAmount'])?.value ?
+                                                        offerLetterForm?.get(['purpose', i, 'administrationAmount'])?.value : '========='}}</b></span>
                                                 रकम प्रशासनिक शुल्क लगाई कर्जा प्रवाह गर्नु अगावै असुल उपर गरिनेछ ।
                                             </span>
                                         </span>
                                     </span>
-                                    <span *ngIf="data?.otherAdFeeChecked">
+                                    <span *ngIf="offerLetterForm?.get(['purpose', i, 'otherAdFeeChecked'])?.value">
                                         <textarea
                                                 class="form-control nepaliFont form-field font-size-normal disable-print"
-                                                [value]="data?.adFeeOther"
+                                                [value]="offerLetterForm?.get(['purpose', i, 'adFeeOther'])?.value"
                                                 (change)="valueChange($event?.target?.value, i, 'adFeeOther')"
                                                 placeholder="अन्य प्रशासनिक शुल्क"
                                                 rows="4"></textarea>
                                         <span class="nepaliFont font-size-normal print-only">
-                                            <b>{{data?.adFeeOther ? data?.adFeeOther : '========='}}</b>
+                                            <b>{{offerLetterForm?.get(['purpose', i, 'adFeeOther'])?.value ?
+                                                offerLetterForm?.get(['purpose', i, 'adFeeOther'])?.value : '========='}}</b>
                                         </span>
                                     </span>
                             </span>
                             </td>
                         </tr>
 
-                        <!--                        <tr>-->
-                        <!--                            <td>पुनरावलोकन शुल्क (Review Fee)</td>-->
-                        <!--                            <td colspan="2">कर्जाको <input type="text"-->
-                        <!--                                                           [value]="data?.reviewRate"-->
-                        <!--                                                           class="nepaliFont form-field form-control-sm font-size-normal disable-print"-->
-                        <!--                                                           formControlName="reviewRate">-->
-                        <!--                                <span class="nepaliFont print-only">-->
-                        <!--                                        <b>{{data?.reviewRate ? data?.reviewRate : '========='}}</b></span>-->
-                        <!--                                प्रतिशत प्रशासनिक शुल्क लगाई कर्जा पुनरावलोकन गर्नु अगावै असुल उपर गरिनेछ । <br>-->
-                        <!--                                वा <br>-->
-                        <!--                                रु <input type="text"-->
-                        <!--                                          [value]="data?.reviewAmount"-->
-                        <!--                                          class="nepaliFont form-field form-control-sm font-size-normal disable-print"-->
-                        <!--                                          formControlName="reviewAmount">-->
-                        <!--                                <span class="nepaliFont print-only">-->
-                        <!--                                        <b>{{data?.reviewAmount ? data?.reviewAmount : '========='}}</b></span>-->
-                        <!--                                रकम प्रशासनिक शुल्क लगाई कर्जा पुनरावलोकन गर्नु अगावै असुल उपर गरिनेछ ।-->
-                        <!--                            </td>-->
-                        <!--                        </tr>-->
-                        <!--                        <tr>-->
-                        <!--                            <td>फोर्स (Force Loan) तथा व्याज (Interest)</td>-->
-                        <!--                            <td>बैंक ग्यारेण्टी सुविधा नगदी कर्जामा परिणत भएमा बैंकको नियमानुसार व्याज लगाई नगदी कर्जा-->
-                        <!--                                तथा व्याज असुल उपर गरिने छ ।-->
-                        <!--                            </td>-->
-                        <!--                        </tr>-->
-
-                        <!--                        letter of credit-->
-                        <!--                        <tr>-->
-
-                        <!--                            <td>कमिसन (Commission) <b>letter of credit</b></td>-->
-                        <!--                            <td><input type="text"-->
-                        <!--                                       [value]="offerLetterForm?.get(['purpose', i, 'creditRate'])?.value"-->
-                        <!--                                       class="nepaliFont form-field form-control-sm font-size-normal disable-print">-->
-                        <!--                                <span class="nepaliFont print-only">-->
-                        <!--                                <b>{{offerLetterForm?.get(['purpose', i, 'creditRate'])?.value ? offerLetterForm?.get(['purpose', i, 'creditRate'])?.value : '========='}}</b></span>-->
-                        <!--                                प्रतिशत प्रति त्रैमासिक वा न्यूनतम-->
-                        <!--                                <input type="text"-->
-                        <!--                                       [value]="offerLetterForm?.get(['purpose', i, 'creditAmount'])?.value"-->
-                        <!--                                       class="nepaliFont form-field form-control-sm font-size-normal disable-print">-->
-                        <!--                                <span class="nepaliFont print-only">-->
-                        <!--                                <b>{{offerLetterForm?.get(['purpose', i, 'creditAmount'])?.value ? offerLetterForm?.get(['purpose', i, 'creditAmount'])?.value : '========='}}</b></span>-->
-                        <!--                                /– मात्र ।-->
-                        <!--                            </td>-->
-                        <!--                        </tr>-->
-
-                        <!--                        <tr>-->
-                        <!--                            <td>टेलेक्स चार्ज (Telex Charges)</td>-->
-                        <!--                            <td>रु <input type="text"-->
-                        <!--                                          [value]="offerLetterForm?.get(['purpose', i, 'telexAmount'])?.value"-->
-                        <!--                                          class="nepaliFont form-field form-control-sm font-size-normal disable-print">-->
-                        <!--                                <span class="nepaliFont print-only">-->
-                        <!--                                <b>{{offerLetterForm?.get(['purpose', i, 'telexAmount'])?.value ? offerLetterForm?.get(['purpose', i, 'telexAmount'])?.value : '========='}}</b></span>-->
-                        <!--                                /– मात्र ।-->
-                        <!--                            </td>-->
-                        <!--                        </tr>-->
-                        <!--                        <tr>-->
-                        <!--                            <td>फोर्स लोन (Force Loan) तथा व्याज (Interest)</td>-->
-                        <!--                            <td>प्रतितपत्र सुविधा नगदी कर्जामा परिणत भएमा बैंकको नियमानुसार व्याज लगाई असुल उपर गरिने छ ।</td>-->
-                        <!--                        </tr>-->
+                        <tr *ngFor="let rem of offerLetterForm?.get(['purpose', i, 'addRemark'])['controls']; let ix = index"
+                            formArrayName="addRemark">
+                            <ng-container [formGroupName]="ix">
+                                <td>
+                                    <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                                              [value]="rem?.remark"
+                                              placeholder="अन्य कर्जा खिलाफीको अवस्था" rows="3">
+                                    </textarea>
+                                </td>
+                                <div class="disable-print">
+                                    <input (click)="removeRemarks(ix, i)" class="btn btn-sm btn-flat btn-danger"
+                                           type="button" value="Delete"/>
+                                </div>
+                            </ng-container>
+                        </tr>
+                        <div class="text-right float-right disable-print">
+                            <input (click)="addRemark(i)" class="btn btn-sm btn-flat btn-primary"
+                                   type="button" value="Add More"/>
+                        </div>
                     </ng-container>
                 </table>
             </ng-container>
@@ -1603,25 +1577,25 @@
                     </ng-container>
                     </tbody>
                     <tbody>
-                    <ng-container *ngIf="offerLetterForm?.get('fixedChecked').value">
-                        <!--                        <tr>-->
-                        <!--                            <th><ul><li></li></ul></th>-->
-                        <!--                            <th colspan="6">-->
-                        <!--                                <span class="float-right disable-print">-->
-                        <!--                                    <nb-checkbox (change)="otherCheck($event?.target?.checked, 'currentAssetsNeeded')"-->
-                        <!--                                                 [checked]="offerLetterForm?.get(['purpose', 'currentAssetsNeeded'])?.value"><i>Security as Current Assets Needed ?</i>-->
-                        <!--                                    </nb-checkbox>-->
-                        <!--                                </span>-->
-                        <!--                            </th>-->
-                        <!--                        </tr>-->
-                        <tr>
+                    <ng-container>
+                        <tr class="print-only1">
+                            <th colspan="1" class="sn pt-2">
+                                <ul><li></li></ul>
+                            </th>
+                            <th colspan="6">
+                                <nb-checkbox (change)="otherCheck($event?.target?.checked, 'fixedAssetsNeeded')"
+                                             [checked]="offerLetterForm?.get('fixedAssetsNeeded')?.value"><i>Security as Fixed Assets Collateral Needed ?</i>
+                                </nb-checkbox>
+                            </th>
+                        </tr>
+                        <tr *ngIf="offerLetterForm?.get('fixedAssetsNeeded')?.value">
                             <td colspan="1">
                                 <span class="print-only">
                                     <ul><li></li></ul>
                                 </span>
                             </td>
                             <td colspan="6">
-                                <span *ngIf="!offerLetterForm?.get('fixedAssetOtherCheck')?.value">
+                                <span>
                                     ऋणीको सम्पूर्ण <strong>स्थिर सम्पत्ति</strong> उपर हाइपोथिकेसन (Hypothecation
                                 over Fixed Assets) को लिखत
                                     <ng-container *ngIf="loanType?.includes('RENEWED_LOAN'); else otherLoanType4">
@@ -1642,11 +1616,11 @@
                                     <ng-template #otherLoanType4>
                                         गरिदिनु पर्नेछ ।
                                     </ng-template>
-                                </span>
-                                <span class="disable-print float-right">
-                                    <nb-checkbox (change)="otherCheck($event?.target?.checked, 'fixedAssetOtherCheck')"
-                                                 [checked]="offerLetterForm?.get('fixedAssetOtherCheck')?.value"><i>Other</i>
-                                </nb-checkbox>
+                                    <span class="disable-print float-right">
+                                        <nb-checkbox (change)="otherCheck($event?.target?.checked, 'fixedAssetOtherCheck')"
+                                                     [checked]="offerLetterForm?.get('fixedAssetOtherCheck')?.value"><i>Other</i>
+                                        </nb-checkbox>
+                                    </span>
                                 </span>
                                 <span *ngIf="offerLetterForm?.get('fixedAssetOtherCheck')?.value">
                                     <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
@@ -1957,6 +1931,41 @@
                                 <span class="nepaliFont font-size-normal print-only">
                                     <b>{{offerLetterForm?.get('promiseOther')?.value ? offerLetterForm?.get('promiseOther')?.value : '========='}}</b></span>
                                 </span>
+                        </td>
+                    </tr>
+                    </tbody>
+                    <tbody>
+                    <tr *ngFor="let test of offerLetterForm.get('moreSecurity')['controls']; let viii = index"
+                        formArrayName="moreSecurity">
+                        <ng-container [formGroupName]="viii">
+                            <td colspan="1"><ul>
+                                <li></li>
+                            </ul></td>
+                            <td colspan="6">
+                                <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                                          formControlName="otherSecurity"
+                                          placeholder="अन्य कर्जा सम्बन्धी लिखत तथा धितो सुरक्षण विवरण"
+                                          rows="3"></textarea>
+                                <span class="nepaliFont print-only">
+                                    <b>{{offerLetterForm?.get(['moreSecurity', viii, 'otherSecurity'])?.value ?
+                                        offerLetterForm?.get(['moreSecurity', viii, 'otherSecurity'])?.value : '========='}}</b>
+                                </span>
+                            </td>
+                            <div class="disable-print">
+                                <button (click)="removeMoreSecurity(viii)"
+                                        *ngIf="offerLetterForm?.get('moreSecurity')['length'] > 0"
+                                        class="btn btn-success" nbButton size="small"
+                                        status="primary">Delete
+                                </button>
+                            </div>
+                        </ng-container>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="text-right disable-print">
+                                <input (click)="addMoreSecurity()" class="btn btn-sm btn-flat btn-primary"
+                                       type="button" value="Add More"/>
+                            </div>
                         </td>
                     </tr>
                     </tbody>

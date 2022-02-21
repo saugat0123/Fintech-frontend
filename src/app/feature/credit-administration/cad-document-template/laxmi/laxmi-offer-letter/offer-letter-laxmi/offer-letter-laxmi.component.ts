@@ -19,6 +19,7 @@ import {NepaliEditor} from '../../../../../../@core/utils/constants/nepaliEditor
 import {OfferDocument} from '../../../../model/OfferDocument';
 import {LaxmiOfferLetterConst} from '../laxmi-offer-letter-const';
 import {ClientTypeShortFormPipe} from '../../../../../../@core/pipe/client-type-short-form.pipe';
+import {log} from 'util';
 
 @Component({
     selector: 'app-offer-letter-laxmi',
@@ -77,6 +78,8 @@ export class OfferLetterLaxmiComponent implements OnInit {
             const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
             this.existingOfferLetter = true;
             this.offerLetterForm.patchValue(initialInfo);
+            this.setRemarks(initialInfo.purpose);
+            this.setMoreSecurity(initialInfo.moreSecurity);
             this.setOtherCovenants(initialInfo.covenant);
             this.setAcceptance(initialInfo.acceptance);
             this.setEventDefaul(initialInfo.eventDefault);
@@ -188,6 +191,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
             shareSecurity: this.formBuilder.array([]),
             vehicleSecurity: this.formBuilder.array([]),
             renewSecurity: this.formBuilder.array([]),
+            moreSecurity: this.formBuilder.array([]),
 
             coGuaranteeOtherCheck: [false],
             coGuaranteeOther: [undefined],
@@ -221,6 +225,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
             vehicleSecurityNeeded: [true],
             shareSecurityNeeded: [true],
             guaranteeNeeded: [true],
+            fixedAssetsNeeded: [true],
             branchCode: [undefined]
         });
     }
@@ -449,6 +454,8 @@ export class OfferLetterLaxmiComponent implements OnInit {
             const branchCode = this.cadData.loanHolder.branch.branchCode.concat('-').concat(loanShortForm);
             this.offerLetterForm.get('branchCode').patchValue(branchCode);
             const offerLetterDate = new Date();
+            this.offerLetterForm.get('patraDate').patchValue(offerLetterDate);
+            console.log('offerLetterForm', this.offerLetterForm);
             const refNumber = (offerLetterDate.getFullYear().toString())
                 .concat(offerLetterDate.getMonth().toString())
                 .concat(offerLetterDate.getDay().toString()).concat('/')
@@ -578,6 +585,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
                 otherInterestRate: [undefined],
                 otherAdFeeChecked: [false],
                 adFeeOther: [undefined],
+                addRemark: this.formBuilder.array([]),
             })
         );
     }
@@ -874,6 +882,13 @@ export class OfferLetterLaxmiComponent implements OnInit {
                     this.offerLetterForm.get('guaranteeNeeded').patchValue(false);
                 }
                 break;
+            case 'fixedAssetsNeeded':
+                if (event) {
+                    this.offerLetterForm.get('fixedAssetsNeeded').patchValue(event);
+                } else {
+                    this.offerLetterForm.get('fixedAssetsNeeded').patchValue(false);
+                }
+                break;
         }
     }
 
@@ -1133,5 +1148,57 @@ export class OfferLetterLaxmiComponent implements OnInit {
                 this.offerLetterForm.get('corporateAmountWord').patchValue(word4);
                 break;
         }
+    }
+
+    addMoreSecurity() {
+        (this.offerLetterForm.get('moreSecurity') as FormArray).push(
+            this.formBuilder.group({
+                otherSecurity: [undefined]
+            })
+        );
+    }
+
+    removeMoreSecurity(index: number) {
+        (<FormArray>this.offerLetterForm.get('moreSecurity')).removeAt(index);
+    }
+
+    setMoreSecurity(data) {
+        const dataArray = this.offerLetterForm.get('moreSecurity') as FormArray;
+        if (!ObjectUtil.isEmpty(data)) {
+            data.forEach(singleData => {
+                dataArray.push(this.formBuilder.group({
+                    otherSecurity: [singleData.otherSecurity]
+                }));
+            });
+        }
+    }
+
+    addRemark(i: number) {
+        const controls = this.offerLetterForm.get(['purpose' , i, 'addRemark']) as FormArray;
+        controls.push(this.formBuilder.group({
+            remark: [undefined]
+        }));
+    }
+
+    removeRemarks(ix: number, i) {
+        (<FormArray>this.offerLetterForm.get(['purpose', i, 'addRemark'])).removeAt(ix);
+    }
+
+    setRemarks(data) {
+        console.log('data', data);
+        data.forEach((d) => {
+            d.addRemark.forEach(r => {
+
+            });
+            // const re = d.get('addRemark') as FormArray;
+            // console.log('re', re);
+            const remark = this.offerLetterForm.get(['purpose', 'addRemark']) as FormArray;
+            console.log('remark', remark);
+            // d.addRemark.forEach(r => {
+            //     remark.push(this.formBuilder.group({
+            //         remark: [r.remark]
+            //     }));
+            // });
+        });
     }
 }
