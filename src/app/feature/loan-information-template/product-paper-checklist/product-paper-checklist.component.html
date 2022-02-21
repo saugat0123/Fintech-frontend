@@ -7,9 +7,9 @@
             <thead class="sb-bg-dark">
             <tr>
                 <th [colSpan]="fromLoan?'2':'3'">COMPLIANCE TO PRODUCT PAPER - CHECKLIST </th>
-                <th *ngIf="fromLoan"><button nbButton (click)="yesToAll()">Yes To All</button></th>
-                <th *ngIf="fromLoan"><button nbButton (click)="noToAll()">No To All</button></th>
-                <th *ngIf="fromLoan"><button nbButton (click)="naToAll()">Na To All</button></th>
+                <th *ngIf="fromLoan"><a href="javascript:void(0)" (click)="yesToAll()">Yes To All</a></th>
+                <th *ngIf="fromLoan"><a  href="javascript:void(0)" (click)="noToAll()">No To All</a></th>
+                <th *ngIf="fromLoan"><a  href="javascript:void(0)" (click)="naToAll()">Na To All</a></th>
             </tr>
             <tr>
                 <th>S.N.</th>
