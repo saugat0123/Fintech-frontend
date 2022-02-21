@@ -348,12 +348,23 @@ export class CadActionComponent implements OnInit, OnChanges {
                     if (this.sendForwardBackwardList.length !== 0) {
 
                         if (this.isMaker && this.currentStatus === 'OFFER_PENDING') {
-                            this.sendForwardBackwardList = this.sendForwardBackwardList.filter(f => f.role.roleType !== RoleType.CAD_LEGAL);
+                            this.sendForwardBackwardList = this.sendForwardBackwardList.filter(f => f.role.roleType === RoleType.APPROVAL);
+                        } else {
+                            if (this.isMaker && this.currentStatus === 'OFFER_APPROVED') {
+                                this.sendForwardBackwardList = this.sendForwardBackwardList.filter(f => f.role.roleType === RoleType.CAD_LEGAL);
+                            } else {
+                                if (this.isMaker && this.currentStatus === 'LEGAL_APPROVED') {
+                                    this.sendForwardBackwardList = this.sendForwardBackwardList.filter(f => f.role.roleType === RoleType.CRC);
+                                } else {
+                                    if (this.isMaker && this.currentStatus === 'LIMIT_APPROVED') {
+                                        this.sendForwardBackwardList = this.sendForwardBackwardList.filter(f => f.role.roleType === RoleType.COPS);
+                                    }
+                                }
+                            }
                         }
-                        this.getUserList(this.sendForwardBackwardList[0].role);
-                    }
+                            this.getUserList(this.sendForwardBackwardList[0].role);
+                        }
                 });
-
         } else if (this.popUpTitle === 'APPROVED') {
             const newDocStatus = this.getNewDocStatusOnApprove();
             this.popUpTitle = this.approvedLabel;
