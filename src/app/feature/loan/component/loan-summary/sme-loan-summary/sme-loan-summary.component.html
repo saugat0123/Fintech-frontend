@@ -126,6 +126,20 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <b>TO: {{loanDataHolder?.currentStage?.toUser?.name}} ({{loanDataHolder?.currentStage?.toRole?.roleName}})</b>
+                    <br>
+                    <b>THROUGH: {{loanDataHolder?.currentStage?.fromUser?.name}} ({{loanDataHolder?.currentStage?.fromRole?.roleName}})</b>
+                    <br>
+                    <b>FROM: </b> <br>
+                    <b>CLIENT NAME: {{loanDataHolder?.loanHolder?.name}}</b> <br>
+                    <b>GROUP: </b> <br>
+                    <ng-container *ngFor="let item of companyInfoJson; let i = index"><b>ACCOUNT NUMBER {{i + 1}}: {{item.accountNo}}</b> <br></ng-container> 
+                    <b>CUSTOMER ID: {{loanDataHolder?.loanHolder?.customerCode || 'NA'}}</b> <br>
+                    <b>DATE: {{loanDataHolder?.createdAt ? (loanDataHolder?.createdAt | date) : 'NA'}}</b>
+                </div>
+            </div>
             <hr class="print-line">
             <!-- <div class="row">
                 <div class="col-md-12">
@@ -276,7 +290,6 @@
                     </div>
                 </div>
             </div>
-
 
             <div class="row sb-small">
                 <div class="col-md-12">
@@ -440,6 +453,9 @@
                                           [loanDataHolder]="loanDataHolder"></app-company-info-summary>
             </div>
 
+            <app-financial-summary *ngIf="financialSummary" [formData]="financialData"
+                [loanType]="loanDataHolder?.loanCategory"></app-financial-summary>
+
             <!-- background information -->
 
             <!-- current status and present proposal -->
@@ -520,6 +536,20 @@
                 </div>
             </div>
 <!--16.	NTA STATEMENT AND INSPECTION: (SME)-->
+            <ng-container>
+                <app-nta-mega-summary *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0"
+                    [fiscalYears]="fiscalYearArray" [netTradingAssetsData]="netTradingAssetsData">
+                </app-nta-mega-summary>
+            </ng-container>
+
+            <ng-template #otherBank>
+                <app-nta-summary *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0"
+                    [fiscalYears]="fiscalYearArray" [netTradingAssetsData]="netTradingAssetsData"></app-nta-summary>
+            </ng-template>
+            <br>
+            <div>
+                <app-comments-summary *ngIf="commentsSummary" [formData]="dataFromComments"></app-comments-summary>
+            </div>
 
             <!-- 17.	WAIVERS, DEVIATIONS AND DEFERRAL, IF ANY: -->
 
