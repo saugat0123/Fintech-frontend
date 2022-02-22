@@ -2,7 +2,6 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {LoanDataHolder} from '../../loan/model/loanData';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
-import {LoanConfigService} from '../../admin/component/loan-config/loan-config.service';
 import {LoanConfig} from '../../admin/modal/loan-config';
 
 @Component({
@@ -29,7 +28,9 @@ export class ProductPaperChecklistComponent implements OnInit {
     }
     if (this.fromLoan) {
       this.buildForm();
-      this.paperForm.patchValue(this.formData);
+      if(!ObjectUtil.isEmpty(this.formData)) {
+        this.paperForm.patchValue(this.formData);
+      }
     }
   }
 
