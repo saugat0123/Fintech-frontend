@@ -26,10 +26,10 @@
                 <td><b>Net Worth & Credit Information</b></td>
             </tr>
             <!--       first net worth section-->
-            <ng-container *ngIf="loan?.name !== 'Education Loan'; else educationLoan;">
+            <ng-container *ngIf="loan?.name !== 'EDUCATION LOAN'; else educationLoan;">
                 <tr>
                     <td>1</td>
-                    <td>CICL report dated ....... {{loan?.name==='Home Loan'?'':'2021'}} obtained</td>
+                    <td>CICL report dated ....... {{loan?.name==='HOME LOAN'?'':'2021'}} obtained</td>
                     <ng-container *ngIf="fromLoan">
                         <td  *ngFor="let option of yesNo" >
                             <input [value]="option" formControlName="ciclDate" name="ciclDate" type="radio">
@@ -124,7 +124,7 @@
                 <td><b>B</b></td>
                 <td><b>Fixed Asset Collateral Documents</b></td>
             </tr>
-            <ng-container *ngIf="loan?.name === 'Auto Loan'; else otherFA;">
+            <ng-container *ngIf="loan?.name === 'AUTO LOAN'; else otherFA;">
                 <tr>
                     <td>1</td>
                     <td>
@@ -189,7 +189,7 @@
                     </ng-container>
                     <td *ngIf="!fromLoan">{{formData?.bca || 'Na'}}</td>
                 </tr>
-                <tr *ngIf="loan?.name === 'Home Loan'">
+                <tr *ngIf="loan?.name === 'HOME LOAN'">
                     <td>6</td>
                     <td>Photograph of Fixed Asset Collateral showing clear road access of minimum 8 feet width</td>
                     <ng-container *ngIf="fromLoan">
@@ -264,7 +264,7 @@
                 </ng-container>
                 <td *ngIf="!fromLoan">{{formData?.businessIncome || 'Na'}}</td>
             </tr>
-            <tr *ngIf="loan?.name === 'Home Loan'">
+            <tr *ngIf="loan?.name === 'HOME LOAN'">
                 <td>6</td>
                 <td>
                     Agriculture income (applicants owning agricultural land) : Income substantiating documents certified by Administrative Office of Nepal Government like Ward Office
@@ -321,24 +321,23 @@
             <tr>
                 <td>3</td>
                 <td>
-
-                    <p  *ngIf="loan?.name === 'Home Equity Instalment Credit' || loan?.name === 'Home Equity Line of Credit'"> Loan Tenure:
+                    <ng-container  *ngIf="loan?.name === 'HOME EQUITY INSTALMENT CREDIT' || loan?.name === 'HOME EQUITY LINE OF CREDIT'; else educationLoan;"> Loan Tenure:
                         HEIC: Minimum 1 year, Maximum 15 years
                         HELOC: 12 months or less
-                    </p>
-                    <p  *ngIf="loan?.name === 'Education Loan'">
+                    </ng-container>
+                    <ng-template #educationLoan *ngIf="loan?.name === 'EDUCATION LOAN'; else autoLoan;">
                         Loan Tenure: Maximum 180 months excluding moratorium period
-                    </p>
-                    <p  *ngIf="loan?.name === 'Auto Loan'">
+                    </ng-template>
+                    <ng-template #autoLoan *ngIf="loan?.name === 'AUTO LOAN';else homeLoan;">
                         Loan Tenure:
                         New Vehicles: Minimum 1 year, Maximum 7 years ; (Maximum 10 years for mortgaged borrowers availing HMLN and HELN)
                         Used Vehicles: Minimum 1 year, Maximum 5 years
                         Refinance: Tenure to be restricted to remaining tenure with FI from where the loan is being taken over
                         (Age of used and refinanced vehicle not to exceed 7 years at maturity)
 
-                    </p>
+                    </ng-template>
 
-                    <p *ngIf="loan?.name === 'Home Loan'">Loan Tenure: Minimum 12 months and Maximum 480 months or as per Product Paper</p>
+                    <ng-template #homeLoan *ngIf="loan?.name === 'HOME LOAN'" >Loan Tenure: Minimum 12 months and Maximum 480 months or as per Product Paper</ng-template>
                 </td>
                 <ng-container *ngIf="fromLoan">
                     <td  *ngFor="let option of yesNo" >
@@ -350,13 +349,13 @@
             <tr>
                 <td>4</td>
                 <td>
-                   <p *ngIf="loan?.name === 'Home Equity Instalment Credit' || loan?.name === 'Home Equity Line of Credit'"> Loan Amount:
+                   <ng-container *ngIf="loan?.name === 'HOME EQUITY INSTALMENT CREDIT' || loan?.name === 'HOME EQUITY LINE OF CREDIT'; else homeAmount;"> Loan Amount:
                        HEIC: Minimum NPR 500K, Maximum NPR 15,000K
                        HELOC: Minimum NPR 500K, Maximum NPR 5,000K
-                   </p>
-                    <p *ngIf="loan?.name === 'Home Loan'">Loan Amount: Minimum 250K and Maximum 50,000K</p>
-                    <p *ngIf="loan?.name === 'Auto Loan'">Loan Amount: Minimum NPR 500K and Maximum NPR 10,000K</p>
-                    <p *ngIf="loan?.name === 'Education Loan'">Loan Amount: Minimum 500K and Maximum 7,000K (For Diploma/Vocational Education Courses, Maximum NPR 4,500K)</p>
+                   </ng-container>
+                    <ng-template #homeAmount *ngIf="loan?.name === 'HOME LOAN'; else autoAmount;">Loan Amount: Minimum 250K and Maximum 50,000K</ng-template>
+                    <ng-template #autoAmount *ngIf="loan?.name === 'AUTO LOAN'; else eduAmount;">Loan Amount: Minimum NPR 500K and Maximum NPR 10,000K</ng-template>
+                    <ng-template #eduAmount *ngIf="loan?.name === 'EDUCATION LOAN'">Loan Amount: Minimum 500K and Maximum 7,000K (For Diploma/Vocational Education Courses, Maximum NPR 4,500K)</ng-template>
                 </td>
                 <ng-container *ngIf="fromLoan">
                     <td  *ngFor="let option of yesNo" >
@@ -368,27 +367,27 @@
             <tr>
                 <td>5</td>
                 <td>
-                    <p *ngIf="loan?.name === 'Home Loan'">
+                    <ng-container *ngIf="loan?.name === 'HOME EQUITY INSTALMENT CREDIT' || loan?.name === 'HOME EQUITY LINE OF CREDIT';else homeLTV;">
+                        Loan to Value (LTV):
+                        Property located inside Kathmandu valley: Maximum 40% of the FMV
+                        Property located outside Kathmandu valley: Maximum 50% of the FMV
+                    </ng-container>
+                    <ng-template #homeLTV *ngIf="loan?.name === 'HOME LOAN'; else autoLTV;">
                         Loan to Value (LTV):
                         Property located inside/outside Kathmandu valley: Maximum 60% of the FMV.
                         <b>First Home Buyer</b> -Maximum 70% of FMV
                         <br>- All the criteria as per NRB Directive 3/078 – 11.4.Kha has been met
-                    </p>
-                    <p *ngIf="loan?.name === 'Home Equity Instalment Credit' || loan?.name === 'Home Equity Line of Credit'">
-                        Loan to Value (LTV):
-                        Property located inside Kathmandu valley: Maximum 40% of the FMV
-                        Property located outside Kathmandu valley: Maximum 50% of the FMV
-                    </p>
-                    <p *ngIf="loan?.name === 'Auto Loan'">
+                    </ng-template>
+                    <ng-template #autoLTV *ngIf="loan?.name === 'AUTO LOAN';else eduLTV;">
                         Loan to Value (LTV):
                         New Vehicles: Maximum 50% of the FMV (quoted price), Maximum 80% of FMV for electric vehicles
                         Used Vehicles: Maximum 50% of FMV or NPR 4,000K, whichever is lower
                         Refinance: Maximum 50% of FMV or NPR 4,000K or loan outstanding with existing FI, whichever is lower.
 
-                    </p>
-                    <p *ngIf="loan?.name === 'Education Loan'">
+                    </ng-template>
+                    <ng-template #eduLTV *ngIf="loan?.name === 'EDUCATION LOAN'">
                         Loan to Value (LTV): Up to 75% of the FMV of collateral or up to 95% of value of Fixed Deposit and/or Government Bond
-                    </p>
+                    </ng-template>
                 </td>
                 <ng-container *ngIf="fromLoan">
                     <td  *ngFor="let option of yesNo" >
@@ -400,8 +399,8 @@
             <tr>
                 <td>6</td>
                 <td>
-                   <p *ngIf="loan?.name!=='Education Loan'">Group exposure aggregated, as per the NRB’s definition of a group (If applicable)</p>
-                   <p *ngIf="loan?.name ==='Education Loan'">Drawdown: Up to 100% of cost of study (including cost of travelling, living and accommodation of student/dependent spouse)</p>
+                   <ng-container *ngIf="loan?.name!=='EDUCATION LOAN'">Group exposure aggregated, as per the NRB’s definition of a group (If applicable)</ng-container>
+                   <ng-container *ngIf="loan?.name ==='EDUCATION LOAN'">Drawdown: Up to 100% of cost of study (including cost of travelling, living and accommodation of student/dependent spouse)</ng-container>
                 </td>
                 <ng-container *ngIf="fromLoan">
                     <td  *ngFor="let option of yesNo" >
@@ -410,7 +409,7 @@
                 </ng-container>
                 <td *ngIf="!fromLoan">{{formData?.groupExposure || 'Na'}}</td>
             </tr>
-            <tr *ngIf="loan?.name ==='Education Loan'">
+            <tr *ngIf="loan?.name ==='EDUCATION LOAN'">
                 <td>7</td>
                 <td>
                     Group exposure aggregated, as per the NRB’s definition of a group (If applicable)
@@ -429,8 +428,8 @@
             <tr>
                 <td>1</td>
                 <td>
-                   <p *ngIf="loan?.name ==='Education Loan'">Age of Borrower/Guarantor: Minimum 18 years at the time of application and maximum 65 years at the time of maturity of loan</p>
-                    <p *ngIf="loan?.name!=='Education Loan'">Age of Borrower: Minimum 21 years at the time of application and 70 years at the time of maturity of the Loan</p>
+                   <ng-container *ngIf="loan?.name ==='EDUCATION LOAN'">Age of Borrower/Guarantor: Minimum 18 years at the time of application and maximum 65 years at the time of maturity of loan</ng-container>
+                    <ng-container *ngIf="loan?.name!=='EDUCATION LOAN'">Age of Borrower: Minimum 21 years at the time of application and 70 years at the time of maturity of the Loan</ng-container>
                 </td>
                 <ng-container *ngIf="fromLoan">
                     <td  *ngFor="let option of yesNo" >
@@ -442,8 +441,10 @@
             <tr>
                 <td>2</td>
                 <td>
-                    <p *ngIf="loan?.name !=='Education Loan'">Age of borrower, co-borrower or guarantor has not exceeded 70 years at the time of loan application</p>
-                    <p *ngIf="loan?.name ==='Education Loan'"> Age of at least one applicant/guarantor meets the age criteria</p>
+                    <ng-container *ngIf="loan?.name !=='EDUCATION LOAN'">
+                      {{ ' Age of borrower, co-borrower or guarantor has not exceeded'+ loan?.name === 'AUTO LOAN'?'65':'70'+ ' years at the time of loan application' }}
+                    </ng-container>
+                    <ng-container *ngIf="loan?.name ==='EDUCATION LOAN'"> Age of at least one applicant/guarantor meets the age criteria</ng-container>
                 </td>
                 <ng-container *ngIf="fromLoan">
                     <td  *ngFor="let option of yesNo" >
@@ -459,18 +460,18 @@
             <tr>
                 <td>1</td>
                 <td>
-                   <p *ngIf="loan?.name === 'Home Equity Instalment Credit' || loan?.name === 'Home Equity Line of Credit'">
+                   <ng-container *ngIf="loan?.name === 'HOME EQUITY INSTALMENT CREDIT' || loan?.name === 'HOME EQUITY LINE OF CREDIT'">
                        DBR: Maximum 60% and Stretched DBR: Maximum 75%, Gross DBR=50%
-                   </p>
-                    <p *ngIf="loan?.name === 'Home Loan'">
+                   </ng-container>
+                    <ng-container *ngIf="loan?.name === 'HOME LOAN'">
                         DBR: Maximum 50% of GMI and 60% of GMI for First Home Buyer.
-                    </p>
-                    <p *ngIf="loan?.name === 'Auto Loan'">
+                    </ng-container>
+                    <ng-container *ngIf="loan?.name === 'AUTO LOAN'">
                         DBR =50% of Gross Monthly Income
-                    </p>
-                    <p *ngIf="loan?.name === 'Education Loan'">
+                    </ng-container>
+                    <ng-container *ngIf="loan?.name === 'EDUCATION LOAN'">
                         DBR: Maximum 60% and Stretched DBR: Maximum 75% (reference interest rate 14%)
-                    </p>
+                    </ng-container>
                 </td>
                 <ng-container *ngIf="fromLoan">
                     <td  *ngFor="let option of yesNo" >
