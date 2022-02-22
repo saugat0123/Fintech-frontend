@@ -10,7 +10,7 @@
                     <span class="font-size-normal print-only">
                         <b>{{offerLetterForm?.get('branchCode')?.value ? offerLetterForm?.get('branchCode')?.value : '========='}}</b></span>/
                     <input class="form-field form-control-sm font-size-normal disable-print"
-                           formControlName="patraDate" placeholder="Date"
+                           formControlName="patraDate" placeholder="Date" readonly
                            [value]="offerLetterForm?.get('patraDate')?.value ? (offerLetterForm?.get('patraDate')?.value) : 'NA'">
                     <!--                    <nb-datepicker #patraDate></nb-datepicker>-->
                     <span class="font-size-normal print-only">
@@ -1030,9 +1030,6 @@
                                 <nb-checkbox (change)="otherCheck($event?.target?.checked, 'collateralChecked')"
                                              [checked]="offerLetterForm?.get('collateralChecked')?.value"><i>Cross-Collateralized Security</i>
                                 </nb-checkbox>  &nbsp;&nbsp;&nbsp;
-                                <!--                                <nb-checkbox (change)="otherCheck($event?.target?.checked, 'collateralSecurityNeeded')"-->
-                                <!--                                             [checked]="offerLetterForm?.get('collateralSecurityNeeded')?.value"><i>Collateral Security Needed ?</i>-->
-                                <!--                                </nb-checkbox>-->
                             </span>
                                 </th>
                             </tr>
@@ -1116,7 +1113,7 @@
                                             offerLetterForm?.get(['security', ii, 'plotNumber'])?.value : '========='}}</b></span>
                                         </td>
                                     </tr>
-                                    <div class="text-right float-right disable-print">
+                                    <div class="disable-print">
                                         <input (click)="addSecurity()" class="btn btn-sm btn-flat btn-primary"
                                                type="button" value="Add More"/>
                                     </div>
@@ -1225,7 +1222,7 @@
                                             offerLetterForm?.get(['crossSecurity', ii, 'plotNumber'])?.value : '========='}}</b></span>
                                         </td>
                                     </tr>
-                                    <div class="text-right float-right disable-print">
+                                    <div class="disable-print">
                                         <input (click)="addCrossSecurity()" class="btn btn-sm btn-flat btn-primary"
                                                type="button" value="Add More"/>
                                     </div>

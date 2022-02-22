@@ -223,7 +223,6 @@ export class OfferLetterLaxmiComponent implements OnInit {
             cashMarginNeeded: [true],
             personalSecurityNeeded: [true],
             cashLienNeeded: [true],
-            collateralSecurityNeeded: [true],
             vehicleSecurityNeeded: [true],
             shareSecurityNeeded: [true],
             guaranteeNeeded: [true],
@@ -862,14 +861,6 @@ export class OfferLetterLaxmiComponent implements OnInit {
                     this.offerLetterForm.get('cashlienOther').patchValue(null);
                 } else {
                     this.offerLetterForm.get('cashLienNeeded').patchValue(false);
-                }
-                break;
-            case 'collateralSecurityNeeded':
-                if (event) {
-                    this.offerLetterForm.get('collateralSecurityNeeded').patchValue(event);
-                    // this.offerLetterForm.get('cashlienOther').patchValue(null);
-                } else {
-                    this.offerLetterForm.get('collateralSecurityNeeded').patchValue(false);
                 }
                 break;
             case 'vehicleSecurityNeeded':
