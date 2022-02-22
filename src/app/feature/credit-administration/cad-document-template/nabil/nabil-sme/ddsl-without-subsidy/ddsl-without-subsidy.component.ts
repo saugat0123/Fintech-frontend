@@ -1,50 +1,17 @@
-import {
-    Component,
-    Input,
-    OnInit,
-    AfterViewChecked, ChangeDetectorRef
-} from '@angular/core';
-import {
-    FormBuilder,
-    FormGroup
-} from '@angular/forms';
-import {
-    NabilOfferLetterConst
-} from '../../../../nabil-offer-letter-const';
-import {
-    NbDialogRef
-} from '@nebular/theme';
-import {
-    CustomerApprovedLoanCadDocumentation
-} from '../../../../model/customerApprovedLoanCadDocumentation';
-import {
-    NepaliNumberAndWords
-} from '../../../../model/nepaliNumberAndWords';
-import {
-    ObjectUtil
-} from '../../../../../../@core/utils/ObjectUtil';
-import {
-    CreditAdministrationService
-} from '../../../../service/credit-administration.service';
-import {
-    OfferDocument
-} from '../../../../model/OfferDocument';
-import {
-    Alert,
-    AlertType
-} from '../../../../../../@theme/model/Alert';
-import {
-    ToastService
-} from '../../../../../../@core/utils';
-import {
-    RouterUtilsService
-} from '../../../../utils/router-utils.service';
-import {
-    NepaliCurrencyWordPipe
-} from '../../../../../../@core/pipe/nepali-currency-word.pipe';
-import {
-    CustomerSubType
-} from '../../../../../customer/model/customerSubType';
+import {Component, Input, OnInit, AfterViewChecked, ChangeDetectorRef} from '@angular/core';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {NabilOfferLetterConst} from '../../../../nabil-offer-letter-const';
+import {NbDialogRef} from '@nebular/theme';
+import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
+import {NepaliNumberAndWords} from '../../../../model/nepaliNumberAndWords';
+import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
+import {CreditAdministrationService} from '../../../../service/credit-administration.service';
+import {OfferDocument} from '../../../../model/OfferDocument';
+import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
+import {ToastService} from '../../../../../../@core/utils';
+import {RouterUtilsService} from '../../../../utils/router-utils.service';
+import {NepaliCurrencyWordPipe} from '../../../../../../@core/pipe/nepali-currency-word.pipe';
+import {CustomerSubType} from '../../../../../customer/model/customerSubType';
 
 @Component({
     selector: 'app-ddsl-without-subsidy',
