@@ -189,6 +189,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     @Output() customerLoanList = new EventEmitter();
     zipDocumentName;
     hidePreviewButton = false;
+    incomeDataOnly;
 
     constructor(
         @Inject(DOCUMENT) private _document: Document,
@@ -247,8 +248,11 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
 
         // Setting financial data---
         if (!ObjectUtil.isEmpty(this.loanDataHolder.financial)) {
-            this.financialData = this.loanDataHolder.financial;
             this.financialSummary = true;
+            this.financialData = this.loanDataHolder.financial;
+            if (!ObjectUtil.isEmpty(this.financialData)) {
+                this.incomeDataOnly = JSON.parse(this.financialData.data);
+            }
         }
 
         // Setting Security data--
@@ -381,7 +385,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         if (!ObjectUtil.isEmpty(this.loanDataHolder.proposal)) {
             this.proposalData = this.loanDataHolder.proposal;
             this.proposalView = JSON.parse(this.proposalData.data);
-            console.log('proposalData.data: ', this.proposalView);
             this.proposalSummary = true;
         }
 
