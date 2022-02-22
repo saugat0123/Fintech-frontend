@@ -65,6 +65,7 @@ export class ProductPaperChecklistComponent implements OnInit {
       loanFee: [undefined],
       commitmentFee: [undefined],
       swapFee: [undefined],
+      aggregate: [undefined],
     });
   }
 
@@ -104,6 +105,7 @@ export class ProductPaperChecklistComponent implements OnInit {
       loanFee: 'Yes',
       commitmentFee: 'Yes',
       swapFee: 'Yes',
+      aggregate: 'Yes',
     });
   }
 
@@ -139,6 +141,7 @@ export class ProductPaperChecklistComponent implements OnInit {
       loanFee: 'No',
       commitmentFee: 'No',
       swapFee: 'No',
+      aggregate: 'No',
     });
   }
   naToAll() {
@@ -173,6 +176,7 @@ export class ProductPaperChecklistComponent implements OnInit {
       loanFee: 'Na',
       commitmentFee: 'Na',
       swapFee: 'Na',
+      aggregate: 'Na',
     });
   }
 }
