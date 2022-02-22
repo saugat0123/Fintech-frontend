@@ -19,6 +19,7 @@ import {NepaliEditor} from '../../../../../../@core/utils/constants/nepaliEditor
 import {OfferDocument} from '../../../../model/OfferDocument';
 import {LaxmiOfferLetterConst} from '../laxmi-offer-letter-const';
 import {ClientTypeShortFormPipe} from '../../../../../../@core/pipe/client-type-short-form.pipe';
+import {formatDate} from '@angular/common';
 
 @Component({
     selector: 'app-offer-letter-laxmi',
@@ -454,15 +455,8 @@ export class OfferLetterLaxmiComponent implements OnInit {
             const loanShortForm = this.clientTypeShort.transform(this.cadData.loanHolder.clientType);
             const branchCode = this.cadData.loanHolder.branch.branchCode.concat('-').concat(loanShortForm);
             this.offerLetterForm.get('branchCode').patchValue(branchCode);
-            const offerLetterDate = new Date();
-            const refDate = (offerLetterDate.getFullYear().toString()).concat('-')
-                .concat(offerLetterDate.getMonth().toString()).concat('-')
-                .concat(offerLetterDate.getDay().toString());
-            this.offerLetterForm.get('patraDate').patchValue(refDate);
-            const refNumber = (offerLetterDate.getFullYear().toString())
-                .concat(offerLetterDate.getMonth().toString())
-                .concat(offerLetterDate.getDay().toString()).concat('-')
-                .concat((this.cadData.id).toString().padStart(4, '0'));
+            this.offerLetterForm.get('patraDate').patchValue(formatDate(new Date(), 'dd-MM-yyyy', 'en'));
+            const refNumber = (this.cadData.id).toString().padStart(4, '0');
             this.offerLetterForm.get('refNo').patchValue(refNumber);
         }
     }
