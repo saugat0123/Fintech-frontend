@@ -62,11 +62,11 @@
                             <td colspan="2"><strong>रु. <span
                                         [ngClass]="{'outside' : letter?.loanAmountFigure.ct !== null && letter?.loanAmountFigure.ct !== ''}">
                                         {{letter?.loanAmountFigure.ct === null || letter?.loanAmountFigure.ct === '' ? '___________' : letter?.loanAmountFigure.ct}}</span>
-                                    ।-(अक्षरेपी रु.
+                                     /- (अक्षरेपी रु.
                                     <span
                                         [ngClass]="{'outside' : letter?.loanAmountFigureWords.ct !== null && letter?.loanAmountFigureWords.ct !== ''}">
                                         {{letter?.loanAmountFigureWords.ct === null || letter?.loanAmountFigureWords.ct === '' ? '___________' : letter?.loanAmountFigureWords.ct}}</span>
-                                    मात्र)</strong></td>
+                                     मात्र)</strong></td>
                         </tr>
                         <tr>
                             <td><strong>सुरक्षणः</strong></td>
@@ -119,15 +119,14 @@
                             <td colspan="2">साँवा र ब्याज सहितको यसैसाथ संलग्न अनुमानित तालिका बमोजिम मासिक रु.
                                 <span
                                     [ngClass]="{'outside' : letter?.EMIAmountFigure.ct !== null && letter?.EMIAmountFigure.ct !== ''}">
-                                    {{letter?.EMIAmountFigure.ct === null || letter?.EMIAmountFigure.ct === '' ? '___________' : letter?.EMIAmountFigure.ct}}</span>
+                                    {{letter?.EMIAmountFigure.ct === null || letter?.EMIAmountFigure.ct === '' ? '___________' : letter?.EMIAmountFigure.ct}}</span> /-
                                 (अक्षरेपि रु. <span
                                     [ngClass]="{'outside' : letter?.EMIAmountWord.ct !== null && letter?.EMIAmountWord.ct !== ''}">
                                     {{letter?.EMIAmountWord.ct === null || letter?.EMIAmountWord.ct === '' ? '___________' : letter?.EMIAmountWord.ct}}</span>
-                                मात्र)का दरले <span
+                                 मात्र)का दरले <span
                                     [ngClass]="{'outside' : letter?.totalInstallmentFigure.ct !== null && letter?.totalInstallmentFigure.ct !== ''}">
                                     {{letter?.totalInstallmentFigure.ct === null || letter?.totalInstallmentFigure.ct === '' ? '___________' : letter?.totalInstallmentFigure.ct}}</span>
-                                सम
-                                मासिक किस्ता (Equated Monthly Installment)हरुमा चुक्ता भुक्तानी गर्नु पर्नेछ ।
+                                सम मासिक किस्ता (Equated Monthly Installment)हरुमा चुक्ता भुक्तानी गर्नु पर्नेछ ।
                             </td>
                         </tr>
                         <tr>
@@ -238,11 +237,10 @@
                 </div>
                 <p style="margin-left: 2%;"><strong>१. व्यक्तिगत जमानत (Personal Guarantee):</strong></p>
                 <p style="margin-left: 2%;" *ngFor="let personalGuarantor of tempPersonalGuarantors">
-                    <strong>रु. <span class="font-weight-bold">{{personalGuarantor.gurantedAmount.ct}}</span>।-
-                        (अक्षरेपी
-                        रु.
+                    <strong>रु. <span class="font-weight-bold">{{personalGuarantor.gurantedAmount.ct}}</span> /-
+                        (अक्षरेपी रु.
                         <span class="font-weight-bold">{{this.nepaliCurrencyWordPipe.transform(personalGuarantor.gurantedAmount.en)}}</span>
-                        मात्र)</strong> बराबरको श्री
+                         मात्र)</strong> बराबरको श्री
                         <span class="font-weight-bold">{{personalGuarantor.guarantorName.ct}}</span>
                     ले एक्लै वा संयुक्त रुपमा बैंकको पक्षमा व्यक्तिगत जमानत लेखिदिनु पर्नेछ ।
                 </p>
@@ -324,11 +322,11 @@
                         <li>माथि उल्लिखित ऋणकर्जा सुविधाहरुको कूल उपयोग कुनै पनि समयमा <strong>रु.<span
                                     [ngClass]="{'outside' : letter?.loanLimitAmountFigure.ct !== null && letter?.loanLimitAmountFigure.ct !== ''}">
                                     {{letter?.loanLimitAmountFigure.ct === null || letter?.loanLimitAmountFigure.ct === '' ? '___________' : letter?.loanLimitAmountFigure.ct}}</span>
-                                ।-(अक्षरेपी
+                                 /- (अक्षरेपी
                                 रु.<span
                                     [ngClass]="{'outside' : letter?.loanLimitAmountFigureWords.ct !== null && letter?.loanLimitAmountFigureWords.ct !== ''}">
                                     {{letter?.loanLimitAmountFigureWords.ct === null || letter?.loanLimitAmountFigureWords.ct === '' ? '___________' : letter?.loanLimitAmountFigureWords.ct}}</span>
-                                मात्र)</strong> भन्दा बढी हुनु हुनेछैन ।
+                                 मात्र)</strong> भन्दा बढी हुनु हुनेछैन ।
                         </li>
                         <li>माथि बुँदामा/बुँदा बुँदामा तोकिएको ऋणकर्जा सुविधाको कूल उपयोग सीमा भन्दा कथमकदाचित बढी रकम
                             उपयोग गरेमा वा उपयोग हुन गएमा त्यस्तो बढी रकम ऋणीले बैंकलाई तत्कालै तिर्नु बुझाउनु पर्नेछ ।
@@ -373,7 +371,7 @@
                             रकममा बार्षिक २ प्रतिशत वा बैंकले समय समयमा तोकेको दरले थप हर्जाना व्याज लाग्नेछ ।
                         </li>
                         <li>तपाई ऋणी तथा तपाई संग सम्बन्धित व्यक्ति/फर्म/कम्पनीहरुको साख सूचना प्रदान गरे बापत प्रति
-                            सूचना रु.२,०००। शुल्क लाग्नेछ । उक्त शुल्क तपाईको खातामा खर्च जनाई कट्टा गरी लिईनेछ ।
+                            सूचना रु.२,०००/- शुल्क लाग्नेछ । उक्त शुल्क तपाईको खातामा खर्च जनाई कट्टा गरी लिईनेछ ।
                         </li>
                     </ol>
                 </div>
@@ -422,11 +420,11 @@
                         </li>
                         <li>ऋणकर्जा सुविधाको सुरक्षण स्वरुप बैंकको पक्षमा धितोेबन्धक लेखीदिएको घर/जग्गाहरु
                             फुकुवा
-                            गर्दाको बखत फुकुवा शुल्क वापत प्रति धितोबन्धक तमसुक रु.१,०००।–का दरले धितो फुकुवा
+                            गर्दाको बखत फुकुवा शुल्क वापत प्रति धितोबन्धक तमसुक रु.१,०००/– का दरले धितो फुकुवा
                             शुल्क
                             लाग्नेछ । साथै बैंकको पक्षमा धितोेबन्धक लेखीदिएको घर/जग्गाहरुको जग्गाधनी प्रमाणपत्र
                             निश्चित
-                            समयको लागि माग गरी फिर्ता लैजांदा प्रति पटक रु.५००।– दरले शुल्क लाग्नेछ ।
+                            समयको लागि माग गरी फिर्ता लैजांदा प्रति पटक रु.५००/– दरले शुल्क लाग्नेछ ।
                         </li>
                     </ol>
                     <p style="margin-left: 3%;"><strong><u>सामानको मौज्दात सुरक्षणर भुक्तानी प्राप्त गर्न बाञकी
@@ -702,26 +700,25 @@
                         <li>रु.<span
                                 [ngClass]="{' outside' : letter?.loanAmountFigure.ct !== null && letter?.loanAmountFigure.ct !== ''}">
                                 {{letter?.loanAmountFigure.ct === null || letter?.loanAmountFigure.ct === '' ? '___________' : letter?.loanAmountFigure.ct}}</span>
-                            ।(बराबरको प्रतिज्ञा पत्र (Promissory Note)
+                             /- बराबरको प्रतिज्ञा पत्र (Promissory Note)
                         </li>
                         <li>निरन्तरताको लिखत (Letter of Continuity)</li>
                         <li>रु.<span
                                 [ngClass]="{' outside' : letter?.loanAmountFigure.ct !== null && letter?.loanAmountFigure.ct !== ''}">
                                 {{letter?.loanAmountFigure.ct === null || letter?.loanAmountFigure.ct === '' ? '___________' : letter?.loanAmountFigure.ct}}</span>
-                            ।-बराबरकोे पूरक सम्झौता (Supplementary Agreement) सहित श्री-सम्पत्ति
+                             /- बराबरकोे पूरक सम्झौता (Supplementary Agreement) सहित श्री-सम्पत्ति
                             धितो/सुरक्षण लेखीदिएको गोश्वारा-पत्र (General Letter of Hypothecation)
                         </li>
                         <li>रु.<span
                                 [ngClass]="{' outside' : letter?.loanAmountFigure.ct !== null && letter?.loanAmountFigure.ct !== ''}">
                                 {{letter?.loanAmountFigure.ct === null || letter?.loanAmountFigure.ct === '' ? '___________' : letter?.loanAmountFigure.ct}}</span>
-                            ।-बराबरकोे वारेसनामा (Power of Attorney) सहितभुक्तानी प्राप्त गर्न
-                            बांकी रकम
-                            संकलन गर्ने अख्तियारनामा (Assignment of Receivables)
+                             /- बराबरकोे वारेसनामा (Power of Attorney) सहितभुक्तानी प्राप्त गर्न
+                            बांकी रकम संकलन गर्ने अख्तियारनामा (Assignment of Receivables)
                         </li>
                         <li>रु.<span
                                 [ngClass]="{' outside' : letter?.loanAmountFigure.ct !== null && letter?.loanAmountFigure.ct !== ''}">
                                 {{letter?.loanAmountFigure.ct === null || letter?.loanAmountFigure.ct === '' ? '___________' : letter?.loanAmountFigure.ct}}</span>
-                            र ।-बराबरको ऋणतमसुक (Loan Deed)
+                             /- बराबरको ऋणतमसुक (Loan Deed)
                         </li>
                         <li>कित्ता नं. <span><strong>
                             {{getKittaNumbers(kittaNumbers, plotNumber)}}</strong></span>
@@ -730,7 +727,7 @@
                         <li *ngFor="let val of tempPersonalGuarantors">
                             रु.
                             <span><strong>{{val.gurantedAmount.ct ? val.gurantedAmount.ct : ''}}</strong></span>
-                            ।-(बराबरको {{val.gender.en === 'FEMALE' && val.relationMedium.en === '0' ? 'श्रीमती' : (val.gender.en === 'FEMALE' && val.relationMedium.en === '1' ? 'सुश्री' : val.gender.en === 'MALE' ? 'श्रीमान्' : '')}}
+                             /- बराबरको {{val.gender.en === 'FEMALE' && val.relationMedium.en === '0' ? 'श्रीमती' : (val.gender.en === 'FEMALE' && val.relationMedium.en === '1' ? 'सुश्री' : val.gender.en === 'MALE' ? 'श्रीमान्' : '')}}
                             <span><strong>{{val.guarantorName.ct ? val.guarantorName.ct : ''}}</strong></span>
                             ले बैंकको पक्षमा लेखिदिनुपर्ने
                             व्यक्तिगत
@@ -910,3 +907,4 @@
             </div>
         </div>
     </div>
+</div>
