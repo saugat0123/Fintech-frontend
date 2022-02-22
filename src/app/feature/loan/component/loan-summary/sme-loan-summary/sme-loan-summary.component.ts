@@ -374,6 +374,7 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
         if (!ObjectUtil.isEmpty(this.loanDataHolder.proposal)) {
             this.proposalData = this.loanDataHolder.proposal;
             this.proposalView = JSON.parse(this.proposalData.data);
+            console.log(this.proposalView);
             this.proposalSummary = true;
         }
 

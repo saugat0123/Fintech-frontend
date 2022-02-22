@@ -56,6 +56,7 @@ import {MicroCompanyFormComponentComponent} from '../../../../micro-loan/form-co
 import {MicroCustomerType} from '../../../../../@core/model/enum/micro-customer-type';
 import {MicroIndividualFormComponent} from '../../../../micro-loan/form-component/micro-individual-form/micro-individual-form.component';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {Clients} from '../../../../../../environments/Clients';
 
 @Component({
     selector: 'app-company-form',
@@ -71,6 +72,8 @@ export class CompanyFormComponent implements OnInit {
     @Input() clientTypeInput: any;
 
     @ViewChild('companyLocation', {static: true}) companyLocation: CommonAddressComponent;
+    @ViewChild('companyProjectLocation', {static: true}) companyProjectLocation: CommonAddressComponent;
+    @ViewChild('companyCorrespondenceLocation', {static: true}) companyCorrespondenceLocation: CommonAddressComponent;
     @ViewChildren('shareholderKyc') shareholderKyc: QueryList<OwnerKycApplicableComponent>;
     calendarType = 'AD';
     microEnabled: boolean = environment.microLoan;
@@ -91,6 +94,8 @@ export class CompanyFormComponent implements OnInit {
     companySearch = {
         registrationNumber: undefined
     };
+    client = environment.client;
+    clientName = Clients;
     customer: Customer = new Customer();
     customerInfo: Customer;
     companyInfo: CompanyInfo;
@@ -149,6 +154,8 @@ export class CompanyFormComponent implements OnInit {
     registeredOffice = RegisteredOfficeList.enumObject();
     businessGiven: BusinessGiven = new BusinessGiven();
     companyAddress;
+    companyProjectAddress;
+    companyCorrespondenceAddress;
     disableCrgAlpha = environment.disableCrgAlpha;
     microCustomerType: string;
     constructor(
@@ -196,16 +203,6 @@ export class CompanyFormComponent implements OnInit {
                 this.microCustomerType = this.formValue.microCustomerType;
             }
         }
-        this.customerService.clientType().subscribe(
-            {
-                next: (data: any) => {
-                    console.log('clientType', data);
-                },
-                error: (err) => {
-                    console.log(err);
-                }
-            }
-        );
         this.companyInfo = this.formValue;
         if (!ObjectUtil.isEmpty(this.companyInfo) && !ObjectUtil.isEmpty(this.companyInfo.companyJsonData)) {
             this.companyJsonData = JSON.parse(this.companyInfo.companyJsonData);
@@ -223,6 +220,12 @@ export class CompanyFormComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.companyInfo)) {
             if (FormUtils.isJson(this.companyInfo.companyLocations.address)) {
                 this.companyAddress = JSON.parse(this.companyInfo.companyLocations.address);
+            }
+            if (FormUtils.isJson(this.companyInfo.companyLocations.projectAddress)) {
+                this.companyProjectAddress = JSON.parse(this.companyInfo.companyLocations.projectAddress);
+            }
+            if (FormUtils.isJson(this.companyInfo.companyLocations.correspondenceAddress)) {
+                this.companyCorrespondenceAddress = JSON.parse(this.companyInfo.companyLocations.correspondenceAddress);
             }
         }
         this.buildForm();
@@ -293,6 +296,17 @@ export class CompanyFormComponent implements OnInit {
             isOldCustomer: (ObjectUtil.isEmpty(this.formValue))
         };
         this.calculateSharePercent('proprietors', 'totalSharePercent');
+        if (!ObjectUtil.isEmpty(this.companyInfo)) {
+            if (!ObjectUtil.isEmpty(this.companyJsonData.accountDetails)) {
+                this.setAccountNumber(this.companyJsonData.accountDetails);
+            } else if (!ObjectUtil.isEmpty(this.companyInfo.accountNo)) {
+                this.oldAccountDetails();
+            } else {
+                this.addAccountNumber();
+            }
+        } else {
+            this.addAccountNumber();
+        }
     }
 
     buildForm() {
@@ -337,7 +351,11 @@ export class CompanyFormComponent implements OnInit {
             relationshipSince:
                 [(ObjectUtil.isEmpty(this.companyJsonData)
                     || ObjectUtil.isEmpty(this.companyJsonData.relationshipSince)) ? undefined :
-                    this.companyJsonData.relationshipSince, DateValidator.isValidBefore],
+                    new Date(this.companyJsonData.relationshipSince), DateValidator.isValidBefore],
+            relationshipSinceWithCustomer:
+                [(ObjectUtil.isEmpty(this.companyJsonData)
+                    || ObjectUtil.isEmpty(this.companyJsonData.relationshipSinceWithCustomer)) ? undefined :
+                    new Date(this.companyJsonData.relationshipSinceWithCustomer), DateValidator.isValidBefore],
             issuePlace:
                 [(ObjectUtil.isEmpty(this.companyInfo)
                     || ObjectUtil.isEmpty(this.companyInfo.issuePlace)) ? undefined :
@@ -391,7 +409,10 @@ export class CompanyFormComponent implements OnInit {
             panRegistrationDate: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.legalStatus)
                 || ObjectUtil.isEmpty(this.companyInfo.legalStatus.panRegistrationDate)) ? undefined :
-                new Date(this.companyInfo.legalStatus.panRegistrationDate), [Validators.required, DateValidator.isValidBefore]],
+                new Date(this.companyInfo.legalStatus.panRegistrationDate), [Validators.required, DateValidator.isValidBefore]], accountNo:
+                [(ObjectUtil.isEmpty(this.companyInfo)
+                    || ObjectUtil.isEmpty(this.companyInfo.accountNo)) ? undefined :
+                    this.companyInfo.accountNo],
 
             registrationExpiryDate: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.legalStatus)
@@ -481,6 +502,10 @@ export class CompanyFormComponent implements OnInit {
             // company background
             companyBackground: [ObjectUtil.isEmpty(this.companyJsonData) ? undefined :
                 this.companyJsonData.companyBackground, Validators.required],
+            businessManagementRisk: [ObjectUtil.isEmpty(this.companyJsonData) ? undefined :
+                this.companyJsonData.businessManagementRisk],
+            BusinessIndustryOutlook: [ObjectUtil.isEmpty(this.companyJsonData) ? undefined :
+                this.companyJsonData.BusinessIndustryOutlook],
 
             // additional company detail
             additionalCompanyInfo: this.formBuilder.group({
@@ -580,6 +605,10 @@ export class CompanyFormComponent implements OnInit {
             addressLegalDocument: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyJsonData.addressLegalDocument)) ? undefined :
                 this.companyJsonData.addressLegalDocument],
+            irdReport: [(ObjectUtil.isEmpty(this.companyInfo)
+                || ObjectUtil.isEmpty(this.companyJsonData.irdReport)) ? undefined :
+                this.companyJsonData.irdReport],
+            accountDetails: this.formBuilder.array([]),
 
         });
         if (!this.additionalFieldSelected) {
@@ -880,7 +909,7 @@ export class CompanyFormComponent implements OnInit {
             } else if (this.microCustomerType === MicroCustomerType.DIRECT) {
                 this.microIndividualFormComponent.onSubmit();
                 this.companyLocation.onSubmit();
-                if (this.microIndividualFormComponent.microCustomerForm.invalid ||this.companyLocation.addressForm.invalid) {
+                if (this.microIndividualFormComponent.microCustomerForm.invalid || this.companyLocation.addressForm.invalid) {
                     this.toastService.show(new Alert(AlertType.WARNING, 'Check Micro Customer Detail Validation'));
                     return;
                 }
@@ -888,9 +917,12 @@ export class CompanyFormComponent implements OnInit {
         }
 
         this.companyLocation.onSubmit();
+        this.companyProjectLocation.onSubmit();
+        this.companyCorrespondenceLocation.onSubmit();
         if (this.companyInfoFormGroup.invalid ||
             ((this.disableCrgAlpha || this.microCustomer) ? false : this.bankingRelationComponent.bankingRelationForm.invalid)
-            || this.companyLocation.addressForm.invalid) {
+            || this.companyLocation.addressForm.invalid || this.companyProjectLocation.addressForm.invalid
+            || this.companyCorrespondenceLocation.addressForm.invalid) {
             this.toastService.show(new Alert(AlertType.WARNING, 'Check Validation'));
             this.scrollToFirstInvalidControl();
             return;
@@ -965,6 +997,8 @@ export class CompanyFormComponent implements OnInit {
         this.locations.id = this.companyInfoFormGroup.get('locationId').value;
         this.locations.version = this.companyInfoFormGroup.get('locationVersion').value;
         this.locations.address = JSON.stringify(this.companyLocation.submitData);
+        this.locations.projectAddress = JSON.stringify(this.companyProjectLocation.submitData);
+        this.locations.correspondenceAddress = JSON.stringify(this.companyCorrespondenceLocation.submitData);
         this.locations.houseNumber = this.companyInfoFormGroup.get('houseNumber').value;
         this.locations.streetName = this.companyInfoFormGroup.get('streetName').value;
         this.companyInfo.companyLocations = this.locations;
@@ -996,6 +1030,10 @@ export class CompanyFormComponent implements OnInit {
             municipalityVdc = this.getProprietor()[proprietorsIndex].municipalityVdc;
             proprietors.municipalityVdc = (!ObjectUtil.isEmpty(this.getProprietor()[proprietorsIndex].municipalityVdc))
                 ? municipalityVdc : undefined;
+            if (this.client !== this.clientName.MEGA) {
+                proprietors.kycInfo = this.shareholderKyc.filter(item => item.kycId.toString() ===
+                    proprietorsIndex.toString())[0].ownerKycForm.value;
+            }
             proprietorsIndex++;
             this.companyJsonData.proprietorList.push(proprietors);
         }
@@ -1050,6 +1088,10 @@ export class CompanyFormComponent implements OnInit {
         submitData.totalSharePercent = this.companyInfoFormGroup.get('totalSharePercent').value;
         submitData.isAdditionalCompanyInfo = this.additionalFieldSelected;
         submitData.addressLegalDocument = this.companyInfoFormGroup.get('addressLegalDocument').value;
+        submitData.BusinessIndustryOutlook = this.companyInfoFormGroup.get('BusinessIndustryOutlook').value;
+        submitData.businessManagementRisk = this.companyInfoFormGroup.get('businessManagementRisk').value;
+        submitData.irdReport = this.companyInfoFormGroup.get('irdReport').value;
+        submitData.accountDetails = this.companyInfoFormGroup.get('accountDetails').value;
 
         if (this.microCustomer) {
             /** micro data **/
@@ -1063,7 +1105,10 @@ export class CompanyFormComponent implements OnInit {
 
         // swot
         submitData.swot = this.swot;
-
+        if (!ObjectUtil.isEmpty(this.formValue)) {
+            this.companyInfo.accountStrategy = this.formValue.accountStrategy;
+            this.companyInfo.withinLimitRemarks = this.formValue.withinLimitRemarks;
+        }
         this.companyInfo.companyJsonData = JSON.stringify(submitData);
         this.companyInfoService.save(this.companyInfo).subscribe(() => {
             this.spinner = false;
@@ -1227,5 +1272,40 @@ export class CompanyFormComponent implements OnInit {
             }
             this.companyInfoFormGroup.get(s).updateValueAndValidity();
         });
+    }
+
+    addAccountNumber() {
+        (this.companyInfoFormGroup.get('accountDetails') as FormArray).push(
+            this.formBuilder.group({
+                accountNo: [undefined],
+            })
+        );
+    }
+
+    removeAccount(index: number) {
+        (<FormArray>this.companyInfoFormGroup.get('accountDetails')).removeAt(index);
+    }
+
+    setAccountNumber(data) {
+        const account = this.companyInfoFormGroup.get('accountDetails') as FormArray;
+        if (!ObjectUtil.isEmpty(data)) {
+            data.forEach(l => {
+                account.push(this.formBuilder.group({
+                    accountNo: [l.accountNo]
+                }));
+            });
+        }
+    }
+
+    oldAccountDetails() {
+        if (!ObjectUtil.isEmpty(this.companyInfo.accountNo)) {
+            const oldAccountNo = {
+                accountDetails: []
+            };
+            oldAccountNo.accountDetails.push({
+                'accountNo': this.companyInfo.accountNo
+            });
+            this.setAccountNumber(oldAccountNo.accountDetails);
+        }
     }
 }

@@ -25,4 +25,9 @@ export class CompanyJsonData {
   totalSharePercent: string;
   isAdditionalCompanyInfo: boolean;
   addressLegalDocument: string;
+  businessManagementRisk: string;
+  BusinessIndustryOutlook: string;
+  relationshipSinceWithCustomer: string = undefined;
+  irdReport: string;
+  accountDetails: any;
 }
