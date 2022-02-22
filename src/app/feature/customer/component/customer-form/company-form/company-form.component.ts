@@ -116,7 +116,7 @@ export class CompanyFormComponent implements OnInit {
     additionalFieldSelected = false;
     additionalFieldData: any;
     subSector = [];
-    clientType = [];
+    clientType: any;
 
     ckeConfig = Editor.CK_CONFIG;
 
@@ -196,6 +196,16 @@ export class CompanyFormComponent implements OnInit {
                 this.microCustomerType = this.formValue.microCustomerType;
             }
         }
+        this.customerService.clientType().subscribe(
+            {
+                next: (data: any) => {
+                    console.log('clientType', data);
+                },
+                error: (err) => {
+                    console.log(err);
+                }
+            }
+        );
         this.companyInfo = this.formValue;
         if (!ObjectUtil.isEmpty(this.companyInfo) && !ObjectUtil.isEmpty(this.companyInfo.companyJsonData)) {
             this.companyJsonData = JSON.parse(this.companyInfo.companyJsonData);
