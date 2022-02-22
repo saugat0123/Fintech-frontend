@@ -129,6 +129,15 @@ export class KisanKarjaSubsidyTemplateEditComponent implements OnInit {
         this.BSApplication = true;
       }
 
+      const tempNextReviewType = this.initialInformation.nextReviewDateType ?
+          this.initialInformation.nextReviewDateType.en : '';
+      if (tempNextReviewType === 'AD') {
+        this.ADReview = true;
+      }
+      if (tempNextReviewType === 'BS') {
+        this.BSReview = true;
+      }
+
       /* For Date of Previous Date*/
       const tempPrevDate = this.initialInformation.previousSanctionType ?
           this.initialInformation.previousSanctionType.en : '';
@@ -606,7 +615,7 @@ export class KisanKarjaSubsidyTemplateEditComponent implements OnInit {
     this.kisanKarjaSubsidy.get('collateralTrans').patchValue(this.translatedValues.collateral);
     this.kisanKarjaSubsidy.get('dateOfApprovalTypeTrans').patchValue(this.translatedValues.dateOfApprovalType);
     this.kisanKarjaSubsidy.get('dateOfApplicationTypeTrans').patchValue(this.translatedValues.dateOfApplicationType);
-    this.kisanKarjaSubsidy.get('nextReviewDateTypeTrans').patchValue(this.translatedValues.nextReviewDateTypeTrans);
+    this.kisanKarjaSubsidy.get('nextReviewDateTypeTrans').patchValue(this.translatedValues.nextReviewDateType);
     this.kisanKarjaSubsidy.get('previousSanctionTypeTrans').patchValue(this.translatedValues.previousSanctionType);
   }
 
@@ -957,7 +966,7 @@ export class KisanKarjaSubsidyTemplateEditComponent implements OnInit {
   setSecurityData(): void {
     const securityForm = this.kisanKarjaSubsidy.get('securities') as FormArray;
     this.securities.forEach((data, index) => {
-      this.municipalityByDistrictIdForEdit(data.securityOwnersDistrict.id, index);
+      this.municipalityByDistrictIdForEdit(data.securityOwnersDistrict ? data.securityOwnersDistrict.id : '', index);
       securityForm.push(
           this.formBuilder.group({
             securityOwnersName: [data.securityOwnersName],
