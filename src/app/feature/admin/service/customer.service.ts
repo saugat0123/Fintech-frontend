@@ -35,7 +35,6 @@ export class CustomerService extends BaseService<Customer> {
   public clientType() {
     const api = `${this.getApi()}/client-type`;
     const req = ApiUtils.getRequest(api);
-
     return this.http.get(req.url, {headers: req.header});
   }
 }

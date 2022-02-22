@@ -63,7 +63,7 @@ export class JointFormComponent implements OnInit {
   };
   bankingRelationshipList = BankingRelationship.enumObject();
   subSector = [];
-  clientType = [];
+  clientType: any;
   relationArray: RelationshipList = new RelationshipList();
   public genderPairs = EnumUtils.pairs(Gender);
   maritalStatusEnum = MaritalStatus;
