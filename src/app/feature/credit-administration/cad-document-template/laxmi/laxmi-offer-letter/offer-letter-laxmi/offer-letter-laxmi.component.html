@@ -1,7 +1,8 @@
 <div [nbSpinner]="spinner" class="row" id="print-section-{{cadCheckListEnum.OFFER_LETTER_LAXMI}}">
-    <div class="col-md-12 viewFull">
+    <div class="col-md-12 viewFull first">
         <form (ngSubmit)="submit()" [formGroup]="offerLetterForm" class="text-justify nepali">
-            <div class="row">
+<!--            <div class="row "></div>-->
+            <div class="row marginFirstPage">
                 <div class="col-sm-12">
                     रेफ नं.: <u> LXBL /
                     <input type="text" class="form-field form-control-sm font-size-normal disable-print"
@@ -83,11 +84,6 @@
 
             <ng-container *ngFor="let data of offerLetterForm?.get('purpose')['controls']; let i = index" formArrayName="purpose" >
                 <table [formGroupName]="i" class="table table-bordered table-responsive-md text-left pl-1 table-sm sb-small">
-<!--                    <thead>-->
-<!--                    <ng-container>-->
-<!--                        -->
-<!--                    </ng-container>-->
-<!--                    </thead>-->
                     <tbody>
                     <tr class="sb-bg-dark">
                         <th width="49%">
