@@ -22,6 +22,8 @@ import {CustomerType} from '../../../../customer/model/customerType';
 import {loanNature} from 'src/app/feature/admin/modal/loanNature';
 import {financedAssets} from 'src/app/feature/admin/modal/financedAssets';
 import {environment} from '../../../../../../environments/environment';
+import {Editor} from '../../../../../@core/utils/constants/editor';
+import {parse} from 'angular-html-parser';
 
 
 @Component({
@@ -70,7 +72,9 @@ export class UIComponent implements OnInit, DoCheck {
     enableMicro = environment.microLoan;
     form: FormGroup;
     isRemitLoan = false;
-
+    ckEdittorConfig;
+    ck;
+    tableArray = [];
     @ViewChild('loanConfigForm', {static: true}) loanConfigForm: NgForm;
     finalRenewWithEnhancementDocument = Array<Document>();
     renewWithEnhancementDocumentList = [];
@@ -310,7 +314,7 @@ export class UIComponent implements OnInit, DoCheck {
 
     ngOnInit() {
         UIComponent.loadData(this);
-        console.log('at first', this.selectedLoanTag);
+        this.ckEdittorConfig = Editor.CK_CONFIG;
     }
 
     getTemplate() {
@@ -354,6 +358,42 @@ export class UIComponent implements OnInit, DoCheck {
         }
     }
 
+    data(data, flag) {
+        const { rootNodes, errors } = parse(data);
+        if (!ObjectUtil.isEmpty(rootNodes) && flag) {
+            rootNodes.forEach((d, i) => {
+                if (d.name === 'table') {
+                    this.tableArray.push(d);
+                }
+            });
+            this.getChildrens(this.tableArray);
+        }
+    }
+    totalYesNO = 0;
+    totalTd = 0;
+    getChildrens(array: Array<any>) {
+        let index = 0;
+        array.forEach((d) => {
+            if (d.type === 'element') {
+                if (d.name === 'td') {
+                    index += 1;
+                    console.log('td is in the box', d);
+                }
+                this.getChildrens(d.children);
+            } else {
+                // comparision value can be fetched with thead tr td
+                if (!ObjectUtil.isEmpty(d.value)) {
+                    console.log('this should be the value', d.value);
+                    if (d.value.toLowerCase() === 'yes' || d.value.toLowerCase() === 'no' || d.value.toLowerCase() === 'na') {
+                        console.log('this is the data', d.value);
+                        //if index === max reset
+                        this.totalYesNO += 1;
+                    }
+                }
+            }
+        });
+        console.log('the total Td', this.totalTd);
+    }
     private scrollToFirstInvalidControl() {
         const firstInvalidControl: HTMLElement = this.el.nativeElement.querySelector(
             'form .ng-invalid'
@@ -444,7 +484,7 @@ export class UIComponent implements OnInit, DoCheck {
     }
 
     onLoanTagChange() {
-        if(this.selectedLoanTag === 'REMIT_LOAN')  {
+        if (this.selectedLoanTag === 'REMIT_LOAN') {
             this.isRemitLoan = true;
         } else {
             this.isRemitLoan = false;

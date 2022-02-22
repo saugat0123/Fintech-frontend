@@ -201,6 +201,14 @@
                     </div>
                 </div>
                 <div class="row">
+                    <div class="col-md-12">
+                        <ckeditor [(ngModel)]="ck" [config]="ckEdittorConfig" (change)="data($event, true)" name="ck"></ckeditor>
+                    </div>
+                    <div class="col-md-12 table-bordered" [innerHTML]="ck">
+
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-md-6">
                         <label for="renewable"><h6>Renewable</h6></label><br>
                         <div class="row ml-2">
