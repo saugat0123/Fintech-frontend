@@ -180,16 +180,16 @@ export class SecurityInitialFormComponent implements OnInit {
         this.buildForm();
         this.branchList();
         this.checkLoanTags();
-        // this.nepsePriceInfoService.getActiveNepsePriceInfoData().subscribe((response) => {
-        //     this.nepsePriceInfo = response.detail;
-        //     console.log('response.detail', response.detail);
-        //     this.shareSecurityForm.get('sharePriceDate').patchValue(this.nepsePriceInfo && this.nepsePriceInfo.sharePriceDate ?
-        //         this.datePipe.transform(this.nepsePriceInfo.sharePriceDate, 'yyyy-MM-dd') : undefined);
-        //     this.shareSecurityForm.get('avgDaysForPrice').patchValue(this.nepsePriceInfo && this.nepsePriceInfo.avgDaysForPrice
-        //         ? this.nepsePriceInfo.avgDaysForPrice : undefined);
-        // }, error => {
-        //     console.error(error);
-        // });
+        this.nepsePriceInfoService.getActiveNepsePriceInfoData().subscribe((response) => {
+            this.nepsePriceInfo = response.detail;
+            console.log('response.detail', response.detail);
+            this.shareSecurityForm.get('sharePriceDate').patchValue(this.nepsePriceInfo && this.nepsePriceInfo.sharePriceDate ?
+                this.datePipe.transform(this.nepsePriceInfo.sharePriceDate, 'yyyy-MM-dd') : undefined);
+            this.shareSecurityForm.get('avgDaysForPrice').patchValue(this.nepsePriceInfo && this.nepsePriceInfo.avgDaysForPrice
+                ? this.nepsePriceInfo.avgDaysForPrice : undefined);
+        }, error => {
+            console.error(error);
+        });
         this.pushNewSecurityType();
         if (this.formData !== undefined) {
             this.formDataForEdit = this.formData['initialForm'];
