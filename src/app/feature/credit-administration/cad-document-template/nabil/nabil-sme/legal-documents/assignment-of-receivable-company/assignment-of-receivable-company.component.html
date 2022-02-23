@@ -13,15 +13,15 @@
                             मिति: .........../.........../...........
                         </div>
                     </div>
-                    <p class="mt-2">लिखितम् धनीका नाम काठमाण्डौ जिल्ला काठमाण्डौ महानगरपालिका वीणा मार्ग,
-                        तिनधारा काठमाण्डौ स्थित नबिल सेनटरमा मुख्य कार्यालय रही
+                    <p class="mt-2">लिखितम् धनीका नाम काठमाण्डौ जिल्ला, काठमाण्डौ महानगरपालिका, वीणा मार्ग,
+                        तिनधारा, काठमाण्डौ स्थित नबिल सेनटरमा मुख्य कार्यालय रही
                         <input class="form-field form-control-sm d-print-none"
                                name="nameOfBranchLocated"
                                formControlName="nameOfBranchLocated"
                                placeholder=" "
                                type="text"/>
-                        <span class="print-only">{{this.individualData?.branch ? this.individualData?.branch.ct : '______________________'}}</span>
-                        मा शाखा कार्यालय रहेको श्री <strong>नबिल बैंक लिमिटेड </strong>
+                        <span class="print-only">{{this.individualData?.branch ? this.individualData?.branch.ct : '______________________'}}</span>मा
+                        शाखा कार्यालय रहेको श्री <strong>नबिल बैंक लिमिटेड </strong>
                         (जसलाई यस लिखतमा यस पछि <strong>"धनी बैंक"</strong> भनिएको छ), धितो
                         दिई सुरक्षणको लिखत गरीदिने
                         <input class="form-field form-control-sm d-print-none"
@@ -272,7 +272,7 @@
                                type="text"/>
                         <span class="print-only">{{this.supportedInfo ? this.supportedInfo?.purposeOfLoan : 'व्यापार/ व्यवसाय संचालन'}}</span>
                         प्रयोजनको लागि जम्मा
-                        रु <input class="form-field form-control-sm outside disable-print col-2"
+                        रु.<input class="form-field form-control-sm outside disable-print col-2"
                                   (input)="getNumAmountWord('loanAmountInFigure', 'loanAmountInWords')"
                                   name="loanAmountInFigure"
                                   formControlName="loanAmountInFigure"
