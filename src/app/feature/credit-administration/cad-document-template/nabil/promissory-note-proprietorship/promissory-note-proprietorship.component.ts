@@ -94,6 +94,8 @@ export class PromissoryNoteProprietorshipComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
             this.tempData = JSON.parse(this.cadData.offerDocumentList[0].initialInformation);
         }
+        console.log('temp data::', this.tempData);
+        console.log('initial Info data::', this.initialInfo);
         this.fillForm();
     }
 
@@ -201,10 +203,9 @@ export class PromissoryNoteProprietorshipComponent implements OnInit {
         }
         if (!ObjectUtil.isEmpty(this.individualData.radioActYearDate)) {
             if (this.individualData.radioActYearDate.en === 'AD') {
-                this.actYear = this.engToNepNumberPipe.transform(this.individualData.actYear.en ?
-                    this.individualData.actYear.en : this.individualData.actYear.en, true) || '' ;
+                this.actYear = this.individualData.actYear ? this.individualData.actYear.en : this.individualData.actYear.en;
             } else {
-                this.actYear = this.individualData.actYear.en ? this.individualData.actYear.en : '';
+                this.actYear = this.individualData.actYear ? this.individualData.actYear.en : '';
             }
         }
         let letAge;
@@ -224,6 +225,21 @@ export class PromissoryNoteProprietorshipComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.companyInfo)) {
             totalPeop = this.companyInfo.length;
         }
+        let totalAmount;
+        let totalAmountInWord;
+        if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
+            if (this.cadData.offerDocumentList[0].docName === 'Combined Offer Letter') {
+                totalAmount = (this.tempData.smeGlobalForm && this.tempData.smeGlobalForm.totalLimitInFigureCT) ?
+                    this.tempData.smeGlobalForm.totalLimitInFigureCT : '';
+                totalAmountInWord = (this.tempData.smeGlobalForm && this.tempData.smeGlobalForm.totalLimitInWordsCT ) ?
+                    this.tempData.smeGlobalForm.totalLimitInWordsCT : '';
+            } else {
+                totalAmount = (this.tempData && this.tempData.loanLimitAmountFigure) ?
+                    this.tempData.loanLimitAmountFigure.ct : '';
+                totalAmountInWord = (this.tempData && this.tempData.loanLimitAmountFigureWords) ?
+                    this.tempData.loanLimitAmountFigureWords.ct : '';
+            }
+        }
         this.form.patchValue({
             nameOfBranchLocated: this.individualData.branch ? this.individualData.branch.ct : '',
             actName: this.individualData.actName ? this.individualData.actName.ct : '',
@@ -237,10 +253,8 @@ export class PromissoryNoteProprietorshipComponent implements OnInit {
             wardNoOfFirm: this.individualData.permanentWard ? this.individualData.permanentWard.ct : '',
             addressOfFirm: this.individualData.registeredStreetTole ? this.individualData.registeredStreetTole.ct : '',
             firmName: this.individualData.name ? this.individualData.name.ct : '',
-            loanAmountInFigure: (this.tempData.smeGlobalForm && this.tempData.smeGlobalForm.totalLimitInFigureCT ) ?
-                this.tempData.smeGlobalForm.totalLimitInFigureCT : '',
-            loanAmountInWords: (this.tempData.smeGlobalForm && this.tempData.smeGlobalForm.totalLimitInWordsCT ) ?
-                this.tempData.smeGlobalForm.totalLimitInWordsCT : '',
+            loanAmountInFigure: totalAmount,
+            loanAmountInWords: totalAmountInWord,
             witnessDistrict1: this.supportedInfo ? this.supportedInfo.witnessDistrict1 : '',
             witnessMuni1: this.supportedInfo ? this.supportedInfo.witnessMuni1 : '',
             witnessWard1: this.supportedInfo ? this.supportedInfo.witnessWard1 : '',
