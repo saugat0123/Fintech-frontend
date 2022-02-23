@@ -24,6 +24,7 @@ import {financedAssets} from 'src/app/feature/admin/modal/financedAssets';
 import {environment} from '../../../../../../environments/environment';
 import {Editor} from '../../../../../@core/utils/constants/editor';
 import {parse} from 'node-html-parser';
+import { DomSanitizer } from '@angular/platform-browser'
 
 
 @Component({
@@ -78,6 +79,7 @@ export class UIComponent implements OnInit, DoCheck {
     @ViewChild('loanConfigForm', {static: true}) loanConfigForm: NgForm;
     finalRenewWithEnhancementDocument = Array<Document>();
     renewWithEnhancementDocumentList = [];
+    dk: any;
 
     constructor(
         private loanTemplateService: LoanTemplateService,
@@ -90,6 +92,7 @@ export class UIComponent implements OnInit, DoCheck {
         private spinner: NgxSpinnerService,
         private productModeService: ProductModeService,
         private el: ElementRef,
+        private sanitized: DomSanitizer
     ) {
     }
 
@@ -100,6 +103,7 @@ export class UIComponent implements OnInit, DoCheck {
     firstRows = [];
     firstRow = 0;
     totalRoes = [];
+    index = 0;
 
 
     static loadData(other: UIComponent) {
@@ -364,12 +368,72 @@ export class UIComponent implements OnInit, DoCheck {
         }
     }
 
-    data(data, flag) {
-        const rootNodes = parse(data);
-        console.log('this is first', rootNodes);
-        console.log('this is first chid', rootNodes.getElementsByTagName('table'));
-        // if (!ObjectUtil.isEmpty(rootNodes) && flag) {
-        //     rootNodes.forEach((d: any, i) => {
+    data(data: string, flag) {
+        console.log(data)
+        const parser = new DOMParser();
+        const parsedDocument = parser.parseFromString(data,'text/html');
+        const tables = Array.from(parsedDocument.getElementsByTagName('table'));
+        tables.forEach(element => {
+            console.log('this is the data', element);
+            const tr = Array.from(element.getElementsByTagName('tbody'))[0].getElementsByTagName('tr');
+            const tds = tr[0].getElementsByTagName('td');
+                for (let i = 0; i < tds.length; i++) {
+                    const f = tds[i].innerText.split('\n').join('');
+                    this.firstRows.push(f.split('\t').join(''));
+                    }
+            // this.totalRoes.push(this.firstRows);
+            // this.firstRows = [];
+            for(let index =0;index<tr.length;index++) {
+                    const tdData = tr[index].getElementsByTagName('td');
+                        for(let j = 0; j< tdData.length;j++) {
+                                if(this.firstRows[j].toLowerCase() === 'yes' || this.firstRows[j].toLowerCase() === 'no' || this.firstRows[j].toLowerCase() === 'na') {
+                                    const da = tdData[j].innerText.split('\n').join('').split('\t').join('');
+                                    if(da.toLowerCase() === 'yes' || da.toLowerCase() === 'no' ||da.toLowerCase() === 'na') {
+
+                                    } else {
+                                        tdData[j].innerHTML = '<span><input type="radio" name="hello"></span>'
+                                    }
+                                }
+                        }
+            
+                
+                    
+            }
+            this.firstRows = [];
+            console.log('<table style="width:100%;">' + element.innerHTML +'</table>');
+            
+            this.dk = this.sanitized.bypassSecurityTrustHtml('<table class="">' + element.innerHTML +'</table>'); 
+            
+        });
+        console.log(parsedDocument);
+        // this.ck = this.dk;
+        // const rootNodes = parse(data);
+        // var x = document.createElement("INPUT");
+        // x.setAttribute("type", "text");
+        // // let frag = document.createRange().createContextualFragment('<div bis_skin_checked="1">One</div><div bis_skin_checked="1">Two</div>');
+        // // let datas = document.createRange().createContextualFragment('') as Node;
+        // const para = document.createElement("input");
+        // para.type ='radio';
+        // para.name = 'x';
+        // // const node = document.createTextNode("This is new.");
+        // // para.appendChild(node);
+        // const root = rootNodes.getElementsByTagName('table')[0].getElementsByTagName('tbody')[0].getElementsByTagName('tr')[0].getElementsByTagName('td')[0];
+        // root.appendChild(root.childNodes[1]);
+        //body.set_content('<div id = "asdf"></div>');
+        // body.appendChild('<div id = "asdf"></div>');
+
+        // input.type ='radio';
+        // input.setAttribute("HREF", 'a');
+        // input.innerText = "Visit our Web site for more details.";
+        // radio.appendChild(input as Node);
+        // const node = new Node();
+        // rootNodes.appendChild(radio);
+    
+    
+        // console.log('this is first', rootNodes);
+        // console.log('this is first chid', rootNodes.getElementsByTagName('table'));
+        // if (!ObjectUtil.isEmpty(rootNodes)) {
+        //     rootNodes.rootNodes.forEach((d: any, i) => {
         //         try {
         //             // @ts-ignore
         //             if (d.name === 'table') {
@@ -379,37 +443,60 @@ export class UIComponent implements OnInit, DoCheck {
         //             console.log(e);
         //         }
         //     });
-        //     console.log('this is table array', this.tableArray);
-        //     this.getChildrens(rootNodes);
-        //     if (this.firstRows.length > 0) {
-        //         this.totalRoes.push(this.firstRows);
-        //         this.firstRows = [];
-        //     }
+        //     // this.getChildrens(this.tableArray);
+            // if (this.firstRows.length > 0) {
+            //     this.totalRoes.push(this.firstRows);
+            //     this.firstRows = [];
+            // }
         //     console.log(rootNodes.toString());
         //     console.log('this is first row', this.totalRoes);
+        //     console.log('this is first row', this.tableArray);
         // }
+            // console.log(rootNodes.toString());
+
     }
 
+
     getChildrens(array: Array<any>) {
-        array.forEach((d) => {
+        array.forEach((d, i) => {
+            // @ts-ignore
             if (d.type === 'element') {
+                // @ts-ignore
+
                 if (d.name === 'table') {
+                    this.index += 1;
+                }
+                // @ts-ignore
+                if (d.name === 'tr') {
+                    this.firstRow += 1;
                     if (this.firstRows.length > 0) {
-                        this.totalRoes.push(this.firstRows);
+                        this.totalRoes.push(this.index, this.firstRows);
                         this.firstRows = [];
                     }
                     this.firstRow = 0;
-                }
-                if (d.name === 'tr') {
-                    this.firstRow += 1;
                     if (this.firstRow === 1) {
                         console.log('this is first row', d);
                     }
                 }
-                console.log('this is childred', d);
-                if (this.firstRow === 1 && d.children.length < 2 && d.children[0].type === 'text') {
-                    this.firstRows.push(d.children[0].value);
+                console.log('this is index', this.index);
+                console.log('this is length', this.totalRoes.length);
+                // @ts-ignore
+                if (d.name === 'td' && this.index > 0 && this.totalRoes.length > 0) {
+                    console.log('sapai thik xa ta');
+                    if (this.totalRoes[this.index][i].toLowerCase() === 'yes' || this.totalRoes[this.index][i].toLowerCase() === 'na'
+                        || this.totalRoes[this.index][i].toLowerCase() === 'no') {
+                        const radio = document.createElement('input');
+                        radio.type = 'radio';
+                        d.chidren = [radio];
+                    }
                 }
+                console.log('this is childred', d);
+                // @ts-ignore
+                if (this.firstRow === 1 && d.children.length < 2 && d.children[0].type === 'text') {
+                    // @ts-ignore
+                    this.firstRows.push(d.children.value);
+                }
+                // @ts-ignore
                 this.getChildrens(d.children);
             } else {
 
