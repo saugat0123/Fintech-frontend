@@ -391,7 +391,7 @@ export class UIComponent implements OnInit, DoCheck {
                                     if(da.toLowerCase() === 'yes' || da.toLowerCase() === 'no' ||da.toLowerCase() === 'na') {
 
                                     } else {
-                                        tdData[j].innerHTML = '<span><input type="radio" name="hello"></span>'
+                                        tdData[j].innerHTML = '<span><input type="radio" name=' + '"hello'+ index+'"' +'></span>'
                                     }
                                 }
                         }
