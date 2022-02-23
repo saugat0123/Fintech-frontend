@@ -78,7 +78,7 @@
       </div>
         <p class="text-center"><strong>भवदीय,</strong></p>
         <div class="row col-md-12 Sincerely text-center">
-            <table class="table table-borderless" style="vertical-align: top;">
+            <table class="table-borderless" style="vertical-align: top;">
                 <thead>
                 <tr>
                     <td style="text-align: right;width: 20%;">दस्तखत :</td>
@@ -90,43 +90,41 @@
                     <td style="text-align: right; width: 20%">दस्तखत गर्नेको नाम :</td>
                     <td style="text-align: left;width: 80%;">
                         <span [ngClass]="{'nepaliFont uniFont' : guarantor?.guarantorName !== null && guarantor?.guarantorName !== ''}">
-    {{guarantor?.guarantorName === null || guarantor?.guarantorName === '' ? '_________________' : guarantor?.guarantorName}}
-                </span>8
+                        {{guarantor?.guarantorName === null || guarantor?.guarantorName === '' ? '_________________' : guarantor?.guarantorName}}
+                            </span>
                         <strong>(ना.प्र.नं.</strong>
                         <span [ngClass]="{'nepaliFont' : guarantor?.guarantorCitizenshipNo !== null && guarantor?.guarantorCitizenshipNo !== ''}">
-    {{guarantor?.guarantorCitizenshipNo === null || guarantor?.guarantorCitizenshipNo === '' ? '_________________' : guarantor?.guarantorCitizenshipNo}}
-</span>
+                         {{guarantor?.guarantorCitizenshipNo === null || guarantor?.guarantorCitizenshipNo === '' ? '_________________' : guarantor?.guarantorCitizenshipNo}}
+                        </span>
                         <strong>मिति</strong>
                         <span [ngClass]="{'nepaliFont' : guarantor?.guarantorCitizenshipIssueDate !== null && guarantor?.guarantorCitizenshipIssueDate !== ''}">
-    {{guarantor?.guarantorCitizenshipIssueDate === null || guarantor?.guarantorCitizenshipIssueDate === '' ? '_________________' : guarantor?.guarantorCitizenshipIssueDate}}
-</span><strong>जि.प्र.का.</strong>
+                            {{guarantor?.guarantorCitizenshipIssueDate === null || guarantor?.guarantorCitizenshipIssueDate === '' ? '_________________' : guarantor?.guarantorCitizenshipIssueDate}}
+                            </span><strong>जि.प्र.का.</strong>
                         <span [ngClass]="{'nepaliFont uniFont' : guarantor?.guarantorCdoOffice !== null && guarantor?.guarantorCdoOffice !== ''}">
-    {{guarantor?.guarantorCdoOffice === null || guarantor?.guarantorCdoOffice === '' ? '_________________' : guarantor?.guarantorCdoOffice}}
-</span><strong>)</strong></td>
+                         {{guarantor?.guarantorCdoOffice === null || guarantor?.guarantorCdoOffice === '' ? '_________________' : guarantor?.guarantorCdoOffice}}</span><strong>)</strong></td>
                 </tr>
                 <tr>
-                    <td style="text-align: right; width: 20%">स्थायी ठेगाना :</td>
+                    <td style="vertical-align: top; text-align: right; width: 20%">स्थायी ठेगाना :</td>
                     <td style="text-align: left;width: 80%">
                         <span [ngClass]="{'nepaliFont unicode-size' : guarantor?.guarantorPermanentDistrict !== null && guarantor?.guarantorPermanentDistrict !== ''}">
-    {{guarantor?.guarantorPermanentDistrict === null || guarantor?.guarantorPermanentDistrict === '' ? '_________________' : guarantor?.guarantorPermanentDistrict}}
-</span>
+                         {{guarantor?.guarantorPermanentDistrict === null || guarantor?.guarantorPermanentDistrict === '' ? '_________________' : guarantor?.guarantorPermanentDistrict}}
+                        </span>
                         जिल्ला,
                         <span
                                 [ngClass]="{'nepaliFont unicode-size' : guarantor?.guarantorPermanentMunicipality !== null && guarantor?.guarantorPermanentMunicipality !== ''}">
-    {{guarantor?.guarantorPermanentMunicipality === null || guarantor?.guarantorPermanentMunicipality === '' ? '_________________' : guarantor?.guarantorPermanentMunicipality}}
-</span>
+                            {{guarantor?.guarantorPermanentMunicipality === null || guarantor?.guarantorPermanentMunicipality === '' ? '_________________' : guarantor?.guarantorPermanentMunicipality}}
+                        </span>
                         गा.पा./न.पा., वडा नं.
                         <span [ngClass]="{'nepaliFont' : guarantor?.guarantorPermanentWardNo !== null && guarantor?.guarantorPermanentWardNo !== ''}">
-    {{guarantor?.guarantorPermanentWardNo === null || guarantor?.guarantorPermanentWardNo === '' ? '_________________' : guarantor?.guarantorPermanentWardNo}}
-</span>
+                         {{guarantor?.guarantorPermanentWardNo === null || guarantor?.guarantorPermanentWardNo === '' ? '_________________' : guarantor?.guarantorPermanentWardNo}}
+                         </span>
                         (साबिक
                         <span [ngClass]="{'nepaliFont uniFont' : guarantor?.guarantorSabikVDC !== null && guarantor?.guarantorSabikVDC !== ''}">
-    {{guarantor?.guarantorSabikVDC === null || guarantor?.guarantorSabikVDC === '' ? '_________________' : guarantor?.guarantorSabikVDC}}
-</span>
+                         {{guarantor?.guarantorSabikVDC === null || guarantor?.guarantorSabikVDC === '' ? '_________________' : guarantor?.guarantorSabikVDC}}
+                        </span>
                         गा.बि.स., वडा नं.
                         <span [ngClass]="{'nepaliFont' : guarantor?.guarantorSabikWardNo !== null && guarantor?.guarantorSabikWardNo !== ''}">
-    {{guarantor?.guarantorSabikWardNo === null || guarantor?.guarantorSabikWardNo === '' ? '_________________' : guarantor?.guarantorSabikWardNo}}
-</span>)</td>
+                        {{guarantor?.guarantorSabikWardNo === null || guarantor?.guarantorSabikWardNo === '' ? '_________________' : guarantor?.guarantorSabikWardNo}}</span>)</td>
                 </tr>
                 <tr>
                     <td style="text-align: right; width: 20%">हालको ठेगाना :</td>
@@ -167,7 +165,7 @@
 </span></td>
                 </tr>
                 <tr>
-                    <td style="text-align: right; width: 20%">औठा छाप :</td>
+                    <td style="vertical-align: top; text-align: right; width: 20%">औठा छाप :</td>
                     <td style="text-align: left"><table class="table table-bordered mt-n1" id="fingerXap">
                         <thead>
                         <tr>
@@ -178,11 +176,11 @@
                         <tbody>
                         <tr>
                             <td><textarea cols="20" name=""
-                                          rows="7"
+                                          rows="10"
                                           style="background-color: transparent;resize:none;outline:none;border:none;"></textarea>
                             </td>
                             <td><textarea cols="20" name=""
-                                          rows="7"
+                                          rows="10"
                                           style="background-color: transparent;resize:none;outline:none;border:none;"></textarea>
                             </td>
                         </tr>
@@ -193,7 +191,7 @@
             </table>
         </div>
       <div class="col-md-12">
-        <p class="text-left mt-n5"><strong>साक्षी:
+        <p class="text-left"><strong>साक्षी:
         </strong></p>
         <!--<div *ngFor="let witness of guarantor?.witnessDetails; index as i"
              style="overflow-x: auto">
@@ -272,6 +270,7 @@
                         {{guarantor?.witnessWardNo === null || guarantor?.witnessWardNo === '' ? '__________' : guarantor?.witnessWardNo}}
                     </span></p>
           <br>
+          <br>
           <p>दस्तखत:.............................<br>
           २. नाम:<span
                   [ngClass]="{'nepaliFont uniFont' : guarantor?.witnessName1 !== null && guarantor?.witnessName1 !== ''}">
@@ -302,7 +301,7 @@
                                                 {{guarantor?.witnessWardNo1 === null || guarantor?.witnessWardNo1 === '' ? '__________' : guarantor?.witnessWardNo1}}
                                             </span></p>
         <p class="text-left"><strong>सनाखत साक्षी:</strong></p>
-        <div class="mt-n4">
+        <div class="mt-n3">
           <p>ऋणीले मेरो सामुन्नेमा सहीछाप गरेको ठीक साँचो हो भनी सहीछाप गर्ने धनी वित्तीय संस्थामा कार्यरत कर्मचारी
               <span [ngClass]="{'nepaliFont uniFont' : guarantor?.IdentifiedGuarantorName !== null && guarantor?.IdentifiedGuarantorName !== ''}">
     {{guarantor?.IdentifiedGuarantorName === null || guarantor?.IdentifiedGuarantorName === '' ? '_________________' : guarantor?.IdentifiedGuarantorName}}

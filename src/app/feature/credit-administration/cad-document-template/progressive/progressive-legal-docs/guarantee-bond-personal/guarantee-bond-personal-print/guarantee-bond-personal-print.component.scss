@@ -13,6 +13,7 @@ table {
 .unicode-size{
   font-size: 12pt;
 }
+
 .unicode-size2{
  font-size: 24px;
 }
@@ -40,6 +41,7 @@ table {
     color: transparent;
   }
 }
+
 .nepali {
   font-size: 16px;
   line-height: 1.5;
@@ -48,4 +50,8 @@ table {
 
 .page-break {
   page-break-after: always;
+}
+
+tr{
+  break-inside: initial;
 }

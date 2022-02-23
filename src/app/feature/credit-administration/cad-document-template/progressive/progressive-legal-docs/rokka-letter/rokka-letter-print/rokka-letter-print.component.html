@@ -1,8 +1,8 @@
 <div class="container text-justify" id="print-section-{{ offerLetterConst.ROKKA_LETTER }}">
     <form id="rokkaLetter" class="viewFull nepali margin">
-        <div class="row d-flex justify-content-around" style="margin-top: 50px">
+        <div class="row d-flex justify-content-around">
             <div class="col-md-12">
-                <p class="text-center">
+                <p style="margin-left: 3in">
                     शाखा कार्यालय
                     <span [ngClass]="{'nepaliFont unicode-size16':printDocForm?.branchName !== null && printDocForm?.branchName !== ''}">
                         {{printDocForm.branchName === null || printDocForm.branchName === '' ? '_______________' : printDocForm?.branchName}}</span>,
@@ -10,20 +10,15 @@
                         {{printDocForm.branchDistrict === null || printDocForm.branchDistrict === '' ? '_______________' : printDocForm?.branchDistrict}}
                     </span>
                     <br> फोन नं.:
-                    <span [ngClass]="{'nepaliFont unicode-size24':printDocForm?.branchPhoneNo !== null && printDocForm?.branchPhoneNo !== ''}">
+                    <span [ngClass]="{'nepaliFont unicode-size16':printDocForm?.branchPhoneNo !== null && printDocForm?.branchPhoneNo !== ''}">
                         {{printDocForm.branchPhoneNo === null || printDocForm.branchPhoneNo === '' ? '_______________' : printDocForm?.branchPhoneNo}}
                     </span>
                     </p>
                 </div>
             <div class="col-md-12">
-                <p class="text-right">
-                    <strong>मिति:</strong>
-                    <span [ngClass]="{'nepaliFont unicode-size24':printDocForm?.date !== null && printDocForm?.date !== ''}">
-                        {{printDocForm.date === null || printDocForm.date === '' ? '_______________' : printDocForm?.date}}
+                    <span [ngClass]="{'nepaliFont unicode-size24 float-right':printDocForm?.date !== null && printDocForm?.date !== ''}">
+                         <strong>ldltM</strong> {{printDocForm.date === null || printDocForm.date === '' ? '_______________' : printDocForm?.date}}
                     </span>
-                </p>
-            </div>
-            <div class="col-md-12">
                 <p>
                     <strong>प.सं.</strong>
                     <span [ngClass]="{'nepaliFont unicode-size24':printDocForm?.letterNumber !== null && printDocForm?.letterNumber !== ''}">
@@ -54,17 +49,15 @@
                     महाशय,
                 </p>
                 <p class="mt-2">
-                    <span [ngClass]="{'nepaliFont unicode-size24':printDocForm?.perDistrict !== null && printDocForm?.perDistrict !== ''}">
-                        {{printDocForm.perDistrict === null || printDocForm.perDistrict === '' ? '_______________' : printDocForm?.perDistrict}}
-                    </span>
+                    <span [ngClass]="{'nepaliFont unicode-size16':printDocForm?.perDistrict !== null && printDocForm?.perDistrict !== ''}">
+                        {{printDocForm.perDistrict === null || printDocForm.perDistrict === '' ? '_______________' : printDocForm?.perDistrict}}</span>,
                     जिल्ला
                     <span [ngClass]="{'nepaliFont unicode-size24':printDocForm?.perMunicipality !== null && printDocForm?.perMunicipality !== ''}">
                         {{printDocForm.perMunicipality === null || printDocForm.perMunicipality === '' ? '_______________' : printDocForm?.perMunicipality}}
                     </span>
                     गा.वि.स./न.पा., वडा नं
                     <span [ngClass]="{'nepaliFont unicode-size24':printDocForm?.perWardNumber !== null && printDocForm?.perWardNumber !== ''}">
-                        {{printDocForm.perWardNumber === null || printDocForm.perWardNumber === '' ? '_______________' : printDocForm?.perWardNumber}}
-                    </span>
+                        {{printDocForm.perWardNumber === null || printDocForm.perWardNumber === '' ? '_______________' : printDocForm?.perWardNumber}}</span>,
                     बस्ने श्री
                     <span [ngClass]="{'nepaliFont unicode-size24':printDocForm?.debtorName !== null && printDocForm?.debtorName !== ''}">
                         {{printDocForm.debtorName === null || printDocForm.debtorName === '' ? '_______________' : printDocForm?.debtorName}}
@@ -101,7 +94,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12 mt-n5">
+            <div class="col-md-12">
                 <p class="text-center font-weight-bold">
                     <u>
                         तपशिल
@@ -202,20 +195,17 @@
             </div>
         </div>
 <!--        <div [ngClass]="printDocForm.personalSignatureData !== '' || printDocForm.personalSignatureData !== null ? 'page-break' : ''"></div>-->
-        <div class="row mt-5">
+        <div class="row">
             <div class="col-md-12">
                 <p>
-                    <u>
-                        उक्त जग्गाले चर्चेको लिगलगापात् समेत ।
-                    </u>
+                    <u>उक्त जग्गाले चर्चेको लिगलगापात् समेत ।</u>
                 </p>
                 <p>
                     बोधार्थ,
                 <br>
                     मालपोत कार्यालय, रोक्का फांट<br>
                     <span [ngClass]="{'nepaliFont unicode-size24':printDocForm?.rokkaFaatOffice !== null && printDocForm?.rokkaFaatOffice !== ''}">
-                        {{printDocForm.rokkaFaatOffice === null || printDocForm.rokkaFaatOffice === '' ? '' : printDocForm?.rokkaFaatOffice}}
-                    </span>,
+                        {{printDocForm.rokkaFaatOffice === null || printDocForm.rokkaFaatOffice === '' ? '' : printDocForm?.rokkaFaatOffice}}</span>,
                     <span [ngClass]="{'nepaliFont unicode-size24':printDocForm?.rokkaFaatOfficeDistrict !== null && printDocForm?.rokkaFaatOfficeDistrict !== ''}">
                         {{printDocForm.rokkaFaatOfficeDistrict === null || printDocForm.rokkaFaatOfficeDistrict === '' ? '' : printDocForm?.rokkaFaatOfficeDistrict}}
                     </span> ।
@@ -223,9 +213,9 @@
             </div>
         </div>
         <div class="row d-flex justify-content-around">
-            <div class="col-md-6">
-                <p>
-                    .................................
+            <div class="col-md-6 mt-5">
+                <p class="float-left text-center">
+                    ...........................................................
                     <br>
                     <strong>
                         कर्मचारीको नामः <span [ngClass]="{'nepaliFont unicode-size24':printDocForm?.karmachariName !== null && printDocForm?.karmachariName !== ''}">
@@ -243,8 +233,8 @@
                 </p>
             </div>
             <div class="col-md-6">
-                <p class="text-right">
-                    .................................
+                <p class="float-right text-center">
+                    ...........................................................
                     <br>
                     <strong>
                         कर्मचारीको नामः <span [ngClass]="{'nepaliFont unicode-size24':printDocForm?.karmachariName2 !== null && printDocForm?.karmachariName2 !== ''}">
