@@ -19,6 +19,7 @@ import {NepaliEditor} from '../../../../../../@core/utils/constants/nepaliEditor
 import {OfferDocument} from '../../../../model/OfferDocument';
 import {LaxmiOfferLetterConst} from '../laxmi-offer-letter-const';
 import {ClientTypeShortFormPipe} from '../../../../../../@core/pipe/client-type-short-form.pipe';
+import {formatDate} from '@angular/common';
 
 @Component({
     selector: 'app-offer-letter-laxmi',
@@ -77,6 +78,8 @@ export class OfferLetterLaxmiComponent implements OnInit {
             const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
             this.existingOfferLetter = true;
             this.offerLetterForm.patchValue(initialInfo);
+            this.setRemarks(initialInfo.purpose);
+            this.setMoreSecurity(initialInfo.moreSecurity);
             this.setOtherCovenants(initialInfo.covenant);
             this.setAcceptance(initialInfo.acceptance);
             this.setEventDefaul(initialInfo.eventDefault);
@@ -84,6 +87,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
             this.setRepresentation(initialInfo.representation);
             this.setPrecedent(initialInfo.precedent);
             this.setSecrityData(initialInfo.security);
+            this.setCrossSecurityData(initialInfo.crossSecurity);
             this.setVehicleData(initialInfo.vehicleSecurity);
             this.setShareData(initialInfo.shareSecurity);
             this.initialInfoPrint = initialInfo;
@@ -188,6 +192,8 @@ export class OfferLetterLaxmiComponent implements OnInit {
             shareSecurity: this.formBuilder.array([]),
             vehicleSecurity: this.formBuilder.array([]),
             renewSecurity: this.formBuilder.array([]),
+            moreSecurity: this.formBuilder.array([]),
+            crossSecurity: this.formBuilder.array([]),
 
             coGuaranteeOtherCheck: [false],
             coGuaranteeOther: [undefined],
@@ -217,10 +223,10 @@ export class OfferLetterLaxmiComponent implements OnInit {
             cashMarginNeeded: [true],
             personalSecurityNeeded: [true],
             cashLienNeeded: [true],
-            collateralSecurityNeeded: [true],
             vehicleSecurityNeeded: [true],
             shareSecurityNeeded: [true],
             guaranteeNeeded: [true],
+            fixedAssetsNeeded: [true],
             branchCode: [undefined]
         });
     }
@@ -448,18 +454,28 @@ export class OfferLetterLaxmiComponent implements OnInit {
             const loanShortForm = this.clientTypeShort.transform(this.cadData.loanHolder.clientType);
             const branchCode = this.cadData.loanHolder.branch.branchCode.concat('-').concat(loanShortForm);
             this.offerLetterForm.get('branchCode').patchValue(branchCode);
-            const offerLetterDate = new Date();
-            const refNumber = (offerLetterDate.getFullYear().toString())
-                .concat(offerLetterDate.getMonth().toString())
-                .concat(offerLetterDate.getDay().toString()).concat('/')
-                .concat((this.cadData.id).toString().padStart(4, '0'));
+            this.offerLetterForm.get('patraDate').patchValue(formatDate(new Date(), 'dd-MM-yyyy', 'en'));
+            const refNumber = (this.cadData.id).toString().padStart(4, '0');
             this.offerLetterForm.get('refNo').patchValue(refNumber);
-            // this.offerLetterForm.get('patraDate').patchValue(offerLetterDate);
         }
     }
 
     addSecurity() {
         const security = this.offerLetterForm.get('security') as FormArray;
+        security.push(
+            this.formBuilder.group({
+                ownerName: [undefined],
+                district: [undefined],
+                vdc: [undefined],
+                wardNo: [undefined],
+                plotNumber: [undefined],
+                area: [undefined]
+            })
+        );
+    }
+
+    addCrossSecurity() {
+        const security = this.offerLetterForm.get('crossSecurity') as FormArray;
         security.push(
             this.formBuilder.group({
                 ownerName: [undefined],
@@ -506,6 +522,9 @@ export class OfferLetterLaxmiComponent implements OnInit {
                 break;
             case 'vehicleSecurity':
                 this.offerLetterForm.get(['vehicleSecurity', i, formControlName]).patchValue(value);
+                break;
+            case 'crossCollateralSecurity':
+                this.offerLetterForm.get(['crossSecurity', i, formControlName]).patchValue(value);
                 break;
         }
     }
@@ -578,6 +597,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
                 otherInterestRate: [undefined],
                 otherAdFeeChecked: [false],
                 adFeeOther: [undefined],
+                addRemark: this.formBuilder.array([]),
             })
         );
     }
@@ -787,7 +807,6 @@ export class OfferLetterLaxmiComponent implements OnInit {
             case 'fixedChecked':
                 if (event) {
                     this.offerLetterForm.get('fixedChecked').patchValue(event);
-                    this.offerLetterForm.get('collateralChecked').patchValue(false);
                 } else {
                     this.offerLetterForm.get('fixedChecked').patchValue(false);
                 }
@@ -795,7 +814,6 @@ export class OfferLetterLaxmiComponent implements OnInit {
             case 'collateralChecked':
                 if (event) {
                     this.offerLetterForm.get('collateralChecked').patchValue(event);
-                    this.offerLetterForm.get('fixedChecked').patchValue(false);
                 } else {
                     this.offerLetterForm.get('collateralChecked').patchValue(false);
                 }
@@ -845,14 +863,6 @@ export class OfferLetterLaxmiComponent implements OnInit {
                     this.offerLetterForm.get('cashLienNeeded').patchValue(false);
                 }
                 break;
-            case 'collateralSecurityNeeded':
-                if (event) {
-                    this.offerLetterForm.get('collateralSecurityNeeded').patchValue(event);
-                    // this.offerLetterForm.get('cashlienOther').patchValue(null);
-                } else {
-                    this.offerLetterForm.get('collateralSecurityNeeded').patchValue(false);
-                }
-                break;
             case 'vehicleSecurityNeeded':
                 if (event) {
                     this.offerLetterForm.get('vehicleSecurityNeeded').patchValue(event);
@@ -872,6 +882,13 @@ export class OfferLetterLaxmiComponent implements OnInit {
                     this.offerLetterForm.get('guaranteeNeeded').patchValue(event);
                 } else {
                     this.offerLetterForm.get('guaranteeNeeded').patchValue(false);
+                }
+                break;
+            case 'fixedAssetsNeeded':
+                if (event) {
+                    this.offerLetterForm.get('fixedAssetsNeeded').patchValue(event);
+                } else {
+                    this.offerLetterForm.get('fixedAssetsNeeded').patchValue(false);
                 }
                 break;
         }
@@ -1029,6 +1046,10 @@ export class OfferLetterLaxmiComponent implements OnInit {
         (<FormArray>this.offerLetterForm.get('security')).removeAt(ii);
     }
 
+    removeCrossSecurity(ii: number) {
+        (<FormArray>this.offerLetterForm.get('crossSecurity')).removeAt(ii);
+    }
+
     removeShareSecurity(iv: number) {
         (<FormArray>this.offerLetterForm.get('shareSecurity')).removeAt(iv);
     }
@@ -1132,6 +1153,76 @@ export class OfferLetterLaxmiComponent implements OnInit {
                 this.offerLetterForm.get(type).patchValue(value);
                 this.offerLetterForm.get('corporateAmountWord').patchValue(word4);
                 break;
+        }
+    }
+
+    addMoreSecurity() {
+        (this.offerLetterForm.get('moreSecurity') as FormArray).push(
+            this.formBuilder.group({
+                otherSecurity: [undefined]
+            })
+        );
+    }
+
+    removeMoreSecurity(index: number) {
+        (<FormArray>this.offerLetterForm.get('moreSecurity')).removeAt(index);
+    }
+
+    setMoreSecurity(data) {
+        const dataArray = this.offerLetterForm.get('moreSecurity') as FormArray;
+        if (!ObjectUtil.isEmpty(data)) {
+            data.forEach(singleData => {
+                dataArray.push(this.formBuilder.group({
+                    otherSecurity: [singleData.otherSecurity]
+                }));
+            });
+        }
+    }
+
+    addRemark(i: number) {
+        const controls = this.offerLetterForm.get(['purpose' , i, 'addRemark']) as FormArray;
+        controls.push(this.formBuilder.group({
+            remark: [undefined]
+        }));
+    }
+
+    removeRemarks(ix: number, i) {
+        (<FormArray>this.offerLetterForm.get(['purpose', i, 'addRemark'])).removeAt(ix);
+    }
+
+    setRemarks(data) {
+        data.forEach((d, index) => {
+            const remark = this.offerLetterForm.get(['purpose', index, 'addRemark']) as FormArray;
+            if (!ObjectUtil.isEmpty(d.addRemark)) {
+                d.addRemark.forEach(r => {
+                    remark.push(this.formBuilder.group({
+                        remark: [r.remark],
+                    }));
+                });
+            }
+        });
+    }
+
+    remarkValueChange(value: any, ix: number, i: number) {
+        const rem = this.offerLetterForm.get(['purpose', i, 'addRemark']) as FormArray;
+        rem.at(ix).patchValue({
+            remark: value
+        });
+    }
+
+    setCrossSecurityData(data) {
+        const dataArray = this.offerLetterForm.get('crossSecurity') as FormArray;
+        if (!ObjectUtil.isEmpty(data)) {
+            data.forEach(singleData => {
+                dataArray.push(this.formBuilder.group({
+                    ownerName: [singleData.ownerName],
+                    district: [singleData.district],
+                    vdc: [singleData.vdc],
+                    wardNo: [singleData.wardNo],
+                    plotNumber: [singleData.plotNumber],
+                    area: [singleData.area]
+                }));
+            });
         }
     }
 }
