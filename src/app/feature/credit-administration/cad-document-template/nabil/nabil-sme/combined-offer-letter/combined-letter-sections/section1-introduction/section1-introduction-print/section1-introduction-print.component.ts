@@ -21,7 +21,7 @@ export class Section1IntroductionPrintComponent implements OnInit {
 
   ngOnInit() {
     if (this.letterData.smeGlobalForm.loanApplicationDataType === 'AD') {
-      this.tempApplicationDate = this.engToNepaliDate.transform(this.datePipe.transform(this.letterData.smeGlobalForm.loanApplicationDate), true);
+      this.tempApplicationDate = this.letterData.smeGlobalForm.loanApplicationDate ? this.letterData.smeGlobalForm.loanApplicationDateCT : '';
     } else {
       this.tempApplicationDate = this.letterData.smeGlobalForm.loanApplicationDateCT;
     }
