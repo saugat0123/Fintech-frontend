@@ -3733,56 +3733,102 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
                 }
             }*/
             this.userConfigForm.patchValue({
-                panNo: ObjectUtil.isEmpty(nepData.panNo) ? undefined : nepData.panNo.en,
-                branchCT: ObjectUtil.isEmpty(nepData.branch) ? undefined : nepData.branch.ct,
-                customerCodeCT: ObjectUtil.isEmpty(nepData.customerCode) ? undefined : nepData.customerCode.ct,
-                nameCT: ObjectUtil.isEmpty(nepData.name) ? undefined : nepData.name.np,
-                emailCT: ObjectUtil.isEmpty(nepData.email) ? undefined : nepData.email.np,
-                contactNoCT: ObjectUtil.isEmpty(nepData.contactNo) ? undefined : nepData.contactNo.ct,
-                panNoCT: ObjectUtil.isEmpty(nepData.panNo) ? undefined : nepData.panNo.ct,
-                actName: ObjectUtil.isEmpty(nepData.actName) ? undefined : nepData.actName.en,
-                actNameCT : ObjectUtil.isEmpty(nepData.actName) ? undefined : nepData.actName.ct,
-                actNameTrans : ObjectUtil.isEmpty(nepData.actName) ? undefined : nepData.actName.np,
-                authorizedBodyName: ObjectUtil.isEmpty(nepData.authorizedBodyName) ? undefined : nepData.authorizedBodyName.en,
-                authorizedBodyNameCT: ObjectUtil.isEmpty(nepData.authorizedBodyName) ? undefined : nepData.authorizedBodyName.ct,
-                authorizedBodyNameTrans: ObjectUtil.isEmpty(nepData.authorizedBodyName) ? undefined : nepData.authorizedBodyName.np,
-                issuingDistrict: ObjectUtil.isEmpty(nepData.issuingDistrict) ? undefined : nepData.issuingDistrict.en,
-                issuingDistrictCT: ObjectUtil.isEmpty(nepData.issuingDistrict) ? undefined : nepData.issuingDistrict.ct,
-                issuingDistrictTrans: ObjectUtil.isEmpty(nepData.issuingDistrict) ? undefined : nepData.issuingDistrict.ct,
-                registeredWith: ObjectUtil.isEmpty(nepData.registeredWith) ? undefined : nepData.registeredWith.en,
-                registeredWithCT: ObjectUtil.isEmpty(nepData.registeredWith) ? undefined : nepData.registeredWith.ct,
-                registeredWithTrans: ObjectUtil.isEmpty(nepData.registeredWith) ? undefined : nepData.registeredWith.np,
-                registeredStreetTole: ObjectUtil.isEmpty(nepData.registeredStreetTole) ? undefined : nepData.registeredStreetTole.en,
-                registeredStreetToleTrans: ObjectUtil.isEmpty(nepData.registeredStreetTole) ? undefined : nepData.registeredStreetTole.np,
-                registeredStreetToleCT: ObjectUtil.isEmpty(nepData.registeredStreetTole) ? undefined : nepData.registeredStreetTole.ct,
-                currentStreetTole: ObjectUtil.isEmpty(nepData.currentStreetTole) ? undefined : nepData.currentStreetTole.en,
-                currentStreetToleTrans: ObjectUtil.isEmpty(nepData.currentStreetTole) ? undefined : nepData.currentStreetTole.np,
-                currentStreetToleCT: ObjectUtil.isEmpty(nepData.currentStreetTole) ? undefined : nepData.currentStreetTole.ct,
-                radioActYearDate: ObjectUtil.isEmpty(nepData.radioActYearDate) ? undefined : nepData.radioActYearDate.en,
-                actYear: ObjectUtil.isEmpty(nepData.actYear) ? undefined : nepData.actYear.en,
-                citizenshipNoCT: ObjectUtil.isEmpty(nepData.citizenshipNumber) ? undefined : nepData.citizenshipNumber.np,
-                genderCT: ObjectUtil.isEmpty(nepData.gender) ? undefined : nepData.gender.np,
-                permanentProvinceCT: ObjectUtil.isEmpty(nepData.permanentProvince) ? undefined : nepData.permanentProvince.np,
-                permanentDistrictCT: ObjectUtil.isEmpty(nepData.permanentDistrict) ? undefined : nepData.permanentDistrict.np,
-                registrationDateOption: ObjectUtil.isEmpty(nepData.registrationDateOption) ? undefined : nepData.registrationDateOption.en,
-                registrationDate: ObjectUtil.isEmpty(nepData.registrationDate) ? undefined : new Date(nepData.registrationDate.en),
-                registrationDateTrans:  ObjectUtil.isEmpty(this.userConfigForm.get('registrationDate').value) ? undefined : this.userConfigForm.get('registrationDate').value,
-                registrationDateCT:  ObjectUtil.isEmpty(this.userConfigForm.get('registrationDate').value) ? undefined : this.userConfigForm.get('registrationDate').value,
+                panNo: !ObjectUtil.isEmpty(nepData.panNo) && !ObjectUtil.isEmpty(nepData.panNo.en) ?  nepData.panNo.en : undefined,
+                branchCT: !ObjectUtil.isEmpty(nepData.branch) && !ObjectUtil.isEmpty(nepData.branch.ct) ? nepData.branch.ct : undefined,
+                customerCodeCT: !ObjectUtil.isEmpty(nepData.customerCode) && !ObjectUtil.isEmpty(nepData.customerCode.ct)
+                    ? nepData.customerCode.ct : undefined,
+                nameCT: !ObjectUtil.isEmpty(nepData.name) && !ObjectUtil.isEmpty(nepData.name.np) ? nepData.name.np : undefined,
+                emailCT: !ObjectUtil.isEmpty(nepData.email) && !ObjectUtil.isEmpty(nepData.email.np) ? nepData.email.np : undefined,
+                contactNoCT: !ObjectUtil.isEmpty(nepData.contactNo) && !ObjectUtil.isEmpty(nepData.contactNo.ct) ?
+                    nepData.contactNo.ct : undefined,
+                panNoCT: !ObjectUtil.isEmpty(nepData.panNo) && !ObjectUtil.isEmpty(nepData.panNo.np) ? nepData.panNo.np : undefined,
+                actName: !ObjectUtil.isEmpty(nepData.actName) && !ObjectUtil.isEmpty(nepData.actName.en) ? nepData.actName.en : undefined,
+                actNameCT : !ObjectUtil.isEmpty(nepData.actName) && !ObjectUtil.isEmpty(nepData.actName.ct) ? nepData.actName.ct : undefined,
+                actNameTrans : !ObjectUtil.isEmpty(nepData.actName) && !ObjectUtil.isEmpty(nepData.actName.np) ?
+                    nepData.actName.np : undefined,
+                authorizedBodyName: !ObjectUtil.isEmpty(nepData.authorizedBodyName) && !ObjectUtil.isEmpty(nepData.authorizedBodyName.en)
+                    ? nepData.authorizedBodyName.en : undefined,
+                authorizedBodyNameCT: !ObjectUtil.isEmpty(nepData.authorizedBodyName) && !ObjectUtil.isEmpty(nepData.authorizedBodyName.ct) ?
+                    nepData.authorizedBodyName.ct : undefined,
+                authorizedBodyNameTrans: !ObjectUtil.isEmpty(nepData.authorizedBodyName) &&
+                !ObjectUtil.isEmpty(nepData.authorizedBodyName.np) ?
+                    nepData.authorizedBodyName.np : undefined,
+                issuingDistrict: !ObjectUtil.isEmpty(nepData.issuingDistrict) && !ObjectUtil.isEmpty(nepData.issuingDistrict.en) ?
+                    nepData.issuingDistrict.en : undefined,
+                issuingDistrictCT: !ObjectUtil.isEmpty(nepData.issuingDistrict) && !ObjectUtil.isEmpty(nepData.issuingDistrict.ct) ?
+                    nepData.issuingDistrict.ct : undefined,
+                issuingDistrictTrans: !ObjectUtil.isEmpty(nepData.issuingDistrict) && !ObjectUtil.isEmpty(nepData.issuingDistrict.ct) ?
+                    nepData.issuingDistrict.ct : undefined,
+                registeredWith: !ObjectUtil.isEmpty(nepData.registeredWith) && !ObjectUtil.isEmpty(nepData.registeredWith.en) ?
+                    nepData.registeredWith.en : undefined,
+                registeredWithCT: !ObjectUtil.isEmpty(nepData.registeredWith) && !ObjectUtil.isEmpty(nepData.registeredWith.ct) ?
+                    nepData.registeredWith.ct : undefined,
+                registeredWithTrans: !ObjectUtil.isEmpty(nepData.registeredWith) && !ObjectUtil.isEmpty(nepData.registeredWith.np) ?
+                    nepData.registeredWith.np : undefined,
+                registeredStreetTole: !ObjectUtil.isEmpty(nepData.registeredStreetTole) &&
+                !ObjectUtil.isEmpty(nepData.registeredStreetTole.en) ?
+                    nepData.registeredStreetTole.en : undefined,
+                registeredStreetToleTrans: !ObjectUtil.isEmpty(nepData.registeredStreetTole) &&
+                !ObjectUtil.isEmpty(nepData.registeredStreetTole.np) ?
+                    nepData.registeredStreetTole.np : undefined,
+                registeredStreetToleCT: !ObjectUtil.isEmpty(nepData.registeredStreetTole) &&
+                !ObjectUtil.isEmpty(nepData.registeredStreetTole.ct) ?
+                    nepData.registeredStreetTole.ct : undefined,
+                currentStreetTole: !ObjectUtil.isEmpty(nepData.currentStreetTole) && !ObjectUtil.isEmpty(nepData.currentStreetTole.en) ?
+                    nepData.currentStreetTole.en : undefined,
+                currentStreetToleTrans: !ObjectUtil.isEmpty(nepData.currentStreetTole) && !ObjectUtil.isEmpty(nepData.currentStreetTole.np) ?
+                    nepData.currentStreetTole.np : undefined,
+                currentStreetToleCT: !ObjectUtil.isEmpty(nepData.currentStreetTole) && !ObjectUtil.isEmpty(nepData.currentStreetTole.ct) ?
+                    nepData.currentStreetTole.ct : undefined,
+                radioActYearDate: !ObjectUtil.isEmpty(nepData.radioActYearDate) && !ObjectUtil.isEmpty(nepData.radioActYearDate.en) ?
+                    nepData.radioActYearDate.en : undefined,
+                actYear: !ObjectUtil.isEmpty(nepData.actYear) && !ObjectUtil.isEmpty(nepData.actYear.en) ?
+                    nepData.actYear.en : undefined,
+                citizenshipNoCT: !ObjectUtil.isEmpty(nepData.citizenshipNumber) && !ObjectUtil.isEmpty(nepData.citizenshipNumber.np) ?
+                    nepData.citizenshipNumber.np : undefined,
+                genderCT: !ObjectUtil.isEmpty(nepData.gender) && !ObjectUtil.isEmpty(nepData.gender.np) ?
+                    nepData.gender.np : undefined,
+                permanentProvinceCT: !ObjectUtil.isEmpty(nepData.permanentProvince) && !ObjectUtil.isEmpty(nepData.permanentProvince.np) ?
+                    nepData.permanentProvince.np : undefined,
+                permanentDistrictCT: !ObjectUtil.isEmpty(nepData.permanentDistrict) && !ObjectUtil.isEmpty(nepData.permanentDistrict.np) ?
+                    nepData.permanentDistrict.np : undefined,
+                registrationDateOption: !ObjectUtil.isEmpty(nepData.registrationDateOption) &&
+                !ObjectUtil.isEmpty(nepData.registrationDateOption.en) ?
+                    nepData.registrationDateOption.en : undefined,
+                registrationDate: !ObjectUtil.isEmpty(nepData.registrationDate) && !ObjectUtil.isEmpty(nepData.registrationDate.en) ?
+                    new Date(nepData.registrationDate.en) : undefined,
+                registrationDateTrans:  ObjectUtil.isEmpty(this.userConfigForm.get('registrationDate').value) ?
+                    undefined : this.userConfigForm.get('registrationDate').value,
+                registrationDateCT:  ObjectUtil.isEmpty(this.userConfigForm.get('registrationDate').value) ?
+                    undefined : this.userConfigForm.get('registrationDate').value,
 
-                registrationDateNepali: ObjectUtil.isEmpty(nepData.registrationDateNepali) ? undefined : nepData.registrationDateNepali.en,
-                registrationDateNepaliTrans:  ObjectUtil.isEmpty(this.userConfigForm.get('registrationDateNepali').value) ? undefined : this.userConfigForm.get('registrationDateNepali').value,
-                registrationDateNepaliCT:  ObjectUtil.isEmpty(this.userConfigForm.get('registrationDateNepali').value) ? undefined : this.userConfigForm.get('registrationDateNepali').value,
+                registrationDateNepali: !ObjectUtil.isEmpty(nepData.registrationDateNepali) &&
+                !ObjectUtil.isEmpty(nepData.registrationDateNepali.en) ?
+                    nepData.registrationDateNepali.en : undefined,
+                registrationDateNepaliTrans:  ObjectUtil.isEmpty(this.userConfigForm.get('registrationDateNepali').value) ?
+                    undefined : this.userConfigForm.get('registrationDateNepali').value,
+                registrationDateNepaliCT:  ObjectUtil.isEmpty(this.userConfigForm.get('registrationDateNepali').value) ?
+                    undefined : this.userConfigForm.get('registrationDateNepali').value,
 
-                // permanentMunicipality: ObjectUtil.isEmpty(nepData.permanentMunicipality) ? undefined : nepData.permanentMunicipality.np,
-                temporaryProvinceCT: ObjectUtil.isEmpty(nepData.temporaryProvince) ? undefined : nepData.temporaryProvince.np,
-                temporaryDistrictCT: ObjectUtil.isEmpty(nepData.temporaryDistrict) ? undefined : nepData.temporaryDistrict.np,
-                temporaryMunicipalityCT: ObjectUtil.isEmpty(nepData.temporaryMunicipality) ? undefined : nepData.temporaryMunicipality.ct,
-                permanentMunicipalityCT: ObjectUtil.isEmpty(nepData.permanentMunicipality) ? undefined : nepData.permanentMunicipality.ct,
-                permanentWardCT: ObjectUtil.isEmpty(nepData.permanentWard) ? undefined : nepData.permanentWard.np,
-                temporaryWardCT: ObjectUtil.isEmpty(nepData.temporaryWard) ? undefined : nepData.temporaryWard.np,
-                // citizenshipIssueDateCT: ObjectUtil.isEmpty(nepData.citizenshipIssueDate) ? undefined : nepData.citizenshipIssueDate.np,
-                // dobCT: ObjectUtil.isEmpty(nepData.permanentMunicipality) ? undefined : nepData.permanentMunicipality.np,
-                // citizenshipIssueDistrictCT: ObjectUtil.isEmpty(nepData.permanentMunicipality) ? undefined : nepData.permanentMunicipality.np,
+                // permanentMunicipality: !ObjectUtil.isEmpty(nepData.permanentMunicipality) ? nepData.permanentMunicipality.np : undefined,
+                temporaryProvinceCT: !ObjectUtil.isEmpty(nepData.temporaryProvince) && !ObjectUtil.isEmpty(nepData.temporaryProvince.np) ?
+                    nepData.temporaryProvince.np : undefined,
+                temporaryDistrictCT: !ObjectUtil.isEmpty(nepData.temporaryDistrict) && !ObjectUtil.isEmpty(nepData.temporaryDistrict.np) ?
+                    nepData.temporaryDistrict.np : undefined,
+                temporaryMunicipalityCT: !ObjectUtil.isEmpty(nepData.temporaryMunicipality) &&
+                !ObjectUtil.isEmpty(nepData.temporaryMunicipality.ct) ?
+                    nepData.temporaryMunicipality.ct : undefined,
+                permanentMunicipalityCT: !ObjectUtil.isEmpty(nepData.permanentMunicipality) &&
+                !ObjectUtil.isEmpty(nepData.permanentMunicipality.ct) ?
+                    nepData.permanentMunicipality.ct : undefined,
+                permanentWardCT: !ObjectUtil.isEmpty(nepData.permanentWard) && !ObjectUtil.isEmpty(nepData.permanentWard.np) ?
+                    nepData.permanentWard.np : undefined,
+                temporaryWardCT: !ObjectUtil.isEmpty(nepData.temporaryWard) && !ObjectUtil.isEmpty(nepData.temporaryWard.np) ?
+                    nepData.temporaryWard.np : undefined,
+                // citizenshipIssueDateCT: !ObjectUtil.isEmpty(nepData.citizenshipIssueDate) ? nepData.citizenshipIssueDate.np : undefined,
+                // dobCT: !ObjectUtil.isEmpty(nepData.permanentMunicipality) ? nepData.permanentMunicipality.np : undefined,
+                // citizenshipIssueDistrictCT: !ObjectUtil.isEmpty(nepData.permanentMunicipality) ?
+                // nepData.permanentMunicipality.np : undefined,
                 registrationNoCT: ObjectUtil.isEmpty(nepData.registrationNo) ? undefined :
                     this.loanHolder.customerType === CustomerType.INSTITUTION ?
                         nepData.registrationNo.ct : undefined
