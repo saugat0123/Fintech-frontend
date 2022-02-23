@@ -214,7 +214,7 @@ export class PowerOfAttorneyCompanyComponent implements OnInit {
   }
   freeTextForm() {
     return this.formBuilder.group({
-      freeText2: ['सञ्चालक/प्रबन्ध सञ्चालक/प्रमुख कार्यकारी अधिकृत/'],
+      freeText2: ['सञ्चालक/प्रबन्ध सञ्चालक/प्रमुख कार्यकारी अधिकृत'],
        // freeText2: [undefined],
     });
   }

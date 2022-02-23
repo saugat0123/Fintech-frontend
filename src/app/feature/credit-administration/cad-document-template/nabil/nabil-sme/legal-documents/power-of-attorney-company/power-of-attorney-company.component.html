@@ -94,16 +94,15 @@
                                 <ng-container [formGroupName]="i">
                                     अख्तियारप्राप्त
                                     <span>
-                                    <input class="form-field d-print-none nepaliFont"
+                                    <input class="form-field d-print-none"
                                            style="width: 40%" name="freeText2"
                                            formControlName="freeText2"
                                            placeholder="" type="text"/>
-                                    <span class="print-only nepaliFont" style="font-size: 19px">
-                                        {{this.freeText ? this.freeText.freeTextArray[i]?.freeText2 : '====================================='}}
+                                    <span class="print-only" style="font-size: 19px">
+                                        {{this.freeText ? this.freeText.freeTextArray[i]?.freeText2 : '====================================='}},
                                     </span>
                                 </span>
                                 </ng-container>
-                                ,
                                 <ng-container
                                         *ngIf="companyInfo[i]?.ownerNationality === 'Nepali' || companyInfo[i]?.foreignAddressOption === 'Local'">
                                     <input class="form-field form-control-sm d-print-none"
