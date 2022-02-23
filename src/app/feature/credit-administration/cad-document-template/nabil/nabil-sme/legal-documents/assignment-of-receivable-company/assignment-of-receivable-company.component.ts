@@ -290,7 +290,7 @@ export class AssignmentOfReceivableCompanyComponent implements OnInit {
                 this.registrationDate = this.engToNepaliDate.transform(this.individualData.registrationDate ?
                     this.individualData.registrationDate.en : this.individualData.registrationDate.en, true) || '';
             } else {
-                this.registrationDate = this.individualData.registrationDate.en ? this.individualData.registrationDate.en.nDate : '';
+                this.registrationDate = this.individualData.registrationDateNepali.en ? this.individualData.registrationDateNepali.en.nDate : '';
             }
         }
         if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {

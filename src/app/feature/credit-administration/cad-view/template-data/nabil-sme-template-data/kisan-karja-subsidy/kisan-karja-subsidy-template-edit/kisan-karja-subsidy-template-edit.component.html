@@ -69,7 +69,7 @@
                         <nb-radio-group (valueChange)="dateOfApplication($event)" class="d-inline-flex"
                                         formControlName="dateOfApplicationType" id="dateOfApplicationType"
                                         name="dateOfApplicationType" status="success">
-                            <nb-radio *ngFor="let dateTy of dateType" [checked]="dateTy.checked"
+                            <nb-radio *ngFor="let dateTy of dateType"
                                       [value]="dateTy.value">{{dateTy.key}}</nb-radio>
                         </nb-radio-group>
                         <div *ngIf="BSApplication" style="margin-bottom: -50px;">
