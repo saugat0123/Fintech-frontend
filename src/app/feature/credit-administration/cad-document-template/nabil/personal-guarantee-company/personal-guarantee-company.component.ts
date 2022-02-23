@@ -62,7 +62,6 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
     this.loadPersonalGuarantorData();
     this.buildForm();
     this.fillGuarantee();
-      console.log('loan Detail::::', this.loanHolderNepData);
   }
 
     fillGuarantee() {

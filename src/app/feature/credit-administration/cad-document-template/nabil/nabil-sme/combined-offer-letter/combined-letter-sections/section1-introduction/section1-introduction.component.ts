@@ -45,7 +45,7 @@ export class Section1IntroductionComponent implements OnInit {
 
   fillForm() {
     if (this.tempData.smeGlobalForm.loanApplicationDataType === 'AD') {
-      this.tempApplicationDate = this.engToNepaliDate.transform(this.datePipe.transform(this.tempData.smeGlobalForm.loanApplicationDate), true);
+      this.tempApplicationDate =  this.tempData.smeGlobalForm ? this.tempData.smeGlobalForm.loanApplicationDateCT : '';
     } else {
       this.tempApplicationDate = this.tempData.smeGlobalForm.loanApplicationDateCT;
     }
