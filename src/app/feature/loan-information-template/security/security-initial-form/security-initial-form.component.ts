@@ -180,15 +180,16 @@ export class SecurityInitialFormComponent implements OnInit {
         this.buildForm();
         this.branchList();
         this.checkLoanTags();
-        this.nepsePriceInfoService.getActiveNepsePriceInfoData().subscribe((response) => {
-            this.nepsePriceInfo = response.detail;
-            this.shareSecurityForm.get('sharePriceDate').patchValue(this.nepsePriceInfo && this.nepsePriceInfo.sharePriceDate ?
-                this.datePipe.transform(this.nepsePriceInfo.sharePriceDate, 'yyyy-MM-dd') : undefined);
-            this.shareSecurityForm.get('avgDaysForPrice').patchValue(this.nepsePriceInfo && this.nepsePriceInfo.avgDaysForPrice
-                ? this.nepsePriceInfo.avgDaysForPrice : undefined);
-        }, error => {
-            console.error(error);
-        });
+        // this.nepsePriceInfoService.getActiveNepsePriceInfoData().subscribe((response) => {
+        //     this.nepsePriceInfo = response.detail;
+        //     console.log('response.detail', response.detail);
+        //     this.shareSecurityForm.get('sharePriceDate').patchValue(this.nepsePriceInfo && this.nepsePriceInfo.sharePriceDate ?
+        //         this.datePipe.transform(this.nepsePriceInfo.sharePriceDate, 'yyyy-MM-dd') : undefined);
+        //     this.shareSecurityForm.get('avgDaysForPrice').patchValue(this.nepsePriceInfo && this.nepsePriceInfo.avgDaysForPrice
+        //         ? this.nepsePriceInfo.avgDaysForPrice : undefined);
+        // }, error => {
+        //     console.error(error);
+        // });
         this.pushNewSecurityType();
         if (this.formData !== undefined) {
             this.formDataForEdit = this.formData['initialForm'];
@@ -1900,6 +1901,9 @@ export class SecurityInitialFormComponent implements OnInit {
     private setShareSecurityDetails(details) {
         const shareDetails = this.shareSecurityForm.get('shareSecurityDetails') as FormArray;
         const shareFields = (JSON.parse(details.data))['shareSecurityDetails'];
+        const shareData = JSON.parse(details.data);
+        this.shareSecurityForm.get('sharePriceDate').patchValue(shareData.sharePriceDate);
+        this.shareSecurityForm.get('avgDaysForPrice').patchValue(shareData.avgDaysForPrice);
         shareFields.forEach(share => {
             shareDetails.push(
                 this.formBuilder.group({
