@@ -1,6 +1,6 @@
 <div id="print-section-{{offerLetterConst.GUARANTEE_BOND_PERSONAL}}">
-    <div class="col-md-12">
-            <div *ngFor="let guarantor of printDocForm?.guarantorDetails; index as i">
+    <div class="col-md-12" style="margin-top: -60px">
+            <div *ngFor="let guarantor of printDocForm?.guarantorDetails; index as i" class="page-break">
                 <form>
                 <div class="nepali">
                     <div class="text-center">
@@ -400,12 +400,12 @@
                         <tr>
                             <td style="vertical-align: top" class="text-right">औठा छाप</td>
                             <td>
-                                <table style="width: 40%;" class="table table-bordered">
+                                <table style="width: 50%;" class="table table-bordered">
                                     <tr>
                                         <td>दाँ.</td>
                                         <td>बाँ.</td>
                                     </tr>
-                                    <tr style="height: 150px;">
+                                    <tr style="height: 200px;">
                                         <td></td>
                                         <td></td>
                                     </tr>
@@ -413,7 +413,7 @@
                             </td>
                         </tr>
                     </table>
-                        <div class="row" style="overflow: visible;">
+                        <div class="row">
                             <div class="col-md-12">
                             <p><strong>साक्षी :</strong></p>
                                 <table class="table-borderless">
