@@ -9,7 +9,8 @@
                     महोदय,<br>
                     तपाईंले
                     <span class="text-left">
-                                मिति वि.सं. <input class="form-field form-control-sm"
+                                मिति <span>{{this.tempData?.smeGlobalForm?.loanApplicationDataType === 'AD' ? 'ई. स. ' : 'वि.सं. '}}</span>
+                        <input class="form-field form-control-sm"
                                                    formControlName="dateOfApplication"
                                                    type="text"/>
                         </span>
@@ -32,7 +33,7 @@
                                              type="text"/>
                         </span>
                     को ऋणस्वीकृति पत्रानुसार उपभोग गर्दै आउनु भएको ऋणकर्जामा हाल ऋणकर्जा सुविधा/हरु नबिकरण/पुनरावलोकन का
-                    लागि यस बैंकमा दिनु भएको मिति वि.सं.
+                    लागि यस बैंकमा दिनु भएको मिति <span>{{this.tempData?.smeGlobalForm?.loanApplicationDataType === 'AD' ? 'ई. स. ' : 'वि.सं. '}}</span>
                     <span class="text-left">
                                 <input class="form-field form-control-sm"
                                        formControlName="dateOfApplication"
@@ -58,7 +59,8 @@
                                            type="text"/>
                         </span>
                     को ऋणस्वीकृति पत्रानुसार स्वीकृत भएका ऋणकर्जा सुविधा/हरु उपभोग गर्दै आउनु भएकोमा हाल थप/अतिरिक्त
-                    ऋणकर्जा सुविधा सहित नबिकरण/पुनरावलोकनका लागि यस बैंकमा दिनु भएको मिति वि.सं.
+                    ऋणकर्जा सुविधा सहित नबिकरण/पुनरावलोकनका लागि यस बैंकमा दिनु भएको
+                    मिति <span>{{this.tempData?.smeGlobalForm?.loanApplicationDataType === 'AD' ? 'ई. स. ' : 'वि.सं. '}}</span>
                     <span class="text-left">
                                     <input class="form-field form-control-sm"
                                            formControlName="dateOfApplication"
@@ -85,7 +87,8 @@
                                            type="text"/>
                         </span>
                     को ऋणस्वीकृति पत्रानुसार स्वीकृत भएका ऋणकर्जा सुविधाहरु उपभोग गर्दै आउनु भएकोमा हाल थप/अतिरिक्त
-                    ऋणकर्जा सुविधाका लागि यस बैंकमा दिनु भएको मिति वि.सं.
+                    ऋणकर्जा सुविधाका लागि यस बैंकमा दिनु भएको
+                    मिति <span>{{this.tempData?.smeGlobalForm?.loanApplicationDataType === 'AD' ? 'ई. स. ' : 'वि.सं. '}}</span>
                     <span class="text-left">
                                     <input class="form-field form-control-sm"
                                            formControlName="dateOfApplication"
@@ -103,9 +106,7 @@
                      style="margin-left:2%;display: block;margin-left: auto;margin-right: auto;padding: 5px;width: 95%"
                      name="freeText"
                      formControlName="firstAdditionalDetails">
-                                            </textarea>
+             </textarea>
         </div>
-
-
     </form>
 </div>
