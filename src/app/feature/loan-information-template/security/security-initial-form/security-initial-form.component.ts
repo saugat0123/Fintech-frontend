@@ -400,6 +400,12 @@ export class SecurityInitialFormComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.shareSecurity)) {
             this.shareSecurityForm.get('securityOffered').patchValue(JSON.parse(this.shareSecurity.data)['securityOffered']);
         }
+        if (!ObjectUtil.isEmpty(this.shareSecurity)) {
+            this.shareSecurityForm.get('sharePriceDate').patchValue(JSON.parse(this.shareSecurity.data)['sharePriceDate']);
+        }
+        if (!ObjectUtil.isEmpty(this.shareSecurity)) {
+            this.shareSecurityForm.get('avgDaysForPrice').patchValue(JSON.parse(this.shareSecurity.data)['avgDaysForPrice']);
+        }
     }
 
     valuator(branchId, type: string, index: number) {
@@ -1901,9 +1907,6 @@ export class SecurityInitialFormComponent implements OnInit {
     private setShareSecurityDetails(details) {
         const shareDetails = this.shareSecurityForm.get('shareSecurityDetails') as FormArray;
         const shareFields = (JSON.parse(details.data))['shareSecurityDetails'];
-        const shareData = JSON.parse(details.data);
-        this.shareSecurityForm.get('sharePriceDate').patchValue(shareData.sharePriceDate);
-        this.shareSecurityForm.get('avgDaysForPrice').patchValue(shareData.avgDaysForPrice);
         shareFields.forEach(share => {
             shareDetails.push(
                 this.formBuilder.group({
