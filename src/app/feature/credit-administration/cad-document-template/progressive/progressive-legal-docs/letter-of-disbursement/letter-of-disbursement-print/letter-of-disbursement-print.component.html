@@ -46,7 +46,7 @@
             <br>
             <p class="text-center"><strong>भवदीय,</strong></p>
             <div class="row col-md-12" id="Sincerely">
-                <table style="line-height: 1.9em">
+                <table class="table-borderless">
                     <thead>
                     <tr>
                         <td style="text-align: right;width: 25%">दस्तखत र संस्थाको छाप :</td>
@@ -84,17 +84,12 @@
                                     [ngClass]="{'nepaliFont' : printDocForm?.jagaName !== null && printDocForm?.jagaName !== ''}">
                         {{printDocForm?.jagaName === null || printDocForm?.jagaName === '' ? '________________' : printDocForm?.jagaName}}
                         </span>(साबिक
-                            <span
-                                    [ngClass]="{'nepaliFont sizefont' : printDocForm?.sincerlyPermanentAddress !== null && printDocForm?.sincerlyPermanentAddress !== ''}">
-                        {{printDocForm?.sincerlyPermanentAddress === null || printDocForm?.sincerlyPermanentAddress === '' ? '________________' : printDocForm?.sincerlyPermanentAddress}}
-                        </span>,
-                            <span
-                                    [ngClass]="{'nepaliFont sizefont' : printDocForm?.jillaName !== null && printDocForm?.jillaName !== ''}">
+                            <span [ngClass]="{'nepaliFont sizefont' : printDocForm?.sincerlyPermanentAddress !== null && printDocForm?.sincerlyPermanentAddress !== ''}">
+                        {{printDocForm?.sincerlyPermanentAddress === null || printDocForm?.sincerlyPermanentAddress === '' ? '________________' : printDocForm?.sincerlyPermanentAddress}}</span>,
+                            <span [ngClass]="{'nepaliFont sizefont' : printDocForm?.jillaName !== null && printDocForm?.jillaName !== ''}">
                         {{printDocForm?.jillaName === null || printDocForm?.jillaName === '' ? '________________' : printDocForm?.jillaName}}
-                        </span>
-                            गा.बि.स., वडा नं.
-                            <span
-                                    [ngClass]="{'nepaliFont' : printDocForm?.jagaName !== null && printDocForm?.jagaName !== ''}">
+                        </span>गा.बि.स., वडा नं.
+                            <span [ngClass]="{'nepaliFont' : printDocForm?.jagaName !== null && printDocForm?.jagaName !== ''}">
                         {{printDocForm?.jagaName === null || printDocForm?.jagaName === '' ? '________________' : printDocForm?.jagaName}}</span>)
                         </td>
                     </tr>
