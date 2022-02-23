@@ -23,7 +23,7 @@ import {loanNature} from 'src/app/feature/admin/modal/loanNature';
 import {financedAssets} from 'src/app/feature/admin/modal/financedAssets';
 import {environment} from '../../../../../../environments/environment';
 import {Editor} from '../../../../../@core/utils/constants/editor';
-import {parse} from 'angular-html-parser';
+import {parse} from 'node-html-parser';
 
 
 @Component({
@@ -95,6 +95,12 @@ export class UIComponent implements OnInit, DoCheck {
 
     loanNature = loanNature.enumObject();
     financedAssets = financedAssets.enumObject();
+    totalYesNO = 0;
+    totalTd = 0;
+    firstRows = [];
+    firstRow = 0;
+    totalRoes = [];
+
 
     static loadData(other: UIComponent) {
         other.getTemplate();
@@ -359,41 +365,58 @@ export class UIComponent implements OnInit, DoCheck {
     }
 
     data(data, flag) {
-        const { rootNodes, errors } = parse(data);
-        if (!ObjectUtil.isEmpty(rootNodes) && flag) {
-            rootNodes.forEach((d, i) => {
-                if (d.name === 'table') {
-                    this.tableArray.push(d);
-                }
-            });
-            this.getChildrens(this.tableArray);
-        }
+        const rootNodes = parse(data);
+        console.log('this is first', rootNodes);
+        console.log('this is first chid', rootNodes.getElementsByTagName('table'));
+        // if (!ObjectUtil.isEmpty(rootNodes) && flag) {
+        //     rootNodes.forEach((d: any, i) => {
+        //         try {
+        //             // @ts-ignore
+        //             if (d.name === 'table') {
+        //                 this.tableArray.push(d);
+        //             }
+        //         } catch (e) {
+        //             console.log(e);
+        //         }
+        //     });
+        //     console.log('this is table array', this.tableArray);
+        //     this.getChildrens(rootNodes);
+        //     if (this.firstRows.length > 0) {
+        //         this.totalRoes.push(this.firstRows);
+        //         this.firstRows = [];
+        //     }
+        //     console.log(rootNodes.toString());
+        //     console.log('this is first row', this.totalRoes);
+        // }
     }
-    totalYesNO = 0;
-    totalTd = 0;
+
     getChildrens(array: Array<any>) {
-        let index = 0;
         array.forEach((d) => {
             if (d.type === 'element') {
-                if (d.name === 'td') {
-                    index += 1;
-                    console.log('td is in the box', d);
+                if (d.name === 'table') {
+                    if (this.firstRows.length > 0) {
+                        this.totalRoes.push(this.firstRows);
+                        this.firstRows = [];
+                    }
+                    this.firstRow = 0;
+                }
+                if (d.name === 'tr') {
+                    this.firstRow += 1;
+                    if (this.firstRow === 1) {
+                        console.log('this is first row', d);
+                    }
+                }
+                console.log('this is childred', d);
+                if (this.firstRow === 1 && d.children.length < 2 && d.children[0].type === 'text') {
+                    this.firstRows.push(d.children[0].value);
                 }
                 this.getChildrens(d.children);
             } else {
-                // comparision value can be fetched with thead tr td
-                if (!ObjectUtil.isEmpty(d.value)) {
-                    console.log('this should be the value', d.value);
-                    if (d.value.toLowerCase() === 'yes' || d.value.toLowerCase() === 'no' || d.value.toLowerCase() === 'na') {
-                        console.log('this is the data', d.value);
-                        //if index === max reset
-                        this.totalYesNO += 1;
-                    }
-                }
+
             }
         });
-        console.log('the total Td', this.totalTd);
     }
+
     private scrollToFirstInvalidControl() {
         const firstInvalidControl: HTMLElement = this.el.nativeElement.querySelector(
             'form .ng-invalid'
