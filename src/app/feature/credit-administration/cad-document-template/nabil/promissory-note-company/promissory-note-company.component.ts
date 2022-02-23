@@ -1,80 +1,27 @@
-import {
-  Component,
-  Input,
-  OnInit
-} from '@angular/core';
-import {
-  FormArray,
-  FormBuilder,
-  FormGroup
-} from '@angular/forms';
-import {
-  CustomerApprovedLoanCadDocumentation
-} from '../../../model/customerApprovedLoanCadDocumentation';
-import {
-  CreditAdministrationService
-} from '../../../service/credit-administration.service';
-import {
-  ToastService
-} from '../../../../../@core/utils';
-import {
-  NbDialogRef
-} from '@nebular/theme';
-import {
-  CadOfferLetterModalComponent
-} from '../../../cad-offerletter-profile/cad-offer-letter-modal/cad-offer-letter-modal.component';
-import {
-  RouterUtilsService
-} from '../../../utils/router-utils.service';
-import {
-  ObjectUtil
-} from '../../../../../@core/utils/ObjectUtil';
-import {
-  CadFile
-} from '../../../model/CadFile';
-import {
-  Document
-} from '../../../../admin/modal/document';
-import {
-  Alert,
-  AlertType
-} from '../../../../../@theme/model/Alert';
-import {
-  NabilDocumentChecklist
-} from '../../../../admin/modal/nabil-document-checklist.enum';
-import {
-  NepaliCurrencyWordPipe
-} from '../../../../../@core/pipe/nepali-currency-word.pipe';
-import {
-  NepaliToEngNumberPipe
-} from '../../../../../@core/pipe/nepali-to-eng-number.pipe';
-import {
-  CustomerService
-} from '../../../../admin/service/customer.service';
-import {
-  CustomerType
-} from '../../../../customer/model/customerType';
-import {
-  CustomerSubType
-} from '../../../../customer/model/customerSubType';
-import {
-  NabilOfferLetterConst
-} from '../../../nabil-offer-letter-const';
-import {
-  EngNepDatePipe
-} from 'nepali-patro';
-import {
-  EngToNepaliNumberPipe
-} from '../../../../../@core/pipe/eng-to-nepali-number.pipe';
-import {
-  CurrencyFormatterPipe
-} from '../../../../../@core/pipe/currency-formatter.pipe';
-import {
-  DatePipe
-} from '@angular/common';
-import {
-  AgeCalculation
-} from '../../../../../@core/age-calculation';
+import {Component, Input, OnInit} from '@angular/core';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {CustomerApprovedLoanCadDocumentation} from '../../../model/customerApprovedLoanCadDocumentation';
+import {CreditAdministrationService} from '../../../service/credit-administration.service';
+import {ToastService} from '../../../../../@core/utils';
+import {NbDialogRef} from '@nebular/theme';
+import {CadOfferLetterModalComponent} from '../../../cad-offerletter-profile/cad-offer-letter-modal/cad-offer-letter-modal.component';
+import {RouterUtilsService} from '../../../utils/router-utils.service';
+import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
+import {CadFile} from '../../../model/CadFile';
+import {Document} from '../../../../admin/modal/document';
+import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {NabilDocumentChecklist} from '../../../../admin/modal/nabil-document-checklist.enum';
+import {NepaliCurrencyWordPipe} from '../../../../../@core/pipe/nepali-currency-word.pipe';
+import {NepaliToEngNumberPipe} from '../../../../../@core/pipe/nepali-to-eng-number.pipe';
+import {CustomerService} from '../../../../admin/service/customer.service';
+import {CustomerType} from '../../../../customer/model/customerType';
+import {CustomerSubType} from '../../../../customer/model/customerSubType';
+import {NabilOfferLetterConst} from '../../../nabil-offer-letter-const';
+import {EngNepDatePipe} from 'nepali-patro';
+import {EngToNepaliNumberPipe} from '../../../../../@core/pipe/eng-to-nepali-number.pipe';
+import {CurrencyFormatterPipe} from '../../../../../@core/pipe/currency-formatter.pipe';
+import {DatePipe} from '@angular/common';
+import {AgeCalculation} from '../../../../../@core/age-calculation';
 import { OfferDocument } from '../../../model/OfferDocument';
 
 @Component({
@@ -285,6 +232,21 @@ export class PromissoryNoteCompanyComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.tempProprietor)) {
       totalPeop = this.tempProprietor.length;
     }
+    let totalAmount;
+    let totalAmountInWord;
+    if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
+      if (this.cadData.offerDocumentList[0].docName === 'Combined Offer Letter') {
+        totalAmount = (this.tempData.smeGlobalForm && this.tempData.smeGlobalForm.totalLimitInFigureCT) ?
+            this.tempData.smeGlobalForm.totalLimitInFigureCT : '';
+        totalAmountInWord = (this.tempData.smeGlobalForm && this.tempData.smeGlobalForm.totalLimitInWordsCT ) ?
+            this.tempData.smeGlobalForm.totalLimitInWordsCT : '';
+      } else {
+        totalAmount = (this.tempData && this.tempData.loanLimitAmountFigure) ?
+            this.tempData.loanLimitAmountFigure.ct : '';
+        totalAmountInWord = (this.tempData && this.tempData.loanLimitAmountFigureWords) ?
+            this.tempData.loanLimitAmountFigureWords.ct : '';
+      }
+    }
     this.checkOfferLetterData();
     this.form.patchValue({
       nameofBranchLocated: [this.loanHolderNepData.branch ? this.loanHolderNepData.branch.ct : ''],
@@ -297,10 +259,8 @@ export class PromissoryNoteCompanyComponent implements OnInit {
       firmAddress: [this.loanHolderNepData.registeredStreetTole ? this.loanHolderNepData.registeredStreetTole.ct : ''],
       companyVDCMunci: this.loanHolderNepData.registeredMunicipality ? this.loanHolderNepData.registeredMunicipality.ct : '',
       companyName: this.loanHolderNepData.name ? this.loanHolderNepData.name.ct : '',
-      loanamountinFigure: (this.tempData.smeGlobalForm && this.tempData.smeGlobalForm.totalLimitInFigureCT ) ?
-        this.tempData.smeGlobalForm.totalLimitInFigureCT : '' ,
-      loanamountinWords: (this.tempData.smeGlobalForm && this.tempData.smeGlobalForm.totalLimitInWordsCT ) ?
-        this.tempData.smeGlobalForm.totalLimitInWordsCT : '',
+      loanamountinFigure: totalAmount,
+      loanamountinWords: totalAmountInWord,
       /*loanAmountinFigure: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(finalAmount)),
       loanAmountInWords: this.nepaliCurrencyWordPipe.transform(loanAmountWord),*/
       branchName: [this.loanHolderNepData.branch ? this.loanHolderNepData.branch.ct : ''],
@@ -574,11 +534,12 @@ export class PromissoryNoteCompanyComponent implements OnInit {
 
   setActYear() {
     let yearOfAct: string;
-    if (!ObjectUtil.isEmpty(this.loanHolderNepData.radioActYearDate.np) && (this.loanHolderNepData.radioActYearDate.np === 'BS')) {
-      yearOfAct = this.loanHolderNepData.actYear.np ? this.loanHolderNepData.actYear.np : '';
-    } else {
-      yearOfAct = this.engToNepNumberPipe.transform(this.loanHolderNepData.actYear.en ?
-          this.loanHolderNepData.actYear.en : this.loanHolderNepData.actYear.en, true) || '';
+    if (!ObjectUtil.isEmpty(this.loanHolderNepData.radioActYearDate)) {
+      if (this.loanHolderNepData.radioActYearDate.np === 'BS') {
+        yearOfAct = this.loanHolderNepData.actYear.np ? this.loanHolderNepData.actYear.np : '';
+      } else {
+        yearOfAct = this.loanHolderNepData.actYear ? this.loanHolderNepData.actYear.en : this.loanHolderNepData.actYear.en;
+      }
     }
     return yearOfAct ? yearOfAct : '';
   }

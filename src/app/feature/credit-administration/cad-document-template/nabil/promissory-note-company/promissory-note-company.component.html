@@ -18,17 +18,14 @@
 
                             </p>
                             <div style="border: 1px solid black" class="p-2 mb-5 mt-5">
-                                <p><strong>रु <input
+                                <p><strong>रु.<input
                                         (input)="getNumAmountWord('loanamountinFigure', 'loanamountinWords')"
                                         class="form-field form-control-sm  disable-print"
                                         name="loanamountinFigure"
                                         formControlName="loanamountinFigure"
                                         placeholder="" type="text"/>
                                     <span class="print-only font-weight-bold">
-                                        {{(this.tempData.smeGlobalForm && this.tempData.smeGlobalForm.totalLimitInFigureCT ) ?
-                                        this.tempData.smeGlobalForm.totalLimitInFigureCT : '_________________'}}</span>/-
-                                    <br>
-
+                                        {{form?.get('loanamountinFigure')?.value ? form?.get('loanamountinFigure')?.value : '_________________'}}</span>/-
                                     (अक्षरेपी <input
                                             class="form-field form-control-sm  disable-print col-3"
                                             name="loanamountinWords"
@@ -44,8 +41,7 @@
                                     class="form-field form-control-sm  disable-print"
                                     name="actDetails" formControlName="actDetails"
                                     placeholder="" type="text"/>
-                                <span
-                                        class="print-only font-weight-bold">{{ form?.get('actDetails')?.value ? form?.get('actDetails')?.value : '_________________'}}</span>
+                                <span class="print-only font-weight-bold">{{ form?.get('actDetails')?.value ? form?.get('actDetails')?.value : '_________________'}}</span>
                                 ऐन <input
                                     class="form-field form-control-sm disable-print"
                                     name="actDate" formControlName="actDate"
@@ -131,11 +127,11 @@
                                         {{val.ownerFatherInLawNameCT ? val.ownerFatherInLawNameCT : "_____________________"}}</span>
                                         को
                                         <ng-container>
-                                            <span *ngIf="val?.ownerGender === 'MALE'">नाति </span>
+                                            <span *ngIf="val?.ownerGender === 'MALE'"> नाति </span>
                                             <span
-                                                    *ngIf="val?.ownerGender === 'FEMALE' && val?.ownerRelationMedium === '1'">नातिनी </span>
+                                                    *ngIf="val?.ownerGender === 'FEMALE' && val?.ownerRelationMedium === '1'"> नातिनी </span>
                                             <span
-                                                    *ngIf="val?.ownerGender === 'FEMALE' && val?.ownerRelationMedium === '0'">बुहारी </span>
+                                                    *ngIf="val?.ownerGender === 'FEMALE' && val?.ownerRelationMedium === '0'"> बुहारी </span>
                                         </ng-container>
                                         <input class="form-field form-control-sm  disable-print"
                                                name="fatherName" formControlName="fatherName"
@@ -224,8 +220,7 @@
                                         <span class="print-only font-weight-bold">
                                             {{ val.ownerNameCT ? val.ownerNameCT : '_________________'}}
                                         </span>
-                                        (
-                                        <span *ngIf="val?.ownerNationality === 'Other'">
+                                        (<span *ngIf="val?.ownerNationality === 'Other'">
                                         राहदानी नंः
                                             <input class="form-field form-control-sm  disable-print"
                                                    name="directorOtherPassportNumber"
@@ -310,47 +305,36 @@
                                 <span class="print-only font-weight-bold">
                                     {{form.get('totalPeople').value ? form.get('totalPeople').value : "_____________________"}}
                                 </span>
-                                जना
-                                आगे, तपाई श्री नविल बैंक लिमिटेडले भुक्तानी माग
+                                जना आगे, तपाई श्री नविल बैंक लिमिटेडले भुक्तानी माग
                                 गरेका बखत तपाईलाई वा तपाईले निर्देशन
-                                दिएको वा अह्राएको ब्यक्ति/संस्थालाई <strong>रु.
-                                <input class="form-field form-control-sm  disable-print"
+                                दिएको वा अह्राएको ब्यक्ति/संस्थालाई <strong>
+                                रु.<input class="form-field form-control-sm  disable-print"
                                        name="loanamountinFigure"
                                        formControlName="loanamountinFigure"
                                        placeholder="" type="text"/>
-                                <span
-                                        class="print-only font-weight-bold">
-                                    {{ (this.tempData.smeGlobalForm && this.tempData.smeGlobalForm.totalLimitInFigureCT ) ?
-                                    this.tempData.smeGlobalForm.totalLimitInFigureCT : '____________' }}</span>
-                                /- (अक्षरेपी
+                                <span class="print-only font-weight-bold">
+                                    {{form?.get('loanamountinFigure')?.value ? form?.get('loanamountinFigure')?.value : '_________________'}}</span>/- (अक्षरेपी
                                 <input class="form-field form-control-sm  disable-print col-3"
                                        name="loanamountinWords"
                                        formControlName="loanamountinWords"
                                        placeholder="" type="text"/>
-                                <span
-                                        class="print-only font-weight-bold">{{ form?.get('loanamountinWords')?.value ? form?.get('loanamountinWords')?.value : '_________________'}}</span>
+                                <span class="print-only font-weight-bold">{{ form?.get('loanamountinWords')?.value ? form?.get('loanamountinWords')?.value : '_________________'}}</span>
                                 मात्र)</strong> र भुक्तानी हुने दिन सम्मको बार्षिक
                                 <input class="form-field form-control-sm  disable-print col-3 nepaliFont"
                                        name="interest" formControlName="interest"
                                        placeholder="" type="text"/>
-                                <span
-                                        class="print-only font-weight-bold nepaliFont"> {{ form?.get('interest')?.value ? form?.get('interest')?.value : '================================='}}</span>
+                                <span class="print-only font-weight-bold nepaliFont"> {{ form?.get('interest')?.value ? form?.get('interest')?.value : '================================='}}</span>
                                 प्रतिशतका दरले हुने व्याज रकम समेत एकमुष्ट तिर्न बुझाउन
-                                प्रतिज्ञा/कवुल गरी यो
-                                प्रतिज्ञापत्रको लिखत गरी तपाई नविल बैंक लिमिटेड, शाखा
-                                कार्यालय
+                                प्रतिज्ञा/कवुल गरी यो प्रतिज्ञापत्रको लिखत गरी तपाई नविल बैंक लिमिटेड, शाखा कार्यालय
                                 <input class="form-field form-control-sm  disable-print col-3"
                                        name="branchName" formControlName="branchName"
                                        placeholder="" type="text"/>
-                                <span
-                                        class="print-only font-weight-bold">{{ form?.get('branchName')?.value ? form?.get('branchName')?.value : '_________________'}}</span>
+                                <span class="print-only font-weight-bold">{{ form?.get('branchName')?.value ? form?.get('branchName')?.value : '_________________'}}</span>
                                 लाई दिएँ/दियौं ।
                             </p>
                             <div class="clearfix">
                                 <p class="text-center">
-                                    <b><u>प्रतिज्ञा गर्ने फर्म/कम्पनीको तर्फबाट
-                                        आधिकारिक व्यक्तिको लेखात्मक
-                                        सही/छाप</u></b><br>
+                                    <b><u>प्रतिज्ञा गर्ने फर्म/कम्पनीको तर्फबाट आधिकारिक व्यक्तिको लेखात्मक सही/छाप</u></b><br>
                                 </p>
                                 <p class="float-right mt-2" style="margin-right: 22rem;">
                                     हस्ताक्षरः <br><br>
