@@ -324,8 +324,8 @@ export class AssignmentOfReceivableProprietorshipComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.individualData.radioActYearDate)) {
       if (this.individualData.radioActYearDate.en === 'AD') {
-        this.actYear = this.engToNepNumberPipe.transform(this.individualData.actYear ?
-            this.individualData.actYear.en : this.individualData.actYear.en, true) || '' ;
+        this.actYear = this.individualData.actYear ?
+            this.individualData.actYear.en : this.individualData.actYear.en || '' ;
       } else {
         this.actYear = this.individualData.actYear ? this.individualData.actYear.en : '';
       }
