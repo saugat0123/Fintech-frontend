@@ -354,7 +354,8 @@ export class DdslWithoutSubsidyTemplateEditComponent implements OnInit {
 
     mappedData() {
         Object.keys(this.ddslFormGroup.controls).forEach(key => {
-            if (key.indexOf('Trans') > -1 || key === 'municipalityOrVdc' || key === 'securities' || key.indexOf('CT') > -1) {
+            if (key.indexOf('Trans') > -1 || key === 'municipalityOrVdc' || key === 'securities' || key === 'requiredDoc' ||
+                key.indexOf('CT') > -1) {
                 return;
             }
             this.attributes = new Attributes();
