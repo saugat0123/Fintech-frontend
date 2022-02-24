@@ -86,7 +86,6 @@ export class LoanDeedProprietorshipComponent implements OnInit {
     this.buildForm();
     if (!ObjectUtil.isEmpty(this.cadData.assignedLoan[0])) {
       this.companyInfo = JSON.parse(this.cadData.assignedLoan[0].companyInfo.companyJsonData);
-      console.log('Company Info:: ', this.companyInfo);
     }
     if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
       this.initialInfo = JSON.parse(this.cadData.offerDocumentList[0].initialInformation);
@@ -119,6 +118,7 @@ export class LoanDeedProprietorshipComponent implements OnInit {
       this.freeText1Check = true;
     }
     this.getLoanName();
+    this.setTotalAmount();
     this.fillForm();
   }
 
@@ -327,15 +327,42 @@ export class LoanDeedProprietorshipComponent implements OnInit {
       this.loanData.push(tempLoan);
     });
   }
+  setTotalAmount() {
+    if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
+      if (this.cadData.offerDocumentList[0].docName === 'Combined Offer Letter') {
+        this.finalAmount = (this.offerDocumentDetails.smeGlobalForm && this.offerDocumentDetails.smeGlobalForm.totalLimitInFigureCT) ?
+            this.offerDocumentDetails.smeGlobalForm.totalLimitInFigureCT : '';
+        this.loanAmountWord = (this.offerDocumentDetails.smeGlobalForm && this.offerDocumentDetails.smeGlobalForm.totalLimitInWordsCT ) ?
+            this.offerDocumentDetails.smeGlobalForm.totalLimitInWordsCT : '';
+      } if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'DDSL Without Subsidy') {
+        this.finalAmount = (this.offerDocumentDetails && this.offerDocumentDetails.loanLimitAmountFigure) ?
+            this.offerDocumentDetails.loanLimitAmountFigure.ct : '';
+        this.loanAmountWord = (this.offerDocumentDetails && this.offerDocumentDetails.loanLimitAmountFigureWords) ?
+            this.offerDocumentDetails.loanLimitAmountFigureWords.ct : '';
+      } if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Class A Sanction letter') {
+        this.finalAmount = (this.offerDocumentDetails && this.offerDocumentDetails.totalLimitInFigure) ?
+            this.offerDocumentDetails.totalLimitInFigure.ct : '';
+        this.loanAmountWord = (this.offerDocumentDetails && this.offerDocumentDetails.totalLimitInWords) ?
+            this.offerDocumentDetails.totalLimitInWords.ct : '';
+      } if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Interest subsidy sanction letter') {
+        this.finalAmount = (this.offerDocumentDetails && this.offerDocumentDetails.totalLimitFigure) ?
+            this.offerDocumentDetails.totalLimitFigure.ct : '';
+        this.loanAmountWord = (this.offerDocumentDetails && this.offerDocumentDetails.totalLimitWords) ?
+            this.offerDocumentDetails.totalLimitWords.ct : '';
+      } if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Kisan Karja Subsidy') {
+        const proposedLimit = this.cadData.assignedLoan[0] ?
+            this.cadData.assignedLoan[0].proposal.proposedLimit : 0;
+        this.finalAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(proposedLimit ? proposedLimit : 0));
+        this.loanAmountWord = this.nepaliCurrencyWordPipe.transform(proposedLimit ? proposedLimit : '');
+      } if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Udyamsil Karja Subsidy') {
+        this.finalAmount = (this.offerDocumentDetails && this.offerDocumentDetails.loanAmountFigure) ?
+            this.offerDocumentDetails.loanAmountFigure.ct : '';
+        this.loanAmountWord = (this.offerDocumentDetails && this.offerDocumentDetails.loanAmountFigureWords) ?
+            this.offerDocumentDetails.loanAmountFigureWords.ct : '';
+      }
+    }
+  }
   fillForm() {
-    let totalLoan = 0;
-    this.cadData.assignedLoan.forEach(val => {
-      const proposedAmount = val.proposal.proposedLimit;
-      totalLoan = totalLoan + proposedAmount;
-    });
-    this.finalAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoan));
-    this.loanAmountWord = this.nepaliCurrencyWordPipe.transform(totalLoan);
-    console.log('individual info ::', this.individualData);
     // for date conversion of registration date
     if (!ObjectUtil.isEmpty(this.individualData.registrationDateOption)) {
       if (this.individualData.registrationDateOption.en === 'AD') {
@@ -1334,10 +1361,9 @@ export class LoanDeedProprietorshipComponent implements OnInit {
   setActYear() {
     let yearOfAct = '';
     if (!ObjectUtil.isEmpty(this.individualData.radioActYearDate.en === 'AD')) {
-      yearOfAct = this.engToNepNumberPipe.transform(this.individualData.actYear.en ?
-          this.individualData.actYear.en : this.individualData.actYear.en, true) || '' ;
+      yearOfAct = this.individualData.actYear ? this.individualData.actYear.en : '' ;
     } else {
-      yearOfAct = this.individualData.actYear.en ? this.individualData.actYear.en : '';
+      yearOfAct = this.individualData.actYear ? this.individualData.actYear.en : '';
     }
     return yearOfAct ? yearOfAct : this.yearOfAct;
   }

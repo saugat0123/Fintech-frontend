@@ -279,7 +279,7 @@
                         </div>
                         <div class="free-text w-100">
                             <textarea rows="5" style="width:inherit;margin-left:20px"
-                                      class="form-control nepaliFont" name="freeText" formControlName="freeText">
+                                      class="form-control nepaliFont" name="freeText1" formControlName="freeText1">
                             </textarea>
                         </div>
                     </div>
@@ -446,30 +446,36 @@
                             </div>
                         </div>
                     </div>
-                    <div>
-                        <p style="text-align:center">
-                            ईति सम्वत् &nbsp;&nbsp;
-                            <input class="form-field form-control-sm d-print-none nepaliFont"
-                                   name="year"
-                                   formControlName="year" placeholder="साल" type="text"/>
-                            <span class="print-only nepaliFont font-size-normal">{{form.get(['guarantorsPartnership', i, 'year']).value || "==========================="}}</span>
-                            साल &nbsp;&nbsp;
-                            <input class="form-field form-control-sm d-print-none nepaliFont"
-                                   name="month"
-                                   formControlName="month" placeholder="महिना" type="text"/>
-                            <span class="print-only nepaliFont font-size-normal">{{form.get(['guarantorsPartnership', i, 'month']).value || "==========================="}}</span>
-                            महिना &nbsp;&nbsp;
-                            <input class="form-field form-control-sm d-print-none nepaliFont"
-                                   name="day"
-                                   formControlName="day" placeholder="गते" type="text"/>
-                            <span class="print-only nepaliFont font-size-normal">{{form.get(['guarantorsPartnership', i, 'day']).value || "==========================="}}</span>
-                            गते रोज &nbsp;&nbsp;
-                            <input class="form-field form-control-sm d-print-none nepaliFont"
-                                   name="date"
-                                   formControlName="date" placeholder="दिन" type="text"/>
-                            <span class="print-only nepaliFont font-size-normal">{{form.get(['guarantorsPartnership', i, 'date']).value || "==========================="}}</span>
-                            शुभम् ।
-                        </p>
+                    <div class="row mt-3">
+                        <div class="col-md-12 text-center">
+                            <p class="m-0">
+                                ईति सम्वत्
+                                <input class="form-field form-control-sm d-print-none nepaliFont" name="year"
+                                       formControlName="year" placeholder="" type="text"/>
+                                <span class="print-only font-weight-bold nepaliFont">
+                                    {{this.cadInitialInfo && this.cadInitialInfo[i]?.year ? this.cadInitialInfo[i]?.year : '===================================='}}
+                                </span>
+                                साल
+                                <input class="form-field form-control-sm d-print-none nepaliFont" name="month"
+                                       formControlName="month" placeholder="" type="text"/>
+                                <span class="print-only font-weight-bold nepaliFont">
+                                    {{this.cadInitialInfo && this.cadInitialInfo[i]?.month ? this.cadInitialInfo[i]?.month : '===================================='}}
+                                </span>
+                                महिना
+                                <input class="form-field form-control-sm d-print-none nepaliFont" name="date"
+                                       formControlName="date" placeholder="" type="text"/>
+                                <span class="print-only font-weight-bold nepaliFont">
+                                    {{this.cadInitialInfo && this.cadInitialInfo[i]?.date ? this.cadInitialInfo[i]?.date : '===================================='}}
+                                </span>
+                                गते रोज
+                                <input class="form-field form-control-sm d-print-none nepaliFont" name="day"
+                                       formControlName="day" placeholder="" type="text"/>
+                                <span class="print-only font-weight-bold nepaliFont">
+                                    {{this.cadInitialInfo && this.cadInitialInfo[i]?.day ? this.cadInitialInfo[i]?.day : '===================================='}}
+                                </span>
+                                शुभम् ।
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>
