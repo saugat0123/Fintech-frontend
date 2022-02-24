@@ -46,6 +46,8 @@ export class PowerOfAttorneyPartnershipComponent implements OnInit {
   issueDate = [];
   authorizedNameArray: Array<any> = new Array<any>();
   isAuth = false;
+  totalAmount;
+  totalAmountInWord;
   isAuth1 = false;
 
 
@@ -83,6 +85,7 @@ export class PowerOfAttorneyPartnershipComponent implements OnInit {
         this.isForeignAddress = true;
       }
     }
+    this.setTotalAmount();
     this.dateConvert();
     this.patchFreeText();
     this.fillForm();
@@ -200,7 +203,41 @@ export class PowerOfAttorneyPartnershipComponent implements OnInit {
       date: [undefined],
     });
   }
-
+  setTotalAmount() {
+    if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
+      if (this.cadData.offerDocumentList[0].docName === 'Combined Offer Letter') {
+        this.totalAmount = (this.initialInfo.smeGlobalForm && this.initialInfo.smeGlobalForm.totalLimitInFigureCT) ?
+            this.initialInfo.smeGlobalForm.totalLimitInFigureCT : '';
+        this.totalAmountInWord = (this.initialInfo.smeGlobalForm && this.initialInfo.smeGlobalForm.totalLimitInWordsCT ) ?
+            this.initialInfo.smeGlobalForm.totalLimitInWordsCT : '';
+      } if (!ObjectUtil.isEmpty(this.initialInfo) && this.cadData.offerDocumentList[0].docName === 'DDSL Without Subsidy') {
+        this.totalAmount = (this.initialInfo && this.initialInfo.loanLimitAmountFigure) ?
+            this.initialInfo.loanLimitAmountFigure.ct : '';
+        this.totalAmountInWord = (this.initialInfo && this.initialInfo.loanLimitAmountFigureWords) ?
+            this.initialInfo.loanLimitAmountFigureWords.ct : '';
+      } if (!ObjectUtil.isEmpty(this.initialInfo) && this.cadData.offerDocumentList[0].docName === 'Class A Sanction letter') {
+        this.totalAmount = (this.initialInfo && this.initialInfo.totalLimitInFigure) ?
+            this.initialInfo.totalLimitInFigure.ct : '';
+        this.totalAmountInWord = (this.initialInfo && this.initialInfo.totalLimitInWords) ?
+            this.initialInfo.totalLimitInWords.ct : '';
+      } if (!ObjectUtil.isEmpty(this.initialInfo) && this.cadData.offerDocumentList[0].docName === 'Interest subsidy sanction letter') {
+        this.totalAmount = (this.initialInfo && this.initialInfo.totalLimitFigure) ?
+            this.initialInfo.totalLimitFigure.ct : '';
+        this.totalAmountInWord = (this.initialInfo && this.initialInfo.totalLimitWords) ?
+            this.initialInfo.totalLimitWords.ct : '';
+      } if (!ObjectUtil.isEmpty(this.initialInfo) && this.cadData.offerDocumentList[0].docName === 'Kisan Karja Subsidy') {
+        const proposedLimit = this.cadData.assignedLoan[0] ?
+            this.cadData.assignedLoan[0].proposal.proposedLimit : 0;
+        this.totalAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(proposedLimit ? proposedLimit : 0));
+        this.totalAmountInWord = this.nepaliCurrencyWordPipe.transform(proposedLimit ? proposedLimit : '');
+      } if (!ObjectUtil.isEmpty(this.initialInfo) && this.cadData.offerDocumentList[0].docName === 'Udyamsil Karja Subsidy') {
+        this.totalAmount = (this.initialInfo && this.initialInfo.loanAmountFigure) ?
+            this.initialInfo.loanAmountFigure.ct : '';
+        this.totalAmountInWord = (this.initialInfo && this.initialInfo.loanAmountFigureWords) ?
+            this.initialInfo.loanAmountFigureWords.ct : '';
+      }
+    }
+  }
   setFreeText() {
     const free1 = {
       freeText1: this.form.get('freeText1').value ? this.form.get('freeText1').value : '',
@@ -332,8 +369,8 @@ export class PowerOfAttorneyPartnershipComponent implements OnInit {
       wardNoOfFirm: this.individualData.permanentWard ? this.individualData.permanentWard.ct : '',
       addressOfFirm: this.individualData.registeredStreetTole ? this.individualData.registeredStreetTole.ct : '',
       firmName: this.individualData.name ? this.individualData.name.ct : '',
-      loanAmountInFigure: this.finalAmount ? this.finalAmount : '',
-      loanAmountInWords: this.loanAmountWord ? this.loanAmountWord : '',
+      loanAmountInFigure: this.totalAmount,
+      loanAmountInWords: this.totalAmountInWord,
       sanctionLetterIssuedDate: this.sanctionDate ? this.sanctionDate : '',
       freeText1: this.supportedInfo ? this.supportedInfo.freeText1 : '',
       addressOfBorrower: this.combinedAddress ? this.combinedAddress : '',
