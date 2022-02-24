@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, DoCheck, ElementRef, OnInit, ViewChild, ChangeDetectorRef, OnChanges, SimpleChanges, AfterViewChecked} from '@angular/core';
+import {AfterViewChecked, ChangeDetectorRef, Component, DoCheck, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {Pageable} from '../../../../../@core/service/baseservice/common-pageable';
 import {LoanConfig} from '../../../modal/loan-config';
 import {Document} from '../../../modal/document';
@@ -23,8 +23,7 @@ import {loanNature} from 'src/app/feature/admin/modal/loanNature';
 import {financedAssets} from 'src/app/feature/admin/modal/financedAssets';
 import {environment} from '../../../../../../environments/environment';
 import {Editor} from '../../../../../@core/utils/constants/editor';
-import {parse} from 'node-html-parser';
-import { DomSanitizer } from '@angular/platform-browser'
+import {DomSanitizer} from '@angular/platform-browser';
 
 
 @Component({
@@ -377,144 +376,48 @@ export class UIComponent implements OnInit, DoCheck , AfterViewChecked{
     }
 
     data(data: string, flag) {
+        this.allIds = [];
         const parser = new DOMParser();
-        const parsedDocument = parser.parseFromString(data,'text/html');
+        const parsedDocument = parser.parseFromString(data, 'text/html');
+        let totalInput = 0;
         // seperating tables from overal html
         const tables = Array.from(parsedDocument.getElementsByTagName('table'));
-        tables.forEach((element , table) => {
+        tables.forEach((element, table) => {
             //selecting all tr from table
             const tr = Array.from(element.getElementsByTagName('tbody'))[0].getElementsByTagName('tr');
             // first row header data
             const tds = tr[0].getElementsByTagName('td');
-                for (let i = 0; i < tds.length; i++) {
-                    const f = tds[i].innerText.split('\n').join('');
-                    //pushing data to array for comparing
-                    this.firstRows.push(f.split('\t').join(''));
-                    }
-            for(let index =0;index<tr.length;index++) {
-                    const tdData = tr[index].getElementsByTagName('td');
-                        for(let j = 0; j< tdData.length;j++) {
-                                if(this.firstRows[j].toLowerCase() === 'yes' || this.firstRows[j].toLowerCase() === 'no' || this.firstRows[j].toLowerCase() === 'na') {
-                                    // text values of  rows
-                                    const da = tdData[j].innerText.split('\n').join('').split('\t').join('');
-                                    //for skipping first row
-                                    if(da.toLowerCase() === 'yes' || da.toLowerCase() === 'no' ||da.toLowerCase() === 'na') {
+            for (let i = 0; i < tds.length; i++) {
+                const f: string = tds[i].innerText.split('\n').join('').split('\t').join('');
+                if (f.toLowerCase() === 'yes' || f.toLowerCase() === 'no' || f.toLowerCase() === 'na') {
+                    totalInput += 1;
+                }
+                //pushing data to array for comparing
+                this.firstRows.push(f);
+            }
+            for (let index = 0; index < tr.length; index++) {
+                const tdData = tr[index].getElementsByTagName('td');
+                for (let j = 0; j < tdData.length; j++) {
+                    if (this.firstRows[j].toLowerCase() === 'yes' ||
+                        this.firstRows[j].toLowerCase() === 'no' || this.firstRows[j].toLowerCase() === 'na') {
+                        // text values of  rows
+                        const da = tdData[j].innerText.split('\n').join('').split('\t').join('');
+                        //for skipping first row
+                        if (da.toLowerCase() === 'yes' || da.toLowerCase() === 'no' || da.toLowerCase() === 'na') {
 
-                                    } else {
-                                        const id = 'name'+ (index +j+table);
-                                        this.allIds.push(id);
-                                        tdData[j].innerHTML = `<span><input type="radio" click = "change()" id = "name${(index +j+table)}" name="hello${index}"></span>`
-                                        // tdData[j].addEventListener('click', function(event){
-                                        //     console.log('this is clicked')
-                                        //         // this.change(id);
-                                        // });  
-                                        // tdData[j].listen
-                                    }
-                                }
+                        } else {
+                            const id = `name${index}${j}${table}n${totalInput}n${index}`;
+                            this.allIds.push(id);
+                            tdData[j].innerHTML = `<span id = "name${index}${j}${table}n${totalInput}n${index}"><input type="radio" click = "change()"  name="hello${index}"></span>`;
                         }
+                    }
+                }
             }
             this.firstRows = [];
-            this.dk = this.sanitized.bypassSecurityTrustHtml('<table class="">' + element.innerHTML +'</table>'); 
-        });
-        // this.ck = this.dk;
-        // const rootNodes = parse(data);
-        // var x = document.createElement("INPUT");
-        // x.setAttribute("type", "text");
-        // // let frag = document.createRange().createContextualFragment('<div bis_skin_checked="1">One</div><div bis_skin_checked="1">Two</div>');
-        // // let datas = document.createRange().createContextualFragment('') as Node;
-        // const para = document.createElement("input");
-        // para.type ='radio';
-        // para.name = 'x';
-        // // const node = document.createTextNode("This is new.");
-        // // para.appendChild(node);
-        // const root = rootNodes.getElementsByTagName('table')[0].getElementsByTagName('tbody')[0].getElementsByTagName('tr')[0].getElementsByTagName('td')[0];
-        // root.appendChild(root.childNodes[1]);
-        //body.set_content('<div id = "asdf"></div>');
-        // body.appendChild('<div id = "asdf"></div>');
-
-        // input.type ='radio';
-        // input.setAttribute("HREF", 'a');
-        // input.innerText = "Visit our Web site for more details.";
-        // radio.appendChild(input as Node);
-        // const node = new Node();
-        // rootNodes.appendChild(radio);
-    
-    
-        // console.log('this is first', rootNodes);
-        // console.log('this is first chid', rootNodes.getElementsByTagName('table'));
-        // if (!ObjectUtil.isEmpty(rootNodes)) {
-        //     rootNodes.rootNodes.forEach((d: any, i) => {
-        //         try {
-        //             // @ts-ignore
-        //             if (d.name === 'table') {
-        //                 this.tableArray.push(d);
-        //             }
-        //         } catch (e) {
-        //             console.log(e);
-        //         }
-        //     });
-        //     // this.getChildrens(this.tableArray);
-            // if (this.firstRows.length > 0) {
-            //     this.totalRoes.push(this.firstRows);
-            //     this.firstRows = [];
-            // }
-        //     console.log(rootNodes.toString());
-        //     console.log('this is first row', this.totalRoes);
-        //     console.log('this is first row', this.tableArray);
-        // }
-            // console.log(rootNodes.toString());
-
-    }
-
-    change(id) {
-        console.log('clicked',id);
-    }
-    getChildrens(array: Array<any>) {
-        array.forEach((d, i) => {
-            // @ts-ignore
-            if (d.type === 'element') {
-                // @ts-ignore
-
-                if (d.name === 'table') {
-                    this.index += 1;
-                }
-                // @ts-ignore
-                if (d.name === 'tr') {
-                    this.firstRow += 1;
-                    if (this.firstRows.length > 0) {
-                        this.totalRoes.push(this.index, this.firstRows);
-                        this.firstRows = [];
-                    }
-                    this.firstRow = 0;
-                    if (this.firstRow === 1) {
-                        console.log('this is first row', d);
-                    }
-                }
-                console.log('this is index', this.index);
-                console.log('this is length', this.totalRoes.length);
-                // @ts-ignore
-                if (d.name === 'td' && this.index > 0 && this.totalRoes.length > 0) {
-                    console.log('sapai thik xa ta');
-                    if (this.totalRoes[this.index][i].toLowerCase() === 'yes' || this.totalRoes[this.index][i].toLowerCase() === 'na'
-                        || this.totalRoes[this.index][i].toLowerCase() === 'no') {
-                        const radio = document.createElement('input');
-                        radio.type = 'radio';
-                        d.chidren = [radio];
-                    }
-                }
-                console.log('this is childred', d);
-                // @ts-ignore
-                if (this.firstRow === 1 && d.children.length < 2 && d.children[0].type === 'text') {
-                    // @ts-ignore
-                    this.firstRows.push(d.children.value);
-                }
-                // @ts-ignore
-                this.getChildrens(d.children);
-            } else {
-
-            }
+            this.dk = this.sanitized.bypassSecurityTrustHtml('<table class="">' + element.innerHTML + '</table>');
         });
     }
+
 
     private scrollToFirstInvalidControl() {
         const firstInvalidControl: HTMLElement = this.el.nativeElement.querySelector(
@@ -745,12 +648,5 @@ export class UIComponent implements OnInit, DoCheck , AfterViewChecked{
         });
     }
     ngAfterViewChecked(): void {
-        this.changeDetectorRef.detectChanges();
-        if(this.allIds.length > 0) {
-            var elem = this.el.nativeElement.querySelector(`#${this.allIds[0]}`);
-            if(elem) {
-                 elem.addEventListener('click', this.change.bind(this,this.allIds[0]));
-               }
-        }
        }
 }

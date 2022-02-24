@@ -1,218 +1,83 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {LoanDataHolder} from '../../loan/model/loanData';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {LoanConfig} from '../../admin/modal/loan-config';
+import {delay} from 'rxjs/operators';
 
 @Component({
     selector: 'app-product-paper-checklist',
     templateUrl: './product-paper-checklist.component.html',
     styleUrls: ['./product-paper-checklist.component.scss']
 })
-export class ProductPaperChecklistComponent implements OnInit {
+export class ProductPaperChecklistComponent implements OnInit , AfterViewInit {
 
-    constructor(private formBuilder: FormBuilder) {
+    constructor(private formBuilder: FormBuilder,
+        private changeDetectorRef: ChangeDetectorRef, private el: ElementRef) {
     }
 
     @Input() loan: LoanConfig;
     @Input() fromLoan;
     @Input() loanDataHolder: LoanDataHolder;
     @Output() checkList = new EventEmitter();
+    @Input() paper;
     paperFormIndividual: FormGroup;
     paperFormInstitutional: FormGroup;
     yesNoNa = ['Yes', 'No', 'Na'];
     yesNo = ['Yes', 'No'];
     formData;
-
+    allIds = [];
+    parser: DOMParser;
+    parsedData: Document;
     ngOnInit() {
-        if (!ObjectUtil.isEmpty(this.loanDataHolder.paperProductChecklist)) {
-            this.formData = JSON.parse(this.loanDataHolder.paperProductChecklist);
-        }
-        if (this.fromLoan && this.loan.loanCategory === 'INDIVIDUAL') {
-            this.buildIndividualForm();
-            if (!ObjectUtil.isEmpty(this.formData)) {
-                this.paperFormIndividual.patchValue(this.formData);
-            }
-        } else if (this.fromLoan && this.loan.loanCategory === 'INSTITUTION') {
-            this.buildInstitutionForm();
-            if (!ObjectUtil.isEmpty(this.formData)) {
-                this.paperFormInstitutional.patchValue(this.formData);
-            }
-        }
+            this.parser = new DOMParser();
+            this.parsedData = this.parser.parseFromString(this.paper, 'text/html');
     }
+    change(id) {
+        console.log('asdasdasdasdid', id);
+       const ids = id.split(/([0-9]+)/);
+        //id appended to name (each button id is greater or lesser by 10);
+        let positiveNum = Number(ids[1]);
+        let negativeNum = Number(ids[1]);
+        //total input field in a row
+        const totalInput = ids[3];
+        // current position in the row
+        const  name = ids[5];
+        const rowId = [];
+        for (let i = 1; i < Number(totalInput); i++) {
+            positiveNum += 10;
+            negativeNum -= 10;
+            const currentId  = `name${(positiveNum)}n${totalInput}n${name}`;
+            const currentIds  = `name${(negativeNum)}n${totalInput}n${name}`;
+            rowId.push(currentId);
+            rowId.push(currentIds);
+        }
+        for (let i = 0; i < rowId.length; i++) {
+           const elem = this.parsedData.getElementById(rowId[i]);
+           if(elem) {
+           elem.innerHTML = `<input type="radio" click = "change()"  name="hello${name}">`;
+           }
 
-    buildIndividualForm() {
-        this.paperFormIndividual = this.formBuilder.group({
-            ciclDate: [undefined],
-            internal: [undefined],
-            negative: [undefined],
-            reference: [undefined],
-            statements: [undefined],
-            lalPurja: [undefined],
-            bluePrint: [undefined],
-            boundary: [undefined],
-            bcc: [undefined],
-            bca: [undefined],
-            fac: [undefined],
-            salaryCertificate: [undefined],
-            pension: [undefined],
-            rental: [undefined],
-            professional: [undefined],
-            businessIncome: [undefined],
-            agricultureIncome: [undefined],
-            loanAmount: [undefined],
-            creditChain: [undefined],
-            loanTenure: [undefined],
-            loanAmountMax: [undefined],
-            ltv: [undefined],
-            groupExposure: [undefined],
-            ageOfBorrower: [undefined],
-            ageOfCoBorrower: [undefined],
-            dbr: [undefined],
-            interestRate: [undefined],
-            loanFee: [undefined],
-            commitmentFee: [undefined],
-            swapFee: [undefined],
-            aggregate: [undefined],
-        });
-    }
-
-    buildInstitutionForm() {
-        this.paperFormInstitutional = this.formBuilder.group({
-            loanAmount: [undefined],
-            drawingPower: [undefined],
-            fmv: [undefined],
-            tenure: [undefined],
-            scc: [undefined],
-            dscr: [undefined],
-            sole: [undefined],
-            radius: [undefined],
-            fac: [undefined],
-            laf: [undefined],
-            attached: [undefined],
-            stockInspection: [undefined],
-            financial: [undefined],
-            tax: [undefined],
-            hotList: [undefined],
-            obtained: [undefined],
-            paripasu: [undefined],
-        });
+        }
+        this.parsedData.getElementById(id).innerHTML = `<input type="radio" click = "change()" checked = "checked"  name="hello${name}">`;
     }
 
     save() {
-        if (this.loan.loanCategory === 'INDIVIDUAL') {
-            this.checkList.emit(this.paperFormIndividual.value);
-        } else {
-            this.checkList.emit(this.paperFormInstitutional.value);
+            this.checkList.emit(this.parsedData.documentElement.innerHTML);
+    }
+
+    ngAfterViewInit(): void {
+        this.allIds = JSON.parse(this.loan.paperChecklist).id;
+        this.changeDetectorRef.detectChanges();
+        if (this.allIds.length > 0) {
+                this.allIds.forEach((id, i) => {
+                    console.log(id);
+                    const elem = this.el.nativeElement.querySelector(`#${id}`);
+                    if (elem) {
+                         elem.addEventListener('change', this.change.bind(this, id));
+                       }
+                });
         }
-    }
-
-    yesToAll() {
-        this.paperFormIndividual.patchValue({
-            ciclDate: 'Yes',
-            internal: 'Yes',
-            negative: 'Yes',
-            reference: 'Yes',
-            statements: 'Yes',
-            lalPurja: 'Yes',
-            bluePrint: 'Yes',
-            boundary: 'Yes',
-            bcc: 'Yes',
-            bca: 'Yes',
-            fac: 'Yes',
-            salaryCertificate: 'Yes',
-            pension: 'Yes',
-            rental: 'Yes',
-            professional: 'Yes',
-            businessIncome: 'Yes',
-            agricultureIncome: 'Yes',
-            loanAmount: 'Yes',
-            creditChain: 'Yes',
-            loanTenure: 'Yes',
-            loanAmountMax: 'Yes',
-            ltv: 'Yes',
-            groupExposure: 'Yes',
-            ageOfBorrower: 'Yes',
-            ageOfCoBorrower: 'Yes',
-            dbr: 'Yes',
-            interestRate: 'Yes',
-            loanFee: 'Yes',
-            commitmentFee: 'Yes',
-            swapFee: 'Yes',
-            aggregate: 'Yes',
-        });
-    }
-
-    noToAll() {
-        this.paperFormIndividual.patchValue({
-            ciclDate: 'No',
-            internal: 'No',
-            negative: 'No',
-            reference: 'No',
-            statements: 'No',
-            lalPurja: 'No',
-            bluePrint: 'No',
-            boundary: 'No',
-            bcc: 'No',
-            bca: 'No',
-            fac: 'No',
-            salaryCertificate: 'No',
-            pension: 'No',
-            rental: 'No',
-            professional: 'No',
-            businessIncome: 'No',
-            agricultureIncome: 'No',
-            loanAmount: 'No',
-            creditChain: 'No',
-            loanTenure: 'No',
-            loanAmountMax: 'No',
-            ltv: 'No',
-            groupExposure: 'No',
-            ageOfBorrower: 'No',
-            ageOfCoBorrower: 'No',
-            dbr: 'No',
-            interestRate: 'No',
-            loanFee: 'No',
-            commitmentFee: 'No',
-            swapFee: 'No',
-            aggregate: 'No',
-        });
-    }
-
-    naToAll() {
-        this.paperFormIndividual.patchValue({
-            ciclDate: 'Na',
-            internal: 'Na',
-            negative: 'Na',
-            reference: 'Na',
-            statements: 'Na',
-            lalPurja: 'Na',
-            bluePrint: 'Na',
-            boundary: 'Na',
-            bcc: 'Na',
-            bca: 'Na',
-            fac: 'Na',
-            salaryCertificate: 'Na',
-            pension: 'Na',
-            rental: 'Na',
-            professional: 'Na',
-            businessIncome: 'Na',
-            agricultureIncome: 'Na',
-            loanAmount: 'Na',
-            creditChain: 'Na',
-            loanTenure: 'Na',
-            loanAmountMax: 'Na',
-            ltv: 'Na',
-            groupExposure: 'Na',
-            ageOfBorrower: 'Na',
-            ageOfCoBorrower: 'Na',
-            dbr: 'Na',
-            interestRate: 'Na',
-            loanFee: 'Na',
-            commitmentFee: 'Na',
-            swapFee: 'Na',
-            aggregate: 'Na',
-        });
     }
 }
 

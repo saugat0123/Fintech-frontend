@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild, ChangeDetectorRef, AfterViewChecked} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild, ChangeDetectorRef, AfterViewChecked, AfterViewInit} from '@angular/core';
 import {LoanDataService} from '../../service/loan-data.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 
@@ -69,7 +69,7 @@ import { DomSanitizer } from '@angular/platform-browser'
     templateUrl: './loan-form.component.html',
     styleUrls: ['./loan-form.component.css'],
 })
-export class LoanFormComponent implements OnInit, AfterViewChecked {
+export class LoanFormComponent implements OnInit {
     loanFile: DmsLoanFile;
     loanTitle: string;
     loading = true;
@@ -146,6 +146,7 @@ export class LoanFormComponent implements OnInit, AfterViewChecked {
     productUtils: ProductUtils = LocalStorageUtil.getStorage().productUtil;
 
     docStatusMakerList = [];
+    elemBinding = true;
 
     calendarType: CalendarType = CalendarType.AD;
 
@@ -383,15 +384,7 @@ export class LoanFormComponent implements OnInit, AfterViewChecked {
             const obj = JSON.parse(this.loans.paperChecklist);
             this.paperChecklist = this.sanitized.bypassSecurityTrustHtml(obj.view.changingThisBreaksApplicationSecurity)
             this.allIds = obj.id;
-            if(this.allIds.length > 0) {
-                this.changeDetectorRef.detectChanges();
-                this.allIds.forEach(id=>{
-                    var elem = this.el.nativeElement.querySelector(`#${id}`);
-                    if(elem) {
-                         elem.addEventListener('click', this.change.bind(this,id));
-                       }
-                })
-            }
+    
             this.loanTag = response.detail.loanTag;
             // this.templateList = response.detail.templateList;
             this.templateList = new DefaultLoanTemplate().DEFAULT_TEMPLATE;
@@ -891,8 +884,5 @@ export class LoanFormComponent implements OnInit, AfterViewChecked {
    updateChecklist(event) {
         this.checklistData = event;
        console.log('this is the data', event);
-   }
-   ngAfterViewChecked(): void {
-    this.changeDetectorRef.detectChanges();
    }
 }
