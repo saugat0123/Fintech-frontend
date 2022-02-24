@@ -251,9 +251,8 @@
                                        name="landValuatorDate" placeholder="Valuated Date"
                                        [nbDatepicker]="landValuatorDate"
                                        type="text"/>
-                                <app-calendar
+                                <app-calendar *ngIf="calendarType === 'BS'"
                                         (messageToEmit)="securityForm.get(['landDetails',i,'landValuatorDate']).patchValue($event?.eDate)"
-                                        *ngIf="calendarType === 'BS'"
                                         [ePreDate]="securityForm.get(['landDetails',i,'landValuatorDate']).value"></app-calendar>
                                 <nb-datepicker #landValuatorDate></nb-datepicker>
                             </div>
@@ -2648,10 +2647,10 @@
                                [nbDatepicker]="sharePriceDate"
                                formControlName="sharePriceDate"
                                class="form-control"
-                               placeholder="yy-mm-dd"
                                id="sharePriceDate">
-                        <app-calendar [ePreDate]="shareSecurityForm.get('sharePriceDate').value" *ngIf="calendarType === 'BS'"
-                                      (messageToEmit)="shareSecurityForm.get('sharePriceDate').patchValue($event?.eDate)"></app-calendar>
+                        <app-calendar *ngIf="calendarType === 'BS'"
+                                      (messageToEmit)="shareSecurityForm.get('sharePriceDate').patchValue($event?.eDate)"
+                                      [ePreDate]="shareSecurityForm.get('sharePriceDate').value"></app-calendar>
                         <nb-datepicker #sharePriceDate></nb-datepicker>
                     </div>
                     <div class="col-md-3 mb-3">
