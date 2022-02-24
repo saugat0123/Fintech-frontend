@@ -252,13 +252,13 @@
                                   formControlName="loanAmountInFigure"
                                   placeholder="ऋण रकम"
                                   type="text"/>
-                        <span class="print-only">{{this.finalAmount ? this.finalAmount : '___________________________'}}</span>।
+                        <span class="print-only"> {{form?.get('loanAmountInFigure')?.value ?  form?.get('loanAmountInFigure')?.value : '___________________________'}}</span>।
                         (अक्षरेपी <input class="form-field form-control-sm outside disable-print col-2"
                                          name="loanAmountInWords"
                                          formControlName="loanAmountInWords"
                                          placeholder="रकम"
                                          type="text"/>
-                        <span class="print-only">{{this.loanAmountWord ? this.loanAmountWord : '___________________________'}}</span>मात्र)
+                        <span class="print-only">{{form?.get('loanAmountInWords')?.value ?  form?.get('loanAmountInWords')?.value : '___________________________'}}</span>मात्र)
                         स्वीकृत गर्दा तोकिएको शर्त बमोजिम हामी ऋणीले भुक्तानी प्राप्त गर्न बांकी रहेको (Account
                         Receivables) रकम र स्वीकारयोग्य चेक, ड्राफ्ट, बील, वित्तीय उपकरण आदि हामी ऋणीको हकमा बुझीलिन
                         नबिल बैंक लिमिटेड (जसले यसका अधिकारप्राप्त कर्मचारी वा प्रतिनिधिलाई समेत जनाउनेछ) लाई यसै
