@@ -66,22 +66,14 @@
                                        formControlName="municipalityName" placeholder="" type="text"/>
                                 <strong class="print-only">{{personalGuaranteeCompany.get(["guaranteeCompanies", i, "municipalityName"]).value}}</strong>
                             </span>
-                            <span *ngIf="this.loanHolderNepData.registeredMunType.en === '0'">
-                                न.पा.
-                            </span>
-                            <span *ngIf="this.loanHolderNepData.registeredMunType.en === '1'">
-                                गा.वि.स.
-                            </span>
-                            <span *ngIf="this.loanHolderNepData.registeredMunType.en === '2'">
-                                गाँउपालिका
-                            </span>
-                            , वडा नं
+                            <span *ngIf="this.loanHolderNepData.registeredMunType.en === '0'"> न.पा.</span>
+                            <span *ngIf="this.loanHolderNepData.registeredMunType.en === '1'"> गा.वि.स.</span>
+                            <span *ngIf="this.loanHolderNepData.registeredMunType.en === '2'">गाँउपालिका</span>, वडा नं
                             <span>
                                 <input class="form-field form-control-sm d-print-none" name="wardNumber"
                                        formControlName="wardNumber" placeholder="" type="text"/>
                                 <strong class="print-only">{{personalGuaranteeCompany.get(["guaranteeCompanies", i, "wardNumber"]).value}}</strong>
-                            </span>
-                            ,
+                            </span>,
                             <span>
                                 <input class="form-field form-control-sm d-print-none" name="streetAddress"
                                        formControlName="streetAddress" placeholder="" type="text"/>
@@ -105,13 +97,12 @@
                                 formControlName="letterIssuedDate" placeholder="" type="text"/>
                                 <strong class="print-only">{{personalGuaranteeCompany.get(["guaranteeCompanies", i, "letterIssuedDate"]).value}}</strong>
                             </span>
-                            को ऋण स्विकृति पत्रानुसार स्विकृत विभिन्न ऋणकर्जा तथा बैकिंग सुविधाहरु जम्मा रु.
-                            <span>
+                            को ऋण स्विकृति पत्रानुसार स्विकृत विभिन्न ऋणकर्जा तथा बैकिंग सुविधाहरु जम्मा
+                            रु.<span>
                                 <input class="form-field form-control-sm d-print-none" name="loanAmount"
                                 formControlName="loanAmount" placeholder="" type="text"/>
                                 <strong class="print-only">{{personalGuaranteeCompany.get(["guaranteeCompanies", i, "loanAmount"]).value}}</strong>
-                            </span> /-
-                            (अक्षरेपी
+                            </span>/- (अक्षरेपी
                             <span>
                                 <input class="form-field form-control-sm d-print-none" name="loanAmountInWord"
                                 formControlName="loanAmountInWord" placeholder="" type="text"/>
@@ -137,12 +128,12 @@
                             <br>
                             <ol class="conditions">
                                 <li>
-                                    यस जमानतको लिखत बमोजिम जमानत दिनेको दायित्व सांवा रकम रु.
-                                    <span>
+                                    यस जमानतको लिखत बमोजिम जमानत दिनेको दायित्व सांवा रकम
+                                    रु.<span>
                                         <input class="form-field form-control-sm d-print-none" name="approvedLoanAmount"
                                         formControlName="approvedLoanAmount" placeholder="" type="text"/>
                                         <strong class="print-only">{{personalGuaranteeCompany.get(["guaranteeCompanies", i, "approvedLoanAmount"]).value}}</strong>
-                                    </span> /-
+                                    </span>/-
                                     (अक्षरेपी <span>
                                         <input class="form-field form-control-sm d-print-none" name="approvedLoanAmountInWord"
                                         formControlName="approvedLoanAmountInWord" placeholder="" type="text"/>
@@ -279,14 +270,12 @@
                                             <input class="form-field form-control-sm d-print-none" name="permanentDistrict"
                                                 formControlName="permanentDistrict" placeholder="" type="text"/>
                                             <strong class="print-only">{{personalGuaranteeCompany.get(["guaranteeCompanies", i, "permanentDistrict"]).value}}</strong>
-                                        </span>
-                                        , जिल्ला : 
+                                        </span>, जिल्ला :
                                         <span>
                                             <input class="form-field form-control-sm d-print-none" name="permanentMunicipalities"
                                                 formControlName="permanentMunicipalities" placeholder="" type="text"/>
                                             <strong class="print-only">{{personalGuaranteeCompany.get(["guaranteeCompanies", i, "permanentMunicipalities"]).value}}</strong>
-                                        </span>
-                                        , गा.वि.स./नगर  वडा नं. : 
+                                        </span>, गा.वि.स./नगर  वडा नं. :
                                         <span>
                                             <input class="form-field form-control-sm d-print-none" name="permanentWard"
                                                 formControlName="permanentWard" placeholder="" type="text"/>
@@ -312,14 +301,12 @@
                                             <input class="form-field form-control-sm d-print-none" name="temporaryDistrict"
                                                 formControlName="temporaryDistrict" placeholder="" type="text"/>
                                             <strong class="print-only">{{personalGuaranteeCompany.get(["guaranteeCompanies", i, "temporaryDistrict"]).value}}</strong>
-                                        </span>
-                                        , जिल्ला : 
+                                        </span>, जिल्ला :
                                         <span>
                                             <input class="form-field form-control-sm d-print-none" name="temporaryMunicipalities"
                                                 formControlName="temporaryMunicipalities" placeholder="" type="text"/>
                                             <strong class="print-only">{{personalGuaranteeCompany.get(["guaranteeCompanies", i, "temporaryMunicipalities"]).value}}</strong>
-                                        </span>
-                                        , गा.वि.स./नगर  वडा नं. : 
+                                        </span>, गा.वि.स./नगर  वडा नं. :
                                         <span>
                                             <input class="form-field form-control-sm d-print-none" name="temporaryWard"
                                                 formControlName="temporaryWard" placeholder="" type="text"/>
@@ -347,21 +334,19 @@
                                             <input class="form-field form-control-sm d-print-none" name="citizenshipNo"
                                                 formControlName="citizenshipNo" placeholder="" type="text"/>
                                             <strong class="print-only">{{personalGuaranteeCompany.get(["guaranteeCompanies", i, "citizenshipNo"]).value}}</strong>
-                                        </span>
-                                        , जारी गर्ने कार्यालय : 
+                                        </span>, जारी गर्ने कार्यालय :
                                         <span>
                                             <input class="form-field form-control-sm d-print-none" name="issuedBy"
                                                 formControlName="issuedBy" placeholder="" type="text"/>
                                             <strong class="print-only">{{personalGuaranteeCompany.get(["guaranteeCompanies", i, "issuedBy"]).value}}</strong>
-                                        </span>
-                                        , जारी मिति : 
+                                        </span>, जारी मिति :
                                         <span>
                                             <input class="form-field form-control-sm d-print-none" name="issuedDate"
                                                 formControlName="issuedDate" placeholder="" type="text"/>
                                             <strong class="print-only">{{personalGuaranteeCompany.get(["guaranteeCompanies", i, "issuedDate"]).value}}</strong>
                                         </span>
-                                        <ng-container *ngIf="(guaranteeCompany?.guarantorNationality === 'Indian' && guaranteeCompany?.indianGuarantorDetailOption.en === 'Passport') || guaranteeCompany?.guarantorNationality === 'Other'">
-                                            , म्याद सकिने मिति :
+                                        <ng-container *ngIf="(guaranteeCompany?.guarantorNationality === 'Indian' && guaranteeCompany?.indianGuarantorDetailOption.en === 'Passport') || guaranteeCompany?.guarantorNationality === 'Other'">,
+                                            म्याद सकिने मिति :
                                             <span>
                                             <input class="form-field form-control-sm d-print-none" name="passportExpiryDate"
                                                    formControlName="passportExpiryDate" placeholder="" type="text"/>

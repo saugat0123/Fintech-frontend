@@ -145,7 +145,7 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
               (this.personalGuaranteeCompany.get('guaranteeCompanies') as FormArray).push(
                   this.formBuilder.group({
                       branchName: [this.loanHolderNepData.branch ? this.loanHolderNepData.branch.ct : ''],
-                      actDetails: [this.loanHolderNepData.actName.ct ? this.loanHolderNepData.actName.ct : ''],
+                      actDetails: [this.loanHolderNepData.actName ? this.loanHolderNepData.actName.ct : ''],
                       actYearInFigure: [this.setActYear()],
                       authorizedBodyName: [this.loanHolderNepData.authorizedBodyName ? this.loanHolderNepData.authorizedBodyName.ct : 'नेपाल सरकार'],
                       headDepartment: [this.loanHolderNepData.name ? this.loanHolderNepData.name.ct : ''],
@@ -274,12 +274,11 @@ export class PersonalGuaranteeCompanyComponent implements OnInit {
 
     setActYear() {
         let yearOfAct = '';
-        if (!ObjectUtil.isEmpty(this.loanHolderNepData.radioActYearDate.np)) {
+        if (!ObjectUtil.isEmpty(this.loanHolderNepData.radioActYearDate)) {
             if (this.loanHolderNepData.radioActYearDate.np === 'BS') {
                 yearOfAct = this.loanHolderNepData.actYear ? this.loanHolderNepData.actYear.en : '';
             } else {
-                yearOfAct = this.engToNepNumberPipe.transform(this.loanHolderNepData.actYear.en ?
-                    this.loanHolderNepData.actYear.en : '');
+                yearOfAct = this.loanHolderNepData.actYear ? this.loanHolderNepData.actYear.en : '';
             }
         }
         return yearOfAct ? yearOfAct : '';
