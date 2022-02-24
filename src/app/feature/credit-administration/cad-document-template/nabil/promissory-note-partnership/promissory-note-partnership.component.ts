@@ -192,13 +192,13 @@ export class PromissoryNotePartnershipComponent implements OnInit {
       /*const tempo =  JSON.parse(proprietor);
       this.tempProprietor = tempo.filter(val => val.isAuthorizedPerson === 'Partner Only' || val.isAuthorizedPerson === 'Both');*/
     }
-    let totalLoan = 0;
+    /*let totalLoan = 0;
     this.cadData.assignedLoan.forEach(val => {
       const proposedAmount = val.proposal.proposedLimit;
       totalLoan = totalLoan + proposedAmount;
     });
     const finalAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoan));
-    const loanAmountWord = this.nepaliCurrencyWordPipe.transform(totalLoan);
+    const loanAmountWord = this.nepaliCurrencyWordPipe.transform(totalLoan);*/
     let letAge;
     if (!this.isInstitutional) {
       if (!ObjectUtil.isEmpty(this.individualData.dob) && !ObjectUtil.isEmpty(this.individualData.dob.en.eDate)) {
@@ -241,6 +241,21 @@ export class PromissoryNotePartnershipComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.tempProprietor)) {
       totalPeop = this.tempProprietor.length;
     }
+    let totalAmount;
+    let totalAmountInWord;
+    if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
+      if (this.cadData.offerDocumentList[0].docName === 'Combined Offer Letter') {
+        totalAmount = (this.tempData.smeGlobalForm && this.tempData.smeGlobalForm.totalLimitInFigureCT) ?
+            this.tempData.smeGlobalForm.totalLimitInFigureCT : '';
+        totalAmountInWord = (this.tempData.smeGlobalForm && this.tempData.smeGlobalForm.totalLimitInWordsCT ) ?
+            this.tempData.smeGlobalForm.totalLimitInWordsCT : '';
+      } else {
+        totalAmount = (this.tempData && this.tempData.loanLimitAmountFigure) ?
+            this.tempData.loanLimitAmountFigure.ct : '';
+        totalAmountInWord = (this.tempData && this.tempData.loanLimitAmountFigureWords) ?
+            this.tempData.loanLimitAmountFigureWords.ct : '';
+      }
+    }
     this.form.patchValue({
       actDetails: [this.loanHolderNepData.actName ? this.loanHolderNepData.actName.ct : ''],
       actYearInFigure: [this.setActYear()],
@@ -252,12 +267,10 @@ export class PromissoryNotePartnershipComponent implements OnInit {
       addressOfFirm: [this.loanHolderNepData.registeredStreetTole ? this.loanHolderNepData.registeredStreetTole.ct : ''],
       vdcOfFirm: this.loanHolderNepData.registeredMunicipality ? this.loanHolderNepData.registeredMunicipality.ct : '',
       nameOfFirm: this.loanHolderNepData.name ? this.loanHolderNepData.name.ct : '',
-      loanamountinFigure: (this.tempData.smeGlobalForm && this.tempData.smeGlobalForm.totalLimitInFigureCT ) ?
-          this.tempData.smeGlobalForm.totalLimitInFigureCT : '',
-      loanamountinWords: (this.tempData.smeGlobalForm && this.tempData.smeGlobalForm.totalLimitInWordsCT ) ?
-          this.tempData.smeGlobalForm.totalLimitInWordsCT : '',
-      loanAmountinFigure: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(finalAmount)),
-      loanAmountInWords: this.nepaliCurrencyWordPipe.transform(loanAmountWord),
+      loanamountinFigure: totalAmount ? totalAmount : '',
+      loanamountinWords: totalAmountInWord ? totalAmountInWord : '',
+      loanAmountinFigure: totalAmount ? totalAmount : '',
+      loanAmountInWords: totalAmountInWord ? totalAmountInWord : '',
       nameOfBranch: [this.loanHolderNepData.branch ? this.loanHolderNepData.branch.ct : ''],
       /*interestPerApprovedCFR: (this.educationalTemplateData && this.educationalTemplateData.ct)
           ? (this.educationalTemplateData.ct)
@@ -564,22 +577,15 @@ export class PromissoryNotePartnershipComponent implements OnInit {
     return regDate ? regDate : '';
   }
 
-  // setActYear() {
-  //   let yearOfAct = '';
-  //   if (!ObjectUtil.isEmpty(this.loanHolderNepData.radioActYearDate.en === 'AD')) {
-  //     yearOfAct = this.engToNepaliDate.transform(this.loanHolderNepData.actYear.en ? this.loanHolderNepData.actYear.en : this.loanHolderNepData.actYear.en, true) || '' ;
-  //   } else {
-  //     yearOfAct = this.loanHolderNepData.actYear.en ? this.loanHolderNepData.actYear.en : '';
-  //   }
-  //   return yearOfAct ? yearOfAct : '';
-  // }
   setActYear() {
     let yearOfAct = '';
-    if (!ObjectUtil.isEmpty(this.loanHolderNepData.radioActYearDate.np) && (this.loanHolderNepData.radioActYearDate.np === 'BS')) {
-      yearOfAct = this.loanHolderNepData.actYear.np ? this.loanHolderNepData.actYear.np : '';
-    } else {
-      yearOfAct = this.engToNepNumberPipe.transform(this.loanHolderNepData.actYear.en ?
-          this.loanHolderNepData.actYear.en : this.loanHolderNepData.actYear.en, true) || '';    }
+    if (!ObjectUtil.isEmpty(this.loanHolderNepData.radioActYearDate)) {
+      if (this.loanHolderNepData.radioActYearDate.np === 'BS') {
+        yearOfAct = this.loanHolderNepData.actYear.np ? this.loanHolderNepData.actYear.np : '';
+      } else {
+        yearOfAct = this.loanHolderNepData.actYear ? this.loanHolderNepData.actYear.en : this.loanHolderNepData.actYear.en || '';
+      }
+    }
     return yearOfAct ? yearOfAct : '';
   }
 }

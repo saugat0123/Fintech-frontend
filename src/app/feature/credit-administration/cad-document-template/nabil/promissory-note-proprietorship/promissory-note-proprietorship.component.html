@@ -24,16 +24,14 @@
                                               placeholder="ऋण रकम"
                                               type="text"/>
                                     <span class="print-only font-weight-bold">
-                                        {{(this.tempData.smeGlobalForm && this.tempData.smeGlobalForm.totalLimitInFigureCT ) ?
-                                        this.tempData.smeGlobalForm.totalLimitInFigureCT : '_________________'}}</span>/-
+                                        {{form?.get('loanAmountInFigure')?.value ? form?.get('loanAmountInFigure')?.value : '_________________'}}</span>/-
                                     (अक्षरेपी <input class="form-field form-control-sm outside disable-print col-2"
                                                      name="loanAmountInWords"
                                                      formControlName="loanAmountInWords"
                                                      placeholder="रकम"
                                                      type="text"/>
                                     <span class="print-only font-weight-bold">
-                                        {{(this.tempData.smeGlobalForm && this.tempData.smeGlobalForm.totalLimitInWordsCT ) ?
-                                        this.tempData.smeGlobalForm.totalLimitInWordsCT : '_________________'}}</span> मात्र)
+                                        {{ form?.get('loanAmountInWords')?.value ? form?.get('loanAmountInWords')?.value : '_________________'}}</span> मात्र)
                                 </strong>
                             </table>
                             <br>
@@ -107,12 +105,6 @@
                                                                      type="text"/>
                                 <span class="print-only font-weight-bold">{{this.individualData?.name ? this.individualData?.name.ct : ''}}</span> को
                                 प्रोप्राइटर:-
-
-
-
-
-
-
                                 <ng-container *ngFor="let partner of companyInfo; let i = index">
                                     <ng-container *ngIf="partner?.ownerGender === 'MALE' || (partner?.ownerGender === 'OTHERS') ||
                             (partner?.ownerGender === 'FEMALE' && partner?.ownerRelationMedium === '1')">
@@ -216,8 +208,7 @@
                                            placeholder=" "
                                            type="text"/>
                                     <span class="print-only font-weight-bold">{{partner ? partner?.ownerNameCT : '______________________'}}</span>
-                                    (
-                                        <span *ngIf="partner?.ownerNationality === 'Other'">
+                                    (<span *ngIf="partner?.ownerNationality === 'Other'">
                                         राहदानी नंः
                                             <input class="form-field form-control-sm  disable-print"
                                                    name="directorOtherPassportNumber"
@@ -315,16 +306,14 @@
                                               placeholder="ऋण रकम"
                                               type="text"/>
                                     <span class="print-only font-weight-bold">
-                                        {{(this.tempData.smeGlobalForm && this.tempData.smeGlobalForm.totalLimitInFigureCT ) ?
-                                        this.tempData.smeGlobalForm.totalLimitInFigureCT : '_________________'}}</span>/-
+                                        {{form?.get('loanAmountInFigure')?.value ? form?.get('loanAmountInFigure')?.value : '_________________'}}</span>/-
                                     (अक्षरेपी <input class="form-field form-control-sm outside disable-print col-2"
                                                      name="loanAmountInWords"
                                                      formControlName="loanAmountInWords"
                                                      placeholder="रकम"
                                                      type="text"/>
                                     <span class="print-only font-weight-bold">
-                                        {{(this.tempData.smeGlobalForm && this.tempData.smeGlobalForm.totalLimitInWordsCT ) ?
-                                        this.tempData.smeGlobalForm.totalLimitInWordsCT : '_________________'}}</span> मात्र)
+                                        {{form?.get('loanAmountInWords')?.value ? form?.get('loanAmountInWords')?.value : '_________________'}}</span> मात्र)
                                 </strong>
                                 र भुक्तानी माग गरेको मितिसम्मको व्याज बार्षिक <input
                                         class="form-field disable-print form-control-sm nepaliFont"
@@ -332,7 +321,7 @@
                                         formControlName="intRate"
                                         placeholder=""
                                         type="text"/>
-                                <span class="print-only font-weight-bold nepaliFont">{{this.supportedInfo ? (this.supportedInfo?.intRate ? this.supportedInfo?.intRate : '=================================') : '__________________________'}}</span>
+                                <span class="print-only font-weight-bold nepaliFont">{{this.supportedInfo ? (this.supportedInfo?.intRate ? this.supportedInfo?.intRate : '=================================') : '================================='}}</span>
                                 प्रतिशतका दरले हुने व्याज रकम समेत एकमुष्ट तिर्न बुझाउन
                                 प्रतिज्ञा/कवुल गरी यो प्रतिज्ञापत्रको लिखत गरी तपाई नविल बैंक लिमिटेड, शाखा कार्यालय
                                 <input class="form-field form-control-sm d-print-none"

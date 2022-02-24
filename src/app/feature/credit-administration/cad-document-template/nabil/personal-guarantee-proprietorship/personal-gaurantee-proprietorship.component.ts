@@ -113,18 +113,18 @@ export class PersonalGuaranteeProprietorshipComponent implements OnInit {
                     (this.personalGuaranteeProprietorship.get('guaranteeProprietorship') as FormArray).push(
                         this.formBuilder.group({
                             branchName: [this.loanHolderNepData.branch ? this.loanHolderNepData.branch.ct : ''],
-                            actDetails: [this.loanHolderNepData.actName.ct ? this.loanHolderNepData.actName.ct : ''],
+                            actDetails: [this.loanHolderNepData.actName ? this.loanHolderNepData.actName.ct : ''],
                             actYearInFigure: [this.setActYear()],
                             // tslint:disable-next-line:max-line-length
                             headDepartment: [!ObjectUtil.isEmpty(this.loanHolderNepData.authorizedBodyName) ? this.loanHolderNepData.authorizedBodyName.ct : this.nameOfAuthorizedBody],
                             registrationDate: [this.setRegistrationDate()],
-                            registrationNo: [this.loanHolderNepData.registrationNo.ct ? this.loanHolderNepData.registrationNo.ct : ''],
-                            registeredDistrict: [this.loanHolderNepData.registeredDistrict.ct ? this.loanHolderNepData.registeredDistrict.ct : ''],
+                            registrationNo: [this.loanHolderNepData.registrationNo ? this.loanHolderNepData.registrationNo.ct : ''],
+                            registeredDistrict: [this.loanHolderNepData.registeredDistrict ? this.loanHolderNepData.registeredDistrict.ct : ''],
                             // tslint:disable-next-line:max-line-length
-                            municipalityOfFirm: [this.loanHolderNepData.registeredMunicipality.ct ? this.loanHolderNepData.registeredMunicipality.ct : ''],
-                            wardNumOfFirm: [this.loanHolderNepData.permanentWard.ct ? this.loanHolderNepData.permanentWard.ct : ''],
+                            municipalityOfFirm: [this.loanHolderNepData.registeredMunicipality ? this.loanHolderNepData.registeredMunicipality.ct : ''],
+                            wardNumOfFirm: [this.loanHolderNepData.permanentWard ? this.loanHolderNepData.permanentWard.ct : ''],
                             // tslint:disable-next-line:max-line-length
-                            addressOfFirm: [this.loanHolderNepData.registeredStreetTole.ct ? this.loanHolderNepData.registeredStreetTole.ct : ''],
+                            addressOfFirm: [this.loanHolderNepData.registeredStreetTole ? this.loanHolderNepData.registeredStreetTole.ct : ''],
                             loaneeName: [this.loanHolderNepData.name ? this.loanHolderNepData.name.ct : ''],
                             loanPurpose: [this.setLoanPurpose()],
                             letterIssuedDate: [this.setIssuedDate()],
