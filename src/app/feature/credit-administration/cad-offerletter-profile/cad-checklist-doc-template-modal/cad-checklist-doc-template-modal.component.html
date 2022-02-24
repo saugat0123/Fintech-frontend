@@ -166,7 +166,7 @@
                                                [documentId]="documentId"
                                                [customerLoanId]="customerLoanId">
                 </app-cross-guarantee-proprietorship>
-                <app-land-sub-ordinate-proprietorship *ngSwitchCase="nabilCadTemplate.LAND_SUB_ORDINATE_AGREEMENT_PROPRIETORSHIP"
+                <app-land-sub-ordinate-proprietorship *ngSwitchCase="nabilCadTemplate.LOAN_SUB_ORDINATE_AGREEMENT_PROPRIETORSHIP"
                                                [cadData]="cadData"
                                                [documentId]="documentId"
                                                [customerLoanId]="customerLoanId">
@@ -191,7 +191,7 @@
                                                [documentId]="documentId"
                                                [customerLoanId]="customerLoanId">
                 </app-cross-guarantee-partnership>
-                <app-land-sub-ordinate-partnership *ngSwitchCase="nabilCadTemplate.LAND_SUB_ORDINATE_AGREEMENT_PARTNERSHIP"
+                <app-land-sub-ordinate-partnership *ngSwitchCase="nabilCadTemplate.LOAN_SUB_ORDINATE_AGREEMENT_PARTNERSHIP"
                                                [cadData]="cadData"
                                                [documentId]="documentId"
                                                [customerLoanId]="customerLoanId">
@@ -216,11 +216,59 @@
                                                [documentId]="documentId"
                                                [customerLoanId]="customerLoanId">
                 </app-cross-guarantee-company>
-                <app-land-sub-ordinate-company *ngSwitchCase="nabilCadTemplate.LAND_SUB_ORDINATE_AGREEMENT_COMPANY"
+                <app-land-sub-ordinate-company *ngSwitchCase="nabilCadTemplate.LOAN_SUB_ORDINATE_AGREEMENT_COMPANY"
                                                [cadData]="cadData"
                                                [documentId]="documentId"
                                                [customerLoanId]="customerLoanId">
                 </app-land-sub-ordinate-company>
+
+                <app-hire-purchase-company *ngSwitchCase="nabilCadTemplate.HIRE_PURCHASE_COMPANY"
+                                               [cadData]="cadData"
+                                               [documentId]="documentId"
+                                               [customerLoanId]="customerLoanId">
+                </app-hire-purchase-company>
+
+                <app-letter-of-set-off-company *ngSwitchCase="nabilCadTemplate.LETTER_OF_SET_OFF_COMPANY"
+                                               [cadData]="cadData"
+                                               [documentId]="documentId"
+                                               [customerLoanId]="customerLoanId">
+                </app-letter-of-set-off-company>
+
+                <app-hire-purchase-partnership *ngSwitchCase="nabilCadTemplate.HIRE_PURCHASE_PARTNERSHIP"
+                                               [cadData]="cadData"
+                                               [documentId]="documentId"
+                                               [customerLoanId]="customerLoanId">
+                </app-hire-purchase-partnership>
+
+                <app-letter-of-set-off-partnership *ngSwitchCase="nabilCadTemplate.LETTER_OF_SET_OFF_PARTNERSHIP"
+                                               [cadData]="cadData"
+                                               [documentId]="documentId"
+                                               [customerLoanId]="customerLoanId">
+                </app-letter-of-set-off-partnership>
+
+                <app-hire-purchase-proprietorship *ngSwitchCase="nabilCadTemplate.HIRE_PURCHASE_PROPRIETORSHIP"
+                                               [cadData]="cadData"
+                                               [documentId]="documentId"
+                                               [customerLoanId]="customerLoanId">
+                </app-hire-purchase-proprietorship>
+
+                <app-letter-of-set-off-proprietorship *ngSwitchCase="nabilCadTemplate.LETTER_OF_SET_OFF_PROPRIETORSHIP"
+                                                   [cadData]="cadData"
+                                                   [documentId]="documentId"
+                                                   [customerLoanId]="customerLoanId">
+                </app-letter-of-set-off-proprietorship>
+
+                <app-letter-vehicle-third-party-partnership *ngSwitchCase="nabilCadTemplate.LETTER_VEHICLE_THIRDPARTY_PARTNERSHIP"
+                                                  [cadData]="cadData"
+                                                  [documentId]="documentId"
+                                                  [customerLoanId]="customerLoanId">
+                </app-letter-vehicle-third-party-partnership>
+
+                <app-letter-vehicle-third-party-proprietorship *ngSwitchCase="nabilCadTemplate.LETTER_VEHICLE_THIRDPARTY_PROPRIETORSHIP"
+                                                      [cadData]="cadData"
+                                                      [documentId]="documentId"
+                                                      [customerLoanId]="customerLoanId">
+                </app-letter-vehicle-third-party-proprietorship>
 
                 <p *ngSwitchDefault>No Template is available for this Document!!! </p>
             </div>
