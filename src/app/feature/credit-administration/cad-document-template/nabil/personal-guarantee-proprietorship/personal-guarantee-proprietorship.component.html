@@ -60,23 +60,23 @@
                                 <input class="form-field form-control-sm d-print-none" name="municipalityOfFirm"
                                        formControlName="municipalityOfFirm" placeholder="" type="text"/>
                                 <span *ngIf="this.loanHolderNepData.registeredMunType.en === '0'">
-                                    न.पा. ,
+                                    न.पा.,
                                 </span>
                                 <span *ngIf="this.loanHolderNepData.registeredMunType.en === '1'">
-                                    गा.वि.स. ,
+                                    गा.वि.स.,
                                 </span>
                                 <span *ngIf="this.loanHolderNepData.registeredMunType.en === '2'">
-                                    गाँउपालिका ,
+                                    गाँउपालिका,
                                 </span>
                                 <span class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeProprietorship", i, "municipalityOfFirm"]).value || '_____________________'}}</span>
                                 <span *ngIf="this.loanHolderNepData.registeredMunType.en === '0'" class="print-only">
-                                    न.पा. ,
+                                    न.पा.,
                                 </span>
                                 <span *ngIf="this.loanHolderNepData.registeredMunType.en === '1'" class="print-only">
-                                    गा.वि.स. ,
+                                    गा.वि.स.,
                                 </span>
                                 <span *ngIf="this.loanHolderNepData.registeredMunType.en === '2'" class="print-only">
-                                    गाँउपालिका ,
+                                    गाँउपालिका,
                                 </span>                                    वडा नं
                                     <input class="form-field form-control-sm d-print-none" name="wardNumOfFirm"
                                            formControlName="wardNumOfFirm" placeholder="" type="text"/>
@@ -110,7 +110,7 @@
                                 <input class="form-field form-control-sm d-print-none" name="loanAmount"
                                        formControlName="loanAmount" placeholder="" type="text"/>
                                 <span class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeProprietorship", i, "loanAmount"]).value || '_____________________'}}</span>
-                            </span> /-
+                            </span>/-
                                 (अक्षरेपी
                                 <span>
                                 <input class="form-field form-control-sm d-print-none" name="loanAmountInWord"
@@ -159,7 +159,7 @@
                                         <input class="form-field form-control-sm d-print-none" name="approvedLoanAmount"
                                                formControlName="approvedLoanAmount" placeholder="" type="text"/>
                                         <span class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeProprietorship", i, "approvedLoanAmount"]).value || '_____________________'}}</span>
-                                    </span> /-
+                                    </span>/-
                                         (अक्षरेपी <span>
                                         <input class="form-field form-control-sm d-print-none"
                                                name="approvedLoanAmountInWord"
@@ -344,16 +344,14 @@
                                                    name="permanentDistrict"
                                                    formControlName="permanentDistrict" placeholder="" type="text"/>
                                             <span class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeProprietorship", i, "permanentDistrict"]).value || '_____________________'}}</span>
-                                        </span>
-                                            , जिल्ला :
+                                        </span>, जिल्ला :
                                             <span>
                                             <input class="form-field form-control-sm d-print-none"
                                                    name="permanentMunicipalities"
                                                    formControlName="permanentMunicipalities" placeholder=""
                                                    type="text"/>
                                             <span class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeProprietorship", i, "permanentMunicipalities"]).value || '_____________________'}}</span>
-                                        </span>
-                                            , गा.वि.स./नगर वडा नं. :
+                                        </span>, गा.वि.स./नगर वडा नं. :
                                             <span>
                                             <input class="form-field form-control-sm d-print-none" name="permanentWard"
                                                    formControlName="permanentWard" placeholder="" type="text"/>
@@ -380,16 +378,14 @@
                                                        name="temporaryDistrict"
                                                        formControlName="temporaryDistrict" placeholder="" type="text"/>
                                                 <span class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeProprietorship", i, "temporaryDistrict"]).value || '_____________________'}}</span>
-                                            </span>
-                                                , जिल्ला :
+                                            </span>, जिल्ला :
                                                 <span>
                                                 <input class="form-field form-control-sm d-print-none"
                                                        name="temporaryMunicipalities"
                                                        formControlName="temporaryMunicipalities" placeholder=""
                                                        type="text"/>
                                                 <span class="print-only">{{personalGuaranteeProprietorship.get(["guaranteeProprietorship", i, "temporaryMunicipalities"]).value || '_____________________'}}</span>
-                                            </span>
-                                                , गा.वि.स./नगर वडा नं. :
+                                            </span>, गा.वि.स./नगर वडा नं. :
                                                 <span>
                                                 <input class="form-field form-control-sm d-print-none" name="temporaryWard"
                                                        formControlName="temporaryWard" placeholder="" type="text"/>
@@ -441,31 +437,36 @@
                                         </p>
                                         <br>
                                         <br>
-
-                                        <div>
-                                            <p style="text-align:center">
-                                                ईति सम्वत् &nbsp;&nbsp;
-                                                <input class="form-field form-control-sm d-print-none nepaliFont"
-                                                       name="year"
-                                                       formControlName="year" placeholder="साल" type="text"/>
-                                                <span class="print-only nepaliFont">{{personalGuaranteeProprietorship.get(['guaranteeProprietorship', i, 'year']) ? personalGuaranteeProprietorship.get(['guaranteeProprietorship', i, 'year']).value : '========================================='}}</span>
-                                                साल &nbsp;&nbsp;
-                                                <input class="form-field form-control-sm d-print-none nepaliFont"
-                                                       name="month"
-                                                       formControlName="month" placeholder="महिना" type="text"/>
-                                                <span class="print-only nepaliFont">{{personalGuaranteeProprietorship.get(['guaranteeProprietorship', i, 'month']) ? personalGuaranteeProprietorship.get(['guaranteeProprietorship', i, 'month']).value : '========================================='}}</span>
-                                                महिना &nbsp;&nbsp;
-                                                <input class="form-field form-control-sm d-print-none nepaliFont"
-                                                       name="day"
-                                                       formControlName="day" placeholder="गते" type="text"/>
-                                                <span class="print-only nepaliFont">{{personalGuaranteeProprietorship.get(['guaranteeProprietorship', i, 'day']) ? personalGuaranteeProprietorship.get(['guaranteeProprietorship', i, 'day']).value : '========================================='}}</span>
-                                                गते रोज &nbsp;&nbsp;
-                                                <input class="form-field form-control-sm d-print-none nepaliFont"
-                                                       name="date"
-                                                       formControlName="date" placeholder="दिन" type="text"/>
-                                                <span class="print-only nepaliFont">{{personalGuaranteeProprietorship.get(['guaranteeProprietorship', i, 'date']) ? personalGuaranteeProprietorship.get(['guaranteeProprietorship', i, 'date']).value : '========================================='}}</span>
-                                                शुभम् ।
-                                            </p>
+                                        <div class="row mt-3">
+                                            <div class="col-md-12 text-center">
+                                                <p class="m-0">
+                                                    ईति सम्वत्
+                                                    <input class="form-field form-control-sm d-print-none nepaliFont" name="year"
+                                                           formControlName="year" placeholder="" type="text"/>
+                                                    <span class="print-only font-weight-bold nepaliFont">
+                                                        {{this.cadInitialInfo && this.cadInitialInfo[i]?.year ? this.cadInitialInfo[i]?.year : '===================================='}}
+                                                    </span>
+                                                    साल
+                                                    <input class="form-field form-control-sm d-print-none nepaliFont" name="month"
+                                                           formControlName="month" placeholder="" type="text"/>
+                                                    <span class="print-only font-weight-bold nepaliFont">
+                                                        {{this.cadInitialInfo && this.cadInitialInfo[i]?.month ? this.cadInitialInfo[i]?.month : '===================================='}}
+                                                    </span>
+                                                    महिना
+                                                    <input class="form-field form-control-sm d-print-none nepaliFont" name="date"
+                                                           formControlName="date" placeholder="" type="text"/>
+                                                    <span class="print-only font-weight-bold nepaliFont">
+                                                        {{this.cadInitialInfo && this.cadInitialInfo[i]?.date ? this.cadInitialInfo[i]?.date : '===================================='}}
+                                                    </span>
+                                                    गते रोज
+                                                    <input class="form-field form-control-sm d-print-none nepaliFont" name="day"
+                                                           formControlName="day" placeholder="" type="text"/>
+                                                    <span class="print-only font-weight-bold nepaliFont">
+                                                        {{this.cadInitialInfo && this.cadInitialInfo[i]?.day ? this.cadInitialInfo[i]?.day : '===================================='}}
+                                                    </span>
+                                                    शुभम् ।
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
