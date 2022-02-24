@@ -251,9 +251,8 @@
                                        name="landValuatorDate" placeholder="Valuated Date"
                                        [nbDatepicker]="landValuatorDate"
                                        type="text"/>
-                                <app-calendar
+                                <app-calendar *ngIf="calendarType === 'BS'"
                                         (messageToEmit)="securityForm.get(['landDetails',i,'landValuatorDate']).patchValue($event?.eDate)"
-                                        *ngIf="calendarType === 'BS'"
                                         [ePreDate]="securityForm.get(['landDetails',i,'landValuatorDate']).value"></app-calendar>
                                 <nb-datepicker #landValuatorDate></nb-datepicker>
                             </div>
@@ -2644,30 +2643,35 @@
                 <div class="row">
                     <div class="col-md-3">
                         <label for="sharePriceDate"><b>Price Updated Date</b></label>
-                        <input formControlName="sharePriceDate"
+                        <input *ngIf="calendarType === 'AD'"
+                               [nbDatepicker]="sharePriceDate"
+                               formControlName="sharePriceDate"
                                class="form-control"
-                               [readOnly]="true"
                                id="sharePriceDate">
+                        <app-calendar *ngIf="calendarType === 'BS'"
+                                      (messageToEmit)="shareSecurityForm.get('sharePriceDate').patchValue($event?.eDate)"
+                                      [ePreDate]="shareSecurityForm.get('sharePriceDate').value"></app-calendar>
+                        <nb-datepicker #sharePriceDate></nb-datepicker>
                     </div>
                     <div class="col-md-3 mb-3">
                         <label for="avgDaysForPrice"><b>Average Day's for Share Price</b></label>
                         <input formControlName="avgDaysForPrice"
                                class="form-control"
-                               [readOnly]="true"
+                               type="number"
                                id="avgDaysForPrice">
                     </div>
                     <div class="col-md-3">
                         <label for="promoter"><b>Loan Promoter Percent</b></label>
                         <input [(ngModel)]="activeNepseMaster.promoter"
                                [ngModelOptions]="{standalone: true}" class="form-control"
-                               disabled id="promoter">
+                               id="promoter">
                     </div>
 
                     <div class="col-md-3">
                         <label for="ordinary"><b>Loan Ordinary Percent</b></label>
                         <input [(ngModel)]="activeNepseMaster.ordinary"
                                [ngModelOptions]="{standalone: true}" class="form-control"
-                               disabled id="ordinary">
+                               id="ordinary">
                     </div>
                 </div>
                 <br>
@@ -2697,7 +2701,7 @@
                                 <div class="form-group">
                                     <label for="shareType">Select Share Type</label>
                                     <input class="form-control" formControlName="shareType" id="shareType"
-                                           name="shareType" readonly type="text">
+                                           name="shareType" type="text">
                                 </div>
                             </div>
                         </div>
@@ -2742,7 +2746,7 @@
                                 <div class="form-group">
                                     <label for="consideredValue">Considered Value</label>
                                     <input class="form-control" formControlName="consideredValue"
-                                           id="consideredValue" name="total" placeholder="Considered Value" readonly>
+                                           id="consideredValue" name="total" placeholder="Considered Value">
                                 </div>
                             </div>
                         </div>
@@ -2759,14 +2763,12 @@
                                 <label for="closingPriceAverage"><b>Closing Price Average</b></label>
                                 <input formControlName="closingPriceAverage"
                                        class="form-control"
-                                       [readOnly]="true"
                                        id="closingPriceAverage">
                             </div>
                             <div class="col-md-3 mb-3">
                                 <label for="closingPrice"><b>Closing Price</b></label>
                                 <input formControlName="closingPrice"
                                        class="form-control"
-                                       [readOnly]="true"
                                        id="closingPrice">
                             </div>
                         </div>
