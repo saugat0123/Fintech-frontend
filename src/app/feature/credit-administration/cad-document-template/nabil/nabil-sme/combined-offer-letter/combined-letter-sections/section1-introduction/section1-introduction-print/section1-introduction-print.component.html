@@ -9,7 +9,7 @@
                     महोदय,<br>
                     तपाईंले
                     <span class="text-left">
-                                मिति वि.सं.
+                                मिति <span>{{this.letterData?.smeGlobalForm?.loanApplicationDataType === 'AD' ? 'ई. स. ' : 'वि.सं. '}}</span>
                         <span><strong>{{this.tempApplicationDate ? this.tempApplicationDate : ''}}</strong></span>
                         </span>
                     मा ऋणकर्जा सुविधाका लागि यस बैंकमा दिनु भएको निवेदनको सम्बन्धमा यस बैंकले देहाय बमोजिमका ऋणकर्जा
@@ -27,7 +27,7 @@
                     तपाईंले यस बैंकको मिति वि.सं.
                     <span><strong>{{this.tempSanctionDate ? this.tempSanctionDate : ''}}</strong></span>
                     को ऋणस्वीकृति पत्रानुसार उपभोग गर्दै आउनु भएको ऋणकर्जामा हाल ऋणकर्जा सुविधा/हरु नबिकरण/पुनरावलोकन का
-                    लागि यस बैंकमा दिनु भएको मिति वि.सं.
+                    लागि यस बैंकमा दिनु भएको मिति <span>{{this.letterData?.smeGlobalForm?.loanApplicationDataType === 'AD' ? 'ई. स. ' : 'वि.सं. '}}</span>
                     <span><strong>{{this.tempApplicationDate ? this.tempApplicationDate : ''}}</strong></span>
                     को निवेदनका सम्बन्धमा यस बैंकले देहाय बमोजिमका शर्तबन्देजहरुको अधिनमा रहने गरी देहाय
                     बमोजिमका ऋणकर्जा सुविधाहरु नबिकरण/पुनरावलोकन गरेको ब्यहोरा अनुरोध गर्दछौं ।
@@ -44,7 +44,8 @@
                     तपाईंले यस बैंकको मिति वि.सं.
                     <span><strong>{{this.tempSanctionDate ? this.tempSanctionDate : ''}}</strong></span>
                     को ऋणस्वीकृति पत्रानुसार स्वीकृत भएका ऋणकर्जा सुविधा/हरु उपभोग गर्दै आउनु भएकोमा हाल थप/अतिरिक्त
-                    ऋणकर्जा सुविधा सहित नबिकरण/पुनरावलोकनका लागि यस बैंकमा दिनु भएको मिति वि.सं.
+                    ऋणकर्जा सुविधा सहित नबिकरण/पुनरावलोकनका लागि यस बैंकमा दिनु भएको
+                    मिति <span>{{this.letterData?.smeGlobalForm?.loanApplicationDataType === 'AD' ? 'ई. स. ' : 'वि.सं. '}}</span>
                     <span><strong>{{this.tempApplicationDate ? this.tempApplicationDate : ''}}</strong></span>
                     को निवेदनका सम्बन्धमा यस बैंकले देहाय बमोजिमका शर्तबन्देजहरुको अधिनमा रहने गरी
                     थप/अतिरिक्त ऋणकर्जा सुविधाहरु सहित देहाय बमोजिमका ऋणकर्जा सुविधाहरु स्वीकृत/नविकरण/पुनरावलोकन गरेको
@@ -62,7 +63,8 @@
                     तपाईंले यस बैंकको मिति वि.सं.
                     <span><strong>{{this.tempSanctionDate ? this.tempSanctionDate : ''}}</strong></span>
                     को ऋणस्वीकृति पत्रानुसार स्वीकृत भएका ऋणकर्जा सुविधाहरु उपभोग गर्दै आउनु भएकोमा हाल थप/अतिरिक्त
-                    ऋणकर्जा सुविधाका लागि यस बैंकमा दिनु भएको मिति वि.सं.
+                    ऋणकर्जा सुविधाका लागि यस बैंकमा दिनु भएको
+                    मिति <span>{{this.letterData?.smeGlobalForm?.loanApplicationDataType === 'AD' ? 'ई. स. ' : 'वि.सं. '}}</span>
                     <span><strong>{{this.tempApplicationDate ? this.tempApplicationDate : ''}}</strong></span>
                     को निवेदनका सम्बन्धमा यस बैंकले देहाय बमोजिमका शर्तबन्देजहरुको अधिनमा रहने गरी देहाय
                     बमोजिमका थप/अतिरिक्त ऋणकर्जा सुविधाहरु स्वीकृत गरेको ब्यहोरा अनुरोध गर्दछौं।

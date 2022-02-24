@@ -94,8 +94,6 @@ export class PromissoryNoteProprietorshipComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
             this.tempData = JSON.parse(this.cadData.offerDocumentList[0].initialInformation);
         }
-        console.log('temp data::', this.tempData);
-        console.log('initial Info data::', this.initialInfo);
         this.fillForm();
     }
 

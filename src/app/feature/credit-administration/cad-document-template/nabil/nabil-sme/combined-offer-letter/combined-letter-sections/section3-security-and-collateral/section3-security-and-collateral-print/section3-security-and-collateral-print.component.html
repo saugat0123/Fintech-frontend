@@ -234,15 +234,13 @@
                                        नबिल
                                    </span>
                                    <span *ngIf="fd.holdingBankCT === 'OTHER'" class="font-weight-bold">{{fd.nameOfHoldingBankCT}}</span>
-                                    बैंकद्धारा जारी
-                                    गरिएको
+                                    बैंकद्धारा जारी गरिएको
                                     <span class="font-weight-bold">{{fd.nameOfFDHolderCT}}</span>
-                                    को नाममा रहेको कम्तिमा रु
-                                   <span class="font-weight-bold">{{fd.FdAmountInFigureCT}}</span>
+                                    को नाममा रहेको कम्तिमा
+                                    रु.<span class="font-weight-bold">{{fd.FdAmountInFigureCT}}</span>/-
                                     बराबरको मुद्धती रसिद/हरु उपर बैंकले
                                     उल्लिखित रसिद वापतको रकम कर्जामा समायोजन गर्न सक्ने अधिकार सहितको मोजरापत्र (Letter
-                                    of
-                                    Set-Off) बैंकको
+                                    of Set-Off) बैंकको
                                     पक्षमा जारी गरी दिनु पर्नेछ र सो मुद्धती रसिद/हरुको सक्कल प्रति बैंकलाई हस्तान्तरण
                                     <span *ngIf="fd.lienFDContentsCT === 'NEW'"> <!--If lien is to be created-->
                                         गर्नु पर्नेछ ।
@@ -268,8 +266,7 @@
                                     खाता नं.
                                    <span class="font-weight-bold">{{fd.accountNumberCT}}</span>
                                     मा रहेको मौज्दात
-                                    रु
-                                    <span class="font-weight-bold">{{fd.amountInFigureCT}}</span>
+                                    रु.<span class="font-weight-bold">{{fd.amountInFigureCT}}</span>/-
                                     बराबरको रकममा ग्रहणाधिकार कायम गरी उक्त रकम बरावर कर्जामा समायोजन गर्न सक्ने
                                     अधिकार सहितको मोजरापत्र (Letter of Set-off) बैंकको पक्षमा जारी
                                     <span *ngIf="fd.letterOfSetOffDepositCT === 'NEW'"> <!--If letter of set-off to be obtained-->
@@ -282,9 +279,8 @@
 
                                 <p class="m-0" *ngFor="let fd of debentureLoop; let i = index"> <!--For National Bond/Debenture-->
                                     <span class="font-weight-bold">{{fd.nameOfDebentureHolderCT}}</span>
-                                    हरुको नाममा रहेको कम्तिमा रु
-                                    <span class="font-weight-bold">{{fd.debentureAmountInFigureCT}}</span>
-                                    /- बराबरको
+                                    हरुको नाममा रहेको कम्तिमा
+                                    रु.<span class="font-weight-bold">{{fd.debentureAmountInFigureCT}}</span>/- बराबरको
                                     <span *ngIf="fd.bondTypeCT === 'नागरिक बचत पत्र'">
                                         नागरिक बचत पत्र
                                     </span>
@@ -453,12 +449,10 @@
                                 <!--Applicable only if Guarantee is required-->
                                 <strong>व्यक्तिगत जमानत (Personal Guarantee): </strong>
                                 <p class="m-0" *ngFor="let personalGuarantor of tempPersonalGuarantors">
-                                    रु
-                                    <span class="font-weight-bold">{{personalGuarantor.gurantedAmount.ct}}</span>
-                                    /- (अक्षरेपी रु
+                                    रु.<span class="font-weight-bold">{{personalGuarantor.gurantedAmount.ct}}</span>/- (अक्षरेपी रु
                                     <span class="font-weight-bold">{{this.nepaliCurrencyWordPipe.transform(personalGuarantor.gurantedAmount.en)}}</span>
                                     मात्र) बराबरको
-                                    {{personalGuarantor.gender.en === 'FEMALE' && personalGuarantor.relationMedium.en === '0' ? 'श्रीमती' : (personalGuarantor.gender.en === 'FEMALE' && personalGuarantor.relationMedium.en === '1' ? 'सुश्री' : personalGuarantor.gender.en === 'MALE' ? 'श्री' : '')}}
+                                    {{personalGuarantor?.gender?.en === 'FEMALE' && personalGuarantor?.guarantorMaritalStatus?.en === 'Married' ? 'श्रीमती' : (personalGuarantor.gender.en === 'FEMALE' && personalGuarantor?.guarantorMaritalStatus?.en === 'Unmarried' ? 'सुश्री' : personalGuarantor.gender.en === 'MALE' ? 'श्री' : '')}}
                                     <span class="font-weight-bold">{{personalGuarantor.guarantorName.ct}}</span>
                                     ले बैंकको पक्षमा व्यक्तिगत जमानत
                                     <span *ngIf="!personalGuaranteeToBeUsedSecondary"> <!--If existing personal guarantee is continued-->
@@ -474,9 +468,7 @@
                                 <!--Applicable if corporate guarantee is required-->
                                 <strong> संस्थागत जमानत (Corporate Guarantee): </strong>
                                 <p class="m-0">
-                                    रु
-                                    <span class="font-weight-bold">{{this.guarantorAmount}}</span>
-                                    /- (अक्षरेपी रु
+                                    रु.<span class="font-weight-bold">{{this.guarantorAmount}}</span>/- (अक्षरेपी रु
                                     <span class="font-weight-bold">{{this.guarantorAmountWords}}</span>
                                     मात्र) बराबरको श्री
                                    <span class="font-weight-bold">{{commonGuarantorDetails(corporateGuarantorsName, finalCorporateName)}}</span>
@@ -494,9 +486,7 @@
                                 <!--Applicable if cross guarantee required-->
                                 <strong> पारस्परिक जमानत (Cross Guarantee): </strong>
                                 <p class="m-0">
-                                    रु
-                                   <span class="font-weight-bold">{{this.guarantorAmount}}</span>
-                                    /- (अक्षरेपी रु
+                                    रु.<span class="font-weight-bold">{{this.guarantorAmount}}</span>/- (अक्षरेपी रु
                                     <span class="font-weight-bold">{{this.guarantorAmountWords}}</span>
                                     मात्र) बराबरको श्री
                                     <span class="font-weight-bold">{{commonGuarantorDetails(crossGuarantorsName, finalCrossName)}}</span>

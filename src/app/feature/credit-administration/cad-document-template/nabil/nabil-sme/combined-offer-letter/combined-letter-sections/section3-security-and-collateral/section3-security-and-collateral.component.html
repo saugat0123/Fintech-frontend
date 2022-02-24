@@ -267,17 +267,16 @@
                                            class="form-control-sm form-field"
                                            [value]="fd.nameOfFDHolderCT"
                                            placeholder="FD Holder Name"/>
-                                    को नाममा रहेको कम्तिमा रु
-                                    <input formControlName="fdAmountInFigure"
+                                    को नाममा रहेको कम्तिमा
+                                    रु.<input formControlName="fdAmountInFigure"
                                            name="fdAmountInFigure"
                                            type="text"
                                            class="form-control-sm form-field"
                                            [value]="fd.FdAmountInFigureCT"
-                                           placeholder="FD Amount"/>
+                                           placeholder="FD Amount"/>/-
                                     बराबरको मुद्धती रसिद/हरु उपर बैंकले
                                     उल्लिखित रसिद वापतको रकम कर्जामा समायोजन गर्न सक्ने अधिकार सहितको मोजरापत्र (Letter
-                                    of
-                                    Set-Off) बैंकको
+                                    of Set-Off) बैंकको
                                     पक्षमा जारी गरी दिनु पर्नेछ र सो मुद्धती रसिद/हरुको सक्कल प्रति बैंकलाई हस्तान्तरण
                                     <span *ngIf="fd.lienFDContentsCT === 'NEW'"> <!--If lien is to be created-->
                                 गर्नु पर्नेछ ।
@@ -313,13 +312,12 @@
                                            [value]="fd.accountNumberCT"
                                            placeholder="Account Number"/>
                                     मा रहेको मौज्दात
-                                    रु
-                                    <input formControlName="depositAmountInFigure"
+                                    रु.<input formControlName="depositAmountInFigure"
                                            name="depositAmountInFigure"
                                            type="text"
                                            class="form-control-sm form-field"
                                            [value]="fd.amountInFigureCT"
-                                           placeholder="Deposit Amount"/>
+                                           placeholder="Deposit Amount"/>/-
                                     बराबरको रकममा ग्रहणाधिकार कायम गरी उक्त रकम बरावर कर्जामा समायोजन गर्न सक्ने
                                     अधिकार सहितको मोजरापत्र (Letter of Set-off) बैंकको पक्षमा जारी
                                     <span *ngIf="fd.letterOfSetOffDepositCT === 'NEW'"> <!--If letter of set-off to be obtained-->
@@ -337,14 +335,13 @@
                                            class="form-control-sm form-field"
                                            [value]="fd.nameOfDebentureHolderCT"
                                            placeholder="Customer Name"/>
-                                    हरुको नाममा रहेको कम्तिमा रु
-                                    <input formControlName="debentureAmountInFigure"
+                                    हरुको नाममा रहेको कम्तिमा
+                                    रु.<input formControlName="debentureAmountInFigure"
                                            name="debentureAmountInFigure"
                                            type="text"
                                            class="form-control-sm form-field"
                                            [value]="fd.debentureAmountInFigureCT"
-                                           placeholder="Debenture Amount"/>
-                                    /- बराबरको
+                                           placeholder="Debenture Amount"/>/- बराबरको
                                     <span *ngIf="fd.bondTypeCT === 'नागरिक बचत पत्र'">
                                         नागरिक बचत पत्र
                                     </span>
@@ -581,14 +578,12 @@
                                 <!--Applicable only if Guarantee is required-->
                                 <strong>व्यक्तिगत जमानत (Personal Guarantee): </strong>
                                 <p class="m-0" *ngFor="let personalGuarantor of tempPersonalGuarantors">
-                                    रु
-                                    <input formControlName="personalGuarantorAmount"
+                                    रु.<input formControlName="personalGuarantorAmount"
                                            name="personalGuarantorAmount"
                                            type="text"
                                            class="form-control-sm form-field"
                                            placeholder="Loan Amount"
-                                           [value]="personalGuarantor.gurantedAmount.ct"/>
-                                    /- (अक्षरेपी रु
+                                           [value]="personalGuarantor.gurantedAmount.ct"/>/- (अक्षरेपी रु
                                     <input formControlName="personalGuarantorAmountInWords"
                                            name="personalGuarantorAmountInWords"
                                            type="text"
@@ -597,7 +592,7 @@
                                            [value]="this.nepaliCurrencyWordPipe.transform(personalGuarantor.gurantedAmount.en)"
                                            />
                                     मात्र) बराबरको
-                                    {{personalGuarantor.gender.en === 'FEMALE' && personalGuarantor.relationMedium.en === '0' ? 'श्रीमती' : (personalGuarantor.gender.en === 'FEMALE' && personalGuarantor.relationMedium.en === '1' ? 'सुश्री' : personalGuarantor.gender.en === 'MALE' ? 'श्री' : '')}}
+                                    {{personalGuarantor?.gender?.en === 'FEMALE' && personalGuarantor?.guarantorMaritalStatus?.en === 'Married' ? 'श्रीमती' : (personalGuarantor.gender.en === 'FEMALE' && personalGuarantor?.guarantorMaritalStatus?.en === 'Unmarried' ? 'सुश्री' : personalGuarantor.gender.en === 'MALE' ? 'श्री' : '')}}
                                     <input formControlName="personalGuaranteeName"
                                            name="personalguaranteeName"
                                            type="text"
@@ -618,13 +613,11 @@
                                 <!--Applicable if corporate guarantee is required-->
                                 <strong> संस्थागत जमानत (Corporate Guarantee): </strong>
                                 <p class="m-0">
-                                    रु
-                                    <input formControlName="guarantorAmount"
+                                    रु.<input formControlName="guarantorAmount"
                                            name="guarantorAmount"
                                            type="text"
                                            class="form-control-sm form-field"
-                                           placeholder="Loan Amount"/>
-                                    /- (अक्षरेपी रु
+                                           placeholder="Loan Amount"/>/- (अक्षरेपी रु
                                     <input formControlName="guarantorAmountInWords"
                                            name="guarantorAmountInWords"
                                            type="text"
@@ -651,13 +644,11 @@
                                 <!--Applicable if cross guarantee required-->
                                 <strong> पारस्परिक जमानत (Cross Guarantee): </strong>
                                 <p class="m-0">
-                                    रु
-                                    <input formControlName="guarantorAmount"
+                                    रु.<input formControlName="guarantorAmount"
                                            name="guarantorAmount"
                                            type="text"
                                            class="form-control-sm form-field"
-                                           placeholder="Loan Amount"/>
-                                    /- (अक्षरेपी रु
+                                           placeholder="Loan Amount"/>/- (अक्षरेपी रु
                                     <input formControlName="guarantorAmountInWords"
                                            name="guarantorAmountInWords"
                                            type="text"
