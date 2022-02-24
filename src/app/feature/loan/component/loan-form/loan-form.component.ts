@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild, ChangeDetectorRef, AfterViewChecked} from '@angular/core';
 import {LoanDataService} from '../../service/loan-data.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 
@@ -61,13 +61,15 @@ import {MicroProposalComponent} from '../../../micro-loan/form-component/micro-p
 import {CrgMicroComponent} from '../../../loan-information-template/crg-micro/crg-micro.component';
 import {MicroCustomerType} from '../../../../@core/model/enum/micro-customer-type';
 import {ProductPaperChecklistComponent} from '../../../loan-information-template/product-paper-checklist/product-paper-checklist.component';
+import { DomSanitizer } from '@angular/platform-browser'
+
 
 @Component({
     selector: 'app-loan-form',
     templateUrl: './loan-form.component.html',
     styleUrls: ['./loan-form.component.css'],
 })
-export class LoanFormComponent implements OnInit {
+export class LoanFormComponent implements OnInit, AfterViewChecked {
     loanFile: DmsLoanFile;
     loanTitle: string;
     loading = true;
@@ -224,6 +226,8 @@ export class LoanFormComponent implements OnInit {
     loanType;
     checklistData;
     loans;
+    paperChecklist;
+    allIds = [];
 
 
 
@@ -246,7 +250,11 @@ export class LoanFormComponent implements OnInit {
         private customerInfoService: CustomerInfoService,
         private companyInfoService: CompanyInfoService,
         private commonRoutingUtilsService: CommonRoutingUtilsService,
-        protected riskQuestionService: RiskGradingService
+        protected riskQuestionService: RiskGradingService,
+        private sanitized: DomSanitizer,
+        private el: ElementRef,
+        private changeDetectorRef: ChangeDetectorRef
+
     ) {
     }
     ngOnInit() {
@@ -372,6 +380,18 @@ export class LoanFormComponent implements OnInit {
     populateTemplate() {
         this.loanConfigService.detail(this.id).subscribe((response: any) => {
             this.loans = response.detail;
+            const obj = JSON.parse(this.loans.paperChecklist);
+            this.paperChecklist = this.sanitized.bypassSecurityTrustHtml(obj.view.changingThisBreaksApplicationSecurity)
+            this.allIds = obj.id;
+            if(this.allIds.length > 0) {
+                this.changeDetectorRef.detectChanges();
+                this.allIds.forEach(id=>{
+                    var elem = this.el.nativeElement.querySelector(`#${id}`);
+                    if(elem) {
+                         elem.addEventListener('click', this.change.bind(this,id));
+                       }
+                })
+            }
             this.loanTag = response.detail.loanTag;
             // this.templateList = response.detail.templateList;
             this.templateList = new DefaultLoanTemplate().DEFAULT_TEMPLATE;
@@ -485,7 +505,9 @@ export class LoanFormComponent implements OnInit {
             });
         });
     }
-
+    change(id) {
+        console.log('clicked', id)
+    }
     pushProposalTemplateToLast() {
         this.templateList.some((value, index) => {
             if (value.name === 'Proposal') {
@@ -869,5 +891,8 @@ export class LoanFormComponent implements OnInit {
    updateChecklist(event) {
         this.checklistData = event;
        console.log('this is the data', event);
+   }
+   ngAfterViewChecked(): void {
+    this.changeDetectorRef.detectChanges();
    }
 }

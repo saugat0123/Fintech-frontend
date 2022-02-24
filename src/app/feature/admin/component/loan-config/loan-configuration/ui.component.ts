@@ -1,4 +1,4 @@
-import {Component, DoCheck, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, DoCheck, ElementRef, OnInit, ViewChild, ChangeDetectorRef, OnChanges, SimpleChanges, AfterViewChecked} from '@angular/core';
 import {Pageable} from '../../../../../@core/service/baseservice/common-pageable';
 import {LoanConfig} from '../../../modal/loan-config';
 import {Document} from '../../../modal/document';
@@ -32,7 +32,7 @@ import { DomSanitizer } from '@angular/platform-browser'
     templateUrl: './ui.component.html',
     styleUrls: ['./ui.component.css']
 })
-export class UIComponent implements OnInit, DoCheck {
+export class UIComponent implements OnInit, DoCheck , AfterViewChecked{
     title: string;
     pageable: Pageable = new Pageable();
     search: string;
@@ -92,7 +92,8 @@ export class UIComponent implements OnInit, DoCheck {
         private spinner: NgxSpinnerService,
         private productModeService: ProductModeService,
         private el: ElementRef,
-        private sanitized: DomSanitizer
+        private sanitized: DomSanitizer,
+        private changeDetectorRef: ChangeDetectorRef
     ) {
     }
 
@@ -104,7 +105,7 @@ export class UIComponent implements OnInit, DoCheck {
     firstRow = 0;
     totalRoes = [];
     index = 0;
-
+    allIds =[];
 
     static loadData(other: UIComponent) {
         other.getTemplate();
@@ -128,6 +129,13 @@ export class UIComponent implements OnInit, DoCheck {
                         other.isRemitLoan = true;
                     } else {
                         other.isRemitLoan = false;
+                    }
+                    if(!ObjectUtil.isEmpty(other.loanConfig.paperChecklist)) {
+                        const obj = JSON.parse(other.loanConfig.paperChecklist);
+                        other.allIds = obj.id;
+                        other.dk = other.sanitized.bypassSecurityTrustHtml(obj.view.changingThisBreaksApplicationSecurity);
+                        other.ck = obj.ck;
+
                     }
                     other.selectedOfferLetterIdList = new Array<number>();
                     other.loanConfig.offerLetters.forEach(selectedOfferLetter => {
@@ -369,7 +377,6 @@ export class UIComponent implements OnInit, DoCheck {
     }
 
     data(data: string, flag) {
-        console.log(data)
         const parser = new DOMParser();
         const parsedDocument = parser.parseFromString(data,'text/html');
         // seperating tables from overal html
@@ -384,33 +391,31 @@ export class UIComponent implements OnInit, DoCheck {
                     //pushing data to array for comparing
                     this.firstRows.push(f.split('\t').join(''));
                     }
-            // this.totalRoes.push(this.firstRows);
-            // this.firstRows = [];
             for(let index =0;index<tr.length;index++) {
                     const tdData = tr[index].getElementsByTagName('td');
                         for(let j = 0; j< tdData.length;j++) {
                                 if(this.firstRows[j].toLowerCase() === 'yes' || this.firstRows[j].toLowerCase() === 'no' || this.firstRows[j].toLowerCase() === 'na') {
+                                    // text values of  rows
                                     const da = tdData[j].innerText.split('\n').join('').split('\t').join('');
+                                    //for skipping first row
                                     if(da.toLowerCase() === 'yes' || da.toLowerCase() === 'no' ||da.toLowerCase() === 'na') {
 
                                     } else {
                                         const id = 'name'+ (index +j+table);
-                                        tdData[j].innerHTML = `<span><input type="radio" id = "name'+ (index +j+table) +'" name=' + '"hello'+ index+'"' +'></span>`
-                                        tdData[j].addEventListener('click', this.change.bind(id));
+                                        this.allIds.push(id);
+                                        tdData[j].innerHTML = `<span><input type="radio" click = "change()" id = "name${(index +j+table)}" name="hello${index}"></span>`
+                                        // tdData[j].addEventListener('click', function(event){
+                                        //     console.log('this is clicked')
+                                        //         // this.change(id);
+                                        // });  
+                                        // tdData[j].listen
                                     }
                                 }
                         }
-            
-                
-                    
             }
             this.firstRows = [];
-            console.log('<table style="width:100%;">' + element.innerHTML +'</table>');
-            
             this.dk = this.sanitized.bypassSecurityTrustHtml('<table class="">' + element.innerHTML +'</table>'); 
-            
         });
-        console.log(parsedDocument);
         // this.ck = this.dk;
         // const rootNodes = parse(data);
         // var x = document.createElement("INPUT");
@@ -461,9 +466,8 @@ export class UIComponent implements OnInit, DoCheck {
 
     }
 
-    change(id: string) {
-        console.log(id);
-        return id;
+    change(id) {
+        console.log('clicked',id);
     }
     getChildrens(array: Array<any>) {
         array.forEach((d, i) => {
@@ -578,6 +582,12 @@ export class UIComponent implements OnInit, DoCheck {
         this.loanConfig.offerLetters = this.selectedOfferLetterList;
         this.loanConfig.loanCategory = this.selectedLoanCategory;
         this.loanConfig.loanTag = this.selectedLoanTag;
+        const obj = {
+            ck: this.ck,
+            view: this.dk,
+            id: this.allIds
+        }
+        this.loanConfig.paperChecklist  = JSON.stringify(obj);
 
         this.service.save(this.loanConfig).subscribe(() => {
                 if (this.loanConfig.id == null) {
@@ -734,4 +744,13 @@ export class UIComponent implements OnInit, DoCheck {
             }
         });
     }
+    ngAfterViewChecked(): void {
+        this.changeDetectorRef.detectChanges();
+        if(this.allIds.length > 0) {
+            var elem = this.el.nativeElement.querySelector(`#${this.allIds[0]}`);
+            if(elem) {
+                 elem.addEventListener('click', this.change.bind(this,this.allIds[0]));
+               }
+        }
+       }
 }
