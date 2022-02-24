@@ -1265,10 +1265,10 @@
           <th>Name of Company</th>
           <th>Share Type</th>
           <th>Share Unit</th>
-          <th *ngIf="shareholderName.length >0">Shareholder Name</th>
           <th>Rate</th>
           <th>Total Value</th>
           <th>Considered Value</th>
+          <th *ngIf="shareholderName.length >0">Shareholder Name</th>
           <th *ngIf="closingPriceAverage.length >0">Closing Price Average</th>
           <th *ngIf="closingPrice.length >0">Closing Price</th>
           <th *ngIf="client === clientName?.ICFC">Price Earning Ratio</th>
@@ -1283,10 +1283,10 @@
           <td class="text-left pl-1">{{singleShareData?.companyName}}</td>
           <td class="text-left pl-1">{{singleShareData?.shareType}}</td>
           <td class="text-right pr-1">{{singleShareData?.totalShareUnit}}</td>
-          <td class="text-left pl-1" *ngIf="shareholderName.length >0">{{singleShareData?.shareholderName}}</td>
           <td class="text-right pr-1">Rs. {{singleShareData?.amountPerUnit |currencyFormatter}}</td>
           <td class="text-right pr-1">Rs. {{singleShareData?.total |currencyFormatter}}</td>
           <td class="text-right pr-1">Rs. {{singleShareData?.consideredValue |currencyFormatter}}</td>
+          <td class="text-left pl-1" *ngIf="shareholderName.length >0">{{singleShareData?.shareholderName}}</td>
           <td class="text-right pr-1" *ngIf="closingPriceAverage.length>0">Rs. {{singleShareData?.closingPriceAverage |currencyFormatter}}</td>
           <td class="text-right pr-1" *ngIf="closingPrice.length>0">Rs. {{singleShareData?.closingPrice |currencyFormatter}}</td>
           <td class="text-right pr-1" *ngIf="client === clientName?.ICFC">{{singleShareData?.priceEarningRatio}}</td>
