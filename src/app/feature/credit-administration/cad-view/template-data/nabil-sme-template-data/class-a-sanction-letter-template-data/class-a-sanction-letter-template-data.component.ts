@@ -130,7 +130,8 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
               private dialogService: NbDialogService,
               private toastService: ToastService,
               private titleCasePipe: TitleCasePipe,
-              private administrationService: CreditAdministrationService, ) { }
+              private administrationService: CreditAdministrationService,
+              private engToNepNumberPipe: EngToNepaliNumberPipe) { }
 
   ngOnInit() {
     this.buildForm();
@@ -142,6 +143,7 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
         this.customerApprovedDoc.offerDocumentList.forEach(offerLetter => {
           this.initialInfo = JSON.parse(offerLetter.initialInformation);
         });
+        this.setTdHolders();
       }
       console.log('Initial Infor:', this.initialInfo);
       this.mapObjectData(this.initialInfo);
@@ -309,7 +311,6 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       serviceChargeWords: [undefined],
       detailOfFacility: [undefined],
       serviceChargeInPerc: [undefined],
-      TdHolder: [undefined],
       TDAmount : [undefined],
       drawingPower: [undefined],
       baseRate: [undefined],
@@ -321,13 +322,13 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       miniumComissionAmount: [undefined],
       comissionRateFirstQuarter: [undefined],
       comissionRateOthersQuarter: [undefined],
-      sanctionLetterDateType: [undefined],
+      sanctionLetterDateType: ['AD'],
       sanctionLetterDateNepali: [undefined],
       sanctionLetterDate: [undefined],
-      dateOfApplicationType: [undefined],
+      dateOfApplicationType: ['AD'],
       dateOfApplicationNepali: [undefined],
       dateOfApplication: [undefined],
-      previousSanctionType: [undefined],
+      previousSanctionType: ['AD'],
       previousSanctionDate: [undefined],
       tenureFacility: [undefined],
       securities: this.formBuilder.array([]),
@@ -338,10 +339,10 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       BankGuarantee: [undefined],
       irrevocable: [undefined],
       loanExpiry: [undefined],
-      loanExpiryType: [undefined],
+      loanExpiryType: ['AD'],
       loanExpiryNepali: [undefined],
       previousSanctionDateNepali: [undefined],
-      dateOfExpiryType: [undefined],
+      dateOfExpiryType: ['AD'],
       dateOfExpiryNepali: [undefined],
       dateOfExpiry: [undefined],
       naturalPersonCheck: [undefined],
@@ -398,7 +399,6 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       serviceChargeWordsTrans: [undefined],
       detailOfFacilityTrans: [undefined],
       serviceChargeInPercTrans: [undefined],
-      TdHolderTrans: [undefined],
       TDAmountTrans: [undefined],
       drawingPowerTrans: [undefined],
       baseRateTrans: [undefined],
@@ -495,7 +495,6 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       serviceChargeWordsCT: [undefined],
       detailOfFacilityCT: [undefined],
       serviceChargeInPercCT: [undefined],
-      TdHolderCT: [undefined],
       TDAmountCT: [undefined],
       drawingPowerCT: [undefined],
       baseRateCT: [undefined],
@@ -562,11 +561,41 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       letterExistingCT: [undefined],
       serviceCheckCT: [undefined],
       naturalCheckCT: [undefined],
+      tdHolderNames: this.formBuilder.array([]),
     });
+    if (!this.isEdit) {
+      this.addTdHolders();
+    }
     this.addDefaultSecurity();
   }
   get FormControls() {
     return this.form.controls;
+  }
+
+  setTdHolders() {
+    if (!ObjectUtil.isEmpty(this.initialInfo) &&
+        !ObjectUtil.isEmpty(this.initialInfo.tdHolderNames)) {
+      const holderNames = this.initialInfo.tdHolderNames[0]['tdholderNames'];
+      for (let i = 0; i < this.initialInfo.tdHolderNames[0]['tdholderNames'].length; i++) {
+        this.addTdHolders();
+        this.form.get(['tdHolderNames', i, 'TdHolder']).patchValue(holderNames[i].TdHolder);
+        this.form.get(['tdHolderNames', i, 'TdHolderTrans']).patchValue(holderNames[i].TdHolderTrans);
+        this.form.get(['tdHolderNames', i, 'TdHolderCT']).patchValue(holderNames[i].TdHolderCT);
+      }
+    }
+  }
+  removeTdHolders(ind) {
+    (this.form.get('tdHolderNames') as FormArray).removeAt(ind);
+  }
+
+  addTdHolders() {
+    (this.form.get('tdHolderNames') as FormArray).push(
+        this.formBuilder.group({
+          TdHolder: [undefined],
+          TdHolderTrans: [undefined],
+          TdHolderCT: [undefined],
+        })
+    );
   }
 
   public sanctionLetterDate(value): void {
@@ -596,7 +625,6 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
   //   this.isnewCustomer = val === 'NEW';
   // }
   checkCostumerType(val) {
-    console.log('value:', val);
     this.isLoanOptionSelected = !ObjectUtil.isEmpty(val);
     const tempSelectedLoanType = this.form.get('costumerType').value;
     this.isnewCustomer = tempSelectedLoanType === 'newCustomer';
@@ -605,7 +633,6 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
     this.existingAdditionalLoan = tempSelectedLoanType === 'existingAdditionalLoan';
   }
   checkLoanType() {
-    console.log('Im here');
     const tempSelectedLoanType = this.form.get('loanType').value;
     this.isBankGuaranteeSelected = tempSelectedLoanType === 'BankGuarantee';
     this.isOverdraftSelected = tempSelectedLoanType === 'Overdraft';
@@ -721,7 +748,7 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
     const baseRate = this.form.get('baseRate').value;
     const premiumRate = this.form.get('premiumRate').value;
     const sum = parseFloat(baseRate) + parseFloat(premiumRate);
-    this.form.get('interestRate').patchValue(sum);
+    this.form.get('interestRate').patchValue(sum.toFixed(2));
     // Converting value from existed pipe:
     this.translateNumber('baseRate', 'baseRateTrans');
     this.translateNumber('premiumRate', 'premiumRateTrans');
@@ -746,7 +773,7 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
     // SET TRANSLATED DATA:
     this.form.get('nameOfBranchManagerTrans').patchValue(this.translatedValues.nameOfBranchManager);
     this.form.get('nameOfRelationalManagerTrans').patchValue(this.translatedValues.nameOfRelationalManager);
-    this.form.get('TdHolderTrans').patchValue(this.translatedValues.TdHolder);
+    // this.form.get('TdHolderTrans').patchValue(this.translatedValues.TdHolder);
     this.form.get('TDAmountTrans').patchValue(this.translatedValues.TDAmount);
     this.form.get('TdHoldingTrans').patchValue(this.translatedValues.TdHolding);
     this.form.get('accountNumberTrans').patchValue(this.translatedValues.accountNumber);
@@ -801,7 +828,8 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
 
   mappedData() {
     Object.keys(this.form.controls).forEach(key => {
-      if (key.indexOf('Trans') > -1 || key === 'municipalityOrVdc' || key === 'securities' || key.indexOf('CT') > -1) {
+      if (key.indexOf('Trans') > -1 || key === 'municipalityOrVdc' || key === 'securities' || key.indexOf('CT') > -1 ||
+      key === 'tdHolderNames') {
         return;
       }
       this.attributes = new Attributes();
@@ -816,9 +844,10 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
   mapObjectData(data, targetKey?, sourceKey?) {
     Object.keys(data).forEach(key => {
       this.editedData[key] = !ObjectUtil.isEmpty(key) ? data[key].en : '';
-      // this.editedData[key + 'Trans'] = !ObjectUtil.isEmpty(key) ? data.key.np : '';
+      this.editedData[key + 'Trans'] = !ObjectUtil.isEmpty(key) ? data[key].ct : '';
       this.editedData[key + 'CT'] = !ObjectUtil.isEmpty(key) ? data[key].ct : '';
     });
+    this.editedData['tdHolderNames'] = !ObjectUtil.isEmpty(data.tdHolderNames) ? data.tdHolderNames : '';
     if (!ObjectUtil.isEmpty(this.editedData.costumerType) && !ObjectUtil.isEmpty(this.editedData.loanType)) {
       this.isLoanOptionSelected = true;
     }
@@ -835,41 +864,54 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
     // Set Translated Sanction letter Date:
     const sanctionLetterType = this.form.get('sanctionLetterDateType').value;
     let approvalDateTrans;
-    if (sanctionLetterType === 'AD') {
-      const approvalForm = this.form.get('sanctionLetterDate').value;
+    if (!ObjectUtil.isEmpty(sanctionLetterType) && sanctionLetterType === 'AD') {
+      const approvalForm = this.form.get('sanctionLetterDate').value ?
+          this.form.get('sanctionLetterDate').value : '';
       approvalDateTrans = !ObjectUtil.isEmpty(approvalForm) ?
           this.datePipe.transform(approvalForm) : '';
-      this.form.get('sanctionLetterDateTrans').patchValue(approvalDateTrans);
+      const tempDate = this.transformEnglishDate(approvalDateTrans);
+      this.form.get('sanctionLetterDateTrans').patchValue(tempDate);
     } else {
-      const approvalNepali = this.form.get('sanctionLetterDateNepali').value;
+      const approvalNepali = this.form.get('sanctionLetterDateNepali').value ?
+          this.form.get('sanctionLetterDateNepali').value : '';
       approvalDateTrans = !ObjectUtil.isEmpty(approvalNepali) ?
           approvalNepali.nDate : '';
       this.form.get('sanctionLetterDateNepaliTrans').patchValue(approvalDateTrans);
     }
     // set translated expiry date
-    const expiryType = this.form.get('dateOfExpiryType').value;
+    const expiryType = this.form.get('dateOfExpiryType').value ?
+        this.form.get('dateOfExpiryType').value : '';
     let expiryDateTrans;
-    if (expiryType === 'AD') {
-      const expiryForm = this.form.get('dateOfExpiry').value;
+    if (!ObjectUtil.isEmpty(expiryType) && expiryType === 'AD') {
+      const expiryForm = this.form.get('dateOfExpiry').value ?
+          this.form.get('dateOfExpiry').value : '';
       expiryDateTrans = !ObjectUtil.isEmpty(expiryForm) ?
           this.datePipe.transform(expiryForm) : '';
-      this.form.get('dateOfExpiryTrans').patchValue(expiryDateTrans);
-    } else {
-      const expiryNepali = this.form.get('dateOfExpiryNepali').value;
+      const tempDate = this.transformEnglishDate(expiryDateTrans);
+      this.form.get('dateOfExpiryTrans').patchValue(tempDate);
+    }
+    if (!ObjectUtil.isEmpty(expiryType) && expiryType === 'BS') {
+      const expiryNepali = this.form.get('dateOfExpiryNepali').value ?
+          this.form.get('dateOfExpiryNepali').value : '';
       expiryDateTrans = !ObjectUtil.isEmpty(expiryNepali) ?
           expiryNepali.nDate : '';
       this.form.get('dateOfExpiryNepaliTrans').patchValue(expiryDateTrans);
     }
     // set translated loan expiry date
-    const expiryLoanType = this.form.get('loanExpiryType').value;
+    const expiryLoanType = this.form.get('loanExpiryType').value ?
+        this.form.get('loanExpiryType').value : '';
     let expiryLoanTrans;
-    if (expiryLoanType === 'AD') {
-      const expiryLoanForm = this.form.get('loanExpiry').value;
+    if (!ObjectUtil.isEmpty(expiryLoanType) && expiryLoanType === 'AD') {
+      const expiryLoanForm = this.form.get('loanExpiry').value ?
+          this.form.get('loanExpiry').value : '';
       expiryLoanTrans = !ObjectUtil.isEmpty(expiryLoanForm) ?
           this.datePipe.transform(expiryLoanForm) : '';
-      this.form.get('loanExpiryTrans').patchValue(expiryLoanTrans);
-    } else {
-      const expiryLoanNepali = this.form.get('loanExpiryNepali').value;
+      const tempDate = this.transformEnglishDate(expiryLoanTrans);
+      this.form.get('loanExpiryTrans').patchValue(tempDate);
+    }
+    if (!ObjectUtil.isEmpty(expiryLoanType) && expiryLoanType === 'BS') {
+      const expiryLoanNepali = this.form.get('loanExpiryNepali').value ?
+          this.form.get('loanExpiryNepali').value : '';
       expiryLoanTrans = !ObjectUtil.isEmpty(expiryLoanNepali) ?
           expiryLoanNepali.nDate : '';
       this.form.get('loanExpiryNepaliTrans').patchValue(expiryLoanTrans);
@@ -877,27 +919,35 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
     // Set Translated Application Date:
     const applicationType = this.form.get('dateOfApplicationType').value;
     let applicationDateTrans;
-    if (applicationType === 'AD') {
-      const applicationForm = this.form.get('dateOfApplication').value;
+    if (!ObjectUtil.isEmpty(applicationType) && applicationType === 'AD') {
+      const applicationForm = this.form.get('dateOfApplication').value ?
+          this.form.get('dateOfApplication').value : '';
       applicationDateTrans = !ObjectUtil.isEmpty(applicationForm) ?
           this.datePipe.transform(applicationForm) : '';
-      this.form.get('dateOfApplicationTrans').patchValue(applicationDateTrans);
+      const tempDate = this.transformEnglishDate(applicationDateTrans);
+      this.form.get('dateOfApplicationTrans').patchValue(tempDate);
     } else {
-      const applicationNepali = this.form.get('dateOfApplicationNepali').value;
+      const applicationNepali = this.form.get('dateOfApplicationNepali').value ?
+          this.form.get('dateOfApplicationNepali').value : '';
       applicationDateTrans = !ObjectUtil.isEmpty(applicationNepali) ?
           applicationNepali.nDate : '';
       this.form.get('dateOfApplicationNepaliTrans').patchValue(applicationDateTrans);
     }
     // Set Translation Date of Previous Sanction letter:
-    const previousSanctionType = this.form.get('previousSanctionType').value;
+    const previousSanctionType = this.form.get('previousSanctionType').value ?
+        this.form.get('previousSanctionType').value : '';
     let previousSanctionTrans;
-    if (previousSanctionType === 'AD') {
-      const previousSanctionForm = this.form.get('previousSanctionDate').value;
+    if (!ObjectUtil.isEmpty(previousSanctionType) && previousSanctionType === 'AD') {
+      const previousSanctionForm = this.form.get('previousSanctionDate').value ?
+          this.form.get('previousSanctionDate').value : '';
       previousSanctionTrans = !ObjectUtil.isEmpty(previousSanctionForm) ?
           this.datePipe.transform(previousSanctionForm) : '';
-      this.form.get('previousSanctionDateTrans').patchValue(previousSanctionTrans);
-    } else {
-      const previousSanctionNepali = this.form.get('previousSanctionDateNepali').value;
+      const tempDate = this.transformEnglishDate(previousSanctionTrans);
+      this.form.get('previousSanctionDateTrans').patchValue(tempDate);
+    }
+    if (!ObjectUtil.isEmpty(previousSanctionType) && previousSanctionType === 'BS') {
+      const previousSanctionNepali = this.form.get('previousSanctionDateNepali').value ?
+          this.form.get('previousSanctionDateNepali').value : '';
       previousSanctionTrans = !ObjectUtil.isEmpty(previousSanctionNepali) ?
           previousSanctionNepali.nDate : '';
       this.form.get('previousSanctionDateNepaliTrans').patchValue(previousSanctionTrans);
@@ -936,26 +986,26 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       // purposeOfLoan: this.form.get('purposeOfLoan').value,
       // nameOfStaff: this.form.get('nameOfStaff').value,
       // nameOfFacility: this.form.get('nameOfFacility').value,
-      nameOfBranchManager: this.form.get('nameOfBranchManager').value,
-      sanctionLetterDateType: this.form.get('sanctionLetterDateType').value,
-      dateOfApplicationType: this.form.get('dateOfApplicationType').value,
-      previousSanctionType: this.form.get('previousSanctionType').value,
-      nameOfRelationalManager: this.form.get('nameOfRelationalManager').value,
-      dateOfExpiry: this.form.get('dateOfExpiry').value,
-      loanExpiry: this.form.get('loanExpiry').value,
-      TdHolder: this.form.get('TdHolder').value,
-      TDAmount: this.form.get('TDAmount').value,
-      TdHolding: this.form.get('TdHolding').value,
-      accountNumber: this.form.get('accountNumber').value,
-      drawingPower: this.form.get('drawingPower').value,
-      holderName: this.form.get('holderName').value,
-      comissionRate: this.form.get('comissionRate').value,
-      miniumComissionAmount: this.form.get('miniumComissionAmount').value,
-      detailOfFacility: this.form.get('detailOfFacility').value,
-      serviceChargeInPerc: this.form.get('serviceChargeInPerc').value,
-      comissionRateFirstQuarter: this.form.get('comissionRateFirstQuarter').value,
-      comissionRateOthersQuarter: this.form.get('comissionRateOthersQuarter').value,
-      tenureFacility: this.form.get('tenureFacility').value,
+      nameOfBranchManager: this.form.get('nameOfBranchManager').value ? this.form.get('nameOfBranchManager').value : '',
+      sanctionLetterDateType: this.form.get('sanctionLetterDateType').value ? this.form.get('sanctionLetterDateType').value : '',
+      dateOfApplicationType: this.form.get('dateOfApplicationType').value ? this.form.get('dateOfApplicationType').value : '',
+      previousSanctionType: this.form.get('previousSanctionType').value ? this.form.get('previousSanctionType').value : '',
+      nameOfRelationalManager: this.form.get('nameOfRelationalManager').value ? this.form.get('nameOfRelationalManager').value : '',
+      // dateOfExpiry: this.form.get('dateOfExpiry').value,
+      // loanExpiry: this.form.get('loanExpiry').value,
+      // TdHolder: this.form.get('TdHolder').value,
+      TDAmount: this.form.get('TDAmount').value ? this.form.get('TDAmount').value : '',
+      TdHolding: this.form.get('TdHolding').value ? this.form.get('TdHolding').value : '',
+      accountNumber: this.form.get('accountNumber').value ? this.form.get('accountNumber').value : '',
+      drawingPower: this.form.get('drawingPower').value ? this.form.get('drawingPower').value : '',
+      holderName: this.form.get('holderName').value ? this.form.get('holderName').value : '',
+      comissionRate: this.form.get('comissionRate').value ? this.form.get('comissionRate').value : '',
+      miniumComissionAmount: this.form.get('miniumComissionAmount').value ? this.form.get('miniumComissionAmount').value : '',
+      detailOfFacility: this.form.get('detailOfFacility').value ? this.form.get('detailOfFacility').value : '',
+      serviceChargeInPerc: this.form.get('serviceChargeInPerc').value ? this.form.get('serviceChargeInPerc').value : '',
+      comissionRateFirstQuarter: this.form.get('comissionRateFirstQuarter').value ? this.form.get('comissionRateFirstQuarter').value : '',
+      comissionRateOthersQuarter: this.form.get('comissionRateOthersQuarter').value ? this.form.get('comissionRateOthersQuarter').value : '',
+      tenureFacility: this.form.get('tenureFacility').value ? this.form.get('tenureFacility').value : '',
     });
     this.translatedValues = await this.translate(this.translateFormGroup);
     this.setTranslatedData(this.translatedValues);
@@ -966,58 +1016,41 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
   }
 
   setCTValuesAfterTranslation() {
-    if (this.BSSanctionLetterDate) {
+    if (this.form.get('sanctionLetterDateType').value === 'AD') {
+      this.form.get('sanctionLetterDateCT').patchValue(this.form.get('sanctionLetterDateTrans').value);
+    } else {
       this.form.get('sanctionLetterDateNepaliCT').patchValue(this.form.get('sanctionLetterDateNepaliTrans').value);
     }
     // Set CT Value of Date of Application
     this.form.get('dateOfApplicationTypeCT').patchValue(this.form.get('dateOfApplicationType').value);
-    if (this.ADApplication) {
-      const transDate = this.form.get('dateOfApplicationTrans').value;
-      const convertAppDate = !ObjectUtil.isEmpty(transDate) ? this.engNepDatePipe.transform(transDate, true) : '';
-      this.form.get('dateOfApplicationCT').patchValue(convertAppDate);
-    }
-    if (this.BSApplication) {
+    if (this.form.get('dateOfApplicationType').value === 'AD') {
+      this.form.get('dateOfApplicationCT').patchValue(this.form.get('dateOfApplicationTrans').value);
+    } else {
       this.form.get('dateOfApplicationNepaliCT').patchValue(this.form.get('dateOfApplicationNepaliTrans').value);
     }
-    // Set CT Value of sanction letter date type
-    this.form.get('sanctionLetterDateTypeCT').patchValue(this.form.get('sanctionLetterDateType').value);
-    if (this.ADSanctionLetterDate) {
-      const transDate = this.form.get('sanctionLetterDateTrans').value;
-      const convertAppDate = !ObjectUtil.isEmpty(transDate) ? this.engNepDatePipe.transform(transDate, true) : '';
-      this.form.get('sanctionLetterDateCT').patchValue(convertAppDate);
-    }
-    if (this.BSApplication) {
-      this.form.get('sanctionLetterDateNepaliCT').patchValue(this.form.get('sanctionLetterDateNepaliTrans').value);
-    }
+
     // Set CT Value of Date of Expiry
     this.form.get('dateOfExpiryTypeCT').patchValue(this.form.get('dateOfExpiryType').value);
-    if (this.ADDateOfExpiry) {
-      const transDate = this.form.get('dateOfExpiryTrans').value;
-      const convertExpDate = !ObjectUtil.isEmpty(transDate) ? this.engNepDatePipe.transform(transDate, true) : '';
-      this.form.get('dateOfExpiryCT').patchValue(convertExpDate);
+    if (this.form.get('dateOfExpiryType').value === 'AD') {
+      this.form.get('dateOfExpiryCT').patchValue(this.form.get('dateOfExpiryTrans').value);
     }
-    if (this.BSDateOfExpiry) {
+    if (this.form.get('dateOfExpiryType').value === 'BS') {
       this.form.get('dateOfExpiryNepaliCT').patchValue(this.form.get('dateOfExpiryNepaliTrans').value);
     }
 
     // Set CT Value of loan of Expiry
     this.form.get('loanExpiryTypeCT').patchValue(this.form.get('loanExpiryType').value);
-    if (this.ADloanExpiry) {
-      const transDate = this.form.get('loanExpiryTrans').value;
-      const convertExpDate = !ObjectUtil.isEmpty(transDate) ? this.engNepDatePipe.transform(transDate, true) : '';
-      this.form.get('loanExpiryCT').patchValue(convertExpDate);
+    if (this.form.get('loanExpiryType').value === 'AD') {
+      this.form.get('loanExpiryCT').patchValue(this.form.get('loanExpiryTrans').value);
     }
-    if (this.BSloanExpiry) {
+    if (this.form.get('loanExpiryType').value === 'BS') {
       this.form.get('loanExpiryNepaliCT').patchValue(this.form.get('loanExpiryNepaliTrans').value);
     }
     this.form.get('previousSanctionTypeCT').patchValue(this.form.get('previousSanctionType').value);
-    if (this.ADPrevious) {
-      const transPreviousDate = this.form.get('previousSanctionDateTrans').value;
-      const convertPreviousDate = !ObjectUtil.isEmpty(transPreviousDate) ?
-          this.engNepDatePipe.transform(transPreviousDate, true) : '';
-      this.form.get('previousSanctionDateCT').patchValue(convertPreviousDate);
+    if (this.form.get('previousSanctionType').value === 'AD') {
+      this.form.get('previousSanctionDateCT').patchValue(this.form.get('previousSanctionDateTrans').value);
     }
-    if (this.BSPrevious) {
+    if (this.form.get('previousSanctionType').value === 'BS') {
       this.form.get('previousSanctionDateNepaliCT').patchValue(
           this.form.get('previousSanctionDateNepaliTrans').value);
     }
@@ -1034,7 +1067,7 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
     this.form.get('totalLimitInWordsCT').patchValue(this.form.get('totalLimitInWordsTrans').value);
     this.form.get('serviceChargeFigureCT').patchValue(this.form.get('serviceChargeFigureTrans').value);
     this.form.get('serviceChargeWordsCT').patchValue(this.form.get('serviceChargeWordsTrans').value);
-    this.form.get('TdHolderCT').patchValue(this.form.get('TdHolderTrans').value);
+    // this.form.get('TdHolderCT').patchValue(this.form.get('TdHolderTrans').value);
     this.form.get('TDAmountCT').patchValue(this.form.get('TDAmountTrans').value);
     this.form.get('TdHoldingCT').patchValue(this.form.get('TdHoldingTrans').value);
     this.form.get('drawingPowerCT').patchValue(this.form.get('drawingPowerTrans').value);
@@ -1051,6 +1084,44 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
   }
   get Form() {
     return this.form.controls;
+  }
+  transformEnglishDate(date) {
+    if (!ObjectUtil.isEmpty(date)) {
+      let transformedDate;
+      let monthName;
+      const dateArray = [];
+      const splittedDate = date.split(' ');
+      if (splittedDate[0] === 'Jan') {
+        monthName = 'जनवरी';
+      } else if (splittedDate[0] === 'Feb') {
+        monthName = 'फेब्रुअरी';
+      } else if (splittedDate[0] === 'Mar') {
+        monthName = 'मार्च';
+      } else if (splittedDate[0] === 'Apr') {
+        monthName = 'अप्रिल';
+      } else if (splittedDate[0] === 'May') {
+        monthName = 'मे';
+      } else if (splittedDate[0] === 'Jun') {
+        monthName = 'जुन';
+      } else if (splittedDate[0] === 'Jul') {
+        monthName = 'जुलाई';
+      } else if (splittedDate[0] === 'Aug') {
+        monthName = 'अगष्ट';
+      } else if (splittedDate[0] === 'Sep') {
+        monthName = 'सेप्टेम्बर';
+      } else if (splittedDate[0] === 'Oct') {
+        monthName = 'अक्टुबर';
+      } else if (splittedDate[0] === 'Nov') {
+        monthName = 'नोभेम्बर';
+      } else {
+        monthName = 'डिसेम्बर';
+      }
+      dateArray.push(this.engToNepNumberPipe.transform(splittedDate[1].slice(0, -1)));
+      dateArray.push(monthName + ',');
+      dateArray.push(this.engToNepNumberPipe.transform(splittedDate[2]));
+      transformedDate = dateArray.join(' ');
+      return transformedDate;
+    }
   }
 
   buildSecurityForm() {
@@ -1240,6 +1311,9 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       this.spinner = false;
       return;
     }
+    const tdHolderDetails = [{
+      tdholderNames: this.form.get('tdHolderNames').value,
+    }];
     this.form.get('naturalPersonCheck').patchValue(this.isNatural);
     this.form.get('FixedDeposit').patchValue(this.isFixedDepositSelected);
     this.form.get('DepositAccount').patchValue(this.isDepositAccountSelected);
@@ -1282,6 +1356,7 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
         if (offerLetterPath.docName.toString() ===
             this.offerLetterConst.value(this.offerLetterConst.CLASS_A).toString()) {
           this.mappedData();
+          this.tdVal['tdHolderNames'] = tdHolderDetails;
           offerLetterPath.initialInformation = JSON.stringify(this.tdVal);
           this.translatedData = {};
         }
@@ -1290,7 +1365,8 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       const offerDocument = new OfferDocument();
       offerDocument.docName = this.offerLetterConst.value(this.offerLetterConst.CLASS_A);
       Object.keys(this.form.controls).forEach(key => {
-        if (key.indexOf('Trans') > -1 || key === 'municipalityOrVdc' || key === 'securities' || key.indexOf('CT') > -1) {
+        if (key.indexOf('Trans') > -1 || key === 'municipalityOrVdc' || key === 'securities' || key.indexOf('CT') > -1 ||
+            key === 'tdHolderNames') {
           return;
         }
         this.attributes = new Attributes();
@@ -1300,6 +1376,7 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
         this.attributes.ct = this.form.get(key + 'Trans').value;
         this.tdValues[key] = this.attributes;
       });
+      this.tdValues['tdHolderNames'] = tdHolderDetails;
       this.translatedData = {};
       this.deleteCTAndTransContorls(this.tdValues);
       offerDocument.initialInformation = JSON.stringify(this.tdValues);
