@@ -658,7 +658,7 @@ export class LoanFormComponent implements OnInit {
         }
         if (name === 'Product Paper Checklist' && action) {
             this.productPaperChecklistComponent.save();
-            this.loanDocument.paperProductChecklist = JSON.stringify(this.checklistData);
+            this.loanDocument.paperProductChecklist = this.checklistData;
             this.paperChecklist = this.sanitized.bypassSecurityTrustHtml(this.checklistData);
         }
 
