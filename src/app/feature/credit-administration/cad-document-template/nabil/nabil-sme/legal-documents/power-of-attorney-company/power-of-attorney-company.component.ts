@@ -35,6 +35,8 @@ export class PowerOfAttorneyCompanyComponent implements OnInit {
   isAuth1 = false;
   spinner = false;
   freeText;
+  totalAmount;
+  totalAmountInWord;
   savedFreeText: Array<any> = new Array<any>();
   issueDate = [];
   authorizedNameArray: Array<any> = new Array<any>();
@@ -52,6 +54,7 @@ export class PowerOfAttorneyCompanyComponent implements OnInit {
 
   ngOnInit() {
     this.setData();
+    this.setTotalAmount();
     this.buildForm();
     this.patchData();
     this.setSavedFreeText();
@@ -182,12 +185,10 @@ export class PowerOfAttorneyCompanyComponent implements OnInit {
       streetName: [this.loanHolderNepData.registeredStreetTole ? this.loanHolderNepData.registeredStreetTole.ct : ''],
       nameOfBorrower: [this.loanHolderNepData.name ? this.loanHolderNepData.name.ct : ''],
       freeText1: [this.freeText ? this.freeText.freeText1 : ''],
-
       branchName: [this.loanHolderNepData.branch ? this.loanHolderNepData.branch.ct : ''],
       sanctionLetterIssuedDate: [this.setApprovalDate()],
-      loanAmountInFigure: [this.finalAmount ? this.finalAmount : ''],
-      loanAmountInWords: [this.loanAmountWord ? this.loanAmountWord : ''],
-
+      loanAmountInFigure: this.totalAmount,
+      loanAmountInWords: this.totalAmountInWord,
       sakshiDistrict1: [this.freeText ? this.freeText.sakshiDistrict1 : ''],
       sakshiDistrict2: [this.freeText ? this.freeText.sakshiDistrict2 : ''],
       sakshiMunicipality1: [this.freeText ? this.freeText.sakshiMunicipality1 : ''],
@@ -250,7 +251,41 @@ export class PowerOfAttorneyCompanyComponent implements OnInit {
     };
     return JSON.stringify(free);
   }
-
+  setTotalAmount() {
+    if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
+      if (this.cadData.offerDocumentList[0].docName === 'Combined Offer Letter') {
+        this.totalAmount = (this.offerDocumentDetails.smeGlobalForm && this.offerDocumentDetails.smeGlobalForm.totalLimitInFigureCT) ?
+            this.offerDocumentDetails.smeGlobalForm.totalLimitInFigureCT : '';
+        this.totalAmountInWord = (this.offerDocumentDetails.smeGlobalForm && this.offerDocumentDetails.smeGlobalForm.totalLimitInWordsCT ) ?
+            this.offerDocumentDetails.smeGlobalForm.totalLimitInWordsCT : '';
+      } if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'DDSL Without Subsidy') {
+        this.totalAmount = (this.offerDocumentDetails && this.offerDocumentDetails.loanLimitAmountFigure) ?
+            this.offerDocumentDetails.loanLimitAmountFigure.ct : '';
+        this.totalAmountInWord = (this.offerDocumentDetails && this.offerDocumentDetails.loanLimitAmountFigureWords) ?
+            this.offerDocumentDetails.loanLimitAmountFigureWords.ct : '';
+      } if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Class A Sanction letter') {
+        this.totalAmount = (this.offerDocumentDetails && this.offerDocumentDetails.totalLimitInFigure) ?
+            this.offerDocumentDetails.totalLimitInFigure.ct : '';
+        this.totalAmountInWord = (this.offerDocumentDetails && this.offerDocumentDetails.totalLimitInWords) ?
+            this.offerDocumentDetails.totalLimitInWords.ct : '';
+      } if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Interest subsidy sanction letter') {
+        this.totalAmount = (this.offerDocumentDetails && this.offerDocumentDetails.totalLimitFigure) ?
+            this.offerDocumentDetails.totalLimitFigure.ct : '';
+        this.totalAmountInWord = (this.offerDocumentDetails && this.offerDocumentDetails.totalLimitWords) ?
+            this.offerDocumentDetails.totalLimitWords.ct : '';
+      } if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Kisan Karja Subsidy') {
+        const proposedLimit = this.cadData.assignedLoan[0] ?
+            this.cadData.assignedLoan[0].proposal.proposedLimit : 0;
+        this.totalAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(proposedLimit ? proposedLimit : 0));
+        this.totalAmountInWord = this.nepaliCurrencyWordPipe.transform(proposedLimit ? proposedLimit : '');
+      } if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Udyamsil Karja Subsidy') {
+        this.totalAmount = (this.offerDocumentDetails && this.offerDocumentDetails.loanAmountFigure) ?
+            this.offerDocumentDetails.loanAmountFigure.ct : '';
+        this.totalAmountInWord = (this.offerDocumentDetails && this.offerDocumentDetails.loanAmountFigureWords) ?
+            this.offerDocumentDetails.loanAmountFigureWords.ct : '';
+      }
+    }
+  }
   setApprovalDate() {
     let approvalDate;
     if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'DDSL Without Subsidy') {
@@ -270,7 +305,7 @@ export class PowerOfAttorneyCompanyComponent implements OnInit {
       }
     }
     if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Udyamsil Karja Subsidy') {
-      approvalDate = this.offerDocumentDetails.dateOfApproval ? this.offerDocumentDetails.dateOfApproval.ct : ''
+      approvalDate = this.offerDocumentDetails.dateOfApproval ? this.offerDocumentDetails.dateOfApproval.ct : '';
     }
     if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Interest subsidy sanction letter') {
       const dateOfApprovalType = this.offerDocumentDetails.dateOfApprovalType ? this.offerDocumentDetails.dateOfApprovalType.en : '';
