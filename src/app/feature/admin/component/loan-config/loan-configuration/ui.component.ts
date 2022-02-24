@@ -372,13 +372,16 @@ export class UIComponent implements OnInit, DoCheck {
         console.log(data)
         const parser = new DOMParser();
         const parsedDocument = parser.parseFromString(data,'text/html');
+        // seperating tables from overal html
         const tables = Array.from(parsedDocument.getElementsByTagName('table'));
-        tables.forEach(element => {
-            console.log('this is the data', element);
+        tables.forEach((element , table) => {
+            //selecting all tr from table
             const tr = Array.from(element.getElementsByTagName('tbody'))[0].getElementsByTagName('tr');
+            // first row header data
             const tds = tr[0].getElementsByTagName('td');
                 for (let i = 0; i < tds.length; i++) {
                     const f = tds[i].innerText.split('\n').join('');
+                    //pushing data to array for comparing
                     this.firstRows.push(f.split('\t').join(''));
                     }
             // this.totalRoes.push(this.firstRows);
@@ -391,7 +394,9 @@ export class UIComponent implements OnInit, DoCheck {
                                     if(da.toLowerCase() === 'yes' || da.toLowerCase() === 'no' ||da.toLowerCase() === 'na') {
 
                                     } else {
-                                        tdData[j].innerHTML = '<span><input type="radio" name=' + '"hello'+ index+'"' +'></span>'
+                                        const id = 'name'+ (index +j+table);
+                                        tdData[j].innerHTML = `<span><input type="radio" id = "name'+ (index +j+table) +'" name=' + '"hello'+ index+'"' +'></span>`
+                                        tdData[j].addEventListener('click', this.change.bind(id));
                                     }
                                 }
                         }
@@ -456,7 +461,10 @@ export class UIComponent implements OnInit, DoCheck {
 
     }
 
-
+    change(id: string) {
+        console.log(id);
+        return id;
+    }
     getChildrens(array: Array<any>) {
         array.forEach((d, i) => {
             // @ts-ignore
