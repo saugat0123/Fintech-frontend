@@ -3,7 +3,7 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 import {LoanDataHolder} from '../../loan/model/loanData';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {LoanConfig} from '../../admin/modal/loan-config';
-import {delay} from 'rxjs/operators';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
     selector: 'app-product-paper-checklist',
@@ -12,8 +12,8 @@ import {delay} from 'rxjs/operators';
 })
 export class ProductPaperChecklistComponent implements OnInit , AfterViewInit {
 
-    constructor(private formBuilder: FormBuilder,
-        private changeDetectorRef: ChangeDetectorRef, private el: ElementRef) {
+    constructor(
+        private changeDetectorRef: ChangeDetectorRef, private el: ElementRef,         private sanitized: DomSanitizer,) {
     }
 
     @Input() loan: LoanConfig;
@@ -21,17 +21,14 @@ export class ProductPaperChecklistComponent implements OnInit , AfterViewInit {
     @Input() loanDataHolder: LoanDataHolder;
     @Output() checkList = new EventEmitter();
     @Input() paper;
-    paperFormIndividual: FormGroup;
-    paperFormInstitutional: FormGroup;
-    yesNoNa = ['Yes', 'No', 'Na'];
-    yesNo = ['Yes', 'No'];
-    formData;
     allIds = [];
     parser: DOMParser;
     parsedData: Document;
+
     ngOnInit() {
-            this.parser = new DOMParser();
-            this.parsedData = this.parser.parseFromString(this.paper, 'text/html');
+        this.parser = new DOMParser();
+        console.log(this.paper);
+        this.parsedData = this.parser.parseFromString(this.paper, 'text/html');
     }
     change(id) {
         console.log('asdasdasdasdid', id);
@@ -63,7 +60,7 @@ export class ProductPaperChecklistComponent implements OnInit , AfterViewInit {
     }
 
     save() {
-            this.checkList.emit(this.parsedData.documentElement.innerHTML);
+            this.checkList.emit(this.parsedData.body.innerHTML);
     }
 
     ngAfterViewInit(): void {
@@ -71,7 +68,6 @@ export class ProductPaperChecklistComponent implements OnInit , AfterViewInit {
         this.changeDetectorRef.detectChanges();
         if (this.allIds.length > 0) {
                 this.allIds.forEach((id, i) => {
-                    console.log(id);
                     const elem = this.el.nativeElement.querySelector(`#${id}`);
                     if (elem) {
                          elem.addEventListener('change', this.change.bind(this, id));

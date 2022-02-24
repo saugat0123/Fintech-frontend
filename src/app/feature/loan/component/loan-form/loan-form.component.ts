@@ -228,6 +228,7 @@ export class LoanFormComponent implements OnInit {
     checklistData;
     loans;
     paperChecklist;
+    savedPaperChecklist;
     allIds = [];
 
 
@@ -301,6 +302,7 @@ export class LoanFormComponent implements OnInit {
                             console.log('response customer', response);
                             this.loanFile = response.detail.dmsLoanFile;
                             this.loanDocument = response.detail;
+                            this.checklistData = this.sanitized.bypassSecurityTrustHtml(this.loanDocument.paperProductChecklist);
                             this.loanDocument.id = response.detail.id;
                             this.submitDisable = false;
                             this.loanHolder = this.loanDocument.loanHolder;
@@ -382,9 +384,15 @@ export class LoanFormComponent implements OnInit {
         this.loanConfigService.detail(this.id).subscribe((response: any) => {
             this.loans = response.detail;
             const obj = JSON.parse(this.loans.paperChecklist);
-            this.paperChecklist = this.sanitized.bypassSecurityTrustHtml(obj.view.changingThisBreaksApplicationSecurity)
+            if(ObjectUtil.isEmpty(this.loanDocument.paperProductChecklist)) {
+                this.paperChecklist = this.sanitized.bypassSecurityTrustHtml(obj.view.changingThisBreaksApplicationSecurity);
+                console.log(this.paperChecklist);
+            } else {
+                this.paperChecklist = this.sanitized.bypassSecurityTrustHtml(this.loanDocument.paperProductChecklist);
+                console.log(this.paperChecklist);
+            }
             this.allIds = obj.id;
-    
+
             this.loanTag = response.detail.loanTag;
             // this.templateList = response.detail.templateList;
             this.templateList = new DefaultLoanTemplate().DEFAULT_TEMPLATE;
@@ -497,9 +505,6 @@ export class LoanFormComponent implements OnInit {
                 this.pushProposalTemplateToLast();
             });
         });
-    }
-    change(id) {
-        console.log('clicked', id)
     }
     pushProposalTemplateToLast() {
         this.templateList.some((value, index) => {
@@ -654,6 +659,7 @@ export class LoanFormComponent implements OnInit {
         if (name === 'Product Paper Checklist' && action) {
             this.productPaperChecklistComponent.save();
             this.loanDocument.paperProductChecklist = JSON.stringify(this.checklistData);
+            this.paperChecklist = this.sanitized.bypassSecurityTrustHtml(this.checklistData);
         }
 
         if (name === 'Loan Document' && action) {
