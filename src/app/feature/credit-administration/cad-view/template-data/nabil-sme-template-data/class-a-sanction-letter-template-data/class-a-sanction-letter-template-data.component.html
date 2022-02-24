@@ -1,7 +1,7 @@
 <nb-card>
         <nb-card-header *ngIf="isEdit">
             <h3>Edit Class A Sanction Loan Data</h3>
-            <span class="font-weight-bold cursor float-right" (click)="dialogRef.close()">x</span>
+            <span class="font-weight-bold cursor float-right" style="margin-top: -2em" (click)="dialogRef.close()">x</span>
         </nb-card-header>
     <form [nbSpinner]="spinner" [formGroup]="form">
         <nb-card-header class="container-fluid">
@@ -11,7 +11,6 @@
                     <ng-select
                             formControlName="costumerType"
                             fullWidth
-                            placeholder=" "
                             (change)="checkCostumerType($event)"
                             status="info">
                         <ng-option value="newCustomer">New Customer</ng-option>
@@ -25,7 +24,6 @@
                     <ng-select
                             formControlName="loanType"
                             fullWidth
-                            placeholder=" "
                             (change)="checkLoanType()"
                             status="info">
                         <ng-option value="Overdraft">Overdraft</ng-option>
@@ -49,7 +47,7 @@
                     <!--                    <ng-select-->
                     <!--                            formControlName="serviceCharges"-->
                     <!--                            fullWidth-->
-                    <!--                            placeholder=" service charge type "-->
+                    <!--                           charge type "-->
                     <!--                            (change)="checkLoanType1()"-->
                     <!--                            status="info">-->
                     <!--                    </ng-select>-->
@@ -59,7 +57,6 @@
                     <ng-select
                             formControlName="serviceCharges"
                             fullWidth
-                            placeholder=" "
                             (change)="checkLoanType1()"
                             status="info">
 
@@ -72,7 +69,6 @@
                     <ng-select
                             formControlName="securityType"
                             fullWidth
-                            placeholder=" "
                             (change)="checkOD()"
                             status="info">
                         <ng-option value="FixedDeposit">Fixed Deposit</ng-option>
@@ -84,7 +80,6 @@
                     <ng-select
                             formControlName="tdHoldingBank"
                             fullWidth
-                            placeholder=" "
                             (change)="checkTD()"
                             status="info">
                         <ng-option value="Nabil">Nabil</ng-option>
@@ -96,7 +91,6 @@
                     <ng-select
                             formControlName="letterOfSetOff"
                             fullWidth
-                            placeholder="Letter of Set off"
                             (change)="checkLetterSet()"
                             status="info">
                         <ng-option value="letterNew">New</ng-option>
@@ -108,7 +102,6 @@
                     <ng-select
                             formControlName="baseRateType"
                             fullWidth
-                            placeholder=" "
                             (change)="checkBaseType()"
                             status="info">
                         <ng-option value="CoupenRateFinancing">Coupen Rate Financing</ng-option>
@@ -119,7 +112,7 @@
                     <label><strong> Cash Margin Type </strong></label>
                     <ng-select
                             formControlName="cashMarginType"
-                            fullWidth placeholder="Cash Margin Type "
+                            fullWidth
                             (change)="checkCashMarginType()"
                             status="info">
                         <ng-option value="HundredCashMargin">Hundred Percent Cash Margin</ng-option>
@@ -130,7 +123,7 @@
                     <label><strong> Counter Guarantee </strong></label>
                     <ng-select
                             formControlName="counterGuarantee"
-                            fullWidth placeholder="Counter Guarantee"
+                            fullWidth
                             (change)="counterGuarantee()"
                             status="info">
                         <ng-option value="New">New</ng-option>
@@ -142,7 +135,6 @@
                     <ng-select
                             formControlName="accountTypes"
                             fullWidth
-                            placeholder="Account Type"
                             (change)="checkAccountTypes()"
                             status="info">
                         <ng-option value="tdAccount">TD Account</ng-option>
@@ -155,7 +147,6 @@
                     <ng-select
                             formControlName="comissionType"
                             fullWidth
-                            placeholder="Commission Type"
                             (change)="checkComissionType()"
                             status="info">
                         <ng-option value="Quarterly">Quarterly</ng-option>
@@ -167,7 +158,6 @@
                     <ng-select
                             formControlName="cashMarginType"
                             fullWidth
-                            placeholder="Cash Margin Type"
                             (change)="checkIrrevocableType()"
                             status="info">
                         <ng-option value="CashMarginHundred">100% Cash Margin</ng-option>
@@ -179,7 +169,6 @@
                     <ng-select
                             formControlName="accountType"
                             fullWidth
-                            placeholder="Account Type"
                             (change)="checkAccountType()"
                             status="info">
                         <ng-option value="tdAccounts">TD Account</ng-option>
@@ -192,7 +181,6 @@
                     <ng-select
                             formControlName="commissionTypes"
                             fullWidth
-                            placeholder="Commission Type"
                             (change)="checkcommisType()"
                             status="info">
                         <ng-option value="CommissionType1">Commission Type 1</ng-option>
@@ -204,7 +192,6 @@
                     <ng-select
                             formControlName="loanOption"
                             fullWidth
-                            placeholder="Loan Option"
                             (change)="checkLoanOptionType()"
                             status="info">
                         <ng-option value="Regular">Regular</ng-option>
@@ -226,16 +213,16 @@
                                         name="sanctionLetterDateType" status="success">
                             <nb-radio *ngFor="let dateTy of dateType" [value]="dateTy.value">{{dateTy.key}}</nb-radio>
                         </nb-radio-group>
-                        <div *ngIf="BSSanctionLetterDate" style="margin-bottom: -50px;">
+                        <div *ngIf="this.form.get('sanctionLetterDateType').value === 'BS'" style="margin-bottom: -50px;">
                             <nepali-patro *ngIf="BSSanctionLetterDate" [displayNepali]="true" [responseType]="2"
                                           formControlName="sanctionLetterDateNepali">
                             </nepali-patro>
                         </div>
-                        <input *ngIf="ADSanctionLetterDate" [nbDatepicker]="sanctionDate"
+                        <input *ngIf="this.form.get('sanctionLetterDateType').value === 'AD'" [nbDatepicker]="sanctionDate"
                                formControlName="sanctionLetterDate" fullWidth
                                id="sanctionLetterDate"
                                nbInput
-                               placeholder="Select Date" status="success">
+                               status="success">
                         <nb-datepicker #sanctionDate></nb-datepicker>
                     </div>
 
@@ -247,17 +234,17 @@
                             <nb-radio *ngFor="let dateTy of dateType"
                                       [value]="dateTy.value">{{dateTy.key}}</nb-radio>
                         </nb-radio-group>
-                        <div *ngIf="BSApplication" style="margin-bottom: -50px;">
+                        <div *ngIf="this.form.get('dateOfApplicationType').value === 'BS'" style="margin-bottom: -50px;">
                             <nepali-patro *ngIf="BSApplication" [displayNepali]="true"
                                           [responseType]="2"
                                           formControlName="dateOfApplicationNepali">
                             </nepali-patro>
                         </div>
-                        <input *ngIf="ADApplication" [nbDatepicker]="applicationDate"
+                        <input *ngIf="this.form.get('dateOfApplicationType').value === 'AD'" [nbDatepicker]="applicationDate"
                                formControlName="dateOfApplication" fullWidth
                                id="dateOfApplication"
                                nbInput
-                               placeholder="Select Application Date" status="success">
+                               status="success">
                         <nb-datepicker #applicationDate></nb-datepicker>
                     </div>
                     <div class="form-group" *ngIf="!isnewCustomer">
@@ -268,17 +255,18 @@
                             <nb-radio *ngFor="let previousType of dateType"
                                       [value]="previousType.value">{{previousType.key}}</nb-radio>
                         </nb-radio-group>
-                        <div *ngIf="BSPrevious" style="margin-bottom: -50px;">
+                        <div *ngIf="this.form.get('previousSanctionType').value === 'BS'" style="margin-bottom: -50px;">
                             <nepali-patro *ngIf="BSPrevious" [displayNepali]="true"
                                           [responseType]="2"
                                           formControlName="previousSanctionDateNepali">
                             </nepali-patro>
                         </div>
-                        <input *ngIf="ADPrevious" [nbDatepicker]="previousDate" formControlName="previousSanctionDate"
+                        <input *ngIf="this.form.get('previousSanctionType').value === 'AD'"
+                               [nbDatepicker]="previousDate" formControlName="previousSanctionDate"
                                fullWidth
                                id="previousSanctionDate"
                                nbInput
-                               placeholder="Select Previous Date" status="success">
+                               status="success">
                         <nb-datepicker #previousDate></nb-datepicker>
                     </div>
                     <div class="form-group"
@@ -329,7 +317,7 @@
                                nbInput status="success" type="text">
                     </div>
                     <div class="form-group" *ngIf="isSecurity && isAllLoanSelected">
-                        <label for="serviceChargeWords">service charge in words</label>
+                        <label for="serviceChargeWords">Service charge in words</label>
                         <input class="form-control" formControlName="serviceChargeWords" fullWidth
                                id="serviceChargeWords"
                                nbInput status="success" type="text">
@@ -353,14 +341,38 @@
                                id="TdHolding"
                                nbInput status="success" type="text">
                     </div>
-                    <div class="form-group"
+
+                    <div class="form-group" *ngIf="isOverdraftSelected && isNabilSelected || isOverdraftSelected && isOtherSelected">
+                        <ng-container
+                                *ngFor="let data of form.get('tdHolderNames')['controls']; let index = index;"
+                                formArrayName="tdHolderNames">
+                            <div [formGroupName]="index"
+                                 [ngClass]="{'helloClass': form.get('tdHolderNames')['length'] > 1}">
+                                <label for="TdHolder">Name of TD Holder </label>
+                                <input class="form-control" formControlName="TdHolder" fullWidth
+                                       (input)="onChangeTranslateSecurity('tdHolderNames', 'TdHolder', index, 'TdHolderTrans')"
+                                       id="TdHolder"
+                                       nbInput status="success" type="text">
+                            </div>
+                            <div *ngIf="form.get('tdHolderNames')['length'] > 1" class="col-md-12">
+                                <button (click)="removeTdHolders(index)" nbButton size="tiny" status="danger"
+                                        style="position: static">
+                                    <em class="fa fa-trash" style="color: white;"></em>
+                                </button>
+                            </div>
+                        </ng-container>
+                    </div>
+
+                    <!--<div class="form-group"
                          *ngIf="isOverdraftSelected && isNabilSelected || isOverdraftSelected && isOtherSelected">
                         <label for="TdHolder">Name of TD Holder </label>
                         <input class="form-control" formControlName="TdHolder" fullWidth
                                id="TdHolder"
                                nbInput status="success" type="text">
-                    </div>
+                    </div>-->
                     <div class="form-group"
+                         [ngClass]="{'lessMargin': form.get('tdHolderNames')['length'] > 1,
+                         'moreMargin': form.get('tdHolderNames')['length'] === 1}"
                          *ngIf="isOverdraftSelected && isNabilSelected || isOverdraftSelected && isOtherSelected">
                         <label for="TdHolder">TD Amount</label>
                         <input class="form-control" formControlName="TDAmount" fullWidth
@@ -370,7 +382,8 @@
                     <div class="form-group"
                          *ngIf="isOverdraftSelected && isNewSelected || isOverdraftSelected && isExistingSelected">
                         <label for="drawingPower">Drawing Power (In %) </label>
-                        <input type="number" class="form-control" formControlName="drawingPower" id="drawingPower">
+                        <input type="number" class="form-control" formControlName="drawingPower" id="drawingPower"
+                               nbInput status="success" fullWidth>
                         <div *ngIf="submitted && Form.drawingPowerTrans.errors"
                              class="invalid-feedback">
                             <div *ngIf="Form.drawingPowerTrans.errors.required">Drawing Power is required</div>
@@ -405,16 +418,17 @@
                                         name="dateOfExpiryType" status="success">
                             <nb-radio *ngFor="let dateTy of dateType" [value]="dateTy.value">{{dateTy.key}}</nb-radio>
                         </nb-radio-group>
-                        <div *ngIf="BSDateOfExpiry" style="margin-bottom: -50px;">
+                        <div *ngIf="this.form.get('dateOfExpiryType').value === 'BS'" style="margin-bottom: -50px;">
                             <nepali-patro *ngIf="BSDateOfExpiry" [displayNepali]="true" [responseType]="2"
                                           formControlName="dateOfExpiryNepali">
                             </nepali-patro>
                         </div>
-                        <input *ngIf="ADDateOfExpiry" [nbDatepicker]="DateOfExpiry"
+                        <input *ngIf="this.form.get('dateOfExpiryType').value === 'AD'"
+                               [nbDatepicker]="DateOfExpiry"
                                formControlName="dateOfExpiry" fullWidth
                                id="dateOfExpiry"
                                nbInput
-                               placeholder="Select Date" status="success">
+                               status="success">
                         <nb-datepicker #DateOfExpiry></nb-datepicker>
                     </div>
                     <div class="form-group" *ngIf="isBankGuaranteeSelected || isIrrevocableSelected">
@@ -468,25 +482,23 @@
                                nbInput status="success" type="text">
                     </div>
                     <div class="form-group" *ngIf="isIrrevocableSelected && (isRegularSelected)">
-                        <label for="loanExpiry">loan Expiry</label><br>
+                        <label for="loanExpiry">Loan Expiry</label><br>
                         <nb-radio-group (valueChange)="loanExpiry($event)" class="d-inline-flex"
                                         formControlName="loanExpiryType" id="loanExpiryType"
                                         name="loanExpiryType" status="success">
                             <nb-radio *ngFor="let dateTy of dateType" [value]="dateTy.value">{{dateTy.key}}</nb-radio>
                         </nb-radio-group>
                         <div *ngIf="BSloanExpiry" style="margin-bottom: -50px;">
-                            <nepali-patro *ngIf="BSloanExpiry" [displayNepali]="true" [responseType]="2"
+                            <nepali-patro *ngIf="this.form.get('loanExpiryType').value === 'BS'" [displayNepali]="true" [responseType]="2"
                                           formControlName="loanExpiryNepali">
                             </nepali-patro>
                         </div>
-                        <input *ngIf="ADloanExpiry" [nbDatepicker]="LoanExpiry"
+                        <input *ngIf="this.form.get('loanExpiryType').value === 'AD'" [nbDatepicker]="LoanExpiry"
                                formControlName="loanExpiry" fullWidth
                                id="loanExpiry"
                                nbInput
-                               placeholder="Select Date" status="success">
+                               status="success">
                         <nb-datepicker #LoanExpiry></nb-datepicker>
-
-
                     </div>
                 </div>
                     <!--FOR TRANSLATION FIELD-->
@@ -494,7 +506,7 @@
                         <div class="col-md-12 mb-2 text-center">
                             <h5>TRANSLATED DATA</h5>
                         </div>
-                        <div class="form-group" *ngIf="BSSanctionLetterDate; else dateOfSanctionField">
+                        <div class="form-group" style="margin-top:45px" *ngIf="BSSanctionLetterDate; else dateOfSanctionField">
                             <label for="sanctionLetterDateNepaliTrans">Date of Approval Translation </label>
                             <input class="form-control dateTranslationCustom"
                                    formControlName="sanctionLetterDateNepaliTrans"
@@ -502,7 +514,7 @@
                                    nbInput status="success" type="text" readonly>
                         </div>
                         <ng-template #dateOfSanctionField>
-                            <div class="form-group">
+                            <div class="form-group" style="margin-top:45px">
                                 <label for="sanctionLetterDateTrans">Date of Approval Translation </label>
                                 <input class="form-control dateTranslationCustom"
                                        formControlName="sanctionLetterDateTrans"
@@ -510,7 +522,7 @@
                                        nbInput status="success" type="text" readonly>
                             </div>
                         </ng-template>
-                        <div class="form-group">
+                        <div class="form-group" style="margin-top:55px">
                             <label for="dateOfApplicationTrans">Date of Application Translation </label>
                             <ng-container *ngIf="BSApplication; else dateOfAppEnglish">
                                 <input class="form-control dateTranslationCustom"
@@ -525,7 +537,7 @@
                                        nbInput status="success" type="text" readonly>
                             </ng-template>
                         </div>
-                        <div class="form-group" *ngIf="!isnewCustomer">
+                        <div class="form-group" *ngIf="!isnewCustomer" style="margin-top:55px">
                             <label for="previousSanctionDateTrans">Previous Sanction Letter Date Translation </label>
                             <ng-container *ngIf="BSPrevious; else previousLetterEnglish">
                                 <input class="form-control dateTranslationCustom"
@@ -580,13 +592,6 @@
                                    id="totalLimitInWordsTrans"
                                    nbInput status="success" type="text">
                         </div>
-                        <div class="form-group"
-                             *ngIf="isOverdraftSelected && isNabilSelected || isOverdraftSelected && isOtherSelected">
-                            <label for="TdHoldingTrans">Name of TD Holding Bank Translation</label>
-                            <input class="form-control" formControlName="TdHoldingTrans" fullWidth
-                                   id="TdHoldingTrans"
-                                   nbInput status="success" type="text">
-                        </div>
                         <div class="form-group" *ngIf="isSecurity && isAllLoanSelected">
                             <label for="serviceChargeFigureTrans">Service charge in figure Translation</label>
                             <input (input)="getNumAmountWord('serviceChargeFigure', 'serviceChargeWords')"
@@ -606,6 +611,13 @@
                                    id="detailOfFacilityTrans"
                                    nbInput status="success" type="text">
                         </div>
+                        <div class="form-group"
+                             *ngIf="isOverdraftSelected && isNabilSelected || isOverdraftSelected && isOtherSelected">
+                            <label for="TdHoldingTrans">Name of TD Holding Bank Translation</label>
+                            <input class="form-control" formControlName="TdHoldingTrans" fullWidth
+                                   id="TdHoldingTrans"
+                                   nbInput status="success" type="text">
+                        </div>
                         <div class="form-group" *ngIf="isSecurity && isSpecificSelected">
                             <label for="serviceChargeInPercTrans">service charge in % Translation</label>
                             <input class="form-control" formControlName="serviceChargeInPercTrans" fullWidth
@@ -613,14 +625,28 @@
                                    nbInput status="success" type="text">
                         </div>
 
-                        <div class="form-group"
+                        <div class="form-group" *ngIf="isOverdraftSelected && isNabilSelected || isOverdraftSelected && isOtherSelected">
+                            <ng-container
+                                    *ngFor="let data of form.get('tdHolderNames')['controls']; let index = index;"
+                                    formArrayName="tdHolderNames">
+                                <div [formGroupName]="index"
+                                     [ngClass]="{'marginStyle': form.get('tdHolderNames')['length'] > 1}">
+                                    <label for="TdHolderTrans">Name of TD Holder Translation </label>
+                                    <input class="form-control" formControlName="TdHolderTrans" fullWidth
+                                           id="TdHolderTrans"
+                                           nbInput status="success" type="text">
+                                </div>
+                            </ng-container>
+                        </div>
+                        <!--<div class="form-group"
                              *ngIf="isOverdraftSelected && isNabilSelected || isOverdraftSelected && isOtherSelected">
                             <label for="TdHolderTrans">Name of TD Holder Translation </label>
                             <input class="form-control" formControlName="TdHolderTrans" fullWidth
                                    id="TdHolderTrans"
                                    nbInput status="success" type="text">
-                        </div>
+                        </div>-->
                         <div class="form-group"
+                             style="margin-top: 3.8em"
                              *ngIf="isOverdraftSelected && isNabilSelected || isOverdraftSelected && isOtherSelected">
                             <label for="TDAmountTrans"> TD Holder Amount Translation </label>
                             <input class="form-control" formControlName="TDAmountTrans" fullWidth
@@ -655,7 +681,7 @@
                                    id="interestRateTrans"
                                    nbInput status="success" type="text">
                         </div>
-                        <div class="form-group"
+                        <div class="form-group" style="margin-top: 55px"
                              *ngIf="isOverdraftSelected && isCoupenRateFinancingSelected || isOverdraftSelected && isBaseRateFinancingSelected || isBankGuaranteeSelected && isQuarterlySelected ||  isBankGuaranteeSelected && isYearlySelected ">
                             <label for="dateOfExpiryNepaliTrans">Date of Expiry Translation </label>
                             <ng-container *ngIf="BSDateOfExpiry; else dateOfExpEnglish">
@@ -722,7 +748,7 @@
                                    id="tenureFacilityTrans"
                                    nbInput status="success" type="text">
                         </div>
-                        <div class="form-group" *ngIf="isIrrevocableSelected && (isRegularSelected)">
+                        <div class="form-group" style="margin-top: 55px" *ngIf="isIrrevocableSelected && (isRegularSelected)">
                             <label for="loanExpiryNepaliTrans">Loan Expiry Translation </label>
                             <ng-container *ngIf="BSloanExpiry; else loanExpEnglish">
                                 <input class="form-control dateTranslationCustom"
@@ -743,7 +769,7 @@
                             <div class="col-md-12 mb-2 text-center">
                                 <h5>CORRECTION TRANSLATION</h5>
                             </div>
-                            <div class="form-group" *ngIf="BSSanctionLetterDate; else dateOfSanctionFieldCT">
+                            <div class="form-group" style="margin-top: 45px" *ngIf="BSSanctionLetterDate; else dateOfSanctionFieldCT">
                                 <label for="sanctionLetterDateNepaliCT">Date of Approval CT </label>
                                 <input class="form-control dateTranslationCustom"
                                        formControlName="sanctionLetterDateNepaliCT"
@@ -757,7 +783,7 @@
                         </span>
                             </div>
                             <ng-template #dateOfSanctionFieldCT>
-                                <div class="form-group">
+                                <div class="form-group" style="margin-top: 45px">
                                     <label for="sanctionLetterDateCT">Date of Approval CT</label>
                                     <input class="form-control dateTranslationCustom"
                                            formControlName="sanctionLetterDateCT"
@@ -771,7 +797,7 @@
                         </span>
                                 </div>
                             </ng-template>
-                            <div class="form-group">
+                            <div class="form-group" style="margin-top:55px">
                                 <label for="dateOfApplicationCT">Date of Application CT</label>
                                 <ng-container *ngIf="BSApplication ; else appDateCT">
                                     <input class="form-control dateTranslationCustom"
@@ -798,7 +824,7 @@
                             </span>
                                 </ng-template>
                             </div>
-                            <div class="form-group" *ngIf="!isnewCustomer">
+                            <div class="form-group" *ngIf="!isnewCustomer" style="margin-top: 55px">
                                 <label for="previousSanctionDateCT">Previous Sanction Letter Date CT</label>
                                 <ng-container *ngIf="BSPrevious; else previousDateCT">
                                     <input class="form-control dateTranslationCustom"
@@ -898,18 +924,6 @@
                             Total Limit In Words is required
                         </span>
                             </div>
-                            <div class="form-group"
-                                 *ngIf="isOverdraftSelected && isNabilSelected || isOverdraftSelected && isOtherSelected">
-                                <label for="TdHoldingCT">Name of TD Holding Bank CT</label>
-                                <input class="form-control" formControlName="TdHoldingCT" fullWidth
-                                       id="TdHoldingCT"
-                                       nbInput status="success"
-                                       [ngClass]="{ 'is-invalid':submitted && FormControls.TdHoldingCT.errors }"
-                                       type="text">
-                                <span *ngIf="submitted && FormControls.TdHoldingCT.invalid" class="text-danger">
-                            Name of TD Holding Bank is required
-                        </span>
-                            </div>
                             <div class="form-group" *ngIf="isSecurity && isAllLoanSelected">
                                 <label for="serviceChargeFigureCT">Service charge in figure CT</label>
                                 <input class="form-control" formControlName="serviceChargeFigureCT" fullWidth
@@ -932,6 +946,18 @@
                                 <span *ngIf="submitted && FormControls.serviceChargeWordsCT.invalid"
                                       class="text-danger">
                            Service charge in words is required
+                        </span>
+                            </div>
+                            <div class="form-group"
+                                 *ngIf="isOverdraftSelected && isNabilSelected || isOverdraftSelected && isOtherSelected">
+                                <label for="TdHoldingCT">Name of TD Holding Bank CT</label>
+                                <input class="form-control" formControlName="TdHoldingCT" fullWidth
+                                       id="TdHoldingCT"
+                                       nbInput status="success"
+                                       [ngClass]="{ 'is-invalid':submitted && FormControls.TdHoldingCT.errors }"
+                                       type="text">
+                                <span *ngIf="submitted && FormControls.TdHoldingCT.invalid" class="text-danger">
+                            Name of TD Holding Bank is required
                         </span>
                             </div>
                             <div class="form-group" *ngIf="isSecurity && isSpecificSelected">
@@ -959,6 +985,28 @@
                             </div>
                             <div class="form-group"
                                  *ngIf="isOverdraftSelected && isNabilSelected || isOverdraftSelected && isOtherSelected">
+                                <ng-container
+                                        *ngFor="let data of form.get('tdHolderNames')['controls']; let index = index;"
+                                        formArrayName="tdHolderNames">
+                                    <div [formGroupName]="index"
+                                         [ngClass]="{'marginStyle': form.get('tdHolderNames')['length'] > 1}">
+                                        <label for="TdHolderCT">Name of TD Holder CT</label>
+                                        <input class="form-control" formControlName="TdHolderCT" fullWidth
+                                               id="TdHolderCT"
+                                               nbInput status="success"
+                                               type="text">
+                                    </div>
+                                </ng-container>
+                                <div class="row">
+                                    <div class="col-md-12" style="margin-top: 1em">
+                                        <button (click)="addTdHolders()" class="float-right" nbButton size="tiny"
+                                                status="primary">Add FD Holder
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--<div class="form-group"
+                                 *ngIf="isOverdraftSelected && isNabilSelected || isOverdraftSelected && isOtherSelected">
                                 <label for="TdHolderCT">Name of TD Holder </label>
                                 <input class="form-control" formControlName="TdHolderCT" fullWidth
                                        id="TdHolderCT"
@@ -968,10 +1016,10 @@
                                 <span *ngIf="submitted && FormControls.TdHolderCT.invalid" class="text-danger">
                             Name of TD Holder is required
                         </span>
-                            </div>
+                            </div>-->
                             <div class="form-group"
                                  *ngIf="isOverdraftSelected && isNabilSelected || isOverdraftSelected && isOtherSelected">
-                                <label for="TDAmountCT"> TD Holder Amount </label>
+                                <label for="TDAmountCT"> TD Holder Amount CT</label>
                                 <input class="form-control" formControlName="TDAmountCT" fullWidth
                                        id="TDAmountCT"
                                        nbInput status="success"
@@ -1029,7 +1077,7 @@
                             Interest Rate is required
                         </span>
                             </div>
-                            <div class="form-group"
+                            <div class="form-group" style="margin-top: 55px"
                                  *ngIf="isOverdraftSelected && isCoupenRateFinancingSelected || isOverdraftSelected && isBaseRateFinancingSelected || isBankGuaranteeSelected && isQuarterlySelected ||  isBankGuaranteeSelected && isYearlySelected ">
                                 <label for="dateOfExpiryCT">Date of Expiry CT</label>
                                 <ng-container *ngIf="BSDateOfExpiry ; else expDateCT">
@@ -1148,7 +1196,7 @@
                            Tenure of One-off facility  is required
                         </span>
                             </div>
-                            <div class="form-group" *ngIf="isIrrevocableSelected && (isRegularSelected)">
+                            <div class="form-group" *ngIf="isIrrevocableSelected && (isRegularSelected)" style="margin-top: 55px">
                                 <label for="loanExpiryCT">loan Expiry CT</label>
                                 <ng-container *ngIf="BSloanExpiry ; else expLoanCT">
                                     <input class="form-control dateTranslationCustom"

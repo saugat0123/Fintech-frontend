@@ -92,6 +92,21 @@ import { CounterGuaranteeProprietorshipComponent } from './counter-guarantee-pro
 import { CounterGuaranteePartnershipComponent } from './counter-guarantee-partnership/counter-guarantee-partnership.component';
 import { MortgageTermLoanComponent } from './nabil-sme/combined-offer-letter/combined-letter-sections/section2-loan-type/mortgage-term-loan/mortgage-term-loan.component';
 import { MortgageTermLoanPrintComponent } from './nabil-sme/combined-offer-letter/combined-letter-sections/section2-loan-type/mortgage-term-loan/mortgage-term-loan-print/mortgage-term-loan-print.component';
+import { LetterOfContinuityProprietorshipComponent } from './letter-of-continuity-proprietorship/letter-of-continuity-proprietorship.component';
+import { LetterOfContinuityCompanyComponent } from './letter-of-continuity-company/letter-of-continuity-company.component';
+import { LetterOfContinuityPartnershipComponent } from './letter-of-continuity-partnership/letter-of-continuity-partnership.component';
+import { GeneralLetterOfTrustReceiptPartnershipComponent } from './general-letter-of-trust-receipt-partnership/general-letter-of-trust-receipt-partnership.component';
+import { GeneralLetterOfTrustReceiptProprietorshipComponent } from './general-letter-of-trust-receipt-proprietorship/general-letter-of-trust-receipt-proprietorship.component';
+import { GeneralLetterOfTrustReceiptCompanyComponent } from './general-letter-of-trust-receipt-company/general-letter-of-trust-receipt-company.component';
+import { CrossGuaranteeCompanyComponent } from './cross-guarantee-company/cross-guarantee-company.component';
+import { CrossGuaranteeProprietorshipComponent } from './cross-guarantee-proprietorship/cross-guarantee-proprietorship.component';
+import { CrossGuaranteePartnershipComponent } from './cross-guarantee-partnership/cross-guarantee-partnership.component';
+import { LandSubOrdinatePartnershipComponent } from './land-sub-ordinate-partnership/land-sub-ordinate-partnership.component';
+import { LandSubOrdinateProprietorshipComponent } from './land-sub-ordinate-proprietorship/land-sub-ordinate-proprietorship.component';
+import { LandSubOrdinateCompanyComponent } from './land-sub-ordinate-company/land-sub-ordinate-company.component';
+import { ConsentLetterForMortgageCompanyComponent } from './consent-letter-for-mortgage-company/consent-letter-for-mortgage-company.component';
+import { ConsentLetterForMortgagePartnershipComponent } from './consent-letter-for-mortgage-partnership/consent-letter-for-mortgage-partnership.component';
+import { ConsentLetterForMortgageProprietorshipComponent } from './consent-letter-for-mortgage-proprietorship/consent-letter-for-mortgage-proprietorship.component';
 
 @NgModule({
     declarations: [
@@ -108,7 +123,7 @@ import { MortgageTermLoanPrintComponent } from './nabil-sme/combined-offer-lette
         LoanDeedPartnershipComponent,
         LetterVehicleThirdpartyCompanyComponent, LetterVehicleThirdpartyCompanyPrintComponent,
         PersonalGuaranteeIndividualPrintComponent,
-        LoanDeedIndividualComponent, PromissoryNoteCompanyPrintComponent, PersonalGuaranteeProprietorshipComponent, NabilSmeComponent, KisanKarjaSubsidyComponent, UdyamsilKarjaSubsidyComponent, UdyamsilKarjaSubsidyPrintComponent, DdslWithoutSubsidyComponent, DdslWithoutSubsidyPrintComponent, KisanKarjaSubsidyPrintComponent, CombinedOfferLetterComponent, Section1IntroductionComponent, Section2LoanTypeComponent, Section3SecurityAndCollateralComponent, Section4LoanLimitComponent, Section5InterstPenalChargeComponent, Section6FacilitiesClauseComponent, Section7SecurityClauseComponent, Section8InsuranceClauseComponent, Section9OtherClauseComponent, Section10SecurityDocumentsComponent, CombinedOfferLetterPrintComponent, Section6FacilitiesClausePrintComponent, Section9OtherClausePrintComponent, Section3SecurityAndCollateralPrintComponent, Section7SecurityClausePrintComponent, Section10SecurityDocumentsPrintComponent, Section1IntroductionPrintComponent, Section4LoanLimitPrintComponent, Section5InterestPenalChargePrintComponent, Section8InsuranceClausePrintComponent, Section2LoanTypePrintComponent, TermLoanToOrForComponent, TermLoanToOrForPrintComponent, MortgageEquityTermLoanComponent, MortgageEquityTermLoanPrintComponent, AutoLoanComponent, AutoLoanPrintComponent, CommonSectionTopComponent, CommonSectionBottomComponent, CommonSectionBottomPrintComponent, CommonSectionTopPrintComponent, MasterSecuritiesViewComponent, MasterSecondarySecuritiesViewComponent, SharePledgeSecuritiesComponent, CounterGuaranteeCompanyComponent, LetterOfHypothecationProprietorshipComponent, LetterOfHypothecationPartnershipComponent, LetterOfHypothecationCompanyComponent, SupplementaryAggrementProprietorshipComponent, SupplementaryAggrementPartnershipComponent, SupplementaryAggrementCompanyComponent, AssignmentOfReceivableProprietorshipComponent, AssignmentOfReceivablePartnershipComponent, AssignmentOfReceivableCompanyComponent, PowerOfAttorneyProprietorshipComponent, PowerOfAttorneyPartnershipComponent, PowerOfAttorneyCompanyComponent, LoanDeedProprietorshipComponent, CounterGuaranteeProprietorshipComponent, CounterGuaranteePartnershipComponent, MortgageTermLoanComponent, MortgageTermLoanPrintComponent],
+        LoanDeedIndividualComponent, PromissoryNoteCompanyPrintComponent, PersonalGuaranteeProprietorshipComponent, NabilSmeComponent, KisanKarjaSubsidyComponent, UdyamsilKarjaSubsidyComponent, UdyamsilKarjaSubsidyPrintComponent, DdslWithoutSubsidyComponent, DdslWithoutSubsidyPrintComponent, KisanKarjaSubsidyPrintComponent, CombinedOfferLetterComponent, Section1IntroductionComponent, Section2LoanTypeComponent, Section3SecurityAndCollateralComponent, Section4LoanLimitComponent, Section5InterstPenalChargeComponent, Section6FacilitiesClauseComponent, Section7SecurityClauseComponent, Section8InsuranceClauseComponent, Section9OtherClauseComponent, Section10SecurityDocumentsComponent, CombinedOfferLetterPrintComponent, Section6FacilitiesClausePrintComponent, Section9OtherClausePrintComponent, Section3SecurityAndCollateralPrintComponent, Section7SecurityClausePrintComponent, Section10SecurityDocumentsPrintComponent, Section1IntroductionPrintComponent, Section4LoanLimitPrintComponent, Section5InterestPenalChargePrintComponent, Section8InsuranceClausePrintComponent, Section2LoanTypePrintComponent, TermLoanToOrForComponent, TermLoanToOrForPrintComponent, MortgageEquityTermLoanComponent, MortgageEquityTermLoanPrintComponent, AutoLoanComponent, AutoLoanPrintComponent, CommonSectionTopComponent, CommonSectionBottomComponent, CommonSectionBottomPrintComponent, CommonSectionTopPrintComponent, MasterSecuritiesViewComponent, MasterSecondarySecuritiesViewComponent, SharePledgeSecuritiesComponent, CounterGuaranteeCompanyComponent, LetterOfHypothecationProprietorshipComponent, LetterOfHypothecationPartnershipComponent, LetterOfHypothecationCompanyComponent, SupplementaryAggrementProprietorshipComponent, SupplementaryAggrementPartnershipComponent, SupplementaryAggrementCompanyComponent, AssignmentOfReceivableProprietorshipComponent, AssignmentOfReceivablePartnershipComponent, AssignmentOfReceivableCompanyComponent, PowerOfAttorneyProprietorshipComponent, PowerOfAttorneyPartnershipComponent, PowerOfAttorneyCompanyComponent, LoanDeedProprietorshipComponent, CounterGuaranteeProprietorshipComponent, CounterGuaranteePartnershipComponent, MortgageTermLoanComponent, MortgageTermLoanPrintComponent, LetterOfContinuityProprietorshipComponent, LetterOfContinuityCompanyComponent, LetterOfContinuityPartnershipComponent, GeneralLetterOfTrustReceiptPartnershipComponent, GeneralLetterOfTrustReceiptProprietorshipComponent, GeneralLetterOfTrustReceiptCompanyComponent, CrossGuaranteeCompanyComponent, CrossGuaranteeProprietorshipComponent, CrossGuaranteePartnershipComponent, LandSubOrdinatePartnershipComponent, LandSubOrdinateProprietorshipComponent, LandSubOrdinateCompanyComponent, ConsentLetterForMortgageCompanyComponent, ConsentLetterForMortgagePartnershipComponent, ConsentLetterForMortgageProprietorshipComponent],
 
     exports: [
         PromissoryNoteIndividualComponent,
@@ -159,7 +174,22 @@ import { MortgageTermLoanPrintComponent } from './nabil-sme/combined-offer-lette
         PowerOfAttorneyCompanyComponent,
         LetterOfHypothecationProprietorshipComponent,
         CounterGuaranteeProprietorshipComponent,
-        CounterGuaranteePartnershipComponent
+        CounterGuaranteePartnershipComponent,
+        LetterOfContinuityProprietorshipComponent,
+        GeneralLetterOfTrustReceiptProprietorshipComponent,
+        ConsentLetterForMortgageProprietorshipComponent,
+        CrossGuaranteeProprietorshipComponent,
+        LandSubOrdinateProprietorshipComponent,
+        LetterOfContinuityPartnershipComponent,
+        GeneralLetterOfTrustReceiptPartnershipComponent,
+        ConsentLetterForMortgagePartnershipComponent,
+        CrossGuaranteePartnershipComponent,
+        LandSubOrdinatePartnershipComponent,
+        LetterOfContinuityCompanyComponent,
+        GeneralLetterOfTrustReceiptCompanyComponent,
+        ConsentLetterForMortgageCompanyComponent,
+        CrossGuaranteeCompanyComponent,
+        LandSubOrdinateCompanyComponent
     ],
     imports: [
         CommonModule,
