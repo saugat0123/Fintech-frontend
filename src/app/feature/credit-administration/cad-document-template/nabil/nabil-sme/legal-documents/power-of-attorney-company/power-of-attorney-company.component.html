@@ -98,7 +98,7 @@
                                            style="width: 40%" name="freeText2"
                                            formControlName="freeText2"
                                            placeholder="" type="text"/>
-                                    <span class="print-only" style="font-size: 19px">
+                                    <span class="print-only">
                                         {{this.freeText ? this.freeText.freeTextArray[i]?.freeText2 : '====================================='}},
                                     </span>
                                 </span>
@@ -293,20 +293,20 @@
                             </strong>
                         </span>
                             को ऋण स्वीकृती पत्रानुसार
-                            मेरो/हाम्रो नाममा कुल कर्जा रु
-                            <span>
+                            मेरो/हाम्रो नाममा कुल कर्ज
+                            रु.<span>
                             <input class="form-field form-control-sm d-print-none" name="loanAmountInFigure"
                                    formControlName="loanAmountInFigure" placeholder="" type="text"/>
                             <strong class="print-only">
-                                {{this.finalAmount ? this.finalAmount : '___________________________'}}
-                            </strong>
+                                {{powerOfAttorneyCompanyForm?.get('loanAmountInFigure')?.value ?  powerOfAttorneyCompanyForm?.get('loanAmountInFigure')?.value : '___________________________'}}
+                            </strong>/-
                         </span>
                             (अक्षरेपी
                             <span>
                             <input class="form-field form-control-sm d-print-none" name="loanAmountInWords"
                                    formControlName="loanAmountInWords" placeholder="" type="text"/>
                             <strong class="print-only">
-                                {{this.loanAmountWord ? this.loanAmountWord : '___________________________'}}
+                                {{powerOfAttorneyCompanyForm?.get('loanAmountInWords')?.value ?  powerOfAttorneyCompanyForm?.get('loanAmountInWords')?.value : '___________________________'}}
                             </strong>
                         </span>
                             ) स्वीकृत गर्दा तोकिएको शर्त बमोजिम हामी ऋणीले भुक्तानी
