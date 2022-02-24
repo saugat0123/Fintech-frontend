@@ -402,13 +402,7 @@ export class SecurityInitialFormComponent implements OnInit {
         }
         if (!ObjectUtil.isEmpty(this.shareSecurity)) {
             const priceDate = JSON.parse(this.shareSecurity.data);
-            if (ObjectUtil.isEmpty(priceDate.sharePriceDate)) {
-                this.shareSecurityForm.get('sharePriceDate').patchValue(new Date(priceDate.sharePriceDate));
-            }
-            // console.log('this.shareSecurity.data', this.shareSecurity.data);
-            // // this.shareSecurityForm.get('sharePriceDate').patchValue(new Date(priceDate.sharePriceDate));
-            // this.shareSecurityForm.get('sharePriceDate').patchValue(this.shareSecurity.data && this.shareSecurity.data.sharePriceDate ?
-            //         new Date(priceDate.sharePriceDate) : undefined);
+            this.shareSecurityForm.get('sharePriceDate').patchValue(new Date(priceDate.sharePriceDate));
         }
         if (!ObjectUtil.isEmpty(this.shareSecurity)) {
             this.shareSecurityForm.get('avgDaysForPrice').patchValue(JSON.parse(this.shareSecurity.data)['avgDaysForPrice']);
