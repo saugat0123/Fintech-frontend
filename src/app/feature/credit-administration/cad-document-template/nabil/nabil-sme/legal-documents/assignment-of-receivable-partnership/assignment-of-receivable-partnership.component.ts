@@ -358,7 +358,7 @@ export class AssignmentOfReceivablePartnershipComponent implements OnInit {
         this.actYear = this.individualData.actYear ?
             this.individualData.actYear.en : this.individualData.actYear.en || '';
       } else {
-        this.actYear = this.individualData.actYear ? this.individualData.actYear.en.nDate : '';
+        this.actYear = this.individualData.actYear ? this.individualData.actYear.en : '';
       }
     }
     /*this.checkOfferLetterData();*/
