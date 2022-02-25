@@ -18,6 +18,8 @@ import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {CadFile} from '../../../model/CadFile';
 import {Document} from '../../../../admin/modal/document';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {EngToNepaliNumberPipe} from '../../../../../@core/pipe/eng-to-nepali-number.pipe';
+import {CurrencyFormatterPipe} from '../../../../../@core/pipe/currency-formatter.pipe';
 
 @Component({
   selector: 'app-land-sub-ordinate-company',
@@ -39,6 +41,10 @@ export class LandSubOrdinateCompanyComponent implements OnInit {
   initialInfoPrint;
   customerType = CustomerType;
   customerSubType = CustomerSubType;
+  offerDocumentDetails: any;
+  totalAmount;
+  totalAmountInWord;
+  supportedInfo;
 
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
@@ -48,7 +54,9 @@ export class LandSubOrdinateCompanyComponent implements OnInit {
               private dialogRef: NbDialogRef<CadOfferLetterModalComponent>,
               private routerUtilsService: RouterUtilsService,
               public engToNepaliDate: EngNepDatePipe,
-              public datePipe: DatePipe, ) {
+              public datePipe: DatePipe,
+              private engToNepNumberPipe: EngToNepaliNumberPipe,
+              private currencyFormatPipe: CurrencyFormatterPipe) {
   }
 
   ngOnInit() {
@@ -57,14 +65,17 @@ export class LandSubOrdinateCompanyComponent implements OnInit {
       if (this.cadData.loanHolder.customerType === 'INSTITUTION') {
         this.isInstitutional = true;
       }
-      this.cadData.cadFileList.forEach(singleCadFile => {
-        if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          this.form.patchValue(JSON.parse(singleCadFile.initialInformation));
-          const initialInfo = JSON.parse(singleCadFile.initialInformation);
-          this.initialInfoPrint = initialInfo;
-          this.form.patchValue(initialInfo);
-        }
-      });
+      // this.cadData.cadFileList.forEach(singleCadFile => {
+      //   if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
+      //     this.form.patchValue(JSON.parse(singleCadFile.initialInformation));
+      //     const initialInfo = JSON.parse(singleCadFile.initialInformation);
+      //     this.initialInfoPrint = initialInfo;
+      //     this.form.patchValue(initialInfo);
+      //   }
+      // });
+    }
+    if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
+      this.offerDocumentDetails = JSON.parse(this.cadData.offerDocumentList[0].initialInformation);
     }
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.individualData = JSON.parse(this.cadData.loanHolder.nepData);
@@ -74,11 +85,13 @@ export class LandSubOrdinateCompanyComponent implements OnInit {
           JSON.parse(this.cadData.loanHolder.nepData) :
           this.cadData.loanHolder.nepData;
     }
+    this.setTotalAmount();
+    this.patchFreeText();
     this.fillForm();
   }
-
   buildForm() {
     this.form = this.formBuilder.group({
+      date: [undefined],
       nameOfBranch: [undefined],
       witnessDistrict: [undefined],
       witnessMunicipality: [undefined],
@@ -92,7 +105,7 @@ export class LandSubOrdinateCompanyComponent implements OnInit {
       witnessName2: [undefined],
       bankStaff: [undefined],
       borrowerName: [undefined],
-      branchAddress: [undefined],
+      borrowerAddress: [undefined],
       freeText1: [undefined],
       freeText2: [undefined],
       loanProviderName: [undefined],
@@ -110,23 +123,124 @@ export class LandSubOrdinateCompanyComponent implements OnInit {
 
   fillForm() {
     this.form.patchValue({
-      nameOfBranch: this.individualData.branch ? this.individualData.branch.ct : ''
+      date: this.supportedInfo ? this.supportedInfo.date : '',
+      nameOfBranch: this.individualData.branch ? this.individualData.branch.ct : '',
+      borrowerName: this.individualData.name ? this.individualData.name.ct : '',
+      borrowerAddress: this.individualData.registeredStreetTole ? this.individualData.registeredStreetTole.ct : '',
+      witnessDistrict: this.supportedInfo ? this.supportedInfo.witnessDistrict : '',
+      witnessMunicipality: this.supportedInfo ? this.supportedInfo.witnessMunicipality : '',
+      WitnessWardNumber: this.supportedInfo ? this.supportedInfo.WitnessWardNumber : '',
+      witnessAge: this.supportedInfo ? this.supportedInfo.witnessAge : '',
+      witnessName: this.supportedInfo ? this.supportedInfo.witnessName : '',
+      witnessDistrict2: this.supportedInfo ? this.supportedInfo.witnessDistrict2 : '',
+      witnessMunicipality2: this.supportedInfo ? this.supportedInfo.witnessMunicipality2 : '',
+      WitnessWardNumber2: this.supportedInfo ? this.supportedInfo.WitnessWardNumber2 : '',
+      witnessAge2: this.supportedInfo ? this.supportedInfo.witnessAge2 : '',
+      witnessName2: this.supportedInfo ? this.supportedInfo.witnessName2 : '',
+      bankStaff: this.supportedInfo ? this.supportedInfo.bankStaff : '',
+      freeText1: this.supportedInfo ? this.supportedInfo.freeText1 : '',
+      freeText2: this.supportedInfo ? this.supportedInfo.freeText2 : '',
+      loanProviderName: this.supportedInfo ? this.supportedInfo.loanProviderName : '',
+      loanProviderAddress: this.supportedInfo ? this.supportedInfo.loanProviderAddress : '',
+      freeText3: this.supportedInfo ? this.supportedInfo.freeText3 : '',
+      freeText4: this.supportedInfo ? this.supportedInfo.freeText4 : '',
+      amount: this.totalAmount,
+      amountInWords: this.totalAmountInWord,
+      borrowerAuthorizedPerson: this.supportedInfo ? this.supportedInfo.borrowerAuthorizedPerson : '',
+      borrowerAuthorizedPersonAddress: this.supportedInfo ? this.supportedInfo.borrowerAuthorizedPersonAddress : '',
+      loanProviderAuthorizedPerson: this.supportedInfo ? this.supportedInfo.loanProviderAuthorizedPerson : '',
+      loanProviderAuthorizedPersonAddress: this.supportedInfo ? this.supportedInfo.loanProviderAuthorizedPersonAddress : '',
     });
   }
 
+  setTotalAmount() {
+    if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
+      if (this.cadData.offerDocumentList[0].docName === 'Combined Offer Letter') {
+        this.totalAmount = (this.offerDocumentDetails.smeGlobalForm && this.offerDocumentDetails.smeGlobalForm.totalLimitInFigureCT) ?
+            this.offerDocumentDetails.smeGlobalForm.totalLimitInFigureCT : '';
+        this.totalAmountInWord = (this.offerDocumentDetails.smeGlobalForm && this.offerDocumentDetails.smeGlobalForm.totalLimitInWordsCT ) ?
+            this.offerDocumentDetails.smeGlobalForm.totalLimitInWordsCT : '';
+      } if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'DDSL Without Subsidy') {
+        this.totalAmount = (this.offerDocumentDetails && this.offerDocumentDetails.loanLimitAmountFigure) ?
+            this.offerDocumentDetails.loanLimitAmountFigure.ct : '';
+        this.totalAmountInWord = (this.offerDocumentDetails && this.offerDocumentDetails.loanLimitAmountFigureWords) ?
+            this.offerDocumentDetails.loanLimitAmountFigureWords.ct : '';
+      } if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Class A Sanction letter') {
+        this.totalAmount = (this.offerDocumentDetails && this.offerDocumentDetails.totalLimitInFigure) ?
+            this.offerDocumentDetails.totalLimitInFigure.ct : '';
+        this.totalAmountInWord = (this.offerDocumentDetails && this.offerDocumentDetails.totalLimitInWords) ?
+            this.offerDocumentDetails.totalLimitInWords.ct : '';
+      } if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Interest subsidy sanction letter') {
+        this.totalAmount = (this.offerDocumentDetails && this.offerDocumentDetails.totalLimitFigure) ?
+            this.offerDocumentDetails.totalLimitFigure.ct : '';
+        this.totalAmountInWord = (this.offerDocumentDetails && this.offerDocumentDetails.totalLimitWords) ?
+            this.offerDocumentDetails.totalLimitWords.ct : '';
+      } if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Kisan Karja Subsidy') {
+        const proposedLimit = this.cadData.assignedLoan[0] ?
+            this.cadData.assignedLoan[0].proposal.proposedLimit : 0;
+        this.totalAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(proposedLimit ? proposedLimit : 0));
+        this.totalAmountInWord = this.nepaliCurrencyWordPipe.transform(proposedLimit ? proposedLimit : '');
+      } if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Udyamsil Karja Subsidy') {
+        this.totalAmount = (this.offerDocumentDetails && this.offerDocumentDetails.loanAmountFigure) ?
+            this.offerDocumentDetails.loanAmountFigure.ct : '';
+        this.totalAmountInWord = (this.offerDocumentDetails && this.offerDocumentDetails.loanAmountFigureWords) ?
+            this.offerDocumentDetails.loanAmountFigureWords.ct : '';
+      }
+    }
+  }
+
+  setFreeText() {
+    const free1 = {
+      date: this.form.get('date') ? this.form.get('date').value : '',
+      freeText1: this.form.get('freeText1').value ? this.form.get('freeText1').value : '',
+      freeText2: this.form.get('freeText2').value ? this.form.get('freeText2').value : '',
+      freeText3: this.form.get('freeText3').value ? this.form.get('freeText3').value : '',
+      freeText4: this.form.get('freeText4').value ? this.form.get('freeText4').value : '',
+      loanProviderName: this.form.get('loanProviderName') ? this.form.get('loanProviderName').value : '',
+      loanProviderAddress: this.form.get('loanProviderAddress') ? this.form.get('loanProviderAddress').value : '',
+      borrowerAuthorizedPerson: this.form.get('borrowerAuthorizedPerson') ? this.form.get('borrowerAuthorizedPerson').value : '',
+      borrowerAuthorizedPersonAddress: this.form.get('borrowerAuthorizedPersonAddress') ? this.form.get('borrowerAuthorizedPersonAddress').value : '',
+      loanProviderAuthorizedPerson: this.form.get('loanProviderAuthorizedPerson') ? this.form.get('loanProviderAuthorizedPerson').value : '',
+      loanProviderAuthorizedPersonAddress: this.form.get('loanProviderAuthorizedPersonAddress') ? this.form.get('loanProviderAuthorizedPersonAddress').value : '',
+      witnessDistrict: this.form.get('witnessDistrict') ? this.form.get('witnessDistrict').value : '',
+      witnessMunicipality: this.form.get('witnessMunicipality') ? this.form.get('witnessMunicipality').value : '',
+      WitnessWardNumber: this.form.get('WitnessWardNumber') ? this.form.get('WitnessWardNumber').value : '',
+      witnessAge: this.form.get('witnessAge') ? this.form.get('witnessAge').value : '',
+      witnessName: this.form.get('witnessName') ? this.form.get('witnessName').value : '',
+      witnessDistrict2: this.form.get('witnessDistrict2') ? this.form.get('witnessDistrict2').value : '',
+      witnessMunicipality2: this.form.get('witnessMunicipality2') ? this.form.get('witnessMunicipality2').value : '',
+      WitnessWardNumber2: this.form.get('WitnessWardNumber2') ? this.form.get('WitnessWardNumber2').value : '',
+      witnessAge2: this.form.get('witnessAge2') ? this.form.get('witnessAge2').value : '',
+      witnessName2: this.form.get('witnessName2') ? this.form.get('witnessName2').value : '',
+      bankStaff: this.form.get('bankStaff') ? this.form.get('bankStaff').value : '',
+    };
+    return JSON.stringify(free1);
+  }
+  patchFreeText() {
+    if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
+      this.cadData.cadFileList.forEach(individualCadFile => {
+        if (individualCadFile.customerLoanId === this.customerLoanId && individualCadFile.cadDocument.id === this.documentId) {
+          this.supportedInfo = JSON.parse(individualCadFile.supportedInformation);
+        }
+      });
+    }
+  }
   submit() {
     let flag = true;
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
-      this.cadData.cadFileList.forEach(singleCadFile => {
-        if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
+      this.cadData.cadFileList.forEach(individualCadFile => {
+        if (individualCadFile.customerLoanId === this.customerLoanId && individualCadFile.cadDocument.id === this.documentId) {
           flag = false;
-          singleCadFile.initialInformation = JSON.stringify(this.form.value);
+          // singleCadFile.initialInformation = JSON.stringify(this.form.value);
+          individualCadFile.supportedInformation = this.setFreeText();
         }
       });
       if (flag) {
         const cadFile = new CadFile();
         const document = new Document();
-        cadFile.initialInformation = JSON.stringify(this.form.value);
+        // cadFile.initialInformation = JSON.stringify(this.form.value);
+        this.initialInfoPrint = cadFile.initialInformation;
+        cadFile.supportedInformation = this.setFreeText();
         document.id = this.documentId;
         cadFile.cadDocument = document;
         cadFile.customerLoanId = this.customerLoanId;
@@ -136,6 +250,7 @@ export class LandSubOrdinateCompanyComponent implements OnInit {
       const cadFile = new CadFile();
       const document = new Document();
       cadFile.initialInformation = JSON.stringify(this.form.value);
+      this.initialInfoPrint = cadFile.initialInformation;
       document.id = this.documentId;
       cadFile.cadDocument = document;
       cadFile.customerLoanId = this.customerLoanId;
@@ -152,4 +267,48 @@ export class LandSubOrdinateCompanyComponent implements OnInit {
       this.dialogRef.close();
     });
   }
+
+  // submit() {
+  //   this.spinner = true;
+  //   let flag = true;
+  //   if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
+  //     this.cadData.cadFileList.forEach(singleCadFile => {
+  //       if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
+  //         flag = false;
+  //         singleCadFile.supportedInformation = this.setFreeText();
+  //       }
+  //     });
+  //     if (flag) {
+  //       const cadFile = new CadFile();
+  //       const document = new Document();
+  //       // cadFile.initialInformation = JSON.stringify(this.form.value);
+  //       cadFile.supportedInformation = this.setFreeText();
+  //       document.id = this.documentId;
+  //       cadFile.cadDocument = document;
+  //       cadFile.customerLoanId = this.customerLoanId;
+  //       this.cadData.cadFileList.push(cadFile);
+  //     }
+  //   } else {
+  //     const cadFile = new CadFile();
+  //     const document = new Document();
+  //     cadFile.initialInformation = JSON.stringify(this.form.value);
+  //     cadFile.supportedInformation = this.setFreeText();
+  //     document.id = this.documentId;
+  //     cadFile.cadDocument = document;
+  //     cadFile.customerLoanId = this.customerLoanId;
+  //     this.cadData.cadFileList.push(cadFile);
+  //   }
+  //
+  //   this.administrationService.saveCadDocumentBulk(this.cadData).subscribe(() => {
+  //     this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
+  //     this.dialogRef.close();
+  //     this.spinner = false;
+  //     this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
+  //   }, error => {
+  //     console.error(error);
+  //     this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
+  //     this.dialogRef.close();
+  //     this.spinner = false;
+  //   });
+  // }
 }
