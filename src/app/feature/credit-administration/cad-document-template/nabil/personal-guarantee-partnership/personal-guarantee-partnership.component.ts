@@ -42,7 +42,11 @@ export class PersonalGuaranteePartnershipComponent implements OnInit {
   nameOfAct = 'साझेदारी';
   actYear = '२०२०';
   nameOfAuthorizedBody = 'नेपाल सरकार';
+  cadInitialInfo;
   individualGuarantorNepDataArray: Array<any> = new Array<any>();
+  freeText: Array<any> = new Array<any>();
+  finalAmount;
+  loanAmountWord;
   constructor(
       private formBuilder: FormBuilder,
       private router: Router,
@@ -62,7 +66,9 @@ export class PersonalGuaranteePartnershipComponent implements OnInit {
 
   ngOnInit() {
     this.loadPersonalGuarantorData();
+    this.setTotalAmount();
     this.buildForm();
+    this.fillGuarantee();
   }
   buildForm() {
     this.form = this.formBuilder.group({
@@ -74,6 +80,89 @@ export class PersonalGuaranteePartnershipComponent implements OnInit {
   removeIndividualGuarantors(i) {
     (this.form.get('guarantorsPartnership') as FormArray).removeAt(i);
   }
+  setFreeText() {
+    const free = this.form.value;
+    for (let val = 0; val < free.guarantorsPartnership.length; val++) {
+      const tempFreeText = {
+        year: this.form.get(['guarantorsPartnership', val, 'year']).value ?
+            this.form.get(['guarantorsPartnership', val, 'year']).value : '',
+        month: this.form.get(['guarantorsPartnership', val, 'month']).value ?
+            this.form.get(['guarantorsPartnership', val, 'month']).value : '',
+        date: this.form.get(['guarantorsPartnership', val, 'date']).value ?
+            this.form.get(['guarantorsPartnership', val, 'date']).value : '',
+        day: this.form.get(['guarantorsPartnership', val, 'day']).value ?
+            this.form.get(['guarantorsPartnership', val, 'day']).value : '',
+        freeText1: this.form.get(['guarantorsPartnership', val, 'freeText1']).value ?
+            this.form.get(['guarantorsPartnership', val, 'freeText1']).value : '',
+      };
+      this.freeText.push(tempFreeText);
+    }
+    return JSON.stringify(this.freeText);
+  }
+
+  fillGuarantee() {
+    if (this.cadData.cadFileList.length > 0) {
+      if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
+        this.cadData.cadFileList.forEach(singleCadFile => {
+          if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
+            this.cadInitialInfo = JSON.parse(singleCadFile.supportedInformation);
+          }
+        });
+        const free = this.form.value;
+        if (this.cadInitialInfo !== null) {
+          for (let val = 0; val < free.guarantorsPartnership.length; val++) {
+            this.form.get(['guarantorsPartnership', val, 'year']).patchValue(this.cadInitialInfo ?
+                this.cadInitialInfo[val].year : '');
+            this.form.get(['guarantorsPartnership', val, 'month']).patchValue(this.cadInitialInfo ?
+                this.cadInitialInfo[val].month : '');
+            this.form.get(['guarantorsPartnership', val, 'date']).patchValue(this.cadInitialInfo ?
+                this.cadInitialInfo[val].date : '');
+            this.form.get(['guarantorsPartnership', val, 'day']).patchValue(this.cadInitialInfo ?
+                this.cadInitialInfo[val].day : '');
+            this.form.get(['guarantorsPartnership', val, 'freeText1']).patchValue(this.cadInitialInfo ?
+                this.cadInitialInfo[val].freeText1 : '');
+          }
+        }
+      }
+    }
+  }
+
+  setTotalAmount() {
+    if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
+      if (this.cadData.offerDocumentList[0].docName === 'Combined Offer Letter') {
+        this.finalAmount = (this.offerDocumentDetails.smeGlobalForm && this.offerDocumentDetails.smeGlobalForm.totalLimitInFigureCT) ?
+            this.offerDocumentDetails.smeGlobalForm.totalLimitInFigureCT : '';
+        this.loanAmountWord = (this.offerDocumentDetails.smeGlobalForm && this.offerDocumentDetails.smeGlobalForm.totalLimitInWordsCT ) ?
+            this.offerDocumentDetails.smeGlobalForm.totalLimitInWordsCT : '';
+      } if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'DDSL Without Subsidy') {
+        this.finalAmount = (this.offerDocumentDetails && this.offerDocumentDetails.loanLimitAmountFigure) ?
+            this.offerDocumentDetails.loanLimitAmountFigure.ct : '';
+        this.loanAmountWord = (this.offerDocumentDetails && this.offerDocumentDetails.loanLimitAmountFigureWords) ?
+            this.offerDocumentDetails.loanLimitAmountFigureWords.ct : '';
+      } if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Class A Sanction letter') {
+        this.finalAmount = (this.offerDocumentDetails && this.offerDocumentDetails.totalLimitInFigure) ?
+            this.offerDocumentDetails.totalLimitInFigure.ct : '';
+        this.loanAmountWord = (this.offerDocumentDetails && this.offerDocumentDetails.totalLimitInWords) ?
+            this.offerDocumentDetails.totalLimitInWords.ct : '';
+      } if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Interest subsidy sanction letter') {
+        this.finalAmount = (this.offerDocumentDetails && this.offerDocumentDetails.totalLimitFigure) ?
+            this.offerDocumentDetails.totalLimitFigure.ct : '';
+        this.loanAmountWord = (this.offerDocumentDetails && this.offerDocumentDetails.totalLimitWords) ?
+            this.offerDocumentDetails.totalLimitWords.ct : '';
+      } if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Kisan Karja Subsidy') {
+        const proposedLimit = this.cadData.assignedLoan[0] ?
+            this.cadData.assignedLoan[0].proposal.proposedLimit : 0;
+        this.finalAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(proposedLimit ? proposedLimit : 0));
+        this.loanAmountWord = this.nepaliCurrencyWordPipe.transform(proposedLimit ? proposedLimit : '');
+      } if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Udyamsil Karja Subsidy') {
+        this.finalAmount = (this.offerDocumentDetails && this.offerDocumentDetails.loanAmountFigure) ?
+            this.offerDocumentDetails.loanAmountFigure.ct : '';
+        this.loanAmountWord = (this.offerDocumentDetails && this.offerDocumentDetails.loanAmountFigureWords) ?
+            this.offerDocumentDetails.loanAmountFigureWords.ct : '';
+      }
+    }
+  }
+
   loadPersonalGuarantorData() {
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.assignedLoan)) {
       this.loanHolderNepData = this.cadData.loanHolder.nepData
@@ -112,22 +201,17 @@ export class PersonalGuaranteePartnershipComponent implements OnInit {
         !ObjectUtil.isEmpty(this.cadData.cadFileList)
     ) {
       this.cadData.cadFileList.forEach((singleCadFile) => {
-        if (
-            singleCadFile.customerLoanId === this.customerLoanId &&
-            singleCadFile.cadDocument.id === this.documentId
-        ) {
+        if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
           flag = false;
-          singleCadFile.initialInformation = JSON.stringify(
-              this.form.value
-          );
+          // singleCadFile.initialInformation = JSON.stringify(this.form.value);
+          singleCadFile.supportedInformation = this.setFreeText();
         }
       });
       if (flag) {
         const cadFile = new CadFile();
         const document = new Document();
-        cadFile.initialInformation = JSON.stringify(
-            this.form.value
-        );
+        // cadFile.initialInformation = JSON.stringify(this.form.value);
+        cadFile.supportedInformation = this.setFreeText();
         document.id = this.documentId;
         cadFile.cadDocument = document;
         cadFile.customerLoanId = this.customerLoanId;
@@ -136,9 +220,8 @@ export class PersonalGuaranteePartnershipComponent implements OnInit {
     } else {
       const cadFile = new CadFile();
       const document = new Document();
-      cadFile.initialInformation = JSON.stringify(
-          this.form.value
-      );
+      // cadFile.initialInformation = JSON.stringify(this.form.value);
+      cadFile.supportedInformation = this.setFreeText();
       document.id = this.documentId;
       cadFile.cadDocument = document;
       cadFile.customerLoanId = this.customerLoanId;
@@ -195,14 +278,10 @@ export class PersonalGuaranteePartnershipComponent implements OnInit {
       month: [undefined],
       day: [undefined],
       date: [undefined],
-      freeText: [undefined]
+      freeText1: [undefined]
     });
   }
   taggedPersonalGuarantorsDetailsForm() {
-    // get today's date
-    let todayDate: any = this.englishNepaliDatePipe.transform(new Date(), true);
-    todayDate = todayDate.replace(',', '').split(' ');
-    const daysInNumber = new Date().getDay();
     if (!ObjectUtil.isEmpty(this.taggedGuarantorsDetailsInLoan)) {
       this.taggedGuarantorsDetailsInLoan.forEach((val) => {
         if (JSON.parse(val.nepData).guarantorType.en === 'Personal Guarantor') {
@@ -228,8 +307,8 @@ export class PersonalGuaranteePartnershipComponent implements OnInit {
                 loaneeName: [this.loanHolderNepData.name ? this.loanHolderNepData.name.ct : ''],
                 loanPurpose: [this.setLoanPurpose()],
                 letterIssuedDate: [this.setIssuedDate()],
-                loanAmount: [this.nepaliNumber.numberNepali],
-                loanAmountInWord: [this.nepaliNumber.nepaliWords],
+                loanAmount: [this.finalAmount],
+                loanAmountInWord: [this.loanAmountWord],
                 approvedLoanAmountInWord: [this.nepaliCurrencyWordPipe.transform(individualGuarantorNepData.gurantedAmount.en)],
                 approvedLoanAmount: [this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(individualGuarantorNepData.gurantedAmount.en))],
                 guarantorName: [individualGuarantorNepData.guarantorName ? individualGuarantorNepData.guarantorName.ct : ''],
@@ -247,11 +326,11 @@ export class PersonalGuaranteePartnershipComponent implements OnInit {
                 guarantorCitizenIssuedPlace: [this.setIdentityIssuedPlace(individualGuarantorNepData)],
                 guarantorCitizenIssuedDate: [this.setIdentityIssuedDate(individualGuarantorNepData)],
                 passportExpiryDate: [this.setValidityDate(individualGuarantorNepData)],
-                year: [todayDate[2]],
-                month: [todayDate[1]],
-                day: [todayDate[0]],
-                date: [this.engToNepNumberPipe.transform(String(daysInNumber + 1))],
-                freeText: [undefined]
+                year: [undefined],
+                month: [undefined],
+                day: [undefined],
+                date: [undefined],
+                freeText1: [undefined]
               })
           );
         }
@@ -283,12 +362,11 @@ export class PersonalGuaranteePartnershipComponent implements OnInit {
   }
   setActYear() {
     let yearOfAct = '';
-    if (!ObjectUtil.isEmpty(this.loanHolderNepData.radioActYearDate.np)) {
+    if (!ObjectUtil.isEmpty(this.loanHolderNepData.radioActYearDate)) {
       if (this.loanHolderNepData.radioActYearDate.np === 'BS') {
         yearOfAct = this.loanHolderNepData.actYear ? this.loanHolderNepData.actYear.en : '';
       } else {
-        yearOfAct = this.engToNepNumberPipe.transform(this.loanHolderNepData.actYear.en ?
-            this.loanHolderNepData.actYear.en : '');
+        yearOfAct = this.loanHolderNepData.actYear ? this.loanHolderNepData.actYear.en : '';
       }
     }
     return yearOfAct ? yearOfAct : '';
