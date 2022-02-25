@@ -81,49 +81,39 @@
             </div>
         </div>
         <div class="col-md-12">
-            <div class="row ml-1">
+            <div class="row ml-1 mt-5">
                 <p>
                     निजको दस्तखत नमूनाः..............................
                 </p>
-            </div>
-            <div class="col">
-                ना.प्र.नं.
-                <span [ngClass]="{'nepaliFont unicode-size24':printDocForm?.naPramanPatraNumber !== null && printDocForm?.naPramanPatraNumber !== ''}">
-                        {{printDocForm.naPramanPatraNumber === null || printDocForm.naPramanPatraNumber === '' ? '_______________' : printDocForm?.naPramanPatraNumber}}
-                    </span>
             </div>
         </div>
         <div class="row">
             <div class="col-md-12">
                 <p class="text-center font-weight-bold">
-                    <u>
-                        तपशिल
-                    </u>
-                    <br>
-                    रोक्का राख्ने जायजेथाको विवरण
+                    <u>तपशिल</u>
                 </p>
             </div>
             <div class="col-md-12">
                 <table class="table table-bordered">
-                    <caption></caption>
+                    <caption style="caption-side: top" class="text-center">रोक्का राख्ने जायजेथाको विवरण</caption>
                     <thead>
                     <tr>
-                        <th width="30%">
+                        <th style="width: 30%">
                             घर जग्गाधनिको नाम र तिनपूस्ते
                         </th>
-                        <th width="14%">
+                        <th style="width: 10%">
                             जिल्ला
                         </th>
-                        <th width="30%">
+                        <th style="width: 30%">
                             जग्गाको न.पा./गा.वि.स.,वडा नं.
                         </th>
-                        <th width="10%">
+                        <th>
                             कि.नं.
                         </th>
-                        <th>
+                        <th style="width: 15%">
                             क्षेत्रफल (बिगाहा/रोपनी/वर्ग मिटर)
                         </th>
-                        <th width="8%">
+                        <th>
                             सिट नं.
                         </th>
                     </tr>
@@ -157,7 +147,6 @@
                             </span>
                         </td>
                         <td>
-                            <div class="col-md-12">
                                     साबिक:<span [ngClass]="{'nepaliFont':personalSignatureData?.tablePerMun !== null && personalSignatureData?.tablePerMun !== ''}">
                                         {{personalSignatureData.tablePerMun === null || personalSignatureData.tablePerMun === '' ? '' : personalSignatureData?.tablePerMun}}
                                     </span>न.पा., वडा नं.
@@ -172,7 +161,6 @@
                                     <span [ngClass]="{'nepaliFont':personalSignatureData?.tableTempWardNo2 !== null && personalSignatureData?.tableTempWardNo2 !== ''}">
                                         {{personalSignatureData.tableTempWardNo2 === null || personalSignatureData.tableTempWardNo2 === '' ? '' : personalSignatureData?.tableTempWardNo2}}
                                     </span>
-                            </div>
                         </td>
                         <td>
                             <span [ngClass]="{'nepaliFont':personalSignatureData?.tableKittaNo !== null && personalSignatureData?.tableKittaNo !== ''}">
@@ -213,43 +201,48 @@
             </div>
         </div>
         <div class="row d-flex justify-content-around">
-            <div class="col-md-6 mt-5">
-                <p class="float-left text-center">
-                    ...........................................................
-                    <br>
-                    <strong>
-                        कर्मचारीको नामः <span [ngClass]="{'nepaliFont unicode-size24':printDocForm?.karmachariName !== null && printDocForm?.karmachariName !== ''}">
+            <div class="col-md-12 mt-5">
+                <table class="table-borderless" style="width: 100%">
+                    <tr>
+                        <td style="width: 50%">
+                            <p>
+                            ...........................................................
+                            <br>
+                            <strong>
+                                कर्मचारीको नामः <span [ngClass]="{'nepaliFont unicode-size24':printDocForm?.karmachariName !== null && printDocForm?.karmachariName !== ''}">
                         {{printDocForm.karmachariName === null || printDocForm.karmachariName === '' ? '' : printDocForm?.karmachariName}}
                     </span>
-                        <br>
-                        पदः <span [ngClass]="{'nepaliFont unicode-size24':printDocForm?.postName !== null && printDocForm?.postName !== ''}">
+                                <br>
+                                पदः <span [ngClass]="{'nepaliFont unicode-size24':printDocForm?.postName !== null && printDocForm?.postName !== ''}">
                         {{printDocForm.postName === null || printDocForm.postName === '' ? '' : printDocForm?.postName}}
                     </span>
-                        <br>
-                        प्रोग्रेशिभ फाइनान्स लि.<br>
-                    <span [ngClass]="{'nepaliFont unicode-size16':printDocForm?.branchName !== null && printDocForm?.branchName !== ''}">
+                                <br>
+                                प्रोग्रेशिभ फाइनान्स लि.<br>
+                                <span [ngClass]="{'nepaliFont unicode-size16':printDocForm?.branchName !== null && printDocForm?.branchName !== ''}">
                         {{printDocForm.branchName === null || printDocForm.branchName === '' ? '' : printDocForm?.branchName}}
                     </span> शाखा</strong>
-                </p>
-            </div>
-            <div class="col-md-6">
-                <p class="float-right text-center">
-                    ...........................................................
-                    <br>
-                    <strong>
-                        कर्मचारीको नामः <span [ngClass]="{'nepaliFont unicode-size24':printDocForm?.karmachariName2 !== null && printDocForm?.karmachariName2 !== ''}">
+                        </p></td>
+                        <td style="width: 50%">
+                            <p>
+                            ...........................................................
+                            <br>
+                            <strong>
+                                कर्मचारीको नामः <span [ngClass]="{'nepaliFont unicode-size24':printDocForm?.karmachariName2 !== null && printDocForm?.karmachariName2 !== ''}">
                         {{printDocForm.karmachariName2 === null || printDocForm.karmachariName2 === '' ? '' : printDocForm?.karmachariName2}}
                     </span>
-                        <br>
-                        पदः <span [ngClass]="{'nepaliFont unicode-size24':printDocForm?.postName2 !== null && printDocForm?.postName2 !== ''}">
+                                <br>
+                                पदः <span [ngClass]="{'nepaliFont unicode-size24':printDocForm?.postName2 !== null && printDocForm?.postName2 !== ''}">
                         {{printDocForm.postName2 === null || printDocForm.postName2 === '' ? '' : printDocForm?.postName2}}
                     </span>
-                        <br>
-                        प्रोग्रेशिभ फाइनान्स लि.<br>
-                        <span [ngClass]="{'nepaliFont unicode-size16':printDocForm?.branchName !== null && printDocForm?.branchName !== ''}">
+                                <br>
+                                प्रोग्रेशिभ फाइनान्स लि.<br>
+                                <span [ngClass]="{'nepaliFont unicode-size16':printDocForm?.branchName !== null && printDocForm?.branchName !== ''}">
                         {{printDocForm.branchName === null || printDocForm.branchName === '' ? '' : printDocForm?.branchName}}
                     </span> शाखा</strong>
-                </p>
+                        </p></td>
+                    </tr>
+                </table>
+
             </div>
         </div>
     </form>

@@ -16,9 +16,9 @@
                     कागजले बदर गरी दिनु होला भनी नेपाल राष्ट्र बैंकको कर्जा सूचना तथा कालोसूची व्यवस्था सम्बन्धी निर्देशन वमोजिम यो मञ्जुरीनामाको कागज
                     सही–छाप गरी तपाई प्रोग्रेशिभ फाइनान्स लि. लाई दिएको छू/छौ।
                 </p>
-                <p class="text-center"><strong>तपसील,</strong></p>
+                <p class="text-center"><strong>तपसील</strong></p>
                 <div class="row col-md-12 mt-5" id="Sincerely">
-                    <table class="mb-5">
+                    <table class="table-borderless">
                         <tr>
                             <td class="text-right" style="width: 20%; padding-right: 10px">दस्तखत :-</td>
                             <td>...................................</td>
@@ -39,7 +39,7 @@
                     </span></td>
                         </tr>
                         <tr>
-                            <td class="text-right" style="width: 20%; padding-right: 10px"><strong>कम्पनीको हकमा</strong> :-</td>
+                            <td class="text-right" style="width: 20%; padding-right: 10px; vertical-align: top"><strong>कम्पनीको हकमा</strong> :-</td>
                             <td>(रजिष्टेशन नं.<span [ngClass]="{'nepaliFont': printDocForm?.sincerlyRegNo!==null && printDocForm?.sincerlyRegNo!==''}">
                         {{printDocForm?.sincerlyRegNo===null || printDocForm?.sincerlyRegNo ===''?'___________________':printDocForm?.sincerlyRegNo}}
                     </span>
@@ -117,10 +117,10 @@
                                     </thead>
                                     <tbody>
                                     <tr>
-                                        <td><textarea cols="30" id="" name=""
-                                                      rows="10" style="background-color: transparent;resize:none;outline:none;border:none;"></textarea></td>
-                                        <td><textarea cols="30" id="" name=""
-                                                      rows="10" style="background-color: transparent;resize:none;outline:none;border:none;"></textarea></td>
+                                        <td><textarea cols="10" id="" name=""
+                                                      rows="5" style="background-color: transparent;resize:none;outline:none;border:none;"></textarea></td>
+                                        <td><textarea cols="10" id="" name=""
+                                                      rows="5" style="background-color: transparent;resize:none;outline:none;border:none;"></textarea></td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -128,88 +128,94 @@
                         </tr>
                     </table>
                     <div *ngFor="let guarantor of printDocForm?.guarantorDetails; index as i">
-                    <p class="mt-5">
-                    दस्तखत :- .......................
-                    <br>
-                    <strong>जमानत कर्ताको</strong> नामः — <span [ngClass]="{'nepaliFont unicode-size24': guarantor?.jamanatName!==null && guarantor?.jamanatName!==''}">
-                        {{guarantor?.jamanatName===null || guarantor?.jamanatName ===''?'___________________':guarantor?.jamanatName}}
-                    </span>
-                    (ना.प्र.न <span [ngClass]="{'nepaliFont': guarantor?.jamanatNPN!==null && guarantor?.jamanatNPN!==''}">
-                        {{guarantor?.jamanatNPN===null || guarantor?.jamanatNPN ===''?'___________________':guarantor?.jamanatNPN}}
-                    </span>
-                    मिति<span [ngClass]="{'nepaliFont': guarantor?.jamanatDate!==null && guarantor?.jamanatDate!==''}">
-                        {{guarantor?.jamanatDate===null || guarantor?.jamanatDate ===''?'___________________':guarantor?.jamanatDate}}
-                    </span>
-                    जि प्र.का<span [ngClass]="{'nepaliFont unicode-size24': guarantor?.jamanatJPK!==null && guarantor?.jamanatJPK!==''}">
-                        {{guarantor?.jamanatJPK===null || guarantor?.jamanatJPK ===''?'___________________':guarantor?.jamanatJPK}}
-                    </span> )
-                    <br>
-                    <strong>कम्पनीको हकमा</strong> :– (रजिष्टेशन नं<span [ngClass]="{'nepaliFont': guarantor?.jamanatRegNo!==null && guarantor?.jamanatRegNo!==''}">
+                        <table class="table-borderless mt-5">
+                            <tr>
+                                <td>दस्तखत :-</td>
+                                <td>..............................................</td>
+                            </tr>
+                            <tr>
+                                <td><strong>जमानत कर्ताको</strong> नामः —</td>
+                                <td><span [ngClass]="{'nepaliFont unicode-size24': guarantor?.jamanatName!==null && guarantor?.jamanatName!==''}">
+                                        {{guarantor?.jamanatName===null || guarantor?.jamanatName ===''?'___________________':guarantor?.jamanatName}}
+                                    </span>(ना.प्र.न
+                                    <span [ngClass]="{'nepaliFont': guarantor?.jamanatNPN!==null && guarantor?.jamanatNPN!==''}">
+                                        {{guarantor?.jamanatNPN===null || guarantor?.jamanatNPN ===''?'___________________':guarantor?.jamanatNPN}}
+                                    </span>
+                                    मिति<span [ngClass]="{'nepaliFont': guarantor?.jamanatDate!==null && guarantor?.jamanatDate!==''}">
+                                            {{guarantor?.jamanatDate===null || guarantor?.jamanatDate ===''?'___________________':guarantor?.jamanatDate}}
+                                    </span>
+                                    जि प्र.का<span [ngClass]="{'nepaliFont unicode-size24': guarantor?.jamanatJPK!==null && guarantor?.jamanatJPK!==''}">
+                                         {{guarantor?.jamanatJPK===null || guarantor?.jamanatJPK ===''?'___________________':guarantor?.jamanatJPK}}
+                                    </span>)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>कम्पनीको हकमा</strong> :–</td>
+                                <td>(रजिष्टेशन नं<span [ngClass]="{'nepaliFont': guarantor?.jamanatRegNo!==null && guarantor?.jamanatRegNo!==''}">
                         {{guarantor?.jamanatRegNo===null || guarantor?.jamanatRegNo ===''?'___________________':guarantor?.jamanatRegNo}}
                     </span>
-                    मिति<span [ngClass]="{'nepaliFont': guarantor?.jamanatRegDate!==null && guarantor?.jamanatRegDate!==''}">
+                                    मिति<span [ngClass]="{'nepaliFont': guarantor?.jamanatRegDate!==null && guarantor?.jamanatRegDate!==''}">
                         {{guarantor?.jamanatRegDate===null || guarantor?.jamanatRegDate ===''?'___________________':guarantor?.jamanatRegDate}}
                     </span>
-                    दर्ता गर्ने कार्यालय<span [ngClass]="{'nepaliFont unicode-size24': guarantor?.jamanatRegCDO!==null && guarantor?.jamanatRegCDO!==''}">
+                                    दर्ता गर्ने कार्यालय<span [ngClass]="{'nepaliFont unicode-size24': guarantor?.jamanatRegCDO!==null && guarantor?.jamanatRegCDO!==''}">
                         {{guarantor?.jamanatRegCDO===null || guarantor?.jamanatRegCDO ===''?'___________________':guarantor?.jamanatRegCDO}}
-                    </span> )
-                    <br>
-                    ठेगाना :—स्थायी <span [ngClass]="{'nepaliFont unicode-size16': guarantor?.jamanatPermanentAddress!==null && guarantor?.jamanatPermanentAddress!==''}">
+                    </span> )</td>
+                            </tr>
+                            <tr>
+                                <td>ठेगाना :—स्थायी </td>
+                                <td><span [ngClass]="{'nepaliFont unicode-size16': guarantor?.jamanatPermanentAddress!==null && guarantor?.jamanatPermanentAddress!==''}">
                         {{guarantor?.jamanatPermanentAddress===null || guarantor?.jamanatPermanentAddress ===''?'___________________':guarantor?.jamanatPermanentAddress}}
                     </span>
-                    जिल्ला <span [ngClass]="{'nepaliFont unicode-size16': guarantor?.jamanatDistrict!==null && guarantor?.jamanatDistrict!==''}">
+                                    जिल्ला <span [ngClass]="{'nepaliFont unicode-size16': guarantor?.jamanatDistrict!==null && guarantor?.jamanatDistrict!==''}">
                         {{guarantor?.jamanatDistrict===null || guarantor?.jamanatDistrict ===''?'___________________':guarantor?.jamanatDistrict}}
                     </span>
-                    गा.पा./न.पा., वडा नं <span [ngClass]="{'nepaliFont': guarantor?.jamanatWadNo!==null && guarantor?.jamanatWadNo!==''}">
+                                    गा.पा./न.पा., वडा नं <span [ngClass]="{'nepaliFont': guarantor?.jamanatWadNo!==null && guarantor?.jamanatWadNo!==''}">
                         {{guarantor?.jamanatWadNo===null || guarantor?.jamanatWadNo ===''?'___________________':guarantor?.jamanatWadNo}}
-                    </span>
-                    <br>
-                    हालको ठेगाना :- <span [ngClass]="{'nepaliFont unicode-size16': guarantor?.jamanatTemporaryAddress!==null && guarantor?.jamanatTemporaryAddress!==''}">
+                    </span></td>
+                            </tr>
+                            <tr>
+                                <td>हालको ठेगाना :-</td>
+                                <td> <span [ngClass]="{'nepaliFont unicode-size16': guarantor?.jamanatTemporaryAddress!==null && guarantor?.jamanatTemporaryAddress!==''}">
                         {{guarantor?.jamanatTemporaryAddress===null || guarantor?.jamanatTemporaryAddress ===''?'___________________':guarantor?.jamanatTemporaryAddress}}
                     </span>
-                    जिल्ला <span [ngClass]="{'nepaliFont unicode-size16': guarantor?.jamanatTemporaryDistrict!==null && guarantor?.jamanatTemporaryDistrict!==''}">
+                                    जिल्ला <span [ngClass]="{'nepaliFont unicode-size16': guarantor?.jamanatTemporaryDistrict!==null && guarantor?.jamanatTemporaryDistrict!==''}">
                         {{guarantor?.jamanatTemporaryDistrict===null || guarantor?.jamanatTemporaryDistrict ===''?'___________________':guarantor?.jamanatTemporaryDistrict}}
                     </span>
-                    गा.पा./न.पा., वडा नं <span [ngClass]="{'nepaliFont': guarantor?.jamanatTemporaryWadNo!==null && guarantor?.jamanatTemporaryWadNo!==''}">
+                                    गा.पा./न.पा., वडा नं <span [ngClass]="{'nepaliFont': guarantor?.jamanatTemporaryWadNo!==null && guarantor?.jamanatTemporaryWadNo!==''}">
                         {{guarantor?.jamanatTemporaryWadNo===null || guarantor?.jamanatTemporaryWadNo ===''?'___________________':guarantor?.jamanatTemporaryWadNo}}
-                    </span>
-                        <br>
-                        बूबाको नाम :
-                        <span [ngClass]="{'nepaliFont unicode-size24': guarantor?.jamanatParentName!==null && guarantor?.jamanatParentName!==''}">
+                    </span></td>
+                            </tr>
+                            <tr>
+                                <td>बूबाको नाम :</td>
+                                <td><span [ngClass]="{'nepaliFont unicode-size24': guarantor?.jamanatParentName!==null && guarantor?.jamanatParentName!==''}">
                         {{guarantor?.jamanatParentName===null || guarantor?.jamanatParentName ===''?'___________________':guarantor?.jamanatParentName}}
-                    </span>
-                        <br>
-                        बाजेको नाम :
-                        <span [ngClass]="{'nepaliFont unicode-size24': guarantor?.jamanatGrandParentName!==null && guarantor?.jamanatGrandParentName!==''}">
+                    </span></td>
+                            </tr>
+                            <tr>
+                                <td>बाजेको नाम :</td>
+                                <td><span [ngClass]="{'nepaliFont unicode-size24': guarantor?.jamanatGrandParentName!==null && guarantor?.jamanatGrandParentName!==''}">
                         {{guarantor?.jamanatGrandParentName===null || guarantor?.jamanatGrandParentName ===''?'___________________':guarantor?.jamanatGrandParentName}}
-                    </span>
-                        <br>
-                        पति/पत्नीको नामः
-                        <span [ngClass]="{'nepaliFont unicode-size24': guarantor?.jamanatSpouseName!==null && guarantor?.jamanatSpouseName!==''}">
+                    </span></td>
+                            </tr>
+                            <tr>
+                                <td>पति/पत्नीको नामः</td>
+                                <td><span [ngClass]="{'nepaliFont unicode-size24': guarantor?.jamanatSpouseName!==null && guarantor?.jamanatSpouseName!==''}">
                         {{guarantor?.jamanatSpouseName===null || guarantor?.jamanatSpouseName ===''?'___________________':guarantor?.jamanatSpouseName}}
-                    </span>
-                        <br>
-                    औठा छाप :-
-                    </p>
-                    <div class="text-center" id="signature2">
-                        <table class="table  table-bordered fingerXap" style="page-break-inside: avoid;">
-                            <thead>
-                            <tr>
-                                <th>दाँ.</th>
-                                <th>बाँ.</th>
+                    </span></td>
                             </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td><textarea cols="30" id="" name=""
-                                              rows="10" style="background-color: transparent;resize:none;outline:none;border:none;"></textarea></td>
-                                <td><textarea cols="30" id="" name=""
-                                              rows="10" style="background-color: transparent;resize:none;outline:none;border:none;"></textarea></td>
+                            <tr style="break-inside: avoid;">
+                                <td style="vertical-align: top">औठा छाप :-</td>
+                                <td>
+                                    <table class="table table-bordered text-center fingerXap" id="signature2">
+                                        <tr>
+                                            <th>दाँ.<br><textarea cols="10" id="" name=""
+                                                          rows="7" style="background-color: transparent;resize:none;outline:none;border:none;"></textarea></th>
+                                            <th>बाँ.<br><textarea cols="10" id="" name=""
+                                                          rows="7" style="background-color: transparent;resize:none;outline:none;border:none;"></textarea></th>
+                                        </tr>
+                                    </table>
+                                </td>
                             </tr>
-                            </tbody>
                         </table>
-
-                    </div>
                     </div>
                 </div>
                     <br>
@@ -336,30 +342,25 @@
                     <br>
             <br>
             <div class="text-center">
-            <strong>ईति सम्बत २०७</strong><span [ngClass]="{nepaliFont:printDocForm.itiSambatYear!==null && printDocForm.itiSambatYear!==null}" >
-
-                       {{printDocForm.itiSambatYear===null || printDocForm.itiSambatYear===''?'_______________':printDocForm.itiSambatYear}}
-
-                   </span>
-            <strong>साल</strong> <span [ngClass]="{'nepaliFont':printDocForm.itiSambatMonth!==null && printDocForm.itiSambatMonth!==null}" >
-
-                       {{printDocForm.itiSambatMonth===null || printDocForm.itiSambatMonth===''?'_______________':printDocForm.itiSambatMonth}}
-
-                   </span>
-            <strong>महिना</strong> <span [ngClass]="{'nepaliFont':printDocForm.itiSambatDay!==null && printDocForm.itiSambatDay!==null}" >
-
-                       {{printDocForm.itiSambatDay===null || printDocForm.itiSambatDay===''?'_______________':printDocForm.itiSambatDay}}
-
-                   </span>
-            <strong>गते</strong> <span [ngClass]="{'nepaliFont':printDocForm.itiSambatTime!==null && printDocForm.itiSambatTime!==null}" >
-
-                       {{printDocForm.itiSambatTime===null || printDocForm.itiSambatTime===''?'_______________':printDocForm.itiSambatTime}}
-
-                   </span>
-            <strong>रोज शुभम्</strong> <span [ngClass]="{'nepaliFont':printDocForm.itiSambatRojSubham!==null && printDocForm.itiSambatRojSubham!==null}" >
-
-                       {{printDocForm.itiSambatRojSubham===null || printDocForm.itiSambatRojSubham===''?'_______________':printDocForm.itiSambatRojSubham}}
-                   </span>।
+            <strong>ईति सम्बत २०७</strong>
+                <span [ngClass]="{'nepaliFont':printDocForm.itiSambatYear!==null && printDocForm.itiSambatYear!==null}" >{{printDocForm.itiSambatYear===null || printDocForm.itiSambatYear===''?'_______________':printDocForm.itiSambatYear}}
+                </span>
+            <strong>साल</strong>
+                <span [ngClass]="{'nepaliFont':printDocForm.itiSambatMonth!==null && printDocForm.itiSambatMonth!==null}" >
+                    {{printDocForm.itiSambatMonth===null || printDocForm.itiSambatMonth===''?'_______________':printDocForm.itiSambatMonth}}
+                </span>
+            <strong>महिना</strong>
+                <span [ngClass]="{'nepaliFont':printDocForm.itiSambatDay!==null && printDocForm.itiSambatDay!==null}" >
+                    {{printDocForm.itiSambatDay===null || printDocForm.itiSambatDay===''?'_______________':printDocForm.itiSambatDay}}
+                </span>
+            <strong>गते</strong>
+                <span [ngClass]="{'nepaliFont':printDocForm.itiSambatTime!==null && printDocForm.itiSambatTime!==null}" >
+                    {{printDocForm.itiSambatTime===null || printDocForm.itiSambatTime===''?'_______________':printDocForm.itiSambatTime}}
+                </span>
+            <strong>रोज शुभम्</strong>
+                <span [ngClass]="{'nepaliFont':printDocForm.itiSambatRojSubham!==null && printDocForm.itiSambatRojSubham!==null}" >
+                    {{printDocForm.itiSambatRojSubham===null || printDocForm.itiSambatRojSubham===''?'_______________':printDocForm.itiSambatRojSubham}}
+                </span>।
                 <br>
             </div>
         </form>

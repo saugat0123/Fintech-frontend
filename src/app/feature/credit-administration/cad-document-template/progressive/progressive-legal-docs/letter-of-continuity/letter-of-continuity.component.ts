@@ -82,6 +82,8 @@ export class LetterOfContinuityComponent implements OnInit {
                 borrowerTempMunicipality: this.nepaliData.temporaryMunicipalities.nepaliName ? this.nepaliData.temporaryMunicipalities.nepaliName : '',
                 borrowerTempWardNo: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
                 borrowerTempDistrict: this.nepaliData.temporaryDistrict.nepaliName ? this.nepaliData.temporaryDistrict.nepaliName : '',
+                borrowerSabikVDC: this.nepaliData.permanentVdc ? this.nepaliData.permanentVdc : '',
+                borrowerSabikWardNo: this.nepaliData.permanentVdcWard ? this.nepaliData.permanentVdcWard : ''
             });
         }
         this.form.get('amount').patchValue(loanAmount.numberNepali);
