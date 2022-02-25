@@ -60,7 +60,7 @@ export class ProductPaperChecklistComponent implements OnInit , AfterViewInit {
     }
 
     save() {
-            this.checkList.emit(this.parsedData.body`12 `.innerHTML);
+            this.checkList.emit(this.parsedData.body.innerHTML);
     }
 
     ngAfterViewInit(): void {

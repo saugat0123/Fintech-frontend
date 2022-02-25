@@ -107,6 +107,7 @@ export class UIComponent implements OnInit, DoCheck , AfterViewChecked{
     allIds =[];
 
     static loadData(other: UIComponent) {
+        other.ckEdittorConfig = Editor.CK_CONFIG;
         other.getTemplate();
         other.offerLetterService.getAll().subscribe((responseList: any) => {
             other.offerLetterList = responseList.detail;
@@ -331,7 +332,6 @@ export class UIComponent implements OnInit, DoCheck , AfterViewChecked{
 
     ngOnInit() {
         UIComponent.loadData(this);
-        this.ckEdittorConfig = Editor.CK_CONFIG;
     }
 
     getTemplate() {
@@ -375,7 +375,8 @@ export class UIComponent implements OnInit, DoCheck , AfterViewChecked{
         }
     }
 
-    data(data: string, flag) {
+    data(data: string) {
+        let elem;
         this.allIds = [];
         const parser = new DOMParser();
         const parsedDocument = parser.parseFromString(data, 'text/html');
@@ -383,6 +384,7 @@ export class UIComponent implements OnInit, DoCheck , AfterViewChecked{
         // seperating tables from overal html
         const tables = Array.from(parsedDocument.getElementsByTagName('table'));
         tables.forEach((element, table) => {
+            this.firstRows = [];
             //selecting all tr from table
             const tr = Array.from(element.getElementsByTagName('tbody'))[0].getElementsByTagName('tr');
             // first row header data
@@ -395,27 +397,64 @@ export class UIComponent implements OnInit, DoCheck , AfterViewChecked{
                 //pushing data to array for comparing
                 this.firstRows.push(f);
             }
+            console.log(' this is first row', this.firstRows);
             for (let index = 0; index < tr.length; index++) {
                 const tdData = tr[index].getElementsByTagName('td');
+                let prev: HTMLCollectionOf<HTMLTableDataCellElement>;
+                if (index > 0) {
+                    prev = tr[index - 1].getElementsByTagName('td');
+                    if (tdData.length < prev.length) {
+                        const difference = prev.length - tdData.length;
+                        for (let dif = 0; dif < difference; dif++) {
+                            this.firstRows.splice(dif, 1);
+                        }
+                    }
+                    if (tdData.length > prev.length) {
+                        const difference = tdData.length - prev.length;
+                        for (let dif = 0; dif < difference; dif++) {
+                            this.firstRows.splice(dif, 0, 'i');
+                        }
+                        console.log('increased', this.firstRows);
+                        console.log('increased', difference);
+
+                    }
+                }
                 for (let j = 0; j < tdData.length; j++) {
-                    if (this.firstRows[j].toLowerCase() === 'yes' ||
-                        this.firstRows[j].toLowerCase() === 'no' || this.firstRows[j].toLowerCase() === 'na') {
                         // text values of  rows
                         const da = tdData[j].innerText.split('\n').join('').split('\t').join('');
-                        //for skipping first row
-                        if (da.toLowerCase() === 'yes' || da.toLowerCase() === 'no' || da.toLowerCase() === 'na') {
-
-                        } else {
+                        //for skipping row containing yes no
+                        if ((da.toLowerCase() === 'yes' ) && index > 0) {
+                            this.firstRows = [];
+                            const newTdData = tr[index + 1].getElementsByTagName('td');
+                            totalInput = 0;
+                            for (let l = 0; l < newTdData.length; l++) {
+                                if (!ObjectUtil.isEmpty(tdData[l - 1])) {
+                                    const dat = tdData[l - 1].innerText.split('\n').join('').split('\t').join('');
+                                    if (dat.toLowerCase() === 'yes' || dat.toLowerCase() === 'no' || dat.toLowerCase() === 'na') {
+                                        totalInput += 1;
+                                        this.firstRows.push(dat);
+                                    } else {
+                                        this.firstRows.push('x');
+                                    }
+                                }
+                            }
+                            console.log('this is row data', da);
+                            console.log(' this is first row', this.firstRows);
+                        } else if ((da.toLowerCase() !== 'yes' && da.toLowerCase() !== 'no' && da.toLowerCase() !== 'na') &&
+                            (this.firstRows[j].toLowerCase() === 'yes' || this.firstRows[j].toLowerCase() === 'no' ||
+                                this.firstRows[j].toLowerCase() === 'na')) {
+                            console.log('this is index', j);
                             const id = `name${index}${j}${table}n${totalInput}n${index}`;
                             this.allIds.push(id);
                             tdData[j].innerHTML = `<span id = "name${index}${j}${table}n${totalInput}n${index}"><input type="radio" click = "change()"  name="hello${index}"></span>`;
                         }
-                    }
+                        console.log('data from array', this.firstRows[j])
                 }
             }
             this.firstRows = [];
-            this.dk = this.sanitized.bypassSecurityTrustHtml('<table class="">' + element.innerHTML + '</table>');
+            elem += '<div class="row">  <table class="table-bordered text-center table-responsive d-flex justify-content-center" width = "100%">' + element.innerHTML + '</table> </div>  <br style="clear: both;"> ';
         });
+        this.dk = this.sanitized.bypassSecurityTrustHtml(elem);
     }
 
 
