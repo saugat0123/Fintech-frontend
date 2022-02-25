@@ -203,7 +203,7 @@
                                     प्रतिशतले
                                     हुनआउने रकम रु.
 
-                                    <span [ngClass]="{'nepaliFont unicode-size2' : loanFacilityData?.serviceFeeAmount !== null && loanFacilityData?.serviceFeeAmount !== ''}">
+                                    <span [ngClass]="{'nepaliFont unicode-size' : loanFacilityData?.serviceFeeAmount !== null && loanFacilityData?.serviceFeeAmount !== ''}">
                                         {{loanFacilityData?.serviceFeeAmount === null || loanFacilityData?.serviceFeeAmount === '' ? '_________________' : loanFacilityData?.serviceFeeAmount}}
                                     </span>
 
@@ -1315,7 +1315,7 @@
                                     </tr>
                                     <tr>
                                         <td>सम्पर्क ईमेल ठेगानाः</td>
-                                        <td><span class="unicode-size3">
+                                        <td><span class="unicode-size">
                                             {{guarantor?.guarantorEmail === null || guarantor?.guarantorEmail === '' ? '_________________' : guarantor?.guarantorEmail}}
                                         </span></td>
                                     </tr>

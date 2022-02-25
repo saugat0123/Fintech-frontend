@@ -266,8 +266,8 @@ export class PromissoryNoteGuarantorComponent implements OnInit {
               value.guarantorPermanentMunicipality.nepaliName : ''
         ],
         guarantorPermanentWardNo: [value.guarantorPermanentWard],
-        guarantorSabikVDC: [value.guarantorPermanentVdc],
-        guarantorSabikWardNo: [value.guarantorPermanentVdcWard],
+        guarantorSabikVDC: [value.guarantorSabikVDC],
+        guarantorSabikWardNo: [value.guarantorSabikWardNo],
         guarantorTempDistrict: [
           !ObjectUtil.isEmpty(value.guarantorTemporaryDistrict) ?
               value.guarantorTemporaryDistrict.nepaliName : ''

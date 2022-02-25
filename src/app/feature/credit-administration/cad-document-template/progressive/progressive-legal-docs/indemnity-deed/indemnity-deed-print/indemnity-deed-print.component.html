@@ -72,96 +72,105 @@
             </div>
             <p class="text-center"><strong>भवदीय,</strong></p>
             <div id="officeDetail">
-                <p>
-                    <br>
-                    <br>
-                    दस्तखत र संस्थाको छाप:.....................................
-                    <br>
-                    दस्तखत गर्नेको नाम :-
-                    <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.customerName !== null && printDocForm?.customerName !== ''}">
+                <table class="table-borderless mt-5">
+                    <tr>
+                        <td style="width: 20%">दस्तखत र संस्थाको छाप:</td>
+                        <td>......................................................</td>
+                    </tr>
+                    <tr>
+                        <td>दस्तखत गर्नेको नाम :-</td>
+                        <td> <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.customerName !== null && printDocForm?.customerName !== ''}">
                         {{printDocForm?.customerName === null || printDocForm?.customerName === '' ? '_________________' : printDocForm?.customerName}}
                     </span>
-                    (ना.प्र.नं.
-                    <span [ngClass]="{'nepaliFont' : printDocForm?.sincerlyCitizenshipNo !== null && printDocForm?.sincerlyCitizenshipNo !== ''}">
+                            (ना.प्र.नं.
+                            <span [ngClass]="{'nepaliFont' : printDocForm?.sincerlyCitizenshipNo !== null && printDocForm?.sincerlyCitizenshipNo !== ''}">
                         {{printDocForm?.sincerlyCitizenshipNo === null || printDocForm?.sincerlyCitizenshipNo === '' ? '_________________' : printDocForm?.sincerlyCitizenshipNo}}
                     </span>
-                    मिति
-                    <span [ngClass]="{'nepaliFont' : printDocForm?.sincerlyDate !== null && printDocForm?.sincerlyDate !== ''}">
+                            मिति
+                            <span [ngClass]="{'nepaliFont' : printDocForm?.sincerlyDate !== null && printDocForm?.sincerlyDate !== ''}">
                         {{printDocForm?.sincerlyDate === null || printDocForm?.sincerlyDate === '' ? '_________________' : printDocForm?.sincerlyDate}}
                     </span>
-                    जि.प्र.का.
-                    <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.sincerlyCdOoffice !== null && printDocForm?.sincerlyCdOoffice !== ''}">
+                            जि.प्र.का.
+                            <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.sincerlyCdOoffice !== null && printDocForm?.sincerlyCdOoffice !== ''}">
                         {{printDocForm?.sincerlyCdOoffice === null || printDocForm?.sincerlyCdOoffice === '' ? '_________________' : printDocForm?.sincerlyCdOoffice}}
-                    </span> )
-                    <br>
-                    ठेगाना :-स्थायी
-                    <span [ngClass]="{'nepaliFont sizefont' : printDocForm?.sincerlyPermanentDistrict !== null && printDocForm?.sincerlyPermanentDistrict !== ''}">
+                    </span>)</td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top">ठेगाना :-स्थायी</td>
+                        <td><span [ngClass]="{'nepaliFont sizefont' : printDocForm?.sincerlyPermanentDistrict !== null && printDocForm?.sincerlyPermanentDistrict !== ''}">
                         {{printDocForm?.sincerlyPermanentDistrict === null || printDocForm?.sincerlyPermanentDistrict === '' ? '_________________' : printDocForm?.sincerlyPermanentDistrict}}
                     </span>
-                    जिल्ला
-                    <span
-                            [ngClass]="{'nepaliFont sizefont' : printDocForm?.sincerlyPermanentMunicipality !== null && printDocForm?.sincerlyPermanentMunicipality !== ''}">
+                            जिल्ला
+                            <span
+                                    [ngClass]="{'nepaliFont sizefont' : printDocForm?.sincerlyPermanentMunicipality !== null && printDocForm?.sincerlyPermanentMunicipality !== ''}">
                         {{printDocForm?.sincerlyPermanentMunicipality === null || printDocForm?.sincerlyPermanentMunicipality === '' ? '_________________' : printDocForm?.sincerlyPermanentMunicipality}}
                     </span>
-                    गा.पा./न.पा., वडा नं.
-                    <span [ngClass]="{'nepaliFont' : printDocForm?.sincerlyPermanentWardNo !== null && printDocForm?.sincerlyPermanentWardNo !== ''}">
+                            गा.पा./न.पा., वडा नं.
+                            <span [ngClass]="{'nepaliFont' : printDocForm?.sincerlyPermanentWardNo !== null && printDocForm?.sincerlyPermanentWardNo !== ''}">
                         {{printDocForm?.sincerlyPermanentWardNo === null || printDocForm?.sincerlyPermanentWardNo === '' ? '_________________' : printDocForm?.sincerlyPermanentWardNo}}
                     </span> (साबिक
-                    <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.sabikVDC !== null && printDocForm?.sabikVDC !== ''}">
+                            <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.sabikVDC !== null && printDocForm?.sabikVDC !== ''}">
                         {{printDocForm?.sabikVDC === null || printDocForm?.sabikVDC === '' ? '_________________' : printDocForm?.sabikVDC}}
                     </span>
 
-                    गा.बि.स./न.पा., वडा नं.
-                    <span [ngClass]="{'nepaliFont' : printDocForm?.sabikWardNo !== null && printDocForm?.sabikWardNo !== ''}">
+                            गा.बि.स./न.पा., वडा नं.
+                            <span [ngClass]="{'nepaliFont' : printDocForm?.sabikWardNo !== null && printDocForm?.sabikWardNo !== ''}">
                         {{printDocForm?.sabikWardNo === null || printDocForm?.sabikWardNo === '' ? '_________________' : printDocForm?.sabikWardNo}}
-                    </span> )
-                    <br>
-                    हालको ठेगानाः <span
-                        [ngClass]="{'nepaliFont sizefont' : printDocForm?.sinserlyTempDistrict !== null && printDocForm?.sinserlyTempDistrict !== ''}">
+                    </span>)</td>
+                    </tr>
+                    <tr>
+                        <td>हालको ठेगानाः</td>
+                        <td> <span
+                                [ngClass]="{'nepaliFont sizefont' : printDocForm?.sinserlyTempDistrict !== null && printDocForm?.sinserlyTempDistrict !== ''}">
                     {{printDocForm?.sinserlyTempDistrict === null || printDocForm?.sinserlyTempDistrict === '' ? '_________________' : printDocForm?.sinserlyTempDistrict}}
                 </span>
-                    जिल्ला,
-                    <span
-                            [ngClass]="{'nepaliFont sizefont' : printDocForm?.sinserlyTempMunicipality !== null && printDocForm?.sinserlyTempMunicipality !== ''}">
+                            जिल्ला,
+                            <span
+                                    [ngClass]="{'nepaliFont sizefont' : printDocForm?.sinserlyTempMunicipality !== null && printDocForm?.sinserlyTempMunicipality !== ''}">
                         {{printDocForm?.sinserlyTempMunicipality === null || printDocForm?.sinserlyTempMunicipality === '' ? '_________________' : printDocForm?.sinserlyTempMunicipality}}
                     </span>
-                   गा.पा./न.पा., वडा नं.
-                    <span [ngClass]="{'nepaliFont' : printDocForm?.sinserlyTempWardNo !== null && printDocForm?.sinserlyTempWardNo !== ''}">
+                            गा.पा./न.पा., वडा नं.
+                            <span [ngClass]="{'nepaliFont' : printDocForm?.sinserlyTempWardNo !== null && printDocForm?.sinserlyTempWardNo !== ''}">
                         {{printDocForm?.sinserlyTempWardNo === null || printDocForm?.sinserlyTempWardNo === '' ? '_________________' : printDocForm?.sinserlyTempWardNo}}
-                    </span>
-                    <br>
-                    वावु/आमाको नाम :-
-                    <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.parentName !== null && printDocForm?.parentName !== ''}">
+                    </span></td>
+                    </tr>
+                    <tr>
+                        <td>वावु/आमाको नाम :-</td>
+                        <td><span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.parentName !== null && printDocForm?.parentName !== ''}">
                         {{printDocForm?.parentName === null || printDocForm?.parentName === '' ? '_________________' : printDocForm?.parentName}}
-                    </span><br>
-                    वाजे/बजैको नाम :-
-                    <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.grandParentName !== null && printDocForm?.grandParentName !== ''}">
+                    </span></td>
+                    </tr>
+                    <tr>
+                        <td>वाजे/बजैको नाम :-</td>
+                        <td><span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.grandParentName !== null && printDocForm?.grandParentName !== ''}">
                         {{printDocForm?.grandParentName === null || printDocForm?.grandParentName === '' ? '_________________' : printDocForm?.grandParentName}}
-                    </span>
-                    <br>
-                    पति/पत्निको नाम :-
-                    <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.husbandWifeName !== null && printDocForm?.husbandWifeName !== ''}">
+                    </span></td>
+                    </tr>
+                    <tr>
+                        <td>पति/पत्निको नाम :-</td>
+                        <td><span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.husbandWifeName !== null && printDocForm?.husbandWifeName !== ''}">
                         {{printDocForm?.husbandWifeName === null || printDocForm?.husbandWifeName === '' ? '_________________' : printDocForm?.husbandWifeName}}
-                    </span>
-                </p>
-                <div class="col-md-12" id="signature">
-                    <p><strong>औठा छाप:</strong>
-
-                    <table id="fingerXap" style="width: 60%" class="table  table-bordered text-center">
-                        <thead>
-                        <tr>
-                            <th style="border: none;">दाँ.</th>
-                            <th style="border: none;">बाँ.</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr style="height: 250px;">
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
+                    </span></td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: top"><strong>औठा छाप:</strong></td>
+                        <td><table id="fingerXap" style="width: 50%" class="table  table-bordered text-center">
+                            <thead>
+                            <tr>
+                                <th style="border: none;">दाँ.</th>
+                                <th style="border: none;">बाँ.</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr style="height: 100px;">
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        </td>
+                    </tr>
+                </table>
             </div>
             <p><strong> साक्षी :</strong></p>
             <!--{{i + 1 | nepaliWord: 'unicode'}}-->
