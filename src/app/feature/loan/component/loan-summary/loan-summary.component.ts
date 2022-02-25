@@ -206,6 +206,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     checkedData;
     proposalAllData;
     financial;
+    paperChecklist;
+    allIds;
 
     constructor(
         @Inject(DOCUMENT) private _document: Document,
@@ -243,6 +245,10 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             this.isRemitLoan = true;
         }
         this.loanDataHolder = this.loanData;
+        console.log('this is data', this.loanDataHolder.paperProductChecklist);
+        const obj = JSON.parse(this.loanDataHolder.paperProductChecklist);
+        this.paperChecklist = obj.view;
+        this.allIds = obj.id;
         if (this.loanDataHolder.loanHolder.clientType === 'CONSUMER_FINANCE') {
             this.consumerFinance = true;
         } else  if (this.loanDataHolder.loanHolder.clientType === 'SMALL_BUSINESS_FINANCIAL_SERVICES') {
