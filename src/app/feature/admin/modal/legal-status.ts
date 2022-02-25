@@ -12,4 +12,10 @@ export class LegalStatus {
     // panNumber: string;
     panRegistrationDate: Date;
     registrationExpiryDate: Date;
+    registrationNo: string;
+    regIssuedPlace: string;
+    vatRegistrationOffice: string;
+    vatRegistrationDate: Date;
+    registrationDistrict: string;
+    udhyogBibhag: string;
 }

@@ -24,6 +24,7 @@ import {MaritalStatus} from '../../../../../@core/model/enum/marital-status';
 import {IndividualJsonData} from '../../../../admin/modal/IndividualJsonData';
 import {environment, environment as env} from '../../../../../../environments/environment';
 import {MicroIndividualFormComponent} from '../../../../micro-loan/form-component/micro-individual-form/micro-individual-form.component';
+import {Clients} from '../../../../../../environments/Clients';
 import {Editor} from '../../../../../@core/utils/constants/editor';
 
 @Component({
@@ -90,7 +91,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     municipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
     temporaryDistrictList: Array<District> = Array<District>();
     temporaryMunicipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
-
+    sameAddress = false;
     private isBlackListed: boolean;
     allDistrict: Array<District> = Array<District>();
     private customerList: Array<Customer> = new Array<Customer>();
@@ -100,7 +101,6 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         showOtherIncomeSource: false,
         hideIncomeSource: false
     };
-
     bankingRelationshipList = BankingRelationship.enumObject();
     subSector = [];
     clientType: any;
@@ -111,7 +111,14 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     individualJsonData: IndividualJsonData = new IndividualJsonData();
 
     crgLambdaDisabled = environment.disableCrgLambda;
+    client = environment.client;
+    clientName = Clients;
     ckeConfig = Editor.CK_CONFIG;
+    private relation = ['Grand Father', 'Father'];
+    incomeRiskChecked = false;
+    securityRiskChecked = false;
+    successionRiskChecked = false;
+    bankingRelationChecked = false;
 
     ngOnInit() {
         this.getProvince();
@@ -123,21 +130,48 @@ export class CustomerFormComponent implements OnInit, DoCheck {
             if (!ObjectUtil.isEmpty(this.formValue.individualJsonData)) {
                 this.individualJsonData = JSON.parse(this.formValue.individualJsonData);
             }
+            if (!ObjectUtil.isEmpty(this.individualJsonData.checkedData)) {
+                this.incomeRiskChecked = this.individualJsonData.checkedData.incomeRiskChecked;
+                this.bankingRelationChecked = this.individualJsonData.checkedData.bankingRelationChecked;
+                this.successionRiskChecked = this.individualJsonData.checkedData.successionRiskChecked;
+                this.securityRiskChecked = this.individualJsonData.checkedData.securityRiskChecked;
+            } else {
+                if (!ObjectUtil.isEmpty(this.individualJsonData.incomeRisk)) {
+                    this.incomeRiskChecked = true;
+                } else if (!ObjectUtil.isEmpty(this.individualJsonData.securityRisk)) {
+                    this.securityRiskChecked = true;
+                } else if (!ObjectUtil.isEmpty(this.individualJsonData.successionRisk)) {
+                    this.successionRiskChecked = true;
+                }
+            }
             this.microCustomer = this.formValue.isMicroCustomer;
             this.customerDetailField.showFormField = true;
             this.customer = this.formValue;
+            if (this.customer.sameAddress !== undefined) {
+                this.sameAddress = this.customer.sameAddress;
+            }
             this.customer.clientType = this.clientTypeInput;
             this.customer.customerCode = this.customerIdInput;
-            console.log('customer', this.customer);
+            if (!ObjectUtil.isEmpty(this.bankingRelationshipInput)) {
+                this.customer.bankingRelationship = this.bankingRelationshipInput;
+            }
             this.formMaker();
-            this.setRelatives(this.customer.customerRelatives);
+            if (ObjectUtil.isEmpty(this.customer.customerRelatives) || this.customer.customerRelatives.length < 1) {
+                this.createRelativesArray();
+            } else {
+                this.setRelatives(this.customer.customerRelatives);
+            }
+            if (!ObjectUtil.isEmpty(this.individualJsonData.accountDetails)) {
+                this.setAccountNumber(this.individualJsonData.accountDetails);
+            } else {
+                this.addAccountNumber();
+            }
             this.setOccupationAndIncomeSourceAndParentInput(this.formValue);
             this.occupationChange();
-
         } else {
+            this.addAccountNumber();
             this.createRelativesArray();
         }
-
     }
 
     onCloseCreateCustomer() {
@@ -156,7 +190,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 citizenshipNumber: [undefined],
                 citizenshipIssuedPlace: [undefined],
                 citizenshipIssuedDate: [undefined, DateValidator.isValidBefore],
-                relativeNetWorth: [undefined],
+                age: [undefined],
                 version: [0]
             })
         );
@@ -188,7 +222,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 this.municipalitiesList.sort((a, b) => a.name.localeCompare(b.name));
                 this.municipalitiesList.forEach(municipality => {
                     if (!ObjectUtil.isEmpty(this.customer.municipalities) && municipality.id === this.customer.municipalities.id) {
-                            this.basicInfo.controls.municipalities.setValue(municipality);
+                        this.basicInfo.controls.municipalities.setValue(municipality);
                     }
                 });
             }
@@ -256,6 +290,13 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 this.toastService.show(new Alert(AlertType.ERROR, 'Blacklisted Customer'));
                 return;
             } else {
+                if (this.client !== this.clientName.MEGA) {
+                    const ageControl = this.basicInfo.get('customerRelatives') as FormArray;
+                    ageControl.controls.filter(f => {
+                        f.get('age').clearValidators();
+                        f.get('age').updateValueAndValidity();
+                    });
+                }
                 if (this.basicInfo.invalid) {
                     this.toastService.show(new Alert(AlertType.WARNING, 'Check Validation'));
                     this.scrollToFirstInvalidControl();
@@ -264,14 +305,13 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 }
                 if (this.microCustomer) {
                     this.microIndividualFormComponent.onSubmit();
-                    this.spinner=false;
                     if (this.microIndividualFormComponent.microCustomerForm.invalid) {
+                        this.spinner = false;
                         this.toastService.show(new Alert(AlertType.WARNING, 'Check Micro Customer Detail Validation'));
                         return;
                     }
                 }
                 {
-                    this.spinner = true;
                     this.customer.id = this.customer ? (this.customer.id ? this.customer.id : undefined) : undefined;
                     this.customer.customerName = this.basicInfo.get('customerName').value;
                     this.customer.customerCode = this.basicInfo.get('customerCode').value;
@@ -284,6 +324,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                     this.customer.temporaryMunicipalities = this.basicInfo.get('temporaryMunicipalities').value;
                     this.customer.temporaryWardNumber = this.basicInfo.get('temporaryWardNumber').value;
                     this.customer.contactNumber = this.basicInfo.get('contactNumber').value;
+                    this.customer.landLineNumber = this.basicInfo.get('landLineNumber').value;
                     this.customer.email = this.basicInfo.get('email').value;
                     this.customer.dob = this.basicInfo.get('dob').value;
                     this.customer.initialRelationDate = this.basicInfo.get('initialRelationDate').value;
@@ -295,14 +336,14 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                     this.customer.gender = this.basicInfo.get('gender').value;
                     this.customer.maritalStatus = this.basicInfo.get('maritalStatus').value;
                     this.customer.customerLegalDocumentAddress = this.basicInfo.get('customerLegalDocumentAddress').value;
-                    this.customer.withinLimitRemarks = this.formValue.withinLimitRemarks;
                     const occupations = {
                         multipleOccupation: this.basicInfo.get('occupation').value,
                         otherOccupation: this.basicInfo.get('otherOccupation').value
                     };
                     const incomeSource = {
                         multipleIncome: this.basicInfo.get('incomeSource').value,
-                        otherIncome: this.basicInfo.get('otherIncome').value
+                        otherIncome: this.basicInfo.get('otherIncome').value,
+                        panNumber: this.basicInfo.get('panNumber').value
                     };
                     this.customer.occupation = JSON.stringify(occupations);
                     this.customer.incomeSource = JSON.stringify(incomeSource);
@@ -315,13 +356,12 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                     // possibly can have more field in banking relationship
                     this.customer.bankingRelationship = JSON.stringify(this.basicInfo.get('bankingRelationship').value);
                     this.customer.netWorth = this.basicInfo.get('netWorth').value;
-
                     /** Remaining static read-write only data*/
                     this.customer.individualJsonData = this.setIndividualJsonData();
 
                     this.customer.isMicroCustomer = this.microCustomer;
-                    console.log('submit', this.customer);
-
+                    this.customer.sameAddress = this.sameAddress;
+                    this.customer.withinLimitRemarks = this.formValue.withinLimitRemarks;
                     this.customerService.save(this.customer).subscribe(res => {
                         this.spinner = false;
                         this.close();
@@ -367,9 +407,9 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         this.basicInfo = this.formBuilder.group({
             customerName: [this.customer.customerName === undefined ? undefined : this.customer.customerName, Validators.required],
             customerCode: [this.customer.customerCode === undefined ? undefined : this.customer.customerCode],
-            province: [this.customer.province === null ? undefined : this.customer.province, Validators.required],
-            district: [this.customer.district === null ? undefined : this.customer.district, Validators.required],
-            municipalities: [this.customer.municipalities === null ? undefined : this.customer.municipalities, Validators.required],
+            province: [this.customer.province === null ? undefined : this.customer.province],
+            district: [this.customer.district === null ? undefined : this.customer.district],
+            municipalities: [this.customer.municipalities === null ? undefined : this.customer.municipalities],
             permanentAddressLine1: [ObjectUtil.isEmpty(this.individualJsonData) ? undefined :
                 this.individualJsonData.permanentAddressLine1],
             permanentAddressLine2: [ObjectUtil.isEmpty(this.individualJsonData) ? undefined :
@@ -378,11 +418,11 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 this.individualJsonData.fatherName],
             grandFatherName: [ObjectUtil.isEmpty(this.individualJsonData) ? undefined :
                 this.individualJsonData.grandFatherName],
-            wardNumber: [this.customer.wardNumber === null ? undefined : this.customer.wardNumber, Validators.required],
-            contactNumber: [this.customer.contactNumber === undefined ? undefined : this.customer.contactNumber, [Validators.required,
+            wardNumber: [this.customer.wardNumber === null ? undefined : this.customer.wardNumber],
+            contactNumber: [this.customer.contactNumber === undefined ? undefined : this.customer.contactNumber, [
                 Validators.max(9999999999), Validators.min(1000000000)]],
             landLineNumber: [this.customer.landLineNumber === undefined ? undefined : this.customer.landLineNumber],
-            email: [this.customer.email === undefined ? undefined : this.customer.email, Validators.email],
+            email: [this.customer.email === undefined ? undefined : this.customer.email],
             // initial Relation Date not used in ui
             initialRelationDate: [this.customer.initialRelationDate === undefined ? undefined :
                 new Date(this.customer.initialRelationDate)],
@@ -394,13 +434,15 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 new Date(this.customer.citizenshipIssuedDate), [Validators.required, DateValidator.isValidBefore]],
             dob: [ObjectUtil.isEmpty(this.customer.dob) ? undefined :
                 new Date(this.customer.dob), [Validators.required, DateValidator.isValidBefore]],
-            occupation: [this.customer.occupation === undefined ? undefined : this.customer.occupation, [Validators.required]],
+            occupation: [this.customer.occupation === undefined ? undefined : this.customer.occupation],
             version: [this.customer.version === undefined ? undefined : this.customer.version],
             otherOccupation: [this.customer.otherOccupation === undefined ? undefined : this.customer.otherOccupation],
-            incomeSource: [this.customer.incomeSource === undefined ? undefined : this.customer.incomeSource, [Validators.required]],
+            incomeSource: [this.customer.incomeSource === undefined ? undefined : this.customer.incomeSource],
             otherIncome: [this.customer.otherIncome === undefined ? undefined : this.customer.otherIncome],
+            panNumber: [this.customer.panNumber === undefined ? undefined : this.customer.panNumber,
+                [Validators.max(999999999), Validators.min(100000000)]],
             customerRelatives: this.formBuilder.array([]),
-            introduction: [this.customer.introduction === undefined ? undefined : this.customer.introduction, [Validators.required]],
+            introduction: [this.customer.introduction === undefined ? undefined : this.customer.introduction],
             securityRisk: [ObjectUtil.isEmpty(this.individualJsonData) ? undefined :
                 this.individualJsonData.securityRisk],
             incomeRisk: [ObjectUtil.isEmpty(this.individualJsonData) ? undefined :
@@ -408,36 +450,44 @@ export class CustomerFormComponent implements OnInit, DoCheck {
             successionRisk: [ObjectUtil.isEmpty(this.individualJsonData) ? undefined :
                 this.individualJsonData.successionRisk],
             bankingRelationship: [this.customer.bankingRelationship === undefined ?
-                undefined : JSON.parse(this.customer.bankingRelationship), this.crgLambdaDisabled ? undefined : [Validators.required]],
+                undefined : JSON.parse(this.customer.bankingRelationship), this.crgLambdaDisabled ? undefined : []],
             netWorth: [this.customer.netWorth === undefined ?
                 undefined : this.customer.netWorth,
-                this.crgLambdaDisabled ? undefined : [Validators.required, Validators.pattern(Pattern.NUMBER_DOUBLE)]],
+                this.crgLambdaDisabled ? undefined : [Validators.pattern(Pattern.NUMBER_DOUBLE)]],
             subsectorDetail: [this.customer.subsectorDetail === undefined ? undefined : this.customer.subsectorDetail],
             clientType: [this.customer.clientType === undefined ? undefined : this.customer.clientType, Validators.required],
             temporaryProvince: [this.customer.temporaryProvince === null ? undefined :
-                this.customer.temporaryProvince, Validators.required],
+                this.customer.temporaryProvince],
             temporaryDistrict: [this.customer.temporaryDistrict === null ? undefined :
-                this.customer.temporaryDistrict, Validators.required],
+                this.customer.temporaryDistrict],
             temporaryMunicipalities: [this.customer.temporaryMunicipalities === null ? undefined :
-                this.customer.temporaryMunicipalities, Validators.required],
+                this.customer.temporaryMunicipalities],
             temporaryAddressLine1: [ObjectUtil.isEmpty(this.individualJsonData) ? undefined :
                 this.individualJsonData.temporaryAddressLine1],
             temporaryAddressLine2: [ObjectUtil.isEmpty(this.individualJsonData) ? undefined :
                 this.individualJsonData.temporaryAddressLine2],
             temporaryWardNumber: [this.customer.temporaryWardNumber === null ? undefined :
-                this.customer.temporaryWardNumber, Validators.required],
+                this.customer.temporaryWardNumber],
             gender: [this.gender === null ? undefined :
                 this.gender, Validators.required],
             maritalStatus: [this.maritalStatus === null ? undefined :
-                this.maritalStatus, Validators.required],
+                this.maritalStatus],
             customerLegalDocumentAddress: [this.customerLegalDocumentAddress == null ? undefined :
-                this.customerLegalDocumentAddress, Validators.required],
-
+                this.customerLegalDocumentAddress],
+            sameAddress: [this.customer.sameAddress === undefined ? undefined : this.customer.sameAddress],
+            accountDetails: this.formBuilder.array([]),
         });
+
         this.onCustomerTypeChange(this.microCustomer);
     }
 
     setIndividualJsonData() {
+        const checkedData = {
+            incomeRiskChecked: this.incomeRiskChecked,
+            securityRiskChecked: this.securityRiskChecked,
+            successionRiskChecked: this.successionRiskChecked,
+            bankingRelationChecked: this.bankingRelationChecked,
+        };
         const individualJsonData = new IndividualJsonData();
         individualJsonData.incomeRisk = this.basicInfoControls.incomeRisk.value;
         individualJsonData.securityRisk = this.basicInfoControls.securityRisk.value;
@@ -448,21 +498,23 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         individualJsonData.temporaryAddressLine2 = this.basicInfoControls.temporaryAddressLine2.value;
         individualJsonData.grandFatherName = this.basicInfoControls.grandFatherName.value;
         individualJsonData.fatherName = this.basicInfoControls.fatherName.value;
+        individualJsonData.accountDetails = this.basicInfoControls.accountDetails.value;
+        individualJsonData.checkedData = checkedData;
         if (this.microCustomer) {
             individualJsonData.microCustomerDetail = this.microIndividualFormComponent.microCustomerForm.value;
         }
-        return  JSON.stringify(individualJsonData);
+        return JSON.stringify(individualJsonData);
     }
 
     createRelativesArray() {
-        const relation = ['Grand Father', 'Father'];
-        relation.forEach((customerRelation) => {
+        this.relation.forEach((customerRelation) => {
             (this.basicInfo.get('customerRelatives') as FormArray).push(this.formBuilder.group({
                 customerRelation: [{value: customerRelation, disabled: false}],
-                customerRelativeName: [undefined, Validators.required],
+                customerRelativeName: [undefined],
                 citizenshipNumber: [undefined],
                 citizenshipIssuedPlace: [undefined],
                 citizenshipIssuedDate: [undefined, DateValidator.isValidBefore],
+                age: [undefined],
                 version: [undefined]
             }));
         });
@@ -476,14 +528,14 @@ export class CustomerFormComponent implements OnInit, DoCheck {
                 // Increase index number with increase in static relatives---
                 relativesData.push(this.formBuilder.group({
                     customerRelation: (index > 1) ? [(customerRelative)] :
-                        [({value: customerRelative, disabled: false}), Validators.required],
-                    customerRelativeName: [singleRelatives.customerRelativeName, Validators.required],
+                        [({value: customerRelative, disabled: false})],
+                    customerRelativeName: [singleRelatives.customerRelativeName],
                     version: [singleRelatives.version === undefined ? undefined : singleRelatives.version],
                     citizenshipNumber: [singleRelatives.citizenshipNumber],
                     citizenshipIssuedPlace: [singleRelatives.citizenshipIssuedPlace],
                     citizenshipIssuedDate: [ObjectUtil.isEmpty(singleRelatives.citizenshipIssuedDate) ?
                         undefined : new Date(singleRelatives.citizenshipIssuedDate), DateValidator.isValidBefore],
-                    relativeNetWorth: [singleRelatives.relativeNetWorth],
+                    age: [singleRelatives.age],
                 }));
             });
 
@@ -497,6 +549,8 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         const citizenShipIssuedDate = this.customer.citizenshipIssuedDate = this.basicInfo.get('citizenshipIssuedDate').value;
         const citizenShipNo = this.customer.citizenshipIssuedDate = this.basicInfo.get('citizenshipNumber').value;
         const modalRef = this.modalService.open(CustomerAssociateComponent, {size: 'lg'});
+        this.sameAddress = this.customer.sameAddress;
+
         if (ObjectUtil.isEmpty(customerName) || ObjectUtil.isEmpty(citizenShipIssuedDate
             || ObjectUtil.isEmpty(citizenShipNo))) {
             modalRef.componentInstance.model = undefined;
@@ -541,27 +595,32 @@ export class CustomerFormComponent implements OnInit, DoCheck {
     }
 
     occupationChange() {
-        const isOtherSelected = this.basicInfo.get('occupation').value.includes('Other');
+        let isOtherSelected;
+        if (!ObjectUtil.isEmpty(this.basicInfo.get('occupation').value)) {
+            isOtherSelected = this.basicInfo.get('occupation').value.includes('Other');
+        }
         if (isOtherSelected) {
             this.tempFlag.showOtherOccupation = true;
-            this.basicInfo.get('otherOccupation').setValidators(Validators.required);
+            // this.basicInfo.get('otherOccupation').setValidators(Validators.required);
         } else {
             this.tempFlag.showOtherOccupation = false;
-            this.basicInfo.get('otherOccupation').setValidators(null);
+            this.basicInfo.get('otherOccupation').setValue(null);
+            // this.basicInfo.get('otherOccupation').setValidators(null);
         }
         this.basicInfo.get('otherOccupation').updateValueAndValidity();
-        const houseWifeSelected = !this.basicInfo.get('occupation').value.includes('House Wife') ?
+        const houseWifeSelected = !this.basicInfo.get('occupation').value ? false : !this.basicInfo.get('occupation').value.includes('House Wife') ?
             false : this.basicInfo.get('occupation').value.length <= 1;
         if (houseWifeSelected) {
             this.tempFlag.hideIncomeSource = true;
             this.basicInfo.get('incomeSource').clearValidators();
-        }  else {
+        } else {
             this.tempFlag.hideIncomeSource = false;
-            this.basicInfo.get('incomeSource').setValidators(Validators.required);
+            // this.basicInfo.get('incomeSource').setValidators(Validators.required);
         }
         this.basicInfo.get('incomeSource').updateValueAndValidity();
 
     }
+
     ngDoCheck(): void {
         if (this.formValue.id == null) {
             this.formLabel = 'Add';
@@ -574,10 +633,11 @@ export class CustomerFormComponent implements OnInit, DoCheck {
         const isOtherSourceSelected = this.basicInfo.get('incomeSource').value.includes('Other');
         if (isOtherSourceSelected) {
             this.tempFlag.showOtherIncomeSource = true;
-            this.basicInfo.get('otherIncome').setValidators(Validators.required);
+            // this.basicInfo.get('otherIncome').setValidators(Validators.required);
         } else {
             this.tempFlag.showOtherIncomeSource = false;
-            this.basicInfo.get('otherIncome').setValidators(null);
+            this.basicInfo.get('otherIncome').setValue(null);
+            // this.basicInfo.get('otherIncome').setValidators(null);
         }
         this.basicInfo.get('otherIncome').updateValueAndValidity();
     }
@@ -616,6 +676,7 @@ export class CustomerFormComponent implements OnInit, DoCheck {
             const incomeSource = JSON.parse(formValue.incomeSource);
             this.basicInfo.controls.incomeSource.patchValue(incomeSource.multipleIncome);
             this.basicInfo.controls.otherIncome.patchValue(incomeSource.otherIncome);
+            this.basicInfo.controls.panNumber.patchValue(incomeSource.panNumber);
         }
         if (!ObjectUtil.isEmpty(formValue.occupation)) {
             const occupation = JSON.parse(formValue.occupation);
@@ -630,22 +691,32 @@ export class CustomerFormComponent implements OnInit, DoCheck {
             this.basicInfo.controls.subsectorDetail.patchValue(this.subSectorDetailCodeInput);
 
         }
-
     }
-    sameAsPermanent() {
-        // if (ObjectUtil.isEmpty(this.basicInfo.get('municipalities').value)) {
-        //     this.toastService.show(new Alert(AlertType.WARNING, 'Please fill Permanent Address Completely'));
-        //     return true;
-        // }
-        this.basicInfo.get('temporaryProvince').patchValue(this.basicInfo.get('province').value);
-        this.customer.temporaryDistrict = this.basicInfo.get('district').value;
-        this.getTemporaryDistricts(this.basicInfo.get('temporaryProvince').value);
-        this.customer.temporaryMunicipalities = this.basicInfo.get('municipalities').value;
-        this.getTemporaryMunicipalities(this.basicInfo.get('temporaryMunicipalities').value);
-        this.basicInfo.controls.temporaryAddressLine1.patchValue(this.basicInfo.get('permanentAddressLine1').value);
-        this.basicInfo.controls.temporaryAddressLine2.patchValue(this.basicInfo.get('permanentAddressLine2').value);
-        this.basicInfo.controls.temporaryWardNumber.setValue(this.basicInfo.get('wardNumber').value);
 
+    sameAsPermanent(value) {
+        if (value) {
+            this.basicInfo.get('temporaryProvince').patchValue(this.basicInfo.get('province').value);
+            this.customer.temporaryDistrict = this.basicInfo.get('district').value;
+            this.getTemporaryDistricts(this.basicInfo.get('temporaryProvince').value);
+            this.customer.temporaryMunicipalities = this.basicInfo.get('municipalities').value;
+            this.getTemporaryMunicipalities(this.basicInfo.get('temporaryMunicipalities').value);
+            this.basicInfo.controls.temporaryAddressLine1.patchValue(this.basicInfo.get('permanentAddressLine1').value);
+            this.basicInfo.controls.temporaryAddressLine2.patchValue(this.basicInfo.get('permanentAddressLine2').value);
+            this.basicInfo.controls.temporaryWardNumber.setValue(this.basicInfo.get('wardNumber').value);
+            this.sameAddress = value;
+        } else {
+            this.resetValue();
+            this.sameAddress = value;
+        }
+    }
+
+    resetValue() {
+        this.basicInfo.get('temporaryAddressLine1').patchValue(null);
+        this.basicInfo.get('temporaryAddressLine2').patchValue(null);
+        this.basicInfo.get('temporaryProvince').patchValue(null);
+        this.basicInfo.get('temporaryDistrict').patchValue(null);
+        this.basicInfo.get('temporaryMunicipalities').patchValue(null);
+        this.basicInfo.get('temporaryWardNumber').patchValue(null);
     }
 
     /** @Param validate --- true for add validation and false for remove validation
@@ -663,11 +734,11 @@ export class CustomerFormComponent implements OnInit, DoCheck {
 
     onCustomerTypeChange(check: boolean) {
         if (check || this.crgLambdaDisabled) {
-            this.controlValidation(['incomeRisk', 'securityRisk', 'successionRisk', 'bankingRelationship',
+            this.controlValidation(['incomeRisk', 'securityRisk', 'successionRisk',
                 'netWorth'], false);
         } else {
-            this.controlValidation(['incomeRisk', 'securityRisk', 'successionRisk', 'bankingRelationship',
-                'netWorth'], true);
+            this.controlValidation(['incomeRisk', 'securityRisk', 'successionRisk',
+                'netWorth'], false);
         }
         const clientTypeControl = this.basicInfo.get('clientType');
         if (check) {
@@ -677,6 +748,50 @@ export class CustomerFormComponent implements OnInit, DoCheck {
             // this.clientType = this.clientType.filter(v => v !== 'MICRO');
             clientTypeControl.patchValue(this.customer.clientType === undefined ? undefined : this.customer.clientType);
             clientTypeControl.enable();
+        }
+    }
+
+    addAccountNumber() {
+        (this.basicInfo.get('accountDetails') as FormArray).push(
+            this.formBuilder.group({
+                accountNo: [undefined],
+            })
+        );
+    }
+    removeAccount(index: number) {
+        (<FormArray>this.basicInfo.get('accountDetails')).removeAt(index);
+    }
+
+    setAccountNumber(data) {
+        const account = this.basicInfo.get('accountDetails') as FormArray;
+        data.forEach(l => {
+            account.push(this.formBuilder.group({
+                accountNo: [l.accountNo]
+            }));
+        });
+    }
+
+    onChecked(event, type) {
+        switch (type) {
+            case 'income' : {
+                this.incomeRiskChecked = event;
+            }
+                break;
+            case 'security' : {
+                this.securityRiskChecked = event;
+            }
+                break;
+
+            case 'succession' : {
+                this.successionRiskChecked = event;
+            }
+                break;
+
+            case 'banking' : {
+                this.bankingRelationChecked = event;
+            }
+                break;
+
         }
     }
 }

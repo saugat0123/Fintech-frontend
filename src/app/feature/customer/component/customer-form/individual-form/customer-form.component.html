@@ -64,18 +64,18 @@
                                    </div>
                                </div>
                            </div>
-                           <div class="col-md-6">
-                               <div class="form-group">
-                                   <label for="customerNameForm"><strong>SubSector</strong></label>
-                                   <select
-                                           class="custom-select" formControlName="subsectorDetail">
-                                       <option [ngValue]="null">Select Subsector</option>
-                                       <option *ngFor="let data of subSector "
-                                               [selected]="(data.key.toString().concat('-'+data.value)) === clientTypeInput"
-                                               [ngValue]="data.key.toString().concat('-'+data.value)">{{data.value}}</option>
-                                   </select>
-                               </div>
-                           </div>
+<!--                           <div class="col-md-6">-->
+<!--                               <div class="form-group">-->
+<!--                                   <label for="customerNameForm"><strong>SubSector</strong></label>-->
+<!--                                   <select-->
+<!--                                           class="custom-select" formControlName="subsectorDetail">-->
+<!--                                       <option [ngValue]="null">Select Subsector</option>-->
+<!--                                       <option *ngFor="let data of subSector "-->
+<!--                                               [selected]="(data.key.toString().concat('-'+data.value)) === clientTypeInput"-->
+<!--                                               [ngValue]="data.key.toString().concat('-'+data.value)">{{data.value}}</option>-->
+<!--                                   </select>-->
+<!--                               </div>-->
+<!--                           </div>-->
                            <div class="col-md-4">
                                <div class="form-group">
                                    <label for="customerNameForm"><strong>Customer Name</strong></label>
@@ -183,6 +183,22 @@
                                    </div>
                                </div>
                            </div>
+                           <div class="col-md-4" *ngIf="client !== clientName.MEGA">
+                               <div class="form-group">
+                                   <label for="contactNumber"><strong>Father's Name</strong></label>
+                                   <input class="form-control" formControlName="fatherName"
+                                          placeholder="Father Name"
+                                          type="text">
+                               </div>
+                           </div>
+                           <div class="col-md-4" *ngIf="client !== clientName.MEGA">
+                               <div class="form-group">
+                                   <label for="contactNumber"><strong>Grandfather's Name</strong></label>
+                                   <input class="form-control" formControlName="grandFatherName"
+                                          placeholder="Grandfather Name"
+                                          type="text">
+                               </div>
+                           </div>
 
 
                            <!-- END ROW -->
@@ -263,7 +279,7 @@
                                    <div *ngIf="(submitted) && basicInfoControls.citizenshipIssuedPlace.invalid"
                                         class="help-block">
                 <span *ngIf="basicInfoControls.citizenshipIssuedPlace.errors.required">
-                  <span class="text-danger">citizenship issued district is required</span>
+                  <span class="text-danger">Citizenship issued district is required</span>
                 </span>
                                    </div>
                                </div>
@@ -292,6 +308,20 @@
                             </div>
                         </div>
                     </div>
+                           <div class="col-md-4">
+                               <div class="form-group">
+                                   <label for="panNumber"><strong>Pan Number</strong></label>
+                                   <input [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.panNumber.errors }"
+                                          class="form-control" formControlName="panNumber" id="panNumber" name="panNumber"
+                                          placeholder="Enter PAN"
+                                          type="number">
+                                   <div *ngIf="(submitted) && basicInfoControls.panNumber.invalid" class="invalid-feedback">
+                                       <div *ngIf="basicInfoControls.panNumber.errors.max || basicInfoControls.panNumber.errors.min">
+                                           Length should be of 9 digit
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label for="otherOccupation"><strong>Occupation </strong></label>
@@ -358,7 +388,8 @@
                                    <div *ngIf="tempFlag.showOtherIncomeSource"
                                         class="col-md-12 mt-3 form-group">
                                        <label>Other Income Source</label>
-                                       <input class="form-control" formControlName="otherIncome" id="otherIncome"
+                                       <input [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.otherIncome.errors }"
+                                              class="form-control" formControlName="otherIncome" id="otherIncome"
                                               name="otherIncome" placeholder="Other Income source" type="text">
                                        <div *ngIf="submitted && basicInfoControls.otherIncome.errors"
                                             class="invalid-feedback small">
@@ -366,6 +397,28 @@
                                                required
                                            </div>
                                        </div>
+                                   </div>
+                               </div>
+                           </div>
+                           <div *ngFor="let acc of basicInfo?.get('accountDetails')['controls']; let ii = index"
+                                formArrayName="accountDetails" class="col-md-4">
+                               <label for="accountNo"><strong>Account Number: {{ii + 1}}</strong></label>
+                               <div [formGroupName]="ii" class="form-group">
+                                   <input formControlName="accountNo"
+                                          class="form-control"
+                                          id="accountNo"
+                                          placeholder="Enter Account Number"/>
+                                   <div class="mt-2">
+                                       <button (click)="addAccountNumber()"
+                                               nbButton status="primary" size="small"
+                                               value="Add Account No.">Add
+                                       </button>
+                                       <button (click)="removeAccount(ii)"
+                                               *ngIf="basicInfo?.get('accountDetails')['length'] > 0"
+                                               nbButton size="small"
+                                               status="primary">
+                                           <nb-icon icon="trash-outline"></nb-icon>
+                                       </button>
                                    </div>
                                </div>
                            </div>
@@ -492,9 +545,9 @@
                        </div>
                        <div class="row ml-1">
                            <div class="col-md-12">
-                               <nb-checkbox (change)="sameAsPermanent()"><i>Check if Temporary Address is same as Permanent Address</i></nb-checkbox>
-                           </div>
+                               <nb-checkbox (checkedChange)="sameAsPermanent($event)" [checked]="sameAddress" formControlName="sameAddress"><i>Check if Temporary Address is same as Permanent Address</i></nb-checkbox>                           </div>
                        </div>
+                   <ng-container *ngIf="sameAddress === false">
                        <div class="row ml-1">
                            <div class="col-md-12">
                                <h5>Temporary Address</h5>
@@ -597,6 +650,8 @@
                                </div>
                            </div>
                        </div>
+                   </ng-container>
+
                        <hr>
                        <div>
                            <h5>Relation</h5>
@@ -679,12 +734,16 @@
                                        </div>
                                        <div class="col-md-2">
                                            <div class="form-group">
-                                               <label for="relativeNetWorth{{i}}"><strong>Net Worth</strong></label>
-                                               <input class="form-control" formControlName="relativeNetWorth"
-                                                      id="relativeNetWorth{{i}}" placeholder="Net Worth" type="number">
+                                               <label for="age{{i}}"><strong>Age</strong></label>
+                                               <input class="form-control"
+                                                      formControlName="age"
+                                                      id="age{{i}}" type="number"
+                                                      [ngClass]="{'is-invalid': (submitted) && relatives.get('age').errors}">
+                                               <div *ngIf="submitted && relatives.get('age').errors" class="small text-danger">
+                                                   Age is required
+                                               </div>
                                            </div>
                                        </div>
-
                                        <div *ngIf="i>1" class="ml-3">
                                            <button (click)="removeRelatives(i)"
                                                    class="float-right" nbButton
@@ -716,53 +775,83 @@
                            </div>
                        </div>
                        <div class="row" *ngIf="!microCustomer">
-                           <div class="col-md-12">
+                           <div class="col-md-12 form-group">
+                               <h6><strong>Additional Description</strong></h6>
+                               <nb-checkbox (change)="onChecked($event.target.checked,'income')"
+                                            [checked]="incomeRiskChecked">
+                                   <b>Income Risk & Mitigation</b>
+                               </nb-checkbox>
+                           </div>
+                           <div class="col-md-12" *ngIf="incomeRiskChecked">
                                <div class="form-group">
                                    <label><strong>Income Risk & Mitigation</strong></label>
                                    <ckeditor id="incomeRisk" formControlName="incomeRisk" name="incomeRisk" type="text"
                                              [config]="ckeConfig"
-                                             [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.incomeRisk.errors }"></ckeditor>
-                                   <div *ngIf="(submitted) && basicInfoControls.incomeRisk.invalid"
+                                             [ngClass]="{ 'is-invalid': (submitted) && incomeRiskChecked && basicInfoControls.incomeRisk.errors }"></ckeditor>
+                                   <div *ngIf="(submitted) && incomeRiskChecked && basicInfoControls.incomeRisk.invalid"
                                         class="text-danger">
-                                       <div *ngIf="basicInfoControls.incomeRisk.errors.required">
+                                       <div *ngIf="incomeRiskChecked && basicInfoControls.incomeRisk.errors.required">
                                            Income Risk is required
                                        </div>
                                    </div>
                                </div>
                            </div>
-                           <div class="col-md-12" *ngIf="!microCustomer">
+                           <div class="col-md-12 form-group">
+                               <nb-checkbox (change)="onChecked($event.target.checked,'security')"
+                                            [checked]="securityRiskChecked">
+                                   <b>Security Risk & Mitigation</b>
+                               </nb-checkbox>
+                           </div>
+
+                           <div class="col-md-12" *ngIf="securityRiskChecked">
                                <div class="form-group">
                                    <label><strong>Security Risk & Mitigation</strong></label>
                                    <ckeditor id="securityRisk" formControlName="securityRisk" name="securityRisk"
                                              [config]="ckeConfig"
-                                             [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.securityRisk.errors }"></ckeditor>
-                                   <div *ngIf="(submitted) && basicInfoControls.securityRisk.invalid"
+                                             [ngClass]="{ 'is-invalid': (submitted) && securityRiskChecked && basicInfoControls.securityRisk.errors }"></ckeditor>
+                                   <div *ngIf="(submitted) && securityRiskChecked &&basicInfoControls.securityRisk.invalid"
                                         class="text-danger">
-                                       <div *ngIf="basicInfoControls.securityRisk.errors.required">
+                                       <div *ngIf="securityRiskChecked && basicInfoControls.securityRisk.errors.required">
                                            Security Risk is required
                                        </div>
                                    </div>
                                </div>
                            </div>
-                           <div class="col-md-12" *ngIf="!microCustomer">
+                           <div class="col-md-12 form-group">
+                               <nb-checkbox (change)="onChecked($event.target.checked,'succession')"
+                                            [checked]="successionRiskChecked">
+                                   <b>Succession Risk & Mitigation</b>
+                               </nb-checkbox>
+                           </div>
+                           <div class="col-md-12" *ngIf="successionRiskChecked">
                                <div class="form-group">
                                    <label><strong>Succession Risk & Mitigation</strong></label>
-                                   <ckeditor id="successionRisk" formControlName="successionRisk" name="successionRisk"
+                                   <ckeditor id="successionRisk" formControlName="successionRisk"
                                              [config]="ckeConfig"
-                                             [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.successionRisk.errors }"></ckeditor>
-                                   <div *ngIf="(submitted) && basicInfoControls.successionRisk.invalid"
+                                             [ngClass]="{ 'is-invalid': (submitted) && successionRiskChecked && basicInfoControls.successionRisk.errors }"></ckeditor>
+                                   <div *ngIf="(submitted) && successionRiskChecked && basicInfoControls.successionRisk.invalid"
                                         class="text-danger">
-                                       <div *ngIf="basicInfoControls.successionRisk.errors.required">
+                                       <div *ngIf="successionRiskChecked && basicInfoControls.successionRisk.errors.required">
                                            Succession Risk is required
                                        </div>
                                    </div>
                                </div>
                            </div>
+                           <div class="col-md-12 form-group">
+                               <nb-checkbox (change)="onChecked($event.target.checked,'banking')"
+                                            [checked]="bankingRelationChecked">
+                                   <b>Banking Relationship</b>
+                               </nb-checkbox>
+                           </div>
                        </div>
-                       <div *ngIf="!crgLambdaDisabled  && !microCustomer">
+                       <div *ngIf="bankingRelationChecked">
                            <nb-card class="card-height">
                                <nb-card-header>
-                                   <label for="bankingRelationship"><h6>Banking Relationship</h6></label>
+                                   <h6>
+                                       <label for="bankingRelationship">
+                                           Banking Relationship
+                                       </label>
+                                   </h6>
                                </nb-card-header>
                                <nb-card-body>
                                    <div class="form-group">
@@ -785,7 +874,8 @@
                                </nb-card-body>
                            </nb-card>
                        </div>
-                       <div *ngIf="!crgLambdaDisabled && !microCustomer" class="col-4">
+
+                   <div class="col-4">
                            <label><strong>Net worth</strong></label>
                            <input id="netWorth" formControlName="netWorth" name="netWorth" type="text"
                                   class="form-control" placeholder="Net Worth Amount"
@@ -810,7 +900,7 @@
     <nb-card-footer class="py-4">
         <div class="d-flex justify-content-end">
             <button nbButton status="info" (click)="changeAction(closeForm)" class=" mr-2">close</button>
-            <button nbButton (click)="onSubmit()">save</button>
+            <button nbButton [disabled]="spinner" (click)="onSubmit()">save</button>
         </div>
     </nb-card-footer>
 </nb-card>

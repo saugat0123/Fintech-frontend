@@ -183,6 +183,7 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
     siteVisitDocuments: Array<SiteVisitDocument>;
     requestedLoanType;
     @Output() customerLoanList = new EventEmitter();
+    companyInfoJson: Array<any>;
 
     constructor(
         @Inject(DOCUMENT) private _document: Document,
@@ -216,6 +217,8 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.loanDataHolder = this.loanData;
+
+        console.log(this.loanDataHolder);
         if (this.loanDataHolder.loanCategory === 'INDIVIDUAL' &&
             !ObjectUtil.isEmpty(this.loanDataHolder.customerInfo.jointInfo)) {
             const jointCustomerInfo = JSON.parse(this.loanDataHolder.customerInfo.jointInfo);
@@ -225,6 +228,7 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
         this.loadSummary();
         this.roleType = LocalStorageUtil.getStorage().roleType;
         this.checkDocUploadConfig();
+        this.getCompanyAccountNo();
     }
 
     ngOnDestroy(): void {
@@ -374,6 +378,7 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
         if (!ObjectUtil.isEmpty(this.loanDataHolder.proposal)) {
             this.proposalData = this.loanDataHolder.proposal;
             this.proposalView = JSON.parse(this.proposalData.data);
+            console.log(this.proposalView);
             this.proposalSummary = true;
         }
 
@@ -726,6 +731,15 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
 
     checkSiteVisitDocument(event: any) {
         this.siteVisitDocuments = event;
+    }
+    getCompanyAccountNo() {
+        const companyInfoJson = JSON.parse(this.loanDataHolder.companyInfo.companyJsonData);
+        this.companyInfoJson = companyInfoJson.accountDetails;
+        console.log(this.companyInfoJson);
+        
+        // for (let x in companyInfoJson.accountDetails) {
+        //     this.companyInfoJson = x.accountNo
+        // }
     }
 }
 
