@@ -91,9 +91,6 @@ export class LetterOfDisbursementComponent implements OnInit {
           grandParentName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
           husbandWifeName: this.nepaliData.husbandName ? this.nepaliData.husbandName : '',
           accNumber: this.nepaliData.accountNo ? this.nepaliData.accountNo : '',
-          borrowerSabikVDC: this.nepaliData.permanentVdc ? this.nepaliData.permanentVdc : '',
-          borrowerSabikWardNo: this.nepaliData.permanentVdcWard ? this.nepaliData.permanentVdcWard : ''
-
         });
       } else {
         this.form.patchValue({

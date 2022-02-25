@@ -7,10 +7,10 @@
   .page-break { page-break-before: always; }
 }
 .linespace{
-  line-height: 1.6;
+  line-height: 2rem;
 }
 .fingerXap {
-  width: 200px;
+  width: 500px;
   margin: auto;
   text-align: center;
 }
@@ -45,13 +45,4 @@
 
 .unicode-size24{
   font-size: 24px;
-}
-
-.margin {
-  margin-top: 0.5in;
-  margin-left: 0.5in;
-}
-
-tr{
-  break-inside: initial;
 }

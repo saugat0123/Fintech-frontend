@@ -1,6 +1,6 @@
 <div id="print-section-{{offerLetterConst.GUARANTEE_BOND_PERSONAL}}">
-    <div class="col-md-12" style="margin-top: -60px">
-            <div *ngFor="let guarantor of printDocForm?.guarantorDetails; index as i" class="page-break">
+    <div class="col-md-12">
+            <div *ngFor="let guarantor of printDocForm?.guarantorDetails; index as i">
                 <form>
                 <div class="nepali">
                     <div class="text-center">
@@ -35,7 +35,8 @@
                         </span>
                         न.पा./गा.वि.स., वडा न.
                         <span [ngClass]="{'nepaliFont' : guarantor?.sabikWardNo !== null && guarantor?.sabikWardNo !== ''}">
-                            {{guarantor?.sabikWardNo === null || guarantor?.sabikWardNo === '' ? '_________________' : guarantor?.sabikWardNo}}</span>,
+                            {{guarantor?.sabikWardNo === null || guarantor?.sabikWardNo === '' ? '_________________' : guarantor?.sabikWardNo}}
+                        </span>,
                         (परिवर्तीत ठेगाना)
                         <span [ngClass]="{'nepaliFont unicode-size' : guarantor?.municipality !== null && guarantor?.municipality !== ''}">
                             {{guarantor?.municipality === null || guarantor?.municipality === '' ? '_________________' : guarantor?.municipality}}
@@ -88,12 +89,13 @@
                             {{guarantor?.buttonDistrict === null || guarantor?.buttonDistrict === '' ? '_________________' : guarantor?.buttonDistrict}}
                         </span>
                         जिल्ला,
-                        <span [ngClass]="{'nepaliFont unicode-size2' : guarantor?.buttonMunicipality !== null && guarantor?.buttonMunicipality !== ''}">
+                        <span [ngClass]="{'nepaliFont unicode-size' : guarantor?.buttonMunicipality !== null && guarantor?.buttonMunicipality !== ''}">
                             {{guarantor?.buttonMunicipality === null || guarantor?.buttonMunicipality === '' ? '_________________' : guarantor?.buttonMunicipality}}
                         </span>
                         न.पा./गा.वि.स., वडा नं. <span
                             [ngClass]="{'nepaliFont' : guarantor?.buttonWardNo !== null && guarantor?.buttonWardNo !== ''}">
-                        {{guarantor?.buttonWardNo === null || guarantor?.buttonWardNo === '' ? '_________________' : guarantor?.buttonWardNo}}</span>, स्थायी ठेगाना भै हाल सोही स्थानमा वा
+                        {{guarantor?.buttonWardNo === null || guarantor?.buttonWardNo === '' ? '_________________' : guarantor?.buttonWardNo}}</span>
+                        , स्थायी ठेगाना भै हाल सोही स्थानमा वा
                         <span [ngClass]="{'nepaliFont unicode-size' : guarantor?.buttonTempDistrict !== null && guarantor?.buttonTempDistrict !== ''}">
                             {{guarantor?.buttonTempDistrict === null || guarantor?.buttonTempDistrict === '' ? '_________________' : guarantor?.buttonTempDistrict}}
                         </span>
@@ -167,13 +169,14 @@
                         <span [ngClass]="{'nepaliFont unicode-size2' : guarantor?.sirName !== null && guarantor?.sirName !== ''}">
                             {{guarantor?.sirName === null || guarantor?.sirName === '' ? '_________________' : guarantor?.sirName}}
                         </span>, –१, समेत जम्मा जना–२ (यस पछि “ऋणी” भनी सम्बोधन गरिएको) ले रिभल्भिङ्ग कर्जा <strong>(Revolving Loan)</strong>
-                        / आवधिक कर्जा <strong>(Term Loan)</strong> अन्तर्गत घर / आवाश कर्जा योजना <strong>(Housing Loan Scheme)</strong> /
-                        जग्गा खरिद कर्जा योजना <strong>(Land Loan Scheme)</strong> / व्यक्तिगत कर्जा योजना <strong>(Personal Loan Scheme)</strong> /
+                        / आवधिक कर्जा<strong>(Term Loan)</strong> अन्तर्गत घर / आवाश कर्जा योजना <strong>(Housing Loan Scheme)</strong> /
+                        जग्गा खरिद कर्जा योजना<strong>(Land Loan Scheme)</strong> / व्यक्तिगत कर्जा योजना<strong>(Personal Loan Scheme)</strong> /
                         <span [ngClass]="{'nepaliFont unicode-size2' : guarantor?.personalLoan !== null && guarantor?.personalLoan !== ''}">
                             {{guarantor?.personalLoan === null || guarantor?.personalLoan === '' ? '_________________' : guarantor?.personalLoan}}
                         </span>
                         कर्जा योजना <strong>(</strong>
-                        <span [ngClass]="{'' : guarantor?.karjaYojana !== null && guarantor?.karjaYojana !== ''}">{{guarantor?.karjaYojana === null || guarantor?.karjaYojana === '' ? '_________________' : guarantor?.karjaYojana}}
+                        <span [ngClass]="{'' : guarantor?.karjaYojana !== null && guarantor?.karjaYojana !== ''}">
+                            {{guarantor?.karjaYojana === null || guarantor?.karjaYojana === '' ? '_________________' : guarantor?.karjaYojana}}
                         </span>
                         <strong>Loan Scheme)</strong>
                         शीर्षकमा धनी वित्तीय संस्था बाट यस अघि लिएको तथा यस पछि लिने ऋण कर्जा तथा बैंकिग सुविधाको सुरक्षण वापत ब्यक्तिगत जमानी
@@ -400,12 +403,12 @@
                         <tr>
                             <td style="vertical-align: top" class="text-right">औठा छाप</td>
                             <td>
-                                <table style="width: 50%;" class="table table-bordered">
+                                <table style="width: 40%;" class="table table-bordered">
                                     <tr>
                                         <td>दाँ.</td>
                                         <td>बाँ.</td>
                                     </tr>
-                                    <tr style="height: 200px;">
+                                    <tr style="height: 150px;">
                                         <td></td>
                                         <td></td>
                                     </tr>
@@ -413,14 +416,14 @@
                             </td>
                         </tr>
                     </table>
-                        <div class="row">
+                        <div class="row" style="overflow: visible;">
                             <p><strong>साक्षी :</strong></p>
                                 <table>
                                     <tr>
                                         <td>दस्तखत:</td>
                                         <td>.................................</td>
                                     </tr>
-                                    <tr>
+                                    <tr style="page-break-inside: initial">
                                         <td>१. नाम:</td>
                                         <td><span
                                                 [ngClass]="{'nepaliFont unicode-size2':guarantor?.name!==null && guarantor.name!==''}">
@@ -440,7 +443,7 @@
                                     {{guarantor?.guarantorCDOoffice === null || guarantor?.guarantorCDOoffice === '' ? '________________' : guarantor.guarantorCDOoffice }}
                                   </span>)</td>
                                     </tr>
-                                    <tr>
+                                    <tr style="page-break-inside: initial">
                                         <td>ठेगानाः</td>
                                         <td><span
                                                 [ngClass]="{'nepaliFont unicode-size2':guarantor?.guarantorDistrict!==null && guarantor.guarantorDistrict!==''}">
@@ -460,7 +463,7 @@
                                     <td>दस्तखत:</td>
                                     <td>.................................</td>
                                 </tr>
-                                <tr>
+                                <tr style="page-break-inside: initial">
                                     <td>२. नाम:</td>
                                     <td><span
                                             [ngClass]="{'nepaliFont unicode-size2':guarantor?.name1!==null && guarantor.name1!==''}">
@@ -480,7 +483,7 @@
                                     {{guarantor?.guarantorCDOoffice1 === null || guarantor?.guarantorCDOoffice1 === '' ? '________________' : guarantor.guarantorCDOoffice1 }}
                                   </span>)</td>
                                 </tr>
-                                <tr>
+                                <tr style="page-break-inside: initial">
                                     <td>ठेगानाः</td>
                                     <td><span
                                             [ngClass]="{'nepaliFont unicode-size2':guarantor?.guarantorDistrict1!==null && guarantor.guarantorDistrict1!==''}">

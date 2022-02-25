@@ -1,6 +1,6 @@
-//@import '../../progressive-legal-docs.component';
+@import '../../progressive-legal-docs.component';
 
-@page {
+.margin {
   margin-top: 1in;
   margin-left: 1in;
 }
@@ -12,10 +12,4 @@
 
 .unicode-size {
   font-size: 24px;
-}
-
-.nepali {
-  font-size: 16px;
-  line-height: 1.5;
-  @extend .text-justify !optional;
 }

@@ -37,6 +37,7 @@ export class LoanDeedComponent implements OnInit {
     nepDataPersonal = new NepDataPersonal();
     securityLength;
 
+
     constructor(private dialogRef: NbDialogRef<LoanDeedComponent>,
                 private formBuilder: FormBuilder,
                 private nepToEngNumberPipe: NepaliToEngNumberPipe,
@@ -98,8 +99,6 @@ export class LoanDeedComponent implements OnInit {
                 date: this.nepaliData.citizenshipIssueDate ? this.nepaliData.citizenshipIssueDate : '',
                 cdoOffice: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
                 gender: this.nepaliData.gender ? this.nepaliData.gender : '',
-                sabikVDC: this.nepaliData.permanentVdc ? this.nepaliData.permanentVdc : '',
-                sabikWardNo: this.nepaliData.permanentVdcWard ? this.nepaliData.permanentVdcWard : ''
             });
         }
         this.form.get(['swikritiBibaran', 0, 'loanType']).patchValue(this.nepDataPersonal.loanType);

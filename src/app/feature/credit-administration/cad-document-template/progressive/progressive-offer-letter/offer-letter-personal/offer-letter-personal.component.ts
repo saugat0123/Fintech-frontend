@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {ProgressiveOfferLetterConst} from '../progressive-offer-letter-const';
 import {CustomerOfferLetter} from '../../../../../loan/model/customer-offer-letter';
@@ -21,8 +21,7 @@ import {AddressService} from '../../../../../../@core/service/baseservice/addres
 @Component({
     selector: 'app-offer-letter-personal',
     templateUrl: './offer-letter-personal.component.html',
-    styleUrls: ['./offer-letter-personal.component.scss'],
-    encapsulation: ViewEncapsulation.None
+    styleUrls: ['./offer-letter-personal.component.scss']
 })
 export class OfferLetterPersonalComponent implements OnInit {
     @Input() offerLetterType;
@@ -115,8 +114,6 @@ export class OfferLetterPersonalComponent implements OnInit {
                 distressValue: this.nepaliData.distressValue ? this.nepaliData.distressValue : '',
                 amount3: !ObjectUtil.isEmpty(this.loanAmount) ? this.loanAmount.numberNepali : '',
                 amountInWords3: !ObjectUtil.isEmpty(this.loanAmount) ? this.loanAmount.nepaliWords : '',
-                permanentVdc: this.nepaliData.permanentVdc ? this.nepaliData.permanentVdc : '',
-                permanentVdcWard: this.nepaliData.permanentVdcWard ? this.nepaliData.permanentVdcWard : ''
             });
             this.setEmptyGuarantors(this.nepaliData.guarantorDetails);
             this.setSecurityDetails(this.nepaliData.collateralDetails);
@@ -145,9 +142,6 @@ export class OfferLetterPersonalComponent implements OnInit {
                 this.setLoanFacility(initialInfo.loanFacilityTable);
                 this.setLoanFacilityData();
             // this.form.patchValue(initialInfo);
-            if (!ObjectUtil.isEmpty(initialInfo.sartBandej)) {
-                this.setSartBandej(initialInfo.sartBandej);
-            }
         }
     }
 
@@ -310,9 +304,6 @@ export class OfferLetterPersonalComponent implements OnInit {
                 guarantorMobileNo: [value.guarantorMobileNumber],
                 guarantorEmail: [value.guarantorEmailAddress],
                 guarantorDate: [value.guarantorDate],
-                guarantorPermanentVdc: [value.guarantorPermanentVdc],
-                guarantorPermanentVdcWard : [value.guarantorPermanentVdcWard]
-
             }));
         });
     }
@@ -349,8 +340,6 @@ export class OfferLetterPersonalComponent implements OnInit {
             guarantorMobileNo: [undefined],
             guarantorEmail: [undefined],
             guarantorDate: [undefined],
-            guarantorPermanentVdc: [undefined],
-            guarantorPermanentVdcWard: [undefined]
         });
     }
 
@@ -435,7 +424,6 @@ export class OfferLetterPersonalComponent implements OnInit {
 
             guarantors: this.formBuilder.array([]),
             guarantorDetails: this.formBuilder.array([]),
-            sartBandej: this.formBuilder.array([]),
             witnessDetails: this.formBuilder.array([]),
 
             sahichhapEmployee: [undefined],
@@ -463,8 +451,6 @@ export class OfferLetterPersonalComponent implements OnInit {
             witnessAddress: [undefined],
             witnessName2: [undefined],
             witnessAddress2: [undefined],
-            permanentVdc : [undefined],
-            permanentVdcWard: [undefined]
         });
     }
 
@@ -578,34 +564,4 @@ export class OfferLetterPersonalComponent implements OnInit {
         value = this.engToNepNumberPipe.transform(value.toString());
         this.form.get(['loanFacilityTable', i, 'serviceFeeAmount']).patchValue(value);
     }
-
-    sartBandej() {
-        return this.formBuilder.group({
-            sNo: [undefined],
-            sartBandej: [undefined],
-        });
-    }
-
-    setSartBandej(data) {
-        const formArray = this.form.get('sartBandej') as FormArray;
-       /* if (data.length === 0) {
-            this.addSartBandej();
-            return;
-        }*/
-        data.forEach((value) => {
-            formArray.push(this.formBuilder.group({
-                sNo: [value.sNo],
-                sartBandej: [value.sartBandej],
-            }));
-        });
-    }
-
-    addSartBandej() {
-        (this.form.get('sartBandej') as FormArray).push(this.sartBandej());
-    }
-
-    removeSartBandej(index) {
-        (this.form.get('sartBandej') as FormArray).removeAt(index);
-    }
-
 }

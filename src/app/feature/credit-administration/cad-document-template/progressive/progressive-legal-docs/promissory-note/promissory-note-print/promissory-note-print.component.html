@@ -35,7 +35,8 @@
         </span>
                     गा.पा./न.पा./म.न.पा., वडा नं. <span
                         [ngClass]="{'nepaliFont':printDocForm?.wardNo!==null && printDocForm?.wardNo!==''}">
-          {{printDocForm.wardNo === null || printDocForm.wardNo === '' ? '_______________' : printDocForm?.wardNo}}</span>
+          {{printDocForm.wardNo === null || printDocForm.wardNo === '' ? '_______________' : printDocForm?.wardNo}}
+        </span>
                     स्थायी ठेगाना भई
                     हाल <span
                         [ngClass]="{'nepaliFont uniFont':printDocForm?.temporaryDistrict!==null && printDocForm?.temporaryDistrict!==''}">
@@ -91,7 +92,7 @@
                     </tr>
                     <tr>
                         <td style="vertical-align: top" class="text-right">दस्तखत गर्नेको नाम :-</td>
-                        <td style="vertical-align: top"><span [ngClass]="{'nepaliFont unicode-size':printDocForm?.customerName!==null && printDocForm?.customerName!==''}">
+                        <td><span [ngClass]="{'nepaliFont unicode-size':printDocForm?.customerName!==null && printDocForm?.customerName!==''}">
           {{printDocForm.customerName === null || printDocForm.customerName === '' ? '_______________' : printDocForm?.customerName}}
         </span>
                             <strong>(ना.प्र.नं.</strong> <span
@@ -106,17 +107,19 @@
           {{printDocForm.cdoOffice === null || printDocForm.cdoOffice === '' ? '_______________' : printDocForm?.cdoOffice}}</span><strong>)</strong></td>
                     </tr>
                     <tr>
-                        <td class="text-right" style="vertical-align: top">स्थायी ठेगाना :-</td>
-                        <td style="vertical-align: top"><span [ngClass]="{'nepaliFont uniFont':printDocForm?.districtName!==null && printDocForm?.districtName!==''}">
+                        <td class="text-right">स्थायी ठेगाना :-</td>
+                        <td><span
+                                [ngClass]="{'nepaliFont uniFont':printDocForm?.districtName!==null && printDocForm?.districtName!==''}">
           {{printDocForm.districtName === null || printDocForm.districtName === '' ? '_______________' : printDocForm?.districtName}}
-        </span>जिल्ला <span [ngClass]="{'nepaliFont uniFont':printDocForm?.municipality!==null && printDocForm?.municipality!==''}">
+        </span>
+                            जिल्ला <span
+                                    [ngClass]="{'nepaliFont uniFont':printDocForm?.municipality!==null && printDocForm?.municipality!==''}">
           {{printDocForm.municipality === null || printDocForm.municipality === '' ? '_______________' : printDocForm?.municipality}}
-        </span>गा.पा./न.पा., वडा नं. <span [ngClass]="{'nepaliFont':printDocForm?.wardNo!==null && printDocForm?.wardNo!==''}">
+        </span>
+                            गा.पा./न.पा., वडा नं. <span
+                                    [ngClass]="{'nepaliFont':printDocForm?.wardNo!==null && printDocForm?.wardNo!==''}">
           {{printDocForm.wardNo === null || printDocForm.wardNo === '' ? '_______________' : printDocForm?.wardNo}}
-        </span>(साबिक<span [ngClass]="{'nepaliFont unicode-size':printDocForm?.permanentVdc!==null && printDocForm?.permanentVdc!==''}">
-          {{printDocForm.permanentVdc === null || printDocForm.permanentVdc === '' ? '_______________' : printDocForm?.permanentVdc}}
-        </span> न.पा./गा. बि. स., वडा नं.<span [ngClass]="{'nepaliFont':printDocForm?.permanentVdcWard!==null && printDocForm?.permanentVdcWard!==''}">
-          {{printDocForm.permanentVdcWard === null || printDocForm.permanentVdcWard === '' ? '_______________' : printDocForm?.permanentVdcWard}}</span>)</td>
+        </span></td>
                     </tr>
                     <tr>
                         <td class="text-right">हालको ठेगाना :-</td>
@@ -130,7 +133,8 @@
         </span>
                             गा.पा./न.पा., वडा नं. <span
                                     [ngClass]="{'nepaliFont':printDocForm?.tempWardNo!==null && printDocForm?.tempWardNo!==''}">
-          {{printDocForm.tempWardNo === null || printDocForm.tempWardNo === '' ? '_______________' : printDocForm?.tempWardNo}}</span></td>
+          {{printDocForm.tempWardNo === null || printDocForm.tempWardNo === '' ? '_______________' : printDocForm?.tempWardNo}}
+        </span></td>
                     </tr>
                     <tr>
                         <td class="text-right">वावु/आमाको नाम :-</td>
@@ -258,7 +262,8 @@
         </span>
                         गा.पा./न.पा., वडा नं. <span
                                 [ngClass]="{'nepaliFont':printDocForm?.guarantorWardNo!==null && printDocForm?.guarantorWardNo!==''}">
-          {{printDocForm.guarantorWardNo === null || printDocForm.guarantorWardNo === '' ? '_______________' : printDocForm?.guarantorWardNo}}</span>
+          {{printDocForm.guarantorWardNo === null || printDocForm.guarantorWardNo === '' ? '_______________' : printDocForm?.guarantorWardNo}}
+        </span>
                     </td>
                 </tr>
                 </tbody>
@@ -301,7 +306,8 @@
         </span>
                         गा.पा./न.पा., वडा नं. <span
                                 [ngClass]="{'nepaliFont':printDocForm?.guarantorWardNo1!==null && printDocForm?.guarantorWardNo1!==''}">
-          {{printDocForm.guarantorWardNo1 === null || printDocForm.guarantorWardNo1 === '' ? '_______________' : printDocForm?.guarantorWardNo1}}</span>
+          {{printDocForm.guarantorWardNo1 === null || printDocForm.guarantorWardNo1 === '' ? '_______________' : printDocForm?.guarantorWardNo1}}
+        </span>
                     </td>
                 </tr>
                 </tbody>
