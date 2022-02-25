@@ -281,7 +281,24 @@
                                         प्रकाशन गरेमा सोहि मार्फत र/वा बैंकको आधिकारिक वेव साईट (Website) बाट समेत
                                         जानकारी प्राप्त गर्नेछु/गर्नेछौं ।
                                     </li>
-                                    <li>
+                                    <span class="d-print-none">
+                                        <li>
+                                            <textarea rows="5" style="width:100%;margin-left:20px"
+                                                      class="form-control nepaliFont" name="freeText"
+                                                      formControlName="freeText">
+                                            </textarea>
+                                        </li>
+                                    </span>
+                                    <span class="print-only">
+                                        <li *ngIf="this.cadInitialInfo !== undefined &&
+                                           this.cadInitialInfo[i].freeText !== null  && this.cadInitialInfo[i].freeText !== ''"
+                                            style="margin-top: -0.7em">
+                                            <span class="nepaliFont">
+                                                {{this.cadInitialInfo ? this.cadInitialInfo[i].freeText : ''}}
+                                            </span>
+                                        </li>
+                                    </span>
+                                   <!-- <li>
                                         <div class="row free-text w-100">
                                             <div class="col-md-12">
                                              <textarea rows="5" style="width:inherit;margin-left:20px"
@@ -290,7 +307,7 @@
                                              </textarea>
                                             </div>
                                         </div>
-                                    </li>
+                                    </li>-->
                                 </ol>
                             </div>
                         </div>
@@ -474,7 +491,7 @@
                             <!--<div class="pageBreak"></div>-->
                         </div>
                     </div>
-                    <hr class="d-print-none mt-2 mb-2 w-100"/>
+                    <div *ngIf="i < personalGuaranteeProprietorship.get('guaranteeProprietorship')['length'] - 1" class="pageBreak"></div>
                 </div>
                 <div *ngIf="personalGuaranteeProprietorship.get('guaranteeProprietorship')['length'] == 0" class="row">
                     <div class="col-md-12">
