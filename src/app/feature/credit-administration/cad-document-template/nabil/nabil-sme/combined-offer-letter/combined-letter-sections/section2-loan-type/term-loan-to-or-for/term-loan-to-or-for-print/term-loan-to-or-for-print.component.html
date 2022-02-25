@@ -4,7 +4,7 @@
             <strong>{{pointNumber + (i + 1) | nepaliWord}})</strong>
         </td>
         <td style="border-top:1px solid black">
-            <p *ngIf="termLoan.termLoanFor === 'VEHICLE'"><strong>सवारी साधन खरिद गर्न आवधिक कर्जा (Term Loan
+            <ng-container *ngIf="termLoan.termLoanFor === 'VEHICLE'"><strong>सवारी साधन खरिद गर्न आवधिक कर्जा (Term Loan
                 to Purchase Vehicle)
                 <ng-container *ngIf="termLoan.complementaryOther === true"> बुँदा नं.
                     <span class="nepaliFont">
@@ -21,9 +21,9 @@
                         सुविधा
                     </ng-container>
                 </ng-container>
-            </strong>
-            </p>
-            <p *ngIf="termLoan.termLoanFor === 'OTHER'"><strong>
+            </strong><br>
+            </ng-container>
+            <ng-container *ngIf="termLoan.termLoanFor === 'OTHER'"><strong>
     <span [ngClass]="{'outside' : termLoan?.purposeOfLoanCT !== null && termLoan?.purposeOfLoanCT !== ''}">
                         {{termLoan?.purposeOfLoanCT === null || termLoan?.purposeOfLoanCT === '' ? '___________' : termLoan?.purposeOfLoanCT}}</span>
                 आवधिक कर्जा (Term Loan to
@@ -45,9 +45,9 @@
                         सुविधा
                     </ng-container>
                 </ng-container>
-            </strong>
-            </p>
-            <p>
+            </strong><br>
+            </ng-container>
+            <ng-container>
                 <strong>सीमाः
                     <ng-container *ngIf="termLoan.complementaryOther === true">(</ng-container>
                     रु.<span>{{loanData[i]?.loanAmountNp ? loanData[i]?.loanAmountNp : ''}}</span>।-
@@ -55,34 +55,20 @@
                     (अक्षरेपी
                     रु.<span>{{loanData[i]?.loanAmountWords ? loanData[i]?.loanAmountWords : ''}}</span>
                     मात्र)</strong>
-            </p>
-            <p *ngIf="termLoanFreeText[i]?.freeTextTen">
+            </ng-container><br>
+            <ng-container *ngIf="termLoanFreeText[i]?.freeTextTen">
                 <strong>सुरक्षणः</strong>
                 <span style="text-align: justify" class="nepaliFont">
                         {{termLoanFreeText[i]?.freeTextTen === null || termLoanFreeText[i]?.freeTextTen === '' ? '___________' : termLoanFreeText[i]?.freeTextTen}}
-                    </span>                    <!--<textarea
-                       class="form-control customFont nepaliFont"
-                       rows="2"
-                       style="width: 100%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em; color: black;"
-                       name=""
-                       placeholder=""
-                       formControlName="freeTextTen">
-                   </textarea>-->
-            </p>
-            <p *ngIf="termLoanFreeText[i]?.freeTextEleven">
+                    </span> <br>
+            </ng-container>
+            <ng-container *ngIf="termLoanFreeText[i]?.freeTextEleven">
                 <strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong>
                 <span class="nepaliFont">
                         {{termLoanFreeText[i]?.freeTextEleven === null || termLoanFreeText[i]?.freeTextEleven === '' ? '___________' : termLoanFreeText[i]?.freeTextEleven}}
-                    </span>                       <!--<textarea
-                        class="form-control customFont nepaliFont"
-                        rows="2"
-                        style="width: 100%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em; color: black;"
-                        name=""
-                        placeholder=""
-                        formControlName="freeTextEleven">
-                    </textarea>-->
-            </p>
-            <p *ngIf="termLoan.termLoanType === 'NEW_EMI'">
+                    </span> <br>
+            </ng-container>
+            <ng-container *ngIf="termLoan.termLoanType === 'NEW_EMI'">
                 <strong>ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
 
                 <span [ngClass]="{'outside' : termLoan?.baseRateCT !== null && termLoan?.baseRateCT !== ''}">
@@ -138,8 +124,8 @@
                 <span [ngClass]="{'outside' : termLoan?.tenureOfLoanCT !== null && termLoan?.tenureOfLoanCT !== ''}">
                         {{termLoan?.tenureOfLoanCT === null || termLoan?.tenureOfLoanCT === '' ? '___________' : termLoan?.tenureOfLoanCT}}</span>
                 बर्ष सम्मको लागि मात्र ।
-            </p>
-            <p *ngIf="termLoan.termLoanType === 'NEW_ANNUAL_REVIEW'">
+            </ng-container>
+            <ng-container *ngIf="termLoan.termLoanType === 'NEW_ANNUAL_REVIEW'">
                 <strong>ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
                 <span [ngClass]="{'outside' : termLoan?.baseRateCT !== null && termLoan?.baseRateCT !== ''}">
                         {{termLoan?.baseRateCT === null || termLoan?.baseRateCT === '' ? '___________' : termLoan?.baseRateCT}}</span>
@@ -167,8 +153,8 @@
                 <span [ngClass]="{'outside' : termLoan?.dateOfExpiryCT !== null && termLoan?.dateOfExpiryCT !== ''}">
                         {{termLoan?.dateOfExpiryCT === null || termLoan?.dateOfExpiryCT === '' ? '___________' : termLoan?.dateOfExpiryCT}}</span>
                 ।
-            </p>
-            <p *ngIf="termLoan.termLoanType === 'NEW_INSTALLMENT_BASIS'">
+            </ng-container>
+            <ng-container *ngIf="termLoan.termLoanType === 'NEW_INSTALLMENT_BASIS'">
                 <strong>ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
 
                 <span [ngClass]="{'outside' : termLoan?.baseRateCT !== null && termLoan?.baseRateCT !== ''}">
@@ -185,7 +171,7 @@
                         {{termLoan?.interestRateCT === null || termLoan?.interestRateCT === '' ? '___________' : termLoan?.interestRateCT}}</span>
         % का दर
                             निर्धारण गरीएकोछ र सो ब्याज रकम नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र
-                            चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।</span><br>
+                            चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।<br></span>
 
                 <span *ngIf="termLoan.subsidyOrAgricultureLoan === 'Yes'">हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
                                 बार्षिक
@@ -194,7 +180,7 @@
         % का दरले
         निर्धारण गरीएकोछ । सो निर्धारित ब्याज दरमा नेपाल राष्ट्र बैंकले ऋणीलाई दिने छुट/सहुलियत वापतको दर
         घटाई कायम हुन आउने रकम ऋणीले ब्याज स्वरुप नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन,
-        पौष र चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।</span><br>
+        पौष र चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।<br></span>
 
                 <span><strong><u>साँवा/किस्ता भुक्तानी तरिका:</u></strong>
                                 स्वीकृतकर्जा रकम उपलब्ध तालिका बमोजिम शुरु निकाशा भएको मितिले
@@ -240,8 +226,8 @@
                 <span [ngClass]="{'outside' : termLoan?.tenureOfLoanCT !== null && termLoan?.tenureOfLoanCT !== ''}">
                         {{termLoan?.tenureOfLoanCT === null || termLoan?.tenureOfLoanCT === '' ? '___________' : termLoan?.tenureOfLoanCT}}</span>
                 बर्ष सम्मको लागि मात्र ।
-            </p>
-            <p *ngIf="termLoan.termLoanType === 'INSTALLMENT_ANNUAL_REVIEW'">
+            </ng-container>
+            <ng-container *ngIf="termLoan.termLoanType === 'INSTALLMENT_ANNUAL_REVIEW'">
                 <strong>ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
 
                 <span [ngClass]="{'outside' : termLoan?.baseRateCT !== null && termLoan?.baseRateCT !== ''}">
@@ -256,7 +242,7 @@
                         {{termLoan?.interestRateCT === null || termLoan?.interestRateCT === '' ? '___________' : termLoan?.interestRateCT}}</span>
         % का दर
                             निर्धारण गरीएकोछ र सो ब्याज रकम नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र
-                            चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।</span><br>
+                            चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।<br></span>
 
                 <span *ngIf="termLoan.subsidyOrAgricultureLoan === 'Yes'">हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
                                 बार्षिक
@@ -265,13 +251,13 @@
         % का दरले
                             निर्धारण गरीएकोछ । सो निर्धारित ब्याज दरमा नेपाल राष्ट्र बैंकले ऋणीलाई दिने छुट/सहुलियत वापतको दर
                             घटाई कायम हुन आउने रकम ऋणीले ब्याज स्वरुप नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन,
-                            पौष र चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।</span><br>
+                            पौष र चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।<br></span>
 
                 <span><strong><u>साँवा/किस्ता भुक्तानी तरिका:</u></strong>यस अघि निर्धारित भुक्तानी
                         तालिकाबमोजिम बाञकी किस्ताहरु रु.
                                         <span [ngClass]="{'outside' : termLoan?.paymentAmountFigureCT !== null && termLoan?.paymentAmountFigureCT !== ''}">
                         {{termLoan?.paymentAmountFigureCT === null || termLoan?.paymentAmountFigureCT === '' ? '___________' : termLoan?.paymentAmountFigureCT}}</span>
-        ।—
+        /—
         <span [ngClass]="{'outside' : termLoan?.paymentAmountWordsCT !== null && termLoan?.paymentAmountWordsCT !== ''}">
                         {{termLoan?.paymentAmountWordsCT === null || termLoan?.paymentAmountWordsCT === '' ? '___________' : termLoan?.paymentAmountWordsCT}}</span>
         का दरले
@@ -290,13 +276,13 @@
                 {{termLoan.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
                 <span [ngClass]="{'outside' : termLoan?.dateOfExpiryCT !== null && termLoan?.dateOfExpiryCT !== ''}">
                         {{termLoan?.dateOfExpiryCT === null || termLoan?.dateOfExpiryCT === '' ? '___________' : termLoan?.dateOfExpiryCT}}</span>
-            </p>
-            <p *ngIf="termLoanFreeText[i]?.freeTextTwelve">
+            </ng-container>
+            <ng-container *ngIf="termLoanFreeText[i]?.freeTextTwelve">
                 <strong style="font-size: 19px">कर्जा प्रवाह तरिकाः</strong>
                 <span style="text-align: justify; line-height: 1.9em" class="nepaliFont">
                         {{termLoanFreeText[i]?.freeTextTwelve === null || termLoanFreeText[i]?.freeTextTwelve === '' ? '___________' : termLoanFreeText[i]?.freeTextTwelve}}
                     </span>
-            </p><!--<textarea
+            </ng-container><!--<textarea
                         class="form-control customFont nepaliFont"
                         rows="2"
                         style="width: 100%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em; color: black;"
