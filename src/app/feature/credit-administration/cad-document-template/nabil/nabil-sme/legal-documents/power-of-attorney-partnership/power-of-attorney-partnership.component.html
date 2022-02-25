@@ -246,13 +246,13 @@
                                type="text"/>
                         <span class="print-only">{{this.sanctionDate ? this.sanctionDate : '___________________________'}}</span>
                         को ऋण स्वीकृती पत्रानुसार मेरो/हाम्रो नाममा कुल कर्जा
-                        रु <input class="form-field form-control-sm outside disable-print col-2"
+                        रु.<input class="form-field form-control-sm outside disable-print col-2"
                                   (input)="getNumAmountWord('loanAmountInFigure', 'loanAmountInWords')"
                                   name="loanAmountInFigure"
                                   formControlName="loanAmountInFigure"
                                   placeholder="ऋण रकम"
                                   type="text"/>
-                        <span class="print-only"> {{form?.get('loanAmountInFigure')?.value ?  form?.get('loanAmountInFigure')?.value : '___________________________'}}</span>।
+                        <span class="print-only"> {{form?.get('loanAmountInFigure')?.value ?  form?.get('loanAmountInFigure')?.value : '___________________________'}}</span>/-
                         (अक्षरेपी <input class="form-field form-control-sm outside disable-print col-2"
                                          name="loanAmountInWords"
                                          formControlName="loanAmountInWords"
@@ -315,53 +315,101 @@
                         </p>
                     </div>
 
-                    <p><u>वारेसनामा लेखीदिनेको</u></p>
-                    <div>
-                        <table class="table-borderless">
-                            <tbody>
-                            <tr>
-                                <td width="70%">ऋणी/फर्म/कम्पनी/संस्थाको नाम</td>
-                                <td>: <input class="form-field form-control-sm d-print-none"
-                                             name="firmName"
-                                             formControlName="firmName"
-                                             placeholder=" "
-                                             type="text"/>
+<!--                    <p><u>वारेसनामा लेखीदिनेको</u></p>-->
+<!--                    <div>-->
+<!--                        <table class="table-borderless">-->
+<!--                            <tbody>-->
+<!--                            <tr>-->
+<!--                                <td width="40%">ऋणी/फर्म/कम्पनी/संस्थाको नाम</td>-->
+<!--                                <td>: <input class="form-field form-control-sm d-print-none"-->
+<!--                                             name="firmName"-->
+<!--                                             formControlName="firmName"-->
+<!--                                             placeholder=" "-->
+<!--                                             type="text"/>-->
+<!--                                    <span class="print-only">{{this.individualData.name ? this.individualData.name.ct : '___________________________'}}</span>-->
+<!--                                </td>-->
+<!--                            </tr>-->
+<!--                            <tr>-->
+<!--                                <td width="40%">ठेगाना</td>-->
+<!--                                <td>: <input class="form-field form-control-sm d-print-none"-->
+<!--                                             name="firmName"-->
+<!--                                             formControlName="addressOfBorrower"-->
+<!--                                             placeholder=" "-->
+<!--                                             type="text"/>-->
+<!--                                    <span class="print-only">{{this.combinedAddress ? this.combinedAddress : '___________________________'}}</span>-->
+<!--                                </td>-->
+<!--                            </tr>-->
+<!--                            <tr>-->
+<!--                                <ng-container *ngIf="isAuth">-->
+<!--                                    <span *ngFor="let details of authorizedNameArray; let i = index">-->
+<!--                                        <td>आधिकारिक प्रतिनिधिको नाम</td>-->
+<!--                                        <td>: <input class="form-field form-control-sm d-print-none"-->
+<!--                                                     placeholder=" "-->
+<!--                                                     type="text"-->
+<!--                                                     [value]="authorizedNameArray ? authorizedNameArray[i] : ''"/>-->
+<!--                                            <span class="print-only">{{authorizedNameArray ? authorizedNameArray[i] : '_____________________'}}</span>-->
+<!--                                        </td>-->
+<!--                                    </span>-->
+<!--                                </ng-container>-->
+<!--                                <ng-container class="m-0" *ngIf="isAuth1">-->
+<!--                                    <td>आधिकारिक प्रतिनिधिको नाम</td>-->
+<!--                                    <td>:-->
+<!--                                        <input class="form-field form-control-sm d-print-none nepaliFont" name="authorizedBodyName"-->
+<!--                                               formControlName="authorizedBodyName" placeholder="" type="text"/>-->
+<!--                                        <span class="print-only nepaliFont">{{this.supportedInfo ? (this.supportedInfo?.authorizedBodyName ? this.supportedInfo?.authorizedBodyName : '__________________________') : '__________________________'}}</span>-->
+<!--                                    </td>-->
+<!--                                </ng-container>-->
+<!--                            </tr>-->
+<!--                            </tbody>-->
+<!--                        </table>-->
+<!--                    </div>-->
+
+                    <div class="row" style="margin-top: 2em">
+                        <div class="col-md-12">
+                            <p class="m-0">
+                                <u>
+                                    वारेसनामा लेखीदिनेको
+                                </u>
+                            </p>
+                            <div class="mt-2">
+                                <p class="m-0">
+                                    ऋणी/फर्म/कम्पनी/संस्थाको नाम :
+                                    <input class="form-field form-control-sm d-print-none"
+                                           name="firmName"
+                                           formControlName="firmName"
+                                           placeholder=" "
+                                           type="text"/>
                                     <span class="print-only">{{this.individualData.name ? this.individualData.name.ct : '___________________________'}}</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td width="70%">ठेगाना</td>
-                                <td>: <input class="form-field form-control-sm d-print-none"
-                                             name="firmName"
-                                             formControlName="addressOfBorrower"
-                                             placeholder=" "
-                                             type="text"/>
+                                </p>
+                                <p class="m-0">
+                                    ठेगाना :
+                                    <input class="form-field form-control-sm d-print-none"
+                                           name="firmName"
+                                           formControlName="addressOfBorrower"
+                                           placeholder=" "
+                                           type="text"/>
                                     <span class="print-only">{{this.combinedAddress ? this.combinedAddress : '___________________________'}}</span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <ng-container *ngIf="isAuth">
+                                </p>
+                                <ng-container class="m-0" *ngIf="isAuth">
                                     <span *ngFor="let details of authorizedNameArray; let i = index">
-                                        <td width="70%">आधिकारिक प्रतिनिधिको नाम</td>
-                                        <td>: <input class="form-field form-control-sm d-print-none"
-                                                     placeholder=" "
-                                                     type="text"
-                                                     [value]="authorizedNameArray ? authorizedNameArray[i] : ''"/>
-                                            <span class="print-only">{{authorizedNameArray ? authorizedNameArray[i] : '_____________________'}}</span>
-                                        </td>
+                                    आधिकारिक प्रतिनिधिको नाम :
+                                        <input class="form-field form-control-sm d-print-none"
+                                               placeholder=" "
+                                               type="text"
+                                               [value]="authorizedNameArray ? authorizedNameArray[i] : ''"/>
+                                        <span class="print-only">{{authorizedNameArray ? authorizedNameArray[i] : '_____________________'}}</span>
+                                    <br>
                                     </span>
                                 </ng-container>
-                                <ng-container class="m-0" *ngIf="isAuth1">
-                                    <td width="70%">आधिकारिक प्रतिनिधिको नाम</td>
-                                    <td>:
-                                        <input class="form-field form-control-sm d-print-none nepaliFont" name="authorizedBodyName"
-                                               formControlName="authorizedBodyName" placeholder="" type="text"/>
-                                        <span class="print-only nepaliFont">{{this.supportedInfo ? (this.supportedInfo?.authorizedBodyName ? this.supportedInfo?.authorizedBodyName : '__________________________') : '__________________________'}}</span>
-                                    </td>
-                                </ng-container>
-                            </tr>
-                            </tbody>
-                        </table>
+                                <p class="m-0" *ngIf="isAuth1">
+                                    आधिकारिक प्रतिनिधिको नाम :
+                                    <input class="form-field form-control-sm d-print-none nepaliFont"
+                                           name="authorizedBodyName"
+                                           formControlName="authorizedBodyName" placeholder="" type="text"/>
+                                    <span class="print-only nepaliFont">{{this.supportedInfo ? (this.supportedInfo?.authorizedBodyName ? this.supportedInfo?.authorizedBodyName : '===========================') : '==========================='}}</span>
+                                </p>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="mt-5">

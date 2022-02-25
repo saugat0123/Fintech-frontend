@@ -288,11 +288,11 @@
                             (input)="getNumAmountWord('loanAmountInFigure', 'loanAmountInWords')"
                             name="loanAmountInFigure" formControlName="loanAmountInFigure" placeholder="ऋण रकम"
                             type="text" />
-                        <span class="print-only">{{this.finalAmount ? this.finalAmount : '______________________'}}</span>/-
+                        <span class="print-only">{{form?.get('loanAmountInFigure')?.value ? form?.get('loanAmountInFigure')?.value : '______________________'}}</span>/-
                         (अक्षरेपी <input class="form-field form-control-sm outside disable-print col-2"
                             name="loanAmountInWords" formControlName="loanAmountInWords" placeholder="रकम"
                             type="text" />
-                        <span class="print-only">{{this.loanAmountWord ? this.loanAmountWord : '______________________'}}</span>मात्र)
+                        <span class="print-only">{{form?.get('loanAmountInWords')?.value ? form?.get('loanAmountInWords')?.value : '______________________'}}</span>मात्र)
                         सम्मको विभिन्न ऋण कर्जा तथा बैकिङ्ग सुविधा स्वीकृत भएको हुँदा हामीले सो सिमा (Limit) भित्र रही
                         हाल उपयोग गरिरहेको वा पछि उपयोग गर्ने उल्लेखित ऋणकर्जा तथा बैकिङ्ग सुविधा र सोमा तपाई धनी बैंकको
                         नियमानुसार लाग्ने व्याज, फि, कमिशन, पेनाल्टी, दस्तुर, ऋण असूलीमा हुने खर्च लगायतका अन्य सम्पूर्ण
