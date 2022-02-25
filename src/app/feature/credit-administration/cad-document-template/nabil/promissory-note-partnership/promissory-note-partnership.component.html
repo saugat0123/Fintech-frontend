@@ -28,7 +28,6 @@
                                         मात्र )</strong>
                                 </p>
                             </div>
-                            <br>
                             लिखितम् <input class="form-field disable-print form-control-sm" name="actDetails"
                                 formControlName="actDetails" placeholder="" type="text" />
                             <span
@@ -44,8 +43,8 @@
                             मा मिति <input class="form-field disable-print form-control-sm" name="dateOfRegistration"
                                 formControlName="dateOfRegistration" placeholder=" " type="text" />
                             <span
-                                class="print-only font-weight-bold">{{form?.get('dateOfRegistration')?.value ? form?.get('dateOfRegistration')?.value : "___________________________"}}</span>मा
-                            दर्ता नं. <input class="form-field disable-print form-control-sm" name="registrationNumber"
+                                class="print-only font-weight-bold">{{form?.get('dateOfRegistration')?.value ? form?.get('dateOfRegistration')?.value : "___________________________"}}</span>
+                            मा दर्ता नं. <input class="form-field disable-print form-control-sm" name="registrationNumber"
                                 formControlName="registrationNumber" placeholder="" type="text" />
                             <span
                                 class="print-only font-weight-bold">{{form?.get('registrationNumber')?.value ? form?.get('registrationNumber')?.value : "___________________________"}}</span>
@@ -74,7 +73,7 @@
                             <input class="form-field disable-print form-control-sm" name="addressOfFirm"
                                 formControlName="addressOfFirm" placeholder=" " type="text" />
                             <span
-                                class="print-only font-weight-bold">{{form?.get('addressOfFirm')?.value ? form?.get('addressOfFirm')?.value : "___________________________"}}</span>
+                                class="print-only font-weight-bold"> {{form?.get('addressOfFirm')?.value ? form?.get('addressOfFirm')?.value : "___________________________"}}</span>
                             रजिष्टर्ड कार्यालय रहेको श्री <input class="form-field disable-print form-control-sm"
                                 name="nameOfFirm" formControlName="nameOfFirm" placeholder="" type="text" />
                             <span
@@ -266,14 +265,14 @@
                                     {{form.get('totalPeople').value ? form.get('totalPeople').value : "_____________________"}}
                                 </span>
                             जना आगे, तपाई श्री नविल बैंक लिमिटेडले भुक्तानी माग गरेका बखत तपाईलाई वा
-                            तपाईले निर्देशन दिएको वा अह्राएको ब्यक्ति/संस्थालाई रु <input
+                            तपाईले निर्देशन दिएको वा अह्राएको ब्यक्ति/संस्थालाई रु.<input
                                 (input)="getNumAmountWord('loanamountinFigure', 'loanamountinWords')"
                                 class="form-field disable-print form-control-sm" name="loanamountinFigure"
                                 formControlName="loanamountinFigure" placeholder=" रकम " type="text" />
                             <span
                                 class="print-only font-weight-bold">
                                 {{(this.tempData.smeGlobalForm && this.tempData.smeGlobalForm.totalLimitInFigureCT ) ?
-                                this.tempData.smeGlobalForm.totalLimitInFigureCT : '_________________'}}</span>।
+                                this.tempData.smeGlobalForm.totalLimitInFigureCT : '_________________'}}</span>/-
                             (अक्षरेपी <input class="form-field disable-print form-control-sm" name="loanamountinWords"
                                 formControlName="loanamountinWords" placeholder=" " type="text" />
                             <span
@@ -290,11 +289,11 @@
                                 formControlName="nameOfBranch" placeholder=" " type="text" />
                             <span
                                 class="print-only font-weight-bold">{{form?.get('nameOfBranch')?.value ? form?.get('nameOfBranch')?.value : "___________________________"}}</span>लाई
-                            दिएँ/दियौं । <br><br>
+                            दिएँ/दियौं । <br>
                             <div class="clearfix">
                                 <p class="text-center">
                                     <strong><u>प्रतिज्ञा गर्ने फर्म/कम्पनीको तर्फबाट आधिकारिक व्यक्तिको लेखात्मक
-                                            सही/छाप</u></strong><br><br>
+                                            सही/छाप</u></strong><br>
 
                                 </p>
                                 <p class="mb-5 float-right" style="margin-right: 20rem;">
@@ -302,7 +301,7 @@
                                     छापः
                                 </p>
                             </div>
-                            <p class="text-center mt-3">
+                            <p class="text-center">
                                 <b><u>साक्षी</u></b>
                             </p>
                             <div>
