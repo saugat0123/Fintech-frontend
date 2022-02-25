@@ -230,7 +230,7 @@
                                             type="text"/>
                                 </div>
                             </div>
-                            <!-- <div class="col-md-4"> 
+                            <!-- <div class="col-md-4">
                                 <div class="form-group">
                                     <label for="panNumber"><strong>PAN</strong></label>
                                     <div class="input-group mb-3">
@@ -267,63 +267,42 @@
                                                 [value]="business.key">{{business.value}}</option>
                                     </select>
 
-                                    <div *ngIf="submitted && form.businessType?.errors"
-                                         class="text-danger small">
-                                        <div *ngIf="form.businessType?.errors.required">
-                                            Business Type is required
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="businessType"><strong>Major products/Service</strong></label>
-                                    <input
-                                            [ngClass]="{'is-invalid':submitted &&  form.majorProductService.errors}"
-                                            formControlName="majorProductService"
-                                            class="form-control"
-                                            id="majorProductService"
-                                            placeholder="Enter Major Product/Service"/>
-                                    <div *ngIf="submitted && form.majorProductService?.errors"
-                                         class="text-danger small">
-                                        <div *ngIf="form.majorProductService?.errors.required">
-                                            Major Product/Service is required
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group rounded">
-                                    <label for="registrationNumber"><strong>Registration Number</strong></label>
-                                    <div class="input-group mb-3">
-                                        <input #regNumber
-                                               [ngClass]="{ 'is-invalid':submitted && form.registrationNumber.errors }"
-                                               class="form-control rounded"
-                                               formControlName="registrationNumber"
-                                               id="registrationNumber"
-                                               min="0" placeholder="Enter registration number"
-                                               type="text"/>
-                                        <div *ngIf="submitted && form.registrationNumber.errors "
-                                             class="invalid-feedback">
-                                            <div *ngIf="form.registrationNumber.errors.required">
-                                                Registration number is required.
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="businessType"><strong>Relationship Since</strong></label>
-                                    <input
-                                            *ngIf="calendarType === 'AD'"
-                                            [ngClass]="{'is-invalid':submitted &&  form.relationshipSince.errors}"
-                                            formControlName="relationshipSince"
-                                            [nbDatepicker]="relationshipSince"
-                                            class="form-control"
-                                            id="relationshipSince"
-                                            placeholder="Relationship Since"/>
-                                    <input formControlName="relationshipSince" *ngIf="calendarType === 'BS'" hidden>
+                                       <div *ngIf="submitted && form.businessType?.errors"
+                                            class="text-danger small">
+                                           <div *ngIf="form.businessType?.errors.required">
+                                               Business Type is required
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+                               <div class="col-md-4">
+                                   <div class="form-group">
+                                       <label for="businessType"><strong>Major products/Service</strong></label>
+                                       <input
+                                                  [ngClass]="{'is-invalid':submitted &&  form.majorProductService.errors}"
+                                                  formControlName="majorProductService"
+                                                  class="form-control"
+                                                  id="majorProductService"
+                                                  placeholder="Enter Major Product/Service"/>
+                                       <div *ngIf="submitted && form.majorProductService?.errors"
+                                            class="text-danger small">
+                                           <div *ngIf="form.majorProductService?.errors.required">
+                                               Major Product/Service is required
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+                               <div  class="col-md-4">
+                                   <div class="form-group">
+                                       <label for="businessType"><strong>Relationship Since (with group)</strong></label>
+                                       <input *ngIf="calendarType === 'AD'"
+                                              [ngClass]="{'is-invalid':submitted &&  form.relationshipSince.errors}"
+                                              formControlName="relationshipSince"
+                                              [nbDatepicker]="relationshipSince"
+                                              class="form-control"
+                                              id="relationshipSince"
+                                              placeholder="Relationship Since (with group)"/>
+                                       <input formControlName="relationshipSince" *ngIf="calendarType === 'BS'" hidden>
 
                                        <app-calendar [ePreDate]="form.relationshipSince?.value" *ngIf="calendarType === 'BS'"
                                                      (messageToEmit)="form.relationshipSince.patchValue($event?.eDate)"></app-calendar>
@@ -368,104 +347,95 @@
                                    <div class="form-group form-inline">
                                        <h6>Additional registration/license information</h6>
 
-                                        <nb-checkbox (change)="checkChecked($event.target.checked,'additionalInfo')"
-                                                     [checked]="additionalFieldSelected">
-                                        </nb-checkbox>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row" *ngIf="additionalFieldSelected">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="registrationType"><strong> Type of
-                                            Registration/License</strong></label>
-                                        <input placeholder="Enter Registration Type"
-                                               [ngClass]="{ 'is-invalid':submitted && additionalInfoForm.registrationType.errors }"
-                                               formControlName="registrationType" id="registrationType"
-                                               class="form-control"/>
-                                        <div *ngIf="submitted && additionalInfoForm.registrationType.errors"
-                                             class="invalid-feedback">
-                                            <div *ngIf="additionalInfoForm.registrationType.errors.required">
-                                                Registration/License Type is required
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="licenseHolderName"><strong>Name of license holder</strong></label>
-                                        <div class="input-group mb-3">
-                                            <input
-                                                    [ngClass]="{ 'is-invalid':submitted && additionalInfoForm.licenseHolderName.errors }"
-                                                    class="form-control rounded"
-                                                    id="licenseHolderName"
-                                                    formControlName="licenseHolderName"
-                                                    placeholder="License Holder Name"
-                                                    type="text"/>
-                                            <div *ngIf="submitted && additionalInfoForm.licenseHolderName.errors"
-                                                 class="invalid-feedback">
-                                                <div *ngIf="additionalInfoForm.licenseHolderName.errors.required">
-                                                    License holder name is required.
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="registrationDate"><strong>License Issued Date</strong></label>
-                                        <input *ngIf="calendarType === 'AD'" id="licenseIssuedDate"
-                                               formControlName="licenseIssuedDate"
-                                               [nbDatepicker]="registrationDate" name="licenseIssuedDate"
-                                               class="form-control" placeholder="License Issued Date"
-                                               [ngClass]="{ 'is-invalid':submitted && additionalInfoForm.licenseIssuedDate.errors}">
-                                        <input formControlName="licenseIssuedDate" *ngIf="calendarType === 'BS'" hidden>
-                                        <app-calendar [ePreDate]="additionalInfoForm.licenseIssuedDate.value"
-                                                      *ngIf="calendarType === 'BS'"
-                                                      (messageToEmit)="additionalInfoForm.get('licenseIssuedDate').patchValue($event?.eDate)"></app-calendar>
-                                        <nb-datepicker #registrationDate></nb-datepicker>
-                                        <div *ngIf="submitted && additionalInfoForm.licenseIssuedDate.errors"
-                                             class="small text-danger">
-                                            <div *ngIf="additionalInfoForm.licenseIssuedDate.errors.required">
-                                                Invalid License Issued Date
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="licenseExpiryDate"><strong>License Expiry Date</strong></label>
-                                        <input *ngIf="calendarType === 'AD'" id="licenseExpiryDate"
-                                               formControlName="licenseExpiryDate"
-                                               [nbDatepicker]="licenseExpiryDate" name="licenseExpiryDate"
-                                               class="form-control" placeholder="License Expiry Date"
-                                               [ngClass]="{ 'is-invalid':submitted && additionalInfoForm.licenseExpiryDate.errors}">
-                                        <input formControlName="licenseExpiryDate" *ngIf="calendarType === 'BS'" hidden>
+                                       <nb-checkbox (change)="checkChecked($event.target.checked,'additionalInfo')"
+                                                    [checked]="additionalFieldSelected">
+                                       </nb-checkbox>
+                                   </div>
+                               </div>
+                           </div>
+                           <div class="row" *ngIf="additionalFieldSelected">
+                               <div class="col-md-4">
+                                   <div class="form-group">
+                                       <label for="registrationType"><strong> Type of Registration/License</strong></label>
+                                       <input placeholder="Enter Registration Type"
+                                              [ngClass]="{ 'is-invalid':submitted && additionalInfoForm.registrationType.errors }"
+                                              formControlName="registrationType" id="registrationType" class="form-control"/>
+                                       <div *ngIf="submitted && additionalInfoForm.registrationType.errors"
+                                            class="invalid-feedback">
+                                           <div *ngIf="additionalInfoForm.registrationType.errors.required">
+                                               Registration/License Type is required
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+                               <div class="col-md-4">
+                                   <div class="form-group">
+                                       <label for="licenseHolderName"><strong>Name of license holder</strong></label>
+                                       <div class="input-group mb-3">
+                                           <input
+                                               [ngClass]="{ 'is-invalid':submitted && additionalInfoForm.licenseHolderName.errors }"
+                                               class="form-control rounded"
+                                               id="licenseHolderName"
+                                               formControlName="licenseHolderName"
+                                               placeholder="License Holder Name"
+                                               type="text"/>
+                                           <div *ngIf="submitted && additionalInfoForm.licenseHolderName.errors"
+                                                class="invalid-feedback">
+                                               <div *ngIf="additionalInfoForm.licenseHolderName.errors.required">
+                                                   License holder name is required.
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+                               <div class="col-md-4">
+                                   <div class="form-group">
+                                       <label for="registrationDate"><strong>License Issued Date</strong></label>
+                                       <input *ngIf="calendarType === 'AD'" id="licenseIssuedDate" formControlName="licenseIssuedDate"
+                                              [nbDatepicker]="registrationDate" name="licenseIssuedDate"
+                                              class="form-control" placeholder="License Issued Date"
+                                              [ngClass]="{ 'is-invalid':submitted && additionalInfoForm.licenseIssuedDate.errors}">
+                                       <input formControlName="licenseIssuedDate" *ngIf="calendarType === 'BS'" hidden>
+                                       <app-calendar [ePreDate]="additionalInfoForm.licenseIssuedDate.value" *ngIf="calendarType === 'BS'"
+                                                     (messageToEmit)="additionalInfoForm?.licenseIssuedDate.patchValue($event?.eDate)"></app-calendar>
+                                       <nb-datepicker #registrationDate></nb-datepicker>
+                                       <div *ngIf="submitted && additionalInfoForm.licenseIssuedDate.errors" class="small text-danger">
+                                           <div *ngIf="additionalInfoForm.licenseIssuedDate.errors.required">
+                                               Invalid License Issued Date
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+                               <div class="col-md-4">
+                                   <div class="form-group">
+                                       <label for="licenseExpiryDate"><strong>License Expiry Date</strong></label>
+                                       <input *ngIf="calendarType === 'AD'" id="licenseExpiryDate" formControlName="licenseExpiryDate"
+                                              [nbDatepicker]="licenseExpiryDate" name="licenseExpiryDate"
+                                              class="form-control" placeholder="License Expiry Date"
+                                              [ngClass]="{ 'is-invalid':submitted && additionalInfoForm.licenseExpiryDate.errors}">
+                                       <input formControlName="licenseExpiryDate" *ngIf="calendarType === 'BS'" hidden>
 
-                                        <app-calendar [ePreDate]="additionalInfoForm.licenseExpiryDate.value"
-                                                      *ngIf="calendarType === 'BS'"
-                                                      (messageToEmit)="additionalInfoForm.get('licenseExpiryDate').patchValue($event?.eDate)"></app-calendar>
-                                        <nb-datepicker #licenseExpiryDate></nb-datepicker>
-                                        <div *ngIf="submitted && additionalInfoForm.licenseExpiryDate.errors"
-                                             class="small text-danger">
-                                            <div *ngIf="additionalInfoForm.licenseExpiryDate.errors.required">
-                                                Invalid License Expiry Date
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="issuePlace"><strong>License Issue Place</strong></label>
-                                        <ng-select
-                                                [ngClass]="{ 'is-invalid':submitted && additionalInfoForm.licenseIssuePlace.errors }"
-                                                formControlName="licenseIssuePlace"
-                                                id="licenseIssuePlace">
-                                            <ng-option [value]="null">SelectLicense Issue Place</ng-option>
-                                            <ng-option *ngFor="let district of allDistrict" [value]="district?.name">
-                                                {{district?.name}}
-                                            </ng-option>
-                                        </ng-select>
+                                       <app-calendar [ePreDate]="additionalInfoForm.licenseExpiryDate.value" *ngIf="calendarType === 'BS'"
+                                                     (messageToEmit)="additionalInfoForm?.licenseExpiryDate.patchValue($event?.eDate)"></app-calendar>
+                                       <nb-datepicker #licenseExpiryDate></nb-datepicker>
+                                       <div *ngIf="submitted && additionalInfoForm.licenseExpiryDate.errors" class="small text-danger">
+                                           <div *ngIf="additionalInfoForm.licenseExpiryDate.errors.required">
+                                               Invalid License Expiry Date
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+                               <div class="col-md-4">
+                                   <div class="form-group">
+                                       <label for="issuePlace"><strong>License Issue Place</strong></label>
+                                       <ng-select [ngClass]="{ 'is-invalid':submitted && additionalInfoForm.licenseIssuePlace.errors }"
+                                                  formControlName="licenseIssuePlace"
+                                                  id="licenseIssuePlace">
+                                           <ng-option [value]="null">SelectLicense Issue Place</ng-option>
+                                           <ng-option *ngFor="let district of allDistrict" [value]="district?.name">
+                                               {{district?.name}}
+                                           </ng-option>
+                                       </ng-select>
 
                                        <div *ngIf="submitted && additionalInfoForm.licenseIssuePlace.errors "
                                             class="text-danger small">
@@ -647,49 +617,144 @@
                                    <label for="panRegistrationOffice"><strong>PAN Registration Office</strong></label>
                                    <input  id="panRegistrationOffice" formControlName="panRegistrationOffice"
                                            name="panRegistrationOffice" type="text" class="form-control"
-                                           placeholder="PAN/VAT Registration Office"
+                                           placeholder="PAN Registration Office"
                                            [ngClass]="{ 'is-invalid': (submitted) && form.panRegistrationOffice.errors }">
-                                    <div *ngIf="(submitted) && form.panRegistrationOffice.invalid"
-                                         class="invalid-feedback">
-                                        <div *ngIf="form.panRegistrationOffice.errors.required">
-                                            PAN/VAT Registration Office is required
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="panRegistrationDate"><strong>PAN/VAT Registration Date</strong></label>
-                                    <input *ngIf="calendarType === 'AD'" id="panRegistrationDate"
-                                           formControlName="panRegistrationDate"
-                                           [nbDatepicker]="panRegistrationDate" name="panRegistrationDate"
-                                           class="form-control" placeholder="PAN/VAT Registration Date"
-                                           [ngClass]="{ 'is-invalid':submitted && form.panRegistrationDate.errors}">
-                                    <input formControlName="panRegistrationDate" *ngIf="calendarType === 'BS'" hidden>
+                                   <div *ngIf="(submitted) && form.panRegistrationOffice.invalid"
+                                        class="invalid-feedback">
+                                       <div *ngIf="form.panRegistrationOffice.errors.required">
+                                           PAN Registration Office is required
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                           <div class="col-md-4">
+                               <div class="form-group">
+                                   <label for="panRegistrationDate"><strong>PAN Registration Date</strong></label>
+                                   <input *ngIf="calendarType === 'AD'" id="panRegistrationDate" formControlName="panRegistrationDate"
+                                          [nbDatepicker]="panRegistrationDate" name="panRegistrationDate"
+                                          class="form-control" placeholder="PAN Registration Date"
+                                          [ngClass]="{ 'is-invalid':submitted && form.panRegistrationDate.errors}">
+                                   <input formControlName="panRegistrationDate" *ngIf="calendarType === 'BS'" hidden>
 
-                                    <app-calendar [ePreDate]="companyInfoFormGroup.get('panRegistrationDate').value"
-                                                  *ngIf="calendarType === 'BS'"
-                                                  (messageToEmit)="companyInfoFormGroup.get('panRegistrationDate').patchValue($event?.eDate)"></app-calendar>
-                                    <nb-datepicker #panRegistrationDate></nb-datepicker>
-                                    <div *ngIf="submitted && form.panRegistrationDate.errors" class="small text-danger">
-                                        <div *ngIf="form.panRegistrationDate.errors.required ||
+                                   <app-calendar [ePreDate]="companyInfoFormGroup.get('panRegistrationDate').value" *ngIf="calendarType === 'BS'"
+                                                 (messageToEmit)="companyInfoFormGroup.get('panRegistrationDate').patchValue($event?.eDate)"></app-calendar>
+                                   <nb-datepicker #panRegistrationDate></nb-datepicker>
+                                   <div *ngIf="submitted && form.panRegistrationDate.errors" class="small text-danger">
+                                       <div *ngIf="form.panRegistrationDate.errors.required ||
                                 form.panRegistrationDate.errors.beforeToday">
-                                            PAN/VAT Registration Date is required
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="registrationExpiryDate"><strong>Registration Expiry
-                                        Date</strong></label>
-                                    <input *ngIf="calendarType === 'AD'" id="registrationExpiryDate"
-                                           formControlName="registrationExpiryDate"
-                                           [nbDatepicker]="registrationExpiryDate" name="registrationExpiryDate"
-                                           class="form-control" placeholder="Registration Expiry Date"
-                                           [ngClass]="{ 'is-invalid':submitted && form.registrationExpiryDate.errors}">
-                                    <input formControlName="registrationExpiryDate" *ngIf="calendarType === 'BS'"
-                                           hidden>
+                                           PAN Registration Date is required
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                       <div class="row">
+                           <div class="col-md-4">
+                               <div class="form-group">
+                                   <label for="vatNo"><strong>VAT</strong></label>
+                                   <div class="input-group mb-3">
+                                       <input #vatNumber
+                                              [ngClass]="{ 'is-invalid':submitted && form.vatNo.errors }"
+                                              class="form-control rounded"
+                                              formControlName="vatNo"
+                                              id="vatNo"
+                                              placeholder="Enter Vat"
+                                              type="text"/>
+                                       <div *ngIf="submitted && form.vatNo.errors"
+                                            class="invalid-feedback">
+                                           <div *ngIf="form.vatNo.errors.required">
+                                               Vat is required.
+                                           </div>
+                                           <div *ngIf="form.vatNo.errors.maxlength || form.vatNo.errors.minlength">
+                                               Length should be of 9 digit
+                                           </div>
+                                           <div *ngIf="form.vatNo.errors.cannotContainSpace" >
+                                               White space is invalid
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                           <div class="col-md-4">
+                               <div class="form-group">
+                                   <label for="vatRegistrationOffice"><strong>VAT Registration Office</strong></label>
+                                   <input  id="vatRegistrationOffice" formControlName="vatRegistrationOffice"
+                                           name="vatRegistrationOffice" type="text" class="form-control"
+                                           placeholder="VAT Registration Office"
+                                           [ngClass]="{ 'is-invalid': (submitted) && form.vatRegistrationOffice.errors }">
+                                   <div *ngIf="(submitted) && form.vatRegistrationOffice.invalid"
+                                        class="invalid-feedback">
+                                       <div *ngIf="form.vatRegistrationOffice.errors.required">
+                                           VAT Registration Office is required
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                           <div class="col-md-4">
+                               <div class="form-group">
+                                   <label for="vatRegistrationDate"><strong>VAT Registration Date</strong></label>
+                                   <input *ngIf="calendarType === 'AD'" id="vatRegistrationDate" formControlName="vatRegistrationDate"
+                                          [nbDatepicker]="vatRegistration" name="vatRegistrationDate"
+                                          class="form-control" placeholder="VAT Registration Date"
+                                          [ngClass]="{ 'is-invalid':submitted && form.vatRegistrationDate.errors}">
+                                   <input formControlName="vatRegistrationDate" *ngIf="calendarType === 'BS'" hidden>
+
+                                   <app-calendar [ePreDate]="companyInfoFormGroup.get('vatRegistrationDate').value" *ngIf="calendarType === 'BS'"
+                                                 (messageToEmit)="companyInfoFormGroup.get('vatRegistrationDate').patchValue($event?.eDate)"></app-calendar>
+                                   <nb-datepicker #vatRegistration></nb-datepicker>
+                                   <div *ngIf="submitted && form.vatRegistrationDate.errors" class="small text-danger">
+                                       <div *ngIf="form.vatRegistrationDate.errors.required ||
+                                form.vatRegistrationDate.errors.beforeToday">
+                                           VAT Registration Date is required
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                       <div class="row">
+                           <div class="col-md-4">
+                               <div class="form-group rounded">
+                                   <label for="registrationNumber"><strong>Registration Number</strong></label>
+                                   <div class="input-group mb-3">
+                                       <input #regNumber
+                                              [ngClass]="{ 'is-invalid':submitted && form.registrationNumber.errors }"
+                                              class="form-control rounded"
+                                              formControlName="registrationNumber"
+                                              id="registrationNumber"
+                                              min="0" placeholder="Enter registration number"
+                                              type="text"/>
+                                       <div *ngIf="submitted && form.registrationNumber.errors "
+                                            class="invalid-feedback">
+                                           <div *ngIf="form.registrationNumber.errors.required">
+                                               Registration number is required.
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                           <div class="col-md-4">
+                               <div class="form-group">
+                                   <label for="regIssuedPlace"><strong>Issued Place.</strong></label>
+                                   <input  id="regIssuedPlace" formControlName="regIssuedPlace"
+                                           name="regIssuedPlace" type="text" class="form-control"
+                                           placeholder="Issued Place"
+                                           [ngClass]="{ 'is-invalid': (submitted) && form.regIssuedPlace.errors }">
+                                   <div *ngIf="(submitted) && form.regIssuedPlace.invalid"
+                                        class="invalid-feedback">
+                                       <div *ngIf="form.regIssuedPlace.errors.required">
+                                           Issued Place is required
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                           <div class="col-md-4">
+                               <div class="form-group">
+                                   <label for="registrationExpiryDate"><strong>Registration  Expiry Date</strong></label>
+                                   <input *ngIf="calendarType === 'AD'" id="registrationExpiryDate" formControlName="registrationExpiryDate"
+                                          [nbDatepicker]="registrationExpiryDate" name="registrationExpiryDate"
+                                          class="form-control" placeholder="Registration Expiry Date"
+                                          [ngClass]="{ 'is-invalid':submitted && form.registrationExpiryDate.errors}">
+                                   <input formControlName="registrationExpiryDate" *ngIf="calendarType === 'BS'" hidden>
 
                                    <app-calendar [ePreDate]="companyInfoFormGroup.get('registrationExpiryDate').value" *ngIf="calendarType === 'BS'"
                                                  (messageToEmit)="companyInfoFormGroup.get('registrationExpiryDate').patchValue($event?.eDate)"></app-calendar>
@@ -845,507 +910,514 @@
 <!--                       </div>-->
                        <!-- END ROW -->
 
-                        <hr>
-                        <div>
-                            <h5>3.Primary Contact Person Details</h5>
-                        </div>
-                        <div
-                                *ngFor="let contact of companyInfoFormGroup.get('contactPersons')['controls']; let c = index"
-                                formArrayName="contactPersons">
-                            <div [formGroupName]="c" class="row">
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label><strong>Name</strong></label>
-                                        <input
-                                                [ngClass]="{ 'is-invalid': (submitted) && contact.get('contactName').errors }"
-                                                class="form-control"
-                                                formControlName="contactName" id="contactName"
-                                                placeholder="Name"
-                                                type="text">
-                                        <div
-                                                *ngIf="(submitted) &&  contact.get('contactName').invalid"
-                                                class="invalid-feedback">
-                                            <div *ngIf=" contact.get('contactName').errors.required">
-                                                Name is required
-                                            </div>
-                                        </div>
+                       <hr>
+                       <div>
+                           <h5>3.Primary Contact Person Details</h5>
+                       </div>
+                       <div
+                           *ngFor="let contact of companyInfoFormGroup.get('contactPersons')['controls']; let c = index"
+                           class="border-bottom border-dark m-4"
+                           formArrayName="contactPersons">
+                           <div [formGroupName]="c" class="row">
+                               <div class="col-md-3">
+                                   <div class="form-group">
+                                       <label><strong>Name</strong></label>
+                                       <input
+                                           [ngClass]="{ 'is-invalid': (submitted) && contact.get('contactName').errors }"
+                                           class="form-control"
+                                           formControlName="contactName" id="contactName"
+                                           placeholder="Name"
+                                           type="text">
+                                       <div
+                                           *ngIf="(submitted) &&  contact.get('contactName').invalid"
+                                           class="invalid-feedback">
+                                           <div *ngIf=" contact.get('contactName').errors.required">
+                                               Name is required
+                                           </div>
+                                       </div>
 
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label><strong>Contact Number</strong></label>
-                                        <input
-                                                [ngClass]="{ 'is-invalid': (submitted) && contact.get('contactNumber').errors }"
-                                                class="form-control"
-                                                formControlName="contactNumber" id="contactNumber"
-                                                placeholder="Contact Number"
-                                                type="text">
-                                        <div
-                                                *ngIf="(submitted) && contact.get('contactNumber').invalid"
-                                                class="invalid-feedback">
-                                            <div
-                                                    *ngIf="contact.get('contactNumber').errors.required">
-                                                Contact Number is required
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label><strong>Email</strong></label>
-                                        <input
-                                                [ngClass]="{ 'is-invalid': (submitted) && contact.get('contactEmail').errors }"
-                                                class="form-control"
-                                                formControlName="contactEmail"
-                                                id="contactEmail" placeholder="Email"
-                                                type="email">
-                                        <div
-                                                *ngIf="(submitted) && contact.get('contactEmail').errors"
-                                                class="invalid-feedback">
-                                            <div *ngIf="contact.get('contactEmail').errors.required">
-                                                Contact Email is required
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label for="functionalPosition"><strong>Functional
-                                            Position</strong></label>
-                                        <select
-                                                [ngClass]="{ 'is-invalid': (submitted) && contact.get('functionalPosition').errors }"
-                                                class="form-control"
-                                                formControlName="functionalPosition"
-                                                id="functionalPosition"
-                                                name="functionalPosition">
-                                            <option [value]="null">Select Position</option>
-                                            <option *ngFor="let designations of designation"
-                                                    [ngValue]="designations.id">{{designations.name}}</option>
-                                        </select>
+                                   </div>
+                               </div>
+                               <div class="col-md-3">
+                                   <div class="form-group">
+                                       <label><strong>Contact Number</strong></label>
+                                       <input
+                                           [ngClass]="{ 'is-invalid': (submitted) && contact.get('contactNumber').errors }"
+                                           class="form-control"
+                                           formControlName="contactNumber" id="contactNumber"
+                                           placeholder="Contact Number"
+                                           type="text">
+                                       <div
+                                           *ngIf="(submitted) && contact.get('contactNumber').invalid"
+                                           class="invalid-feedback">
+                                           <div
+                                               *ngIf="contact.get('contactNumber').errors.required">
+                                               Contact Number is required
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+                               <div class="col-md-3">
+                                   <div class="form-group">
+                                       <label><strong>Email</strong></label>
+                                       <input
+                                           [ngClass]="{ 'is-invalid': (submitted) && contact.get('contactEmail').errors }"
+                                           class="form-control"
+                                           formControlName="contactEmail"
+                                           id="contactEmail" placeholder="Email"
+                                           type="email">
+                                       <div
+                                           *ngIf="(submitted) && contact.get('contactEmail').errors"
+                                           class="invalid-feedback">
+                                           <div *ngIf="contact.get('contactEmail').errors.required">
+                                               Contact Email is required
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+                               <div class="col-md-3">
+                                   <div class="form-group">
+                                       <label for="functionalPosition"><strong>Functional
+                                           Position</strong></label>
+                                       <select
+                                           [ngClass]="{ 'is-invalid': (submitted) && contact.get('functionalPosition').errors }"
+                                           class="form-control"
+                                           formControlName="functionalPosition"
+                                           id="functionalPosition"
+                                           name="functionalPosition">
+                                           <option [value]="null">Select Position</option>
+                                           <option *ngFor="let designations of designation"
+                                                   [ngValue]="designations.id">{{designations.name}}</option>
+                                       </select>
 
-                                        <div
-                                                *ngIf="(submitted) && contact.get('functionalPosition').invalid"
-                                                class="invalid-feedback">
-                                            <div
-                                                    *ngIf="contact.get('functionalPosition').errors.required">
-                                                Functional Position is required
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div *ngIf="companyInfoFormGroup.get('contactPersons').length>1"
-                                     class="col-md-12">
-                                    <button (click)="removeContactPersons(c)" nbButton size="small" class="mb-3">
-                                        <nb-icon icon="trash-outline"></nb-icon>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
+                                       <div
+                                           *ngIf="(submitted) && contact.get('functionalPosition').invalid"
+                                           class="invalid-feedback">
+                                           <div
+                                               *ngIf="contact.get('functionalPosition').errors.required">
+                                               Functional Position is required
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+                               <div *ngIf="companyInfoFormGroup.get('contactPersons')['length']>1"
+                                    class="col-md-12">
+                                   <button (click)="removeContactPersons(c)" nbButton size="small" class="mb-3">
+                                       <nb-icon icon="trash-outline"></nb-icon>
+                                   </button>
+                               </div>
+                           </div>
+                       </div>
                         <div class="col-md-12">
                             <button class="btn btn-primary btn-sm" *ngIf="companyInfoFormGroup.get('contactPersons')['length']<2"
                                     (click)="addContactPersons()">
                                 Add Secondary Contact
                             </button>
                         </div>
-                        <hr>
-                        <!--company location-->
-                        <div>
-                            <h5>4. Company Location Detail</h5>
-                        </div>
-                        <div class="row ">
-                            <!--  <div class="col-md-4">
-                                  <div class="form-group">
-                                      <label><strong>House Number</strong></label>
-                                      <input class="form-control" formControlName="houseNumber"
-                                             id="houseNumber" placeholder="House Number" type="text">
-                                  </div>
-                              </div>
-                              <div class="col-md-4">
-                                  <div class="form-group">
-                                      <label><strong>Street Name</strong></label>
-                                      <input class="form-control" formControlName="streetName"
-                                             id="streetName" placeholder="Street Name" type="text"
-                                             [ngClass]="{ 'is-invalid': (submitted) && form.streetName.errors }">
-                                      <div *ngIf="(submitted) && form.streetName.invalid"
-                                           class="invalid-feedback">
-                                          <div *ngIf="form.streetName.errors.required">
-                                              Street Name is required
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                              <div class="col-md-4">
-                                  <div class="form-group">
-                                      <label><strong>Address</strong></label>
-                                      <input class="form-control" formControlName="address"
-                                             id="address" placeholder="Address" type="text"
-                                             [ngClass]="{ 'is-invalid': (submitted) && form.address.errors }">
-                                      <div *ngIf="(submitted) && form.address.invalid"
-                                           class="invalid-feedback">
-                                          <div *ngIf="form.address.errors.required">
-                                              Address is required
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>-->
-                            <div class="col-md-12">
-                                <label><h6><b>Registered Address</b></h6></label>
-                                <app-common-address #companyLocation [address]="companyAddress"></app-common-address>
-                            </div>
-                            <div class="col-md-12">
-                                <label><h6><b>Project Address</b></h6></label>
-                                <app-common-address #companyProjectLocation [address]="companyProjectAddress"></app-common-address>
-                            </div>
-                            <div class="col-md-12">
-                                <label><h6><b>Correspondence Address</b></h6></label>
-                                <app-common-address #companyCorrespondenceLocation [address]="companyCorrespondenceAddress"></app-common-address>
-                            </div>
-                        </div>
-                        <hr>
-                        <!--sister concern starts-->
-                        <ng-container *ngIf="microCustomerType != 'DIRECT'">
-                            <div>
-                                <h5>5. Sister Concern</h5>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="sisterConcern"><strong></strong></label>
-                                        <input id="sisterConcern" formControlName="sisterConcern" name="sisterConcern"
-                                               type="text"
-                                               class="form-control" placeholder="Sister Concern"/>
-                                        <!--                                   <div *ngIf="(submitted) && form.sisterConcern.invalid"-->
-                                        <!--                                        class="invalid-feedback">-->
-                                        <!--                                       <div *ngIf="form.sisterConcern.errors.required">-->
-                                        <!--                                           Sister Concern is required-->
-                                        <!--                                       </div>-->
-                                        <!--                                   </div>-->
-                                    </div>
-                                </div>
-                            </div>
-                        </ng-container>
-                        <hr>
-                        <app-company-other-detail [hidden]="microCustomerType == 'DIRECT'"
-                                                  [companyOtherDetail]="companyJsonData?.otherCompanyDetail"
-                                                  #companyOtherDetailComponent></app-company-other-detail>
-                        <hr>
-                        <div>
-                            <h5>7. Company Background</h5>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="companyBackground"><strong></strong></label>
-                                    <ckeditor id="companyBackground" formControlName="companyBackground"
-                                              name="companyBackground" type="text"
-                                              [config]="ckeConfig"
-                                              [ngClass]="{ 'is-invalid': (submitted) && form.companyBackground.errors }"></ckeditor>
-                                    <div *ngIf="(submitted) && form.companyBackground.invalid"
-                                         class="text-danger">
-                                        <div *ngIf="form.companyBackground.errors.required">
-                                            Company Background is required
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                       <hr>
+                       <!--company location-->
+                       <div >
+                           <h5>4. Company Location Detail</h5>
+                       </div>
+                       <div class="row ">
+                         <!--  <div class="col-md-4">
+                               <div class="form-group">
+                                   <label><strong>House Number</strong></label>
+                                   <input class="form-control" formControlName="houseNumber"
+                                          id="houseNumber" placeholder="House Number" type="text">
+                               </div>
+                           </div>
+                           <div class="col-md-4">
+                               <div class="form-group">
+                                   <label><strong>Street Name</strong></label>
+                                   <input class="form-control" formControlName="streetName"
+                                          id="streetName" placeholder="Street Name" type="text"
+                                          [ngClass]="{ 'is-invalid': (submitted) && form.streetName.errors }">
+                                   <div *ngIf="(submitted) && form.streetName.invalid"
+                                        class="invalid-feedback">
+                                       <div *ngIf="form.streetName.errors.required">
+                                           Street Name is required
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                           <div class="col-md-4">
+                               <div class="form-group">
+                                   <label><strong>Address</strong></label>
+                                   <input class="form-control" formControlName="address"
+                                          id="address" placeholder="Address" type="text"
+                                          [ngClass]="{ 'is-invalid': (submitted) && form.address.errors }">
+                                   <div *ngIf="(submitted) && form.address.invalid"
+                                        class="invalid-feedback">
+                                       <div *ngIf="form.address.errors.required">
+                                           Address is required
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>-->
+                           <div class="col-md-12">
+                               <label><h6><b>Registered Address</b></h6></label>
+                               <app-common-address #companyLocation [address]="companyAddress"></app-common-address>
+                           </div>
+                           <div class="col-md-12">
+                               <label><h6><b>Project Address</b></h6></label>
+                               <app-common-address #companyProjectLocation [address]="companyProjectAddress"></app-common-address>
+                           </div>
+                           <div class="col-md-12">
+                               <label><h6><b>Correspondence Address</b></h6></label>
+                               <app-common-address #companyCorrespondenceLocation [address]="companyCorrespondenceAddress"></app-common-address>
+                           </div>
+                       </div>
+                       <hr>
+                      <app-company-other-detail [hidden]="microCustomerType == 'DIRECT'" [companyOtherDetail]="companyJsonData?.otherCompanyDetail" #companyOtherDetailComponent></app-company-other-detail>
+                       <hr>
+                       <div>
+                           <h5>6. Company Background</h5>
+                       </div>
+                       <div class="row">
+                           <div class="col-md-12">
+                               <div class="form-group">
+                                   <label for="companyBackground"><strong></strong></label>
+                                   <ckeditor id="companyBackground" formControlName="companyBackground" name="companyBackground" type="text"
+                                             [config]="ckeConfig"
+                                             [ngClass]="{ 'is-invalid': (submitted) && form.companyBackground.errors }"></ckeditor>
+                                   <div *ngIf="(submitted) && form.companyBackground.invalid"
+                                        class="text-danger">
+                                       <div *ngIf="form.companyBackground.errors.required">
+                                           Company Background is required
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                       <hr>
+                       <div class="row">
+                           <div class="col-md-12">
+                               <div class="form-group">
+                                   <label for="businessManagementRisk"><strong>Business/Management Risk & Mitigation</strong></label>
+                                   <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.businessManagementRisk.errors }"
+                                             formControlName="businessManagementRisk" id="businessManagementRisk"
+                                             name="businessManagementRisk" [config]="ckeConfig"
+                                             type="text"></ckeditor>
 
-                        <hr>
-                        <div class="box-header with-border">
-                            <h5 class="box-title title">8. Management Team</h5>
-                        </div>
-                        <div *ngFor="let managementTeam of companyInfoFormGroup.get('managementTeams')['controls']; let managementTeamIndex = index"
-                             class="border-bottom border-dark m-4"
-                             formArrayName="managementTeams">
-                            <div [formGroupName]="managementTeamIndex">
-                                <div class="row">
-                                    <div class="col-md-10 form-group">
-                                        <h5>{{managementTeamIndex + 1}}) Management Team</h5>
-                                    </div>
-                                    <div *ngIf="companyInfoFormGroup.get('managementTeams').length>1"
-                                         class="col-md-2 float-right">
-                                        <input
-                                                (click)="removeManagementTeam(managementTeamIndex)"
-                                                class="align-self-end btn btn-sm btn-danger btn-primary"
-                                                type="button"
-                                                value="Delete">
-                                    </div>
-                                </div>
-                                <div class="row form-group">
-                                    <div class="col-md-6">
-                                        <label for="managementTeamName"><strong>Name</strong></label>
-                                        <input [ngClass]="{ 'is-invalid': (submitted) && managementTeam.get('name').errors }"
-                                               class="form-control"
-                                               formControlName="name" id="managementTeamName"
-                                               name="name" placeholder="Name"
-                                               type="text">
-                                        <div
-                                                *ngIf="(submitted) && managementTeam.get('name').invalid"
+                                   <div *ngIf="submitted && form.businessManagementRisk?.errors "
+                                        class="invalid-feedback">
+                                       <div *ngIf="form.businessManagementRisk?.errors.required">
+                                           Business/Management Risk & Mitigation is required
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                       <div class="row">
+                           <div class="col-md-12">
+                               <div class="form-group">
+                                   <label for="marketRisk"><strong>Industry outlook </strong></label>
+                                   <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.BusinessIndustryOutlook.errors }"
+                                             formControlName="BusinessIndustryOutlook" id="marketRisk"
+                                             name="marketRisk" [config]="ckeConfig"
+                                             type="text"></ckeditor>
+                                   <div *ngIf="submitted && form.BusinessIndustryOutlook?.errors "
+                                        class="invalid-feedback">
+                                       <div *ngIf="form.BusinessIndustryOutlook?.errors.required">
+                                           Industry outlook  is required
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                       <!--sister concern starts-->
+                       <ng-container *ngIf="microCustomerType != 'DIRECT'">
+                           <div>
+                               <h5>6.1. Sister Concern</h5>
+                           </div>
+                           <div class="row">
+                               <div class="col-md-6">
+                                   <div class="form-group">
+                                       <label for="sisterConcern"><strong></strong></label>
+                                       <input id="sisterConcern" formControlName="sisterConcern" name="sisterConcern" type="text"
+                                              class="form-control" placeholder="Sister Concern"/>
+                                       <!--                                   <div *ngIf="(submitted) && form.sisterConcern.invalid"-->
+                                       <!--                                        class="invalid-feedback">-->
+                                       <!--                                       <div *ngIf="form.sisterConcern.errors.required">-->
+                                       <!--                                           Sister Concern is required-->
+                                       <!--                                       </div>-->
+                                       <!--                                   </div>-->
+                                   </div>
+                               </div>
+                           </div>
+                       </ng-container>
+                       <hr>
+                       <div class="box-header with-border">
+                           <h5 class="box-title title">7. Management Team</h5>
+                       </div>
+                       <div *ngFor="let managementTeam of companyInfoFormGroup.get('managementTeams')['controls']; let managementTeamIndex = index" class="border-bottom border-dark m-4"
+                            formArrayName="managementTeams">
+                           <div [formGroupName]="managementTeamIndex">
+                               <div class="row">
+                                   <div class="col-md-10 form-group">
+                                       <h5>{{managementTeamIndex + 1}}) Management Team</h5>
+                                   </div>
+                                   <div *ngIf="companyInfoFormGroup.get('managementTeams')['length']>1"
+                                        class="col-md-2 float-right">
+                                       <input
+                                           (click)="removeManagementTeam(managementTeamIndex)"
+                                           class="align-self-end btn btn-sm btn-danger btn-primary"
+                                           type="button"
+                                           value="Delete">
+                                   </div>
+                               </div>
+                               <div class="row form-group">
+                                   <div class="col-md-6">
+                                       <label for="managementTeamName"><strong>Name</strong></label>
+                                       <input [ngClass]="{ 'is-invalid': (submitted) && managementTeam.get('name').errors }" class="form-control"
+                                              formControlName="name" id="managementTeamName"
+                                              name="name" placeholder="Name"
+                                              type="text">
+                                       <div
+                                           *ngIf="(submitted) && managementTeam.get('name').invalid"
+                                           class="invalid-feedback">
+                                           <div *ngIf="managementTeam.get('name').errors.required">
+                                               Management Team Name is required
+                                           </div>
+                                       </div>
+                                   </div>
+                                   <div class="col-md-6">
+                                       <div class="form-group">
+                                           <label
+                                               for="designation"><strong>Designation</strong></label>
+                                           <select [ngClass]="{ 'is-invalid': (submitted) && managementTeam.get('designation').errors }" class="form-control"
+                                                   formControlName="designation"
+                                                   id="designation"
+                                                   name="designation">
+                                               <option [ngValue]="null">Select Designation
+                                               </option>
+                                               <option *ngFor="let designations of designation"
+                                                       [ngValue]="designations.id">{{designations.name}}</option>
+                                           </select>
+                                           <div
+                                               *ngIf="(submitted) && managementTeam.get('designation').invalid"
+                                               class="invalid-feedback">
+                                               <div
+                                                   *ngIf="managementTeam.get('designation').errors.required">
+                                                   Designation is required
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
+                                   <div class="col-md-6">
+                                       <div class="form-group">
+                                           <label for="companyLegalDocumentAddress"><strong>Address as per Legal Document</strong></label>
+                                           <textarea [ngClass]="{ 'is-invalid': (submitted) && managementTeam.get('companyLegalDocumentAddress').errors }"
+                                                     class="form-control"
+                                                     formControlName="companyLegalDocumentAddress" id="companyLegalDocumentAddress"
+                                                     name="companyLegalDocumentAddress" placeholder="Address as per Legal Document"
+                                                     rows="2"
+                                                     type="text" maxlength="256"></textarea>
+                                           <div *ngIf="(submitted) && managementTeam.get('companyLegalDocumentAddress').invalid"
                                                 class="invalid-feedback">
-                                            <div *ngIf="managementTeam.get('name').errors.required">
-                                                Management Team Name is required
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label
-                                                    for="designation"><strong>Designation</strong></label>
-                                            <select [ngClass]="{ 'is-invalid': (submitted) && managementTeam.get('designation').errors }"
-                                                    class="form-control"
-                                                    formControlName="designation"
-                                                    id="designation"
-                                                    name="designation">
-                                                <option [ngValue]="null">Select Designation
-                                                </option>
-                                                <option *ngFor="let designations of designation"
-                                                        [ngValue]="designations.id">{{designations.name}}</option>
-                                            </select>
-                                            <div
-                                                    *ngIf="(submitted) && managementTeam.get('designation').invalid"
-                                                    class="invalid-feedback">
-                                                <div
-                                                        *ngIf="managementTeam.get('designation').errors.required">
-                                                    Designation is required
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="companyLegalDocumentAddress"><strong>Address as per Legal
-                                                Document</strong></label>
-                                            <textarea
-                                                    [ngClass]="{ 'is-invalid': (submitted) && managementTeam.get('companyLegalDocumentAddress').errors }"
-                                                    class="form-control"
-                                                    formControlName="companyLegalDocumentAddress"
-                                                    id="companyLegalDocumentAddress"
-                                                    name="companyLegalDocumentAddress"
-                                                    placeholder="Address as per Legal Document"
-                                                    rows="2"
-                                                    type="text" maxlength="256"></textarea>
-                                            <div *ngIf="(submitted) && managementTeam.get('companyLegalDocumentAddress').invalid"
-                                                 class="invalid-feedback">
-                                                <div *ngIf="managementTeam.get('companyLegalDocumentAddress').errors.required">
-                                                    Address as per legal document is required
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="text-right">
-                            <input (click)="addManagementTeam()" class="btn btn-sm btn-flat btn-primary"
-                                   type="button"
-                                   value="Add More"/>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="managementTeamNote"><strong>Note</strong></label>
-                                <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.managementTeamNote.errors }"
-                                          formControlName="managementTeamNote" id="managementTeamNote"
-                                          name="managementTeamNote"
-                                          [config]="ckeConfig"></ckeditor>
-                                <div *ngIf="(submitted) && form.managementTeamNote.invalid"
-                                     class="invalid-feedback">
-                                    <div *ngIf="form.managementTeamNote.errors.required">
-                                        Management Team Note is required
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                                               <div *ngIf="managementTeam.get('companyLegalDocumentAddress').errors.required">
+                                                   Address as per legal document is required
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                       <div class="text-right">
+                           <input (click)="addManagementTeam()" class="btn btn-sm btn-flat btn-primary"
+                                  type="button"
+                                  value="Add More"/>
+                       </div>
+                       <div class="col-md-12">
+                           <div class="form-group">
+                               <label for="managementTeamNote"><strong>Note</strong></label>
+                               <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.managementTeamNote.errors }"
+                                         formControlName="managementTeamNote" id="managementTeamNote"
+                                         name="managementTeamNote"
+                                         [config]="ckeConfig"></ckeditor>
+                               <div *ngIf="(submitted) && form.managementTeamNote.invalid"
+                                    class="invalid-feedback">
+                                   <div *ngIf="form.managementTeamNote.errors.required">
+                                       Management Team Note is required
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
 
-                        <!--Information of Proprietor/Shareholder/Partner-->
-                        <div class="box-header with-border">
-                            <h5 class="box-title">9. Information of Proprietor/Shareholder/Partner
-                                with holder %</h5>
-                        </div>
-                        <div *ngFor="let proprietor of companyInfoFormGroup.get('proprietors')['controls']; let proprietorIndex = index"
-                             class="border-bottom border-dark m-4"
-                             formArrayName="proprietors">
-                            <div [formGroupName]="proprietorIndex">
-                                <div class="row">
-                                    <div class="col-md-10 form-group">
-                                        <h5>{{proprietorIndex + 1}}) General Information</h5>
-                                    </div>
-                                    <div *ngIf="companyInfoFormGroup.get('proprietors').length>1"
-                                         class="col-md-2">
-                                        <input
-                                                (click)="removeProprietor(proprietorIndex)"
-                                                class="align-self-end btn btn-sm btn-danger btn-primary"
-                                                type="button"
-                                                value="Delete"/>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="name"><strong>Type</strong></label>
-                                            <select
-                                                    [ngClass]="{ 'is-invalid': (submitted) && proprietor.get('type').errors }"
-                                                    class="form-control" formControlName="type"
-                                                    name="type">
-                                                <option [value]="null">Select type</option>
-                                                <option *ngFor="let designations of designation"
-                                                        [ngValue]="designations.id">{{designations.name}}</option>
-                                            </select>
-                                            <div
-                                                    *ngIf="(submitted) && proprietor.get('type').invalid"
-                                                    class="invalid-feedback">
-                                                <div *ngIf="proprietor.get('type').errors.required">
-                                                    Type is required
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="name"><strong>Name</strong></label>
-                                            <input [ngClass]="{ 'is-invalid': (submitted) && proprietor.get('name').errors }"
-                                                   class="form-control" formControlName="name"
-                                                   id="name" name="name"
-                                                   placeholder="Name"
-                                                   type="text">
-                                            <div
-                                                    *ngIf="(submitted) && proprietor.get('name').invalid"
-                                                    class="invalid-feedback">
-                                                <div *ngIf="proprietor.get('name').errors.required">
-                                                    Proprietor Name is required
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="contactNo"><strong>Contact
-                                                No</strong></label>
-                                            <input [ngClass]="{ 'is-invalid': (submitted) && proprietor.get('contactNo').errors }"
-                                                   class="form-control"
-                                                   formControlName="contactNo" id="contactNo"
-                                                   name="contactNo" placeholder="Contact No"
-                                                   type="text">
-                                            <div
-                                                    *ngIf="(submitted) && proprietor.get('contactNo').invalid"
-                                                    class="invalid-feedback">
-                                                <div
-                                                        *ngIf="proprietor.get('contactNo').errors.required">
-                                                    Proprietor Contact No is required
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="share"><strong>Share %</strong></label>
-                                            <input [ngClass]="{ 'is-invalid': (submitted) && proprietor.get('share').errors }"
-                                                   class="form-control" formControlName="share"
-                                                   id="share"
-                                                   name="share" placeholder="Share"
-                                                   type="number" appDecimalNumber
-                                                   (input)="calculateSharePercent('proprietors', 'totalSharePercent')"/>
-                                            <div
-                                                    *ngIf="(submitted) && proprietor.get('share').invalid"
-                                                    class="invalid-feedback">
-                                                <div *ngIf="proprietor.get('share').errors.required">
-                                                    Share is required
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                       <!--Information of Proprietor/Shareholder/Partner-->
+                       <div class="box-header with-border">
+                           <h5 class="box-title">8. Information of Proprietor/Shareholder/Partner
+                               with holder %</h5>
+                       </div>
+                       <div *ngFor="let proprietor of companyInfoFormGroup.get('proprietors')['controls']; let proprietorIndex = index" class="border-bottom border-dark m-4"
+                            formArrayName="proprietors">
+                           <div [formGroupName]="proprietorIndex">
+                               <div class="row">
+                                   <div class="col-md-10 form-group">
+                                       <h5>{{proprietorIndex + 1}}) General Information</h5>
+                                   </div>
+                                   <div *ngIf="companyInfoFormGroup.get('proprietors')['length']>1"
+                                        class="col-md-2">
+                                       <input
+                                           (click)="removeProprietor(proprietorIndex)"
+                                           class="align-self-end btn btn-sm btn-danger btn-primary"
+                                           type="button"
+                                           value="Delete"/>
+                                   </div>
+                               </div>
+                               <div class="row">
+                                   <div class="col-md-4">
+                                       <div class="form-group">
+                                           <label for="name"><strong>Type</strong></label>
+                                           <select
+                                               [ngClass]="{ 'is-invalid': (submitted) && proprietor.get('type').errors }"
+                                               class="form-control" formControlName="type"
+                                               name="type">
+                                               <option [value]="null">Select type</option>
+                                               <option *ngFor="let designations of designation"
+                                                       [ngValue]="designations.id">{{designations.name}}</option>
+                                           </select>
+                                           <div
+                                               *ngIf="(submitted) && proprietor.get('type').invalid"
+                                               class="invalid-feedback">
+                                               <div *ngIf="proprietor.get('type').errors.required">
+                                                   Type is required
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
+                               <div class="row">
+                                   <div class="col-md-4">
+                                       <div class="form-group">
+                                           <label for="name"><strong>Name</strong></label>
+                                           <input [ngClass]="{ 'is-invalid': (submitted) && proprietor.get('name').errors }" class="form-control" formControlName="name"
+                                                  id="name" name="name"
+                                                  placeholder="Name"
+                                                  type="text">
+                                           <div
+                                               *ngIf="(submitted) && proprietor.get('name').invalid"
+                                               class="invalid-feedback">
+                                               <div *ngIf="proprietor.get('name').errors.required">
+                                                   Proprietor Name is required
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
+                                   <div class="col-md-4">
+                                       <div class="form-group">
+                                           <label for="contactNo"><strong>Contact
+                                               No</strong></label>
+                                           <input [ngClass]="{ 'is-invalid': (submitted) && proprietor.get('contactNo').errors }" class="form-control"
+                                                  formControlName="contactNo" id="contactNo"
+                                                  name="contactNo" placeholder="Contact No"
+                                                  type="text">
+                                           <div
+                                               *ngIf="(submitted) && proprietor.get('contactNo').invalid"
+                                               class="invalid-feedback">
+                                               <div
+                                                   *ngIf="proprietor.get('contactNo').errors.required">
+                                                   Proprietor Contact No is required
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
+                                   <div class="col-md-4">
+                                       <div class="form-group">
+                                           <label for="share"><strong>Share %</strong></label>
+                                           <input [ngClass]="{ 'is-invalid': (submitted) && proprietor.get('share').errors }" class="form-control" formControlName="share"
+                                                  id="share"
+                                                  name="share" placeholder="Share"
+                                                  type="number" appDecimalNumber (input)="calculateSharePercent('proprietors', 'totalSharePercent')"/>
+                                           <div
+                                               *ngIf="(submitted) && proprietor.get('share').invalid"
+                                               class="invalid-feedback">
+                                               <div *ngIf="proprietor.get('share').errors.required">
+                                                   Share is required
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
+                               </div>
 
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label><strong>Address Line 1</strong></label>
-                                            <input [ngClass]="{'is-invalid': (submitted) && proprietor.get('addressLine1').errors}"
-                                                   class="form-control"
-                                                   formControlName="addressLine1"
-                                                   placeholder="Address Line 1"
-                                                   type="text">
-                                            <div *ngIf="(submitted) && proprietor.get('addressLine1').invalid"
-                                                 class="invalid-feedback">
-                                                <div *ngIf="proprietor.get('addressLine1').errors.required">
-                                                    Address Line 1 is required
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                               <div class="row">
+                                   <div class="col-md-6">
+                                       <div class="form-group">
+                                           <label><strong>Address Line 1</strong></label>
+                                           <input [ngClass]="{'is-invalid': (submitted) && proprietor.get('addressLine1').errors}" class="form-control"
+                                                  formControlName="addressLine1"
+                                                  placeholder="Address Line 1"
+                                                  type="text">
+                                           <div *ngIf="(submitted) && proprietor.get('addressLine1').invalid" class="invalid-feedback">
+                                               <div *ngIf="proprietor.get('addressLine1').errors.required">
+                                                   Address Line 1 is required
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
 
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label><strong>Address Line 2</strong></label>
-                                            <input class="form-control"
-                                                   formControlName="addressLine2"
-                                                   placeholder="Address Line 2 (optional)"
-                                                   type="text">
-                                        </div>
-                                    </div>
-                                </div>
+                                   <div class="col-md-6">
+                                       <div class="form-group">
+                                           <label><strong>Address Line 2</strong></label>
+                                           <input class="form-control"
+                                                  formControlName="addressLine2"
+                                                  placeholder="Address Line 2 (optional)"
+                                                  type="text">
+                                       </div>
+                                   </div>
+                               </div>
 
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="province"><strong>Province</strong></label>
-                                            <ng-select formControlName="province"
-                                                       (change)="getDistricts(proprietor.get('province').value.id, proprietorIndex)"
-                                                       bindLabel="name" id="province">
-                                                <ng-option *ngFor="let province of provinceList"
-                                                           [value]="province">{{province.name}}</ng-option>
-                                            </ng-select>
-                                            <div
-                                                    *ngIf="(submitted) && proprietor.get('province').invalid"
-                                                    class="invalid-feedback">
-                                                <div
-                                                        *ngIf="proprietor.get('province').errors.required">
-                                                    Province is required
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="district"><strong>District</strong></label>
-                                            <ng-select formControlName="district"
-                                                       (change)="getMunicipalities(proprietor.get('district').value.id, proprietorIndex)"
-                                                       bindLabel="name" id="district">
-                                                <ng-option
-                                                        *ngFor="let districtVal of addressList[proprietorIndex].districtList"
-                                                        [value]="districtVal">{{districtVal.name}}</ng-option>
-                                            </ng-select>
-                                            <div
-                                                    *ngIf="(submitted) && proprietor.get('district').invalid"
-                                                    class="invalid-feedback">
-                                                <div
-                                                        *ngIf="proprietor.get('district').errors.required">
-                                                    District is required
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="municipalityVdc"><strong>Municipalities or VDC</strong></label>
-                                            <ng-select formControlName="municipalityVdc" bindLabel="name"
-                                                       id="municipalityVdc">
-                                                <ng-option
-                                                        *ngFor="let municipalityVal of addressList[proprietorIndex].municipalityVdcList"
-                                                        [value]="municipalityVal">{{municipalityVal.name}}</ng-option>
-                                            </ng-select>
-                                            <div
-                                                    *ngIf="(submitted) && proprietor.get('municipalityVdc').invalid"
-                                                    class="invalid-feedback">
-                                                <div
-                                                        *ngIf="proprietor.get('municipalityVdc').errors.required">
-                                                    Municipality Vdc is required
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                               <div class="row">
+                                   <div class="col-md-4">
+                                       <div class="form-group">
+                                           <label for="province"><strong>Province</strong></label>
+                                           <ng-select formControlName="province" (change)="getDistricts(proprietor.get('province').value.id, proprietorIndex)" bindLabel="name" id="province">
+                                               <ng-option *ngFor="let province of provinceList" [value]="province">{{province.name}}</ng-option>
+                                           </ng-select>
+                                           <div
+                                               *ngIf="(submitted) && proprietor.get('province').invalid"
+                                               class="invalid-feedback">
+                                               <div
+                                                   *ngIf="proprietor.get('province').errors.required">
+                                                   Province is required
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
+                                   <div class="col-md-4">
+                                       <div class="form-group">
+                                           <label for="district"><strong>District</strong></label>
+                                           <ng-select formControlName="district" (change)="getMunicipalities(proprietor.get('district').value.id, proprietorIndex)" bindLabel="name" id="district">
+                                               <ng-option *ngFor="let districtVal of addressList[proprietorIndex].districtList" [value]="districtVal">{{districtVal.name}}</ng-option>
+                                           </ng-select>
+                                           <div
+                                               *ngIf="(submitted) && proprietor.get('district').invalid"
+                                               class="invalid-feedback">
+                                               <div
+                                                   *ngIf="proprietor.get('district').errors.required">
+                                                   District is required
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
+                                   <div class="col-md-4">
+                                       <div class="form-group">
+                                           <label for="municipalityVdc"><strong>Municipalities or VDC</strong></label>
+                                           <ng-select formControlName="municipalityVdc" bindLabel="name" id="municipalityVdc">
+                                               <ng-option *ngFor="let municipalityVal of addressList[proprietorIndex].municipalityVdcList" [value]="municipalityVal">{{municipalityVal.name}}</ng-option>
+                                           </ng-select>
+                                           <div
+                                               *ngIf="(submitted) && proprietor.get('municipalityVdc').invalid"
+                                               class="invalid-feedback">
+                                               <div
+                                                   *ngIf="proprietor.get('municipalityVdc').errors.required">
+                                                   Municipality Vdc is required
+                                               </div>
+                                           </div>
+                                       </div>
+                                   </div>
 
                                    <div class="col-md-4 form-group">
                                        <label>
@@ -1480,517 +1552,507 @@
                            </div>
                        </div>
 
-                        <div class="row">
-                            <div class="col-md-6 pl-5">
-                                <label class="title"><strong>Total Share Percent :
-                                    {{companyInfoFormGroup.get('totalSharePercent').value}}%</strong></label>
-                            </div>
-                            <div class="col-md-6 text-right">
-                                <input [disabled]="!companyInfoFormGroup.get('proprietors').valid"
-                                       (click)="addProprietor()" class="btn btn-sm btn-flat btn-primary"
-                                       type="button"
-                                       value="Add More"/>
-                            </div>
-                        </div>
+                       <div class="row">
+                           <div class="col-md-6 pl-5" *ngIf="client === clientName?.MEGA">
+                               <label class="title"><strong>Total Share Percent :
+                                   {{companyInfoFormGroup.get('totalSharePercent').value}}%</strong></label>
+                           </div>
+                           <div class="col-md-6 text-right">
+                               <input [disabled]="!companyInfoFormGroup.get('proprietors').valid" (click)="addProprietor()" class="btn btn-sm btn-flat btn-primary"
+                                      type="button"
+                                      value="Add More"/>
+                           </div>
+                       </div>
 
-                        <hr>
-                        <!--10. SWOT Analysis-->
-                        <ng-container *ngIf="microCustomerType != 'DIRECT'">
-                            <div class="box-header with-border">
-                                <h5 class="box-title">10. SWOT Analysis</h5>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="strength"><strong>Strength</strong></label>
-                                        <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.strength.errors }"
-                                                  formControlName="strength" id="strength"
-                                                  name="strength" [config]="ckeConfig"
-                                                  type="text"></ckeditor>
-                                        <div *ngIf="(submitted) && form.strength.invalid"
-                                             class="text-danger">
-                                            <div *ngIf="form.strength.errors.required">
-                                                Strength is required
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="weakness"><strong>Weakness</strong></label>
-                                        <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.weakness.errors }"
-                                                  formControlName="weakness" id="weakness"
-                                                  name="weakness" [config]="ckeConfig"
-                                                  type="text"></ckeditor>
-                                        <div *ngIf="(submitted) && form.weakness.invalid"
-                                             class="text-danger">
-                                            <div *ngIf="form.weakness.errors.required">
-                                                Weakness is required
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="opportunity"><strong>Opportunity</strong></label>
-                                        <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.opportunity.errors }"
-                                                  formControlName="opportunity" id="opportunity"
-                                                  name="opportunity" [config]="ckeConfig"></ckeditor>
-                                        <div *ngIf="(submitted) && form.opportunity.invalid"
-                                             class="text-danger">
-                                            <div *ngIf="form.opportunity.errors.required">
-                                                Opportunity is required
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="threats"><strong>Threats</strong></label>
-                                        <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.threats.errors }"
-                                                  formControlName="threats"
-                                                  id="threats"
-                                                  name="threats" [config]="ckeConfig"></ckeditor>
-                                        <div *ngIf="(submitted) && form.threats.invalid"
-                                             class="text-danger">
-                                            <div *ngIf="form.threats.errors.required">
-                                                Threats is required
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="box-header with-border">
-                                <h5 class="box-title">11. Succession Risk & Mitigation</h5>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label for="successionPlanning"><strong></strong></label>
-                                        <ckeditor
-                                                [ngClass]="{ 'is-invalid': (submitted) && form.successionPlanning.errors }"
-                                                formControlName="successionPlanning" id="successionPlanning"
-                                                name="successionPlanning"
-                                                [config]="ckeConfig"></ckeditor>
-                                        <div *ngIf="(submitted) && form.successionPlanning.invalid"
-                                             class="invalid-feedback">
-                                            <div *ngIf="form.successionPlanning.errors.required">
-                                                Succession Risk & Mitigation is required
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </ng-container>
-                        <hr>
-                        <!--Business Objective-->
+                       <hr>
+                       <div class="box-header with-border">
+                           <h5 class="box-title">9. Succession Risk & Mitigation</h5>
+                       </div>
+                       <div class="row">
+                           <div class="col-md-12">
+                               <div class="form-group">
+                                   <label for="successionPlanning"><strong></strong></label>
+                                   <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.successionPlanning.errors }"
+                                             formControlName="successionPlanning" id="successionPlanning"
+                                             name="successionPlanning"
+                                             [config]="ckeConfig"></ckeditor>
+                                   <div *ngIf="(submitted) && form.successionPlanning.invalid"
+                                        class="invalid-feedback">
+                                       <div *ngIf="form.successionPlanning.errors.required">
+                                           Succession Risk & Mitigation is required
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                       <hr>
+                       <!--market scenario-->
+                       <app-market-scenario [hidden]="microCustomerType == 'DIRECT'"
+                                            [marketScenario]="companyJsonData?.marketScenario" #marketScenarioComponent></app-market-scenario>
+                       <hr>
+                       <!--10. SWOT Analysis-->
+                  <ng-container *ngIf="microCustomerType != 'DIRECT'">
+                      <div class="box-header with-border">
+                          <h5 class="box-title">11. SWOT Analysis</h5>
+                      </div>
+                      <div class="row">
+                          <div class="col-md-6">
+                              <div class="form-group">
+                                  <label for="strength"><strong>Strength</strong></label>
+                                  <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.strength.errors }"
+                                            formControlName="strength" id="strength"
+                                            name="strength" [config]="ckeConfig"
+                                            type="text"></ckeditor>
+                                  <div *ngIf="(submitted) && form.strength.invalid"
+                                       class="text-danger">
+                                      <div *ngIf="form.strength.errors.required">
+                                          Strength is required
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-md-6">
+                              <div class="form-group">
+                                  <label for="weakness"><strong>Weakness</strong></label>
+                                  <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.weakness.errors }"
+                                            formControlName="weakness" id="weakness"
+                                            name="weakness" [config]="ckeConfig"
+                                            type="text"></ckeditor>
+                                  <div *ngIf="(submitted) && form.weakness.invalid"
+                                       class="text-danger">
+                                      <div *ngIf="form.weakness.errors.required">
+                                          Weakness is required
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-md-6">
+                              <div class="form-group">
+                                  <label for="opportunity"><strong>Opportunity</strong></label>
+                                  <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.opportunity.errors }"
+                                            formControlName="opportunity" id="opportunity"
+                                            name="opportunity" [config]="ckeConfig"></ckeditor>
+                                  <div *ngIf="(submitted) && form.opportunity.invalid"
+                                       class="text-danger">
+                                      <div *ngIf="form.opportunity.errors.required">
+                                          Opportunity is required
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-md-6">
+                              <div class="form-group">
+                                  <label for="threats"><strong>Threats</strong></label>
+                                  <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.threats.errors }" formControlName="threats"
+                                            id="threats"
+                                            name="threats" [config]="ckeConfig"></ckeditor>
+                                  <div *ngIf="(submitted) && form.threats.invalid"
+                                       class="text-danger">
+                                      <div *ngIf="form.threats.errors.required">
+                                          Threats is required
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </ng-container>
+                       <hr>
+                       <!--Business Objective-->
+                       <div class="box-header with-border">
+                           <h5 class="box-title">12. Business Objective</h5>
+                       </div>
+                       <div class="row">
+                           <div class="col-md-12">
+                               <div class="form-group">
+                                   <label for="businessObjective"><strong></strong></label>
+                                   <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.businessObjective.errors }"
+                                             formControlName="businessObjective" id="businessObjective"
+                                             name="businessObjective" [config]="ckeConfig"
+                                             type="text"></ckeditor>
+                                   <div *ngIf="(submitted) && form.businessObjective.invalid"
+                                        class="invalid-feedback">
+                                       <div *ngIf="form.businessObjective.errors.required">
+                                           Business Objective is required
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                       <hr>
+                       <!--Raw materials-->
+                    <ng-container *ngIf="microCustomerType != 'DIRECT'">
                         <div class="box-header with-border">
-                            <h5 class="box-title">12. Business Objective</h5>
+                            <h5 class="box-title">13. Raw Materials</h5>
                         </div>
                         <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="businessObjective"><strong></strong></label>
-                                    <ckeditor [ngClass]="{ 'is-invalid': (submitted) && form.businessObjective.errors }"
-                                              formControlName="businessObjective" id="businessObjective"
-                                              name="businessObjective" [config]="ckeConfig"
-                                              type="text"></ckeditor>
-                                    <div *ngIf="(submitted) && form.businessObjective.invalid"
-                                         class="invalid-feedback">
-                                        <div *ngIf="form.businessObjective.errors.required">
-                                            Business Objective is required
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
-                        <!--Raw materials-->
-                        <ng-container *ngIf="microCustomerType != 'DIRECT'">
-                            <div class="box-header with-border">
-                                <h5 class="box-title">13. Raw Materials</h5>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <label for="rawMaterialSourcing"><strong>Raw Material
-                                        Sourcing</strong></label> <br>
-                                    <nb-select
-                                            [ngClass]="{ 'is-invalid': (submitted) && form.rawMaterialSourcing.errors }"
-                                            formControlName="rawMaterialSourcing" id="rawMaterialSourcing"
-                                            name="rawMaterialSourcing"
-                                            placeholder="Select raw material" multiple fullWidth>
-                                        <nb-option value="local">Local</nb-option>
-                                        <nb-option value="imported">Imported</nb-option>
-                                    </nb-select>
-                                    <!--                                   <nb-radio-group class="close d-inline-flex float-left"-->
-                                    <!--                                                   [ngClass]="{ 'is-invalid': (submitted) && form.rawMaterialSourcing.errors }"-->
-                                    <!--                                                   formControlName="rawMaterialSourcing"-->
-                                    <!--                                                   id="rawMaterialSourcing"-->
-                                    <!--                                                   name="rawMaterialSourcing">-->
-                                    <!--                                       <nb-radio value="local">Local</nb-radio>-->
-                                    <!--                                       <nb-radio value="imported">Imported</nb-radio>-->
-                                    <!--                                   </nb-radio-group>-->
-                                    <span *ngIf="submitted && form.rawMaterialSourcing?.errors "
-                                          class="help-block">
-                                       <span class="small text-danger"
-                                             *ngIf="form.rawMaterialSourcing?.errors.required">
+                            <div class="col-md-3">
+                                <label for="rawMaterialSourcing"><strong>Raw Material
+                                    Sourcing</strong></label> <br>
+                                <nb-select
+                                        [ngClass]="{ 'is-invalid': (submitted) && form.rawMaterialSourcing.errors }"
+                                        formControlName="rawMaterialSourcing" id="rawMaterialSourcing" name="rawMaterialSourcing"
+                                        placeholder="Select raw material" multiple fullWidth>
+                                    <nb-option value="local">Local</nb-option>
+                                    <nb-option value="imported">Imported</nb-option>
+                                </nb-select>
+                                <!--                                   <nb-radio-group class="close d-inline-flex float-left"-->
+                                <!--                                                   [ngClass]="{ 'is-invalid': (submitted) && form.rawMaterialSourcing.errors }"-->
+                                <!--                                                   formControlName="rawMaterialSourcing"-->
+                                <!--                                                   id="rawMaterialSourcing"-->
+                                <!--                                                   name="rawMaterialSourcing">-->
+                                <!--                                       <nb-radio value="local">Local</nb-radio>-->
+                                <!--                                       <nb-radio value="imported">Imported</nb-radio>-->
+                                <!--                                   </nb-radio-group>-->
+                                <span *ngIf="submitted && form.rawMaterialSourcing?.errors "
+                                      class="help-block" >
+                                       <span class="small text-danger" *ngIf="form.rawMaterialSourcing?.errors.required">
                                            Raw Material Sourcing is required
                                        </span>
                                    </span>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label for="rawMaterialAvailability"><strong>Raw material
-                                            availability</strong></label> <br>
-                                        <nb-radio-group class="close d-inline-flex float-left"
-                                                        formControlName="rawMaterialAvailability"
-                                                        [ngClass]="{ 'is-invalid': (submitted) && form.rawMaterialAvailability.errors }"
-                                                        id="rawMaterialAvailability"
-                                                        name="rawMaterialAvailability">
-                                            <nb-radio value="Easily available">Easily available</nb-radio>
-                                            <nb-radio value="Difficult">Difficult</nb-radio>
-                                        </nb-radio-group>
-                                        <br>
-                                        <div *ngIf="submitted && form.rawMaterialAvailability?.errors "
-                                             class="small text-danger">
-                                            <div *ngIf="form.rawMaterialAvailability?.errors.required">
-                                                Raw Material Availability is required
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </ng-container>
-                        <hr>
-                        <!--market scenario-->
-                        <app-market-scenario [hidden]="microCustomerType == 'DIRECT'"
-                                             [marketScenario]="companyJsonData?.marketScenario"
-                                             #marketScenarioComponent></app-market-scenario>
-                        <hr>
-                        <div class="row">
-                            <div class="col-md-12" *ngIf="microCustomerType != 'DIRECT'">
-                                <div class="form-group">
-                                    <h5 class="box-title">15. Group’s
-                                        background</h5>
-                                    <ckeditor
-                                            rows="4"
-                                            [ngClass]="{ 'is-invalid': (submitted) && form.groupsBackGround.errors }"
-                                            formControlName="groupsBackGround" id="groupsBackGround"
-                                            name="groupsBackGround" [config]="ckeConfig"></ckeditor>
-                                    <div *ngIf="(submitted) && form.groupsBackGround.invalid"
-                                         class="invalid-feedback">
-                                        <div *ngIf="form.groupsBackGround.errors.required">
-                                            Group’s background is required
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <h5 class="box-title">16. Legal Review
-                                        Remarks</h5>
-                                    <input
-                                            [ngClass]="{ 'is-invalid': (submitted) && form.legalReviewRemark.errors }"
-                                            class="form-control"
-                                            formControlName="legalReviewRemark" id="legalReviewRemark"
-                                            name="legalReviewRemark" placeholder="Legal Review Remark"
-                                            type="text"/>
-                                    <div *ngIf="(submitted) && form.legalReviewRemark.invalid"
-                                         class="invalid-feedback">
-                                        <div *ngIf="form.legalReviewRemark.errors.required">
-                                            Group’s background is required
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!--  Business Given -->
-                        <hr>
-                        <ng-container class="box-header with-border">
-                            <h5 class="box-title">17. Business given</h5>
-                            <table class="table table-bordered table-responsive-md table-hover table-sm sb-small text-center table-striped">
-                                <tr class="sb-bg-secondary text-white">
-                                    <th>Particular</th>
-                                    <th>Amount</th>
-                                </tr>
-                                <tr>
-                                    <td>Interest Income</td>
-                                    <td><input (keyup)="calculateTotalIncomeDuringReview()"
-                                               class="form-control text-center"
-                                               formControlName="interestIncomeDuringReview"
-                                               type="number" appDecimalNumber>
-
-                                    </td>
-
-                                </tr>
-                                <tr>
-                                    <td>Loan Processing Fee</td>
-                                    <td><input (keyup)="calculateTotalIncomeDuringReview()"
-                                               class="form-control text-center"
-                                               formControlName="loanProcessingFeeDuringReview"
-                                               type="number" appDecimalNumber>
-                                    </td>
-
-                                </tr>
-                                <tr>
-                                    <td>LC Commission</td>
-                                    <td><input (keyup)="calculateTotalIncomeDuringReview()"
-                                               class="form-control text-center"
-                                               formControlName="lcCommissionDuringReview"
-                                               type="number" appDecimalNumber>
-
-                                    </td>
-
-                                </tr>
-                                <tr>
-                                    <td>Guarantee Commission</td>
-                                    <td><input (keyup)="calculateTotalIncomeDuringReview()"
-                                               class="form-control text-center"
-                                               formControlName="guaranteeCommissionDuringReview"
-                                               type="number" appDecimalNumber>
-                                    </td>
-
-                                </tr>
-                                <tr>
-                                    <td>Other Commission</td>
-                                    <td><input (keyup)="calculateTotalIncomeDuringReview()"
-                                               class="form-control text-center"
-                                               formControlName="otherCommissionDuringReview"
-                                               type="number" appDecimalNumber>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Saving Account</td>
-                                    <td><input (keyup)="calculateTotalIncomeDuringReview()"
-                                               class="form-control text-center"
-                                               formControlName="savingAccountDuringReview"
-                                               type="number" appDecimalNumber>
-
-                                    </td>
-
-                                </tr>
-                                <tr>
-                                    <td>Payroll Account</td>
-                                    <td><input (keyup)="calculateTotalIncomeDuringReview()"
-                                               class="form-control text-center"
-                                               formControlName="payrollAccountDuringReview"
-                                               type="number" appDecimalNumber>
-
-                                    </td>
-
-                                </tr>
-                                <tr>
-                                    <td>Debit Cards</td>
-                                    <td><input (keyup)="calculateTotalIncomeDuringReview()"
-                                               class="form-control text-center"
-                                               formControlName="debitCardsDuringReview"
-                                               type="number" appDecimalNumber>
-
-                                    </td>
-
-                                </tr>
-                                <tr>
-                                    <td>Credit Cards</td>
-                                    <td><input (keyup)="calculateTotalIncomeDuringReview()"
-                                               class="form-control text-center"
-                                               formControlName="creditCardsDuringReview"
-                                               type="number" appDecimalNumber>
-
-                                    </td>
-
-                                </tr>
-                                <tr>
-                                    <td>Mobile Bank / Internet Banking</td>
-                                    <td><input (keyup)="calculateTotalIncomeDuringReview()"
-                                               class="form-control text-center"
-                                               formControlName="mobileBankingDuringReview"
-                                               type="number" appDecimalNumber>
-
-                                    </td>
-
-                                </tr>
-                                <tr>
-                                    <td>Locker</td>
-                                    <td><input (keyup)="calculateTotalIncomeDuringReview()"
-                                               class="form-control text-center"
-                                               formControlName="lockerDuringReview"
-                                               type="number" appDecimalNumber>
-
-                                    </td>
-
-                                </tr>
-                                <tr>
-                                    <td><strong>Total</strong></td>
-                                    <td><input readonly formControlName="total" class="form-control text-center"></td>
-                                </tr>
-
-                            </table>
-                        </ng-container>
-                    </nb-tab>
-                    <!--  new tab detail start from here-->
-                    <nb-tab *ngIf="!disableCrgAlpha && !microCustomer" tabTitle="Other Detail">
-                        <em class="fa fa-info-circle"><em class="ml-2">Note : These are mandatory fields for generating
-                            CRG (Alpha)</em></em>
-                        <hr>
-                        <app-banking-relation #bankingRelationComponent
-                                              [formValue]="bankingRelationshipInput">
-                        </app-banking-relation>
-                        <hr>
-                        <div class="box-header with-border">
-                            <h5 class="box-title">9. Business & Industry</h5>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 form-group">
-                                <label><strong>Regulatory Concern</strong></label>
-                                <select formControlName="regulatoryConcern" id="regulatoryConcern"
-                                        [ngClass]="{'is-invalid':submitted &&  form.regulatoryConcern?.errors}"
-                                        class="form-control">
-                                    <option [value]="null" hidden>Select regulatory concern here</option>
-                                    <option *ngFor="let regConcern of regulatoryConcernList"
-                                            [value]="regConcern?.value">
-                                        {{regConcern?.value}}
-                                </select>
-                                <div *ngIf="(submitted) &&  form.regulatoryConcern.errors" class="small text-danger">
-                                    <div *ngIf="form.regulatoryConcern.errors.required">
-                                        Regulatory Concern is required
-                                    </div>
-                                </div>
                             </div>
                             <div class="col-md-3">
-                                <label><strong>Supplier</strong></label>
-                                <select formControlName="supplier" id="supplier" class="form-control">
-                                    <option [value]="null" hidden>Select supplier</option>
-                                    <option *ngFor="let supplier of supplierList"
-                                            [value]="supplier?.value">
-                                        {{supplier?.value}}
-                                    </option>
-                                </select>
-                                <div *ngIf="(submitted) &&  form.supplier.errors" class="small text-danger">
-                                    <div *ngIf="form.supplier.errors.required">
-                                        Supplier is required
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <label><strong>Buyer</strong></label>
-                                <select formControlName="buyer" id="buyer"
-                                        [ngClass]="{'is-invalid':submitted &&  form.buyer?.errors}"
-                                        class="form-control">
-                                    <option [value]="null" hidden>Select Buyer</option>
-                                    <option *ngFor="let buyer of buyerList"
-                                            [value]="buyer?.value">
-                                        {{buyer?.value}}
-                                </select>
-                                <div *ngIf="(submitted) &&  form.buyer.errors" class="small text-danger">
-                                    <div *ngIf="form.buyer.errors.required">
-                                        Buyer is required
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                        <hr>
-                        <div class="row">
-                            <div class="col-md-3">
-                                <div>
-                                    <label><strong>Industry Growth </strong></label>
-                                </div>
                                 <div class="form-group">
-                                    <select formControlName="industryGrowth" id="industryGrowth"
-                                            [ngClass]="{'is-invalid':submitted &&  form.industryGrowth?.errors}"
-                                            class="form-control">
-                                        <option [value]="null" hidden>Select Industry Growth</option>
-                                        <option *ngFor="let industryGrowth of industryGrowthList"
-                                                [value]="industryGrowth?.value">
-                                            {{industryGrowth?.value}}
-                                    </select>
-                                    <div *ngIf="(submitted) &&  form.industryGrowth.errors" class="small text-danger">
-                                        <div *ngIf="form.industryGrowth.errors.required">
-                                            Industry Growth is required
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div>
-                                    <label><strong>Market Competition</strong></label>
-                                </div>
-                                <div class="form-group">
-                                    <select formControlName="marketCompetition" id="marketCompetition"
-                                            [ngClass]="{'is-invalid':submitted &&  form.marketCompetition?.errors}"
-                                            class="form-control">
-                                        <option [value]="null" hidden>Select Market Competition</option>
-                                        <option *ngFor="let marketComp of marketCompetitionList"
-                                                [value]="marketComp?.value">
-                                            {{marketComp?.value}}
-                                    </select>
-                                    <div *ngIf="(submitted) &&  form.marketCompetition.errors"
+                                    <label for="rawMaterialAvailability"><strong>Raw material
+                                        availability</strong></label> <br>
+                                    <nb-radio-group class="close d-inline-flex float-left"
+                                                    formControlName="rawMaterialAvailability"
+                                                    [ngClass]="{ 'is-invalid': (submitted) && form.rawMaterialAvailability.errors }"
+                                                    id="rawMaterialAvailability"
+                                                    name="rawMaterialAvailability">
+                                        <nb-radio value="Easily available">Easily available</nb-radio>
+                                        <nb-radio value="Difficult">Difficult</nb-radio>
+                                    </nb-radio-group><br>
+                                    <div *ngIf="submitted && form.rawMaterialAvailability?.errors "
                                          class="small text-danger">
-                                        <div *ngIf="form.marketCompetition.errors.required">
-                                            Market Competition Growth is required
+                                        <div *ngIf="form.rawMaterialAvailability?.errors.required">
+                                            RawMaterial Availability is required
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div>
-                                    <label><strong>Experience </strong></label>
-                                </div>
-                                <div class="form-group">
-                                    <select formControlName="experience" id="experience"
-                                            [ngClass]="{'is-invalid':submitted &&  form.experience?.errors}"
-                                            class="form-control">
-                                        <option [value]="null" hidden>Select Experience</option>
-                                        <option *ngFor="let experience of experiences"
-                                                [value]="experience?.value">
-                                            {{experience?.value}}
-                                    </select>
-                                    <div *ngIf="(submitted) &&  form.experience.errors" class="small text-danger">
-                                        <div *ngIf="form.experience.errors.required">
-                                            Experience Growth is required
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="col-md-3">
-                                <div>
-                                    <label><strong>Succession </strong></label>
-                                </div>
-                                <select formControlName="succession" id="succession"
-                                        [ngClass]="{'is-invalid':submitted &&  form.succession?.errors}"
-                                        class="form-control">
-                                    <option [value]="null" hidden>Select succession</option>
-                                    <option *ngFor="let succession of successionList"
-                                            [value]="succession?.value">
-                                        {{succession?.value}}
-                                </select>
-                                <div *ngIf="(submitted) &&  form.succession.errors" class="small text-danger">
-                                    <div *ngIf="form.succession.errors.required">
-                                        Succession is required
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </nb-tab>
-                    <!--micro customer detail-->
-                    <nb-tab *ngIf="microCustomer" tabTitle="Micro Customer">
-                        <app-micro-company-form-component *ngIf="microCustomerType != 'DIRECT'"
-                                                          #microCompanyFormComponent
-                                                          [data]="companyJsonData?.microCustomerDetail"></app-micro-company-form-component>
-                        <app-micro-individual-form *ngIf="microCustomerType == 'DIRECT'" #microIndividualFormComponent
-                                                   [data]="companyJsonData?.microCustomerDetail"></app-micro-individual-form>
+                    </ng-container>
+                       <hr>
+                       <div class="row">
+                           <div class="col-md-12" *ngIf="microCustomerType != 'DIRECT'">
+                               <div class="form-group">
+                                   <h5 class="box-title">14. Group’s
+                                       background</h5>
+                                   <ckeditor
+                                       rows="4"
+                                       [ngClass]="{ 'is-invalid': (submitted) && form.groupsBackGround.errors }"
+                                       formControlName="groupsBackGround" id="groupsBackGround"
+                                       name="groupsBackGround" [config]="ckeConfig"></ckeditor>
+                                   <div *ngIf="(submitted) && form.groupsBackGround.invalid"
+                                        class="invalid-feedback">
+                                       <div *ngIf="form.groupsBackGround.errors.required">
+                                           Group’s background is required
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                           <div class="col-md-12">
+                               <div class="form-group">
+                                   <h5 class="box-title">15.Legal review
+                                       Remarks</h5>
+                                   <input
+                                       [ngClass]="{ 'is-invalid': (submitted) && form.legalReviewRemark.errors }"
+                                       class="form-control"
+                                       formControlName="legalReviewRemark" id="legalReviewRemark"
+                                       name="legalReviewRemark" placeholder="legalReviewRemark"
+                                       type="text"/>
+                                   <div *ngIf="(submitted) && form.legalReviewRemark.invalid"
+                                        class="invalid-feedback">
+                                       <div *ngIf="form.legalReviewRemark.errors.required">
+                                           Group’s background is required
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                       <!--  Business Given -->
+                       <hr>
+<!--                       <ng-container  *ngIf="!srdbAffiliatedId" class="box-header with-border">-->
+<!--                           <h5 class="box-title">16. Business given</h5>-->
+<!--                           <table class="table table-bordered table-responsive-md table-hover table-sm sb-small text-center table-striped">-->
+<!--                               <tr class="sb-bg-secondary text-white">-->
+<!--                                   <th>Particular</th>-->
+<!--                                   <th>Amount</th>-->
+<!--                               </tr>-->
+<!--                               <tr>-->
+<!--                                   <td>Interest Income</td>-->
+<!--                                   <td><input (keyup)="calculateTotalIncomeDuringReview()"-->
+<!--                                              class="form-control text-center"-->
+<!--                                              formControlName="interestIncomeDuringReview"-->
+<!--                                              type="number" appDecimalNumber>-->
 
-                    </nb-tab>
-                </nb-tabset>
+<!--                                   </td>-->
+
+<!--                               </tr>-->
+<!--                               <tr>-->
+<!--                                   <td>Loan Processing Fee</td>-->
+<!--                                   <td><input (keyup)="calculateTotalIncomeDuringReview()"-->
+<!--                                              class="form-control text-center"-->
+<!--                                              formControlName="loanProcessingFeeDuringReview"-->
+<!--                                              type="number" appDecimalNumber>-->
+<!--                                   </td>-->
+
+<!--                               </tr>-->
+<!--                               <tr>-->
+<!--                                   <td>LC Commission</td>-->
+<!--                                   <td><input (keyup)="calculateTotalIncomeDuringReview()"-->
+<!--                                              class="form-control text-center"-->
+<!--                                              formControlName="lcCommissionDuringReview"-->
+<!--                                              type="number" appDecimalNumber>-->
+
+<!--                                   </td>-->
+
+<!--                               </tr>-->
+<!--                               <tr>-->
+<!--                                   <td>Guarantee Commission</td>-->
+<!--                                   <td><input (keyup)="calculateTotalIncomeDuringReview()"-->
+<!--                                              class="form-control text-center"-->
+<!--                                              formControlName="guaranteeCommissionDuringReview"-->
+<!--                                              type="number" appDecimalNumber>-->
+<!--                                   </td>-->
+
+<!--                               </tr>-->
+<!--                               <tr>-->
+<!--                                   <td>Other Commission</td>-->
+<!--                                   <td><input (keyup)="calculateTotalIncomeDuringReview()"-->
+<!--                                              class="form-control text-center"-->
+<!--                                              formControlName="otherCommissionDuringReview"-->
+<!--                                              type="number" appDecimalNumber>-->
+<!--                                   </td>-->
+<!--                               </tr>-->
+<!--                               <tr>-->
+<!--                                   <td>Saving Account</td>-->
+<!--                                   <td><input (keyup)="calculateTotalIncomeDuringReview()"-->
+<!--                                              class="form-control text-center"-->
+<!--                                              formControlName="savingAccountDuringReview"-->
+<!--                                              type="number" appDecimalNumber>-->
+
+<!--                                   </td>-->
+
+<!--                               </tr>-->
+<!--                               <tr>-->
+<!--                                   <td>Payroll Account</td>-->
+<!--                                   <td><input (keyup)="calculateTotalIncomeDuringReview()"-->
+<!--                                              class="form-control text-center"-->
+<!--                                              formControlName="payrollAccountDuringReview"-->
+<!--                                              type="number" appDecimalNumber>-->
+
+<!--                                   </td>-->
+
+<!--                               </tr>-->
+<!--                               <tr>-->
+<!--                                   <td>Debit Cards</td>-->
+<!--                                   <td><input (keyup)="calculateTotalIncomeDuringReview()"-->
+<!--                                              class="form-control text-center"-->
+<!--                                              formControlName="debitCardsDuringReview"-->
+<!--                                              type="number" appDecimalNumber>-->
+
+<!--                                   </td>-->
+
+<!--                               </tr>-->
+<!--                               <tr>-->
+<!--                                   <td>Credit Cards</td>-->
+<!--                                   <td><input (keyup)="calculateTotalIncomeDuringReview()"-->
+<!--                                              class="form-control text-center"-->
+<!--                                              formControlName="creditCardsDuringReview"-->
+<!--                                              type="number" appDecimalNumber>-->
+
+<!--                                   </td>-->
+
+<!--                               </tr>-->
+<!--                               <tr>-->
+<!--                                   <td>Mobile Bank / Internet Banking</td>-->
+<!--                                   <td><input (keyup)="calculateTotalIncomeDuringReview()"-->
+<!--                                              class="form-control text-center"-->
+<!--                                              formControlName="mobileBankingDuringReview"-->
+<!--                                              type="number" appDecimalNumber>-->
+
+<!--                                   </td>-->
+
+<!--                               </tr>-->
+<!--                               <tr>-->
+<!--                                   <td>Locker</td>-->
+<!--                                   <td><input (keyup)="calculateTotalIncomeDuringReview()"-->
+<!--                                              class="form-control text-center"-->
+<!--                                              formControlName="lockerDuringReview"-->
+<!--                                              type="number" appDecimalNumber>-->
+
+<!--                                   </td>-->
+
+<!--                               </tr>-->
+<!--                               <tr>-->
+<!--                                   <td><strong>Total</strong></td>-->
+<!--                                   <td><input readonly formControlName="total" class="form-control text-center"></td>-->
+<!--                               </tr>-->
+
+<!--                           </table>-->
+<!--                       </ng-container>-->
+                   </nb-tab>
+                 <!--  new tab detail start from here-->
+                   <nb-tab *ngIf="!disableCrgAlpha && !microCustomer" tabTitle="Other Detail">
+                       <em class="fa fa-info-circle"><em class="ml-2">Note : These are mandatory fields for generating CRG (Alpha)</em></em>
+                       <hr>
+                       <app-banking-relation #bankingRelationComponent
+                                             [formValue]="bankingRelationshipInput">
+                       </app-banking-relation>
+                       <div class="col-md-3 form-group">
+                           <label><strong>IRD report obtained and attached</strong></label>
+                           <select class="form-control" formControlName="irdReport">
+                               <option [value]="null" hidden>--Select Yes/No--</option>
+                               <option value="YES">Yes</option>
+                               <option value="NO">No</option>
+                           </select>
+                       </div>
+                       <hr>
+                       <div class="box-header with-border">
+                           <h5 class="box-title">16. Business & Industry</h5>
+                       </div>
+                       <div class="row">
+                           <div class="col-md-6 form-group">
+                               <label><strong>Regulatory Concern</strong></label>
+                               <select formControlName="regulatoryConcern" id="regulatoryConcern"
+                                       [ngClass]="{'is-invalid':submitted &&  form.regulatoryConcern?.errors}" class="form-control">
+                                   <option [value]="null" hidden>Select regulatory concern here</option>
+                                   <option *ngFor="let regConcern of regulatoryConcernList"
+                                           [value]="regConcern?.value">
+                                       {{regConcern?.value}}
+                               </select>
+                               <div *ngIf="(submitted) &&  form.regulatoryConcern.errors" class="small text-danger">
+                                   <div *ngIf="form.regulatoryConcern.errors.required">
+                                       Regulatory Concern is required
+                                   </div>
+                               </div>
+                           </div>
+                           <div class="col-md-3">
+                               <label><strong>Supplier</strong></label>
+                               <select formControlName="supplier" id="supplier" class="form-control">
+                                   <option [value]="null" hidden>Select supplier</option>
+                                   <option *ngFor="let supplier of supplierList"
+                                           [value]="supplier?.value">
+                                       {{supplier?.value}}
+                                   </option>
+                               </select>
+                               <div *ngIf="(submitted) &&  form.supplier.errors" class="small text-danger">
+                                   <div *ngIf="form.supplier.errors.required">
+                                       Supplier is required
+                                   </div>
+                               </div>
+                           </div>
+                           <div class="col-md-3">
+                               <label><strong>Buyer</strong></label>
+                               <select formControlName="buyer" id="buyer"
+                                       [ngClass]="{'is-invalid':submitted &&  form.buyer?.errors}" class="form-control">
+                                   <option [value]="null" hidden>Select Buyer</option>
+                                   <option *ngFor="let buyer of buyerList"
+                                           [value]="buyer?.value">
+                                       {{buyer?.value}}
+                               </select>
+                               <div *ngIf="(submitted) &&  form.buyer.errors" class="small text-danger">
+                                   <div *ngIf="form.buyer.errors.required">
+                                       Buyer is required
+                                   </div>
+                               </div>
+
+                           </div>
+                       </div>
+                       <hr>
+                       <div class="row">
+                           <div class="col-md-3">
+                               <div>
+                                   <label><strong>Industry Growth </strong></label>
+                               </div>
+                               <div class="form-group">
+                                   <select formControlName="industryGrowth" id="industryGrowth"
+                                           [ngClass]="{'is-invalid':submitted &&  form.industryGrowth?.errors}" class="form-control">
+                                       <option [value]="null" hidden>Select Industry Growth</option>
+                                       <option *ngFor="let industryGrowth of industryGrowthList"
+                                               [value]="industryGrowth?.value">
+                                           {{industryGrowth?.value}}
+                                   </select>
+                                   <div *ngIf="(submitted) &&  form.industryGrowth.errors" class="small text-danger">
+                                       <div *ngIf="form.industryGrowth.errors.required">
+                                           Industry Growth is required
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                           <div class="col-md-3">
+                               <div>
+                                   <label><strong>Market Competition</strong></label>
+                               </div>
+                               <div class="form-group">
+                                   <select formControlName="marketCompetition" id="marketCompetition"
+                                           [ngClass]="{'is-invalid':submitted &&  form.marketCompetition?.errors}" class="form-control">
+                                       <option [value]="null" hidden>Select Market Competition</option>
+                                       <option  *ngFor="let marketComp of marketCompetitionList"
+                                                [value]="marketComp?.value">
+                                           {{marketComp?.value}}
+                                   </select>
+                                   <div *ngIf="(submitted) &&  form.marketCompetition.errors" class="small text-danger">
+                                       <div *ngIf="form.marketCompetition.errors.required">
+                                           Market Competition Growth is required
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                           <div class="col-md-3">
+                               <div>
+                                   <label><strong>Experience </strong></label>
+                               </div>
+                               <div class="form-group">
+                                   <select formControlName="experience" id="experience"
+                                           [ngClass]="{'is-invalid':submitted &&  form.experience?.errors}" class="form-control">
+                                       <option [value]="null" hidden>Select Experience</option>
+                                       <option  *ngFor="let experience of experiences"
+                                                [value]="experience?.value">
+                                           {{experience?.value}}
+                                   </select>
+                                   <div *ngIf="(submitted) &&  form.experience.errors" class="small text-danger">
+                                       <div *ngIf="form.experience.errors.required">
+                                           Experience Growth is required
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                           <hr>
+                                   <div class="col-md-3">
+                                       <div>
+                                           <label><strong>Succession </strong></label>
+                                       </div>
+                                       <select formControlName="succession" id="succession"
+                                               [ngClass]="{'is-invalid':submitted &&  form.succession?.errors}" class="form-control">
+                                           <option [value]="null" hidden>Select succession</option>
+                                           <option  *ngFor="let succession of successionList"
+                                                    [value]="succession?.value">
+                                               {{succession?.value}}
+                                       </select>
+                                       <div *ngIf="(submitted) &&  form.succession.errors" class="small text-danger">
+                                           <div *ngIf="form.succession.errors.required">
+                                               Succession is required
+                                           </div>
+                                       </div>
+                                   </div>
+                       </div>
+                   </nb-tab>
+                   <!--micro customer detail-->
+                   <nb-tab *ngIf="microCustomer" tabTitle="Micro Customer">
+                       <app-micro-company-form-component *ngIf="microCustomerType != 'DIRECT'" #microCompanyFormComponent [data]="companyJsonData?.microCustomerDetail"></app-micro-company-form-component>
+                       <app-micro-individual-form *ngIf="microCustomerType == 'DIRECT'" #microIndividualFormComponent [data]="companyJsonData?.microCustomerDetail"></app-micro-individual-form>
+
+                   </nb-tab>
+               </nb-tabset>
             </form>
         </div>
     </nb-card-body>
     <nb-card-footer class="py-4">
         <div class="d-flex justify-content-end">
             <button nbButton status="info" (click)="changeAction(closeForm)" class=" mr-2">close</button>
-            <button nbButton (click)="onSubmit()">save</button>
+            <button nbButton [disabled]="spinner" (click)="onSubmit()">save</button>
         </div>
     </nb-card-footer>
 </nb-card>
