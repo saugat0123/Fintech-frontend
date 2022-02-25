@@ -39,7 +39,6 @@ export class Section1IntroductionComponent implements OnInit {
       dateOfApplication: [undefined],
       prevSanctionLetterDate: [undefined],
      firstAdditionalDetails: [undefined],
-      textField: [undefined],
     });
   }
 
@@ -57,7 +56,6 @@ export class Section1IntroductionComponent implements OnInit {
     this.section1.patchValue({
       dateOfApplication: this.tempApplicationDate ? this.tempApplicationDate : '',
       prevSanctionLetterDate: this.tempSanctionDate ? this.tempSanctionDate : '',
-      textField: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.section1 : 'थप/अतिरिक्त',
     });
   }
 }
