@@ -46,6 +46,8 @@ export class PromissoryNotePartnershipComponent implements OnInit {
   offerLetterDocument;
   educationalTemplateData;
   individualData;
+  totalAmount;
+  totalAmountInWord;
   loanHolderNepData: any;
   tempProprietor;
   isInstitutional = false;
@@ -114,7 +116,43 @@ export class PromissoryNotePartnershipComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
       this.tempData = JSON.parse(this.cadData.offerDocumentList[0].initialInformation);
     }
+    this.setTotalAmount();
     this.fillform();
+  }
+  setTotalAmount() {
+    if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
+      if (this.cadData.offerDocumentList[0].docName === 'Combined Offer Letter') {
+        this.totalAmount = (this.tempData.smeGlobalForm && this.tempData.smeGlobalForm.totalLimitInFigureCT) ?
+            this.tempData.smeGlobalForm.totalLimitInFigureCT : '';
+        this.totalAmountInWord = (this.tempData.smeGlobalForm && this.tempData.smeGlobalForm.totalLimitInWordsCT ) ?
+            this.tempData.smeGlobalForm.totalLimitInWordsCT : '';
+      } if (!ObjectUtil.isEmpty(this.tempData) && this.cadData.offerDocumentList[0].docName === 'DDSL Without Subsidy') {
+        this.totalAmount = (this.tempData && this.tempData.loanLimitAmountFigure) ?
+            this.tempData.loanLimitAmountFigure.ct : '';
+        this.totalAmountInWord = (this.tempData && this.tempData.loanLimitAmountFigureWords) ?
+            this.tempData.loanLimitAmountFigureWords.ct : '';
+      } if (!ObjectUtil.isEmpty(this.tempData) && this.cadData.offerDocumentList[0].docName === 'Class A Sanction letter') {
+        this.totalAmount = (this.tempData && this.tempData.totalLimitInFigure) ?
+            this.tempData.totalLimitInFigure.ct : '';
+        this.totalAmountInWord = (this.tempData && this.tempData.totalLimitInWords) ?
+            this.tempData.totalLimitInWords.ct : '';
+      } if (!ObjectUtil.isEmpty(this.tempData) && this.cadData.offerDocumentList[0].docName === 'Interest subsidy sanction letter') {
+        this.totalAmount = (this.tempData && this.tempData.totalLimitFigure) ?
+            this.tempData.totalLimitFigure.ct : '';
+        this.totalAmountInWord = (this.tempData && this.tempData.totalLimitWords) ?
+            this.tempData.totalLimitWords.ct : '';
+      } if (!ObjectUtil.isEmpty(this.tempData) && this.cadData.offerDocumentList[0].docName === 'Kisan Karja Subsidy') {
+        const proposedLimit = this.cadData.assignedLoan[0] ?
+            this.cadData.assignedLoan[0].proposal.proposedLimit : 0;
+        this.totalAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(proposedLimit ? proposedLimit : 0));
+        this.totalAmountInWord = this.nepaliCurrencyWordPipe.transform(proposedLimit ? proposedLimit : '');
+      } if (!ObjectUtil.isEmpty(this.tempData) && this.cadData.offerDocumentList[0].docName === 'Udyamsil Karja Subsidy') {
+        this.totalAmount = (this.tempData && this.tempData.loanAmountFigure) ?
+            this.tempData.loanAmountFigure.ct : '';
+        this.totalAmountInWord = (this.tempData && this.tempData.loanAmountFigureWords) ?
+            this.tempData.loanAmountFigureWords.ct : '';
+      }
+    }
   }
   buildForm() {
     this.form = this.formBuilder.group({
@@ -241,21 +279,21 @@ export class PromissoryNotePartnershipComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.tempProprietor)) {
       totalPeop = this.tempProprietor.length;
     }
-    let totalAmount;
-    let totalAmountInWord;
-    if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
-      if (this.cadData.offerDocumentList[0].docName === 'Combined Offer Letter') {
-        totalAmount = (this.tempData.smeGlobalForm && this.tempData.smeGlobalForm.totalLimitInFigureCT) ?
-            this.tempData.smeGlobalForm.totalLimitInFigureCT : '';
-        totalAmountInWord = (this.tempData.smeGlobalForm && this.tempData.smeGlobalForm.totalLimitInWordsCT ) ?
-            this.tempData.smeGlobalForm.totalLimitInWordsCT : '';
-      } else {
-        totalAmount = (this.tempData && this.tempData.loanLimitAmountFigure) ?
-            this.tempData.loanLimitAmountFigure.ct : '';
-        totalAmountInWord = (this.tempData && this.tempData.loanLimitAmountFigureWords) ?
-            this.tempData.loanLimitAmountFigureWords.ct : '';
-      }
-    }
+    // let totalAmount;
+    // let totalAmountInWord;
+    // if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
+    //   if (this.cadData.offerDocumentList[0].docName === 'Combined Offer Letter') {
+    //     totalAmount = (this.tempData.smeGlobalForm && this.tempData.smeGlobalForm.totalLimitInFigureCT) ?
+    //         this.tempData.smeGlobalForm.totalLimitInFigureCT : '';
+    //     totalAmountInWord = (this.tempData.smeGlobalForm && this.tempData.smeGlobalForm.totalLimitInWordsCT ) ?
+    //         this.tempData.smeGlobalForm.totalLimitInWordsCT : '';
+    //   } else {
+    //     totalAmount = (this.tempData && this.tempData.loanLimitAmountFigure) ?
+    //         this.tempData.loanLimitAmountFigure.ct : '';
+    //     totalAmountInWord = (this.tempData && this.tempData.loanLimitAmountFigureWords) ?
+    //         this.tempData.loanLimitAmountFigureWords.ct : '';
+    //   }
+    // }
     this.form.patchValue({
       actDetails: [this.loanHolderNepData.actName ? this.loanHolderNepData.actName.ct : ''],
       actYearInFigure: [this.setActYear()],
@@ -267,10 +305,8 @@ export class PromissoryNotePartnershipComponent implements OnInit {
       addressOfFirm: [this.loanHolderNepData.registeredStreetTole ? this.loanHolderNepData.registeredStreetTole.ct : ''],
       vdcOfFirm: this.loanHolderNepData.registeredMunicipality ? this.loanHolderNepData.registeredMunicipality.ct : '',
       nameOfFirm: this.loanHolderNepData.name ? this.loanHolderNepData.name.ct : '',
-      loanamountinFigure: totalAmount ? totalAmount : '',
-      loanamountinWords: totalAmountInWord ? totalAmountInWord : '',
-      loanAmountinFigure: totalAmount ? totalAmount : '',
-      loanAmountInWords: totalAmountInWord ? totalAmountInWord : '',
+      loanamountinFigure: this.totalAmount ? this.totalAmount : '',
+      loanamountinWords: this.totalAmountInWord ? this.totalAmountInWord : '',
       nameOfBranch: [this.loanHolderNepData.branch ? this.loanHolderNepData.branch.ct : ''],
       /*interestPerApprovedCFR: (this.educationalTemplateData && this.educationalTemplateData.ct)
           ? (this.educationalTemplateData.ct)

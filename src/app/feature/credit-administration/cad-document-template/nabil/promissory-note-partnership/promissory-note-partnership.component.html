@@ -12,14 +12,13 @@
                                 <span
                                     class="print-only font-weight-bold nepaliFont">{{form?.get('date')?.value ? form?.get('date')?.value : "================================="}}</span><br>
                             <div style="border: 1px solid black" class="p-2 mb-5 mt-5">
-                                <p><strong>रु <input
+                                <p><strong>रु.<input
                                             (input)="getNumAmountWord('loanamountinFigure', 'loanamountinWords')"
                                             class="form-field form-control-sm  disable-print" name="loanamountinFigure"
                                             formControlName="loanamountinFigure" placeholder="" type="text" />
                                         <span
                                             class="print-only font-weight-bold">
-                                            {{(this.tempData.smeGlobalForm && this.tempData.smeGlobalForm.totalLimitInFigureCT ) ?
-                                            this.tempData.smeGlobalForm.totalLimitInFigureCT : '_________________'}}</span>/-
+                                            {{form?.get('loanamountinFigure')?.value ? form?.get('loanamountinFigure')?.value : '______________________'}}</span>/-
                                         <br>
 
                                         (अक्षरेपी <input class="form-field form-control-sm  disable-print col-3"
@@ -80,7 +79,7 @@
                                 name="nameOfFirm" formControlName="nameOfFirm" placeholder="" type="text" />
                             <span
                                 class="print-only font-weight-bold">{{form?.get('nameOfFirm')?.value ? form?.get('nameOfFirm')?.value : "___________________________"}}</span> को
-                            साझेदारहरु :-
+                            साझेदारहरु
                             <ng-container *ngFor="let x of tempProprietor; let i = index"
                                           formArrayName="partnerDetails">
                                 <ng-container [formGroupName]="i">
@@ -231,26 +230,24 @@
                                                name="directorCitizenshipNumber" formControlName="directorCitizenshipNumber"
                                                placeholder="" type="text"/>
                                         <span class="print-only font-weight-bold">
-                                            {{ x.ownerCitizenshipNoCT ? x.ownerCitizenshipNoCT : '_____________________'}}
-                                        </span>
-                                    </span>, जारी मिति
+                                            {{ x.ownerCitizenshipNoCT ? x.ownerCitizenshipNoCT : '_____________________'}},</span>
+                                    </span> जारी मिति
                                     <input class="form-field disable-print form-control-sm"
                                                      name="citizenshipIssueDate" formControlName="citizenshipIssueDate"
                                                      placeholder=" "
                                                      type="text"/>
                                     <span class="print-only font-weight-bold">
-                                        {{ dateArray[i] ? dateArray[i] : '_________________'}}
+                                        {{ dateArray[i] ? dateArray[i] : '_________________'}},
                                     </span>
                                     <span *ngIf="(x?.ownerNationality === 'Indian' && x?.indianOwnerDetailOption === 'Passport') ||
-                                                        x?.ownerNationality === 'Other'">, म्याद सकिने मितिः
+                                                        x?.ownerNationality === 'Other'"> म्याद सकिने मितिः
                                             <input class="form-field form-control-sm  disable-print"
                                                    name="passportValidityDate"
                                                    formControlName="passportValidityDate"
                                                    placeholder="" type="text"/>
                                             <span class="print-only font-weight-bold">
-                                                {{ dateValidityArray[i] ? dateValidityArray[i] : '_________________'}}
-                                            </span>
-                                        </span>, जारी गर्ने कार्यालय
+                                                {{ dateValidityArray[i] ? dateValidityArray[i] : '_________________'}},</span>
+                                        </span> जारी गर्ने कार्यालय
                                     <input class="form-field disable-print form-control-sm"
                                                                  name="citizenshipIssueDistrict"
                                                                  formControlName="citizenshipIssueDistrict"
