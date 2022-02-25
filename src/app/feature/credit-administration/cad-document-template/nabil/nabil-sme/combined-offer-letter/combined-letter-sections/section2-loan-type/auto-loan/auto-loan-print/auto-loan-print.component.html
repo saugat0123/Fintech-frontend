@@ -4,7 +4,7 @@
                 <strong>{{pointNumber + (i + 1) | nepaliWord}})</strong>
             </td>
             <td style="border-top:1px solid black">
-                <p>
+                <ng-container>
                     <strong>सवारी साधन कर्जा (Auto Loan)
                         <ng-container *ngIf="autoLoan.complementaryOther === true"> बुँदा नं.
                             <span class="nepaliFont">
@@ -26,8 +26,8 @@
                         (अक्षरेपी रु.
                         <span>{{loanData[i]?.loanAmountWords ? loanData[i]?.loanAmountWords : ''}}</span>
                         मात्र)</strong><br>
-                </p>
-                <p>
+                </ng-container>
+                <ng-container>
                     <strong>सुरक्षणः </strong>सवारी साधन कर्जाबाट खरिद
                     <ng-container *ngIf="autoLoan.vehiclePurchased === true"> गरिएको</ng-container>
                     <ng-container *ngIf="autoLoan.vehiclePurchased === false"> गरिने</ng-container>
@@ -36,15 +36,15 @@
                     <ng-container *ngIf="autoLoan.vehicleRegistered === true"> गरिदिइएको यथावत कायम रहनेछ
                     </ng-container>
                     ।
-                </p>
-                <p *ngIf="tempData.smeGlobalForm.loanOption === 'New'">
+                </ng-container><br>
+                <ng-container *ngIf="tempData.smeGlobalForm.loanOption === 'New'">
                     <strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong>
                     सवारी साधनको मूल्यको
                     <span [ngClass]="{'outside' : autoLoan?.drawingPowerCT !== null && autoLoan?.drawingPowerCT !== ''}">
                         {{autoLoan?.drawingPowerCT === null || autoLoan?.drawingPowerCT === '' ? '___________' : autoLoan?.drawingPowerCT}}</span>
-                    प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बराबर कर्जा उपयोग गर्न सकिनेछ ।
-                </p>
-                <p *ngIf="autoLoan.autoLoanType === 'NEW_EMI_TERM_LOAN'">
+                    प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बराबर कर्जा उपयोग गर्न सकिनेछ ।<br>
+                </ng-container>
+                <ng-container *ngIf="autoLoan.autoLoanType === 'NEW_EMI_TERM_LOAN'">
                     <strong>ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
 
                     <span [ngClass]="{'outside' : autoLoan?.baseRateCT !== null && autoLoan?.baseRateCT !== ''}">
@@ -82,10 +82,10 @@
           {{autoLoanFreeText[i]?.newEMIAutoPopulateAutoLoan1 === null || autoLoanFreeText[i]?.newEMIAutoPopulateAutoLoan1 === '' ? '___________' : autoLoanFreeText[i]?.newEMIAutoPopulateAutoLoan1}}
             </strong>
         </span>
-                    </span><br>
+                    <br></span>
                     <span *ngIf="autoLoan.emiPaymentType === 'EVERY_20TH'">
-        कर्जा रकमको शुरु निकासा भएको पछिल्लोे महिना देखि अँग्रेजी पात्रोको प्रत्येक २० तारिखका दिन किस्ता भुक्तानी मिति हुनेछ ।
-    </span><br>
+        कर्जा रकमको शुरु निकासा भएको पछिल्लोे महिना देखि अँग्रेजी पात्रोको प्रत्येक २० तारिखका दिन किस्ता भुक्तानी मिति हुनेछ ।<br>
+    </span>
                     <strong>सेवा शुल्कः </strong>
                     <span [ngClass]="{'outside' : autoLoan?.purposeOfLoanCT !== null && autoLoan?.purposeOfLoanCT !== ''}">
                         {{autoLoan?.purposeOfLoanCT === null || autoLoan?.purposeOfLoanCT === '' ? '___________' : autoLoan?.purposeOfLoanCT}}</span>
@@ -96,9 +96,9 @@
                     <strong>कर्जा अवधि:</strong>
                     <span [ngClass]="{'outside' : autoLoan?.tenureOfLoanCT !== null && autoLoan?.tenureOfLoanCT !== ''}">
                         {{autoLoan?.tenureOfLoanCT === null || autoLoan?.tenureOfLoanCT === '' ? '___________' : autoLoan?.tenureOfLoanCT}}</span>
-                    बर्ष सम्मको लागि मात्र ।
-                </p>
-                <p *ngIf="autoLoan.autoLoanType === 'OTHER_CREDIT_LIMITS'">
+                    बर्ष सम्मको लागि मात्र ।<br>
+                </ng-container>
+                <ng-container *ngIf="autoLoan.autoLoanType === 'OTHER_CREDIT_LIMITS'">
                     <strong>ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
 
                     <span [ngClass]="{'outside' : autoLoan?.baseRateCT  !== null && autoLoan?.baseRateCT  !== ''}">
@@ -127,9 +127,8 @@
                     {{autoLoan.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
                     <span [ngClass]="{'inside' : autoLoan?.dateOfExpiryCT !== null && autoLoan?.dateOfExpiryCT !== ''}">
                         {{autoLoan?.dateOfExpiryCT === null || autoLoan?.dateOfExpiryCT === '' ? '___________' : autoLoan?.dateOfExpiryCT}}</span>
-                    ।
-                </p>
-                <p *ngIf="autoLoan.autoLoanType === 'NEW_INSTALLMENT_BASIS'">
+                </ng-container>
+                <ng-container *ngIf="autoLoan.autoLoanType === 'NEW_INSTALLMENT_BASIS'">
                     <strong>ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
 
                     <span [ngClass]="{'outside' : autoLoan?.baseRateCT !== null && autoLoan?.baseRateCT !== ''}">
@@ -183,8 +182,8 @@
                     <span [ngClass]="{'outside' : autoLoan?.tenureOfLoanCT !== null && autoLoan?.tenureOfLoanCT !== ''}">
                         {{autoLoan?.tenureOfLoanCT === null || autoLoan?.tenureOfLoanCT === '' ? '___________' : autoLoan?.tenureOfLoanCT}}</span>
                     बर्ष सम्मको लागि मात्र ।
-                </p>
-                <p *ngIf="autoLoan.autoLoanType === 'REVIEW_OF_OTHER_CREDIT_LIMIT'">
+                </ng-container>
+                <ng-container *ngIf="autoLoan.autoLoanType === 'REVIEW_OF_OTHER_CREDIT_LIMIT'">
                     <strong>ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
 
                     <span [ngClass]="{'outside' : autoLoan?.baseRateCT !== null && autoLoan?.baseRateCT !== ''}">
@@ -226,8 +225,8 @@
                     <span [ngClass]="{'inside' : autoLoan?.dateOfExpiryCT !== null && autoLoan?.dateOfExpiryCT !== ''}">
                         {{autoLoan?.dateOfExpiryCT === null || autoLoan?.dateOfExpiryCT === '' ? '___________' : autoLoan?.dateOfExpiryCT}}</span>
                     ।
-                </p>
-                <p *ngIf="!autoLoan.vehiclePurchased">
+                </ng-container>
+                <ng-container *ngIf="!autoLoan.vehiclePurchased">
                     <span style="font-size: 19px; line-height: 1.9em"
                     *ngIf="autoLoanFreeText[i]?.disbursementClause === null || autoLoanFreeText[i]?.disbursementClause === ''">
         <strong>कर्जा प्रवाह तरिकाः</strong> सवारी साधनको व्यापक (Comprehensive) बिमालेख सहित बैंकको नाममा
@@ -241,15 +240,15 @@
         <span [ngClass]="{'outside' : autoLoan?.nameOfDealerCT !== null && autoLoan?.nameOfDealerCT !== ''}">
                         {{autoLoan?.nameOfDealerCT === null || autoLoan?.nameOfDealerCT === '' ? '___________' : autoLoan?.nameOfDealerCT}}</span>
          वा उसको
-        प्रतिनिधिलाई सो रकम बैंक ड्राफ्ट मार्फत वा खातामा रकम स्थानान्तरण गरी भुक्तानी गरिनेछ ।
+        प्रतिनिधिलाई सो रकम बैंक ड्राफ्ट मार्फत वा खातामा रकम स्थानान्तरण गरी भुक्तानी गरिनेछ ।<br>
         </span>
                     <span *ngIf="autoLoanFreeText[i]?.disbursementClause === true">
                         <strong style="font-size: 19px; line-height: 1.9em">कर्जा प्रवाह तरिकाः</strong>
                             <span style="line-height: 1.9em" class="nepaliFont">
-                                {{autoLoanFreeText[i]?.freeText14 === null || autoLoanFreeText[i]?.freeText14 === '' ? '___________' : autoLoanFreeText[i]?.freeText14}}
+                                {{autoLoanFreeText[i]?.freeText14 === null || autoLoanFreeText[i]?.freeText14 === '' ? '==============================' : autoLoanFreeText[i]?.freeText14}}
                             </span>
                        </span>
-                </p>
+                </ng-container>
             </td>
     </tr>
 </table>
