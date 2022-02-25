@@ -45,6 +45,8 @@ export class PromissoryNoteProprietorshipComponent implements OnInit {
     finalAmount;
     loanAmountWord;
     sanctionDate;
+    totalAmount;
+    totalAmountInWord;
     issueDate = [];
     newTempData: any = [];
     loanData = [];
@@ -94,9 +96,44 @@ export class PromissoryNoteProprietorshipComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
             this.tempData = JSON.parse(this.cadData.offerDocumentList[0].initialInformation);
         }
+        this.setTotalAmount();
         this.fillForm();
     }
-
+    setTotalAmount() {
+        if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
+            if (this.cadData.offerDocumentList[0].docName === 'Combined Offer Letter') {
+                this.totalAmount = (this.initialInfo.smeGlobalForm && this.initialInfo.smeGlobalForm.totalLimitInFigureCT) ?
+                    this.initialInfo.smeGlobalForm.totalLimitInFigureCT : '';
+                this.totalAmountInWord = (this.initialInfo.smeGlobalForm && this.initialInfo.smeGlobalForm.totalLimitInWordsCT ) ?
+                    this.initialInfo.smeGlobalForm.totalLimitInWordsCT : '';
+            } if (!ObjectUtil.isEmpty(this.initialInfo) && this.cadData.offerDocumentList[0].docName === 'DDSL Without Subsidy') {
+                this.totalAmount = (this.initialInfo && this.initialInfo.loanLimitAmountFigure) ?
+                    this.initialInfo.loanLimitAmountFigure.ct : '';
+                this.totalAmountInWord = (this.initialInfo && this.initialInfo.loanLimitAmountFigureWords) ?
+                    this.initialInfo.loanLimitAmountFigureWords.ct : '';
+            } if (!ObjectUtil.isEmpty(this.initialInfo) && this.cadData.offerDocumentList[0].docName === 'Class A Sanction letter') {
+                this.totalAmount = (this.initialInfo && this.initialInfo.totalLimitInFigure) ?
+                    this.initialInfo.totalLimitInFigure.ct : '';
+                this.totalAmountInWord = (this.initialInfo && this.initialInfo.totalLimitInWords) ?
+                    this.initialInfo.totalLimitInWords.ct : '';
+            } if (!ObjectUtil.isEmpty(this.initialInfo) && this.cadData.offerDocumentList[0].docName === 'Interest subsidy sanction letter') {
+                this.totalAmount = (this.initialInfo && this.initialInfo.totalLimitFigure) ?
+                    this.initialInfo.totalLimitFigure.ct : '';
+                this.totalAmountInWord = (this.initialInfo && this.initialInfo.totalLimitWords) ?
+                    this.initialInfo.totalLimitWords.ct : '';
+            } if (!ObjectUtil.isEmpty(this.initialInfo) && this.cadData.offerDocumentList[0].docName === 'Kisan Karja Subsidy') {
+                const proposedLimit = this.cadData.assignedLoan[0] ?
+                    this.cadData.assignedLoan[0].proposal.proposedLimit : 0;
+                this.totalAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(proposedLimit ? proposedLimit : 0));
+                this.totalAmountInWord = this.nepaliCurrencyWordPipe.transform(proposedLimit ? proposedLimit : '');
+            } if (!ObjectUtil.isEmpty(this.initialInfo) && this.cadData.offerDocumentList[0].docName === 'Udyamsil Karja Subsidy') {
+                this.totalAmount = (this.initialInfo && this.initialInfo.loanAmountFigure) ?
+                    this.initialInfo.loanAmountFigure.ct : '';
+                this.totalAmountInWord = (this.initialInfo && this.initialInfo.loanAmountFigureWords) ?
+                    this.initialInfo.loanAmountFigureWords.ct : '';
+            }
+        }
+    }
     buildForm() {
         this.form = this.formBuilder.group({
             date: [undefined],
@@ -223,21 +260,21 @@ export class PromissoryNoteProprietorshipComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.companyInfo)) {
             totalPeop = this.companyInfo.length;
         }
-        let totalAmount;
-        let totalAmountInWord;
-        if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
-            if (this.cadData.offerDocumentList[0].docName === 'Combined Offer Letter') {
-                totalAmount = (this.tempData.smeGlobalForm && this.tempData.smeGlobalForm.totalLimitInFigureCT) ?
-                    this.tempData.smeGlobalForm.totalLimitInFigureCT : '';
-                totalAmountInWord = (this.tempData.smeGlobalForm && this.tempData.smeGlobalForm.totalLimitInWordsCT ) ?
-                    this.tempData.smeGlobalForm.totalLimitInWordsCT : '';
-            } else {
-                totalAmount = (this.tempData && this.tempData.loanLimitAmountFigure) ?
-                    this.tempData.loanLimitAmountFigure.ct : '';
-                totalAmountInWord = (this.tempData && this.tempData.loanLimitAmountFigureWords) ?
-                    this.tempData.loanLimitAmountFigureWords.ct : '';
-            }
-        }
+        // let totalAmount;
+        // let totalAmountInWord;
+        // if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
+        //     if (this.cadData.offerDocumentList[0].docName === 'Combined Offer Letter') {
+        //         totalAmount = (this.tempData.smeGlobalForm && this.tempData.smeGlobalForm.totalLimitInFigureCT) ?
+        //             this.tempData.smeGlobalForm.totalLimitInFigureCT : '';
+        //         totalAmountInWord = (this.tempData.smeGlobalForm && this.tempData.smeGlobalForm.totalLimitInWordsCT ) ?
+        //             this.tempData.smeGlobalForm.totalLimitInWordsCT : '';
+        //     } else {
+        //         totalAmount = (this.tempData && this.tempData.loanLimitAmountFigure) ?
+        //             this.tempData.loanLimitAmountFigure.ct : '';
+        //         totalAmountInWord = (this.tempData && this.tempData.loanLimitAmountFigureWords) ?
+        //             this.tempData.loanLimitAmountFigureWords.ct : '';
+        //     }
+        // }
         this.form.patchValue({
             nameOfBranchLocated: this.individualData.branch ? this.individualData.branch.ct : '',
             actName: this.individualData.actName ? this.individualData.actName.ct : '',
@@ -251,8 +288,8 @@ export class PromissoryNoteProprietorshipComponent implements OnInit {
             wardNoOfFirm: this.individualData.permanentWard ? this.individualData.permanentWard.ct : '',
             addressOfFirm: this.individualData.registeredStreetTole ? this.individualData.registeredStreetTole.ct : '',
             firmName: this.individualData.name ? this.individualData.name.ct : '',
-            loanAmountInFigure: totalAmount,
-            loanAmountInWords: totalAmountInWord,
+            loanAmountInFigure: this.totalAmount,
+            loanAmountInWords: this.totalAmountInWord,
             witnessDistrict1: this.supportedInfo ? this.supportedInfo.witnessDistrict1 : '',
             witnessMuni1: this.supportedInfo ? this.supportedInfo.witnessMuni1 : '',
             witnessWard1: this.supportedInfo ? this.supportedInfo.witnessWard1 : '',
