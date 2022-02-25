@@ -21,7 +21,7 @@ export class ProductPaperChecklistComponent implements OnInit , AfterViewInit {
     @Input() loanDataHolder: LoanDataHolder;
     @Output() checkList = new EventEmitter();
     @Input() paper;
-    allIds = [];
+    @Input() allIds;
     parser: DOMParser;
     parsedData: Document;
 
@@ -60,11 +60,14 @@ export class ProductPaperChecklistComponent implements OnInit , AfterViewInit {
     }
 
     save() {
-            this.checkList.emit(this.parsedData.body.innerHTML);
+        const obj = {
+            view: this.parsedData.body.innerHTML,
+            id: this.allIds
+        };
+            this.checkList.emit(JSON.stringify(obj));
     }
 
     ngAfterViewInit(): void {
-        this.allIds = JSON.parse(this.loan.paperChecklist).id;
         this.changeDetectorRef.detectChanges();
         if (this.allIds.length > 0) {
                 this.allIds.forEach((id, i) => {

@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild, ChangeDetectorRef, AfterViewChecked, AfterViewInit} from '@angular/core';
+import {ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {LoanDataService} from '../../service/loan-data.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 
@@ -61,7 +61,7 @@ import {MicroProposalComponent} from '../../../micro-loan/form-component/micro-p
 import {CrgMicroComponent} from '../../../loan-information-template/crg-micro/crg-micro.component';
 import {MicroCustomerType} from '../../../../@core/model/enum/micro-customer-type';
 import {ProductPaperChecklistComponent} from '../../../loan-information-template/product-paper-checklist/product-paper-checklist.component';
-import { DomSanitizer } from '@angular/platform-browser'
+import {DomSanitizer} from '@angular/platform-browser';
 
 
 @Component({
@@ -383,16 +383,16 @@ export class LoanFormComponent implements OnInit {
     populateTemplate() {
         this.loanConfigService.detail(this.id).subscribe((response: any) => {
             this.loans = response.detail;
-            const obj = JSON.parse(this.loans.paperChecklist);
-            if(ObjectUtil.isEmpty(this.loanDocument.paperProductChecklist)) {
+            if (ObjectUtil.isEmpty(this.loanDocument.paperProductChecklist)) {
+                const obj = JSON.parse(this.loans.paperChecklist);
                 this.paperChecklist = this.sanitized.bypassSecurityTrustHtml(obj.view.changingThisBreaksApplicationSecurity);
-                console.log(this.paperChecklist);
+                this.allIds = obj.id;
             } else {
-                this.paperChecklist = this.sanitized.bypassSecurityTrustHtml(this.loanDocument.paperProductChecklist);
+                const obj = JSON.parse(this.loanDocument.paperProductChecklist);
+                this.paperChecklist = this.sanitized.bypassSecurityTrustHtml(obj.view);
+                this.allIds = obj.id;
                 console.log(this.paperChecklist);
             }
-            this.allIds = obj.id;
-
             this.loanTag = response.detail.loanTag;
             // this.templateList = response.detail.templateList;
             this.templateList = new DefaultLoanTemplate().DEFAULT_TEMPLATE;
@@ -659,7 +659,9 @@ export class LoanFormComponent implements OnInit {
         if (name === 'Product Paper Checklist' && action) {
             this.productPaperChecklistComponent.save();
             this.loanDocument.paperProductChecklist = this.checklistData;
-            this.paperChecklist = this.sanitized.bypassSecurityTrustHtml(this.checklistData);
+            const obj = JSON.parse(this.checklistData);
+            this.paperChecklist = this.sanitized.bypassSecurityTrustHtml(obj.view);
+            this.allIds = obj.id;
         }
 
         if (name === 'Loan Document' && action) {
