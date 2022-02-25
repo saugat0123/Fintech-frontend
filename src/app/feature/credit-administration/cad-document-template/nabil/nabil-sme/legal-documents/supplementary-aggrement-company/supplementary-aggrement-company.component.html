@@ -88,22 +88,21 @@
                         <div>
                             <ng-container [formGroupName]="i">
                               <textarea class="form-control disable-print nepaliFont"
-                                      rows="5"
-                                      style="width:100%;margin-left:2%"
-                                      formControlName="freeTexts">
+                                        rows="5"
+                                        style="width:100%;margin-left:2%"
+                                        formControlName="freeTexts">
                              </textarea>
-                            <span class="print-only font-weight-bold nepaliFont">{{form?.get(['securityFreeText', i, 'freeTexts'])?.value}}</span>
+                                <span class="print-only font-weight-bold nepaliFont">{{form?.get(['securityFreeText', i, 'freeTexts'])?.value}}</span>
                             </ng-container>
-                        <div *ngIf="form.get('securityFreeText')['length'] > 1" class="col-md-12 text-left mb-3 d-print-none">
-                            <button nbButton status="danger" size="tiny" (click)="removeAtIndex(i)"
-                                    style="position: static">
-                                <em class="fa fa-trash" style="color: white;"></em>
-                            </button>
-                        </div>
+                            <div *ngIf="form.get('securityFreeText')['length'] > 1" class="col-md-12 text-left mb-3 d-print-none">
+                                <button nbButton status="danger" size="tiny" (click)="removeAtIndex(i)"
+                                        style="position: static">
+                                    <em class="fa fa-trash" style="color: white;"></em>
+                                </button>
+                            </div>
                         </div>
                     </li>
                 </ol>
-
                 <div class="col-md-12 mt-5 d-flex justify-content-between">
                     <div class="right-content">
                     </div>

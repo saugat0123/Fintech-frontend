@@ -98,7 +98,7 @@
                                 <strong class="print-only">{{personalGuaranteeCompany.get(["guaranteeCompanies", i, "letterIssuedDate"]).value}}</strong>
                             </span>
                             को ऋण स्विकृति पत्रानुसार स्विकृत विभिन्न ऋणकर्जा तथा बैकिंग सुविधाहरु जम्मा
-                            रु.<span>
+                            रु. <span>
                                 <input class="form-field form-control-sm d-print-none" name="loanAmount"
                                 formControlName="loanAmount" placeholder="" type="text"/>
                                 <strong class="print-only">{{personalGuaranteeCompany.get(["guaranteeCompanies", i, "loanAmount"]).value}}</strong>
@@ -203,14 +203,17 @@
                                 </li>
                                 <span class="d-print-none">
                                 <li>
-                                    <textarea rows="5" style="width:100%;margin-left:20px" class="form-control" name="freeText" formControlName="freeText">
+                                    <textarea rows="5" style="width:100%;margin-left:20px" class="form-control nepaliFont" name="freeText" formControlName="freeText">
                                     </textarea>
                                 </li>
                                 </span>
                                 <span class="print-only">
                                     <li *ngIf="this.cadInitialInfo !== undefined &&
-                                    this.cadInitialInfo[i].freeText !== null">
-                                        {{this.cadInitialInfo ? this.cadInitialInfo[i].freeText : ''}}
+                                    this.cadInitialInfo[i].freeText !== null && this.cadInitialInfo[i].freeText !== ''"
+                                        style="margin-top: -0.7em">
+                                        <span class="nepaliFont">
+                                            {{this.cadInitialInfo ? this.cadInitialInfo[i].freeText : ''}}
+                                        </span>
                                     </li>
                                 </span>
                                 <!--<li *ngIf="this.cadFreeText !== null && this.cadFreeText[i].freeText !== null">

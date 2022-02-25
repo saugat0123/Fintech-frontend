@@ -4,7 +4,7 @@
             <strong>{{pointNumber + (i + 1) | nepaliWord}})</strong>
         </td>
         <td style="border:1px solid black">
-            <p>
+            <ng-container>
     <!--<span *ngIf="val.termLoanFor === 'MORTGAGE_TERM_LOAN'">
             <strong>अचल संपत्ति सुरक्षणमा आधारित आवधिक कर्जा (Mortgage Term Loan)
                <ng-container *ngIf="val.complementaryOther === true">
@@ -41,8 +41,8 @@
                <ng-container
                        *ngIf="val.complimentaryLoanSelected === 'TOTAL LIMIT'"> कुल सुविधाको पूरक सुविधा </ng-container>
               </ng-container></strong></span>
-            </p>
-            <p>
+            </ng-container><br>
+            <ng-container>
                 <strong> सीमाः
                     <!--<ng-container *ngIf="val.complementaryOther === true">(</ng-container>-->
                     रु.
@@ -56,13 +56,13 @@
 
                 <span *ngIf="val.mortgageType === 'New' || val.mortgageType === 'Enhancement'">
             <strong>धितोे सुरक्षणः</strong> ऋणकर्जा उपयोग गर्नु अगावै ऋणकर्जाको सुरक्षण स्वरुपबैंकको पक्षमा सुरक्षण महलमा
-                            उल्लिखित घर/जग्गा धितोेबन्धक पारित गरी दिनु पर्नेछ ।
+                            उल्लिखित घर/जग्गा धितोेबन्धक पारित गरी दिनु पर्नेछ ।<br>
                         </span>
 
                 <span *ngIf="val.mortgageType === 'Existing'">
             <strong>धितोे सुरक्षणः</strong> ऋणकर्जा उपयोग गर्नु अगावै ऋणकर्जाको सुरक्षण स्वरुपबैंकको पक्षमा सुरक्षण महलमा
-                            उल्लिखित घर/जग्गा धितोेबन्धक पारित गरिदिइएको यथावत कायम रहने छ ।
-                        </span><br>
+                            उल्लिखित घर/जग्गा धितोेबन्धक पारित गरिदिइएको यथावत कायम रहने छ ।<br>
+                        </span>
 
                 <span *ngIf="val.loanOption === 'New'">
             <strong> ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong>
@@ -83,10 +83,10 @@
             </ng-container>को
                 <span [ngClass]="{'outside' : val.drawingPowerInPercentageCT !== null && val.drawingPowerInPercentageCT !== ''}">
                     {{val.drawingPowerInPercentageCT === null || val.drawingPowerInPercentageCT === '' ? '___________' : val.drawingPowerInPercentageCT}}</span>
-        प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ ।
+        प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ ।<br>
         </span>
-            </p>
-            <p *ngIf="val.termLoanType === 'NEW_EMI_TERM_LOAN'">
+            </ng-container>
+            <ng-container *ngIf="val.termLoanType === 'NEW_EMI_TERM_LOAN'">
                 <strong>ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
                 <span [ngClass]="{'outside' : val.baseRateCT !== null && val.baseRateCT !== ''}">
                         {{val.baseRateCT === null || val.baseRateCT === '' ? '___________' : val.baseRateCT}}</span>
@@ -97,8 +97,8 @@
                 <span>हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate) बार्षिक
                     <span [ngClass]="{'outside' : val.interestRateCT !== null && val.interestRateCT !== ''}">
                         {{val.interestRateCT === null || val.interestRateCT === '' ? '___________' : val.interestRateCT}}</span>
-        % का दरले मासिक तिर्नु बुझाउनु पर्नेछ ।
-    </span><br>
+        % का दरले मासिक तिर्नु बुझाउनु पर्नेछ ।<br>
+    </span>
                 <span>
         <strong>साँवा रब्याज भुक्तानी तरिकाः</strong> साँवा र ब्याज सहितको यसैसाथ संलग्न अनुमानित तालिका बमोजिम मासिक
         रु.
@@ -123,11 +123,11 @@
             formControlName="newEMIAutoPopulateMortgageTerm"
             value="निकासा भएको पछिल्लोे महिना देखि किस्ता भुक्तानी मिति हुनेछ"
             type="text"/>-->।
-                    <!--(निकासा भएको पछिल्लोे महिना देखि किस्ता भुक्तानी मिति हुनेछ )(auto Populate)..........--></span>
+                    <!--(निकासा भएको पछिल्लोे महिना देखि किस्ता भुक्तानी मिति हुनेछ )(auto Populate)..........--><br></span>
 
                 <span *ngIf="val.emiPaymentType === 'ON_TWENTY_ENGLISH_CALENDER'">
-        कर्जा रकमको शुरु निकासा भएको पछिल्लोे महिना देखि अँग्रेजी पात्रोको प्रत्येक २० तारिखका दिन किस्ता भुक्तानी मिति हुनेछ ।
-    </span><br>
+        कर्जा रकमको शुरु निकासा भएको पछिल्लोे महिना देखि अँग्रेजी पात्रोको प्रत्येक २० तारिखका दिन किस्ता भुक्तानी मिति हुनेछ ।<br>
+    </span>
                 <strong>सेवा शुल्कः </strong>
                 <span [ngClass]="{'outside' : val.purposeOfLoanCT !== null && val.purposeOfLoanCT !== ''}">
                         {{val.purposeOfLoanCT === null || val.purposeOfLoanCT === '' ? '___________' : val.purposeOfLoanCT}}</span>
@@ -138,9 +138,9 @@
                 <strong>कर्जा अवधि:</strong>
                 <span [ngClass]="{'outside' : val.tenureOfLoanCT !== null && val.tenureOfLoanCT !== ''}">
                         {{val.tenureOfLoanCT === null || val.tenureOfLoanCT === '' ? '___________' : val.tenureOfLoanCT}}</span>
-                बर्ष सम्मको लागि मात्र ।
-            </p>
-            <p *ngIf="val.termLoanType === 'OTHER_CREDIT_LIMITS'">
+                बर्ष सम्मको लागि मात्र ।<br>
+            </ng-container>
+            <ng-container *ngIf="val.termLoanType === 'OTHER_CREDIT_LIMITS'">
                 <strong>ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
 
                 <span [ngClass]="{'outside' : val.baseRateCT !== null && val.baseRateCT !== ''}">
@@ -166,8 +166,8 @@
                 <span [ngClass]="{'outside' : val.dateOfExpiryCT !== null && val.dateOfExpiryCT !== ''}">
                         {{val.dateOfExpiryCT === null || val.dateOfExpiryCT === '' ? '___________' : val.dateOfExpiryCT}}</span>
                 ।
-            </p>
-            <p *ngIf="val.termLoanType === 'NEW_INSTALLMENT_BASIS_TERM_LOAN'">
+            </ng-container>
+            <ng-container *ngIf="val.termLoanType === 'NEW_INSTALLMENT_BASIS_TERM_LOAN'">
                 <strong>ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
 
                 <span [ngClass]="{'outside' : val.baseRateCT !== null && val.baseRateCT !== ''}">
@@ -181,7 +181,7 @@
                                         <span [ngClass]="{'outside' : val.interestRateCT !== null && val.interestRateCT !== ''}">
                         {{val.interestRateCT === null || val.interestRateCT === '' ? '___________' : val.interestRateCT}}</span>
         % का दर निर्धारण गरीएकोछ र सो ब्याज रकम नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र
-                            चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।</span>
+                            चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।<br></span>
 
                 <span *ngIf="val.subsidyOrAgricultureLoan === 'Yes'">
         हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate) बार्षिक
@@ -189,7 +189,7 @@
                         {{val.interestRateCT === null || val.interestRateCT === '' ? '___________' : val.interestRateCT}}</span>
         % का दरले निर्धारण गरीएकोछ । सो निर्धारित ब्याज दरमा नेपाल राष्ट्र बैंकले ऋणीलाई दिने छुट/सहुलियत वापतको दर
                             घटाई कायम हुन आउने रकम ऋणीले ब्याज स्वरुप नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन,
-                            पौष र चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।</span><br>
+                            पौष र चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।<br></span>
 
                 <span><strong><u>साँवा/किस्ता भुक्तानी तरिका:</u></strong>
                                 स्वीकृतकर्जा रकम उपलब्ध तालिका बमोजिम शुरु निकाशा भएको मितिले
@@ -199,7 +199,7 @@
          वर्ष भित्र प्रति वर्ष/अर्धबार्षिक/त्रैमास/महिना रु.
                                         <span [ngClass]="{'outside' : val.paymentAmountInFigureCT !== null && val.paymentAmountInFigureCT !== ''}">
                         {{val.paymentAmountInFigureCT === null || val.paymentAmountInFigureCT === '' ? '___________' : val.paymentAmountInFigureCT}}</span>
-        ।— (अक्षरेपी
+        /— (अक्षरेपी
                                         <span [ngClass]="{'outside' : val.paymentAmountInWordsCT !== null && val.paymentAmountInWordsCT !== ''}">
                         {{val.paymentAmountInWordsCT === null || val.paymentAmountInWordsCT === '' ? '___________' : val.paymentAmountInWordsCT}}</span>
         ) का दरले
@@ -218,7 +218,7 @@
                         <ng-container *ngIf="val.paymentTerms === 'QUARTERLY'"> तिन महिना </ng-container>
                         <ng-container *ngIf="val.paymentTerms === 'MONTHLY'"> एक महिना </ng-container>
                     <!--मितिले/एक बर्ष/छ महिना/तिन महिना/एक महिना (Auto select according to an above selection)-->
-                            पश्चात प्रथम किस्ता भुक्तानी हुनेछ ।</span><br>
+                            पश्चात प्रथम किस्ता भुक्तानी हुनेछ ।<br></span>
                 <strong>सेवा शुल्कः </strong>
                 <span [ngClass]="{'outside' : val.purposeOfLoanCT !== null && val.purposeOfLoanCT !== ''}">
                         {{val.purposeOfLoanCT === null || val.purposeOfLoanCT === '' ? '___________' : val.purposeOfLoanCT}}</span>
@@ -230,8 +230,8 @@
                 <span [ngClass]="{'outside' : val.tenureOfLoanCT !== null && val.tenureOfLoanCT !== ''}">
                         {{val.tenureOfLoanCT === null || val.tenureOfLoanCT === '' ? '___________' : val.tenureOfLoanCT}}</span>
                 बर्ष सम्मको लागि मात्र ।
-            </p>
-            <p *ngIf="val.termLoanType === 'REVIEW_OF_OTHER_CREDIT_LIMITS'">
+            </ng-container>
+            <ng-container *ngIf="val.termLoanType === 'REVIEW_OF_OTHER_CREDIT_LIMITS'">
                 <strong>ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
 
                 <span [ngClass]="{'outside' : val.baseRateCT !== null && val.baseRateCT !== ''}">
@@ -247,7 +247,7 @@
                         {{val.interestRateCT === null || val.interestRateCT === '' ? '___________' : val.interestRateCT}}</span>
         % का दर
                             निर्धारण गरीएकोछ र सो ब्याज रकम नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र
-                            चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।</span>
+                            चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।<br></span>
 
                 <span *ngIf="val.subsidyOrAgricultureLoan === 'Yes'">
         हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate) बार्षिक
@@ -256,13 +256,13 @@
         % का दरले
                             निर्धारण गरीएकोछ । सो निर्धारित ब्याज दरमा नेपाल राष्ट्र बैंकले ऋणीलाई दिने छुट/सहुलियत वापतको दर
                             घटाई कायम हुन आउने रकम ऋणीले ब्याज स्वरुप नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन,
-                            पौष र चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।</span><br>
+                            पौष र चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।<br></span>
 
                 <span><strong><u>साँवा/किस्ता भुक्तानी तरिका:</u></strong>यस अघि निर्धारित भुक्तानी
                         तालिकाबमोजिम बाञकी किस्ताहरु रु.
                     <span [ngClass]="{'outside' : val.paymentAmountInFigureCT !== null && val.paymentAmountInFigureCT !== ''}">
                         {{val.paymentAmountInFigureCT === null || val.paymentAmountInFigureCT === '' ? '___________' : val.paymentAmountInFigureCT}}</span>
-       ।— (
+       /— (अक्षरेपी
                     <span [ngClass]="{'outside' : val.paymentAmountInWordsCT !== null && val.paymentAmountInWordsCT !== ''}">
                         {{val.paymentAmountInWordsCT === null || val.paymentAmountInWordsCT === '' ? '___________' : val.paymentAmountInWordsCT}}</span>
         )का दरले
@@ -276,7 +276,7 @@
                     <ng-container *ngIf="val.paymentTerms === 'MONTHLY'"> मासिक </ng-container>
                     <!--बार्षिक/अर्धबार्षिक/त्रैमासिक/मासिक (Patch data from Form)-->
                             किस्ताहरुमा तल उल्लिखित कर्जा अवधि
-                            समाप्ति मिति भित्र सम्पुर्ण बाँकी बक्यौता रकम चुक्ता भुक्तानी गर्नु पर्नेछ ।</span><br>
+                            समाप्ति मिति भित्र सम्पुर्ण बाँकी बक्यौता रकम चुक्ता भुक्तानी गर्नु पर्नेछ ।<br></span>
                 <strong>कर्जा अवधि समाप्ति मितिः </strong>
                 {{this.val?.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
                 <span [ngClass]="{'outside' : val.dateOfExpiryCT !== null && val.dateOfExpiryCT !== ''}">
@@ -297,8 +297,8 @@
                     <span [ngClass]="{'outside' : val.drawingPowerInPercentageCT !== null && val.drawingPowerInPercentageCT !== ''}">
                         {{val.drawingPowerInPercentageCT === null || val.drawingPowerInPercentageCT === '' ? '___________' : val.drawingPowerInPercentageCT}}</span>
                                 प्रतिशत वा स्वीकृत ऋणकर्जा रकम मध्ये जुन कम हुन्छ सो
-            रकम तपाईंको निवेदन बमोजिम यस बैंकमा खोल्नु भएको चल्ती खातामा प्रवाह गरिनेछ ।
-        </span><br>
+            रकम तपाईंको निवेदन बमोजिम यस बैंकमा खोल्नु भएको चल्ती खातामा प्रवाह गरिनेछ ।<br>
+        </span>
                 <span *ngIf="val.mortgageType === 'Existing'">
             <strong>कर्जा प्रवाह तरिकाः</strong>
             ऋणीले ऋणकर्जा संग सम्बन्धित सम्पूर्ण कागजातहरु सहि छाप भई बैंकलाई प्राप्त भए
@@ -314,10 +314,10 @@
                     <span [ngClass]="{'outside' : val.drawingPowerInPercentageCT !== null && val.drawingPowerInPercentageCT !== ''}">
                         {{val.drawingPowerInPercentageCT === null || val.drawingPowerInPercentageCT === '' ? '___________' : val.drawingPowerInPercentageCT}}</span>
             प्रतिशत वा स्वीकृत ऋणकर्जा रकम मध्ये जुन कम हुन्छ सो रकम तपाईंले यस बैंकमा खोल्नु भएको चल्ती खातामा प्रवाह
-            गरिनेछ ।
-        </span><br>
-            </p>
-            <p class="nepaliFont" *ngIf="this.freeText?.section2?.equityTermLoanFreeText[i]?.freeTextThirteen">
+            गरिनेछ ।<br>
+        </span>
+            </ng-container>
+             class="nepaliFont" *ngIf="this.freeText?.section2?.equityTermLoanFreeText[i]?.freeTextThirteen">
     <span class="nepaliFont">
         {{this.freeText ? this.freeText?.section2?.equityTermLoanFreeText[i]?.freeTextThirteen : ''}}
     </span>
@@ -329,7 +329,6 @@
                             placeholder=""
                             formControlName="freeTextThirteen">
                 </textarea>-->
-            </p>
         </td>
     </tr>
 </table>
