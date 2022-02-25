@@ -177,7 +177,7 @@
             ></app-marketing-activities>
           </nb-accordion-item-body>
         </nb-accordion-item>
-      <nb-accordion-item #baselRiskAccordion *ngIf="customerInfo?.customerType === 'INSTITUTION' && companyInfo.isMicroCustomer && isMicroInDirectCustomer">
+      <nb-accordion-item #baselRiskAccordion *ngIf="customerInfo?.customerType === 'INSTITUTION' && companyInfo?.isMicroCustomer && isMicroInDirectCustomer">
         <nb-accordion-item-header>
           <div class="row col-md-12">
             <div class="col-md-8">
@@ -410,7 +410,7 @@
           ></app-credit-checklist-general>
         </nb-accordion-item-body>
       </nb-accordion-item>
-      <nb-accordion-item #synopsisAccordion *ngIf="customerInfo?.customerType === 'INSTITUTION' && companyInfo.isMicroCustomer && isMicroInDirectCustomer">
+      <nb-accordion-item #synopsisAccordion *ngIf="customerInfo?.customerType === 'INSTITUTION' && companyInfo?.isMicroCustomer && isMicroInDirectCustomer">
         <nb-accordion-item-header>
           <div class="row col-md-12">
             <div class="col-md-8">
