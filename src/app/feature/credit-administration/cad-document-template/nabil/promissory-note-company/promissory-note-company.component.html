@@ -97,19 +97,18 @@
                                        formControlName="firmWardNumber" placeholder=""
                                        type="text"/>
                                 <span
-                                        class="print-only font-weight-bold">{{ form?.get('firmWardNumber')?.value ? form?.get('firmWardNumber')?.value : '_________________'}}, </span>
+                                        class="print-only font-weight-bold">{{ form?.get('firmWardNumber')?.value ? form?.get('firmWardNumber')?.value : '_________________'}},</span>
                                 <input class="form-field form-control-sm  disable-print"
                                        name="firmAddress" formControlName="firmAddress"
                                        placeholder="" type="text"/>
-                                <span
-                                        class="print-only font-weight-bold">{{ form?.get('firmAddress')?.value ? form?.get('firmAddress')?.value : '_________________'}}</span>
+                                <span class="print-only font-weight-bold"> {{ form?.get('firmAddress')?.value ? form?.get('firmAddress')?.value : '_________________'}}</span>
                                 रजिष्टर्ड कार्यालय रहेकोे श्री
                                 <input class="form-field form-control-sm  disable-print"
                                        name="companyName" formControlName="companyName"
                                        placeholder="" type="text"/>
                                 <span
                                         class="print-only font-weight-bold">{{ form?.get('companyName')?.value ? form?.get('companyName')?.value : '_________________'}}</span>
-                                को अख्तियार प्राप्त :-
+                                को अख्तियार प्राप्त
                                 <ng-container *ngFor="let val of tempProprietor; let i = index" formArrayName="authorDetails">
                                     <ng-container [formGroupName]="i">
                                         <input class="form-field form-control-sm  disable-print"
@@ -192,8 +191,8 @@
                                                    name="wardNumber" formControlName="wardNumber"
                                                    placeholder="" type="text"/>
                                             <span class="print-only font-weight-bold">
-                                                {{ val.ownerPermanentWardNoCT ? val.ownerPermanentWardNoCT : '_________________'}}
-                                            </span>,
+                                                {{ val.ownerPermanentWardNoCT ? val.ownerPermanentWardNoCT : '_________________'}},
+                                            </span>
                                         </ng-container>
                                         बस्ने बर्ष
                                         <input class="form-field form-control-sm  disable-print"
@@ -267,26 +266,26 @@
                                                    formControlName="directorCitizenshipNumber"
                                                    placeholder="" type="text"/>
                                             <span class="print-only font-weight-bold">
-                                                {{ val.ownerCitizenshipNoCT ? val.ownerCitizenshipNoCT : '_________________'}}
+                                                {{ val.ownerCitizenshipNoCT ? val.ownerCitizenshipNoCT : '_________________'}},
                                             </span>
-                                        </span>, जारी मिति
+                                        </span> जारी मिति
                                         <input class="form-field form-control-sm  disable-print"
                                                name="directorCitizenshipIssueDate"
                                                formControlName="directorCitizenshipIssueDate"
                                                placeholder="" type="text"/>
                                         <span class="print-only font-weight-bold">
-                                            {{ dateArray[i] ? dateArray[i] : '_________________'}}
+                                            {{ dateArray[i] ? dateArray[i] : '_________________'}},
                                         </span>
                                         <span *ngIf="(val?.ownerNationality === 'Indian' && val?.indianOwnerDetailOption === 'Passport') ||
-                                                        val?.ownerNationality === 'Other'">, म्याद सकिने मितिः
+                                                        val?.ownerNationality === 'Other'"> म्याद सकिने मितिः
                                             <input class="form-field form-control-sm  disable-print"
                                                    name="passportValidityDate"
                                                    formControlName="passportValidityDate"
                                                    placeholder="" type="text"/>
                                             <span class="print-only font-weight-bold">
-                                                {{ dateValidityArray[i] ? dateValidityArray[i] : '_________________'}}
+                                                {{ dateValidityArray[i] ? dateValidityArray[i] : '_________________'}},
                                             </span>
-                                        </span>, जारी गर्ने कार्यालय
+                                        </span>जारी गर्ने कार्यालय
                                         <input class="form-field form-control-sm  disable-print"
                                                name="directorCitizenshipIssueDistrict"
                                                formControlName="directorCitizenshipIssueDistrict"
@@ -332,6 +331,7 @@
                                 <span class="print-only font-weight-bold">{{ form?.get('branchName')?.value ? form?.get('branchName')?.value : '_________________'}}</span>
                                 लाई दिएँ/दियौं ।
                             </p>
+                            <br>
                             <div class="clearfix">
                                 <p class="text-center">
                                     <b><u>प्रतिज्ञा गर्ने फर्म/कम्पनीको तर्फबाट आधिकारिक व्यक्तिको लेखात्मक सही/छाप</u></b><br>
@@ -341,6 +341,7 @@
                                     छापः
                                 </p>
                             </div>
+                            <br>
                             <p class="text-center mt-5">
                                 <b><u>साक्षी</u></b>
                             </p>
