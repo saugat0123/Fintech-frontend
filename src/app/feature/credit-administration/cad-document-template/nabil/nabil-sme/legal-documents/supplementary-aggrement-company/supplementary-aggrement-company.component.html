@@ -48,21 +48,19 @@
                        name="loanAmountInFig"
                        type="text"/>
                 <span class="print-only font-weight-bold">{{this.finalAmount ? this.finalAmount : '__________________________'}}</span>
-                ।
-                (अक्षरेपी
+                /- (अक्षरेपी
                 <input class="form-field form-control-sm d-print-none"
                        formControlName="loanAmountInWord"
                        name="loanAmountInWord"
                        type=" "/>
-                <span class="print-only font-weight-bold">{{this.loanAmountWord ? this.loanAmountWord : '__________________________'}}</span>
-                )  उपयोग/उपभोग गरेको ठिक सांचो हो, र
-
+                <span class="print-only font-weight-bold">{{this.loanAmountWord ? this.loanAmountWord : '__________________________'}}</span> मात्र)
+                उपयोग/उपभोग गरेको ठिक सांचो हो, र
                 उक्त ऋणकर्जा उपयोग/उपभोग गरे वापत माथि उल्लेखित गोश्वारा-पत्र वा मिति
                 <input class="form-field form-control-sm d-print-none nepaliFont"
                        formControlName="dateOfTrust"
                        name="dateOfTrust"
                        type="text"/>
-                <span class="print-only font-weight-bold nepaliFont">{{supportedInfo?.dateOfTrust ? supportedInfo?.dateOfTrust :'__________________________'}}</span>
+                <span class="print-only font-weight-bold nepaliFont">{{supportedInfo?.dateOfTrust ? supportedInfo?.dateOfTrust :'====================================='}}</span>
                 मा गरीदिएको "न्यासमा सामान बुझीलिने गोश्वारा-पत्र (General Letter of Trust Receipt)"
                 मा उल्लेखित शर्तबन्देज अनुरुप मेरो/हाम्रो अनुरोधमा तहांले खोलीदिएको नं.
                 <input class="form-field form-control-sm d-print-none nepaliFont"
@@ -89,13 +87,12 @@
                         formArrayName="securityFreeText">
                         <div>
                             <ng-container [formGroupName]="i">
-                              <textarea
-                                      class="form-control disable-print"
+                              <textarea class="form-control disable-print nepaliFont"
                                       rows="5"
-                                      style="width:1100px;margin-left:2%"
+                                      style="width:100%;margin-left:2%"
                                       formControlName="freeTexts">
                              </textarea>
-                            <span class="print-only font-weight-bold">{{form?.get(['securityFreeText', i, 'freeTexts'])?.value}}</span>
+                            <span class="print-only font-weight-bold nepaliFont">{{form?.get(['securityFreeText', i, 'freeTexts'])?.value}}</span>
                             </ng-container>
                         <div *ngIf="form.get('securityFreeText')['length'] > 1" class="col-md-12 text-left mb-3 d-print-none">
                             <button nbButton status="danger" size="tiny" (click)="removeAtIndex(i)"
@@ -114,6 +111,8 @@
                         --------------------------
                         <br>
                         अधिकृत दस्तखत
+                        <br>
+                        <br>
                         <br>
                         <br>
                         छापः

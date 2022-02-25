@@ -30,7 +30,7 @@
                formControlName="dateOfHyothenciation"
                name="dateOfHyothenciation"
                type="text"/>
-        <span class="print-only nepaliFont">{{'====================================='}}</span>
+        <span class="print-only nepaliFont">{{form?.get('dateOfHyothenciation')?.value ? form?.get('dateOfHyothenciation')?.value : '====================================='}}</span>
         मा त्यस बैंकको पक्षमा मेरो/हाम्रो श्री(सम्पत्ति धितो/सुरक्षण लेखीदिएको गोश्वारा-पत्र
         (General Letter of Hypothecation) को सन्दर्भमा सोही गोश्वारा-पत्रको
         अभिन्न अंगको रुपमा रहने गरी यो पूरक सम्झौता गरीदिएका छौं ।
@@ -46,35 +46,32 @@
                formControlName="loanAmountInFig"
                name="loanAmountInFig"
                type="text"/>
-        <span class="print-only">{{this.finalAmount ? this.finalAmount : '__________________________'}}</span>
-        ।
-        (अक्षरेपी
+        <span class="print-only">{{this.finalAmount ? this.finalAmount : '__________________________'}}</span>/- (अक्षरेपी
         <input class="form-field form-control-sm d-print-none"
                formControlName="loanAmountInWord"
                name="loanAmountInWord"
                type=" "/>
-        <span class="print-only">{{this.loanAmountWord ? this.loanAmountWord : '__________________________'}}</span>
-        )  उपयोग/उपभोग गरेको ठिक सांचो हो, र
-
+        <span class="print-only">{{this.loanAmountWord ? this.loanAmountWord : '__________________________'}}</span> मात्र)
+        उपयोग/उपभोग गरेको ठिक सांचो हो, र
         उक्त ऋणकर्जा उपयोग/उपभोग गरे वापत माथि उल्लेखित गोश्वारा-पत्र वा मिति
         <input class="form-field form-control-sm d-print-none nepaliFont"
                formControlName="dateOfTrust"
                name="dateOfTrust"
                type="text"/>
-        <span class="print-only nepaliFont">{{'====================================='}}</span>
+        <span class="print-only nepaliFont">{{form?.get('dateOfTrust')?.value ? form?.get('dateOfTrust')?.value : '====================================='}}</span>
         मा गरीदिएको "न्यासमा सामान बुझीलिने गोश्वारा-पत्र (General Letter of Trust Receipt)"
         मा उल्लेखित शर्तबन्देज अनुरुप मेरो/हाम्रो अनुरोधमा तहांले खोलीदिएको नं.
         <input class="form-field form-control-sm d-print-none nepaliFont"
                formControlName="letterOfCredit"
                name="letterOfCredit"
                type="text"/>
-        <span class="print-only nepaliFont">{{'====================================='}}</span>
+        <span class="print-only nepaliFont">{{form?.get('letterOfCredit')?.value ? form?.get('letterOfCredit')?.value : '====================================='}}</span>
         मिति
         <input class="form-field form-control-sm d-print-none nepaliFont"
                formControlName="letterOfCreditIssueDate"
                name="letterOfCreditIssueDate"
                type="text"/>
-        <span class="print-only nepaliFont">{{'====================================='}}</span>
+        <span class="print-only nepaliFont">{{form?.get('letterOfCreditIssueDate')?.value ? form?.get('letterOfCreditIssueDate')?.value : '====================================='}}</span>
         को प्रतीतपत्र अन्तर्गत आयात गरी वा अन्य माध्यमबाट खरिद गरी हाम्रो जिम्मामा रहेको देहायमा उल्लेखित
         सुरक्षणका सामानहरुमाथि त्यस बैंकको हकाधिकार रहने गरी यो पूरक सम्झौता गरीदिएका छौं :
         <br>
@@ -88,12 +85,12 @@
               formArrayName="securityFreeText">
               <ng-container [formGroupName]="i">
                 <textarea
-                    class="form-control disable-print"
+                    class="form-control disable-print nepaliFont"
                     rows="5"
-                    style="width:1100px;margin-left:2%"
+                    style="width:100%;margin-left:2%"
                     formControlName="freeTexts">
                 </textarea>
-                <span class="print-only">{{form?.get(['securityFreeText', i, 'freeTexts'])?.value}}</span>
+                <span class="print-only nepaliFont">{{form?.get(['securityFreeText', i, 'freeTexts'])?.value}}</span>
               </ng-container>
               <div *ngIf="form.get('securityFreeText')['length'] > 1" class="col-md-12 text-left mb-3 d-print-none">
                 <button nbButton status="danger" size="tiny" (click)="removeAtIndex(i)"
