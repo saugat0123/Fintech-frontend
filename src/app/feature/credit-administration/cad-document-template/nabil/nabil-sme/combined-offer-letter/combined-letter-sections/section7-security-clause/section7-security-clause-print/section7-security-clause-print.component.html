@@ -79,12 +79,9 @@
                     <li>
                         गोदाम/वेयरहाउसमा रहेको सामानको सूची, पक्षहरुको विवरण र अवधि सहित भुक्तानी दिनुपर्ने बाँकी र
                         भुक्तानी पाउनु पर्ने बाँकी रकमहरुको विस्तृत विवरण ऋणीले
-                        <span *ngIf="(freeInformation !== null || freeInformation !== '') &&
-                            (freeInformation?.section7 === 'मासिक' || freeInformation?.section7 === 'त्रैमासिक')">
-                            {{freeInformation ? freeInformation?.section7 : 'मासिक/त्रैमासिक'}}</span>
-                        <span *ngIf="(freeInformation !== null || freeInformation !== '') &&
-                            (freeInformation?.section7 !== 'मासिक' || freeInformation?.section7 !== 'त्रैमासिक')" class="nepaliFont">
-                            {{freeInformation ? freeInformation?.section7 : 'मासिक/त्रैमासिक'}}</span>
+                        <span>
+                            {{freeInformation ? freeInformation?.section7 : 'मासिक/त्रैमासिक'}}
+                        </span>
                         रुपमा बैंकलाई बुझाउनु
                         पर्नेछ ।
                     </li>
