@@ -7,8 +7,8 @@
             <ng-container *ngIf="termLoan.termLoanFor === 'VEHICLE'"><strong>सवारी साधन खरिद गर्न आवधिक कर्जा (Term Loan
                 to Purchase Vehicle)
                 <ng-container *ngIf="termLoan.complementaryOther === true"> बुँदा नं.
-                    <span class="nepaliFont">
-                            {{termLoanFreeText[i]?.SNOfParentLimitVehicleLoan === null || termLoanFreeText[i]?.SNOfParentLimitVehicleLoan === '' ? '___________' : termLoanFreeText[i]?.SNOfParentLimitVehicleLoan}}
+                    <span class="nepaliFont fontCss">
+                            {{termLoanFreeText[i]?.SNOfParentLimitVehicleLoan === null || termLoanFreeText[i]?.SNOfParentLimitVehicleLoan === '' ? '=============================' : termLoanFreeText[i]?.SNOfParentLimitVehicleLoan}}
                         </span>                        <!-- <span [ngClass]="{'outside' : letterData?.marginInPercentageCT !== null && letterData?.marginInPercentageCT !== ''}">
                                              {{letterData?.marginInPercentageCT === null || letterData?.marginInPercentageCT === '' ? '___________' : letterData?.marginInPercentageCT}}</span>
                          --><!--<input class="form-field form-control-sm "
@@ -28,11 +28,10 @@
                         {{termLoan?.purposeOfLoanCT === null || termLoan?.purposeOfLoanCT === '' ? '___________' : termLoan?.purposeOfLoanCT}}</span>
                 आवधिक कर्जा (Term Loan to
                 <span [ngClass]="{'outside' : termLoan?.purposeOfLoan !== null && termLoan?.purposeOfLoan !== ''}">
-                        {{termLoan?.purposeOfLoan === null || termLoan?.purposeOfLoan === '' ? '___________' : termLoan?.purposeOfLoan}}</span>
-                )
+                        {{termLoan?.purposeOfLoan === null || termLoan?.purposeOfLoan === '' ? '___________' : termLoan?.purposeOfLoan}}</span>)
                 <ng-container *ngIf="termLoan.complementaryOther === true"> बुँदा नं.
-                    <span class="nepaliFont">
-                            {{termLoanFreeText[i]?.SNOfParentLimitVehicleLoan === null || termLoanFreeText[i]?.SNOfParentLimitVehicleLoan === '' ? '___________' : termLoanFreeText[i]?.SNOfParentLimitVehicleLoan}}
+                    <span class="nepaliFont fontCss">
+                            {{termLoanFreeText[i]?.SNOfParentLimitVehicleLoan === null || termLoanFreeText[i]?.SNOfParentLimitVehicleLoan === '' ? '=========================' : termLoanFreeText[i]?.SNOfParentLimitVehicleLoan}}
                         </span>                        <!--<span [ngClass]="{'outside' : letterData?.marginInPercentageCT !== null && letterData?.marginInPercentageCT !== ''}">
                                             {{letterData?.marginInPercentageCT === null || letterData?.marginInPercentageCT === '' ? '___________' : letterData?.marginInPercentageCT}}</span>
                         --><!--<input class="form-field form-control-sm "
@@ -50,22 +49,21 @@
             <ng-container>
                 <strong>सीमाः
                     <ng-container *ngIf="termLoan.complementaryOther === true">(</ng-container>
-                    रु.<span>{{loanData[i]?.loanAmountNp ? loanData[i]?.loanAmountNp : ''}}</span>।-
+                    रु.<span>{{loanData[i]?.loanAmountNp ? loanData[i]?.loanAmountNp : ''}}</span>/-
                     <ng-container *ngIf="termLoan.complementaryOther === true">)</ng-container>
-                    (अक्षरेपी
-                    रु.<span>{{loanData[i]?.loanAmountWords ? loanData[i]?.loanAmountWords : ''}}</span>
+                    (अक्षरेपी रु. <span>{{loanData[i]?.loanAmountWords ? loanData[i]?.loanAmountWords : ''}}</span>
                     मात्र)</strong>
             </ng-container><br>
             <ng-container *ngIf="termLoanFreeText[i]?.freeTextTen">
-                <strong>सुरक्षणः</strong>
-                <span style="text-align: justify" class="nepaliFont">
-                        {{termLoanFreeText[i]?.freeTextTen === null || termLoanFreeText[i]?.freeTextTen === '' ? '___________' : termLoanFreeText[i]?.freeTextTen}}
+                <strong>सुरक्षणः </strong>
+                <span style="text-align: justify" class="nepaliFont fontCss">
+                        {{termLoanFreeText[i]?.freeTextTen === null || termLoanFreeText[i]?.freeTextTen === '' ? '===========================' : termLoanFreeText[i]?.freeTextTen}}
                     </span> <br>
             </ng-container>
             <ng-container *ngIf="termLoanFreeText[i]?.freeTextEleven">
-                <strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong>
-                <span class="nepaliFont">
-                        {{termLoanFreeText[i]?.freeTextEleven === null || termLoanFreeText[i]?.freeTextEleven === '' ? '___________' : termLoanFreeText[i]?.freeTextEleven}}
+                <strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power): </strong>
+                <span class="nepaliFont fontCss">
+                        {{termLoanFreeText[i]?.freeTextEleven === null || termLoanFreeText[i]?.freeTextEleven === '' ? '=========================' : termLoanFreeText[i]?.freeTextEleven}}
                     </span> <br>
             </ng-container>
             <ng-container *ngIf="termLoan.termLoanType === 'NEW_EMI'">
@@ -80,15 +78,14 @@
                 <span>हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
                                 बार्षिक
                                         <span [ngClass]="{'outside' : termLoan?.interestRateCT !== null && termLoan?.interestRateCT !== ''}">
-                        {{termLoan?.interestRateCT === null || termLoan?.interestRateCT === '' ? '___________' : termLoan?.interestRateCT}}</span>
-        % का दरले मासिक तिर्नु बुझाउनु पर्नेछ ।
+                        {{termLoan?.interestRateCT === null || termLoan?.interestRateCT === '' ? '___________' : termLoan?.interestRateCT}}</span>%
+                    का दरले मासिक तिर्नु बुझाउनु पर्नेछ ।
     </span><br>
                 <span>
         <strong>साँवा रब्याज भुक्तानी तरिकाः</strong> साँवा र ब्याज सहितको यसैसाथ संलग्न अनुमानित तालिका बमोजिम मासिक
         रु.
         <span [ngClass]="{'outside' : termLoan?.emiInfigureCT !== null && termLoan?.emiInfigureCT !== ''}">
-            {{termLoan?.emiInfigureCT === null || termLoan?.emiInfigureCT === '' ? '___________' : termLoan?.emiInfigureCT}}</span>
-        |-(अक्षरेपि रु.
+            {{termLoan?.emiInfigureCT === null || termLoan?.emiInfigureCT === '' ? '___________' : termLoan?.emiInfigureCT}}</span>/- (अक्षरेपि रु.
         <span [ngClass]="{'outside' : termLoan?.emiInWordsCT !== null && termLoan?.emiInWordsCT !== ''}">
             {{termLoan?.emiInWordsCT === null || termLoan?.emiInWordsCT === '' ? '___________' : termLoan?.emiInWordsCT}}</span>
         मात्र)का दरले
@@ -98,10 +95,9 @@
     </span><br>
                 <span *ngIf="termLoan.emiPaymentType === 'SUBSEQUENT_MONTH' &&
                             termLoanFreeText[i]?.newEMISubsequentVehicleLoan">
-                    <strong>कर्जा भुक्तानी शुरुः</strong> कर्जा
-                    <span class="nepaliFont">
+                    <strong>कर्जा भुक्तानी शुरुः</strong> कर्जा <span class="nepaliFont fontCss">
                         <strong>
-                            {{termLoanFreeText[i]?.newEMISubsequentVehicleLoan === null || termLoanFreeText[i]?.newEMISubsequentVehicleLoan === '' ? '___________' : termLoanFreeText[i]?.newEMISubsequentVehicleLoan}}
+                            {{termLoanFreeText[i]?.newEMISubsequentVehicleLoan === null || termLoanFreeText[i]?.newEMISubsequentVehicleLoan === '' ? '=====================' : termLoanFreeText[i]?.newEMISubsequentVehicleLoan}}
                         </strong>
                     </span>                        <!--<input class="form-field form-control-sm "
                                                  formControlName="newEMISubsequentVehicleLoan"
@@ -118,8 +114,8 @@
                     <strong> {{termLoan?.termLoanFor === 'VEHICLE' ? 'सवारी साधन खरिद गर्ने' : termLoan?.purposeOfLoanCT}}</strong></span>
                 कर्जाको
                 <span [ngClass]="{'outside' : termLoan?.serviceChargeCT !== null && termLoan?.serviceChargeCT !== ''}">
-                        {{termLoan?.serviceChargeCT === null || termLoan?.serviceChargeCT === '' ? '___________' : termLoan?.serviceChargeCT}}</span>
-                % सेवा शुल्क लाग्नेछ ।<br>
+                        {{termLoan?.serviceChargeCT === null || termLoan?.serviceChargeCT === '' ? '___________' : termLoan?.serviceChargeCT}}</span>%
+                सेवा शुल्क लाग्नेछ ।<br>
                 <strong>कर्जा अवधि:</strong>
                 <span [ngClass]="{'outside' : termLoan?.tenureOfLoanCT !== null && termLoan?.tenureOfLoanCT !== ''}">
                         {{termLoan?.tenureOfLoanCT === null || termLoan?.tenureOfLoanCT === '' ? '___________' : termLoan?.tenureOfLoanCT}}</span>
@@ -137,19 +133,18 @@
                 हाल उपरँक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating interest Rate)
                 बार्षिक
                 <span [ngClass]="{'outside' : termLoan?.interestRateCT !== null && termLoan?.interestRateCT !== ''}">
-                        {{termLoan?.interestRateCT === null || termLoan?.interestRateCT === '' ? '___________' : termLoan?.interestRateCT}}</span>
-                % का दरले मासिक तिर्नु बुझाउनु पर्नेछ ।<br>
+                        {{termLoan?.interestRateCT === null || termLoan?.interestRateCT === '' ? '___________' : termLoan?.interestRateCT}}</span>%
+                का दरले मासिक तिर्नु बुझाउनु पर्नेछ ।<br>
                 <strong>साँवा र ब्याज भुक्तानी तरिकाः</strong> साँवा र ब्याज सहितको यस अघि निर्धारीत सम
                 मासिक किस्ता (Equated Monthly Installment) तालिका बमोजिम मासिक रु.
                 <span [ngClass]="{'outside' : termLoan?.emiInfigureCT !== null && termLoan?.emiInfigureCT !== ''}">
-                        {{termLoan?.emiInfigureCT === null || termLoan?.emiInfigureCT === '' ? '___________' : termLoan?.emiInfigureCT}}</span>
-                |- (अक्षरेपि रु.
+                        {{termLoan?.emiInfigureCT === null || termLoan?.emiInfigureCT === '' ? '___________' : termLoan?.emiInfigureCT}}</span>/- (अक्षरेपि रु.
                 <span [ngClass]="{'outside' : termLoan?.emiInWordsCT !== null && termLoan?.emiInWordsCT !== ''}">
                         {{termLoan?.emiInWordsCT === null || termLoan?.emiInWordsCT === '' ? '___________' : termLoan?.emiInWordsCT}}</span>
                 मात्र)का दरले बाञकी किस्ताहरुमा तल उल्लिखित कर्जा अवधि समाप्ति मिति भित्र चुक्ता भुक्तानी गर्नु
                 पर्नेछ ।<br>
                 <strong>कर्जा अवधि समाप्ति मितिः</strong>
-                {{termLoan.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
+                {{termLoan.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : 'वि.सं. '}}
                 <span [ngClass]="{'outside' : termLoan?.dateOfExpiryCT !== null && termLoan?.dateOfExpiryCT !== ''}">
                         {{termLoan?.dateOfExpiryCT === null || termLoan?.dateOfExpiryCT === '' ? '___________' : termLoan?.dateOfExpiryCT}}</span>
                 ।
@@ -168,16 +163,14 @@
                 <span *ngIf="termLoan.subsidyOrAgricultureLoan === 'No'">हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
                                 बार्षिक
                                         <span [ngClass]="{'outside' : termLoan?.interestRateCT !== null && termLoan?.interestRateCT !== ''}">
-                        {{termLoan?.interestRateCT === null || termLoan?.interestRateCT === '' ? '___________' : termLoan?.interestRateCT}}</span>
-        % का दर
+                        {{termLoan?.interestRateCT === null || termLoan?.interestRateCT === '' ? '___________' : termLoan?.interestRateCT}}</span>% का दर
                             निर्धारण गरीएकोछ र सो ब्याज रकम नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र
                             चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।<br></span>
 
                 <span *ngIf="termLoan.subsidyOrAgricultureLoan === 'Yes'">हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
                                 बार्षिक
                                         <span [ngClass]="{'outside' : termLoan?.interestRateCT !== null && termLoan?.interestRateCT !== ''}">
-                        {{termLoan?.interestRateCT === null || termLoan?.interestRateCT === '' ? '___________' : termLoan?.interestRateCT}}</span>
-        % का दरले
+                        {{termLoan?.interestRateCT === null || termLoan?.interestRateCT === '' ? '___________' : termLoan?.interestRateCT}}</span>% का दरले
         निर्धारण गरीएकोछ । सो निर्धारित ब्याज दरमा नेपाल राष्ट्र बैंकले ऋणीलाई दिने छुट/सहुलियत वापतको दर
         घटाई कायम हुन आउने रकम ऋणीले ब्याज स्वरुप नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन,
         पौष र चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।<br></span>
@@ -196,9 +189,9 @@
                     रु.
                                         <span [ngClass]="{'outside' : termLoan?.paymentAmountFigureCT !== null && termLoan?.paymentAmountFigureCT !== ''}">
                         {{termLoan?.paymentAmountFigureCT === null || termLoan?.paymentAmountFigureCT === '' ? '___________' : termLoan?.paymentAmountFigureCT}}</span>
-        ।— अक्षरेपी
+        /- (अक्षरेपी रु.
                                         <span [ngClass]="{'outside' : termLoan?.paymentAmountWordsCT !== null && termLoan?.paymentAmountWordsCT !== ''}">
-                        {{termLoan?.paymentAmountWordsCT === null || termLoan?.paymentAmountWordsCT === '' ? '___________' : termLoan?.paymentAmountWordsCT}}</span>
+                        {{termLoan?.paymentAmountWordsCT === null || termLoan?.paymentAmountWordsCT === '' ? '___________' : termLoan?.paymentAmountWordsCT}}</span> मात्र)
         का दरले
                                         <span [ngClass]="{'outside' : termLoan?.numberOfPaymentsCT !== null && termLoan?.numberOfPaymentsCT !== ''}">
                         {{termLoan?.numberOfPaymentsCT === null || termLoan?.numberOfPaymentsCT === '' ? '___________' : termLoan?.numberOfPaymentsCT}}</span>
@@ -220,8 +213,8 @@
                         {{termLoan?.termLoanFor === 'VEHICLE' ? 'सवारी साधन खरिद गर्ने' : termLoan?.purposeOfLoanCT}}</span>
                 कर्जाको
                 <span [ngClass]="{'outside' : termLoan?.serviceChargeCT !== null && termLoan?.serviceChargeCT !== ''}">
-                        {{termLoan?.serviceChargeCT === null || termLoan?.serviceChargeCT === '' ? '___________' : termLoan?.serviceChargeCT}}</span>
-                % सेवा शुल्क लाग्नेछ ।<br>
+                        {{termLoan?.serviceChargeCT === null || termLoan?.serviceChargeCT === '' ? '___________' : termLoan?.serviceChargeCT}}</span>%
+                सेवा शुल्क लाग्नेछ ।<br>
                 <strong>कर्जा अवधि: </strong>
                 <span [ngClass]="{'outside' : termLoan?.tenureOfLoanCT !== null && termLoan?.tenureOfLoanCT !== ''}">
                         {{termLoan?.tenureOfLoanCT === null || termLoan?.tenureOfLoanCT === '' ? '___________' : termLoan?.tenureOfLoanCT}}</span>
@@ -239,29 +232,25 @@
                 <span *ngIf="termLoan.subsidyOrAgricultureLoan === 'No'">हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
                                 बार्षिक
                                         <span [ngClass]="{'outside' : termLoan?.interestRateCT !== null && termLoan?.interestRateCT !== ''}">
-                        {{termLoan?.interestRateCT === null || termLoan?.interestRateCT === '' ? '___________' : termLoan?.interestRateCT}}</span>
-        % का दर
+                        {{termLoan?.interestRateCT === null || termLoan?.interestRateCT === '' ? '___________' : termLoan?.interestRateCT}}</span>% का दर
                             निर्धारण गरीएकोछ र सो ब्याज रकम नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र
                             चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।<br></span>
 
                 <span *ngIf="termLoan.subsidyOrAgricultureLoan === 'Yes'">हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर (Floating Interest Rate)
                                 बार्षिक
                                         <span [ngClass]="{'outside' : termLoan?.interestRateCT  !== null && termLoan?.interestRateCT  !== ''}">
-                        {{termLoan?.interestRateCT === null || termLoan?.interestRateCT === '' ? '___________' : termLoan?.interestRateCT }}</span>
-        % का दरले
+                        {{termLoan?.interestRateCT === null || termLoan?.interestRateCT === '' ? '___________' : termLoan?.interestRateCT }}</span>% का दरले
                             निर्धारण गरीएकोछ । सो निर्धारित ब्याज दरमा नेपाल राष्ट्र बैंकले ऋणीलाई दिने छुट/सहुलियत वापतको दर
                             घटाई कायम हुन आउने रकम ऋणीले ब्याज स्वरुप नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन,
                             पौष र चैत्र मसान्तमा र/वा ऋणकर्जा चुक्ता भुक्तान हुँदाका बखत तिर्नु बुझाउनु पर्नेछ ।<br></span>
 
-                <span><strong><u>साँवा/किस्ता भुक्तानी तरिका:</u></strong>यस अघि निर्धारित भुक्तानी
+                <span><strong><u>साँवा/किस्ता भुक्तानी तरिका:</u></strong> यस अघि निर्धारित भुक्तानी
                         तालिकाबमोजिम बाञकी किस्ताहरु रु.
                                         <span [ngClass]="{'outside' : termLoan?.paymentAmountFigureCT !== null && termLoan?.paymentAmountFigureCT !== ''}">
-                        {{termLoan?.paymentAmountFigureCT === null || termLoan?.paymentAmountFigureCT === '' ? '___________' : termLoan?.paymentAmountFigureCT}}</span>
-        /—
-        <span [ngClass]="{'outside' : termLoan?.paymentAmountWordsCT !== null && termLoan?.paymentAmountWordsCT !== ''}">
-                        {{termLoan?.paymentAmountWordsCT === null || termLoan?.paymentAmountWordsCT === '' ? '___________' : termLoan?.paymentAmountWordsCT}}</span>
-        का दरले
-
+                        {{termLoan?.paymentAmountFigureCT === null || termLoan?.paymentAmountFigureCT === '' ? '___________' : termLoan?.paymentAmountFigureCT}}</span>/—
+                (अक्षरेपी रु. <span [ngClass]="{'outside' : termLoan?.paymentAmountWordsCT !== null && termLoan?.paymentAmountWordsCT !== ''}">
+                        {{termLoan?.paymentAmountWordsCT === null || termLoan?.paymentAmountWordsCT === '' ? '___________' : termLoan?.paymentAmountWordsCT}}</span> मात्र)
+                    का दरले
                                         <span [ngClass]="{'outside' : termLoan?.numberOfPaymentsCT !== null && termLoan?.numberOfPaymentsCT !== ''}">
                         {{termLoan?.numberOfPaymentsCT === null || termLoan?.numberOfPaymentsCT === '' ? '___________' : termLoan?.numberOfPaymentsCT}}</span>
                                 <ng-container *ngIf="termLoan.paymentTerms === 'YEARLY'"> बार्षिक </ng-container>
@@ -273,14 +262,14 @@
                             किस्ताहरुमा तल उल्लिखित कर्जा अवधि
                             समाप्ति मिति भित्र सम्पुर्ण बाँकी बक्यौता रकम चुक्ता भुक्तानी गर्नु पर्नेछ ।</span><br>
                 <strong>कर्जा अवधि समाप्ति मितिः </strong>
-                {{termLoan.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : ''}}
+                {{termLoan.dateOfExpiryTypeCT === 'AD' ? 'ई. स. ' : 'वि.सं. '}}
                 <span [ngClass]="{'outside' : termLoan?.dateOfExpiryCT !== null && termLoan?.dateOfExpiryCT !== ''}">
-                        {{termLoan?.dateOfExpiryCT === null || termLoan?.dateOfExpiryCT === '' ? '___________' : termLoan?.dateOfExpiryCT}}</span>
+                        {{termLoan?.dateOfExpiryCT === null || termLoan?.dateOfExpiryCT === '' ? '___________' : termLoan?.dateOfExpiryCT}}</span><br>
             </ng-container>
             <ng-container *ngIf="termLoanFreeText[i]?.freeTextTwelve">
-                <strong style="font-size: 19px">कर्जा प्रवाह तरिकाः</strong>
-                <span style="text-align: justify; line-height: 1.9em" class="nepaliFont">
-                        {{termLoanFreeText[i]?.freeTextTwelve === null || termLoanFreeText[i]?.freeTextTwelve === '' ? '___________' : termLoanFreeText[i]?.freeTextTwelve}}
+                <strong style="font-size: 19px">कर्जा प्रवाह तरिकाः </strong>
+                <span style="text-align: justify; line-height: 1.9em" class="nepaliFont fontCss">
+                        {{termLoanFreeText[i]?.freeTextTwelve === null || termLoanFreeText[i]?.freeTextTwelve === '' ? '====================' : termLoanFreeText[i]?.freeTextTwelve}}
                     </span>
             </ng-container><!--<textarea
                         class="form-control customFont nepaliFont"
