@@ -26,6 +26,7 @@ export class PowerOfAttorneyCompanyComponent implements OnInit {
   @Input() documentId: number;
   @Input() customerLoanId: number;
   powerOfAttorneyCompanyForm: FormGroup;
+  previousCompanyInfo: any = [];
   companyInfo: any = [];
   offerDocumentDetails: any;
   loanHolderNepData: any;
@@ -62,9 +63,10 @@ export class PowerOfAttorneyCompanyComponent implements OnInit {
 
   setData() {
     if (!ObjectUtil.isEmpty(this.cadData.assignedLoan[0])) {
-      this.companyInfo = JSON.parse(this.cadData.assignedLoan[0].companyInfo.companyJsonData);
-      this.companyInfo.forEach(val => {
+      this.previousCompanyInfo = JSON.parse(this.cadData.assignedLoan[0].companyInfo.companyJsonData);
+      this.previousCompanyInfo.forEach(val => {
         if (val.isAuthorizedPerson === 'Authorized Person Only' || val.isAuthorizedPerson === 'Both') {
+          this.companyInfo.push(val);
           const authorizedName = val.ownerNameCT;
           this.authorizedNameArray.push(authorizedName);
           this.isAuth = true;
@@ -215,7 +217,7 @@ export class PowerOfAttorneyCompanyComponent implements OnInit {
   }
   freeTextForm() {
     return this.formBuilder.group({
-      freeText2: ['सञ्चालक/प्रबन्ध सञ्चालक/प्रमुख कार्यकारी अधिकृत'],
+      freeText2: [';~rfns÷k|aGw ;~rfns÷k|d\'v sfo{sf/L clws[t÷'],
        // freeText2: [undefined],
     });
   }

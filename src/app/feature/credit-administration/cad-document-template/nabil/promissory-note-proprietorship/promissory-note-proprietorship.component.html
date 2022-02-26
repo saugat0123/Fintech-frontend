@@ -195,11 +195,11 @@
                                     <ng-container *ngIf="partner?.ownerGender === 'FEMALE'"> की </ng-container>
                                     <ng-container *ngIf="partner?.ownerGender === 'MALE' || partner?.ownerGender === 'OTHERS'"> श्री </ng-container>
                                     <ng-container
-                                            *ngIf="partner?.ownerGender === 'FEMALE' && partner?.ownerRelationMedium === '0'">
+                                            *ngIf="partner?.ownerGender === 'FEMALE' && partner?.ownerMaritalStatus === 'Married'">
                                         श्रीमती
                                     </ng-container>
                                     <ng-container
-                                            *ngIf="partner?.ownerGender === 'FEMALE' && partner?.ownerRelationMedium === '1'">
+                                            *ngIf="partner?.ownerGender === 'FEMALE' && partner?.ownerMaritalStatus === 'Unmarried'">
                                         सुश्री
                                     </ng-container>
                                     <input class="form-field form-control-sm d-print-none"
