@@ -82,197 +82,196 @@
                             </strong>
                         </span>
                             जसलाई यसपछि ऋणी भनिएको छ,
-                            को हकमा एवं तर्फबाट ऐ. का
+                            को हकमा एवं तर्फबाट ऐ. का अख्तियार प्राप्त :-
 
                             <!--Repeated Clause-->
                             <ng-container
-                                    *ngFor="let free of powerOfAttorneyCompanyForm.get(['freeTextArray'])['controls']; let i = index"
-                                    formArrayName="freeTextArray">
+                                    *ngFor="let companyInfo of companyInfo; let i = index" formArrayName="freeTextArray">
                                 <ng-container [formGroupName]="i">
-                                    अख्तियारप्राप्त
-                                    <span>
-                                    <input class="form-field d-print-none"
-                                           style="width: 40%" name="freeText2"
-                                           formControlName="freeText2"
-                                           placeholder="" type="text"/>
-                                    <span class="print-only">
-                                        {{this.freeText ? this.freeText.freeTextArray[i]?.freeText2 : '========================'}},
+                                <span>
+                                        <input class="form-field d-print-none nepaliFont"
+                                               style="width: 40%" name="freeText2"
+                                               formControlName="freeText2"
+                                               placeholder="" type="text"/>
+                                        <span
+                                              class="print-only nepaliFont font-weight-bold">
+                                        {{this.powerOfAttorneyCompanyForm.get(['freeTextArray', i, 'freeText2']).value ?
+                                            this.powerOfAttorneyCompanyForm.get(['freeTextArray', i, 'freeText2']).value : '__________________________'}},
                                     </span>
-                                </span>
-                                </ng-container>
                                 <ng-container
-                                        *ngIf="companyInfo[i]?.ownerNationality === 'Nepali' || companyInfo[i]?.foreignAddressOption === 'Local'">
+                                        *ngIf="companyInfo?.ownerNationality === 'Nepali' || companyInfo?.foreignAddressOption === 'Local'">
                                     <input class="form-field form-control-sm d-print-none"
                                            name="authorizedDistrict"
-                                           [value]="companyInfo[i]?.ownerPermanentDistrictCT"
+                                           [value]="companyInfo?.ownerPermanentDistrictCT"
                                            placeholder=" "
                                            type="text"/>
-                                    <span class="print-only">{{companyInfo[i] ? companyInfo[i]?.ownerPermanentDistrictCT : ''}}</span>
-                                    जिल्ला <input class="form-field form-control-sm d-print-none"
+                                    <span class="print-only font-weight-bold">{{companyInfo ? companyInfo?.ownerPermanentDistrictCT : ''}}</span>
+                                    जिल्ला, <input class="form-field form-control-sm d-print-none"
                                                   name="authorizedVDC"
-                                                  [value]="companyInfo[i]?.ownerPermanentMunicipalityCT"
+                                                  [value]="companyInfo?.ownerPermanentMunicipalityCT"
                                                   placeholder=" "
                                                   type="text"/>
-                                    <span class="print-only">{{companyInfo[i] ? companyInfo[i]?.ownerPermanentMunicipalityCT : ''}}</span>
-                                    <ng-container *ngIf="companyInfo[i]?.ownerPermanentAddressRadio === '0'"> न.पा
+                                    <span class="print-only font-weight-bold">{{companyInfo ? companyInfo?.ownerPermanentMunicipalityCT : ''}}</span>
+                                    <ng-container *ngIf="companyInfo?.ownerPermanentAddressRadio === '0'"> न.पा,
                                     </ng-container>
-                                    <ng-container *ngIf="companyInfo[i]?.ownerPermanentAddressRadio === '1'"> गा.वि.स.
+                                    <ng-container *ngIf="companyInfo?.ownerPermanentAddressRadio === '1'"> गा.वि.स.,
                                     </ng-container>
-                                    <ng-container *ngIf="companyInfo[i]?.ownerPermanentAddressRadio === '2'"> गाँउपालिका
+                                    <ng-container *ngIf="companyInfo?.ownerPermanentAddressRadio === '2'"> गाँउपालिका,
                                     </ng-container>
-                                    वडा नं <input class="form-field form-control-sm d-print-none"
+                                     वडा नं <input class="form-field form-control-sm d-print-none"
                                                   name="authorizedWardNumber"
-                                                  [value]="companyInfo[i]?.ownerPermanentWardNoCT"
+                                                  [value]="companyInfo?.ownerPermanentWardNoCT"
                                                   placeholder=" "
                                                   type="text"/>
-                                    <span class="print-only">{{companyInfo[i] ? companyInfo[i]?.ownerPermanentWardNoCT : ''}}</span>
+                                    <span class="print-only font-weight-bold">{{companyInfo ? companyInfo?.ownerPermanentWardNoCT : ''}}</span>
                                 </ng-container>
-                                <ng-container *ngIf="(companyInfo[i]?.ownerNationality === 'Indian' || companyInfo[i]?.ownerNationality === 'Other')
-                             && companyInfo[i]?.foreignAddressOption === 'Foreign'">
+                                <ng-container *ngIf="(companyInfo?.ownerNationality === 'Indian' || companyInfo?.ownerNationality === 'Other')
+                             && companyInfo?.foreignAddressOption === 'Foreign'">
                                     <input class="form-field form-control-sm d-print-none"
                                            name="otherAddress"
-                                           [value]="companyInfo[i]?.ownerOtherAddressCT"
+                                           [value]="companyInfo?.ownerOtherAddressCT"
                                            placeholder=" "
                                            type="text"/>
-                                    <span class="print-only">{{companyInfo[i] ? companyInfo[i]?.ownerOtherAddressCT : ''}}</span>
+                                    <span class="print-only font-weight-bold">{{companyInfo ? companyInfo?.ownerOtherAddressCT : ''}}</span>
                                 </ng-container>
                                 बस्ने
-                                <ng-container *ngIf="companyInfo[i]?.ownerGender === 'MALE'"> श्री </ng-container>
+                                <ng-container *ngIf="companyInfo?.ownerGender === 'MALE'"> श्री </ng-container>
                                 <ng-container
-                                        *ngIf="companyInfo[i]?.ownerGender === 'FEMALE' && companyInfo[i]?.ownerRelationMedium === '0'">
+                                        *ngIf="companyInfo?.ownerGender === 'FEMALE' && companyInfo?.ownerMaritalStatus === 'Married'">
                                     श्रीमती
                                 </ng-container>
                                 <ng-container
-                                        *ngIf="companyInfo[i]?.ownerGender === 'FEMALE' && companyInfo[i]?.ownerRelationMedium === '1'">
+                                        *ngIf="companyInfo?.ownerGender === 'FEMALE' && companyInfo?.ownerMaritalStatus === 'Unmarried'">
                                     सुश्री
                                 </ng-container>
                                 <input class="form-field form-control-sm d-print-none"
                                        name="authorizedName"
-                                       [value]="companyInfo[i]?.ownerNameCT"
+                                       [value]="companyInfo?.ownerNameCT"
                                        placeholder=" "
                                        type="text"/>
-                                <ng-container *ngIf="(companyInfo[i]?.ownerNationality === 'Indian' || companyInfo[i]?.ownerNationality === 'Other')
-                             && companyInfo[i]?.foreignAddressOption === 'Foreign'">, </ng-container>
-                                <span class="print-only">{{companyInfo[i] ? companyInfo[i]?.ownerNameCT : ''}}</span>
-                                <ng-container *ngIf="companyInfo[i]?.ownerNationality === 'Nepali'">
+                                <ng-container *ngIf="(companyInfo?.ownerNationality === 'Indian' || companyInfo?.ownerNationality === 'Other')
+                             && companyInfo?.foreignAddressOption === 'Foreign'">, </ng-container>
+                                <span class="print-only font-weight-bold">{{companyInfo ? companyInfo?.ownerNameCT : ''}}</span>
+                                <ng-container *ngIf="companyInfo?.ownerNationality === 'Nepali'">
                                     (ना.प्र.नं. <input class="form-field form-control-sm d-print-none"
                                                        name="authorizedCitizenship"
-                                                       [value]="companyInfo[i]?.ownerCitizenshipNoCT"
+                                                       [value]="companyInfo?.ownerCitizenshipNoCT"
                                                        placeholder=" "
                                                        type="text"/>
-                                    <span class="print-only">{{companyInfo[i] ? companyInfo[i]?.ownerCitizenshipNoCT : ''}}</span>
+                                    <span class="print-only font-weight-bold">{{companyInfo ? companyInfo?.ownerCitizenshipNoCT : ''}}</span>,
                                     मिति <input class="form-field form-control-sm d-print-none"
                                                  name="authorizedDateOfIssue"
                                                  [value]="this.issueDate[i].issueDate"
                                                  placeholder=" "
                                                  type="text"/>
-                                    <span class="print-only">{{this.issueDate ? this.issueDate[i].issueDate : ''}}</span>
+                                    <span class="print-only font-weight-bold">{{this.issueDate ? this.issueDate[i].issueDate : ''}}</span>,
                                     जिल्ला प्रशासन कार्यालय
                                     <input class="form-field form-control-sm d-print-none"
                                            name="authorizedIdentity"
-                                           [value]="companyInfo[i]?.ownerCitizenshipIssuedDistrictCT"
+                                           [value]="companyInfo?.ownerCitizenshipIssuedDistrictCT"
                                            placeholder=" "
                                            type="text"/>
-                                    <span class="print-only">{{companyInfo[i] ? companyInfo[i]?.ownerCitizenshipIssuedDistrictCT : ''}}</span>),
+                                    <span class="print-only font-weight-bold">{{companyInfo ? companyInfo?.ownerCitizenshipIssuedDistrictCT : ''}}</span>),
                                 </ng-container>
-                                <ng-container *ngIf="companyInfo[i]?.ownerNationality === 'Indian' &&
-                                 companyInfo[i]?.indianOwnerDetailOption === 'Passport'">
+                                <ng-container *ngIf="companyInfo?.ownerNationality === 'Indian' &&
+                                 companyInfo?.indianOwnerDetailOption === 'Passport'">
                                     (राहदानी नं. <input class="form-field form-control-sm d-print-none"
                                                        name="indianOwnerPassportNoCT"
-                                                       [value]="companyInfo[i]?.indianOwnerPassportNoCT"
+                                                       [value]="companyInfo?.indianOwnerPassportNoCT"
                                                        placeholder=" "
                                                        type="text"/>
-                                    <span class="print-only">{{companyInfo[i] ? companyInfo[i]?.indianOwnerPassportNoCT : ''}}</span>
+                                    <span class="print-only font-weight-bold">{{companyInfo ? companyInfo?.indianOwnerPassportNoCT : ''}}</span>
                                     जारी मिति <input class="form-field form-control-sm d-print-none"
                                                 name="authorizedDateOfIssue"
                                                 [value]="this.issueDate[i].issueDate"
                                                 placeholder=" "
                                                 type="text"/>
-                                    <span class="print-only">{{this.issueDate ? this.issueDate[i].issueDate : ''}}</span>
+                                    <span class="print-only font-weight-bold">{{this.issueDate ? this.issueDate[i].issueDate : ''}}</span>,
                                     म्याद सकिने मिति <input class="form-field form-control-sm d-print-none"
                                                 name="authorizedDateOfValid"
                                                 [value]="this.issueDate[i].validDate"
                                                 placeholder=" "
                                                 type="text"/>
-                                    <span class="print-only">{{this.issueDate ? this.issueDate[i].validDate : ''}}</span>,
+                                    <span class="print-only font-weight-bold">{{this.issueDate ? this.issueDate[i].validDate : ''}}</span>,
                                     <input class="form-field form-control-sm d-print-none"
                                            name="indianOwnerPassportIssuedFromCT"
-                                           [value]="companyInfo[i]?.indianOwnerPassportIssuedFromCT"
+                                           [value]="companyInfo?.indianOwnerPassportIssuedFromCT"
                                            placeholder=" "
                                            type="text"/>
-                                    <span class="print-only">{{companyInfo[i] ? companyInfo[i]?.indianOwnerPassportIssuedFromCT : ''}}</span>),
+                                    <span class="print-only font-weight-bold">{{companyInfo ? companyInfo?.indianOwnerPassportIssuedFromCT : ''}}</span>),
                                 </ng-container>
-                                <ng-container *ngIf="companyInfo[i]?.ownerNationality === 'Other'">
+                                <ng-container *ngIf="companyInfo?.ownerNationality === 'Other'">
                                     (राहदानी नं. <input class="form-field form-control-sm d-print-none"
                                                        name="otherOwnerPassportNoCT"
-                                                       [value]="companyInfo[i]?.otherOwnerPassportNoCT"
+                                                       [value]="companyInfo?.otherOwnerPassportNoCT"
                                                        placeholder=" "
                                                        type="text"/>
-                                    <span class="print-only">{{companyInfo[i] ? companyInfo[i]?.otherOwnerPassportNoCT : ''}}</span>
+                                    <span class="print-only font-weight-bold">{{companyInfo ? companyInfo?.otherOwnerPassportNoCT : ''}}</span>
                                     जारी मिति <input class="form-field form-control-sm d-print-none"
                                                 name="authorizedDateOfIssue"
                                                 [value]="this.issueDate[i].issueDate"
                                                 placeholder=" "
                                                 type="text"/>
-                                    <span class="print-only">{{this.issueDate ? this.issueDate[i].issueDate : ''}}</span>
+                                    <span class="print-only font-weight-bold">{{this.issueDate ? this.issueDate[i].issueDate : ''}}</span>,
                                     म्याद सकिने मिति <input class="form-field form-control-sm d-print-none"
                                                 name="authorizedDateOfValid"
                                                 [value]="this.issueDate[i].validDate"
                                                 placeholder=" "
                                                 type="text"/>
-                                    <span class="print-only">{{this.issueDate ? this.issueDate[i].validDate : ''}}</span>,
+                                    <span class="print-only font-weight-bold">{{this.issueDate ? this.issueDate[i].validDate : ''}}</span>,
                                     <input class="form-field form-control-sm d-print-none"
                                            name="otherOwnerPassportIssuedFromCT"
-                                           [value]="companyInfo[i]?.otherOwnerPassportIssuedFromCT"
+                                           [value]="companyInfo?.otherOwnerPassportIssuedFromCT"
                                            placeholder=" "
                                            type="text"/>
-                                    <span class="print-only">{{companyInfo[i] ? companyInfo[i]?.otherOwnerPassportIssuedFromCT : ''}}</span>),
+                                    <span class="print-only font-weight-bold">{{companyInfo ? companyInfo?.otherOwnerPassportIssuedFromCT : ''}}</span>),
                                 </ng-container>
-                                <ng-container *ngIf="companyInfo[i]?.ownerNationality === 'Indian' &&
-                                 companyInfo[i]?.indianOwnerDetailOption === 'Adhar Card'">
+                                <ng-container *ngIf="companyInfo?.ownerNationality === 'Indian' &&
+                                 companyInfo?.indianOwnerDetailOption === 'Adhar Card'">
                                     (आधार कार्ड नं. <input class="form-field form-control-sm d-print-none"
                                                         name="indianOwnerPassportNoCT"
-                                                        [value]="companyInfo[i]?.indianOwnerAdharCardNoCT"
+                                                        [value]="companyInfo?.indianOwnerAdharCardNoCT"
                                                         placeholder=" "
                                                         type="text"/>
-                                    <span class="print-only">{{companyInfo[i] ? companyInfo[i]?.indianOwnerAdharCardNoCT : ''}}</span>
+                                    <span class="print-only font-weight-bold">{{companyInfo ? companyInfo?.indianOwnerAdharCardNoCT : ''}}</span>
                                     जारी मिति <input class="form-field form-control-sm d-print-none"
                                                      name="authorizedDateOfIssue"
                                                      [value]="this.issueDate[i].issueDate"
                                                      placeholder=" "
                                                      type="text"/>
-                                    <span class="print-only">{{this.issueDate ? this.issueDate[i].issueDate : ''}}</span>,
+                                    <span class="print-only font-weight-bold">{{this.issueDate ? this.issueDate[i].issueDate : ''}}</span>,
                                     <input class="form-field form-control-sm d-print-none"
                                            name="authorizedIdentity"
-                                           [value]="companyInfo[i]?.indianOwnerAdharCardIssuedFromCT"
+                                           [value]="companyInfo?.indianOwnerAdharCardIssuedFromCT"
                                            placeholder=" "
                                            type="text"/>
-                                    <span class="print-only">{{companyInfo[i] ? companyInfo[i]?.indianOwnerAdharCardIssuedFromCT : ''}}</span>),
+                                    <span class="print-only font-weight-bold">{{companyInfo ? companyInfo?.indianOwnerAdharCardIssuedFromCT : ''}}</span>),
                                 </ng-container>
-                                <ng-container *ngIf="companyInfo[i]?.ownerNationality === 'Indian' &&
-                                 companyInfo[i]?.indianOwnerDetailOption === 'Embassy Certificate'">
+                                <ng-container *ngIf="companyInfo?.ownerNationality === 'Indian' &&
+                                 companyInfo?.indianOwnerDetailOption === 'Embassy Certificate'">
                                     (दूतावास नं. <input class="form-field form-control-sm d-print-none"
                                                         name="indianEmbassyNoCT"
-                                                        [value]="companyInfo[i]?.indianEmbassyNoCT"
+                                                        [value]="companyInfo?.indianEmbassyNoCT"
                                                         placeholder=" "
                                                         type="text"/>
-                                    <span class="print-only">{{companyInfo[i] ? companyInfo[i]?.indianEmbassyNoCT : ''}}</span>
+                                    <span class="print-only font-weight-bold">{{companyInfo ? companyInfo?.indianEmbassyNoCT : ''}}</span>
                                     जारी मिति <input class="form-field form-control-sm d-print-none"
                                                      name="authorizedDateOfIssue"
                                                      [value]="this.issueDate[i].issueDate"
                                                      placeholder=" "
                                                      type="text"/>
-                                    <span class="print-only">{{this.issueDate ? this.issueDate[i].issueDate : ''}}</span>,
+                                    <span class="print-only font-weight-bold">{{this.issueDate ? this.issueDate[i].issueDate : ''}}</span>,
                                     <input class="form-field form-control-sm d-print-none"
                                            name="indianEmbassyIssuedFromCT"
-                                           [value]="companyInfo[i]?.indianEmbassyIssuedFromCT"
+                                           [value]="companyInfo?.indianEmbassyIssuedFromCT"
                                            placeholder=" "
                                            type="text"/>
-                                    <span class="print-only">{{companyInfo[i] ? companyInfo[i]?.indianEmbassyIssuedFromCT : ''}}</span>),
+                                    <span class="print-only font-weight-bold">{{companyInfo ? companyInfo?.indianEmbassyIssuedFromCT : ''}}</span>),
                                 </ng-container>
+                                </span>
+                            </ng-container>
                             </ng-container>
                             <!--Repeated Clause Finished-->
-
                             आगे म/हामी ऋणीको अनुरोधमा नबिल बैंक लिमिटेडको
                             <span>
                             <input class="form-field form-control-sm d-print-none" name="branchName"
