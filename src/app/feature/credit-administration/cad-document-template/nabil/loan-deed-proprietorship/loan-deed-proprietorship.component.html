@@ -297,7 +297,7 @@
               <tr *ngFor="let loan of cadData?.assignedLoan">
                 <td>{{loan?.loan?.nepaliName || loan?.loan?.name}}</td>
                 <td>{{convertNepaliNumberAmount(loan?.proposal?.proposedLimit)}}</td>
-                <td>{{this.interestRate}}%</td>
+                <td>{{this.interestRate ? this.interestRate : '_________________'}}%</td>
                 <td>
                   <span>
                     <input class="form-field form-control-sm disable-print"
@@ -305,7 +305,7 @@
                            formControlName="dateOfExpirySingle"
                            placeholder=""
                            type="text"/>
-                    <span class="print-only">{{this.dateOfExpirySingle ? this.dateOfExpirySingle : ''}}</span>
+                    <span class="print-only">{{this.dateOfExpirySingle ? this.dateOfExpirySingle : '_________________'}}</span>
                   </span>
                 </td>
               </tr>
@@ -317,19 +317,20 @@
                   <td>{{newTempData[i]?.loanNepaliName}}</td>
                   <td>{{newTempData[i]?.loanAmount}}</td>
                   <td *ngIf="newTempData[i]?.interestRateExists === true">{{newTempData[i]?.interestRate ? newTempData[i]?.interestRate : '_________________'}}%</td>
-                  <td *ngIf="newTempData[i]?.interestRateExists === false"><input class="form-field form-control-sm d-print-none"
+                  <td *ngIf="newTempData[i]?.interestRateExists === false"><input class="form-field form-control-sm d-print-none nepaliFont"
                                                                                   name="interestRateCombined"
                                                                                   formControlName="interestRateCombined"
                                                                                   placeholder=""
                                                                                   type="text"/>
-                    <span class="print-only">{{this.supportedInfo ? this.supportedInfo.combinedFreeText[i].interest : '____________________'}}</span>
+                    <span class="print-only nepaliFont">{{this.supportedInfo ? this.supportedInfo.combinedFreeText[i].interest : '____________________'}}</span>
                   </td>
-                  <td><input class="form-field form-control-sm d-print-none"
+                  <td *ngIf="newTempData[i]?.dateOfExpiry !== ''">{{newTempData[i]?.dateOfExpiry ? newTempData[i]?.dateOfExpiry : '____________________'}}</td>
+                  <td *ngIf="newTempData[i]?.dateOfExpiry === ''"><input class="form-field form-control-sm d-print-none nepaliFont"
                              name="dateOfExpiry"
                              formControlName="dateOfExpiry"
                              placeholder=""
                              type="text"/>
-                    <span class="print-only">{{this.supportedInfo ? this.supportedInfo.combinedFreeText[i].dateOfExpiry : '______/_______/_______'}}</span>
+                    <span class="print-only nepaliFont">{{this.supportedInfo ? this.supportedInfo.combinedFreeText[i].dateOfExpiry : '____________________'}}</span>
                   </td>
                 </ng-container>
               </tr>
