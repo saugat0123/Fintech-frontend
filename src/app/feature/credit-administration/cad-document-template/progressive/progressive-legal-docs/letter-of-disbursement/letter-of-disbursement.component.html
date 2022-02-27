@@ -105,15 +105,18 @@
                                                        readonly
                                                        type="text"/>
                             (साबिक
-                            <input class="form-field form-control-sm nepaliFont"
+                            <input class="form-field form-control-sm nepaliFont sizefont"
+                                   value="{{form.get('sincerlyPermanentAddress').value}}"
                                    formControlName="borrowerSabikDistrict"
                                    placeholder=""
                                    type="text"/>,
-                            <input class="form-field form-control-sm nepaliFont"
+                            <input class="form-field form-control-sm nepaliFont sizefont"
+                                          value="{{form.get('jillaName').value}}"
                                           formControlName="borrowerSabikVDC"
                                           placeholder=""
                                           type="text"/>
                             गा.बि.स., वडा नं. <input class="form-field form-control-sm nepaliFont shortInput"
+                                                     value="{{form.get('jagaName').value}}"
                                                    formControlName="borrowerSabikWardNo"
                                                    placeholder=""
                                                    type="text"/>)

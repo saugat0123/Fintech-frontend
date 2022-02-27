@@ -117,9 +117,6 @@ export class RokkaLetterComponent implements OnInit {
         branchDistrict: this.nepaliData.branchDistrict ? this.nepaliData.branchDistrict : '',
         branchPhoneNo: this.nepaliData.branchTelNo ? this.nepaliData.branchTelNo : '',
         debtorName: this.nepaliData.collateralDetails[0].collateralName ? this.nepaliData.collateralDetails[0].collateralName : '',
-        perDistrict: !ObjectUtil.isEmpty(this.nepaliData.collateralOwnerDetails[0]) ? this.nepaliData.collateralOwnerDetails[0].collateralOwnerPermanentDistrict.nepaliName : '',
-        perMunicipality: !ObjectUtil.isEmpty(this.nepaliData.collateralOwnerDetails[0]) ? this.nepaliData.collateralOwnerDetails[0].collateralOwnerPermanentVdc : '',
-        perWardNumber: !ObjectUtil.isEmpty(this.nepaliData.collateralOwnerDetails[0]) ? this.nepaliData.collateralOwnerDetails[0].collateralOwnerPermanentVdcWard : '',
       });
     }
 
