@@ -1,4 +1,4 @@
-<div class="container text-justify" id="{{offerLetterConst.PERSONAL_GUARANTEE_PROPRIETORSHIP}}Print">
+<div class="container text-justify" id="{{offerLetterConst.PERSONAL_GUARANTEE_PROPRIETORSHIP}}Print" [nbSpinner]="spinner">
     <form [formGroup]="personalGuaranteeProprietorship" id="print-section">
         <div class="row"
              *ngFor="let guarantorProprietorship of individualGuarantorNepDataArray; let i = index"
@@ -453,6 +453,102 @@
                                             </ng-container>
                                         </p>
                                         <br>
+                                        <p class="text-center mt-5">
+                                            <b><u>साक्षी</u></b>
+                                        </p>
+                                        <div>
+                                            <p>१. <input class="form-field form-control-sm disable-print nepaliFont"
+                                                         name="witnessDistrict"
+                                                         formControlName="witnessDistrict"
+                                                         placeholder="" type="text"/>
+                                                <span class="print-only font-weight-bold nepaliFont">
+                                                    {{personalGuaranteeProprietorship?.get(["guaranteeProprietorship", i, 'witnessDistrict'])?.value ? personalGuaranteeProprietorship?.get(["guaranteeProprietorship", i, 'witnessDistrict'])?.value : '================================='}}
+                                                </span>
+                                                जिल्ला <input
+                                                        class="form-field form-control-sm disable-print nepaliFont"
+                                                        name="witnessMunicipality"
+                                                        formControlName="witnessMunicipality"
+                                                        placeholder="" type="text"/>
+                                                <span class="print-only font-weight-bold nepaliFont">
+                                                    {{personalGuaranteeProprietorship?.get(["guaranteeProprietorship", i, 'witnessMunicipality'])?.value ? personalGuaranteeProprietorship?.get(["guaranteeProprietorship", i, 'witnessMunicipality'])?.value : '================================='}}
+                                                </span>
+                                                न.पा/गा.वि.स. वडा नं.
+                                                <input class="form-field form-control-sm disable-print nepaliFont"
+                                                       name="WitnessWardNumber"
+                                                       formControlName="WitnessWardNumber"
+                                                       placeholder="" type="text"/>
+                                                <span class="print-only font-weight-bold nepaliFont">
+                                                    {{personalGuaranteeProprietorship?.get(["guaranteeProprietorship", i, 'WitnessWardNumber'])?.value ? personalGuaranteeProprietorship?.get(["guaranteeProprietorship", i, 'WitnessWardNumber'])?.value : '================================='}}
+                                                </span>
+                                                बस्ने बर्ष <input
+                                                        class="form-field form-control-sm disable-print nepaliFont"
+                                                        name="witnessAge"
+                                                        formControlName="witnessAge"
+                                                        placeholder="" type="text"/>
+                                                <span class="print-only font-weight-bold nepaliFont">
+                                                    {{personalGuaranteeProprietorship?.get(["guaranteeProprietorship", i, 'witnessAge'])?.value ? personalGuaranteeProprietorship?.get(["guaranteeProprietorship", i, 'witnessAge'])?.value : '================================='}}
+                                                </span>
+                                                को/की <input
+                                                        class="form-field form-control-sm disable-print nepaliFont"
+                                                        name="witnessName"
+                                                        formControlName="witnessName"
+                                                        placeholder="" type="text"/>
+                                                <span class="print-only font-weight-bold nepaliFont">
+                                                    {{personalGuaranteeProprietorship?.get(["guaranteeProprietorship", i, 'witnessName'])?.value ? personalGuaranteeProprietorship?.get(["guaranteeProprietorship", i, 'witnessName'])?.value : '================================='}}
+                                                </span>
+                                            </p>
+                                            <p>२. <input class="form-field form-control-sm disable-print nepaliFont"
+                                                         name="witnessDistrict"
+                                                         formControlName="witnessDistrict2"
+                                                         placeholder="" type="text"/>
+                                                <span class="print-only font-weight-bold nepaliFont">
+                                                    {{personalGuaranteeProprietorship?.get(["guaranteeProprietorship", i, 'witnessDistrict2'])?.value ? personalGuaranteeProprietorship?.get(["guaranteeProprietorship", i, 'witnessDistrict2'])?.value : '================================='}}
+                                                </span>
+                                                जिल्ला <input
+                                                        class="form-field form-control-sm disable-print nepaliFont"
+                                                        name="witnessMunicipality"
+                                                        formControlName="witnessMunicipality2"
+                                                        placeholder="" type="text"/>
+                                                <span class="print-only font-weight-bold nepaliFont">
+                                                    {{personalGuaranteeProprietorship?.get(["guaranteeProprietorship", i, 'witnessMunicipality2'])?.value ? personalGuaranteeProprietorship?.get(["guaranteeProprietorship", i, 'witnessMunicipality2'])?.value : '================================='}}
+                                                </span>
+                                                न.पा/गा.वि.स. वडा नं.
+                                                <input class="form-field form-control-sm disable-print nepaliFont"
+                                                       name="WitnessWardNumber"
+                                                       formControlName="WitnessWardNumber2"
+                                                       placeholder="" type="text"/>
+                                                <span class="print-only font-weight-bold nepaliFont">
+                                                    {{personalGuaranteeProprietorship?.get(["guaranteeProprietorship", i, 'WitnessWardNumber2'])?.value ? personalGuaranteeProprietorship?.get(["guaranteeProprietorship", i, 'WitnessWardNumber2'])?.value : '================================='}}
+                                                </span>
+                                                बस्ने बर्ष <input
+                                                        class="form-field form-control-sm disable-print nepaliFont"
+                                                        name="witnessAge"
+                                                        formControlName="witnessAge2"
+                                                        placeholder="" type="text"/>
+                                                <span class="print-only font-weight-bold nepaliFont">
+                                                    {{personalGuaranteeProprietorship?.get(["guaranteeProprietorship", i, 'witnessAge2'])?.value ? personalGuaranteeProprietorship?.get(["guaranteeProprietorship", i, 'witnessAge2'])?.value : '================================='}}
+                                                </span>
+                                                को/की <input
+                                                        class="form-field form-control-sm disable-print nepaliFont"
+                                                        name="witnessName"
+                                                        formControlName="witnessName2"
+                                                        placeholder="" type="text"/>
+                                                <span class="print-only font-weight-bold nepaliFont">
+                                                    {{personalGuaranteeProprietorship?.get(["guaranteeProprietorship", i, 'witnessName2'])?.value ? personalGuaranteeProprietorship?.get(["guaranteeProprietorship", i, 'witnessName2'])?.value : '================================='}}
+                                                </span>
+                                            </p>
+                                            <p>
+                                                ३. कारणीले प्रस्तुत लिखत मेरो सामुन्ने सहिछाप गरेको हो भनी सनाखत गर्ने नविल बैंक
+                                                लिमिटेडका कर्मचारी <input
+                                                    class="form-field form-control-sm disable-print nepaliFont"
+                                                    name="Name of Bank Staff"
+                                                    formControlName="bankStaff"
+                                                    placeholder="" type="text"/>
+                                                <span class="print-only font-weight-bold nepaliFont">
+                                                    {{personalGuaranteeProprietorship?.get(["guaranteeProprietorship", i, 'bankStaff'])?.value ? personalGuaranteeProprietorship?.get(["guaranteeProprietorship", i, 'bankStaff'])?.value : '================================='}}
+                                                </span>
+                                            </p>
+                                        </div>
                                         <br>
                                         <div class="row mt-3">
                                             <div class="col-md-12 text-center">
