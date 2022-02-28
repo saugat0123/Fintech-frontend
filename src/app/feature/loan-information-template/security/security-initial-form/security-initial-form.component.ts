@@ -31,6 +31,10 @@ import {FormUtils} from '../../../../@core/utils/form.utils';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {FixAssetCollateralComponent} from './fix-asset-collateral/fix-asset-collateral.component';
 import {DateValidator} from '../../../../@core/validator/date-validator';
+import {AddressService} from '../../../../@core/service/baseservice/address.service';
+import {Province} from '../../../admin/modal/province';
+import {MunicipalityVdc} from '../../../admin/modal/municipality_VDC';
+import {District} from '../../../admin/modal/district';
 
 
 @Component({
@@ -150,6 +154,9 @@ export class SecurityInitialFormComponent implements OnInit {
     dialogRef: NbDialogRef<any>;
     isOpen = false;
     newOwnerShipTransfer = [];
+    provinceList = [];
+    districtList: Array<District> = Array<District>();
+    municipalitiesList: Array<MunicipalityVdc> = Array<MunicipalityVdc>();
 
     constructor(private formBuilder: FormBuilder,
                 private valuatorToast: ToastService,
@@ -160,7 +167,8 @@ export class SecurityInitialFormComponent implements OnInit {
                 private datePipe: DatePipe,
                 private toastService: ToastService,
                 private roleService: RoleService,
-                private nbDialogService: NbDialogService) {
+                private nbDialogService: NbDialogService,
+                private addressService: AddressService) {
     }
 
 
@@ -184,6 +192,7 @@ export class SecurityInitialFormComponent implements OnInit {
         }, error => {
             console.error(error);
         });
+        this.getProvince();
         if (this.formData !== undefined) {
             this.formDataForEdit = this.formData['initialForm'];
             this.selectedArray = this.formData['selectedArray'];
@@ -622,6 +631,8 @@ export class SecurityInitialFormComponent implements OnInit {
             } else {
                 this.valuator(null, 'building', index);
             }
+            this.getDistricts(singleData.province);
+            this.getMunicipalities(singleData.district);
             buildingDetails.push(
                 this.formBuilder.group({
                     owner: [singleData.owner],
@@ -681,7 +692,12 @@ export class SecurityInitialFormComponent implements OnInit {
                     ownerKycApplicableData: [singleData.ownerKycApplicableData],
                     progessCost: [singleData.progessCost],
                     landBuildingOtherBranchChecked: [singleData.landBuildingOtherBranchChecked],
-                    kycCheckForLandAndBuilding: [singleData.kycCheckForLandAndBuilding]
+                    kycCheckForLandAndBuilding: [singleData.kycCheckForLandAndBuilding],
+                    province: [singleData.province],
+                    district: [singleData.district],
+                    municipalities: [singleData.municipalities],
+                    wardNo: [singleData.wardNo],
+                    address: [singleData.address]
                 })
             );
         });
@@ -1382,7 +1398,12 @@ export class SecurityInitialFormComponent implements OnInit {
             ownerKycApplicableData: [undefined],
             progessCost: [undefined],
             landBuildingOtherBranchChecked: [undefined],
-            kycCheckForLandAndBuilding: [false]
+            kycCheckForLandAndBuilding: [false],
+            province: [undefined],
+            district: [undefined],
+            municipalities: [undefined],
+            wardNo: [undefined],
+            address: [undefined],
         });
     }
 
@@ -2127,6 +2148,7 @@ export class SecurityInitialFormComponent implements OnInit {
         this.spinner = true;
         this.roleService.getAll().subscribe(res => {
             this.designationList = res.detail;
+            console.log('Designation List ', this.designationList);
             this.spinner = false;
         }, error => {
             this.toastService.show(new Alert(AlertType.ERROR, 'Error While Fetching List'));
@@ -2357,5 +2379,44 @@ export class SecurityInitialFormComponent implements OnInit {
                 this.selectedArray.push('OtherSecurity');
             }
         });
+    }
+
+    getProvince() {
+        this.addressService.getProvince().toPromise().then((res: any) => {
+            this.provinceList = res.detail;
+        }, error => {
+            console.error('Error while fetching province Lists', error);
+        });
+    }
+
+    getDistricts(province: Province) {
+        this.addressService.getDistrictByProvince(province).subscribe(
+            (response: any) => {
+                this.districtList = response.detail;
+                this.districtList.sort((a, b) => a.name.localeCompare(b.name));
+                /*this.districtList.forEach(district => {
+                  if (!ObjectUtil.isEmpty(this.customer.district) && district.id === this.customer.district.id) {
+                    this.basicInfo.controls.district.setValue(district);
+                    this.getMunicipalities(district);
+                  }
+                })*/
+            }, error => {
+                console.error('Error while fetching Province', error);
+            }
+        );
+    }
+
+    getMunicipalities(district: District) {
+        this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
+            (response: any) => {
+                this.municipalitiesList = response.detail;
+                this.municipalitiesList.sort((a, b) => a.name.localeCompare(b.name));
+            }, error => {
+                console.error('Error While fetching Municipalities ', error);
+            });
+    }
+
+    compareFn(c1: any, c2: any): boolean {
+        return c1 && c2 ? c1.id === c2.id : c1 === c2;
     }
 }

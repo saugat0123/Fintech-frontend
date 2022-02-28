@@ -643,13 +643,13 @@ export class ProposalComponent implements OnInit {
   checkProceedDetails() {
     if (!ObjectUtil.isEmpty(this.preProcessDetails.data)) {
       const parsedDetails = JSON.parse(this.preProcessDetails.data);
-      // this.setProceedDetails(parsedDetails);
+      this.setProceedDetails(parsedDetails);
     }
   }
 
   setProceedDetails(details) {
     this.proposalForm.get('moratoriumPeriod').patchValue(details.moratoriumPeriod);
-    this.proposalForm.get('proposedLimit').patchValue(details.lanAmount);
+    this.proposalForm.get('proposedLimit').patchValue(details.loanAmount);
   }
 
   removeGroupExposureData(index: number) {

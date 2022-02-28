@@ -1333,13 +1333,89 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="title" for="location">Location</label>
+                                    <label class="title" for="address">Address</label>
                                     <input class="form-control rounded"
-                                           formControlName="location"
-                                           name="location" placeholder="Location"
+                                           formControlName="address"
+                                           name="address" placeholder="Address"
                                            type="text"/>
                                 </div>
                             </div>
+                            <div class="col-md-3">
+                                <label for="province" class="fw-bold">Province</label>
+                                <select (change)="getDistricts(securityForm.get(['landBuilding', i, 'province']).value)"
+                                        [compareWith]="compareFn"
+                                        [ngClass]="{'is-invalid': securityForm.get(['landBuilding', i, 'province'])?.errors}"
+                                        class="custom-select rounded"
+                                        formControlName="province"
+                                        id="province">
+                                    <option [ngValue]="null" hidden>Province</option>
+                                    <option *ngFor="let provinceVal of provinceList"
+                                            [ngValue]="provinceVal">
+                                        {{provinceVal.name}}
+                                    </option>
+                                </select>
+                                <div *ngIf="securityForm.get(['landBuilding', i, 'province']).errors"
+                                     class="invalid-feedback">
+                                    <div *ngIf="securityForm.get(['landBuilding', i, 'province'])?.errors?.required">
+                                        Province is required
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-3 form-group">
+                                <label for="district" class="fw-bold">District</label>
+                                <select (change)="getMunicipalities(securityForm.get(['landBuilding', i, 'district']).value)"
+                                        [ngClass]="{'is-invalid': submitted && securityForm.get(['landBuilding', i, 'district']).errors}"
+                                        [compareWith]="compareFn"
+                                        class="custom-select rounded"
+                                        formControlName="district"
+                                        id="district">
+                                    <option [ngValue]="null" hidden>District</option>
+                                    <option *ngFor="let districtVal of districtList"
+                                            [ngValue]="districtVal">
+                                        {{districtVal.name}}
+                                    </option>
+                                </select>
+                                <!--<div *ngIf="(submitted) &&  basicInfoControls.district.invalid"
+                                     class="invalid-feedback">
+                                  <div *ngIf="basicInfoControls.district.errors.required">
+                                    District is required
+                                  </div>
+                                </div>-->
+                            </div>
+
+                            <div class="col-md-3 form-group">
+                                <label for="municipality" class="fw-bold">Municipalities or VDC</label>
+                                <select
+                                        [ngClass]="{'is-invalid': submitted && securityForm.get(['landBuilding', i, 'municipalities'])?.errors}"
+                                        class="custom-select rounded"
+                                        [compareWith]="compareFn"
+                                        formControlName="municipalities"
+                                        id="municipality"
+                                        name="municipality">
+                                    <option [ngValue]="null" hidden>Municipality</option>
+                                    <option *ngFor="let municipalityVal of municipalitiesList"
+                                            [ngValue]="municipalityVal">
+                                        {{municipalityVal.name}}
+                                    </option>
+                                </select>
+                                <!--<div *ngIf="(submitted) && basicInfoControls.municipalities.invalid"
+                                     class="invalid-feedback">
+                                  Municipality is required
+                                </div>-->
+                            </div>
+
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="fw-bold" for="wardNo"> Ward No. </label>
+                                    <input class="form-control rounded"
+                                           formControlName="wardNo"
+                                           id="wardNo"
+                                           name="wardNo" placeholder="Ward No"
+                                           type="text"/>
+                                </div>
+                            </div>
+
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="title" for="plotNumber">Plot
