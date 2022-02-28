@@ -228,8 +228,8 @@ export class LoanFormComponent implements OnInit {
     checklistData;
     loans;
     paperChecklist;
-    savedPaperChecklist;
     allIds = [];
+    checklistChecked = false;
 
 
 
@@ -385,12 +385,14 @@ export class LoanFormComponent implements OnInit {
             this.loans = response.detail;
             if (ObjectUtil.isEmpty(this.loanDocument.paperProductChecklist)) {
                 const obj = JSON.parse(this.loans.paperChecklist);
-                this.paperChecklist = this.sanitized.bypassSecurityTrustHtml(obj.view.changingThisBreaksApplicationSecurity);
+                this.paperChecklist = obj.view;
                 this.allIds = obj.id;
+                this.checklistChecked = obj.checklistChecked;
             } else {
                 const obj = JSON.parse(this.loanDocument.paperProductChecklist);
-                this.paperChecklist = this.sanitized.bypassSecurityTrustHtml(obj.view);
+                this.paperChecklist = obj.view;
                 this.allIds = obj.id;
+                this.checklistChecked = true;
                 console.log(this.paperChecklist);
             }
             this.loanTag = response.detail.loanTag;
@@ -660,7 +662,7 @@ export class LoanFormComponent implements OnInit {
             this.productPaperChecklistComponent.save();
             this.loanDocument.paperProductChecklist = this.checklistData;
             const obj = JSON.parse(this.checklistData);
-            this.paperChecklist = this.sanitized.bypassSecurityTrustHtml(obj.view);
+            this.paperChecklist = obj.view;
             this.allIds = obj.id;
         }
 

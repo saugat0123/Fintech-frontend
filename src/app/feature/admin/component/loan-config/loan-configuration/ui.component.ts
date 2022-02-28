@@ -31,7 +31,7 @@ import {DomSanitizer} from '@angular/platform-browser';
     templateUrl: './ui.component.html',
     styleUrls: ['./ui.component.css']
 })
-export class UIComponent implements OnInit, DoCheck, AfterViewChecked {
+export class UIComponent implements OnInit, DoCheck {
     title: string;
     pageable: Pageable = new Pageable();
     search: string;
@@ -73,13 +73,17 @@ export class UIComponent implements OnInit, DoCheck, AfterViewChecked {
     form: FormGroup;
     isRemitLoan = false;
     ckEdittorConfig;
-    ck;
+    paperChecklist;
     tableArray = [];
     @ViewChild('loanConfigForm', {static: true}) loanConfigForm: NgForm;
     finalRenewWithEnhancementDocument = Array<Document>();
     renewWithEnhancementDocumentList = [];
-    dk: any;
-
+    displayChecklist: string = null;
+    loanNature = loanNature.enumObject();
+    financedAssets = financedAssets.enumObject();
+    tableHeads = [];
+    allChecklistId = [];
+    checklistChecked = false;
     constructor(
         private loanTemplateService: LoanTemplateService,
         private documentService: DocumentService,
@@ -92,21 +96,11 @@ export class UIComponent implements OnInit, DoCheck, AfterViewChecked {
         private productModeService: ProductModeService,
         private el: ElementRef,
         private sanitized: DomSanitizer,
-        private changeDetectorRef: ChangeDetectorRef
+        private spinnerService: NgxSpinnerService
     ) {
     }
-
-    loanNature = loanNature.enumObject();
-    financedAssets = financedAssets.enumObject();
-    totalYesNO = 0;
-    totalTd = 0;
-    firstRows = [];
-    firstRow = 0;
-    totalRoes = [];
-    index = 0;
-    allIds = [];
-
     static loadData(other: UIComponent) {
+        other.spinnerService.show();
         other.ckEdittorConfig = Editor.CK_CONFIG;
         other.getTemplate();
         other.offerLetterService.getAll().subscribe((responseList: any) => {
@@ -132,9 +126,10 @@ export class UIComponent implements OnInit, DoCheck, AfterViewChecked {
                     }
                     if (!ObjectUtil.isEmpty(other.loanConfig.paperChecklist)) {
                         const obj = JSON.parse(other.loanConfig.paperChecklist);
-                        other.allIds = obj.id;
-                        other.dk = other.sanitized.bypassSecurityTrustHtml(obj.view.changingThisBreaksApplicationSecurity);
-                        other.ck = obj.ck;
+                        other.allChecklistId = obj.id;
+                        other.displayChecklist = obj.view;
+                        other.paperChecklist = obj.paperChecklist;
+                        other.checklistChecked = obj.checklistChecked;
 
                     }
                     other.selectedOfferLetterIdList = new Array<number>();
@@ -317,6 +312,7 @@ export class UIComponent implements OnInit, DoCheck, AfterViewChecked {
                     });
                 });
             }
+            other.spinnerService.hide();
         });
 
         if (!other.enableMicro) {
@@ -377,14 +373,14 @@ export class UIComponent implements OnInit, DoCheck, AfterViewChecked {
 
     data(data: string) {
         let elem;
-        this.allIds = [];
+        this.allChecklistId = [];
         const parser = new DOMParser();
         const parsedDocument = parser.parseFromString(data, 'text/html');
         let totalInput = 0;
         // seperating tables from overal html
         const tables = Array.from(parsedDocument.getElementsByTagName('table'));
         tables.forEach((element, table) => {
-            this.firstRows = [];
+            this.tableHeads = [];
             //selecting all tr from table
             const tr = Array.from(element.getElementsByTagName('tbody'))[0].getElementsByTagName('tr');
             // first row header data
@@ -395,7 +391,7 @@ export class UIComponent implements OnInit, DoCheck, AfterViewChecked {
                     totalInput += 1;
                 }
                 //pushing data to array for comparing
-                this.firstRows.push(f);
+                this.tableHeads.push(f);
             }
             for (let index = 0; index < tr.length; index++) {
                 const tdData = tr[index].getElementsByTagName('td');
@@ -405,15 +401,15 @@ export class UIComponent implements OnInit, DoCheck, AfterViewChecked {
                     prev = tr[index - 1].getElementsByTagName('td');
                     if (tdData.length < prev.length) {
                         const difference = prev.length - tdData.length;
-                        if (tdData.length !== this.firstRows.length) {
-                            this.firstRows.splice(0, difference);
+                        if (tdData.length !== this.tableHeads.length) {
+                            this.tableHeads.splice(0, difference);
                         }
                     }
                     if (tdData.length > prev.length) {
                         const difference = tdData.length - prev.length;
-                        if (difference !== prev.length && tdData.length !== this.firstRows.length) {
+                        if (difference !== prev.length && tdData.length !== this.tableHeads.length) {
                             for (let dif = 0; dif < difference; dif++) {
-                                this.firstRows.splice(dif, 0, 'i');
+                                this.tableHeads.splice(dif, 0, 'i');
                             }
                         }
                     }
@@ -423,7 +419,7 @@ export class UIComponent implements OnInit, DoCheck, AfterViewChecked {
                     const da = tdData[j].innerText.split('\n').join('').split('\t').join('');
                     //for skipping row containing yes no
                     if ((da.toLowerCase() === 'yes') && index > 0) {
-                        this.firstRows = [];
+                        this.tableHeads = [];
                         const newTdData = tr[index + 1].getElementsByTagName('td');
                         totalInput = 0;
                         for (let l = 0; l < newTdData.length; l++) {
@@ -431,25 +427,25 @@ export class UIComponent implements OnInit, DoCheck, AfterViewChecked {
                                 const dat = tdData[l - 1].innerText.split('\n').join('').split('\t').join('');
                                 if (dat.toLowerCase() === 'yes' || dat.toLowerCase() === 'no' || dat.toLowerCase() === 'na') {
                                     totalInput += 1;
-                                    this.firstRows.push(dat);
+                                    this.tableHeads.push(dat);
                                 } else {
-                                    this.firstRows.push('x');
+                                    this.tableHeads.push('x');
                                 }
                             }
                         }
                     } else if ((da.toLowerCase() !== 'yes' && da.toLowerCase() !== 'no' && da.toLowerCase() !== 'na') &&
-                        (this.firstRows[j].toLowerCase() === 'yes' || this.firstRows[j].toLowerCase() === 'no' ||
-                            this.firstRows[j].toLowerCase() === 'na') && tdData[j].innerText.length === 9) {
+                        (this.tableHeads[j].toLowerCase() === 'yes' || this.tableHeads[j].toLowerCase() === 'no' ||
+                            this.tableHeads[j].toLowerCase() === 'na') && tdData[j].innerText.length === 9) {
                         const id = `name${index}${j}${table}n${totalInput}n${index}`;
-                        this.allIds.push(id);
+                        this.allChecklistId.push(id);
                         tdData[j].innerHTML = `<span id = "name${index}${j}${table}n${totalInput}n${index}"><input type="radio" click = "change()"  name="hello${index}"></span>`;
                     }
                 }
             }
-            this.firstRows = [];
+            this.tableHeads = [];
             elem += '<div class="row">  <table class="table-bordered text-center table-responsive d-flex justify-content-center" width = "100%">' + element.innerHTML + '</table> </div>  <br style="clear: both;"> ';
         });
-        this.dk = this.sanitized.bypassSecurityTrustHtml(elem);
+        this.displayChecklist = elem.replace('undefined', ' ');
     }
 
 
@@ -520,9 +516,10 @@ export class UIComponent implements OnInit, DoCheck, AfterViewChecked {
         this.loanConfig.loanCategory = this.selectedLoanCategory;
         this.loanConfig.loanTag = this.selectedLoanTag;
         const obj = {
-            ck: this.ck,
-            view: this.dk,
-            id: this.allIds
+            paperChecklist: this.paperChecklist,
+            view: this.displayChecklist,
+            id: this.allChecklistId,
+            checklistChecked: this.checklistChecked
         };
         this.loanConfig.paperChecklist = JSON.stringify(obj);
 
@@ -682,6 +679,8 @@ export class UIComponent implements OnInit, DoCheck, AfterViewChecked {
         });
     }
 
-    ngAfterViewChecked(): void {
-    }
+  checklistChange(data) {
+      console.log(data);
+        this.checklistChecked = data;
+  }
 }

@@ -13,7 +13,7 @@ import {DomSanitizer} from '@angular/platform-browser';
 export class ProductPaperChecklistComponent implements OnInit , AfterViewInit {
 
     constructor(
-        private changeDetectorRef: ChangeDetectorRef, private el: ElementRef,         private sanitized: DomSanitizer,) {
+        private changeDetectorRef: ChangeDetectorRef, private el: ElementRef) {
     }
 
     @Input() loan: LoanConfig;
@@ -27,11 +27,9 @@ export class ProductPaperChecklistComponent implements OnInit , AfterViewInit {
 
     ngOnInit() {
         this.parser = new DOMParser();
-        console.log(this.paper);
         this.parsedData = this.parser.parseFromString(this.paper, 'text/html');
     }
     change(id) {
-        console.log('asdasdasdasdid', id);
        const ids = id.split(/([0-9]+)/);
         //id appended to name (each button id is greater or lesser by 10);
         let positiveNum = Number(ids[1]);
@@ -50,8 +48,10 @@ export class ProductPaperChecklistComponent implements OnInit , AfterViewInit {
             rowId.push(currentIds);
         }
         for (let i = 0; i < rowId.length; i++) {
+            console.log('row id ' + i, rowId[i]);
            const elem = this.parsedData.getElementById(rowId[i]);
-           if(elem) {
+           if
+           (elem) {
            elem.innerHTML = `<input type="radio" click = "change()"  name="hello${name}">`;
            }
 
