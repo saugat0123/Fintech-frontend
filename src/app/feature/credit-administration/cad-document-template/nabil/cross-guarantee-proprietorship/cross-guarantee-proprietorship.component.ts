@@ -176,7 +176,7 @@ export class CrossGuaranteeProprietorshipComponent implements OnInit {
                 yearOfAct = this.loanHolderNepData.actYear ? this.loanHolderNepData.actYear.en : '';
             }
         }
-        return yearOfAct ? yearOfAct : '';
+        return yearOfAct ? yearOfAct : '२०१४';
     }
 
     setTotalAmount() {
