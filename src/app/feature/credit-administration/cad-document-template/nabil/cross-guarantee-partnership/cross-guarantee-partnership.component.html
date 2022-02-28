@@ -206,14 +206,14 @@
                                     </span>
                                             (जमानतकर्ता
                                             <span *ngIf="this.customerType === 'PRIVATE_PUBLIC'">
-                                        कम्पनी/निगम
+                                        कम्पनी/निगम)
                                     </span>
                                             <span *ngIf="this.customerType === 'PARTNERSHIP'">
-                                       साझेदारी फर्म
+                                       साझेदारी फर्म)
                                     </span>
                                             <span *ngIf="this.customerType === 'PROPRIETORSHIP'">
-                                       प्रोप्राईटरसिप फर्म
-                                    </span>) को अख्तियारप्राप्त
+                                       प्रोप्राईटरसिप फर्म)
+                                    </span> को अख्तियारप्राप्त
                                             <input class="form-field disable-print form-control-sm nepaliFont"
                                                    name="sanchaalakFreeText" formControlName="sanchaalakFreeText"
                                                    type="text"/>
@@ -235,15 +235,15 @@
                                             <span class="print-only font-weight-bold font-size-normal1">
                                         {{form?.get(['crossGuaranteePartnership', i, 'authorizedPersonMunicipality'])?.value ? form?.get(['crossGuaranteePartnership', i, 'authorizedPersonMunicipality'])?.value : "___________________________________"}}
                                     </span>
-                                            <span>
-                                       न.पा.
+                                            <span *ngIf="guarantorProprietorship.guarantorPermanentMunicipalityOrVdc.en === '0'">
+                                       न.पा.,
                                     </span>
-                                            <span>
-                                      गा.वि.स.
+                                            <span *ngIf="guarantorProprietorship.guarantorPermanentMunicipalityOrVdc.en === '1'">
+                                      गा.वि.स.,
                                     </span>
-                                            <span>
-                                      गाँउपालिका
-                                    </span>,
+                                            <span *ngIf="guarantorProprietorship.guarantorPermanentMunicipalityOrVdc.en === '2'">
+                                      गाँउपालिका,
+                                    </span>
                                             वडा नं.
                                             <input class="form-field disable-print form-control-sm"
                                                    name="authorizedPersonWard" formControlName="authorizedPersonWard"
