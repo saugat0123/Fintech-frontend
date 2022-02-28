@@ -48,6 +48,7 @@ export class PersonalGuaranteeProprietorshipComponent implements OnInit {
     freeText: Array<any> = new Array<any>();
     finalAmount;
     loanAmountWord;
+    spinner = false;
     constructor(private formBuilder: FormBuilder,
                 private administrationService: CreditAdministrationService,
                 private toastService: ToastService,
@@ -80,6 +81,32 @@ export class PersonalGuaranteeProprietorshipComponent implements OnInit {
                     this.personalGuaranteeProprietorship.get(['guaranteeProprietorship', val, 'date']).value : '',
                 day: this.personalGuaranteeProprietorship.get(['guaranteeProprietorship', val, 'day']).value ?
                     this.personalGuaranteeProprietorship.get(['guaranteeProprietorship', val, 'day']).value : '',
+                bankStaff: this.personalGuaranteeProprietorship.get(['guaranteeProprietorship', val, 'bankStaff']).value ?
+                    this.personalGuaranteeProprietorship.get(['guaranteeProprietorship', val, 'bankStaff']).value : '',
+                witnessDistrict: this.personalGuaranteeProprietorship.get(['guaranteeProprietorship', val, 'witnessDistrict']).value ?
+                    this.personalGuaranteeProprietorship.get(['guaranteeProprietorship', val, 'witnessDistrict']).value : '',
+                witnessMunicipality: this.personalGuaranteeProprietorship.get(
+                    ['guaranteeProprietorship', val, 'witnessMunicipality']).value ?
+                    this.personalGuaranteeProprietorship.get(['guaranteeProprietorship', val, 'witnessMunicipality']).value : '',
+                WitnessWardNumber: this.personalGuaranteeProprietorship.get(['guaranteeProprietorship', val, 'WitnessWardNumber']).value ?
+                    this.personalGuaranteeProprietorship.get(['guaranteeProprietorship', val, 'WitnessWardNumber']).value : '',
+                witnessAge: this.personalGuaranteeProprietorship.get(['guaranteeProprietorship', val, 'witnessAge']).value ?
+                    this.personalGuaranteeProprietorship.get(['guaranteeProprietorship', val, 'witnessAge']).value : '',
+                witnessName: this.personalGuaranteeProprietorship.get(['guaranteeProprietorship', val, 'witnessName']).value ?
+                    this.personalGuaranteeProprietorship.get(['guaranteeProprietorship', val, 'witnessName']).value : '',
+                witnessDistrict2: this.personalGuaranteeProprietorship.get(['guaranteeProprietorship', val, 'witnessDistrict2']).value ?
+                    this.personalGuaranteeProprietorship.get(['guaranteeProprietorship', val, 'witnessDistrict2']).value : '',
+                witnessMunicipality2: this.personalGuaranteeProprietorship.get(
+                    ['guaranteeProprietorship', val, 'witnessMunicipality2']).value ?
+                    this.personalGuaranteeProprietorship.get(['guaranteeProprietorship', val, 'witnessMunicipality2']).value : '',
+                WitnessWardNumber2: this.personalGuaranteeProprietorship.get(['guaranteeProprietorship', val, 'WitnessWardNumber2']).value ?
+                    this.personalGuaranteeProprietorship.get(['guaranteeProprietorship', val, 'WitnessWardNumber2']).value : '',
+                witnessAge2: this.personalGuaranteeProprietorship.get(['guaranteeProprietorship', val, 'witnessAge2']).value ?
+                    this.personalGuaranteeProprietorship.get(['guaranteeProprietorship', val, 'witnessAge2']).value : '',
+                witnessName2: this.personalGuaranteeProprietorship.get(['guaranteeProprietorship', val, 'witnessName2']).value ?
+                    this.personalGuaranteeProprietorship.get(['guaranteeProprietorship', val, 'witnessName2']).value : '',
+                freeText: this.personalGuaranteeProprietorship.get(['guaranteeProprietorship', val, 'freeText']).value ?
+                    this.personalGuaranteeProprietorship.get(['guaranteeProprietorship', val, 'freeText']).value : '',
             };
         this.freeText.push(tempFreeText);
         }
@@ -105,6 +132,42 @@ export class PersonalGuaranteeProprietorshipComponent implements OnInit {
                             this.cadInitialInfo[val].date : '');
                         this.personalGuaranteeProprietorship.get(['guaranteeProprietorship', val, 'day']).patchValue(this.cadInitialInfo ?
                             this.cadInitialInfo[val].day : '');
+                        this.personalGuaranteeProprietorship.get(['guaranteeProprietorship', val, 'witnessDistrict']).patchValue(
+                            this.cadInitialInfo ?
+                            this.cadInitialInfo[val].witnessDistrict : '');
+                        this.personalGuaranteeProprietorship.get(['guaranteeProprietorship', val, 'witnessMunicipality']).patchValue(
+                            this.cadInitialInfo ?
+                            this.cadInitialInfo[val].witnessMunicipality : '');
+                        this.personalGuaranteeProprietorship.get(['guaranteeProprietorship', val, 'WitnessWardNumber']).patchValue(
+                            this.cadInitialInfo ?
+                            this.cadInitialInfo[val].WitnessWardNumber : '');
+                        this.personalGuaranteeProprietorship.get(['guaranteeProprietorship', val, 'witnessAge']).patchValue(
+                            this.cadInitialInfo ?
+                            this.cadInitialInfo[val].witnessAge : '');
+                        this.personalGuaranteeProprietorship.get(['guaranteeProprietorship', val, 'witnessName']).patchValue(
+                            this.cadInitialInfo ?
+                            this.cadInitialInfo[val].witnessName : '');
+                        this.personalGuaranteeProprietorship.get(['guaranteeProprietorship', val, 'witnessDistrict2']).patchValue(
+                            this.cadInitialInfo ?
+                            this.cadInitialInfo[val].witnessDistrict2 : '');
+                        this.personalGuaranteeProprietorship.get(['guaranteeProprietorship', val, 'witnessMunicipality2']).patchValue(
+                            this.cadInitialInfo ?
+                            this.cadInitialInfo[val].witnessMunicipality2 : '');
+                        this.personalGuaranteeProprietorship.get(['guaranteeProprietorship', val, 'WitnessWardNumber2']).patchValue(
+                            this.cadInitialInfo ?
+                            this.cadInitialInfo[val].WitnessWardNumber2 : '');
+                        this.personalGuaranteeProprietorship.get(['guaranteeProprietorship', val, 'witnessAge2']).patchValue(
+                            this.cadInitialInfo ?
+                            this.cadInitialInfo[val].witnessAge2 : '');
+                        this.personalGuaranteeProprietorship.get(['guaranteeProprietorship', val, 'witnessName2']).patchValue(
+                            this.cadInitialInfo ?
+                            this.cadInitialInfo[val].witnessName2 : '');
+                        this.personalGuaranteeProprietorship.get(['guaranteeProprietorship', val, 'bankStaff']).patchValue(
+                            this.cadInitialInfo ?
+                            this.cadInitialInfo[val].bankStaff : '');
+                        this.personalGuaranteeProprietorship.get(['guaranteeProprietorship', val, 'freeText']).patchValue(
+                            this.cadInitialInfo ?
+                                this.cadInitialInfo[val].freeText : '');
                     }
                 }
             }
@@ -239,7 +302,17 @@ export class PersonalGuaranteeProprietorshipComponent implements OnInit {
                             month: [undefined],
                             day: [undefined],
                             date: [undefined],
-
+                            bankStaff: [undefined],
+                            witnessDistrict: [undefined],
+                            witnessMunicipality: [undefined],
+                            WitnessWardNumber: [undefined],
+                            witnessAge: [undefined],
+                            witnessName: [undefined],
+                            witnessDistrict2: [undefined],
+                            witnessMunicipality2: [undefined],
+                            WitnessWardNumber2: [undefined],
+                            witnessAge2: [undefined],
+                            witnessName2: [undefined],
                         })
                     );
                 }
@@ -284,6 +357,7 @@ export class PersonalGuaranteeProprietorshipComponent implements OnInit {
 
     submit() {
         let flag = true;
+        this.spinner = true;
         if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
             this.cadData.cadFileList.forEach(singleCadFile => {
                 if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
@@ -315,11 +389,13 @@ export class PersonalGuaranteeProprietorshipComponent implements OnInit {
 
         this.administrationService.saveCadDocumentBulk(this.cadData).subscribe(() => {
             this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
+            this.spinner = false;
             this.dialogRef.close();
             this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
         }, error => {
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
+            this.spinner = false;
             this.dialogRef.close();
         });
     }
