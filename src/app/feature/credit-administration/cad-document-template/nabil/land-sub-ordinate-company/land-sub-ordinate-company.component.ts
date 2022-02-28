@@ -267,48 +267,4 @@ export class LandSubOrdinateCompanyComponent implements OnInit {
       this.dialogRef.close();
     });
   }
-
-  // submit() {
-  //   this.spinner = true;
-  //   let flag = true;
-  //   if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
-  //     this.cadData.cadFileList.forEach(singleCadFile => {
-  //       if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-  //         flag = false;
-  //         singleCadFile.supportedInformation = this.setFreeText();
-  //       }
-  //     });
-  //     if (flag) {
-  //       const cadFile = new CadFile();
-  //       const document = new Document();
-  //       // cadFile.initialInformation = JSON.stringify(this.form.value);
-  //       cadFile.supportedInformation = this.setFreeText();
-  //       document.id = this.documentId;
-  //       cadFile.cadDocument = document;
-  //       cadFile.customerLoanId = this.customerLoanId;
-  //       this.cadData.cadFileList.push(cadFile);
-  //     }
-  //   } else {
-  //     const cadFile = new CadFile();
-  //     const document = new Document();
-  //     cadFile.initialInformation = JSON.stringify(this.form.value);
-  //     cadFile.supportedInformation = this.setFreeText();
-  //     document.id = this.documentId;
-  //     cadFile.cadDocument = document;
-  //     cadFile.customerLoanId = this.customerLoanId;
-  //     this.cadData.cadFileList.push(cadFile);
-  //   }
-  //
-  //   this.administrationService.saveCadDocumentBulk(this.cadData).subscribe(() => {
-  //     this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Offer Letter'));
-  //     this.dialogRef.close();
-  //     this.spinner = false;
-  //     this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
-  //   }, error => {
-  //     console.error(error);
-  //     this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save Offer Letter'));
-  //     this.dialogRef.close();
-  //     this.spinner = false;
-  //   });
-  // }
 }

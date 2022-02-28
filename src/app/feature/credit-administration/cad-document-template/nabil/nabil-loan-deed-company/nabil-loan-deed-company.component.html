@@ -244,7 +244,7 @@
                     <tr *ngFor="let loan of cadData?.assignedLoan">
                         <td>{{loan?.loan?.nepaliName || loan?.loan?.name}}</td>
                         <td>{{convertNepaliNumberAmount(loan?.proposal?.proposedLimit)}}</td>
-                        <td>{{this.interestRate ? this.interestRate : '================='}}%</td>
+                        <td>{{this.interestRate ? this.interestRate : '________________________'}}%</td>
                         <td><input class="form-field form-control-sm d-print-none nepaliFont"
                                    name="dateOfExpirySingle"
                                    formControlName="dateOfExpirySingle"
@@ -280,15 +280,15 @@
                     </tr>
                     </tbody>
                 </table>
-                <P><strong>कुल ऋणकर्जा तथा बैंकिङ्ग सुविधा रु.<input
+                <P><strong>कुल ऋणकर्जा तथा बैंकिङ्ग सुविधा रु. <input
                         class="form-field form-control-sm d-print-none col-2"
                         (input)="getNumAmountWord('loanAmountInFigure', 'loanAmountInWords')"
                         name="loanAmountInFigure"
                         formControlName="loanAmountInFigure"
                         placeholder="ऋण रकम"
                         type="text"/>
-                        <span class="print-only">{{this.finalAmount ? this.finalAmount : '______________________'}}</span> /-
-                    (अक्षरेपी <input class="form-field form-control-sm d-print-none"
+                        <span class="print-only">{{this.finalAmount ? this.finalAmount : '______________________'}}</span>/-
+                    (अक्षरेपी रु. <input class="form-field form-control-sm d-print-none"
                                      name="loanAmountInWords"
                                      formControlName="loanAmountInWords"
                                      placeholder="रकम"

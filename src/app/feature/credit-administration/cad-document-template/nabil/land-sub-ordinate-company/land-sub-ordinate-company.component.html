@@ -10,10 +10,10 @@
                 <div class="right-content">
                     मिति:
                     <input class="form-field disable-print form-control-sm nepaliFont"
-                        name="date"
-                        formControlName="date"
-                        placeholder="मिति"
-                        type="text"/>
+                           name="date"
+                           formControlName="date"
+                           placeholder="मिति"
+                           type="text"/>
                     <span class=" print-only font-weight-bold nepaliFont">{{form?.get('date').value ? form?.get('date').value : "====================================="}}</span>
                 </div>
             </div>
@@ -29,12 +29,12 @@
                     <input class="form-field form-control-sm d-print-none"
                            name="borrowerName"
                            formControlName="borrowerName"
-                           type="text"/>
+                           type="text" readonly/>
                     <span class="print-only font-weight-bold">{{form?.get('borrowerName').value ? form?.get('borrowerName').value : '___________________'}}</span><br>
                     <input class="form-field form-control-sm d-print-none"
                            name="borrowerAddress"
                            formControlName="borrowerAddress"
-                           type="text"/>
+                           type="text" readonly/>
                     <span class="print-only font-weight-bold">{{form?.get('borrowerAddress').value ? form?.get('borrowerAddress').value : '___________________'}}</span><br>
                     <input class="form-field form-control-sm d-print-none"
                            name="freeText1"
@@ -79,12 +79,12 @@
                         <input class="form-field form-control-sm d-print-none"
                                name="amount"
                                formControlName="amount"
-                               type="text"/>
+                               type="text" readonly/>
                         <span class="print-only font-weight-bold">{{form?.get('amount').value ? form?.get('amount').value : '___________________'}}</span>/-
                         (अक्षरेपि  <input class="form-field form-control-sm d-print-none"
                                           name="amountInWords"
                                           formControlName="amountInWords"
-                                          type="text"/>
+                                          type="text" readonly/>
                         <span class="print-only font-weight-bold">{{form?.get('amountInWords').value ? form?.get('amountInWords').value : '___________________'}}</span>
                         मात्र)
                         ऋणकर्जा प्राप्त गरेको र भविष्यमा पनि ऋणीले साहुबाट पटक पटक थप ऋण प्राप्त गर्न सक्ने र
@@ -149,7 +149,7 @@
                         <input class="form-field form-control-sm d-print-none"
                                name="nameOfBranch"
                                formControlName="nameOfBranch"
-                               type="text"/>
+                               type="text" readonly/>
                         <span class="print-only font-weight-bold">{{form?.get('nameOfBranch').value ? form?.get('nameOfBranch').value : '_________________'}}</span>
                         शाखा कार्यालयमा लिखित जानकारी नदिए सम्म यो संझौता अविछिन्न रुपमा वैध रहनेछ र त्यस्तो जानकारी नदिएसम्म बैंकले यस संझौताको
                         आधारमा साहुलाई जानकारी नदिइकन ऋणीलाई प्रदान गरेको ऋणकर्जा बैंकिङ्ग सुविधा, थप कर्जा वा बैंकिङ्ग सुविधा, सोको नविकरण,
@@ -202,15 +202,15 @@
                         <br><span class="text-center">दस्तखत</span>
                         <br>ऋणी वा निजको आधिकारीक प्रतिनिधि
                         <br>नामः <input class="form-field form-control-sm d-print-none nepaliFont"
-                                       name="borrowerAuthorizedPerson"
-                                       formControlName="borrowerAuthorizedPerson"
-                                       type="text"/>
+                                        name="borrowerAuthorizedPerson"
+                                        formControlName="borrowerAuthorizedPerson"
+                                        type="text"/>
                         <span
                                 class="print-only font-weight-bold nepaliFont">{{form?.get('borrowerAuthorizedPerson').value ? form?.get('borrowerAuthorizedPerson').value : '===================='}}</span>
                         <br>ठेगानाः <input class="form-field form-control-sm d-print-none nepaliFont"
-                                          name="borrowerAuthorizedPersonAddress"
-                                          formControlName="borrowerAuthorizedPersonAddress"
-                                          type="text"/>
+                                           name="borrowerAuthorizedPersonAddress"
+                                           formControlName="borrowerAuthorizedPersonAddress"
+                                           type="text"/>
                         <span
                                 class="print-only font-weight-bold nepaliFont">{{form?.get('borrowerAuthorizedPersonAddress').value ? form?.get('borrowerAuthorizedPersonAddress').value : '===================='}}</span>
                     </th>
@@ -218,15 +218,15 @@
                         <br><span class="text-center">दस्तखत</span>
                         <br>ऋणी वा निजको आधिकारीक प्रतिनिधि
                         <br>नामः <input class="form-field form-control-sm d-print-none nepaliFont"
-                                       name="loanProviderAuthorizedPerson"
-                                       formControlName="loanProviderAuthorizedPerson"
-                                       type="text"/>
+                                        name="loanProviderAuthorizedPerson"
+                                        formControlName="loanProviderAuthorizedPerson"
+                                        type="text"/>
                         <span
                                 class="print-only font-weight-bold nepaliFont">{{form?.get('loanProviderAuthorizedPerson').value ? form?.get('loanProviderAuthorizedPerson').value : '===================='}}</span>
                         <br>ठेगानाः <input class="form-field form-control-sm d-print-none nepaliFont"
-                                          name="loanProviderAuthorizedPersonAddress"
-                                          formControlName="loanProviderAuthorizedPersonAddress"
-                                          type="text"/>
+                                           name="loanProviderAuthorizedPersonAddress"
+                                           formControlName="loanProviderAuthorizedPersonAddress"
+                                           type="text"/>
                         <span
                                 class="print-only font-weight-bold nepaliFont">{{form?.get('loanProviderAuthorizedPersonAddress').value ? form?.get('loanProviderAuthorizedPersonAddress').value : '===================='}}</span>
                     </th>
