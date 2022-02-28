@@ -246,13 +246,13 @@
                             <tr *ngFor="let loan of cadData?.assignedLoan">
                                 <td>{{loan?.loan?.nepaliName || loan?.loan?.name}}</td>
                                 <td>{{convertNepaliNumberAmount(loan?.proposal?.proposedLimit)}}</td>
-                                <td>{{this.interestRate ? this.interestRate : '================='}}%</td>
-                                <td><input class="form-field form-control-sm d-print-none"
+                                <td>{{this.interestRate ? this.interestRate : '_______________'}}%</td>
+                                <td><input class="form-field form-control-sm d-print-none nepaliFont"
                                            name="dateOfExpirySingle"
                                            formControlName="dateOfExpirySingle"
                                            placeholder=""
                                            type="text"/>
-                                    <span class="print-only">{{this.dateOfExpirySingle ? this.dateOfExpirySingle : '================='}}</span>
+                                    <span class="print-only nepaliFont">{{this.dateOfExpirySingle ? this.dateOfExpirySingle : '================='}}</span>
                                 </td>
                             </tr>
                             <tbody *ngIf="this.cadData.offerDocumentList[0].docName === 'Combined Offer Letter'">
@@ -288,13 +288,13 @@
                                    formControlName="loanAmountInFigure"
                                    placeholder="ऋण रकम"
                                    type="text"/>
-                            <span class="print-only">{{this.finalAmount ? this.finalAmount : '______________________'}}</span> /-
-                            (अक्षरेपी <input class="form-field form-control-sm outside disable-print d-print-none col-2"
+                            <span class="print-only">{{this.finalAmount ? this.finalAmount : '______________________'}}</span>/-
+                            (अक्षरेपी रु. <input class="form-field form-control-sm outside disable-print d-print-none col-2"
                                              name="loanAmountInWords"
                                              formControlName="loanAmountInWords"
                                              placeholder="रकम"
                                              type="text"/>
-                            <span class="print-only">{{this.loanAmountWord ? this.loanAmountWord : '______________________'}}</span>मात्र)</strong>
+                            <span class="print-only">{{this.loanAmountWord ? this.loanAmountWord : '______________________'}}</span> मात्र)</strong>
                         </P>
                         <div *ngIf="primarySecurityTypeCheck">
                             <div class="mt-lg-5">
