@@ -8,7 +8,13 @@
             <div class="col-md-12 mt-5 d-flex justify-content-between"  style="margin-left: -11px">
                 <div class="left-content"></div>
                 <div class="right-content">
-                        मिति: .........../.........../...........
+                    मिति:
+                    <input class="form-field disable-print form-control-sm nepaliFont"
+                           name="date"
+                           formControlName="date"
+                           placeholder="मिति"
+                           type="text"/>
+                    <span class=" print-only font-weight-bold nepaliFont">{{form?.get('date').value ? form?.get('date').value : "====================================="}}</span>
                 </div>
             </div>
             <div class="col-md-12 mt-5 d-flex justify-content-between"  style="margin-left: -11px">
@@ -18,90 +24,90 @@
                 </div>
             </div>
             <div class="row">
-            <div class="col-md-12">
-                <strong>ऋणीः</strong><br>
-                <input class="form-field form-control-sm d-print-none"
-                       name="borrowerName"
-                       formControlName="borrowerName"
-                       type="text"/>
-                <span class="print-only font-weight-bold">{{individualData.borrowerName ? individualData.borrowerName.ct : ''}}</span><br>
-                <input class="form-field form-control-sm d-print-none"
-                       name="branchAddress"
-                       formControlName="branchAddress"
-                       type="text"/>
-                <span class="print-only font-weight-bold">{{individualData.branchAddress ? individualData.branchAddress.ct : ''}}</span><br>
-                <input class="form-field form-control-sm d-print-none"
-                       name="freeText1"
-                       formControlName="freeText1"
-                       type="text"/>
-                <span class="print-only font-weight-bold">{{individualData.freeText1 ? individualData.freeText1.ct : ''}}</span><br>
-                <input class="form-field form-control-sm d-print-none"
-                       name="freeText2"
-                       formControlName="freeText2"
-                       type="text"/>
-                <span class="print-only font-weight-bold">{{individualData.freeText2 ? individualData.freeText2.ct : ''}}</span><br>
-            </div>
-            <div class="col-md-12">
-                <strong>साहुः</strong><br>
-                <input class="form-field form-control-sm d-print-none"
-                       name="loanProviderName"
-                       formControlName="loanProviderName"
-                       type="text"/>
-                <span class="print-only font-weight-bold">{{individualData.loanProviderName ? individualData.loanProviderName.ct : ''}}</span><br>
-                <input class="form-field form-control-sm d-print-none"
-                       name="loanProviderAddress"
-                       formControlName="loanProviderAddress"
-                       type="text"/>
-                <span class="print-only font-weight-bold">{{individualData.loanProviderAddress ? individualData.loanProviderAddress.ct : ''}}</span><br>
-                <input class="form-field form-control-sm d-print-none"
-                       name="freeText3"
-                       formControlName="freeText3"
-                       type="text"/>
-                <span class="print-only font-weight-bold">{{individualData.freeText3 ? individualData.freeText3.ct : ''}}</span><br>
-                <input class="form-field form-control-sm d-print-none"
-                       name="freeText4"
-                       formControlName="freeText4"
-                       type="text"/>
-                <span class="print-only font-weight-bold">{{individualData.freeText4 ? individualData.freeText4.ct : ''}}</span><br>
-            </div>
+                <div class="col-md-12">
+                    <strong>ऋणीः</strong><br>
+                    <input class="form-field form-control-sm d-print-none"
+                           name="borrowerName"
+                           formControlName="borrowerName"
+                           type="text" readonly/>
+                    <span class="print-only font-weight-bold">{{form?.get('borrowerName').value ? form?.get('borrowerName').value : '___________________'}}</span><br>
+                    <input class="form-field form-control-sm d-print-none"
+                           name="borrowerAddress"
+                           formControlName="borrowerAddress"
+                           type="text" readonly/>
+                    <span class="print-only font-weight-bold">{{form?.get('borrowerAddress').value ? form?.get('borrowerAddress').value : '___________________'}}</span><br>
+                    <input class="form-field form-control-sm d-print-none"
+                           name="freeText1"
+                           formControlName="freeText1"
+                           type="text"/>
+                    <span class="print-only font-weight-bold nepaliFont">{{form?.get('freeText1').value ? form?.get('freeText1').value : '===================='}}</span><br>
+                    <input class="form-field form-control-sm d-print-none"
+                           name="freeText2"
+                           formControlName="freeText2"
+                           type="text"/>
+                    <span class="print-only font-weight-bold nepaliFont">{{form?.get('freeText2').value ? form?.get('freeText2').value : '===================='}}</span><br>
+                </div>
+                <div class="col-md-12">
+                    <strong>साहुः</strong><br>
+                    <input class="form-field form-control-sm d-print-none nepaliFont"
+                           name="loanProviderName"
+                           formControlName="loanProviderName"
+                           type="text"/>
+                    <span class="print-only font-weight-bold nepaliFont">{{form?.get('loanProviderName').value ? form?.get('loanProviderName').value : '===================='}}</span><br>
+                    <input class="form-field form-control-sm d-print-none nepaliFont"
+                           name="loanProviderAddress"
+                           formControlName="loanProviderAddress"
+                           type="text"/>
+                    <span class="print-only font-weight-bold nepaliFont">{{form?.get('loanProviderAddress').value ? form?.get('loanProviderAddress').value : '===================='}}</span><br>
+                    <input class="form-field form-control-sm d-print-none"
+                           name="freeText3"
+                           formControlName="freeText3"
+                           type="text"/>
+                    <span class="print-only font-weight-bold nepaliFont">{{form?.get('freeText3').value ? form?.get('freeText3').value : '===================='}}</span><br>
+                    <input class="form-field form-control-sm d-print-none"
+                           name="freeText4"
+                           formControlName="freeText4"
+                           type="text"/>
+                    <span class="print-only font-weight-bold nepaliFont">{{form.get('freeText4').value ? form?.get('freeText4').value : '===================='}}</span><br>
+                </div>
             </div>
             <div>
                 <strong>प्रस्तावनाः</strong>
                 <ol class="conditions-list">
-            <li>यो संझौता हुनु अगावै ऋणीले आफ्नो ब्यवसाय संचालन वा ब्यबस्थित गर्न साहुबाट
-                रु.
-                <input class="form-field form-control-sm d-print-none"
-                       name="amount"
-                       formControlName="amount"
-                       type="text"/>
-                <span class="print-only font-weight-bold">{{individualData.amount ? individualData.amount.ct : ''}}</span>/-
-                (अक्षरेपि  <input class="form-field form-control-sm d-print-none"
-                                  name="amountInWords"
-                                  formControlName="amountInWords"
-                                  type="text"/>
-                <span class="print-only font-weight-bold">{{individualData.amountInWords ? individualData.amountInWords.ct : ''}}</span>
-                मात्र)
-                ऋणकर्जा प्राप्त गरेको र भविष्यमा पनि ऋणीले साहुबाट पटक पटक थप ऋण प्राप्त गर्न सक्ने र
-            </li>
-            <li>ऋणीको ब्यवसायको प्रकृति अनुरुप ऋणीलाई आफ्नो ब्यवसाय संचालन, ब्यवस्थित तथा बिस्तार गर्न समेत बैंक तथा वित्तिय संस्थाबाट थप विभिन्न
-                प्रकारका ऋणकर्जा तथा बैंकिङ्ग सुविधा प्राप्त गर्ने सिलसिलामा देहायको बैंकले ऋणीलाई ऋणकर्जा तथा बैंकिङ्ग सुविधा उपलब्ध गराउन मंजुर गरेको,
-                र<br>
-                <table>
-                    <tr>
-                        <td rowspan="2" style="vertical-align: top"><strong>बैंकः</strong></td>
-                        <td><strong>श्री नबिल बैंक लिमिटेड</strong> (यस पछि ‘बैंक’ भनिएको)</td>
-                    </tr>
-                    <tr>
-                        <td><strong>प्रधान कार्यालय, वीणा मार्ग, तिनधारा, काठमाण्डौं ।</strong><td>
-                    </tr>
-                </table>
-            </li>
-            <li>ऋणी तथा बैंक बीच भएको ऋणकर्जा सम्बन्धि संझौता वा समझदारीको शर्तबन्देज मध्ये बैंकबाट प्राप्त गरेको ऋणकर्जा चुक्ता भुक्तान नगरेसम्म ऋणीले
-                साहुबाट प्राप्त गरेको ऋणकर्जाको साँवा, ब्याज आदी चुक्ता भुक्तानी गर्ने कार्यलाई दोश्रो प्राथमिकतामा राख्ने सम्बन्धमा ऋणी तथा साहुबीच भएको संझौता
-                समेत बैंकमा पेश गर्नु पर्ने भएकोले हामी ऋणी र साहु बीच ऋणीले साहुलाई तिर्नु पर्ने ऋणकर्जाको साँवा ब्याजको चुक्ता भुक्तानी देहायको शर्त बन्देजको
-                अधिनमा रही दोश्रो प्राथमिकता (Loan Subordination) मा राख्ने सम्बन्धमा यो संझौता भएको ठिक साँचो हो ।
-            </li>
-        </ol>
+                    <li>यो संझौता हुनु अगावै ऋणीले आफ्नो ब्यवसाय संचालन वा ब्यबस्थित गर्न साहुबाट
+                        रु.
+                        <input class="form-field form-control-sm d-print-none"
+                               name="amount"
+                               formControlName="amount"
+                               type="text" readonly/>
+                        <span class="print-only font-weight-bold">{{form?.get('amount').value ? form?.get('amount').value : '___________________'}}</span>/-
+                        (अक्षरेपि  <input class="form-field form-control-sm d-print-none"
+                                          name="amountInWords"
+                                          formControlName="amountInWords"
+                                          type="text" readonly/>
+                        <span class="print-only font-weight-bold">{{form?.get('amountInWords').value ? form?.get('amountInWords').value : '___________________'}}</span>
+                        मात्र)
+                        ऋणकर्जा प्राप्त गरेको र भविष्यमा पनि ऋणीले साहुबाट पटक पटक थप ऋण प्राप्त गर्न सक्ने र
+                    </li>
+                    <li>ऋणीको ब्यवसायको प्रकृति अनुरुप ऋणीलाई आफ्नो ब्यवसाय संचालन, ब्यवस्थित तथा बिस्तार गर्न समेत बैंक तथा वित्तिय संस्थाबाट थप विभिन्न
+                        प्रकारका ऋणकर्जा तथा बैंकिङ्ग सुविधा प्राप्त गर्ने सिलसिलामा देहायको बैंकले ऋणीलाई ऋणकर्जा तथा बैंकिङ्ग सुविधा उपलब्ध गराउन मंजुर गरेको,
+                        र<br>
+                        <table>
+                            <tr>
+                                <td rowspan="2" style="vertical-align: top"><strong>बैंकः</strong></td>
+                                <td><strong>श्री नबिल बैंक लिमिटेड</strong> (यस पछि ‘बैंक’ भनिएको)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>प्रधान कार्यालय, वीणा मार्ग, तिनधारा, काठमाण्डौं ।</strong><td>
+                            </tr>
+                        </table>
+                    </li>
+                    <li>ऋणी तथा बैंक बीच भएको ऋणकर्जा सम्बन्धि संझौता वा समझदारीको शर्तबन्देज मध्ये बैंकबाट प्राप्त गरेको ऋणकर्जा चुक्ता भुक्तान नगरेसम्म ऋणीले
+                        साहुबाट प्राप्त गरेको ऋणकर्जाको साँवा, ब्याज आदी चुक्ता भुक्तानी गर्ने कार्यलाई दोश्रो प्राथमिकतामा राख्ने सम्बन्धमा ऋणी तथा साहुबीच भएको संझौता
+                        समेत बैंकमा पेश गर्नु पर्ने भएकोले हामी ऋणी र साहु बीच ऋणीले साहुलाई तिर्नु पर्ने ऋणकर्जाको साँवा ब्याजको चुक्ता भुक्तानी देहायको शर्त बन्देजको
+                        अधिनमा रही दोश्रो प्राथमिकता (Loan Subordination) मा राख्ने सम्बन्धमा यो संझौता भएको ठिक साँचो हो ।
+                    </li>
+                </ol>
 
             </div>
             <div>
@@ -139,11 +145,12 @@
                         किसिमको साहुको ऋणी माथिको दाबी, हक, हित वा अधिकार अन्य कुनै तेश्रो पक्षलाई कुनै पनि किसिमबाट हस्तान्तरण गर्ने गराउने छैन ।
                     </li>
                     <li>
-                        साहुले यो संझौता भंग गर्ने उद्देश्यले बैंकको <input class="form-field form-control-sm d-print-none"
-                                                                            name="nameOfBranch"
-                                                                            formControlName="nameOfBranch"
-                                                                            type="text"/>
-                        <span class="print-only font-weight-bold">{{individualData.branch ? individualData.branch.ct : ''}}</span>
+                        साहुले यो संझौता भंग गर्ने उद्देश्यले बैंकको
+                        <input class="form-field form-control-sm d-print-none"
+                               name="nameOfBranch"
+                               formControlName="nameOfBranch"
+                               type="text" readonly/>
+                        <span class="print-only font-weight-bold">{{form?.get('nameOfBranch').value ? form?.get('nameOfBranch').value : '_________________'}}</span>
                         शाखा कार्यालयमा लिखित जानकारी नदिए सम्म यो संझौता अविछिन्न रुपमा वैध रहनेछ र त्यस्तो जानकारी नदिएसम्म बैंकले यस संझौताको
                         आधारमा साहुलाई जानकारी नदिइकन ऋणीलाई प्रदान गरेको ऋणकर्जा बैंकिङ्ग सुविधा, थप कर्जा वा बैंकिङ्ग सुविधा, सोको नविकरण,
                         विस्तार वा त्यस्ता कार्यको कारणबाट भविष्यमा बैंकमाथि पर्न आउने थप दायित्व आदी समेत चुक्ता भुक्तान नगरेसम्म साहुले उल्लेखित
@@ -192,28 +199,36 @@
             <table class="table table-borderless mt-5">
                 <tr>
                     <th>––––––––––––––––––––––––––––––––
-                    <br><span class="text-center">दस्तखत</span>
+                        <br><span class="text-center">दस्तखत</span>
                         <br>ऋणी वा निजको आधिकारीक प्रतिनिधि
-                        <br>नामः<input class="form-field form-control-sm d-print-none"
-                                       name="borrowerAuthorizedPerson"
-                                       formControlName="borrowerAuthorizedPerson"
-                                       type="text"/>
-                        <br>ठेगानाः<input class="form-field form-control-sm d-print-none"
-                                          name="borrowerAuthorizedPersonAddress"
-                                          formControlName="borrowerAuthorizedPersonAddress"
-                                          type="text"/>
+                        <br>नामः <input class="form-field form-control-sm d-print-none nepaliFont"
+                                        name="borrowerAuthorizedPerson"
+                                        formControlName="borrowerAuthorizedPerson"
+                                        type="text"/>
+                        <span
+                                class="print-only font-weight-bold nepaliFont">{{form?.get('borrowerAuthorizedPerson').value ? form?.get('borrowerAuthorizedPerson').value : '===================='}}</span>
+                        <br>ठेगानाः <input class="form-field form-control-sm d-print-none nepaliFont"
+                                           name="borrowerAuthorizedPersonAddress"
+                                           formControlName="borrowerAuthorizedPersonAddress"
+                                           type="text"/>
+                        <span
+                                class="print-only font-weight-bold nepaliFont">{{form?.get('borrowerAuthorizedPersonAddress').value ? form?.get('borrowerAuthorizedPersonAddress').value : '===================='}}</span>
                     </th>
                     <th>––––––––––––––––––––––––––––––––
                         <br><span class="text-center">दस्तखत</span>
                         <br>ऋणी वा निजको आधिकारीक प्रतिनिधि
-                        <br>नामः<input class="form-field form-control-sm d-print-none"
-                                       name="loanProviderAuthorizedPerson"
-                                       formControlName="loanProviderAuthorizedPerson"
-                                       type="text"/>
-                        <br>ठेगानाः<input class="form-field form-control-sm d-print-none"
-                                          name="loanProviderAuthorizedPersonAddress"
-                                          formControlName="loanProviderAuthorizedPersonAddress"
-                                          type="text"/>
+                        <br>नामः <input class="form-field form-control-sm d-print-none nepaliFont"
+                                        name="loanProviderAuthorizedPerson"
+                                        formControlName="loanProviderAuthorizedPerson"
+                                        type="text"/>
+                        <span
+                                class="print-only font-weight-bold nepaliFont">{{form?.get('loanProviderAuthorizedPerson').value ? form?.get('loanProviderAuthorizedPerson').value : '===================='}}</span>
+                        <br>ठेगानाः <input class="form-field form-control-sm d-print-none nepaliFont"
+                                           name="loanProviderAuthorizedPersonAddress"
+                                           formControlName="loanProviderAuthorizedPersonAddress"
+                                           type="text"/>
+                        <span
+                                class="print-only font-weight-bold nepaliFont">{{form?.get('loanProviderAuthorizedPersonAddress').value ? form?.get('loanProviderAuthorizedPersonAddress').value : '===================='}}</span>
                     </th>
                 </tr>
             </table>
