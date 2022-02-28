@@ -435,27 +435,29 @@ export class LoanDeedPartnershipComponent implements OnInit {
                             // tslint:disable-next-line:max-line-length
                             const tempLoanAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.cadData.assignedLoan[index].proposal.proposedLimit));
                             let tempDateOfExpiry;
+                            let tempCommissionRate;
                             // timeLetterCreditFormArray
                             for (let val = 0; val < this.initialInfo.timeLetterCreditForm.timeLetterCreditFormArray.length; val++) {
                                 if (v.proposalId === this.initialInfo.timeLetterCreditForm.timeLetterCreditFormArray[val].loanId) {
                                     if (this.initialInfo.timeLetterCreditForm.timeLetterCreditFormArray[val].loanOption === 'REGULAR') {
-                                        // tslint:disable-next-line:max-line-length
                                         const dateOfExpiryType = this.initialInfo.timeLetterCreditForm.timeLetterCreditFormArray[val].dateOfExpiryType ?
                                             this.initialInfo.timeLetterCreditForm.timeLetterCreditFormArray[val].dateOfExpiryType : '';
                                         if (dateOfExpiryType === 'AD') {
-                                            tempDateOfExpiry = this.engToNepaliDate.transform(
-                                                this.initialInfo.timeLetterCreditForm.timeLetterCreditFormArray[val].dateOfExpiry ?
-                                                    this.initialInfo.timeLetterCreditForm.timeLetterCreditFormArray[val].dateOfExpiry : '', true);
+                                            tempDateOfExpiry = this.initialInfo.timeLetterCreditForm.timeLetterCreditFormArray[val].dateOfExpiry ?
+                                                this.initialInfo.timeLetterCreditForm.timeLetterCreditFormArray[val].dateOfExpiryCT : '';
                                         } else {
                                             tempDateOfExpiry = this.initialInfo.timeLetterCreditForm.timeLetterCreditFormArray[val].dateOfExpiryNepali ?
                                                 this.initialInfo.timeLetterCreditForm.timeLetterCreditFormArray[val].dateOfExpiryNepali.nDate : '';
                                         }
                                     }
+                                    tempCommissionRate = this.initialInfo.timeLetterCreditForm.timeLetterCreditFormArray[val].commissionRate ?
+                                        this.initialInfo.timeLetterCreditForm.timeLetterCreditFormArray[val].commissionRateCT : '';
                                 }
                             }
                             this.newData = {
                                 loanNepaliName: v.loanNepaliName,
                                 interestRateExists: false,
+                                commissionRate: tempCommissionRate,
                                 loanAmount: tempLoanAmount,
                                 dateOfExpiry: tempDateOfExpiry,
                             };
@@ -468,26 +470,29 @@ export class LoanDeedPartnershipComponent implements OnInit {
                             // tslint:disable-next-line:max-line-length
                             const tempLoanAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.cadData.assignedLoan[index].proposal.proposedLimit));
                             let tempDateOfExpiry1;
+                            let tempCommissionRate;
                             // letterOfCreditFormArray
                             for (let val = 0; val < this.initialInfo.letterOfCreditForm.letterOfCreditFormArray.length; val++) {
                                 if (v.proposalId === this.initialInfo.letterOfCreditForm.letterOfCreditFormArray[val].loanId) {
-                                    if (this.initialInfo.letterOfCreditForm.loanOption === 'REGULAR') {
+                                    if (this.initialInfo.letterOfCreditForm.letterOfCreditFormArray[val].loanOption === 'REGULAR') {
                                         const dateOfExpiryType = this.initialInfo.letterOfCreditForm.letterOfCreditFormArray[val].dateOfExpiryType ?
                                             this.initialInfo.letterOfCreditForm.letterOfCreditFormArray[val].dateOfExpiryType : '';
                                         if (dateOfExpiryType === 'AD') {
-                                            tempDateOfExpiry1 = this.engToNepaliDate.transform(
-                                                this.initialInfo.letterOfCreditForm.letterOfCreditFormArray[val].dateOfExpiry ?
-                                                    this.initialInfo.letterOfCreditForm.letterOfCreditFormArray[val].dateOfExpiry : '', true);
+                                            tempDateOfExpiry1 = this.initialInfo.letterOfCreditForm.letterOfCreditFormArray[val].dateOfExpiry ?
+                                                this.initialInfo.letterOfCreditForm.letterOfCreditFormArray[val].dateOfExpiryCT : '';
                                         } else {
                                             tempDateOfExpiry1 = this.initialInfo.letterOfCreditForm.letterOfCreditFormArray[val].dateOfExpiryNepali ?
                                                 this.initialInfo.letterOfCreditForm.letterOfCreditFormArray[val].dateOfExpiryNepali.nDate : '';
                                         }
                                     }
+                                    tempCommissionRate = this.initialInfo.letterOfCreditForm.letterOfCreditFormArray[val].minimumCommissionRate ?
+                                        this.initialInfo.letterOfCreditForm.letterOfCreditFormArray[val].minimumCommissionRateCT : '';
                                 }
                             }
                             this.newData = {
                                 loanNepaliName: v.loanNepaliName,
                                 interestRateExists: false,
+                                commissionRate: tempCommissionRate,
                                 loanAmount: tempLoanAmount,
                                 dateOfExpiry: tempDateOfExpiry1,
                             };
@@ -508,9 +513,8 @@ export class LoanDeedPartnershipComponent implements OnInit {
                                             this.initialInfo.importBillsDiscountForm.importBillsDiscountFormArray[val].dateOfExpiryType : '';
                                         if (dateOfExpiryType === 'AD') {
                                             // tslint:disable-next-line:max-line-length
-                                            tempDateOfExpiry = this.engToNepaliDate.transform(
-                                                this.initialInfo.importBillsDiscountForm.importBillsDiscountFormArray[val].dateOfExpiry ?
-                                                    this.initialInfo.importBillsDiscountForm.importBillsDiscountFormArray[val].dateOfExpiry : '', true);
+                                            tempDateOfExpiry = this.initialInfo.importBillsDiscountForm.importBillsDiscountFormArray[val].dateOfExpiry ?
+                                                this.initialInfo.importBillsDiscountForm.importBillsDiscountFormArray[val].dateOfExpiryCT : '';
                                         } else {
                                             tempDateOfExpiry = this.initialInfo.importBillsDiscountForm.importBillsDiscountFormArray[val].dateOfExpiryNepali ?
                                                 this.initialInfo.importBillsDiscountForm.importBillsDiscountFormArray[val].dateOfExpiryNepali.nDate : '';
@@ -541,9 +545,8 @@ export class LoanDeedPartnershipComponent implements OnInit {
                                         const dateOfExpiryType = this.initialInfo.importLoanTrust.importLoanTrustFormArray[val].dateOfExpiryType ?
                                             this.initialInfo.importLoanTrust.importLoanTrustFormArray[val].dateOfExpiryType : '';
                                         if (dateOfExpiryType === 'AD') {
-                                            tempDateOfExpiry = this.engToNepaliDate.transform(
-                                                this.initialInfo.importLoanTrust.importLoanTrustFormArray[val].dateOfExpiry ?
-                                                    this.initialInfo.importLoanTrust.importLoanTrustFormArray[val].dateOfExpiry : '', true);
+                                            tempDateOfExpiry = this.initialInfo.importLoanTrust.importLoanTrustFormArray[val].dateOfExpiry ?
+                                                this.initialInfo.importLoanTrust.importLoanTrustFormArray[val].dateOfExpiryCT : '';
                                         } else {
                                             tempDateOfExpiry = this.initialInfo.importLoanTrust.importLoanTrustFormArray[val].dateOfExpiryNepali ?
                                                 this.initialInfo.importLoanTrust.importLoanTrustFormArray[val].dateOfExpiryNepali.nDate : '';
@@ -577,9 +580,8 @@ export class LoanDeedPartnershipComponent implements OnInit {
                                             ? this.initialInfo.revolvingShortTermLoan.revolvingShortTermLoanFormArray[val].dateOfExpiryType : '';
                                         if (dateOfExpiryType === 'AD') {
                                             // tslint:disable-next-line:max-line-length
-                                            tempDateOfExpiry = this.engToNepaliDate.transform(
-                                                this.initialInfo.revolvingShortTermLoan.revolvingShortTermLoanFormArray[val].dateOfExpiry ?
-                                                    this.initialInfo.revolvingShortTermLoan.revolvingShortTermLoanFormArray[val].dateOfExpiry : '', true);
+                                            tempDateOfExpiry = this.initialInfo.revolvingShortTermLoan.revolvingShortTermLoanFormArray[val].dateOfExpiry ?
+                                                this.initialInfo.revolvingShortTermLoan.revolvingShortTermLoanFormArray[val].dateOfExpiryCT : '';
                                         } else {
                                             tempDateOfExpiry = this.initialInfo.revolvingShortTermLoan.revolvingShortTermLoanFormArray[val].dateOfExpiryNepali ?
                                                 this.initialInfo.revolvingShortTermLoan.revolvingShortTermLoanFormArray[val].dateOfExpiryNepali.nDate : '';
@@ -611,9 +613,8 @@ export class LoanDeedPartnershipComponent implements OnInit {
                                     const dateOfExpiryType = this.initialInfo.demandLoanForm.demandLoanFormArray[val].dateOfExpiryType ?
                                         this.initialInfo.demandLoanForm.demandLoanFormArray[val].dateOfExpiryType : '';
                                     if (dateOfExpiryType === 'AD') {
-                                        tempDateOfExpiry = this.engToNepaliDate.transform(
-                                            this.initialInfo.demandLoanForm.demandLoanFormArray[val].dateOfExpiry ?
-                                                this.initialInfo.demandLoanForm.demandLoanFormArray[val].dateOfExpiry : '', true);
+                                        tempDateOfExpiry = this.initialInfo.demandLoanForm.demandLoanFormArray[val].dateOfExpiry ?
+                                            this.initialInfo.demandLoanForm.demandLoanFormArray[val].dateOfExpiryCT : '';
                                     } else {
                                         tempDateOfExpiry = this.initialInfo.demandLoanForm.demandLoanFormArray[val].dateOfExpiryNepali ?
                                             this.initialInfo.demandLoanForm.demandLoanFormArray[val].dateOfExpiryNepali.nDate : '';
@@ -642,8 +643,8 @@ export class LoanDeedPartnershipComponent implements OnInit {
                                     const dateOfExpiryType = this.initialInfo.preExportForm.termLoanDetails[val].dateOfExpiryType ?
                                         this.initialInfo.preExportForm.termLoanDetails[val].dateOfExpiryType : '';
                                     if (dateOfExpiryType === 'AD') {
-                                        tempDateOfExpiry2 = this.engToNepaliDate.transform(this.initialInfo.preExportForm.termLoanDetails[val].dateOfExpiry ?
-                                            this.initialInfo.preExportForm.termLoanDetails[val].dateOfExpiry : '', true);
+                                        tempDateOfExpiry2 = this.initialInfo.preExportForm.termLoanDetails[val].dateOfExpiry ?
+                                            this.initialInfo.preExportForm.termLoanDetails[val].dateOfExpiryCT : '';
                                     } else {
                                         tempDateOfExpiry2 = this.initialInfo.preExportForm.termLoanDetails[val].dateOfExpiryNepali ?
                                             this.initialInfo.preExportForm.termLoanDetails[val].dateOfExpiryNepali.nDate : '';
@@ -671,9 +672,8 @@ export class LoanDeedPartnershipComponent implements OnInit {
                                     const dateOfExpiryType = this.initialInfo.documentaryBillPurchase.documentaryBillPurchaseFormArray[val].dateOfExpiryType
                                         ? this.initialInfo.documentaryBillPurchase.documentaryBillPurchaseFormArray[val].dateOfExpiryType : '';
                                     if (dateOfExpiryType === 'AD') {
-                                        tempDateOfExpiry2 = this.engToNepaliDate.transform(
-                                            this.initialInfo.documentaryBillPurchase.documentaryBillPurchaseFormArray[val].dateOfExpiry ?
-                                                this.initialInfo.documentaryBillPurchase.documentaryBillPurchaseFormArray[val].dateOfExpiry : '', true);
+                                        tempDateOfExpiry2 = this.initialInfo.documentaryBillPurchase.documentaryBillPurchaseFormArray[val].dateOfExpiry ?
+                                            this.initialInfo.documentaryBillPurchase.documentaryBillPurchaseFormArray[val].dateOfExpiryCT : '';
                                     } else {
                                         tempDateOfExpiry2 = this.initialInfo.documentaryBillPurchase.documentaryBillPurchaseFormArray[val].dateOfExpiryNepali
                                             ? this.initialInfo.documentaryBillPurchase.documentaryBillPurchaseFormArray[val].dateOfExpiryNepali.nDate : '';
@@ -702,9 +702,8 @@ export class LoanDeedPartnershipComponent implements OnInit {
                                     const dateOfExpiryType = this.initialInfo.overdraftLoanForm.overdraftLoanFormArray[val].dateOfExpiryType ?
                                         this.initialInfo.overdraftLoanForm.overdraftLoanFormArray[val].dateOfExpiryType : '';
                                     if (dateOfExpiryType === 'AD') {
-                                        tempDateOfExpiry2 = this.engToNepaliDate.transform(
-                                            this.initialInfo.overdraftLoanForm.overdraftLoanFormArray[val].dateOfExpiry ?
-                                                this.initialInfo.overdraftLoanForm.overdraftLoanFormArray[val].dateOfExpiry : '', true);
+                                        tempDateOfExpiry2 = this.initialInfo.overdraftLoanForm.overdraftLoanFormArray[val].dateOfExpiry ?
+                                            this.initialInfo.overdraftLoanForm.overdraftLoanFormArray[val].dateOfExpiryCT : '';
                                     } else {
                                         tempDateOfExpiry2 = this.initialInfo.overdraftLoanForm.overdraftLoanFormArray[val].dateOfExpiryNepali ?
                                             this.initialInfo.overdraftLoanForm.overdraftLoanFormArray[val].dateOfExpiryNepali.nDate : '';
@@ -735,9 +734,8 @@ export class LoanDeedPartnershipComponent implements OnInit {
                                     const dateOfExpiryType = this.initialInfo.equityMortgaged.equityMortgagedFormArray[val].dateOfExpiryType ?
                                         this.initialInfo.equityMortgaged.equityMortgagedFormArray[val].dateOfExpiryType : '';
                                     if (dateOfExpiryType === 'AD') {
-                                        tempDateOfExpiry2 = this.engToNepaliDate.transform(
-                                            this.initialInfo.equityMortgaged.equityMortgagedFormArray[val].dateOfExpiry ?
-                                                this.initialInfo.equityMortgaged.equityMortgagedFormArray[val].dateOfExpiry : '', true);
+                                        tempDateOfExpiry2 = this.initialInfo.equityMortgaged.equityMortgagedFormArray[val].dateOfExpiry ?
+                                            this.initialInfo.equityMortgaged.equityMortgagedFormArray[val].dateOfExpiryCT : '';
                                     } else {
                                         tempDateOfExpiry2 = this.initialInfo.equityMortgaged.equityMortgagedFormArray[val].dateOfExpiryNepali ?
                                             this.initialInfo.equityMortgaged.equityMortgagedFormArray[val].dateOfExpiryNepali.nDate : '';
@@ -768,9 +766,8 @@ export class LoanDeedPartnershipComponent implements OnInit {
                                     const dateOfExpiryType = this.initialInfo.equityMortgaged.mortgageOverdraftFormArray[val].dateOfExpiryType ?
                                         this.initialInfo.equityMortgaged.mortgageOverdraftFormArray[val].dateOfExpiryType : '';
                                     if (dateOfExpiryType === 'AD') {
-                                        tempDateOfExpiry2 = this.engToNepaliDate.transform(
-                                            this.initialInfo.equityMortgaged.mortgageOverdraftFormArray[val].dateOfExpiry ?
-                                                this.initialInfo.equityMortgaged.mortgageOverdraftFormArray[val].dateOfExpiry : '', true);
+                                        tempDateOfExpiry2 = this.initialInfo.equityMortgaged.mortgageOverdraftFormArray[val].dateOfExpiry ?
+                                            this.initialInfo.equityMortgaged.mortgageOverdraftFormArray[val].dateOfExpiryCT : '';
                                     } else {
                                         tempDateOfExpiry2 = this.initialInfo.equityMortgaged.mortgageOverdraftFormArray[val].dateOfExpiryNepali ?
                                             this.initialInfo.equityMortgaged.mortgageOverdraftFormArray[val].dateOfExpiryNepali.nDate : '';
@@ -802,14 +799,16 @@ export class LoanDeedPartnershipComponent implements OnInit {
                                     const dateOfExpiryType =  this.initialInfo.overdraftFixedForm.odFdFormArray[val].dateOfExpiryType ?
                                         this.initialInfo.overdraftFixedForm.odFdFormArray[val].dateOfExpiryType : '';
                                     if (dateOfExpiryType === 'AD') {
-                                        tempDateOfExpiry2 = this.engToNepaliDate.transform(
-                                            this.initialInfo.overdraftFixedForm.odFdFormArray[val].dateOfExpiry ?
-                                                this.initialInfo.overdraftFixedForm.odFdFormArray[val].dateOfExpiry : '', true);
+                                        tempDateOfExpiry2 = this.initialInfo.overdraftFixedForm.odFdFormArray[val].dateOfExpiry ?
+                                            this.initialInfo.overdraftFixedForm.odFdFormArray[val].dateOfExpiryCT : '';
                                     } else {
                                         tempDateOfExpiry2 =  this.initialInfo.overdraftFixedForm.odFdFormArray[val].dateOfExpiryNepali ?
                                             this.initialInfo.overdraftFixedForm.odFdFormArray[val].dateOfExpiryNepali.nDate : '';
                                     }
-                                    overdraftFixedForm = this.initialInfo.overdraftFixedForm.odFdFormArray[val].interestRateCT;
+                                    overdraftFixedForm = this.initialInfo.overdraftFixedForm.odFdFormArray[val].interestRate ?
+                                        this.initialInfo.overdraftFixedForm.odFdFormArray[val].interestRateCT :
+                                        (this.initialInfo.overdraftFixedForm.odFdFormArray[val].totalInterestRate ?
+                                            this.initialInfo.overdraftFixedForm.odFdFormArray[val].totalInterestRateCT : '');
                                 }
                             }
                             this.newData = {
@@ -836,9 +835,8 @@ export class LoanDeedPartnershipComponent implements OnInit {
                                     const dateOfExpiryType =  this.initialInfo.overdraftFixedForm.overdraftLienOnDepositFormArray[val].dateOfExpiryType ?
                                         this.initialInfo.overdraftFixedForm.overdraftLienOnDepositFormArray[val].dateOfExpiryType : '';
                                     if (dateOfExpiryType === 'AD') {
-                                        tempDateOfExpiry2 = this.engToNepaliDate.transform(
-                                            this.initialInfo.overdraftFixedForm.overdraftLienOnDepositFormArray[val].dateOfExpiry ?
-                                                this.initialInfo.overdraftFixedForm.overdraftLienOnDepositFormArray[val].dateOfExpiry : '', true);
+                                        tempDateOfExpiry2 = this.initialInfo.overdraftFixedForm.overdraftLienOnDepositFormArray[val].dateOfExpiry ?
+                                            this.initialInfo.overdraftFixedForm.overdraftLienOnDepositFormArray[val].dateOfExpiryCT : '';
                                     } else {
                                         tempDateOfExpiry2 =  this.initialInfo.overdraftFixedForm.overdraftLienOnDepositFormArray[val].dateOfExpiryNepali ?
                                             this.initialInfo.overdraftFixedForm.overdraftLienOnDepositFormArray[val].dateOfExpiryNepali.nDate : '';
@@ -870,9 +868,8 @@ export class LoanDeedPartnershipComponent implements OnInit {
                                     const dateOfExpiryType =  this.initialInfo.overdraftFixedForm.stlAgainstFixedDepositFormArray[val].dateOfExpiryType ?
                                         this.initialInfo.overdraftFixedForm.stlAgainstFixedDepositFormArray[val].dateOfExpiryType : '';
                                     if (dateOfExpiryType === 'AD') {
-                                        tempDateOfExpiry2 = this.engToNepaliDate.transform(
-                                            this.initialInfo.overdraftFixedForm.stlAgainstFixedDepositFormArray[val].dateOfExpiry ?
-                                                this.initialInfo.overdraftFixedForm.stlAgainstFixedDepositFormArray[val].dateOfExpiry : '', true);
+                                        tempDateOfExpiry2 = this.initialInfo.overdraftFixedForm.stlAgainstFixedDepositFormArray[val].dateOfExpiry ?
+                                            this.initialInfo.overdraftFixedForm.stlAgainstFixedDepositFormArray[val].dateOfExpiryCT : '';
                                     } else {
                                         tempDateOfExpiry2 =  this.initialInfo.overdraftFixedForm.stlAgainstFixedDepositFormArray[val].dateOfExpiryNepali ?
                                             this.initialInfo.overdraftFixedForm.stlAgainstFixedDepositFormArray[val].dateOfExpiryNepali.nDate : '';
@@ -904,9 +901,8 @@ export class LoanDeedPartnershipComponent implements OnInit {
                                     const dateOfExpiryType =  this.initialInfo.overdraftFixedForm.stlLienOnDepositFormArray[val].dateOfExpiryType ?
                                         this.initialInfo.overdraftFixedForm.stlLienOnDepositFormArray[val].dateOfExpiryType : '';
                                     if (dateOfExpiryType === 'AD') {
-                                        tempDateOfExpiry2 = this.engToNepaliDate.transform(
-                                            this.initialInfo.overdraftFixedForm.stlLienOnDepositFormArray[val].dateOfExpiry ?
-                                                this.initialInfo.overdraftFixedForm.stlLienOnDepositFormArray[val].dateOfExpiry : '', true);
+                                        tempDateOfExpiry2 = this.initialInfo.overdraftFixedForm.stlLienOnDepositFormArray[val].dateOfExpiry ?
+                                            this.initialInfo.overdraftFixedForm.stlLienOnDepositFormArray[val].dateOfExpiryCT : '';
                                     } else {
                                         tempDateOfExpiry2 =  this.initialInfo.overdraftFixedForm.stlLienOnDepositFormArray[val].dateOfExpiryNepali ?
                                             this.initialInfo.overdraftFixedForm.stlLienOnDepositFormArray[val].dateOfExpiryNepali.nDate : '';
@@ -938,9 +934,8 @@ export class LoanDeedPartnershipComponent implements OnInit {
                                     const dateOfExpiryType =  this.initialInfo.overdraftFixedForm.dlAgainstFixedDepositFormArray[val].dateOfExpiryType ?
                                         this.initialInfo.overdraftFixedForm.dlAgainstFixedDepositFormArray[val].dateOfExpiryType : '';
                                     if (dateOfExpiryType === 'AD') {
-                                        tempDateOfExpiry2 = this.engToNepaliDate.transform(
-                                            this.initialInfo.overdraftFixedForm.dlAgainstFixedDepositFormArray[val].dateOfExpiry ?
-                                                this.initialInfo.overdraftFixedForm.dlAgainstFixedDepositFormArray[val].dateOfExpiry : '', true);
+                                        tempDateOfExpiry2 = this.initialInfo.overdraftFixedForm.dlAgainstFixedDepositFormArray[val].dateOfExpiry ?
+                                            this.initialInfo.overdraftFixedForm.dlAgainstFixedDepositFormArray[val].dateOfExpiryCT : '';
                                     } else {
                                         tempDateOfExpiry2 =  this.initialInfo.overdraftFixedForm.dlAgainstFixedDepositFormArray[val].dateOfExpiryNepali ?
                                             this.initialInfo.overdraftFixedForm.dlAgainstFixedDepositFormArray[val].dateOfExpiryNepali.nDate : '';
@@ -972,9 +967,8 @@ export class LoanDeedPartnershipComponent implements OnInit {
                                     const dateOfExpiryType =  this.initialInfo.overdraftFixedForm.dlAgainstLienOnDepositFormArray[val].dateOfExpiryType ?
                                         this.initialInfo.overdraftFixedForm.dlAgainstLienOnDepositFormArray[val].dateOfExpiryType : '';
                                     if (dateOfExpiryType === 'AD') {
-                                        tempDateOfExpiry2 = this.engToNepaliDate.transform(
-                                            this.initialInfo.overdraftFixedForm.dlAgainstLienOnDepositFormArray[val].dateOfExpiry ?
-                                                this.initialInfo.overdraftFixedForm.dlAgainstLienOnDepositFormArray[val].dateOfExpiry : '', true);
+                                        tempDateOfExpiry2 = this.initialInfo.overdraftFixedForm.dlAgainstLienOnDepositFormArray[val].dateOfExpiry ?
+                                            this.initialInfo.overdraftFixedForm.dlAgainstLienOnDepositFormArray[val].dateOfExpiryCT : '';
                                     } else {
                                         tempDateOfExpiry2 =  this.initialInfo.overdraftFixedForm.dlAgainstLienOnDepositFormArray[val].dateOfExpiryNepali ?
                                             this.initialInfo.overdraftFixedForm.dlAgainstLienOnDepositFormArray[val].dateOfExpiryNepali.nDate : '';
@@ -1006,9 +1000,8 @@ export class LoanDeedPartnershipComponent implements OnInit {
                                     const dateOfExpiryType = this.initialInfo.overDraftFacilityForm.overdraftFacilityDetails[val].dateOfExpiryType ?
                                         this.initialInfo.overDraftFacilityForm.overdraftFacilityDetails[val].dateOfExpiryType : '';
                                     if (dateOfExpiryType === 'AD') {
-                                        tempDateOfExpiry2 = this.engToNepaliDate.transform(
-                                            this.initialInfo.overDraftFacilityForm.overdraftFacilityDetails[val].dateOfExpiry ?
-                                                this.initialInfo.overDraftFacilityForm.overdraftFacilityDetails[val].dateOfExpiry : '', true);
+                                        tempDateOfExpiry2 = this.initialInfo.overDraftFacilityForm.overdraftFacilityDetails[val].dateOfExpiry ?
+                                            this.initialInfo.overDraftFacilityForm.overdraftFacilityDetails[val].dateOfExpiryCT : '';
                                     } else {
                                         tempDateOfExpiry2 = this.initialInfo.overDraftFacilityForm.overdraftFacilityDetails[val].dateOfExpiryNepali ?
                                             this.initialInfo.overDraftFacilityForm.overdraftFacilityDetails[val].dateOfExpiryNepali.nDate : '';
@@ -1037,17 +1030,15 @@ export class LoanDeedPartnershipComponent implements OnInit {
                             // stlAgainstBondFormArray
                             for (let val = 0; val < this.initialInfo.overDraftFacilityForm.stlAgainstBondFormArray.length; val++) {
                                 if (v.proposalId === this.initialInfo.overDraftFacilityForm.stlAgainstBondFormArray[val].loanId) {
-                                    // tslint:disable-next-line:max-line-length
-                                    const dateOfExpiryType = this.initialInfo.overDraftFacilityForm.stlAgainstBondFormArray[val].dateOfExpiryType ? this.initialInfo.overDraftFacilityForm.stlAgainstBondFormArray[val].dateOfExpiryType : '';
+                                    const dateOfExpiryType = this.initialInfo.overDraftFacilityForm.stlAgainstBondFormArray[val].dateOfExpiryType ?
+                                        this.initialInfo.overDraftFacilityForm.stlAgainstBondFormArray[val].dateOfExpiryType : '';
                                     if (dateOfExpiryType === 'AD') {
-                                        tempDateOfExpiry2 = this.engToNepaliDate.transform(
-                                            // tslint:disable-next-line:max-line-length
-                                            this.initialInfo.overDraftFacilityForm.stlAgainstBondFormArray[val].dateOfExpiry ? this.initialInfo.overDraftFacilityForm.stlAgainstBondFormArray[val].dateOfExpiry : '', true);
+                                        tempDateOfExpiry2 = this.initialInfo.overDraftFacilityForm.stlAgainstBondFormArray[val].dateOfExpiry ?
+                                            this.initialInfo.overDraftFacilityForm.stlAgainstBondFormArray[val].dateOfExpiryCT : '';
                                     } else {
-                                        // tslint:disable-next-line:max-line-length
-                                        tempDateOfExpiry2 = this.initialInfo.overDraftFacilityForm.stlAgainstBondFormArray[val].dateOfExpiryNepali ? this.initialInfo.overDraftFacilityForm.stlAgainstBondFormArray[val].dateOfExpiryNepali.nDate : '';
+                                        tempDateOfExpiry2 = this.initialInfo.overDraftFacilityForm.stlAgainstBondFormArray[val].dateOfExpiryNepali ?
+                                            this.initialInfo.overDraftFacilityForm.stlAgainstBondFormArray[val].dateOfExpiryNepali.nDate : '';
                                     }
-                                    // tslint:disable-next-line:max-line-length
                                     overDraftFacilityForm = this.initialInfo.overDraftFacilityForm.stlAgainstBondFormArray[val].interestRateCT;
                                 }
                             }
@@ -1072,17 +1063,15 @@ export class LoanDeedPartnershipComponent implements OnInit {
                             // dlAgainstBondFormArray
                             for (let val = 0; val < this.initialInfo.overDraftFacilityForm.dlAgainstBondFormArray.length; val++) {
                                 if (v.proposalId === this.initialInfo.overDraftFacilityForm.dlAgainstBondFormArray[val].loanId) {
-                                    // tslint:disable-next-line:max-line-length
-                                    const dateOfExpiryType = this.initialInfo.overDraftFacilityForm.dlAgainstBondFormArray[val].dateOfExpiryType ? this.initialInfo.overDraftFacilityForm.dlAgainstBondFormArray[val].dateOfExpiryType : '';
+                                    const dateOfExpiryType = this.initialInfo.overDraftFacilityForm.dlAgainstBondFormArray[val].dateOfExpiryType ?
+                                        this.initialInfo.overDraftFacilityForm.dlAgainstBondFormArray[val].dateOfExpiryType : '';
                                     if (dateOfExpiryType === 'AD') {
-                                        tempDateOfExpiry2 = this.engToNepaliDate.transform(
-                                            this.initialInfo.overDraftFacilityForm.dlAgainstBondFormArray[val].dateOfExpiry ?
-                                                this.initialInfo.overDraftFacilityForm.dlAgainstBondFormArray[val].dateOfExpiry : '', true);
+                                        tempDateOfExpiry2 = this.initialInfo.overDraftFacilityForm.dlAgainstBondFormArray[val].dateOfExpiry ?
+                                            this.initialInfo.overDraftFacilityForm.dlAgainstBondFormArray[val].dateOfExpiryCT : '';
                                     } else {
-                                        // tslint:disable-next-line:max-line-length
-                                        tempDateOfExpiry2 = this.initialInfo.overDraftFacilityForm.dlAgainstBondFormArray[val].dateOfExpiryNepali ? this.initialInfo.overDraftFacilityForm.dlAgainstBondFormArray[val].dateOfExpiryNepali.nDate : '';
+                                        tempDateOfExpiry2 = this.initialInfo.overDraftFacilityForm.dlAgainstBondFormArray[val].dateOfExpiryNepali ?
+                                            this.initialInfo.overDraftFacilityForm.dlAgainstBondFormArray[val].dateOfExpiryNepali.nDate : '';
                                     }
-                                    // tslint:disable-next-line:max-line-length
                                     overDraftFacilityForm = this.initialInfo.overDraftFacilityForm.dlAgainstBondFormArray[val].interestRateCT;
                                 }
                             }
@@ -1100,36 +1089,24 @@ export class LoanDeedPartnershipComponent implements OnInit {
                         if (v.loanName === LoanNameConstant.BRIDGE_GAP_LOAN && !ObjectUtil.isEmpty(this.initialInfo.bridgeGapLoan)) {
                             // tslint:disable-next-line:max-line-length
                             const tempLoanAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.cadData.assignedLoan[index].proposal.proposedLimit));
-                            let tempDateOfExpiry2;
                             let bridgeGapLoan;
                             // bridgeGapDetails
                             for (let val = 0; val < this.initialInfo.bridgeGapLoan.bridgeGapDetails.length; val++) {
-                                if (v.proposalId === this.initialInfo.bridgeGapLoan.bridgeGapDetails[val].loanId) {
-                                    const dateOfExpiryType = this.initialInfo.bridgeGapLoan.bridgeGapDetails[val].dateOfExpiryType ?
-                                        this.initialInfo.bridgeGapLoan.bridgeGapDetails[val].dateOfExpiryType : '';
-                                    if (dateOfExpiryType === 'AD') {
-                                        // tslint:disable-next-line:max-line-length
-                                        tempDateOfExpiry2 = this.engToNepaliDate.transform(this.initialInfo.bridgeGapLoan.bridgeGapDetails[val].dateOfExpiry ?
-                                            this.initialInfo.bridgeGapLoan.bridgeGapDetails[val].dateOfExpiry : '', true);
-                                    } else {
-                                        tempDateOfExpiry2 = this.initialInfo.bridgeGapLoan.bridgeGapDetails[val].dateOfExpiryNepali ?
-                                            this.initialInfo.bridgeGapLoan.bridgeGapDetails[val].dateOfExpiryNepali.nDate : '';
-                                    }
-                                    bridgeGapLoan = this.initialInfo.bridgeGapLoan.bridgeGapDetails[val].interestRateCT;
-                                }
+                                bridgeGapLoan = this.initialInfo.bridgeGapLoan.bridgeGapDetails[val].interestRateCT;
                             }
                             this.newData = {
                                 loanNepaliName: v.loanNepaliName,
                                 interestRateExists: true,
                                 interestRate: bridgeGapLoan,
                                 loanAmount: tempLoanAmount,
-                                dateOfExpiry: tempDateOfExpiry2,
+                                dateOfExpiry: '',
                             };
                             this.newTempData.push(
                                 this.newData
                             );
                         }
-                        if (v.loanName === LoanNameConstant.TERM_LOAN_TO_FOR_PURCHASE_OF_VEHICLE) {
+                        // tslint:disable-next-line:max-line-length
+                        if (v.loanName === LoanNameConstant.TERM_LOAN_TO_FOR_PURCHASE_OF_VEHICLE && !ObjectUtil.isEmpty(this.initialInfo.termLoanForm)) {
                             // tslint:disable-next-line:max-line-length
                             const tempLoanAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.cadData.assignedLoan[index].proposal.proposedLimit));
                             if (this.initialInfo.termLoanForm.termLoanDetails.length > 0) {
@@ -1146,16 +1123,16 @@ export class LoanDeedPartnershipComponent implements OnInit {
                             for (let val = 0; val < this.initialInfo.termLoanForm.termLoanDetails.length; val++) {
                                 if (v.proposalId === this.initialInfo.termLoanForm.termLoanDetails[val].loanId) {
                                     termLoanInterestRateCT = this.initialInfo.termLoanForm.termLoanDetails[val].interestRateCT;
-                                    const dateOfExpiryType = this.initialInfo.termLoanForm.termLoanDetails[val].dateOfExpiryType ?
-                                        this.initialInfo.termLoanForm.termLoanDetails[val].dateOfExpiryType : '';
-                                    if (dateOfExpiryType === 'AD') {
-                                        // tslint:disable-next-line:max-line-length
-                                        tempDateOfExpiry2 = this.engToNepaliDate.transform(
-                                            this.initialInfo.termLoanForm.termLoanDetails[val].dateOfExpiry ?
-                                                this.initialInfo.termLoanForm.termLoanDetails[val].dateOfExpiry : '', true);
-                                    } else {
-                                        tempDateOfExpiry2 = this.initialInfo.termLoanForm.termLoanDetails[val].dateOfExpiryNepali ?
-                                            this.initialInfo.termLoanForm.termLoanDetails[val].dateOfExpiryNepali.nDate : '';
+                                    if (!ObjectUtil.isEmpty(this.initialInfo.termLoanForm.termLoanDetails[val].dateOfExpiryType)) {
+                                        const dateOfExpiryType = this.initialInfo.termLoanForm.termLoanDetails[val].dateOfExpiryType ?
+                                            this.initialInfo.termLoanForm.termLoanDetails[val].dateOfExpiryType : '';
+                                        if (dateOfExpiryType === 'AD') {
+                                            tempDateOfExpiry2 = this.initialInfo.termLoanForm.termLoanDetails[val].dateOfExpiry ?
+                                                this.initialInfo.termLoanForm.termLoanDetails[val].dateOfExpiryCT : '';
+                                        } else {
+                                            tempDateOfExpiry2 = this.initialInfo.termLoanForm.termLoanDetails[val].dateOfExpiryNepali ?
+                                                this.initialInfo.termLoanForm.termLoanDetails[val].dateOfExpiryNepali.nDate : '';
+                                        }
                                     }
                                 }
                             }
@@ -1170,7 +1147,7 @@ export class LoanDeedPartnershipComponent implements OnInit {
                                 this.newData
                             );
                         }
-                        if (v.loanName === LoanNameConstant.MORTGAGE_TERM_LOAN) {
+                        if (v.loanName === LoanNameConstant.MORTGAGE_TERM_LOAN && !ObjectUtil.isEmpty(this.initialInfo.mortgageEquityTermForm)) {
                             // tslint:disable-next-line:max-line-length
                             const tempLoanAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.cadData.assignedLoan[index].proposal.proposedLimit));
                             // mortgageTermFormArray
@@ -1179,17 +1156,16 @@ export class LoanDeedPartnershipComponent implements OnInit {
                             for (let val = 0; val < this.initialInfo.mortgageEquityTermForm.mortgageTermFormArray.length; val++) {
                                 if (v.proposalId === this.initialInfo.mortgageEquityTermForm.mortgageTermFormArray[val].loanId) {
                                     termLoanInterestRateCT = this.initialInfo.mortgageEquityTermForm.mortgageTermFormArray[val].interestRateCT;
-                                    const dateOfExpiryType = this.initialInfo.mortgageEquityTermForm.mortgageTermFormArray[val].dateOfExpiryType ?
-                                        this.initialInfo.mortgageEquityTermForm.mortgageTermFormArray[val].dateOfExpiryType : '';
-                                    if (dateOfExpiryType === 'AD') {
-                                        // tslint:disable-next-line:max-line-length
-                                        tempDateOfExpiry2 = this.engToNepaliDate.transform(
-                                            this.initialInfo.mortgageEquityTermForm.mortgageTermFormArray[val].dateOfExpiry ?
-                                                this.initialInfo.mortgageEquityTermForm.mortgageTermFormArray[val].dateOfExpiry : '', true);
-                                    } else {
-                                        // tslint:disable-next-line:max-line-length
-                                        tempDateOfExpiry2 = this.initialInfo.mortgageEquityTermForm.mortgageTermFormArray[val].dateOfExpiryNepali ?
-                                            this.initialInfo.mortgageEquityTermForm.mortgageTermFormArray[val].dateOfExpiryNepali.nDate : '';
+                                    if (!ObjectUtil.isEmpty(this.initialInfo.mortgageEquityTermForm.mortgageTermFormArray[val].dateOfExpiryType)) {
+                                        const dateOfExpiryType = this.initialInfo.mortgageEquityTermForm.mortgageTermFormArray[val].dateOfExpiryType ?
+                                            this.initialInfo.mortgageEquityTermForm.mortgageTermFormArray[val].dateOfExpiryType : '';
+                                        if (dateOfExpiryType === 'AD') {
+                                            tempDateOfExpiry2 = this.initialInfo.mortgageEquityTermForm.mortgageTermFormArray[val].dateOfExpiry ?
+                                                this.initialInfo.mortgageEquityTermForm.mortgageTermFormArray[val].dateOfExpiryCT : '';
+                                        } else {
+                                            tempDateOfExpiry2 = this.initialInfo.mortgageEquityTermForm.mortgageTermFormArray[val].dateOfExpiryNepali ?
+                                                this.initialInfo.mortgageEquityTermForm.mortgageTermFormArray[val].dateOfExpiryNepali.nDate : '';
+                                        }
                                     }
                                 }
                             }
@@ -1204,34 +1180,32 @@ export class LoanDeedPartnershipComponent implements OnInit {
                                 this.newData
                             );
                         }
-                        if (v.loanName === LoanNameConstant.EQUITY_MORTGAGE_TERM_LOAN) {
+                        // tslint:disable-next-line:max-line-length
+                        if (v.loanName === LoanNameConstant.EQUITY_MORTGAGE_TERM_LOAN && !ObjectUtil.isEmpty(this.initialInfo.mortgageEquityTermForm)) {
                             // tslint:disable-next-line:max-line-length
                             const tempLoanAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.cadData.assignedLoan[index].proposal.proposedLimit));
                             let mortgageEquityTermForm;
                             let tempDateOfExpiry1;
                             for (let val = 0; val < this.initialInfo.mortgageEquityTermForm.mortgageEquityTermFormArray.length; val++) {
                                 if (v.proposalId === this.initialInfo.mortgageEquityTermForm.mortgageEquityTermFormArray[val].loanId) {
-                                    // tslint:disable-next-line:max-line-length
                                     mortgageEquityTermForm = this.initialInfo.mortgageEquityTermForm.mortgageEquityTermFormArray[val].interestRateCT;
-                                    // tslint:disable-next-line:max-line-length
-                                    const dateOfExpiryType = this.initialInfo.mortgageEquityTermForm.mortgageEquityTermFormArray[val].dateOfExpiryType ?
-                                        this.initialInfo.mortgageEquityTermForm.mortgageEquityTermFormArray[val].dateOfExpiryType : '';
-                                    if (dateOfExpiryType === 'AD') {
-                                        // tslint:disable-next-line:max-line-length
-                                        tempDateOfExpiry1 = this.engToNepaliDate.transform(
-                                            this.initialInfo.mortgageEquityTermForm.mortgageEquityTermFormArray[val].dateOfExpiry ?
-                                                // tslint:disable-next-line:max-line-length
-                                            this.initialInfo.mortgageEquityTermForm.mortgageEquityTermFormArray[val].dateOfExpiry : '', true);
-                                    } else {
-                                        tempDateOfExpiry1 = this.initialInfo.mortgageEquityTermForm.mortgageEquityTermFormArray[val].dateOfExpiryNepali ?
-                                            this.initialInfo.mortgageEquityTermForm.mortgageEquityTermFormArray[val].dateOfExpiryNepali.nDate : '';
+                                    if (!ObjectUtil.isEmpty(this.initialInfo.mortgageEquityTermForm.mortgageEquityTermFormArray[val].dateOfExpiryType)) {
+                                        const dateOfExpiryType = this.initialInfo.mortgageEquityTermForm.mortgageEquityTermFormArray[val].dateOfExpiryType ?
+                                            this.initialInfo.mortgageEquityTermForm.mortgageEquityTermFormArray[val].dateOfExpiryType : '';
+                                        if (dateOfExpiryType === 'AD') {
+                                            tempDateOfExpiry1 = this.initialInfo.mortgageEquityTermForm.mortgageEquityTermFormArray[val].dateOfExpiry ?
+                                                this.initialInfo.mortgageEquityTermForm.mortgageEquityTermFormArray[val].dateOfExpiryCT : '';
+                                        } else {
+                                            tempDateOfExpiry1 = this.initialInfo.mortgageEquityTermForm.mortgageEquityTermFormArray[val].dateOfExpiryNepali ?
+                                                this.initialInfo.mortgageEquityTermForm.mortgageEquityTermFormArray[val].dateOfExpiryNepali.nDate : '';
+                                        }
                                     }
                                 }
                             }
                             // mortgageEquityTermFormArray
                             this.newData = {
                                 loanNepaliName: v.loanNepaliName,
-                                interestRateExists: false,
+                                interestRateExists: true,
                                 interestRate: mortgageEquityTermForm,
                                 loanAmount: tempLoanAmount,
                                 dateOfExpiry: tempDateOfExpiry1,
@@ -1240,7 +1214,7 @@ export class LoanDeedPartnershipComponent implements OnInit {
                                 this.newData
                             );
                         }
-                        if (v.loanName === LoanNameConstant.AUTO_LOAN) {
+                        if (v.loanName === LoanNameConstant.AUTO_LOAN && !ObjectUtil.isEmpty(this.initialInfo.autoLoanMasterForm)) {
                             // tslint:disable-next-line:max-line-length
                             const tempLoanAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.cadData.assignedLoan[index].proposal.proposedLimit));
                             this.autoCheck = true;
@@ -1249,16 +1223,17 @@ export class LoanDeedPartnershipComponent implements OnInit {
                             for (let val = 0; val < this.initialInfo.autoLoanMasterForm.autoLoanFormArray.length; val++) {
                                 if (v.proposalId === this.initialInfo.autoLoanMasterForm.autoLoanFormArray[val].loanId) {
                                     autoLoanInterestRateCT = this.initialInfo.autoLoanMasterForm.autoLoanFormArray[val].interestRateCT;
-                                    const dateOfExpiryType = this.initialInfo.autoLoanMasterForm.autoLoanFormArray[val].dateOfExpiryType ?
-                                        this.initialInfo.autoLoanMasterForm.autoLoanFormArray[val].dateOfExpiryType : '';
-                                    if (dateOfExpiryType === 'AD') {
-                                        // tslint:disable-next-line:max-line-length
-                                        tempDateOfExpiry1 = this.engToNepaliDate.transform(
-                                            this.initialInfo.autoLoanMasterForm.autoLoanFormArray[val].dateOfExpiry ?
-                                                this.initialInfo.autoLoanMasterForm.autoLoanFormArray[val].dateOfExpiry : '', true);
-                                    } else {
-                                        tempDateOfExpiry1 = this.initialInfo.autoLoanMasterForm.autoLoanFormArray[val].dateOfExpiryNepali ?
-                                            this.initialInfo.autoLoanMasterForm.autoLoanFormArray[val].dateOfExpiryNepali.nDate : '';
+                                    if (!ObjectUtil.isEmpty(this.initialInfo.autoLoanMasterForm.autoLoanFormArray[val].dateOfExpiryType)) {
+                                        const dateOfExpiryType = this.initialInfo.autoLoanMasterForm.autoLoanFormArray[val].dateOfExpiryType ?
+                                            this.initialInfo.autoLoanMasterForm.autoLoanFormArray[val].dateOfExpiryType : '';
+                                        if (dateOfExpiryType === 'AD') {
+                                            // tslint:disable-next-line:max-line-length
+                                            tempDateOfExpiry1 = this.initialInfo.autoLoanMasterForm.autoLoanFormArray[val].dateOfExpiry ?
+                                                this.initialInfo.autoLoanMasterForm.autoLoanFormArray[val].dateOfExpiryCT : '';
+                                        } else {
+                                            tempDateOfExpiry1 = this.initialInfo.autoLoanMasterForm.autoLoanFormArray[val].dateOfExpiryNepali ?
+                                                this.initialInfo.autoLoanMasterForm.autoLoanFormArray[val].dateOfExpiryNepali.nDate : '';
+                                        }
                                     }
                                 }
                             }
@@ -1283,9 +1258,8 @@ export class LoanDeedPartnershipComponent implements OnInit {
                                     const dateOfExpiryType = this.initialInfo.bankGuarantee.bankGuaranteeArray[val].dateOfExpiryType ?
                                         this.initialInfo.bankGuarantee.bankGuaranteeArray[val].dateOfExpiryType : '';
                                     if (dateOfExpiryType === 'AD') {
-                                        tempDateOfExpiry2 = this.engToNepaliDate.transform(
-                                            this.initialInfo.bankGuarantee.bankGuaranteeArray[val].dateOfExpiry ?
-                                                this.initialInfo.bankGuarantee.bankGuaranteeArray[val].dateOfExpiry : '', true);
+                                        tempDateOfExpiry2 = this.initialInfo.bankGuarantee.bankGuaranteeArray[val].dateOfExpiry ?
+                                            this.initialInfo.bankGuarantee.bankGuaranteeArray[val].dateOfExpiryCT : '';
                                     } else {
                                         tempDateOfExpiry2 = this.initialInfo.bankGuarantee.bankGuaranteeArray[val].dateOfExpiryNepali ?
                                             this.initialInfo.bankGuarantee.bankGuaranteeArray[val].dateOfExpiryNepali.nDate : '';
@@ -1312,12 +1286,11 @@ export class LoanDeedPartnershipComponent implements OnInit {
                                     const dateOfExpiryType = this.initialInfo.billPurchaseForm.billPurchaseFormArray[val].dateOfExpiryType ?
                                         this.initialInfo.billPurchaseForm.billPurchaseFormArray[val].dateOfExpiryType : '';
                                     if (dateOfExpiryType === 'AD') {
-                                        tempDateOfExpiry2 = this.engToNepaliDate.transform(
-                                            this.initialInfo.billPurchaseForm.billPurchaseFormArray[val].dateOfExpiry ?
-                                                this.initialInfo.billPurchaseForm.billPurchaseFormArray[val].dateOfExpiry : '', true);
+                                        tempDateOfExpiry2 = this.initialInfo.billPurchaseForm.billPurchaseFormArray[val].dateOfExpiry ?
+                                            this.initialInfo.billPurchaseForm.billPurchaseFormArray[val].dateOfExpiryCT : '';
                                     } else {
-                                        tempDateOfExpiry2 = this.initialInfo.billPurchaseForm.billPurchaseFormArray[val].dateOfExpiryNepali
-                                            ? this.initialInfo.billPurchaseForm.billPurchaseFormArray[val].dateOfExpiryNepali.nDate : '';
+                                        tempDateOfExpiry2 = this.initialInfo.billPurchaseForm.billPurchaseFormArray[val].dateOfExpiryNepali ?
+                                            this.initialInfo.billPurchaseForm.billPurchaseFormArray[val].dateOfExpiryNepali.nDate : '';
                                     }
                                 }
                             }
