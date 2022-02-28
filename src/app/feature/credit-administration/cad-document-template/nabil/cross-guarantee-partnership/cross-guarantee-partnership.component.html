@@ -205,19 +205,15 @@
                                        श्रीमती
                                     </span>
                                             (जमानतकर्ता
-                                            <span>
-                                        कम्पनी
+                                            <span *ngIf="this.customerType === 'PRIVATE_PUBLIC'">
+                                        कम्पनी/निगम
                                     </span>
-                                            <span>
-                                       निगम
-                                    </span>
-                                            <span>
+                                            <span *ngIf="this.customerType === 'PARTNERSHIP'">
                                        साझेदारी फर्म
                                     </span>
-                                            <span>
+                                            <span *ngIf="this.customerType === 'PROPRIETORSHIP'">
                                        प्रोप्राईटरसिप फर्म
-                                    </span>)
-                                            को अख्तियारप्राप्त
+                                    </span>) को अख्तियारप्राप्त
                                             <input class="form-field disable-print form-control-sm nepaliFont"
                                                    name="sanchaalakFreeText" formControlName="sanchaalakFreeText"
                                                    type="text"/>
