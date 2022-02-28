@@ -52,7 +52,7 @@
             <span class="mt-xl-5">.......................................................</span>
             <br>
           <p>ऋणीको तर्फबाट आधिकारीक दस्तखत</p>
-<p>
+            <p>
             दस्तखत गर्नेको नाम : <span
                     [ngClass]="{'nepaliFont' : printDocForm?.customerName !== null && printDocForm?.customerName !== ''}">
             {{printDocForm?.customerName === null || printDocForm?.customerName === '' ? '_________________' : printDocForm?.customerName}}
@@ -75,19 +75,16 @@
               दस्तखत : .......................
               <br>
               नाम : <span [ngClass]="{'nepaliFont' : printDocForm?.guarantorName !== null && printDocForm?.guarantorName !== ''}">
-    {{printDocForm?.guarantorName === null || printDocForm?.guarantorName === '' ? '_________________' : printDocForm?.guarantorName}}
-</span>
-              <br>
-              ठेगाना : <span
-                [ngClass]="{'nepaliFont unicode-size' : printDocForm?.guarantorMunVdc !== null && printDocForm?.guarantorMunVdc !== ''}">
-    {{printDocForm?.guarantorMunVdc === null || printDocForm?.guarantorMunVdc === '' ? '_________________' : printDocForm?.guarantorMunVdc}}
-</span>
-            , वडा नं. <span [ngClass]="{'nepaliFont' : printDocForm?.guarantorWardNo !== null && printDocForm?.guarantorWardNo !== ''}">
-    {{printDocForm?.guarantorWardNo === null || printDocForm?.guarantorWardNo === '' ? '_________________' : printDocForm?.guarantorWardNo}}
-</span>,
-            <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.guarantorDistrict !== null && printDocForm?.guarantorDistrict !== ''}">
-    {{printDocForm?.guarantorDistrict === null || printDocForm?.guarantorDistrict === '' ? '_________________' : printDocForm?.guarantorDistrict}}
-</span>
+                    {{printDocForm?.guarantorName === null || printDocForm?.guarantorName === '' ? '_________________' : printDocForm?.guarantorName}}
+                </span><br>ठेगाना :
+                <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.guarantorMunVdc !== null && printDocForm?.guarantorMunVdc !== ''}">
+                    {{printDocForm?.guarantorMunVdc === null || printDocForm?.guarantorMunVdc === '' ? '_________________' : printDocForm?.guarantorMunVdc}}
+                </span>, वडा नं.
+                <span [ngClass]="{'nepaliFont' : printDocForm?.guarantorWardNo !== null && printDocForm?.guarantorWardNo !== ''}">
+                    {{printDocForm?.guarantorWardNo === null || printDocForm?.guarantorWardNo === '' ? '_________________' : printDocForm?.guarantorWardNo}}</span>,
+                <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.guarantorDistrict !== null && printDocForm?.guarantorDistrict !== ''}">
+                    {{printDocForm?.guarantorDistrict === null || printDocForm?.guarantorDistrict === '' ? '_________________' : printDocForm?.guarantorDistrict}}
+                </span>
               <br>
           </p>
           <br>
