@@ -762,6 +762,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                     this.userConfigForm.get('branchMunVdc').patchValue(branchMunVdcName);
                     const branchNameInEnglish = singleData.name;
                     this.userConfigForm.get('branchNameInEnglish').patchValue(branchNameInEnglish);
+                    const branchTelNo = this.engToNepNumberPipe.transform(singleData.landlineNumber);
+                    this.userConfigForm.get('branchTelNo').patchValue(branchTelNo);
+                    const branchEmail = singleData.email;
+                    this.userConfigForm.get('branchEmail').patchValue(branchEmail);
                 }
             }
         );
