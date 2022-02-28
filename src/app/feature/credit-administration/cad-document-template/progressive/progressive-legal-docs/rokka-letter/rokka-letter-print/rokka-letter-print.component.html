@@ -50,8 +50,9 @@
                 </p>
                 <p class="mt-2">
                     <span [ngClass]="{'nepaliFont unicode-size16':printDocForm?.perDistrict !== null && printDocForm?.perDistrict !== ''}">
-                        {{printDocForm.perDistrict === null || printDocForm.perDistrict === '' ? '_______________' : printDocForm?.perDistrict}}</span>,
-                    जिल्ला
+                        {{printDocForm.perDistrict === null || printDocForm.perDistrict === '' ? '_______________' : printDocForm?.perDistrict}}
+                    </span>
+                    जिल्ला,
                     <span [ngClass]="{'nepaliFont unicode-size24':printDocForm?.perMunicipality !== null && printDocForm?.perMunicipality !== ''}">
                         {{printDocForm.perMunicipality === null || printDocForm.perMunicipality === '' ? '_______________' : printDocForm?.perMunicipality}}
                     </span>
