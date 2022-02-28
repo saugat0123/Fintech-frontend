@@ -47,6 +47,7 @@ export class PersonalGuaranteePartnershipComponent implements OnInit {
   freeText: Array<any> = new Array<any>();
   finalAmount;
   loanAmountWord;
+  spinner = false;
   constructor(
       private formBuilder: FormBuilder,
       private router: Router,
@@ -94,6 +95,30 @@ export class PersonalGuaranteePartnershipComponent implements OnInit {
             this.form.get(['guarantorsPartnership', val, 'day']).value : '',
         freeText1: this.form.get(['guarantorsPartnership', val, 'freeText1']).value ?
             this.form.get(['guarantorsPartnership', val, 'freeText1']).value : '',
+        bankStaff: this.form.get(['guarantorsPartnership', val, 'bankStaff']).value ?
+            this.form.get(['guarantorsPartnership', val, 'bankStaff']).value : '',
+        witnessDistrict: this.form.get(['guarantorsPartnership', val, 'witnessDistrict']).value ?
+            this.form.get(['guarantorsPartnership', val, 'witnessDistrict']).value : '',
+        witnessMunicipality: this.form.get(
+            ['guarantorsPartnership', val, 'witnessMunicipality']).value ?
+            this.form.get(['guarantorsPartnership', val, 'witnessMunicipality']).value : '',
+        WitnessWardNumber: this.form.get(['guarantorsPartnership', val, 'WitnessWardNumber']).value ?
+            this.form.get(['guarantorsPartnership', val, 'WitnessWardNumber']).value : '',
+        witnessAge: this.form.get(['guarantorsPartnership', val, 'witnessAge']).value ?
+            this.form.get(['guarantorsPartnership', val, 'witnessAge']).value : '',
+        witnessName: this.form.get(['guarantorsPartnership', val, 'witnessName']).value ?
+            this.form.get(['guarantorsPartnership', val, 'witnessName']).value : '',
+        witnessDistrict2: this.form.get(['guarantorsPartnership', val, 'witnessDistrict2']).value ?
+            this.form.get(['guarantorsPartnership', val, 'witnessDistrict2']).value : '',
+        witnessMunicipality2: this.form.get(
+            ['guarantorsPartnership', val, 'witnessMunicipality2']).value ?
+            this.form.get(['guarantorsPartnership', val, 'witnessMunicipality2']).value : '',
+        WitnessWardNumber2: this.form.get(['guarantorsPartnership', val, 'WitnessWardNumber2']).value ?
+            this.form.get(['guarantorsPartnership', val, 'WitnessWardNumber2']).value : '',
+        witnessAge2: this.form.get(['guarantorsPartnership', val, 'witnessAge2']).value ?
+            this.form.get(['guarantorsPartnership', val, 'witnessAge2']).value : '',
+        witnessName2: this.form.get(['guarantorsPartnership', val, 'witnessName2']).value ?
+            this.form.get(['guarantorsPartnership', val, 'witnessName2']).value : '',
       };
       this.freeText.push(tempFreeText);
     }
@@ -121,6 +146,39 @@ export class PersonalGuaranteePartnershipComponent implements OnInit {
                 this.cadInitialInfo[val].day : '');
             this.form.get(['guarantorsPartnership', val, 'freeText1']).patchValue(this.cadInitialInfo ?
                 this.cadInitialInfo[val].freeText1 : '');
+            this.form.get(['guarantorsPartnership', val, 'witnessDistrict']).patchValue(
+                this.cadInitialInfo ?
+                    this.cadInitialInfo[val].witnessDistrict : '');
+            this.form.get(['guarantorsPartnership', val, 'witnessMunicipality']).patchValue(
+                this.cadInitialInfo ?
+                    this.cadInitialInfo[val].witnessMunicipality : '');
+            this.form.get(['guarantorsPartnership', val, 'WitnessWardNumber']).patchValue(
+                this.cadInitialInfo ?
+                    this.cadInitialInfo[val].WitnessWardNumber : '');
+            this.form.get(['guarantorsPartnership', val, 'witnessAge']).patchValue(
+                this.cadInitialInfo ?
+                    this.cadInitialInfo[val].witnessAge : '');
+            this.form.get(['guarantorsPartnership', val, 'witnessName']).patchValue(
+                this.cadInitialInfo ?
+                    this.cadInitialInfo[val].witnessName : '');
+            this.form.get(['guarantorsPartnership', val, 'witnessDistrict2']).patchValue(
+                this.cadInitialInfo ?
+                    this.cadInitialInfo[val].witnessDistrict2 : '');
+            this.form.get(['guarantorsPartnership', val, 'witnessMunicipality2']).patchValue(
+                this.cadInitialInfo ?
+                    this.cadInitialInfo[val].witnessMunicipality2 : '');
+            this.form.get(['guarantorsPartnership', val, 'WitnessWardNumber2']).patchValue(
+                this.cadInitialInfo ?
+                    this.cadInitialInfo[val].WitnessWardNumber2 : '');
+            this.form.get(['guarantorsPartnership', val, 'witnessAge2']).patchValue(
+                this.cadInitialInfo ?
+                    this.cadInitialInfo[val].witnessAge2 : '');
+            this.form.get(['guarantorsPartnership', val, 'witnessName2']).patchValue(
+                this.cadInitialInfo ?
+                    this.cadInitialInfo[val].witnessName2 : '');
+            this.form.get(['guarantorsPartnership', val, 'bankStaff']).patchValue(
+                this.cadInitialInfo ?
+                    this.cadInitialInfo[val].bankStaff : '');
           }
         }
       }
@@ -196,6 +254,7 @@ export class PersonalGuaranteePartnershipComponent implements OnInit {
   }
   submit() {
     let flag = true;
+    this.spinner = true;
     if (
         !ObjectUtil.isEmpty(this.cadData) &&
         !ObjectUtil.isEmpty(this.cadData.cadFileList)
@@ -233,12 +292,14 @@ export class PersonalGuaranteePartnershipComponent implements OnInit {
           this.toastService.show(
               new Alert(AlertType.SUCCESS, 'Successfully saved')
           );
+          this.spinner = false;
           this.dialogRef.close();
           this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
         },
         (error) => {
           console.error(error);
           this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save'));
+          this.spinner = false;
           this.dialogRef.close();
         }
     );
@@ -330,7 +391,18 @@ export class PersonalGuaranteePartnershipComponent implements OnInit {
                 month: [undefined],
                 day: [undefined],
                 date: [undefined],
-                freeText1: [undefined]
+                freeText1: [undefined],
+                bankStaff: [undefined],
+                witnessDistrict: [undefined],
+                witnessMunicipality: [undefined],
+                WitnessWardNumber: [undefined],
+                witnessAge: [undefined],
+                witnessName: [undefined],
+                witnessDistrict2: [undefined],
+                witnessMunicipality2: [undefined],
+                WitnessWardNumber2: [undefined],
+                witnessAge2: [undefined],
+                witnessName2: [undefined],
               })
           );
         }
