@@ -114,7 +114,6 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
     this.getLoanName();
     this.setTotalAmount();
     this.fillForm();
-    console.log('nepData:::::', this.newData);
   }
   primarySecurityCheck() {
     this.initialInfo.securities.primarySecurity.forEach(val => {
@@ -232,7 +231,7 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
                 // tslint:disable-next-line:max-line-length
                 const tempLoanAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.cadData.assignedLoan[index].proposal.proposedLimit));
                 let tempDateOfExpiry;
-                let tempCommissionRate;
+                let tempCommissionRate = '';
                 // timeLetterCreditFormArray
                 for (let val = 0; val < this.initialInfo.timeLetterCreditForm.timeLetterCreditFormArray.length; val++) {
                   if (v.proposalId === this.initialInfo.timeLetterCreditForm.timeLetterCreditFormArray[val].loanId) {
@@ -267,7 +266,7 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
                 // tslint:disable-next-line:max-line-length
                 const tempLoanAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.cadData.assignedLoan[index].proposal.proposedLimit));
                 let tempDateOfExpiry1;
-                let tempCommissionRate;
+                let tempCommissionRate = '';
                 // letterOfCreditFormArray
                 for (let val = 0; val < this.initialInfo.letterOfCreditForm.letterOfCreditFormArray.length; val++) {
                   if (v.proposalId === this.initialInfo.letterOfCreditForm.letterOfCreditFormArray[val].loanId) {
@@ -281,9 +280,10 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
                         tempDateOfExpiry1 = this.initialInfo.letterOfCreditForm.letterOfCreditFormArray[val].dateOfExpiryNepali ?
                             this.initialInfo.letterOfCreditForm.letterOfCreditFormArray[val].dateOfExpiryNepali.nDate : '';
                       }
+                    } if (this.initialInfo.letterOfCreditForm.letterOfCreditFormArray[val].commissionType === 'COMMISSION_TYPE_1') {
+                      tempCommissionRate = this.initialInfo.letterOfCreditForm.letterOfCreditFormArray[val].commissionRate ?
+                          this.initialInfo.letterOfCreditForm.letterOfCreditFormArray[val].commissionRateCT : '';
                     }
-                    tempCommissionRate = this.initialInfo.letterOfCreditForm.letterOfCreditFormArray[val].minimumCommissionRate ?
-                        this.initialInfo.letterOfCreditForm.letterOfCreditFormArray[val].minimumCommissionRateCT : '';
                   }
                 }
                 this.newData = {
@@ -311,7 +311,7 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
                       if (dateOfExpiryType === 'AD') {
                         // tslint:disable-next-line:max-line-length
                         tempDateOfExpiry = this.initialInfo.importBillsDiscountForm.importBillsDiscountFormArray[val].dateOfExpiry ?
-                                this.initialInfo.importBillsDiscountForm.importBillsDiscountFormArray[val].dateOfExpiryCT : '';
+                            this.initialInfo.importBillsDiscountForm.importBillsDiscountFormArray[val].dateOfExpiryCT : '';
                       } else {
                         tempDateOfExpiry = this.initialInfo.importBillsDiscountForm.importBillsDiscountFormArray[val].dateOfExpiryNepali ?
                             this.initialInfo.importBillsDiscountForm.importBillsDiscountFormArray[val].dateOfExpiryNepali.nDate : '';
@@ -322,6 +322,7 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
                 this.newData = {
                   loanNepaliName: v.loanNepaliName,
                   interestRateExists: false,
+                  commissionRate: '',
                   loanAmount: tempLoanAmount,
                   dateOfExpiry: tempDateOfExpiry,
                 };
@@ -451,6 +452,7 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
                 this.newData = {
                   loanNepaliName: v.loanNepaliName,
                   interestRateExists: false,
+                  commissionRate: '',
                   loanAmount: tempLoanAmount,
                   dateOfExpiry: tempDateOfExpiry2,
                 };
@@ -463,6 +465,7 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
                 // tslint:disable-next-line:max-line-length
                 const tempLoanAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.cadData.assignedLoan[index].proposal.proposedLimit));
                 let tempDateOfExpiry2;
+                let tempCommissionRate;
                 // documentaryBillPurchaseFormArray
                 for (let val = 0; val < this.initialInfo.documentaryBillPurchase.documentaryBillPurchaseFormArray.length; val++) {
                   if (v.proposalId === this.initialInfo.documentaryBillPurchase.documentaryBillPurchaseFormArray[val].loanId) {
@@ -475,11 +478,14 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
                       tempDateOfExpiry2 = this.initialInfo.documentaryBillPurchase.documentaryBillPurchaseFormArray[val].dateOfExpiryNepali
                           ? this.initialInfo.documentaryBillPurchase.documentaryBillPurchaseFormArray[val].dateOfExpiryNepali.nDate : '';
                     }
+                    tempCommissionRate = this.initialInfo.documentaryBillPurchase.documentaryBillPurchaseFormArray[val].commission
+                        ? this.initialInfo.documentaryBillPurchase.documentaryBillPurchaseFormArray[val].commissionCT : '';
                   }
                 }
                 this.newData = {
                   loanNepaliName: v.loanNepaliName,
                   interestRateExists: false,
+                  commissionRate: tempCommissionRate,
                   loanAmount: tempLoanAmount,
                   dateOfExpiry: tempDateOfExpiry2,
                 };
@@ -538,8 +544,8 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
                           this.initialInfo.equityMortgaged.equityMortgagedFormArray[val].dateOfExpiryNepali.nDate : '';
                     }
                     equityMortgaged = this.initialInfo.equityMortgaged.equityMortgagedFormArray[val].interestRateCT;
-                      }
                   }
+                }
                 this.newData = {
                   loanNepaliName: v.loanNepaliName,
                   interestRateExists: true,
@@ -570,8 +576,8 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
                           this.initialInfo.equityMortgaged.mortgageOverdraftFormArray[val].dateOfExpiryNepali.nDate : '';
                     }
                     mortgagedInterest = this.initialInfo.equityMortgaged.mortgageOverdraftFormArray[val].interestRateCT;
-                      }
                   }
+                }
                 this.newData = {
                   loanNepaliName: v.loanNepaliName,
                   interestRateExists: true,
@@ -593,15 +599,15 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
                 // odFdFormArray
                 for (let val = 0; val < this.initialInfo.overdraftFixedForm.odFdFormArray.length; val++) {
                   if (v.proposalId === this.initialInfo.overdraftFixedForm.odFdFormArray[val].loanId) {
-                const dateOfExpiryType =  this.initialInfo.overdraftFixedForm.odFdFormArray[val].dateOfExpiryType ?
-                     this.initialInfo.overdraftFixedForm.odFdFormArray[val].dateOfExpiryType : '';
-                if (dateOfExpiryType === 'AD') {
-                  tempDateOfExpiry2 = this.initialInfo.overdraftFixedForm.odFdFormArray[val].dateOfExpiry ?
-                       this.initialInfo.overdraftFixedForm.odFdFormArray[val].dateOfExpiryCT : '';
-                } else {
-                  tempDateOfExpiry2 =  this.initialInfo.overdraftFixedForm.odFdFormArray[val].dateOfExpiryNepali ?
-                       this.initialInfo.overdraftFixedForm.odFdFormArray[val].dateOfExpiryNepali.nDate : '';
-                }
+                    const dateOfExpiryType =  this.initialInfo.overdraftFixedForm.odFdFormArray[val].dateOfExpiryType ?
+                        this.initialInfo.overdraftFixedForm.odFdFormArray[val].dateOfExpiryType : '';
+                    if (dateOfExpiryType === 'AD') {
+                      tempDateOfExpiry2 = this.initialInfo.overdraftFixedForm.odFdFormArray[val].dateOfExpiry ?
+                          this.initialInfo.overdraftFixedForm.odFdFormArray[val].dateOfExpiryCT : '';
+                    } else {
+                      tempDateOfExpiry2 =  this.initialInfo.overdraftFixedForm.odFdFormArray[val].dateOfExpiryNepali ?
+                          this.initialInfo.overdraftFixedForm.odFdFormArray[val].dateOfExpiryNepali.nDate : '';
+                    }
                     overdraftFixedForm = this.initialInfo.overdraftFixedForm.odFdFormArray[val].interestRate ?
                         this.initialInfo.overdraftFixedForm.odFdFormArray[val].interestRateCT :
                         (this.initialInfo.overdraftFixedForm.odFdFormArray[val].totalInterestRate ?
@@ -629,15 +635,15 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
                 // overdraftLienOnDepositFormArray
                 for (let val = 0; val < this.initialInfo.overdraftFixedForm.overdraftLienOnDepositFormArray.length; val++) {
                   if (v.proposalId === this.initialInfo.overdraftFixedForm.overdraftLienOnDepositFormArray[val].loanId) {
-                const dateOfExpiryType =  this.initialInfo.overdraftFixedForm.overdraftLienOnDepositFormArray[val].dateOfExpiryType ?
-                     this.initialInfo.overdraftFixedForm.overdraftLienOnDepositFormArray[val].dateOfExpiryType : '';
-                if (dateOfExpiryType === 'AD') {
-                  tempDateOfExpiry2 = this.initialInfo.overdraftFixedForm.overdraftLienOnDepositFormArray[val].dateOfExpiry ?
-                       this.initialInfo.overdraftFixedForm.overdraftLienOnDepositFormArray[val].dateOfExpiryCT : '';
-                } else {
-                  tempDateOfExpiry2 =  this.initialInfo.overdraftFixedForm.overdraftLienOnDepositFormArray[val].dateOfExpiryNepali ?
-                       this.initialInfo.overdraftFixedForm.overdraftLienOnDepositFormArray[val].dateOfExpiryNepali.nDate : '';
-                }
+                    const dateOfExpiryType =  this.initialInfo.overdraftFixedForm.overdraftLienOnDepositFormArray[val].dateOfExpiryType ?
+                        this.initialInfo.overdraftFixedForm.overdraftLienOnDepositFormArray[val].dateOfExpiryType : '';
+                    if (dateOfExpiryType === 'AD') {
+                      tempDateOfExpiry2 = this.initialInfo.overdraftFixedForm.overdraftLienOnDepositFormArray[val].dateOfExpiry ?
+                          this.initialInfo.overdraftFixedForm.overdraftLienOnDepositFormArray[val].dateOfExpiryCT : '';
+                    } else {
+                      tempDateOfExpiry2 =  this.initialInfo.overdraftFixedForm.overdraftLienOnDepositFormArray[val].dateOfExpiryNepali ?
+                          this.initialInfo.overdraftFixedForm.overdraftLienOnDepositFormArray[val].dateOfExpiryNepali.nDate : '';
+                    }
                     overdraftFixedForm = this.initialInfo.overdraftFixedForm.overdraftLienOnDepositFormArray[val].interestRateCT;
                   }
                 }
@@ -662,15 +668,15 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
                 // stlAgainstFixedDepositFormArray
                 for (let val = 0; val < this.initialInfo.overdraftFixedForm.stlAgainstFixedDepositFormArray.length; val++) {
                   if (v.proposalId === this.initialInfo.overdraftFixedForm.stlAgainstFixedDepositFormArray[val].loanId) {
-                const dateOfExpiryType =  this.initialInfo.overdraftFixedForm.stlAgainstFixedDepositFormArray[val].dateOfExpiryType ?
-                     this.initialInfo.overdraftFixedForm.stlAgainstFixedDepositFormArray[val].dateOfExpiryType : '';
-                if (dateOfExpiryType === 'AD') {
-                  tempDateOfExpiry2 = this.initialInfo.overdraftFixedForm.stlAgainstFixedDepositFormArray[val].dateOfExpiry ?
-                       this.initialInfo.overdraftFixedForm.stlAgainstFixedDepositFormArray[val].dateOfExpiryCT : '';
-                } else {
-                  tempDateOfExpiry2 =  this.initialInfo.overdraftFixedForm.stlAgainstFixedDepositFormArray[val].dateOfExpiryNepali ?
-                       this.initialInfo.overdraftFixedForm.stlAgainstFixedDepositFormArray[val].dateOfExpiryNepali.nDate : '';
-                }
+                    const dateOfExpiryType =  this.initialInfo.overdraftFixedForm.stlAgainstFixedDepositFormArray[val].dateOfExpiryType ?
+                        this.initialInfo.overdraftFixedForm.stlAgainstFixedDepositFormArray[val].dateOfExpiryType : '';
+                    if (dateOfExpiryType === 'AD') {
+                      tempDateOfExpiry2 = this.initialInfo.overdraftFixedForm.stlAgainstFixedDepositFormArray[val].dateOfExpiry ?
+                          this.initialInfo.overdraftFixedForm.stlAgainstFixedDepositFormArray[val].dateOfExpiryCT : '';
+                    } else {
+                      tempDateOfExpiry2 =  this.initialInfo.overdraftFixedForm.stlAgainstFixedDepositFormArray[val].dateOfExpiryNepali ?
+                          this.initialInfo.overdraftFixedForm.stlAgainstFixedDepositFormArray[val].dateOfExpiryNepali.nDate : '';
+                    }
                     overdraftFixedForm = this.initialInfo.overdraftFixedForm.stlAgainstFixedDepositFormArray[val].interestRateCT;
                   }
                 }
@@ -695,15 +701,15 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
                 // stlLienOnDepositFormArray
                 for (let val = 0; val < this.initialInfo.overdraftFixedForm.stlLienOnDepositFormArray.length; val++) {
                   if (v.proposalId === this.initialInfo.overdraftFixedForm.stlLienOnDepositFormArray[val].loanId) {
-                const dateOfExpiryType =  this.initialInfo.overdraftFixedForm.stlLienOnDepositFormArray[val].dateOfExpiryType ?
-                     this.initialInfo.overdraftFixedForm.stlLienOnDepositFormArray[val].dateOfExpiryType : '';
-                if (dateOfExpiryType === 'AD') {
-                  tempDateOfExpiry2 = this.initialInfo.overdraftFixedForm.stlLienOnDepositFormArray[val].dateOfExpiry ?
-                       this.initialInfo.overdraftFixedForm.stlLienOnDepositFormArray[val].dateOfExpiryCT : '';
-                } else {
-                  tempDateOfExpiry2 =  this.initialInfo.overdraftFixedForm.stlLienOnDepositFormArray[val].dateOfExpiryNepali ?
-                       this.initialInfo.overdraftFixedForm.stlLienOnDepositFormArray[val].dateOfExpiryNepali.nDate : '';
-                }
+                    const dateOfExpiryType =  this.initialInfo.overdraftFixedForm.stlLienOnDepositFormArray[val].dateOfExpiryType ?
+                        this.initialInfo.overdraftFixedForm.stlLienOnDepositFormArray[val].dateOfExpiryType : '';
+                    if (dateOfExpiryType === 'AD') {
+                      tempDateOfExpiry2 = this.initialInfo.overdraftFixedForm.stlLienOnDepositFormArray[val].dateOfExpiry ?
+                          this.initialInfo.overdraftFixedForm.stlLienOnDepositFormArray[val].dateOfExpiryCT : '';
+                    } else {
+                      tempDateOfExpiry2 =  this.initialInfo.overdraftFixedForm.stlLienOnDepositFormArray[val].dateOfExpiryNepali ?
+                          this.initialInfo.overdraftFixedForm.stlLienOnDepositFormArray[val].dateOfExpiryNepali.nDate : '';
+                    }
                     overdraftFixedForm = this.initialInfo.overdraftFixedForm.stlLienOnDepositFormArray[val].interestRateCT;
                   }
                 }
@@ -728,15 +734,15 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
                 // dlAgainstFixedDepositFormArray
                 for (let val = 0; val < this.initialInfo.overdraftFixedForm.dlAgainstFixedDepositFormArray.length; val++) {
                   if (v.proposalId === this.initialInfo.overdraftFixedForm.dlAgainstFixedDepositFormArray[val].loanId) {
-                const dateOfExpiryType =  this.initialInfo.overdraftFixedForm.dlAgainstFixedDepositFormArray[val].dateOfExpiryType ?
-                     this.initialInfo.overdraftFixedForm.dlAgainstFixedDepositFormArray[val].dateOfExpiryType : '';
-                if (dateOfExpiryType === 'AD') {
-                  tempDateOfExpiry2 = this.initialInfo.overdraftFixedForm.dlAgainstFixedDepositFormArray[val].dateOfExpiry ?
-                       this.initialInfo.overdraftFixedForm.dlAgainstFixedDepositFormArray[val].dateOfExpiryCT : '';
-                } else {
-                  tempDateOfExpiry2 =  this.initialInfo.overdraftFixedForm.dlAgainstFixedDepositFormArray[val].dateOfExpiryNepali ?
-                       this.initialInfo.overdraftFixedForm.dlAgainstFixedDepositFormArray[val].dateOfExpiryNepali.nDate : '';
-                }
+                    const dateOfExpiryType =  this.initialInfo.overdraftFixedForm.dlAgainstFixedDepositFormArray[val].dateOfExpiryType ?
+                        this.initialInfo.overdraftFixedForm.dlAgainstFixedDepositFormArray[val].dateOfExpiryType : '';
+                    if (dateOfExpiryType === 'AD') {
+                      tempDateOfExpiry2 = this.initialInfo.overdraftFixedForm.dlAgainstFixedDepositFormArray[val].dateOfExpiry ?
+                          this.initialInfo.overdraftFixedForm.dlAgainstFixedDepositFormArray[val].dateOfExpiryCT : '';
+                    } else {
+                      tempDateOfExpiry2 =  this.initialInfo.overdraftFixedForm.dlAgainstFixedDepositFormArray[val].dateOfExpiryNepali ?
+                          this.initialInfo.overdraftFixedForm.dlAgainstFixedDepositFormArray[val].dateOfExpiryNepali.nDate : '';
+                    }
                     overdraftFixedForm = this.initialInfo.overdraftFixedForm.dlAgainstFixedDepositFormArray[val].interestRateCT;
                   }
                 }
@@ -761,15 +767,15 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
                 // dlAgainstLienOnDepositFormArray
                 for (let val = 0; val < this.initialInfo.overdraftFixedForm.dlAgainstLienOnDepositFormArray.length; val++) {
                   if (v.proposalId === this.initialInfo.overdraftFixedForm.dlAgainstLienOnDepositFormArray[val].loanId) {
-                const dateOfExpiryType =  this.initialInfo.overdraftFixedForm.dlAgainstLienOnDepositFormArray[val].dateOfExpiryType ?
-                     this.initialInfo.overdraftFixedForm.dlAgainstLienOnDepositFormArray[val].dateOfExpiryType : '';
-                if (dateOfExpiryType === 'AD') {
-                  tempDateOfExpiry2 = this.initialInfo.overdraftFixedForm.dlAgainstLienOnDepositFormArray[val].dateOfExpiry ?
-                       this.initialInfo.overdraftFixedForm.dlAgainstLienOnDepositFormArray[val].dateOfExpiryCT : '';
-                } else {
-                  tempDateOfExpiry2 =  this.initialInfo.overdraftFixedForm.dlAgainstLienOnDepositFormArray[val].dateOfExpiryNepali ?
-                       this.initialInfo.overdraftFixedForm.dlAgainstLienOnDepositFormArray[val].dateOfExpiryNepali.nDate : '';
-                }
+                    const dateOfExpiryType =  this.initialInfo.overdraftFixedForm.dlAgainstLienOnDepositFormArray[val].dateOfExpiryType ?
+                        this.initialInfo.overdraftFixedForm.dlAgainstLienOnDepositFormArray[val].dateOfExpiryType : '';
+                    if (dateOfExpiryType === 'AD') {
+                      tempDateOfExpiry2 = this.initialInfo.overdraftFixedForm.dlAgainstLienOnDepositFormArray[val].dateOfExpiry ?
+                          this.initialInfo.overdraftFixedForm.dlAgainstLienOnDepositFormArray[val].dateOfExpiryCT : '';
+                    } else {
+                      tempDateOfExpiry2 =  this.initialInfo.overdraftFixedForm.dlAgainstLienOnDepositFormArray[val].dateOfExpiryNepali ?
+                          this.initialInfo.overdraftFixedForm.dlAgainstLienOnDepositFormArray[val].dateOfExpiryNepali.nDate : '';
+                    }
                     overdraftFixedForm = this.initialInfo.overdraftFixedForm.dlAgainstLienOnDepositFormArray[val].interestRateCT;
                   }
                 }
@@ -889,7 +895,7 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
                 let bridgeGapLoan;
                 // bridgeGapDetails
                 for (let val = 0; val < this.initialInfo.bridgeGapLoan.bridgeGapDetails.length; val++) {
-                    bridgeGapLoan = this.initialInfo.bridgeGapLoan.bridgeGapDetails[val].interestRateCT;
+                  bridgeGapLoan = this.initialInfo.bridgeGapLoan.bridgeGapDetails[val].interestRateCT;
                 }
                 this.newData = {
                   loanNepaliName: v.loanNepaliName,
@@ -925,7 +931,7 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
                           this.initialInfo.termLoanForm.termLoanDetails[val].dateOfExpiryType : '';
                       if (dateOfExpiryType === 'AD') {
                         tempDateOfExpiry2 = this.initialInfo.termLoanForm.termLoanDetails[val].dateOfExpiry ?
-                                this.initialInfo.termLoanForm.termLoanDetails[val].dateOfExpiryCT : '';
+                            this.initialInfo.termLoanForm.termLoanDetails[val].dateOfExpiryCT : '';
                       } else {
                         tempDateOfExpiry2 = this.initialInfo.termLoanForm.termLoanDetails[val].dateOfExpiryNepali ?
                             this.initialInfo.termLoanForm.termLoanDetails[val].dateOfExpiryNepali.nDate : '';
@@ -958,7 +964,7 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
                           this.initialInfo.mortgageEquityTermForm.mortgageTermFormArray[val].dateOfExpiryType : '';
                       if (dateOfExpiryType === 'AD') {
                         tempDateOfExpiry2 = this.initialInfo.mortgageEquityTermForm.mortgageTermFormArray[val].dateOfExpiry ?
-                                this.initialInfo.mortgageEquityTermForm.mortgageTermFormArray[val].dateOfExpiryCT : '';
+                            this.initialInfo.mortgageEquityTermForm.mortgageTermFormArray[val].dateOfExpiryCT : '';
                       } else {
                         tempDateOfExpiry2 = this.initialInfo.mortgageEquityTermForm.mortgageTermFormArray[val].dateOfExpiryNepali ?
                             this.initialInfo.mortgageEquityTermForm.mortgageTermFormArray[val].dateOfExpiryNepali.nDate : '';
@@ -1026,7 +1032,7 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
                       if (dateOfExpiryType === 'AD') {
                         // tslint:disable-next-line:max-line-length
                         tempDateOfExpiry1 = this.initialInfo.autoLoanMasterForm.autoLoanFormArray[val].dateOfExpiry ?
-                                this.initialInfo.autoLoanMasterForm.autoLoanFormArray[val].dateOfExpiryCT : '';
+                            this.initialInfo.autoLoanMasterForm.autoLoanFormArray[val].dateOfExpiryCT : '';
                       } else {
                         tempDateOfExpiry1 = this.initialInfo.autoLoanMasterForm.autoLoanFormArray[val].dateOfExpiryNepali ?
                             this.initialInfo.autoLoanMasterForm.autoLoanFormArray[val].dateOfExpiryNepali.nDate : '';
@@ -1049,6 +1055,7 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
                 // tslint:disable-next-line:max-line-length
                 const tempLoanAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.cadData.assignedLoan[index].proposal.proposedLimit));
                 let tempDateOfExpiry2;
+                // let tempCommissionRate = '';
                 // bankGuaranteeArray
                 for (let val = 0; val < this.initialInfo.bankGuarantee.bankGuaranteeArray.length; val++) {
                   if (v.proposalId === this.initialInfo.bankGuarantee.bankGuaranteeArray[val].loanId) {
@@ -1061,11 +1068,17 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
                       tempDateOfExpiry2 = this.initialInfo.bankGuarantee.bankGuaranteeArray[val].dateOfExpiryNepali ?
                           this.initialInfo.bankGuarantee.bankGuaranteeArray[val].dateOfExpiryNepali.nDate : '';
                     }
+                    // if (this.initialInfo.bankGuarantee.bankGuaranteeArray[val].commissionType === 'COMMISSION_TYPE_2') {
+                    //   tempCommissionRate =
+                    //       (!ObjectUtil.isEmpty(this.initialInfo.bankGuarantee.bankGuaranteeArray[val].commissionInPercentageAPG)) ?
+                    //       this.initialInfo.bankGuarantee.bankGuaranteeArray[val].commissionInPercentageAPG : '';
+                    // }
                   }
                 }
                 this.newData = {
                   loanNepaliName: v.loanNepaliName,
                   interestRateExists: false,
+                  commissionRate: '',
                   loanAmount: tempLoanAmount,
                   dateOfExpiry: tempDateOfExpiry2,
                 };
@@ -1077,6 +1090,7 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
                 // tslint:disable-next-line:max-line-length
                 const tempLoanAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.cadData.assignedLoan[index].proposal.proposedLimit));
                 let tempDateOfExpiry2;
+                let tempCommissionRate = '';
                 // billPurchaseFormArray
                 for (let val = 0; val < this.initialInfo.billPurchaseForm.billPurchaseFormArray.length; val++) {
                   if (v.proposalId === this.initialInfo.billPurchaseForm.billPurchaseFormArray[val].loanId) {
@@ -1089,11 +1103,14 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
                       tempDateOfExpiry2 = this.initialInfo.billPurchaseForm.billPurchaseFormArray[val].dateOfExpiryNepali ?
                           this.initialInfo.billPurchaseForm.billPurchaseFormArray[val].dateOfExpiryNepali.nDate : '';
                     }
+                    tempCommissionRate = !ObjectUtil.isEmpty(this.initialInfo.billPurchaseForm.billPurchaseFormArray[val].commission) ?
+                        this.initialInfo.billPurchaseForm.billPurchaseFormArray[val].commissionCT : '';
                   }
                 }
                 this.newData = {
                   loanNepaliName: v.loanNepaliName,
                   interestRateExists: false,
+                  commissionRate: tempCommissionRate,
                   loanAmount: tempLoanAmount,
                   dateOfExpiry: tempDateOfExpiry2,
                 };
@@ -1111,8 +1128,13 @@ export class NabilLoanDeedCompanyComponent implements OnInit {
                 );
               } else {
                 this.form.get(['combinedFreeText', index, 'dateOfExpiry']).patchValue(
-                    this.newTempData[index].dateOfExpiry
+                    this.newTempData ? this.newTempData[index].dateOfExpiry : ''
                 );
+                if (this.newTempData[index].interestRateExists === false) {
+                  this.form.get(['combinedFreeText', index, 'interestRateCombined']).patchValue(
+                      this.newTempData ? this.newTempData[index].commissionRate : ''
+                  );
+                }
               }
             });
           }

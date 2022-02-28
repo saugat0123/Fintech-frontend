@@ -435,7 +435,7 @@ export class LoanDeedPartnershipComponent implements OnInit {
                             // tslint:disable-next-line:max-line-length
                             const tempLoanAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.cadData.assignedLoan[index].proposal.proposedLimit));
                             let tempDateOfExpiry;
-                            let tempCommissionRate;
+                            let tempCommissionRate = '';
                             // timeLetterCreditFormArray
                             for (let val = 0; val < this.initialInfo.timeLetterCreditForm.timeLetterCreditFormArray.length; val++) {
                                 if (v.proposalId === this.initialInfo.timeLetterCreditForm.timeLetterCreditFormArray[val].loanId) {
@@ -470,7 +470,7 @@ export class LoanDeedPartnershipComponent implements OnInit {
                             // tslint:disable-next-line:max-line-length
                             const tempLoanAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.cadData.assignedLoan[index].proposal.proposedLimit));
                             let tempDateOfExpiry1;
-                            let tempCommissionRate;
+                            let tempCommissionRate = '';
                             // letterOfCreditFormArray
                             for (let val = 0; val < this.initialInfo.letterOfCreditForm.letterOfCreditFormArray.length; val++) {
                                 if (v.proposalId === this.initialInfo.letterOfCreditForm.letterOfCreditFormArray[val].loanId) {
@@ -484,9 +484,10 @@ export class LoanDeedPartnershipComponent implements OnInit {
                                             tempDateOfExpiry1 = this.initialInfo.letterOfCreditForm.letterOfCreditFormArray[val].dateOfExpiryNepali ?
                                                 this.initialInfo.letterOfCreditForm.letterOfCreditFormArray[val].dateOfExpiryNepali.nDate : '';
                                         }
+                                    } if (this.initialInfo.letterOfCreditForm.letterOfCreditFormArray[val].commissionType === 'COMMISSION_TYPE_1') {
+                                        tempCommissionRate = this.initialInfo.letterOfCreditForm.letterOfCreditFormArray[val].commissionRate ?
+                                            this.initialInfo.letterOfCreditForm.letterOfCreditFormArray[val].commissionRateCT : '';
                                     }
-                                    tempCommissionRate = this.initialInfo.letterOfCreditForm.letterOfCreditFormArray[val].minimumCommissionRate ?
-                                        this.initialInfo.letterOfCreditForm.letterOfCreditFormArray[val].minimumCommissionRateCT : '';
                                 }
                             }
                             this.newData = {
@@ -525,6 +526,7 @@ export class LoanDeedPartnershipComponent implements OnInit {
                             this.newData = {
                                 loanNepaliName: v.loanNepaliName,
                                 interestRateExists: false,
+                                commissionRate: '',
                                 loanAmount: tempLoanAmount,
                                 dateOfExpiry: tempDateOfExpiry,
                             };
@@ -654,6 +656,7 @@ export class LoanDeedPartnershipComponent implements OnInit {
                             this.newData = {
                                 loanNepaliName: v.loanNepaliName,
                                 interestRateExists: false,
+                                commissionRate: '',
                                 loanAmount: tempLoanAmount,
                                 dateOfExpiry: tempDateOfExpiry2,
                             };
@@ -666,6 +669,7 @@ export class LoanDeedPartnershipComponent implements OnInit {
                             // tslint:disable-next-line:max-line-length
                             const tempLoanAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.cadData.assignedLoan[index].proposal.proposedLimit));
                             let tempDateOfExpiry2;
+                            let tempCommissionRate;
                             // documentaryBillPurchaseFormArray
                             for (let val = 0; val < this.initialInfo.documentaryBillPurchase.documentaryBillPurchaseFormArray.length; val++) {
                                 if (v.proposalId === this.initialInfo.documentaryBillPurchase.documentaryBillPurchaseFormArray[val].loanId) {
@@ -678,11 +682,14 @@ export class LoanDeedPartnershipComponent implements OnInit {
                                         tempDateOfExpiry2 = this.initialInfo.documentaryBillPurchase.documentaryBillPurchaseFormArray[val].dateOfExpiryNepali
                                             ? this.initialInfo.documentaryBillPurchase.documentaryBillPurchaseFormArray[val].dateOfExpiryNepali.nDate : '';
                                     }
+                                    tempCommissionRate = this.initialInfo.documentaryBillPurchase.documentaryBillPurchaseFormArray[val].commission
+                                        ? this.initialInfo.documentaryBillPurchase.documentaryBillPurchaseFormArray[val].commissionCT : '';
                                 }
                             }
                             this.newData = {
                                 loanNepaliName: v.loanNepaliName,
                                 interestRateExists: false,
+                                commissionRate: tempCommissionRate,
                                 loanAmount: tempLoanAmount,
                                 dateOfExpiry: tempDateOfExpiry2,
                             };
@@ -1252,6 +1259,7 @@ export class LoanDeedPartnershipComponent implements OnInit {
                             // tslint:disable-next-line:max-line-length
                             const tempLoanAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.cadData.assignedLoan[index].proposal.proposedLimit));
                             let tempDateOfExpiry2;
+                            // let tempCommissionRate = '';
                             // bankGuaranteeArray
                             for (let val = 0; val < this.initialInfo.bankGuarantee.bankGuaranteeArray.length; val++) {
                                 if (v.proposalId === this.initialInfo.bankGuarantee.bankGuaranteeArray[val].loanId) {
@@ -1264,11 +1272,17 @@ export class LoanDeedPartnershipComponent implements OnInit {
                                         tempDateOfExpiry2 = this.initialInfo.bankGuarantee.bankGuaranteeArray[val].dateOfExpiryNepali ?
                                             this.initialInfo.bankGuarantee.bankGuaranteeArray[val].dateOfExpiryNepali.nDate : '';
                                     }
+                                    // if (this.initialInfo.bankGuarantee.bankGuaranteeArray[val].commissionType === 'COMMISSION_TYPE_2') {
+                                    //   tempCommissionRate =
+                                    //       (!ObjectUtil.isEmpty(this.initialInfo.bankGuarantee.bankGuaranteeArray[val].commissionInPercentageAPG)) ?
+                                    //       this.initialInfo.bankGuarantee.bankGuaranteeArray[val].commissionInPercentageAPG : '';
+                                    // }
                                 }
                             }
                             this.newData = {
                                 loanNepaliName: v.loanNepaliName,
                                 interestRateExists: false,
+                                commissionRate: '',
                                 loanAmount: tempLoanAmount,
                                 dateOfExpiry: tempDateOfExpiry2,
                             };
@@ -1280,6 +1294,7 @@ export class LoanDeedPartnershipComponent implements OnInit {
                             // tslint:disable-next-line:max-line-length
                             const tempLoanAmount = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.cadData.assignedLoan[index].proposal.proposedLimit));
                             let tempDateOfExpiry2;
+                            let tempCommissionRate = '';
                             // billPurchaseFormArray
                             for (let val = 0; val < this.initialInfo.billPurchaseForm.billPurchaseFormArray.length; val++) {
                                 if (v.proposalId === this.initialInfo.billPurchaseForm.billPurchaseFormArray[val].loanId) {
@@ -1292,11 +1307,14 @@ export class LoanDeedPartnershipComponent implements OnInit {
                                         tempDateOfExpiry2 = this.initialInfo.billPurchaseForm.billPurchaseFormArray[val].dateOfExpiryNepali ?
                                             this.initialInfo.billPurchaseForm.billPurchaseFormArray[val].dateOfExpiryNepali.nDate : '';
                                     }
+                                    tempCommissionRate = !ObjectUtil.isEmpty(this.initialInfo.billPurchaseForm.billPurchaseFormArray[val].commission) ?
+                                        this.initialInfo.billPurchaseForm.billPurchaseFormArray[val].commissionCT : '';
                                 }
                             }
                             this.newData = {
                                 loanNepaliName: v.loanNepaliName,
                                 interestRateExists: false,
+                                commissionRate: tempCommissionRate,
                                 loanAmount: tempLoanAmount,
                                 dateOfExpiry: tempDateOfExpiry2,
                             };
@@ -1314,8 +1332,13 @@ export class LoanDeedPartnershipComponent implements OnInit {
                             );
                         } else {
                             this.form.get(['combinedFreeText', index, 'dateOfExpiry']).patchValue(
-                                this.newTempData[index].dateOfExpiry
+                                this.newTempData ? this.newTempData[index].dateOfExpiry : ''
                             );
+                            if (this.newTempData[index].interestRateExists === false) {
+                                this.form.get(['combinedFreeText', index, 'interestRateCombined']).patchValue(
+                                    this.newTempData ? this.newTempData[index].commissionRate : ''
+                                );
+                            }
                         }
                     });
                 }
