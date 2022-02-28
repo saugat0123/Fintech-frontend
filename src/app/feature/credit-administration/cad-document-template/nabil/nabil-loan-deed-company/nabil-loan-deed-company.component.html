@@ -266,7 +266,7 @@
                                                                                             formControlName="interestRateCombined"
                                                                                             placeholder=""
                                                                                             type="text"/>
-                                <span class="print-only nepaliFont">{{this.supportedInfo ? this.supportedInfo.combinedFreeText[i].interest : '================='}}%</span>
+                                <span class="print-only nepaliFont">{{this.supportedInfo ? this.supportedInfo.combinedFreeText[i].interest : '================='}}</span>
                             </td>
                             <td *ngIf="newTempData[i]?.dateOfExpiry !== ''">{{newTempData[i]?.dateOfExpiry ? newTempData[i]?.dateOfExpiry : '___________________'}}</td>
                             <td *ngIf="newTempData[i]?.dateOfExpiry === ''"><input class="form-field form-control-sm d-print-none nepaliFont"
