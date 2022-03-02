@@ -335,7 +335,7 @@
                                nbInput status="success" type="text">
                     </div>
                     <div class="form-group"
-                         *ngIf="isOverdraftSelected && isNabilSelected || isOverdraftSelected && isOtherSelected">
+                         *ngIf="isOverdraftSelected && isOtherSelected">
                         <label for="TdHolding">Name of TD Holding Bank</label>
                         <input class="form-control" formControlName="TdHolding" fullWidth
                                id="TdHolding"
@@ -612,7 +612,7 @@
                                    nbInput status="success" type="text">
                         </div>
                         <div class="form-group"
-                             *ngIf="isOverdraftSelected && isNabilSelected || isOverdraftSelected && isOtherSelected">
+                             *ngIf="isOverdraftSelected && isOtherSelected">
                             <label for="TdHoldingTrans">Name of TD Holding Bank Translation</label>
                             <input class="form-control" formControlName="TdHoldingTrans" fullWidth
                                    id="TdHoldingTrans"
@@ -949,7 +949,7 @@
                         </span>
                             </div>
                             <div class="form-group"
-                                 *ngIf="isOverdraftSelected && isNabilSelected || isOverdraftSelected && isOtherSelected">
+                                 *ngIf="isOverdraftSelected && isOtherSelected">
                                 <label for="TdHoldingCT">Name of TD Holding Bank CT</label>
                                 <input class="form-control" formControlName="TdHoldingCT" fullWidth
                                        id="TdHoldingCT"

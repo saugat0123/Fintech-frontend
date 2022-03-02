@@ -133,7 +133,7 @@
                     </div>
                      <div class="row col-md-12"style="margin-left: 83.8px;width: 93%;margin-top: -2em;">
                         <textarea
-                                class="form-control customFont"
+                                class="form-control nepaliFont"
                                 rows="3"
                                 style="width: inherit;margin-left:-5em;margin-top: -2em"
                                 name="additionalCostumerDetails"
@@ -202,7 +202,7 @@
                             </tr>
                             <tr *ngIf="this.tempData.loanType.en === 'BankGuarantee'">
                                 <td>
-                                    ख.
+                                    क)
                                 </td>
                                 <td>
                                     <strong> बैंक जमानत सुविधा (Bank Guarantee)<br>
@@ -224,8 +224,15 @@
                                                    formControlName="accountNumber"
                                                    type="text"/> उपर बैंकको ग्रहणाधिकार (Lien) कायम गरी दिनु पर्नेछ
                                     ।<br>
-                                    <strong> कमिसनः</strong> प्रति त्रैमास (Id commission is quarterly)/ वार्षिक (If
-                                    commission is yearly)
+                                    <strong> कमिसनः</strong> प्रति
+                                    <span *ngIf="this.tempData.comissionType.en === 'Quarterly'">
+                                        त्रैमास
+                                        <!--(Id commission is quarterly)-->
+                                    </span>
+                                    <span *ngIf="this.tempData.comissionType.en === 'Yearly'">
+                                         वार्षिक
+                                        <!--(If commission is yearly)-->
+                                    </span>
                                     <input class="form-field form-control-sm"
                                            formControlName="comissionRate"
                                            type="text"/>
@@ -240,7 +247,7 @@
                             </tr>
                             <tr *ngIf="this.tempData.loanType.en === 'IrrevocableLetterofCreditFacility'">
                                 <td>
-                                   <strong> ग) </strong>
+                                   <strong> क) </strong>
                                 </td>
                                 <td><strong><span *ngIf="this.tempData.OneOff.en">पटके</span> <span *ngIf="this.tempData.Regular.en">नियमित </span> अपरिवर्तनीय प्रतित
                                     पत्र सुविधा
@@ -288,14 +295,10 @@
                                             class="form-field form-control-sm"
                                             formControlName="dateOfExpiry"
                                             type="text"/>|
-                                        / सुविधा समाप्ति मितिः <textarea
-                                                class="form-control customFont"
-                                                rows="2"
-                                                style="width: 100%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em; color: black;"
+                                        / सुविधा समाप्ति मितिः <input
+                                                class="form-field form-control-sm customFont"
                                                 name="basicFreeText"
-                                                placeholder="अतिरिक्त अन्य खण्ड"
-                                                formControlName="basicFreeText">
-                                        </textarea>
+                                                formControlName="basicFreeText"/>
                                     </strong>
                                     </strong>
                                 </td>
@@ -307,7 +310,7 @@
                     <div class="mb-1">
                         <strong> सुरक्षण विवरणः </strong><br>
                         <strong> क. प्राथमिक सुरक्षण (Primary Security) </strong>
-                        <ol class="condtions-list order-list">
+                        <ol class="conditions-list order-list">
                             <li *ngIf="this.tempData.loanType.en === 'BankGuarantee'">
                                 काउण्टर जमानत (General Counter Guarantee):<br>
                                 बैंकको पक्षमा काउण्टर जमानत सम्बन्धी सम्झौता (General Counter Guarantee) <span
@@ -328,27 +331,29 @@
                                 नबिल बैंकमा खोलिएको <input class="form-field form-control-sm"
                                                            formControlName="customerName"
                                                            name="customerName"
-                                                           placeholder="{{loanHolderInfo?.name}}"
                                                            type="text"/>
-                                <textarea class="form-control customFont"
+                                <!--<textarea class="form-control customFont"
                                     rows="2"
                                     style="width: 100%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em; color: black;"
                                     name="accountHolderFreeText"
                                     placeholder="अतिरिक्त अन्य खण्ड"
-                                    formControlName="accountHolderFreeText"></textarea> को नाममा रहेको चल्ति
+                                    formControlName="accountHolderFreeText"></textarea>--> को नाममा रहेको चल्ति
                                 बचत / कल (Call) खाता नं.<input
                                     class="form-field form-control-sm"
                                     formControlName="accountNumber"
+                                    style="width:200px"
                                     type="text"/>
-                                <textarea
-                                        class="form-control customFont"
-                                        rows="2"
-                                        style="width: 100%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em; color: black;"
-                                        name="accountNumberFreeText"
-                                        placeholder="अतिरिक्त अन्य खण्ड"
-                                        formControlName="accountNumberFreeText"></textarea> मा रहेको मौज्दात रु <input class="form-field form-control-sm"
-                                                                                                                            formControlName="loanAmountFigure"
-                                                                                                                            type="text"/>
+<!--                                <textarea-->
+<!--                                        class="form-control customFont"-->
+<!--                                        rows="2"-->
+<!--                                        style="width: 100%;margin-left:2%;display: block;margin-right: auto;margin-left: 0em; color: black;"-->
+<!--                                        name="accountNumberFreeText"-->
+<!--                                        placeholder="अतिरिक्त अन्य खण्ड"-->
+<!--                                        formControlName="accountNumberFreeText"></textarea>
+-->
+                                मा रहेको मौज्दात रु <input class="form-field form-control-sm"
+                                                           formControlName="loanAmountFigure"
+                                                           type="text"/>
                                 बराबरको रकममा ग्रहणाधिकार कायम गरी उक्त रकम बरावर कर्जामा समायोजन गर्न सक्ने अधिकार
                                 सहितको मोजरापत्र.
                                 बैंकको पक्षमा जारी <span *ngIf="this.tempData.letterNew.en">गरिदिनु पर्नेछ </span> <span *ngIf="this.tempData.letterExisting.en"> गरिदिइएको
@@ -754,7 +759,7 @@
                     </div>
                     <div class="row col-md-12" style="margin-left: 83.8px;width: 93%;margin-top: 1em;">
                         <textarea
-                                class="form-control customFont"
+                                class="form-control nepaliFont"
                                 rows="3"
                                 style="width: inherit;margin-left:-5em;margin-top: -2em"
                                 name="additionalFreeTextBox"
@@ -846,7 +851,7 @@
                             </li>
                             <li class="row col-md-12" style="margin-left: 83.8px;width: 93%;margin-top: -2em;">
                                 <textarea
-                                        class="form-control customFont"
+                                        class="form-control nepaliFont"
                                         rows="3"
                                         style="width: inherit;margin-left:-6em;margin-top: 2em"
                                         name="applicableFreeTextBox"
@@ -860,7 +865,6 @@
 
                     <!-- Condition(Not required in ew case) -->
                     <div class="col-md-12">
-                        <p><strong> साक्षीः </strong></p>
                         <div *ngIf="this.tempData.loanOption.en !== 'NEW'">यस अघि विभिन्न मितिका ऋणस्वीकृति पत्रमा
                             उल्लिखित ऋणकर्जा सुविधा सम्बन्धमा बैंकको पक्षमा गरिदिएका सम्पूर्ण सुरक्षण कागजपत्रहरु तथा
                             सोमा उल्लिखित शर्त
@@ -885,16 +889,21 @@
                                 <input class="form-field form-control-sm"
                                        formControlName="nameOfRelationalManager"
                                        name="nameOfRelationalManager"
-                                       style="width: 200px"
-                                       value="सम्पर्क अधिकृत"
                                        type="text"/>
                                 <br>
+                                <input class="form-field form-control-sm nepaliFont"
+                                       formControlName="samparkaAdhikrit"
+                                       name="samparkaAdhikrit"
+                                       style="width: 200px"
+                                       type="text"/>
+                                <br/>
+                                नबिल बैंक लि.
+                                <br/>
                                 <input class="form-field form-control-sm"
                                        formControlName="branchName"
                                        name="branchName"
                                        style="width: 200px"
                                        type="text"/>
-
                             </p>
                         </div>
 
@@ -905,10 +914,16 @@
                                 <input class="form-field form-control-sm"
                                        formControlName="nameOfBranchManager"
                                        name="nameOfBranchManager"
-                                       style="width: 200px"
-                                       value="सम्पर्क प्रबन्धक"
                                        type="text"/>
                                 <br>
+                                <input class="form-field form-control-sm nepaliFont"
+                                       formControlName="samparkaPrabandhak"
+                                       name="samparkaPrabandhak"
+                                       style="width: 200px"
+                                       type="text"/>
+                                <br/>
+                                नबिल बैंक लि.
+                                <br/>
                                 <input class="form-field form-control-sm"
                                        formControlName="branchName"
                                        name="branchName"
@@ -940,7 +955,7 @@
                         बैंकको पूर्व सहमति बेगर ऋणकर्जा सुविधाहरुको सम्पूर्ण बाँकी चुक्ता भुक्तान नभएसम्म फर्म/कम्पनीको
                         स्वामित्व परिवर्तन र नामसारी गर्ने छैन/छैनौं ।
 
-                        <div *ngIf="!isNatural"> म/हामीले बैंकले माग गर्ना साथ र बैंकले दिएको समयमा भुक्तानी नगरिएको
+                        <p *ngIf="isNatural"> म/हामीले बैंकले माग गर्ना साथ र बैंकले दिएको समयमा भुक्तानी नगरिएको
                             अवस्थामा नेपाल राष्ट्र बैंक, कर्जा सूचना केन्द्र लिमिटेडको कालोसूची व्यवस्था बमोजिम
                             म/हामीलाई
                             कालोसूची व्यवस्था र सोको प्रभाव सम्बन्धी पूर्ण जानकारी सहित बैंकले कालोसूचीमा राख्ने निर्णय
@@ -950,7 +965,7 @@
                             सम्पूर्ण
                             लेना सहितको दायित्व मेरो/हाम्रो हकवालाहरुलाई उत्तरदायी हुन शिक्षित गरी बहन गर्न म/हामी
                             जिम्मेवारी लिन्छु/छौं ।
-                        </div>
+                        </p>
                         <br>
                         <!--                        Applicable only for natural person-->
                         २. म/हामी माथि उल्लिखित शर्तबन्देजहरु पूर्ण स्वीकार गर्दछु/छौं ।<br>
@@ -978,18 +993,68 @@
                         </div>
                     </div>
                     <br>
-                    <div class="col-md-12">
-                        <p><strong> साक्षीः </strong></p>
-                        <ol class="conditions-list order-list">
-                            <li>
-                                ................................ जिल्ला ....................... गा.वि.स.न.पा.,वडा नं.
-                                ..... बस्ने श्री ..........................
-                            </li>
-                            <LI>
-                                कारणीले प्रस्तुत लिखत मेरो सामुन्ने सही छाप गरेको हो भनी सनाखत गर्ने नबिल बैंक लि.का
-                                कर्मचारी श्री..........................
-                            </LI>
-                        </ol>
+                    <p class="text-center mt-5">
+                        <b><u>साक्षी</u></b>
+                    </p>
+                    <div>
+                        <p>१. <input class="form-field form-control-sm disable-print nepaliFont"
+                                     name="witnessDistrict"
+                                     formControlName="witnessDistrict"
+                                     placeholder="" type="text"/>
+                            जिल्ला <input
+                                    class="form-field form-control-sm disable-print nepaliFont"
+                                    name="witnessMunicipality"
+                                    formControlName="witnessMunicipality"
+                                    placeholder="" type="text"/>
+                            न.पा/गा.वि.स. वडा नं.
+                            <input class="form-field form-control-sm disable-print nepaliFont"
+                                   name="WitnessWardNumber"
+                                   formControlName="WitnessWardNumber"
+                                   placeholder="" type="text"/>
+                            बस्ने बर्ष <input
+                                    class="form-field form-control-sm disable-print nepaliFont"
+                                    name="witnessAge"
+                                    formControlName="witnessAge"
+                                    placeholder="" type="text"/>
+                            को/की <input
+                                    class="form-field form-control-sm disable-print nepaliFont"
+                                    name="witnessName"
+                                    formControlName="witnessName"
+                                    placeholder="" type="text"/>
+                        </p>
+                        <p>२. <input class="form-field form-control-sm disable-print nepaliFont"
+                                     name="witnessDistrict"
+                                     formControlName="witnessDistrict2"
+                                     placeholder="" type="text"/>
+                            जिल्ला <input
+                                    class="form-field form-control-sm disable-print nepaliFont"
+                                    name="witnessMunicipality"
+                                    formControlName="witnessMunicipality2"
+                                    placeholder="" type="text"/>
+                            न.पा/गा.वि.स. वडा नं.
+                            <input class="form-field form-control-sm disable-print nepaliFont"
+                                   name="WitnessWardNumber"
+                                   formControlName="WitnessWardNumber2"
+                                   placeholder="" type="text"/>
+                            बस्ने बर्ष <input
+                                    class="form-field form-control-sm disable-print nepaliFont"
+                                    name="witnessAge"
+                                    formControlName="witnessAge2"
+                                    placeholder="" type="text"/>
+                            को/की <input
+                                    class="form-field form-control-sm disable-print nepaliFont"
+                                    name="witnessName"
+                                    formControlName="witnessName2"
+                                    placeholder="" type="text"/>
+                        </p>
+                        <p>
+                            ३. कारणीले प्रस्तुत लिखत मेरो सामुन्ने सहिछाप गरेको हो भनी सनाखत गर्ने नविल बैंक
+                            लिमिटेडका कर्मचारी <input
+                                class="form-field form-control-sm disable-print nepaliFont"
+                                name="Name of Bank Staff"
+                                formControlName="bankStaff"
+                                placeholder="" type="text"/>
+                        </p>
                     </div>
                     <div class="row">
                         <div class="col-md-12 text-right">

@@ -1,6 +1,15 @@
+* {
+  font-size: 19px;
+  text-align: justify;
+}
+p {
+  text-align: justify;
+  font-size: 19px;
+  line-height: 1.9em;
+}
 .nepaliFont{
   font-size: 19px;
-  line-height: 1.7;
+  line-height: 1.9;
   text-align: justify;
   text-justify: inter-word;
 }
@@ -60,6 +69,9 @@ ol.conditions-list {
   line-height: 40px !important;
   padding-bottom: 5px;
   text-align: justify !important;
+}
+ol li {
+  padding-left: 10px;
 }
 
 // to set margin 0

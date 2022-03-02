@@ -73,6 +73,9 @@ export class ClassASanctionLetterComponent implements OnInit {
   CoupenRateFinancing;
   BaseRateFinancing;
   freeTextVal: any = {};
+  allHolderNames;
+  holderFinalName;
+  holderNames: any = [];
   constructor(private formBuilder: FormBuilder,
               private router: Router,
               private toastService: ToastService,
@@ -163,6 +166,19 @@ export class ClassASanctionLetterComponent implements OnInit {
       comissionRateOthersQuarter: [undefined],
       naturalPersonCheck: [undefined],
       counterGuarantee: [undefined],
+      samparkaAdhikrit: [undefined],
+      samparkaPrabandhak: [undefined],
+      witnessDistrict: [undefined],
+      witnessMunicipality: [undefined],
+      WitnessWardNumber: [undefined],
+      witnessAge: [undefined],
+      witnessName: [undefined],
+      witnessDistrict2: [undefined],
+      witnessMunicipality2: [undefined],
+      WitnessWardNumber2: [undefined],
+      witnessAge2: [undefined],
+      witnessName2: [undefined],
+      bankStaff: [undefined],
     });
   }
   checkOfferLetterData() {
@@ -177,7 +193,9 @@ export class ClassASanctionLetterComponent implements OnInit {
         console.log('Selected Security Details:', initialInfo);
         if (!ObjectUtil.isEmpty(this.offerLetterDocument.supportedInformation)) {
           this.offerLetterData = this.offerLetterDocument;
-          this.form.get('additionalGuarantorDetails').patchValue(this.offerLetterData.supportedInformation);
+          this.freeTextVal = JSON.parse(this.offerLetterDocument.supportedInformation);
+          console.log('Suopported Information:', this.freeTextVal);
+          // this.form.get('additionalGuarantorDetails').patchValue(this.offerLetterData.supportedInformation);
         }
         // this.selectedSecurity = initialInfo.selectedSecurity.en;
         this.isNatural = initialInfo.naturalPersonCheck.en;
@@ -288,8 +306,8 @@ export class ClassASanctionLetterComponent implements OnInit {
     const dateOfExpiry = this.initialInfoPrint.dateOfExpiryType ? this.initialInfoPrint.dateOfExpiryType.en : '';
     let finalDateOfExpiry;
     if (dateOfExpiry === 'AD') {
-      const templateDateExpiry = this.initialInfoPrint.dateOfExpiry ? this.initialInfoPrint.dateOfExpiry.en : '';
-      finalDateOfExpiry = this.engToNepaliDate.transform(this.datePipe.transform(templateDateExpiry), true);
+      const templateDateExpiry = this.initialInfoPrint.dateOfExpiry ? this.initialInfoPrint.dateOfExpiry.ct : '';
+      finalDateOfExpiry = templateDateExpiry;
     } else {
       const templateDateExpiry = this.initialInfoPrint.dateOfExpiryNepali ? this.initialInfoPrint.dateOfExpiryNepali.en : '';
       finalDateOfExpiry = templateDateExpiry ? templateDateExpiry.nDate : '';
@@ -304,8 +322,11 @@ export class ClassASanctionLetterComponent implements OnInit {
       const templateDateSanction = this.initialInfoPrint.previousSanctionDateNepali ? this.initialInfoPrint.previousSanctionDateNepali.en : '';
       finalDateOfSanction = templateDateSanction ? templateDateSanction.nDate : '';
     }
+    this.getHolderDetails();
     this.form.patchValue({
-      customerName: this.loanHolderInfo.name.ct ? this.loanHolderInfo.name.ct : '',
+      customerName: (!ObjectUtil.isEmpty(this.freeTextVal) &&
+      !ObjectUtil.isEmpty(this.freeTextVal.customerName)) ?
+          this.freeTextVal.customerName : this.loanHolderInfo.name.ct ? this.loanHolderInfo.name.ct : '',
       customerAddress: customerAddress ? customerAddress : '',
       loanAmountFigure: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount)),
       loanAmountFigureWords: this.nepaliCurrencyWordPipe.transform(totalLoanAmount),
@@ -317,9 +338,9 @@ export class ClassASanctionLetterComponent implements OnInit {
       nameOfRelationalManager: this.tempData.nameOfRelationalManager.ct ? this.tempData.nameOfRelationalManager.ct : '',
       nameOfBranchManager: this.tempData.nameOfBranchManager.ct ? this.tempData.nameOfBranchManager.ct : '',
       TDAmount: this.tempData.TDAmount.ct ? this.tempData.TDAmount.ct : '',
-      TdHolder: this.tempData.TdHolder.ct ? this.tempData.TdHolder.ct : '',
+      TdHolder: this.holderFinalName ? this.holderFinalName : '',
       totalLimitInFigure: this.tempData.totalLimitInFigure.ct ? this.tempData.totalLimitInFigure.ct : '',
-      holderName: this.tempData.holderName.ct ? this.tempData.holderName.ct : '',
+      holderName: this.holderFinalName ? this.holderFinalName : '',
       // sanctionLetterDate: this.tempData.sanctionLetterDate.ct ? this.tempData.sanctionLetterDate.ct : '',
       totalLimitInWords: this.tempData.totalLimitInWords.ct ? this.tempData.totalLimitInWords.ct : '',
       TdHolding: this.tempData.TdHolding.ct ? this.tempData.TdHolding.ct : '',
@@ -329,7 +350,9 @@ export class ClassASanctionLetterComponent implements OnInit {
       dateOfExpiry: finalDateOfExpiry ? finalDateOfExpiry : '',
       previousSanctionDate: finalDateOfSanction ? finalDateOfSanction : '',
       comissionRate: this.tempData.comissionRate.ct ? this.tempData.comissionRate.ct : '',
-      accountNumber: this.tempData.accountNumber.en ? this.tempData.accountNumber.en : '',
+      accountNumber: (!ObjectUtil.isEmpty(this.freeTextVal) &&
+          !ObjectUtil.isEmpty(this.freeTextVal.accountNumber)) ?
+          this.freeTextVal.accountNumber : this.tempData.accountNumber.en ? this.tempData.accountNumber.en : '',
       serviceChargeInFigure: this.tempData.serviceChargeFigure.ct ? this.tempData.serviceChargeFigure.ct : '',
       serviceChargeInWords: this.tempData.serviceChargeWords.ct ? this.tempData.serviceChargeWords.ct : '',
       tenureFacility: this.tempData.tenureFacility.ct ? this.tempData.tenureFacility.ct : '',
@@ -339,20 +362,93 @@ export class ClassASanctionLetterComponent implements OnInit {
       comissionRateOthersQuarter: this.tempData.comissionRateOthersQuarter.ct ? this.tempData.comissionRateOthersQuarter.ct : '',
       miniumComissionAmount:  this.tempData.miniumComissionAmount.ct ? this.tempData.miniumComissionAmount.ct : '',
 
-      additionalGuarantorDetails: !ObjectUtil.isEmpty(this.freeTextVal) ? this.freeTextVal.freeText1 : '',
-      additionalCostumerDetails: !ObjectUtil.isEmpty(this.freeTextVal) ? this.freeTextVal.freeText2 : '',
-      basicFreeText: !ObjectUtil.isEmpty(this.freeTextVal) ? this.freeTextVal.freeText3 : '',
-      accountNumberFreeText: !ObjectUtil.isEmpty(this.freeTextVal) ? this.freeTextVal.freeText4 : '',
-      accountHolderFreeText: !ObjectUtil.isEmpty(this.freeTextVal) ? this.freeTextVal.freeText5 : '',
-      tableFreeText: !ObjectUtil.isEmpty(this.freeTextVal) ? this.freeTextVal.freeText6 : '',
-      applicableFreeTextBox: !ObjectUtil.isEmpty(this.freeTextVal) ? this.freeTextVal.freeText7 : '',
-      additionalFreeTextBox: !ObjectUtil.isEmpty(this.freeTextVal) ? this.freeTextVal.freeText8 : '',
-
-
-
-
-
+      additionalCostumerDetails: !ObjectUtil.isEmpty(this.freeTextVal) &&
+      !ObjectUtil.isEmpty(this.freeTextVal.additionalCostumerDetails) ?
+          this.freeTextVal.additionalCostumerDetails : '',
+      tableFreeText: !ObjectUtil.isEmpty(this.freeTextVal) &&
+          !ObjectUtil.isEmpty(this.freeTextVal.tableFreeText) ?
+          this.freeTextVal.tableFreeText : '',
+      additionalFreeTextBox: !ObjectUtil.isEmpty(this.freeTextVal) &&
+          !ObjectUtil.isEmpty(this.freeTextVal.additionalFreeTextBox) ?
+          this.freeTextVal.additionalFreeTextBox : '',
+      applicableFreeTextBox: !ObjectUtil.isEmpty(this.freeTextVal) &&
+          !ObjectUtil.isEmpty(this.freeTextVal.applicableFreeTextBox) ?
+          this.freeTextVal.applicableFreeTextBox : '',
+      samparkaAdhikrit: !ObjectUtil.isEmpty(this.freeTextVal) &&
+          !ObjectUtil.isEmpty(this.freeTextVal.samparkaAdhikrit) ?
+          this.freeTextVal.samparkaAdhikrit : ';Dks{ clws[t',
+      samparkaPrabandhak: !ObjectUtil.isEmpty(this.freeTextVal) &&
+          !ObjectUtil.isEmpty(this.freeTextVal.samparkaPrabandhak) ?
+          this.freeTextVal.samparkaPrabandhak : ';Dks{ k|aGws',
+      basicFreeText: !ObjectUtil.isEmpty(this.freeTextVal) &&
+      !ObjectUtil.isEmpty(this.freeTextVal.basicFreeText) ?
+          this.freeTextVal.basicFreeText : '',
+      witnessDistrict: !ObjectUtil.isEmpty(this.freeTextVal) &&
+      !ObjectUtil.isEmpty(this.freeTextVal.witnessDistrict) ?
+          this.freeTextVal.witnessDistrict : '',
+      witnessMunicipality: !ObjectUtil.isEmpty(this.freeTextVal) &&
+      !ObjectUtil.isEmpty(this.freeTextVal.witnessMunicipality) ?
+          this.freeTextVal.witnessMunicipality : '',
+      WitnessWardNumber: !ObjectUtil.isEmpty(this.freeTextVal) &&
+      !ObjectUtil.isEmpty(this.freeTextVal.WitnessWardNumber) ?
+          this.freeTextVal.WitnessWardNumber : '',
+      witnessAge: !ObjectUtil.isEmpty(this.freeTextVal) &&
+      !ObjectUtil.isEmpty(this.freeTextVal.witnessAge) ?
+          this.freeTextVal.witnessAge : '',
+      witnessName: !ObjectUtil.isEmpty(this.freeTextVal) &&
+      !ObjectUtil.isEmpty(this.freeTextVal.witnessName) ?
+          this.freeTextVal.witnessName : '',
+      witnessDistrict2: !ObjectUtil.isEmpty(this.freeTextVal) &&
+      !ObjectUtil.isEmpty(this.freeTextVal.witnessDistrict2) ?
+          this.freeTextVal.witnessDistrict2 : '',
+      witnessMunicipality2: !ObjectUtil.isEmpty(this.freeTextVal) &&
+      !ObjectUtil.isEmpty(this.freeTextVal.witnessMunicipality2) ?
+          this.freeTextVal.witnessMunicipality2 : '',
+      WitnessWardNumber2: !ObjectUtil.isEmpty(this.freeTextVal) &&
+      !ObjectUtil.isEmpty(this.freeTextVal.WitnessWardNumber2) ?
+          this.freeTextVal.WitnessWardNumber2 : '',
+      witnessAge2: !ObjectUtil.isEmpty(this.freeTextVal) &&
+      !ObjectUtil.isEmpty(this.freeTextVal.witnessAge2) ?
+          this.freeTextVal.witnessAge2 : '',
+      witnessName2: !ObjectUtil.isEmpty(this.freeTextVal) &&
+      !ObjectUtil.isEmpty(this.freeTextVal.witnessName2) ?
+          this.freeTextVal.witnessName2 : '',
+      bankStaff: !ObjectUtil.isEmpty(this.freeTextVal) &&
+      !ObjectUtil.isEmpty(this.freeTextVal.bankStaff) ?
+          this.freeTextVal.bankStaff : '',
+      date: !ObjectUtil.isEmpty(this.freeTextVal) &&
+      !ObjectUtil.isEmpty(this.freeTextVal.date) ?
+          this.freeTextVal.date : '',
     });
+  }
+
+  getHolderDetails() {
+    if (!ObjectUtil.isEmpty(this.tempData)) {
+      if (!ObjectUtil.isEmpty(this.tempData.tdHolderNames)) {
+        const len = this.tempData.tdHolderNames[0].tdholderNames;
+        if (len.length > 0) {
+          if (len.length === 1) {
+            const temp = len[0].TdHolderCT;
+            this.holderFinalName = temp;
+          } else if (len.length === 2) {
+            for (let i = 0; i < len.length; i++) {
+              const temp = len[i].TdHolderCT;
+              this.holderNames.push(temp);
+            }
+            this.allHolderNames = this.holderNames.join(' र ');
+            this.holderFinalName = this.allHolderNames;
+          } else {
+            for (let i = 0; i < len.length - 1; i++) {
+              const temp = len[i].TdHolderCT;
+              this.holderNames.push(temp);
+            }
+            this.allHolderNames = this.holderNames.join(' , ');
+            const temp1 = len[len.length - 1].TdHolderCT;
+            this.holderFinalName = this.allHolderNames + ' र ' + temp1;
+          }
+        }
+      }
+    }
   }
 
   submit(): void {
@@ -396,14 +492,27 @@ export class ClassASanctionLetterComponent implements OnInit {
   }
   setFreeText() {
     const free = {
-      freeText1: this.form.get('additionalCostumerDetails').value,
-      freeText2: this.form.get('accountNumberFreeText').value,
-      freeText3: this.form.get('accountHolderFreeText').value,
-      freeText4: this.form.get('tableFreeText').value,
-      freeText5: this.form.get('basicFreeText').value,
-      freeText6: this.form.get('additionalGuarantorDetails').value,
-      freeText7: this.form.get('applicableFreeTextBox').value,
-      freeText8: this.form.get('additionalFreeTextBox').value,
+      additionalCostumerDetails: this.form.get('additionalCostumerDetails').value,
+      tableFreeText: this.form.get('tableFreeText').value,
+      additionalFreeTextBox: this.form.get('additionalFreeTextBox').value,
+      applicableFreeTextBox: this.form.get('applicableFreeTextBox').value,
+      samparkaAdhikrit: this.form.get('samparkaAdhikrit').value,
+      samparkaPrabandhak: this.form.get('samparkaPrabandhak').value,
+      basicFreeText: this.form.get('basicFreeText').value,
+      customerName: this.form.get('customerName').value,
+      accountNumber: this.form.get('accountNumber').value,
+      witnessDistrict: this.form.get('witnessDistrict').value,
+      witnessMunicipality: this.form.get('witnessMunicipality').value,
+      WitnessWardNumber: this.form.get('WitnessWardNumber').value,
+      witnessAge: this.form.get('witnessAge').value,
+      witnessName: this.form.get('witnessName').value,
+      witnessDistrict2: this.form.get('witnessDistrict2').value,
+      witnessMunicipality2: this.form.get('witnessMunicipality2').value,
+      WitnessWardNumber2: this.form.get('WitnessWardNumber2').value,
+      witnessAge2: this.form.get('witnessAge2').value,
+      witnessName2: this.form.get('witnessName2').value,
+      bankStaff: this.form.get('bankStaff').value,
+      date: this.form.get('date').value,
     };
     return JSON.stringify(free);
   }
