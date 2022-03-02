@@ -436,9 +436,9 @@ export class UIComponent implements OnInit, DoCheck {
                     } else if ((da.toLowerCase() !== 'yes' && da.toLowerCase() !== 'no' && da.toLowerCase() !== 'na') &&
                         (this.tableHeads[j].toLowerCase() === 'yes' || this.tableHeads[j].toLowerCase() === 'no' ||
                             this.tableHeads[j].toLowerCase() === 'na') && tdData[j].innerText.length === 9) {
-                        const id = `name${index}${j}${table}n${totalInput}n${index}`;
+                        const id = `name${index}${j}${table}n${totalInput}n${index}n${table}`;
                         this.allChecklistId.push(id);
-                        tdData[j].innerHTML = `<span id = "name${index}${j}${table}n${totalInput}n${index}"><input type="radio" click = "change()"  name="hello${index}"></span>`;
+                        tdData[j].innerHTML = `<span id = "name${index}${j}${table}n${totalInput}n${index}n${table}"><input type="radio" click = "change()"  name="hello${index}${table}"></span>`;
                     }
                 }
             }

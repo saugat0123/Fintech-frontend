@@ -38,25 +38,26 @@ export class ProductPaperChecklistComponent implements OnInit , AfterViewInit {
         const totalInput = ids[3];
         // current position in the row
         const  name = ids[5];
+        const  table = ids[7];
         const rowId = [];
         for (let i = 1; i < Number(totalInput); i++) {
             positiveNum += 10;
             negativeNum -= 10;
-            const currentId  = `name${(positiveNum)}n${totalInput}n${name}`;
-            const currentIds  = `name${(negativeNum)}n${totalInput}n${name}`;
+            const currentId  = `name${(positiveNum)}n${totalInput}n${name}n${table}`;
+            const currentIds  = `name${(negativeNum)}n${totalInput}n${name}n${table}`;
             rowId.push(currentId);
             rowId.push(currentIds);
         }
         for (let i = 0; i < rowId.length; i++) {
-            console.log('row id ' + i, rowId[i]);
            const elem = this.parsedData.getElementById(rowId[i]);
            if
            (elem) {
-           elem.innerHTML = `<input type="radio" click = "change()"  name="hello${name}">`;
+               elem.innerHTML = `<input type="radio" click = "change()"  name="hello${name}${table}">`;
            }
 
         }
-        this.parsedData.getElementById(id).innerHTML = `<input type="radio" click = "change()" checked = "checked"  name="hello${name}">`;
+        console.log( this.parsedData.getElementById(id));
+        this.parsedData.getElementById(id).innerHTML = `<input type="radio" click = "change()" checked = "checked"  name="hello${name}${table}">`;
     }
 
     save() {
