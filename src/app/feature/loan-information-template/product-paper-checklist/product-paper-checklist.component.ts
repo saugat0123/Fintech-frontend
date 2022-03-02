@@ -56,7 +56,6 @@ export class ProductPaperChecklistComponent implements OnInit , AfterViewInit {
            }
 
         }
-        console.log( this.parsedData.getElementById(id));
         this.parsedData.getElementById(id).innerHTML = `<input type="radio" click = "change()" checked = "checked"  name="hello${name}${table}">`;
     }
 

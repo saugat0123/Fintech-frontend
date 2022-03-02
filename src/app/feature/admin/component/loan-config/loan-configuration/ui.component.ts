@@ -395,7 +395,6 @@ export class UIComponent implements OnInit, DoCheck {
             }
             for (let index = 0; index < tr.length; index++) {
                 const tdData = tr[index].getElementsByTagName('td');
-                console.log(tdData);
                 let prev: HTMLCollectionOf<HTMLTableDataCellElement>;
                 if (index > 0) {
                     prev = tr[index - 1].getElementsByTagName('td');
@@ -680,7 +679,6 @@ export class UIComponent implements OnInit, DoCheck {
     }
 
   checklistChange(data) {
-      console.log(data);
         this.checklistChecked = data;
   }
 }
