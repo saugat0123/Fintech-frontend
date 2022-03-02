@@ -49,7 +49,7 @@ export class Section1IntroductionComponent implements OnInit {
       this.tempApplicationDate = this.tempData.smeGlobalForm.loanApplicationDateCT;
     }
     if (this.tempData.smeGlobalForm.previousSanctionType === 'AD') {
-      this.tempSanctionDate = this.engToNepaliDate.transform(this.datePipe.transform(this.tempData.smeGlobalForm.sanctionLetterDate), true);
+      this.tempSanctionDate = this.tempData.smeGlobalForm ? this.tempData.smeGlobalForm.sanctionLetterDateCT : '';
     } else {
       this.tempSanctionDate = this.tempData.smeGlobalForm.sanctionLetterDateCT;
     }
