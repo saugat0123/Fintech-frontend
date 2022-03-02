@@ -408,7 +408,14 @@ export class LoanFormComponent implements OnInit {
                         this.templateList.splice(index, 1);
                     }
                 });
-
+                if (!this.checklistChecked) {
+                    this.templateList.forEach((value, index) => {
+                        // this.loanDocument.customerInfo.isMicroCustomer ||
+                        if (value.name === 'Product Paper Checklist') {
+                            this.templateList.splice(index, 1);
+                        }
+                    });
+                }
                 this.templateList.forEach((value, index) => {
                     // this.loanDocument.customerInfo.isMicroCustomer ||
                     if ((environment.disableCrgLambda) && value.name === 'Credit Risk Grading - Lambda') {

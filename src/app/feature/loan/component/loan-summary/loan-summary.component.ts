@@ -914,18 +914,21 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     }
 
     disable() {
-        const obj = JSON.parse(this.loanDataHolder.paperProductChecklist);
-        this.paperChecklist = obj.view;
-        this.allIds = obj.id;
-        const parserData = new DOMParser().parseFromString(this.paperChecklist, 'text/html');
-        this.allIds.forEach(d => {
-            const input = parserData.getElementById(d);
-            const child = input.innerHTML;
-            if (!child.includes('checked')) {
-                input.innerHTML = `<input type="radio" disabled>`;
-            }
-        });
-        this.paperChecklist = parserData.body.innerHTML;
+        if (!ObjectUtil.isEmpty(this.loanDataHolder.paperProductChecklist)) {
+            const obj = JSON.parse(this.loanDataHolder.paperProductChecklist);
+            this.paperChecklist = obj.view;
+            this.allIds = obj.id;
+            const parserData = new DOMParser().parseFromString(this.paperChecklist, 'text/html');
+            this.allIds.forEach(d => {
+                const input = parserData.getElementById(d);
+                const child = input.innerHTML;
+                if (!child.includes('checked')) {
+                    input.innerHTML = `<input type="radio" disabled>`;
+                }
+            });
+            console.log(parserData.body.innerHTML);
+            this.paperChecklist = parserData.body.innerHTML;
+        }
     }
 }
 
