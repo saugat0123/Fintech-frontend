@@ -28,6 +28,8 @@ export class ProductPaperChecklistComponent implements OnInit , AfterViewInit {
     ngOnInit() {
         this.parser = new DOMParser();
         this.parsedData = this.parser.parseFromString(this.paper, 'text/html');
+        console.log('this is ids', this.allIds);
+        console.log('this is html', this.paper);
     }
     change(id) {
        const ids = id.split(/([0-9]+)/);
@@ -58,7 +60,6 @@ export class ProductPaperChecklistComponent implements OnInit , AfterViewInit {
         }
         this.parsedData.getElementById(id).innerHTML = `<input type="radio" click = "change()" checked = "checked"  name="hello${name}${table}">`;
     }
-
     save() {
         const obj = {
             view: this.parsedData.body.innerHTML,

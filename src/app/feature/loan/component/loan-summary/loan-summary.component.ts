@@ -245,10 +245,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             this.isRemitLoan = true;
         }
         this.loanDataHolder = this.loanData;
-        console.log('this is data', this.loanDataHolder.paperProductChecklist);
-        const obj = JSON.parse(this.loanDataHolder.paperProductChecklist);
-        this.paperChecklist = obj.view;
-        this.allIds = obj.id;
+        this.disable();
         if (this.loanDataHolder.loanHolder.clientType === 'CONSUMER_FINANCE') {
             this.consumerFinance = true;
         } else  if (this.loanDataHolder.loanHolder.clientType === 'SMALL_BUSINESS_FINANCIAL_SERVICES') {
@@ -914,6 +911,21 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
 
     checkSiteVisitDocument(event: any) {
         this.siteVisitDocuments = event;
+    }
+
+    disable() {
+        const obj = JSON.parse(this.loanDataHolder.paperProductChecklist);
+        this.paperChecklist = obj.view;
+        this.allIds = obj.id;
+        const parserData = new DOMParser().parseFromString(this.paperChecklist, 'text/html');
+        this.allIds.forEach(d => {
+            const input = parserData.getElementById(d);
+            const child = input.innerHTML;
+            if (!child.includes('checked')) {
+                input.innerHTML = `<input type="radio" disabled>`;
+            }
+        });
+        this.paperChecklist = parserData.body.innerHTML;
     }
 }
 

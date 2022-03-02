@@ -861,7 +861,6 @@ export class LoanFormComponent implements OnInit {
                 this.toastService.show(new Alert(AlertType.ERROR, 'Customer cannot be empty! Please search customer'));
                 return;
             }
-            console.log('data ');
             this.loanFormService.save(this.loanDocument).subscribe((response: any) => {
                 this.loanDocument = response.detail;
                 this.customerLoanId = this.loanDocument.id;
@@ -893,6 +892,5 @@ export class LoanFormComponent implements OnInit {
    }
    updateChecklist(event) {
         this.checklistData = event;
-       console.log('this is the data', event);
    }
 }
