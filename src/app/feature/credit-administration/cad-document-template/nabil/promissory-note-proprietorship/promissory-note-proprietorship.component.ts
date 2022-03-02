@@ -99,6 +99,43 @@ export class PromissoryNoteProprietorshipComponent implements OnInit {
         this.setTotalAmount();
         this.fillForm();
     }
+
+    transformEnglishDate(date) {
+        let transformedDate;
+        let monthName;
+        const dateArray1 = [];
+        const splittedDate = date.split(' ');
+        if (splittedDate[0] === 'Jan') {
+            monthName = 'जनवरी';
+        } else if (splittedDate[0] === 'Feb') {
+            monthName = 'फेब्रुअरी';
+        } else if (splittedDate[0] === 'Mar') {
+            monthName = 'मार्च';
+        } else if (splittedDate[0] === 'Apr') {
+            monthName = 'अप्रिल';
+        } else if (splittedDate[0] === 'May') {
+            monthName = 'मे';
+        } else if (splittedDate[0] === 'Jun') {
+            monthName = 'जुन';
+        } else if (splittedDate[0] === 'Jul') {
+            monthName = 'जुलाई';
+        } else if (splittedDate[0] === 'Aug') {
+            monthName = 'अगष्ट';
+        } else if (splittedDate[0] === 'Sep') {
+            monthName = 'सेप्टेम्बर';
+        } else if (splittedDate[0] === 'Oct') {
+            monthName = 'अक्टुबर';
+        } else if (splittedDate[0] === 'Nov') {
+            monthName = 'नोभेम्बर';
+        } else {
+            monthName = 'डिसेम्बर';
+        }
+        dateArray1.push(this.engToNepNumberPipe.transform(splittedDate[1].slice(0, -1)));
+        dateArray1.push(monthName + ',');
+        dateArray1.push(this.engToNepNumberPipe.transform(splittedDate[2]));
+        transformedDate = dateArray1.join(' ');
+        return transformedDate;
+    }
     setTotalAmount() {
         if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
             if (this.cadData.offerDocumentList[0].docName === 'Combined Offer Letter') {
@@ -116,6 +153,7 @@ export class PromissoryNoteProprietorshipComponent implements OnInit {
                     this.initialInfo.totalLimitInFigure.ct : '';
                 this.totalAmountInWord = (this.initialInfo && this.initialInfo.totalLimitInWords) ?
                     this.initialInfo.totalLimitInWords.ct : '';
+                // tslint:disable-next-line:max-line-length
             } if (!ObjectUtil.isEmpty(this.initialInfo) && this.cadData.offerDocumentList[0].docName === 'Interest subsidy sanction letter') {
                 this.totalAmount = (this.initialInfo && this.initialInfo.totalLimitFigure) ?
                     this.initialInfo.totalLimitFigure.ct : '';
@@ -319,30 +357,48 @@ export class PromissoryNoteProprietorshipComponent implements OnInit {
                     tempIssuedPlace = val.ownerCitizenshipIssuedDistrictCT ? val.ownerCitizenshipIssuedDistrictCT : '';
                 }
                 // For Indian National with Passport
+                let indianOwnerPPIssuedDate;
+                let indianOwnerPassportValidityDate;
                 if (val.ownerNationality === 'Indian' && val.indianOwnerDetailOption === 'Passport') {
-                    tempDate = this.engToNepaliDate.transform(val.indianOwnerPassportIssuedDate, true);
-                    validityDate = this.engToNepaliDate.transform(val.indianOwnerPassportValidityDateCT, true);
+                    // Issue Date
+                    // tslint:disable-next-line:max-line-length
+                    indianOwnerPPIssuedDate = this.datePipe.transform(val.indianOwnerPassportIssuedDate ? val.indianOwnerPassportIssuedDate : '');
+                    tempDate = this.transformEnglishDate(indianOwnerPPIssuedDate ? indianOwnerPPIssuedDate : '');
+                    // validity date
+                    // tslint:disable-next-line:max-line-length
+                    indianOwnerPassportValidityDate = this.datePipe.transform(val.indianOwnerPassportValidityDateCT ? val.indianOwnerPassportValidityDateCT : '');
+                    validityDate = this.transformEnglishDate(indianOwnerPassportValidityDate ? indianOwnerPassportValidityDate : '');
+                    // place
                     tempIssuedPlace = val.indianOwnerPassportIssuedFromCT ? val.indianOwnerPassportIssuedFromCT : '';
                 }
+                let indianOwnerAdharCardIssuedDate;
                 // For Indian National with Aadhaar Card
                 if (val.ownerNationality === 'Indian' && val.indianOwnerDetailOption === 'Adhar Card') {
-                    tempDate = this.engToNepaliDate.transform(val.indianOwnerAdharCardIssuedDate, true);
+                    // tslint:disable-next-line:max-line-length
+                    indianOwnerAdharCardIssuedDate = this.datePipe.transform(val.indianOwnerAdharCardIssuedDate ? val.indianOwnerAdharCardIssuedDate : '');
+                    tempDate = this.transformEnglishDate(indianOwnerAdharCardIssuedDate ? indianOwnerAdharCardIssuedDate : '');
                     tempIssuedPlace = val.indianOwnerAdharCardIssuedFromCT ? val.indianOwnerAdharCardIssuedFromCT : '';
                 }
                 // For Indian National with Embassy
+                let indianEmbassyIssuedDate;
                 if (val.ownerNationality === 'Indian' && val.indianOwnerDetailOption === 'Embassy Certificate') {
-                    tempDate = this.engToNepaliDate.transform(val.indianEmbassyIssuedDate, true);
+                    indianEmbassyIssuedDate = this.datePipe.transform(val.indianEmbassyIssuedDate ? val.indianEmbassyIssuedDate : '');
+                    tempDate = this.transformEnglishDate(indianEmbassyIssuedDate ? indianEmbassyIssuedDate : '');
                     tempIssuedPlace = val.indianEmbassyIssuedFromCT ? val.indianEmbassyIssuedFromCT : '';
                 }
                 // For Other Nationals
+                let ppIssueDate;
+                let valDate;
                 if (val.ownerNationality === 'Other') {
                     if (val.otherOwnerPassportIssuedDateOption === 'AD') {
-                        tempDate = this.engToNepaliDate.transform(val.otherOwnerPassportIssuedDateCT, true);
+                        ppIssueDate = this.datePipe.transform(val.otherOwnerPassportIssuedDateCT ? val.otherOwnerPassportIssuedDateCT : '');
+                        tempDate = this.transformEnglishDate(ppIssueDate);
                     } else {
                         tempDate = val.otherOwnerPassportIssuedDateNepaliCT.nDate;
                     }
                     if (val.otherOwnerPassportValidityDateOption === 'AD') {
-                        validityDate = this.engToNepaliDate.transform(val.otherOwnerPassportValidityDateCT, true);
+                        valDate = this.datePipe.transform(val.otherOwnerPassportValidityDateCT ? val.otherOwnerPassportValidityDateCT : '');
+                        validityDate = this.transformEnglishDate(valDate);
                     } else {
                         validityDate = val.otherOwnerPassportValidityDateNepaliCT.nDate;
                     }
@@ -354,7 +410,6 @@ export class PromissoryNoteProprietorshipComponent implements OnInit {
             });
         }
     }
-
     ageCalculation(startDate) {
         startDate = this.datePipe.transform(startDate, 'MMMM d, y, h:mm:ss a z');
         const stDate = new Date(startDate);
