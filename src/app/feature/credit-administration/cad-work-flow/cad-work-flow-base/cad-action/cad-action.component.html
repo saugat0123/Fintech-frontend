@@ -88,7 +88,10 @@
                          style="color: red;">comment is required
                     </div>
                 </div>
+                <div  class="col-md-12 py-4 px-3">
+                  <nb-checkbox class="form-control" [disabled]="!isMaker" formControlName="legalPending">Skip Legal Stage</nb-checkbox>
 
+                </div>
                 <div class="form-group col-md-12 py-3">
                     <em *ngIf="missingSignDoc" class="text-danger font-weight-bold sb-small">You have not uploaded signed
                         offer letter . Are you sure you want to proceed?</em>

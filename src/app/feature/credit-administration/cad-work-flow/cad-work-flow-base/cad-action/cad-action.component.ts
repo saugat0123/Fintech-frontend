@@ -98,7 +98,6 @@ export class CadActionComponent implements OnInit, OnChanges {
     toUser;
     toRole;
     breakException: any;
-
     constructor(private router: ActivatedRoute,
                 private route: Router,
                 private loanActionService: LoanActionService,
@@ -336,6 +335,7 @@ export class CadActionComponent implements OnInit, OnChanges {
                     comment: [undefined, Validators.required],
                     documentStatus: [this.forwardBackwardDocStatusChange()],
                     isBackwardForMaker: returnToMaker,
+                    legalPending: [this.cadOfferLetterApprovedDoc.legalPending],
                 }
             );
             const approvalType = 'CAD';
@@ -381,7 +381,9 @@ export class CadActionComponent implements OnInit, OnChanges {
                     isBackwardForMaker: returnToMaker,
                     customApproveSelection: [false],
                     toUser: [undefined],
-                    toRole: [undefined]
+                    toRole: [undefined],
+                    legalPending: [this.cadOfferLetterApprovedDoc.legalPending],
+
 
                 }
             );
@@ -395,13 +397,15 @@ export class CadActionComponent implements OnInit, OnChanges {
                     isBackwardForMaker: returnToMaker,
                     customApproveSelection: [false],
                     toUser: [undefined],
-                    toRole: [undefined]
+                    toRole: [undefined],
+                    legalPending: [this.cadOfferLetterApprovedDoc.legalPending],
+
                 }
             );
             if (!ObjectUtil.isEmpty(this.toUser) && !ObjectUtil.isEmpty(this.toRole)) {
                 this.formAction.patchValue({
                     toUser: this.toUser,
-                    toRole: this.toRole
+                    toRole: this.toRole,
                 });
             }
         }
