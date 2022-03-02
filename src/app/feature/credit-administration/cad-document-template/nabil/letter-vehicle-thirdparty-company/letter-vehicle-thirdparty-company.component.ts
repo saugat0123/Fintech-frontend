@@ -81,6 +81,7 @@ export class LetterVehicleThirdpartyCompanyComponent implements OnInit {
           JSON.parse(this.cadData.loanHolder.nepData) :
           this.cadData.loanHolder.nepData;
     }
+    console.log('this.individualData', this.individualData);
     this.patchFreeText();
     this.fillForm();
   }
@@ -137,7 +138,7 @@ export class LetterVehicleThirdpartyCompanyComponent implements OnInit {
     let regDate = '';
     if (!ObjectUtil.isEmpty(this.individualData.registrationDateOption)) {
       if (this.individualData.registrationDateOption.en === 'AD') {
-        regDate = this.individualData.transform(this.individualData.registrationDate ?
+        regDate = this.englishNepaliDatePipe.transform(this.individualData.registrationDate ?
             this.individualData.registrationDate.en : this.individualData.registrationDate.en, true) || '';
       } else {
         regDate = this.individualData.registrationDateNepali.en ? this.individualData.registrationDateNepali.en.nDate : '';
