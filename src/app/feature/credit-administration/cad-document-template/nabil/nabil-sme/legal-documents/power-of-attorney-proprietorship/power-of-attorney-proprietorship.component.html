@@ -358,15 +358,16 @@
                                     <span class=" print-only font-weight-bold">{{form.get('addressOfFirm').value ? form.get('addressOfFirm').value : "_________________"}}</span>
 
                                     <br>
+                                    <ng-container *ngFor="let name of tempProprietor; let i = index">
                                     आधिकारिक प्रतिनिधिको नाम: <input class="form-field disable-print form-control-sm"
                                                                      style="margin-left: 0.9em"
-                                                                     name="nameOfProprietor"
-                                                                     formControlName="nameOfProprietor"
+                                                                     name="authorizedName"
                                                                      placeholder=""
                                                                      type="text"
-                                />
-                                    <span class=" print-only font-weight-bold">{{form.get('nameOfProprietor').value ? form.get('nameOfProprietor').value : "_________________"}}</span>
-                                    <br>
+                                                                     [value]="name?.ownerNameCT ? name?.ownerNameCT : ''"/>
+                                        <span class=" print-only font-weight-bold">{{name?.ownerNameCT ? name?.ownerNameCT : "_________________"}}</span>
+                                        <br>
+                                    </ng-container>
                                 </p>
 
                             </div>

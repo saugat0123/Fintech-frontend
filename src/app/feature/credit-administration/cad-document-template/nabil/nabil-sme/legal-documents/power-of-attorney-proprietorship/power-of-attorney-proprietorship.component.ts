@@ -67,7 +67,7 @@ export class PowerOfAttorneyProprietorshipComponent implements OnInit {
 
   ngOnInit() {
     if (!ObjectUtil.isEmpty(this.cadData.assignedLoan[0])) {
-      this.companyInfo = JSON.parse(this.cadData.assignedLoan[0].companyInfo.companyJsonData);
+      this.companyInfo = this.cadData.assignedLoan[0] ? JSON.parse(this.cadData.assignedLoan[0].companyInfo.companyJsonData) : '';
       this.companyInfo.forEach(val => {
         if (val.isAuthorizedPerson === 'Authorized Person Only' || val.isAuthorizedPerson === 'Both') {
           const authorizedName = val.ownerNameCT;
@@ -143,47 +143,52 @@ export class PowerOfAttorneyProprietorshipComponent implements OnInit {
         };
         this.issueDate.push(newDate);
       }
+      let indianOwnerPPIssuedDate;
+      let indianOwnerPassportValidityDate;
       if (val.ownerNationality === 'Indian' && val.indianOwnerDetailOption === 'Passport') {
-        date = this.engToNepaliDate.transform(val ?
-            val.indianOwnerPassportIssuedDateCT : val.indianOwnerPassportIssuedDateCT, true) || '';
-        date2 = this.engToNepaliDate.transform(val ?
-            val.indianOwnerPassportValidityDateCT : val.indianOwnerPassportValidityDateCT, true) || '';
+        indianOwnerPPIssuedDate = this.datePipe.transform(val.indianOwnerPassportIssuedDate ? val.indianOwnerPassportIssuedDate : '');
+        date = this.transformEnglishDate(indianOwnerPPIssuedDate ? indianOwnerPPIssuedDate : '');
+        // tslint:disable-next-line:max-line-length
+        indianOwnerPassportValidityDate = this.datePipe.transform(val.indianOwnerPassportValidityDateCT ? val.indianOwnerPassportValidityDateCT : '');
+        date2 = this.transformEnglishDate(indianOwnerPassportValidityDate ? indianOwnerPassportValidityDate : '');
         const newDate = {
           issueDate : date,
           validDate : date2
         };
         this.issueDate.push(newDate);
       }
+      let indianOwnerAdharCardIssuedDate;
       if (val.ownerNationality === 'Indian' && val.indianOwnerDetailOption === 'Adhar Card') {
-        date = this.engToNepaliDate.transform(val ?
-            val.indianOwnerAdharCardIssuedDateCT : val.indianOwnerAdharCardIssuedDateCT, true) || '';
+        indianOwnerAdharCardIssuedDate = this.datePipe.transform(val.indianOwnerAdharCardIssuedDate ? val.indianOwnerAdharCardIssuedDate : '');
+        date = this.transformEnglishDate(indianOwnerAdharCardIssuedDate ? indianOwnerAdharCardIssuedDate : '');
         const newDate = {
           issueDate : date,
         };
         this.issueDate.push(newDate);
       }
+      let indianEmbassyIssuedDate;
       if (val.ownerNationality === 'Indian' && val.indianOwnerDetailOption === 'Embassy Certificate') {
-        date = this.engToNepaliDate.transform(val ?
-            val.indianEmbassyIssuedDateCT : val.indianEmbassyIssuedDateCT, true) || '';
+        indianEmbassyIssuedDate = this.datePipe.transform(val.indianEmbassyIssuedDate ? val.indianEmbassyIssuedDate : '');
+        date = this.transformEnglishDate(indianEmbassyIssuedDate ? indianEmbassyIssuedDate : '');
         const newDate = {
           issueDate : date,
         };
         this.issueDate.push(newDate);
       }
+      let ppIssueDate;
+      let valDate;
       if (val.ownerNationality === 'Other') {
         if (val.otherOwnerPassportIssuedDateOption === 'AD') {
-          date = this.engToNepaliDate.transform(val ?
-              val.otherOwnerPassportIssuedDateCT : val.otherOwnerPassportIssuedDateCT, true) || '';
+          ppIssueDate = this.datePipe.transform(val.otherOwnerPassportIssuedDateCT ? val.otherOwnerPassportIssuedDateCT : '');
+          date = this.transformEnglishDate(ppIssueDate ? ppIssueDate : '');
+        } else {
+          date = val.otherOwnerPassportIssuedDateNepaliCT.nDate;
         }
         if (val.otherOwnerPassportValidityDateOption === 'AD') {
-          date2 = this.engToNepaliDate.transform(val ?
-              val.otherOwnerPassportValidityDateCT : val.otherOwnerPassportValidityDateCT, true) || '';
-        }
-        if (val.otherOwnerPassportIssuedDateOption === 'BS') {
-          date = val ? val.otherOwnerPassportIssuedDateNepali.nDate : '';
-        }
-        if (val.otherOwnerPassportValidityDateOption === 'BS') {
-          date2 = val ? val.otherOwnerPassportValidityDateNepali.nDate : '';
+          valDate = this.datePipe.transform(val.otherOwnerPassportValidityDateCT ? val.otherOwnerPassportValidityDateCT : '');
+          date2 = this.transformEnglishDate(valDate ? valDate : '');
+        } else {
+          date2 = val.otherOwnerPassportValidityDateNepaliCT.nDate;
         }
         const newDate = {
           issueDate : date,
@@ -193,7 +198,42 @@ export class PowerOfAttorneyProprietorshipComponent implements OnInit {
       }
     });
   }
-
+  transformEnglishDate(date) {
+    let transformedDate;
+    let monthName;
+    const dateArray1 = [];
+    const splittedDate = date.split(' ');
+    if (splittedDate[0] === 'Jan') {
+      monthName = 'जनवरी';
+    } else if (splittedDate[0] === 'Feb') {
+      monthName = 'फेब्रुअरी';
+    } else if (splittedDate[0] === 'Mar') {
+      monthName = 'मार्च';
+    } else if (splittedDate[0] === 'Apr') {
+      monthName = 'अप्रिल';
+    } else if (splittedDate[0] === 'May') {
+      monthName = 'मे';
+    } else if (splittedDate[0] === 'Jun') {
+      monthName = 'जुन';
+    } else if (splittedDate[0] === 'Jul') {
+      monthName = 'जुलाई';
+    } else if (splittedDate[0] === 'Aug') {
+      monthName = 'अगष्ट';
+    } else if (splittedDate[0] === 'Sep') {
+      monthName = 'सेप्टेम्बर';
+    } else if (splittedDate[0] === 'Oct') {
+      monthName = 'अक्टुबर';
+    } else if (splittedDate[0] === 'Nov') {
+      monthName = 'नोभेम्बर';
+    } else {
+      monthName = 'डिसेम्बर';
+    }
+    dateArray1.push(this.engToNepNumberPipe.transform(splittedDate[1].slice(0, -1)));
+    dateArray1.push(monthName + ',');
+    dateArray1.push(this.engToNepNumberPipe.transform(splittedDate[2]));
+    transformedDate = dateArray1.join(' ');
+    return transformedDate;
+  }
   buildForm() {
     this.form = this.formBuilder.group({
       date: [undefined],
