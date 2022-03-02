@@ -384,16 +384,17 @@ export class LoanFormComponent implements OnInit {
         this.loanConfigService.detail(this.id).subscribe((response: any) => {
             this.loans = response.detail;
             if (ObjectUtil.isEmpty(this.loanDocument.paperProductChecklist)) {
-                const obj = JSON.parse(this.loans.paperChecklist);
-                this.paperChecklist = obj.view;
-                this.allIds = obj.id;
-                this.checklistChecked = obj.checklistChecked;
-            } else {
+                if (!ObjectUtil.isEmpty(this.loans.paperChecklist)) {
+                    const obj = JSON.parse(this.loans.paperChecklist);
+                    this.paperChecklist = obj.view;
+                    this.allIds = obj.id;
+                    this.checklistChecked = obj.checklistChecked;
+                }
+            } else  {
                 const obj = JSON.parse(this.loanDocument.paperProductChecklist);
                 this.paperChecklist = obj.view;
                 this.allIds = obj.id;
                 this.checklistChecked = true;
-                console.log(this.paperChecklist);
             }
             this.loanTag = response.detail.loanTag;
             // this.templateList = response.detail.templateList;
