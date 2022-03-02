@@ -96,10 +96,18 @@
                                     <b> सुविधा (Facility) </b>
                                 </th>
                                 <th width="70%">
-                                    <b>{{offerLetterForm?.get(['purpose', i, 'loan'])?.value}}</b>
+                                    <b>
+                                        {{offerLetterForm?.get(['purpose', i, 'loan'])?.value}}
+                                        <span class="float-right disable-print font-size-normal">
+                                            <nb-checkbox (change)="otherValueCheck($event?.target?.checked, i, 'facilityNeeded')"
+                                                         [checked]="offerLetterForm?.get(['purpose', i, 'facilityNeeded'])?.value"><i>
+                                                {{offerLetterForm?.get(['purpose', i, 'loan'])?.value}} Needed ?</i>
+                                            </nb-checkbox>
+                                        </span>
+                                    </b>
                                 </th>
                             </tr>
-                            <ng-container>
+                            <ng-container *ngIf="offerLetterForm?.get(['purpose', i, 'facilityNeeded'])?.value">
                                 <tr>
                                     <td>स्वीकृत कर्जा सीमा (Approved Loan Limit)</td>
                                     <td>अधिकतम रु
@@ -494,26 +502,16 @@
                                 </span>
                                     </td>
                                     <ng-container *ngIf="offerLetterForm?.get(['purpose', i, 'tenureNeeded'])?.value">
-                                        <td colspan="2" *ngIf="offerLetterForm?.get(['purpose', i, 'loanNature'])?.value === 'Revolving'">
-                                            कर्जा प्रवाह भएको मितिले <input type="text"
-                                                                            (change)="valueChange($event?.target?.value, i, 'reviewDate')"
-                                                                            [value]="offerLetterForm?.get(['purpose', i, 'reviewDate'])?.value"
-                                                                            class="nepaliFont form-field form-control-sm font-size-normal disable-print">
+                                        <td colspan="2">
+                                            मिति <input type="text"
+                                                        (change)="valueChange($event?.target?.value, i, 'reviewDate')"
+                                                        [value]="offerLetterForm?.get(['purpose', i, 'reviewDate'])?.value"
+                                                        class="nepaliFont form-field form-control-sm font-size-normal disable-print">
                                             <span class="nepaliFont font-size-normal print-only">
                                         <b>{{offerLetterForm?.get(['purpose', i, 'reviewDate'])?.value ? offerLetterForm?.get(['purpose', i, 'reviewDate'])?.value : '========='}}</b></span>
                                             मा कर्जा तथा सुविधाको पुनरावलोकन गरिने र सो मिति सम्म उपभोग गर्न सकिनेछ ।
                                             पुनरावलोकन गर्ने मिति जुनसुकै उल्लेख भएको भएतापनि
                                             बैंकले माग गर्नासाथ बैंकको सम्पूर्ण लेना रकम भुक्तानी गर्नु पर्नेछ ।
-                                        </td>
-                                        <td colspan="2" *ngIf="offerLetterForm?.get(['purpose', i, 'loanNature'])?.value === 'Terminating'">
-                                            कर्जा प्रवाह भएको मितिले <input type="text"
-                                                                            [value]="offerLetterForm?.get(['purpose', i, 'reviewDate'])?.value"
-                                                                            (change)="valueChange($event?.target?.value, i, 'reviewDate')"
-                                                                            class="nepaliFont form-field form-control-sm font-size-normal disable-print">
-                                            <span class="nepaliFont font-size-normal print-only">
-                                        <b>{{offerLetterForm?.get(['purpose', i, 'reviewDate'])?.value ?
-                                            offerLetterForm?.get(['purpose', i, 'reviewDate'])?.value : '========='}}</b></span>
-                                            सम्ममा कर्जा चुक्ता गर्नुपर्नेछ ।
                                         </td>
                                     </ng-container>
                                 </tr>
@@ -1487,113 +1485,116 @@
                                     <!--                            </nb-checkbox>-->
                                 </td>
                             </tr>
-                            <ng-container *ngIf="offerLetterForm?.get('guaranteeNeeded')?.value">
-                                <tr *ngIf="offerLetterForm?.get('peGuaranteeCheck')?.value">
+                            </tbody>
+                            <tbody *ngIf="offerLetterForm?.get('peGuaranteeCheck')?.value">
+                            <ng-container *ngFor="let pGuarantee of offerLetterForm?.get('personalGuarantee')['controls']; let pin = index"
+                                          formArrayName="personalGuarantee">
+                                <tr [formGroupName]="pin">
                                     <td colspan="1">
                                         <span class="print-only"><ul><li></li></ul></span>
                                     </td>
                                     <td colspan="6">
-                            <span *ngIf="!offerLetterForm?.get('peGuaranteeOtherCheck').value">
-                                <input type="text"
-                                       class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                       formControlName="personalName">
-                                 <span class="nepaliFont font-size-normal print-only">
-                                        <b>{{offerLetterForm?.get('personalName').value ? offerLetterForm?.get('personalName').value : '========='}}</b></span> को
-                            <input type="text"
-                                   class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                   formControlName="personalAmount"
-                                   (change)="convertAmount($event?.target?.value, 'personalAmount')">
-                                 <span class="nepaliFont font-size-normal print-only">
-                                        <b>{{offerLetterForm?.get('personalAmount').value ? offerLetterForm?.get('personalAmount').value : '========='}}</b></span> /– (अक्षरेपी रुपैयाँ
-                                <!--                            <input type="text"-->
-                                <!--                                   class="nepaliFont form-field form-control-sm font-size-normal disable-print"-->
-                                <!--                                   formControlName="personalAmountWord">-->
-                                <span class="font-size-normal">
-                                        <b>{{offerLetterForm?.get('personalAmountWord').value ? offerLetterForm?.get('personalAmountWord').value : '========='}}</b></span>
-                                मात्र) को <strong>व्यक्तिगत जमानतको</strong>
-                            लिखत बैंकलाई उपलब्ध
-                                <ng-container *ngIf="loanType?.includes('RENEWED_LOAN'); else otherLoanType6">
-                                    गराएको यथावत रहने छ । <br>
-                                    <strong> (मिति <input type="text"
-                                                          class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                                          formControlName="date5">
-                                        <span class="nepaliFont font-size-normal font-size-normal print-only">
-                                                <b>{{offerLetterForm.get('date5')?.value ? offerLetterForm.get('date5')?.value : '========='}}</b>
-                                            </span> मा प्राप्त) </strong>
-                                </ng-container>
-                                <ng-template #otherLoanType6>
-                                    गराउनु पर्नेछ ।
-                                </ng-template>
-                            </span>
+                                        <span *ngIf="!offerLetterForm?.get('peGuaranteeOtherCheck').value">
+                                            <input type="text" [value]="pGuarantee?.name"
+                                                   (change)="valueChange($event?.target?.value, pin, 'name')"
+                                                   class="nepaliFont form-field form-control-sm font-size-normal disable-print">
+                                            <span class="nepaliFont font-size-normal print-only">
+                                                <b>{{pGuarantee?.name ? pGuarantee?.name : '========='}}</b></span> को
+                                            <input type="text" [value]="pGuarantee?.amount"
+                                                   class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                                   (change)="convertAmount($event?.target?.value, 'personalAmount')">
+                                            <span class="nepaliFont font-size-normal print-only">
+                                                <b>{{pGuarantee?.amount ? pGuarantee?.amount : '========='}}</b></span> /– (अक्षरेपी रुपैयाँ
+                                            <span class="font-size-normal">
+                                                <b>{{pGuarantee?.amountInWord ? pGuarantee?.amountInWord : '========='}}</b></span>
+                                            मात्र) को <strong>व्यक्तिगत जमानतको</strong>
+                                            लिखत बैंकलाई उपलब्ध
+                                            <ng-container *ngIf="loanType?.includes('RENEWED_LOAN'); else otherLoanType6">
+                                                गराएको यथावत रहने छ । <br>
+                                                <strong> (मिति <input type="text" (change)="valueChange($event?.target?.value, pin, 'date')"
+                                                                      class="nepaliFont form-field form-control-sm font-size-normal disable-print">
+                                                    <span class="nepaliFont font-size-normal font-size-normal print-only">
+                                                        <b>{{pGuarantee?.date ? pGuarantee?.name : '========='}}</b>
+                                                    </span> मा प्राप्त) </strong>
+                                            </ng-container>
+                                            <ng-template #otherLoanType6>
+                                                गराउनु पर्नेछ ।
+                                            </ng-template>
+                                        </span>
                                         <span class="disable-print float-right">
-                                <nb-checkbox (change)="otherCheck($event?.target?.checked, 'peGuaranteeOtherCheck')"
-                                             [checked]="offerLetterForm?.get('peGuaranteeOtherCheck')?.value"><i>Other</i>
-                                </nb-checkbox>
-                            </span>
+                                            <nb-checkbox (change)="otherCheck($event?.target?.checked, 'peGuaranteeOtherCheck')"
+                                                         [checked]="offerLetterForm?.get('peGuaranteeOtherCheck')?.value"><i>Other</i>
+                                            </nb-checkbox>
+                                        </span>
                                         <span *ngIf="offerLetterForm?.get('peGuaranteeOtherCheck')?.value">
-                                    <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
-                                              formControlName="peGuaranteeOther"
-                                              placeholder="व्यक्तिगत ग्यारेन्टी" rows="4"></textarea>
-                                <span class="nepaliFont font-size-normal print-only">
-                                    <b>{{offerLetterForm?.get('peGuaranteeOther')?.value ? offerLetterForm?.get('peGuaranteeOther')?.value : '========='}}</b>
-                                </span>
-                            </span>
-                                    </td>
-                                </tr>
-                                <tr *ngIf="offerLetterForm?.get('coGuaranteeCheck')?.value">
-                                    <td colspan="1">
-                                        <span class="print-only"><ul><li></li></ul></span>
-                                    </td>
-                                    <td colspan="6">
-                            <span *ngIf="!offerLetterForm?.get('coGuaranteeOtherCheck')?.value">
-                                <input type="text"
-                                       class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                       formControlName="corporateName">
-                                <span class="nepaliFont font-size-normal print-only">
-                                        <b>{{offerLetterForm?.get('corporateName').value ? offerLetterForm?.get('corporateName').value : '========='}}</b></span> को
-                            <input type="text"
-                                   class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                   formControlName="corporateAmount"
-                                   (change)="convertAmount($event?.target.value, 'corporateAmount')">
-                                <span class="nepaliFont font-size-normal print-only">
-                                        <b>{{offerLetterForm?.get('corporateAmount').value ? offerLetterForm?.get('corporateAmount').value : '========='}}</b></span> /– (अक्षरेपी रुपैयाँ
-                                <!--                            <input type="text"-->
-                                <!--                                   class="nepaliFont form-field form-control-sm font-size-normal disable-print"-->
-                                <!--                                   formControlName="corporateAmountWord">-->
-                                <span class="font-size-normal">
-                                        <b>{{offerLetterForm?.get('corporateAmountWord').value ? offerLetterForm?.get('corporateAmountWord').value : '========='}}</b></span>
-                                मात्र) को <strong>संस्थागत जमानतको</strong>
-                            लिखत बैंकलाई उपलब्ध
-                                <ng-container *ngIf="loanType?.includes('RENEWED_LOAN'); else otherLoanType6">
-                                    गराएको यथावत रहने छ । <br>
-                                    <strong> (मिति <input type="text"
-                                                          class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                                          formControlName="date6">
-                                        <span class="nepaliFont font-size-normal print-only">
-                                                <b>{{offerLetterForm.get('date6')?.value ? offerLetterForm.get('date6')?.value : '========='}}</b>
-                                            </span> मा प्राप्त) </strong>
-                                </ng-container>
-                                <ng-template #otherLoanType6>
-                                    गराउनु पर्नेछ ।
-                                </ng-template>
-                            </span>
-
-                                        <span class="disable-print float-right">
-                                <nb-checkbox (change)="otherCheck($event?.target?.checked, 'coGuaranteeOtherCheck')"
-                                             [checked]="offerLetterForm?.get('coGuaranteeOtherCheck')?.value"><i>Other</i>
-                                </nb-checkbox>
-                            </span>
-                                        <span *ngIf="offerLetterForm?.get('coGuaranteeOtherCheck')?.value">
-                                <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
-                                          formControlName="coGuaranteeOther"
-                                          placeholder="कर्पोरेट ग्यारेन्टी" rows="4"></textarea>
-                                <span class="nepaliFont font-size-normal print-only">
-                                    <b>{{offerLetterForm?.get('coGuaranteeOther')?.value ? offerLetterForm?.get('coGuaranteeOther')?.value : '========='}}</b>
-                                </span>
-                            </span>
+                                            <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                                                      formControlName="peGuaranteeOther"
+                                                      placeholder="व्यक्तिगत ग्यारेन्टी" rows="4"></textarea>
+                                            <span class="nepaliFont font-size-normal print-only">
+                                                <b>{{offerLetterForm?.get('peGuaranteeOther')?.value ? offerLetterForm?.get('peGuaranteeOther')?.value : '========='}}</b>
+                                            </span>
+                                        </span>
                                     </td>
                                 </tr>
                             </ng-container>
+                            <div class="text-right disable-print">
+                                <input (click)="addPerGuarantee()" class="btn btn-sm btn-flat btn-primary"
+                                       type="button" value="Add More PG"/>
+                            </div>
+                            </tbody>
+                            <tbody *ngIf="offerLetterForm?.get('coGuaranteeCheck')?.value">
+                            <ng-container *ngFor="let cGuarantee of offerLetterForm?.get('corporateGuarantee')['controls']; let cin = index"
+                                          formArrayName="corporateGuarantee">
+                                <tr [formGroupName]="cin">
+                                    <td colspan="1">
+                                        <span class="print-only"><ul><li></li></ul></span>
+                                    </td>
+                                    <td colspan="6">
+                                        <span *ngIf="!offerLetterForm?.get('coGuaranteeOtherCheck')?.value">
+                                            <input type="text" [value]="cGuarantee?.name"
+                                                   (change)="valueChange($event?.target?.value, cin, 'name')"
+                                                   class="nepaliFont form-field form-control-sm font-size-normal disable-print">
+                                            <span class="nepaliFont font-size-normal print-only">
+                                                <b>{{offerLetterForm?.get('corporateName').value ? offerLetterForm?.get('corporateName').value : '========='}}</b></span> को
+                                            <input type="text" [value]="cGuarantee?.amount"
+                                                   class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                                   (change)="convertAmount($event?.target.value, 'corporateAmount')">
+                                            <span class="nepaliFont font-size-normal print-only">
+                                                <b>{{cGuarantee?.amount ? cGuarantee?.amount : '========='}}</b></span> /– (अक्षरेपी रुपैयाँ
+                                            <span class="font-size-normal">
+                                                <b>{{cGuarantee?.amountInWord ? cGuarantee?.amountInWord : '========='}}</b></span>
+                                            मात्र) को <strong>संस्थागत जमानतको</strong>
+                                            लिखत बैंकलाई उपलब्ध
+                                            <ng-container *ngIf="loanType?.includes('RENEWED_LOAN'); else otherLoanType6">
+                                                गराएको यथावत रहने छ । <br>
+                                                <strong> (मिति <input type="text" [value]="cGuarantee?.date"
+                                                                      (change)="valueChange($event?.target?.value, cin, 'date')"
+                                                                      class="nepaliFont form-field form-control-sm font-size-normal disable-print">
+                                                    <span class="nepaliFont font-size-normal print-only">
+                                                        <b>{{cGuarantee?.date ? cGuarantee?.date : '========='}}</b>
+                                                    </span> मा प्राप्त) </strong>
+                                            </ng-container>
+                                            <ng-template #otherLoanType6>
+                                                गराउनु पर्नेछ ।
+                                            </ng-template>
+                                        </span>
+                                        <span class="disable-print float-right">
+                                            <nb-checkbox (change)="otherCheck($event?.target?.checked, 'coGuaranteeOtherCheck')"
+                                                         [checked]="offerLetterForm?.get('coGuaranteeOtherCheck')?.value"><i>Other</i>
+                                            </nb-checkbox>
+                                        </span>
+                                        <span *ngIf="offerLetterForm?.get('coGuaranteeOtherCheck')?.value">
+                                            <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                                                      formControlName="coGuaranteeOther"
+                                                      placeholder="कर्पोरेट ग्यारेन्टी" rows="4"></textarea>
+                                            <span class="nepaliFont font-size-normal print-only">
+                                                <b>{{offerLetterForm?.get('coGuaranteeOther')?.value ? offerLetterForm?.get('coGuaranteeOther')?.value : '========='}}</b>
+                                            </span>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </ng-container>
+<!--                    </ng-container>-->
                             </tbody>
                             <tbody>
                             <ng-container>
@@ -1725,71 +1726,75 @@
                                         </ul>
                                     </th>
                                     <th colspan="6">
-                                        <nb-checkbox (change)="otherCheck($event?.target?.checked, 'cashMarginNeeded')"
-                                                     [checked]="offerLetterForm?.get('cashMarginNeeded')?.value"><i>Security as
-                                            Cash Margin Needed ?</i>
+                                        <nb-checkbox (change)="otherCheck($event?.target?.checked, 'creditFacilityNeeded')"
+                                                     [checked]="offerLetterForm?.get('creditFacilityNeeded')?.value"><i> Credit Facility Needed ?</i>
+                                        </nb-checkbox> &nbsp;&nbsp;&nbsp;
+                                        <nb-checkbox (change)="otherCheck($event?.target?.checked, 'guaranteeFacilityNeeded')"
+                                                     [checked]="offerLetterForm?.get('guaranteeFacilityNeeded')?.value"><i> Guarantee Facility Needed ?</i>
                                         </nb-checkbox>
                                     </th>
                                 </tr>
-                                <ng-container *ngIf="offerLetterForm?.get('cashMarginNeeded')?.value">
+                                <ng-container *ngIf="offerLetterForm?.get('creditFacilityNeeded')?.value">
                                     <tr>
                                         <td colspan="1">
-                                    <span class="print-only">
-                                        <ul><li></li></ul>
-                                    </span>
+                                            <span class="print-only">
+                                                <ul><li></li></ul>
+                                            </span>
                                         </td>
                                         <td colspan="6">
-                            <span *ngIf="!offerLetterForm?.get('cashLetterOtherCheck')?.value">
-                                प्रतितपत्र सुविधा उपयोगको आधारमा
-                            <input type="text"
-                                   class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                   formControlName="letterCM">
-                                <span class="nepaliFont font-size-normal print-only">
-                                        <b>{{offerLetterForm?.get('letterCM').value ? offerLetterForm?.get('letterCM').value : '========='}}</b></span>
-                                प्रतिशत नगद मार्जिन जम्मा गर्नु पर्नेछ ।
-                            </span>
+                                            <span *ngIf="!offerLetterForm?.get('cashLetterOtherCheck')?.value">
+                                                प्रतितपत्र सुविधा उपयोगको आधारमा
+                                            <input type="text"
+                                                   class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                                   formControlName="letterCM">
+                                                <span class="nepaliFont font-size-normal print-only">
+                                                    <b>{{offerLetterForm?.get('letterCM').value ? offerLetterForm?.get('letterCM').value : '========='}}</b></span>
+                                                प्रतिशत नगद मार्जिन जम्मा गर्नु पर्नेछ ।
+                                            </span>
                                             <span class="disable-print float-right">
-                                <nb-checkbox (change)="otherCheck($event?.target?.checked, 'cashLetterOtherCheck')"
-                                             [checked]="offerLetterForm?.get('cashLetterOtherCheck')?.value"><i>Other</i>
-                                </nb-checkbox>
-                            </span>
+                                                <nb-checkbox (change)="otherCheck($event?.target?.checked, 'cashLetterOtherCheck')"
+                                                             [checked]="offerLetterForm?.get('cashLetterOtherCheck')?.value"><i>Other</i>
+                                                </nb-checkbox>
+                                            </span>
                                             <span *ngIf="offerLetterForm?.get('cashLetterOtherCheck')?.value">
-                                    <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
-                                              formControlName="cashLetterOther"
-                                              placeholder="प्रतितपत्र सुविधा उपयोगको आधारमा" rows="4"></textarea>
-                                <span class="nepaliFont font-size-normal print-only">
-                                    <b>{{offerLetterForm?.get('cashLetterOther')?.value ? offerLetterForm?.get('cashLetterOther')?.value : '========='}}</b></span>
-                            </span>
+                                                <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                                                          formControlName="cashLetterOther"
+                                                          placeholder="प्रतितपत्र सुविधा उपयोगको आधारमा" rows="4"></textarea>
+                                                <span class="nepaliFont font-size-normal print-only">
+                                                    <b>{{offerLetterForm?.get('cashLetterOther')?.value ? offerLetterForm?.get('cashLetterOther')?.value : '========='}}</b></span>
+                                            </span>
                                         </td>
                                     </tr>
+                                </ng-container>
+                                <ng-container *ngIf="offerLetterForm.get('guaranteeFacilityNeeded').value">
                                     <tr>
                                         <td colspan="1">
-                                    <span class="print-only">
-                                        <ul><li></li></ul>
-                                    </span>
+                                            <span class="print-only">
+                                                <ul><li></li></ul>
+                                            </span>
                                         </td>
                                         <td colspan="6">
-                            <span *ngIf="!offerLetterForm?.get('cashGuaranteeOtherCheck')?.value">
-                                ग्यारेण्टी सुविधा उपयोगको आधारमा
-                            <input type="text"
-                                   class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                   formControlName="guarnateeCM">
-                                <span class="nepaliFont font-size-normal print-only">
-                                        <b>{{offerLetterForm?.get('guarnateeCM').value ? offerLetterForm?.get('guarnateeCM').value : '========='}}</b></span>
-                                प्रतिशत नगद मार्जिन जम्मा गर्नु पर्नेछ ।
-                            </span>
+                                            <span *ngIf="!offerLetterForm?.get('cashGuaranteeOtherCheck')?.value">
+                                                ग्यारेण्टी सुविधा उपयोगको आधारमा
+                                                <input type="text"
+                                                       class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                                       formControlName="guarnateeCM">
+                                                <span class="nepaliFont font-size-normal print-only">
+                                                    <b>{{offerLetterForm?.get('guarnateeCM').value ? offerLetterForm?.get('guarnateeCM').value : '========='}}</b></span>
+                                                प्रतिशत नगद मार्जिन जम्मा गर्नु पर्नेछ ।
+                                            </span>
                                             <span class="disable-print float-right">
-                                <nb-checkbox (change)="otherCheck($event?.target?.checked, 'cashGuaranteeOtherCheck')"
-                                             [checked]="offerLetterForm?.get('cashGuaranteeOtherCheck')?.value"><i>Other</i>
-                                </nb-checkbox>
-                            </span>
+                                                <nb-checkbox (change)="otherCheck($event?.target?.checked, 'cashGuaranteeOtherCheck')"
+                                                             [checked]="offerLetterForm?.get('cashGuaranteeOtherCheck')?.value"><i>Other</i>
+                                                </nb-checkbox>
+                                            </span>
                                             <span *ngIf="offerLetterForm?.get('cashGuaranteeOtherCheck')?.value">
-                                    <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
-                                              formControlName="cashGuaranteeOther"
-                                              placeholder="ग्यारेण्टी सुविधा उपयोगको आधारमा" rows="4"></textarea>
-                                <span class="nepaliFont font-size-normal print-only">
-                                    <b>{{offerLetterForm?.get('cashGuaranteeOther')?.value ? offerLetterForm?.get('cashGuaranteeOther')?.value : '========='}}</b></span>
-                                </span>
+                                                <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
+                                                          formControlName="cashGuaranteeOther"
+                                                          placeholder="ग्यारेण्टी सुविधा उपयोगको आधारमा" rows="4"></textarea>
+                                                <span class="nepaliFont font-size-normal print-only">
+                                                    <b>{{offerLetterForm?.get('cashGuaranteeOther')?.value ? offerLetterForm?.get('cashGuaranteeOther')?.value : '========='}}</b></span>
+                                                </span>
                                         </td>
                                     </tr>
                                 </ng-container>

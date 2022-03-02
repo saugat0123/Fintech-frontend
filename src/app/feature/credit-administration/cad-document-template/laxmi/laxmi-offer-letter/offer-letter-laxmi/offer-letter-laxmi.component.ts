@@ -74,6 +74,8 @@ export class OfferLetterLaxmiComponent implements OnInit {
             this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.OFFER_LETTER);
             this.fillForm();
             this.convertProposed();
+            this.addPerGuarantee();
+            this.addCorGuarantee();
         } else {
             const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
             this.existingOfferLetter = true;
@@ -120,12 +122,12 @@ export class OfferLetterLaxmiComponent implements OnInit {
             branchName: [undefined],
             telephoneNumber: [undefined],
             faxNumber: [undefined],
-            personalName: [undefined],
-            personalAmount: [undefined],
-            personalAmountWord: [undefined],
-            corporateName: [undefined],
-            corporateAmount: [undefined],
-            corporateAmountWord: [undefined],
+            // personalName: [undefined],
+            // personalAmount: [undefined],
+            // personalAmountWord: [undefined],
+            // corporateName: [undefined],
+            // corporateAmount: [undefined],
+            // corporateAmountWord: [undefined],
             letterCM: [undefined],
             guarnateeCM: [undefined],
             accountName: [undefined],
@@ -147,8 +149,8 @@ export class OfferLetterLaxmiComponent implements OnInit {
             date2: [undefined],
             date3: [undefined],
             date4: [undefined],
-            date5: [undefined],
-            date6: [undefined],
+            // date5: [undefined],
+            // date6: [undefined],
             date7: [undefined],
             amount7: [undefined],
             date8: [undefined],
@@ -194,7 +196,6 @@ export class OfferLetterLaxmiComponent implements OnInit {
             renewSecurity: this.formBuilder.array([]),
             moreSecurity: this.formBuilder.array([]),
             crossSecurity: this.formBuilder.array([]),
-
             coGuaranteeOtherCheck: [false],
             coGuaranteeOther: [undefined],
             peGuaranteeOtherCheck: [false],
@@ -220,14 +221,17 @@ export class OfferLetterLaxmiComponent implements OnInit {
             peGuaranteeCheck: [true],
             coGuaranteeCheck: [false],
             currentAssetsNeeded: [true],
-            cashMarginNeeded: [true],
+            creditFacilityNeeded: [true],
+            guaranteeFacilityNeeded: [true],
             personalSecurityNeeded: [true],
             cashLienNeeded: [true],
             vehicleSecurityNeeded: [true],
             shareSecurityNeeded: [true],
             guaranteeNeeded: [true],
             fixedAssetsNeeded: [true],
-            branchCode: [undefined]
+            branchCode: [undefined],
+            personalGuarantee: this.formBuilder.array([]),
+            corporateGuarantee: this.formBuilder.array([]),
         });
     }
 
@@ -442,6 +446,13 @@ export class OfferLetterLaxmiComponent implements OnInit {
                     this.offerLetterForm.get(['purpose', i, 'otherAdFeeChecked']).patchValue(checked);
                 }
                 break;
+            case 'facilityNeeded':
+                if (checked) {
+                    this.offerLetterForm.get(['purpose', i, 'facilityNeeded']).patchValue(checked);
+                } else {
+                    this.offerLetterForm.get(['purpose', i, 'facilityNeeded']).patchValue(checked);
+                }
+                break;
         }
     }
 
@@ -598,6 +609,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
                 otherAdFeeChecked: [false],
                 adFeeOther: [undefined],
                 addRemark: this.formBuilder.array([]),
+                facilityNeeded: [true]
             })
         );
     }
@@ -840,13 +852,6 @@ export class OfferLetterLaxmiComponent implements OnInit {
                     this.offerLetterForm.get('currentAssetsNeeded').patchValue(false);
                 }
                 break;
-            case 'cashMarginNeeded':
-                if (event) {
-                    this.offerLetterForm.get('cashMarginNeeded').patchValue(event);
-                } else {
-                    this.offerLetterForm.get('cashMarginNeeded').patchValue(false);
-                }
-                break;
             case 'personalSecurityNeeded':
                 if (event) {
                     this.offerLetterForm.get('personalSecurityNeeded').patchValue(event);
@@ -889,6 +894,20 @@ export class OfferLetterLaxmiComponent implements OnInit {
                     this.offerLetterForm.get('fixedAssetsNeeded').patchValue(event);
                 } else {
                     this.offerLetterForm.get('fixedAssetsNeeded').patchValue(false);
+                }
+                break;
+            case 'creditFacilityNeeded':
+                if (event) {
+                    this.offerLetterForm.get('creditFacilityNeeded').patchValue(event);
+                } else {
+                    this.offerLetterForm.get('creditFacilityNeeded').patchValue(false);
+                }
+                break;
+            case 'guaranteeFacilityNeeded':
+                if (event) {
+                    this.offerLetterForm.get('guaranteeFacilityNeeded').patchValue(event);
+                } else {
+                    this.offerLetterForm.get('guaranteeFacilityNeeded').patchValue(false);
                 }
                 break;
         }
@@ -1224,5 +1243,33 @@ export class OfferLetterLaxmiComponent implements OnInit {
                 }));
             });
         }
+    }
+
+    addPerGuarantee() {
+        const pG = this.offerLetterForm.get('personalGuarantee') as FormArray;
+        pG.push(
+            this.formBuilder.group({
+                name: [undefined],
+                amount: [undefined],
+                amountInWord: [undefined],
+                date: [undefined]
+            })
+        );
+    }
+
+    removeGuarantee(index: number, guaranteeType) {
+        (<FormArray>this.offerLetterForm.get(guaranteeType)).removeAt(index);
+    }
+
+    private addCorGuarantee() {
+        const cG = this.offerLetterForm.get('corporateGuarantee') as FormArray;
+        cG.push(
+            this.formBuilder.group({
+                name: [undefined],
+                amount: [undefined],
+                amountInWord: [undefined],
+                date: [undefined]
+            })
+        );
     }
 }
