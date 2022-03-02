@@ -41,8 +41,6 @@ export class LetterVehicleThirdpartyCompanyComponent implements OnInit {
   selectiveArr = [];
   offerLetterDocument;
   educationalTemplateData;
-  nameOfAct = 'प्राईभेट फर्म रजिष्ट्रेशन';
-  actYear = '२०१४';
   nameOfAuthorizedBody = 'नेपाल सरकार';
   offerDocumentDetails: any;
   supportedInfo;
@@ -81,7 +79,6 @@ export class LetterVehicleThirdpartyCompanyComponent implements OnInit {
           JSON.parse(this.cadData.loanHolder.nepData) :
           this.cadData.loanHolder.nepData;
     }
-    console.log('this.individualData', this.individualData);
     this.patchFreeText();
     this.fillForm();
   }
@@ -107,7 +104,7 @@ export class LetterVehicleThirdpartyCompanyComponent implements OnInit {
         {
           date: this.supportedInfo ? this.supportedInfo.date : '',
           nameOfBranchLocated: this.individualData.branch ? this.individualData.branch.ct : '',
-          actName: !ObjectUtil.isEmpty(this.individualData.actName) ? this.individualData.actName.ct : this.nameOfAct,
+          actName: !ObjectUtil.isEmpty(this.individualData.actName) ? this.individualData.actName.ct : '',
           actYearInFigure: this.setActYear(),
           nameOfDepartment: !ObjectUtil.isEmpty(this.individualData.authorizedBodyName) ? this.individualData.authorizedBodyName.ct : this.nameOfAuthorizedBody,
           dateOfRegistration: this.setRegistrationDate(),
@@ -131,7 +128,7 @@ export class LetterVehicleThirdpartyCompanyComponent implements OnInit {
         yearOfAct = this.individualData.actYear ? this.individualData.actYear.en : '';
       }
     }
-    return yearOfAct ? yearOfAct : this.actYear;
+    return yearOfAct ? yearOfAct : '';
   }
 
   setRegistrationDate() {

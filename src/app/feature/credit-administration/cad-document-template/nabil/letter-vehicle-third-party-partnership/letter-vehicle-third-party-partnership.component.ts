@@ -40,8 +40,8 @@ export class LetterVehicleThirdPartyPartnershipComponent implements OnInit {
   selectiveArr = [];
   offerLetterDocument;
   educationalTemplateData;
-  nameOfAct = 'प्राईभेट फर्म रजिष्ट्रेशन';
-  actYear = '२०१४';
+  nameOfAct = 'साझेदारी';
+  actYear = '२०२०';
   nameOfAuthorizedBody = 'नेपाल सरकार';
   offerDocumentDetails: any;
   supportedInfo;
