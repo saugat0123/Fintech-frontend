@@ -470,19 +470,14 @@ export class PersonalGuaranteeProprietorshipComponent implements OnInit {
             issuedDate = templateDateSanctionDate ? templateDateSanctionDate.nDate : '';
         }
     }
-    if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.offerDocumentDetails.smeGlobalForm) {
-        const dateOfApprovalType = this.offerDocumentDetails.smeGlobalForm.dateOfApprovalType ?
-            this.offerDocumentDetails.smeGlobalForm.dateOfApprovalType : '';
-        if (dateOfApprovalType === 'AD') {
-            const templateDateApproval = this.offerDocumentDetails.smeGlobalForm.dateOfApproval ?
-                this.offerDocumentDetails.smeGlobalForm.dateOfApprovalCT : '';
-            issuedDate = this.englishNepaliDatePipe.transform(this.datePipe.transform(templateDateApproval), true);
-        } else {
-            const templateDateApproval = this.offerDocumentDetails.smeGlobalForm.dateOfApprovalNepali ?
-                this.offerDocumentDetails.smeGlobalForm.dateOfApprovalNepali : '';
-            issuedDate = templateDateApproval ? templateDateApproval.nDate : '';
-        }
-    }
+      if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.offerDocumentDetails.smeGlobalForm) {
+          if (!ObjectUtil.isEmpty(this.offerDocumentDetails.smeGlobalForm.dateOfApprovalType) && this.offerDocumentDetails.smeGlobalForm.dateOfApprovalType === 'AD') {
+              issuedDate = this.offerDocumentDetails.smeGlobalForm.dateOfApprovalCT ? this.offerDocumentDetails.smeGlobalForm.dateOfApprovalCT : '';
+          } else {
+              issuedDate = this.offerDocumentDetails.smeGlobalForm.dateOfApprovalNepali ?
+                  this.offerDocumentDetails.smeGlobalForm.dateOfApprovalNepali.nDate : '';
+          }
+      }
     return issuedDate ? issuedDate : '';
   }
 

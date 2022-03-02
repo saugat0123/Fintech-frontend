@@ -351,11 +351,8 @@ export class AssignmentOfReceivableCompanyComponent implements OnInit {
                 }
             }
             if (this.cadData.offerDocumentList[0].docName === 'Combined Offer Letter') {
-                const dateOfApproval = this.initialInfo.smeGlobalForm.dateOfApprovalType ?
-                    this.initialInfo.smeGlobalForm.dateOfApprovalType : '';
-                if (dateOfApproval === 'AD') {
-                    this.sanctionDate = this.engToNepaliDate.transform(this.initialInfo.smeGlobalForm.dateOfApproval ?
-                        this.initialInfo.smeGlobalForm.dateOfApprovalCT : '', true);
+                if (!ObjectUtil.isEmpty(this.initialInfo.smeGlobalForm.dateOfApprovalType) && this.initialInfo.smeGlobalForm.dateOfApprovalType === 'AD') {
+                    this.sanctionDate = this.initialInfo.smeGlobalForm.dateOfApprovalCT ? this.initialInfo.smeGlobalForm.dateOfApprovalCT : '';
                 } else {
                     this.sanctionDate = this.initialInfo.smeGlobalForm.dateOfApprovalNepali ?
                         this.initialInfo.smeGlobalForm.dateOfApprovalNepali.nDate : '';
