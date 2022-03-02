@@ -263,8 +263,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             temporaryMunicipalities: [undefined],
             temporaryWard: [undefined],
             temporaryMunType: [1],
-            temporaryVdc: [undefined],
-            temporaryVdcWard: [undefined],
             customerEmail: [undefined],
             contactNumber: [undefined],
             guarantorDetails: this.formBuilder.array([]),
@@ -429,8 +427,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             guarantorTemporaryDistrict: [undefined],
             guarantorTemporaryMunicipality: [undefined],
             guarantorTemporaryWard: [undefined],
-            guarantorTemporaryVdc: [undefined],
-            guarantorTemporaryVdcWard: [undefined]
         });
     }
 
@@ -464,8 +460,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             collateralType: '',
             collateralPermanentVdc: '',
             collateralPermanentVdcWard: '',
-            collateralTemporaryVdc: '',
-            collateralTemporaryVdcWard: '',
             dhitoBibaran: '',
             regNo: ''
         });
@@ -527,8 +521,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 guarantorTemporaryDistrict: [value.guarantorTemporaryDistrict],
                 guarantorTemporaryMunicipality: [value.guarantorTemporaryMunicipality],
                 guarantorTemporaryWard: [value.guarantorTemporaryWard],
-                guarantorTemporaryVdc : [value.guarantorTemporaryVdc],
-                guarantorTemporaryVdcWard: [value.guarantorTemporaryVdcWard]
             }));
             this.getGuarantorDistricts(value.guarantorPermanentProvince, i);
             this.getGuarantorMunicipalities(value.guarantorPermanentDistrict, i);
@@ -639,8 +631,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 collateralType: [value.collateralType],
                 collateralPermanentVdc: [value.collateralPermanentVdc],
                 collateralPermanentVdcWard: [value.collateralPermanentVdcWard],
-                collateralTemporaryVdc: [value.collateralTemporaryVdc],
-                collateralTemporaryVdcWard: [value.collateralTemporaryVdcWard],
                 dhitoBibaran: [value.dhitoBibaran],
                 regNo: [value.regNo]
 

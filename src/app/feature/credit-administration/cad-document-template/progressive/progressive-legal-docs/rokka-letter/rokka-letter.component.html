@@ -3,14 +3,14 @@
         <form (ngSubmit)="onSubmit()" [formGroup]="form" id="rokkaLetter" class="viewFull">
             <div class="row d-flex justify-content-around" style="margin-top: 50px">
                 <div class="col-md-12">
-                    <p class="text-center">
+                    <p style="margin-left: 3in">
                         शाखा कार्यालय <input class="form-control-sm form-field nepaliFont unicode-size16"
                                              type="text"
                                              formControlName="branchName">,
                         <input class="form-control-sm form-field nepaliFont unicode-size16"
                                type="text"
                                formControlName="branchDistrict">,<br>
-                        फोन नं.:<input class="form-control-sm form-field nepaliFont"
+                        फोन नं.:<input class="form-control-sm form-field nepaliFont unicode-size16"
                                type="text"
                                formControlName="branchPhoneNo">
 
@@ -23,8 +23,6 @@
                                    type="text"
                                    formControlName="date">
                         </p>
-                </div>
-                <div class="col-md-12">
                     <p>
                         <strong>प.सं.</strong>
                         <input class="form-control-sm form-field nepaliFont"
