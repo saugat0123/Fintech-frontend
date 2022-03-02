@@ -263,7 +263,12 @@ export class CrossGuaranteeCompanyComponent implements OnInit {
       }
     }
     if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Udyamsil Karja Subsidy') {
-      issuedDate = this.offerDocumentDetails.dateOfApproval ? this.offerDocumentDetails.dateOfApproval.ct : '';
+      const dateOfApprovalType = this.offerDocumentDetails.dateOfApprovalType ? this.offerDocumentDetails.dateOfApprovalType.en : '';
+      if (dateOfApprovalType === 'AD') {
+        issuedDate = this.offerDocumentDetails.dateOfApproval ? this.offerDocumentDetails.dateOfApproval.ct : '';
+      } else {
+        issuedDate = this.offerDocumentDetails.dateOfApprovalNepali ? this.offerDocumentDetails.dateOfApprovalNepali.ct : '';
+      }
     }
     if (!ObjectUtil.isEmpty(this.offerDocumentDetails) &&
         this.cadData.offerDocumentList[0].docName === 'Interest subsidy sanction letter') {
@@ -291,16 +296,11 @@ export class CrossGuaranteeCompanyComponent implements OnInit {
       }
     }
     if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.offerDocumentDetails.smeGlobalForm) {
-      const dateOfApprovalType = this.offerDocumentDetails.smeGlobalForm.dateOfApprovalType ?
-          this.offerDocumentDetails.smeGlobalForm.dateOfApprovalType : '';
-      if (dateOfApprovalType === 'AD') {
-        const templateDateApproval = this.offerDocumentDetails.smeGlobalForm.dateOfApproval ?
-            this.offerDocumentDetails.smeGlobalForm.dateOfApprovalCT : '';
-        issuedDate = this.englishNepaliDatePipe.transform(this.datePipe.transform(templateDateApproval), true);
+      if (!ObjectUtil.isEmpty(this.offerDocumentDetails.smeGlobalForm.dateOfApprovalType) && this.offerDocumentDetails.smeGlobalForm.dateOfApprovalType === 'AD') {
+        issuedDate = this.offerDocumentDetails.smeGlobalForm.dateOfApprovalCT ? this.offerDocumentDetails.smeGlobalForm.dateOfApprovalCT : '';
       } else {
-        const templateDateApproval = this.offerDocumentDetails.smeGlobalForm.dateOfApprovalNepali ?
-            this.offerDocumentDetails.smeGlobalForm.dateOfApprovalNepali : '';
-        issuedDate = templateDateApproval ? templateDateApproval.nDate : '';
+        issuedDate = this.offerDocumentDetails.smeGlobalForm.dateOfApprovalNepali ?
+            this.offerDocumentDetails.smeGlobalForm.dateOfApprovalNepali.nDate : '';
       }
     }
     return issuedDate ? issuedDate : '';
