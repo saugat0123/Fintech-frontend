@@ -180,12 +180,6 @@
                                             id="permanentVdcWard"
                                             name="permanentVdcWard" placeholder="वडा नं="
                                             type="text">
-                                    <div *ngIf="(submitted) && basicInfoControls.permanentVdcWard.invalid"
-                                         class="invalid-feedback">
-                                        <div *ngIf="basicInfoControls.permanentVdcWard.errors.required">
-                                            Ward Number is required
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -286,47 +280,6 @@
                                     <div *ngIf="(submitted) && basicInfoControls.temporaryWard.invalid"
                                          class="invalid-feedback">
                                         <div *ngIf="basicInfoControls.temporaryWard.errors.required">
-                                            Ward Number is required
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row" >
-                            <div class="col">
-                                <div class="form-group">
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-group">
-                                    <label>नागरिकता वमोजिम:</label>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-group">
-                                    <label class="title"
-                                           for="temporaryVdc">
-                                        नगरपालिका/गा. बि. स.</label>
-                                    <input class="form-control rounded nepaliFont"
-                                           formControlName="temporaryVdc"
-                                           [ngClass]="{'is-invalid': submitted && basicInfoControls.temporaryVdc.errors}"
-                                           id="temporaryVdc"
-                                           name="temporaryVdc" placeholder="गा= बि= स="
-                                           type="text"/>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="form-group">
-                                    <label class="title" for="temporaryVdcWard">वडा नं.</label>
-                                    <input
-                                            [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.temporaryVdcWard.errors }"
-                                            class="form-control rounded nepaliFont" formControlName="temporaryVdcWard"
-                                            id="temporaryVdcWard"
-                                            name="temporaryVdcWard" placeholder="वडा नं="
-                                            type="text">
-                                    <div *ngIf="(submitted) && basicInfoControls.temporaryVdcWard.invalid"
-                                         class="invalid-feedback">
-                                        <div *ngIf="basicInfoControls.temporaryVdcWard.errors.required">
                                             Ward Number is required
                                         </div>
                                     </div>
@@ -1042,12 +995,6 @@
                                                 id="guarantorPermanentVdcWard"
                                                 name="guarantorPermanentVdcWard" placeholder="वडा नं="
                                                 type="text">
-                                        <div *ngIf="(submitted) && basicInfoControls.guarantorPermanentVdcWard.invalid"
-                                             class="invalid-feedback">
-                                            <div *ngIf="basicInfoControls.guarantorPermanentVdcWard.errors.required">
-                                                Ward Number is required
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -1118,46 +1065,6 @@
                                                id="guarantorTemporaryWard"
                                                name="guarantorTemporaryWard" placeholder="वडा नं="
                                                type="text"/>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row" >
-                                <div class="col">
-                                    <div class="form-group">
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label>नागरिकता वमोजिम:</label>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label class="title"
-                                               for="guarantorTemporaryVdc">
-                                            नगरपालिका/गा. बि. स.</label>
-                                        <input class="form-control rounded nepaliFont"
-                                               formControlName="guarantorTemporaryVdc"
-                                               id="guarantorTemporaryVdc"
-                                               name="guarantorTemporaryVdc" placeholder="गा= बि= स="
-                                               type="text"/>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label class="title" for="guarantorTemporaryVdcWard">वडा नं.</label>
-                                        <input
-                                                [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.guarantorTemporaryVdcWard.errors }"
-                                                class="form-control rounded nepaliFont" formControlName="guarantorTemporaryVdcWard"
-                                                id="guarantorTemporaryVdcWard"
-                                                name="guarantorTemporaryVdcWard" placeholder="वडा नं="
-                                                type="text">
-                                        <div *ngIf="(submitted) && basicInfoControls.guarantorTemporaryVdcWard.invalid"
-                                             class="invalid-feedback">
-                                            <div *ngIf="basicInfoControls.guarantorTemporaryVdcWard.errors.required">
-                                                Ward Number is required
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -1427,7 +1334,6 @@
                                             नगरपालिका/गा. बि. स.</label>
                                         <input class="form-control rounded nepaliFont"
                                                formControlName="collateralPermanentVdc"
-                                               [ngClass]="{'is-invalid': submitted && basicInfoControls.collateralPermanentVdc.errors}"
                                                id="collateralPermanentVdc"
                                                name="collateralPermanentVdc" placeholder="गा= बि= स="
                                                type="text"/>
@@ -1437,7 +1343,6 @@
                                     <div class="form-group">
                                         <label class="title" for="collateralPermanentVdcWard">वडा नं.</label>
                                         <input
-                                                [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.collateralPermanentVdcWard.errors }"
                                                 class="form-control rounded nepaliFont" formControlName="collateralPermanentVdcWard"
                                                 id="collateralPermanentVdcWard"
                                                 name="collateralPermanentVdcWard" placeholder="वडा नं="
@@ -1517,47 +1422,6 @@
                                            name="collateralTemporaryWardNo"
                                            placeholder="संपार्श्विक मालिकको अस्थायी वडा नं="
                                            type="text"/>
-                                </div>
-                            </div>
-                            <div class="row" >
-                                <div class="col">
-                                    <div class="form-group">
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label>नागरिकता वमोजिम:</label>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label class="title"
-                                               for="collateralTemporaryVdc">
-                                            नगरपालिका/गा. बि. स.</label>
-                                        <input class="form-control rounded nepaliFont"
-                                               formControlName="collateralTemporaryVdc"
-                                               [ngClass]="{'is-invalid': submitted && basicInfoControls.collateralTemporaryVdc.errors}"
-                                               id="collateralTemporaryVdc"
-                                               name="collateralTemporaryVdc" placeholder="गा= बि= स="
-                                               type="text"/>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label class="title" for="collateralTemporaryVdcWard">वडा नं.</label>
-                                        <input
-                                                [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.collateralTemporaryVdcWard.errors }"
-                                                class="form-control rounded nepaliFont" formControlName="collateralTemporaryVdcWard"
-                                                id="collateralTemporaryVdcWard"
-                                                name="collateralTemporaryVdcWard" placeholder="वडा नं="
-                                                type="text">
-                                        <div *ngIf="(submitted) && basicInfoControls.collateralTemporaryVdcWard.invalid"
-                                             class="invalid-feedback">
-                                            <div *ngIf="basicInfoControls.collateralTemporaryVdcWard.errors.required">
-                                                Ward Number is required
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                             <hr>
@@ -1903,7 +1767,6 @@
                                             नगरपालिका/गा. बि. स.</label>
                                         <input class="form-control rounded nepaliFont"
                                                formControlName="collateralOwnerPermanentVdc"
-                                               [ngClass]="{'is-invalid': submitted && basicInfoControls.collateralOwnerPermanentVdc.errors}"
                                                id="collateralOwnerPermanentVdc"
                                                name="collateralOwnerPermanentVdc" placeholder="गा= बि= स="
                                                type="text"/>
@@ -1913,17 +1776,10 @@
                                     <div class="form-group">
                                         <label class="title" for="collateralOwnerPermanentVdcWard">वडा नं.</label>
                                         <input
-                                                [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.collateralOwnerPermanentVdcWard.errors }"
                                                 class="form-control rounded nepaliFont" formControlName="collateralOwnerPermanentVdcWard"
                                                 id="collateralOwnerPermanentVdcWard"
                                                 name="collateralOwnerPermanentVdcWard" placeholder="वडा नं="
                                                 type="text">
-                                        <div *ngIf="(submitted) && basicInfoControls.collateralOwnerPermanentVdcWard.invalid"
-                                             class="invalid-feedback">
-                                            <div *ngIf="basicInfoControls.collateralOwnerPermanentVdcWard.errors.required">
-                                                Ward Number is required
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -2161,6 +2017,7 @@
                                 शाखा टेलिफोन नम्बर</label>
                             <input type="text"
                                    [ngClass]="{'is-invalid': submitted && basicInfoControls.branchTelNo.errors}"
+                                   readonly
                                    placeholder="शाखा टेलिफोन नम्बर"
                                    class="form-control form-control-sm nepaliFont"
                                    id="branchTelNo"
@@ -2181,6 +2038,7 @@
                                 शाखा इमेल</label>
                             <input [ngClass]="{'is-invalid': submitted && basicInfoControls.branchEmail.errors}"
                                    type="text"
+                                   readonly
                                    placeholder="शाखा इमेल"
                                    class="form-control form-control-sm"
                                    readonly

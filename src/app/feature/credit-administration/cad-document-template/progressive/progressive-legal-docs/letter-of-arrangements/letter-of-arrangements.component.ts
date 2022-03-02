@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {CustomerOfferLetter} from '../../../../../loan/model/customer-offer-letter';
 import {OfferDocument} from '../../../../model/OfferDocument';
@@ -19,7 +19,8 @@ import {Document} from '../../../../../admin/modal/document';
 @Component({
   selector: 'app-letter-of-arrangements',
   templateUrl: './letter-of-arrangements.component.html',
-  styleUrls: ['./letter-of-arrangements.component.scss']
+  styleUrls: ['./letter-of-arrangements.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class LetterOfArrangementsComponent implements OnInit {
   @Input() cadData: CustomerApprovedLoanCadDocumentation;

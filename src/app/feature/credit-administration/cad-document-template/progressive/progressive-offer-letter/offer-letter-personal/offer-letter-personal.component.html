@@ -39,11 +39,19 @@
                                 <input class="form-control-sm form-field nepaliFont"
                                        type="text"
                                        readonly
-                                       [value]="form.get('customerWardNum').value">
+                                       [value]="form.get('customerWardNum').value">,
                                 <input class="form-control-sm form-field nepaliFont uniFont"
                                        readonly
                                        type="text"
-                                       [value]="form.get('customerDistrict').value">
+                                       [value]="form.get('customerDistrict').value"> (साबिक
+                                <input class="form-control-sm form-field nepaliFont"
+                                       readonly
+                                       type="text"
+                                       formControlName="permanentVdc"> न.पा./गा. बि. स., वडा नं.
+                                <input class="form-control-sm form-field nepaliFont"
+                                       readonly
+                                       type="text"
+                                       formControlName="permanentVdcWard">)
 
                             </p>
                             <p>
@@ -119,7 +127,10 @@
                                         </thead>
                                         <tbody>
                                         <tr>
-                                            <td rowspan="10">({{i + 1 | nepaliWord}})</td>
+                                            <td rowspan="10" *ngIf="form.get('loanFacilityTable')['controls'].length<=1 else index"></td>
+                                            <ng-template #index>
+                                                <td rowspan="10">({{i + 1 | nepaliWord}})</td>
+                                            </ng-template>
                                             <td style="width: 18%"><strong>कर्जा सुविधाको किसिम :</strong></td>
                                             <td>
                                                 <input *ngIf="i > 0; else firstIndexLoanType"
@@ -418,7 +429,7 @@
                                 </tr>
                                 <tr>
                                     <td><strong>धितो राखिने जायजेथाको बिबरण</strong>
-                                        <table class="table table-bordered table-striped">
+                                        <table class="table-bordered table-striped">
                                             <thead>
                                             <tr>
                                                 <th>जग्गा धनिको नाम र तीन पूस्ते</th>
@@ -550,8 +561,9 @@
                                         नाममा धितो वन्धकीको लिखत
                                         लेखी सम्वन्धित मालपोत कार्यालयमा गई रु.
                                         <input
-                                                class="form-control-sm form-field nepaliFont"
+                                                class="form-control-sm form-field nepaliFont uniFont"
                                                 type="text"
+                                                value="{{form.get('amount3').value}}"
                                                 formControlName="dhitoLekhi">
 
                                         मा दृ.ब पारित गरि यस फाइनान्सको नाममा रोक्का समेत गर्नु पर्ने छ ।
@@ -566,8 +578,9 @@
                                                formControlName="guarantorName">
                                         को रु.
                                         <input
-                                                class="form-control-sm form-field nepaliFont"
+                                                class="form-control-sm form-field nepaliFont uniFont"
                                                 type="text"
+                                                value="{{form.get('amount3').value}}"
                                                 (input)="getNumAmountWord('amount2','amountInWords2')"
                                                 formControlName="amount2">
                                         /–
@@ -575,6 +588,7 @@
                                         <input class="form-control-lg form-field nepaliFont uniFont"
                                                readonly
                                                type="text"
+                                               value="{{form.get('amountInWords3').value}}"
                                                formControlName="amountInWords2">
                                         मात्र ) को व्यक्तिगत जमानीको लिखत ।
                                     </td>
@@ -845,6 +859,25 @@
                                         छ ।
                                     </td>
                                 </tr>
+                                <tr *ngFor="let sartBandej of form.get('sartBandej')['controls']; index as i"
+                                    formArrayName="sartBandej">
+                                    <td [formGroupName]="i"><input class="form-control-lg form-field nepaliFont"
+                                               type="text"
+                                               formControlName="sNo"></td>
+                                    <td [formGroupName]="i"><textarea class="form-control nepaliFont" rows="4" name="sartBandej" formControlName="sartBandej"
+                                              style="width: 100%;display: block;margin-right: auto;margin-left: 0; color: black;">
+                                    </textarea>
+                                        <button
+                                                (click)="removeSartBandej(i)"
+                                                class="mt-3 mb-3 float-right" nbButton
+                                                size="small"
+                                                status="primary"> हटाउनुहोस्
+                                        </button></td>
+                                </tr>
+                                <button (click)="addSartBandej()" nbButton size="small" status="info" class="float-right"
+                                        type="Button">
+                                    अन्य शर्त वन्देजहरु थप्नुहोस्
+                                </button>
                                 <tr>
                                     <td><strong>८.</strong></td>
                                     <td><strong><u>किस्ता/कर्जा खिलाफीको अवस्था:</u></strong><br>
@@ -1487,7 +1520,15 @@
                                                        type="text"
                                                        readonly
                                                        formControlName="guarantorWardNo"
-                                                       size="2">
+                                                       size="2"> (साबिक
+                                                <input class="form-control-sm form-field nepaliFont"
+                                                       readonly
+                                                       type="text"
+                                                       formControlName="guarantorPermanentVdc"> न.पा./गा. बि. स.,  वडा नं.
+                                                <input class="form-control-sm form-field nepaliFont"
+                                                       readonly
+                                                       type="text"
+                                                       formControlName="guarantorPermanentVdcWard">)
                                             </p>
                                         </li>
                                         <li>
