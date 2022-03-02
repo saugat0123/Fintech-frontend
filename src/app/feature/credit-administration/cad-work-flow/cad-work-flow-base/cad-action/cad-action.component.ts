@@ -314,6 +314,12 @@ export class CadActionComponent implements OnInit, OnChanges {
                 }
             });
         }
+        if (this.cadOfferLetterApprovedDoc.legalPending && this.currentStatus === 'OFFER_APPROVED') {
+            this.userList = [];
+            this.formAction.patchValue({
+                toRole: null
+            })
+        }
     }
 
     approvedForwardBackward(template, val, returnToMaker) {
@@ -351,7 +357,13 @@ export class CadActionComponent implements OnInit, OnChanges {
                             this.sendForwardBackwardList = this.sendForwardBackwardList.filter(f => f.role.roleType === RoleType.APPROVAL);
                         } else {
                             if (this.isMaker && this.currentStatus === 'OFFER_APPROVED') {
-                                this.sendForwardBackwardList = this.sendForwardBackwardList.filter(f => f.role.roleType === RoleType.CAD_LEGAL);
+                                if(this.cadOfferLetterApprovedDoc.legalPending) {
+                                    this.sendForwardBackwardList = this.sendForwardBackwardList.filter(f => f.role.roleType === RoleType.CRC);
+
+                                } else {
+                                    this.sendForwardBackwardList = this.sendForwardBackwardList.filter(f => f.role.roleType === RoleType.CAD_LEGAL);
+
+                                }
                             } else {
                                 if (this.isMaker && this.currentStatus === 'LEGAL_APPROVED') {
                                     this.sendForwardBackwardList = this.sendForwardBackwardList.filter(f => f.role.roleType === RoleType.CRC);
@@ -457,31 +469,60 @@ export class CadActionComponent implements OnInit, OnChanges {
     }
 
     public backwardDocStatus() {
-        if (this.currentStatus === 'OFFER_APPROVED') {
-            return 'OFFER_PENDING';
-        } else if (this.currentStatus === 'LEGAL_PENDING') {
-            return 'OFFER_APPROVED';
-        } else if (this.currentStatus === 'LEGAL_APPROVED') {
-            if (this.toRole.roleType === RoleType.APPROVAL) {
+        switch (this.currentStatus) {
+            case 'OFFER_APPROVED':
                 return 'OFFER_PENDING';
-            }
-            return 'LEGAL_PENDING';
-        } else if (this.currentStatus === 'LIMIT_PENDING' && this.currentUserRole === this.roleType.CRC) {
-            if (this.returnToRm) {
-                return 'LEGAL_APPROVED';
-            } else {
-                return 'LEGAL_PENDING';
-            }
-        } else if (this.currentStatus === 'DISBURSEMENT_PENDING' && this.currentUserRole === this.roleType.COPS) {
-            if (this.returnToRm) {
-                return 'LIMIT_APPROVED';
-            } else {
-                return 'LIMIT_PENDING';
-            }
-        } else {
-            return this.currentStatus;
-        }
+                break;
+            case 'LEGAL_PENDING':
+                return 'OFFER_APPROVED';
+                break;
+            case 'LEGAL_APPROVED':
+                if (this.toRole.roleType === RoleType.APPROVAL) {
+                    return 'OFFER_PENDING';
+                } else {
+                    return 'LEGAL_PENDING';
+                }
+                break;
+            case 'LIMIT_PENDING':
+                if (this.currentUserRole === this.roleType.CRC) {
+                    if (this.cadOfferLetterApprovedDoc.legalPending) {
+                        if(!ObjectUtil.isEmpty(this.toRole)) {
+                            if (this.toRole.roleType === RoleType.MAKER || this.returnToRm) {
+                                return 'OFFER_APPROVED';
+                            } else {
+                                return 'OFFER_PENDING';
+                            }
+                        } else {
+                            this.toRole = this.currentCADStage.fromRole;
+                            this.toUser = this.currentCADStage.fromUser;
+                            if (this.toRole.roleType === RoleType.MAKER || this.returnToRm) {
+                                return 'OFFER_APPROVED';
+                            } else {
+                                return 'OFFER_PENDING';
+                            }
+                        }
+                    } else {
+                        if (this.returnToRm) {
+                            return 'LEGAL_APPROVED';
+                        } else {
+                            return 'LEGAL_PENDING';
+                        }
+                    }
+                }
+                break;
+            case 'DISBURSEMENT_PENDING':
+                if (this.currentUserRole === this.roleType.COPS) {
+                    if (this.returnToRm) {
+                        return 'LIMIT_APPROVED';
+                    } else {
+                        return 'LIMIT_PENDING';
+                    }
+                }
+                break;
+            default:
+                return this.currentStatus;
 
+        }
     }
 
 
