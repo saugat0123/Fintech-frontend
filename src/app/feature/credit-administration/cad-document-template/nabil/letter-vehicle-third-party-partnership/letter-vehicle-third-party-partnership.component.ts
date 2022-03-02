@@ -62,7 +62,6 @@ export class LetterVehicleThirdPartyPartnershipComponent implements OnInit {
     this.buildForm();
     if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
       this.offerDocumentDetails = JSON.parse(this.cadData.offerDocumentList[0].initialInformation);
-      console.log(' this.offerDocumentDetails',  this.offerDocumentDetails);
     }
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.individualData = JSON.parse(this.cadData.loanHolder.nepData);
