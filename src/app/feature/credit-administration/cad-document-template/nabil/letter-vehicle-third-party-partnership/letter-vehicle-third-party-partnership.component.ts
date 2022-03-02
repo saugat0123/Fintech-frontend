@@ -62,6 +62,7 @@ export class LetterVehicleThirdPartyPartnershipComponent implements OnInit {
     this.buildForm();
     if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList)) {
       this.offerDocumentDetails = JSON.parse(this.cadData.offerDocumentList[0].initialInformation);
+      console.log(' this.offerDocumentDetails',  this.offerDocumentDetails);
     }
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.individualData = JSON.parse(this.cadData.loanHolder.nepData);
@@ -183,16 +184,11 @@ export class LetterVehicleThirdPartyPartnershipComponent implements OnInit {
       }
     }
     if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.offerDocumentDetails.smeGlobalForm) {
-      const dateOfApprovalType = this.offerDocumentDetails.smeGlobalForm.dateOfApprovalType ?
-          this.offerDocumentDetails.smeGlobalForm.dateOfApprovalType : '';
-      if (dateOfApprovalType === 'AD') {
-        const templateDateApproval = this.offerDocumentDetails.smeGlobalForm.dateOfApproval ?
-            this.offerDocumentDetails.smeGlobalForm.dateOfApprovalCT : '';
-        issuedDate = this.englishNepaliDatePipe.transform(this.datePipe.transform(templateDateApproval), true);
+      if (!ObjectUtil.isEmpty(this.offerDocumentDetails.smeGlobalForm.dateOfApprovalType) && this.offerDocumentDetails.smeGlobalForm.dateOfApprovalType === 'AD') {
+        issuedDate = this.offerDocumentDetails.smeGlobalForm.dateOfApprovalCT ? this.offerDocumentDetails.smeGlobalForm.dateOfApprovalCT : '';
       } else {
-        const templateDateApproval = this.offerDocumentDetails.smeGlobalForm.dateOfApprovalNepali ?
-            this.offerDocumentDetails.smeGlobalForm.dateOfApprovalNepali : '';
-        issuedDate = templateDateApproval ? templateDateApproval.nDate : '';
+        issuedDate = this.offerDocumentDetails.smeGlobalForm.dateOfApprovalNepali ?
+            this.offerDocumentDetails.smeGlobalForm.dateOfApprovalNepali.nDate : '';
       }
     }
     return issuedDate ? issuedDate : '';
