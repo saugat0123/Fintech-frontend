@@ -296,12 +296,15 @@ export class SmeGlobalContentComponent implements OnInit {
     }
 
     // set date field value
+    let tempApprovalDate;
     const dateOfApprovalType = this.globalForm.get('dateOfApprovalType').value;
     if (dateOfApprovalType === 'AD') {
       const dateOfApproval = this.datePipe.transform(this.globalForm.get('dateOfApproval').value);
+      tempApprovalDate = !ObjectUtil.isEmpty(dateOfApproval) ? this.datePipe.transform(dateOfApproval) : '';
+      const finalExpDate = this.transformEnglishDate(tempApprovalDate);
       if (!ObjectUtil.isEmpty(dateOfApproval)) {
-        this.globalForm.get('dateOfApprovalTrans').patchValue(dateOfApproval);
-        this.globalForm.get('dateOfApprovalCT').patchValue(dateOfApproval);
+        this.globalForm.get('dateOfApprovalTrans').patchValue(finalExpDate);
+        this.globalForm.get('dateOfApprovalCT').patchValue(finalExpDate);
       }
     } else if (dateOfApprovalType === 'BS') {
       const dateOfApproval = this.globalForm.get('dateOfApprovalNepali').value.nDate;
@@ -358,13 +361,15 @@ export class SmeGlobalContentComponent implements OnInit {
         this.globalForm.get('loanApplicationDateCT').patchValue(loanApplicationDate);
       }
     }
-
+    let tempPreviousSanctionDate;
     const previousSanctionType = this.globalForm.get('previousSanctionType').value;
     if (previousSanctionType === 'AD') {
       const previousSanctionDate = this.datePipe.transform(this.globalForm.get('sanctionLetterDate').value);
+      tempPreviousSanctionDate = !ObjectUtil.isEmpty(previousSanctionDate) ? this.datePipe.transform(previousSanctionDate) : '';
+      const finalExpDate = this.transformEnglishDate(tempPreviousSanctionDate);
       if (!ObjectUtil.isEmpty(previousSanctionDate)) {
-        this.globalForm.get('sanctionLetterDateTrans').patchValue(previousSanctionDate);
-        this.globalForm.get('sanctionLetterDateCT').patchValue(previousSanctionDate);
+        this.globalForm.get('sanctionLetterDateTrans').patchValue(finalExpDate);
+        this.globalForm.get('sanctionLetterDateCT').patchValue(finalExpDate);
       }
     } else if (previousSanctionType === 'BS') {
       const previousSanctionDate = this.globalForm.get('sanctionLetterDateNepali').value.nDate;

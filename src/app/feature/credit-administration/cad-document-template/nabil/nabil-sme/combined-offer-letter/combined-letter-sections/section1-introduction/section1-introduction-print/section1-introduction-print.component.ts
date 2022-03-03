@@ -1,6 +1,4 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {EngNepDatePipe} from "nepali-patro";
-import {DatePipe} from "@angular/common";
 import {ObjectUtil} from '../../../../../../../../../@core/utils/ObjectUtil';
 
 @Component({
@@ -16,8 +14,7 @@ export class Section1IntroductionPrintComponent implements OnInit {
   tempSanctionDate;
   loanOption: any;
 
-  constructor(private engToNepaliDate: EngNepDatePipe,
-              private datePipe: DatePipe) { }
+  constructor() { }
 
   ngOnInit() {
     if (this.letterData.smeGlobalForm.loanApplicationDataType === 'AD') {
@@ -26,7 +23,7 @@ export class Section1IntroductionPrintComponent implements OnInit {
       this.tempApplicationDate = this.letterData.smeGlobalForm.loanApplicationDateCT;
     }
     if (this.letterData.smeGlobalForm.previousSanctionType === 'AD') {
-      this.tempSanctionDate = this.engToNepaliDate.transform(this.datePipe.transform(this.letterData.smeGlobalForm.sanctionLetterDate), true);
+      this.tempSanctionDate = this.letterData.smeGlobalForm ? this.letterData.smeGlobalForm.sanctionLetterDateCT : '';
     } else {
       this.tempSanctionDate = this.letterData.smeGlobalForm.sanctionLetterDateCT;
     }
