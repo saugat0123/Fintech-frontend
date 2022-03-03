@@ -3401,7 +3401,39 @@
                   />
                 </td>
               </tr>
+              <tr *ngIf="userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value === 'Corporate Guarantor' ||
+              userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value === 'Cross Guarantor'
+                && configForm?.clientType?.value == clientType.INSTITUTION">
+                <td>DOB</td>
+                <td>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <select required="true" class="form-control"
+                              #DobDateVal
+                              formControlName="authorizedDobDateType">
+                        <option value="null" hidden>AD/BS</option>
+                        <option value="AD">AD</option>
+                        <option value="BS">BS</option>
+                      </select>
 
+                    </div>
+                    <div class="col-md-8">
+                      <nepali-patro *ngIf="DobDateVal.value ==='BS'"
+                                    formControlName="authorizedDobNepali" [responseType]="2"
+                                    [displayNepali]="true">
+                      </nepali-patro>
+                      <input [nbDatepicker]="DobDate"
+                             *ngIf="DobDateVal.value ==='AD'"
+                             class="form-control form-control-sm-error rounded"
+                             formControlName="authorizedDob"
+                             name="authorizedDob"
+                             placeholder="Date of Birth"
+                             type="text">
+                      <nb-datepicker #DobDate></nb-datepicker>
+                    </div>
+                  </div>
+                </td>
+              </tr>
 <!--              <tr>-->
 <!--                <td></td>-->
 <!--                <td>-->
@@ -3459,7 +3491,9 @@
                 /></td>
               </tr>
               <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL ||
-              userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value === 'Personal Guarantor'">
+              userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value === 'Personal Guarantor' ||
+              userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value === 'Cross Guarantor' ||
+              userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value === 'Corporate Guarantor'">
                 <td><label class="title">Gender</label></td>
                 <td><select class="form-control" formControlName="gender">
                   <option value="null" hidden>Select Gender</option>
@@ -3478,7 +3512,9 @@
                 </td>
               </tr>
               <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL ||
-              userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value === 'Personal Guarantor'">
+              userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value === 'Personal Guarantor' ||
+              userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value === 'Cross Guarantor' ||
+              userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value === 'Corporate Guarantor'">
                 <td><label class="title">Marital Status</label></td>
                 <td><select class="form-control" formControlName="guarantorMaritalStatus">
                   <option value="null" hidden>Select Marital Status</option>
