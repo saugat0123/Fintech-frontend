@@ -642,4 +642,8 @@ export class CatalogueComponent implements OnInit {
             });
         });
     }
+
+    onRaiseMemo() {
+
+    }
 }

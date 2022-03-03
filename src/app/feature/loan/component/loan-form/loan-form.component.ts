@@ -42,18 +42,24 @@ import {Customer} from '../../../admin/modal/customer';
 import {CalendarType} from '../../../../@core/model/calendar-type';
 import {ReportingInfoTaggingComponent} from '../../../reporting/component/reporting-info-tagging/reporting-info-tagging.component';
 import {InsuranceComponent} from '../../../loan-information-template/insurance/insurance.component';
-import {CreditRiskGradingAlphaComponent} from '../../../loan-information-template/credit-risk-grading-alpha/credit-risk-grading-alpha.component';
+import {
+    CreditRiskGradingAlphaComponent
+} from '../../../loan-information-template/credit-risk-grading-alpha/credit-risk-grading-alpha.component';
 import {CustomerInfoData} from '../../model/customerInfoData';
 import {CustomerInfoService} from '../../../customer/service/customer-info.service';
 import {FinancialComponent} from '../../../loan-information-template/financial/financial.component';
 import {CompanyInfoService} from '../../../admin/service/company-info.service';
 import {CustomerType} from '../../../customer/model/customerType';
 import {GuarantorAdderComponent} from '../loan-main-template/guarantor-adder/guarantor-adder.component';
-import {CreditRiskGradingGammaComponent} from '../../../loan-information-template/credit-risk-grading-gamma/credit-risk-grading-gamma.component';
+import {
+    CreditRiskGradingGammaComponent
+} from '../../../loan-information-template/credit-risk-grading-gamma/credit-risk-grading-gamma.component';
 import {DefaultLoanTemplate} from '../../../../@core/utils/constants/default-loan-template';
 import {LoanType} from '../../model/loanType';
 import {CommonRoutingUtilsService} from '../../../../@core/utils/common-routing-utils.service';
-import {CreditRiskGradingLambdaComponent} from '../../../loan-information-template/credit-risk-grading-lambda/credit-risk-grading-lambda.component';
+import {
+    CreditRiskGradingLambdaComponent
+} from '../../../loan-information-template/credit-risk-grading-lambda/credit-risk-grading-lambda.component';
 import {RiskGradingService} from '../../../credit-risk-grading/service/risk-grading.service';
 import {environment} from '../../../../../environments/environment';
 import {Clients} from '../../../../../environments/Clients';
@@ -221,7 +227,6 @@ export class LoanFormComponent implements OnInit {
     loanType;
 
 
-
     constructor(
         private loanDataService: LoanDataService,
         private dmsLoanService: DmsLoanService,
@@ -244,7 +249,9 @@ export class LoanFormComponent implements OnInit {
         protected riskQuestionService: RiskGradingService
     ) {
     }
+
     ngOnInit() {
+        console.log('template list', this.templateList);
         this.spinner.show();
         this.docStatusForMaker();
         this.buildPriorityForm();
@@ -350,6 +357,7 @@ export class LoanFormComponent implements OnInit {
             approvingLevel: [undefined, Validators.required]
         });
     }
+
     buildCreditRiskForm() {
         this.creditRisk = this.formBuilder.group({
             creditRisk: [undefined, Validators.required]
@@ -469,7 +477,7 @@ export class LoanFormComponent implements OnInit {
                     });
                 }
                 this.pushProposalTemplateToLast();
-              this.spinner.hide();
+                this.spinner.hide();
             }, error => {
                 this.spinner.hide();
                 console.log(error);
@@ -852,8 +860,8 @@ export class LoanFormComponent implements OnInit {
         this.commonRoutingUtilsService.loadCustomerProfile(loanHolder.associateId, loanHolder.id, loanHolder.customerType);
     }
 
-   updateIncome(event) {
-       this.loanDocument.loanHolder = event;
-       this.save(false);
-   }
+    updateIncome(event) {
+        this.loanDocument.loanHolder = event;
+        this.save(false);
+    }
 }
