@@ -214,7 +214,7 @@
                             <nb-radio *ngFor="let dateTy of dateType" [value]="dateTy.value">{{dateTy.key}}</nb-radio>
                         </nb-radio-group>
                         <div *ngIf="this.form.get('sanctionLetterDateType').value === 'BS'" style="margin-bottom: -50px;">
-                            <nepali-patro *ngIf="BSSanctionLetterDate" [displayNepali]="true" [responseType]="2"
+                            <nepali-patro [displayNepali]="true" [responseType]="2"
                                           formControlName="sanctionLetterDateNepali">
                             </nepali-patro>
                         </div>

@@ -92,7 +92,11 @@ export class ClassASanctionLetterPrintComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.assignedLoan)) {
       this.autoRefNum = this.cadOfferLetterApprovedDoc.assignedLoan[0].refNo;
     }
-    this.freeTextVal = this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation;
+    if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation)) {
+      this.freeTextVal = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation);
+
+    }
+    console.log('Free TExt Val:', this.freeTextVal);
     // for date of approval
     const sanctionLetterDate = this.letter.sanctionLetterDateType ? this.letter.sanctionLetterDateType.en : '';
     if (sanctionLetterDate === 'AD') {
@@ -130,7 +134,7 @@ export class ClassASanctionLetterPrintComponent implements OnInit {
       this.finalDateOfSanction = templateDateSanction ? templateDateSanction.nDate : '';
     }
     this.getHolderDetails();
-    this.guarantorDetails();
+    // this.guarantorDetails();
     console.log('Offer Data', this.offerData);
   }
 

@@ -892,7 +892,7 @@
                     <li>
                         मोजरा पत्र (Letter of set off)
                     </li>
-                    <li *ngIf="this.freeTextVal.applicableFreeTextBox !== undefined">
+                    <li *ngIf="this.freeTextVal !== null && this.freeTextVal.applicableFreeTextBox !== undefined">
                         {{this.freeTextVal?.applicableFreeTextBox ? this.freeTextVal?.applicableFreeTextBox : ''}}
                     </li>
                 </ul>

@@ -106,7 +106,7 @@ export class ClassASanctionLetterComponent implements OnInit {
     console.log('All Data:', this.tempData);
     console.log('Loan Holder initial data:', this.loanHolderInfo);
     this.checkOfferLetterData();
-    this.guarantorDetails();
+    // this.guarantorDetails();
   }
   buildSanction() {
     this.form = this.formBuilder.group({
