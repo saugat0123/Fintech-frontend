@@ -230,8 +230,8 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
     const dateOfApprovalType = this.initialInfoPrint.dateOfApprovalType ? this.initialInfoPrint.dateOfApprovalType.en : '';
     let finalDateOfApproval;
     if (dateOfApprovalType === 'AD') {
-      const templateDateApproval = this.initialInfoPrint.dateOfApproval ? this.initialInfoPrint.dateOfApproval.en : '';
-      finalDateOfApproval = this.engToNepaliDate.transform(this.datePipe.transform(templateDateApproval), true);
+      const templateDateApproval = this.initialInfoPrint.dateOfApproval ? this.initialInfoPrint.dateOfApproval.ct : '';
+      finalDateOfApproval = templateDateApproval ? templateDateApproval : '';
     } else {
       const templateDateApproval = this.initialInfoPrint.dateOfApprovalNepali ? this.initialInfoPrint.dateOfApprovalNepali.en : '';
       finalDateOfApproval = templateDateApproval ? templateDateApproval.nDate : '';
@@ -240,8 +240,8 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
     const dateOfApplication = this.initialInfoPrint.dateOfApplicationType ? this.initialInfoPrint.dateOfApplicationType.en : '';
     let finalDateOfApplication;
     if (dateOfApplication === 'AD') {
-      const templateDateApplication = this.initialInfoPrint.dateOfApplication ? this.initialInfoPrint.dateOfApplication.en : '';
-      finalDateOfApplication = this.engToNepaliDate.transform(this.datePipe.transform(templateDateApplication), true);
+      const templateDateApplication = this.initialInfoPrint.dateOfApplication ? this.initialInfoPrint.dateOfApplication.ct : '';
+      finalDateOfApplication = templateDateApplication ? templateDateApplication : '';
     } else {
       const templateDateApplication = this.initialInfoPrint.dateOfApplicationNepali ? this.initialInfoPrint.dateOfApplicationNepali.en : '';
       finalDateOfApplication = templateDateApplication ? templateDateApplication.nDate : '';
@@ -250,8 +250,8 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
     const sanctionLetterDate = this.initialInfoPrint.previousSanctionType ? this.initialInfoPrint.previousSanctionType.en : '';
     let finalSanctionDate;
     if (sanctionLetterDate === 'AD') {
-      const templateSanctionDate = this.initialInfoPrint.previousSanctionDate ? this.initialInfoPrint.previousSanctionDate.en : '';
-      finalSanctionDate = this.engToNepaliDate.transform(this.datePipe.transform(templateSanctionDate), true);
+      const templateSanctionDate = this.initialInfoPrint.previousSanctionDate ? this.initialInfoPrint.previousSanctionDate.ct : '';
+      finalSanctionDate = templateSanctionDate ? templateSanctionDate : '';
     } else {
       const templateSanctionDate = this.initialInfoPrint.previousSanctionDateNepali ? this.initialInfoPrint.previousSanctionDateNepali.en : '';
       finalSanctionDate = templateSanctionDate ? templateSanctionDate.nDate : '';
