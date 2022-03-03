@@ -30,7 +30,7 @@ export class UdyamsilKarjaSubsidyPrintComponent implements OnInit {
   proposedAmount;
   allguarantorNames;
   guarantorNames: Array<String> = [];
-  guarantorAmount: number = 0;
+  guarantorAmount = 0;
   guarantorName;
   finalName;
   branchName;
@@ -82,8 +82,7 @@ export class UdyamsilKarjaSubsidyPrintComponent implements OnInit {
     // For date of Approval
     const dateOfApprovalType = this.letter.dateOfApprovalType ? this.letter.dateOfApprovalType.en : '';
     if (dateOfApprovalType === 'AD') {
-      const templateDateApproval = this.letter.dateOfApproval ? this.letter.dateOfApproval.en : '';
-      this.finalDateOfApproval = this.engToNepaliDate.transform(this.datePipe.transform(templateDateApproval), true);
+      this.finalDateOfApproval = this.tempData.dateOfApproval ? this.tempData.dateOfApproval.ct : '';
     } else {
       const templateDateApproval = this.letter.dateOfApprovalNepali ? this.letter.dateOfApprovalNepali.en : '';
       this.finalDateOfApproval = templateDateApproval ? templateDateApproval.nDate : '';
@@ -91,8 +90,7 @@ export class UdyamsilKarjaSubsidyPrintComponent implements OnInit {
     // For Date of Application:
     const dateOfApplication = this.letter.dateOfApplicationType ? this.letter.dateOfApplicationType.en : '';
     if (dateOfApplication === 'AD') {
-      const templateDateApplication = this.letter.dateOfApplication ? this.letter.dateOfApplication.en : '';
-      this.finalDateOfApplication = this.engToNepaliDate.transform(this.datePipe.transform(templateDateApplication), true);
+      this.finalDateOfApplication = this.tempData.dateOfApplication ? this.tempData.dateOfApplication.ct : '';
     } else {
       const templateDateApplication = this.letter.dateOfApplicationNepali ? this.letter.dateOfApplicationNepali.en : '';
       this.finalDateOfApplication = templateDateApplication ? templateDateApplication.nDate : '';
@@ -100,8 +98,7 @@ export class UdyamsilKarjaSubsidyPrintComponent implements OnInit {
     // For Previous Sanction Date
     const previousSanctionType = this.letter.previousSanctionType ? this.letter.previousSanctionType.en : '';
     if (previousSanctionType === 'AD') {
-      const templateReviewDate = this.letter.previousSanctionDate ? this.letter.previousSanctionDate.en : '';
-      this.finalPrevSanctionLetterDate = this.engToNepaliDate.transform(this.datePipe.transform(templateReviewDate), true);
+      this.finalPrevSanctionLetterDate =  this.tempData.previousSanctionDate ? this.tempData.previousSanctionDate.ct : '';
     } else {
       const templatePrevSanctionLetterDate = this.letter.previousSanctionDateNepali ? this.letter.previousSanctionDateNepali.en : '';
       this.finalPrevSanctionLetterDate = templatePrevSanctionLetterDate ? templatePrevSanctionLetterDate.nDate : '';
@@ -113,10 +110,10 @@ export class UdyamsilKarjaSubsidyPrintComponent implements OnInit {
       const tempGuarantorNep = JSON.parse(this.guarantorData[0].nepData);
       if (tempGuarantorNep.guarantorType.en === 'Personal Guarantor') {
         // const temp = JSON.parse(this.guarantorData[0].nepData);
-        this.finalName = tempGuarantorNep.guarantorName.ct;
+        this.finalName = tempGuarantorNep.guarantorName ? tempGuarantorNep.guarantorName.ct : '';
       } else {
         // const temp = JSON.parse(this.guarantorData[0].nepData);
-        this.finalName = tempGuarantorNep.authorizedPersonName.ct;
+        this.finalName = tempGuarantorNep.authorizedPersonName ? tempGuarantorNep.authorizedPersonName.ct : '';
       }
     } else if (this.guarantorData.length === 2) {
       for (let i = 0; i < this.guarantorData.length; i++) {
