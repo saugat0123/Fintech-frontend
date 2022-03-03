@@ -90,46 +90,33 @@ export class KisanKarjaSubsidyPrintComponent implements OnInit {
       }
     // For date of Approval
     const dateOfApprovalType = this.letter.dateOfApprovalType ? this.letter.dateOfApprovalType.en : '';
-    if (dateOfApprovalType === 'AD') {
-      const templateDateApproval = this.letter.dateOfApproval ? this.letter.dateOfApproval.en : '';
-      this.finalDateOfApproval = this.engToNepaliDate.transform(this.datePipe.transform(templateDateApproval), true);
+      if (dateOfApprovalType === 'AD') {
+      this.finalDateOfApproval = this.tempData.dateOfApproval ? this.tempData.dateOfApproval.ct : '';
     } else {
-      const templateDateApproval = this.letter.dateOfApprovalNepali ? this.letter.dateOfApprovalNepali.en : '';
-      this.finalDateOfApproval = templateDateApproval ? templateDateApproval.nDate : '';
+      this.finalDateOfApproval = this.tempData.dateOfApprovalNepali ? this.tempData.dateOfApprovalNepali.ct : '';
     }
 
     // For Date of Application:
     const dateOfApplication = this.letter.dateOfApplicationType ? this.letter.dateOfApplicationType.en : '';
-    if (dateOfApplication === 'AD') {
-      const templateDateApplication = this.letter.dateOfApplication ? this.letter.dateOfApplication.en : '';
-      this.finalDateOfApplication = this.engToNepaliDate.transform(this.datePipe.transform(templateDateApplication), true);
-    } else {
-      const templateDateApplication = this.letter.dateOfApplicationNepali ? this.letter.dateOfApplicationNepali.en : '';
-      this.finalDateOfApplication = templateDateApplication ? templateDateApplication.nDate : '';
-    }
-   /* if (!ObjectUtil.isEmpty(this.letter.dateOfApplication)) {
-      this.dateOfApplication = this.engNepDatePipe.transform(this.datePipe.transform(this.tempData.loan.dateOfApplication), true);
-    } else {
-      this.dateOfApplication = this.letter.loan.dateOfApplicationCT;
-    }*/
+      if (dateOfApplication === 'AD') {
+        this.finalDateOfApplication = this.tempData.dateOfApplication ? this.tempData.dateOfApplication.ct : '';
+      } else {
+        this.finalDateOfApplication = this.tempData.dateOfApplicationNepali ? this.tempData.dateOfApplicationNepali.ct : '';
+      }
     // For Next Review Date:
     const nextReviewDate = this.letter.nextReviewDateType ? this.letter.nextReviewDateType.en : '';
-    if (nextReviewDate === 'AD') {
-      const templateReviewDate = this.letter.nextReviewDate ? this.letter.nextReviewDate.en : '';
-      this.finalNextReviewDate = this.engToNepaliDate.transform(this.datePipe.transform(templateReviewDate), true);
-    } else {
-      const templateReviewDate = this.letter.nextReviewDateNepali ? this.letter.nextReviewDateNepali.en : '';
-      this.finalNextReviewDate = templateReviewDate ? templateReviewDate.nDate : '';
-    }
+      if (nextReviewDate === 'AD') {
+        this.finalNextReviewDate = this.tempData.nextReviewDate ? this.tempData.nextReviewDate.ct : '';
+      } else {
+        this.finalNextReviewDate = this.tempData.nextReviewDateNepali ? this.tempData.nextReviewDateNepali.ct : '';
+      }
     // For Previous Sanction Letter Date:
     const prevSanctionLetterDate = this.letter.previousSanctionType ? this.letter.previousSanctionType.en : '';
-    if (prevSanctionLetterDate === 'AD') {
-      const templateReviewDate = this.letter.previousSanctionDate ? this.letter.previousSanctionDate.en : '';
-      this.finalPrevSanctionLetterDate = this.engToNepaliDate.transform(this.datePipe.transform(templateReviewDate), true);
-    } else {
-      const templatePrevSanctionLetterDate = this.letter.previousSanctionDateNepali ? this.letter.previousSanctionDateNepali.en : '';
-      this.finalPrevSanctionLetterDate = templatePrevSanctionLetterDate ? templatePrevSanctionLetterDate.nDate : '';
-    }
+      if (prevSanctionLetterDate === 'AD') {
+        this.finalPrevSanctionLetterDate = this.tempData.previousSanctionDate ? this.tempData.previousSanctionDate.ct : '';
+      } else {
+        this.finalPrevSanctionLetterDate = this.tempData.previousSanctionDateNepali ? this.tempData.previousSanctionDateNepali.ct : '';
+      }
     this.guarantorDetails();
   }
   guarantorDetails() {
