@@ -9,4 +9,6 @@ export class IndividualJsonData {
     microCustomerDetail: any;
     grandFatherName: string;
     fatherName: string;
+    accountDetails: [];
+    checkedData: any;
 }

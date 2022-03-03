@@ -60,7 +60,7 @@
             formControlName="municipalityVdc"
             id="municipality"
             name="municipality">
-      <option [ngValue]="null" hidden>Municipality</option>
+      <option [ngValue]="null" hidden>Municipality/VDC</option>
       <option *ngFor="let municipalityVal of municipalities"
               [ngValue]="municipalityVal">
         {{municipalityVal.name}}
@@ -76,7 +76,7 @@
     <input [ngClass]="{'is-invalid': submitted && form.ward.errors}" class="form-control"
            formControlName="ward"
            id="ward" name="ward"
-           placeholder="ward" type="number">
+           placeholder="Ward" type="number">
     <div *ngIf="(submitted) && form.ward.invalid"
          class="invalid-feedback">
       <div *ngIf="form.ward.errors.required">
