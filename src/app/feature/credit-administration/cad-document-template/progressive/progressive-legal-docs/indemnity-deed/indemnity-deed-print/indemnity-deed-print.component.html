@@ -3,8 +3,8 @@
         <form class="nepali margin">
             <h6 class="text-center"><strong>क्षतिपूर्र्ती लिखतर</strong><br>
                 (Indemnity Deed)</h6>
-            <strong> प्रोग्रेशिभ फाइनान्स लि.</strong><p class="float-right"><span [ngClass]="{'nepaliFont' : printDocForm?.date !== null && printDocForm?.date !== ''}">
-                   ldltM {{printDocForm?.date === null || printDocForm?.date === '' ? '_________________' : printDocForm?.date}}
+            <strong> प्रोग्रेशिभ फाइनान्स लि.</strong><p class="float-right">मिति: <span [ngClass]="{'nepaliFont' : printDocForm?.date !== null && printDocForm?.date !== ''}">
+                   {{printDocForm?.date === null || printDocForm?.date === '' ? '_________________' : printDocForm?.date}}
                 </span></p>
             <br>
             <strong>

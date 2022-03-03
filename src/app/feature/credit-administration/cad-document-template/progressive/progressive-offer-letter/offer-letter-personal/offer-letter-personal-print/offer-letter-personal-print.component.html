@@ -1,12 +1,14 @@
-<div id="print-section-{{offerLetterConst.OFFER_LETTER_PERSONAL}}">
-    <div class="nepaliConfig" style="margin-top: -0.5in">
+<div class="row" id="print-section-{{offerLetterConst.OFFER_LETTER_PERSONAL}}">
+    <div class="container nepaliConfig" style="margin-top: -0.5in">
         <div class="row d-flex">
-            <div class="col-md-6">
-                <p class="float-right">
+            <div class="col-md-12">
+                <p class="float-right"> मिति:
                  <span [ngClass]="{'nepaliFont' : printDocForm?.date !== null && printDocForm?.date !== ''}">
-                     ldltM {{printDocForm?.date === null || printDocForm?.date === '' ? '_________________' : printDocForm?.date}}
+                     {{printDocForm?.date === null || printDocForm?.date === '' ? '_________________' : printDocForm?.date}}
                  </span>
                 </p>
+                <div class="row">
+                <div class="col-md-6">
                  <p style="line-height: 1.2">
                  प.सं. प्रो.फा.लि
                         <span [ngClass]="{'nepaliFont unicode-size2' : printDocForm?.patraNum !== null && printDocForm?.patraNum !== ''}">
@@ -47,6 +49,8 @@
                             {{printDocForm?.customerMobile === null || printDocForm?.customerMobile === '' ? '_________________' : printDocForm?.customerMobile}}
                         </span>
                     </p>
+                </div>
+                </div>
                 </div>
             </div>
             <h1 class="text-center uniFont">
@@ -1165,34 +1169,34 @@
                                 </td>
                             </tr>
                         </table>
-                    </div>
-                </div>
-                <br>
-                <br>
-                <strong>सनाखत साक्षी</strong>
-                <br>
-                ऋणीले मेरो सामुन्नेमा सहीछाप गरेको ठीक साचो हो भनी सहीछाप गर्ने धनी फाइनान्समा कार्यरत कर्मचारी
-                <span [ngClass]="{'nepaliFont unicode-size2' : printDocForm?.sahichhapEmployee !== null && printDocForm?.sahichhapEmployee !== ''}">
+                        <br>
+                        <br>
+                        <strong>सनाखत साक्षी</strong>
+                        <br>
+                        ऋणीले मेरो सामुन्नेमा सहीछाप गरेको ठीक साचो हो भनी सहीछाप गर्ने धनी फाइनान्समा कार्यरत कर्मचारी
+                        <span [ngClass]="{'nepaliFont unicode-size2' : printDocForm?.sahichhapEmployee !== null && printDocForm?.sahichhapEmployee !== ''}">
                     {{printDocForm?.sahichhapEmployee === null || printDocForm?.sahichhapEmployee === '' ? '____________________' : printDocForm?.sahichhapEmployee}}
                 </span>
-                <p>ईति सम्बत
-                <span [ngClass]="{'nepaliFont unicode-size2' : printDocForm?.docYear !== null && printDocForm?.docYear !== ''}">
+                        <p>ईति सम्बत
+                            <span [ngClass]="{'nepaliFont unicode-size2' : printDocForm?.docYear !== null && printDocForm?.docYear !== ''}">
                     {{printDocForm?.docYear === null || printDocForm?.docYear === '' ? '______' : printDocForm?.docYear}}
                 </span>साल
-                <span [ngClass]="{'nepaliFont unicode-size2' : printDocForm?.docMonth !== null && printDocForm?.docMonth !== ''}">
+                            <span [ngClass]="{'nepaliFont unicode-size2' : printDocForm?.docMonth !== null && printDocForm?.docMonth !== ''}">
                     {{printDocForm?.docMonth === null || printDocForm?.docMonth === '' ? '______' : printDocForm?.docMonth}}
                 </span>महिना
-                <span [ngClass]="{'nepaliFont unicode-size2' : printDocForm?.docDate !== null && printDocForm?.docDate !== ''}">
+                            <span [ngClass]="{'nepaliFont unicode-size2' : printDocForm?.docDate !== null && printDocForm?.docDate !== ''}">
                     {{printDocForm?.docDate === null || printDocForm?.docDate === '' ? '______' : printDocForm?.docDate}}
                 </span>गते रोज
-                <span [ngClass]="{'nepaliFont unicode-size2' : printDocForm?.docRoj !== null && printDocForm?.docRoj !== ''}">
+                            <span [ngClass]="{'nepaliFont unicode-size2' : printDocForm?.docRoj !== null && printDocForm?.docRoj !== ''}">
                     {{printDocForm?.docRoj === null || printDocForm?.docRoj === '' ? '____________________' : printDocForm?.docRoj}}
                 </span>
-                    शुभम् ।
-                </p>
+                            शुभम् ।
+                        </p>
+                    </div>
+                </div>
             </div>
-            <div class="page-break"></div>
-            <div id="GuarantorSection">
+            <div class="row page-break"></div>
+            <div class="col-md-12" id="GuarantorSection">
                 <div *ngFor="let guarantor of printDocForm?.guarantorDetails; index as i" class="page-break">
                 <div class="row mt-lg-5 ">
                     <div class="col-md-12">

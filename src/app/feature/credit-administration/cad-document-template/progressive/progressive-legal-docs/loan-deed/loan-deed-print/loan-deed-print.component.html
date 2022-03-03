@@ -2,11 +2,9 @@
     <div class="col-md-12">
         <form class="nepali">
             <h6 class="text-center"><strong><u>बिषयः कर्जा तमसुक</u></strong></h6>
-            <br>
                 <p class="text-justify" style="line-height: 1.6;">
-                    लिखितम् धनीका नाम प्रचलित वित्तीय संस्था तथा वित्तीय संस्था सम्बन्धी ऐन,
-                    बमोजिम दर्ता भई काठमाण्डौ जिल्ला, काठमाण्डौ महानगरपालिका वडा नं. २२ स्थित
-                    रजिष्टर्ड कार्यालय रहेको <strong>प्रोग्रेशिभ फाईनान्स लिमिटेडको</strong>
+                    लिखितम् धनीका नाम प्रचलित वित्तीय संस्था तथा वित्तीय संस्था सम्बन्धी ऐन, बमोजिम दर्ता भई काठमाण्डौ जिल्ला, काठमाण्डौ महानगरपालिका
+                    वडा नं. २२ स्थित रजिष्टर्ड कार्यालय रहेको <strong>प्रोग्रेशिभ फाईनान्स लिमिटेडको</strong>
                     <span [ngClass]="{'nepaliFontPreeti sizeFont':printDocForm?.branchDistrict!==null && printDocForm.branchDistrict!==''}">
                         {{printDocForm?.branchDistrict === null || printDocForm?.branchDistrict === '' ? '________________' : printDocForm.branchDistrict }}
                     </span>जिल्ला,
@@ -172,7 +170,7 @@
                     <br>
                 </div>
             </div>
-            <table class="mt-5" style="break-before: initial">
+            <table>
                 <caption style="caption-side: top"><strong>साक्षी:</strong></caption>
                 <tr>
                     <td>दस्तखत:</td>
@@ -209,7 +207,7 @@
                     </td>
                 </tr>
             </table>
-            <table class="mt-5">
+            <table class="mt-5 mb-3">
                 <tr>
                     <td>दस्तखत:</td>
                     <td>..........................................................</td>
@@ -245,11 +243,6 @@
                     </td>
                 </tr>
             </table>
-            लिखत तयार पार्ने: <span [ngClass]="{'nepaliFont':printDocForm.likhat!==null && printDocForm.likhat!==''}">
-                            {{printDocForm?.likhat === null || printDocForm?.likhat === null ? '________________' : printDocForm.likhat}}</span>
-
-
-
      <!--       <div *ngFor="let guarantor of printDocForm?.guarantorDetails; index as i"
                  style="overflow-x: auto">
                 {{i + 1 | nepaliWord: 'unicode'}}
@@ -299,7 +292,11 @@
                     </tbody>
                 </table>
             </div>-->
-            <p class="mt-3">
+            <p>
+                लिखत तयार पार्ने: <span [ngClass]="{'nepaliFont':printDocForm.likhat!==null && printDocForm.likhat!==''}">
+                            {{printDocForm?.likhat === null || printDocForm?.likhat === null ? '________________' : printDocForm.likhat}}</span>
+            </p>
+            <p>
                 ईति सम्बत <span [ngClass]="{'nepaliFont':printDocForm.itiSambatYear!==null && printDocForm.itiSambatYear!==''}">
                               {{printDocForm?.itiSambatYear === null || printDocForm?.itiSambatYear === null ? '________________' : printDocForm.itiSambatYear}}
                           </span>
