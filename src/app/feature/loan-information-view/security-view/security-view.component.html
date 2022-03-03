@@ -3,6 +3,7 @@
     <p ><strong>Security Schedule</strong></p>
   </div>
   <div *ngIf="landSelected" class="row">
+    <app-cross-collateralized-view></app-cross-collateralized-view>
     <ng-container  *ngFor="let landDetails of securityData['initialForm']['landDetails']; let i= index">
     <table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
       <tr>

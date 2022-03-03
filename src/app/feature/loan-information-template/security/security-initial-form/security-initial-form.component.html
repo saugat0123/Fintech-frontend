@@ -61,7 +61,7 @@
                             <td><select class="form-control" formControlName="facilityName">
                                 <option [value]="null" hidden>Select Facility</option>
                                 <ng-container *ngFor="let list of loanList">
-                                    <option *ngIf="!list?.isRemit" [value]="list?.id">{{list?.shortNames}}</option>
+                                    <option *ngIf="!list?.isRemit" [value]="list?.shortNames">{{list?.shortNames}}</option>
                                 </ng-container>
                             </select></td>
                             <td><input class="form-control text-center"
@@ -114,7 +114,7 @@
                         </tr>
                         </tbody>
                         <div class="disable-print">
-                            <input (click)="addCrossCollateralized()" class="btn btn-sm btn-flat btn-primary"
+                            <input (click)="addCrossCollateralized('crossCollateralized')" class="btn btn-sm btn-flat btn-primary"
                                    type="button" value="Add More"/>
                         </div>
                     </table>

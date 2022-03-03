@@ -342,11 +342,19 @@ export class SecurityInitialFormComponent implements OnInit {
             leaseAssignment: this.formBuilder.array([]),
             otherSecurity: this.formBuilder.array([]),
             assignmentOfReceivables: this.formBuilder.array([]),
-            crossCollateralized: this.formBuilder.array([]),
+            landCross: this.formBuilder.array([]),
+            lbCross: this.formBuilder.array([]),
+            appartmentCross: this.formBuilder.array([]),
             crossCollateralizedChecked: [false],
-            exposureTotal: [undefined],
-            rmValueTotal: [undefined],
-            fmvOfFacTotal: [undefined],
+            landExposureTotal: [0],
+            landRmValueTotal: [0],
+            landFmvOfFacTotal: [0],
+            lbExposureTotal: [0],
+            lbRmValueTotal: [0],
+            lbFmvOfFacTotal: [0],
+            apartExposureTotal: [0],
+            apartRmValueTotal: [0],
+            apartFmvOfFacTotal: [0],
         });
         this.buildShareSecurityForm();
     }
@@ -2444,8 +2452,8 @@ export class SecurityInitialFormComponent implements OnInit {
         });
     }
 
-    addCrossCollateralized() {
-        (this.securityForm.get('crossCollateralized') as FormArray).push(this.crossCollateralizedFormGroup());
+    addCrossCollateralized(arrayName) {
+        (this.securityForm.get(arrayName) as FormArray).push(this.crossCollateralizedFormGroup());
     }
 
     crossCollateralizedFormGroup(): FormGroup {

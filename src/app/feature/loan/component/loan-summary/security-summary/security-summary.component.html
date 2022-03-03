@@ -60,6 +60,7 @@
         </div>
         <div class="row" *ngIf="landSelected">
             <div class="col-md-12">
+                <app-cross-collateralized-view [securityData]="formData['initialForm']['crossCollateralized']" [securityType]="'land'"></app-cross-collateralized-view>
                 <ng-container  *ngFor="let landDetails of formData['initialForm']['landDetails']; let i= index">
                 <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
 
@@ -203,6 +204,9 @@
         <!--        LandBuildingDetails-->
         <div class="row" *ngIf="landBuilding">
             <div class="col-md-12">
+                <app-cross-collateralized-view [securityType]="'landBuilding'"
+                                               [securityData]="formData['initialForm']['lbCrossCollateralized']"></app-cross-collateralized-view>
+
                 <ng-container *ngFor="let landBuilding of  formData['initialForm']['landBuilding']; let i= index">
                 <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                     <thead>
