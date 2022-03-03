@@ -56,5 +56,7 @@ p {
     text-justify: inter-word;
     margin: 10px 70px;
   }
-
+}
+input::placeholder {
+  font-size: 19px;
 }

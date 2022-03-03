@@ -69,13 +69,8 @@ export class PowerOfAttorneyProprietorshipComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData.assignedLoan[0])) {
       this.companyInfo = this.cadData.assignedLoan[0] ? JSON.parse(this.cadData.assignedLoan[0].companyInfo.companyJsonData) : '';
       this.companyInfo.forEach(val => {
-        if (val.isAuthorizedPerson === 'Authorized Person Only' || val.isAuthorizedPerson === 'Both') {
           const authorizedName = val.ownerNameCT;
           this.authorizedNameArray.push(authorizedName);
-        } else {
-          const authorizedName = '';
-          this.authorizedNameArray.push(authorizedName);
-        }
       });
       this.dateConvert();
     }
