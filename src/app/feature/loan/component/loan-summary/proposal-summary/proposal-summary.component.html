@@ -35,7 +35,7 @@
                 class="table table-bordered table-responsive-md table-sm sb-small text-center">
             <thead>
             <tr class="sb-bg-dark text-white">
-                <th>Loan Facility(Created Date)</th>
+                <th>Loan Facility</th>
                 <th>Existing Limit</th>
                 <th *ngIf="!isRemit">Outstanding</th>
                 <th *ngIf="!isRemit">Enhance</th>
@@ -65,8 +65,8 @@
                     &nbsp;|&nbsp;
                     <ng-container
                             *ngTemplateOutlet="loanTypeLetter; context: { $implicit: loan?.loanType }"></ng-container>
-                    &nbsp;|&nbsp;
-                    {{ loan?.loan?.name }} ({{ loan?.createdAt | date}} ({{ loan?.createdAt | engNepDate: false }}))
+<!--                    &nbsp;|&nbsp;-->
+<!--                    {{ loan?.loan?.name }} ({{ loan?.createdAt | date}} ({{ loan?.createdAt | engNepDate: false }}))-->
                 </td>
                 <td class="text-right pr-1" >
                     <span *ngIf="(loan?.proposal?.data | jsonParse)?.existingLimit">

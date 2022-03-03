@@ -761,7 +761,7 @@
             </div>
             <div class="row" *ngIf="individual?.customerRelatives?.length > 0">
                 <div class="col-md-12">
-                    <p><strong class="header">Family Details</strong></p>
+                    <p class="sub-header"><strong class="sub-header">Family Details</strong></p>
                     <table
                             class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
                         <thead>
@@ -1645,9 +1645,9 @@
                 </div>
             </div>
             <br>
-            <app-credit-checklist-view *ngIf="loanDataHolder.loanHolder?.creditChecklist" [formData]="loanDataHolder.loanHolder?.creditChecklist"
-                                       [fromProfile]="false" [customerType]="loanDataHolder.loanHolder?.customerType"></app-credit-checklist-view>
-            <app-collateral-site-visit *ngIf="loanDataHolder?.loanHolder?.security" [loanDataHolder]="loanDataHolder"></app-collateral-site-visit>
+<!--            <app-credit-checklist-view *ngIf="loanDataHolder.loanHolder?.creditChecklist" [formData]="loanDataHolder.loanHolder?.creditChecklist"-->
+<!--                                       [fromProfile]="false" [customerType]="loanDataHolder.loanHolder?.customerType"></app-credit-checklist-view>-->
+<!--            <app-collateral-site-visit *ngIf="loanDataHolder?.loanHolder?.security" [loanDataHolder]="loanDataHolder"></app-collateral-site-visit>-->
 
             <div *ngIf="loanDataHolder?.customerOfferLetter"
                  class="row justify-content-between pt-5 disable-print"

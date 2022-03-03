@@ -71,7 +71,7 @@
                 Please specify relationship between the above mentoined parties <b>( Applicant and PG holder/migrant worker must be immediate family members)</b> </p>
         </div>
     </ng-container>
-    <ng-container>
+    <div>
         <p *ngIf="loanHolder.loanCategory === 'INDIVIDUAL' && !isJointInfo" class="sub-header"><strong  class="sub-header">Borrower Details</strong></p>
         <div class="row" *ngIf="loanHolder.loanCategory === 'INDIVIDUAL' && !isJointInfo">
             <div class="col-md-12">
@@ -150,7 +150,7 @@
 
             </div>
         </div>
-    </ng-container>
+    </div>
 
     <ng-container *ngIf="isRemit">
         <div class="row">
