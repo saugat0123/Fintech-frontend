@@ -1,6 +1,6 @@
 <table>
     <tr  class="header">
-        <td><p  class="header"><strong  class="header">Purpose of Loan:</strong></p></td>
+        <td><p><strong  class="header">Purpose of Loan:</strong></p></td>
         <td class="text-left" style="display: flex" [innerHTML]="proposalAllData?.purposeOfLoan || 'N/A' | safeHtml"></td>
     </tr>
 </table>
@@ -43,10 +43,11 @@
                 <th>Proposed Limit</th>
                 <!--                <th>Existing INT/COM/CM</th>-->
                 <!--        for non funded commision and cash margin combination to be view-->
-                <th *ngIf="!isRemit">Existing Proposed INT/COM/CM</th>
-                <th>Proposed INT/COM/CM</th>
+                <th *ngIf="!isRemit">{{consumerFinance?'Existing INT':'Existing INT/COM/CM'}}</th>
+                <th *ngIf="!isRemit">{{consumerFinance?'Proposed INT':'Proposed INT/COM/CM'}}</th>
 
-                <th>Loan Administration Fee</th>
+
+<!--                <th>Loan Administration Fee</th>-->
                 <th>Limit Expiry/Tenure (AD/BS)</th>
                 <!--        <th>Tenure Duration</th>-->
                 <!--        <th>Repayment Mode</th>-->
@@ -65,8 +66,9 @@
                     &nbsp;|&nbsp;
                     <ng-container
                             *ngTemplateOutlet="loanTypeLetter; context: { $implicit: loan?.loanType }"></ng-container>
-<!--                    &nbsp;|&nbsp;-->
-<!--                    {{ loan?.loan?.name }} ({{ loan?.createdAt | date}} ({{ loan?.createdAt | engNepDate: false }}))-->
+                    &nbsp;|&nbsp;
+                    {{ loan?.loan?.name }})
+<!--                    ({{ loan?.createdAt | date}} ({{ loan?.createdAt | engNepDate: false }})-->
                 </td>
                 <td class="text-right pr-1" >
                     <span *ngIf="(loan?.proposal?.data | jsonParse)?.existingLimit">
@@ -123,11 +125,11 @@
                         COM:{{(loan?.proposal?.data | jsonParse)?.commissionPercentage}} %</span>
                 </td>
 
-                <td class="text-right pr-1">
-                    <div *ngIf="(loan?.proposal?.data | jsonParse)?.serviceChargeMethod === 'FLAT'; else percentage">
-                        Rs. {{(loan?.proposal?.data | jsonParse)?.serviceCharge | currencyFormatter}}</div>
-                    <ng-template #percentage>{{(loan?.proposal?.data | jsonParse)?.serviceCharge}} % </ng-template>
-                </td>
+<!--                <td class="text-right pr-1">-->
+<!--                    <div *ngIf="(loan?.proposal?.data | jsonParse)?.serviceChargeMethod === 'FLAT'; else percentage">-->
+<!--                        Rs. {{(loan?.proposal?.data | jsonParse)?.serviceCharge | currencyFormatter}}</div>-->
+<!--                    <ng-template #percentage>{{(loan?.proposal?.data | jsonParse)?.serviceCharge}} % </ng-template>-->
+<!--                </td>-->
 
                         <td>{{(loan?.proposal?.data | jsonParse)?.tenureDurationInMonths}} month
 
@@ -262,7 +264,6 @@
                     <td>-</td>
                     <td>-</td>
                     <td>-</td>
-                    <td>-</td>
                 </ng-template>
 
 
@@ -297,7 +298,6 @@
                     <td >-</td>
                     <td>-</td>
                     <td>-</td>
-                    <td>-</td>
                 </ng-template>
                 <!--        <td>Rs. {{ getTotal('installmentAmount') | currencyFormatter }}</td>-->
                 <!--        <td>Rs. {{ getTotal('interestAmount') | currencyFormatter }}</td>-->
@@ -325,7 +325,6 @@
                 </ng-container>
                 <ng-template #gapss>
                     <td >-</td>
-                    <td>-</td>
                     <td>-</td>
                     <td>-</td>
                 </ng-template>
@@ -480,17 +479,25 @@
                 <th *ngIf="showPrincipalAmount && ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))">Principal Amount</th>
             </tr>
             <tr>
-                <td *ngIf="(loanNatureSelected && fundableNonFundableSelcted &&  isFundable &&  isTerminating) || isVehicle || isShare || isGeneral" class="text-left pl-1">{{proposalAllData?.repaymentMode}}</td>
-                <td *ngIf="showInstallmentAmount  && ((loanNatureSelected && fundableNonFundableSelcted && isTerminating  && isFundable) || ( isVehicle || isShare || isGeneral))" class="text-right pr-1">Rs. {{proposalAllData?.installmentAmount | currencyFormatter}}</td>
-                <td *ngIf="!showInstallmentAmount &&  ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))" class="text-right pr-1">Rs. {{proposalAllData?.interestAmount | currencyFormatter}}</td>
-                <td *ngIf="showRepaymentMode && ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))" class="text-left pl-1">{{proposalAllData?.repaymentModeInterest}}</td>
-                <td *ngIf="showRepaymentMode && ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))" class="text-left pl-1">{{proposalAllData?.repaymentModePrincipal}}</td>
-                <td *ngIf="showRepaymentMode && ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))" class="text-right pr-1">Rs.{{proposalAllData?.principalAmount}}</td>
-                <td *ngIf="showPrincipalAmount && ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))" class="text-right pr-1">Rs.{{proposalAllData?.principalAmount}}</td>
+                <td *ngIf="(loanNatureSelected && fundableNonFundableSelcted &&  isFundable &&  isTerminating) || isVehicle || isShare || isGeneral" class="pl-1">{{proposalAllData?.repaymentMode}}</td>
+                <td *ngIf="showInstallmentAmount  && ((loanNatureSelected && fundableNonFundableSelcted && isTerminating  && isFundable) || ( isVehicle || isShare || isGeneral))" class=" pr-1">Rs. {{proposalAllData?.installmentAmount | currencyFormatter}}</td>
+                <td *ngIf="!showInstallmentAmount &&  ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))" class=" pr-1">Rs. {{proposalAllData?.interestAmount | currencyFormatter}}</td>
+                <td *ngIf="showRepaymentMode && ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))" class=" pl-1">{{proposalAllData?.repaymentModeInterest}}</td>
+                <td *ngIf="showRepaymentMode && ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))" class=" pl-1">{{proposalAllData?.repaymentModePrincipal}}</td>
+                <td *ngIf="showRepaymentMode && ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))" class=" pr-1">Rs.{{proposalAllData?.principalAmount}}</td>
+                <td *ngIf="showPrincipalAmount && ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))" class=" pr-1">Rs.{{proposalAllData?.principalAmount}}</td>
             </tr>
             <tr *ngIf="loanDataHolder?.loanHolder?.cicl?.cibCharge || loanDataHolder?.loanHolder?.cicl?.cibRemark">
                 <td>CIB Charge</td>
                 <td>{{loanDataHolder?.loanHolder?.cicl?.cibCharge ?  loanDataHolder?.loanHolder?.cicl?.cibCharge  :  loanDataHolder?.loanHolder?.cicl?.cibRemark ? (loanDataHolder?.loanHolder?.cicl?.cibRemark | jsonParse)?.value:'N/A'}}</td>
+            </tr>
+            <tr>
+                <td>Loan Administration Fee</td>
+                                <td class="pr-1">
+                                    <div *ngIf="(loanDataHolder.proposal?.data | jsonParse)?.serviceChargeMethod === 'FLAT'; else percentage">
+                                        Rs. {{(loanDataHolder?.proposal?.data | jsonParse)?.serviceCharge | currencyFormatter}}</div>
+                                    <ng-template #percentage>{{(loanDataHolder?.proposal?.data | jsonParse)?.serviceCharge}} % </ng-template>
+                                </td>
             </tr>
             <tr *ngIf="(loanDataHolder?.proposal?.data | jsonParse)?.commitmentFee">
                 <td>Commitment Fee</td>

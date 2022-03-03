@@ -1,3 +1,4 @@
+asdasd
 <div class="row" *ngIf="isCollateralSiteVisitPresent">
     <div class="col-md-12">
         <p  class="header"><strong   class="header">FIXED ASSETS COLLATERAL INSPECTION REPORT</strong></p>
@@ -50,6 +51,7 @@
             <th>Road Width(in feet)</th>
 <!--            <th>Prominent Place</th>-->
             <th>Approach Distance</th>
+
 <!--            <th>Road Access From</th>-->
 <!--            <th>Type of Property</th>-->
 <!--            <th>Shape of Land</th>-->
@@ -68,6 +70,30 @@
 <!--            <td class="text-left pl-1">{{siteVisit?.typeOfProperty}}</td>-->
 <!--            <td class="text-left pl-1">{{siteVisit?.shapeOfLand}}</td>-->
 <!--            <td class="text-left pl-1">{{siteVisit?.locationAndShapeOfLand}}</td>-->
+            <td>{{security[siteVisit?.formControl][siteVisit?.index]?.owner || 'N/A'}}</td>
+
+            <ng-container>
+                <th>Ownership Transfer Date(AD/BS)</th>
+                <th class="text-left pl-1">Ownership Transfer Through</th>
+                <th *ngIf="security[siteVisit?.formControl][siteVisit?.index]?.ownershipTransferThrough == 'SALE'">Has transfer date elapsed by 1 Yrs plus 35 days? </th>
+                <th *ngIf="security[siteVisit?.formControl][siteVisit?.index]?.ownershipTransferThrough == 'FAMILY_SEPARATION'">Has transfer date elapsed by 3 month?</th>
+                <th *ngIf="security[siteVisit?.formControl][siteVisit?.index]?.ownershipTransferThrough == 'GIFT_BAKASPATRA'">Has transfer date elapsed by 2 year plus 35 days? </th>
+                <th *ngIf="security[siteVisit?.formControl][siteVisit?.index]?.ownershipTransferThrough == 'SALE' && landBuilding['saleOwnershipTransfer'] === 'No'">Registration amount in transfer</th>
+                <th *ngIf="security[siteVisit?.formControl][siteVisit?.index]?.ownershipTransferThrough == 'FAMILY_SEPARATION' && landBuilding['familyTransferOwnershipTransfer'] === 'No'">Registration amount in transfer</th>
+                <th *ngIf="security[siteVisit?.formControl][siteVisit?.index]?.ownershipTransferThrough == 'GIFT_BAKASPATRA' && landBuilding['giftOwnershipTransfer'] === 'No'">Registration amount in transfer</th>
+                <th *ngIf="security[siteVisit?.formControl][siteVisit?.index]?.ownershipTransferThrough == 'OTHER'">Other</th>
+            </ng-container>
+            <ng-container>
+                <td class="text-left pl-1">{{security[siteVisit?.formControl][siteVisit?.index]?.ownershipTransferDate | date}} ({{security[siteVisit?.formControl][siteVisit?.index]?.ownershipTransferDate | engNepDate: false}})</td>
+                <td class="text-left pl-1">{{ownerShipTransfer[security[siteVisit?.formControl][siteVisit?.index]?.ownershipTransferThrough]}}</td>
+                <td  *ngIf="security[siteVisit?.formControl][siteVisit?.index]?.ownershipTransferThrough == 'SALE'" class="text-left pl-1">{{security[siteVisit?.formControl][siteVisit?.index]?.saleOwnershipTransfer}}</td>
+                <td  *ngIf="security[siteVisit?.formControl][siteVisit?.index]?.ownershipTransferThrough == 'FAMILY_SEPARATION'" class="text-left pl-1">{{security[siteVisit?.formControl][siteVisit?.index]?.familyTransferOwnershipTransfer}}</td>
+                <td  *ngIf="security[siteVisit?.formControl][siteVisit?.index]?.ownershipTransferThrough == 'GIFT_BAKASPATRA'" class="text-left pl-1">{{security[siteVisit?.formControl][siteVisit?.index]?.giftOwnershipTransfer}}</td>
+                <td  *ngIf="security[siteVisit?.formControl][siteVisit?.index]?.ownershipTransferThrough == 'SALE' && security[siteVisit?.formControl][siteVisit?.index]['saleOwnershipTransfer'] === 'No'" class="text-right pr-1">Rs. {{security[siteVisit?.formControl][siteVisit?.index]?.saleRegistrationAmount | currencyFormatter}}</td>
+                <td  *ngIf="security[siteVisit?.formControl][siteVisit?.index]?.ownershipTransferThrough == 'FAMILY_SEPARATION' && security[siteVisit?.formControl][siteVisit?.index]['familyTransferOwnershipTransfer'] === 'No'" class="text-right pr-1">Rs. {{security[siteVisit?.formControl][siteVisit?.index]?.familyRegistrationAmount}}</td>
+                <td  *ngIf="security[siteVisit?.formControl][siteVisit?.index]?.ownershipTransferThrough == 'GIFT_BAKASPATRA' && security[siteVisit?.formControl][siteVisit?.index]['giftOwnershipTransfer'] === 'No'" class="text-right pr-1">Rs. {{security[siteVisit?.formControl][siteVisit?.index]?.giftRegistrationAmount}}</td>
+                <th *ngIf="security[siteVisit?.formControl][siteVisit?.index]?.ownershipTransferThrough == 'OTHER'" class="text-right pr-1">{{security[siteVisit?.formControl][siteVisit?.index]?.otherOwnershipTransferValue}}</th>
+            </ng-container>
         </tr>
         </tbody>
     </table>

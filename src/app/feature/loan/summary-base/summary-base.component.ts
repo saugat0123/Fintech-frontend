@@ -72,6 +72,7 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
 
 
     loadSummary() {
+        this.spinnerService.show();
         this.spinner = true;
         this.activatedRoute.queryParams.subscribe(
             (paramsValue: Params) => {
@@ -117,6 +118,7 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
         this.actionsList.closed = false;
         this.spinner = true;
         this.loanFormService.detail(this.customerId).subscribe(async (response: any) => {
+            this.spinnerService.hide();
             this.spinner = false;
             this.loanDataHolder = response.detail;
             if (!ObjectUtil.isEmpty(this.loanDataHolder.remitCustomer)) {

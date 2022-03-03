@@ -47,6 +47,7 @@ import * as JSZip from 'jszip';
 import * as JSZipUtils from 'jszip-utils/lib/index.js';
 import {saveAs as importedSaveAs} from 'file-saver';
 import {IndividualJsonData} from '../../../admin/modal/IndividualJsonData';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
     selector: 'app-loan-summary',
@@ -227,6 +228,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         private fiscalYearService: FiscalYearService,
         private collateralSiteVisitService: CollateralSiteVisitService,
         private nbDialogService: NbDialogService,
+        private spinnerService: NgxSpinnerService
     ) {
         this.client = environment.client;
         this.showCadDoc = this.productUtils.CAD_LITE_VERSION;
