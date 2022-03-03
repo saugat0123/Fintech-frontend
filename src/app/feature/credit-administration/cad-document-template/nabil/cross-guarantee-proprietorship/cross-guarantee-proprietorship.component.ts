@@ -272,14 +272,10 @@ export class CrossGuaranteeProprietorshipComponent implements OnInit {
         }
         if (!ObjectUtil.isEmpty(this.offerDocumentDetails) &&
             this.cadData.offerDocumentList[0].docName === 'Interest subsidy sanction letter') {
-            const dateOfApprovalType = this.offerDocumentDetails.dateOfApprovalType ? this.offerDocumentDetails.dateOfApprovalType.en : '';
-            if (dateOfApprovalType === 'AD') {
-                const templateDateApproval = this.offerDocumentDetails.dateOfApproval ? this.offerDocumentDetails.dateOfApproval.en : '';
-                issuedDate = this.englishNepaliDatePipe.transform(this.datePipe.transform(templateDateApproval), true);
+            if (!ObjectUtil.isEmpty(this.offerDocumentDetails.dateOfApprovalType) && this.offerDocumentDetails.dateOfApprovalType.en === 'AD') {
+                issuedDate = this.offerDocumentDetails.dateOfApproval ? this.offerDocumentDetails.dateOfApproval.ct : '';
             } else {
-                const templateDateApproval = this.offerDocumentDetails.dateOfApprovalNepali ?
-                    this.offerDocumentDetails.dateOfApprovalNepali.en : '';
-                issuedDate = templateDateApproval ? templateDateApproval.nDate : '';
+                issuedDate = this.offerDocumentDetails.dateOfApprovalNepali ? this.offerDocumentDetails.dateOfApprovalNepali.ct : '';
             }
         }
         if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Class A Sanction letter') {

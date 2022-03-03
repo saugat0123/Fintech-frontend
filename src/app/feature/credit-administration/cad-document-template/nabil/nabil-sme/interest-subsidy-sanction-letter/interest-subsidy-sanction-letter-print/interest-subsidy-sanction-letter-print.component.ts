@@ -101,8 +101,9 @@ export class InterestSubsidySanctionLetterPrintComponent implements OnInit {
     // For date of Approval
     const dateOfApprovalType = this.letter.dateOfApprovalType ? this.letter.dateOfApprovalType.en : '';
     if (dateOfApprovalType === 'AD') {
-      const templateDateApproval = this.letter.dateOfApproval ? this.letter.dateOfApproval.en : '';
-      this.finalDateOfApproval = this.engToNepaliDate.transform(this.datePipe.transform(templateDateApproval), true);
+      // const templateDateApproval = this.letter.dateOfApproval ? this.letter.dateOfApproval.en : '';
+      // this.finalDateOfApproval = this.engToNepaliDate.transform(this.datePipe.transform(templateDateApproval), true);
+      this.finalDateOfApproval = this.letter.dateOfApproval ? this.letter.dateOfApproval.ct : '';
     } else {
       const templateDateApproval = this.letter.dateOfApprovalNepali ? this.letter.dateOfApprovalNepali.en : '';
       this.finalDateOfApproval = templateDateApproval ? templateDateApproval.nDate : '';
@@ -110,8 +111,8 @@ export class InterestSubsidySanctionLetterPrintComponent implements OnInit {
     // For Date of Application:
     const dateOfApplication = this.letter.dateOfApplicationType ? this.letter.dateOfApplicationType.en : '';
     if (dateOfApplication === 'AD') {
-      const templateDateApplication = this.letter.dateOfApplication ? this.letter.dateOfApplication.en : '';
-      this.finalDateOfApplication = this.engToNepaliDate.transform(this.datePipe.transform(templateDateApplication), true);
+      const templateDateApplication = this.letter.dateOfApplication ? this.letter.dateOfApplication.ct : '';
+      this.finalDateOfApplication = templateDateApplication ? templateDateApplication : '';
     } else {
       const templateDateApplication = this.letter.dateOfApplicationNepali ? this.letter.dateOfApplicationNepali.en : '';
       this.finalDateOfApplication = templateDateApplication ? templateDateApplication.nDate : '';
@@ -119,8 +120,8 @@ export class InterestSubsidySanctionLetterPrintComponent implements OnInit {
     // For Sanction Letter Date:
     const sanctionLetterDate = this.letter.previousSanctionType ? this.letter.previousSanctionType.en : '';
     if (sanctionLetterDate === 'AD') {
-      const templateSanctionDate = this.letter.previousSanctionDate ? this.letter.previousSanctionDate.en : '';
-      this.finalDateofSanction = this.engToNepaliDate.transform(this.datePipe.transform(templateSanctionDate), true);
+      const templateSanctionDate = this.letter.previousSanctionDate ? this.letter.previousSanctionDate.ct : '';
+      this.finalDateofSanction = templateSanctionDate ? templateSanctionDate : '';
     } else {
       const templateSanctionDate = this.letter.previousSanctionDateNepali ? this.letter.previousSanctionDateNepali.en : '';
       this.finalDateofSanction = templateSanctionDate ? templateSanctionDate.nDate : '';
