@@ -349,7 +349,12 @@ export class PowerOfAttorneyCompanyComponent implements OnInit {
       }
     }
     if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Udyamsil Karja Subsidy') {
-      approvalDate = this.offerDocumentDetails.dateOfApproval ? this.offerDocumentDetails.dateOfApproval.ct : '';
+      const dateOfApprovalType = this.offerDocumentDetails.dateOfApprovalType ? this.offerDocumentDetails.dateOfApprovalType.en : '';
+      if (dateOfApprovalType === 'AD') {
+        approvalDate = this.offerDocumentDetails.dateOfApproval ? this.offerDocumentDetails.dateOfApproval.ct : '';
+      } else {
+        approvalDate = this.offerDocumentDetails.dateOfApprovalNepali ? this.offerDocumentDetails.dateOfApprovalNepali.ct : '';
+      }
     }
     if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Interest subsidy sanction letter') {
       const dateOfApprovalType = this.offerDocumentDetails.dateOfApprovalType ? this.offerDocumentDetails.dateOfApprovalType.en : '';
@@ -361,17 +366,25 @@ export class PowerOfAttorneyCompanyComponent implements OnInit {
         approvalDate = templateDateApproval ? templateDateApproval.nDate : '';
       }
     }
+    // if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.offerDocumentDetails.smeGlobalForm) {
+    //   const dateOfApprovalType = this.offerDocumentDetails.smeGlobalForm.dateOfApprovalType ?
+    //       this.offerDocumentDetails.smeGlobalForm.dateOfApprovalType : '';
+    //   if (dateOfApprovalType === 'AD') {
+    //     const templateDateApproval = this.offerDocumentDetails.smeGlobalForm.dateOfApproval ?
+    //         this.offerDocumentDetails.smeGlobalForm.dateOfApprovalCT : '';
+    //     approvalDate = this.englishNepaliDatePipe.transform(this.datePipe.transform(templateDateApproval), true);
+    //   } else {
+    //     const templateDateApproval = this.offerDocumentDetails.smeGlobalForm.dateOfApprovalNepali ?
+    //         this.offerDocumentDetails.smeGlobalForm.dateOfApprovalNepali : '';
+    //     approvalDate = templateDateApproval ? templateDateApproval.nDate : '';
+    //   }
+    // }
     if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.offerDocumentDetails.smeGlobalForm) {
-      const dateOfApprovalType = this.offerDocumentDetails.smeGlobalForm.dateOfApprovalType ?
-          this.offerDocumentDetails.smeGlobalForm.dateOfApprovalType : '';
-      if (dateOfApprovalType === 'AD') {
-        const templateDateApproval = this.offerDocumentDetails.smeGlobalForm.dateOfApproval ?
-            this.offerDocumentDetails.smeGlobalForm.dateOfApprovalCT : '';
-        approvalDate = this.englishNepaliDatePipe.transform(this.datePipe.transform(templateDateApproval), true);
+      if (!ObjectUtil.isEmpty(this.offerDocumentDetails.smeGlobalForm.dateOfApprovalType) && this.offerDocumentDetails.smeGlobalForm.dateOfApprovalType === 'AD') {
+        approvalDate = this.offerDocumentDetails.smeGlobalForm.dateOfApprovalCT ? this.offerDocumentDetails.smeGlobalForm.dateOfApprovalCT : '';
       } else {
-        const templateDateApproval = this.offerDocumentDetails.smeGlobalForm.dateOfApprovalNepali ?
-            this.offerDocumentDetails.smeGlobalForm.dateOfApprovalNepali : '';
-        approvalDate = templateDateApproval ? templateDateApproval.nDate : '';
+        approvalDate = this.offerDocumentDetails.smeGlobalForm.dateOfApprovalNepali ?
+            this.offerDocumentDetails.smeGlobalForm.dateOfApprovalNepali.nDate : '';
       }
     }
     if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Class A Sanction letter') {
