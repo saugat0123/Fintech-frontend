@@ -165,7 +165,7 @@
                                                    type="text"/>
                                             <span class="print-only font-weight-bold font-size-normal1">
                                         {{form?.get(['crossGuaranteePartnership', i, 'borrowerName'])?.value ? form?.get(['crossGuaranteePartnership', i, 'borrowerName'])?.value : "___________________________________"}}
-                                    </span>
+                                    </span> ।
                                         </p>
                                     </div>
                                     <div class="mt-2">
@@ -179,13 +179,13 @@
                                     </span>
                                             को
                                             <!-- condition -->
-                                            <span>
+                                            <span *ngIf="guarantorProprietorship.gender.en === 'MALE' || guarantorProprietorship.gender.en === 'OTHERS'">
                                         नाती
                                     </span>
-                                            <span>
+                                            <span *ngIf="guarantorProprietorship.gender.en === 'FEMALE' && guarantorProprietorship.guarantorMaritalStatus.en === 'Unmarried'">
                                        नातिनी
                                     </span>
-                                            <span>
+                                            <span *ngIf="guarantorProprietorship.gender.en === 'FEMALE' && guarantorProprietorship.guarantorMaritalStatus.en === 'Married'">
                                        बुहारी
                                     </span>
                                             <input class="form-field disable-print form-control-sm"
@@ -195,13 +195,13 @@
                                         {{form?.get(['crossGuaranteePartnership', i, 'fatherName'])?.value ? form?.get(['crossGuaranteePartnership', i, 'fatherName'])?.value : "___________________________________"}}
                                     </span>
                                             को
-                                            <span>
+                                            <span *ngIf="guarantorProprietorship.gender.en === 'MALE' || guarantorProprietorship.gender.en === 'OTHERS'">
                                         छोरा
                                     </span>
-                                            <span>
+                                            <span *ngIf="guarantorProprietorship.gender.en === 'FEMALE' && guarantorProprietorship.guarantorMaritalStatus.en === 'Unmarried'">
                                        छोरी
                                     </span>
-                                            <span>
+                                            <span *ngIf="guarantorProprietorship.gender.en === 'FEMALE' && guarantorProprietorship.guarantorMaritalStatus.en === 'Married'">
                                        श्रीमती
                                     </span>
                                             (जमानतकर्ता
@@ -259,13 +259,13 @@
                                         {{form?.get(['crossGuaranteePartnership', i, 'authorizedPersonAge'])?.value ? form?.get(['crossGuaranteePartnership', i, 'authorizedPersonAge'])?.value : "___________________________________"}}
                                     </span>
                                             को
-                                            <span>
+                                            <span *ngIf="guarantorProprietorship.gender.en === 'MALE' || guarantorProprietorship.gender.en === 'OTHERS'">
                                        श्री
                                     </span>
-                                            <span>
+                                            <span *ngIf="guarantorProprietorship.gender.en === 'FEMALE' && guarantorProprietorship.guarantorMaritalStatus.en === 'Married'">
                                       श्रीमती
                                     </span>
-                                            <span>
+                                            <span *ngIf="guarantorProprietorship.gender.en === 'FEMALE' && guarantorProprietorship.guarantorMaritalStatus.en === 'Unmarried'">
                                       सुश्री
                                     </span>
                                             <input class="form-field disable-print form-control-sm"
