@@ -1,6 +1,7 @@
 <div class="row mt-3">
     <div class="col-md-12">
         <p  class="header"><strong  class="header">Security Schedule</strong></p>
+        <p  class="security-header" *ngIf="landSelected || apartmentSelected || landBuilding"><strong  class="security-header">Registered Mortgage over Land And Building</strong></p>
         <div class="row" *ngIf="vehicleSelected">
             <div class="col-md-12">
                 <div class="d-flex justify-content-sm-end">
@@ -188,12 +189,12 @@
                 </table>
 
                     <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-                        <tr class="sb-bg-dark text-white">
-                            <th colspan="1">Road access seen in blueprint</th>
-                            <th colspan="4">Road Access Description</th>
+                        <tr>
+                            <td colspan="1">Road access seen in blueprint</td>
+                            <td colspan="1">{{landDetails?.roadAccessBluePrint}}</td>
                         </tr>
                         <tr>
-                            <td colspan="1">{{landDetails?.roadAccessBluePrint}}</td>
+                            <td colspan="4">Road Access Description</td>
                             <td colspan="4">{{landDetails?.roadAccessDescribe}}</td>
                         </tr>
                     </table>
@@ -344,12 +345,13 @@
 
                 </table>
                     <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-                        <tr class="sb-bg-dark text-white">
-                            <th colspan="1">Road access seen in blueprint</th>
-                            <th colspan="4">Road Access Description</th>
+                        <tr>
+                            <td colspan="1" class="sb-bg-dark">Road access seen in blueprint</td>
+                            <td colspan="4">{{landBuilding?.roadAccessBluePrint}}</td>
+
                         </tr>
                         <tr>
-                            <td colspan="1">{{landBuilding?.roadAccessBluePrint}}</td>
+                            <td colspan="1" class="sb-bg-dark">Road Access Description</td>
                             <td colspan="4">{{landBuilding?.roadAccessDescribe}}</td>
                         </tr>
                     </table>

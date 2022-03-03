@@ -19,7 +19,8 @@
                 <i class="text-round">F</i>ull Settlement Loan
                 <i class="text-round">R/E</i>new With Enhancement
             </li>
-            <li class="sb-medium"><span><sup>*</sup>  IR : Interest Rate ,<sup>*</sup> BR : Base Rate ,<sup>*</sup> PR : Premium Rate ,<sup>*</sup> COM : Commission ,<sup>*</sup> CM : Cash margin</span>
+            <li class="sb-medium"><span><sup>*</sup>  IR : Interest Rate ,<sup>*</sup> BR : Base Rate ,<sup>*</sup> PR : Premium Rate
+                <span *ngIf="!consumerFinance">,<sup>*</sup> COM : Commission ,<sup>*</sup> CM : Cash margin</span></span>
             </li>
         </ul>
     </div>
@@ -48,7 +49,7 @@
 
 
 <!--                <th>Loan Administration Fee</th>-->
-                <th>Limit Expiry/Tenure (AD/BS)</th>
+                <th>Limit Expiry/Tenure</th>
                 <!--        <th>Tenure Duration</th>-->
                 <!--        <th>Repayment Mode</th>-->
                 <!--        <th>Installment Amount</th>-->
