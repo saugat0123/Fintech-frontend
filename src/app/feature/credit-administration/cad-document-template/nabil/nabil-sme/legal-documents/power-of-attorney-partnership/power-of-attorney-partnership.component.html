@@ -391,23 +391,16 @@
                                     <span class="print-only">{{this.combinedAddress ? this.combinedAddress : '___________________________'}}</span>
                                 </p>
                                 <ng-container class="m-0" *ngIf="isAuth">
-                                    <span *ngFor="let details of authorizedNameArray; let i = index">
+<!--                                    <span *ngFor="let details of authorizedNameArray; let i = index">-->
                                     आधिकारिक प्रतिनिधिको नाम :
                                         <input class="form-field form-control-sm d-print-none"
                                                placeholder=" "
                                                type="text"
-                                               [value]="authorizedNameArray ? authorizedNameArray[i] : ''"/>
-                                        <span class="print-only">{{authorizedNameArray ? authorizedNameArray[i] : '_____________________'}}</span>
+                                               [value]="authorizedNameArray ? authorizedNameArray[0] : ''"/>
+                                        <span class="print-only">{{authorizedNameArray ? authorizedNameArray[0] : '_____________________'}}</span>
                                     <br>
-                                    </span>
+<!--                                    </span>-->
                                 </ng-container>
-                                <p class="m-0" *ngIf="isAuth1">
-                                    आधिकारिक प्रतिनिधिको नाम :
-                                    <input class="form-field form-control-sm d-print-none nepaliFont"
-                                           name="authorizedBodyName"
-                                           formControlName="authorizedBodyName" placeholder="" type="text"/>
-                                    <span class="print-only nepaliFont">{{this.supportedInfo ? (this.supportedInfo?.authorizedBodyName ? this.supportedInfo?.authorizedBodyName : '===========================') : '==========================='}}</span>
-                                </p>
                             </div>
                         </div>
                     </div>

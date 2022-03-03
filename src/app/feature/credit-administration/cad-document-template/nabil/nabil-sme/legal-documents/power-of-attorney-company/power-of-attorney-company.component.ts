@@ -114,46 +114,52 @@ export class PowerOfAttorneyCompanyComponent implements OnInit {
         };
         this.issueDate.push(newDate);
       }
+      let indianOwnerPPIssuedDate;
+      let indianOwnerPassportValidityDate;
       if (val.ownerNationality === 'Indian' && val.indianOwnerDetailOption === 'Passport') {
-        date = this.englishNepaliDatePipe.transform(val ?
-            val.indianOwnerPassportIssuedDateCT : val.indianOwnerPassportIssuedDateCT, true) || '';
-        date2 = this.englishNepaliDatePipe.transform(val ?
-            val.indianOwnerPassportValidityDateCT : val.indianOwnerPassportValidityDateCT, true) || '';
+        indianOwnerPPIssuedDate = this.datePipe.transform(val.indianOwnerPassportIssuedDateCT ? val.indianOwnerPassportIssuedDateCT : '');
+        date = this.transformEnglishDate(indianOwnerPPIssuedDate ? indianOwnerPPIssuedDate : '');
+        // tslint:disable-next-line:max-line-length
+        indianOwnerPassportValidityDate = this.datePipe.transform(val.indianOwnerPassportValidityDateCT ? val.indianOwnerPassportValidityDateCT : '');
+        date2 = this.transformEnglishDate(indianOwnerPassportValidityDate ? indianOwnerPassportValidityDate : '');
         const newDate = {
           issueDate : date,
           validDate : date2
         };
         this.issueDate.push(newDate);
       }
+      let indianOwnerAdharCardIssuedDate;
       if (val.ownerNationality === 'Indian' && val.indianOwnerDetailOption === 'Adhar Card') {
-        date = this.englishNepaliDatePipe.transform(val ?
-            val.indianOwnerAdharCardIssuedDateCT : val.indianOwnerAdharCardIssuedDateCT, true) || '';
+        // tslint:disable-next-line:max-line-length
+        indianOwnerAdharCardIssuedDate = this.datePipe.transform(val.indianOwnerAdharCardIssuedDateCT ? val.indianOwnerAdharCardIssuedDateCT : '');
+        date = this.transformEnglishDate(indianOwnerAdharCardIssuedDate ? indianOwnerAdharCardIssuedDate : '');
         const newDate = {
           issueDate : date,
         };
         this.issueDate.push(newDate);
       }
+      let indianEmbassyIssuedDate;
       if (val.ownerNationality === 'Indian' && val.indianOwnerDetailOption === 'Embassy Certificate') {
-        date = this.englishNepaliDatePipe.transform(val ?
-            val.indianEmbassyIssuedDateCT : val.indianEmbassyIssuedDateCT, true) || '';
+        indianEmbassyIssuedDate = this.datePipe.transform(val.indianEmbassyIssuedDateCT ? val.indianEmbassyIssuedDateCT : '');
+        date = this.transformEnglishDate(indianEmbassyIssuedDate ? indianEmbassyIssuedDate : '');
         const newDate = {
           issueDate : date,
         };
         this.issueDate.push(newDate);
       }
+      let ppIssueDate;
+      let valDate;
       if (val.ownerNationality === 'Other') {
         if (val.otherOwnerPassportIssuedDateOption === 'AD') {
-          date = this.englishNepaliDatePipe.transform(val ?
-              val.otherOwnerPassportIssuedDateCT : val.otherOwnerPassportIssuedDateCT, true) || '';
-        }
-        if (val.otherOwnerPassportValidityDateOption === 'AD') {
-          date2 = this.englishNepaliDatePipe.transform(val ?
-              val.otherOwnerPassportValidityDateCT : val.otherOwnerPassportValidityDateCT, true) || '';
-        }
-        if (val.otherOwnerPassportIssuedDateOption === 'BS') {
+          ppIssueDate = this.datePipe.transform(val.otherOwnerPassportIssuedDateCT ? val.otherOwnerPassportIssuedDateCT : '');
+          date = this.transformEnglishDate(ppIssueDate ? ppIssueDate : '');
+        } else {
           date = val ? val.otherOwnerPassportIssuedDateNepali.nDate : '';
         }
-        if (val.otherOwnerPassportValidityDateOption === 'BS') {
+        if (val.otherOwnerPassportValidityDateOption === 'AD') {
+          valDate = this.datePipe.transform(val.otherOwnerPassportValidityDateCT ? val.otherOwnerPassportValidityDateCT : '');
+          date2 = this.transformEnglishDate(valDate ? valDate : '');
+        } else {
           date2 = val ? val.otherOwnerPassportValidityDateNepali.nDate : '';
         }
         const newDate = {
@@ -165,6 +171,42 @@ export class PowerOfAttorneyCompanyComponent implements OnInit {
     });
   }
 
+  transformEnglishDate(date) {
+    let transformedDate;
+    let monthName;
+    const dateArray1 = [];
+    const splittedDate = date.split(' ');
+    if (splittedDate[0] === 'Jan') {
+      monthName = 'जनवरी';
+    } else if (splittedDate[0] === 'Feb') {
+      monthName = 'फेब्रुअरी';
+    } else if (splittedDate[0] === 'Mar') {
+      monthName = 'मार्च';
+    } else if (splittedDate[0] === 'Apr') {
+      monthName = 'अप्रिल';
+    } else if (splittedDate[0] === 'May') {
+      monthName = 'मे';
+    } else if (splittedDate[0] === 'Jun') {
+      monthName = 'जुन';
+    } else if (splittedDate[0] === 'Jul') {
+      monthName = 'जुलाई';
+    } else if (splittedDate[0] === 'Aug') {
+      monthName = 'अगष्ट';
+    } else if (splittedDate[0] === 'Sep') {
+      monthName = 'सेप्टेम्बर';
+    } else if (splittedDate[0] === 'Oct') {
+      monthName = 'अक्टुबर';
+    } else if (splittedDate[0] === 'Nov') {
+      monthName = 'नोभेम्बर';
+    } else {
+      monthName = 'डिसेम्बर';
+    }
+    dateArray1.push(this.engToNepNumberPipe.transform(splittedDate[1].slice(0, -1)));
+    dateArray1.push(monthName + ',');
+    dateArray1.push(this.engToNepNumberPipe.transform(splittedDate[2]));
+    transformedDate = dateArray1.join(' ');
+    return transformedDate;
+  }
   setSavedFreeText() {
     this.companyInfo.forEach((v, index) => {
       this.addFreeTextArray();
