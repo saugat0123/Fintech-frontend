@@ -410,25 +410,17 @@
                             </span>
                             </p>
                             <p class="m-0" *ngIf="isAuth">
-                                <span *ngFor="let details of authorizedNameArray; let i = index">
+<!--                                <span *ngFor="let details of authorizedNameArray; let i = index">-->
                                 आधिकारिक प्रतिनिधिको नाम :
                                     <span>
                                         <input class="form-field form-control-sm d-print-none" placeholder="" type="text"
-                                               [value]="authorizedNameArray ? authorizedNameArray[i] : ''"/>
+                                               [value]="authorizedNameArray ? authorizedNameArray[0] : ''"/>
                                         <strong class="print-only">
-                                            {{authorizedNameArray ? authorizedNameArray[i] : '_____________________'}}
+                                            {{authorizedNameArray ? authorizedNameArray[0] : '_____________________'}}
                                         </strong>
                                         <br>
                                     </span>
-                                </span>
-                            </p>
-                            <p class="m-0" *ngIf="isAuth1">
-                                आधिकारिक प्रतिनिधिको नाम :
-                                    <span>
-                                        <input class="form-field form-control-sm d-print-none nepaliFont" name="authorizedBodyName"
-                                               formControlName="authorizedBodyName" placeholder="" type="text"/>
-                                        <span class="print-only nepaliFont">{{this.freeText ? (this.freeText?.authorizedBodyName ? this.freeText?.authorizedBodyName : '========================') : '========================'}}</span>
-                                </span>
+<!--                                </span>-->
                             </p>
                         </div>
                     </div>
