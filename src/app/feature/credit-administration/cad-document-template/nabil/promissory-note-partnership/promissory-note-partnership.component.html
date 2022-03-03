@@ -269,14 +269,10 @@
                                 (input)="getNumAmountWord('loanamountinFigure', 'loanamountinWords')"
                                 class="form-field disable-print form-control-sm" name="loanamountinFigure"
                                 formControlName="loanamountinFigure" placeholder=" रकम " type="text" />
-                            <span
-                                class="print-only font-weight-bold">
-                                {{(this.tempData.smeGlobalForm && this.tempData.smeGlobalForm.totalLimitInFigureCT ) ?
-                                this.tempData.smeGlobalForm.totalLimitInFigureCT : '_________________'}}</span>/-
+                            <span class="print-only font-weight-bold"> {{form?.get('loanamountinFigure')?.value ? form?.get('loanamountinFigure')?.value : '______________________'}}</span>/-
                             (अक्षरेपी <input class="form-field disable-print form-control-sm" name="loanamountinWords"
                                 formControlName="loanamountinWords" placeholder=" " type="text" />
-                            <span
-                                class="print-only font-weight-bold">{{form?.get('loanamountinWords')?.value ? form?.get('loanamountinWords')?.value : "___________________________"}}</span>)
+                            <span class="print-only font-weight-bold">{{form?.get('loanamountinWords')?.value ? form?.get('loanamountinWords')?.value : "___________________________"}}</span>)
                             र
                             भुक्तानी माग गरेको मितिसम्मको व्याज बार्षिक <input class="form-field disable-print form-control-sm nepaliFont"
                                 name="interestPerApprovedCFR" formControlName="interestPerApprovedCFR" placeholder=" "
