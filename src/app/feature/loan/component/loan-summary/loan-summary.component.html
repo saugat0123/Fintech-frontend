@@ -449,7 +449,7 @@
             </div>
 
             <div *ngIf="creditRiskAlphaSummary || creditRiskLambdaSummary || crgGammaSummary">
-                <p><strong>Credit Risk Grading</strong></p>
+                <p class="header"><strong class="header">Credit Risk Grading</strong></p>
                 <table
                         class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                     <thead>
@@ -531,10 +531,10 @@
             </nb-accordion>
             <div class="row mt-1" *ngIf="loanDataHolder.loanCategory === 'INDIVIDUAL' " >
                 <div class="col-md-12">
-                    <p><strong class="header">Address Verification</strong></p>
+                    <p class="header"><strong class="header">Address Verification</strong></p>
                     <table *ngIf="!isJointInfo" class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
                         <tr class="text-white sb-bg-dark">
-                            <th colspan="6">Permanent Address</th>
+                            <th colspan="6" class="sub-header">Permanent Address</th>
                         </tr>
                         <tr>
                             <th> Province</th>
@@ -553,7 +553,7 @@
                             <td class="text-left pl-1">{{individualJsonData?.permanentAddressLine2 || 'NA'}}</td>
                         </tr>
                         <tr class="text-white sb-bg-dark">
-                            <th colspan="6">Temporary Address</th>
+                            <th colspan="6" class="sub-header">Temporary Address</th>
                         </tr>
                         <tr>
                             <th>Province</th>
@@ -574,7 +574,7 @@
                     </table>
                     <table *ngIf="isJointInfo" class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
                         <tr class="text-white sb-bg-dark">
-                            <th colspan="7">Permanent Address</th>
+                            <th colspan="7" class="sub-header">Permanent Address</th>
                         </tr>
                         <tr>
                             <th>Customer Name</th>
@@ -597,7 +597,7 @@
                             </tr>
                         </ng-container>
                         <tr class="text-white sb-bg-dark">
-                            <th colspan="7">Temporary Address</th>
+                            <th colspan="7" class="sub-header">Temporary Address</th>
                         </tr>
                         <tr>
                             <th>Customer Name</th>
@@ -622,10 +622,10 @@
                     </table>
                 </div>
             </div>
-            <p><strong   class="header">Applicant/Guarantor Profile</strong></p>
+            <p class="header"><strong   class="header">Applicant/Guarantor Profile</strong></p>
             <div *ngIf="isJointInfo" class="row">
                 <div class="col-md-12 text-center">
-                    <p ><strong   class="header">Joint Details</strong></p>
+                    <p class="sub-header" ><strong   class="header">Joint Details</strong></p>
                     <table
                             class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
                         <thead>
