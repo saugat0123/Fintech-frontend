@@ -31,6 +31,96 @@
             <div class="box-header with-border">
                 <h2 class="box-title title">Details of Security Offered and Value Amount : LAND</h2>
             </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box-header with-border">
+                        <nb-checkbox (change)="checkedChange($event?.target?.checked)"
+                                     [checked]="securityForm?.get('crossCollateralizedChecked')?.value"><i>Cross Collateralized </i>
+                        </nb-checkbox>
+                    </div>
+                    <table *ngIf="securityForm?.get('crossCollateralizedChecked')?.value"
+                           class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                        <tr>
+                            <th class="sn">SN</th>
+                            <th>Borrower</th>
+                            <th>Facility</th>
+                            <th>Total Exposure</th>
+                            <th>RM Value</th>
+                            <th>FMV of FAC(Apportioned)</th>
+                            <th>Drawdown(%) of FAC</th>
+                            <th>Residual FMV of FAC</th>
+                            <th *ngIf="securityForm?.get('crossCollateralized')['length'] > 0"></th>
+                        </tr>
+                        <tbody *ngFor="let cc of securityForm.get('crossCollateralized')['controls']; let cin = index" formArrayName="crossCollateralized">
+                        <tr [formGroupName]="cin">
+                            <td class="sn">{{cin + 1}}</td>
+                            <td><input class="form-control text-center"
+                                       formControlName="borrowerName"
+                                       placeholder="Borrower"
+                                       type="text"/></td>
+                            <td><select class="form-control" formControlName="facilityName">
+                                <option [value]="null" hidden>Select Facility</option>
+                                <ng-container *ngFor="let list of loanList">
+                                    <option *ngIf="!list?.isRemit" [value]="list?.id">{{list?.shortNames}}</option>
+                                </ng-container>
+                            </select></td>
+                            <td><input class="form-control text-center"
+                                       formControlName="totalExposure"
+                                       placeholder="Total Exposure"
+                                       (change)="calculateTotalCross()"
+                                       type="number"/></td>
+                            <td><input class="form-control text-center"
+                                       formControlName="rmValue"
+                                       placeholder="RM Value"
+                                       (change)="calculateTotalCross()"
+                                       type="number"/></td>
+                            <td><input class="form-control text-center"
+                                       formControlName="fmvApportion"
+                                       placeholder="FMV of FAC"
+                                       (change)="calculateTotalCross()"
+                                       type="number"/></td>
+                            <td><input class="form-control text-center"
+                                       formControlName="drawDown"
+                                       placeholder="Drawdown"
+                                       type="text"/></td>
+                            <td><input class="form-control text-center"
+                                       formControlName="residualFmv"
+                                       placeholder="Residual FMV of FAC"
+                                       type="text"/></td>
+                            <td *ngIf="securityForm?.get('crossCollateralized')['length'] > 0">
+                                <input (click)="removeCrossCollateralized(cin)"
+                                       class="align-self-end btn btn-sm btn-danger btn-primary"
+                                       type="button" value="Delete"/>
+                            </td>
+                        </tr>
+                        </tbody>
+                        <tbody>
+                        <tr>
+                            <th></th>
+                            <th>Total</th>
+                            <th></th>
+                            <th><input [readOnly]="true" class="form-control text-center"
+                                       formControlName="exposureTotal"
+                                       type="number"></th>
+                            <th><input [readOnly]="true" class="form-control text-center"
+                                       formControlName="rmValueTotal"
+                                       type="number"></th>
+                            <th><input [readOnly]="true" class="form-control text-center"
+                                       formControlName="fmvOfFacTotal"
+                                       type="number"></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        </tbody>
+                        <div class="disable-print">
+                            <input (click)="addCrossCollateralized()" class="btn btn-sm btn-flat btn-primary"
+                                   type="button" value="Add More"/>
+                        </div>
+                    </table>
+                </div>
+            </div>
+
             <div *ngFor="let land of securityForm.get('landDetails')['controls']; let i = index"
                  class="font-weight-bold"
                  formArrayName="landDetails">
