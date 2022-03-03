@@ -23,6 +23,7 @@ import {Alert, AlertType} from '../../../../../../../@theme/model/Alert';
 import {InterestSubsidySanctionLetterComponent} from '../../../../../cad-document-template/nabil/nabil-sme/interest-subsidy-sanction-letter/interest-subsidy-sanction-letter.component';
 import {CommonSecuritySectionPrimaryComponent} from '../../common-security-section/common-security-section-primary/common-security-section-primary.component';
 import {CommonSecuritySectionSecondaryComponent} from '../../common-security-section/common-security-section-secondary/common-security-section-secondary.component';
+import {EnglishDateTransformPipe} from '../../../../../../../@core/pipe/english-date-transform.pipe';
 
 @Component({
     selector: 'app-interest-subsidy-sanction-letter-template-edit',
@@ -99,7 +100,8 @@ export class InterestSubsidySanctionLetterTemplateEditComponent implements OnIni
                 private dialogRef: NbDialogRef<InterestSubsidySanctionLetterTemplateEditComponent>,
                 private titleCasePipe: TitleCasePipe,
                 private administrationService: CreditAdministrationService,
-                private toastService: ToastService) {
+                private toastService: ToastService,
+                private englishCalenderPipe: EnglishDateTransformPipe) {
     }
 
     ngOnInit() {
@@ -409,10 +411,13 @@ export class InterestSubsidySanctionLetterTemplateEditComponent implements OnIni
         const approvalType = this.interestSubsidy.get('dateOfApprovalType').value;
         let transApprovalDate;
         if (approvalType === 'AD') {
-            const approvalDateVal = this.interestSubsidy.get('dateOfApproval').value;
+            const approvalDateVal = this.datePipe.transform(this.interestSubsidy.get('dateOfApproval').value);
             transApprovalDate = !ObjectUtil.isEmpty(approvalDateVal) ?
                 this.datePipe.transform(approvalDateVal) : '';
-            this.interestSubsidy.get('dateOfApprovalTrans').patchValue(transApprovalDate);
+            const finalAppDate = this.englishCalenderPipe.transform(transApprovalDate);
+            if (!ObjectUtil.isEmpty(approvalDateVal)) {
+                this.interestSubsidy.get('dateOfApprovalTrans').patchValue(finalAppDate);
+            }
         } else {
             const approvalNepaliDate = this.interestSubsidy.get('dateOfApprovalNepali').value;
             transApprovalDate = !ObjectUtil.isEmpty(approvalNepaliDate) ?
@@ -424,10 +429,13 @@ export class InterestSubsidySanctionLetterTemplateEditComponent implements OnIni
         const applicationType = this.interestSubsidy.get('dateOfApplicationType').value;
         let transApplicationDate;
         if (applicationType === 'AD') {
-            const applicationDateVal = this.interestSubsidy.get('dateOfApplication').value;
+            const applicationDateVal = this.datePipe.transform(this.interestSubsidy.get('dateOfApplication').value);
             transApplicationDate = !ObjectUtil.isEmpty(applicationDateVal) ?
                 this.datePipe.transform(applicationDateVal) : '';
-            this.interestSubsidy.get('dateOfApplicationTrans').patchValue(transApplicationDate);
+            const finalAppDate = this.englishCalenderPipe.transform(transApplicationDate);
+            if (!ObjectUtil.isEmpty(applicationDateVal)) {
+                this.interestSubsidy.get('dateOfApplicationTrans').patchValue(finalAppDate);
+            }
         } else {
             const applicationDateNep = this.interestSubsidy.get('dateOfApplicationNepali').value;
             transApplicationDate = !ObjectUtil.isEmpty(applicationDateNep) ?
@@ -439,10 +447,13 @@ export class InterestSubsidySanctionLetterTemplateEditComponent implements OnIni
         const previousLetterType = this.interestSubsidy.get('previousSanctionType').value;
         let transPrevSancDate;
         if (previousLetterType === 'AD') {
-            const prevDateEng = this.interestSubsidy.get('previousSanctionDate').value;
+            const prevDateEng = this.datePipe.transform(this.interestSubsidy.get('previousSanctionDate').value);
             transPrevSancDate = !ObjectUtil.isEmpty(prevDateEng) ?
                 this.datePipe.transform(prevDateEng) : '';
-            this.interestSubsidy.get('previousSanctionDateTrans').patchValue(transPrevSancDate);
+            const finalAppDate = this.englishCalenderPipe.transform(transPrevSancDate);
+            if (!ObjectUtil.isEmpty(prevDateEng)) {
+                this.interestSubsidy.get('previousSanctionDateTrans').patchValue(finalAppDate);
+            }
         } else {
             const transPrevSancNepali = this.interestSubsidy.get('previousSanctionDateNepali').value;
             transPrevSancDate = !ObjectUtil.isEmpty(transPrevSancNepali) ?
@@ -574,9 +585,7 @@ export class InterestSubsidySanctionLetterTemplateEditComponent implements OnIni
         this.interestSubsidy.get('dateOfApprovalTypeCT').patchValue(this.interestSubsidy.get('dateOfApprovalTypeTrans').value);
         if (this.ADApproval) {
             const tranApprovalDate = this.interestSubsidy.get('dateOfApprovalTrans').value;
-            const convertApprovalDate = !ObjectUtil.isEmpty(tranApprovalDate) ?
-                this.engNepDatePipe.transform(tranApprovalDate, true) : '';
-            this.interestSubsidy.get('dateOfApprovalCT').patchValue(convertApprovalDate);
+            this.interestSubsidy.get('dateOfApprovalCT').patchValue(tranApprovalDate);
         }
         if (this.BSApproval) {
             this.interestSubsidy.get('dateOfApprovalNepaliCT').patchValue(
@@ -587,9 +596,9 @@ export class InterestSubsidySanctionLetterTemplateEditComponent implements OnIni
         this.interestSubsidy.get('dateOfApplicationTypeCT').patchValue(this.interestSubsidy.get('dateOfApplicationTypeTrans').value);
         if (this.ADApplication) {
             const tranApplicationDate = this.interestSubsidy.get('dateOfApplicationTrans').value;
-            const convertApplicationDate = !ObjectUtil.isEmpty(tranApplicationDate) ?
-                this.engNepDatePipe.transform(tranApplicationDate, true) : '';
-            this.interestSubsidy.get('dateOfApplicationCT').patchValue(convertApplicationDate);
+            // const convertApplicationDate = !ObjectUtil.isEmpty(tranApplicationDate) ?
+            //     this.englishCalenderPipe.transform(tranApplicationDate, true) : '';
+            this.interestSubsidy.get('dateOfApplicationCT').patchValue(tranApplicationDate);
         }
         if (this.BSApplication) {
             this.interestSubsidy.get('dateOfApplicationNepaliCT').patchValue(
@@ -601,9 +610,9 @@ export class InterestSubsidySanctionLetterTemplateEditComponent implements OnIni
         this.interestSubsidy.get('previousSanctionTypeCT').patchValue(this.interestSubsidy.get('previousSanctionTypeTrans').value);
         if (this.ADPrevious) {
             const transPreviousSanction = this.interestSubsidy.get('previousSanctionDateTrans').value;
-            const convertPreviousSanction = !ObjectUtil.isEmpty(transPreviousSanction) ?
-                this.engNepDatePipe.transform(transPreviousSanction, true) : '';
-            this.interestSubsidy.get('previousSanctionDateCT').patchValue(convertPreviousSanction);
+            // const convertPreviousSanction = !ObjectUtil.isEmpty(transPreviousSanction) ?
+            //     this.englishCalenderPipe.transform(transPreviousSanction, true) : '';
+            this.interestSubsidy.get('previousSanctionDateCT').patchValue(transPreviousSanction);
         }
         if (this.BSPrevious) {
             this.interestSubsidy.get('previousSanctionDateNepaliCT').patchValue(
