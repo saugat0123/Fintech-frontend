@@ -1004,6 +1004,55 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
                 };
             }
 
+            if (this.actionType === 'Edit' && this.customerType === CustomerType.INSTITUTION) {
+                nepData['authorizedDobDateType'] = this.userConfigForm.get(['guarantorDetails', index, 'authorizedDobDateType']).value,
+                    nepData['authorizedDobNepali'] = {
+                        en: this.userConfigForm.get(['guarantorDetails', index, 'authorizedDobNepali']).value,
+                        np: this.userConfigForm.get(['guarantorDetails', index, 'authorizedDobNepaliTrans']).value,
+                        ct: this.userConfigForm.get(['guarantorDetails', index, 'authorizedDobNepaliCT']).value,
+                    };
+                nepData['authorizedDob'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'authorizedDob']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'authorizedDobTrans']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'authorizedDobCT']).value,
+                };
+                nepData['gender'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'gender']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'gender']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'gender']).value,
+                };
+                nepData['guarantorMaritalStatus'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'guarantorMaritalStatus']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'guarantorMaritalStatusTrans']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'guarantorMaritalStatusCT']).value,
+                };
+                nepData['relationMedium'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'relationMedium']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'relationMediumTrans']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'relationMediumCT']).value,
+                };
+                nepData['husbandName'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'husbandName']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'husbandNameTrans']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'husbandNameCT']).value,
+                };
+                nepData['fatherInLawName'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'fatherInLawName']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'fatherInLawNameTrans']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'fatherInLawNameCT']).value,
+                };
+                nepData['grandFatherName'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'grandFatherName']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'grandFatherNameTrans']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'grandFatherNameCT']).value,
+                };
+                nepData['fatherName'] = {
+                    en: this.userConfigForm.get(['guarantorDetails', index, 'fatherName']).value,
+                    np: this.userConfigForm.get(['guarantorDetails', index, 'fatherNameTrans']).value,
+                    ct: this.userConfigForm.get(['guarantorDetails', index, 'fatherNameCT']).value,
+                };
+            }
+
             if (this.userConfigForm.get(['guarantorDetails', index, 'guarantorNationality']).value === 'Nepali' && this.actionType === 'Edit' &&
                 this.customerType === CustomerType.INSTITUTION) {
                 nepData['guarantorNationality'] = this.userConfigForm.get(['guarantorDetails', index, 'guarantorNationality']).value,
@@ -1779,7 +1828,15 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
             citizenIssuedDateNepali: [undefined],
             citizenIssuedDateNepaliTrans: [undefined],
             citizenIssuedDateNepaliCT: [undefined],
-
+            authorizedDobDateType: [undefined],
+            authorizedDobDateTypeTrans: [undefined],
+            authorizedDobDateTypeCT: [undefined],
+            authorizedDobNepali: [undefined],
+            authorizedDobNepaliTrans: [undefined],
+            authorizedDobNepaliCT: [undefined],
+            authorizedDob: [undefined],
+            authorizedDobTrans: [undefined],
+            authorizedDobCT: [undefined],
 
             // only for Institutional customer
             permanentStreetTole: [undefined],
@@ -2127,6 +2184,17 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
                     nepaData.citizenIssuedDateNepali.en : '',
                 citizenIssuedDateNepaliTrans: !ObjectUtil.isEmpty(nepaData.citizenIssuedDateNepali) ? nepaData.citizenIssuedDateNepali.en : '',
                 citizenIssuedDateNepaliCT: !ObjectUtil.isEmpty(nepaData.citizenIssuedDateNepali) ? nepaData.citizenIssuedDateNepali.en : '',
+
+                // DOB
+                authorizedDobDateType: nepaData.authorizedDobDateType ? nepaData.authorizedDobDateType : '',
+                authorizedDob: !ObjectUtil.isEmpty(nepaData.authorizedDob) ? new Date(nepaData.authorizedDob.en) : '',
+                authorizedDobTrans: !ObjectUtil.isEmpty(nepaData.authorizedDob) ? nepaData.authorizedDob.en : '',
+                authorizedDobCT: !ObjectUtil.isEmpty(nepaData.authorizedDob) ? nepaData.authorizedDob.en : '',
+
+                authorizedDobNepali: !ObjectUtil.isEmpty(nepaData.authorizedDobNepali) ?
+                    nepaData.authorizedDobNepali.en : '',
+                authorizedDobNepaliTrans: !ObjectUtil.isEmpty(nepaData.authorizedDobNepali) ? nepaData.authorizedDobNepali.en : '',
+                authorizedDobNepaliCT: !ObjectUtil.isEmpty(nepaData.authorizedDobNepali) ? nepaData.authorizedDobNepali.en : '',
 
                 guarantorPermanentMunicipalityOrVdcCT: [ObjectUtil.isEmpty(nepaData.guarantorPermanentMunicipalityOrVdc) ?
                     undefined : nepaData.guarantorPermanentMunicipalityOrVdc.np],
@@ -2853,6 +2921,16 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
                 citizenIssuedDateNepaliTrans: this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDateNepali']).value,
                 citizenIssuedDateNepaliCT: this.userConfigForm.get(['guarantorDetails', index, 'citizenIssuedDateNepali']).value,
 
+                // DOB
+                authorizedDobTrans: this.userConfigForm.get(['guarantorDetails', index, 'authorizedDob']).value ?
+                    this.userConfigForm.get(['guarantorDetails', index, 'authorizedDob']).value : '',
+                authorizedDobCT: this.userConfigForm.get(['guarantorDetails', index, 'authorizedDob']).value ?
+                    this.userConfigForm.get(['guarantorDetails', index, 'authorizedDob']).value : '',
+                authorizedDobNepaliTrans: this.userConfigForm.get(['guarantorDetails', index, 'authorizedDobNepali']).value ?
+                    this.userConfigForm.get(['guarantorDetails', index, 'authorizedDobNepali']).value : '',
+                authorizedDobNepaliCT: this.userConfigForm.get(['guarantorDetails', index, 'authorizedDobNepali']).value ?
+                    this.userConfigForm.get(['guarantorDetails', index, 'authorizedDobNepali']).value : '',
+
                 // for indian guarantor
                 // embassy details
                 embassyNoTrans:  guarantorsDetails.embassyNo ?
@@ -3158,7 +3236,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
             const individualData = a[index] as FormGroup;
             Object.keys(individualData.controls).forEach(key => {
                 if (key.indexOf('CT') > -1 || key.indexOf('Trans') > -1 || !individualData.get(key).value
-                    || key.indexOf('id') > -1 || key.indexOf('nepData') > -1) {
+                    || key.indexOf('id') > -1 || key.indexOf('nepData') > -1 || key === 'authorizedDobDateType') {
                     return;
                 }
 
