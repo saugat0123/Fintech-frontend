@@ -31,8 +31,8 @@ export class KisanKarjaSubsidyComponent implements OnInit {
     offerLetterDocument: OfferDocument;
     selectedArray = [];
     afterSave = false;
-    autoPopulate1 = 'सम्पर्क अधिकृत';
-    autoPopulate2 = 'शाखा प्रबन्धक÷बरिष्ठ सम्पर्क प्रबन्धक';
+    autoPopulate1 = ';Dks{ clws[t';
+    autoPopulate2 = 'zfvf k|aGws÷al/i7 ;Dks{ k|aGws';
     kisanKarjaSubsidy: FormGroup;
     spinner = false;
     @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
