@@ -16,6 +16,7 @@ import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {CadFile} from '../../../model/CadFile';
 import {Document} from '../../../../admin/modal/document';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
+import {AgeCalculation} from '../../../../../@core/age-calculation';
 
 @Component({
   selector: 'app-cross-guarantee-company',
@@ -76,7 +77,8 @@ export class CrossGuaranteeCompanyComponent implements OnInit {
   taggedPersonalGuarantorsDetailsForm() {
     if (!ObjectUtil.isEmpty(this.taggedGuarantorsDetailsInLoan)) {
       this.taggedGuarantorsDetailsInLoan.forEach((val) => {
-        if (JSON.parse(val.nepData).guarantorType.en === 'Cross Guarantor') {
+        if (JSON.parse(val.nepData).guarantorType.en === 'Cross Guarantor' ||
+            JSON.parse(val.nepData).guarantorType.en === 'Corporate Guarantor') {
           const individualGuarantorNepData = val.nepData
               ? JSON.parse(val.nepData)
               : val.nepData;
@@ -108,15 +110,15 @@ export class CrossGuaranteeCompanyComponent implements OnInit {
                     this.loanHolderNepData.permanentWard.ct : ''],
                 borrowerName: [this.loanHolderNepData.name ? this.loanHolderNepData.name.ct : ''],
                 // Guarantor Details
-                grandfatherName: [undefined],
-                fatherName: [undefined],
+                grandfatherName: [this.getGrandFatherName(individualGuarantorNepData)],
+                fatherName: [this.getFatherName(individualGuarantorNepData)],
                 authorizedPersonDistrict: [individualGuarantorNepData.permanentDistrict ?
                     individualGuarantorNepData.permanentDistrict.ct : ''],
                 authorizedPersonMunicipality: [individualGuarantorNepData.permanentMunicipality ?
                     individualGuarantorNepData.permanentMunicipality.ct : ''],
                 authorizedPersonWard: [individualGuarantorNepData.permanentWard ?
                     individualGuarantorNepData.permanentWard.ct : ''],
-                authorizedPersonAge: [undefined],
+                authorizedPersonAge: [this.engToNepNumberPipe.transform(this.calculateAge(individualGuarantorNepData))],
                 authorizedPersonName: [individualGuarantorNepData.guarantorAuthorizedBodyName ?
                     individualGuarantorNepData.guarantorAuthorizedBodyName.ct : ''],
                 crossGuaranteeProviderName: [individualGuarantorNepData.guaranteeProviderName ?
@@ -131,6 +133,45 @@ export class CrossGuaranteeCompanyComponent implements OnInit {
         }
       });
     }
+  }
+  calculateAge(data) {
+    let age;
+    if (data.authorizedDobDateType === 'AD') {
+      if (!ObjectUtil.isEmpty(data.authorizedDob)) {
+        age = AgeCalculation.calculateAge(data.authorizedDob.en).toString();
+      }
+    } else {
+      if (!ObjectUtil.isEmpty(data.authorizedDobNepali)) {
+        age = AgeCalculation.calculateAge(data.authorizedDobNepali.ct.eDate).toString();
+      }
+    }
+    return age;
+  }
+  getFatherName(data) {
+    let fatherName;
+    if (!ObjectUtil.isEmpty(data)) {
+      if (data.gender.en === 'MALE' || data.gender.en === 'OTHERS' ||
+          (data.gender.en === 'FEMALE' && data.guarantorMaritalStatus.en === 'Unmarried')) {
+        fatherName = data.fatherName.ct;
+      }
+      if (data.gender.en === 'FEMALE' && data.guarantorMaritalStatus.en === 'Married') {
+        fatherName = data.husbandName.ct;
+      }
+    }
+    return fatherName;
+  }
+  getGrandFatherName(data) {
+    let grandFatherName;
+    if (!ObjectUtil.isEmpty(data)) {
+      if (data.gender.en === 'MALE' || data.gender.en === 'OTHERS' ||
+          (data.gender.en === 'FEMALE' && data.guarantorMaritalStatus.en === 'Unmarried')) {
+        grandFatherName = data.grandFatherName ? data.grandFatherName.ct : '';
+      }
+      if (data.gender.en === 'FEMALE' && data.guarantorMaritalStatus.en === 'Married') {
+        grandFatherName = data.fatherInLawName ? data.fatherInLawName.ct : '';
+      }
+    }
+    return grandFatherName;
   }
 
   fillGuarantee() {
