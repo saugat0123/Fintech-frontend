@@ -174,8 +174,6 @@ export class SecurityInitialFormComponent implements OnInit {
 
 
     ngOnInit() {
-        console.log('this is form data', this.formData);
-        console.log('customerType', this.customerType);
         this.getRoleList();
         this.configEditor();
         this.shareService.findAllNepseCompanyData(this.search).subscribe((list) => {
@@ -226,9 +224,9 @@ export class SecurityInitialFormComponent implements OnInit {
             this.landBuildingOtherBank(this.formData['landBuildingOtherBranchChecked']);
             this.vehicleOtherBank(this.formData['vehicleOtherBranchChecked']);
             this.plantOtherBank(this.formData['plantOtherBranchChecked']);
-            // this.securityForm.get('crossCollateralizedChecked').patchValue(this.formDataForEdit['crossCollateralizedChecked']);
-            this.setCrossCollateralizedData(this.formDataForEdit['crossCollateralized']);
-
+            this.setCrossCollateralizedData(this.formDataForEdit['landCross'], 'landCross');
+            this.setCrossCollateralizedData(this.formDataForEdit['lbCross'], 'lbCross');
+            this.setCrossCollateralizedData(this.formDataForEdit['apartmentCross'], 'apartmentCross');
         } else {
             this.addMoreLand();
             this.addBuilding();
@@ -344,17 +342,19 @@ export class SecurityInitialFormComponent implements OnInit {
             assignmentOfReceivables: this.formBuilder.array([]),
             landCross: this.formBuilder.array([]),
             lbCross: this.formBuilder.array([]),
-            appartmentCross: this.formBuilder.array([]),
-            crossCollateralizedChecked: [false],
+            apartmentCross: this.formBuilder.array([]),
+            landCrossChecked: [false],
+            lbCrossChecked: [false],
+            apartmentCrossChecked: [false],
             landExposureTotal: [0],
             landRmValueTotal: [0],
             landFmvOfFacTotal: [0],
             lbExposureTotal: [0],
             lbRmValueTotal: [0],
             lbFmvOfFacTotal: [0],
-            apartExposureTotal: [0],
-            apartRmValueTotal: [0],
-            apartFmvOfFacTotal: [0],
+            apartmentExposureTotal: [0],
+            apartmentRmValueTotal: [0],
+            apartmentFmvOfFacTotal: [0],
         });
         this.buildShareSecurityForm();
     }
@@ -2468,22 +2468,39 @@ export class SecurityInitialFormComponent implements OnInit {
         });
     }
 
-    checkedChange(event) {
-        if (event) {
-            this.securityForm.get('crossCollateralizedChecked').patchValue(event);
-        } else {
-            this.securityForm.get('crossCollateralizedChecked').patchValue(event);
+    checkedChange(event, value) {
+        switch (value) {
+            case 'landCross':
+                if (event) {
+                    this.securityForm.get('landCrossChecked').patchValue(event);
+                } else {
+                    this.securityForm.get('landCrossChecked').patchValue(event);
+                }
+                break;
+            case 'lbCross':
+                if (event) {
+                    this.securityForm.get('lbCrossChecked').patchValue(event);
+                } else {
+                    this.securityForm.get('lbCrossChecked').patchValue(event);
+                }
+                break;
+            case 'apartmentCross':
+                if (event) {
+                    this.securityForm.get('apartmentCrossChecked').patchValue(event);
+                } else {
+                    this.securityForm.get('apartmentCrossChecked').patchValue(event);
+                }
+                break;
         }
     }
 
-    removeCrossCollateralized(cin: number) {
-        (<FormArray>this.securityForm.get('crossCollateralized')).removeAt(cin);
-        this.calculateTotalCross();
+    removeCrossCollateralized(securityType: string, cin: number) {
+        (<FormArray>this.securityForm.get(securityType)).removeAt(cin);
+        this.calculateTotalCross(securityType);
     }
 
-    setCrossCollateralizedData(data) {
-        console.log('data', data);
-        const crossData = this.securityForm.get('crossCollateralized') as FormArray;
+    setCrossCollateralizedData(data, securityType) {
+        const crossData = this.securityForm.get(securityType) as FormArray;
         if (!ObjectUtil.isEmpty(data)) {
             data.forEach((d) => {
                 crossData.push(
@@ -2509,18 +2526,32 @@ export class SecurityInitialFormComponent implements OnInit {
         });
     }
 
-    calculateTotalCross() {
+    calculateTotalCross(security) {
         let totalExposure = 0;
         let totalRmValue = 0;
         let totalFMV = 0;
-        const crossData = this.securityForm.get('crossCollateralized') as FormArray;
+        const crossData = this.securityForm.get(security) as FormArray;
         crossData.value.forEach(cd => {
             totalExposure += cd.totalExposure;
             totalRmValue += cd.rmValue;
             totalFMV += cd.fmvApportion;
         });
-        this.securityForm.get('exposureTotal').patchValue(totalExposure);
-        this.securityForm.get('rmValueTotal').patchValue(totalRmValue);
-        this.securityForm.get('fmvOfFacTotal').patchValue(totalFMV);
+        switch (security) {
+            case 'landCross':
+                this.securityForm.get('landExposureTotal').patchValue(totalExposure);
+                this.securityForm.get('landRmValueTotal').patchValue(totalRmValue);
+                this.securityForm.get('landFmvOfFacTotal').patchValue(totalFMV);
+                break;
+            case 'lbCross':
+                this.securityForm.get('lbExposureTotal').patchValue(totalExposure);
+                this.securityForm.get('lbRmValueTotal').patchValue(totalRmValue);
+                this.securityForm.get('lbFmvOfFacTotal').patchValue(totalFMV);
+                break;
+            case 'apartmentCross':
+                this.securityForm.get('apartmentExposureTotal').patchValue(totalExposure);
+                this.securityForm.get('apartmentRmValueTotal').patchValue(totalRmValue);
+                this.securityForm.get('apartmentFmvOfFacTotal').patchValue(totalFMV);
+                break;
+        }
     }
 }

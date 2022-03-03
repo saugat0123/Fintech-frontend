@@ -34,11 +34,11 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="box-header with-border">
-                        <nb-checkbox (change)="checkedChange($event?.target?.checked)"
-                                     [checked]="securityForm?.get('crossCollateralizedChecked')?.value"><i>Cross Collateralized </i>
+                        <nb-checkbox (change)="checkedChange($event?.target?.checked, 'landCross')"
+                                     [checked]="securityForm?.get('landCrossChecked')?.value"><i>Cross Collateralized </i>
                         </nb-checkbox>
                     </div>
-                    <table *ngIf="securityForm?.get('crossCollateralizedChecked')?.value"
+                    <table *ngIf="securityForm?.get('landCrossChecked')?.value"
                            class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                         <tr>
                             <th class="sn">SN</th>
@@ -49,9 +49,9 @@
                             <th>FMV of FAC(Apportioned)</th>
                             <th>Drawdown(%) of FAC</th>
                             <th>Residual FMV of FAC</th>
-                            <th *ngIf="securityForm?.get('crossCollateralized')['length'] > 0"></th>
+                            <th *ngIf="securityForm?.get('landCross')['length'] > 0"></th>
                         </tr>
-                        <tbody *ngFor="let cc of securityForm.get('crossCollateralized')['controls']; let cin = index" formArrayName="crossCollateralized">
+                        <tbody *ngFor="let cc of securityForm.get('landCross')['controls']; let cin = index" formArrayName="landCross">
                         <tr [formGroupName]="cin">
                             <td class="sn">{{cin + 1}}</td>
                             <td><input class="form-control text-center"
@@ -67,17 +67,17 @@
                             <td><input class="form-control text-center"
                                        formControlName="totalExposure"
                                        placeholder="Total Exposure"
-                                       (change)="calculateTotalCross()"
+                                       (change)="calculateTotalCross('landCross')"
                                        type="number"/></td>
                             <td><input class="form-control text-center"
                                        formControlName="rmValue"
                                        placeholder="RM Value"
-                                       (change)="calculateTotalCross()"
+                                       (change)="calculateTotalCross('landCross')"
                                        type="number"/></td>
                             <td><input class="form-control text-center"
                                        formControlName="fmvApportion"
                                        placeholder="FMV of FAC"
-                                       (change)="calculateTotalCross()"
+                                       (change)="calculateTotalCross('landCross')"
                                        type="number"/></td>
                             <td><input class="form-control text-center"
                                        formControlName="drawDown"
@@ -87,8 +87,8 @@
                                        formControlName="residualFmv"
                                        placeholder="Residual FMV of FAC"
                                        type="text"/></td>
-                            <td *ngIf="securityForm?.get('crossCollateralized')['length'] > 0">
-                                <input (click)="removeCrossCollateralized(cin)"
+                            <td *ngIf="securityForm?.get('landCross')['length'] > 0">
+                                <input (click)="removeCrossCollateralized('landCross', cin)"
                                        class="align-self-end btn btn-sm btn-danger btn-primary"
                                        type="button" value="Delete"/>
                             </td>
@@ -100,13 +100,13 @@
                             <th>Total</th>
                             <th></th>
                             <th><input [readOnly]="true" class="form-control text-center"
-                                       formControlName="exposureTotal"
+                                       formControlName="landExposureTotal"
                                        type="number"></th>
                             <th><input [readOnly]="true" class="form-control text-center"
-                                       formControlName="rmValueTotal"
+                                       formControlName="landRmValueTotal"
                                        type="number"></th>
                             <th><input [readOnly]="true" class="form-control text-center"
-                                       formControlName="fmvOfFacTotal"
+                                       formControlName="landFmvOfFacTotal"
                                        type="number"></th>
                             <th></th>
                             <th></th>
@@ -114,7 +114,7 @@
                         </tr>
                         </tbody>
                         <div class="disable-print">
-                            <input (click)="addCrossCollateralized('crossCollateralized')" class="btn btn-sm btn-flat btn-primary"
+                            <input (click)="addCrossCollateralized('landCross')" class="btn btn-sm btn-flat btn-primary"
                                    type="button" value="Add More"/>
                         </div>
                     </table>
@@ -601,6 +601,98 @@
             <div class="box-header with-border">
                 <h2 class="box-title title">Apartment Details</h2>
             </div>
+
+            <!-- Cross Collateralized -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box-header with-border">
+                        <nb-checkbox (change)="checkedChange($event?.target?.checked, 'apartmentCross')"
+                                     [checked]="securityForm?.get('apartmentCrossChecked')?.value"><i>Cross Collateralized </i>
+                        </nb-checkbox>
+                    </div>
+                    <table *ngIf="securityForm?.get('apartmentCrossChecked')?.value"
+                           class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                        <tr>
+                            <th class="sn">SN</th>
+                            <th>Borrower</th>
+                            <th>Facility</th>
+                            <th>Total Exposure</th>
+                            <th>RM Value</th>
+                            <th>FMV of FAC(Apportioned)</th>
+                            <th>Drawdown(%) of FAC</th>
+                            <th>Residual FMV of FAC</th>
+                            <th *ngIf="securityForm?.get('apartmentCross')['length'] > 0"></th>
+                        </tr>
+                        <tbody *ngFor="let cc of securityForm.get('apartmentCross')['controls']; let apin = index" formArrayName="apartmentCross">
+                        <tr [formGroupName]="apin">
+                            <td class="sn">{{apin + 1}}</td>
+                            <td><input class="form-control text-center"
+                                       formControlName="borrowerName"
+                                       placeholder="Borrower"
+                                       type="text"/></td>
+                            <td><select class="form-control" formControlName="facilityName">
+                                <option [value]="null" hidden>Select Facility</option>
+                                <ng-container *ngFor="let list of loanList">
+                                    <option *ngIf="!list?.isRemit" [value]="list?.shortNames">{{list?.shortNames}}</option>
+                                </ng-container>
+                            </select></td>
+                            <td><input class="form-control text-center"
+                                       formControlName="totalExposure"
+                                       placeholder="Total Exposure"
+                                       (change)="calculateTotalCross('apartmentCross')"
+                                       type="number"/></td>
+                            <td><input class="form-control text-center"
+                                       formControlName="rmValue"
+                                       placeholder="RM Value"
+                                       (change)="calculateTotalCross('apartmentCross')"
+                                       type="number"/></td>
+                            <td><input class="form-control text-center"
+                                       formControlName="fmvApportion"
+                                       placeholder="FMV of FAC"
+                                       (change)="calculateTotalCross('apartmentCross')"
+                                       type="number"/></td>
+                            <td><input class="form-control text-center"
+                                       formControlName="drawDown"
+                                       placeholder="Drawdown"
+                                       type="text"/></td>
+                            <td><input class="form-control text-center"
+                                       formControlName="residualFmv"
+                                       placeholder="Residual FMV of FAC"
+                                       type="text"/></td>
+                            <td *ngIf="securityForm?.get('apartmentCross')['length'] > 0">
+                                <input (click)="removeCrossCollateralized('apartmentCross', apin)"
+                                       class="align-self-end btn btn-sm btn-danger btn-primary"
+                                       type="button" value="Delete"/>
+                            </td>
+                        </tr>
+                        </tbody>
+                        <tbody>
+                        <tr>
+                            <th></th>
+                            <th>Total</th>
+                            <th></th>
+                            <th><input [readOnly]="true" class="form-control text-center"
+                                       formControlName="apartmentExposureTotal"
+                                       type="number"></th>
+                            <th><input [readOnly]="true" class="form-control text-center"
+                                       formControlName="apartmentRmValueTotal"
+                                       type="number"></th>
+                            <th><input [readOnly]="true" class="form-control text-center"
+                                       formControlName="apartmentFmvOfFacTotal"
+                                       type="number"></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        </tbody>
+                        <div class="disable-print">
+                            <input (click)="addCrossCollateralized('apartmentCross')" class="btn btn-sm btn-flat btn-primary"
+                                   type="button" value="Add More"/>
+                        </div>
+                    </table>
+                </div>
+            </div>
+
             <div>
                 <div *ngFor="let building of securityForm.get('buildingDetails')['controls']; let i = index"
                      class="font-weight-bold"
@@ -1396,6 +1488,98 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Cross Collateralized -->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="box-header with-border">
+                        <nb-checkbox (change)="checkedChange($event?.target?.checked, 'lbCross')"
+                                     [checked]="securityForm?.get('lbCrossChecked')?.value"><i>Cross Collateralized </i>
+                        </nb-checkbox>
+                    </div>
+                    <table *ngIf="securityForm?.get('lbCrossChecked')?.value"
+                           class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                        <tr>
+                            <th class="sn">SN</th>
+                            <th>Borrower</th>
+                            <th>Facility</th>
+                            <th>Total Exposure</th>
+                            <th>RM Value</th>
+                            <th>FMV of FAC(Apportioned)</th>
+                            <th>Drawdown(%) of FAC</th>
+                            <th>Residual FMV of FAC</th>
+                            <th *ngIf="securityForm?.get('lbCross')['length'] > 0"></th>
+                        </tr>
+                        <tbody *ngFor="let cc of securityForm.get('lbCross')['controls']; let lbin = index" formArrayName="lbCross">
+                        <tr [formGroupName]="lbin">
+                            <td class="sn">{{lbin + 1}}</td>
+                            <td><input class="form-control text-center"
+                                       formControlName="borrowerName"
+                                       placeholder="Borrower"
+                                       type="text"/></td>
+                            <td><select class="form-control" formControlName="facilityName">
+                                <option [value]="null" hidden>Select Facility</option>
+                                <ng-container *ngFor="let list of loanList">
+                                    <option *ngIf="!list?.isRemit" [value]="list?.shortNames">{{list?.shortNames}}</option>
+                                </ng-container>
+                            </select></td>
+                            <td><input class="form-control text-center"
+                                       formControlName="totalExposure"
+                                       placeholder="Total Exposure"
+                                       (change)="calculateTotalCross('lbCross')"
+                                       type="number"/></td>
+                            <td><input class="form-control text-center"
+                                       formControlName="rmValue"
+                                       placeholder="RM Value"
+                                       (change)="calculateTotalCross('lbCross')"
+                                       type="number"/></td>
+                            <td><input class="form-control text-center"
+                                       formControlName="fmvApportion"
+                                       placeholder="FMV of FAC"
+                                       (change)="calculateTotalCross('lbCross')"
+                                       type="number"/></td>
+                            <td><input class="form-control text-center"
+                                       formControlName="drawDown"
+                                       placeholder="Drawdown"
+                                       type="text"/></td>
+                            <td><input class="form-control text-center"
+                                       formControlName="residualFmv"
+                                       placeholder="Residual FMV of FAC"
+                                       type="text"/></td>
+                            <td *ngIf="securityForm?.get('lbCross')['length'] > 0">
+                                <input (click)="removeCrossCollateralized('lbCross', lbin)"
+                                       class="align-self-end btn btn-sm btn-danger btn-primary"
+                                       type="button" value="Delete"/>
+                            </td>
+                        </tr>
+                        </tbody>
+                        <tbody>
+                        <tr>
+                            <th></th>
+                            <th>Total</th>
+                            <th></th>
+                            <th><input [readOnly]="true" class="form-control text-center"
+                                       formControlName="lbExposureTotal"
+                                       type="number"></th>
+                            <th><input [readOnly]="true" class="form-control text-center"
+                                       formControlName="lbRmValueTotal"
+                                       type="number"></th>
+                            <th><input [readOnly]="true" class="form-control text-center"
+                                       formControlName="lbFmvOfFacTotal"
+                                       type="number"></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                        </tbody>
+                        <div class="disable-print">
+                            <input (click)="addCrossCollateralized('lbCross')" class="btn btn-sm btn-flat btn-primary"
+                                   type="button" value="Add More"/>
+                        </div>
+                    </table>
+                </div>
+            </div>
+
             <div formArrayName="landBuilding">
                 <div
                         *ngFor="let landAndBuilding of securityForm.get('landBuilding')['controls']; let i = index"
