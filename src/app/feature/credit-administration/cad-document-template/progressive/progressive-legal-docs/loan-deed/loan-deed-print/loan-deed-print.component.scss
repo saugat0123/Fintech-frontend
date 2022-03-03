@@ -50,3 +50,7 @@
   line-height: 1.5;
   @extend .text-justify !optional;
 }
+
+span {
+  line-height: 1;
+}

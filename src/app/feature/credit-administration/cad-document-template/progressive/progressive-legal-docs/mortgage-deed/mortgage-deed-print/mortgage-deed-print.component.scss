@@ -59,6 +59,10 @@ p{
 }
 */
 
-tr, td {
-  break-inside: initial;
+tr {
+  page-break-inside: initial;
+}
+
+span{
+  line-height: 1;
 }
