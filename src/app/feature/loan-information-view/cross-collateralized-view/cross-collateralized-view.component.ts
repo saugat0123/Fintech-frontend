@@ -9,11 +9,11 @@ import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 export class CrossCollateralizedViewComponent implements OnInit {
   @Input() securityData;
   @Input() securityType;
+  @Input() initialForm;
 
   constructor() { }
 
   ngOnInit() {
-    console.log('securityType', this.securityType);
   }
 
 }
