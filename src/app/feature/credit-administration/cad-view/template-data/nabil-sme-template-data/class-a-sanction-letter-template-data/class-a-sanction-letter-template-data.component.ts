@@ -154,10 +154,14 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       const tempApprovalType = this.initialInfo.sanctionLetterDateType ?
           this.initialInfo.sanctionLetterDateType.en : '';
       if (tempApprovalType === 'AD') {
-        this.ADSanctionLetterDate = true;
+        this.form.get('sanctionLetterDate').patchValue(new Date(this.initialInfo.sanctionLetterDate.en));
+        this.form.get('sanctionLetterDateTrans').patchValue(this.initialInfo.sanctionLetterDate.ct);
+        this.form.get('sanctionLetterDateCT').patchValue(this.initialInfo.sanctionLetterDate.ct);
       }
       if (tempApprovalType === 'BS') {
-        this.BSSanctionLetterDate = true;
+        this.form.get('sanctionLetterDateNepali').patchValue(this.initialInfo.sanctionLetterDateNepali.en);
+        this.form.get('sanctionLetterDateNepaliTrans').patchValue(this.initialInfo.sanctionLetterDateNepali.ct);
+        this.form.get('sanctionLetterDateNepaliCT').patchValue(this.initialInfo.sanctionLetterDateNepali.ct);
       }
       const tempApplicationType = this.initialInfo.dateOfApplicationType ?
           this.initialInfo.dateOfApplicationType.en : '';

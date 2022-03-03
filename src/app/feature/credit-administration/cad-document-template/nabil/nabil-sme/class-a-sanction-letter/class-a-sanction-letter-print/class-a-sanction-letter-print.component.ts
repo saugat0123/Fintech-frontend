@@ -54,6 +54,9 @@ export class ClassASanctionLetterPrintComponent implements OnInit {
   loanType;
   dateofExpiryPrint: any;
   freeTextVal;
+  allHolderNames;
+  holderFinalName;
+  holderNames: any = [];
   constructor(public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
               public engToNepNumberPipe: EngToNepaliNumberPipe,
               public currencyFormatPipe: CurrencyFormatterPipe,
@@ -80,12 +83,20 @@ export class ClassASanctionLetterPrintComponent implements OnInit {
       this.loanType = this.letter.loanType.ct;
     }
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.offerDocumentList)) {
-      this.offerDocumentDetails = this.cadOfferLetterApprovedDoc.offerDocumentList[0] ? JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation) : '';
+      this.offerDocumentDetails = this.cadOfferLetterApprovedDoc.offerDocumentList[0] ?
+          JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation) : '';
+      this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
+      this.isNatural = this.tempData.naturalPersonCheck.en;
+      console.log('New TempData:', this.isNatural);
     }
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.assignedLoan)) {
       this.autoRefNum = this.cadOfferLetterApprovedDoc.assignedLoan[0].refNo;
     }
-    this.freeTextVal = this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation;
+    if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation)) {
+      this.freeTextVal = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation);
+
+    }
+    console.log('Free TExt Val:', this.freeTextVal);
     // for date of approval
     const sanctionLetterDate = this.letter.sanctionLetterDateType ? this.letter.sanctionLetterDateType.en : '';
     if (sanctionLetterDate === 'AD') {
@@ -122,9 +133,43 @@ export class ClassASanctionLetterPrintComponent implements OnInit {
       const templateDateSanction = this.letter.previousSanctionDateNepali ? this.letter.previousSanctionDateNepali.en : '';
       this.finalDateOfSanction = templateDateSanction ? templateDateSanction.nDate : '';
     }
-    this.guarantorDetails();
+    this.getHolderDetails();
+    // this.guarantorDetails();
+    console.log('Offer Data', this.offerData);
   }
 
+  getHolderDetails() {
+    if (!ObjectUtil.isEmpty(this.tempData)) {
+      if (!ObjectUtil.isEmpty(this.tempData.tdHolderNames)) {
+        const len = this.tempData.tdHolderNames[0].tdholderNames;
+        if (len.length > 0) {
+          if (len.length === 1) {
+            const temp = len[0].TdHolderCT;
+            this.holderFinalName = temp;
+          } else if (len.length === 2) {
+            for (let i = 0; i < len.length; i++) {
+              const temp = len[i].TdHolderCT;
+              this.holderNames.push(temp);
+            }
+            this.allHolderNames = this.holderNames.join(' र ');
+            this.holderFinalName = this.allHolderNames;
+          } else {
+            for (let i = 0; i < len.length - 1; i++) {
+              const temp = len[i].TdHolderCT;
+              this.holderNames.push(temp);
+            }
+            this.allHolderNames = this.holderNames.join(' , ');
+            const temp1 = len[len.length - 1].TdHolderCT;
+            this.holderFinalName = this.allHolderNames + ' र ' + temp1;
+          }
+          /*finalName.push(this.holderFinalName);
+          this.holderFinalName = '';
+          this.allHolderNames = '';
+          this.holderNames = [];*/
+        }
+      }
+    }
+  }
   guarantorDetails() {
     if (this.guarantorData.length === 1) {
       const tempGuarantorNep = JSON.parse(this.guarantorData[0].nepData);
