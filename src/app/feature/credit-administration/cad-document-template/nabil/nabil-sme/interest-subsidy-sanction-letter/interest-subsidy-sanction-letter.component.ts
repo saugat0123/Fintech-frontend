@@ -62,8 +62,8 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
   allguarantorNames;
   finalName;
   freeInformation: any;
-  autoPopulate1 = 'सम्पर्क अधिकृत';
-  autoPopulate2 = 'शाखा प्रबन्धक/बरिष्ठ सम्पर्क प्रबन्धक';
+  autoPopulate1 = ';Dks{ clws[t';
+  autoPopulate2 = 'zfvf k|aGws÷al/i7 ;Dks{ k|aGws';
   personalGuarantorsName: Array<any> = new Array<any>();
   guarantorParsed: Array<any> = new Array<any>();
   tempPersonalGuarantors;
