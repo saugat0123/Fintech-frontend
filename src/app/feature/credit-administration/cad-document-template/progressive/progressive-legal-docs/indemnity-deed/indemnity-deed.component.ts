@@ -81,6 +81,8 @@ export class IndemnityDeedComponent implements OnInit {
                 amountInWord: loanAmount.nepaliWords ? loanAmount.nepaliWords : '',
                 branchName : this.nepaliData.branchName ? this.nepaliData.branchName : '',
                 chaltiKhata: this.nepaliData.accountNo ? this.nepaliData.accountNo : '',
+                sabikVDC: this.nepaliData.permanentVdc ? this.nepaliData.permanentVdc : '',
+                sabikWardNo: this.nepaliData.permanentVdcWard ? this.nepaliData.permanentVdcWard : ''
             });
         }
     }
