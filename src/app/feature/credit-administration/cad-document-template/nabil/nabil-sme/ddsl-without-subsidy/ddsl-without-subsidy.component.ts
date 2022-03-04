@@ -12,6 +12,7 @@ import {ToastService} from '../../../../../../@core/utils';
 import {RouterUtilsService} from '../../../../utils/router-utils.service';
 import {NepaliCurrencyWordPipe} from '../../../../../../@core/pipe/nepali-currency-word.pipe';
 import {CustomerSubType} from '../../../../../customer/model/customerSubType';
+import {CustomerType} from '../../../../../customer/model/customerType';
 
 @Component({
     selector: 'app-ddsl-without-subsidy',
@@ -73,6 +74,7 @@ export class DdslWithoutSubsidyComponent implements OnInit, AfterViewChecked {
     securityTypeConditionLandAndBuildingSecondary = false;
     kittaNumbers: Array < any > = new Array < any > ();
     plotNumber;
+    client = CustomerType;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -88,7 +90,6 @@ export class DdslWithoutSubsidyComponent implements OnInit, AfterViewChecked {
     }
     ngOnInit() {
         this.buildForm();
-        // console.log('Initial Info Data', this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc)) {
             this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
             this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
@@ -198,9 +199,17 @@ export class DdslWithoutSubsidyComponent implements OnInit, AfterViewChecked {
     }
 
     fillForm() {
-        const customerAddress = this.loanHolderInfo.registeredMunicipality.ct + '-' +
-            this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.registeredDistrict.ct + ', ' +
-            this.loanHolderInfo.registeredProvince.ct;
+        let customerAddress;
+        if (this.customerType === this.client.INSTITUTION) {
+            customerAddress = this.loanHolderInfo.registeredMunicipality.ct + '-' +
+                this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.registeredDistrict.ct + ', ' +
+                this.loanHolderInfo.registeredProvince.ct;
+        }
+        if (this.customerType === this.client.INDIVIDUAL) {
+            customerAddress = this.loanHolderInfo.permanentMunicipality.ct + '-' +
+                this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.permanentDistrict.ct + ', ' +
+                this.loanHolderInfo.permanentProvince.ct;
+        }
         let autoRefNumber;
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.assignedLoan)) {
             autoRefNumber = this.cadOfferLetterApprovedDoc.assignedLoan[0].refNo;
@@ -298,6 +307,9 @@ export class DdslWithoutSubsidyComponent implements OnInit, AfterViewChecked {
         if (this.securityDetails.primarySecurity.some(s => s.securityTypeCT === 'DOCUMENTS')) {
             this.securityTypeConditionDocuments = true;
         }
+        if (this.securityDetails.primarySecurity.some(s => s.securityTypeCT === 'ASSIGNMENT')) {
+            this.securityTypeConditionDocuments = true;
+        }
     }
     checkSecondaryConditions() {
         this.tempSecondaryLandBuilding = this.securityDetails.secondarySecurity.filter(val =>
@@ -322,6 +334,9 @@ export class DdslWithoutSubsidyComponent implements OnInit, AfterViewChecked {
             this.securityTypeSecondaryConditionAssestsPlants = true;
         }
         if (this.securityDetails.secondarySecurity.some(s => s.securityTypeCT === 'DOCUMENTS')) {
+            this.securityTypeSecondaryConditionDocuments = true;
+        }
+        if (this.securityDetails.secondarySecurity.some(s => s.securityTypeCT === 'ASSIGNMENT')) {
             this.securityTypeSecondaryConditionDocuments = true;
         }
     }
@@ -408,8 +423,12 @@ export class DdslWithoutSubsidyComponent implements OnInit, AfterViewChecked {
         };
     }
     guarantorDetails() {
-        this.tempPersonalGuarantors = this.guarantorParsed.filter(val =>
-            val.guarantorType.en === 'Personal Guarantor');
+        if (this.customerType === this.client.INSTITUTION) {
+            this.tempPersonalGuarantors = this.guarantorParsed.filter(val =>
+                val.guarantorType.en === 'Personal Guarantor');
+        } else {
+            this.tempPersonalGuarantors = this.guarantorParsed;
+        }
       }
 
     commonGuarantorDetails(guarantorName, finalName) {
