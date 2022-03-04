@@ -24,6 +24,7 @@ import {DdslWithoutSubsidyComponent} from '../../../../../cad-document-template/
 import {CommonSecuritySectionPrimaryComponent} from '../../common-security-section/common-security-section-primary/common-security-section-primary.component';
 import {CommonSecuritySectionSecondaryComponent} from '../../common-security-section/common-security-section-secondary/common-security-section-secondary.component';
 import {RequiredLegalDocumentSectionComponent} from '../../sme-template-data/sme-master-template/required-legal-document-section/required-legal-document-section.component';
+import {EnglishDateTransformPipe} from '../../../../../../../@core/pipe/english-date-transform.pipe';
 
 @Component({
     selector: 'app-ddsl-without-subsidy-template-data',
@@ -92,6 +93,7 @@ export class DdslWithoutSubsidyTemplateDataComponent implements OnInit {
         private toastService: ToastService,
         private titleCasePipe: TitleCasePipe,
         private administrationService: CreditAdministrationService,
+        private englishCalenderPipe: EnglishDateTransformPipe
     ) {
     }
 
@@ -342,10 +344,13 @@ export class DdslWithoutSubsidyTemplateDataComponent implements OnInit {
         const sanctionType = this.ddslFormGroup.get('sanctionLetterDateType').value;
         let approvalDateTrans;
         if (sanctionType === 'AD') {
-            const approvalForm = this.ddslFormGroup.get('sanctionLetterDate').value;
+            const approvalForm = this.datePipe.transform(this.ddslFormGroup.get('sanctionLetterDate').value);
             approvalDateTrans = !ObjectUtil.isEmpty(approvalForm) ?
                 this.datePipe.transform(approvalForm) : '';
-            this.ddslFormGroup.get('sanctionLetterDateTrans').patchValue(approvalDateTrans);
+            const finalAppDate = this.englishCalenderPipe.transform(approvalDateTrans);
+            if (!ObjectUtil.isEmpty(approvalForm)) {
+                this.ddslFormGroup.get('sanctionLetterDateTrans').patchValue(finalAppDate);
+            }
         } else {
             const approvalNepali = this.ddslFormGroup.get('sanctionLetterDateNepali').value;
             approvalDateTrans = !ObjectUtil.isEmpty(approvalNepali) ?
@@ -356,10 +361,13 @@ export class DdslWithoutSubsidyTemplateDataComponent implements OnInit {
         const applicationType = this.ddslFormGroup.get('dateOfApplicationType').value;
         let applicationDateTrans;
         if (applicationType === 'AD') {
-            const applicationForm = this.ddslFormGroup.get('dateOfApplication').value;
+            const applicationForm = this.datePipe.transform(this.ddslFormGroup.get('dateOfApplication').value);
             applicationDateTrans = !ObjectUtil.isEmpty(applicationForm) ?
                 this.datePipe.transform(applicationForm) : '';
-            this.ddslFormGroup.get('dateOfApplicationTrans').patchValue(applicationDateTrans);
+            const finalAppDate = this.englishCalenderPipe.transform(applicationDateTrans);
+            if (!ObjectUtil.isEmpty(applicationForm)) {
+                this.ddslFormGroup.get('dateOfApplicationTrans').patchValue(finalAppDate);
+            }
         } else {
             const applicationNepali = this.ddslFormGroup.get('dateOfApplicationNepali').value;
             applicationDateTrans = !ObjectUtil.isEmpty(applicationNepali) ?
@@ -370,10 +378,13 @@ export class DdslWithoutSubsidyTemplateDataComponent implements OnInit {
         const previousSanctionType = this.ddslFormGroup.get('previousSanctionType').value;
         let previousSanctionTrans;
         if (previousSanctionType === 'AD') {
-            const previousSanctionForm = this.ddslFormGroup.get('previousSanctionDate').value;
+            const previousSanctionForm = this.datePipe.transform(this.ddslFormGroup.get('previousSanctionDate').value);
             previousSanctionTrans = !ObjectUtil.isEmpty(previousSanctionForm) ?
                 this.datePipe.transform(previousSanctionForm) : '';
-            this.ddslFormGroup.get('previousSanctionDateTrans').patchValue(previousSanctionTrans);
+            const finalAppDate = this.englishCalenderPipe.transform(previousSanctionTrans);
+            if (!ObjectUtil.isEmpty(previousSanctionForm)) {
+                this.ddslFormGroup.get('previousSanctionDateTrans').patchValue(finalAppDate);
+            }
         } else {
             const previousSanctionNepali = this.ddslFormGroup.get('previousSanctionDateNepali').value;
             previousSanctionTrans = !ObjectUtil.isEmpty(previousSanctionNepali) ?
@@ -466,8 +477,7 @@ export class DdslWithoutSubsidyTemplateDataComponent implements OnInit {
         this.ddslFormGroup.get('sanctionLetterDateTypeCT').patchValue(this.ddslFormGroup.get('sanctionLetterDateType').value);
         if (this.ADSanctionLetterDate) {
             const transDate = this.ddslFormGroup.get('sanctionLetterDateTrans').value;
-            const convertDate = !ObjectUtil.isEmpty(transDate) ? this.engNepDatePipe.transform(transDate, true) : '';
-            this.ddslFormGroup.get('sanctionLetterDateCT').patchValue(convertDate);
+            this.ddslFormGroup.get('sanctionLetterDateCT').patchValue(transDate);
         }
         if (this.BSSanctionLetterDate) {
             this.ddslFormGroup.get('sanctionLetterDateNepaliCT').patchValue(this.ddslFormGroup.get('sanctionLetterDateNepaliTrans').value);
@@ -476,8 +486,7 @@ export class DdslWithoutSubsidyTemplateDataComponent implements OnInit {
         this.ddslFormGroup.get('dateOfApplicationTypeCT').patchValue(this.ddslFormGroup.get('dateOfApplicationType').value);
         if (this.ADApplication) {
             const transDate = this.ddslFormGroup.get('dateOfApplicationTrans').value;
-            const convertAppDate = !ObjectUtil.isEmpty(transDate) ? this.engNepDatePipe.transform(transDate, true) : '';
-            this.ddslFormGroup.get('dateOfApplicationCT').patchValue(convertAppDate);
+            this.ddslFormGroup.get('dateOfApplicationCT').patchValue(transDate);
         }
         if (this.BSApplication) {
             this.ddslFormGroup.get('dateOfApplicationNepaliCT').patchValue(this.ddslFormGroup.get('dateOfApplicationNepaliTrans').value);
@@ -486,9 +495,7 @@ export class DdslWithoutSubsidyTemplateDataComponent implements OnInit {
         this.ddslFormGroup.get('previousSanctionTypeCT').patchValue(this.ddslFormGroup.get('previousSanctionType').value);
         if (this.ADPrevious) {
             const transPreviousDate = this.ddslFormGroup.get('previousSanctionDateTrans').value;
-            const convertPreviousDate = !ObjectUtil.isEmpty(transPreviousDate) ?
-                this.engNepDatePipe.transform(transPreviousDate, true) : '';
-            this.ddslFormGroup.get('previousSanctionDateCT').patchValue(convertPreviousDate);
+            this.ddslFormGroup.get('previousSanctionDateCT').patchValue(transPreviousDate);
         }
         if (this.BSPrevious) {
             this.ddslFormGroup.get('previousSanctionDateNepaliCT').patchValue(

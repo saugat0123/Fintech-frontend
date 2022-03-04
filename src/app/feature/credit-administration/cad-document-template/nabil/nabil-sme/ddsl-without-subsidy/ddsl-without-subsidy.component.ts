@@ -33,7 +33,7 @@ export class DdslWithoutSubsidyComponent implements OnInit, AfterViewChecked {
     existingOfferLetter = false;
     selectedSecurity;
     position1 = 'सम्पर्क अधिकृत';
-    position2 = 'शाखा प्रबन्धक/बरिष्ठ सम्पर्क प्रबन्धक';
+    position2 = 'शाखा प्रबन्धक÷बरिष्ठ सम्पर्क प्रबन्धक';
     offerLetterData;
     nepaliNumber = new NepaliNumberAndWords();
     nepaliAmount = [];
@@ -199,7 +199,7 @@ export class DdslWithoutSubsidyComponent implements OnInit, AfterViewChecked {
 
     fillForm() {
         const customerAddress = this.loanHolderInfo.registeredMunicipality.ct + '-' +
-            this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.registeredDistrict.ct + ' ,' +
+            this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.registeredDistrict.ct + ', ' +
             this.loanHolderInfo.registeredProvince.ct;
         let autoRefNumber;
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.assignedLoan)) {
