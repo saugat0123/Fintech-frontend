@@ -20,16 +20,20 @@
                     </p>
 
                     <p class="m-0">
-                        श्री
-<!--                        <span *ngIf="loanHolderInfo?.gender?.en === 'MALE' else customerRelation"> श्री</span>-->
-<!--                        <ng-template #customerRelation>-->
-<!--                        <span *ngIf="loanHolderInfo?.relationMedium !== undefined && (loanHolderInfo?.relationMedium?.en === '1' || loanHolderInfo?.relationMedium?.en === 1)">-->
-<!--                            सुश्री-->
-<!--                        </span>-->
-<!--                            <span *ngIf="loanHolderInfo?.relationMedium !== undefined && (loanHolderInfo?.relationMedium?.en === '0' || loanHolderInfo?.relationMedium?.en === 0)">-->
-<!--                          श्रीमती-->
-<!--                        </span>-->
-<!--                        </ng-template>-->
+                        <ng-container *ngIf="loanHolderInfo.clientType.en === 'INSTITUTION'">
+                            श्री
+                        </ng-container>
+                        <ng-container *ngIf="loanHolderInfo.clientType.en === 'INDIVIDUAL'">
+                            <span *ngIf="loanHolderInfo?.gender?.en === 'MALE' else customerRelation"> श्री</span>
+                            <ng-template #customerRelation>
+                                <span *ngIf="loanHolderInfo?.relationMedium !== undefined && (loanHolderInfo?.relationMedium?.en === '1' || loanHolderInfo?.relationMedium?.en === 1)">
+                                    सुश्री
+                                </span>
+                                <span *ngIf="loanHolderInfo?.relationMedium !== undefined && (loanHolderInfo?.relationMedium?.en === '0' || loanHolderInfo?.relationMedium?.en === 0)">
+                                  श्रीमती
+                                </span>
+                            </ng-template>
+                        </ng-container>
                         <span [ngClass]="{'font-weight-bold': loanHolderInfo?.name !== null && loanHolderInfo?.name !== ''}">
                             {{loanHolderInfo?.name === null || loanHolderInfo?.name === '' ? '___________' : loanHolderInfo?.name.ct}}
                         </span>
@@ -57,6 +61,7 @@
                     </p>
                     <p class="lh-40 text-justify">
                         तपाईंले मिति
+                        <span>{{this.letter?.dateOfApplicationType.en === 'AD' ? 'ई. स. ' : 'वि.सं. '}}</span>
                         <span> <strong>{{finalDateOfApplication ? finalDateOfApplication : "_______________________" }}</strong></span>
                         मा ऋणकर्जा सुविधाका लागि यस बैंकमा दिनु भएको निवेदनको सम्बन्धमा यस बैंकले
                         देहाय बमोजिमका ऋणकर्जा सुविधाहरु देहाय बमोजिमका शर्तबन्देजहरुको अधिनमा रहने गरी स्वीकृत गरेको
@@ -77,13 +82,15 @@
                         महोदय,
                     </p>
                     <p class="lh-40 text-justify">
-                        तपाईंले यस बैंकको मिति वि.सं
+                        तपाईंले यस बैंकको मिति
+                        <span>{{this.letter?.previousSanctionType.en === 'AD' ? 'ई. स. ' : 'वि.सं. '}}</span>
                         <span class="font-weight-bold">
                             {{ finalDateofSanction }}
                         </span>
                         को ऋणस्वीकृति पत्रानुसार स्वीकृत भएका ऋणकर्जा
                         सुविधाहरु उपभोग गर्दै आउनु भएकोमा हाल थप/अतिरिक्त ऋणकर्जा सुविधाका लागि यस बैंकमा दिनु
-                        भएको मिति वि.सं
+                        भएको मिति
+                        <span>{{this.letter?.dateOfApplicationType.en === 'AD' ? 'ई. स. ' : 'वि.सं. '}}</span>
                         <span> <strong>{{finalDateOfApplication ? finalDateOfApplication : "_______________________" }}</strong></span>
                         को निवेदनका सम्बन्धमा यस बैंकले देहाय बमोजिमका
                         शर्तबन्देजहरुको अधिनमा रहने गरी देहाय बमोजिमका थप/अतिरिक्त ऋणकर्जा सुविधाहरु स्वीकृत गरेको
@@ -287,14 +294,16 @@
                         </li>
                         <li>
                             <strong> व्यक्तिगत जमानत</strong> (Personal Guarantee):<br>
-                            रु.<span class="font-weight-bold">
-                            {{guarantorParse(guarantorData[0].nepData, "gurantedAmount")}}
-                        </span> /- (अक्षरेपि रु.
-                            <span class="font-weight-bold">{{nepaliCurrencyWordPipe.transform(guarantorParse(guarantorData[0].nepData, "gurantedAmount", "en"))}}</span>
-                             मात्र) बराबरको <span class="font-weight-bold">
-                            {{ commonGuarantorDetails(personalGuarantorsName, finalPersonalName) }}
-                        </span>
-                            ले बैंकको पक्षमा व्यक्तिगत जमानत लेखिदिनु पर्नेछ ।
+                            <div *ngFor="let personalGuarantor of tempPersonalGuarantors">
+                                रु.<span class="font-weight-bold">
+                                {{personalGuarantor.gurantedAmount ? personalGuarantor.gurantedAmount.ct : ''}}
+                            </span> /- (अक्षरेपि रु.
+                                <span class="font-weight-bold">{{this.nepaliCurrencyWordPipe.transform(personalGuarantor.gurantedAmount ? personalGuarantor.gurantedAmount.en : '')}}</span>
+                                 मात्र) बराबरको <span class="font-weight-bold">
+                                {{personalGuarantor.guarantorName ? personalGuarantor.guarantorName.ct : ''}}
+                            </span>
+                                ले बैंकको पक्षमा व्यक्तिगत जमानत लेखिदिनु पर्नेछ ।
+                            </div>
                         </li>
                     </ol>
                 </div>
