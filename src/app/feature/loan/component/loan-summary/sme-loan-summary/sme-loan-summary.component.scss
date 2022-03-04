@@ -159,6 +159,53 @@
     td    { page-break-inside:avoid; page-break-after:auto }
     thead { display:table-header-group }
     tfoot { display:table-footer-group }
+  }
+}
+b {
+  font-size: 14px !important;
+}
 
+.lower-alpha {
+  list-style: lower-alpha;
+
+  li {
+    line-height: 1.9em;
+    font-size: 13px !important;
+
+    b {
+      font-size: 13px !important;
+    }
+  }
+}
+
+th, td {
+  padding: 0.5rem;
+}
+
+.h80 {
+  // td {
+  //   height: 80px;
+  // }
+  height: 80px !important;
+}
+.h100 {
+  // td {
+  //   height: 80px;
+  // }
+  height: 100px !important;
+}
+
+.conclusion {
+  p {
+    line-height: 1.9em !important;
+  }
+  b {
+    font-size: 16px !important;
+  }
+}
+
+.banking-relationship {
+  li, p {
+    font-size: 16px !important;
   }
 }
