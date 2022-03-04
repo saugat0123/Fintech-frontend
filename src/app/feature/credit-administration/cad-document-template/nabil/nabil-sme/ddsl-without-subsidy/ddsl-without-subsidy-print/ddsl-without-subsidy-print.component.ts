@@ -28,6 +28,7 @@ import {
 import {
     ObjectUtil
 } from '../../../../../../../@core/utils/ObjectUtil';
+import {CustomerType} from '../../../../../../customer/model/customerType';
 
 @Component({
     selector: 'app-ddsl-without-subsidy-print',
@@ -89,6 +90,7 @@ export class DdslWithoutSubsidyPrintComponent implements OnInit {
     plotNumber;
     guarantorAmount;
     guarantorAmountWords;
+    client = CustomerType;
 
     constructor(public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
         public engToNepNumberPipe: EngToNepaliNumberPipe,
@@ -116,15 +118,22 @@ export class DdslWithoutSubsidyPrintComponent implements OnInit {
             this.proposedAmount = totalLoanAmount;
             this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
             this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
-            this.customerAddress = this.loanHolderInfo.registeredMunicipality.ct + '-' +
-            this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.registeredDistrict.ct + ', ' +
-            this.loanHolderInfo.registeredProvince.ct;
             this.branchName = this.loanHolderInfo.branch.ct;
             this.loanOptions = this.tempData.loanOption.ct;
             this.selectedSecurity = this.tempData.securityType.ct;
             this.customerType = this.loanHolderInfo.clientType.en;
             this.mortgageOptions = this.tempData.mortgageType.ct;
             this.plotNumber = this.kittaNumbers;
+            if (this.customerType === this.client.INSTITUTION) {
+                this.customerAddress = this.loanHolderInfo.registeredMunicipality.ct + '-' +
+                    this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.registeredDistrict.ct + ', ' +
+                    this.loanHolderInfo.registeredProvince.ct;
+            }
+            if (this.customerType === this.client.INDIVIDUAL) {
+                this.customerAddress = this.loanHolderInfo.permanentMunicipality.ct + '-' +
+                    this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.permanentDistrict.ct + ', ' +
+                    this.loanHolderInfo.permanentProvince.ct;
+            }
         }
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.offerDocumentList)) {
             // tslint:disable-next-line:max-line-length
@@ -215,8 +224,12 @@ export class DdslWithoutSubsidyPrintComponent implements OnInit {
         }
     }
     guarantorDetails() {
-        this.tempPersonalGuarantors = this.guarantorParsed.filter(val =>
-            val.guarantorType.en === 'Personal Guarantor');
+        if (this.customerType === this.client.INSTITUTION) {
+            this.tempPersonalGuarantors = this.guarantorParsed.filter(val =>
+                val.guarantorType.en === 'Personal Guarantor');
+        } else {
+            this.tempPersonalGuarantors = this.guarantorParsed;
+        }
     }
 
     commonGuarantorDetails(guarantorName, finalName) {
@@ -263,6 +276,9 @@ export class DdslWithoutSubsidyPrintComponent implements OnInit {
         if (this.securityDetails.primarySecurity.some(s => s.securityTypeCT === 'DOCUMENTS')) {
             this.securityTypeConditionDocuments = true;
         }
+        if (this.securityDetails.primarySecurity.some(s => s.securityTypeCT === 'ASSIGNMENT')) {
+            this.securityTypeConditionDocuments = true;
+        }
     }
     checkSecondaryConditions() {
         this.tempSecondaryLandBuilding = this.securityDetails.secondarySecurity.filter(val =>
@@ -287,6 +303,10 @@ export class DdslWithoutSubsidyPrintComponent implements OnInit {
             this.securityTypeSecondaryConditionAssestsPlants = true;
         }
         if (this.securityDetails.secondarySecurity.some(s => s.securityTypeCT === 'DOCUMENTS')) {
+            this.securityTypeSecondaryConditionDocuments = true;
+        }
+
+        if (this.securityDetails.secondarySecurity.some(s => s.securityTypeCT === 'ASSIGNMENT')) {
             this.securityTypeSecondaryConditionDocuments = true;
         }
     }

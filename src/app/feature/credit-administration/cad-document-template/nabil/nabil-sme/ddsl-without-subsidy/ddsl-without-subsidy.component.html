@@ -21,11 +21,21 @@
                                      placeholder=""
                                      type="text"/><br></p>
 
-                        <p> श्री <input class="form-field form-control-sm "
+                        <p>
+                            <ng-container *ngIf="this.customerType === this.client?.INSTITUTION">
+                                श्री
+                            </ng-container>
+                            <ng-container *ngIf="this.customerType === this.client?.INDIVIDUAL">
+                                {{(this.loanHolderInfo?.gender?.en === 'FEMALE' && this.loanHolderInfo?.relationMedium?.en === '0') ?
+                                'श्रीमती' : (this.loanHolderInfo?.gender?.en === 'FEMALE' && this.loanHolderInfo?.relationMedium?.en === '1' ?
+                                    'सुश्री' : this.loanHolderInfo?.gender?.en === 'MALE' ? 'श्रीमान्' : 'श्री')}}
+                            </ng-container>
+                            <input class="form-field form-control-sm "
                                                    readonly
                                                    formControlName="borrowersName"
                                                    placeholder=""
-                                                   type="text"/></p>
+                                                   type="text"/>
+                        </p>
                         <p> ठेगानाः <input class="form-field form-control-sm "
                                        readonly
                                        formControlName="borrowerAddress"
@@ -35,7 +45,8 @@
                     <p *ngIf="loanOptions === 'NEW'; else existingUser">
                         <strong>बिषयः ऋणकर्जा सुविधा बारे ।</strong><br><br>
                         महोदय,<br>
-                        तपाईंले मिति बि.सं.<input class="form-field form-control-sm "
+                        तपाईंले मिति <span>{{this.tempData?.dateOfApplicationType?.en === 'AD' ? 'ई. स. ' : 'वि.सं. '}}</span>
+                        <input class="form-field form-control-sm "
                                             readonly
                                             formControlName="requestLetterDate"
                                             placeholder=""
@@ -48,16 +59,18 @@
                         <p>
                             <strong>बिषयः थप/अतिरिक्त ऋणकर्जा सुविधाहरु स्वीकृत गरीएको बारे ।</strong><br><br>
                             महोदय,<br>
-                            तपाईंले यस बैंकको मिति वि.सं. <input class="form-field form-control-sm "
-                                                                 readonly
-                                                                 formControlName="previousSanctionLetterDate"
-                                                                 placeholder=""
-                                                                 type="text"/> को ऋणस्वीकृति पत्रानुसार स्वीकृत भएका
+                            तपाईंले यस बैंकको मिति <span>{{this.tempData?.previousSanctionType?.en === 'AD' ? 'ई. स. ' : 'वि.सं. '}}</span>
+                            <input class="form-field form-control-sm "
+                                 readonly
+                                 formControlName="previousSanctionLetterDate"
+                                 placeholder=""
+                                 type="text"/> को ऋणस्वीकृति पत्रानुसार स्वीकृत भएका
                             ऋणकर्जा
                             सुविधाहरु उपभोग गर्दै आउनु भएकोमा हाल थप/अतिरिक्त ऋणकर्जा सुविधाका लागि यस बैंकमा दिनु
                             भएको
                             मिति
-                            वि.सं.<input class="form-field form-control-sm "
+                            <span>{{this.tempData?.dateOfApplicationType?.en === 'AD' ? 'ई. स. ' : 'वि.सं. '}}</span>
+                            <input class="form-field form-control-sm "
                                          readonly
                                          formControlName="requestLetterDate"
                                          placeholder=""
@@ -103,7 +116,7 @@
                                                                    readonly
                                                                    formControlName="loanAmount"
                                                                    placeholder=""
-                                                                   type="text"/> /- (अक्षरेपी रु.
+                                                                   type="text"/>/- (अक्षरेपी रु.
                                     <input class="form-field form-control-sm "
                                            readonly
                                            formControlName="loanAmountInWord"
@@ -302,23 +315,27 @@
                         <app-master-secondary-securities-view
                                 [securityDetails]="tempData?.securities"></app-master-secondary-securities-view>
                     </div>
-                    <p style="margin-left: 2%;"><strong>१. व्यक्तिगत जमानत (Personal Guarantee):</strong></p>
-                    <p class="m-0" *ngFor="let personalGuarantor of tempPersonalGuarantors">
-                        <strong>रु. <input class="form-field form-control-sm "
-                                           readonly
-                                           formControlName="approvedCFRLoanAmount"
-                                           [value]="personalGuarantor.gurantedAmount.ct"
-                                           type="text"/>/- (अक्षरेपी रु. <input
-                                class="form-field form-control-sm "
-                                formControlName="approvedCFRLoanAmountInWord"
-                                [value]="this.nepaliCurrencyWordPipe.transform(personalGuarantor.gurantedAmount.en)"
-                                type="text"/> मात्र)</strong> बराबरको श्री
-                        <input class="form-field form-control-sm "
-                               readonly
-                               formControlName="nameOfPersonalGuarantor"
-                               [value]="personalGuarantor.guarantorName.ct"
-                               type="text"/> ले एक्लै वा संयुक्त रुपमा बैंकको पक्षमा व्यक्तिगत जमानत लेखिदिनु पर्नेछ
-                        ।
+                    <p style="margin-left: 2%;"><strong>१. व्यक्तिगत जमानत (Personal Guarantee):</strong><br>
+                        <ng-container class="m-0" *ngFor="let personalGuarantor of tempPersonalGuarantors">
+                            <strong>रु. <input class="form-field form-control-sm "
+                                               readonly
+                                               formControlName="approvedCFRLoanAmount"
+                                               [value]="personalGuarantor.gurantedAmount.ct"
+                                               type="text"/>/- (अक्षरेपी रु. <input
+                                    class="form-field form-control-sm "
+                                    formControlName="approvedCFRLoanAmountInWord"
+                                    [value]="this.nepaliCurrencyWordPipe.transform(personalGuarantor.gurantedAmount.en)"
+                                    type="text"/> मात्र)</strong> बराबरको
+                            {{(personalGuarantor?.gender?.en === 'FEMALE' && personalGuarantor?.guarantorMaritalStatus?.en === 'Married') ?
+                            'श्रीमती' : (personalGuarantor?.gender?.en === 'FEMALE' && personalGuarantor?.guarantorMaritalStatus?.en === 'Unmarried' ?
+                                'सुश्री' : personalGuarantor?.gender?.en === 'MALE' ? 'श्रीमान्' : 'श्री')}}
+                            <input class="form-field form-control-sm "
+                                   readonly
+                                   formControlName="nameOfPersonalGuarantor"
+                                   [value]="personalGuarantor.guarantorName.ct"
+                                   type="text"/> ले एक्लै वा संयुक्त रुपमा बैंकको पक्षमा व्यक्तिगत जमानत लेखिदिनु पर्नेछ
+                            ।
+                        </ng-container>
                     </p>
                     <p style="margin-left: 2%;"><strong>व्याज सम्बन्धी शर्तहरुः</strong></p>
                     <div>
@@ -957,10 +974,12 @@
                                        name="loanAmountInfigure"
                                        type="text"
                                        class="form-field form-control-sm"
-                                [value]="x.gurantedAmount.ct"/> /-
+                                [value]="x.gurantedAmount.ct"/>/-
                                 बराबरको
-                                    {{x.gender.en === 'FEMALE' && x.relationMedium.en === '0' ? 'श्रीमती' : (x.gender.en === 'FEMALE' && x.relationMedium.en === '1' ? 'सुश्री' : x.gender.en === 'MALE' ? 'श्रीमान्' : '')}}
-                                    <input class="form-field form-control-sm col-3"
+                                {{(x?.gender?.en === 'FEMALE' && x?.guarantorMaritalStatus?.en === 'Married') ?
+                                'श्रीमती' : (x?.gender?.en === 'FEMALE' && x?.guarantorMaritalStatus?.en === 'Unmarried' ?
+                                    'सुश्री' : x?.gender?.en === 'MALE' ? 'श्रीमान्' : 'श्री')}}
+                                <input class="form-field form-control-sm col-3"
                                        formControlName="guarantorName"
                                        type="text"
                                        [value]="x.guarantorName.ct"/>
