@@ -44,7 +44,6 @@ import {NetWorthModule} from '../../../newt-worth/net-worth-module';
 import {DbrModule} from '../../../dbr/dbr.module';
 import { CollateralSiteVisitComponent } from './collateral-site-visit/collateral-site-visit.component';
 import {LoanInformationDetailViewModule} from '../../../loan-information-detail-view/loan-information-detail-view.module';
-import {JointInformationModule} from '../../../joint-customer-view/joint-information/joint-information.module';
 
 
 const COMPONENTS = [
