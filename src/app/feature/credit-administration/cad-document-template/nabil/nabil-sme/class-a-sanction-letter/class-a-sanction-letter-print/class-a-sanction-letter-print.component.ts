@@ -87,8 +87,10 @@ export class ClassASanctionLetterPrintComponent implements OnInit {
           JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation) : '';
       this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
       this.isNatural = this.tempData.naturalPersonCheck.en;
-      console.log('New TempData:', this.isNatural);
-    }
+      if (!ObjectUtil.isEmpty(this.tempData)) {
+        this.CoupenRateFinancing = this.tempData.CoupenRateFinancing ? this.tempData.CoupenRateFinancing.ct : ''
+        this.BaseRateFinancing =  this.tempData.BaseRateFinancing ? this.tempData.BaseRateFinancing.ct : '';
+      }}
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.assignedLoan)) {
       this.autoRefNum = this.cadOfferLetterApprovedDoc.assignedLoan[0].refNo;
     }
@@ -109,8 +111,8 @@ export class ClassASanctionLetterPrintComponent implements OnInit {
     // For Date of Application:
     const dateOfApplication = this.letter.dateOfApplicationType ? this.letter.dateOfApplicationType.en : '';
     if (dateOfApplication === 'AD') {
-      const templateDateApplication = this.letter.dateOfApplication ? this.letter.dateOfApplication.en : '';
-      this.finalDateOfApplication = this.engToNepaliDate.transform(this.datePipe.transform(templateDateApplication), true);
+      const templateDateApplication = this.letter.dateOfApplication ? this.letter.dateOfApplication.ct : '';
+      this.finalDateOfApplication = templateDateApplication ? templateDateApplication : '';
     } else {
       const templateDateApplication = this.letter.dateOfApplicationNepali ? this.letter.dateOfApplicationNepali.en : '';
       this.finalDateOfApplication = templateDateApplication ? templateDateApplication.nDate : '';
@@ -118,8 +120,8 @@ export class ClassASanctionLetterPrintComponent implements OnInit {
     // For Date of Expiry:
     const dateOfExpiry = this.letter.dateOfExpiryType ? this.letter.dateOfExpiryType.en : '';
     if (dateOfExpiry === 'AD') {
-      const templateDateExpiry = this.letter.dateOfExpiry ? this.letter.dateOfExpiry.en : '';
-      this.finalDateOfExpiry = this.engToNepaliDate.transform(this.datePipe.transform(templateDateExpiry), true);
+      const templateDateExpiry = this.letter.dateOfExpiry ? this.letter.dateOfExpiry.ct : '';
+      this.finalDateOfExpiry = templateDateExpiry ? templateDateExpiry : '';
     } else {
       const templateDateExpiry = this.letter.dateOfExpiryNepali ? this.letter.dateOfExpiryNepali.en : '';
       this.finalDateOfExpiry = templateDateExpiry ? templateDateExpiry.nDate : '';

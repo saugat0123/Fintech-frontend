@@ -235,7 +235,7 @@
                                       [value]="dateTy.value">{{dateTy.key}}</nb-radio>
                         </nb-radio-group>
                         <div *ngIf="this.form.get('dateOfApplicationType').value === 'BS'" style="margin-bottom: -50px;">
-                            <nepali-patro *ngIf="BSApplication" [displayNepali]="true"
+                            <nepali-patro [displayNepali]="true"
                                           [responseType]="2"
                                           formControlName="dateOfApplicationNepali">
                             </nepali-patro>
@@ -256,7 +256,7 @@
                                       [value]="previousType.value">{{previousType.key}}</nb-radio>
                         </nb-radio-group>
                         <div *ngIf="this.form.get('previousSanctionType').value === 'BS'" style="margin-bottom: -50px;">
-                            <nepali-patro *ngIf="BSPrevious" [displayNepali]="true"
+                            <nepali-patro [displayNepali]="true"
                                           [responseType]="2"
                                           formControlName="previousSanctionDateNepali">
                             </nepali-patro>
@@ -419,7 +419,7 @@
                             <nb-radio *ngFor="let dateTy of dateType" [value]="dateTy.value">{{dateTy.key}}</nb-radio>
                         </nb-radio-group>
                         <div *ngIf="this.form.get('dateOfExpiryType').value === 'BS'" style="margin-bottom: -50px;">
-                            <nepali-patro *ngIf="BSDateOfExpiry" [displayNepali]="true" [responseType]="2"
+                            <nepali-patro [displayNepali]="true" [responseType]="2"
                                           formControlName="dateOfExpiryNepali">
                             </nepali-patro>
                         </div>
@@ -506,7 +506,7 @@
                         <div class="col-md-12 mb-2 text-center">
                             <h5>TRANSLATED DATA</h5>
                         </div>
-                        <div class="form-group" style="margin-top:45px" *ngIf="BSSanctionLetterDate; else dateOfSanctionField">
+                        <div class="form-group" style="margin-top:45px" *ngIf="this.form.get('sanctionLetterDateType').value === 'BS'; else dateOfSanctionField">
                             <label for="sanctionLetterDateNepaliTrans">Date of Approval Translation </label>
                             <input class="form-control dateTranslationCustom"
                                    formControlName="sanctionLetterDateNepaliTrans"
@@ -524,7 +524,7 @@
                         </ng-template>
                         <div class="form-group" style="margin-top:55px">
                             <label for="dateOfApplicationTrans">Date of Application Translation </label>
-                            <ng-container *ngIf="BSApplication; else dateOfAppEnglish">
+                            <ng-container *ngIf="this.form.get('dateOfApplicationType').value === 'BS'; else dateOfAppEnglish">
                                 <input class="form-control dateTranslationCustom"
                                        formControlName="dateOfApplicationNepaliTrans" fullWidth
                                        id="dateOfApplicationNepaliTrans"
@@ -539,7 +539,7 @@
                         </div>
                         <div class="form-group" *ngIf="!isnewCustomer" style="margin-top:55px">
                             <label for="previousSanctionDateTrans">Previous Sanction Letter Date Translation </label>
-                            <ng-container *ngIf="BSPrevious; else previousLetterEnglish">
+                            <ng-container *ngIf="this.form.get('previousSanctionType').value === 'BS'; else previousLetterEnglish">
                                 <input class="form-control dateTranslationCustom"
                                        formControlName="previousSanctionDateNepaliTrans" fullWidth
                                        id="previousSanctionDateNepaliTrans"
@@ -684,7 +684,7 @@
                         <div class="form-group" style="margin-top: 55px"
                              *ngIf="isOverdraftSelected && isCoupenRateFinancingSelected || isOverdraftSelected && isBaseRateFinancingSelected || isBankGuaranteeSelected && isQuarterlySelected ||  isBankGuaranteeSelected && isYearlySelected ">
                             <label for="dateOfExpiryNepaliTrans">Date of Expiry Translation </label>
-                            <ng-container *ngIf="BSDateOfExpiry; else dateOfExpEnglish">
+                            <ng-container *ngIf="this.form.get('dateOfExpiryType').value === 'BS'; else dateOfExpEnglish">
                                 <input class="form-control dateTranslationCustom"
                                        formControlName="dateOfExpiryNepaliTrans" fullWidth
                                        id="dateOfExpiryNepaliTrans"
@@ -769,7 +769,7 @@
                             <div class="col-md-12 mb-2 text-center">
                                 <h5>CORRECTION TRANSLATION</h5>
                             </div>
-                            <div class="form-group" style="margin-top: 45px" *ngIf="BSSanctionLetterDate; else dateOfSanctionFieldCT">
+                            <div class="form-group" style="margin-top: 45px" *ngIf="this.form.get('sanctionLetterDateType').value === 'BS'; else dateOfSanctionFieldCT">
                                 <label for="sanctionLetterDateNepaliCT">Date of Approval CT </label>
                                 <input class="form-control dateTranslationCustom"
                                        formControlName="sanctionLetterDateNepaliCT"
@@ -799,7 +799,7 @@
                             </ng-template>
                             <div class="form-group" style="margin-top:55px">
                                 <label for="dateOfApplicationCT">Date of Application CT</label>
-                                <ng-container *ngIf="BSApplication ; else appDateCT">
+                                <ng-container *ngIf="this.form.get('dateOfApplicationType').value === 'BS'; else appDateCT">
                                     <input class="form-control dateTranslationCustom"
                                            formControlName="dateOfApplicationNepaliCT" fullWidth
                                            id="dateOfApplicationNepaliCT"
@@ -826,7 +826,7 @@
                             </div>
                             <div class="form-group" *ngIf="!isnewCustomer" style="margin-top: 55px">
                                 <label for="previousSanctionDateCT">Previous Sanction Letter Date CT</label>
-                                <ng-container *ngIf="BSPrevious; else previousDateCT">
+                                <ng-container *ngIf="this.form.get('previousSanctionType').value === 'BS'; else previousDateCT">
                                     <input class="form-control dateTranslationCustom"
                                            formControlName="previousSanctionDateNepaliCT" fullWidth
                                            id="previousSanctionDateNepaliCT"
@@ -1080,7 +1080,7 @@
                             <div class="form-group" style="margin-top: 55px"
                                  *ngIf="isOverdraftSelected && isCoupenRateFinancingSelected || isOverdraftSelected && isBaseRateFinancingSelected || isBankGuaranteeSelected && isQuarterlySelected ||  isBankGuaranteeSelected && isYearlySelected ">
                                 <label for="dateOfExpiryCT">Date of Expiry CT</label>
-                                <ng-container *ngIf="BSDateOfExpiry ; else expDateCT">
+                                <ng-container *ngIf="this.form.get('dateOfExpiryType').value === 'BS'; else expDateCT">
                                     <input class="form-control dateTranslationCustom"
                                            formControlName="dateOfExpiryNepaliCT" fullWidth id="dateOfExpiryNepaliCT"
                                            nbInput status="success"

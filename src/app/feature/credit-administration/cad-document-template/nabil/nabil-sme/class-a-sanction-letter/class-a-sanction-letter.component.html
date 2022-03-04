@@ -54,7 +54,9 @@
                             महोदय, <br>
                             तपाईंले
                             <span class="text-left">
-                                मिति वि.सं. <input class="form-field form-control-sm"
+                                मिति
+                                 <span>{{this.tempData?.dateOfApplicationType?.en === 'AD' ? 'ई. स. ' : 'वि.सं. '}}</span>
+                                 <input class="form-field form-control-sm"
                                                    formControlName="dateOfApplication"
                                                    type="text"/>
                             </span>
@@ -74,7 +76,8 @@
                                        type="text"/>
                             </span>
                             को ऋणस्वीकृति पत्रानुसार उपभोग गर्दै आउनु भएको ऋणकर्जामा हाल ऋणकर्जा सुविधा/हरु
-                            नबिकरण/पुनरावलोकन का लागि यस बैंकमा दिनु भएको मिति वि.सं.
+                            नबिकरण/पुनरावलोकन का लागि यस बैंकमा दिनु भएको मिति
+                            <span>{{this.tempData?.dateOfApplicationType?.en === 'AD' ? 'ई. स. ' : 'वि.सं. '}}</span>
                             <span class="text-left">
                                 <input class="form-field form-control-sm"
                                        formControlName="dateOfApplication"
@@ -98,7 +101,8 @@
                             </span>
                             को ऋणस्वीकृति पत्रानुसार स्वीकृत भएका ऋणकर्जा सुविधा/हरु उपभोग गर्दै आउनु
                             भएकोमा हाल थप/अतिरिक्त ऋणकर्जा सुविधा सहित नबिकरण/पुनरावलोकनका लागि
-                            यस बैंकमा दिनु भएको मिति वि.सं.
+                            यस बैंकमा दिनु भएको मिति
+                            <span>{{this.tempData?.dateOfApplicationType?.en === 'AD' ? 'ई. स. ' : 'वि.सं. '}}</span>
                             <span class="text-left">
                                 <input class="form-field form-control-sm"
                                        formControlName="dateOfApplication"
@@ -121,7 +125,8 @@
                                        type="text"/>
                             </span>
                             को ऋणस्वीकृति पत्रानुसार स्वीकृत भएका ऋणकर्जा सुविधाहरु उपभोग गर्दै आउनु
-                            भएकोमा हाल थप/अतिरिक्त ऋणकर्जा सुविधाका लागि यस बैंकमा दिनु भएको मिति वि.स
+                            भएकोमा हाल थप/अतिरिक्त ऋणकर्जा सुविधाका लागि यस बैंकमा दिनु भएको मिति
+                            <span>{{this.tempData?.dateOfApplicationType?.en === 'AD' ? 'ई. स. ' : 'वि.सं. '}}</span>
                             <span class="text-left">
                                 <input class="form-field form-control-sm"
                                        formControlName="dateOfApplication"
@@ -194,7 +199,9 @@
                                     सो ब्याज रकम नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र चैत्र
                                     मसान्तमा र ऋणकर्जा चुक्ता भुक्तान हञुदाका बखत
                                     तिर्नु बुझाउनु पर्नेछ ।<br>
-                                    <strong> कर्जा अवधि समाप्ति/पुनरावलोकन मितिः </strong> <input
+                                    <strong> कर्जा अवधि समाप्ति/पुनरावलोकन मितिः </strong>
+                                    <span>{{this.tempData?.dateOfExpiryType?.en === 'AD' ? 'ई. स. ' : 'वि.सं. '}}</span>
+                                    <input
                                         class="form-field form-control-sm"
                                         formControlName="dateOfExpiry"
                                         type="text"/>|
@@ -254,7 +261,7 @@
                                     (Irrevocable letter of credit facility) </strong><br>
                                     <strong> सीमाः रु <input class="form-field form-control-sm"
                                                              formControlName="loanAmountFigure"
-                                                             type="text"/> ।–(अक्षरेपी रु <input
+                                                             type="text"/> /–(अक्षरेपी रु <input
                                             class="form-field form-control-sm"
                                             formControlName="loanAmountFigureWords"
                                             type="text"/> मात्र)<br>
@@ -262,45 +269,65 @@
                                     <strong> सुरक्षणः </strong> सम्पूर्ण सम्भावित जोखिमहरु सुरक्षित भएको कम्तिमा प्रतित
                                     पत्र मूल्यको ११०% बिमालेख सहित सम्बन्धित
                                     प्रतित पत्रका सम्पूर्ण सामानहरु ।<br>
-                                    <strong>  धरौटीः </strong><span *ngIf="this.tempData.CashMarginHundred.en"> नगद १००% धरौती स्वरुप रहनेछ</span>
+                                    <strong>  धरौटीः </strong><span *ngIf="this.tempData.CashMarginHundred.en"> नगद १००% धरौती स्वरुप रहनेछ ।</span>
                                     <span *ngIf="this.tempData.CashMarginTen.en">१००% धरौती स्वरुप नबिल बैंकमा रहेको श्री </span>
                                     <input
                                             class="form-field form-control-sm"
                                             formControlName="holderName"
                                             type="text"/>को
-                                    <span *ngIf="this.tempData.tdAccounts.en"> मुद्धती </span> <span *ngIf="this.tempData.currents.en"> चल्ति </span> <span *ngIf="this.tempData.savings.en">बचत </span>
-                                    खाता नं <input class="form-field form-control-sm"
+                                    <span *ngIf="this.tempData?.accountType?.en === 'tdAccounts'"> मुद्धती </span>
+                                    <span *ngIf="this.tempData?.accountType?.en === 'currents'"> चल्ति </span>
+                                    <span *ngIf="this.tempData?.accountType?.en === 'savings'">बचत </span>
+                                    खाता नं: <input class="form-field form-control-sm"
                                                    formControlName="accountNumber"
-                                                   type="text"/> उपर बैंकको ग्रहणाधिकार (ष्भिल) कायम गरी दिनु पर्नेछ ।<br>
-                                    <strong *ngIf="this.tempData.CommissionType1.en"> कमिसनः प्रति त्रैमास
+                                                   type="text"/> उपर बैंकको ग्रहणाधिकार (Lien) कायम गरी दिनु पर्नेछ ।<br>
+                                    <span *ngIf="this.tempData.commissionTypes.en === 'CommissionType1'">
+                                    <strong> कमिसनः
+                                    </strong>
+                                    प्रति त्रैमास
                                         <input class="form-field form-control-sm"
                                                 formControlName="comissionRate"
                                                type="text"/>
                                     % का दरले वा कम्तिमा रु.<input class="form-field form-control-sm"
                                                                    formControlName="miniumComissionAmount"
-                                                                   type="text"/> । - लाग्नेछ ।</strong>
-                                    <strong *ngIf="this.tempData.CommissionType2.en"> कमिसनः  पहिलो त्रैमासका
+                                                                   type="text"/>/- लाग्नेछ ।
+                                    </span>
+                                    <span *ngIf="this.tempData.commissionTypes.en === 'CommissionType2'">
+                                        <strong> कमिसनः
+                                    </strong>
+                                    पहिलो त्रैमासका
                                     लागि <input
                                         class="form-field form-control-sm"
                                         formControlName="comissionRateFirstQuarter"
                                         type="text"/> % का दरले र त्यस पछिका त्रैमासहरुमा
+                                        <input
+                                                class="form-field form-control-sm"
+                                                formControlName="comissionRateOthersQuarter"
+                                                type="text"/>
+                                     % का दरले वा कम्तिमा रु
+                                        <input class="form-field form-control-sm"
+                                               formControlName="miniumComissionAmount"
+                                               type="text"/>/- लाग्नेछ ।
+                                    </span><br>
+                                    <span *ngIf="this.tempData.Regular.en">
+                                    <strong> सुविधा समाप्ति/पुनरावलोकन मितिः
+                                    </strong>
+                                         <span>
+                                             {{this.tempData?.dateOfExpiryType?.en === 'AD' ? 'ई. स. ' : 'वि.सं. '}}
+                                         </span>
                                     <input
-                                            class="form-field form-control-sm"
-                                            formControlName="comissionRateFirstQuarter"
-                                            type="text"/> % का दरले वा कम्तिमा रु <input
-                                        class="form-field form-control-sm"
-                                        formControlName="comissionRateOthersQuarter"
-                                        type="text"/>। लाग्नेछ । <br>
-                                    <strong> सुविधा समाप्ति/पुनरावलोकन मितिः <input
                                             class="form-field form-control-sm"
                                             formControlName="dateOfExpiry"
                                             type="text"/>|
-                                        / सुविधा समाप्ति मितिः <input
-                                                class="form-field form-control-sm customFont"
-                                                name="basicFreeText"
-                                                formControlName="basicFreeText"/>
-                                    </strong>
-                                    </strong>
+                                    </span>
+                                    <span *ngIf="this.tempData?.OneOff?.en">
+                                        <strong>
+                                        सुविधा समाप्ति मितिः
+                                        </strong><input
+                                            class="form-field form-control-sm nepaliFont"
+                                            name="basicFreeText"
+                                            formControlName="basicFreeText"/>
+                                    </span>
                                 </td>
                             </tr>
                         </table>

@@ -52,7 +52,9 @@
                     महोदय, <br>
                     तपाईंले
                     <span class="text-left">
-                                मितिः <span class="font-weight-bold">
+                                मितिः
+                        <span>{{this.letter?.dateOfApplicationType?.en === 'AD' ? 'ई. स. ' : 'वि.सं. '}}</span>
+                        <span class="font-weight-bold">
                             {{ finalDateOfApplication }}
                         </span>
                             मा ऋणकर्जा सुविधाका लागि यस बैंकमा दिनु भएको निवेदनको सम्बन्धमा यस बैंकले देहाय बमोजिमका
@@ -68,7 +70,8 @@
                             {{ finalDateOfSanction }}
                         </span>
                     को ऋणस्वीकृति पत्रानुसार उपभोग गर्दै आउनु भएको ऋणकर्जामा हाल ऋणकर्जा सुविधा/हरु
-                    नबिकरण/पुनरावलोकन का लागि यस बैंकमा दिनु भएको मिति वि.सं.
+                    नबिकरण/पुनरावलोकन का लागि यस बैंकमा दिनु भएको मिति
+                    <span>{{this.letter?.dateOfApplicationType?.en === 'AD' ? 'ई. स. ' : 'वि.सं. '}}</span>
                     <span class="font-weight-bold">
                             {{ finalDateOfApplication }}
                         </span>
@@ -86,7 +89,8 @@
                         </span>
                     को ऋणस्वीकृति पत्रानुसार स्वीकृत भएका ऋणकर्जा सुविधा/हरु उपभोग गर्दै आउनु
                     भएकोमा हाल थप/अतिरिक्त ऋणकर्जा सुविधा सहित नबिकरण/पुनरावलोकनका लागि
-                    यस बैंकमा दिनु भएको मिति वि.सं.
+                    यस बैंकमा दिनु भएको मिति
+                    <span>{{this.letter?.dateOfApplicationType?.en === 'AD' ? 'ई. स. ' : 'वि.सं. '}}</span>
                     <span class="font-weight-bold">
                             {{ finalDateOfApplication }}
                         </span>
@@ -104,7 +108,8 @@
                             {{ finalDateOfSanction }}
                         </span>
                     को ऋणस्वीकृति पत्रानुसार स्वीकृत भएका ऋणकर्जा सुविधाहरु उपभोग गर्दै आउनु
-                    भएकोमा हाल थप/अतिरिक्त ऋणकर्जा सुविधाका लागि यस बैंकमा दिनु भएको मिति वि.स
+                    भएकोमा हाल थप/अतिरिक्त ऋणकर्जा सुविधाका लागि यस बैंकमा दिनु भएको मिति
+                    <span>{{this.letter?.dateOfApplicationType?.en === 'AD' ? 'ई. स. ' : 'वि.सं. '}}</span>
                     <span class="font-weight-bold">
                             {{ finalDateOfApplication }}
                         </span>
@@ -161,15 +166,22 @@
                                         </span> +
                                     <span [ngClass]="{'font-weight-bold': letter?.premiumRate.ct !== null && letter?.premiumRate.ct !== ''}">
                                             {{letter?.premiumRate.ct === null || letter?.premiumRate.ct === "" ? "___________" : letter?.premiumRate.ct}}
-                                        </span> प्रतिशत ब्याजदर प्रिमियम (Interest Rate Premium) हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर
+                                        </span> प्रतिशत ब्याजदर प्रिमियम (Interest Rate Premium)
+                            </span>
+                            <span>
+                                हाल उपर्युक्त बमोजिम परीवर्तनशिल ब्याज दर
                                     (Floating Interest Rate) बार्षिक <span
                                         [ngClass]="{'font-weight-bold': letter?.interestRate.ct!== null && letter?.interestRate.ct!== ''}">
                                             {{letter?.interestRate.ct === null || letter?.interestRate.ct === "" ? "___________" : letter?.interestRate.ct}}
                                         </span> % का दर निर्धारण गरीएकोछ । साथै भविष्यमा कुपन दर वा
                                     आधार दर मध्ये बढि भएको दरमा माथि उल्लेख भए बमोजिमको ब्याज दर प्रिमियम थप गरि त्रैमासिक रुपमा ब्याज दर निर्धारण गरिनेछ र
                                     सो ब्याज रकम नेपाली पात्रो बमोजिम प्रत्येक त्रैमास अर्थात आषाढ, आश्विन, पौष र चैत्र मसान्तमा र ऋणकर्जा चुक्ता भुक्तान हञुदाका बखत
-                                    तिर्नु बुझाउनु पर्नेछ ।<br>
+                                    तिर्नु बुझाउनु पर्नेछ ।
+                            </span>
+                            <br/>
+                            <span>
                                     <strong> कर्जा अवधि समाप्ति/पुनरावलोकन मितिः </strong>
+                                <span>{{this.letter?.dateOfExpiryType?.en === 'AD' ? 'ई. स. ' : 'वि.सं. '}}</span>
                                     <span class="font-weight-bold">
                             {{ finalDateOfExpiry }}
                         </span> मा हुनेछ ।
@@ -215,55 +227,79 @@
                         <td>
                             क)
                         </td>
-                        <td *ngIf="this.letter.OneOff.en">पटके <span
-                                *ngIf="this.letter.Regular.en">नियमित </span><strong> अपरिवर्तनीय प्रतित पत्र सुविधा
+                        <td *ngIf="this.letter?.OneOff.en">पटके <span
+                                *ngIf="this.letter?.Regular?.en">नियमित </span><strong> अपरिवर्तनीय प्रतित पत्र सुविधा
                             पत्र सुविधा
                             (Irrevocable letter of credit facility) </strong><br>
                             <strong> सीमाः रु <span class="font-weight-bold">
-                                            {{engToNepNumberPipe.transform(currencyFormatPipe.transform(proposedAmount))}}
-                                        </span>।
+                                            {{this.letter?.totalLimitInFigure ? this.letter?.totalLimitInFigure?.ct : ''}}
+                                        </span>/-
                                 (अक्षरेपी रु <span
-                                        class="unicodeResize">{{ nepaliCurrencyWordPipe.transform(proposedAmount) }}</span>
+                                        class="unicodeResize">{{this.nepaliCurrencyWordPipe.transform(
+                                    this.letter?.totalLimitInFigure ? this.letter?.totalLimitInFigure?.en : '')}}</span>
                                 मात्र)
                             </strong>
                             <strong> सुरक्षणः </strong> सम्पूर्ण सम्भावित जोखिमहरु सुरक्षित भएको कम्तिमा प्रतित पत्र
                             मूल्यको ११०% बिमालेख सहित सम्बन्धित
                             प्रतित पत्रका सम्पूर्ण सामानहरु ।<br>
-                            <strong>  धरौटीः </strong><span *ngIf="this.letter.CashMarginHundred.en"> नगद १००% धरौती स्वरुप रहनेछ</span>
-                            <span *ngIf="this.letter.CashMarginTen.en">१००% धरौती स्वरुप नबिल बैंकमा रहेको श्री </span>
+                            <strong>  धरौटीः
+                            </strong>
+                            <span *ngIf="this.letter?.CashMarginHundred?.en">
+                            नगद १००% धरौती स्वरुप रहनेछ
+                            </span>
+                            <span *ngIf="this.letter?.CashMarginTen?.en">१००% धरौती स्वरुप नबिल बैंकमा रहेको श्री </span>
                             <span [ngClass]="{'font-weight-bold': this.holderFinalName !== null && this.holderFinalName !== ''}">
                                             {{this.holderFinalName === null || this.holderFinalName === "" ? "___________" : this.holderFinalName}}
                                         </span>
-                            <span *ngIf="this.letter.tdAccounts.en"> मुद्धती </span> <span *ngIf="this.letter.currents.en"> चल्ति </span> <span *ngIf="this.letter.savings.en">बचत </span>
+                            <span *ngIf="this.letter?.accountType?.en === 'tdAccounts'"> मुद्धती </span>
+                            <span *ngIf="this.letter?.accountType?.en === 'currents'"> चल्ति </span>
+                            <span *ngIf="this.letter?.accountType?.en === 'savings'">बचत </span>
                             खाता नं <span [ngClass]="{'font-weight-bold': letter?.accountNumber.ct !== null && letter?.accountNumber.ct !== ''}">
                                             {{letter?.accountNumber.ct === null || letter?.accountNumber.ct === "" ? "___________" : letter?.accountNumber.ct}}
-                                        </span> उपर बैंकको ग्रहणाधिकार (ष्भिल) कायम गरी दिनु पर्नेछ ।<br>
+                                        </span> उपर बैंकको ग्रहणाधिकार (Lien) कायम गरी दिनु पर्नेछ ।<br>
 
-                            <strong *ngIf="this.letter.CommissionType1.en">
+                            <span *ngIf="this.letter?.commissionTypes?.en === 'CommissionType1'">
+                                    <strong> कमिसनः
+                                    </strong>
+                                    प्रति त्रैमास
                                 <span [ngClass]="{'font-weight-bold': letter?.comissionRate.ct !== null && letter?.comissionRate.ct !== ''}">
                                             {{letter?.comissionRate.ct === null || letter?.comissionRate.ct === "" ? "___________" : letter?.comissionRate.ct}}
                                         </span>
                             % का दरले वा कम्तिमा रु.<span
                                     [ngClass]="{'font-weight-bold': letter?.miniumComissionAmount.ct !== null && letter?.miniumComissionAmount.ct !== ''}">
                                             {{letter?.miniumComissionAmount.ct === null || letter?.miniumComissionAmount.ct === "" ? "___________" : letter?.miniumComissionAmount.ct}}
-                            </span> । - लाग्नेछ ।</strong>
-                            <strong *ngIf="this.letter.CommissionType2.en"> कमिसनः पहिलो त्रैमासका लागि
+                            </span> /- लाग्नेछ ।
+                            </span>
+                            <span *ngIf="this.letter?.commissionTypes?.en === 'CommissionType2'">
+                            <strong> कमिसनः
+                            </strong>
+                            पहिलो त्रैमासका लागि
                                 <span [ngClass]="{'font-weight-bold': letter?.comissionRateFirstQuarter.ct !== null && letter?.comissionRateFirstQuarter.ct !== ''}">
                                             {{letter?.comissionRateFirstQuarter.ct === null || letter?.comissionRateFirstQuarter.ct === "" ? "___________" : letter?.comissionRateFirstQuarter.ct}}
                                         </span> % का दरले र त्यस पछिका त्रैमासहरुमा
                             <span [ngClass]="{'font-weight-bold': letter?.comissionRateOthersQuarter.ct !== null && letter?.comissionRateOthersQuarter.ct !== ''}">
                                             {{letter?.comissionRateOthersQuarter.ct === null || letter?.comissionRateOthersQuarter.ct === "" ? "___________" : letter?.comissionRateOthersQuarter.ct}}
-                                        </span>। लाग्नेछ । <br>
-                            <strong> सुविधा समाप्ति/पुनरावलोकन मितिः <span [ngClass]="{'font-weight-bold': letter?.dateOfExpiry.ct !== null && letter?.dateOfExpiry.ct !== ''}">
+                                        </span>
+                                 % का दरले वा कम्तिमा रु
+                                <span [ngClass]="{'font-weight-bold': letter?.miniumComissionAmount.ct !== null && letter?.miniumComissionAmount.ct !== ''}">
+                                            {{letter?.miniumComissionAmount.ct === null || letter?.miniumComissionAmount.ct === "" ? "___________" : letter?.miniumComissionAmount.ct}}
+                                        </span>/- लाग्नेछ ।
+                                </span><br>
+                                <span *ngIf="this.letter?.Regular?.en">
+                            <strong> सुविधा समाप्ति/पुनरावलोकन मितिः
+                            </strong>
+                                    {{this.letter?.dateOfExpiryType?.en === 'AD' ? 'ई. स. ' : 'वि.सं. '}}
+                                    <span [ngClass]="{'font-weight-bold': letter?.dateOfExpiry.ct !== null && letter?.dateOfExpiry.ct !== ''}">
                                             {{letter?.dateOfExpiry.ct === null || letter?.dateOfExpiry.ct === "" ? "___________" : letter?.dateOfExpiry.ct}}
                                         </span>
-                                / सुविधा समाप्ति मितिः
-                                <span class="nepaliFont font-weight-bold">
-                                    {{this.freeTextVal?.basicFreeText ? this.freeTextVal.basicFreeText : ''}}
                                 </span>
-                            </strong>
-                            </strong>
-                        </td>
+                                <span *ngIf="this.letter?.OneOff?.en">
+                                सुविधा समाप्ति मितिः
+                                <span class="nepaliFont font-weight-bold">
+                                    {{this.freeTextVal?.basicFreeText ? this.freeTextVal?.basicFreeText : '====================='}}
+                                </span>
+                                </span>
+                            </td>
                     </tr>
                 </table>
             </div>
@@ -892,8 +928,10 @@
                     <li>
                         मोजरा पत्र (Letter of set off)
                     </li>
-                    <li *ngIf="this.freeTextVal !== null && this.freeTextVal.applicableFreeTextBox !== undefined">
-                        {{this.freeTextVal?.applicableFreeTextBox ? this.freeTextVal?.applicableFreeTextBox : ''}}
+                    <li *ngIf="this.freeTextVal?.applicableFreeTextBox">
+                        <span class="nepaliFont">
+                            {{this.freeTextVal?.applicableFreeTextBox ? this.freeTextVal?.applicableFreeTextBox : ''}}
+                        </span>
                     </li>
                 </ul>
             </div>
@@ -1033,7 +1071,8 @@
                     .........................................
                     <p>
                         आधिकारिक हस्ताक्षर (ऋणी)
-                        <br>
+                    </p>
+                    <p>
                         मिति:
                         <span class="nepaliFont font-weight-bold">
                             {{this.freeTextVal?.date ? this.freeTextVal?.date : "============================="}}
@@ -1043,7 +1082,7 @@
             </div>
             <br>
             <div class="col-md-12">
-                <p class="text-center mt-5">
+                <p class="text-center mt-3">
                     <b><u>साक्षी</u></b>
                 </p>
                 <div>

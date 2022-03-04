@@ -208,11 +208,6 @@ export class ClassASanctionLetterComponent implements OnInit {
         this.selectedArray = initialInfo.loanTypeSelectedArray;
         this.fillForm();
         this.initialInfoPrint = initialInfo;
-        if (this.initialInfoPrint.dateOfExpiryType.en === 'AD') {
-          this.form.get('dateOfExpiry').patchValue(this.engToNepaliDate.transform(this.initialInfoPrint.dateOfExpiry.en, true));
-        } else {
-          this.form.get('dateOfExpiry').patchValue(this.initialInfoPrint.dateOfExpiryNepali.ct);
-        }
       }
     } else {
       this.fillForm();
@@ -296,8 +291,8 @@ export class ClassASanctionLetterComponent implements OnInit {
     const dateOfApplication = this.initialInfoPrint.dateOfApplicationType ? this.initialInfoPrint.dateOfApplicationType.en : '';
     let finalDateOfApplication;
     if (dateOfApplication === 'AD') {
-      const templateDateApplication = this.initialInfoPrint.dateOfApplication ? this.initialInfoPrint.dateOfApplication.en : '';
-      finalDateOfApplication = this.engToNepaliDate.transform(this.datePipe.transform(templateDateApplication), true);
+      const templateDateApplication = this.initialInfoPrint.dateOfApplication ? this.initialInfoPrint.dateOfApplication.ct : '';
+      finalDateOfApplication = templateDateApplication ? templateDateApplication : '';
     } else {
       const templateDateApplication = this.initialInfoPrint.dateOfApplicationNepali ? this.initialInfoPrint.dateOfApplicationNepali.en : '';
       finalDateOfApplication = templateDateApplication ? templateDateApplication.nDate : '';
@@ -328,8 +323,9 @@ export class ClassASanctionLetterComponent implements OnInit {
       !ObjectUtil.isEmpty(this.freeTextVal.customerName)) ?
           this.freeTextVal.customerName : this.loanHolderInfo.name.ct ? this.loanHolderInfo.name.ct : '',
       customerAddress: customerAddress ? customerAddress : '',
-      loanAmountFigure: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount)),
-      loanAmountFigureWords: this.nepaliCurrencyWordPipe.transform(totalLoanAmount),
+      loanAmountFigure: this.tempData.totalLimitInFigure ? this.tempData.totalLimitInFigure.ct : '',
+      loanAmountFigureWords: this.nepaliCurrencyWordPipe.transform(
+          this.tempData.totalLimitInFigure ? this.tempData.totalLimitInFigure.en : ''),
       referenceNumber: autoRefNumber ? autoRefNumber : '',
       baseRate: this.tempData.baseRate.ct ? this.tempData.baseRate.ct : '',
       premiumRate: this.tempData.premiumRate.ct ? this.tempData.premiumRate.ct : '',
