@@ -170,9 +170,9 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
       nepaliWords: 'सुन्य',
     };
     const customerAddress =
-        data.permanentMunicipality + ' , ' +
-        data.permanentWard + ' , ' +
-        data.permanentProvince + ' , ' +
+        data.permanentMunicipality + ', ' +
+        data.permanentWard + ', ' +
+        data.permanentProvince + ', ' +
         data.permanentDistrict;
     /*this.loanHolderInfo.registeredMunicipality.ct + '-' +
     this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.registeredDistrict.ct + ' ,' +
@@ -393,7 +393,7 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
     }
     if (guarantorName.length > 2) {
       for (let i = 0; i < guarantorName.length - 1; i++) {
-        this.temp2 = guarantorName.join(' , ');
+        this.temp2 = guarantorName.join(', ');
       }
       const temp1 = guarantorName[guarantorName.length - 1];
       finalName = this.temp2 + ' र ' + temp1;

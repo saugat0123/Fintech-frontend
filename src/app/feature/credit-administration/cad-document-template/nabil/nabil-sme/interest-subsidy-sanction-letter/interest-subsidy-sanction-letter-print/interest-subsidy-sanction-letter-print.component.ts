@@ -172,7 +172,7 @@ export class InterestSubsidySanctionLetterPrintComponent implements OnInit {
     }
     if (guarantorName.length > 2) {
       for (let i = 0; i < guarantorName.length - 1; i++) {
-        this.temp2 = guarantorName.join(' , ');
+        this.temp2 = guarantorName.join(', ');
       }
       const temp1 = guarantorName[guarantorName.length - 1];
       finalName = this.temp2 + ' र ' + temp1;
