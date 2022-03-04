@@ -2492,6 +2492,9 @@ export class SecurityInitialFormComponent implements OnInit {
                 }
                 break;
         }
+        const sec = this.securityForm.get(value) as FormArray;
+        sec.clear();
+        this.calculateTotalCross(value);
     }
 
     removeCrossCollateralized(securityType: string, cin: number) {
@@ -2531,6 +2534,7 @@ export class SecurityInitialFormComponent implements OnInit {
         let totalRmValue = 0;
         let totalFMV = 0;
         const crossData = this.securityForm.get(security) as FormArray;
+        console.log('crossData', crossData.value);
         crossData.value.forEach(cd => {
             totalExposure += cd.totalExposure;
             totalRmValue += cd.rmValue;
