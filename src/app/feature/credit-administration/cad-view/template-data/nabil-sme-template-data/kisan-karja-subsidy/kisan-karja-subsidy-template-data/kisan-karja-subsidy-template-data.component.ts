@@ -23,6 +23,7 @@ import {Alert, AlertType} from '../../../../../../../@theme/model/Alert';
 import {UdyamsilKarjaSubsidyComponent} from '../../../../../cad-document-template/nabil/nabil-sme/udyamsil-karja-subsidy/udyamsil-karja-subsidy.component';
 import {KisanKarjaSubsidyComponent} from '../../../../../cad-document-template/nabil/nabil-sme/kisan-karja-subsidy/kisan-karja-subsidy.component';
 import {KisanKarjaSubsidyPrintComponent} from '../../../../../cad-document-template/nabil/nabil-sme/kisan-karja-subsidy/kisan-karja-subsidy-print/kisan-karja-subsidy-print.component';
+import {EnglishDateTransformPipe} from '../../../../../../../@core/pipe/english-date-transform.pipe';
 
 @Component({
   selector: 'app-kisan-karja-subsidy-template-data',
@@ -73,6 +74,7 @@ export class KisanKarjaSubsidyTemplateDataComponent implements OnInit {
               private dialogRef: NbDialogRef<KisanKarjaSubsidyTemplateDataComponent>,
               private engToNepaliNumberPipe: EngToNepaliNumberPipe,
               private currencyFormatterPipe: CurrencyFormatterPipe,
+              private engDateTransPipe: EnglishDateTransformPipe,
               private datePipe: DatePipe,
               private engNepDatePipe: EngNepDatePipe,
               private translatedService: SbTranslateService,
@@ -378,11 +380,13 @@ export class KisanKarjaSubsidyTemplateDataComponent implements OnInit {
     this.kisanKarjaSubsidy.get('repaymentTypeTrans').patchValue(this.kisanKarjaSubsidy.get('repaymentType').value);
     // Set Translated Date of Approval
     const approvalType = this.kisanKarjaSubsidy.get('dateOfApprovalType').value;
+    let approvalD;
     let approvalDateTrans;
     if (approvalType === 'AD') {
       const approvalForm = this.kisanKarjaSubsidy.get('dateOfApproval').value;
-      approvalDateTrans = !ObjectUtil.isEmpty(approvalForm) ?
+      approvalD = !ObjectUtil.isEmpty(approvalForm) ?
           this.datePipe.transform(approvalForm) : '';
+      approvalDateTrans = !ObjectUtil.isEmpty(approvalD) ? this.engDateTransPipe.transform(approvalD, true) : '';
       this.kisanKarjaSubsidy.get('dateOfApprovalTrans').patchValue(approvalDateTrans);
     } else {
       const approvalNepali = this.kisanKarjaSubsidy.get('dateOfApprovalNepali').value;
@@ -393,11 +397,13 @@ export class KisanKarjaSubsidyTemplateDataComponent implements OnInit {
 
     // Set Translated Date Of Application:
     const applicationType = this.kisanKarjaSubsidy.get('dateOfApplicationType').value;
+    let appDateTrans;
     let applicationDateTrans;
     if (applicationType === 'AD') {
       const applicationForm = this.kisanKarjaSubsidy.get('dateOfApplication').value;
-      applicationDateTrans = !ObjectUtil.isEmpty(applicationForm) ?
+      appDateTrans = !ObjectUtil.isEmpty(applicationForm) ?
           this.datePipe.transform(applicationForm) : '';
+      applicationDateTrans = !ObjectUtil.isEmpty(appDateTrans) ? this.engDateTransPipe.transform(appDateTrans, true) : '';
       this.kisanKarjaSubsidy.get('dateOfApplicationTrans').patchValue(applicationDateTrans);
     } else {
       const applicationNepali = this.kisanKarjaSubsidy.get('dateOfApplicationNepali').value;
@@ -408,11 +414,13 @@ export class KisanKarjaSubsidyTemplateDataComponent implements OnInit {
 
     // Set Translated Next Review Date:
     const reviewDateType = this.kisanKarjaSubsidy.get('nextReviewDateType').value;
+    let reviewDate;
     let reviewDateTrans;
     if (reviewDateType === 'AD') {
       const reviewForm = this.kisanKarjaSubsidy.get('nextReviewDate').value;
-      reviewDateTrans = !ObjectUtil.isEmpty(reviewForm) ?
+      reviewDate = !ObjectUtil.isEmpty(reviewForm) ?
           this.datePipe.transform(reviewForm) : '';
+      reviewDateTrans = !ObjectUtil.isEmpty(reviewDate) ? this.engDateTransPipe.transform(reviewDate, true) : '';
       this.kisanKarjaSubsidy.get('nextReviewDateTrans').patchValue(reviewDateTrans);
     } else {
       const reviewNepali = this.kisanKarjaSubsidy.get('nextReviewDateNepali').value;
@@ -423,11 +431,13 @@ export class KisanKarjaSubsidyTemplateDataComponent implements OnInit {
 
     // Set Translated Date Of previous Sanction letter:
     const previousSanctionType = this.kisanKarjaSubsidy.get('previousSanctionType').value;
+    let preSDate;
     let prevSancDate;
     if (previousSanctionType === 'AD') {
       const previousForm = this.kisanKarjaSubsidy.get('previousSanctionDate').value;
-      prevSancDate = !ObjectUtil.isEmpty(previousForm) ?
+      preSDate = !ObjectUtil.isEmpty(previousForm) ?
           this.datePipe.transform(previousForm) : '';
+      prevSancDate = !ObjectUtil.isEmpty(preSDate) ? this.engDateTransPipe.transform(preSDate, true) : '';
       this.kisanKarjaSubsidy.get('previousSanctionDateTrans').patchValue(prevSancDate);
     } else {
       const previousNepali = this.kisanKarjaSubsidy.get('previousSanctionDateNepali').value;
@@ -553,8 +563,7 @@ export class KisanKarjaSubsidyTemplateDataComponent implements OnInit {
     this.kisanKarjaSubsidy.get('dateOfApprovalTypeCT').patchValue(this.kisanKarjaSubsidy.get('dateOfApprovalType').value);
     if (this.ADApproval) {
       const transDate = this.kisanKarjaSubsidy.get('dateOfApprovalTrans').value;
-      const convertDate = !ObjectUtil.isEmpty(transDate) ? this.engNepDatePipe.transform(transDate, true) : '';
-      this.kisanKarjaSubsidy.get('dateOfApprovalCT').patchValue(convertDate);
+      this.kisanKarjaSubsidy.get('dateOfApprovalCT').patchValue(transDate);
     }
     if (this.BSApproval) {
       this.kisanKarjaSubsidy.get('dateOfApprovalNepaliCT').patchValue(this.kisanKarjaSubsidy.get('dateOfApprovalNepaliTrans').value);
@@ -564,8 +573,7 @@ export class KisanKarjaSubsidyTemplateDataComponent implements OnInit {
     this.kisanKarjaSubsidy.get('dateOfApplicationTypeCT').patchValue(this.kisanKarjaSubsidy.get('dateOfApplicationType').value);
     if (this.ADApplication) {
       const transDate = this.kisanKarjaSubsidy.get('dateOfApplicationTrans').value;
-      const convertAppDate = !ObjectUtil.isEmpty(transDate) ? this.engNepDatePipe.transform(transDate, true) : '';
-      this.kisanKarjaSubsidy.get('dateOfApplicationCT').patchValue(convertAppDate);
+      this.kisanKarjaSubsidy.get('dateOfApplicationCT').patchValue(transDate);
     }
     if (this.BSApplication) {
       this.kisanKarjaSubsidy.get('dateOfApplicationNepaliCT').patchValue(this.kisanKarjaSubsidy.get('dateOfApplicationNepaliTrans').value);
@@ -575,8 +583,7 @@ export class KisanKarjaSubsidyTemplateDataComponent implements OnInit {
     if (this.ADReview) {
       const transNextReviewDate = this.kisanKarjaSubsidy.get('nextReviewDateTrans').value;
       // tslint:disable-next-line:max-line-length
-      const convertNextReviewDate = !ObjectUtil.isEmpty(transNextReviewDate) ? this.engNepDatePipe.transform(transNextReviewDate, true) : '';
-      this.kisanKarjaSubsidy.get('nextReviewDateCT').patchValue(convertNextReviewDate);
+      this.kisanKarjaSubsidy.get('nextReviewDateCT').patchValue(transNextReviewDate);
     }
     if (this.BSReview) {
       this.kisanKarjaSubsidy.get('nextReviewDateNepaliCT').patchValue(this.kisanKarjaSubsidy.get('nextReviewDateNepaliTrans').value);
@@ -586,9 +593,7 @@ export class KisanKarjaSubsidyTemplateDataComponent implements OnInit {
     this.kisanKarjaSubsidy.get('previousSanctionTypeCT').patchValue(this.kisanKarjaSubsidy.get('previousSanctionType').value);
     if (this.ADPrevious) {
       const transPreviousDate = this.kisanKarjaSubsidy.get('previousSanctionDateTrans').value;
-      const convertPreviousDate = !ObjectUtil.isEmpty(transPreviousDate) ?
-          this.engNepDatePipe.transform(transPreviousDate, true) : '';
-      this.kisanKarjaSubsidy.get('previousSanctionDateCT').patchValue(convertPreviousDate);
+      this.kisanKarjaSubsidy.get('previousSanctionDateCT').patchValue(transPreviousDate);
     }
     if (this.BSPrevious) {
       this.kisanKarjaSubsidy.get('previousSanctionDateNepaliCT').patchValue(
