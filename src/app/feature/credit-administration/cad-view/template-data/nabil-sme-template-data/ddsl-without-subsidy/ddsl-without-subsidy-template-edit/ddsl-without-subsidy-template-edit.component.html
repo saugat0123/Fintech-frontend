@@ -12,8 +12,8 @@
                     <label><strong>Loan Options</strong></label>
                     <ng-select (ngModelChange)="transferValue($event)"
                                [multiple]="false"
-                               formControlName="loanOption"
-                               placeholder="Select Case Type">
+                               formControlName="loanOption">
+                        <ng-option value="">Select Case Type</ng-option>
                         <ng-option *ngFor="let customerLoanOption of customerLoanOptions"
                                    [value]="customerLoanOption.value">{{customerLoanOption.value}}</ng-option>
                     </ng-select>
@@ -22,8 +22,8 @@
                     <label><strong>Loan Sub Type</strong></label>
                     <ng-select
                             formControlName="loanSubType"
-                            fullWidth
-                            placeholder="Loan Sub Type">
+                            fullWidth>
+                        <ng-option value="">Loan Sub Type</ng-option>
                         <ng-option *ngFor="let loansubType of loanSubTypeList"
                                    [value]="loansubType">{{loansubType.eData + ' || ' + loansubType.nData}}</ng-option>
                     </ng-select>
@@ -47,9 +47,9 @@
                     <ng-select
                             formControlName="mortgageType"
                             fullWidth
-                            placeholder="Mortgage Type"
                             (selectionchange)="mortgageValue()"
                             status="info">
+                        <ng-option value="">Mortgage Type</ng-option>
                         <ng-option value="NEW_MORTGAGE">NEW MORTGAGE</ng-option>
                         <ng-option value="EXISTING_MORTGAGE">EXISTING MORTGAGE</ng-option>
                     </ng-select>

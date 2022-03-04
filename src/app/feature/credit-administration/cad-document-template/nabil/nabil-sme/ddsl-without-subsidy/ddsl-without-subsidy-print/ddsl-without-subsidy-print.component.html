@@ -4,38 +4,49 @@
             <p>
                 स्वीकृती पत्र नं.- <strong>{{autoRefNum ? autoRefNum : '_______________________'}}</strong><br></p>
             <p><strong>ऋणकर्जा सुविधा स्वीकृति पत्र</strong><br></p>
-            <p> मिति: वि.सं. <strong>{{sanctionLetterDate ? sanctionLetterDate : ''}}</strong><br></p>
-            <p>
-                श्री
+            <ng-container> मिति: <strong>{{sanctionLetterDate ? sanctionLetterDate : ''}}</strong><br></ng-container>
+            <ng-container>
+                <ng-container *ngIf="this.customerType === this.client?.INSTITUTION">
+                    श्री
+                </ng-container>
+                <ng-container *ngIf="this.customerType === this.client?.INDIVIDUAL">
+                    {{(this.loanHolderInfo?.gender?.en === 'FEMALE' && this.loanHolderInfo?.relationMedium?.en === '0') ?
+                    'श्रीमती' : (this.loanHolderInfo?.gender?.en === 'FEMALE' && this.loanHolderInfo?.relationMedium?.en === '1' ?
+                        'सुश्री' : this.loanHolderInfo?.gender?.en === 'MALE' ? 'श्रीमान्' : 'श्री')}}
+                </ng-container>
                 <span [ngClass]="{'outside' : loanHolderInfo?.name.ct !== null && loanHolderInfo?.name.ct !== ''}"><strong>
                     {{loanHolderInfo?.name.ct === null || loanHolderInfo?.name.ct === '' ? '___________' : loanHolderInfo?.name.ct}}</strong></span><br>
                 ठेगानाः <span [ngClass]="{'outside' : customerAddress !== null && customerAddress !== ''}"><strong>
                     {{customerAddress === null || customerAddress === '' ? '___________' : customerAddress}}</strong></span><br>
-            </p>
+            </ng-container>
             <p *ngIf="loanOptions === 'NEW'; else existingUser">
-                <strong>बिषयः ऋणकर्जा सुविधा बारे ।</strong><br><br>
+                <strong>बिषयः ऋणकर्जा सुविधा बारे ।</strong><br>
                 महोदय,<br>
-                तपाईंले मिति बि.सं.<span><strong>{{applicationDate ? applicationDate : '_________________________'}}</strong></span>
+                तपाईंले मिति
+                <span>{{this.letter?.dateOfApplicationType?.en === 'AD' ? 'ई. स. ' : 'वि.सं. '}}</span>
+                <span><strong>{{applicationDate ? applicationDate : '_________________________'}}</strong></span>
                 मा ऋणकर्जा सुविधाका लागि यस बैंकमा दिनु भएको निवेदनको
                 सम्बन्धमा यस बैंकले देहाय बमोजिमका ऋणकर्जा सुविधाहरु देहाय बमोजिमका शर्तबन्देजहरुको अधिनमा रहने गरी
                 स्वीकृत गरेको ब्यहोरा अनुरोध गर्दछौं ।
             </p>
             <ng-template #existingUser>
                 <p>
-                    <strong>बिषयः थप/अतिरिक्त ऋणकर्जा सुविधाहरु स्वीकृत गरीएको बारे ।</strong><br><br>
+                    <strong>बिषयः थप/अतिरिक्त ऋणकर्जा सुविधाहरु स्वीकृत गरीएको बारे ।</strong><br>
                     महोदय,<br>
-                    तपाईंले यस बैंकको मिति वि.सं. <span><strong>
+                    तपाईंले यस बैंकको मिति <span>{{this.letter?.previousSanctionType?.en === 'AD' ? 'ई. स. ' : 'वि.सं. '}}</span>
+                    <span><strong>
                         {{previousSanctionDate1 ? previousSanctionDate1 : '_______________________'}}</strong></span>
                     को ऋणस्वीकृति पत्रानुसार स्वीकृत भएका ऋणकर्जा
                     सुविधाहरु उपभोग गर्दै आउनु भएकोमा हाल थप/अतिरिक्त ऋणकर्जा सुविधाका लागि यस बैंकमा दिनु भएको मिति
-                    वि.सं.<span><strong>{{applicationDate ? applicationDate : '_________________________'}}</strong></span>
+                    <span>{{this.letter?.dateOfApplicationType?.en === 'AD' ? 'ई. स. ' : 'वि.सं. '}}</span>
+                    <span><strong>{{applicationDate ? applicationDate : '_________________________'}}</strong></span>
                     को निवेदनका सम्बन्धमा यस बैंकले देहाय बमोजिमका शर्तबन्देजहरुको अधिनमा
                     रहने गरी
                     देहाय बमोजिमका थप/अतिरिक्त ऋणकर्जा सुविधाहरु स्वीकृत गरेको ब्यहोरा अनुरोध गर्दछौं।
                 </p>
             </ng-template>
             <div>
-                <p class="text-center"><strong>स्वीकृत ऋणकर्जा सुविधाहरुको विवरण</strong></p>
+                <ng-container class="text-center"><strong>स्वीकृत ऋणकर्जा सुविधाहरुको विवरण</strong></ng-container><br>
                 <table class="table table-bordered">
                     <tbody>
                         <tr>
@@ -230,20 +241,23 @@
                         </p>
                     </li>
                 </ol>
-                <p><strong>ख. थप/सहायक सुरक्षण (Additional/Secondary Security)</strong></p>
+                <ng-container><strong>ख. थप/सहायक सुरक्षण (Additional/Secondary Security)</strong></ng-container><br>
                 <div class="pb-4" class="pb-4" *ngIf="securityTypeSecondaryCondition">
                     <app-master-secondary-securities-view [securityDetails]="letter?.securities">
                     </app-master-secondary-securities-view>
                 </div>
-                <p style="margin-left: 2%;"><strong>१. व्यक्तिगत जमानत (Personal Guarantee):</strong></p>
-                <p style="margin-left: 2%;" *ngFor="let personalGuarantor of tempPersonalGuarantors">
-                    <strong>रु. <span class="font-weight-bold">{{personalGuarantor.gurantedAmount.ct}}</span> /-
+                <ng-container style="margin-left: 2%;"><strong>१. व्यक्तिगत जमानत (Personal Guarantee):</strong></ng-container><br>
+                <ng-container style="margin-left: 2%;" *ngFor="let personalGuarantor of tempPersonalGuarantors">
+                    <strong>रु. <span class="font-weight-bold">{{personalGuarantor.gurantedAmount.ct}}</span>/-
                         (अक्षरेपी रु.
                         <span class="font-weight-bold">{{this.nepaliCurrencyWordPipe.transform(personalGuarantor.gurantedAmount.en)}}</span>
-                         मात्र)</strong> बराबरको श्री
+                         मात्र)</strong> बराबरको
+                    {{(personalGuarantor?.gender?.en === 'FEMALE' && personalGuarantor?.guarantorMaritalStatus?.en === 'Married') ?
+                    'श्रीमती' : (personalGuarantor?.gender?.en === 'FEMALE' && personalGuarantor?.guarantorMaritalStatus?.en === 'Unmarried' ?
+                        'सुश्री' : personalGuarantor?.gender?.en === 'MALE' ? 'श्रीमान्' : 'श्री')}}
                         <span class="font-weight-bold">{{personalGuarantor.guarantorName.ct}}</span>
                     ले एक्लै वा संयुक्त रुपमा बैंकको पक्षमा व्यक्तिगत जमानत लेखिदिनु पर्नेछ ।
-                </p>
+                </ng-container>
                 <p style="margin-left: 2%;"><strong>व्याज सम्बन्धी शर्तहरुः</strong></p>
                 <div>
                     <ol class="conditions-list">
@@ -323,7 +337,7 @@
                                     [ngClass]="{'outside' : letter?.loanLimitAmountFigure.ct !== null && letter?.loanLimitAmountFigure.ct !== ''}">
                                     {{letter?.loanLimitAmountFigure.ct === null || letter?.loanLimitAmountFigure.ct === '' ? '___________' : letter?.loanLimitAmountFigure.ct}}</span>
                                  /- (अक्षरेपी
-                                रु.<span
+                                रु. <span
                                     [ngClass]="{'outside' : letter?.loanLimitAmountFigureWords.ct !== null && letter?.loanLimitAmountFigureWords.ct !== ''}">
                                     {{letter?.loanLimitAmountFigureWords.ct === null || letter?.loanLimitAmountFigureWords.ct === '' ? '___________' : letter?.loanLimitAmountFigureWords.ct}}</span>
                                  मात्र)</strong> भन्दा बढी हुनु हुनेछैन ।
@@ -721,13 +735,16 @@
                              /- बराबरको ऋणतमसुक (Loan Deed)
                         </li>
                         <li>कित्ता नं. <span><strong>
-                            {{getKittaNumbers(kittaNumbers, plotNumber)}}</strong></span>
+                            {{this.finalKittaNumber ? this.finalKittaNumber : '_____________________'}}</strong></span>
                             को धितोबन्धक तमसुक(Mortgage Deed)
                         </li>
                         <li *ngFor="let val of tempPersonalGuarantors">
                             रु.
                             <span><strong>{{val.gurantedAmount.ct ? val.gurantedAmount.ct : ''}}</strong></span>
-                             /- बराबरको {{val.gender.en === 'FEMALE' && val.relationMedium.en === '0' ? 'श्रीमती' : (val.gender.en === 'FEMALE' && val.relationMedium.en === '1' ? 'सुश्री' : val.gender.en === 'MALE' ? 'श्रीमान्' : '')}}
+                             /- बराबरको
+                            {{(val?.gender?.en === 'FEMALE' && val?.guarantorMaritalStatus?.en === 'Married') ?
+                            'श्रीमती' : (val?.gender?.en === 'FEMALE' && val?.guarantorMaritalStatus?.en === 'Unmarried' ?
+                                'सुश्री' : val?.gender?.en === 'MALE' ? 'श्रीमान्' : 'श्री')}}
                             <span><strong>{{val.guarantorName.ct ? val.guarantorName.ct : ''}}</strong></span>
                             ले बैंकको पक्षमा लेखिदिनुपर्ने
                             व्यक्तिगत
