@@ -35,7 +35,7 @@ export class InterestSubsidySanctionLetterPrintComponent implements OnInit {
   autoRefNumber;
   guarantorNames: Array<String> = [];
   allguarantorNames;
-  guarantorAmount: number = 0;
+  guarantorAmount = 0;
   guarantorAmountNepali;
   finalName;
   finalDateOfApproval;
@@ -85,14 +85,21 @@ export class InterestSubsidySanctionLetterPrintComponent implements OnInit {
       this.guarantorData = this.cadOfferLetterApprovedDoc.assignedLoan[0].taggedGuarantors;
       this.proposedAmount = totalLoanAmount;
       this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
-      this.customerAddress =  this.loanHolderInfo.registeredMunicipality.ct + '-' +
-          this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.registeredDistrict.ct + ', ' +
-          this.loanHolderInfo.registeredProvince.ct;
+      if (this.loanHolderInfo.clientType.en === 'INDIVIDUAL') {
+        this.customerAddress = this.loanHolderInfo.permanentMunicipality.ct + '-' +
+            this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.permanentDistrict.ct + ', ' +
+            this.loanHolderInfo.permanentProvince.ct;
+      } else {
+        this.customerAddress = this.loanHolderInfo.registeredMunicipality.ct + '-' +
+            this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.registeredDistrict.ct + ', ' +
+            this.loanHolderInfo.registeredProvince.ct;
+      }
       this.branchName = this.loanHolderInfo.branch ? this.loanHolderInfo.branch.ct : '';
       this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
       this.securityDetails = this.tempData.securities;
     }
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.offerDocumentList)) {
+      // tslint:disable-next-line:max-line-length
       this.offerDocumentDetails = this.cadOfferLetterApprovedDoc.offerDocumentList[0] ? JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation) : '';
     }
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.assignedLoan)) {
@@ -144,21 +151,26 @@ export class InterestSubsidySanctionLetterPrintComponent implements OnInit {
   }
 
   guarantorDetails() {
-    this.tempPersonalGuarantors = this.guarantorParsed.filter(val =>
-        val.guarantorType.en === 'Personal Guarantor');
-    this.tempPersonalGuarantors.forEach(i => {
-      this.personalGuarantorsName.push(i.guarantorName ? i.guarantorName.ct : '');
-    });
+    if (this.loanHolderInfo.clientType.en === 'INSTITUTION') {
+      this.tempPersonalGuarantors = this.guarantorParsed.filter(val =>
+          val.guarantorType.en === 'Personal Guarantor');
+      this.tempPersonalGuarantors.forEach(i => {
+        this.personalGuarantorsName.push(i.guarantorName ? i.guarantorName.ct : '');
+      });
+    }
+    if (this.loanHolderInfo.clientType.en === 'INDIVIDUAL') {
+      this.tempPersonalGuarantors = this.guarantorParsed;
+    }
   }
 
   commonGuarantorDetails(guarantorName, finalName) {
-    if(guarantorName.length === 1) {
+    if (guarantorName.length === 1) {
       finalName = guarantorName[0];
     }
-    if(guarantorName.length === 2) {
+    if (guarantorName.length === 2) {
       finalName = guarantorName.join(' र ');
     }
-    if(guarantorName.length > 2){
+    if (guarantorName.length > 2) {
       for (let i = 0; i < guarantorName.length - 1; i++) {
         this.temp2 = guarantorName.join(' , ');
       }

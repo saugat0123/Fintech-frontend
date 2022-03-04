@@ -131,7 +131,6 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
       customerAddress: [undefined],
       dateOfApplication: [undefined],
       previousSanctionLetter: [undefined],
-      requestLetterDate: [undefined],
       loanAmountInFigure: [undefined],
       loanAmountInWords: [undefined],
       marginInPercentage: [undefined],
@@ -212,9 +211,16 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
   fillForm() {
     const guarantorAmount = this.guarantorParse(this.guarantorData[0].nepData, 'gurantedAmount');
     const proposalData = this.cadOfferLetterApprovedDoc.assignedLoan[0].proposal;
-    const customerAddress = this.loanHolderInfo.registeredMunicipality.ct + '-' +
-        this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.registeredDistrict.ct + ' ,' +
-        this.loanHolderInfo.registeredProvince.ct;
+    let customerAddress;
+    if (this.loanHolderInfo.clientType.en === 'INDIVIDUAL') {
+       customerAddress = this.loanHolderInfo.permanentMunicipality.ct + '-' +
+          this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.permanentDistrict.ct + ', ' +
+          this.loanHolderInfo.permanentProvince.ct;
+    } else {
+       customerAddress = this.loanHolderInfo.registeredMunicipality.ct + '-' +
+          this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.registeredDistrict.ct + ', ' +
+          this.loanHolderInfo.registeredProvince.ct;
+    }
     const loanAmount = this.engToNepNumberPipe.transform(proposalData.proposedLimit);
     let totalLoanAmount = 0;
     this.cadOfferLetterApprovedDoc.assignedLoan.forEach(value => {
@@ -273,7 +279,9 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
       previousSanctionLetter: finalSanctionDate ? finalSanctionDate : '',
       totalInterestRate: this.tempData.interestRate ? this.tempData.interestRate.ct : '',
       marginInPercentage: this.tempData.securities.primarySecurity ? this.tempData.securities.primarySecurity[0].marginInPercentageCT : '',
+      // tslint:disable-next-line:max-line-length
       marginInPercentageMotor: this.tempData.securities.primarySecurity ? this.tempData.securities.primarySecurity[0].marginInPercentageMotorCT : '',
+      // tslint:disable-next-line:max-line-length
       marginInPercentageFoot: this.tempData.securities.primarySecurity ? this.tempData.securities.primarySecurity[0].marginInPercentageFootCT : '',
       totalLimitFigure: this.tempData.totalLimitFigure ? this.tempData.totalLimitFigure.ct : '',
       totalLimitWords: this.tempData.totalLimitWords ? this.tempData.totalLimitWords.ct : '',
@@ -364,11 +372,16 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
   }
 
   guarantorDetails() {
-    this.tempPersonalGuarantors = this.guarantorParsed.filter(val =>
-        val.guarantorType.en === 'Personal Guarantor');
-    this.tempPersonalGuarantors.forEach(i => {
-      this.personalGuarantorsName.push(i.guarantorName ? i.guarantorName.ct : '');
-    });
+    if (this.loanHolderInfo.clientType.en === 'INSTITUTION') {
+        this.tempPersonalGuarantors = this.guarantorParsed.filter(val =>
+            val.guarantorType.en === 'Personal Guarantor');
+        this.tempPersonalGuarantors.forEach(i => {
+          this.personalGuarantorsName.push(i.guarantorName ? i.guarantorName.ct : '');
+        });
+      }
+    if (this.loanHolderInfo.clientType.en === 'INDIVIDUAL') {
+      this.tempPersonalGuarantors = this.guarantorParsed;
+    }
   }
 
   commonGuarantorDetails(guarantorName, finalName) {
