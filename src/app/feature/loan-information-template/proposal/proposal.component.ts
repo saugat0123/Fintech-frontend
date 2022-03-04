@@ -126,17 +126,19 @@ export class ProposalComponent implements OnInit {
     this.checkLoanTypeAndBuildForm();
     if (!ObjectUtil.isEmpty(this.formValue) && this.formValue.data !== null) {
       this.formDataForEdit = JSON.parse(this.formValue.data);
-      if (!ObjectUtil.isEmpty(this.formDataForEdit.depositBank)) {
-        (this.proposalForm.get('deposit') as FormArray).push(this.formBuilder.group({
-          amount: this.formDataForEdit.depositBank,
-          assets: this.formDataForEdit.depositBankRemark
-        }));
-      }
-      if (!ObjectUtil.isEmpty(this.formDataForEdit.depositOther)) {
-        (this.proposalForm.get('deposit') as FormArray).push(this.formBuilder.group({
-          amount: this.formDataForEdit.depositOther,
+      if(this.formDataForEdit.deposit.length < 1) {
+        if (!ObjectUtil.isEmpty(this.formDataForEdit.depositBank)) {
+          (this.proposalForm.get('deposit') as FormArray).push(this.formBuilder.group({
+            amount: this.formDataForEdit.depositBank,
+            assets: this.formDataForEdit.depositBankRemark
+          }));
+        }
+        if (!ObjectUtil.isEmpty(this.formDataForEdit.depositOther)) {
+          (this.proposalForm.get('deposit') as FormArray).push(this.formBuilder.group({
+            amount: this.formDataForEdit.depositOther,
             assets: this.formDataForEdit.depositOtherRemark
-        }));
+          }));
+        }
       }
       if (!ObjectUtil.isEmpty(this.formDataForEdit.vehicle)) {
         this.setFormData(this.formDataForEdit.vehicle, 'vehicle');
@@ -152,6 +154,11 @@ export class ProposalComponent implements OnInit {
         this.setFormData(this.formDataForEdit.shares, 'shares');
       } else {
         this.addKeyValue('shares');
+      }
+      if (!ObjectUtil.isEmpty(this.formDataForEdit.deposit)) {
+        this.setFormData(this.formDataForEdit.deposit, 'deposit');
+      } else {
+        this.addKeyValue('deposit');
       }
       this.checkedDataEdit = JSON.parse(this.formValue.checkedData);
       this.proposalForm.patchValue(this.formDataForEdit);
