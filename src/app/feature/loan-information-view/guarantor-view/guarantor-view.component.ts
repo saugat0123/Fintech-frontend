@@ -16,21 +16,35 @@ export class GuarantorViewComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log('guarantor', this.guarantorData);
+    let innerGuarantor = [];
     this.guarantorData.forEach((g, i) => {
-      const innerGuarantor = [];
-      if(this.cgid !== g.id) {
-        innerGuarantor.push(g);
+      innerGuarantor.push(g);
+      if ((i + 1) % 2 === 0) {
+        if (innerGuarantor.length > 0) {
+          this.newGuarantor.push(innerGuarantor);
+        }
+        innerGuarantor = [];
       }
-      if (!ObjectUtil.isEmpty(this.guarantorData[i + 1])) {
-        this.cgid = this.guarantorData[i + 1].id;
-        innerGuarantor.push(this.guarantorData[i + 1]);
-      }
-      if(innerGuarantor.length > 0) {
-        this.newGuarantor.push(innerGuarantor);
+      if (i === this.guarantorData.length - 1) {
+        if (innerGuarantor.length > 0) {
+          this.newGuarantor.push(innerGuarantor);
+        }
+        innerGuarantor = [];
       }
     });
-    console.log(this.newGuarantor);
+    // this.guarantorData.forEach((g, i) => {
+    //
+    //   if(this.cgid !== g.id) {
+    //     innerGuarantor.push(g);
+    //   }
+    //   if (!ObjectUtil.isEmpty(this.guarantorData[i + 1])) {
+    //     this.cgid = this.guarantorData[i + 1].id;
+    //     innerGuarantor.push(this.guarantorData[i + 1]);
+    //   }
+    //   if(innerGuarantor.length > 0) {
+    //     this.newGuarantor.push(innerGuarantor);
+    //   }
+    // });
   }
   calculateAge(dob) {
     const difference = Math.abs(Date.now() - new Date(dob).getTime());

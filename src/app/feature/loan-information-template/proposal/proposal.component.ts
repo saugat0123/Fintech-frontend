@@ -126,7 +126,8 @@ export class ProposalComponent implements OnInit {
     this.checkLoanTypeAndBuildForm();
     if (!ObjectUtil.isEmpty(this.formValue) && this.formValue.data !== null) {
       this.formDataForEdit = JSON.parse(this.formValue.data);
-      if(this.formDataForEdit.deposit.length < 1) {
+
+      if(ObjectUtil.isEmpty(this.formDataForEdit.deposit) || this.formDataForEdit.deposit.length < 1) {
         if (!ObjectUtil.isEmpty(this.formDataForEdit.depositBank)) {
           (this.proposalForm.get('deposit') as FormArray).push(this.formBuilder.group({
             amount: this.formDataForEdit.depositBank,
