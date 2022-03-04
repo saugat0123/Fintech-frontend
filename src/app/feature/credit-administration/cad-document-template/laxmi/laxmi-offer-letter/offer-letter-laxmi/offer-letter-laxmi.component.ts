@@ -93,7 +93,6 @@ export class OfferLetterLaxmiComponent implements OnInit {
             this.setGuarantor(initialInfo.personalGuarantee, 'personalGuarantee');
             this.setGuarantor(initialInfo.corporateGuarantee, 'corporateGuarantee');
             this.initialInfoPrint = initialInfo;
-            console.log(initialInfo);
         }
     }
 
@@ -1204,7 +1203,6 @@ export class OfferLetterLaxmiComponent implements OnInit {
     }
 
     private setGuarantor(data, guaranteeType) {
-        console.log('data', data, 'guaranteeType', guaranteeType);
         const g = this.offerLetterForm.get(guaranteeType) as FormArray;
         if (!ObjectUtil.isEmpty(data)) {
             data.forEach(d => {
