@@ -12,6 +12,7 @@ import {ToastService} from '../../../../../../@core/utils';
 import {RouterUtilsService} from '../../../../utils/router-utils.service';
 import {NepaliCurrencyWordPipe} from '../../../../../../@core/pipe/nepali-currency-word.pipe';
 import {CustomerSubType} from '../../../../../customer/model/customerSubType';
+import {CustomerType} from '../../../../../customer/model/customerType';
 
 @Component({
     selector: 'app-ddsl-without-subsidy',
@@ -32,8 +33,8 @@ export class DdslWithoutSubsidyComponent implements OnInit, AfterViewChecked {
     afterSave = false;
     existingOfferLetter = false;
     selectedSecurity;
-    position1 = 'सम्पर्क अधिकृत';
-    position2 = 'शाखा प्रबन्धक/बरिष्ठ सम्पर्क प्रबन्धक';
+    position1 = ';Dks{ clws[t';
+    position2 = 'zfvf k|aGws÷al/i7 ;Dks{ k|aGws';
     offerLetterData;
     nepaliNumber = new NepaliNumberAndWords();
     nepaliAmount = [];
@@ -73,6 +74,7 @@ export class DdslWithoutSubsidyComponent implements OnInit, AfterViewChecked {
     securityTypeConditionLandAndBuildingSecondary = false;
     kittaNumbers: Array < any > = new Array < any > ();
     plotNumber;
+    client = CustomerType;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -88,7 +90,6 @@ export class DdslWithoutSubsidyComponent implements OnInit, AfterViewChecked {
     }
     ngOnInit() {
         this.buildForm();
-        // console.log('Initial Info Data', this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc)) {
             this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
             this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
@@ -198,9 +199,17 @@ export class DdslWithoutSubsidyComponent implements OnInit, AfterViewChecked {
     }
 
     fillForm() {
-        const customerAddress = this.loanHolderInfo.registeredMunicipality.ct + '-' +
-            this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.registeredDistrict.ct + ' ,' +
-            this.loanHolderInfo.registeredProvince.ct;
+        let customerAddress;
+        if (this.customerType === this.client.INSTITUTION) {
+            customerAddress = this.loanHolderInfo.registeredMunicipality.ct + '-' +
+                this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.registeredDistrict.ct + ', ' +
+                this.loanHolderInfo.registeredProvince.ct;
+        }
+        if (this.customerType === this.client.INDIVIDUAL) {
+            customerAddress = this.loanHolderInfo.permanentMunicipality.ct + '-' +
+                this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.permanentDistrict.ct + ', ' +
+                this.loanHolderInfo.permanentProvince.ct;
+        }
         let autoRefNumber;
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.assignedLoan)) {
             autoRefNumber = this.cadOfferLetterApprovedDoc.assignedLoan[0].refNo;
@@ -264,8 +273,8 @@ export class DdslWithoutSubsidyComponent implements OnInit, AfterViewChecked {
             additionalOtherClause: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.secondText : '',
             extraSecurityDocument: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.thirdText : '',
             extraTermsAndConditionsNRB: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.fourthText : '',
-            position1: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.fifthText : '',
-            position2: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.sixthText : '',
+            position1: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.fifthText : this.position1,
+            position2: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.sixthText : this.position2,
             plotNumber: this.kittaNumbers ? this.kittaNumbers : '',
         });
     }
@@ -298,6 +307,9 @@ export class DdslWithoutSubsidyComponent implements OnInit, AfterViewChecked {
         if (this.securityDetails.primarySecurity.some(s => s.securityTypeCT === 'DOCUMENTS')) {
             this.securityTypeConditionDocuments = true;
         }
+        if (this.securityDetails.primarySecurity.some(s => s.securityTypeCT === 'ASSIGNMENT')) {
+            this.securityTypeConditionDocuments = true;
+        }
     }
     checkSecondaryConditions() {
         this.tempSecondaryLandBuilding = this.securityDetails.secondarySecurity.filter(val =>
@@ -322,6 +334,9 @@ export class DdslWithoutSubsidyComponent implements OnInit, AfterViewChecked {
             this.securityTypeSecondaryConditionAssestsPlants = true;
         }
         if (this.securityDetails.secondarySecurity.some(s => s.securityTypeCT === 'DOCUMENTS')) {
+            this.securityTypeSecondaryConditionDocuments = true;
+        }
+        if (this.securityDetails.secondarySecurity.some(s => s.securityTypeCT === 'ASSIGNMENT')) {
             this.securityTypeSecondaryConditionDocuments = true;
         }
     }
@@ -401,13 +416,19 @@ export class DdslWithoutSubsidyComponent implements OnInit, AfterViewChecked {
             secondText: this.form.get('additionalOtherClause').value,
             thirdText: this.form.get('extraSecurityDocument').value,
             fourthText: this.form.get('extraTermsAndConditionsNRB').value,
-            fifthText: this.form.get('position1').value,
-            sixthText: this.form.get('position2').value,
+            // fifthText: this.form.get('position1').value,
+            // sixthText: this.form.get('position2').value,
+            fifthText: !ObjectUtil.isEmpty(this.form.get('position1').value) ? this.form.get('position1').value : this.position1,
+            sixthText: !ObjectUtil.isEmpty(this.form.get('position2').value) ? this.form.get('position2').value : this.position2,
         };
     }
     guarantorDetails() {
-        this.tempPersonalGuarantors = this.guarantorParsed.filter(val =>
-            val.guarantorType.en === 'Personal Guarantor');
+        if (this.customerType === this.client.INSTITUTION) {
+            this.tempPersonalGuarantors = this.guarantorParsed.filter(val =>
+                val.guarantorType.en === 'Personal Guarantor');
+        } else {
+            this.tempPersonalGuarantors = this.guarantorParsed;
+        }
       }
 
     commonGuarantorDetails(guarantorName, finalName) {
