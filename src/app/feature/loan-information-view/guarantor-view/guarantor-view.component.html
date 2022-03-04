@@ -202,6 +202,9 @@
               <tr>
                 <td class="sb-bg-dark text-left text-white">Age</td>
               </tr>
+              <tr>
+                <td class="sb-bg-dark text-left text-white">Email</td>
+              </tr>
 
               </tbody>
             </table>
@@ -211,35 +214,38 @@
             <table class="table table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small">
               <tbody>
               <tr class="text-left">
-                <td class=" ">{{subGuarantor?.name}}</td>
+                <td class=" ">{{subGuarantor?.name || 'N/A'}}</td>
               </tr>
               <tr>
-                <td class="text-left  ">{{subGuarantor?.relationship}}</td>
+                <td class="text-left  ">{{subGuarantor?.relationship || 'N/A'}}</td>
               </tr>
               <tr>
-                <td class="text-left  ">{{subGuarantor?.fatherName}}</td>
+                <td class="text-left  ">{{subGuarantor?.fatherName || 'N/A'}}</td>
               </tr>
               <tr>
-                <td class="text-left  ">{{subGuarantor?.grandFatherName}}</td>
+                <td class="text-left  ">{{subGuarantor?.grandFatherName || 'N/A'}}</td>
               </tr>
               <tr>
-                <td class=" text-left ">{{subGuarantor?.dateOfBirth}}</td>
+                <td class=" text-left ">{{subGuarantor?.dateOfBirth || 'N/A'}}</td>
               </tr>
               <tr>
-                <td class=" text-left ">{{subGuarantor?.citizenNumber}}</td>
+                <td class=" text-left ">{{subGuarantor?.citizenNumber || 'N/A'}}</td>
               </tr>
               <tr>
-                <td class=" text-left ">{{subGuarantor?.contactNumber}}</td>
+                <td class=" text-left ">{{subGuarantor?.contactNumber || 'N/A'}}</td>
               </tr>
 
               <tr>
-                <td class=" text-left ">{{subGuarantor?.profession}}</td>
+                <td class=" text-left ">{{subGuarantor?.profession || 'N/A'}}</td>
               </tr>
               <tr>
-                <td class=" text-left ">{{subGuarantor?.netWorth}}</td>
+                <td class=" text-left ">{{subGuarantor?.netWorth || 'N/A'}}</td>
               </tr>
               <tr>
-                <td class=" text-left ">{{calculateAge(subGuarantor?.dateOfBirth)}}</td>
+                <td class=" text-left ">{{calculateAge(subGuarantor?.dateOfBirth) || 'N/A'}}</td>
+              </tr>
+              <tr>
+                <td class=" text-left ">{{subGuarantor?.email || 'N/A'}}</td>
               </tr>
 
               </tbody>
