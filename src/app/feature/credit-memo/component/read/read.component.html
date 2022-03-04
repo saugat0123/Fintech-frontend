@@ -1,0 +1,215 @@
+<section class="enable-print">
+    <nb-card [nbSpinner]="spinner" nbSpinnerStatus="primary" nbSpinnerSize="xxlarge">
+        <nb-card-header class="disable-print">
+            <div class="input-group-append justify-content-center">
+                <button (click)="viewAssociated()" class="btn-sm btn-info"><em class="fas fa-eye"></em> VIEW LOAN</button>
+                <button [useExistingCss]="true" ngxPrint printSectionId="print-block" styleSheetFile="assets/css/printStyles.scss" class="btn-sm btn-warning"><em class="fas fa-print"></em> PRINT</button>
+            </div>
+        </nb-card-header>
+        <nb-card-body id="print-block">
+            <div class="row justify-content-end">
+                <div class="col-md-6">
+                    <div class="report-header">
+                        <div class="report-header-heading">
+                            {{vendor}}
+                        </div>
+                        <div class="report-header-sub-heading">
+                            Memo of {{memo?.customerLoan?.loan?.name}} <br> for
+                        </div>
+                        <div class="report-header-sub-heading">
+                            {{memo?.customerLoan?.customerInfo?.customerName}}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <img class="report-log img-thumbnail border-0" alt="Bank logo"
+                         src="../../../../../assets/img/logo.png">
+                </div>
+            </div>
+
+            <hr class="print-line">
+            <div class="row justify-content-between">
+                <div class="col-md-6">
+                    <p><strong>Ref No:</strong> {{memo?.referenceNumber}}</p>
+                    <p><strong>Status:</strong> {{memo?.documentStatus}}</p>
+                </div>
+                <div class="col-md-6">
+                    <p class="text-right"><strong>Date: </strong>{{memo?.createdAt | date}}</p>
+                </div>
+            </div>
+            <hr class="print-line">
+            <div class="row">
+                <div class="col-md-12 my-3">
+                    <h5><strong>Type:</strong></h5>
+                    {{memo?.type?.name}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 my-3">
+                    <h5><strong>Subject:</strong></h5>
+                    {{memo?.subject}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 justify-content-center my-3">
+                    <h5><strong>Content</strong></h5>
+                    <div id="credit-memo-content" class="card mt-2">
+                        <div class="card-body">
+                            <div [innerHtml]="memo?.content | safeHtml" class="text-justify"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12 disable-print">
+                    <h6>Required Documents</h6>
+                    <div *ngIf="memo?.memoTypeDocuments.length > 0" class="col-md-12 ">
+                        <p><strong>Credit Memo Type Documents</strong></p>
+                        <table aria-describedby="document-download-credit-memo-table"
+                               class="table table-condensed table-bordered table-responsive-md text-center">
+                            <thead>
+                            <tr>
+                                <th scope="col">S.N</th>
+                                <th scope="col">Document</th>
+                                <th scope="col">Download</th>
+                                <th>view</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let document of memo?.memoTypeDocuments; let i = index">
+                                <td>{{i + 1}}</td>
+                                <td>{{document?.document?.name}}</td>
+                                <td><em (click)="downloadSpecificDocument(document?.path, document?.document?.name)" aria-hidden="true" class="fa fa-download"
+                                        style="cursor: pointer"></em>
+                                </td>
+                                <td><em (click)="privewSpecificDocument(document?.path, document?.document?.name)" aria-hidden="true" class="fa fa-eye"
+                                        style="cursor: pointer"></em>
+                                </td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div *ngIf="memo?.documents.length > 0" class="col-md-12 disable-print">
+                        <p><strong>Facility Memo Documents</strong></p>
+                        <table aria-describedby="document-download-credit-memo-table"
+                               class="table table-condensed table-bordered table-responsive-md text-center">
+                            <thead>
+                            <tr>
+                                <th scope="col">S.N</th>
+                                <th scope="col">Document</th>
+                                <th scope="col">Download</th>
+                                <th>View</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr *ngFor="let document of memo?.documents; let i = index">
+                                <td>{{i + 1}}</td>
+                                <td>{{document?.document?.name}}</td>
+                                <td><em (click)="downloadSpecificDocument(document?.path, document?.document?.name)" aria-hidden="true" class="fa fa-download"
+                                        style="cursor: pointer"></em>
+                                </td>
+                                <td><em (click)="privewSpecificDocument(document?.path, document?.document?.name)" aria-hidden="true" class="fa fa-eye"
+                                        style="cursor: pointer"></em>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+                <div class="col-md-12 my-3">
+                    <h5><strong>Authority Section</strong></h5>
+                    <table aria-describedby="stages-list-table"
+                           class="table table-condensed table-bordered table-responsive-md text-justify text-center">
+                        <thead>
+                        <tr>
+                            <th scope="col">S.N</th>
+                            <th class="print-only" scope="col">Date</th>
+                            <th scope="col">From User</th>
+                            <th class="disable-print" scope="col">From Position</th>
+                            <th class="disable-print" scope="col">To User</th>
+                            <th class="disable-print" scope="col">To Position</th>
+                            <th scope="col">Status</th>
+                            <th class="cmt-width" scope="col">Comment</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let stage of memo?.previousStages ; let i = index">
+                            <td>{{i + 1}}</td>
+                            <td class="print-only">{{memo?.currentStage?.createdAt | date}}</td>
+                            <td>{{stage?.fromUser?.name}}</td>
+                            <td class="disable-print">{{stage?.fromRole?.roleName}}</td>
+                            <td class="disable-print">{{stage?.toUser?.name}}</td>
+                            <td class="disable-print">{{stage?.toRole?.roleName}}</td>
+                            <td>{{stage?.docAction}}</td>
+                            <td class="cmt-width">{{stage?.comment}}</td>
+                        </tr>
+                        <tr>
+                            <td>{{memo?.previousStages.length + 1}}</td>
+                            <td class="print-only">{{memo?.currentStage?.createdAt | date}}</td>
+                            <td>{{memo?.currentStage?.fromUser?.name}}</td>
+                            <td class="disable-print">{{memo?.currentStage?.fromRole?.roleName}}</td>
+                            <td class="disable-print">{{memo?.currentStage?.toUser?.name}}</td>
+                            <td class="disable-print">{{memo?.currentStage?.toRole?.roleName}}</td>
+                            <td>{{memo?.currentStage?.docAction}}</td>
+                            <td class="cmt-width">{{memo?.currentStage?.comment}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div *ngIf="signatureList.length > 0" class="row justify-content-between px-3"
+                 id="signatureDiv">
+                <div class="col-md-12 print-only">
+                    <p><b>Approval Chain</b></p>
+                </div>
+                <div *ngFor="let creditMemoStage of sortedList; let i=index;"
+                     class="col-md-3 padding-0-125">
+                    <div class="signature-block">
+                        <div class="text-center p-2 bg-light mb-2 ">
+                            <span>{{creditMemoHandler(i, signatureList.length)}}</span>
+                        </div>
+                        <hr class="border-dark m-0">
+                        <div class="row justify-content-center signature mx-auto">
+                            <div class="print-only signature-padding"></div>
+                            <img class="img-thumbnail border-0 signature-height"
+                                 src="{{creditMemoStage.fromUser?.signatureImage === null ? '' : RootUrl + '/' + creditMemoStage.fromUser?.signatureImage}}"/>
+                        </div>
+                        <div class="text-center signature-detail">
+                            <p class="m-0">{{creditMemoStage?.fromUser?.name}}</p>
+                            <p class="m-0">({{creditMemoStage?.fromUser?.role?.roleName}})</p>
+                            <p class="m-0">{{creditMemoStage?.lastModifiedAt}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nb-card-body>
+        <nb-card-footer *ngIf="memo?.currentStage?.toUser?.id === activeUserId && memo?.documentStatus === 'PENDING'" class="disable-print">
+            <div class="text-center">
+                <div class="btn-group">
+                    <button *ngIf="roleType === 'APPROVAL'" (click)="memoAction('BACKWARD')" class="btn btn-primary"
+                            data-container="body"
+                            data-toggle="tooltip" title="backward" type="button">
+                        <em class="fa fa-reply"></em>
+                    </button>
+                    <button (click)="memoAction('FORWARD')" class="btn btn-primary" data-container="body"
+                            data-toggle="tooltip" title="Send Forward" type="button"><em class="fa fa-share"></em>
+                    </button>
+                    <button *ngIf="currentMemoStage === 'DRAFT' ||currentMemoStage === 'BACKWARD'"
+                            (click)="editMemo(memo.id)" class="btn btn-primary" data-container="body"
+                            data-toggle="tooltip" title="Edit Memo" type="button">
+                        <em class="fa fa-pencil-alt"></em>
+                    </button>
+                    <button *ngIf="roleType === 'APPROVAL'" (click)="memoAction('APPROVED')" class="btn btn-primary"
+                            data-container="body"
+                            data-toggle="tooltip" title="Approve" type="button"><em class="fa fa-check"></em></button>
+                    <button *ngIf="roleType === 'APPROVAL'" (click)="memoAction('REJECT')" class="btn btn-primary"
+                            data-container="body"
+                            data-toggle="tooltip" title="reject" type="button">
+                        <em class="fa fa-times"></em></button>
+                </div>
+            </div>
+        </nb-card-footer>
+    </nb-card>
+</section>
