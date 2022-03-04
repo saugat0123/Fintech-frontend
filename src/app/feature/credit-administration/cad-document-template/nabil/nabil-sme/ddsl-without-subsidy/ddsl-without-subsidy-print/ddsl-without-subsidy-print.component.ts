@@ -91,6 +91,7 @@ export class DdslWithoutSubsidyPrintComponent implements OnInit {
     guarantorAmount;
     guarantorAmountWords;
     client = CustomerType;
+    finalKittaNumber;
 
     constructor(public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
         public engToNepNumberPipe: EngToNepaliNumberPipe,
@@ -123,7 +124,6 @@ export class DdslWithoutSubsidyPrintComponent implements OnInit {
             this.selectedSecurity = this.tempData.securityType.ct;
             this.customerType = this.loanHolderInfo.clientType.en;
             this.mortgageOptions = this.tempData.mortgageType.ct;
-            this.plotNumber = this.kittaNumbers;
             if (this.customerType === this.client.INSTITUTION) {
                 this.customerAddress = this.loanHolderInfo.registeredMunicipality.ct + '-' +
                     this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.registeredDistrict.ct + ', ' +
@@ -134,6 +134,7 @@ export class DdslWithoutSubsidyPrintComponent implements OnInit {
                     this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.permanentDistrict.ct + ', ' +
                     this.loanHolderInfo.permanentProvince.ct;
             }
+            // this.plotNumber = this.kittaNumbers;
         }
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.offerDocumentList)) {
             // tslint:disable-next-line:max-line-length
@@ -197,22 +198,24 @@ export class DdslWithoutSubsidyPrintComponent implements OnInit {
                 }
             });
         });
+        if (!ObjectUtil.isEmpty(this.kittaNumbers)) {
+            this.getKittaNumbers(this.kittaNumbers);
+        }
     }
-    getKittaNumbers(plotNumber, kittaNumbers) {
+    getKittaNumbers(plotNumber) {
         if (plotNumber.length === 1) {
-            kittaNumbers = plotNumber[0];
+            this.finalKittaNumber = plotNumber[0];
         }
         if (plotNumber.length === 2) {
-            kittaNumbers = plotNumber.join(' र ');
+            this.finalKittaNumber = plotNumber.join(' र ');
         }
         if (plotNumber.length > 2) {
             for (let i = 0; i < plotNumber.length - 1; i++) {
                 this.temp2 = plotNumber.join(' , ');
             }
             const temp1 = plotNumber[plotNumber.length - 1];
-            kittaNumbers = this.temp2 + ' र ' + temp1;
+            this.finalKittaNumber = this.temp2 + ' र ' + temp1;
         }
-        return kittaNumbers ? kittaNumbers : '';
     }
 
     guarantorParse(nepData, key, trans?) {

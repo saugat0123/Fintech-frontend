@@ -735,7 +735,7 @@
                              /- बराबरको ऋणतमसुक (Loan Deed)
                         </li>
                         <li>कित्ता नं. <span><strong>
-                            {{getKittaNumbers(kittaNumbers, plotNumber)}}</strong></span>
+                            {{this.finalKittaNumber ? this.finalKittaNumber : '_____________________'}}</strong></span>
                             को धितोबन्धक तमसुक(Mortgage Deed)
                         </li>
                         <li *ngFor="let val of tempPersonalGuarantors">

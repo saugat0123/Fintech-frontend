@@ -301,6 +301,9 @@ export class CommonSecuritySectionPrimaryComponent implements OnInit {
             securityOwnersMunicipalityOrVdc: [val.securityOwnersMunicipalityOrVdc],
             securityOwnersMunicipality: [val.securityOwnersMunicipality],
             securityOwnersDistrict: [val.securityOwnersDistrict],
+            /* FOR HYPOTHECATION CONDITION*/
+            hypothecationPurpose: [val.hypothecationPurpose],
+            insuranceRequired: [val.insuranceRequired],
             // TRANSLATION FIELD OF SECURITY:
             securityTypeTrans: [val.securityTypeTrans],
             securityOwnersNameTrans: [val.securityOwnersNameTrans],
@@ -309,6 +312,9 @@ export class CommonSecuritySectionPrimaryComponent implements OnInit {
             marginInPercentageFootTrans: [val.marginInPercentageFootTrans],
             securityOwnersDistrictTrans: [val.securityOwnersDistrictTrans],
             securityOwnersMunicipalityTrans: [val.securityOwnersMunicipalityTrans],
+            /* FOR HYPOTHECATION CONDITION*/
+            hypothecationPurposeTrans: [val.hypothecationPurposeTrans],
+            insuranceRequiredTrans: [val.insuranceRequiredTrans],
             // CT FIELDS OF SECURITY
             securityTypeCT: [val.securityTypeCT],
             securityOwnersNameCT: [val.securityOwnersNameCT],
@@ -317,6 +323,9 @@ export class CommonSecuritySectionPrimaryComponent implements OnInit {
             marginInPercentageFootCT: [val.marginInPercentageFootCT],
             securityOwnersDistrictCT: [val.securityOwnersDistrictCT],
             securityOwnersMunicipalityCT: [val.securityOwnersMunicipalityCT],
+            /* FOR HYPOTHECATION CONDITION*/
+            hypothecationPurposeCT: [val.hypothecationPurposeCT],
+            insuranceRequiredCT: [val.insuranceRequiredCT],
             propertyDetails: this.formBuilder.array([])
           })
       );
