@@ -96,7 +96,6 @@ export class ClassASanctionLetterPrintComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation)) {
       this.freeTextVal = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation);
-
     }
     console.log('Free TExt Val:', this.freeTextVal);
     // for date of approval

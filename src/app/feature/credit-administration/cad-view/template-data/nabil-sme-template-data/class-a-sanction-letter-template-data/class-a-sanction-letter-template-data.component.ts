@@ -409,6 +409,7 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       letterOfSetOff: [undefined],
       baseRateType: [undefined],
       cashMarginType: [undefined],
+      cashMarginTypeBankGuarantee: [undefined],
       counterGuarantee: [undefined],
       comissionType: [undefined],
       commissionTypes: [undefined],
@@ -496,6 +497,7 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       letterOfSetOffTrans: [undefined],
       baseRateTypeTrans: [undefined],
       cashMarginTypeTrans: [undefined],
+      cashMarginTypeBankGuaranteeTrans: [undefined],
       counterGuaranteeTrans: [undefined],
       comissionTypeTrans: [undefined],
       commissionTypesTrans: [undefined],
@@ -583,6 +585,7 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       letterOfSetOffCT: [undefined],
       baseRateTypeCT: [undefined],
       cashMarginTypeCT: [undefined],
+      cashMarginTypeBankGuaranteeCT: [undefined],
       counterGuaranteeCT: [undefined],
       comissionTypeCT: [undefined],
       commissionTypesCT: [undefined],
@@ -872,6 +875,7 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       key === 'tdHolderNames') {
         return;
       }
+      console.log('Key:::', key);
       this.attributes = new Attributes();
       this.attributes.en = this.form.get(key).value;
       this.attributes.np = this.form.get(key + 'Trans').value;

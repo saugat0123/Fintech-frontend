@@ -179,6 +179,7 @@ export class ClassASanctionLetterComponent implements OnInit {
       witnessAge2: [undefined],
       witnessName2: [undefined],
       bankStaff: [undefined],
+      otherBank: [undefined],
     });
   }
   checkOfferLetterData() {
@@ -415,6 +416,7 @@ export class ClassASanctionLetterComponent implements OnInit {
       date: !ObjectUtil.isEmpty(this.freeTextVal) &&
       !ObjectUtil.isEmpty(this.freeTextVal.date) ?
           this.freeTextVal.date : '',
+      otherBank: this.tempData.TdHolding ? this.tempData.TdHolding.ct : ''
     });
   }
 

@@ -161,11 +161,19 @@
                                     <br>
                                     <strong> सीमाः रु <input class="form-field form-control-sm"
                                                              formControlName="loanAmountFigure"
-                                                             type="text"/> ।–(अक्षरेपी रु
+                                                             type="text"/>/–(अक्षरेपी रु
                                         <input class="form-field form-control-sm"
                                                formControlName="loanAmountFigureWords"
-                                               type="text"/> मात्र)<br> </strong>
-                                  <strong>     सुरक्षणः </strong> नबिल
+                                               type="text"/> मात्र) ।<br> </strong>
+                                  <strong>     सुरक्षणः </strong>
+                                    <span *ngIf="tempData?.tdHoldingBank.en === 'Nabil'">
+                                    नबिल
+                                    </span>
+                                    <span *ngIf="tempData?.tdHoldingBank.en === 'Other'">
+                                        <input class="form-field form-control-sm"
+                                               formControlName="otherBank"
+                                               type="text"/>
+                                    </span>
                                     बैंकद्धारा जारी गरिएको <input class="form-field form-control-sm"
                                                                   formControlName="TdHolder"
                                                                   type="text"/>
@@ -173,17 +181,36 @@
                                                                         formControlName="TDAmount"
                                                                         type="text"/>
                                     (बराबरको मुद्धती रसिद उपर बैंकले उल्लिखित रसिद वापतको रकम कर्जामा समायोजन
-                                    गर्न सक्ने अधिकार सहितको बैंकको पक्षमा जारी <span *ngIf="New"> गरिदिइएको  </span>
-                                    <span *ngIf="Existing"> गरिने </span>
-                                    मोजरापत्र (Letter of Set-off)<br>
-                                    <strong> ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power): </strong>  मौज्दातको <input
+                                    गर्न सक्ने अधिकार सहितको बैंकको पक्षमा जारी
+                                        <span *ngIf="tempData?.letterOfSetOff?.en === 'letterNew'">
+                                            गरिदिइएको
+                                        </span>
+                                    <span *ngIf="tempData?.letterOfSetOff?.en === 'letterExisting'">
+                                        गरिने
+                                    </span>
+                                    मोजरापत्र (Letter of Set-off) ।<br>
+                                    <strong> ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power): </strong>
+                                    <span *ngIf="tempData?.securityType?.en === 'FixedDeposit'">
+                                         मुद्धती रसिदको
+                                    </span>
+                                    <span *ngIf="tempData?.securityType?.en === 'DepositAccount'">
+                                        खातामा रोक्का राखिएका
+                                    </span>
+                                    मौज्दातको <input
                                         class="form-field form-control-sm"
                                         formControlName="drawingPower"
                                         type="text"/>
                                     प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न
                                     सकिनेछ ।<br>
-                                    <strong> ब्याज दरः </strong> <span *ngIf="CoupenRateFinancing">कुपन दर </span>
-                                    <span *ngIf="BaseRateFinancing">प्रकाशित आधार दर (Base Rate) <input class="form-field form-control-sm"
+                                    <strong> ब्याज दरः </strong>
+                                        <span *ngIf="tempData?.baseRateType.en === 'CoupenRateFinancing'">
+                                        कुपन दर
+                                    </span>
+                                    <span *ngIf="tempData?.baseRateType.en === 'BaseRateFinancing'">
+                                        प्रकाशित आधार दर (Base Rate)
+                                    </span>
+                                    <span>
+                                        <input class="form-field form-control-sm"
                                                                            formControlName="baseRate"
                                                                            type="text"/> +
                                     <input class="form-field form-control-sm"
@@ -215,22 +242,36 @@
                                     <strong> बैंक जमानत सुविधा (Bank Guarantee)<br>
                                         सीमाः रु <input class="form-field form-control-sm"
                                                         formControlName="loanAmountFigure"
-                                                        type="text"/> ।
+                                                        type="text"/> /-
                                         (अक्षरेपी रु <input class="form-field form-control-sm"
                                                             formControlName="loanAmountFigureWords"
-                                                            type="text"/> मात्र)<br></strong>
+                                                            type="text"/> मात्र) ।<br></strong>
                                        <strong> सुरक्षणः </strong> बैंकको पक्षमा काउण्टर जमानत सम्बन्धी सम्झौता (General Counter
                                     Guarantee)<br>
-                                    <strong> धरौटी: </strong><span *ngIf="this.tempData.HundredCashMargin.en"> नगद १००% धरौती स्वरुप रहनेछ </span>
-                                    <span *ngIf="this.tempData.TenCashMargin.en">नगद १०% धरौती स्वरुप रहनेछ र ९०% धरौती </span> स्वरुप नबिल बैंकमा रहेको श्री <input
+                                    <strong> धरौटी: </strong>
+                                    <span *ngIf="this.tempData.cashMarginTypeBankGuarantee.en === 'HundredCashMargin'">
+                                        नगद १००% धरौती स्वरुप रहनेछ ।
+                                    </span>
+                                    <span *ngIf="this.tempData.cashMarginTypeBankGuarantee.en === 'TenCashMargin'">
+                                        नगद १०% धरौती स्वरुप रहनेछ र ९०% धरौती
+                                    स्वरुप नबिल बैंकमा रहेको श्री <input
                                         class="form-field form-control-sm"
                                         formControlName="holderName"
                                         type="text"/>
-                                    को <span *ngIf="this.tempData.tdAccount.en"> मुद्धती </span> <span *ngIf="this.tempData.current.en"> चल्ति </span> <span *ngIf="this.tempData.saving.en">बचत </span>
-                                    खाता नं <input class="form-field form-control-sm"
+                                    को <span *ngIf="this.tempData?.accountTypes?.en === 'tdAccount'">
+                                        मुद्धती
+                                    </span>
+                                        <span *ngIf="this.tempData?.accountTypes?.en === 'current'">
+                                            चल्ति
+                                        </span>
+                                        <span *ngIf="this.tempData?.accountTypes?.en === 'saving'">
+                                            बचत
+                                        </span>
+                                    खाता नं: <input class="form-field form-control-sm"
                                                    formControlName="accountNumber"
-                                                   type="text"/> उपर बैंकको ग्रहणाधिकार (Lien) कायम गरी दिनु पर्नेछ
-                                    ।<br>
+                                                   type="text"/> उपर बैंकको ग्रहणाधिकार (Lien) कायम गरी दिनु पर्नेछ ।
+                                        </span>
+                                    <br>
                                     <strong> कमिसनः</strong> प्रति
                                     <span *ngIf="this.tempData.comissionType.en === 'Quarterly'">
                                         त्रैमास
@@ -245,8 +286,10 @@
                                            type="text"/>
                                     % का दरले वा कम्तिमा रु <input class="form-field form-control-sm"
                                                                    formControlName="miniumComissionAmount"
-                                                                   type="text"/> । लाग्नेछ ।<br>
-                                    <strong> सुविधा समाप्ति/पुनरावलोकन मितिः<input class="form-field form-control-sm"
+                                                                   type="text"/>/- लाग्नेछ ।<br>
+                                    <strong> सुविधा समाप्ति/पुनरावलोकन मितिः
+                                        <span>{{this.tempData?.dateOfExpiryType?.en === 'AD' ? 'ई. स. ' : 'वि.सं. '}}</span>
+                                        <input class="form-field form-control-sm"
                                                                                    formControlName="dateOfExpiry"
                                                                                    type="text"/>
                                     </strong>
@@ -270,7 +313,7 @@
                                     पत्र मूल्यको ११०% बिमालेख सहित सम्बन्धित
                                     प्रतित पत्रका सम्पूर्ण सामानहरु ।<br>
                                     <strong>  धरौटीः </strong><span *ngIf="this.tempData.CashMarginHundred.en"> नगद १००% धरौती स्वरुप रहनेछ ।</span>
-                                    <span *ngIf="this.tempData.CashMarginTen.en">१००% धरौती स्वरुप नबिल बैंकमा रहेको श्री </span>
+                                    <span *ngIf="this.tempData.CashMarginTen.en">१००% धरौती स्वरुप नबिल बैंकमा रहेको श्री
                                     <input
                                             class="form-field form-control-sm"
                                             formControlName="holderName"
@@ -280,7 +323,9 @@
                                     <span *ngIf="this.tempData?.accountType?.en === 'savings'">बचत </span>
                                     खाता नं: <input class="form-field form-control-sm"
                                                    formControlName="accountNumber"
-                                                   type="text"/> उपर बैंकको ग्रहणाधिकार (Lien) कायम गरी दिनु पर्नेछ ।<br>
+                                                   type="text"/> उपर बैंकको ग्रहणाधिकार (Lien) कायम गरी दिनु पर्नेछ ।
+                                        </span>
+                                    <br>
                                     <span *ngIf="this.tempData.commissionTypes.en === 'CommissionType1'">
                                     <strong> कमिसनः
                                     </strong>

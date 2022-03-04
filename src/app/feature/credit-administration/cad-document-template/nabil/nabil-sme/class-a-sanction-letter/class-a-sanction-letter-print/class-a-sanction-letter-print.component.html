@@ -134,13 +134,25 @@
                         <td>
                             <strong> निक्षेप मौज्दातमा आधारीत अधिविकर्ष कर्जा <span *ngIf="this.letter.FixedDeposit.en">(Overdraft Facility against Fixed Deposit)</span> <span *ngIf="this.letter.DepositAccount.en">(Lien onDeposit Account)</span></strong><br>
                             <strong> सीमाः रु <span class="font-weight-bold">
-                                            {{engToNepNumberPipe.transform(currencyFormatPipe.transform(proposedAmount))}}
-                                        </span>
-                                / (अक्षरेपि रु. <span
-                                        class="unicodeResize">{{ nepaliCurrencyWordPipe.transform(proposedAmount) }}</span>
-                                मात्र)<br>
+                                            <!--{{engToNepNumberPipe.transform(currencyFormatPipe.transform(proposedAmount))}}-->
+                                {{this.letter?.totalLimitInFigure ? this.letter?.totalLimitInFigure?.ct : ''}}
+                                        </span>/- (अक्षरेपि रु. <span
+                                        class="unicodeResize">
+                                <!--{{ nepaliCurrencyWordPipe.transform(proposedAmount) }}-->
+                                {{this.nepaliCurrencyWordPipe.transform(
+                                this.letter?.totalLimitInFigure ? this.letter?.totalLimitInFigure?.en : '')}}
+                            </span>
+                                मात्र) ।<br>
                                 सुरक्षणः
-                            </strong> नबिल
+                            </strong>
+                            <span *ngIf="letter?.tdHoldingBank.en === 'Nabil'">
+                            नबिल
+                            </span>
+                            <span *ngIf="letter?.tdHoldingBank.en === 'Other'">
+                                 <span [ngClass]="{'font-weight-bold': letter?.TdHolding.ct !== null && letter?.TdHolding.ct !== ''}">
+                                            {{letter?.TdHolding.ct === null || letter?.TdHolding.ct === "" ? "___________" : letter?.TdHolding.ct}}
+                                        </span>
+                            </span>
                             <!--If TD is of Nabil Bank /Free Text If FD is of other Bank (input hallna)-->
                             बैंकद्धारा जारी गरिएको
                             <span [ngClass]="{'font-weight-bold': this.holderFinalName !== null && this.holderFinalName !== ''}">
@@ -151,16 +163,26 @@
                                             {{letter?.TDAmount.ct === null || letter?.TDAmount.ct === "" ? "___________" : letter?.TDAmount.ct}}
                                         </span>
                             (बराबरको मुद्धती रसिद उपर बैंकले उल्लिखित रसिद वापतको रकम कर्जामा समायोजन
-                            गर्न सक्ने अधिकार सहितको बैंकको पक्षमा जारी <span *ngIf="New"> गरिदिइएको  </span>
-                            <span *ngIf="Existing"> गरिने </span> मोजरापत्र <br>
+                            गर्न सक्ने अधिकार सहितको बैंकको पक्षमा जारी <span *ngIf="letter?.letterOfSetOff?.en === 'letterNew'"> गरिदिइएको  </span>
+                            <span *ngIf="letter?.letterOfSetOff?.en === 'letterExisting'"> गरिने </span> मोजरापत्र (Letter of Set-off) ।<br>
                             <strong> ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power): </strong> <!-- मुद्धती रसिदको for loan against TD /
-                                    खातामा रोक्का राखिएका for loan against deposit --> मौज्दातको
+                                    खातामा रोक्का राखिएका for loan against deposit -->
+                            <span *ngIf="letter?.securityType?.en === 'FixedDeposit'">
+                                         मुद्धती रसिदको
+                                    </span>
+                            <span *ngIf="letter?.securityType?.en === 'DepositAccount'">
+                                        खातामा रोक्का राखिएका
+                                    </span>
+                            मौज्दातको
                             <span [ngClass]="{'font-weight-bold': letter?.drawingPower.ct !== null && letter?.drawingPower.ct !== ''}">
                                             {{letter?.drawingPower.ct === null || letter?.drawingPower.ct === "" ? "___________" : letter?.drawingPower.ct}}
                                         </span>
                             प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ सो बरावर कर्जा उपयोग गर्न सकिनेछ ।<br>
-                            <strong> ब्याज दरः </strong> <span *ngIf="CoupenRateFinancing">कुपन दर </span>
-                            <span *ngIf="BaseRateFinancing">प्रकाशित आधार दर (Base Rate)  <span
+                            <strong> ब्याज दरः </strong> <span  *ngIf="letter?.baseRateType.en === 'CoupenRateFinancing'">कुपन दर </span>
+                            <span  *ngIf="letter?.baseRateType.en === 'BaseRateFinancing'">प्रकाशित आधार दर (Base Rate)
+                            </span>
+                            <span>
+                                <span
                                     [ngClass]="{'font-weight-bold': letter?.baseRate.ct !== null && letter?.baseRate.ct !== ''}">
                                             {{letter?.baseRate.ct === null || letter?.baseRate.ct === "" ? "___________" : letter?.baseRate.ct}}
                                         </span> +
@@ -194,40 +216,70 @@
                         <td>
                             <strong> बैंक जमानत सुविधा (Bank Guarantee)<br>
                                 सीमाः रु <span class="font-weight-bold">
-                                            {{engToNepNumberPipe.transform(currencyFormatPipe.transform(proposedAmount))}}
-                                        </span>।
+                                            <!--{{engToNepNumberPipe.transform(currencyFormatPipe.transform(proposedAmount))}}-->
+                                    {{this.letter?.totalLimitInFigure ? this.letter?.totalLimitInFigure?.ct : ''}}
+                                        </span>/-
                                 (अक्षरेपी रु <span
-                                        class="unicodeResize">{{ nepaliCurrencyWordPipe.transform(proposedAmount) }}</span>
-                                मात्र)
+                                        class="unicodeResize">
+                                    <!--{{ nepaliCurrencyWordPipe.transform(proposedAmount) }}-->
+                                    {{this.nepaliCurrencyWordPipe.transform(
+                                        this.letter?.totalLimitInFigure ? this.letter?.totalLimitInFigure?.en : '')}}</span>
+                                मात्र) ।<br/>
                                 सुरक्षणः </strong> बैंकको पक्षमा काउण्टर जमानत सम्बन्धी सम्झौता (General Counter
-                            Guarantee)
-                            <strong> धरौटी: </strong> <span *ngIf="this.letter.HundredCashMargin.en"> नगद १००% धरौती स्वरुप रहनेछ </span>
-                            <span *ngIf="this.letter.TenCashMargin.en">नगद १०% धरौती स्वरुप रहनेछ र ९०% धरौती
-                                        स्वरुप नबिल बैंकमा रहेको श्री </span>
+                            Guarantee) ।
+                            <br/>
+                            <strong> धरौटी: </strong> <span *ngIf="this.letter.cashMarginTypeBankGuarantee.en === 'HundredCashMargin'"> नगद १००% धरौती स्वरुप रहनेछ </span>
+                            <span *ngIf="this.letter.cashMarginTypeBankGuarantee.en === 'TenCashMargin'">नगद १०% धरौती स्वरुप रहनेछ र ९०% धरौती
+                                        स्वरुप नबिल बैंकमा रहेको श्री
                             <span [ngClass]="{'font-weight-bold': this.holderFinalName !== null && this.holderFinalName !== ''}">
                                             {{this.holderFinalName === null || this.holderFinalName === "" ? "___________" : this.holderFinalName}}
                                         </span>
                             को
-                            <span *ngIf="this.letter.tdAccount.en"> मुद्धती </span> <span *ngIf="this.letter.current.en"> चल्ति </span> <span *ngIf="this.letter.saving.en">बचत </span>
+                            <span *ngIf="this.letter?.accountTypes?.en === 'tdAccount'">
+                                मुद्धती
+                            </span>
+                                <span *ngIf="this.letter?.accountTypes?.en === 'current'">
+                                    चल्ति
+                                </span>
+                                <span *ngIf="this.letter?.accountTypes?.en === 'saving'">
+                                    बचत
+                                </span>
                             खाता नं
                             <span [ngClass]="{'font-weight-bold': letter?.accountNumber.ct !== null && letter?.accountNumber.ct !== ''}">
                                             {{letter?.accountNumber.ct === null || letter?.accountNumber.ct === "" ? "___________" : letter?.accountNumber.ct}}
-                                        </span>उपर बैंकको ग्रहणाधिकार (Lien) कायम गरी दिनु पर्नेछ ।<br>
-                            <strong> कमिसनः</strong> प्रति % का दरले वा कम्तिमा रु
+                                        </span>उपर बैंकको ग्रहणाधिकार (Lien) कायम गरी दिनु पर्नेछ ।
+                                </span>
+                            <br>
+                            <strong> कमिसनः</strong> प्रति
+                            <span *ngIf="this.letter?.comissionType?.en === 'Quarterly'">
+                                        त्रैमास
+                                <!--(Id commission is quarterly)-->
+                                    </span>
+                            <span *ngIf="this.letter?.comissionType?.en === 'Yearly'">
+                                         वार्षिक
+                                <!--(If commission is yearly)-->
+                                    </span>
+                            <span [ngClass]="{'font-weight-bold': letter?.comissionRate.ct !== null && letter?.comissionRate.ct !== ''}">
+                                            {{letter?.comissionRate.ct === null || letter?.comissionRate.ct === "" ? "___________" : letter?.comissionRate.ct}}
+                                        </span>
+                            % का दरले वा कम्तिमा रु
                             <span [ngClass]="{'font-weight-bold': letter?.miniumComissionAmount.ct !== null && letter?.miniumComissionAmount.ct !== ''}">
                                             {{letter?.miniumComissionAmount.ct === null || letter?.miniumComissionAmount.ct === "" ? "___________" : letter?.miniumComissionAmount.ct}}
-                                        </span>। लाग्नेछ ।
-                            <strong> सुविधा समाप्ति/पुनरावलोकन मितिः <span class="font-weight-bold">
-                            {{ finalDateOfExpiry }}
+                                        </span>/- लाग्नेछ ।
+                            <br/>
+                            <strong> सुविधा समाप्ति/पुनरावलोकन मितिः
+                            </strong><span class="font-weight-bold">
+                                <span>{{this.letter?.dateOfExpiryType?.en === 'AD' ? 'ई. स. ' : 'वि.सं. '}}</span>
+                            <strong> {{ finalDateOfExpiry }}</strong>
                         </span> मा हुनेछ ।
-                            </strong>
                         </td>
                     </tr>
                     <tr *ngIf="this.letter.loanType.en === 'IrrevocableLetterofCreditFacility'">
                         <td>
                             क)
                         </td>
-                        <td *ngIf="this.letter?.OneOff.en">पटके <span
+                        <td><span *ngIf="this.letter?.OneOff.en">पटके
+                        </span><span
                                 *ngIf="this.letter?.Regular?.en">नियमित </span><strong> अपरिवर्तनीय प्रतित पत्र सुविधा
                             पत्र सुविधा
                             (Irrevocable letter of credit facility) </strong><br>
@@ -238,16 +290,16 @@
                                         class="unicodeResize">{{this.nepaliCurrencyWordPipe.transform(
                                     this.letter?.totalLimitInFigure ? this.letter?.totalLimitInFigure?.en : '')}}</span>
                                 मात्र)
-                            </strong>
+                            </strong><br/>
                             <strong> सुरक्षणः </strong> सम्पूर्ण सम्भावित जोखिमहरु सुरक्षित भएको कम्तिमा प्रतित पत्र
                             मूल्यको ११०% बिमालेख सहित सम्बन्धित
                             प्रतित पत्रका सम्पूर्ण सामानहरु ।<br>
                             <strong>  धरौटीः
                             </strong>
                             <span *ngIf="this.letter?.CashMarginHundred?.en">
-                            नगद १००% धरौती स्वरुप रहनेछ
+                            नगद १००% धरौती स्वरुप रहनेछ ।
                             </span>
-                            <span *ngIf="this.letter?.CashMarginTen?.en">१००% धरौती स्वरुप नबिल बैंकमा रहेको श्री </span>
+                            <span *ngIf="this.letter?.CashMarginTen?.en">१००% धरौती स्वरुप नबिल बैंकमा रहेको श्री
                             <span [ngClass]="{'font-weight-bold': this.holderFinalName !== null && this.holderFinalName !== ''}">
                                             {{this.holderFinalName === null || this.holderFinalName === "" ? "___________" : this.holderFinalName}}
                                         </span>
@@ -256,7 +308,8 @@
                             <span *ngIf="this.letter?.accountType?.en === 'savings'">बचत </span>
                             खाता नं <span [ngClass]="{'font-weight-bold': letter?.accountNumber.ct !== null && letter?.accountNumber.ct !== ''}">
                                             {{letter?.accountNumber.ct === null || letter?.accountNumber.ct === "" ? "___________" : letter?.accountNumber.ct}}
-                                        </span> उपर बैंकको ग्रहणाधिकार (Lien) कायम गरी दिनु पर्नेछ ।<br>
+                                        </span> उपर बैंकको ग्रहणाधिकार (Lien) कायम गरी दिनु पर्नेछ ।
+                                </span><br>
 
                             <span *ngIf="this.letter?.commissionTypes?.en === 'CommissionType1'">
                                     <strong> कमिसनः
