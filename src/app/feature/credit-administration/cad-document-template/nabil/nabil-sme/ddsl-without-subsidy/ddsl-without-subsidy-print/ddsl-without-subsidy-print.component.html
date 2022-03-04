@@ -757,9 +757,9 @@
                         .........................................
                         <p>
                             <span
-                                [ngClass]="{' outside' : letter?.nameOfStaff.ct !== null && letter?.nameOfStaff.ct !== ''}">
+                                [ngClass]="{'outside' : letter?.nameOfStaff.ct !== null && letter?.nameOfStaff.ct !== ''}">
                                 {{letter?.nameOfStaff.ct === null || letter?.nameOfStaff.ct === '' ? '___________' : letter?.nameOfStaff.ct}}</span><br>
-                            <span>{{freeInformation ? freeInformation.fifthText : 'सम्पर्क अधिकृत'}}</span>
+                            <span class="nepaliFont">{{freeInformation ? freeInformation.fifthText : 'सम्पर्क अधिकृत'}}</span>
                             <br>
                             नबिल बैंक लि.<br>
                             {{branchName ? branchName : ''}} शाखा
@@ -769,9 +769,9 @@
                         .........................................
                         <p>
                             <span
-                                [ngClass]="{' outside' : letter?.nameOfBranchManager.ct !== null && letter?.nameOfBranchManager.ct !== ''}">
+                                [ngClass]="{'outside' : letter?.nameOfBranchManager.ct !== null && letter?.nameOfBranchManager.ct !== ''}">
                                 {{letter?.nameOfBranchManager.ct === null || letter?.nameOfBranchManager.ct === '' ? '___________' : letter?.nameOfBranchManager.ct}}</span><br>
-                            <span>{{freeInformation ? freeInformation.sixthText : 'शाखा प्रबन्धक/बरिष्ठ सम्पर्क प्रबन्धक'}}</span><br>
+                            <span class="nepaliFont">{{freeInformation ? freeInformation.sixthText : 'शाखा प्रबन्धक/बरिष्ठ सम्पर्क प्रबन्धक'}}</span><br>
                             नबिल बैंक लि. <br>
                             {{branchName ? branchName : ''}} शाखा
                         </p>
