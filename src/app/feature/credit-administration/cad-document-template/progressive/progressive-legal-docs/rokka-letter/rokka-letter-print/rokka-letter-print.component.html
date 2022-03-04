@@ -111,22 +111,22 @@
                     <tr *ngFor="let personalSignatureData of printDocForm?.personalSignatureArray; let index = index;">
                         <td>
                                 जग्गाधनिको नामः
-                                <span [ngClass]="{'nepaliFont unicode-size22':personalSignatureData?.tableLandOwnerName !== null && personalSignatureData?.tableLandOwnerName !== ''}">
+                                <span [ngClass]="{'nepaliFont':personalSignatureData?.tableLandOwnerName !== null && personalSignatureData?.tableLandOwnerName !== ''}">
                                     {{personalSignatureData.tableLandOwnerName === null || personalSignatureData.tableLandOwnerName === '' ? '' : personalSignatureData?.tableLandOwnerName}}
                                 </span>
                                 <br>
                                 बाबुको नामः
-                                <span [ngClass]="{'nepaliFont unicode-size22':personalSignatureData?.tableFatherName !== null && personalSignatureData?.tableFatherName !== ''}">
+                                <span [ngClass]="{'nepaliFont':personalSignatureData?.tableFatherName !== null && personalSignatureData?.tableFatherName !== ''}">
                                     {{personalSignatureData.tableFatherName === null || personalSignatureData.tableFatherName === '' ? '' : personalSignatureData?.tableFatherName}}
                                 </span>
                                 <br>
                                 बाजेको नामः
-                                <span [ngClass]="{'nepaliFont unicode-size22':personalSignatureData?.tableGrandFather !== null && personalSignatureData?.tableGrandFather !== ''}">
+                                <span [ngClass]="{'nepaliFont':personalSignatureData?.tableGrandFather !== null && personalSignatureData?.tableGrandFather !== ''}">
                                     {{personalSignatureData.tableGrandFather === null || personalSignatureData.tableGrandFather === '' ? '' : personalSignatureData?.tableGrandFather}}
                                 </span>
                                 <br>
                                 पति/पत्नीको नामः
-                                <span [ngClass]="{'nepaliFont unicode-size22':personalSignatureData?.tableSpouseName !== null && personalSignatureData?.tableSpouseName !== ''}">
+                                <span [ngClass]="{'nepaliFont':personalSignatureData?.tableSpouseName !== null && personalSignatureData?.tableSpouseName !== ''}">
                                     {{personalSignatureData.tableSpouseName === null || personalSignatureData.tableSpouseName === '' ? '' : personalSignatureData?.tableSpouseName}}
                                 </span>
                         </td>
@@ -163,7 +163,7 @@
                         </td>
                         <td>
                             <span [ngClass]="{'nepaliFont':personalSignatureData?.tableSitNo !== null && personalSignatureData?.tableSitNo !== ''}">
-                                {{personalSignatureData.tableSitNo === null || personalSignatureData.tablelandArea === '' ? '' : personalSignatureData?.tableSitNo}}
+                                {{personalSignatureData.tableSitNo === null || personalSignatureData.tableSitNo === '' ? '' : personalSignatureData?.tableSitNo}}
                             </span>
                         </td>
                     </tr>
@@ -196,11 +196,11 @@
                             ...........................................................
                             <br>
                             <strong>
-                                कर्मचारीको नामः <span [ngClass]="{'nepaliFont unicode-size24':printDocForm?.karmachariName !== null && printDocForm?.karmachariName !== ''}">
+                                कर्मचारीको नामः <span [ngClass]="{'nepaliFont':printDocForm?.karmachariName !== null && printDocForm?.karmachariName !== ''}">
                         {{printDocForm.karmachariName === null || printDocForm.karmachariName === '' ? '' : printDocForm?.karmachariName}}
                     </span>
                                 <br>
-                                पदः <span [ngClass]="{'nepaliFont unicode-size24':printDocForm?.postName !== null && printDocForm?.postName !== ''}">
+                                पदः <span [ngClass]="{'nepaliFont':printDocForm?.postName !== null && printDocForm?.postName !== ''}">
                         {{printDocForm.postName === null || printDocForm.postName === '' ? '' : printDocForm?.postName}}
                     </span>
                                 <br>
@@ -214,11 +214,11 @@
                             ...........................................................
                             <br>
                             <strong>
-                                कर्मचारीको नामः <span [ngClass]="{'nepaliFont unicode-size24':printDocForm?.karmachariName2 !== null && printDocForm?.karmachariName2 !== ''}">
+                                कर्मचारीको नामः <span [ngClass]="{'nepaliFont':printDocForm?.karmachariName2 !== null && printDocForm?.karmachariName2 !== ''}">
                         {{printDocForm.karmachariName2 === null || printDocForm.karmachariName2 === '' ? '' : printDocForm?.karmachariName2}}
                     </span>
                                 <br>
-                                पदः <span [ngClass]="{'nepaliFont unicode-size24':printDocForm?.postName2 !== null && printDocForm?.postName2 !== ''}">
+                                पदः <span [ngClass]="{'nepaliFont':printDocForm?.postName2 !== null && printDocForm?.postName2 !== ''}">
                         {{printDocForm.postName2 === null || printDocForm.postName2 === '' ? '' : printDocForm?.postName2}}
                     </span>
                                 <br>

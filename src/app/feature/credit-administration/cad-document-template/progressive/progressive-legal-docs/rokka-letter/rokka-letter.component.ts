@@ -123,8 +123,19 @@ export class RokkaLetterComponent implements OnInit {
       });
     }
 
-    this.setPersonalSampleTest(this.nepaliData.collateralDetails);
+    //this.setPersonalSampleTest(this.nepaliData.collateralDetails);
+
+    this.nepaliData.collateralDetails.forEach((value, i) => {
+      try {
+        this.setSecurityDetails(value, i);
+      } catch (error) {
+        this.addPersonalSampleTable();
+        this.setSecurityDetails(value, i);
+      }
+    });
+
   }
+
 
   onSubmit() {
     let flag = true;
@@ -234,6 +245,20 @@ export class RokkaLetterComponent implements OnInit {
     const wordLabelVar = this.nepToEngNumberPipe.transform(this.form.get(numLabel).value);
     const convertedVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
     this.form.get(wordLabel).patchValue(convertedVal);
+  }
+
+  setSecurityDetails(value, i) {
+    this.form.get(['personalSignatureArray', i, 'tableLandOwnerName']).patchValue(value.collateralName);
+    this.form.get(['personalSignatureArray', i, 'tableFatherName']).patchValue(value.collateralName);
+    this.form.get(['personalSignatureArray', i, 'tableGrandFather']).patchValue(value.collateralName);
+    this.form.get(['personalSignatureArray', i, 'tableDistrictName']).patchValue(value.collateralDistrict);
+    this.form.get(['personalSignatureArray', i, 'tablePerMun']).patchValue(value.collateralMunVdcOriginal);
+    this.form.get(['personalSignatureArray', i, 'tablePerWardNo']).patchValue(value.collateralWardNoOld);
+    this.form.get(['personalSignatureArray', i, 'tableTempMun2']).patchValue(value.collateralMunVdcChanged);
+    this.form.get(['personalSignatureArray', i, 'tableTempWardNo2']).patchValue(value.wardNoNew);
+    this.form.get(['personalSignatureArray', i, 'tableKittaNo']).patchValue(value.plotNo);
+    this.form.get(['personalSignatureArray', i, 'tablelandArea']).patchValue(value.areaOfCollateral);
+    this.form.get(['personalSignatureArray', i, 'tableSitNo']).patchValue(value.seatNo);
   }
 
 }
