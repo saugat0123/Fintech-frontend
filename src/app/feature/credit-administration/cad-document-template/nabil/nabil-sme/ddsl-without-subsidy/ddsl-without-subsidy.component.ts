@@ -32,8 +32,8 @@ export class DdslWithoutSubsidyComponent implements OnInit, AfterViewChecked {
     afterSave = false;
     existingOfferLetter = false;
     selectedSecurity;
-    position1 = 'सम्पर्क अधिकृत';
-    position2 = 'शाखा प्रबन्धक÷बरिष्ठ सम्पर्क प्रबन्धक';
+    position1 = ';Dks{ clws[t';
+    position2 = 'zfvf k|aGws÷al/i7 ;Dks{ k|aGws';
     offerLetterData;
     nepaliNumber = new NepaliNumberAndWords();
     nepaliAmount = [];
@@ -264,8 +264,8 @@ export class DdslWithoutSubsidyComponent implements OnInit, AfterViewChecked {
             additionalOtherClause: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.secondText : '',
             extraSecurityDocument: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.thirdText : '',
             extraTermsAndConditionsNRB: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.fourthText : '',
-            position1: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.fifthText : '',
-            position2: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.sixthText : '',
+            position1: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.fifthText : this.position1,
+            position2: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.sixthText : this.position2,
             plotNumber: this.kittaNumbers ? this.kittaNumbers : '',
         });
     }
@@ -401,8 +401,10 @@ export class DdslWithoutSubsidyComponent implements OnInit, AfterViewChecked {
             secondText: this.form.get('additionalOtherClause').value,
             thirdText: this.form.get('extraSecurityDocument').value,
             fourthText: this.form.get('extraTermsAndConditionsNRB').value,
-            fifthText: this.form.get('position1').value,
-            sixthText: this.form.get('position2').value,
+            // fifthText: this.form.get('position1').value,
+            // sixthText: this.form.get('position2').value,
+            fifthText: !ObjectUtil.isEmpty(this.form.get('position1').value) ? this.form.get('position1').value : this.position1,
+            sixthText: !ObjectUtil.isEmpty(this.form.get('position2').value) ? this.form.get('position2').value : this.position2,
         };
     }
     guarantorDetails() {
