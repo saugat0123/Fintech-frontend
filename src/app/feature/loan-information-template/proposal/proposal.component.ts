@@ -14,8 +14,6 @@ import {NumberUtils} from '../../../@core/utils/number-utils';
 import {environment} from '../../../../environments/environment';
 import {Clients} from '../../../../environments/Clients';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {IncomeFromAccount} from '../../admin/modal/incomeFromAccount';
-import {TemplateName} from '../../customer/model/templateName';
 import {CustomerInfoService} from '../../customer/service/customer-info.service';
 import {IncomeFromAccountComponent} from '../income-from-account/income-from-account.component';
 
@@ -128,6 +126,18 @@ export class ProposalComponent implements OnInit {
     this.checkLoanTypeAndBuildForm();
     if (!ObjectUtil.isEmpty(this.formValue) && this.formValue.data !== null) {
       this.formDataForEdit = JSON.parse(this.formValue.data);
+      if (!ObjectUtil.isEmpty(this.formDataForEdit.depositBank)) {
+        (this.proposalForm.get('deposit') as FormArray).push(this.formBuilder.group({
+          amount: this.formDataForEdit.depositBank,
+          assets: this.formDataForEdit.depositBankRemark
+        }));
+      }
+      if (!ObjectUtil.isEmpty(this.formDataForEdit.depositOther)) {
+        (this.proposalForm.get('deposit') as FormArray).push(this.formBuilder.group({
+          amount: this.formDataForEdit.depositOther,
+            assets: this.formDataForEdit.depositOtherRemark
+        }));
+      }
       if (!ObjectUtil.isEmpty(this.formDataForEdit.vehicle)) {
         this.setFormData(this.formDataForEdit.vehicle, 'vehicle');
       } else {
@@ -304,6 +314,7 @@ export class ProposalComponent implements OnInit {
       shares: this.formBuilder.array([]),
       realState: this.formBuilder.array([]),
       vehicle: this.formBuilder.array([]),
+      deposit: this.formBuilder.array([]),
       depositBank: [undefined],
       depositOther: [undefined],
       depositBankRemark: [undefined],
@@ -765,6 +776,7 @@ export class ProposalComponent implements OnInit {
     total += this.getArrayTotal('shares');
     total += this.getArrayTotal('vehicle');
     total += this.getArrayTotal('realState');
+    total += this.getArrayTotal('deposit');
     this.proposalForm.get('total').patchValue(total);
   }
   getArrayTotal(formControl): number {

@@ -683,17 +683,17 @@
                             <tr class="text-white sb-bg-dark">
                                 <th>Name</th>
                                 <th>Relation Name</th>
-                                <th>Citizenship no.</th>
-                                <th>Citizenship Issued District</th>
-                                <th>Citizenship Issued Date(AD/BS)</th>
-                                <th *ngIf="client !== clientName.LAXMIBANK">Age</th>
+<!--                                <th>Citizenship no.</th>-->
+<!--                                <th>Citizenship Issued District</th>-->
+<!--                                <th>Citizenship Issued Date(AD/BS)</th>-->
+<!--                                <th>Age</th>-->
                             </tr>
                             <ng-container>
                                 <tr *ngFor="let infos of info?.customerRelations">
                                     <td class="text-left pl-1">{{infos?.customerRelativeName || 'NA'}}</td>
                                     <td class="text-left pl-1">{{infos?.customerRelation || 'NA'}}</td>
-                                    <td class="text-right pr-1">{{infos?.citizenshipNumber || 'NA'}}</td>
-                                    <td class="text-left pl-1">{{infos?.citizenshipIssuedPlace || 'NA'}}</td>
+<!--                                    <td class="text-right pr-1">{{infos?.citizenshipNumber || 'NA'}}</td>-->
+<!--                                    <td class="text-left pl-1">{{infos?.citizenshipIssuedPlace || 'NA'}}</td>-->
                                     <td class="text-left pl-1">{{infos?.citizenshipIssuedDate ? (infos?.citizenshipIssuedDate | date) : 'N/A'}} ({{infos?.citizenshipIssuedDate ? (infos?.citizenshipIssuedDate | engNepDate: false) : 'N/A'}})</td>
                                 </tr>
                             </ng-container>
@@ -768,10 +768,11 @@
                         <tr class="text-white sb-bg-dark">
                             <th>Name</th>
                             <th>Undivided Family Member</th>
-                            <th>Citizenship no.</th>
-                            <th>Citizenship Issued Date(AD/BS)</th>
-                            <th>Citizenship Issued District</th>
+<!--                            <th>Citizenship no.</th>-->
+<!--                            <th>Citizenship Issued Date(AD/BS)</th>-->
+<!--                            <th>Citizenship Issued District</th>-->
                             <th>Age</th>
+                            <th>Occupation</th>
 
 
                         </tr>
@@ -785,15 +786,16 @@
                             <td class="text-left pl-1">
                                 {{relative?.customerRelation}}
                             </td>
-                            <td class="text-right pr-1">
-                                {{relative?.citizenshipNumber || 'N/A'}}
-                            </td>
-                            <td class="text-left pl-1">
-                                {{relative?.citizenshipIssuedDate | date}} ({{relative?.citizenshipIssuedDate | engNepDate: false}})
-                            </td>
-                            <td class="text-left pl-1">{{relative?.citizenshipIssuedPlace || 'N/A'}}</td>
+<!--                            <td class="text-right pr-1">-->
+<!--                                {{relative?.citizenshipNumber || 'N/A'}}-->
+<!--                            </td>-->
+<!--                            <td class="text-left pl-1">-->
+<!--                                {{relative?.citizenshipIssuedDate | date}} ({{relative?.citizenshipIssuedDate | engNepDate: false}})-->
+<!--                            </td>-->
+<!--                            <td class="text-left pl-1">{{relative?.citizenshipIssuedPlace || 'N/A'}}</td>-->
 
                             <td class="text-left pl-1">{{relative?.age}} years</td>
+                            <td class="text-left pl-1">{{relative?.occupation}}</td>
 
                         </tr>
                         </tbody>

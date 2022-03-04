@@ -744,6 +744,18 @@
                                                </div>
                                            </div>
                                        </div>
+                                       <div class="col-md-2">
+                                           <div class="form-group">
+                                               <label for="occupation{{i}}"><strong>Occupation</strong></label>
+                                               <input class="form-control"
+                                                      formControlName="occupation"
+                                                      id="occupation{{i}}" type="text"
+                                                      [ngClass]="{'is-invalid': (submitted) && relatives.get('occupation').errors}">
+                                               <div *ngIf="submitted && relatives.get('occupation').errors" class="small text-danger">
+                                                   Occupation is required
+                                               </div>
+                                           </div>
+                                       </div>
                                        <div *ngIf="i>1" class="ml-3">
                                            <button (click)="removeRelatives(i)"
                                                    class="float-right" nbButton
