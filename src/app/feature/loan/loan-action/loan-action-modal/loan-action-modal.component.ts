@@ -224,7 +224,7 @@ export class LoanActionModalComponent implements OnInit {
                         console.log(error);
                     });
 
-                } else if (docAction === 'REJECT') {
+                } else if (this.isRemitLoan && docAction === 'REJECT') {
                     const beneficiaryObj = {
                         'beneficiaryId': this.beneficiaryId,
                         'status': 'REJECTED',

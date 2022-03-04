@@ -33,6 +33,8 @@ import {Clients} from '../../../../../environments/Clients';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {FixAssetCollateralComponent} from './fix-asset-collateral/fix-asset-collateral.component';
 import {DateValidator} from '../../../../@core/validator/date-validator';
+import {LoanConfigService} from '../../../admin/component/loan-config/loan-config.service';
+import {CustomerType} from '../../../customer/model/customerType';
 
 
 @Component({
@@ -46,8 +48,8 @@ export class SecurityInitialFormComponent implements OnInit {
     @Input() loanTag: string;
     @Input() shareSecurity;
     @Input() customerSecurityId;
-    securityEmitValue: string;
     @Input() approvedData: string;
+    @Input() customerType: CustomerType;
     @ViewChildren('revaluationComponent')
     revaluationComponent: QueryList<SecurityRevaluationComponent>;
 
@@ -66,6 +68,7 @@ export class SecurityInitialFormComponent implements OnInit {
     @ViewChildren('ownerKycApplicableHypothecation')
     ownerKycApplicableHypothecation: QueryList<OwnerKycApplicableComponent>;
 
+    securityEmitValue: string;
     securityId = SecurityIds;
     selectedArray = [];
     securityForm: FormGroup;
@@ -154,6 +157,7 @@ export class SecurityInitialFormComponent implements OnInit {
     dialogRef: NbDialogRef<any>;
     isOpen = false;
     newOwnerShipTransfer = [];
+    loanList = [];
 
     constructor(private formBuilder: FormBuilder,
                 private valuatorToast: ToastService,
@@ -164,12 +168,12 @@ export class SecurityInitialFormComponent implements OnInit {
                 private datePipe: DatePipe,
                 private toastService: ToastService,
                 private roleService: RoleService,
-                private nbDialogService: NbDialogService) {
+                private nbDialogService: NbDialogService,
+                private loanConfigService: LoanConfigService) {
     }
 
 
     ngOnInit() {
-        console.log('this is form data', this.formData);
         this.getRoleList();
         this.configEditor();
         this.shareService.findAllNepseCompanyData(this.search).subscribe((list) => {
@@ -191,6 +195,7 @@ export class SecurityInitialFormComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.formData)) {
             this.formDataForEdit = this.formData['initialForm'];
             this.selectedArray = this.formData['selectedArray'];
+            this.securityForm.patchValue(this.formDataForEdit);
             this.underConstruction(this.formData['underConstructionChecked']);
             this.underBuildingConstruction(this.formData['underBuildingConstructionChecked']);
             this.otherBranch(this.formData['otherBranchcheck']);
@@ -219,7 +224,9 @@ export class SecurityInitialFormComponent implements OnInit {
             this.landBuildingOtherBank(this.formData['landBuildingOtherBranchChecked']);
             this.vehicleOtherBank(this.formData['vehicleOtherBranchChecked']);
             this.plantOtherBank(this.formData['plantOtherBranchChecked']);
-
+            this.setCrossCollateralizedData(this.formDataForEdit['landCross'], 'landCross');
+            this.setCrossCollateralizedData(this.formDataForEdit['lbCross'], 'lbCross');
+            this.setCrossCollateralizedData(this.formDataForEdit['apartmentCross'], 'apartmentCross');
         } else {
             this.addMoreLand();
             this.addBuilding();
@@ -252,7 +259,7 @@ export class SecurityInitialFormComponent implements OnInit {
         }
         this.updateLandSecurityTotal();
         this.reArrangeEnumType();
-
+        this.getLoanConfig();
     }
     private uuid(): string {
         // tslint:disable-next-line:no-bitwise
@@ -333,7 +340,21 @@ export class SecurityInitialFormComponent implements OnInit {
             leaseAssignment: this.formBuilder.array([]),
             otherSecurity: this.formBuilder.array([]),
             assignmentOfReceivables: this.formBuilder.array([]),
-
+            landCross: this.formBuilder.array([]),
+            lbCross: this.formBuilder.array([]),
+            apartmentCross: this.formBuilder.array([]),
+            landCrossChecked: [false],
+            lbCrossChecked: [false],
+            apartmentCrossChecked: [false],
+            landExposureTotal: [0],
+            landRmValueTotal: [0],
+            landFmvOfFacTotal: [0],
+            lbExposureTotal: [0],
+            lbRmValueTotal: [0],
+            lbFmvOfFacTotal: [0],
+            apartmentExposureTotal: [0],
+            apartmentRmValueTotal: [0],
+            apartmentFmvOfFacTotal: [0],
         });
         this.buildShareSecurityForm();
     }
@@ -2429,5 +2450,112 @@ export class SecurityInitialFormComponent implements OnInit {
                 this.selectedArray.push('OtherSecurity');
             }
         });
+    }
+
+    addCrossCollateralized(arrayName) {
+        (this.securityForm.get(arrayName) as FormArray).push(this.crossCollateralizedFormGroup());
+    }
+
+    crossCollateralizedFormGroup(): FormGroup {
+        return this.formBuilder.group({
+            borrowerName: [undefined],
+            facilityName: [undefined],
+            totalExposure: [undefined],
+            rmValue: [undefined],
+            fmvApportion: [undefined],
+            drawDown: [undefined],
+            residualFmv: [undefined],
+        });
+    }
+
+    checkedChange(event, value) {
+        switch (value) {
+            case 'landCross':
+                if (event) {
+                    this.securityForm.get('landCrossChecked').patchValue(event);
+                } else {
+                    this.securityForm.get('landCrossChecked').patchValue(event);
+                }
+                break;
+            case 'lbCross':
+                if (event) {
+                    this.securityForm.get('lbCrossChecked').patchValue(event);
+                } else {
+                    this.securityForm.get('lbCrossChecked').patchValue(event);
+                }
+                break;
+            case 'apartmentCross':
+                if (event) {
+                    this.securityForm.get('apartmentCrossChecked').patchValue(event);
+                } else {
+                    this.securityForm.get('apartmentCrossChecked').patchValue(event);
+                }
+                break;
+        }
+        const sec = this.securityForm.get(value) as FormArray;
+        sec.clear();
+        this.calculateTotalCross(value);
+    }
+
+    removeCrossCollateralized(securityType: string, cin: number) {
+        (<FormArray>this.securityForm.get(securityType)).removeAt(cin);
+        this.calculateTotalCross(securityType);
+    }
+
+    setCrossCollateralizedData(data, securityType) {
+        const crossData = this.securityForm.get(securityType) as FormArray;
+        if (!ObjectUtil.isEmpty(data)) {
+            data.forEach((d) => {
+                crossData.push(
+                    this.formBuilder.group({
+                        borrowerName: [d.borrowerName],
+                        facilityName: [d.facilityName],
+                        totalExposure: [d.totalExposure],
+                        rmValue: [d.rmValue],
+                        fmvApportion: [d.fmvApportion],
+                        drawDown: [d.drawDown],
+                        residualFmv: [d.residualFmv],
+                    })
+                );
+            });
+        }
+    }
+
+    getLoanConfig() {
+        this.loanConfigService.getAllByLoanCategory(this.customerType).subscribe((res: any) => {
+            this.loanList = res.detail;
+        }, error => {
+            this.toastService.show(new Alert(AlertType.DANGER, '!!OPPS something went wrong while fetching data'));
+        });
+    }
+
+    calculateTotalCross(security) {
+        let totalExposure = 0;
+        let totalRmValue = 0;
+        let totalFMV = 0;
+        const crossData = this.securityForm.get(security) as FormArray;
+        console.log('crossData', crossData.value);
+        crossData.value.forEach(cd => {
+            totalExposure += cd.totalExposure;
+            totalRmValue += cd.rmValue;
+            totalFMV += cd.fmvApportion;
+        });
+        switch (security) {
+            case 'landCross':
+                this.securityForm.get('landExposureTotal').patchValue(totalExposure);
+                this.securityForm.get('landRmValueTotal').patchValue(totalRmValue);
+                this.securityForm.get('landFmvOfFacTotal').patchValue(totalFMV);
+                break;
+            case 'lbCross':
+                this.securityForm.get('lbExposureTotal').patchValue(totalExposure);
+                this.securityForm.get('lbRmValueTotal').patchValue(totalRmValue);
+                this.securityForm.get('lbFmvOfFacTotal').patchValue(totalFMV);
+                break;
+            case 'apartmentCross':
+                this.securityForm.get('apartmentExposureTotal').patchValue(totalExposure);
+                this.securityForm.get('apartmentRmValueTotal').patchValue(totalRmValue);
+                this.securityForm.get('apartmentFmvOfFacTotal').patchValue(totalFMV);
+                break;
+        }
     }
 }

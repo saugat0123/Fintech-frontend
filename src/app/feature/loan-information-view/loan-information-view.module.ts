@@ -28,6 +28,7 @@ import {SecurityScheduleComponent} from '../loan/component/security-schedule/sec
 import {FinancialJsonParserComponent} from '../loan/component/loan-summary/financial-json-parser/financial-json-parser.component';
 import {NetWorthModule} from '../newt-worth/net-worth-module';
 import {CreditChecklistViewComponent} from './credit-checklist-view/credit-checklist-view.component';
+import { CrossCollateralizedViewComponent } from './cross-collateralized-view/cross-collateralized-view.component';
 
 
 @NgModule({
@@ -50,7 +51,8 @@ import {CreditChecklistViewComponent} from './credit-checklist-view/credit-check
         RemitProfileComponent,
         SecurityScheduleComponent,
         FinancialJsonParserComponent,
-        CreditChecklistViewComponent
+        CreditChecklistViewComponent,
+        CrossCollateralizedViewComponent
     ],
     exports: [
         InsuranceViewComponent,
@@ -70,7 +72,8 @@ import {CreditChecklistViewComponent} from './credit-checklist-view/credit-check
         RemitProfileComponent,
         SecurityScheduleComponent,
         FinancialJsonParserComponent,
-        CreditChecklistViewComponent
+        CreditChecklistViewComponent,
+        CrossCollateralizedViewComponent
     ],
     imports: [
         CommonModule,
