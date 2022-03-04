@@ -6,9 +6,8 @@ import {Component, Input, OnInit} from '@angular/core';
   styleUrls: ['./joint-customer-view.component.scss']
 })
 export class JointCustomerViewComponent implements OnInit {
-
   constructor() { }
-  @Input() jointArray;
+  @Input() jointDetails;
   ngOnInit() {
   }
   calculateAge(dob) {

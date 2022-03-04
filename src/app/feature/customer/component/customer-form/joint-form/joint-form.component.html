@@ -706,6 +706,20 @@
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    <div class="col-md-2">
+                                                        <div class="form-group">
+                                                            <label for="age{{i}}"><strong>Age</strong></label>
+                                                            <input class="form-control" formControlName="age"
+                                                                   id="age{{i}}" placeholder="Age" type="number">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <div class="form-group">
+                                                            <label for="Occupation{{i}}"><strong>Occupation</strong></label>
+                                                            <input class="form-control" formControlName="occupation"
+                                                                   id="Occupation{{i}}" placeholder="Occupation" type="text">
+                                                        </div>
+                                                    </div>
                                                     <div *ngIf="joinCustomerInfo.get('customerRelations')['length']>1" class="col-md-3 float-right">
                                                         <button (click)="removeRelation(i,ii)"
                                                                 class="ml-2 mt-1 br-5 btn-danger btn-sm btn-flat"

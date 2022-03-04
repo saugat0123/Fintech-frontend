@@ -90,7 +90,6 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
         NetWorthModule,
         LoanInformationViewModule,
         DbrModule,
-        JointInformationModule,
     ],
     exports: [
         LoanSummaryComponent,

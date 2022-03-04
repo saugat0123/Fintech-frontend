@@ -5,10 +5,10 @@ import {JointCustomerViewComponent} from '../joint-customer-view.component';
 
 
 @NgModule({
-  declarations: [JointCustomerViewComponent],
+  declarations: [],
   imports: [
     CommonModule
   ],
-  exports: [JointCustomerViewComponent]
+  exports: []
 })
 export class JointInformationModule { }
