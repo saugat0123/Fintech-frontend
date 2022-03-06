@@ -46,7 +46,8 @@ import { CommonDataViewComponent } from './common-data-view/common-data-view.com
         FormBuilderAddComponent,
         DynamicFormsComponent,
         AddressFormAddComponent,
-        AddressFormComponent
+        AddressFormComponent,
+        FormInvalidFocusDirective
     ],
     imports: [
         CommonModule,

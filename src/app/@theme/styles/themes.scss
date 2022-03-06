@@ -6,6 +6,10 @@
 @import "src/styles";
 
 $nb-enable-css-custom-properties: true;
+* {
+  font-family: Cambria, Georgia, serif;
+  font-size: 10pt !important;
+}
 
 $nb-themes: nb-register-theme((
   /** theme color */
@@ -108,7 +112,7 @@ $nb-themes: nb-register-theme((
 
   body {
     font-family: Cambria, Georgia, serif;
-    font-size: 21px !important;
+    //font-size: 21px !important;
   }
 
 

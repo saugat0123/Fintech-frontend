@@ -53,12 +53,17 @@ export class ProposalSummaryComponent implements OnInit {
     isRemit = false;
     @Output() eventEmitter = new EventEmitter();
     customerLoanDtoList: CustomerLoanDto[];
+    consumerFinance = false;
 
     constructor(private activatedRoute: ActivatedRoute,
                 private loanConfigService: LoanConfigService) {
     }
 
     ngOnInit() {
+        if (this.loanDataHolder.loanHolder.clientType === 'CONSUMER_FINANCE') {
+            this.consumerFinance = true;
+            console.log('this is consumer finance');
+        }
         if (!ObjectUtil.isEmpty(this.proposalData.data)) {
             this.proposalAllData = JSON.parse(this.proposalData.data);
             this.checkedData = JSON.parse(this.proposalData.checkedData);
