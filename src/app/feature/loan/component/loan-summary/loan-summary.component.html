@@ -1216,15 +1216,15 @@
 
             <div class="row">
                 <div class="col-md-12 disable-print">
-          <span>
-            <b   class="header">All Documents</b>
-            <button class="float-right sb-small sb-bg-dark text-white"
-                    *ngIf="loanDataHolder?.customerDocument?.length > 0 && (loanDataHolder?.documentStatus?.toString()!=='APPROVED' || !loanDataHolder?.zipPath)"
-                    (click)=getDocPath()> Download All Document</button>
-            <button class="float-right sb-small sb-bg-dark text-white"
-                    *ngIf="loanDataHolder?.customerDocument?.length > 0 && loanDataHolder?.documentStatus?.toString()==='APPROVED' && loanDataHolder?.zipPath"
-                    (click)="downloadCustomerDocument(loanDataHolder?.zipPath, loanDataHolder?.id + '-documents')"> Download All Document</button>
-          </span>
+<!--          <span>-->
+<!--            <b   class="header">All Documents</b>-->
+<!--            <button class="float-right sb-small sb-bg-dark text-white"-->
+<!--                    *ngIf="loanDataHolder?.customerDocument?.length > 0 && (loanDataHolder?.documentStatus?.toString()!=='APPROVED' || !loanDataHolder?.zipPath)"-->
+<!--                    (click)=getDocPath()> Download All Document</button>-->
+<!--            <button class="float-right sb-small sb-bg-dark text-white"-->
+<!--                    *ngIf="loanDataHolder?.customerDocument?.length > 0 && loanDataHolder?.documentStatus?.toString()==='APPROVED' && loanDataHolder?.zipPath"-->
+<!--                    (click)="downloadCustomerDocument(loanDataHolder?.zipPath, loanDataHolder?.id + '-documents')"> Download All Document</button>-->
+<!--          </span>-->
                 </div>
             </div>
             <hr>
