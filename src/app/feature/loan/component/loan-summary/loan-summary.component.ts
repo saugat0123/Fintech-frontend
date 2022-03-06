@@ -47,6 +47,7 @@ import * as JSZip from 'jszip';
 import * as JSZipUtils from 'jszip-utils/lib/index.js';
 import {saveAs as importedSaveAs} from 'file-saver';
 import {IndividualJsonData} from '../../../admin/modal/IndividualJsonData';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
     selector: 'app-loan-summary',
@@ -178,6 +179,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     dataFromPreviousSecurity;
     isJointInfo = false;
     jointInfo = [];
+    newJointInfo = [];
     collateralSiteVisitDetail = [];
     isCollateralSiteVisit = false;
     age: number;
@@ -206,6 +208,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     checkedData;
     proposalAllData;
     financial;
+    citizen;
 
     constructor(
         @Inject(DOCUMENT) private _document: Document,
@@ -227,6 +230,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         private fiscalYearService: FiscalYearService,
         private collateralSiteVisitService: CollateralSiteVisitService,
         private nbDialogService: NbDialogService,
+        private spinnerService: NgxSpinnerService
     ) {
         this.client = environment.client;
         this.showCadDoc = this.productUtils.CAD_LITE_VERSION;
@@ -263,6 +267,27 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                 const jointCustomerInfo = JSON.parse(this.loanDataHolder.customerInfo.jointInfo);
                 this.riskInfo = jointCustomerInfo;
                 this.jointInfo.push(jointCustomerInfo.jointCustomerInfo);
+                let innerCustomer = [];
+                this.jointInfo[0].forEach((g, i) => {
+                        innerCustomer.push(g);
+                        console.log((i+1)%2, g)
+                    if (!ObjectUtil.isEmpty(this.jointInfo[0][i + 1])) {
+                        this.citizen = this.jointInfo[0][i + 1].citizenshipNumber;
+                    }
+                    if ((i + 1) % 2 === 0) {
+                        if(innerCustomer.length > 0)
+                        this.newJointInfo.push(innerCustomer);
+                        innerCustomer = [];
+                    }
+                    if (i === this.jointInfo[0].length - 1) {
+                        if(innerCustomer.length > 0)
+                            this.newJointInfo.push(innerCustomer);
+                        innerCustomer = [];
+                    }
+                });
+                console.log('new joint', this.newJointInfo);
+                console.log('old joint', this.jointInfo);
+
                 this.isJointInfo = true;
             }
         }

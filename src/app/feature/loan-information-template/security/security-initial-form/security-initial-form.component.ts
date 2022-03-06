@@ -2252,12 +2252,14 @@ export class SecurityInitialFormComponent implements OnInit {
         }
     }
 
-    openSiteVisitModel(security: string, uuid: string) {
+    openSiteVisitModel(security: string, uuid: string, index: number, name: string) {
         this.close();
         const context = {
             securityId: this.customerSecurityId,
             security: security,
-            uuid: uuid
+            uuid: uuid,
+            index: index,
+            formControl: name
         };
         this.dialogRef = this.nbDialogService.open(FixAssetCollateralComponent, {
             context,

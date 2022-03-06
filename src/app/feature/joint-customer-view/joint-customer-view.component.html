@@ -1,0 +1,188 @@
+<div class="row">
+    <div class="col-md-12 text-center">
+        <p class="sub-header text-left" ><strong   class="header">Joint Details</strong></p>
+        <ng-container *ngFor="let jointCustomer of jointDetails">
+            <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+                <tbody>
+                <tr>
+                    <td>
+                        <table
+                                class="table table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small">
+
+                            <tbody>
+                            <tr class="text-left">
+                                <td class="sb-bg-dark text-white">Name</td>
+                            </tr>
+                            <tr class="text-left">
+                                <td class="sb-bg-dark text-white">Gender</td>
+                            </tr>
+
+                            <tr>
+                                <td class="sb-bg-dark text-left text-white">Date Of Birth (AD/BS)</td>
+                            </tr>
+                            <tr>
+                                <td class="sb-bg-dark text-left text-white">Citizenship Number</td>
+                            </tr>
+                            <tr>
+                                <td class="sb-bg-dark text-left text-white">Phone Number</td>
+                            </tr>
+
+                            <tr>
+                                <td class="sb-bg-dark text-left text-white">Occupation</td>
+                            </tr>
+                            <tr>
+                                <td class="sb-bg-dark text-left text-white">Marital Status</td>
+                            </tr>
+                            <tr>
+                                <td class="sb-bg-dark text-left text-white">Age</td>
+                            </tr>
+                            <tr>
+                                <td class="sb-bg-dark text-left text-white">Email</td>
+                            </tr>
+                            <tr>
+                                <td class="sb-bg-dark text-left text-white">Permanent Address</td>
+                            </tr>
+                            <tr>
+                                <td class="sb-bg-dark text-left text-white">Temporary Address</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                    <td *ngFor="let customer of jointCustomer">
+                        <table class="table table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small">
+                            <tbody>
+                            <tr class="text-left">
+                                <td class=" ">{{customer?.customerName || 'N/A'}}</td>
+                            </tr>
+                            <tr class="text-left">
+                                <td class=" ">{{customer?.gender || 'N/A'}}</td>
+                            </tr>
+                            <tr>
+                                <td class=" text-left ">{{(customer?.dob | date) || 'N/A'}}</td>
+                            </tr>
+                            <tr>
+                                <td class=" text-left ">{{customer?.citizenshipNumber || 'N/A'}}</td>
+                            </tr>
+                            <tr>
+                                <td class=" text-left ">{{customer?.contactNumber || 'N/A'}}</td>
+                            </tr>
+
+                            <tr>
+                                <td class=" text-left ">{{customer?.occupation || 'N/A'}}</td>
+                            </tr>
+                            <tr>
+                                <td class=" text-left ">{{customer?.maritalStatus || 'N/A'}}</td>
+                            </tr>
+                            <tr>
+                                <td class=" text-left ">{{calculateAge(customer?.dob) || 'N/A'}}</td>
+                            </tr>
+                            <tr>
+                                <td class=" text-left ">{{customer?.email || 'N/A'}}</td>
+                            </tr>
+                            <tr>
+                                <td class=" text-left ">{{'Province: ' + customer?.province?.name +', District: '+ customer?.district?.name + ', Municipality: '+ customer?.municipalities?.name}}</td>
+                            </tr>
+                            <tr>
+                                <td class=" text-left ">{{'Province: ' + customer?.temporaryProvince?.name +', District: '+ customer?.temporaryDistrict?.name + ', Municipality: '+ customer?.temporaryMunicipalities?.name}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <p class="sub-header" ><strong   class="header">Family Details</strong></p>
+            <table  class="table table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small" *ngFor="let info of jointCustomer">
+                <tbody>
+                <tr class="text-white sb-bg-dark">
+                    <th>Name</th>
+                    <th>Relation Name</th>
+                    <!--                                <th>Citizenship no.</th>-->
+                    <!--                                <th>Citizenship Issued District</th>-->
+                    <!--                                <th>Citizenship Issued Date(AD/BS)</th>-->
+                    <th>Age</th>
+                    <th>Occupation</th>
+                </tr>
+                <ng-container>
+                    <tr *ngFor="let infos of info?.customerRelations">
+                        <td class="text-left pl-1">{{infos?.customerRelativeName || 'NA'}}</td>
+                        <td class="text-left pl-1">{{infos?.customerRelation || 'NA'}}</td>
+                        <!--                                    <td class="text-right pr-1">{{infos?.citizenshipNumber || 'NA'}}</td>-->
+                        <!--                                    <td class="text-left pl-1">{{infos?.citizenshipIssuedPlace || 'NA'}}</td>-->
+                        <td class="text-left pl-1">{{infos?.age || 'N/A'}}</td>
+                        <td class="text-left pl-1">{{infos?.occupation || 'N/A'}}</td>
+                    </tr>
+                </ng-container>
+                </tbody>
+            </table>
+        </ng-container>
+
+    </div>
+</div>
+<!--<ng-container *ngFor="let info of jointCustomer">-->
+<!--    <tr class="text-white sb-bg-dark">-->
+<!--        <th>Name</th>-->
+<!--        <th>Customer Id</th>-->
+<!--        <th>Date of birth(AD/BS)</th>-->
+<!--        <th>Age</th>-->
+<!--        <th>Citizenship no.</th>-->
+<!--        <th>Issued Date(Ad/BS)</th>-->
+<!--        <th>Issued Place</th>-->
+<!--        <th>Gender</th>-->
+<!--        <th>Marital Status</th>-->
+<!--    </tr>-->
+<!--    <tr class="text-left">-->
+<!--        <td class="pl-1">{{info?.customerName}}</td>-->
+<!--        <td class="pl-1">{{info?.customerCode}}</td>-->
+<!--        <td class="text-left pl-1">{{info?.dob | date}} ({{info?.dob | engNepDate: false}})</td>-->
+<!--        <td class="text-left pl-1">{{calculateAge(info?.dob)}} years</td>-->
+<!--        <td class="text-right pr-1">{{info?.citizenshipNumber || 'NA'}}</td>-->
+<!--        <td class="text-left pl-1">{{info?.citizenshipIssuedDate | date}}-->
+<!--            ({{info?.citizenshipIssuedDate | engNepDate: false}})-->
+<!--        </td>-->
+<!--        <td class="pl-1">{{info?.citizenshipIssuedPlace || 'NA'}}</td>-->
+<!--        <td class="pl-1">{{info?.gender?.toLowerCase()}}</td>-->
+<!--        <td class="pl-1">{{info?.maritalStatus?.toLowerCase()}}</td>-->
+<!--    </tr>-->
+<!--    <tr class="text-white sb-bg-dark">-->
+<!--        <th>Mobile Number</th>-->
+<!--        <th>LandLine Number</th>-->
+<!--        <th>Email</th>-->
+<!--        <th>Occupation</th>-->
+<!--        <th>Income Source</th>-->
+<!--        <th>Client Type</th>-->
+<!--        <th *ngIf="info?.panNumber">Pan Number</th>-->
+<!--        &lt;!&ndash;                                <th>Subsector</th>&ndash;&gt;-->
+<!--    </tr>-->
+<!--    <tr class="text-left">-->
+<!--        <td class="pl-1">{{info?.contactNumber}}</td>-->
+<!--        <td class="pl-1">{{info?.landLineNumber}}</td>-->
+<!--        <td class="pl-1">{{info?.email}}</td>-->
+<!--        <td class="text-left pl-1">{{info?.occupation || 'NA'}}</td>-->
+<!--        <td class="text-left pl-1">{{info?.incomeSource || 'NA'}}</td>-->
+<!--        <td class="pl-1">{{loanDataHolder.loanHolder?.clientType | clientType}}</td>-->
+
+<!--        <td class="pl-1" *ngIf="info?.panNumber">{{info?.panNumber}}</td>-->
+<!--        &lt;!&ndash;                                <td class="pl-1">{{subsectorDetail}}</td>&ndash;&gt;-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <th colspan="5">Family Detail</th>-->
+<!--    </tr>-->
+<!--    <tr class="text-white sb-bg-dark">-->
+<!--        <th>Name</th>-->
+<!--        <th>Relation Name</th>-->
+<!--        &lt;!&ndash;                                <th>Citizenship no.</th>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                <th>Citizenship Issued District</th>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                <th>Citizenship Issued Date(AD/BS)</th>&ndash;&gt;-->
+<!--        &lt;!&ndash;                                <th>Age</th>&ndash;&gt;-->
+<!--    </tr>-->
+<!--    <ng-container>-->
+<!--        <tr *ngFor="let infos of info?.customerRelations">-->
+<!--            <td class="text-left pl-1">{{infos?.customerRelativeName || 'NA'}}</td>-->
+<!--            <td class="text-left pl-1">{{infos?.customerRelation || 'NA'}}</td>-->
+<!--            &lt;!&ndash;                                    <td class="text-right pr-1">{{infos?.citizenshipNumber || 'NA'}}</td>&ndash;&gt;-->
+<!--            &lt;!&ndash;                                    <td class="text-left pl-1">{{infos?.citizenshipIssuedPlace || 'NA'}}</td>&ndash;&gt;-->
+<!--            <td class="text-left pl-1">{{infos?.citizenshipIssuedDate ? (infos?.citizenshipIssuedDate | date) : 'N/A'}} ({{infos?.citizenshipIssuedDate ? (infos?.citizenshipIssuedDate | engNepDate: false) : 'N/A'}})</td>-->
+<!--        </tr>-->
+<!--    </ng-container>-->
+<!--</ng-container>-->
