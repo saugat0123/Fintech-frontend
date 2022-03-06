@@ -13,10 +13,11 @@
         </div>
         <hr class="mb-5">
         <div class="row m-2">
-            <div class="col-md-4 mb-5">
+            <!--<div class="col-md-4 mb-5">
                 <span class="font-weight-bold customFont">Purpose : </span>
                 <span class="customFont"> {{ parsedData?.purposeOfLoan}} </span>
-            </div>
+                <span class="customFont"> {{ parsedData?.purposeOfLoan}} </span>
+            </div>-->
             <div class="col-md-4 mb-5">
                 <span class="font-weight-bold customFont">Customer Segments : </span>
                 <span class="customFont"> {{ parsedData?.customerSegment | replace:'_':' '}} </span>
@@ -55,11 +56,16 @@
             </div>
 
             <div class="col-md-4 mb-5">
-                <span class="font-weight-bold customFont">Loan To Value Type: </span>
-                <span class="customFont"> {{ parsedData?.loanToValuePurpose}} </span>
+                <span class="font-weight-bold customFont">Purpose: </span>
+                <span class="customFont"> {{ parsedData?.loanPurpose}} </span>
             </div>
 
-            <ng-container  *ngIf="parsedData?.loanToValuePurpose === 'For the First Home Buyer'">
+            <div class="col-md-4 mb-5">
+                <span class="font-weight-bold customFont">Cooling Period Elapsed: </span>
+                <span class="customFont"> {{ parsedData?.coolingPeriodElapsed ? 'Yes' : 'No'}} </span>
+            </div>
+
+            <ng-container  *ngIf="parsedData?.loanPurpose === 'For the First Home Buyer'">
                 <div class="col-md-4 mb-5">
                     <span class="font-weight-bold customFont">Total Area of House/Apartment: </span>
                     <span class="customFont"> {{ parsedData?.totalAreaHouse}} sq ft.</span>
@@ -70,10 +76,10 @@
                     <span class="customFont"> {{ parsedData?.availingLoan }} </span>
                 </div>
 
-                <div class="col-md-4 mb-5">
+                <!--<div class="col-md-4 mb-5">
                     <span class="font-weight-bold customFont">Rental Income: </span>
                     <span class="customFont"> {{ parsedData?.rentalIncome }} </span>
-                </div>
+                </div>-->
             </ng-container>
 
             <div class="col-md-4 mb-5">
@@ -91,15 +97,39 @@
                 <span class="customFont"> {{ parsedData?.loanToValue}} </span>
             </div>
 
-            <div class="col-md-4 mb-5" *ngIf="parsedData?.loanToValuePurpose === 'Construction and Renovation/Extension'">
+            <div class="col-md-4 mb-5" *ngIf="parsedData?.loanPurpose === 'Construction and Renovation/Extension'">
                 <span class="font-weight-bold customFont"> Construction / Renovation Cost: </span>
                 <span class="customFont"> {{parsedData?.constructionCost}}</span>
+            </div>
+
+            <ng-container *ngIf="parsedData?.loanPurpose === 'Construction and Renovation/Extension'">
+                <div class="col-md-4 mb-5">
+                    <span class="font-weight-bold customFont"> FMV of land: </span>
+                    <span class="customFont"> {{parsedData?.fmvOfLand}}</span>
+                </div>
+
+                <div class="col-md-4 mb-5">
+                    <span class="font-weight-bold customFont"> Estimated Construction Cost (As per bank): </span>
+                    <span class="customFont"> {{parsedData?.constructionCostAsPerBank}}</span>
+                </div>
+            </ng-container>
+
+            <div class="col-md-4 mb-5" *ngIf="parsedData?.loanPurpose !== 'For the First Home Buyer'">
+                <span class="font-weight-bold customFont"> Considered Value (Loan To Value Ratio) </span>
+                <span class="customFont"> {{parsedData?.consideredValue}}</span>
             </div>
 
             <div class="col-md-4 mb-5">
                 <span class="font-weight-bold customFont"> Total Monthly Gross Income: </span>
                 <span class="customFont"> {{parsedData?.totalMonthlyGrossIncome}}</span>
             </div>
+
+            <div class="col-md-4 mb-5">
+                <span class="font-weight-bold customFont"> EMI: </span>
+                <span class="customFont"> {{parsedData?.emi}}</span>
+
+            </div>
+
 
             <div class="col-md-4 mb-5">
                 <span class="font-weight-bold customFont">Debt Burden Ratio (DBR) : </span>
