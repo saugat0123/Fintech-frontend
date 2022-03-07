@@ -60,6 +60,7 @@ export class SecuritySummaryComponent implements OnInit {
     @Output() downloadSiteVisitDocument = new EventEmitter();
     @Input() isApproveSecurity;
     isSecurityPresent = false;
+    landArray;
 
     constructor(private collateralSiteVisitService: CollateralSiteVisitService) {
     }
@@ -168,7 +169,6 @@ export class SecuritySummaryComponent implements OnInit {
                 }
             });
         }
-
         if (this.depositSelected) {
             this.calculateTotal();
         }
@@ -190,6 +190,7 @@ export class SecuritySummaryComponent implements OnInit {
                                 this.collateralSiteVisits.push(...siteVisit.filter(f => f.uuid === v.uuid));
                             }
                         });
+                        this.landArray = this.managedArray(this.formData['initialForm']['landDetails']);
                     }
                     if (this.landBuilding) {
                         const landBuilding = this.formData['initialForm']['landBuilding'];
@@ -267,5 +268,25 @@ export class SecuritySummaryComponent implements OnInit {
             this.shareTotalValue += share.total;
             this.totalConsideredValue += share.consideredValue;
         });
+    }
+    private managedArray(array) {
+        let newArray = [];
+        const returnArray = [];
+        array.forEach((g, i) => {
+            newArray.push(g);
+            if ((i + 1) % 2 === 0) {
+                if (newArray.length > 0) {
+                    returnArray.push(newArray);
+                }
+                newArray = [];
+            }
+            if (i === array.length - 1) {
+                if (newArray.length > 0) {
+                    returnArray.push(newArray);
+                }
+                newArray = [];
+            }
+        });
+        return returnArray;
     }
 }
