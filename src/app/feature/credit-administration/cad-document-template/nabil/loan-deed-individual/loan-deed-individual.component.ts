@@ -167,7 +167,10 @@ export class LoanDeedIndividualComponent implements OnInit {
         approvedDate = this.offerDocumentDetails.loan.nepaliDateOfApproval.eDate;
       }
     }
-
+    if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Interest subsidy sanction letter') {
+      this.purposeOfLoan = this.offerDocumentDetails.purposeOfLoan ? this.offerDocumentDetails.purposeOfLoan.ct : '';
+      this.purposeOfLoan = this.offerDocumentDetails.interestRate ? this.offerDocumentDetails.interestRate.ct : '';
+    }
     if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Educational Loan') {
         this.offerLetterAdminFee = this.offerDocumentDetails.loanAdminFeeFigure ? this.offerDocumentDetails.loanAdminFeeFigure.en : '';
         this.educationInterestRate = this.offerDocumentDetails.interestRate ? this.offerDocumentDetails.interestRate.en : '';
@@ -182,6 +185,7 @@ export class LoanDeedIndividualComponent implements OnInit {
       this.offerLetterAdminFee = this.offerDocumentDetails.loanAdminFee ? this.offerDocumentDetails.loanAdminFee.en : '';
       this.educationInterestRate = this.offerDocumentDetails.yearlyFloatingInterestRate ? this.offerDocumentDetails.yearlyFloatingInterestRate.en : '';
       this.purposeOfLoan = this.offerDocumentDetails.purposeOfLoan.ct ? this.offerDocumentDetails.purposeOfLoan.ct : '';
+      this.educationInterestRate = this.offerDocumentDetails.interestRate.ct ? this.offerDocumentDetails.interestRate.ct : '';
     }
     if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Auto Loan') {
       this.offerLetterAdminFee = this.offerDocumentDetails.loanAdminFee ? this.offerDocumentDetails.loanAdminFee.en : '';
