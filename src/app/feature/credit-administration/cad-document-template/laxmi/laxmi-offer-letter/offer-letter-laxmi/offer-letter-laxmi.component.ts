@@ -1240,7 +1240,9 @@ export class OfferLetterLaxmiComponent implements OnInit {
                         amountInWord: [d.amountInWord],
                         date: [d.date],
                         other: [d.other],
-                        otherChecked: [d.otherChecked]
+                        otherChecked: [d.otherChecked],
+                        renewWithChecked: [d.renewWithChecked],
+                        renewWithWord: [d.renewWithWord]
                     })
                 );
             });
