@@ -92,7 +92,6 @@ export class ClassASanctionLetterComponent implements OnInit {
               public datePipe: DatePipe) { }
 
   ngOnInit() {  this.buildSanction();
-    console.log('This is cad Approved doc ', this.cadOfferLetterApprovedDoc);
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
       this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
       this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
@@ -102,9 +101,6 @@ export class ClassASanctionLetterComponent implements OnInit {
       // tslint:disable-next-line:max-line-length
       this.offerDocumentDetails = this.cadOfferLetterApprovedDoc.offerDocumentList[0] ? JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation) : '';
     }
-    console.log('Selected Data:', this.cadOfferLetterApprovedDoc);
-    console.log('All Data:', this.tempData);
-    console.log('Loan Holder initial data:', this.loanHolderInfo);
     this.checkOfferLetterData();
     // this.guarantorDetails();
   }
@@ -179,6 +175,7 @@ export class ClassASanctionLetterComponent implements OnInit {
       witnessAge2: [undefined],
       witnessName2: [undefined],
       bankStaff: [undefined],
+      otherBank: [undefined],
     });
   }
   checkOfferLetterData() {
@@ -190,11 +187,9 @@ export class ClassASanctionLetterComponent implements OnInit {
         this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.CLASS_A);
       } else {
         const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
-        console.log('Selected Security Details:', initialInfo);
         if (!ObjectUtil.isEmpty(this.offerLetterDocument.supportedInformation)) {
           this.offerLetterData = this.offerLetterDocument;
           this.freeTextVal = JSON.parse(this.offerLetterDocument.supportedInformation);
-          console.log('Suopported Information:', this.freeTextVal);
           // this.form.get('additionalGuarantorDetails').patchValue(this.offerLetterData.supportedInformation);
         }
         // this.selectedSecurity = initialInfo.selectedSecurity.en;
@@ -208,11 +203,6 @@ export class ClassASanctionLetterComponent implements OnInit {
         this.selectedArray = initialInfo.loanTypeSelectedArray;
         this.fillForm();
         this.initialInfoPrint = initialInfo;
-        if (this.initialInfoPrint.dateOfExpiryType.en === 'AD') {
-          this.form.get('dateOfExpiry').patchValue(this.engToNepaliDate.transform(this.initialInfoPrint.dateOfExpiry.en, true));
-        } else {
-          this.form.get('dateOfExpiry').patchValue(this.initialInfoPrint.dateOfExpiryNepali.ct);
-        }
       }
     } else {
       this.fillForm();
@@ -222,7 +212,6 @@ export class ClassASanctionLetterComponent implements OnInit {
     if (this.guarantorData.length === 1) {
       const tempGuarantorNep = JSON.parse(this.guarantorData[0].nepData);
       if (tempGuarantorNep.guarantorType.en === 'Personal Guarantor') {
-        console.log('guarantor', tempGuarantorNep);
         // const temp = JSON.parse(this.guarantorData[0].nepData);
         this.finalName = tempGuarantorNep.guarantorName.ct;
       } else {
@@ -249,12 +238,10 @@ export class ClassASanctionLetterComponent implements OnInit {
         const tempGuarantorNep = JSON.parse(this.guarantorData[i].nepData);
         if (tempGuarantorNep.guarantorType.en === 'Personal Guarantor') {
           const temp = JSON.parse(this.guarantorData[i].nepData);
-          console.log(temp);
           this.guarantorNames.push(temp.guarantorName.ct);
           // this.guarantorAmount = this.guarantorAmount + parseFloat(temp.gurantedAmount.en) ;
         } else {
           const temp = JSON.parse(this.guarantorData[i].nepData);
-          console.log(temp);
           this.guarantorNames.push(temp.authorizedPersonName.ct);
         }
 
@@ -276,13 +263,11 @@ export class ClassASanctionLetterComponent implements OnInit {
       const val = value.proposal.proposedLimit;
       totalLoanAmount = totalLoanAmount + val;
     });
-    console.log('k airako xa', totalLoanAmount);
     let autoRefNumber;
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.assignedLoan)) {
       autoRefNumber = this.cadOfferLetterApprovedDoc.assignedLoan[0].refNo;
     }
     // For date of Approval(sanction date)
-    console.log('InitialInfoPrint:', this.initialInfoPrint);
     const sanctionLetterDate = this.initialInfoPrint.sanctionLetterDateType ? this.initialInfoPrint.sanctionLetterDateType.en : '';
     let finalDateOfSanctionDate;
     if (sanctionLetterDate === 'AD') {
@@ -296,8 +281,8 @@ export class ClassASanctionLetterComponent implements OnInit {
     const dateOfApplication = this.initialInfoPrint.dateOfApplicationType ? this.initialInfoPrint.dateOfApplicationType.en : '';
     let finalDateOfApplication;
     if (dateOfApplication === 'AD') {
-      const templateDateApplication = this.initialInfoPrint.dateOfApplication ? this.initialInfoPrint.dateOfApplication.en : '';
-      finalDateOfApplication = this.engToNepaliDate.transform(this.datePipe.transform(templateDateApplication), true);
+      const templateDateApplication = this.initialInfoPrint.dateOfApplication ? this.initialInfoPrint.dateOfApplication.ct : '';
+      finalDateOfApplication = templateDateApplication ? templateDateApplication : '';
     } else {
       const templateDateApplication = this.initialInfoPrint.dateOfApplicationNepali ? this.initialInfoPrint.dateOfApplicationNepali.en : '';
       finalDateOfApplication = templateDateApplication ? templateDateApplication.nDate : '';
@@ -316,8 +301,9 @@ export class ClassASanctionLetterComponent implements OnInit {
     const previousSanctionDate = this.initialInfoPrint.previousSanctionType ? this.initialInfoPrint.previousSanctionType.en : '';
     let finalDateOfSanction;
     if (previousSanctionDate === 'AD') {
-      const templateDateSanction = this.initialInfoPrint.previousSanctionDate ? this.initialInfoPrint.previousSanctionDate.en : '';
-      finalDateOfSanction = this.engToNepaliDate.transform(this.datePipe.transform(templateDateSanction), true);
+      const templateDateSanction = this.initialInfoPrint.previousSanctionDate ? this.initialInfoPrint.previousSanctionDate.ct : '';
+      // finalDateOfSanction = this.engToNepaliDate.transform(this.datePipe.transform(templateDateSanction), true);
+      finalDateOfSanction = templateDateSanction ? templateDateSanction : '';
     } else {
       const templateDateSanction = this.initialInfoPrint.previousSanctionDateNepali ? this.initialInfoPrint.previousSanctionDateNepali.en : '';
       finalDateOfSanction = templateDateSanction ? templateDateSanction.nDate : '';
@@ -328,8 +314,9 @@ export class ClassASanctionLetterComponent implements OnInit {
       !ObjectUtil.isEmpty(this.freeTextVal.customerName)) ?
           this.freeTextVal.customerName : this.loanHolderInfo.name.ct ? this.loanHolderInfo.name.ct : '',
       customerAddress: customerAddress ? customerAddress : '',
-      loanAmountFigure: this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(totalLoanAmount)),
-      loanAmountFigureWords: this.nepaliCurrencyWordPipe.transform(totalLoanAmount),
+      loanAmountFigure: this.tempData.totalLimitInFigure ? this.tempData.totalLimitInFigure.ct : '',
+      loanAmountFigureWords: this.nepaliCurrencyWordPipe.transform(
+          this.tempData.totalLimitInFigure ? this.tempData.totalLimitInFigure.en : ''),
       referenceNumber: autoRefNumber ? autoRefNumber : '',
       baseRate: this.tempData.baseRate.ct ? this.tempData.baseRate.ct : '',
       premiumRate: this.tempData.premiumRate.ct ? this.tempData.premiumRate.ct : '',
@@ -419,6 +406,7 @@ export class ClassASanctionLetterComponent implements OnInit {
       date: !ObjectUtil.isEmpty(this.freeTextVal) &&
       !ObjectUtil.isEmpty(this.freeTextVal.date) ?
           this.freeTextVal.date : '',
+      otherBank: this.tempData.TdHolding ? this.tempData.TdHolding.ct : ''
     });
   }
 
