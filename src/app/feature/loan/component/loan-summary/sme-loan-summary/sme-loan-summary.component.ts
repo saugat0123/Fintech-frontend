@@ -218,6 +218,10 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
         });
     }
 
+    testObjectParent = {
+        name: 'test',
+        id: 'hello'
+    }
     ngOnInit() {
         this.loanDataHolder = this.loanData;
 
@@ -249,6 +253,7 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
         if (!ObjectUtil.isEmpty(this.loanDataHolder.financial)) {
             this.financialData = this.loanDataHolder.financial;
             this.financialSummary = true;
+            
         }
 
         // Setting Security data--
@@ -450,7 +455,6 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
             .subscribe((res: any) => {
                 this.customerAllLoanList = res.detail;
                 console.log('customerAllLoanList: ', this.customerAllLoanList);
-                
                 // push current loan if not fetched from staged spec response
                 if (ObjectUtil.isEmpty(this.requestedLoanType)) {
                     if (this.customerAllLoanList.filter((l) => l.id === this.loanDataHolder.id).length < 1) {
