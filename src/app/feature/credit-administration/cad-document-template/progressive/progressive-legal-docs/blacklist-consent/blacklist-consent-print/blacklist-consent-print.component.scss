@@ -51,3 +51,13 @@
   margin-top: 0.6in;
   margin-left: 0.6in;
 }
+
+.nepali {
+  font-size: 16px;
+  line-height: 1.6;
+  @extend .text-justify !optional;
+}
+
+.nepaliFontPreeti {
+  font-family: Preeti;
+}

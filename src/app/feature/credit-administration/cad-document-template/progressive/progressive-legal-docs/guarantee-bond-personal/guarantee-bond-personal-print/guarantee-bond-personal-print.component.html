@@ -117,8 +117,8 @@
                         <span [ngClass]="{'nepaliFontPreeti unicode-size2' : guarantor?.buttonAge !== null && guarantor?.buttonAge !== ''}">
                             {{guarantor?.buttonAge === null || guarantor?.buttonAge === '' ? '_________________' : guarantor?.buttonAge}}
                         </span> को/की श्री/श्रीमती/सुश्री
-                        <span [ngClass]="{'nepaliFontPreeti unicode-size2' : guarantor?.buttonWifeName !== null && guarantor?.buttonWifeName !== ''}">
-                            {{guarantor?.buttonWifeName === null || guarantor?.buttonWifeName === '' ? '_________________' : guarantor?.buttonWifeName}}
+                        <span [ngClass]="{'nepaliFontPreeti unicode-size2' : guarantor?.borrowerName !== null && guarantor?.borrowerName !== ''}">
+                            {{guarantor?.borrowerName === null || guarantor?.borrowerName === '' ? '_________________' : guarantor?.borrowerName}}
                         </span> –१, को/की नाति/नातिनी
                         <span [ngClass]="{'nepaliFontPreeti unicode-size2' : guarantor?.parName !== null && guarantor?.parName !== ''}">
                             {{guarantor?.parName === null || guarantor?.parName === '' ? '_________________' : guarantor?.parName}}
@@ -201,7 +201,7 @@
                     <div>
                         <p class="text-center"><strong>जमानीका थप शर्तहरु</strong></p>
                     </div>
-                    <table class="text-justify" style="font-size: 19px">
+                    <table class="text-justify">
                         <tr>
                             <td style="vertical-align: top">१.</td>
                             <td>यस जमानीको लिखतबाट म/हामी उपर सृजना हुने कुनै पनि दायित्व ऋणीको दायित्व सरह हुने तथा धनी वित्तीय संस्थाले
@@ -312,7 +312,7 @@
                         </tr>
                     </table>
                     <br><br><br>
-                    <table class="table-borderless" style="font-size: 19px">
+                    <table class="table-borderless">
                         <tr>
                             <td class="text-right">दस्तखत :- </td>
                             <td>......................................................</td>
@@ -399,15 +399,11 @@
                         </tr>
                         <tr>
                             <td style="vertical-align: top" class="text-right">औठा छाप</td>
-                            <td>
-                                <table style="width: 50%;" class="table table-bordered">
-                                    <tr>
-                                        <td>दाँ.</td>
-                                        <td>बाँ.</td>
-                                    </tr>
-                                    <tr style="height: 200px;">
-                                        <td></td>
-                                        <td></td>
+                            <td class="text-right">
+                                <table style="width: 30%;" class="table-borderless" style="margin-left: 200px">
+                                    <tr style="height: 150px;">
+                                        <td style="vertical-align: bottom">दाँ.</td>
+                                        <td style="vertical-align: bottom">बाँ.</td>
                                     </tr>
                                 </table>
                             </td>
@@ -416,7 +412,7 @@
                         <div class="row">
                             <div class="col-md-12">
                             <p><strong>साक्षी :</strong></p>
-                                <table class="table-borderless" style="font-size: 19px">
+                                <table class="table-borderless">
                                     <tr>
                                         <td>दस्तखत:</td>
                                         <td>............................................</td>
@@ -455,7 +451,7 @@
                                     {{guarantor?.guarantorWardNo === null || guarantor?.guarantorWardNo === '' ? '________________' : guarantor.guarantorWardNo }}</span></td>
                                     </tr>
                                 </table>
-                            <table class="table-borderless mt-5" style="font-size: 19px">
+                            <table class="table-borderless mt-5">
                                 <tr>
                                     <td>दस्तखत:</td>
                                     <td>............................................</td>

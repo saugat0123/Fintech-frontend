@@ -1300,6 +1300,22 @@
                                 </td>
                             </tr>
                             <tr>
+                                <td>वाजे/बजैको  नामः</td>
+                                <td><strong>श्री</strong>
+                                    <span [ngClass]="{'nepaliFont uniFont' : guarantor?.guarantorGrandFatherName !== null && guarantor?.guarantorGrandFatherName !== ''}">
+                                        {{guarantor?.guarantorGrandFatherName === null || guarantor?.guarantorGrandFatherName === '' ? '_________________' : guarantor?.guarantorGrandFatherName}}
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>वावु/आमाको नामः</td>
+                                <td><strong>श्री</strong>
+                                    <span [ngClass]="{'nepaliFont uniFont' : guarantor?.guarantorFatherName !== null && guarantor?.guarantorFatherName !== ''}">
+                                        {{guarantor?.guarantorFatherName === null || guarantor?.guarantorFatherName === '' ? '_________________' : guarantor?.guarantorFatherName}}
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
                                 <td>ससुराको नामः</td>
                                 <td><strong>श्री</strong>
                                     <span [ngClass]="{'nepaliFont uniFont' : guarantor?.fatherInLawName !== null && guarantor?.fatherInLawName !== ''}">
