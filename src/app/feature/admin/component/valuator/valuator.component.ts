@@ -34,7 +34,6 @@ export class ValuatorComponent implements OnInit {
     dataList: Array<Valuator>;
     spinner = false;
     globalMsg: string;
-    model: Valuator = new Valuator();
     search = {
         name: undefined,
         branchIds: undefined,
@@ -51,7 +50,6 @@ export class ValuatorComponent implements OnInit {
     isFilterCollapsed = true;
     filterForm: FormGroup;
     branchList: Array<Branch> = new Array<Branch>();
-    showHideBranchInput = true;
     valuatingFieldEnumObject = ValuatingField.enumObject();
 
     constructor(
@@ -93,11 +91,6 @@ export class ValuatorComponent implements OnInit {
         this.branchService.getBranchAccessByCurrentUser().subscribe((response: any) => {
             this.branchList = response.detail;
             this.branchList.sort((a, b) => a.name.localeCompare(b.name));
-            // if (this.model.isAllBranch) {
-            //     this.showHideBranchInput = false;
-            // } else {
-            //     this.showHideBranchInput = true;
-            // }
         }, error => {
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Branch!'));
