@@ -150,30 +150,10 @@
       margin-bottom: 0.2rem;
       color: black !important;
     }
-
-  }
-
-  table {
-    page-break-inside: auto;
-    color: black !important;
-  }
-  tr {
-    page-break-inside: avoid;
-    page-break-after: auto
-  }
-  thead {
-    display: table-header-group
-  }
-  tfoot {
-    display: table-footer-group
-  }
-
-  .summary {
-   * {
-     font-family: Cambria, Georgia, serif !important;
-     font-size: 10pt !important;
-   }
-  }
+    .summary {
+      font-family: Cambria, Georgia, serif !important;
+      font-size: 10pt !important;
+    }
     .customer-name {
       font-size: 14pt !important;
     }
@@ -192,6 +172,23 @@
       font-size: 10pt !important;
       margin-top: 10px;
     }
+
+  }
+
+  table {
+    page-break-inside: auto;
+    color: black !important;
+  }
+  tr {
+    page-break-inside: avoid;
+    page-break-after: auto
+  }
+  thead {
+    display: table-header-group
+  }
+  tfoot {
+    display: table-footer-group
+  }
 
 
 
