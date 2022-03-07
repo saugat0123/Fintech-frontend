@@ -44,6 +44,7 @@ import { ApprovalSheetInfoComponent } from '../approval-sheet-info/approval-shee
 import * as JSZipUtils from 'jszip-utils/lib/index.js';
 import {saveAs as importedSaveAs} from 'file-saver';
 import * as JSZip from 'jszip';
+import { DocStatus } from '../../../model/docStatus';
 
 @Component({
   selector: 'app-sme-loan-summary',
@@ -184,6 +185,8 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
     requestedLoanType;
     @Output() customerLoanList = new EventEmitter();
     companyInfoJson: Array<any>;
+    hidePreviewButton = false;
+    zipDocumentName: any;
 
     constructor(
         @Inject(DOCUMENT) private _document: Document,
@@ -214,17 +217,16 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
             }
         });
     }
-
     ngOnInit() {
         this.loanDataHolder = this.loanData;
 
-        console.log(this.loanDataHolder);
-        if (this.loanDataHolder.loanCategory === 'INDIVIDUAL' &&
-            !ObjectUtil.isEmpty(this.loanDataHolder.customerInfo.jointInfo)) {
-            const jointCustomerInfo = JSON.parse(this.loanDataHolder.customerInfo.jointInfo);
-            this.jointInfo.push(jointCustomerInfo.jointCustomerInfo);
-            this.isJointInfo = true;
-        }
+        console.log('loanDataHolder: ', this.loanDataHolder);
+        // if (this.loanDataHolder.loanCategory === 'INSTITUTION' &&
+        //     !ObjectUtil.isEmpty(this.loanDataHolder.customerInfo.jointInfo)) {
+        //     const jointCustomerInfo = JSON.parse(this.loanDataHolder.customerInfo.jointInfo);
+        //     this.jointInfo.push(jointCustomerInfo.jointCustomerInfo);
+        //     this.isJointInfo = true;
+        // }
         this.loadSummary();
         this.roleType = LocalStorageUtil.getStorage().roleType;
         this.checkDocUploadConfig();
@@ -246,6 +248,7 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
         if (!ObjectUtil.isEmpty(this.loanDataHolder.financial)) {
             this.financialData = this.loanDataHolder.financial;
             this.financialSummary = true;
+            
         }
 
         // Setting Security data--
@@ -378,7 +381,6 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
         if (!ObjectUtil.isEmpty(this.loanDataHolder.proposal)) {
             this.proposalData = this.loanDataHolder.proposal;
             this.proposalView = JSON.parse(this.proposalData.data);
-            console.log(this.proposalView);
             this.proposalSummary = true;
         }
 
@@ -447,6 +449,7 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
         this.customerLoanService.getAllWithSearch(search)
             .subscribe((res: any) => {
                 this.customerAllLoanList = res.detail;
+                console.log('customerAllLoanList: ', this.customerAllLoanList);
                 // push current loan if not fetched from staged spec response
                 if (ObjectUtil.isEmpty(this.requestedLoanType)) {
                     if (this.customerAllLoanList.filter((l) => l.id === this.loanDataHolder.id).length < 1) {
@@ -735,11 +738,27 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
     getCompanyAccountNo() {
         const companyInfoJson = JSON.parse(this.loanDataHolder.companyInfo.companyJsonData);
         this.companyInfoJson = companyInfoJson.accountDetails;
-        console.log(this.companyInfoJson);
         
         // for (let x in companyInfoJson.accountDetails) {
         //     this.companyInfoJson = x.accountNo
         // }
+    }
+
+    checkDocumentStatus() {
+        if (this.loanDataHolder.documentStatus.toString() === DocStatus.value(DocStatus.APPROVED) ||
+            this.loanDataHolder.documentStatus.toString() === DocStatus.value(DocStatus.REJECTED) ||
+            this.loanDataHolder.documentStatus.toString() === DocStatus.value(DocStatus.CLOSED)) {
+            this.hidePreviewButton = true;
+            if (this.loanDataHolder.documentStatus.toString() === DocStatus.value(DocStatus.APPROVED)) {
+                this.zipDocumentName = '-approved-documents';
+            } else if (this.loanDataHolder.documentStatus.toString() === DocStatus.value(DocStatus.CLOSED)) {
+                this.zipDocumentName = '-closed-documents';
+            } else {
+                this.zipDocumentName = '-rejected-documents';
+            }
+        } else {
+            this.hidePreviewButton = false;
+        }
     }
 }
 

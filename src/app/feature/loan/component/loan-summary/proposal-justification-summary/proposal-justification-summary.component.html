@@ -5,19 +5,27 @@
         <ol>
             <li class="col-md-12" *ngFor="let data of customerAllLoanList;let i = index">
                 <div class="row sb-medium">
-                    <strong><span><u>{{data.loan.name}}({{data.createdAt | date}} ({{data.createdAt | engNepDate: false}})) :</u></span></strong>
+                    <p>
+                        <strong style="font-size: 16px;"><span><u>{{data.loan.name}}({{data.createdAt | date}}
+                                    ({{data.createdAt | engNepDate: false}})) :</u></span></strong>
+                    </p>
                 </div>
 
                 <div>
-                    <div class="row sb-small" ><strong>Purpose :</strong></div>
+                    <div class="row sb-small mt-2">
+                        <p><strong class="heading">Purpose: </strong></p>
+                    </div>
                     <div class="sb-small">
                         <span [innerHTML]="(data.proposal.data |jsonParse)?.purposeOfLoan || 'NA' | safeHtml"></span>
                     </div>
                 </div>
                 <div>
-                    <div class="row sb-small" ><strong>Justification of limit :</strong></div>
+                    <div class="row sb-small">
+                        <p><strong class="heading">Justification of limit :</strong></p>
+                    </div>
                     <div class="sb-small">
-                        <span [innerHTML]="(data.proposal.data |jsonParse)?.borrowerInformation || 'NA' | safeHtml"></span>
+                        <span
+                            [innerHTML]="(data.proposal.data |jsonParse)?.borrowerInformation || 'NA' | safeHtml"></span>
                     </div>
                 </div>
                 <hr>

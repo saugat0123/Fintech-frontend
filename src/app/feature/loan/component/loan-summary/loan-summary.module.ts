@@ -38,6 +38,10 @@ import {NepaliPatroModule} from 'nepali-patro';
 import {SignatureSectionComponent} from './signature-section/signature-section.component';
 import { CreditFacilityReportComponent } from './credit-facility-report/credit-facility-report.component';
 import { SmeLoanSummaryComponent } from './sme-loan-summary/sme-loan-summary.component';
+import { CurrentStatusTableComponent } from './sme-loan-summary/current-status-table/current-status-table.component';
+import { ConlusionReviewTableComponent } from './sme-loan-summary/conlusion-review-table/conlusion-review-table.component';
+import { MisNrbReportingComponent } from './sme-loan-summary/mis-nrb-reporting/mis-nrb-reporting.component';
+import { KeyFinancialFiguresComponent } from './sme-loan-summary/key-financial-figures/key-financial-figures.component';
 
 
 
@@ -67,7 +71,7 @@ const COMPONENTS = [
 const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
 
 @NgModule({
-    declarations: [...COMPONENTS, ApprovalSheetConfigComponent, ApprovalSheetInfoComponent, ApprovalSheetDocumentListComponent, MGroupSummaryComponent, CommentsSummaryComponent, PreviousSecuritySummaryComponent, SignatureSectionComponent, CreditFacilityReportComponent, SmeLoanSummaryComponent],
+    declarations: [...COMPONENTS, ApprovalSheetConfigComponent, ApprovalSheetInfoComponent, ApprovalSheetDocumentListComponent, MGroupSummaryComponent, CommentsSummaryComponent, PreviousSecuritySummaryComponent, SignatureSectionComponent, CreditFacilityReportComponent, SmeLoanSummaryComponent, CurrentStatusTableComponent, ConlusionReviewTableComponent, MisNrbReportingComponent, KeyFinancialFiguresComponent],
     imports: [
         CommonModule,
         ThemeModule,
