@@ -47,6 +47,7 @@ export class PromissoryNoteProprietorshipComponent implements OnInit {
     sanctionDate;
     totalAmount;
     totalAmountInWord;
+    interestRate = '';
     issueDate = [];
     newTempData: any = [];
     loanData = [];
@@ -148,6 +149,8 @@ export class PromissoryNoteProprietorshipComponent implements OnInit {
                     this.initialInfo.loanLimitAmountFigure.ct : '';
                 this.totalAmountInWord = (this.initialInfo && this.initialInfo.loanLimitAmountFigureWords) ?
                     this.initialInfo.loanLimitAmountFigureWords.ct : '';
+                this.interestRate = (this.initialInfo && this.initialInfo.interestRate) ?
+                    this.initialInfo.interestRate.ct : '';
             } if (!ObjectUtil.isEmpty(this.initialInfo) && this.cadData.offerDocumentList[0].docName === 'Class A Sanction letter') {
                 this.totalAmount = (this.initialInfo && this.initialInfo.totalLimitInFigure) ?
                     this.initialInfo.totalLimitInFigure.ct : '';
@@ -294,6 +297,13 @@ export class PromissoryNoteProprietorshipComponent implements OnInit {
                 }
             });
         }
+        let tempInt;
+        if (!ObjectUtil.isEmpty(this.supportedInfo)) {
+            tempInt = this.supportedInfo ? this.supportedInfo.intRate : '';
+        }
+        if (!ObjectUtil.isEmpty(this.interestRate)) {
+            tempInt = this.interestRate ? this.interestRate : '';
+        }
         let totalPeop = 1;
         if (!ObjectUtil.isEmpty(this.companyInfo)) {
             totalPeop = this.companyInfo.length;
@@ -340,7 +350,7 @@ export class PromissoryNoteProprietorshipComponent implements OnInit {
             witnessName2: this.supportedInfo ? this.supportedInfo.witnessName2 : '',
             karmachariName: this.supportedInfo ? this.supportedInfo.karmachariName : '',
             date: this.supportedInfo ? this.supportedInfo.date : '',
-            intRate: this.supportedInfo ? this.supportedInfo.intRate : '',
+            intRate: tempInt ? tempInt : '',
             totalPeople: this.engToNepNumberPipe.transform(totalPeop.toString()) ? this.engToNepNumberPipe.transform(totalPeop.toString()) : '',
         });
         if (!ObjectUtil.isEmpty(this.companyInfo)) {
