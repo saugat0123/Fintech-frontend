@@ -386,6 +386,11 @@ export class DdslWithoutSubsidyTemplateEditComponent implements OnInit {
             if (!ObjectUtil.isEmpty(approvalForm)) {
                 this.ddslFormGroup.get('sanctionLetterDateTrans').patchValue(finalAppDate);
             }
+        } else {
+            const approvalNepali = this.ddslFormGroup.get('sanctionLetterDateNepali').value;
+            approvalDateTrans = !ObjectUtil.isEmpty(approvalNepali) ?
+                approvalNepali.nDate : '';
+            this.ddslFormGroup.get('sanctionLetterDateNepaliTrans').patchValue(approvalDateTrans);
         }
         // Set Translated Application Date:
         const applicationType = this.ddslFormGroup.get('dateOfApplicationType').value;
