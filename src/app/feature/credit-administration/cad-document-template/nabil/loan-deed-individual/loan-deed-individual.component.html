@@ -248,7 +248,7 @@
         <p class="text-center"><b>स्वीकृत ऋणकर्जा तथा बैंकिङ्ग सुविधाहरुको विवरण</b></p>
         <table class="table table-bordered table-sm sb-small text-center">
           <thead>
-            <tr class="sb-bg-dark text-white">
+            <tr>
               <th class="px-2">ऋणकर्जा तथा बैंकिङ्ग सुविधाको किसिम</th>
               <th class="px-2">रकम (रु)</th>
               <th class="px-2">ब्याज / कमिसन</th>
@@ -366,7 +366,7 @@
               type="text"
             />
             <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'totalLoanAmount']).value}}</strong></span>
-            । (अक्षरेपी
+            /- (अक्षरेपी
             <input
               class="form-field form-control-sm d-print-none disable-print"
               formControlName="totalLoanAmountWord"
@@ -374,7 +374,7 @@
               type="text"
             />
             <span class="print-only"><strong>{{loanDeedIndividual.get(['loanDeedIndividuals', i, 'totalLoanAmountWord']).value}}</strong></span>
-            )
+              मात्र)
           </p>
         </div>
 

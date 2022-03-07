@@ -123,11 +123,14 @@ export class LandSubOrdinatePartnershipComponent implements OnInit {
   }
 
   fillForm() {
+    const customerAddress = this.individualData.registeredMunicipality.ct + '-' +
+        this.individualData.permanentWard.ct + ', ' + this.individualData.registeredDistrict.ct + ', ' +
+        this.individualData.registeredProvince.ct;
     this.form.patchValue({
       date: this.supportedInfo ? this.supportedInfo.date : '',
       nameOfBranch: this.individualData.branch ? this.individualData.branch.ct : '',
       borrowerName: this.individualData.name ? this.individualData.name.ct : '',
-      borrowerAddress: this.individualData.registeredStreetTole ? this.individualData.registeredStreetTole.ct : '',
+      borrowerAddress: customerAddress ? customerAddress : '',
       witnessDistrict: this.supportedInfo ? this.supportedInfo.witnessDistrict : '',
       witnessMunicipality: this.supportedInfo ? this.supportedInfo.witnessMunicipality : '',
       WitnessWardNumber: this.supportedInfo ? this.supportedInfo.WitnessWardNumber : '',

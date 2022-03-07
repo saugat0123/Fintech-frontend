@@ -52,12 +52,14 @@
                     <input class="form-field form-control-sm d-print-none nepaliFont"
                            name="loanProviderName"
                            formControlName="loanProviderName"
-                           type="text"/>
+                           type="text"
+                           placeholder="ऋण प्रदायकको नाम"/>
                     <span class="print-only font-weight-bold nepaliFont">{{form?.get('loanProviderName').value ? form?.get('loanProviderName').value : '===================='}}</span><br>
                     <input class="form-field form-control-sm d-print-none nepaliFont"
                            name="loanProviderAddress"
                            formControlName="loanProviderAddress"
-                           type="text"/>
+                           type="text"
+                           placeholder="ऋण प्रदायकको ठेगाना"/>
                     <span class="print-only font-weight-bold nepaliFont">{{form?.get('loanProviderAddress').value ? form?.get('loanProviderAddress').value : '===================='}}</span><br>
                     <input class="form-field form-control-sm d-print-none"
                            name="freeText3"
@@ -321,10 +323,20 @@
     </form>
     <div class="row mt-5 ml-0">
         <div class="col-md-12 text-right">
-            <button nbButton outline status="success" class="d-print-none" (click)="submit()">Save <em class="fa fa-save" style="color: rgb(47, 3, 168)"></em></button>
-            <button [useExistingCss]="true"
-                    class="d-print-none" printSectionId="print-section"
-                    nbButton status="info" outline ngxPrint>Print &nbsp;&nbsp;
+            <button nbButton size="small"
+                    class="d-print-none sav"
+                    status="success"
+                    (click)="submit()"
+                    style="color: rgb(65,104,207); background-color: rgb(235,247,255);">Save &nbsp;&nbsp;
+                <em class="fa fa-save" style="color: rgb(47, 3, 168)"></em></button>
+            <button
+                    [useExistingCss]="true"
+                    styleSheetFile="assets/css/printStyles.scss"
+                    printSectionId="print-section"
+                    class="d-print-none float-right"
+                    printSectionId="print-section"
+                    nbButton size="small" status="info" outline ngxPrint>
+                Print &nbsp;&nbsp;
                 <em class="fa fa-print" style="color: rgb(47, 3, 168)"></em>
             </button>
         </div>

@@ -72,7 +72,6 @@ export class LoanDeedIndividualComponent implements OnInit {
   ) {}
 
   async ngOnInit() {
-    console.log('Cad Data:', this.cadData);
     if (!ObjectUtil.isEmpty(this.cadData)) {
       this.cadData.offerDocumentList.forEach((offerDocument: OfferDocument) => {
         this.initialInformation = JSON.parse(offerDocument.initialInformation);
@@ -105,8 +104,6 @@ export class LoanDeedIndividualComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData.offerDocumentList.length > 0)) {
       this.setLoanExpiryDate();
     }
-    console.log('Offer Document Details',this.offerDocumentDetails);
-    console.log('Initial Information',this.initialInformation);
   }
 
   calulation() {
@@ -148,23 +145,38 @@ export class LoanDeedIndividualComponent implements OnInit {
     }
 
     let approvedDate: any;
+    let approvedDateFinal: any;
     this.docName = this.cadData.offerDocumentList ? this.cadData.offerDocumentList[0].docName : '';
-    if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && (!ObjectUtil.isEmpty(this.offerDocumentDetails.dateOfApproval) || !ObjectUtil.isEmpty(this.offerDocumentDetails.dateofApproval))) {
+    if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && (!ObjectUtil.isEmpty(this.offerDocumentDetails.dateOfApproval) ||
+        !ObjectUtil.isEmpty(this.offerDocumentDetails.dateofApproval))) {
       // tslint:disable-next-line:max-line-length
       // approvedDate = this.offerDocumentDetails.dateOfApproval && this.offerDocumentDetails.dateOfApproval.en.eDate ? this.offerDocumentDetails.dateOfApproval.en.eDate : this.offerDocumentDetails.dateOfApproval && this.offerDocumentDetails.dateOfApproval.en ? this.offerDocumentDetails.dateOfApproval.en : '';
-      if ((this.offerDocumentDetails.dateOfApprovalType ? this.offerDocumentDetails.dateOfApprovalType.en : '') === 'AD' || (this.offerDocumentDetails.dateofApprovalType ? this.offerDocumentDetails.dateofApprovalType.en : '') === 'AD') {
+      if ((this.offerDocumentDetails.dateOfApprovalType ? this.offerDocumentDetails.dateOfApprovalType.en : '') === 'AD' ||
+          (this.offerDocumentDetails.dateofApprovalType ? this.offerDocumentDetails.dateofApprovalType.en : '') === 'AD') {
         // tslint:disable-next-line:max-line-length
-        approvedDate = this.offerDocumentDetails.dateOfApproval ? this.offerDocumentDetails.dateOfApproval.en : this.offerDocumentDetails.dateofApproval ? this.offerDocumentDetails.dateofApproval.en : '';
+        approvedDateFinal = this.offerDocumentDetails.dateOfApproval ? this.offerDocumentDetails.dateOfApproval.en : this.offerDocumentDetails.dateofApproval ? this.offerDocumentDetails.dateofApproval.en : '';
+        approvedDate = this.englishNepaliDatePipe.transform(approvedDateFinal || '', true);
       } else {
-        approvedDate = this.offerDocumentDetails.dateOfApprovalNepali ? this.offerDocumentDetails.dateOfApprovalNepali.en.eDate : this.offerDocumentDetails.dateofApprovalNepali ? this.offerDocumentDetails.dateofApprovalNepali.en.eDate : '';
+        approvedDate = this.offerDocumentDetails.dateOfApprovalNepali ?
+            this.offerDocumentDetails.dateOfApprovalNepali.en.eDate : this.offerDocumentDetails.dateofApprovalNepali ?
+                this.offerDocumentDetails.dateofApprovalNepali.en.eDate : '';
       }
     }
     if (this.docName === 'Home Loan') {
       if (this.offerDocumentDetails.loan.dateType === 'AD') {
-        approvedDate = this.offerDocumentDetails.loan.dateOfApproval ? this.offerDocumentDetails.loan.dateOfApproval : '';
+        approvedDateFinal = this.offerDocumentDetails.loan.dateOfApproval ? this.offerDocumentDetails.loan.dateOfApproval : '';
+        approvedDate = this.englishNepaliDatePipe.transform(approvedDateFinal || '', true);
       }
       if (this.offerDocumentDetails.loan.dateType === 'BS') {
         approvedDate = this.offerDocumentDetails.loan.nepaliDateOfApproval.eDate;
+      }
+    }
+    if (this.docName === 'DDSL Without Subsidy') {
+      const dateOfApproval = this.offerDocumentDetails.sanctionLetterDateType ? this.offerDocumentDetails.sanctionLetterDateType.en : '';
+      if (dateOfApproval === 'AD') {
+        approvedDate = this.offerDocumentDetails.sanctionLetterDate ? this.offerDocumentDetails.sanctionLetterDate.ct : '';
+      } else {
+        approvedDate = this.offerDocumentDetails.sanctionLetterDateNepali ? this.offerDocumentDetails.sanctionLetterDateNepali.ct : '';
       }
     }
 
@@ -180,7 +192,8 @@ export class LoanDeedIndividualComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Personal Loan') {
       this.offerLetterAdminFee = this.offerDocumentDetails.loanAdminFee ? this.offerDocumentDetails.loanAdminFee.en : '';
-      this.educationInterestRate = this.offerDocumentDetails.yearlyFloatingInterestRate ? this.offerDocumentDetails.yearlyFloatingInterestRate.en : '';
+      this.educationInterestRate = this.offerDocumentDetails.yearlyFloatingInterestRate ?
+          this.offerDocumentDetails.yearlyFloatingInterestRate.en : '';
       this.purposeOfLoan = this.offerDocumentDetails.purposeOfLoan.ct ? this.offerDocumentDetails.purposeOfLoan.ct : '';
     }
     if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'Auto Loan') {
@@ -213,6 +226,10 @@ export class LoanDeedIndividualComponent implements OnInit {
       this.offerLetterAdminFee = this.offerDocumentDetails.loanadminFee ? this.offerDocumentDetails.loanadminFee.en : '';
       this.educationInterestRate = this.offerDocumentDetails.yearlyInterestRate ? this.offerDocumentDetails.yearlyInterestRate.en : '';
     }
+    if (!ObjectUtil.isEmpty(this.offerDocumentDetails) && this.cadData.offerDocumentList[0].docName === 'DDSL Without Subsidy') {
+      this.purposeOfLoan = this.offerDocumentDetails.purposeOfLoan ? this.offerDocumentDetails.purposeOfLoan.ct : '';
+      this.educationInterestRate = this.offerDocumentDetails.interestRate ? this.offerDocumentDetails.interestRate.en : '';
+    }
     return this.formBuilder.group({
       branchName: [
         this.loanHolderNepData.branch ? this.loanHolderNepData.branch.ct : '',
@@ -236,7 +253,7 @@ export class LoanDeedIndividualComponent implements OnInit {
       fatherInLawName: [undefined],
       husbandName: [undefined],
       age: [ageNepaliNumber],
-      issueDate: [this.englishNepaliDatePipe.transform(approvedDate || '', true)  || ''],
+      issueDate: [approvedDate ? approvedDate : ''],
       facilityName: [undefined],
       loanAmount: [undefined],
       Interest: [undefined],
@@ -397,7 +414,6 @@ export class LoanDeedIndividualComponent implements OnInit {
     this.cadData.offerDocumentList.forEach((offerDocument: OfferDocument, index: number) => {
       const initialInformation = JSON.parse(offerDocument.initialInformation);
       const docName = offerDocument.docName;
-      console.log('Initial Information:', initialInformation);
       if (docName === 'Personal Loan') {
         this.loanDeedIndividual.get(['loanDeedIndividuals', index , 'expiryDate'])
             .patchValue('मासिक किस्ता सूरु भएको मितिले ' + initialInformation.loanPeriodInMonth.ct + ' महिना सम्म ।');
