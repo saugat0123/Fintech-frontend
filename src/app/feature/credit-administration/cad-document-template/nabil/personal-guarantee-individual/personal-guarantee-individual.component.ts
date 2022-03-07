@@ -234,6 +234,16 @@ export class PersonalGuaranteeIndividualComponent implements OnInit, OnChanges {
                           this.offerDocumentDetails.sanctionLetterDateNepali.ct : '';
                   }
               }
+              if (this.docName === 'Interest subsidy sanction letter') {
+                  const dateOfApproval = this.offerDocumentDetails.dateOfApprovalType ?
+                      this.offerDocumentDetails.dateOfApprovalType.en : '';
+                  if (dateOfApproval === 'AD') {
+                      approvedDate = this.offerDocumentDetails.dateOfApproval ? this.offerDocumentDetails.dateOfApproval.ct : '';
+                  } else {
+                      approvedDate = this.offerDocumentDetails.dateOfApprovalNepali ?
+                          this.offerDocumentDetails.dateOfApprovalNepali.ct : '';
+                  }
+              }
           }
         let citznIssuedDate: any;
         if (!ObjectUtil.isEmpty(individualGuarantorNepData.citizenIssuedDate) &&
