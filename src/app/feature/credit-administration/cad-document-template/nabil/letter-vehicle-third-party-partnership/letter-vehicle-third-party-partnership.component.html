@@ -2,7 +2,7 @@
     <div class="container col-lg-12 nep text-justify">
         <form [formGroup]="letterVehicleThirdPartyPartnership"  id="print-section">
             <div class="row">
-                <div class="col-md-12 viewFull" style="overflow-y: auto; height: 100vh;">
+                <div class="col-md-12 viewFull">
                     <div class="nep">
                         <div>
                             <p class="text-right"> मितिः
@@ -12,7 +12,7 @@
                                        type="text"/>
                                 <span class=" print-only font-weight-bold nepaliFont">{{letterVehicleThirdPartyPartnership?.get('date').value ? letterVehicleThirdPartyPartnership?.get('date').value : "=================="}}</span>
                             <p>
-                                श्री नबिल बैंक लिमिटेड
+                                श्री नबिल बैंक लिमिटेड <br>
                                 <input class="form-field form-control-sm disable-print"
                                        formControlName="nameOfBranchLocated"
                                        placeholder=""
@@ -104,19 +104,13 @@
             </div>
         </form>
         <div class="row mt-5 ml-0">
-            <div class="col-md-12 text-right">
-                <button
-                        [useExistingCss]="true"
+            <div class="col-md-11 text-right">
+                <button [useExistingCss]="true"
                         styleSheetFile="assets/css/printStyles.scss"
                         printSectionId="personalGuaranteeCompanyPrint"
                         class="d-print-none float-right"
                         printSectionId="print-section"
-                        nbButton
-                        size="small"
-                        status="info"
-                        outline
-                        ngxPrint
-                >
+                        nbButton size="small" status="info" outline ngxPrint>
                     Print &nbsp;&nbsp;
                     <em class="fa fa-print" style="color: rgb(47, 3, 168)"></em>
                 </button>

@@ -321,7 +321,10 @@
                                         formControlName="intRate"
                                         placeholder=""
                                         type="text"/>
-                                <span class="print-only font-weight-bold nepaliFont">{{this.supportedInfo ? (this.supportedInfo?.intRate ? this.supportedInfo?.intRate : '=================================') : '================================='}}</span>
+                                <span *ngIf="this.interestRate === ''" class="print-only font-weight-bold nepaliFont">
+                                    {{this.supportedInfo ? (this.supportedInfo?.intRate ? this.supportedInfo?.intRate : '=================================') : '================================='}}</span>
+                                <span *ngIf="this.interestRate !== ''" class="print-only font-weight-bold">
+                                    {{this.interestRate ? this.interestRate: '________________________'}}</span>
                                 प्रतिशतका दरले हुने व्याज रकम समेत एकमुष्ट तिर्न बुझाउन
                                 प्रतिज्ञा/कवुल गरी यो प्रतिज्ञापत्रको लिखत गरी तपाई नविल बैंक लिमिटेड, शाखा कार्यालय
                                 <input class="form-field form-control-sm d-print-none"
