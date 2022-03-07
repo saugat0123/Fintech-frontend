@@ -61,6 +61,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
     }
 
     ngOnInit() {
+        console.log(this.cadData);
         this.buildForm();
         this.parseAssignedLoanData();
         this.checkOfferLetter();
