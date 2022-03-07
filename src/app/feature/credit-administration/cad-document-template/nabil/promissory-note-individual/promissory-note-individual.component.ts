@@ -446,6 +446,14 @@ export class PromissoryNoteIndividualComponent implements OnInit {
               educationalOfferData.yearlyInterestRate.ct : '';
         }
       }
+      if (documentName === 'DDSL Without Subsidy') {
+        if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
+          const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
+          this.educationalTemplateData = educationalOfferData.interestRate ?
+              educationalOfferData.interestRate.ct : '';
+        }
+      }
+
       if (documentName === 'Interest subsidy sanction letter') {
         if (!ObjectUtil.isEmpty(this.offerLetterDocument)) {
           const educationalOfferData = JSON.parse(this.offerLetterDocument.initialInformation);
