@@ -22,14 +22,15 @@
                 सही–छाप गरी तपाई प्रोग्रेशिभ फाइनान्स लि. लाई दिएको छू/छौ।
             </p>
             <p class="text-center"><strong>तपसील</strong></p>
-            <div class="row col-md-12 mt-5" id="Sincerely">
+            <div class="row mt-5" id="Sincerely">
+                <div class="col-md-12">
                 <table class="table-borderless">
                     <tr>
-                        <td class="text-right" style="width: 20%; padding-right: 10px">दस्तखत :-</td>
+                        <td class="text-right" style="width: 25%; padding-right: 10px">दस्तखत :-</td>
                         <td>...................................</td>
                     </tr>
                     <tr>
-                        <td class="text-right" style="width: 20%; vertical-align: top; padding-right: 10px">दस्तखत
+                        <td class="text-right" style="vertical-align: top; padding-right: 10px">दस्तखत
                             गर्नेको नाम :-
                         </td>
                         <td> <span
@@ -50,7 +51,7 @@
                     </span></td>
                     </tr>
                     <tr>
-                        <td class="text-right" style="width: 20%; padding-right: 10px; vertical-align: top"><strong>कम्पनीको
+                        <td class="text-right" style="padding-right: 10px; vertical-align: top"><strong>कम्पनीको
                             हकमा</strong> :-
                         </td>
                         <td>(रजिष्टेशन नं.<span
@@ -68,7 +69,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="text-right" style="width: 20%; padding-right: 10px">ठेगाना :-स्थायी</td>
+                        <td class="text-right" style="padding-right: 10px; vertical-align: top">ठेगाना :-स्थायी</td>
                         <td><span
                                 [ngClass]="{'nepaliFontPreeti unicode-size16': printDocForm?.sincerlyPermanentDistrict!==null && printDocForm?.sincerlyPermanentDistrict!==''}">
                         {{printDocForm?.sincerlyPermanentDistrict === null || printDocForm?.sincerlyPermanentDistrict === '' ? '___________________' : printDocForm?.sincerlyPermanentDistrict}}
@@ -83,7 +84,7 @@
                     </span></td>
                     </tr>
                     <tr>
-                        <td class="text-right" style="width: 20%; padding-right: 10px">हालको ठेगाना :-</td>
+                        <td class="text-right" style="padding-right: 10px; vertical-align: top">हालको ठेगाना :-</td>
                         <td><span
                                 [ngClass]="{'nepaliFontPreeti unicode-size16': printDocForm?.sincerlyTemporaryDistrict!==null && printDocForm?.sincerlyTemporaryDistrict!==''}">
                         {{printDocForm?.sincerlyTemporaryDistrict === null || printDocForm?.sincerlyTemporaryDistrict === '' ? '___________________' : printDocForm?.sincerlyTemporaryDistrict}}
@@ -98,42 +99,42 @@
                     </span></td>
                     </tr>
                     <tr>
-                        <td class="text-right" style="width: 20%; padding-right: 10px">बाबुको नाम :-</td>
+                        <td class="text-right" style="padding-right: 10px">बाबुको नाम :-</td>
                         <td><span
                                 [ngClass]="{'nepaliFontPreeti unicode-size24': printDocForm?.sincerlyParentName!==null && printDocForm?.sincerlyParentName!==''}">
                         {{printDocForm?.sincerlyParentName === null || printDocForm?.sincerlyParentName === '' ? '___________________' : printDocForm?.sincerlyParentName}}
                     </span></td>
                     </tr>
                     <tr>
-                        <td class="text-right" style="width: 20%; padding-right: 10px">बाजेको नाम :-</td>
+                        <td class="text-right" style="padding-right: 10px">बाजेको नाम :-</td>
                         <td><span
                                 [ngClass]="{'nepaliFontPreeti unicode-size24': printDocForm?.sincerlyGrandParentName!==null && printDocForm?.sincerlyGrandParentName!==''}">
                         {{printDocForm?.sincerlyGrandParentName === null || printDocForm?.sincerlyGrandParentName === '' ? '___________________' : printDocForm?.sincerlyGrandParentName}}
                     </span></td>
                     </tr>
                     <tr>
-                        <td class="text-right" style="width: 20%; padding-right: 10px">पति/पत्नीको नामः</td>
+                        <td class="text-right" style="padding-right: 10px">पति/पत्नीको नामः</td>
                         <td><span
                                 [ngClass]="{'nepaliFontPreeti unicode-size24': printDocForm?.spouseOrFatherName!==null && printDocForm?.spouseOrFatherName!==''}">
                         {{printDocForm?.spouseOrFatherName === null || printDocForm?.spouseOrFatherName === '' ? '___________________' : printDocForm?.spouseOrFatherName}}
                     </span></td>
                     </tr>
                     <tr>
-                        <td class="text-right" style="width: 20%; padding-right: 10px">स्थायी लेखा नं.:-</td>
+                        <td class="text-right" style="padding-right: 10px">स्थायी लेखा नं.:-</td>
                         <td><span
                                 [ngClass]="{'nepaliFont': printDocForm?.sincerlyLekhaNo!==null && printDocForm?.sincerlyLekhaNo!==''}">
                         {{printDocForm?.sincerlyLekhaNo === null || printDocForm?.sincerlyLekhaNo === '' ? '___________________' : printDocForm?.sincerlyLekhaNo}}
                     </span></td>
                     </tr>
                     <tr>
-                        <td class="text-right" style="width: 20%; padding-right: 10px">कर्जा सूबिधाहरु:-</td>
+                        <td class="text-right" style="padding-right: 10px">कर्जा सूबिधाहरु:-</td>
                         <td><span
                                 [ngClass]="{'nepaliFont': printDocForm?.sincerlyKarja!==null && printDocForm?.sincerlyKarja!==''}">
                         {{printDocForm?.sincerlyKarja === null || printDocForm?.sincerlyKarja === '' ? '___________________' : printDocForm?.sincerlyKarja}}
                     </span></td>
                     </tr>
                     <tr>
-                        <td class="text-right" style="width: 20%; padding-right: 10px; vertical-align: top">औठा छाप :-
+                        <td class="text-right" style="width: 25%; padding-right: 10px; vertical-align: top">औठा छाप :-
                         </td>
                         <td>
                             <div class="text-center float-left">
@@ -156,11 +157,11 @@
                 <div *ngFor="let guarantor of printDocForm?.guarantorDetails; index as i">
                     <table class="table-borderless mt-5">
                         <tr>
-                            <td>दस्तखत :-</td>
+                            <td style="width: 20%">दस्तखत :-</td>
                             <td>..............................................</td>
                         </tr>
                         <tr>
-                            <td><strong>जमानत कर्ताको</strong> नामः —</td>
+                            <td style="width: 20%"><strong>जमानत कर्ताको</strong> नामः —</td>
                             <td><span
                                     [ngClass]="{'nepaliFontPreeti unicode-size24': guarantor?.jamanatName!==null && guarantor?.jamanatName!==''}">
                                         {{guarantor?.jamanatName === null || guarantor?.jamanatName === '' ? '___________________' : guarantor?.jamanatName}}
@@ -179,7 +180,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><strong>कम्पनीको हकमा</strong> :–</td>
+                            <td style="vertical-align: top"><strong>कम्पनीको हकमा</strong> :–</td>
                             <td>(रजिष्टेशन नं<span
                                     [ngClass]="{'nepaliFont': guarantor?.jamanatRegNo!==null && guarantor?.jamanatRegNo!==''}">
                         {{guarantor?.jamanatRegNo === null || guarantor?.jamanatRegNo === '' ? '___________________' : guarantor?.jamanatRegNo}}
@@ -195,7 +196,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>ठेगाना :—स्थायी</td>
+                            <td style="vertical-align: top">ठेगाना :—स्थायी</td>
                             <td><span
                                     [ngClass]="{'nepaliFontPreeti unicode-size16': guarantor?.jamanatPermanentAddress!==null && guarantor?.jamanatPermanentAddress!==''}">
                         {{guarantor?.jamanatPermanentAddress === null || guarantor?.jamanatPermanentAddress === '' ? '___________________' : guarantor?.jamanatPermanentAddress}}
@@ -210,7 +211,7 @@
                     </span></td>
                         </tr>
                         <tr>
-                            <td>हालको ठेगाना :-</td>
+                            <td style="vertical-align: top">हालको ठेगाना :-</td>
                             <td> <span
                                     [ngClass]="{'nepaliFontPreeti unicode-size16': guarantor?.jamanatTemporaryAddress!==null && guarantor?.jamanatTemporaryAddress!==''}">
                         {{guarantor?.jamanatTemporaryAddress === null || guarantor?.jamanatTemporaryAddress === '' ? '___________________' : guarantor?.jamanatTemporaryAddress}}
@@ -264,10 +265,10 @@
                         </tr>
                     </table>
                 </div>
+                </div>
             </div>
             <br>
             <div>
-                <strong class="text-left">साक्षी :</strong>
                 <!--<div *ngFor="let guarantor of printDocForm?.guarantorDetails; let i=index">
                     <div >
                         <p> {{i + 1 | nepaliWord: 'unicode'}}.&nbsp;&nbsp;दस्तखत :......................</p>
@@ -301,9 +302,11 @@
                         <br>
                     </div>
                 </div>-->
-                <p>दस्तखत:...........................................<br>१. नाम:
+                <p>
+                    <strong class="text-left">साक्षी :</strong><br>
+                    दस्तखत:...........................................<br>१. नाम:
                     <span
-                            [ngClass]="{'nepaliFont' : printDocForm?.witnessName !== null && printDocForm?.witnessName !== ''}">
+                            [ngClass]="{'nepaliFontPreeti unicode-size24' : printDocForm?.witnessName !== null && printDocForm?.witnessName !== ''}">
                         {{printDocForm?.witnessName === null || printDocForm?.witnessName === '' ? '_________________________________' : printDocForm?.witnessName}}
                     </span>
                     (ना.प्र.नं<span
@@ -314,14 +317,14 @@
                             [ngClass]="{'nepaliFont' : printDocForm?.witnessCitizenshipIssueDate !== null && printDocForm?.witnessCitizenshipIssueDate !== ''}">
                         {{printDocForm?.witnessCitizenshipIssueDate === null || printDocForm?.witnessCitizenshipIssueDate === '' ? '_________________' : printDocForm?.witnessCitizenshipIssueDate}}
                     </span> जि.प्र.का. <span
-                            [ngClass]="{'nepaliFont' : printDocForm?.witnessCDOoffice !== null && printDocForm?.witnessCDOoffice !== ''}">
+                            [ngClass]="{'nepaliFontPreeti unicode-size24' : printDocForm?.witnessCDOoffice !== null && printDocForm?.witnessCDOoffice !== ''}">
                         {{printDocForm?.witnessCDOoffice === null || printDocForm?.witnessCDOoffice === '' ? '_________________' : printDocForm?.witnessCDOoffice}}
                     </span>)
                     <br>ठेगाना:<span
-                            [ngClass]="{'nepaliFont' : printDocForm?.witnessIssuedPlace !== null && printDocForm?.witnessIssuedPlace !== ''}">
+                            [ngClass]="{'nepaliFontPreeti unicode-size24' : printDocForm?.witnessIssuedPlace !== null && printDocForm?.witnessIssuedPlace !== ''}">
                         {{printDocForm?.witnessIssuedPlace === null || printDocForm?.witnessIssuedPlace === '' ? '_________________' : printDocForm?.witnessIssuedPlace}}
                     </span>जिल्ला <span
-                            [ngClass]="{'nepaliFont' : printDocForm?.witnessMunicipality !== null && printDocForm?.witnessMunicipality !== ''}">
+                            [ngClass]="{'nepaliFontPreeti unicode-size24' : printDocForm?.witnessMunicipality !== null && printDocForm?.witnessMunicipality !== ''}">
                         {{printDocForm?.witnessMunicipality === null || printDocForm?.witnessMunicipality === '' ? '_________________' : printDocForm?.witnessMunicipality}}
                     </span>
                     गा.पा./न.पा.वडा नं<span
@@ -333,7 +336,7 @@
                 <br>
                 <br>
                 <p>दस्तखत:...........................................<br>२. नाम:<span
-                        [ngClass]="{'nepaliFont' : printDocForm?.witnessName1 !== null && printDocForm?.witnessName1 !== ''}">
+                        [ngClass]="{'nepaliFontPreeti unicode-size24' : printDocForm?.witnessName1 !== null && printDocForm?.witnessName1 !== ''}">
                         {{printDocForm?.witnessName1 === null || printDocForm?.witnessName1 === '' ? '_________________________________' : printDocForm?.witnessName1}}
                     </span>
 
@@ -345,15 +348,15 @@
                             [ngClass]="{'nepaliFont' : printDocForm?.witnessCitizenshipIssueDate1 !== null && printDocForm?.witnessCitizenshipIssueDate1 !== ''}">
                         {{printDocForm?.witnessCitizenshipIssueDate1 === null || printDocForm?.witnessCitizenshipIssueDate1 === '' ? '_________________' : printDocForm?.witnessCitizenshipIssueDate1}}
                     </span> जि.प्र.का. <span
-                            [ngClass]="{'nepaliFont' : printDocForm?.witnessCDOoffice1 !== null && printDocForm?.witnessCDOoffice1 !== ''}">
+                            [ngClass]="{'nepaliFontPreeti unicode-size24' : printDocForm?.witnessCDOoffice1 !== null && printDocForm?.witnessCDOoffice1 !== ''}">
                         {{printDocForm?.witnessCDOoffice1 === null || printDocForm?.witnessCDOoffice1 === '' ? '_________________' : printDocForm?.witnessCDOoffice1}}
                     </span>)
                     <br>ठेगाना:<span
-                            [ngClass]="{'nepaliFont' : printDocForm?.witnessIssuedPlace1 !== null && printDocForm?.witnessIssuedPlace1 !== ''}">
+                            [ngClass]="{'nepaliFontPreeti unicode-size24' : printDocForm?.witnessIssuedPlace1 !== null && printDocForm?.witnessIssuedPlace1 !== ''}">
                                                 {{printDocForm?.witnessIssuedPlace1 === null || printDocForm?.witnessIssuedPlace1 === '' ? '_________________' : printDocForm?.witnessIssuedPlace1}}
                                             </span>
                     जिल्ला
-                    <span [ngClass]="{'nepaliFont' : printDocForm?.witnessMunicipality1 !== null && printDocForm?.witnessMunicipality1 !== ''}">
+                    <span [ngClass]="{'nepaliFontPreeti unicode-size24' : printDocForm?.witnessMunicipality1 !== null && printDocForm?.witnessMunicipality1 !== ''}">
                                                 {{printDocForm?.witnessMunicipality1 === null || printDocForm?.witnessMunicipality1 === '' ? '____________________' : printDocForm?.witnessMunicipality1}}
                                             </span>
                     गा.पा./न.पा.वडा नं
