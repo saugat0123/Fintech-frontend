@@ -62,13 +62,17 @@ export class LoanDeedComponent implements OnInit {
                         this.setSwikriti(initialInfo.swikritiBibaran);
                     }
 
+                    /*if (ObjectUtil.isEmpty(this.nepaliData.collateralDetails)) {
+                        initialInfo.security.forEach(i => {
+                                this.removeSecurity(i);
+                        });
+                    } else {*/
                     if (!ObjectUtil.isEmpty(initialInfo.security)) {
                         this.setSecurity(initialInfo.security);
                     }
-
-
+                //}
                     this.form.patchValue(this.initialInfoPrint);
-                    this.setGuarantors(initialInfo.guarantorDetails);
+                    //this.setGuarantors(initialInfo.guarantorDetails);
                 }
             });
         }
@@ -117,10 +121,6 @@ export class LoanDeedComponent implements OnInit {
             }
         });
 
-
-
-        //this.setSecurity(this.nepaliData.collateralDetails);
-
     }
 
     setSecurityDetails(value, i) {
@@ -130,6 +130,17 @@ export class LoanDeedComponent implements OnInit {
         this.form.get(['security', i, 'SecuritiesWardNo']).patchValue(value.collateralWardNoOld);
         this.form.get(['security', i, 'SecuritiesKeyNo']).patchValue(value.plotNo);
         this.form.get(['security', i, 'SecuritiesArea']).patchValue(value.areaOfCollateral);
+    }
+
+    setSecurityDetailsNull(value, i) {
+        this.form.get(['security', i, 'SecuritiesSNBibaran']).patchValue(null);
+        this.form.get(['security', i, 'SecuritiesOwnerName']).patchValue(null);
+        this.form.get(['security', i, 'SecuritiesDistrict']).patchValue(null);
+        this.form.get(['security', i, 'SecuritiesMunicipality']).patchValue(null);
+        this.form.get(['security', i, 'SecuritiesWardNo']).patchValue(null);
+        this.form.get(['security', i, 'SecuritiesKeyNo']).patchValue(null);
+        this.form.get(['security', i, 'SecuritiesArea']).patchValue(null);
+        this.form.get(['security', i, 'SecuritiesRegNo']).patchValue(null);
     }
 
     setSwikriti(data) {

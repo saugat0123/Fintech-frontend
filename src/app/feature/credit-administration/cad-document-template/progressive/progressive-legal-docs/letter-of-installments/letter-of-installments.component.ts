@@ -72,11 +72,11 @@ export class LetterOfInstallmentsComponent implements OnInit {
         branchName : this.nepaliData.branchName ? this.nepaliData.branchName : '',
         karjaAmount : loanAmount.numberNepali ? loanAmount.numberNepali : '',
         timePeriod : this.nepDataPersonal.tenureOfLoanInMonths ? this.nepDataPersonal.tenureOfLoanInMonths : '',
-        kistaAmount : this.nepDataPersonal.installmentAmount ? this.nepDataPersonal.installmentAmount : '',
+        //kistaAmount : this.nepDataPersonal.installmentAmount ? this.nepDataPersonal.installmentAmount : '',
         guarantorName: !ObjectUtil.isEmpty(this.nepaliData.guarantorDetails) ? this.nepaliData.guarantorDetails[0].guarantorName : '',
         guarantorDistrict: !ObjectUtil.isEmpty(this.nepaliData.guarantorDetails) ? this.nepaliData.guarantorDetails[0].guarantorPermanentDistrict.nepaliName : '',
         guarantorMunVdc: !ObjectUtil.isEmpty(this.nepaliData.guarantorDetails) ? this.nepaliData.guarantorDetails[0].guarantorPermanentMunicipality.nepaliName : '',
-        guarantorWardNo: this.nepaliData.guarantorDetails[0].guarantorPermanentWard ? this.nepaliData.guarantorDetails[0].guarantorPermanentWard : '',
+        guarantorWardNo: !ObjectUtil.isEmpty(this.nepaliData.guarantorDetails) ? this.nepaliData.guarantorDetails[0].guarantorPermanentWard : '',
       });
     }
   }
