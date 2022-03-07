@@ -297,8 +297,8 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
       secondAdditionalDetails : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.secondText : '',
       thirdAdditionalDetails : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.thirdText : '',
       fourthAdditionalDetails : !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.fourthText : '',
-      autoPopulate1: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.autoPopulate1 : '',
-      autoPopulate2: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.autoPopulate2 : '',
+      autoPopulate1: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.autoPopulate1 : this.autoPopulate1,
+      autoPopulate2: !ObjectUtil.isEmpty(this.freeInformation) ? this.freeInformation.autoPopulate2 : this.autoPopulate2,
       // for secondary
       // landOwnerName: this.tempData.purposeOfLoan ? this.tempData.purposeOfLoan.ct : '',
       // district: this.tempData.purposeOfLoan ? this.tempData.purposeOfLoan.ct : '',
@@ -350,9 +350,10 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
       secondText: this.form.get('secondAdditionalDetails').value,
       thirdText: this.form.get('thirdAdditionalDetails').value,
       fourthText: this.form.get('fourthAdditionalDetails').value,
-      autoPopulate1: this.form.get('autoPopulate1').value,
-      autoPopulate2: this.form.get('autoPopulate2').value,
-    };
+      // tslint:disable-next-line:max-line-length
+      autoPopulate1: !ObjectUtil.isEmpty(this.form.get('autoPopulate1').value) ? this.form.get('autoPopulate1').value : this.autoPopulate1,
+      autoPopulate2: !ObjectUtil.isEmpty(this.form.get('autoPopulate2').value) ? this.form.get('autoPopulate2').value : this.autoPopulate2,
+     };
   }
   calcYearlyRate() {
     const baseRate = this.nepToEngNumberPipe.transform(this.form.get('baseRate').value);
