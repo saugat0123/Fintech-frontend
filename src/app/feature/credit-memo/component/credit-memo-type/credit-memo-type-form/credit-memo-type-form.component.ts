@@ -129,7 +129,7 @@ export class CreditMemoTypeFormComponent implements OnInit {
     setDocuments(): void {
         this.docService.getAllLoanCycle().subscribe(reponse => {
             reponse.detail.forEach(data => {
-                if (data.cycle === 'Credit Memo') {
+                if (data.cycle === 'Credit Diary Note') {
                     this.getActiveDocuments(data.id);
                 }
             });
