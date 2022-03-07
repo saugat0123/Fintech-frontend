@@ -440,7 +440,7 @@
             <div class="col-md-12">
                 <p><strong> कर्जा उपयोग सीमाः </strong></p>
                 <ol class="conditions-list order-list">
-                    <li>
+                    <li *ngIf="this.letter.costumerType.en === 'newCustomer'">
                         माथि उल्लिखित ऋणकर्जा सुविधाहरुको कूल उपयोग कुनै पनि समयमा रु
                         <span [ngClass]="{'font-weight-bold': letter?.totalLimitInFigure.ct !== null && letter?.totalLimitInFigure.ct !== ''}">
                                             {{letter?.totalLimitInFigure.ct === null || letter?.totalLimitInFigure.ct === "" ? "___________" : letter?.totalLimitInFigure.ct}}
@@ -449,22 +449,26 @@
                             [ngClass]="{'font-weight-bold': letter?.totalLimitInWords.ct !== null && letter?.totalLimitInWords.ct !== ''}">
                                             {{letter?.totalLimitInWords.ct === null || letter?.totalLimitInWords.ct === "" ? "___________" : letter?.totalLimitInWords.ct}}
                                         </span> मात्र)
-                        भन्दा बढी हुनु हुनेछैन । <!-- Total limit -->
-                        <!-- Condition -->
-                        <span *ngIf="this.letter.loanOption.en === 'EXISTING'"> १. माथि उल्लिखित ऋणकर्जा सुविधा र यस अघि मिति वि.सं <span
-                                [ngClass]="{'font-weight-bold': letter?.dateOfApplication.ct !== null && letter?.dateOfApplication.ct !== ''}">
-                                            {{letter?.dateOfApplication.ct === null || letter?.dateOfApplication.ct === "" ? "___________" : letter?.dateOfApplication.ct}}
+                        भन्दा बढी हुनु हुनेछैन ।
+                    </li>
+                    <!-- Total limit -->
+
+                    <li  *ngIf="this.tempData.costumerType.en !== 'newCustomer'">    <!-- Condition -->
+                            माथि उल्लिखित ऋणकर्जा सुविधा र यस अघि मिति
+                        <span>{{this.letter?.previousSanctionType?.en === 'AD' ? 'ई. स. ' : 'वि.सं. '}}</span>
+                        <span
+                                [ngClass]="{'font-weight-bold': finalDateOfSanction !== null && finalDateOfSanction !== ''}">
+                                            {{finalDateOfSanction === null || finalDateOfSanction === "" ? "_____________" : finalDateOfSanction}}
                                         </span>
                             को ऋण स्वीकृती पत्रानुसार स्वीकृत ऋणकर्जा सुविधाहरुको कूल उपयोग कुनै पनि समयमा रु <span
                                     [ngClass]="{'font-weight-bold': letter?.totalLimitInFigure.ct !== null && letter?.totalLimitInFigure.ct !== ''}">
                                             {{letter?.totalLimitInFigure.ct === null || letter?.totalLimitInFigure.ct === "" ? "___________" : letter?.totalLimitInFigure.ct}}
-                                        </span>।
+                                        </span>/-
                             (अक्षरेपी रु <span
                                     [ngClass]="{'font-weight-bold': letter?.totalLimitInWords.ct !== null && letter?.totalLimitInWords.ct !== ''}">
                                             {{letter?.totalLimitInWords.ct === null || letter?.totalLimitInWords.ct === "" ? "___________" : letter?.totalLimitInWords.ct}}
                                         </span> मात्र)
                             भन्दा बढी हुनु हुनेछैन । <!-- For Existing Loan Customer -->
-                            </span>
                     </li>
                     <li>
                         माथि बुँदा बुँदामा तोकिएको ऋणकर्जा सुविधाको कूल उपयोग सीमा भन्दा कथमकदाचित बढी रकम उपयोग

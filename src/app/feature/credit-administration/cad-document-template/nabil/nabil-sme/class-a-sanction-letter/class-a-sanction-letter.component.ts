@@ -312,8 +312,9 @@ export class ClassASanctionLetterComponent implements OnInit {
     const previousSanctionDate = this.initialInfoPrint.previousSanctionType ? this.initialInfoPrint.previousSanctionType.en : '';
     let finalDateOfSanction;
     if (previousSanctionDate === 'AD') {
-      const templateDateSanction = this.initialInfoPrint.previousSanctionDate ? this.initialInfoPrint.previousSanctionDate.en : '';
-      finalDateOfSanction = this.engToNepaliDate.transform(this.datePipe.transform(templateDateSanction), true);
+      const templateDateSanction = this.initialInfoPrint.previousSanctionDate ? this.initialInfoPrint.previousSanctionDate.ct : '';
+      // finalDateOfSanction = this.engToNepaliDate.transform(this.datePipe.transform(templateDateSanction), true);
+      finalDateOfSanction = templateDateSanction ? templateDateSanction : '';
     } else {
       const templateDateSanction = this.initialInfoPrint.previousSanctionDateNepali ? this.initialInfoPrint.previousSanctionDateNepali.en : '';
       finalDateOfSanction = templateDateSanction ? templateDateSanction.nDate : '';

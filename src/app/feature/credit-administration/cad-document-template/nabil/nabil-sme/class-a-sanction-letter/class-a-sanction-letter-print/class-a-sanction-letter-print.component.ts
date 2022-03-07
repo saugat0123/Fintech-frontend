@@ -128,8 +128,8 @@ export class ClassASanctionLetterPrintComponent implements OnInit {
     // For Previous Sanction:
     const previousSanctionDate = this.letter.previousSanctionType ? this.letter.previousSanctionType.en : '';
     if (previousSanctionDate === 'AD') {
-      const templateDateSanction = this.letter.previousSanctionDate ? this.letter.previousSanctionDate.en : '';
-      this.finalDateOfSanction = this.engToNepaliDate.transform(this.datePipe.transform(templateDateSanction), true);
+      const templateDateSanction = this.letter.previousSanctionDate ? this.letter.previousSanctionDate.ct : '';
+      this.finalDateOfSanction = templateDateSanction ? templateDateSanction : '';
     } else {
       const templateDateSanction = this.letter.previousSanctionDateNepali ? this.letter.previousSanctionDateNepali.en : '';
       this.finalDateOfSanction = templateDateSanction ? templateDateSanction.nDate : '';

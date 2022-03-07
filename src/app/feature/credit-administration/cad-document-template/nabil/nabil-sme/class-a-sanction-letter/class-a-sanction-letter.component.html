@@ -487,40 +487,47 @@
                     <br>
                     <div class="col-md-12">
                         <p><strong> कर्जा उपयोग सीमाः </strong></p>
-                        <p>
-                            १. माथि उल्लिखित ऋणकर्जा सुविधाहरुको कूल उपयोग कुनै पनि समयमा रु <input
+                        <ol class="conditions-list">
+                        <li *ngIf="this.tempData.costumerType.en === 'newCustomer'">
+                            माथि उल्लिखित ऋणकर्जा सुविधाहरुको कूल उपयोग कुनै पनि समयमा रु
+                            <input
                                 class="form-field form-control-sm"
                                 formControlName="totalLimitInFigure"
-                                type="text"/> ।-
+                                type="text"/> /-
                             (अक्षरेपी रु <input class="form-field form-control-sm"
                                                 formControlName="totalLimitInWords"
                                                 type="text"/> मात्र)
                             भन्दा बढी हुनु हुनेछैन ।
-                            <!-- Condition -->
-                            <span *ngIf="this.tempData.loanOption.en === 'EXISTING'"> १. माथि उल्लिखित ऋणकर्जा सुविधा र यस अघि मिति वि.सं <input
+                        </li>
+                            <!-- Condition For Existing Loan Customer -->
+                            <li *ngIf="this.tempData.costumerType.en !== 'newCustomer'">
+                                माथि उल्लिखित ऋणकर्जा सुविधा र यस अघि मिति
+                                <span>{{this.tempData?.previousSanctionType?.en === 'AD' ? 'ई. स. ' : 'वि.सं. '}}</span>
+                                <input
                                     class="form-field form-control-sm"
                                     formControlName="previousSanctionDate"
                                     type="text"/>
-                            को ऋण स्वीकृती पत्रानुसार स्वीकृत ऋणकर्जा सुविधाहरुको कूल उपयोग कुनै पनि समयमा रु <input
-                                        class="form-field form-control-sm"
-                                        formControlName="totalLimitInFigure"
-                                        type="text"/> ।
-                            (अक्षरेपी रु <input class="form-field form-control-sm"
-                                                formControlName="totalLimitInWords"
-                                                type="text"/> मात्र)
-                                भन्दा बढी हुनु हुनेछैन ।</span> <!-- For Existing Loan Customer -->
-                        </p>
-                        <p>
-                            २. माथि बुँदा बुँदामा तोकिएको ऋणकर्जा सुविधाको कूल उपयोग सीमा भन्दा कथमकदाचित बढी रकम उपयोग
+                                को ऋण स्वीकृती पत्रानुसार स्वीकृत ऋणकर्जा सुविधाहरुको कूल उपयोग कुनै पनि समयमा रु <input
+                                    class="form-field form-control-sm"
+                                    formControlName="totalLimitInFigure"
+                                    type="text"/>/-
+                                (अक्षरेपी रु <input class="form-field form-control-sm"
+                                                    formControlName="totalLimitInWords"
+                                                    type="text"/> मात्र)
+                                भन्दा बढी हुनु हुनेछैन ।
+                            </li>
+                            <li>
+                                 माथि बुँदा बुँदामा तोकिएको ऋणकर्जा सुविधाको कूल उपयोग सीमा भन्दा कथमकदाचित बढी रकम उपयोग
                             गरेमा वा उपयोग हुन गएमा त्यस्तो बढी
                             रकम ऋणीले बैंकलाई तत्कालै तिर्नु बुझाउनु पर्नेछ । नबुझाएमा त्यस्तो वढी रकममा बैंकको
                             नियमानुसार अधिकतम ब्याजदरले ब्याज लाग्नेछ ।
-                        </p>
-                        <p>
-                            ३. तपाईंको व्यवसायको नगद आर्जन गर्नसक्ने क्षमता र धितोेबन्धकमा रहेका सम्पत्तिहरुको
+                        </li>
+                        <li>
+                             तपाईंको व्यवसायको नगद आर्जन गर्नसक्ने क्षमता र धितोेबन्धकमा रहेका सम्पत्तिहरुको
                             प्रतिभुतिकरणको भरोसाको आधारमा माथि उल्लिखित ऋणकर्जा
                             सुविधाहरुको प्राथमिक प्रस्ताव गरिएको हो ।
-                        </p>
+                        </li>
+                        </ol>
                     </div>
                     <br>
 
