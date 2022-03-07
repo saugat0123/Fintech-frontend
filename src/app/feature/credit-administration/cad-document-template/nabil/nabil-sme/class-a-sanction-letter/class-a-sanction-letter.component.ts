@@ -92,7 +92,6 @@ export class ClassASanctionLetterComponent implements OnInit {
               public datePipe: DatePipe) { }
 
   ngOnInit() {  this.buildSanction();
-    console.log('This is cad Approved doc ', this.cadOfferLetterApprovedDoc);
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
       this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
       this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
@@ -102,9 +101,6 @@ export class ClassASanctionLetterComponent implements OnInit {
       // tslint:disable-next-line:max-line-length
       this.offerDocumentDetails = this.cadOfferLetterApprovedDoc.offerDocumentList[0] ? JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation) : '';
     }
-    console.log('Selected Data:', this.cadOfferLetterApprovedDoc);
-    console.log('All Data:', this.tempData);
-    console.log('Loan Holder initial data:', this.loanHolderInfo);
     this.checkOfferLetterData();
     // this.guarantorDetails();
   }
@@ -191,11 +187,9 @@ export class ClassASanctionLetterComponent implements OnInit {
         this.offerLetterDocument.docName = this.offerLetterConst.value(this.offerLetterConst.CLASS_A);
       } else {
         const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
-        console.log('Selected Security Details:', initialInfo);
         if (!ObjectUtil.isEmpty(this.offerLetterDocument.supportedInformation)) {
           this.offerLetterData = this.offerLetterDocument;
           this.freeTextVal = JSON.parse(this.offerLetterDocument.supportedInformation);
-          console.log('Suopported Information:', this.freeTextVal);
           // this.form.get('additionalGuarantorDetails').patchValue(this.offerLetterData.supportedInformation);
         }
         // this.selectedSecurity = initialInfo.selectedSecurity.en;
@@ -218,7 +212,6 @@ export class ClassASanctionLetterComponent implements OnInit {
     if (this.guarantorData.length === 1) {
       const tempGuarantorNep = JSON.parse(this.guarantorData[0].nepData);
       if (tempGuarantorNep.guarantorType.en === 'Personal Guarantor') {
-        console.log('guarantor', tempGuarantorNep);
         // const temp = JSON.parse(this.guarantorData[0].nepData);
         this.finalName = tempGuarantorNep.guarantorName.ct;
       } else {
@@ -245,12 +238,10 @@ export class ClassASanctionLetterComponent implements OnInit {
         const tempGuarantorNep = JSON.parse(this.guarantorData[i].nepData);
         if (tempGuarantorNep.guarantorType.en === 'Personal Guarantor') {
           const temp = JSON.parse(this.guarantorData[i].nepData);
-          console.log(temp);
           this.guarantorNames.push(temp.guarantorName.ct);
           // this.guarantorAmount = this.guarantorAmount + parseFloat(temp.gurantedAmount.en) ;
         } else {
           const temp = JSON.parse(this.guarantorData[i].nepData);
-          console.log(temp);
           this.guarantorNames.push(temp.authorizedPersonName.ct);
         }
 
@@ -272,13 +263,11 @@ export class ClassASanctionLetterComponent implements OnInit {
       const val = value.proposal.proposedLimit;
       totalLoanAmount = totalLoanAmount + val;
     });
-    console.log('k airako xa', totalLoanAmount);
     let autoRefNumber;
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.assignedLoan)) {
       autoRefNumber = this.cadOfferLetterApprovedDoc.assignedLoan[0].refNo;
     }
     // For date of Approval(sanction date)
-    console.log('InitialInfoPrint:', this.initialInfoPrint);
     const sanctionLetterDate = this.initialInfoPrint.sanctionLetterDateType ? this.initialInfoPrint.sanctionLetterDateType.en : '';
     let finalDateOfSanctionDate;
     if (sanctionLetterDate === 'AD') {

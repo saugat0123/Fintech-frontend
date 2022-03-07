@@ -145,7 +145,6 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
         });
         this.setTdHolders();
       }
-      console.log('Initial Infor:', this.initialInfo);
       this.mapObjectData(this.initialInfo);
       if (!ObjectUtil.isEmpty(this.initialInfo)) {
         this.form.patchValue(this.editedData);
@@ -336,7 +335,6 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
         this.isNatural = true;
       }
     }
-    console.log('Form:', this.initialInfo);
   }
   buildForm() {
     this.form = this.formBuilder.group({
@@ -750,12 +748,10 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
   }
   serviceCheck(data) {
     this.isSecurity = data;
-    console.log('selected?', this.isSecurity);
     this.form.get('serviceCheck').patchValue(this.isSecurity);
   }
   naturalPersonCheck(data) {
     this.isNatural = data;
-    console.log('selected?', this.isNatural);
     this.form.get('naturalCheck').patchValue(this.isNatural);
   }
 
@@ -875,14 +871,12 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
       key === 'tdHolderNames') {
         return;
       }
-      console.log('Key:::', key);
       this.attributes = new Attributes();
       this.attributes.en = this.form.get(key).value;
       this.attributes.np = this.form.get(key + 'Trans').value;
       this.attributes.ct = this.form.get(key + 'CT').value;
       this.tdVal[key] = this.attributes;
     });
-    console.log('This is Attributes', this.tdVal);
   }
 
   mapObjectData(data, targetKey?, sourceKey?) {
@@ -895,7 +889,6 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.editedData.costumerType) && !ObjectUtil.isEmpty(this.editedData.loanType)) {
       this.isLoanOptionSelected = true;
     }
-    console.log('Edited Form', this.editedData);
   }
 
   async translateAndSetValue() {
@@ -1385,7 +1378,6 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
     this.form.get('letterExisting').patchValue(this.isExistingSelected);
     this.spinner = true;
     this.btnDisable = true;
-    console.log('customerApprovedDoc: ', this.customerApprovedDoc);
     this.customerApprovedDoc.docStatus = 'OFFER_AND_LEGAL_PENDING';
     if (this.customerApprovedDoc.offerDocumentList.length > 0) {
       this.offerLetterDocument = this.customerApprovedDoc.offerDocumentList.filter(value => value.docName.toString()
@@ -1415,7 +1407,6 @@ export class ClassASanctionLetterTemplateDataComponent implements OnInit {
         }
         this.attributes = new Attributes();
         this.attributes.en = this.form.get(key).value;
-        console.log('Key:::::', key);
         this.attributes.np = this.tdValues[key];
         this.attributes.ct = this.form.get(key + 'Trans').value;
         this.tdValues[key] = this.attributes;

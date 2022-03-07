@@ -88,7 +88,7 @@ export class ClassASanctionLetterPrintComponent implements OnInit {
       this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
       this.isNatural = this.tempData.naturalPersonCheck.en;
       if (!ObjectUtil.isEmpty(this.tempData)) {
-        this.CoupenRateFinancing = this.tempData.CoupenRateFinancing ? this.tempData.CoupenRateFinancing.ct : ''
+        this.CoupenRateFinancing = this.tempData.CoupenRateFinancing ? this.tempData.CoupenRateFinancing.ct : '';
         this.BaseRateFinancing =  this.tempData.BaseRateFinancing ? this.tempData.BaseRateFinancing.ct : '';
       }}
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.assignedLoan)) {
@@ -97,7 +97,6 @@ export class ClassASanctionLetterPrintComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation)) {
       this.freeTextVal = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation);
     }
-    console.log('Free TExt Val:', this.freeTextVal);
     // for date of approval
     const sanctionLetterDate = this.letter.sanctionLetterDateType ? this.letter.sanctionLetterDateType.en : '';
     if (sanctionLetterDate === 'AD') {
@@ -136,7 +135,6 @@ export class ClassASanctionLetterPrintComponent implements OnInit {
     }
     this.getHolderDetails();
     // this.guarantorDetails();
-    console.log('Offer Data', this.offerData);
   }
 
   getHolderDetails() {
@@ -201,12 +199,10 @@ export class ClassASanctionLetterPrintComponent implements OnInit {
         const tempGuarantorNep = JSON.parse(this.guarantorData[i].nepData);
         if (tempGuarantorNep.guarantorType.en === 'Personal Guarantor') {
           const temp = JSON.parse(this.guarantorData[i].nepData);
-          console.log(temp);
           this.guarantorNames.push(temp.guarantorName.ct);
           // this.guarantorAmount = this.guarantorAmount + parseFloat(temp.gurantedAmount.en) ;
         } else {
           const temp = JSON.parse(this.guarantorData[i].nepData);
-          console.log(temp);
           this.guarantorNames.push(temp.authorizedPersonName.ct);
         }
 
