@@ -183,7 +183,7 @@
                                    </div>
                                </div>
                            </div>
-                           <div class="col-md-4" *ngIf="client !== clientName.LAXMIBANK">
+                           <div class="col-md-4">
                                <div class="form-group">
                                    <label for="contactNumber"><strong>Father's Name</strong></label>
                                    <input class="form-control" formControlName="fatherName"
@@ -191,7 +191,7 @@
                                           type="text">
                                </div>
                            </div>
-                           <div class="col-md-4" *ngIf="client !== clientName.LAXMIBANK">
+                           <div class="col-md-4">
                                <div class="form-group">
                                    <label for="contactNumber"><strong>Grandfather's Name</strong></label>
                                    <input class="form-control" formControlName="grandFatherName"
@@ -741,6 +741,18 @@
                                                       [ngClass]="{'is-invalid': (submitted) && relatives.get('age').errors}">
                                                <div *ngIf="submitted && relatives.get('age').errors" class="small text-danger">
                                                    Age is required
+                                               </div>
+                                           </div>
+                                       </div>
+                                       <div class="col-md-2">
+                                           <div class="form-group">
+                                               <label for="occupation{{i}}"><strong>Occupation</strong></label>
+                                               <input class="form-control"
+                                                      formControlName="occupation"
+                                                      id="occupation{{i}}" type="text"
+                                                      [ngClass]="{'is-invalid': (submitted) && relatives.get('occupation').errors}">
+                                               <div *ngIf="submitted && relatives.get('occupation').errors" class="small text-danger">
+                                                   Occupation is required
                                                </div>
                                            </div>
                                        </div>

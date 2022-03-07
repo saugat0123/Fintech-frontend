@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-12">
-        <p class="header"><strong>Debt Burden Ratio:</strong></p>
-        <table class="table table-condensed table-bordered table-responsive-sm table-sm sb-small text-center">
+        <p  class="header"><strong   class="header">Debt Burden Ratio:</strong></p>
+        <table class="table table-condensed table-bordered table-responsive-sm table-sm sb-small text-left">
             <thead>
             <tr class="text-white sb-bg-dark">
                 <th>Particualrs</th>
@@ -11,19 +11,19 @@
             <tbody>
 <tr>
     <td>Gross Monthly Income (GMI)</td>
-    <td>{{financialData?.initialForm?.totalIncome}}</td>
+    <td class="text-right">{{financialData?.initialForm?.totalIncome}}</td>
 </tr>
 <tr *ngFor="let data of financialData?.initialForm?.expensesOfBorrower;">
     <td>{{data?.particulars}}</td>
-    <td>{{data?.amount}}</td>
+    <td class="text-right">{{data?.amount}}</td>
 </tr>
 <tr>
     <td>Total Monthly Obligation</td>
-    <td>{{financialData?.initialForm?.totalBankObligation}}</td>
+    <td class="text-right">{{financialData?.initialForm?.totalBankObligation}}</td>
 </tr>
 <tr>
     <td>Gross DBR (EMI/GMI)</td>
-    <td>{{(financialData?.initialForm?.emiWithProposal /(financialData?.initialForm?.totalIncome)).toFixed(2)}} %</td>
+    <td class="text-right">{{(financialData?.initialForm?.emiWithProposal /(financialData?.initialForm?.totalIncome) * 100).toFixed(2)}} %</td>
 </tr>
             </tbody>
         </table>

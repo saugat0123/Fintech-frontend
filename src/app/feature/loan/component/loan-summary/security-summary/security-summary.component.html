@@ -1,6 +1,8 @@
+<hr>
 <div class="row mt-3">
     <div class="col-md-12">
-        <p class="header"><strong>Security Schedule</strong></p>
+        <p  class="header"><strong  class="header">Security Schedule</strong></p>
+        <p  class="security-header" *ngIf="landSelected || apartmentSelected || landBuilding"><strong  class="security-header">Registered Mortgage over Land And Building</strong></p>
         <div class="row" *ngIf="vehicleSelected">
             <div class="col-md-12">
                 <div class="d-flex justify-content-sm-end">
@@ -195,12 +197,12 @@
                 </table>
 
                     <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-                        <tr class="sb-bg-dark text-white">
-                            <th colspan="1">Road access seen in blueprint</th>
-                            <th colspan="4">Road Access Description</th>
+                        <tr>
+                            <td colspan="1">Road access seen in blueprint</td>
+                            <td colspan="1">{{landDetails?.roadAccessBluePrint}}</td>
                         </tr>
                         <tr>
-                            <td colspan="1">{{landDetails?.roadAccessBluePrint}}</td>
+                            <td colspan="4">Road Access Description</td>
                             <td colspan="4">{{landDetails?.roadAccessDescribe}}</td>
                         </tr>
                     </table>
@@ -228,10 +230,9 @@
                     <tr class="text-center sb-bg-dark text-white">
                         <th>S.N</th>
                         <th>Owner</th>
-                        <th>Location</th>
                         <th>Plot No.</th>
-                        <th>Area Format</th>
-                        <th>Area</th>
+                        <th>Total Building Area</th>
+                        <th>Total Land Area</th>
                         <th>FMV</th>
                         <th colspan="2">Market Value</th>
                     </tr>
@@ -240,10 +241,9 @@
                     <tr>
                         <td>{{i + 1}}</td>
                         <td class="text-left pl-1">{{landBuilding?.owner}}</td>
-                        <td class="text-left pl-1">{{landBuilding?.location}}</td>
                         <td class="text-right pr-1">{{landBuilding?.plotNumber}}</td>
-                        <td class="text-left pl-1">{{landBuilding?.areaFormat}}</td>
-                        <td class="text-right pr-1">{{landBuilding?.area}}</td>
+                        <td class="text-left pl-1">{{(landBuilding?.totalBuildingArea + ' '+ landBuilding?.areaFormat)}}</td>
+                        <td class="text-right pr-1">{{landBuilding?.area + ' '+ landBuilding?.areaFormat}}</td>
                         <td class="text-right pr-1">Rs. {{landBuilding?.marketValue | currencyFormatter}}</td>
                         <td colspan="2" class="text-right pr-1">Rs. {{landBuilding?.distressValue | currencyFormatter}}</td>
 
@@ -253,7 +253,7 @@
                         <th *ngIf="landBuilding?.landBuildingOtherBranchChecked === true">Valuator Branch</th>
                         <th>Valautor Name</th>
                         <th>Realisable Value</th>
-                        <th>Rate</th>
+                        <th>Realisable Rate</th>
                         <th>Collateral Owner Relationship With Borrower</th>
                     </tr>
                     <tr>
@@ -296,32 +296,12 @@
 
                     <tr class="text-center sb-bg-dark text-white">
                         <th>Address as per Legal Document</th>
-                        <ng-container *ngIf="client === clientName.LAXMIBANK">
-                            <th>Ownership Transfer Date(AD/BS)</th>
-                            <th class="text-left pl-1">Ownership Transfer Through</th>
-                            <th *ngIf="landBuilding?.ownershipTransferThrough == 'SALE'">Has transfer date elapsed by 1 Yrs plus 35 days? </th>
-                            <th *ngIf="landBuilding?.ownershipTransferThrough == 'FAMILY_SEPARATION'">Has transfer date elapsed by 3 month?</th>
-                            <th *ngIf="landBuilding?.ownershipTransferThrough == 'GIFT_BAKASPATRA'">Has transfer date elapsed by 2 year plus 35 days? </th>
-                            <th *ngIf="landBuilding?.ownershipTransferThrough == 'SALE' && landBuilding['saleOwnershipTransfer'] === 'No'">Registration amount in transfer</th>
-                            <th *ngIf="landBuilding?.ownershipTransferThrough == 'FAMILY_SEPARATION' && landBuilding['familyTransferOwnershipTransfer'] === 'No'">Registration amount in transfer</th>
-                            <th *ngIf="landBuilding?.ownershipTransferThrough == 'GIFT_BAKASPATRA' && landBuilding['giftOwnershipTransfer'] === 'No'">Registration amount in transfer</th>
-                            <th *ngIf="landBuilding?.ownershipTransferThrough == 'OTHER'">Other</th>
-                        </ng-container>
+                        <th>Current Location</th>
                         <th>Revaluation Done ?</th>
                     </tr>
                     <tr>
                         <td class="text-left pl-1">{{landBuilding?.landAndBuildingSecurityLegalDocumentAddress}}</td>
-                        <ng-container *ngIf="client === clientName.LAXMIBANK">
-                            <td class="text-left pl-1">{{landBuilding?.ownershipTransferDate | date}} ({{landBuilding?.ownershipTransferDate | engNepDate: false}})</td>
-                            <td class="text-left pl-1">{{ownerShipTransfer[landBuilding?.ownershipTransferThrough]}}</td>
-                            <td  *ngIf="landBuilding.ownershipTransferThrough == 'SALE'" class="text-left pl-1">{{landBuilding?.saleOwnershipTransfer}}</td>
-                            <td  *ngIf="landBuilding.ownershipTransferThrough == 'FAMILY_SEPARATION'" class="text-left pl-1">{{landBuilding?.familyTransferOwnershipTransfer}}</td>
-                            <td  *ngIf="landBuilding.ownershipTransferThrough == 'GIFT_BAKASPATRA'" class="text-left pl-1">{{landBuilding?.giftOwnershipTransfer}}</td>
-                            <td  *ngIf="landBuilding.ownershipTransferThrough == 'SALE' && landBuilding['saleOwnershipTransfer'] === 'No'" class="text-right pr-1">Rs. {{landBuilding?.saleRegistrationAmount | currencyFormatter}}</td>
-                            <td  *ngIf="landBuilding.ownershipTransferThrough == 'FAMILY_SEPARATION' && landBuilding['familyTransferOwnershipTransfer'] === 'No'" class="text-right pr-1">Rs. {{landBuilding?.familyRegistrationAmount}}</td>
-                            <td  *ngIf="landBuilding.ownershipTransferThrough == 'GIFT_BAKASPATRA' && landBuilding['giftOwnershipTransfer'] === 'No'" class="text-right pr-1">Rs. {{landBuilding?.giftRegistrationAmount}}</td>
-                            <th *ngIf="landBuilding?.ownershipTransferThrough == 'OTHER'" class="text-right pr-1">{{landBuilding?.otherOwnershipTransferValue}}</th>
-                        </ng-container>
+                        <td class="text-left pl-1">{{landBuilding?.location}}</td>
                         <td class="text-left pl-1">{{landBuilding?.revaluationData?.isReValuated | booleanConvert}}</td>
                     </tr>
                     <ng-container *ngIf="landBuilding?.revaluationData != null && landBuilding?.revaluationData?.isReValuated">
@@ -380,12 +360,13 @@
 
                 </table>
                     <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-                        <tr class="sb-bg-dark text-white">
-                            <th colspan="1">Road access seen in blueprint</th>
-                            <th colspan="4">Road Access Description</th>
+                        <tr>
+                            <td colspan="1" class="sb-bg-dark">Road access seen in blueprint</td>
+                            <td colspan="4">{{landBuilding?.roadAccessBluePrint}}</td>
+
                         </tr>
                         <tr>
-                            <td colspan="1">{{landBuilding?.roadAccessBluePrint}}</td>
+                            <td colspan="1" class="sb-bg-dark">Road Access Description</td>
                             <td colspan="4">{{landBuilding?.roadAccessDescribe}}</td>
                         </tr>
                     </table>

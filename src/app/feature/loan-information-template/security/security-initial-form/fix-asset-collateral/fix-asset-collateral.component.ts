@@ -33,6 +33,8 @@ export class FixAssetCollateralComponent implements OnInit {
     @Input() siteVisitDocument: Array<SiteVisitDocument> = new Array<SiteVisitDocument>();
     @Input() readMode;
     @Input() uuid;
+    @Input() index;
+    @Input() formControl;
     customerType: string;
     customerId: number;
     submitted = false;
@@ -53,6 +55,7 @@ export class FixAssetCollateralComponent implements OnInit {
     modelBody: string;
     isSiteVisitPresent: boolean;
     security_id_for_delete: string;
+    data;
 
     constructor(private formBuilder: FormBuilder,
                 private http: HttpClient,
@@ -273,7 +276,9 @@ export class FixAssetCollateralComponent implements OnInit {
             commentAboutFAC: [undefined],
             fixedAssetsLongitude: [undefined],
             fixedAssetsLatitude: [undefined],
-            uuid: [this.uuid]
+            uuid: [this.uuid],
+            index: [this.index],
+            formControl: [this.formControl]
         });
     }
 
