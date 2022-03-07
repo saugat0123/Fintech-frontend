@@ -217,11 +217,6 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
             }
         });
     }
-
-    testObjectParent = {
-        name: 'test',
-        id: 'hello'
-    }
     ngOnInit() {
         this.loanDataHolder = this.loanData;
 

@@ -10,9 +10,6 @@ export class CurrentStatusTableComponent implements OnInit {
   constructor() { }
 
   @Input() testObject: any;
-  ngOnInit() {
-    console.log('childComponent: ', this.testObject);
-    
-  }
+  ngOnInit() {  }
 
 }
