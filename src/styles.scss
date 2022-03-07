@@ -15,20 +15,24 @@
 //sb solution
 $color-bank: #F58229;
 $color-bank-dark: #F58229;
-body {
-  font-family: Cambria, Georgia, serif;
-}
-.header {
-  font-size: 12pt !important;
-  padding-top: 32px !important;
-}
-.sub-header {
-  font-size: 12pt !important;
-  margin-top: 10px;
-}
-.security-header {
-  font-size: 10pt !important;
-  margin-top: 10px;
+.summary {
+  *{
+    font-family: Cambria, Georgia, serif !important;
+  }
+  .header {
+    font-size: 12pt !important;
+    padding-top: 32px !important;
+  }
+  .sub-header {
+    font-family: Cambria, Georgia, serif;
+    font-size: 12pt !important;
+    margin-top: 10px;
+  }
+  .security-header {
+    font-family: Cambria, Georgia, serif;
+    font-size: 10pt !important;
+    margin-top: 10px;
+  }
 }
 .bank-hr {
   height: 1px;
