@@ -1,19 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 
 @Component({
-  selector: 'app-credit-memo-base',
-  templateUrl: './credit-memo-base.component.html',
-  styleUrls: ['./credit-memo-base.component.scss']
+    selector: 'app-credit-memo-base',
+    templateUrl: './credit-memo-base.component.html',
+    styleUrls: ['./credit-memo-base.component.scss']
 })
 export class CreditMemoBaseComponent implements OnInit {
-  isMaker = false;
+    isMaker = false;
 
-  constructor() {
-  }
-
-  ngOnInit() {
-    if (localStorage.getItem('roleType') === 'MAKER') {
-      this.isMaker = true;
+    constructor() {
     }
-  }
+
+    ngOnInit() {
+        if (LocalStorageUtil.getStorage().roleType === 'MAKER') {
+            this.isMaker = true;
+        }
+    }
 }

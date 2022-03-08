@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../../../admin/component/user/user.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -20,9 +20,7 @@ import {CreditMemoTypeService} from '../../service/credit-memo-type';
 import {CreditMemoMemoTypeDocument} from '../../model/credit-memo-memo-type-document';
 import {Editor} from '../../../../@core/utils/constants/editor';
 import {ApiConfig} from '../../../../@core/utils/api/ApiConfig';
-import {validate} from 'codelyzer/walkerFactory/walkerFn';
 import {DocPath} from './doc-path';
-import {element} from 'protractor';
 
 @Component({
     selector: 'app-compose',
@@ -53,6 +51,7 @@ export class ComposeComponent implements OnInit {
     docSpinner = false;
     ckeConfig = Editor.CK_CONFIG;
     tempDocPath = Array<DocPath>();
+
     constructor(
         private formBuilder: FormBuilder,
         private userService: UserService,
@@ -92,13 +91,18 @@ export class ComposeComponent implements OnInit {
 
 
         this.memoId = Number(this.activatedRoute.snapshot.paramMap.get('id'));
+        console.log('memo id in compose', this.memoId);
         this.activatedRoute.queryParams.subscribe((params) => {
+            console.log('params', params);
             if (!(Object.keys(params).length === 0 && params.constructor === Object)) {
                 this.raisedFromCatalogue = true;
 
                 this.loanConfigService.detail(params.loanCategoryId).subscribe(response => {
+                    console.log('raise from catalogue true', response);
                     const paramLoanConfig = response.detail as LoanConfig;
+                    console.log('param loan config', paramLoanConfig);
                     this.creditMemoDocuments = paramLoanConfig.creditMemoDocuments;
+                    console.log('this is null', this.creditMemoDocuments);
                 });
 
                 this.getCustomerLoanFromCategory({id: params.loanCategoryId}, params.loanId);
@@ -108,11 +112,13 @@ export class ComposeComponent implements OnInit {
             this.isNewMemo = true;
             this.memoTask = 'Compose New';
             this.memo = new CreditMemo();
+            console.log('is new memo true');
         } else {
             this.isNewMemo = false;
             this.memoTask = 'Edit';
             this.creditMemoService.detail(Number(this.memoId)).subscribe((response: any) => {
                 this.memo = response.detail;
+                console.log('credit memo service', this.memo);
                 this.buildMemoForm(this.memo);
 
                 // Setting existing documents --
@@ -169,10 +175,15 @@ export class ComposeComponent implements OnInit {
                 referenceNumber: [memo.referenceNumber, [Validators.required, CustomValidator.notEmpty]],
                 type: [memo.type, Validators.required],
                 content: [memo.content, [Validators.required, CustomValidator.notEmpty]],
-                customerLoan: new FormControl({value: !ObjectUtil.isEmpty(memo.customerLoan) ? memo.customerLoan : undefined, disabled: true}, Validators.required) ,
-                loanConfig : new FormControl({value: !ObjectUtil.isEmpty(memo.customerLoan) && !ObjectUtil.isEmpty(memo.customerLoan.loan) ?
+                customerLoan: new FormControl({
+                    value: !ObjectUtil.isEmpty(memo.customerLoan) ? memo.customerLoan : undefined,
+                    disabled: true
+                }, Validators.required),
+                loanConfig: new FormControl({
+                    value: !ObjectUtil.isEmpty(memo.customerLoan) && !ObjectUtil.isEmpty(memo.customerLoan.loan) ?
                         memo.customerLoan.loan : undefined,
-                    disabled: true}, Validators.required)
+                    disabled: true
+                }, Validators.required)
             }
         );
     }
@@ -257,12 +268,12 @@ export class ComposeComponent implements OnInit {
                     doc.path = result.detail.path;
                     doc.index = index;
                     doc.docType = type === this.editedCreditMemoDocuments ? 'FacilityCreditMemoDocument' : 'creditTypeMemoDocument';
-                    const findDuplicates = this.tempDocPath.findIndex( res => res.index === index && res.docType === doc.docType );
-                    if ( findDuplicates !== -1) {
-                        this.tempDocPath.splice( findDuplicates, 1 );
+                    const findDuplicates = this.tempDocPath.findIndex(res => res.index === index && res.docType === doc.docType);
+                    if (findDuplicates !== -1) {
+                        this.tempDocPath.splice(findDuplicates, 1);
                     }
                     this.tempDocPath.push(doc);
-                    localStorage.setItem('tempPath' , JSON.stringify(this.tempDocPath));
+                    localStorage.setItem('tempPath', JSON.stringify(this.tempDocPath));
                     const customerDocumentObject = result.detail;
                     if (type.length > 0) {
                         type.forEach((singleDoc, docIndex) => {
@@ -326,24 +337,25 @@ export class ComposeComponent implements OnInit {
 
 
     previewGeneralDoc(path: string, name: string, index: number, docType: string) {
-            const doc = JSON.parse(localStorage.getItem('tempPath'));
-            if ( doc !== null && path === null || path === undefined) {
-                doc.forEach(response => {
-                    if (response.docType === docType && response.index === index) {
-                       this.previewDoc(response.path);
-                    } else {
-                      console.log('error ::: null documents');
-                    }
-                });
-            } else {
-                if ( path !== null || path !== undefined){
-                   this.previewDoc(path);
+        const doc = JSON.parse(localStorage.getItem('tempPath'));
+        if (doc !== null && path === null || path === undefined) {
+            doc.forEach(response => {
+                if (response.docType === docType && response.index === index) {
+                    this.previewDoc(response.path);
                 } else {
-                   console.log('error ::: null documents');
+                    console.log('error ::: null documents');
                 }
+            });
+        } else {
+            if (path !== null || path !== undefined) {
+                this.previewDoc(path);
+            } else {
+                console.log('error ::: null documents');
             }
+        }
     }
-    previewDoc( path: string): void {
+
+    previewDoc(path: string): void {
         const link = document.createElement('a');
         link.target = '_blank';
         link.href = `${ApiConfig.URL}/${path}?${Math.floor(Math.random() * 100) + 1}`;
