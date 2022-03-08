@@ -368,7 +368,8 @@ export class ConsentLetterForMortgagePartnershipComponent implements OnInit {
       borrowerNameArray: this.borrowerFreeText,
       borrowerNameArray1: this.borrowerFreeText1,
       nameFreeText: this.freeTextVal,
-      borrowerDetails: this.borrowerDetailsVal
+      borrowerDetails: this.borrowerDetailsVal,
+      totalAmount: this.form.get('totalAmount') ? this.form.get('totalAmount').value : ''
     };
     return JSON.stringify(free1);
   }
@@ -425,7 +426,7 @@ export class ConsentLetterForMortgagePartnershipComponent implements OnInit {
   fillForm() {
     this.form.patchValue({
       nameOfBranch: this.individualData.branch ? this.individualData.branch.ct : '',
-      totalAmount: this.finalAmount ? this.finalAmount : '',
+      totalAmount: this.supportedInfo ? this.supportedInfo.totalAmount : '',
       nameOfMalpot: this.supportedInfo ? this.supportedInfo.nameOfMalpot : '',
       dateOfMortgageProperty: this.supportedInfo ? this.supportedInfo.dateOfMortgageProperty : '',
       mortgageNo: this.supportedInfo ? this.supportedInfo.mortgageNo : '',
@@ -491,5 +492,9 @@ export class ConsentLetterForMortgagePartnershipComponent implements OnInit {
       this.dialogRef.close();
       this.spinner = false;
     });
+  }
+  transformNumber(val) {
+    const numberTrans = this.engToNepNumberPipe.transform(this.form.get(val).value, true);
+    this.form.get(val).patchValue(numberTrans);
   }
 }

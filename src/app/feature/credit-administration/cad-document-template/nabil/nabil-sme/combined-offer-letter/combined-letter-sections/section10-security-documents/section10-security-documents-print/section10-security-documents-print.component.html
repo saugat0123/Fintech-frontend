@@ -64,7 +64,7 @@
                         <span><strong>{{val.gurantedAmount.ct ? val.gurantedAmount.ct : ''}}</strong></span>
                         /-
                         बराबरको
-                        {{val.gender.en === 'FEMALE' && val.relationMedium.en === '0' ? 'श्रीमती' : (val.gender.en === 'FEMALE' && val.relationMedium.en === '1' ? 'सुश्री' : val.gender.en === 'MALE' ? 'श्रीमान्' : '')}}
+                        {{val.gender.en === 'FEMALE' && val.guarantorMaritalStatus.en === 'Married' ? 'श्रीमती' : (val.gender.en === 'FEMALE' && val.guarantorMaritalStatus.en === 'Unmarried' ? 'सुश्री' : val.gender.en === 'MALE' ? 'श्रीमान्' : '')}}
                         <span><strong>{{val.guarantorName.ct ? val.guarantorName.ct : ''}}</strong></span>
                         ले बैंकको पक्षमा लेखिदिनुपर्ने ब्यक्तिगत जमानीपत्र (Personal Guarantee)
                     </li>

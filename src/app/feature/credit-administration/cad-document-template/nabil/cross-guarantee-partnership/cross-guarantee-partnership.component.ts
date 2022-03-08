@@ -128,6 +128,17 @@ export class CrossGuaranteePartnershipComponent implements OnInit {
                 // free Text
                 date: [undefined],
                 sanchaalakFreeText: [';~rfns÷k|aGw ;~rfns÷k|d\'v sfo{sf/L clws[t÷'],
+                witnessDistrict: [undefined],
+                witnessMunicipality: [undefined],
+                WitnessWardNumber: [undefined],
+                witnessAge: [undefined],
+                witnessName: [undefined],
+                witnessDistrict2: [undefined],
+                witnessMunicipality2: [undefined],
+                WitnessWardNumber2: [undefined],
+                witnessAge2: [undefined],
+                witnessName2: [undefined],
+                bankStaff: [undefined],
               })
           );
         }
@@ -190,6 +201,28 @@ export class CrossGuaranteePartnershipComponent implements OnInit {
                 this.cadInitialInfo[val].sanchaalakFreeText : '');
             this.form.get(['crossGuaranteePartnership', val, 'date']).patchValue(this.cadInitialInfo ?
                 this.cadInitialInfo[val].date : '');
+            this.form.get(['crossGuaranteePartnership', val, 'witnessDistrict']).patchValue(this.cadInitialInfo ?
+                this.cadInitialInfo[val].witnessDistrict : '');
+            this.form.get(['crossGuaranteePartnership', val, 'witnessMunicipality']).patchValue(this.cadInitialInfo ?
+                this.cadInitialInfo[val].witnessMunicipality : '');
+            this.form.get(['crossGuaranteePartnership', val, 'WitnessWardNumber']).patchValue(this.cadInitialInfo ?
+                this.cadInitialInfo[val].WitnessWardNumber : '');
+            this.form.get(['crossGuaranteePartnership', val, 'witnessAge']).patchValue(this.cadInitialInfo ?
+                this.cadInitialInfo[val].witnessAge : '');
+            this.form.get(['crossGuaranteePartnership', val, 'witnessName']).patchValue(this.cadInitialInfo ?
+                this.cadInitialInfo[val].witnessName : '');
+            this.form.get(['crossGuaranteePartnership', val, 'witnessDistrict2']).patchValue(this.cadInitialInfo ?
+                this.cadInitialInfo[val].witnessDistrict2 : '');
+            this.form.get(['crossGuaranteePartnership', val, 'witnessMunicipality2']).patchValue(this.cadInitialInfo ?
+                this.cadInitialInfo[val].witnessMunicipality2 : '');
+            this.form.get(['crossGuaranteePartnership', val, 'WitnessWardNumber2']).patchValue(this.cadInitialInfo ?
+                this.cadInitialInfo[val].WitnessWardNumber2 : '');
+            this.form.get(['crossGuaranteePartnership', val, 'witnessAge2']).patchValue(this.cadInitialInfo ?
+                this.cadInitialInfo[val].witnessAge2 : '');
+            this.form.get(['crossGuaranteePartnership', val, 'witnessName2']).patchValue(this.cadInitialInfo ?
+                this.cadInitialInfo[val].witnessName2 : '');
+            this.form.get(['crossGuaranteePartnership', val, 'bankStaff']).patchValue(this.cadInitialInfo ?
+                this.cadInitialInfo[val].bankStaff : '');
           }
         }
       }
@@ -354,6 +387,23 @@ export class CrossGuaranteePartnershipComponent implements OnInit {
             this.form.get(['crossGuaranteePartnership', val, 'sanchaalakFreeText']).value : '',
         date: this.form.get(['crossGuaranteePartnership', val, 'date']).value ?
             this.form.get(['crossGuaranteePartnership', val, 'date']).value : '',
+        witnessDistrict: this.form.get(['crossGuaranteePartnership', val, 'witnessDistrict']).value ? this.form.get(['crossGuaranteePartnership', val, 'witnessDistrict']).value : '',
+        witnessMunicipality: this.form.get(['crossGuaranteePartnership', val, 'witnessMunicipality']).value ?
+            this.form.get(['crossGuaranteePartnership', val, 'witnessMunicipality']).value : '',
+        WitnessWardNumber: this.form.get(['crossGuaranteePartnership', val, 'WitnessWardNumber']).value ? this.form.get(['crossGuaranteePartnership', val, 'WitnessWardNumber']).value : '',
+        witnessAge: this.form.get(['crossGuaranteePartnership', val, 'witnessAge']).value ? this.form.get(['crossGuaranteePartnership', val, 'witnessAge']).value : '',
+        witnessName: this.form.get(['crossGuaranteePartnership', val, 'witnessName']).value ?
+            this.form.get(['crossGuaranteePartnership', val, 'witnessName']).value : '',
+        witnessDistrict2: this.form.get(['crossGuaranteePartnership', val, 'witnessDistrict2']).value ? this.form.get(['crossGuaranteePartnership', val, 'witnessDistrict2']).value : '',
+        witnessMunicipality2: this.form.get(['crossGuaranteePartnership', val, 'witnessMunicipality2']).value ?
+            this.form.get(['crossGuaranteePartnership', val, 'witnessMunicipality2']).value : '',
+        WitnessWardNumber2: this.form.get(['crossGuaranteePartnership', val, 'WitnessWardNumber2']).value ?
+            this.form.get(['crossGuaranteePartnership', val, 'WitnessWardNumber2']).value : '',
+        witnessAge2: this.form.get(['crossGuaranteePartnership', val, 'witnessAge2']).value ?
+            this.form.get(['crossGuaranteePartnership', val, 'witnessAge2']).value : '',
+        witnessName2: this.form.get(['crossGuaranteePartnership', val, 'witnessName2']).value ?
+            this.form.get(['crossGuaranteePartnership', val, 'witnessName2']).value : '',
+        bankStaff: this.form.get(['crossGuaranteePartnership', val, 'bankStaff']).value ? this.form.get(['crossGuaranteePartnership', val, 'bankStaff']).value : '',
       };
       this.freeText.push(tempFreeText);
     }
