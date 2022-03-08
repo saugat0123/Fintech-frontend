@@ -63,6 +63,7 @@ export class SecuritySummaryComponent implements OnInit {
     landArray;
     landBuildingArray;
     apartmentArray;
+    vehicleArray;
 
     constructor(private collateralSiteVisitService: CollateralSiteVisitService) {
     }
@@ -104,6 +105,7 @@ export class SecuritySummaryComponent implements OnInit {
                 if (f.indexOf('VehicleSecurity') !== -1) {
                     this.showTitle = true;
                     this.vehicleSelected = true;
+                    this.vehicleArray = this.managedArray(this.formData['initialForm']['vehicleDetails']);
                 }
             });
             // fixed deposit receipt security
