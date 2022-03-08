@@ -119,10 +119,13 @@
                     बैंकिङ्ग सुविधाहरु नविकरण/पुनरावलोकन/थप तथा अतिरिक्ति ऋणकर्जा/थप तथा अतिरिक्ति ऋणकर्जा सहित
                     नविकरण/पुनरावलोकन गरी देहाय बमोजिमको ऋणकर्जाहरुको कुल रकम रु.
                     <input class="form-field form-control-sm d-print-none"
-                             name="totalAmount"
+                           (change)="transformNumber('totalAmount')"
+                           name="totalAmount"
                              formControlName="totalAmount"
                              type="text"/>
-                    <span class="print-only font-weight-bold">{{this.finalAmount ? this.finalAmount : ''}}</span>/-
+                    <span class="print-only font-weight-bold">
+                        {{form?.get('totalAmount') ? form?.get('totalAmount')?.value : '===================================='}}
+                    </span>/-
                     सम्मको लागि देहायमा उल्लिखित घर/जग्गाहरु सुरक्षणको रुपमा यथावत राखि राख्न
                     म/हामीलाई मंजुरी भएकोले उल्लिखित साक्षीहरुको रोहवरमा यो मंजुरीनामाको लिखत लेखिदिएको छू/छौं । यसमा
                     लेखिएको व्यहोरा साँचो हो, पछि मेरो/हाम्रो उक्त घर/जग्गा ऋणी(हरु)को उल्लिखित ऋणकर्जा सुविधाहरुको
