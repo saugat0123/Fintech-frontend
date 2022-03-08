@@ -45,6 +45,7 @@ export class LandSubOrdinateProprietorshipComponent implements OnInit {
   totalAmount;
   totalAmountInWord;
   supportedInfo;
+  spinner = false;
 
   constructor(private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
@@ -149,8 +150,8 @@ export class LandSubOrdinateProprietorshipComponent implements OnInit {
       loanProviderAddress: this.supportedInfo ? this.supportedInfo.loanProviderAddress : '',
       freeText3: this.supportedInfo ? this.supportedInfo.freeText3 : '',
       freeText4: this.supportedInfo ? this.supportedInfo.freeText4 : '',
-      amount: this.totalAmount,
-      amountInWords: this.totalAmountInWord,
+      amount: this.supportedInfo ? this.supportedInfo.amount : '',
+      amountInWords: this.supportedInfo ? this.supportedInfo.amountInWords : '',
       borrowerAuthorizedPerson: this.supportedInfo ? this.supportedInfo.borrowerAuthorizedPerson : '',
       borrowerAuthorizedPersonAddress: this.supportedInfo ? this.supportedInfo.borrowerAuthorizedPersonAddress : '',
       loanProviderAuthorizedPerson: this.supportedInfo ? this.supportedInfo.loanProviderAuthorizedPerson : '',
@@ -218,6 +219,8 @@ export class LandSubOrdinateProprietorshipComponent implements OnInit {
       witnessAge2: this.form.get('witnessAge2') ? this.form.get('witnessAge2').value : '',
       witnessName2: this.form.get('witnessName2') ? this.form.get('witnessName2').value : '',
       bankStaff: this.form.get('bankStaff') ? this.form.get('bankStaff').value : '',
+      amount: this.form.get('amount') ? this.form.get('amount').value : '',
+      amountInWords: this.form.get('amountInWords') ? this.form.get('amountInWords').value : '',
     };
     return JSON.stringify(free1);
   }
@@ -231,9 +234,16 @@ export class LandSubOrdinateProprietorshipComponent implements OnInit {
       });
     }
   }
+  public translateNumber(figure, words): void {
+    const transformValue = this.nepaliCurrencyWordPipe.transform(this.form.get(figure).value);
+    const numberTrans = this.engToNepNumberPipe.transform(this.form.get(figure).value, true);
+    this.form.get(words).patchValue(transformValue);
+    this.form.get(figure).patchValue(numberTrans);
+  }
 
   submit() {
     let flag = true;
+    this.spinner = true;
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(individualCadFile => {
         if (individualCadFile.customerLoanId === this.customerLoanId && individualCadFile.cadDocument.id === this.documentId) {
@@ -266,11 +276,13 @@ export class LandSubOrdinateProprietorshipComponent implements OnInit {
 
     this.administrationService.saveCadDocumentBulk(this.cadData).subscribe(() => {
       this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved '));
+      this.spinner = false;
       this.dialogRef.close();
       this.routerUtilsService.reloadCadProfileRoute(this.cadData.id);
     }, error => {
       console.error(error);
       this.toastService.show(new Alert(AlertType.ERROR, 'Failed to save '));
+      this.spinner = false;
       this.dialogRef.close();
     });
   }
