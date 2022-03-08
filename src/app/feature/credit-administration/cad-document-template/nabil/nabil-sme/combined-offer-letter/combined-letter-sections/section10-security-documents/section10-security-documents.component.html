@@ -82,7 +82,7 @@
                                class="form-field form-control-sm"
                                [value]="val.gurantedAmount.ct"/> /-
                         बराबरको
-                        {{val.gender.en === 'FEMALE' && val.relationMedium.en === '0' ? 'श्रीमती' : (val.gender.en === 'FEMALE' && val.relationMedium.en === '1' ? 'सुश्री' : val.gender.en === 'MALE' ? 'श्रीमान्' : '')}}
+                        {{val.gender.en === 'FEMALE' && val.guarantorMaritalStatus.en === 'Married' ? 'श्रीमती' : (val.gender.en === 'FEMALE' && val.guarantorMaritalStatus.en === 'Unmarried' ? 'सुश्री' : val.gender.en === 'MALE' ? 'श्रीमान्' : '')}}
                         <input class="form-field form-control-sm col-3"
                                formControlName="guarantorName"
                                type="text"
