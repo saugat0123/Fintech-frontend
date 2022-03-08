@@ -97,7 +97,7 @@
                                         Executive Summary
                                     </h2>
                                 </ng-template>
-                                <ng-container *ngIf="!isExecutiveSummary; else executiveSummary">
+                                <ng-container *ngIf="isDetailedView; else executiveSummary">
                                     <div class="report-header-sub-heading">
                                         <span class="sb-small"> Credit Appraisal </span>
                                         <br/>
@@ -155,12 +155,12 @@
             </div>
             <div class="row mt-3">
                 <div class="col-md-12">
-                    <nb-checkbox (checkedChange)="toggle($event)">Executive Summary for Above 10 Million</nb-checkbox>
+                    <nb-checkbox size="large" (checkedChange)="toggle($event)">Detailed View</nb-checkbox>
                 </div>
             </div>
 
             <hr class="print-line disable-print">
-            <ng-container *ngIf="!isExecutiveSummary">
+            <ng-container *ngIf="isDetailedView">
                 <div class="row">
                     <div *ngIf="crgGammaSummary" class="col-md-12">
                         <nb-card class="sb-medium">
@@ -627,13 +627,13 @@
                                           [loanDataHolder]="loanDataHolder"></app-company-info-summary>
             </div>
 
-            <div class="row" *ngIf="isExecutiveSummary">
+            <div class="row" *ngIf="!isDetailedView">
                 <div class="col-md-12">
                     <app-executive-summary-sme></app-executive-summary-sme>
                 </div>
             </div>
 
-            <ng-container *ngIf="!isExecutiveSummary">
+            <ng-container *ngIf="isDetailedView">
 
                 <app-financial-summary *ngIf="financialSummary" [formData]="financialData"
                                        [loanType]="loanDataHolder?.loanCategory"></app-financial-summary>

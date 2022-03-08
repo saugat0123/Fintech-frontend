@@ -45,6 +45,7 @@ import * as JSZipUtils from 'jszip-utils/lib/index.js';
 import {saveAs as importedSaveAs} from 'file-saver';
 import * as JSZip from 'jszip';
 import { DocStatus } from '../../../model/docStatus';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
   selector: 'app-sme-loan-summary',
@@ -188,7 +189,7 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
     hidePreviewButton = false;
     zipDocumentName: any;
 
-    isExecutiveSummary = false;
+    isDetailedView = false;
     constructor(
         @Inject(DOCUMENT) private _document: Document,
         private userService: UserService,
@@ -209,6 +210,7 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
         private fiscalYearService: FiscalYearService,
         private collateralSiteVisitService: CollateralSiteVisitService,
         private nbDialogService: NbDialogService,
+        private ngxSpinner: NgxSpinnerService
     ) {
         this.client = environment.client;
         this.showCadDoc = this.productUtils.CAD_LITE_VERSION;
@@ -760,7 +762,7 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
         }
     }
     toggle (checked: boolean) {
-        this.isExecutiveSummary = checked;
+        this.isDetailedView = checked;
     }
 }
 

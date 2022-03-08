@@ -49,6 +49,7 @@ import { ExecutiveSecurityArrangementComponent } from './sme-loan-summary/execut
 import { ExecutiveKeyFinancialFiguresComponent } from './sme-loan-summary/executive-summary-sme/executive-key-financial-figures/executive-key-financial-figures.component';
 import { ExecutiveGroupPositionComponent } from './sme-loan-summary/executive-summary-sme/executive-group-position/executive-group-position.component';
 import { ExecutiveSummarySmeComponent } from './sme-loan-summary/executive-summary-sme/executive-summary-sme.component';
+import { ExecutiveRecommendationApprovalComponent } from './sme-loan-summary/executive-summary-sme/executive-recommendation-approval/executive-recommendation-approval.component';
 
 
 
@@ -78,7 +79,7 @@ const COMPONENTS = [
 const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
 
 @NgModule({
-    declarations: [...COMPONENTS, ApprovalSheetConfigComponent, ApprovalSheetInfoComponent, ApprovalSheetDocumentListComponent, MGroupSummaryComponent, CommentsSummaryComponent, PreviousSecuritySummaryComponent, SignatureSectionComponent, CreditFacilityReportComponent, SmeLoanSummaryComponent, CurrentStatusTableComponent, ConlusionReviewTableComponent, MisNrbReportingComponent, KeyFinancialFiguresComponent, AssessmentForRequirementOfFundComponent, SanaAssessmentForRequirementOfFundComponent, ExecutiveCurrentStatusComponent, ExecutiveSecurityArrangementComponent, ExecutiveKeyFinancialFiguresComponent, ExecutiveGroupPositionComponent, ExecutiveSummarySmeComponent],
+    declarations: [...COMPONENTS, ApprovalSheetConfigComponent, ApprovalSheetInfoComponent, ApprovalSheetDocumentListComponent, MGroupSummaryComponent, CommentsSummaryComponent, PreviousSecuritySummaryComponent, SignatureSectionComponent, CreditFacilityReportComponent, SmeLoanSummaryComponent, CurrentStatusTableComponent, ConlusionReviewTableComponent, MisNrbReportingComponent, KeyFinancialFiguresComponent, AssessmentForRequirementOfFundComponent, SanaAssessmentForRequirementOfFundComponent, ExecutiveCurrentStatusComponent, ExecutiveSecurityArrangementComponent, ExecutiveKeyFinancialFiguresComponent, ExecutiveGroupPositionComponent, ExecutiveSummarySmeComponent, ExecutiveRecommendationApprovalComponent],
     imports: [
         CommonModule,
         ThemeModule,
