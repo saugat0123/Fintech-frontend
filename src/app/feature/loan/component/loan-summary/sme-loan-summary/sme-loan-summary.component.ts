@@ -188,6 +188,7 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
     hidePreviewButton = false;
     zipDocumentName: any;
 
+    isExecutiveSummary = false;
     constructor(
         @Inject(DOCUMENT) private _document: Document,
         private userService: UserService,
@@ -248,7 +249,6 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
         if (!ObjectUtil.isEmpty(this.loanDataHolder.financial)) {
             this.financialData = this.loanDataHolder.financial;
             this.financialSummary = true;
-            
         }
 
         // Setting Security data--
@@ -738,7 +738,6 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
     getCompanyAccountNo() {
         const companyInfoJson = JSON.parse(this.loanDataHolder.companyInfo.companyJsonData);
         this.companyInfoJson = companyInfoJson.accountDetails;
-        
         // for (let x in companyInfoJson.accountDetails) {
         //     this.companyInfoJson = x.accountNo
         // }
@@ -759,6 +758,9 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
         } else {
             this.hidePreviewButton = false;
         }
+    }
+    toggle (checked: boolean) {
+        this.isExecutiveSummary = checked;
     }
 }
 

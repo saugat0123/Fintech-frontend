@@ -44,6 +44,11 @@ import { MisNrbReportingComponent } from './sme-loan-summary/mis-nrb-reporting/m
 import { KeyFinancialFiguresComponent } from './sme-loan-summary/key-financial-figures/key-financial-figures.component';
 import { AssessmentForRequirementOfFundComponent } from './sme-loan-summary/upto-ten-million/assessment-for-requirement-of-fund/assessment-for-requirement-of-fund.component';
 import { SanaAssessmentForRequirementOfFundComponent } from './sme-loan-summary/sana-by-abasayisaral-karja/sana-assessment-for-requirement-of-fund/sana-assessment-for-requirement-of-fund.component';
+import { ExecutiveCurrentStatusComponent } from './sme-loan-summary/executive-summary-sme/executive-current-status/executive-current-status.component';
+import { ExecutiveSecurityArrangementComponent } from './sme-loan-summary/executive-summary-sme/executive-security-arrangement/executive-security-arrangement.component';
+import { ExecutiveKeyFinancialFiguresComponent } from './sme-loan-summary/executive-summary-sme/executive-key-financial-figures/executive-key-financial-figures.component';
+import { ExecutiveGroupPositionComponent } from './sme-loan-summary/executive-summary-sme/executive-group-position/executive-group-position.component';
+import { ExecutiveSummarySmeComponent } from './sme-loan-summary/executive-summary-sme/executive-summary-sme.component';
 
 
 
@@ -73,7 +78,7 @@ const COMPONENTS = [
 const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
 
 @NgModule({
-    declarations: [...COMPONENTS, ApprovalSheetConfigComponent, ApprovalSheetInfoComponent, ApprovalSheetDocumentListComponent, MGroupSummaryComponent, CommentsSummaryComponent, PreviousSecuritySummaryComponent, SignatureSectionComponent, CreditFacilityReportComponent, SmeLoanSummaryComponent, CurrentStatusTableComponent, ConlusionReviewTableComponent, MisNrbReportingComponent, KeyFinancialFiguresComponent, AssessmentForRequirementOfFundComponent, SanaAssessmentForRequirementOfFundComponent],
+    declarations: [...COMPONENTS, ApprovalSheetConfigComponent, ApprovalSheetInfoComponent, ApprovalSheetDocumentListComponent, MGroupSummaryComponent, CommentsSummaryComponent, PreviousSecuritySummaryComponent, SignatureSectionComponent, CreditFacilityReportComponent, SmeLoanSummaryComponent, CurrentStatusTableComponent, ConlusionReviewTableComponent, MisNrbReportingComponent, KeyFinancialFiguresComponent, AssessmentForRequirementOfFundComponent, SanaAssessmentForRequirementOfFundComponent, ExecutiveCurrentStatusComponent, ExecutiveSecurityArrangementComponent, ExecutiveKeyFinancialFiguresComponent, ExecutiveGroupPositionComponent, ExecutiveSummarySmeComponent],
     imports: [
         CommonModule,
         ThemeModule,
