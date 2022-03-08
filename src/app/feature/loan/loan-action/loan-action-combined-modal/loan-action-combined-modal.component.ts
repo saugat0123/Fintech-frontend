@@ -66,6 +66,12 @@ export class LoanActionCombinedModalComponent implements OnInit {
     isUserNotPresentForCombine = false;
     showUserList = true;
     spinner = false;
+    isDual;
+    isHsov;
+    individualDual = false;
+    combinedDual = false;
+    individualHSOV = false;
+    combinedHSOV = false;
     @Output() emitter = new EventEmitter();
 
     constructor(
@@ -234,7 +240,10 @@ export class LoanActionCombinedModalComponent implements OnInit {
             documentStatus: [this.documentStatus],
             isSol: [ObjectUtil.isEmpty(l.isSol) ? undefined : l.isSol],
             solUser: [ObjectUtil.isEmpty(l.solUser) ? undefined : l.solUser],
-            selectedRoleForSol: [ObjectUtil.isEmpty(l.solUser) ? undefined : l.solUser.role]
+            selectedRoleForSol: [ObjectUtil.isEmpty(l.solUser) ? undefined : l.solUser.role],
+            isHsov: [ObjectUtil.isEmpty(l.isHsov) ? undefined : l.isHsov],
+            dualApproval: [ObjectUtil.isEmpty(l.dualApproval) ? undefined : l.dualApproval],
+            dualApproved: [ObjectUtil.isEmpty(l.dualApproved) ? undefined : l.dualApproved],
         });
     }
 
@@ -255,7 +264,11 @@ export class LoanActionCombinedModalComponent implements OnInit {
                 loanName: undefined,
                 isSol: [ObjectUtil.isEmpty(l.isSol) ? undefined : l.isSol],
                 solUser: [ObjectUtil.isEmpty(l.solUser) ? undefined : l.solUser],
-                selectedRoleForSol: [ObjectUtil.isEmpty(l.solUser) ? undefined : l.solUser.role]
+                selectedRoleForSol: [ObjectUtil.isEmpty(l.solUser) ? undefined : l.solUser.role],
+                isHsov: [ObjectUtil.isEmpty(l.isHsov) ? undefined : l.isHsov],
+                dualApproval: [ObjectUtil.isEmpty(l.dualApproval) ? undefined : l.dualApproval],
+                dualApproved: [ObjectUtil.isEmpty(l.dualApproved) ? undefined : l.dualApproved]
+
             }));
         });
         return form;
@@ -264,6 +277,7 @@ export class LoanActionCombinedModalComponent implements OnInit {
     private conditionalCombinedDataLoad(): void {
         switch (this.popUpTitle) {
             case 'Send Forward':
+            case 'Approve':
                 const approvalType = LocalStorageUtil.getStorage().productUtil.LOAN_APPROVAL_HIERARCHY_LEVEL;
 
                 this.approvalRoleHierarchyService.getForwardRolesForRoleWithType(this.roleId, approvalType, 0)
@@ -290,6 +304,9 @@ export class LoanActionCombinedModalComponent implements OnInit {
                     documentStatus: this.combinedType.form.get('documentStatus').value,
                     isSol: this.combinedType.form.get('isSol').value,
                     solUser: this.combinedType.form.get('solUser').value,
+                    isHsov: this.combinedType.form.get('isHsov').value,
+                    dualApproval: this.combinedType.form.get('dualApproval').value,
+                    dualApproved: l.dualApproved
                 };
             });
 
@@ -393,6 +410,29 @@ export class LoanActionCombinedModalComponent implements OnInit {
         }
     }
 
+    dualApproval(event, individual) {
+        if (event && individual) {
+            this.individualDual = true;
+        } else if (event && !individual) {
+            this.combinedDual = true;
+        } else if (!event && individual) {
+            this.individualDual = false;
+        } else {
+            this.combinedDual = false;
+        }
+    }
+
+    hsov(event, individual) {
+        if (event && individual) {
+            this.individualHSOV = true;
+        } else if (event && !individual) {
+            this.combinedHSOV = true;
+        } else if (!event && individual) {
+            this.combinedHSOV = false;
+        } else {
+            this.individualHSOV = false;
+        }
+    }
 
     compareFn(c1: any, c2: any): boolean {
         return c1 && c2 ? c1.id === c2.id : c1 === c2;

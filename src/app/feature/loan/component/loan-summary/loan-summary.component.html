@@ -573,7 +573,7 @@
                         <p><b class="header">Proposal</b></p>
                         <table class="table table-condensed table-bordered table-sm table-responsive-md sb-small">
                             <tr>
-                                <th>{{(loanDataHolder.remitCustomer.senderData | jsonParse).senderBanking.loan_purpose}}</th>
+                                <th>{{(loanDataHolder?.remitCustomer?.senderData | jsonParse)?.senderBanking.loan_purpose}}</th>
                             </tr>
                         </table>
                     </div>
