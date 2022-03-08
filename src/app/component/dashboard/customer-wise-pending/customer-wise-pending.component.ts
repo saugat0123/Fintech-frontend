@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {DmsLoanFile} from '../../../feature/admin/modal/dms-loan-file';
 import {LoanDataHolder} from '../../../feature/loan/model/loanData';
 import {LoanType} from '../../../feature/loan/model/loanType';
@@ -82,7 +82,10 @@ export class CustomerWisePendingComponent implements OnInit {
     loanHolderLoanListTemp: Array<LoanHolderLoans> = new Array<LoanHolderLoans>();
     sortedLoanType = [];
     loanTagList = [];
-    companyInfoId: any;
+    companyInfoId: any
+    initialLoans : any
+
+
 
     constructor(
         private service: DmsLoanService,
@@ -103,20 +106,14 @@ export class CustomerWisePendingComponent implements OnInit {
     }
 
 
+
     static loadData(other: CustomerWisePendingComponent) {
-        let data;
-        other.activatedRoute.queryParams.subscribe((d)=>{
-            console.log(d);
-            other.search.documentStatus = DocStatus.value(DocStatus.PENDING);
-            other.search.loanNewRenew =d.type
-            data = other.search;
-        })
         other.spinner = true;
         other.toggleArray = [];
         other.loanForCombine = [];
         other.loanHolderLoanList = [];
         other.loanHolderLoanListTemp = [];
-        other.loanFormService.getPaginationWithSearchObject(data, other.page, 10).subscribe(
+        other.loanFormService.getPaginationWithSearchObject(other.search, other.page, 10).subscribe(
             (response: any) => {
                 other.loanHolderLoanList = response.detail.content;
                 other.loanHolderLoanListTemp = response.detail.content;
@@ -145,8 +142,8 @@ export class CustomerWisePendingComponent implements OnInit {
         if (this.search.documentStatus.toString() === DocStatus.value(DocStatus.PENDING)) {
             this.showDocStatusList = false;
         } else {
-            this.docStatusForMaker();
             this.showDocStatusList = true;
+            this.docStatusForMaker();
         }
         CustomerWisePendingComponent.loadData(this);
         this.userService.getLoggedInUser().subscribe(
