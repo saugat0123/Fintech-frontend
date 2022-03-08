@@ -355,7 +355,7 @@ export class UdhyamsilKarjaSubsidyTemplateDataComponent implements OnInit {
             const approvalForm = this.udhyamsilKarja.get('dateOfApproval').value;
             approvalD = !ObjectUtil.isEmpty(approvalForm) ?
                 this.datePipe.transform(approvalForm) : '';
-            approvalDateTrans = !ObjectUtil.isEmpty(approvalD) ? this.engDateTransPipe.transform(approvalD, true) : '';
+            approvalDateTrans = !ObjectUtil.isEmpty(approvalD) ? this.engNepDatePipe.transform(approvalD, true) : '';
             this.udhyamsilKarja.get('dateOfApprovalTrans').patchValue(approvalDateTrans);
         } else {
             const approvalNepali = this.udhyamsilKarja.get('dateOfApprovalNepali').value;

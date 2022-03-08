@@ -414,7 +414,7 @@ export class InterestSubsidySanctionLetterTemplateEditComponent implements OnIni
             const approvalDateVal = this.datePipe.transform(this.interestSubsidy.get('dateOfApproval').value);
             transApprovalDate = !ObjectUtil.isEmpty(approvalDateVal) ?
                 this.datePipe.transform(approvalDateVal) : '';
-            const finalAppDate = this.englishCalenderPipe.transform(transApprovalDate);
+            const finalAppDate = !ObjectUtil.isEmpty(transApprovalDate) ? this.engNepDatePipe.transform(transApprovalDate, true) : '';
             if (!ObjectUtil.isEmpty(approvalDateVal)) {
                 this.interestSubsidy.get('dateOfApprovalTrans').patchValue(finalAppDate);
             }

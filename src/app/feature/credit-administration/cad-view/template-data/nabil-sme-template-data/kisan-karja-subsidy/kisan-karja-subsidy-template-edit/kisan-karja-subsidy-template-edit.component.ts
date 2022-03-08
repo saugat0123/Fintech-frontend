@@ -447,7 +447,7 @@ export class KisanKarjaSubsidyTemplateEditComponent implements OnInit {
       const approvalForm = this.kisanKarjaSubsidy.get('dateOfApproval').value;
       approvalD = !ObjectUtil.isEmpty(approvalForm) ?
           this.datePipe.transform(approvalForm) : '';
-      approvalDateTrans = !ObjectUtil.isEmpty(approvalD) ? this.engDateTransPipe.transform(approvalD, true) : '';
+      approvalDateTrans = !ObjectUtil.isEmpty(approvalD) ? this.engNepDatePipe.transform(approvalD, true) : '';
       this.kisanKarjaSubsidy.get('dateOfApprovalTrans').patchValue(approvalDateTrans);
     } else {
       const approvalNepali = this.kisanKarjaSubsidy.get('dateOfApprovalNepali').value;
