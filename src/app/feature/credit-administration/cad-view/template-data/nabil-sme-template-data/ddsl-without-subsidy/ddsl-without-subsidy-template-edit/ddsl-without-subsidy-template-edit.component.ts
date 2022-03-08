@@ -382,7 +382,8 @@ export class DdslWithoutSubsidyTemplateEditComponent implements OnInit {
             const approvalForm = this.datePipe.transform(this.ddslFormGroup.get('sanctionLetterDate').value);
             approvalDateTrans = !ObjectUtil.isEmpty(approvalForm) ?
                 this.datePipe.transform(approvalForm) : '';
-            const finalAppDate = this.englishCalenderPipe.transform(approvalDateTrans);
+            const finalAppDate = !ObjectUtil.isEmpty(approvalDateTrans) ?
+                this.engNepDatePipe.transform(approvalDateTrans, true) : '';
             if (!ObjectUtil.isEmpty(approvalForm)) {
                 this.ddslFormGroup.get('sanctionLetterDateTrans').patchValue(finalAppDate);
             }

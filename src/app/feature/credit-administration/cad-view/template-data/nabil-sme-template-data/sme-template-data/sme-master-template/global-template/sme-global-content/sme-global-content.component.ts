@@ -7,6 +7,7 @@ import {EngToNepaliNumberPipe} from '../../../../../../../../../@core/pipe/eng-t
 import {NepaliCurrencyWordPipe} from '../../../../../../../../../@core/pipe/nepali-currency-word.pipe';
 import {OfferDocument} from '../../../../../../../model/OfferDocument';
 import {CurrencyFormatterPipe} from '../../../../../../../../../@core/pipe/currency-formatter.pipe';
+import {EngNepDatePipe} from 'nepali-patro';
 
 @Component({
   selector: 'app-sme-global-content',
@@ -64,7 +65,8 @@ export class SmeGlobalContentComponent implements OnInit {
               private datePipe: DatePipe,
               public engToNepaliNumberPipe: EngToNepaliNumberPipe,
               public currencyWordPipe: NepaliCurrencyWordPipe,
-              private currencyFormatter: CurrencyFormatterPipe) { }
+              private currencyFormatter: CurrencyFormatterPipe,
+              private engToNepaliDate: EngNepDatePipe) { }
 
   ngOnInit() {
     this.buildForm();
@@ -301,7 +303,7 @@ export class SmeGlobalContentComponent implements OnInit {
     if (dateOfApprovalType === 'AD') {
       const dateOfApproval = this.datePipe.transform(this.globalForm.get('dateOfApproval').value);
       tempApprovalDate = !ObjectUtil.isEmpty(dateOfApproval) ? this.datePipe.transform(dateOfApproval) : '';
-      const finalExpDate = this.transformEnglishDate(tempApprovalDate);
+      const finalExpDate = !ObjectUtil.isEmpty(tempApprovalDate) ? this.engToNepaliDate.transform(tempApprovalDate, true) : '';
       if (!ObjectUtil.isEmpty(dateOfApproval)) {
         this.globalForm.get('dateOfApprovalTrans').patchValue(finalExpDate);
         this.globalForm.get('dateOfApprovalCT').patchValue(finalExpDate);
