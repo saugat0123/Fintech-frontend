@@ -195,7 +195,6 @@ export class SecuritySummaryComponent implements OnInit {
                             }
                         });
                         this.landArray = this.managedArray(this.formData['initialForm']['landDetails']);
-                        console.log('this is land array', this.landArray);
                     }
                     if (this.landBuilding) {
                         const landBuilding = this.formData['initialForm']['landBuilding'];
@@ -205,7 +204,6 @@ export class SecuritySummaryComponent implements OnInit {
                             }
                         });
                         this.landBuildingArray = this.managedArray(this.formData['initialForm']['landBuilding']);
-                        console.log('this is land building array', this.landBuildingArray);
                     }
                     if (this.apartmentSelected) {
                         const buildingDetails = this.formData['initialForm']['buildingDetails'];
