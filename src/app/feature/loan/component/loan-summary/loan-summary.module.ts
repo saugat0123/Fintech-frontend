@@ -42,6 +42,8 @@ import { CurrentStatusTableComponent } from './sme-loan-summary/current-status-t
 import { ConlusionReviewTableComponent } from './sme-loan-summary/conlusion-review-table/conlusion-review-table.component';
 import { MisNrbReportingComponent } from './sme-loan-summary/mis-nrb-reporting/mis-nrb-reporting.component';
 import { KeyFinancialFiguresComponent } from './sme-loan-summary/key-financial-figures/key-financial-figures.component';
+import { AssessmentForRequirementOfFundComponent } from './sme-loan-summary/upto-ten-million/assessment-for-requirement-of-fund/assessment-for-requirement-of-fund.component';
+import { SanaAssessmentForRequirementOfFundComponent } from './sme-loan-summary/sana-by-abasayisaral-karja/sana-assessment-for-requirement-of-fund/sana-assessment-for-requirement-of-fund.component';
 
 
 
@@ -71,7 +73,7 @@ const COMPONENTS = [
 const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
 
 @NgModule({
-    declarations: [...COMPONENTS, ApprovalSheetConfigComponent, ApprovalSheetInfoComponent, ApprovalSheetDocumentListComponent, MGroupSummaryComponent, CommentsSummaryComponent, PreviousSecuritySummaryComponent, SignatureSectionComponent, CreditFacilityReportComponent, SmeLoanSummaryComponent, CurrentStatusTableComponent, ConlusionReviewTableComponent, MisNrbReportingComponent, KeyFinancialFiguresComponent],
+    declarations: [...COMPONENTS, ApprovalSheetConfigComponent, ApprovalSheetInfoComponent, ApprovalSheetDocumentListComponent, MGroupSummaryComponent, CommentsSummaryComponent, PreviousSecuritySummaryComponent, SignatureSectionComponent, CreditFacilityReportComponent, SmeLoanSummaryComponent, CurrentStatusTableComponent, ConlusionReviewTableComponent, MisNrbReportingComponent, KeyFinancialFiguresComponent, AssessmentForRequirementOfFundComponent, SanaAssessmentForRequirementOfFundComponent],
     imports: [
         CommonModule,
         ThemeModule,

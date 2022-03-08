@@ -1,0 +1,25 @@
+h5 {
+  font-size: 13.5px !important;
+}
+
+p {
+  font-size: 13px !important;
+}
+
+.working-capital {
+  td:first-child {
+    font-weight: bold;
+  }
+}
+.term-loan {
+  td:nth-child(1),
+  td:nth-child(2) {
+    font-weight: bold;
+  }
+}
+
+.total {
+  td:third-child {
+    text-align: center !important;
+  }
+}
