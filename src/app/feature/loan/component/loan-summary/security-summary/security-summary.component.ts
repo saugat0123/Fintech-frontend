@@ -61,6 +61,8 @@ export class SecuritySummaryComponent implements OnInit {
     @Input() isApproveSecurity;
     isSecurityPresent = false;
     landArray;
+    landBuildingArray;
+    apartmentArray;
 
     constructor(private collateralSiteVisitService: CollateralSiteVisitService) {
     }
@@ -191,6 +193,7 @@ export class SecuritySummaryComponent implements OnInit {
                             }
                         });
                         this.landArray = this.managedArray(this.formData['initialForm']['landDetails']);
+                        console.log('this is land array', this.landArray);
                     }
                     if (this.landBuilding) {
                         const landBuilding = this.formData['initialForm']['landBuilding'];
@@ -199,6 +202,8 @@ export class SecuritySummaryComponent implements OnInit {
                                 this.collateralSiteVisits.push(...siteVisit.filter(f => f.uuid === v.uuid));
                             }
                         });
+                        this.landBuildingArray = this.managedArray(this.formData['initialForm']['landBuilding']);
+                        console.log('this is land building array', this.landBuildingArray);
                     }
                     if (this.apartmentSelected) {
                         const buildingDetails = this.formData['initialForm']['buildingDetails'];
@@ -207,6 +212,7 @@ export class SecuritySummaryComponent implements OnInit {
                                 this.collateralSiteVisits.push(...siteVisit.filter(f => f.uuid === v.uuid));
                             }
                         });
+                        this.apartmentArray = this.managedArray(this.formData['initialForm']['buildingDetails']);
                     }
                     // for old loan that does not contains uuid for security and site visit
                     if (this.landSelected) {
@@ -216,6 +222,7 @@ export class SecuritySummaryComponent implements OnInit {
                                 this.collateralSiteVisits.push(...siteVisit.filter(f => f.uuid === null));
                             }
                         });
+                        this.landArray = this.managedArray(this.formData['initialForm']['landDetails']);
                     }
                     if (this.landBuilding) {
                         const landBuilding = this.formData['initialForm']['landBuilding'];
@@ -224,6 +231,7 @@ export class SecuritySummaryComponent implements OnInit {
                                 this.collateralSiteVisits.push(...siteVisit.filter(f => f.uuid === null));
                             }
                         });
+                        this.landBuildingArray = this.managedArray(this.formData['initialForm']['landBuilding']);
                     }
                     if (this.apartmentSelected) {
                         const buildingDetails = this.formData['initialForm']['buildingDetails'];
@@ -232,6 +240,7 @@ export class SecuritySummaryComponent implements OnInit {
                                 this.collateralSiteVisits.push(...siteVisit.filter(f => f.uuid === null));
                             }
                         });
+                        this.apartmentArray = this.managedArray(this.formData['initialForm']['buildingDetails']);
                     }
                     const arr = [];
                     this.collateralSiteVisits.forEach(f => {
