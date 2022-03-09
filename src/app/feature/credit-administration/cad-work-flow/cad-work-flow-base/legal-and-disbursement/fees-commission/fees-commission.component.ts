@@ -74,14 +74,6 @@ export class FeesCommissionComponent implements OnInit {
         }
     }
 
-    setLoanFeeDetails(loanFee, i: number) {
-        console.log(loanFee);
-        loanFee.forEach(f => {
-            console.log(this.feeCommissionFormGroup.get('feeAmountDetails'));
-            /*this.loanFeeDetail(i).push(f);*/
-        });
-    }
-
     addFeeAmountDetails() {
         this.cadData.assignedLoan.forEach(value => {
             this.feeAmountDetails.push(this.formBuilder.group({
