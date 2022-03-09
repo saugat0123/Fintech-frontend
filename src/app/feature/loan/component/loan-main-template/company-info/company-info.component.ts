@@ -280,6 +280,12 @@ export class CompanyInfoComponent implements OnInit {
             address: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.companyLocations)) ? undefined : this.companyInfo.companyLocations.address,
               Validators.required],
+            projectAddress: [(ObjectUtil.isEmpty(this.companyInfo)
+                || ObjectUtil.isEmpty(this.companyInfo.companyLocations)) ? undefined : this.companyInfo.companyLocations.projectAddress,
+                Validators.required],
+            correspondenceAddress: [(ObjectUtil.isEmpty(this.companyInfo)
+                || ObjectUtil.isEmpty(this.companyInfo.companyLocations)) ? undefined : this.companyInfo.companyLocations.correspondenceAddress,
+                Validators.required],
             // swot
             strength: [(ObjectUtil.isEmpty(this.companyInfo)
                 || ObjectUtil.isEmpty(this.companyInfo.swot)) ? undefined : this.companyInfo.swot.strength],
@@ -518,6 +524,8 @@ export class CompanyInfoComponent implements OnInit {
         this.locations.id = this.companyInfoFormGroup.get('locationId').value;
         this.locations.version = this.companyInfoFormGroup.get('locationVersion').value;
         this.locations.address = this.companyInfoFormGroup.get('address').value;
+        this.locations.projectAddress = this.companyInfoFormGroup.get('projectAddress').value;
+        this.locations.correspondenceAddress = this.companyInfoFormGroup.get('correspondenceAddress').value;
         this.locations.houseNumber = this.companyInfoFormGroup.get('houseNumber').value;
         this.locations.streetName = this.companyInfoFormGroup.get('streetName').value;
         this.companyInfo.companyLocations = this.locations;
