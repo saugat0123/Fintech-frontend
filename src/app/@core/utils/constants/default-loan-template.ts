@@ -39,11 +39,6 @@ export class DefaultLoanTemplate {
             active: false,
             name: 'Reporting Info',
             templateUrl: null
-        },
-        {
-            active: false,
-            name: 'General',
-            templateUrl: null
         }
     ];
 }
