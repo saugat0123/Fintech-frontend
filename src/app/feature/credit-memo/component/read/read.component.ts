@@ -96,7 +96,8 @@ export class ReadComponent implements OnInit {
     this.router.navigate(['/home/loan/summary'], {
       queryParams: {
         loanConfigId: this.memo.customerLoan.loan.id,
-        customerId: this.memo.customerLoan.id
+        customerId: this.memo.customerLoan.id,
+        catalogue: true
       }
     }).then(() => {
       this.spinner = false;

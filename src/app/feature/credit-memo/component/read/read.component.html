@@ -14,7 +14,7 @@
                             {{vendor}}
                         </div>
                         <div class="report-header-sub-heading">
-                            Memo of {{memo?.customerLoan?.loan?.name}} <br> for
+                            Diary Note of {{memo?.customerLoan?.loan?.name}} <br> for
                         </div>
                         <div class="report-header-sub-heading">
                             {{memo?.customerLoan?.customerInfo?.customerName}}
@@ -63,7 +63,7 @@
                 <div class="col-md-12 disable-print">
                     <h6>Required Documents</h6>
                     <div *ngIf="memo?.memoTypeDocuments.length > 0" class="col-md-12 ">
-                        <p><strong>Credit Memo Type Documents</strong></p>
+                        <p><strong>Credit Diary Note Type Documents</strong></p>
                         <table aria-describedby="document-download-credit-memo-table"
                                class="table table-condensed table-bordered table-responsive-md text-center">
                             <thead>
@@ -90,7 +90,7 @@
                         </table>
                     </div>
                     <div *ngIf="memo?.documents.length > 0" class="col-md-12 disable-print">
-                        <p><strong>Facility Memo Documents</strong></p>
+                        <p><strong>Facility Diary Note Documents</strong></p>
                         <table aria-describedby="document-download-credit-memo-table"
                                class="table table-condensed table-bordered table-responsive-md text-center">
                             <thead>

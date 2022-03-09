@@ -40,17 +40,18 @@
         <app-pending-loan></app-pending-loan>
     </div>
     <div class="col-md-12">
-        <app-cad-data *ngIf="customerApproveCountDto.showCustomerApprove" [customerApproveCountDto]="customerApproveCountDto"></app-cad-data>
+        <app-cad-data *ngIf="customerApproveCountDto.showCustomerApprove"
+                      [customerApproveCountDto]="customerApproveCountDto"></app-cad-data>
     </div>
 </div>
 
-<nb-card>
-    <nb-card-header><h4>Memo Details</h4></nb-card-header>
+
+<nb-card *ngIf="!(roleName || adminRole)">
+    <nb-card-header><h4>Diary Note Details</h4></nb-card-header>
     <nb-card-body>
         <app-memo-details></app-memo-details>
     </nb-card-body>
 </nb-card>
-
 
 
 <app-charts></app-charts>
