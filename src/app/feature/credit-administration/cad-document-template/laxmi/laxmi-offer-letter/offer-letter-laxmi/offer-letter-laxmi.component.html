@@ -673,9 +673,7 @@
                                     <td>
                                         <ng-container
                                                 *ngIf="offerLetterForm?.get(['purpose', i, 'commissionNeeded'])?.value">
-                                            <ng-container
-                                                    *ngIf="offerLetterForm?.get(['purpose', i, 'commissionFrequency'])?.value === 'QUARTER' ||
-                                                offerLetterForm?.get(['purpose', i, 'commissionFrequency'])?.value === 'MONTH'">
+                                            <ng-container>
                                                 <input type="text"
                                                        [value]="offerLetterForm?.get(['purpose', i, 'rate']).value"
                                                        (change)="valueChange($event?.target?.value, i, 'rate')"
@@ -1173,7 +1171,7 @@
                                         <span class="float-right disable-print"
                                               *ngIf="loanType?.includes('RENEW_WITH_ENHANCEMENT') || loanType?.includes('ENHANCED_LOAN')">
                                             <nb-checkbox
-                                                    (change)="otherCheckedValue($event?.target?.checked, 'fixedRenewWithEnhance')"
+                                                    (change)="otherCheckedValue($event?.target?.checked, 'fixedRenewWithEnhance', 'fixedAssetsWord')"
                                                     [checked]="offerLetterForm?.get('fixedRenewWithEnhance')?.value"><i>Change word</i>
                                             </nb-checkbox>
                                         </span>
@@ -1327,7 +1325,7 @@
                                         <span class="float-right disable-print"
                                               *ngIf="loanType?.includes('RENEW_WITH_ENHANCEMENT') || loanType?.includes('ENHANCED_LOAN')">
                                             <nb-checkbox
-                                                    (change)="otherCheckedValue($event?.target?.checked, 'crossRenewWithEnhance')"
+                                                    (change)="otherCheckedValue($event?.target?.checked, 'crossRenewWithEnhance', 'crossCollateralWord')"
                                                     [checked]="offerLetterForm?.get('crossRenewWithEnhance')?.value"><i>Change word</i>
                                             </nb-checkbox>
                                         </span>
@@ -1533,7 +1531,7 @@
                                             <span class="disable-print float-right"
                                                   *ngIf="loanType?.includes('RENEW_WITH_ENHANCEMENT') || loanType?.includes('ENHANCED_LOAN')">
                                                 <nb-checkbox
-                                                        (change)="otherCheckedValue($event?.target?.checked, 'shareRenewWith')"
+                                                        (change)="otherCheckedValue($event?.target?.checked, 'shareRenewWith', 'shareWord')"
                                                         [checked]="offerLetterForm?.get('shareRenewWith')?.value"><i>Change word</i>
                                                 </nb-checkbox>
                                             </span>
@@ -1807,7 +1805,7 @@
                                 </span>
                                         <span class="disable-print float-right">
                                             <nb-checkbox *ngIf="loanType?.includes('RENEW_WITH_ENHANCEMENT') || loanType?.includes('ENHANCED_LOAN')"
-                                                    (change)="otherCheckedValue($event?.target?.checked, 'currentAssetsRenew')"
+                                                    (change)="otherCheckedValue($event?.target?.checked, 'currentAssetsRenew', 'currentAssetsWord')"
                                                     [checked]="offerLetterForm?.get('currentAssetsRenew')?.value"><i>Change Word</i>
                                             </nb-checkbox> &nbsp;&nbsp;
                                     <nb-checkbox
@@ -1884,7 +1882,7 @@
                                     </ng-container>
                                     <span class="disable-print float-right">
                                         <nb-checkbox *ngIf="loanType?.includes('RENEW_WITH_ENHANCEMENT') || loanType?.includes('ENHANCED_LOAN')"
-                                                (change)="otherCheckedValue($event?.target?.checked, 'fixedHypoRenew')"
+                                                (change)="otherCheckedValue($event?.target?.checked, 'fixedHypoRenew', 'fixedHypoWord')"
                                                 [checked]="offerLetterForm?.get('fixedHypoRenew')?.value"><i>Change Word</i>
                                         </nb-checkbox> &nbsp;&nbsp;
                                         <nb-checkbox
@@ -2150,7 +2148,7 @@
                                                 [value]="pur">{{pur}}</option>
                                     </select>
                                     <span class="print-only">
-                                        {{offerLetterForm?.get('shareWord').value ? offerLetterForm?.get('shareWord').value : '========='}}
+                                        {{offerLetterForm?.get('karjaWord').value ? offerLetterForm?.get('karjaWord').value : '========='}}
                                     </span>
                                 </span>
                                 <ng-container *ngIf="loanType?.includes('RENEWED_LOAN')">
@@ -2165,7 +2163,7 @@
                             </span>
                                     <span class="disable-print float-right">
                                         <nb-checkbox *ngIf="loanType?.includes('RENEW_WITH_ENHANCEMENT') || loanType?.includes('ENHANCED_LOAN')"
-                                                (change)="otherCheckedValue($event?.target?.checked, 'karjaRenewChecked')"
+                                                (change)="otherCheckedValue($event?.target?.checked, 'karjaRenewChecked', 'karjaWord')"
                                                 [checked]="offerLetterForm?.get('karjaRenewChecked')?.value"><i>Change Word</i>
                                         </nb-checkbox> &nbsp;&nbsp;
                                 <nb-checkbox (change)="otherCheck($event?.target?.checked, 'loanTamsukOtherCheck')"
@@ -2227,7 +2225,7 @@
                             </span>
                                     <span class="disable-print float-right">
                                         <nb-checkbox *ngIf="loanType?.includes('RENEW_WITH_ENHANCEMENT') || loanType?.includes('ENHANCED_LOAN')"
-                                                (change)="otherCheckedValue($event?.target?.checked, 'creditLetterRenewChecked')"
+                                                (change)="otherCheckedValue($event?.target?.checked, 'creditLetterRenewChecked', 'creditLetterWord')"
                                                 [checked]="offerLetterForm?.get('creditLetterRenewChecked')?.value"><i>Change Word</i>
                                         </nb-checkbox> &nbsp;&nbsp;
                                         <nb-checkbox (change)="otherCheck($event?.target?.checked, 'promiseOtherCheck')"

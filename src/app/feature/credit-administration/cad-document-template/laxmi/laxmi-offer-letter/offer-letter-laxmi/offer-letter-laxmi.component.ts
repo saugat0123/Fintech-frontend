@@ -616,11 +616,12 @@ export class OfferLetterLaxmiComponent implements OnInit {
         );
     }
 
-    otherCheckedValue(event, formControlName) {
+    otherCheckedValue(event, formControlName, word) {
         if (event) {
             this.offerLetterForm.get(formControlName).patchValue(event);
         } else {
             this.offerLetterForm.get(formControlName).patchValue(event);
+            this.offerLetterForm.get(word).patchValue(null);
         }
     }
 
@@ -1254,10 +1255,24 @@ export class OfferLetterLaxmiComponent implements OnInit {
     }
 
     guarantorValueCheck(checked: any, i: number, formControlName: string, gtype: string) {
-        if (checked) {
-            this.offerLetterForm.get([gtype, i, formControlName]).patchValue(checked);
-        } else {
-            this.offerLetterForm.get([gtype, i, formControlName]).patchValue(checked);
+        switch (formControlName) {
+            case 'otherChecked':
+                if (checked) {
+                    this.offerLetterForm.get([gtype, i, formControlName]).patchValue(checked);
+                } else {
+                    this.offerLetterForm.get([gtype, i, formControlName]).patchValue(checked);
+                    this.offerLetterForm.get([gtype, i, 'name']).patchValue(null);
+                    this.offerLetterForm.get([gtype, i, 'amount']).patchValue(null);
+                }
+                break;
+            case 'renewWithChecked':
+                if (checked) {
+                    this.offerLetterForm.get([gtype, i, formControlName]).patchValue(checked);
+                } else {
+                    this.offerLetterForm.get([gtype, i, formControlName]).patchValue(checked);
+                    this.offerLetterForm.get([gtype, i, 'renewWithWord']).patchValue(null);
+                }
+                break;
         }
     }
 
