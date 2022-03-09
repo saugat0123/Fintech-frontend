@@ -746,7 +746,7 @@ export class CompanyFormComponent implements OnInit {
         } else {
             contactPersonFormArray.push(this.contactPersonFormGroup());
         }
-            return contactPersonFormArray;
+        return contactPersonFormArray;
     }
 
     addContactPersons() {
@@ -924,6 +924,7 @@ export class CompanyFormComponent implements OnInit {
     }
 
     onSubmit() {
+        this.spinner = true;
         this.submitted = true;
         this.marketScenarioComponent.onSubmit();
         this.companyOtherDetailComponent.onSubmit();
@@ -936,8 +937,8 @@ export class CompanyFormComponent implements OnInit {
                 this.microCompanyFormComponent.onSubmit();
             } else if (this.microCustomerType === MicroCustomerType.DIRECT) {
                 this.microIndividualFormComponent.onSubmit();
-                this.companyLocation.onSubmit();
-                if (this.microIndividualFormComponent.microCustomerForm.invalid || this.companyLocation.addressForm.invalid) {
+                if (this.microIndividualFormComponent.microCustomerForm.invalid) {
+                    this.spinner = false;
                     this.toastService.show(new Alert(AlertType.WARNING, 'Check Micro Customer Detail Validation'));
                     return;
                 }
@@ -951,14 +952,14 @@ export class CompanyFormComponent implements OnInit {
             ((this.disableCrgAlpha || this.microCustomer) ? false : this.bankingRelationComponent.bankingRelationForm.invalid)
             || this.companyLocation.addressForm.invalid || this.companyProjectLocation.addressForm.invalid
             || this.companyCorrespondenceLocation.addressForm.invalid) {
+            this.spinner = false;
             this.toastService.show(new Alert(AlertType.WARNING, 'Check Validation'));
             this.scrollToFirstInvalidControl();
             return;
         }
-        this.spinner = true;
         this.companyInfo = new CompanyInfo();
         this.companyInfo.isMicroCustomer = this.microCustomer;
-        this.companyInfo.microCustomerType =  this.companyInfoFormGroup.get('microCustomerType').value;
+        this.companyInfo.microCustomerType = this.companyInfoFormGroup.get('microCustomerType').value;
         // Company Information--
         this.companyInfo.id = this.companyInfoFormGroup.get('companyId').value;
         this.companyInfo.companyName = this.companyInfoFormGroup.get('companyName').value;
@@ -975,9 +976,6 @@ export class CompanyFormComponent implements OnInit {
         this.companyInfo.landLineNumber = this.companyInfoFormGroup.get('landLineNumber').value;
         this.companyInfo.clientType = this.companyInfoFormGroup.get('clientType').value;
         this.companyInfo.subsectorDetail = this.companyInfoFormGroup.get('subsectorDetail').value;
-        if (!ObjectUtil.isEmpty(this.formValue)) {
-            this.companyInfo.withinLimitRemarks = this.formValue.withinLimitRemarks;
-        }
 
 
         // legalStatus
@@ -1075,6 +1073,7 @@ export class CompanyFormComponent implements OnInit {
             /** banking relation setting data from child **/
             this.companyInfo.bankingRelationship = JSON.stringify(this.bankingRelationComponent.bankingRelation);
 
+
             /** business and industry */
             this.businessAndIndustry.regulatoryConcern = this.companyInfoFormGroup.get('regulatoryConcern').value;
             this.businessAndIndustry.supplier = this.companyInfoFormGroup.get('supplier').value;
@@ -1134,7 +1133,6 @@ export class CompanyFormComponent implements OnInit {
                 submitData.microCustomerDetail = this.microIndividualFormComponent.microCustomerForm.value;
             }
         }
-
 
         // swot
         submitData.swot = this.swot;
@@ -1199,8 +1197,10 @@ export class CompanyFormComponent implements OnInit {
 
     checkPanNumberNumber(regNumber: String) {
         this.companyInfoService.getCompanyInfoWithPanNumber(regNumber).subscribe((res) => {
-            if (regNumber.toLowerCase() === res.detail.panNumber.toLowerCase()) {
-                this.toastService.show(new Alert(AlertType.WARNING, 'This customer already exists. Please input a unique value or choose the customer from catalogue section'));
+            if (!ObjectUtil.isEmpty(res.detail)) {
+                if (regNumber.toLowerCase() === res.detail.panNumber.toLowerCase()) {
+                    this.toastService.show(new Alert(AlertType.WARNING, 'This customer already exists. Please input a unique value or choose the customer from catalogue section'));
+                }
             }
         }, error => {
             console.error(error);
@@ -1272,6 +1272,7 @@ export class CompanyFormComponent implements OnInit {
 
         }
     }
+
     microCustomerValidation(micro: boolean) {
         const alphaFields = ['regulatoryConcern', 'buyer', 'supplier', 'industryGrowth', 'marketCompetition', 'experience', 'succession'];
         this.controlValidation(['strength', 'weakness', 'opportunity', 'threats'] , !micro);
