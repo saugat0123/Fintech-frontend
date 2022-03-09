@@ -68,9 +68,7 @@ export class LoanActionCombinedModalComponent implements OnInit {
     spinner = false;
     isDual;
     isHsov;
-    individualDual = false;
     combinedDual = false;
-    individualHSOV = false;
     combinedHSOV = false;
     @Output() emitter = new EventEmitter();
 
@@ -202,6 +200,7 @@ export class LoanActionCombinedModalComponent implements OnInit {
                 if (verified === true) {
                     this.postCombinedAction(false);
                     this.nbDialogRef.close();
+                    this.emitter.emit(true);
                 }
             });
         } else if (this.stageType === 'combined') {
@@ -215,13 +214,11 @@ export class LoanActionCombinedModalComponent implements OnInit {
                     toRole: this.combinedType.form.get('toRole').value, action: this.docAction
                 }
             });
-            this.nbDialogRef.onClose.subscribe(d => {
-                this.emitter.emit(true);
-            });
             dialogRef.onClose.subscribe((verified: boolean) => {
                 if (verified === true) {
                     this.postCombinedAction(true);
                     this.nbDialogRef.close();
+                    this.emitter.emit(true);
                 }
             });
         }
@@ -267,7 +264,7 @@ export class LoanActionCombinedModalComponent implements OnInit {
                 selectedRoleForSol: [ObjectUtil.isEmpty(l.solUser) ? undefined : l.solUser.role],
                 isHsov: [ObjectUtil.isEmpty(l.isHsov) ? undefined : l.isHsov],
                 dualApproval: [ObjectUtil.isEmpty(l.dualApproval) ? undefined : l.dualApproval],
-                dualApproved: [ObjectUtil.isEmpty(l.dualApproved) ? undefined : l.dualApproved]
+                dualApproved: [ObjectUtil.isEmpty(l.dualApproved) ? this.docAction === 'DUAL_APPROVAL_PENDING' : l.dualApproved]
 
             }));
         });
@@ -293,7 +290,13 @@ export class LoanActionCombinedModalComponent implements OnInit {
         let actions;
         if (isCombined) {
             actions = this.combinedLoan.loans.map((l) => {
-                return {
+                let dualApproved = false;
+                if (this.docAction === 'DUAL_APPROVAL_PENDING') {
+                    dualApproved = true;
+                } else {
+                    dualApproved = l.dualApproved;
+                }
+                    return {
                     loanConfigId: l.loan.id,
                     customerLoanId: l.id,
                     toUser: this.combinedType.form.get('toUser').value,
@@ -306,7 +309,7 @@ export class LoanActionCombinedModalComponent implements OnInit {
                     solUser: this.combinedType.form.get('solUser').value,
                     isHsov: this.combinedType.form.get('isHsov').value,
                     dualApproval: this.combinedType.form.get('dualApproval').value,
-                    dualApproved: l.dualApproved
+                    dualApproved: dualApproved
                 };
             });
 
@@ -411,26 +414,44 @@ export class LoanActionCombinedModalComponent implements OnInit {
     }
 
     dualApproval(event, individual) {
-        if (event && individual) {
-            this.individualDual = true;
-        } else if (event && !individual) {
+        if (event && !individual) {
             this.combinedDual = true;
-        } else if (!event && individual) {
-            this.individualDual = false;
         } else {
             this.combinedDual = false;
         }
     }
 
-    hsov(event, individual) {
-        if (event && individual) {
-            this.individualHSOV = true;
-        } else if (event && !individual) {
-            this.combinedHSOV = true;
-        } else if (!event && individual) {
-            this.combinedHSOV = false;
+    dualApprovalIndividual(event, index) {
+        if (!event) {
+            this.individualType.form.get(['actions', index]).patchValue({
+                dualApproval: false
+            });
         } else {
-            this.individualHSOV = false;
+            this.individualType.form.get(['actions', index]).patchValue({
+                dualApproval: true
+            });
+        }
+
+    }
+
+    hsovIndividual(event, index) {
+        if (!event) {
+            this.individualType.form.get(['actions', index]).patchValue({
+                isHsov: false
+            });
+        } else {
+            this.individualType.form.get(['actions', index]).patchValue({
+                isHsov: true
+            });
+        }
+
+    }
+
+    hsov(event, individual) {
+        if (event && !individual) {
+            this.combinedHSOV = true;
+        } else {
+            this.combinedHSOV = false;
         }
     }
 

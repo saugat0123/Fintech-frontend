@@ -219,6 +219,8 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
         this.loanSummaryActive = true;
     }
     showSpinner(data) {
-        this.spinner = true;
+        if (data) {
+            this.spinner = true;
+        }
     }
 }

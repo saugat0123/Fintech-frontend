@@ -8,7 +8,7 @@
             </tr>
             <tr>
                 <td class="text-left">Expected Loss Given Default</td>
-                <td class="text-right">{{fixedAssets?fixedAssets:'0'}}</td>
+                <td class="text-right">{{(fixedAssets | currencyFormatter) ?fixedAssets:'0'}}</td>
             </tr>
             <tr>
                 <td class="text-left">Loan to Security Ratio (Total Loan/Total RV)</td>
