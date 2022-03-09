@@ -253,7 +253,7 @@
                     <ng-container
                             *ngIf="model.documentStatus == docStatus[docStatus.APPROVED] && !model.isCloseRenew ">
                         <button class="cold-md-4" nbButton status="warning" size="tiny"
-                                (click)="onRaiseMemo()">
+                                (click)="onRaiseMemo(model,onActionChange, $event.target.value)">
                             Raise Diary Note
                         </button>
                     </ng-container>
