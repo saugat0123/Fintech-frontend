@@ -293,9 +293,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                         innerCustomer = [];
                     }
                 });
-                console.log('new joint', this.newJointInfo);
-                console.log('old joint', this.jointInfo);
-
                 this.isJointInfo = true;
             }
         }

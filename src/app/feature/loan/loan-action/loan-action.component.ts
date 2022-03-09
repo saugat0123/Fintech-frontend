@@ -298,7 +298,6 @@ export class LoanActionComponent implements OnInit, OnChanges {
                         hasScroll: true
                     });
             this.dialogRef.onClose.subscribe((d: boolean) => {
-                console.log('data', d);
                 if(ObjectUtil.isEmpty(d)) {
                     this.emitter.emit(false);
                 }   else {

@@ -101,7 +101,6 @@ export class UnassignedLoanComponent implements OnInit {
   }
 
   pullLoan(data) {
-    console.log(data);
     const user = new User();
     user.id = +LocalStorageUtil.getStorage().userId;
     const role = new Role();

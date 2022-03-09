@@ -18,7 +18,6 @@ export class PromisoryNoteInstitutionalPrintComponent implements OnInit {
   ngOnInit() {
     this.printDocForm = JSON.parse(this.printDocForm);
     this.printDocForm.amountInWords = this.nepaliCurrencyWordPipe.transform(this.nepaliToEnglish.transform(this.printDocForm.proposedAmount));
-    console.log(this.printDocForm);
   }
 
 }
