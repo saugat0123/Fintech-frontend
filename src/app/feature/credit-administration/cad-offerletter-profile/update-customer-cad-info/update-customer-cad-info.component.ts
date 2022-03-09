@@ -37,7 +37,6 @@ export class UpdateCustomerCadInfoComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.cadData.data)) {
             const basicInfo = JSON.parse(this.cadData.data);
             this.data = basicInfo.acInfo;
-            console.log(this.data);
         }
         this.buildForm();
     }
