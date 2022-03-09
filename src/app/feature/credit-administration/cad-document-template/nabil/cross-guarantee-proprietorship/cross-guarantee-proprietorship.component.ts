@@ -83,7 +83,6 @@ export class CrossGuaranteeProprietorshipComponent implements OnInit {
                     const individualGuarantorNepData = val.nepData
                         ? JSON.parse(val.nepData)
                         : val.nepData;
-                    console.log('data:::', individualGuarantorNepData);
                     if (ObjectUtil.isEmpty(individualGuarantorNepData)) {
                         return;
                     }
