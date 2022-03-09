@@ -1,4 +1,4 @@
-@import '../../../../../@theme/styles/themes';
+@import "../../../../../@theme/styles/themes";
 
 @include nb-install-component() {
   .report-header {
@@ -17,7 +17,7 @@
   .signature-height {
     height: 50px;
   }
-  .signature-width{
+  .signature-width {
     width: 50px;
   }
   .report-logo {
@@ -65,7 +65,6 @@
   }
 
   @media print {
-
     nb-card {
       background: none;
       border: none;
@@ -82,8 +81,8 @@
 
       hr.print-line {
         border-top: 2px solid black;
-        margin-top: .5rem;
-        margin-bottom: .5rem;
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
       }
 
       div {
@@ -109,14 +108,16 @@
         display: none;
       }
 
-      .table th, .table td {
+      .table th,
+      .table td {
         padding: 0.2rem;
       }
 
       .report-header {
         line-height: 1;
 
-        .report-header-heading, .report-header-sub-heading {
+        .report-header-heading,
+        .report-header-sub-heading {
           font-size: 16pt;
         }
       }
@@ -145,7 +146,7 @@
         }
 
         table {
-          margin-bottom: .2rem;
+          margin-bottom: 0.2rem;
         }
 
         p {
@@ -158,17 +159,28 @@
       font-size: 16px;
     }
 
-    table { page-break-after:auto }
-    tr    { page-break-inside:avoid; page-break-after:auto }
-    td    { page-break-inside:avoid; page-break-after:auto }
-    thead { display:table-header-group }
-    tfoot { display:table-footer-group }
+    table {
+      page-break-after: auto;
+    }
+    tr {
+      page-break-inside: avoid;
+      page-break-after: auto;
+    }
+    td {
+      page-break-inside: avoid;
+      page-break-after: auto;
+    }
+    thead {
+      display: table-header-group;
+    }
+    tfoot {
+      display: table-footer-group;
+    }
   }
 }
 b {
   font-size: 14px !important;
 }
-
 
 .lower-alpha {
   list-style: lower-alpha;
@@ -183,7 +195,8 @@ b {
   }
 }
 
-th, td {
+th,
+td {
   padding: 0.5rem;
 }
 

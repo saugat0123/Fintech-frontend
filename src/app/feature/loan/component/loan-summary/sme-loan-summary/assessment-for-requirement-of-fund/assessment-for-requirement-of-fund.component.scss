@@ -7,10 +7,16 @@ p {
 }
 
 .working-capital {
-  td:first-child {
+  td:nth-child(5) {
     font-weight: bold;
   }
 }
+.fixed-assets {
+  td:nth-child(6) {
+    font-weight: bold;
+  }
+}
+
 .term-loan {
   td:nth-child(1),
   td:nth-child(2) {
@@ -19,7 +25,7 @@ p {
 }
 
 .total {
-  td:third-child {
+  td:nth-child(3) {
     text-align: center !important;
   }
 }
