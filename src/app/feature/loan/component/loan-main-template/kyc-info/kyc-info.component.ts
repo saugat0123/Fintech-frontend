@@ -39,7 +39,6 @@ export class KycInfoComponent implements OnInit {
         });
         console.log(this.customer.customerRelatives);
         if (this.customer.customerRelatives !== undefined) {
-            console.log('in');
             this.kycInfo.setControl('otherRelatives', this.setRelativeForm(this.customer.customerRelatives));
         }
     }

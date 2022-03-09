@@ -46,7 +46,6 @@ export class IncomeFromAccountComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('this si customer info', this.customerInfo);
     this.buildForm();
     if (LocalStorageUtil.getStorage().bankUtil.AFFILIATED_ID === AffiliateId.SRDB) {
       this.srdbAffiliatedId = true;

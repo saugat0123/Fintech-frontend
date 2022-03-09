@@ -176,7 +176,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
     onChangeTab(event) {
         this.hideSaveBtn = false;
-        console.log(event.tabId);
         if (event.tabId === '2') {
             this.hideSaveBtn = true;
         }

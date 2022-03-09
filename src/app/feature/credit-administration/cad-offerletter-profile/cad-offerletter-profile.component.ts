@@ -282,9 +282,7 @@ export class CadOfferLetterProfileComponent implements OnInit, OnChanges {
 
     uploadOfferLetter(event) {
         this.uploadFile = event.target.files[0];
-        console.log('this is file type', this.uploadFile.name.split('.')[1]);
         const i = this.uploadFile.name.split('.').length - 1;
-        console.log('this is file', this.uploadFile.name);
         if (this.uploadFile.name.split('.')[i] !== 'docx' && this.uploadFile.name.split('.')[i] !== 'png' && this.uploadFile.name.split('.')[i] !== 'jpg' && this.uploadFile.name.split('.')[i] !== 'pdf' && this.uploadFile.name.split('.')[i] !== 'txt') {
             this.modelService.dismissAll();
             this.toastrService.show(new Alert(AlertType.ERROR, 'Not Supported Type'));
