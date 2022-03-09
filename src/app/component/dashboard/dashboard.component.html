@@ -20,29 +20,6 @@
     </div>
 </div>
 
-<!--<div class="row center mb-3" *ngIf="roleType">-->
-<!--    <div class="col-md-12">-->
-<!--        <nb-card>-->
-<!--            <nb-card-body>-->
-<!--                <div class="row">-->
-<!--                    <div class="col-md-11">-->
-<!--                        <select [(ngModel)]="loanType" class="form-control rounded">-->
-<!--                            <option [ngValue]="undefined" hidden>-&#45;&#45;select Loan Type-&#45;&#45;</option>-->
-<!--                            <option *ngFor="let allList of loanList" [value]="allList.id">{{allList.name}}</option>-->
-<!--                        </select>-->
-<!--                    </div>-->
-<!--                    <div class="col-md-1">-->
-<!--                        <button nbButton status="primary" (click)="proceed()">-->
-<!--                            <i class="fa fa-arrow-right"></i>-->
-<!--                        </button>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--            </nb-card-body>-->
-<!--        </nb-card>-->
-
-<!--    </div>-->
-<!--</div>-->
-
 <ng-template #loanTemplate>
     <div class="modal-header">
         <h4 class="modal-title pull-left">Existing Loan</h4>
@@ -66,5 +43,15 @@
         <app-cad-data *ngIf="customerApproveCountDto.showCustomerApprove" [customerApproveCountDto]="customerApproveCountDto"></app-cad-data>
     </div>
 </div>
+
+<nb-card>
+    <nb-card-header><h4>Memo Details</h4></nb-card-header>
+    <nb-card-body>
+        <app-memo-details></app-memo-details>
+    </nb-card-body>
+</nb-card>
+
+
+
 <app-charts></app-charts>
 <app-overlay-spinner></app-overlay-spinner>
