@@ -83,6 +83,7 @@ export class CrossGuaranteeProprietorshipComponent implements OnInit {
                     const individualGuarantorNepData = val.nepData
                         ? JSON.parse(val.nepData)
                         : val.nepData;
+                    console.log('data:::', individualGuarantorNepData);
                     if (ObjectUtil.isEmpty(individualGuarantorNepData)) {
                         return;
                     }
@@ -120,8 +121,8 @@ export class CrossGuaranteeProprietorshipComponent implements OnInit {
                             authorizedPersonWard: [individualGuarantorNepData.permanentWard ?
                                 individualGuarantorNepData.permanentWard.ct : ''],
                             authorizedPersonAge: [this.engToNepNumberPipe.transform(this.calculateAge(individualGuarantorNepData))],
-                            authorizedPersonName: [individualGuarantorNepData.guarantorAuthorizedBodyName ?
-                                individualGuarantorNepData.guarantorAuthorizedBodyName.ct : ''],
+                            authorizedPersonName: [individualGuarantorNepData.authorizedPersonName ?
+                                individualGuarantorNepData.authorizedPersonName.ct : ''],
                             crossGuaranteeProviderName: [individualGuarantorNepData.guaranteeProviderName ?
                                 individualGuarantorNepData.guaranteeProviderName.ct : ''],
                             loanAmountInFigure: [this.finalAmount],
