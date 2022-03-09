@@ -19,7 +19,6 @@ export class MemoDetailsComponent implements OnInit {
 
     ngOnInit() {
         this.creditMemoService.getStatus().subscribe(response => {
-            console.log('resonse of memo details', response);
             this.approvedCount = response.detail.Approved;
             this.pendingCount = response.detail.Pending;
             this.rejectedCount = response.detail.Rejected;

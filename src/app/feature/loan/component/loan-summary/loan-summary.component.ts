@@ -37,12 +37,16 @@ import {FiscalYearService} from '../../../admin/service/fiscal-year.service';
 import {RouteConst} from '../../../credit-administration/model/RouteConst';
 import {ApprovalSheetInfoComponent} from './approval-sheet-info/approval-sheet-info.component';
 import {Clients} from '../../../../../environments/Clients';
-import {CollateralSiteVisitService} from '../../../loan-information-template/security/security-initial-form/fix-asset-collateral/collateral-site-visit.service';
+import {
+    CollateralSiteVisitService
+} from '../../../loan-information-template/security/security-initial-form/fix-asset-collateral/collateral-site-visit.service';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {ApprovalRoleHierarchyComponent} from '../../approval/approval-role-hierarchy.component';
 import {DOCUMENT} from '@angular/common';
 // tslint:disable-next-line:max-line-length
-import {SiteVisitDocument} from '../../../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
+import {
+    SiteVisitDocument
+} from '../../../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
 import * as JSZip from 'jszip';
 import * as JSZipUtils from 'jszip-utils/lib/index.js';
 import {saveAs as importedSaveAs} from 'file-saver';
@@ -240,8 +244,10 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             }
         });
     }
+
     consumerFinance = false;
     smallBusiness = false;
+
     ngOnInit() {
         if (this.loanConfig.loanTag === 'REMIT_LOAN' && this.loanConfig.isRemit) {
             this.isRemitLoan = true;
@@ -249,10 +255,10 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         this.loanDataHolder = this.loanData;
         if (this.loanDataHolder.loanHolder.clientType === 'CONSUMER_FINANCE') {
             this.consumerFinance = true;
-        } else  if (this.loanDataHolder.loanHolder.clientType === 'SMALL_BUSINESS_FINANCIAL_SERVICES') {
+        } else if (this.loanDataHolder.loanHolder.clientType === 'SMALL_BUSINESS_FINANCIAL_SERVICES') {
             this.smallBusiness = true;
         }
-            if (this.loanDataHolder.loanCategory === 'INDIVIDUAL') {
+        if (this.loanDataHolder.loanCategory === 'INDIVIDUAL') {
             this.isIndividual = true;
         }
         this.individual = this.loanDataHolder.customerInfo;
@@ -269,19 +275,21 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                 this.jointInfo.push(jointCustomerInfo.jointCustomerInfo);
                 let innerCustomer = [];
                 this.jointInfo[0].forEach((g, i) => {
-                        innerCustomer.push(g);
-                        console.log((i+1)%2, g)
+                    innerCustomer.push(g);
+                    console.log((i + 1) % 2, g);
                     if (!ObjectUtil.isEmpty(this.jointInfo[0][i + 1])) {
                         this.citizen = this.jointInfo[0][i + 1].citizenshipNumber;
                     }
                     if ((i + 1) % 2 === 0) {
-                        if(innerCustomer.length > 0)
-                        this.newJointInfo.push(innerCustomer);
+                        if (innerCustomer.length > 0) {
+                            this.newJointInfo.push(innerCustomer);
+                        }
                         innerCustomer = [];
                     }
                     if (i === this.jointInfo[0].length - 1) {
-                        if(innerCustomer.length > 0)
+                        if (innerCustomer.length > 0) {
                             this.newJointInfo.push(innerCustomer);
+                        }
                         innerCustomer = [];
                     }
                 });
@@ -614,7 +622,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             }, error => {
                 console.error(error);
             });
-        console.log('customerAllLoanList', this.customerAllLoanList);
     }
 
     download(i) {
