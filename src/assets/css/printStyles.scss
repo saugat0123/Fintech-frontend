@@ -150,6 +150,28 @@
       margin-bottom: 0.2rem;
       color: black !important;
     }
+    .summary {
+      font-family: Cambria, Georgia, serif !important;
+      font-size: 10pt !important;
+    }
+    .customer-name {
+      font-size: 14pt !important;
+    }
+    .header {
+      font-family: Cambria, Georgia, serif !important;
+      font-size: 12pt !important;
+      padding-top: 32px !important;
+    }
+    .sub-header {
+      font-family: Cambria, Georgia, serif !important;
+      font-size: 12pt !important;
+      margin-top: 10px;
+    }
+    .security-header {
+      font-family: Cambria, Georgia, serif !important;
+      font-size: 10pt !important;
+      margin-top: 10px;
+    }
 
   }
 
@@ -167,7 +189,6 @@
   tfoot {
     display: table-footer-group
   }
-
 
 
 

@@ -1,114 +1,178 @@
+<hr class="print-line">
 <div class="row mt-3">
     <div class="col-md-12">
-        <p class="header"><strong>Security Schedule</strong></p>
+        <p  class="header"><strong  class="header">Security Schedule</strong></p>
+        <p  class="security-header" *ngIf="landSelected || apartmentSelected || landBuilding">
+            <strong  class="security-header">Registered Mortgage over Land And Building</strong></p>
         <div class="row" *ngIf="vehicleSelected">
             <div class="col-md-12">
-                <div class="d-flex justify-content-sm-end">
-                    <p class="font-weight-bolder sb-medium">Vehicle Exposure: {{formData['initialForm']?.vehicleLoanExposure |number}}%</p>
+                <div class="row">
+                    <div class="col-md-6"><p class="sub-header"><strong class="sub-header">Vehicle Security</strong></p>
+                    </div>
+                    <div class="col-md-6">  <p class="text-right"><b>Vehicle Exposure: {{formData['initialForm']?.vehicleLoanExposure |number}}%</b></p> </div>
                 </div>
+            <ng-container *ngFor="let vehicle of vehicleArray">
                 <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small"
-                       style="table-layout: fixed; width: 100%"
-                       *ngFor="let vehicleDetails of formData['initialForm']['vehicleDetails']; let i= index">
+                       style="table-layout: fixed; width: 100%">
+                        <tbody>
+                        <tr>
+                            <td>
+                                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small sb-bg-dark text-white">
+                                    <tbody>
+                                    <tr>  <td class="text-left">Model</td> </tr>
+                                    <tr>  <td class="text-left">Valuation Amount</td> </tr>
+                                    <tr>  <td class="text-left">Down Payment</td></tr>
+                                    <tr>   <td class="text-left">Remaining Amount</td></tr>
+                                    <tr>  <td class="text-left">Registration Number</td></tr>
+                                    <tr> <td class="text-left">Registration Date(AD/BS)</td></tr>
+                                    <tr>  <td class="text-left">Engine Number</td></tr>
+                                    <tr><td class="text-left">Chassis Number</td></tr>
+                                    <tr><td class="text-left">Showroom Commission</td></tr>
+                                    <tr> <td class="text-left">Valuated Date(AD/BS)</td></tr>
+                                    <tr> <td class="text-left">Valautor Name</td></tr>
+                                    <tr> <td class="text-left">Vehicle Remarks</td></tr>
+                                    </tbody>
+                                </table>
 
-                    <tr class="sb-bg-dark text-white">
-                        <th colspan="9">{{i + 1}}.Details of Security Offered: Vehicle</th>
-                    </tr>
-                    <tr class="sb-bg-secondary text-white">
-                        <th class="sn">S.N</th>
-                        <th>Model</th>
-                        <th>{{client === clientName?.ICFC ? 'Quotation/Valuation Amount' : 'Valuation Amount'}}</th>
-                        <th>Down Payment</th>
-                        <th>Remaining Amount</th>
-                        <th>Registration Number</th>
-                        <th>Registration Date(AD/BS)</th>
-                        <th>Engine Number</th>
-                    </tr>
-                    <tr>
-                        <td>{{i + 1}}</td>
-                        <td class="text-right pr-1">{{vehicleDetails?.model}}</td>
-                        <td class="text-right pr-1">Rs. {{vehicleDetails?.valuationAmount | currencyFormatter}}</td>
-                        <td class="text-right pr-1">Rs. {{vehicleDetails?.downPayment | currencyFormatter}}</td>
-                        <td class="text-right pr-1">Rs. {{vehicleDetails?.remainingAmount | currencyFormatter}}</td>
-                        <td class="text-right pr-1">{{vehicleDetails?.registrationNumber}}</td>
-                        <td class="text-left pl-1">{{vehicleDetails?.registrationDate | date}} ({{vehicleDetails?.registrationDate | engNepDate: false}})</td>
-                        <td class="text-right pr-1">{{vehicleDetails?.engineNumber}}</td>
-                    </tr>
-                    <tr class="sb-bg-secondary text-white">
-                        <th>Chassis Number</th>
-                        <th>Showroom Commission</th>
-                        <th>Valuated Date(AD/BS)</th>
-                        <th *ngIf="vehicleDetails?.vehicleOtherBranchChecked === true">Valuator Branch</th>
-                        <th>Valautor Name</th>
-                    </tr>
-                    <tr>
-                        <td class="text-right pr-1">{{vehicleDetails?.chassisNumber}}</td>
-                        <td class="text-right pr-1">Rs. {{vehicleDetails?.showroomCommission | currencyFormatter}}</td>
-                        <td class="text-left pl-1">{{vehicleDetails?.vehicalValuatorDate | date}} ({{vehicleDetails?.vehicalValuatorDate | engNepDate: false}})</td>
-                        <td *ngIf="vehicleDetails?.vehicleOtherBranchChecked === true" class="text-left pl-1">{{vehicleDetails?.vehicalBranch?.name || 'N/A'}}</td>
-                        <td class="text-left pl-1">{{vehicleDetails?.vehicalValuator?.name || 'N/A'}}</td>
-                    </tr>
-
-                    <tr class="sb-bg-dark text-white">
-                        <th colspan="9">Vehicle Remarks</th>
-                    </tr>
-                    <tr>
-                        <td class="text-left pl-1" colspan="9">{{vehicleDetails?.vehicleRemarks}}</td>
-                    </tr>
-
+                            </td>
+                            <td *ngFor="let vehicleDetails of vehicle;">
+                                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                                <tbody>
+                                <tr><td class="text-right pr-1">{{vehicleDetails?.model || 'N/A'}}</td></tr>
+                                <tr>    <td class="text-right pr-1">Rs. {{(vehicleDetails?.valuationAmount | currencyFormatter) || 'N/A'}}</td></tr>
+                                <tr>  <td class="text-right pr-1">Rs. {{(vehicleDetails?.downPayment | currencyFormatter) || 'N/A'}}</td></tr>
+                                <tr>  <td class="text-right pr-1">Rs. {{(vehicleDetails?.remainingAmount | currencyFormatter) || 'N/A'}}</td></tr>
+                                <tr>  <td class="text-right pr-1">{{vehicleDetails?.registrationNumber || 'N/A'}}</td></tr>
+                                <tr> <td class="text-right pl-1">{{(vehicleDetails?.registrationDate | date) || 'N/A'}} ({{vehicleDetails?.registrationDate | engNepDate: false}})</td></tr>
+                                <tr> <td class="text-right pr-1">{{vehicleDetails?.engineNumber || 'N/A'}}</td></tr>
+                                <tr>  <td class="text-right pr-1">{{vehicleDetails?.chassisNumber || 'N/A'}}</td></tr>
+                                <tr>  <td class="text-right pr-1">Rs. {{(vehicleDetails?.showroomCommission | currencyFormatter) || 'N/A'}}</td></tr>
+                                <tr>  <td class="text-right pl-1">{{(vehicleDetails?.vehicalValuatorDate | date) || 'N/A'}} ({{vehicleDetails?.vehicalValuatorDate | engNepDate: false}})</td></tr>
+                                <tr> <td class="text-right pl-1">{{vehicleDetails?.vehicalValuator?.name || 'N/A'}}</td></tr>
+                                <tr><td class="text-right pl-1">{{vehicleDetails?.vehicleRemarks || 'N/A'}}</td></tr>
+                                </tbody>
+                                </table>
+                                </td>
+                        </tr>
+                        </tbody>
                 </table>
+            </ng-container>
             </div>
         </div>
         <div class="row" *ngIf="landSelected">
             <div class="col-md-12">
-                <ng-container  *ngFor="let landDetails of formData['initialForm']['landDetails']; let i= index">
+                <p class="sub-header"><strong class="sub-header">Land Security</strong></p>
+                <ng-container *ngFor="let land of landArray;">
+    <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+        <tr>
+            <td width="30%">
+                <table class="table table-condensed table-bordered table-responsive-md text-left text-white table-sm sb-small sb-bg-dark">
+                    <tr>
+                        <td>Owner</td>
+                    </tr>
+                    <tr>
+                        <td>Location</td>
+                    </tr>
+                    <tr>
+                        <td>Plot No</td>
+                    </tr>
+                    <tr>
+                        <td>Area Format</td>
+                    </tr>
+                    <tr>
+                        <td>Area</td>
+                    </tr>
+                    <tr>
+                        <td>FMV</td>
+                    </tr>
+                    <tr>
+                        <td>Market Value</td>
+                    </tr>
+                    <tr>
+                        <td>Collateral Owner Relationship With Borrower</td>
+                    </tr>
+                    <tr>
+                        <td>Address as per Legal Document</td>
+                    </tr>
+                    <tr>
+                        <td>Realisable Value</td>
+                    </tr>
+                    <tr>
+                        <td>Rate</td>
+                    </tr>
+                    <tr>
+                        <td>Valuated Date(AD/BS)</td>
+                    </tr>
+                    <tr>
+                        <td>Valautor Name</td>
+                    </tr>
+                    <tr>
+                        <td>Road access seen in blueprint</td>
+                    </tr>
+                    <tr>
+                        <td>Road Access Description</td>
+                    </tr>
+                </table>
+                </td>
+            <td width="35%" *ngFor="let landDetails of land;">
+                <table class="table table-condensed table-bordered table-responsive-md text-right table-sm sb-small">
+                    <tbody>
+                    <tr>
+                        <td class="pl-1">{{landDetails?.owner || 'N/A'}}</td>
+                    </tr>
+                    <tr>
+                        <td class=" pl-1">{{landDetails?.location || 'N/A'}}</td>
+                    </tr>
+                    <tr>
+                        <td class=" pr-1">{{landDetails?.plotNumber || 'N/A'}}</td>
+                    </tr>
+                    <tr>
+                        <td class="pl-1">{{landDetails?.areaFormat || 'N/A'}}</td>
+                    </tr>
+                    <tr>
+                        <td class=" pr-1">{{landDetails?.area || 'N/A'}}</td>
+                    </tr>
+                    <tr>
+                        <td class="pr-1">Rs. {{(landDetails?.marketValue |currencyFormatter) || 'N/A'}}</td>
+                    </tr>
+                    <tr>
+                        <td class=" pr-1">Rs. {{(landDetails?.distressValue |currencyFormatter) || 'N/A'}}</td>
+                    </tr>
+                    <tr>
+                        <td class=" pr-1">{{landDetails?.landCollateralOwnerRelationship || 'N/A'}}</td>
+                    </tr>
+                    <tr>
+                        <td class="pl-1" colspan="2">{{landDetails?.landSecurityLegalDocumentAddress || 'N/A'}}</td>
+                    </tr>
+                    <tr>
+                        <td class="pr-1">Rs. {{(landDetails?.landConsideredValue | currencyFormatter) || 'N/A'}}</td>
+                    </tr>
+                    <tr>
+                        <td class=" pr-1">Rs. {{(landDetails?.landRate | currencyFormatter) || 'N/A'}}</td>
+                    </tr>
+                    <tr>
+                        <td class=" pl-1">{{(landDetails?.landValuatorDate | date) || 'N/A'}}
+                            ({{landDetails?.landValuatorDate | engNepDate: false}})
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="pl-1">{{landDetails?.landValuator?.name || 'N/A'}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{landDetails?.roadAccessBluePrint || 'N/A'}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{landDetails?.roadAccessDescribe || 'N/A'}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        <tr  *ngIf="land[0]?.ownerKycApplicableData !== null">
+            <td colspan="3">
                 <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-
-                    <tr>
-                        <th class="text-center sb-bg-dark text-white" colspan="10">{{i + 1}}.Land Security Details</th>
-                    </tr>
-                    <tr class="sb-bg-secondary text-white">
-                        <th>S.N</th>
-                        <th>Owner</th>
-                        <th>Location</th>
-                        <th>Plot No.</th>
-                        <th>Area Format</th>
-                        <th>Area</th>
-                        <th>FMV</th>
-                        <th>Market Value</th>
-                        <th>Collateral Owner Relationship With Borrower</th>
-                        <th colspan="2">Address as per Legal Document</th>
-                    </tr>
-                    <tr>
-                        <td class="text-center">{{i + 1}}</td>
-                        <td class="text-left pl-1">{{landDetails?.owner}}</td>
-                        <td class="text-left pl-1">{{landDetails?.location}}</td>
-                        <td class="text-right pr-1">{{landDetails?.plotNumber}}</td>
-                        <td class="text-left pl-1">{{landDetails?.areaFormat}}</td>
-                        <td class="text-right pr-1">{{landDetails?.area}}</td>
-                        <td class="text-right pr-1">Rs. {{landDetails?.marketValue |currencyFormatter}}</td>
-                        <td class="text-right pr-1">Rs. {{landDetails?.distressValue |currencyFormatter}}</td>
-                        <td class="text-right pr-1">{{landDetails?.landCollateralOwnerRelationship}}</td>
-                        <td class="text-left pl-1" colspan="2">{{landDetails?.landSecurityLegalDocumentAddress}}</td>
-                    </tr>
-
-                    <tr class="sb-bg-secondary text-white">
-                        <th>Realisable Value</th>
-                        <th>Rate</th>
-                        <th>Valuated Date(AD/BS)</th>
-                        <th *ngIf="landDetails?.landOtherBranchChecked === true">Valuator Branch</th>
-                        <th colspan="2">Valautor Name</th>
-                    </tr>
-
-                    <tr>
-                        <td class="text-right pr-1">Rs. {{landDetails?.landConsideredValue | currencyFormatter}}</td>
-                        <td class="text-right pr-1">Rs. {{landDetails?.landRate | currencyFormatter}}</td>
-                        <td class="text-left pl-1">{{landDetails?.landValuatorDate | date}} ({{landDetails?.landValuatorDate | engNepDate: false}})</td>
-                        <td *ngIf="landDetails?.landOtherBranchChecked === true" class="text-left pl-1">{{landDetails?.landBranch?.name || 'N/A'}}</td>
-                        <td colspan="2" class="text-left pl-1">{{landDetails?.landValuator?.name || 'N/A'}}</td>
-                    </tr>
-
                     <ng-container>
-                        <ng-container *ngIf="landDetails?.ownerKycApplicableData !== null">
+                        <ng-container>
                             <tr class="sb-bg-secondary text-white">
                                 <th>Undivided Family Member</th>
                                 <th>Name</th>
@@ -121,18 +185,17 @@
                                 <ng-container *ngIf="client === clientName.LAXMIBANK">
                                     <th>Ownership Transfer Date(AD/BS)</th>
                                     <th class="text-left pl-1">Ownership Transfer Through</th>
-                                    <th *ngIf="landDetails?.ownershipTransferThrough == 'SALE'">Has transfer date elapsed by 1 Yrs plus 35 days? </th>
-                                    <th *ngIf="landDetails?.ownershipTransferThrough == 'FAMILY_SEPARATION'">Has transfer date elapsed by 3 month?</th>
-                                    <th *ngIf="landDetails?.ownershipTransferThrough == 'GIFT_BAKASPATRA'">Has transfer date elapsed by 2 year plus 35 days? </th>
-                                    <th *ngIf="landDetails?.ownershipTransferThrough == 'SALE' && landDetails['saleOwnershipTransfer'] === 'No'">Registration amount in transfer</th>
-                                    <th *ngIf="landDetails?.ownershipTransferThrough == 'FAMILY_SEPARATION' && landDetails['familyTransferOwnershipTransfer'] === 'No'">Registration amount in transfer</th>
-                                    <th *ngIf="landDetails?.ownershipTransferThrough == 'GIFT_BAKASPATRA' && landDetails['giftOwnershipTransfer'] === 'No'">Registration amount in transfer</th>
-                                    <th *ngIf="landDetails?.ownershipTransferThrough == 'OTHER'">Other</th>
+                                    <th *ngIf="land[0]?.ownershipTransferThrough == 'SALE'">Has transfer date elapsed by 1 Yrs plus 35 days? </th>
+                                    <th *ngIf="land[0]?.ownershipTransferThrough == 'FAMILY_SEPARATION'">Has transfer date elapsed by 3 month?</th>
+                                    <th *ngIf="land[0]?.ownershipTransferThrough == 'GIFT_BAKASPATRA'">Has transfer date elapsed by 2 year plus 35 days? </th>
+                                    <th *ngIf="land[0]?.ownershipTransferThrough == 'SALE' && land[0]['saleOwnershipTransfer'] === 'No'">Registration amount in transfer</th>
+                                    <th *ngIf="land[0]?.ownershipTransferThrough == 'FAMILY_SEPARATION' && land[0]['familyTransferOwnershipTransfer'] === 'No'">Registration amount in transfer</th>
+                                    <th *ngIf="land[0]?.ownershipTransferThrough == 'GIFT_BAKASPATRA' && land[0]['giftOwnershipTransfer'] === 'No'">Registration amount in transfer</th>
+                                    <th *ngIf="land[0]?.ownershipTransferThrough == 'OTHER'">Other</th>
                                 </ng-container>
                                 <th>Remark</th>
                             </tr>
-
-                            <tr *ngFor="let kyc of landDetails?.ownerKycApplicableData?.ownerKycDetails; let j = index">
+                            <tr *ngFor="let kyc of land[0].ownerKycApplicableData?.ownerKycDetails; let j = index">
                                 <td class="text-left pl-1">{{kyc?.ownerRelationship}}</td>
                                 <td class="text-left pl-1">{{kyc?.relationName}}</td>
                                 <td *ngIf="client === clientName.SHINE_RESUNGA" class="text-left pl-1">{{kyc?.age}}</td>
@@ -142,117 +205,64 @@
                                 <td class="text-right pr-1">{{kyc?.mobileNumber}}</td>
                                 <td class="text-left pl-1">{{kyc?.address}}</td>
                                 <ng-container *ngIf="client === clientName.LAXMIBANK">
-                                    <td class="text-left pl-1">{{kyc?.issuedDate | date}} ({{landDetails?.ownershipTransferDate | engNepDate: false}})</td>
-                                    <td class="text-left pl-1">{{ownerShipTransfer[landDetails?.ownershipTransferThrough]}}</td>
-                                    <td  *ngIf="landDetails.ownershipTransferThrough == 'SALE'" class="text-left pl-1">{{landDetails?.saleOwnershipTransfer}}</td>
-                                    <td  *ngIf="landDetails.ownershipTransferThrough == 'FAMILY_SEPARATION'" class="text-left pl-1">{{landDetails?.familyTransferOwnershipTransfer}}</td>
-                                    <td  *ngIf="landDetails.ownershipTransferThrough == 'GIFT_BAKASPATRA'" class="text-left pl-1">{{landDetails?.giftOwnershipTransfer}}</td>
-                                    <td  *ngIf="landDetails.ownershipTransferThrough == 'SALE' && landDetails['saleOwnershipTransfer'] === 'No'" class="text-right pr-1">Rs. {{landDetails?.saleRegistrationAmount | currencyFormatter}}</td>
-                                    <td  *ngIf="landDetails.ownershipTransferThrough == 'FAMILY_SEPARATION' && landDetails['familyTransferOwnershipTransfer'] === 'No'" class="text-right pr-1">Rs. {{landDetails?.familyRegistrationAmount}}</td>
-                                    <td  *ngIf="landDetails.ownershipTransferThrough == 'GIFT_BAKASPATRA' && landDetails['giftOwnershipTransfer'] === 'No'" class="text-right pr-1">Rs. {{landDetails?.giftRegistrationAmount}}</td>
-                                    <th *ngIf="landDetails?.ownershipTransferThrough == 'OTHER'" class="text-right pr-1">{{landDetails?.otherOwnershipTransferValue}}</th>
+                                    <td class="text-left pl-1">{{kyc?.issuedDate | date}} ({{land[0]?.ownershipTransferDate | engNepDate: false}})</td>
+                                    <td class="text-left pl-1">{{ownerShipTransfer[land[0]?.ownershipTransferThrough]}}</td>
+                                    <td  *ngIf="land[0].ownershipTransferThrough == 'SALE'" class="text-left pl-1">{{land[0]?.saleOwnershipTransfer}}</td>
+                                    <td  *ngIf="land[0].ownershipTransferThrough == 'FAMILY_SEPARATION'" class="text-left pl-1">{{land[0]?.familyTransferOwnershipTransfer}}</td>
+                                    <td  *ngIf="land[0].ownershipTransferThrough == 'GIFT_BAKASPATRA'" class="text-left pl-1">{{land[0]?.giftOwnershipTransfer}}</td>
+                                    <td  *ngIf="land[0].ownershipTransferThrough == 'SALE' && land[0]['saleOwnershipTransfer'] === 'No'" class="text-right pr-1">Rs. {{land[0]?.saleRegistrationAmount | currencyFormatter}}</td>
+                                    <td  *ngIf="land[0].ownershipTransferThrough == 'FAMILY_SEPARATION' && land[0]['familyTransferOwnershipTransfer'] === 'No'" class="text-right pr-1">Rs. {{land[0]?.familyRegistrationAmount}}</td>
+                                    <td  *ngIf="land[0].ownershipTransferThrough == 'GIFT_BAKASPATRA' && land[0]['giftOwnershipTransfer'] === 'No'" class="text-right pr-1">Rs. {{land[0]?.giftRegistrationAmount}}</td>
+                                    <th *ngIf="land[0].ownershipTransferThrough == 'OTHER'" class="text-right pr-1">{{land[0]?.otherOwnershipTransferValue}}</th>
                                 </ng-container>
                                 <td class="text-left pl-1">{{kyc?.remark}}</td>
                             </tr>
+
                         </ng-container>
                     </ng-container>
-
-                  <ng-container *ngIf="landDetails?.revaluationData != null && landDetails?.revaluationData?.isReValuated">
-                      <tr>
-                          <td></td>
-                      </tr>
-                      <tr class="sb-bg-secondary text-white">
-                          <th>ReValuation Date(AD/BS)</th>
-                          <th colspan="1">Valuator name</th>
-                          <th colspan="1">ReValuation Realisable Value</th>
-                          <th colspan="1">ReValuation MV</th>
-                          <th colspan="1">ReValuation Fmv</th>
-                          <th colspan="1">ReValuation Rate</th>
-                          <th colspan="1">Change in Realisable Value</th>
-                          <th colspan="1">Change in MV</th>
-                          <th colspan="1">Change in Fmv</th>
-                      </tr>
-                      <tr>
-                          <td class="text-left pl-1">{{landDetails?.revaluationData?.reValuationDate | date}} ({{landDetails?.revaluationData?.reValuationDate |engNepDate: false}})</td>
-                          <td colspan="1" class="text-left pl-1">{{landDetails?.revaluationData?.newValuator?.name}}</td>
-                          <td colspan="1" class="text-right pr-1">Rs. {{landDetails?.revaluationData?.reValuatedConsideredValue | currencyFormatter}}</td>
-                          <td colspan="1" class="text-right pr-1">Rs. {{landDetails?.revaluationData?.reValuatedDv | currencyFormatter}}</td>
-                          <td colspan="1" class="text-right pr-1">Rs. {{landDetails?.revaluationData?.reValuatedFmv | currencyFormatter}}</td>
-                          <td colspan="1" class="text-right pr-1">Rs. {{landDetails?.revaluationData?.reValuatedRate | currencyFormatter}}</td>
-                          <td colspan="1" class="text-right pr-1">Rs. {{landDetails?.revaluationData?.changeInConsideredValue | currencyFormatter}}</td>
-                          <td colspan="1" class="text-right pr-1">Rs. {{landDetails?.revaluationData?.changeInDv | currencyFormatter}}</td>
-                          <td colspan="1" class="text-right pr-1">Rs. {{landDetails?.revaluationData?.changeInFmv | currencyFormatter}}</td>
-                      </tr>
-                  </ng-container>
-
                 </table>
-
-                    <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-                        <tr class="sb-bg-dark text-white">
-                            <th colspan="1">Road access seen in blueprint</th>
-                            <th colspan="4">Road Access Description</th>
-                        </tr>
-                        <tr>
-                            <td colspan="1">{{landDetails?.roadAccessBluePrint}}</td>
-                            <td colspan="4">{{landDetails?.roadAccessDescribe}}</td>
-                        </tr>
-                    </table>
-                </ng-container>
-            </div>
-        </div>
-        <!--        LandBuildingDetails-->
-        <div class="row" *ngIf="landBuilding">
-            <div class="col-md-12">
-                <ng-container *ngFor="let landBuilding of  formData['initialForm']['landBuilding']; let i= index">
+            </td>
+        </tr>
+        <tr  *ngIf="land[0]?.revaluationData != null && land[0]?.revaluationData?.isReValuated">
+            <td colspan="3">
                 <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-                    <thead>
-                    <tr>
-                        <th class="text-center sb-bg-dark text-white" colspan="9">{{i + 1}}.Land & Building Security
-                            Details
-                        </th>
-                    </tr>
-                    <tr class="text-center sb-bg-dark text-white">
-                        <th>S.N</th>
-                        <th>Owner</th>
-                        <th>Location</th>
-                        <th>Plot No.</th>
-                        <th>Area Format</th>
-                        <th>Area</th>
-                        <th>FMV</th>
-                        <th colspan="2">Market Value</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>{{i + 1}}</td>
-                        <td class="text-left pl-1">{{landBuilding?.owner}}</td>
-                        <td class="text-left pl-1">{{landBuilding?.location}}</td>
-                        <td class="text-right pr-1">{{landBuilding?.plotNumber}}</td>
-                        <td class="text-left pl-1">{{landBuilding?.areaFormat}}</td>
-                        <td class="text-right pr-1">{{landBuilding?.area}}</td>
-                        <td class="text-right pr-1">Rs. {{landBuilding?.marketValue | currencyFormatter}}</td>
-                        <td colspan="2" class="text-right pr-1">Rs. {{landBuilding?.distressValue | currencyFormatter}}</td>
-
-                    </tr>
-                    <tr class="text-center sb-bg-dark text-white">
-                        <th>Valuated Date(AD/BS)</th>
-                        <th *ngIf="landBuilding?.landBuildingOtherBranchChecked === true">Valuator Branch</th>
-                        <th>Valautor Name</th>
-                        <th>Realisable Value</th>
-                        <th>Rate</th>
-                        <th>Collateral Owner Relationship With Borrower</th>
-                    </tr>
-                    <tr>
-                        <td class="text-left pl-1">{{landBuilding?.buildingValuatorDate | date}} ({{landBuilding?.buildingValuatorDate |engNepDate: false}})</td>
-                        <td *ngIf="landBuilding?.landBuildingOtherBranchChecked === true" class="text-left pl-1">{{landBuilding?.buildingBranch?.name || 'N/A'}}</td>
-                        <td class="text-left pl-1">{{landBuilding?.buildingValuator?.name || 'N/A'}}</td>
-                        <td class="text-right pr-1">Rs. {{landBuilding?.landConsideredValue | currencyFormatter}}</td>
-                        <td class="text-right pr-1">Rs. {{landBuilding?.landBuildingRate | currencyFormatter}}</td>
-                        <td class="text-left pl-1">{{landBuilding?.landBuildingCollateralOwnerRelationship}}</td>
-                    </tr>
-
                     <ng-container>
-                        <ng-container *ngIf="landBuilding?.ownerKycApplicableData !== null">
+                        <ng-container>
+                            <tr>
+                                <td></td>
+                            </tr>
+                            <tr class="sb-bg-secondary text-white">
+                                <th>ReValuation Date(AD/BS)</th>
+                                <th colspan="1">Valuator name</th>
+                                <th colspan="1">ReValuation Realisable Value</th>
+                                <th colspan="1">ReValuation MV</th>
+                                <th colspan="1">ReValuation Fmv</th>
+                                <th colspan="1">ReValuation Rate</th>
+                                <th colspan="1">Change in Realisable Value</th>
+                                <th colspan="1">Change in MV</th>
+                                <th colspan="1">Change in Fmv</th>
+                            </tr>
+                            <tr>
+                                <td class="text-left pl-1">{{land[0]?.revaluationData?.reValuationDate | date}} ({{land[0]?.revaluationData?.reValuationDate |engNepDate: false}})</td>
+                                <td colspan="1" class="text-left pl-1">{{land[0]?.revaluationData?.newValuator?.name}}</td>
+                                <td colspan="1" class="text-right pr-1">Rs. {{land[0]?.revaluationData?.reValuatedConsideredValue | currencyFormatter}}</td>
+                                <td colspan="1" class="text-right pr-1">Rs. {{land[0]?.revaluationData?.reValuatedDv | currencyFormatter}}</td>
+                                <td colspan="1" class="text-right pr-1">Rs. {{land[0]?.revaluationData?.reValuatedFmv | currencyFormatter}}</td>
+                                <td colspan="1" class="text-right pr-1">Rs. {{land[0]?.revaluationData?.reValuatedRate | currencyFormatter}}</td>
+                                <td colspan="1" class="text-right pr-1">Rs. {{land[0]?.revaluationData?.changeInConsideredValue | currencyFormatter}}</td>
+                                <td colspan="1" class="text-right pr-1">Rs. {{land[0]?.revaluationData?.changeInDv | currencyFormatter}}</td>
+                                <td colspan="1" class="text-right pr-1">Rs. {{land[0]?.revaluationData?.changeInFmv | currencyFormatter}}</td>
+                            </tr>
+                        </ng-container>
+                    </ng-container>
+                </table>
+            </td>
+        </tr>
+        <tr  *ngIf="land[1]?.ownerKycApplicableData !== null">
+            <td colspan="3">
+                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                    <ng-container>
+                        <ng-container>
                             <tr class="sb-bg-secondary text-white">
                                 <th>Undivided Family Member</th>
                                 <th>Name</th>
@@ -262,57 +272,47 @@
                                 <th>Issued Date(AD/BS)</th>
                                 <th>Mobile Number</th>
                                 <th>Address</th>
+                                <ng-container *ngIf="client === clientName.LAXMIBANK">
+                                    <th>Ownership Transfer Date(AD/BS)</th>
+                                    <th class="text-left pl-1">Ownership Transfer Through</th>
+                                    <th *ngIf="land[1]?.ownershipTransferThrough == 'SALE'">Has transfer date elapsed by 1 Yrs plus 35 days? </th>
+                                    <th *ngIf="land[1]?.ownershipTransferThrough == 'FAMILY_SEPARATION'">Has transfer date elapsed by 3 month?</th>
+                                    <th *ngIf="land[1]?.ownershipTransferThrough == 'GIFT_BAKASPATRA'">Has transfer date elapsed by 2 year plus 35 days? </th>
+                                    <th *ngIf="land[1]?.ownershipTransferThrough == 'SALE' && land[1]['saleOwnershipTransfer'] === 'No'">Registration amount in transfer</th>
+                                    <th *ngIf="land[1]?.ownershipTransferThrough == 'FAMILY_SEPARATION' && land[1]['familyTransferOwnershipTransfer'] === 'No'">Registration amount in transfer</th>
+                                    <th *ngIf="land[1]?.ownershipTransferThrough == 'GIFT_BAKASPATRA' && land[1]['giftOwnershipTransfer'] === 'No'">Registration amount in transfer</th>
+                                    <th *ngIf="land[1]?.ownershipTransferThrough == 'OTHER'">Other</th>
+                                </ng-container>
                                 <th>Remark</th>
                             </tr>
-                            <ng-container *ngFor="let kyc of landBuilding?.ownerKycApplicableData?.ownerKycDetails; let j = index">
-                                <tr>
-                                    <td class="text-left pl-1">{{kyc?.ownerRelationship}}</td>
-                                    <td class="text-left pl-1">{{kyc?.relationName}}</td>
-                                    <td *ngIf="client === clientName.SHINE_RESUNGA" class="text-left pl-1">{{kyc?.age}}</td>
-                                    <td class="text-right pr-1">{{kyc?.citizenshipNumber}}</td>
-                                    <td class="text-left pl-1">{{kyc?.issuedLocation}}</td>
-                                    <td class="text-left pl-1">{{kyc?.issuedDate | date}} ({{kyc?.issuedDate | engNepDate: false}})</td>
-                                    <td class="text-right pr-1">{{kyc?.mobileNumber}}</td>
-                                    <td class="text-left pl-1">{{kyc?.address}}</td>
-                                    <td class="text-left pl-1">{{kyc?.remark}}</td>
-                                </tr>
-                            </ng-container>
+
+                            <tr *ngFor="let kyc of land[1].ownerKycApplicableData?.ownerKycDetails; let j = index">
+                                <td class="text-left pl-1">{{kyc?.ownerRelationship}}</td>
+                                <td class="text-left pl-1">{{kyc?.relationName}}</td>
+                                <td *ngIf="client === clientName.SHINE_RESUNGA" class="text-left pl-1">{{kyc?.age}}</td>
+                                <td class="text-right pr-1">{{kyc?.citizenshipNumber}}</td>
+                                <td class="text-left pl-1">{{kyc?.issuedLocation}}</td>
+                                <td class="text-left pl-1">{{kyc?.issuedDate | date}} ({{kyc?.issuedDate | engNepDate: false}})</td>
+                                <td class="text-right pr-1">{{kyc?.mobileNumber}}</td>
+                                <td class="text-left pl-1">{{kyc?.address}}</td>
+                                <ng-container *ngIf="client === clientName.LAXMIBANK">
+                                    <td class="text-left pl-1">{{kyc?.issuedDate | date}} ({{land[1]?.ownershipTransferDate | engNepDate: false}})</td>
+                                    <td class="text-left pl-1">{{ownerShipTransfer[land[1]?.ownershipTransferThrough]}}</td>
+                                    <td  *ngIf="land[1].ownershipTransferThrough == 'SALE'" class="text-left pl-1">{{land[1]?.saleOwnershipTransfer}}</td>
+                                    <td  *ngIf="land[1].ownershipTransferThrough == 'FAMILY_SEPARATION'" class="text-left pl-1">{{land[1]?.familyTransferOwnershipTransfer}}</td>
+                                    <td  *ngIf="land[1].ownershipTransferThrough == 'GIFT_BAKASPATRA'" class="text-left pl-1">{{land[1]?.giftOwnershipTransfer}}</td>
+                                    <td  *ngIf="land[1].ownershipTransferThrough == 'SALE' && land[1]['saleOwnershipTransfer'] === 'No'" class="text-right pr-1">Rs. {{land[1]?.saleRegistrationAmount | currencyFormatter}}</td>
+                                    <td  *ngIf="land[1].ownershipTransferThrough == 'FAMILY_SEPARATION' && land[1]['familyTransferOwnershipTransfer'] === 'No'" class="text-right pr-1">Rs. {{land[1]?.familyRegistrationAmount}}</td>
+                                    <td  *ngIf="land[1].ownershipTransferThrough == 'GIFT_BAKASPATRA' && land[1]['giftOwnershipTransfer'] === 'No'" class="text-right pr-1">Rs. {{land[1]?.giftRegistrationAmount}}</td>
+                                    <th *ngIf="land[1].ownershipTransferThrough == 'OTHER'" class="text-right pr-1">{{land[1]?.otherOwnershipTransferValue}}</th>
+                                </ng-container>
+                                <td class="text-left pl-1">{{kyc?.remark}}</td>
+                            </tr>
                         </ng-container>
                     </ng-container>
-
-                    <tr class="text-center sb-bg-dark text-white">
-                        <th>Address as per Legal Document</th>
-                        <ng-container *ngIf="client === clientName.LAXMIBANK">
-                            <th>Ownership Transfer Date(AD/BS)</th>
-                            <th class="text-left pl-1">Ownership Transfer Through</th>
-                            <th *ngIf="landBuilding?.ownershipTransferThrough == 'SALE'">Has transfer date elapsed by 1 Yrs plus 35 days? </th>
-                            <th *ngIf="landBuilding?.ownershipTransferThrough == 'FAMILY_SEPARATION'">Has transfer date elapsed by 3 month?</th>
-                            <th *ngIf="landBuilding?.ownershipTransferThrough == 'GIFT_BAKASPATRA'">Has transfer date elapsed by 2 year plus 35 days? </th>
-                            <th *ngIf="landBuilding?.ownershipTransferThrough == 'SALE' && landBuilding['saleOwnershipTransfer'] === 'No'">Registration amount in transfer</th>
-                            <th *ngIf="landBuilding?.ownershipTransferThrough == 'FAMILY_SEPARATION' && landBuilding['familyTransferOwnershipTransfer'] === 'No'">Registration amount in transfer</th>
-                            <th *ngIf="landBuilding?.ownershipTransferThrough == 'GIFT_BAKASPATRA' && landBuilding['giftOwnershipTransfer'] === 'No'">Registration amount in transfer</th>
-                            <th *ngIf="landBuilding?.ownershipTransferThrough == 'OTHER'">Other</th>
-                        </ng-container>
-                        <th>Revaluation Done ?</th>
-                    </tr>
-                    <tr>
-                        <td class="text-left pl-1">{{landBuilding?.landAndBuildingSecurityLegalDocumentAddress}}</td>
-                        <ng-container *ngIf="client === clientName.LAXMIBANK">
-                            <td class="text-left pl-1">{{landBuilding?.ownershipTransferDate | date}} ({{landBuilding?.ownershipTransferDate | engNepDate: false}})</td>
-                            <td class="text-left pl-1">{{ownerShipTransfer[landBuilding?.ownershipTransferThrough]}}</td>
-                            <td  *ngIf="landBuilding.ownershipTransferThrough == 'SALE'" class="text-left pl-1">{{landBuilding?.saleOwnershipTransfer}}</td>
-                            <td  *ngIf="landBuilding.ownershipTransferThrough == 'FAMILY_SEPARATION'" class="text-left pl-1">{{landBuilding?.familyTransferOwnershipTransfer}}</td>
-                            <td  *ngIf="landBuilding.ownershipTransferThrough == 'GIFT_BAKASPATRA'" class="text-left pl-1">{{landBuilding?.giftOwnershipTransfer}}</td>
-                            <td  *ngIf="landBuilding.ownershipTransferThrough == 'SALE' && landBuilding['saleOwnershipTransfer'] === 'No'" class="text-right pr-1">Rs. {{landBuilding?.saleRegistrationAmount | currencyFormatter}}</td>
-                            <td  *ngIf="landBuilding.ownershipTransferThrough == 'FAMILY_SEPARATION' && landBuilding['familyTransferOwnershipTransfer'] === 'No'" class="text-right pr-1">Rs. {{landBuilding?.familyRegistrationAmount}}</td>
-                            <td  *ngIf="landBuilding.ownershipTransferThrough == 'GIFT_BAKASPATRA' && landBuilding['giftOwnershipTransfer'] === 'No'" class="text-right pr-1">Rs. {{landBuilding?.giftRegistrationAmount}}</td>
-                            <th *ngIf="landBuilding?.ownershipTransferThrough == 'OTHER'" class="text-right pr-1">{{landBuilding?.otherOwnershipTransferValue}}</th>
-                        </ng-container>
-                        <td class="text-left pl-1">{{landBuilding?.revaluationData?.isReValuated | booleanConvert}}</td>
-                    </tr>
-                    <ng-container *ngIf="landBuilding?.revaluationData != null && landBuilding?.revaluationData?.isReValuated">
+                    <ng-container *ngIf="land[1]?.revaluationData != null && land[1]?.revaluationData?.isReValuated">
                         <tr>
-                            <td colspan="9"></td>
+                            <td></td>
                         </tr>
                         <tr class="sb-bg-secondary text-white">
                             <th>ReValuation Date(AD/BS)</th>
@@ -326,126 +326,246 @@
                             <th colspan="1">Change in Fmv</th>
                         </tr>
                         <tr>
-                            <td class="text-left pl-1">{{landBuilding?.revaluationData?.reValuationDate | date}} ({{landBuilding?.revaluationData?.reValuationDate |engNepDate: false}})</td>
-                            <td colspan="1" class="text-left pl-1">{{landBuilding?.revaluationData?.newValuator?.name}}</td>
-                            <td colspan="1" class="text-right pr-1">Rs. {{landBuilding?.revaluationData?.reValuatedConsideredValue | currencyFormatter}}</td>
-                            <td colspan="1" class="text-right pr-1">Rs. {{landBuilding?.revaluationData?.reValuatedDv | currencyFormatter}}</td>
-                            <td colspan="1" class="text-right pr-1">Rs. {{landBuilding?.revaluationData?.reValuatedFmv | currencyFormatter}}</td>
-                            <td colspan="1" class="text-right pr-1">Rs. {{landBuilding?.revaluationData?.reValuatedRate | currencyFormatter}}</td>
-                            <td colspan="1" class="text-right pr-1">Rs. {{landBuilding?.revaluationData?.changeInConsideredValue | currencyFormatter}}</td>
-                            <td colspan="1" class="text-right pr-1">Rs. {{landBuilding?.revaluationData?.changeInDv | currencyFormatter}}</td>
-                            <td colspan="1" class="text-right pr-1">Rs. {{landBuilding?.revaluationData?.changeInFmv | currencyFormatter}}</td>
+                            <td class="text-left pl-1">{{land[1]?.revaluationData?.reValuationDate | date}} ({{land[1]?.revaluationData?.reValuationDate |engNepDate: false}})</td>
+                            <td colspan="1" class="text-left pl-1">{{land[1]?.revaluationData?.newValuator?.name}}</td>
+                            <td colspan="1" class="text-right pr-1">Rs. {{land[1]?.revaluationData?.reValuatedConsideredValue | currencyFormatter}}</td>
+                            <td colspan="1" class="text-right pr-1">Rs. {{land[1]?.revaluationData?.reValuatedDv | currencyFormatter}}</td>
+                            <td colspan="1" class="text-right pr-1">Rs. {{land[1]?.revaluationData?.reValuatedFmv | currencyFormatter}}</td>
+                            <td colspan="1" class="text-right pr-1">Rs. {{land[1]?.revaluationData?.reValuatedRate | currencyFormatter}}</td>
+                            <td colspan="1" class="text-right pr-1">Rs. {{land[1]?.revaluationData?.changeInConsideredValue | currencyFormatter}}</td>
+                            <td colspan="1" class="text-right pr-1">Rs. {{land[1]?.revaluationData?.changeInDv | currencyFormatter}}</td>
+                            <td colspan="1" class="text-right pr-1">Rs. {{land[1]?.revaluationData?.changeInFmv | currencyFormatter}}</td>
                         </tr>
                     </ng-container>
-
-                    <tr *ngIf="landBuilding.underConstructionChecked === true">
-                        <th colspan="9">land And Building Under Construction</th>
-                    </tr>
-                    <tr *ngIf="landBuilding.underConstructionChecked === true"
-                        class="text-center sb-bg-dark text-white">
-                        <th>Owner</th>
-                        <th colspan="2">Location</th>
-                        <th>House no</th>
-                        <th>Total building area (Sqf)</th>
-                        <th>Total cost</th>
-                        <th>FMV</th>
-                        <th>Market Value</th>
-                        <th>Realisable Value</th>
-                    </tr>
-                    <tr *ngIf="landBuilding.underConstructionChecked === true">
-                        <td class="text-left pl-1">{{landBuilding?.ownerConstruction}}</td>
-                        <td class="text-left pl-1" colspan="2">{{landBuilding?.locationConstruction}}</td>
-                        <td class="text-right pr-1">{{landBuilding?.houseNumberConstruction}}</td>
-                        <td class="text-right pr-1">{{landBuilding?.totalBuildingAreaConstruction}}</td>
-                        <td class="text-right pr-1">Rs.{{landBuilding?.totalCostConstruction | currencyFormatter}}</td>
-                        <td class="text-right pr-1">Rs. {{landBuilding?.marketValueConstruction | currencyFormatter}}</td>
-                        <td class="text-right pr-1">Rs.{{landBuilding?.landConsideredValueConstruction | currencyFormatter}}</td>
-                        <td class="text-right pr-1">Rs.{{landBuilding?.distressValueConstruction | currencyFormatter}}</td>
-                    </tr>
-                    </tbody>
-
                 </table>
-                    <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-                        <tr class="sb-bg-dark text-white">
-                            <th colspan="1">Road access seen in blueprint</th>
-                            <th colspan="4">Road Access Description</th>
-                        </tr>
+            </td>
+        </tr>
+        <tr *ngIf="land[1]?.revaluationData != null && land[1]?.revaluationData?.isReValuated">
+            <td colspan="3">
+                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                    <ng-container>
+                        <ng-container >
+                            <tr>
+                                <td></td>
+                            </tr>
+                            <tr class="sb-bg-secondary text-white">
+                                <th>ReValuation Date(AD/BS)</th>
+                                <th colspan="1">Valuator name</th>
+                                <th colspan="1">ReValuation Realisable Value</th>
+                                <th colspan="1">ReValuation MV</th>
+                                <th colspan="1">ReValuation Fmv</th>
+                                <th colspan="1">ReValuation Rate</th>
+                                <th colspan="1">Change in Realisable Value</th>
+                                <th colspan="1">Change in MV</th>
+                                <th colspan="1">Change in Fmv</th>
+                            </tr>
+                            <tr>
+                                <td class="text-left pl-1">{{land[1]?.revaluationData?.reValuationDate | date}} ({{land[1]?.revaluationData?.reValuationDate |engNepDate: false}})</td>
+                                <td colspan="1" class="text-left pl-1">{{land[1]?.revaluationData?.newValuator?.name}}</td>
+                                <td colspan="1" class="text-right pr-1">Rs. {{land[1]?.revaluationData?.reValuatedConsideredValue | currencyFormatter}}</td>
+                                <td colspan="1" class="text-right pr-1">Rs. {{land[1]?.revaluationData?.reValuatedDv | currencyFormatter}}</td>
+                                <td colspan="1" class="text-right pr-1">Rs. {{land[1]?.revaluationData?.reValuatedFmv | currencyFormatter}}</td>
+                                <td colspan="1" class="text-right pr-1">Rs. {{land[1]?.revaluationData?.reValuatedRate | currencyFormatter}}</td>
+                                <td colspan="1" class="text-right pr-1">Rs. {{land[1]?.revaluationData?.changeInConsideredValue | currencyFormatter}}</td>
+                                <td colspan="1" class="text-right pr-1">Rs. {{land[1]?.revaluationData?.changeInDv | currencyFormatter}}</td>
+                                <td colspan="1" class="text-right pr-1">Rs. {{land[1]?.revaluationData?.changeInFmv | currencyFormatter}}</td>
+                            </tr>
+                        </ng-container>
+                    </ng-container>
+                </table>
+            </td>
+        </tr>
+    </table>
+</ng-container>
+                <span>
+                    <p><b>Is Land Cross Collateralized Security ? &nbsp;
+                        {{formData['initialForm']['landCrossChecked'] === true ? 'Yes' : 'No'}}</b> </p>
+                </span>
+                <p class="text-center" *ngIf="formData['initialForm']['landCrossChecked']">
+                    <b>Cross Collateralized of Land Security</b></p>
+                <app-cross-collateralized-view *ngIf="formData['initialForm']['landCrossChecked']"
+                                               [securityData]="formData['initialForm']['landCross']"
+                                               [securityType]="'land'"
+                                               [initialForm]="formData['initialForm']"></app-cross-collateralized-view>
+            </div>
+        </div>
+        <!--        LandBuildingDetails-->
+        <div class="row" *ngIf="landBuilding">
+            <div class="col-md-12">
+                <p class="sub-header"><strong class="sub-header">Land And Building Security</strong></p>
+                <ng-container *ngFor="let landB of landBuildingArray" >
+                    <table class="table table-condensed table-bordered table-responsive-md  table-sm sb-small">
+                        <tbody>
                         <tr>
-                            <td colspan="1">{{landBuilding?.roadAccessBluePrint}}</td>
-                            <td colspan="4">{{landBuilding?.roadAccessDescribe}}</td>
+                            <td>
+                                <table class="table table-condensed table-bordered table-responsive-md  table-sm sb-small sb-bg-dark text-white">
+                                    <tbody>
+                                    <tr>
+                                        <td class="text-left">Owner</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left">Plot No.</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left">Total Building Area</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left">Total Land Area</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left">FMV</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left">Market Value</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left">Valuated Date(AD/BS)</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left">Valautor Name</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left">Realisable Value</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left">Realisable Rate</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left">Collateral Owner Relationship With Borrower</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left">Address as per Legal Document</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left">Current Location</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left">Revaluation Done ?</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="1" class="text-left">Road access seen in blueprint</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="1" class="text-left">Road Access Description</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td *ngFor="let landBuilding of landB">
+                                <table class="table table-condensed table-responsive-md table-sm sb-small">
+                                    <tbody>
+                                    <tr> <td class="text-right pl-1">{{landBuilding?.owner || 'N/A'}}</td></tr>
+                                    <tr>  <td class="text-right pr-1">{{landBuilding?.plotNumber || 'N/A'}}</td></tr>
+                                    <tr>  <td class="text-right pl-1">{{(landBuilding?.totalBuildingArea + ' '+ landBuilding?.areaFormat || 'N/A')}}</td></tr>
+                                    <tr> <td class="text-right pr-1">{{landBuilding?.area + ' '+ landBuilding?.areaFormat || 'N/A'}}</td></tr>
+                                    <tr> <td class="text-right pr-1">Rs. {{(landBuilding?.marketValue | currencyFormatter) || 'N/A'}}</td></tr>
+                                    <tr>  <td  class="text-right pr-1">Rs. {{(landBuilding?.distressValue | currencyFormatter) || 'N/A'}}</td></tr>
+                                    <tr>  <td class="text-right pl-1">{{(landBuilding?.buildingValuatorDate | date) || 'N/A'}} ({{landBuilding?.buildingValuatorDate |engNepDate: false}})</td></tr>
+                                    <tr>  <td class="text-right pl-1">{{landBuilding?.buildingValuator?.name || 'N/A'}}</td></tr>
+                                    <tr>  <td class="text-right pr-1">Rs. {{(landBuilding?.landConsideredValue | currencyFormatter) || 'N/A'}}</td></tr>
+                                    <tr>  <td class="text-right pr-1">Rs. {{(landBuilding?.landBuildingRate | currencyFormatter) || 'N/A'}}</td></tr>
+                                    <tr> <td class="text-right pl-1">{{landBuilding?.landBuildingCollateralOwnerRelationship || 'N/A'}}</td></tr>
+                                    <tr> <td class="text-right pl-1">{{landBuilding?.landAndBuildingSecurityLegalDocumentAddress || 'N/A'}}</td></tr>
+                                    <tr> <td class="text-right pl-1">{{landBuilding?.location || 'N/A'}}</td></tr>
+                                    <tr> <td class="text-right pl-1">{{(landBuilding?.revaluationData?.isReValuated | booleanConvert) || 'N/A'}}</td></tr>
+                                    <tr><td class="text-right">{{landBuilding?.roadAccessBluePrint || 'N/A'}}</td></tr>
+                                    <tr><td class="text-right">{{landBuilding?.roadAccessDescribe || 'N/A'}}</td></tr>
+
+                                    </tbody>
+                                </table>
+                            </td>
                         </tr>
+                        </tbody>
                     </table>
                 </ng-container>
+                <span>
+                    <p><b>Is Land & Building Cross Collateralized Security ? &nbsp;
+                        {{formData['initialForm']['lbCrossChecked'] === true ? 'Yes' : 'No'}}</b> </p>
+                </span>
+                <p class="text-center" *ngIf="formData['initialForm']['lbCrossChecked']">
+                    <b>Cross Collateralized of Land & Building Security</b></p>
+                <app-cross-collateralized-view *ngIf="formData['initialForm']['lbCrossChecked']"
+                                               [securityType]="'landBuilding'"
+                                               [securityData]="formData['initialForm']['lbCross']"
+                                               [initialForm]="formData['initialForm']"></app-cross-collateralized-view>
             </div>
         </div>
 
         <!--        apartmentDetails-->
         <div class="row" *ngIf="apartmentSelected">
             <div class="col-md-12">
-                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small"
-                       *ngFor="let buildingDetails of formData['initialForm']['buildingDetails']; let i= index">
-                    <tr>
-                        <th class="text-center sb-bg-dark text-white" colspan="8">{{i + 1}}.Apartment Security Details
-                        </th>
-                    </tr>
-                    <tr class="text-center sb-bg-secondary text-white">
-                        <th>S.N</th>
-                        <th>Apartment Name</th>
-                        <th>Apartment Description</th>
-                        <th>Build Area</th>
-                        <th>Build Rate</th>
-                        <th>Total Cost</th>
-                        <th>FMV</th>
-                        <th>Market Value</th>
-                    </tr>
-                    <tr>
-                        <td rowspan="3" class="align-middle">{{i + 1}}</td>
-                        <td class="text-left pl-1">{{buildingDetails?.buildingName}}</td>
-                        <td class="text-left pl-1">{{buildingDetails?.buildingDescription}}</td>
-                        <td class="text-right pr-1">{{buildingDetails?.buildArea}}</td>
-                        <td class="text-right pr-1">{{buildingDetails?.buildRate | currencyFormatter}}</td>
-                        <td class="text-right pr-1"><strong>Rs. {{buildingDetails?.totalCost | currencyFormatter}}</strong></td>
-                        <td class="text-right pr-1"><strong>Rs. {{buildingDetails?.buildingFairMarketValue | currencyFormatter}}</strong></td>
-                        <td class="text-right pr-1"><strong>Rs. {{buildingDetails?.buildingDistressValue | currencyFormatter}}</strong></td>
-                    </tr>
-                    <tr class="text-center sb-bg-secondary text-white">
-                        <th>Valuated Date(AD/BS)</th>
-                        <th *ngIf="buildingDetails?.apartmentOtherBranchChecked === true">Valuator Branch</th>
-                        <th>Valautor Name</th>
-                        <th>Revaluation Done ?</th>
-                    </tr>
-                    <tr>
-                        <td class="text-left pl-1">{{buildingDetails?.ApartmentValuatorDate | date}} ({{buildingDetails?.ApartmentValuatorDate |engNepDate: false}})</td>
-                        <td *ngIf="buildingDetails?.apartmentOtherBranchChecked === true" class="text-left pl-1">{{buildingDetails?.apartmentBranch?.name || 'N/A'}}</td>
-                        <td class="text-left pl-1">{{buildingDetails?.ApartmentValuator?.name || 'N/A'}}</td>
-                        <td class="text-left pl-1">{{buildingDetails?.revaluationData?.isReValuated | booleanConvert}}</td>
-                    </tr>
-                    <ng-container *ngIf="buildingDetails?.revaluationData != null && buildingDetails?.revaluationData?.isReValuated">
+                <p class="sub-header"><strong class="sub-header">Apartment Security</strong></p>
+                <ng-container *ngFor="let landB of apartmentArray" >
+                    <table class="table table-condensed table-bordered table-responsive-md  table-sm sb-small">
+                        <tbody>
                         <tr>
-                            <td colspan="8"></td>
+                            <td>
+                                <table class="table table-condensed table-bordered table-responsive-md  table-sm sb-small sb-bg-dark text-white">
+                                    <tbody>
+                                    <tr>
+                                        <td class="text-left">Apartment Name</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left">Apartment Description</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left">Build Area</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left">Build Rate</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left">Total Cost</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left">FMV</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left">Market Value</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left">Valautor Name</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left">Valuated Date(AD/BS)</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left">Revaluation Done ?</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td *ngFor="let buildingDetails of landB">
+                                <table class="table table-condensed table-responsive-md table-sm sb-small">
+                                    <tbody>
+                                    <tr> <td class="text-right pl-1">{{buildingDetails?.buildingName || 'N/A'}}</td></tr>
+                                    <tr>  <td class="text-right pr-1">{{buildingDetails?.buildingDescription || 'N/A'}}</td></tr>
+                                    <tr>  <td class="text-right pl-1">{{(buildingDetails?.buildArea || 'N/A')}}</td></tr>
+                                    <tr> <td class="text-right pr-1"> {{(buildingDetails?.buildRate) || 'N/A'}}</td></tr>
+                                    <tr>  <td  class="text-right pr-1">Rs. {{(buildingDetails?.totalCost | currencyFormatter) || 'N/A'}}</td></tr>
+                                    <tr>  <td class="text-right pl-1"> Rs {{(buildingDetails?.buildingFairMarketValue | currencyFormatter) || 'N/A'}})</td></tr>
+                                    <tr>  <td class="text-right pl-1">Rs {{(buildingDetails?.buildingDistressValue | currencyFormatter) || 'N/A'}}</td></tr>
+                                    <tr>  <td class="text-right pr-1">{{buildingDetails?.ApartmentValuator?.name || 'N/A'}}</td></tr>
+                                    <tr>  <td class="text-right pr-1">{{(buildingDetails?.ApartmentValuatorDate | date) || 'N/A'}} ({{(buildingDetails?.ApartmentValuatorDate |engNepDate: false) || 'N/A'}})</td></tr>
+                                    <tr> <td class="text-right pl-1">{{buildingDetails?.revaluationData?.isReValuated | booleanConvert}}</td></tr>
+
+                                    </tbody>
+                                </table>
+                            </td>
                         </tr>
-                        <tr class="sb-bg-secondary text-white">
-                            <th>ReValuation Date(AD/BS)</th>
-                            <th colspan="1">Valuator name</th>
-                            <th colspan="1">ReValuation Realisable Value</th>
-                            <th colspan="1">ReValuation MV</th>
-                            <th colspan="1">ReValuation Fmv</th>
-                            <th colspan="1">Change in Realisable Value</th>
-                            <th colspan="1">Change in MV</th>
-                            <th colspan="1">Change in Fmv</th>
-                        </tr>
-                        <tr>
-                            <td class="text-left pl-1">{{buildingDetails?.revaluationData?.reValuationDate | date}} ({{buildingDetails?.revaluationData?.reValuationDate |engNepDate: false}})</td>
-                            <td colspan="1" class="text-left pl-1">{{buildingDetails?.revaluationData?.newValuator?.name?.name}}</td>
-                            <td colspan="1" class="text-right pr-1">Rs. {{buildingDetails?.revaluationData?.reValuatedConsideredValue | currencyFormatter}}</td>
-                            <td colspan="1" class="text-right pr-1">Rs. {{buildingDetails?.revaluationData?.reValuatedDv | currencyFormatter}}</td>
-                            <td colspan="1" class="text-right pr-1">Rs. {{buildingDetails?.revaluationData?.reValuatedFmv | currencyFormatter}}</td>
-                            <td colspan="1" class="text-right pr-1">Rs. {{buildingDetails?.revaluationData?.changeInConsideredValue | currencyFormatter}}</td>
-                            <td colspan="1" class="text-right pr-1">Rs. {{buildingDetails?.revaluationData?.changeInDv | currencyFormatter}}</td>
-                            <td colspan="1" class="text-right pr-1">Rs. {{buildingDetails?.revaluationData?.changeInFmv | currencyFormatter}}</td>
-                        </tr>
-                    </ng-container>
-                </table>
+                        </tbody>
+                    </table>
+                </ng-container>
+                <span>
+                    <p><b>Is Apartment Cross Collateralized Security ? &nbsp;
+                        {{formData['initialForm']['apartmentCrossChecked'] === true ? 'Yes' : 'No'}}</b> </p>
+                </span>
+                <p class="text-center" *ngIf="formData['initialForm']['apartmentCrossChecked']">
+                    <b>Cross Collateralized of Apartment Security</b></p>
+                <app-cross-collateralized-view *ngIf="formData['initialForm']['apartmentCrossChecked']"
+                                               [securityType]="'apartment'"
+                                               [securityData]="formData['initialForm']['apartmentCross']"
+                                               [initialForm]="formData['initialForm']"></app-cross-collateralized-view>
             </div>
         </div>
 
@@ -509,12 +629,11 @@
 
         <div class="row" *ngIf="plantSelected">
             <div class="col-md-12">
+                <p class="sub-header"><strong class="sub-header">Plant and Machinery Details Security</strong></p>
+
                 <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small"
                        *ngFor="let plantDetails of formData['initialForm']['plantDetails']; let i= index">
                     <thead>
-                    <tr>
-                        <th class="text-center sb-bg-dark text-white" colspan="12">Plant and Machinery Details Security</th>
-                    </tr>
                     <tr class="text-center sb-bg-secondary text-white">
                         <th class="sn">S.N</th>
                         <th>Model</th>
@@ -539,11 +658,9 @@
         </div>
         <div *ngIf="depositSelected" class="row">
             <div class="col-md-12">
+                <p class="sub-header"><strong class="sub-header">Fixed Deposit Receipt Details</strong></p>
                 <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                     <thead>
-                    <tr>
-                        <th class="text-center sb-bg-dark text-white" colspan="7">Fixed Deposit Receipt Details</th>
-                    </tr>
                     <tr class="text-center sb-bg-secondary text-white">
                         <th class="sn">S.N</th>
                         <th>FD Receipt Number</th>
@@ -574,7 +691,7 @@
         <!--Share Security Details-->
         <div *ngIf="shareSelected" class="row mt-4">
             <div class="col-md-12">
-                <p><strong>Share Security Detail</strong>(Promoter Percent: {{loanSharePercent
+                <p class="sub-header"><strong class="sub-header">Share Security Detail</strong>(Promoter Percent: {{loanSharePercent
                 == undefined ? 0 : loanSharePercent.promoter}} , Ordinary
                     Percent: {{loanSharePercent == undefined ? 0 : loanSharePercent.ordinary}})</p>
                 <table class="table table-bordered table-sm text-center sb-small">
@@ -621,12 +738,9 @@
 
         <div class="row" *ngIf="hypothecation">
             <div class="col-md-12">
+                <p class="sub-header"><strong class="sub-header">Hypothecation Of Stock</strong></p>
                 <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small"
                        *ngFor="let hypothecationOfStock of formData['initialForm']['hypothecationOfStock']; let i= index">
-
-                    <tr>
-                        <th class="text-center sb-bg-dark text-white" colspan="10">Hypothecation Of Stock</th>
-                    </tr>
                     <tr class="sb-bg-secondary text-white">
                         <th class="sn">S.N</th>
                         <th colspan="3">Owner</th>
@@ -675,12 +789,9 @@
 
         <div class="row" *ngIf="securityOther">
             <div class="col-md-12">
+                <p class="sub-header"><strong class="sub-header">Other Security</strong></p>
                 <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small"
                        *ngFor="let otherSecurity of formData['initialForm']['otherSecurity']; let i= index">
-
-                    <tr>
-                        <th class="text-center sb-bg-dark text-white" colspan="9">Other Security</th>
-                    </tr>
                     <tr class="sb-bg-secondary text-white">
                         <th class="sn">S.N</th>
                         <th colspan="3">Other Detail</th>
@@ -696,12 +807,9 @@
 
         <div class="row" *ngIf="assignments">
             <div class="col-md-12">
+                <p class="sub-header"><strong>Lease Assignment</strong></p>
                 <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small"
                        *ngFor="let assignments of formData['initialForm']['leaseAssignment']; let i= index">
-
-                    <tr>
-                        <th class="text-center sb-bg-dark text-white" colspan="9">Lease Assignment</th>
-                    </tr>
                     <tr class="sb-bg-secondary text-white">
                         <th class="sn">S.N</th>
                         <th colspan="3">Other Detail</th>
@@ -717,12 +825,9 @@
 
         <div class="row" *ngIf="assignment">
             <div class="col-md-12">
+                <p class="sub-header"><strong>Assignment Of Receivables</strong></p>
                 <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small"
                        *ngFor="let assignmentOfReceivables of formData['initialForm']['assignmentOfReceivables']; let i= index">
-
-                    <tr>
-                        <th class="text-center sb-bg-dark text-white" colspan="9">Assignment Of Receivables</th>
-                    </tr>
                     <tr class="sb-bg-secondary text-white">
                         <th class="sn">S.N</th>
                         <th colspan="3">Amount</th>
@@ -738,11 +843,8 @@
         </div>
         <div class="row" *ngIf="corporate">
             <div class="col-md-12">
+                <p class="sub-header"><strong>Corporate Guarantee</strong></p>
                 <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-
-                    <tr>
-                        <th class="text-center sb-bg-dark text-white" colspan="6">Corporate Guarantee</th>
-                    </tr>
                     <tr class="sb-bg-secondary text-white">
                         <th class="sn">S.N</th>
                         <th>Name of Guarantor</th>
@@ -764,11 +866,8 @@
         </div>
         <div class="row" *ngIf="personal">
             <div class="col-md-12">
+                <p class="sub-header"><strong>Personal Guarantee</strong></p>
                 <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-
-                    <tr>
-                        <th class="text-center sb-bg-dark text-white" colspan="5">Personal Guarantee</th>
-                    </tr>
                     <tr class="sb-bg-secondary text-white">
                         <th class="sn">S.N</th>
                         <th>Name of Guarantor</th>
@@ -805,10 +904,8 @@
 <!--        Insurance Policy guarantee -->
         <div class="row" *ngIf="insurancePolicySelected">
             <div class="col-md-12">
+                <p class="sub-header"><strong>Insurance Policy Security</strong></p>
                 <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-                    <tr>
-                        <th class="text-center sb-bg-dark text-white" colspan="12">Insurance Policy Security</th>
-                    </tr>
                     <tr class="sb-bg-secondary text-white">
                         <th>S.N</th>
                         <th>Insured Amount</th>
@@ -836,33 +933,6 @@
                 </table>
             </div>
         </div>
-        <!--        guarantors details-->
-        <!--<div *ngIf="isPresentGuarantor" class="row">
-            <div class="col-md-12">
-                <table class="table table-condensed table-bordered table-responsive-md text-center table-sm">
-                    <thead>
-                    <tr>
-                        <th class="text-center" colspan="6">Security Guarantors Details</th>
-                    </tr>
-                    <tr>
-                        <th>S.N</th>
-                        <th>Name</th>
-                        <th>Address</th>
-                        <th>Citizen Number</th>
-                        <th>Citizen Issued Year</th>
-                        <th>Contact</th>
-                    </tr>
-                    <tr *ngFor="let guarantor of formData['guarantorsForm']['guarantorsDetails']; let i= index">
-                        <td>{{i+1}}</td>
-                        <td>{{guarantor?.name}}</td>
-                        <td>{{guarantor?.address}}</td>
-                        <td>{{guarantor?.citizenNumber}}</td>
-                        <td>{{guarantor?.issuedYear | date}}</td>
-                        <td>{{guarantor?.contactNumber}}</td>
-                    </tr>
-                    </thead>
-                </table>
-            </div>
-        </div>-->
+
     </div>
 </div>

@@ -221,4 +221,12 @@ export class LoanFormService extends BaseService<LoanDataHolder> {
         const req = ApiUtils.getRequest(api);
         return this.http.post(req.url, searchObj, {headers: req.header});
     }
+
+    public getAllCustomerLoanByConfigId(searchObj: any, page: number = 1, size: number = 20): Observable<any> {
+        const api = `${this.getApi()}/list/ignore-stage?page=${page}&size=${size}`;
+        const req = ApiUtils.getRequest(api);
+
+        return this.http.post(req.url, searchObj, {headers: req.header});
+    }
+
 }

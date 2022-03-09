@@ -16,6 +16,7 @@ import {DocumentCheckType} from '../../../@core/model/enum/document-check-type.e
 import {Document} from '../../admin/modal/document';
 import {EnumUtils} from '../../../@core/utils/enums.utils';
 import {LoanTag} from '../model/loanTag';
+import {NgxSpinnerService} from 'ngx-spinner';
 
 @Component({
     selector: 'app-summary-base',
@@ -53,7 +54,8 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
                 private activatedRoute: ActivatedRoute,
                 private router: Router,
                 private loanConfigService: LoanConfigService,
-                private dateService: DateService) {
+                private dateService: DateService,
+                private spinnerService: NgxSpinnerService) {
         this.navigationSubscription = this.router.events.subscribe((e: any) => {
             if (e instanceof NavigationEnd) {
                 this.loadSummary();
@@ -70,7 +72,8 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
 
 
     loadSummary() {
-        this.spinner = true
+        this.spinnerService.show();
+        this.spinner = true;
         this.activatedRoute.queryParams.subscribe(
             (paramsValue: Params) => {
                 this.spinner = false;
@@ -115,6 +118,7 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
         this.actionsList.closed = false;
         this.spinner = true;
         this.loanFormService.detail(this.customerId).subscribe(async (response: any) => {
+            this.spinnerService.hide();
             this.spinner = false;
             this.loanDataHolder = response.detail;
             if (!ObjectUtil.isEmpty(this.loanDataHolder.remitCustomer)) {
@@ -213,5 +217,8 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
     activeLoanSummary() {
         this.approvalSheetActive = false;
         this.loanSummaryActive = true;
+    }
+    showSpinner(data) {
+        this.spinner = true;
     }
 }

@@ -149,7 +149,6 @@ export class LoanActionModalComponent implements OnInit {
     }
 
     public onSubmit() {
-        this.spinnerService.show();
         const comment = this.formAction.value.comment;
         const docAction = this.formAction.value.docAction;
         const docActionMSG = this.formAction.value.docActionMsg;
@@ -183,7 +182,6 @@ export class LoanActionModalComponent implements OnInit {
             if (this.formAction.invalid) {
                 return;
             }
-            console.log('this is the role id',this.formAction.get('toRole').value);
             const dialogRef = this.nbDialogService.open(LoanActionVerificationComponent, {
                 context: {
                     toUser: this.formAction.get('toUser').value,
@@ -225,7 +223,7 @@ export class LoanActionModalComponent implements OnInit {
                         console.log(error);
                     });
 
-                } else if (docAction === 'REJECT') {
+                } else if (this.isRemitLoan && docAction === 'REJECT') {
                     const beneficiaryObj = {
                         'beneficiaryId': this.beneficiaryId,
                         'status': 'REJECTED',
@@ -278,7 +276,6 @@ export class LoanActionModalComponent implements OnInit {
 
                 this.approvalRoleHierarchyService.getForwardRolesForRoleWithType(this.roleId, approvalType, refId)
                     .subscribe((response: any) => {
-                        console.log(response);
                         this.sendForwardBackwardList = [];
                         // this.sendForwardBackwardList = response.detail;
                         this.sendForwardBackwardList = response.detail.sort(function (a, b) {

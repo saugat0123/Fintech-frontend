@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {BranchService} from '../branch/branch.service';
 import {Branch} from '../../modal/branch';
 import {LoanConfig} from '../../modal/loan-config';
@@ -34,8 +34,13 @@ import {Province} from '../../modal/province';
 import {AddressService} from '../../../../@core/service/baseservice/address.service';
 import {LoginPopUp} from '../../../../@core/login-popup/login-pop-up';
 import {ApprovalRoleHierarchyService} from '../../../loan/approval/approval-role-hierarchy.service';
-import {SingleLoanTransferModelComponent} from '../../../transfer-loan/components/single-loan-transfer-model/single-loan-transfer-model.component';
-import {CombinedLoanTransferModelComponent} from '../../../transfer-loan/components/combined-loan-transfer-model/combined-loan-transfer-model.component';
+import {
+    SingleLoanTransferModelComponent
+} from '../../../transfer-loan/components/single-loan-transfer-model/single-loan-transfer-model.component';
+import {
+    CombinedLoanTransferModelComponent
+} from '../../../transfer-loan/components/combined-loan-transfer-model/combined-loan-transfer-model.component';
+import {CreditMemoFullRoutes} from '../../../credit-memo/credit-memo-full-routes';
 
 @Component({
     selector: 'app-catalogue',
@@ -112,6 +117,7 @@ export class CatalogueComponent implements OnInit {
     isFileUnderCurrentToUser: any;
     loanConfigId: number;
     customerId: number;
+
     constructor(
         private branchService: BranchService,
         private loanConfigService: LoanConfigService,
@@ -216,7 +222,7 @@ export class CatalogueComponent implements OnInit {
             this.catalogueService.search = resetSearch;
         }
         if (!ObjectUtil.isEmpty(this.usersId)) {
-          this.onSearch();
+            this.onSearch();
         }
         this.location.getProvince().subscribe((response: any) => {
             this.provinces = response.detail;
@@ -385,14 +391,14 @@ export class CatalogueComponent implements OnInit {
                 this.onSearch();
                 this.onActionChangeSpinner = false;
                 this.router.navigate(['/home/loan/summary'], {
-                queryParams: {
-                    loanConfigId: res.detail.loan.id,
-                    customerId: res.detail.id
-                }
-            });
+                    queryParams: {
+                        loanConfigId: res.detail.loan.id,
+                        customerId: res.detail.id
+                    }
+                });
             }, error => {
-            this.onActionChangeSpinner = false;
-            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to update loan type.'));
+                this.onActionChangeSpinner = false;
+                this.toastService.show(new Alert(AlertType.ERROR, 'Unable to update loan type.'));
                 this.modalService.dismissAll('Close modal');
             }
         );
@@ -611,7 +617,7 @@ export class CatalogueComponent implements OnInit {
         } else {
             context.combinedLoanId = combinedLoanId;
             context.isMaker = this.roleTypeMaker;
-            context.branchId =  branchId;
+            context.branchId = branchId;
             this.dialogRef = this.nbDialogService.open(CombinedLoanTransferModelComponent, {
                 context,
                 closeOnBackdropClick: false,
@@ -641,5 +647,25 @@ export class CatalogueComponent implements OnInit {
                 this.popUpTitle = 'Transfer';
             });
         });
+    }
+
+    onRaiseMemo(data, onActionChange, event) {
+        this.spinner = true;
+        console.log('memo', data);
+        const customerLoanId = data.id;
+        const loanConfigId = data.loan.id;
+        console.log('loan product id', loanConfigId);
+        console.log('customer loan id', customerLoanId);
+        console.log('on action change', onActionChange);
+        console.log('event', event);
+        this.router.navigate([`${CreditMemoFullRoutes.COMPOSE}`],
+            {queryParams: {loanCategoryId: loanConfigId, loanId: customerLoanId}})
+            .then(() => {
+                // this.activeModalService.close();
+            });
+    }
+
+    onCloseMemo() {
+        // this.activeModalService.dismiss();
     }
 }

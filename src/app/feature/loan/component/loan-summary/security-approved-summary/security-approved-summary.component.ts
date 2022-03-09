@@ -60,7 +60,10 @@ export class SecurityApprovedSummaryComponent implements OnInit {
   @Input() docStatus;
   @Output() downloadSiteVisitDocument = new EventEmitter();
   isSecurityPresent = false;
-
+  landArray;
+  landBuildingArray;
+  apartmentArray;
+  vehicleArray;
   constructor(private collateralSiteVisitService: CollateralSiteVisitService) {
   }
 
@@ -72,6 +75,7 @@ export class SecurityApprovedSummaryComponent implements OnInit {
         if (f.indexOf('LandSecurity') !== -1) {
           this.showTitle = true;
           this.landSelected = true;
+          this.landArray = this.managedArray(this.formData['initialForm']['landDetails']);
         }
       });
 
@@ -80,6 +84,7 @@ export class SecurityApprovedSummaryComponent implements OnInit {
         if (f.indexOf('ApartmentSecurity') !== -1) {
           this.showTitle = true;
           this.apartmentSelected = true;
+          this.apartmentArray = this.managedArray(this.formData['initialForm']['buildingDetails']);
         }
       });
       // land and building security
@@ -87,6 +92,8 @@ export class SecurityApprovedSummaryComponent implements OnInit {
         if (f.indexOf('Land and Building Security') !== -1) {
           this.showTitle = true;
           this.landBuilding = true;
+          this.landBuildingArray = this.managedArray(this.formData['initialForm']['landBuilding']);
+
         }
       });
       // plant and machinery security
@@ -101,6 +108,7 @@ export class SecurityApprovedSummaryComponent implements OnInit {
         if (f.indexOf('VehicleSecurity') !== -1) {
           this.showTitle = true;
           this.vehicleSelected = true;
+          this.vehicleArray = this.managedArray(this.formData['initialForm']['vehicleDetails']);
         }
       });
       // fixed deposit receipt security
@@ -270,5 +278,24 @@ export class SecurityApprovedSummaryComponent implements OnInit {
     });
   }
 
-
+  private managedArray(array) {
+    let newArray = [];
+    const returnArray = [];
+    array.forEach((g, i) => {
+      newArray.push(g);
+      if ((i + 1) % 2 === 0) {
+        if (newArray.length > 0) {
+          returnArray.push(newArray);
+        }
+        newArray = [];
+      }
+      if (i === array.length - 1) {
+        if (newArray.length > 0) {
+          returnArray.push(newArray);
+        }
+        newArray = [];
+      }
+    });
+    return returnArray;
+  }
 }

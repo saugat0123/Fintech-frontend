@@ -6,6 +6,8 @@ import {CollateralSiteVisitService} from '../../../../loan-information-template/
 import {ApiConfig} from '../../../../../@core/utils/api/ApiConfig';
 import {NepseMaster} from '../../../../admin/modal/NepseMaster';
 import {SiteVisitDocument} from '../../../../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
+import {Security} from '../../../model/security';
+import {OwnershipTransfer} from '../../../model/ownershipTransfer';
 
 @Component({
   selector: 'app-collateral-site-visit',
@@ -46,11 +48,15 @@ export class CollateralSiteVisitComponent implements OnInit {
     isPrintable = 'YES';
     siteVisitJson = [];
     random;
+    security: Security;
+    ownerShipTransfer = OwnershipTransfer;
   ngOnInit() {
       this.url = ApiConfig.URL;
       this.random = Math.floor(Math.random() * 100) + 1;
       if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.security)) {
           this.securityData = JSON.parse(this.loanDataHolder.loanHolder.security.data);
+          this.security = this.securityData.initialForm;
+          console.log('this is security', this.security);
           if (this.securityData['selectedArray'] !== undefined) {
               this.isSecurityPresent = true;
               // land security
@@ -153,9 +159,11 @@ export class CollateralSiteVisitComponent implements OnInit {
               });
             }
             if (this.landBuilding) {
+                console.log('land is selected');
               const landBuilding = this.securityData['initialForm']['landBuilding'];
               landBuilding.forEach(v => {
-                if (!ObjectUtil.isEmpty(v.uuid)) {
+                  console.log('land is selected', v);
+                  if (!ObjectUtil.isEmpty(v.uuid)) {
                   this.collateralSiteVisits.push(...siteVisit.filter(f => f.uuid === v.uuid));
                 }
               });
@@ -212,7 +220,6 @@ export class CollateralSiteVisitComponent implements OnInit {
             }
           });
     }
-      console.log(' i am here', this.loanDataHolder);
   }
     viewDocument(url: string, name: string) {
         const viewDocName = name.concat(this.fileType);

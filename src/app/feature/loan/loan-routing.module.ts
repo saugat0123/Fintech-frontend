@@ -8,10 +8,11 @@ import {LoanOfferLetterComponent} from './loan-offer-letter/loan-offer-letter.co
 import {SummaryBaseComponent} from './summary-base/summary-base.component';
 import {LoanInformationDetailViewComponent} from '../loan-information-detail-view/loan-information-detail-view.component';
 import {CadDocumentUploadComponent} from '../loan-information-template/cad-document-upload/cad-document-upload.component';
-import { PostApprovalFormComponent } from './loan-offer-letter/post-approval-form/post-approval-form.component';
-import {CatalogueComponent} from "../admin/component/catalogue/catalogue.component";
-import {TransferDocComponent} from "./transfer-doc/transfer-doc.component";
-import {MicroLoanDetailViewBaseComponent} from '../micro-loan/detail-view/micro-loan-detail-view-base/micro-loan-detail-view-base.component';
+import {PostApprovalFormComponent} from './loan-offer-letter/post-approval-form/post-approval-form.component';
+import {TransferDocComponent} from './transfer-doc/transfer-doc.component';
+import {
+    MicroLoanDetailViewBaseComponent
+} from '../micro-loan/detail-view/micro-loan-detail-view-base/micro-loan-detail-view-base.component';
 
 export const routes: Routes = [
     {path: 'loanForm', component: LoanFormComponent},
