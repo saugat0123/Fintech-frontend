@@ -1,0 +1,31 @@
+h5 {
+  font-size: 13.5px !important;
+}
+
+p {
+  font-size: 13px !important;
+}
+
+.working-capital {
+  td:nth-child(5) {
+    font-weight: bold;
+  }
+}
+.fixed-assets {
+  td:nth-child(6) {
+    font-weight: bold;
+  }
+}
+
+.term-loan {
+  td:nth-child(1),
+  td:nth-child(2) {
+    font-weight: bold;
+  }
+}
+
+.total {
+  td:nth-child(3) {
+    text-align: center !important;
+  }
+}
