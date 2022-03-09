@@ -75,6 +75,10 @@ input::-webkit-input-placeholder {
   max-height: 186px;
 }
 
+.selectWidth {
+  width: auto;
+}
+
 @media screen {
   .print-only {
     display: none;
