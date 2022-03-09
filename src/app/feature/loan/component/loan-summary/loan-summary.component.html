@@ -872,14 +872,12 @@
                     </tr>
                 </table>
             </div>
-                <div class = "col-md-12">
-                    <hr class="print-line">
-                    <table>
-                        <tr  class="header">
-                            <td><p><strong  class="header">Purpose of Loan:</strong></p></td>
-                            <td class="text-left" style="display: flex" [innerHTML]="proposalAllData?.purposeOfLoan || 'N/A' | safeHtml"></td>
-                        </tr>
-                    </table>
+                <div class="row">
+                    <div class = "col-md-12">
+                        <hr class="print-line">
+                                <p><strong  class="header text-left">Purpose of Loan: </strong> <span class="text-left" style="display: flex" [innerHTML]="proposalAllData?.purposeOfLoan || 'N/A' | safeHtml"></span>
+                                </p>
+                    </div>
                 </div>
             <app-income-from-account-summery *ngIf="incomeFromAccountSummary" [individual]="isIndividual"
                                              [formData]="incomeFromAccountData"></app-income-from-account-summery>
