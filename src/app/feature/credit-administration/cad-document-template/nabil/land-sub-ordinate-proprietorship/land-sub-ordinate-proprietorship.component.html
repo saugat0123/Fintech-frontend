@@ -83,14 +83,14 @@
                                name="amount"
                                formControlName="amount"
                                type="text"/>
-                        <span class="print-only font-weight-bold nepaliFont">
-                            {{form?.get('amount').value ? form?.get('amount').value : '___________________'}}
+                        <span class="print-only font-weight-bold">
+                            {{form?.get('amount')?.value ? form?.get('amount')?.value : '___________________'}}
                         </span>/-
                         (अक्षरेपि  <input class="form-field form-control-sm d-print-none"
                                           name="amountInWords"
                                           formControlName="amountInWords"
                                           type="text" readonly/>
-                        <span class="print-only font-weight-bold">{{form?.get('amountInWords').value ? form?.get('amountInWords').value : '___________________'}}</span>
+                        <span class="print-only font-weight-bold">{{form?.get('amountInWords').value ? form?.get('amountInWords').value : '_________________________'}}</span>
                         मात्र)
                         ऋणकर्जा प्राप्त गरेको र भविष्यमा पनि ऋणीले साहुबाट पटक पटक थप ऋण प्राप्त गर्न सक्ने र
                     </li>
