@@ -86,7 +86,6 @@ export class NepProposedAmountFormComponent implements OnInit {
         this.nepaliNumber.initDate = this.nepForm.get('initDate').value;
         this.spinner = true;
         this.cadData.nepData = JSON.stringify(this.nepaliNumber);
-        console.log(this.cadData.nepData);
         this.service.saveCadDocumentBulk(this.cadData).subscribe((res: any) => {
             this.spinner = false;
             this.router.reloadCadProfileRoute(this.cadData.id);

@@ -12,19 +12,19 @@
             <tbody>
 <tr>
     <td>Gross Monthly Income (GMI)</td>
-    <td class="text-right">{{financialData?.initialForm?.totalIncome}}</td>
+    <td class="text-right">{{(financialData?.initialForm?.totalIncome?.toFixed(2) | currencyFormatter) || 'N/A'}}</td>
 </tr>
 <tr *ngFor="let data of financialData?.initialForm?.expensesOfBorrower;">
     <td>{{data?.particulars}}</td>
-    <td class="text-right">{{data?.amount}}</td>
+    <td class="text-right">{{(data?.amount?.toFixed(2) | currencyFormatter) || 'N/A'}}</td>
 </tr>
 <tr>
     <td>Total Monthly Obligation</td>
-    <td class="text-right">{{financialData?.initialForm?.totalBankObligation}}</td>
+    <td class="text-right">{{(financialData?.initialForm?.totalBankObligation?.toFixed(2) | currencyFormatter) || 'N/A'}}</td>
 </tr>
 <tr>
     <td>Gross DBR (EMI/GMI)</td>
-    <td class="text-right">{{(financialData?.initialForm?.emiWithProposal /(financialData?.initialForm?.totalIncome) * 100).toFixed(2)}} %</td>
+    <td class="text-right">{{(financialData?.initialForm?.emiWithProposal /(financialData?.initialForm?.totalIncome) * 100)?.toFixed(2)}} %</td>
 </tr>
             </tbody>
         </table>
