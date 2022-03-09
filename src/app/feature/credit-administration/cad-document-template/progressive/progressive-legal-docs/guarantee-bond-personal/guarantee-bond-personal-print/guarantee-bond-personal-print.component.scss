@@ -1,7 +1,7 @@
 //@import '../../progressive-legal-docs.component';
 
 .fingerXap {
-  width: 200px;
+  width: 300px;
   text-align: center;
 }
 
@@ -21,7 +21,7 @@ table {
 @media print {
 
   @page {
-    margin: 1.5in 0in 0.5in 1.06in !important;
+    margin: 1.5in 0in 1in 1.06in !important;
   }
 
   .pageBreak {
