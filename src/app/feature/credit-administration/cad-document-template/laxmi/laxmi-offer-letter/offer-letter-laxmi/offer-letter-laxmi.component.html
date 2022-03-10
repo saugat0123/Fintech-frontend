@@ -461,27 +461,14 @@
                                         <ng-container
                                                 *ngIf="offerLetterForm?.get(['purpose', i, 'maturityNeeded'])?.value">
                                     <span *ngIf="!offerLetterForm?.get(['purpose', i, 'maturityOtherCheck'])?.value">
-                                        <span *ngIf="offerLetterForm?.get(['purpose', i, 'loanNature'])?.value === 'Terminating'">
-                                    मिति <input type="text"
-                                                [value]="offerLetterForm?.get(['purpose', i, 'maturityDate'])?.value"
-                                                (change)="valueChange($event?.target?.value, i, 'maturityDate')"
-                                                class="nepaliFont form-field form-control-sm font-size-normal disable-print">
-                                    <span class="nepaliFont font-size-normal print-only">
-                                <b>{{offerLetterForm?.get(['purpose', i, 'maturityDate'])?.value ? offerLetterForm?.get(['purpose', i, 'maturityDate'])?.value : '========='}}</b></span>
-                                    मा कर्जा तथा सुविधाको पुनरावलोकन गरिने र सो मिति सम्म उपभोग गर्न सकिनेछ । पुनरावलोकन
-                                    गर्ने मिति जुनसुकै उल्लेख भएको भए पनि बैंकले माग गर्नासाथ बैंकको सम्पूर्ण लेना रकम
-                                    भुक्तानी गर्नु पर्ने छ ।
-                                </span>
-                                        <span *ngIf="offerLetterForm?.get(['purpose', i, 'loanNature'])?.value === 'Revolving'">
-                                    कर्जा प्रवाह भएको मितिले
-                                    <input type="text"
-                                           (change)="valueChange($event?.target?.value, i, 'maturityDate')"
-                                           [value]="offerLetterForm?.get(['purpose', i, 'maturityDate'])?.value"
-                                           class="nepaliFont form-field form-control-sm font-size-normal disable-print">
-                                    <span class="nepaliFont font-size-normal print-only">
-                                        <b>{{offerLetterForm?.get(['purpose', i, 'maturityDate'])?.value ? offerLetterForm?.get(['purpose', i, 'maturityDate'])?.value : '========='}}</b></span>
-                                    सम्म हुनेछ ।
-                                </span>
+                                        कर्जा प्रवाह भएको मितिले
+                                        <input type="text"
+                                               (change)="valueChange($event?.target?.value, i, 'maturityDate')"
+                                               [value]="offerLetterForm?.get(['purpose', i, 'maturityDate'])?.value"
+                                               class="nepaliFont form-field form-control-sm font-size-normal disable-print">
+                                        <span class="nepaliFont font-size-normal print-only">
+                                            <b>{{offerLetterForm?.get(['purpose', i, 'maturityDate'])?.value ? offerLetterForm?.get(['purpose', i, 'maturityDate'])?.value : '========='}}</b></span>
+                                        सम्म हुनेछ ।
                                     </span>
                                             <span class="disable-print float-right">
                                     <nb-checkbox
