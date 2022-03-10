@@ -91,18 +91,13 @@ export class ComposeComponent implements OnInit {
 
 
         this.memoId = Number(this.activatedRoute.snapshot.paramMap.get('id'));
-        console.log('memo id in compose', this.memoId);
         this.activatedRoute.queryParams.subscribe((params) => {
-            console.log('params', params);
             if (!(Object.keys(params).length === 0 && params.constructor === Object)) {
                 this.raisedFromCatalogue = true;
 
                 this.loanConfigService.detail(params.loanCategoryId).subscribe(response => {
-                    console.log('raise from catalogue true', response);
                     const paramLoanConfig = response.detail as LoanConfig;
-                    console.log('param loan config', paramLoanConfig);
                     this.creditMemoDocuments = paramLoanConfig.creditMemoDocuments;
-                    console.log('this is null', this.creditMemoDocuments);
                 });
 
                 this.getCustomerLoanFromCategory({id: params.loanCategoryId}, params.loanId);
@@ -112,19 +107,16 @@ export class ComposeComponent implements OnInit {
             this.isNewMemo = true;
             this.memoTask = 'Compose New';
             this.memo = new CreditMemo();
-            console.log('is new memo true');
         } else {
             this.isNewMemo = false;
             this.memoTask = 'Edit';
             this.creditMemoService.detail(Number(this.memoId)).subscribe((response: any) => {
                 this.memo = response.detail;
-                console.log('credit memo service', this.memo);
                 this.buildMemoForm(this.memo);
 
                 // Setting existing documents --
                 this.creditMemoDocuments = this.memo.customerLoan.loan.creditMemoDocuments;
                 this.editedCreditMemoDocuments = this.memo.documents;
-                console.log(this.editedCreditMemoDocuments, 'current');
                 this.editedCreditMemoDocuments.forEach((singleDoc, i) => {
                     this.creditMemoDocuments.forEach((initDoc, j) => {
                         if (singleDoc.document.id === initDoc.id) {
@@ -153,7 +145,6 @@ export class ComposeComponent implements OnInit {
 
                 this.creditMemoTypeDocuments = response.detail.type.documents;
                 this.editedCreditMemoTypeDocuments = this.memo.memoTypeDocuments;
-                console.log(this.editedCreditMemoTypeDocuments, 'current');
                 this.editedCreditMemoTypeDocuments.forEach((singleDoc, i) => {
                     this.creditMemoTypeDocuments.forEach((initDoc, j) => {
                         if (singleDoc.document.id === initDoc.id) {
@@ -314,7 +305,6 @@ export class ComposeComponent implements OnInit {
         this.memo.customerLoan = this.memoComposeForm.get('customerLoan').value;
         this.memo.documents = this.editedCreditMemoDocuments;
         this.memo.memoTypeDocuments = this.editedCreditMemoTypeDocuments;
-        console.log(this.memo, 'TEST');
         this.creditMemoService.save(this.memo).subscribe((response: any) => {
             const savedCreditMemo = response.detail;
             this.router.navigate([`${CreditMemoFullRoutes.READ}/${savedCreditMemo.id}`]).then(() => {
