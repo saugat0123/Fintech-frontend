@@ -56,6 +56,12 @@ import { OtherChargesComponent } from './sme-loan-summary/other-charges/other-ch
 import { CovenantsComponent } from './sme-loan-summary/covenants/covenants.component';
 import { NrbStatutoryRemarksStatusComponent } from './sme-loan-summary/nrb-statutory-remarks-status/nrb-statutory-remarks-status.component';
 import { CreditCardRequirementComponent } from './sme-loan-summary/credit-card-requirement/credit-card-requirement.component';
+import { AboveGroupExposureWithCcblComponent } from './sme-loan-summary/above-ten-million/above-group-exposure-with-ccbl/above-group-exposure-with-ccbl.component';
+import { AboveBankingArrangementOfTheCustomerComponent } from './sme-loan-summary/above-ten-million/above-banking-arrangement-of-the-customer/above-banking-arrangement-of-the-customer.component';
+import { AboveStockStatementComponent } from './sme-loan-summary/above-ten-million/above-stock-statement/above-stock-statement.component';
+import { AboveRiskAnalysisComponent } from './sme-loan-summary/above-ten-million/above-risk-analysis/above-risk-analysis.component';
+import { AboveSwotAnalysisComponent } from './sme-loan-summary/above-ten-million/above-swot-analysis/above-swot-analysis.component';
+import { AbovePricingAndEstimatedIncomeFromTheAccountComponent } from './sme-loan-summary/above-ten-million/above-pricing-and-estimated-income-from-the-account/above-pricing-and-estimated-income-from-the-account.component';
 
 
 
@@ -85,7 +91,7 @@ const COMPONENTS = [
 const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
 
 @NgModule({
-    declarations: [...COMPONENTS, ApprovalSheetConfigComponent, ApprovalSheetInfoComponent, ApprovalSheetDocumentListComponent, MGroupSummaryComponent, CommentsSummaryComponent, PreviousSecuritySummaryComponent, SignatureSectionComponent, CreditFacilityReportComponent, SmeLoanSummaryComponent, CurrentStatusTableComponent, ConlusionReviewTableComponent, MisNrbReportingComponent, KeyFinancialFiguresComponent, ExecutiveCurrentStatusComponent, ExecutiveSecurityArrangementComponent, ExecutiveKeyFinancialFiguresComponent, ExecutiveGroupPositionComponent, ExecutiveSummarySmeComponent, ExecutiveRecommendationApprovalComponent, AboveTenMillionComponent, AboveBackgroundOfCustomerComponent, AssessmentForRequirementOfFundComponent, BankingRelationshipComponent, OtherChargesComponent, CovenantsComponent, NrbStatutoryRemarksStatusComponent, CreditCardRequirementComponent],
+    declarations: [...COMPONENTS, ApprovalSheetConfigComponent, ApprovalSheetInfoComponent, ApprovalSheetDocumentListComponent, MGroupSummaryComponent, CommentsSummaryComponent, PreviousSecuritySummaryComponent, SignatureSectionComponent, CreditFacilityReportComponent, SmeLoanSummaryComponent, CurrentStatusTableComponent, ConlusionReviewTableComponent, MisNrbReportingComponent, KeyFinancialFiguresComponent, ExecutiveCurrentStatusComponent, ExecutiveSecurityArrangementComponent, ExecutiveKeyFinancialFiguresComponent, ExecutiveGroupPositionComponent, ExecutiveSummarySmeComponent, ExecutiveRecommendationApprovalComponent, AboveTenMillionComponent, AboveBackgroundOfCustomerComponent, AssessmentForRequirementOfFundComponent, BankingRelationshipComponent, OtherChargesComponent, CovenantsComponent, NrbStatutoryRemarksStatusComponent, CreditCardRequirementComponent, AboveGroupExposureWithCcblComponent, AboveBankingArrangementOfTheCustomerComponent, AboveStockStatementComponent, AboveRiskAnalysisComponent, AboveSwotAnalysisComponent, AbovePricingAndEstimatedIncomeFromTheAccountComponent],
     imports: [
         CommonModule,
         ThemeModule,
