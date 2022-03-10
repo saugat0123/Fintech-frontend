@@ -41,6 +41,8 @@ import {
     CombinedLoanTransferModelComponent
 } from '../../../transfer-loan/components/combined-loan-transfer-model/combined-loan-transfer-model.component';
 import {CreditMemoFullRoutes} from '../../../credit-memo/credit-memo-full-routes';
+import {CreditMemoService} from '../../../credit-memo/service/credit-memo.service';
+import {CreditMemoModalComponent} from './credit-memo-modal/credit-memo-modal.component';
 
 @Component({
     selector: 'app-catalogue',
@@ -133,7 +135,8 @@ export class CatalogueComponent implements OnInit {
         private socketService: SocketService,
         private catalogueService: CatalogueService,
         private location: AddressService,
-        private nbDialogService: NbDialogService,
+        private creditMemoService: CreditMemoService,
+    private nbDialogService: NbDialogService,
         private service: ApprovalRoleHierarchyService) {
     }
 
@@ -663,6 +666,17 @@ export class CatalogueComponent implements OnInit {
             .then(() => {
                 // this.activeModalService.close();
             });
+    }
+
+    openCreditMemoModal(loanDataHolder: LoanDataHolder) {
+        const memoSearchObj = { 'customerLoan.id': String(loanDataHolder.id)};
+        let memoList = [];
+        this.creditMemoService.getPaginationWithSearchObject(memoSearchObj, 1, 100).subscribe( response => {
+            memoList = response.detail.content;
+            const modalRef = this.modalService.open(CreditMemoModalComponent, {backdrop: 'static', size: 'lg'});
+            modalRef.componentInstance.creditMemoList = memoList;
+            modalRef.componentInstance.customerLoan = loanDataHolder;
+        });
     }
 
     onCloseMemo() {

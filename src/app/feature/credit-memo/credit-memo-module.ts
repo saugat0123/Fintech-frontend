@@ -12,9 +12,11 @@ import {CreditMemoBaseComponent} from './component/credit-memo-base/credit-memo-
 import {CreditMemoTypeComponent} from './component/credit-memo-type/credit-memo-type.component';
 import {ReadComponent} from './component/read/read.component';
 import {ViewMemoComponent} from './component/view-memo/view-memo.component';
-import { CreditMemoTypeFormComponent } from './component/credit-memo-type/credit-memo-type-form/credit-memo-type-form.component';
+import {CreditMemoTypeFormComponent} from './component/credit-memo-type/credit-memo-type-form/credit-memo-type-form.component';
 import {UserVerificationModalComponent} from './component/user-verification-modal/user-verification-modal.component';
-import {CreditMemoTypeDeleteModalComponent} from './component/credit-memo-type/credit-memo-type-delete-modal/credit-memo-type-delete-modal.component';
+import {
+    CreditMemoTypeDeleteModalComponent
+} from './component/credit-memo-type/credit-memo-type-delete-modal/credit-memo-type-delete-modal.component';
 import {NgxPrintModule} from 'ngx-print';
 
 @NgModule({
