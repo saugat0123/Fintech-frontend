@@ -106,13 +106,21 @@ export class CustomerWisePendingComponent implements OnInit {
     }
 
 
-
     static loadData(other: CustomerWisePendingComponent) {
         other.spinner = true;
         other.toggleArray = [];
         other.loanForCombine = [];
         other.loanHolderLoanList = [];
         other.loanHolderLoanListTemp = [];
+        const url = other.activatedRoute.queryParams.subscribe((value) =>{
+            if(!ObjectUtil.isEmpty(value.type)) {
+                other.activatedRoute.queryParams.subscribe((d)=>{
+                    other.search.documentStatus = DocStatus.value(DocStatus.PENDING);
+                    other.search.loanNewRenew =d.type
+                })
+            }
+        })
+
         other.loanFormService.getPaginationWithSearchObject(other.search, other.page, 10).subscribe(
             (response: any) => {
                 other.loanHolderLoanList = response.detail.content;
@@ -142,8 +150,8 @@ export class CustomerWisePendingComponent implements OnInit {
         if (this.search.documentStatus.toString() === DocStatus.value(DocStatus.PENDING)) {
             this.showDocStatusList = false;
         } else {
-            this.showDocStatusList = true;
             this.docStatusForMaker();
+            this.showDocStatusList = true;
         }
         CustomerWisePendingComponent.loadData(this);
         this.userService.getLoggedInUser().subscribe(
