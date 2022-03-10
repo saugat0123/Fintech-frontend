@@ -32,7 +32,7 @@ export class LoanActionCombinedModalComponent implements OnInit {
     @Input() combinedLoanId: number;
     @Input() docAction: string;
     @Input() docActionMsg: string;
-    @Input() documentStatus: DocStatus;
+    @Input() documentStatus;
     @Input() isForward: boolean;
     @Input() additionalDetails: any;
     @Input() isMaker: boolean;
@@ -70,6 +70,7 @@ export class LoanActionCombinedModalComponent implements OnInit {
     isHsov;
     combinedDual = false;
     combinedHSOV = false;
+    docStatus =  DocStatus;
     @Output() emitter = new EventEmitter();
 
     constructor(
@@ -87,6 +88,8 @@ export class LoanActionCombinedModalComponent implements OnInit {
     }
 
     ngOnInit() {
+        console.log('this is document status', this.documentStatus);
+        console.log('this is document statuss', this.docStatus.DUAL_APPROVAL_PENDING);
         this.spinner = true;
         this.roleId = parseInt(LocalStorageUtil.getStorage().roleId, 10);
         this.combinedLoanService.detail(this.combinedLoanId).subscribe((response) => {
