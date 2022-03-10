@@ -65,7 +65,9 @@
           <label class="form-group">Business Unit</label>
           <select class="form-control rounded" formControlName="clientType" id="clientType">
             <option [ngValue]="null" hidden>Select Business Unit</option>
-            <option *ngFor="let type of clientType" [ngValue]="type">{{type | replace:'_':' '}}</option>
+<!--            <option *ngFor="let type of clientType" [ngValue]="type">{{type | replace:'_':' '}}</option>-->
+            <option *ngFor="let data of clientType | keyvalue" [ngValue]="data.key"
+                    [selected]="data.key" >{{data.value}}</option>
           </select>
         </div>
 
