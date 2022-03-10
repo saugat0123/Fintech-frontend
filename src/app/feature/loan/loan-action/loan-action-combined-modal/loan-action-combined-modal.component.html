@@ -123,7 +123,7 @@
 
                                         <!--                  //sol-->
                                         <div>
-                                            <div class="col-md-12" *ngIf="documentStatus !== 'HSOV_PENDING' || documentStatus !== 'DUAL_APPROVAL_PENDING'">
+                                            <div class="col-md-12" *ngIf="documentStatus !== docStatus.DUAL_APPROVAL_PENDING && documentStatus !== docStatus.HSOV_PENDING">
 <!--                                                <nb-checkbox class="cursor" [checked]="preSelectedSolUser[i]?.isSol"-->
 <!--                                                             formControlName="isSol"-->
 <!--                                                             (checkedChange)="showHideSol($event,i)">is SOL?-->
@@ -193,7 +193,7 @@
                     <div class="col-md-12">
                         <form [formGroup]="combinedType.form">
 
-                            <div *ngIf="popUpTitle === 'Send Forward' || docAction === 'DUAL_APPROVAL_PENDING' || docAction== 'HSOV_PENDING'" class="row">
+                            <div *ngIf="popUpTitle === 'Send Forward' || documentStatus === docStatus.HSOV_PENDING || documentStatus === docStatus.DUAL_APPROVAL_PENDING" class="row">
                                 <div class="col-md-12 form-group">
                                     <label class="toRole" for="toRole">TO</label>
                                     <select (change)="getCombinedUserList(combinedType?.form.get('toRole').value)"
@@ -243,7 +243,7 @@
                             <!--//sol-->
 
                             <div>
-                                <div class="col-md-12" *ngIf="documentStatus !== 'HSOV_PENDING' || documentStatus !== 'DUAL_APPROVAL_PENDING'">
+                                <div class="col-md-12" *ngIf="documentStatus !== docStatus.HSOV_PENDING && documentStatus !== docStatus.DUAL_APPROVAL_PENDING">
 <!--                                    <nb-checkbox class="cursor" formControlName="isSol"-->
 <!--                                                 [checked]="preSelectedSolUser[0]?.isSol"-->
 <!--                                                 (checkedChange)="showHideSolCombine($event)"-->
