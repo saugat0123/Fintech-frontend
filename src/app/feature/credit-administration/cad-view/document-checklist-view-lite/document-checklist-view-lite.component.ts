@@ -53,6 +53,7 @@ export class DocumentChecklistViewLiteComponent implements OnInit {
   initial() {
     this.documentService.getByLoanCycleAndStatus(12, Status.ACTIVE).subscribe(res => {
       this.document = res.detail;
+      console.log('cadData', this.cadData);
       if (!ObjectUtil.isEmpty(this.cadData) && !(ObjectUtil.isEmpty(this.document))) {
         this.customerLoanList = this.cadData.assignedLoan;
 

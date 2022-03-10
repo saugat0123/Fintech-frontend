@@ -39,7 +39,11 @@ export class SecurityComplianceCertificateComponent implements OnInit {
   sccForm: FormGroup;
   sccData;
   sumbit = false;
-
+  isInstitution = false;
+  isIndividual = false;
+  isJoint = false;
+  jsonData;
+  olRefNumber;
 
   constructor(protected dialogRef: NbDialogRef<SecurityComplianceCertificateComponent>,
               private creditAdministrationService: CreditAdministrationService,
@@ -54,8 +58,20 @@ export class SecurityComplianceCertificateComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log('productUtil', LocalStorageUtil.getStorage().productUtil);
     if (!ObjectUtil.isEmpty(this.cadFile.sccData)) {
       this.sccData = JSON.parse(this.cadFile.sccData);
+      console.log('sccData', this.sccData);
+    }
+    if (this.cadFile.loanHolder.customerType === 'INDIVIDUAL') {
+      this.isIndividual = true;
+      this.jsonData = JSON.parse(this.cadFile.assignedLoan[0].customerInfo.individualJsonData);
+      if (!ObjectUtil.isEmpty(this.cadFile.assignedLoan[0].customerInfo.isJointCustomer)) {
+        this.isJoint = true;
+      }
+    } else {
+      this.isInstitution = false;
+      this.jsonData = JSON.parse(this.cadFile.assignedLoan[0].companyInfo.companyJsonData);
     }
     this.buildSccForm();
     this.configEditor();
@@ -73,20 +89,20 @@ export class SecurityComplianceCertificateComponent implements OnInit {
           ObjectUtil.isEmpty(this.sccData.cibObtained) ? new Date() :
               new Date(this.sccData.cibObtained)],
       strObtained: [ObjectUtil.isEmpty(this.sccData) ? new Date() :
-          ObjectUtil.isEmpty(this.sccData.cibObtained) ? new Date() :
-              new Date(this.sccData.cibObtained)],
+          ObjectUtil.isEmpty(this.sccData.strObtained) ? new Date() :
+              new Date(this.sccData.strObtained)],
       iffObtained: [ObjectUtil.isEmpty(this.sccData) ? new Date() :
-          ObjectUtil.isEmpty(this.sccData.cibObtained) ? new Date() :
-              new Date(this.sccData.cibObtained)],
+          ObjectUtil.isEmpty(this.sccData.iffObtained) ? new Date() :
+              new Date(this.sccData.iffObtained)],
       kyc: [ObjectUtil.isEmpty(this.sccData) ? new Date() :
-          ObjectUtil.isEmpty(this.sccData.cibObtained) ? new Date() :
-              new Date(this.sccData.cibObtained)],
+          ObjectUtil.isEmpty(this.sccData.kyc) ? new Date() :
+              new Date(this.sccData.kyc)],
       declaration: [ObjectUtil.isEmpty(this.sccData) ? new Date() :
-          ObjectUtil.isEmpty(this.sccData.cibObtained) ? new Date() :
-              new Date(this.sccData.cibObtained)],
+          ObjectUtil.isEmpty(this.sccData.declaration) ? new Date() :
+              new Date(this.sccData.declaration)],
       caApproved: [ObjectUtil.isEmpty(this.sccData) ? new Date() :
-          ObjectUtil.isEmpty(this.sccData.cibObtained) ? new Date() :
-              new Date(this.sccData.cibObtained)],
+          ObjectUtil.isEmpty(this.sccData.caApproved) ? new Date() :
+              new Date(this.sccData.caApproved)],
       baseII: [ObjectUtil.isEmpty(this.sccData) ? undefined :
           ObjectUtil.isEmpty(this.sccData.baseII) ? undefined : this.sccData.baseII],
       nrbSector: [ObjectUtil.isEmpty(this.sccData) ? undefined :
@@ -157,6 +173,10 @@ export class SecurityComplianceCertificateComponent implements OnInit {
           ObjectUtil.isEmpty(this.sccData.discrepancy) ? undefined : this.sccData.discrepancy],
       instruction: [ObjectUtil.isEmpty(this.sccData) ? undefined :
           ObjectUtil.isEmpty(this.sccData.instruction) ? undefined : this.sccData.instruction],
+      nameOfCustodian: [ObjectUtil.isEmpty(this.sccData) ? undefined :
+          ObjectUtil.isEmpty(this.sccData.nameOfCustodian) ? undefined : this.sccData.nameOfCustodian],
+      vaultNo: [ObjectUtil.isEmpty(this.sccData) ? undefined :
+          ObjectUtil.isEmpty(this.sccData.vaultNo) ? undefined : this.sccData.vaultNo],
     });
   }
 
@@ -170,15 +190,22 @@ export class SecurityComplianceCertificateComponent implements OnInit {
 
   setSccRefNumber() {
     const date = new Date();
-    // tslint:disable-next-line:no-bitwise
-    let firstPart: any = (Math.random() * 46656) | 0;
-    // tslint:disable-next-line:no-bitwise
-    let secondPart: any = (Math.random() * 46656) | 0;
-    firstPart = ('000' + firstPart.toString(36)).slice(-3);
-    secondPart = ('000' + secondPart.toString(36)).slice(-3);
-    const random = firstPart + secondPart;
-    const first = `SCC/${this.cadFile.assignedLoan[0].branch.branchCode}/`;
-    this.sccRefNumber = first + random.toString().concat((this.cadFile.id).toString().padStart(4, '0'));
+    console.log('date', date);
+    console.log('year', date.getFullYear());
+    console.log('month', date.getMonth());
+    console.log('day', date.getDay());
+    this.sccRefNumber = date.getFullYear().toString().concat('/').concat(date.getMonth().toString()).concat('/')
+        .concat(date.getDay().toString()).concat('/').concat('SCC').concat('/').concat(this.cadFile.id.toString());
+    this.olRefNumber = 'OL'.concat(this.cadFile.id.toString()).padStart(4, '0');
+    // // tslint:disable-next-line:no-bitwise
+    // let firstPart: any = (Math.random() * 46656) | 0;
+    // // tslint:disable-next-line:no-bitwise
+    // let secondPart: any = (Math.random() * 46656) | 0;
+    // firstPart = ('000' + firstPart.toString(36)).slice(-3);
+    // secondPart = ('000' + secondPart.toString(36)).slice(-3);
+    // const random = firstPart + secondPart;
+    // const first = `SCC/${this.cadFile.assignedLoan[0].branch.branchCode}/`;
+    // this.sccRefNumber = first + random.toString().concat((this.cadFile.id).toString().padStart(4, '0'));
   }
 
   onSave() {

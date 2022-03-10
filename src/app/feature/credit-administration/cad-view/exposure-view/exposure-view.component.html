@@ -16,8 +16,11 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngIf="disbursementDetails?.length < 1">
-        <td colspan="7" class="text-danger">NO Disbursement has Been Performed Yet</td>
+<!--    <tr *ngIf="disbursementDetails?.length < 1">-->
+<!--        <td colspan="7" class="text-danger">NO Disbursement has Been Performed Yet</td>-->
+<!--    </tr>-->
+    <tr *ngIf="!isExposureFilled">
+        <td colspan="7" class="text-danger">Exposure Details has not been saved yet</td>
     </tr>
     <tr *ngFor="let ex of disbursementDetails;let i=index">
         <td>{{i + 1}}</td>
