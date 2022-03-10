@@ -62,7 +62,6 @@ export class ProposalSummaryComponent implements OnInit {
     ngOnInit() {
         if (this.loanDataHolder.loanHolder.clientType === 'CONSUMER_FINANCE') {
             this.consumerFinance = true;
-            console.log('this is consumer finance');
         }
         if (!ObjectUtil.isEmpty(this.proposalData.data)) {
             this.proposalAllData = JSON.parse(this.proposalData.data);

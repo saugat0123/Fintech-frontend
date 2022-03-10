@@ -99,7 +99,6 @@ export class LoanActionComponent implements OnInit, OnChanges {
 
     public loanAction(action: 'forward' | 'backward' | 'backwardCommittee' | 'approve' | 'reject' | 'close' | 'send back to sender' | 'send back to agent'): void {
         this.close();
-        console.log(this.customerLoanHolder.documentStatus);
         let context;
         switch (action) {
             case 'backward':
@@ -178,7 +177,7 @@ export class LoanActionComponent implements OnInit, OnChanges {
                         loanConfigId: this.loanConfigId,
                         customerLoanId: this.id,
                         branchId: this.branchId,
-                        docAction: 'HSOV_PENINDG',
+                        docAction: 'HSOV_PENDING',
                         docActionMsg: 'Hsov Pending',
                         documentStatus: DocStatus.HSOV_PENDING,
                         isRemitLoan: this.isRemitLoan,
@@ -280,7 +279,11 @@ export class LoanActionComponent implements OnInit, OnChanges {
                 hasScroll: true
             });
             this.dialogRef.onClose.subscribe(d => {
-                this.emitter.emit(true);
+                if(ObjectUtil.isEmpty(d)) {
+                    this.emitter.emit(false);
+                }   else {
+                    this.emitter.emit(true);
+                }
             });
 
         } else {
@@ -294,8 +297,12 @@ export class LoanActionComponent implements OnInit, OnChanges {
                         hasBackdrop: false,
                         hasScroll: true
                     });
-            this.dialogRef.onClose.subscribe(d => {
-                this.emitter.emit(true);
+            this.dialogRef.onClose.subscribe((d: boolean) => {
+                if(ObjectUtil.isEmpty(d)) {
+                    this.emitter.emit(false);
+                }   else {
+                    this.emitter.emit(true);
+                }
             });
 
         }

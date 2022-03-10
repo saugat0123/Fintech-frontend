@@ -12,6 +12,7 @@ import {DocAction} from '../../../loan/model/docAction';
 import {ApiConfig} from '../../../../@core/utils/api/ApiConfig';
 import {CreditMemo} from '../../model/credit-memo';
 import {CreditMemoStage} from '../../model/credit-memo-stage';
+import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 
 @Component({
   selector: 'app-read',
@@ -25,8 +26,9 @@ export class ReadComponent implements OnInit {
   memo: CreditMemo;
   spinner = false;
 
-  activeUserId = Number(localStorage.getItem('userId'));
-  roleType = localStorage.getItem('roleType');
+  activeUserId = Number(LocalStorageUtil.getStorage().userId);
+  roleType = LocalStorageUtil.getStorage().roleType;
+
   currentMemoStage = '';
 
   signatureList = [];
@@ -94,7 +96,8 @@ export class ReadComponent implements OnInit {
     this.router.navigate(['/home/loan/summary'], {
       queryParams: {
         loanConfigId: this.memo.customerLoan.loan.id,
-        customerId: this.memo.customerLoan.id
+        customerId: this.memo.customerLoan.id,
+        catalogue: true
       }
     }).then(() => {
       this.spinner = false;

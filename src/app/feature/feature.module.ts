@@ -20,6 +20,7 @@ import {SafePipe} from './memo/pipe/safe.pipe';
 import {ErrorPageComponent} from './error-page/error-page.component';
 import { VideoKycComponent } from './video-kyc/video-kyc.component';
 import { NewtWorthComponent } from './newt-worth/newt-worth.component';
+import {MemoDetailsComponent} from '../component/dashboard/memo-details/memo-details.component';
 
 
 @NgModule({
@@ -39,6 +40,7 @@ import { NewtWorthComponent } from './newt-worth/newt-worth.component';
         DashboardComponent,
         PendingLoanComponent,
         PendingsLoanComponent,
+          MemoDetailsComponent,
         CadDataComponent,
         DataVisualizationComponent,
         ApprovalRoleHierarchyComponent,

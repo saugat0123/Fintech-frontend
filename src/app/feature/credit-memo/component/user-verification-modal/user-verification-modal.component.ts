@@ -7,6 +7,7 @@ import {Router} from '@angular/router';
 import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {CreditMemoFullRoutes} from '../../credit-memo-full-routes';
 import {DocAction} from '../../../loan/model/docAction';
+import {LocalStorageUtil} from '../../../../@core/utils/local-storage-util';
 
 @Component({
   selector: 'app-user-verification-modal',
@@ -36,7 +37,7 @@ export class UserVerificationModalComponent {
   verify(formValue) {
     this.spinner = true;
     const data: { email: string, password: string } = formValue.value;
-    data.email = localStorage.getItem('username');
+    data.email = LocalStorageUtil.getStorage().username;
     const verificationString = 'grant_type=password&username=' + data.email + '&password=' + data.password;
     this.http.post(this.securityUrl, verificationString, {headers: this.headers})
         .subscribe(

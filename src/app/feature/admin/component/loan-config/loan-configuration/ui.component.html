@@ -503,6 +503,37 @@
                         </nb-accordion>
                     </div>
 
+
+                    <div class="box box-primary col-md-6 mb-2">
+                        <nb-accordion>
+                            <nb-accordion-item>
+                                <nb-accordion-item-header>Credit Memo</nb-accordion-item-header>
+                                <nb-accordion-item-body>
+                                    <span (click)="nbUpdateCheckBoxCreditMemo($event,true)"
+                                          class="btn btn-primary btn-sm">Select All
+                                    </span>
+                                    <span (click)="nbUpdateCheckBoxCreditMemo($event,false)"
+                                          class="ml-1 btn btn-primary btn-sm">Unselect All
+                                    </span> <br><br>
+                                    <div class="row">
+                                        <div
+                                                *ngFor="let document of creditMemoDocumentList; let documentIndex = index"
+                                                class="col-md-4">
+                                            <nb-checkbox
+                                                    (change)="updateDocument($event, document, finalCreditMemoDocument)"
+                                                    [checked]="document.checked"
+                                                    id="{{'creditMemo'+documentIndex}}"
+                                                    status="primary">
+                                                <span>{{document.displayName}}</span>
+                                            </nb-checkbox>
+                                        </div>
+                                    </div>
+                                </nb-accordion-item-body>
+                            </nb-accordion-item>
+                        </nb-accordion>
+                    </div>
+
+
                 </div>
             </div>
             <div class="box-footer text-right">
