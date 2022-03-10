@@ -37,7 +37,7 @@ export class FilterComponent implements OnInit {
   @Input() isDefaultCADROLEFILTER: boolean;
   possessionRoleList: Array<Role>;
   branchAccessIsOwn = false;
-  clientType = [];
+  clientType: any;
 
   constructor(private branchService: BranchService,
               private toastService: ToastService,
