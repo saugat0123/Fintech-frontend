@@ -104,9 +104,6 @@ export class UIComponent implements OnInit, DoCheck {
         private spinnerService: NgxSpinnerService
     ) {
     }
-    loanNature = loanNature.enumObject();
-    financedAssets = financedAssets.enumObject();
-
     static loadData(other: UIComponent) {
         other.spinnerService.show();
         other.ckEdittorConfig = Editor.CK_CONFIG;
