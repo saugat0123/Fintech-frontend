@@ -61,6 +61,10 @@ export class SecurityApprovedViewComponent implements OnInit {
   totalBondSecurityValue = 0;
   @Output() downloadSiteVisitDocument = new EventEmitter();
   isSecurityPresent = false;
+  landArray;
+  landBuildingArray;
+  apartmentArray;
+  vehicleArray;
 
   constructor(private collateralSiteVisitService: CollateralSiteVisitService) {
   }
@@ -75,6 +79,7 @@ export class SecurityApprovedViewComponent implements OnInit {
       this.securityData['selectedArray'].filter(f => {
         if (f.indexOf('LandSecurity') !== -1) {
           this.landSelected = true;
+          this.landArray = this.managedArray(this.securityData['initialForm']['landDetails']);
         }
       });
 
@@ -82,12 +87,14 @@ export class SecurityApprovedViewComponent implements OnInit {
       this.securityData['selectedArray'].filter(f => {
         if (f.indexOf('ApartmentSecurity') !== -1) {
           this.apartmentSelected = true;
+          this.apartmentArray = this.managedArray(this.securityData['initialForm']['landDetails']);
         }
       });
       // land and building security
       this.securityData['selectedArray'].filter(f => {
         if (f.indexOf('Land and Building Security') !== -1) {
           this.landBuilding = true;
+          this.landBuildingArray = this.managedArray(this.securityData['initialForm']['landDetails']);
         }
       });
       // plant and machinery security
@@ -100,6 +107,7 @@ export class SecurityApprovedViewComponent implements OnInit {
       this.securityData['selectedArray'].filter(f => {
         if (f.indexOf('VehicleSecurity') !== -1) {
           this.vehicleSelected = true;
+          this.vehicleArray = this.managedArray(this.securityData['initialForm']['vehicleDetails']);
         }
       });
       // fixed deposit receipt security
@@ -273,5 +281,25 @@ export class SecurityApprovedViewComponent implements OnInit {
 
   public onError(event): void {
     event.target.src = 'assets/img/noImage.png';
+  }
+  private managedArray(array) {
+    let newArray = [];
+    const returnArray = [];
+    array.forEach((g, i) => {
+      newArray.push(g);
+      if ((i + 1) % 2 === 0) {
+        if (newArray.length > 0) {
+          returnArray.push(newArray);
+        }
+        newArray = [];
+      }
+      if (i === array.length - 1) {
+        if (newArray.length > 0) {
+          returnArray.push(newArray);
+        }
+        newArray = [];
+      }
+    });
+    return returnArray;
   }
 }
