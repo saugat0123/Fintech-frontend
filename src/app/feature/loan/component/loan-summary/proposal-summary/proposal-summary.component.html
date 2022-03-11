@@ -1,9 +1,3 @@
-<table>
-    <tr  class="header">
-        <td><p><strong  class="header">Purpose of Loan:</strong></p></td>
-        <td class="text-left" style="display: flex" [innerHTML]="proposalAllData?.purposeOfLoan || 'N/A' | safeHtml"></td>
-    </tr>
-</table>
 <div class="row mt-1">
     <div class="col-md-12 sb-small">
         <p  class="header"><strong   class="header">Facility Schedule</strong> <em class="text-danger sb-small"> &nbsp;Bold row indicates
@@ -488,12 +482,12 @@
                 <td *ngIf="showRepaymentMode && ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))" class=" pr-1">Rs.{{proposalAllData?.principalAmount}}</td>
                 <td *ngIf="showPrincipalAmount && ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))" class=" pr-1">Rs.{{proposalAllData?.principalAmount}}</td>
             </tr>
-            <tr *ngIf="loanDataHolder?.loanHolder?.cicl?.cibCharge || loanDataHolder?.loanHolder?.cicl?.cibRemark">
-                <td>CIB Charge</td>
+            <tr *ngIf="(loanDataHolder?.loanHolder?.cicl?.cibCharge | currencyFormatter) || loanDataHolder?.loanHolder?.cicl?.cibRemark">
+                <td class="sb-bg-dark">CIB Charge</td>
                 <td>{{loanDataHolder?.loanHolder?.cicl?.cibCharge ?  loanDataHolder?.loanHolder?.cicl?.cibCharge  :  loanDataHolder?.loanHolder?.cicl?.cibRemark ? (loanDataHolder?.loanHolder?.cicl?.cibRemark | jsonParse)?.value:'N/A'}}</td>
             </tr>
             <tr>
-                <td>Loan Administration Fee</td>
+                <td class="sb-bg-dark">Loan Administration Fee</td>
                                 <td class="pr-1">
                                     <div *ngIf="(loanDataHolder.proposal?.data | jsonParse)?.serviceChargeMethod === 'FLAT'; else percentage">
                                         Rs. {{(loanDataHolder?.proposal?.data | jsonParse)?.serviceCharge | currencyFormatter}}</div>
@@ -501,15 +495,15 @@
                                 </td>
             </tr>
             <tr *ngIf="(loanDataHolder?.proposal?.data | jsonParse)?.commitmentFee">
-                <td>Commitment Fee</td>
+                <td class="sb-bg-dark">Commitment Fee</td>
                 <td>{{(loanDataHolder?.proposal?.data | jsonParse)?.commitmentFee || 'N/A'}}</td>
             </tr>
             <tr *ngIf="loanDataHolder?.proposal?.prepaymentCharge">
-                <td>Prepayment Fee</td>
+                <td class="sb-bg-dark">Prepayment Fee</td>
                 <td>{{loanDataHolder?.proposal?.prepaymentCharge || 'N/A'}}</td>
             </tr>
             <tr *ngIf="(loanDataHolder?.proposal?.data | jsonParse)?.swapCharge">
-                <td>Swap Fee</td>
+                <td class="sb-bg-dark">Swap Fee</td>
                 <td>{{(loanDataHolder?.proposal?.data | jsonParse)?.swapCharge || 'N/A'}}</td>
 
             </tr>

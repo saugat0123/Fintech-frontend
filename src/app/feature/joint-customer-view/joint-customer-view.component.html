@@ -20,9 +20,7 @@
                             <tr>
                                 <td class="sb-bg-dark text-left text-white">Date Of Birth (AD/BS)</td>
                             </tr>
-                            <tr>
-                                <td class="sb-bg-dark text-left text-white">Citizenship Number</td>
-                            </tr>
+
                             <tr>
                                 <td class="sb-bg-dark text-left text-white">Phone Number</td>
                             </tr>
@@ -39,12 +37,7 @@
                             <tr>
                                 <td class="sb-bg-dark text-left text-white">Email</td>
                             </tr>
-                            <tr>
-                                <td class="sb-bg-dark text-left text-white">Permanent Address</td>
-                            </tr>
-                            <tr>
-                                <td class="sb-bg-dark text-left text-white">Temporary Address</td>
-                            </tr>
+
                             </tbody>
                         </table>
                     </td>
@@ -60,9 +53,7 @@
                             <tr>
                                 <td class=" text-left ">{{(customer?.dob | date) || 'N/A'}}</td>
                             </tr>
-                            <tr>
-                                <td class=" text-left ">{{customer?.citizenshipNumber || 'N/A'}}</td>
-                            </tr>
+
                             <tr>
                                 <td class=" text-left ">{{customer?.contactNumber || 'N/A'}}</td>
                             </tr>
@@ -79,12 +70,7 @@
                             <tr>
                                 <td class=" text-left ">{{customer?.email || 'N/A'}}</td>
                             </tr>
-                            <tr>
-                                <td class=" text-left ">{{'Province: ' + customer?.province?.name +', District: '+ customer?.district?.name + ', Municipality: '+ customer?.municipalities?.name}}</td>
-                            </tr>
-                            <tr>
-                                <td class=" text-left ">{{'Province: ' + customer?.temporaryProvince?.name +', District: '+ customer?.temporaryDistrict?.name + ', Municipality: '+ customer?.temporaryMunicipalities?.name}}</td>
-                            </tr>
+
                             </tbody>
                         </table>
                     </td>

@@ -2,7 +2,7 @@
 <div class="row mt-3">
     <div class="col-md-12">
         <p  class="header"><strong  class="header">Security Schedule</strong></p>
-        <p  class="security-header" *ngIf="landSelected || apartmentSelected || landBuilding"><strong  class="security-header">Registered Mortgage over Land And Building</strong></p>
+<!--        <p  class="security-header" *ngIf="landSelected || apartmentSelected || landBuilding"><strong  class="security-header">Registered Mortgage over Land And Building</strong></p>-->
         <div class="row" *ngIf="vehicleSelected">
             <div class="col-md-12">
                 <div class="row">
@@ -60,12 +60,6 @@
         </div>
         <div class="row" *ngIf="landSelected">
             <div class="col-md-12">
-                <p class="text-center" *ngIf="formData['initialForm']['landCrossChecked']">
-                    <b>Cross Collateralized of Land Security</b></p>
-                <app-cross-collateralized-view *ngIf="formData['initialForm']['landCrossChecked']"
-                                               [securityData]="formData['initialForm']['landCross']"
-                                               [securityType]="'land'"
-                                               [initialForm]="formData['initialForm']"></app-cross-collateralized-view>
                 <p class="sub-header"><strong class="sub-header">Land Security</strong></p>
                 <ng-container *ngFor="let land of landArray;">
     <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
@@ -382,19 +376,22 @@
         </tr>
     </table>
 </ng-container>
+                <span>
+                    <p><b>Is Land Cross Collateralized Security ? &nbsp;
+                        {{formData['initialForm']['landCrossChecked'] === true ? 'Yes' : 'No'}}</b> </p>
+                </span>
+                <p class="text-center" *ngIf="formData['initialForm']['landCrossChecked']">
+                    <b>Cross Collateralized of Land Security</b></p>
+                <app-cross-collateralized-view *ngIf="formData['initialForm']['landCrossChecked']"
+                                               [securityData]="formData['initialForm']['landCross']"
+                                               [securityType]="'land'"
+                                               [initialForm]="formData['initialForm']"></app-cross-collateralized-view>
             </div>
         </div>
         <!--        LandBuildingDetails-->
         <div class="row" *ngIf="landBuilding">
             <div class="col-md-12">
-                <p class="text-center" *ngIf="formData['initialForm']['lbCrossChecked']">
-                    <b>Cross Collateralized of Land & Building Security</b></p>
-                <app-cross-collateralized-view *ngIf="formData['initialForm']['lbCrossChecked']"
-                                               [securityType]="'landBuilding'"
-                                               [securityData]="formData['initialForm']['lbCross']"
-                                               [initialForm]="formData['initialForm']"></app-cross-collateralized-view>
-                              <p class="sub-header"><strong class="sub-header">Land And Building Security</strong></p>
-
+                <p class="sub-header"><strong class="sub-header">Land And Building Security</strong></p>
                 <ng-container *ngFor="let landB of landBuildingArray" >
                     <table class="table table-condensed table-bordered table-responsive-md  table-sm sb-small">
                         <tbody>
@@ -480,20 +477,23 @@
                         </tbody>
                     </table>
                 </ng-container>
+                <span>
+                    <p><b>Is Land & Building Cross Collateralized Security ? &nbsp;
+                        {{formData['initialForm']['lbCrossChecked'] === true ? 'Yes' : 'No'}}</b> </p>
+                </span>
+                <p class="text-center" *ngIf="formData['initialForm']['lbCrossChecked']">
+                    <b>Cross Collateralized of Land & Building Security</b></p>
+                <app-cross-collateralized-view *ngIf="formData['initialForm']['lbCrossChecked']"
+                                               [securityType]="'landBuilding'"
+                                               [securityData]="formData['initialForm']['lbCross']"
+                                               [initialForm]="formData['initialForm']"></app-cross-collateralized-view>
             </div>
         </div>
 
         <!--        apartmentDetails-->
         <div class="row" *ngIf="apartmentSelected">
             <div class="col-md-12">
-                <p class="text-center" *ngIf="formData['initialForm']['apartmentCrossChecked']">
-                    <b>Cross Collateralized of Apartment Security</b></p>
-                <app-cross-collateralized-view *ngIf="formData['initialForm']['apartmentCrossChecked']"
-                                               [securityType]="'apartment'"
-                                               [securityData]="formData['initialForm']['apartmentCross']"
-                                               [initialForm]="formData['initialForm']"></app-cross-collateralized-view>
                 <p class="sub-header"><strong class="sub-header">Apartment Security</strong></p>
-
                 <ng-container *ngFor="let landB of apartmentArray" >
                     <table class="table table-condensed table-bordered table-responsive-md  table-sm sb-small">
                         <tbody>
@@ -555,6 +555,16 @@
                         </tbody>
                     </table>
                 </ng-container>
+                <span>
+                    <p><b>Is Apartment Cross Collateralized Security ? &nbsp;
+                        {{formData['initialForm']['apartmentCrossChecked'] === true ? 'Yes' : 'No'}}</b> </p>
+                </span>
+                <p class="text-center" *ngIf="formData['initialForm']['apartmentCrossChecked']">
+                    <b>Cross Collateralized of Apartment Security</b></p>
+                <app-cross-collateralized-view *ngIf="formData['initialForm']['apartmentCrossChecked']"
+                                               [securityType]="'apartment'"
+                                               [securityData]="formData['initialForm']['apartmentCross']"
+                                               [initialForm]="formData['initialForm']"></app-cross-collateralized-view>
             </div>
         </div>
 

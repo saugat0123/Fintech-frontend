@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../../../admin/component/user/user.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -20,9 +20,7 @@ import {CreditMemoTypeService} from '../../service/credit-memo-type';
 import {CreditMemoMemoTypeDocument} from '../../model/credit-memo-memo-type-document';
 import {Editor} from '../../../../@core/utils/constants/editor';
 import {ApiConfig} from '../../../../@core/utils/api/ApiConfig';
-import {validate} from 'codelyzer/walkerFactory/walkerFn';
 import {DocPath} from './doc-path';
-import {element} from 'protractor';
 
 @Component({
     selector: 'app-compose',
@@ -53,6 +51,7 @@ export class ComposeComponent implements OnInit {
     docSpinner = false;
     ckeConfig = Editor.CK_CONFIG;
     tempDocPath = Array<DocPath>();
+
     constructor(
         private formBuilder: FormBuilder,
         private userService: UserService,
@@ -118,7 +117,6 @@ export class ComposeComponent implements OnInit {
                 // Setting existing documents --
                 this.creditMemoDocuments = this.memo.customerLoan.loan.creditMemoDocuments;
                 this.editedCreditMemoDocuments = this.memo.documents;
-                console.log(this.editedCreditMemoDocuments, 'current');
                 this.editedCreditMemoDocuments.forEach((singleDoc, i) => {
                     this.creditMemoDocuments.forEach((initDoc, j) => {
                         if (singleDoc.document.id === initDoc.id) {
@@ -147,7 +145,6 @@ export class ComposeComponent implements OnInit {
 
                 this.creditMemoTypeDocuments = response.detail.type.documents;
                 this.editedCreditMemoTypeDocuments = this.memo.memoTypeDocuments;
-                console.log(this.editedCreditMemoTypeDocuments, 'current');
                 this.editedCreditMemoTypeDocuments.forEach((singleDoc, i) => {
                     this.creditMemoTypeDocuments.forEach((initDoc, j) => {
                         if (singleDoc.document.id === initDoc.id) {
@@ -169,10 +166,15 @@ export class ComposeComponent implements OnInit {
                 referenceNumber: [memo.referenceNumber, [Validators.required, CustomValidator.notEmpty]],
                 type: [memo.type, Validators.required],
                 content: [memo.content, [Validators.required, CustomValidator.notEmpty]],
-                customerLoan: new FormControl({value: !ObjectUtil.isEmpty(memo.customerLoan) ? memo.customerLoan : undefined, disabled: true}, Validators.required) ,
-                loanConfig : new FormControl({value: !ObjectUtil.isEmpty(memo.customerLoan) && !ObjectUtil.isEmpty(memo.customerLoan.loan) ?
+                customerLoan: new FormControl({
+                    value: !ObjectUtil.isEmpty(memo.customerLoan) ? memo.customerLoan : undefined,
+                    disabled: true
+                }, Validators.required),
+                loanConfig: new FormControl({
+                    value: !ObjectUtil.isEmpty(memo.customerLoan) && !ObjectUtil.isEmpty(memo.customerLoan.loan) ?
                         memo.customerLoan.loan : undefined,
-                    disabled: true}, Validators.required)
+                    disabled: true
+                }, Validators.required)
             }
         );
     }
@@ -257,12 +259,12 @@ export class ComposeComponent implements OnInit {
                     doc.path = result.detail.path;
                     doc.index = index;
                     doc.docType = type === this.editedCreditMemoDocuments ? 'FacilityCreditMemoDocument' : 'creditTypeMemoDocument';
-                    const findDuplicates = this.tempDocPath.findIndex( res => res.index === index && res.docType === doc.docType );
-                    if ( findDuplicates !== -1) {
-                        this.tempDocPath.splice( findDuplicates, 1 );
+                    const findDuplicates = this.tempDocPath.findIndex(res => res.index === index && res.docType === doc.docType);
+                    if (findDuplicates !== -1) {
+                        this.tempDocPath.splice(findDuplicates, 1);
                     }
                     this.tempDocPath.push(doc);
-                    localStorage.setItem('tempPath' , JSON.stringify(this.tempDocPath));
+                    localStorage.setItem('tempPath', JSON.stringify(this.tempDocPath));
                     const customerDocumentObject = result.detail;
                     if (type.length > 0) {
                         type.forEach((singleDoc, docIndex) => {
@@ -303,7 +305,6 @@ export class ComposeComponent implements OnInit {
         this.memo.customerLoan = this.memoComposeForm.get('customerLoan').value;
         this.memo.documents = this.editedCreditMemoDocuments;
         this.memo.memoTypeDocuments = this.editedCreditMemoTypeDocuments;
-        console.log(this.memo, 'TEST');
         this.creditMemoService.save(this.memo).subscribe((response: any) => {
             const savedCreditMemo = response.detail;
             this.router.navigate([`${CreditMemoFullRoutes.READ}/${savedCreditMemo.id}`]).then(() => {
@@ -326,24 +327,25 @@ export class ComposeComponent implements OnInit {
 
 
     previewGeneralDoc(path: string, name: string, index: number, docType: string) {
-            const doc = JSON.parse(localStorage.getItem('tempPath'));
-            if ( doc !== null && path === null || path === undefined) {
-                doc.forEach(response => {
-                    if (response.docType === docType && response.index === index) {
-                       this.previewDoc(response.path);
-                    } else {
-                      console.log('error ::: null documents');
-                    }
-                });
-            } else {
-                if ( path !== null || path !== undefined){
-                   this.previewDoc(path);
+        const doc = JSON.parse(localStorage.getItem('tempPath'));
+        if (doc !== null && path === null || path === undefined) {
+            doc.forEach(response => {
+                if (response.docType === docType && response.index === index) {
+                    this.previewDoc(response.path);
                 } else {
-                   console.log('error ::: null documents');
+                    console.log('error ::: null documents');
                 }
+            });
+        } else {
+            if (path !== null || path !== undefined) {
+                this.previewDoc(path);
+            } else {
+                console.log('error ::: null documents');
             }
+        }
     }
-    previewDoc( path: string): void {
+
+    previewDoc(path: string): void {
         const link = document.createElement('a');
         link.target = '_blank';
         link.href = `${ApiConfig.URL}/${path}?${Math.floor(Math.random() * 100) + 1}`;

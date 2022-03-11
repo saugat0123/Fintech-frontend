@@ -251,7 +251,6 @@ export class LoanFormComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log('template list', this.templateList);
         this.spinner.show();
         this.docStatusForMaker();
         this.buildPriorityForm();
@@ -579,15 +578,7 @@ export class LoanFormComponent implements OnInit {
     }
 
     selectChild(name, action, loanTag) {
-        // if (name === 'Customer Info' && action) {
-        //   if (this.basicInfo.basicInfo.invalid && this.nextButtonAction) {
-        //     this.basicInfo.submitted = true;
         //     // TODO: Add Validations in Tabs
-        //     return true;
-        //   }
-        //   this.basicInfo.onSubmit();
-        //   this.loanDocument.customerInfo = this.basicInfo.customer;
-        // }
 
         if (name === 'General' && action) {
             if (this.dmsLoanFile.loanForm.invalid) {
@@ -603,30 +594,11 @@ export class LoanFormComponent implements OnInit {
             this.loanDocument.priority = this.dmsLoanFile.loanForm.get('priority').value;
         }
 
-        // if (name === 'Company Info' && action) {
-        //   if (this.companyInfoComponent.companyInfoFormGroup.invalid && this.nextButtonAction) {
-        //     this.companyInfoComponent.submitted = true;
-        //     return true;
-        //   }
-        //   this.companyInfoComponent.onSubmit();
-        //   this.loanDocument.companyInfo = this.companyInfoComponent.companyInfo;
-        //   this.loanDocument.customerInfo = this.companyInfoComponent.customer;
-        // }
         if (name === 'Kyc Info' && action) {
             this.kycInfo.onSubmit();
             const customerRelatives = this.kycInfo.kycInfo.value.otherRelatives as Array<CustomerRelative>;
             this.loanDocument.customerInfo.customerRelatives = customerRelatives;
         }
-
-        // if (name === 'Proposal' && action && loanTag === 'MICRO_LOAN') {
-        //     if (this.microProposalInfo.microProposalForm.invalid && this.nextButtonAction) {
-        //         this.microProposalInfo.scrollToFirstInvalidControl();
-        //         this.microProposalInfo.submitted = true;
-        //         return true;
-        //     }
-        //     this.microProposalInfo.onSubmit();
-        //     this.loanDocument.proposal = this.microProposalInfo.proposalData;
-        // }
 
         if (name === 'Proposal' && action) {
             if (this.proposalDetail.proposalForm.invalid && this.nextButtonAction) {
@@ -643,41 +615,6 @@ export class LoanFormComponent implements OnInit {
             this.loanDocument.customerDocument = this.customerDocument.customerDocumentArray;
         }
 
-        // if (name === 'CICL' && action) {
-        //   if (this.cicl.ciclForm.invalid ) {
-        //     this.cicl.submitted = true;
-        //     // return true;
-        //   }
-        //   this.cicl.onSubmit();
-        //   this.loanDocument.ciclList = this.cicl.ciclList;
-        //   this.loanDocument.ciclRemarks = this.cicl.ciclRemark;
-        //   // this.loanDocument.insurance = this.cicl.insurance;
-        // }
-
-        // if (name === 'Financial' && action) {
-        //     this.financial.onSubmit();
-        //     this.loanDocument.financial = this.financial.financialData;
-        // }
-
-        // if (name === 'Site Visit' && action) {
-        //     this.siteVisit.onSubmit();
-        //     this.loanDocument.siteVisit = this.siteVisit.siteVisitData;
-        // }
-        // if (name === 'Security' && action) {
-        //   this.security.onSubmit();
-        //   this.loanDocument.security = this.security.securityData;
-        //   this.security.initialSecurity.selectedArray.forEach((selected) => {
-        //     if (selected === 'ShareSecurity') {
-        //       this.loanDocument.shareSecurity = this.security.shareSecurityData;
-        //     } else {
-        //       this.loanDocument.shareSecurity = undefined;
-        //     }
-        //   });
-        // }
-        /*if (name === 'Credit Risk Grading' && action) {
-          this.creditGrading.onSubmit();
-          this.loanDocument.creditRiskGrading = this.creditGrading.creditRiskData;
-        }*/
         if (name === 'Credit Risk Grading - Alpha' && action) {
             this.creditRiskGradingAlpha.onSubmit();
             this.loanDocument.creditRiskGradingAlpha = this.creditRiskGradingAlpha.creditRiskData;
@@ -711,14 +648,6 @@ export class LoanFormComponent implements OnInit {
             this.reportingInfoTaggingComponent.onSubmit();
             this.loanDocument.reportingInfoLevels = this.reportingInfoTaggingComponent.finalReportingInfoLevels;
         }
-        // if (name === 'Insurance' && action) {
-        //   if (this.insuranceComponent.form.invalid && this.nextButtonAction) {
-        //     this.insuranceComponent.isSubmitted = true;
-        //     return true;
-        //   }
-        //   this.insuranceComponent.submit();
-        //   this.loanDocument.insurance = this.insuranceComponent.insurance;
-        // }
 
         return false;
     }

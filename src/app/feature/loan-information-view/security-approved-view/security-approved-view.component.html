@@ -1,6 +1,6 @@
 <div class="col-md-12" *ngIf="isSecurityPresent">
     <div class="row">
-        <p ><strong>{{summaryType === summaryTypeName?.GAMMA ? '10. Existing Security Details' : 'Existing Security Details'}}</strong></p>
+        <p ><strong>Existing Security Details</strong></p>
     </div>
     <div *ngIf="landSelected" class="row">
         <ng-container  *ngFor="let landDetails of securityData['initialForm']['landDetails']; let i= index">
@@ -143,6 +143,18 @@
             </tr>
             </tbody>
         </table>
+        <div class="col-md-12">
+            <span>
+                <p><b>Is Land Cross Collateralized Security ? &nbsp;
+                    {{securityData['initialForm']['landCrossChecked'] === true ? 'Yes' : 'No'}}</b> </p>
+            </span>
+            <p class="text-center" *ngIf="securityData['initialForm']['landCrossChecked']">
+                <b>Cross Collateralized of Land Security</b></p>
+            <app-cross-collateralized-view *ngIf="securityData['initialForm']['landCrossChecked']"
+                                           [securityData]="securityData['initialForm']['landCross']"
+                                           [securityType]="'land'"
+                                           [initialForm]="securityData['initialForm']"></app-cross-collateralized-view>
+        </div>
     </div>
 
     <div class="row" *ngIf= "landBuilding">
@@ -339,6 +351,18 @@
                 </td>
             </tr>
         </table>
+        <div class="col-md-12">
+            <span>
+                <p><b>Is Land & Building Cross Collateralized Security ? &nbsp;
+                    {{securityData['initialForm']['lbCrossChecked'] === true ? 'Yes' : 'No'}}</b> </p>
+            </span>
+            <p class="text-center" *ngIf="securityData['initialForm']['lbCrossChecked']">
+                <b>Cross Collateralized of Land & Building Security</b></p>
+            <app-cross-collateralized-view *ngIf="securityData['initialForm']['lbCrossChecked']"
+                                           [securityType]="'landBuilding'"
+                                           [securityData]="securityData['initialForm']['lbCross']"
+                                           [initialForm]="securityData['initialForm']"></app-cross-collateralized-view>
+        </div>
     </div>
 
     <!-- Added new hypothecation-->
@@ -644,6 +668,18 @@
             </tr>
             </tbody>
         </table>
+        <div class="col-md-12">
+            <span>
+                <p><b>Is Apartment Cross Collateralized Security ? &nbsp;
+                    {{securityData['initialForm']['apartmentCrossChecked'] === true ? 'Yes' : 'No'}}</b> </p>
+            </span>
+            <p class="text-center" *ngIf="securityData['initialForm']['apartmentCrossChecked']">
+                <b>Cross Collateralized of Apartment Security</b></p>
+            <app-cross-collateralized-view *ngIf="securityData['initialForm']['apartmentCrossChecked']"
+                                           [securityType]="'apartment'"
+                                           [securityData]="securityData['initialForm']['apartmentCross']"
+                                           [initialForm]="securityData['initialForm']"></app-cross-collateralized-view>
+        </div>
     </div>
 
     <!--        apartmentUndercostructions-->

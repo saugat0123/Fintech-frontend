@@ -68,28 +68,35 @@
                     <ng-container *ngIf="loanType?.includes('RENEWED_LOAN'); else otherLoanType">
                         तपाई (अब उप्रान्त ऋणी भनिएको) ले लक्ष्मी बैंक (अब उप्रान्त बैंक भनिएको) मा पेश गरेको कर्जा
                         नविकरण/पुनरावलोकन
-                        आवेदन उपर कारवाही हुँदा यसै पत्रसाथ संलग्न अनुसुची–१ मा उल्लेखित शर्त वन्देजहरु पालना गर्न स्वीकार गरी
+                        आवेदन उपर कारवाही हुँदा यसै पत्रसाथ संलग्न अनुसुची–१ मा उल्लेखित शर्त वन्देजहरु पालना गर्न
+                        स्वीकार गरी
                         यसपत्रबाट माग गरिएको धितो सुरक्षण उपलव्ध गराउने/यथावत राख्ने शर्तमा देहाय वमोजिमको कर्जा सुविधा
                         नविकरण/पुनरावलोकन गरिएको ब्यहोरा सहर्ष जानकारी गराउदछौं
                     </ng-container>
                     <ng-template #otherLoanType>
-                        तपाई (अब उप्रान्त ऋणी भनिएको) ले लक्ष्मी बैंक (अब उप्रान्त बैंक भनिएको) मा पेश गरेको कर्जा आवेदन उपर
+                        तपाई (अब उप्रान्त ऋणी भनिएको) ले लक्ष्मी बैंक (अब उप्रान्त बैंक भनिएको) मा पेश गरेको कर्जा आवेदन
+                        उपर
                         कारवाही
-                        हुँदा यसमा उल्लेखित शर्त वन्देजहरु पालना गर्न स्वीकार गरी यसपत्रबाट माग गरिएको धितो सुरक्षण उपलव्ध
+                        हुँदा यसमा उल्लेखित शर्त वन्देजहरु पालना गर्न स्वीकार गरी यसपत्रबाट माग गरिएको धितो सुरक्षण
+                        उपलव्ध
                         गराउने
                         शर्तमा देहाय वमोजिमको कर्जा सुविधा स्वीकृत गरिएको ब्यहोरा सहर्ष जानकारी गराउदछौं ।
                     </ng-template>
                     <br>
-                    अतः यो कर्जा सुविधा प्रस्तावपत्र/सम्झौतापत्र ऋणीलाई स्वीकार्य भएमा प्रस्ताव गरेको मितिले ३० दिन भित्रमा यसको
-                    प्रतिलिपिमा दस्तखत गरी बैंकलाई बुझाउनु पर्नेछ । यद्यपी सो अवधी पश्चात प्राप्त भएमा स्वीकार गर्ने वा नगर्ने
+                    अतः यो कर्जा सुविधा प्रस्तावपत्र/सम्झौतापत्र ऋणीलाई स्वीकार्य भएमा प्रस्ताव गरेको मितिले ३० दिन
+                    भित्रमा यसको
+                    प्रतिलिपिमा दस्तखत गरी बैंकलाई बुझाउनु पर्नेछ । यद्यपी सो अवधी पश्चात प्राप्त भएमा स्वीकार गर्ने वा
+                    नगर्ने
                     पूर्ण अधिकार बैंकमा निहित हुनेछ ।
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-md-12">
-                    <ng-container *ngFor="let data of offerLetterForm?.get('purpose')['controls']; let i = index" formArrayName="purpose" >
-                        <table [formGroupName]="i" class="table table-bordered table-responsive-md text-left pl-1 table-sm">
+                    <ng-container *ngFor="let data of offerLetterForm?.get('purpose')['controls']; let i = index"
+                                  formArrayName="purpose">
+                        <table [formGroupName]="i"
+                               class="table table-bordered table-responsive-md text-left pl-1 table-sm">
                             <tbody [ngClass]="offerLetterForm?.get(['purpose', i, 'facilityNeeded'])?.value ? '' : 'disable-print'">
                             <tr class="sb-bg-dark">
                                 <th width="30%">
@@ -99,8 +106,9 @@
                                     <b>
                                         {{offerLetterForm?.get(['purpose', i, 'loan'])?.value}}
                                         <span class="float-right disable-print font-size-normal">
-                                            <nb-checkbox (change)="otherValueCheck($event?.target?.checked, i, 'facilityNeeded')"
-                                                         [checked]="offerLetterForm?.get(['purpose', i, 'facilityNeeded'])?.value"><i>
+                                            <nb-checkbox
+                                                    (change)="otherValueCheck($event?.target?.checked, i, 'facilityNeeded')"
+                                                    [checked]="offerLetterForm?.get(['purpose', i, 'facilityNeeded'])?.value"><i>
                                                 {{offerLetterForm?.get(['purpose', i, 'loan'])?.value}} Needed ?</i>
                                             </nb-checkbox>
                                         </span>
@@ -138,12 +146,13 @@
                                         </select>
                                         <!--                            <ckeditor formControlName="workingOther" *ngIf="tempPurposeFlag?.workingCapitalOther"-->
                                         <!--                                      [config]="ckeConfig"></ckeditor>-->
-                                        <textarea *ngIf="offerLetterForm?.get(['purpose', i, 'purpose'])?.value === 'Other'"
-                                                  class="form-control nepaliFont form-field font-size-normal disable-print"
-                                                  [value]="offerLetterForm.get(['purpose', i,'otherPurpose'])?.value"
-                                                  (change)="valueChange($event?.target?.value, i, 'otherPurpose')"
-                                                  placeholder="अन्य उद्देश्य"
-                                                  rows="2"></textarea>
+                                        <textarea
+                                                *ngIf="offerLetterForm?.get(['purpose', i, 'purpose'])?.value === 'Other'"
+                                                class="form-control nepaliFont form-field font-size-normal disable-print"
+                                                [value]="offerLetterForm.get(['purpose', i,'otherPurpose'])?.value"
+                                                (change)="valueChange($event?.target?.value, i, 'otherPurpose')"
+                                                placeholder="अन्य उद्देश्य"
+                                                rows="2"></textarea>
                                         <span class="print-only font-size-normal"
                                               *ngIf="offerLetterForm?.get(['purpose', i, 'purpose'])?.value !== 'Other'">
                                     <b>{{offerLetterForm?.get(['purpose', i, 'purpose'])?.value ?
@@ -167,14 +176,16 @@
                                 </span>
                                     </td>
                                     <td>
-                                        <ng-container *ngIf="offerLetterForm?.get(['purpose', i, 'drawDownCheck'])?.value">
+                                        <ng-container
+                                                *ngIf="offerLetterForm?.get(['purpose', i, 'drawDownCheck'])?.value">
                                             <!--                            <ckeditor formControlName="workingCapitalDrawDown"-->
                                             <!--                                      [config]="ckeConfig"></ckeditor>-->
-                                            <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
-                                                      placeholder="स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमा"
-                                                      [value]="offerLetterForm?.get(['purpose', i, 'drawDown'])?.value"
-                                                      (change)="valueChange($event?.target?.value, i, 'drawDown')"
-                                                      rows="4"></textarea>
+                                            <textarea
+                                                    class="form-control nepaliFont form-field font-size-normal disable-print"
+                                                    placeholder="स्वीकृत कर्जा सुविधा उपभोग गर्न पाउने सीमा"
+                                                    [value]="offerLetterForm?.get(['purpose', i, 'drawDown'])?.value"
+                                                    (change)="valueChange($event?.target?.value, i, 'drawDown')"
+                                                    rows="4"></textarea>
                                             <span class="nepaliFont print-only font-size-normal"
                                                   *ngIf="offerLetterForm?.get(['purpose', i, 'drawDownCheck'])?.value">
                                 <b>{{offerLetterForm?.get(['purpose', i, 'drawDown'])?.value ?
@@ -447,29 +458,17 @@
                                 </span>
                                     </td>
                                     <td>
-                                        <ng-container *ngIf="offerLetterForm?.get(['purpose', i, 'maturityNeeded'])?.value">
+                                        <ng-container
+                                                *ngIf="offerLetterForm?.get(['purpose', i, 'maturityNeeded'])?.value">
                                     <span *ngIf="!offerLetterForm?.get(['purpose', i, 'maturityOtherCheck'])?.value">
-                                        <span *ngIf="offerLetterForm?.get(['purpose', i, 'loanNature'])?.value === 'Terminating'">
-                                    मिति <input type="text"
-                                                [value]="offerLetterForm?.get(['purpose', i, 'maturityDate'])?.value"
-                                                (change)="valueChange($event?.target?.value, i, 'maturityDate')"
-                                                class="nepaliFont form-field form-control-sm font-size-normal disable-print">
-                                    <span class="nepaliFont font-size-normal print-only">
-                                <b>{{offerLetterForm?.get(['purpose', i, 'maturityDate'])?.value ? offerLetterForm?.get(['purpose', i, 'maturityDate'])?.value : '========='}}</b></span>
-                                    मा कर्जा तथा सुविधाको पुनरावलोकन गरिने र सो मिति सम्म उपभोग गर्न सकिनेछ । पुनरावलोकन
-                                    गर्ने मिति जुनसुकै उल्लेख भएको भए पनि बैंकले माग गर्नासाथ बैंकको सम्पूर्ण लेना रकम
-                                    भुक्तानी गर्नु पर्ने छ ।
-                                </span>
-                                        <span *ngIf="offerLetterForm?.get(['purpose', i, 'loanNature'])?.value === 'Revolving'">
-                                    कर्जा प्रवाह भएको मितिले
-                                    <input type="text"
-                                           (change)="valueChange($event?.target?.value, i, 'maturityDate')"
-                                           [value]="offerLetterForm?.get(['purpose', i, 'maturityDate'])?.value"
-                                           class="nepaliFont form-field form-control-sm font-size-normal disable-print">
-                                    <span class="nepaliFont font-size-normal print-only">
-                                        <b>{{offerLetterForm?.get(['purpose', i, 'maturityDate'])?.value ? offerLetterForm?.get(['purpose', i, 'maturityDate'])?.value : '========='}}</b></span>
-                                    सम्म हुनेछ ।
-                                </span>
+                                        कर्जा प्रवाह भएको मितिले
+                                        <input type="text"
+                                               (change)="valueChange($event?.target?.value, i, 'maturityDate')"
+                                               [value]="offerLetterForm?.get(['purpose', i, 'maturityDate'])?.value"
+                                               class="nepaliFont form-field form-control-sm font-size-normal disable-print">
+                                        <span class="nepaliFont font-size-normal print-only">
+                                            <b>{{offerLetterForm?.get(['purpose', i, 'maturityDate'])?.value ? offerLetterForm?.get(['purpose', i, 'maturityDate'])?.value : '========='}}</b></span>
+                                        सम्म हुनेछ ।
                                     </span>
                                             <span class="disable-print float-right">
                                     <nb-checkbox
@@ -598,7 +597,7 @@
                                            class="nepaliFont form-field form-control-sm font-size-normal disable-print">
                                     <span class="nepaliFont font-size-normal print-only">
                                         <b>{{offerLetterForm?.get(['purpose', i, 'premiumRate'])?.value ?
-                                            offerLetterForm?.get(['purpose', i, 'premiumRate'])?.value: '========='}}</b></span>
+                                            offerLetterForm?.get(['purpose', i, 'premiumRate'])?.value : '========='}}</b></span>
                                     <strong>प्रतिशत</strong> लगाइएको छ । उक्त व्याज दर
                                     <input type="text"
                                            [value]="offerLetterForm?.get(['purpose', i, 'monthlyRate'])?.value"
@@ -659,11 +658,11 @@
                                 </span>
                                     </td>
                                     <td>
-                                        <ng-container *ngIf="offerLetterForm?.get(['purpose', i, 'commissionNeeded'])?.value">
-                                            <ng-container
-                                                    *ngIf="offerLetterForm?.get(['purpose', i, 'commissionFrequency'])?.value === 'QUARTER' ||
-                                                offerLetterForm?.get(['purpose', i, 'commissionFrequency'])?.value === 'MONTH'">
-                                                <input type="text" [value]="offerLetterForm?.get(['purpose', i, 'rate']).value"
+                                        <ng-container
+                                                *ngIf="offerLetterForm?.get(['purpose', i, 'commissionNeeded'])?.value">
+                                            <ng-container>
+                                                <input type="text"
+                                                       [value]="offerLetterForm?.get(['purpose', i, 'rate']).value"
                                                        (change)="valueChange($event?.target?.value, i, 'rate')"
                                                        class="nepaliFont form-field form-control-sm font-size-normal disable-print">
                                                 <span class="nepaliFont font-size-normal print-only">
@@ -848,7 +847,8 @@
                         </span>
                             </td>
                             <td>
-                                <ng-container *ngIf="offerLetterForm?.get('prepaymentCharge').value; else notPrepayment">
+                                <ng-container
+                                        *ngIf="offerLetterForm?.get('prepaymentCharge').value; else notPrepayment">
                             <span *ngIf="!offerLetterForm?.get('prepaymentOtherCheck').value">
                                 प्रथम पटक कर्जा प्रवाह भएको मितिबाट कर्जा पुर्ण चुक्ता गर्नुपर्ने अवधि अगावै कर्जा चुक्ता गरेमा त्यस अनुसार चुक्ता गरिएको रकममा नेपाल राष्ट्र
                                 बैंकको निर्देशन बमोजिम यस बैंकको प्रचलित नियम अनुसार अग्रीम भुक्तानी शुल्क ९एचभउबथmभलत ऋजबचनभ० ऋणीबाट असुल उपर गरिनेछ ।
@@ -915,7 +915,8 @@
                         <tr>
                             <td>४</td>
                             <td>कर्जा सूचना शुल्क, धितो सुरक्षण शुल्क, कर्जा सुरक्षण शुल्क, वीमा प्रिमियम शुल्क (Credit
-                                Information Fee, Security Registration fee, Credit Guarantee fee & Insurance Premium charge)
+                                Information Fee, Security Registration fee, Credit Guarantee fee & Insurance Premium
+                                charge)
                                 <span class="float-right disable-print">
                             <nb-checkbox (change)="otherCheck($event?.target?.checked, 'informationFee')"
                                          [checked]="offerLetterForm?.get('informationFee').value"><i> Needed ?</i>
@@ -1015,7 +1016,8 @@
             <div class="row">
                 <div class="col-md-12">
                     <p><strong>३. कर्जा सम्बन्धी लिखत तथा धितो सुरक्षण विवरणः</strong></p>
-                    <p>ऋणीले लिने वा लिएको तथा भविश्यमा लिने सम्पूर्ण कर्जा तथा सुविधा निम्न वमोजिमको सम्पत्ति तथा लिखतहरुले
+                    <p>ऋणीले लिने वा लिएको तथा भविश्यमा लिने सम्पूर्ण कर्जा तथा सुविधा निम्न वमोजिमको सम्पत्ति तथा
+                        लिखतहरुले
                         सुरक्षित गर्नुपर्नेछ ।</p>
                     <!-- New / Enhancement Loan case:-->
                     <ng-container>
@@ -1026,10 +1028,10 @@
                             <span class="text-center">
                                 <nb-checkbox (change)="otherCheck($event?.target?.checked, 'fixedChecked')"
                                              [checked]="offerLetterForm?.get('fixedChecked')?.value"><i>Fixed Assets Collateral Security</i>
-                                </nb-checkbox>  &nbsp;&nbsp;&nbsp;
+                                </nb-checkbox>  &nbsp;&nbsp;
                                 <nb-checkbox (change)="otherCheck($event?.target?.checked, 'collateralChecked')"
                                              [checked]="offerLetterForm?.get('collateralChecked')?.value"><i>Cross-Collateralized Security</i>
-                                </nb-checkbox>  &nbsp;&nbsp;&nbsp;
+                                </nb-checkbox>  &nbsp;&nbsp;
                             </span>
                                 </th>
                             </tr>
@@ -1120,10 +1122,26 @@
                                 </ng-container>
                                 <tr>
                                     <td colspan="1"></td>
-                                    <td colspan="6">उक्त जग्गा/घरजग्गा समेतको लिगलगापात कर्जाको सुरक्षण वापत बैंकको नाममा
+                                    <td colspan="6">उक्त जग्गा/घरजग्गा समेतको लिगलगापात कर्जाको सुरक्षण वापत बैंकको
+                                        नाममा
                                         धितो वन्धकीको लिखत लेखी सम्वन्धित मालपोत कार्यालयमा गई पारित
-                                        <ng-container *ngIf="loanType?.includes('RENEWED_LOAN'); else otherLoanType10">
-                                            गराएको यथावत रहने छ । <br>
+                                        <span *ngIf="!offerLetterForm?.get('fixedRenewWithEnhance').value">
+                                            {{loanType?.includes('RENEWED_LOAN') ? ' गराएको यथावत रहने छ ।' : 'गर्नुपर्नेछ ।'}}
+                                        </span>
+                                        <span *ngIf="offerLetterForm?.get('fixedRenewWithEnhance').value">
+                                            <select class="form-control font-size-normal disable-print selectWidth"
+                                                    [value]="offerLetterForm?.get('fixedAssetsWord').value"
+                                                    (change)="wordChange($event?.target?.value, 'fixedAssetsWord')">
+                                                <option [value]="null" hidden>Select Word</option>
+                                                <option *ngFor="let pur of documentWord"
+                                                        [value]="pur">{{pur}}</option>
+                                            </select>
+                                            <span class="print-only">
+                                                {{offerLetterForm?.get('fixedAssetsWord').value ? offerLetterForm?.get('fixedAssetsWord').value : '========='}}
+                                            </span>
+                                        </span>
+                                        <ng-container *ngIf="loanType?.includes('RENEWED_LOAN')">
+                                            <br>
                                             <strong> (मिति <input type="text"
                                                                   class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                                                                   formControlName="date1">
@@ -1137,9 +1155,13 @@
                                                 <b>{{offerLetterForm?.get('amount1')?.value ? offerLetterForm?.get('amount1')?.value : '======='}}</b>
                                             </span>प्राप्त) </strong>
                                         </ng-container>
-                                        <ng-template #otherLoanType10>
-                                            गर्नुपर्नेछ ।
-                                        </ng-template>
+                                        <span class="float-right disable-print"
+                                              *ngIf="loanType?.includes('RENEW_WITH_ENHANCEMENT') || loanType?.includes('ENHANCED_LOAN')">
+                                            <nb-checkbox
+                                                    (change)="otherCheckedValue($event?.target?.checked, 'fixedRenewWithEnhance', 'fixedAssetsWord')"
+                                                    [checked]="offerLetterForm?.get('fixedRenewWithEnhance')?.value"><i>Change word</i>
+                                            </nb-checkbox>
+                                        </span>
                                     </td>
                                 </tr>
                             </ng-container>
@@ -1161,7 +1183,8 @@
                                 <ng-container>
                                     <tr *ngFor="let securityData of offerLetterForm?.get('crossSecurity')?.value; let ii = index">
                                         <td colspan="1">
-                                    <span *ngIf="offerLetterForm?.get('crossSecurity')['length'] > 0" class="disable-print">
+                                    <span *ngIf="offerLetterForm?.get('crossSecurity')['length'] > 0"
+                                          class="disable-print">
                                         <input (click)="removeSecurity(ii, 'crossSecurity')"
                                                class="align-self-end btn btn-sm btn-danger btn-primary"
                                                type="button" value="Delete"/>
@@ -1260,9 +1283,25 @@
                                         /– (अक्षरेपी रुपैया
                                         <span class="font-size-normal">
                                 <b>{{offerLetterForm?.get('totalConsumptionAmountWord')?.value ? offerLetterForm?.get('totalConsumptionAmountWord')?.value : '========='}}</b></span>
-                                        मात्र) को सुरक्षण वापत बैंकको नाममा धितो वन्धकीको लिखत (Cross Collateralised Deed) लेखी सम्बन्धित मालपोत कार्यालयमा गई पारित
-                                        <ng-container *ngIf="loanType?.includes('RENEWED_LOAN'); else otherLoanType9">
-                                            गराएको यथावत रहने छ । <br>
+                                        मात्र) को सुरक्षण वापत बैंकको नाममा धितो वन्धकीको लिखत (Cross Collateralised
+                                        Deed) लेखी सम्बन्धित मालपोत कार्यालयमा गई पारित
+                                        <span *ngIf="!offerLetterForm?.get('crossRenewWithEnhance').value">
+                                            {{loanType?.includes('RENEWED_LOAN') ? ' गराएको यथावत रहने छ ।' : ' गर्नुपर्नेछ ।'}}
+                                        </span>
+                                        <span *ngIf="offerLetterForm?.get('crossRenewWithEnhance').value">
+                                            <select class="form-control font-size-normal disable-print selectWidth"
+                                                    [value]="offerLetterForm?.get('crossCollateralWord').value"
+                                                    (change)="wordChange($event?.target?.value, 'crossCollateralWord')">
+                                                <option [value]="null" hidden>Select Word</option>
+                                                <option *ngFor="let pur of documentWord"
+                                                        [value]="pur">{{pur}}</option>
+                                            </select>
+                                            <span class="print-only">
+                                                {{offerLetterForm?.get('crossCollateralWord').value ? offerLetterForm?.get('crossCollateralWord').value : '========='}}
+                                            </span>
+                                        </span>
+                                        <ng-container *ngIf="loanType?.includes('RENEWED_LOAN')">
+                                            <br>
                                             <strong> (मिति <input type="text"
                                                                   class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                                                                   formControlName="date2">
@@ -1270,9 +1309,13 @@
                                                 <b>{{offerLetterForm?.get('date2')?.value ? offerLetterForm?.get('date2')?.value : '========='}}</b>
                                             </span>मा प्राप्त) </strong>
                                         </ng-container>
-                                        <ng-template #otherLoanType9>
-                                            गर्नुपर्नेछ ।
-                                        </ng-template>
+                                        <span class="float-right disable-print"
+                                              *ngIf="loanType?.includes('RENEW_WITH_ENHANCEMENT') || loanType?.includes('ENHANCED_LOAN')">
+                                            <nb-checkbox
+                                                    (change)="otherCheckedValue($event?.target?.checked, 'crossRenewWithEnhance', 'crossCollateralWord')"
+                                                    [checked]="offerLetterForm?.get('crossRenewWithEnhance')?.value"><i>Change word</i>
+                                            </nb-checkbox>
+                                        </span>
                                     </td>
                                 </tr>
                             </ng-container>
@@ -1350,10 +1393,12 @@
                                     </div>
                                     <tr>
                                         <td colspan="1"></td>
-                                        <td colspan="6">उक्त सवारी सधानहरु बैंकको कर्जा चुक्ता नहुन्जेल सम्मको लागि कर्जाको
+                                        <td colspan="6">उक्त सवारी सधानहरु बैंकको कर्जा चुक्ता नहुन्जेल सम्मको लागि
+                                            कर्जाको
                                             सुरक्षण
                                             वापत धितोको रुपमा प्रदान
-                                            <ng-container *ngIf="loanType?.includes('RENEWED_LOAN'); else otherLoanType8">
+                                            <ng-container
+                                                    *ngIf="loanType?.includes('RENEWED_LOAN'); else otherLoanType8">
                                                 गराएको यथावत रहने छ । <br>
                                                 <strong> (मिति <input type="text"
                                                                       class="nepaliFont form-field form-control-sm font-size-normal disable-print"
@@ -1372,11 +1417,12 @@
                             <tr class="print-only1">
                                 <th colspan="1"></th>
                                 <th colspan="6">
-                            <span class="text-center">
-                                <nb-checkbox (change)="otherCheck($event?.target?.checked, 'shareSecurityNeeded')"
-                                             [checked]="offerLetterForm?.get('shareSecurityNeeded')?.value"><i>Share Security Needed ?</i>
-                                </nb-checkbox>
-                            </span>
+                                    <span class="text-center">
+                                        <nb-checkbox
+                                                (change)="otherCheck($event?.target?.checked, 'shareSecurityNeeded')"
+                                                [checked]="offerLetterForm?.get('shareSecurityNeeded')?.value"><i>Share Security Needed ?</i>
+                                        </nb-checkbox>
+                                    </span>
                                 </th>
                             </tr>
                             <ng-container *ngIf="offerLetterForm?.get('shareSecurityNeeded')?.value">
@@ -1440,13 +1486,28 @@
                                     </div>
                                     <tr>
                                         <td colspan="1"></td>
-                                        <td colspan="6">उक्त शेयरहरु र सोमा प्राप्त हुने वोनश शेयर, नगद लाभांश, हकप्रदबाट
-                                            प्राप्त
-                                            हुने शेयर लगायतका सम्पूर्ण शेयरहरु बैंकको कर्जा चुक्ता नहुन्जेल सम्मका लागि कर्जाको
-                                            सुरक्षण
-                                            वापत धितोको रुपमा प्रदान
-                                            <ng-container *ngIf="loanType?.includes('RENEWED_LOAN'); else otherLoanType7">
-                                                गराएको यथावत रहने छ । <br>
+                                        <td colspan="6">उक्त शेयरहरु र सोमा प्राप्त हुने वोनश शेयर, नगद लाभांश,
+                                            हकप्रदबाट प्राप्त
+                                            हुने शेयर लगायतका सम्पूर्ण शेयरहरु बैंकको कर्जा चुक्ता नहुन्जेल सम्मका लागि
+                                            कर्जाको
+                                            सुरक्षण वापत धितोको रुपमा प्रदान
+                                            <span *ngIf="!offerLetterForm?.get('shareRenewWith').value">
+                                                {{loanType?.includes('RENEWED_LOAN') ? ' गराएको यथावत रहने छ ।' : ' गर्नुपर्नेछ ।'}}
+                                            </span>
+                                            <span *ngIf="offerLetterForm?.get('shareRenewWith').value">
+                                                <select class="form-control font-size-normal disable-print selectWidth"
+                                                        [value]="offerLetterForm?.get('shareWord').value"
+                                                        (change)="wordChange($event?.target?.value, 'shareWord')">
+                                                    <option [value]="null" hidden>Select Word</option>
+                                                    <option *ngFor="let pur of documentWord"
+                                                            [value]="pur">{{pur}}</option>
+                                                </select>
+                                                <span class="print-only">
+                                                    {{offerLetterForm?.get('shareWord').value ? offerLetterForm?.get('shareWord').value : '========='}}
+                                                </span>
+                                            </span>
+                                            <ng-container *ngIf="loanType?.includes('RENEWED_LOAN')">
+                                                <br>
                                                 <strong> (मिति <input type="text"
                                                                       class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                                                                       formControlName="date4">
@@ -1454,9 +1515,13 @@
                                                 <b>{{offerLetterForm.get('date4')?.value ? offerLetterForm.get('date4')?.value : '========='}}</b>
                                             </span> मा प्राप्त) </strong>
                                             </ng-container>
-                                            <ng-template #otherLoanType7>
-                                                गर्नुपर्नेछ ।
-                                            </ng-template>
+                                            <span class="disable-print float-right"
+                                                  *ngIf="loanType?.includes('RENEW_WITH_ENHANCEMENT') || loanType?.includes('ENHANCED_LOAN')">
+                                                <nb-checkbox
+                                                        (change)="otherCheckedValue($event?.target?.checked, 'shareRenewWith', 'shareWord')"
+                                                        [checked]="offerLetterForm?.get('shareRenewWith')?.value"><i>Change word</i>
+                                                </nb-checkbox>
+                                            </span>
                                         </td>
                                     </tr>
                                     <tr>
@@ -1481,13 +1546,15 @@
                                     <nb-checkbox (change)="otherCheck($event?.target?.checked, 'coGuaranteeCheck')"
                                                  [checked]="offerLetterForm?.get('coGuaranteeCheck')?.value"><i>Corporate
                                         Guarantee</i>
-                                    </nb-checkbox> &nbsp;&nbsp;&nbsp; <em class="sb-medium"><i>Note: PG: Personal Guarantee and CG: Corporate Guarantee</i></em>
+                                    </nb-checkbox> &nbsp;&nbsp;&nbsp; <em class="sb-medium"><i>Note: PG: Personal
+                                    Guarantee and CG: Corporate Guarantee</i></em>
                                 </th>
                             </tr>
                             </tbody>
                             <tbody *ngIf="offerLetterForm?.get('peGuaranteeCheck')?.value">
-                            <ng-container *ngFor="let pGuarantee of offerLetterForm?.get('personalGuarantee')['controls']; let pin = index"
-                                          formArrayName="personalGuarantee">
+                            <ng-container
+                                    *ngFor="let pGuarantee of offerLetterForm?.get('personalGuarantee')['controls']; let pin = index"
+                                    formArrayName="personalGuarantee">
                                 <tr [formGroupName]="pin">
                                     <td colspan="1">
                                         <span class="print-only"><ul><li></li></ul></span>
@@ -1519,30 +1586,50 @@
                                                     offerLetterForm?.get(['personalGuarantee', pin, 'amountInWord'])?.value : '========='}}</b></span>
                                             मात्र) को <strong>व्यक्तिगत जमानतको</strong>
                                             लिखत बैंकलाई उपलब्ध
-                                            <ng-container *ngIf="loanType?.includes('RENEWED_LOAN'); else otherLoanType6">
-                                                गराएको यथावत रहने छ । <br>
-                                                <strong> (मिति <input [value]="offerLetterForm?.get(['personalGuarantee', pin, 'date'])?.value"
-                                                                      (change)="guarantorValueChange($event?.target?.value, pin, 'personalGuarantee', 'date')"
-                                                                     class="nepaliFont form-field form-control-sm font-size-normal disable-print">
+                                            <span *ngIf="!offerLetterForm?.get(['personalGuarantee', pin, 'renewWithChecked'])?.value">
+                                                {{loanType?.includes('RENEWED_LOAN') ? ' गराएको यथावत रहने छ ।' : 'गर्नुपर्नेछ ।'}}
+                                            </span>
+                                            <span *ngIf="offerLetterForm?.get(['personalGuarantee', pin, 'renewWithChecked'])?.value">
+                                                <select class="form-control font-size-normal disable-print selectWidth"
+                                                        [value]="offerLetterForm?.get(['personalGuarantee', pin, 'renewWithWord']).value"
+                                                        (change)="guarantorValueChange($event?.target?.value, pin, 'personalGuarantee', 'renewWithWord')">
+                                                    <option [value]="null" hidden>Select Word</option>
+                                                    <option *ngFor="let word of documentWord"
+                                                            [value]="word">{{word}}</option>
+                                                </select>
+                                                <span class="print-only">
+                                                    {{offerLetterForm?.get(['personalGuarantee', pin, 'renewWithWord'])?.value ?
+                                                    offerLetterForm?.get(['personalGuarantee', pin, 'renewWithWord'])?.value : '========='}}
+                                                </span>
+                                            </span>
+                                            <ng-container *ngIf="loanType?.includes('RENEWED_LOAN')">
+                                                <br>
+                                                <strong> (मिति <input
+                                                        [value]="offerLetterForm?.get(['personalGuarantee', pin, 'date'])?.value"
+                                                        (change)="guarantorValueChange($event?.target?.value, pin, 'personalGuarantee', 'date')"
+                                                        class="nepaliFont form-field form-control-sm font-size-normal disable-print">
                                                     <span class="nepaliFont font-size-normal font-size-normal print-only">
                                                         <b>{{offerLetterForm?.get(['personalGuarantee', pin, 'date'])?.value ?
                                                             offerLetterForm?.get(['personalGuarantee', pin, 'date'])?.value : '========='}}</b>
                                                     </span> मा प्राप्त) </strong>
                                             </ng-container>
-                                            <ng-template #otherLoanType6>
-                                                गराउनु पर्नेछ ।
-                                            </ng-template>
                                         </span>
                                         <span class="disable-print float-right">
-                                            <nb-checkbox (change)="guarantorValueCheck($event?.target?.checked, pin, 'otherChecked', 'personalGuarantee')"
-                                                         [checked]="offerLetterForm?.get(['personalGuarantee', pin, 'otherChecked'])?.value"><i>Other</i>
+                                            <nb-checkbox *ngIf="loanType?.includes('RENEW_WITH_ENHANCEMENT') || loanType?.includes('ENHANCED_LOAN')"
+                                                    (change)="guarantorValueCheck($event?.target?.checked, pin, 'renewWithChecked', 'personalGuarantee')"
+                                                    [checked]="offerLetterForm?.get(['personalGuarantee', pin, 'renewWithChecked'])?.value"><i>Change Word</i>
+                                            </nb-checkbox> &nbsp;&nbsp;
+                                            <nb-checkbox
+                                                    (change)="guarantorValueCheck($event?.target?.checked, pin, 'otherChecked', 'personalGuarantee')"
+                                                    [checked]="offerLetterForm?.get(['personalGuarantee', pin, 'otherChecked'])?.value"><i>Other</i>
                                             </nb-checkbox>
                                         </span>
                                         <span *ngIf="offerLetterForm?.get(['personalGuarantee', pin, 'otherChecked'])?.value">
-                                            <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
-                                                      [value]="offerLetterForm?.get(['personalGuarantee', pin, 'other'])?.value"
-                                                      (change)="guarantorValueChange($event?.target?.value, pin, 'personalGuarantee', 'other')"
-                                                      placeholder="व्यक्तिगत ग्यारेन्टी" rows="4"></textarea>
+                                            <textarea
+                                                    class="form-control nepaliFont form-field font-size-normal disable-print"
+                                                    [value]="offerLetterForm?.get(['personalGuarantee', pin, 'other'])?.value"
+                                                    (change)="guarantorValueChange($event?.target?.value, pin, 'personalGuarantee', 'other')"
+                                                    placeholder="व्यक्तिगत ग्यारेन्टी" rows="4"></textarea>
                                             <span class="nepaliFont font-size-normal print-only">
                                                 <b>{{offerLetterForm?.get(['personalGuarantee', pin, 'other'])?.value ?
                                                     offerLetterForm?.get(['personalGuarantee', pin, 'other'])?.value : '========='}}</b>
@@ -1552,13 +1639,15 @@
                                 </tr>
                             </ng-container>
                             <div class="text-right disable-print">
-                                <input (click)="addGuarantee('personalGuarantee')" class="btn btn-sm btn-flat btn-primary"
+                                <input (click)="addGuarantee('personalGuarantee')"
+                                       class="btn btn-sm btn-flat btn-primary"
                                        type="button" value="Add More PG"/>
                             </div>
                             </tbody>
                             <tbody *ngIf="offerLetterForm?.get('coGuaranteeCheck')?.value">
-                            <ng-container *ngFor="let cGuarantee of offerLetterForm?.get('corporateGuarantee')['controls']; let cin = index"
-                                          formArrayName="corporateGuarantee">
+                            <ng-container
+                                    *ngFor="let cGuarantee of offerLetterForm?.get('corporateGuarantee')['controls']; let cin = index"
+                                    formArrayName="corporateGuarantee">
                                 <tr [formGroupName]="cin">
                                     <td colspan="1">
                                         <span class="print-only"><ul><li></li></ul></span>
@@ -1584,30 +1673,50 @@
                                                     offerLetterForm?.get(['corporateGuarantee', cin, 'amountInWord'])?.value : '========='}}</b></span>
                                             मात्र) को <strong>संस्थागत जमानतको</strong>
                                             लिखत बैंकलाई उपलब्ध
-                                            <ng-container *ngIf="loanType?.includes('RENEWED_LOAN'); else otherLoanType6">
-                                                गराएको यथावत रहने छ । <br>
-                                                <strong> (मिति <input [value]="offerLetterForm?.get(['corporateGuarantee', cin, 'date'])?.value"
-                                                                      (change)="guarantorValueChange($event?.target?.value, cin, 'corporateGuarantee', 'date')"
-                                                                      class="nepaliFont form-field form-control-sm font-size-normal disable-print">
+                                            <span *ngIf="!offerLetterForm?.get(['corporateGuarantee', cin, 'renewWithChecked'])?.value">
+                                                {{loanType?.includes('RENEWED_LOAN') ? ' गराएको यथावत रहने छ ।' : 'गर्नुपर्नेछ ।'}}
+                                            </span>
+                                            <span *ngIf="offerLetterForm?.get(['corporateGuarantee', cin, 'renewWithChecked'])?.value">
+                                                <select class="form-control font-size-normal disable-print selectWidth"
+                                                        [value]="offerLetterForm?.get(['corporateGuarantee', cin, 'renewWithWord']).value"
+                                                        (change)="guarantorValueChange($event?.target?.value, cin, 'corporateGuarantee', 'renewWithWord')">
+                                                    <option [value]="null" hidden>Select Word</option>
+                                                    <option *ngFor="let word of documentWord"
+                                                            [value]="word">{{word}}</option>
+                                                </select>
+                                                <span class="print-only">
+                                                    {{offerLetterForm?.get(['corporateGuarantee', cin, 'renewWithWord'])?.value ?
+                                                    offerLetterForm?.get(['corporateGuarantee', cin, 'renewWithWord'])?.value : '========='}}
+                                                </span>
+                                            </span>
+                                            <ng-container *ngIf="loanType?.includes('RENEWED_LOAN')">
+                                                <br>
+                                                <strong> (मिति <input
+                                                        [value]="offerLetterForm?.get(['corporateGuarantee', cin, 'date'])?.value"
+                                                        (change)="guarantorValueChange($event?.target?.value, cin, 'corporateGuarantee', 'date')"
+                                                        class="nepaliFont form-field form-control-sm font-size-normal disable-print">
                                                     <span class="nepaliFont font-size-normal print-only">
                                                         <b>{{offerLetterForm?.get(['corporateGuarantee', cin, 'date'])?.value ?
                                                             offerLetterForm?.get(['corporateGuarantee', cin, 'date'])?.value : '========='}}</b>
                                                     </span> मा प्राप्त) </strong>
                                             </ng-container>
-                                            <ng-template #otherLoanType6>
-                                                गराउनु पर्नेछ ।
-                                            </ng-template>
                                         </span>
                                         <span class="disable-print float-right">
-                                            <nb-checkbox (change)="guarantorValueCheck($event?.target?.checked, cin, 'otherChecked', 'corporateGuarantee')"
-                                                         [checked]="offerLetterForm?.get(['corporateGuarantee', cin, 'otherChecked'])?.value"><i>Other</i>
+                                            <nb-checkbox *ngIf="loanType?.includes('RENEW_WITH_ENHANCEMENT') || loanType?.includes('ENHANCED_LOAN')"
+                                                    (change)="guarantorValueCheck($event?.target?.checked, cin, 'renewWithChecked', 'corporateGuarantee')"
+                                                    [checked]="offerLetterForm?.get(['corporateGuarantee', cin, 'renewWithChecked'])?.value"><i>Change Word</i>
+                                            </nb-checkbox> &nbsp;&nbsp;
+                                            <nb-checkbox
+                                                    (change)="guarantorValueCheck($event?.target?.checked, cin, 'otherChecked', 'corporateGuarantee')"
+                                                    [checked]="offerLetterForm?.get(['corporateGuarantee', cin, 'otherChecked'])?.value"><i>Other</i>
                                             </nb-checkbox>
                                         </span>
                                         <span *ngIf="offerLetterForm?.get(['corporateGuarantee', cin, 'otherChecked'])?.value">
-                                            <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
-                                                      [value]="offerLetterForm?.get(['corporateGuarantee', cin, 'other'])?.value"
-                                                      (change)="guarantorValueChange($event?.target?.value, cin, 'corporateGuarantee', 'other')"
-                                                      placeholder="कर्पोरेट ग्यारेन्टी" rows="4"></textarea>
+                                            <textarea
+                                                    class="form-control nepaliFont form-field font-size-normal disable-print"
+                                                    [value]="offerLetterForm?.get(['corporateGuarantee', cin, 'other'])?.value"
+                                                    (change)="guarantorValueChange($event?.target?.value, cin, 'corporateGuarantee', 'other')"
+                                                    placeholder="कर्पोरेट ग्यारेन्टी" rows="4"></textarea>
                                             <span class="nepaliFont font-size-normal print-only">
                                                 <b>{{offerLetterForm?.get(['corporateGuarantee', cin, 'other'])?.value ?
                                                     offerLetterForm?.get(['corporateGuarantee', cin, 'other'])?.value : '========='}}</b>
@@ -1617,10 +1726,11 @@
                                 </tr>
                             </ng-container>
                             <div class="text-right disable-print">
-                                <input (click)="addGuarantee('corporateGuarantee')" class="btn btn-sm btn-flat btn-primary"
+                                <input (click)="addGuarantee('corporateGuarantee')"
+                                       class="btn btn-sm btn-flat btn-primary"
                                        type="button" value="Add More CG"/>
                             </div>
-<!--                    </ng-container>-->
+                            <!--                    </ng-container>-->
                             </tbody>
                             <tbody>
                             <ng-container>
@@ -1633,7 +1743,8 @@
                                     <th colspan="6">
                                         <nb-checkbox
                                                 (change)="otherCheck($event?.target?.checked, 'currentAssetsNeeded')"
-                                                [checked]="offerLetterForm?.get('currentAssetsNeeded')?.value"><i>Security as
+                                                [checked]="offerLetterForm?.get('currentAssetsNeeded')?.value"><i>Security
+                                            as
                                             Current Assets Needed ?</i>
                                         </nb-checkbox>
                                     </th>
@@ -1647,9 +1758,24 @@
                                     <td colspan="6">
                                 <span *ngIf="!offerLetterForm?.get('currentAssetsOtherCheck')?.value">
                                     ऋणीको सम्पूर्ण <strong>चालु सम्पत्ति</strong> उपर हाइपोथिकेसन (Hypothecation
-                                over Current Assets) को लिखत गरिदिनु पर्नेछ।
-                                    <ng-container *ngIf="loanType?.includes('RENEWED_LOAN'); else otherLoanType5">
-                                        बैंकलाई उपलब्ध गराएको यथावत रहने छ । <br>
+                                over Current Assets) को लिखत
+                                    <span *ngIf="!offerLetterForm?.get('currentAssetsRenew').value">
+                                        {{loanType?.includes('RENEWED_LOAN') ? ' बैंकलाई उपलब्ध गराएको यथावत रहने छ ।' : ' गरिदिनु पर्नेछ ।'}}
+                                    </span>
+                                    <span *ngIf="offerLetterForm?.get('currentAssetsRenew').value">
+                                        <select class="form-control font-size-normal disable-print selectWidth"
+                                                [value]="offerLetterForm?.get('currentAssetsWord').value"
+                                                (change)="wordChange($event?.target?.value, 'currentAssetsWord')">
+                                            <option [value]="null" hidden>Select Word</option>
+                                            <option *ngFor="let hypo of hypoDocument"
+                                                    [value]="hypo">{{hypo}}</option>
+                                        </select>
+                                        <span class="print-only">
+                                            {{offerLetterForm?.get('currentAssetsWord').value ? offerLetterForm?.get('currentAssetsWord').value : '========='}}
+                                        </span>
+                                    </span>
+                                    <ng-container *ngIf="loanType?.includes('RENEWED_LOAN')">
+                                        <br>
                                         <strong> (मिति <input type="text"
                                                               class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                                                               formControlName="date7">
@@ -1663,11 +1789,12 @@
                                                 <b>{{offerLetterForm.get('amount7')?.value ? offerLetterForm.get('amount7')?.value : '========='}}</b>
                                             </span> /- प्राप्त) </strong>
                                     </ng-container>
-                                    <ng-template #otherLoanType5>
-                                        गरिदिनु पर्नेछ ।
-                                    </ng-template>
                                 </span>
                                         <span class="disable-print float-right">
+                                            <nb-checkbox *ngIf="loanType?.includes('RENEW_WITH_ENHANCEMENT') || loanType?.includes('ENHANCED_LOAN')"
+                                                    (change)="otherCheckedValue($event?.target?.checked, 'currentAssetsRenew', 'currentAssetsWord')"
+                                                    [checked]="offerLetterForm?.get('currentAssetsRenew')?.value"><i>Change Word</i>
+                                            </nb-checkbox> &nbsp;&nbsp;
                                     <nb-checkbox
                                             (change)="otherCheck($event?.target?.checked, 'currentAssetsOtherCheck')"
                                             [checked]="offerLetterForm?.get('currentAssetsOtherCheck')?.value"><i>Other</i>
@@ -1689,11 +1816,14 @@
                             <ng-container>
                                 <tr class="print-only1">
                                     <th colspan="1" class="sn pt-2">
-                                        <ul><li></li></ul>
+                                        <ul>
+                                            <li></li>
+                                        </ul>
                                     </th>
                                     <th colspan="6">
                                         <nb-checkbox (change)="otherCheck($event?.target?.checked, 'fixedAssetsNeeded')"
-                                                     [checked]="offerLetterForm?.get('fixedAssetsNeeded')?.value"><i>Security as Fixed Assets Collateral Needed ?</i>
+                                                     [checked]="offerLetterForm?.get('fixedAssetsNeeded')?.value"><i>Security
+                                            as Fixed Assets Collateral Needed ?</i>
                                         </nb-checkbox>
                                     </th>
                                 </tr>
@@ -1707,8 +1837,23 @@
                                 <span>
                                     ऋणीको सम्पूर्ण <strong>स्थिर सम्पत्ति</strong> उपर हाइपोथिकेसन (Hypothecation
                                 over Fixed Assets) को लिखत
-                                    <ng-container *ngIf="loanType?.includes('RENEWED_LOAN'); else otherLoanType4">
-                                        बैंकलाई उपलब्ध गराएको यथावत रहने छ । <br>
+                                    <span *ngIf="!offerLetterForm?.get('fixedHypoRenew').value">
+                                        {{loanType?.includes('RENEWED_LOAN') ? ' बैंकलाई उपलब्ध गराएको यथावत रहने छ ।' : ' गरिदिनु पर्नेछ ।'}}
+                                    </span>
+                                    <span *ngIf="offerLetterForm?.get('fixedHypoRenew').value">
+                                        <select class="form-control font-size-normal disable-print selectWidth"
+                                                [value]="offerLetterForm?.get('fixedHypoWord').value"
+                                                (change)="wordChange($event?.target?.value, 'fixedHypoWord')">
+                                            <option [value]="null" hidden>Select Word</option>
+                                            <option *ngFor="let hypo of hypoDocument"
+                                                    [value]="hypo">{{hypo}}</option>
+                                        </select>
+                                        <span class="print-only">
+                                            {{offerLetterForm?.get('fixedHypoWord').value ? offerLetterForm?.get('fixedHypoWord').value : '========='}}
+                                        </span>
+                                    </span>
+                                    <ng-container *ngIf="loanType?.includes('RENEWED_LOAN')">
+                                        <br>
                                         <strong> (मिति <input type="text"
                                                               class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                                                               formControlName="date8">
@@ -1722,12 +1867,14 @@
                                                 <b>{{offerLetterForm.get('amount8')?.value ? offerLetterForm.get('amount8')?.value : '========='}}</b>
                                             </span> /- प्राप्त) </strong>
                                     </ng-container>
-                                    <ng-template #otherLoanType4>
-                                        गरिदिनु पर्नेछ ।
-                                    </ng-template>
                                     <span class="disable-print float-right">
-                                        <nb-checkbox (change)="otherCheck($event?.target?.checked, 'fixedAssetOtherCheck')"
-                                                     [checked]="offerLetterForm?.get('fixedAssetOtherCheck')?.value"><i>Other</i>
+                                        <nb-checkbox *ngIf="loanType?.includes('RENEW_WITH_ENHANCEMENT') || loanType?.includes('ENHANCED_LOAN')"
+                                                (change)="otherCheckedValue($event?.target?.checked, 'fixedHypoRenew', 'fixedHypoWord')"
+                                                [checked]="offerLetterForm?.get('fixedHypoRenew')?.value"><i>Change Word</i>
+                                        </nb-checkbox> &nbsp;&nbsp;
+                                        <nb-checkbox
+                                                (change)="otherCheck($event?.target?.checked, 'fixedAssetOtherCheck')"
+                                                [checked]="offerLetterForm?.get('fixedAssetOtherCheck')?.value"><i>Other</i>
                                         </nb-checkbox>
                                     </span>
                                 </span>
@@ -1752,11 +1899,15 @@
                                         </ul>
                                     </th>
                                     <th colspan="6">
-                                        <nb-checkbox (change)="otherCheck($event?.target?.checked, 'creditFacilityNeeded')"
-                                                     [checked]="offerLetterForm?.get('creditFacilityNeeded')?.value"><i> Credit Facility Needed ?</i>
+                                        <nb-checkbox
+                                                (change)="otherCheck($event?.target?.checked, 'creditFacilityNeeded')"
+                                                [checked]="offerLetterForm?.get('creditFacilityNeeded')?.value"><i>
+                                            Credit Facility Needed ?</i>
                                         </nb-checkbox> &nbsp;&nbsp;&nbsp;
-                                        <nb-checkbox (change)="otherCheck($event?.target?.checked, 'guaranteeFacilityNeeded')"
-                                                     [checked]="offerLetterForm?.get('guaranteeFacilityNeeded')?.value"><i> Guarantee Facility Needed ?</i>
+                                        <nb-checkbox
+                                                (change)="otherCheck($event?.target?.checked, 'guaranteeFacilityNeeded')"
+                                                [checked]="offerLetterForm?.get('guaranteeFacilityNeeded')?.value"><i>
+                                            Guarantee Facility Needed ?</i>
                                         </nb-checkbox>
                                     </th>
                                 </tr>
@@ -1778,14 +1929,17 @@
                                                 प्रतिशत नगद मार्जिन जम्मा गर्नु पर्नेछ ।
                                             </span>
                                             <span class="disable-print float-right">
-                                                <nb-checkbox (change)="otherCheck($event?.target?.checked, 'cashLetterOtherCheck')"
-                                                             [checked]="offerLetterForm?.get('cashLetterOtherCheck')?.value"><i>Other</i>
+                                                <nb-checkbox
+                                                        (change)="otherCheck($event?.target?.checked, 'cashLetterOtherCheck')"
+                                                        [checked]="offerLetterForm?.get('cashLetterOtherCheck')?.value"><i>Other</i>
                                                 </nb-checkbox>
                                             </span>
                                             <span *ngIf="offerLetterForm?.get('cashLetterOtherCheck')?.value">
-                                                <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
-                                                          formControlName="cashLetterOther"
-                                                          placeholder="प्रतितपत्र सुविधा उपयोगको आधारमा" rows="4"></textarea>
+                                                <textarea
+                                                        class="form-control nepaliFont form-field font-size-normal disable-print"
+                                                        formControlName="cashLetterOther"
+                                                        placeholder="प्रतितपत्र सुविधा उपयोगको आधारमा"
+                                                        rows="4"></textarea>
                                                 <span class="nepaliFont font-size-normal print-only">
                                                     <b>{{offerLetterForm?.get('cashLetterOther')?.value ? offerLetterForm?.get('cashLetterOther')?.value : '========='}}</b></span>
                                             </span>
@@ -1810,14 +1964,17 @@
                                                 प्रतिशत नगद मार्जिन जम्मा गर्नु पर्नेछ ।
                                             </span>
                                             <span class="disable-print float-right">
-                                                <nb-checkbox (change)="otherCheck($event?.target?.checked, 'cashGuaranteeOtherCheck')"
-                                                             [checked]="offerLetterForm?.get('cashGuaranteeOtherCheck')?.value"><i>Other</i>
+                                                <nb-checkbox
+                                                        (change)="otherCheck($event?.target?.checked, 'cashGuaranteeOtherCheck')"
+                                                        [checked]="offerLetterForm?.get('cashGuaranteeOtherCheck')?.value"><i>Other</i>
                                                 </nb-checkbox>
                                             </span>
                                             <span *ngIf="offerLetterForm?.get('cashGuaranteeOtherCheck')?.value">
-                                                <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
-                                                          formControlName="cashGuaranteeOther"
-                                                          placeholder="ग्यारेण्टी सुविधा उपयोगको आधारमा" rows="4"></textarea>
+                                                <textarea
+                                                        class="form-control nepaliFont form-field font-size-normal disable-print"
+                                                        formControlName="cashGuaranteeOther"
+                                                        placeholder="ग्यारेण्टी सुविधा उपयोगको आधारमा"
+                                                        rows="4"></textarea>
                                                 <span class="nepaliFont font-size-normal print-only">
                                                     <b>{{offerLetterForm?.get('cashGuaranteeOther')?.value ? offerLetterForm?.get('cashGuaranteeOther')?.value : '========='}}</b></span>
                                                 </span>
@@ -1834,8 +1991,9 @@
                                     </ul>
                                 </th>
                                 <th colspan="6">
-                                    <nb-checkbox (change)="otherCheck($event?.target?.checked, 'personalSecurityNeeded')"
-                                                 [checked]="offerLetterForm?.get('personalSecurityNeeded')?.value"><i>Security
+                                    <nb-checkbox
+                                            (change)="otherCheck($event?.target?.checked, 'personalSecurityNeeded')"
+                                            [checked]="offerLetterForm?.get('personalSecurityNeeded')?.value"><i>Security
                                         in case of Personal loan (Declaration) Needed ?</i>
                                     </nb-checkbox>
                                 </th>
@@ -1885,7 +2043,8 @@
                                 </th>
                                 <th colspan="6">
                                     <nb-checkbox (change)="otherCheck($event?.target?.checked, 'cashLienNeeded')"
-                                                 [checked]="offerLetterForm?.get('cashLienNeeded')?.value"><i>Security as Cash
+                                                 [checked]="offerLetterForm?.get('cashLienNeeded')?.value"><i>Security
+                                        as Cash
                                         lien Needed ?</i>
                                     </nb-checkbox>
                                 </th>
@@ -1914,9 +2073,6 @@
                                 <span class="nepaliFont font-size-normal print-only">
                                         <b>{{offerLetterForm?.get('accountAmount').value ? offerLetterForm?.get('accountAmount').value : '========='}}</b></span>/–
                                 (अक्षरेपी रुपैयाँ
-                                <!--                                <input type="text"-->
-                                <!--                                                         class="nepaliFont form-field form-control-sm font-size-normal disable-print"-->
-                                <!--                                                         formControlName="accountAmountWord">-->
                                 <span class="font-size-normal">
                                         <b>{{offerLetterForm?.get('accountAmountWord').value ? offerLetterForm?.get('accountAmountWord').value : '========='}}</b></span>मात्र) </strong>
                             लिएको कर्जा चुक्ता नहुञ्जेल सम्मका लागि यस बैंकको नाममा लियन (ष्भिल) राखीदिन मञ्जुर गरी
@@ -1964,14 +2120,26 @@
                                            (change)="convertAmount($event?.target?.value, 'loanAmount')">
                                 <span class="nepaliFont print-only font-size-normal">
                                         <b>{{offerLetterForm?.get('loanAmount').value ? offerLetterForm?.get('loanAmount').value : '========='}}</b></span>/– (अक्षरेपी रुपैयाँ
-                                <!--                            <input type="text"-->
-                                <!--                                   class="nepaliFont form-field form-control-sm font-size-normal disable-print"-->
-                                <!--                                   formControlName="loanAmountWord">-->
                                 <span class="font-size-normal">
                                         <b>{{offerLetterForm?.get('loanAmountWord').value ? offerLetterForm?.get('loanAmountWord').value : '========='}}</b></span>मात्र) को <strong>कर्जा तमसुकमा</strong> सही छाप
-                            गरी बैंकलाई उपलव्ध
-                                <ng-container *ngIf="loanType?.includes('RENEWED_LOAN'); else otherLoanType2">
-                                    गराएको यथावत रहने छ । <br>
+                                गरी बैंकलाई उपलव्ध
+                                <span *ngIf="!offerLetterForm?.get('karjaRenewChecked').value">
+                                    {{loanType?.includes('RENEWED_LOAN') ? ' गराएको यथावत रहने छ ।' : ' गर्नुपर्नेछ ।'}}
+                                </span>
+                                <span *ngIf="offerLetterForm?.get('karjaRenewChecked').value">
+                                    <select class="form-control font-size-normal disable-print selectWidth"
+                                            [value]="offerLetterForm?.get('shareWord').value"
+                                            (change)="wordChange($event?.target?.value, 'shareWord')">
+                                        <option [value]="null" hidden>Select Word</option>
+                                        <option *ngFor="let pur of documentWord"
+                                                [value]="pur">{{pur}}</option>
+                                    </select>
+                                    <span class="print-only">
+                                        {{offerLetterForm?.get('karjaWord').value ? offerLetterForm?.get('karjaWord').value : '========='}}
+                                    </span>
+                                </span>
+                                <ng-container *ngIf="loanType?.includes('RENEWED_LOAN')">
+                                    <br>
                                     <strong> (मिति <input type="text"
                                                           class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                                                           formControlName="date11">
@@ -1979,11 +2147,12 @@
                                                 <b>{{offerLetterForm.get('date11')?.value ? offerLetterForm.get('date11')?.value : '========='}}</b>
                                             </span> मा प्राप्त) </strong>
                                 </ng-container>
-                                <ng-template #otherLoanType2>
-                                    गराउनु पर्नेछ ।
-                                </ng-template>
                             </span>
                                     <span class="disable-print float-right">
+                                        <nb-checkbox *ngIf="loanType?.includes('RENEW_WITH_ENHANCEMENT') || loanType?.includes('ENHANCED_LOAN')"
+                                                (change)="otherCheckedValue($event?.target?.checked, 'karjaRenewChecked', 'karjaWord')"
+                                                [checked]="offerLetterForm?.get('karjaRenewChecked')?.value"><i>Change Word</i>
+                                        </nb-checkbox> &nbsp;&nbsp;
                                 <nb-checkbox (change)="otherCheck($event?.target?.checked, 'loanTamsukOtherCheck')"
                                              [checked]="offerLetterForm?.get('loanTamsukOtherCheck')?.value"><i>Other</i>
                                 </nb-checkbox>
@@ -2013,14 +2182,26 @@
                                            (change)="convertAmount($event?.target?.value, 'promiseAmount')">
                                 <span class="nepaliFont font-size-normal print-only">
                                         <b>{{offerLetterForm?.get('promiseAmount').value ? offerLetterForm?.get('promiseAmount').value : '========='}}</b></span>/– (अक्षरेपी रुपैयाँ
-                                <!--                            <input type="text"-->
-                                <!--                                   class="nepaliFont form-field form-control-sm font-size-normal disable-print"-->
-                                <!--                                   formControlName="promiseAmountWord">-->
                                 <span class="font-size-normal">
                                         <b>{{offerLetterForm?.get('promiseAmountWord').value ? offerLetterForm?.get('promiseAmountWord').value : '========='}}</b></span>मात्र) को <strong>प्रतिज्ञापत्रमा</strong> सही
                                 छाप गरी बैंकलाई उपलव्ध
-                                <ng-container *ngIf="loanType?.includes('RENEWED_LOAN'); else otherLoanType1">
-                                    गराएको यथावत रहने छ । <br>
+                                <span *ngIf="!offerLetterForm?.get('creditLetterRenewChecked').value">
+                                    {{loanType?.includes('RENEWED_LOAN') ? ' गराएको यथावत रहने छ ।' : ' गर्नुपर्नेछ ।'}}
+                                </span>
+                                <span *ngIf="offerLetterForm?.get('creditLetterRenewChecked').value">
+                                    <select class="form-control font-size-normal disable-print selectWidth"
+                                            [value]="offerLetterForm?.get('creditLetterWord').value"
+                                            (change)="wordChange($event?.target?.value, 'creditLetterWord')">
+                                        <option [value]="null" hidden>Select Word</option>
+                                        <option *ngFor="let pur of documentWord"
+                                                [value]="pur">{{pur}}</option>
+                                    </select>
+                                    <span class="print-only">
+                                        {{offerLetterForm?.get('creditLetterWord').value ? offerLetterForm?.get('creditLetterWord').value : '========='}}
+                                    </span>
+                                </span>
+                                <ng-container *ngIf="loanType?.includes('RENEWED_LOAN')">
+                                    <br>
                                     <strong> (मिति <input type="text"
                                                           class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                                                           formControlName="date12">
@@ -2028,15 +2209,16 @@
                                                 <b>{{offerLetterForm.get('date12')?.value ? offerLetterForm.get('date12')?.value : '========='}}</b>
                                             </span> मा प्राप्त) </strong>
                                 </ng-container>
-                                <ng-template #otherLoanType1>
-                                    गराउनु पर्नेछ ।
-                                </ng-template>
                             </span>
                                     <span class="disable-print float-right">
-                                <nb-checkbox (change)="otherCheck($event?.target?.checked, 'promiseOtherCheck')"
-                                             [checked]="offerLetterForm?.get('promiseOtherCheck')?.value"><i>Other</i>
-                                </nb-checkbox>
-                            </span>
+                                        <nb-checkbox *ngIf="loanType?.includes('RENEW_WITH_ENHANCEMENT') || loanType?.includes('ENHANCED_LOAN')"
+                                                (change)="otherCheckedValue($event?.target?.checked, 'creditLetterRenewChecked', 'creditLetterWord')"
+                                                [checked]="offerLetterForm?.get('creditLetterRenewChecked')?.value"><i>Change Word</i>
+                                        </nb-checkbox> &nbsp;&nbsp;
+                                        <nb-checkbox (change)="otherCheck($event?.target?.checked, 'promiseOtherCheck')"
+                                                     [checked]="offerLetterForm?.get('promiseOtherCheck')?.value"><i>Other</i>
+                                        </nb-checkbox>
+                                    </span>
                                     <span *ngIf="offerLetterForm?.get('promiseOtherCheck')?.value">
                                     <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
                                               formControlName="promiseOther"
@@ -2051,9 +2233,11 @@
                             <tr *ngFor="let test of offerLetterForm.get('moreSecurity')['controls']; let viii = index"
                                 formArrayName="moreSecurity">
                                 <ng-container [formGroupName]="viii">
-                                    <td colspan="1"><ul>
-                                        <li></li>
-                                    </ul></td>
+                                    <td colspan="1">
+                                        <ul>
+                                            <li></li>
+                                        </ul>
+                                    </td>
                                     <td colspan="6">
                                 <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
                                           formControlName="otherSecurity"
@@ -2100,68 +2284,90 @@
                         </tr>
                         <tr>
                             <td>२</td>
-                            <td>ऋणीले बैंकलाई धितो स्वरुप प्रदान गर्ने/गरेको जग्गामा निर्माण भएको वा निर्माणाधिन भई रहेको वा
+                            <td>ऋणीले बैंकलाई धितो स्वरुप प्रदान गर्ने/गरेको जग्गामा निर्माण भएको वा निर्माणाधिन भई
+                                रहेको वा
                                 भविष्यमा निर्माण हुने भवनको नियमानुसार नक्सा पास प्रमाणपत्र र निर्माण सम्पन्न प्रमाणपत्र
-                                ((Building Completion Certificate) जारी गर्ने निकायबाट तोकिएको समयावधी भित्रै प्राप्त गरी
-                                बैंकलाई उपलब्ध गराउनु पर्नेछ । अन्यथा बैंकले कर्जा नविकरण नगर्न वा प्रवाह गर्न वाँकी रहेको कर्जा
+                                ((Building Completion Certificate) जारी गर्ने निकायबाट तोकिएको समयावधी भित्रै प्राप्त
+                                गरी
+                                बैंकलाई उपलब्ध गराउनु पर्नेछ । अन्यथा बैंकले कर्जा नविकरण नगर्न वा प्रवाह गर्न वाँकी
+                                रहेको कर्जा
                                 रोक्न वा प्रवाह भइसकेको कर्जा चुक्ता गर्न लगाउन सक्ने अधिकार बैंकलाई हुनेछ ।
                             </td>
                         </tr>
                         <tr>
                             <td>३</td>
-                            <td> ऋणी वा निजले संस्थापन गरेको कुनै पनि संगठित संस्थाले बैंकवाट लिएको अन्य कुनै कर्जा सुविधाको
-                                सुरक्षण वापत बैंकलाई उपलव्ध गराएको चल अचल धितो सुरक्षणहरु यो कर्जा सुविधाको लागि समेत धितो
+                            <td> ऋणी वा निजले संस्थापन गरेको कुनै पनि संगठित संस्थाले बैंकवाट लिएको अन्य कुनै कर्जा
+                                सुविधाको
+                                सुरक्षण वापत बैंकलाई उपलव्ध गराएको चल अचल धितो सुरक्षणहरु यो कर्जा सुविधाको लागि समेत
+                                धितो
                                 सुरक्षण दिएको मानिने छ ।
-                                यो कर्जा सुविधा वमोजिम तिर्नु वुझाउनु पर्ने कर्जा नतिरी नवुझाई कर्जा वांकी रहन गएमा वा माथी
-                                उल्लेखित चल अचल धितोबाट कर्जा तिर्न अपुग भएमा सो धितो समेतबाट कर्जा असुल उपर गर्न पाउने अधिकार
+                                यो कर्जा सुविधा वमोजिम तिर्नु वुझाउनु पर्ने कर्जा नतिरी नवुझाई कर्जा वांकी रहन गएमा वा
+                                माथी
+                                उल्लेखित चल अचल धितोबाट कर्जा तिर्न अपुग भएमा सो धितो समेतबाट कर्जा असुल उपर गर्न पाउने
+                                अधिकार
                                 बैंकलाई हुनेछ । साथै,
-                                यो कर्जाको लागि उपलब्ध गराएको धितोबाट ऋणीले बैंकबाट उपभोग गरेको तिर्न वाँकी जुनसुकै कर्जा समेत
+                                यो कर्जाको लागि उपलब्ध गराएको धितोबाट ऋणीले बैंकबाट उपभोग गरेको तिर्न वाँकी जुनसुकै
+                                कर्जा समेत
                                 यसै धितोबाट असुल गर्न पाउने अधिकार समेत बैंकलाई हुनेछ ।
                             </td>
                         </tr>
                         <tr>
                             <td>४</td>
-                            <td>ऋण तथा सुविधाहरु भाखा भित्र चुक्ता फस्र्यौट नगरेमा वा धनी बैंकको नियमानुसार कर्जा रकम भुक्तानी
-                                नगरेमा कर्जाको सुरक्षण वापत रहेको वा ऋणीको अन्य चल अचल सम्पति बैंकले तत्कालै आफ्नो नियन्त्रणमा
+                            <td>ऋण तथा सुविधाहरु भाखा भित्र चुक्ता फस्र्यौट नगरेमा वा धनी बैंकको नियमानुसार कर्जा रकम
+                                भुक्तानी
+                                नगरेमा कर्जाको सुरक्षण वापत रहेको वा ऋणीको अन्य चल अचल सम्पति बैंकले तत्कालै आफ्नो
+                                नियन्त्रणमा
                                 लिई लेखिदिएको सुरक्षण लिखत वा
-                                प्रचलित नियम कानून वमोजिम लिलाम विक्री गरी वा अन्य कुनै व्यवस्था गरी वा बैंकले आफ्नो नाममा
-                                स्वामित्व लिई/सकार गरी कर्जा असुल उपर गर्न पाउनेछ । यसरी कर्जा असुली सम्बन्धमा हुने सम्पूर्ण
+                                प्रचलित नियम कानून वमोजिम लिलाम विक्री गरी वा अन्य कुनै व्यवस्था गरी वा बैंकले आफ्नो
+                                नाममा
+                                स्वामित्व लिई/सकार गरी कर्जा असुल उपर गर्न पाउनेछ । यसरी कर्जा असुली सम्बन्धमा हुने
+                                सम्पूर्ण
                                 खर्चहरु ऋणीबाट कर्जा सरह अधिकतम व्याज
                                 लगाई असुल उपर गरिनेछ ।
                             </td>
                         </tr>
                         <tr>
                             <td>५</td>
-                            <td>बैंकले आवश्यक देखेमा ऋणीलाई पूर्व सूचना दिई वा नदिई धितो वा वन्धक राखेको चल अचल सम्पत्तिहरु वा
-                                बैंकको कर्जाबाट खरिद वा निर्माण गरेको घर/भवन/टहरा/परियोजनासवारी साधन/मौज्दात/खाता वहि/प्लान्ट
+                            <td>बैंकले आवश्यक देखेमा ऋणीलाई पूर्व सूचना दिई वा नदिई धितो वा वन्धक राखेको चल अचल
+                                सम्पत्तिहरु वा
+                                बैंकको कर्जाबाट खरिद वा निर्माण गरेको घर/भवन/टहरा/परियोजनासवारी साधन/मौज्दात/खाता
+                                वहि/प्लान्ट
                                 मिल मेशिनरी लगायतको
                                 विवरणको निरीक्षण गर्न वा खोज तलास गर्न वा अन्य कसैको नियन्त्रणमा रहेको भए सोवाट आफ्नो
-                                नियन्त्रणमा लिन वा पुनरमुल्यांकन गर्न गराउन सक्नेछ । यसरी त्यस्ता कार्य गर्दा लाग्ने खर्च, फि,
+                                नियन्त्रणमा लिन वा पुनरमुल्यांकन गर्न गराउन सक्नेछ । यसरी त्यस्ता कार्य गर्दा लाग्ने
+                                खर्च, फि,
                                 शुल्क वा दै–दस्तुर तथा कर्जा/सुविधा लिंदा लाग्ने
                                 सवै प्रकारका खर्चहरु ऋणी स्वयमले व्यहोर्नु पर्नेछ ।
                             </td>
                         </tr>
                         <tr>
                             <td>६</td>
-                            <td>बैंकको पूर्व स्वीकृती विना ऋणीले बैंकको लगानीबाट खरिद गरेको चल अचल सम्पत्ति वा बैंकलाई धितो
-                                वन्धक दिएको चल अचल सम्पत्ति अन्य कुनै बैंक तथा वित्तिय संस्था वा कर्जा लगानी गर्ने कुनै संस्था
+                            <td>बैंकको पूर्व स्वीकृती विना ऋणीले बैंकको लगानीबाट खरिद गरेको चल अचल सम्पत्ति वा बैंकलाई
+                                धितो
+                                वन्धक दिएको चल अचल सम्पत्ति अन्य कुनै बैंक तथा वित्तिय संस्था वा कर्जा लगानी गर्ने कुनै
+                                संस्था
                                 वा व्यक्तिलाई धितो दिन वा
-                                ऋणीले लिएको अरु कसैको बांकी रकममा कुनैपनि किसिमको हक वा दावी वा धितोको हक स्थापित गर्न पाइने छैन
+                                ऋणीले लिएको अरु कसैको बांकी रकममा कुनैपनि किसिमको हक वा दावी वा धितोको हक स्थापित गर्न
+                                पाइने छैन
                                 ।
                             </td>
                         </tr>
                         <tr>
                             <td>७</td>
-                            <td>बैंकको सुरक्षणमा रहेको चल अचल सम्पत्ति सुरक्षा साथ राम्रो तथा चालु हालतमा राख्नु पर्नेछ । साथै
-                                त्यस्ता सम्पति बैंकको पूर्व स्वीकृती नलिई कुनै तेश्रो व्यक्तिलाई संचालन, भोग, उपयोग, प्रयोग गर्न
+                            <td>बैंकको सुरक्षणमा रहेको चल अचल सम्पत्ति सुरक्षा साथ राम्रो तथा चालु हालतमा राख्नु पर्नेछ
+                                । साथै
+                                त्यस्ता सम्पति बैंकको पूर्व स्वीकृती नलिई कुनै तेश्रो व्यक्तिलाई संचालन, भोग, उपयोग,
+                                प्रयोग गर्न
                                 दिन वा धितोको स्वरुप परिवर्तन
                                 गर्न वा सवारी साधनको दर्ता नं. वा दर्ता रहेको ठेगाना परिवर्तन गर्न पाउने छैन ।
                             </td>
                         </tr>
                         <tr>
                             <td>८</td>
-                            <td>कर्जा/सुविधा अनियमित भएको अवस्थामा नियमित वनाई राख्न बैंकले ऋणीलाई पूर्व सूचना दिई वा नदिई ऋणीको
-                                खाता खर्च गरी कर्जा हिसाव मिलान गर्न सक्नेछ । यसका लागि ऋणीले आफ्नो खातामा पर्याप्त रकम कायम
+                            <td>कर्जा/सुविधा अनियमित भएको अवस्थामा नियमित वनाई राख्न बैंकले ऋणीलाई पूर्व सूचना दिई वा
+                                नदिई ऋणीको
+                                खाता खर्च गरी कर्जा हिसाव मिलान गर्न सक्नेछ । यसका लागि ऋणीले आफ्नो खातामा पर्याप्त रकम
+                                कायम
                                 राख्नु
                                 पर्नेछ । सो बमोजिम नभएमा ऋणीले बैंकको नियमानुसार हर्जना व्याज तिर्नु पर्नेछ ।
                             </td>
@@ -2169,25 +2375,34 @@
                         <tr>
                             <td>९</td>
                             <td>ऋणीको नाममा स्वीकृत उल्लेखित शिर्षकको कर्जा वा कर्जा सीमा भित्र रही पछि लिने अरु विभिन्न
-                                शिर्षकको कर्जाको साँवा, व्याज, किस्ता, सोमा लाग्ने अन्य व्याज, प्रशासनिक शुल्क, अग्रिम भुक्तानी
+                                शिर्षकको कर्जाको साँवा, व्याज, किस्ता, सोमा लाग्ने अन्य व्याज, प्रशासनिक शुल्क, अग्रिम
+                                भुक्तानी
                                 शुल्क, कानूनी खर्चहरु, मुल्यांकन
-                                खर्च लगायतका अन्य खर्चहरु समेत ऋणीको खाता (हरु) तथा भबिष्यमा संचालन हुने खाता समेतबाट बैंकले
-                                उपयुक्त ठानेको रकम कट्टि गर्न यसै पत्रद्वारा पूर्ण तथा अपरिवर्तनीय अधिकार (Authority to Debit
+                                खर्च लगायतका अन्य खर्चहरु समेत ऋणीको खाता (हरु) तथा भबिष्यमा संचालन हुने खाता समेतबाट
+                                बैंकले
+                                उपयुक्त ठानेको रकम कट्टि गर्न यसै पत्रद्वारा पूर्ण तथा अपरिवर्तनीय अधिकार (Authority to
+                                Debit
                                 Account)
-                                प्रदान गर्दछ । साथै ऋणीले बैंक मार्फत कुनै बैकिङ्ग कार्य गरेमा सो को सम्बन्धमा हुने वा भएको लागत
+                                प्रदान गर्दछ । साथै ऋणीले बैंक मार्फत कुनै बैकिङ्ग कार्य गरेमा सो को सम्बन्धमा हुने वा
+                                भएको लागत
                                 खर्चको भुक्तानी समेत ऋणीको खाताबाट कट्टि गर्न पूर्ण अपरिवर्तनीय अधिकार प्रदान गर्दछ ।
                             </td>
                         </tr>
                         <tr>
                             <td>१०</td>
                             <td>ऋणीले लिएको ऋण कर्जाको लागि गरि दिएको कर्जा तमसुक/प्रतिज्ञा पत्रमा उल्लेख भएको रकम र पछि
-                                भविष्यमा लिने सम्पूर्ण ऋण कर्जा समेतको लागि बैंकलाई सुरक्षण वापत उपलब्ध गराएको प्रतिज्ञापत्रको
+                                भविष्यमा लिने सम्पूर्ण ऋण कर्जा समेतको लागि बैंकलाई सुरक्षण वापत उपलब्ध गराएको
+                                प्रतिज्ञापत्रको
                                 आधारमा बैंकले हाल प्रदान
-                                गरेको कर्जा र भविष्यमा प्रदान गर्ने घटीबढी कर्जा रकम तिर्न वुझाउन बांकी रहेमा ऋणी जिम्मेवार
-                                रहनेछ । यसरी बांकी रहेको सम्पूर्ण तिर्न वुझाउन बांकी रकम भविष्यमा थपघट भई वा समय समयमा चुक्ता
+                                गरेको कर्जा र भविष्यमा प्रदान गर्ने घटीबढी कर्जा रकम तिर्न वुझाउन बांकी रहेमा ऋणी
+                                जिम्मेवार
+                                रहनेछ । यसरी बांकी रहेको सम्पूर्ण तिर्न वुझाउन बांकी रकम भविष्यमा थपघट भई वा समय समयमा
+                                चुक्ता
                                 गरिने किस्ताको कारण कुनै
-                                समयमा शुन्य व्यालेन्स वा क्रेडिट व्यालेन्स नै रहन गएमा पनि तत्पश्चातको कारोवारबाट पुनः कायम हुन
-                                जाने कर्जा रकम समेतमा ऋणीको खाताबाट सोझै झिकी हिसाव मिलान गरेमा यसै लिखतबाट कर्जा निरन्तरताको
+                                समयमा शुन्य व्यालेन्स वा क्रेडिट व्यालेन्स नै रहन गएमा पनि तत्पश्चातको कारोवारबाट पुनः
+                                कायम हुन
+                                जाने कर्जा रकम समेतमा ऋणीको खाताबाट सोझै झिकी हिसाव मिलान गरेमा यसै लिखतबाट कर्जा
+                                निरन्तरताको
                                 मन्जुरी
                                 (Letter of Continuity) प्रदान गरेको छु ।
                             </td>
@@ -2200,16 +2415,23 @@
                         </tr>
                         <tr>
                             <td>१२</td>
-                            <td>ऋणीले बैंकलाई धितो लेखिदिएको वा वन्धक राखेको सम्पूर्ण सम्पत्तिको जोखिम सुरक्षीत गर्नका लागि
-                                बैंकले माग गरे बमोजिमको वीमा शिर्षकहरु समावेश गरी गराई बैंकको नाममा वीमा गरी सक्कलै बिमालेख तथा
+                            <td>ऋणीले बैंकलाई धितो लेखिदिएको वा वन्धक राखेको सम्पूर्ण सम्पत्तिको जोखिम सुरक्षीत गर्नका
+                                लागि
+                                बैंकले माग गरे बमोजिमको वीमा शिर्षकहरु समावेश गरी गराई बैंकको नाममा वीमा गरी सक्कलै
+                                बिमालेख तथा
                                 शुल्क तिरेको रसिद
-                                ऋणीले बैंकलाई अनिवार्य रुपमा दिनुपर्नेछ । साथै, वीमालेखको म्याद समाप्त हुनुअगावै नविकरण गरि
-                                नविकरण भएको वीमालेख र नविकरण शुल्क वुझाएको रसिद बैंकलाई उपलब्ध गराउनु पर्नेछ । कथमकदाचित ऋणीले
+                                ऋणीले बैंकलाई अनिवार्य रुपमा दिनुपर्नेछ । साथै, वीमालेखको म्याद समाप्त हुनुअगावै नविकरण
+                                गरि
+                                नविकरण भएको वीमालेख र नविकरण शुल्क वुझाएको रसिद बैंकलाई उपलब्ध गराउनु पर्नेछ । कथमकदाचित
+                                ऋणीले
                                 वीमा नविकरण
-                                नगराएमा बैंक आफैले वीमा गराई सो वापत लाग्ने शुल्क ऋणीको खातावाट सोझै खर्च लेखी नविकरण गर्न वा
-                                फोर्स लोन बुक गरी नविकरण गर्न सक्नेछ । यसरी बैंकले भुक्तानी गरेको नविकरण वापतको रकम ऋणीवाट कर्जा
+                                नगराएमा बैंक आफैले वीमा गराई सो वापत लाग्ने शुल्क ऋणीको खातावाट सोझै खर्च लेखी नविकरण
+                                गर्न वा
+                                फोर्स लोन बुक गरी नविकरण गर्न सक्नेछ । यसरी बैंकले भुक्तानी गरेको नविकरण वापतको रकम
+                                ऋणीवाट कर्जा
                                 सरह
-                                अधिकतम व्याज लगाई असुल उपर गरिनेछ । तर ऋणी स्वयमले वीमा नविकरण नगरेको अवस्थामा नविकरण गर्ने वा
+                                अधिकतम व्याज लगाई असुल उपर गरिनेछ । तर ऋणी स्वयमले वीमा नविकरण नगरेको अवस्थामा नविकरण
+                                गर्ने वा
                                 नगर्ने पूर्ण अधिकार बैंकमा निहित हुनेछ र नविकरण नगरेको कारणले मात्र कुनै क्षति भएमा सोको
                                 जवाफदेही बैंक
                                 हुनेछैन ।
@@ -2217,102 +2439,133 @@
                         </tr>
                         <tr>
                             <td>१३</td>
-                            <td>आवश्यक परेमा ऋणीले धितो राखेको सम्पत्ति पुरै वा आंिशक रुपमा बैंकले अन्य तेश्रो पक्षलाई पुनः धितो
+                            <td>आवश्यक परेमा ऋणीले धितो राखेको सम्पत्ति पुरै वा आंिशक रुपमा बैंकले अन्य तेश्रो पक्षलाई
+                                पुनः धितो
                                 दिन सक्नेछ ।
                             </td>
                         </tr>
                         <tr>
                             <td>१४</td>
-                            <td>बैंकको पूर्व स्वीकृति विना अन्य कुनै बैंक तथा वित्तीय संस्थावाट कुनै किसिमको कर्जा सुविधा उपभोग
+                            <td>बैंकको पूर्व स्वीकृति विना अन्य कुनै बैंक तथा वित्तीय संस्थावाट कुनै किसिमको कर्जा
+                                सुविधा उपभोग
                                 गर्न पाउने छैन ।
                             </td>
                         </tr>
                         <tr>
                             <td>१५</td>
-                            <td>कर्जा वा सुविधा प्राप्त गरेका वखत स्वीकार गरेको उद्देश्य वाहेक ऋणीले प्राप्त गर्ने कर्जा वा
+                            <td>कर्जा वा सुविधा प्राप्त गरेका वखत स्वीकार गरेको उद्देश्य वाहेक ऋणीले प्राप्त गर्ने कर्जा
+                                वा
                                 सुविधा वा त्यसको कुनै अंश अन्य उद्देश्यको लागि उपयोग गर्न पाउने छैन ।
                             </td>
                         </tr>
                         <tr>
                             <td>१६</td>
-                            <td>ऋणी वा यस कर्जा/सुविधाको लागि जमानी दिने जमानीकर्ताले लक्ष्मी बैंकको <strong>एक प्रतिशत वा सो
-                                भन्दा वढी शेयर</strong> धारण गर्न पाउने छैन र आगामी दिनमा समेत उक्त प्रतिशत बृद्धि गर्न पाउने
+                            <td>ऋणी वा यस कर्जा/सुविधाको लागि जमानी दिने जमानीकर्ताले लक्ष्मी बैंकको <strong>एक प्रतिशत
+                                वा सो
+                                भन्दा वढी शेयर</strong> धारण गर्न पाउने छैन र आगामी दिनमा समेत उक्त प्रतिशत बृद्धि गर्न
+                                पाउने
                                 छैन ।
                             </td>
                         </tr>
                         <tr>
                             <td>१७</td>
                             <td>कर्जा खिलाफि भएको अवस्थामा बैंकले प्रचलित कानून तथा नेपाल राष्ट्र बैंकबाट जारी हुने
-                                निर्देशिका/निर्देशन वमोजिम ऋणी/जमानतकर्ता/संस्थापक/सञ्चालक/शेयरधनी/प्रोप्राइटर/साझेदार तथा ऋण
+                                निर्देशिका/निर्देशन वमोजिम ऋणी/जमानतकर्ता/संस्थापक/सञ्चालक/शेयरधनी/प्रोप्राइटर/साझेदार
+                                तथा ऋण
                                 कर्जासंग सम्वद्ध व्यक्तिहरुलाई कालो सूचिमा समावेश गर्न वा
-                                अन्य कुनै कारवाही गर्नका लागि कर्जा सूचना केन्द्र वा अन्य सक्षम निकाय समक्ष सिफारिश गर्न सक्नेछ
-                                । साथै प्रचलित कानून वा निर्देशन बमोजिम कर्जासंग सम्बन्धित व्यक्तिलाई राज्यबाट प्रदान गरिने सेवा
+                                अन्य कुनै कारवाही गर्नका लागि कर्जा सूचना केन्द्र वा अन्य सक्षम निकाय समक्ष सिफारिश गर्न
+                                सक्नेछ
+                                । साथै प्रचलित कानून वा निर्देशन बमोजिम कर्जासंग सम्बन्धित व्यक्तिलाई राज्यबाट प्रदान
+                                गरिने सेवा
                                 सुविधा रोक्काको लागि समेत कारवाही गर्न सकिनेछ ।
                             </td>
                         </tr>
                         <tr>
                             <td>१८</td>
-                            <td>बैंकबाट उपभोग गरेको कर्जा/कर्जा सुविधाको सम्बन्धमा वा बैंकको लगानीबाट खरिद गरेको वा निर्माण
-                                गरेको सम्पत्ति वा बैंकलाई धितो लेखिदिएको सम्पत्ति सम्वन्धी उठेको कुनैपनि किसिमको कानूनी मुद्दा
+                            <td>बैंकबाट उपभोग गरेको कर्जा/कर्जा सुविधाको सम्बन्धमा वा बैंकको लगानीबाट खरिद गरेको वा
+                                निर्माण
+                                गरेको सम्पत्ति वा बैंकलाई धितो लेखिदिएको सम्पत्ति सम्वन्धी उठेको कुनैपनि किसिमको कानूनी
+                                मुद्दा
                                 मामिला वा कानूनी कारवाहीको
-                                सिलसिलामा वा ऋणी र बैंक वीचको कारोवारको क्रममा कुनै विवाद वा कानूनी मुद्दा मामिलाको सिलसिलामा
-                                आवश्यक पर्ने प्रतिनिधि, वारेस वा कानून व्यवसायी नियुक्त गर्न, प्रतिनिधित्व गर्न र बहस पैरवी गर्न
+                                सिलसिलामा वा ऋणी र बैंक वीचको कारोवारको क्रममा कुनै विवाद वा कानूनी मुद्दा मामिलाको
+                                सिलसिलामा
+                                आवश्यक पर्ने प्रतिनिधि, वारेस वा कानून व्यवसायी नियुक्त गर्न, प्रतिनिधित्व गर्न र बहस
+                                पैरवी गर्न
                                 गराउन, त्यस्तो कानूनी
-                                कारवाहीको सिलसिलामा हुने आवत जावत खर्च, फि शुल्क लगायतका हुने खर्चहरु ऋणी स्वयमले व्यहोर्नु
-                                पर्नेछ । कथमकदाचित बैंकले त्यस्ता खर्चहरु गरेमा सो सम्पूर्ण खर्चहरु ऋणीको खातामा खर्च जनाई
+                                कारवाहीको सिलसिलामा हुने आवत जावत खर्च, फि शुल्क लगायतका हुने खर्चहरु ऋणी स्वयमले
+                                व्यहोर्नु
+                                पर्नेछ । कथमकदाचित बैंकले त्यस्ता खर्चहरु गरेमा सो सम्पूर्ण खर्चहरु ऋणीको खातामा खर्च
+                                जनाई
                                 ऋणीबाट कर्जा सरह प्रचलित
                                 अधिकतम व्याज लगाई असुल उपर गरिनेछ ।
                             </td>
                         </tr>
                         <tr>
                             <td>१९</td>
-                            <td>सामान छुटाउन र वन्दरगाहमा ((Port-of-call) लाग्ने अन्य खर्चहरु, नेपालको सिमा सम्म सामान ल्याई
-                                पुर्याउन लाग्ने यातायात खर्च, भन्सार महसुल, कर तथा नेपालको सिमामा लाग्ने अन्य सम्वन्धित खर्चहरु,
+                            <td>सामान छुटाउन र वन्दरगाहमा ((Port-of-call) लाग्ने अन्य खर्चहरु, नेपालको सिमा सम्म सामान
+                                ल्याई
+                                पुर्याउन लाग्ने यातायात खर्च, भन्सार महसुल, कर तथा नेपालको सिमामा लाग्ने अन्य सम्वन्धित
+                                खर्चहरु,
                                 धितोमा राखेको सम्पतिको
-                                सवै किसिमका दर्ता शुल्क, नविकरण शुल्क, ज्याला, दै–दस्तुर वा लाग्ने जुनसुकै कर तथा जरिवाना
-                                लगायतको सबै प्रकारको शुल्क तथा जरिवाना सम्बन्धित निकायमा यथासमयमा ऋणीले वुझाउनु पर्नेछ । त्यस्तो
+                                सवै किसिमका दर्ता शुल्क, नविकरण शुल्क, ज्याला, दै–दस्तुर वा लाग्ने जुनसुकै कर तथा
+                                जरिवाना
+                                लगायतको सबै प्रकारको शुल्क तथा जरिवाना सम्बन्धित निकायमा यथासमयमा ऋणीले वुझाउनु पर्नेछ ।
+                                त्यस्तो
                                 शुल्क तथा दस्तुर नवुझाएको
-                                कारणवाट बैंकलाई कुनै पनि किसिमको हानी नोक्शानी वा दायित्व सिर्जना गराउन पाइने छैन । ऋणीले नवुझाई
-                                वाँकी राखेमा त्यस्ता सवै बाँकी रकम बैंक आफैले भुक्तानी गर्न सक्नेछ र यसरी बैंकले भुक्तानी गरेको
+                                कारणवाट बैंकलाई कुनै पनि किसिमको हानी नोक्शानी वा दायित्व सिर्जना गराउन पाइने छैन ।
+                                ऋणीले नवुझाई
+                                वाँकी राखेमा त्यस्ता सवै बाँकी रकम बैंक आफैले भुक्तानी गर्न सक्नेछ र यसरी बैंकले
+                                भुक्तानी गरेको
                                 रकम ऋणीको खातामा
-                                खर्च जनाई (Force Loan) ऋणीवाट कर्जा सरह अधिकतम व्याज र हर्जना लगाई असुलउपर गर्नेछ । तर त्यस्तो
-                                रकम बैंकले भुक्तानी गर्ने वा नगर्ने स्वेच्छिक अधिकार बैंकमा निहित हुनेछ र सोको कारणबाट उत्पन्न
+                                खर्च जनाई (Force Loan) ऋणीवाट कर्जा सरह अधिकतम व्याज र हर्जना लगाई असुलउपर गर्नेछ । तर
+                                त्यस्तो
+                                रकम बैंकले भुक्तानी गर्ने वा नगर्ने स्वेच्छिक अधिकार बैंकमा निहित हुनेछ र सोको कारणबाट
+                                उत्पन्न
                                 दायित्व प्रति बैंक
                                 जवाफदेही हुनेछैन ।
                             </td>
                         </tr>
                         <tr>
                             <td>२०</td>
-                            <td>धितो सुरक्षणमा रहेको सम्पत्ती कच्चा ठहरेमा वा सम्पतिको मुल्य घट्न गएमा वा धितो पर्याप्त नभएमा
-                                ऋणीले कर्जालाई खाम्ने गरी बैंकलाई मान्य हुने थप धितो दिनुपर्नेछ वा धिताले नखामे सम्मको कर्जा रकम
+                            <td>धितो सुरक्षणमा रहेको सम्पत्ती कच्चा ठहरेमा वा सम्पतिको मुल्य घट्न गएमा वा धितो पर्याप्त
+                                नभएमा
+                                ऋणीले कर्जालाई खाम्ने गरी बैंकलाई मान्य हुने थप धितो दिनुपर्नेछ वा धिताले नखामे सम्मको
+                                कर्जा रकम
                                 ऋणीले तत्कालै भुक्तानी गर्नुपर्नेछ ।
                             </td>
                         </tr>
                         <tr>
                             <td>२१</td>
-                            <td>बैंकको लगानीमा खरिद गरेको सम्पत्ति नासिएमा, चोरिएमा वा अन्य कुनै क्षति भएमा ऋणीले बैंक र वीमा
-                                कम्पनीलाई तत्कालै खवर गर्नु पर्नेछ र कुनै किसिमको दावीमा सहमति जनाउनु पूर्व बैंकको स्वीकृति लिनु
+                            <td>बैंकको लगानीमा खरिद गरेको सम्पत्ति नासिएमा, चोरिएमा वा अन्य कुनै क्षति भएमा ऋणीले बैंक र
+                                वीमा
+                                कम्पनीलाई तत्कालै खवर गर्नु पर्नेछ र कुनै किसिमको दावीमा सहमति जनाउनु पूर्व बैंकको
+                                स्वीकृति लिनु
                                 पर्नेछ । वीमा दावी गर्दा लाग्ने
-                                खर्च ऋणीले व्यहोर्नेु पर्नेछ । कथमकदाचित वीमा दावी गर्दा बैंकले खर्च गरेमा वा गर्नु परेमा ऋणीको
+                                खर्च ऋणीले व्यहोर्नेु पर्नेछ । कथमकदाचित वीमा दावी गर्दा बैंकले खर्च गरेमा वा गर्नु
+                                परेमा ऋणीको
                                 खातावाट सोझै असुलउपर गरी वाँकी रकम कर्जामा मिलान गरिनेछ ।
                             </td>
                         </tr>
                         <tr>
                             <td>२२</td>
-                            <td>बैंकमा धितो राखिएको सम्पत्तिको सम्वन्धमा कुनै प्रकारको विवाद सिर्जना भएमा बैंक र ऋणीको आफ्नै
+                            <td>बैंकमा धितो राखिएको सम्पत्तिको सम्वन्धमा कुनै प्रकारको विवाद सिर्जना भएमा बैंक र ऋणीको
+                                आफ्नै
                                 अधिकार सुनिश्चित गर्न ऋणीले सवै सावधानी अपनाउनु पर्नेछ ।
                             </td>
                         </tr>
                         <tr>
                             <td>२३</td>
-                            <td>ऋणीले गरेको कुनै पनि किसिमको गैर कानूनी कृयाकलाप वा अन्य कुनै पनि दुर्घटनाजन्य कार्यमा बैंक
+                            <td>ऋणीले गरेको कुनै पनि किसिमको गैर कानूनी कृयाकलाप वा अन्य कुनै पनि दुर्घटनाजन्य कार्यमा
+                                बैंक
                                 उत्तरदायी हुने छैन । कुनै कारणले जरिवाना तोकिएमा सो सवै ऋणीले वुझाउनु पर्नेछ ।
                             </td>
                         </tr>
                         <tr>
                             <td>२४</td>
-                            <td>कुनै पनि किसिमको गैर कानूनी ओसार पसार तथा ढुवानीमा सवारी साधनको प्रगोग वा सवारी साधनको दुरुपयोग
-                                गर्न वा गराउन पाउने छैन । त्यस्ता गैर कानूनी कृयाकलापबाट कुनै क्षति वा दायित्व उत्पन्न भएमा सोको
+                            <td>कुनै पनि किसिमको गैर कानूनी ओसार पसार तथा ढुवानीमा सवारी साधनको प्रगोग वा सवारी साधनको
+                                दुरुपयोग
+                                गर्न वा गराउन पाउने छैन । त्यस्ता गैर कानूनी कृयाकलापबाट कुनै क्षति वा दायित्व उत्पन्न
+                                भएमा सोको
                                 पूर्ण रुपमा ऋणी
                                 जिम्मेवार हुनेछ । साथै सवारी साधनबाट भएको वा हुने दुर्घटनाबाट उतपन्न दायित्व ऋणीले पुरा
                                 गर्नुपर्नेछ ।
@@ -2320,10 +2573,13 @@
                         </tr>
                         <tr>
                             <td>२५</td>
-                            <td>यस प्रस्तावपत्रमा कर्जा पुनरावलोकन ((Loan Renew or Review) मिति जेसुकै उल्लेख गरिएको भएता पनि
-                                ऋणीले लिएका कर्जा तथा सुविधाहरु कुनै कारण देखाई वा नदेखाई बैंकले फिर्ता भुक्तानी माग गरेका वखत
+                            <td>यस प्रस्तावपत्रमा कर्जा पुनरावलोकन ((Loan Renew or Review) मिति जेसुकै उल्लेख गरिएको
+                                भएता पनि
+                                ऋणीले लिएका कर्जा तथा सुविधाहरु कुनै कारण देखाई वा नदेखाई बैंकले फिर्ता भुक्तानी माग
+                                गरेका वखत
                                 तत्कालै भुक्तानी
-                                गर्नु पर्नेछ । सुविधाको पुनरावलोकन वखत तोकिएको बमोजिमको शुल्क असुल उपर गरिनेछ । साथै कर्जा
+                                गर्नु पर्नेछ । सुविधाको पुनरावलोकन वखत तोकिएको बमोजिमको शुल्क असुल उपर गरिनेछ । साथै
+                                कर्जा
                                 नविकरण गर्नको लागि लाग्ने प्रशासनिक शुल्क तथा अन्य शुल्कहरु तहाँको खातामा प्रयाप्त नभएको
                                 अवस्थामा कर्जा नविकरण गर्न बैंक
                                 वाध्यहुने छैन ।
@@ -2331,82 +2587,105 @@
                         </tr>
                         <tr>
                             <td>२६</td>
-                            <td>ऋणीको नाममा स्वीकृत भएको कर्जा रकम अन्य देशको बैंकमा विदेशी मुद्रामा रकम रकमान्तर गर्ने सुविधा
-                                यस बैंकमा नभएको खण्डमा मात्र ऋणीले यस बैंकबाट स्वीकृती लिई नेपालका अन्य बैंक तथा वित्तीय संस्था
+                            <td>ऋणीको नाममा स्वीकृत भएको कर्जा रकम अन्य देशको बैंकमा विदेशी मुद्रामा रकम रकमान्तर गर्ने
+                                सुविधा
+                                यस बैंकमा नभएको खण्डमा मात्र ऋणीले यस बैंकबाट स्वीकृती लिई नेपालका अन्य बैंक तथा वित्तीय
+                                संस्था
                                 मार्फत विदेशी मुद्रा
-                                रकमान्तर गर्न सक्नेछ । तर अन्य बैंकबाट रकम रकमान्तर गर्नुपरेमा त्यसरी रकमान्तर गरेको प्रमाण
+                                रकमान्तर गर्न सक्नेछ । तर अन्य बैंकबाट रकम रकमान्तर गर्नुपरेमा त्यसरी रकमान्तर गरेको
+                                प्रमाण
                                 सम्बन्धित बैंकबाट प्रमाणित गराई यस बैंकमा पेश गर्नुपर्नेछ ।
                             </td>
                         </tr>
                         <tr>
                             <td>२७</td>
                             <td>बैंकले धितोमा रहेको शेयरको समय समयमा मुल्याङ्गकन गर्दाका बखत कायम रहेको बजार मुल्यले यस
-                                सम्झौतामा उल्लेखित Drawdown बमोजिम कर्जा रकम खाम्न नसकेमा वा धितो राखेको शेयरको बजार मुल्य
+                                सम्झौतामा उल्लेखित Drawdown बमोजिम कर्जा रकम खाम्न नसकेमा वा धितो राखेको शेयरको बजार
+                                मुल्य
                                 स्वीकृत शर्त भन्दा कम
-                                भएमा कर्जालाई खाम्ने गरी बैंकले Margin Call माग गरेमा ऋणीले तत्कालै वा बैंकले दिएको समयसिमा
-                                भित्रमा नपुग रकम जम्मा गर्नु पर्नेछ वा ऋणीले बैंकलाई मान्य हुने थप धितो सुरक्षण उपलव्ध गराउनु
+                                भएमा कर्जालाई खाम्ने गरी बैंकले Margin Call माग गरेमा ऋणीले तत्कालै वा बैंकले दिएको
+                                समयसिमा
+                                भित्रमा नपुग रकम जम्मा गर्नु पर्नेछ वा ऋणीले बैंकलाई मान्य हुने थप धितो सुरक्षण उपलव्ध
+                                गराउनु
                                 पर्नेछ ।
                             </td>
                         </tr>
                         <tr>
                             <td>२८</td>
-                            <td>संस्थापक शेयर धितो राखि कर्जा उपभोग गरेका ऋणीले तोकिएको भुक्तानी अवधिमा कर्जा चुक्ता नगरेमा
+                            <td>संस्थापक शेयर धितो राखि कर्जा उपभोग गरेका ऋणीले तोकिएको भुक्तानी अवधिमा कर्जा चुक्ता
+                                नगरेमा
                                 प्रचलित कानून तथा नेपाल राष्ट्र बैंकबाट जारी निर्देशन बमोजिम <strong>ऋणी/धितो
                                     जमानतकर्ता/संस्थापक/सञ्चालकलाई कालोसूचीमा समावेश गर्ने
-                                    वारेको ३५ दिने सूचना दिई सोको ७ दिन भित्रमा अनिवार्य रुपमा कालो सूचीमा राखिनेछ ।</strong>
+                                    वारेको ३५ दिने सूचना दिई सोको ७ दिन भित्रमा अनिवार्य रुपमा कालो सूचीमा राखिनेछ
+                                    ।</strong>
                             </td>
                         </tr>
                         <tr>
                             <td>२९</td>
-                            <td>बैंकले जारी गरेको जमानीपत्र वा प्रत्याभूति, प्रतितपत्र वमोजिमको रकमको भुक्तानी हिताधिकारीबाट माग
-                                भई आएमा माग बमोजिमको रकम भुक्तानी गर्नुपर्ने व्यवस्था ऋणीले गर्नुपर्नेछ । अन्यथा त्यस्तो रकम यस
+                            <td>बैंकले जारी गरेको जमानीपत्र वा प्रत्याभूति, प्रतितपत्र वमोजिमको रकमको भुक्तानी
+                                हिताधिकारीबाट माग
+                                भई आएमा माग बमोजिमको रकम भुक्तानी गर्नुपर्ने व्यवस्था ऋणीले गर्नुपर्नेछ । अन्यथा त्यस्तो
+                                रकम यस
                                 बैंकले ऋणीको खाता खर्च
-                                (Force Loan) जनाई हिताधिकारीलाई भुक्तानी दिइनेछ र यस्तो भुक्तानी गरेको रकममा बैंकको नियमानुसारको
+                                (Force Loan) जनाई हिताधिकारीलाई भुक्तानी दिइनेछ र यस्तो भुक्तानी गरेको रकममा बैंकको
+                                नियमानुसारको
                                 अधिकतम व्याज तथा हर्जना लगाई ऋणीको जुनसुकै चल अचल सम्पतिबाट असुल उपर गरिनेछ ।
                             </td>
                         </tr>
                         <tr>
                             <td>३०</td>
-                            <td>ऋणीलाई आवश्यक पर्ने अरु कुनै पनि बैंकिङ्ग कारोवार गर्नु पर्ने भएमा सर्वप्रथम बैंकलाई प्रस्ताव
-                                गर्नुपर्नेछ । बैंकको स्वीकृती वेगर अन्य बैंक तथा वित्तीय संस्थाबाट कारोवार गर्न पाउने छैन । साथै
+                            <td>ऋणीलाई आवश्यक पर्ने अरु कुनै पनि बैंकिङ्ग कारोवार गर्नु पर्ने भएमा सर्वप्रथम बैंकलाई
+                                प्रस्ताव
+                                गर्नुपर्नेछ । बैंकको स्वीकृती वेगर अन्य बैंक तथा वित्तीय संस्थाबाट कारोवार गर्न पाउने
+                                छैन । साथै
                                 ऋणीले कुनै व्यक्ति तथा संस्थाबाट कर्जा
-                                उपभोग गरिरहेको भएमा सर्वप्रथम यस बैंकबाट उपभोग गरेको कर्जा तिर्ने व्यवस्थालाई प्राथमिक्तामा
+                                उपभोग गरिरहेको भएमा सर्वप्रथम यस बैंकबाट उपभोग गरेको कर्जा तिर्ने व्यवस्थालाई
+                                प्राथमिक्तामा
                                 राख्नुपर्नेछ र अन्यको कर्जालाई दोश्रो प्राथमिक्तामा राख्नुपर्नेछ ।
                             </td>
                         </tr>
                         <tr>
                             <td>३१</td>
-                            <td>ऋणीले प्रत्येक अर्ध–वार्षिक समाप्त भएको १ महिनाभित्र ऋणीको वित्तीय विवरण र आर्थिक बर्ष समाप्त
-                                भएको ६ महिना भित्र लेखा परीक्षण प्रतिवेदन सहितको वासलात, नाफा नोक्सान हिसाव तथा नगद प्रवाह विवरण
+                            <td>ऋणीले प्रत्येक अर्ध–वार्षिक समाप्त भएको १ महिनाभित्र ऋणीको वित्तीय विवरण र आर्थिक बर्ष
+                                समाप्त
+                                भएको ६ महिना भित्र लेखा परीक्षण प्रतिवेदन सहितको वासलात, नाफा नोक्सान हिसाव तथा नगद
+                                प्रवाह विवरण
                                 र कर चुक्ता गरेको
                                 प्रमाणपत्र बैंक समक्ष पेश गर्नु पर्नेछ ।
                             </td>
                         </tr>
                         <tr>
                             <td>३२</td>
-                            <td>समय समयमा बैंकको आवश्यकता अनुसार ऋणीको कारोवार सम्वद्ध व्यवस्थापनद्वारा तयार गरिएको वित्तीय
-                                विवरणहरु, नाफा नोक्शान हिसाव, वासलात, नगद प्रवाह विवरण वा व्यवसायिक योजना वा वित्तीय वा अन्य
+                            <td>समय समयमा बैंकको आवश्यकता अनुसार ऋणीको कारोवार सम्वद्ध व्यवस्थापनद्वारा तयार गरिएको
+                                वित्तीय
+                                विवरणहरु, नाफा नोक्शान हिसाव, वासलात, नगद प्रवाह विवरण वा व्यवसायिक योजना वा वित्तीय वा
+                                अन्य
                                 सूचनाहरु व्यवस्थापनद्वारा
-                                प्रमाणित गराई ऋणीले बैंक समक्ष पेश गर्नु पर्नेछ । त्यस्तो विवरण बैंकले जुनसुकै समयमा माग गर्न
+                                प्रमाणित गराई ऋणीले बैंक समक्ष पेश गर्नु पर्नेछ । त्यस्तो विवरण बैंकले जुनसुकै समयमा माग
+                                गर्न
                                 सक्नेछ र माग गरेको ७ दिन भित्रमा बैंकलाई उपलब्ध गराउनु पर्नेछ ।
                             </td>
                         </tr>
                         <tr>
                             <td>३३</td>
-                            <td>ऋणीले व्यवसाय तथा कारोवारसंग सम्वन्धित विक्री विवरण, स्टक विवरण, तिर्नुपर्ने र उठाउनु पर्ने
-                                उधारो खाताको विवरण मासिक/त्रैमासिक रुपमा वा बैंकले माग गरेका बखत अवधि समाप्त भएको मितिले १५ दिन
+                            <td>ऋणीले व्यवसाय तथा कारोवारसंग सम्वन्धित विक्री विवरण, स्टक विवरण, तिर्नुपर्ने र उठाउनु
+                                पर्ने
+                                उधारो खाताको विवरण मासिक/त्रैमासिक रुपमा वा बैंकले माग गरेका बखत अवधि समाप्त भएको मितिले
+                                १५ दिन
                                 भित्र बैंक समक्ष पेश गर्नु पर्नेछ ।
                             </td>
                         </tr>
                         <tr>
                             <td>३४</td>
-                            <td>स्टक र उठाउनु पर्ने उधारोको रकमले कर्जा रकम खाम्न नसक्ने भएमा चालुपूंजी कर्जाको सिमा तत्कालै
+                            <td>स्टक र उठाउनु पर्ने उधारोको रकमले कर्जा रकम खाम्न नसक्ने भएमा चालुपूंजी कर्जाको सिमा
+                                तत्कालै
                                 घटाउन सकिनेछ र सिमा भन्दा वढी भएको रकम ऋणीले तत्कालै भुक्तानी गर्नु पर्नेछ ।
                             </td>
                         </tr>
                         <tr>
                             <td>३५</td>
-                            <td>बैंकको पूर्व स्वीकृति विना ऋणी संस्थाको स्वामित्व, नियन्त्रण, संस्थापक, शेयर संरचना, शेयर
+                            <td>बैंकको पूर्व स्वीकृति विना ऋणी संस्थाको स्वामित्व, नियन्त्रण, संस्थापक, शेयर संरचना,
+                                शेयर
                                 हस्तान्तरण, साझेदारहरुको परिवर्तन, संचालक समितमा हेरफेर गर्न वा यससंग सम्वद्ध कुनै घटना
                                 परिघटनामा परिवर्तन गर्न पाइने छैन । साथै ऋणी संस्था
                                 अन्य संस्थासंग गाभ्न वा गाभिन पाउने छैन ।
@@ -2414,73 +2693,100 @@
                         </tr>
                         <tr>
                             <td>३६</td>
-                            <td>बैंकको पूर्व स्वीकृति नलिई ऋणीले आफूसंग रहेका सम्पत्तिहरु अरु कुनै व्यक्ति वा निकायका नाममा
-                                हस्तान्तरण गर्न (Transfer), वा अरु कुनै निकायसंग मर्जर गर्न वा विलिन हुन वा अन्य निकायलाई
+                            <td>बैंकको पूर्व स्वीकृति नलिई ऋणीले आफूसंग रहेका सम्पत्तिहरु अरु कुनै व्यक्ति वा निकायका
+                                नाममा
+                                हस्तान्तरण गर्न (Transfer), वा अरु कुनै निकायसंग मर्जर गर्न वा विलिन हुन वा अन्य
+                                निकायलाई
                                 प्राप्त गर्न (Acquire), वा अन्य कुनै
                                 निकायसंग एकिकरण (Consolidate), हुन पाउने छैन ।
                             </td>
                         </tr>
                         <tr>
                             <td>३७</td>
-                            <td>बैंकको पूर्व स्वीकृति विना ऋणीको व्यवसायको प्रकृति वा उद्देश्यमा कुनै परिवर्तन गर्न वा अन्य कुनै
-                                किसिमले ऋणीको व्यवसायको कृयाकलापमा भिन्नता ल्याउन पाइने छैन । ऋणीले आफ्नो कारोवारको कानूनी
+                            <td>बैंकको पूर्व स्वीकृति विना ऋणीको व्यवसायको प्रकृति वा उद्देश्यमा कुनै परिवर्तन गर्न वा
+                                अन्य कुनै
+                                किसिमले ऋणीको व्यवसायको कृयाकलापमा भिन्नता ल्याउन पाइने छैन । ऋणीले आफ्नो कारोवारको
+                                कानूनी
                                 अस्तित्व (Legal existence),
-                                यथावत सुरक्षित र कायम राख्नु पर्नेछ र व्यवसाय सञ्चालनमा कुनै किसिमले कमी आउने क्रियाकलापमा
+                                यथावत सुरक्षित र कायम राख्नु पर्नेछ र व्यवसाय सञ्चालनमा कुनै किसिमले कमी आउने
+                                क्रियाकलापमा
                                 संलग्न हुन पाउने छैन ।
                             </td>
                         </tr>
                         <tr>
                             <td>३८</td>
-                            <td>ऋणीले आफनो ब्यवसाय/उद्योगलाई क्षति हुने वा गराउने वा ब्यवसाय/उद्योगको सम्पत्तिमा ह्रास हुने गरी
-                                कुनै कार्य गरेमा बैंकले तत्काल ऋणीलाई प्रवाह गर्न बाँकी रहेको कर्जा रकम रोक्न वा प्रवाह भई सकेको
+                            <td>ऋणीले आफनो ब्यवसाय/उद्योगलाई क्षति हुने वा गराउने वा ब्यवसाय/उद्योगको सम्पत्तिमा ह्रास
+                                हुने गरी
+                                कुनै कार्य गरेमा बैंकले तत्काल ऋणीलाई प्रवाह गर्न बाँकी रहेको कर्जा रकम रोक्न वा प्रवाह
+                                भई सकेको
                                 कर्जा असुलीको लागि कानूनी कारवाहीहरु
                                 समेत गर्न पाउने छ ।
                             </td>
                         </tr>
                         <tr>
                             <td>३९</td>
-                            <td>ऋणीले बैंक समक्ष पेश गरेको चालू सम्पत्तिहरु र बैंक वक्यौताको विवरणहरु बैंकले कुनै पनि वखत ऋणीलाई
-                                जानकारी दिई वा नदिई जाँच वा परिक्षण गर्न पाउनेछन् । साथै निरिक्षणको क्रममा कुल कर्जाको लागि
+                            <td>ऋणीले बैंक समक्ष पेश गरेको चालू सम्पत्तिहरु र बैंक वक्यौताको विवरणहरु बैंकले कुनै पनि
+                                वखत ऋणीलाई
+                                जानकारी दिई वा नदिई जाँच वा परिक्षण गर्न पाउनेछन् । साथै निरिक्षणको क्रममा कुल कर्जाको
+                                लागि
                                 आवश्यक पर्ने चालु सम्पतिको मुल्य
-                                कम हुन गएमा ऋणीलाई दिइएको कर्जा सीमा पुनरावलोकन गरी नयाँ कर्जा सीमा कायम गरिनेछ । ऋणीले उपभोग
-                                गरेको कर्जा रकम वा स्वीकृत सीमा, स्वीकृत म्चबधष्लन एयधभच भन्दा बढी देखिन आएमा म्चबधष्लन एयधभच
+                                कम हुन गएमा ऋणीलाई दिइएको कर्जा सीमा पुनरावलोकन गरी नयाँ कर्जा सीमा कायम गरिनेछ । ऋणीले
+                                उपभोग
+                                गरेको कर्जा रकम वा स्वीकृत सीमा, स्वीकृत म्चबधष्लन एयधभच भन्दा बढी देखिन आएमा म्चबधष्लन
+                                एयधभच
                                 भन्दा बढी उपभोग
-                                गरेको कर्जा ऋणीले तिर्नु बुझाउनु पर्नेछ र ऋणीलाई दिएको कर्जा सीमा पुनरावलोकन गरी नयाँ कर्जा सीमा
+                                गरेको कर्जा ऋणीले तिर्नु बुझाउनु पर्नेछ र ऋणीलाई दिएको कर्जा सीमा पुनरावलोकन गरी नयाँ
+                                कर्जा सीमा
                                 कायम गरिनेछ ।
                             </td>
                         </tr>
                         <tr>
                             <td>४०</td>
-                            <td>ऋणीको व्यवसाय वा कारोवार संचालनको क्रममा भैपरि आउने खर्चहरु संस्थापक/सञ्चालक/शेयरधनीवाट पूंजी वा
-                                विना व्याजको ऋण उठाई व्यहोर्नु पर्नेछ । तर ऋणीले उठाएको त्यस्तो कर्जा तिर्ने सम्बन्धमा सदैव
+                            <td>ऋणीको व्यवसाय वा कारोवार संचालनको क्रममा भैपरि आउने खर्चहरु संस्थापक/सञ्चालक/शेयरधनीवाट
+                                पूंजी वा
+                                विना व्याजको ऋण उठाई व्यहोर्नु पर्नेछ । तर ऋणीले उठाएको त्यस्तो कर्जा तिर्ने सम्बन्धमा
+                                सदैव
                                 बैंकको कर्जाले प्रथम प्राथमिक्ता र
                                 संस्थापक/सञ्चालक/शेयरधनीवाट उठाएको ऋणले दोश्रो प्राथमिक्ता (Subordination Loan of
-                                Promotor/Director/Share holder) प्राप्त गर्नेछ । त्यसरी उठाएको ऋण कर्जा बैंकको कर्जा सुविधा
+                                Promotor/Director/Share holder) प्राप्त गर्नेछ । त्यसरी उठाएको ऋण कर्जा बैंकको कर्जा
+                                सुविधा
                                 पूर्ण रुपमा चुक्ता भुक्तान नभए सम्म
-                                भुक्तानी गर्न पाउने छैन । तर बैंकको स्वीकृती भएमा त्यस्तो ऋण चुक्ता गर्न पाउनेछ । साथै, बैंकलाई
-                                भुक्तानी गर्नुपर्ने रकम वांकी रहेको अवस्थामा शेयरधनी वा साझेदारलाई कुनै लाभांश भुक्तानी गर्न
+                                भुक्तानी गर्न पाउने छैन । तर बैंकको स्वीकृती भएमा त्यस्तो ऋण चुक्ता गर्न पाउनेछ । साथै,
+                                बैंकलाई
+                                भुक्तानी गर्नुपर्ने रकम वांकी रहेको अवस्थामा शेयरधनी वा साझेदारलाई कुनै लाभांश भुक्तानी
+                                गर्न
                                 पाइने छैन ।
                             </td>
                         </tr>
                         <tr>
                             <td>४१</td>
-                            <td>प्रतितपत्र (Letter of Credit)/बैंक जमानत (Bank Guarantee) संग सम्बन्धित व्यवस्था तथा भुक्तानीका
-                                विषयहरु ऋणीले प्रतितपत्र खोल्दा वा बैंक जमानत खोल्दा प्रस्ताव तथा स्वीकार गरेका शर्त बन्देजहरु
+                            <td>प्रतितपत्र (Letter of Credit)/बैंक जमानत (Bank Guarantee) संग सम्बन्धित व्यवस्था तथा
+                                भुक्तानीका
+                                विषयहरु ऋणीले प्रतितपत्र खोल्दा वा बैंक जमानत खोल्दा प्रस्ताव तथा स्वीकार गरेका शर्त
+                                बन्देजहरु
                                 र/वा यस बैंक र हिताधिकारी
-                                संस्था/बैंक वीच कायम भएको शर्त बन्देजहरु र/वा नेपाल राष्ट्र बैंकले जारी गर्ने निति निर्देशन र/वा
-                                अन्तराष्ट्रिय रुपमा भएका अभ्यास तथा ICC Publication Clause इत्यादीका व्यवस्था लागु हुनेछ ।
+                                संस्था/बैंक वीच कायम भएको शर्त बन्देजहरु र/वा नेपाल राष्ट्र बैंकले जारी गर्ने निति
+                                निर्देशन र/वा
+                                अन्तराष्ट्रिय रुपमा भएका अभ्यास तथा ICC Publication Clause इत्यादीका व्यवस्था लागु हुनेछ
+                                ।
                             </td>
                         </tr>
                         <tr>
                             <td>४२</td>
-                            <td>ऋणीले हाल लिई राखेको वा भविश्यमा लिने मोवाइलमा SMS सेवावाट सूचना प्रदान गर्न ऋणीले बैंकलाई
-                                विनाशर्त अधिकार प्रदान गर्दछ । बैंकले आवश्यक सम्झेमा SMS सेवावाट ऋणीलाई भुक्तानी मिति याद गराउन
+                            <td>ऋणीले हाल लिई राखेको वा भविश्यमा लिने मोवाइलमा SMS सेवावाट सूचना प्रदान गर्न ऋणीले
+                                बैंकलाई
+                                विनाशर्त अधिकार प्रदान गर्दछ । बैंकले आवश्यक सम्झेमा SMS सेवावाट ऋणीलाई भुक्तानी मिति
+                                याद गराउन
                                 वा भुक्तानी गर्नका लागि
-                                ताकेता गर्न सक्नेछ । यसरी बैंकले SMS सेवावाट प्रेषित गरेको सूचना ऋणीले आधिकारिक रुपमा प्राप्त
-                                गरेको मानिनेछ । ऋणीले आफ्नो मोवाइल नं. को वारेमा बैंकलाई जानकारी गराउनु पर्नेछ र यसरी जानकारी
+                                ताकेता गर्न सक्नेछ । यसरी बैंकले SMS सेवावाट प्रेषित गरेको सूचना ऋणीले आधिकारिक रुपमा
+                                प्राप्त
+                                गरेको मानिनेछ । ऋणीले आफ्नो मोवाइल नं. को वारेमा बैंकलाई जानकारी गराउनु पर्नेछ र यसरी
+                                जानकारी
                                 गराएको मोवाइल नं
-                                बैंकको लागि SMS सेवा आदान प्रदान गर्न पर्याप्त हुनेछ । SMS सम्वन्धी यसरी गरिएको व्यवस्थावाट हुने
-                                तथ्यांक र सूचनाको गोपनियता भंग हुने सम्भावना सहित सवै प्रकारका जोखिमहरु वा हानी नोक्शानी ऋणी
+                                बैंकको लागि SMS सेवा आदान प्रदान गर्न पर्याप्त हुनेछ । SMS सम्वन्धी यसरी गरिएको
+                                व्यवस्थावाट हुने
+                                तथ्यांक र सूचनाको गोपनियता भंग हुने सम्भावना सहित सवै प्रकारका जोखिमहरु वा हानी नोक्शानी
+                                ऋणी
                                 आफैले व्यहोर्नु पर्नेछ ।
                             </td>
                         </tr>
@@ -2519,51 +2825,62 @@
                     <table class="table table-bordered table-responsive-md table-sm">
                         <tr>
                             <th>(क)</th>
-                            <th>देहायमा उल्लेखित कुनै एक वा सवै अवस्था सिर्जना भएमा कर्जा वा कर्जाको किस्ता खिलाफी भएको मानिने छ
+                            <th>देहायमा उल्लेखित कुनै एक वा सवै अवस्था सिर्जना भएमा कर्जा वा कर्जाको किस्ता खिलाफी भएको
+                                मानिने छ
                                 ।
                             </th>
                         </tr>
                         <tr>
                             <td>१</td>
-                            <td>ऋणीले उपलव्ध गराएको कुनै पनि किसिमको विवरण, लिखत, कागजात, घोषणा, यो ऋण सम्झौतासंग सम्वन्धित
-                                प्रतिवद्धता वा अन्य कुनै पत्राचार वा कर्जा आवेदन वा उपलव्ध गराएको कुनै वित्तीय विवरणहरु तात्वीक
+                            <td>ऋणीले उपलव्ध गराएको कुनै पनि किसिमको विवरण, लिखत, कागजात, घोषणा, यो ऋण सम्झौतासंग
+                                सम्वन्धित
+                                प्रतिवद्धता वा अन्य कुनै पत्राचार वा कर्जा आवेदन वा उपलव्ध गराएको कुनै वित्तीय विवरणहरु
+                                तात्वीक
                                 रुपमा असत्य, गलत वा झुट्ठा वा गलत सूचना प्रवाह हुने खालको भएमा ।
                             </td>
                         </tr>
                         <tr>
                             <td>२</td>
-                            <td>ऋणीको संस्थागत (Corporate) हैसियत, कानूनी अस्तित्व वा कानूनी निकायको सम्वन्धमा वा ऋणीको आर्थिक
-                                अवस्था, प्रतिवद्धता वा दायित्व वा वढोत्तरी कार्यक्रमहरु वा ऋणीको पूंजीगत खर्चको सम्वन्धमा
+                            <td>ऋणीको संस्थागत (Corporate) हैसियत, कानूनी अस्तित्व वा कानूनी निकायको सम्वन्धमा वा ऋणीको
+                                आर्थिक
+                                अवस्था, प्रतिवद्धता वा दायित्व वा वढोत्तरी कार्यक्रमहरु वा ऋणीको पूंजीगत खर्चको
+                                सम्वन्धमा
                                 बैंकलाई समयमा जानकारी नगराएमा वा लुकाउने प्रयास गरेमा ।
                             </td>
                         </tr>
                         <tr>
                             <td>३</td>
-                            <td>ऋणी तथा ऋणीसंग सम्बन्धित समूह भित्रका संस्थाले यस बैंक वा अन्य बैंकबाट उपभोग गरेको कर्जाको कुनै
-                                सांवा तथा व्याजको किस्ता भुक्तानी गर्नुपर्ने समयमा भुक्तानी गर्न असफल भएमा वा भुक्तानी नगरेमा ।
+                            <td>ऋणी तथा ऋणीसंग सम्बन्धित समूह भित्रका संस्थाले यस बैंक वा अन्य बैंकबाट उपभोग गरेको
+                                कर्जाको कुनै
+                                सांवा तथा व्याजको किस्ता भुक्तानी गर्नुपर्ने समयमा भुक्तानी गर्न असफल भएमा वा भुक्तानी
+                                नगरेमा ।
                             </td>
                         </tr>
                         <tr>
                             <td>४</td>
-                            <td>ऋणीले यसै सम्झौतामा उल्लेखित कुनै एक वा सबै शर्त वन्देजको पालना नगरेमा वा शर्त वन्देज पालना गर्न
+                            <td>ऋणीले यसै सम्झौतामा उल्लेखित कुनै एक वा सबै शर्त वन्देजको पालना नगरेमा वा शर्त वन्देज
+                                पालना गर्न
                                 असक्षम भएमा ।
                             </td>
                         </tr>
                         <tr>
                             <td>५</td>
-                            <td>कुनै असाधारण परिस्थितिको सिर्जना भई ऋणीले यो कर्जा सम्झौता वमोजिमको दायित्व पुरा गर्न सक्षम छैन
+                            <td>कुनै असाधारण परिस्थितिको सिर्जना भई ऋणीले यो कर्जा सम्झौता वमोजिमको दायित्व पुरा गर्न
+                                सक्षम छैन
                                 भन्ने बैंकलाई लागेमा ।
                             </td>
                         </tr>
                         <tr>
                             <td>६</td>
-                            <td>ऋणीले बैंकमा राखेको धितो पुरै वा आंशिक रुपमा कच्चा ठहरिएमा वा कुनै अड्डा अदालतको आदेशले तहसिलमा
+                            <td>ऋणीले बैंकमा राखेको धितो पुरै वा आंशिक रुपमा कच्चा ठहरिएमा वा कुनै अड्डा अदालतको आदेशले
+                                तहसिलमा
                                 गएमा ।
                             </td>
                         </tr>
                         <tr>
                             <td>७</td>
-                            <td>ऋणी वा ऋणीसंग सम्बन्धित व्यक्ति वा संस्थाले यस बैंकका विरुद्ध कर्जा तथा धितो सम्बन्धमा विवाद
+                            <td>ऋणी वा ऋणीसंग सम्बन्धित व्यक्ति वा संस्थाले यस बैंकका विरुद्ध कर्जा तथा धितो सम्बन्धमा
+                                विवाद
                                 श्रृजना गरी मुद्दा मामिला गरेमा ।
                             </td>
                         </tr>
@@ -2577,15 +2894,18 @@
                         </tr>
                         <tr>
                             <td>१०</td>
-                            <td>ऋणीको कुनै सम्पत्ति वा कारोवारको पुरै वा आंशिक अंश जफत भएमा वा जफत हुने भएमा वा ऋणीको कारोवार वा
-                                सम्पत्ति कुनै सरकारी निकाय वा कुनै अड्डा अदालत वा कुनै पक्ष वा व्यक्ति वा संस्थाले वन्द गरेमा वा
+                            <td>ऋणीको कुनै सम्पत्ति वा कारोवारको पुरै वा आंशिक अंश जफत भएमा वा जफत हुने भएमा वा ऋणीको
+                                कारोवार वा
+                                सम्पत्ति कुनै सरकारी निकाय वा कुनै अड्डा अदालत वा कुनै पक्ष वा व्यक्ति वा संस्थाले वन्द
+                                गरेमा वा
                                 निलम्वन गरेमा ।
                             </td>
                         </tr>
                         <tr>
                             <td>११</td>
                             <td>बैंकको कर्जाबाट खरिद भएको सम्पति बैंकको स्वीकृती नलिई अन्य कुनै व्यक्ति तथा संस्थालाई
-                                संचलान/उपयोग/भोग गर्न दिएमा वा स्वरुप परिवर्तन गरेमा वा नष्ट गरेमा वा गर्ने प्रयत्न गरेमा वा
+                                संचलान/उपयोग/भोग गर्न दिएमा वा स्वरुप परिवर्तन गरेमा वा नष्ट गरेमा वा गर्ने प्रयत्न
+                                गरेमा वा
                                 हानी नोक्सानी पुरयाउने कार्य गरेमा ।
                             </td>
                         </tr>
@@ -2595,8 +2915,10 @@
                         </tr>
                         <tr>
                             <td>१३</td>
-                            <td>बैंकमा धितो रहेको सम्पत्तिको पुरै वा आंिशक भाग खारेज गर्न वा अरु कसैलाई दिन वा कुनै किसिमको
-                                चार्ज सिर्जना गर्न वा कुनै कानूनी कारवाही गर्न वा धितोमा असर पुग्ने गरी मुद्दा मामिलामा मिलापत्र
+                            <td>बैंकमा धितो रहेको सम्पत्तिको पुरै वा आंिशक भाग खारेज गर्न वा अरु कसैलाई दिन वा कुनै
+                                किसिमको
+                                चार्ज सिर्जना गर्न वा कुनै कानूनी कारवाही गर्न वा धितोमा असर पुग्ने गरी मुद्दा मामिलामा
+                                मिलापत्र
                                 गर्न वा ऋणी आफैले वा कुनै अड्डा अदालतवाट लिक्वीटेर वा अन्य लाभग्राही नियुक्त गरेमा ।
                             </td>
                         </tr>
@@ -2606,17 +2928,22 @@
                         </tr>
                         <tr>
                             <td>१५</td>
-                            <td>ऋणीले धितोमा लेखिदिएको चालु सम्पतिहरु राखेको गोदाम, पसल बैंकको पूर्व लिखित स्वीकृती नलिई ठाउसारी
+                            <td>ऋणीले धितोमा लेखिदिएको चालु सम्पतिहरु राखेको गोदाम, पसल बैंकको पूर्व लिखित स्वीकृती नलिई
+                                ठाउसारी
                                 गरेमा वा परिवर्तन गरेमा ।
                             </td>
                         </tr>
                         <tr>
                             <td>१६</td>
-                            <td>ऋणी कम्पनी/फर्म/साझेदार फर्मका संस्थापक/सञ्चालक/प्रोप्राइटर/साझेदारहरुले बैंकबाट ऋणीले लिएको
+                            <td>ऋणी कम्पनी/फर्म/साझेदार फर्मका संस्थापक/सञ्चालक/प्रोप्राइटर/साझेदारहरुले बैंकबाट ऋणीले
+                                लिएको
                                 सम्पूर्ण साँवा ब्याज लगायतका कर्जा चुक्ता भुक्तान नभएसम्म बैंकको सहमति बिना ऋणीको चल–अचल
-                                सम्पत्तिको स्थानान्तरण गरेमा वा अन्य कम्पनी/फर्म/साझेदार फर्ममा गाभ्न वा गाभिन, संचालक समितिमा
-                                फेरबदल गर्न गराउन, ऋणी कम्पनी/फर्म/साझेदार फर्मको शेयरहरु पूर्ण वा आंशिक रुपले बिक्री गर्न गराउन
-                                तथा कुनै पनि प्रकारले हक हस्तान्तरण गर्न, धितो सुरक्षण प्रदान गर्न वा व्ययभार खडा गरे गराएमा ।
+                                सम्पत्तिको स्थानान्तरण गरेमा वा अन्य कम्पनी/फर्म/साझेदार फर्ममा गाभ्न वा गाभिन, संचालक
+                                समितिमा
+                                फेरबदल गर्न गराउन, ऋणी कम्पनी/फर्म/साझेदार फर्मको शेयरहरु पूर्ण वा आंशिक रुपले बिक्री
+                                गर्न गराउन
+                                तथा कुनै पनि प्रकारले हक हस्तान्तरण गर्न, धितो सुरक्षण प्रदान गर्न वा व्ययभार खडा गरे
+                                गराएमा ।
                             </td>
                         </tr>
 
@@ -2649,84 +2976,108 @@
 
                         <tr>
                             <th>(ख)</th>
-                            <th>उपरोक्त लेखिए वमोजिमको कुनै एक वा सवै कर्जा खिलाफीको अवस्था विद्यमान भएमा बैंकलाई देहाय वमोजिमको
+                            <th>उपरोक्त लेखिए वमोजिमको कुनै एक वा सवै कर्जा खिलाफीको अवस्था विद्यमान भएमा बैंकलाई देहाय
+                                वमोजिमको
                                 अधिकार हुनेछ ।
                             </th>
                         </tr>
                         <tr>
                             <td>१</td>
-                            <td>बैंकलाई भुक्तानी गर्न बांकी रहेको सवै कर्जा तथा सुविधा र सोमा लाग्ने व्याज सहितको सम्पूर्ण लेना
+                            <td>बैंकलाई भुक्तानी गर्न बांकी रहेको सवै कर्जा तथा सुविधा र सोमा लाग्ने व्याज सहितको
+                                सम्पूर्ण लेना
                                 रकम तत्कालै चुक्ता गर्नुपर्ने गरी भुक्तानी फिर्ता (Facility Callback) माग गर्न सक्नेछ ।
                             </td>
                         </tr>
                         <tr>
                             <td>२</td>
-                            <td>यो कर्जा स्वीकृति पत्रमा उल्लेख भए वमोजिमको हर्जना व्याज/विलम्व शुल्क लगाई असुउपर गर्न सक्नेछ
+                            <td>यो कर्जा स्वीकृति पत्रमा उल्लेख भए वमोजिमको हर्जना व्याज/विलम्व शुल्क लगाई असुउपर गर्न
+                                सक्नेछ
                                 ।
                             </td>
                         </tr>
                         <tr>
                             <td>३</td>
-                            <td>बैंकलाई लेखिदिएको सवै धितो सुरक्षणहरु आफ्नो नियन्त्रणमा लिई लिलाम विक्री वा लिलाम सकार वा अन्य
+                            <td>बैंकलाई लेखिदिएको सवै धितो सुरक्षणहरु आफ्नो नियन्त्रणमा लिई लिलाम विक्री वा लिलाम सकार
+                                वा अन्य
                                 कुनै व्यवस्था गरी सोवाट प्राप्त रकम कलम कर्जामा मिलान गर्न सक्नेछ ।
                             </td>
                         </tr>
                         <tr>
                             <td>४</td>
-                            <td>बैंकले ऋणीलाई उपलव्ध गराएको एक वा सो भन्दा वढी बैंकिङ्ग सुविधाहरुमा भै रहेको शर्त वन्देजहरुमा
+                            <td>बैंकले ऋणीलाई उपलव्ध गराएको एक वा सो भन्दा वढी बैंकिङ्ग सुविधाहरुमा भै रहेको शर्त
+                                वन्देजहरुमा
                                 परिवर्तन गर्न सक्नेछ ।
                             </td>
                         </tr>
                         <tr>
                             <td>५</td>
-                            <td>कर्जा खिलाफीको कारणले बैंकलाई प्राप्त केही वा सवै अधिकारहरु स्थगन वा प्रयोग गर्न सक्नेछ ।</td>
+                            <td>कर्जा खिलाफीको कारणले बैंकलाई प्राप्त केही वा सवै अधिकारहरु स्थगन वा प्रयोग गर्न सक्नेछ
+                                ।
+                            </td>
                         </tr>
                         <tr>
                             <td>६</td>
-                            <td>बैंकमा धितो सुरक्षण दिएको सम्पत्ति वाहेक ऋणी र जमानतकर्ता तथा निजहरुका परिवारका सदस्यहरुको नाममा
-                                रहेका अन्य सम्पुर्ण चल अचल सम्पत्तिहरु कर्जा असुल गर्ने प्रयोजनको लागि रोक्का राख्न सक्नेछ र/वा
+                            <td>बैंकमा धितो सुरक्षण दिएको सम्पत्ति वाहेक ऋणी र जमानतकर्ता तथा निजहरुका परिवारका
+                                सदस्यहरुको नाममा
+                                रहेका अन्य सम्पुर्ण चल अचल सम्पत्तिहरु कर्जा असुल गर्ने प्रयोजनको लागि रोक्का राख्न
+                                सक्नेछ र/वा
                                 साथै सो सम्पतिबाट बैंकले आफनो सम्पूर्ण वाँकी बक्यौता कर्जा असुल उपर गर्न पाउनेछ ।
                             </td>
                         </tr>
                         <tr>
                             <td>७</td>
-                            <td>ऋणीको जुनसुकै खातामा जम्मा भएको सवै रकमहरु रोक्का राख्न सक्नेछ वा सोही रकमबाट ऋणीको कर्जा मिलान
+                            <td>ऋणीको जुनसुकै खातामा जम्मा भएको सवै रकमहरु रोक्का राख्न सक्नेछ वा सोही रकमबाट ऋणीको
+                                कर्जा मिलान
                                 गर्न सक्ने पूर्ण अधिकार बैंकलाई हुनेछ ।
                             </td>
                         </tr>
                         <tr>
                             <td>८</td>
-                            <td>कर्जा तथा सुविधाको भुक्तानी मिति नाघेको मितिलाई नै ऋणीले कर्जा अनियमति गरेको मानी बैंकले आफ्नो
-                                लेना रकम असुल उपर गर्न प्रचलित बैंक तथा वित्तीय संस्था सम्वन्धी ऐन, बैंक तथा वित्तीय संस्थाको ऋण
-                                असुली ऐन वा अन्य प्रचलित नियम कानून वमोजिम कुनै वा सवै असुलीका कारवाहीहरु सुरु गर्न सक्नेछ ।
+                            <td>कर्जा तथा सुविधाको भुक्तानी मिति नाघेको मितिलाई नै ऋणीले कर्जा अनियमति गरेको मानी बैंकले
+                                आफ्नो
+                                लेना रकम असुल उपर गर्न प्रचलित बैंक तथा वित्तीय संस्था सम्वन्धी ऐन, बैंक तथा वित्तीय
+                                संस्थाको ऋण
+                                असुली ऐन वा अन्य प्रचलित नियम कानून वमोजिम कुनै वा सवै असुलीका कारवाहीहरु सुरु गर्न
+                                सक्नेछ ।
                             </td>
                         </tr>
                         <tr>
                             <td>९</td>
-                            <td>कर्जा खिलाफि भएको अवस्थामा ऋणी, धितो सुरक्षणधनी, जमानतकर्ता/संचालक/शेयरधनी लगायतका कर्जासंग
-                                सम्बद्ध व्यक्तिहरुको पूर्ण परिचय सहितको व्यक्तिगत विवरण, फोटो, ठेगाना सहित तीन पुस्ते विवरण तथा
+                            <td>कर्जा खिलाफि भएको अवस्थामा ऋणी, धितो सुरक्षणधनी, जमानतकर्ता/संचालक/शेयरधनी लगायतका
+                                कर्जासंग
+                                सम्बद्ध व्यक्तिहरुको पूर्ण परिचय सहितको व्यक्तिगत विवरण, फोटो, ठेगाना सहित तीन पुस्ते
+                                विवरण तथा
                                 बैंकलाई
                                 लेखि दिएको धितोको विवरण समेत उल्लेख गरी पत्र पत्रिकामा कर्जा चुक्ता गर्ने तथा धितो लिलाम
-                                विक्रिको सूचना प्रकाशित गर्ने अधिकार ऋणीले बैंकलाई यसै लिखतबाट प्रदान गरेको छ । पछि ऋणी लगायतका
+                                विक्रिको सूचना प्रकाशित गर्ने अधिकार ऋणीले बैंकलाई यसै लिखतबाट प्रदान गरेको छ । पछि ऋणी
+                                लगायतका
                                 व्यक्तिहरुले प्रकाशित
-                                सूचना र विवरणको सम्बन्धमा कुनै उजुर वाजुर गर्न पाउने छैन । साथै सूचना प्रकाशित भएको कारणले कुनै
-                                व्यक्तिगत क्षति वा हानी नोक्सानी पुग्न गएमा सोको पूर्ण जिम्मेवार ऋणी स्वयम हुने कुरामा ऋणी
+                                सूचना र विवरणको सम्बन्धमा कुनै उजुर वाजुर गर्न पाउने छैन । साथै सूचना प्रकाशित भएको
+                                कारणले कुनै
+                                व्यक्तिगत क्षति वा हानी नोक्सानी पुग्न गएमा सोको पूर्ण जिम्मेवार ऋणी स्वयम हुने कुरामा
+                                ऋणी
                                 मन्जुर गर्दछ ।
                             </td>
                         </tr>
                         <tr>
                             <td>१०</td>
-                            <td>यो कर्जा स्वीकृति पत्रमा उल्लेख नभएको कुनै बैंकिङ्ग सुविधा ऋणीले बैंकवाट उपभोग गरेको रहेछ र सो
-                                सुविधाको ऋण खिलाफी भएको रहेछ भने सो समेत यसै कर्जा स्वीकृति पत्र वमोजिम प्रवाह भएसरह मानिनेछ र
-                                सम्पूर्ण कर्जा सुविधा फिर्ता भुक्तानी माग गर्न र सम्पूर्ण कर्जा तथा सुविधा तत्कालै भुक्तानी
+                            <td>यो कर्जा स्वीकृति पत्रमा उल्लेख नभएको कुनै बैंकिङ्ग सुविधा ऋणीले बैंकवाट उपभोग गरेको
+                                रहेछ र सो
+                                सुविधाको ऋण खिलाफी भएको रहेछ भने सो समेत यसै कर्जा स्वीकृति पत्र वमोजिम प्रवाह भएसरह
+                                मानिनेछ र
+                                सम्पूर्ण कर्जा सुविधा फिर्ता भुक्तानी माग गर्न र सम्पूर्ण कर्जा तथा सुविधा तत्कालै
+                                भुक्तानी
                                 गराउन बैंक पूर्ण रुपमा अधिकार सम्पन्न रहेको छ ।
                             </td>
                         </tr>
                         <tr>
                             <td>११</td>
-                            <td>भवितब्य दायित्वका (Contingent Liability) लागि बैंकमा रहेको नगद बैंकले आफ्नो नियन्त्रणमा लिन
-                                सक्नेछ । (भवितब्य दायित्व भनेको आर्थिक दायित्व अन्र्तगत सामान्य व्यवशायिक कृयाकलापहरु जस्तै
-                                जमानी, मञ्जुरीनामा, आयात–निर्यात र प्रतित–पत्र आदिमा सृजना हुन सक्ने दायित्वलाई सम्झनु पर्दछ) ।
+                            <td>भवितब्य दायित्वका (Contingent Liability) लागि बैंकमा रहेको नगद बैंकले आफ्नो नियन्त्रणमा
+                                लिन
+                                सक्नेछ । (भवितब्य दायित्व भनेको आर्थिक दायित्व अन्र्तगत सामान्य व्यवशायिक कृयाकलापहरु
+                                जस्तै
+                                जमानी, मञ्जुरीनामा, आयात–निर्यात र प्रतित–पत्र आदिमा सृजना हुन सक्ने दायित्वलाई सम्झनु
+                                पर्दछ) ।
                             </td>
                         </tr>
                         <tr *ngFor="let test of offerLetterForm.get('eventDefault1')['controls']; let iv = index"
@@ -2764,9 +3115,11 @@
                     <table class="table table-bordered table-responsive-md table-sm">
                         <tr>
                             <td class="text-left pl-1">१</td>
-                            <td class="text-left pl-1">यो कर्जा स्वीकृती प्रस्तावपत्रमा जुनसुकै व्यहोरा लेखिएको भएतापति बैंकले
+                            <td class="text-left pl-1">यो कर्जा स्वीकृती प्रस्तावपत्रमा जुनसुकै व्यहोरा लेखिएको भएतापति
+                                बैंकले
                                 कर्जा
-                                तथा सुविधा स्वीकृती गर्दाको परिस्थितिको विपरित अन्य परिस्थिति सिर्जना भएमा यो कर्जा स्वीकृती
+                                तथा सुविधा स्वीकृती गर्दाको परिस्थितिको विपरित अन्य परिस्थिति सिर्जना भएमा यो कर्जा
+                                स्वीकृती
                                 पत्रमा
                                 ऋणीले स्वीकृती जनाउनु भन्दा
                                 अगावै बैंकले कर्जा सुविधाको प्रस्तावपत्र फिर्ता वा रद्द गर्न सक्नेछ ।
@@ -2774,9 +3127,11 @@
                         </tr>
                         <tr>
                             <td class="text-left pl-1">२</td>
-                            <td class="text-left pl-1">यो कर्जा प्रस्तावपत्र/स्वीकृतीपत्रमा उल्लेखित कुनै शर्त तथा व्यवस्था
+                            <td class="text-left pl-1">यो कर्जा प्रस्तावपत्र/स्वीकृतीपत्रमा उल्लेखित कुनै शर्त तथा
+                                व्यवस्था
                                 प्रचलित
-                                कानून बमोजिम अमान्य वा बदर घोषित भएमा सो वाहेकका अन्य शर्त तथा व्यवस्थाहरु यथावत कायम रहनेछ ।
+                                कानून बमोजिम अमान्य वा बदर घोषित भएमा सो वाहेकका अन्य शर्त तथा व्यवस्थाहरु यथावत कायम
+                                रहनेछ ।
                             </td>
                         </tr>
                         <tr *ngFor="let test of offerLetterForm.get('precedent')['controls']; let v = index"
@@ -2824,25 +3179,31 @@
                         <tr>
                             <td class="text-left pl-1">३</td>
                             <td class="text-left pl-1">
-                                ऋणी वा जमानतकर्ता माथि कुनै पनि मुद्दा मामिला चलिरहेको वा मुद्दा लागेको अवस्था विद्यमान छैन ।
+                                ऋणी वा जमानतकर्ता माथि कुनै पनि मुद्दा मामिला चलिरहेको वा मुद्दा लागेको अवस्था विद्यमान
+                                छैन ।
                                 साथै,
-                                कुनै कानून, इजाजतपत्र, कम्पनीको प्रबन्धपत्र, नियमावली, निति निर्देशनको बर्खिलाप भए गरेको छैन ।
+                                कुनै कानून, इजाजतपत्र, कम्पनीको प्रबन्धपत्र, नियमावली, निति निर्देशनको बर्खिलाप भए गरेको
+                                छैन ।
                             </td>
                         </tr>
                         <tr>
                             <td class="text-left pl-1">४</td>
                             <td class="text-left pl-1">
-                                ऋणीले उपलव्ध गराएको कुनै पनि किसिमको विवरण, प्रतिवद्धता वा अन्य कुनै पत्राचार वा कर्जा आवेदन वा
-                                उपलव्ध गराएको कुनै वित्तीय विवरणहरु तात्विक रुपमा असत्य, गलत वा झुट्ठा वा गलत सूचना प्रवाह हुने
+                                ऋणीले उपलव्ध गराएको कुनै पनि किसिमको विवरण, प्रतिवद्धता वा अन्य कुनै पत्राचार वा कर्जा
+                                आवेदन वा
+                                उपलव्ध गराएको कुनै वित्तीय विवरणहरु तात्विक रुपमा असत्य, गलत वा झुट्ठा वा गलत सूचना
+                                प्रवाह हुने
                                 किसिमको नभएको विना शर्त घोषणा गर्दछ ।
                             </td>
                         </tr>
                         <tr>
                             <td class="text-left pl-1">५</td>
                             <td class="text-left pl-1">
-                                <u><strong>छुट <em class="sb-medium">(Waiver)</em></strong> :</u> कुनै खास अधिकार छोडेको लिखित
+                                <u><strong>छुट <em class="sb-medium">(Waiver)</em></strong> :</u> कुनै खास अधिकार छोडेको
+                                लिखित
                                 सूचना ऋणीले
-                                प्राप्त नगरे सम्म यस कर्जा स्वीकृतिपत्र वमोजिम बैंकलाई प्राप्त अधिकार बैंकले कुनै किसिमवाट त्याग
+                                प्राप्त नगरे सम्म यस कर्जा स्वीकृतिपत्र वमोजिम बैंकलाई प्राप्त अधिकार बैंकले कुनै
+                                किसिमवाट त्याग
                                 गरेको मानिने छैन । बैंकले एक पटक सवै वा केही
                                 अधिकारहरुको प्रयोग गरेमा बैंकले ती अधिकारहरु पुनः प्रयोग गर्न सक्नेछ ।
                             </td>
@@ -2853,20 +3214,25 @@
                                 <u><strong>क्षेत्राधिकार र लागू हुने कानून <em
                                         class="sb-medium">(Jurisdiction)</em></strong></u> यो कर्जा
                                 स्वीकृतिपत्रको सम्वन्धमा प्रचलित नेपाल कानून आकर्षित हुनेछ ।
-                                यस सम्वन्धमा उत्पन्न विवादका विषयमा न्यायिक निरोपणका लागि नेपालको सम्वन्धित अड्डा अदालत वा
+                                यस सम्वन्धमा उत्पन्न विवादका विषयमा न्यायिक निरोपणका लागि नेपालको सम्वन्धित अड्डा अदालत
+                                वा
                                 न्यायाधिकरणको क्षेत्राधिकार लागु हुनेछ ।
                             </td>
                         </tr>
                         <tr>
                             <td class="text-left pl-1">७</td>
                             <td class="text-left pl-1">
-                                <u><strong> जानकारी गराउने सम्बन्धि मन्जुरी <em class="sb-medium">(Consent of Disclosure)</em>:</strong></u>
+                                <u><strong> जानकारी गराउने सम्बन्धि मन्जुरी <em class="sb-medium">(Consent of
+                                    Disclosure)</em>:</strong></u>
                                 प्रचलित कानून
-                                बमोजिमको सरकारी कार्यालय/संस्था/आयोग/न्यायिक निकाय/अर्ध न्यायिक निकाय/अधिकारप्राप्त अधिकारीबाट
+                                बमोजिमको सरकारी कार्यालय/संस्था/आयोग/न्यायिक निकाय/अर्ध न्यायिक निकाय/अधिकारप्राप्त
+                                अधिकारीबाट
                                 ऋणीको
-                                बैंकिङ्ग सम्बन्धि विवरण/कर्जा सम्बन्धि विवरण/धितो सुरक्षण सम्बन्धि विवरण/कर्जामा संलग्न व्यक्ति
+                                बैंकिङ्ग सम्बन्धि विवरण/कर्जा सम्बन्धि विवरण/धितो सुरक्षण सम्बन्धि विवरण/कर्जामा संलग्न
+                                व्यक्ति
                                 सम्बन्धि विवरण/ऋणीको संलग्नता देखिने कारोवार तथा संस्था
-                                सम्बन्धि विवरण इत्यादी माग भएमा बैंकले सो विवरण उपलब्ध गराउन सक्ने अधिकार ऋणीले यसै स्वीकृतीपत्र
+                                सम्बन्धि विवरण इत्यादी माग भएमा बैंकले सो विवरण उपलब्ध गराउन सक्ने अधिकार ऋणीले यसै
+                                स्वीकृतीपत्र
                                 मार्फत बैंकलाई प्रदान गर्दछ । यस्तो विवरण बैंकले
                                 उपलब्ध गराएको कारणले हुने कारवाही प्रति बैंक जवाफदेही हुने छैन ।
                             </td>
@@ -2902,27 +3268,34 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <p class="text-center"><strong>९. स्वीकारोक्ति <em class="sb-medium">(Acceptance)</em> :</strong></p>
+                    <p class="text-center"><strong>९. स्वीकारोक्ति <em class="sb-medium">(Acceptance)</em> :</strong>
+                    </p>
                     <table class="table table-bordered table-responsive-md table-sm">
                         <tr>
                             <td class="text-left pl-1">१</td>
                             <td class="text-left pl-1">
-                                यो कर्जा सुविधा प्रस्तावपत्र/सम्झौतापत्रमा उल्लेखित सम्पूर्ण शर्तहरु म/हामीले रोम्रोसंग पढी वाची
-                                सोको मतलव र परिणाम समेत बुझि बैंकको कर्जा प्रस्तावलाई स्वीकार गर्न मन्जुर गर्दछु । यो कर्जा
+                                यो कर्जा सुविधा प्रस्तावपत्र/सम्झौतापत्रमा उल्लेखित सम्पूर्ण शर्तहरु म/हामीले रोम्रोसंग
+                                पढी वाची
+                                सोको मतलव र परिणाम समेत बुझि बैंकको कर्जा प्रस्तावलाई स्वीकार गर्न मन्जुर गर्दछु । यो
+                                कर्जा
                                 सुविधा
                                 प्रस्तावपत्र/सम्झौतापत्रमा उल्लेखित सम्पूर्ण शर्त तथा
-                                बन्देजहरुको पालना गर्न मन्जुर गर्दछु/गर्दछौ । पालना नगरेमा वा उल्लंघन गरेमा यसमा लेखिए बमोजिम वा
+                                बन्देजहरुको पालना गर्न मन्जुर गर्दछु/गर्दछौ । पालना नगरेमा वा उल्लंघन गरेमा यसमा लेखिए
+                                बमोजिम वा
                                 प्रचलित कानून बमोजिम कारवाही गरेमा मेरो/हाम्रो मन्जुरी रहेको छ ।
                             </td>
                         </tr>
                         <tr>
                             <td class="text-left pl-1">२</td>
                             <td class="text-left pl-1">
-                                म/हामी ले यस बैंकमा कर्जा लिने क्रममा पेश गरेको सम्पूर्ण लिखत प्रमाणहरु तथा धितो सुरक्षणहरु ठिक
-                                दुरुस्त छ फरक ठहरे कानुन अनुसार म/हामी स्वंयमले व्यहोर्ने छु/छौ । बैंकबाट प्राप्त हुने ऋण कर्जा
+                                म/हामी ले यस बैंकमा कर्जा लिने क्रममा पेश गरेको सम्पूर्ण लिखत प्रमाणहरु तथा धितो
+                                सुरक्षणहरु ठिक
+                                दुरुस्त छ फरक ठहरे कानुन अनुसार म/हामी स्वंयमले व्यहोर्ने छु/छौ । बैंकबाट प्राप्त हुने
+                                ऋण कर्जा
                                 तथा
                                 अन्य दायित्व तिर्न बुझाउन मेरो/हाम्रो पूर्ण
-                                मन्जुरी रहेकोले यो कर्जा सुविधा प्रस्तावपत्र/सम्झौतापत्रमा स्वीकृति जनाई सही छाप गरी तपाई
+                                मन्जुरी रहेकोले यो कर्जा सुविधा प्रस्तावपत्र/सम्झौतापत्रमा स्वीकृति जनाई सही छाप गरी
+                                तपाई
                                 बैंकलाई
                                 दियौ र यसै बमोजिमको एक प्रति बुझिलियौ ।
                             </td>
@@ -2930,9 +3303,11 @@
                         <tr>
                             <td class="text-left pl-1">३</td>
                             <td class="text-left pl-1">
-                                <u><strong>सूचना :</strong></u> बैंक तथा ऋणीले एक अर्कालाई कुनै पनि सूचना आदान गर्नु परेमा देहाय
+                                <u><strong>सूचना :</strong></u> बैंक तथा ऋणीले एक अर्कालाई कुनै पनि सूचना आदान गर्नु
+                                परेमा देहाय
                                 वमोजिमको
-                                ठेगानामा पत्राचार गरी आदान प्रदान गर्न सकिनेछ । साथै सो ठेगानामा गरिएको पत्राचारलाई आधिकारिक
+                                ठेगानामा पत्राचार गरी आदान प्रदान गर्न सकिनेछ । साथै सो ठेगानामा गरिएको पत्राचारलाई
+                                आधिकारिक
                                 ठेगानामा पत्राचार गरेको मानिनेछ ।
                             </td>
                         </tr>
@@ -3076,13 +3451,15 @@
                     <span class="nepaliFont font-size-normal print-only">
                 <b>{{offerLetterForm?.get('empoweredName').value ? offerLetterForm?.get('empoweredName').value : '========='}}</b></span>
                     <br>
-                    दस्तखत : <input type="text" class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                    दस्तखत : <input type="text"
+                                    class="nepaliFont form-field form-control-sm font-size-normal disable-print"
                                     formControlName="signature1">
                     <span class="nepaliFont font-size-normal print-only">
                 <b>{{offerLetterForm?.get('signature1').value ? offerLetterForm?.get('signature1').value : '========='}}</b></span>
 
                     <div class="disable-print">
-                        <button [disabled]="spinner" type="submit" class="btn btn-primary float-right" nbButton status="success">
+                        <button [disabled]="spinner" type="submit" class="btn btn-primary float-right" nbButton
+                                status="success">
                             Save
                         </button>
                     </div>

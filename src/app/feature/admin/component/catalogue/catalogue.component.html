@@ -250,14 +250,30 @@
                     </select>
                 </td>
                 <td>
-                    <ng-container
-                            *ngIf="model.documentStatus == docStatus[docStatus.APPROVED] && !model.isCloseRenew ">
-                        <button class="cold-md-4" nbButton status="warning" size="tiny"
-                                (click)="onRaiseMemo()">
-                            Raise Diary Note
-                        </button>
+                    <ng-container>
+<!--                        <a (click)="onRaiseMemo(model,onActionChange, $event.target.value)">-->
+<!--                            <em class="fas fa-book-open">-->
+<!--                            </em>-->
+<!--                        </a>-->
+                        <a (click)="openCreditMemoModal(model)">
+                            <em class="fas fa-book-open">
+                            </em>
+                        </a>
                     </ng-container>
                 </td>
+
+                <ng-template #diaryNote>
+                    <td>
+                        <div *ngIf="model.parentId">
+                            <a (click)="renewedOrCloseFrom(model?.loan?.id,model?.parentId)"
+                               class="text-success cursor">{{loanType[model.loanType]}} From
+                                <em class="p-1 fa fa-edit"></em></a>
+                        </div>
+                        <div *ngIf='!model.parentId && !((model?.documentStatus.toString() === "REJECTED") && canReInitiateLoan)'>
+                            <p>NA</p>
+                        </div>
+                    </td>
+                </ng-template>
                 <ng-template #linkin>
                     <td>
                         <div *ngIf='((model?.documentStatus.toString() === "REJECTED") && canReInitiateLoan)'>

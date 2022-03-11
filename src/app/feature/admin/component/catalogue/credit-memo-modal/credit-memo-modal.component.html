@@ -1,0 +1,41 @@
+<nb-card id="nb-modal-card" class="m-0" [nbSpinner]="spinner" nbSpinnerSize="xxlarge" nbSpinnerStatus="primary">
+    <nb-card-header class="mb-0 pb-0">
+        <h5 class="modal-title pull-left d-inline">Credit Memo of {{customerLoan?.loan?.name}}
+            for {{customerLoan?.customerInfo?.customerName}}</h5>
+        <button (click)="onClose()" aria-label="Close" class="close pull-right" type="button">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <hr>
+    </nb-card-header>
+    <nb-card-body>
+        <div *ngIf="currentRole === 'MAKER'" class="row mb-4">
+            <div class="col-md-12 text-right">
+                <button nbButton outline status="primary" (click)="onRaiseMemo()"><em class="fa fa-plus"> Raise memo</em></button>
+            </div>
+        </div>
+        <div *ngIf="creditMemoList.length === 0" class="row h-100">
+            <div class="col-md-12 text-center my-auto">
+                <h4><em class="fa fa-exclamation-triangle"> No memo raised for this loan!</em></h4>
+            </div>
+        </div>
+        <div *ngIf="creditMemoList.length !== 0" class="row">
+            <div *ngFor="let creditMemo of creditMemoList; let i = index" class="col-md-4 cursor">
+                <nb-card (click)="onViewMemo(creditMemo?.id)" size="tiny">
+                    <nb-card-header class="pb-0">
+                        <nb-badge *ngIf="creditMemo?.documentStatus === 'PENDING'" text="PENDING" status="info" position="top right"></nb-badge>
+                        <nb-badge *ngIf="creditMemo?.documentStatus === 'APPROVED'" text="APPROVED" status="success" position="top right"></nb-badge>
+                        <nb-badge *ngIf="creditMemo?.documentStatus === 'REJECTED'" text="REJECTED" status="danger" position="top right"></nb-badge>
+                        {{creditMemo?.subject}}
+                        <hr>
+                    </nb-card-header>
+                    <nb-card-body class="pt-0">
+                        <p><strong>Memo type:</strong> {{creditMemo?.type?.name}}</p>
+                        <p><strong>Loan type:</strong> {{creditMemo?.customerLoan?.loan?.name}}</p>
+                        <p><strong>Loan holder name:</strong> {{creditMemo?.customerLoan?.customerInfo?.customerName}}</p>
+                        <p><strong>Possession under:</strong> {{creditMemo?.currentStage?.toUser?.name}}</p>
+                    </nb-card-body>
+                </nb-card>
+            </div>
+        </div>
+    </nb-card-body>
+</nb-card>
