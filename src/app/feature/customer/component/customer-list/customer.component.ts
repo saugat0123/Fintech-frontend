@@ -91,7 +91,6 @@ export class CustomerComponent implements OnInit {
                 private location: AddressService,
                 private userService: UserService
     ) {
-        this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     }
 
     static loadData(other: CustomerComponent) {
@@ -427,7 +426,7 @@ export class CustomerComponent implements OnInit {
         this.customerInfoService.transferCustomerWithLoansToOtherBranch(this.formAction.value)
             .subscribe((response: any) => {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Customer has been successfully transferred.'));
-                this.router.navigate(['/home/customer']);
+                CustomerComponent.loadData(this);
             }, error => {
                 this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
                 this.modalService.dismissAll();
