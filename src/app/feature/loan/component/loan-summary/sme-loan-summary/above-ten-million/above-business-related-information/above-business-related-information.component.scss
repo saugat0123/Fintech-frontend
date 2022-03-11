@@ -1,0 +1,8 @@
+p .subheading {
+  font-size: 13px;
+}
+@media print {
+  p .subheading {
+    font-size: 13px !important;
+  }
+}
