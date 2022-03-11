@@ -1,0 +1,38 @@
+
+<p><strong>Other Charges</strong></p>
+<table class="table table-condensed table-bordered table-responsive-md table-sm sb-small">
+    <tbody>
+    <tr *ngFor="let customerAllLoan of customerAllLoanList; let i = index">
+        <td>
+            CICL Charge {{customerAllLoanList.length > 1 ? i + 1 : ''}}
+        </td>
+        <td>
+            Rs. <b>{{customerAllLoan?.loanHolder?.cicl?.cibCharge}}</b>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            STR
+        </td>
+        <td>
+
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Commitment Fee
+        </td>
+        <td>
+
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Other Charges
+        </td>
+        <td>
+            As per STC
+        </td>
+    </tr>
+    </tbody>
+</table>

@@ -1,0 +1,106 @@
+<p><strong>Banking Relationship</strong></p>
+<ol class="lower-alpha">
+    <li>
+        Past performance with the Bank:
+        <b>{{(loanDataHolder.loanHolder.bankingRelationship | jsonParse).bankingRelationship}}</b>
+    </li>
+    <li>
+        Account Turnover:
+        <b>{{(loanDataHolder.loanHolder.bankingRelationship | jsonParse).accountTurnover}}</b>
+    </li>
+    <li>
+        Repayment History:
+        <b>{{(loanDataHolder.loanHolder.bankingRelationship | jsonParse).repaymentHistory}}</b>
+    </li>
+    <li>
+        <div class="row">
+            <div class="col-md-10">
+                Financial Arrangement (Multiple / Sole Banking):
+            </div>
+            <div class="col-md-2">
+                Rs. in Million
+            </div>
+        </div>
+        <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small">
+            <thead>
+            <tr class="sb-bg-dark text-white">
+                <th>
+                    Name of Banks / FIs
+                </th>
+                <th>
+                    Facilities
+                </th>
+                <th>
+                    Limit
+                </th>
+                <th>
+                    Outstanding
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    Name of Banks / FIs
+                </td>
+                <td>
+                    Facilities
+                </td>
+                <td>
+                    Name of Banks / FIs
+                </td>
+                <td>
+                    Facilities
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </li>
+    <li>
+        <div class="row">
+            <div class="col-md-10">
+                Report from CICL: Summary of CICL Report:
+            </div>
+            <div class="col-md-2">
+                Rs. in Million
+            </div>
+        </div>
+        <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small">
+            <thead>
+            <tr class="sb-bg-dark text-white">
+                <th>
+                    Particulars
+                </th>
+                <th>
+                    As a Borrower
+                </th>
+                <th>
+                    As a Guarantor
+                </th>
+                <th>
+                    As a shareholders / Dir.
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    Loan Limit
+                </td>
+                <td>
+                    Outstanding
+                </td>
+                <td>
+                    Blacklisted since (current)
+                </td>
+                <td>
+                    Blacklisted period (past)
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </li>
+    <li>
+        Comments:
+    </li>
+</ol>
