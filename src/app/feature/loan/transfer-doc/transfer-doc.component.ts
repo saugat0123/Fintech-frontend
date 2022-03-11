@@ -221,7 +221,7 @@ export class TransferDocComponent implements OnInit {
                 documentStatus: [undefined]
             }
         );
-    };
+    }
 
     changePage(page: number) {
         this.page = page;
@@ -449,7 +449,7 @@ export class TransferDocComponent implements OnInit {
             console.error(error);
             this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
         });
-    };
+    }
 
     onChangeInsuranceToggle(event) {
         this.insuranceToggle = false;
