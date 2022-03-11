@@ -190,22 +190,10 @@ export class SecurityComplianceCertificateComponent implements OnInit {
 
   setSccRefNumber() {
     const date = new Date();
-    console.log('date', date);
-    console.log('year', date.getFullYear());
-    console.log('month', date.getMonth());
-    console.log('day', date.getDay());
-    this.sccRefNumber = date.getFullYear().toString().concat('/').concat(date.getMonth().toString()).concat('/')
-        .concat(date.getDay().toString()).concat('/').concat('SCC').concat('/').concat(this.cadFile.id.toString());
-    this.olRefNumber = 'OL'.concat(this.cadFile.id.toString()).padStart(4, '0');
-    // // tslint:disable-next-line:no-bitwise
-    // let firstPart: any = (Math.random() * 46656) | 0;
-    // // tslint:disable-next-line:no-bitwise
-    // let secondPart: any = (Math.random() * 46656) | 0;
-    // firstPart = ('000' + firstPart.toString(36)).slice(-3);
-    // secondPart = ('000' + secondPart.toString(36)).slice(-3);
-    // const random = firstPart + secondPart;
-    // const first = `SCC/${this.cadFile.assignedLoan[0].branch.branchCode}/`;
-    // this.sccRefNumber = first + random.toString().concat((this.cadFile.id).toString().padStart(4, '0'));
+    this.sccRefNumber = 'SCC'.concat(date.getFullYear().toString()).concat('/').concat((date.getMonth() + 1).toString()).concat('/')
+        .concat(date.getDate().toString()).concat('/').concat('/').concat(this.cadFile.id.toString().padStart(4, '0'));
+    this.olRefNumber = 'OL'.concat(date.getFullYear().toString()).concat('/').concat((date.getMonth() + 1).toString()).concat('/')
+        .concat(date.getDate().toString()).concat('/').concat('/').concat(this.cadFile.id.toString().padStart(4, '0'));
   }
 
   onSave() {

@@ -65,20 +65,20 @@
         <th>Account No.</th>
         <td>
           <ng-container *ngIf="isIndividual; else institution">
-            <span *ngFor="let data of jsonData?.accountDetails">
-              {{data?.accountNo}},
+            <span *ngFor="let data of jsonData?.accountDetails; let i = index">
+              {{data?.accountNo}} {{i === jsonData?.accountDetails.length - 1 ? '' : ','}}
             </span>
           </ng-container>
           <ng-template #institution>
             <span *ngIf="isInstitution; else joint">
-              <span *ngFor="let data of jsonData?.accountDetails">
-                {{data?.accountNo}},
+              <span *ngFor="let data of jsonData?.accountDetails; let ii = index">
+                {{data?.accountNo}} {{ii === jsonData?.accountDetails.length - 1 ? '' : ','}}
               </span>
             </span>
           </ng-template>
           <ng-template #joint>
-            <span *ngFor="let data of jsonData?.accountDetails">
-              {{data?.accountNo}}
+            <span *ngFor="let data of jsonData?.accountDetails; let iii = index">
+              {{data?.accountNo}} {{iii === jsonData?.accountDetails.length - 1 ? '' : ','}}
             </span>
           </ng-template>
         </td>
