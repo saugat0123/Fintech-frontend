@@ -6,6 +6,42 @@
 @import "src/styles";
 
 $nb-enable-css-custom-properties: true;
+.summary {
+  *{
+    //font-family: Cambria, Georgia, serif !important;
+    font-size: 10pt !important;
+  }
+}
+@media print {
+  @page {
+    //size: A4;
+    //margin: 25mm 25mm 25mm 25mm;
+  }
+  .summary {
+    *{
+      font-family: Cambria, Georgia, serif !important;
+      font-size: 10pt !important;
+    }
+    .customer-name {
+      font-size: 14pt !important;
+    }
+    .header {
+      font-family: Cambria, Georgia, serif !important;
+      font-size: 12pt !important;
+      padding-top: 32px !important;
+    }
+    .sub-header {
+      font-family: Cambria, Georgia, serif !important;
+      font-size: 10pt !important;
+      margin-top: 10px;
+    }
+    .security-header {
+      font-family: Cambria, Georgia, serif !important;
+      font-size: 10pt !important;
+      margin-top: 10px;
+    }
+  }
+}
 
 $nb-themes: nb-register-theme((
   /** theme color */
@@ -104,11 +140,6 @@ $nb-themes: nb-register-theme((
   @page {
     margin: 50px 30px 50px 50px;
     width: 100%;
-  }
-
-  body {
-    font-family: Cambria, Georgia, serif;
-    font-size: 21px !important;
   }
 
 

@@ -149,7 +149,6 @@ export class LoanActionModalComponent implements OnInit {
     }
 
     public onSubmit() {
-        this.spinnerService.show();
         const comment = this.formAction.value.comment;
         const docAction = this.formAction.value.docAction;
         const docActionMSG = this.formAction.value.docActionMsg;
@@ -224,7 +223,7 @@ export class LoanActionModalComponent implements OnInit {
                         console.log(error);
                     });
 
-                } else if (docAction === 'REJECT') {
+                } else if (this.isRemitLoan && docAction === 'REJECT') {
                     const beneficiaryObj = {
                         'beneficiaryId': this.beneficiaryId,
                         'status': 'REJECTED',

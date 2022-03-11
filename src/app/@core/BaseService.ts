@@ -123,6 +123,16 @@ export abstract class BaseService<T> {
         return this.http.post(req.url, searchObj, {headers: req.header});
     }
 
+    downloadDocument(path: string) {
+        const url = `${this.getApi()}/download`;
+        const getUrl = ApiUtils.getRequest(url);
+        const httpOptions = {
+            responseType: 'blob' as 'json',
+            headers: getUrl.header
+        };
+        return this.http.post(getUrl.url, path, httpOptions);
+    }
+
     public getStatus(): Observable<any> {
         const api = `${this.getApi()}/statusCount`;
 

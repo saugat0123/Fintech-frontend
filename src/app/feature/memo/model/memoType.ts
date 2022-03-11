@@ -5,4 +5,6 @@ export class MemoType {
     createdAt: string;
     lastModifiedAt: string;
     version: number;
+    documents: any;
+
 }

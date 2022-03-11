@@ -207,6 +207,8 @@ export class JointFormComponent implements OnInit {
                         citizenshipNumber: [cr.citizenshipNumber],
                         citizenshipIssuedPlace: [cr.citizenshipIssuedPlace],
                         citizenshipIssuedDate: [cr.citizenshipIssuedDate],
+                        age: [cr.age],
+                        occupation: [cr.occupation],
                     }));
                 });
             } else {
@@ -584,6 +586,8 @@ export class JointFormComponent implements OnInit {
             citizenshipNumber: [undefined],
             citizenshipIssuedPlace: [undefined],
             citizenshipIssuedDate: [undefined],
+            age: [undefined],
+            occupation: [undefined],
         });
     }
     resetValue(index)  {

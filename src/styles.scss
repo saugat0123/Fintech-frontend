@@ -15,7 +15,30 @@
 //sb solution
 $color-bank: #F58229;
 $color-bank-dark: #F58229;
-
+.summary {
+  *{
+    font-family: Cambria, Georgia, serif !important;
+    font-size: 10pt !important;
+  }
+  .customer-name {
+    font-size: 14pt !important;
+  }
+  .header {
+    font-family: Cambria, Georgia, serif !important;
+    font-size: 12pt !important;
+    padding-top: 32px !important;
+  }
+  .sub-header {
+    font-family: Cambria, Georgia, serif !important;
+    font-size: 10pt !important;
+    margin-top: 10px;
+  }
+  .security-header {
+    font-family: Cambria, Georgia, serif !important;
+    font-size: 10pt !important;
+    margin-top: 10px;
+  }
+}
 .bank-hr {
   height: 1px;
   background-color: $color-bank;
@@ -194,9 +217,4 @@ button {
 nb-card.videoKyc {
   height: 90vh !important;
   overflow-x: hidden;
-}
-@media print {
-  .header {
-    padding-top: 32px !important;
-  }
 }

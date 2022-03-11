@@ -72,6 +72,11 @@ export class UIComponent implements OnInit, DoCheck {
     enableMicro = environment.microLoan;
     form: FormGroup;
     isRemitLoan = false;
+    finalCreditMemoDocument = Array<Document>();
+    creditMemoDocumentList = [];
+
+
+
     ckEdittorConfig;
     paperChecklist;
     tableArray = [];
@@ -99,6 +104,9 @@ export class UIComponent implements OnInit, DoCheck {
         private spinnerService: NgxSpinnerService
     ) {
     }
+    loanNature = loanNature.enumObject();
+    financedAssets = financedAssets.enumObject();
+
     static loadData(other: UIComponent) {
         other.spinnerService.show();
         other.ckEdittorConfig = Editor.CK_CONFIG;
@@ -315,6 +323,26 @@ export class UIComponent implements OnInit, DoCheck {
             other.spinnerService.hide();
         });
 
+
+        // Id of Credit Diary Note cycle is set 14 in patch backend
+        other.documentService.getByLoanCycleAndStatus(14, Status.ACTIVE).subscribe((response: any) => {
+            other.creditMemoDocumentList = response.detail;
+
+            if (other.id !== undefined && other.id !== 0) {
+                other.service.detail(other.id).subscribe((res: any) => {
+                    other.loanConfig = res.detail;
+                    other.creditMemoDocumentList.forEach(creditMemoDocument => {
+                        other.loanConfig.creditMemoDocuments.forEach(loanConfigCreditMemoDocument => {
+                            if (creditMemoDocument.id === loanConfigCreditMemoDocument.id) {
+                                other.finalCreditMemoDocument.push(creditMemoDocument);
+                                creditMemoDocument.checked = true;
+                            }
+                        });
+                    });
+                });
+            }
+        });
+
         if (!other.enableMicro) {
             const index = other.loanTagList.indexOf(other.loanTagList.filter(value => value.toString() === 'MICRO LOAN')[0]);
             other.loanTagList.forEach(value => {
@@ -514,6 +542,8 @@ export class UIComponent implements OnInit, DoCheck {
         this.loanConfig.fullSettlement = this.finalFullSettlementDocument;
         this.loanConfig.approvedDocument = this.finalCadDocumentUploadList;
         this.loanConfig.renewWithEnhancement = this.finalRenewWithEnhancementDocument;
+        this.loanConfig.creditMemoDocuments = this.finalCreditMemoDocument;
+
 
         this.loanConfig.offerLetters = this.selectedOfferLetterList;
         this.loanConfig.loanCategory = this.selectedLoanCategory;
@@ -685,4 +715,20 @@ export class UIComponent implements OnInit, DoCheck {
   checklistChange(data) {
         this.checklistChecked = data;
   }
+
+    nbUpdateCheckBoxCreditMemo($event, checkAll) {
+        this.finalCreditMemoDocument = [];
+        this.creditMemoDocumentList.forEach((d) => {
+            if (checkAll) {
+                this.finalCreditMemoDocument.push(d);
+                Object.assign(d, {checked: true});
+            } else {
+                d.checked = false;
+                this.finalCreditMemoDocument = [];
+            }
+        });
+
+    }
+
+
 }

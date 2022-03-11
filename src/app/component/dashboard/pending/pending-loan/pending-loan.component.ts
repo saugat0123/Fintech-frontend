@@ -41,7 +41,6 @@ export class PendingLoanComponent implements OnInit {
         this.getPostApprovalDocStat();
         this.loanFormService.getStatus().subscribe(
             (response: any) => {
-                console.log('loan response', response);
                 this.pendingCount = response.detail.pending;
                 this.approvedCount = response.detail.Approved;
                 this.rejectedCount = response.detail.Rejected;

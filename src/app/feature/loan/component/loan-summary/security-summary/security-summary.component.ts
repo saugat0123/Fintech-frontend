@@ -60,6 +60,10 @@ export class SecuritySummaryComponent implements OnInit {
     @Output() downloadSiteVisitDocument = new EventEmitter();
     @Input() isApproveSecurity;
     isSecurityPresent = false;
+    landArray;
+    landBuildingArray;
+    apartmentArray;
+    vehicleArray;
 
     constructor(private collateralSiteVisitService: CollateralSiteVisitService) {
     }
@@ -101,6 +105,7 @@ export class SecuritySummaryComponent implements OnInit {
                 if (f.indexOf('VehicleSecurity') !== -1) {
                     this.showTitle = true;
                     this.vehicleSelected = true;
+                    this.vehicleArray = this.managedArray(this.formData['initialForm']['vehicleDetails']);
                 }
             });
             // fixed deposit receipt security
@@ -168,7 +173,6 @@ export class SecuritySummaryComponent implements OnInit {
                 }
             });
         }
-
         if (this.depositSelected) {
             this.calculateTotal();
         }
@@ -190,6 +194,7 @@ export class SecuritySummaryComponent implements OnInit {
                                 this.collateralSiteVisits.push(...siteVisit.filter(f => f.uuid === v.uuid));
                             }
                         });
+                        this.landArray = this.managedArray(this.formData['initialForm']['landDetails']);
                     }
                     if (this.landBuilding) {
                         const landBuilding = this.formData['initialForm']['landBuilding'];
@@ -198,6 +203,7 @@ export class SecuritySummaryComponent implements OnInit {
                                 this.collateralSiteVisits.push(...siteVisit.filter(f => f.uuid === v.uuid));
                             }
                         });
+                        this.landBuildingArray = this.managedArray(this.formData['initialForm']['landBuilding']);
                     }
                     if (this.apartmentSelected) {
                         const buildingDetails = this.formData['initialForm']['buildingDetails'];
@@ -206,6 +212,7 @@ export class SecuritySummaryComponent implements OnInit {
                                 this.collateralSiteVisits.push(...siteVisit.filter(f => f.uuid === v.uuid));
                             }
                         });
+                        this.apartmentArray = this.managedArray(this.formData['initialForm']['buildingDetails']);
                     }
                     // for old loan that does not contains uuid for security and site visit
                     if (this.landSelected) {
@@ -215,6 +222,7 @@ export class SecuritySummaryComponent implements OnInit {
                                 this.collateralSiteVisits.push(...siteVisit.filter(f => f.uuid === null));
                             }
                         });
+                        this.landArray = this.managedArray(this.formData['initialForm']['landDetails']);
                     }
                     if (this.landBuilding) {
                         const landBuilding = this.formData['initialForm']['landBuilding'];
@@ -223,6 +231,7 @@ export class SecuritySummaryComponent implements OnInit {
                                 this.collateralSiteVisits.push(...siteVisit.filter(f => f.uuid === null));
                             }
                         });
+                        this.landBuildingArray = this.managedArray(this.formData['initialForm']['landBuilding']);
                     }
                     if (this.apartmentSelected) {
                         const buildingDetails = this.formData['initialForm']['buildingDetails'];
@@ -231,6 +240,7 @@ export class SecuritySummaryComponent implements OnInit {
                                 this.collateralSiteVisits.push(...siteVisit.filter(f => f.uuid === null));
                             }
                         });
+                        this.apartmentArray = this.managedArray(this.formData['initialForm']['buildingDetails']);
                     }
                     const arr = [];
                     this.collateralSiteVisits.forEach(f => {
@@ -267,5 +277,25 @@ export class SecuritySummaryComponent implements OnInit {
             this.shareTotalValue += share.total;
             this.totalConsideredValue += share.consideredValue;
         });
+    }
+    private managedArray(array) {
+        let newArray = [];
+        const returnArray = [];
+        array.forEach((g, i) => {
+            newArray.push(g);
+            if ((i + 1) % 2 === 0) {
+                if (newArray.length > 0) {
+                    returnArray.push(newArray);
+                }
+                newArray = [];
+            }
+            if (i === array.length - 1) {
+                if (newArray.length > 0) {
+                    returnArray.push(newArray);
+                }
+                newArray = [];
+            }
+        });
+        return returnArray;
     }
 }

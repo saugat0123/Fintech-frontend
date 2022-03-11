@@ -27,6 +27,7 @@ export class LoanConfig {
     fullSettlement: Array<Document>;
     eligibilityDocuments: Array<Document>;
     offerLetters: Array<OfferLetter>;
+    creditMemoDocuments: Array<Document>;
     enableEligibility: boolean;
     minimumProposedAmount: number;
     loanCategory: string;
