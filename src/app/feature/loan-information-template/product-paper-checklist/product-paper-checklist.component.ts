@@ -28,8 +28,6 @@ export class ProductPaperChecklistComponent implements OnInit , AfterViewInit {
     ngOnInit() {
         this.parser = new DOMParser();
         this.parsedData = this.parser.parseFromString(this.paper, 'text/html');
-        console.log('this is ids', this.allIds);
-        console.log('this is html', this.paper);
     }
     change(id) {
        const ids = id.split(/([0-9]+)/);

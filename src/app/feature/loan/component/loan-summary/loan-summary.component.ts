@@ -926,7 +926,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                     input.innerHTML = `<input type="radio" disabled>`;
                 }
             });
-            console.log(parserData.body.innerHTML);
             this.paperChecklist = parserData.body.innerHTML;
         }
     }

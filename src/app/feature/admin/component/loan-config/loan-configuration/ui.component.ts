@@ -1,4 +1,4 @@
-import {AfterViewChecked, ChangeDetectorRef, Component, DoCheck, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, DoCheck, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {Pageable} from '../../../../../@core/service/baseservice/common-pageable';
 import {LoanConfig} from '../../../modal/loan-config';
 import {Document} from '../../../modal/document';
@@ -414,6 +414,7 @@ export class UIComponent implements OnInit, DoCheck {
                     }
                 }
                 for (let j = 0; j < tdData.length; j++) {
+
                     // text values of  rows
                     const da = tdData[j].innerText.split('\n').join('').split('\t').join('');
                     //for skipping row containing yes no
@@ -434,15 +435,18 @@ export class UIComponent implements OnInit, DoCheck {
                         }
                     } else if ((da.toLowerCase() !== 'yes' && da.toLowerCase() !== 'no' && da.toLowerCase() !== 'na') &&
                         (this.tableHeads[j].toLowerCase() === 'yes' || this.tableHeads[j].toLowerCase() === 'no' ||
-                            this.tableHeads[j].toLowerCase() === 'na') && tdData[j].innerText.length === 9) {
-                        const id = `name${index}${j}${table}n${totalInput}n${index}n${table}`;
-                        this.allChecklistId.push(id);
-                        tdData[j].innerHTML = `<span id = "name${index}${j}${table}n${totalInput}n${index}n${table}"><input type="radio" click = "change()"  name="hello${index}${table}"></span>`;
+                            this.tableHeads[j].toLowerCase() === 'na')) {
+                        if (ObjectUtil.isEmpty(tdData[j].style.getPropertyValue('background-color'))) {
+                            const id = `name${index}${j}${table}n${totalInput}n${index}n${table}`;
+                            this.allChecklistId.push(id);
+                            tdData[j].innerHTML = `<span id = "name${index}${j}${table}n${totalInput}n${index}n${table}"><input type="radio" click = "change()"  name="hello${index}${table}"></span>`;
+
+                        }
                     }
                 }
             }
             this.tableHeads = [];
-            elem += '<div class="row">  <table class="table-bordered text-center table-responsive d-flex justify-content-center" width = "100%">' + element.innerHTML + '</table> </div>  <br style="clear: both;"> ';
+            elem += '<div class="row">  <table class="table-bordered text-center table-responsive d-flex justify-content-center">' + element.innerHTML + '</table> </div>  <br style="clear: both;"> ';
         });
         this.displayChecklist = elem.replace('undefined', ' ');
     }
