@@ -54,7 +54,8 @@
     </li>
     <li>
         <p class="text-uppercase"><strong>Pricing and Estimated Income From the Account</strong></p>
-        <app-above-pricing-and-estimated-income-from-the-account></app-above-pricing-and-estimated-income-from-the-account>
+        <app-above-pricing-and-estimated-income-from-the-account>
+        </app-above-pricing-and-estimated-income-from-the-account>
     </li>
     <li>
         <p class="text-uppercase"><strong>Security Arrangement</strong></p>
@@ -62,32 +63,46 @@
     </li>
     <li>
         <p class="text-uppercase"><strong>Fixed Assets Collateral Computation Sheet (Facility-wise)</strong></p>
+        <app-above-fixed-assets-collateral-computation-sheet></app-above-fixed-assets-collateral-computation-sheet>
     </li>
     <li>
         <p class="text-uppercase"><strong>Special Covenants/Conditions, if any</strong></p>
+        <app-above-special-covenants></app-above-special-covenants>
     </li>
     <li>
         <p><strong>MODE OF DISBURSEMENT/DRAWDOWN (FACILITY WISE)</strong></p>
+        <app-above-mode-of-disbursement></app-above-mode-of-disbursement>
     </li>
     <li>
         <p><strong>REPAYMENT MODALITY OF CREDIT FACILITIES (FACILITY WISE)</strong></p>
+        <app-above-repayment-modality-of-credit-facilities></app-above-repayment-modality-of-credit-facilities>
     </li>
     <li>
         <p><strong>WAIVERS, DEVIATIONS, DEFERRALS AND REBATES, IF ANY</strong></p>
+        <app-above-waiver-deviations-deferals-rebates></app-above-waiver-deviations-deferals-rebates>
     </li>
     <li>
         <p><strong>NRB/STATUTORY AUDITORS/INTERNAL AUDITORS REMARKS AND THEIR STATUS</strong></p>
+        <!-- COMPONENT USED FOR ALL THE THREE LOANS i.e. UPTO, ABOVE AND SANA -->
+        <app-nrb-statutory-remarks-status></app-nrb-statutory-remarks-status>
     </li>
     <li>
         <p><strong>MIS/NRB REPORTING </strong></p>
+        <!-- COMPONENT USED FOR ALL THE THREE LOANS i.e. UPTO, ABOVE AND SANA -->
+        <app-mis-nrb-reporting></app-mis-nrb-reporting>
     </li>
     <li>
         <p><strong>REVIEW OF CREDIT FACILITIES</strong></p>
+        <app-above-review-of-credit-facilities></app-above-review-of-credit-facilities>
     </li>
     <li>
         <p><strong>CONCLUSIONS AND RECOMMENDATIONS</strong></p>
+        <!-- COMPONENT USED FOR ALL THE THREE LOANS i.e. UPTO, ABOVE AND SANA -->
+        <app-conlusion-review-table [isUsedForAboveTenMillion]="isUsedForAboveTenMillion"></app-conlusion-review-table>
     </li>
     <li>
         <p><strong>CREDIT CARD REQUIREMENT</strong></p>
+        <!-- COMPONENT USED FOR ALL THE THREE LOANS i.e. UPTO, ABOVE AND SANA -->
+        <app-credit-card-requirement></app-credit-card-requirement>
     </li>
 </ol>
