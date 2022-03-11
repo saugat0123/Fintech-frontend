@@ -152,7 +152,10 @@
                                     <nb-card-header>Branches</nb-card-header>
                                     <nb-card-body>
                                         <ul>
-                                            <li *ngFor="let branch of valuator?.branch">{{branch.name}}</li>
+<!--                                            <li *ngFor="let branch of valuator?.branch">{{branch.name}}</li>-->
+                                            <li *ngFor="let branch of branchList" [value]="branch.id">
+                                                    {{branch.name}}
+                                            </li>
                                         </ul>
                                     </nb-card-body>
                                 </nb-card>
