@@ -39,7 +39,7 @@ export class LoanActionModalComponent implements OnInit {
     @Input() docAction: string;
     @Input() docActionMsg: string;
     @Input() documentStatus: DocStatus;
-    @Input() popUpTitle: 'Send Forward' | 'Approve' | 'Send Backward' | 'Reject' | 'Close' | string;
+    @Input() popUpTitle: 'Send Forward' | 'Approve' | 'Send Backward' | 'Reject' | 'Close' | 'APPROVED_REVOKED' | string;
     @Input() isForward: boolean;
     @Input() toRole: Role;
     @Input() additionalDetails: any;

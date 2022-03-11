@@ -18,6 +18,14 @@
 <!--    <i class="col-md-1 fa fa-check"></i>-->
   </button>
 
+  <button (click)="loanAction('approve_revoked')" *ngIf="catalogueStatus"
+          [disabled]="actionsList.approved"
+          [ngStyle]="{ 'filter' : (actionsList.approved === false)? 'grayscale(100%)': 'grayscale(0%)'}"
+          class="btn-sm btn-success">
+    APPROVE
+    <!--    <i class="col-md-1 fa fa-check"></i>-->
+  </button>
+
   <button (click)="loanAction('forward')" *ngIf="!catalogueStatus && status !== docStatus.value(docStatus.HSOV_PENDING)"
           [disabled]="!actionsList.sendForward"
           [ngStyle]="{ 'filter' : (actionsList.sendForward === false)? 'grayscale(100%)': 'grayscale(0%)'}"

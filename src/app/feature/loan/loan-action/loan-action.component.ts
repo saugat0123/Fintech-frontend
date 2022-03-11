@@ -97,7 +97,7 @@ export class LoanActionComponent implements OnInit, OnChanges {
         }
     }
 
-    public loanAction(action: 'forward' | 'backward' | 'backwardCommittee' | 'approve' | 'reject' | 'close' | 'send back to sender' | 'send back to agent'): void {
+    public loanAction(action: 'forward' | 'backward' | 'backwardCommittee' | 'approve' | 'reject' | 'close' | 'send back to sender' | 'send back to agent' | 'approve_revoked'): void {
         this.close();
         let context;
         switch (action) {
@@ -169,7 +169,8 @@ export class LoanActionComponent implements OnInit, OnChanges {
 
                     return;
                 }
-                if (this.customerLoanHolder.isHsov && this.customerLoanHolder.documentStatus.toString() !== DocStatus.value(DocStatus.HSOV_PENDING)) {
+                if (this.customerLoanHolder.isHsov &&
+                    this.customerLoanHolder.documentStatus.toString() !== DocStatus.value(DocStatus.HSOV_PENDING)) {
                     context = {
                         popUpTitle: 'Approve',
                         isForward: true,
@@ -264,6 +265,56 @@ export class LoanActionComponent implements OnInit, OnChanges {
                     docActionMsg: 'Closed',
                     documentStatus: DocStatus.CLOSED
                 };
+                break;
+            case 'approve_revoked':
+                if (this.loanFlags && this.loanFlags.length > 0) {
+                    this.loanFlags.sort((a, b) => a.order - b.order);
+
+                    return;
+                }
+                if (this.customerLoanHolder.isHsov &&
+                    this.customerLoanHolder.documentStatus.toString() !== DocStatus.value(DocStatus.HSOV_PENDING)) {
+                    context = {
+                        popUpTitle: 'Return back to previous stage',
+                        isForward: true,
+                        customerLoanHolder: this.customerLoanHolder,
+                        loanConfigId: this.loanConfigId,
+                        customerLoanId: this.id,
+                        branchId: this.branchId,
+                        docAction: 'APPROVED_REVOKED',
+                        docActionMsg: 'Return back to previous stage',
+                        documentStatus: DocStatus.HSOV_PENDING,
+                        isRemitLoan: this.isRemitLoan,
+                        beneficiaryId: this.beneficiaryId
+                    };
+                } else if (this.customerLoanHolder.dualApproval && !this.customerLoanHolder.dualApproved) {
+                    context = {
+                        popUpTitle: 'Return back to previous stage',
+                        isForward: false,
+                        customerLoanHolder: this.customerLoanHolder,
+                        loanConfigId: this.loanConfigId,
+                        branchId: this.branchId,
+                        customerLoanId: this.id,
+                        docAction: 'APPROVED_REVOKED',
+                        docActionMsg: 'Return back to previous stage',
+                        documentStatus: DocStatus.DUAL_APPROVAL_PENDING,
+                        isRemitLoan: this.isRemitLoan,
+                        beneficiaryId: this.beneficiaryId
+                    };
+                } else {
+                    context = {
+                        popUpTitle: 'Return back to previous stage',
+                        isForward: false,
+                        customerLoanHolder: this.customerLoanHolder,
+                        loanConfigId: this.loanConfigId,
+                        customerLoanId: this.id,
+                        docAction: 'APPROVED_REVOKED',
+                        docActionMsg: 'Return back to previous stage',
+                        documentStatus: DocStatus.PENDING,
+                        isRemitLoan: this.isRemitLoan,
+                        beneficiaryId: this.beneficiaryId
+                    };
+                }
                 break;
         }
         if (this.hasDeferredDocs) {
