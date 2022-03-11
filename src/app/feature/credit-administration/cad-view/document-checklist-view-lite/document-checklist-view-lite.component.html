@@ -10,19 +10,10 @@
             <table class="table table-bordered table-hover text-center sb-small table-sm">
                 <thead class="sb-bg-dark text-white">
                 <tr>
-                    <th>
-                        S.N
-                    </th>
-
-                    <th>
-                        Document Name
-                    </th>
-
-
+                    <th>S.N</th>
+                    <th>Document Name</th>
                     <th>Amount</th>
-                    <th>
-                        Upload On
-                    </th>
+                    <th>Upload On</th>
                     <th>Remarks</th>
                     <th>Attachment</th>
                 </tr>
@@ -54,14 +45,16 @@
             <table *ngIf="cadData?.offerDocumentList.length > 0" class="table table-bordered table-hover table-sm sb-small text-center">
                 <thead>
                 <tr class="text-white sb-bg-dark">
-                    <th>#</th>
+                    <th>SN</th>
                     <th>Offer Letter</th>
-                    <th colspan="2">Upload Status</th>
+                    <th colspan="4">Upload Status/Upload Date</th>
                 </tr>
                 <tr>
                     <td colspan="2"></td>
                     <td>Draft Doc</td>
+                    <td>Draft Doc Upload Date</td>
                     <td>Signed Doc</td>
+                    <td>Signed Doc Upload Date</td>
                 </tr>
                 </thead>
                 <tbody>
