@@ -155,9 +155,11 @@
             </div>
             <div class="row mt-3">
                 <div class="col-md-12">
-                    <nb-checkbox size="large" (checkedChange)="toggle($event)">Detailed View</nb-checkbox>
+                    <nb-checkbox class="disable-print" size="large" (checkedChange)="toggle($event)">Detailed View
+                    </nb-checkbox>
                     <br>
-                    <nb-checkbox *ngIf="isDetailedView" size="large" (checkedChange)="aboveTenMillion($event)">Above
+                    <nb-checkbox *ngIf="isDetailedView" class="disable-print" size="large"
+                        (checkedChange)="aboveTenMillion($event)">Above
                         Ten Million
                     </nb-checkbox>
                 </div>
