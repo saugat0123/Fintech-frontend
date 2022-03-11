@@ -882,9 +882,13 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
       this.hidePreviewButton = false;
     }
   }
-  toggle(checked: boolean) {
-    this.isDetailedView = checked;
+  // toggle(checked: boolean) {
+  //   this.isDetailedView = checked;
+  // }
+  detailViewCheck() {
+    this.isDetailedView = !this.isDetailedView;
   }
+
   aboveTenMillion(checked: boolean) {
     this.isAboveTenMillion = checked;
   }
