@@ -394,7 +394,7 @@ export class CustomerComponent implements OnInit {
     }
 
     getSelectedBranch(branchId) {
-        this.transferSelectedBranch = branchId;
+        this.transferSelectedBranch = null;
         this.branchService.detail(branchId).subscribe((res: any) => {
             this.transferSelectedBranch = res.detail;
         });
