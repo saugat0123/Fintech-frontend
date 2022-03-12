@@ -30,6 +30,7 @@ export class Section5InterestPenalChargePrintComponent implements OnInit {
   mortgageTermSelected = false;
   equityMortgageSelected = false;
   isWorkingCapitalLoan = false;
+  isAutoLoanOtherCreditSelected = false;
 
   constructor() { }
 
@@ -79,31 +80,39 @@ export class Section5InterestPenalChargePrintComponent implements OnInit {
           this.isAutoLoanEmiSelected = true;
         }
       });
-    }
-    if (this.termSelected === true) {
-      const termLoanKey = this.letterData.termLoanForm.termLoanDetails;
-      termLoanKey.forEach(val => {
-        this.isTermLoanSelected = val.termLoanFor === 'VEHICLE';
-        if (val.termLoanType === 'NEW_EMI' || val.termLoanType === 'NEW_ANNUAL_REVIEW') {
-          this.isTermLoanEmiSelected = true;
-        }
-      });
-    }
-    if (this.mortgageTermSelected === true) {
-      const tempTermMortgageKey = this.letterData.mortgageEquityTermForm.mortgageTermFormArray;
-      tempTermMortgageKey.forEach(val => {
-        if (val.termLoanType === 'NEW_EMI_TERM_LOAN' || val.termLoanType === 'NEW_ANNUAL_REVIEW') {
-          this.isMortgageTermLoanSelected = true;
-        }
-      });
-    }
-    if (this.equityMortgageSelected === true) {
-      const tempTermMortgageKey = this.letterData.mortgageEquityTermForm.mortgageEquityTermFormArray;
-      tempTermMortgageKey.forEach(val => {
-        if (val.termLoanType === 'NEW_EMI_TERM_LOAN' || val.termLoanType === 'NEW_ANNUAL_REVIEW') {
-          this.isEquityMortgageTermLoanSelected = true;
-        }
-      });
+      if (this.isAutoLoanSelected === true) {
+        const autoLoan = this.letterData.autoLoanMasterForm.autoLoanFormArray;
+        autoLoan.forEach(val => {
+          if (val.autoLoanType === 'OTHER_CREDIT_LIMITS') {
+            this.isAutoLoanOtherCreditSelected = true;
+          }
+        });
+      }
+      if (this.termSelected === true) {
+        const termLoanKey = this.letterData.termLoanForm.termLoanDetails;
+        termLoanKey.forEach(val => {
+          this.isTermLoanSelected = val.termLoanFor === 'VEHICLE';
+          if (val.termLoanType === 'NEW_EMI' || val.termLoanType === 'NEW_ANNUAL_REVIEW') {
+            this.isTermLoanEmiSelected = true;
+          }
+        });
+      }
+      if (this.mortgageTermSelected === true) {
+        const tempTermMortgageKey = this.letterData.mortgageEquityTermForm.mortgageTermFormArray;
+        tempTermMortgageKey.forEach(val => {
+          if (val.termLoanType === 'NEW_EMI_TERM_LOAN' || val.termLoanType === 'NEW_ANNUAL_REVIEW') {
+            this.isMortgageTermLoanSelected = true;
+          }
+        });
+      }
+      if (this.equityMortgageSelected === true) {
+        const tempTermMortgageKey = this.letterData.mortgageEquityTermForm.mortgageEquityTermFormArray;
+        tempTermMortgageKey.forEach(val => {
+          if (val.termLoanType === 'NEW_EMI_TERM_LOAN' || val.termLoanType === 'NEW_ANNUAL_REVIEW') {
+            this.isEquityMortgageTermLoanSelected = true;
+          }
+        });
+      }
     }
   }
 }
