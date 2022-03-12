@@ -31,6 +31,7 @@ export class Section5InterstPenalChargeComponent implements OnInit {
   mortgageTermSelected = false;
   equityMortgageSelected = false;
   isWorkingCapitalLoan = false;
+  isAutoLoanOtherCreditSelected = false;
   constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
@@ -49,6 +50,7 @@ export class Section5InterstPenalChargeComponent implements OnInit {
           }
       }
     }
+    console.log('this.tempData', this.tempData);
   }
   buildForm() {
     this.section5 = this.formBuilder.group({
@@ -109,6 +111,14 @@ export class Section5InterstPenalChargeComponent implements OnInit {
             autoLoanKey.forEach(val => {
                 if (val.autoLoanType === 'NEW_EMI_TERM_LOAN') {
                     this.isAutoLoanEmiSelected = true;
+                }
+            });
+        }
+        if (this.isAutoLoanSelected === true) {
+            const autoLoanKey = this.tempData.autoLoanMasterForm.autoLoanFormArray;
+            autoLoanKey.forEach(val => {
+                if (val.autoLoanType === 'OTHER_CREDIT_LIMITS') {
+                    this.isAutoLoanOtherCreditSelected = true;
                 }
             });
         }
