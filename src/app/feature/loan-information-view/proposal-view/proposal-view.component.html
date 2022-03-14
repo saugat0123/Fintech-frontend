@@ -35,7 +35,8 @@
         <th> Outstanding</th>
         <th>Enhance</th>
         <th>Settlement</th>
-        <th>Proposed Limit</th>
+        <th *ngIf="loanDataHolder.loanType !=='ENHANCED_LOAN'">Proposed Limit</th>
+        <th *ngIf="loanDataHolder.loanType ==='ENHANCED_LOAN'">Total Limit</th>
         <!--        <th>Existing INT/COM/CM</th>-->
         <!--        for non funded commision and cash margin combination to be view-->
         <th>Existing Proposed INT/COM/CM</th>
