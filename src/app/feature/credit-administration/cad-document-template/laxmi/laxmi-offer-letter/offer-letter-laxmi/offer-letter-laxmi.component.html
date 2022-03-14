@@ -67,20 +67,15 @@
                     <p class="text-left">महाशय,</p>
                     <ng-container *ngIf="loanType?.includes('RENEWED_LOAN'); else otherLoanType">
                         तपाई (अब उप्रान्त ऋणी भनिएको) ले लक्ष्मी बैंक (अब उप्रान्त बैंक भनिएको) मा पेश गरेको कर्जा
-                        नविकरण/पुनरावलोकन
-                        आवेदन उपर कारवाही हुँदा यसै पत्रसाथ संलग्न अनुसुची–१ मा उल्लेखित शर्त वन्देजहरु पालना गर्न
-                        स्वीकार गरी
-                        यसपत्रबाट माग गरिएको धितो सुरक्षण उपलव्ध गराउने/यथावत राख्ने शर्तमा देहाय वमोजिमको कर्जा सुविधा
-                        नविकरण/पुनरावलोकन गरिएको ब्यहोरा सहर्ष जानकारी गराउदछौं
+                        नविकरण/पुनरावलोकन आवेदन उपर कारवाही हुँदा यसै पत्रमा उल्लेखित शर्त वन्देजहरु पालना गर्न
+                        स्वीकार गरी यसपत्रबाट माग गरिएको धितो सुरक्षण उपलव्ध गराउने/यथावत राख्ने शर्तमा देहाय
+                        वमोजिमको कर्जा सुविधा नविकरण/पुनरावलोकन गरिएको ब्यहोरा सहर्ष जानकारी गराउदछौं ।
                     </ng-container>
                     <ng-template #otherLoanType>
                         तपाई (अब उप्रान्त ऋणी भनिएको) ले लक्ष्मी बैंक (अब उप्रान्त बैंक भनिएको) मा पेश गरेको कर्जा आवेदन
-                        उपर
-                        कारवाही
-                        हुँदा यसमा उल्लेखित शर्त वन्देजहरु पालना गर्न स्वीकार गरी यसपत्रबाट माग गरिएको धितो सुरक्षण
-                        उपलव्ध
-                        गराउने
-                        शर्तमा देहाय वमोजिमको कर्जा सुविधा स्वीकृत गरिएको ब्यहोरा सहर्ष जानकारी गराउदछौं ।
+                        उपर कारवाही हुँदा यसमा उल्लेखित शर्त वन्देजहरु पालना गर्न स्वीकार गरी यसपत्रबाट माग गरिएको धितो
+                        सुरक्षण उपलव्ध गराउने शर्तमा देहाय वमोजिमको कर्जा सुविधा स्वीकृत गरिएको ब्यहोरा सहर्ष जानकारी
+                        गराउदछौं ।
                     </ng-template>
                     <br>
                     अतः यो कर्जा सुविधा प्रस्तावपत्र/सम्झौतापत्र ऋणीलाई स्वीकार्य भएमा प्रस्ताव गरेको मितिले ३० दिन
@@ -104,7 +99,7 @@
                                 </th>
                                 <th width="70%">
                                     <b>
-                                        {{offerLetterForm?.get(['purpose', i, 'loan'])?.value}}
+                                        {{offerLetterForm?.get(['purpose', i, 'loan'])?.value}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         <span class="float-right disable-print font-size-normal">
                                             <nb-checkbox
                                                     (change)="otherValueCheck($event?.target?.checked, i, 'facilityNeeded')"
@@ -120,17 +115,38 @@
                             <ng-container *ngIf="offerLetterForm?.get(['purpose', i, 'facilityNeeded'])?.value">
                                 <tr>
                                     <td>स्वीकृत कर्जा सीमा (Approved Loan Limit)</td>
-                                    <td>अधिकतम रु
-                                        <input type="text"
-                                               class="form-field nepaliFont form-control-sm font-size-normal disable-print"
-                                               [value]="offerLetterForm?.get(['purpose', i, 'loanLimitAmount'])?.value"
-                                               (change)="convertProposedAmount($event?.target?.value, i, 'purpose')">
+                                    <td>
+                                        <span *ngIf="!offerLetterForm?.get(['purpose', i, 'otherApprovalLimitChecked'])?.value">
+                                            अधिकतम रु
+                                            <input type="text"
+                                                   class="form-field nepaliFont form-control-sm font-size-normal disable-print"
+                                                   [value]="offerLetterForm?.get(['purpose', i, 'loanLimitAmount'])?.value"
+                                                   (change)="convertProposedAmount($event?.target?.value, i, 'purpose')">
+                                            <span class="nepaliFont font-size-normal print-only">
+                                                <b>{{offerLetterForm?.get(['purpose', i, 'loanLimitAmount'])?.value ?
+                                                    offerLetterForm?.get(['purpose', i, 'loanLimitAmount'])?.value : '========='}}</b>
+                                            </span> /– (अक्षरेपी रुपैयाँ
+                                            <span class="font-size-normal">
+                                                <b>{{offerLetterForm?.get(['purpose', i, 'loanLimitWord'])?.value ?
+                                                    offerLetterForm?.get(['purpose', i, 'loanLimitWord'])?.value : '========='}}</b>
+                                            </span> मात्र)
+                                        </span>
+
+                                        <span class="disable-print float-right">
+                                            <nb-checkbox
+                                                    (change)="otherValueCheck($event?.target?.checked, i, 'otherApprovalLimitChecked')"
+                                                    [checked]="offerLetterForm?.get(['purpose', i, 'otherApprovalLimitChecked'])?.value"><i>Other</i>
+                                            </nb-checkbox>
+                                        </span>
+                                        <textarea
+                                                *ngIf="offerLetterForm?.get(['purpose', i, 'otherApprovalLimitChecked'])?.value"
+                                                [value]="offerLetterForm.get(['purpose', i,'otherApprovalLimit']).value"
+                                                (change)="valueChange($event?.target?.value, i, 'otherApprovalLimit')"
+                                                class="form-control nepaliFont form-field font-size-normal disable-print"
+                                                rows="2"></textarea>
                                         <span class="nepaliFont font-size-normal print-only">
-                                    <b>{{offerLetterForm?.get(['purpose', i, 'loanLimitAmount'])?.value ? offerLetterForm?.get(['purpose', i, 'loanLimitAmount'])?.value : '========='}}</b>
-                                </span> /– (अक्षरेपी रुपैयाँ
-                                        <span class="font-size-normal">
-                                    <b>{{offerLetterForm?.get(['purpose', i, 'loanLimitWord'])?.value ? offerLetterForm?.get(['purpose', i, 'loanLimitWord'])?.value : '========='}}</b>
-                                </span> मात्र)
+                                        <b>{{offerLetterForm?.get(['purpose', i, 'otherApprovalLimit'])?.value ?
+                                            offerLetterForm?.get(['purpose', i, 'otherApprovalLimit'])?.value : '========='}}</b></span>
                                     </td>
                                 </tr>
                                 <tr>
@@ -669,34 +685,24 @@
                                     <b>{{offerLetterForm?.get(['purpose', i, 'rate'])?.value ?
                                         offerLetterForm?.get(['purpose', i, 'rate'])?.value : '========='}}</b></span>
                                                 प्रतिशत प्रति
-                                            </ng-container>
-                                            <span *ngIf="offerLetterForm?.get(['purpose', i, 'commissionFrequency'])?.value === 'QUARTER'; else monthly">त्रैमासिक |</span>
-                                            <ng-template #monthly>
-                                                <span *ngIf="offerLetterForm?.get(['purpose', i, 'commissionFrequency'])?.value === 'MONTH'; else other">मासिक |</span>
-                                            </ng-template>
-                                            <ng-template #other>
-                                    <span class="disable-print float-right">
-                                        <nb-checkbox
-                                                (change)="otherValueCheck($event?.target?.checked, i, 'commissionOtherChecked')"
-                                                [checked]="offerLetterForm?.get(['purpose', i, 'commissionOtherChecked'])?.value"><i>Other</i>
-                                        </nb-checkbox>
-                                    </span>
-                                                <textarea
-                                                        *ngIf="offerLetterForm?.get(['purpose', i, 'commissionOtherChecked'])?.value"
-                                                        [value]="offerLetterForm.get(['purpose', i,'commissionOther']).value"
-                                                        (change)="valueChange($event?.target?.value, i, 'commissionOther')"
-                                                        class="form-control nepaliFont form-field font-size-normal disable-print"
-                                                        placeholder="अन्य उद्देश्य"
-                                                        rows="2"></textarea>
+                                                <select class="form-control font-size-normal disable-print selectWidth"
+                                                        [value]="offerLetterForm?.get(['purpose', i, 'commissionFrequency'])?.value"
+                                                        name="commissionFrequency"
+                                                        (change)="valueChange($event?.target?.value, i, 'commissionFrequency')">
+                                                    <option [value]="null" hidden>Select Commission Frequency</option>
+                                                    <option *ngFor="let com of commissionFreq"
+                                                            [value]="com">{{com}}</option>
+                                                </select>
                                                 <span class="nepaliFont font-size-normal print-only">
-                                        <b>{{offerLetterForm?.get(['purpose', i, 'commissionOther'])?.value ?
-                                            offerLetterForm?.get(['purpose', i, 'commissionOther'])?.value : '========='}}</b></span>
-                                            </ng-template>
+                                                    <b>{{offerLetterForm?.get(['purpose', i, 'commissionFrequency'])?.value ?
+                                                        offerLetterForm?.get(['purpose', i, 'commissionFrequency'])?.value : '========='}}</b>
+                                                </span>
+                                            </ng-container>
                                         </ng-container>
                                     </td>
                                 </tr>
 
-                                <tr *ngIf="offerLetterForm?.get(['purpose', i, 'loanType'])?.value === 'NEW_LOAN'">
+                                <tr>
                                     <td>
                                 <span [ngClass]="offerLetterForm?.get(['purpose', i, 'adNeeded'])?.value ? '' : 'disable-print'">
                                     प्रशासनिक शुल्क (Administration Fee)
@@ -774,7 +780,7 @@
                                     <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
                                               [value]="rem?.get('remark')?.value"
                                               (change)="remarkValueChange($event?.target?.value, ix, i)"
-                                              placeholder="अन्य कर्जा खिलाफीको अवस्था" rows="3">
+                                              placeholder="अन्य सुविधा" rows="3">
                                     </textarea>
                                             <span class="nepaliFont font-size-normal print-only">
                                         <b>{{rem?.get('remark')?.value ?
@@ -1426,7 +1432,8 @@
                                 </th>
                             </tr>
                             <ng-container *ngIf="offerLetterForm?.get('shareSecurityNeeded')?.value">
-                                <tr [ngClass]="offerLetterForm.get('shareSecurity')['length'] === 0 ? 'print-only1' : ''">
+                                <tr [ngClass]="offerLetterForm.get('shareSecurity')['length'] === 0 ? 'print-only1' : ''"
+                                    *ngIf="!offerLetterForm?.get('shareOtherChecked')?.value">
                                     <th colspan="1" class="sn pt-2">
                                         <ul>
                                             <li></li>
@@ -1438,7 +1445,8 @@
                                     <th colspan="1">शेयरको किसिम</th>
                                 </tr>
                                 <ng-container>
-                                    <tr *ngFor="let shareData of offerLetterForm?.get('shareSecurity')?.value; let iv = index">
+                                    <tr *ngFor="let shareData of offerLetterForm?.get('shareSecurity')?.value; let iv = index"
+                                        *ngIf="!offerLetterForm?.get('shareOtherChecked')?.value">
                                         <td colspan="1">
                                     <span *ngIf="offerLetterForm.get('shareSecurity')['length'] > 0"
                                           class="disable-print">
@@ -1449,7 +1457,7 @@
                                         </td>
                                         <td colspan="2"><input type="text"
                                                                [value]="shareData?.shareHolderName"
-                                                               placeholder="सवारीको विवरण"
+                                                               placeholder="शेयरधनीको नाम"
                                                                (change)="securityValueChange($event?.target?.value, iv,'shareSecurity', 'shareHolderName')"
                                                                class="nepaliFont form-field form-control-sm font-size-normal disable-print">
                                             <span class="nepaliFont font-size-normal print-only">
@@ -1480,17 +1488,18 @@
                                             <b>{{shareData?.shareType ? shareData?.shareType : '========='}}</b></span>
                                         </td>
                                     </tr>
-                                    <div class="disable-print">
+                                    <div class="disable-print"
+                                         *ngIf="!offerLetterForm?.get('shareOtherChecked')?.value">
                                         <input (click)="addShareSecurity()" class="btn btn-sm btn-flat btn-primary"
                                                type="button" value="Add More"/>
                                     </div>
                                     <tr>
                                         <td colspan="1"></td>
-                                        <td colspan="6">उक्त शेयरहरु र सोमा प्राप्त हुने वोनश शेयर, नगद लाभांश,
-                                            हकप्रदबाट प्राप्त
-                                            हुने शेयर लगायतका सम्पूर्ण शेयरहरु बैंकको कर्जा चुक्ता नहुन्जेल सम्मका लागि
-                                            कर्जाको
-                                            सुरक्षण वापत धितोको रुपमा प्रदान
+                                        <td colspan="6">
+                                            <span *ngIf="!offerLetterForm?.get('shareOtherChecked')?.value">
+                                                उक्त शेयरहरु र सोमा प्राप्त हुने वोनश शेयर, नगद लाभांश,
+                                            हकप्रदबाट प्राप्त हुने शेयर लगायतका सम्पूर्ण शेयरहरु बैंकको कर्जा चुक्ता
+                                            नहुन्जेल सम्मका लागि कर्जाको सुरक्षण वापत धितोको रुपमा प्रदान
                                             <span *ngIf="!offerLetterForm?.get('shareRenewWith').value">
                                                 {{loanType?.includes('RENEWED_LOAN') ? ' गराएको यथावत रहने छ ।' : ' गर्नुपर्नेछ ।'}}
                                             </span>
@@ -1515,12 +1524,31 @@
                                                 <b>{{offerLetterForm.get('date4')?.value ? offerLetterForm.get('date4')?.value : '========='}}</b>
                                             </span> मा प्राप्त) </strong>
                                             </ng-container>
-                                            <span class="disable-print float-right"
+                                                <span class="disable-print float-right"
                                                   *ngIf="loanType?.includes('RENEW_WITH_ENHANCEMENT') || loanType?.includes('ENHANCED_LOAN')">
+                                                    <nb-checkbox
+                                                            (change)="otherCheckedValue($event?.target?.checked, 'shareRenewWith', 'shareWord')"
+                                                            [checked]="offerLetterForm?.get('shareRenewWith')?.value"><i>Change word</i>
+                                                    </nb-checkbox>
+                                                </span>
+                                            </span>
+                                            <span class="disable-print float-right">
                                                 <nb-checkbox
-                                                        (change)="otherCheckedValue($event?.target?.checked, 'shareRenewWith', 'shareWord')"
-                                                        [checked]="offerLetterForm?.get('shareRenewWith')?.value"><i>Change word</i>
+                                                        (change)="otherCheck($event?.target?.checked, 'shareOtherChecked')"
+                                                        [checked]="offerLetterForm?.get('shareOtherChecked')?.value"><i>Other</i>
                                                 </nb-checkbox>
+                                            </span>
+
+                                            <span *ngIf="offerLetterForm?.get('shareOtherChecked')?.value">
+                                                <textarea
+                                                        class="form-control nepaliFont form-field font-size-normal disable-print"
+                                                        [value]="offerLetterForm?.get('shareOther')?.value"
+                                                        formControlName="shareOther"
+                                                        rows="4"></textarea>
+                                                <span class="nepaliFont font-size-normal print-only">
+                                                    <b>{{offerLetterForm?.get('shareOther')?.value ?
+                                                        offerLetterForm?.get('shareOther')?.value : '========='}}</b>
+                                                </span>
                                             </span>
                                         </td>
                                     </tr>

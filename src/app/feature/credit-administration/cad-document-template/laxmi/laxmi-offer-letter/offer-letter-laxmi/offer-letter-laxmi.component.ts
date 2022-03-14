@@ -47,6 +47,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
     loanType = [];
     documentWord = [' गर्नुपर्नेछ |', ' गराएको यथावत रहने छ |'];
     hypoDocument = [' गरिदिनु पर्नेछ |', ' बैंकलाई उपलब्ध गराएको यथावत रहने छ ।'];
+    commissionFreq = ['मासिक', 'त्रैमासिक', 'वार्षिक', 'अर्ध वार्षिक'];
 
     constructor(private formBuilder: FormBuilder,
                 private administrationService: CreditAdministrationService,
@@ -232,7 +233,9 @@ export class OfferLetterLaxmiComponent implements OnInit {
             karjaRenewChecked: [false],
             karjaWord: [undefined],
             creditLetterRenewChecked: [false],
-            creditLetterWord: [undefined]
+            creditLetterWord: [undefined],
+            shareOtherChecked: [false],
+            shareOther: [undefined]
 
         });
     }
@@ -341,20 +344,18 @@ export class OfferLetterLaxmiComponent implements OnInit {
                     this.offerLetterForm.get(['purpose', i, 'moratariumValue']).patchValue(null);
                 }
                 break;
-            case 'commissionOtherChecked':
+            case 'otherApprovalLimitChecked':
                 if (checked) {
-                    this.offerLetterForm.get(['purpose', i, 'commissionOtherChecked']).patchValue(checked);
-                    this.offerLetterForm.get(['purpose', i, 'rate']).patchValue(null);
+                    this.offerLetterForm.get(['purpose', i, 'otherApprovalLimitChecked']).patchValue(checked);
                 } else {
-                    this.offerLetterForm.get(['purpose', i, 'commissionOtherChecked']).patchValue(checked);
-                    this.offerLetterForm.get(['purpose', i, 'commissionOther']).patchValue(null);
+                    this.offerLetterForm.get(['purpose', i, 'otherApprovalLimitChecked']).patchValue(checked);
+                    this.offerLetterForm.get(['purpose', i, 'otherApprovalLimit']).patchValue(null);
                 }
                 break;
             case 'commissionNeeded':
                 if (checked) {
                     this.offerLetterForm.get(['purpose', i, 'commissionNeeded']).patchValue(checked);
                     this.offerLetterForm.get(['purpose', i, 'rate']).patchValue(null);
-                    this.offerLetterForm.get(['purpose', i, 'commissionOther']).patchValue(null);
                 } else {
                     this.offerLetterForm.get(['purpose', i, 'commissionNeeded']).patchValue(checked);
                 }
@@ -565,7 +566,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
                 commissionNeeded: [true],
                 repaymentNeeded: [true],
                 maturityNeeded: [true],
-                inAmount: [true],
+                inAmount: [false],
                 inPercentage: [true],
                 tenureNeeded: [true],
                 adNeeded: [true],
@@ -580,8 +581,8 @@ export class OfferLetterLaxmiComponent implements OnInit {
                 periodValue: [undefined],
                 rate: [undefined],
                 commissionFrequency: [data.proposal.commissionFrequency],
-                commissionOther: [undefined],
-                commissionOtherChecked: [undefined],
+                // commissionOther: [undefined],
+                // commissionOtherChecked: [undefined],
                 creditRate: [undefined],
                 creditAmount: [undefined],
                 maturityDate: [undefined],
@@ -611,7 +612,9 @@ export class OfferLetterLaxmiComponent implements OnInit {
                 otherAdFeeChecked: [false],
                 adFeeOther: [undefined],
                 addRemark: this.formBuilder.array([]),
-                facilityNeeded: [true]
+                facilityNeeded: [true],
+                otherApprovalLimitChecked: [false],
+                otherApprovalLimit: [undefined]
             })
         );
     }
@@ -912,6 +915,13 @@ export class OfferLetterLaxmiComponent implements OnInit {
                     this.offerLetterForm.get('guaranteeFacilityNeeded').patchValue(event);
                 } else {
                     this.offerLetterForm.get('guaranteeFacilityNeeded').patchValue(false);
+                }
+                break;
+            case 'shareOtherChecked':
+                if (event) {
+                    this.offerLetterForm.get('shareOtherChecked').patchValue(event);
+                } else {
+                    this.offerLetterForm.get('shareOtherChecked').patchValue(event);
                 }
                 break;
         }
