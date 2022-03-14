@@ -1,14 +1,14 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {CompanyInfo} from '../../../../admin/modal/company-info';
-import {BusinessType} from '../../../../admin/modal/businessType';
-import {CompanyJsonData} from '../../../../admin/modal/CompanyJsonData';
-import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
-import {LoanDataHolder} from '../../../model/loanData';
+import { Component, Input, OnInit } from "@angular/core";
+import { CompanyInfo } from "../../../../admin/modal/company-info";
+import { BusinessType } from "../../../../admin/modal/businessType";
+import { CompanyJsonData } from "../../../../admin/modal/CompanyJsonData";
+import { ObjectUtil } from "../../../../../@core/utils/ObjectUtil";
+import { LoanDataHolder } from "../../../model/loanData";
 
 @Component({
-  selector: 'app-company-info-summary',
-  templateUrl: './company-info-summary.component.html',
-  styleUrls: ['./company-info-summary.component.scss']
+  selector: "app-company-info-summary",
+  templateUrl: "./company-info-summary.component.html",
+  styleUrls: ["./company-info-summary.component.scss"],
 })
 export class CompanyInfoSummaryComponent implements OnInit {
   @Input() companyInfo: CompanyInfo;
@@ -22,16 +22,25 @@ export class CompanyInfoSummaryComponent implements OnInit {
   correspondenceAddress;
   @Input() approveSheet;
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
-    if (!ObjectUtil.isEmpty(this.companyJsonData)) {
+    if (!ObjectUtil.isEmpty(this.companyInfo)) {
       this.companyJsonData = JSON.parse(this.companyInfo.companyJsonData);
-      this.companyLocationData = JSON.parse(this.companyInfo.companyLocations.address);
-      this.projectAddress = JSON.parse(this.companyInfo.companyLocations.projectAddress);
-      this.correspondenceAddress = JSON.parse(this.companyInfo.companyLocations.correspondenceAddress);
+      this.companyLocationData = JSON.parse(
+        this.companyInfo.companyLocations.address
+      );
+      if (this.companyInfo.companyLocations.projectAddress) {
+        this.projectAddress = JSON.parse(
+          this.companyInfo.companyLocations.projectAddress
+        );
+      }
+      if (this.companyInfo.companyLocations.correspondenceAddress) {
+        this.correspondenceAddress = JSON.parse(
+          this.companyInfo.companyLocations.correspondenceAddress
+        );
+      }
       this.contact = JSON.parse(this.companyInfo.contactPersons);
     }
   }
-
 }
