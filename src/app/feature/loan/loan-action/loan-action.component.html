@@ -18,11 +18,11 @@
 <!--    <i class="col-md-1 fa fa-check"></i>-->
   </button>
 
-  <button (click)="loanAction('approve_revoked')" *ngIf="catalogueStatus"
+  <button (click)="loanAction('revoked_loan')" *ngIf="catalogueStatus"
           [disabled]="actionsList.approved"
           [ngStyle]="{ 'filter' : (actionsList.approved === false)? 'grayscale(100%)': 'grayscale(0%)'}"
           class="btn-sm btn-success">
-    APPROVE
+    RETURN BACK TO PREVIOUS STAGE
     <!--    <i class="col-md-1 fa fa-check"></i>-->
   </button>
 

@@ -63,6 +63,7 @@ export class LoanActionComponent implements OnInit, OnChanges {
     }
 
     ngOnInit() {
+        console.log('loanId', this.id);
         this.loanFormService.detail(this.id).subscribe((data) => {
             this.customerLoanHolder = data.detail;
             if (LocalStorageUtil.getStorage().userId === this.customerLoanHolder.currentStage.toUser.id.toString()) {
@@ -97,7 +98,7 @@ export class LoanActionComponent implements OnInit, OnChanges {
         }
     }
 
-    public loanAction(action: 'forward' | 'backward' | 'backwardCommittee' | 'approve' | 'reject' | 'close' | 'send back to sender' | 'send back to agent' | 'approve_revoked'): void {
+    public loanAction(action: 'forward' | 'backward' | 'backwardCommittee' | 'approve' | 'reject' | 'close' | 'send back to sender' | 'send back to agent' | 'revoked_loan'): void {
         this.close();
         let context;
         switch (action) {
@@ -266,7 +267,7 @@ export class LoanActionComponent implements OnInit, OnChanges {
                     documentStatus: DocStatus.CLOSED
                 };
                 break;
-            case 'approve_revoked':
+            case 'revoked_loan':
                 if (this.loanFlags && this.loanFlags.length > 0) {
                     this.loanFlags.sort((a, b) => a.order - b.order);
 
@@ -281,7 +282,7 @@ export class LoanActionComponent implements OnInit, OnChanges {
                         loanConfigId: this.loanConfigId,
                         customerLoanId: this.id,
                         branchId: this.branchId,
-                        docAction: 'APPROVED_REVOKED',
+                        docAction: 'REVOKED_LOAN',
                         docActionMsg: 'Return back to previous stage',
                         documentStatus: DocStatus.HSOV_PENDING,
                         isRemitLoan: this.isRemitLoan,
@@ -295,7 +296,7 @@ export class LoanActionComponent implements OnInit, OnChanges {
                         loanConfigId: this.loanConfigId,
                         branchId: this.branchId,
                         customerLoanId: this.id,
-                        docAction: 'APPROVED_REVOKED',
+                        docAction: 'REVOKED_LOAN',
                         docActionMsg: 'Return back to previous stage',
                         documentStatus: DocStatus.DUAL_APPROVAL_PENDING,
                         isRemitLoan: this.isRemitLoan,
@@ -308,7 +309,7 @@ export class LoanActionComponent implements OnInit, OnChanges {
                         customerLoanHolder: this.customerLoanHolder,
                         loanConfigId: this.loanConfigId,
                         customerLoanId: this.id,
-                        docAction: 'APPROVED_REVOKED',
+                        docAction: 'REVOKED_LOAN',
                         docActionMsg: 'Return back to previous stage',
                         documentStatus: DocStatus.PENDING,
                         isRemitLoan: this.isRemitLoan,

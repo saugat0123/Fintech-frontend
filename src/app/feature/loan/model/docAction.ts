@@ -13,7 +13,7 @@ export enum DocAction {
     SEND_BACK_TO_AGENT,
     HSOV_PENDING,
     DUAL_APPROVAL_PENDING,
-    APPROVED_REVOKED,
+    REVOKED_LOAN,
 }
 
 export namespace DocAction {

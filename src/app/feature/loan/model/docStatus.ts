@@ -12,7 +12,7 @@ export enum DocStatus {
     SEND_BACK_TO_AGENT,
     HSOV_PENDING,
     DUAL_APPROVAL_PENDING,
-    APPROVED_REVOKED
+    REVOKED_LOAN
 }
 
 export namespace DocStatus {

@@ -80,6 +80,7 @@ export class LoanActionModalComponent implements OnInit {
 
     ngOnInit() {
         this.formAction = this.buildForm();
+        console.log('docAction', this.docAction);
         this.roleId = parseInt(LocalStorageUtil.getStorage().roleId, 10);
         this.conditionalDataLoad();
         if (!ObjectUtil.isEmpty(this.customerLoanHolder)) {
@@ -306,6 +307,15 @@ export class LoanActionModalComponent implements OnInit {
         // if (this.docAction == 'HSOV_PENINDG') {
         //     this.formAction.patchValue({
         //         toRole: this.hsovRole
+        //     });
+        // }
+
+        // if (this.docAction === DocAction[DocAction.REVOKED_LOAN].toString()) {
+        //     this.formAction.patchValue({
+        //        toRole: '',
+        //        toUser: '',
+        //        fromUser: '',
+        //        fromRole: '',
         //     });
         // }
 
