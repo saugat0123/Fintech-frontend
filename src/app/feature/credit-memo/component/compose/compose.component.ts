@@ -216,11 +216,7 @@ export class ComposeComponent implements OnInit {
 
         const file = event.target.files[0];
 
-        if (!file.name.toLowerCase().includes('.pdf')) {
-            this.errorMessage = 'Only PDF format document Supported. Please upload PDF file only';
-            this.docSpinner = false;
-
-        } else if (file.size > ComposeComponent.FILE_SIZE_10MB) {
+        if (file.size > ComposeComponent.FILE_SIZE_10MB) {
             this.errorMessage = 'Maximum File Size Exceeds for  ' + uploadedDocument.name;
             type === this.editedCreditMemoDocuments ?
                 (<HTMLInputElement>document.getElementById(`uploadDocument${index}`)).value = '' :

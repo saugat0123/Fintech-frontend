@@ -112,11 +112,11 @@
                                         {{i + 1}}
                                     </td>
                                     <td>{{document.name}}</td>
-                                    <td><input (change)="documentUploader($event, document, i, editedCreditMemoTypeDocuments)"
-                                               accept=".pdf"
-                                               class="form-control-file"
-                                               id="uploadCreditMemoTypeDocument{{i}}"
-                                               type="file">
+                                    <td><input
+                                            (change)="documentUploader($event, document, i, editedCreditMemoTypeDocuments)"
+                                            class="form-control-file"
+                                            id="uploadCreditMemoTypeDocument{{i}}"
+                                            type="file">
                                     </td>
                                     <td>
                                    <span *ngIf="document.checked" style="color:limegreen">
@@ -127,8 +127,11 @@
                                    </span>
                                     </td>
                                     <td>
-                                        <i style="cursor: pointer" *ngIf="document.checked"  class="fas fa-eye" (click)="previewGeneralDoc(document.url,document.name,i,'creditTypeMemoDocument')"></i>
-                                        <i style="cursor: pointer" *ngIf="!document.checked || document.checked === null" class="fas fa-times-circle"></i>
+                                        <i style="cursor: pointer" *ngIf="document.checked" class="fas fa-eye"
+                                           (click)="previewGeneralDoc(document.url,document.name,i,'creditTypeMemoDocument')"></i>
+                                        <i style="cursor: pointer"
+                                           *ngIf="!document.checked || document.checked === null"
+                                           class="fas fa-times-circle"></i>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -153,11 +156,12 @@
                                         {{i + 1}}
                                     </td>
                                     <td>{{document.name}}</td>
-                                    <td><input (change)="documentUploader($event, document, i, editedCreditMemoDocuments)"
-                                               accept=".pdf"
-                                               class="form-control-file"
-                                               id="uploadDocument{{i}}"
-                                               type="file">
+                                    <td><input
+                                            (change)="documentUploader($event, document, i, editedCreditMemoDocuments)"
+                                            accept=".pdf"
+                                            class="form-control-file"
+                                            id="uploadDocument{{i}}"
+                                            type="file">
                                     </td>
                                     <td>
                                    <span *ngIf="document.checked" style="color:limegreen">
@@ -168,15 +172,17 @@
                                    </span>
                                     </td>
                                     <td>
-                                        <i style="cursor: pointer" *ngIf="document.checked" class="fas fa-eye" (click)="previewGeneralDoc(document.url, document.name,i,'FacilityCreditMemoDocument')"></i>
-                                        <i style="cursor: pointer" *ngIf="!document.checked || document.checked === null" class="fas fa-times-circle"></i>
+                                        <i style="cursor: pointer" *ngIf="document.checked" class="fas fa-eye"
+                                           (click)="previewGeneralDoc(document.url, document.name,i,'FacilityCreditMemoDocument')"></i>
+                                        <i style="cursor: pointer"
+                                           *ngIf="!document.checked || document.checked === null"
+                                           class="fas fa-times-circle"></i>
                                     </td>
                                 </tr>
                                 </tbody>
                             </table>
                         </div>
                     </div>
-
 
 
                 </nb-card>
