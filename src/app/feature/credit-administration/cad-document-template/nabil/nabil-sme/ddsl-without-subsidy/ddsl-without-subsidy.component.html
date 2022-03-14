@@ -320,11 +320,11 @@
                             <strong>रु. <input class="form-field form-control-sm "
                                                readonly
                                                formControlName="approvedCFRLoanAmount"
-                                               [value]="personalGuarantor.gurantedAmount.ct"
+                                               [value]="personalGuarantor.gurantedAmount?.ct"
                                                type="text"/>/- (अक्षरेपी रु. <input
                                     class="form-field form-control-sm "
                                     formControlName="approvedCFRLoanAmountInWord"
-                                    [value]="this.nepaliCurrencyWordPipe.transform(personalGuarantor.gurantedAmount.en)"
+                                    [value]="this.nepaliCurrencyWordPipe.transform(personalGuarantor.gurantedAmount?.en)"
                                     type="text"/> मात्र)</strong> बराबरको
                             {{(personalGuarantor?.gender?.en === 'FEMALE' && personalGuarantor?.guarantorMaritalStatus?.en === 'Married') ?
                             'श्रीमती' : (personalGuarantor?.gender?.en === 'FEMALE' && personalGuarantor?.guarantorMaritalStatus?.en === 'Unmarried' ?
@@ -332,7 +332,7 @@
                             <input class="form-field form-control-sm "
                                    readonly
                                    formControlName="nameOfPersonalGuarantor"
-                                   [value]="personalGuarantor.guarantorName.ct"
+                                   [value]="personalGuarantor.guarantorName?.ct"
                                    type="text"/> ले एक्लै वा संयुक्त रुपमा बैंकको पक्षमा व्यक्तिगत जमानत लेखिदिनु पर्नेछ
                             ।
                         </ng-container>
@@ -975,7 +975,7 @@
                                        name="loanAmountInfigure"
                                        type="text"
                                        class="form-field form-control-sm"
-                                [value]="x.gurantedAmount.ct"/>/-
+                                [value]="x.gurantedAmount?.ct"/>/-
                                 बराबरको
                                 {{(x?.gender?.en === 'FEMALE' && x?.guarantorMaritalStatus?.en === 'Married') ?
                                 'श्रीमती' : (x?.gender?.en === 'FEMALE' && x?.guarantorMaritalStatus?.en === 'Unmarried' ?
@@ -983,7 +983,7 @@
                                 <input class="form-field form-control-sm col-3"
                                        formControlName="guarantorName"
                                        type="text"
-                                       [value]="x.guarantorName.ct"/>
+                                       [value]="x.guarantorName?.ct"/>
                                 ले बैंकको पक्षमा लेखिदिनुपर्ने ब्यक्तिगत जमानीपत्र (Personal Guarantee)
                             </li>
                             <li>जमानीकर्ताको सम्पत्ति विवरण (Wealth statement of Guarantor)</li>
