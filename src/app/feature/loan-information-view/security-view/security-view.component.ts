@@ -61,7 +61,10 @@ export class SecurityViewComponent implements OnInit {
   @Output() downloadSiteVisitDocument = new EventEmitter();
   isSecurityPresent = false;
   isCollateralSiteVisitPresent = false;
-
+  landArray;
+  landBuildingArray;
+  apartmentArray;
+  vehicleArray;
   constructor(private collateralSiteVisitService: CollateralSiteVisitService) {
   }
 
@@ -69,6 +72,7 @@ export class SecurityViewComponent implements OnInit {
     this.random = Math.floor(Math.random() * 100) + 1;
     this.url = ApiConfig.URL;
     this.securityData = JSON.parse(this.security.data);
+    console.log('Security Data:', this.securityData);
     if (this.securityData['selectedArray'] !== undefined) {
       this.isSecurityPresent = true;
       // land security
@@ -100,6 +104,7 @@ export class SecurityViewComponent implements OnInit {
       this.securityData['selectedArray'].filter(f => {
         if (f.indexOf('VehicleSecurity') !== -1) {
           this.vehicleSelected = true;
+          this.vehicleArray = this.managedArray(this.securityData['initialForm']['vehicleDetails']);
         }
       });
       // fixed deposit receipt security
@@ -184,6 +189,7 @@ export class SecurityViewComponent implements OnInit {
                   this.collateralSiteVisits.push(...siteVisit.filter(f => f.uuid === v.uuid));
                 }
               });
+              this.landArray = this.managedArray(this.securityData['initialForm']['landDetails']);
             }
             if (this.landBuilding) {
               const landBuilding = this.securityData['initialForm']['landBuilding'];
@@ -192,6 +198,7 @@ export class SecurityViewComponent implements OnInit {
                   this.collateralSiteVisits.push(...siteVisit.filter(f => f.uuid === v.uuid));
                 }
               });
+              this.landBuildingArray = this.managedArray(this.securityData['initialForm']['landBuilding']);
             }
             if (this.apartmentSelected) {
               const buildingDetails = this.securityData['initialForm']['buildingDetails'];
@@ -200,6 +207,7 @@ export class SecurityViewComponent implements OnInit {
                   this.collateralSiteVisits.push(...siteVisit.filter(f => f.uuid === v.uuid));
                 }
               });
+              this.apartmentArray = this.managedArray(this.securityData['initialForm']['buildingDetails']);
             }
             // for old loan that does not contains uuid for security and site visit
             if (this.landSelected) {
@@ -209,6 +217,7 @@ export class SecurityViewComponent implements OnInit {
                   this.collateralSiteVisits.push(...siteVisit.filter(f => f.uuid === null));
                 }
               });
+              this.landArray = this.managedArray(this.securityData['initialForm']['landDetails']);
             }
             if (this.landBuilding) {
               const landBuilding = this.securityData['initialForm']['landBuilding'];
@@ -217,6 +226,7 @@ export class SecurityViewComponent implements OnInit {
                   this.collateralSiteVisits.push(...siteVisit.filter(f => f.uuid === null));
                 }
               });
+              this.landBuildingArray = this.managedArray(this.securityData['initialForm']['landBuilding']);
             }
             if (this.apartmentSelected) {
               const buildingDetails = this.securityData['initialForm']['buildingDetails'];
@@ -225,6 +235,7 @@ export class SecurityViewComponent implements OnInit {
                   this.collateralSiteVisits.push(...siteVisit.filter(f => f.uuid === null));
                 }
               });
+              this.apartmentArray = this.managedArray(this.securityData['initialForm']['buildingDetails']);
             }
             const arr = [];
             this.collateralSiteVisits.forEach(f => {
@@ -274,5 +285,25 @@ export class SecurityViewComponent implements OnInit {
 
   public onError(event): void {
     event.target.src = 'assets/img/noImage.png';
+  }
+  private managedArray(array) {
+    let newArray = [];
+    const returnArray = [];
+    array.forEach((g, i) => {
+      newArray.push(g);
+      if ((i + 1) % 2 === 0) {
+        if (newArray.length > 0) {
+          returnArray.push(newArray);
+        }
+        newArray = [];
+      }
+      if (i === array.length - 1) {
+        if (newArray.length > 0) {
+          returnArray.push(newArray);
+        }
+        newArray = [];
+      }
+    });
+    return returnArray;
   }
 }

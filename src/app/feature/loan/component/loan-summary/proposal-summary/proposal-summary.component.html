@@ -483,11 +483,11 @@
                 <td *ngIf="showPrincipalAmount && ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))" class=" pr-1">Rs.{{proposalAllData?.principalAmount}}</td>
             </tr>
             <tr *ngIf="(loanDataHolder?.loanHolder?.cicl?.cibCharge | currencyFormatter) || loanDataHolder?.loanHolder?.cicl?.cibRemark">
-                <td class="sb-bg-dark">CIB Charge</td>
+                <td class="sb-bg-dark text-white">CIB Charge</td>
                 <td>{{loanDataHolder?.loanHolder?.cicl?.cibCharge ?  loanDataHolder?.loanHolder?.cicl?.cibCharge  :  loanDataHolder?.loanHolder?.cicl?.cibRemark ? (loanDataHolder?.loanHolder?.cicl?.cibRemark | jsonParse)?.value:'N/A'}}</td>
             </tr>
             <tr>
-                <td class="sb-bg-dark">Loan Administration Fee</td>
+                <td class="sb-bg-dark text-white">Loan Administration Fee</td>
                                 <td class="pr-1">
                                     <div *ngIf="(loanDataHolder.proposal?.data | jsonParse)?.serviceChargeMethod === 'FLAT'; else percentage">
                                         Rs. {{(loanDataHolder?.proposal?.data | jsonParse)?.serviceCharge | currencyFormatter}}</div>
@@ -495,15 +495,15 @@
                                 </td>
             </tr>
             <tr *ngIf="(loanDataHolder?.proposal?.data | jsonParse)?.commitmentFee">
-                <td class="sb-bg-dark">Commitment Fee</td>
+                <td class="sb-bg-dark text-white">Commitment Fee</td>
                 <td>{{(loanDataHolder?.proposal?.data | jsonParse)?.commitmentFee || 'N/A'}}</td>
             </tr>
             <tr *ngIf="loanDataHolder?.proposal?.prepaymentCharge">
-                <td class="sb-bg-dark">Prepayment Fee</td>
+                <td class="sb-bg-dark text-white">Prepayment Fee</td>
                 <td>{{loanDataHolder?.proposal?.prepaymentCharge || 'N/A'}}</td>
             </tr>
             <tr *ngIf="(loanDataHolder?.proposal?.data | jsonParse)?.swapCharge">
-                <td class="sb-bg-dark">Swap Fee</td>
+                <td class="sb-bg-dark text-white">Swap Fee</td>
                 <td>{{(loanDataHolder?.proposal?.data | jsonParse)?.swapCharge || 'N/A'}}</td>
 
             </tr>
