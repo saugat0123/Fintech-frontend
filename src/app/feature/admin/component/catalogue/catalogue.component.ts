@@ -669,7 +669,7 @@ export class CatalogueComponent implements OnInit {
     }
 
     openCreditMemoModal(loanDataHolder: LoanDataHolder) {
-        const memoSearchObj = { 'customerLoan.id': String(loanDataHolder.id)};
+        const memoSearchObj = { 'customerLoanId': String(loanDataHolder.id)};
         let memoList = [];
         this.creditMemoService.getPaginationWithSearchObject(memoSearchObj, 1, 100).subscribe( response => {
             memoList = response.detail.content;

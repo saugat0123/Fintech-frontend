@@ -1,6 +1,6 @@
 <nb-card id="nb-modal-card" class="m-0" [nbSpinner]="spinner" nbSpinnerSize="xxlarge" nbSpinnerStatus="primary">
     <nb-card-header class="mb-0 pb-0">
-        <h5 class="modal-title pull-left d-inline">Credit Memo of {{customerLoan?.loan?.name}}
+        <h5 class="modal-title pull-left d-inline">Credit Diary Note of {{customerLoan?.loan?.name}}
             for {{customerLoan?.customerInfo?.customerName}}</h5>
         <button (click)="onClose()" aria-label="Close" class="close pull-right" type="button">
             <span aria-hidden="true">&times;</span>
@@ -10,12 +10,12 @@
     <nb-card-body>
         <div *ngIf="currentRole === 'MAKER'" class="row mb-4">
             <div class="col-md-12 text-right">
-                <button nbButton outline status="primary" (click)="onRaiseMemo()"><em class="fa fa-plus"> Raise memo</em></button>
+                <button nbButton outline status="primary" (click)="onRaiseMemo()"><em class="fa fa-plus"> Raise diary note</em></button>
             </div>
         </div>
         <div *ngIf="creditMemoList.length === 0" class="row h-100">
             <div class="col-md-12 text-center my-auto">
-                <h4><em class="fa fa-exclamation-triangle"> No memo raised for this loan!</em></h4>
+                <h4><em class="fa fa-exclamation-triangle"> No Diary Note Raised For This Loan!</em></h4>
             </div>
         </div>
         <div *ngIf="creditMemoList.length !== 0" class="row">
