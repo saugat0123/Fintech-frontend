@@ -166,8 +166,7 @@
                                     <td>Received On</td>
                                     <th>Comment History</th>
                                 </tr>
-                                <tr *ngFor="let l of loanHolderLoans?.loanSingleList"
-                                >
+                                <tr *ngFor="let l of loanHolderLoans?.loanSingleList">
                                     <td (click)="onClick(l.loan.id,l.id,loanHolderLoans)"
                                         class="cursor"
                                         nbTooltip="Click to View Detail"
