@@ -1,9 +1,3 @@
-<table *ngIf="loanDataHolder?.loanHolder?.clientType === 'CONSUMER_FINANCE'">
-  <tr>
-    <td><strong>Purpose of Loan:</strong></td>
-    <td class="text-left pl-1" [innerHTML]="proposalAllData?.purposeOfLoan || 'N/A' | safeHtml"></td>
-  </tr>
-</table>
 <div class="row mt-1">
   <div class="col-md-12 sb-small">
     <p><strong>Facility Schedule: </strong> <em class="text-danger sb-small"> &nbsp;Bold row indicates
@@ -387,7 +381,7 @@
         <th *ngIf="showPrincipalAmount && (client !== clientName?.ICFC || !showInterestAmount) && ((loanNatureSelected && isFundable && fundableNonFundableSelcted &&
             isTerminating) || (isVehicle || isShare || isGeneral))">Principal Amount</th>
         <th *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isGeneral">Moratorium Period (Month)</th>
-        <th *ngIf="(client !== clientName?.SHINE_RESUNGA) && ((loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral)">Commitment Fee</th>
+<!--        <th *ngIf="(client !== clientName?.SHINE_RESUNGA) && ((loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral)">Commitment Fee</th>-->
         <th *ngIf="(client !== clientName?.SHINE_RESUNGA) && (client !== clientName?.LAXMIBANK) &&(checkedData?.swapChargeChecked)">Swap Charge</th>
         <th *ngIf="(client !== clientName?.LAXMIBANK) && checkedData?.subsidizedLoanChecked">Subsidy Rate(%)</th>
         <th *ngIf="checkedData?.subsidizedLoanChecked && (client !== clientName?.LAXMIBANK)">Subsidized Loan Type</th>
@@ -403,7 +397,7 @@
         <td *ngIf="showRepaymentMode && (client !== clientName?.ICFC || !showInterestAmount) && ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))" class="text-right pr-1">Rs.{{proposalAllData?.principalAmount}}</td>
         <td *ngIf="showPrincipalAmount && (client !== clientName?.ICFC || !showInterestAmount) && ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))" class="text-right pr-1">Rs.{{proposalAllData?.principalAmount}}</td>
         <td *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isGeneral" class="text-right pr-1">{{proposalAllData?.moratoriumPeriod}}</td>
-        <td *ngIf="(client !== clientName?.SHINE_RESUNGA) && ((loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral)" class="text-right pr-1">{{proposalAllData?.commitmentFee || 0}} %</td>
+<!--        <td *ngIf="(client !== clientName?.SHINE_RESUNGA) && ((loanNatureSelected && fundableNonFundableSelcted && isFundable && (isTerminating || isRevolving)) || isVehicle || isShare || isGeneral)" class="text-right pr-1">{{proposalAllData?.commitmentFee || 0}} %</td>-->
         <td *ngIf="(client !== clientName?.SHINE_RESUNGA) && (client !== clientName?.LAXMIBANK) &&(checkedData?.swapChargeChecked)">
           <div *ngIf="proposalAllData.swapChargeMethod === 'FLAT'; else percentage" class="text-right pr-1">Rs. {{proposalAllData.swapCharge | currencyFormatter}}</div>
           <ng-template #percentage>
@@ -417,6 +411,35 @@
         </td>
         <td class="text-left pl-1" *ngIf="checkedData?.subsidizedLoanChecked && (client !== clientName?.LAXMIBANK)">{{proposalAllData?.subsidyLoanType}}</td>
         <td class="text-left pl-1" *ngIf="checkedData?.subsidizedLoanChecked && (client !== clientName?.LAXMIBANK) && proposalAllData?.others !== null">{{proposalAllData?.others}}</td>
+      </tr>
+
+
+
+
+      <tr *ngIf="(loanDataHolder?.loanHolder?.cicl?.cibCharge | currencyFormatter) || loanDataHolder?.loanHolder?.cicl?.cibRemark">
+        <td class="sb-bg-dark text-white">CIB Charge</td>
+        <td>{{loanDataHolder?.loanHolder?.cicl?.cibCharge ?  loanDataHolder?.loanHolder?.cicl?.cibCharge  :  loanDataHolder?.loanHolder?.cicl?.cibRemark ? (loanDataHolder?.loanHolder?.cicl?.cibRemark | jsonParse)?.value:'N/A'}}</td>
+      </tr>
+      <tr>
+        <td class="sb-bg-dark text-white">Loan Administration Fee</td>
+        <td class="pr-1">
+          <div *ngIf="(loanDataHolder.proposal?.data | jsonParse)?.serviceChargeMethod === 'FLAT'; else percentage">
+            Rs. {{(loanDataHolder?.proposal?.data | jsonParse)?.serviceCharge | currencyFormatter}}</div>
+          <ng-template #percentage>{{(loanDataHolder?.proposal?.data | jsonParse)?.serviceCharge}} % </ng-template>
+        </td>
+      </tr>
+      <tr *ngIf="(loanDataHolder?.proposal?.data | jsonParse)?.commitmentFee">
+        <td class="sb-bg-dark text-white">Commitment Fee</td>
+        <td>{{(loanDataHolder?.proposal?.data | jsonParse)?.commitmentFee || 'N/A'}}</td>
+      </tr>
+      <tr *ngIf="loanDataHolder?.proposal?.prepaymentCharge">
+        <td class="sb-bg-dark text-white">Prepayment Fee</td>
+        <td>{{loanDataHolder?.proposal?.prepaymentCharge || 'N/A'}}</td>
+      </tr>
+      <tr *ngIf="(loanDataHolder?.proposal?.data | jsonParse)?.swapCharge">
+        <td class="sb-bg-dark text-white">Swap Fee</td>
+        <td>{{(loanDataHolder?.proposal?.data | jsonParse)?.swapCharge || 'N/A'}}</td>
+
       </tr>
     </table>
     <table *ngIf="productUtils.CBS_ENABLE"
