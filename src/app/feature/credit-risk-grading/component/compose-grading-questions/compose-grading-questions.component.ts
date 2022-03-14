@@ -33,6 +33,7 @@ export class ComposeGradingQuestionsComponent implements OnInit {
     groupMap: Map<number, string> = new Map<number, string>();
 
     private modalRef: NgbModalRef;
+    sme = 'SME';
 
     constructor(private crgGroupService: CrgGroupService,
                 private questionService: RiskGradingService,
@@ -83,7 +84,7 @@ export class ComposeGradingQuestionsComponent implements OnInit {
                 appearanceOrder: [undefined, Validators.required],
                 crgGroupId: [undefined, Validators.required],
                 loanConfig: this.formBuilder.group({
-                    id: [this.loanConfigId]
+                id: [this.loanConfigId]
                 })
             })
         );
@@ -109,7 +110,12 @@ export class ComposeGradingQuestionsComponent implements OnInit {
     }
 
     onChangeLoanCategory(event?) {
-        this.loanConfigId = event;
+        console.log('event:', event);
+        if (event === 'SME') {
+            this.loanConfigId = 0;
+        } else {
+            this.loanConfigId = event;
+        }
         this.clearFormArray();
         this.fetchQuestionList();
     }
