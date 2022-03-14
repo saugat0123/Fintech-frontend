@@ -42,20 +42,26 @@
     <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl" [ciclValue]="loanDataHolder?.loanHolder?.cicl" [loanDataHolder]="loanDataHolder"></app-cicl-view>
     <app-dbr *ngIf="financial" [financialData] =  "financial" [proposalData]="proposalData"> </app-dbr>
     <ng-container *ngIf="checkedData?.waiverChecked">
-        <tr class="text-white sb-bg-dark">
-            <th>Waiver</th>
-        </tr>
-        <tr>
-            <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.waiverConclusionRecommendation || 'N/A' | safeHtml"></span></td>
-        </tr>
+        <hr class="print-line">
+        <table  class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small" >
+            <tr class="text-white sb-bg-dark">
+                <th class="header">Waiver</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.waiverConclusionRecommendation || 'N/A' | safeHtml"></span></td>
+            </tr>
+        </table>
     </ng-container>
     <ng-container *ngIf="checkedData?.deviationChecked">
-        <tr class="text-white sb-bg-dark">
-            <th>Deviation</th>
-        </tr>
-        <tr>
-            <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.deviationConclusionRecommendation || 'N/A' | safeHtml"></span></td>
-        </tr>
+        <hr class="print-line">
+        <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+            <tr class="text-white sb-bg-dark">
+                <th class="header">Deviation</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.deviationConclusionRecommendation || 'N/A' | safeHtml"></span></td>
+            </tr>
+        </table>
     </ng-container>
 
 </div>
@@ -73,22 +79,27 @@
     <app-nta-mega-summary *ngIf="loanDataHolder?.loanHolder?.netTradingAssets && fiscalYearArray?.length > 0"
                           [fiscalYears]="fiscalYearArray"
                           [netTradingAssetsData]="loanDataHolder?.loanHolder?.netTradingAssets"></app-nta-mega-summary>
-
     <ng-container *ngIf="checkedData?.waiverChecked">
-        <tr class="text-white sb-bg-dark">
-            <th>Waiver</th>
-        </tr>
-        <tr>
-            <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.waiverConclusionRecommendation || 'N/A' | safeHtml"></span></td>
-        </tr>
+        <hr class="print-line">
+        <table  class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small" >
+            <tr class="text-white sb-bg-dark">
+                <th class="header">Waiver</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.waiverConclusionRecommendation || 'N/A' | safeHtml"></span></td>
+            </tr>
+        </table>
     </ng-container>
     <ng-container *ngIf="checkedData?.deviationChecked">
-        <tr class="text-white sb-bg-dark">
-            <th>Deviation</th>
-        </tr>
-        <tr>
-            <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.deviationConclusionRecommendation || 'N/A' | safeHtml"></span></td>
-        </tr>
+        <hr class="print-line">
+        <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+            <tr class="text-white sb-bg-dark">
+                <th class="header">Deviation</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.deviationConclusionRecommendation || 'N/A' | safeHtml"></span></td>
+            </tr>
+        </table>
     </ng-container>
 
 </div>
@@ -116,26 +127,23 @@
                                         [proposalData]="proposalData"></app-proposal-justification-summary>
 </div>
 
-
-<app-crg-gamma-detail-view
-        *ngIf="loanDataHolder?.crgGamma"
-        [formData]="loanDataHolder?.crgGamma">
-</app-crg-gamma-detail-view>
-<app-crg-alpha-detailed-view
-        *ngIf="loanDataHolder?.creditRiskGradingAlpha"
-        [loanTag]="loanDataHolder?.loan?.loanTag"
-        [formData]="loanDataHolder?.creditRiskGradingAlpha">
-</app-crg-alpha-detailed-view>
-<app-crg-lambda-detail-view
-        *ngIf="loanDataHolder?.creditRiskGradingLambda"
-        [lambdaData]="loanDataHolder?.creditRiskGradingLambda">
-</app-crg-lambda-detail-view>
 <app-site-visit-view *ngIf="loanHolder?.siteVisit"
                      [siteVisit]="loanHolder?.siteVisit"></app-site-visit-view>
 <!--    <app-net-trading-assets *ngIf="loanHolder?.netTradingAssets"
                             [fromProfile]="false"
                             [netTradingAssetsData]="loanHolder?.netTradingAssets"></app-net-trading-assets>
  -->
+    <div class="borrower_class">
+        <div class="row">
+            <div class="col-md-12">
+                <hr class="print-line">
+                <p><strong class="header text-left">Purpose of Loan: </strong> <span class="text-left"
+                                                                                     style="display: flex"
+                                                                                     [innerHTML]="proposalAllData?.purposeOfLoan || 'N/A' | safeHtml"></span>
+                </p>
+            </div>
+        </div>
+    </div>
 <app-income-from-account-view *ngIf="!isIndividual" [individual]="isIndividual"
                               [data]="(bankingRelation)"></app-income-from-account-view>
 <div *ngIf="loanDataHolder?.loanCategory.toLowerCase() === 'institution' && loanDataHolder.loanHolder?.data  !==null">
@@ -195,6 +203,18 @@
 <!--                                           [fromProfile]="false"></app-credit-risk-grading-gamma>-->
 <!--            <app-credit-grading *ngIf="loanHolder?.creditRiskGrading" [formData]="loanHolder?.creditRiskGrading"-->
 <!--                                [fromProfile]="false"></app-credit-grading>-->
-
 <app-all-document-view *ngIf="loanDataHolder" [loanDataHolder]="loanDataHolder" [siteVisitDocument]="siteVisitDocuments"></app-all-document-view>
+    <app-crg-gamma-detail-view
+            *ngIf="loanDataHolder?.crgGamma"
+            [formData]="loanDataHolder?.crgGamma">
+    </app-crg-gamma-detail-view>
+    <app-crg-alpha-detailed-view
+            *ngIf="loanDataHolder?.creditRiskGradingAlpha"
+            [loanTag]="loanDataHolder?.loan?.loanTag"
+            [formData]="loanDataHolder?.creditRiskGradingAlpha">
+    </app-crg-alpha-detailed-view>
+    <app-crg-lambda-detail-view
+            *ngIf="loanDataHolder?.creditRiskGradingLambda"
+            [lambdaData]="loanDataHolder?.creditRiskGradingLambda">
+    </app-crg-lambda-detail-view>
 </div>

@@ -83,7 +83,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="report-header">
-                                <div class="report-header-heading header"><strong>{{client}}</strong></div>
+                                <div class="report-header-heading header"><strong class="header">{{client}}</strong></div>
                                 <div class="report-header-sub-heading">
                                     Credit Appraisal
                                     <br/>
@@ -195,11 +195,6 @@
             </div>
 
             <hr>
-            <div>
-                <p><strong>Details of {{loanDataHolder?.loanCategory === 'INSTITUTION'
-                    ? 'Authorized Company'
-                    : 'Borrower'}}</strong></p>
-            </div>
             <!--            <app-remit-details *ngIf="isRemitLoan && isLoaded" [loanHolder]="loanHolder"></app-remit-details>-->
             <app-detail-view-base  *ngIf="loanHolder && loanHolder"
                                   [calendarType]="calendarType"
@@ -228,7 +223,7 @@
                     [loanDataHolder]="loanDataHolder"></app-proposal-terms-and-condition-summery>
             <div class="row mt-3">
                 <div class="col-md-12">
-                    <p><strong>Authority Section</strong></p>
+                    <p><strong class="header">Authority Section</strong></p>
                     <table
                             class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                         <thead>
