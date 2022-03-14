@@ -248,14 +248,14 @@
                 </div>
                 <ng-container style="margin-left: 2%;"><strong>१. व्यक्तिगत जमानत (Personal Guarantee):</strong></ng-container><br>
                 <ng-container style="margin-left: 2%;" *ngFor="let personalGuarantor of tempPersonalGuarantors">
-                    <strong>रु. <span class="font-weight-bold">{{personalGuarantor.gurantedAmount.ct}}</span>/-
+                    <strong>रु. <span class="font-weight-bold">{{personalGuarantor.gurantedAmount?.ct}}</span>/-
                         (अक्षरेपी रु.
                         <span class="font-weight-bold">{{this.nepaliCurrencyWordPipe.transform(personalGuarantor.gurantedAmount.en)}}</span>
                          मात्र)</strong> बराबरको
                     {{(personalGuarantor?.gender?.en === 'FEMALE' && personalGuarantor?.guarantorMaritalStatus?.en === 'Married') ?
                     'श्रीमती' : (personalGuarantor?.gender?.en === 'FEMALE' && personalGuarantor?.guarantorMaritalStatus?.en === 'Unmarried' ?
                         'सुश्री' : personalGuarantor?.gender?.en === 'MALE' ? 'श्रीमान्' : 'श्री')}}
-                        <span class="font-weight-bold">{{personalGuarantor.guarantorName.ct}}</span>
+                        <span class="font-weight-bold">{{personalGuarantor.guarantorName?.ct}}</span>
                     ले एक्लै वा संयुक्त रुपमा बैंकको पक्षमा व्यक्तिगत जमानत लेखिदिनु पर्नेछ ।
                 </ng-container>
                 <p style="margin-left: 2%;"><strong>व्याज सम्बन्धी शर्तहरुः</strong></p>
@@ -745,7 +745,7 @@
                             {{(val?.gender?.en === 'FEMALE' && val?.guarantorMaritalStatus?.en === 'Married') ?
                             'श्रीमती' : (val?.gender?.en === 'FEMALE' && val?.guarantorMaritalStatus?.en === 'Unmarried' ?
                                 'सुश्री' : val?.gender?.en === 'MALE' ? 'श्रीमान्' : 'श्री')}}
-                            <span><strong>{{val.guarantorName.ct ? val.guarantorName.ct : ''}}</strong></span>
+                            <span><strong>{{val.guarantorName?.ct ? val.guarantorName?.ct : ''}}</strong></span>
                             ले बैंकको पक्षमा लेखिदिनुपर्ने
                             व्यक्तिगत
                             जमानत (Personal Guarantee)
@@ -776,7 +776,7 @@
                             <span
                                 [ngClass]="{'outside' : letter?.nameOfStaff.ct !== null && letter?.nameOfStaff.ct !== ''}">
                                 {{letter?.nameOfStaff.ct === null || letter?.nameOfStaff.ct === '' ? '___________' : letter?.nameOfStaff.ct}}</span><br>
-                            <span class="nepaliFont">{{freeInformation ? freeInformation.fifthText : 'सम्पर्क अधिकृत'}}</span>
+                            <span class="nepaliFont">{{freeInformation ? freeInformation.fifthText : ';Dks{ clws[t'}}</span>
                             <br>
                             नबिल बैंक लि.<br>
                             {{branchName ? branchName : ''}} शाखा
@@ -788,7 +788,7 @@
                             <span
                                 [ngClass]="{'outside' : letter?.nameOfBranchManager.ct !== null && letter?.nameOfBranchManager.ct !== ''}">
                                 {{letter?.nameOfBranchManager.ct === null || letter?.nameOfBranchManager.ct === '' ? '___________' : letter?.nameOfBranchManager.ct}}</span><br>
-                            <span class="nepaliFont">{{freeInformation ? freeInformation.sixthText : 'शाखा प्रबन्धक/बरिष्ठ सम्पर्क प्रबन्धक'}}</span><br>
+                            <span class="nepaliFont">{{freeInformation ? freeInformation.sixthText : 'zfvf k|aGws÷al/i7 ;Dks{ k|aGws'}}</span><br>
                             नबिल बैंक लि. <br>
                             {{branchName ? branchName : ''}} शाखा
                         </p>
