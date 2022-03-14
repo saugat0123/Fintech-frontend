@@ -2,8 +2,8 @@
     <form [formGroup]="form" id="print-section">
         <div class="row viewFull align">
             <div class="col-md-12 text-center" style="border-bottom: 1px solid black;">
-                <h2><u>ऋणकर्जाको चुक्ताभुक्तानी दोश्रो प्राथमिकतामा राख्ने संझौता</u></h2>
-                <h1><u>(LOAN SUBORDINATION AGREEMENT)</u></h1>
+                <h2><strong>ऋणकर्जाको चुक्ताभुक्तानी दोश्रो प्राथमिकतामा राख्ने संझौता</strong></h2>
+                <h1><strong>(LOAN SUBORDINATION AGREEMENT)</strong></h1>
             </div>
             <div class="col-md-12 mt-5 d-flex justify-content-between" style="margin-left: -11px">
                 <div class="left-content"></div>
@@ -62,7 +62,7 @@
                         form?.get('freeText4').value : '===================='}}</span><br>
                 </div>
             </div>
-            <div class="page-break mt-2">
+            <div class="mt-2">
                 <strong>प्रस्तावनाः</strong>
                 <ol class="conditions-list">
                     <li>यो संझौता हुनु अगावै ऋणीले आफ्नो ब्यवसाय संचालन वा ब्यबस्थित गर्न साहुबाट
@@ -107,7 +107,7 @@
                 </ol>
 
             </div>
-            <div class="mt-5">
+            <div class="margin-top-print">
                 <p class="text-center"><strong><u>शर्तबन्देजकहरु</u></strong></p>
                 <ol class="conditions-list">
                     <li>
@@ -234,7 +234,8 @@
             <table class="table table-borderless mt-5">
                 <tr>
                     <th>––––––––––––––––––––––––––––––––
-                        <br><span class="text-center">दस्तखत</span>
+                        <br>
+                        <p class="dastakhat">दस्तखत</p>
                         <br>ऋणी वा निजको आधिकारीक प्रतिनिधि
                         <br>नामः <input class="form-field form-control-sm d-print-none nepaliFont"
                             name="borrowerAuthorizedPerson" formControlName="borrowerAuthorizedPerson" type="text" />
@@ -249,7 +250,8 @@
                             ? form?.get('borrowerAuthorizedPersonAddress').value : '===================='}}</span>
                     </th>
                     <th>––––––––––––––––––––––––––––––––
-                        <br><span class="text-center">दस्तखत</span>
+                        <br>
+                        <p style="margin-left: 7rem">दस्तखत</p>
                         <br>ऋणी वा निजको आधिकारीक प्रतिनिधि
                         <br>नामः <input class="form-field form-control-sm d-print-none nepaliFont"
                             name="loanProviderAuthorizedPerson" formControlName="loanProviderAuthorizedPerson"
@@ -267,7 +269,7 @@
                 </tr>
             </table>
             <div class="col-md-12">
-                <p class="text-center mt-5">
+                <p class="text-center mt-2">
                     <b><u>साक्षी</u></b>
                 </p>
                 <div>
@@ -294,32 +296,8 @@
                         <span class="print-only font-weight-bold nepaliFont"> {{ form?.get('witnessName')?.value ?
                             form?.get('witnessName')?.value : '====================================='}}</span>
                     </p>
-                    <p>२. <input class="form-field form-control-sm nepaliFont disable-print" name="witnessDistrict"
-                            formControlName="witnessDistrict2" placeholder="" type="text" />
-                        <span class="print-only font-weight-bold nepaliFont"> {{ form?.get('witnessDistrict2')?.value ?
-                            form?.get('witnessDistrict2')?.value : '======================================'}}</span>
-                        जिल्ला <input class="form-field form-control-sm nepaliFont disable-print"
-                            name="witnessMunicipality" formControlName="witnessMunicipality2" placeholder=""
-                            type="text" />
-                        <span class="print-only font-weight-bold nepaliFont"> {{
-                            form?.get('witnessMunicipality2')?.value ? form?.get('witnessMunicipality2')?.value :
-                            '======================================'}}</span>
-                        न.पा/गा.वि.स. वडा नं.
-                        <input class="form-field form-control-sm nepaliFont disable-print" name="WitnessWardNumber"
-                            formControlName="WitnessWardNumber2" placeholder="" type="text" />
-                        <span class="print-only font-weight-bold nepaliFont"> {{ form?.get('WitnessWardNumber2')?.value
-                            ? form?.get('WitnessWardNumber2')?.value : '========================='}}</span>
-                        बस्ने बर्ष <input class="form-field form-control-sm nepaliFont disable-print" name="witnessAge"
-                            formControlName="witnessAge2" placeholder="" type="text" />
-                        <span class="print-only font-weight-bold nepaliFont"> {{ form?.get('witnessAge2')?.value ?
-                            form?.get('witnessAge2')?.value : '======================='}}</span>
-                        को/की <input class="form-field form-control-sm nepaliFont disable-print" name="witnessName"
-                            formControlName="witnessName2" placeholder="" type="text" />
-                        <span class="print-only font-weight-bold nepaliFont"> {{ form?.get('witnessName2')?.value ?
-                            form?.get('witnessName2')?.value : '======================================'}}</span>
-                    </p>
                     <p>
-                        ३. कारणीले प्रस्तुत लिखत मेरो सामुन्ने सहिछाप गरेको हो भनी सनाखत गर्ने नविल बैंक लिमिटेडका
+                        २. कारणीले प्रस्तुत लिखत मेरो सामुन्ने सहिछाप गरेको हो भनी सनाखत गर्ने नविल बैंक लिमिटेडका
                         कर्मचारी <input class="form-field form-control-sm nepaliFont disable-print"
                             name="Name of Bank Staff" formControlName="bankStaff" placeholder="" type="text" />
                         <span class="print-only font-weight-bold nepaliFont"> {{ form?.get('bankStaff')?.value ?
