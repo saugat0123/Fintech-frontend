@@ -461,11 +461,10 @@ export class UIComponent implements OnInit, DoCheck {
                     } else if ((da.toLowerCase() !== 'yes' && da.toLowerCase() !== 'no' && da.toLowerCase() !== 'na') &&
                         (this.tableHeads[j].toLowerCase() === 'yes' || this.tableHeads[j].toLowerCase() === 'no' ||
                             this.tableHeads[j].toLowerCase() === 'na')) {
-                        if (ObjectUtil.isEmpty(tdData[j].style.getPropertyValue('background-color'))) {
+                        if (ObjectUtil.isEmpty(tdData[j].style.getPropertyValue('background-color')) && tdData[j].innerText.length <= 9) {
                             const id = `name${index}${j}${table}n${totalInput}n${index}n${table}`;
                             this.allChecklistId.push(id);
                             tdData[j].innerHTML = `<span id = "name${index}${j}${table}n${totalInput}n${index}n${table}"><input type="radio" click = "change()"  name="hello${index}${table}"></span>`;
-
                         }
                     }
                 }
