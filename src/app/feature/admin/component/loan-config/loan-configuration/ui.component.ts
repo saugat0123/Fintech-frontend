@@ -406,7 +406,7 @@ export class UIComponent implements OnInit, DoCheck {
         const tables = Array.from(parsedDocument.getElementsByTagName('table'));
         tables.forEach((element, table) => {
             this.tableHeads = [];
-            //selecting all tr from table
+            // selecting all tr from table
             const tr = Array.from(element.getElementsByTagName('tbody'))[0].getElementsByTagName('tr');
             // first row header data
             const tds = tr[0].getElementsByTagName('td');
@@ -415,7 +415,7 @@ export class UIComponent implements OnInit, DoCheck {
                 if (f.toLowerCase() === 'yes' || f.toLowerCase() === 'no' || f.toLowerCase() === 'na') {
                     totalInput += 1;
                 }
-                //pushing data to array for comparing
+                // pushing data to array for comparing
                 this.tableHeads.push(f);
             }
             for (let index = 0; index < tr.length; index++) {
@@ -442,7 +442,7 @@ export class UIComponent implements OnInit, DoCheck {
 
                     // text values of  rows
                     const da = tdData[j].innerText.split('\n').join('').split('\t').join('');
-                    //for skipping row containing yes no
+                    // for skipping row containing yes no
                     if ((da.toLowerCase() === 'yes') && index > 0) {
                         this.tableHeads = [];
                         const newTdData = tr[index + 1].getElementsByTagName('td');
@@ -471,7 +471,9 @@ export class UIComponent implements OnInit, DoCheck {
                 }
             }
             this.tableHeads = [];
-            elem += '<div class="row">  <table class="table-bordered text-center table-responsive d-flex justify-content-center">' + element.innerHTML + '</table> </div>  <br style="clear: both;"> ';
+            // @ts-ignore
+            elem += '<div class="row">  <table class="table text-center table-responsive d-flex justify-content-center">'
+                + element.innerHTML.split('page-break-after:always').join(' ') + '</table> </div>  <br style="clear: both;"> ';
         });
         this.displayChecklist = elem.replace('undefined', ' ');
     }
