@@ -87,16 +87,16 @@ export class ClassASanctionLetterPrintComponent implements OnInit {
           JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation) : '';
       this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
       this.isNatural = this.tempData.naturalPersonCheck.en;
-      console.log('New TempData:', this.isNatural);
-    }
+      if (!ObjectUtil.isEmpty(this.tempData)) {
+        this.CoupenRateFinancing = this.tempData.CoupenRateFinancing ? this.tempData.CoupenRateFinancing.ct : '';
+        this.BaseRateFinancing =  this.tempData.BaseRateFinancing ? this.tempData.BaseRateFinancing.ct : '';
+      }}
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.assignedLoan)) {
       this.autoRefNum = this.cadOfferLetterApprovedDoc.assignedLoan[0].refNo;
     }
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation)) {
       this.freeTextVal = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation);
-
     }
-    console.log('Free TExt Val:', this.freeTextVal);
     // for date of approval
     const sanctionLetterDate = this.letter.sanctionLetterDateType ? this.letter.sanctionLetterDateType.en : '';
     if (sanctionLetterDate === 'AD') {
@@ -109,8 +109,8 @@ export class ClassASanctionLetterPrintComponent implements OnInit {
     // For Date of Application:
     const dateOfApplication = this.letter.dateOfApplicationType ? this.letter.dateOfApplicationType.en : '';
     if (dateOfApplication === 'AD') {
-      const templateDateApplication = this.letter.dateOfApplication ? this.letter.dateOfApplication.en : '';
-      this.finalDateOfApplication = this.engToNepaliDate.transform(this.datePipe.transform(templateDateApplication), true);
+      const templateDateApplication = this.letter.dateOfApplication ? this.letter.dateOfApplication.ct : '';
+      this.finalDateOfApplication = templateDateApplication ? templateDateApplication : '';
     } else {
       const templateDateApplication = this.letter.dateOfApplicationNepali ? this.letter.dateOfApplicationNepali.en : '';
       this.finalDateOfApplication = templateDateApplication ? templateDateApplication.nDate : '';
@@ -118,8 +118,8 @@ export class ClassASanctionLetterPrintComponent implements OnInit {
     // For Date of Expiry:
     const dateOfExpiry = this.letter.dateOfExpiryType ? this.letter.dateOfExpiryType.en : '';
     if (dateOfExpiry === 'AD') {
-      const templateDateExpiry = this.letter.dateOfExpiry ? this.letter.dateOfExpiry.en : '';
-      this.finalDateOfExpiry = this.engToNepaliDate.transform(this.datePipe.transform(templateDateExpiry), true);
+      const templateDateExpiry = this.letter.dateOfExpiry ? this.letter.dateOfExpiry.ct : '';
+      this.finalDateOfExpiry = templateDateExpiry ? templateDateExpiry : '';
     } else {
       const templateDateExpiry = this.letter.dateOfExpiryNepali ? this.letter.dateOfExpiryNepali.en : '';
       this.finalDateOfExpiry = templateDateExpiry ? templateDateExpiry.nDate : '';
@@ -127,15 +127,14 @@ export class ClassASanctionLetterPrintComponent implements OnInit {
     // For Previous Sanction:
     const previousSanctionDate = this.letter.previousSanctionType ? this.letter.previousSanctionType.en : '';
     if (previousSanctionDate === 'AD') {
-      const templateDateSanction = this.letter.previousSanctionDate ? this.letter.previousSanctionDate.en : '';
-      this.finalDateOfSanction = this.engToNepaliDate.transform(this.datePipe.transform(templateDateSanction), true);
+      const templateDateSanction = this.letter.previousSanctionDate ? this.letter.previousSanctionDate.ct : '';
+      this.finalDateOfSanction = templateDateSanction ? templateDateSanction : '';
     } else {
       const templateDateSanction = this.letter.previousSanctionDateNepali ? this.letter.previousSanctionDateNepali.en : '';
       this.finalDateOfSanction = templateDateSanction ? templateDateSanction.nDate : '';
     }
     this.getHolderDetails();
     // this.guarantorDetails();
-    console.log('Offer Data', this.offerData);
   }
 
   getHolderDetails() {
@@ -200,12 +199,10 @@ export class ClassASanctionLetterPrintComponent implements OnInit {
         const tempGuarantorNep = JSON.parse(this.guarantorData[i].nepData);
         if (tempGuarantorNep.guarantorType.en === 'Personal Guarantor') {
           const temp = JSON.parse(this.guarantorData[i].nepData);
-          console.log(temp);
           this.guarantorNames.push(temp.guarantorName.ct);
           // this.guarantorAmount = this.guarantorAmount + parseFloat(temp.gurantedAmount.en) ;
         } else {
           const temp = JSON.parse(this.guarantorData[i].nepData);
-          console.log(temp);
           this.guarantorNames.push(temp.authorizedPersonName.ct);
         }
 

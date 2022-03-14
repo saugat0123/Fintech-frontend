@@ -38,6 +38,8 @@ export class InterestSubsidySanctionLetterPrintComponent implements OnInit {
   guarantorAmount = 0;
   guarantorAmountNepali;
   finalName;
+  autoPopulate1;
+  autoPopulate2;
   finalDateOfApproval;
   finalDateOfApplication;
   finalDateofSanction;
@@ -75,6 +77,16 @@ export class InterestSubsidySanctionLetterPrintComponent implements OnInit {
   ngOnInit() {
     this.freeInformation = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation);
     this.selectedSecurity = this.security;
+    if (ObjectUtil.isEmpty(this.freeInformation)) {
+      this.autoPopulate1 = 'सम्पर्क अधिकृत';
+    } else {
+      this.autoPopulate1 = this.freeInformation.autoPopulate1;
+    }
+    if (ObjectUtil.isEmpty(this.freeInformation)) {
+      this.autoPopulate2 = 'शाखा प्रबन्धक/बरिष्ठ सम्पर्क प्रबन्धक';
+    } else {
+      this.autoPopulate2 = this.freeInformation.autoPopulate2;
+    }
     // this.renewalVal = this.letter.renewalChecked.en;
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
       let totalLoanAmount = 0;

@@ -28,7 +28,7 @@
                 <!-- (For The case of EMI Loan- Following additional clauses to be added)-->
 
                 <ng-container
-                        *ngIf="isAutoLoanEmiSelected || isTermLoanEmiSelected || isMortgageTermLoanSelected || isEquityMortgageTermLoanSelected">
+                        *ngIf="isAutoLoanEmiSelected || isAutoLoanOtherCreditSelected || isTermLoanEmiSelected || isMortgageTermLoanSelected || isEquityMortgageTermLoanSelected">
                     <li>
                         <p class="m-0">
                             बैंकको <strong>त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong> मा हुने
@@ -420,10 +420,11 @@
                         </p>
                     </li>
                     <li>
+                        <p>
                             तपाई ऋणी तथा तपाई संग सम्बन्धित व्यक्ति/फर्म/कम्पनीहरुको साख सूचना प्रदान गरे बापत
                             प्रति
-                            सूचना रु.२,०००/- शुल्क लाग्नेछ । उक्त शुल्क तपाईको खातामा खर्च जनाई कट्टा गरी लिईनेछ
-                            ।
+                            सूचना रु.२,०००/- शुल्क लाग्नेछ । उक्त शुल्क तपाईको खातामा खर्च जनाई कट्टा गरी लिईनेछ ।
+                        </p>
                     </li>
                 </ol>
             </div>

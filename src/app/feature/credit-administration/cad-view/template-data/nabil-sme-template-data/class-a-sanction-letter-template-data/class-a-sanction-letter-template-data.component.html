@@ -111,12 +111,12 @@
                 <div class="col-md-4" *ngIf="isBankGuaranteeSelected">
                     <label><strong> Cash Margin Type </strong></label>
                     <ng-select
-                            formControlName="cashMarginType"
+                            formControlName="cashMarginTypeBankGuarantee"
                             fullWidth
                             (change)="checkCashMarginType()"
                             status="info">
-                        <ng-option value="HundredCashMargin">Hundred Percent Cash Margin</ng-option>
-                        <ng-option value="TenCashMargin"> Ten Percent Cash Margin</ng-option>
+                        <ng-option value="HundredCashMargin">100% Cash Margin</ng-option>
+                        <ng-option value="TenCashMargin">10% Cash Margin and Lien</ng-option>
                     </ng-select>
                 </div>
                 <div class="col-md-4" *ngIf="isBankGuaranteeSelected">
@@ -161,7 +161,7 @@
                             (change)="checkIrrevocableType()"
                             status="info">
                         <ng-option value="CashMarginHundred">100% Cash Margin</ng-option>
-                        <ng-option value="CashMarginTen"> 10% Cash Margin</ng-option>
+                        <ng-option value="CashMarginTen"> 100% Lien</ng-option>
                     </ng-select>
                 </div>
                 <div class="col-md-4" *ngIf="isIrrevocableSelected">
@@ -235,7 +235,7 @@
                                       [value]="dateTy.value">{{dateTy.key}}</nb-radio>
                         </nb-radio-group>
                         <div *ngIf="this.form.get('dateOfApplicationType').value === 'BS'" style="margin-bottom: -50px;">
-                            <nepali-patro *ngIf="BSApplication" [displayNepali]="true"
+                            <nepali-patro [displayNepali]="true"
                                           [responseType]="2"
                                           formControlName="dateOfApplicationNepali">
                             </nepali-patro>
@@ -256,7 +256,7 @@
                                       [value]="previousType.value">{{previousType.key}}</nb-radio>
                         </nb-radio-group>
                         <div *ngIf="this.form.get('previousSanctionType').value === 'BS'" style="margin-bottom: -50px;">
-                            <nepali-patro *ngIf="BSPrevious" [displayNepali]="true"
+                            <nepali-patro [displayNepali]="true"
                                           [responseType]="2"
                                           formControlName="previousSanctionDateNepali">
                             </nepali-patro>
@@ -342,7 +342,8 @@
                                nbInput status="success" type="text">
                     </div>
 
-                    <div class="form-group" *ngIf="isOverdraftSelected && isNabilSelected || isOverdraftSelected && isOtherSelected">
+                    <div class="form-group" *ngIf="isOverdraftSelected || (isBankGuaranteeSelected && this.form.get('cashMarginTypeBankGuarantee').value === 'TenCashMargin') ||
+                     (isIrrevocableSelected && this.form.get('cashMarginType').value === 'CashMarginTen')">
                         <ng-container
                                 *ngFor="let data of form.get('tdHolderNames')['controls']; let index = index;"
                                 formArrayName="tdHolderNames">
@@ -373,7 +374,8 @@
                     <div class="form-group"
                          [ngClass]="{'lessMargin': form.get('tdHolderNames')['length'] > 1,
                          'moreMargin': form.get('tdHolderNames')['length'] === 1}"
-                         *ngIf="isOverdraftSelected && isNabilSelected || isOverdraftSelected && isOtherSelected">
+                         *ngIf="isOverdraftSelected || (isBankGuaranteeSelected && this.form.get('cashMarginTypeBankGuarantee').value === 'TenCashMargin') ||
+                     (isIrrevocableSelected && this.form.get('cashMarginType').value === 'CashMarginTen')">
                         <label for="TdHolder">TD Amount</label>
                         <input class="form-control" formControlName="TDAmount" fullWidth
                                id="TDAmount"
@@ -419,7 +421,7 @@
                             <nb-radio *ngFor="let dateTy of dateType" [value]="dateTy.value">{{dateTy.key}}</nb-radio>
                         </nb-radio-group>
                         <div *ngIf="this.form.get('dateOfExpiryType').value === 'BS'" style="margin-bottom: -50px;">
-                            <nepali-patro *ngIf="BSDateOfExpiry" [displayNepali]="true" [responseType]="2"
+                            <nepali-patro [displayNepali]="true" [responseType]="2"
                                           formControlName="dateOfExpiryNepali">
                             </nepali-patro>
                         </div>
@@ -506,7 +508,7 @@
                         <div class="col-md-12 mb-2 text-center">
                             <h5>TRANSLATED DATA</h5>
                         </div>
-                        <div class="form-group" style="margin-top:45px" *ngIf="BSSanctionLetterDate; else dateOfSanctionField">
+                        <div class="form-group" style="margin-top:45px" *ngIf="this.form.get('sanctionLetterDateType').value === 'BS'; else dateOfSanctionField">
                             <label for="sanctionLetterDateNepaliTrans">Date of Approval Translation </label>
                             <input class="form-control dateTranslationCustom"
                                    formControlName="sanctionLetterDateNepaliTrans"
@@ -524,7 +526,7 @@
                         </ng-template>
                         <div class="form-group" style="margin-top:55px">
                             <label for="dateOfApplicationTrans">Date of Application Translation </label>
-                            <ng-container *ngIf="BSApplication; else dateOfAppEnglish">
+                            <ng-container *ngIf="this.form.get('dateOfApplicationType').value === 'BS'; else dateOfAppEnglish">
                                 <input class="form-control dateTranslationCustom"
                                        formControlName="dateOfApplicationNepaliTrans" fullWidth
                                        id="dateOfApplicationNepaliTrans"
@@ -539,7 +541,7 @@
                         </div>
                         <div class="form-group" *ngIf="!isnewCustomer" style="margin-top:55px">
                             <label for="previousSanctionDateTrans">Previous Sanction Letter Date Translation </label>
-                            <ng-container *ngIf="BSPrevious; else previousLetterEnglish">
+                            <ng-container *ngIf="this.form.get('previousSanctionType').value === 'BS'; else previousLetterEnglish">
                                 <input class="form-control dateTranslationCustom"
                                        formControlName="previousSanctionDateNepaliTrans" fullWidth
                                        id="previousSanctionDateNepaliTrans"
@@ -625,7 +627,9 @@
                                    nbInput status="success" type="text">
                         </div>
 
-                        <div class="form-group" *ngIf="isOverdraftSelected && isNabilSelected || isOverdraftSelected && isOtherSelected">
+                        <div class="form-group"
+                             *ngIf="isOverdraftSelected || (isBankGuaranteeSelected && this.form.get('cashMarginTypeBankGuarantee').value === 'TenCashMargin') ||
+                     (isIrrevocableSelected && this.form.get('cashMarginType').value === 'CashMarginTen')">
                             <ng-container
                                     *ngFor="let data of form.get('tdHolderNames')['controls']; let index = index;"
                                     formArrayName="tdHolderNames">
@@ -647,7 +651,8 @@
                         </div>-->
                         <div class="form-group"
                              style="margin-top: 3.8em"
-                             *ngIf="isOverdraftSelected && isNabilSelected || isOverdraftSelected && isOtherSelected">
+                             *ngIf="isOverdraftSelected || (isBankGuaranteeSelected && this.form.get('cashMarginTypeBankGuarantee').value === 'TenCashMargin') ||
+                     (isIrrevocableSelected && this.form.get('cashMarginType').value === 'CashMarginTen')">
                             <label for="TDAmountTrans"> TD Holder Amount Translation </label>
                             <input class="form-control" formControlName="TDAmountTrans" fullWidth
                                    id="TDAmountTrans"
@@ -684,7 +689,7 @@
                         <div class="form-group" style="margin-top: 55px"
                              *ngIf="isOverdraftSelected && isCoupenRateFinancingSelected || isOverdraftSelected && isBaseRateFinancingSelected || isBankGuaranteeSelected && isQuarterlySelected ||  isBankGuaranteeSelected && isYearlySelected ">
                             <label for="dateOfExpiryNepaliTrans">Date of Expiry Translation </label>
-                            <ng-container *ngIf="BSDateOfExpiry; else dateOfExpEnglish">
+                            <ng-container *ngIf="this.form.get('dateOfExpiryType').value === 'BS'; else dateOfExpEnglish">
                                 <input class="form-control dateTranslationCustom"
                                        formControlName="dateOfExpiryNepaliTrans" fullWidth
                                        id="dateOfExpiryNepaliTrans"
@@ -697,15 +702,15 @@
                             </ng-template>
                         </div>
                         <div class="form-group" *ngIf="isBankGuaranteeSelected || isIrrevocableSelected">
-                            <label for="holderNameTrans"> Account Holder's Name(s) Translation </label>
-                            <input class="form-control" formControlName="holderNameTrans" fullWidth
-                                   id="holderNameTrans"
-                                   nbInput status="success" type="text">
-                        </div>
-                        <div class="form-group" *ngIf="isBankGuaranteeSelected || isIrrevocableSelected">
                             <label for="accountNumberTrans"> Account Number Translation </label>
                             <input class="form-control" formControlName="accountNumberTrans" fullWidth
                                    id="accountNumberTrans"
+                                   nbInput status="success" type="text">
+                        </div>
+                        <div class="form-group" *ngIf="isBankGuaranteeSelected || isIrrevocableSelected">
+                            <label for="holderNameTrans"> Account Holder's Name(s) Translation </label>
+                            <input class="form-control" formControlName="holderNameTrans" fullWidth
+                                   id="holderNameTrans"
                                    nbInput status="success" type="text">
                         </div>
                         <div class="form-group"
@@ -769,7 +774,7 @@
                             <div class="col-md-12 mb-2 text-center">
                                 <h5>CORRECTION TRANSLATION</h5>
                             </div>
-                            <div class="form-group" style="margin-top: 45px" *ngIf="BSSanctionLetterDate; else dateOfSanctionFieldCT">
+                            <div class="form-group" style="margin-top: 45px" *ngIf="this.form.get('sanctionLetterDateType').value === 'BS'; else dateOfSanctionFieldCT">
                                 <label for="sanctionLetterDateNepaliCT">Date of Approval CT </label>
                                 <input class="form-control dateTranslationCustom"
                                        formControlName="sanctionLetterDateNepaliCT"
@@ -799,7 +804,7 @@
                             </ng-template>
                             <div class="form-group" style="margin-top:55px">
                                 <label for="dateOfApplicationCT">Date of Application CT</label>
-                                <ng-container *ngIf="BSApplication ; else appDateCT">
+                                <ng-container *ngIf="this.form.get('dateOfApplicationType').value === 'BS'; else appDateCT">
                                     <input class="form-control dateTranslationCustom"
                                            formControlName="dateOfApplicationNepaliCT" fullWidth
                                            id="dateOfApplicationNepaliCT"
@@ -826,7 +831,7 @@
                             </div>
                             <div class="form-group" *ngIf="!isnewCustomer" style="margin-top: 55px">
                                 <label for="previousSanctionDateCT">Previous Sanction Letter Date CT</label>
-                                <ng-container *ngIf="BSPrevious; else previousDateCT">
+                                <ng-container *ngIf="this.form.get('previousSanctionType').value === 'BS'; else previousDateCT">
                                     <input class="form-control dateTranslationCustom"
                                            formControlName="previousSanctionDateNepaliCT" fullWidth
                                            id="previousSanctionDateNepaliCT"
@@ -984,7 +989,8 @@
                         </span>
                             </div>
                             <div class="form-group"
-                                 *ngIf="isOverdraftSelected && isNabilSelected || isOverdraftSelected && isOtherSelected">
+                                 *ngIf="isOverdraftSelected || (isBankGuaranteeSelected && this.form.get('cashMarginTypeBankGuarantee').value === 'TenCashMargin') ||
+                     (isIrrevocableSelected && this.form.get('cashMarginType').value === 'CashMarginTen')">
                                 <ng-container
                                         *ngFor="let data of form.get('tdHolderNames')['controls']; let index = index;"
                                         formArrayName="tdHolderNames">
@@ -1018,7 +1024,8 @@
                         </span>
                             </div>-->
                             <div class="form-group"
-                                 *ngIf="isOverdraftSelected && isNabilSelected || isOverdraftSelected && isOtherSelected">
+                                 *ngIf="isOverdraftSelected || (isBankGuaranteeSelected && this.form.get('cashMarginTypeBankGuarantee').value === 'TenCashMargin') ||
+                     (isIrrevocableSelected && this.form.get('cashMarginType').value === 'CashMarginTen')">
                                 <label for="TDAmountCT"> TD Holder Amount CT</label>
                                 <input class="form-control" formControlName="TDAmountCT" fullWidth
                                        id="TDAmountCT"
@@ -1080,7 +1087,7 @@
                             <div class="form-group" style="margin-top: 55px"
                                  *ngIf="isOverdraftSelected && isCoupenRateFinancingSelected || isOverdraftSelected && isBaseRateFinancingSelected || isBankGuaranteeSelected && isQuarterlySelected ||  isBankGuaranteeSelected && isYearlySelected ">
                                 <label for="dateOfExpiryCT">Date of Expiry CT</label>
-                                <ng-container *ngIf="BSDateOfExpiry ; else expDateCT">
+                                <ng-container *ngIf="this.form.get('dateOfExpiryType').value === 'BS'; else expDateCT">
                                     <input class="form-control dateTranslationCustom"
                                            formControlName="dateOfExpiryNepaliCT" fullWidth id="dateOfExpiryNepaliCT"
                                            nbInput status="success"
@@ -1103,18 +1110,7 @@
                                 </ng-template>
                             </div>
                             <div class="form-group" *ngIf="isBankGuaranteeSelected || isIrrevocableSelected">
-                                <label for="holderNameCT">Account Holder's Name(s) </label>
-                                <input class="form-control" formControlName="holderNameCT" fullWidth
-                                       id="holderNameCT"
-                                       nbInput status="success"
-                                       [ngClass]="{ 'is-invalid':submitted && FormControls.holderNameCT.errors }"
-                                       type="text">
-                                <span *ngIf="submitted && FormControls.holderNameCT.invalid" class="text-danger">
-                            Account Holder's Name(s)  is required
-                        </span>
-                            </div>
-                            <div class="form-group" *ngIf="isBankGuaranteeSelected || isIrrevocableSelected">
-                                <label for="accountNumberCT"> Account Number</label>
+                                <label for="accountNumberCT"> Account Number CT</label>
                                 <input class="form-control" formControlName="accountNumberCT" fullWidth
                                        id="accountNumberCT"
                                        nbInput status="success"
@@ -1122,6 +1118,17 @@
                                        type="text">
                                 <span *ngIf="submitted && FormControls.accountNumberCT.invalid" class="text-danger">
                             Account Number is required
+                        </span>
+                            </div>
+                            <div class="form-group" *ngIf="isBankGuaranteeSelected || isIrrevocableSelected">
+                                <label for="holderNameCT">Account Holder's Name(s) CT</label>
+                                <input class="form-control" formControlName="holderNameCT" fullWidth
+                                       id="holderNameCT"
+                                       nbInput status="success"
+                                       [ngClass]="{ 'is-invalid':submitted && FormControls.holderNameCT.errors }"
+                                       type="text">
+                                <span *ngIf="submitted && FormControls.holderNameCT.invalid" class="text-danger">
+                            Account Holder's Name(s)  is required
                         </span>
                             </div>
                             <div class="form-group"

@@ -7,6 +7,7 @@ import {EngToNepaliNumberPipe} from '../../../../../../../@core/pipe/eng-to-nepa
 import {CurrencyFormatterPipe} from '../../../../../../../@core/pipe/currency-formatter.pipe';
 import {EngNepDatePipe} from 'nepali-patro';
 import {DatePipe} from '@angular/common';
+import {CustomerType} from '../../../../../../customer/model/customerType';
 
 @Component({
   selector: 'app-udyamsil-karja-subsidy-print',
@@ -42,6 +43,10 @@ export class UdyamsilKarjaSubsidyPrintComponent implements OnInit {
   finalDateOfApproval;
   finalPrevSanctionLetterDate;
   finalDateOfApplication;
+  customerType;
+  client = CustomerType;
+  guarantorParsed: Array < any > = new Array < any > ();
+  tempPersonalGuarantors;
 
   constructor(
       public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
@@ -54,6 +59,11 @@ export class UdyamsilKarjaSubsidyPrintComponent implements OnInit {
   ngOnInit() {
     this.freeInformation = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation);
     this.guarantorData = this.cadOfferLetterApprovedDoc.assignedLoan[0].taggedGuarantors;
+    if (!ObjectUtil.isEmpty(this.guarantorData)) {
+      this.guarantorData.forEach(any => {
+        this.guarantorParsed.push(JSON.parse(any.nepData));
+      });
+    }
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
       let totalLoanAmount = 0;
       this.cadOfferLetterApprovedDoc.assignedLoan.forEach(value => {
@@ -62,6 +72,9 @@ export class UdyamsilKarjaSubsidyPrintComponent implements OnInit {
       });
       this.proposedAmount = totalLoanAmount;
       this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
+      if (!ObjectUtil.isEmpty(this.loanHolderInfo)) {
+        this.customerType = this.loanHolderInfo.clientType.en;
+      }
       this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
       this.customerAddress = this.loanHolderInfo.registeredMunicipality.ct + '-' +
           this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.registeredDistrict.ct + ' ,' +
@@ -106,48 +119,27 @@ export class UdyamsilKarjaSubsidyPrintComponent implements OnInit {
     this.guarantorDetails();
   }
   guarantorDetails() {
-    if (this.guarantorData.length === 1) {
-      const tempGuarantorNep = JSON.parse(this.guarantorData[0].nepData);
-      if (tempGuarantorNep.guarantorType.en === 'Personal Guarantor') {
-        // const temp = JSON.parse(this.guarantorData[0].nepData);
-        this.finalName = tempGuarantorNep.guarantorName ? tempGuarantorNep.guarantorName.ct : '';
+    if (this.customerType === this.client.INSTITUTION) {
+      this.tempPersonalGuarantors = this.guarantorParsed.filter(val =>
+          val.guarantorType.en === 'Personal Guarantor');
+    }
+    if (!ObjectUtil.isEmpty(this.tempPersonalGuarantors)) {
+      if (this.tempPersonalGuarantors.length === 1) {
+        this.finalName = this.tempPersonalGuarantors[0].guarantorName ? this.tempPersonalGuarantors[0].guarantorName.ct : '';
+      } else if (this.tempPersonalGuarantors.length === 2) {
+        for (let i = 0; i < this.tempPersonalGuarantors.length; i++) {
+          this.guarantorNames.push(this.tempPersonalGuarantors[i].guarantorName.ct);
+        }
+        this.allguarantorNames = this.guarantorNames.join(' र ');
+        this.finalName = this.allguarantorNames;
       } else {
-        // const temp = JSON.parse(this.guarantorData[0].nepData);
-        this.finalName = tempGuarantorNep.authorizedPersonName ? tempGuarantorNep.authorizedPersonName.ct : '';
-      }
-    } else if (this.guarantorData.length === 2) {
-      for (let i = 0; i < this.guarantorData.length; i++) {
-        const tempGuarantorNep = JSON.parse(this.guarantorData[i].nepData);
-        if (tempGuarantorNep.guarantorType.en === 'Personal Guarantor') {
-          // const temp = JSON.parse(this.guarantorData[i].nepData);
-          this.guarantorNames.push(tempGuarantorNep.guarantorName.ct);
-        } else {
-          // const temp = JSON.parse(this.guarantorData[i].nepData);
-          this.guarantorNames.push(tempGuarantorNep.authorizedPersonName.ct);
+        for (let i = 0; i < this.tempPersonalGuarantors.length - 1; i++) {
+          this.guarantorNames.push(this.tempPersonalGuarantors[i].guarantorName.ct);
         }
-        // this.guarantorAmount = this.guarantorAmount + parseFloat(temp.gurantedAmount.en) ;
+        this.allguarantorNames = this.guarantorNames.join(' , ');
+        const temp1 = this.tempPersonalGuarantors[this.tempPersonalGuarantors.length - 1];
+        this.finalName = this.allguarantorNames + ' र ' + temp1.guarantorName.ct;
       }
-      // this.guarantorAmountNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.guarantorAmount));
-      this.allguarantorNames = this.guarantorNames.join(' र ');
-      this.finalName = this.allguarantorNames;
-    } else {
-      for (let i = 0; i < this.guarantorData.length - 1; i++) {
-        const tempGuarantorNep = JSON.parse(this.guarantorData[i].nepData);
-        if (tempGuarantorNep.guarantorType.en === 'Personal Guarantor') {
-          // const temp = JSON.parse(this.guarantorData[i].nepData);
-          this.guarantorNames.push(tempGuarantorNep.guarantorName.ct);
-          // this.guarantorAmount = this.guarantorAmount + parseFloat(temp.gurantedAmount.en) ;
-        } else {
-          // const temp = JSON.parse(this.guarantorData[i].nepData);
-          // console.log(temp);
-          this.guarantorNames.push(tempGuarantorNep.authorizedPersonName.ct);
-        }
-
-      }
-      // this.guarantorAmountNepali = this.engToNepNumberPipe.transform(this.currencyFormatPipe.transform(this.guarantorAmount));
-      this.allguarantorNames = this.guarantorNames.join(' , ');
-      const temp1 = JSON.parse(this.guarantorData[this.guarantorData.length - 1].nepData);
-      this.finalName = this.allguarantorNames + ' र ' + temp1.authorizedPersonName.ct;
     }
   }
 }

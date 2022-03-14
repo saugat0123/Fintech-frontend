@@ -1,4 +1,4 @@
-<div class="container col-lg-12 nep text-justify">
+<div class="container col-lg-12 nep text-justify" [nbSpinner]="spinner">
     <form [formGroup]="form" id="print-section">
         <div class="row viewFull align">
             <div class="col-md-12 text-center" style="border-bottom: 1px solid black;">
@@ -79,15 +79,18 @@
                     <li>यो संझौता हुनु अगावै ऋणीले आफ्नो ब्यवसाय संचालन वा ब्यबस्थित गर्न साहुबाट
                         रु.
                         <input class="form-field form-control-sm d-print-none"
+                               (change)="translateNumber('amount', 'amountInWords')"
                                name="amount"
                                formControlName="amount"
-                               type="text" readonly/>
-                        <span class="print-only font-weight-bold">{{form?.get('amount').value ? form?.get('amount').value : '___________________'}}</span>/-
+                               type="text"/>
+                        <span class="print-only font-weight-bold">
+                            {{form?.get('amount')?.value ? form?.get('amount')?.value : '___________________'}}
+                        </span>/-
                         (अक्षरेपि  <input class="form-field form-control-sm d-print-none"
                                           name="amountInWords"
                                           formControlName="amountInWords"
                                           type="text" readonly/>
-                        <span class="print-only font-weight-bold">{{form?.get('amountInWords').value ? form?.get('amountInWords').value : '___________________'}}</span>
+                        <span class="print-only font-weight-bold">{{form?.get('amountInWords').value ? form?.get('amountInWords').value : '_________________________'}}</span>
                         मात्र)
                         ऋणकर्जा प्राप्त गरेको र भविष्यमा पनि ऋणीले साहुबाट पटक पटक थप ऋण प्राप्त गर्न सक्ने र
                     </li>
