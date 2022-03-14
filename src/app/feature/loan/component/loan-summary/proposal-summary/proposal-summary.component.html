@@ -40,7 +40,8 @@
                 <th>Outstanding</th>
                 <th>Enhance</th>
                 <th>Settlement</th>
-                <th>Proposed Limit</th>
+                <th *ngIf="loanType === EnumUtils.getEnum(LoanType, LoanType.ENHANCED_LOAN)">Total Limit</th>
+                <th *ngIf="loanType !== EnumUtils.getEnum(LoanType, LoanType.ENHANCED_LOAN)">Proposed Limit</th>
                 <!--                <th>Existing INT/COM/CM</th>-->
                 <!--        for non funded commision and cash margin combination to be view-->
                 <th>Existing Proposed INT/COM/CM</th>
@@ -88,6 +89,7 @@
                 </td>
 
                 <td class="text-right pr-1">Rs. {{loan?.proposal?.proposedLimit | currencyFormatter}}</td>
+<!--                <td *ngIf="(loan?.proposal?.data | jsonParse)?.enhanceLimitAmount"> Total Limit</td>-->
                 <!--                Existing INT/COM/CM-->
                 <!--                <td>-</td>-->
                 <td>

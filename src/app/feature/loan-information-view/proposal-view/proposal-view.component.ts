@@ -54,6 +54,7 @@ export class ProposalViewComponent implements OnInit {
   @Input() loanCategory;
   approvedLoans = [];
   customerLoanDtoList: CustomerLoanDto[];
+  loanType: any;
 
   constructor(private activatedRoute: ActivatedRoute,
               private loanConfigService: LoanConfigService) {
