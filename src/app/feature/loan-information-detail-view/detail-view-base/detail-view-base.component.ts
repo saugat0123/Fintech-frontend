@@ -87,10 +87,12 @@ export class DetailViewBaseComponent implements OnInit {
     } else  if (this.loanDataHolder.loanHolder.clientType === 'SMALL_BUSINESS_FINANCIAL_SERVICES') {
       this.smallBusiness = true;
     }
-    if (!ObjectUtil.isEmpty(this.loanHolder.financial)) {
-      if (!ObjectUtil.isEmpty(this.loanHolder.financial.data)) {
-        this.financialData = JSON.parse(this.loanHolder.financial.data);
-        this.financialKeys = Object.keys(this.financialData);
+    if (this.loanDataHolder.loanCategory !== 'INDIVIDUAL') {
+      if (!ObjectUtil.isEmpty(this.loanHolder.financial)) {
+        if (!ObjectUtil.isEmpty(this.loanHolder.financial.data)) {
+          this.financialData = JSON.parse(this.loanHolder.financial.data);
+          this.financialKeys = Object.keys(this.financialData);
+        }
       }
     }
     if (this.loanDataHolder.loanCategory === 'INDIVIDUAL') {

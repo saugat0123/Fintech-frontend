@@ -1,3 +1,4 @@
+<div class="summary">
 <div *ngIf="proposalData?.data !==null ">
     <app-proposal-view *ngIf="loanDataHolder?.proposal"
                        [customerAllLoanList]="customerAllLoanList"
@@ -196,3 +197,4 @@
 <!--                                [fromProfile]="false"></app-credit-grading>-->
 
 <app-all-document-view *ngIf="loanDataHolder" [loanDataHolder]="loanDataHolder" [siteVisitDocument]="siteVisitDocuments"></app-all-document-view>
+</div>
