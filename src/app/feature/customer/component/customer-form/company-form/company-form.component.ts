@@ -198,7 +198,7 @@ export class CompanyFormComponent implements OnInit {
             this.companyJsonData = JSON.parse(this.companyInfo.companyJsonData);
         }
         this.additionalFieldSelected = this.companyJsonData.isAdditionalCompanyInfo;
-        if (this.additionalFieldSelected) {
+        if ((this.additionalFieldSelected) && !ObjectUtil.isEmpty(this.companyInfo.additionalCompanyInfo)) {
             this.additionalFieldData = JSON.parse(this.companyInfo.additionalCompanyInfo);
         }
         if (!ObjectUtil.isEmpty(this.companyInfo) && !ObjectUtil.isEmpty(this.companyInfo.businessAndIndustry)) {
@@ -470,9 +470,11 @@ export class CompanyFormComponent implements OnInit {
                     this.additionalFieldData.registrationType],
                 licenseHolderName: [ObjectUtil.isEmpty(this.additionalFieldData) ? undefined :
                     this.additionalFieldData.licenseHolderName],
-                licenseExpiryDate: [ObjectUtil.isEmpty(this.additionalFieldData) ? undefined :
-                    new Date(this.additionalFieldData.licenseExpiryDate)],
-                licenseIssuedDate: [ObjectUtil.isEmpty(this.additionalFieldData) ? undefined :
+                licenseExpiryDate: [(ObjectUtil.isEmpty(this.additionalFieldData)
+                        || ObjectUtil.isEmpty(this.additionalFieldData.licenseExpiryDate)) ? undefined :
+                        new Date(this.additionalFieldData.licenseExpiryDate)],
+                licenseIssuedDate: [(ObjectUtil.isEmpty(this.additionalFieldData)
+                    || ObjectUtil.isEmpty(this.additionalFieldData.licenseIssuedDate)) ? undefined :
                     new Date(this.additionalFieldData.licenseIssuedDate)],
                 licenseIssuePlace: [ObjectUtil.isEmpty(this.additionalFieldData) ? undefined :
                     this.additionalFieldData.licenseIssuePlace],
