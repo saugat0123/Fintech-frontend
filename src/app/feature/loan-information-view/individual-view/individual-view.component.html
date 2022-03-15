@@ -1,11 +1,8 @@
 <div *ngIf="individual && !isJointInfo" class="row">
-<div class="col-md-12">
-    <p><strong>Applicant/Guarantor Profile</strong></p>
-</div>
     <ng-container *ngIf="loanDataHolder.loanCategory === 'INDIVIDUAL'" >
         <div class="col-md-12">
             <p><b>Address Verification</b></p>
-            <table class="table table-condensed table-bordered table-sm table-responsive-lg text-center sb-small">
+            <table  class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small" >
                 <tr class="text-white sb-bg-dark">
                     <th colspan="6">Permanent Address</th>
                 </tr>
@@ -47,79 +44,133 @@
             </table>
         </div>
     </ng-container>
-    <div class="col-md-12 text-center" *ngIf="!isRemit">
-        <p><strong>Borrower Details</strong></p>
-        <table
-                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-            <thead>
-
-            <tr class="text-white sb-bg-dark">
-                <th>Name</th>
-                <th>Customer Id</th>
-                <th>Date of birth(AD/BS)</th>
-                <th>Age</th>
-                <th>Citizenship no.</th>
-                <th>Citizenship Issued Date(AD/BS)</th>
-                <th>Issued Place</th>
-                <th>Gender</th>
-                <th>Marital Status</th>
-
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td class="text-left pl-1">{{individual?.customerName}}</td>
-                <td class="text-right pr-1">{{customerInfo?.customerCode || 'N/A'}}</td>
-                <td class="text-left pl-1">{{individual?.dob | date}} ({{individual?.dob | engNepDate: false}})</td>
-                <td class="text-left pl-1">{{calculateAge(individual?.dob)}} years</td>
-                <td class="text-right pr-1">{{individual?.citizenshipNumber}}</td>
-                <td class="text-left pl-1">{{individual?.citizenshipIssuedDate | date}}
-                    ({{individual?.citizenshipIssuedDate | engNepDate: false}})
-                </td>
-                <td class="text-left pl-1">{{individual?.citizenshipIssuedPlace}}</td>
-                <td class="text-left pl-1">{{customerInfo?.gender}}</td>
-                <td class="text-left pl-1">{{customerInfo?.maritalStatus}}</td>
-            </tr>
-            </tbody>
-            <thead>
-            <tr class="text-white sb-bg-dark">
-                <th *ngIf="client !== clientName.LAXMIBANK">Father's Name</th>
-                <th *ngIf="client !== clientName.LAXMIBANK">Grandfather's Name</th>
-                <th>Mobile Number</th>
-                <th>LandLine Number</th>
-                <th>Email</th>
-                <th>Occupation</th>
-                <th>Income Source</th>
-                <th>Client Type</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td class="text-left pl-1"
-                    *ngIf="client !== clientName.LAXMIBANK">{{(individual?.individualJsonData | jsonParse)?.fatherName || 'NA'}}</td>
-                <td class="text-left pl-1"
-                    *ngIf="client !== clientName.LAXMIBANK">{{(individual?.individualJsonData | jsonParse)?.grandFatherName || 'NA'}}</td>
-                <td class="text-right pr-1">{{individual?.contactNumber || 'NA'}}</td>
-                <td class="text-right pr1">{{individual?.landLineNumber || 'NA'}}</td>
-                <td class="text-left pl-1">{{individual?.email || 'NA'}}</td>
-                <td class="text-left pl-1">{{(individual?.occupation| jsonParse)?.multipleOccupation || 'NA'}}</td>
-                <td class="text-left pl-1">{{(individual?.incomeSource| jsonParse)?.multipleIncome || 'NA'}}</td>
-                <td class="text-left pl-1">{{loanDataHolder.loanHolder?.clientType | clientType}}</td>
-            </tr>
-            <tr class="text-white sb-bg-dark">
-<!--                <th>Subsector</th>-->
-                <th>Address as per Legal Document</th>
-
-                <!--        Obligor code for SRDB and Group Code for other banks-->
-                <th *ngIf="client === clientName?.SHINE_RESUNGA">Obligor Code</th>
-            </tr>
-            <tr>
-<!--                <td class="text-left pl-1">{{customerInfo?.subsectorDetail || 'N/A'}}</td>-->
-                <td class="text-left pl-1">{{customerInfo?.customerLegalDocumentAddress}}</td>
-                <td class="text-left pl-1" *ngIf="client === clientName?.SHINE_RESUNGA">{{customerInfo?.obligor}}</td>
-            </tr>
-            </tbody>
-        </table>
+<div class="col-md-12">
+    <p><strong>Applicant/Guarantor Profile</strong></p>
+</div>
+    <div *ngIf="!isRemit" class="borrower_class">
+        <p class="sub-header"><strong class="sub-header">Borrower Details</strong></p>
+            <div class="col-md-12">
+                <div>
+                    <table
+                            class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+                        <tr class="text-left">
+                            <td class="sb-bg-dark text-white">Name</td>
+                            <td class="pl-1 text-right">{{individual?.customerName}}</td>
+                        </tr>
+                        <tr class="text-left">
+                            <td class="sb-bg-dark text-white">Customer Id</td>
+                            <td class="pl-1 text-right">{{customerInfo?.customerCode || 'N/A'}}</td>
+                        </tr>
+                        <tr class="text-left">
+                            <td class="sb-bg-dark text-white">Date of birth(AD/BS)</td>
+                            <td class="pl-1 text-right">{{individual?.dob | date}}
+                                ({{individual?.dob | engNepDate: false}}
+                                )
+                            </td>
+                        </tr>
+                        <tr class="text-left">
+                            <td class="sb-bg-dark text-white">Age</td>
+                            <td class="pl-1 text-right">{{calculateAge(individual?.dob)}} years</td>
+                        </tr>
+                        <tr class="text-left">
+                            <td class="sb-bg-dark text-white">Citizenship no.</td>
+                            <td class="pl-1 text-right">{{individual?.citizenshipNumber}}</td>
+                        </tr>
+                        <tr class="text-left">
+                            <td class="sb-bg-dark text-white">Citizenship Issued Date(AD/BS)</td>
+                            <td class="pl-1 text-right">{{individual?.citizenshipIssuedDate | date}}
+                                ({{individual?.citizenshipIssuedDate | engNepDate: false}})
+                            </td>
+                        </tr>
+                        <tr class="text-left">
+                            <td class="sb-bg-dark text-white">Issued Place</td>
+                            <td class="pl-1 text-right">{{individual?.citizenshipIssuedPlace}}</td>
+                        </tr>
+                        <tr class="text-left">
+                            <td class="sb-bg-dark text-white">Gender</td>
+                            <td class="pl-1 text-right">{{individual?.gender}}</td>
+                        </tr>
+                        <tr class="text-left">
+                            <td class="sb-bg-dark text-white">Marital Status</td>
+                            <td class="pl-1 text-right">{{individual?.maritalStatus}}</td>
+                        </tr>
+                        <tr class="text-left" *ngIf="client !== clientName.LAXMIBANK">
+                            <td class="sb-bg-dark text-white">Father's Name</td>
+                            <td class="pl-1 text-right">{{(individual?.individualJsonData | jsonParse)?.fatherName || 'NA'}}</td>
+                        </tr>
+                        <tr class="text-left" *ngIf="client !== clientName.LAXMIBANK">
+                            <td class="sb-bg-dark text-white">Grandfather's Name</td>
+                            <td class="pl-1 text-right">{{(individual?.individualJsonData | jsonParse)?.grandFatherName || 'NA'}}</td>
+                        </tr>
+                        <tr class="text-left">
+                            <td class="sb-bg-dark text-white">Mobile Number</td>
+                            <td class="pl-1 text-right">{{individual?.contactNumber || 'NA'}}</td>
+                        </tr>
+                        <tr class="text-left">
+                            <td class="sb-bg-dark text-white">LandLine Number</td>
+                            <td class="pl-1 text-right">{{individual?.landLineNumber || 'NA'}}</td>
+                        </tr>
+                        <tr class="text-left">
+                            <td class="sb-bg-dark text-white">Email</td>
+                            <td class="pl-1 text-right">{{individual?.email || 'NA'}}</td>
+                        </tr>
+                        <tr class="text-left">
+                            <td class="sb-bg-dark text-white">Occupation</td>
+                            <td class="pl-1 text-right">{{(individual?.occupation| jsonParse)?.multipleOccupation || 'NA'}}</td>
+                        </tr>
+                        <tr class="text-left">
+                            <td class="sb-bg-dark text-white">Income Source</td>
+                            <td class="pl-1 text-right">{{(individual?.incomeSource| jsonParse)?.multipleIncome || 'NA'}}</td>
+                        </tr>
+                        <tr class="text-left">
+                            <td class="sb-bg-dark text-white">Client Type</td>
+                            <td class="pl-1 text-right">{{loanDataHolder.loanHolder?.clientType | clientType}}</td>
+                        </tr>
+                        <tr class="text-left">
+                            <td class="sb-bg-dark text-white">Address as per Legal Document</td>
+                            <td class="pl-1 text-right">{{customerInfo?.customerLegalDocumentAddress}}</td>
+                        </tr>
+                        <tr class="text-left" *ngIf="client === clientName?.SHINE_RESUNGA">
+                            <td class="sb-bg-dark text-white">Obligor Code</td>
+                            <td class="pl-1 text-right">{{customerInfo?.obligor}}</td>
+                        </tr>
+                    </table>
+                </div>
+        </div>
+    </div>
+    <div *ngIf="individual?.customerRelatives?.length > 0" class="borrower_class">
+        <div class="row">
+            <div class="col-md-12">
+                <p class="sub-header"><strong class="sub-header">Family Details</strong></p>
+                <table
+                        class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+                    <thead>
+                    <tr class="text-white sb-bg-dark">
+                        <th>Name</th>
+                        <th>Relation Name</th>
+                        <th>Citizenship no.</th>
+                        <th>Citizenship Issued District</th>
+                        <th>Citizenship Issued Date(AD/BS)</th>
+                        <th>Age</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let relative of individual?.customerRelatives">
+                        <td class="text-left pl-1">{{relative?.customerRelativeName || 'NA'}}</td>
+                        <td class="text-left pl-1">{{relative?.customerRelation || 'NA'}}</td>
+                        <td class="text-left pr-1">{{relative?.citizenshipNumber || 'NA'}}</td>
+                        <td class="text-left pl-1">{{relative?.citizenshipIssuedPlace || 'NA'}}</td>
+                        <td class="text-left pl-1">
+                            {{relative?.citizenshipIssuedDate ? (relative?.citizenshipIssuedDate | date) : 'N/A'}}
+                            ({{relative?.citizenshipIssuedDate ? (relative?.citizenshipIssuedDate | engNepDate: false) : 'N/A'}}
+                            )
+                        </td>
+                        <td class="text-left pl-1">{{relative?.age || 'N/A'}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
     <ng-container *ngIf="isRemit">
         <div class="col-md-12">
@@ -309,80 +360,155 @@
 </div>
 <div *ngIf="isJointInfo" class="row">
     <div class="col-md-12 text-center">
-        <p><strong>Joint Details</strong></p>
-        <table
-                class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-            <thead>
-            </thead>
-            <tbody *ngFor="let jointCustomer of jointInfo">
-            <ng-container *ngFor="let info of jointCustomer">
-                <tr class="text-white sb-bg-dark">
-                    <th>Name</th>
-                    <th>Customer Id</th>
-                    <th>Date of birth(AD/BS)</th>
-                    <th>Age</th>
-                    <th>Citizenship no.</th>
-                    <th>Issued Date(Ad/BS)</th>
-                    <th>Issued Place</th>
-                    <th>Gender</th>
-                    <th>Marital Status</th>
-                </tr>
-                <tr class="text-left">
-                    <td class="pl-1">{{info?.customerName}}</td>
-                    <td class="pl-1">{{info?.customerCode}}</td>
-                    <td class="text-left pl-1">{{info?.dob | date}} ({{info?.dob | engNepDate: false}})</td>
-                    <td class="text-left pl-1">{{calculateAge(info?.dob)}} years</td>
-                    <td class="text-right pr-1">{{info?.citizenshipNumber || 'NA'}}</td>
-                    <td class="text-left pl-1">{{info?.citizenshipIssuedDate | date}}
-                        ({{info?.citizenshipIssuedDate | engNepDate: false}})
-                    </td>
-                    <td class="pl-1">{{info?.citizenshipIssuedPlace || 'NA'}}</td>
-                    <td class="pl-1">{{info?.gender?.toLowerCase()}}</td>
-                    <td class="pl-1">{{info?.maritalStatus?.toLowerCase()}}</td>
-                </tr>
-                <tr class="text-white sb-bg-dark">
-                    <th>Mobile Number</th>
-                    <th>LandLine Number</th>
-                    <th>Email</th>
-                    <th>Occupation</th>
-                    <th>Income Source</th>
-                    <th>Client Type</th>
-                    <th *ngIf="info?.panNumber">Pan Number</th>
-                    <th *ngFor="let acc of info?.accountDetails; let i = index">Account Number {{i+1}}</th>
-                </tr>
-                <tr class="text-left">
-                    <td class="pl-1">{{info?.contactNumber}}</td>
-                    <td class="pl-1">{{info?.landLineNumber}}</td>
-                    <td class="pl-1">{{info?.email}}</td>
-                    <td class="text-left pl-1">{{info?.occupation || 'NA'}}</td>
-                    <td class="text-left pl-1">{{info?.incomeSource || 'NA'}}</td>
-                    <td class="pl-1">{{loanDataHolder.loanHolder.clientType | clientType}}</td>
-                    <td class="pl-1" *ngIf="info?.panNumber">{{info?.panNumber}}</td>
-                    <td class="pl-1" *ngFor="let acc of info?.accountDetails">{{acc.accountNo}}</td>
-                </tr>
+        <p class="sub-header text-left" ><strong   class="header">Joint Details</strong></p>
+        <ng-container *ngFor="let joint of jointInfo">
+            <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
                 <tr>
-                    <th colspan="5">Family Detail</th>
+                    <td>
+                        <table class="table table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small">
+                            <tr class="text-left">
+                                <td class="sb-bg-dark text-white">Name</td>
+                            </tr>
+                            <tr class="text-left">
+                                <td class="sb-bg-dark text-white">Customer Id</td>
+                            </tr>
+                            <tr class="text-left">
+                                <td class="sb-bg-dark text-white">Date of birth(AD/BS)</td>
+                            </tr>
+                            <tr class="text-left">
+                                <td class="sb-bg-dark text-white">Age</td>
+                            </tr>
+                            <tr class="text-left">
+                                <td class="sb-bg-dark text-white">Citizenship no.</td>
+                            </tr>
+                            <tr class="text-left">
+                                <td class="sb-bg-dark text-white">Issued Date(Ad/BS)</td>
+                            </tr>
+                            <tr class="text-left">
+                                <td class="sb-bg-dark text-white">Issued Place</td>
+                            </tr>
+                            <tr class="text-left">
+                                <td class="sb-bg-dark text-white">Gender</td>
+                            </tr>
+                            <tr class="text-left">
+                                <td class="sb-bg-dark text-white">Marital Status</td>
+                            </tr>
+                            <tr class="text-left">
+                                <td class="sb-bg-dark text-white">Mobile Number</td>
+                            </tr>
+                            <tr class="text-left">
+                                <td class="sb-bg-dark text-white">LandLine Number</td>
+                            </tr>
+                            <tr class="text-left">
+                                <td class="sb-bg-dark text-white">Email</td>
+                            </tr>
+                            <tr class="text-left">
+                                <td class="sb-bg-dark text-white">Occupation</td>
+                            </tr>
+                            <tr class="text-left">
+                                <td class="sb-bg-dark text-white">Income Source</td>
+                            </tr>
+                            <tr class="text-left">
+                                <td class="sb-bg-dark text-white">Client Type</td>
+                            </tr>
+                            <tr class="text-left">
+                                <td class="sb-bg-dark text-white">Pan Number</td>
+                            </tr>
+                            <tr class="text-left">
+                                <td class="sb-bg-dark text-white">Account Number</td>
+                            </tr>
+                        </table>
+                        </td>
+                    <td *ngFor="let info of joint">
+                        <table class="table table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small">
+                            <tr>
+                                <td class="text-left">{{info?.customerName || 'N/A'}}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-left">{{info?.customerCode || 'N/A'}}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-left">{{info?.dob | date}} ({{info?.dob | engNepDate: false}})</td>
+                            </tr>
+                            <tr>
+                                <td class="text-left">{{calculateAge(info?.dob)}} years</td>
+                            </tr>
+                            <tr>
+                                <td class="text-left">{{info?.citizenshipNumber || 'NA'}}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-left">{{info?.citizenshipIssuedDate | date}}
+                                    ({{info?.citizenshipIssuedDate | engNepDate: false}})</td>
+                            </tr>
+                            <tr>
+                                <td class="text-left">{{info?.citizenshipIssuedPlace || 'N/A'}}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-left">{{info?.gender?.toLowerCase() || 'N/A'}}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-left">{{info?.maritalStatus?.toLowerCase() || 'N/A'}}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-left">{{info?.contactNumber || 'N/A'}}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-left">{{info?.landLineNumber || 'N/A'}}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-left">{{info?.email || 'N/A'}}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-left">{{info?.occupation || 'N/A'}}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-left">{{info?.incomeSource || 'N/A'}}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-left">{{loanDataHolder.loanHolder.clientType | clientType}}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-left">{{info?.panNumber || 'N/A'}}</td>
+                            </tr>
+                            <tr>
+                                <td class="text-left">
+                                    <table>
+                                        <tr *ngFor="let acc of info?.accountDetails">
+                                            <td>
+                                                {{acc?.accountNo || 'N/A'}}</td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
                 </tr>
+            </table>
+            <p class="sub-header" ><strong   class="header">Family Details</strong></p>
+            <table  class="table table-condensed table-bordered table-sm table-responsive-md text-center table-sm sb-small" *ngFor="let info of joint">
+                <tbody>
                 <tr class="text-white sb-bg-dark">
                     <th>Name</th>
                     <th>Relation Name</th>
                     <th>Citizenship no.</th>
                     <th>Citizenship Issued District</th>
                     <th>Citizenship Issued Date(AD/BS)</th>
-                    <th *ngIf="client !== clientName.LAXMIBANK">Age</th>
+                    <th>Age</th>
                 </tr>
                 <ng-container>
                     <tr *ngFor="let infos of info?.customerRelations">
                         <td class="text-left pl-1">{{infos?.customerRelativeName || 'NA'}}</td>
                         <td class="text-left pl-1">{{infos?.customerRelation || 'NA'}}</td>
-                        <td class="text-right pr-1">{{infos?.citizenshipNumber || 'NA'}}</td>
+                        <td class="text-left pr-1">{{infos?.citizenshipNumber || 'NA'}}</td>
                         <td class="text-left pl-1">{{infos?.citizenshipIssuedPlace || 'NA'}}</td>
-                        <td class="text-left pl-1">{{infos?.citizenshipIssuedDate ? (infos?.citizenshipIssuedDate | date) : 'N/A'}} ({{infos?.citizenshipIssuedDate ? (infos?.citizenshipIssuedDate | engNepDate: false) : 'N/A'}})</td>
+                        <td class="text-left pl-1">
+                            {{infos?.citizenshipIssuedDate ? (infos?.citizenshipIssuedDate | date) : 'N/A'}} ({{infos?.citizenshipIssuedDate ? (infos?.citizenshipIssuedDate | engNepDate: false) : 'N/A'}})</td>
+                        <td class="text-left pl-1">{{infos?.age || 'N/A'}}</td>
                     </tr>
                 </ng-container>
-            </ng-container>
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </ng-container>
         <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <tr class="text-white sb-bg-dark">
                 <th colspan="7">Permanent Address</th>
@@ -482,3 +608,4 @@
                                    [calendarType]="calendarType"
                                    [loanId]="loanId"></app-customer-info-search-form>
 </div>
+
