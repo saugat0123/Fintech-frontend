@@ -39,7 +39,7 @@ export class LoanActionModalComponent implements OnInit {
     @Input() docAction: string;
     @Input() docActionMsg: string;
     @Input() documentStatus: DocStatus;
-    @Input() popUpTitle: 'Send Forward' | 'Approve' | 'Send Backward' | 'Reject' | 'Close' | 'APPROVED_REVOKED' | string;
+    @Input() popUpTitle: 'Send Forward' | 'Approve' | 'Send Backward' | 'Reject' | 'Close' | 'Return Back to Previous Stage' | string;
     @Input() isForward: boolean;
     @Input() toRole: Role;
     @Input() additionalDetails: any;
@@ -60,6 +60,7 @@ export class LoanActionModalComponent implements OnInit {
     dual: any;
     hsov: any;
     loanTag = false;
+    previousList = [];
 
     // selectedRoleForSol:Role = undefined;
 
@@ -79,11 +80,15 @@ export class LoanActionModalComponent implements OnInit {
     }
 
     ngOnInit() {
+        console.log('popUpTitle', this.popUpTitle);
         this.formAction = this.buildForm();
         console.log('docAction', this.docAction);
+        console.log('customerLoanHolder', this.customerLoanHolder);
         this.roleId = parseInt(LocalStorageUtil.getStorage().roleId, 10);
         this.conditionalDataLoad();
         if (!ObjectUtil.isEmpty(this.customerLoanHolder)) {
+            this.previousList = this.customerLoanHolder.previousList;
+            console.log('previousList', this.previousList);
             if (this.customerLoanHolder.loan.loanTag === LoanTag.getKeyByValue(LoanTag.REMIT_LOAN)) {
                 this.loanTag = true;
             }
@@ -114,6 +119,7 @@ export class LoanActionModalComponent implements OnInit {
             role = res.detail;
             this.userService.getUserListByRoleIdAndBranchIdForDocumentAction(role.id, this.branchId).subscribe((response: any) => {
                 this.userList = response.detail;
+                console.log('userList', this.userList);
                 if (this.userList.length === 0) {
                     this.isEmptyUser = true;
                 } else if (this.userList.length === 1) {
@@ -394,4 +400,21 @@ export class LoanActionModalComponent implements OnInit {
         }
     }
 
+    changeUserList(value: any) {
+        console.log('value', value);
+        this.showUserList = true;
+        this.formAction.get('toRole').patchValue(value);
+        const test = this.previousList;
+        const userList1: Array<User> = new Array<User>();
+        test.filter(f => {
+            if (f.toRole.id === value.id) {
+                userList1.push(f.toUser);
+            }
+        });
+        console.log('userList1', userList1);
+        this.formAction.get('toUser').patchValue(userList1[0]);
+        console.log('userList', this.userList);
+        console.log(this.formAction.get('toRole').value);
+        console.log('formAction', this.formAction);
+    }
 }

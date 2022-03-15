@@ -276,21 +276,21 @@ export class LoanActionComponent implements OnInit, OnChanges {
                 if (this.customerLoanHolder.isHsov &&
                     this.customerLoanHolder.documentStatus.toString() !== DocStatus.value(DocStatus.HSOV_PENDING)) {
                     context = {
-                        popUpTitle: 'Return back to previous stage',
+                        popUpTitle: 'Return Back to Previous Stage',
                         isForward: true,
                         customerLoanHolder: this.customerLoanHolder,
                         loanConfigId: this.loanConfigId,
                         customerLoanId: this.id,
                         branchId: this.branchId,
                         docAction: 'REVOKED_LOAN',
-                        docActionMsg: 'Return back to previous stage',
+                        docActionMsg: 'Return Back to Previous Stage',
                         documentStatus: DocStatus.HSOV_PENDING,
                         isRemitLoan: this.isRemitLoan,
                         beneficiaryId: this.beneficiaryId
                     };
                 } else if (this.customerLoanHolder.dualApproval && !this.customerLoanHolder.dualApproved) {
                     context = {
-                        popUpTitle: 'Return back to previous stage',
+                        popUpTitle: 'Return Back to Previous Stage',
                         isForward: false,
                         customerLoanHolder: this.customerLoanHolder,
                         loanConfigId: this.loanConfigId,
@@ -304,7 +304,7 @@ export class LoanActionComponent implements OnInit, OnChanges {
                     };
                 } else {
                     context = {
-                        popUpTitle: 'Return back to previous stage',
+                        popUpTitle: 'Return Back to Previous Stage',
                         isForward: false,
                         customerLoanHolder: this.customerLoanHolder,
                         loanConfigId: this.loanConfigId,
