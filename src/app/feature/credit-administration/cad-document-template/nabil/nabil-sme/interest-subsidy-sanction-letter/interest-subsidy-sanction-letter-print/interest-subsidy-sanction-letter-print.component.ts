@@ -1,18 +1,18 @@
-import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
-import {CustomerApprovedLoanCadDocumentation} from '../../../../../model/customerApprovedLoanCadDocumentation';
-import {NabilOfferLetterConst} from '../../../../../nabil-offer-letter-const';
-import {NepaliCurrencyWordPipe} from '../../../../../../../@core/pipe/nepali-currency-word.pipe';
-import {EngToNepaliNumberPipe} from '../../../../../../../@core/pipe/eng-to-nepali-number.pipe';
-import {CurrencyFormatterPipe} from '../../../../../../../@core/pipe/currency-formatter.pipe';
-import {EngNepDatePipe} from 'nepali-patro';
-import {DatePipe} from '@angular/common';
-import {ObjectUtil} from '../../../../../../../@core/utils/ObjectUtil';
-import {CustomerSubType} from '../../../../../../customer/model/customerSubType';
+import { Component, Input, OnInit, ViewEncapsulation } from "@angular/core";
+import { CustomerApprovedLoanCadDocumentation } from "../../../../../model/customerApprovedLoanCadDocumentation";
+import { NabilOfferLetterConst } from "../../../../../nabil-offer-letter-const";
+import { NepaliCurrencyWordPipe } from "../../../../../../../@core/pipe/nepali-currency-word.pipe";
+import { EngToNepaliNumberPipe } from "../../../../../../../@core/pipe/eng-to-nepali-number.pipe";
+import { CurrencyFormatterPipe } from "../../../../../../../@core/pipe/currency-formatter.pipe";
+import { EngNepDatePipe } from "nepali-patro";
+import { DatePipe } from "@angular/common";
+import { ObjectUtil } from "../../../../../../../@core/utils/ObjectUtil";
+import { CustomerSubType } from "../../../../../../customer/model/customerSubType";
 
 @Component({
-  selector: 'app-interest-subsidy-sanction-letter-print',
-  templateUrl: './interest-subsidy-sanction-letter-print.component.html',
-  styleUrls: ['./interest-subsidy-sanction-letter-print.component.scss'],
+  selector: "app-interest-subsidy-sanction-letter-print",
+  templateUrl: "./interest-subsidy-sanction-letter-print.component.html",
+  styleUrls: ["./interest-subsidy-sanction-letter-print.component.scss"],
 })
 export class InterestSubsidySanctionLetterPrintComponent implements OnInit {
   @Input() cadOfferLetterApprovedDoc: CustomerApprovedLoanCadDocumentation;
@@ -68,84 +68,139 @@ export class InterestSubsidySanctionLetterPrintComponent implements OnInit {
   plotNumber;
   customerSubType = CustomerSubType;
 
-  constructor(public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
-              public engToNepNumberPipe: EngToNepaliNumberPipe,
-              public currencyFormatPipe: CurrencyFormatterPipe,
-              private engToNepaliDate: EngNepDatePipe,
-              private datePipe: DatePipe) { }
+  constructor(
+    public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
+    public engToNepNumberPipe: EngToNepaliNumberPipe,
+    public currencyFormatPipe: CurrencyFormatterPipe,
+    private engToNepaliDate: EngNepDatePipe,
+    private datePipe: DatePipe
+  ) {}
 
   ngOnInit() {
-    this.freeInformation = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation);
+    this.freeInformation = JSON.parse(
+      this.cadOfferLetterApprovedDoc.offerDocumentList[0].supportedInformation
+    );
     this.selectedSecurity = this.security;
     if (ObjectUtil.isEmpty(this.freeInformation)) {
-      this.autoPopulate1 = 'सम्पर्क अधिकृत';
+      this.autoPopulate1 = "सम्पर्क अधिकृत";
     } else {
       this.autoPopulate1 = this.freeInformation.autoPopulate1;
     }
     if (ObjectUtil.isEmpty(this.freeInformation)) {
-      this.autoPopulate2 = 'शाखा प्रबन्धक/बरिष्ठ सम्पर्क प्रबन्धक';
+      this.autoPopulate2 = "शाखा प्रबन्धक/बरिष्ठ सम्पर्क प्रबन्धक";
     } else {
       this.autoPopulate2 = this.freeInformation.autoPopulate2;
     }
     // this.renewalVal = this.letter.renewalChecked.en;
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.loanHolder)) {
       let totalLoanAmount = 0;
-      this.cadOfferLetterApprovedDoc.assignedLoan.forEach(value => {
+      this.cadOfferLetterApprovedDoc.assignedLoan.forEach((value) => {
         const val = value.proposal.proposedLimit;
         totalLoanAmount = totalLoanAmount + val;
       });
-      this.guarantorData = this.cadOfferLetterApprovedDoc.assignedLoan[0].taggedGuarantors;
+      this.guarantorData =
+        this.cadOfferLetterApprovedDoc.assignedLoan[0].taggedGuarantors;
       this.proposedAmount = totalLoanAmount;
-      this.loanHolderInfo = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
-      if (this.loanHolderInfo.clientType.en === 'INDIVIDUAL') {
-        this.customerAddress = this.loanHolderInfo.permanentMunicipality.ct + '-' +
-            this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.permanentDistrict.ct + ', ' +
-            this.loanHolderInfo.permanentProvince.ct;
+      this.loanHolderInfo = JSON.parse(
+        this.cadOfferLetterApprovedDoc.loanHolder.nepData
+      );
+      if (this.loanHolderInfo.clientType.en === "INDIVIDUAL") {
+        this.customerAddress =
+          this.loanHolderInfo.permanentMunicipality.ct +
+          "-" +
+          this.loanHolderInfo.permanentWard.ct +
+          ", " +
+          this.loanHolderInfo.permanentDistrict.ct +
+          ", " +
+          this.loanHolderInfo.permanentProvince.ct;
       } else {
-        this.customerAddress = this.loanHolderInfo.registeredMunicipality.ct + '-' +
-            this.loanHolderInfo.permanentWard.ct + ', ' + this.loanHolderInfo.registeredDistrict.ct + ', ' +
-            this.loanHolderInfo.registeredProvince.ct;
+        this.customerAddress =
+          this.loanHolderInfo.registeredMunicipality.ct +
+          "-" +
+          this.loanHolderInfo.permanentWard.ct +
+          ", " +
+          this.loanHolderInfo.registeredDistrict.ct +
+          ", " +
+          this.loanHolderInfo.registeredProvince.ct;
       }
-      this.branchName = this.loanHolderInfo.branch ? this.loanHolderInfo.branch.ct : '';
-      this.tempData = JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation);
+      this.branchName = this.loanHolderInfo.branch
+        ? this.loanHolderInfo.branch.ct
+        : "";
+      this.tempData = JSON.parse(
+        this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation
+      );
       this.securityDetails = this.tempData.securities;
     }
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.offerDocumentList)) {
       // tslint:disable-next-line:max-line-length
-      this.offerDocumentDetails = this.cadOfferLetterApprovedDoc.offerDocumentList[0] ? JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation) : '';
+      this.offerDocumentDetails = this.cadOfferLetterApprovedDoc
+        .offerDocumentList[0]
+        ? JSON.parse(
+            this.cadOfferLetterApprovedDoc.offerDocumentList[0]
+              .initialInformation
+          )
+        : "";
     }
     if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.assignedLoan)) {
       this.autoRefNumber = this.cadOfferLetterApprovedDoc.assignedLoan[0].refNo;
     }
     // For date of Approval
-    const dateOfApprovalType = this.letter.dateOfApprovalType ? this.letter.dateOfApprovalType.en : '';
-    if (dateOfApprovalType === 'AD') {
+    const dateOfApprovalType = this.letter.dateOfApprovalType
+      ? this.letter.dateOfApprovalType.en
+      : "";
+    if (dateOfApprovalType === "AD") {
       // const templateDateApproval = this.letter.dateOfApproval ? this.letter.dateOfApproval.en : '';
       // this.finalDateOfApproval = this.engToNepaliDate.transform(this.datePipe.transform(templateDateApproval), true);
-      this.finalDateOfApproval = this.letter.dateOfApproval ? this.letter.dateOfApproval.ct : '';
+      this.finalDateOfApproval = this.letter.dateOfApproval
+        ? this.letter.dateOfApproval.ct
+        : "";
     } else {
-      const templateDateApproval = this.letter.dateOfApprovalNepali ? this.letter.dateOfApprovalNepali.en : '';
-      this.finalDateOfApproval = templateDateApproval ? templateDateApproval.nDate : '';
+      const templateDateApproval = this.letter.dateOfApprovalNepali
+        ? this.letter.dateOfApprovalNepali.en
+        : "";
+      this.finalDateOfApproval = templateDateApproval
+        ? templateDateApproval.nDate
+        : "";
     }
     // For Date of Application:
-    const dateOfApplication = this.letter.dateOfApplicationType ? this.letter.dateOfApplicationType.en : '';
-    if (dateOfApplication === 'AD') {
-      const templateDateApplication = this.letter.dateOfApplication ? this.letter.dateOfApplication.ct : '';
-      this.finalDateOfApplication = templateDateApplication ? templateDateApplication : '';
+    const dateOfApplication = this.letter.dateOfApplicationType
+      ? this.letter.dateOfApplicationType.en
+      : "";
+    if (dateOfApplication === "AD") {
+      const templateDateApplication = this.letter.dateOfApplication
+        ? this.letter.dateOfApplication.ct
+        : "";
+      this.finalDateOfApplication = templateDateApplication
+        ? templateDateApplication
+        : "";
     } else {
-      const templateDateApplication = this.letter.dateOfApplicationNepali ? this.letter.dateOfApplicationNepali.en : '';
-      this.finalDateOfApplication = templateDateApplication ? templateDateApplication.nDate : '';
+      const templateDateApplication = this.letter.dateOfApplicationNepali
+        ? this.letter.dateOfApplicationNepali.en
+        : "";
+      this.finalDateOfApplication = templateDateApplication
+        ? templateDateApplication.nDate
+        : "";
     }
     // For Sanction Letter Date:
-    const sanctionLetterDate = this.letter.previousSanctionType ? this.letter.previousSanctionType.en : '';
-    if (sanctionLetterDate === 'AD') {
-      const templateSanctionDate = this.letter.previousSanctionDate ? this.letter.previousSanctionDate.ct : '';
-      this.finalDateofSanction = templateSanctionDate ? templateSanctionDate : '';
+    const sanctionLetterDate = this.letter.previousSanctionType
+      ? this.letter.previousSanctionType.en
+      : "";
+    if (sanctionLetterDate === "AD") {
+      const templateSanctionDate = this.letter.previousSanctionDate
+        ? this.letter.previousSanctionDate.ct
+        : "";
+      this.finalDateofSanction = templateSanctionDate
+        ? templateSanctionDate
+        : "";
     } else {
-      const templateSanctionDate = this.letter.previousSanctionDateNepali ? this.letter.previousSanctionDateNepali.en : '';
-      this.finalDateofSanction = templateSanctionDate ? templateSanctionDate.nDate : '';
+      const templateSanctionDate = this.letter.previousSanctionDateNepali
+        ? this.letter.previousSanctionDateNepali.en
+        : "";
+      this.finalDateofSanction = templateSanctionDate
+        ? templateSanctionDate.nDate
+        : "";
     }
-    this.guarantorData.forEach(any => {
+    this.guarantorData.forEach((any) => {
       this.guarantorParsed.push(JSON.parse(any.nepData));
     });
     this.guarantorDetails();
@@ -163,14 +218,17 @@ export class InterestSubsidySanctionLetterPrintComponent implements OnInit {
   }
 
   guarantorDetails() {
-    if (this.loanHolderInfo.clientType.en === 'INSTITUTION') {
-      this.tempPersonalGuarantors = this.guarantorParsed.filter(val =>
-          val.guarantorType.en === 'Personal Guarantor');
-      this.tempPersonalGuarantors.forEach(i => {
-        this.personalGuarantorsName.push(i.guarantorName ? i.guarantorName.ct : '');
+    if (this.loanHolderInfo.clientType.en === "INSTITUTION") {
+      this.tempPersonalGuarantors = this.guarantorParsed.filter(
+        (val) => val.guarantorType.en === "Personal Guarantor"
+      );
+      this.tempPersonalGuarantors.forEach((i) => {
+        this.personalGuarantorsName.push(
+          i.guarantorName ? i.guarantorName.ct : ""
+        );
       });
     }
-    if (this.loanHolderInfo.clientType.en === 'INDIVIDUAL') {
+    if (this.loanHolderInfo.clientType.en === "INDIVIDUAL") {
       this.tempPersonalGuarantors = this.guarantorParsed;
     }
   }
@@ -180,73 +238,129 @@ export class InterestSubsidySanctionLetterPrintComponent implements OnInit {
       finalName = guarantorName[0];
     }
     if (guarantorName.length === 2) {
-      finalName = guarantorName.join(' र ');
+      finalName = guarantorName.join(" र ");
     }
     if (guarantorName.length > 2) {
       for (let i = 0; i < guarantorName.length - 1; i++) {
-        this.temp2 = guarantorName.join(', ');
+        this.temp2 = guarantorName.join(", ");
       }
       const temp1 = guarantorName[guarantorName.length - 1];
-      finalName = this.temp2 + ' र ' + temp1;
+      finalName = this.temp2 + " र " + temp1;
     }
-    return finalName ? finalName : '';
+    return finalName ? finalName : "";
   }
   checkPrimaryConditions() {
     /* this.tempLandBuilding = this.securityDetails.primarySecurity.filter(val =>
          val.securityType === 'LAND' || val.securityType === 'LAND_AND_BUILDING');*/
     if (this.securityDetails.primarySecurity.length > 0) {
-      this.securityDetails.primarySecurity.forEach(i => {
-        if (i.securityType === 'LAND' || i.securityType === 'LAND_AND_BUILDING') {
+      this.securityDetails.primarySecurity.forEach((i) => {
+        if (
+          i.securityType === "LAND" ||
+          i.securityType === "LAND_AND_BUILDING"
+        ) {
           this.securityTypeCondition = true;
         }
-        if (i.securityType === 'LAND_AND_BUILDING') {
+        if (i.securityType === "LAND_AND_BUILDING") {
           this.securityTypeConditionLandAndBuilding = true;
         }
       });
     }
-    if (this.securityDetails.primarySecurity.some(s => s.securityType === 'FIXED_ASSETS')) {
+    if (
+      this.securityDetails.primarySecurity.some(
+        (s) => s.securityType === "HYPOTHECATION"
+      )
+    ) {
       this.securityTypeConditionFixedAssests = true;
-    }
-    if (this.securityDetails.primarySecurity.some(s => s.securityType === 'STOCK')) {
-      this.securityTypeConditionStock = true;
-    }
-    if (this.securityDetails.primarySecurity.some(s => s.securityType === 'ASSETS_PLANTS_MACHINERY_AND_OTHER_EQUIPMENTS')) {
       this.securityTypeConditionAssestsPlants = true;
-    }
-    if (this.securityDetails.primarySecurity.some(s => s.securityType === 'LIVE_STOCKS_ANIMALS')) {
+      this.securityTypeConditionStock = true;
       this.securityTypeConditionLiveStocks = true;
     }
-    if (this.securityDetails.secondarySecurity.some(s => s.securityType === 'DOCUMENTS')) {
+    if (
+      this.securityDetails.primarySecurity.some(
+        (s) => s.securityType === "STOCK"
+      )
+    ) {
+      this.securityTypeConditionStock = true;
+    }
+    if (
+      this.securityDetails.primarySecurity.some(
+        (s) => s.securityType === "ASSETS_PLANTS_MACHINERY_AND_OTHER_EQUIPMENTS"
+      )
+    ) {
+      this.securityTypeConditionAssestsPlants = true;
+    }
+    if (
+      this.securityDetails.primarySecurity.some(
+        (s) => s.securityType === "LIVE_STOCKS_ANIMALS"
+      )
+    ) {
+      this.securityTypeConditionLiveStocks = true;
+    }
+    if (
+      this.securityDetails.secondarySecurity.some(
+        (s) => s.securityType === "ASSIGNMENT"
+      )
+    ) {
       this.securityTypeConditionDocuments = true;
     }
   }
 
   checkSecondaryConditions() {
-    this.tempSecondaryLandBuilding = this.securityDetails.secondarySecurity.filter(val =>
-        val.securityType === 'LAND' || val.securityType === 'LAND_AND_BUILDING');
+    this.tempSecondaryLandBuilding =
+      this.securityDetails.secondarySecurity.filter(
+        (val) =>
+          val.securityType === "LAND" ||
+          val.securityType === "LAND_AND_BUILDING"
+      );
     if (this.securityDetails.secondarySecurity.length > 0) {
-      this.securityDetails.secondarySecurity.forEach(i => {
-        if (i.securityType === 'LAND' || i.securityType === 'LAND_AND_BUILDING') {
+      this.securityDetails.secondarySecurity.forEach((i) => {
+        if (
+          i.securityType === "LAND" ||
+          i.securityType === "LAND_AND_BUILDING"
+        ) {
           this.securityTypeSecondaryCondition = true;
         }
-        if (i.securityType === 'LAND_AND_BUILDING') {
+        if (i.securityType === "LAND_AND_BUILDING") {
           this.securityTypeConditionLandAndBuildingSecondary = true;
         }
       });
     }
-    if (this.securityDetails.secondarySecurity.some(s => s.securityType === 'FIXED_ASSETS')) {
+    if (
+      this.securityDetails.secondarySecurity.some(
+        (s) => s.securityType === "HYPOTHECATION"
+      )
+    ) {
       this.securityTypeSecondaryConditionFixedAssests = true;
-    }
-    if (this.securityDetails.secondarySecurity.some(s => s.securityType === 'STOCK')) {
-      this.securityTypeSecondaryConditionStock = true;
-    }
-    if (this.securityDetails.secondarySecurity.some(s => s.securityType === 'ASSETS_PLANTS_MACHINERY_AND_OTHER_EQUIPMENTS')) {
       this.securityTypeSecondaryConditionAssestsPlants = true;
-    }
-    if (this.securityDetails.secondarySecurity.some(s => s.securityType === 'LIVE_STOCKS_ANIMALS')) {
+      this.securityTypeSecondaryConditionStock = true;
       this.securityTypeConditionLiveStocks = true;
     }
-    if (this.securityDetails.secondarySecurity.some(s => s.securityType === 'DOCUMENTS')) {
+    if (
+      this.securityDetails.secondarySecurity.some(
+        (s) => s.securityType === "STOCK"
+      )
+    ) {
+      this.securityTypeSecondaryConditionStock = true;
+    }
+    if (
+      this.securityDetails.secondarySecurity.some(
+        (s) => s.securityType === "ASSETS_PLANTS_MACHINERY_AND_OTHER_EQUIPMENTS"
+      )
+    ) {
+      this.securityTypeSecondaryConditionAssestsPlants = true;
+    }
+    if (
+      this.securityDetails.secondarySecurity.some(
+        (s) => s.securityType === "LIVE_STOCKS_ANIMALS"
+      )
+    ) {
+      this.securityTypeConditionLiveStocks = true;
+    }
+    if (
+      this.securityDetails.secondarySecurity.some(
+        (s) => s.securityType === "ASSIGNMENT"
+      )
+    ) {
       this.securityTypeConditionDocuments = true;
     }
   }
