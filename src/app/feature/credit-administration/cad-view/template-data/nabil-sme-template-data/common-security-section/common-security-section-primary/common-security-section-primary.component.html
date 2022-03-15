@@ -30,7 +30,7 @@
                 </div>
 
                 <div class="row"
-                    *ngIf="this.commonPrimarySecurity.get(['securityDetails', i,'securityType']).value && this.commonPrimarySecurity.get(['securityDetails', i,'securityType']).value != securityType[0]?.key && this.commonPrimarySecurity.get(['securityDetails', i,'securityType']).value != securityType[1]?.key && this.commonPrimarySecurity.get(['securityDetails', i,'securityType']).value != securityType[2]?.key">
+                    *ngIf="this.commonPrimarySecurity.get(['securityDetails', i,'securityType']).value && this.commonPrimarySecurity.get(['securityDetails', i,'securityType']).value == securityType[0]?.key || this.commonPrimarySecurity.get(['securityDetails', i,'securityType']).value == securityType[1]?.key || this.commonPrimarySecurity.get(['securityDetails', i,'securityType']).value == securityType[2]?.key">
                     <div class="form-group col-md-4">
                         <label for="marginInPercentage">Margin In Percentage (%)</label>
                         <input
