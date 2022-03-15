@@ -691,47 +691,47 @@
                                                </div>
                                            </div>
                                        </div>
-                                       <div class="col-md-2">
-                                           <div class="form-group">
-                                               <label for="citizenship{{i}}"><strong>CitizenshipNumber</strong></label>
-                                               <input class="form-control" formControlName="citizenshipNumber"
-                                                      id="citizenship{{i}}" placeholder="Citizenship Number" type="text">
-                                           </div>
-                                       </div>
-                                       <div class="col-md-2">
-                                           <div class="form-group">
-                                               <label for="issuedDistrict{{i}}"><strong>Issued District</strong></label>
-                                               <ng-select [multiple]="false"
-                                                          formControlName="citizenshipIssuedPlace"
-                                                          id="issuedDistrict{{i}}">
-                                                   <ng-option *ngFor="let district of allDistrict" [value]="district?.name">
-                                                       {{district?.name}}
-                                                   </ng-option>
-                                               </ng-select>
-                                           </div>
-                                       </div>
-                                       <div class="col-md-2">
-                                           <div class="form-group">
-                                               <label><strong>Issued Date</strong></label>
-                                               <input *ngIf="calendarType === 'AD'" nbInput
-                                                      [nbDatepicker]="relationCitizenIssueDate"
-                                                      class="form-control"
-                                                      formControlName="citizenshipIssuedDate"
-                                                      [ngClass]="{ 'is-invalid': (submitted) && relatives.get('citizenshipIssuedDate').errors }"
-                                               >
-                                               <input *ngIf="calendarType === 'BS'" formControlName="citizenshipIssuedDate"
-                                                      hidden>
-                                               <app-calendar [ePreDate]="relatives.get('citizenshipIssuedDate').value"
-                                                             *ngIf="calendarType === 'BS'"
-                                                             (messageToEmit)="relatives.get('citizenshipIssuedDate').patchValue($event?.eDate)"></app-calendar>
+<!--                                       <div class="col-md-2">-->
+<!--                                           <div class="form-group">-->
+<!--                                               <label for="citizenship{{i}}"><strong>CitizenshipNumber</strong></label>-->
+<!--                                               <input class="form-control" formControlName="citizenshipNumber"-->
+<!--                                                      id="citizenship{{i}}" placeholder="Citizenship Number" type="text">-->
+<!--                                           </div>-->
+<!--                                       </div>-->
+<!--                                       <div class="col-md-2">-->
+<!--                                           <div class="form-group">-->
+<!--                                               <label for="issuedDistrict{{i}}"><strong>Issued District</strong></label>-->
+<!--                                               <ng-select [multiple]="false"-->
+<!--                                                          formControlName="citizenshipIssuedPlace"-->
+<!--                                                          id="issuedDistrict{{i}}">-->
+<!--                                                   <ng-option *ngFor="let district of allDistrict" [value]="district?.name">-->
+<!--                                                       {{district?.name}}-->
+<!--                                                   </ng-option>-->
+<!--                                               </ng-select>-->
+<!--                                           </div>-->
+<!--                                       </div>-->
+<!--                                       <div class="col-md-2">-->
+<!--                                           <div class="form-group">-->
+<!--                                               <label><strong>Issued Date</strong></label>-->
+<!--                                               <input *ngIf="calendarType === 'AD'" nbInput-->
+<!--                                                      [nbDatepicker]="relationCitizenIssueDate"-->
+<!--                                                      class="form-control"-->
+<!--                                                      formControlName="citizenshipIssuedDate"-->
+<!--                                                      [ngClass]="{ 'is-invalid': (submitted) && relatives.get('citizenshipIssuedDate').errors }"-->
+<!--                                               >-->
+<!--                                               <input *ngIf="calendarType === 'BS'" formControlName="citizenshipIssuedDate"-->
+<!--                                                      hidden>-->
+<!--                                               <app-calendar [ePreDate]="relatives.get('citizenshipIssuedDate').value"-->
+<!--                                                             *ngIf="calendarType === 'BS'"-->
+<!--                                                             (messageToEmit)="relatives.get('citizenshipIssuedDate').patchValue($event?.eDate)"></app-calendar>-->
 
-                                               <nb-datepicker #relationCitizenIssueDate></nb-datepicker>
-                                               <div *ngIf="submitted && relatives.get('citizenshipIssuedDate').errors"
-                                                    class="small text-danger">
-                                                   Invalid Issued Date!
-                                               </div>
-                                           </div>
-                                       </div>
+<!--                                               <nb-datepicker #relationCitizenIssueDate></nb-datepicker>-->
+<!--                                               <div *ngIf="submitted && relatives.get('citizenshipIssuedDate').errors"-->
+<!--                                                    class="small text-danger">-->
+<!--                                                   Invalid Issued Date!-->
+<!--                                               </div>-->
+<!--                                           </div>-->
+<!--                                       </div>-->
                                        <div class="col-md-2">
                                            <div class="form-group">
                                                <label for="age{{i}}"><strong>Age</strong></label>

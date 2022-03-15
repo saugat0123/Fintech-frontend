@@ -19,9 +19,38 @@
           <input class="form-control" formControlName="cibCharge"
                  [type]="variableChecked?'text':'number'" placeholder="Cib Charge">
           <nb-checkbox
-                  (change)="variableCheck($event?.target?.checked)"
+                  (change)="variableCheck($event?.target?.checked,'variable')"
             [checked]="variableChecked">Add Variable</nb-checkbox>
         </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-md-12">
+          <nb-checkbox (change)="variableCheck($event.target.checked,'banking')"
+                       [checked]="bankingRelationChecked">
+            <b>Banking Relationship</b>
+          </nb-checkbox>
+        </div>
+      </div>
+      <div *ngIf="bankingRelationChecked">
+        <nb-card class="card-height">
+          <nb-card-header>
+            <label for="bankingRelationship"><h6>Banking Relationship</h6></label>
+          </nb-card-header>
+          <nb-card-body>
+            <div>
+              <nb-radio-group class="d-contents"
+                             [(ngModel)]="bankingRelationship"
+                              [ngModelOptions]="{standalone: true}"
+                              id="bankingRelationship"
+                              name="bankingRelationship">
+                <nb-radio *ngFor="let elem of bankingRelationshipList"
+                          [value]="elem?.value" >{{elem?.value}}
+                </nb-radio>
+              </nb-radio-group>
+            </div>
+          </nb-card-body>
+        </nb-card>
       </div>
       <hr>
       <div>
