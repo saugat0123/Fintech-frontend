@@ -1,16 +1,16 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
-import {EngToNepaliNumberPipe} from '../../../../../../../@core/pipe/eng-to-nepali-number.pipe';
-import {SbTranslateService} from '../../../../../../../@core/service/sbtranslate.service';
-import {AddressService} from '../../../../../../../@core/service/baseservice/address.service';
-import {District} from '../../../../../../admin/modal/district';
-import {ObjectUtil} from '../../../../../../../@core/utils/ObjectUtil';
-import {CustomerApprovedLoanCadDocumentation} from '../../../../../model/customerApprovedLoanCadDocumentation';
+import { Component, Input, OnInit } from "@angular/core";
+import { FormArray, FormBuilder, FormGroup } from "@angular/forms";
+import { EngToNepaliNumberPipe } from "../../../../../../../@core/pipe/eng-to-nepali-number.pipe";
+import { SbTranslateService } from "../../../../../../../@core/service/sbtranslate.service";
+import { AddressService } from "../../../../../../../@core/service/baseservice/address.service";
+import { District } from "../../../../../../admin/modal/district";
+import { ObjectUtil } from "../../../../../../../@core/utils/ObjectUtil";
+import { CustomerApprovedLoanCadDocumentation } from "../../../../../model/customerApprovedLoanCadDocumentation";
 
 @Component({
-  selector: 'app-common-security-section-secondary',
-  templateUrl: './common-security-section-secondary.component.html',
-  styleUrls: ['./common-security-section-secondary.component.scss']
+  selector: "app-common-security-section-secondary",
+  templateUrl: "./common-security-section-secondary.component.html",
+  styleUrls: ["./common-security-section-secondary.component.scss"],
 })
 export class CommonSecuritySectionSecondaryComponent implements OnInit {
   @Input() customerApprove: CustomerApprovedLoanCadDocumentation;
@@ -21,16 +21,13 @@ export class CommonSecuritySectionSecondaryComponent implements OnInit {
   allDistrictList = [];
   provinceList = [];
   municipalityListForSecurities = [];
-  securityType = [{key: 'LAND', value: 'Land'},
-    {key: 'LAND_AND_BUILDING', value: 'Land And Building'},
-    {key: 'PERSONAL_GUARANTEE', value: 'Personal Guarantee'},
-    {key: 'FIXED_ASSETS', value: 'Fixed Assets'},
-    {key: 'STOCK', value: 'Stock'},
-    {key: 'ASSETS_PLANTS_MACHINERY_AND_OTHER_EQUIPMENTS', value: 'Assets Plants Machinery & other equipments'},
-    {key: 'LIVE_STOCKS_ANIMALS', value: 'Live Stocks Animals'},
-    {key: 'DOCUMENTS', value: 'Documents'}
+  securityType = [
+    { key: "LAND", value: "Land" },
+    { key: "LAND_AND_BUILDING", value: "Land And Building" },
+    { key: "HYPOTHECATION", value: "Hypothecation" },
+    { key: "DOCUMENTS", value: "Documents" },
   ];
-  multiContents = [{value: 'NEW'}, {value: 'EXISTING'}];
+  multiContents = [{ value: "NEW" }, { value: "EXISTING" }];
   isInsuranceRequired = false;
   selectedValue;
   isNabil = false;
@@ -40,16 +37,18 @@ export class CommonSecuritySectionSecondaryComponent implements OnInit {
   initialInformation;
 
   constructor(
-      private formBuilder: FormBuilder,
-      private engNepNumberPipe: EngToNepaliNumberPipe,
-      private translateService: SbTranslateService,
-      private addressService: AddressService
-  ) { }
+    private formBuilder: FormBuilder,
+    private engNepNumberPipe: EngToNepaliNumberPipe,
+    private translateService: SbTranslateService,
+    private addressService: AddressService
+  ) {}
 
   ngOnInit() {
     this.buildForm();
     if (this.customerApprove.offerDocumentList.length > 0) {
-      this.initialInformation = JSON.parse(this.customerApprove.offerDocumentList[0].initialInformation);
+      this.initialInformation = JSON.parse(
+        this.customerApprove.offerDocumentList[0].initialInformation
+      );
     }
     this.getAllProvince();
     this.getAllDistrict();
@@ -76,9 +75,10 @@ export class CommonSecuritySectionSecondaryComponent implements OnInit {
     return this.commonSecondarySecurity.controls;
   }
 
-
   addMoreSecurityDetails() {
-    (this.commonSecondarySecurity.get('securityDetails') as FormArray).push(this.setSecurityDetailsArr());
+    (this.commonSecondarySecurity.get("securityDetails") as FormArray).push(
+      this.setSecurityDetailsArr()
+    );
   }
 
   setSecurityDetailsArr() {
@@ -125,18 +125,39 @@ export class CommonSecuritySectionSecondaryComponent implements OnInit {
 
   async onChangeTranslate(arrName, source, index, target) {
     this.securityFormTranslate = this.formBuilder.group({
-      securityOwnersName: this.commonSecondarySecurity.get([String(arrName), index, String(source)]).value
+      securityOwnersName: this.commonSecondarySecurity.get([
+        String(arrName),
+        index,
+        String(source),
+      ]).value,
     });
-    const sourceResponse = await this.translateService.translateForm(this.securityFormTranslate);
-    this.commonSecondarySecurity.get([String(arrName), index, String(target)]).patchValue(sourceResponse.securityOwnersName);
-    this.commonSecondarySecurity.get([String(arrName), index, String(source + 'CT')]).patchValue(sourceResponse.securityOwnersName);
+    const sourceResponse = await this.translateService.translateForm(
+      this.securityFormTranslate
+    );
+    this.commonSecondarySecurity
+      .get([String(arrName), index, String(target)])
+      .patchValue(sourceResponse.securityOwnersName);
+    this.commonSecondarySecurity
+      .get([String(arrName), index, String(source + "CT")])
+      .patchValue(sourceResponse.securityOwnersName);
   }
 
   translateSecurityNumber(arrName, source, index, target) {
     const nepaliNumTrans = this.engNepNumberPipe.transform(
-        String(this.commonSecondarySecurity.get([String(arrName), index, String(source)]).value));
-    this.commonSecondarySecurity.get([String(arrName), index, String(target)]).patchValue(nepaliNumTrans);
-    this.commonSecondarySecurity.get([String(arrName), index, String(source + 'CT')]).patchValue(nepaliNumTrans);
+      String(
+        this.commonSecondarySecurity.get([
+          String(arrName),
+          index,
+          String(source),
+        ]).value
+      )
+    );
+    this.commonSecondarySecurity
+      .get([String(arrName), index, String(target)])
+      .patchValue(nepaliNumTrans);
+    this.commonSecondarySecurity
+      .get([String(arrName), index, String(source + "CT")])
+      .patchValue(nepaliNumTrans);
   }
 
   public getAllDistrict(): void {
@@ -154,75 +175,155 @@ export class CommonSecuritySectionSecondaryComponent implements OnInit {
   public getMunicipalityByDistrict(data, event, index): void {
     const district = new District();
     district.id = data;
-    this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
-        (response: any) => {
-          this.municipalityListForSecurities[index] = response.detail;
-          this.municipalityListForSecurities[index].sort((a, b) => a.name.localeCompare(b.name));
-          if (event !== null) {
-            this.commonSecondarySecurity.get(['securityDetails', index, 'securityOwnersMunicipalityOrVdc']).patchValue(null);
-          }
+    this.addressService
+      .getMunicipalityVDCByDistrict(district)
+      .subscribe((response: any) => {
+        this.municipalityListForSecurities[index] = response.detail;
+        this.municipalityListForSecurities[index].sort((a, b) =>
+          a.name.localeCompare(b.name)
+        );
+        if (event !== null) {
+          this.commonSecondarySecurity
+            .get(["securityDetails", index, "securityOwnersMunicipalityOrVdc"])
+            .patchValue(null);
         }
-    );
+      });
   }
 
   setDefaultResponse(arrName, source, index, target) {
-    this.commonSecondarySecurity.get([String(arrName), index, String(target)]).patchValue(
-        this.commonSecondarySecurity.get([String(arrName), index, String(source)]).value.nepaliName);
-    this.commonSecondarySecurity.get([String(arrName), index, String(source + 'CT')]).patchValue(
-        this.commonSecondarySecurity.get([String(arrName), index, String(source)]).value.nepaliName);
+    this.commonSecondarySecurity
+      .get([String(arrName), index, String(target)])
+      .patchValue(
+        this.commonSecondarySecurity.get([
+          String(arrName),
+          index,
+          String(source),
+        ]).value.nepaliName
+      );
+    this.commonSecondarySecurity
+      .get([String(arrName), index, String(source + "CT")])
+      .patchValue(
+        this.commonSecondarySecurity.get([
+          String(arrName),
+          index,
+          String(source),
+        ]).value.nepaliName
+      );
   }
 
   clearSecurityMunType(controlName, index, formArrayName) {
-    const tempVal = this.commonSecondarySecurity.get([formArrayName, index, 'securityOwnersMunicipalityOrVdc']).value;
-    if (tempVal === 'VDC') {
-      this.commonSecondarySecurity.get([formArrayName, index, controlName]).setValue(null);
+    const tempVal = this.commonSecondarySecurity.get([
+      formArrayName,
+      index,
+      "securityOwnersMunicipalityOrVdc",
+    ]).value;
+    if (tempVal === "VDC") {
+      this.commonSecondarySecurity
+        .get([formArrayName, index, controlName])
+        .setValue(null);
     }
-    this.setDefaultCTAndTransVal('securityOwnersMunicipalityOrVdc', false, 'securityDetails', index);
+    this.setDefaultCTAndTransVal(
+      "securityOwnersMunicipalityOrVdc",
+      false,
+      "securityDetails",
+      index
+    );
   }
 
   checkInsuranceRequired(data, index) {
     this.isInsuranceRequired = data;
-    this.commonSecondarySecurity.get(['securityDetails', index, 'insuranceRequired']).patchValue(this.isInsuranceRequired);
-    this.setDefaultCTAndTransVal('insuranceRequired', false, 'securityDetails', index);
+    this.commonSecondarySecurity
+      .get(["securityDetails", index, "insuranceRequired"])
+      .patchValue(this.isInsuranceRequired);
+    this.setDefaultCTAndTransVal(
+      "insuranceRequired",
+      false,
+      "securityDetails",
+      index
+    );
   }
-
 
   selectedSecurity(data, index) {
     this.selectedValue = data;
-    this.setDefaultCTAndTransVal('securityType', false, 'securityDetails', index);
+    this.setDefaultCTAndTransVal(
+      "securityType",
+      false,
+      "securityDetails",
+      index
+    );
   }
 
   removeSecurityDetails(i) {
-    (this.commonSecondarySecurity.get('securityDetails') as FormArray).removeAt(i);
+    (this.commonSecondarySecurity.get("securityDetails") as FormArray).removeAt(
+      i
+    );
   }
 
-  setDefaultCTAndTransVal(formControlName, options: boolean, formArrayName?, index?) {
+  setDefaultCTAndTransVal(
+    formControlName,
+    options: boolean,
+    formArrayName?,
+    index?
+  ) {
     if (options) {
-      const controlVal = !ObjectUtil.isEmpty(this.commonSecondarySecurity.get(formControlName).value) ?
-          this.commonSecondarySecurity.get(formControlName).value : '';
-      this.commonSecondarySecurity.get(String(formControlName + 'Trans')).patchValue(controlVal);
-      this.commonSecondarySecurity.get(String(formControlName + 'CT')).patchValue(controlVal);
+      const controlVal = !ObjectUtil.isEmpty(
+        this.commonSecondarySecurity.get(formControlName).value
+      )
+        ? this.commonSecondarySecurity.get(formControlName).value
+        : "";
+      this.commonSecondarySecurity
+        .get(String(formControlName + "Trans"))
+        .patchValue(controlVal);
+      this.commonSecondarySecurity
+        .get(String(formControlName + "CT"))
+        .patchValue(controlVal);
     } else {
-      const sourceValue = !ObjectUtil.isEmpty(this.commonSecondarySecurity.get([formArrayName, index, formControlName]).value) ?
-          this.commonSecondarySecurity.get([formArrayName, index, formControlName]).value : '';
-      this.commonSecondarySecurity.get([String(formArrayName), index, String(formControlName + 'Trans')]).patchValue(sourceValue);
-      this.commonSecondarySecurity.get([String(formArrayName), index, String(formControlName + 'CT')]).patchValue(sourceValue);
+      const sourceValue = !ObjectUtil.isEmpty(
+        this.commonSecondarySecurity.get([
+          formArrayName,
+          index,
+          formControlName,
+        ]).value
+      )
+        ? this.commonSecondarySecurity.get([
+            formArrayName,
+            index,
+            formControlName,
+          ]).value
+        : "";
+      this.commonSecondarySecurity
+        .get([String(formArrayName), index, String(formControlName + "Trans")])
+        .patchValue(sourceValue);
+      this.commonSecondarySecurity
+        .get([String(formArrayName), index, String(formControlName + "CT")])
+        .patchValue(sourceValue);
     }
   }
 
   changeHoldingBank(data) {
-    const tempData = !ObjectUtil.isEmpty(data) ? data : '';
-    this.isNabil = tempData === 'NABIL';
-    this.isOther = tempData === 'OTHER';
+    const tempData = !ObjectUtil.isEmpty(data) ? data : "";
+    this.isNabil = tempData === "NABIL";
+    this.isOther = tempData === "OTHER";
   }
 
-
   addPropertyDetails(i) {
-    (this.commonSecondarySecurity.get(['securityDetails', i, 'propertyDetails']) as FormArray).push(this.buildPropertyDetailsArr());
+    (
+      this.commonSecondarySecurity.get([
+        "securityDetails",
+        i,
+        "propertyDetails",
+      ]) as FormArray
+    ).push(this.buildPropertyDetailsArr());
   }
 
   removePropertyDetailsArr(i, secondIndex) {
-    (this.commonSecondarySecurity.get(['securityDetails', i, 'propertyDetails']) as FormArray).removeAt(secondIndex);
+    (
+      this.commonSecondarySecurity.get([
+        "securityDetails",
+        i,
+        "propertyDetails",
+      ]) as FormArray
+    ).removeAt(secondIndex);
   }
 
   buildPropertyDetailsArr() {
@@ -244,85 +345,149 @@ export class CommonSecuritySectionSecondaryComponent implements OnInit {
     });
   }
 
-  async onChangeFormArrayTranslate(arrName, source, index, target, index1, secondArr) {
+  async onChangeFormArrayTranslate(
+    arrName,
+    source,
+    index,
+    target,
+    index1,
+    secondArr
+  ) {
     this.securityFormTranslate = this.formBuilder.group({
-      securityTranslated: this.commonSecondarySecurity.get([String(arrName), index, String(secondArr), index1, String(source)]).value
+      securityTranslated: this.commonSecondarySecurity.get([
+        String(arrName),
+        index,
+        String(secondArr),
+        index1,
+        String(source),
+      ]).value,
     });
-    const sourceResponse = await this.translateService.translateForm(this.securityFormTranslate);
-    this.commonSecondarySecurity.get([String(arrName), index, String(secondArr), index1 , String(target)]).patchValue(
-        sourceResponse.securityTranslated);
-    this.commonSecondarySecurity.get([String(arrName), index, String(secondArr), index1, String(source + 'CT')]).patchValue(
-        sourceResponse.securityTranslated);
+    const sourceResponse = await this.translateService.translateForm(
+      this.securityFormTranslate
+    );
+    this.commonSecondarySecurity
+      .get([String(arrName), index, String(secondArr), index1, String(target)])
+      .patchValue(sourceResponse.securityTranslated);
+    this.commonSecondarySecurity
+      .get([
+        String(arrName),
+        index,
+        String(secondArr),
+        index1,
+        String(source + "CT"),
+      ])
+      .patchValue(sourceResponse.securityTranslated);
   }
 
-  translateSecurityFormArrayNumber(arrName, source, index, target, index1, secondArr) {
+  translateSecurityFormArrayNumber(
+    arrName,
+    source,
+    index,
+    target,
+    index1,
+    secondArr
+  ) {
     const nepaliNumTrans = this.engNepNumberPipe.transform(
-        String(this.commonSecondarySecurity.get([String(arrName), index, String(secondArr), index1, String(source)]).value));
+      String(
+        this.commonSecondarySecurity.get([
+          String(arrName),
+          index,
+          String(secondArr),
+          index1,
+          String(source),
+        ]).value
+      )
+    );
     // tslint:disable-next-line:max-line-length
-    this.commonSecondarySecurity.get([String(arrName), index, String(secondArr), index1 , String(target)]).patchValue(nepaliNumTrans);
-    this.commonSecondarySecurity.get(
-        [String(arrName), index, String(secondArr), index1, String(source + 'CT')]
-    ).patchValue(nepaliNumTrans);
+    this.commonSecondarySecurity
+      .get([String(arrName), index, String(secondArr), index1, String(target)])
+      .patchValue(nepaliNumTrans);
+    this.commonSecondarySecurity
+      .get([
+        String(arrName),
+        index,
+        String(secondArr),
+        index1,
+        String(source + "CT"),
+      ])
+      .patchValue(nepaliNumTrans);
   }
 
   public municipalityByDistrictIdForEdit(data, index?): void {
     const district = new District();
     district.id = data;
-    this.addressService.getMunicipalityVDCByDistrict(district).subscribe(
-        (response: any) => {
-          this.municipalityListForSecurities[index] = response.detail;
-          this.municipalityListForSecurities[index].sort((a, b) => a.name.localeCompare(b.name));
-        }
-    );
+    this.addressService
+      .getMunicipalityVDCByDistrict(district)
+      .subscribe((response: any) => {
+        this.municipalityListForSecurities[index] = response.detail;
+        this.municipalityListForSecurities[index].sort((a, b) =>
+          a.name.localeCompare(b.name)
+        );
+      });
   }
 
   setSecurityData(): void {
-    const securityFormArr = this.commonSecondarySecurity.get('securityDetails') as FormArray;
+    const securityFormArr = this.commonSecondarySecurity.get(
+      "securityDetails"
+    ) as FormArray;
     this.securities.secondarySecurity.forEach((val, index) => {
       if (!ObjectUtil.isEmpty(val.securityOwnersDistrict)) {
-        this.municipalityByDistrictIdForEdit(val.securityOwnersDistrict.id, index);
+        this.municipalityByDistrictIdForEdit(
+          val.securityOwnersDistrict.id,
+          index
+        );
       }
       securityFormArr.push(
-          this.formBuilder.group({
-            securityType: [val.securityType],
-            securityOwnersName: [val.securityOwnersName],
-            securityOwnersMunicipalityOrVdc: [val.securityOwnersMunicipalityOrVdc],
-            securityOwnersMunicipality: [val.securityOwnersMunicipality],
-            securityOwnersDistrict: [val.securityOwnersDistrict],
-            // TRANSLATION FIELD OF SECURITY:
-            securityOwnersNameTrans: [val.securityOwnersNameTrans],
-            securityOwnersDistrictTrans: [val.securityOwnersDistrictTrans],
-            securityOwnersMunicipalityTrans: [val.securityOwnersMunicipalityTrans],
-            // CT FIELDS OF SECURITY
-            securityOwnersNameCT: [val.securityOwnersNameCT],
-            securityOwnersDistrictCT: [val.securityOwnersDistrictCT],
-            securityOwnersMunicipalityCT: [val.securityOwnersMunicipalityCT],
-            propertyDetails: this.formBuilder.array([])
-          })
+        this.formBuilder.group({
+          securityType: [val.securityType],
+          securityOwnersName: [val.securityOwnersName],
+          securityOwnersMunicipalityOrVdc: [
+            val.securityOwnersMunicipalityOrVdc,
+          ],
+          securityOwnersMunicipality: [val.securityOwnersMunicipality],
+          securityOwnersDistrict: [val.securityOwnersDistrict],
+          // TRANSLATION FIELD OF SECURITY:
+          securityOwnersNameTrans: [val.securityOwnersNameTrans],
+          securityOwnersDistrictTrans: [val.securityOwnersDistrictTrans],
+          securityOwnersMunicipalityTrans: [
+            val.securityOwnersMunicipalityTrans,
+          ],
+          // CT FIELDS OF SECURITY
+          securityOwnersNameCT: [val.securityOwnersNameCT],
+          securityOwnersDistrictCT: [val.securityOwnersDistrictCT],
+          securityOwnersMunicipalityCT: [val.securityOwnersMunicipalityCT],
+          propertyDetails: this.formBuilder.array([]),
+        })
       );
       this.setProperties(val.propertyDetails, index);
     });
   }
   setProperties(data, i) {
-    const property = this.commonSecondarySecurity.get(['securityDetails', i, 'propertyDetails']) as FormArray;
-    data.forEach(propertyData => {
+    const property = this.commonSecondarySecurity.get([
+      "securityDetails",
+      i,
+      "propertyDetails",
+    ]) as FormArray;
+    data.forEach((propertyData) => {
       property.push(
-          this.formBuilder.group({
-            securityOwnersWardNo: [propertyData.securityOwnersWardNo],
-            securityOwnersKittaNo: [propertyData.securityOwnersKittaNo],
-            securityOwnersLandArea: [propertyData.securityOwnersLandArea],
-            securityOwnersSheetNo: [propertyData.securityOwnersSheetNo],
-            // trans
-            securityOwnersWardNoTrans: [propertyData.securityOwnersWardNoTrans],
-            securityOwnersKittaNoTrans: [propertyData.securityOwnersKittaNoTrans],
-            securityOwnersLandAreaTrans: [propertyData.securityOwnersLandAreaTrans],
-            securityOwnersSheetNoTrans: [propertyData.securityOwnersSheetNoTrans],
-            // CT
-            securityOwnersWardNoCT: [propertyData.securityOwnersWardNoCT],
-            securityOwnersKittaNoCT: [propertyData.securityOwnersKittaNoCT],
-            securityOwnersLandAreaCT: [propertyData.securityOwnersLandAreaCT],
-            securityOwnersSheetNoCT: [propertyData.securityOwnersSheetNoCT],
-          })
+        this.formBuilder.group({
+          securityOwnersWardNo: [propertyData.securityOwnersWardNo],
+          securityOwnersKittaNo: [propertyData.securityOwnersKittaNo],
+          securityOwnersLandArea: [propertyData.securityOwnersLandArea],
+          securityOwnersSheetNo: [propertyData.securityOwnersSheetNo],
+          // trans
+          securityOwnersWardNoTrans: [propertyData.securityOwnersWardNoTrans],
+          securityOwnersKittaNoTrans: [propertyData.securityOwnersKittaNoTrans],
+          securityOwnersLandAreaTrans: [
+            propertyData.securityOwnersLandAreaTrans,
+          ],
+          securityOwnersSheetNoTrans: [propertyData.securityOwnersSheetNoTrans],
+          // CT
+          securityOwnersWardNoCT: [propertyData.securityOwnersWardNoCT],
+          securityOwnersKittaNoCT: [propertyData.securityOwnersKittaNoCT],
+          securityOwnersLandAreaCT: [propertyData.securityOwnersLandAreaCT],
+          securityOwnersSheetNoCT: [propertyData.securityOwnersSheetNoCT],
+        })
       );
     });
   }
