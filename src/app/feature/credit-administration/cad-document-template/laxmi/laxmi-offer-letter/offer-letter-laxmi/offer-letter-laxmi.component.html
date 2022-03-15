@@ -1419,44 +1419,45 @@
                                 </ng-container>
                                 <tr>
                                     <td colspan="1"></td>
-                                    <td colspan="6">उक्त जग्गा/घरजग्गा समेतको लिगलगापात कर्जाको सुरक्षण वापत बैंकको
-                                        नाममा
-                                        धितो वन्धकीको लिखत लेखी सम्वन्धित मालपोत कार्यालयमा गई पारित
-                                        <span *ngIf="!offerLetterForm?.get('fixedRenewWithEnhance').value">
+                                    <td colspan="6">
+                                        उक्त जग्गा/घरजग्गा समेतको लिगलगापात कर्जाको सुरक्षण वापत बैंकको
+                                        नाममा धितो वन्धकीको लिखत लेखी सम्वन्धित मालपोत कार्यालयमा गई
+                                        पारित
+                                        <span *ngIf="!offerLetterForm?.get('reRegisterEnhance').value">
                                             {{loanType?.includes('RENEWED_LOAN') ? ' गराएको यथावत रहने छ ।' : 'गर्नुपर्नेछ ।'}}
                                         </span>
-                                        <span *ngIf="offerLetterForm?.get('fixedRenewWithEnhance').value">
+                                        <span *ngIf="offerLetterForm?.get('reRegisterEnhance').value">
                                             <select class="form-control font-size-normal disable-print selectWidth"
-                                                    [value]="offerLetterForm?.get('fixedAssetsWord').value"
-                                                    (change)="wordChange($event?.target?.value, 'fixedAssetsWord')">
+                                                    [value]="offerLetterForm?.get('reRegisterWord')?.value"
+                                                    (change)="wordChange($event?.target?.value, 'reRegisterWord')">
                                                 <option [value]="null" hidden>Select Word</option>
-                                                <option *ngFor="let pur of documentWord"
-                                                        [value]="pur">{{pur}}</option>
+                                                <option *ngFor="let doc of documentWord"
+                                                        [value]="doc">{{doc}}</option>
                                             </select>
                                             <span class="print-only">
-                                                {{offerLetterForm?.get('fixedAssetsWord').value ? offerLetterForm?.get('fixedAssetsWord').value : '========='}}
+                                                {{offerLetterForm?.get('reRegisterWord').value ? offerLetterForm?.get('reRegisterWord').value : '========='}}
                                             </span>
                                         </span>
                                         <ng-container *ngIf="loanType?.includes('RENEWED_LOAN')">
                                             <br>
                                             <strong> (मिति <input type="text"
                                                                   class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                                                  formControlName="date1">
+                                                                  formControlName="reRegisterDate">
                                                 <span class="print-only nepaliFont font-size-normal">
-                                                <b>{{offerLetterForm?.get('date1')?.value ? offerLetterForm?.get('date1')?.value : '======='}}</b>
+                                                <b>{{offerLetterForm?.get('reRegisterDate')?.value ? offerLetterForm?.get('reRegisterDate')?.value : '======='}}</b>
                                             </span> मा रु
                                                 <input type="text"
                                                        class="nepaliFont form-field form-control-sm font-size-normal disable-print"
-                                                       formControlName="amount1">
+                                                       formControlName="reRegisterAmount">
                                                 <span class="print-only nepaliFont font-size-normal">
-                                                <b>{{offerLetterForm?.get('amount1')?.value ? offerLetterForm?.get('amount1')?.value : '======='}}</b>
+                                                <b>{{offerLetterForm?.get('reRegisterAmount')?.value ? offerLetterForm?.get('reRegisterAmount')?.value : '======='}}</b>
                                             </span>प्राप्त) </strong>
                                         </ng-container>
                                         <span class="float-right disable-print"
                                               *ngIf="loanType?.includes('RENEW_WITH_ENHANCEMENT') || loanType?.includes('ENHANCED_LOAN')">
                                             <nb-checkbox
-                                                    (change)="otherCheckedValue($event?.target?.checked, 'fixedRenewWithEnhance', 'fixedAssetsWord')"
-                                                    [checked]="offerLetterForm?.get('fixedRenewWithEnhance')?.value"><i>Change word</i>
+                                                    (change)="otherCheckedValue($event?.target?.checked, 'reRegisterEnhance', 'reRegisterWord')"
+                                                    [checked]="offerLetterForm?.get('reRegisterEnhance')?.value"><i>Change word</i>
                                             </nb-checkbox>
                                         </span>
                                     </td>

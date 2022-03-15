@@ -223,9 +223,11 @@ export class OfferLetterLaxmiComponent implements OnInit {
             personalGuarantee: this.formBuilder.array([]),
             corporateGuarantee: this.formBuilder.array([]),
             fixedRenewWithEnhance: [false],
+            reRegisterEnhance: [false],
             fixedAssetsWord: [undefined],
             crossRenewWithEnhance: [false],
             crossCollateralWord: [undefined],
+            reRegisterWord: [undefined],
             shareRenewWith: [false],
             shareWord: [undefined],
             currentAssetsRenew: [false],
@@ -238,7 +240,8 @@ export class OfferLetterLaxmiComponent implements OnInit {
             creditLetterWord: [undefined],
             shareOtherChecked: [false],
             shareOther: [undefined],
-
+            reRegisterDate: [undefined],
+            reRegisterAmount: [undefined],
         });
     }
 
