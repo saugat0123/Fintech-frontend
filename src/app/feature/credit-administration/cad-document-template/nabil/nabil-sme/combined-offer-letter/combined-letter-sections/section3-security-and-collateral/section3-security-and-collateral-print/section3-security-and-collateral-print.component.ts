@@ -1,11 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {NepaliCurrencyWordPipe} from '../../../../../../../../../@core/pipe/nepali-currency-word.pipe';
-import {ObjectUtil} from '../../../../../../../../../@core/utils/ObjectUtil';
+import { Component, Input, OnInit } from "@angular/core";
+import { NepaliCurrencyWordPipe } from "../../../../../../../../../@core/pipe/nepali-currency-word.pipe";
+import { ObjectUtil } from "../../../../../../../../../@core/utils/ObjectUtil";
 
 @Component({
-  selector: 'app-section3-security-and-collateral-print',
-  templateUrl: './section3-security-and-collateral-print.component.html',
-  styleUrls: ['./section3-security-and-collateral-print.component.scss']
+  selector: "app-section3-security-and-collateral-print",
+  templateUrl: "./section3-security-and-collateral-print.component.html",
+  styleUrls: ["./section3-security-and-collateral-print.component.scss"],
 })
 export class Section3SecurityAndCollateralPrintComponent implements OnInit {
   @Input() letterData;
@@ -29,7 +29,7 @@ export class Section3SecurityAndCollateralPrintComponent implements OnInit {
   collateralShareSecondaryCondition = false;
   securityTypeSecondaryPersonalCondition = false;
   personalGuaranteeToBeUsedSecondary = false;
-  securityTypeSecondaryCorporateCondition =  false;
+  securityTypeSecondaryCorporateCondition = false;
   corporateGuaranteeSecondary = false;
   securityTypeSecondaryCrossCondition = false;
   crossGuaranteeSecondary = false;
@@ -69,20 +69,28 @@ export class Section3SecurityAndCollateralPrintComponent implements OnInit {
   free;
   table;
 
-  constructor(public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe) { }
+  constructor(public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe) {}
 
   ngOnInit() {
     this.securityDetails = this.letterData.securities;
-    this.guarantorData = this.customerApprovedDoc.assignedLoan[0].taggedGuarantors;
-    this.free = JSON.parse(this.customerApprovedDoc.offerDocumentList[0].supportedInformation);
+    this.guarantorData =
+      this.customerApprovedDoc.assignedLoan[0].taggedGuarantors;
+    this.free = JSON.parse(
+      this.customerApprovedDoc.offerDocumentList[0].supportedInformation
+    );
     if (this.free !== null) {
-      this.table = this.free.section3 ? this.free.section3.freeTable : '';
+      this.table = this.free.section3 ? this.free.section3.freeTable : "";
     }
-    this.guarantorData.forEach(any => {
+    this.guarantorData.forEach((any) => {
       this.guarantorParsed.push(JSON.parse(any.nepData));
     });
-    this.guarantorAmount = this.guarantorParse(this.guarantorData[0].nepData, 'gurantedAmount');
-    this.guarantorAmountWords = this.nepaliCurrencyWordPipe.transform(this.guarantorParse(this.guarantorData[0].nepData, 'gurantedAmount', 'en'));
+    this.guarantorAmount = this.guarantorParse(
+      this.guarantorData[0].nepData,
+      "gurantedAmount"
+    );
+    this.guarantorAmountWords = this.nepaliCurrencyWordPipe.transform(
+      this.guarantorParse(this.guarantorData[0].nepData, "gurantedAmount", "en")
+    );
     this.checkPrimaryConditions();
     this.checkSecondaryConditions();
     this.checkLienLoop();
@@ -90,54 +98,66 @@ export class Section3SecurityAndCollateralPrintComponent implements OnInit {
   }
 
   checkPrimaryConditions() {
-    this.tempLandBuilding = this.securityDetails.primarySecurity.filter(val =>
-        val.securityTypeCT === 'LAND' || val.securityTypeCT === 'LAND_AND_BUILDING');
-    this.tempCollateral = this.securityDetails.primarySecurity.filter(val =>
-        val.collateralShareCT === 'YES');
-    this.tempParipassu = this.securityDetails.primarySecurity.filter(val =>
-        val.paripassuContentsCT !== null);
+    this.tempLandBuilding = this.securityDetails.primarySecurity.filter(
+      (val) =>
+        val.securityTypeCT === "LAND" ||
+        val.securityTypeCT === "LAND_AND_BUILDING"
+    );
+    this.tempCollateral = this.securityDetails.primarySecurity.filter(
+      (val) => val.collateralShareCT === "YES"
+    );
+    this.tempParipassu = this.securityDetails.primarySecurity.filter(
+      (val) => val.paripassuContentsCT !== null
+    );
     if (this.securityDetails.primarySecurity.length > 0) {
-      this.securityDetails.primarySecurity.forEach(i => {
-        if (i.securityTypeCT === 'LAND' || i.securityTypeCT === 'LAND_AND_BUILDING') {
+      this.securityDetails.primarySecurity.forEach((i) => {
+        if (
+          i.securityTypeCT === "LAND" ||
+          i.securityTypeCT === "LAND_AND_BUILDING"
+        ) {
           this.securityTypeCondition = true;
           this.checkMortgage(i);
         }
-        if (i.collateralShareCT === 'YES') {
+        if (i.collateralShareCT === "YES") {
           this.collateralShareCondition = true;
         }
-        if (i.securityTypeCT === 'HYPOTHECATION') {
+        if (i.securityTypeCT === "HYPOTHECATION") {
           this.securityTypeHypothecationCondition = true;
         }
-        if (i.hypothecationPurposeCT === 'For Trading Unit') {
+        if (i.hypothecationPurposeCT === "For Trading Unit") {
           this.hypoPurposeTrading = true;
         }
-        if (i.hypothecationPurposeCT === 'For Manufacturing Case') {
+        if (i.hypothecationPurposeCT === "For Manufacturing Case") {
           this.hypoPurposeManufacturing = true;
         }
         if (i.assignmentToBeUsedCT !== null) {
           this.assignment = true;
-          if (i.assignmentToBeUsedCT === 'NEW') {
+          if (i.assignmentToBeUsedCT === "NEW") {
             this.assignmentNew = true;
           }
         }
         if (i.paripassuContentsCT !== null) {
           this.paripassu = true;
-          if (i.paripassuContentsCT === 'NEW') {
+          if (i.paripassuContentsCT === "NEW") {
             this.paripassuNew = true;
           }
         }
-        if (i.securityTypeCT === 'LIEN AGAINST FD' || i.securityTypeCT === 'LIEN AGAINST DEPOSIT ACCOUNT' || i.securityTypeCT === 'LIEN AGAINST DEBENTURE') {
+        if (
+          i.securityTypeCT === "LIEN AGAINST FD" ||
+          i.securityTypeCT === "LIEN AGAINST DEPOSIT ACCOUNT" ||
+          i.securityTypeCT === "LIEN AGAINST DEBENTURE"
+        ) {
           this.securityTypeLienCondition = true;
         }
         if (i.vehicleRegistrationCT !== null) {
           this.vehicleRegister = true;
-          if (i.vehicleRegistrationCT === 'NEW') {
+          if (i.vehicleRegistrationCT === "NEW") {
             this.vehicleRegisterNew = true;
           }
         }
         if (i.generalCounterGuaranteeCT !== null) {
           this.generalCounter = true;
-          if (i.generalCounterGuaranteeCT === 'NEW') {
+          if (i.generalCounterGuaranteeCT === "NEW") {
             this.generalCounterNew = true;
           }
         }
@@ -146,48 +166,57 @@ export class Section3SecurityAndCollateralPrintComponent implements OnInit {
   }
 
   checkSecondaryConditions() {
-    this.tempSecondaryLandBuilding = this.securityDetails.secondarySecurity.filter(val =>
-        val.securityTypeCT === 'LAND' || val.securityTypeCT === 'LAND_AND_BUILDING');
-    this.tempSecondaryCollateral = this.securityDetails.secondarySecurity.filter(val =>
-        val.collateralShareCT === 'YES');
+    this.tempSecondaryLandBuilding =
+      this.securityDetails.secondarySecurity.filter(
+        (val) =>
+          val.securityTypeCT === "LAND" ||
+          val.securityTypeCT === "LAND_AND_BUILDING"
+      );
+    this.tempSecondaryCollateral =
+      this.securityDetails.secondarySecurity.filter(
+        (val) => val.collateralShareCT === "YES"
+      );
     if (this.securityDetails.secondarySecurity.length > 0) {
-      this.securityDetails.secondarySecurity.forEach(i => {
-        if (i.securityTypeCT === 'LAND' || i.securityTypeCT === 'LAND_AND_BUILDING') {
+      this.securityDetails.secondarySecurity.forEach((i) => {
+        if (
+          i.securityTypeCT === "LAND" ||
+          i.securityTypeCT === "LAND_AND_BUILDING"
+        ) {
           this.securityTypeSecondaryCondition = true;
           this.checkSecondaryMortgage(i);
         }
-        if (i.collateralShareCT === 'YES') {
+        if (i.collateralShareCT === "YES") {
           this.collateralShareSecondaryCondition = true;
         }
-        if (i.securityTypeCT === 'PERSONAL_GUARANTEE') {
+        if (i.securityTypeCT === "PERSONAL_GUARANTEE") {
           this.securityTypeSecondaryPersonalCondition = true;
         }
         if (i.personalGuaranteeToBeUsedCT !== null) {
-          if (i.personalGuaranteeToBeUsedCT === 'NEW') {
+          if (i.personalGuaranteeToBeUsedCT === "NEW") {
             this.personalGuaranteeToBeUsedSecondary = true;
           }
         }
-        if (i.securityTypeCT === 'CORPORATE_GUARANTEE') {
+        if (i.securityTypeCT === "CORPORATE_GUARANTEE") {
           this.securityTypeSecondaryCorporateCondition = true;
         }
         if (i.corporateGuaranteeCT !== null) {
-          if (i.corporateGuaranteeCT === 'NEW') {
+          if (i.corporateGuaranteeCT === "NEW") {
             this.corporateGuaranteeSecondary = true;
           }
         }
-        if (i.securityTypeCT === 'CROSS_GUARANTEE') {
+        if (i.securityTypeCT === "CROSS_GUARANTEE") {
           this.securityTypeSecondaryCrossCondition = true;
         }
         if (i.crossGuaranteeCT !== null) {
-          if (i.crossGuaranteeCT === 'NEW') {
+          if (i.crossGuaranteeCT === "NEW") {
             this.crossGuaranteeSecondary = true;
           }
         }
-        if (i.securityTypeCT === 'SHARE_PLEDGE') {
+        if (i.securityTypeCT === "SHARE_PLEDGE") {
           this.securityTypeSecondarySharePledgeCondition = true;
         }
         if (i.sharePledgeToBeUsedCT !== null) {
-          if (i.sharePledgeToBeUsedCT === 'NEW') {
+          if (i.sharePledgeToBeUsedCT === "NEW") {
             this.sharePledgeSecondary = true;
           }
         }
@@ -196,37 +225,37 @@ export class Section3SecurityAndCollateralPrintComponent implements OnInit {
   }
 
   checkLienLoop() {
-    this.fdLoop = this.securityDetails.primarySecurity.filter(i =>
-        i.securityTypeCT === 'LIEN AGAINST FD'
+    this.fdLoop = this.securityDetails.primarySecurity.filter(
+      (i) => i.securityTypeCT === "LIEN AGAINST FD"
     );
-    this.depositLoop = this.securityDetails.primarySecurity.filter(i =>
-        i.securityTypeCT === 'LIEN AGAINST DEPOSIT ACCOUNT'
+    this.depositLoop = this.securityDetails.primarySecurity.filter(
+      (i) => i.securityTypeCT === "LIEN AGAINST DEPOSIT ACCOUNT"
     );
-    this.debentureLoop = this.securityDetails.primarySecurity.filter(i =>
-        i.securityTypeCT === 'LIEN AGAINST DEBENTURE'
+    this.debentureLoop = this.securityDetails.primarySecurity.filter(
+      (i) => i.securityTypeCT === "LIEN AGAINST DEBENTURE"
     );
   }
 
   checkMortgage(any) {
-    if (any.mortgageType === 'New') {
+    if (any.mortgageType === "New") {
       this.primaryNewMortgage = true;
     }
-    if (any.mortgageType === 'Existing') {
+    if (any.mortgageType === "Existing") {
       this.primaryExistingMortgage = true;
     }
-    if (any.mortgageType === 'Enhancement') {
+    if (any.mortgageType === "Enhancement") {
       this.primaryEnhancementMortgage = true;
     }
   }
 
   checkSecondaryMortgage(any) {
-    if (any.mortgageType === 'New') {
+    if (any.mortgageType === "New") {
       this.secondaryNewMortgage = true;
     }
-    if (any.mortgageType === 'Existing') {
+    if (any.mortgageType === "Existing") {
       this.secondaryExistingMortgage = true;
     }
-    if (any.mortgageType === 'Enhancement') {
+    if (any.mortgageType === "Enhancement") {
       this.secondaryEnhancementMortgage = true;
     }
   }
@@ -245,34 +274,43 @@ export class Section3SecurityAndCollateralPrintComponent implements OnInit {
   }
 
   guarantorDetails() {
-    this.tempPersonalGuarantors = this.guarantorParsed.filter(val =>
-        val.guarantorType.en === 'Personal Guarantor');
-    this.tempCorporateGuarantors = this.guarantorParsed.filter(val =>
-        val.guarantorType.en === 'Corporate Guarantor');
-    this.tempCrossguarantors = this.guarantorParsed.filter(val =>
-        val.guarantorType.en === 'Cross Guarantor');
+    this.tempPersonalGuarantors = this.guarantorParsed.filter(
+      (val) => val.guarantorType.en === "Personal Guarantor"
+    );
+    this.tempCorporateGuarantors = this.guarantorParsed.filter(
+      (val) => val.guarantorType.en === "Corporate Guarantor"
+    );
+    this.tempCrossguarantors = this.guarantorParsed.filter(
+      (val) => val.guarantorType.en === "Cross Guarantor"
+    );
     this.personalGuarantorDetails();
-    this.tempCorporateGuarantors.forEach(i => {
-      this.corporateGuarantorsName.push(i.guaranteeProviderName ? i.guaranteeProviderName.ct : '');
+    this.tempCorporateGuarantors.forEach((i) => {
+      this.corporateGuarantorsName.push(
+        i.guaranteeProviderName ? i.guaranteeProviderName.ct : ""
+      );
     });
-    this.tempCrossguarantors.forEach(i => {
-      this.crossGuarantorsName.push(i.guaranteeProviderName ? i.guaranteeProviderName.ct : '');
+    this.tempCrossguarantors.forEach((i) => {
+      this.crossGuarantorsName.push(
+        i.guaranteeProviderName ? i.guaranteeProviderName.ct : ""
+      );
     });
   }
 
   personalGuarantorDetails() {
-    let rel: String = '';
-    this.tempPersonalGuarantors.forEach(i => {
-      if (i.gender.en === 'FEMALE' && i.relationMedium.en === '0') {
-        rel = 'श्रीमती';
+    let rel: String = "";
+    this.tempPersonalGuarantors.forEach((i) => {
+      if (i.gender.en === "FEMALE" && i.relationMedium.en === "0") {
+        rel = "श्रीमती";
       }
-      if (i.gender.en === 'FEMALE' && i.relationMedium.en === '1') {
-        rel = 'सुश्री';
+      if (i.gender.en === "FEMALE" && i.relationMedium.en === "1") {
+        rel = "सुश्री";
       }
-      if (i.gender.en === 'MALE') {
-        rel = 'श्रीमान्';
+      if (i.gender.en === "MALE") {
+        rel = "श्रीमान्";
       }
-      this.personalGuarantorsName.push(rel + ' ' + i.guarantorName.ct);
+      if (!ObjectUtil.isEmpty(i.guarantorName)) {
+        this.personalGuarantorsName.push(rel + " " + i.guarantorName.ct);
+      }
     });
   }
 
@@ -281,16 +319,15 @@ export class Section3SecurityAndCollateralPrintComponent implements OnInit {
       finalName = guarantorName[0];
     }
     if (guarantorName.length === 2) {
-      finalName = guarantorName.join(' र ');
+      finalName = guarantorName.join(" र ");
     }
     if (guarantorName.length > 2) {
       for (let i = 0; i < guarantorName.length - 1; i++) {
-        this.temp2 = guarantorName.join(' , ');
+        this.temp2 = guarantorName.join(" , ");
       }
       const temp1 = guarantorName[guarantorName.length - 1];
-      finalName = this.temp2 + ' र ' + temp1;
+      finalName = this.temp2 + " र " + temp1;
     }
-    return finalName ? finalName : '';
+    return finalName ? finalName : "";
   }
-
 }
