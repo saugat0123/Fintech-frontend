@@ -25,7 +25,7 @@ export class CommonSecuritySectionSecondaryComponent implements OnInit {
     { key: "LAND", value: "Land" },
     { key: "LAND_AND_BUILDING", value: "Land And Building" },
     { key: "HYPOTHECATION", value: "Hypothecation" },
-    { key: "DOCUMENTS", value: "Documents" },
+    { key: "ASSIGNMENT", value: "ASSIGNMENT" },
   ];
   multiContents = [{ value: "NEW" }, { value: "EXISTING" }];
   isInsuranceRequired = false;

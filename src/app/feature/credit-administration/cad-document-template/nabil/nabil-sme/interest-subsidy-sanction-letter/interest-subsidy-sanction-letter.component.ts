@@ -595,7 +595,7 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
     }
     if (
       this.securityDetails.secondarySecurity.some(
-        (s) => s.securityType === "DOCUMENTS"
+        (s) => s.securityType === "ASSIGNMENT"
       )
     ) {
       this.securityTypeConditionDocuments = true;
@@ -652,7 +652,7 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
     }
     if (
       this.securityDetails.secondarySecurity.some(
-        (s) => s.securityType === "DOCUMENTS"
+        (s) => s.securityType === "ASSIGNMENT"
       )
     ) {
       this.securityTypeConditionDocuments = true;
