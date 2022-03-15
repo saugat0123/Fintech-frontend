@@ -1,6 +1,6 @@
 <nb-card>
     <nb-card-header>
-        <h3>{{memoTask}} Memo</h3>
+        <h3>{{memoTask}} Diary Note</h3>
     </nb-card-header>
     <form (ngSubmit)="saveMemo()" [formGroup]="memoComposeForm">
         <nb-card-body>
@@ -31,7 +31,7 @@
                                 'is-valid': !type.invalid && (type.dirty || type.touched)
                                 }"
                             bindLabel="name"
-                            formControlName="type" placeholder="Select Memo type">
+                            formControlName="type" placeholder="Select Diary Note type">
                     </ng-select>
                 </div>
 
@@ -76,7 +76,7 @@
                 <nb-card [nbSpinner]="docSpinner" class="mt-2">
                     <div *ngIf="creditMemoDocuments.length > 0 || creditMemoTypeDocuments.length>0" class="col-md-12">
                         <div class="box-header with-border">
-                            <h3 class="box-title my-3">Documents required for credit memo</h3>
+                            <h3 class="box-title my-3">Documents required for credit diary note</h3>
                             <ul>
                                 <li> Fill <strong>Customer Name and Citizenship Number</strong> before file upload
                                 </li>
@@ -94,7 +94,7 @@
                             <span class="color" style="color:red"> {{errorMessage}}</span>
                         </div>
                         <div class="box-body" *ngIf="creditMemoTypeDocuments.length > 0">
-                            <h6>Credit Memo Type Document</h6>
+                            <h6>Credit Diary Note Type Document</h6>
                             <table aria-describedby="required-documents-credit-memo"
                                    class="table table-striped table-bordered table-hover ">
                                 <thead>

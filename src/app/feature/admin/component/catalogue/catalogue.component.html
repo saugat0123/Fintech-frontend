@@ -13,18 +13,18 @@
                                 size="tiny">
                             <i class="fa fa-filter"> Filter</i>
                         </button>
-                        <div style="zoom:70%">
+                        <div >
                             <nb-toggle (checkedChange)="onChangeTransferToggle($event)"
                                        class="pt-2 pl-4" [disabled]="!transferToggle" height>
-                                <strong class="f-18">Transferred</strong>
+                               Transferred
                             </nb-toggle>
                             <nb-toggle (checkedChange)="onChangeShareToggle($event)"
                                        [disabled]="!shareToggle" class="pt-2 pl-4">
-                                <strong class="f-18">Show Share Loan Exceeding Limit</strong>
+                                Show Share Loan Exceeding Limit
                             </nb-toggle>
                             <nb-toggle (checkedChange)="onChangeInsuranceToggle($event)"
                                        [disabled]="!insuranceToggle" class="pt-2 pl-4">
-                                <strong class="f-18">Insurance Expiry</strong>
+                                Insurance Expiry
                             </nb-toggle>
                         </div>
                     </div>
@@ -111,8 +111,7 @@
                     </div>
 
                     <div class="col-md-3 mb-3">
-                        <input class="form-control form-control-tiny rounded" formControlName="customerName"
-                               id="customerName"
+                        <input class="form-control form-control-tiny rounded" formControlName="customerName" id="customerName"
                                placeholder="Enter customer name">
                     </div>
 
@@ -128,7 +127,7 @@
                 </div>
 
                 <div class="col-md-12 p-0">
-                    <button [disabled]="!filterForm?.valid" nbButton size="tiny" status="info" shape="rectangle"
+                    <button [disabled]="!filterForm.valid" nbButton size="tiny" status="info" shape="rectangle"
                             class="mr-2"
                             type="submit">Search
                     </button>
@@ -231,7 +230,7 @@
                 <td (click)="onClick(model?.loan?.id,model?.id)"
                     *ngIf="showBranchProvince">{{model?.branch?.province?.name}}</td>
                 <td *ngIf="isMaker && ((showUpdateLoanInfo(model?.loanHolder?.loanFlags) || model?.documentStatus == docStatus[docStatus.APPROVED]) && !model.isCloseRenew); else linkin">
-                    <select class="col-md-8 form-control form-control-tiny py-0"
+                    <select class="form-control form-control-tiny py-0"
                             (change)="onChange(model,onActionChange, $event.target.value)">
                         <option [value]="null" selected hidden>Select Type</option>
                         <ng-container *ngIf="showUpdateLoanInfo(model?.loanHolder?.loanFlags)">
@@ -262,26 +261,13 @@
                     </ng-container>
                 </td>
 
-                <ng-template #diaryNote>
-                    <td>
-                        <div *ngIf="model.parentId">
-                            <a (click)="renewedOrCloseFrom(model?.loan?.id,model?.parentId)"
-                               class="text-success cursor">{{loanType[model.loanType]}} From
-                                <em class="p-1 fa fa-edit"></em></a>
-                        </div>
-                        <div *ngIf='!model.parentId && !((model?.documentStatus.toString() === "REJECTED") && canReInitiateLoan)'>
-                            <p>NA</p>
-                        </div>
-                    </td>
-                </ng-template>
                 <ng-template #linkin>
                     <td>
                         <div *ngIf='((model?.documentStatus.toString() === "REJECTED") && canReInitiateLoan)'>
                             <button nbButton status="warning" size="tiny"
                                     (click)="onReInitiateClick(onReInitiateLoan, model?.id, model?.loanHolder?.name,
                                     model?.loan?.name, loanType[model?.loanType], model?.branch?.name)">
-                                Re-initiate
-                            </button>
+                                Re-initiate</button>
                         </div>
                         <div *ngIf="model.parentId">
                             <a (click)="renewedOrCloseFrom(model?.loan?.id,model?.parentId)"
@@ -296,8 +282,8 @@
             </tr>
             </tbody>
         </table>
-        <!-- ===================table-pagination==================== -->
-        <app-paging [pageable]="pageable" (changePage)="changePage($event)"></app-paging>
+       <!-- ===================table-pagination==================== -->
+        <app-paging  [pageable]="pageable" (changePage)="changePage($event)"></app-paging>
         <!-- ===================table-pagination==================== -->
     </nb-card-body>
 
@@ -403,8 +389,7 @@
             </nb-card-header>
             <nb-card-body>
                 <div>Customer: {{reInitiateLoanCustomerName}} <br>
-                    Loan: {{reInitiateLoanFacilityName}}({{reInitiateLoanType}})
-                </div>
+                    Loan: {{reInitiateLoanFacilityName}}({{reInitiateLoanType}})</div>
                 <div *ngIf="showBranch">Branch: {{reInitiateLoanBranchName}}</div>
                 <br>
                 <label for="comment">Remarks to re-initiate loan:</label>
@@ -412,8 +397,7 @@
             </nb-card-body>
             <nb-card-footer>
                 <div class="d-flex justify-content-end">
-                    <button (click)="reInitiateConfirm(comment?.value)" nbButton status="primary" type="submit">YES
-                    </button>
+                    <button (click)="reInitiateConfirm(comment?.value)" nbButton status="primary" type="submit">YES</button>
                     <button (click)="onClose()" nbButton status="warning" type="button">NO</button>
                 </div>
             </nb-card-footer>

@@ -16,9 +16,14 @@
 $color-bank: #F58229;
 $color-bank-dark: #F58229;
 .summary {
-  *{
+  * {
     font-family: Cambria, Georgia, serif !important;
     font-size: 10pt !important;
+  }
+  .fa,
+  .fas {
+    font-family: 'Font Awesome 5 Free' !important;
+    font-weight: 900;
   }
   .customer-name {
     font-size: 14pt !important;
