@@ -57,7 +57,6 @@ export class CollateralSiteVisitComponent implements OnInit {
           this.securityData = JSON.parse(this.loanDataHolder.loanHolder.security.data);
           if (!ObjectUtil.isEmpty(this.securityData)) {
               this.security = this.securityData.initialForm;
-              console.log('this is security', this.security);
               if (this.securityData['selectedArray'] !== undefined) {
                   this.isSecurityPresent = true;
                   // land security
@@ -159,10 +158,8 @@ export class CollateralSiteVisitComponent implements OnInit {
                       });
                   }
                   if (this.landBuilding) {
-                      console.log('land is selected');
                       const landBuilding = this.securityData['initialForm']['landBuilding'];
                       landBuilding.forEach(v => {
-                          console.log('land is selected', v);
                           if (!ObjectUtil.isEmpty(v.uuid)) {
                               this.collateralSiteVisits.push(...siteVisit.filter(f => f.uuid === v.uuid));
                           }
