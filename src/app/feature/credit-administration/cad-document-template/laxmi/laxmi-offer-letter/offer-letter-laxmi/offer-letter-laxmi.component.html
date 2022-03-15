@@ -1,7 +1,7 @@
 <div [nbSpinner]="spinner" class="row" id="print-section-{{cadCheckListEnum.OFFER_LETTER_LAXMI}}">
     <div class="col-md-12 viewFull first">
         <form (ngSubmit)="submit()" [formGroup]="offerLetterForm" class="text-justify nepali">
-<!--            <div class="row "></div>-->
+            <!--            <div class="row "></div>-->
             <div class="row marginFirstPage">
                 <div class="col-sm-12">
                     रेफ नं.: <u> LXBL /
@@ -12,7 +12,6 @@
                     <input class="form-field form-control-sm font-size-normal disable-print"
                            formControlName="patraDate" placeholder="Date" readonly
                            [value]="offerLetterForm?.get('patraDate')?.value ? (offerLetterForm?.get('patraDate')?.value) : 'NA'">
-                    <!--                    <nb-datepicker #patraDate></nb-datepicker>-->
                     <span class="font-size-normal print-only">
                 <b>{{offerLetterForm?.get('patraDate')?.value ? (offerLetterForm?.get('patraDate')?.value) : '========='}}</b></span>/
                     <input type="text" class="form-field form-control-sm font-size-normal disable-print"
@@ -146,7 +145,7 @@
                                                 [value]="offerLetterForm.get(['purpose', i,'otherLimit'])?.value"
                                                 (change)="valueChange($event?.target?.value, i, 'otherLimit')"
                                                 rows="2"></textarea>
-                                        <span class="print-only font-size-normal"
+                                        <span class="print-only nepaliFont font-size-normal"
                                               *ngIf="offerLetterForm?.get(['purpose', i, 'otherLimitChecked'])?.value">
                                             <b>{{offerLetterForm?.get(['purpose', i, 'otherLimit'])?.value ?
                                                 offerLetterForm?.get(['purpose', i, 'otherLimit'])?.value : '========='}}</b>
@@ -248,7 +247,7 @@
                                 </span>
                                             <span *ngIf="offerLetterForm?.get(['purpose', i, 'drawDownOtherPeriodCheck'])?.value">
                                     <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
-                                              placeholder="अन्य सांवाको किस्ता तिर्ने छुट अवधि"
+                                              placeholder="अन्य कर्जा झिक्न पाउने अवधि"
                                               [value]="offerLetterForm?.get(['purpose', i, 'downPeriodValue'])?.value"
                                               (change)="valueChange($event?.target?.value, i, 'downPeriodValue')"
                                               rows="4"></textarea>
@@ -294,7 +293,7 @@
                                 </span>
                                             <span *ngIf="offerLetterForm?.get(['purpose', i, 'moratariumOtherCheck'])?.value">
                                     <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
-                                              placeholder="अन्य कर्जा झिक्न पाउने अवधि"
+                                              placeholder="अन्य सांवाको किस्ता तिर्ने छुट अवधि"
                                               [value]="offerLetterForm?.get(['purpose', i, 'moratariumValue'])?.value"
                                               (change)="valueChange($event?.target?.value, i, 'moratariumValue')"
                                               rows="4"></textarea>
@@ -1258,7 +1257,8 @@
                                         </td>
                                     </tr>
                                     <div class="disable-print">
-                                        <input (click)="addSecurity('crossSecurity')" class="btn btn-sm btn-flat btn-primary"
+                                        <input (click)="addSecurity('crossSecurity')"
+                                               class="btn btn-sm btn-flat btn-primary"
                                                type="button" value="Add More"/>
                                     </div>
                                 </ng-container>
@@ -1349,7 +1349,8 @@
                                 <ng-container>
                                     <tr *ngFor="let securityData of offerLetterForm?.get('reRegisterSecurity')?.value; let rind = index">
                                         <td colspan="1">
-                                    <span *ngIf="offerLetterForm?.get('reRegisterSecurity')['length'] > 0" class="disable-print">
+                                    <span *ngIf="offerLetterForm?.get('reRegisterSecurity')['length'] > 0"
+                                          class="disable-print">
                                         <input (click)="removeSecurity(rind, 'reRegisterSecurity')"
                                                class="align-self-end btn btn-sm btn-danger btn-primary"
                                                type="button" value="Delete"/>
@@ -1411,7 +1412,8 @@
                                         </td>
                                     </tr>
                                     <div class="disable-print">
-                                        <input (click)="addSecurity('reRegisterSecurity')" class="btn btn-sm btn-flat btn-primary"
+                                        <input (click)="addSecurity('reRegisterSecurity')"
+                                               class="btn btn-sm btn-flat btn-primary"
                                                type="button" value="Add More"/>
                                     </div>
                                 </ng-container>
@@ -1628,9 +1630,14 @@
                                                    type="button" value="Add More"/>
                                         </div>
                                     </ng-container>
-
                                     <tr>
-                                        <td colspan="1"></td>
+                                        <td colspan="1">
+                                            <span *ngIf="offerLetterForm?.get('shareOtherChecked')?.value">
+                                                <ul>
+                                                    <li></li>
+                                                </ul>
+                                            </span>
+                                        </td>
                                         <td colspan="6">
                                             <span *ngIf="!offerLetterForm?.get('shareOtherChecked')?.value">
                                                 उक्त शेयरहरु र सोमा प्राप्त हुने वोनश शेयर, नगद लाभांश,
@@ -1677,9 +1684,10 @@
                                                 </nb-checkbox>
                                             </span>
                                             <span *ngIf="offerLetterForm?.get('shareOtherChecked')?.value">
-                                                <textarea class="form-control nepaliFont form-field font-size-normal disable-print"
-                                                          formControlName="shareOther"
-                                                          rows="4"></textarea>
+                                                <textarea
+                                                        class="form-control nepaliFont form-field font-size-normal disable-print"
+                                                        formControlName="shareOther"
+                                                        rows="4"></textarea>
                                                 <span class="nepaliFont font-size-normal print-only">
                                                     <b>{{offerLetterForm?.get('shareOther')?.value ? offerLetterForm?.get('shareOther')?.value : '========='}}</b>
                                                 </span>
@@ -1778,7 +1786,8 @@
                                             </ng-container>
                                         </span>
                                         <span class="disable-print float-right">
-                                            <nb-checkbox *ngIf="loanType?.includes('RENEW_WITH_ENHANCEMENT') || loanType?.includes('ENHANCED_LOAN')"
+                                            <nb-checkbox
+                                                    *ngIf="loanType?.includes('RENEW_WITH_ENHANCEMENT') || loanType?.includes('ENHANCED_LOAN')"
                                                     (change)="guarantorValueCheck($event?.target?.checked, pin, 'renewWithChecked', 'personalGuarantee')"
                                                     [checked]="offerLetterForm?.get(['personalGuarantee', pin, 'renewWithChecked'])?.value"><i>Change Word</i>
                                             </nb-checkbox> &nbsp;&nbsp;
@@ -1865,7 +1874,8 @@
                                             </ng-container>
                                         </span>
                                         <span class="disable-print float-right">
-                                            <nb-checkbox *ngIf="loanType?.includes('RENEW_WITH_ENHANCEMENT') || loanType?.includes('ENHANCED_LOAN')"
+                                            <nb-checkbox
+                                                    *ngIf="loanType?.includes('RENEW_WITH_ENHANCEMENT') || loanType?.includes('ENHANCED_LOAN')"
                                                     (change)="guarantorValueCheck($event?.target?.checked, cin, 'renewWithChecked', 'corporateGuarantee')"
                                                     [checked]="offerLetterForm?.get(['corporateGuarantee', cin, 'renewWithChecked'])?.value"><i>Change Word</i>
                                             </nb-checkbox> &nbsp;&nbsp;
@@ -1954,7 +1964,8 @@
                                     </ng-container>
                                 </span>
                                         <span class="disable-print float-right">
-                                            <nb-checkbox *ngIf="loanType?.includes('RENEW_WITH_ENHANCEMENT') || loanType?.includes('ENHANCED_LOAN')"
+                                            <nb-checkbox
+                                                    *ngIf="loanType?.includes('RENEW_WITH_ENHANCEMENT') || loanType?.includes('ENHANCED_LOAN')"
                                                     (change)="otherCheckedValue($event?.target?.checked, 'currentAssetsRenew', 'currentAssetsWord')"
                                                     [checked]="offerLetterForm?.get('currentAssetsRenew')?.value"><i>Change Word</i>
                                             </nb-checkbox> &nbsp;&nbsp;
@@ -2031,7 +2042,8 @@
                                             </span> /- प्राप्त) </strong>
                                     </ng-container>
                                     <span class="disable-print float-right">
-                                        <nb-checkbox *ngIf="loanType?.includes('RENEW_WITH_ENHANCEMENT') || loanType?.includes('ENHANCED_LOAN')"
+                                        <nb-checkbox
+                                                *ngIf="loanType?.includes('RENEW_WITH_ENHANCEMENT') || loanType?.includes('ENHANCED_LOAN')"
                                                 (change)="otherCheckedValue($event?.target?.checked, 'fixedHypoRenew', 'fixedHypoWord')"
                                                 [checked]="offerLetterForm?.get('fixedHypoRenew')?.value"><i>Change Word</i>
                                         </nb-checkbox> &nbsp;&nbsp;
@@ -2312,7 +2324,8 @@
                                 </ng-container>
                             </span>
                                     <span class="disable-print float-right">
-                                        <nb-checkbox *ngIf="loanType?.includes('RENEW_WITH_ENHANCEMENT') || loanType?.includes('ENHANCED_LOAN')"
+                                        <nb-checkbox
+                                                *ngIf="loanType?.includes('RENEW_WITH_ENHANCEMENT') || loanType?.includes('ENHANCED_LOAN')"
                                                 (change)="otherCheckedValue($event?.target?.checked, 'karjaRenewChecked', 'karjaWord')"
                                                 [checked]="offerLetterForm?.get('karjaRenewChecked')?.value"><i>Change Word</i>
                                         </nb-checkbox> &nbsp;&nbsp;
@@ -2374,7 +2387,8 @@
                                 </ng-container>
                             </span>
                                     <span class="disable-print float-right">
-                                        <nb-checkbox *ngIf="loanType?.includes('RENEW_WITH_ENHANCEMENT') || loanType?.includes('ENHANCED_LOAN')"
+                                        <nb-checkbox
+                                                *ngIf="loanType?.includes('RENEW_WITH_ENHANCEMENT') || loanType?.includes('ENHANCED_LOAN')"
                                                 (change)="otherCheckedValue($event?.target?.checked, 'creditLetterRenewChecked', 'creditLetterWord')"
                                                 [checked]="offerLetterForm?.get('creditLetterRenewChecked')?.value"><i>Change Word</i>
                                         </nb-checkbox> &nbsp;&nbsp;
