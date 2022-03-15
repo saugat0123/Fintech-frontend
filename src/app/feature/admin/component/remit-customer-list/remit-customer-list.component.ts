@@ -13,6 +13,7 @@ import {Alert, AlertType} from '../../../../@theme/model/Alert';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {BranchService} from '../branch/branch.service';
 import {VideoKycComponent} from '../../../video-kyc/video-kyc.component';
+import {ApiConfig} from '../../../../@core/utils/api/ApiConfig';
 
 
 @Component({
@@ -232,5 +233,21 @@ export class RemitCustomerListComponent implements OnInit {
         ref.componentInstance.showSender = true;
         ref.componentInstance.showBenificiary = true;
         ref.componentInstance.remitCustomer = model;
+    }
+    download() {
+        this.overlay.show();
+        this.remitCustomerService.download(this.filterForm.value).subscribe((response: any) => {
+            this.overlay.hide();
+            const link = document.createElement('a');
+            link.target = '_blank';
+            link.href = ApiConfig.URL + '/' + response.detail;
+            link.download = name;
+            link.setAttribute('visibility', 'hidden');
+            link.click();
+        }, error => {
+            this.overlay.hide();
+            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Download Remit Customer!'));
+        });
+
     }
 }
