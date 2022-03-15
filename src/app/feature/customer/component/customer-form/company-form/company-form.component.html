@@ -356,15 +356,16 @@
                                </div>
                                <div class="col-md-4">
                                    <div class="form-group">
-                                       <label for="registrationDate"><strong>License Issued Date</strong></label>
+                                       <label for="licenseIssuedDate"><strong>License Issued Date</strong></label>
                                        <input *ngIf="calendarType === 'AD'" id="licenseIssuedDate" formControlName="licenseIssuedDate"
-                                              [nbDatepicker]="registrationDate" name="licenseIssuedDate"
+                                              [nbDatepicker]="licenseIssuedDate" name="licenseIssuedDate"
                                               class="form-control" placeholder="License Issued Date"
                                               [ngClass]="{ 'is-invalid':submitted && additionalInfoForm.licenseIssuedDate.errors}">
+                                       <app-calendar [ePreDate]="additionalInfoForm?.licenseIssuedDate?.value" *ngIf="calendarType === 'BS'"
+                                                     (messageToEmit)="additionalInfoForm?.licenseIssuedDate?.patchValue($event?.eDate)"></app-calendar>
                                        <input formControlName="licenseIssuedDate" *ngIf="calendarType === 'BS'" hidden>
-                                       <app-calendar [ePreDate]="additionalInfoForm.licenseIssuedDate.value" *ngIf="calendarType === 'BS'"
-                                                     (messageToEmit)="additionalInfoForm.get('licenseIssuedDate').patchValue($event?.eDate)"></app-calendar>
-                                       <nb-datepicker #registrationDate></nb-datepicker>
+
+                                       <nb-datepicker #licenseIssuedDate></nb-datepicker>
                                        <div *ngIf="submitted && additionalInfoForm.licenseIssuedDate.errors" class="small text-danger">
                                            <div *ngIf="additionalInfoForm.licenseIssuedDate.errors.required">
                                                Invalid License Issued Date
@@ -381,8 +382,8 @@
                                               [ngClass]="{ 'is-invalid':submitted && additionalInfoForm.licenseExpiryDate.errors}">
                                        <input formControlName="licenseExpiryDate" *ngIf="calendarType === 'BS'" hidden>
 
-                                       <app-calendar [ePreDate]="additionalInfoForm.licenseExpiryDate.value" *ngIf="calendarType === 'BS'"
-                                                     (messageToEmit)="additionalInfoForm.get('licenseExpiryDate').patchValue($event?.eDate)"></app-calendar>
+                                       <app-calendar [ePreDate]="additionalInfoForm?.licenseExpiryDate?.value" *ngIf="calendarType === 'BS'"
+                                                     (messageToEmit)="additionalInfoForm?.licenseExpiryDate?.patchValue($event?.eDate)"></app-calendar>
                                        <nb-datepicker #licenseExpiryDate></nb-datepicker>
                                        <div *ngIf="submitted && additionalInfoForm.licenseExpiryDate.errors" class="small text-danger">
                                            <div *ngIf="additionalInfoForm.licenseExpiryDate.errors.required">
