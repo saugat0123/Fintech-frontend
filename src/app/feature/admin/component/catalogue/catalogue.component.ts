@@ -136,7 +136,7 @@ export class CatalogueComponent implements OnInit {
         private catalogueService: CatalogueService,
         private location: AddressService,
         private creditMemoService: CreditMemoService,
-    private nbDialogService: NbDialogService,
+        private nbDialogService: NbDialogService,
         private service: ApprovalRoleHierarchyService) {
     }
 
@@ -144,6 +144,7 @@ export class CatalogueComponent implements OnInit {
         other.spinner = true;
         other.loanFormService.getCatalogues(other.catalogueService.search, other.page, 10).subscribe((response: any) => {
             other.loanDataHolderList = response.detail.content;
+            console.log('loan data holder list', other.loanDataHolderList);
             other.pageable = PaginationUtils.getPageable(response.detail);
             other.spinner = false;
             other.transferToggle = true;
@@ -654,13 +655,8 @@ export class CatalogueComponent implements OnInit {
 
     onRaiseMemo(data, onActionChange, event) {
         this.spinner = true;
-        console.log('memo', data);
         const customerLoanId = data.id;
         const loanConfigId = data.loan.id;
-        console.log('loan product id', loanConfigId);
-        console.log('customer loan id', customerLoanId);
-        console.log('on action change', onActionChange);
-        console.log('event', event);
         this.router.navigate([`${CreditMemoFullRoutes.COMPOSE}`],
             {queryParams: {loanCategoryId: loanConfigId, loanId: customerLoanId}})
             .then(() => {
@@ -669,9 +665,9 @@ export class CatalogueComponent implements OnInit {
     }
 
     openCreditMemoModal(loanDataHolder: LoanDataHolder) {
-        const memoSearchObj = { 'customerLoanId': String(loanDataHolder.id)};
+        const memoSearchObj = {'customerLoanId': String(loanDataHolder.id)};
         let memoList = [];
-        this.creditMemoService.getPaginationWithSearchObject(memoSearchObj, 1, 100).subscribe( response => {
+        this.creditMemoService.getPaginationWithSearchObject(memoSearchObj, 1, 100).subscribe(response => {
             memoList = response.detail.content;
             const modalRef = this.modalService.open(CreditMemoModalComponent, {backdrop: 'static', size: 'lg'});
             modalRef.componentInstance.creditMemoList = memoList;

@@ -421,7 +421,9 @@ export class ProposalComponent implements OnInit {
 
   setActiveBaseRate() {
     this.baseInterestService.getActiveBaseRate().subscribe(value => {
-      this.proposalForm.get('baseRate').setValue(value.detail.rate);
+      if (value.detail) {
+        this.proposalForm.get('baseRate').setValue(value.detail.rate);
+      }
     });
   }
 
@@ -773,7 +775,6 @@ export class ProposalComponent implements OnInit {
 
   getData(data) {
     this.files = data;
-    console.log(data);
     this.proposalForm.patchValue({
       files: JSON.stringify(data)
     });
