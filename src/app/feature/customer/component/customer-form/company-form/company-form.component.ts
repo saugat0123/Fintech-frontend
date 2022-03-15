@@ -470,12 +470,12 @@ export class CompanyFormComponent implements OnInit {
                     this.additionalFieldData.registrationType],
                 licenseHolderName: [ObjectUtil.isEmpty(this.additionalFieldData) ? undefined :
                     this.additionalFieldData.licenseHolderName],
-                licenseExpiryDate: [(ObjectUtil.isEmpty(this.additionalFieldData)
-                        || ObjectUtil.isEmpty(this.additionalFieldData.licenseExpiryDate)) ? undefined :
+                licenseExpiryDate:  [ObjectUtil.isEmpty(this.additionalFieldData) ? undefined :
+                    ObjectUtil.isEmpty(this.additionalFieldData.licenseExpiryDate) ? undefined :
                         new Date(this.additionalFieldData.licenseExpiryDate)],
-                licenseIssuedDate: [(ObjectUtil.isEmpty(this.additionalFieldData)
-                    || ObjectUtil.isEmpty(this.additionalFieldData.licenseIssuedDate)) ? undefined :
-                    new Date(this.additionalFieldData.licenseIssuedDate)],
+                licenseIssuedDate:  [ObjectUtil.isEmpty(this.additionalFieldData) ? undefined :
+                    ObjectUtil.isEmpty(this.additionalFieldData.licenseIssuedDate) ? undefined :
+                        new Date(this.additionalFieldData.licenseIssuedDate)],
                 licenseIssuePlace: [ObjectUtil.isEmpty(this.additionalFieldData) ? undefined :
                     this.additionalFieldData.licenseIssuePlace],
                 additionalInfoRemark: [ObjectUtil.isEmpty(this.additionalFieldData) ? undefined :
