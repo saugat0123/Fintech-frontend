@@ -1,6 +1,7 @@
 * {
   line-height: 1.9em;
   font-size: 19px;
+  overflow: visible !important;
 }
 .nep {
   font-size: 16px;
@@ -31,6 +32,10 @@ ol.conditions-list {
   text-align: justify !important;
 }
 
+.dastakhat {
+  margin-left: 6rem;
+}
+
 @media screen {
   .print-only {
     display: none;
@@ -42,6 +47,9 @@ ol.conditions-list {
 }
 
 @media print {
+  * {
+    overflow-y: visible !important;
+  }
   .print-only {
     display: inline;
   }
@@ -54,6 +62,9 @@ ol.conditions-list {
   }
   .page-break {
     page-break-after: always;
+  }
+  .margin-top-print {
+    margin-top: 6rem;
   }
 }
 
