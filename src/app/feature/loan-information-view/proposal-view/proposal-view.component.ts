@@ -51,12 +51,16 @@ export class ProposalViewComponent implements OnInit {
   prepaymentCharge;
   isRemit = false;
   customerLoanDtoList: CustomerLoanDto[];
+  consumerFinance = false;
 
   constructor(private activatedRoute: ActivatedRoute,
               private loanConfigService: LoanConfigService) {
   }
 
   ngOnInit() {
+    if (this.loanDataHolder.loanHolder.clientType === 'CONSUMER_FINANCE') {
+      this.consumerFinance = true;
+    }
     this.proposalAllData = JSON.parse(this.proposalData.data);
     this.checkedData = JSON.parse(this.proposalData.checkedData);
     if (this.loanDataHolder.customerLoanDtoList !== null) {
