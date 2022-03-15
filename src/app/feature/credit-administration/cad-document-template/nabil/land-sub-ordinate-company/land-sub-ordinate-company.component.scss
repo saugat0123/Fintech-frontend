@@ -66,6 +66,18 @@ ol.conditions-list {
   .margin-top-print {
     margin-top: 6rem;
   }
+  .heading {
+    h1,
+    h2 {
+      line-height: auto !important;
+    }
+    h1 strong {
+      font-size: 1.6rem !important;
+    }
+    h2 strong {
+      font-size: 1.6rem !important;
+    }
+  }
 }
 
 input::placeholder {
