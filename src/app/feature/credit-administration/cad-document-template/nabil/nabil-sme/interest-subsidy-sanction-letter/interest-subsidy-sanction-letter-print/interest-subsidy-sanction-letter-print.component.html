@@ -332,7 +332,11 @@
                                 <span
                                     class="font-weight-bold">{{this.nepaliCurrencyWordPipe.transform(personalGuarantor.gurantedAmount
                                     ? personalGuarantor.gurantedAmount.en : '')}}</span>
-                                मात्र) बराबरको <span class="font-weight-bold">
+                                मात्र) बराबरको
+                                {{personalGuarantor.gender.en === 'FEMALE' && personalGuarantor.guarantorMaritalStatus.en ===
+                            'Married' ? 'श्रीमती' : (personalGuarantor.gender.en === 'FEMALE' && personalGuarantor.guarantorMaritalStatus.en ===
+                            'Unmarried' ? 'सुश्री' : personalGuarantor.gender.en === 'MALE' ? 'श्रीमान्' : 'श्री')}}
+                                <span class="font-weight-bold">
                                     {{personalGuarantor.guarantorName ? personalGuarantor.guarantorName.ct : ''}}
                                 </span>
                                 ले बैंकको पक्षमा व्यक्तिगत जमानत लेखिदिनु पर्नेछ ।
@@ -1015,9 +1019,9 @@
                     <li *ngFor="let personalGuarantor of tempPersonalGuarantors"> रु.<span class="font-weight-bold">
                             {{personalGuarantor.gurantedAmount.ct}}
                         </span> /- बराबरको
-                        {{personalGuarantor.gender.en === 'FEMALE' && personalGuarantor.relationMedium.en === '0' ?
-                        'श्रीमती' : (personalGuarantor.gender.en === 'FEMALE' && personalGuarantor.relationMedium.en ===
-                        '1' ? 'सुश्री' : personalGuarantor.gender.en === 'MALE' ? 'श्रीमान्' : '')}}
+                        {{personalGuarantor.gender.en === 'FEMALE' && personalGuarantor.guarantorMaritalStatus.en ===
+                        'Married' ? 'श्रीमती' : (personalGuarantor.gender.en === 'FEMALE' && personalGuarantor.guarantorMaritalStatus.en ===
+                        'Unmarried' ? 'सुश्री' : personalGuarantor.gender.en === 'MALE' ? 'श्रीमान्' : 'श्री')}}
                         <span class="font-weight-bold">
                             {{personalGuarantor?.guarantorName?.ct}}
                             <!--{{ commonGuarantorDetails(personalGuarantorsName, finalPersonalName) }}-->

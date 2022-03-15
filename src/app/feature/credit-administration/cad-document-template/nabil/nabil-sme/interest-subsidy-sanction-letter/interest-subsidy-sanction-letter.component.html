@@ -319,7 +319,11 @@
                                             formControlName="totalAmountInWords"
                                             [value]="this.nepaliCurrencyWordPipe.transform(personalGuarantor.gurantedAmount.en)"
                                             placeholder=" " type="text" /> मात्र)
-                                        बराबरको <input class="form-field form-control-sm"
+                                        बराबरको
+                                        {{personalGuarantor.gender.en === 'FEMALE' && personalGuarantor.guarantorMaritalStatus.en ===
+                                    'Married' ? 'श्रीमती' : (personalGuarantor.gender.en === 'FEMALE' && personalGuarantor.guarantorMaritalStatus.en ===
+                                    'Unmarried' ? 'सुश्री' : personalGuarantor.gender.en === 'MALE' ? 'श्रीमान्' : 'श्री')}}
+                                        <input class="form-field form-control-sm"
                                             formControlName="guarantorName"
                                             [value]="personalGuarantor.guarantorName ? personalGuarantor.guarantorName.ct : ''"
                                             placeholder=" " type="text" />
@@ -1018,10 +1022,9 @@
                                 रु.<input class="form-field form-control-sm"
                                     [value]="personalGuarantor?.gurantedAmount?.ct" placeholder=" " type="text" />/-
                                 बराबरको
-                                {{personalGuarantor.gender.en === 'FEMALE' && personalGuarantor.relationMedium.en ===
-                                '0' ? 'श्रीमती' : (personalGuarantor.gender.en === 'FEMALE' &&
-                                personalGuarantor.relationMedium.en === '1' ? 'सुश्री' : personalGuarantor.gender.en ===
-                                'MALE' ? 'श्रीमान्' : '')}}
+                                {{personalGuarantor.gender.en === 'FEMALE' && personalGuarantor.guarantorMaritalStatus.en ===
+                            'Married' ? 'श्रीमती' : (personalGuarantor.gender.en === 'FEMALE' && personalGuarantor.guarantorMaritalStatus.en ===
+                            'Unmarried' ? 'सुश्री' : personalGuarantor.gender.en === 'MALE' ? 'श्रीमान्' : 'श्री')}}
                                 <input class="form-field form-control-sm" formControlName="guarantorName"
                                     [value]="personalGuarantor?.guarantorName?.ct" placeholder=" " type="text" /> ले
                                 बैंकको पक्षमा लेखिदिनुपर्ने
@@ -1035,7 +1038,7 @@
                                 संस्थाबाट रु.१ करोड भन्दा बढी
                                 कर्जा उपभोग नगरेको उदघोषण पत्र ।
                             </li>
-                            <li> बविमालेख घोषणा पत्र (Insurance Declaration Statement)
+                            <li> विमालेख घोषणा पत्र (Insurance Declaration Statement)
                             </li>
                             <li> स्थायी लेखा नम्बर प्रमाणपत्र (PAN Certificate)
                             </li>
