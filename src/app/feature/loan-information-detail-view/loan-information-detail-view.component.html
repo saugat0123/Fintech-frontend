@@ -1,24 +1,25 @@
 <nb-card style="max-height: 90vh;">
     <nb-card-header>
         <div>
-        <div class="float-left">
-            <button (click)="onBack()" class="btn-primary float-left"><i class="fas fa-arrow-left"></i>
-            </button>
+            <div class="float-left">
+                <button (click)="onBack()" class="btn-primary float-left"><i class="fas fa-arrow-left"></i>
+                </button>
+            </div>
+            <div class="float-right">
+                <button [useExistingCss]="true" class="btn-sm btn-warning float-right" ngxPrint
+                    printSectionId="print-detail" styleSheetFile="assets/css/printStyles.scss">
+                    PRINT
+                    <!--                <i class="col-md-1 fa fa-print"></i>-->
+                </button>
+            </div>
+            <div class="float-right">
+                <button [nbPopover]="allDocumentView" class="btn-sm btn-success float-right">
+                    UPLOADED DOCUMENT
+                    <!--                <i class="col-md-1 fa fa-file"></i>-->
+                </button>
+            </div>
         </div>
-        <div class="float-right">
-            <button [useExistingCss]="true" class="btn-sm btn-warning float-right"
-                    ngxPrint printSectionId="print-detail" styleSheetFile="assets/css/printStyles.scss">
-                PRINT
-<!--                <i class="col-md-1 fa fa-print"></i>-->
-            </button>
-        </div>
-        <div class="float-right">
-            <button  [nbPopover]="allDocumentView" class="btn-sm btn-success float-right">
-                UPLOADED DOCUMENT
-<!--                <i class="col-md-1 fa fa-file"></i>-->
-            </button>
-        </div>
-    </div></nb-card-header>
+    </nb-card-header>
     <nb-card-body>
         <div id="print-detail">
             <div class="row">
@@ -28,12 +29,12 @@
                             <div>
                                 Priority:
                                 <span class="badge badge-danger"
-                                      style="font-size: 13px">{{loanDataHolder?.priority?.toString() | titlecase}}</span>
+                                    style="font-size: 13px">{{loanDataHolder?.priority?.toString() | titlecase}}</span>
                             </div>
                             <div class="mt-2">
                                 Loan Status:
                                 <span class="badge badge-info"
-                                      style="font-size: 13px">{{loanDataHolder?.documentStatus?.toString() | titlecase}}</span>
+                                    style="font-size: 13px">{{loanDataHolder?.documentStatus?.toString() | titlecase}}</span>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -74,97 +75,116 @@
                             </div>
                         </div>
                         <div class="col-md-3 text-right">
-                            <img class="report-log img-thumbnail border-0"
-                                 src="../../../../../assets/img/logo.png">
+                            <img class="report-log img-thumbnail border-0" src="../../../../../assets/img/logo.png">
                         </div>
                     </div>
                 </div>
             </div>
             <hr>
-            <div class="row">
-                <div class="col-md-12 sb-small">
-                    <div class="row">
-                        <div class="col-md-2">
-                            <p class="font-weight-bold sb-small">TO</p>
+            <section class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12 sb-small">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <p class="font-weight-bold sb-small">TO</p>
+                            </div>
+                            <div class="col-md-2">
+                                <p class="sb-small">: ...................</p>
+                            </div>
                         </div>
-                        <div class="col-md-2">
-                            <p class="sb-small">: ...................</p>
+                    </div>
+                    <div class="col-md-12 sb-small">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <p class="font-weight-bold sb-small">THROUGH</p>
+                            </div>
+                            <div class="col-md-2">
+                                <p class="sb-small">: ...................</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 sb-small">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <p class="font-weight-bold sb-small">FROM</p>
+                            </div>
+                            <div class="col-md-2">
+                                <p class="sb-small">: ...................</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 sb-small">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <p class="font-weight-bold sb-small">SUBJECT</p>
+                            </div>
+                            <div class="col-md-2">
+                                <p class="sb-small">: ...................</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 sb-small">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <p class="font-weight-bold sb-small">CLIENT NAME</p>
+                            </div>
+                            <div class="col-md-2">
+                                <p class="sb-small">: ...................</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 sb-small">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <p class="font-weight-bold sb-small">GROUP</p>
+                            </div>
+                            <div class="col-md-2">
+                                <p class="sb-small">: ...................</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 sb-small">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <p class="font-weight-bold sb-small">ACCOUNT NUMBER</p>
+                            </div>
+                            <div class="col-md-2">
+                                <p class="sb-small">: ...................</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 sb-small">
+                        <div class="row">
+                            <div class="col-md-2">
+                                <p class="font-weight-bold sb-small">CUSTOMER ID</p>
+                            </div>
+                            <div class="col-md-2">
+                                <p class="sb-small">: ...................</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 sb-small">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <p class="font-weight-bold sb-small">DATE</p>
+                            </div>
+                            <div class="col-md-4">
+                                <p class="sb-small">: ...................</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 sb-small">
+                        <div class="row justify-content-end">
+                            <div class="col-md-4">
+                                <p class="font-weight-bold sb-small">REF. NO. CCBL</p>
+                            </div>
+                            <div class="col-md-4">
+                                <p class="sb-small">: ...................</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-12 sb-small">
-                    <div class="row">
-                        <div class="col-md-2">
-                            <p class="font-weight-bold sb-small">THROUGH</p>
-                        </div>
-                        <div class="col-md-2">
-                            <p class="sb-small">: ...................</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12 sb-small">
-                    <div class="row">
-                        <div class="col-md-2">
-                            <p class="font-weight-bold sb-small">FROM</p>
-                        </div>
-                        <div class="col-md-2">
-                            <p class="sb-small">: ...................</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12 sb-small">
-                    <div class="row">
-                        <div class="col-md-2">
-                            <p class="font-weight-bold sb-small">SUBJECT</p>
-                        </div>
-                        <div class="col-md-2">
-                            <p class="sb-small">: ...................</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12 sb-small">
-                    <div class="row">
-                        <div class="col-md-2">
-                            <p class="font-weight-bold sb-small">CLIENT NAME</p>
-                        </div>
-                        <div class="col-md-2">
-                            <p class="sb-small">: ...................</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12 sb-small">
-                    <div class="row">
-                        <div class="col-md-2">
-                            <p class="font-weight-bold sb-small">GROUP</p>
-                        </div>
-                        <div class="col-md-2">
-                            <p class="sb-small">: ...................</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12 sb-small">
-                    <div class="row">
-                        <div class="col-md-2">
-                            <p class="font-weight-bold sb-small">ACCOUNT NUMBER</p>
-                        </div>
-                        <div class="col-md-2">
-                            <p class="sb-small">: ...................</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-12 sb-small">
-                    <div class="row">
-                        <div class="col-md-2">
-                            <p class="font-weight-bold sb-small">CUSTOMER ID</p>
-                        </div>
-                        <div class="col-md-2">
-                            <p class="sb-small">: ...................</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 sb-small"></div>
-                <div class="col-md-6 sb-small"></div>
-            </div>
+            </section>
             <!-- DO NOT REMOVE -->
             <!-- <div class="row">
                 <div class="col-md-6 sb-small">
@@ -192,125 +212,209 @@
                 </div>
             </div> -->
             <hr>
-            <div>
+            <div class="container-fluid">
+                <ol class="heading-list">
+                    <li>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p><strong>Date of Association: </strong>New Client</p>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row justify-content-end">
+                                    <p><strong>Last Date of Inspection:</strong> .................</p>
+                                </div>
+                                <div class="row justify-content-end">
+                                    <p><strong>Group:</strong> NA</p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <p><strong>Capital Structure:</strong> NA</p>
+                    </li>
+                    <li>
+                        <p><strong>Proprietor/Promoters/Shareholding Pattern:</strong> NA</p>
+                    </li>
+                    <li>
+                        <p><strong>Request of the Client: </strong></p>
+                        <p>............................................................................</p>
+                    </li>
+                    <li>
+                        <p><strong>Family details and networth of the client is as below:</strong></p>
+                        <app-family-details-networth></app-family-details-networth>
+                    </li>
+                    <li>
+                        <p><strong>Financial Performance</strong></p>
+                        <app-retail-financial-performance></app-retail-financial-performance>
+                    </li>
+                    <li>
+                        <p><strong>Purpose and Justifaction of Credit Proposal:</strong></p>
+                        <app-retail-purpose-and-justification></app-retail-purpose-and-justification>
+                    </li>
+                    <li>
+                        <div class="row">
+                            <div class="col-md-6"><p><strong>Source of Repayment</strong></p></div>
+                            <div class="col-md-6"><p><strong>PAN No. :</strong></p></div>
+                        </div>
+                        <app-retail-source-of-repayment></app-retail-source-of-repayment>
+                    </li>
+                    <li>
+                        <p><strong>Present Stock and Receivables, Payable Position: NA</strong></p>
+                    </li>
+                    <li>
+                        <p><strong>Current limits and outstanding of the Client: NA</strong></p>
+                    </li>
+                    <li>
+                        <p><strong>Name of the companies under the group: NA</strong></p>
+                    </li>
+                    <li>
+                        <p><strong>Group Exposure (in NPR. Mio):  NA</strong></p>
+                    </li>
+                    <li>
+                        <p><strong>Regularity of payments: NA</strong></p>
+                    </li>
+                    <li>
+                        <p><strong>Transaction Record of the client: New Relationship. Yet to be tested	</strong></p>
+                    </li>
+                    <li>
+                        <p><strong>Profitability of the Client:</strong></p>
+                        <app-retail-profitability-of-clien></app-retail-profitability-of-clien>
+                    </li>
+                    <li>
+                        <p><strong>Profitability: NA</strong></p>
+                    </li>
+                    <li>
+                        <p><strong>Risks:</strong></p>
+                        <app-retail-risks></app-retail-risks>
+                    </li>
+                    <li>
+                        <p><strong>Compliance:</strong> We have fully adhered the policy of NRB and internal bank policies.</p>
+                        <app-retail-compliance></app-retail-compliance>
+                    </li>
+                </ol>
+            </div>
+
+
+            <!-- <div>
                 <p><strong>Details of {{loanDataHolder?.loanCategory === 'INSTITUTION'
                     ? 'Authorized Company'
                     : 'Borrower'}}</strong></p>
             </div>
-            <app-detail-view-base *ngIf="loanHolder && loanHolder && !isMicro"
-                                  [calendarType]="calendarType"
-                                  [loanDataHolder]="loanDataHolder" [loanHolder]="loanHolder"
-                                  [loanId]="id"
-                                  (documents)="checkSiteVisitDocument($event)"></app-detail-view-base>
-            <app-micro-loan-detail-view-base *ngIf="loanHolder && isMicro"
-                                             [calendarType]="calendarType"
-                                             [customerAllLoanList]="customerAllLoanList"
-                                             [fiscalYearArray]="fiscalYearArray"
-                                             [loanDataHolder]="loanDataHolder" [loanHolder]="loanHolder"
-                                             [loanId]="id"
-                                             [isMicro]="isMicro"
-                                             (documents)="checkSiteVisitDocument($event)"></app-micro-loan-detail-view-base>
+            <app-detail-view-base *ngIf="loanHolder && loanHolder && !isMicro" [calendarType]="calendarType"
+                [loanDataHolder]="loanDataHolder" [loanHolder]="loanHolder" [loanId]="id"
+                (documents)="checkSiteVisitDocument($event)"></app-detail-view-base>
+            <app-micro-loan-detail-view-base *ngIf="loanHolder && isMicro" [calendarType]="calendarType"
+                [customerAllLoanList]="customerAllLoanList" [fiscalYearArray]="fiscalYearArray"
+                [loanDataHolder]="loanDataHolder" [loanHolder]="loanHolder" [loanId]="id" [isMicro]="isMicro"
+                (documents)="checkSiteVisitDocument($event)"></app-micro-loan-detail-view-base> -->
 
-            <ng-template  #allDocumentView>
-                <app-all-document-view  *ngIf="loanDataHolder" [loanDataHolder]="loanDataHolder" [siteVisitDocument]="siteVisitDocuments"></app-all-document-view>
+            <ng-template #allDocumentView>
+                <app-all-document-view *ngIf="loanDataHolder" [loanDataHolder]="loanDataHolder"
+                    [siteVisitDocument]="siteVisitDocuments"></app-all-document-view>
             </ng-template>
 
-            <app-proposal-terms-and-condition-summery
-                    *ngIf="loanDataHolder && customerAllLoanList"
-                    [customerAllLoanList]="customerAllLoanList"
-                    [loanDataHolder]="loanDataHolder"></app-proposal-terms-and-condition-summery>
+            <!-- <app-proposal-terms-and-condition-summery *ngIf="loanDataHolder && customerAllLoanList"
+                [customerAllLoanList]="customerAllLoanList" [loanDataHolder]="loanDataHolder">
+            </app-proposal-terms-and-condition-summery>
             <div class="row mt-3">
                 <div class="col-md-12">
                     <p><strong>Authority Section</strong></p>
                     <table
-                            class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
+                        class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                         <thead>
-                        <tr class="sb-bg-dark text-white">
-                            <th>S.N</th>
-                            <th>Date</th>
-                            <th>From User</th>
-                            <th>To User</th>
-                            <th>Status</th>
-                            <th class="cmt-width">Remarks</th>
-                        </tr>
+                            <tr class="sb-bg-dark text-white">
+                                <th>S.N</th>
+                                <th>Date</th>
+                                <th>From User</th>
+                                <th>To User</th>
+                                <th>Status</th>
+                                <th class="cmt-width">Remarks</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        <tr *ngFor="let previousList of loanDataHolder?.previousList ; let i = index">
-                            <td>{{i + 1}}</td>
-                            <td class="text-left pl-1">
-                                {{previousList?.lastModifiedAt | date}} ({{previousList?.lastModifiedAt | engNepDate: false}})
-                            </td>
-                            <td class="text-left">
-                                <div class="pl-1">
-                                    {{previousList?.fromUser?.name}}</div>
-                                <div class="pl-1">
-                                    <span>({{previousList?.fromRole?.roleName}})</span>
-                                </div>
+                            <tr *ngFor="let previousList of loanDataHolder?.previousList ; let i = index">
+                                <td>{{i + 1}}</td>
+                                <td class="text-left pl-1">
+                                    {{previousList?.lastModifiedAt | date}}
+                                    ({{previousList?.lastModifiedAt | engNepDate: false}})
+                                </td>
+                                <td class="text-left">
+                                    <div class="pl-1">
+                                        {{previousList?.fromUser?.name}}</div>
+                                    <div class="pl-1">
+                                        <span>({{previousList?.fromRole?.roleName}})</span>
+                                    </div>
 
-                            </td>
+                                </td>
 
-                            <td class="text-left">
-                                <div class="pl-1">
-                                    {{previousList?.toUser?.name}}</div>
-                                <div class="pl-1">
-                                    ({{previousList?.toRole?.roleName}})
-                                </div>
-                            </td>
+                                <td class="text-left">
+                                    <div class="pl-1">
+                                        {{previousList?.toUser?.name}}</div>
+                                    <div class="pl-1">
+                                        ({{previousList?.toRole?.roleName}})
+                                    </div>
+                                </td>
 
-                            <td class="text-left pl-1">{{previousList?.docAction | loanStatusPipe }}</td>
-                            <td class="text-left pl-1">
-                                <div class="pl-1 disable-print" [innerHTML]="customSafePipe(
+                                <td class="text-left pl-1">{{previousList?.docAction | loanStatusPipe }}</td>
+                                <td class="text-left pl-1">
+                                    <div class="pl-1 disable-print" [innerHTML]="customSafePipe(
                                     previousList?.comment?.length > 50 ?
                                     previousList?.comment?.substring(0, 49):
                                     previousList?.comment)">
-                                </div>
-                                <a (click)="open(previousList?.comment)"
-                                   *ngIf="previousList?.comment?.length > 50"
-                                   class="text-left pl-1 disable-print">read more ....</a>
-                                <div>
-                                    <span class="print-only text-justify pl-1 pr-1" [innerHTML]="previousList?.comment | safeHtml"></span>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>{{currentIndex + 1}}</td>
-                            <td class="text-left pl-1">{{loanDataHolder?.currentStage?.lastModifiedAt | date}} ({{loanDataHolder?.currentStage?.lastModifiedAt | engNepDate: false}})</td>
-                            <td class="text-left">
-                                <div class="pl-1">
-                                    {{loanDataHolder?.currentStage?.fromUser?.name}}</div>
-                                <div class="pl-1">
-                                    <span>({{loanDataHolder?.currentStage?.fromRole?.roleName}})</span>
-                                </div>
-                            </td>
+                                    </div>
+                                    <a (click)="open(previousList?.comment)" *ngIf="previousList?.comment?.length > 50"
+                                        class="text-left pl-1 disable-print">read more ....</a>
+                                    <div>
+                                        <span class="print-only text-justify pl-1 pr-1"
+                                            [innerHTML]="previousList?.comment | safeHtml"></span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>{{currentIndex + 1}}</td>
+                                <td class="text-left pl-1">{{loanDataHolder?.currentStage?.lastModifiedAt | date}}
+                                    ({{loanDataHolder?.currentStage?.lastModifiedAt | engNepDate: false}})</td>
+                                <td class="text-left">
+                                    <div class="pl-1">
+                                        {{loanDataHolder?.currentStage?.fromUser?.name}}</div>
+                                    <div class="pl-1">
+                                        <span>({{loanDataHolder?.currentStage?.fromRole?.roleName}})</span>
+                                    </div>
+                                </td>
 
-                            <td class="text-left">
+                                <td class="text-left">
                                     <div class="pl-1">
                                         {{loanDataHolder?.currentStage?.toUser?.name}}</div>
                                     <div class="pl-1">
                                         <span>({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
                                     </div>
-                            </td>
+                                </td>
 
-                            <td class="text-left pl-1">{{loanDataHolder?.currentStage?.docAction | loanStatusPipe}}</td>
-                            <td class="text-left">
-                                <div class="pl-1 disable-print">
-                                   <span [innerHTML]="customSafePipe(loanDataHolder?.currentStage?.comment?.length > 50 ?
+                                <td class="text-left pl-1">{{loanDataHolder?.currentStage?.docAction | loanStatusPipe}}
+                                </td>
+                                <td class="text-left">
+                                    <div class="pl-1 disable-print">
+                                        <span [innerHTML]="customSafePipe(loanDataHolder?.currentStage?.comment?.length > 50 ?
                                     loanDataHolder?.currentStage?.comment?.substring(0, 49):
                                     loanDataHolder?.currentStage?.comment)"></span>
-                                </div>
-                                <a (click)="open(loanDataHolder?.currentStage?.comment)"
-                                   *ngIf="loanDataHolder?.currentStage?.comment?.length > 50"
-                                   class="text-left pl-1 disable-print">read more ....</a>
-                                <div>
-                                    <span class="print-only text-justify pl-1 pr-1" [innerHTML]="loanDataHolder?.currentStage?.comment | safeHtml"></span>
-                                </div>
-                            </td>
-                        </tr>
+                                    </div>
+                                    <a (click)="open(loanDataHolder?.currentStage?.comment)"
+                                        *ngIf="loanDataHolder?.currentStage?.comment?.length > 50"
+                                        class="text-left pl-1 disable-print">read more ....</a>
+                                    <div>
+                                        <span class="print-only text-justify pl-1 pr-1"
+                                            [innerHTML]="loanDataHolder?.currentStage?.comment | safeHtml"></span>
+                                    </div>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-<app-signature-section *ngIf="loaded" [loanDataHolder]="loanDataHolder" [signApprovalOn]="false"></app-signature-section>
+            <app-signature-section *ngIf="loaded" [loanDataHolder]="loanDataHolder" [signApprovalOn]="false">
+            </app-signature-section> -->
+
+            
         </div>
     </nb-card-body>
 </nb-card>

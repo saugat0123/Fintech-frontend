@@ -27,3 +27,12 @@
     display: block;
   }
 }
+
+.heading-list {
+  li {
+    margin-top: 2rem;
+  }
+  li:first-child {
+    margin-top: 0;
+  }
+}
