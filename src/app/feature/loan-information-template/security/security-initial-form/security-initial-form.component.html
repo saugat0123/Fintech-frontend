@@ -147,20 +147,6 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label for="ownerNepali"><strong>मालिकको नाम</strong></label>
-                                <input [ngClass]="{ 'is-invalid': (landSelected) && (land.get('ownerNepali').errors || land.get('ownerNepali').invalid) }"
-                                       class="nepaliFont form-control form-control-sm-error rounded" formControlName="ownerNepali"
-                                       id="ownerNepali" name="ownerNepali" placeholder="मालिकको नाम" type="text" required/>
-                                <div *ngIf="(landSelected) && (land.get('ownerNepali').invalid)"
-                                     class="invalid-feedback">
-                                    <div *ngIf="land.get('ownerNepali').errors.required">
-                                        मालिकको नाम आवश्यक छ
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
                                 <label class="title" for="location">Location</label>
                                 <input class="form-control rounded" formControlName="location"
                                        id="location"
