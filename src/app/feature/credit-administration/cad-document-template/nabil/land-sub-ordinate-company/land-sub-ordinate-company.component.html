@@ -29,11 +29,11 @@
                     <input class="form-field form-control-sm d-print-none" name="borrowerName"
                         formControlName="borrowerName" type="text" readonly />
                     <span class="print-only font-weight-bold">{{form?.get('borrowerName').value ?
-                        form?.get('borrowerName').value : '___________________'}}</span><br>
+                        '___________________' : '___________________'}}</span><br>
                     <input class="form-field form-control-sm d-print-none" name="borrowerAddress"
                         formControlName="borrowerAddress" type="text" readonly />
                     <span class="print-only font-weight-bold">{{form?.get('borrowerAddress').value ?
-                        form?.get('borrowerAddress').value : '___________________'}}</span><br>
+                        '___________________' : '___________________'}}</span><br>
                     <input class="form-field form-control-sm d-print-none" name="freeText1" formControlName="freeText1"
                         type="text" />
                     <span class="print-only font-weight-bold nepaliFont">{{form?.get('freeText1').value ?
@@ -106,9 +106,8 @@
                         हो ।
                     </li>
                 </ol>
-
             </div>
-            <div class="margin-top-print">
+            <div class="mt-1">
                 <p class="text-center"><strong><u>शर्तबन्देजकहरु</u></strong></p>
                 <ol class="conditions-list">
                     <li>
@@ -180,10 +179,8 @@
                     </li>
                     <li>
                         ऋणी र बैंकबीच भएको कुनै पनि ऋणकर्जा वा बैंकिङ्ग सुविधा सम्बन्धि कारोबार वा बैंकले ऋणी माथि लिएको
-                        वित्तिय जोखिम यसै संझौताको
-                        आधार एवं विश्वसनियतामा लिएको मानिनेछ, त्यस्ता कारोवार वा ऋणी र बैंक बीच भविष्यमा हुने कारोबारको
-                        सम्बन्धमा समेत बैंक साहुलाई
-                        कुनै किसिमको जानकारी दिन बाध्य हुनेछैन । ऋणी र बैंक बीच हुने सबै किसिमका कारोबारहरुमा साहुको
+                        वित्तिय जोखिम यसै संझौताको आधार एवं विश्वसनियतामा लिएको मानिनेछ, त्यस्ता कारोवार वा ऋणी र बैंक बीच भविष्यमा हुने कारोबारको
+                        सम्बन्धमा समेत बैंक साहुलाई कुनै किसिमको जानकारी दिन बाध्य हुनेछैन । ऋणी र बैंक बीच हुने सबै किसिमका कारोबारहरुमा साहुको
                         पूर्ण सहमति रहेको मानिनेछ ।
                     </li>
                     <li>
@@ -232,11 +229,11 @@
                     </li>
                 </ol>
             </div>
-            <table class="table table-borderless mt-5">
+            <table class="table table-borderless dastakhat-margin">
                 <tr>
                     <th>––––––––––––––––––––––––––––––––
                         <br>
-                        <p class="dastakhat">दस्तखत</p>
+                        <span class="dastakhat">दस्तखत</span>
                         <br>ऋणी वा निजको आधिकारीक प्रतिनिधि
                         <br>नामः <input class="form-field form-control-sm d-print-none nepaliFont"
                             name="borrowerAuthorizedPerson" formControlName="borrowerAuthorizedPerson" type="text" />
@@ -252,7 +249,7 @@
                     </th>
                     <th>––––––––––––––––––––––––––––––––
                         <br>
-                        <p style="margin-left: 7rem">दस्तखत</p>
+                        <span class="dastakhat">दस्तखत</span>
                         <br>ऋणी वा निजको आधिकारीक प्रतिनिधि
                         <br>नामः <input class="form-field form-control-sm d-print-none nepaliFont"
                             name="loanProviderAuthorizedPerson" formControlName="loanProviderAuthorizedPerson"
@@ -269,7 +266,7 @@
                     </th>
                 </tr>
             </table>
-            <div class="col-md-12">
+            <div class="col-md-12 sakshi">
                 <p class="text-center mt-2">
                     <b><u>साक्षी</u></b>
                 </p>
@@ -297,8 +294,31 @@
                         <span class="print-only font-weight-bold nepaliFont"> {{ form?.get('witnessName')?.value ?
                             form?.get('witnessName')?.value : '====================================='}}</span>
                     </p>
+                    <p>२. <input class="form-field form-control-sm disable-print nepaliFont" name="witnessDistrict2"
+                            formControlName="witnessDistrict2" placeholder="" type="text" />
+                        <span class="print-only font-weight-bold nepaliFont"> {{ form?.get('witnessDistrict2')?.value ?
+                            form?.get('witnessDistrict2')?.value : '====================================='}}</span>
+                        जिल्ला <input class="form-field form-control-sm nepaliFont disable-print"
+                            name="witnessMunicipality2" formControlName="witnessMunicipality2" placeholder=""
+                            type="text" />
+                        <span class="print-only font-weight-bold nepaliFont"> {{ form?.get('witnessMunicipality2')?.value
+                            ? form?.get('witnessMunicipality2')?.value : '====================================='}}</span>
+                        न.पा/गा.वि.स. वडा नं.
+                        <input class="form-field form-control-sm nepaliFont disable-print" name="WitnessWardNumber2"
+                            formControlName="WitnessWardNumber2" placeholder="" type="text" />
+                        <span class="print-only font-weight-bold nepaliFont"> {{ form?.get('WitnessWardNumber2')?.value ?
+                            form?.get('WitnessWardNumber2')?.value : '==================='}}</span>
+                        बस्ने बर्ष <input class="form-field form-control-sm nepaliFont disable-print" name="witnessAge2"
+                            formControlName="witnessAge2" placeholder="" type="text" />
+                        <span class="print-only font-weight-bold nepaliFont"> {{ form?.get('witnessAge2')?.value ?
+                            form?.get('witnessAge2')?.value : '===================='}}</span>
+                        को/की <input class="form-field form-control-sm nepaliFont disable-print" name="witnessName2"
+                            formControlName="witnessName2" placeholder="" type="text" />
+                        <span class="print-only font-weight-bold nepaliFont"> {{ form?.get('witnessName2')?.value ?
+                            form?.get('witnessName2')?.value : '====================================='}}</span>
+                    </p>
                     <p>
-                        २. कारणीले प्रस्तुत लिखत मेरो सामुन्ने सहिछाप गरेको हो भनी सनाखत गर्ने नविल बैंक लिमिटेडका
+                        ३. कारणीले प्रस्तुत लिखत मेरो सामुन्ने सहिछाप गरेको हो भनी सनाखत गर्ने नविल बैंक लिमिटेडका
                         कर्मचारी <input class="form-field form-control-sm nepaliFont disable-print"
                             name="Name of Bank Staff" formControlName="bankStaff" placeholder="" type="text" />
                         <span class="print-only font-weight-bold nepaliFont"> {{ form?.get('bankStaff')?.value ?
