@@ -649,6 +649,8 @@ export class SecurityInitialFormComponent implements OnInit {
                     apartmentOtherBranchChecked: [singleData.apartmentOtherBranchChecked],
                     uuid: [ObjectUtil.isEmpty(singleData.uuid) ? this.uuid() : singleData.uuid],
                     proposedOwner: [singleData.proposedOwner],
+                    apartmentRate: [singleData.apartmentRate],
+                    buildingReliasableValue: [singleData.buildingReliasableValue],
                 })
             );
         });
@@ -735,6 +737,10 @@ export class SecurityInitialFormComponent implements OnInit {
                     kycCheckForLandAndBuilding: [singleData.kycCheckForLandAndBuilding],
                     landBuildingRate: [singleData.landBuildingRate],
                     landbuildingUnderRate: [singleData.landbuildingUnderRate],
+                    totalLandRealisableValue: [singleData.totalLandRealisableValue],
+                    apartmentDistressValue:  [singleData.apartmentDistressValue],
+                    apartmentRate:  [singleData.apartmentRate],
+                    totalApartmentRealisableValue:  [singleData.totalApartmentRealisableValue],
                     uuid: [ObjectUtil.isEmpty(singleData.uuid) ? this.uuid() : singleData.uuid],
 
                 })
@@ -1380,6 +1386,8 @@ export class SecurityInitialFormComponent implements OnInit {
             apartmentOtherBranchChecked: [undefined],
             uuid: [this.uuid()],
             proposedOwner: [undefined],
+            apartmentRate: [undefined],
+            buildingReliasableValue: [undefined],
         });
     }
 
@@ -1443,6 +1451,10 @@ export class SecurityInitialFormComponent implements OnInit {
             kycCheckForLandAndBuilding: [false],
             landBuildingRate: undefined,
             landbuildingUnderRate: undefined,
+            totalLandRealisableValue: undefined,
+            apartmentDistressValue: undefined,
+            apartmentRate: undefined,
+            totalApartmentRealisableValue: undefined,
             uuid: [this.uuid()],
         });
     }
@@ -1646,6 +1658,8 @@ export class SecurityInitialFormComponent implements OnInit {
             vehicleOtherBranchChecked: [undefined],
             uuid: [this.uuid()],
             isSecondHand: [undefined],
+            vehicleRealiasableAmount: [undefined],
+            vehicleRate: [undefined],
         });
     }
 
@@ -1695,7 +1709,9 @@ export class SecurityInitialFormComponent implements OnInit {
                         undefined : new Date(singleData.vehicleQuotationDate)],
                     vehicleRemarks: [singleData.vehicleRemarks],
                     vehicleOtherBranchChecked: [singleData.vehicleOtherBranchChecked],
-                    isSecondHand: [singleData.isSecondHand?singleData.isSecondHand:undefined],
+                    isSecondHand: [singleData.isSecondHand ? singleData.isSecondHand : undefined],
+                    vehicleRealiasableAmount: [singleData.vehicleRealiasableAmount ? singleData.vehicleRealiasableAmount : undefined],
+                    vehicleRate: [singleData.vehicleRate ? singleData.vehicleRate : undefined],
                     uuid: [ObjectUtil.isEmpty(singleData.uuid) ? this.uuid() : singleData.uuid],
                 })
             );
@@ -2290,13 +2306,20 @@ export class SecurityInitialFormComponent implements OnInit {
                 this.securityForm.get(['landDetails', index, 'landConsideredValue']).patchValue(considerValue);
                 break;
             case 'landBuilding':
-                const landBuildingConValue = (Number(this.securityForm.get(['landBuilding', index, 'distressValue']).value)
+                const landConValue = (Number(this.securityForm.get(['landBuilding', index, 'distressValue']).value)
                     * (Number(this.securityForm.get(['landBuilding', index, 'landBuildingRate']).value / 100)));
-                this.securityForm.get(['landBuilding', index, 'landConsideredValue']).patchValue(landBuildingConValue);
+                this.securityForm.get(['landBuilding', index, 'totalLandRealisableValue'])
+                    .patchValue(Number(landConValue));
+                const landBuildingConValue = (Number(this.securityForm.get(['landBuilding', index, 'apartmentDistressValue']).value)
+                    * (Number(this.securityForm.get(['landBuilding', index, 'apartmentRate']).value / 100)));
+                this.securityForm.get(['landBuilding', index, 'totalApartmentRealisableValue'])
+                    .patchValue(Number(landBuildingConValue));
+                this.securityForm.get(['landBuilding', index, 'landConsideredValue'])
+                    .patchValue(Number(landConValue + landBuildingConValue));
                 break;
             case 'lbUnderConstruction':
                 const lbUnderConValue = (Number(this.securityForm.get(['landBuilding', index, 'distressValueConstruction']).value)
-                    *( Number(this.securityForm.get(['landBuilding', index, 'landbuildingUnderRate']).value) / 100));
+                    * (Number(this.securityForm.get(['landBuilding', index, 'landbuildingUnderRate']).value) / 100));
                 this.securityForm.get(['landBuilding', index, 'landConsideredValueConstruction']).patchValue(lbUnderConValue);
                 break;
         }
@@ -2566,5 +2589,21 @@ export class SecurityInitialFormComponent implements OnInit {
     }
     secondHand(event) {
         this.isSecondHand = event;
+    }
+
+    calcRealiasable(i, key) {
+        switch (key) {
+            case 'apartment': {
+                const reliasableValue = (Number(this.securityForm.get(['buildingDetails', i, 'buildingDistressValue']).value)
+                    * (Number(this.securityForm.get(['buildingDetails', i, 'apartmentRate']).value) / 100));
+                this.securityForm.get(['buildingDetails', i, 'buildingReliasableValue']).patchValue(reliasableValue);
+            }
+            break;
+            case 'vehicle': {
+                const reliasableValue = (Number(this.securityForm.get(['vehicleDetails', i, 'valuationAmount']).value)
+                    * (Number(this.securityForm.get(['vehicleDetails', i, 'vehicleRate']).value) / 100));
+                this.securityForm.get(['vehicleDetails', i, 'vehicleRealiasableAmount']).patchValue(reliasableValue);
+            }
+        }
     }
 }
