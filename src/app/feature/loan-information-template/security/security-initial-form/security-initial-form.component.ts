@@ -368,7 +368,12 @@ export class SecurityInitialFormComponent implements OnInit {
             avgDaysForPrice: undefined,
         });
         if (!ObjectUtil.isEmpty(this.shareSecurity)) {
-            this.shareSecurityForm.get('securityOffered').patchValue(JSON.parse(this.shareSecurity.data)['securityOffered']);
+            if (this.shareSecurity.approvedData) {
+                this.shareSecurityForm.get('securityOffered').patchValue(JSON.parse(this.shareSecurity.approvedData)['securityOffered']);
+            }
+            if (this.shareSecurity.data) {
+                this.shareSecurityForm.get('securityOffered').patchValue(JSON.parse(this.shareSecurity.data)['securityOffered']);
+            }
         }
     }
 

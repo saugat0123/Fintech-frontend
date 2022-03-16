@@ -71,7 +71,8 @@ export class SecurityViewComponent implements OnInit {
   ngOnInit() {
     this.random = Math.floor(Math.random() * 100) + 1;
     this.url = ApiConfig.URL;
-    this.securityData = JSON.parse(this.security.data);
+    // console.log('approved data', JSON.parse(this.security.approvedData));
+    this.securityData = JSON.parse(this.security.approvedData);
     console.log('Security Data:', this.securityData);
     if (this.securityData['selectedArray'] !== undefined) {
       this.isSecurityPresent = true;
