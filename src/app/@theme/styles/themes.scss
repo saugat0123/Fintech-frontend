@@ -12,6 +12,14 @@ $nb-enable-css-custom-properties: true;
     font-size: 10pt !important;
   }
 }
+.disable-print {
+  display: inline;
+}
+
+.show-print {
+  display: none;
+}
+
 @media print {
   @page {
     //size: A4;
@@ -142,8 +150,17 @@ $nb-themes: nb-register-theme((
     width: 100%;
   }
 
+  .summary {
+    font-family: Cambria, Georgia, serif;
+    font-size: 21px !important;
+  }
+
 
   .disable-print {
     display: none;
+  }
+
+  .show-print {
+    display: inline;
   }
 }

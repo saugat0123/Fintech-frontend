@@ -5,50 +5,77 @@
     <thead>
     <tr class="text-white sb-bg-dark">
         <th>S.N</th>
-        <th>Facility</th>
-        <th>Limit</th>
+        <th>Facilities</th>
+        <th>Existing Limit</th>
+        <th>New Limit</th>
+        <th>Total Limit</th>
+        <th>Interest Rate/ Commission</th>
+        <th>Maturity</th>
+        <!--<th>Limit</th>
         <th>Disbursement</th>
         <th>Int Rate</th>
-        <th>Maturity</th>
+        <th>Maturity</th>-->
         <th>Frequency</th>
         <th *ngIf="fromScc">Approved By</th>
 
     </tr>
     </thead>
     <tbody>
-    <tr *ngIf="disbursementDetails?.length < 1">
-        <td colspan="7" class="text-danger">NO Disbursement has Been Performed Yet</td>
+<!--    <tr *ngIf="disbursementDetails?.length < 1">-->
+<!--        <td colspan="7" class="text-danger">NO Disbursement has Been Performed Yet</td>-->
+<!--    </tr>-->
+    <tr *ngIf="!isExposureFilled">
+        <td colspan="7" class="text-danger">Exposure Details has not been saved yet</td>
     </tr>
     <tr *ngFor="let ex of disbursementDetails;let i=index">
         <td>{{i + 1}}</td>
         <td>{{ex?.loanName}}</td>
+        <td>
+            {{ex?.loanLimit}}
+        </td>
+        <td>
+            {{ex?.newLoanLimit}}
+        </td>
+        <td>
+            {{ex?.totalLoanLimit}}
+        </td>
+        <td>
+            {{ex?.initialRate}}
+        </td>
+        <td>
+            {{ex?.maturity}}
+        </td>
+        <!--
         <td class="text-right px-2">Rs.{{ex?.loanLimit | currencyFormatter}}</td>
         <td class="text-right px-2">Rs.{{ex?.disbursement | currencyFormatter}}</td>
         <td>{{ex?.initialRate}}</td>
-        <td>{{ex?.maturity}}</td>
+        <td>{{ex?.maturity}}</td>-->
         <td>{{ex?.frequency}}</td>
         <td *ngIf="fromScc">{{ex?.approvedLoanBy}}</td>
     </tr>
     <tr>
         <td colspan="2" class="font-weight-bold" *ngIf="fromScc">Total Funded</td>
         <td class="text-right px-2">Rs.{{totalFundedNonFunded(disbursementDetails, 'loanLimit',true) |currencyFormatter}}</td>
+        <td class="text-right px-2">Rs.{{totalFundedNonFunded(disbursementDetails, 'newLoanLimit',true) |currencyFormatter}}</td>
         <td class="text-right px-2">Rs.{{totalFundedNonFunded(disbursementDetails, 'disbursement',true) |currencyFormatter}}</td>
         <td colspan="4"></td>
     </tr>
     <tr>
         <td colspan="2" class="font-weight-bold" *ngIf="fromScc">Total NonFunded</td>
         <td class="text-right px-2">Rs.{{totalFundedNonFunded(disbursementDetails, 'loanLimit',false) |currencyFormatter}}</td>
+        <td class="text-right px-2">Rs.{{totalFundedNonFunded(disbursementDetails, 'newLoanLimit',false) |currencyFormatter}}</td>
         <td class="text-right px-2">Rs.{{totalFundedNonFunded(disbursementDetails, 'disbursement',false) |currencyFormatter}}</td>
         <td colspan="4"></td>
     </tr>
     <tr>
         <td colspan="2" class="font-weight-bold">Total</td>
         <td class="text-right px-2">Rs.{{totalSum(disbursementDetails, 'loanLimit') |currencyFormatter}}</td>
+        <td class="text-right px-2">Rs.{{totalSum(disbursementDetails, 'newLoanLimit') |currencyFormatter}}</td>
         <td class="text-right px-2">Rs.{{totalSum(disbursementDetails, 'disbursement') |currencyFormatter}}</td>
         <td colspan="3" *ngIf="!fromScc"></td>
         <td colspan="4" *ngIf="fromScc"></td>
     </tr>
-        <a *ngIf="sccPath" (click)="service.openDocument(sccPath)" class="cursor float-right" nbTooltip="click to open"> SCC FILE <em
+        <a *ngIf="sccPath" (click)="service.openDocument(sccPath)" class="cursor float-right disable-print" nbTooltip="click to open"> SCC FILE <em
                 [className]="service.SET_CLASS_NAME"></em>
         </a>
     </tbody>
@@ -59,14 +86,13 @@
         <thead>
         <tr class="text-white sb-bg-dark">
             <th>S.N</th>
-            <th>Facility</th>
-            <th>Limit</th>
-            <th>Disbursement</th>
-            <th>Int Rate</th>
+            <th>Facilities</th>
+            <th>Existing Limit</th>
+            <th>New Limit</th>
+            <th>Total Limit</th>
+            <th>Interest Rate/ Commission</th>
             <th>Maturity</th>
             <th>Frequency</th>
-
-
         </tr>
         </thead>
         <tbody>
@@ -81,7 +107,9 @@
                     <td>{{'abcdefghijklmnopqrstuvwxyz'.charAt(k)}}</td>
                     <td>{{inn?.loanName}}</td>
                     <td class="text-right px-2">Rs.{{inn?.loanLimit |currencyFormatter}}</td>
-                    <td class="text-right px-2">Rs.{{inn?.disbursement |currencyFormatter}}</td>
+                    <td class="text-right px-2">Rs.{{inn?.newLoanLimit |currencyFormatter}}</td>
+                    <td class="text-right px-2">Rs.{{inn?.totalLoanLimit |currencyFormatter}}</td>
+<!--                    <td class="text-right px-2">Rs.{{inn?.disbursement |currencyFormatter}}</td>-->
                     <td>{{inn?.initialRate}}</td>
                     <td>{{inn?.maturity}}</td>
                     <td>{{inn?.frequency}}</td>

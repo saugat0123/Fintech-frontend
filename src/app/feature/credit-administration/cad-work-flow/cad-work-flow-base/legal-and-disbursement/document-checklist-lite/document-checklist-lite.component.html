@@ -10,17 +10,9 @@
             <table class="table table-bordered table-hover text-center sb-small table-sm">
                 <thead class="sb-bg-dark text-white">
                 <tr>
-                    <th>
-                        S.N
-                    </th>
-
-                    <th>
-                        Document Name
-                    </th>
-
-                    <th>
-                        Upload
-                    </th>
+                    <th>S.N</th>
+                    <th>Document Name</th>
+                    <th>Upload</th>
                     <th>Preview</th>
                     <th *ngIf="client === clientList.LAXMIBANK || client === clientList.PROGRESSIVE">Generate</th>
                     <th>Amount</th>
@@ -48,12 +40,15 @@
                             <i (click)="previewDoc(data.url,data.name)" *ngIf="!data.url"
                                class="fas fa-times-circle text-danger"></i>
                         </td>
-                        <td *ngIf="(data.id.toString() !== cadChecklistEnum.HYPOTHECATION && data.id.toString() !== cadChecklistEnum.VEHICLE_APPLICATION && data.id.toString() !== cadChecklistEnum.LOAN_APPLICATION)">
-                            <button (click)="populateCadTemplate(data.id,0)" *ngIf="data.containsTemplate"
-                                    class="align-items-center" nbButton
-                                    size="tiny" status="primary">
-                                Generate
+                        <td>
+                            <span *ngIf="(data.id.toString() !== cadChecklistEnum.HYPOTHECATION &&
+                                    data.id.toString() !== cadChecklistEnum.VEHICLE_APPLICATION &&
+                                    data.id.toString() !== cadChecklistEnum.LOAN_APPLICATION)">
+                                <button (click)="populateCadTemplate(data.id,0)" *ngIf="data.containsTemplate"
+                                        class="align-items-center" nbButton
+                                        size="tiny" status="primary">Generate
                             </button>
+                            </span>
                         </td>
                         <td>{{data.amount}}</td>
                         <td>{{data.remarks}}</td>
