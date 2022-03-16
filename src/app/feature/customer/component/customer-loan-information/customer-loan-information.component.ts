@@ -448,6 +448,16 @@ export class CustomerLoanInformationComponent implements OnInit {
             this.ciclResponse = new CiclArray();
         }
         this.customer.bankingRelationship = JSON.stringify(JSON.parse(data.cibRemark).bankingRelationship);
+        if (!ObjectUtil.isEmpty(this.customer.jointInfo)) {
+            const jointInfo = JSON.parse(this.customer.jointInfo);
+            jointInfo.bankingRelationship = JSON.parse(data.cibRemark).bankingRelationship;
+            this.customer.jointInfo = JSON.stringify(jointInfo);
+        }
+        if (ObjectUtil.isEmpty(this.customer.individualJsonData) && ObjectUtil.isEmpty(this.customer.jointInfo)) {
+            const bankingRelationship = JSON.parse(this.customer.bankingRelationship);
+            bankingRelationship.bankingRelationship = JSON.parse(data.cibRemark).bankingRelationship;
+            this.customer.bankingRelationship = JSON.stringify(bankingRelationship);
+        }
         this.customerService.save(this.customer).subscribe(res => {
             this.ciclResponse = data;
             this.customerInfoService.saveLoanInfo(this.ciclResponse, this.customerInfoId, TemplateName.CICL)
