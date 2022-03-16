@@ -780,30 +780,30 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
 
     goToCustomer() {
         const loanHolder = this.loanDataHolder.loanHolder;
-        // this.commonRoutingUtilsService.loadCustomerProfile(loanHolder.associateId, loanHolder.id, loanHolder.customerType);
-        const url = this.router.serializeUrl(
-            this.router.createUrlTree(['/home/customer/profile/' + loanHolder.associateId], {
-                queryParams: {
-                    customerType: loanHolder.customerType,
-                    customerInfoId: loanHolder.id
-                }
-            })
-        );
-        const urls = this.router.serializeUrl(
-            this.router.createUrlTree(['/home/customer/company-profile/' + loanHolder.associateId], {
-                queryParams: {
-                    id: loanHolder.id,
-                    customerType: loanHolder.customerType,
-                    companyInfoId: loanHolder.associateId,
-                    customerInfoId: loanHolder.id
-                }
-            })
-        );
-        if (CustomerType[loanHolder.customerType] === CustomerType.INDIVIDUAL) {
-            window.open(url, '_blank');
-        } else if (CustomerType[loanHolder.customerType] === CustomerType.INSTITUTION) {
-            window.open(urls, '_blank');
-        }
+       this.commonRoutingUtilsService.loadCustomerProfile(loanHolder.associateId, loanHolder.id, loanHolder.customerType);
+        // const url = this.router.serializeUrl(
+        //     this.router.createUrlTree(['/home/customer/profile/' + loanHolder.associateId], {
+        //         queryParams: {
+        //             customerType: loanHolder.customerType,
+        //             customerInfoId: loanHolder.id
+        //         }
+        //     })
+        // );
+        // const urls = this.router.serializeUrl(
+        //     this.router.createUrlTree(['/home/customer/company-profile/' + loanHolder.associateId], {
+        //         queryParams: {
+        //             id: loanHolder.id,
+        //             customerType: loanHolder.customerType,
+        //             companyInfoId: loanHolder.associateId,
+        //             customerInfoId: loanHolder.id
+        //         }
+        //     })
+        // );
+        // if (CustomerType[loanHolder.customerType] === CustomerType.INDIVIDUAL) {
+        //     window.open(url, '_blank');
+        // } else if (CustomerType[loanHolder.customerType] === CustomerType.INSTITUTION) {
+        //     window.open(urls, '_blank');
+        // }
     }
 
     getFiscalYears() {

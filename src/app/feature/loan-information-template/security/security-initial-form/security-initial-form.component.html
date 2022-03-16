@@ -213,7 +213,7 @@
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label class="title" for="rate">Rate</label>
+                                <label class="title" for="rate">Realiasable Rate</label>
                                 <input (input)="calConsiderValue('land', i)"
                                        class="form-control rounded"
                                        formControlName="landRate"
@@ -703,6 +703,16 @@
                                 </div>
                                 <div class="col-md-4">
                                     <div class="form-group">
+                                        <label class="title" for="proposedOwner">Proposed Owner</label>
+                                        <input class="form-control rounded"
+                                               formControlName="proposedOwner"
+                                               id="proposedOwner"
+                                               name="proposedOwner" placeholder="Owner Name"
+                                               type="text"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
                                         <label class="title" for="buildingDescription">Apartment Description</label>
                                         <input class="form-control rounded"
                                                formControlName="buildingDescription"
@@ -750,15 +760,15 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="title" for="floorName">Floor Name</label>
-                                        <input class="form-control rounded" formControlName="floorName"
-                                               id="floorName"
-                                               name="floorName" placeholder="First Floor,Second....."
-                                               type="text"/>
-                                    </div>
-                                </div>
+<!--                                <div class="col-md-4">-->
+<!--                                    <div class="form-group">-->
+<!--                                        <label class="title" for="floorName">Floor Name</label>-->
+<!--                                        <input class="form-control rounded" formControlName="floorName"-->
+<!--                                               id="floorName"-->
+<!--                                               name="floorName" placeholder="First Floor,Second....."-->
+<!--                                               type="text"/>-->
+<!--                                    </div>-->
+<!--                                </div>-->
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="title" for="valuationArea">Valuation Taken Area
@@ -792,68 +802,68 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="title" for="waterSupply">Water Supply %</label>
-                                        <input (input)="calculateWaterSupply(i,'building')" class="form-control rounded"
-                                               formControlName="waterSupplyPercent"
-                                               id="waterSupplyPercent"
-                                               name="waterSupplyPercent" placeholder="Water Supply %"
-                                               type="number"/>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="title" for="waterSupply">Water Supply</label>
-                                        <input class="form-control rounded" formControlName="waterSupply"
-                                               id="waterSupply"
-                                               name="waterSupply" placeholder="Water Supply"
-                                               type="number" readonly
-                                               (ngModelChange)="calculateTotalApartmentCost(i,'building')"/>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="title" for="sanitationPercent">Sanitation %</label>
-                                        <input (input)="calculateSanitation(i,'building')" class="form-control rounded"
-                                               formControlName="sanitationPercent"
-                                               id="sanitationPercent"
-                                               name="sanitationPercent" placeholder="Sanitation %"
-                                               type="number"/>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="title" for="sanitation">Sanitation</label>
-                                        <input class="form-control rounded" formControlName="sanitation"
-                                               id="sanitation"
-                                               name="sanitation" placeholder="Sanitation"
-                                               type="number" readonly
-                                               (ngModelChange)="calculateTotalApartmentCost(i,'building')"/>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="title" for="electrificationPercent">Electrification %</label>
-                                        <input (input)="calculateElectrification(i,'building')"
-                                               class="form-control rounded"
-                                               formControlName="electrificationPercent"
-                                               id="electrificationPercent"
-                                               name="electrificationPercent" placeholder="Electrification %"
-                                               type="number"/>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="title" for="electrification">Electrification</label>
-                                        <input class="form-control rounded"
-                                               formControlName="electrification"
-                                               id="electrification"
-                                               name="electrification" placeholder="Electrification"
-                                               type="number" readonly
-                                               (ngModelChange)="calculateTotalApartmentCost(i, 'building')"/>
-                                    </div>
-                                </div>
+<!--                                <div class="col-md-4">-->
+<!--                                    <div class="form-group">-->
+<!--                                        <label class="title" for="waterSupply">Water Supply %</label>-->
+<!--                                        <input (input)="calculateWaterSupply(i,'building')" class="form-control rounded"-->
+<!--                                               formControlName="waterSupplyPercent"-->
+<!--                                               id="waterSupplyPercent"-->
+<!--                                               name="waterSupplyPercent" placeholder="Water Supply %"-->
+<!--                                               type="number"/>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div class="col-md-4">-->
+<!--                                    <div class="form-group">-->
+<!--                                        <label class="title" for="waterSupply">Water Supply</label>-->
+<!--                                        <input class="form-control rounded" formControlName="waterSupply"-->
+<!--                                               id="waterSupply"-->
+<!--                                               name="waterSupply" placeholder="Water Supply"-->
+<!--                                               type="number" readonly-->
+<!--                                               (ngModelChange)="calculateTotalApartmentCost(i,'building')"/>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div class="col-md-4">-->
+<!--                                    <div class="form-group">-->
+<!--                                        <label class="title" for="sanitationPercent">Sanitation %</label>-->
+<!--                                        <input (input)="calculateSanitation(i,'building')" class="form-control rounded"-->
+<!--                                               formControlName="sanitationPercent"-->
+<!--                                               id="sanitationPercent"-->
+<!--                                               name="sanitationPercent" placeholder="Sanitation %"-->
+<!--                                               type="number"/>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div class="col-md-4">-->
+<!--                                    <div class="form-group">-->
+<!--                                        <label class="title" for="sanitation">Sanitation</label>-->
+<!--                                        <input class="form-control rounded" formControlName="sanitation"-->
+<!--                                               id="sanitation"-->
+<!--                                               name="sanitation" placeholder="Sanitation"-->
+<!--                                               type="number" readonly-->
+<!--                                               (ngModelChange)="calculateTotalApartmentCost(i,'building')"/>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div class="col-md-4">-->
+<!--                                    <div class="form-group">-->
+<!--                                        <label class="title" for="electrificationPercent">Electrification %</label>-->
+<!--                                        <input (input)="calculateElectrification(i,'building')"-->
+<!--                                               class="form-control rounded"-->
+<!--                                               formControlName="electrificationPercent"-->
+<!--                                               id="electrificationPercent"-->
+<!--                                               name="electrificationPercent" placeholder="Electrification %"-->
+<!--                                               type="number"/>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                                <div class="col-md-4">-->
+<!--                                    <div class="form-group">-->
+<!--                                        <label class="title" for="electrification">Electrification</label>-->
+<!--                                        <input class="form-control rounded"-->
+<!--                                               formControlName="electrification"-->
+<!--                                               id="electrification"-->
+<!--                                               name="electrification" placeholder="Electrification"-->
+<!--                                               type="number" readonly-->
+<!--                                               (ngModelChange)="calculateTotalApartmentCost(i, 'building')"/>-->
+<!--                                    </div>-->
+<!--                                </div>-->
                             </div>
 
                             <div class="row">
@@ -2560,7 +2570,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label class="title" for="valuationAmount"><strong>Valuation Amount</strong></label>
+                                <label class="title" for="valuationAmount"><strong>Quotation/Valuation Amount</strong></label>
                                 <input  [ngClass]="{ 'is-invalid': (vehicleSelected) && (addMoreVehicle.get('valuationAmount').errors ||
                                         addMoreVehicle.get('valuationAmount').invalid) }"
                                         (keyup)="vehicleRemainingAmount(i)"
@@ -2650,7 +2660,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <nb-checkbox class="form-control"  formControlName="isSecondHand">Is vehicle second hand?</nb-checkbox>
+                    <div class="row" *ngIf="securityForm.get(['vehicleDetails',i,'isSecondHand']).value">
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Valuator Name</label>

@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit, QueryList, ViewChildren} from '@angular/core';
+import {Component, Input, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {AbstractControl, FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ToastService} from '../../../../@core/utils';
 import {CalendarType} from '../../../../@core/model/calendar-type';
@@ -158,6 +158,7 @@ export class SecurityInitialFormComponent implements OnInit {
     isOpen = false;
     newOwnerShipTransfer = [];
     loanList = [];
+    isSecondHand = false;
 
     constructor(private formBuilder: FormBuilder,
                 private valuatorToast: ToastService,
@@ -647,6 +648,7 @@ export class SecurityInitialFormComponent implements OnInit {
                     apartmentStaffRepresentativeName2: [singleData.apartmentStaffRepresentativeName2],
                     apartmentOtherBranchChecked: [singleData.apartmentOtherBranchChecked],
                     uuid: [ObjectUtil.isEmpty(singleData.uuid) ? this.uuid() : singleData.uuid],
+                    proposedOwner: [singleData.proposedOwner],
                 })
             );
         });
@@ -1377,6 +1379,7 @@ export class SecurityInitialFormComponent implements OnInit {
             apartmentStaffRepresentativeName2: [undefined],
             apartmentOtherBranchChecked: [undefined],
             uuid: [this.uuid()],
+            proposedOwner: [undefined],
         });
     }
 
@@ -1642,6 +1645,7 @@ export class SecurityInitialFormComponent implements OnInit {
             vehicleRemarks: [undefined],
             vehicleOtherBranchChecked: [undefined],
             uuid: [this.uuid()],
+            isSecondHand: [undefined],
         });
     }
 
@@ -1691,6 +1695,7 @@ export class SecurityInitialFormComponent implements OnInit {
                         undefined : new Date(singleData.vehicleQuotationDate)],
                     vehicleRemarks: [singleData.vehicleRemarks],
                     vehicleOtherBranchChecked: [singleData.vehicleOtherBranchChecked],
+                    isSecondHand: [singleData.isSecondHand?singleData.isSecondHand:undefined],
                     uuid: [ObjectUtil.isEmpty(singleData.uuid) ? this.uuid() : singleData.uuid],
                 })
             );
@@ -2281,17 +2286,17 @@ export class SecurityInitialFormComponent implements OnInit {
         switch (type) {
             case 'land':
                 const considerValue = (Number(this.securityForm.get(['landDetails', index, 'distressValue']).value)
-                    * Number(this.securityForm.get(['landDetails', index, 'landRate']).value));
+                    * (Number(this.securityForm.get(['landDetails', index, 'landRate']).value)) / 100);
                 this.securityForm.get(['landDetails', index, 'landConsideredValue']).patchValue(considerValue);
                 break;
             case 'landBuilding':
                 const landBuildingConValue = (Number(this.securityForm.get(['landBuilding', index, 'distressValue']).value)
-                    * Number(this.securityForm.get(['landBuilding', index, 'landBuildingRate']).value));
+                    * (Number(this.securityForm.get(['landBuilding', index, 'landBuildingRate']).value / 100)));
                 this.securityForm.get(['landBuilding', index, 'landConsideredValue']).patchValue(landBuildingConValue);
                 break;
             case 'lbUnderConstruction':
                 const lbUnderConValue = (Number(this.securityForm.get(['landBuilding', index, 'distressValueConstruction']).value)
-                    * Number(this.securityForm.get(['landBuilding', index, 'landbuildingUnderRate']).value));
+                    *( Number(this.securityForm.get(['landBuilding', index, 'landbuildingUnderRate']).value) / 100));
                 this.securityForm.get(['landBuilding', index, 'landConsideredValueConstruction']).patchValue(lbUnderConValue);
                 break;
         }
@@ -2558,5 +2563,8 @@ export class SecurityInitialFormComponent implements OnInit {
                 this.securityForm.get('apartmentFmvOfFacTotal').patchValue(totalFMV);
                 break;
         }
+    }
+    secondHand(event) {
+        this.isSecondHand = event;
     }
 }

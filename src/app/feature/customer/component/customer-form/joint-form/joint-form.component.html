@@ -757,60 +757,60 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <h6><strong>Additional Description</strong></h6>
-                            <nb-checkbox (change)="onChecked($event.target.checked,'income')"
-                                         [checked]="incomeRiskChecked">
-                                <b>Income Risk & Mitigation</b>
-                            </nb-checkbox>
-                            <ckeditor *ngIf="incomeRiskChecked" [ngClass]="{ 'is-invalid': (submitted) && basicJointInfo.get('incomeRisk').errors }"
-                                      id="incomeRisk" formControlName="incomeRisk"
-                                      [config]="ckeConfig"></ckeditor>
-                            <div *ngIf="(submitted) && basicJointInfo.get('incomeRisk').invalid"
-                                 class="help-block">
-                                                        <span *ngIf="basicJointInfo.get('incomeRisk').errors.required">
-                                                          <span class="text-danger">Income risk & Mitigation is required</span>
-                                                        </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <nb-checkbox (change)="onChecked($event.target.checked,'security')"
-                                         [checked]="securityRiskChecked">
-                                <label><strong>Security Risk & Mitigation</strong></label>
-                            </nb-checkbox>
+<!--                    <div class="col-md-12">-->
+<!--                        <div class="form-group">-->
+<!--                            <h6><strong>Additional Description</strong></h6>-->
+<!--                            <nb-checkbox (change)="onChecked($event.target.checked,'income')"-->
+<!--                                         [checked]="incomeRiskChecked">-->
+<!--                                <b>Income Risk & Mitigation</b>-->
+<!--                            </nb-checkbox>-->
+<!--                            <ckeditor *ngIf="incomeRiskChecked" [ngClass]="{ 'is-invalid': (submitted) && basicJointInfo.get('incomeRisk').errors }"-->
+<!--                                      id="incomeRisk" formControlName="incomeRisk"-->
+<!--                                      [config]="ckeConfig"></ckeditor>-->
+<!--                            <div *ngIf="(submitted) && basicJointInfo.get('incomeRisk').invalid"-->
+<!--                                 class="help-block">-->
+<!--                                                        <span *ngIf="basicJointInfo.get('incomeRisk').errors.required">-->
+<!--                                                          <span class="text-danger">Income risk & Mitigation is required</span>-->
+<!--                                                        </span>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-md-12">-->
+<!--                        <div class="form-group">-->
+<!--                            <nb-checkbox (change)="onChecked($event.target.checked,'security')"-->
+<!--                                         [checked]="securityRiskChecked">-->
+<!--                                <label><strong>Security Risk & Mitigation</strong></label>-->
+<!--                            </nb-checkbox>-->
 
-                            <ckeditor *ngIf="securityRiskChecked" [ngClass]="{ 'is-invalid': (submitted) && basicJointInfo.get('securityRisk').errors }"
-                                      id="securityRisk" formControlName="securityRisk"
-                                      [config]="ckeConfig"></ckeditor>
-                            <div *ngIf="(submitted) && basicJointInfo.get('securityRisk').invalid"
-                                 class="help-block">
-                                                        <span *ngIf="basicJointInfo.get('securityRisk').errors.required">
-                                                          <span class="text-danger">Security risk & Mitigation is required</span>
-                                                        </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <nb-checkbox (change)="onChecked($event.target.checked,'succession')"
-                                         [checked]="successionRiskChecked">
-                                <label><strong>Succession Risk & Mitigation</strong></label>
-                            </nb-checkbox>
+<!--                            <ckeditor *ngIf="securityRiskChecked" [ngClass]="{ 'is-invalid': (submitted) && basicJointInfo.get('securityRisk').errors }"-->
+<!--                                      id="securityRisk" formControlName="securityRisk"-->
+<!--                                      [config]="ckeConfig"></ckeditor>-->
+<!--                            <div *ngIf="(submitted) && basicJointInfo.get('securityRisk').invalid"-->
+<!--                                 class="help-block">-->
+<!--                                                        <span *ngIf="basicJointInfo.get('securityRisk').errors.required">-->
+<!--                                                          <span class="text-danger">Security risk & Mitigation is required</span>-->
+<!--                                                        </span>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="col-md-12">-->
+<!--                        <div class="form-group">-->
+<!--                            <nb-checkbox (change)="onChecked($event.target.checked,'succession')"-->
+<!--                                         [checked]="successionRiskChecked">-->
+<!--                                <label><strong>Succession Risk & Mitigation</strong></label>-->
+<!--                            </nb-checkbox>-->
 
-                            <ckeditor *ngIf="successionRiskChecked" [ngClass]="{ 'is-invalid': (submitted) && basicJointInfo.get('successionRisk').errors }"
-                                      id="successionRisk" formControlName="successionRisk"
-                                      [config]="ckeConfig"></ckeditor>
-                            <div *ngIf="(submitted) && basicJointInfo.get('successionRisk').invalid"
-                                 class="help-block">
-                                                        <span *ngIf="basicJointInfo.get('successionRisk').errors.required">
-                                                          <span class="text-danger">Succession risk & Mitigation is required</span>
-                                                        </span>
-                            </div>
-                        </div>
-                    </div>
+<!--                            <ckeditor *ngIf="successionRiskChecked" [ngClass]="{ 'is-invalid': (submitted) && basicJointInfo.get('successionRisk').errors }"-->
+<!--                                      id="successionRisk" formControlName="successionRisk"-->
+<!--                                      [config]="ckeConfig"></ckeditor>-->
+<!--                            <div *ngIf="(submitted) && basicJointInfo.get('successionRisk').invalid"-->
+<!--                                 class="help-block">-->
+<!--                                                        <span *ngIf="basicJointInfo.get('successionRisk').errors.required">-->
+<!--                                                          <span class="text-danger">Succession risk & Mitigation is required</span>-->
+<!--                                                        </span>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
                     <div *ngIf="!crgLambdaDisabled" class="col-md-12">
                         <div class="form-group">
 <!--                            <nb-checkbox (change)="onChecked($event.target.checked,'banking')"-->
@@ -839,18 +839,18 @@
                     </div>
                 </div>
 
-                <div *ngIf="!crgLambdaDisabled" class="col-4">
-                    <label><strong>Net worth</strong></label>
-                    <input id="netWorth" formControlName="netWorth" name="netWorth" type="text"
-                           class="form-control" placeholder="Net Worth Amount"
-                           [ngClass]="{ 'is-invalid': (submitted) && basicJointInfo.get('netWorth').errors }" appDecimalNumber/>
-                    <div *ngIf="(submitted) && basicJointInfo.get('netWorth').invalid"
-                         class="invalid-feedback">
-                        <div *ngIf="basicJointInfo.get('netWorth').errors">
-                            Valid Worth Amount is required
-                        </div>
-                    </div>
-                </div>
+<!--                <div *ngIf="!crgLambdaDisabled" class="col-4">-->
+<!--                    <label><strong>Net worth</strong></label>-->
+<!--                    <input id="netWorth" formControlName="netWorth" name="netWorth" type="text"-->
+<!--                           class="form-control" placeholder="Net Worth Amount"-->
+<!--                           [ngClass]="{ 'is-invalid': (submitted) && basicJointInfo.get('netWorth').errors }" appDecimalNumber/>-->
+<!--                    <div *ngIf="(submitted) && basicJointInfo.get('netWorth').invalid"-->
+<!--                         class="invalid-feedback">-->
+<!--                        <div *ngIf="basicJointInfo.get('netWorth').errors">-->
+<!--                            Valid Worth Amount is required-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
             </form>
             </nb-tab>
             </nb-tabset>

@@ -514,7 +514,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-4" *ngIf="customerInfo?.customerType === 'INSTITUTION'">
                                         <div class="form-group">
                                             <label><strong>Member of Management Team</strong></label>
                                             <select class="form-control form-control-sm-error rounded"
@@ -538,7 +538,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-4" *ngIf="customerInfo?.customerType === 'INSTITUTION'">
                                         <div class="form-group">
                                             <label><strong>Member of Board Director</strong></label>
                                             <select class="form-control form-control-sm-error rounded"
@@ -789,7 +789,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-4" *ngIf="customerInfo?.customerType === 'INSTITUTION'">
                                     <div class="form-group">
                                         <label><strong>Type of Shareholding</strong></label>
                                         <select class="form-control form-control-sm-error rounded"
@@ -801,7 +801,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-4" *ngIf="customerInfo?.customerType === 'INSTITUTION'">
                                     <div class="form-group">
                                         <label><strong> % Shareholding</strong></label>
                                         <input [ngClass]="{ 'is-invalid': (submitted) && guarantorDetails.get('sharePercent').errors }"
