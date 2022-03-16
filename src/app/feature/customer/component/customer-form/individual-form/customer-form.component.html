@@ -220,17 +220,17 @@
                                <div class="form-group">
                                    <label for="contactNumber"><strong>Mobile Number</strong></label>
                                    <input
-                                           [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.contactNumber.errors }"
+                                           [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.contactNumber?.errors }"
                                            class="form-control" formControlName="contactNumber" id="contactNumber"
                                            name="contactNumber"
                                            placeholder="Mobile number"
                                            type="number">
-                                   <div *ngIf="(submitted) && basicInfoControls.contactNumber.invalid"
+                                   <div *ngIf="(submitted) && basicInfoControls.contactNumber?.invalid"
                                         class="invalid-feedback">
-                                       <div *ngIf="basicInfoControls.contactNumber.errors.required">
+                                       <div *ngIf="basicInfoControls.contactNumber?.errors.required">
                                            Mobile Number number is required
                                        </div>
-                                       <div *ngIf="basicInfoControls.contactNumber?.errors.min || basicInfoControls.contactNumber?.errors.max">
+                                       <div *ngIf="submitted && basicInfoControls.contactNumber?.errors.min || basicInfoControls.contactNumber?.errors.max">
                                            Enter 10 Digit Mobile no!
                                        </div>
                                    </div>
