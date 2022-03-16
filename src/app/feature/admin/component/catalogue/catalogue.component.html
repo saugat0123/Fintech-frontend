@@ -157,6 +157,7 @@
                 <th *ngIf="showBranchProvince">Branch Province</th>
                 <th>Action</th>
                 <th>Diary Note</th>
+                <th>Revert to previous Stage</th>
             </tr>
             </thead>
             <tbody>
@@ -259,6 +260,11 @@
                             </em>
                         </a>
                     </ng-container>
+                </td>
+                <td *ngIf="model?.documentStatus.toString() === 'APPROVED'">
+                    <button nbButton status="warning" size="tiny"
+                            (click)="revertApproveLoan(model)">
+                        <em class="fa fa-arrow-circle-right"></em></button>
                 </td>
 
                 <ng-template #linkin>

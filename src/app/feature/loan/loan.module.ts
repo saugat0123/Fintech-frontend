@@ -63,7 +63,6 @@ import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
 import {ReportingModule} from '../reporting/reporting.module';
 import {LoanInformationTemplateModule} from '../loan-information-template/loan-information-template.module';
 import {LoanInformationViewModule} from '../loan-information-view/loan-information-view.module';
-import {LoanActionModalComponent} from './loan-action/loan-action-modal/loan-action-modal.component';
 import {LoanActionVerificationComponent} from './loan-action/loan-action-verification/loan-action-verification.component';
 import {LoanActionCombinedModalComponent} from './loan-action/loan-action-combined-modal/loan-action-combined-modal.component';
 import {GuarantorAdderComponent} from './component/loan-main-template/guarantor-adder/guarantor-adder.component';
@@ -137,7 +136,6 @@ const COMPONENTS = [
     BikeKarjaPrintComponent,
     CustomerAssociateComponent,
     CustomerAssociateComponent,
-    LoanActionModalComponent,
     LoanActionVerificationComponent,
     LoanActionCombinedModalComponent,
     GuarantorAdderComponent,
@@ -158,7 +156,6 @@ const ENTRY_COMPONENTS = [
     LoanMainNepaliTemplateComponent,
     CustomerInfoNepaliComponent,
     CustomerAssociateComponent,
-    LoanActionModalComponent,
     LoanActionVerificationComponent,
     LoanActionCombinedModalComponent,
     GuarantorDetailComponent,

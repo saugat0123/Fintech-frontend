@@ -46,6 +46,7 @@ export class LoanActionModalComponent implements OnInit {
     @Input() branchId: number;
     @Input() isMaker: boolean;
     @Input() customerLoanHolder: LoanDataHolder;
+    @Input() toUser;
     submitted = false;
     formAction: FormGroup;
     userList: Array<User> = new Array<User>();
@@ -79,7 +80,9 @@ export class LoanActionModalComponent implements OnInit {
     }
 
     ngOnInit() {
+        console.log('I am called form catalofue');
         this.formAction = this.buildForm();
+        console.log('Local Storage', LocalStorageUtil.getStorage());
         this.roleId = parseInt(LocalStorageUtil.getStorage().roleId, 10);
         this.conditionalDataLoad();
         if (!ObjectUtil.isEmpty(this.customerLoanHolder)) {
@@ -91,6 +94,13 @@ export class LoanActionModalComponent implements OnInit {
         }
         this.getHsovUserList();
         this.getHsovRole();
+        console.log('toUser', this.toUser);
+        if (!ObjectUtil.isEmpty(this.toUser)) {
+            this.formAction.patchValue({
+                toUser: this.toUser,
+                toRole: this.toUser.role
+            });
+        }
     }
 
     public getHsovRole() {
@@ -146,6 +156,7 @@ export class LoanActionModalComponent implements OnInit {
                 this.spinner = false;
             });
         });
+        console.log('userlist formAction', this.formAction);
     }
 
     public onSubmit() {
@@ -273,6 +284,7 @@ export class LoanActionModalComponent implements OnInit {
             case 'Approve':
                 const approvalType = LocalStorageUtil.getStorage().productUtil.LOAN_APPROVAL_HIERARCHY_LEVEL;
                 const refId = approvalType === 'DEFAULT' ? 0 : approvalType === 'LOAN_TYPE' ? this.loanConfigId : this.customerLoanId;
+                console.log('refId', refId);
 
                 this.approvalRoleHierarchyService.getForwardRolesForRoleWithType(this.roleId, approvalType, refId)
                     .subscribe((response: any) => {
@@ -281,6 +293,7 @@ export class LoanActionModalComponent implements OnInit {
                         this.sendForwardBackwardList = response.detail.sort(function (a, b) {
                             return parseFloat(b.roleOrder) - parseFloat(a.roleOrder);
                         });
+                        console.log('sendForwardBackwardList', this.sendForwardBackwardList);
                         if (this.customerLoanHolder.isHsov) {
                             this.sendForwardBackwardList = this.sendForwardBackwardList.filter(l => l.role.roleType === RoleType.APPROVAL);
                         }
@@ -291,12 +304,15 @@ export class LoanActionModalComponent implements OnInit {
                             this.getUserList(this.sendForwardBackwardList[0].role);
                         }
                     });
+                console.log('after Filter sendForwardBackwardList', this.sendForwardBackwardList);
+                console.log('Approved formAction', this.formAction);
                 break;
 
             default:
                 if (!ObjectUtil.isEmpty(this.toRole)) {
                     this.getUserList(this.toRole);
                 }// send backward to committee
+
 
         }
     }

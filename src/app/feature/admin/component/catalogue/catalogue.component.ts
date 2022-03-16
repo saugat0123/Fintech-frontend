@@ -43,6 +43,7 @@ import {
 import {CreditMemoFullRoutes} from '../../../credit-memo/credit-memo-full-routes';
 import {CreditMemoService} from '../../../credit-memo/service/credit-memo.service';
 import {CreditMemoModalComponent} from './credit-memo-modal/credit-memo-modal.component';
+import {LoanActionModalComponent} from '../../../loan/loan-action/loan-action-modal/loan-action-modal.component';
 
 @Component({
     selector: 'app-catalogue',
@@ -119,6 +120,8 @@ export class CatalogueComponent implements OnInit {
     isFileUnderCurrentToUser: any;
     loanConfigId: number;
     customerId: number;
+    isRemitLoan = false;
+    beneficiaryId: any;
 
     constructor(
         private branchService: BranchService,
@@ -168,6 +171,7 @@ export class CatalogueComponent implements OnInit {
         this.buildActionForm();
 
         this.roleAccess = LocalStorageUtil.getStorage().roleAccess;
+        console.log('getStorage()', LocalStorageUtil.getStorage());
         if (LocalStorageUtil.getStorage().roleType === RoleType.MAKER) {
             this.isMaker = true;
         }
@@ -681,5 +685,44 @@ export class CatalogueComponent implements OnInit {
 
     onCloseMemo() {
         // this.activeModalService.dismiss();
+    }
+
+    revertApproveLoan(data) {
+        if (data.loan.loanTag === 'REMIT_LOAN' && data.loan.isRemitLoan) {
+            this.isRemitLoan = true;
+        }
+        if (!ObjectUtil.isEmpty(data.remitCustomer)) {
+            this.beneficiaryId = data.remitCustomer.beneficiaryId;
+        }
+        console.log('data', data);
+        let context;
+        context = {
+            popUpTitle: 'Revert to Previous Stage',
+            isForward: true,
+            customerLoanHolder: data,
+            loanConfigId: data.loan.id.toString(),
+            customerLoanId: data.id.toString(),
+            branchId: data.branch.id,
+            docAction: 'REVOKED_LOAN',
+            docActionMsg: '',
+            documentStatus: DocStatus.PENDING,
+            isRemitLoan: this.isRemitLoan,
+            beneficiaryId: this.beneficiaryId,
+            toUser: data.currentStage.toUser
+        };
+        console.log('context', context);
+        this.dialogRef = this.nbDialogService.open(LoanActionModalComponent, {
+           context,
+            closeOnBackdropClick: false,
+            hasBackdrop: false,
+            hasScroll: true
+        });
+        this.dialogRef.onClose.subscribe(d => {
+            if (ObjectUtil.isEmpty(d)) {
+                this.spinner = false;
+            } else {
+                this.spinner = true;
+            }
+        });
     }
 }
