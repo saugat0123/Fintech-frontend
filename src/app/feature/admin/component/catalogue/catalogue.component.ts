@@ -144,7 +144,6 @@ export class CatalogueComponent implements OnInit {
         other.spinner = true;
         other.loanFormService.getCatalogues(other.catalogueService.search, other.page, 10).subscribe((response: any) => {
             other.loanDataHolderList = response.detail.content;
-            console.log('loan data holder list', other.loanDataHolderList);
             other.pageable = PaginationUtils.getPageable(response.detail);
             other.spinner = false;
             other.transferToggle = true;
