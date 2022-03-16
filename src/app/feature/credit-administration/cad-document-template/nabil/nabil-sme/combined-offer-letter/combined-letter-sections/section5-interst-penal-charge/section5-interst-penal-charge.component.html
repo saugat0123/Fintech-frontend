@@ -10,9 +10,9 @@
                             <p>
                                 हरेक त्रैमास (आषाढ, आश्विन, पौष र चैत्र मसान्त) को समाप्ति पश्चात बैंकको आधिकारिक वेव
                                 साईट (Website) तथा राष्ट्रियस्तरको पत्रिकामा <strong>त्रैमासिक औसत आधार दर (Quarterly
-                                Average Base Rate)</strong>
+                                    Average Base Rate)</strong>
                                 प्रकाशित गरिनेछ । यसरी हरेक त्रैमास समाप्त भएपछि प्रकाशित हुने पछिल्लो <strong>त्रैमासिक
-                                औसत आधार दर (Quarterly Average Base Rate)</strong>
+                                    औसत आधार दर (Quarterly Average Base Rate)</strong>
                                 मा माथि उल्लेख भए बमोजिमको ब्याज दर प्रिमियम (Interest Rate Premium) थप गरी त्रैमासिक
                                 रुपमा ब्याज दर निर्धारण गरिनेछ।
                             </p>
@@ -33,7 +33,7 @@
                         <!-- (For The case of EMI Loan- Following additional clauses to be added)-->
 
                         <ng-container
-                                *ngIf="isAutoLoanEmiSelected || isAutoLoanOtherCreditSelected || isTermLoanEmiSelected || isMortgageTermLoanSelected || isEquityMortgageTermLoanSelected">
+                            *ngIf="isAutoLoanEmiSelected || isAutoLoanOtherCreditSelected || isTermLoanEmiSelected || isMortgageTermLoanSelected || isEquityMortgageTermLoanSelected">
                             <li>
                                 <p>
                                     बैंकको <strong>त्रैमासिक औसत आधार दर (Quarterly Average Base Rate )</strong> मा हुने
@@ -79,16 +79,14 @@
 
             <!--(For The case of Nabil Sajilo Karja/Nari Karja/Nabil Fast Track Scheme)-->
             <div class="row"
-                 *ngIf="loanScheme === 'Nabil Sajilo Karja' || loanScheme == 'Nabil Fast Track Scheme' || loanScheme === 'Nari Karja'">
+                *ngIf="loanScheme === 'Nabil Sajilo Karja' || loanScheme == 'Nabil Fast Track Scheme' || loanScheme === 'Nari Karja'">
                 <div class="col-sm-12">
                     <ol class="conditions-list orderd-list">
                         <li>
                             <p>
                                 ऋणकर्जा स्वीकृत भएको मितिबाट एक वर्ष सम्मको लागि व्याजदर <input
-                                    class="form-field form-control-sm font-weight-bold"
-                                    formControlName="interestRate"
-                                    name="interestRate"
-                                    type="text"/>
+                                    class="form-field form-control-sm font-weight-bold" formControlName="interestRate"
+                                    name="interestRate" type="text" />
                                 प्रतिशत प्रति वर्ष कायम रहनेछ र सो पश्चात उक्त ब्याजदरमा समय समयमा संशोधन गर्ने बैंकको
                                 अधिकार सुरक्षित रहनेछ ।
                                 ब्याज दरमा भएको संशोधनको जानकारी बैंकले ऋणीको नाममा पत्र जारी गरी वा सार्वजनिक सुचना वा
@@ -107,10 +105,8 @@
                         <li>
                             <p>
                                 ऋणकर्जा स्वीकृत भएको मितिबाट एक वर्ष सम्मको लागि व्याजदर <input
-                                    class="form-field form-control-sm font-weight-bold"
-                                    formControlName="interestRate"
-                                    name="interestRate"
-                                    type="text"/>
+                                    class="form-field form-control-sm font-weight-bold" formControlName="interestRate"
+                                    name="interestRate" type="text" />
                                 प्रतिशत प्रति वर्ष कायम रहनेछ र सो पश्चात उक्त ब्याजदरमा समय समयमा संशोधन गर्ने बैंकको
                                 अधिकार सुरक्षित रहनेछ । ब्याज दरमा भएको संशोधनको जानकारी बैंकले ऋणीको
                                 नाममा पत्र जारी गरी वा सार्वजनिक सुचना वा बैंकको आधिकारिक वेव साईट (Website) मार्फत
@@ -217,7 +213,7 @@
                                     दरहरु समय समयमा नेपाल राष्ट्र बैंकको निर्देशन बमोजिम परिवर्तन भई थप/घट हुनसक्नेछन ।
                                 </p>
                                 <table class="table table-sm table-bordered text-center table-sm sb-small"
-                                       style="width: 80%;margin-left:auto;margin-right:auto">
+                                    style="width: 80%;margin-left:auto;margin-right:auto">
                                     <tr>
                                         <th style="width: 50%">
                                             अग्रिम भुक्तानी समय अवधि
@@ -302,7 +298,8 @@
                                         (<strong>त्रैमासिक औसत</strong> आधार दर + ब्याज दर प्रिमियम) मा २ प्रतिशत
                                         हर्जाना थप गरी वा बैंकले समय समयमा तोकेको दरले थप हर्जाना व्याज लाग्नेछ । बैंकले
                                         निर्धारण गरेको ब्याजदर प्रिमियम
-                                        (Interest Rate Premium) र <strong>त्रैमासिक औसत</strong> आधार दर <strong>(Quarterly
+                                        (Interest Rate Premium) र <strong>त्रैमासिक औसत</strong> आधार दर
+                                        <strong>(Quarterly
                                             Average </strong>Base Rate) बैंकको आधिकारिक वेब साईट
                                         (Website) वा समय समयमा बैंकले त्रैमासिक रुपमा प्रकाशित गरेको ब्याज दर सम्बन्धि
                                         सुचना अनुसार कायम रहने छ ।
@@ -322,43 +319,44 @@
                                     </li>
                                 </ul>
                             <li *ngIf="isAutoLoanSelected || termSelected || isWorkingCapitalLoan">
-                                    <strong>ऋण प्रतिबद्धता शुल्क:</strong>
-                            <p *ngIf="isAutoLoanSelected || termSelected">
+                                <strong>ऋण प्रतिबद्धता शुल्क:</strong>
+                                <p *ngIf="isAutoLoanSelected || termSelected">
                                     <!--This clause is applicables only in case of new term loan/auto loan-->
-                                स्वीकृत दीर्घकालिन कर्जा सीमा पुर्ण वा आंशिक रुपमा उपयोग नभएमा सो उपयोग नभएको कर्जा सीमामा <strong>०.१५</strong> प्रतिशतका दरले प्रतिबद्धता शुल्क लाग्नेछ ।
+                                    स्वीकृत दीर्घकालिन कर्जा सीमा पुर्ण वा आंशिक रुपमा उपयोग नभएमा सो उपयोग नभएको कर्जा
+                                    सीमामा <strong>०.१५</strong> प्रतिशतका दरले प्रतिबद्धता शुल्क लाग्नेछ ।
                                 </p>
-                            <p *ngIf="isWorkingCapitalLoan">
-                                <!--For working capital loan-->
-                                अल्पकालिन तथा चालु पुँजी प्रकृतिका कोषमा आधारित स्वीकृत कर्जा सुविधाका हकमा स्वीकृत कर्जा सीमाको औसत उपयोग ६०
-                                प्रतिशत भन्दा कम उपयोग भएमा कम उपयोग भएको औसत कर्जा रकमको <strong>०.१५</strong> प्रतिशतका दरले प्रतिबद्घता शुल्क नवीकरण/पुनरावलोकन गरीएको समयमा वा बैंकले मागेको समयमा तिर्नु बुझाउनु पर्नेछ ।
-                            </p>
+                                <p *ngIf="isWorkingCapitalLoan">
+                                    <!--For working capital loan-->
+                                    अल्पकालिन तथा चालु पुँजी प्रकृतिका कोषमा आधारित स्वीकृत कर्जा सुविधाका हकमा स्वीकृत
+                                    कर्जा सीमाको औसत उपयोग ६०
+                                    प्रतिशत भन्दा कम उपयोग भएमा कम उपयोग भएको औसत कर्जा रकमको <strong>०.१५</strong>
+                                    प्रतिशतका दरले प्रतिबद्घता शुल्क नवीकरण/पुनरावलोकन गरीएको समयमा वा बैंकले मागेको
+                                    समयमा तिर्नु बुझाउनु पर्नेछ ।
+                                </p>
                             </li>
                             <li>
                                 <p>
                                     <strong>ऋण प्रशासनिक शुल्क: </strong>
                                     <br>
-                                   <ng-container *ngIf="typeOfServiceCharge === 'Service Charge In Flat Amount'">
-                                       ऋण प्रशासनिक शुल्क बापत <strong>रु. </strong> <input
-                                        class="form-field form-control-sm font-weight-bold"
-                                        formControlName="serviceChargeInFigure"
-                                        name="serviceChargeInFigure"
-                                        type="text"/>
-                                    <strong>। (अक्षरेपी रु. </strong><input
-                                        class="form-field form-control-sm font-weight-bold"
-                                        formControlName="serviceChargeInWords"
-                                        name="serviceChargeInWords"
-                                        type="text"/>
-                                    <strong>मात्र) </strong></ng-container>
+                                    <ng-container *ngIf="typeOfServiceCharge === 'Service Charge In Flat Amount'">
+                                        ऋण प्रशासनिक शुल्क बापत <strong>रु. </strong> <input
+                                            class="form-field form-control-sm font-weight-bold"
+                                            formControlName="serviceChargeInFigure" name="serviceChargeInFigure"
+                                            type="text" />
+                                        <strong>। (अक्षरेपी रु. </strong><input
+                                            class="form-field form-control-sm font-weight-bold"
+                                            formControlName="serviceChargeInWords" name="serviceChargeInWords"
+                                            type="text" />
+                                        <strong>मात्र) </strong>
+                                    </ng-container>
                                     <ng-container *ngIf="typeOfServiceCharge === 'Service Charge In Percentage'">
                                         स्वीकृत <input class="form-field form-control-sm font-weight-bold"
-                                                   formControlName="detailsOfFacility"
-                                                   name="detailsOfFacility"
-                                                   type="text"/>
-                                    कर्जाकाे <input class="form-field form-control-sm font-weight-bold"
-                                                    formControlName="serviceChargeInPercentage"
-                                                    name="serviceChargeInPercentage"
-                                                    type="text"/>
-                                    प्रतिशतका दरले हुन आउने </ng-container> रकम अग्रिम रुपमा तपाईंको खाताबाट कट्टा गरी लिइनेछ वा तपाईंले
+                                            formControlName="detailsOfFacility" name="detailsOfFacility" type="text" />
+                                        कर्जाकाे <input class="form-field form-control-sm font-weight-bold"
+                                            formControlName="serviceChargeInPercentage" name="serviceChargeInPercentage"
+                                            type="text" />
+                                        प्रतिशतका दरले हुन आउने </ng-container> रकम अग्रिम रुपमा तपाईंको खाताबाट कट्टा
+                                    गरी लिइनेछ वा तपाईंले
                                     तिर्नु बुझाउनु पर्नेछ ।
                                 </p>
                             </li>
