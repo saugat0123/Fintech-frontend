@@ -39,15 +39,14 @@
                 <div *ngIf="popUpTitle === 'Return Back to Previous Stage'" class="row">
                     <div class="col-md-12 form-group">
                         <label class="toRole">TO</label>
-                        <select (change)="changeUserList(formAction?.get('toRole')?.value)"
+                        <select (change)="changeUserList(formAction?.get('toUser')?.value)"
                                 class="form-control form-control-sm"
-                                formControlName="toRole"
-                                name="toRole">
+                                formControlName="toUser"
+                                name="toUser">
                             <option [value]="null" hidden>Select To</option>
                             <option *ngFor="let pl of previousList"
-                                    [ngValue]="pl?.toRole">
-                                {{pl?.toRole?.roleName}}
-                                pl:::: {{pl?.toRole?.roleName}}
+                                    [ngValue]="pl?.toUser">
+                                {{pl?.toUser?.name}}
                             </option>
                         </select>
                         <div class="sb-small text-danger" *ngIf="isEmptyUser">No User Present in this Role For this

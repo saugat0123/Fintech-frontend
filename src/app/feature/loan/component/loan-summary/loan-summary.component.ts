@@ -254,8 +254,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         }
         this.loanDataHolder = this.loanData;
         console.log('previousList', this.loanDataHolder.previousList);
-        console.log('previousStageList', this.loanDataHolder.previousStageList);
-        console.log('currentStage', this.loanDataHolder.currentStage);
         if (this.loanDataHolder.loanHolder.clientType === 'CONSUMER_FINANCE') {
             this.consumerFinance = true;
         } else if (this.loanDataHolder.loanHolder.clientType === 'SMALL_BUSINESS_FINANCIAL_SERVICES') {
@@ -519,6 +517,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
 
         this.signatureList = this.getSignatureList(new Array<LoanStage>
         (...this.loanDataHolder.previousList, this.loanDataHolder.currentStage));
+        console.log('this.signatureList', this.signatureList);
 
         this.previousList = this.loanDataHolder.previousList;
         this.currentDocAction = this.loanDataHolder.currentStage.docAction.toString();
@@ -780,7 +779,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                 }
             }
         });
-
+        console.log('signatureList', signatureList);
         return signatureList;
     }
 

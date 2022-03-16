@@ -64,6 +64,7 @@ export class LoanActionComponent implements OnInit, OnChanges {
 
     ngOnInit() {
         console.log('loanId', this.id);
+        console.log('actionsList', this.actionsList);
         this.loanFormService.detail(this.id).subscribe((data) => {
             this.customerLoanHolder = data.detail;
             if (LocalStorageUtil.getStorage().userId === this.customerLoanHolder.currentStage.toUser.id.toString()) {

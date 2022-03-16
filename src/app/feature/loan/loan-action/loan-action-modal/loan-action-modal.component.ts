@@ -61,6 +61,7 @@ export class LoanActionModalComponent implements OnInit {
     hsov: any;
     loanTag = false;
     previousList = [];
+    loanCycleList = [];
 
     // selectedRoleForSol:Role = undefined;
 
@@ -80,15 +81,14 @@ export class LoanActionModalComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log('popUpTitle', this.popUpTitle);
         this.formAction = this.buildForm();
-        console.log('docAction', this.docAction);
-        console.log('customerLoanHolder', this.customerLoanHolder);
         this.roleId = parseInt(LocalStorageUtil.getStorage().roleId, 10);
         this.conditionalDataLoad();
         if (!ObjectUtil.isEmpty(this.customerLoanHolder)) {
-            this.previousList = this.customerLoanHolder.previousList;
-            console.log('previousList', this.previousList);
+            this.loanCycleList = this.customerLoanHolder.previousList;
+            this.loanCycleList.push(this.customerLoanHolder.currentStage);
+            this.previousList = this.loanCycleList.filter((value1, index, self) =>
+                self.findIndex((m) => m.toUser.id === value1.toUser.id) === index);
             if (this.customerLoanHolder.loan.loanTag === LoanTag.getKeyByValue(LoanTag.REMIT_LOAN)) {
                 this.loanTag = true;
             }
@@ -401,20 +401,7 @@ export class LoanActionModalComponent implements OnInit {
     }
 
     changeUserList(value: any) {
-        console.log('value', value);
-        this.showUserList = true;
-        this.formAction.get('toRole').patchValue(value);
-        const test = this.previousList;
-        const userList1: Array<User> = new Array<User>();
-        test.filter(f => {
-            if (f.toRole.id === value.id) {
-                userList1.push(f.toUser);
-            }
-        });
-        console.log('userList1', userList1);
-        this.formAction.get('toUser').patchValue(userList1[0]);
-        console.log('userList', this.userList);
-        console.log(this.formAction.get('toRole').value);
-        console.log('formAction', this.formAction);
+        this.formAction.get('toRole').patchValue(value.role);
+        this.formAction.get('toUser').patchValue(value);
     }
 }

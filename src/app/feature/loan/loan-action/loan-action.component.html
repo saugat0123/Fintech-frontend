@@ -19,7 +19,6 @@
   </button>
 
   <button (click)="loanAction('revoked_loan')" *ngIf="catalogueStatus"
-          [disabled]="actionsList.approved"
           [ngStyle]="{ 'filter' : (actionsList.approved === true)? 'grayscale(100%)': 'grayscale(0%)'}"
           class="btn-sm btn-success">
     RETURN BACK TO PREVIOUS STAGE
