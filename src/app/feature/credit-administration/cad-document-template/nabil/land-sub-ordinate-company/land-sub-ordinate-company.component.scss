@@ -1,7 +1,7 @@
 * {
   line-height: 1.9em;
   font-size: 19px;
-  overflow: visible !important;
+  overflow-y: visible !important;
 }
 .nep {
   font-size: 16px;
@@ -32,10 +32,6 @@ ol.conditions-list {
   text-align: justify !important;
 }
 
-.dastakhat {
-  margin-left: 6rem;
-}
-
 @media screen {
   .print-only {
     display: none;
@@ -48,7 +44,22 @@ ol.conditions-list {
 
 @media print {
   * {
+    margin: 0 !important;
     overflow-y: visible !important;
+  }
+  .dastakhat-margin {
+    margin-top: 3rem !important;
+    .dastakhat {
+      font-size: 16px !important;
+      line-height: 1.9em !important;
+      margin-left: 5.5rem !important;
+    }
+  }
+  .sakshi {
+    margin-top: 1rem !important;
+  }
+  .page-break {
+    page-break-before: always !important;
   }
   .print-only {
     display: inline;
@@ -60,11 +71,11 @@ ol.conditions-list {
     text-justify: inter-word;
     margin: 10px 70px;
   }
-  .page-break {
-    page-break-after: always;
-  }
+  // .page-break {
+  //   page-break-after: always;
+  // }
   .margin-top-print {
-    margin-top: 6rem;
+    margin-top: 14rem;
   }
   .heading {
     h1,
