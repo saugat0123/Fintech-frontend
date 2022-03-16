@@ -39,6 +39,7 @@ export class DocumentChecklistViewLiteComponent implements OnInit {
   requiredDocuments = [];
   obtainedOnForm: FormGroup;
   submitData;
+  obtainedDate;
 
   constructor(private creditAdministrationService: CreditAdministrationService,
               private toastService: ToastService,
@@ -47,11 +48,8 @@ export class DocumentChecklistViewLiteComponent implements OnInit {
               private modelService: NgbModal,
               private documentService: DocumentService,
               public commonService: CommonService,
-              private formBuilder: FormBuilder
+              private formBuilder: FormBuilder,
   ) {
-  }
-  get form() {
-    return this.obtainedOnForm.controls;
   }
   get obtainedDetail() {
     return this.obtainedOnForm.get('obtainedFormData') as FormArray;
@@ -68,13 +66,27 @@ export class DocumentChecklistViewLiteComponent implements OnInit {
     this.setFormFields();
   }
   setFormFields() {
-    if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.requiredDocument)) {
-      this.cadData.requiredDocument.forEach(val => {
-        this.obtainedDetail.push(this.formBuilder.group({
-          obtainedDate: [undefined],
-      }));
-    });
+    if (!ObjectUtil.isEmpty(this.cadData)) {
+      if (!ObjectUtil.isEmpty(this.cadData.sccData)) {
+        const tempSccData = JSON.parse(this.cadData.sccData);
+        if (!ObjectUtil.isEmpty(tempSccData)) {
+          this.obtainedDate = JSON.parse(tempSccData.obtainedDate);
+        }
+      }
+      if (!ObjectUtil.isEmpty(this.cadData.requiredDocument)) {
+        this.cadData.requiredDocument.forEach((val, i) => {
+          this.obtainedDetail.push(this.formBuilder.group({
+            obtainedDate: [ObjectUtil.isEmpty(this.obtainedDate) ||
+            ObjectUtil.isEmpty(this.obtainedDate[i]) ||
+            ObjectUtil.isEmpty(this.obtainedDate[i].obtainedDate) ? undefined :
+                new Date(this.obtainedDate[i].obtainedDate)],
+          }));
+        });
+      }
+    }
   }
+  get form() {
+    return this.obtainedOnForm.controls;
   }
 
   initial() {
@@ -135,12 +147,5 @@ export class DocumentChecklistViewLiteComponent implements OnInit {
       }
     });
   }
-  onSubmit() {
-    this.submitData = this.obtainedOnForm.value;
-    console.log('Submit Data:');
-  }
-
-
-
 }
 

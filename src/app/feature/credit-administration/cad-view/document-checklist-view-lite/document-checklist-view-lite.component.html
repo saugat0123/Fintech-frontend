@@ -36,10 +36,11 @@
                             <span *ngIf="!data?.uploadedDate">-</span></td>
                         <td>
                             <input [nbDatepicker]="customerCitizenshipIssuedDate"
-                                   class="form-control" formControlName="obtainedDate"
+                                   class="form-control disable-print" formControlName="obtainedDate"
                                    id="obtainedDate"
                                    name="obtainedDate">
                             <nb-datepicker #customerCitizenshipIssuedDate></nb-datepicker>
+                            <span class="show-print">{{(this.obtainedDate[i]?.obtainedDate | date) || '-'}}</span>
                         </td>
                         <td>{{data?.remarks || '-'}}</td>
                         <td class="cursor">

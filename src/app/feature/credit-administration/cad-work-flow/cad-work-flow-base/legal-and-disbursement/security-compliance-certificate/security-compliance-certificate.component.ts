@@ -24,7 +24,7 @@ import {DocumentChecklistViewLiteComponent} from '../../../../cad-view/document-
   styleUrls: ['./security-compliance-certificate.component.scss']
 })
 export class SecurityComplianceCertificateComponent implements OnInit {
-  @ViewChild('documentChecklistViewLite', {static: true}) documentChecklistViewLite: DocumentChecklistViewLiteComponent;
+  @ViewChild('documentChecklistViewLite', {static: false}) documentChecklistViewLite: DocumentChecklistViewLiteComponent;
   @Input() cadFile: CustomerApprovedLoanCadDocumentation;
   panNumber;
   uploadFile;
@@ -62,14 +62,10 @@ export class SecurityComplianceCertificateComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('productUtil', LocalStorageUtil.getStorage().productUtil);
     if (!ObjectUtil.isEmpty(this.cadFile.sccData)) {
       this.sccData = JSON.parse(this.cadFile.sccData);
       console.log('sccData', this.sccData);
     }
-    // this.documentChecklistViewLite.onSubmit();
-    // this.documentCheckListData = JSON.stringify(this.documentChecklistViewLite.submitData);
-    // console.log('Document Checklist Data:', this.documentChecklistViewLite.submitData);
     if (this.cadFile.loanHolder.customerType === 'INDIVIDUAL') {
       this.isIndividual = true;
       this.jsonData = JSON.parse(this.cadFile.assignedLoan[0].customerInfo.individualJsonData);
@@ -184,6 +180,7 @@ export class SecurityComplianceCertificateComponent implements OnInit {
           ObjectUtil.isEmpty(this.sccData.nameOfCustodian) ? undefined : this.sccData.nameOfCustodian],
       vaultNo: [ObjectUtil.isEmpty(this.sccData) ? undefined :
           ObjectUtil.isEmpty(this.sccData.vaultNo) ? undefined : this.sccData.vaultNo],
+      obtainedDate: [undefined]
     });
   }
 
@@ -225,8 +222,9 @@ export class SecurityComplianceCertificateComponent implements OnInit {
     this.spinner = true;
     this.spinnerService.show();
     if (this.sumbit) {
+      this.documentCheckListData = JSON.stringify(this.documentChecklistViewLite.obtainedOnForm.get('obtainedFormData').value);
+      this.sccForm.get('obtainedDate').patchValue(this.documentCheckListData);
       this.cadFile.sccData = JSON.stringify(this.sccForm.value);
-      this.documentChecklistViewLite.onSubmit();
     } else {
       const formData: FormData = new FormData();
       formData.append('file', this.uploadFile);
