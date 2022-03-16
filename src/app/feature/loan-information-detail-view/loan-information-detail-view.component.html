@@ -14,54 +14,63 @@
         </div>
         <div class="float-right">
             <button  [nbPopover]="allDocumentView" class="btn-sm btn-success float-right">
-                UPLOADED DOC
+                UPLOADED DOCUMENT
 <!--                <i class="col-md-1 fa fa-file"></i>-->
             </button>
         </div>
     </div></nb-card-header>
     <nb-card-body>
         <div id="print-detail">
-            <div class="row text-center ">
+            <div class="row">
                 <div class="col-md-12">
                     <div class="row">
                         <div class="col-md-3">
-
                             <div>
                                 Priority:
                                 <span class="badge badge-danger"
-                                      style="font-size: 11px">{{loanDataHolder?.priority?.toString() | titlecase}}</span>
+                                      style="font-size: 13px">{{loanDataHolder?.priority?.toString() | titlecase}}</span>
                             </div>
-                            <div>
+                            <div class="mt-2">
                                 Loan Status:
                                 <span class="badge badge-info"
-                                      style="font-size: 11px">{{loanDataHolder?.documentStatus?.toString() | titlecase}}</span>
+                                      style="font-size: 13px">{{loanDataHolder?.documentStatus?.toString() | titlecase}}</span>
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="report-header">
-                                <div class="report-header-heading"><strong>{{client}}</strong></div>
-                                <div class="report-header-sub-heading">
-                                    Credit Appraisal
-                                    <br/>
-                                    for
+                            <div class="report-header text-center">
+                                <div class="report-header-heading mb-2">
+                                    {{client}}
                                 </div>
-                                <div class="report-header-sub-heading" *ngIf="!isJointInfo">
-                                    {{loanCategory === 'INSTITUTION' ?
-                                    loanDataHolder?.companyInfo?.companyName
-                                    : loanDataHolder?.customerInfo?.customerName}}
-                                </div>
-                                <div class="report-header-sub-heading" *ngIf="isJointInfo">
-                                    <div *ngFor="let jointCustomer of jointInfo">
-                                        <ng-container *ngFor="let info of jointCustomer">
-                                            <span class="sb-medium">{{loanCategory === 'INSTITUTION' ?
-                                                loanDataHolder?.companyInfo?.companyName : info?.customerName}}</span><br/>
-                                        </ng-container>
+                                <ng-container>
+                                    <div>
+                                        <span class="report-header-sub-heading"> Credit Appraisal </span>
+                                        <br />
+                                        <span class="report-header-sub-heading"> for </span>
                                     </div>
-                                </div>
-                                <div class="report-header-sub-heading">{{loanDataHolder?.branch?.name}} Branch ,
+                                    <div *ngIf="!isJointInfo">
+                                        <span class="report-header-sub-heading">
+                                            <strong>
+                                                {{loanCategory === 'INSTITUTION' ?
+                                                loanDataHolder?.companyInfo?.companyName
+                                                : loanDataHolder?.customerInfo?.customerName}}
+                                            </strong>
+                                        </span>
+                                    </div>
+                                    <div class="report-header-sub-heading" *ngIf="isJointInfo">
+                                        <div *ngFor="let jointCustomer of jointInfo">
+                                            <ng-container *ngFor="let info of jointCustomer">
+                                                <span class="sb-medium">{{loanCategory === 'INSTITUTION' ?
+                                                    loanDataHolder?.companyInfo?.companyName :
+                                                    info?.customerName}}</span><br />
+                                            </ng-container>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                                <div class="report-header-sub-heading mt-1 ml-1 mb-1">{{loanDataHolder?.branch?.name}}
+                                    Branch
+                                    ,
                                     {{loanDataHolder?.branch?.province?.name}}</div>
-                                <div class="badge badge-warning">Detail</div>
-
+                                <!-- <div class="badge badge-warning m-1 p-2" style="font-size: 1rem;">Summary</div> -->
                             </div>
                         </div>
                         <div class="col-md-3 text-right">
@@ -73,6 +82,91 @@
             </div>
             <hr>
             <div class="row">
+                <div class="col-md-12 sb-small">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <p class="font-weight-bold sb-small">TO</p>
+                        </div>
+                        <div class="col-md-2">
+                            <p class="sb-small">: ...................</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 sb-small">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <p class="font-weight-bold sb-small">THROUGH</p>
+                        </div>
+                        <div class="col-md-2">
+                            <p class="sb-small">: ...................</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 sb-small">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <p class="font-weight-bold sb-small">FROM</p>
+                        </div>
+                        <div class="col-md-2">
+                            <p class="sb-small">: ...................</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 sb-small">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <p class="font-weight-bold sb-small">SUBJECT</p>
+                        </div>
+                        <div class="col-md-2">
+                            <p class="sb-small">: ...................</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 sb-small">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <p class="font-weight-bold sb-small">CLIENT NAME</p>
+                        </div>
+                        <div class="col-md-2">
+                            <p class="sb-small">: ...................</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 sb-small">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <p class="font-weight-bold sb-small">GROUP</p>
+                        </div>
+                        <div class="col-md-2">
+                            <p class="sb-small">: ...................</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 sb-small">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <p class="font-weight-bold sb-small">ACCOUNT NUMBER</p>
+                        </div>
+                        <div class="col-md-2">
+                            <p class="sb-small">: ...................</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 sb-small">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <p class="font-weight-bold sb-small">CUSTOMER ID</p>
+                        </div>
+                        <div class="col-md-2">
+                            <p class="sb-small">: ...................</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 sb-small"></div>
+                <div class="col-md-6 sb-small"></div>
+            </div>
+            <!-- DO NOT REMOVE -->
+            <!-- <div class="row">
                 <div class="col-md-6 sb-small">
                     <span><strong>Ref. No: </strong>{{loanDataHolder?.refNo}}</span>
                 </div>
@@ -96,12 +190,7 @@
                     </span>
 
                 </div>
-            </div>
-
-            <!-- CRG - Gamma-->
-
-            <!-- CRG Gamma score-->
-
+            </div> -->
             <hr>
             <div>
                 <p><strong>Details of {{loanDataHolder?.loanCategory === 'INSTITUTION'
