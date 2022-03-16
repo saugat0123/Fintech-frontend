@@ -17,6 +17,7 @@ import {CadChecklistDocTemplateModalComponent} from '../../cad-offerletter-profi
 import {LaxmiOfferLetterConst} from '../../cad-document-template/laxmi/laxmi-offer-letter/laxmi-offer-letter-const';
 import {CommonService} from '../../../../@core/service/common.service';
 import {LoanTag} from '../../../loan/model/loanTag';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-document-checklist-view-lite',
@@ -35,6 +36,10 @@ export class DocumentChecklistViewLiteComponent implements OnInit {
 
 
   document: Array<Document> = [];
+  requiredDocuments = [];
+  obtainedOnForm: FormGroup;
+  submitData;
+  obtainedDate;
 
   constructor(private creditAdministrationService: CreditAdministrationService,
               private toastService: ToastService,
@@ -42,17 +47,54 @@ export class DocumentChecklistViewLiteComponent implements OnInit {
               private routerUtilsService: RouterUtilsService,
               private modelService: NgbModal,
               private documentService: DocumentService,
-              public commonService: CommonService
+              public commonService: CommonService,
+              private formBuilder: FormBuilder,
   ) {
+  }
+  get obtainedDetail() {
+    return this.obtainedOnForm.get('obtainedFormData') as FormArray;
   }
 
   ngOnInit() {
+    this.buildForm();
     this.initial();
+  }
+  buildForm() {
+    this.obtainedOnForm = this.formBuilder.group({
+      obtainedFormData: this.formBuilder.array([])
+    });
+    this.setFormFields();
+  }
+  setFormFields() {
+    if (!ObjectUtil.isEmpty(this.cadData)) {
+      if (!ObjectUtil.isEmpty(this.cadData.sccData)) {
+        const tempSccData = JSON.parse(this.cadData.sccData);
+        if (!ObjectUtil.isEmpty(tempSccData)) {
+          this.obtainedDate = JSON.parse(tempSccData.obtainedDate);
+        }
+      }
+      if (!ObjectUtil.isEmpty(this.cadData.requiredDocument)) {
+        this.cadData.requiredDocument.forEach((val, i) => {
+          this.obtainedDetail.push(this.formBuilder.group({
+            obtainedDate: [ObjectUtil.isEmpty(this.obtainedDate) ||
+            ObjectUtil.isEmpty(this.obtainedDate[i]) ||
+            ObjectUtil.isEmpty(this.obtainedDate[i].obtainedDate) ? undefined :
+                new Date(this.obtainedDate[i].obtainedDate)],
+          }));
+        });
+      }
+    }
+  }
+  get form() {
+    return this.obtainedOnForm.controls;
   }
 
   initial() {
     this.documentService.getByLoanCycleAndStatus(12, Status.ACTIVE).subscribe(res => {
       this.document = res.detail;
+      if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.requiredDocument)) {
+        this.requiredDocuments = this.cadData.requiredDocument;
+      }
       if (!ObjectUtil.isEmpty(this.cadData) && !(ObjectUtil.isEmpty(this.document))) {
         this.customerLoanList = this.cadData.assignedLoan;
 
@@ -105,9 +147,5 @@ export class DocumentChecklistViewLiteComponent implements OnInit {
       }
     });
   }
-
-
-
-
 }
 

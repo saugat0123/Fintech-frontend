@@ -17,15 +17,19 @@ export class ExposureViewComponent implements OnInit {
     disbursementDetailsHistory = [];
     @Input() fromScc: boolean;
     sccPath;
+    isExposureFilled = false;
 
     constructor(public service: CommonService) {
     }
 
     ngOnInit() {
+        console.log('cadOfferLetterApprovedDoc', this.cadOfferLetterApprovedDoc);
         // tslint:disable-next-line:max-line-length
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.exposure)
             && (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.exposure.data))) {
+            this.isExposureFilled = true;
             const data = JSON.parse(this.cadOfferLetterApprovedDoc.exposure.data);
+            console.log('data', data);
             this.disbursementDetails = data.disbursementDetails;
         }
         if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.exposure)
