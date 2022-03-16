@@ -356,7 +356,7 @@
       </table>
       <p class="header"><b>6.Document CheckList</b></p>
       <app-document-checklist-view [cadData]="cadFile" *ngIf="!cadCheckListListVersion"></app-document-checklist-view>
-      <app-document-checklist-view-lite [cadData]="cadFile" *ngIf="cadCheckListListVersion"></app-document-checklist-view-lite>
+      <app-document-checklist-view-lite #documentChecklistViewLite [cadData]="cadFile" *ngIf="cadCheckListListVersion"></app-document-checklist-view-lite>
       <p class="header"><b>7. Valuation; Drawdown and Repayment Schedule</b></p>
       <table class="table table-bordered table-hover table-sm sb-small text-center ">
         <thead>

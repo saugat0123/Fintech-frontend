@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {CreditAdministrationService} from '../../../../service/credit-administration.service';
@@ -15,6 +15,8 @@ import {CadDocStatus} from '../../../../model/CadDocStatus';
 import {Editor} from '../../../../../../@core/utils/constants/editor';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {CommonAddressComponent} from '../../../../../common-address/common-address.component';
+import {DocumentChecklistViewLiteComponent} from '../../../../cad-view/document-checklist-view-lite/document-checklist-view-lite.component';
 
 @Component({
   selector: 'app-security-compliance-certificate',
@@ -22,6 +24,7 @@ import {NgxSpinnerService} from 'ngx-spinner';
   styleUrls: ['./security-compliance-certificate.component.scss']
 })
 export class SecurityComplianceCertificateComponent implements OnInit {
+  @ViewChild('documentChecklistViewLite', {static: true}) documentChecklistViewLite: DocumentChecklistViewLiteComponent;
   @Input() cadFile: CustomerApprovedLoanCadDocumentation;
   panNumber;
   uploadFile;
@@ -44,6 +47,7 @@ export class SecurityComplianceCertificateComponent implements OnInit {
   isJoint = false;
   jsonData;
   olRefNumber;
+  documentCheckListData;
 
   constructor(protected dialogRef: NbDialogRef<SecurityComplianceCertificateComponent>,
               private creditAdministrationService: CreditAdministrationService,
@@ -63,6 +67,9 @@ export class SecurityComplianceCertificateComponent implements OnInit {
       this.sccData = JSON.parse(this.cadFile.sccData);
       console.log('sccData', this.sccData);
     }
+    // this.documentChecklistViewLite.onSubmit();
+    // this.documentCheckListData = JSON.stringify(this.documentChecklistViewLite.submitData);
+    // console.log('Document Checklist Data:', this.documentChecklistViewLite.submitData);
     if (this.cadFile.loanHolder.customerType === 'INDIVIDUAL') {
       this.isIndividual = true;
       this.jsonData = JSON.parse(this.cadFile.assignedLoan[0].customerInfo.individualJsonData);
@@ -219,6 +226,7 @@ export class SecurityComplianceCertificateComponent implements OnInit {
     this.spinnerService.show();
     if (this.sumbit) {
       this.cadFile.sccData = JSON.stringify(this.sccForm.value);
+      this.documentChecklistViewLite.onSubmit();
     } else {
       const formData: FormData = new FormData();
       formData.append('file', this.uploadFile);
