@@ -18,6 +18,7 @@ import {EnumUtils} from '../../../@core/utils/enums.utils';
 import {Gender} from '../../../@core/model/enum/gender';
 import {ShareGuarantorJson} from '../../admin/modal/shareGuarantorJson';
 import {RoleService} from '../../admin/component/role-permission/role.service';
+import {CustomerInfoData} from '../../loan/model/customerInfoData';
 
 @Component({
   selector: 'app-guarantor',
@@ -30,7 +31,7 @@ export class GuarantorComponent implements OnInit {
   @Input() calendarType: CalendarType;
   @Output() guarantorDataEmitter = new EventEmitter();
   @Input() fromProfile: boolean;
-  @Input() customerInfo;
+  @Input() customerInfo: CustomerInfoData;
 
   form: FormGroup;
   submitted = false;

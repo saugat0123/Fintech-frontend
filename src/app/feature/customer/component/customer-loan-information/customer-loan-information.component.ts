@@ -44,6 +44,8 @@ import {MicroCustomerType} from '../../../../@core/model/enum/micro-customer-typ
 import {NgxSpinnerService} from 'ngx-spinner';
 import {ReviewDate} from '../../../loan/model/reviewDate';
 import {MultiBanking} from '../../../loan/model/multiBanking';
+import {CustomerService} from '../../service/customer.service';
+import {Customer} from '../../../admin/modal/customer';
 
 @Component({
     selector: 'app-customer-loan-information',
@@ -164,10 +166,12 @@ export class CustomerLoanInformationComponent implements OnInit {
     microCustomerTypeEnum = MicroCustomerType;
 
     nbDialogRef: NbDialogRef<any>;
+    customer: Customer;
 
     constructor(
         private toastService: ToastService,
         private customerInfoService: CustomerInfoService,
+        private customerService: CustomerService,
         private modalService: NbDialogService,
         private spinner: NgxSpinnerService,
     ) {
@@ -175,6 +179,9 @@ export class CustomerLoanInformationComponent implements OnInit {
 
     ngOnInit() {
         this.customerInfo.isMicroCustomer = this.isMicroCustomer;
+        this.customerService.detail(this.customerInfo.associateId).subscribe((res)=>{
+            this.customer = res.detail;
+        })
         if (!ObjectUtil.isEmpty(this.customerInfo.siteVisit)) {
             this.siteVisit = this.customerInfo.siteVisit;
         }
@@ -440,18 +447,34 @@ export class CustomerLoanInformationComponent implements OnInit {
         if (ObjectUtil.isEmpty(this.ciclResponse)) {
             this.ciclResponse = new CiclArray();
         }
-        this.ciclResponse = data;
-        this.customerInfoService.saveLoanInfo(this.ciclResponse, this.customerInfoId, TemplateName.CICL)
-        .subscribe(() => {
-            this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved CICL!'));
-            // this.itemCicl.close();
-            this.nbDialogRef.close();
-            this.triggerCustomerRefresh.emit(true);
-            this.spinner.hide();
-        }, error => {
-            this.spinner.hide();
-            console.error(error);
-            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Successfully saved CICL)!'));
+        if (!ObjectUtil.isEmpty(this.customer.jointInfo)) {
+            const jointInfo = JSON.parse(this.customer.jointInfo);
+            jointInfo.bankingRelationship = JSON.parse(data.cibRemark).bankingRelationship;
+            this.customer.jointInfo = JSON.stringify(jointInfo);
+        }
+        if (ObjectUtil.isEmpty(this.customer.individualJsonData) && ObjectUtil.isEmpty(this.customer.jointInfo)) {
+            const bankingRelationship = JSON.parse(this.customer.bankingRelationship);
+            bankingRelationship.bankingRelationship = JSON.parse(data.cibRemark).bankingRelationship;
+            this.customer.bankingRelationship = JSON.stringify(bankingRelationship);
+        }
+        this.customer.bankingRelationship = JSON.stringify(JSON.parse(data.cibRemark).bankingRelationship);
+        this.customer.clientType = this.customerInfo.clientType;
+        this.customer.maritalStatus = this.customerInfo.maritalStatus;
+        this.customer.gender = this.customerInfo.gender;
+        this.customerService.save(this.customer).subscribe(res => {
+            this.ciclResponse = data;
+            this.customerInfoService.saveLoanInfo(this.ciclResponse, this.customerInfoId, TemplateName.CICL)
+                .subscribe(() => {
+                    this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully saved CICL!'));
+                    // this.itemCicl.close();
+                    this.nbDialogRef.close();
+                    this.triggerCustomerRefresh.emit(true);
+                    this.spinner.hide();
+                }, error => {
+                    this.spinner.hide();
+                    console.error(error);
+                    this.toastService.show(new Alert(AlertType.ERROR, 'Unable to save Successfully saved CICL)!'));
+                });
         });
     }
 

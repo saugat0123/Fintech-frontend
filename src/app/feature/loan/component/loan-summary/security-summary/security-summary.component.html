@@ -19,7 +19,7 @@
                                 <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small sb-bg-dark text-white">
                                     <tbody>
                                     <tr>  <td class="text-left">Model</td> </tr>
-                                    <tr>  <td class="text-left">Valuation Amount</td> </tr>
+                                    <tr>  <td class="text-left">Quotation/Valuation Amount</td> </tr>
                                     <tr>  <td class="text-left">Down Payment</td></tr>
                                     <tr>   <td class="text-left">Remaining Amount</td></tr>
                                     <tr>  <td class="text-left">Registration Number</td></tr>
@@ -30,6 +30,7 @@
                                     <tr> <td class="text-left">Valuated Date(AD/BS)</td></tr>
                                     <tr> <td class="text-left">Valautor Name</td></tr>
                                     <tr> <td class="text-left">Vehicle Remarks</td></tr>
+                                    <tr> <td class="text-left">Realisable Amount</td></tr>
                                     </tbody>
                                 </table>
 
@@ -49,6 +50,8 @@
                                 <tr>  <td class="text-right pl-1">{{(vehicleDetails?.vehicalValuatorDate | date) || 'N/A'}} ({{vehicleDetails?.vehicalValuatorDate | engNepDate: false}})</td></tr>
                                 <tr> <td class="text-right pl-1">{{vehicleDetails?.vehicalValuator?.name || 'N/A'}}</td></tr>
                                 <tr><td class="text-right pl-1">{{vehicleDetails?.vehicleRemarks || 'N/A'}}</td></tr>
+                                <tr>  <td class="text-right pr-1">Rs. {{(vehicleDetails?.vehicleRealiasableAmount | currencyFormatter) || 'N/A'}}</td></tr>
+
                                 </tbody>
                                 </table>
                                 </td>
@@ -424,10 +427,13 @@
                                         <td class="text-left">Valautor Name</td>
                                     </tr>
                                     <tr>
-                                        <td class="text-left">Realisable Value</td>
+                                        <td class="text-left">Land Realisable Value</td>
                                     </tr>
                                     <tr>
-                                        <td class="text-left">Realisable Rate</td>
+                                        <td class="text-left">Building Realisable Value</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left">Total Realisable Value</td>
                                     </tr>
                                     <tr>
                                         <td class="text-left">Collateral Owner Relationship With Borrower</td>
@@ -461,8 +467,9 @@
                                     <tr>  <td  class="text-right pr-1">Rs. {{(landBuilding?.distressValue | currencyFormatter) || 'N/A'}}</td></tr>
                                     <tr>  <td class="text-right pl-1">{{(landBuilding?.buildingValuatorDate | date) || 'N/A'}} ({{landBuilding?.buildingValuatorDate |engNepDate: false}})</td></tr>
                                     <tr>  <td class="text-right pl-1">{{landBuilding?.buildingValuator?.name || 'N/A'}}</td></tr>
+                                    <tr>  <td class="text-right pr-1">Rs. {{(landBuilding?.totalLandRealisableValue | currencyFormatter) || 'N/A'}}</td></tr>
+                                    <tr>  <td class="text-right pr-1">Rs. {{(landBuilding?.totalApartmentRealisableValue | currencyFormatter) || 'N/A'}}</td></tr>
                                     <tr>  <td class="text-right pr-1">Rs. {{(landBuilding?.landConsideredValue | currencyFormatter) || 'N/A'}}</td></tr>
-                                    <tr>  <td class="text-right pr-1">Rs. {{(landBuilding?.landBuildingRate | currencyFormatter) || 'N/A'}}</td></tr>
                                     <tr> <td class="text-right pl-1">{{landBuilding?.landBuildingCollateralOwnerRelationship || 'N/A'}}</td></tr>
                                     <tr> <td class="text-right pl-1">{{landBuilding?.landAndBuildingSecurityLegalDocumentAddress || 'N/A'}}</td></tr>
                                     <tr> <td class="text-right pl-1">{{landBuilding?.location || 'N/A'}}</td></tr>
@@ -505,6 +512,9 @@
                                         <td class="text-left">Apartment Name</td>
                                     </tr>
                                     <tr>
+                                        <td class="text-left">Proposed Owner</td>
+                                    </tr>
+                                    <tr>
                                         <td class="text-left">Apartment Description</td>
                                     </tr>
                                     <tr>
@@ -531,6 +541,9 @@
                                     <tr>
                                         <td class="text-left">Revaluation Done ?</td>
                                     </tr>
+                                    <tr>
+                                        <td class="text-left">Realiasable Value</td>
+                                    </tr>
                                     </tbody>
                                 </table>
                             </td>
@@ -538,6 +551,7 @@
                                 <table class="table table-condensed table-responsive-md table-sm sb-small">
                                     <tbody>
                                     <tr> <td class="text-right pl-1">{{buildingDetails?.buildingName || 'N/A'}}</td></tr>
+                                    <tr> <td class="text-right pl-1">{{buildingDetails?.proposedOwner || 'N/A'}}</td></tr>
                                     <tr>  <td class="text-right pr-1">{{buildingDetails?.buildingDescription || 'N/A'}}</td></tr>
                                     <tr>  <td class="text-right pl-1">{{(buildingDetails?.buildArea || 'N/A')}}</td></tr>
                                     <tr> <td class="text-right pr-1"> {{(buildingDetails?.buildRate) || 'N/A'}}</td></tr>
@@ -547,7 +561,7 @@
                                     <tr>  <td class="text-right pr-1">{{buildingDetails?.ApartmentValuator?.name || 'N/A'}}</td></tr>
                                     <tr>  <td class="text-right pr-1">{{(buildingDetails?.ApartmentValuatorDate | date) || 'N/A'}} ({{(buildingDetails?.ApartmentValuatorDate |engNepDate: false) || 'N/A'}})</td></tr>
                                     <tr> <td class="text-right pl-1">{{buildingDetails?.revaluationData?.isReValuated | booleanConvert}}</td></tr>
-
+                                    <tr>  <td class="text-right pl-1">Rs {{(buildingDetails?.buildingReliasableValue | currencyFormatter) || 'N/A'}}</td></tr>
                                     </tbody>
                                 </table>
                             </td>
@@ -636,9 +650,9 @@
                     <tr class="text-center sb-bg-secondary text-white">
                         <th class="sn">S.N</th>
                         <th>Model</th>
-                        <th>Quotation</th>
+                        <th>Realisable Value</th>
                         <th>Supplier</th>
-                        <th>Downpay</th>
+<!--                        <th>Downpay</th>-->
                         <th *ngIf="plantDetails?.plantOtherBranchChecked === true">Valuator Branch</th>
                         <th>Valautor Name</th>
                     </tr>
@@ -647,7 +661,7 @@
                         <td class="text-right pr-1">{{plantDetails?.model}}</td>
                         <td class="text-right pr-1">Rs. {{plantDetails?.quotation | currencyFormatter}}</td>
                         <td class="text-left pl-1">{{plantDetails?.supplier}}</td>
-                        <td class="text-right pr-1">Rs. {{plantDetails?.downPay | currencyFormatter}}</td>
+<!--                        <td class="text-right pr-1">Rs. {{plantDetails?.downPay | currencyFormatter}}</td>-->
                         <td *ngIf="plantDetails?.plantOtherBranchChecked === true">{{plantDetails?.plantBranch?.name || 'N/A'}}</td>
                         <td class="text-left pl-1">{{plantDetails?.plantMachineryValuator?.name || 'N/A'}}</td>
                     </tr>
@@ -702,6 +716,7 @@
                         <th>Share Unit</th>
                         <th> Rate</th>
                         <th>Total Value</th>
+                        <th>Drawing  Power</th>
                         <th>Realisable Value</th>
                     </tr>
                     </thead>
@@ -713,6 +728,7 @@
                         <td class="text-right pr-1">{{singleShareData?.totalShareUnit}}</td>
                         <td class="text-right pr-1">Rs. {{singleShareData?.amountPerUnit |currencyFormatter}}</td>
                         <td class="text-right pr-1">Rs. {{singleShareData?.total |currencyFormatter}}</td>
+                        <td class="text-right pr-1">Rs. {{singleShareData?.drawingPower |currencyFormatter}}</td>
                         <td class="text-right pr-1">Rs. {{singleShareData?.consideredValue |currencyFormatter}}</td>
                     </tr>
                     <tr>
