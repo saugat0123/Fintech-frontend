@@ -1,0 +1,14 @@
+.print-only {
+  display: none;
+}
+p {
+  font-size: 8pt;
+  margin-bottom: -5px;
+}
+@media print {
+
+  p {
+    font-size: 12pt;
+    margin-bottom: 5px;
+  }
+}
