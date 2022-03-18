@@ -76,6 +76,9 @@ import { AboveModeOfDisbursementComponent } from './sme-loan-summary/above-ten-m
 import { AboveRepaymentModalityOfCreditFacilitiesComponent } from './sme-loan-summary/above-ten-million/above-repayment-modality-of-credit-facilities/above-repayment-modality-of-credit-facilities.component';
 import { AboveWaiverDeviationsDeferalsRebatesComponent } from './sme-loan-summary/above-ten-million/above-waiver-deviations-deferals-rebates/above-waiver-deviations-deferals-rebates.component';
 import { AboveReviewOfCreditFacilitiesComponent } from './sme-loan-summary/above-ten-million/above-review-of-credit-facilities/above-review-of-credit-facilities.component';
+import { UptoTenMillionComponent } from './sme-loan-summary/upto-ten-million/upto-ten-million.component';
+import { UptoDetailsOfTheCustomerComponent } from './sme-loan-summary/upto-ten-million/upto-details-of-the-customer/upto-details-of-the-customer.component';
+import { SecurityArrangementComponent } from './sme-loan-summary/upto-ten-million/security-arrangement/security-arrangement.component';
 
 const COMPONENTS = [
   SitevistSummaryComponentComponent,
@@ -179,6 +182,9 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
     AboveRepaymentModalityOfCreditFacilitiesComponent,
     AboveWaiverDeviationsDeferalsRebatesComponent,
     AboveReviewOfCreditFacilitiesComponent,
+    UptoTenMillionComponent,
+    UptoDetailsOfTheCustomerComponent,
+    SecurityArrangementComponent,
   ],
   imports: [
     CommonModule,

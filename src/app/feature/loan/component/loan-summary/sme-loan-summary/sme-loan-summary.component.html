@@ -167,6 +167,11 @@
                 </div>
                 <div class="col-md-6 mt-4" style="margin-left: 0.3rem;">
                     <nb-checkbox *ngIf="isDetailedView" class="disable-print" size="large"
+                                 (checkedChange)="upToTenMillion($event)">Up To Ten Million
+                    </nb-checkbox>
+                </div>
+                <div class="col-md-6 mt-4" style="margin-left: 0.3rem;">
+                    <nb-checkbox *ngIf="isDetailedView" class="disable-print" size="large"
                         (checkedChange)="aboveTenMillion($event)">Above
                         Ten Million
                     </nb-checkbox>
@@ -174,7 +179,7 @@
             </div>
 
             <hr class="print-line disable-print">
-            <ng-container *ngIf="isDetailedView && !isAboveTenMillion">
+            <ng-container *ngIf="isDetailedView && !isAboveTenMillion && !isUpToTenMillion">
                 <div class="row">
                     <div *ngIf="crgGammaSummary" class="col-md-12">
                         <nb-card class="sb-medium">
@@ -306,7 +311,7 @@
                     </div>
                 </div>
             </ng-container>
-            <ng-container *ngIf="!isAboveTenMillion">
+            <ng-container *ngIf="!isAboveTenMillion && !isUpToTenMillion">
                 <div class="row">
                     <div class="col-md-12">
                         <p><strong>Proposal</strong></p>
@@ -653,16 +658,19 @@
                 </div>
             </ng-container>
 
-            <div class="row" *ngIf="!isDetailedView && !isAboveTenMillion">
+            <div class="row" *ngIf="!isDetailedView && !isAboveTenMillion && !isUpToTenMillion">
                 <div class="col-md-12">
                     <app-executive-summary-sme></app-executive-summary-sme>
                 </div>
             </div>
+            <ng-container *ngIf="isUpToTenMillion">
+                <app-upto-ten-million></app-upto-ten-million>
+            </ng-container>
             <ng-container *ngIf="isAboveTenMillion">
                 <app-above-ten-million></app-above-ten-million>
             </ng-container>
 
-            <ng-container *ngIf="isDetailedView && !isAboveTenMillion">
+            <ng-container *ngIf="isDetailedView && !isAboveTenMillion && !isUpToTenMillion">
 
                 <app-financial-summary *ngIf="financialSummary" [formData]="financialData"
                     [loanType]="loanDataHolder?.loanCategory"></app-financial-summary>
