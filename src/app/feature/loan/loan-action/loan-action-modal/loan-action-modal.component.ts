@@ -306,6 +306,8 @@ export class LoanActionModalComponent implements OnInit {
                     });
                 console.log('after Filter sendForwardBackwardList', this.sendForwardBackwardList);
                 console.log('Approved formAction', this.formAction);
+                console.log(this.formAction);
+                console.log('After filter', this.sendForwardBackwardList);
                 break;
 
             default:
@@ -400,4 +402,7 @@ export class LoanActionModalComponent implements OnInit {
         }
     }
 
+    test(value: any) {
+        console.log('comment Value:::: ', value);
+    }
 }
