@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {LoanConfigService} from '../admin/component/loan-config/loan-config.service';
 import {LoanConfig} from '../admin/modal/loan-config';
@@ -53,6 +53,7 @@ export class LoanInformationDetailViewComponent implements OnInit {
     jointInfo = [];
     loaded = false;
     siteVisitDocuments: Array<SiteVisitDocument>;
+    isRetailDetailView = true;
 
     constructor(private loanConfigService: LoanConfigService,
                 private activatedRoute: ActivatedRoute,
@@ -109,6 +110,10 @@ export class LoanInformationDetailViewComponent implements OnInit {
         });
         this.getFiscalYears();
 
+    }
+
+    ngOnDestroy() {
+        this.isRetailDetailView = false;
     }
 
     loadSummary() {
