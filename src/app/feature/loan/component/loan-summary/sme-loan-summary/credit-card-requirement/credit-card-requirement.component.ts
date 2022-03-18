@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, Input, OnInit } from "@angular/core";
 
 @Component({
   selector: "app-credit-card-requirement",
@@ -7,6 +7,7 @@ import { Component, OnInit } from "@angular/core";
 })
 export class CreditCardRequirementComponent implements OnInit {
   isCreditCardRequired;
+  @Input() isRetailDetailView: boolean;
 
   constructor() {}
 
