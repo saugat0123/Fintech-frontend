@@ -698,7 +698,7 @@ export class CatalogueComponent implements OnInit {
         let context;
         context = {
             popUpTitle: 'Revert to Previous Stage',
-            isForward: true,
+            isForward: false,
             customerLoanHolder: data,
             loanConfigId: data.loan.id.toString(),
             customerLoanId: data.id.toString(),

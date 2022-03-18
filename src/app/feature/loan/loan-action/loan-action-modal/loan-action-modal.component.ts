@@ -404,5 +404,8 @@ export class LoanActionModalComponent implements OnInit {
 
     test(value: any) {
         console.log('comment Value:::: ', value);
+        console.log('formAction', this.formAction);
+        console.log('comment', this.formAction.controls['comment']);
+        console.log('invalid', this.formAction.invalid);
     }
 }

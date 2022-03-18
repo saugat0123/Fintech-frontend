@@ -756,6 +756,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
      */
     private getSignatureList(stages: Array<LoanStage>): Array<LoanStage> {
         let lastBackwardIndex = 0;
+        let lastRevokedIndex = 0;
         stages.forEach((data, index) => {
             if (data.docAction.toString() === DocAction.value(DocAction.BACKWARD)
                 || data.docAction.toString() === DocAction.value(DocAction.RE_INITIATE)) {
@@ -764,6 +765,22 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         });
         if (lastBackwardIndex !== 0) {
             stages.splice(0, lastBackwardIndex + 1);
+        }
+        const stage1 = stages;
+        for (let i = 0; i <= stages.length - 1; i++) {
+            if (stages[i].docAction.toString() === DocAction.value(DocAction.REVOKED_LOAN)) {
+                lastRevokedIndex = i;
+                break;
+            }
+        }
+        if (stages[stages.length - 1].docAction.toString() === DocAction.value(DocAction.REVOKED_LOAN)) {
+            if (lastRevokedIndex !== 0) {
+                stage1.splice(lastRevokedIndex - 1, ((stages.length - 1) - 2));
+            }
+        } else {
+            if (lastRevokedIndex !== 0) {
+                stage1.splice(lastRevokedIndex - 1, ((stages.length - 1) - (lastRevokedIndex - 1)));
+            }
         }
         const signatureList = new Array<LoanStage>();
         const addedStages = new Map<number, number>(); // KEY = loan stage from user id, value = array index
@@ -777,7 +794,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                 }
             }
         });
-
         return signatureList;
     }
 

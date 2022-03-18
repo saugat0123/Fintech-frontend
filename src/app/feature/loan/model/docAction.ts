@@ -12,7 +12,8 @@ export enum DocAction {
     SEND_BACK_TO_SENDER,
     SEND_BACK_TO_AGENT,
     HSOV_PENDING,
-    DUAL_APPROVAL_PENDING
+    DUAL_APPROVAL_PENDING,
+    REVOKED_LOAN
 }
 
 export namespace DocAction {
@@ -43,6 +44,8 @@ export namespace DocAction {
             return 'SEND_BACK_TO_SENDER';
         } else if (docAction === DocAction.DUAL_APPROVAL_PENDING) {
             return 'DUAL_APPROVAL_PENDING';
+        } else if (docAction === DocAction.REVOKED_LOAN) {
+            return 'REVOKED_LOAN';
         }
     }
 }
