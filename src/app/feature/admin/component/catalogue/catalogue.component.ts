@@ -85,6 +85,7 @@ export class CatalogueComponent implements OnInit {
     selectedUserForTransfer;
     provinces: Province[];
     usersId;
+    currentUserName: string;
     public typesDropdown: {
         name: string,
         value: string,
@@ -162,6 +163,7 @@ export class CatalogueComponent implements OnInit {
 
     ngOnInit() {
         this.approvalType = LocalStorageUtil.getStorage().productUtil.LOAN_APPROVAL_HIERARCHY_LEVEL;
+        this.currentUserName = LocalStorageUtil.getStorage().username;
         this.activatedRoute.queryParams.subscribe(
             (paramsValue: Params) => {
                 this.redirected = paramsValue.redirect === 'true';
@@ -696,13 +698,13 @@ export class CatalogueComponent implements OnInit {
         let context;
         if (data.isHsov && data.documentStatus.toString() !== DocStatus.value(DocStatus.HSOV_PENDING)) {
             context = {
-                popUpTitle: 'Revert to Previous Stage',
+                popUpTitle: 'Revert Approved Loan',
                 isForward: false,
                 customerLoanHolder: data,
                 loanConfigId: data.loan.id.toString(),
                 customerLoanId: data.id.toString(),
                 branchId: data.branch.id,
-                docAction: 'REVOKED_LOAN',
+                docAction: 'REVERT_APPROVED',
                 docActionMsg: 'Revert Document Status to HSOV Pending',
                 documentStatus: DocStatus.HSOV_PENDING,
                 isRemitLoan: this.isRemitLoan,
@@ -711,13 +713,13 @@ export class CatalogueComponent implements OnInit {
             };
         } else if (data.dualApproval && !data.dualApproved) {
             context = {
-                popUpTitle: 'Revert to Previous Stage',
+                popUpTitle: 'Revert Approved Loan',
                 isForward: false,
                 customerLoanHolder: data,
                 loanConfigId: data.loan.id.toString(),
                 customerLoanId: data.id.toString(),
                 branchId: data.branch.id,
-                docAction: 'REVOKED_LOAN',
+                docAction: 'REVERT_APPROVED',
                 docActionMsg: 'Revert Document Status to Dual Approval Pending',
                 documentStatus: DocStatus.DUAL_APPROVAL_PENDING,
                 isRemitLoan: this.isRemitLoan,
@@ -726,13 +728,13 @@ export class CatalogueComponent implements OnInit {
             };
         } else {
             context = {
-                popUpTitle: 'Revert to Previous Stage',
+                popUpTitle: 'Revert Approved Loan',
                 isForward: false,
                 customerLoanHolder: data,
                 loanConfigId: data.loan.id.toString(),
                 customerLoanId: data.id.toString(),
                 branchId: data.branch.id,
-                docAction: 'REVOKED_LOAN',
+                docAction: 'REVERT_APPROVED',
                 docActionMsg: 'Revert Document Status to Pending',
                 documentStatus: DocStatus.PENDING,
                 isRemitLoan: this.isRemitLoan,

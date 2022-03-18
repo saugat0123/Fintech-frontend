@@ -157,7 +157,7 @@
                 <th *ngIf="showBranchProvince">Branch Province</th>
                 <th>Action</th>
                 <th>Diary Note</th>
-                <th>Revert to previous Stage</th>
+                <th>Revert Approved Loan</th>
             </tr>
             </thead>
             <tbody>
@@ -261,7 +261,7 @@
                         </a>
                     </ng-container>
                 </td>
-                <td *ngIf="!model?.cadStageChecked">
+                <td *ngIf="!model?.cadStageChecked && (model?.documentStatus.toString() === 'APPROVED') && (model?.currentStage?.toUser?.username === currentUserName)">
                     <button nbButton status="warning" size="tiny"
                             (click)="revertApproveLoan(model)">
                         <em class="fa fa-arrow-circle-left"></em></button>

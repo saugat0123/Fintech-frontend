@@ -768,12 +768,12 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         }
         const stage1 = stages;
         for (let i = 0; i <= stages.length - 1; i++) {
-            if (stages[i].docAction.toString() === DocAction.value(DocAction.REVOKED_LOAN)) {
+            if (stages[i].docAction.toString() === DocAction.value(DocAction.REVERT_APPROVED)) {
                 lastRevokedIndex = i;
                 break;
             }
         }
-        if (stages[stages.length - 1].docAction.toString() === DocAction.value(DocAction.REVOKED_LOAN)) {
+        if (stages[stages.length - 1].docAction.toString() === DocAction.value(DocAction.REVERT_APPROVED)) {
             if (lastRevokedIndex !== 0) {
                 stage1.splice(lastRevokedIndex - 1, ((stages.length - 1) - 2));
             }

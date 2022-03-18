@@ -169,7 +169,7 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
                 this.actionsList.rejected = false;
                 this.actionsList.closed = false;
             }
-            if (this.loanDataHolder.currentStage.docAction.toString() === DocAction.value(DocAction.REVOKED_LOAN)) {
+            if (this.loanDataHolder.currentStage.docAction.toString() === DocAction.value(DocAction.REVERT_APPROVED)) {
                 this.actionsList.approved = true;
                 this.actionsList.sendForward = false;
                 this.actionsList.edit = false;
