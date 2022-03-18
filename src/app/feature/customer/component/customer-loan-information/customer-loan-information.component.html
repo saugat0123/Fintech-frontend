@@ -43,6 +43,7 @@
             <app-site-visit #siteVisitComponent
                             (siteVisitDataEmitter)="saveSiteVisit($event);"
                             [formValue]="customerInfo?.siteVisit"
+                            [customerInfo]="customerInfo"
                             [fromProfile]="true"></app-site-visit>
           </nb-card-body>
         </nb-card>
@@ -563,7 +564,7 @@
         <a class="cursor info-label" (click)="openModel(guarantorComponentTemplate)">
           <div class="row">
             <div class="col-md-8">
-              <p class="custom-font">SHAREHOLDER/GUARANTOR</p>
+              <p class="custom-font">{{customerInfo?.customerType === 'INSTITUTION'?'SHAREHOLDER/GUARANTOR':'GUARANTOR'}}</p>
             </div>
             <div class="col-md-4 d-flex justify-content-end">
               <span *ngIf="customerInfo?.guarantors !== null" style="color:green"
@@ -582,7 +583,7 @@
       <ng-template #guarantorComponentTemplate let-data let-ref="dialogRef">
         <nb-card class="template-css">
           <nb-card-header>
-            SHAREHOLDER/GUARANTOR
+            {{customerInfo?.customerType === 'INSTITUTION'?'SHAREHOLDER/GUARANTOR':'GUARANTOR'}}
             <a aria-label="Close" class="close cursor"
                data-dismiss="modal" (click)="ref.close()">
                       <span style="color: red" (click)="ref.close()">
@@ -921,7 +922,7 @@
       </ng-template>
 
       <!-- Multi Banking/Consortium Financing-->
-      <div class="col-md-4">
+      <div class="col-md-4" *ngIf="customerInfo?.customerType === 'INSTITUTION'">
         <div class="row">
           <nb-card class="col-md-11 py-2">
             <a class="cursor info-label" (click)="openModel(multiBankingTemplate)">

@@ -9,6 +9,7 @@ import {Editor} from '../../../@core/utils/constants/editor';
 import {RelationshipList} from '../../loan/model/relationshipList';
 import {CiclRelationListEnum} from '../../loan/model/ciclRelationListEnum';
 import {CalendarType} from '../../../@core/model/calendar-type';
+import {BankingRelationship} from '../../admin/modal/banking-relationship';
 
 @Component({
   selector: 'app-cicl',
@@ -35,6 +36,9 @@ export class CiclComponent implements OnInit {
   ciclRelation = CiclRelationListEnum.pair();
   ciclHistory = false;
   variableChecked = false;
+  bankingRelationChecked;
+  bankingRelationshipList = BankingRelationship.enumObject();
+  bankingRelationship;
 
   constructor(
       private formBuilder: FormBuilder,
@@ -71,7 +75,11 @@ export class CiclComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.ciclValue.cibRemark)) {
         this.variableChecked = JSON.parse(this.ciclValue.cibRemark).checked;
-        this.ciclValue.cibCharge = JSON.parse(this.ciclValue.cibRemark).value;
+        if (!ObjectUtil.isEmpty(JSON.parse(this.ciclValue.cibRemark).value)) {
+            this.ciclValue.cibCharge = JSON.parse(this.ciclValue.cibRemark).value;
+        }
+        this.bankingRelationship = JSON.parse(this.ciclValue.cibRemark).bankingRelationship;
+        this.bankingRelationChecked = JSON.parse(this.ciclValue.cibRemark).bankingRelationChecked;
     }
     this.buildCiclForm();
     this.relationlist = this.relationshipList.relation;
@@ -223,10 +231,19 @@ export class CiclComponent implements OnInit {
       if (!this.variableChecked) {
           this.ciclValue.cibCharge = this.ciclForm.get('cibCharge').value === undefined ? '' : this.ciclForm.get('cibCharge').value;
           this.ciclValue.cibRemark = null;
+          const ciclRemark = {
+              value: '',
+              checked: false,
+              bankingRelationship: this.bankingRelationship,
+              bankingRelationChecked: this.bankingRelationChecked
+          };
+          this.ciclValue.cibRemark = JSON.stringify(ciclRemark);
       } else {
           const ciclRemark = {
               value: this.ciclForm.get('cibCharge').value === undefined ? '' : this.ciclForm.get('cibCharge').value,
-              checked: true
+              checked: true,
+              bankingRelationship: this.bankingRelationship,
+              bankingRelationChecked: this.bankingRelationChecked
           };
           this.ciclValue.cibRemark = JSON.stringify(ciclRemark);
           this.ciclValue.cibCharge = null;
@@ -243,7 +260,11 @@ export class CiclComponent implements OnInit {
       }
   }
 
-  variableCheck(event) {
-      this.variableChecked = event;
-  }
+    variableCheck(event, type) {
+        if (type === 'variable') {
+            this.variableChecked = event;
+        } else if (type === 'banking') {
+            this.bankingRelationChecked = event;
+        }
+    }
 }
