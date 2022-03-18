@@ -16,10 +16,11 @@
             <table class="table table-bordered table-hover table-sm sb-small text-center ">
                 <thead>
                 <tr class="text-white sb-bg-dark">
-                    <th>Facility</th>
-                    <th>Limit</th>
-                    <th>Disbursement</th>
-                    <th>Int Rate</th>
+                    <th>Facilities</th>
+                    <th>Existing Limit</th>
+                    <th>New Limit</th>
+                    <th>Total Limit</th>
+                    <th>Interest Rate/ Commission</th>
                     <th>Maturity</th>
                     <th>Frequency</th>
 
@@ -34,7 +35,9 @@
 
                             <td><input class="cellInput text-center" formControlName="loanName" [readOnly]="true"></td>
                             <td><input class="cellInput text-center" formControlName="loanLimit" [readOnly]="true"></td>
-                            <td><input class="cellInput text-center" formControlName="disbursement"></td>
+                            <td><input class="cellInput text-center" formControlName="newLoanLimit" [readOnly]="true"></td>
+                            <td><input class="cellInput text-center" formControlName="totalLoanLimit" [readOnly]="true"></td>
+<!--                            <td><input class="cellInput text-center" formControlName="disbursement"></td>-->
                             <td><input class="cellInput text-center" formControlName="initialRate"></td>
                             <td><input class="cellInput text-center" formControlName="maturity"></td>
                             <td>
