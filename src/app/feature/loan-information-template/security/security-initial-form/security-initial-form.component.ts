@@ -878,6 +878,8 @@ export class SecurityInitialFormComponent implements OnInit {
                         [singleData.plantMachineryStaffRepresentativeDesignation2],
                     plantMachineryStaffRepresentativeName2: [singleData.plantMachineryStaffRepresentativeName2],
                     plantOtherBranchChecked: [singleData.plantOtherBranchChecked],
+                    realisableRate: [singleData.realisableRate],
+                    realisableValue: [singleData.realisableValue],
                     uuid: [ObjectUtil.isEmpty(singleData.uuid) ? this.uuid() : singleData.uuid],
                 })
             );
@@ -1492,6 +1494,8 @@ export class SecurityInitialFormComponent implements OnInit {
             plantMachineryStaffRepresentativeDesignation2: [undefined],
             plantMachineryStaffRepresentativeName2: [undefined],
             plantOtherBranchChecked: [undefined],
+            realisableRate: [undefined],
+            realisableValue: [undefined],
             uuid: [this.uuid()],
         });
     }
@@ -1834,8 +1838,9 @@ export class SecurityInitialFormComponent implements OnInit {
         const shareType = this.shareField.at(index).get('shareType').value;
         this.shareField.at(index).patchValue({
             total: totalShareUnit * amountPerUnit,
-            consideredValue: this.calculateConsideredAmount(totalShareUnit, amountPerUnit, shareType)
+            drawingPower: this.calculateConsideredAmount(totalShareUnit, amountPerUnit, shareType)
         });
+        this.calcRealiasable(index,'share');
     }
 
     get totalConsideredValue() {
@@ -1883,6 +1888,8 @@ export class SecurityInitialFormComponent implements OnInit {
                         dividendYeild: [share.dividendYeild],
                         dividendPayoutRatio: [share.dividendPayoutRatio],
                         ratioAsPerAuitedFinancial: [share.ratioAsPerAuitedFinancial],
+                        shareRate: [share.shareRate],
+                        drawingPower: [share.drawingPower],
                         uuid: [ObjectUtil.isEmpty(share.uuid) ? this.uuid() : share.uuid],
                     })
                 );
@@ -1906,6 +1913,8 @@ export class SecurityInitialFormComponent implements OnInit {
             dividendYeild: [undefined],
             dividendPayoutRatio: [undefined],
             ratioAsPerAuitedFinancial: [undefined],
+            shareRate: [undefined],
+            drawingPower: [undefined],
             uuid: [this.uuid()],
         });
     }
@@ -2604,6 +2613,19 @@ export class SecurityInitialFormComponent implements OnInit {
                     * (Number(this.securityForm.get(['vehicleDetails', i, 'vehicleRate']).value) / 100));
                 this.securityForm.get(['vehicleDetails', i, 'vehicleRealiasableAmount']).patchValue(reliasableValue);
             }
+            break;
+            case 'plant': {
+                const reliasableValue = (Number(this.securityForm.get(['plantDetails', i, 'realisableValue']).value)
+                    * (Number(this.securityForm.get(['plantDetails', i, 'realisableRate']).value) / 100));
+                this.securityForm.get(['plantDetails', i, 'quotation']).patchValue(reliasableValue);
+            }
+            break;
+            case 'share': {
+                const reliasableValue = (Number(this.shareSecurityForm.get(['shareSecurityDetails', i, 'total']).value)
+                    * (Number(this.shareSecurityForm.get(['shareSecurityDetails', i, 'shareRate']).value) / 100));
+                this.shareSecurityForm.get(['shareSecurityDetails', i, 'consideredValue']).patchValue(reliasableValue);
+            }
+            break;
         }
     }
 }

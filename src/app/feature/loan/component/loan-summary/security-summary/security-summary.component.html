@@ -650,7 +650,7 @@
                     <tr class="text-center sb-bg-secondary text-white">
                         <th class="sn">S.N</th>
                         <th>Model</th>
-                        <th>Quotation</th>
+                        <th>Realisable Value</th>
                         <th>Supplier</th>
 <!--                        <th>Downpay</th>-->
                         <th *ngIf="plantDetails?.plantOtherBranchChecked === true">Valuator Branch</th>
@@ -716,6 +716,7 @@
                         <th>Share Unit</th>
                         <th> Rate</th>
                         <th>Total Value</th>
+                        <th>Drawing  Power</th>
                         <th>Realisable Value</th>
                     </tr>
                     </thead>
@@ -727,6 +728,7 @@
                         <td class="text-right pr-1">{{singleShareData?.totalShareUnit}}</td>
                         <td class="text-right pr-1">Rs. {{singleShareData?.amountPerUnit |currencyFormatter}}</td>
                         <td class="text-right pr-1">Rs. {{singleShareData?.total |currencyFormatter}}</td>
+                        <td class="text-right pr-1">Rs. {{singleShareData?.drawingPower |currencyFormatter}}</td>
                         <td class="text-right pr-1">Rs. {{singleShareData?.consideredValue |currencyFormatter}}</td>
                     </tr>
                     <tr>

@@ -2377,18 +2377,39 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label class="title" for="quotation">Quotation/Valuation Amount</label>
+                                <input (change)="calcRealiasable(i, 'plant')"
+                                        class="form-control rounded" formControlName="realisableValue"
+                                        id="realisableValue"
+                                        name="realisableValue" placeholder="Quotation/Valuation Amount"
+                                        type="text" appDecimalNumber />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="title" for="quotation">Realisable Rate</label>
+                                <input (change)="calcRealiasable(i, 'plant')"
+                                        class="form-control rounded" formControlName="realisableRate"
+                                        id="realisableRate"
+                                        name="realisableRate" placeholder="Realisable Rate"
+                                        type="text" appDecimalNumber/>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="title" for="quotation">Realisable Value</label>
                                 <input [ngClass]="{ 'is-invalid': (plantSelected) && (plant.get('quotation').errors ||
                                     plant.get('quotation').invalid) }"
                                         class="form-control rounded" formControlName="quotation"
                                        id="quotation"
-                                       name="quotation" placeholder="Quotation/Valuation Amount"
-                                       type="text"/>
+                                       name="quotation" placeholder=""
+                                       type="text" disabled/>
                                 <div *ngIf="(plantSelected) && (plant.get('quotation').invalid)"
                                      class="invalid-feedback">
                                     <div *ngIf="plant.get('quotation').errors.required">Quotation amount is required</div>
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label class="title" for="supplier">Supplier</label>
@@ -2408,17 +2429,17 @@
 <!--                            </div>-->
 <!--                        </div>-->
                     </div>
-                    <div class="row">
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label class="title" for="loanExp">Loan Exposure</label>
-                                <input class="form-control rounded" formControlName="loanExp"
-                                       id="loanExp"
-                                       name="loanExp" placeholder="0.00"
-                                       type="text"/>
-                            </div>
-                        </div>
-                    </div>
+<!--                    <div class="row">-->
+<!--                        <div class="col-md-3">-->
+<!--                            <div class="form-group">-->
+<!--                                <label class="title" for="loanExp">Loan Exposure</label>-->
+<!--                                <input class="form-control rounded" formControlName="loanExp"-->
+<!--                                       id="loanExp"-->
+<!--                                       name="loanExp" placeholder="0.00"-->
+<!--                                       type="text"/>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
                     <div class="row">
                         <div class="col-md-12">
                             <div *ngIf="securityForm.get(['plantDetails',i,'plantOtherBranchChecked']).value">
@@ -3119,7 +3140,21 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
+                                    <label for="shareRatse">Realisable Rate %</label>
+                                    <input class="form-control" formControlName="shareRate" (change)="calcRealiasable(shareFieldIndex,'share')"
+                                           id="shareRatse" name="shareRate" placeholder="Rate %">
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
                                     <label for="consideredValue">Drawing Power</label>
+                                    <input class="form-control" formControlName="drawingPower"
+                                           id="drawingPower" name="drawingPower" placeholder="Drawing Power" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="consideredValue">Realisable Value</label>
                                     <input class="form-control" formControlName="consideredValue"
                                            id="consideredValue" name="total" placeholder="Realisable Value" readonly>
                                 </div>
