@@ -8,9 +8,31 @@
 
   }
 }
+.report-header {
+  text-align: center;
+
+  .report-header-heading {
+    font-size: 16pt;
+    font-weight: bold;
+  }
+
+  .report-header-sub-heading {
+    font-size: 14pt;
+    line-height: 1.9em;
+  }
+}
 
 @media print {
   .print-only {
     display: block;
+  }
+}
+
+.heading-list {
+  li {
+    margin-top: 2rem;
+  }
+  li:first-child {
+    margin-top: 0;
   }
 }
