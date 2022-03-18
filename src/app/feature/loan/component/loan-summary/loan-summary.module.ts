@@ -132,7 +132,6 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
     OtherChargesComponent,
     CovenantsComponent,
     NrbStatutoryRemarksStatusComponent,
-    CreditCardRequirementComponent,
     AboveRequestOfTheCustomerComponent,
     AbovePurposeJustificationForProposalComponent,
     AboveBusinessRelatedInformationComponent,
@@ -167,7 +166,6 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
     OtherChargesComponent,
     CovenantsComponent,
     NrbStatutoryRemarksStatusComponent,
-    CreditCardRequirementComponent,
     AboveGroupExposureWithCcblComponent,
     AboveBankingArrangementOfTheCustomerComponent,
     AboveStockStatementComponent,
@@ -181,6 +179,7 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
     AboveWaiverDeviationsDeferalsRebatesComponent,
     AboveReviewOfCreditFacilitiesComponent,
     GroupCreditFacilityReportComponent,
+    CreditCardRequirementComponent
   ],
   imports: [
     CommonModule,
@@ -219,6 +218,7 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
     SignatureSectionComponent,
     CreditFacilityReportComponent,
     SmeLoanSummaryComponent,
+    CreditCardRequirementComponent,
   ],
   entryComponents: [...ENTRY_COMPONENTS],
 })
