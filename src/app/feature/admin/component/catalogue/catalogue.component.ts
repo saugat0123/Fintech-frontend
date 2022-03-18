@@ -171,7 +171,6 @@ export class CatalogueComponent implements OnInit {
         this.buildActionForm();
 
         this.roleAccess = LocalStorageUtil.getStorage().roleAccess;
-        console.log('getStorage()', LocalStorageUtil.getStorage());
         if (LocalStorageUtil.getStorage().roleType === RoleType.MAKER) {
             this.isMaker = true;
         }
@@ -694,23 +693,53 @@ export class CatalogueComponent implements OnInit {
         if (!ObjectUtil.isEmpty(data.remitCustomer)) {
             this.beneficiaryId = data.remitCustomer.beneficiaryId;
         }
-        console.log('data', data);
         let context;
-        context = {
-            popUpTitle: 'Revert to Previous Stage',
-            isForward: false,
-            customerLoanHolder: data,
-            loanConfigId: data.loan.id.toString(),
-            customerLoanId: data.id.toString(),
-            branchId: data.branch.id,
-            docAction: 'REVOKED_LOAN',
-            docActionMsg: '',
-            documentStatus: DocStatus.PENDING,
-            isRemitLoan: this.isRemitLoan,
-            beneficiaryId: this.beneficiaryId,
-            toUser: data.currentStage.toUser
-        };
-        console.log('context', context);
+        if (data.isHsov && data.documentStatus.toString() !== DocStatus.value(DocStatus.HSOV_PENDING)) {
+            context = {
+                popUpTitle: 'Revert to Previous Stage',
+                isForward: false,
+                customerLoanHolder: data,
+                loanConfigId: data.loan.id.toString(),
+                customerLoanId: data.id.toString(),
+                branchId: data.branch.id,
+                docAction: 'REVOKED_LOAN',
+                docActionMsg: 'Revert Document Status to HSOV Pending',
+                documentStatus: DocStatus.HSOV_PENDING,
+                isRemitLoan: this.isRemitLoan,
+                beneficiaryId: this.beneficiaryId,
+                toUser: data.currentStage.toUser
+            };
+        } else if (data.dualApproval && !data.dualApproved) {
+            context = {
+                popUpTitle: 'Revert to Previous Stage',
+                isForward: false,
+                customerLoanHolder: data,
+                loanConfigId: data.loan.id.toString(),
+                customerLoanId: data.id.toString(),
+                branchId: data.branch.id,
+                docAction: 'REVOKED_LOAN',
+                docActionMsg: 'Revert Document Status to Dual Approval Pending',
+                documentStatus: DocStatus.DUAL_APPROVAL_PENDING,
+                isRemitLoan: this.isRemitLoan,
+                beneficiaryId: this.beneficiaryId,
+                toUser: data.currentStage.toUser
+            };
+        } else {
+            context = {
+                popUpTitle: 'Revert to Previous Stage',
+                isForward: false,
+                customerLoanHolder: data,
+                loanConfigId: data.loan.id.toString(),
+                customerLoanId: data.id.toString(),
+                branchId: data.branch.id,
+                docAction: 'REVOKED_LOAN',
+                docActionMsg: 'Revert Document Status to Pending',
+                documentStatus: DocStatus.PENDING,
+                isRemitLoan: this.isRemitLoan,
+                beneficiaryId: this.beneficiaryId,
+                toUser: data.currentStage.toUser
+            };
+        }
         this.dialogRef = this.nbDialogService.open(LoanActionModalComponent, {
            context,
             closeOnBackdropClick: false,

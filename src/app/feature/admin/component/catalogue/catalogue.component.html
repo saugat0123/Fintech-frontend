@@ -261,10 +261,10 @@
                         </a>
                     </ng-container>
                 </td>
-                <td>
+                <td *ngIf="!model?.cadStageChecked">
                     <button nbButton status="warning" size="tiny"
                             (click)="revertApproveLoan(model)">
-                        <em class="fa fa-arrow-circle-right"></em></button>
+                        <em class="fa fa-arrow-circle-left"></em></button>
                 </td>
 
                 <ng-template #linkin>
