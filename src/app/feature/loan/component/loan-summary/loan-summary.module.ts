@@ -76,6 +76,7 @@ import { AboveModeOfDisbursementComponent } from './sme-loan-summary/above-ten-m
 import { AboveRepaymentModalityOfCreditFacilitiesComponent } from './sme-loan-summary/above-ten-million/above-repayment-modality-of-credit-facilities/above-repayment-modality-of-credit-facilities.component';
 import { AboveWaiverDeviationsDeferalsRebatesComponent } from './sme-loan-summary/above-ten-million/above-waiver-deviations-deferals-rebates/above-waiver-deviations-deferals-rebates.component';
 import { AboveReviewOfCreditFacilitiesComponent } from './sme-loan-summary/above-ten-million/above-review-of-credit-facilities/above-review-of-credit-facilities.component';
+import { GroupCreditFacilityReportComponent } from './group-credit-facility-report/group-credit-facility-report.component';
 
 const COMPONENTS = [
   SitevistSummaryComponentComponent,
@@ -177,6 +178,7 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
     AboveRepaymentModalityOfCreditFacilitiesComponent,
     AboveWaiverDeviationsDeferalsRebatesComponent,
     AboveReviewOfCreditFacilitiesComponent,
+    GroupCreditFacilityReportComponent,
     CreditCardRequirementComponent
   ],
   imports: [
