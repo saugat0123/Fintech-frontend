@@ -834,7 +834,7 @@
                                 <span>Interest: <b>{{(cl?.proposal?.data | jsonParse)?.interestRate}}</b> % p.a (BR + 0.59%)</span> <br>
                                 Loan Administrative Fee: <b>{{(cl?.proposal?.data | jsonParse)?.serviceCharge}}</b> % of the approve limit
                                 <br>
-                                CIC charge: <b>{{(cl?.loanHolder?.cicl.data | jsonParse)?.cibCharge}}</b> <br>
+                                CIC charge: <b>{{(cl?.loanHolder?.cicl?.data | jsonParse)?.cibCharge}}</b> <br>
                                 Prepayment Charge: <b>{{(cl?.proposal?.data | jsonParse)?.prepaymentCharge}}</b> <br>
                                 Swap Charge: <b>{{(cl?.proposal?.data | jsonParse)?.swapCharge}}</b>
                             </td>
