@@ -89,8 +89,17 @@ ol.conditions-list {
       font-size: 1.6rem !important;
     }
   }
+  td {
+    text-align: justify;
+  }
+  .bank {
+    margin-left: 2.5rem !important;
+  }
 }
 
 input::placeholder {
   font-size: 19px;
+}
+td:first-child {
+  vertical-align: top;
 }
