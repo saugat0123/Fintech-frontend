@@ -1,34 +1,49 @@
 <div class="row">
     <div class="col-md-12">
-        <h6 class="text-center">Credit Facilities Report</h6>
+        <h6 class="text-center">Credit Facilities Report (CFR) -
+            <br>Retail Loan</h6>
         <table class="table table-responsive-md table-bordered table-responsive-sm table-condensed table-sm text-center sb-small">
             <tr class="sb-bg-dark text-white">
                 <td>Originating Branch</td>
                 <td>Date</td>
                 <td>Next Review</td>
-                <td>CFR/CA Ref.:</td>
+                <td colspan="15">CFR/CA Ref.:</td>
             </tr>
             <tr>
                 <td class="text-left pl-1">{{loanDataHolder?.branch?.name}}</td>
                 <td class="text-left pl-1">{{loanDataHolder?.createdAt | date}}</td>
                 <td class="text-left pl-1">{{'NA'}}</td>
-                <td class="text-left pl-1">{{loanDataHolder?.refNo}}</td>
+                <td class="text-left pl-1">{{loanDataHolder?.refNo.substring(0,1)}}</td>
+                <td class="text-left pl-1">{{loanDataHolder?.refNo.substring(1,2)}}</td>
+                <td class="text-left pl-1">{{loanDataHolder?.refNo.substring(2,3)}}</td>
+                <td class="text-left pl-1">{{loanDataHolder?.refNo.substring(3,4)}}</td>
+                <td class="text-left pl-1">{{loanDataHolder?.refNo.substring(4,5)}}</td>
+                <td class="text-left pl-1">{{loanDataHolder?.refNo.substring(5,6)}}</td>
+                <td class="text-left pl-1">{{loanDataHolder?.refNo.substring(6,7)}}</td>
+                <td class="text-left pl-1">{{loanDataHolder?.refNo.substring(7,8)}}</td>
+                <td class="text-left pl-1">{{loanDataHolder?.refNo.substring(8,9)}}</td>
+                <td class="text-left pl-1">{{loanDataHolder?.refNo.substring(9,10)}}</td>
+                <td class="text-left pl-1">{{loanDataHolder?.refNo.substring(10,11)}}</td>
+                <td class="text-left pl-1">{{loanDataHolder?.refNo.substring(11,12)}}</td>
+                <td class="text-left pl-1">{{loanDataHolder?.refNo.substring(12,13)}}</td>
+                <td class="text-left pl-1">{{loanDataHolder?.refNo.substring(13,14)}}</td>
+                <td class="text-left pl-1"></td>
             </tr>
         </table>
-    </div>
+   <!-- </div>
 </div>
 <div class="row">
-    <div class="col-md-12">
-        <table class="table table-responsive-md table-bordered table-condensed table-sm text-left sb-small">
+    <div class="col-md-12">-->
+        <table class="table table-responsive-md table-bordered table-condensed table-sm text-left sb-small mt-n3">
             <tr>
-                <td>Customer & Address:</td>
-                <td>Obligor Group & Location</td>
-                <td>Risk Grade:</td>
+                <td style="width: 40%">Customer & Address:</td>
+                <td style="width: 28%">Obligor Group & Location</td>
+                <td>Risk Grade: </td>
             </tr>
             <tr>
                 <td>Name: Mr. {{loanDataHolder?.loanHolder.name}}</td>
                 <td rowspan="7">Name: to be Created</td>
-                <td>Basel Risk</td>
+                <td>Basel Risk:  </td>
             </tr>
             <tr>
                 <td>Permanent Address:
@@ -36,7 +51,7 @@
                     , {{loanDataHolder?.customerInfo?.district?.name}},
                     {{loanDataHolder?.customerInfo?.municipalities?.name}}
                     , {{loanDataHolder?.customerInfo?.wardNumber}}</td>
-                <td>NRB Sector Code:</td>
+                <td>NRB Sector Code:.............................</td>
             </tr>
             <tr>
                 <td>Current Address:
@@ -44,33 +59,33 @@
                     , {{loanDataHolder?.customerInfo?.temporaryDistrict?.name}},
                     {{loanDataHolder?.customerInfo?.temporaryMunicipalities?.name}}
                     , {{loanDataHolder?.customerInfo?.temporaryWardNumber}}</td>
-                <td>NRB Security Code:</td>
+                <td>NRB Security Code:..............................</td>
             </tr>
             <tr>
                 <td>Contact No.: {{loanDataHolder?.customerInfo?.contactNumber}}</td>
-                <td>NRB Product Code</td>
+                <td>NRB Product Code: ..................................</td>
             </tr>
             <tr>
-                <td rowspan="3">Contact Person:</td>
-                <td>Risk Type</td>
+                <td rowspan="3">Contact Person: Mr.............................</td>
+                <td>Risk Type: </td>
             </tr>
             <tr>
-                <td> SIS Sector/Sub-Sector Code:</td>
+                <td> SIS Sector/Sub-Sector Code:.........................</td>
             </tr>
             <tr>
-                <td>SIS Collateral Code:</td>
+                <td>SIS Collateral Code:..........................</td>
             </tr>
         </table>
-    </div>
-</div>
-<ul>
+<!--    </div>
+</div>-->
+<!--<ul>
     <li class="sb-medium"><span><sup>*</sup> IR : Interest Rate ,<sup>*</sup> BR : Base Rate ,<sup>*</sup> PR : Premium Rate ,
                     <sup>*</sup> COM : Commission ,<sup>*</sup> CM : Cash margin, <sup>*</sup> CIC : CIC Charge, <sup>*</sup> LSC : Loan Swap Charge</span>
     </li>
-</ul>
-<div class="row">
-    <div class="col-md-12">
-        <table class="table table-responsive-md table-bordered table-condensed table-sm text-center sb-small">
+</ul>-->
+<!--<div class="row">
+    <div class="col-md-12">-->
+        <table class="table table-responsive-md table-bordered table-condensed table-sm text-center sb-small mt-n3">
             <tr class="sb-bg-dark text-white">
                 <td rowspan="2" colspan="1">Facilities</td>
                 <td colspan="2">Existing</td>
@@ -81,42 +96,43 @@
             </tr>
             <tr class="sb-bg-dark text-white">
                 <td colspan="1">Funded</td>
-                <td colspan="1">Non-Funded</td>
+                <td colspan="1">Non Funded</td>
                 <td colspan="1">Funded</td>
-                <td colspan="1">Non-Funded</td>
+                <td colspan="1">Non Funded</td>
             </tr>
-            <tr *ngFor="let data of customerAllLoanList; let i=index">
-                <td colspan="1" class="text-left pl-1">{{data?.loan?.name}}</td>
-                <td colspan="1" class="text-right pr-1">
-                                <span *ngIf="data?.loan?.isFundable">
+            <!--*ngFor="let data of customerAllLoanList; let i=index"-->
+            <tr >
+                <td colspan="1" class="text-left pl-1"><!--{{data?.loan?.name}}-->PTL</td>
+                <td colspan="1" class="text-right pr-1">-
+                   <!-- <span *ngIf="data?.loan?.isFundable">
                                     <span *ngIf="(data?.proposal?.data | jsonParse)?.existingLimit">
                                         Rs. {{(data?.proposal?.data | jsonParse)?.existingLimit | currencyFormatter}}
                                     </span>
                                 </span>
-                    <span *ngIf="(!data?.loan?.isFundable) || !(data?.proposal?.data | jsonParse)?.existingLimit">-</span>
+                    <span *ngIf="(!data?.loan?.isFundable) || !(data?.proposal?.data | jsonParse)?.existingLimit">-</span>-->
                 </td>
-                <td colspan="1" class="text-right pr-1">
-                                <span *ngIf="!data?.loan?.isFundable">
+                <td colspan="1" class="text-right pr-1">-
+                    <!--<span *ngIf="!data?.loan?.isFundable">
                                     <span *ngIf="(data?.proposal?.data | jsonParse)?.existingLimit">
                                         Rs. {{(data?.proposal?.data | jsonParse)?.existingLimit | currencyFormatter}}
                                     </span>
                                 </span>
-                    <span *ngIf="(data?.loan?.isFundable) || !(data?.proposal?.data | jsonParse)?.existingLimit">-</span>
+                    <span *ngIf="(data?.loan?.isFundable) || !(data?.proposal?.data | jsonParse)?.existingLimit">-</span>-->
                 </td>
-                <td colspan="1" class="text-right pr-1">
-                                <span *ngIf="data?.loan?.isFundable">
+                <td colspan="1" class="text-right pr-1">-
+                    <!--<span *ngIf="data?.loan?.isFundable">
                                     Rs. {{data?.proposal?.proposedLimit | currencyFormatter}}
                                 </span>
-                    <span *ngIf="(!data?.loan?.isFundable) || (data?.proposal?.proposedLimit < 0)">-</span>
+                    <span *ngIf="(!data?.loan?.isFundable) || (data?.proposal?.proposedLimit < 0)">-</span>-->
                 </td>
-                <td colspan="1" class="text-right pr-1">
-                                <span *ngIf="!data?.loan?.isFundable">
+                <td colspan="1" class="text-right pr-1">-
+                   <!-- <span *ngIf="!data?.loan?.isFundable">
                                     Rs. {{data?.proposal?.proposedLimit | currencyFormatter}}
                                 </span>
-                    <span *ngIf="(data?.loan?.isFundable) || (data?.proposal?.proposedLimit < 0)">-</span>
+                    <span *ngIf="(data?.loan?.isFundable) || (data?.proposal?.proposedLimit < 0)">-</span>-->
                 </td>
-                <td colspan="1" class="text-right pr-1">
-                                <span *ngIf="(array[i]?.isFundable && (array[i]?.loanNature === 'Terminating' || array[i]?.loanNature === 'Revolving'))
+                <td colspan="1" class="text-left pr-1">
+                    <!--<span *ngIf="(array[i]?.isFundable && (array[i]?.loanNature === 'Terminating' || array[i]?.loanNature === 'Revolving'))
                                 || array[i]?.isFixedDeposit || array[i]?.isVehicle || array[i]?.isShare || array[i]?.isGeneral">
                                     IR : {{(data?.proposal?.data | jsonParse)?.interestRate}} %,
                                 </span>
@@ -143,26 +159,36 @@
                                         ,</span>
                                     <span *ngIf="(data?.proposal?.data | jsonParse)?.swapChargeMethod == 'PERCENT'">
                                         LSC: {{(data?.proposal?.data | jsonParse)?.swapCharge}} %,</span>
-                                </span>
+                                </span>-->
+                    ..................% p.a (BR%+..................%)<br><br>
+
+                    Loan Processing Fee:...................% of the limit<br><br>
+
+                    CIC charge:
+                    On actual basis<br><br>
+
+                    Prepayment charge: As Per NRB<br><br>
+                    Loan Swap Charge: As per NRB<br><br>
                 </td>
                 <td colspan="1" class="text-left pl-1">
-                                <span *ngIf="(array[i]?.loanNatureSelected && array[i]?.fundableNonFundableSelcted && array[i]?.isFundable && array[i]?.isTerminating)
+                    <!--<span *ngIf="(array[i]?.loanNatureSelected && array[i]?.fundableNonFundableSelcted && array[i]?.isFundable && array[i]?.isTerminating)
                                     || array[i]?.isVehicle || array[i]?.isShare || array[i]?.isGeneral">
                                     {{array[i]?.tenureInMonth}} years from the date of disbursement
                                 </span>
                     <span *ngIf="!((array[i]?.loanNatureSelected && array[i]?.fundableNonFundableSelcted && array[i]?.isFundable && array[i]?.isTerminating)
                                     || array[i]?.isVehicle || array[i]?.isShare || array[i]?.isGeneral)"
-                          class="text-right pr-1">-</span>
+                          class="text-right pr-1">-</span>-->
+                   ................ years from the date of disbursement
                 </td>
                 <td colspan="1" class="text-left pl-1">
-                                <span>
+                    <span>
                                     Registered mortgage over <br>
                                     Owner: <br>
-                                    Location:       Ward No.: <br>
-                                    Plot No.: ......., Area: ...... sq.m <br>
+                                    Location:       Ward No.:<br>
+                                    Plot No.: ......., Area: ...... sq.m <br><br>
                                     Valuation Date and Valuator: ........;.......Pvt.Ltd.
                                 </span>
-                    <table>
+                    <table class="table table-bordered text-center mt-2">
                         <tr>
                             <td>Particulars</td>
                             <td>MV</td>
@@ -182,7 +208,7 @@
                             <td></td>
                         </tr>
                         <tr>
-                            <td>Total</td>
+                            <th>Total</th>
                             <td></td>
                             <td></td>
                             <td></td>
@@ -266,7 +292,7 @@
                                     Plot No.: ......., Area: ...... sq.m <br>
                                     Valuation Date and Valuator: ........;.......Pvt.Ltd.
                                 </span>
-                    <table>
+                    <table class="text-center">
                         <tr>
                             <td>Particulars</td>
                             <td>MV</td>
@@ -296,39 +322,91 @@
             </tr>
             <tr>
                 <th class="text-left pl-1">Total</th>
-                <th class="text-right pr-1">
-                    Rs. {{getTotalFundable('existingLimit', true, customerAllLoanList) | currencyFormatter}}</th>
-                <th class="text-right pr-1">
-                    Rs. {{getTotalFundable('existingLimit', false, customerAllLoanList) | currencyFormatter}}</th>
-                <th class="text-right pr-1">
-                    Rs. {{getTotalFundable('proposedLimit', true, customerAllLoanList) | currencyFormatter}}</th>
-                <th class="text-right pr-1">
-                    Rs. {{getTotalFundable('proposedLimit', false, customerAllLoanList) | currencyFormatter}}</th>
-                <th></th>
-                <th></th>
-                <th></th>
+                <th class="text-right pr-1">-
+                    <!--Rs. {{getTotalFundable('existingLimit', true, customerAllLoanList) | currencyFormatter}}--></th>
+                <th class="text-right pr-1">-
+                    <!--Rs. {{getTotalFundable('existingLimit', false, customerAllLoanList) | currencyFormatter}}--></th>
+                <th class="text-right pr-1">-
+                    <!--Rs. {{getTotalFundable('proposedLimit', true, customerAllLoanList) | currencyFormatter}}--></th>
+                <th class="text-right pr-1">-
+                    <!--Rs. {{getTotalFundable('proposedLimit', false, customerAllLoanList) | currencyFormatter}}--></th>
+                <th colspan="2"></th>
+                <th style="border-bottom: hidden"></th>
+            </tr>
+            <tr class="text-left">
+                <td colspan="3">
+                    Branch/Unit Originating CFR<br><br><br>
+                    Prepared By:<br><br><br>
+                    Recommended By:<br><br><br>
+                    Reviewed By:<br><br><br><br>
+                    Approved By:<br><br><br><br>
+                </td>
+                <td colspan="4">Approved by: ................................<br><br>
+
+                    ______________ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RM-..................................<br><br>
+
+                    ______________ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BM-..................................<br><br>
+
+                    ______________ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Risk Department<br><br><br><br>
+
+                    ______________&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;............................
+                </td>
+                <td>
+                    Personal Guarantee of Mrs.............. (Spouse of the borrower) of NPR ............. Mio. <br>
+                    Consent of Ms. ............ <br>
+                    <b>Total</b> <br>
+                    Tangible: NPR ............. Mio<br>
+                    Intangible: ............ Mio<br>
+                    Security Coverage: Ratio for funded Facility of NPR ............ Mio.<br><br>
+
+                    &nbsp;&nbsp;&nbsp;&nbsp;a. Land & Building :- .............% at FMV<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;b. Personal Guarantee :- 100%.<br><br>
+                </td>
             </tr>
         </table>
-    </div>
+   <!-- </div>
 </div>
 <div class="row pagebreak">
-    <div class="col-md-12">
-        <table class="table table-responsive-md table-bordered table-condensed table-sm text-center sb-small">
+    <div class="col-md-12">-->
+        <!--<table class="table table-responsive-md table-bordered table-condensed table-sm text-center sb-small">
             <tr>
                 <td style="width: 70%">
                     <app-signature-section [loanDataHolder]="loanDataHolder"></app-signature-section>
                 </td>
                 <td style="width: 30%">
-                    Personal Guarantee of Mrs...... (Spouse of the borrower) of NPR ..... Mio. <br>
-                    Consent of Ms. .... <br>
+                    Personal Guarantee of Mrs.............. (Spouse of the borrower) of NPR ............. Mio. <br>
+                    Consent of Ms. ............ <br>
                     <b>Total</b> <br>
-                    Tangible: NPR ..... Mio
-                    Intangible: .... Mio
-                    Security Coverage: Ratio for funded Facility of NPR .... Mio.
+                    Tangible: NPR ............. Mio
+                    Intangible: ............ Mio
+                    Security Coverage: Ratio for funded Facility of NPR ............ Mio.
 
-                    a. Land & Building :- .....% at FMV
+                    a. Land & Building :- .............% at FMV
                     b. Personal Guarantee :- 100%.
                 </td>
+            </tr>
+        </table>-->
+        <table class="table table-responsive-md table-bordered table-condensed table-sm sb-small mt-n3">
+            <tr>
+                <td></td>
+                <td>	Documentation Required:<br>
+                    a)	Offer Letter<br>
+                    b)	Mortgage Deed<br>
+                    c)	Loan Deed covering ................ Mio<br>
+                    d)	Promissory note covering .................. Mio<br>
+                    e)	Letter of continuity<br>
+                    f) Personal Guarantee of Mrs. ..................(............... borrower) of NPR ............... Mio<br>
+                    g) Consent of Ms. ................ (................. of the borrower)**<br>
+                    h) Consent for Blacklist from the borrower & guarantors as per NRB Directives<br>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><br>Special Instructions: <strong>Base rate: ...................% as of ...................</strong></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>NB: All figures are in Nepalese Currency and denominated in millions.</td>
             </tr>
         </table>
     </div>
