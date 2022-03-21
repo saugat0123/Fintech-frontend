@@ -486,7 +486,6 @@ export class UIComponent implements OnInit, DoCheck {
         }   else {
             this.displayChecklist = elem.replace('undefined', ' ');
         }
-        console.log(this.displayChecklist)
     }
 
 
