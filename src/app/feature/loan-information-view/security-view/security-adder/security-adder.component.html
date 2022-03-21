@@ -1,10 +1,8 @@
-<h1>Security Adder</h1>
 <nb-card>
     <nb-card-header class="text-center">
-        <strong>Security Information</strong>
         <div class="row mt-3">
             <div class="col-md-12 input-group-prepend">
-                <nb-select placeholder="select security" fullWidth #selectedGuarantor>
+                <nb-select placeholder="Select Share Security" fullWidth #selectedGuarantor>
                     <nb-option *ngFor="let guarantor of securityList" [value]="guarantor">
                         {{guarantor.name}} / {{guarantor.issuedPlace}}
                     </nb-option>
@@ -18,28 +16,36 @@
     <nb-card-body>
         <div class="row mt-5">
             <div class="col-md-12">
-                <p><strong>Security Details</strong></p>
+                <p><strong>Share Security Details</strong></p>
                 <table
                         class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                     <thead>
                     <tr class="text-white sb-bg-dark">
                         <th>S.N</th>
-                        <th>Name</th>
-                        <th>Address</th>
+                        <th>Name of Company</th>
+                        <th>Share Type</th>
+                        <th>Share Unit</th>
+                        <th>Rate</th>
+                        <th>Total Value</th>
+                        <th>Realizable Value</th>
                         <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr *ngFor="let securit of selectedSecurityList; let i= index">
+                    <tr *ngFor="let shareSecurity of approvedShareSecurityData.shareSecurityDetails; let i= index">
                         <td>{{i + 1}}</td>
-                        <td>{{securit?.name}}</td>
-                        <td>{{securit?.issuedPlace }},{{securit?.province?.name}},{{securit?.district?.name}}</td>
+                        <td>{{shareSecurity?.companyName}}</td>
+                        <td>{{shareSecurity?.shareType}}</td>
+                        <td>{{shareSecurity?.totalShareUnit}}</td>
+                        <td>{{shareSecurity?.amountPerUnit}}</td>
+                        <td>{{shareSecurity?.total}}</td>
+                        <td>{{shareSecurity?.consideredValue }}</td>
                         <td>
-                            <button (click)="removeShareSecurity(securit)"
+                            <button (click)="removeShareSecurity(shareSecurity)"
                                     class="btn btn-sm btn-flat btn-danger">
                                 <em class="fa fa-trash bg-transparent"></em>
                             </button>
-                            <button (click)="openGuarantorDetailModal(securit)"
+                            <button (click)="openGuarantorDetailModal(shareSecurity)"
                                     class="ml-1 btn btn-sm btn-flat btn-primary">
                                 <em class="fa fa-info bg-transparent"></em>
                             </button>
