@@ -772,7 +772,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         }
         if (stages[stages.length - 1].docAction.toString() === DocAction.value(DocAction.REVERT_APPROVED)) {
             if (lastRevokedIndex !== 0) {
-                stage1.splice(lastRevokedIndex - 1, ((stages.length - 1) - 2));
+                stage1.splice(lastRevokedIndex - 1, ((stages.length - 1) - (lastRevokedIndex - 2)));
             }
         } else {
             if (lastRevokedIndex !== 0) {
