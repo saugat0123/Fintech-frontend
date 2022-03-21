@@ -209,6 +209,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     checkedData;
     proposalAllData;
     financial;
+    paperChecklist;
+    allIds;
     citizen;
 
     constructor(
@@ -250,6 +252,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             this.isRemitLoan = true;
         }
         this.loanDataHolder = this.loanData;
+        this.disable();
         if (this.loanDataHolder.loanHolder.clientType === 'CONSUMER_FINANCE') {
             this.consumerFinance = true;
         } else if (this.loanDataHolder.loanHolder.clientType === 'SMALL_BUSINESS_FINANCIAL_SERVICES') {
@@ -273,7 +276,6 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                 let innerCustomer = [];
                 this.jointInfo[0].forEach((g, i) => {
                     innerCustomer.push(g);
-                    console.log((i + 1) % 2, g);
                     if (!ObjectUtil.isEmpty(this.jointInfo[0][i + 1])) {
                         this.citizen = this.jointInfo[0][i + 1].citizenshipNumber;
                     }
@@ -956,6 +958,23 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
 
     checkSiteVisitDocument(event: any) {
         this.siteVisitDocuments = event;
+    }
+
+    disable() {
+        if (!ObjectUtil.isEmpty(this.loanDataHolder.paperProductChecklist)) {
+            const obj = JSON.parse(this.loanDataHolder.paperProductChecklist);
+            this.paperChecklist = obj.view;
+            this.allIds = obj.id;
+            const parserData = new DOMParser().parseFromString(this.paperChecklist, 'text/html');
+            this.allIds.forEach(d => {
+                const input = parserData.getElementById(d);
+                const child = input.innerHTML;
+                if (!child.includes('checked')) {
+                    input.innerHTML = `<input type="radio" disabled>`;
+                }
+            });
+            this.paperChecklist = parserData.body.innerHTML;
+        }
     }
 }
 

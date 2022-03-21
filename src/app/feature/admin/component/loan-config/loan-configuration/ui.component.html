@@ -201,6 +201,16 @@
                     </div>
                 </div>
                 <div class="row">
+                    <div class="col-md-12">
+                        <label for="renewable"><h6>Product Paper Checkist</h6></label>&nbsp;
+                        <nb-checkbox [(ngModel)]="checklistChecked" (change)="checklistChange($event?.target?.checked)" name="checklistChecked"></nb-checkbox>
+                        <ckeditor [(ngModel)]="paperChecklist" *ngIf="checklistChecked" [config]="ckEdittorConfig" (change)="dynamicChecklist($event)" name="paperChecklist"></ckeditor>
+                        <div class="col-md-12" *ngIf="checklistChecked && displayChecklist !== null" [innerHTML]="displayChecklist | safeHtml">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-md-6">
                         <label for="renewable"><h6>Renewable</h6></label><br>
                         <div class="row ml-2">

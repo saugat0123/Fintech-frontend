@@ -1136,7 +1136,7 @@
             </div>
             <br>
 <!--            <app-collateral-site-visit *ngIf="loanDataHolder?.loanHolder?.security" [loanDataHolder]="loanDataHolder"></app-collateral-site-visit>-->
-
+                <app-product-paper-checklist *ngIf="paperChecklist" [fromLoan]="false" [loanDataHolder]="loanDataHolder" [loan]="loanDataHolder?.loan" [allIds]="allIds" [paper]="paperChecklist"></app-product-paper-checklist>
             <div *ngIf="loanDataHolder?.customerOfferLetter"
                  class="row justify-content-between pt-5 disable-print"
                  id="offerLetterDiv">
