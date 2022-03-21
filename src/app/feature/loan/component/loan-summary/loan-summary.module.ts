@@ -114,7 +114,8 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
         PreviousSecuritySummaryComponent,
         RoleHierarchyChainComponent,
         RemitDetailsComponent,
-        MultiBankingSummaryComponent
+        MultiBankingSummaryComponent,
+        CollateralSiteVisitComponent
     ],
     entryComponents: [...ENTRY_COMPONENTS]
 })

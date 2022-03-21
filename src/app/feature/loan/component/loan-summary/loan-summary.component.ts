@@ -37,21 +37,18 @@ import {FiscalYearService} from '../../../admin/service/fiscal-year.service';
 import {RouteConst} from '../../../credit-administration/model/RouteConst';
 import {ApprovalSheetInfoComponent} from './approval-sheet-info/approval-sheet-info.component';
 import {Clients} from '../../../../../environments/Clients';
-import {
-    CollateralSiteVisitService
-} from '../../../loan-information-template/security/security-initial-form/fix-asset-collateral/collateral-site-visit.service';
+import {CollateralSiteVisitService} from '../../../loan-information-template/security/security-initial-form/fix-asset-collateral/collateral-site-visit.service';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {ApprovalRoleHierarchyComponent} from '../../approval/approval-role-hierarchy.component';
 import {DOCUMENT} from '@angular/common';
 // tslint:disable-next-line:max-line-length
-import {
-    SiteVisitDocument
-} from '../../../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
+import {SiteVisitDocument} from '../../../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
 import * as JSZip from 'jszip';
 import * as JSZipUtils from 'jszip-utils/lib/index.js';
 import {saveAs as importedSaveAs} from 'file-saver';
 import {IndividualJsonData} from '../../../admin/modal/IndividualJsonData';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {CustomerType} from '../../../customer/model/customerType';
 
 @Component({
     selector: 'app-loan-summary',
@@ -785,7 +782,12 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
 
     goToCustomer() {
         const loanHolder = this.loanDataHolder.loanHolder;
-        this.commonRoutingUtilsService.loadCustomerProfile(loanHolder.associateId, loanHolder.id, loanHolder.customerType);
+       // this.commonRoutingUtilsService.loadCustomerProfile(loanHolder.associateId, loanHolder.id, loanHolder.customerType);
+        if (CustomerType[loanHolder.customerType] === CustomerType.INDIVIDUAL) {
+                window.open('/#/home/customer/profile/' + loanHolder.associateId + `?customerType=${loanHolder.customerType}&customerInfoId=${loanHolder.id}`, '_blank');
+        } else if (CustomerType[loanHolder.customerType] === CustomerType.INSTITUTION) {
+                window.open('/#/home/customer/profile/' + loanHolder.associateId + `?id=${loanHolder.id}&customerType=${loanHolder.customerType}&companyInfoId=${loanHolder.associateId}&customerInfoId=${loanHolder.id}`, '_blank');
+        }
     }
 
     getFiscalYears() {

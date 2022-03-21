@@ -47,6 +47,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
     loanType = [];
     documentWord = [' गर्नुपर्नेछ |', ' गराएको यथावत रहने छ |'];
     hypoDocument = [' गरिदिनु पर्नेछ |', ' बैंकलाई उपलब्ध गराएको यथावत रहने छ ।'];
+    commissionFreq = ['मासिक', 'त्रैमासिक', 'वार्षिक', 'अर्ध वार्षिक'];
 
     constructor(private formBuilder: FormBuilder,
                 private administrationService: CreditAdministrationService,
@@ -188,6 +189,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
             renewSecurity: this.formBuilder.array([]),
             moreSecurity: this.formBuilder.array([]),
             crossSecurity: this.formBuilder.array([]),
+            reRegisterSecurity: this.formBuilder.array([]),
             fixedAssetOtherCheck: [false],
             fixedAssetOther: [undefined],
             currentAssetsOtherCheck: [false],
@@ -206,6 +208,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
             promiseOther: [undefined],
             fixedChecked: [true],
             collateralChecked: [false],
+            reRegisterChecked: [false],
             peGuaranteeCheck: [true],
             coGuaranteeCheck: [false],
             currentAssetsNeeded: [true],
@@ -220,9 +223,11 @@ export class OfferLetterLaxmiComponent implements OnInit {
             personalGuarantee: this.formBuilder.array([]),
             corporateGuarantee: this.formBuilder.array([]),
             fixedRenewWithEnhance: [false],
+            reRegisterEnhance: [false],
             fixedAssetsWord: [undefined],
             crossRenewWithEnhance: [false],
             crossCollateralWord: [undefined],
+            reRegisterWord: [undefined],
             shareRenewWith: [false],
             shareWord: [undefined],
             currentAssetsRenew: [false],
@@ -232,8 +237,11 @@ export class OfferLetterLaxmiComponent implements OnInit {
             karjaRenewChecked: [false],
             karjaWord: [undefined],
             creditLetterRenewChecked: [false],
-            creditLetterWord: [undefined]
-
+            creditLetterWord: [undefined],
+            shareOtherChecked: [false],
+            shareOther: [undefined],
+            reRegisterDate: [undefined],
+            reRegisterAmount: [undefined],
         });
     }
 
@@ -341,15 +349,6 @@ export class OfferLetterLaxmiComponent implements OnInit {
                     this.offerLetterForm.get(['purpose', i, 'moratariumValue']).patchValue(null);
                 }
                 break;
-            case 'commissionOtherChecked':
-                if (checked) {
-                    this.offerLetterForm.get(['purpose', i, 'commissionOtherChecked']).patchValue(checked);
-                    this.offerLetterForm.get(['purpose', i, 'rate']).patchValue(null);
-                } else {
-                    this.offerLetterForm.get(['purpose', i, 'commissionOtherChecked']).patchValue(checked);
-                    this.offerLetterForm.get(['purpose', i, 'commissionOther']).patchValue(null);
-                }
-                break;
             case 'commissionNeeded':
                 if (checked) {
                     this.offerLetterForm.get(['purpose', i, 'commissionNeeded']).patchValue(checked);
@@ -455,6 +454,14 @@ export class OfferLetterLaxmiComponent implements OnInit {
                     this.offerLetterForm.get(['purpose', i, 'facilityNeeded']).patchValue(checked);
                 }
                 break;
+            case 'otherLimitChecked':
+                if (checked) {
+                    this.offerLetterForm.get(['purpose', i, 'otherLimitChecked']).patchValue(checked);
+                } else {
+                    this.offerLetterForm.get(['purpose', i, 'otherLimitChecked']).patchValue(checked);
+                    this.offerLetterForm.get(['purpose', i, 'otherLimit']).patchValue(null);
+                }
+                break;
         }
     }
 
@@ -473,22 +480,8 @@ export class OfferLetterLaxmiComponent implements OnInit {
         }
     }
 
-    addSecurity() {
-        const security = this.offerLetterForm.get('security') as FormArray;
-        security.push(
-            this.formBuilder.group({
-                ownerName: [undefined],
-                district: [undefined],
-                vdc: [undefined],
-                wardNo: [undefined],
-                plotNumber: [undefined],
-                area: [undefined]
-            })
-        );
-    }
-
-    addCrossSecurity() {
-        const security = this.offerLetterForm.get('crossSecurity') as FormArray;
+    addSecurity(securityType) {
+        const security = this.offerLetterForm.get(securityType) as FormArray;
         security.push(
             this.formBuilder.group({
                 ownerName: [undefined],
@@ -539,6 +532,9 @@ export class OfferLetterLaxmiComponent implements OnInit {
             case 'crossCollateralSecurity':
                 this.offerLetterForm.get(['crossSecurity', i, formControlName]).patchValue(value);
                 break;
+            case 'reRegisterSecurity':
+                this.offerLetterForm.get(['reRegisterSecurity', i, formControlName]).patchValue(value);
+                break;
         }
     }
 
@@ -565,7 +561,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
                 commissionNeeded: [true],
                 repaymentNeeded: [true],
                 maturityNeeded: [true],
-                inAmount: [true],
+                inAmount: [false],
                 inPercentage: [true],
                 tenureNeeded: [true],
                 adNeeded: [true],
@@ -580,8 +576,6 @@ export class OfferLetterLaxmiComponent implements OnInit {
                 periodValue: [undefined],
                 rate: [undefined],
                 commissionFrequency: [data.proposal.commissionFrequency],
-                commissionOther: [undefined],
-                commissionOtherChecked: [undefined],
                 creditRate: [undefined],
                 creditAmount: [undefined],
                 maturityDate: [undefined],
@@ -611,7 +605,9 @@ export class OfferLetterLaxmiComponent implements OnInit {
                 otherAdFeeChecked: [false],
                 adFeeOther: [undefined],
                 addRemark: this.formBuilder.array([]),
-                facilityNeeded: [true]
+                facilityNeeded: [true],
+                otherLimitChecked: [false],
+                otherLimit: [undefined],
             })
         );
     }
@@ -912,6 +908,21 @@ export class OfferLetterLaxmiComponent implements OnInit {
                     this.offerLetterForm.get('guaranteeFacilityNeeded').patchValue(event);
                 } else {
                     this.offerLetterForm.get('guaranteeFacilityNeeded').patchValue(false);
+                }
+                break;
+            case 'reRegisterChecked':
+                if (event) {
+                    this.offerLetterForm.get('reRegisterChecked').patchValue(event);
+                } else {
+                    this.offerLetterForm.get('reRegisterChecked').patchValue(false);
+                }
+                break;
+            case 'shareOtherChecked':
+                if (event) {
+                    this.offerLetterForm.get('shareOtherChecked').patchValue(event);
+                } else {
+                    this.offerLetterForm.get('shareOtherChecked').patchValue(false);
+                    this.offerLetterForm.get('shareOther').patchValue(null);
                 }
                 break;
         }

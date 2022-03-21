@@ -1,4 +1,4 @@
-<nb-card accent="primary" class="p-3 shadow-lg custom" style="height:100%" id="print-block">
+<nb-card accent="primary" class="p-3 shadow-lg custom" style="height:100%" id="print-block" [nbSpinner]="spinner">
   <nb-card-header>
     <div class="logo-container print-only">
       <div>
@@ -9,92 +9,498 @@
       <h5 class="text-center print-only mb-3">Security Compliance Certificate </h5>
       <h5 class="text-center disable-print">Security Compliance Certificate </h5>
 
-      <i *ngIf="isMaker && this.cadFile.docStatus !== docStatus.DISBURSEMENT_APPROVED" class="fa fa-upload disable-print float-right m-3" (click)="openDocUploadModal(uploadModal)">Upload</i>
+      <i *ngIf="isMaker && cadFile?.docStatus !== docStatus?.DISBURSEMENT_APPROVED" class="fa fa-upload disable-print float-right m-3" (click)="openDocUploadModal(uploadModal)">Upload</i>
     </ng-container>
 
   </nb-card-header>
   <nb-card-body>
     <table class="table table-bordered table-hover table-sm sb-small text-center ">
+<!--      <tr>-->
+<!--        <th>Unit</th>-->
+<!--        <td>{{cadFile?.loanHolder['clientType'] | titlecase}}</td>-->
+<!--        <th>Customer Id</th>-->
+<!--        <td>{{cadFile?.loanHolder?.customerCode}}</td>-->
+<!--        <th>SCC REF No:</th>-->
+<!--        <td>{{sccRefNumber}}</td>-->
+<!--      </tr>-->
+<!--      <tr>-->
+<!--        <th>Date</th>-->
+<!--        <td>{{date | date}}</td>-->
+<!--        <th>Customer's Name</th>-->
+<!--        <td>{{cadFile?.loanHolder?.name}}</td>-->
+<!--        <th>PAN Number</th>-->
+<!--        <td>{{panNumber}}</td>-->
+<!--      </tr>-->
+<!--      <tr>-->
+<!--        <th>A/C NUmber</th>-->
+<!--        <td>{{(cadFile?.data | jsonParse)?.acInfo?.accountNo}}</td>-->
+<!--        <th>Branch</th>-->
+<!--        <td>{{cadFile?.loanHolder?.branch?.name}}</td>-->
+<!--        <th>Sector Code</th>-->
+<!--        <td>{{cadFile?.loanHolder?.subSectorDetailCode}}</td>-->
+<!--      </tr>-->
+<!--      <tr>-->
+<!--        <th>Security Code</th>-->
+<!--        <td>{{securityCode}}</td>-->
+<!--        <th>MIS Code</th>-->
+<!--        <td>{{(cadFile?.data | jsonParse)?.acInfo?.securityCode}}</td>-->
+<!--        <th>Operative Account</th>-->
+<!--        <td>{{(cadFile?.data | jsonParse)?.acInfo?.operativeAc}}</td>-->
+<!--      </tr>-->
       <tr>
-        <th>Unit</th>
-        <td>{{cadFile?.loanHolder['clientType'] | titlecase}}</td>
-        <th>Customer Id</th>
-        <td>{{cadFile?.loanHolder?.customerCode}}</td>
-        <th>SCC REF No:</th>
-        <td>{{sccRefNumber}}</td>
+        <th>Purpose of SCC</th>
+        <td>purpose</td>
+        <th>RM/Branch</th>
+        <td>rm</td>
       </tr>
       <tr>
         <th>Date</th>
-        <td>{{date | date}}</td>
+        <td>date</td>
+        <th>Customer ID</th>
+        <td>{{cadFile?.loanHolder?.customerCode}}</td>
+      </tr>
+      <tr>
         <th>Customer's Name</th>
         <td>{{cadFile?.loanHolder?.name}}</td>
-        <th>PAN Number</th>
-        <td>{{panNumber}}</td>
+        <th>Account No.</th>
+        <td>
+          <ng-container *ngIf="isIndividual; else institution">
+            <span *ngFor="let data of jsonData?.accountDetails; let i = index">
+              {{data?.accountNo}} {{i === jsonData?.accountDetails.length - 1 ? '' : ','}}
+            </span>
+          </ng-container>
+          <ng-template #institution>
+            <span *ngIf="isInstitution; else joint">
+              <span *ngFor="let data of jsonData?.accountDetails; let ii = index">
+                {{data?.accountNo}} {{ii === jsonData?.accountDetails.length - 1 ? '' : ','}}
+              </span>
+            </span>
+          </ng-template>
+          <ng-template #joint>
+            <span *ngFor="let data of jsonData?.accountDetails; let iii = index">
+              {{data?.accountNo}} {{iii === jsonData?.accountDetails.length - 1 ? '' : ','}}
+            </span>
+          </ng-template>
+        </td>
       </tr>
       <tr>
-        <th>A/C NUmber</th>
-        <td>{{(cadFile?.data | jsonParse)?.acInfo?.accountNo}}</td>
-        <th>Branch</th>
-        <td>{{cadFile?.loanHolder?.branch?.name}}</td>
-        <th>Sector Code</th>
-        <td>{{cadFile?.loanHolder?.subSectorDetailCode}}</td>
+        <th>Next Review Date</th>
+        <td>{{cadFile?.loanHolder?.reviewDate ? ((cadFile?.loanHolder?.reviewDate?.data | jsonParse)?.nextReviewDate | date) : 'NA'}}</td>
+        <th>SCC Ref. No.</th>
+        <td>{{sccRefNumber}}</td>
       </tr>
       <tr>
-        <th>Security Code</th>
-        <td>{{securityCode}}</td>
-        <th>MIS Code</th>
-        <td>{{(cadFile?.data | jsonParse)?.acInfo?.securityCode}}</td>
-        <th>Operative Account</th>
-        <td>{{(cadFile?.data | jsonParse)?.acInfo?.operativeAc}}</td>
+        <th>Credit Rating</th>
+        <td>{{cadFile?.assignedLoan[0]?.creditRisk ? cadFile?.assignedLoan[0]?.creditRisk : 'NA'}}</td>
+        <th>OL Ref. No.</th>
+        <td>{{olRefNumber}}</td>
       </tr>
     </table>
-    <p><b>1.Exposure Details</b></p>
-    <app-exposure-view [cadOfferLetterApprovedDoc]="cadFile" [displayHistory]="false" [fromScc]="true"> </app-exposure-view>
-    <p><b>2.Fees And Commission</b></p>
-    <app-fees-commissions-view [cadOfferLetterApprovedDoc]="cadFile"></app-fees-commissions-view>
-    <p><b>3.Document CheckList</b></p>
-    <app-document-checklist-view [cadData]="cadFile" *ngIf="!cadCheckListListVersion"></app-document-checklist-view>
-    <app-document-checklist-view-lite [cadData]="cadFile" *ngIf="cadCheckListListVersion"></app-document-checklist-view-lite>
+    <form [formGroup]="sccForm">
+      <p class="header"><b>1. Approved Facilities </b></p>
+      <app-exposure-view [cadOfferLetterApprovedDoc]="cadFile" [displayHistory]="false" [fromScc]="true"> </app-exposure-view>
+      <p class="header"><b>2. CIB and KYC </b></p>
+      <table class="table table-bordered table-hover table-sm sb-small text-center ">
+        <thead>
+        <tr class="text-white sb-bg-dark">
+          <th>CIB Obtained On</th>
+          <th>STR Obtained On</th>
+          <th>IFF Obtained On</th>
+          <th>KYC(Aanushuchi 2.6) Obtained On</th>
+          <th>Declaration Obtained On</th>
+          <th>CA Approved By/ Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>
+            <span class="print-only">{{sccData?.cibObtained}}</span>
+            <input [nbDatepicker]="cibPicked"
+                   class="form-control rounded disable-print"
+                   formControlName="cibObtained"
+                   [disabled]="!isMaker"
+                   id="cibObtained" placeholder="Enter the date"
+                   type="text"/>
+            <nb-datepicker #cibPicked></nb-datepicker>
+          </td>
+          <td>
+            <span class="print-only">{{sccData?.strObtained}}</span>
+            <input [nbDatepicker]="strObtained"
+                   class="form-control rounded disable-print"
+                   formControlName="strObtained"
+                   [disabled]="!isMaker"
+                   id="strObtained" placeholder="Enter the date"
+                   type="text"/>
+            <nb-datepicker #strObtained></nb-datepicker>
+          </td>
+          <td>
+            <span class="print-only">{{sccData?.iffObtained}}</span>
+            <input [nbDatepicker]="iffObtained"
+                   class="form-control rounded disable-print"
+                   formControlName="iffObtained"
+                   [disabled]="!isMaker"
+                   id="iffObtained" placeholder="Enter the date"
+                   type="text"/>
+            <nb-datepicker #iffObtained></nb-datepicker>
+          </td>
+          <td>
+            <input [nbDatepicker]="kyc"
+                   class="form-control rounded disable-print"
+                   formControlName="kyc"
+                   [disabled]="!isMaker"
+                   id="kyc" placeholder="Enter the date"
+                   type="text"/>
+            <nb-datepicker #kyc></nb-datepicker>
+            <span class="print-only">{{sccData?.kyc}}</span>
+          </td>
+          <td>
+            <input [nbDatepicker]="declaration"
+                   class="form-control rounded disable-print"
+                   formControlName="declaration"
+                   [disabled]="!isMaker"
+                   id="declaration" placeholder="Enter the date"
+                   type="text"/>
+            <nb-datepicker #declaration></nb-datepicker>
+            <span class="print-only">{{sccData?.declaration}}</span>
+          </td>
+          <td>
+            <input [nbDatepicker]="caApproved"
+                   class="form-control rounded disable-print"
+                   formControlName="caApproved"
+                   [disabled]="!isMaker"
+                   id="caApproved" placeholder="Enter the date"
+                   type="text"/>
+            <nb-datepicker #caApproved></nb-datepicker>
+            <span class="print-only">{{sccData?.caApproved}}</span>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <p class="header"><b>3.Basel and Codes</b></p>
+      <table class="table table-bordered table-hover table-sm sb-small text-center ">
+        <thead>
+        <tr class="text-white sb-bg-dark">
+          <th>Basel II Category</th>
+          <th>NRB Sector/Sub sector Code</th>
+          <th>NAICS Code</th>
+          <th>Industry Classification</th>
+          <th>Customer Group Code</th>
+          <th>Business Unit Code</th>
+          <th>ESRM Code</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>
+            <input class="disable-print" formControlName="baseII" type="text" nbInput [disabled]="!isMaker">
+            <span class="print-only">{{sccData?.baseII}}</span>
+          </td>
+          <td>
+            <input class="disable-print" formControlName="nrbSector" type="text" nbInput [disabled]="!isMaker">
+            <span class="print-only">{{sccData?.nrbSector}}</span>
+          </td>
+          <td>
+            <input class="disable-print" formControlName="naics" type="text" nbInput [disabled]="!isMaker">
+            <span class="print-only">{{sccData?.naics}}</span>
+          </td>
+          <td>
+            <input class="disable-print" formControlName="industry" type="text" nbInput [disabled]="!isMaker">
+            <span class="print-only">{{sccData?.industry}}</span>
+          </td>
+          <td>
+            <input class="disable-print" formControlName="customerCode" type="text" nbInput [disabled]="!isMaker">
+            <span class="print-only">{{sccData?.customerCode}}</span>
+          </td>
+          <td>
+            <input class="disable-print" formControlName="businessUnit" type="text" nbInput [disabled]="!isMaker">
+            <span class="print-only">{{sccData?.businessUnit}}</span>
+          </td>
+          <td>
+            <input class="disable-print" formControlName="esrm" type="text" nbInput [disabled]="!isMaker">
+            <span class="print-only">{{sccData?.esrm}}</span>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <p class="header"><b>4.Fees And Commission</b></p>
+      <app-fees-commissions-view [cadOfferLetterApprovedDoc]="cadFile"></app-fees-commissions-view>
+      <p class="header"><b>5. Credit Risk Mitigants (CRM)</b></p>
+      <table class="table table-bordered table-hover table-sm sb-small text-center ">
+        <thead>
+        <tr class="text-white sb-bg-dark">
+          <th colspan="2">Eligible Collaterals</th>
+          <th>Remarks</th>
+          <th>Value</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>1</td>
+          <td> Cash Deposit (as well as certificates of deposit or fixed deposits or other deposits) with Laxmi Bank </td>
+          <td>
+            <input class="disable-print" formControlName="cashDeposit" type="text" nbInput [disabled]="!isMaker">
+            <span class="print-only">{{sccData?.cashDeposit}}</span>
+          </td>
+          <td>
+            <input class="disable-print" formControlName="cashDepositValue" type="text" nbInput [disabled]="!isMaker">
+            <span class="print-only">{{sccData?.cashDepositValue}}</span>
+          </td>
+        </tr>
 
-    <p><b>4.Mode Of Payment</b></p>
-    <ol>
-      <li>Issuance of MC Favoring Ms <b>{{(cadFile?.data | jsonParse)?.acInfo?.issuanceOfMc || '...........'}}</b></li>
-      <li>Credit to Ac No :<b>{{(cadFile?.data | jsonParse)?.acInfo?.accountNo || '...........'}}</b> AC Name: <b>{{(cadFile?.data | jsonParse)?.acInfo?.accountName || '...........'}}</b> against purchase of <b>{{(cadFile?.data | jsonParse)?.acInfo?.againstPurchaseOf || '...........'}}</b></li>
-    </ol>
+        <tr>
+          <td>2</td>
+          <td> Fixed Deposit Receipts/ Certificates of deposits / other deposits of other banks, who fulfill the capital adequacy requirements, subject to a 20% supervisory haircut.</td>
+          <td>
+            <input class="disable-print" formControlName="fixDeposit" type="text" nbInput [disabled]="!isMaker">
+            <span class="print-only">{{sccData?.fixDeposit}}</span>
+          </td>
+          <td>
+            <input class="disable-print" formControlName="fixDepositValue" type="text" nbInput [disabled]="!isMaker">
+            <span class="print-only">{{sccData?.fixDepositValue}}</span>
+          </td>
+        </tr>
 
-    <div class="row border">
-      <div class="col-md-3 border">
-        <p><b><u>Prepared by</u></b></p>
-        <p>Name:.....................</p>
-        <div class="box"></div>
-        <p><b>RO/RM</b></p>
+        <tr>
+          <td>3</td>
+          <td> Gold </td>
+          <td>
+            <input class="disable-print" formControlName="gold" type="text" nbInput [disabled]="!isMaker">
+            <span class="print-only">{{sccData?.gold}}</span>
+          </td>
+          <td>
+            <input class="disable-print" formControlName="goldValue" type="text" nbInput [disabled]="!isMaker">
+            <span class="print-only">{{sccData?.goldValue}}</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td>4</td>
+          <td> Securities issued by the Government of Nepal and Nepal Rastra Bank  </td>
+          <td>
+            <input class="disable-print" formControlName="securities" type="text" nbInput [disabled]="!isMaker">
+            <span class="print-only">{{sccData?.securities}}</span>
+          </td>
+          <td>
+            <input class="disable-print" formControlName="securitiesValue" type="text" nbInput [disabled]="!isMaker">
+            <span class="print-only">{{sccData?.securitiesValue}}</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td>5</td>
+          <td> Guarantee of the Government </td>
+          <td>
+            <input class="disable-print" formControlName="government" type="text" nbInput [disabled]="!isMaker">
+            <span class="print-only">{{sccData?.government}}</span>
+          </td>
+          <td>
+            <input class="disable-print" formControlName="governmentValue" type="text" nbInput [disabled]="!isMaker">
+            <span class="print-only">{{sccData?.governmentValue}}</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td>6</td>
+          <td> Financial guarantee/ counter guarantee of domestic banks who meet the minimum capital adequacy requirements subject to haircut of 20%.</td>
+          <td>
+            <input class="disable-print" formControlName="financial" type="text" nbInput [disabled]="!isMaker">
+            <span class="print-only">{{sccData?.financial}}</span>
+          </td>
+          <td>
+            <input class="disable-print" formControlName="financialValue" type="text" nbInput [disabled]="!isMaker">
+            <span class="print-only">{{sccData?.financialValue}}</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td>7</td>
+          <td>Securities/ Financial guarantee/ Counter guarantee issued by sovereigns (Country)</td>
+          <td>
+            <input class="disable-print" formControlName="counter" type="text" nbInput [disabled]="!isMaker">
+            <span class="print-only">{{sccData?.counter}}</span>
+          </td>
+          <td>
+            <input class="disable-print" formControlName="counterValue" type="text" nbInput [disabled]="!isMaker">
+            <span class="print-only">{{sccData?.counterValue}}</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td>8</td>
+          <td> Securities/ Financial guarantee/ Counter guarantee issued by MDBs.  </td>
+          <td>
+            <input class="disable-print" formControlName="guarantee" type="text" nbInput [disabled]="!isMaker">
+            <span class="print-only">{{sccData?.guarantee}}</span>
+          </td>
+          <td>
+            <input class="disable-print" formControlName="guaranteeValue" type="text" nbInput [disabled]="!isMaker">
+            <span class="print-only">{{sccData?.guaranteeValue}}</span>
+          </td>
+        </tr>
+
+        <tr>
+          <td>9</td>
+          <td>Securities / Financial guarantee/ Counter guarantee issued by banks with ECA rating 2 or better. The supervisory haircut shall be 20% and 50% for the banks with ECA rating of 0-1 and 2 respectively. </td>
+          <td>
+            <input class="disable-print" formControlName="eca" type="text" nbInput [disabled]="!isMaker">
+            <span class="print-only">{{sccData?.eca}}</span>
+          </td>
+          <td>
+            <input class="disable-print" formControlName="ecaValue" type="text" nbInput [disabled]="!isMaker">
+            <span class="print-only">{{sccData?.ecaValue}}</span>
+
+          </td>
+        </tr>
+
+        </tbody>
+      </table>
+      <p class="header"><b>6.Document CheckList</b></p>
+      <app-document-checklist-view [cadData]="cadFile" *ngIf="!cadCheckListListVersion"></app-document-checklist-view>
+      <app-document-checklist-view-lite #documentChecklistViewLite [cadData]="cadFile" *ngIf="cadCheckListListVersion"></app-document-checklist-view-lite>
+      <p class="header"><b>7. Valuation; Drawdown and Repayment Schedule</b></p>
+      <table class="table table-bordered table-hover table-sm sb-small text-center ">
+        <thead>
+        <tr class="text-white sb-bg-dark">
+          <th>Valuation</th>
+          <th>Makuri Ref. No. from Valuator Assignment Process</th>
+          <th>Verification of Signature of Valuator</th>
+          <th>Draw down %under NTA</th>
+          <th>Draw down %under FMV</th>
+          <th>Draw down %under Tax Invoice</th>
+          <th>Declaration Obtained On</th>
+        </tr>
+        <tr class="text-white sb-bg-dark">
+          <th colspan="2">Full Report</th>
+          <th colspan ="3">YES/NO</th>
+          <th>EMI Start Date</th>
+          <th>EMI ENd Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>
+            <input class="disable-print" formControlName="valuation" type="text" nbInput [disabled]="!isMaker">
+            <span class="print-only">{{sccData?.valuation}}</span>
+          </td>
+          <td>
+            <input class="disable-print" formControlName="makuri" type="text" nbInput [disabled]="!isMaker">
+            <span class="print-only">{{sccData?.makuri}}</span>
+          </td>
+          <td>
+            <input class="disable-print" formControlName="verification" type="text" nbInput [disabled]="!isMaker">
+            <span class="print-only">{{sccData?.verification}}</span>
+          </td>
+          <td>
+            <input class="disable-print" formControlName="drawDownNTA" type="text" nbInput [disabled]="!isMaker">
+            <span class="print-only">{{sccData?.drawDownNTA}}</span>
+          </td>
+          <td>
+            <input class="disable-print" formControlName="drawDownFMV" type="text" nbInput [disabled]="!isMaker">
+            <span class="print-only">{{sccData?.drawDownFMV}}</span>
+          </td>
+          <td>
+            <input class="disable-print" formControlName="drawDownTax" type="text" nbInput [disabled]="!isMaker">
+            <span class="print-only">{{sccData?.drawDownTax}}</span>
+          </td>
+          <td>
+            <input class="disable-print" formControlName="obtained" type="text" nbInput [disabled]="!isMaker">
+            <span class="print-only">{{sccData?.obtained}}</span>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <div>
+        <p><b>Notes:</b></p>
+        <ckeditor class="disable-print"
+                  formControlName="notes"
+                  [config]="ckeConfig"></ckeditor>
+        <span class="print-only" [innerHTML]="sccData?.notes || 'N/A' | safeHtml"></span>
       </div>
-      <div class="col-md-3 border">
-        <p><b><u>Recommended by</u></b></p>
-        <p>Name:.....................</p>
-        <div class="box"></div>
-        <p><b>OI/BM</b></p>
+      <div>
+        <p class="header"><b>8.Discrepancy: </b></p>
+        <ckeditor class="disable-print"
+                  formControlName="discrepancy"
+                  [config]="ckeConfig"></ckeditor>
+        <span class="print-only" [innerHTML]="sccData?.discrepancy || 'N/A' | safeHtml"></span>
       </div>
-      <div class="col-md-3 border">
-        <p><b><u>System Inputted by</u></b></p>
-        <p>Name:.....................</p>
-        <div class="box"></div>
-        <p><b>CAD/CSU</b></p>
+
+      <div>
+        <p class="header"><b>9.Receipt of Lodgment: </b></p>
+        <p>This is to certify that the original copies of all the documents listed in the point no. 6 (Document Check List) above have been received for lodgment in the vault</p>
       </div>
-      <div class="col-md-3 border">
-        <p><b><u>Approved by</u></b></p>
-        <p class="hide">.</p>
-        <div class="box"></div>
-        <p><b>Head-CAD/CSU</b></p>
+      <div class="row text-center">
+        <div class="col-md-4">
+          <input class="disable-print form-control text-center" formControlName="nameOfCustodian" type="text">
+          <span class="print-only">{{sccData?.nameOfCustodian}}</span> <br>
+          Name Of Custodian
+        </div>
+        <div class="col-md-4">
+          .................................<br>
+          Signature
+        </div>
+        <div class="col-md-4">
+          <input class="disable-print form-control rounded text-center" formControlName="vaultNo" type="text">
+          <span class="print-only">{{sccData?.vaultNo}}</span><br>
+          Vault Lodgment No.
+        </div>
       </div>
-    </div>
-    <hr>
-    <p><b>5.Declaration:</b></p><hr>
-    <i>This is to certify that the original copies of all the documents as listed in the point 3 (Documentation Check Lists) are executed properly and are found in order.</i>
+      <div>
+        <p class="header"><b>10.	Instruction to Credit Operations:: </b></p>
+        <ckeditor class="disable-print"
+                  formControlName="instruction"
+                  [config]="ckeConfig"></ckeditor>
+        <span class="print-only" [innerHTML]="sccData?.instruction || 'N/A' | safeHtml"></span>
+      </div>
+      <!--    <p><b>4.Mode Of Payment</b></p>-->
+      <!--    <ol>-->
+      <!--      <li>Issuance of MC Favoring Ms <b>{{(cadFile?.data | jsonParse)?.acInfo?.issuanceOfMc || '...........'}}</b></li>-->
+      <!--      <li>Credit to Ac No :<b>{{(cadFile?.data | jsonParse)?.acInfo?.accountNo || '...........'}}</b> AC Name: <b>{{(cadFile?.data | jsonParse)?.acInfo?.accountName || '...........'}}</b> against purchase of <b>{{(cadFile?.data | jsonParse)?.acInfo?.againstPurchaseOf || '...........'}}</b></li>-->
+      <!--    </ol>-->
+
+      <div class="row header">
+
+        <div class="col-md-3 border">
+          <p><b><u>Prepared by</u></b></p>
+          <!--        <p>Name:.....................</p>-->
+          <div class="box"></div>
+          <p><b>CSU/Branch</b></p>
+        </div>
+        <div class="col-md-2 border">
+          <p><b><u>Reviewed By</u></b></p>
+          <!--        <p>Name:.....................</p>-->
+          <div class="box"></div>
+          <p><b>BM</b></p>
+        </div>
+        <div class="col-md-2 border">
+          <p><b><u> Vetted  by</u></b></p>
+          <!--        <p>Name:.....................</p>-->
+          <div class="box"></div>
+          <p><b>Legal</b></p>
+        </div>
+        <div class="col-md-2 border">
+          <p><b><u>Verified By</u></b></p>
+          <!--        <p class="hide">.</p>-->
+          <div class="box"></div>
+          <p><b>CRC</b></p>
+        </div>
+        <div class="col-md-3 border">
+          <p><b><u>Disbursed By</u></b></p>
+          <!--        <p class="hide">.</p>-->
+          <div class="box"></div>
+          <p><b>COPI</b></p>
+        </div>
+
+
+      </div>
+      <!--    <hr>-->
+      <!--    <p><b>5.Declaration:</b></p><hr>-->
+      <!--    <i>This is to certify that the original copies of all the documents as listed in the point 3 (Documentation Check Lists) are executed properly and are found in order.</i>-->
+    </form>
 
   </nb-card-body>
   <nb-card-footer class="disable-print">
     <button (click)="onClose()" nbButton  status="primary" size="small" class="float-right mr-2">Close</button>
+    <button (click)="onSave()" nbButton  status="primary" size="small" class="float-right mr-2">Save</button>
     <button [useExistingCss]="true"  ngxPrint printSectionId="print-block"  status="primary"  size="small" class="float-right mr-2" nbButton styleSheetFile="assets/css/printStyles.scss"><i class="fa fa-print"></i>-Print</button>
   </nb-card-footer>
 </nb-card>
