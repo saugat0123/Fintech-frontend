@@ -50,7 +50,6 @@ export class ReadComponent implements OnInit {
 
         this.creditMemoService.detail(memoId).subscribe((response: any) => {
             this.memo = response.detail;
-            console.log('memo details', this.memo);
             this.currentMemoStage = String(this.memo.currentStage.docAction);
 
             this.signatureList = this.memo.distinctPreviousList;

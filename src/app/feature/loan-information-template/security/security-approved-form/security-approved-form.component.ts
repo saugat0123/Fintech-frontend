@@ -940,7 +940,6 @@ export class SecurityApprovedFormComponent implements OnInit {
 
   configEditor() {
     this.ckeConfig = Editor.CK_CONFIG;
-    console.log('this.ckeConfig.allowedContent', this.ckeConfig.allowedContent);
   }
 
   landDetailsFormGroup(): FormGroup {
