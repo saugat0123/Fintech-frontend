@@ -76,6 +76,7 @@ import { AboveModeOfDisbursementComponent } from './sme-loan-summary/above-ten-m
 import { AboveRepaymentModalityOfCreditFacilitiesComponent } from './sme-loan-summary/above-ten-million/above-repayment-modality-of-credit-facilities/above-repayment-modality-of-credit-facilities.component';
 import { AboveWaiverDeviationsDeferalsRebatesComponent } from './sme-loan-summary/above-ten-million/above-waiver-deviations-deferals-rebates/above-waiver-deviations-deferals-rebates.component';
 import { AboveReviewOfCreditFacilitiesComponent } from './sme-loan-summary/above-ten-million/above-review-of-credit-facilities/above-review-of-credit-facilities.component';
+import { GroupCreditFacilityReportComponent } from './group-credit-facility-report/group-credit-facility-report.component';
 import { UptoTenMillionComponent } from './sme-loan-summary/upto-ten-million/upto-ten-million.component';
 import { UptoDetailsOfTheCustomerComponent } from './sme-loan-summary/upto-ten-million/upto-details-of-the-customer/upto-details-of-the-customer.component';
 import { SecurityArrangementComponent } from './sme-loan-summary/upto-ten-million/security-arrangement/security-arrangement.component';
@@ -135,7 +136,6 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
     OtherChargesComponent,
     CovenantsComponent,
     NrbStatutoryRemarksStatusComponent,
-    CreditCardRequirementComponent,
     AboveRequestOfTheCustomerComponent,
     AbovePurposeJustificationForProposalComponent,
     AboveBusinessRelatedInformationComponent,
@@ -170,7 +170,6 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
     OtherChargesComponent,
     CovenantsComponent,
     NrbStatutoryRemarksStatusComponent,
-    CreditCardRequirementComponent,
     AboveGroupExposureWithCcblComponent,
     AboveBankingArrangementOfTheCustomerComponent,
     AboveStockStatementComponent,
@@ -183,6 +182,8 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
     AboveRepaymentModalityOfCreditFacilitiesComponent,
     AboveWaiverDeviationsDeferalsRebatesComponent,
     AboveReviewOfCreditFacilitiesComponent,
+    GroupCreditFacilityReportComponent,
+    CreditCardRequirementComponent,
     UptoTenMillionComponent,
     UptoDetailsOfTheCustomerComponent,
     SecurityArrangementComponent,
@@ -225,6 +226,7 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
     SignatureSectionComponent,
     CreditFacilityReportComponent,
     SmeLoanSummaryComponent,
+    CreditCardRequirementComponent,
   ],
   entryComponents: [...ENTRY_COMPONENTS],
 })
