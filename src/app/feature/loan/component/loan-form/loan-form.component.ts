@@ -290,7 +290,6 @@ export class LoanFormComponent implements OnInit {
                 this.customerId = this.allId.customerId;
                 this.loanHolder.id = this.allId.customerInfoId;
                 this.loanType = this.allId.loanType;
-                console.log('loan type', this.loanType);
 
                 if (!ObjectUtil.isEmpty(this.allId.customerProfileId)) {
                     if (CustomerType[this.allId.customerType] === CustomerType.INDIVIDUAL) {
@@ -314,7 +313,6 @@ export class LoanFormComponent implements OnInit {
                             this.priorityForm.get('priority').patchValue(this.loanDocument.priority);
                             this.approvingLevelForm.get('approvingLevel').patchValue(this.loanDocument.approvingLevel);
                             this.loanType = this.loanDocument.loanType;
-                            console.log('secon loan type', this.loanType);
                             if (this.loanDocument.documentStatus.toString() === DocStatus.value(DocStatus.DISCUSSION) ||
                                 this.loanDocument.documentStatus.toString() === DocStatus.value(DocStatus.DOCUMENTATION) ||
                                 this.loanDocument.documentStatus.toString() === DocStatus.value(DocStatus.VALUATION) ||
@@ -407,18 +405,13 @@ export class LoanFormComponent implements OnInit {
             // this.templateList = response.detail.templateList;
             this.templateList = new DefaultLoanTemplate().DEFAULT_TEMPLATE;
             // Splicing customer loan for Personal Type Loan--
-            console.log('populate template loan type', this.loanType);
             if ((this.loanType === 'NEW_LOAN') || this.loanType === 'RENEWED_LOAN' || this.loanType === 'ENHANCED_LOAN' ||
                 this.loanType === 'RENEW_WITH_ENHANCEMENT') {
-                console.log('loan type undefined');
                 this.templateList.forEach((value, index) => {
-                    console.log('index', index);
-                    console.log('value', value);
                     if (value.name === 'Security') {
                         this.templateList.splice(index, 1);
                     }
                 });
-                console.log('template list', this.templateList);
             }
             if (CustomerType[this.allId.loanCategory] === CustomerType.INDIVIDUAL) {
                 this.templateList.forEach((value, index) => {
@@ -724,7 +717,6 @@ export class LoanFormComponent implements OnInit {
     getCustomerInfo(id) {
         this.customerService.detail(id).subscribe((res: any) => {
             this.loanDocument.customerInfo = res.detail;
-            console.log('loan document cust info', this.loanDocument.customerInfo);
         });
     }
 
