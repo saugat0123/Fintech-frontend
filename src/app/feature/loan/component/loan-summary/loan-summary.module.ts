@@ -79,6 +79,7 @@ import { AboveReviewOfCreditFacilitiesComponent } from './sme-loan-summary/above
 import { UptoTenMillionComponent } from './sme-loan-summary/upto-ten-million/upto-ten-million.component';
 import { UptoDetailsOfTheCustomerComponent } from './sme-loan-summary/upto-ten-million/upto-details-of-the-customer/upto-details-of-the-customer.component';
 import { SecurityArrangementComponent } from './sme-loan-summary/upto-ten-million/security-arrangement/security-arrangement.component';
+import { GroupPositionComponent } from './sme-loan-summary/upto-ten-million/group-position/group-position.component';
 
 const COMPONENTS = [
   SitevistSummaryComponentComponent,
@@ -185,6 +186,7 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
     UptoTenMillionComponent,
     UptoDetailsOfTheCustomerComponent,
     SecurityArrangementComponent,
+    GroupPositionComponent,
   ],
   imports: [
     CommonModule,
