@@ -461,7 +461,8 @@ export class UIComponent implements OnInit, DoCheck {
                     } else if ((da.toLowerCase() !== 'yes' && da.toLowerCase() !== 'no' && da.toLowerCase() !== 'na') &&
                         (this.tableHeads[j].toLowerCase() === 'yes' || this.tableHeads[j].toLowerCase() === 'no' ||
                             this.tableHeads[j].toLowerCase() === 'na')) {
-                        if (ObjectUtil.isEmpty(tdData[j].style.getPropertyValue('background-color')) && tdData[j].innerText.length <= 9) {
+                        if (ObjectUtil.isEmpty(tdData[j].style.getPropertyValue('background-color')) && tdData[j].innerText.length <= 9
+                            && ObjectUtil.isEmpty(tdData[j].style.getPropertyValue('border-bottom'))) {
                             const id = `name${index}${j}${table}n${totalInput}n${index}n${table}`;
                             this.allChecklistId.push(id);
                             tdData[j].innerHTML = `<span id = "name${index}${j}${table}n${totalInput}n${index}n${table}"><input type="radio" click = "change()"  name="hello${index}${table}"></span>`;
@@ -474,7 +475,11 @@ export class UIComponent implements OnInit, DoCheck {
             elem += '<div class="row">  <table class="table text-center table-responsive d-flex justify-content-center">'
                 + element.innerHTML.split('page-break-after:always').join(' ') + '</table> </div>  <br style="clear: both;"> ';
         });
-        this.displayChecklist = elem.replace('undefined', ' ');
+        if (ObjectUtil.isEmpty(elem)) {
+            this.displayChecklist = null;
+        }   else {
+            this.displayChecklist = elem.replace('undefined', ' ');
+        }
     }
 
 

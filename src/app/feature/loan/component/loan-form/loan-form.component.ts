@@ -414,7 +414,7 @@ export class LoanFormComponent implements OnInit {
                         this.templateList.splice(index, 1);
                     }
                 });
-                if (!this.checklistChecked) {
+                if (!this.checklistChecked || ObjectUtil.isEmpty(this.paperChecklist)) {
                     this.templateList.forEach((value, index) => {
                         // this.loanDocument.customerInfo.isMicroCustomer ||
                         if (value.name === 'Product Paper Checklist') {
