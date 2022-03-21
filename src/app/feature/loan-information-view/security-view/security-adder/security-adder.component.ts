@@ -12,13 +12,23 @@ export class SecurityAdderComponent implements OnInit {
     @Input() shareSecurityData;
     @Input() taggedShareSecurities;
     msg = '';
+    selectedSecurityList: any;
+    securityList: any;
 
     constructor(private nbDialogService: NbDialogService) {
     }
 
     ngOnInit() {
-        console.log('security', JSON.parse(this.security.approvedData));
+        console.log('security', JSON.parse(this.security));
         console.log('share security data', this.shareSecurityData);
         console.log('tagged securities', this.taggedShareSecurities);
+    }
+
+    removeShareSecurity(securit: any) {
+
+    }
+
+    openGuarantorDetailModal(securit: any) {
+
     }
 }
