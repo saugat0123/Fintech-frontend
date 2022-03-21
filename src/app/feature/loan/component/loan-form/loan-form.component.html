@@ -125,6 +125,12 @@
                         <app-micro-proposal *ngIf="loanTag === 'MICRO_LOAN'" [formValue]="loadProposal()"
                                             [loanType]="loanType" #microProposalInfo></app-micro-proposal>
                     </ng-template>
+                    <ng-template  *ngIf="allList.name === 'Product Paper Checklist' && loanTag && checklistChecked" ngbTabContent>
+                        <app-product-paper-checklist #productPaperChecklistComponent (checkList)="updateChecklist($event)" [loanDataHolder]="loanDocument" [loan]="loans" [fromLoan]="true" [paper]="paperChecklist" [allIds]="allIds"></app-product-paper-checklist>
+                        <!-- <div class="col-md-12 table-bordered text-center table-responsive d-flex justify-content-center" [innerHTML]="paperChecklist"> -->
+
+                        <!-- </div> -->
+                    </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name === 'CICL'">
                         <div class="py-4">
                             <app-cicl-view #cicl
@@ -230,6 +236,7 @@
 
                 </ngb-tab>
             </ngb-tabset>
+
 
             <div class="justify-content-center" style="padding-bottom: 20px">
                 <div class="col-md-12">

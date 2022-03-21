@@ -70,7 +70,6 @@ export class DocumentChecklistLiteComponent implements OnInit {
         if (this.document.length < 1) {
             this.documentService.getByLoanCycleAndStatus(12, Status.ACTIVE).subscribe(res => {
                 this.document = res.detail;
-                console.log(res.detail);
                 if (!ObjectUtil.isEmpty(this.cadData) && !(ObjectUtil.isEmpty(this.document))) {
                     this.customerLoanList = this.cadData.assignedLoan;
                     this.cadData.cadFileList.forEach(singleCadFile => {
