@@ -396,7 +396,7 @@ export class UIComponent implements OnInit, DoCheck {
         }
     }
 
-    data(data: string) {
+    dynamicChecklist(data: string) {
         let elem;
         this.allChecklistId = [];
         const parser = new DOMParser();
@@ -461,11 +461,17 @@ export class UIComponent implements OnInit, DoCheck {
                     } else if ((da.toLowerCase() !== 'yes' && da.toLowerCase() !== 'no' && da.toLowerCase() !== 'na') &&
                         (this.tableHeads[j].toLowerCase() === 'yes' || this.tableHeads[j].toLowerCase() === 'no' ||
                             this.tableHeads[j].toLowerCase() === 'na')) {
-                        if (ObjectUtil.isEmpty(tdData[j].style.getPropertyValue('background-color')) && tdData[j].innerText.length <= 9
-                            && ObjectUtil.isEmpty(tdData[j].style.getPropertyValue('border-bottom'))) {
-                            const id = `name${index}${j}${table}n${totalInput}n${index}n${table}`;
-                            this.allChecklistId.push(id);
-                            tdData[j].innerHTML = `<span id = "name${index}${j}${table}n${totalInput}n${index}n${table}"><input type="radio" click = "change()"  name="hello${index}${table}"></span>`;
+                        if (ObjectUtil.isEmpty(tdData[j].style.getPropertyValue('background-color')) && tdData[j].innerText.length <= 9) {
+                            console.log();
+                            if (tdData[j].style.getPropertyValue('border-bottom') === 'none' && tdData[j].style.getPropertyValue('border-left') === 'none'
+                                && tdData[j].style.getPropertyValue('border-top') === 'none' && tdData[j].style.getPropertyValue('border-right') === 'none') {
+
+                            } else {
+                                const id = `name${index}${j}${table}n${totalInput}n${index}n${table}`;
+                                this.allChecklistId.push(id);
+                                tdData[j].innerHTML = `<span id = "name${index}${j}${table}n${totalInput}n${index}n${table}"><input type="radio" click = "change()"  name="hello${index}${table}"></span>`;
+
+                            }
                         }
                     }
                 }
@@ -480,6 +486,7 @@ export class UIComponent implements OnInit, DoCheck {
         }   else {
             this.displayChecklist = elem.replace('undefined', ' ');
         }
+        console.log(this.displayChecklist)
     }
 
 
