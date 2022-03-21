@@ -27,27 +27,21 @@
                         <th>Share Unit</th>
                         <th>Rate</th>
                         <th>Total Value</th>
-                        <th>Realizable Value</th>
                         <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr *ngFor="let shareSecurity of approvedShareSecurityData.shareSecurityDetails; let i= index">
+                    <tr *ngFor="let shareSecurity of customerShareData; let i= index">
                         <td>{{i + 1}}</td>
                         <td>{{shareSecurity?.companyName}}</td>
                         <td>{{shareSecurity?.shareType}}</td>
                         <td>{{shareSecurity?.totalShareUnit}}</td>
                         <td>{{shareSecurity?.amountPerUnit}}</td>
-                        <td>{{shareSecurity?.total}}</td>
-                        <td>{{shareSecurity?.consideredValue }}</td>
+                        <td>{{shareSecurity?.totalShareUnit * shareSecurity.amountPerUnit}}</td>
                         <td>
                             <button (click)="removeShareSecurity(shareSecurity)"
                                     class="btn btn-sm btn-flat btn-danger">
                                 <em class="fa fa-trash bg-transparent"></em>
-                            </button>
-                            <button (click)="openGuarantorDetailModal(shareSecurity)"
-                                    class="ml-1 btn btn-sm btn-flat btn-primary">
-                                <em class="fa fa-info bg-transparent"></em>
                             </button>
                         </td>
                     </tr>

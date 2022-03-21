@@ -14,6 +14,7 @@ export class SecurityAdderComponent implements OnInit {
     msg = '';
     approvedSecurityData: any;
     approvedShareSecurityData: any;
+    customerShareData: any;
     // selectedSecurityList: any;
     securityList: any;
 
@@ -30,13 +31,17 @@ export class SecurityAdderComponent implements OnInit {
             this.approvedShareSecurityData = JSON.parse(this.shareSecurityData.approvedData);
             console.log('approved share security data', this.approvedShareSecurityData);
         }
+        this.customerShareData = this.shareSecurityData.customerShareData;
+        console.log('customer share data', this.customerShareData);
         console.log('share security data', this.shareSecurityData);
         console.log('tagged securities', this.taggedShareSecurities);
     }
 
-    removeShareSecurity(securit: any) {
+    removeShareSecurity(shareSecurity: any) {
+        console.log('remove share security', shareSecurity);
     }
 
-    openGuarantorDetailModal(securit: any) {
+    openShareSecurityDetailModal(shareSecurity: any) {
+        console.log('open share security details', shareSecurity);
     }
 }
