@@ -79,7 +79,6 @@ export class UIComponent implements OnInit, DoCheck {
 
     ckEdittorConfig;
     paperChecklist;
-    tableArray = [];
     @ViewChild('loanConfigForm', {static: true}) loanConfigForm: NgForm;
     finalRenewWithEnhancementDocument = Array<Document>();
     renewWithEnhancementDocumentList = [];
