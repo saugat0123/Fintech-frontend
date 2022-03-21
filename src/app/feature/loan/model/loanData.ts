@@ -110,4 +110,5 @@ export class LoanDataHolder extends BaseEntity {
     zipPath: String;
     remitCustomer: any;
     creditRisk: number;
+    paperProductChecklist: string;
 }

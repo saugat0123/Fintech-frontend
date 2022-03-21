@@ -22,6 +22,8 @@ import {CustomerType} from '../../../../customer/model/customerType';
 import {loanNature} from 'src/app/feature/admin/modal/loanNature';
 import {financedAssets} from 'src/app/feature/admin/modal/financedAssets';
 import {environment} from '../../../../../../environments/environment';
+import {Editor} from '../../../../../@core/utils/constants/editor';
+import {DomSanitizer} from '@angular/platform-browser';
 
 
 @Component({
@@ -75,10 +77,17 @@ export class UIComponent implements OnInit, DoCheck {
 
 
 
+    ckEdittorConfig;
+    paperChecklist;
     @ViewChild('loanConfigForm', {static: true}) loanConfigForm: NgForm;
     finalRenewWithEnhancementDocument = Array<Document>();
     renewWithEnhancementDocumentList = [];
-
+    displayChecklist: string = null;
+    loanNature = loanNature.enumObject();
+    financedAssets = financedAssets.enumObject();
+    tableHeads = [];
+    allChecklistId = [];
+    checklistChecked = false;
     constructor(
         private loanTemplateService: LoanTemplateService,
         private documentService: DocumentService,
@@ -90,13 +99,13 @@ export class UIComponent implements OnInit, DoCheck {
         private spinner: NgxSpinnerService,
         private productModeService: ProductModeService,
         private el: ElementRef,
+        private sanitized: DomSanitizer,
+        private spinnerService: NgxSpinnerService
     ) {
     }
-
-    loanNature = loanNature.enumObject();
-    financedAssets = financedAssets.enumObject();
-
     static loadData(other: UIComponent) {
+        other.spinnerService.show();
+        other.ckEdittorConfig = Editor.CK_CONFIG;
         other.getTemplate();
         other.offerLetterService.getAll().subscribe((responseList: any) => {
             other.offerLetterList = responseList.detail;
@@ -118,6 +127,14 @@ export class UIComponent implements OnInit, DoCheck {
                         other.isRemitLoan = true;
                     } else {
                         other.isRemitLoan = false;
+                    }
+                    if (!ObjectUtil.isEmpty(other.loanConfig.paperChecklist)) {
+                        const obj = JSON.parse(other.loanConfig.paperChecklist);
+                        other.allChecklistId = obj.id;
+                        other.displayChecklist = obj.view;
+                        other.paperChecklist = obj.paperChecklist;
+                        other.checklistChecked = obj.checklistChecked;
+
                     }
                     other.selectedOfferLetterIdList = new Array<number>();
                     other.loanConfig.offerLetters.forEach(selectedOfferLetter => {
@@ -299,6 +316,7 @@ export class UIComponent implements OnInit, DoCheck {
                     });
                 });
             }
+            other.spinnerService.hide();
         });
 
 
@@ -324,7 +342,6 @@ export class UIComponent implements OnInit, DoCheck {
 
     ngOnInit() {
         UIComponent.loadData(this);
-        console.log('at first', this.selectedLoanTag);
     }
 
     getTemplate() {
@@ -367,6 +384,99 @@ export class UIComponent implements OnInit, DoCheck {
             }
         }
     }
+
+    dynamicChecklist(data: string) {
+        let elem;
+        this.allChecklistId = [];
+        const parser = new DOMParser();
+        const parsedDocument = parser.parseFromString(data, 'text/html');
+        let totalInput = 0;
+        // seperating tables from overal html
+        const tables = Array.from(parsedDocument.getElementsByTagName('table'));
+        tables.forEach((element, table) => {
+            this.tableHeads = [];
+            // selecting all tr from table
+            const tr = Array.from(element.getElementsByTagName('tbody'))[0].getElementsByTagName('tr');
+            // first row header data
+            const tds = tr[0].getElementsByTagName('td');
+            for (let i = 0; i < tds.length; i++) {
+                const f: string = tds[i].innerText.split('\n').join('').split('\t').join('');
+                if (f.toLowerCase() === 'yes' || f.toLowerCase() === 'no' || f.toLowerCase() === 'na') {
+                    totalInput += 1;
+                }
+                // pushing data to array for comparing
+                this.tableHeads.push(f);
+            }
+            for (let index = 0; index < tr.length; index++) {
+                const tdData = tr[index].getElementsByTagName('td');
+                let prev: HTMLCollectionOf<HTMLTableDataCellElement>;
+                if (index > 0) {
+                    prev = tr[index - 1].getElementsByTagName('td');
+                    if (tdData.length < prev.length) {
+                        const difference = prev.length - tdData.length;
+                        if (tdData.length !== this.tableHeads.length) {
+                            this.tableHeads.splice(0, difference);
+                        }
+                    }
+                    if (tdData.length > prev.length) {
+                        const difference = tdData.length - prev.length;
+                        if (difference !== prev.length && tdData.length !== this.tableHeads.length) {
+                            for (let dif = 0; dif < difference; dif++) {
+                                this.tableHeads.splice(dif, 0, 'i');
+                            }
+                        }
+                    }
+                }
+                for (let j = 0; j < tdData.length; j++) {
+
+                    // text values of  rows
+                    const da = tdData[j].innerText.split('\n').join('').split('\t').join('');
+                    // for skipping row containing yes no
+                    if ((da.toLowerCase() === 'yes') && index > 0) {
+                        this.tableHeads = [];
+                        const newTdData = tr[index + 1].getElementsByTagName('td');
+                        totalInput = 0;
+                        for (let l = 0; l < newTdData.length; l++) {
+                            if (!ObjectUtil.isEmpty(tdData[l - 1])) {
+                                const dat = tdData[l - 1].innerText.split('\n').join('').split('\t').join('');
+                                if (dat.toLowerCase() === 'yes' || dat.toLowerCase() === 'no' || dat.toLowerCase() === 'na') {
+                                    totalInput += 1;
+                                    this.tableHeads.push(dat);
+                                } else {
+                                    this.tableHeads.push('x');
+                                }
+                            }
+                        }
+                    } else if ((da.toLowerCase() !== 'yes' && da.toLowerCase() !== 'no' && da.toLowerCase() !== 'na') &&
+                        (this.tableHeads[j].toLowerCase() === 'yes' || this.tableHeads[j].toLowerCase() === 'no' ||
+                            this.tableHeads[j].toLowerCase() === 'na')) {
+                        if (ObjectUtil.isEmpty(tdData[j].style.getPropertyValue('background-color')) && tdData[j].innerText.length <= 9) {
+                            console.log();
+                            if (tdData[j].style.getPropertyValue('border-bottom') === 'none' && tdData[j].style.getPropertyValue('border-left') === 'none'
+                                && tdData[j].style.getPropertyValue('border-top') === 'none' && tdData[j].style.getPropertyValue('border-right') === 'none') {
+
+                            } else {
+                                const id = `name${index}${j}${table}n${totalInput}n${index}n${table}`;
+                                this.allChecklistId.push(id);
+                                tdData[j].innerHTML = `<span id = "name${index}${j}${table}n${totalInput}n${index}n${table}"><input type="radio" click = "change()"  name="hello${index}${table}"></span>`;
+
+                            }
+                        }
+                    }
+                }
+            }
+            this.tableHeads = [];
+            // @ts-ignore
+            elem += '<div class="row">  <table class="table text-center table-responsive d-flex justify-content-center">'
+                + element.innerHTML.split('page-break-after:always').join(' ') + '</table> </div>  <br style="clear: both;"> ';
+        });
+        if (ObjectUtil.isEmpty(elem)) {
+            this.displayChecklist = null;
+        }   else {
+            this.displayChecklist = elem.replace('undefined', ' ');
+        }
+    }
+
 
     private scrollToFirstInvalidControl() {
         const firstInvalidControl: HTMLElement = this.el.nativeElement.querySelector(
@@ -436,6 +546,13 @@ export class UIComponent implements OnInit, DoCheck {
         this.loanConfig.offerLetters = this.selectedOfferLetterList;
         this.loanConfig.loanCategory = this.selectedLoanCategory;
         this.loanConfig.loanTag = this.selectedLoanTag;
+        const obj = {
+            paperChecklist: this.paperChecklist,
+            view: this.displayChecklist,
+            id: this.allChecklistId,
+            checklistChecked: this.checklistChecked
+        };
+        this.loanConfig.paperChecklist = JSON.stringify(obj);
 
         this.service.save(this.loanConfig).subscribe(() => {
                 if (this.loanConfig.id == null) {
@@ -460,7 +577,7 @@ export class UIComponent implements OnInit, DoCheck {
     }
 
     onLoanTagChange() {
-        if(this.selectedLoanTag === 'REMIT_LOAN')  {
+        if (this.selectedLoanTag === 'REMIT_LOAN') {
             this.isRemitLoan = true;
         } else {
             this.isRemitLoan = false;
@@ -592,6 +709,10 @@ export class UIComponent implements OnInit, DoCheck {
             }
         });
     }
+
+  checklistChange(data) {
+        this.checklistChecked = data;
+  }
 
     nbUpdateCheckBoxCreditMemo($event, checkAll) {
         this.finalCreditMemoDocument = [];
