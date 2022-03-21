@@ -50,4 +50,5 @@ export class Customer {
     isJointCustomer: boolean;
     panNumber: string;
     sameAddress: boolean;
+    customerType: string;
 }

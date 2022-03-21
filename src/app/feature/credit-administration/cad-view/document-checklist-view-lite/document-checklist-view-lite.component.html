@@ -6,46 +6,48 @@
         nbSpinnerSize="large"
         nbSpinnerStatus="primary">
     <nb-card-body>
-        <div class="col-md-12">
+        <div class="col-md-12 form" [formGroup]="obtainedOnForm">
             <table class="table table-bordered table-hover text-center sb-small table-sm">
                 <thead class="sb-bg-dark text-white">
                 <tr>
-                    <th>
-                        S.N
-                    </th>
-
-                    <th>
-                        Document Name
-                    </th>
-
-
+                    <th>S.N</th>
+                    <th>Document Name</th>
                     <th>Amount</th>
-                    <th>
-                        Upload On
-                    </th>
+                    <th>Upload On</th>
+                    <th>Obtained On</th>
                     <th>Remarks</th>
                     <th>Attachment</th>
                 </tr>
                 </thead>
                 <tbody>
                 <ng-container>
-                    <tr *ngFor="let data of document;let i =index"
+                    <tr *ngFor="let data of requiredDocuments;let i =index"
                         (click)="previewDoc(data?.url,data?.displayName)"
                         class="cursor"
                         [nbTooltipStatus]="data?.url === null? 'danger':''"
-                        [nbTooltip]="data?.url === null? data?.displayName + ' has not been uploaded':'click to view '+data?.displayName">
-
+                        [nbTooltip]="data?.url === null? data?.displayName + ' has not been uploaded':'click to view '+data?.displayName"
+                    formArrayName="obtainedFormData">
+                        <ng-container [formGroupName]="i">
                         <td>{{i + 1}}</td>
                         <td class="text-left px-2">{{data?.name}}</td>
                         <td><span *ngIf="data?.amount">{{(data?.amount | currencyFormatter)}}</span>
                             <span *ngIf="!data?.amount">-</span></td>
                         <td><span *ngIf="data?.uploadedDate">{{(data?.uploadedDate | date)}}</span>
                             <span *ngIf="!data?.uploadedDate">-</span></td>
+                        <td>
+                            <input [nbDatepicker]="customerCitizenshipIssuedDate"
+                                   class="form-control disable-print" formControlName="obtainedDate"
+                                   id="obtainedDate"
+                                   name="obtainedDate">
+                            <nb-datepicker #customerCitizenshipIssuedDate></nb-datepicker>
+                            <span class="show-print">{{(this.obtainedDate[i]?.obtainedDate | date) || '-'}}</span>
+                        </td>
                         <td>{{data?.remarks || '-'}}</td>
                         <td class="cursor">
                             <em *ngIf="data?.url" class="fas fa-check-circle text-success"></em>
                             <em *ngIf="!data?.url" class="fas fa-times-circle text-danger"></em>
                         </td>
+                        </ng-container>
 
                     </tr>
                 </ng-container>
@@ -54,14 +56,16 @@
             <table *ngIf="cadData?.offerDocumentList.length > 0" class="table table-bordered table-hover table-sm sb-small text-center">
                 <thead>
                 <tr class="text-white sb-bg-dark">
-                    <th>#</th>
+                    <th>SN</th>
                     <th>Offer Letter</th>
-                    <th colspan="2">Upload Status</th>
+                    <th colspan="4">Upload Status/Upload Date</th>
                 </tr>
                 <tr>
                     <td colspan="2"></td>
                     <td>Draft Doc</td>
+                    <td>Draft Doc Upload Date</td>
                     <td>Signed Doc</td>
+                    <td>Signed Doc Upload Date</td>
                 </tr>
                 </thead>
                 <tbody>
@@ -98,7 +102,7 @@
     </nb-card-body>
 </nb-card>
 
-<nb-card>
+<nb-card *ngIf="cadData?.additionalDocumentList?.length > 0">
     <nb-card-header>
         <div class="col-md-12">
             <div class="clearfix">

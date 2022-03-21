@@ -822,14 +822,14 @@
           </td>
         </tr>
 
-        <tr *ngIf="landB[0].underConstructionChecked === true ||
-        landB[1].underConstructionChecked === true">
+        <tr *ngIf="landB[0]?.underConstructionChecked === true ||
+        landB[1]?.underConstructionChecked === true">
           <td colspan="7">
             land and Building Under Construction
           </td>
         </tr>
-        <tr *ngIf="landB[0].underConstructionChecked === true ||
-        landB[1].underConstructionChecked === true">
+        <tr *ngIf="landB[0]?.underConstructionChecked === true ||
+        landB[1]?.underConstructionChecked === true">
           <td width="30%">
             <table class="table table-condensed table-bordered table-responsive-md  table-sm sb-small sb-bg-dark text-white">
               <tr>
