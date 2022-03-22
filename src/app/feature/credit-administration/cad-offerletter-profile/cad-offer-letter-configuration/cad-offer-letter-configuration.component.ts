@@ -45,7 +45,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     @Input() guarantorDetail: GuarantorDetail;
     @Input() collateralDetail: CollateralDetail;
     @Input() customer: Customer;
-    @Output()
+
     onActionChangeSpinner = false;
     customerInfoData: EventEmitter<CustomerInfoData> = new EventEmitter<CustomerInfoData>();
     guarantorList: Array<Guarantor>;
@@ -87,7 +87,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     collateralTemporaryDistrictList = [];
     collateralTemporaryMunicipalitiesList = [];
     customerCadInfoData = new CustomerCadInfo();
-
+    guarantorTypeEnum = [
+        {'value' : 'Personal Guarantor'},
+        {'value' : 'Corporate Guarantor'},
+    ];
     @ViewChild('loanDetails', {static: false})
     loanDetails: NepProposedAmountFormComponent;
 
@@ -404,7 +407,42 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
 
     addGuarantorField() {
         return this.formBuilder.group({
+            // For Corporate Guarantor
+            companyNameGuarantor: [undefined],
+            companyDistrictGuarantor: [undefined],
+            companyVdcMunGuarantor: [undefined],
+            companyWardNoGuarantor: [undefined],
+            ministryOfGovernmentOfNepalGuarantor: [undefined],
+            departmentGuarantor: [undefined],
+            companyRegistrarOfficeDistrictGuarantor: [undefined],
+            companyRegistrarOfficeVdcMunGuarantor: [undefined],
+            companyRegistrarOfficeWardNoGuarantor: [undefined],
+            nameOfRegisteringActGuarantor: [undefined],
+            yearOfActEnactmentGuarantor: [undefined],
+            registrationDateGuarantor: [undefined],
+            companyRegistrationNoGuarantor: [undefined],
+            taxPayerServiceOfficeGuarantor: [undefined],
+            panRegistrationDateGuarantor: [undefined],
+            panNoGuarantor: [undefined],
+            representativePermanentDistrictGuarantor: [undefined],
+            representativePermanentMunTypeGuarantor: [undefined],
+            representativePermanentMunicipalityGuarantor: [undefined],
+            representativePermanentWardGuarantor: [undefined],
+            representativeTemporaryDistrictGuarantor: [undefined],
+            representativeTemporaryMunTypeGuarantor: [undefined],
+            representativeTemporaryMunicipalityGuarantor: [undefined],
+            representativeTemporaryWardGuarantor: [undefined],
+            representativeGrandFatherNameGuarantor: [undefined],
+            representativeFatherNameGuarantor: [undefined],
+            representativeHusbandWifeNameGuarantor: [undefined],
+            borrowerAgeGuarantor: [undefined],
+            representativeNameGuarantor: [undefined],
+            representativeCitizenshipNoGuarantor: [undefined],
+            representativeCitizenshipIssueDateGuarantor: [undefined],
+            representativeCitizenshipIssuingAuthorityGuarantor: [undefined],
+            // For Individual Guarantor
             guarantorName: [undefined],
+            guarantorType: [undefined],
             guarantorAge: [undefined],
             issuedYear: [undefined],
             issuedPlace: [undefined],
@@ -497,37 +535,108 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         }
 
         guarantorDetails.forEach((value, i) => {
-            formArray.push(this.formBuilder.group({
-                guarantorName: [value.guarantorName],
-                guarantorAge: [value.guarantorAge],
-                issuedYear: [value.issuedYear],
-                issuedPlace: [value.issuedPlace],
-                guarantorLegalDocumentAddress: [value.guarantorLegalDocumentAddress],
-                relationship: [value.relationship],
-                citizenNumber: [value.citizenNumber],
-                guarantorMobileNumber: [value.guarantorMobileNumber],
-                guarantorEmailAddress: [value.guarantorEmailAddress],
-                guarantorGrandfatherName: [value.guarantorGrandfatherName],
-                guarantorFatherName: [value.guarantorFatherName],
-                guarantorFatherInLawName: [value.guarantorFatherInLawName],
-                guarantorSpouseName: [value.guarantorSpouseName],
-                guarantorPermanentMunType: [value.guarantorPermanentMunType],
-                guarantorPermanentProvince: [value.guarantorPermanentProvince],
-                guarantorPermanentDistrict: [value.guarantorPermanentDistrict],
-                guarantorPermanentMunicipality: [value.guarantorPermanentMunicipality],
-                guarantorPermanentWard: [value.guarantorPermanentWard],
-                guarantorPermanentVdc: [value.guarantorPermanentVdc],
-                guarantorPermanentVdcWard: [value.guarantorPermanentVdcWard],
-                guarantorTemporaryMunType: [value.guarantorTemporaryMunType],
-                guarantorTemporaryProvince: [value.guarantorTemporaryProvince],
-                guarantorTemporaryDistrict: [value.guarantorTemporaryDistrict],
-                guarantorTemporaryMunicipality: [value.guarantorTemporaryMunicipality],
-                guarantorTemporaryWard: [value.guarantorTemporaryWard],
-            }));
-            this.getGuarantorDistricts(value.guarantorPermanentProvince, i);
-            this.getGuarantorMunicipalities(value.guarantorPermanentDistrict, i);
-            this.getGuarantorTemporaryDistricts(value.guarantorTemporaryProvince, i);
-            this.getGuarantorTemporaryMunicipalities(value.guarantorTemporaryDistrict, i);
+                    formArray.push(this.formBuilder.group({
+                        guarantorType: [!ObjectUtil.isEmpty(value.guarantorType) ? value.guarantorType : ''],
+                        guarantorName: [!ObjectUtil.isEmpty(value.guarantorName) ? value.guarantorName : ''],
+                        guarantorAge: [!ObjectUtil.isEmpty(value.guarantorAge) ? value.guarantorAge : ''],
+                        issuedYear: [!ObjectUtil.isEmpty(value.issuedYear) ? value.issuedYear : ''],
+                        issuedPlace: [!ObjectUtil.isEmpty(value.issuedPlace) ? value.issuedPlace : ''],
+                        guarantorLegalDocumentAddress: [!ObjectUtil.isEmpty(value.guarantorLegalDocumentAddress) ?
+                            value.guarantorLegalDocumentAddress : ''],
+                        relationship: [!ObjectUtil.isEmpty(value.relationship) ? value.relationship : ''],
+                        citizenNumber: [!ObjectUtil.isEmpty(value.citizenNumber) ? value.citizenNumber : ''],
+                        guarantorMobileNumber: [!ObjectUtil.isEmpty(value.guarantorMobileNumber) ? value.guarantorMobileNumber : ''],
+                        guarantorEmailAddress: [!ObjectUtil.isEmpty(value.guarantorEmailAddress) ? value.guarantorEmailAddress : ''],
+                        guarantorGrandfatherName: [!ObjectUtil.isEmpty(value.guarantorGrandfatherName) ?
+                            value.guarantorGrandfatherName : ''],
+                        guarantorFatherName: [!ObjectUtil.isEmpty(value.guarantorFatherName) ? value.guarantorFatherName : ''],
+                        guarantorFatherInLawName: [!ObjectUtil.isEmpty(value.guarantorFatherInLawName) ?
+                            value.guarantorFatherInLawName : ''],
+                        guarantorSpouseName: [!ObjectUtil.isEmpty(value.guarantorSpouseName) ? value.guarantorSpouseName : ''],
+                        guarantorPermanentMunType: [!ObjectUtil.isEmpty(value.guarantorPermanentMunType) ? value.guarantorPermanentMunType : ''],
+                        guarantorPermanentProvince: [!ObjectUtil.isEmpty(value.guarantorPermanentProvince) ?
+                            value.guarantorPermanentProvince : ''],
+                        guarantorPermanentDistrict: [!ObjectUtil.isEmpty(value.guarantorPermanentDistrict) ?
+                            value.guarantorPermanentDistrict : ''],
+                        guarantorPermanentMunicipality: [!ObjectUtil.isEmpty(value.guarantorPermanentMunicipality) ?
+                            value.guarantorPermanentMunicipality : ''],
+                        guarantorPermanentWard: [!ObjectUtil.isEmpty(value.guarantorPermanentWard) ? value.guarantorPermanentWard : ''],
+                        guarantorPermanentVdc: [!ObjectUtil.isEmpty(value.guarantorPermanentVdc) ? value.guarantorPermanentVdc : ''],
+                        guarantorPermanentVdcWard: [!ObjectUtil.isEmpty(value.guarantorPermanentVdcWard) ? value.guarantorPermanentVdcWard : ''],
+                        guarantorTemporaryMunType: [!ObjectUtil.isEmpty(value.guarantorTemporaryMunType) ? value.guarantorTemporaryMunType : ''],
+                        guarantorTemporaryProvince: [!ObjectUtil.isEmpty(value.guarantorTemporaryProvince) ?
+                            value.guarantorTemporaryProvince : ''],
+                        guarantorTemporaryDistrict: [!ObjectUtil.isEmpty(value.guarantorTemporaryDistrict) ?
+                            value.guarantorTemporaryDistrict : ''],
+                        guarantorTemporaryMunicipality: [!ObjectUtil.isEmpty(value.guarantorTemporaryMunicipality) ?
+                            value.guarantorTemporaryMunicipality : ''],
+                        guarantorTemporaryWard: [!ObjectUtil.isEmpty(value.guarantorTemporaryWard) ? value.guarantorTemporaryWard : ''],
+
+                        // For Corporate
+
+                        companyNameGuarantor: [!ObjectUtil.isEmpty(value.companyNameGuarantor) ? value.companyNameGuarantor : ''],
+                        companyDistrictGuarantor: [!ObjectUtil.isEmpty(value.companyDistrictGuarantor) ?
+                            value.companyDistrictGuarantor : ''],
+                        companyVdcMunGuarantor: [!ObjectUtil.isEmpty(value.companyVdcMunGuarantor) ? value.companyVdcMunGuarantor : ''],
+                        companyWardNoGuarantor: [!ObjectUtil.isEmpty(value.companyWardNoGuarantor) ? value.companyWardNoGuarantor : ''],
+                        ministryOfGovernmentOfNepalGuarantor: [!ObjectUtil.isEmpty(value.ministryOfGovernmentOfNepalGuarantor) ?
+                            value.ministryOfGovernmentOfNepalGuarantor : ''],
+                        departmentGuarantor: [!ObjectUtil.isEmpty(value.departmentGuarantor) ? value.departmentGuarantor : ''],
+                        companyRegistrarOfficeDistrictGuarantor: [!ObjectUtil.isEmpty(value.companyRegistrarOfficeDistrictGuarantor) ?
+                            value.companyRegistrarOfficeDistrictGuarantor : ''],
+                        companyRegistrarOfficeVdcMunGuarantor: [!ObjectUtil.isEmpty(value.companyRegistrarOfficeVdcMunGuarantor) ?
+                            value.companyRegistrarOfficeVdcMunGuarantor : ''],
+                        companyRegistrarOfficeWardNoGuarantor: [!ObjectUtil.isEmpty(value.companyRegistrarOfficeWardNoGuarantor) ?
+                            value.companyRegistrarOfficeWardNoGuarantor : ''],
+                        nameOfRegisteringActGuarantor: [!ObjectUtil.isEmpty(value.nameOfRegisteringActGuarantor) ?
+                            value.nameOfRegisteringActGuarantor : ''],
+                        yearOfActEnactmentGuarantor: [!ObjectUtil.isEmpty(value.yearOfActEnactmentGuarantor) ?
+                            value.yearOfActEnactmentGuarantor : ''],
+                        registrationDateGuarantor: [!ObjectUtil.isEmpty(value.registrationDateGuarantor)  ?
+                            value.registrationDateGuarantor : ''],
+                        companyRegistrationNoGuarantor: [!ObjectUtil.isEmpty(value.companyRegistrationNoGuarantor) ?
+                            value.companyRegistrationNoGuarantor : ''],
+                        taxPayerServiceOfficeGuarantor: [!ObjectUtil.isEmpty(value.taxPayerServiceOfficeGuarantor) ?
+                            value.taxPayerServiceOfficeGuarantor : ''],
+                        panRegistrationDateGuarantor: [!ObjectUtil.isEmpty(value.panRegistrationDateGuarantor) ?
+                            value.panRegistrationDateGuarantor : ''],
+                        panNoGuarantor: [!ObjectUtil.isEmpty(value.panNoGuarantor) ? value.panNoGuarantor : ''],
+                        representativePermanentDistrictGuarantor: [!ObjectUtil.isEmpty(value.representativePermanentDistrictGuarantor) ?
+                            value.representativePermanentDistrictGuarantor : ''],
+                        representativePermanentMunTypeGuarantor: [!ObjectUtil.isEmpty(value.representativePermanentMunTypeGuarantor) ?
+                            value.representativePermanentMunTypeGuarantor : ''],
+                        representativePermanentMunicipalityGuarantor: [!ObjectUtil.isEmpty(value.representativePermanentMunicipalityGuarantor) ?
+                            value.representativePermanentMunicipalityGuarantor : ''],
+                        representativePermanentWardGuarantor: [!ObjectUtil.isEmpty(value.representativePermanentWardGuarantor) ?
+                            value.representativePermanentWardGuarantor : ''],
+                        representativeTemporaryDistrictGuarantor: [!ObjectUtil.isEmpty(value.representativeTemporaryDistrictGuarantor) ?
+                            value.representativeTemporaryDistrictGuarantor : ''],
+                        representativeTemporaryMunTypeGuarantor: [!ObjectUtil.isEmpty(value.representativeTemporaryMunTypeGuarantor) ?
+                            value.representativeTemporaryMunTypeGuarantor : ''],
+                        representativeTemporaryMunicipalityGuarantor: [!ObjectUtil.isEmpty(value.representativeTemporaryMunicipalityGuarantor) ?
+                            value.representativeTemporaryMunicipalityGuarantor : ''],
+                        representativeTemporaryWardGuarantor: [!ObjectUtil.isEmpty(value.representativeTemporaryWardGuarantor) ?
+                            value.representativeTemporaryWardGuarantor : ''],
+                        representativeGrandFatherNameGuarantor: [!ObjectUtil.isEmpty(value.representativeGrandFatherNameGuarantor) ?
+                            value.representativeGrandFatherNameGuarantor : ''],
+                        representativeFatherNameGuarantor: [!ObjectUtil.isEmpty(value.representativeFatherNameGuarantor) ?
+                            value.representativeFatherNameGuarantor : ''],
+                        representativeHusbandWifeNameGuarantor: [!ObjectUtil.isEmpty(value.representativeHusbandWifeNameGuarantor) ?
+                            value.representativeHusbandWifeNameGuarantor : ''],
+                        borrowerAgeGuarantor: [!ObjectUtil.isEmpty(value.borrowerAgeGuarantor) ? value.borrowerAgeGuarantor : ''],
+                        representativeNameGuarantor: [!ObjectUtil.isEmpty(value.representativeNameGuarantor) ?
+                            value.representativeNameGuarantor : ''],
+                        representativeCitizenshipNoGuarantor: [!ObjectUtil.isEmpty(value.representativeCitizenshipNoGuarantor) ?
+                            value.representativeCitizenshipNoGuarantor : ''],
+                        representativeCitizenshipIssueDateGuarantor: [!ObjectUtil.isEmpty(value.representativeCitizenshipIssueDateGuarantor) ?
+                            value.representativeCitizenshipIssueDateGuarantor : ''],
+                        representativeCitizenshipIssuingAuthorityGuarantor: [!ObjectUtil.isEmpty(value.representativeCitizenshipIssuingAuthorityGuarantor) ?
+                            value.representativeCitizenshipIssuingAuthorityGuarantor : ''],
+                    }));
+                    this.getGuarantorDistricts(value.guarantorPermanentProvince, i);
+                    this.getGuarantorMunicipalities(value.guarantorPermanentDistrict, i);
+                    this.getGuarantorTemporaryDistricts(value.guarantorTemporaryProvince, i);
+                    this.getGuarantorTemporaryMunicipalities(value.guarantorTemporaryDistrict, i);
         });
     }
 
@@ -722,6 +831,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.customerInfo.nepData)) {
             const data = JSON.parse(this.customerInfo.nepData);
             console.log('data', data);
+            this.setGuarantors(data.guarantorDetails);
             this.userConfigForm.patchValue(data);
             this.setCollaterals(data.collateralDetails);
             this.setCollateralOwner(data.collateralOwnerDetails);
@@ -735,7 +845,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             this.userConfigForm.get('temporaryDistrict').patchValue(data.temporaryDistrict);
             this.getTemporaryMunicipalities(data.temporaryDistrict);
             this.userConfigForm.get('temporaryMunicipalities').patchValue(data.temporaryMunicipalities);
-            this.setGuarantors(data.guarantorDetails);
         }
     }
 
