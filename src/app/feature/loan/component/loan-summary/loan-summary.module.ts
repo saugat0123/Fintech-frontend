@@ -81,6 +81,15 @@ import { UptoTenMillionComponent } from './sme-loan-summary/upto-ten-million/upt
 import { UptoDetailsOfTheCustomerComponent } from './sme-loan-summary/upto-ten-million/upto-details-of-the-customer/upto-details-of-the-customer.component';
 import { SecurityArrangementComponent } from './sme-loan-summary/upto-ten-million/security-arrangement/security-arrangement.component';
 import { GroupPositionComponent } from './sme-loan-summary/upto-ten-million/group-position/group-position.component';
+import {AssessmentRequirementOfFundComponent} from './sme-loan-summary/upto-ten-million/assessment-requirement-of-fund/assessment-requirement-of-fund.component';
+import { UptoBankingRelationshipComponent } from './sme-loan-summary/upto-ten-million/upto-banking-relationship/upto-banking-relationship.component';
+import { UptoOtherChargesComponent } from './sme-loan-summary/upto-ten-million/upto-other-charges/upto-other-charges.component';
+import { UptoConvenantsComponent } from './sme-loan-summary/upto-ten-million/upto-convenants/upto-convenants.component';
+import { UptoDisbursementModalityComponent } from './sme-loan-summary/upto-ten-million/upto-disbursement-modality/upto-disbursement-modality.component';
+import { UptoRepaymentModalityComponent } from './sme-loan-summary/upto-ten-million/upto-repayment-modality/upto-repayment-modality.component';
+import { NtaStatementAndInspectionComponent } from './sme-loan-summary/upto-ten-million/nta-statement-and-inspection/nta-statement-and-inspection.component';
+import { WaiverDeviationsAndDeferralComponent } from './sme-loan-summary/upto-ten-million/waiver-deviations-and-deferral/waiver-deviations-and-deferral.component';
+
 
 const COMPONENTS = [
   SitevistSummaryComponentComponent,
@@ -188,6 +197,14 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
     UptoDetailsOfTheCustomerComponent,
     SecurityArrangementComponent,
     GroupPositionComponent,
+    AssessmentRequirementOfFundComponent,
+    UptoBankingRelationshipComponent,
+    UptoOtherChargesComponent,
+    UptoConvenantsComponent,
+    UptoDisbursementModalityComponent,
+    UptoRepaymentModalityComponent,
+    NtaStatementAndInspectionComponent,
+    WaiverDeviationsAndDeferralComponent,
   ],
   imports: [
     CommonModule,
