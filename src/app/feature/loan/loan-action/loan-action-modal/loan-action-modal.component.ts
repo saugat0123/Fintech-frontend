@@ -279,7 +279,6 @@ export class LoanActionModalComponent implements OnInit {
             case 'Approve':
                 const approvalType = LocalStorageUtil.getStorage().productUtil.LOAN_APPROVAL_HIERARCHY_LEVEL;
                 const refId = approvalType === 'DEFAULT' ? 0 : approvalType === 'LOAN_TYPE' ? this.loanConfigId : this.customerLoanId;
-                console.log('refId', refId);
 
                 this.approvalRoleHierarchyService.getForwardRolesForRoleWithType(this.roleId, approvalType, refId)
                     .subscribe((response: any) => {
@@ -288,7 +287,6 @@ export class LoanActionModalComponent implements OnInit {
                         this.sendForwardBackwardList = response.detail.sort(function (a, b) {
                             return parseFloat(b.roleOrder) - parseFloat(a.roleOrder);
                         });
-                        console.log('sendForwardBackwardList', this.sendForwardBackwardList);
                         if (this.customerLoanHolder.isHsov) {
                             this.sendForwardBackwardList = this.sendForwardBackwardList.filter(l => l.role.roleType === RoleType.APPROVAL);
                         }
@@ -299,29 +297,16 @@ export class LoanActionModalComponent implements OnInit {
                             this.getUserList(this.sendForwardBackwardList[0].role);
                         }
                     });
-                console.log('after Filter sendForwardBackwardList', this.sendForwardBackwardList);
-                console.log('Approved formAction', this.formAction);
-                console.log(this.formAction);
-                console.log('After filter', this.sendForwardBackwardList);
                 break;
 
             default:
                 if (!ObjectUtil.isEmpty(this.toRole)) {
                     this.getUserList(this.toRole);
-                }// send backward to committee
-
-
+                }
         }
     }
 
     private postAction() {
-
-        // if (this.docAction == 'HSOV_PENINDG') {
-        //     this.formAction.patchValue({
-        //         toRole: this.hsovRole
-        //     });
-        // }
-
         this.loanFormService.postLoanAction(this.formAction.value).subscribe((response: any) => {
             const msg = `Successfully ${this.formAction.get('docActionMsg').value}`;
             this.toastService.show(new Alert(AlertType.SUCCESS, msg));
@@ -398,10 +383,4 @@ export class LoanActionModalComponent implements OnInit {
         }
     }
 
-    test(value: any) {
-        console.log('comment Value:::: ', value);
-        console.log('formAction', this.formAction);
-        console.log('comment', this.formAction.controls['comment']);
-        console.log('invalid', this.formAction.invalid);
-    }
 }
