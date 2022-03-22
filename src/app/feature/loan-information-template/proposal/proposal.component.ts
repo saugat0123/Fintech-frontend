@@ -1,5 +1,5 @@
 import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {Proposal} from '../../admin/modal/proposal';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 import {LoanConfigService} from '../../admin/component/loan-config/loan-config.service';
@@ -16,6 +16,8 @@ import {Clients} from '../../../../environments/Clients';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {CustomerInfoService} from '../../customer/service/customer-info.service';
 import {IncomeFromAccountComponent} from '../income-from-account/income-from-account.component';
+import {LoanFormService} from '../../loan/component/loan-form/service/loan-form.service';
+import {LoanDataHolder} from '../../loan/model/loanData';
 
 @Component({
   selector: 'app-proposal',
@@ -109,6 +111,10 @@ export class ProposalComponent implements OnInit {
     'Debt Consolidation',
     'To Finance Tertiary Education',
     'To Finance Post-Secondary Education'];
+  isCombineLoan = false;
+  combineLoanList: Array<LoanDataHolder> = [];
+  guarantor = new FormControl(undefined , Validators.required);
+
   constructor(private formBuilder: FormBuilder,
               private loanConfigService: LoanConfigService,
               private activatedRoute: ActivatedRoute,
@@ -117,6 +123,7 @@ export class ProposalComponent implements OnInit {
               private el: ElementRef,
               private nbService: NgbModal,
               private customerInfoService: CustomerInfoService,
+              private loanFormService: LoanFormService
   ) {
   }
 
@@ -188,6 +195,7 @@ export class ProposalComponent implements OnInit {
             loanCategory: null
           };
           this.allId = paramsValue;
+          console.log('allId', this.allId);
           this.loanId = this.allId.loanId ? this.allId.loanId : this.loanIds;
           this.loanConfigService.detail(this.loanId).subscribe((response: any) => {
             this.minimumAmountLimit = response.detail.minimumProposedAmount;
@@ -391,8 +399,10 @@ export class ProposalComponent implements OnInit {
       purposeChecked: this.purposeChecked,
       debtChecked: this.debtChecked,
       netChecked: this.netChecked,
+      isCombineLoan: this.isCombineLoan,
     };
     this.proposalData.checkedData = JSON.stringify(mergeChecked);
+    console.log('checkedData', this.proposalData.checkedData);
 
     // Proposed Limit value--
     this.proposalData.proposedLimit = this.proposalForm.get('proposedLimit').value;
@@ -502,6 +512,30 @@ export class ProposalComponent implements OnInit {
         this.netChecked = event;
       }
       break;
+      case 'combineLoan':
+        if (event) {
+          this.isCombineLoan = event;
+          this.loanFormService.getLoanHolderCombineList(8).subscribe((res: any) => {
+            console.log(res);
+            this.combineLoanList = res.detail;
+            // const data = res.detail;
+            // data.forEach((c) => {
+            //   if (c.proposal) {
+            //     const checkData = JSON.parse(c.proposal.checkChecked());
+            //     if (checkData.contains('main')) {
+            //
+            //     }
+            //   }
+            // });
+            console.log('combineLoanList', this.combineLoanList);
+          }, error => {
+            console.log('error', error);
+            this.toastService.show(new Alert(AlertType.ERROR, 'Error while fetching data'));
+          });
+        } else {
+          this.isCombineLoan = event;
+        }
+        break;
     }
   }
 
@@ -519,6 +553,7 @@ export class ProposalComponent implements OnInit {
       this.checkChecked(data['purposeChecked'], 'purpose');
       this.checkChecked(data['debtChecked'], 'debt');
       this.checkChecked(data['netChecked'], 'net');
+      this.checkChecked(data['isCombineLoan'], 'combineLoan');
     }
   }
 
@@ -797,12 +832,14 @@ export class ProposalComponent implements OnInit {
   }
   setFormData(data, formControl) {
     const form = this.proposalForm.get(formControl) as FormArray;
-    data.forEach(l => {
-      form.push(this.formBuilder.group({
-        assets: [l.assets],
-        amount: [l.amount]
-      }));
-    });
+    if (!ObjectUtil.isEmpty(data)) {
+      data.forEach(l => {
+        form.push(this.formBuilder.group({
+          assets: [l.assets],
+          amount: [l.amount]
+        }));
+      });
+    }
   }
   removeValue(formControl: string, index: number) {
     (<FormArray>this.proposalForm.get(formControl)).removeAt(index);
@@ -814,5 +851,32 @@ export class ProposalComponent implements OnInit {
           amount: 0,
         })
     );
+  }
+
+
+  commonFieldPatch(selected) {
+    if (this.isCombineLoan) {
+      const data = JSON.parse(selected.data);
+      this.proposalForm.get('borrowerInformation').patchValue(data.borrowerInformation);
+      this.proposalForm.get('disbursementCriteria').patchValue(data.disbursementCriteria);
+      this.proposalForm.get('repayment').patchValue(data.repayment);
+      this.proposalForm.get('remark').patchValue(data.remark);
+      this.proposalForm.get('summeryRecommendation').patchValue(data.summeryRecommendation);
+      this.proposalForm.get('waiverConclusionRecommendation').patchValue(data.waiverConclusionRecommendation);
+      this.proposalForm.get('deviationConclusionRecommendation').patchValue(data.deviationConclusionRecommendation);
+      this.proposalForm.get('solConclusionRecommendation').patchValue(data.solConclusionRecommendation);
+      this.proposalForm.get('riskConclusionRecommendation').patchValue(data.riskConclusionRecommendation);
+      this.proposalForm.get('termsAndCondition').patchValue(data.termsAndCondition);
+      this.setFormData(data.vehicle, 'vehicle');
+      this.setFormData(data.realState, 'realState');
+      this.setFormData(data.shares, 'shares');
+      this.setFormData(data.deposit, 'deposit');
+    } else {
+      const formControl = ['borrowerInformation', 'disbursementCriteria', 'repayment', 'remark', 'summeryRecommendation',
+        'waiverConclusionRecommendation', 'deviationConclusionRecommendation', 'solConclusionRecommendation', 'riskConclusionRecommendation', 'termsAndCondition'];
+      formControl.forEach((fc) => {
+        this.proposalForm.get(fc).patchValue(null);
+      });
+    }
   }
 }
