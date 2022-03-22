@@ -40,7 +40,7 @@
                                    id="obtainedDate"
                                    name="obtainedDate">
                             <nb-datepicker #customerCitizenshipIssuedDate></nb-datepicker>
-                            <span class="show-print">{{(this.obtainedDate[i]?.obtainedDate | date) || '-'}}</span>
+                            <span class="show-print">{{(obtainedOnForm.get(['obtainedFormData',i, 'obtainedDate'])?.value | date) || '-'}}</span>
                         </td>
                         <td>{{data?.remarks || '-'}}</td>
                         <td class="cursor">
