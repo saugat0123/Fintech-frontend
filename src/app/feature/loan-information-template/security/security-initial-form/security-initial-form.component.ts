@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, OnInit, QueryList, ViewChildren} from '@angular/core';
+import {Component, Input, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {AbstractControl, FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ToastService} from '../../../../@core/utils';
 import {CalendarType} from '../../../../@core/model/calendar-type';
@@ -33,6 +33,8 @@ import {Clients} from '../../../../../environments/Clients';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {FixAssetCollateralComponent} from './fix-asset-collateral/fix-asset-collateral.component';
 import {DateValidator} from '../../../../@core/validator/date-validator';
+import {LoanConfigService} from '../../../admin/component/loan-config/loan-config.service';
+import {CustomerType} from '../../../customer/model/customerType';
 
 
 @Component({
@@ -46,8 +48,8 @@ export class SecurityInitialFormComponent implements OnInit {
     @Input() loanTag: string;
     @Input() shareSecurity;
     @Input() customerSecurityId;
-    securityEmitValue: string;
     @Input() approvedData: string;
+    @Input() customerType: CustomerType;
     @ViewChildren('revaluationComponent')
     revaluationComponent: QueryList<SecurityRevaluationComponent>;
 
@@ -66,6 +68,7 @@ export class SecurityInitialFormComponent implements OnInit {
     @ViewChildren('ownerKycApplicableHypothecation')
     ownerKycApplicableHypothecation: QueryList<OwnerKycApplicableComponent>;
 
+    securityEmitValue: string;
     securityId = SecurityIds;
     selectedArray = [];
     securityForm: FormGroup;
@@ -154,6 +157,8 @@ export class SecurityInitialFormComponent implements OnInit {
     dialogRef: NbDialogRef<any>;
     isOpen = false;
     newOwnerShipTransfer = [];
+    loanList = [];
+    isSecondHand = false;
 
     constructor(private formBuilder: FormBuilder,
                 private valuatorToast: ToastService,
@@ -164,12 +169,12 @@ export class SecurityInitialFormComponent implements OnInit {
                 private datePipe: DatePipe,
                 private toastService: ToastService,
                 private roleService: RoleService,
-                private nbDialogService: NbDialogService) {
+                private nbDialogService: NbDialogService,
+                private loanConfigService: LoanConfigService) {
     }
 
 
     ngOnInit() {
-        console.log('this is form data', this.formData);
         this.getRoleList();
         this.configEditor();
         this.shareService.findAllNepseCompanyData(this.search).subscribe((list) => {
@@ -191,6 +196,7 @@ export class SecurityInitialFormComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.formData)) {
             this.formDataForEdit = this.formData['initialForm'];
             this.selectedArray = this.formData['selectedArray'];
+            this.securityForm.patchValue(this.formDataForEdit);
             this.underConstruction(this.formData['underConstructionChecked']);
             this.underBuildingConstruction(this.formData['underBuildingConstructionChecked']);
             this.otherBranch(this.formData['otherBranchcheck']);
@@ -219,7 +225,9 @@ export class SecurityInitialFormComponent implements OnInit {
             this.landBuildingOtherBank(this.formData['landBuildingOtherBranchChecked']);
             this.vehicleOtherBank(this.formData['vehicleOtherBranchChecked']);
             this.plantOtherBank(this.formData['plantOtherBranchChecked']);
-
+            this.setCrossCollateralizedData(this.formDataForEdit['landCross'], 'landCross');
+            this.setCrossCollateralizedData(this.formDataForEdit['lbCross'], 'lbCross');
+            this.setCrossCollateralizedData(this.formDataForEdit['apartmentCross'], 'apartmentCross');
         } else {
             this.addMoreLand();
             this.addBuilding();
@@ -252,7 +260,7 @@ export class SecurityInitialFormComponent implements OnInit {
         }
         this.updateLandSecurityTotal();
         this.reArrangeEnumType();
-
+        this.getLoanConfig();
     }
     private uuid(): string {
         // tslint:disable-next-line:no-bitwise
@@ -333,7 +341,21 @@ export class SecurityInitialFormComponent implements OnInit {
             leaseAssignment: this.formBuilder.array([]),
             otherSecurity: this.formBuilder.array([]),
             assignmentOfReceivables: this.formBuilder.array([]),
-
+            landCross: this.formBuilder.array([]),
+            lbCross: this.formBuilder.array([]),
+            apartmentCross: this.formBuilder.array([]),
+            landCrossChecked: [false],
+            lbCrossChecked: [false],
+            apartmentCrossChecked: [false],
+            landExposureTotal: [0],
+            landRmValueTotal: [0],
+            landFmvOfFacTotal: [0],
+            lbExposureTotal: [0],
+            lbRmValueTotal: [0],
+            lbFmvOfFacTotal: [0],
+            apartmentExposureTotal: [0],
+            apartmentRmValueTotal: [0],
+            apartmentFmvOfFacTotal: [0],
         });
         this.buildShareSecurityForm();
     }
@@ -347,7 +369,12 @@ export class SecurityInitialFormComponent implements OnInit {
             avgDaysForPrice: undefined,
         });
         if (!ObjectUtil.isEmpty(this.shareSecurity)) {
-            this.shareSecurityForm.get('securityOffered').patchValue(JSON.parse(this.shareSecurity.data)['securityOffered']);
+            if (this.shareSecurity.approvedData) {
+                this.shareSecurityForm.get('securityOffered').patchValue(JSON.parse(this.shareSecurity.approvedData)['securityOffered']);
+            }
+            if (this.shareSecurity.data) {
+                this.shareSecurityForm.get('securityOffered').patchValue(JSON.parse(this.shareSecurity.data)['securityOffered']);
+            }
         }
     }
 
@@ -626,6 +653,9 @@ export class SecurityInitialFormComponent implements OnInit {
                     apartmentStaffRepresentativeName2: [singleData.apartmentStaffRepresentativeName2],
                     apartmentOtherBranchChecked: [singleData.apartmentOtherBranchChecked],
                     uuid: [ObjectUtil.isEmpty(singleData.uuid) ? this.uuid() : singleData.uuid],
+                    proposedOwner: [singleData.proposedOwner],
+                    apartmentRate: [singleData.apartmentRate],
+                    buildingReliasableValue: [singleData.buildingReliasableValue],
                 })
             );
         });
@@ -712,6 +742,10 @@ export class SecurityInitialFormComponent implements OnInit {
                     kycCheckForLandAndBuilding: [singleData.kycCheckForLandAndBuilding],
                     landBuildingRate: [singleData.landBuildingRate],
                     landbuildingUnderRate: [singleData.landbuildingUnderRate],
+                    totalLandRealisableValue: [singleData.totalLandRealisableValue],
+                    apartmentDistressValue:  [singleData.apartmentDistressValue],
+                    apartmentRate:  [singleData.apartmentRate],
+                    totalApartmentRealisableValue:  [singleData.totalApartmentRealisableValue],
                     uuid: [ObjectUtil.isEmpty(singleData.uuid) ? this.uuid() : singleData.uuid],
 
                 })
@@ -849,6 +883,8 @@ export class SecurityInitialFormComponent implements OnInit {
                         [singleData.plantMachineryStaffRepresentativeDesignation2],
                     plantMachineryStaffRepresentativeName2: [singleData.plantMachineryStaffRepresentativeName2],
                     plantOtherBranchChecked: [singleData.plantOtherBranchChecked],
+                    realisableRate: [singleData.realisableRate],
+                    realisableValue: [singleData.realisableValue],
                     uuid: [ObjectUtil.isEmpty(singleData.uuid) ? this.uuid() : singleData.uuid],
                 })
             );
@@ -1356,6 +1392,9 @@ export class SecurityInitialFormComponent implements OnInit {
             apartmentStaffRepresentativeName2: [undefined],
             apartmentOtherBranchChecked: [undefined],
             uuid: [this.uuid()],
+            proposedOwner: [undefined],
+            apartmentRate: [undefined],
+            buildingReliasableValue: [undefined],
         });
     }
 
@@ -1419,6 +1458,10 @@ export class SecurityInitialFormComponent implements OnInit {
             kycCheckForLandAndBuilding: [false],
             landBuildingRate: undefined,
             landbuildingUnderRate: undefined,
+            totalLandRealisableValue: undefined,
+            apartmentDistressValue: undefined,
+            apartmentRate: undefined,
+            totalApartmentRealisableValue: undefined,
             uuid: [this.uuid()],
         });
     }
@@ -1456,6 +1499,8 @@ export class SecurityInitialFormComponent implements OnInit {
             plantMachineryStaffRepresentativeDesignation2: [undefined],
             plantMachineryStaffRepresentativeName2: [undefined],
             plantOtherBranchChecked: [undefined],
+            realisableRate: [undefined],
+            realisableValue: [undefined],
             uuid: [this.uuid()],
         });
     }
@@ -1621,6 +1666,9 @@ export class SecurityInitialFormComponent implements OnInit {
             vehicleRemarks: [undefined],
             vehicleOtherBranchChecked: [undefined],
             uuid: [this.uuid()],
+            isSecondHand: [undefined],
+            vehicleRealiasableAmount: [undefined],
+            vehicleRate: [undefined],
         });
     }
 
@@ -1670,6 +1718,9 @@ export class SecurityInitialFormComponent implements OnInit {
                         undefined : new Date(singleData.vehicleQuotationDate)],
                     vehicleRemarks: [singleData.vehicleRemarks],
                     vehicleOtherBranchChecked: [singleData.vehicleOtherBranchChecked],
+                    isSecondHand: [singleData.isSecondHand ? singleData.isSecondHand : undefined],
+                    vehicleRealiasableAmount: [singleData.vehicleRealiasableAmount ? singleData.vehicleRealiasableAmount : undefined],
+                    vehicleRate: [singleData.vehicleRate ? singleData.vehicleRate : undefined],
                     uuid: [ObjectUtil.isEmpty(singleData.uuid) ? this.uuid() : singleData.uuid],
                 })
             );
@@ -1792,8 +1843,9 @@ export class SecurityInitialFormComponent implements OnInit {
         const shareType = this.shareField.at(index).get('shareType').value;
         this.shareField.at(index).patchValue({
             total: totalShareUnit * amountPerUnit,
-            consideredValue: this.calculateConsideredAmount(totalShareUnit, amountPerUnit, shareType)
+            drawingPower: this.calculateConsideredAmount(totalShareUnit, amountPerUnit, shareType)
         });
+        this.calcRealiasable(index,'share');
     }
 
     get totalConsideredValue() {
@@ -1841,6 +1893,8 @@ export class SecurityInitialFormComponent implements OnInit {
                         dividendYeild: [share.dividendYeild],
                         dividendPayoutRatio: [share.dividendPayoutRatio],
                         ratioAsPerAuitedFinancial: [share.ratioAsPerAuitedFinancial],
+                        shareRate: [share.shareRate],
+                        drawingPower: [share.drawingPower],
                         uuid: [ObjectUtil.isEmpty(share.uuid) ? this.uuid() : share.uuid],
                     })
                 );
@@ -1864,6 +1918,8 @@ export class SecurityInitialFormComponent implements OnInit {
             dividendYeild: [undefined],
             dividendPayoutRatio: [undefined],
             ratioAsPerAuitedFinancial: [undefined],
+            shareRate: [undefined],
+            drawingPower: [undefined],
             uuid: [this.uuid()],
         });
     }
@@ -2231,12 +2287,14 @@ export class SecurityInitialFormComponent implements OnInit {
         }
     }
 
-    openSiteVisitModel(security: string, uuid: string) {
+    openSiteVisitModel(security: string, uuid: string, index: number, name: string) {
         this.close();
         const context = {
             securityId: this.customerSecurityId,
             security: security,
-            uuid: uuid
+            uuid: uuid,
+            index: index,
+            formControl: name
         };
         this.dialogRef = this.nbDialogService.open(FixAssetCollateralComponent, {
             context,
@@ -2258,17 +2316,24 @@ export class SecurityInitialFormComponent implements OnInit {
         switch (type) {
             case 'land':
                 const considerValue = (Number(this.securityForm.get(['landDetails', index, 'distressValue']).value)
-                    * Number(this.securityForm.get(['landDetails', index, 'landRate']).value));
+                    * (Number(this.securityForm.get(['landDetails', index, 'landRate']).value)) / 100);
                 this.securityForm.get(['landDetails', index, 'landConsideredValue']).patchValue(considerValue);
                 break;
             case 'landBuilding':
-                const landBuildingConValue = (Number(this.securityForm.get(['landBuilding', index, 'distressValue']).value)
-                    * Number(this.securityForm.get(['landBuilding', index, 'landBuildingRate']).value));
-                this.securityForm.get(['landBuilding', index, 'landConsideredValue']).patchValue(landBuildingConValue);
+                const landConValue = (Number(this.securityForm.get(['landBuilding', index, 'distressValue']).value)
+                    * (Number(this.securityForm.get(['landBuilding', index, 'landBuildingRate']).value / 100)));
+                this.securityForm.get(['landBuilding', index, 'totalLandRealisableValue'])
+                    .patchValue(Number(landConValue));
+                const landBuildingConValue = (Number(this.securityForm.get(['landBuilding', index, 'apartmentDistressValue']).value)
+                    * (Number(this.securityForm.get(['landBuilding', index, 'apartmentRate']).value / 100)));
+                this.securityForm.get(['landBuilding', index, 'totalApartmentRealisableValue'])
+                    .patchValue(Number(landBuildingConValue));
+                this.securityForm.get(['landBuilding', index, 'landConsideredValue'])
+                    .patchValue(Number(landConValue + landBuildingConValue));
                 break;
             case 'lbUnderConstruction':
                 const lbUnderConValue = (Number(this.securityForm.get(['landBuilding', index, 'distressValueConstruction']).value)
-                    * Number(this.securityForm.get(['landBuilding', index, 'landbuildingUnderRate']).value));
+                    * (Number(this.securityForm.get(['landBuilding', index, 'landbuildingUnderRate']).value) / 100));
                 this.securityForm.get(['landBuilding', index, 'landConsideredValueConstruction']).patchValue(lbUnderConValue);
                 break;
         }
@@ -2429,5 +2494,143 @@ export class SecurityInitialFormComponent implements OnInit {
                 this.selectedArray.push('OtherSecurity');
             }
         });
+    }
+
+    addCrossCollateralized(arrayName) {
+        (this.securityForm.get(arrayName) as FormArray).push(this.crossCollateralizedFormGroup());
+    }
+
+    crossCollateralizedFormGroup(): FormGroup {
+        return this.formBuilder.group({
+            borrowerName: [undefined],
+            facilityName: [undefined],
+            totalExposure: [undefined],
+            rmValue: [undefined],
+            fmvApportion: [undefined],
+            drawDown: [undefined],
+            residualFmv: [undefined],
+        });
+    }
+
+    checkedChange(event, value) {
+        switch (value) {
+            case 'landCross':
+                if (event) {
+                    this.securityForm.get('landCrossChecked').patchValue(event);
+                } else {
+                    this.securityForm.get('landCrossChecked').patchValue(event);
+                }
+                break;
+            case 'lbCross':
+                if (event) {
+                    this.securityForm.get('lbCrossChecked').patchValue(event);
+                } else {
+                    this.securityForm.get('lbCrossChecked').patchValue(event);
+                }
+                break;
+            case 'apartmentCross':
+                if (event) {
+                    this.securityForm.get('apartmentCrossChecked').patchValue(event);
+                } else {
+                    this.securityForm.get('apartmentCrossChecked').patchValue(event);
+                }
+                break;
+        }
+        const sec = this.securityForm.get(value) as FormArray;
+        sec.clear();
+        this.calculateTotalCross(value);
+    }
+
+    removeCrossCollateralized(securityType: string, cin: number) {
+        (<FormArray>this.securityForm.get(securityType)).removeAt(cin);
+        this.calculateTotalCross(securityType);
+    }
+
+    setCrossCollateralizedData(data, securityType) {
+        const crossData = this.securityForm.get(securityType) as FormArray;
+        if (!ObjectUtil.isEmpty(data)) {
+            data.forEach((d) => {
+                crossData.push(
+                    this.formBuilder.group({
+                        borrowerName: [d.borrowerName],
+                        facilityName: [d.facilityName],
+                        totalExposure: [d.totalExposure],
+                        rmValue: [d.rmValue],
+                        fmvApportion: [d.fmvApportion],
+                        drawDown: [d.drawDown],
+                        residualFmv: [d.residualFmv],
+                    })
+                );
+            });
+        }
+    }
+
+    getLoanConfig() {
+        this.loanConfigService.getAllByLoanCategory(this.customerType).subscribe((res: any) => {
+            this.loanList = res.detail;
+        }, error => {
+            this.toastService.show(new Alert(AlertType.DANGER, '!!OPPS something went wrong while fetching data'));
+        });
+    }
+
+    calculateTotalCross(security) {
+        let totalExposure = 0;
+        let totalRmValue = 0;
+        let totalFMV = 0;
+        const crossData = this.securityForm.get(security) as FormArray;
+        crossData.value.forEach(cd => {
+            totalExposure += cd.totalExposure;
+            totalRmValue += cd.rmValue;
+            totalFMV += cd.fmvApportion;
+        });
+        switch (security) {
+            case 'landCross':
+                this.securityForm.get('landExposureTotal').patchValue(totalExposure);
+                this.securityForm.get('landRmValueTotal').patchValue(totalRmValue);
+                this.securityForm.get('landFmvOfFacTotal').patchValue(totalFMV);
+                break;
+            case 'lbCross':
+                this.securityForm.get('lbExposureTotal').patchValue(totalExposure);
+                this.securityForm.get('lbRmValueTotal').patchValue(totalRmValue);
+                this.securityForm.get('lbFmvOfFacTotal').patchValue(totalFMV);
+                break;
+            case 'apartmentCross':
+                this.securityForm.get('apartmentExposureTotal').patchValue(totalExposure);
+                this.securityForm.get('apartmentRmValueTotal').patchValue(totalRmValue);
+                this.securityForm.get('apartmentFmvOfFacTotal').patchValue(totalFMV);
+                break;
+        }
+    }
+    secondHand(event) {
+        this.isSecondHand = event;
+    }
+
+    calcRealiasable(i, key) {
+        switch (key) {
+            case 'apartment': {
+                const reliasableValue = (Number(this.securityForm.get(['buildingDetails', i, 'buildingDistressValue']).value)
+                    * (Number(this.securityForm.get(['buildingDetails', i, 'apartmentRate']).value) / 100));
+                this.securityForm.get(['buildingDetails', i, 'buildingReliasableValue']).patchValue(reliasableValue);
+            }
+            break;
+            case 'vehicle': {
+                const reliasableValue = (Number(this.securityForm.get(['vehicleDetails', i, 'valuationAmount']).value)
+                    * (Number(this.securityForm.get(['vehicleDetails', i, 'vehicleRate']).value) / 100));
+                this.securityForm.get(['vehicleDetails', i, 'vehicleRealiasableAmount']).patchValue(reliasableValue);
+            }
+            break;
+            case 'plant': {
+                const reliasableValue = (Number(this.securityForm.get(['plantDetails', i, 'realisableValue']).value)
+                    * (Number(this.securityForm.get(['plantDetails', i, 'realisableRate']).value) / 100));
+                this.securityForm.get(['plantDetails', i, 'quotation']).patchValue(reliasableValue);
+            }
+            break;
+            case 'share': {
+                const reliasableValue = (Number(this.shareSecurityForm.get(['shareSecurityDetails', i, 'total']).value)
+                    * (Number(this.shareSecurityForm.get(['shareSecurityDetails', i, 'shareRate']).value) / 100));
+                this.shareSecurityForm.get(['shareSecurityDetails', i, 'consideredValue']).patchValue(reliasableValue);
+            }
+            break;
+        }
     }
 }

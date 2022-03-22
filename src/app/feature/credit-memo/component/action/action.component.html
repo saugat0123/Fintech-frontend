@@ -1,0 +1,64 @@
+<nb-card class="m-0" [nbSpinner]="spinner" nbSpinnerSize="xxlarge" nbSpinnerStatus="primary">
+    <nb-card-header>
+        <h3 class="d-md-inline">{{actionTitle}} Diary Note</h3>
+        <a class="close cursor" aria-label="Close"
+           (click)="onClose()">
+            <span aria-hidden="true">×</span></a>
+    </nb-card-header>
+    <form [formGroup]="actionForm" (ngSubmit)="verifyUser()">
+        <nb-card-body>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <ng-select *ngIf="actionTitle === 'FORWARD'"
+                               (change)="getUsersByRoleId($event)"
+                               [closeOnSelect]="true"
+                               [hideSelected]="true"
+                               [items]="roleList"
+                               [multiple]="false"
+                               bindLabel="roleName"
+                               formControlName="toRole"
+                               placeholder="Select Role" [ngClass]="{
+                               'is-invalid': actionForm.get('toRole').invalid && (actionForm.get('toRole').dirty || actionForm.get('toRole').touched),
+                                'is-valid': !actionForm.get('toRole').invalid && (actionForm.get('toRole').dirty || actionForm.get('toRole').touched)
+                                }">
+                    </ng-select>
+                    <span *ngIf="actionForm.get('toRole').invalid && (actionForm.get('toRole').dirty ||
+                               actionForm.get('toRole').touched)" class="invalid-feedback">Role is required!</span>
+                </div>
+
+                <div class="form-group">
+                    <ng-select *ngIf="userList?.length > 1"
+                               [closeOnSelect]="true"
+                               [hideSelected]="true"
+                               [items]="userList"
+                               [multiple]="false"
+                               bindLabel="name"
+                               formControlName="toUser"
+                               placeholder="Select user" [ngClass]="{
+                               'is-invalid': actionForm.get('toUser').invalid && (actionForm.get('toUser').dirty ||
+                               actionForm.get('toUser').touched)
+                                }">
+                    </ng-select>
+                    <span *ngIf="actionForm.get('toUser').invalid && (actionForm.get('toUser').dirty ||
+                               actionForm.get('toUser').touched)" class="invalid-feedback">User is required!</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="comment">Comment:</label>
+                    <textarea id="comment" class="form-control" rows="4" formControlName="comment" [ngClass]="{
+                               'is-invalid': actionForm.get('comment').invalid && (actionForm.get('comment').dirty ||
+                               actionForm.get('comment').touched)
+                                }"></textarea>
+                    <span *ngIf="actionForm.get('comment').invalid && (actionForm.get('comment').dirty ||
+                               actionForm.get('comment').touched)" class="invalid-feedback">Comment is required!</span>
+                </div>
+
+            </div>
+        </nb-card-body>
+        <nb-card-footer>
+            <div class="float-right">
+                <button class="btn btn-primary m-3" type="submit"><em class="fa fa-save"></em></button>
+            </div>
+        </nb-card-footer>
+    </form>
+</nb-card>

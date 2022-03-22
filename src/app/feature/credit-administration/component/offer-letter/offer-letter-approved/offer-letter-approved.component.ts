@@ -47,7 +47,6 @@ export class OfferLetterApprovedComponent implements OnInit {
             other.loanList.forEach(() => other.toggleArray.push({toggled: false}));
             // tslint:disable-next-line:max-line-length
             other.loanList.forEach((l) => other.currentIndexArray.push({currentIndex: ObjectUtil.isEmpty(l.previousList) ? 0 : l.previousList.length}));
-            console.log(other.loanList);
             other.pageable = PaginationUtils.getPageable(res.detail);
             other.spinner = false;
 

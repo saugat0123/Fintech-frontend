@@ -17,6 +17,7 @@ import {Document} from '../../admin/modal/document';
 import {EnumUtils} from '../../../@core/utils/enums.utils';
 import {LoanTag} from '../model/loanTag';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {DocAction} from '../model/docAction';
 
 @Component({
     selector: 'app-summary-base',
@@ -72,6 +73,7 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
 
 
     loadSummary() {
+        this.spinnerService.show();
         this.spinner = true;
         this.activatedRoute.queryParams.subscribe(
             (paramsValue: Params) => {
@@ -117,6 +119,7 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
         this.actionsList.closed = false;
         this.spinner = true;
         this.loanFormService.detail(this.customerId).subscribe(async (response: any) => {
+            this.spinnerService.hide();
             this.spinner = false;
             this.loanDataHolder = response.detail;
             if (!ObjectUtil.isEmpty(this.loanDataHolder.remitCustomer)) {
@@ -160,6 +163,14 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
                 this.loanDataHolder.currentStage.docAction.toString() === 'REJECT' ||
                 this.loanDataHolder.currentStage.docAction.toString() === 'CLOSED') {
                 this.actionsList.approved = false;
+                this.actionsList.sendForward = false;
+                this.actionsList.edit = false;
+                this.actionsList.sendBackward = false;
+                this.actionsList.rejected = false;
+                this.actionsList.closed = false;
+            }
+            if (this.loanDataHolder.currentStage.docAction.toString() === DocAction.value(DocAction.REVERT_APPROVED)) {
+                this.actionsList.approved = true;
                 this.actionsList.sendForward = false;
                 this.actionsList.edit = false;
                 this.actionsList.sendBackward = false;
@@ -217,6 +228,8 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
         this.loanSummaryActive = true;
     }
     showSpinner(data) {
-        this.spinner = true;
+        if (data) {
+            this.spinner = true;
+        }
     }
 }

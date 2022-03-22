@@ -20,7 +20,7 @@
 
         <button *ngIf="loanDataHolder && approvalSheetActive"
                 [useExistingCss]="true" class="btn-sm btn-warning float-right"
-                ngxPrint printSectionId="print-block" styleSheetFile="assets/css/printStyles.scss">
+                ngxPrint printSectionId="print-block">
             PRINT<i class="col-md-1 fa fa-print"></i>
         </button>
 
@@ -49,6 +49,7 @@
                             [loanData]="loanDataHolder"
                             [nepaliDate]="nepaliDate">
         </app-approval-sheet>
+        <app-overlay-spinner></app-overlay-spinner>
 
     </nb-card-body>
 </nb-card>

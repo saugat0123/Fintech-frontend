@@ -14,8 +14,6 @@ import {NumberUtils} from '../../../@core/utils/number-utils';
 import {environment} from '../../../../environments/environment';
 import {Clients} from '../../../../environments/Clients';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {IncomeFromAccount} from '../../admin/modal/incomeFromAccount';
-import {TemplateName} from '../../customer/model/templateName';
 import {CustomerInfoService} from '../../customer/service/customer-info.service';
 import {IncomeFromAccountComponent} from '../income-from-account/income-from-account.component';
 
@@ -128,6 +126,21 @@ export class ProposalComponent implements OnInit {
     this.checkLoanTypeAndBuildForm();
     if (!ObjectUtil.isEmpty(this.formValue) && this.formValue.data !== null) {
       this.formDataForEdit = JSON.parse(this.formValue.data);
+
+      if(ObjectUtil.isEmpty(this.formDataForEdit.deposit) || this.formDataForEdit.deposit.length < 1) {
+        if (!ObjectUtil.isEmpty(this.formDataForEdit.depositBank)) {
+          (this.proposalForm.get('deposit') as FormArray).push(this.formBuilder.group({
+            amount: this.formDataForEdit.depositBank,
+            assets: this.formDataForEdit.depositBankRemark
+          }));
+        }
+        if (!ObjectUtil.isEmpty(this.formDataForEdit.depositOther)) {
+          (this.proposalForm.get('deposit') as FormArray).push(this.formBuilder.group({
+            amount: this.formDataForEdit.depositOther,
+            assets: this.formDataForEdit.depositOtherRemark
+          }));
+        }
+      }
       if (!ObjectUtil.isEmpty(this.formDataForEdit.vehicle)) {
         this.setFormData(this.formDataForEdit.vehicle, 'vehicle');
       } else {
@@ -142,6 +155,11 @@ export class ProposalComponent implements OnInit {
         this.setFormData(this.formDataForEdit.shares, 'shares');
       } else {
         this.addKeyValue('shares');
+      }
+      if (!ObjectUtil.isEmpty(this.formDataForEdit.deposit)) {
+        this.setFormData(this.formDataForEdit.deposit, 'deposit');
+      } else {
+        this.addKeyValue('deposit');
       }
       this.checkedDataEdit = JSON.parse(this.formValue.checkedData);
       this.proposalForm.patchValue(this.formDataForEdit);
@@ -304,6 +322,7 @@ export class ProposalComponent implements OnInit {
       shares: this.formBuilder.array([]),
       realState: this.formBuilder.array([]),
       vehicle: this.formBuilder.array([]),
+      deposit: this.formBuilder.array([]),
       depositBank: [undefined],
       depositOther: [undefined],
       depositBankRemark: [undefined],
@@ -402,7 +421,9 @@ export class ProposalComponent implements OnInit {
 
   setActiveBaseRate() {
     this.baseInterestService.getActiveBaseRate().subscribe(value => {
-      this.proposalForm.get('baseRate').setValue(value.detail.rate);
+      if (value.detail) {
+        this.proposalForm.get('baseRate').setValue(value.detail.rate);
+      }
     });
   }
 
@@ -754,7 +775,6 @@ export class ProposalComponent implements OnInit {
 
   getData(data) {
     this.files = data;
-    console.log(data);
     this.proposalForm.patchValue({
       files: JSON.stringify(data)
     });
@@ -765,6 +785,7 @@ export class ProposalComponent implements OnInit {
     total += this.getArrayTotal('shares');
     total += this.getArrayTotal('vehicle');
     total += this.getArrayTotal('realState');
+    total += this.getArrayTotal('deposit');
     this.proposalForm.get('total').patchValue(total);
   }
   getArrayTotal(formControl): number {

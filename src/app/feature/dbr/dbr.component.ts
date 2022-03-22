@@ -15,8 +15,6 @@ export class DbrComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.proposalData.data)) {
       this.proposalData = JSON.parse(this.proposalData.data);
     }
-    console.log('this is income', this.financialData);
-    console.log('this is income', this.proposalData);
   }
 
 }

@@ -1,6 +1,6 @@
 <div class="row mt-1">
 <div class="col-md-12">
-    <p><strong *ngIf="loanHolder?.loanCategory === 'INDIVIDUAL' && !isJointInfo && isRemit">Personal Details</strong></p>
+    <p><strong *ngIf="loanHolder?.loanCategory === 'INDIVIDUAL' && !isJointInfo && isRemit"   class="header">Personal Details</strong></p>
     <ng-container *ngIf="isRemit;">
         <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small text-center">
             <thead>
@@ -71,99 +71,83 @@
                 Please specify relationship between the above mentoined parties <b>( Applicant and PG holder/migrant worker must be immediate family members)</b> </p>
         </div>
     </ng-container>
-    <ng-container>
-        <p class="header"  *ngIf="loanHolder.loanCategory === 'INDIVIDUAL' && !isJointInfo"><strong>Borrower Details</strong></p>
+    <div>
+        <p *ngIf="loanHolder.loanCategory === 'INDIVIDUAL' && !isJointInfo" class="sub-header"><strong  class="sub-header">Applicant Details</strong></p>
         <div class="row" *ngIf="loanHolder.loanCategory === 'INDIVIDUAL' && !isJointInfo">
             <div class="col-md-12">
                 <div>
                     <table
-                            class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-                        <thead>
-                        <tr class="text-white sb-bg-dark">
-                            <th>Name</th>
-                            <th>Date Of Birth(AD/BS)</th>
-                            <th>Age</th>
-                            <th>Citizenship Number</th>
-                            <th>Mobile Number</th>
-                            <th>LandLine Number</th>
-                            <th>Occupation</th>
-                            <th>Income Source</th>
-                        </tr>
-                        </thead>
+                            class="table table-condensed table-bordered table-sm table-responsive-md text-center  sb-small">
                         <tbody>
                         <tr class="text-left">
-                            <td class="pl-1">{{loanHolder?.customerInfo?.customerName}}</td>
-                            <td class="pl-1">{{loanHolder?.customerInfo?.dob | date}} ({{loanHolder?.customerInfo?.dob | engNepDate: false}})</td>
-                            <td class="text-left pl-1">{{calculateAge(loanHolder?.customerInfo?.dob)}} years</td>
-                            <td class="text-right pr-1">{{loanHolder?.customerInfo?.citizenshipNumber}}</td>
-                            <td class="text-right pr-1">{{loanHolder?.customerInfo?.contactNumber}}</td>
-                            <td class="text-right pr-1">{{loanHolder?.customerInfo?.landLineNumber}}</td>
-                            <td class="pl-1">{{(loanHolder?.customerInfo?.occupation | jsonParse)?.multipleOccupation || 'NA'}}</td>
-                            <td class="pl-1">{{(loanHolder?.customerInfo?.incomeSource | jsonParse)?.multipleIncome || 'NA'}}</td>
-
-
-                        </tr>
-                        <tr class="text-white sb-bg-dark">
-                            <!--                        <th *ngIf="client !== clientName.LAXMI">Father's Name</th>-->
-                            <!--                        <th *ngIf="client !== clientName.LAXMI">Grandfather's Name</th>-->
-                            <th>Customer Client Type</th>
-                            <th *ngIf="(loanHolder?.customerInfo?.incomeSource | jsonParse)?.panNumber">Pan Number</th>
-<!--                            <th>SubSector</th>-->
-                            <!--<td>Address as per Legal Document</td>-->
+                            <td class="sb-bg-dark text-white">Name</td>
+                            <td class="pl-1 text-right">{{loanHolder?.customerInfo?.customerName}}</td>
                         </tr>
                         <tr>
-                            <!--                        <td class="pl-1" *ngIf="client !== clientName.LAXMI">{{(loanHolder?.customerInfo?.individualJsonData | jsonParse)?.fatherName || 'NA'}}</td>-->
-                            <!--                        <td class="pl-1" *ngIf="client !== clientName.LAXMI">{{(loanHolder?.customerInfo?.individualJsonData | jsonParse)?.grandFatherName || 'NA'}}</td>-->
-                            <td class="text-left pl-1">{{loanHolder?.loanHolder['clientType'] | clientType}}</td>
-                            <td class="text-left pl-1" *ngIf="(loanHolder?.customerInfo?.incomeSource | jsonParse)?.panNumber">{{(loanHolder?.customerInfo?.incomeSource | jsonParse)?.panNumber || 'NA'}}</td>
-<!--                            <td class="text-left pl-1">{{loanHolder?.loanHolder['subsectorDetail'] || 'N/A'}}</td>-->
-                            <!--<td>{{loanHolder?.customerInfo?.customerLegalDocumentAddress}}</td>-->
-
+                          <td class="text-left sb-bg-dark text-white">Father's Name</td>
+                            <td class="pl-1 text-right">{{(loanHolder?.customerInfo?.individualJsonData | jsonParse)?.fatherName || 'NA'}}</td>
                         </tr>
+                        <tr>
+                          <td class="text-left sb-bg-dark text-white">Grand Father Name</td>
+                            <td class="pl-1 text-right">{{(loanHolder?.customerInfo?.individualJsonData | jsonParse)?.grandFatherName || 'NA'}}</td>
+                        </tr>
+                        <tr>
+                            <td class="sb-bg-dark text-left text-white">Date Of Birth (AD/BS)</td>
+                            <td class="pl-1 text-right">{{loanHolder?.customerInfo?.dob | date}} ({{loanHolder?.customerInfo?.dob | engNepDate: false}})</td>
+                        </tr>
+<!--                        <tr>-->
+<!--                            <td class="sb-bg-dark text-left text-white">Citizenship Number</td>-->
+<!--                            <td class="text-right pr-1">{{loanHolder?.customerInfo?.citizenshipNumber || 'N/A'}}</td>-->
+<!--                        </tr>-->
+                        <tr>
+                            <td class="sb-bg-dark text-left text-white">Phone Number</td>
+                            <td class="text-right pr-1">{{loanHolder?.customerInfo?.contactNumber || 'N/A'}}</td>
+                        </tr>
+                        <tr>
+                            <td class="sb-bg-dark text-left text-white">LandLine Number</td>
+                            <td class="text-right pr-1">{{loanHolder?.customerInfo?.landLineNumber || 'N/A'}}</td>
+                        </tr>
+                        <tr>
+                            <td class="sb-bg-dark text-left text-white">Occupation</td>
+                            <td class="pl-1 text-right">{{(loanHolder?.customerInfo?.occupation | jsonParse)?.multipleOccupation || 'NA'}}</td>
+                        </tr>
+<!--                        <tr>-->
+<!--                            <td class="sb-bg-dark text-left text-white">Income Source</td>-->
+<!--                            <td class="pl-1 text-right">{{(loanHolder?.customerInfo?.incomeSource | jsonParse)?.multipleIncome || 'NA'}}</td>-->
+<!--                        </tr>-->
+                        <tr>
+                            <td class="sb-bg-dark text-left text-white">Age</td>
+                            <td class="text-right pl-1">{{calculateAge(loanHolder?.customerInfo?.dob) || 'N/A'}} years </td>
+                        </tr>
+                        <tr>
+                            <td class="sb-bg-dark text-left text-white">Marital Status</td>
+                            <td class="text-right pl-1">{{loanHolder?.loanHolder?.maritalStatus || 'N/A'}}</td>
+                        </tr>
+
+<!--                        <tr >-->
+<!--                            <td class=" sb-bg-dark text-left text-white">Customer Client Type</td>-->
+<!--                            <td class="text-right pl-1">{{loanHolder?.loanHolder['clientType'] | clientType}}</td>-->
+
+<!--                        </tr>-->
                         </tbody>
                     </table>
-                    <!--                        <table class="print-only table table-bordered text-center table-sm sb-small"-->
-                    <!--                               id="print-borrower-table">-->
-                    <!--                            <thead>-->
-                    <!--                            <tr class="text-white sb-bg-dark">-->
-                    <!--                                <th>Name</th>-->
-                    <!--                                <th>Date Of Birth</th>-->
-                    <!--                                <th>Citizenship Number</th>-->
-                    <!--                                <th>Mobile Number</th>-->
-                    <!--                                <th>Occupation</th>-->
-                    <!--                                <th>Income Source</th>-->
-                    <!--                            </tr>-->
-                    <!--                            </thead>-->
-                    <!--                            <tbody>-->
-                    <!--                            <tr>-->
-                    <!--                                <td>{{loanHolder?.customerInfo?.customerName}}</td>-->
-                    <!--                                <td>{{loanHolder?.customerInfo?.dob | date}}</td>-->
-                    <!--                                <td>{{loanHolder?.customerInfo?.citizenshipNumber}}</td>-->
-                    <!--                                <td>{{loanHolder?.customerInfo?.contactNumber}}</td>-->
-                    <!--                                <td>{{loanHolder?.customerInfo?.occupation}}</td>-->
-                    <!--                                <td>{{loanHolder?.customerInfo?.incomeSource}}</td>-->
-                    <!--                            </tr>-->
-                    <!--                            </tbody>-->
-                    <!--                        </table>-->
                 </div>
 
 
             </div>
         </div>
-    </ng-container>
+    </div>
 
     <ng-container *ngIf="isRemit">
         <div class="row">
             <div class="col-md-12">
-                <p class="text-left header"><strong>Remit Loan Document</strong></p>
+                <p class="text-left sub-header"><strong  class="header">Remit Loan Document</strong></p>
                 <table class="table table-condensed table-bordered table-responsive-md table-sm sb-small text-center">
                     <thead>
                     <tr class="text-white sb-bg-dark">
                         <th>S.N.</th>
                         <th>File Name</th>
                         <th>Action</th>
-
-
                     </tr>
                     </thead>
                     <tbody *ngFor="let document of newDocDetails; let i = index">

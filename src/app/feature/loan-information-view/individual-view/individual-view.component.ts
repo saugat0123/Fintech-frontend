@@ -40,6 +40,7 @@ dbr;
   isRemit = false;
   beneficiary;
   senderDetails;
+  proposalAllData;
 
   constructor() {
   }
@@ -60,6 +61,9 @@ dbr;
         this.jointInfo.push(jointCustomerInfo.jointCustomerInfo);
         this.isJointInfo = true;
       }
+    }
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.proposal)) {
+      this.proposalAllData = JSON.parse(this.loanDataHolder.proposal.data);
     }
     if (this.loanDataHolder.loan.loanTag === LoanTag.getKeyByValue(LoanTag.REMIT_LOAN) && this.loanDataHolder.loan.isRemit) {
       this.isRemit = true;

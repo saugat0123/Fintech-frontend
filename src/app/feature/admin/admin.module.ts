@@ -66,8 +66,12 @@ import {EligibilitySummaryComponent} from './component/eligibility/eligibility-s
 import {CoreModule} from '../../@core/core.module';
 import {AccountTypeConfigComponent} from './component/opening-account/config/account-type-config/account-type-config.component';
 import {AccountCategoryConfigComponent} from './component/opening-account/config/account-category-config/account-category-config.component';
-import {AccountTypeFormComponent} from './component/opening-account/config/account-type-config/account-type-form/account-type-form.component';
-import {AccountCategoryFormComponent} from './component/opening-account/config/account-category-config/account-category-form/account-category-form.component';
+import {
+    AccountTypeFormComponent
+} from './component/opening-account/config/account-type-config/account-type-form/account-type-form.component';
+import {
+    AccountCategoryFormComponent
+} from './component/opening-account/config/account-category-config/account-category-form/account-category-form.component';
 import {InactiveValuatorCommentComponent} from './component/valuator/inactive-valuator-comment/inactive-valuator-comment.component';
 import {PreferenceComponent} from './component/preference/preference.component';
 import {UserHistoryComponent} from './component/user/user-history/user-history.component';
@@ -80,22 +84,26 @@ import {BaseInterestFormComponent} from './component/base-interest/base-interest
 import {BlacklistComponent} from './component/blacklist/blacklist.component';
 import {BlacklistFormComponent} from './component/blacklist/blacklist-form/blacklist-form.component';
 import {NotificationMasterComponent} from './component/notification-master/notification-master.component';
-import {AccountDocumentFormComponent} from './component/opening-account/config/account-category-config/account-document-form/account-document-form.component';
+import {
+    AccountDocumentFormComponent
+} from './component/opening-account/config/account-category-config/account-document-form/account-document-form.component';
 import {RemarkModalComponent} from './component/opening-account/remark-modal/remark-modal.component';
 import {AccountNumberModalComponent} from './component/opening-account/account-no-modal/account-no-modal.component';
-import { GroupConfigComponent } from './component/preference/group-config/group-config.component';
-import { FinancialConfigComponent } from './component/preference/financial-config/financial-config.component';
-import { FinancialConfigModalComponent } from './component/preference/financial-config/financial-config-modal/financial-config-modal.component';
+import {GroupConfigComponent} from './component/preference/group-config/group-config.component';
+import {FinancialConfigComponent} from './component/preference/financial-config/financial-config.component';
+import {
+    FinancialConfigModalComponent
+} from './component/preference/financial-config/financial-config-modal/financial-config-modal.component';
 import {NbButtonModule, NbDialogModule, NbInputModule, NbSelectModule} from '@nebular/theme';
 import {NepaliCalendarModule} from '../nepali-calendar/nepali-calendar.module';
-import { CadRoleHierarchyComponent } from './component/role-hierarchy/cad-role-hierarchy/cad-role-hierarchy.component';
-import { CbsGroupExecutorComponent } from './component/preference/cbs-group-executor/cbs-group-executor.component';
-import { RoleAddComponent } from './component/user/role-add/role-add.component';
+import {CadRoleHierarchyComponent} from './component/role-hierarchy/cad-role-hierarchy/cad-role-hierarchy.component';
+import {CbsGroupExecutorComponent} from './component/preference/cbs-group-executor/cbs-group-executor.component';
+import {RoleAddComponent} from './component/user/role-add/role-add.component';
 import {TransferLoanModule} from '../transfer-loan/transfer-loan.module';
 import {RemitLoanHeirarchyComponent} from './component/role-hierarchy/remit-loan-hierarchy/remit-loan-heirarchy.component';
 import {RemitCustomerListComponent} from './component/remit-customer-list/remit-customer-list.component';
-import { RemitLoanViewComponent } from './component/remit-customer-list/remit-loan-view/remit-loan-view.component';
-import {VideoKycComponent} from '../video-kyc/video-kyc.component';
+import {RemitLoanViewComponent} from './component/remit-customer-list/remit-loan-view/remit-loan-view.component';
+import {CreditMemoModalComponent} from './component/catalogue/credit-memo-modal/credit-memo-modal.component';
 
 @NgModule({
     declarations: [
@@ -146,6 +154,7 @@ import {VideoKycComponent} from '../video-kyc/video-kyc.component';
         GeneralQuestionComponent,
         EligibilityDocumentViewComponent,
         CatalogueComponent,
+        CreditMemoModalComponent,
         EmailConfigurationComponent,
         EmailValidatorDirective,
         RoleEditComponent,
@@ -203,6 +212,7 @@ import {VideoKycComponent} from '../video-kyc/video-kyc.component';
 
     entryComponents: [
         ApprovalLimitFormComponent,
+        CreditMemoModalComponent,
         BranchFormComponent,
         NepseFormComponent,
         SegmentFormComponent,

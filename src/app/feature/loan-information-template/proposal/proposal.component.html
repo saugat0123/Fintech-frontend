@@ -332,13 +332,13 @@
                                                 placeholder="Tenure Duration in Months"
                                                 type="number" (input)="checkRepaymentMode();checkCustomRepaymentMode()" appDecimalNumber>
 
-                                        <!--                                        <input [nbDatepicker]="tenurePicker"-->
-                                        <!--                                               [ngClass]="{ 'is-invalid':submitted &&formControls.tenureDurationInMonths.errors}"-->
-                                        <!--                                               class="form-control rounded"-->
-                                        <!--                                               formControlName="tenureDurationInMonths"-->
-                                        <!--                                               id="tenureDurationInMonths" placeholder="Enter the date"-->
-                                        <!--                                               type="text"/>-->
-                                        <!--                                        <nb-datepicker #tenurePicker></nb-datepicker>-->
+<!--                                                                                <input [nbDatepicker]="tenurePicker"-->
+<!--                                                                                       [ngClass]="{ 'is-invalid':submitted &&formControls.tenureDurationInMonths.errors}"-->
+<!--                                                                                       class="form-control rounded"-->
+<!--                                                                                       formControlName="tenureDurationInMonths"-->
+<!--                                                                                       id="tenureDurationInMonths" placeholder="Enter the date"-->
+<!--                                                                                       type="text"/>-->
+<!--                                                                                <nb-datepicker #tenurePicker></nb-datepicker>-->
 
                                         <!--                    <div *ngIf="(submitted) && formControls.tenureDurationInMonths.invalid"-->
                                         <!--                         class="invalid-feedback">-->
@@ -872,21 +872,14 @@
                                             </thead>
                                             <tbody class="text-left">
                                             <tr>
-                                                <td colspan="2"><b>Deposit</b></td>
+                                                <td colspan="1"><b>Deposit</b></td>
+                                                <td colspan="1"><a class="float-right" href="javascript: void(0)" (click)="addKeyValue('deposit')"><i class="fa fa-plus" nbTooltip="Add Deposit"></i></a></td>
                                             </tr>
-                                            <tr>
-                                                <td>
-                                                    <input nbInput formControlName="depositBankRemark" value="With Laxmi Bank" type="text">
-                                                </td>
-                                                <td><input nbInput formControlName="depositBank" (change)="calculate()" type="number"></td>
-
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <input nbInput formControlName="depositOtherRemark" value="With other Financial Institution"  type="text">
-                                                </td>
-                                                <td><input nbInput formControlName="depositOther" (change)="calculate()" type="number"></td>
-
+                                            <tr *ngFor="let controls of proposalForm.get('deposit')['controls'];let i = index" formArrayName="deposit">
+                                                <ng-container [formGroupName]="i">
+                                                    <td><input nbInput type="text" formControlName="assets"></td>
+                                                    <td><input nbInput type="number" (change)="calculate()" formControlName="amount"> <a   *ngIf="proposalForm?.get('deposit')['length'] > 1" href="javascript: void(0)" (click)="removeValue('deposit', i)"><i class="fa fa-times-circle px-4" nbTooltip="Delete Row"></i></a></td>
+                                                </ng-container>
                                             </tr>
                                             <tr>
                                                 <td colspan="1"><b>Shares & Securities</b></td>

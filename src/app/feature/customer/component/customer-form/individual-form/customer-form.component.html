@@ -183,7 +183,7 @@
                                    </div>
                                </div>
                            </div>
-                           <div class="col-md-4" *ngIf="client !== clientName.LAXMIBANK">
+                           <div class="col-md-4">
                                <div class="form-group">
                                    <label for="contactNumber"><strong>Father's Name</strong></label>
                                    <input class="form-control" formControlName="fatherName"
@@ -191,7 +191,7 @@
                                           type="text">
                                </div>
                            </div>
-                           <div class="col-md-4" *ngIf="client !== clientName.LAXMIBANK">
+                           <div class="col-md-4">
                                <div class="form-group">
                                    <label for="contactNumber"><strong>Grandfather's Name</strong></label>
                                    <input class="form-control" formControlName="grandFatherName"
@@ -691,47 +691,47 @@
                                                </div>
                                            </div>
                                        </div>
-                                       <div class="col-md-2">
-                                           <div class="form-group">
-                                               <label for="citizenship{{i}}"><strong>CitizenshipNumber</strong></label>
-                                               <input class="form-control" formControlName="citizenshipNumber"
-                                                      id="citizenship{{i}}" placeholder="Citizenship Number" type="text">
-                                           </div>
-                                       </div>
-                                       <div class="col-md-2">
-                                           <div class="form-group">
-                                               <label for="issuedDistrict{{i}}"><strong>Issued District</strong></label>
-                                               <ng-select [multiple]="false"
-                                                          formControlName="citizenshipIssuedPlace"
-                                                          id="issuedDistrict{{i}}">
-                                                   <ng-option *ngFor="let district of allDistrict" [value]="district?.name">
-                                                       {{district?.name}}
-                                                   </ng-option>
-                                               </ng-select>
-                                           </div>
-                                       </div>
-                                       <div class="col-md-2">
-                                           <div class="form-group">
-                                               <label><strong>Issued Date</strong></label>
-                                               <input *ngIf="calendarType === 'AD'" nbInput
-                                                      [nbDatepicker]="relationCitizenIssueDate"
-                                                      class="form-control"
-                                                      formControlName="citizenshipIssuedDate"
-                                                      [ngClass]="{ 'is-invalid': (submitted) && relatives.get('citizenshipIssuedDate').errors }"
-                                               >
-                                               <input *ngIf="calendarType === 'BS'" formControlName="citizenshipIssuedDate"
-                                                      hidden>
-                                               <app-calendar [ePreDate]="relatives.get('citizenshipIssuedDate').value"
-                                                             *ngIf="calendarType === 'BS'"
-                                                             (messageToEmit)="relatives.get('citizenshipIssuedDate').patchValue($event?.eDate)"></app-calendar>
+<!--                                       <div class="col-md-2">-->
+<!--                                           <div class="form-group">-->
+<!--                                               <label for="citizenship{{i}}"><strong>CitizenshipNumber</strong></label>-->
+<!--                                               <input class="form-control" formControlName="citizenshipNumber"-->
+<!--                                                      id="citizenship{{i}}" placeholder="Citizenship Number" type="text">-->
+<!--                                           </div>-->
+<!--                                       </div>-->
+<!--                                       <div class="col-md-2">-->
+<!--                                           <div class="form-group">-->
+<!--                                               <label for="issuedDistrict{{i}}"><strong>Issued District</strong></label>-->
+<!--                                               <ng-select [multiple]="false"-->
+<!--                                                          formControlName="citizenshipIssuedPlace"-->
+<!--                                                          id="issuedDistrict{{i}}">-->
+<!--                                                   <ng-option *ngFor="let district of allDistrict" [value]="district?.name">-->
+<!--                                                       {{district?.name}}-->
+<!--                                                   </ng-option>-->
+<!--                                               </ng-select>-->
+<!--                                           </div>-->
+<!--                                       </div>-->
+<!--                                       <div class="col-md-2">-->
+<!--                                           <div class="form-group">-->
+<!--                                               <label><strong>Issued Date</strong></label>-->
+<!--                                               <input *ngIf="calendarType === 'AD'" nbInput-->
+<!--                                                      [nbDatepicker]="relationCitizenIssueDate"-->
+<!--                                                      class="form-control"-->
+<!--                                                      formControlName="citizenshipIssuedDate"-->
+<!--                                                      [ngClass]="{ 'is-invalid': (submitted) && relatives.get('citizenshipIssuedDate').errors }"-->
+<!--                                               >-->
+<!--                                               <input *ngIf="calendarType === 'BS'" formControlName="citizenshipIssuedDate"-->
+<!--                                                      hidden>-->
+<!--                                               <app-calendar [ePreDate]="relatives.get('citizenshipIssuedDate').value"-->
+<!--                                                             *ngIf="calendarType === 'BS'"-->
+<!--                                                             (messageToEmit)="relatives.get('citizenshipIssuedDate').patchValue($event?.eDate)"></app-calendar>-->
 
-                                               <nb-datepicker #relationCitizenIssueDate></nb-datepicker>
-                                               <div *ngIf="submitted && relatives.get('citizenshipIssuedDate').errors"
-                                                    class="small text-danger">
-                                                   Invalid Issued Date!
-                                               </div>
-                                           </div>
-                                       </div>
+<!--                                               <nb-datepicker #relationCitizenIssueDate></nb-datepicker>-->
+<!--                                               <div *ngIf="submitted && relatives.get('citizenshipIssuedDate').errors"-->
+<!--                                                    class="small text-danger">-->
+<!--                                                   Invalid Issued Date!-->
+<!--                                               </div>-->
+<!--                                           </div>-->
+<!--                                       </div>-->
                                        <div class="col-md-2">
                                            <div class="form-group">
                                                <label for="age{{i}}"><strong>Age</strong></label>
@@ -741,6 +741,18 @@
                                                       [ngClass]="{'is-invalid': (submitted) && relatives.get('age').errors}">
                                                <div *ngIf="submitted && relatives.get('age').errors" class="small text-danger">
                                                    Age is required
+                                               </div>
+                                           </div>
+                                       </div>
+                                       <div class="col-md-2">
+                                           <div class="form-group">
+                                               <label for="occupation{{i}}"><strong>Occupation</strong></label>
+                                               <input class="form-control"
+                                                      formControlName="occupation"
+                                                      id="occupation{{i}}" type="text"
+                                                      [ngClass]="{'is-invalid': (submitted) && relatives.get('occupation').errors}">
+                                               <div *ngIf="submitted && relatives.get('occupation').errors" class="small text-danger">
+                                                   Occupation is required
                                                </div>
                                            </div>
                                        </div>
@@ -775,120 +787,120 @@
                            </div>
                        </div>
                        <div class="row" *ngIf="!microCustomer">
-                           <div class="col-md-12 form-group">
-                               <h6><strong>Additional Description</strong></h6>
-                               <nb-checkbox (change)="onChecked($event.target.checked,'income')"
-                                            [checked]="incomeRiskChecked">
-                                   <b>Income Risk & Mitigation</b>
-                               </nb-checkbox>
-                           </div>
-                           <div class="col-md-12" *ngIf="incomeRiskChecked">
-                               <div class="form-group">
-                                   <label><strong>Income Risk & Mitigation</strong></label>
-                                   <ckeditor id="incomeRisk" formControlName="incomeRisk" name="incomeRisk" type="text"
-                                             [config]="ckeConfig"
-                                             [ngClass]="{ 'is-invalid': (submitted) && incomeRiskChecked && basicInfoControls.incomeRisk.errors }"></ckeditor>
-                                   <div *ngIf="(submitted) && incomeRiskChecked && basicInfoControls.incomeRisk.invalid"
-                                        class="text-danger">
-                                       <div *ngIf="incomeRiskChecked && basicInfoControls.incomeRisk.errors.required">
-                                           Income Risk is required
-                                       </div>
-                                   </div>
-                               </div>
-                           </div>
-                           <div class="col-md-12 form-group">
-                               <nb-checkbox (change)="onChecked($event.target.checked,'security')"
-                                            [checked]="securityRiskChecked">
-                                   <b>Security Risk & Mitigation</b>
-                               </nb-checkbox>
-                           </div>
+<!--                           <div class="col-md-12 form-group">-->
+<!--                               <h6><strong>Additional Description</strong></h6>-->
+<!--                               <nb-checkbox (change)="onChecked($event.target.checked,'income')"-->
+<!--                                            [checked]="incomeRiskChecked">-->
+<!--                                   <b>Income Risk & Mitigation</b>-->
+<!--                               </nb-checkbox>-->
+<!--                           </div>-->
+<!--                           <div class="col-md-12" *ngIf="incomeRiskChecked">-->
+<!--                               <div class="form-group">-->
+<!--                                   <label><strong>Income Risk & Mitigation</strong></label>-->
+<!--                                   <ckeditor id="incomeRisk" formControlName="incomeRisk" name="incomeRisk" type="text"-->
+<!--                                             [config]="ckeConfig"-->
+<!--                                             [ngClass]="{ 'is-invalid': (submitted) && incomeRiskChecked && basicInfoControls.incomeRisk.errors }"></ckeditor>-->
+<!--                                   <div *ngIf="(submitted) && incomeRiskChecked && basicInfoControls.incomeRisk.invalid"-->
+<!--                                        class="text-danger">-->
+<!--                                       <div *ngIf="incomeRiskChecked && basicInfoControls.incomeRisk.errors.required">-->
+<!--                                           Income Risk is required-->
+<!--                                       </div>-->
+<!--                                   </div>-->
+<!--                               </div>-->
+<!--                           </div>-->
+<!--                           <div class="col-md-12 form-group">-->
+<!--                               <nb-checkbox (change)="onChecked($event.target.checked,'security')"-->
+<!--                                            [checked]="securityRiskChecked">-->
+<!--                                   <b>Security Risk & Mitigation</b>-->
+<!--                               </nb-checkbox>-->
+<!--                           </div>-->
 
-                           <div class="col-md-12" *ngIf="securityRiskChecked">
-                               <div class="form-group">
-                                   <label><strong>Security Risk & Mitigation</strong></label>
-                                   <ckeditor id="securityRisk" formControlName="securityRisk" name="securityRisk"
-                                             [config]="ckeConfig"
-                                             [ngClass]="{ 'is-invalid': (submitted) && securityRiskChecked && basicInfoControls.securityRisk.errors }"></ckeditor>
-                                   <div *ngIf="(submitted) && securityRiskChecked &&basicInfoControls.securityRisk.invalid"
-                                        class="text-danger">
-                                       <div *ngIf="securityRiskChecked && basicInfoControls.securityRisk.errors.required">
-                                           Security Risk is required
-                                       </div>
-                                   </div>
-                               </div>
-                           </div>
-                           <div class="col-md-12 form-group">
-                               <nb-checkbox (change)="onChecked($event.target.checked,'succession')"
-                                            [checked]="successionRiskChecked">
-                                   <b>Succession Risk & Mitigation</b>
-                               </nb-checkbox>
-                           </div>
-                           <div class="col-md-12" *ngIf="successionRiskChecked">
-                               <div class="form-group">
-                                   <label><strong>Succession Risk & Mitigation</strong></label>
-                                   <ckeditor id="successionRisk" formControlName="successionRisk" name="successionRisk"
-                                             [config]="ckeConfig"
-                                             [ngClass]="{ 'is-invalid': (submitted) && successionRiskChecked && basicInfoControls.successionRisk.errors }"></ckeditor>
-                                   <div *ngIf="(submitted) && successionRiskChecked && basicInfoControls.successionRisk.invalid"
-                                        class="text-danger">
-                                       <div *ngIf="successionRiskChecked && basicInfoControls.successionRisk.errors.required">
-                                           Succession Risk is required
-                                       </div>
-                                   </div>
-                               </div>
-                           </div>
-                           <div class="col-md-12 form-group">
-                               <nb-checkbox (change)="onChecked($event.target.checked,'banking')"
-                                            [checked]="bankingRelationChecked">
-                                   <b>Banking Relationship</b>
-                               </nb-checkbox>
-                           </div>
+<!--                           <div class="col-md-12" *ngIf="securityRiskChecked">-->
+<!--                               <div class="form-group">-->
+<!--                                   <label><strong>Security Risk & Mitigation</strong></label>-->
+<!--                                   <ckeditor id="securityRisk" formControlName="securityRisk" name="securityRisk"-->
+<!--                                             [config]="ckeConfig"-->
+<!--                                             [ngClass]="{ 'is-invalid': (submitted) && securityRiskChecked && basicInfoControls.securityRisk.errors }"></ckeditor>-->
+<!--                                   <div *ngIf="(submitted) && securityRiskChecked &&basicInfoControls.securityRisk.invalid"-->
+<!--                                        class="text-danger">-->
+<!--                                       <div *ngIf="securityRiskChecked && basicInfoControls.securityRisk.errors.required">-->
+<!--                                           Security Risk is required-->
+<!--                                       </div>-->
+<!--                                   </div>-->
+<!--                               </div>-->
+<!--                           </div>-->
+<!--                           <div class="col-md-12 form-group">-->
+<!--                               <nb-checkbox (change)="onChecked($event.target.checked,'succession')"-->
+<!--                                            [checked]="successionRiskChecked">-->
+<!--                                   <b>Succession Risk & Mitigation</b>-->
+<!--                               </nb-checkbox>-->
+<!--                           </div>-->
+<!--                           <div class="col-md-12" *ngIf="successionRiskChecked">-->
+<!--                               <div class="form-group">-->
+<!--                                   <label><strong>Succession Risk & Mitigation</strong></label>-->
+<!--                                   <ckeditor id="successionRisk" formControlName="successionRisk" name="successionRisk"-->
+<!--                                             [config]="ckeConfig"-->
+<!--                                             [ngClass]="{ 'is-invalid': (submitted) && successionRiskChecked && basicInfoControls.successionRisk.errors }"></ckeditor>-->
+<!--                                   <div *ngIf="(submitted) && successionRiskChecked && basicInfoControls.successionRisk.invalid"-->
+<!--                                        class="text-danger">-->
+<!--                                       <div *ngIf="successionRiskChecked && basicInfoControls.successionRisk.errors.required">-->
+<!--                                           Succession Risk is required-->
+<!--                                       </div>-->
+<!--                                   </div>-->
+<!--                               </div>-->
+<!--                           </div>-->
+<!--                           <div class="col-md-12 form-group">-->
+<!--                               <nb-checkbox (change)="onChecked($event.target.checked,'banking')"-->
+<!--                                            [checked]="bankingRelationChecked">-->
+<!--                                   <b>Banking Relationship</b>-->
+<!--                               </nb-checkbox>-->
+<!--                           </div>-->
                        </div>
-                       <div *ngIf="bankingRelationChecked">
-                           <nb-card class="card-height">
-                               <nb-card-header>
-                                   <label for="bankingRelationship"><h6>Banking Relationship</h6></label>
-                               </nb-card-header>
-                               <nb-card-body>
-                                   <div class="form-group">
-                                       <nb-radio-group class="d-contents form-control"
-                                                       formControlName="bankingRelationship"
-                                                       id="bankingRelationship"
-                                                       name="bankingRelationship"
-                                                       [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.bankingRelationship.errors }">
-                                           <nb-radio *ngFor="let elem of bankingRelationshipList"
-                                                     [value]="elem?.value" >{{elem?.value}}
-                                           </nb-radio>
-                                       </nb-radio-group>
-                                       <div *ngIf="submitted && basicInfoControls.bankingRelationship.errors"
-                                            class="invalid-feedback">
-                                           <div *ngIf="basicInfoControls.bankingRelationship.errors.required">
-                                               Banking relation is required
-                                           </div>
-                                       </div>
-                                   </div>
-                               </nb-card-body>
-                           </nb-card>
-                       </div>
+<!--                       <div *ngIf="bankingRelationChecked">-->
+<!--                           <nb-card class="card-height">-->
+<!--                               <nb-card-header>-->
+<!--                                   <label for="bankingRelationship"><h6>Banking Relationship</h6></label>-->
+<!--                               </nb-card-header>-->
+<!--                               <nb-card-body>-->
+<!--                                   <div class="form-group">-->
+<!--                                       <nb-radio-group class="d-contents form-control"-->
+<!--                                                       formControlName="bankingRelationship"-->
+<!--                                                       id="bankingRelationship"-->
+<!--                                                       name="bankingRelationship"-->
+<!--                                                       [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.bankingRelationship.errors }">-->
+<!--                                           <nb-radio *ngFor="let elem of bankingRelationshipList"-->
+<!--                                                     [value]="elem?.value" >{{elem?.value}}-->
+<!--                                           </nb-radio>-->
+<!--                                       </nb-radio-group>-->
+<!--                                       <div *ngIf="submitted && basicInfoControls.bankingRelationship.errors"-->
+<!--                                            class="invalid-feedback">-->
+<!--                                           <div *ngIf="basicInfoControls.bankingRelationship.errors.required">-->
+<!--                                               Banking relation is required-->
+<!--                                           </div>-->
+<!--                                       </div>-->
+<!--                                   </div>-->
+<!--                               </nb-card-body>-->
+<!--                           </nb-card>-->
+<!--                       </div>-->
 
-                   <div class="col-4">
-                           <label><strong>Net worth</strong></label>
-                           <input id="netWorth" formControlName="netWorth" name="netWorth" type="text"
-                                  class="form-control" placeholder="Net Worth Amount"
-                                  [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.netWorth.errors }" appDecimalNumber/>
-                           <div *ngIf="(submitted) && basicInfoControls.netWorth.invalid"
-                                class="invalid-feedback">
-                               <div *ngIf="basicInfoControls.netWorth.errors">
-                                   Valid Worth Amount is required
-                               </div>
-                           </div>
-                       </div>
+<!--                   <div class="col-4">-->
+<!--                           <label><strong>Net worth</strong></label>-->
+<!--                           <input id="netWorth" formControlName="netWorth" name="netWorth" type="text"-->
+<!--                                  class="form-control" placeholder="Net Worth Amount"-->
+<!--                                  [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.netWorth.errors }" appDecimalNumber/>-->
+<!--                           <div *ngIf="(submitted) && basicInfoControls.netWorth.invalid"-->
+<!--                                class="invalid-feedback">-->
+<!--                               <div *ngIf="basicInfoControls.netWorth.errors">-->
+<!--                                   Valid Worth Amount is required-->
+<!--                               </div>-->
+<!--                           </div>-->
+<!--                       </div>-->
                        <!-- END ROW -->
 
                </nb-tab>
-               <nb-tab *ngIf="microCustomer" tabTitle="Micro Customer">
-                   <app-micro-individual-form #microIndividualFormComponent [data]="individualJsonData?.microCustomerDetail"></app-micro-individual-form>
-               </nb-tab>
+<!--               <nb-tab *ngIf="microCustomer" tabTitle="Micro Customer">-->
+<!--                   <app-micro-individual-form #microIndividualFormComponent [data]="individualJsonData?.microCustomerDetail"></app-micro-individual-form>-->
+<!--               </nb-tab>-->
            </nb-tabset>
            </form>
        </div>

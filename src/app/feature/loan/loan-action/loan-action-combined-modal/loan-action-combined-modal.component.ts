@@ -32,7 +32,7 @@ export class LoanActionCombinedModalComponent implements OnInit {
     @Input() combinedLoanId: number;
     @Input() docAction: string;
     @Input() docActionMsg: string;
-    @Input() documentStatus: DocStatus;
+    @Input() documentStatus;
     @Input() isForward: boolean;
     @Input() additionalDetails: any;
     @Input() isMaker: boolean;
@@ -66,6 +66,11 @@ export class LoanActionCombinedModalComponent implements OnInit {
     isUserNotPresentForCombine = false;
     showUserList = true;
     spinner = false;
+    isDual;
+    isHsov;
+    combinedDual = false;
+    combinedHSOV = false;
+    docStatus =  DocStatus;
     @Output() emitter = new EventEmitter();
 
     constructor(
@@ -196,6 +201,7 @@ export class LoanActionCombinedModalComponent implements OnInit {
                 if (verified === true) {
                     this.postCombinedAction(false);
                     this.nbDialogRef.close();
+                    this.emitter.emit(true);
                 }
             });
         } else if (this.stageType === 'combined') {
@@ -209,13 +215,11 @@ export class LoanActionCombinedModalComponent implements OnInit {
                     toRole: this.combinedType.form.get('toRole').value, action: this.docAction
                 }
             });
-            this.nbDialogRef.onClose.subscribe(d => {
-                this.emitter.emit(true);
-            });
             dialogRef.onClose.subscribe((verified: boolean) => {
                 if (verified === true) {
                     this.postCombinedAction(true);
                     this.nbDialogRef.close();
+                    this.emitter.emit(true);
                 }
             });
         }
@@ -234,7 +238,10 @@ export class LoanActionCombinedModalComponent implements OnInit {
             documentStatus: [this.documentStatus],
             isSol: [ObjectUtil.isEmpty(l.isSol) ? undefined : l.isSol],
             solUser: [ObjectUtil.isEmpty(l.solUser) ? undefined : l.solUser],
-            selectedRoleForSol: [ObjectUtil.isEmpty(l.solUser) ? undefined : l.solUser.role]
+            selectedRoleForSol: [ObjectUtil.isEmpty(l.solUser) ? undefined : l.solUser.role],
+            isHsov: [ObjectUtil.isEmpty(l.isHsov) ? undefined : l.isHsov],
+            dualApproval: [ObjectUtil.isEmpty(l.dualApproval) ? undefined : l.dualApproval],
+            dualApproved: [ObjectUtil.isEmpty(l.dualApproved) ? undefined : l.dualApproved],
         });
     }
 
@@ -255,7 +262,11 @@ export class LoanActionCombinedModalComponent implements OnInit {
                 loanName: undefined,
                 isSol: [ObjectUtil.isEmpty(l.isSol) ? undefined : l.isSol],
                 solUser: [ObjectUtil.isEmpty(l.solUser) ? undefined : l.solUser],
-                selectedRoleForSol: [ObjectUtil.isEmpty(l.solUser) ? undefined : l.solUser.role]
+                selectedRoleForSol: [ObjectUtil.isEmpty(l.solUser) ? undefined : l.solUser.role],
+                isHsov: [ObjectUtil.isEmpty(l.isHsov) ? undefined : l.isHsov],
+                dualApproval: [ObjectUtil.isEmpty(l.dualApproval) ? undefined : l.dualApproval],
+                dualApproved: [ObjectUtil.isEmpty(l.dualApproved) ? this.docAction === 'DUAL_APPROVAL_PENDING' : l.dualApproved]
+
             }));
         });
         return form;
@@ -264,6 +275,7 @@ export class LoanActionCombinedModalComponent implements OnInit {
     private conditionalCombinedDataLoad(): void {
         switch (this.popUpTitle) {
             case 'Send Forward':
+            case 'Approve':
                 const approvalType = LocalStorageUtil.getStorage().productUtil.LOAN_APPROVAL_HIERARCHY_LEVEL;
 
                 this.approvalRoleHierarchyService.getForwardRolesForRoleWithType(this.roleId, approvalType, 0)
@@ -279,7 +291,13 @@ export class LoanActionCombinedModalComponent implements OnInit {
         let actions;
         if (isCombined) {
             actions = this.combinedLoan.loans.map((l) => {
-                return {
+                let dualApproved = false;
+                if (this.docAction === 'DUAL_APPROVAL_PENDING') {
+                    dualApproved = true;
+                } else {
+                    dualApproved = l.dualApproved;
+                }
+                    return {
                     loanConfigId: l.loan.id,
                     customerLoanId: l.id,
                     toUser: this.combinedType.form.get('toUser').value,
@@ -290,6 +308,9 @@ export class LoanActionCombinedModalComponent implements OnInit {
                     documentStatus: this.combinedType.form.get('documentStatus').value,
                     isSol: this.combinedType.form.get('isSol').value,
                     solUser: this.combinedType.form.get('solUser').value,
+                    isHsov: this.combinedType.form.get('isHsov').value,
+                    dualApproval: this.combinedType.form.get('dualApproval').value,
+                    dualApproved: dualApproved
                 };
             });
 
@@ -393,6 +414,47 @@ export class LoanActionCombinedModalComponent implements OnInit {
         }
     }
 
+    dualApproval(event, individual) {
+        if (event && !individual) {
+            this.combinedDual = true;
+        } else {
+            this.combinedDual = false;
+        }
+    }
+
+    dualApprovalIndividual(event, index) {
+        if (!event) {
+            this.individualType.form.get(['actions', index]).patchValue({
+                dualApproval: false
+            });
+        } else {
+            this.individualType.form.get(['actions', index]).patchValue({
+                dualApproval: true
+            });
+        }
+
+    }
+
+    hsovIndividual(event, index) {
+        if (!event) {
+            this.individualType.form.get(['actions', index]).patchValue({
+                isHsov: false
+            });
+        } else {
+            this.individualType.form.get(['actions', index]).patchValue({
+                isHsov: true
+            });
+        }
+
+    }
+
+    hsov(event, individual) {
+        if (event && !individual) {
+            this.combinedHSOV = true;
+        } else {
+            this.combinedHSOV = false;
+        }
+    }
 
     compareFn(c1: any, c2: any): boolean {
         return c1 && c2 ? c1.id === c2.id : c1 === c2;

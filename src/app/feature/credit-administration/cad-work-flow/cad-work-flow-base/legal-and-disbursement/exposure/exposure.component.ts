@@ -85,12 +85,16 @@ export class ExposureComponent implements OnInit, OnChanges {
     }
 
     addDisbursementDetail() {
+        console.log('Cad Data:', this.cadData);
         this.cadData.assignedLoan.forEach(value => {
             this.disbursementDetails.push(this.formBuilder.group({
                 customerLoanId: [value.id],
                 loanName: [value.loan.name],
-                loanLimit: [value.proposal.proposedLimit, Validators.required],
-                disbursement: [undefined, Validators.required],
+                loanLimit: [value.proposal.existingLimit, Validators.required],
+                newLoanLimit: [!ObjectUtil.isEmpty(value.proposal.enhanceLimitAmount) ?
+                    value.proposal.enhanceLimitAmount : '-', Validators.required],
+                totalLoanLimit: [value.proposal.proposedLimit, Validators.required],
+                disbursement: [value.proposal.proposedLimit, Validators.required],
                 initialRate: [value.loan.interestRate, Validators.required],
                 maturity: [undefined, Validators.required],
                 frequency: [undefined, Validators.required],
@@ -104,12 +108,15 @@ export class ExposureComponent implements OnInit, OnChanges {
         let data = [];
         if (!ObjectUtil.isEmpty(this.cadData.exposure.data)) {
             data = JSON.parse(this.cadData.exposure.data).disbursementDetails;
+            console.log('DAta details', data);
             data.forEach(value => {
                 this.disbursementDetails.push(this.formBuilder.group({
                     customerLoanId: [ObjectUtil.isEmpty(value.id) ? null : value.id],
                     loanName: [value.loanName],
                     loanLimit: [value.loanLimit, Validators.required],
-                    disbursement: [value.disbursement, Validators.required],
+                    newLoanLimit: [value.newLoanLimit, Validators.required],
+                    totalLoanLimit: [value.totalLoanLimit, Validators.required],
+                    // disbursement: [value.disbursement, Validators.required],
                     initialRate: [value.initialRate, Validators.required],
                     maturity: [value.maturity, Validators.required],
                     frequency: [value.frequency, Validators.required],

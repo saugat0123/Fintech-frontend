@@ -27,6 +27,7 @@ export class LoanConfig {
     fullSettlement: Array<Document>;
     eligibilityDocuments: Array<Document>;
     offerLetters: Array<OfferLetter>;
+    creditMemoDocuments: Array<Document>;
     enableEligibility: boolean;
     minimumProposedAmount: number;
     loanCategory: string;
@@ -34,6 +35,7 @@ export class LoanConfig {
     approvedDocument: Array<Document>;
     renewWithEnhancement: Array<Document>;
     isRemit: boolean;
+    paperChecklist: string;
 
 
 }

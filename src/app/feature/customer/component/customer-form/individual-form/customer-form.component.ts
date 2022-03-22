@@ -192,6 +192,7 @@ bankingRelationshipList = BankingRelationship.enumObject();
                 citizenshipIssuedPlace: [undefined],
                 citizenshipIssuedDate: [undefined, DateValidator.isValidBefore],
                 age: [undefined],
+                occupation: [undefined],
                 version: [0]
             })
         );
@@ -517,6 +518,7 @@ bankingRelationshipList = BankingRelationship.enumObject();
                 citizenshipIssuedPlace: [undefined],
                 citizenshipIssuedDate: [undefined, DateValidator.isValidBefore],
                 age: [undefined],
+                occupation: [undefined],
                 version: [undefined]
             }));
         });
@@ -538,6 +540,7 @@ bankingRelationshipList = BankingRelationship.enumObject();
                     citizenshipIssuedDate: [ObjectUtil.isEmpty(singleRelatives.citizenshipIssuedDate) ?
                         undefined : new Date(singleRelatives.citizenshipIssuedDate), DateValidator.isValidBefore],
                     age: [singleRelatives.age],
+                    occupation: [singleRelatives.occupation],
                 }));
             });
 

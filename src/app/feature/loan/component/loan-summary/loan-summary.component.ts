@@ -47,6 +47,8 @@ import * as JSZip from 'jszip';
 import * as JSZipUtils from 'jszip-utils/lib/index.js';
 import {saveAs as importedSaveAs} from 'file-saver';
 import {IndividualJsonData} from '../../../admin/modal/IndividualJsonData';
+import {NgxSpinnerService} from 'ngx-spinner';
+import {CustomerType} from '../../../customer/model/customerType';
 
 @Component({
     selector: 'app-loan-summary',
@@ -178,6 +180,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     dataFromPreviousSecurity;
     isJointInfo = false;
     jointInfo = [];
+    newJointInfo = [];
     collateralSiteVisitDetail = [];
     isCollateralSiteVisit = false;
     age: number;
@@ -206,6 +209,9 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     checkedData;
     proposalAllData;
     financial;
+    paperChecklist;
+    allIds;
+    citizen;
 
     constructor(
         @Inject(DOCUMENT) private _document: Document,
@@ -227,6 +233,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         private fiscalYearService: FiscalYearService,
         private collateralSiteVisitService: CollateralSiteVisitService,
         private nbDialogService: NbDialogService,
+        private spinnerService: NgxSpinnerService
     ) {
         this.client = environment.client;
         this.showCadDoc = this.productUtils.CAD_LITE_VERSION;
@@ -236,19 +243,22 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
             }
         });
     }
+
     consumerFinance = false;
     smallBusiness = false;
+
     ngOnInit() {
         if (this.loanConfig.loanTag === 'REMIT_LOAN' && this.loanConfig.isRemit) {
             this.isRemitLoan = true;
         }
         this.loanDataHolder = this.loanData;
+        this.disable();
         if (this.loanDataHolder.loanHolder.clientType === 'CONSUMER_FINANCE') {
             this.consumerFinance = true;
-        } else  if (this.loanDataHolder.loanHolder.clientType === 'SMALL_BUSINESS_FINANCIAL_SERVICES') {
+        } else if (this.loanDataHolder.loanHolder.clientType === 'SMALL_BUSINESS_FINANCIAL_SERVICES') {
             this.smallBusiness = true;
         }
-            if (this.loanDataHolder.loanCategory === 'INDIVIDUAL') {
+        if (this.loanDataHolder.loanCategory === 'INDIVIDUAL') {
             this.isIndividual = true;
         }
         this.individual = this.loanDataHolder.customerInfo;
@@ -263,6 +273,25 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                 const jointCustomerInfo = JSON.parse(this.loanDataHolder.customerInfo.jointInfo);
                 this.riskInfo = jointCustomerInfo;
                 this.jointInfo.push(jointCustomerInfo.jointCustomerInfo);
+                let innerCustomer = [];
+                this.jointInfo[0].forEach((g, i) => {
+                    innerCustomer.push(g);
+                    if (!ObjectUtil.isEmpty(this.jointInfo[0][i + 1])) {
+                        this.citizen = this.jointInfo[0][i + 1].citizenshipNumber;
+                    }
+                    if ((i + 1) % 2 === 0) {
+                        if (innerCustomer.length > 0) {
+                            this.newJointInfo.push(innerCustomer);
+                        }
+                        innerCustomer = [];
+                    }
+                    if (i === this.jointInfo[0].length - 1) {
+                        if (innerCustomer.length > 0) {
+                            this.newJointInfo.push(innerCustomer);
+                        }
+                        innerCustomer = [];
+                    }
+                });
                 this.isJointInfo = true;
             }
         }
@@ -565,7 +594,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                     if ((this.loanDataHolder.documentStatus.toString() === 'APPROVED') || (this.loanDataHolder.documentStatus.toString() === 'CLOSED') || (this.loanDataHolder.documentStatus.toString() === 'REJECTED')) {
                         this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => c.id === this.loanDataHolder.id);
                     } else {
-                        this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => ((c.currentStage.docAction !== 'APPROVED') && (c.currentStage.docAction !== 'CLOSED') && (c.currentStage.docAction !== 'REJECT')));
+                        this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => ((c.currentStage.docAction !== 'CLOSED') && (c.currentStage.docAction !== 'REJECT')));
                     }
                 } else {
                     this.customerAllLoanList = this.customerAllLoanList.filter((c: any) => ((c.currentStage.docAction === this.requestedLoanType)));
@@ -726,6 +755,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
      */
     private getSignatureList(stages: Array<LoanStage>): Array<LoanStage> {
         let lastBackwardIndex = 0;
+        let lastRevokedIndex = 0;
         stages.forEach((data, index) => {
             if (data.docAction.toString() === DocAction.value(DocAction.BACKWARD)
                 || data.docAction.toString() === DocAction.value(DocAction.RE_INITIATE)) {
@@ -734,6 +764,22 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         });
         if (lastBackwardIndex !== 0) {
             stages.splice(0, lastBackwardIndex + 1);
+        }
+        const stage1 = stages;
+        for (let i = 0; i <= stages.length - 1; i++) {
+            if (stages[i].docAction.toString() === DocAction.value(DocAction.REVERT_APPROVED)) {
+                lastRevokedIndex = i;
+                break;
+            }
+        }
+        if (stages[stages.length - 1].docAction.toString() === DocAction.value(DocAction.REVERT_APPROVED)) {
+            if (lastRevokedIndex !== 0) {
+                stage1.splice(lastRevokedIndex - 1, ((stages.length - 1) - (lastRevokedIndex - 2)));
+            }
+        } else {
+            if (lastRevokedIndex !== 0) {
+                stage1.splice(lastRevokedIndex - 1, ((stages.length - 1) - (lastRevokedIndex - 1)));
+            }
         }
         const signatureList = new Array<LoanStage>();
         const addedStages = new Map<number, number>(); // KEY = loan stage from user id, value = array index
@@ -747,13 +793,17 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
                 }
             }
         });
-
         return signatureList;
     }
 
     goToCustomer() {
         const loanHolder = this.loanDataHolder.loanHolder;
-        this.commonRoutingUtilsService.loadCustomerProfile(loanHolder.associateId, loanHolder.id, loanHolder.customerType);
+       // this.commonRoutingUtilsService.loadCustomerProfile(loanHolder.associateId, loanHolder.id, loanHolder.customerType);
+        if (CustomerType[loanHolder.customerType] === CustomerType.INDIVIDUAL) {
+                window.open('/#/home/customer/profile/' + loanHolder.associateId + `?customerType=${loanHolder.customerType}&customerInfoId=${loanHolder.id}`, '_blank');
+        } else if (CustomerType[loanHolder.customerType] === CustomerType.INSTITUTION) {
+                window.open('/#/home/customer/profile/' + loanHolder.associateId + `?id=${loanHolder.id}&customerType=${loanHolder.customerType}&companyInfoId=${loanHolder.associateId}&customerInfoId=${loanHolder.id}`, '_blank');
+        }
     }
 
     getFiscalYears() {
@@ -908,6 +958,23 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
 
     checkSiteVisitDocument(event: any) {
         this.siteVisitDocuments = event;
+    }
+
+    disable() {
+        if (!ObjectUtil.isEmpty(this.loanDataHolder.paperProductChecklist)) {
+            const obj = JSON.parse(this.loanDataHolder.paperProductChecklist);
+            this.paperChecklist = obj.view;
+            this.allIds = obj.id;
+            const parserData = new DOMParser().parseFromString(this.paperChecklist, 'text/html');
+            this.allIds.forEach(d => {
+                const input = parserData.getElementById(d);
+                const child = input.innerHTML;
+                if (!child.includes('checked')) {
+                    input.innerHTML = `<input type="radio" disabled>`;
+                }
+            });
+            this.paperChecklist = parserData.body.innerHTML;
+        }
     }
 }
 

@@ -13,18 +13,18 @@
                                 size="tiny">
                             <i class="fa fa-filter"> Filter</i>
                         </button>
-                        <div style="zoom:70%">
+                        <div >
                             <nb-toggle (checkedChange)="onChangeTransferToggle($event)"
                                        class="pt-2 pl-4" [disabled]="!transferToggle" height>
-                                <strong class="f-18">Transferred</strong>
+                               Transferred
                             </nb-toggle>
                             <nb-toggle (checkedChange)="onChangeShareToggle($event)"
                                        [disabled]="!shareToggle" class="pt-2 pl-4">
-                                <strong class="f-18">Show Share Loan Exceeding Limit</strong>
+                                Show Share Loan Exceeding Limit
                             </nb-toggle>
                             <nb-toggle (checkedChange)="onChangeInsuranceToggle($event)"
                                        [disabled]="!insuranceToggle" class="pt-2 pl-4">
-                                <strong class="f-18">Insurance Expiry</strong>
+                                Insurance Expiry
                             </nb-toggle>
                         </div>
                     </div>
@@ -127,7 +127,7 @@
                 </div>
 
                 <div class="col-md-12 p-0">
-                    <button [disabled]="!filterForm?.valid" nbButton size="tiny" status="info" shape="rectangle"
+                    <button [disabled]="!filterForm.valid" nbButton size="tiny" status="info" shape="rectangle"
                             class="mr-2"
                             type="submit">Search
                     </button>
@@ -156,6 +156,7 @@
                 <th>Created On</th>
                 <th *ngIf="showBranchProvince">Branch Province</th>
                 <th>Action</th>
+                <th>Diary Note</th>
             </tr>
             </thead>
             <tbody>
@@ -244,9 +245,21 @@
                             <option value="PARTIAL_SETTLEMENT_LOAN">Partial Settle Loan</option>
                             <option value="FULL_SETTLEMENT_LOAN">Full Settle Loan</option>
                             <option value="RENEW_WITH_ENHANCEMENT">Renew With Enhancement</option>
+                            <option value="RELEASE_AND_REPLACEMENT">Release And Replacement</option>
+                            <option value="PARTIAL_RELEASE_OF_COLLATERAL">Partial Release of Collateral</option>
+                            <option value="INTEREST_RATE_REVISION">Interest Rate Revision</option>
                         </ng-container>
                     </select>
                 </td>
+                <td>
+                    <ng-container>
+                        <a (click)="openCreditMemoModal(model)">
+                            <em class="fas fa-book-open">
+                            </em>
+                        </a>
+                    </ng-container>
+                </td>
+
                 <ng-template #linkin>
                     <td>
                         <div *ngIf='((model?.documentStatus.toString() === "REJECTED") && canReInitiateLoan)'>
@@ -260,9 +273,22 @@
                                class="text-success cursor">{{loanType[model.loanType]}} From
                                 <em class="p-1 fa fa-edit"></em></a>
                         </div>
-                        <div *ngIf='!model.parentId && !((model?.documentStatus.toString() === "REJECTED") && canReInitiateLoan)'>
-                            <p>NA</p>
+                        <div *ngIf="!model?.childId; else notCadStage">
+                            <span *ngIf="!model?.cadStageChecked && model?.documentStatus.toString() === 'APPROVED' &&
+                                (model?.currentStage?.toUser?.username === currentUserName); else na">
+                                <button nbButton status="warning" size="tiny"
+                                        (click)="revertApproveLoan(model)" nbTooltip="click to Revert Loan">
+                                <em class="fa fa-arrow-circle-left"></em></button>
+                            </span>
+                            <ng-template #na>
+                                <p>NA</p>
+                            </ng-template>
                         </div>
+                        <ng-template #notCadStage>
+                            <div *ngIf='!model.parentId && !((model?.documentStatus.toString() === "REJECTED") && canReInitiateLoan)'>
+                                <p>NA</p>
+                            </div>
+                        </ng-template>
                     </td>
                 </ng-template>
             </tr>

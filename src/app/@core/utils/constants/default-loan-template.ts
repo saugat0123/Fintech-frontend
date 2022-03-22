@@ -39,6 +39,16 @@ export class DefaultLoanTemplate {
             active: false,
             name: 'Reporting Info',
             templateUrl: null
+        },
+        {
+            active: false,
+            name: 'Product Paper Checklist',
+            templateUrl: null
+        },
+        {
+            active: false,
+            name: 'Security',
+            templateUrl: null
         }
     ];
 }

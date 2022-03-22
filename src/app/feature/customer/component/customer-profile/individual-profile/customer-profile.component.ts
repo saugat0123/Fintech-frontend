@@ -279,8 +279,8 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
             wardNumber: [this.customer.wardNumber === null ? undefined : this.customer.wardNumber, Validators.required],
             contactNumber: [this.customer.contactNumber === undefined ? undefined : this.customer.contactNumber, Validators.required],
             email: [this.customer.email === undefined ? undefined : this.customer.email, Validators.required],
-            maritalStatus: [this.customerInfo.maritalStatus === undefined ? undefined : this.customerInfo.maritalStatus, Validators.required],
-            gender: [this.customerInfo.gender === undefined ? undefined : this.customerInfo.gender, Validators.required],
+            maritalStatus: [ObjectUtil.isEmpty(this.customer.maritalStatus)  ? undefined : this.customer.maritalStatus, Validators.required],
+            gender: [this.customer.gender === undefined ? undefined : this.customer.gender, Validators.required],
             netWorth: [this.customer.netWorth === undefined ? undefined : this.customer.netWorth, Validators.required],
             bankingRelationship: [this.customerInfo.bankingRelationship === undefined ? undefined : this.customerInfo.bankingRelationship, Validators.required],
             // initial Relation Date not used in ui

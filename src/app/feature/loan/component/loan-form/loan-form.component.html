@@ -48,9 +48,9 @@
             </div>
 
             <div class="col-md-3">
-                <form  id="creditRisk" [formGroup]="creditRisk">
-                    <label><strong>Credit Risk</strong></label>
-                    <input type = "number" nbInput formControlName="creditRisk" fullWidth>
+                <form id="creditRisk" [formGroup]="creditRisk">
+                    <label><strong>Credit Risk Grade</strong></label>
+                    <input type="number" nbInput formControlName="creditRisk" fullWidth>
                 </form>
             </div>
 
@@ -92,18 +92,12 @@
 
         <span class="d-flex justify-content-end">{{currentNepDate}}</span>
     </nb-card-header>
-    <nb-card-body [nbSpinner]="loading" nbSpinnerSize="giant"  nbSpinnerMessage="Please Wait....">
+    <nb-card-body [nbSpinner]="loading" nbSpinnerSize="giant" nbSpinnerMessage="Please Wait....">
         <section *ngIf="loanDocument && templateList">
             <ngb-tabset #tabSet="ngbTabset" (tabChange)="tabChange($event, tabSet)">
                 <ngb-tab *ngFor="let allList of templateList; let i = index" [title]="allList.name"
                          [id]="i.toString(10)" [disabled]="isBlackListed">
                     <ng-template ngbTabContent *ngIf="allList.name === 'Customer Info'">
-                        <!--            <app-basic-info (blackListStatusEmitter)="getIsBlackListed($event)"-->
-                        <!--                            [formValue]="loanDocument?.customerInfo"-->
-                        <!--                            [calendarType]="calendarType"-->
-                        <!--                            [disableForm]="allId?.customerProfileId"-->
-                        <!--                            #basicInfo>-->
-                        <!--            </app-basic-info>-->
                         <div class="py-4">
                             <app-individual-view [individual]="loanDocument?.customerInfo"
                                                  [calendarType]="calendarType"
@@ -118,10 +112,6 @@
                         <app-dms-loan [loanDataHolder]="loanDocument" #dmsLoanFile></app-dms-loan>
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name === 'Company Info'">
-                        <!--            <app-company-info (blackListStatusEmitter)="getIsBlackListed($event)"-->
-                        <!--                              [formValue]="loanDocument?.companyInfo" [calendarType]="calendarType"-->
-                        <!--                              [basicInfo]="loanDocument?.customerInfo" *ngIf="loanDocument?.companyInfo"-->
-                        <!--                              #companyInfo></app-company-info>-->
                         <div class="py-4">
                             <app-company-info-view [formValue]="loanDocument?.companyInfo"
                                                    [calendarType]="calendarType"
@@ -129,8 +119,17 @@
                         </div>
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name === 'Proposal' && loanTag">
-                        <app-proposal *ngIf="loanTag !== 'MICRO_LOAN'" [formValue]="loadProposal()" (emitter)="updateIncome($event)" [customerInfo]="loanHolder" [loanType]="loanType" #proposalInfo></app-proposal>
-                        <app-micro-proposal *ngIf="loanTag === 'MICRO_LOAN'" [formValue]="loadProposal()" [loanType]="loanType" #microProposalInfo></app-micro-proposal>
+                        <app-proposal *ngIf="loanTag !== 'MICRO_LOAN'" [formValue]="loadProposal()"
+                                      (emitter)="updateIncome($event)" [customerInfo]="loanHolder" [loanType]="loanType"
+                                      #proposalInfo></app-proposal>
+                        <app-micro-proposal *ngIf="loanTag === 'MICRO_LOAN'" [formValue]="loadProposal()"
+                                            [loanType]="loanType" #microProposalInfo></app-micro-proposal>
+                    </ng-template>
+                    <ng-template  *ngIf="allList.name === 'Product Paper Checklist' && loanTag && checklistChecked" ngbTabContent>
+                        <app-product-paper-checklist #productPaperChecklistComponent (checkList)="updateChecklist($event)" [loanDataHolder]="loanDocument" [loan]="loans" [fromLoan]="true" [paper]="paperChecklist" [allIds]="allIds"></app-product-paper-checklist>
+                        <!-- <div class="col-md-12 table-bordered text-center table-responsive d-flex justify-content-center" [innerHTML]="paperChecklist"> -->
+
+                        <!-- </div> -->
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name === 'CICL'">
                         <div class="py-4">
@@ -145,14 +144,6 @@
                                             [fromProfile]="false"
                                             [formData]="loanDocument?.creditRiskGrading"></app-credit-grading>
                     </ng-template>
-
-<!--                    <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading - Gamma'">-->
-<!--                        <app-spinner *ngIf="!loanDataReady" class="d-flex justify-content-center"></app-spinner>-->
-<!--                        <app-credit-risk-grading-gamma *ngIf="loanDataReady" #crgGamma-->
-<!--                                                       [fromProfile]="true"-->
-<!--                                                       [loanConfigId]="id"-->
-<!--                                                       [formData]="loanDocument?.crgGamma"></app-credit-risk-grading-gamma>-->
-<!--                    </ng-template>-->
 
                     <ng-template ngbTabContent *ngIf="allList.name === 'Financial'">
                         <div class="py-4">
@@ -171,19 +162,15 @@
                         </div>
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name === 'Security'">
-                        <!--            <app-security #security [securityValue]="loanDocument?.security"-->
-                        <!--                          [calendarType]="calendarType"-->
-                        <!--                          [loanTag]="loanTag"-->
-                        <!--                          [shareSecurity]="loanDocument?.shareSecurity"></app-security>-->
                         <div class="py-4">
-                            <app-security-view [security]="loanHolder?.security"
-                                               [shareSecurityData]="loanHolder?.shareSecurity"></app-security-view>
+                            <app-security-adder [security]="loanHolder?.security"
+                                                [shareSecurityData]="loanHolder?.shareSecurity"></app-security-adder>
                         </div>
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name === 'Loan Document'">
                         <app-customer-loan-document #customerDocument
                                                     [loanDataHolder]="loanDocument"
-                        [loanType]="loanType"></app-customer-loan-document>
+                                                    [loanType]="loanType"></app-customer-loan-document>
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name === 'Group'">
                         <app-group #group [groupValue]="loanDocument?.group"
@@ -220,7 +207,7 @@
                                                         [ciCl]="loanDocument?.loanHolder?.cicl"
                                                         [incomeFromAccount]="loanDocument?.loanHolder?.incomeFromAccount"
                                                         [proposedLimit]="loanDocument?.proposal?.proposedLimit"
-                                                       [financialData]="loanDocument?.financial?.data"></app-credit-risk-grading-lambda>
+                                                        [financialData]="loanDocument?.financial?.data"></app-credit-risk-grading-lambda>
                     </ng-template>
 
                     <ng-template ngbTabContent *ngIf="allList.name === 'Credit Risk Grading - Micro'">
@@ -250,6 +237,7 @@
                 </ngb-tab>
             </ngb-tabset>
 
+
             <div class="justify-content-center" style="padding-bottom: 20px">
                 <div class="col-md-12">
                     <div class="row text-center">
@@ -269,7 +257,8 @@
                             </button>
 
                             <button nbButton status="info"
-                                    (click)="proposalDetail?.incomeChecked?selectChild(selectedTab, true, loanTag): save(true)" *ngIf="nextTabId === totalTabCount"
+                                    (click)="proposalDetail?.incomeChecked?selectChild(selectedTab, true, loanTag): save(true)"
+                                    *ngIf="nextTabId === totalTabCount"
                                     [disabled]="isBlackListed">
                                 Save
                             </button>

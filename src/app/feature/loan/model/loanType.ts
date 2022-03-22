@@ -6,6 +6,9 @@ export enum LoanType {
     PARTIAL_SETTLEMENT_LOAN = 'Partial Settlement Loan',
     FULL_SETTLEMENT_LOAN = 'Full Settlement Loan',
     RENEW_WITH_ENHANCEMENT = 'Renew with Enhancement',
+    RELEASE_AND_REPLACEMENT= 'Release and Replacement',
+    PARTIAL_RELEASE_OF_COLLATERAL= 'Partial Release of Collateral',
+    INTEREST_RATE_REVISION= 'Interest Rate Revision'
 }
 
 export namespace LoanType {

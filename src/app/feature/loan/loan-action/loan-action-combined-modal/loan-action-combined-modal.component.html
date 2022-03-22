@@ -71,7 +71,7 @@
                                         control?.get('customerLoanId').value)?.proposal?.proposedLimit | number }}
                                     </nb-accordion-item-header>
                                     <nb-accordion-item-body>
-                                        <div *ngIf="popUpTitle === 'Send Forward'" class="row">
+                                        <div *ngIf="popUpTitle === 'Send Forward' || docAction === 'DUAL_APPROVAL_PENDING' || docAction== 'HSOV_PENDING'" class="row">
                                             <div class="col-md-12 form-group">
                                                 <label class="toRole" for="toRole">TO</label>
                                                 <select (change)="getIndividualUserList(control?.get('toRole').value, i)"
@@ -122,11 +122,17 @@
                                         </div>
 
                                         <!--                  //sol-->
-                                        <div *ngIf="isMaker">
-                                            <div class="col-md-12">
-                                                <nb-checkbox class="cursor" [checked]="preSelectedSolUser[i]?.isSol"
-                                                             formControlName="isSol"
-                                                             (checkedChange)="showHideSol($event,i)">is SOL?
+                                        <div>
+                                            <div class="col-md-12" *ngIf="documentStatus !== docStatus.DUAL_APPROVAL_PENDING && documentStatus !== docStatus.HSOV_PENDING">
+<!--                                                <nb-checkbox class="cursor" [checked]="preSelectedSolUser[i]?.isSol"-->
+<!--                                                             formControlName="isSol"-->
+<!--                                                             (checkedChange)="showHideSol($event,i)">is SOL?-->
+<!--                                                </nb-checkbox>    -->
+                                                <nb-checkbox class="cursor"  (change)="dualApprovalIndividual($event?.target?.checked, i)"  [disabled]="!isMaker || individualType.form.get(['actions', i])?.isHsov"  [checked]="preSelectedSolUser[i]?.dualApproval"
+                                                             formControlName="dualApproval">Dual Approval?
+                                                </nb-checkbox>
+                                                <nb-checkbox class="cursor"  (change)="hsovIndividual($event?.target?.checked, i)"  [disabled]="!isMaker || individualType.form.get(['actions', i])?.dualApproval" [checked]="preSelectedSolUser[i]?.isHsov"
+                                                             formControlName="isHsov">HSOV?
                                                 </nb-checkbox>
                                             </div>
 
@@ -187,7 +193,7 @@
                     <div class="col-md-12">
                         <form [formGroup]="combinedType.form">
 
-                            <div *ngIf="popUpTitle === 'Send Forward'" class="row">
+                            <div *ngIf="popUpTitle === 'Send Forward' || documentStatus === docStatus.HSOV_PENDING || documentStatus === docStatus.DUAL_APPROVAL_PENDING" class="row">
                                 <div class="col-md-12 form-group">
                                     <label class="toRole" for="toRole">TO</label>
                                     <select (change)="getCombinedUserList(combinedType?.form.get('toRole').value)"
@@ -236,12 +242,18 @@
 
                             <!--//sol-->
 
-                            <div *ngIf="isMaker">
-                                <div class="col-md-12">
-                                    <nb-checkbox class="cursor" formControlName="isSol"
-                                                 [checked]="preSelectedSolUser[0]?.isSol"
-                                                 (checkedChange)="showHideSolCombine($event)"
-                                    >is SOL?
+                            <div>
+                                <div class="col-md-12" *ngIf="documentStatus !== docStatus.HSOV_PENDING && documentStatus !== docStatus.DUAL_APPROVAL_PENDING">
+<!--                                    <nb-checkbox class="cursor" formControlName="isSol"-->
+<!--                                                 [checked]="preSelectedSolUser[0]?.isSol"-->
+<!--                                                 (checkedChange)="showHideSolCombine($event)"-->
+<!--                                    >is SOL?-->
+<!--                                    </nb-checkbox>-->
+                                    <nb-checkbox class="cursor" (change)="dualApproval($event?.target?.checked, false)" [disabled]="!isMaker || combinedHSOV" [checked]="preSelectedSolUser[0]?.dualApproval"
+                                                 formControlName="dualApproval">Dual Approval?
+                                    </nb-checkbox>
+                                    <nb-checkbox class="cursor" [disabled]="!isMaker || combinedDual" (change)="hsov($event?.target?.checked, false)" [checked]="preSelectedSolUser[0]?.isHsov"
+                                                 formControlName="isHsov">HSOV?
                                     </nb-checkbox>
                                 </div>
                                 <div class="col-md-12 row" *ngIf="showHideCombineSolUser">
