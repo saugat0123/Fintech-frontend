@@ -8,7 +8,6 @@ import {NepaliCurrencyWordPipe} from '../../../../../../@core/pipe/nepali-curren
 import {CreditAdministrationService} from '../../../../service/credit-administration.service';
 import {ToastService} from '../../../../../../@core/utils';
 import {RouterUtilsService} from '../../../../utils/router-utils.service';
-import {CustomerOfferLetterService} from '../../../../../loan/service/customer-offer-letter.service';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 import {ProgressiveLegalDocConst} from '../progressive-legal-doc-const';
@@ -35,6 +34,7 @@ export class LetterOfArrangementsComponent implements OnInit {
   existingOfferLetter = false;
   offerLetterDocument: OfferDocument;
   nepaliData;
+  isIndividual = false;
 
 
   constructor(
@@ -45,12 +45,18 @@ export class LetterOfArrangementsComponent implements OnInit {
       private administrationService: CreditAdministrationService,
       private toastService: ToastService,
       private routerUtilsService: RouterUtilsService,
-      private customerOfferLetterService: CustomerOfferLetterService,
   ) {
   }
 
   ngOnInit() {
     this.buildForm();
+    if (!ObjectUtil.isEmpty(this.cadData)) {
+      if (this.cadData.assignedLoan[0].loanHolder.customerType.toString() === 'INDIVIDUAL') {
+        this.isIndividual = true;
+      } else {
+        this.isIndividual = false;
+      }
+    }
     this.fillForm();
   }
 
@@ -70,8 +76,9 @@ export class LetterOfArrangementsComponent implements OnInit {
       this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
 
       this.form.patchValue({
-        customerName: this.nepaliData.name ? this.nepaliData.name : '',
-        branch: this.nepaliData.branchName ? this.nepaliData.branchName: '',
+        customerName: this.isIndividual ? this.nepaliData.name : this.nepaliData.companyName,
+        customerName2: this.isIndividual ? this.nepaliData.name : this.nepaliData.representativeName,
+        branch: this.nepaliData.branchName ? this.nepaliData.branchName : '',
         subject: loanAmount.numberNepali ? loanAmount.numberNepali : '',
       });
     }
@@ -124,7 +131,8 @@ export class LetterOfArrangementsComponent implements OnInit {
       branch: [undefined],
       subject: [undefined],
       customerName: [undefined],
-      punji: [undefined]
+      customerName2: [undefined],
+      punji: [undefined],
     });
   }
 }
