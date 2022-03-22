@@ -55,6 +55,7 @@ import {CadLegalDocActionModalComponent} from './cad-legal-doc-action-modal/cad-
 import {LaxmiModule} from './cad-document-template/laxmi/laxmi.module';
 import {LimitPendingComponent} from './component/limit-pending/limit-pending.component';
 import { LimitApprovedComponent } from './component/limit-approved/limit-approved.component';
+import { DiscrepancyPendingComponent } from './component/discrepancy-pending/discrepancy-pending.component';
 
 
 @NgModule({
@@ -103,7 +104,8 @@ import { LimitApprovedComponent } from './component/limit-approved/limit-approve
         CadOfferLetterConfigurationComponent,
         NepProposedAmountFormComponent,
         CadFileSetupComponent,
-        LimitApprovedComponent],
+        LimitApprovedComponent,
+        DiscrepancyPendingComponent],
     imports: [
         ThemeModule,
         CommonModule,

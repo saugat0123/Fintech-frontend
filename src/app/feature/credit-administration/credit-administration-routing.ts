@@ -11,6 +11,7 @@ import {CadDocumentListComponent} from './component/cad-document-list/cad-docume
 import {CadSummaryComponent} from './cad-work-flow/cad-summary/cad-summary.component';
 import {LimitPendingComponent} from './component/limit-pending/limit-pending.component';
 import {LimitApprovedComponent} from './component/limit-approved/limit-approved.component';
+import {DiscrepancyPendingComponent} from './component/discrepancy-pending/discrepancy-pending.component';
 
 /** Always add new route to RouteConst.ts file as a static route Variable **/
 export const routes: Routes = [
@@ -22,6 +23,7 @@ export const routes: Routes = [
     {path: 'limit-pending', component: LimitPendingComponent},
     {path: 'limit-approve', component: LimitApprovedComponent},
     {path: 'disbursement-approved', component: DisbursementApprovedComponent},
+    {path: 'discrepancy-pending', component: DiscrepancyPendingComponent},
     {path: 'offer-letter-profile', component: LegalAndDisbursementComponent},
     {path: 'cad-documents', component: CadDocumentListComponent},
     {path: 'cad-summary/:id', component: CadSummaryComponent},

@@ -98,6 +98,7 @@ export class CadActionComponent implements OnInit, OnChanges {
     toUser;
     toRole;
     breakException: any;
+    isMakerOrApproval = false;
     constructor(private router: ActivatedRoute,
                 private route: Router,
                 private loanActionService: LoanActionService,
@@ -121,6 +122,9 @@ export class CadActionComponent implements OnInit, OnChanges {
         this.currentUserId = LocalStorageUtil.getStorage().userId;
         this.roleId = LocalStorageUtil.getStorage().roleId;
         this.currentUserRole = LocalStorageUtil.getStorage().roleType;
+        if ((this.currentUserRole === RoleType.APPROVAL || this.currentUserRole === RoleType.MAKER) && this.cadOfferLetterApprovedDoc.docStatus !== CadDocStatus.DISCREPANCY_PENDING) {
+            this.isMakerOrApproval = true;
+        }
         if (this.cadOfferLetterApprovedDoc.docStatus === CadDocStatus.DISBURSEMENT_APPROVED) {
             this.approvedLoan = true;
         }
@@ -314,7 +318,7 @@ export class CadActionComponent implements OnInit, OnChanges {
                 }
             });
         }
-        if (this.cadOfferLetterApprovedDoc.legalPending && this.currentStatus === 'OFFER_APPROVED') {
+        if (this.cadOfferLetterApprovedDoc.discrepancy && this.currentStatus === 'OFFER_APPROVED') {
             this.userList = [];
             this.formAction.patchValue({
                 toRole: null
@@ -341,7 +345,7 @@ export class CadActionComponent implements OnInit, OnChanges {
                     comment: [undefined, Validators.required],
                     documentStatus: [this.forwardBackwardDocStatusChange()],
                     isBackwardForMaker: returnToMaker,
-                    legalPending: [this.cadOfferLetterApprovedDoc.legalPending],
+                    discrepancy: [this.cadOfferLetterApprovedDoc.discrepancy],
                 }
             );
             const approvalType = 'CAD';
@@ -357,7 +361,7 @@ export class CadActionComponent implements OnInit, OnChanges {
                             this.sendForwardBackwardList = this.sendForwardBackwardList.filter(f => f.role.roleType === RoleType.APPROVAL);
                         } else {
                             if (this.isMaker && this.currentStatus === 'OFFER_APPROVED') {
-                                if(this.cadOfferLetterApprovedDoc.legalPending) {
+                                if(this.cadOfferLetterApprovedDoc.discrepancy) {
                                     this.sendForwardBackwardList = this.sendForwardBackwardList.filter(f => f.role.roleType === RoleType.CRC);
 
                                 } else {
@@ -394,7 +398,7 @@ export class CadActionComponent implements OnInit, OnChanges {
                     customApproveSelection: [false],
                     toUser: [undefined],
                     toRole: [undefined],
-                    legalPending: [this.cadOfferLetterApprovedDoc.legalPending],
+                    discrepancy: [this.cadOfferLetterApprovedDoc.discrepancy],
 
 
                 }
@@ -410,7 +414,7 @@ export class CadActionComponent implements OnInit, OnChanges {
                     customApproveSelection: [false],
                     toUser: [undefined],
                     toRole: [undefined],
-                    legalPending: [this.cadOfferLetterApprovedDoc.legalPending],
+                    discrepancy: [this.cadOfferLetterApprovedDoc.discrepancy],
 
                 }
             );
@@ -485,7 +489,7 @@ export class CadActionComponent implements OnInit, OnChanges {
                 break;
             case 'LIMIT_PENDING':
                 if (this.currentUserRole === this.roleType.CRC) {
-                    if (this.cadOfferLetterApprovedDoc.legalPending) {
+                    if (this.cadOfferLetterApprovedDoc.discrepancy) {
                         if(!ObjectUtil.isEmpty(this.toRole)) {
                             if (this.toRole.roleType === RoleType.MAKER || this.returnToRm) {
                                 return 'OFFER_APPROVED';
@@ -530,6 +534,7 @@ export class CadActionComponent implements OnInit, OnChanges {
         let user;
 
         if (!ObjectUtil.isEmpty(this.toUser)) {
+            user = this.toUser.name + ' (' + this.toUser.role.roleName + ')';
             user = this.toUser.name + ' (' + this.toUser.role.roleName + ')';
         } else {
             user = this.currentCADStage.fromUser.name + ' (' + this.currentCADStage.fromRole.roleName + ')';
