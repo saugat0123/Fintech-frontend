@@ -290,6 +290,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
             representativePermanentMunType: [undefined],
             representativePermanentMunicipality: [undefined],
             representativePermanentWard: [undefined],
+            representativePermanentVdc: [undefined],
+            representativePermanentVdcWard: [undefined],
             representativeTemporaryDistrict: [undefined],
             representativeTemporaryMunType: [undefined],
             representativeTemporaryMunicipality: [undefined],
