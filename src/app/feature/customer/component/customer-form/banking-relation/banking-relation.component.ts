@@ -45,7 +45,7 @@ export class BankingRelationComponent implements OnInit {
   buildForm() {
     this.bankingRelationForm = this.formBuilder.group({
       bankingRelationship: [ObjectUtil.isEmpty(this.bankingRelation) ? undefined :
-          this.bankingRelation.bankingRelationship, Validators.required],
+          this.bankingRelation.bankingRelationship],
       accountTurnover: [ObjectUtil.isEmpty(this.bankingRelation) ? undefined :
           this.bankingRelation.accountTurnover, Validators.required],
       repaymentHistory: [ObjectUtil.isEmpty(this.bankingRelation) ? undefined :

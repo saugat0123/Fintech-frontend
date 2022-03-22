@@ -271,6 +271,7 @@ export class LoanActionComponent implements OnInit, OnChanges {
                 hasDeferredDocs: true
             };
         }
+        console.log('context', context);
         if (ObjectUtil.isEmpty(this.combinedLoanId)) {
             this.dialogRef = this.nbDialogService.open(LoanActionModalComponent, {
                 context,
