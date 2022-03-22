@@ -198,6 +198,7 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
   hidePreviewButton = false;
   zipDocumentName: any;
   isAboveTenMillion: any;
+  isUpToTenMillion: any;
 
   isDetailedView = false;
   constructor(
@@ -888,5 +889,8 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
 
   aboveTenMillion(checked: boolean) {
     this.isAboveTenMillion = checked;
+  }
+  upToTenMillion(checked: boolean) {
+    this.isUpToTenMillion = checked;
   }
 }
