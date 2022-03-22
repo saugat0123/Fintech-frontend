@@ -46,6 +46,7 @@ export class LoanActionModalComponent implements OnInit {
     @Input() branchId: number;
     @Input() isMaker: boolean;
     @Input() customerLoanHolder: LoanDataHolder;
+    @Input() toUser;
     submitted = false;
     formAction: FormGroup;
     userList: Array<User> = new Array<User>();
@@ -91,6 +92,12 @@ export class LoanActionModalComponent implements OnInit {
         }
         this.getHsovUserList();
         this.getHsovRole();
+        if (!ObjectUtil.isEmpty(this.toUser)) {
+            this.formAction.patchValue({
+                toUser: this.toUser,
+                toRole: this.toUser.role
+            });
+        }
     }
 
     public getHsovRole() {
@@ -122,7 +129,6 @@ export class LoanActionModalComponent implements OnInit {
                 } else if ((role.roleType === RoleType.COMMITTEE) && this.userList.length > 1) {
                     const committeeDefaultUser = this.userList.filter(f => f.name.toLowerCase().includes('default'));
                     this.showUserList = false;
-                    console.log('show user list is false', this.showUserList);
 
                     if (committeeDefaultUser.length === 0) {
                         this.formAction.patchValue({
@@ -296,26 +302,18 @@ export class LoanActionModalComponent implements OnInit {
             default:
                 if (!ObjectUtil.isEmpty(this.toRole)) {
                     this.getUserList(this.toRole);
-                }// send backward to committee
-
+                }
         }
     }
 
     private postAction() {
-
-        // if (this.docAction == 'HSOV_PENINDG') {
-        //     this.formAction.patchValue({
-        //         toRole: this.hsovRole
-        //     });
-        // }
-
         this.loanFormService.postLoanAction(this.formAction.value).subscribe((response: any) => {
             const msg = `Successfully ${this.formAction.get('docActionMsg').value}`;
             this.toastService.show(new Alert(AlertType.SUCCESS, msg));
             this.sendLoanNotification(response.detail.customerLoanId);
             this.router.navigate(['/home/pending']);
-        }, error => {
-            this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
+        }, e => {
+            this.toastService.show(new Alert(AlertType.ERROR, e.error.message));
         });
     }
 

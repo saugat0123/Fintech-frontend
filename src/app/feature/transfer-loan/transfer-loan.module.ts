@@ -8,6 +8,8 @@ import {ThemeModule} from '../../@theme/theme.module';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {NbTooltipModule} from '@nebular/theme';
 import { VerificationActionModelComponent } from './components/verification-action-model/verification-action-model.component';
+import {LoanActionModalComponent} from '../loan/loan-action/loan-action-modal/loan-action-modal.component';
+import {LoanActionVerificationComponent} from '../loan/loan-action/loan-action-verification/loan-action-verification.component';
 
 
 
@@ -16,6 +18,8 @@ import { VerificationActionModelComponent } from './components/verification-acti
       SingleLoanTransferModelComponent,
       CombinedLoanTransferModelComponent,
       VerificationActionModelComponent,
+      LoanActionModalComponent,
+      LoanActionVerificationComponent
   ],
     imports: [
         ThemeModule,
@@ -28,6 +32,8 @@ import { VerificationActionModelComponent } from './components/verification-acti
     ],
     entryComponents: [SingleLoanTransferModelComponent,
         CombinedLoanTransferModelComponent,
-    VerificationActionModelComponent]
+        VerificationActionModelComponent,
+        LoanActionModalComponent,
+        LoanActionVerificationComponent]
 })
 export class TransferLoanModule { }

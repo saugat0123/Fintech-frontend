@@ -17,6 +17,7 @@ import {Document} from '../../admin/modal/document';
 import {EnumUtils} from '../../../@core/utils/enums.utils';
 import {LoanTag} from '../model/loanTag';
 import {NgxSpinnerService} from 'ngx-spinner';
+import {DocAction} from '../model/docAction';
 
 @Component({
     selector: 'app-summary-base',
@@ -162,6 +163,14 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
                 this.loanDataHolder.currentStage.docAction.toString() === 'REJECT' ||
                 this.loanDataHolder.currentStage.docAction.toString() === 'CLOSED') {
                 this.actionsList.approved = false;
+                this.actionsList.sendForward = false;
+                this.actionsList.edit = false;
+                this.actionsList.sendBackward = false;
+                this.actionsList.rejected = false;
+                this.actionsList.closed = false;
+            }
+            if (this.loanDataHolder.currentStage.docAction.toString() === DocAction.value(DocAction.REVERT_APPROVED)) {
+                this.actionsList.approved = true;
                 this.actionsList.sendForward = false;
                 this.actionsList.edit = false;
                 this.actionsList.sendBackward = false;

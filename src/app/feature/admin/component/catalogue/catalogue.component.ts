@@ -43,6 +43,7 @@ import {
 import {CreditMemoFullRoutes} from '../../../credit-memo/credit-memo-full-routes';
 import {CreditMemoService} from '../../../credit-memo/service/credit-memo.service';
 import {CreditMemoModalComponent} from './credit-memo-modal/credit-memo-modal.component';
+import {LoanActionModalComponent} from '../../../loan/loan-action/loan-action-modal/loan-action-modal.component';
 
 @Component({
     selector: 'app-catalogue',
@@ -84,6 +85,7 @@ export class CatalogueComponent implements OnInit {
     selectedUserForTransfer;
     provinces: Province[];
     usersId;
+    currentUserName: string;
     public typesDropdown: {
         name: string,
         value: string,
@@ -119,6 +121,8 @@ export class CatalogueComponent implements OnInit {
     isFileUnderCurrentToUser: any;
     loanConfigId: number;
     customerId: number;
+    isRemitLoan = false;
+    beneficiaryId: any;
 
     constructor(
         private branchService: BranchService,
@@ -159,6 +163,7 @@ export class CatalogueComponent implements OnInit {
 
     ngOnInit() {
         this.approvalType = LocalStorageUtil.getStorage().productUtil.LOAN_APPROVAL_HIERARCHY_LEVEL;
+        this.currentUserName = LocalStorageUtil.getStorage().username;
         this.activatedRoute.queryParams.subscribe(
             (paramsValue: Params) => {
                 this.redirected = paramsValue.redirect === 'true';
@@ -171,6 +176,9 @@ export class CatalogueComponent implements OnInit {
         if (LocalStorageUtil.getStorage().roleType === RoleType.MAKER) {
             this.isMaker = true;
         }
+        // if (LocalStorageUtil.getStorage().roleType === RoleType.APPROVAL) {
+        //     this.isMaker = true;
+        // }
         if (this.roleAccess === RoleAccess.SPECIFIC) {
             this.accessSpecific = true;
         } else if (this.roleAccess === RoleAccess.ALL) {
@@ -676,5 +684,74 @@ export class CatalogueComponent implements OnInit {
 
     onCloseMemo() {
         // this.activeModalService.dismiss();
+    }
+
+    revertApproveLoan(data) {
+        if (data.loan.loanTag === 'REMIT_LOAN' && data.loan.isRemitLoan) {
+            this.isRemitLoan = true;
+        }
+        if (!ObjectUtil.isEmpty(data.remitCustomer)) {
+            this.beneficiaryId = data.remitCustomer.beneficiaryId;
+        }
+        let context;
+        if (data.isHsov && data.documentStatus.toString() !== DocStatus.value(DocStatus.HSOV_PENDING)) {
+            context = {
+                popUpTitle: 'Revert Approved Loan',
+                isForward: false,
+                customerLoanHolder: data,
+                loanConfigId: data.loan.id.toString(),
+                customerLoanId: data.id.toString(),
+                branchId: data.branch.id,
+                docAction: 'REVERT_APPROVED',
+                docActionMsg: 'Revert Document Status to HSOV Pending',
+                documentStatus: DocStatus.HSOV_PENDING,
+                isRemitLoan: this.isRemitLoan,
+                beneficiaryId: this.beneficiaryId,
+                toUser: data.currentStage.toUser
+            };
+        } else if (data.dualApproval && !data.dualApproved) {
+            context = {
+                popUpTitle: 'Revert Approved Loan',
+                isForward: false,
+                customerLoanHolder: data,
+                loanConfigId: data.loan.id.toString(),
+                customerLoanId: data.id.toString(),
+                branchId: data.branch.id,
+                docAction: 'REVERT_APPROVED',
+                docActionMsg: 'Revert Document Status to Dual Approval Pending',
+                documentStatus: DocStatus.DUAL_APPROVAL_PENDING,
+                isRemitLoan: this.isRemitLoan,
+                beneficiaryId: this.beneficiaryId,
+                toUser: data.currentStage.toUser
+            };
+        } else {
+            context = {
+                popUpTitle: 'Revert Approved Loan',
+                isForward: false,
+                customerLoanHolder: data,
+                loanConfigId: data.loan.id.toString(),
+                customerLoanId: data.id.toString(),
+                branchId: data.branch.id,
+                docAction: 'REVERT_APPROVED',
+                docActionMsg: 'Revert Document Status to Pending',
+                documentStatus: DocStatus.PENDING,
+                isRemitLoan: this.isRemitLoan,
+                beneficiaryId: this.beneficiaryId,
+                toUser: data.currentStage.toUser
+            };
+        }
+        this.dialogRef = this.nbDialogService.open(LoanActionModalComponent, {
+           context,
+            closeOnBackdropClick: false,
+            hasBackdrop: false,
+            hasScroll: true
+        });
+        this.dialogRef.onClose.subscribe(d => {
+            if (ObjectUtil.isEmpty(d)) {
+                this.spinner = false;
+            } else {
+                this.spinner = true;
+            }
+        });
     }
 }
