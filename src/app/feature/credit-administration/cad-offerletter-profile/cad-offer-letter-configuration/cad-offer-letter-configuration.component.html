@@ -884,306 +884,645 @@
                     <div *ngFor="let guarantor of userConfigForm.get('guarantorDetails')['controls']; let i = index;"
                          class="form-group" formArrayName="guarantorDetails">
                         <div [formGroupName]="i">
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label class="title" for="guarantorName">ग्यारेन्टरको नाम</label>
-                                        <input class="form-control rounded nepaliFont"
-                                               formControlName="guarantorName"
-                                               id="guarantorName"
-                                               name="guarantorName" placeholder="ग्यारेन्टरको नाम"
-                                               type="text"/>
-                                    </div>
+                            <div *ngIf="client === clientList.PROGRESSIVE && customerInfo?.customerType === 'INSTITUTION'">
+                                <div class="form-group">
+                                    <label class="relationMedium" for="guarantorType">ग्यारेन्टरको प्राकार</label>
+                                    <select class="form-control" formControlName="guarantorType"
+                                            id="guarantorType" placeholder="Select Guarantor Type">
+                                        <option [value]= null hidden>Select Guarantor Type</option>
+                                        <option *ngFor="let guarantorType of guarantorTypeEnum"
+                                                [value]="guarantorType?.value">{{guarantorType?.value}}</option>
+                                    </select>
                                 </div>
                             </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-md-12 text-center">
-                                    <strong>स्थाई ठेगाना</strong>
-                                    <div class="offset-10 col-md-2">
+                            <div *ngIf="client === clientList.PROGRESSIVE && customerInfo?.customerType === 'INSTITUTION' &&
+                             userConfigForm?.get(['guarantorDetails', i, 'guarantorType'])?.value === 'Corporate Guarantor'">
+                                <div class="row">
+                                    <div class="col">
                                         <div class="form-group">
+                                            <label class="title">
+                                                कम्पनीको नाम </label>
+                                            <input class="form-control rounded nepaliFont"
+                                                   formControlName="companyNameGuarantor"
+                                                   name="companyNameGuarantor" placeholder="कम्पनीको नाम"
+                                                   type="text"/>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label class="title" for="guarantorPermanentProvince{{i}}">प्रदेश</label>
-                                        <ng-select bindLabel="nepaliName"
-                                                   (change)="getGuarantorDistricts(userConfigForm.get(['guarantorDetails', i, 'guarantorPermanentProvince'])?.value?.id, i, $event)"
-                                                   id="guarantorPermanentProvince{{i}}"
-                                                   formControlName="guarantorPermanentProvince"
-                                                   >
-                                            <ng-option *ngFor="let provinceVal of guarantorPermanentProvinceList"
-                                                       [value]="provinceVal"> {{provinceVal.nepaliName}}
-                                            </ng-option>
-                                        </ng-select>
+                                <div class="row">
+                                    <div class="col-md-12 text-center">
+                                        <label class="title">
+                                            <strong>कम्पनीको दर्ता ठेगाना</strong> </label>
                                     </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label class="title" for="guarantorPermanentDistrict{{i}}">जिल्ला</label>
-                                        <ng-select bindLabel="nepaliName"
-                                                   (change)="getGuarantorMunicipalities(userConfigForm.get(['guarantorDetails', i, 'guarantorPermanentDistrict'])?.value?.id, i, $event)"
-                                                   formControlName="guarantorPermanentDistrict"
-                                                   id="guarantorPermanentDistrict{{i}}"
-                                                   >
-                                            <ng-option *ngFor="let districtVal of guarantorPermanentDistrictList[i]"
-                                                       [value]="districtVal" >
-                                                {{districtVal.nepaliName}}
-                                            </ng-option>
-                                        </ng-select>
-                                    </div>
-                                </div>
-                                <div class="col mt-n2">
-                                    <div class="form-group">
-                                        <select class="form-control box" formControlName="guarantorPermanentMunType"
-                                                id="guarantorPermanentMunType">
-                                            <option [value]="null" hidden>नगरपालिका</option>
-                                            <option value="0">नगरपालिका</option>
-                                            <option value="1">गा. बि. स.</option>
-                                        </select>
-                                        <ng-select bindLabel="nepaliName"
-                                                   formControlName="guarantorPermanentMunicipality"
-                                                   id="guarantorPermanentMunicipality{{i}}"
-                                                   name="guarantorPermanentMunicipality"
-                                                   >
-                                            <ng-option *ngFor="let municipalityVal of guarantorPerMunicipalitiesList[i]"
-                                                       [value]="municipalityVal">
-                                                {{municipalityVal.nepaliName}}
-                                            </ng-option>
-                                        </ng-select>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label class="title" for="guarantorPermanentWard">वडा नं.</label>
+                                    <div class="form-group col-md-4">
+                                        <label class="title">
+                                            कम्पनीको जिल्ला </label>
                                         <input class="form-control rounded nepaliFont"
-                                               formControlName="guarantorPermanentWard"
-                                               id="guarantorPermanentWard"
-                                               name="guarantorPermanentWard" placeholder="वडा नं="
+                                               formControlName="companyDistrictGuarantor"
+                                               name="companyDistrictGuarantor" placeholder="कम्पनीको जिल्ला"
+                                               type="text"/>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label class="title">
+                                            कम्पनीको म.न.पा. ⁄ उ.म.न.पा. ⁄ न.पा. ⁄ गा.बि.स. </label>
+                                        <input class="form-control rounded nepaliFont"
+                                               formControlName="companyVdcMunGuarantor"
+                                               name="companyVdcMunGuarantor"
+                                               placeholder="कम्पनीको म=न=पा= ⁄ उ=म=न=पा= ⁄ न=पा= ⁄ गा=बि=स="
+                                               type="text"/>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label class="title">
+                                            कम्पनीको वडा नं. </label>
+                                        <input class="form-control rounded nepaliFont"
+                                               formControlName="companyWardNoGuarantor"
+                                               name="companyWardNoGuarantor" placeholder="कम्पनीको  वडा नं="
                                                type="text"/>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row" >
-                                <div class="col">
-                                    <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-12 text-center">
+                                        <label class="title">
+                                            <strong>दर्ता गर्ने अधिकार</strong></label>
                                     </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label>नागरिकता वमोजिम:</label>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label class="title"
-                                               for="guarantorPermanentVdc">
-                                            नगरपालिका/गा. बि. स.</label>
+                                    <div class="form-group col-md-6">
+                                        <label class="title">
+                                            नेपाल सरकारको मन्त्रालय </label>
                                         <input class="form-control rounded nepaliFont"
-                                               formControlName="guarantorPermanentVdc"
-                                               id="guarantorPermanentVdc"
-                                               name="guarantorPermanentVdc" placeholder="गा= बि= स="
+                                               formControlName="ministryOfGovernmentOfNepalGuarantor"
+                                               name="ministryOfGovernmentOfNepalGuarantor" placeholder="नेपाल सरकारको मन्त्रालय"
+                                               type="text"/>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label class="title">
+                                            विभाग </label>
+                                        <input class="form-control rounded nepaliFont"
+                                               formControlName="departmentGuarantor"
+                                               name="departmentGuarantor" placeholder="विभाग"
                                                type="text"/>
                                     </div>
                                 </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label class="title" for="guarantorPermanentVdcWard">वडा नं.</label>
-                                        <input
-                                                class="form-control rounded nepaliFont" formControlName="guarantorPermanentVdcWard"
-                                                id="guarantorPermanentVdcWard"
-                                                name="guarantorPermanentVdcWard" placeholder="वडा नं="
-                                                type="text">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label class="title text-center">
+                                            कम्पनी रजिस्ट्रार कार्यालय </label>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label class="title">
+                                            कम्पनी रजिस्ट्रार कार्यालयको जिल्ला </label>
+                                        <input class="form-control rounded nepaliFont"
+                                               formControlName="companyRegistrarOfficeDistrictGuarantor"
+                                               name="companyRegistrarOfficeDistrictGuarantor"
+                                               placeholder="कम्पनी रजिस्ट्रार कार्यालयको जिल्ला"
+                                               type="text"/>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label class="title">
+                                            कम्पनी रजिस्ट्रार कार्यालयको म.न.पा. ⁄ उ.म.न.पा. ⁄ न.पा. ⁄ गा.बि.स. </label>
+                                        <input class="form-control rounded nepaliFont"
+                                               formControlName="companyRegistrarOfficeVdcMunGuarantor"
+                                               name="companyRegistrarOfficeVdcMunGuarantor"
+                                               placeholder="कम्पनी रजिस्ट्रार कार्यालयको म=न=पा= ⁄ उ=म=न=पा= ⁄ न=पा= ⁄ गा=बि=स="
+                                               type="text"/>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label class="title">
+                                            कम्पनी रजिस्ट्रार कार्यालयको वडा नं. </label>
+                                        <input class="form-control rounded nepaliFont"
+                                               formControlName="companyRegistrarOfficeWardNoGuarantor"
+                                               name="companyRegistrarOfficeWardNoGuarantor"
+                                               placeholder="कम्पनी रजिस्ट्रार कार्यालयको वडा नं="
+                                               type="text"/>
                                     </div>
                                 </div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-md-12 text-center">
-                                    <strong>अस्थायी ठेगाना</strong>
-                                    <div class="offset-10 col-md-2">
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label class="title">
+                                            दर्ता ऐनको नाम </label>
+                                        <input class="form-control rounded nepaliFont"
+                                               formControlName="nameOfRegisteringActGuarantor"
+                                               name="nameOfRegisteringActGuarantor" placeholder="दर्ता ऐनको नाम"
+                                               type="text"/>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label class="title">
+                                            ऐन लागू भएको वर्ष </label>
+                                        <input class="form-control rounded nepaliFont"
+                                               formControlName="yearOfActEnactmentGuarantor"
+                                               name="yearOfActEnactmentGuarantor" placeholder="ऐन लागू भएको वर्ष"
+                                               type="text"/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label class="title">
+                                            दर्ता मिति </label>
+                                        <input class="form-control rounded nepaliFont"
+                                               formControlName="registrationDateGuarantor"
+                                               name="registrationDateGuarantor" placeholder="दर्ता मिति"
+                                               type="text"/>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label class="title">
+                                            कम्पनी दर्ता नं. </label>
+                                        <input class="form-control rounded nepaliFont"
+                                               formControlName="companyRegistrationNoGuarantor"
+                                               name="companyRegistrationNoGuarantor" placeholder="कम्पनी दर्ता नं="
+                                               type="text"/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <label class="title">
+                                            करदाता सेवा कार्यालय </label>
+                                        <input class="form-control rounded nepaliFont"
+                                               formControlName="taxPayerServiceOfficeGuarantor"
+                                               name="taxPayerServiceOfficeGuarantor" placeholder="करदाता सेवा कार्यालय"
+                                               type="text"/>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label class="title">
+                                            प्यान दर्ता मिति </label>
+                                        <input class="form-control rounded nepaliFont"
+                                               formControlName="panRegistrationDateGuarantor"
+                                               name="panRegistrationDateGuarantor" placeholder="प्यान दर्ता मिति"
+                                               type="text"/>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label class="title">
+                                            प्यान नं. </label>
+                                        <input class="form-control rounded nepaliFont"
+                                               formControlName="panNoGuarantor"
+                                               name="panNoGuarantor" placeholder="प्यान नं="
+                                               type="text"/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12 text-center">
+                                        <strong>कम्पनी को प्रतिनिधि</strong>
+                                    </div>
+                                    <div class="col">
                                         <div class="form-group">
+                                            <label class="title">हजुरबुबाको नाम</label>
+                                            <input class="form-control rounded nepaliFont"
+                                                   formControlName="representativeGrandFatherNameGuarantor"
+                                                   name="representativeGrandFatherNameGuarantor" placeholder="हजुरबुबाको नाम"
+                                                   type="text"/>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label class="title">पिताको नाम</label>
+                                            <input class="form-control rounded nepaliFont"
+                                                   formControlName="representativeFatherNameGuarantor"
+                                                   name="representativeFatherNameGuarantor" placeholder="पिताको नाम"
+                                                   type="text"/>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label class="title">पतिको/पत्नी नाम</label>
+                                            <input class="form-control rounded nepaliFont"
+                                                   formControlName="representativeHusbandWifeNameGuarantor"
+                                                   name="representativeHusbandWifeNameGuarantor" placeholder="पतिको÷पत्नी नाम"
+                                                   type="text"/>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label class="title" for="guarantorTemporaryProvince{{i}}">प्रदेश</label>
-                                        <ng-select bindLabel="nepaliName"
-                                                   (change)="getGuarantorTemporaryDistricts(userConfigForm.get(['guarantorDetails', i, 'guarantorTemporaryProvince'])?.value?.id, i, $event)"
-                                                   id="guarantorTemporaryProvince{{i}}"
-                                                   formControlName="guarantorTemporaryProvince"
-                                                   >
-                                            <ng-option *ngFor="let provinceVal of guarantorTemporaryProvinceList"
-                                                       [value]="provinceVal">
-                                                {{provinceVal.nepaliName}}
-                                            </ng-option>
-                                        </ng-select>
+                                <div class="row">
+                                    <div class="offset-10 col-md-2">
+                                        <div class="form-group">
+                                            <select class="form-control" formControlName="representativePermanentMunTypeGuarantor">
+                                                <option value="0">नगरपालिका</option>
+                                                <option value="1">गा. बि. स.</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label class="title">प्रतिनिधिको स्थायी
+                                                जिल्ला</label>
+                                            <input class="form-control rounded nepaliFont"
+                                                   formControlName="representativePermanentDistrictGuarantor"
+                                                   name="representativePermanentDistrictGuarantor"
+                                                   placeholder="प्रतिनिधिको स्थायी जिल्ला"
+                                                   type="text"/>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label class="title">{{basicInfoControls.representativePermanentMunType.value == 0
+                                                ? 'प्रतिनिधिको स्थायी नगरपालिका' : 'प्रतिनिधिको स्थायी गा. बि. स.'}}</label>
+                                            <input class="form-control rounded nepaliFont"
+                                                   formControlName="representativePermanentMunicipalityGuarantor"
+                                                   name="representativePermanentMunicipalityGuarantor" placeholder="{{basicInfoControls.representativePermanentMunType.value == 0
+                                    ? 'प्रतिनिधिको स्थायी नगरपालिका' : 'प्रतिनिधिको स्थायी गा= बि= स='}}"
+                                                   type="text"/>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label class="title">प्रतिनिधिको स्थायी वडा
+                                                नं.</label>
+                                            <input class="form-control rounded nepaliFont"
+                                                   formControlName="representativePermanentWardGuarantor"
+                                                   name="representativePermanentWardGuarantor" placeholder="प्रतिनिधिको स्थायी वडा नं="
+                                                   type="text"/>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label class="title" for="guarantorTemporaryDistrict{{i}}">जिल्ला</label>
-                                        <ng-select bindLabel="nepaliName"
-                                                   (change)="getGuarantorTemporaryMunicipalities(userConfigForm.get(['guarantorDetails', i, 'guarantorTemporaryDistrict'])?.value?.id, i, $event)"
-                                                   formControlName="guarantorTemporaryDistrict"
-                                                   id="guarantorTemporaryDistrict{{i}}"
-                                                   >
-                                            <ng-option *ngFor="let districtVal of guarantorTemporaryDistrictList[i]"
-                                                       [value]="districtVal">
-                                                {{districtVal.nepaliName}}
-                                            </ng-option>
-                                        </ng-select>
+                                <div class="row">
+                                    <div class="offset-10 col-md-2">
+                                        <div class="form-group">
+                                            <select class="form-control" formControlName="representativeTemporaryMunTypeGuarantor">
+                                                <option value="0">नगरपालिका</option>
+                                                <option value="1">गा. बि. स.</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label class="title">प्रतिनिधिको अस्थायी
+                                                जिल्ला</label>
+                                            <input class="form-control rounded nepaliFont"
+                                                   formControlName="representativeTemporaryDistrictGuarantor"
+                                                   name="representativeTemporaryDistrictGuarantor"
+                                                   placeholder="प्रतिनिधिको अस्थायी जिल्ला"
+                                                   type="text"/>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label class="title">{{basicInfoControls.representativeTemporaryMunType.value == 0
+                                                ? 'प्रतिनिधिको अस्थायी नगरपालिका' : 'प्रतिनिधिको अस्थायी गा. बि. स.'}}</label>
+                                            <input class="form-control rounded nepaliFont"
+                                                   formControlName="representativeTemporaryMunicipalityGuarantor"
+                                                   name="representativeTemporaryMunicipalityGuarantor" placeholder="{{basicInfoControls.representativeTemporaryMunType.value == 0
+                                    ? 'प्रतिनिधिको अस्थायी नगरपालिका' : 'प्रतिनिधिको अस्थायी गा= बि= स='}}"
+                                                   type="text"/>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label class="title">प्रतिनिधिको अस्थायी वडा
+                                                नं.</label>
+                                            <input class="form-control rounded nepaliFont"
+                                                   formControlName="representativeTemporaryWardGuarantor"
+                                                   name="representativeTemporaryWardGuarantor" placeholder="प्रतिनिधिको अस्थायी वडा नं="
+                                                   type="text"/>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col mt-n2">
-                                    <div class="form-group">
-                                        <select class="form-control box" formControlName="guarantorTemporaryMunType"
-                                                id="guarantorTemporaryMunType">
-                                            <option [value]="null" hidden>नगरपालिका</option>
-                                            <option value="0">नगरपालिका</option>
-                                            <option value="1">गा. बि. स.</option>
-                                        </select>
-                                        <ng-select bindLabel="nepaliName"
-                                                   formControlName="guarantorTemporaryMunicipality"
-                                                   id="guarantorTemporaryMunicipality{{i}}"
-                                                   name="guarantorTemporaryMunicipality"
-                                                   >
-                                            <ng-option *ngFor="let municipalityVal of guarantorTemMunicipalitiesList[i]"
-                                                       [value]="municipalityVal">
-                                                {{municipalityVal.nepaliName}}
-                                            </ng-option>
-                                        </ng-select>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label class="title" for="guarantorTemporaryWard">वडा नं.</label>
+                                <div class="row">
+                                    <div class="form-group col-md-6">
+                                        <label class="title">
+                                            उधारकर्ताको उमेर</label>
                                         <input class="form-control rounded nepaliFont"
-                                               formControlName="guarantorTemporaryWard"
-                                               id="guarantorTemporaryWard"
-                                               name="guarantorTemporaryWard" placeholder="वडा नं="
+                                               formControlName="borrowerAgeGuarantor"
+                                               name="borrowerAgeGuarantor" placeholder="उधारकर्ताको उमेर"
+                                               type="text"/>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label class="title">
+                                            प्रतिनिधिको नाम </label>
+                                        <input class="form-control rounded nepaliFont"
+                                               formControlName="representativeNameGuarantor"
+                                               name="representativeNameGuarantor" placeholder="प्रतिनिधिको नाम"
+                                               type="text"/>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-group col-md-4">
+                                        <label class="title">
+                                            प्रतिनिधिको नगरिकता नम्बर </label>
+                                        <input class="form-control rounded nepaliFont"
+                                               formControlName="representativeCitizenshipNoGuarantor"
+                                               name="representativeCitizenshipNoGuarantor" placeholder="प्रतिनिधिको नगरिकता नम्बर"
+                                               type="text"/>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label class="title">
+                                            प्रतिनिधि नागरिकता जारी मिति </label>
+                                        <input class="form-control rounded nepaliFont"
+                                               formControlName="representativeCitizenshipIssueDateGuarantor"
+                                               name="representativeCitizenshipIssueDateGuarantor"
+                                               placeholder="प्रतिनिधि नागरिकता जारी मिति"
+                                               type="text"/>
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <label class="title">
+                                            प्रतिनिधि नागरिकता जारी गर्ने प्राधिकरण </label>
+                                        <input class="form-control rounded nepaliFont"
+                                               formControlName="representativeCitizenshipIssuingAuthorityGuarantor"
+                                               name="representativeCitizenshipIssuingAuthorityGuarantor"
+                                               placeholder="प्रतिनिधि नागरिकता जारी गर्ने प्राधिकरण"
                                                type="text"/>
                                     </div>
                                 </div>
                             </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label class="title" for="guarantorFatherName">बुवाको नाम</label>
-                                        <input class="form-control rounded nepaliFont"
-                                               formControlName="guarantorFatherName"
-                                               id="guarantorFatherName"
-                                               name="guarantorFatherName" placeholder="बुवाको नाम"
-                                               type="text"/>
+                            <div *ngIf="client === clientList.PROGRESSIVE && customerInfo?.customerType === 'INDIVIDUAL' ||
+                             (customerInfo?.customerType === 'INSTITUTION' && userConfigForm?.get(['guarantorDetails', i, 'guarantorType'])?.value === 'Personal Guarantor')">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label class="title" for="guarantorName">ग्यारेन्टरको नाम</label>
+                                            <input class="form-control rounded nepaliFont"
+                                                   formControlName="guarantorName"
+                                                   id="guarantorName"
+                                                   name="guarantorName" placeholder="ग्यारेन्टरको नाम"
+                                                   type="text"/>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label class="title" for="guarantorGrandfatherName">हजुरबुबाको नाम</label>
-                                        <input class="form-control rounded nepaliFont"
-                                               formControlName="guarantorGrandfatherName"
-                                               id="guarantorGrandfatherName"
-                                               name="guarantorGrandfatherName" placeholder="हजुरबुबाको नाम"
-                                               type="text"/>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-12 text-center">
+                                        <strong>स्थाई ठेगाना</strong>
+                                        <div class="offset-10 col-md-2">
+                                            <div class="form-group">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label class="title" for="guarantorPermanentProvince{{i}}">प्रदेश</label>
+                                            <ng-select bindLabel="nepaliName"
+                                                       (change)="getGuarantorDistricts(userConfigForm.get(['guarantorDetails', i, 'guarantorPermanentProvince'])?.value?.id, i, $event)"
+                                                       id="guarantorPermanentProvince{{i}}"
+                                                       formControlName="guarantorPermanentProvince"
+                                                       >
+                                                <ng-option *ngFor="let provinceVal of guarantorPermanentProvinceList"
+                                                           [value]="provinceVal"> {{provinceVal.nepaliName}}
+                                                </ng-option>
+                                            </ng-select>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label class="title" for="guarantorPermanentDistrict{{i}}">जिल्ला</label>
+                                            <ng-select bindLabel="nepaliName"
+                                                       (change)="getGuarantorMunicipalities(userConfigForm.get(['guarantorDetails', i, 'guarantorPermanentDistrict'])?.value?.id, i, $event)"
+                                                       formControlName="guarantorPermanentDistrict"
+                                                       id="guarantorPermanentDistrict{{i}}"
+                                                       >
+                                                <ng-option *ngFor="let districtVal of guarantorPermanentDistrictList[i]"
+                                                           [value]="districtVal" >
+                                                    {{districtVal.nepaliName}}
+                                                </ng-option>
+                                            </ng-select>
+                                        </div>
+                                    </div>
+                                    <div class="col mt-n2">
+                                        <div class="form-group">
+                                            <select class="form-control box" formControlName="guarantorPermanentMunType"
+                                                    id="guarantorPermanentMunType">
+                                                <option [value]="null" hidden>नगरपालिका</option>
+                                                <option value="0">नगरपालिका</option>
+                                                <option value="1">गा. बि. स.</option>
+                                            </select>
+                                            <ng-select bindLabel="nepaliName"
+                                                       formControlName="guarantorPermanentMunicipality"
+                                                       id="guarantorPermanentMunicipality{{i}}"
+                                                       name="guarantorPermanentMunicipality"
+                                                       >
+                                                <ng-option *ngFor="let municipalityVal of guarantorPerMunicipalitiesList[i]"
+                                                           [value]="municipalityVal">
+                                                    {{municipalityVal.nepaliName}}
+                                                </ng-option>
+                                            </ng-select>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label class="title" for="guarantorPermanentWard">वडा नं.</label>
+                                            <input class="form-control rounded nepaliFont"
+                                                   formControlName="guarantorPermanentWard"
+                                                   id="guarantorPermanentWard"
+                                                   name="guarantorPermanentWard" placeholder="वडा नं="
+                                                   type="text"/>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label class="title" for="guarantorFatherInLawName">ससुराको नाम</label>
-                                        <input class="form-control rounded nepaliFont"
-                                               formControlName="guarantorFatherInLawName"
-                                               id="guarantorFatherInLawName"
-                                               name="guarantorFatherInLawName" placeholder="ससुराको नाम"
-                                               type="text"/>
+                                <div class="row" >
+                                    <div class="col">
+                                        <div class="form-group">
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label>नागरिकता वमोजिम:</label>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label class="title"
+                                                   for="guarantorPermanentVdc">
+                                                नगरपालिका/गा. बि. स.</label>
+                                            <input class="form-control rounded nepaliFont"
+                                                   formControlName="guarantorPermanentVdc"
+                                                   id="guarantorPermanentVdc"
+                                                   name="guarantorPermanentVdc" placeholder="गा= बि= स="
+                                                   type="text"/>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label class="title" for="guarantorPermanentVdcWard">वडा नं.</label>
+                                            <input
+                                                    class="form-control rounded nepaliFont" formControlName="guarantorPermanentVdcWard"
+                                                    id="guarantorPermanentVdcWard"
+                                                    name="guarantorPermanentVdcWard" placeholder="वडा नं="
+                                                    type="text">
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label class="title" for="guarantorSpouseName">पति/पत्नीको नाम</label>
-                                        <input class="form-control rounded nepaliFont"
-                                               formControlName="guarantorSpouseName"
-                                               id="guarantorSpouseName"
-                                               name="guarantorSpouseName" placeholder="पति÷पत्नीको नाम"
-                                               type="text"/>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-12 text-center">
+                                        <strong>अस्थायी ठेगाना</strong>
+                                        <div class="offset-10 col-md-2">
+                                            <div class="form-group">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label class="title" for="guarantorTemporaryProvince{{i}}">प्रदेश</label>
+                                            <ng-select bindLabel="nepaliName"
+                                                       (change)="getGuarantorTemporaryDistricts(userConfigForm.get(['guarantorDetails', i, 'guarantorTemporaryProvince'])?.value?.id, i, $event)"
+                                                       id="guarantorTemporaryProvince{{i}}"
+                                                       formControlName="guarantorTemporaryProvince"
+                                                       >
+                                                <ng-option *ngFor="let provinceVal of guarantorTemporaryProvinceList"
+                                                           [value]="provinceVal">
+                                                    {{provinceVal.nepaliName}}
+                                                </ng-option>
+                                            </ng-select>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label class="title" for="guarantorTemporaryDistrict{{i}}">जिल्ला</label>
+                                            <ng-select bindLabel="nepaliName"
+                                                       (change)="getGuarantorTemporaryMunicipalities(userConfigForm.get(['guarantorDetails', i, 'guarantorTemporaryDistrict'])?.value?.id, i, $event)"
+                                                       formControlName="guarantorTemporaryDistrict"
+                                                       id="guarantorTemporaryDistrict{{i}}"
+                                                       >
+                                                <ng-option *ngFor="let districtVal of guarantorTemporaryDistrictList[i]"
+                                                           [value]="districtVal">
+                                                    {{districtVal.nepaliName}}
+                                                </ng-option>
+                                            </ng-select>
+                                        </div>
+                                    </div>
+                                    <div class="col mt-n2">
+                                        <div class="form-group">
+                                            <select class="form-control box" formControlName="guarantorTemporaryMunType"
+                                                    id="guarantorTemporaryMunType">
+                                                <option [value]="null" hidden>नगरपालिका</option>
+                                                <option value="0">नगरपालिका</option>
+                                                <option value="1">गा. बि. स.</option>
+                                            </select>
+                                            <ng-select bindLabel="nepaliName"
+                                                       formControlName="guarantorTemporaryMunicipality"
+                                                       id="guarantorTemporaryMunicipality{{i}}"
+                                                       name="guarantorTemporaryMunicipality"
+                                                       >
+                                                <ng-option *ngFor="let municipalityVal of guarantorTemMunicipalitiesList[i]"
+                                                           [value]="municipalityVal">
+                                                    {{municipalityVal.nepaliName}}
+                                                </ng-option>
+                                            </ng-select>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label class="title" for="guarantorTemporaryWard">वडा नं.</label>
+                                            <input class="form-control rounded nepaliFont"
+                                                   formControlName="guarantorTemporaryWard"
+                                                   id="guarantorTemporaryWard"
+                                                   name="guarantorTemporaryWard" placeholder="वडा नं="
+                                                   type="text"/>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label class="title" for="citizenNumber">नगरिकता नम्बर</label>
-                                        <input class="form-control rounded nepaliFont"
-                                               formControlName="citizenNumber"
-                                               id="citizenNumber"
-                                               name="citizenNumber" placeholder="नगरिकता नम्बर"
-                                               type="text"/>
+                                <hr>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label class="title" for="guarantorFatherName">बुवाको नाम</label>
+                                            <input class="form-control rounded nepaliFont"
+                                                   formControlName="guarantorFatherName"
+                                                   id="guarantorFatherName"
+                                                   name="guarantorFatherName" placeholder="बुवाको नाम"
+                                                   type="text"/>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label class="title" for="guarantorGrandfatherName">हजुरबुबाको नाम</label>
+                                            <input class="form-control rounded nepaliFont"
+                                                   formControlName="guarantorGrandfatherName"
+                                                   id="guarantorGrandfatherName"
+                                                   name="guarantorGrandfatherName" placeholder="हजुरबुबाको नाम"
+                                                   type="text"/>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label class="title" for="guarantorFatherInLawName">ससुराको नाम</label>
+                                            <input class="form-control rounded nepaliFont"
+                                                   formControlName="guarantorFatherInLawName"
+                                                   id="guarantorFatherInLawName"
+                                                   name="guarantorFatherInLawName" placeholder="ससुराको नाम"
+                                                   type="text"/>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label class="title" for="guarantorSpouseName">पति/पत्नीको नाम</label>
+                                            <input class="form-control rounded nepaliFont"
+                                                   formControlName="guarantorSpouseName"
+                                                   id="guarantorSpouseName"
+                                                   name="guarantorSpouseName" placeholder="पति÷पत्नीको नाम"
+                                                   type="text"/>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label class="title" for="issuedYear">नगरिकता जारी मिति</label>
-                                        <input  class="form-control rounded nepaliFont"
-                                                formControlName="issuedYear"
-                                                id="issuedYear"
-                                                name="issuedYear" placeholder="जारी मिति"
-                                                type="text"/>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label class="title" for="citizenNumber">नगरिकता नम्बर</label>
+                                            <input class="form-control rounded nepaliFont"
+                                                   formControlName="citizenNumber"
+                                                   id="citizenNumber"
+                                                   name="citizenNumber" placeholder="नगरिकता नम्बर"
+                                                   type="text"/>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label class="title" for="issuedYear">नगरिकता जारी मिति</label>
+                                            <input  class="form-control rounded nepaliFont"
+                                                    formControlName="issuedYear"
+                                                    id="issuedYear"
+                                                    name="issuedYear" placeholder="जारी मिति"
+                                                    type="text"/>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label class="title" for="guarantorIssueDistrict">नगरिकता जारी जिल्ला</label>
+                                            <input class="form-control rounded nepaliFont"
+                                                   formControlName="issuedPlace"
+                                                   id="guarantorIssueDistrict"
+                                                   name="guarantorIssueDistrict" placeholder="जारी जिल्ला"
+                                                   type="text"/>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label class="title" for="guarantorIssueDistrict">नगरिकता जारी जिल्ला</label>
-                                        <input class="form-control rounded nepaliFont"
-                                               formControlName="issuedPlace"
-                                               id="guarantorIssueDistrict"
-                                               name="guarantorIssueDistrict" placeholder="जारी जिल्ला"
-                                               type="text"/>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label class="relationMedium" for="relationship">सम्बन्धको
+                                                माध्यम</label>
+                                            <select class="form-control" formControlName="relationship"
+                                                    id="relationship">
+                                                <option *ngFor="let relationship of relationshipList"
+                                                        [value]="relationship.value">{{relationship?.value}}</option>
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label class="relationMedium" for="relationship">सम्बन्धको
-                                            माध्यम</label>
-                                        <select class="form-control" formControlName="relationship"
-                                                id="relationship">
-                                            <option *ngFor="let relationship of relationshipList"
-                                                    [value]="relationship.value">{{relationship?.value}}</option>
-                                        </select>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label class="title" for="guarantorMobileNumber">मोबाइल नम्बर</label>
+                                            <input class="form-control rounded nepaliFont"
+                                                   formControlName="guarantorMobileNumber"
+                                                   id="guarantorMobileNumber"
+                                                   name="guarantorMobileNumber" placeholder="मोबाइल नम्बर"
+                                                   type="text"/>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label class="title" for="guarantorMobileNumber">मोबाइल नम्बर</label>
-                                        <input class="form-control rounded nepaliFont"
-                                               formControlName="guarantorMobileNumber"
-                                               id="guarantorMobileNumber"
-                                               name="guarantorMobileNumber" placeholder="मोबाइल नम्बर"
-                                               type="text"/>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label class="title" for="guarantorEmailAddress">
+                                                इमेल</label>
+                                            <input type="email"
+                                                   placeholder="इमेल ठेगाना"
+                                                   class="form-control rounded"
+                                                   id="guarantorEmailAddress"
+                                                   formControlName="guarantorEmailAddress"/>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label class="title" for="guarantorEmailAddress">
-                                            इमेल</label>
-                                        <input type="email"
-                                               placeholder="इमेल ठेगाना"
-                                               class="form-control rounded"
-                                               id="guarantorEmailAddress"
-                                               formControlName="guarantorEmailAddress"/>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label class="title" for="guarantorAge">ग्यारेन्टरको उमेर</label>
-                                        <input class="form-control rounded nepaliFont"
-                                               formControlName="guarantorAge"
-                                               id="guarantorAge"
-                                               name="guarantorAge" placeholder="ग्यारेन्टरको उमेर"
-                                               type="text"/>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label class="title" for="guarantorAge">ग्यारेन्टरको उमेर</label>
+                                            <input class="form-control rounded nepaliFont"
+                                                   formControlName="guarantorAge"
+                                                   id="guarantorAge"
+                                                   name="guarantorAge" placeholder="ग्यारेन्टरको उमेर"
+                                                   type="text"/>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
