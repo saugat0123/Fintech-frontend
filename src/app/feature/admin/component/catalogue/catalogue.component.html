@@ -273,11 +273,16 @@
                                class="text-success cursor">{{loanType[model.loanType]}} From
                                 <em class="p-1 fa fa-edit"></em></a>
                         </div>
-                        <div *ngIf="!model?.cadStageChecked && model?.documentStatus.toString() === 'APPROVED' &&
-                                (model?.currentStage?.toUser?.username === currentUserName); else notCadStage">
-                            <button nbButton status="warning" size="tiny"
-                                    (click)="revertApproveLoan(model)" nbTooltip="click to Revert Loan">
+                        <div *ngIf="!model?.childId; else notCadStage">
+                            <span *ngIf="!model?.cadStageChecked && model?.documentStatus.toString() === 'APPROVED' &&
+                                (model?.currentStage?.toUser?.username === currentUserName); else na">
+                                <button nbButton status="warning" size="tiny"
+                                        (click)="revertApproveLoan(model)" nbTooltip="click to Revert Loan">
                                 <em class="fa fa-arrow-circle-left"></em></button>
+                            </span>
+                            <ng-template #na>
+                                <p>NA</p>
+                            </ng-template>
                         </div>
                         <ng-template #notCadStage>
                             <div *ngIf='!model.parentId && !((model?.documentStatus.toString() === "REJECTED") && canReInitiateLoan)'>
