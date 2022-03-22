@@ -221,8 +221,7 @@ export class SingleLoanTransferModelComponent implements OnInit  {
       this.sendLoanNotification(response.detail.customerLoanId);
       this.router.navigate(['/home/pending']);
     }, error => {
-      console.log('error', error);
-      this.toastService.show(new Alert(AlertType.ERROR, 'Error occur while transferring loan'));
+      this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
     });
   }
 

@@ -312,9 +312,8 @@ export class LoanActionModalComponent implements OnInit {
             this.toastService.show(new Alert(AlertType.SUCCESS, msg));
             this.sendLoanNotification(response.detail.customerLoanId);
             this.router.navigate(['/home/pending']);
-        }, error => {
-            const errorMsg = `Error while performing ${this.formAction.get('docActionMsg').value}`;
-            this.toastService.show(new Alert(AlertType.ERROR, errorMsg));
+        }, e => {
+            this.toastService.show(new Alert(AlertType.ERROR, e.error.message));
         });
     }
 
