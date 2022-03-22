@@ -80,9 +80,7 @@ export class LoanActionModalComponent implements OnInit {
     }
 
     ngOnInit() {
-        console.log('I am called form catalofue');
         this.formAction = this.buildForm();
-        console.log('Local Storage', LocalStorageUtil.getStorage());
         this.roleId = parseInt(LocalStorageUtil.getStorage().roleId, 10);
         this.conditionalDataLoad();
         if (!ObjectUtil.isEmpty(this.customerLoanHolder)) {
@@ -94,7 +92,6 @@ export class LoanActionModalComponent implements OnInit {
         }
         this.getHsovUserList();
         this.getHsovRole();
-        console.log('toUser', this.toUser);
         if (!ObjectUtil.isEmpty(this.toUser)) {
             this.formAction.patchValue({
                 toUser: this.toUser,
@@ -132,7 +129,6 @@ export class LoanActionModalComponent implements OnInit {
                 } else if ((role.roleType === RoleType.COMMITTEE) && this.userList.length > 1) {
                     const committeeDefaultUser = this.userList.filter(f => f.name.toLowerCase().includes('default'));
                     this.showUserList = false;
-                    console.log('show user list is false', this.showUserList);
 
                     if (committeeDefaultUser.length === 0) {
                         this.formAction.patchValue({
@@ -156,7 +152,6 @@ export class LoanActionModalComponent implements OnInit {
                 this.spinner = false;
             });
         });
-        console.log('userlist formAction', this.formAction);
     }
 
     public onSubmit() {
@@ -333,7 +328,8 @@ export class LoanActionModalComponent implements OnInit {
             this.sendLoanNotification(response.detail.customerLoanId);
             this.router.navigate(['/home/pending']);
         }, error => {
-            this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
+            const errorMsg = `Error while performing ${this.formAction.get('docActionMsg').value}`;
+            this.toastService.show(new Alert(AlertType.ERROR, errorMsg));
         });
     }
 
