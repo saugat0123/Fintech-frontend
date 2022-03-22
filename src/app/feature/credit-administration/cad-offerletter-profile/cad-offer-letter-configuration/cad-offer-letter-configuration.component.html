@@ -771,6 +771,42 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row" >
+                            <div class="col">
+                                <div class="form-group">
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label>नागरिकता वमोजिम:</label>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label class="title"
+                                           for="representativePermanentVdc">
+                                        नगरपालिका/गा. बि. स.</label>
+                                    <input class="form-control rounded nepaliFont"
+                                           formControlName="representativePermanentVdc"
+                                           [ngClass]="{'is-invalid': submitted && basicInfoControls.representativePermanentVdc.errors}"
+                                           id="representativePermanentVdc"
+                                           name="representativePermanentVdc" placeholder="गा= बि= स="
+                                           type="text"/>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label class="title" for="representativePermanentVdcWard">वडा नं.</label>
+                                    <input
+                                            [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.representativePermanentVdcWard.errors }"
+                                            class="form-control rounded nepaliFont" formControlName="representativePermanentVdcWard"
+                                            id="representativePermanentVdcWard"
+                                            name="representativePermanentVdcWard" placeholder="वडा नं="
+                                            type="text">
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
                         <div class="row">
                             <div class="offset-10 col-md-2">
                                 <div class="form-group">
