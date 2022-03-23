@@ -15,5 +15,4 @@ export class LetterOfDisbursementPrintComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }

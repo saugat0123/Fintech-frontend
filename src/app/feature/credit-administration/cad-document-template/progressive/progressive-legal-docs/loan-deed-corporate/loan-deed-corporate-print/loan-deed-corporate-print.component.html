@@ -19,8 +19,8 @@
             {{printDocForm?.municipality === null || printDocForm?.municipality === '' ? '________________' : printDocForm.municipality }}
           </span>
                     गा.पा./न.पा./उ.म.न.पा./म.न.पा. वडा नं.<span
-                        [ngClass]="{'nepaliFont sizeFont':printDocForm?.wadNo!==null && printDocForm.wadNo!==''}">
-            {{printDocForm?.wadNo === null || printDocForm?.wadNo === '' ? '________________' : printDocForm.wadNo }}
+                        [ngClass]="{'nepaliFont sizeFont':printDocForm?.wardNo!==null && printDocForm.wardNo!==''}">
+            {{printDocForm?.wardNo === null || printDocForm?.wardNo === '' ? '________________' : printDocForm.wardNo }}
           </span>
                     स्थित <span
                         [ngClass]="{'nepaliFont sizeFont':printDocForm?.branchName!==null && printDocForm.branchName!==''}">
@@ -113,8 +113,8 @@
             {{printDocForm?.likhitMunicipalty === null || printDocForm?.likhitMunicipalty === '' ? '________________' : printDocForm.likhitMunicipalty }}
           </span>
                     गा.पा./न.पा./उ.म.न.पा./म.न.पा.वडा नं.<span
-                        [ngClass]="{'nepaliFont':printDocForm?.likhitWadNo!==null && printDocForm.likhitWadNo!==''}">
-            {{printDocForm?.likhitWadNo === null || printDocForm?.likhitWadNo === '' ? '________________' : printDocForm.likhitWadNo }}
+                        [ngClass]="{'nepaliFont':printDocForm?.likhitWardNo!==null && printDocForm.likhitWardNo!==''}">
+            {{printDocForm?.likhitWardNo === null || printDocForm?.likhitWardNo === '' ? '________________' : printDocForm.likhitWardNo }}
           </span>
                     स्थायी ठेगाना भई हाल <span
                         [ngClass]="{'nepaliFont':printDocForm?.tempVDC!==null && printDocForm.tempVDC!==''}">
@@ -126,8 +126,8 @@
             {{printDocForm?.staDistrict === null || printDocForm?.staDistrict === '' ? '________________' : printDocForm.staDistrict }}
           </span>
                     गा.पा./न.पा./उ.म.न.पा./म.न.पा.वडा नं.<span
-                        [ngClass]="{'nepaliFont':printDocForm?.tempWadNo!==null && printDocForm.tempWadNo!==''}">
-            {{printDocForm?.tempWadNo === null || printDocForm?.tempWadNo === '' ? '________________' : printDocForm.tempWadNo }}
+                        [ngClass]="{'nepaliFont':printDocForm?.tempWardNo!==null && printDocForm.tempWardNo!==''}">
+            {{printDocForm?.tempWardNo === null || printDocForm?.tempWardNo === '' ? '________________' : printDocForm.tempWardNo }}
           </span>,
                     बस्ने वर्ष <span [ngClass]="{'nepaliFont':printDocForm?.age!==null && printDocForm.age!==''}">
             {{printDocForm?.age === null || printDocForm?.age === '' ? '________________' : printDocForm.age }}
@@ -260,7 +260,7 @@
                             <td><span class="nepaliFont">{{guarantor?.SecuritiesSNBibaran}}</span></td>
                             <td><span class="nepaliFont">{{guarantor?.SecuritiesDistrict}}</span></td>
                             <td><span class="nepaliFont">{{guarantor?.SecuritiesMunicipality}}</span></td>
-                            <td><span class="nepaliFont">{{guarantor?.SecuritiesWadNo}}</span></td>
+                            <td><span class="nepaliFont">{{guarantor?.SecuritiesWardNo}}</span></td>
                             <td><span class="nepaliFont">{{guarantor?.SecuritiesKeyNo}}</span></td>
                             <td><span class="nepaliFont">{{guarantor?.SecuritiesArea}}</span></td>
                             <td><span class="nepaliFont">{{guarantor?.SecuritiesRegNo}}</span></td>
@@ -303,8 +303,8 @@
                                     {{printDocForm?.guarantorMunicipality === null || printDocForm?.guarantorMunicipality === '' ? '________________' : printDocForm.guarantorMunicipality }}
                                   </span>
                         गा.पा./म.न.पा. वडा नं.<span
-                                [ngClass]="{'nepaliFont':printDocForm?.guarantorWadNo!==null && printDocForm.guarantorWadNo!==''}">
-                                    {{printDocForm?.guarantorWadNo === null || printDocForm?.guarantorWadNo === '' ? '________________' : printDocForm.guarantorWadNo }}
+                                [ngClass]="{'nepaliFont':printDocForm?.guarantorWardNo!==null && printDocForm.guarantorWardNo!==''}">
+                                    {{printDocForm?.guarantorWardNo === null || printDocForm?.guarantorWardNo === '' ? '________________' : printDocForm.guarantorWardNo }}
                                   </span>
                     </p>
                 </div>
@@ -339,8 +339,8 @@
                                     {{printDocForm?.guarantorMunicipality1 === null || printDocForm?.guarantorMunicipality1 === '' ? '________________' : printDocForm.guarantorMunicipality1 }}
                                   </span>
                         गा.पा./म.न.पा. वडा नं.<span
-                                [ngClass]="{'nepaliFont':printDocForm?.guarantorWadNo1!==null && printDocForm.guarantorWadNo1!==''}">
-                                    {{printDocForm?.guarantorWadNo1 === null || printDocForm?.guarantorWadNo1 === '' ? '________________' : printDocForm.guarantorWadNo1 }}
+                                [ngClass]="{'nepaliFont':printDocForm?.guarantorWardNo1!==null && printDocForm.guarantorWardNo1!==''}">
+                                    {{printDocForm?.guarantorWardNo1 === null || printDocForm?.guarantorWardNo1 === '' ? '________________' : printDocForm.guarantorWardNo1 }}
                                   </span>
                     </p>
                 </div>

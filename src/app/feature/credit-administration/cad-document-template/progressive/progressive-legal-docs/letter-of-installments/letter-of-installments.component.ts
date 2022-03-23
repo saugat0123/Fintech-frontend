@@ -33,6 +33,7 @@ export class LetterOfInstallmentsComponent implements OnInit {
   offerLetterDocument: Document;
   nepaliData;
   nepDataPersonal: any;
+  isIndividual = false;
 
   constructor(private formBuilder: FormBuilder,
               private nepToEngNumberPipe: NepaliToEngNumberPipe,
@@ -49,6 +50,13 @@ export class LetterOfInstallmentsComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData.nepDataPersonal)) {
       this.nepDataPersonal = JSON.parse(this.cadData.nepDataPersonal);
     }
+    if (!ObjectUtil.isEmpty(this.cadData)) {
+      if (this.cadData.assignedLoan[0].loanHolder.customerType.toString() === 'INDIVIDUAL') {
+        this.isIndividual = true;
+      } else {
+        this.isIndividual = false;
+      }
+    }
     this.fillForm();
   }
 
@@ -58,7 +66,7 @@ export class LetterOfInstallmentsComponent implements OnInit {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
           const initialInfo = JSON.parse(singleCadFile.initialInformation);
           this.initialInfoPrint = initialInfo;
-          //this.setGuarantorDetails(initialInfo.guarantorData);
+          // this.setGuarantorDetails(initialInfo.guarantorData);
           this.form.patchValue(this.initialInfoPrint);
         }
       });
@@ -68,15 +76,18 @@ export class LetterOfInstallmentsComponent implements OnInit {
       const loanAmount = JSON.parse(this.cadData.nepData);
       this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
       this.form.patchValue({
-        customerName: this.nepaliData.name ? this.nepaliData.name : '',
+        customerName:  this.isIndividual ? this.nepaliData.name : this.nepaliData.companyName,
+        customerName2: this.isIndividual ? this.nepaliData.name : this.nepaliData.representativeName,
         branchName : this.nepaliData.branchName ? this.nepaliData.branchName : '',
         karjaAmount : loanAmount.numberNepali ? loanAmount.numberNepali : '',
         timePeriod : this.nepDataPersonal.tenureOfLoanInMonths ? this.nepDataPersonal.tenureOfLoanInMonths : '',
-        //kistaAmount : this.nepDataPersonal.installmentAmount ? this.nepDataPersonal.installmentAmount : '',
+        // kistaAmount : this.nepDataPersonal.installmentAmount ? this.nepDataPersonal.installmentAmount : '',
         guarantorName: !ObjectUtil.isEmpty(this.nepaliData.guarantorDetails) ? this.nepaliData.guarantorDetails[0].guarantorName : '',
         guarantorDistrict: !ObjectUtil.isEmpty(this.nepaliData.guarantorDetails) ? this.nepaliData.guarantorDetails[0].guarantorPermanentDistrict.nepaliName : '',
         guarantorMunVdc: !ObjectUtil.isEmpty(this.nepaliData.guarantorDetails) ? this.nepaliData.guarantorDetails[0].guarantorPermanentMunicipality.nepaliName : '',
         guarantorWardNo: !ObjectUtil.isEmpty(this.nepaliData.guarantorDetails) ? this.nepaliData.guarantorDetails[0].guarantorPermanentWard : '',
+        companyName: this.nepaliData.companyName ? this.nepaliData.companyName : '',
+        representativeName: this.nepaliData.representativeName ? this.nepaliData.representativeName : ''
       });
     }
   }
@@ -127,6 +138,7 @@ export class LetterOfInstallmentsComponent implements OnInit {
       date: [undefined],
       branchName: [undefined],
       customerName: [undefined],
+      customerName2: [undefined],
       karjaAmount: [undefined],
       timePeriod: [undefined],
       kistaAmount: [undefined],
@@ -139,7 +151,7 @@ export class LetterOfInstallmentsComponent implements OnInit {
       guarantorDistrict: [undefined],
       guarantorMunVdc: [undefined],
       guarantorWardNo: [undefined],
-      //guarantorData: this.formBuilder.array([]),
+      // guarantorData: this.formBuilder.array([]),
       witnessName: [undefined],
       witnessCitizenshipNo: [undefined],
       witnessCitizenshipIssueDate: [undefined],
@@ -154,7 +166,7 @@ export class LetterOfInstallmentsComponent implements OnInit {
       witnessIssuedPlace1: [undefined],
       witnessMunicipality1: [undefined],
       witnessWardNo1: [undefined],
-     installmentAmount: [undefined],
+      installmentAmount: [undefined],
 
   });
   }
