@@ -596,10 +596,10 @@
             <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl" [ciclValue]="loanDataHolder?.loanHolder?.cicl" [loanDataHolder]="loanDataHolder"></app-cicl-view>
             <app-dbr *ngIf="financial" [financialData] =  "financial" [proposalData]="proposalData"> </app-dbr>
             <ng-container *ngIf="checkedData?.waiverChecked">
-                <hr class="print-line">
+                <hr class="print-line header">
                 <table  class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small" >
                     <tr class="text-white sb-bg-dark">
-                        <th   class="header">Waiver</th>
+                        <th>Waiver</th>
                     </tr>
                     <tr>
                         <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.waiverConclusionRecommendation || 'N/A' | safeHtml"></span></td>
@@ -607,10 +607,10 @@
                 </table>
             </ng-container>
             <ng-container *ngIf="checkedData?.deviationChecked">
-                <hr class="print-line">
+                <hr class="print-line header">
                 <table  class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-                    <tr class="text-white sb-bg-dark">
-                        <th   class="header">Deviation</th>
+                    <tr class=" text-white sb-bg-dark">
+                        <th>Deviation</th>
                     </tr>
                     <tr>
                         <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.deviationConclusionRecommendation || 'N/A' | safeHtml"></span></td>
@@ -626,10 +626,10 @@
                                   [fiscalYears]="fiscalYearArray"
                                   [netTradingAssetsData]="netTradingAssetsData"></app-nta-mega-summary>
             <ng-container *ngIf="checkedData?.waiverChecked">
-                <hr class="print-line">
+                <hr class="print-line header">
                 <table  class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small" >
-                    <tr class="text-white sb-bg-dark">
-                        <th   class="header">Waiver</th>
+                    <tr class="  text-white sb-bg-dark">
+                        <th   class="">Waiver</th>
                     </tr>
                     <tr>
                         <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.waiverConclusionRecommendation || 'N/A' | safeHtml"></span></td>
@@ -637,10 +637,10 @@
                 </table>
             </ng-container>
             <ng-container *ngIf="checkedData?.deviationChecked">
-                <hr class="print-line">
+                <hr class="print-line header">
                 <table  class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
                     <tr class="text-white sb-bg-dark">
-                        <th   class="header">Deviation</th>
+                        <th   class="">Deviation</th>
                     </tr>
                     <tr>
                         <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.deviationConclusionRecommendation || 'N/A' | safeHtml"></span></td>

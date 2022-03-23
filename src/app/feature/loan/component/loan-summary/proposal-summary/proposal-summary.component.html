@@ -39,7 +39,7 @@
                 <!--                <th>Existing INT/COM/CM</th>-->
                 <!--        for non funded commision and cash margin combination to be view-->
                 <th *ngIf="!isRemit">{{consumerFinance?'Existing INT':'Existing INT/COM/CM'}}</th>
-                <th *ngIf="!isRemit">{{consumerFinance?'Proposed INT':'Proposed INT/COM/CM'}}</th>
+                <th>{{consumerFinance?'Proposed INT':'Proposed INT/COM/CM'}}</th>
 
 
 <!--                <th>Loan Administration Fee</th>-->
@@ -250,16 +250,10 @@
                     </span>
                 </td>
                 <td class="text-right pr-1">Rs. {{ getTotalFundable('proposedLimit', true, customerAllLoanList) | currencyFormatter }}</td>
-                    <ng-container *ngIf="isRemit; else gap">
                         <td>-</td>
                         <td>-</td>
-                        <td>-</td>
-                    </ng-container>
-                <ng-template #gap>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </ng-template>
+                        <td *ngIf="!isRemit">-</td>
+
 
 
                 <!--        <td>Rs. {{ getTotal('installmentAmount') | currencyFormatter }}</td>-->
@@ -284,16 +278,10 @@
                     </span>
                 </td>
                 <td class="text-right pr-1">Rs. {{ getTotalFundable('proposedLimit', false, customerAllLoanList) | currencyFormatter }}</td>
-                <ng-container *ngIf="isRemit;else gaps;">
                     <td >-</td>
                     <td>-</td>
-                    <td>-</td>
-                </ng-container>
-                <ng-template #gaps>
-                    <td >-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </ng-template>
+                    <td *ngIf="!isRemit">-</td>
+
                 <!--        <td>Rs. {{ getTotal('installmentAmount') | currencyFormatter }}</td>-->
                 <!--        <td>Rs. {{ getTotal('interestAmount') | currencyFormatter }}</td>-->
                 <!--        <td>N/A</td>-->
@@ -313,16 +301,9 @@
                     <span>Rs. {{ getTotal('settlementAmount') | currencyFormatter }}</span>
                 </td>
                 <td class="text-right pr-1">Rs. {{ getTotal('proposedLimit') | currencyFormatter }}</td>
-                <ng-container *ngIf="isRemit;else gapss;">
                     <td >-</td>
                     <td>-</td>
-                    <td>-</td>
-                </ng-container>
-                <ng-template #gapss>
-                    <td >-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </ng-template>
+                    <td *ngIf="!isRemit">-</td>
                 <!--        <td>Rs. {{ getTotal('installmentAmount') | currencyFormatter }}</td>-->
                 <!--        <td>Rs. {{ getTotal('interestAmount') | currencyFormatter }}</td>-->
                 <!--        <td>N/A</td>-->
