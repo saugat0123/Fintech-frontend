@@ -701,17 +701,18 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     }
 
     renewedOrCloseFrom(id, loanId) {
-        this.router.navigateByUrl(RouteConst.ROUTE_DASHBOARD).then(value => {
-            if (value) {
-                this.router.navigate(['/home/loan/summary'],
-                    {
-                        queryParams: {
-                            loanConfigId: loanId,
-                            customerId: id
-                        }
-                    });
-            }
-        });
+        // this.router.navigateByUrl(RouteConst.ROUTE_DASHBOARD).then(value => {
+        //     if (value) {
+        //         this.router.navigate(['/home/loan/summary'],
+        //             {
+        //                 queryParams: {
+        //                     loanConfigId: loanId,
+        //                     customerId: id
+        //                 }
+        //             });
+        //     }
+        // });
+        window.open('/#/home/loan/summary' + `?loanConfigId=${loanId}&customerId=${id}`, '_blank');
 
         this.customerId = id;
         this.getLoanDataHolder();

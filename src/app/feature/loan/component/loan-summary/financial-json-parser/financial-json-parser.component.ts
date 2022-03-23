@@ -23,7 +23,7 @@ export class FinancialJsonParserComponent implements OnInit {
 
     ngOnInit() {
         this.buildForm();
-        this.getLastThreeFYAuditedValue();
+        // this.getLastThreeFYAuditedValue();
     }
 
     getLastThreeFYAuditedValue() {
