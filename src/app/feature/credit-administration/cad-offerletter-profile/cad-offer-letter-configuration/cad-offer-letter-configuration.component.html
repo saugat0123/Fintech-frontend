@@ -927,12 +927,12 @@
                                             id="guarantorType" placeholder="Select Guarantor Type">
                                         <option [value]= null hidden>Select Guarantor Type</option>
                                         <option *ngFor="let guarantorType of guarantorTypeEnum"
-                                                [value]="guarantorType?.value">{{guarantorType?.value}}</option>
+                                                [value]="guarantorType?.key">{{guarantorType?.value}}</option>
                                     </select>
                                 </div>
                             </div>
                             <div *ngIf="client === clientList.PROGRESSIVE && customerInfo?.customerType === 'INSTITUTION' &&
-                             userConfigForm?.get(['guarantorDetails', i, 'guarantorType'])?.value === 'Corporate Guarantor'">
+                             userConfigForm?.get(['guarantorDetails', i, 'guarantorType'])?.value === 'Corporate_Guarantor'">
                                 <div class="row">
                                     <div class="col">
                                         <div class="form-group">
@@ -1167,6 +1167,39 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="row" >
+                                    <div class="col">
+                                        <div class="form-group">
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label>नागरिकता वमोजिम:</label>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label class="title">
+                                                नगरपालिका/गा. बि. स.</label>
+                                            <input class="form-control rounded nepaliFont"
+                                                   formControlName="representativePermanentVdcGuarantor"
+                                                   [ngClass]="{'is-invalid': submitted && basicInfoControls.representativePermanentVdc.errors}"
+                                                   name="representativePermanentVdcGuarantor" placeholder="गा= बि= स="
+                                                   type="text"/>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label class="title">वडा नं.</label>
+                                            <input
+                                                    [ngClass]="{ 'is-invalid': (submitted) && basicInfoControls.representativePermanentVdcWard.errors }"
+                                                    class="form-control rounded nepaliFont" formControlName="representativePermanentVdcWardGuarantor"
+                                                    name="representativePermanentVdcWardGuarantor" placeholder="वडा नं="
+                                                    type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
                                 <div class="row">
                                     <div class="offset-10 col-md-2">
                                         <div class="form-group">
@@ -1257,7 +1290,7 @@
                                 </div>
                             </div>
                             <div *ngIf="client === clientList.PROGRESSIVE && customerInfo?.customerType === 'INDIVIDUAL' ||
-                             (customerInfo?.customerType === 'INSTITUTION' && userConfigForm?.get(['guarantorDetails', i, 'guarantorType'])?.value === 'Personal Guarantor')">
+                             (customerInfo?.customerType === 'INSTITUTION' && userConfigForm?.get(['guarantorDetails', i, 'guarantorType'])?.value === 'Personal_Guarantor')">
                                 <div class="row">
                                     <div class="col">
                                         <div class="form-group">
@@ -1589,379 +1622,479 @@
                         <div [formGroupName]="i">
                             <hr *ngIf="i !== 0">
                             <div class="row">
-                                <div class="col">
+                                <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="title" for="collateralName">संपार्श्विक मालिकको नाम</label>
-                                        <input class="form-control rounded nepaliFont"
-                                               formControlName="collateralName"
-                                               id="collateralName"
-                                               name="collateralName" placeholder="संपार्श्विक मालिकको नाम"
-                                               type="text"/>
+                                        <label class="relationMedium" for="securityType">Security Type</label>
+                                        <select class="form-control" formControlName="securityType"
+                                            id="securityType" placeholder="Select Security Type">
+                                            <option [value]=null hidden> Select Security Type </option>
+                                            <option *ngFor="let securityType of securityTypeEnum"
+                                                    [value]="securityType?.key">{{securityType?.value}}</option>
+                                        </select>
                                     </div>
                                 </div>
-                                <div class="col">
+                                <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="title" for="collateralFatherName">पिताको नाम</label>
-                                        <input class="form-control rounded nepaliFont"
-                                               formControlName="collateralFatherName"
-                                               id="collateralFatherName"
-                                               name="collateralFatherName" placeholder="पिताको नाम"
-                                               type="text"/>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label class="title" for="collateralGrandFatherName">हजुरबुबाको नाम</label>
-                                        <input class="form-control rounded nepaliFont"
-                                               formControlName="collateralGrandFatherName"
-                                               id="collateralGrandFatherName"
-                                               name="collateralGrandFatherName" placeholder="हजुरबुबाको नाम"
-                                               type="text"/>
+                                        <label class="relationMedium" for="securityDetails">Security Details</label>
+                                        <select class="form-control" formControlName="securityDetails"
+                                                id="securityDetails" placeholder="Select Security Detail">
+                                            <option [value]=null hidden> Select Security Detail</option>
+                                            <option *ngFor="let securityD of securityDetailEnum"
+                                                    [value]="securityD?.key">{{securityD?.value}}</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-12 text-center">
-                                    <label class="title" for="collateralPermanentAddress" id="collateralPermanentAddress">
-                                        <strong>संपार्श्विक मालिकको स्थायी ठेगाना</strong> </label>
+                            <hr>
+                            <div *ngIf="userConfigForm?.get(['collateralDetails', i, 'securityDetails'])?.value === 'Land_And_Building'">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label class="title" for="collateralName">संपार्श्विक मालिकको नाम</label>
+                                            <input class="form-control rounded nepaliFont"
+                                                   formControlName="collateralName"
+                                                   id="collateralName"
+                                                   name="collateralName" placeholder="संपार्श्विक मालिकको नाम"
+                                                   type="text"/>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label class="title" for="collateralFatherName">पिताको नाम</label>
+                                            <input class="form-control rounded nepaliFont"
+                                                   formControlName="collateralFatherName"
+                                                   id="collateralFatherName"
+                                                   name="collateralFatherName" placeholder="पिताको नाम"
+                                                   type="text"/>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label class="title" for="collateralGrandFatherName">हजुरबुबाको नाम</label>
+                                            <input class="form-control rounded nepaliFont"
+                                                   formControlName="collateralGrandFatherName"
+                                                   id="collateralGrandFatherName"
+                                                   name="collateralGrandFatherName" placeholder="हजुरबुबाको नाम"
+                                                   type="text"/>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label class="title" for="collateralPermanentProvince{{i}}">
-                                            संपार्श्विक मालिकको स्थायी प्रदेश </label>
+                                <div class="row">
+                                    <div class="col-md-12 text-center">
+                                        <label class="title" for="collateralPermanentAddress" id="collateralPermanentAddress">
+                                            <strong>संपार्श्विक मालिकको स्थायी ठेगाना</strong> </label>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label class="title" for="collateralPermanentProvince{{i}}">
+                                                संपार्श्विक मालिकको स्थायी प्रदेश </label>
+                                            <ng-select
+                                                    bindLabel="nepaliName"
+                                                    (change)="getCollateralDistricts(userConfigForm.get(['collateralDetails', i, 'collateralPermanentProvince'])?.value?.id, i, $event)"
+                                                    formControlName="collateralPermanentProvince"
+                                                    id="collateralPermanentProvince{{i}}"
+                                                    >
+                                                <ng-option *ngFor="let provinceVal of collateralPermanentProvinceList"
+                                                           [value]="provinceVal">
+                                                    {{provinceVal.nepaliName}}
+                                                </ng-option>
+                                            </ng-select>
+                                           </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label class="title" for="collateralPermanentDistrict{{i}}">
+                                                संपार्श्विक मालिकको स्थायी जिल्ला </label>
+                                            <ng-select
+                                                    bindLabel="nepaliName"
+                                                    (change)="getCollateralMunicipalities(userConfigForm.get(['collateralDetails', i, 'collateralPermanentDistrict'])?.value?.id, i, $event)"
+                                                    formControlName="collateralPermanentDistrict"
+                                                    id="collateralPermanentDistrict{{i}}"
+                                                    >
+                                                <ng-option *ngFor="let districtVal of collateralPermanentDistrictList[i]"
+                                                           [value]="districtVal">
+                                                    {{districtVal.nepaliName}}
+                                                </ng-option>
+                                            </ng-select>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <select class="form-control box" formControlName="collateralPermanentMunType"
+                                                    id="collateralPermanentMunType">
+                                                <option [value]="null" hidden>नगरपालिका</option>
+                                                <option value="0">नगरपालिका</option>
+                                                <option value="1">गा. बि. स.</option>
+                                            </select>
+                                            <ng-select
+                                                    bindLabel="nepaliName"
+                                                    formControlName="collateralPermanentMunVdc"
+                                                    id="collateralPermanentMunVdc{{i}}"
+                                                    name="collateralPermanentMunVdc"
+                                                    >
+                                                <ng-option
+                                                        *ngFor="let municipalityVal of collateralPermanentMunicipalitiesList[i]"
+                                                        [value]="municipalityVal">
+                                                    {{municipalityVal.nepaliName}}
+                                                </ng-option>
+                                            </ng-select>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label class="title" for="collateralPermanentWardNo">वडा नं.</label>
+                                            <input  class="form-control rounded nepaliFont"
+                                                    formControlName="collateralPermanentWardNo"
+                                                    id="collateralPermanentWardNo"
+                                                    name="collateralPermanentWardNo" placeholder="वडा नं="
+                                                    type="text">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" >
+                                    <div class="col">
+                                        <div class="form-group">
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label>नागरिकता वमोजिम:</label>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label class="title"
+                                                   for="collateralPermanentVdc">
+                                                नगरपालिका/गा. बि. स.</label>
+                                            <input class="form-control rounded nepaliFont"
+                                                   formControlName="collateralPermanentVdc"
+                                                   id="collateralPermanentVdc"
+                                                   name="collateralPermanentVdc" placeholder="गा= बि= स="
+                                                   type="text"/>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label class="title" for="collateralPermanentVdcWard">वडा नं.</label>
+                                            <input
+                                                    class="form-control rounded nepaliFont" formControlName="collateralPermanentVdcWard"
+                                                    id="collateralPermanentVdcWard"
+                                                    name="collateralPermanentVdcWard" placeholder="वडा नं="
+                                                    type="text">
+                                            <!--<div *ngIf="(submitted) && basicInfoControls.collateralPermanentVdcWard.invalid"
+                                                 class="invalid-feedback">
+                                                <div *ngIf="basicInfoControls.collateralPermanentVdcWard.errors.required">
+                                                    Ward Number is required
+                                                </div>
+                                            </div>-->
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-md-12 text-center">
+                                        <label class="title" for="collateralTemporaryAddress"
+                                               id="collateralTemporaryAddress">
+                                            <strong>संपार्श्विक मालिकको अस्थायी ठेगाना</strong> </label>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label class="title" for="collateralTemporaryProvince{{i}}">
+                                            संपार्श्विक मालिकको अस्थायी प्रदेश </label>
                                         <ng-select
                                                 bindLabel="nepaliName"
-                                                (change)="getCollateralDistricts(userConfigForm.get(['collateralDetails', i, 'collateralPermanentProvince'])?.value?.id, i, $event)"
-                                                formControlName="collateralPermanentProvince"
-                                                id="collateralPermanentProvince{{i}}"
+                                                (change)="getCollateralTemporaryDistricts(userConfigForm.get(['collateralDetails', i, 'collateralTemporaryProvince'])?.value?.id, i, $event)"
+                                                formControlName="collateralTemporaryProvince"
+                                                id="collateralTemporaryProvince{{i}}"
                                                 >
-                                            <ng-option *ngFor="let provinceVal of collateralPermanentProvinceList"
+                                            <ng-option *ngFor="let provinceVal of collateralTemporaryProvinceList"
                                                        [value]="provinceVal">
                                                 {{provinceVal.nepaliName}}
                                             </ng-option>
                                         </ng-select>
-                                       </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label class="title" for="collateralPermanentDistrict{{i}}">
-                                            संपार्श्विक मालिकको स्थायी जिल्ला </label>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <label class="title" for="collateralTemporaryDistrict{{i}}">
+                                            संपार्श्विक मालिकको अस्थायी जिल्ला </label>
                                         <ng-select
                                                 bindLabel="nepaliName"
-                                                (change)="getCollateralMunicipalities(userConfigForm.get(['collateralDetails', i, 'collateralPermanentDistrict'])?.value?.id, i, $event)"
-                                                formControlName="collateralPermanentDistrict"
-                                                id="collateralPermanentDistrict{{i}}"
+                                                (change)="getCollateralTemporaryMunicipalities(userConfigForm.get(['collateralDetails', i, 'collateralTemporaryDistrict'])?.value?.id, i, $event)"
+                                                formControlName="collateralTemporaryDistrict"
+                                                id="collateralTemporaryDistrict{{i}}"
                                                 >
-                                            <ng-option *ngFor="let districtVal of collateralPermanentDistrictList[i]"
+                                            <ng-option *ngFor="let districtVal of collateralTemporaryDistrictList[i]"
                                                        [value]="districtVal">
                                                 {{districtVal.nepaliName}}
                                             </ng-option>
                                         </ng-select>
                                     </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <select class="form-control box" formControlName="collateralPermanentMunType"
-                                                id="collateralPermanentMunType">
+                                    <div class="form-group col-md-3">
+                                        <select class="form-control box" formControlName="collateralTemporaryMunType"
+                                                id="collateralTemporaryMunType">
                                             <option [value]="null" hidden>नगरपालिका</option>
                                             <option value="0">नगरपालिका</option>
                                             <option value="1">गा. बि. स.</option>
                                         </select>
                                         <ng-select
                                                 bindLabel="nepaliName"
-                                                formControlName="collateralPermanentMunVdc"
-                                                id="collateralPermanentMunVdc{{i}}"
-                                                name="collateralPermanentMunVdc"
+                                                formControlName="collateralTemporaryMunVdc"
+                                                id="collateralTemporaryMunVdc"
+                                                name="collateralTemporaryMunVdc"
                                                 >
                                             <ng-option
-                                                    *ngFor="let municipalityVal of collateralPermanentMunicipalitiesList[i]"
+                                                    *ngFor="let municipalityVal of collateralTemporaryMunicipalitiesList[i]"
                                                     [value]="municipalityVal">
                                                 {{municipalityVal.nepaliName}}
                                             </ng-option>
                                         </ng-select>
                                     </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label class="title" for="collateralPermanentWardNo">वडा नं.</label>
-                                        <input  class="form-control rounded nepaliFont"
-                                                formControlName="collateralPermanentWardNo"
-                                                id="collateralPermanentWardNo"
-                                                name="collateralPermanentWardNo" placeholder="वडा नं="
-                                                type="text">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row" >
-                                <div class="col">
-                                    <div class="form-group">
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label>नागरिकता वमोजिम:</label>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label class="title"
-                                               for="collateralPermanentVdc">
-                                            नगरपालिका/गा. बि. स.</label>
+                                    <div class="form-group col-md-3">
+                                        <label class="title" for="collateralTemporaryWardNo">
+                                            संपार्श्विक मालिकको अस्थायी वडा नं. </label>
                                         <input class="form-control rounded nepaliFont"
-                                               formControlName="collateralPermanentVdc"
-                                               id="collateralPermanentVdc"
-                                               name="collateralPermanentVdc" placeholder="गा= बि= स="
+                                               formControlName="collateralTemporaryWardNo"
+                                               id="collateralTemporaryWardNo"
+                                               name="collateralTemporaryWardNo"
+                                               placeholder="संपार्श्विक मालिकको अस्थायी वडा नं="
                                                type="text"/>
                                     </div>
                                 </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label class="title" for="collateralPermanentVdcWard">वडा नं.</label>
-                                        <input
-                                                class="form-control rounded nepaliFont" formControlName="collateralPermanentVdcWard"
-                                                id="collateralPermanentVdcWard"
-                                                name="collateralPermanentVdcWard" placeholder="वडा नं="
-                                                type="text">
-                                        <div *ngIf="(submitted) && basicInfoControls.collateralPermanentVdcWard.invalid"
-                                             class="invalid-feedback">
-                                            <div *ngIf="basicInfoControls.collateralPermanentVdcWard.errors.required">
-                                                Ward Number is required
-                                            </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label class="title" for="collateralDistrict">संपार्श्विक जिल्ला</label>
+                                            <input class="form-control rounded nepaliFont"
+                                                   formControlName="collateralDistrict"
+                                                   id="collateralDistrict"
+                                                   name="collateralDistrict" placeholder="संपार्श्विक जिल्ला"
+                                                   type="text"/>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label class="title" for="collateralMunVdcOriginal">संपार्श्विक म.न.पा. ⁄ उ.म.न.पा. ⁄ न.पा. ⁄ गा.बि.स. (मूल)</label>
+                                            <input class="form-control rounded nepaliFont"
+                                                   formControlName="collateralMunVdcOriginal"
+                                                   id="collateralMunVdcOriginal"
+                                                   name="collateralMunVdcOriginal" placeholder="संपार्श्विक म=न=पा= ⁄ उ=म=न=पा= ⁄ न=पा= ⁄ गा=बि=स= -मूल_"
+                                                   type="text"/>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label class="title" for="collateralMunVdcChanged">संपार्श्विक म.न.पा. ⁄ उ.म.न.पा. ⁄ न.पा. ⁄ गा.बि.स. (परिवर्तित)
+                                            </label>
+                                            <input class="form-control rounded nepaliFont"
+                                                   formControlName="collateralMunVdcChanged"
+                                                   id="collateralMunVdcChanged"
+                                                   name="collateralMunVdcChanged" placeholder="संपार्श्विक म=न=पा= ⁄ उ=म=न=पा= ⁄ न=पा= ⁄ गा=बि=स= -परिवर्तित_"
+                                                   type="text"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label class="title" for="plotNo">प्लट नम्बर</label>
+                                            <input class="form-control rounded nepaliFont"
+                                                   formControlName="plotNo"
+                                                   id="plotNo"
+                                                   name="plotNo" placeholder="प्लट नम्बर"
+                                                   type="text"/>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label class="title" for="areaOfCollateral">संपार्श्विक क्षेत्र</label>
+                                            <input class="form-control rounded nepaliFont"
+                                                   formControlName="areaOfCollateral"
+                                                   id="areaOfCollateral"
+                                                   name="areaOfCollateral" placeholder="संपार्श्विक क्षेत्र"
+                                                   type="text"/>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label class="title" for="seatNo">सिट नम्बर
+                                            </label>
+                                            <input class="form-control rounded nepaliFont"
+                                                   formControlName="seatNo"
+                                                   id="seatNo"
+                                                   name="seatNo" placeholder="सिट नम्बर"
+                                                   type="text"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label class="title" for="collateralWardNoOld">संपार्श्विक पुरानो वडा नं</label>
+                                            <input class="form-control rounded nepaliFont"
+                                                   formControlName="collateralWardNoOld"
+                                                   id="collateralWardNoOld"
+                                                   name="collateralWardNoOld" placeholder="संपार्श्विक पुरानो वडा नं"
+                                                   type="text"/>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label class="title" for="collateralProvinceNo">संपार्श्विक प्रदेश नम्बर</label>
+                                            <input class="form-control rounded nepaliFont"
+                                                   formControlName="collateralProvinceNo"
+                                                   id="collateralProvinceNo"
+                                                   name="collateralProvinceNo" placeholder="संपार्श्विक प्रदेश नम्बर"
+                                                   type="text"/>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label class="title" for="wardNoNew">नयाँ वार्ड नम्बर
+                                            </label>
+                                            <input class="form-control rounded nepaliFont"
+                                                   formControlName="wardNoNew"
+                                                   id="wardNoNew"
+                                                   name="wardNoNew" placeholder="नयाँ वार्ड नम्बर"
+                                                   type="text"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label class="title" for="toleNew">नयाँ टोल</label>
+                                            <input class="form-control rounded nepaliFont"
+                                                   formControlName="toleNew"
+                                                   id="toleNew"
+                                                   name="toleNew" placeholder="नयाँ टोल"
+                                                   type="text"/>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label class="title" for="toleOld">पुरानो टोल</label>
+                                            <input class="form-control rounded nepaliFont"
+                                                   formControlName="toleOld"
+                                                   id="toleOld"
+                                                   name="toleOld" placeholder="पुरानो टोल"
+                                                   type="text"/>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label class="title" for="plotNoOld">पुरानो प्लोट नम्बर
+                                            </label>
+                                            <input class="form-control rounded nepaliFont"
+                                                   formControlName="plotNoOld"
+                                                   id="plotNoOld"
+                                                   name="plotNoOld" placeholder="पुरानो प्लोट नम्बर"
+                                                   type="text"/>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label class="title" for="collateralType">संपार्श्विकको प्रकार
+                                            </label>
+                                            <input class="form-control rounded nepaliFont"
+                                                   formControlName="collateralType"
+                                                   id="collateralType"
+                                                   name="collateralType" placeholder="संपार्श्विकको प्रकार"
+                                                   type="text"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label class="title" for="dhitoBibaran">धितोको बिवरण</label>
+                                            <input class="form-control rounded nepaliFont"
+                                                   formControlName="dhitoBibaran"
+                                                   id="dhitoBibaran"
+                                                   name="dhitoBibaran" placeholder="धितोको बिवरण"
+                                                   type="text"/>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label class="title" for="regNo">रजिष्टेशन नं.</label>
+                                            <input class="form-control rounded nepaliFont"
+                                                   formControlName="regNo"
+                                                   id="regNo"
+                                                   name="toleOld" placeholder="रजिष्टेशन नं="
+                                                   type="text"/>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col-md-12 text-center">
-                                    <label class="title" for="collateralTemporaryAddress"
-                                           id="collateralTemporaryAddress">
-                                        <strong>संपार्श्विक मालिकको अस्थायी ठेगाना</strong> </label>
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <label class="title" for="collateralTemporaryProvince{{i}}">
-                                        संपार्श्विक मालिकको अस्थायी प्रदेश </label>
-                                    <ng-select
-                                            bindLabel="nepaliName"
-                                            (change)="getCollateralTemporaryDistricts(userConfigForm.get(['collateralDetails', i, 'collateralTemporaryProvince'])?.value?.id, i, $event)"
-                                            formControlName="collateralTemporaryProvince"
-                                            id="collateralTemporaryProvince{{i}}"
-                                            >
-                                        <ng-option *ngFor="let provinceVal of collateralTemporaryProvinceList"
-                                                   [value]="provinceVal">
-                                            {{provinceVal.nepaliName}}
-                                        </ng-option>
-                                    </ng-select>
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <label class="title" for="collateralTemporaryDistrict{{i}}">
-                                        संपार्श्विक मालिकको अस्थायी जिल्ला </label>
-                                    <ng-select
-                                            bindLabel="nepaliName"
-                                            (change)="getCollateralTemporaryMunicipalities(userConfigForm.get(['collateralDetails', i, 'collateralTemporaryDistrict'])?.value?.id, i, $event)"
-                                            formControlName="collateralTemporaryDistrict"
-                                            id="collateralTemporaryDistrict{{i}}"
-                                            >
-                                        <ng-option *ngFor="let districtVal of collateralTemporaryDistrictList[i]"
-                                                   [value]="districtVal">
-                                            {{districtVal.nepaliName}}
-                                        </ng-option>
-                                    </ng-select>
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <select class="form-control box" formControlName="collateralTemporaryMunType"
-                                            id="collateralTemporaryMunType">
-                                        <option [value]="null" hidden>नगरपालिका</option>
-                                        <option value="0">नगरपालिका</option>
-                                        <option value="1">गा. बि. स.</option>
-                                    </select>
-                                    <ng-select
-                                            bindLabel="nepaliName"
-                                            formControlName="collateralTemporaryMunVdc"
-                                            id="collateralTemporaryMunVdc"
-                                            name="collateralTemporaryMunVdc"
-                                            >
-                                        <ng-option
-                                                *ngFor="let municipalityVal of collateralTemporaryMunicipalitiesList[i]"
-                                                [value]="municipalityVal">
-                                            {{municipalityVal.nepaliName}}
-                                        </ng-option>
-                                    </ng-select>
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <label class="title" for="collateralTemporaryWardNo">
-                                        संपार्श्विक मालिकको अस्थायी वडा नं. </label>
-                                    <input class="form-control rounded nepaliFont"
-                                           formControlName="collateralTemporaryWardNo"
-                                           id="collateralTemporaryWardNo"
-                                           name="collateralTemporaryWardNo"
-                                           placeholder="संपार्श्विक मालिकको अस्थायी वडा नं="
-                                           type="text"/>
-                                </div>
-                            </div>
-                            <hr>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label class="title" for="collateralDistrict">संपार्श्विक जिल्ला</label>
-                                        <input class="form-control rounded nepaliFont"
-                                               formControlName="collateralDistrict"
-                                               id="collateralDistrict"
-                                               name="collateralDistrict" placeholder="संपार्श्विक जिल्ला"
-                                               type="text"/>
+                            <div *ngIf="userConfigForm?.get(['collateralDetails', i, 'securityDetails'])?.value === 'HP'">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="title">सवारी साधनको किसिम</label>
+                                            <input class="form-control rounded nepaliFont"
+                                                   formControlName="vehicleType"
+                                                   name="vehicleType" placeholder="सवारी साधनको किसिम"
+                                                   type="text"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="title">गाडी नं.</label>
+                                            <input class="form-control rounded nepaliFont"
+                                                   formControlName="vehicleNumber"
+                                                   name="vehicleNumber" placeholder="गाडी नं."
+                                                   type="text"/>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label class="title" for="collateralMunVdcOriginal">संपार्श्विक म.न.पा. ⁄ उ.म.न.पा. ⁄ न.पा. ⁄ गा.बि.स. (मूल)</label>
-                                        <input class="form-control rounded nepaliFont"
-                                               formControlName="collateralMunVdcOriginal"
-                                               id="collateralMunVdcOriginal"
-                                               name="collateralMunVdcOriginal" placeholder="संपार्श्विक म=न=पा= ⁄ उ=म=न=पा= ⁄ न=पा= ⁄ गा=बि=स= -मूल_"
-                                               type="text"/>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="title">मोडल नं.</label>
+                                            <input class="form-control rounded nepaliFont"
+                                                   formControlName="vehicleModelNum"
+                                                   name="vehicleModelNum" placeholder="मोडल नं."
+                                                   type="text"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="title">इन्जिन नं.</label>
+                                            <input class="form-control rounded nepaliFont"
+                                                   formControlName="engineNumber"
+                                                   name="engineNumber" placeholder="इन्जिन नं."
+                                                   type="text"/>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label class="title" for="collateralMunVdcChanged">संपार्श्विक म.न.पा. ⁄ उ.म.न.पा. ⁄ न.पा. ⁄ गा.बि.स. (परिवर्तित)
-                                        </label>
-                                        <input class="form-control rounded nepaliFont"
-                                               formControlName="collateralMunVdcChanged"
-                                               id="collateralMunVdcChanged"
-                                               name="collateralMunVdcChanged" placeholder="संपार्श्विक म=न=पा= ⁄ उ=म=न=पा= ⁄ न=पा= ⁄ गा=बि=स= -परिवर्तित_"
-                                               type="text"/>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="title">च्यासिस नं.</label>
+                                            <input class="form-control rounded nepaliFont"
+                                                   formControlName="chassisNumber"
+                                                   name="chassisNumber" placeholder="च्यासिस नं."
+                                                   type="text"/>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="title">गाडीको मूल्य रु.</label>
+                                            <input class="form-control rounded nepaliFont"
+                                                   formControlName="vehicleQuotationPrice"
+                                                   name="vehicleQuotationPrice" placeholder="गाडीको मूल्य रु."
+                                                   type="text"/>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label class="title" for="plotNo">प्लट नम्बर</label>
-                                        <input class="form-control rounded nepaliFont"
-                                               formControlName="plotNo"
-                                               id="plotNo"
-                                               name="plotNo" placeholder="प्लट नम्बर"
-                                               type="text"/>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label class="title" for="areaOfCollateral">संपार्श्विक क्षेत्र</label>
-                                        <input class="form-control rounded nepaliFont"
-                                               formControlName="areaOfCollateral"
-                                               id="areaOfCollateral"
-                                               name="areaOfCollateral" placeholder="संपार्श्विक क्षेत्र"
-                                               type="text"/>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label class="title" for="seatNo">सिट नम्बर
-                                        </label>
-                                        <input class="form-control rounded nepaliFont"
-                                               formControlName="seatNo"
-                                               id="seatNo"
-                                               name="seatNo" placeholder="सिट नम्बर"
-                                               type="text"/>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label class="title" for="collateralWardNoOld">संपार्श्विक पुरानो वडा नं</label>
-                                        <input class="form-control rounded nepaliFont"
-                                               formControlName="collateralWardNoOld"
-                                               id="collateralWardNoOld"
-                                               name="collateralWardNoOld" placeholder="संपार्श्विक पुरानो वडा नं"
-                                               type="text"/>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label class="title" for="collateralProvinceNo">संपार्श्विक प्रदेश नम्बर</label>
-                                        <input class="form-control rounded nepaliFont"
-                                               formControlName="collateralProvinceNo"
-                                               id="collateralProvinceNo"
-                                               name="collateralProvinceNo" placeholder="संपार्श्विक प्रदेश नम्बर"
-                                               type="text"/>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label class="title" for="wardNoNew">नयाँ वार्ड नम्बर
-                                        </label>
-                                        <input class="form-control rounded nepaliFont"
-                                               formControlName="wardNoNew"
-                                               id="wardNoNew"
-                                               name="wardNoNew" placeholder="नयाँ वार्ड नम्बर"
-                                               type="text"/>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label class="title" for="toleNew">नयाँ टोल</label>
-                                        <input class="form-control rounded nepaliFont"
-                                               formControlName="toleNew"
-                                               id="toleNew"
-                                               name="toleNew" placeholder="नयाँ टोल"
-                                               type="text"/>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label class="title" for="toleOld">पुरानो टोल</label>
-                                        <input class="form-control rounded nepaliFont"
-                                               formControlName="toleOld"
-                                               id="toleOld"
-                                               name="toleOld" placeholder="पुरानो टोल"
-                                               type="text"/>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label class="title" for="plotNoOld">पुरानो प्लोट नम्बर
-                                        </label>
-                                        <input class="form-control rounded nepaliFont"
-                                               formControlName="plotNoOld"
-                                               id="plotNoOld"
-                                               name="plotNoOld" placeholder="पुरानो प्लोट नम्बर"
-                                               type="text"/>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label class="title" for="collateralType">संपार्श्विकको प्रकार
-                                        </label>
-                                        <input class="form-control rounded nepaliFont"
-                                               formControlName="collateralType"
-                                               id="collateralType"
-                                               name="collateralType" placeholder="संपार्श्विकको प्रकार"
-                                               type="text"/>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label class="title" for="dhitoBibaran">धितोको बिवरण</label>
-                                        <input class="form-control rounded nepaliFont"
-                                               formControlName="dhitoBibaran"
-                                               id="dhitoBibaran"
-                                               name="dhitoBibaran" placeholder="धितोको बिवरण"
-                                               type="text"/>
-                                    </div>
-                                </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label class="title" for="regNo">रजिष्टेशन नं.</label>
-                                        <input class="form-control rounded nepaliFont"
-                                               formControlName="regNo"
-                                               id="regNo"
-                                               name="toleOld" placeholder="रजिष्टेशन नं="
-                                               type="text"/>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="title">गाडी दर्ता मिति</label>
+                                            <input class="form-control rounded nepaliFont"
+                                                   formControlName="vehicleRegistrationDate"
+                                                   name="vehicleRegistrationDate" placeholder="गाडी दर्ता मिति"
+                                                   type="text"/>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
