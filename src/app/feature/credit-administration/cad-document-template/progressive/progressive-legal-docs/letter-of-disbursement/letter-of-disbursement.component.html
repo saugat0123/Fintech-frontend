@@ -1,4 +1,4 @@
-<div [nbSpinner]="spinner" class="container text-justify row nepali"
+ <div [nbSpinner]="spinner" class="container text-justify row nepali"
      id="{{offerLetterConst.LETTER_OF_DISBURSEMENT}}">
 
     <div class="col-md-12 viewFull">
@@ -19,31 +19,30 @@
                            readonly
                            type="text"/> शाखा।</strong>
             <br>
-            <p class="text-center"><strong>विषय :- रु. <input (change)="getNumAmountWord('amount','amountInWord')"
-                                                              class="form-field form-control-sm sizefont nepaliFont "
-                                                              formControlName="amount"
-                                                              placeholder=""
-                                                              readonly
-                                                              type="text"/>
+            <p class="text-center"><strong>विषय :- रु.
+                <input (change)="getNumAmountWord('amount','amountInWord')"
+                      class="form-field form-control-sm sizefont nepaliFont "
+                      formControlName="amount"
+                      placeholder=""
+                      readonly
+                      type="text"/>
                 /– <u>को ऋण रकम भूक्तानी गरी पाउं।</u></strong>
             </p>
             <div class="row col-md-12">
                 <br>
+                <p>महोदय,</p>
                 <p>
-                    महोदय,</p>
-                <p>
-                    उपरोक्त सम्बन्धमा मेरो/हाम्रो नाममा त्यस वित्तीय संस्थाबाट स्वीकृत भएको
-                    कर्जा त्यस वित्तीय संस्थामा मेरो/हाम्रो <input class="form-field form-control-sm nepaliFont "
-                                                                   formControlName="clientName"
-                                                                   placeholder=""
-                                                                   readonly
-                                                                   type="text"/>को नाममा रहेको चल्ति/बचत खाता नं.
+                    उपरोक्त सम्बन्धमा मेरो/हाम्रो नाममा त्यस वित्तीय संस्थाबाट स्वीकृत भएको कर्जा त्यस वित्तीय संस्थामा मेरो/हाम्रो
+                    <input class="form-field form-control-sm nepaliFont "
+                           formControlName="clientName"
+                           placeholder=""
+                           readonly
+                           type="text"/>को नाममा रहेको चल्ति/बचत खाता नं.
                     <input class="form-field form-control-sm nepaliFont "
                            formControlName="accNumber"
                            placeholder=""
                            type="text"/>
-                    मा रकमान्तर (Transfer)
-                    गरि दिन यो भुक्तानीपत्रमा सहिछाप गरि दिएका छु/छौं।
+                    मा रकमान्तर (Transfer) गरि दिन यो भुक्तानीपत्रमा सहिछाप गरि दिएका छु/छौं।
                 </p>
 
             </div>
@@ -53,16 +52,12 @@
                 <table>
                     <thead>
                     <tr>
-                        <td style="text-align: right;width: 20%">
-                            दस्तखत र संस्थाको छाप :-
-                        </td>
+                        <td style="text-align: right;width: 20%">दस्तखत र संस्थाको छाप :-</td>
                         <td style="text-align: left;width: 80%">................................
                         </td>
                     </tr>
                     <tr>
-                        <td style="text-align: right; vertical-align: top;padding-top: 10px;width: 20%">दस्तखत गर्नेको
-                            नाम :-
-                        </td>
+                        <td style="text-align: right; vertical-align: top;padding-top: 10px;width: 20%">दस्तखत गर्नेको नाम :-</td>
                         <td style="text-align: left;width: 80%"><input class="form-field form-control-sm nepaliFont "
                                                                        formControlName="sincerlyname"
                                                                        placeholder=""
@@ -189,9 +184,7 @@
                     </tr>
                     </tbody>
                 </table>
-
             </div>
-
             <div>
                 <p class="text-left"><strong class="text-left">साक्षी :</strong></p>
 
@@ -278,30 +271,32 @@
                             मिति <input class="form-field form-control-sm nepaliFont"
                                         formControlName="witnessCitizenshipIssueDate"
                                         placeholder=""
-                                        type="text"/> जि.प्र.का. <input
-                                    class="form-field form-control-sm nepaliFont"
-                                    formControlName="witnessCDOoffice"
-                                    placeholder=""
-                                    type="text"/>)
+                                        type="text"/> जि.प्र.का.
+                                <input class="form-field form-control-sm nepaliFont"
+                                        formControlName="witnessCDOoffice"
+                                        placeholder=""
+                                        type="text"/>)
                         </td>
                     </tr>
                     <tr>
                         <td>ठेगाना:</td>
-                        <td class="text-left"><input class="form-field form-control-sm nepaliFont "
-                                                     formControlName="witnessIssuedPlace"
-                                                     placeholder="" type="text"/>जिल्ला, <input
+                        <td class="text-left">
+                            <input class="form-field form-control-sm nepaliFont "
+                                 formControlName="witnessIssuedPlace"
+                                 placeholder="" type="text"/>जिल्ला,
+                            <input
                                 class="form-field form-control-sm nepaliFont"
                                 formControlName="witnessMunicipality"
                                 placeholder=""
                                 type="text"/>
-                            गा.पा./न.पा., वडा नं.<input class="form-field form-control-sm nepaliFont shortInput"
-                                                     formControlName="witnessWardNo"
-                                                     placeholder=""
-                                                     type="text"/></td>
+                            गा.पा./न.पा., वडा नं.
+                            <input class="form-field form-control-sm nepaliFont shortInput"
+                                 formControlName="witnessWardNo"
+                                 placeholder=""
+                                 type="text"/></td>
                     </tr>
                     </tbody>
                 </table>
-
                 <table>
                     <thead>
                     <tr>
@@ -312,29 +307,30 @@
                     <tbody>
                     <tr>
                         <td>२.  नाम:</td>
-                        <td class="text-left"><input class="form-field form-control-sm nepaliFont "
+                        <td class="text-left"><input class="form-field form-control-sm nepaliFont"
                                                      formControlName="witnessName1"
                                                      type="text"/>
                             (ना.प्र.नं.<input class="form-field form-control-sm nepaliFont"
-                                             formControlName="witnessCitizenshipNo1"
-                                             placeholder=""
-                                             type="text"/>
+                                         formControlName="witnessCitizenshipNo1"
+                                         placeholder=""
+                                         type="text"/>
                             मिति <input class="form-field form-control-sm nepaliFont"
-                                        formControlName="witnessCitizenshipIssueDate1"
-                                        placeholder=""
-                                        type="text"/> जि.प्र.का. <input
-                                    class="form-field form-control-sm nepaliFont"
-                                    formControlName="witnessCDOoffice1"
+                                    formControlName="witnessCitizenshipIssueDate1"
                                     placeholder=""
-                                    type="text"/>)
+                                    type="text"/> जि.प्र.का.
+                            <input class="form-field form-control-sm nepaliFont"
+                                formControlName="witnessCDOoffice1"
+                                placeholder=""
+                                type="text"/>)
                         </td>
                     </tr>
                     <tr>
                         <td>ठेगाना:</td>
-                        <td class="text-left"><input class="form-field form-control-sm nepaliFont "
-                                                     formControlName="witnessIssuedPlace1"
-                                                     placeholder="" type="text"/>जिल्ला, <input
-                                class="form-field form-control-sm nepaliFont"
+                        <td class="text-left">
+                            <input class="form-field form-control-sm nepaliFont "
+                                 formControlName="witnessIssuedPlace1"
+                                 placeholder="" type="text"/>जिल्ला,
+                            <input class="form-field form-control-sm nepaliFont"
                                 formControlName="witnessMunicipality1"
                                 placeholder=""
                                 type="text"/>
@@ -349,8 +345,7 @@
             <div class="row col-md-12">
                 <p><strong>सनाखत साक्षी</strong>
                     <br>
-                    ऋणीले मेरो सामुन्नेमा सही छाप गरेको ठीक साँचो हो भनी सही छाप गर्ने
-                    धनी वित्तीय संस्थामा कार्यरत कर्मचारी
+                    ऋणीले मेरो सामुन्नेमा सही छाप गरेको ठीक साँचो हो भनी सही छाप गर्ने धनी वित्तीय संस्थामा कार्यरत कर्मचारी
                     <input class="form-field form-control-sm nepaliFont "
                            formControlName="biktiyaPersonName"
                            placeholder=""
@@ -363,9 +358,9 @@
                                      type="text">
                     साल <input class="form-field nepaliFont form-control-sm" formControlName="ItisambatMonth"
                                type="text">
-                    महिना <input class="form-field nepaliFont form-control-sm" formControlName="ItisambatDay"
+                    महिना <input class="form-field nepaliFont shortInput form-control-sm" formControlName="ItisambatDay"
                                  type="text">
-                    गते <input class="form-field nepaliFont form-control-sm" formControlName="ItisambatTime"
+                    गते <input class="form-field nepaliFont shortInput form-control-sm" formControlName="ItisambatTime"
                                type="text">
                     रोज शुभम्
                     <input class="form-field nepaliFont form-control-sm" formControlName="ItisambatRojSubham"

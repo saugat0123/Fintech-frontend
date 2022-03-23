@@ -8,7 +8,6 @@ import {NepaliCurrencyWordPipe} from '../../../../../../@core/pipe/nepali-curren
 import {CreditAdministrationService} from '../../../../service/credit-administration.service';
 import {ToastService} from '../../../../../../@core/utils';
 import {RouterUtilsService} from '../../../../utils/router-utils.service';
-import {CustomerOfferLetterService} from '../../../../../loan/service/customer-offer-letter.service';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 import {ProgressiveLegalDocConst} from '../progressive-legal-doc-const';
@@ -44,8 +43,7 @@ export class LetterOfAgreementComponent implements OnInit {
               private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
-              private routerUtilsService: RouterUtilsService,
-              private customerOfferLetterService: CustomerOfferLetterService) {
+              private routerUtilsService: RouterUtilsService) {
   }
 
   ngOnInit() {
@@ -69,20 +67,20 @@ export class LetterOfAgreementComponent implements OnInit {
       this.nepDataPersonal = JSON.parse(this.cadData.nepDataPersonal);
       const loanAmount = JSON.parse(this.cadData.nepData);
       this.form.patchValue({
-        perDistrict: this.nepaliData.permanentDistrict.nepaliName ? this.nepaliData.permanentDistrict.nepaliName : '',
-        perMunicipality: this.nepaliData.permanentMunicipalities.nepaliName ? this.nepaliData.permanentMunicipalities.nepaliName : '',
-        perWardNo: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
-        grandFatherName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
-        fatherName: this.nepaliData.fatherName ? this.nepaliData.fatherName : '',
-        loanHolderAge: this.nepaliData.age ? this.nepaliData.age : '',
-        loanHolderName: this.nepaliData.name ? this.nepaliData.name : '',
+        perDistrict: this.nepaliData.collateralOwnerDetails[0].collateralOwnerPermanentDistrict.nepaliName ? this.nepaliData.collateralOwnerDetails[0].collateralOwnerPermanentDistrict.nepaliName : '',
+        perMunicipality: this.nepaliData.collateralOwnerDetails[0].collateralOwnerPermanentMunicipalities.nepaliName ? this.nepaliData.collateralOwnerDetails[0].collateralOwnerPermanentMunicipalities.nepaliName : '',
+        perWardNo: this.nepaliData.collateralOwnerDetails[0].collateralOwnerPermanentWard ? this.nepaliData.collateralOwnerDetails[0].collateralOwnerPermanentWard : '',
+        grandFatherName: this.nepaliData.collateralOwnerDetails[0].collateralOwnerGrandFatherName ? this.nepaliData.collateralOwnerDetails[0].collateralOwnerGrandFatherName : '',
+        fatherName: this.nepaliData.collateralOwnerDetails[0].collateralOwnerFatherName ? this.nepaliData.collateralOwnerDetails[0].collateralOwnerFatherName : '',
+        loanHolderName: this.nepaliData.collateralOwnerDetails[0].collateralOwnerName ? this.nepaliData.collateralOwnerDetails[0].collateralOwnerName : '',
+        financeDistrict: this.nepaliData.branchDistrict ? this.nepaliData.branchDistrict : '',
+        financeMunicipality: this.nepaliData.branchMunVdc ? this.nepaliData.branchMunVdc : '',
         financeWardNo: this.nepaliData.branchWardNo ? this.nepaliData.branchWardNo : '',
-        // tole:
         financeBranchName: this.nepaliData.branchName ? this.nepaliData.branchName : '',
-        // financeRegistrationDate:
-        districtName: this.nepDataPersonal.branchDistrict ? this.nepDataPersonal.branchDistrict : '',
-        municipalityName: this.nepDataPersonal.branchMunVdc ? this.nepDataPersonal.branchMunVdc : '',
-        wardNo: this.nepDataPersonal.branchWardNo ? this.nepDataPersonal.branchWardNo : '',
+        officeRegNo: this.nepaliData.collateralDetails[0].regNo ? this.nepaliData.collateralDetails[0].regNo : '',
+        districtName: this.nepaliData.companyDistrict ? this.nepaliData.companyDistrict : '',
+        municipalityName: this.nepaliData.companyVdcMun ? this.nepaliData.companyVdcMun : '',
+        wardNo: this.nepaliData.companyWardNo ? this.nepaliData.companyWardNo : '',
         companyName: this.nepaliData.companyName ? this.nepaliData.companyName : '',
         loanAmount: loanAmount.numberNepali ? loanAmount.numberNepali : '',
         loanAmountWords: loanAmount.nepaliWords ? loanAmount.nepaliWords : '',
@@ -134,7 +132,7 @@ export class LetterOfAgreementComponent implements OnInit {
 
   buildForm() {
     this.form = this.formBuilder.group({
-      tole: [undefined],
+      malpot: [undefined],
       perDistrict: [undefined],
       perMunicipality: [undefined],
       perWardNo: [undefined],
@@ -146,6 +144,8 @@ export class LetterOfAgreementComponent implements OnInit {
       fatherName: [undefined],
       loanHolderAge: [undefined],
       loanHolderName: [undefined],
+      financeDistrict: [undefined],
+      financeMunicipality: [undefined],
       financeWardNo: [undefined],
       financeBranchName: [undefined],
       officeRegNo: [undefined],

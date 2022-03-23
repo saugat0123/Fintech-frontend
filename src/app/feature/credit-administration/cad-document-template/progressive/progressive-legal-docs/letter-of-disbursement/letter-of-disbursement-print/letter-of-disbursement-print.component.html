@@ -27,21 +27,19 @@
             <div class="row col-md-12">
                 <p>महोदय,</p>
                 <p>
-                    उपरोक्त सम्बन्धमा मेरो/हाम्रो नाममा त्यस वित्तीय संस्थाबाट स्वीकृत भएको
-                    कर्जा त्यस वित्तीय संस्थामा मेरो/हाम्रो
+                    उपरोक्त सम्बन्धमा मेरो/हाम्रो नाममा त्यस वित्तीय संस्थाबाट स्वीकृत भएको कर्जा त्यस वित्तीय संस्थामा मेरो/हाम्रो
                     <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.clientName !== null && printDocForm?.clientName !== ''}">
-                        {{printDocForm?.clientName === null || printDocForm?.clientName === '' ? '_________________' : printDocForm?.clientName}}
-                    </span>को नाममा रहेको चल्ति/बचत खाता नं.
+                        {{printDocForm?.clientName === null || printDocForm?.clientName === '' ? '_________________' : printDocForm?.clientName}}</span>को
+                    नाममा रहेको चल्ति/बचत खाता नं.
                     <span [ngClass]="{'nepaliFont' : printDocForm?.accNumber !== null && printDocForm?.accNumber !== ''}">
                         {{printDocForm?.accNumber === null || printDocForm?.accNumber === '' ? '_________________' : printDocForm?.accNumber}}
                     </span>
-                    मा रकमान्तर (Transfer)
-                    गरिदिन यो भुक्तानीपत्रमा सहिछाप गरि दिएका छु/छौं।
+                    मा रकमान्तर (Transfer) गरिदिन यो भुक्तानीपत्रमा सहिछाप गरि दिएका छु/छौं।
                 </p>
             </div>
             <p class="text-center"><strong>भवदीय,</strong></p>
             <div class="row col-md-12" id="Sincerely">
-                <table class="table-borderless">
+                <table class="table-borderless mt-5">
                     <thead>
                     <tr>
                         <td style="text-align: right;width: 25%">दस्तखत र संस्थाको छाप :</td>
@@ -52,8 +50,8 @@
                     <tr>
                         <td style="text-align: right; vertical-align: top;width: 20%">दस्तखत गर्नेको नाम :</td>
                         <td style="text-align: left"><span
-                                [ngClass]="{'nepaliFont unicode-size' : printDocForm?.clientName !== null && printDocForm?.clientName !== ''}">
-                        {{printDocForm?.clientName === null || printDocForm?.clientName === '' ? '_________________' : printDocForm?.clientName}}
+                                [ngClass]="{'nepaliFont unicode-size' : printDocForm?.sincerlyname !== null && printDocForm?.sincerlyname !== ''}">
+                        {{printDocForm?.sincerlyname === null || printDocForm?.sincerlyname === '' ? '_________________' : printDocForm?.sincerlyname}}
                         </span>
                             <strong>(ना.प्र.न.</strong><span
                                     [ngClass]="{'nepaliFont' : printDocForm?.naPraNaName !== null && printDocForm?.naPraNaName !== ''}">
@@ -70,8 +68,7 @@
                     </tr>
                     <tr>
                         <td style="text-align: right; vertical-align: top;width: 20%">स्थायी ठेगाना :</td>
-                        <td style="text-align: left"><span
-                                class="nepaliFont sizefont">{{printDocForm?.sincerlyPermanentAddress}}</span>
+                        <td style="text-align: left"><span class="nepaliFont sizefont">{{printDocForm?.sincerlyPermanentAddress}}</span>
                             जिल्ला, <span
                                     [ngClass]="{'nepaliFont sizefont' : printDocForm?.jillaName !== null && printDocForm?.jillaName !== ''}">
                         {{printDocForm?.jillaName === null || printDocForm?.jillaName === '' ? '________________' : printDocForm?.jillaName}}
@@ -86,7 +83,7 @@
                         {{printDocForm?.borrowerSabikVDC === null || printDocForm?.borrowerSabikVDC === '' ? '________________' : printDocForm?.borrowerSabikVDC}}
                         </span>गा.बि.स., वडा नं.
                             <span [ngClass]="{'nepaliFont' : printDocForm?.borrowerSabikWardNo !== null && printDocForm?.borrowerSabikWardNo !== ''}">
-                        {{printDocForm?.borrowerSabikWardNo === null || printDocForm?.borrowerSabikWardNo === '' ? '________________' : printDocForm?.borrowerSabikWardNo}}</span>)
+                        {{printDocForm?.borrowerSabikWardNo === null || printDocForm?.borrowerSabikWardNo === '' ? '__________' : printDocForm?.borrowerSabikWardNo}}</span>)
                         </td>
                     </tr>
                     <tr>
@@ -201,7 +198,7 @@
                 <table>
                     <tr>
                         <td>दस्तखत:</td>
-                        <td>.............................</td>
+                        <td>..........................................................</td>
                     </tr>
                     <tr>
                         <td>१. नाम:</td>
@@ -241,11 +238,11 @@
                 <table class="mt-5">
                     <tr>
                         <td>दस्तखत:</td>
-                        <td>.............................</td>
+                        <td>..........................................................</td>
                     </tr>
                     <tr>
                         <td>२. नाम:</td>
-                        <td>नाम:<span
+                        <td><span
                                 [ngClass]="{'nepaliFont unicode-size' : printDocForm?.witnessName1 !== null && printDocForm?.witnessName1 !== ''}">
                         {{printDocForm?.witnessName1 === null || printDocForm?.witnessName1 === '' ? '_________________________________' : printDocForm?.witnessName1}}
                     </span>
@@ -303,7 +300,7 @@
                     </span>
                     महिना
                     <span [ngClass]="{'nepaliFont' : printDocForm?.ItisambatDay !== null && printDocForm?.ItisambatDay !== ''}">
-                        {{printDocForm?.ItisambatDay === null || printDocForm?.ItisambatDay === '' ? '_________________' : printDocForm?.ItisambatDay}}
+                        {{printDocForm?.ItisambatDay === null || printDocForm?.ItisambatDay === '' ? '__________' : printDocForm?.ItisambatDay}}
                     </span>
                     गते <span [ngClass]="{'nepaliFont' : printDocForm?.ItisambatTime !== null && printDocForm?.ItisambatTime !== ''}">
                         {{printDocForm?.ItisambatTime === null || printDocForm?.ItisambatTime === '' ? '_________________' : printDocForm?.ItisambatTime}}
