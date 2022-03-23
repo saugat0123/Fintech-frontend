@@ -627,7 +627,7 @@
                                   [netTradingAssetsData]="netTradingAssetsData"></app-nta-mega-summary>
             <ng-container *ngIf="checkedData?.waiverChecked">
                 <hr class="print-line">
-                <table>
+                <table  class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small" >
                     <tr class="text-white sb-bg-dark">
                         <th   class="header">Waiver</th>
                     </tr>
@@ -638,7 +638,7 @@
             </ng-container>
             <ng-container *ngIf="checkedData?.deviationChecked">
                 <hr class="print-line">
-                <table>
+                <table  class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
                     <tr class="text-white sb-bg-dark">
                         <th   class="header">Deviation</th>
                     </tr>
