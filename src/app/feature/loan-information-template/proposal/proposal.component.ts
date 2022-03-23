@@ -128,6 +128,7 @@ export class ProposalComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log('customerInfo', this.customerInfo);
     this.configEditor();
     this.buildForm();
     this.checkLoanTypeAndBuildForm();
@@ -264,10 +265,7 @@ export class ProposalComponent implements OnInit {
 
   buildForm() {
     this.proposalForm = this.formBuilder.group({
-
-      // Proposed Limit--
       proposedLimit: [undefined, [Validators.required, Validators.min(0)]],
-
       interestRate: [undefined],
       baseRate: [undefined],
       premiumRateOnBaseRate: [undefined],
@@ -399,10 +397,8 @@ export class ProposalComponent implements OnInit {
       purposeChecked: this.purposeChecked,
       debtChecked: this.debtChecked,
       netChecked: this.netChecked,
-      isCombineLoan: this.isCombineLoan,
     };
     this.proposalData.checkedData = JSON.stringify(mergeChecked);
-    console.log('checkedData', this.proposalData.checkedData);
 
     // Proposed Limit value--
     this.proposalData.proposedLimit = this.proposalForm.get('proposedLimit').value;
@@ -515,25 +511,21 @@ export class ProposalComponent implements OnInit {
       case 'combineLoan':
         if (event) {
           this.isCombineLoan = event;
-          this.loanFormService.getLoanHolderCombineList(8).subscribe((res: any) => {
-            console.log(res);
+          this.loanFormService.getLoanHolderCombineList(this.customerInfo.id).subscribe((res: any) => {
             this.combineLoanList = res.detail;
-            // const data = res.detail;
-            // data.forEach((c) => {
-            //   if (c.proposal) {
-            //     const checkData = JSON.parse(c.proposal.checkChecked());
-            //     if (checkData.contains('main')) {
-            //
-            //     }
-            //   }
-            // });
-            console.log('combineLoanList', this.combineLoanList);
+            if (!ObjectUtil.isEmpty(this.allId.customerId)) {
+              this.combineLoanList.forEach((cl, i) => {
+                if (cl.id.toString() === this.allId.customerId.toString()) {
+                  this.combineLoanList.splice(i, 1);
+                }
+              });
+            }
           }, error => {
-            console.log('error', error);
-            this.toastService.show(new Alert(AlertType.ERROR, 'Error while fetching data'));
+            this.toastService.show(new Alert(AlertType.ERROR, 'Error while fetching loan'));
           });
         } else {
           this.isCombineLoan = event;
+          this.commonFieldPatch('');
         }
         break;
     }
@@ -553,7 +545,6 @@ export class ProposalComponent implements OnInit {
       this.checkChecked(data['purposeChecked'], 'purpose');
       this.checkChecked(data['debtChecked'], 'debt');
       this.checkChecked(data['netChecked'], 'net');
-      this.checkChecked(data['isCombineLoan'], 'combineLoan');
     }
   }
 
@@ -857,6 +848,7 @@ export class ProposalComponent implements OnInit {
   commonFieldPatch(selected) {
     if (this.isCombineLoan) {
       const data = JSON.parse(selected.data);
+      this.setCheckedData(JSON.parse(selected.checkedData));
       this.proposalForm.get('borrowerInformation').patchValue(data.borrowerInformation);
       this.proposalForm.get('disbursementCriteria').patchValue(data.disbursementCriteria);
       this.proposalForm.get('repayment').patchValue(data.repayment);
@@ -867,15 +859,24 @@ export class ProposalComponent implements OnInit {
       this.proposalForm.get('solConclusionRecommendation').patchValue(data.solConclusionRecommendation);
       this.proposalForm.get('riskConclusionRecommendation').patchValue(data.riskConclusionRecommendation);
       this.proposalForm.get('termsAndCondition').patchValue(data.termsAndCondition);
+      this.proposalForm.get('total').patchValue(data.total);
+      this.proposalForm.get('totals').patchValue(data.totals);
       this.setFormData(data.vehicle, 'vehicle');
       this.setFormData(data.realState, 'realState');
       this.setFormData(data.shares, 'shares');
       this.setFormData(data.deposit, 'deposit');
     } else {
       const formControl = ['borrowerInformation', 'disbursementCriteria', 'repayment', 'remark', 'summeryRecommendation',
-        'waiverConclusionRecommendation', 'deviationConclusionRecommendation', 'solConclusionRecommendation', 'riskConclusionRecommendation', 'termsAndCondition'];
+        'waiverConclusionRecommendation', 'deviationConclusionRecommendation', 'solConclusionRecommendation',
+        'riskConclusionRecommendation', 'termsAndCondition', 'total', 'totals'];
+      this.setCheckedData(this.checkedDataEdit);
       formControl.forEach((fc) => {
-        this.proposalForm.get(fc).patchValue(null);
+        this.proposalForm.get(fc).patchValue(selected);
+      });
+      const formArray = ['vehicle', 'realState', 'shares', 'deposit'];
+      formArray.forEach((fa) => {
+        const proposalFormArray = this.proposalForm.get(fa) as FormArray;
+        proposalFormArray.clear();
       });
     }
   }
