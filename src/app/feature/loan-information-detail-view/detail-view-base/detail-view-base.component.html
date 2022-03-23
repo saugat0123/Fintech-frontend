@@ -45,7 +45,7 @@
         <hr class="print-line">
         <table  class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small" >
             <tr class="text-white sb-bg-dark">
-                <th class="header">Waiver</th>
+                <th   class="header">Waiver</th>
             </tr>
             <tr>
                 <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.waiverConclusionRecommendation || 'N/A' | safeHtml"></span></td>
@@ -54,22 +54,43 @@
     </ng-container>
     <ng-container *ngIf="checkedData?.deviationChecked">
         <hr class="print-line">
-        <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+        <table  class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
             <tr class="text-white sb-bg-dark">
-                <th class="header">Deviation</th>
+                <th   class="header">Deviation</th>
             </tr>
             <tr>
                 <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.deviationConclusionRecommendation || 'N/A' | safeHtml"></span></td>
             </tr>
         </table>
     </ng-container>
-
 </div>
 <div *ngIf="!isIndividual">
     <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl" [ciclValue]="loanDataHolder?.loanHolder?.cicl" [loanDataHolder]="loanDataHolder"></app-cicl-view>
+    <ng-container *ngIf="checkedData?.waiverChecked">
+        <hr class="print-line">
+        <table  class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+            <tr class="text-white sb-bg-dark">
+                <th   class="header">Waiver</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.waiverConclusionRecommendation || 'N/A' | safeHtml"></span></td>
+            </tr>
+        </table>
+    </ng-container>
+    <ng-container *ngIf="checkedData?.deviationChecked">
+        <hr class="print-line">
+        <table  class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
+            <tr class="text-white sb-bg-dark">
+                <th   class="header">Deviation</th>
+            </tr>
+            <tr>
+                <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.deviationConclusionRecommendation || 'N/A' | safeHtml"></span></td>
+            </tr>
+        </table>
+    </ng-container>
     <div *ngIf="financialKeys?.length > 0 && !isIndividual ">
         <ng-container  *ngFor="let title of financialKeys">
-            <h6>{{title | financialPipe}}</h6>
+            <p class="sub-header"><strong class="sub-header">{{title | financialPipe}}</strong></p>
             <hr>
             <div class="row">
                 <app-financial-json-parser [financialJson]="financialData[title] | jsonParse"></app-financial-json-parser>
@@ -79,29 +100,6 @@
     <app-nta-mega-summary *ngIf="loanDataHolder?.loanHolder?.netTradingAssets && fiscalYearArray?.length > 0"
                           [fiscalYears]="fiscalYearArray"
                           [netTradingAssetsData]="loanDataHolder?.loanHolder?.netTradingAssets"></app-nta-mega-summary>
-    <ng-container *ngIf="checkedData?.waiverChecked">
-        <hr class="print-line">
-        <table  class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small" >
-            <tr class="text-white sb-bg-dark">
-                <th class="header">Waiver</th>
-            </tr>
-            <tr>
-                <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.waiverConclusionRecommendation || 'N/A' | safeHtml"></span></td>
-            </tr>
-        </table>
-    </ng-container>
-    <ng-container *ngIf="checkedData?.deviationChecked">
-        <hr class="print-line">
-        <table class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small">
-            <tr class="text-white sb-bg-dark">
-                <th class="header">Deviation</th>
-            </tr>
-            <tr>
-                <td class="text-left pl-1"><span [innerHTML]="proposalAllData?.deviationConclusionRecommendation || 'N/A' | safeHtml"></span></td>
-            </tr>
-        </table>
-    </ng-container>
-
 </div>
 
 <div *ngIf="megaGroupEnabled && loanDataHolder?.loanHolder.mgroupInfo">
