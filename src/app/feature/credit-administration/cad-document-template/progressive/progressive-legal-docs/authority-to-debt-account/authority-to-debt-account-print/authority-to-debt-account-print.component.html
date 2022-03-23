@@ -16,7 +16,7 @@
                 <div class="col-md-12">
                     <p class=" float-right">
                     मिति:
-                    <span [ngClass]="{'nepaliFont' : printDocForm?.date !== null && printDocForm?.date !== ''}">
+                    <span [ngClass]="{'nepaliFont' : printDocForm?.date !== null && printDocForm?.date !== '____________________'}">
                         {{printDocForm?.date === null || printDocForm?.date === '' ? '_________________' : printDocForm?.date}}
                     </span>
                     </p>
@@ -77,9 +77,11 @@
                 <div class=" col-md-12">
                     <p><strong>भवदीय,</strong></p>
                 <p>
+                    संस्थाको छाप :-
+                    <br><br><br>
                     दस्तखत :- ......................................................
                     <br>
-                    दस्तखत गर्नेको नाम :- <span class="nepaliFont unicode-size2">{{printDocForm?.sincerlyname}}
+                    दस्तखत गर्नेको नाम :- <span class="nepaliFont unicode-size2">{{printDocForm?.sincerelyName}}
                 </span>(ना.प्र.न
                     <span [ngClass]="{'nepaliFont' : printDocForm?.naPraNaName !== null && printDocForm?.naPraNaName !== ''}">
                         {{printDocForm?.naPraNaName === null || printDocForm?.naPraNaName === '' ? '______________' : printDocForm?.naPraNaName}}
@@ -91,20 +93,40 @@
                         {{printDocForm?.jiPrakaName === null || printDocForm?.jiPrakaName === '' ? '______________' : printDocForm?.jiPrakaName}}
                     </span>
                     <br>
-                    स्थायी ठेगाना :- <span class="nepaliFont unicode-size">{{printDocForm?.sincerlyPermanentAddress}}</span>
-                    जिल्ला <span
-                        [ngClass]="{'nepaliFont unicode-size' : printDocForm?.jillaName !== null && printDocForm?.jillaName !== ''}">
+                    <ng-container *ngIf="this.loanCat === 'INDIVIDUAL'">
+                        स्थायी ठेगाना :- <span class="nepaliFont unicode-size">{{printDocForm?.sincerelyPermanentAddress}}</span>
+                        जिल्ला <span
+                            [ngClass]="{'nepaliFont unicode-size' : printDocForm?.jillaName !== null && printDocForm?.jillaName !== ''}">
                         {{printDocForm?.jillaName === null || printDocForm?.jillaName === '' ? '________________' : printDocForm?.jillaName}}
-                    </span>गा.पा./न.पा., वडा नं.<span
+                    </span>
+                    </ng-container>
+                    <ng-container *ngIf="this.loanCat === 'INSTITUTION'">
+                        स्थायी ठेगाना :- <span class="nepaliFont unicode-size2">{{printDocForm?.sincerelyPermanentAddress}}</span>
+                        जिल्ला <span
+                            [ngClass]="{'nepaliFont unicode-size2' : printDocForm?.jillaName !== null && printDocForm?.jillaName !== ''}">
+                        {{printDocForm?.jillaName === null || printDocForm?.jillaName === '' ? '________________' : printDocForm?.jillaName}}
+                    </span>
+                    </ng-container>
+                   गा.पा./न.पा., वडा नं.<span
                         [ngClass]="{'nepaliFont' : printDocForm?.jagaName !== null && printDocForm?.jagaName !== ''}">
                         {{printDocForm?.jagaName === null || printDocForm?.jagaName === '' ? '________________' : printDocForm?.jagaName}}
                     </span>
                     <br>
-                    हालको ठेगाना :- <span class="nepaliFont unicode-size">{{printDocForm?.sincerlytempAddress}}</span>
-                    जिल्ला <span
-                        [ngClass]="{'nepaliFont unicode-size' : printDocForm?.jillaName1 !== null && printDocForm?.jillaName1 !== ''}">
-                        {{printDocForm?.jillaName1 === null || printDocForm?.jillaName1 === '' ? '________________' : printDocForm?.jillaName1}}
-                    </span>गा.पा./न.पा., वडा नं.<span
+                    <ng-container *ngIf="this.loanCat === 'INDIVIDUAL'">
+                        हालको ठेगाना :- <span class="nepaliFont unicode-size">{{printDocForm?.sincerelyTempAddress}}</span>
+                        जिल्ला <span
+                            [ngClass]="{'nepaliFont unicode-size' : printDocForm?.jillaName1 !== null && printDocForm?.jillaName1 !== ''}">
+                            {{printDocForm?.jillaName1 === null || printDocForm?.jillaName1 === '' ? '________________' : printDocForm?.jillaName1}}
+                        </span>
+                    </ng-container>
+                    <ng-container *ngIf="this.loanCat === 'INSTITUTION'">
+                        हालको ठेगाना :- <span class="nepaliFont unicode-size2">{{printDocForm?.sincerelyTempAddress}}</span>
+                        जिल्ला <span
+                            [ngClass]="{'nepaliFont unicode-size2' : printDocForm?.jillaName1 !== null && printDocForm?.jillaName1 !== ''}">
+                            {{printDocForm?.jillaName1 === null || printDocForm?.jillaName1 === '' ? '________________' : printDocForm?.jillaName1}}
+                        </span>
+                    </ng-container>
+                    गा.पा./न.पा., वडा नं.<span
                         [ngClass]="{'nepaliFont' : printDocForm?.jagaName1 !== null && printDocForm?.jagaName1 !== ''}">
                         {{printDocForm?.jagaName1 === null || printDocForm?.jagaName1 === '' ? '________________' : printDocForm?.jagaName1}}
                     </span>
