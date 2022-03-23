@@ -229,8 +229,8 @@ export class LoanFormService extends BaseService<LoanDataHolder> {
         return this.http.post(req.url, searchObj, {headers: req.header});
     }
 
-    public getLoanHolderCombineList(id: number) {
-        const api = `${this.getApi()}/tag-loan/${id}`;
+    public getLoanHolderCombineList(id: number, actualLoanId: string) {
+        const api = `${this.getApi()}/loan-holder/${id}/loan-id/${actualLoanId}`;
         const req = ApiUtils.getRequest(api);
         return this.http.get(req.url, {headers: req.header});
     }

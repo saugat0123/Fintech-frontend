@@ -128,7 +128,6 @@ export class ProposalComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('customerInfo', this.customerInfo);
     this.configEditor();
     this.buildForm();
     this.checkLoanTypeAndBuildForm();
@@ -196,7 +195,6 @@ export class ProposalComponent implements OnInit {
             loanCategory: null
           };
           this.allId = paramsValue;
-          console.log('allId', this.allId);
           this.loanId = this.allId.loanId ? this.allId.loanId : this.loanIds;
           this.loanConfigService.detail(this.loanId).subscribe((response: any) => {
             this.minimumAmountLimit = response.detail.minimumProposedAmount;
@@ -511,15 +509,9 @@ export class ProposalComponent implements OnInit {
       case 'combineLoan':
         if (event) {
           this.isCombineLoan = event;
-          this.loanFormService.getLoanHolderCombineList(this.customerInfo.id).subscribe((res: any) => {
+          const actualLoanId = this.allId.customerId ? this.allId.customerId : 0;
+          this.loanFormService.getLoanHolderCombineList(this.customerInfo.id, actualLoanId).subscribe((res: any) => {
             this.combineLoanList = res.detail;
-            if (!ObjectUtil.isEmpty(this.allId.customerId)) {
-              this.combineLoanList.forEach((cl, i) => {
-                if (cl.id.toString() === this.allId.customerId.toString()) {
-                  this.combineLoanList.splice(i, 1);
-                }
-              });
-            }
           }, error => {
             this.toastService.show(new Alert(AlertType.ERROR, 'Error while fetching loan'));
           });
