@@ -192,7 +192,7 @@ export class PromisoryNoteInstitutionalComponent implements OnInit {
         AkhtiyarTempWardNo: this.nepaliData.representativeTemporaryWard ? this.nepaliData.representativeTemporaryWard : '',
         buttomSincerlyParentName: this.nepaliData.representativeFatherName ? this.nepaliData.representativeFatherName : '',
         buttomSincerlyGrandParentName: this.nepaliData.representativeGrandFatherName ? this.nepaliData.representativeGrandFatherName : '',
-        buttomSincerlyHusbandName: this.nepaliData.representativeHusbandWifeName ? this.nepaliData.representativeHusbandWifeName : ''
+        buttomSincerlyHusbandName: this.nepaliData.representativeHusbandWifeName ? this.nepaliData.representativeHusbandWifeName : '',
       });
     }
   }

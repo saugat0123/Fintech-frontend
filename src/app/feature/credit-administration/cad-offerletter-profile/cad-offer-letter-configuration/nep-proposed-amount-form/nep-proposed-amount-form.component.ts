@@ -84,13 +84,6 @@ export class NepProposedAmountFormComponent implements OnInit {
         });
     }
 
-    checkIsIndividual() {
-        if (CustomerType.INDIVIDUAL === CustomerType[this.customerInfo.customerType]) {
-            return true;
-        }
-        return false;
-    }
-
     onChangeValue(event) {
         let number = 0;
         if (!ObjectUtil.isEmpty(event.target.value)) {
