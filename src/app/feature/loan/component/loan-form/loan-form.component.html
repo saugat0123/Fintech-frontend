@@ -163,7 +163,7 @@
                     </ng-template>
                     <ng-template ngbTabContent *ngIf="allList.name === 'Security'">
                         <div class="py-4">
-                            <app-security-adder [security]="loanHolder?.security"
+                            <app-security-adder #shareSecurity [security]="loanHolder?.security"
                                                 [shareSecurityData]="loanHolder?.shareSecurity"></app-security-adder>
                         </div>
                     </ng-template>

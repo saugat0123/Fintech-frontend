@@ -68,6 +68,7 @@ import {CrgMicroComponent} from '../../../loan-information-template/crg-micro/cr
 import {MicroCustomerType} from '../../../../@core/model/enum/micro-customer-type';
 import {ProductPaperChecklistComponent} from '../../../loan-information-template/product-paper-checklist/product-paper-checklist.component';
 import {DomSanitizer} from '@angular/platform-browser';
+import {SecurityAdderComponent} from '../../../loan-information-view/security-view/security-adder/security-adder.component';
 
 
 @Component({
@@ -214,6 +215,9 @@ export class LoanFormComponent implements OnInit {
 
     @ViewChild('guarantor', {static: false})
     guarantorComponent: GuarantorAdderComponent;
+
+    @ViewChild('shareSecurity', {static: false})
+    shareSecurity: SecurityAdderComponent;
 
     @ViewChild('reportingInfoTagging', {static: false})
     reportingInfoTaggingComponent: ReportingInfoTaggingComponent;
@@ -691,6 +695,10 @@ export class LoanFormComponent implements OnInit {
 
         if (name === 'Guarantor' && action) {
             this.loanDocument.taggedGuarantors = this.guarantorComponent.selectedGuarantorList;
+        }
+
+        if (name === 'Security' && action) {
+            this.loanDocument.loanHolder.shareSecurity.customerShareData = this.shareSecurity.customerShareData;
         }
 
         if (name === 'Reporting Info' && action) {

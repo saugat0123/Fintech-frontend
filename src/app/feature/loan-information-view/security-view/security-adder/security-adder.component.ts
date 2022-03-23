@@ -1,5 +1,4 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {NbDialogService} from '@nebular/theme';
 
 @Component({
     selector: 'app-security-adder',
@@ -11,37 +10,23 @@ export class SecurityAdderComponent implements OnInit {
     @Input() security;
     @Input() shareSecurityData;
     @Input() taggedShareSecurities;
-    msg = '';
-    approvedSecurityData: any;
-    approvedShareSecurityData: any;
     customerShareData: any;
-    // selectedSecurityList: any;
-    securityList: any;
+    selectedShareSecurityList: any;
 
-    constructor(private nbDialogService: NbDialogService) {
+    constructor() {
     }
 
     ngOnInit() {
-        console.log('security', this.security);
-        if (this.security.approvedData) {
-            this.approvedSecurityData = JSON.parse(this.security.approvedData);
-            console.log('approved security data', this.approvedSecurityData);
-        }
-        if (this.shareSecurityData.approvedData) {
-            this.approvedShareSecurityData = JSON.parse(this.shareSecurityData.approvedData);
-            console.log('approved share security data', this.approvedShareSecurityData);
-        }
+        this.selectedShareSecurityList = this.shareSecurityData;
         this.customerShareData = this.shareSecurityData.customerShareData;
-        console.log('customer share data', this.customerShareData);
-        console.log('share security data', this.shareSecurityData);
-        console.log('tagged securities', this.taggedShareSecurities);
     }
 
-    removeShareSecurity(shareSecurity: any) {
-        console.log('remove share security', shareSecurity);
+    removeShareSecurity(data) {
+        const removeIndex = this.findShareSecurityIndex(data);
+        this.customerShareData.splice(removeIndex, 1);
     }
 
-    openShareSecurityDetailModal(shareSecurity: any) {
-        console.log('open share security details', shareSecurity);
+    findShareSecurityIndex(data) {
+        return this.customerShareData.indexOf(this.customerShareData.filter(d => d.id.toString() === data.id.toString())[0]);
     }
 }
