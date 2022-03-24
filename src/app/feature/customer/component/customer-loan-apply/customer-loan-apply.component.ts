@@ -54,6 +54,7 @@ export class CustomerLoanApplyComponent implements OnInit {
   nonMicroLoanList = [];
   isMicroCustomer: boolean;
   validateUrl = environment.validationUrl;
+  validationCheck = environment.validation;
 
   constructor(
       public activeModal: NgbActiveModal,
@@ -151,7 +152,7 @@ export class CustomerLoanApplyComponent implements OnInit {
       this.spinnerService.show();
       this.loanConfigService.detail(this.applyForm.loanId).subscribe(res => {
         const loanConfig: LoanConfig = res.detail;
-        if (loanConfig.validationForm === ValidationForm.keysEnum(ValidationForm.HOME_LOAN_VALIDATION)) {
+        if (loanConfig.validationForm === ValidationForm.keysEnum(ValidationForm.HOME_LOAN_VALIDATION) && this.validationCheck) {
           const encryptAt = this.encryptUrl(this.getATStorage(), 'at');
           const encryptId = this.encryptUrl(this.customerInfo.id, 'id');
           const encryptLoanId = this.removeSpecialCharacters(this.encryptUrl(loanConfig.id, 'loanConfigId'));
