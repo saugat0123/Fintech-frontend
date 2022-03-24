@@ -14,6 +14,7 @@ import {ProgressiveLegalDocConst} from '../progressive-legal-doc-const';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../model/customerApprovedLoanCadDocumentation';
 import {CadFile} from '../../../../model/CadFile';
 import {Document} from '../../../../../admin/modal/document';
+import {CustomerType} from '../../../../../customer/model/customerType';
 
 
 @Component({
@@ -62,28 +63,53 @@ export class IndemnityDeedComponent implements OnInit {
 
         if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
             const loanAmount = JSON.parse(this.cadData.nepData);
+            const customerType = this.cadData.loanHolder.customerType;
             this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
-            this.form.patchValue({
-                customerName: this.nepaliData.name ? this.nepaliData.name : '',
-                sincerlyCitizenshipNo: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
-                sincerlyDate: this.nepaliData.citizenshipIssueDate ? this.nepaliData.citizenshipIssueDate : '',
-                sincerlyCdOoffice: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
-                sincerlyPermanentDistrict: this.nepaliData.permanentDistrict.nepaliName ? this.nepaliData.permanentDistrict.nepaliName : '',
-                sincerlyPermanentMunicipality: this.nepaliData.permanentMunicipalities.nepaliName ? this.nepaliData.permanentMunicipalities.nepaliName : '',
-                sincerlyPermanentWardNo: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
-                sinserlyTempDistrict: this.nepaliData.temporaryDistrict.nepaliName ? this.nepaliData.temporaryDistrict.nepaliName : '',
-                sinserlyTempMunicipality: this.nepaliData.temporaryMunicipalities.nepaliName ? this.nepaliData.temporaryMunicipalities.nepaliName : '',
-                sinserlyTempWardNo: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
-                parentName: this.nepaliData.fatherName ? this.nepaliData.fatherName : '',
-                grandParentName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
-                husbandWifeName: this.nepaliData.husbandName ? this.nepaliData.husbandName : '',
-                amount: loanAmount.numberNepali ? loanAmount.numberNepali : '',
-                amountInWord: loanAmount.nepaliWords ? loanAmount.nepaliWords : '',
-                branchName : this.nepaliData.branchName ? this.nepaliData.branchName : '',
-                chaltiKhata: this.nepaliData.accountNo ? this.nepaliData.accountNo : '',
-                sabikVDC: this.nepaliData.permanentVdc ? this.nepaliData.permanentVdc : '',
-                sabikWardNo: this.nepaliData.permanentVdcWard ? this.nepaliData.permanentVdcWard : ''
-            });
+            if (customerType === CustomerType.INDIVIDUAL) {
+                this.form.patchValue({
+                    customerName: this.nepaliData.name ? this.nepaliData.name : '',
+                    signatureName: this.nepaliData.name ? this.nepaliData.name : '',
+                    sincerlyCitizenshipNo: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
+                    sincerlyDate: this.nepaliData.citizenshipIssueDate ? this.nepaliData.citizenshipIssueDate : '',
+                    sincerlyCdOoffice: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
+                    sincerlyPermanentDistrict: this.nepaliData.permanentDistrict.nepaliName ? this.nepaliData.permanentDistrict.nepaliName : '',
+                    sincerlyPermanentMunicipality: this.nepaliData.permanentMunicipalities.nepaliName ? this.nepaliData.permanentMunicipalities.nepaliName : '',
+                    sincerlyPermanentWardNo: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
+                    sinserlyTempDistrict: this.nepaliData.temporaryDistrict.nepaliName ? this.nepaliData.temporaryDistrict.nepaliName : '',
+                    sinserlyTempMunicipality: this.nepaliData.temporaryMunicipalities.nepaliName ? this.nepaliData.temporaryMunicipalities.nepaliName : '',
+                    sinserlyTempWardNo: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
+                    parentName: this.nepaliData.fatherName ? this.nepaliData.fatherName : '',
+                    grandParentName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
+                    husbandWifeName: this.nepaliData.husbandName ? this.nepaliData.husbandName : '',
+                    branchName: this.nepaliData.branchName ? this.nepaliData.branchName : '',
+                    chaltiKhata: this.nepaliData.accountNo ? this.nepaliData.accountNo : '',
+                    sabikVDC: this.nepaliData.permanentVdc ? this.nepaliData.permanentVdc : '',
+                    sabikWardNo: this.nepaliData.permanentVdcWard ? this.nepaliData.permanentVdcWard : ''
+                });
+            } else {
+                this.form.patchValue({
+                    branchName: this.nepaliData.branchName ? this.nepaliData.branchName : '',
+                    customerName: this.nepaliData.companyName ? this.nepaliData.companyName : '',
+                    signatureName: this.nepaliData.representativeName ? this.nepaliData.representativeName : '',
+                    sincerlyCitizenshipNo: this.nepaliData.representativeCitizenshipNo ? this.nepaliData.representativeCitizenshipNo : '',
+                    sincerlyDate: this.nepaliData.representativeCitizenshipIssueDate ? this.nepaliData.representativeCitizenshipIssueDate : '',
+                    // tslint:disable-next-line:max-line-length
+                    sincerlyCdOoffice: this.nepaliData.representativeCitizenshipIssuingAuthority ? this.nepaliData.representativeCitizenshipIssuingAuthority : '',
+                    sincerlyPermanentDistrict: this.nepaliData.representativePermanentDistrict ? this.nepaliData.representativePermanentDistrict : '',
+                    sincerlyPermanentMunicipality: this.nepaliData.representativePermanentMunicipality ? this.nepaliData.representativePermanentMunicipality : '',
+                    sincerlyPermanentWardNo: this.nepaliData.representativePermanentWard ? this.nepaliData.representativePermanentWard : '',
+                    sinserlyTempDistrict: this.nepaliData.representativeTemporaryDistrict ? this.nepaliData.representativeTemporaryDistrict : '',
+                    sinserlyTempMunicipality: this.nepaliData.representativeTemporaryMunicipality ? this.nepaliData.representativeTemporaryMunicipality : '',
+                    sinserlyTempWardNo: this.nepaliData.representativeTemporaryWard ? this.nepaliData.representativeTemporaryWard : '',
+                    parentName: this.nepaliData.representativeFatherName ? this.nepaliData.representativeFatherName : '',
+                    grandParentName: this.nepaliData.representativeGrandFatherName ? this.nepaliData.representativeGrandFatherName : '',
+                    husbandWifeName: this.nepaliData.representativeHusbandWifeName ? this.nepaliData.representativeHusbandWifeName : '',
+                    sabikVDC: this.nepaliData.representativePermanentVdc ? this.nepaliData.representativePermanentVdc : '',
+                    sabikWardNo: this.nepaliData.representativePermanentVdcWard ? this.nepaliData.representativePermanentVdcWard : ''
+                });
+            }
+            this.form.get('amount').patchValue(loanAmount.numberNepali);
+            this.form.get('amountInWord').patchValue(loanAmount.nepaliWords);
         }
     }
 
@@ -187,6 +213,7 @@ export class IndemnityDeedComponent implements OnInit {
             guarantorPermanentMunicipality1: [undefined],
             guarantorPermanentWardNo1: [undefined],
             issuedPlace1: [undefined],
+            signatureName: [undefined]
         });
     }
 
