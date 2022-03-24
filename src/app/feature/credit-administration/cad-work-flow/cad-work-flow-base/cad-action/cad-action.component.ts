@@ -99,6 +99,8 @@ export class CadActionComponent implements OnInit, OnChanges {
     toRole;
     breakException: any;
     isMakerOrApproval = false;
+    isLegal = false;
+
     constructor(private router: ActivatedRoute,
                 private route: Router,
                 private loanActionService: LoanActionService,
@@ -124,6 +126,9 @@ export class CadActionComponent implements OnInit, OnChanges {
         this.currentUserRole = LocalStorageUtil.getStorage().roleType;
         if ((this.currentUserRole === RoleType.APPROVAL || this.currentUserRole === RoleType.MAKER) && this.cadOfferLetterApprovedDoc.docStatus !== CadDocStatus.DISCREPANCY_PENDING) {
             this.isMakerOrApproval = true;
+        }
+        if (this.currentUserRole === RoleType.CAD_LEGAL) {
+            this.isLegal = true;
         }
         if (this.cadOfferLetterApprovedDoc.docStatus === CadDocStatus.DISBURSEMENT_APPROVED) {
             this.approvedLoan = true;
