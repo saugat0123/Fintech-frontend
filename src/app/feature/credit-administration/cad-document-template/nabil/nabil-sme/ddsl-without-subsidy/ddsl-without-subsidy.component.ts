@@ -80,6 +80,33 @@ export class DdslWithoutSubsidyComponent implements OnInit, AfterViewChecked {
   securityTypeConditionLandAndBuildingSecondary = false;
   kittaNumbers: Array<any> = new Array<any>();
   plotNumber;
+  promissoryVisible: boolean;
+  boardVisible: boolean;
+  loanDeedVisible: boolean;
+  mortgagedVisible: boolean;
+  continuityVisible: boolean;
+  supplementaryVisible: boolean;
+  attorneyVisible: boolean;
+  multiVisible: boolean;
+  guaranteeVisible: boolean;
+  wealthVisible: boolean;
+  bankersClause1: boolean;
+  bankersClause2: boolean;
+  insuranceDeclarationVisible: boolean;
+  undertakingLetterVisible: boolean;
+  declarationVisible: boolean;
+  leaseVisible: boolean;
+  consentLetterVisible: boolean;
+  buildingVisible: boolean;
+  hirePurchaseVisible: boolean;
+  comprehensiveVisible: boolean;
+  thirdPartyVisible: boolean;
+  blueBook: boolean;
+  loanSubordinationAgreement: boolean;
+  pariPasu: boolean;
+  partnershipDeed: boolean;
+  letterSetOff: boolean;
+  securityTypeConditionPg = false;
   client = CustomerType;
 
   constructor(
@@ -103,6 +130,7 @@ export class DdslWithoutSubsidyComponent implements OnInit, AfterViewChecked {
       this.tempData = JSON.parse(
         this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation
       );
+      this.requiredDocument();
       this.securityDetails = this.tempData.securities;
     }
     this.loanOptions = this.tempData.loanOption.ct;
@@ -466,7 +494,13 @@ export class DdslWithoutSubsidyComponent implements OnInit, AfterViewChecked {
       )
     ) {
       this.securityTypeSecondaryConditionDocuments = true;
-      this.securityTypeSecondaryConditionDocuments = true;
+    }
+    if (
+        this.securityDetails.secondarySecurity.some(
+            (s) => s.securityTypeCT === 'PERSONAL GUARANTEE'
+        )
+    ) {
+      this.securityTypeConditionPg = true;
     }
   }
 
@@ -619,7 +653,7 @@ export class DdslWithoutSubsidyComponent implements OnInit, AfterViewChecked {
       const temp1 = guarantorName[guarantorName.length - 1];
       finalName = this.temp2 + " र " + temp1;
     }
-    return finalName ? finalName : "";
+    return finalName ? finalName : '';
   }
 
   guarantorParse(nepData, key, trans?) {
@@ -628,6 +662,87 @@ export class DdslWithoutSubsidyComponent implements OnInit, AfterViewChecked {
       return data[key].ct;
     } else {
       return data[key].en;
+    }
+  }
+  requiredDocument() {
+    const temp = this.tempData;
+    if (!ObjectUtil.isEmpty(temp.requiredDocuments)) {
+      if (temp.requiredDocuments.requiredLegalDocument.requiredDocument.includes('Promissory Note')) {
+      this.promissoryVisible = true;
+      }
+      if (temp.requiredDocuments.requiredLegalDocument.requiredDocument.includes('Board Minute')) {
+        this.boardVisible = true;
+      }
+      if (temp.requiredDocuments.requiredLegalDocument.requiredDocument.includes('Loan Deed')) {
+        this.loanDeedVisible = true;
+      }
+      if (temp.requiredDocuments.requiredLegalDocument.requiredDocument.includes('Mortgaged Deed')) {
+        this.mortgagedVisible = true;
+      }
+      if (temp.requiredDocuments.requiredLegalDocument.requiredDocument.includes('Letter Of Continuity')) {
+        this.continuityVisible = true;
+      }
+      if (temp.requiredDocuments.requiredLegalDocument.requiredDocument.includes('General Letter Of Hypothecation with Supplementary Agreement')) {
+        this.supplementaryVisible = true;
+      }
+      if (temp.requiredDocuments.requiredLegalDocument.requiredDocument.includes('Assignment Of Receivables with Power Of Attorney')) {
+        this.attorneyVisible = true;
+      }
+      if (temp.requiredDocuments.requiredLegalDocument.requiredDocument.includes('Multiple Banking Declaration')) {
+        this.multiVisible = true;
+      }
+      if (temp.requiredDocuments.requiredLegalDocument.requiredDocument.includes('Personal Guarantee')) {
+        this.guaranteeVisible = true;
+      }
+      if (temp.requiredDocuments.requiredLegalDocument.requiredDocument.includes('Wealth Statement Of Guarantor')) {
+        this.wealthVisible = true;
+      }
+      if (temp.requiredDocuments.requiredLegalDocument.requiredDocument.includes('Insurance Of Stock')) {
+        this.bankersClause1 = true;
+      }
+      if (temp.requiredDocuments.requiredLegalDocument.requiredDocument.includes('Insurance Of Building')) {
+        this.bankersClause2 = true;
+      }
+      if (temp.requiredDocuments.requiredLegalDocument.requiredDocument.includes('Insurance Declaration Statement')) {
+        this.insuranceDeclarationVisible = true;
+      }
+      if (temp.requiredDocuments.requiredLegalDocument.requiredDocument.includes('Undertaking Letter')) {
+        this.undertakingLetterVisible = true;
+      }
+      if (temp.requiredDocuments.requiredLegalDocument.requiredDocument.includes('Declaration Letter')) {
+        this.declarationVisible = true;
+      }
+      if (temp.requiredDocuments.requiredLegalDocument.requiredDocument.includes('Lease Agreement')) {
+        this.leaseVisible = true;
+      }
+      if (temp.requiredDocuments.requiredLegalDocument.requiredDocument.includes('Letter Of Consent from Mortgage Property Owner for Continuation Of Existing Mortgage')) {
+        this.consentLetterVisible = true;
+      }
+      if (temp.requiredDocuments.requiredLegalDocument.requiredDocument.includes('Letter Of Consent from Mortgage Property Owner for Continuation Of Existing Mortgage')) {
+        this.continuityVisible = true;
+      }
+      if (temp.requiredDocuments.requiredLegalDocument.requiredDocument.includes('Building Construction Complete Certificate')) {
+        this.buildingVisible = true;
+      }
+      if (temp.requiredDocuments.requiredLegalDocument.requiredDocument.includes('Hire Purchase Agreement')) {
+        this.hirePurchaseVisible = true;
+      }
+      if (temp.requiredDocuments.requiredLegalDocument.requiredDocument.includes('Comprehensive Insurance')) {
+        this.comprehensiveVisible = true;
+      }
+      if (temp.requiredDocuments.requiredLegalDocument.requiredDocument.includes('Consent for Third Party Transfer in Case Of Default')) {
+        this.thirdPartyVisible = true;
+      }if (temp.requiredDocuments.requiredLegalDocument.requiredDocument.includes('Blue Book')) {
+        this.blueBook = true;
+      }if (temp.requiredDocuments.requiredLegalDocument.requiredDocument.includes('Loan Subordination Agreement')) {
+        this.loanSubordinationAgreement = true;
+      }if (temp.requiredDocuments.requiredLegalDocument.requiredDocument.includes('Pari-Pasu Deed')) {
+        this.pariPasu = true;
+      }if (temp.requiredDocuments.requiredLegalDocument.requiredDocument.includes('Partnership Deed')) {
+        this.partnershipDeed = true;
+      }if (temp.requiredDocuments.requiredLegalDocument.requiredDocument.includes('Letter Of Set Off')) {
+        this.letterSetOff = true;
+      }
     }
   }
 }

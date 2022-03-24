@@ -105,9 +105,9 @@ export class CommonSecuritySectionPrimaryComponent implements OnInit {
       securityOwnersDistrict: [undefined],
       securityOwnersMunicipalityOrVdc: [undefined],
       securityOwnersMunicipality: [undefined],
-      marginInPercentage: [undefined],
-      marginInPercentageMotor: [undefined],
-      marginInPercentageFoot: [undefined],
+      // marginInPercentage: [undefined],
+      // marginInPercentageMotor: [undefined],
+      // marginInPercentageFoot: [undefined],
       /*securityOwnersWardNo: [undefined],
       securityOwnersKittaNo: [undefined],
       securityOwnersLandArea: [undefined],
@@ -118,9 +118,9 @@ export class CommonSecuritySectionPrimaryComponent implements OnInit {
       securityOwnersDistrictTrans: [undefined],
       securityOwnersMunicipalityOrVdcTrans: [undefined],
       securityOwnersMunicipalityTrans: [undefined],
-      marginInPercentageTrans: [undefined],
+      /*marginInPercentageTrans: [undefined],
       marginInPercentageMotorTrans: [undefined],
-      marginInPercentageFootTrans: [undefined],
+      marginInPercentageFootTrans: [undefined],*/
       /*securityOwnersWardNoTrans: [undefined],
       securityOwnersKittaNoTrans: [undefined],
       securityOwnersLandAreaTrans: [undefined],
@@ -131,9 +131,9 @@ export class CommonSecuritySectionPrimaryComponent implements OnInit {
       securityOwnersDistrictCT: [undefined],
       securityOwnersMunicipalityOrVdcCT: [undefined],
       securityOwnersMunicipalityCT: [undefined],
-      marginInPercentageCT: [undefined],
+      /*marginInPercentageCT: [undefined],
       marginInPercentageMotorCT: [undefined],
-      marginInPercentageFootCT: [undefined],
+      marginInPercentageFootCT: [undefined],*/
       /*securityOwnersWardNoCT: [undefined],
       securityOwnersKittaNoCT: [undefined],
       securityOwnersLandAreaCT: [undefined],
@@ -445,9 +445,9 @@ export class CommonSecuritySectionPrimaryComponent implements OnInit {
         this.formBuilder.group({
           securityType: [val.securityType],
           securityOwnersName: [val.securityOwnersName],
-          marginInPercentage: [val.marginInPercentage],
+          /*marginInPercentage: [val.marginInPercentage],
           marginInPercentageMotor: [val.marginInPercentageMotor],
-          marginInPercentageFoot: [val.marginInPercentageFoot],
+          marginInPercentageFoot: [val.marginInPercentageFoot],*/
           securityOwnersMunicipalityOrVdc: [
             val.securityOwnersMunicipalityOrVdc,
           ],
@@ -459,9 +459,9 @@ export class CommonSecuritySectionPrimaryComponent implements OnInit {
           // TRANSLATION FIELD OF SECURITY:
           securityTypeTrans: [val.securityTypeTrans],
           securityOwnersNameTrans: [val.securityOwnersNameTrans],
-          marginInPercentageTrans: [val.marginInPercentageTrans],
+          /*marginInPercentageTrans: [val.marginInPercentageTrans],
           marginInPercentageMotorTrans: [val.marginInPercentageMotorTrans],
-          marginInPercentageFootTrans: [val.marginInPercentageFootTrans],
+          marginInPercentageFootTrans: [val.marginInPercentageFootTrans],*/
           securityOwnersDistrictTrans: [val.securityOwnersDistrictTrans],
           securityOwnersMunicipalityTrans: [
             val.securityOwnersMunicipalityTrans,
@@ -472,9 +472,9 @@ export class CommonSecuritySectionPrimaryComponent implements OnInit {
           // CT FIELDS OF SECURITY
           securityTypeCT: [val.securityTypeCT],
           securityOwnersNameCT: [val.securityOwnersNameCT],
-          marginInPercentageCT: [val.marginInPercentageCT],
+          /*marginInPercentageCT: [val.marginInPercentageCT],
           marginInPercentageMotorCT: [val.marginInPercentageMotorCT],
-          marginInPercentageFootCT: [val.marginInPercentageFootCT],
+          marginInPercentageFootCT: [val.marginInPercentageFootCT],*/
           securityOwnersDistrictCT: [val.securityOwnersDistrictCT],
           securityOwnersMunicipalityCT: [val.securityOwnersMunicipalityCT],
           /* FOR HYPOTHECATION CONDITION*/
