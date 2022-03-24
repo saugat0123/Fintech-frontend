@@ -213,7 +213,7 @@
                                     </td>
                                 </tr>
 
-                                <tr *ngIf="offerLetterForm?.get(['purpose', i, 'loanNature'])?.value === 'Terminating'">
+                                <tr>
                                     <td>
                                 <span [ngClass]="offerLetterForm?.get(['purpose', i, 'drawDownPeriodNeeded'])?.value ? '' : 'disable-print'">
                                      कर्जा झिक्न पाउने अवधि (Drawdown Period)
@@ -259,7 +259,7 @@
                                     </td>
                                 </tr>
 
-                                <tr *ngIf="offerLetterForm?.get(['purpose', i, 'loanNature'])?.value === 'Terminating'">
+                                <tr>
                                     <td>
                                 <span [ngClass]="offerLetterForm?.get(['purpose', i, 'moratariumPeriodNeeded'])?.value ? '' : 'disable-print'">
                                     सांवाको किस्ता तिर्ने छुट अवधि (Moratarium Period)

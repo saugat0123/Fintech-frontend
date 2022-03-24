@@ -1139,7 +1139,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
                 this.offerLetterForm.get([arrayType, i, 'nepaliAmount']).patchValue(nepaliFormat);
                 this.offerLetterForm.get([arrayType, i, 'amountInWord']).patchValue(word);
                 break;
-            case 'nepaliAdministrationAmount':
+            case 'administrationAmount':
                 this.offerLetterForm.get(['purpose', i, 'administrationAmount']).patchValue(value);
                 this.offerLetterForm.get(['purpose', i, 'nepaliAdministrationAmount']).patchValue(nepaliFormat);
                 break;
