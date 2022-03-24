@@ -271,7 +271,6 @@ export class LoanActionComponent implements OnInit, OnChanges {
                 hasDeferredDocs: true
             };
         }
-        console.log('context', context);
         if (ObjectUtil.isEmpty(this.combinedLoanId)) {
             this.dialogRef = this.nbDialogService.open(LoanActionModalComponent, {
                 context,
@@ -280,9 +279,9 @@ export class LoanActionComponent implements OnInit, OnChanges {
                 hasScroll: true
             });
             this.dialogRef.onClose.subscribe(d => {
-                if(ObjectUtil.isEmpty(d)) {
+                if (ObjectUtil.isEmpty(d)) {
                     this.emitter.emit(false);
-                }   else {
+                } else {
                     this.emitter.emit(true);
                 }
             });
@@ -299,9 +298,9 @@ export class LoanActionComponent implements OnInit, OnChanges {
                         hasScroll: true
                     });
             this.dialogRef.onClose.subscribe((d: boolean) => {
-                if(ObjectUtil.isEmpty(d)) {
+                if (ObjectUtil.isEmpty(d)) {
                     this.emitter.emit(false);
-                }   else {
+                } else {
                     this.emitter.emit(true);
                 }
             });

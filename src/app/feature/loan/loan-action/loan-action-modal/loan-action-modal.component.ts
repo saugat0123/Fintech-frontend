@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {NbDialogRef, NbDialogService} from '@nebular/theme';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../../../admin/component/user/user.service';
@@ -90,8 +90,8 @@ export class LoanActionModalComponent implements OnInit {
             this.isHSOVChecked(this.customerLoanHolder.isHsov);
             this.dualApproval(this.customerLoanHolder.dualApproval);
         }
-        this.getHsovUserList();
-        this.getHsovRole();
+        // this.getHsovUserList();
+        // this.getHsovRole();
         if (!ObjectUtil.isEmpty(this.toUser)) {
             this.formAction.patchValue({
                 toUser: this.toUser,
@@ -307,12 +307,14 @@ export class LoanActionModalComponent implements OnInit {
     }
 
     private postAction() {
+        this.nbDialogRef.close(true);
         this.loanFormService.postLoanAction(this.formAction.value).subscribe((response: any) => {
             const msg = `Successfully ${this.formAction.get('docActionMsg').value}`;
             this.toastService.show(new Alert(AlertType.SUCCESS, msg));
             this.sendLoanNotification(response.detail.customerLoanId);
             this.router.navigate(['/home/pending']);
         }, e => {
+            this.nbDialogRef.close(false);
             this.toastService.show(new Alert(AlertType.ERROR, e.error.message));
         });
     }
