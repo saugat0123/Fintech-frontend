@@ -34,5 +34,7 @@ export class LoanConfig {
     approvedDocument: Array<Document>;
     renewWithEnhancement: Array<Document>;
     validationForm: string;
+    paperChecklist: string;
+
 
 }

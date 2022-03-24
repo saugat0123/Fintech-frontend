@@ -1,4 +1,4 @@
-import {Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
 import {LoanDataService} from '../../service/loan-data.service';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 
@@ -61,6 +61,8 @@ import {CrgMicroComponent} from '../../../loan-information-template/crg-micro/cr
 import {MicroCustomerType} from '../../../../@core/model/enum/micro-customer-type';
 import {PreProcessModel} from '../../../pre-process/model/preProcess.model';
 import {PreProcessService} from '../../../pre-process/service/pre-process.service';
+import {DomSanitizer} from '@angular/platform-browser';
+import {ProductPaperChecklistComponent} from '../../../loan-information-template/product-paper-checklist/product-paper-checklist.component';
 
 @Component({
   selector: 'app-loan-form',
@@ -206,12 +208,20 @@ export class LoanFormComponent implements OnInit {
   @ViewChild('microProposalInfo', {static: false})
   microProposalInfo: MicroProposalComponent;
 
+  @ViewChild('productPaperChecklistComponent', {static: false})
+  productPaperChecklistComponent: ProductPaperChecklistComponent;
+
   loanTag: string;
   loanHolder = new CustomerInfoData();
   loanTypeKeyValue = LoanType;
   loanType;
   nbSpinner = false;
   preDetails: any;
+  checklistData;
+  loans;
+  paperChecklist;
+  allIds = [];
+  checklistChecked = false;
 
   constructor(
       private loanDataService: LoanDataService,
@@ -234,6 +244,9 @@ export class LoanFormComponent implements OnInit {
       private commonRoutingUtilsService: CommonRoutingUtilsService,
       protected riskQuestionService: RiskGradingService,
       protected preProcessService: PreProcessService,
+      private sanitized: DomSanitizer,
+      private el: ElementRef,
+      private changeDetectorRef: ChangeDetectorRef
   ) {
   }
 
@@ -279,6 +292,7 @@ export class LoanFormComponent implements OnInit {
 
                   this.loanFile = response.detail.dmsLoanFile;
                   this.loanDocument = response.detail;
+                  this.checklistData = this.sanitized.bypassSecurityTrustHtml(this.loanDocument.paperProductChecklist);
                   this.loanDocument.id = response.detail.id;
                   this.submitDisable = false;
                   this.loanHolder = this.loanDocument.loanHolder;
@@ -359,6 +373,20 @@ export class LoanFormComponent implements OnInit {
   populateTemplate() {
     this.loanConfigService.detail(this.id).subscribe((response: any) => {
       this.loanTag = response.detail.loanTag;
+      this.loans = response.detail;
+      if (ObjectUtil.isEmpty(this.loanDocument.paperProductChecklist)) {
+        if (!ObjectUtil.isEmpty(this.loans.paperChecklist)) {
+          const obj = JSON.parse(this.loans.paperChecklist);
+          this.paperChecklist = obj.view;
+          this.allIds = obj.id;
+          this.checklistChecked = obj.checklistChecked;
+        }
+      } else  {
+        const obj = JSON.parse(this.loanDocument.paperProductChecklist);
+        this.paperChecklist = obj.view;
+        this.allIds = obj.id;
+        this.checklistChecked = true;
+      }
       // this.templateList = response.detail.templateList;
       this.templateList = new DefaultLoanTemplate().DEFAULT_TEMPLATE;
       // Splicing customer loan for Personal Type Loan--
@@ -399,7 +427,14 @@ export class LoanFormComponent implements OnInit {
           }
         });
       }
-
+      if (!this.checklistChecked || ObjectUtil.isEmpty(this.paperChecklist)) {
+        this.templateList.forEach((value, index) => {
+          // this.loanDocument.customerInfo.isMicroCustomer ||
+          if (value.name === 'Product Paper Checklist') {
+            this.templateList.splice(index, 1);
+          }
+        });
+      }
       // Remove Customer Info Template for Business Loan Type
       if (CustomerType[this.allId.loanCategory] === CustomerType.INSTITUTION) {
         this.templateList.forEach((value, i) => {
@@ -618,6 +653,13 @@ export class LoanFormComponent implements OnInit {
       }
       this.proposalDetail.onSubmit();
       this.loanDocument.proposal = this.proposalDetail.proposalData;
+    }
+    if (name === 'Product Paper Checklist' && action) {
+      this.productPaperChecklistComponent.save();
+      this.loanDocument.paperProductChecklist = this.checklistData;
+      const obj = JSON.parse(this.checklistData);
+      this.paperChecklist = obj.view;
+      this.allIds = obj.id;
     }
 
     if (name === 'Loan Document' && action) {
@@ -843,5 +885,8 @@ export class LoanFormComponent implements OnInit {
   goToCustomer() {
     const loanHolder = this.loanDocument.loanHolder;
     this.commonRoutingUtilsService.loadCustomerProfile(loanHolder.associateId, loanHolder.id, loanHolder.customerType);
+  }
+  updateChecklist(event) {
+    this.checklistData = event;
   }
 }

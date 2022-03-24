@@ -184,6 +184,8 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     securityId: number;
     siteVisitDocuments: Array<SiteVisitDocument>;
     requestedLoanType;
+    paperChecklist;
+    allIds;
 
     constructor(
         @Inject(DOCUMENT) private _document: Document,
@@ -217,6 +219,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.loanDataHolder = this.loanData;
+        this.disable();
         if (this.loanDataHolder.loanCategory === 'INDIVIDUAL' &&
             !ObjectUtil.isEmpty(this.loanDataHolder.customerInfo.jointInfo)) {
             const jointCustomerInfo = JSON.parse(this.loanDataHolder.customerInfo.jointInfo);
@@ -720,6 +723,22 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
 
     checkSiteVisitDocument(event: any) {
         this.siteVisitDocuments = event;
+    }
+    disable() {
+        if (!ObjectUtil.isEmpty(this.loanDataHolder.paperProductChecklist)) {
+            const obj = JSON.parse(this.loanDataHolder.paperProductChecklist);
+            this.paperChecklist = obj.view;
+            this.allIds = obj.id;
+            const parserData = new DOMParser().parseFromString(this.paperChecklist, 'text/html');
+            this.allIds.forEach(d => {
+                const input = parserData.getElementById(d);
+                const child = input.innerHTML;
+                if (!child.includes('checked')) {
+                    input.innerHTML = `<input type="radio" disabled>`;
+                }
+            });
+            this.paperChecklist = parserData.body.innerHTML;
+        }
     }
 }
 

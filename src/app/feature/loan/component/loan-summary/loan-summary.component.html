@@ -1180,7 +1180,7 @@
             <app-proposal-terms-and-condition-summery *ngIf="loanDataHolder && customerAllLoanList"
                                                       [customerAllLoanList]="customerAllLoanList"
                                                       [loanDataHolder]="loanDataHolder"></app-proposal-terms-and-condition-summery>
-
+            <app-product-paper-checklist *ngIf="paperChecklist" [fromLoan]="false" [loanDataHolder]="loanDataHolder" [loan]="loanDataHolder?.loan" [allIds]="allIds" [paper]="paperChecklist"></app-product-paper-checklist>
             <div class="row mt-3">
                 <div class="col-md-12">
                     <p><strong>Authority Section</strong></p>

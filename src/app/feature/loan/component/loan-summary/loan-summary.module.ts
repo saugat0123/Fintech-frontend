@@ -36,6 +36,7 @@ import { CommentsSummaryComponent } from './comments-summary/comments-summary.co
 import {PreviousSecuritySummaryComponent} from '../../../loan-information-view/previous-security-summary/previous-security-summary.component';
 import {NepaliPatroModule} from 'nepali-patro';
 import {SignatureSectionComponent} from './signature-section/signature-section.component';
+import {ProductPaperModule} from '../../../loan-information-template/product-paper-checklist/product-paper-.module';
 
 
 
@@ -77,7 +78,8 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
         CbsGroupModule,
         NgSelectModule,
         LoanInformationViewModule,
-        NepaliPatroModule
+        NepaliPatroModule,
+        ProductPaperModule
     ],
     exports: [
         LoanSummaryComponent,
