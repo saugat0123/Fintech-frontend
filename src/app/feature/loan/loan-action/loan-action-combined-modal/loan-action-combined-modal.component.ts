@@ -289,6 +289,7 @@ export class LoanActionCombinedModalComponent implements OnInit {
 
     private postCombinedAction(isCombined: boolean) {
         let actions;
+        this.nbDialogRef.close(true);
         if (isCombined) {
             actions = this.combinedLoan.loans.map((l) => {
                 let dualApproved = false;
@@ -322,6 +323,7 @@ export class LoanActionCombinedModalComponent implements OnInit {
             this.toastService.show(new Alert(AlertType.SUCCESS, msg));
             this.router.navigate(['/home/pending']);
         }, error => {
+            this.nbDialogRef.close(false);
             this.toastService.show(new Alert(AlertType.ERROR, error.error.message));
         });
     }

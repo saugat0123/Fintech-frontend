@@ -230,6 +230,7 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
     showSpinner(data) {
         if (data) {
             this.spinner = true;
+            this.spinnerService.show();
         }
     }
 }
