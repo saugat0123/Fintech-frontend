@@ -33,7 +33,6 @@ import {EnglishDateTransformPipe} from '../../../../../../../@core/pipe/english-
 })
 export class DdslWithoutSubsidyTemplateDataComponent implements OnInit {
     @Input() customerApprovedDoc: CustomerApprovedLoanCadDocumentation;
-    @Input() initialInformation: any;
     @ViewChild('primarySecurity', {static: false})
     commonSecuritySectionPrimaryComponent: CommonSecuritySectionPrimaryComponent;
     @ViewChild('secondarySecurity', {static: false})
