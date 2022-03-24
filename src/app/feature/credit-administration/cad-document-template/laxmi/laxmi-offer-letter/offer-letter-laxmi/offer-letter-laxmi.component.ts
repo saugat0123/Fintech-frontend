@@ -84,7 +84,6 @@ export class OfferLetterLaxmiComponent implements OnInit {
             const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
             this.existingOfferLetter = true;
             this.offerLetterForm.patchValue(initialInfo);
-            console.log('initialInfo', initialInfo);
             this.setRemarks(initialInfo.purpose);
             this.setMoreSecurity(initialInfo.moreSecurity);
             this.setOtherCovenants(initialInfo.covenant);
@@ -1119,7 +1118,6 @@ export class OfferLetterLaxmiComponent implements OnInit {
     convertProposedAmount(value, i: number, arrayType) {
         const word = this.nepaliCurrencyWordPipe.transform(value);
         const nepaliFormat = this.engToNepNumberPipe.transform(this.nepaliCurrencyFormatterPipe.transform(value));
-        console.log('value', value);
         switch (arrayType) {
             case 'purpose':
                 this.offerLetterForm.get(['purpose', i, 'loanLimitAmount']).patchValue(value);
@@ -1153,7 +1151,6 @@ export class OfferLetterLaxmiComponent implements OnInit {
     }
 
     convertAmount(value, type) {
-        console.log('value', value, 'type', type);
         const nepaliFormat = this.engToNepNumberPipe.transform(this.nepaliCurrencyFormatterPipe.transform(value));
         const word = this.nepaliCurrencyWordPipe.transform(value);
         this.offerLetterForm.get(type).patchValue(value);
