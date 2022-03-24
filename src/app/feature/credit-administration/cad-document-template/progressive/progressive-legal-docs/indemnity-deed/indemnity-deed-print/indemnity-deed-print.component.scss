@@ -40,3 +40,7 @@
   //margin: 10px 50px;
   @extend .text-justify !optional;
 }
+
+span {
+  line-height: 1;
+}

@@ -14,6 +14,7 @@ export class HypothecationOfGoodsAndReceivablesBPrintComponent implements OnInit
   }
 
   ngOnInit() {
+    console.log('printDoc', this.printDocForm);
   }
 
 }
