@@ -133,8 +133,7 @@ export class ProposalComponent implements OnInit {
     this.checkLoanTypeAndBuildForm();
     if (!ObjectUtil.isEmpty(this.formValue) && this.formValue.data !== null) {
       this.formDataForEdit = JSON.parse(this.formValue.data);
-
-      if(ObjectUtil.isEmpty(this.formDataForEdit.deposit) || this.formDataForEdit.deposit.length < 1) {
+      if (ObjectUtil.isEmpty(this.formDataForEdit.deposit) || this.formDataForEdit.deposit.length < 1) {
         if (!ObjectUtil.isEmpty(this.formDataForEdit.depositBank)) {
           (this.proposalForm.get('deposit') as FormArray).push(this.formBuilder.group({
             amount: this.formDataForEdit.depositBank,
@@ -840,7 +839,14 @@ export class ProposalComponent implements OnInit {
   commonFieldPatch(selected) {
     if (this.isCombineLoan) {
       const data = JSON.parse(selected.data);
-      this.setCheckedData(JSON.parse(selected.checkedData));
+      const selectedData = JSON.parse(selected.checkedData);
+      this.checkChecked(selectedData['solChecked'], 'sol');
+      this.checkChecked(selectedData['waiverChecked'], 'waiver');
+      this.checkChecked(selectedData['riskChecked'], 'risk');
+      this.checkChecked(selectedData['deviationChecked'], 'deviation');
+      this.checkChecked(selectedData['purposeChecked'], 'purpose');
+      this.checkChecked(selectedData['debtChecked'], 'debt');
+      this.checkChecked(selectedData['netChecked'], 'net');
       this.proposalForm.get('borrowerInformation').patchValue(data.borrowerInformation);
       this.proposalForm.get('disbursementCriteria').patchValue(data.disbursementCriteria);
       this.proposalForm.get('repayment').patchValue(data.repayment);
@@ -853,6 +859,8 @@ export class ProposalComponent implements OnInit {
       this.proposalForm.get('termsAndCondition').patchValue(data.termsAndCondition);
       this.proposalForm.get('total').patchValue(data.total);
       this.proposalForm.get('totals').patchValue(data.totals);
+      this.proposalForm.get('files').patchValue(data.files);
+      this.files = JSON.parse(data.files);
       this.setFormData(data.vehicle, 'vehicle');
       this.setFormData(data.realState, 'realState');
       this.setFormData(data.shares, 'shares');
@@ -861,10 +869,13 @@ export class ProposalComponent implements OnInit {
       const formControl = ['borrowerInformation', 'disbursementCriteria', 'repayment', 'remark', 'summeryRecommendation',
         'waiverConclusionRecommendation', 'deviationConclusionRecommendation', 'solConclusionRecommendation',
         'riskConclusionRecommendation', 'termsAndCondition', 'total', 'totals'];
-      this.setCheckedData(this.checkedDataEdit);
+      this.solChecked = this.waiverChecked = this.deviationChecked = this.riskChecked =
+          this.debtChecked = this.netChecked = false;
       formControl.forEach((fc) => {
         this.proposalForm.get(fc).patchValue(selected);
       });
+      this.files = [];
+      this.proposalForm.get('files').patchValue(null);
       const formArray = ['vehicle', 'realState', 'shares', 'deposit'];
       formArray.forEach((fa) => {
         const proposalFormArray = this.proposalForm.get(fa) as FormArray;

@@ -21,12 +21,13 @@ import {FormsModule} from '@angular/forms';
 import {LoginPopUp} from './login-popup/login-pop-up';
 import {NepaliCurrencyWordPipe} from './pipe/nepali-currency-word.pipe';
 import { NepaliNumberPipe } from './pipe/nepali-number.pipe';
-import {EnumConverterPipe} from "./pipe/enum-converter.pipe";
+import {EnumConverterPipe} from './pipe/enum-converter.pipe';
 import {DisbursementConvertPipe} from './pipe/disbursement-convert.pipe';
 import {RemitCountryConvertPipe} from './pipe/remit-country-convert.pipe';
 import {ClientTypePipe} from './pipe/client-type.pipe';
 import {FinancialKeysPipe} from './pipe/financial-keys.pipe';
 import { ClientTypeShortFormPipe } from './pipe/client-type-short-form.pipe';
+import {NepaliCurrencyFormatterPipe} from './pipe/nepali-currency-formatter.pipe';
 
 
 const DATA_SERVICES = [];
@@ -76,9 +77,11 @@ const UTILITY_MODULES = [
         DisbursementConvertPipe,
         RemitCountryConvertPipe,
         ClientTypePipe,
-        FinancialKeysPipe
+        FinancialKeysPipe,
+        NepaliCurrencyFormatterPipe
     ],
-    declarations: [CurrencyFormatterPipe,
+    declarations: [
+        CurrencyFormatterPipe,
         NaturalNumberValidatorDirective,
         PositiveDecimalNumberValidatorDirective,
         SafePipe,
@@ -96,10 +99,11 @@ const UTILITY_MODULES = [
         FinancialKeysPipe,
         LoginPopUp,
         NepaliNumberPipe,
-DisbursementConvertPipe,
+        DisbursementConvertPipe,
         RemitCountryConvertPipe,
         ClientTypePipe,
-        ClientTypeShortFormPipe
+        ClientTypeShortFormPipe,
+        NepaliCurrencyFormatterPipe
     ], entryComponents: [LoginPopUp], providers: [NepaliNumberPipe, RemitCountryConvertPipe, ClientTypePipe, ClientTypeShortFormPipe]
 })
 export class CoreModule {
