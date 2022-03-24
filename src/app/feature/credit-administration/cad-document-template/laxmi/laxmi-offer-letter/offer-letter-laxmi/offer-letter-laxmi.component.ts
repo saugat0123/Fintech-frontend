@@ -20,6 +20,7 @@ import {OfferDocument} from '../../../../model/OfferDocument';
 import {LaxmiOfferLetterConst} from '../laxmi-offer-letter-const';
 import {ClientTypeShortFormPipe} from '../../../../../../@core/pipe/client-type-short-form.pipe';
 import {formatDate} from '@angular/common';
+import {NepaliCurrencyFormatterPipe} from '../../../../../../@core/pipe/nepali-currency-formatter.pipe';
 
 @Component({
     selector: 'app-offer-letter-laxmi',
@@ -60,13 +61,15 @@ export class OfferLetterLaxmiComponent implements OnInit {
                 private nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
                 private nepaliToEnglishPipe: NepaliToEngNumberPipe,
                 private nepaliNumber: NepaliNumberPipe,
-                private clientTypeShort: ClientTypeShortFormPipe) {
+                private clientTypeShort: ClientTypeShortFormPipe,
+                private nepaliCurrencyFormatterPipe: NepaliCurrencyFormatterPipe) {
     }
 
     ngOnInit() {
         this.buildForm();
         this.parseAssignedLoanData();
         this.checkOfferLetter();
+        // this.convertProposed();
     }
 
     checkOfferLetter() {
@@ -81,6 +84,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
             const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
             this.existingOfferLetter = true;
             this.offerLetterForm.patchValue(initialInfo);
+            console.log('initialInfo', initialInfo);
             this.setRemarks(initialInfo.purpose);
             this.setMoreSecurity(initialInfo.moreSecurity);
             this.setOtherCovenants(initialInfo.covenant);
@@ -129,16 +133,20 @@ export class OfferLetterLaxmiComponent implements OnInit {
             accountName: [undefined],
             accountNo: [undefined],
             accountAmount: [undefined],
+            nepaliAccountAmount: [undefined],
             accountAmountWord: [undefined],
             loanAmount: [undefined],
+            nepaliLoanAmount: [undefined],
             loanAmountWord: [undefined],
             promiseAmount: [undefined],
+            nepaliPromiseAmount: [undefined],
             promiseAmountWord: [undefined],
             ligLoan: [undefined],
             landLoanAmount: [undefined],
             loanBorrower: [undefined],
             consumptionAmount: [undefined],
             totalConsumptionAmount: [undefined],
+            totalNepaliConsumptionAmount: [undefined],
             totalConsumptionAmountWord: [undefined],
             date1: [undefined],
             amount1: [undefined],
@@ -298,6 +306,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
             this.offerLetterForm.get(['purpose', i, 'repaymentRate']).patchValue(null);
             this.offerLetterForm.get(['purpose', i, 'repaymentRate1']).patchValue(null);
             this.offerLetterForm.get(['purpose', i, 'otherRepayment']).patchValue(null);
+            this.offerLetterForm.get(['purpose', i, 'nepaliRepaymentAmount']).patchValue(null);
         } else {
             this.offerLetterForm.get(['purpose', i, formControlName]).patchValue(value);
         }
@@ -545,6 +554,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
                 loan: [data.loan.name],
                 loanTag: [data.loan.loanTag],
                 loanLimitAmount: [data.proposal.proposedLimit],
+                nepaliLoanLimitAmount: [undefined],
                 loanLimitWord: [undefined],
                 isFunded: [data.loan.isFunded],
                 loanNature: [data.loan.loanNature],
@@ -575,7 +585,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
                 termMonth: [undefined],
                 periodValue: [undefined],
                 rate: [undefined],
-                commissionFrequency: [data.proposal.commissionFrequency],
+                commissionFrequency: [undefined],
                 creditRate: [undefined],
                 creditAmount: [undefined],
                 maturityDate: [undefined],
@@ -589,6 +599,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
                 // Repayment
                 repaymentMode: [undefined],
                 repaymentAmount: [undefined],
+                nepaliRepaymentAmount: [undefined],
                 repaymentAmount1: [undefined],
                 repaymentAmount2: [undefined],
                 repaymentAmount3: [undefined],
@@ -598,6 +609,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
                 repaymentRate1: [undefined],
                 administrationRate: [undefined],
                 administrationAmount: [undefined],
+                nepaliAdministrationAmount: [undefined],
                 reviewRate: [undefined],
                 reviewAmount: [undefined],
                 otherRepayment: [undefined],
@@ -778,6 +790,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
                     this.offerLetterForm.get('accountNo').patchValue(null);
                     this.offerLetterForm.get('accountAmount').patchValue(null);
                     this.offerLetterForm.get('accountAmountWord').patchValue(null);
+                    this.offerLetterForm.get('nepaliAccountAmount').patchValue(null);
                 } else {
                     this.offerLetterForm.get('cashlienOtherCheck').patchValue(false);
                     this.offerLetterForm.get('cashlienOther').patchValue(null);
@@ -788,6 +801,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
                     this.offerLetterForm.get('loanTamsukOtherCheck').patchValue(event);
                     this.offerLetterForm.get('loanAmount').patchValue(null);
                     this.offerLetterForm.get('loanAmountWord').patchValue(null);
+                    this.offerLetterForm.get('nepaliLoanAmount').patchValue(null);
                 } else {
                     this.offerLetterForm.get('loanTamsukOtherCheck').patchValue(false);
                     this.offerLetterForm.get('loanTamsukOther').patchValue(null);
@@ -798,6 +812,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
                     this.offerLetterForm.get('promiseOtherCheck').patchValue(event);
                     this.offerLetterForm.get('promiseAmount').patchValue(null);
                     this.offerLetterForm.get('promiseAmountWord').patchValue(null);
+                    this.offerLetterForm.get('nepaliPromiseAmount').patchValue(null);
                 } else {
                     this.offerLetterForm.get('promiseOtherCheck').patchValue(false);
                     this.offerLetterForm.get('promiseOther').patchValue(null);
@@ -1045,9 +1060,10 @@ export class OfferLetterLaxmiComponent implements OnInit {
     convertProposed() {
         const data = this.offerLetterForm.get('purpose') as FormArray;
         data.value.forEach((d, i) => {
-            const limitData = this.nepaliNumber.transform(d.loanLimitAmount, 'preeti');
             const word = this.nepaliCurrencyWordPipe.transform(d.loanLimitAmount);
-            this.offerLetterForm.get(['purpose', i, 'loanLimitAmount']).patchValue(limitData);
+            const nepaliFormat = this.engToNepNumberPipe.transform(this.nepaliCurrencyFormatterPipe.transform(d.loanLimitAmount));
+            this.offerLetterForm.get(['purpose', i, 'loanLimitAmount']).patchValue(d.loanLimitAmount);
+            this.offerLetterForm.get(['purpose', i, 'nepaliLoanLimitAmount']).patchValue(nepaliFormat);
             this.offerLetterForm.get(['purpose', i, 'loanLimitWord']).patchValue(word);
         });
     }
@@ -1101,26 +1117,33 @@ export class OfferLetterLaxmiComponent implements OnInit {
     }
 
     convertProposedAmount(value, i: number, arrayType) {
+        const word = this.nepaliCurrencyWordPipe.transform(value);
+        const nepaliFormat = this.engToNepNumberPipe.transform(this.nepaliCurrencyFormatterPipe.transform(value));
+        console.log('value', value);
         switch (arrayType) {
             case 'purpose':
-                const word = this.nepaliCurrencyWordPipe.transform(this.nepaliToEnglishPipe.transform(value));
                 this.offerLetterForm.get(['purpose', i, 'loanLimitAmount']).patchValue(value);
+                this.offerLetterForm.get(['purpose', i, 'nepaliLoanLimitAmount']).patchValue(nepaliFormat);
                 this.offerLetterForm.get(['purpose', i, 'loanLimitWord']).patchValue(word);
                 break;
             case 'repaymentAmount' :
-                const word1 = this.nepaliCurrencyWordPipe.transform(this.nepaliToEnglishPipe.transform(value));
                 this.offerLetterForm.get(['purpose', i, 'repaymentAmount']).patchValue(value);
-                this.offerLetterForm.get(['purpose', i, 'repaymentAmountWord']).patchValue(word1);
+                this.offerLetterForm.get(['purpose', i, 'nepaliRepaymentAmount']).patchValue(nepaliFormat);
+                this.offerLetterForm.get(['purpose', i, 'repaymentAmountWord']).patchValue(word);
                 break;
             case 'personalGuarantee' :
-                const pGWord = this.nepaliCurrencyWordPipe.transform(this.nepaliToEnglishPipe.transform(value));
                 this.offerLetterForm.get([arrayType, i, 'amount']).patchValue(value);
-                this.offerLetterForm.get([arrayType, i, 'amountInWord']).patchValue(pGWord);
+                this.offerLetterForm.get([arrayType, i, 'nepaliAmount']).patchValue(nepaliFormat);
+                this.offerLetterForm.get([arrayType, i, 'amountInWord']).patchValue(word);
                 break;
             case 'corporateGuarantee' :
-                const cgWord = this.nepaliCurrencyWordPipe.transform(this.nepaliToEnglishPipe.transform(value));
                 this.offerLetterForm.get([arrayType, i, 'amount']).patchValue(value);
-                this.offerLetterForm.get([arrayType, i, 'amountInWord']).patchValue(cgWord);
+                this.offerLetterForm.get([arrayType, i, 'nepaliAmount']).patchValue(nepaliFormat);
+                this.offerLetterForm.get([arrayType, i, 'amountInWord']).patchValue(word);
+                break;
+            case 'nepaliAdministrationAmount':
+                this.offerLetterForm.get(['purpose', i, 'administrationAmount']).patchValue(value);
+                this.offerLetterForm.get(['purpose', i, 'nepaliAdministrationAmount']).patchValue(nepaliFormat);
                 break;
         }
     }
@@ -1130,31 +1153,28 @@ export class OfferLetterLaxmiComponent implements OnInit {
     }
 
     convertAmount(value, type) {
+        console.log('value', value, 'type', type);
+        const nepaliFormat = this.engToNepNumberPipe.transform(this.nepaliCurrencyFormatterPipe.transform(value));
+        const word = this.nepaliCurrencyWordPipe.transform(value);
+        this.offerLetterForm.get(type).patchValue(value);
         switch (type) {
             case 'promiseAmount':
-                const word = this.nepaliCurrencyWordPipe.transform(this.nepaliToEnglishPipe.transform(value));
-                this.offerLetterForm.get(type).patchValue(value);
                 this.offerLetterForm.get('promiseAmountWord').patchValue(word);
+                this.offerLetterForm.get('nepaliPromiseAmount').patchValue(nepaliFormat);
                 break;
             case 'totalConsumptionAmount':
-                const totalword = this.nepaliCurrencyWordPipe.transform(this.nepaliToEnglishPipe.transform(value));
-                this.offerLetterForm.get(type).patchValue(value);
-                this.offerLetterForm.get('totalConsumptionAmountWord').patchValue(totalword);
-                break;
-            case 'personalAmount':
-                const word1 = this.nepaliCurrencyWordPipe.transform(this.nepaliToEnglishPipe.transform(value));
-                this.offerLetterForm.get(type).patchValue(value);
-                this.offerLetterForm.get('personalAmountWord').patchValue(word1);
+                this.offerLetterForm.get('totalConsumptionAmountWord').patchValue(word);
+                this.offerLetterForm.get('totalNepaliConsumptionAmount').patchValue(nepaliFormat);
                 break;
             case 'accountAmount':
                 const word2 = this.nepaliCurrencyWordPipe.transform(this.nepaliToEnglishPipe.transform(value));
                 this.offerLetterForm.get(type).patchValue(value);
-                this.offerLetterForm.get('accountAmountWord').patchValue(word2);
+                this.offerLetterForm.get('accountAmountWord').patchValue(word);
+                this.offerLetterForm.get('nepaliAccountAmount').patchValue(nepaliFormat);
                 break;
             case 'loanAmount':
-                const word3 = this.nepaliCurrencyWordPipe.transform(this.nepaliToEnglishPipe.transform(value));
-                this.offerLetterForm.get(type).patchValue(value);
-                this.offerLetterForm.get('loanAmountWord').patchValue(word3);
+                this.offerLetterForm.get('loanAmountWord').patchValue(word);
+                this.offerLetterForm.get('nepaliLoanAmount').patchValue(nepaliFormat);
                 break;
         }
     }
@@ -1231,6 +1251,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
             this.formBuilder.group({
                 name: [undefined],
                 amount: [undefined],
+                nepaliAmount: [undefined],
                 amountInWord: [undefined],
                 date: [undefined],
                 other: [undefined],
@@ -1249,6 +1270,7 @@ export class OfferLetterLaxmiComponent implements OnInit {
                     this.formBuilder.group({
                         name: [d.name],
                         amount: [d.amount],
+                        nepaliAmount: [d.nepaliAmount],
                         amountInWord: [d.amountInWord],
                         date: [d.date],
                         other: [d.other],

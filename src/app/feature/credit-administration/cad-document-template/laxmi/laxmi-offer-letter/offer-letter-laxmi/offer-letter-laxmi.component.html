@@ -122,12 +122,12 @@
                                     <td>
                                         <span *ngIf="!offerLetterForm?.get(['purpose', i, 'otherLimitChecked'])?.value">
                                             अधिकतम रु
-                                            <input type="text"
-                                                   class="form-field nepaliFont form-control-sm font-size-normal disable-print"
+                                            <input type="number"
+                                                   class="form-field form-control form-control-sm font-size-normal disable-print"
                                                    [value]="offerLetterForm?.get(['purpose', i, 'loanLimitAmount'])?.value"
                                                    (change)="convertProposedAmount($event?.target?.value, i, 'purpose')">
-                                            <span class="nepaliFont font-size-normal print-only">
-                                                <b>{{offerLetterForm?.get(['purpose', i, 'loanLimitAmount'])?.value ? offerLetterForm?.get(['purpose', i, 'loanLimitAmount'])?.value : '========='}}</b>
+                                            <span class="font-size-normal print-only">
+                                                <b>{{offerLetterForm?.get(['purpose', i, 'nepaliLoanLimitAmount'])?.value ? offerLetterForm?.get(['purpose', i, 'nepaliLoanLimitAmount'])?.value : '========='}}</b>
                                             </span> /– (अक्षरेपी रुपैयाँ
                                             <span class="font-size-normal">
                                                 <b>{{offerLetterForm?.get(['purpose', i, 'loanLimitWord'])?.value ? offerLetterForm?.get(['purpose', i, 'loanLimitWord'])?.value : '========='}}</b>
@@ -344,16 +344,13 @@
                                         </span>
                                     </span>
                                     <span *ngIf="offerLetterForm?.get(['purpose', i, 'repaymentMode'])?.value === 'FIXED'">
-                                        करिब <strong>रु. <input type="text"
+                                        करिब <strong>रु. <input type="number"
                                                                 [value]="offerLetterForm?.get(['purpose', i, 'repaymentAmount'])?.value"
                                                                 (change)="convertProposedAmount($event?.target?.value, i, 'repaymentAmount')"
-                                                                class="nepaliFont form-field form-control-sm font-size-normal disable-print">
-                                        <span class="nepaliFont font-size-normal print-only">
-                                            <b>{{offerLetterForm?.get(['purpose', i, 'repaymentAmount'])?.value ?
-                                                offerLetterForm?.get(['purpose', i, 'repaymentAmount'])?.value : '========='}}</b></span> /– (अक्षरेपी रुपैयाँ
-                                        <!--                                        <input type="text"-->
-                                        <!--                                               [value]="data?.repaymentAmountWord"-->
-                                        <!--                                               class="nepaliFont form-field form-control-sm font-size-normal disable-print">-->
+                                                                class="form-field form-control-sm font-size-normal disable-print">
+                                        <span class="font-size-normal print-only">
+                                            <b>{{offerLetterForm?.get(['purpose', i, 'nepaliRepaymentAmount'])?.value ?
+                                                offerLetterForm?.get(['purpose', i, 'nepaliRepaymentAmount'])?.value : '========='}}</b></span> /– (अक्षरेपी रुपैयाँ
                                         <span class="font-size-normal">
                                             <b>{{offerLetterForm?.get(['purpose', i, 'repaymentAmountWord'])?.value ?
                                                 offerLetterForm?.get(['purpose', i, 'repaymentAmountWord'])?.value : '========='}}</b></span> मात्र)</strong> का
@@ -384,13 +381,13 @@
                                     <span class="nepaliFont font-size-normal print-only">
                                         <b>{{offerLetterForm?.get(['purpose', i, 'repaymentMonthly'])?.value ?
                                             offerLetterForm?.get(['purpose', i, 'repaymentMonthly'])?.value : '========='}}</b></span> महिना सम्म करिव <strong> रु.
-                                <input type="text"
+                                <input type="number"
                                        [value]="offerLetterForm?.get(['purpose', i, 'repaymentAmount'])?.value"
                                        (change)="convertProposedAmount($event?.target?.value, i, 'repaymentAmount')"
-                                       class="nepaliFont form-field form-control-sm font-size-normal disable-print">
-                                    <span class="nepaliFont font-size-normal print-only">
-                                        <b>{{offerLetterForm?.get(['purpose', i, 'repaymentAmount'])?.value ?
-                                            offerLetterForm?.get(['purpose', i, 'repaymentAmount'])?.value : '========='}}</b></span> ।– (अक्षरेपी रुपैयाँ
+                                       class="form-field form-control-sm font-size-normal disable-print">
+                                    <span class="font-size-normal print-only">
+                                        <b>{{offerLetterForm?.get(['purpose', i, 'nepaliRepaymentAmount'])?.value ?
+                                            offerLetterForm?.get(['purpose', i, 'nepaliRepaymentAmount'])?.value : '========='}}</b></span> ।– (अक्षरेपी रुपैयाँ
                                         <!--                                <input type="text"-->
                                         <!--                                       [value]="data?.repaymentAmountWord"-->
                                         <!--                                       class="nepaliFont form-field form-control-sm font-size-normal disable-print">-->
@@ -748,13 +745,13 @@
                                                 प्रतिशत प्रशासनिक शुल्क लगाई कर्जा प्रवाह गर्नु अगावै असुल उपर गरिनेछ । <br>
                                             </span>
                                             <span *ngIf="offerLetterForm?.get(['purpose', i, 'inAmount'])?.value">
-                                                रु <input type="text"
-                                                          (change)="valueChange($event?.target?.value, i, 'administrationAmount')"
+                                                रु <input type="number"
+                                                          (change)="convertProposedAmount($event?.target?.value, i, 'administrationAmount')"
                                                           [value]="offerLetterForm?.get(['purpose', i, 'administrationAmount'])?.value"
-                                                          class="nepaliFont form-field form-control-sm font-size-normal disable-print">
-                                                <span class="nepaliFont font-size-normal print-only">
-                                                    <b>{{offerLetterForm?.get(['purpose', i, 'administrationAmount'])?.value ?
-                                                        offerLetterForm?.get(['purpose', i, 'administrationAmount'])?.value : '========='}}</b></span>
+                                                          class="form-field form-control-sm font-size-normal disable-print">
+                                                <span class="font-size-normal print-only">
+                                                    <b>{{offerLetterForm?.get(['purpose', i, 'nepaliAdministrationAmount'])?.value ?
+                                                        offerLetterForm?.get(['purpose', i, 'nepaliAdministrationAmount'])?.value : '========='}}</b></span>
                                                 रकम प्रशासनिक शुल्क लगाई कर्जा प्रवाह गर्नु अगावै असुल उपर गरिनेछ ।
                                             </span>
                                         </span>
@@ -1286,12 +1283,12 @@
                                         <span class="nepaliFont font-size-normal print-only">
                                 <b>{{offerLetterForm?.get('consumptionAmount')?.value ? offerLetterForm?.get('consumptionAmount')?.value : '========='}}</b></span>
                                         ।– गरी जम्मा रु
-                                        <input type="text"
-                                               class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                        <input type="number"
+                                               class="form-field form-control-sm font-size-normal disable-print"
                                                formControlName="totalConsumptionAmount"
                                                (change)="convertAmount($event?.target?.value, 'totalConsumptionAmount')">
-                                        <span class="nepaliFont font-size-normal print-only">
-                                <b>{{offerLetterForm?.get('totalConsumptionAmount')?.value ? offerLetterForm?.get('totalConsumptionAmount')?.value : '========='}}</b></span>
+                                        <span class="font-size-normal print-only">
+                                <b>{{offerLetterForm?.get('totalNepaliConsumptionAmount')?.value ? offerLetterForm?.get('totalNepaliConsumptionAmount')?.value : '========='}}</b></span>
                                         /– (अक्षरेपी रुपैया
                                         <span class="font-size-normal">
                                 <b>{{offerLetterForm?.get('totalConsumptionAmountWord')?.value ? offerLetterForm?.get('totalConsumptionAmountWord')?.value : '========='}}</b></span>
@@ -1748,11 +1745,11 @@
                                                     offerLetterForm?.get(['personalGuarantee', pin, 'name'])?.value : '========='}}</b></span> को
                                             <input placeholder="रकम"
                                                    [value]="offerLetterForm?.get(['personalGuarantee', pin, 'amount'])?.value"
-                                                   class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                                   class="form-field form-control-sm font-size-normal disable-print"
                                                    (change)="convertProposedAmount($event?.target?.value, pin, 'personalGuarantee')">
-                                            <span class="nepaliFont font-size-normal print-only">
-                                                <b>{{offerLetterForm?.get(['personalGuarantee', pin, 'amount'])?.value ?
-                                                    offerLetterForm?.get(['personalGuarantee', pin, 'amount'])?.value : '========='}}</b></span> /– (अक्षरेपी रुपैयाँ
+                                            <span class="font-size-normal print-only">
+                                                <b>{{offerLetterForm?.get(['personalGuarantee', pin, 'nepaliAmount'])?.value ?
+                                                    offerLetterForm?.get(['personalGuarantee', pin, 'nepaliAmount'])?.value : '========='}}</b></span> /– (अक्षरेपी रुपैयाँ
                                             <span class="font-size-normal">
                                                 <b>{{offerLetterForm?.get(['personalGuarantee', pin, 'amountInWord'])?.value ?
                                                     offerLetterForm?.get(['personalGuarantee', pin, 'amountInWord'])?.value : '========='}}</b></span>
@@ -1836,11 +1833,11 @@
                                                     offerLetterForm?.get(['corporateGuarantee', cin, 'name'])?.value : '========='}}</b></span> को
                                             <input placeholder="रकम"
                                                    [value]="offerLetterForm?.get(['corporateGuarantee', cin, 'amount'])?.value"
-                                                   class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                                   class="form-field form-control-sm font-size-normal disable-print"
                                                    (change)="convertProposedAmount($event?.target.value, cin, 'corporateGuarantee')">
-                                            <span class="nepaliFont font-size-normal print-only">
-                                                <b>{{offerLetterForm?.get(['corporateGuarantee', cin, 'amount'])?.value ?
-                                                    (offerLetterForm?.get(['corporateGuarantee', cin, 'amount'])?.value) : '========='}}</b></span> /– (अक्षरेपी रुपैयाँ
+                                            <span class="font-size-normal print-only">
+                                                <b>{{offerLetterForm?.get(['corporateGuarantee', cin, 'nepaliAmount'])?.value ?
+                                                    (offerLetterForm?.get(['corporateGuarantee', cin, 'nepaliAmount'])?.value) : '========='}}</b></span> /– (अक्षरेपी रुपैयाँ
                                             <span class="font-size-normal">
                                                 <b>{{offerLetterForm?.get(['corporateGuarantee', cin, 'amountInWord'])?.value ?
                                                     offerLetterForm?.get(['corporateGuarantee', cin, 'amountInWord'])?.value : '========='}}</b></span>
@@ -2219,9 +2216,7 @@
                                 </th>
                                 <th colspan="6">
                                     <nb-checkbox (change)="otherCheck($event?.target?.checked, 'cashLienNeeded')"
-                                                 [checked]="offerLetterForm?.get('cashLienNeeded')?.value"><i>Security
-                                        as Cash
-                                        lien Needed ?</i>
+                                                 [checked]="offerLetterForm?.get('cashLienNeeded')?.value"><i>Security as Cash lien Needed ?</i>
                                     </nb-checkbox>
                                 </th>
                             </tr>
@@ -2242,14 +2237,15 @@
                                    formControlName="accountNo">
                                 <span class="nepaliFont font-size-normal print-only">
                                         <b>{{offerLetterForm?.get('accountNo').value ? offerLetterForm?.get('accountNo').value : '========='}}</b></span>मा
-                            <strong> रु. <input type="text"
-                                                class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                रु. <input type="text"
+                                                class="form-field form-control-sm font-size-normal disable-print"
                                                 formControlName="accountAmount"
                                                 (change)="convertAmount($event?.target?.value, 'accountAmount')">
-                                <span class="nepaliFont font-size-normal print-only">
-                                        <b>{{offerLetterForm?.get('accountAmount').value ? offerLetterForm?.get('accountAmount').value : '========='}}</b></span>/–
+                                <span class="font-size-normal print-only">
+                                        <b>{{offerLetterForm?.get('nepaliAccountAmount').value ? offerLetterForm?.get('nepaliAccountAmount').value : '========='}}</b></span>/–
                                 (अक्षरेपी रुपैयाँ
-                                <span class="font-size-normal">
+                                <strong>
+                                    <span class="font-size-normal">
                                         <b>{{offerLetterForm?.get('accountAmountWord').value ? offerLetterForm?.get('accountAmountWord').value : '========='}}</b></span>मात्र) </strong>
                             लिएको कर्जा चुक्ता नहुञ्जेल सम्मका लागि यस बैंकको नाममा लियन (ष्भिल) राखीदिन मञ्जुर गरी
                             दिएको लिखत
@@ -2291,11 +2287,11 @@
                                 <td colspan="6">
                             <span *ngIf="!offerLetterForm?.get('loanTamsukOtherCheck')?.value">
                                 रु. <input type="text"
-                                           class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                           class="form-field form-control-sm font-size-normal disable-print"
                                            formControlName="loanAmount"
                                            (change)="convertAmount($event?.target?.value, 'loanAmount')">
-                                <span class="nepaliFont print-only font-size-normal">
-                                        <b>{{offerLetterForm?.get('loanAmount').value ? offerLetterForm?.get('loanAmount').value : '========='}}</b></span>/– (अक्षरेपी रुपैयाँ
+                                <span class="print-only font-size-normal">
+                                        <b>{{offerLetterForm?.get('nepaliLoanAmount').value ? offerLetterForm?.get('nepaliLoanAmount').value : '========='}}</b></span>/– (अक्षरेपी रुपैयाँ
                                 <span class="font-size-normal">
                                         <b>{{offerLetterForm?.get('loanAmountWord').value ? offerLetterForm?.get('loanAmountWord').value : '========='}}</b></span>मात्र) को <strong>कर्जा तमसुकमा</strong> सही छाप
                                 गरी बैंकलाई उपलव्ध
@@ -2354,11 +2350,11 @@
                                 <td colspan="6">
                             <span *ngIf="!offerLetterForm?.get('promiseOtherCheck')?.value">
                                 रु. <input type="text"
-                                           class="nepaliFont form-field form-control-sm font-size-normal disable-print"
+                                           class="form-field form-control-sm font-size-normal disable-print"
                                            formControlName="promiseAmount"
                                            (change)="convertAmount($event?.target?.value, 'promiseAmount')">
-                                <span class="nepaliFont font-size-normal print-only">
-                                        <b>{{offerLetterForm?.get('promiseAmount').value ? offerLetterForm?.get('promiseAmount').value : '========='}}</b></span>/– (अक्षरेपी रुपैयाँ
+                                <span class="font-size-normal print-only">
+                                        <b>{{offerLetterForm?.get('nepaliPromiseAmount').value ? offerLetterForm?.get('nepaliPromiseAmount').value : '========='}}</b></span>/– (अक्षरेपी रुपैयाँ
                                 <span class="font-size-normal">
                                         <b>{{offerLetterForm?.get('promiseAmountWord').value ? offerLetterForm?.get('promiseAmountWord').value : '========='}}</b></span>मात्र) को <strong>प्रतिज्ञापत्रमा</strong> सही
                                 छाप गरी बैंकलाई उपलव्ध
