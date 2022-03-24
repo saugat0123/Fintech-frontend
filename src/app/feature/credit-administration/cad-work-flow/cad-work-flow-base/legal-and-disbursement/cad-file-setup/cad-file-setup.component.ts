@@ -40,7 +40,7 @@ export class CadFileSetupComponent implements OnInit {
     }
 
     ngOnInit() {
-        if(!ObjectUtil.isEmpty(this.cadData)) {
+        if (!ObjectUtil.isEmpty(this.cadData)) {
             if (ObjectUtil.isEmpty(this.cadData.requiredDocument)) {
                 this.cadData.requiredDocument = [];
             }
