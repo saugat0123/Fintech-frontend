@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../../model/customerApprovedLoanCadDocumentation';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {OfferDocument} from '../../../../../model/OfferDocument';
@@ -24,6 +24,7 @@ import {UdyamsilKarjaSubsidyComponent} from '../../../../../cad-document-templat
 import {KisanKarjaSubsidyComponent} from '../../../../../cad-document-template/nabil/nabil-sme/kisan-karja-subsidy/kisan-karja-subsidy.component';
 import {KisanKarjaSubsidyPrintComponent} from '../../../../../cad-document-template/nabil/nabil-sme/kisan-karja-subsidy/kisan-karja-subsidy-print/kisan-karja-subsidy-print.component';
 import {EnglishDateTransformPipe} from '../../../../../../../@core/pipe/english-date-transform.pipe';
+import {RequiredLegalDocumentSectionComponent} from '../../sme-template-data/sme-master-template/required-legal-document-section/required-legal-document-section.component';
 
 @Component({
   selector: 'app-kisan-karja-subsidy-template-edit',
@@ -34,6 +35,8 @@ export class KisanKarjaSubsidyTemplateEditComponent implements OnInit {
   @Input() customerApprovedDoc: CustomerApprovedLoanCadDocumentation;
   @Input() offerDocumentList: Array<OfferDocument>;
   @Input() initialInformation: any;
+  @ViewChild('requiredLegalDocument', {static: false})
+  requiredLegalDocumentSectionComponent: RequiredLegalDocumentSectionComponent;
   kisanKarjaSubsidy: FormGroup;
   spinner = false;
   customerLoanOptions: Array<String> = new Array<String>();
@@ -748,6 +751,8 @@ export class KisanKarjaSubsidyTemplateEditComponent implements OnInit {
     //     securities: this.kisanKarjaSubsidy.get('securities').value,
     // }];
     this.tdVal['securities'] = this.kisanKarjaSubsidy.get('securities').value;
+    const tempRequiredDocuments = this.setRequiredDocuments();
+    this.tdVal['requiredDocuments'] = tempRequiredDocuments;
     // For Clearing validation of optional and conditional Fields.
     this.clearConditionalValidation();
     const invalidControls = [];
@@ -999,7 +1004,13 @@ export class KisanKarjaSubsidyTemplateEditComponent implements OnInit {
       );
     });
   }
-
+  private setRequiredDocuments() {
+    const requiredLegalDocument = this.requiredLegalDocumentSectionComponent.requireDocumentForm.value;
+    const requiredData = {
+      requiredLegalDocument: requiredLegalDocument,
+    };
+    return (requiredData);
+  }
   compareFn(c1: any, c2: any): boolean {
     return c1 && c2 ? c1.id === c2.id : c1 === c2;
   }

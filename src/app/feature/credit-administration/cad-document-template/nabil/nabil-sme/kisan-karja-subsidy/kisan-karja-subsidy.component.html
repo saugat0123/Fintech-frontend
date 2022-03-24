@@ -906,29 +906,29 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <ol class="orderd-list font-weight-bold" style="list-style: disc">
-                                        <li>
+                                        <li *ngIf="promissoryVisible">
                                             प्रतिज्ञा पत्र । (Promissory Note)
                                         </li>
-                                        <li>
+                                        <li *ngIf="loanDeedVisible">
                                             ऋणतमसुक (Loan Deed)
                                         </li>
-                                        <li>
+                                        <li *ngIf="mortgagedVisible">
                                             धितोबन्धक तमसुक (Mortgage Deed) / बैंकको पक्षमा ठाडो रोक्काको पत्र
                                             (आवश्यकतानुसार)
                                         </li>
-                                        <li>
+                                        <li *ngIf="continuityVisible">
                                             निरन्तरताको लिखत (Letter of Continuity)
                                         </li>
-                                        <li>
+                                        <li *ngIf="supplementaryVisible">
                                             श्री(सम्पत्ति धितो/सुरक्षण लेखीदिएको गोश्वारा-पत्र (General Letter of
                                             Hypothecation) सहित पूरक सम्झौता (Supplementary Agreement)
                                         </li>
 
-                                        <li>
+                                        <li *ngIf="attorneyVisible">
                                             भुक्तानी प्राप्त गर्न बांकी रकम संकलन गर्ने अख्तियारनामा (Assignment of
                                             Receivables) सहित वारेसनामा (Power of Attorney)
                                         </li>
-                                        <li>
+                                        <li *ngIf="guaranteeVisible">
                                             ब्यक्तिगत जमानीपत्र (Personal Guarantee)
                                         </li>
                                         <li>
