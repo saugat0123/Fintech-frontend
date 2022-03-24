@@ -43,6 +43,33 @@ export class KisanKarjaSubsidyPrintComponent implements OnInit {
   dateOfApplication;
   autoPopulate1;
   autoPopulate2;
+
+  promissoryVisible: boolean;
+  boardVisible: boolean;
+  loanDeedVisible: boolean;
+  mortgagedVisible: boolean;
+  continuityVisible: boolean;
+  supplementaryVisible: boolean;
+  attorneyVisible: boolean;
+  multiVisible: boolean;
+  guaranteeVisible: boolean;
+  wealthVisible: boolean;
+  bankersClause1: boolean;
+  bankersClause2: boolean;
+  insuranceDeclarationVisible: boolean;
+  undertakingLetterVisible: boolean;
+  declarationVisible: boolean;
+  leaseVisible: boolean;
+  consentLetterVisible: boolean;
+  buildingVisible: boolean;
+  hirePurchaseVisible: boolean;
+  comprehensiveVisible: boolean;
+  thirdPartyVisible: boolean;
+  blueBook: boolean;
+  loanSubordinationAgreement: boolean;
+  pariPasu: boolean;
+  partnershipDeed: boolean;
+  letterSetOff: boolean;
   guarantor;
 
   constructor( public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
@@ -81,6 +108,7 @@ export class KisanKarjaSubsidyPrintComponent implements OnInit {
           this.loanHolderInfo.registeredProvince.ct;
       this.branchName = this.loanHolderInfo.branch.ct;
     }
+    this.requiredDocument();
       if (!ObjectUtil.isEmpty(this.cadOfferLetterApprovedDoc.offerDocumentList)) {
         // tslint:disable-next-line:max-line-length
         this.offerDocumentDetails = this.cadOfferLetterApprovedDoc.offerDocumentList[0] ? JSON.parse(this.cadOfferLetterApprovedDoc.offerDocumentList[0].initialInformation) : '';
@@ -164,5 +192,85 @@ export class KisanKarjaSubsidyPrintComponent implements OnInit {
       this.finalName = this.allguarantorNames + ' र ' + temp1.authorizedPersonName.ct;
     }
   }
-
+  requiredDocument() {
+    const temp = this.tempData;
+    if (!ObjectUtil.isEmpty(temp.requiredDocuments)) {
+      if (temp.requiredDocuments.requiredLegalDocument.requiredDocument.includes('Promissory Note')) {
+        this.promissoryVisible = true;
+      }
+      if (temp.requiredDocuments.requiredLegalDocument.requiredDocument.includes('Board Minute')) {
+        this.boardVisible = true;
+      }
+      if (temp.requiredDocuments.requiredLegalDocument.requiredDocument.includes('Loan Deed')) {
+        this.loanDeedVisible = true;
+      }
+      if (temp.requiredDocuments.requiredLegalDocument.requiredDocument.includes('Mortgaged Deed')) {
+        this.mortgagedVisible = true;
+      }
+      if (temp.requiredDocuments.requiredLegalDocument.requiredDocument.includes('Letter Of Continuity')) {
+        this.continuityVisible = true;
+      }
+      if (temp.requiredDocuments.requiredLegalDocument.requiredDocument.includes('General Letter Of Hypothecation with Supplementary Agreement')) {
+        this.supplementaryVisible = true;
+      }
+      if (temp.requiredDocuments.requiredLegalDocument.requiredDocument.includes('Assignment Of Receivables with Power Of Attorney')) {
+        this.attorneyVisible = true;
+      }
+      if (temp.requiredDocuments.requiredLegalDocument.requiredDocument.includes('Multiple Banking Declaration')) {
+        this.multiVisible = true;
+      }
+      if (temp.requiredDocuments.requiredLegalDocument.requiredDocument.includes('Personal Guarantee')) {
+        this.guaranteeVisible = true;
+      }
+      if (temp.requiredDocuments.requiredLegalDocument.requiredDocument.includes('Wealth Statement Of Guarantor')) {
+        this.wealthVisible = true;
+      }
+      if (temp.requiredDocuments.requiredLegalDocument.requiredDocument.includes('Insurance Of Stock')) {
+        this.bankersClause1 = true;
+      }
+      if (temp.requiredDocuments.requiredLegalDocument.requiredDocument.includes('Insurance Of Building')) {
+        this.bankersClause2 = true;
+      }
+      if (temp.requiredDocuments.requiredLegalDocument.requiredDocument.includes('Insurance Declaration Statement')) {
+        this.insuranceDeclarationVisible = true;
+      }
+      if (temp.requiredDocuments.requiredLegalDocument.requiredDocument.includes('Undertaking Letter')) {
+        this.undertakingLetterVisible = true;
+      }
+      if (temp.requiredDocuments.requiredLegalDocument.requiredDocument.includes('Declaration Letter')) {
+        this.declarationVisible = true;
+      }
+      if (temp.requiredDocuments.requiredLegalDocument.requiredDocument.includes('Lease Agreement')) {
+        this.leaseVisible = true;
+      }
+      if (temp.requiredDocuments.requiredLegalDocument.requiredDocument.includes('Letter Of Consent from Mortgage Property Owner for Continuation Of Existing Mortgage')) {
+        this.consentLetterVisible = true;
+      }
+      if (temp.requiredDocuments.requiredLegalDocument.requiredDocument.includes('Letter Of Consent from Mortgage Property Owner for Continuation Of Existing Mortgage')) {
+        this.continuityVisible = true;
+      }
+      if (temp.requiredDocuments.requiredLegalDocument.requiredDocument.includes('Building Construction Complete Certificate')) {
+        this.buildingVisible = true;
+      }
+      if (temp.requiredDocuments.requiredLegalDocument.requiredDocument.includes('Hire Purchase Agreement')) {
+        this.hirePurchaseVisible = true;
+      }
+      if (temp.requiredDocuments.requiredLegalDocument.requiredDocument.includes('Comprehensive Insurance')) {
+        this.comprehensiveVisible = true;
+      }
+      if (temp.requiredDocuments.requiredLegalDocument.requiredDocument.includes('Consent for Third Party Transfer in Case Of Default')) {
+        this.thirdPartyVisible = true;
+      }if (temp.requiredDocuments.requiredLegalDocument.requiredDocument.includes('Blue Book')) {
+        this.blueBook = true;
+      }if (temp.requiredDocuments.requiredLegalDocument.requiredDocument.includes('Loan Subordination Agreement')) {
+        this.loanSubordinationAgreement = true;
+      }if (temp.requiredDocuments.requiredLegalDocument.requiredDocument.includes('Pari-Pasu Deed')) {
+        this.pariPasu = true;
+      }if (temp.requiredDocuments.requiredLegalDocument.requiredDocument.includes('Partnership Deed')) {
+        this.partnershipDeed = true;
+      }if (temp.requiredDocuments.requiredLegalDocument.requiredDocument.includes('Letter Of Set Off')) {
+        this.letterSetOff = true;
+      }
+    }
+  }
 }
