@@ -6,8 +6,8 @@
                       [disabled]="isBackwardDisabled || approvedLoan || !inMyBucket || ((cadOfferLetterApprovedDoc.cadCurrentStage.fromRole.roleType === roleType.APPROVAL) && cadOfferLetterApprovedDoc.cadCurrentStage.docAction.toLowerCase() === 'pulled')"  (click)="approvedForwardBackward(sendForwardBackward,'BACKWARD',false)">RETURN
                 </button>
                 <button nbButton size="small" outline status="success" shape="rectangle"
-                        [disabled]="((cadOfferLetterApprovedDoc.cadCurrentStage.fromRole.roleType === roleType.MAKER))"
-                        *ngIf="(!isMaker && showHideReturnToRm) && !approvedLoan && inMyBucket" (click)="approvedForwardBackward(sendForwardBackward,'BACKWARD',true)">RETURN TO
+                        [disabled]=""
+                        *ngIf="(!isMaker) && !approvedLoan && inMyBucket" (click)="approvedForwardBackward(sendForwardBackward,'BACKWARD',true)">RETURN TO
                     RM
                 </button>
             </div>
