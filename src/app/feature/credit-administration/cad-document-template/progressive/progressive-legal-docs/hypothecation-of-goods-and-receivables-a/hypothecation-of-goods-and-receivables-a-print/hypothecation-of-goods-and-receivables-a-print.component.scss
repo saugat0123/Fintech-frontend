@@ -4,6 +4,15 @@
   margin-right:5px;
   text-align: justify;
 }
+
+.unicode-size{
+  font-size:16px;
+}
+
+.unicode-size2{
+  font-size: 24px;
+}
+
 @media print {
   .page-break { page-break-before: always; }
 }

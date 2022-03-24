@@ -56,30 +56,6 @@ export class HypothecationOfGoodsAndReceivablesAComponent implements OnInit {
     this.fillForm();
   }
 
-  fillForm() {
-    if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
-      this.cadData.cadFileList.forEach(singleCadFile => {
-        if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
-          const initialInfo = JSON.parse(singleCadFile.initialInformation);
-          this.initialInfoPrint = initialInfo;
-          this.setAnusuchis(initialInfo.anusuchis);
-          this.setFinanceGuarantors(initialInfo.financeGuarantors);
-          this.setGuarantors(initialInfo.guarantors);
-          this.form.patchValue(this.initialInfoPrint);
-        }
-      });
-    }
-
-    if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
-      this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
-
-      this.form.patchValue({
-        customerName: this.nepaliData.name ? this.nepaliData.name : '',
-      });
-    }
-  }
-
-
   onSubmit(): void {
     let flag = true;
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
@@ -203,20 +179,23 @@ export class HypothecationOfGoodsAndReceivablesAComponent implements OnInit {
   buildForm() {
     this.form = this.formBuilder.group({
       financePlace: [undefined],
+      financeMuni: [undefined],
+      financeWard: [undefined],
       financeBranch: [undefined],
-      customerName: [undefined],
-      customerAddress: [undefined],
+      companyName: [undefined],
+      companyAddress: [undefined],
       transactionPlace: [undefined],
       regNum: [undefined],
       regDate: [undefined],
       regOffice: [undefined],
-      properitierName: [undefined],
-      properitierAge: [undefined],
-      properitierCitizenNum: [undefined],
-      properitierCitizenAddress: [undefined],
-      properitierCurrentAddress: [undefined],
-      properitierParentName: [undefined],
-      properitierGrandParentName: [undefined],
+      proprietorName: [undefined],
+      proprietorAge: [undefined],
+      freeText: [undefined],
+      proprietorCitizenNum: [undefined],
+      proprietorCitizenAddress: [undefined],
+      proprietorCurrentAddress: [undefined],
+      proprietorParentName: [undefined],
+      proprietorGrandParentName: [undefined],
       loanApproveDate: [undefined],
       loanApprovePasa: [undefined],
       jamanatAmount: [undefined],
@@ -246,6 +225,51 @@ export class HypothecationOfGoodsAndReceivablesAComponent implements OnInit {
     });
   }
 
+  fillForm() {
+    if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
+      this.cadData.cadFileList.forEach(singleCadFile => {
+        if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
+          const initialInfo = JSON.parse(singleCadFile.initialInformation);
+          this.initialInfoPrint = initialInfo;
+          this.setAnusuchis(initialInfo.anusuchis);
+          this.setFinanceGuarantors(initialInfo.financeGuarantors);
+          this.setGuarantors(initialInfo.guarantors);
+          this.form.patchValue(this.initialInfoPrint);
+        }
+      });
+    }
+
+    if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
+      this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
+      const tempAddress = this.nepaliData.companyDistrict + ', ' +
+          this.nepaliData.companyVdcMun + ', ' + this.nepaliData.companyWardNo;
+      const tempPropCitizenAddress = this.nepaliData.representativePermanentDistrict + ', ' +
+          this.nepaliData.representativePermanentVdc + ', ' + this.nepaliData.representativePermanentVdcWard;
+      const tempPropCurrentAddress = this.nepaliData.representativeTemporaryDistrict + ', ' +
+          this.nepaliData.representativeTemporaryMunicipality + ', ' + this.nepaliData.representativeTemporaryWard;
+      const tempParentName = (!ObjectUtil.isEmpty(this.nepaliData.representativeFatherName) ?
+          this.nepaliData.representativeFatherName : '') + ' ÷ ' + (!ObjectUtil.isEmpty(this.nepaliData.representativeHusbandWifeName)
+          ? this.nepaliData.representativeHusbandWifeName : '');
+      this.form.patchValue({
+        financePlace: this.nepaliData.branchDistrict ? this.nepaliData.branchDistrict : '',
+        financeMuni: this.nepaliData.branchMunVdc ? this.nepaliData.branchMunVdc : '',
+        financeWard: this.nepaliData.branchWardNo ? this.nepaliData.branchWardNo : '',
+        financeBranch: this.nepaliData.branchName ? this.nepaliData.branchName : '',
+        companyName: this.nepaliData.companyName ? this.nepaliData.companyName : '',
+        companyAddress: [tempAddress ? tempAddress : ''],
+        transactionPlace: this.nepaliData.companyName ? this.nepaliData.companyName : '',
+        regNum: this.nepaliData.companyRegistrationNo ? this.nepaliData.companyRegistrationNo : '',
+        regDate: this.nepaliData.registrationDate ? this.nepaliData.registrationDate : '',
+        proprietorName: this.nepaliData.representativeName ? this.nepaliData.representativeName : '',
+        proprietorCitizenNum: this.nepaliData.representativeCitizenshipNo ? this.nepaliData.representativeCitizenshipNo : '',
+        proprietorCitizenAddress: tempPropCitizenAddress ? tempPropCitizenAddress : '',
+        proprietorCurrentAddress: tempPropCurrentAddress ? tempPropCurrentAddress : '',
+        proprietorParentName: tempParentName ? tempParentName : '',
+        proprietorGrandParentName: this.nepaliData.representativeGrandFatherName ? this.nepaliData.representativeGrandFatherName : '',
+      });
+    }
+  }
+
   getNumAmountWord(numLabel, wordLabel) {
     const wordLabelVar = this.nepToEngNumberPipe.transform(this.form.get(numLabel).value);
     const returnVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
@@ -264,6 +288,7 @@ export class HypothecationOfGoodsAndReceivablesAComponent implements OnInit {
       'fixedTermAmount',
       'koshOtherAmount1',
       'koshOtherAmount2',
+      'koshOtherAmount3'
     ];
     toAddFormControl.forEach(f => {
       res = +this.nepToEngNumberPipe.transform(this.form.get(f).value);
