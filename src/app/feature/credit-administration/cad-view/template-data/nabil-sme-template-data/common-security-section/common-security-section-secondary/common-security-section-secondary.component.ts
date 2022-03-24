@@ -25,7 +25,8 @@ export class CommonSecuritySectionSecondaryComponent implements OnInit {
     { key: "LAND", value: "Land" },
     { key: "LAND_AND_BUILDING", value: "Land And Building" },
     { key: "HYPOTHECATION", value: "Hypothecation" },
-    { key: "ASSIGNMENT", value: "ASSIGNMENT" },
+    { key: "ASSIGNMENT", value: "Assignment" },
+    { key: 'PERSONAL GUARANTEE', value: 'Personal Guarantee' },
   ];
   multiContents = [{ value: "NEW" }, { value: "EXISTING" }];
   isInsuranceRequired = false;
@@ -55,7 +56,9 @@ export class CommonSecuritySectionSecondaryComponent implements OnInit {
     // SETTING SECURITY DETAILS:
     if (!ObjectUtil.isEmpty(this.initialInformation)) {
       this.securities = this.initialInformation.securities;
-      this.setSecurityData();
+        if (!ObjectUtil.isEmpty(this.securities)) {
+            this.setSecurityData();
+        }
     }
   }
   buildForm() {
@@ -444,6 +447,8 @@ export class CommonSecuritySectionSecondaryComponent implements OnInit {
           securityOwnersMunicipalityOrVdc: [
             val.securityOwnersMunicipalityOrVdc,
           ],
+          securityTypeTrans: [val.securityTypeTrans],
+          securityTypeCT: [val.securityTypeCT],
           securityOwnersMunicipality: [val.securityOwnersMunicipality],
           securityOwnersDistrict: [val.securityOwnersDistrict],
           // TRANSLATION FIELD OF SECURITY:

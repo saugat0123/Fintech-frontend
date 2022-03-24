@@ -33,6 +33,7 @@ import {EnglishDateTransformPipe} from '../../../../../../../@core/pipe/english-
 })
 export class DdslWithoutSubsidyTemplateDataComponent implements OnInit {
     @Input() customerApprovedDoc: CustomerApprovedLoanCadDocumentation;
+    @Input() initialInformation: any;
     @ViewChild('primarySecurity', {static: false})
     commonSecuritySectionPrimaryComponent: CommonSecuritySectionPrimaryComponent;
     @ViewChild('secondarySecurity', {static: false})
@@ -71,7 +72,6 @@ export class DdslWithoutSubsidyTemplateDataComponent implements OnInit {
     offerLetterConst = NabilOfferLetterConst;
     offerLetterDocument: OfferDocument;
     securities;
-    requiredDoc;
     loanSubTypeList = [
         {nData: 'ब्यापारिक कृषि तथा पशुपंछी कर्जा', eData: 'Commercial Agro and Livestock Loan'},
         {nData: 'साना तथा लघु उद्यम आवधिक कर्जा', eData: 'Small & Micro EnterpriseTerm Loan'},
@@ -678,7 +678,7 @@ export class DdslWithoutSubsidyTemplateDataComponent implements OnInit {
         const tempSecurityDetails = this.setSecurityData();
         this.tdVal['securities'] = tempSecurityDetails;
         const tempRequiredDocument = this.setRequiredDocumemts();
-        this.tdVal['requiredDoc'] = tempRequiredDocument;
+        this.tdVal['requiredDocuments'] = tempRequiredDocument;
         this.clearConditionalValidation();
         const invalidControls = [];
         const controls = this.ddslFormGroup.controls;
