@@ -102,7 +102,8 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
                 private commonLocation: AddressService,
                 private activatedRoute: ActivatedRoute,
                 private dialogService: NbDialogService,
-                private utilService: ProductUtilService) {
+                private utilService: ProductUtilService,
+                private modelService: NgbModal) {
 
         this.router.routeReuseStrategy.shouldReuseRoute = function () {
             return false;
@@ -442,5 +443,18 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
             this.isEditable = res.detail;
         }); }
 
+    }
+    openModel(model) {
+        this.modelService.open(model);
+    }
+    deleteProfilePicture() {
+        this.modelService.dismissAll();
+        const removeProfilePic = this.customerInfo;
+        this.customerInfoService.deleteProfilePic(removeProfilePic.id, removeProfilePic.profilePic).subscribe((res: any) => {
+            this.refreshCustomerInfo();
+            this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully DELETED PROFILE PICTURE'));
+        }, error => {
+            this.toastService.show(new Alert(AlertType.WARNING, 'Unable to delete profile picture!'));
+        });
     }
 }

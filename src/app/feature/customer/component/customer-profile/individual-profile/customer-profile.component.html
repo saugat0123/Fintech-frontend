@@ -82,7 +82,33 @@
 
                         <input (change)="profileUploader($event,uploadConfirm)" hidden id="file-input"
                                type="file"/>
-
+                        <div style="margin-left: 55px"  *ngIf="customerInfo?.profilePic !==null">
+              <span (click)="openModel(confirmation)">
+                <i class="far fa-trash-alt"> Remove</i>
+              </span>
+                        </div>
+                        <ng-template #confirmation>
+                            <div class="modal-content">
+                                <div class="modal-header" style="display:block">
+                                    <a (click)="onClose()" aria-label="Close"
+                                       class="close cursor" data-dismiss="modal">
+                                        <span aria-hidden="true">×</span></a>
+                                    <h4 class="nav  navbar-right pull-left">Confirmation</h4>
+                                </div>
+                                <div class="modal-body">
+                  <span class="py-4">
+                    Do You want to delete this picture?
+                  </span>
+                                </div>
+                                <div class="modal-footer">
+                                    <div class="d-flex justify-content-end pb-md-3">
+                                        <button  (click)="deleteProfilePicture()" class="btn btn-success float-right" type="submit">
+                                            Yes
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-template>
                     </div>
                 </div>
                 <div *ngIf="!isEdited && !isJointInfo" class="col-md-9 sb-small">
