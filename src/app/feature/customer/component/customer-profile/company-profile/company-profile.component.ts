@@ -1,4 +1,4 @@
-import {AfterContentInit, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterContentInit, Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {CompanyInfo} from '../../../../admin/modal/company-info';
 import {Alert, AlertType} from '../../../../../@theme/model/Alert';
 import {CompanyInfoService} from '../../../../admin/service/company-info.service';
@@ -82,7 +82,8 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
                 private commonLocation: AddressService,
                 private formBuilder: FormBuilder,
                 private utilService: ProductUtilService,
-                private loanFormService: LoanFormService) {
+                private loanFormService: LoanFormService,
+                private modelService: NgbModal) {
     }
 
     get form() {
@@ -332,5 +333,18 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
         this.loanFormService.isCustomerEditable(this.customerInfoId).subscribe((res: any) => {
             this.isEditable = res.detail;
         }); }
+    }
+    openModel(model) {
+        this.modelService.open(model);
+    }
+    deleteProfilePicture() {
+        this.modelService.dismissAll();
+        const removeProfilePic = this.customerInfo;
+        this.customerInfoService.deleteProfilePic(removeProfilePic.id, removeProfilePic.profilePic).subscribe((res: any) => {
+            this.refreshCustomerInfo();
+            this.toastService.show(new Alert(AlertType.SUCCESS, ' Successfully DELETED PROFILE PICTURE'));
+        }, error => {
+            this.toastService.show(new Alert(AlertType.WARNING, 'Unable to delete profile picture!'));
+        });
     }
 }

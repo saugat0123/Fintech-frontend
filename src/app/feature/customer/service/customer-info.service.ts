@@ -63,4 +63,9 @@ export class CustomerInfoService extends BaseService<Object> {
         const req = ApiUtils.getRequestWithFileSupport(`${this.getApi()}/upload-multiple-doc`);
         return this.http.post(req.url, formData, {headers: req.header});
     }
+
+    public deleteProfilePic(id: number, path): Observable<any> {
+        const req = ApiUtils.getRequestWithFileSupport(`${this.getApi()}/delete-profile-pic/${id}`);
+        return this.http.post(req.url, path, {headers: req.header});
+    }
 }
