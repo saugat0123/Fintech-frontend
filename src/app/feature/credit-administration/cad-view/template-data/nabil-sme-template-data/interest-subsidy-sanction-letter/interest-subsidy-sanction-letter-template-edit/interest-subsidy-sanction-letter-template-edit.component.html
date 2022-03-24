@@ -127,7 +127,7 @@
                                nbInput status="success" type="text">
                     </div>
 
-                    <!--<div class="form-group">
+                    <div class="form-group">
                         <label for="marginInPercentage">Margin In Percentage (%)</label>
                         <input class="form-control" formControlName="marginInPercentage" fullWidth
                                id="marginInPercentage"
@@ -146,7 +146,7 @@
                         <input class="form-control" formControlName="marginInPercentageFoot" fullWidth
                                id="marginInPercentageFoot"
                                nbInput status="success" type="number">
-                    </div>-->
+                    </div>
 
                     <div class="form-group">
                         <label for="baseRate">Base Rate</label>
@@ -251,7 +251,7 @@
                                nbInput status="success" type="text">
                     </div>
 
-                    <!--<div class="form-group">
+                    <div class="form-group">
                         <label for="marginInPercentageTrans">Margin In Percentage (%)</label>
                         <input class="form-control" formControlName="marginInPercentageTrans" fullWidth
                                id="marginInPercentageTrans"
@@ -270,7 +270,7 @@
                         <input class="form-control" formControlName="marginInPercentageFootTrans" fullWidth
                                id="marginInPercentageFootTrans"
                                nbInput status="success" type="text">
-                    </div>-->
+                    </div>
 
                     <div class="form-group">
                         <label for="baseRateTrans">Base Rate Translation</label>
@@ -419,7 +419,7 @@
                         </span>
                     </div>
 
-                    <!--<div class="form-group">
+                    <div class="form-group">
                         <label for="marginInPercentageCT">Margin In Percentage (%) CT </label>
                         <input class="form-control" formControlName="marginInPercentageCT" fullWidth
                                id="marginInPercentageCT"
@@ -455,7 +455,7 @@
                         <span *ngIf="submitted && formControls.marginInPercentageFootCT.invalid" class="text-danger">
                             Margin in percentage is required
                         </span>
-                    </div>-->
+                    </div>
 
                     <div class="form-group">
                         <label for="baseRateCT">Base Rate CT </label>
@@ -571,6 +571,8 @@
                 <app-common-security-section-primary #primarySecurity [customerApprove]="customerApprovedDoc" [isEdit]="true"></app-common-security-section-primary>
                 <hr>
                 <app-common-security-section-secondary #secondarySecurity [customerApprove]="customerApprovedDoc" [isEdit]="true"></app-common-security-section-secondary>
+                <hr>
+                <app-required-legal-document-section #requiredLegalDocument [initialInformation]="initialInformation"></app-required-legal-document-section>
             </div>
 
             <!-- FIRST SECTION FOR SECURITY DETAILS -->
