@@ -29,9 +29,10 @@ import {NepaliToEngNumberPipe} from './@core/pipe/nepali-to-eng-number.pipe';
 import {NepaliWordPipe} from './@core/pipe/nepali-word.pipe';
 import {NepaliPercentWordPipe} from './@core/pipe/nepali-percent-word.pipe';
 import {TimeOutPopUpComponent} from './@core/time-out-pop-up/time-out-pop-up.component';
-import {EnumConverterPipe} from "./@core/pipe/enum-converter.pipe";
+import {EnumConverterPipe} from './@core/pipe/enum-converter.pipe';
 import {VideoKycComponent} from './feature/video-kyc/video-kyc.component';
 import {VideoKycModule} from './feature/video-kyc/video-kyc.module';
+import {NepaliCurrencyFormatterPipe} from './@core/pipe/nepali-currency-formatter.pipe';
 
 
 @NgModule({
@@ -71,8 +72,15 @@ import {VideoKycModule} from './feature/video-kyc/video-kyc.module';
         provide: LocationStrategy,
         useClass: HashLocationStrategy,
     }, {provide: HTTP_INTERCEPTORS, useClass: RequestInterceptor, multi: true},
-        DatePipe, EngToNepaliNumberPipe, CurrencyFormatterPipe, NepaliCurrencyWordPipe , NepaliToEngNumberPipe, NepaliWordPipe,EnumConverterPipe,
-        NepaliPercentWordPipe],
+        DatePipe,
+        EngToNepaliNumberPipe,
+        CurrencyFormatterPipe,
+        NepaliCurrencyWordPipe,
+        NepaliToEngNumberPipe,
+        NepaliWordPipe,
+        EnumConverterPipe,
+        NepaliPercentWordPipe,
+        NepaliCurrencyFormatterPipe],
     bootstrap: [AppComponent],
     exports: [
 
