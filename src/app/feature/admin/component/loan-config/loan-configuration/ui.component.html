@@ -232,7 +232,6 @@
                         <ng-select #loanValidation="ngModel" [items]="validationOptions"
                                    bindLabel="value"
                                    bindValue="key" name="loanValidation"
-                                   [required]="true"
                                    [(ngModel)]="selectedLoanValidation"
                                    (change)="onLoanTagChange()"
                                    placeholder="Select Loan Validation">

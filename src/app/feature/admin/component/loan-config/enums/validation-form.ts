@@ -1,7 +1,6 @@
 
 export enum ValidationForm {
     HOME_LOAN_VALIDATION = 'Home Loan Validation',
-    AUTO_LOAN_PERSONAL_VALIDATION = 'Auto Loan Personal Validation'
 }
 
 export namespace ValidationForm {
@@ -9,8 +8,6 @@ export namespace ValidationForm {
         switch (validationForm) {
             case ValidationForm.HOME_LOAN_VALIDATION:
                 return 'Home Loan Validation';
-            case ValidationForm.AUTO_LOAN_PERSONAL_VALIDATION:
-                return 'Auto Loan Validation';
         }
     }
 
