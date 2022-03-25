@@ -26,7 +26,6 @@ import {IncomeFromAccount} from '../../../admin/modal/incomeFromAccount';
 import {NetTradingAssets} from '../../../admin/modal/NetTradingAssets';
 import {CreditChecklistGeneral} from '../../../loan/model/creditChecklistGeneral';
 import {CustomerType} from '../../model/customerType';
-import {environment} from '../../../../../environments/environment';
 import {MicroLoanSynopsis} from '../../../loan/model/micro-loan-synopsis';
 import {BorrowerPortfolio} from '../../../loan/model/borrwerportfolio';
 import {MicroBaselRiskExposure} from '../../../loan/model/micro-basel-risk-exposure';
@@ -283,11 +282,18 @@ export class CustomerLoanInformationComponent implements OnInit {
             });
     }
 
-    saveFinancial(data: string) {
+    saveFinancial(data: any) {
         if (ObjectUtil.isEmpty(this.financial)) {
             this.financial = new Financial();
         }
-        this.financial.data = data;
+        this.financial.data = data.data;
+        this.financial.uploadExcel = data.upload;
+        this.financial.excelData = data.excelData;
+        if (data.upload && ObjectUtil.isEmpty(data.excelData)) {
+            this.toastService.show(new Alert(AlertType.WARNING, 'Excel Data is Empty'));
+            this.overlay.hide();
+            return;
+        }
         this.customerInfoService.saveLoanInfo(this.financial, this.customerInfoId, TemplateName.FINANCIAL)
             .subscribe(() => {
                 this.overlay.hide();

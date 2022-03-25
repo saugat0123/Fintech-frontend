@@ -1,4 +1,6 @@
 <form [formGroup]="financialForm" class="form-horizontal mb-2">
+    <nb-checkbox [(ngModel)]="uploadExcel" [ngModelOptions]="{standalone: true}" (change)="uploadExcelChange()"
+                 name ="uploadExcel">Upload Excel?</nb-checkbox>
     <div *ngIf="!isBusinessLoan">
         <nb-card>
             <nb-card-header>
@@ -343,11 +345,11 @@
         </nb-card>
     </div>
 
-    <nb-card *ngIf="!disableCrgAlphaParams && isBusinessLoan">
+    <nb-card *ngIf="!disableCrgAlphaParams && isBusinessLoan && !uploadExcel">
         <nb-card-header>
             <h4>Risk factors</h4>
         </nb-card-header>
-        <nb-card-body>
+        <nb-card-body *ngIf="!uploadExcel">
             <div class="row p-2">
                 <div class="col-md-12 border-bottom border-dark mb-4">
                     <div class="form-group">
@@ -408,7 +410,7 @@
     </nb-card>
 </form>
 
-<div *ngIf="isBusinessLoan">
+<div *ngIf="isBusinessLoan && !uploadExcel">
     <div class="row my-2" *ngIf="!disableCrgAlphaParams">
         <div class="col-md-12 form-group">
             <label><b>Total Working Capital Limit*</b></label>
@@ -432,7 +434,7 @@
 
     <hr>
 
-    <div *ngIf="auditorList.length > 0" class="row mb-4">
+    <div *ngIf="auditorList?.length > 0" class="row mb-4">
         <div class="col-md-12">
             <nb-card class="mark">
                 <nb-card-body>
@@ -512,3 +514,5 @@
 <div *ngIf="fromProfile" class="py-4 d-flex justify-content-end">
     <button (click)="onSubmit()" nbButton type="button">save</button>
 </div>
+<app-financial-upload-view  *ngIf="uploadExcel" [customerInfo]="customerInfo" (customer)="updateFinancial($event)"
+                             [customerInfoId] ="customerInfoId"></app-financial-upload-view>

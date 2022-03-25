@@ -72,7 +72,13 @@
                          (financialDataEmitter)="saveFinancial($event)"
                          *ngIf="itemFinancial.expanded"
                          [formData]="customerInfo?.financial"
+                         [customerInfo]="customerInfo"
+                         [customerInfoId] ="customerInfoId"
                          [fromProfile]="true"></app-financial>
+<!--          <app-financial-upload-view-->
+<!--                  [customerInfo]="customerInfo"-->
+<!--                  [customerInfoId] ="customerInfoId">-->
+<!--          </app-financial-upload-view>-->
         </nb-accordion-item-body>
       </nb-accordion-item>
         <nb-accordion-item #loanPortfolio *ngIf="customerInfo?.customerType == customerType.INSTITUTION && isMicroCustomer && isMicroInDirectCustomer">

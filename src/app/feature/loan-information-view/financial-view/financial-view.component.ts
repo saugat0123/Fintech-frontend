@@ -2,10 +2,7 @@ import {Component, Input, OnInit, QueryList} from '@angular/core';
 import {Financial} from '../../loan/model/financial';
 import {CustomerType} from '../../customer/model/customerType';
 import {environment} from '../../../../environments/environment';
-import {KeyIndicatorsHeaderMap} from '../../loan-information-template/financial/constants/key-indicators-constants';
-import {Alert, AlertType} from '../../../@theme/model/Alert';
 import {ToastService} from '../../../@core/utils';
-import {LoanDataHolder} from '../../loan/model/loanData';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
 
 @Component({
@@ -24,13 +21,21 @@ export class FinancialViewComponent implements OnInit {
   activeTab: string;
   disableCrgAlphaParams = environment.disableCrgAlpha;
   auditorList = [];
+  financialKeys;
 
   constructor(protected toastService: ToastService) {
   }
 
   ngOnInit() {
     if (this.formData !== undefined) {
-      this.financialData = JSON.parse(this.formData.data);
+      if (this.formData.uploadExcel) {
+            if (!ObjectUtil.isEmpty(this.formData.excelData)) {
+              this.financialData = JSON.parse(this.formData.excelData);
+              this.financialKeys = Object.keys(this.financialData);
+            }
+      } else {
+        this.financialData = JSON.parse(this.formData.data);
+      }
       if (CustomerType[this.customerType] === CustomerType.INSTITUTION && !this.microCustomer) {
         this.isBusinessLoan = true;
       }

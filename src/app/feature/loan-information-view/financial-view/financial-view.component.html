@@ -146,7 +146,7 @@
             </tbody>
         </table>
 
-        <div *ngIf="!microCustomer && isBusinessLoan">
+        <div *ngIf="!microCustomer && isBusinessLoan && !formData?.uploadExcel">
             <p class="float-left"><strong>Financial Details</strong></p>
             <table *ngIf="!disableCrgAlphaParams"
                 class="table table-condensed table-sm table-bordered table-responsive-md text-center table-sm sb-small">
@@ -862,6 +862,17 @@
                     <td class="text-left pl-1">{{financialData?.initialForm?.repaymentHistory}}</td>
                 </tr>
             </table>
+        </ng-container>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12" *ngIf="financialKeys?.length > 0 && formData?.uploadExcel ">
+        <ng-container  *ngFor="let title of financialKeys">
+            <p class="sub-header"><strong class="sub-header">{{title | financialPipe}}</strong></p>
+            <hr>
+            <div class="row">
+                <app-financial-json-parser [financialJson]="financialData[title] | jsonParse"></app-financial-json-parser>
+            </div>
         </ng-container>
     </div>
 </div>

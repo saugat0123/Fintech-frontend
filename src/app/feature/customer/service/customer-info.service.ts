@@ -87,5 +87,8 @@ export class CustomerInfoService extends BaseService<Object> {
         return this.http.post(req.url, object, {headers: req.header});
     }
 
-
+    public uploadFinancialExcel(object) {
+        const req = ApiUtils.getRequestWithFileSupport(`${this.getApi()}/uploadExcel`);
+        return this.http.post(req.url, object, {headers: req.header});
+    }
 }

@@ -49,6 +49,9 @@ import {AngularDraggableModule} from 'angular2-draggable';
 import { CrgMicroComponent } from './crg-micro/crg-micro.component';
 import { SecurityTableComponent } from './security/security-initial-form/security-table/security-table.component';
 import { CreateDocumentComponent } from './security/security-initial-form/create-document/create-document.component';
+import {FinancialJsonParserComponent} from '../loan/component/loan-summary/financial-json-parser/financial-json-parser.component';
+import {FinancialUploadViewComponent} from './financial/financial-upload-view/financial-upload-view.component';
+import {FinancialKeysPipe} from '../../@core/pipe/financial-keys.pipe';
 
 const COMPONENTS = [
     SiteVisitComponent,
@@ -88,9 +91,9 @@ const COMPONENTS = [
 
 
 @NgModule({
-  declarations: [...COMPONENTS, CadDocumentUploadComponent, MicroProposalComponent, CommentsComponent, PreviousSecurityComponent,
-      CrgMicroComponent],
-    exports: [...COMPONENTS, MicroProposalComponent, CommentsComponent, CrgMicroComponent],
+    declarations: [...COMPONENTS, CadDocumentUploadComponent, MicroProposalComponent, CommentsComponent, PreviousSecurityComponent,
+        CrgMicroComponent, FinancialJsonParserComponent, FinancialUploadViewComponent, FinancialKeysPipe],
+    exports: [...COMPONENTS, MicroProposalComponent, CommentsComponent, CrgMicroComponent, FinancialJsonParserComponent, FinancialKeysPipe],
     entryComponents: [...COMPONENTS],
     imports: [
         CommonModule,

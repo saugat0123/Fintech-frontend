@@ -17,16 +17,11 @@ import {NetWorthOfFirmOrCompany} from '../model/net-worth-of-firm-or-company';
 import {TaxCompliance} from '../model/tax-compliance';
 import {MajorSourceIncomeType} from '../../admin/modal/crg/major-source-income-type';
 import {NumberUtils} from '../../../@core/utils/number-utils';
-import {Pattern} from '../../../@core/utils/constants/pattern';
-import {
-    TypeOfSourceOfIncome,
-    TypeOfSourceOfIncomeArray,
-    TypeOfSourceOfIncomeMap
-} from '../../admin/modal/crg/typeOfSourceOfIncome';
+import {TypeOfSourceOfIncome, TypeOfSourceOfIncomeArray, TypeOfSourceOfIncomeMap} from '../../admin/modal/crg/typeOfSourceOfIncome';
 import {NgSelectComponent} from '@ng-select/ng-select';
 import {environment} from '../../../../environments/environment';
-import {Clients} from '../../../../environments/Clients';
-import {NgxSpinnerService} from "ngx-spinner";
+import {NgxSpinnerService} from 'ngx-spinner';
+
 
 @Component({
     selector: 'app-financial',
@@ -40,6 +35,8 @@ export class FinancialComponent implements OnInit {
     @ViewChild('keyIndicators', {static: false}) keyIndicators: KeyIndicatorsComponent;
     @Input() formData: Financial;
     @Input() fromProfile: boolean;
+    @Input() customerInfo;
+    @Input() customerInfoId;
     @Output() financialDataEmitter = new EventEmitter();
 
     disableCrgAlphaParams = environment.disableCrgAlpha;
@@ -184,6 +181,7 @@ export class FinancialComponent implements OnInit {
     ];
 
     numberUtils = NumberUtils;
+    uploadExcel = false;
 
     constructor(private formBuilder: FormBuilder,
                 private financialService: FinancialService,
@@ -202,8 +200,17 @@ export class FinancialComponent implements OnInit {
                 this.isBusinessLoan = false;
             }
         });
-        this.buildForm();
         if (!ObjectUtil.isEmpty(this.formData)) {
+            this.uploadExcel = this.formData.uploadExcel;
+        }
+        this.buildForm();
+        this.editForm();
+    }
+    editForm() {
+        if(ObjectUtil.isEmpty(this.formData)) {
+            this.formData = new Financial();
+        }
+        if (!ObjectUtil.isEmpty(this.formData.data) && !this.uploadExcel) {
             this.currentFormData = JSON.parse(this.formData.data);
             this.fiscalYear = this.currentFormData['fiscalYear'];
             this.auditorList = this.currentFormData['auditorList'];
@@ -223,7 +230,7 @@ export class FinancialComponent implements OnInit {
             this.financialForm.patchValue(initialFormData);
             this.methodListeners();
         } else {
-            if (this.isBusinessLoan) {
+            if (this.isBusinessLoan && !this.uploadExcel) {
                 const currentFormDataJson = JSON.stringify(currentFormData['default']);
                 this.currentFormData = JSON.parse(currentFormDataJson);
             } else {
@@ -616,34 +623,36 @@ export class FinancialComponent implements OnInit {
     onSubmit() {
         this.overlay.show();
         this.submitted = true;
-        switch (this.activeTab) {
-            case 'Income Statement':
-                this.incomeStatement.ngOnDestroy();
-                break;
-            case 'Balance Sheet':
-                this.balanceSheet.ngOnDestroy();
-                break;
-            case 'Cash Flow Statement':
-                this.cashFlowStatement.ngOnDestroy();
-                break;
-            case 'Key Indicators':
-                this.keyIndicators.ngOnDestroy();
-        }
         if (!ObjectUtil.isEmpty(this.formData)) {
             this.financialData = this.formData;
         }
-        if (this.financialForm.invalid) {
-            this.overlay.hide();
-            return;
+        if(!this.uploadExcel) {
+            switch (this.activeTab) {
+                case 'Income Statement':
+                    this.incomeStatement.ngOnDestroy();
+                    break;
+                case 'Balance Sheet':
+                    this.balanceSheet.ngOnDestroy();
+                    break;
+                case 'Cash Flow Statement':
+                    this.cashFlowStatement.ngOnDestroy();
+                    break;
+                case 'Key Indicators':
+                    this.keyIndicators.ngOnDestroy();
+            }
+            if (this.financialForm.invalid) {
+                this.overlay.hide();
+                return;
+            }
+            this.calculateAndSetHighestScore();
+            this.currentFormData['fiscalYear'] = this.fiscalYear;
+            this.currentFormData['initialForm'] = this.financialForm.value;
+            if (this.isBusinessLoan) {
+                this.currentFormData['auditorList'] = this.auditorList;
+            }
+            this.financialData.data = JSON.stringify(this.currentFormData);
         }
-        this.calculateAndSetHighestScore();
-        this.currentFormData['fiscalYear'] = this.fiscalYear;
-        this.currentFormData['initialForm'] = this.financialForm.value;
-        if (this.isBusinessLoan) {
-            this.currentFormData['auditorList'] = this.auditorList;
-        }
-        this.financialData.data = JSON.stringify(this.currentFormData);
-        this.financialDataEmitter.emit(this.financialData.data);
+        this.financialDataEmitter.emit({data: this.financialData.data, upload: this.uploadExcel, excelData: this.formData.excelData});
     }
 
     totalEmiMonthlyGross() {
@@ -696,5 +705,11 @@ export class FinancialComponent implements OnInit {
         } else {
             this.controlValidation(['majorSourceIncomeType', 'periodOfEarning', 'alternateIncomeSourceAmount'], false);
         }
+    }
+    updateFinancial(data: any) {
+        this.formData = data.financial;
+    }
+    uploadExcelChange() {
+        this.editForm();
     }
 }
