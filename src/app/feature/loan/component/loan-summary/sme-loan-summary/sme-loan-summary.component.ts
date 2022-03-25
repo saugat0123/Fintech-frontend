@@ -888,21 +888,17 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
     this.isDetailedView = !this.isDetailedView;
   }
 
-  aboveTenMillion(checked: boolean) {
-    this.isAboveTenMillion = checked;
-    this.isUpToTenMillion = false;
-  }
-  upToTenMillion(checked: boolean) {
-    this.isUpToTenMillion = checked;
-    this.isAboveTenMillion = false;
-  }
   isRadioSelected() {
-    
-    if (this.radioSelected === 'upto') {
+    if (this.radioSelected === 'sana') {
+      this.isDetailedView = true;
+      this.isUpToTenMillion = false;
+      this.isAboveTenMillion = false;
+    }
+    else if (this.radioSelected === 'upto') {
       this.isUpToTenMillion = true;
       this.isAboveTenMillion = false;
     }
-    if (this.radioSelected === 'above') {
+    else if (this.radioSelected === 'above') {
       this.isAboveTenMillion = true;
       this.isUpToTenMillion = false;
       

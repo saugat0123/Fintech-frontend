@@ -165,22 +165,12 @@
                     <button class="btn btn-primary btn-semi-round btn-sm font-weight-bold"
                         (click)="detailViewCheck()">DETAILED VIEW</button>
                 </div>
-                <div class="col-md-12 mt-4">
+                <div class="col-md-12 mt-4" style="margin-left: 0.3rem" *ngIf="isDetailedView">
                     <nb-radio-group [(ngModel)]="radioSelected">
+                        <nb-radio (click)=isRadioSelected() value="sana">Sana Byabasahi Karja</nb-radio>
                         <nb-radio (click)=isRadioSelected() value="upto">Upto Ten Million</nb-radio>
                         <nb-radio (click)=isRadioSelected() value="above">Above Ten Million</nb-radio>
                     </nb-radio-group>
-                </div>
-                <div class="col-md-6 mt-4" style="margin-left: 0.3rem;">
-                    <nb-checkbox *ngIf="isDetailedView" class="disable-print" size="large"
-                        (checkedChange)="upToTenMillion($event)">Up To Ten Million
-                    </nb-checkbox>
-                </div>
-                <div class="col-md-6 mt-4" style="margin-left: 0.3rem;">
-                    <nb-checkbox *ngIf="isDetailedView" class="disable-print" size="large"
-                        (checkedChange)="aboveTenMillion($event)">Above
-                        Ten Million
-                    </nb-checkbox>
                 </div>
             </div>
 
