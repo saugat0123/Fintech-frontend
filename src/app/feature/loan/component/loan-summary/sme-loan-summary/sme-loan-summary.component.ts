@@ -197,10 +197,11 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
   companyInfoJson: Array<any>;
   hidePreviewButton = false;
   zipDocumentName: any;
-  isAboveTenMillion: any;
-  isUpToTenMillion: any;
 
+  isAboveTenMillion = false;
+  isUpToTenMillion = false;
   isDetailedView = false;
+  radioSelected: any;
   constructor(
     @Inject(DOCUMENT) private _document: Document,
     private userService: UserService,
@@ -889,8 +890,22 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
 
   aboveTenMillion(checked: boolean) {
     this.isAboveTenMillion = checked;
+    this.isUpToTenMillion = false;
   }
   upToTenMillion(checked: boolean) {
     this.isUpToTenMillion = checked;
+    this.isAboveTenMillion = false;
+  }
+  isRadioSelected() {
+    
+    if (this.radioSelected === 'upto') {
+      this.isUpToTenMillion = true;
+      this.isAboveTenMillion = false;
+    }
+    if (this.radioSelected === 'above') {
+      this.isAboveTenMillion = true;
+      this.isUpToTenMillion = false;
+      
+    }
   }
 }

@@ -165,9 +165,15 @@
                     <button class="btn btn-primary btn-semi-round btn-sm font-weight-bold"
                         (click)="detailViewCheck()">DETAILED VIEW</button>
                 </div>
+                <div class="col-md-12 mt-4">
+                    <nb-radio-group [(ngModel)]="radioSelected">
+                        <nb-radio (click)=isRadioSelected() value="upto">Upto Ten Million</nb-radio>
+                        <nb-radio (click)=isRadioSelected() value="above">Above Ten Million</nb-radio>
+                    </nb-radio-group>
+                </div>
                 <div class="col-md-6 mt-4" style="margin-left: 0.3rem;">
                     <nb-checkbox *ngIf="isDetailedView" class="disable-print" size="large"
-                                 (checkedChange)="upToTenMillion($event)">Up To Ten Million
+                        (checkedChange)="upToTenMillion($event)">Up To Ten Million
                     </nb-checkbox>
                 </div>
                 <div class="col-md-6 mt-4" style="margin-left: 0.3rem;">
@@ -658,18 +664,6 @@
                 </div>
             </ng-container>
 
-            <div class="row" *ngIf="!isDetailedView && !isAboveTenMillion && !isUpToTenMillion">
-                <div class="col-md-12">
-                    <app-executive-summary-sme></app-executive-summary-sme>
-                </div>
-            </div>
-            <ng-container *ngIf="isUpToTenMillion">
-                <app-upto-ten-million></app-upto-ten-million>
-            </ng-container>
-            <ng-container *ngIf="isAboveTenMillion">
-                <app-above-ten-million></app-above-ten-million>
-            </ng-container>
-
             <ng-container *ngIf="isDetailedView && !isAboveTenMillion && !isUpToTenMillion">
 
                 <app-financial-summary *ngIf="financialSummary" [formData]="financialData"
@@ -854,66 +848,17 @@
                         <span [innerHTML]="proposalView?.waiverConclusionRecommendation || 'N/A' | safeHtml"></span>
                     </div>
                 </div>
-                <!-- <div class="row mt-3">
-                    <div class="col-md-12">
-                        <p><strong>Borrower Information </strong></p>
-                        <span [innerHTML]="proposalView?.borrowerInformation || 'N/A' | safeHtml"></span>
-                    </div>
+            </ng-container>
+            <div class="row" *ngIf="!isDetailedView && !isAboveTenMillion && !isUpToTenMillion">
+                <div class="col-md-12">
+                    <app-executive-summary-sme></app-executive-summary-sme>
                 </div>
-                <div class="row mt-3">
-                    <div class="col-md-12">
-                        <p><strong>Risk & Mitigation </strong></p>
-                        <span [innerHTML]="proposalView?.riskConclusionRecommendation || 'N/A' | safeHtml"></span>
-                    </div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-md-12">
-                        <p><strong>Purpose of Loan </strong></p>
-                        <span [innerHTML]="proposalView?.purposeOfLoan || 'N/A' | safeHtml"></span>
-                    </div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-md-12">
-                        <p><strong>Terms & Conditions </strong></p>
-                        <span [innerHTML]="proposalView?.termsAndCondition || 'N/A' | safeHtml"></span>
-                    </div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-md-12">
-                        <p><strong>Remark </strong></p>
-                        <span [innerHTML]="proposalView?.remark || 'N/A' | safeHtml"></span>
-                    </div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-md-12">
-                        <p><strong>Recommendation </strong></p>
-                        <span [innerHTML]="proposalView?.summeryRecommendation || 'N/A' | safeHtml"></span>
-                    </div>
-                </div> -->
-
-                <!-- 18.	NRB/STATUTORY AUDITORS/INTERNAL AUDITORS REMARKS AND THEIR STATUS:
-                19.	MIS/NRB REPORTING
-                20.	CONCLUSION, REVIEW AND RECOMMENDATION:	 -->
-<!--                <div class="row mt-3">-->
-<!--                    <div class="col-md-12">-->
-<!--                        <app-nrb-statutory-remarks-status></app-nrb-statutory-remarks-status>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="row mt-3">-->
-<!--                    <div class="col-md-12">-->
-<!--                        <app-mis-nrb-reporting></app-mis-nrb-reporting>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="row mt-3">-->
-<!--                    <div class="col-md-12">-->
-<!--                        <app-conlusion-review-table></app-conlusion-review-table>-->
-<!--                    </div>-->
-<!--                </div>-->
-<!--                <div class="row mt-3">-->
-<!--                    <div class="col-md-12">-->
-<!--                        <app-credit-card-requirement></app-credit-card-requirement>-->
-<!--                    </div>-->
-<!--                </div>-->
+            </div>
+            <ng-container *ngIf="isUpToTenMillion && !isAboveTenMillion">
+                <app-upto-ten-million></app-upto-ten-million>
+            </ng-container>
+            <ng-container *ngIf="isAboveTenMillion && !isUpToTenMillion">
+                <app-above-ten-million></app-above-ten-million>
             </ng-container>
         </nb-card-body>
     </nb-card>
