@@ -22,29 +22,30 @@
                             </strong>
                         </p>
                     </div>
+                    <section>
                     <div class="row mt-3">
                         <ol class="dev-list">
                             <li *ngIf="securityTypeCondition">
-                                <!-- Applicable only if Land/building as primary collateral-->
                                 <strong>घर/जग्गा धितोेबन्धक हकाधिकार (Mortgage Charges):</strong>
+                                <ng-container *ngFor="let item of tempLandBuilding; let i = index">
+                                <!-- Applicable only if Land/building as primary collateral-->
                                 <p class="m-0"
-                                   *ngIf="!collateralShareCondition && (this.primaryNewMortgage || this.primaryExistingMortgage)">
+                                   *ngIf="item.collateralShare == 'NO' && (item.mortgageType == 'New' || item.mortgageType == 'Existing')">
                                     <!--For new mortgage / remortgage-->
-                                    <span *ngIf="this.tempLandBuilding[0].mortgageType === 'New'">
+                                    <span *ngIf="item.mortgageType === 'New'">
                                 स्वीकृत ऋणकर्जा प्रवाह गर्नु अगावै
                             </span>
                                     ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा देहाय बमोजिमको घर/जग्गा धितोेबन्धक पारित
                                     <!--For new mortgage / remortgage-->
-                                    <span *ngIf="this.tempLandBuilding[0].mortgageType === 'New'">
+                                    <span *ngIf="item.mortgageType === 'New'">
                                 गरी दिनु पर्नेछ ।
                             </span>
-                                    <span *ngIf="this.tempLandBuilding[0].mortgageType === 'Existing'"><!--For existing mortgage to be continued-->
+                                    <span *ngIf="item.mortgageType === 'Existing'"><!--For existing mortgage to be continued-->
                             गरिदिनुभएको यथावत कायम रहने छ ।
                             </span>
                                 </p>
-
                                 <p class="m-0"
-                                   *ngIf="!collateralShareCondition && this.tempLandBuilding[0].mortgageType === 'Enhancement'">
+                                   *ngIf="item.collateralShareCT == 'NO' && item.mortgageType === 'Enhancement'">
                                     <!-- For existing mortgage with enhancement-->
                                     यस अघि ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा धितोेबन्धक पारित गरिदिनुभएका देहाय
                                     बमोजिमको
@@ -54,10 +55,10 @@
                                     धितोेबन्धक यथावत कायम रहने छ ।
                                 </p>
 
-                                <div *ngIf="collateralShareCondition && (tempCollateral[0].mortgageType === 'New' || tempCollateral[0].mortgageType === 'Existing')">
-                                    <p class="m-0" *ngFor="let data of tempCollateral">
+                                <div *ngIf="item.collateralShareCT == 'YES' && (item.mortgageType === 'New' || item.mortgageType === 'Existing')">
+                                    <p class="m-0">
                                         <!--this clause if the collateral is shared-->
-                                        <span *ngIf="data.mortgageType === 'New'"> <!--For new mortgage-->
+                                        <span *ngIf="item.mortgageType === 'New'"> <!--For new mortgage-->
                                             स्वीकृत ऋणकर्जा प्रवाह गर्नु अगावै
                                         </span>
                                         ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा
@@ -66,29 +67,28 @@
                                                name="otherBorrowingClientName"
                                                type="text"
                                                class="form-field form-control-sm"
-                                               [value]="data.nameOfBorrowingClientCT"
+                                               [value]="item.nameOfBorrowingClientCT"
                                                placeholder="Borrowing Client Name"/>
                                         को नाममा स्वीकृत ऋण कर्जा सुविधा समेत
                                         उल्लेख गरी संयुक्त रुपमा धितोेबन्धक पारित
-                                        <span *ngIf="data.mortgageType === 'New'"> <!--For new mortgage / remortgage-->
+                                        <span *ngIf="item.mortgageType === 'New'"> <!--For new mortgage / remortgage-->
                                             गरिदिनु पर्नेछ ।
                                         </span>
                                         <!--For existing mortgage to be continued-->
-                                        <span *ngIf="data.mortgageType === 'Existing'">
+                                        <span *ngIf="item.mortgageType === 'Existing'">
                                             गरिदिनुभएको यथावत कायम रहने छ ।
                                         </span>
                                     </p>
                                 </div>
-
-                                <div *ngIf="collateralShareCondition && tempCollateral[0].mortgageType === 'Enhancement'">
-                                    <p class="m-0" *ngFor="let data of tempCollateral">
+                                <div *ngIf="item.collateralShareCT == 'YES' &&  item.mortgageType === 'Enhancement'">
+                                    <p class="m-0">
                                         <!--this clause if the collateral is shared and For existing mortgage with enhancement-->
                                         यस अघि ऋणकर्जाको सुरक्षण स्वरुप यस बैंकले तपाई ऋणी तथा
                                         <input formControlName="otherBorrowingClientName"
                                                name="otherBorrowingClientName"
                                                type="text"
                                                class="form-field form-control-sm"
-                                               [value]="data.nameOfBorrowingClientCT"
+                                               [value]="item.nameOfBorrowingClientCT"
                                                placeholder="Borrowing Client Name"/>
                                         को नाममा स्वीकृत ऋण कर्जा सुविधा समेत उल्लेख गरी संयुक्त रुपमा धितोेबन्धक पारित
                                         गरिदिनुभएको
@@ -98,72 +98,13 @@
                                         लागि धितोेबन्धक यथावत कायम रहने छ ।
                                     </p>
                                 </div>
-                            </li>
 
-                            <div class="pb-4" *ngIf="securityTypeCondition">
-                                <app-master-securities-view
-                                        [securityDetails]="tempData?.securities"></app-master-securities-view>
-                            </div>
-
-                            <!--<div class="optional" *ngIf="securityTypeCondition">
-                                <textarea
-                                        class="form-control nepaliFont"
-                                        rows="5"
-                                        style="width:95%;margin-left:2%"
-                                        name="freeText1"
-                                        formControlName="freeText1">
-                                 </textarea>
-                                <div class="firstTable mt-3">
-                                    <table class="table table-bordered">
-                                        <tr>
-                                            <td rowspan="2">
-                                                घर/जग्गा
-                                                धनीको नाम थर
-                                            </td>
-                                            <td colspan="3">
-                                                घर/जग्गाको अवस्थिति
-                                            </td>
-                                            <td rowspan="2">
-                                                सिट नं.
-                                            </td>
-                                            <td rowspan="2">
-                                                कित्ता नं.
-                                            </td>
-                                            <td rowspan="2">
-                                                क्षेत्रफल
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                                जिल्ला
-                                            </td>
-                                            <td>
-                                                नगर/गा.वि.स.
-                                            </td>
-                                            <td>
-                                                वडा नं.
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>
-                                            </td>
-                                            <td>
-                                            </td>
-                                            <td>
-                                            </td>
-                                            <td>
-                                            </td>
-                                            <td>
-                                            </td>
-                                            <td>
-                                            </td>
-                                            <td>
-                                            </td>
-                                        </tr>
-                                    </table>
+                                <div class="pb-4" *ngIf="securityTypeCondition">
+                                    <app-master-securities-view
+                                            [securityDetails]="this.tempData.securities.primarySecurity[i]"></app-master-securities-view>
                                 </div>
-                            </div>-->
-
+                            </ng-container>
+                            </li>
                             <!-- Applicable if only hypothecation letter is required-->
                             <li *ngIf="securityTypeHypothecationCondition">
                                 <strong>सामान मौज्दात धितोेबन्धक हकाधिकार (Hypothecation Charges): </strong>
@@ -417,6 +358,7 @@
                             </li>
                         </ol>
                     </div>
+                    </section>
                 </div>
             </div>
 
@@ -442,23 +384,25 @@
                             <li *ngIf="securityTypeSecondaryCondition">
                                 <!-- Applicable only if Land/building as primary collateral-->
                                 <strong>घर/जग्गा धितोेबन्धक हकाधिकार (Mortgage Charges): </strong>
+                                <ng-container *ngFor="let item of tempSecondaryLandBuilding; let i = index">
                                 <p class="m-0"
-                                   *ngIf="!collateralShareSecondaryCondition && (this.secondaryNewMortgage || this.secondaryExistingMortgage)">
+                                   *ngIf="item.collateralShare == 'NO' && (item.mortgageType == 'New' || item.mortgageType == 'Existing')">
                                 <!--For new mortgage / remortgage-->
-                                    <span *ngIf="this.tempSecondaryLandBuilding[0].mortgageType === 'New'">
+                                    <span *ngIf="item.mortgageType === 'New'">
                                         स्वीकृत ऋणकर्जा प्रवाह गर्नु अगावै
                                     </span>
                                     ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा देहाय बमोजिमको घर/जग्गा धितोेबन्धक पारित
                                     <!--For new mortgage / remortgage-->
-                                    <span *ngIf="this.tempSecondaryLandBuilding[0].mortgageType === 'New'">
+                                    <span *ngIf="item.mortgageType === 'New'">
                                         गरी दिनु पर्नेछ ।
                                     </span>
-                                    <span *ngIf="this.tempSecondaryLandBuilding[0].mortgageType === 'Existing'"><!--For existing mortgage to be continued-->
+                                    <span *ngIf="item.mortgageType === 'Existing'"><!--For existing mortgage to be continued-->
                                         गरिदिनुभएको यथावत कायम रहने छ ।
                                     </span>
                                 </p>
 
-                                <p class="m-0"  *ngIf="!collateralShareSecondaryCondition && this.tempSecondaryLandBuilding[0].mortgageType === 'Enhancement'">
+                                <p class="m-0"  
+                                *ngIf="item.collateralShareCT == 'NO' && item.mortgageType === 'Enhancement'">
                                 <!-- For existing mortgage with enhancement-->
                                     यस अघि ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा धितोेबन्धक पारित गरिदिनुभएका देहाय
                                     बमोजिमको
@@ -467,10 +411,10 @@
                                     धितोेबन्धक यथावत कायम रहने छ ।
                                 </p>
 
-                                <div *ngIf="collateralShareSecondaryCondition && (tempSecondaryCollateral[0].mortgageType === 'New' || tempSecondaryCollateral[0].mortgageType === 'Existing')">
-                                    <p class="m-0" *ngFor="let data of tempSecondaryCollateral">
+                                <div *ngIf="item.collateralShareCT == 'YES' && (item.mortgageType === 'New' || item.mortgageType === 'Existing')">
+                                    <p class="m-0">
                                         <!--this clause if the collateral is shared-->
-                                        <span *ngIf="data.mortgageType === 'New'"> <!--For new mortgage-->
+                                        <span *ngIf="item.mortgageType === 'New'"> <!--For new mortgage-->
                                             स्वीकृत ऋणकर्जा प्रवाह गर्नु अगावै
                                         </span>
                                         ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा
@@ -479,41 +423,41 @@
                                                name="otherBorrowingClientNameSecondary"
                                                type="text"
                                                class="form-field form-control-sm"
-                                               [value]="data.nameOfBorrowingClientCT"
+                                               [value]="item.nameOfBorrowingClientCT"
                                                placeholder="Borrowing Client Name"/>
                                         को नाममा स्वीकृत ऋण कर्जा सुविधा समेत
                                         उल्लेख गरी संयुक्त रुपमा धितोेबन्धक पारित
-                                        <span *ngIf="data.mortgageType === 'New'"> <!--For new mortgage / remortgage-->
+                                        <span *ngIf="item.mortgageType === 'New'"> <!--For new mortgage / remortgage-->
                                             गरिदिनु पर्नेछ ।
                                         </span>
                                         <!--For existing mortgage to be continued-->
-                                        <span *ngIf="data.mortgageType === 'Existing'">
+                                        <span *ngIf="item.mortgageType === 'Existing'">
                                             गरिदिनुभएको यथावत कायम रहने छ ।
                                         </span>
                                     </p>
                                 </div>
 
-                                <div *ngIf="collateralShareSecondaryCondition && tempSecondaryCollateral[0].mortgageType === 'Enhancement'">
-                                    <p class="m-0" *ngFor="let data of tempSecondaryCollateral">
+                                <div *ngIf="item.collateralShareCT == 'YES' &&  item.mortgageType === 'Enhancement'">
+                                    <p class="m-0">
                                         <!--this clause if the collateral is shared and For existing mortgage with enhancement-->
                                         यस अघि ऋणकर्जाको सुरक्षण स्वरुप यस बैंकले तपाई ऋणी तथा
                                         <input formControlName="otherBorrowingClientNameSecondary"
                                                name="otherBorrowingClientNameSecondary"
                                                type="text"
                                                class="form-field form-control-sm"
-                                               [value]="data.nameOfBorrowingClientCT"
+                                               [value]="item.nameOfBorrowingClientCT"
                                                placeholder="Borrowing Client Name"/>
                                         को नाममा स्वीकृत ऋण कर्जा सुविधा समेत उल्लेख गरी संयुक्त रुपमा धितोेबन्धक पारित
                                         गरिदिनुभएको देहाय बमोजिमको घर/जग्गा माथि स्वीकृत थप/ अतिरिक्त ऋणकर्जा/सुविधा
                                         सहित सम्पुर्ण ऋणकर्जा सुविधाका लागि धितोेबन्धक यथावत कायम रहने छ ।
                                     </p>
                                 </div>
+                                <div class="pb-4" *ngIf="securityTypeSecondaryCondition">
+                                    <app-master-secondary-securities-view
+                                            [securityDetails]="tempData?.securities.secondarySecurity[i]"></app-master-secondary-securities-view>
+                                </div>
+                            </ng-container>
                             </li>
-
-                            <div class="pb-4" *ngIf="securityTypeSecondaryCondition">
-                                <app-master-secondary-securities-view
-                                        [securityDetails]="tempData?.securities"></app-master-secondary-securities-view>
-                            </div>
 
                             <!--<div class="optional" class="pb-4" *ngIf="securityTypeSecondaryCondition">
                                 <textarea
