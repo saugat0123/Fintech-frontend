@@ -29,7 +29,7 @@
                     </div>
                 </div>
 
-                <div class="row"
+                <!--<div class="row"
                     *ngIf="this.commonPrimarySecurity.get(['securityDetails', i,'securityType']).value && this.commonPrimarySecurity.get(['securityDetails', i,'securityType']).value == securityType[0]?.key || this.commonPrimarySecurity.get(['securityDetails', i,'securityType']).value == securityType[1]?.key || this.commonPrimarySecurity.get(['securityDetails', i,'securityType']).value == securityType[2]?.key">
                     <div class="form-group col-md-4">
                         <label for="marginInPercentage">Margin In Percentage (%)</label>
@@ -48,7 +48,7 @@
                         <input class="form-control" formControlName="marginInPercentageCT" fullWidth
                             id="marginInPercentageCT" nbInput status="success" type="text">
                     </div>
-                </div>
+                </div>-->
                 <!-- FOR HYPOTHECATION SECTION -->
                 <div
                     *ngIf="this.commonPrimarySecurity.get(['securityDetails', i,'securityType']).value === securityType[2]?.key">
@@ -76,44 +76,6 @@
 
                 <div
                     *ngIf="this.commonPrimarySecurity.get(['securityDetails', i,'securityType']).value === securityType[0]?.key || this.commonPrimarySecurity.get(['securityDetails', i,'securityType']).value === securityType[1]?.key">
-                    <div class="row">
-                        <div class="form-group col-md-4">
-                            <label for="marginInPercentageMotor">Margin In Percentage Motorable Road Access (%)</label>
-                            <input
-                                (input)="translateSecurityNumber('securityDetails', 'marginInPercentageMotor', i, 'marginInPercentageMotorTrans')"
-                                class="form-control" formControlName="marginInPercentageMotor" fullWidth
-                                id="marginInPercentageMotor" nbInput status="success" type="number">
-                        </div>
-
-                        <div class="col-md-4 form-group fieldMargin">
-                            <input class="form-control" formControlName="marginInPercentageMotorTrans" fullWidth
-                                id="marginInPercentageMotorTrans" nbInput status="success" type="text">
-                        </div>
-
-                        <div class="col-md-4 form-group fieldMargin">
-                            <input class="form-control" formControlName="marginInPercentageMotorCT" fullWidth
-                                id="marginInPercentageMotorCT" nbInput status="success" type="text">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-md-4">
-                            <label for="marginInPercentageFoot">Margin In Percentage Foot trail access (%)</label>
-                            <input
-                                (input)="translateSecurityNumber('securityDetails', 'marginInPercentageFoot', i, 'marginInPercentageFootTrans')"
-                                class="form-control" formControlName="marginInPercentageFoot" fullWidth
-                                id="marginInPercentageFoot" nbInput status="success" type="number">
-                        </div>
-
-                        <div class="col-md-4 form-group fieldMargin">
-                            <input class="form-control" formControlName="marginInPercentageFootTrans" fullWidth
-                                id="marginInPercentageFootTrans" nbInput status="success" type="text">
-                        </div>
-
-                        <div class="col-md-4 form-group fieldMargin">
-                            <input class="form-control" formControlName="marginInPercentageFootCT" fullWidth
-                                id="marginInPercentageFootCT" nbInput status="success" type="text">
-                        </div>
-                    </div>
                     <div class="row">
                         <div class="form-group col-md-4">
                             <label for="securityOwnersName">Land Owner Name</label>

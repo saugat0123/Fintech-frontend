@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {CustomerApprovedLoanCadDocumentation} from '../../../../../model/customerApprovedLoanCadDocumentation';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {OfferDocument} from '../../../../../model/OfferDocument';
@@ -24,6 +24,7 @@ import {UdyamsilKarjaSubsidyComponent} from '../../../../../cad-document-templat
 import {KisanKarjaSubsidyComponent} from '../../../../../cad-document-template/nabil/nabil-sme/kisan-karja-subsidy/kisan-karja-subsidy.component';
 import {KisanKarjaSubsidyPrintComponent} from '../../../../../cad-document-template/nabil/nabil-sme/kisan-karja-subsidy/kisan-karja-subsidy-print/kisan-karja-subsidy-print.component';
 import {EnglishDateTransformPipe} from '../../../../../../../@core/pipe/english-date-transform.pipe';
+import {RequiredLegalDocumentSectionComponent} from '../../sme-template-data/sme-master-template/required-legal-document-section/required-legal-document-section.component';
 
 @Component({
   selector: 'app-kisan-karja-subsidy-template-data',
@@ -32,6 +33,8 @@ import {EnglishDateTransformPipe} from '../../../../../../../@core/pipe/english-
 })
 export class KisanKarjaSubsidyTemplateDataComponent implements OnInit {
   @Input() customerApprovedDoc: CustomerApprovedLoanCadDocumentation;
+  @ViewChild('requiredLegalDocument', {static: false})
+  requiredLegalDocumentSectionComponent: RequiredLegalDocumentSectionComponent;
   kisanKarjaSubsidy: FormGroup;
   spinner = false;
   customerLoanOptions: Array<String> = new Array<String>();
@@ -676,6 +679,8 @@ export class KisanKarjaSubsidyTemplateDataComponent implements OnInit {
     // }];
     this.tdVal['securities'] = this.kisanKarjaSubsidy.get('securities').value;
     // For Clearing validation of optional and conditional Fields.
+    const tempRequiredDocuments = this.setRequiredDocuments();
+    this.tdVal['requiredDocuments'] = tempRequiredDocuments;
     this.clearConditionalValidation();
     const invalidControls = [];
     const controls = this.kisanKarjaSubsidy.controls;
@@ -744,6 +749,14 @@ export class KisanKarjaSubsidyTemplateDataComponent implements OnInit {
     if (tempVal === 'VDC') {
       this.kisanKarjaSubsidy.get([formArrayName, index, controlName]).setValue(null);
     }
+  }
+
+  private setRequiredDocuments() {
+    const requiredLegalDocument = this.requiredLegalDocumentSectionComponent.requireDocumentForm.value;
+    const requiredData = {
+      requiredLegalDocument: requiredLegalDocument,
+    };
+    return (requiredData);
   }
 
 }

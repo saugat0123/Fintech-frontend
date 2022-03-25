@@ -246,18 +246,20 @@
                     <app-master-secondary-securities-view [securityDetails]="letter?.securities">
                     </app-master-secondary-securities-view>
                 </div>
-                <ng-container style="margin-left: 2%;"><strong>१. व्यक्तिगत जमानत (Personal Guarantee):</strong></ng-container><br>
-                <ng-container style="margin-left: 2%;" *ngFor="let personalGuarantor of tempPersonalGuarantors">
-                    <strong>रु. <span class="font-weight-bold">{{personalGuarantor.gurantedAmount?.ct}}</span>/-
-                        (अक्षरेपी रु.
-                        <span class="font-weight-bold">{{this.nepaliCurrencyWordPipe.transform(personalGuarantor.gurantedAmount.en)}}</span>
-                         मात्र)</strong> बराबरको
-                    {{(personalGuarantor?.gender?.en === 'FEMALE' && personalGuarantor?.guarantorMaritalStatus?.en === 'Married') ?
-                    'श्रीमती' : (personalGuarantor?.gender?.en === 'FEMALE' && personalGuarantor?.guarantorMaritalStatus?.en === 'Unmarried' ?
-                        'सुश्री' : personalGuarantor?.gender?.en === 'MALE' ? 'श्रीमान्' : 'श्री')}}
-                        <span class="font-weight-bold">{{personalGuarantor.guarantorName?.ct}}</span>
-                    ले एक्लै वा संयुक्त रुपमा बैंकको पक्षमा व्यक्तिगत जमानत लेखिदिनु पर्नेछ ।
-                </ng-container>
+                <div *ngIf="securityTypeConditionPg">
+                    <ng-container style="margin-left: 2%;"><strong>१. व्यक्तिगत जमानत (Personal Guarantee):</strong></ng-container><br>
+                    <ng-container style="margin-left: 2%;" *ngFor="let personalGuarantor of tempPersonalGuarantors">
+                        <strong>रु. <span class="font-weight-bold">{{personalGuarantor.gurantedAmount?.ct}}</span>/-
+                            (अक्षरेपी रु.
+                            <span class="font-weight-bold">{{this.nepaliCurrencyWordPipe.transform(personalGuarantor.gurantedAmount.en)}}</span>
+                             मात्र)</strong> बराबरको
+                        {{(personalGuarantor?.gender?.en === 'FEMALE' && personalGuarantor?.guarantorMaritalStatus?.en === 'Married') ?
+                        'श्रीमती' : (personalGuarantor?.gender?.en === 'FEMALE' && personalGuarantor?.guarantorMaritalStatus?.en === 'Unmarried' ?
+                            'सुश्री' : personalGuarantor?.gender?.en === 'MALE' ? 'श्रीमान्' : 'श्री')}}
+                            <span class="font-weight-bold">{{personalGuarantor.guarantorName?.ct}}</span>
+                        ले एक्लै वा संयुक्त रुपमा बैंकको पक्षमा व्यक्तिगत जमानत लेखिदिनु पर्नेछ ।
+                    </ng-container>
+                </div>
                 <p style="margin-left: 2%;"><strong>व्याज सम्बन्धी शर्तहरुः</strong></p>
                 <div>
                     <ol class="conditions-list">
@@ -441,64 +443,67 @@
                             समयको लागि माग गरी फिर्ता लैजांदा प्रति पटक रु.५००/– दरले शुल्क लाग्नेछ ।
                         </li>
                     </ol>
-                    <p style="margin-left: 3%;"><strong><u>सामानको मौज्दात सुरक्षणर भुक्तानी प्राप्त गर्न बाञकी
-                                रकमहरुका लागि</u></strong></p>
-                    <ol class="conditions-list">
-                        <li>गोदाम/वेयरहाउसमा रहेको सामानको सूची, पक्षहरुको विवरण र अवधि सहित भुक्तानी दिनुपर्ने
-                            बाँकी र भुक्तानी पाउनु पर्ने बाँकी रकमहरुको विस्तृत विवरण ऋणीले त्रैमासिक रुपमा बैंकलाई
-                            बुझाउनु पर्नेछ ।
-                        </li>
-                        <li>सामानको मौज्दात/भुक्तानी पाउनु पर्ने बाँकी रकम र सम्बन्धित अभिलेखहरु जुनसुकै समयमा
-                            तपाईंलाई पूर्व जानकारी दिइ वा नदिइकन तपाईंको खर्चमा निरीक्षण गर्न सक्ने अधिकार
-                            बैंकमा
-                            सुरक्षित रहनेछ ।
-                        </li>
-                        <li>आधारभूत सुविधाहरु सहित तपाईंले आफ्नोे गोदाम/वेयरहाउस राम्रो अवस्थामा राख्नुपर्नेछ ।
-                        </li>
-                        <li>गोदाम/वेयर हाउसमा सबैले स्पष्ट देखिने गरी “यो सामान नबिल बैंक
-                            लिमिटेड, {{branchName ? branchName : ''}}
-                            शाखाको नाममा धितोबन्धक (Hypothecation) गरिएको छ” भन्ने धितोबन्धक सूचना पाटी
-                            (Hypothecation Board) झुण्ड्याउनु पर्नेछ ।
-                        </li>
-                        <li>तपाईंले जुनसुकै समयमा पर्याप्त मात्रामा ऋणलाई खाम्ने गरी सामानहरुको मौज्दात
-                            राख्नुपर्नेछ । बैंकको पक्षमा धितोबन्धक (Hypothecation) गरेका सामानहरुको मौज्दातमा कमी भएमा
-                            सोही
-                            बराबर रकम बैंकमा जम्मा गर्नुपर्नेछ र/वा सामानहरुको मौज्दात यथासिघ्र बृद्धि गर्नु पर्नेछ ।
-                        </li>
-                        <li>बिक्री नभएर लामो समयसम्म मौज्दातमा रहिरहने सामानहरु (Slow Moving Items) बिग्रिएका
-                            सामानहरु र काम नलाग्ने सामानहरु मौज्दात विवरणमा समाबेश गर्नुहुनेछैन । यदि समाबेश
-                            गरिएको पाईएमा बैंकले आफ्नोे स्वविवेकमा त्यस्ता सामानहरु मौज्दात विवरणमा समाबेश नगर्न सक्नेछ
-                            ।
-                            मौज्दातको वास्तविक मूल्य तथा स्वीकार योग्य भुक्तानी प्राप्त गर्न बाँकि रकमहरु (Receivables)
-                            बाटत्यस्ता सामानहरु र भुक्तानी दिन बाँकी रकमहरु घटाई बाँकी रहने खुद मौज्दात/रकमको आधारमा
-                            कर्जा सीमा पुनरावलोकन गरिने छ र सो मितिमा बढी उपभोग गरिएको कर्जा सुविधाहरु तत्काल
-                            भुक्तान गरी सीमा भित्र ल्याउनु पर्नेछ ।
-                        </li>
-                        <li>माथि उल्लिखित तरिकाले चालु पुँजी कर्जाको उपभोग सीमा निर्धारण गर्दा बहु बैंकिङ्ग
-                            सुविधा अन्तरर्गत अन्य बैंकहरुबाट चालु पुँजी कर्जा लिएको अवस्थामा अन्य बैंकको कर्जालाई पनि
-                            उपयोग सीमामा गणना गरिनेछ ।
-                        </li>
-                        <li>बैंकमा पेश गरिएको अन्तिम सामान मौज्दात विवरणमा भन्दा दश प्रतिशतले सामानहरुको बजार
-                            मुल्य बढेमा/घटेमा सोको जानकारी बैंकलाई अविलम्ब गराउनु पर्नेछ ।
-                        </li>
-                        <li> ऋणीको आफ्नो गोदाम वेयर हाउसको ठेगाना परिवर्तन भएको खण्डमा पहिले पेश गरिएको
-                            बिमालेखमा परिवर्तित ठाउँको ठेगाना उल्लेख हुने गरी संशोधन गरिएको सम्पूर्ण विवरणहरु सहितको
-                            बिमालेख यथासिघ्र बैंकमा बुझाउनुपर्नेछ ।
-                        </li>
-                        <li>गोदाम/वेयर हाउसको प्रयोजनार्थ घर बहालमा लिएको भए घर/जग्गा धनी र ऋणीका बीच भएका पट्टा
-                            सम्झौता(Lease Agreements)हरुको प्रतिलिपी बैंकलाई बुझाउन पर्नेछ र सो गोदाम/वेयर
-                            हाउसको भाडा शुल्क आदि सम्झौता अनुसार घर धनीलाई नियमित रुपमा भुक्तानी गर्नुपर्नेछ ।
-                        </li>
-                        <li>ऋणीले जहासुकै रहे भएको आफ्नो गोदाम वेयरहाउसहरुको विवरण बैंकलाई अद्यावधिक रुपमा
-                            उपलब्ध गराउनु पर्नेछ ।
-                        </li>
-                        <li>धितोे सुरक्षणमा रहने सम्पूर्ण सामानहरुको मौज्दात र/वा भुक्तानी पाउनु पर्ने बाँकी
-                            रकम(Receivables)का साथै सम्पुर्ण चल सम्पतिहरु सुरक्षित कारोबार ऐन, २०६३ बमोजिम
-                            बैंकले सम्बन्धित निकायमा विवरण दर्ता (रजिष्ट्रेशन) गराउने तथा सोमा संसोधन र निरन्तरता कायम
-                            गराउन सक्ने अधिकार बैंकलाइ प्रदान गरिएको मानिनेछ । साथै उक्त दर्ता, संसोधन, निरन्तरता र
-                            समाप्ती सम्बन्धि लाग्ने शुल्क, दस्तुर तपाईको खातामा खर्च जनाई कट्टृा गरी लिईनेछ ।
-                        </li>
-                    </ol>
+                    <br>
+                    <div *ngIf="!securityTypeCondition || !securityTypeSecondaryCondition">
+                        <p style="margin-left: 3%;"><strong><u>सामानको मौज्दात सुरक्षण र भुक्तानी प्राप्त गर्न बाँकी
+                                    रकमहरुका लागि</u></strong></p>
+                        <ol class="conditions-list">
+                            <li>गोदाम/वेयरहाउसमा रहेको सामानको सूची, पक्षहरुको विवरण र अवधि सहित भुक्तानी दिनुपर्ने
+                                बाँकी र भुक्तानी पाउनु पर्ने बाँकी रकमहरुको विस्तृत विवरण ऋणीले त्रैमासिक रुपमा बैंकलाई
+                                बुझाउनु पर्नेछ ।
+                            </li>
+                            <li>सामानको मौज्दात/भुक्तानी पाउनु पर्ने बाँकी रकम र सम्बन्धित अभिलेखहरु जुनसुकै समयमा
+                                तपाईंलाई पूर्व जानकारी दिइ वा नदिइकन तपाईंको खर्चमा निरीक्षण गर्न सक्ने अधिकार
+                                बैंकमा
+                                सुरक्षित रहनेछ ।
+                            </li>
+                            <li>आधारभूत सुविधाहरु सहित तपाईंले आफ्नोे गोदाम/वेयरहाउस राम्रो अवस्थामा राख्नुपर्नेछ ।
+                            </li>
+                            <li>गोदाम/वेयर हाउसमा सबैले स्पष्ट देखिने गरी “यो सामान नबिल बैंक
+                                लिमिटेड, {{branchName ? branchName : ''}}
+                                शाखाको नाममा धितोबन्धक (Hypothecation) गरिएको छ” भन्ने धितोबन्धक सूचना पाटी
+                                (Hypothecation Board) झुण्ड्याउनु पर्नेछ ।
+                            </li>
+                            <li>तपाईंले जुनसुकै समयमा पर्याप्त मात्रामा ऋणलाई खाम्ने गरी सामानहरुको मौज्दात
+                                राख्नुपर्नेछ । बैंकको पक्षमा धितोबन्धक (Hypothecation) गरेका सामानहरुको मौज्दातमा कमी भएमा
+                                सोही
+                                बराबर रकम बैंकमा जम्मा गर्नुपर्नेछ र/वा सामानहरुको मौज्दात यथासिघ्र बृद्धि गर्नु पर्नेछ ।
+                            </li>
+                            <li>बिक्री नभएर लामो समयसम्म मौज्दातमा रहिरहने सामानहरु (Slow Moving Items) बिग्रिएका
+                                सामानहरु र काम नलाग्ने सामानहरु मौज्दात विवरणमा समाबेश गर्नुहुनेछैन । यदि समाबेश
+                                गरिएको पाईएमा बैंकले आफ्नोे स्वविवेकमा त्यस्ता सामानहरु मौज्दात विवरणमा समाबेश नगर्न सक्नेछ
+                                ।
+                                मौज्दातको वास्तविक मूल्य तथा स्वीकार योग्य भुक्तानी प्राप्त गर्न बाँकि रकमहरु (Receivables)
+                                बाटत्यस्ता सामानहरु र भुक्तानी दिन बाँकी रकमहरु घटाई बाँकी रहने खुद मौज्दात/रकमको आधारमा
+                                कर्जा सीमा पुनरावलोकन गरिने छ र सो मितिमा बढी उपभोग गरिएको कर्जा सुविधाहरु तत्काल
+                                भुक्तान गरी सीमा भित्र ल्याउनु पर्नेछ ।
+                            </li>
+                            <li>माथि उल्लिखित तरिकाले चालु पुँजी कर्जाको उपभोग सीमा निर्धारण गर्दा बहु बैंकिङ्ग
+                                सुविधा अन्तरर्गत अन्य बैंकहरुबाट चालु पुँजी कर्जा लिएको अवस्थामा अन्य बैंकको कर्जालाई पनि
+                                उपयोग सीमामा गणना गरिनेछ ।
+                            </li>
+                            <li>बैंकमा पेश गरिएको अन्तिम सामान मौज्दात विवरणमा भन्दा दश प्रतिशतले सामानहरुको बजार
+                                मुल्य बढेमा/घटेमा सोको जानकारी बैंकलाई अविलम्ब गराउनु पर्नेछ ।
+                            </li>
+                            <li> ऋणीको आफ्नो गोदाम वेयर हाउसको ठेगाना परिवर्तन भएको खण्डमा पहिले पेश गरिएको
+                                बिमालेखमा परिवर्तित ठाउँको ठेगाना उल्लेख हुने गरी संशोधन गरिएको सम्पूर्ण विवरणहरु सहितको
+                                बिमालेख यथासिघ्र बैंकमा बुझाउनुपर्नेछ ।
+                            </li>
+                            <li>गोदाम/वेयर हाउसको प्रयोजनार्थ घर बहालमा लिएको भए घर/जग्गा धनी र ऋणीका बीच भएका पट्टा
+                                सम्झौता(Lease Agreements)हरुको प्रतिलिपी बैंकलाई बुझाउन पर्नेछ र सो गोदाम/वेयर
+                                हाउसको भाडा शुल्क आदि सम्झौता अनुसार घर धनीलाई नियमित रुपमा भुक्तानी गर्नुपर्नेछ ।
+                            </li>
+                            <li>ऋणीले जहासुकै रहे भएको आफ्नो गोदाम वेयरहाउसहरुको विवरण बैंकलाई अद्यावधिक रुपमा
+                                उपलब्ध गराउनु पर्नेछ ।
+                            </li>
+                            <li>धितोे सुरक्षणमा रहने सम्पूर्ण सामानहरुको मौज्दात र/वा भुक्तानी पाउनु पर्ने बाँकी
+                                रकम(Receivables)का साथै सम्पुर्ण चल सम्पतिहरु सुरक्षित कारोबार ऐन, २०६३ बमोजिम
+                                बैंकले सम्बन्धित निकायमा विवरण दर्ता (रजिष्ट्रेशन) गराउने तथा सोमा संसोधन र निरन्तरता कायम
+                                गराउन सक्ने अधिकार बैंकलाइ प्रदान गरिएको मानिनेछ । साथै उक्त दर्ता, संसोधन, निरन्तरता र
+                                समाप्ती सम्बन्धि लाग्ने शुल्क, दस्तुर तपाईको खातामा खर्च जनाई कट्टृा गरी लिईनेछ ।
+                            </li>
+                        </ol>
+                    </div>
                     <p style="margin-left: 3%;"><strong><u>बिमा सम्बन्धी शर्तहरु</u></strong></p>
                     <ol class="conditions-list">
                         <li *ngIf="securityTypeConditionStock">ऋणीले आफ्नोे खर्चमा आगलागी, भुकम्प, दंगा/हड्ताल,
@@ -705,57 +710,59 @@
                 </div>
                 <div>
                     <p><strong><u>कागजपत्रहरु</u></strong></p>
-                    <p>ऋणीले बैंकको {{branchName ? branchName : ''}}
+                    <p>ऋणीले बैंकको <strong>{{branchName ? branchName : ''}}</strong>
                         शाखामा सम्पर्क राखी देहाय बमोजिमका कर्जा सम्बन्धी
                         कागजपत्रहरु
                         सहीछाप गर्नु पर्नेछ । साथै माथि उल्लिखित कर्जा सुविधाहरु प्रवाह गर्नको लागि आवश्यक निवेदन तथा
                         अन्य कागजातहरु बैंकमा पेश गर्नुपर्नेछ ।</p>
                     <ul style="margin-left: 3%;">
-                        <li>रु.<span
+                        <li *ngIf="promissoryVisible">रु.<span
                                 [ngClass]="{' outside' : letter?.loanAmountFigure.ct !== null && letter?.loanAmountFigure.ct !== ''}">
                                 {{letter?.loanAmountFigure.ct === null || letter?.loanAmountFigure.ct === '' ? '___________' : letter?.loanAmountFigure.ct}}</span>
                              /- बराबरको प्रतिज्ञा पत्र (Promissory Note)
                         </li>
-                        <li>निरन्तरताको लिखत (Letter of Continuity)</li>
-                        <li>रु.<span
+                        <li *ngIf="continuityVisible">निरन्तरताको लिखत (Letter of Continuity)</li>
+                        <li *ngIf="supplementaryVisible">रु.<span
                                 [ngClass]="{' outside' : letter?.loanAmountFigure.ct !== null && letter?.loanAmountFigure.ct !== ''}">
                                 {{letter?.loanAmountFigure.ct === null || letter?.loanAmountFigure.ct === '' ? '___________' : letter?.loanAmountFigure.ct}}</span>
                              /- बराबरकोे पूरक सम्झौता (Supplementary Agreement) सहित श्री-सम्पत्ति
                             धितो/सुरक्षण लेखीदिएको गोश्वारा-पत्र (General Letter of Hypothecation)
                         </li>
-                        <li>रु.<span
+                        <li *ngIf="attorneyVisible">रु.<span
                                 [ngClass]="{' outside' : letter?.loanAmountFigure.ct !== null && letter?.loanAmountFigure.ct !== ''}">
                                 {{letter?.loanAmountFigure.ct === null || letter?.loanAmountFigure.ct === '' ? '___________' : letter?.loanAmountFigure.ct}}</span>
                              /- बराबरकोे वारेसनामा (Power of Attorney) सहितभुक्तानी प्राप्त गर्न
                             बांकी रकम संकलन गर्ने अख्तियारनामा (Assignment of Receivables)
                         </li>
-                        <li>रु.<span
+                        <li *ngIf="loanDeedVisible">रु.<span
                                 [ngClass]="{' outside' : letter?.loanAmountFigure.ct !== null && letter?.loanAmountFigure.ct !== ''}">
                                 {{letter?.loanAmountFigure.ct === null || letter?.loanAmountFigure.ct === '' ? '___________' : letter?.loanAmountFigure.ct}}</span>
                              /- बराबरको ऋणतमसुक (Loan Deed)
                         </li>
-                        <li>कित्ता नं. <span><strong>
+                        <li *ngIf="mortgagedVisible">कित्ता नं. <span><strong>
                             {{this.finalKittaNumber ? this.finalKittaNumber : '_____________________'}}</strong></span>
                             को धितोबन्धक तमसुक(Mortgage Deed)
                         </li>
-                        <li *ngFor="let val of tempPersonalGuarantors">
-                            रु.
-                            <span><strong>{{val.gurantedAmount.ct ? val.gurantedAmount.ct : ''}}</strong></span>
-                             /- बराबरको
-                            {{(val?.gender?.en === 'FEMALE' && val?.guarantorMaritalStatus?.en === 'Married') ?
-                            'श्रीमती' : (val?.gender?.en === 'FEMALE' && val?.guarantorMaritalStatus?.en === 'Unmarried' ?
-                                'सुश्री' : val?.gender?.en === 'MALE' ? 'श्रीमान्' : 'श्री')}}
-                            <span><strong>{{val.guarantorName?.ct ? val.guarantorName?.ct : ''}}</strong></span>
-                            ले बैंकको पक्षमा लेखिदिनुपर्ने
-                            व्यक्तिगत
-                            जमानत (Personal Guarantee)
-                        </li>
-                        <li>जमानीकर्ताको सम्पत्ति विवरण (Wealth statement of Guarantor)</li>
-                        <li>बहु बैंकिङ्ग घोषणापत्र (Multiple Banking Declaration)</li>
+                        <div *ngIf="guaranteeVisible">
+                            <li *ngFor="let val of tempPersonalGuarantors">
+                                रु.
+                                <span><strong>{{val.gurantedAmount.ct ? val.gurantedAmount.ct : ''}}</strong></span>
+                                 /- बराबरको
+                                {{(val?.gender?.en === 'FEMALE' && val?.guarantorMaritalStatus?.en === 'Married') ?
+                                'श्रीमती' : (val?.gender?.en === 'FEMALE' && val?.guarantorMaritalStatus?.en === 'Unmarried' ?
+                                    'सुश्री' : val?.gender?.en === 'MALE' ? 'श्रीमान्' : 'श्री')}}
+                                <span><strong>{{val.guarantorName?.ct ? val.guarantorName?.ct : ''}}</strong></span>
+                                ले बैंकको पक्षमा लेखिदिनुपर्ने
+                                व्यक्तिगत
+                                जमानत (Personal Guarantee)
+                            </li>
+                        </div>
+                        <li *ngIf="wealthVisible">जमानीकर्ताको सम्पत्ति विवरण (Wealth statement of Guarantor)</li>
+                        <li *ngIf="multiVisible">बहु बैंकिङ्ग घोषणापत्र (Multiple Banking Declaration)</li>
                         <li>ऋणी फर्मले यस बैञकको ऋणकर्जा सुविधा समेत गरी अन्य बैंक तथा वित्तिय संस्थाबाट रु.१ करोड भन्दा
                             बढी कर्जा उपभोग नगरेको उदघोषण पत्र ।
                         </li>
-                        <li>विमालेख घोषणा पत्र (Insurance Declaration Statement)</li>
+                        <li *ngIf="insuranceDeclarationVisible">विमालेख घोषणा पत्र (Insurance Declaration Statement)</li>
                         <li *ngIf="freeInformation?.thirdText">
                             <span>{{freeInformation ? freeInformation.thirdText : ''}}</span></li>
                     </ul>
@@ -769,6 +776,8 @@
                         अन्यथा, स्वीकृत ऋण सुविधा स्वतः रद्द हुनेछ ।
                     </p>
                 </div>
+                <br>
+                <br>
                 <div class="col-md-12 d-flex justify-content-between">
                     <div class="right-content">
                         .........................................
@@ -890,6 +899,8 @@
                             <span>{{freeInformation ? freeInformation.fourthText : ''}}</span></li>
                     </ol>
                 </div>
+                <br>
+                <br>
                 <div class="col-md-12 d-flex justify-content-between">
                     <div class="right-content"></div>
                     <div class="left-content">

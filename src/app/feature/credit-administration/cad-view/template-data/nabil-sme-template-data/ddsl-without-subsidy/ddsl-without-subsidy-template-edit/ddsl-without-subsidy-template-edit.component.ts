@@ -74,7 +74,6 @@ export class DdslWithoutSubsidyTemplateEditComponent implements OnInit {
     offerLetterConst = NabilOfferLetterConst;
     offerLetterDocument: OfferDocument;
     securities;
-    requiredDoc;
     tempLoanSubType;
     loanSubTypeList = [
         {nData: 'ब्यापारिक कृषि तथा पशुपंछी कर्जा', eData: 'Commercial Agro and Livestock Loan'},
@@ -244,8 +243,7 @@ export class DdslWithoutSubsidyTemplateEditComponent implements OnInit {
             mortgageTypeCT: [undefined],
             loanSubType: [undefined],
             loanSubTypeTrans: [undefined],
-            loanSubTypeCT: [undefined],
-            requiredDoc: this.formBuilder.array([]),
+            loanSubTypeCT: [undefined]
         });
     }
 
@@ -356,8 +354,7 @@ export class DdslWithoutSubsidyTemplateEditComponent implements OnInit {
 
     mappedData() {
         Object.keys(this.ddslFormGroup.controls).forEach(key => {
-            if (key.indexOf('Trans') > -1 || key === 'municipalityOrVdc' || key === 'securities' || key === 'requiredDoc' ||
-                key.indexOf('CT') > -1) {
+            if (key.indexOf('Trans') > -1 || key === 'municipalityOrVdc' || key === 'securities' || key.indexOf('CT') > -1) {
                 return;
             }
             this.attributes = new Attributes();
@@ -745,7 +742,7 @@ export class DdslWithoutSubsidyTemplateEditComponent implements OnInit {
         const tempSecurityDetails = this.getSecurityData();
         this.tdVal['securities'] = tempSecurityDetails;
         const tempRequiredDocument = this.setRequiredDocumemts();
-        this.tdVal['requiredDoc'] = tempRequiredDocument;
+        this.tdVal['requiredDocuments'] = tempRequiredDocument;
         this.clearConditionalValidation();
         const invalidControls = [];
         const controls = this.ddslFormGroup.controls;
@@ -971,14 +968,14 @@ export class DdslWithoutSubsidyTemplateEditComponent implements OnInit {
         };
         return (allData);
     }
-    compareFn(c1: any, c2: any): boolean {
-        return c1 && c2 ? c1.id === c2.id : c1 === c2;
-    }
-    setRequiredDocumemts() {
+    private setRequiredDocumemts() {
         const requiredLegalDocument = this.requiredLegalDocumentSectionComponent.requireDocumentForm.value;
         const requiredData = {
             requiredLegalDocument: requiredLegalDocument,
         };
         return (requiredData);
+    }
+    compareFn(c1: any, c2: any): boolean {
+        return c1 && c2 ? c1.id === c2.id : c1 === c2;
     }
 }
