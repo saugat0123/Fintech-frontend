@@ -66,8 +66,13 @@ export class Section6FacilitiesClauseComponent implements OnInit {
         }
         if (v === LoanNameConstant.AUTO_LOAN) {
           this.isAutoLoan = true;
-        } if (v === LoanNameConstant.TERM_LOAN_TO_FOR_PURCHASE_OF_VEHICLE && !ObjectUtil.isEmpty(this.tempData.termLoanForm)) {
-          this.isTermLoanForVehicle = this.tempData.termLoanForm.termLoanFor;
+          
+        } 
+        if (v === LoanNameConstant.TERM_LOAN_TO_FOR_PURCHASE_OF_VEHICLE && !ObjectUtil.isEmpty(this.tempData.termLoanForm)) {
+          for (let x of this.tempData.termLoanForm.termLoanDetails) {
+            this.isTermLoanForVehicle = x.termLoanForCT;
+          }
+          
         } if (v === LoanNameConstant.BANK_GUARANTEE) {
           this.isBankGuarantee = true;
         }

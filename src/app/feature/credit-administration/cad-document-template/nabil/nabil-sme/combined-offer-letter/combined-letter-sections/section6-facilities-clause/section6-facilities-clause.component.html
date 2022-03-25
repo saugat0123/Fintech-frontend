@@ -102,7 +102,7 @@
                     </ol>
                 </div>
 
-                <div *ngIf="isAutoLoan || isTermLoanForVehicle === 'VEHICLE'">
+                <div *ngIf="isAutoLoan || (isTermLoanForVehicle === 'VEHICLE')">
                     <strong><u>सवारी साधन कर्जाः </u></strong><br>
                     <!--Applicable incase of auto loan/term loan to purchase vehicle facility is purpose-->
                     <ol class="conditions-list">
