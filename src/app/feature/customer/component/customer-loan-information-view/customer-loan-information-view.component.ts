@@ -18,13 +18,13 @@ import {FiscalYear} from '../../../admin/modal/FiscalYear';
 export class CustomerLoanInformationViewComponent implements OnInit {
   @Input() customerInfo: CustomerInfoData;
   @Input() customerType: CustomerType;
+  @Input() customerInfoId: number;
+  @Input() fromProfile: boolean;
   companyInfo = new CompanyInfo();
   nbDialogRef: NbDialogRef<any>;
   fiscalYearArray: Array<FiscalYear>;
   @Input() isMicroCustomer: boolean;
-  financialKeys;
-  financialData;
-  isInstitution = false;
+  isIndividual = false;
 
   constructor(private companyInfoService: CompanyInfoService, private toastService: ToastService,
               private modalService: NbDialogService, private  fiscalYearService: FiscalYearService) {
@@ -37,18 +37,9 @@ export class CustomerLoanInformationViewComponent implements OnInit {
     this. fiscalYearService.getAll().subscribe( res => {
       this.fiscalYearArray = res.detail;
     });
-    console.log('here');
-    if (this.customerType === CustomerType.INSTITUTION) {
-      this.isInstitution = true;
-      if (!ObjectUtil.isEmpty(this.customerInfo)) {
-        if (!ObjectUtil.isEmpty(this.customerInfo.financial.data)) {
-          this.financialData = JSON.parse(this.customerInfo.financial.data);
-          this.financialKeys = Object.keys(this.financialData);
-          console.log('here');
-        }
-      }
+    if (this.customerType === CustomerType.INDIVIDUAL) {
+      this.isIndividual = true;
     }
-    console.log('isInstitution', this.isInstitution);
   }
 
   checkCustomerType() {

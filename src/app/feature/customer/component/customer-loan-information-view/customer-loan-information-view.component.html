@@ -76,7 +76,7 @@
         </ng-template>
       </div>
 
-      <div class="col-md-4" *ngIf="!isInstitution && customerInfo?.financial">
+      <div class="col-md-4" *ngIf="isIndividual && customerInfo?.financial">
         <div class="row">
           <nb-card class="col-md-11 py-2" #itemFinancial>
             <a class="cursor info-label" (click)="openModel(itemFinancialTemplate)">
@@ -113,7 +113,7 @@
         </ng-template>
       </div>
 
-      <div class="col-md-4" *ngIf="!isInstitution && financialKeys?.length > 0">
+      <div class="col-md-4" *ngIf="!isIndividual && customerInfo?.financial">
         <div class="row">
           <nb-card class="col-md-11 py-2" #itemFinancial>
             <a class="cursor info-label" (click)="openModel(itemFinancialTemplate)">
@@ -141,13 +141,9 @@
               </span></a>
             </nb-card-header>
             <nb-card-body>
-              <ng-container  *ngFor="let title of financialKeys">
-                <p class="sub-header"><strong class="sub-header">{{title | financialPipe}}</strong></p>
-                <hr>
-                <div class="row">
-                  <app-financial-json-parser [financialJson]="financialData[title] | jsonParse"></app-financial-json-parser>
-                </div>
-              </ng-container>
+              <app-financial-upload-view [customerInfo]="customerInfo"
+                                         [customerInfoId]="customerInfoId"
+                                         [fromProfile]="true"></app-financial-upload-view>
             </nb-card-body>
           </nb-card>
         </ng-template>
