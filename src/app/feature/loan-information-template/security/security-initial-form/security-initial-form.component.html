@@ -3398,8 +3398,7 @@
         <div class="row">
             <div class="col-md-12">
                 <label><b>Remarks Common to all Security</b></label>
-                <textarea class="form-control" formControlName="remark" rows="4"
-                          placeholder="Remarks Common to all Security"></textarea>
+                <ckeditor formControlName="remark" [config]="ckeConfig"></ckeditor>
             </div>
         </div>
     </form>
