@@ -1,6 +1,6 @@
-<div class="row mt-2">
+<div class="row mt-3">
     <div class="col-sm-12">
-        <table class="table table-bordered table-sm sb-small text-center">
+        <table class="table table-bordered sb-small text-center">
             <tbody>
                 <tr>
                     <th rowspan="2">
@@ -32,17 +32,21 @@
                     </th>
                 </tr>
             </tbody>
-            <tbody *ngFor="let data of securityDetails.primarySecurity">
+            <!-- DONOT DELETE -->
+            <!-- *ngFor="let data of securityDetails.primarySecurity" -->
+            <!-- [attr.rowspan]="data?.propertyDetails?.length + 1" -->
+            <!-- DONOT HAVE TO LOOP THE SECURITYDETAILS BECUASE INDEX HAS BEEN PASSED IN THE PARENT COMPONENT -->
+            <tbody>
                 <tr>
-                    <td [attr.rowspan]="data?.propertyDetails?.length + 1">{{data?.securityOwnersNameCT}}</td>
-                    <td [attr.rowspan]="data?.propertyDetails?.length + 1">{{data?.securityOwnersDistrictCT}}</td>
-                    <td [attr.rowspan]="data?.propertyDetails?.length + 1">{{data?.securityOwnersMunicipalityCT}}</td>
+                    <td [attr.rowspan] = "securityDetails?.propertyDetails?.length + 1">{{securityDetails?.securityOwnersNameCT}}</td>
+                    <td [attr.rowspan] = "securityDetails?.propertyDetails?.length + 1">{{securityDetails?.securityOwnersDistrictCT}}</td>
+                    <td [attr.rowspan] = "securityDetails?.propertyDetails?.length + 1">{{securityDetails?.securityOwnersMunicipalityCT}}</td>
                 </tr>
-                <tr *ngFor="let details of data?.propertyDetails;">
-                    <td>{{details?.securityOwnersWardNoCT}}</td>
-                    <td>{{details?.securityOwnersSheetNoCT}}</td>
-                    <td>{{details?.securityOwnersKittaNoCT}}</td>
-                    <td>{{details?.securityOwnersLandAreaCT}}</td>
+                <tr *ngFor="let detail of securityDetails?.propertyDetails">
+                    <td>{{detail?.securityOwnersWardNoCT}}</td>
+                    <td>{{detail?.securityOwnersSheetNoCT}}</td>
+                    <td>{{detail?.securityOwnersKittaNoCT}}</td>
+                    <td>{{detail?.securityOwnersLandAreaCT}}</td>
                 </tr>
             </tbody>
         </table>

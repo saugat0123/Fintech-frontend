@@ -1,6 +1,6 @@
-<div class="row">
+<div class="row mt-3">
     <div class="col-sm-12">
-        <table class="table table-bordered table-sm sb-small text-center">
+        <table class="table table-bordered sb-small text-center">
             <tbody>
             <tr>
                 <th rowspan="2">
@@ -32,13 +32,13 @@
                 </th>
             </tr>
             </tbody>
-            <tbody *ngFor="let data of securityDetails.secondarySecurity">
+            <tbody>
             <tr>
-                <td [attr.rowspan]="data?.propertyDetails?.length + 1">{{data?.securityOwnersNameCT}}</td>
-                <td [attr.rowspan]="data?.propertyDetails?.length + 1">{{data?.securityOwnersDistrictCT}}</td>
-                <td [attr.rowspan]="data?.propertyDetails?.length + 1">{{data?.securityOwnersMunicipalityCT}}</td>
+                <td [attr.rowspan]="securityDetails?.propertyDetails?.length + 1">{{securityDetails?.securityOwnersNameCT}}</td>
+                <td [attr.rowspan]="securityDetails?.propertyDetails?.length + 1">{{securityDetails?.securityOwnersDistrictCT}}</td>
+                <td [attr.rowspan]="securityDetails?.propertyDetails?.length + 1">{{securityDetails?.securityOwnersMunicipalityCT}}</td>
             </tr>
-            <tr *ngFor="let secondaryData of data?.propertyDetails">
+            <tr *ngFor="let secondaryData of securityDetails?.propertyDetails">
                 <td>{{secondaryData?.securityOwnersWardNoCT}}</td>
                 <td>{{secondaryData?.securityOwnersSheetNoCT}}</td>
                 <td>{{secondaryData?.securityOwnersKittaNoCT}}</td>
