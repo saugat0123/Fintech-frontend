@@ -76,7 +76,7 @@
         </ng-template>
       </div>
 
-      <div class="col-md-4" *ngIf="customerInfo?.financial">
+      <div class="col-md-4" *ngIf="isIndividual && customerInfo?.financial">
         <div class="row">
           <nb-card class="col-md-11 py-2" #itemFinancial>
             <a class="cursor info-label" (click)="openModel(itemFinancialTemplate)">
@@ -113,13 +113,49 @@
         </ng-template>
       </div>
 
+      <div class="col-md-4" *ngIf="!isIndividual && customerInfo?.financial">
+        <div class="row">
+          <nb-card class="col-md-11 py-2" #itemFinancial>
+            <a class="cursor info-label" (click)="openModel(itemFinancialTemplate)">
+              <div class="row">
+                <div class="col-md-8">
+                  <p class="custom-font">FINANCIAL</p>
+                </div>
+                <div class="col-md-4 d-flex justify-content-end">
+              <span style="color: green" title="Status : Saved">
+                <em class="fas fa-check-circle px-2"></em>
+              </span>
+                </div>
+              </div>
+            </a>
+          </nb-card>
+        </div>
+        <ng-template #itemFinancialTemplate let-data let-ref="dialogRef">
+          <nb-card class="template-css">
+            <nb-card-header>
+              FINANCIAL
+              <a aria-label="Close" class="close cursor"
+                 data-dismiss="modal" (click)="ref.close()">
+                      <span style="color: red" (click)="ref.close()">
+                <em class="fas fa-times-circle px-2"></em>
+              </span></a>
+            </nb-card-header>
+            <nb-card-body>
+              <app-financial-upload-view [customerInfo]="customerInfo"
+                                         [customerInfoId]="customerInfoId"
+                                         [fromProfile]="true"></app-financial-upload-view>
+            </nb-card-body>
+          </nb-card>
+        </ng-template>
+      </div>
+
       <div class="col-md-4" *ngIf="customerInfo?.incomeFromAccount">
         <div class="row">
           <nb-card class="col-md-11 py-2" #incomeFromAccount>
             <a class="cursor info-label" (click)="openModel(itemIncomeFromAccountTemplate)">
               <div class="row">
                 <div class="col-md-10">
-                  <p class="custom-font">INCOME FROM ACCOUNT</p>
+                  <p class="custom-font">EARNING, PROFITABILITY AND PRICING</p>
                 </div>
                 <div class="col-md-2 d-flex justify-content-end">
               <span style="color: green" title="Status : Saved">
@@ -133,7 +169,7 @@
         <ng-template #itemIncomeFromAccountTemplate let-data let-ref="dialogRef">
           <nb-card class="template-css">
             <nb-card-header>
-              INCOME FROM ACCOUNT
+              EARNING, PROFITABILITY AND PRICING
               <a aria-label="Close" class="close cursor"
                  data-dismiss="modal" (click)="ref.close()">
                       <span style="color: red" (click)="ref.close()">
@@ -143,12 +179,48 @@
             <nb-card-body>
               <app-income-from-account-summery
                   [formData]="customerInfo?.incomeFromAccount">
-
               </app-income-from-account-summery>
             </nb-card-body>
           </nb-card>
         </ng-template>
       </div>
+
+      <div class="col-md-4" *ngIf="customerInfo?.customerType === 'INSTITUTION' && customerInfo?.netTradingAssets || isMicroCustomer && customerInfo?.netTradingAssets">
+        <div class="row">
+          <nb-card class="col-md-11 py-2" #NetTrading>
+            <a class="cursor info-label" (click)="openModel(itemNetTrading)">
+              <div class="row">
+                <div class="col-md-10">
+                  <p class="custom-font">NET TRADING ASSETS(NTA)</p>
+                </div>
+                <div class="col-md-2 d-flex justify-content-end">
+              <span style="color: green" title="Status : Saved">
+                <em class="fas fa-check-circle px-2"></em>
+              </span>
+                </div>
+              </div>
+            </a>
+          </nb-card>
+        </div>
+        <ng-template #itemNetTrading let-data let-ref="dialogRef">
+          <nb-card class="template-css">
+            <nb-card-header>
+              NET TRADING ASSETS (NTA)
+              <a aria-label="Close" class="close cursor"
+                 data-dismiss="modal" (click)="ref.close()">
+                      <span style="color: red" (click)="ref.close()">
+                <em class="fas fa-times-circle px-2"></em>
+              </span></a>
+            </nb-card-header>
+            <nb-card-body>
+              <app-nta-summary
+                      [fiscalYears]="fiscalYearArray"
+                      [netTradingAssetsData]="customerInfo?.netTradingAssets"></app-nta-summary>
+            </nb-card-body>
+          </nb-card>
+        </ng-template>
+      </div>
+
       <div class="col-md-4" *ngIf="customerInfo?.security">
        <div class="row">
          <nb-card class="col-md-11 py-2" #security>
@@ -324,13 +396,14 @@
           </nb-card>
         </ng-template>
       </div>
-      <div class="col-md-4" *ngIf="customerInfo?.customerType === 'INSTITUTION' && customerInfo?.netTradingAssets || isMicroCustomer && customerInfo?.netTradingAssets">
+
+      <div class="col-md-4" *ngIf="customerInfo?.multiBanking">
         <div class="row">
-          <nb-card class="col-md-11 py-2" #NetTrading>
-            <a class="cursor info-label" (click)="openModel(itemNetTrading)">
+          <nb-card class="col-md-11 py-2" #multiBanking>
+            <a class="cursor info-label" (click)="openModel(multiBankingTemplate)">
               <div class="row">
                 <div class="col-md-10">
-                  <p class="custom-font">NET TRADING ASSETS(NTA)</p>
+                  <p class="custom-font">MULTI BAKING/CONSORTIUM FINANCING</p>
                 </div>
                 <div class="col-md-2 d-flex justify-content-end">
               <span style="color: green" title="Status : Saved">
@@ -341,10 +414,10 @@
             </a>
           </nb-card>
         </div>
-        <ng-template #itemNetTrading let-data let-ref="dialogRef">
+        <ng-template #multiBankingTemplate let-data let-ref="dialogRef">
           <nb-card class="template-css">
             <nb-card-header>
-              NET TRADING ASSETS (NTA)
+              MULTI BAKING/CONSORTIUM FINANCING
               <a aria-label="Close" class="close cursor"
                  data-dismiss="modal" (click)="ref.close()">
                       <span style="color: red" (click)="ref.close()">
@@ -352,9 +425,43 @@
               </span></a>
             </nb-card-header>
             <nb-card-body>
-              <app-nta-summary
-                               [fiscalYears]="fiscalYearArray"
-                               [netTradingAssetsData]="customerInfo?.netTradingAssets"></app-nta-summary>
+              <app-multi-banking-summary [formData]="customerInfo?.multiBanking"></app-multi-banking-summary>
+            </nb-card-body>
+          </nb-card>
+        </ng-template>
+      </div>
+
+      <div class="col-md-4" *ngIf="companyInfo">
+        <div class="row">
+          <nb-card class="col-md-11 py-2" #comment>
+            <a class="cursor info-label" (click)="openModel(commentTemplate)">
+              <div class="row">
+                <div class="col-md-10">
+                  <p class="custom-font">COMMENT</p>
+                </div>
+                <div class="col-md-2 d-flex justify-content-end">
+              <span style="color: green" title="Status : Saved">
+                <em class="fas fa-check-circle px-2"></em>
+              </span>
+                </div>
+              </div>
+            </a>
+          </nb-card>
+        </div>
+        <ng-template #commentTemplate let-data let-ref="dialogRef">
+          <nb-card class="template-css">
+            <nb-card-header>
+              COMMENT
+              <a aria-label="Close" class="close cursor"
+                 data-dismiss="modal" (click)="ref.close()">
+                      <span style="color: red" (click)="ref.close()">
+                <em class="fas fa-times-circle px-2"></em>
+              </span></a>
+            </nb-card-header>
+            <nb-card-body>
+              <app-comments [commentData]="customerInfo?.data"
+                            [view]="true"
+                            [fromProfile]="true"></app-comments>
             </nb-card-body>
           </nb-card>
         </ng-template>

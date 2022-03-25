@@ -255,7 +255,7 @@ export class CreditRiskGradingLambdaComponent implements OnInit {
 
   calculateAlternateOrSecondarySourceOfIncome() {
     const conditionValue = (Number(this.parsedFinancialData.initialForm.alternateIncomeSourceAmount)
-        / Number(this.parsedFinancialData.initialForm.emiWithProposal)) * 100;
+        / Number(this.parsedFinancialData.initialForm.totalExpense)) * 100;
     const automatedValue = conditionValue.toFixed(2);
     if (conditionValue > 20) {
       this.setValueForCriteria('alternateOrSecondarySourceOfIncome', 'Equivalent or above 20% of EMI/EQI', 6, automatedValue);

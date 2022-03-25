@@ -122,7 +122,6 @@
               <p class="custom-font">
                 <span
                   *ngIf="customerInfo?.customerType == customerType.INDIVIDUAL">INCOME & EXPENSES</span>
-<!--              <span *ngIf="customerInfo?.customerType == customerType.INSTITUTION">FINANCIAL</span>-->
               </p>
             </div>
             <div class="col-md-4 d-flex justify-content-end">
@@ -179,7 +178,8 @@
               <!--                           [fromProfile]="true"></app-financial>-->
               <app-financial-upload-view
                       [customerInfo]="customerInfo"
-                      [customerInfoId] ="customerInfoId">
+                      [customerInfoId] ="customerInfoId"
+                      [fromProfile]="false">
               </app-financial-upload-view>
             </nb-card-body>
           </nb-card>
