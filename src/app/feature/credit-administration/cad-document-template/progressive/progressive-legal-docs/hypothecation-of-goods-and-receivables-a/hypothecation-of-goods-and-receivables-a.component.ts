@@ -257,7 +257,6 @@ export class HypothecationOfGoodsAndReceivablesAComponent implements OnInit {
         financeBranch: this.nepaliData.branchName ? this.nepaliData.branchName : '',
         companyName: this.nepaliData.companyName ? this.nepaliData.companyName : '',
         companyAddress: [tempAddress ? tempAddress : ''],
-        transactionPlace: this.nepaliData.companyName ? this.nepaliData.companyName : '',
         regNum: this.nepaliData.companyRegistrationNo ? this.nepaliData.companyRegistrationNo : '',
         regDate: this.nepaliData.registrationDate ? this.nepaliData.registrationDate : '',
         proprietorName: this.nepaliData.representativeName ? this.nepaliData.representativeName : '',
