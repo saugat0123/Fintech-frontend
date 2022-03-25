@@ -475,6 +475,7 @@
             [companyInfo]="companyInfo"></app-customer-loan-information>
         <app-customer-loan-information-view *ngIf="!isEditable"
                                             [customerInfo]="customerInfo"
+                                            [customerType]="customerType"
                                             [isMicroCustomer]="companyInfo?.isMicroCustomer"></app-customer-loan-information-view>
       </div>
     </div>

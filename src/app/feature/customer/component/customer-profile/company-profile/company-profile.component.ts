@@ -71,6 +71,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
     megaGroupEnabled = environment.MEGA_GROUP;
     isEditable = false;
     isAccountEdited = false;
+    customerType: CustomerType;
 
     constructor(private companyInfoService: CompanyInfoService,
                 private customerInfoService: CustomerInfoService,
@@ -126,7 +127,6 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
         this.spinner = true;
         this.companyInfoService.detail(companyInfoId).subscribe((res: any) => {
             this.companyInfo = res.detail;
-            console.log('this is company details', res.detail);
             if (FormUtils.isJson(this.companyInfo.companyLocations.address)) {
                 this.companyLocationData = JSON.parse(this.companyInfo.companyLocations.address);
                 this.companyJsonData = JSON.parse(this.companyInfo.companyJsonData);
@@ -144,6 +144,7 @@ export class CompanyProfileComponent implements OnInit, AfterContentInit {
 
         this.customerInfoService.detail(customerInfoId).subscribe((res: any) => {
             this.customerInfo = res.detail;
+            this.customerType = this.customerInfo.customerType;
             this.setCompanyData(this.companyInfo);
             this.spinner = false;
         }, error => {
