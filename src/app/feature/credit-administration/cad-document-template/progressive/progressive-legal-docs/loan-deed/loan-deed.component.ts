@@ -79,7 +79,6 @@ export class LoanDeedComponent implements OnInit {
 
         const loanAmount = JSON.parse(this.cadData.nepData);
         if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
-
             this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
             this.nepDataPersonal = JSON.parse(this.cadData.nepDataPersonal);
             this.form.patchValue({
@@ -169,7 +168,6 @@ export class LoanDeedComponent implements OnInit {
         }
         data.forEach((value) => {
             formArray.push(this.formBuilder.group({
-                SecuritiesSN: [value.SecuritiesSN],
                 SecuritiesSNBibaran: [value.dhitoBibaran],
                 SecuritiesDistrict: [value.collateralDistrict],
                 SecuritiesMunicipality: [value.collateralMunVdcOriginal],
@@ -281,7 +279,6 @@ export class LoanDeedComponent implements OnInit {
             itiSambatDate: [undefined],
             itiSambatTime: [undefined],
             itiSambatRoj: [undefined],
-            SecuritiesSN: [undefined],
             sthit: [undefined],
             staDistrict: [undefined],
             guarantorDetails: this.formBuilder.array([]),
@@ -301,7 +298,7 @@ export class LoanDeedComponent implements OnInit {
             witnessIssuedPlace1: [undefined],
             witnessMunicipality1: [undefined],
             witnessWardNo1: [undefined],
-            likhat :[undefined]
+            likhat: [undefined]
         });
     }
 
@@ -318,7 +315,6 @@ export class LoanDeedComponent implements OnInit {
 
     securityFormGroup(): FormGroup {
         return this.formBuilder.group({
-            SecuritiesSN: [undefined],
             SecuritiesSNBibaran: [undefined],
             SecuritiesDistrict: [undefined],
             SecuritiesMunicipality: [undefined],

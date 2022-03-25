@@ -103,14 +103,11 @@ export class HypothecationOfGoodsAndReceivablesBComponent implements OnInit {
         karjaRuWord: !ObjectUtil.isEmpty(this.loanAmount) ? this.loanAmount.nepaliWords : '',
         sawikMunicipality: this.nepaliData.representativePermanentVdc ? this.nepaliData.representativePermanentVdc : '',
         sawikWard: this.nepaliData.representativePermanentVdcWard ? this.nepaliData.representativePermanentVdcWard : '',
-
       });
     }
   }
 
-
   onSubmit(): void {
-    console.log('form data::' , this.form.value);
     let flag = true;
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {

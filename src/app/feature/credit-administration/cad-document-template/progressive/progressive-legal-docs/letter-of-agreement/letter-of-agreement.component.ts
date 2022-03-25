@@ -84,7 +84,7 @@ export class LetterOfAgreementComponent implements OnInit {
         companyName: this.nepaliData.companyName ? this.nepaliData.companyName : '',
         loanAmount: loanAmount.numberNepali ? loanAmount.numberNepali : '',
         loanAmountWords: loanAmount.nepaliWords ? loanAmount.nepaliWords : '',
-        gender: this.nepaliData.gender ?  this.nepaliData.gender : '',
+        gender: this.nepaliData.collateralOwnerDetails[0].collateralOwnerGender ?  this.nepaliData.collateralOwnerDetails[0].collateralOwnerGender : '',
       });
     }
   }

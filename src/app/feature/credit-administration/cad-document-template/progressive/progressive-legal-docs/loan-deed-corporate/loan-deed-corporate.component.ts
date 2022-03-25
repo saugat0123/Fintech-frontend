@@ -34,6 +34,8 @@ export class LoanDeedCorporateComponent implements OnInit {
   existingOfferLetter = false;
   offerLetterDocument: OfferDocument;
   nepaliData;
+  loanAmount;
+
   constructor(
       private dialogRef: NbDialogRef<LoanDeedCorporateComponent>,
       private formBuilder: FormBuilder,
@@ -48,6 +50,7 @@ export class LoanDeedCorporateComponent implements OnInit {
     this.buildForm();
     this.fillForm();
   }
+
   fillForm() {
     if (!ObjectUtil.isEmpty(this.cadData) && !ObjectUtil.isEmpty(this.cadData.cadFileList)) {
       this.cadData.cadFileList.forEach(singleCadFile => {
@@ -58,9 +61,9 @@ export class LoanDeedCorporateComponent implements OnInit {
           if (!ObjectUtil.isEmpty(initialInfo.swikritiBibaran)) {
             this.setSwikriti(initialInfo.swikritiBibaran);
           }
-          if (!ObjectUtil.isEmpty(initialInfo.security)) {
+          /*if (!ObjectUtil.isEmpty(initialInfo.security)) {
             this.setSecurity(initialInfo.security);
-          }
+          }*/
           this.form.patchValue(this.initialInfoPrint);
         }
       });
@@ -68,8 +71,7 @@ export class LoanDeedCorporateComponent implements OnInit {
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
       this.nepDataPersonal = JSON.parse(this.cadData.nepDataPersonal);
-      /*console.log('nepData...', this.nepDataPersonal);
-      console.log('nepaliData...', this.nepaliData);*/
+      this.loanAmount = JSON.parse(this.cadData.nepData);
       this.form.patchValue({
         mantralayaName1: this.nepaliData.ministryOfGovernmentOfNepal ? this.nepaliData.ministryOfGovernmentOfNepal : '',
         bibhaga: this.nepaliData.department ? this.nepaliData.department : '',
@@ -81,9 +83,9 @@ export class LoanDeedCorporateComponent implements OnInit {
         sewaKaryalaya: this.nepaliData.taxPayerServiceOffice ? this.nepaliData.taxPayerServiceOffice : '',
         regDate2: this.nepaliData.panRegistrationDate ? this.nepaliData.panRegistrationDate : '',
         panNo: this.nepaliData.panNo ? this.nepaliData.panNo : '',
-        pramadJilla: this.nepaliData.companyRegistrarOfficeDistrict ? this.nepaliData.companyRegistrarOfficeDistrict : '',
-        pramadMunicipallity: this.nepaliData.companyRegistrarOfficeVdcMun ? this.nepaliData.companyRegistrarOfficeVdcMun : '',
-        pramadWardNo: this.nepaliData.companyRegistrarOfficeWardNo ? this.nepaliData.companyRegistrarOfficeWardNo : '',
+        pramadJilla: this.nepaliData.companyDistrict ? this.nepaliData.companyDistrict : '',
+        pramadMunicipallity: this.nepaliData.companyVdcMun ? this.nepaliData.companyVdcMun : '',
+        pramadWardNo: this.nepaliData.companyWardNo ? this.nepaliData.companyWardNo : '',
         // regKaryalaya2: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
         riniName: this.nepaliData.companyName ? this.nepaliData.companyName : '',
         grandParentName: this.nepaliData.representativeGrandFatherName ? this.nepaliData.representativeGrandFatherName : '',
@@ -92,8 +94,8 @@ export class LoanDeedCorporateComponent implements OnInit {
         likhitDistrict: this.nepaliData.representativePermanentDistrict ? this.nepaliData.representativePermanentDistrict : '',
         likhitMunicipalty: this.nepaliData.representativePermanentMunicipality ? this.nepaliData.representativePermanentMunicipality : '',
         likhitWardNo: this.nepaliData.representativePermanentWard ? this.nepaliData.representativePermanentWard : '',
-        tempVDC: this.nepaliData.representativeTemporaryMunicipality ? this.nepaliData.representativeTemporaryMunicipality : '',
-        staDistrict: this.nepaliData.representativeTemporaryDistrict ? this.nepaliData.representativeTemporaryDistrict : '',
+        tempVDC: this.nepaliData.representativeTemporaryDistrict ? this.nepaliData.representativeTemporaryDistrict : '',
+        staDistrict: this.nepaliData.representativeTemporaryMunicipality ? this.nepaliData.representativeTemporaryMunicipality : '',
         tempWardNo: this.nepaliData.representativeTemporaryWard ? this.nepaliData.representativeTemporaryWard : '',
         age: this.nepaliData.borrowerAge ? this.nepaliData.borrowerAge : '',
         customerName: this.nepaliData.representativeName ? this.nepaliData.representativeName : '',
@@ -103,8 +105,16 @@ export class LoanDeedCorporateComponent implements OnInit {
         district: this.nepaliData.branchDistrict ? this.nepaliData.branchDistrict : '',
         municipality: this.nepaliData.branchMunVdc ? this.nepaliData.branchMunVdc : '',
         wardNo: this.nepaliData.branchWardNo ? this.nepaliData.branchWardNo : '',
-        branchName: this.nepaliData.branchName ? this.nepDataPersonal.branchName : '',
+        branchName: this.nepaliData.branchName ? this.nepaliData.branchName : '',
+        sabikVdc: this.nepaliData.representativePermanentVdc ? this.nepaliData.representativePermanentVdc : '',
+        sabikWardNo: this.nepaliData.representativePermanentVdcWard ? this.nepaliData.representativePermanentVdcWard : '',
       });
+      this.form.get(['swikritiBibaran', 0, 'approvedSubidhakisim']).patchValue(this.nepDataPersonal.loanType ? this.nepDataPersonal.loanType : '');
+      this.form.get(['swikritiBibaran', 0, 'approvedAmount']).patchValue(!ObjectUtil.isEmpty(this.loanAmount) ? this.loanAmount.numberNepali : '');
+      this.form.get(['swikritiBibaran', 0, 'approvedAmountInWords']).patchValue(!ObjectUtil.isEmpty(this.loanAmount) ? this.loanAmount.nepaliWords : '');
+      this.form.get(['swikritiBibaran', 0, 'approvedCommision']).patchValue(this.nepDataPersonal.serviceFeePercent ? this.nepDataPersonal.serviceFeePercent : '');
+      this.form.get(['swikritiBibaran', 0, 'approvedLoanTime']).patchValue(this.nepDataPersonal.tenureOfLoanInYears ? this.nepDataPersonal.tenureOfLoanInYears : '');
+      this.setSecurity(this.nepaliData.collateralDetails);
     }
   }
 
@@ -119,6 +129,7 @@ export class LoanDeedCorporateComponent implements OnInit {
       formArray.push(this.formBuilder.group({
         approvedSubidhakisim: [value.approvedSubidhakisim],
         approvedAmount: [value.approvedAmount],
+        approvedAmountInWords: [value.approvedAmountInWords],
         approvedCommision: [value.approvedCommision],
         approvedLoanTime: [value.approvedLoanTime],
       }));
@@ -133,15 +144,14 @@ export class LoanDeedCorporateComponent implements OnInit {
     }
     data.forEach((value) => {
       formArray.push(this.formBuilder.group({
-        SecuritiesSN: [undefined],
-        SecuritiesSNBibaran: [undefined],
-        SecuritiesDistrict: [undefined],
-        SecuritiesMunicipality: [undefined],
-        SecuritiesWardNo: [undefined],
-        SecuritiesKeyNo: [undefined],
-        SecuritiesArea: [undefined],
-        SecuritiesRegNo: [undefined],
-        SecuritiesOwnerName: [undefined],
+        SecuritiesSNBibaran: [value.dhitoBibaran],
+        SecuritiesDistrict: [value.collateralDistrict],
+        SecuritiesMunicipality: [value.collateralMunVdcOriginal],
+        SecuritiesWardNo: [value.collateralMunVdcChanged],
+        SecuritiesKeyNo: [value.plotNo],
+        SecuritiesArea: [value.areaOfCollateral],
+        SecuritiesRegNo: [value.regNo],
+        SecuritiesOwnerName: [value.collateralName],
       }));
     });
   }
@@ -213,7 +223,7 @@ export class LoanDeedCorporateComponent implements OnInit {
       likhitDistrict: [undefined],
       likhitMunicipalty: [undefined],
       likhitWardNo: [undefined],
-      sabikVDC: [undefined],
+      sabikVdc: [undefined],
       sabikWardNo: [undefined],
       tempVDC: [undefined],
       tempWardNo: [undefined],
@@ -255,7 +265,6 @@ export class LoanDeedCorporateComponent implements OnInit {
       itiSambatDate: [undefined],
       itiSambatTime: [undefined],
       itiSambatRoj: [undefined],
-      SecuritiesSN: [undefined],
       sthit: [undefined],
       staDistrict: [undefined],
       swikritiBibaran: this.formBuilder.array([this.swikritiFormGroup()]),
@@ -290,7 +299,6 @@ export class LoanDeedCorporateComponent implements OnInit {
 
   securityFormGroup(): FormGroup {
     return this.formBuilder.group({
-      SecuritiesSN: [undefined],
       SecuritiesSNBibaran: [undefined],
       SecuritiesDistrict: [undefined],
       SecuritiesMunicipality: [undefined],
@@ -317,6 +325,7 @@ export class LoanDeedCorporateComponent implements OnInit {
     return this.formBuilder.group({
       approvedSubidhakisim: [undefined],
       approvedAmount: [undefined],
+      approvedAmountInWords: [undefined],
       approvedCommision: [undefined],
       approvedLoanTime: [undefined],
     });
