@@ -24,11 +24,13 @@ export class FinancialRiskSummaryComponent implements OnInit {
   ngOnInit() {
     /** Summary checklist feature **/
     if (this.formData !== undefined) {
-      this.financialData = JSON.parse(this.formData.data);
-      try {
-        this.summaryCheckedList = this.financialData.keyIndicatorsData.summaryCheckList;
-      } catch (e) {
-        this.toastService.show(new Alert(AlertType.WARNING, 'No existing value found for summary checklist!'));
+      if (!this.formData.uploadExcel) {
+        this.financialData = JSON.parse(this.formData.data);
+        try {
+          this.summaryCheckedList = this.financialData.keyIndicatorsData.summaryCheckList;
+        } catch (e) {
+          this.toastService.show(new Alert(AlertType.WARNING, 'No existing value found for summary checklist!'));
+        }
       }
     }
   }
