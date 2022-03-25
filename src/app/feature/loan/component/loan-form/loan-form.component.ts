@@ -699,6 +699,20 @@ export class LoanFormComponent implements OnInit {
 
         if (name === 'Security' && action) {
             this.loanDocument.loanHolder.shareSecurity.customerShareData = this.shareSecurity.customerShareData;
+            if (this.loanDocument.loanHolder.shareSecurity.data !== null) {
+                let testJson: any;
+                testJson = this.loanDocument.loanHolder.shareSecurity.data;
+                const parsedJson = JSON.parse(testJson);
+                parsedJson.shareSecurityDetails = this.shareSecurity.customerShareData;
+                this.loanDocument.loanHolder.shareSecurity.data = JSON.stringify(parsedJson);
+            }
+            if (this.loanDocument.loanHolder.shareSecurity.approvedData !== null) {
+                let testJson1: any;
+                testJson1 = this.loanDocument.loanHolder.shareSecurity.approvedData;
+                const parsedJson = JSON.parse(testJson1);
+                parsedJson.shareSecurityDetails = this.shareSecurity.customerShareData;
+                this.loanDocument.loanHolder.shareSecurity.approvedData = JSON.stringify(parsedJson);
+            }
         }
 
         if (name === 'Reporting Info' && action) {
