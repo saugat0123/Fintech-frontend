@@ -8,7 +8,6 @@ import {NepaliCurrencyWordPipe} from '../../../../../../@core/pipe/nepali-curren
 import {CreditAdministrationService} from '../../../../service/credit-administration.service';
 import {ToastService} from '../../../../../../@core/utils';
 import {RouterUtilsService} from '../../../../utils/router-utils.service';
-import {CustomerOfferLetterService} from '../../../../../loan/service/customer-offer-letter.service';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 import {ProgressiveLegalDocConst} from '../progressive-legal-doc-const';
@@ -66,13 +65,50 @@ export class GuaranteeBondCorporateComponent implements OnInit {
 
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
-
+      const loanAmount = JSON.parse(this.cadData.nepData);
       this.form.patchValue({
         customerName: this.nepaliData.name ? this.nepaliData.name : '',
+        branchName: this.nepaliData.branchName ? this.nepaliData.branchName : '',
+        registerCompanyName: this.nepaliData.guarantorDetails[0].departmentGuarantor ? this.nepaliData.guarantorDetails[0].departmentGuarantor : '',
+        date: this.nepaliData.guarantorDetails[0].registrationDateGuarantor ? this.nepaliData.guarantorDetails[0].registrationDateGuarantor : '',
+        ltdNo: this.nepaliData.guarantorDetails[0].companyRegistrationNoGuarantor ? this.nepaliData.guarantorDetails[0].companyRegistrationNoGuarantor : '',
+        registerDistrict: this.nepaliData.guarantorDetails[0].companyDistrictGuarantor ? this.nepaliData.guarantorDetails[0].companyDistrictGuarantor : '',
+        regsiterMunicipality: this.nepaliData.guarantorDetails[0].companyVdcMunGuarantor ? this.nepaliData.guarantorDetails[0].companyVdcMunGuarantor : '',
+        registerWadNo: this.nepaliData.guarantorDetails[0].companyWardNoGuarantor ? this.nepaliData.guarantorDetails[0].companyWardNoGuarantor : '',
+        sewaKendra: this.nepaliData.guarantorDetails[0].taxPayerServiceOfficeGuarantor ? this.nepaliData.guarantorDetails[0].taxPayerServiceOfficeGuarantor : '',
+        certificateNo: this.nepaliData.guarantorDetails[0].panNoGuarantor ? this.nepaliData.guarantorDetails[0].panNoGuarantor : '',
+        registerDate: this.nepaliData.guarantorDetails[0].panRegistrationDateGuarantor ? this.nepaliData.guarantorDetails[0].panRegistrationDateGuarantor : '',
+        guaranterName: this.nepaliData.guarantorDetails[0].companyNameGuarantor ? this.nepaliData.guarantorDetails[0].companyNameGuarantor : '',
+        regOffice: this.nepaliData.department ? this.nepaliData.department : '',
+        regDate: this.nepaliData.registrationDate ? this.nepaliData.registrationDate : '',
+        praliNo: this.nepaliData.companyRegistrationNo ? this.nepaliData.companyRegistrationNo : '',
+        rajaswaDistrict: this.nepaliData.companyDistrict ? this.nepaliData.companyDistrict : '',
+        rajaswaMunicipality: this.nepaliData.companyVdcMun ? this.nepaliData.companyVdcMun : '',
+        rajaswaWadNo: this.nepaliData.companyWardNo ? this.nepaliData.companyWardNo : '',
+        sewakendra: this.nepaliData.taxPayerServiceOffice ? this.nepaliData.taxPayerServiceOffice : '',
+        PanNo: this.nepaliData.panNo ? this.nepaliData.panNo : '',
+        PaNoRegDate: this.nepaliData.panRegistrationDate ? this.nepaliData.panRegistrationDate : '',
+        registered: this.nepaliData.companyName ? this.nepaliData.companyName : '',
+        amount: loanAmount.numberNepali ? loanAmount.numberNepali : '',
+        amountInWord: loanAmount.nepaliWords ? loanAmount.nepaliWords : '',
+        GuaranteeName: this.nepaliData.representativeName ? this.nepaliData.representativeName : '',
+        GuaranteeCitizenshipNo: this.nepaliData.representativeCitizenshipNo ? this.nepaliData.representativeCitizenshipNo : '',
+        GuaranteeDate: this.nepaliData.representativeCitizenshipIssueDate ? this.nepaliData.representativeCitizenshipIssueDate : '',
+        GuaranteeCDOoffice: this.nepaliData.representativeCitizenshipIssuingAuthority ? this.nepaliData.representativeCitizenshipIssuingAuthority : '',
+        GuaranteePermanentDistrict: this.nepaliData.representativePermanentDistrict ? this.nepaliData.representativePermanentDistrict : '',
+        GuaranteePermanentMunicipality: this.nepaliData.representativePermanentMunicipality ? this.nepaliData.representativePermanentMunicipality : '',
+        GuaranteePermanentWadNo: this.nepaliData.representativePermanentWard ? this.nepaliData.representativePermanentWard : '',
+        sabikVDC: this.nepaliData.representativePermanentVdc ? this.nepaliData.representativePermanentVdc : '',
+        sabikWadNo: this.nepaliData.representativePermanentVdcWard ? this.nepaliData.representativePermanentVdcWard : '',
+        GuaranteeTempDistrict: this.nepaliData.representativeTemporaryDistrict ? this.nepaliData.representativeTemporaryDistrict : '',
+        GuaranteeTempMunicipality: this.nepaliData.representativeTemporaryMunicipality ? this.nepaliData.representativeTemporaryMunicipality : '',
+        GuaranteeTempWadNo: this.nepaliData.representativeTemporaryWard ?  this.nepaliData.representativeTemporaryWard : '',
+        sicerlyFatherName: this.nepaliData.representativeFatherName ? this.nepaliData.representativeFatherName : '',
+        sicerlyGrandFatherName: this.nepaliData.representativeGrandFatherName ? this.nepaliData.representativeGrandFatherName : '',
+        sicerlyHusbandName: this.nepaliData.representativeHusbandWifeName ? this.nepaliData.representativeHusbandWifeName : ''
       });
     }
   }
-
 
   onSubmit(): void {
     let flag = true;
@@ -114,7 +150,6 @@ export class GuaranteeBondCorporateComponent implements OnInit {
       this.dialogRef.close();
     });
   }
-
 
   buildForm() {
     this.form = this.formBuilder.group({
@@ -196,11 +231,8 @@ export class GuaranteeBondCorporateComponent implements OnInit {
       witnessIssuedPlace1: [undefined],
       witnessMunicipality1: [undefined],
       witnessWardNo1: [undefined]
-
-
     });
   }
-
 
   guarantorFormGroup(): FormGroup {
     return this.formBuilder.group({
@@ -211,10 +243,7 @@ export class GuaranteeBondCorporateComponent implements OnInit {
       guarantorDistrict: [undefined],
       guarantorMunicipality: [undefined],
       guarantorWadNo: [undefined]
-
     });
-
-
   }
 
   setGuarantors(data) {
