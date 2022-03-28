@@ -67,9 +67,9 @@ export class LoanDeedComponent implements OnInit {
                                 this.removeSecurity(i);
                         });
                     } else {*/
-                    if (!ObjectUtil.isEmpty(initialInfo.security)) {
+                    /*if (!ObjectUtil.isEmpty(initialInfo.security)) {
                         this.setSecurity(initialInfo.security);
-                    }
+                    }*/
                 //}
                     this.form.patchValue(this.initialInfoPrint);
                     //this.setGuarantors(initialInfo.guarantorDetails);
@@ -111,18 +111,20 @@ export class LoanDeedComponent implements OnInit {
         this.form.get(['swikritiBibaran', 0, 'serviceFeePercent']).patchValue(this.nepDataPersonal.serviceFeePercent);
         this.form.get(['swikritiBibaran', 0, 'tenureOfLoanInYears']).patchValue(this.nepDataPersonal.tenureOfLoanInYears);
 
-        this.nepaliData.collateralDetails.forEach((value, i) => {
+        this.setSecurity(this.nepaliData.collateralDetails);
+
+       /* this.nepaliData.collateralDetails.forEach((value, i) => {
             try {
                 this.setSecurityDetails(value, i);
             } catch (error) {
                 this.addSecurity();
                 this.setSecurityDetails(value, i);
             }
-        });
+        });*/
 
     }
 
-    setSecurityDetails(value, i) {
+    /*setSecurityDetails(value, i) {
         this.form.get(['security', i, 'SecuritiesOwnerName']).patchValue(value.collateralName);
         this.form.get(['security', i, 'SecuritiesDistrict']).patchValue(value.collateralDistrict);
         this.form.get(['security', i, 'SecuritiesMunicipality']).patchValue(value.collateralMunVdcOriginal);
@@ -140,7 +142,7 @@ export class LoanDeedComponent implements OnInit {
         this.form.get(['security', i, 'SecuritiesKeyNo']).patchValue(null);
         this.form.get(['security', i, 'SecuritiesArea']).patchValue(null);
         this.form.get(['security', i, 'SecuritiesRegNo']).patchValue(null);
-    }
+    }*/
 
     setSwikriti(data) {
         const formArray = this.form.get('swikritiBibaran') as FormArray;
