@@ -179,6 +179,13 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
     }
 
     ngOnInit() {
+        this.branchService.getBranchAccessByCurrentUser().subscribe((response: any) => {
+            this.branchList = response.detail;
+            this.branchList.sort((a, b) => a.name.localeCompare(b.name));
+        }, error => {
+            console.error(error);
+            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Branch!'));
+        });
         if (this.actionType !== 'Edit') {
             this.detailsOption(this.institutionSubType);
         } else if (!ObjectUtil.isEmpty(this.loanHolder)) {
@@ -234,13 +241,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
 
         this.translateObjectValue();
         this.userConfigForm.get('clientType').patchValue(this.customerType);
-        this.branchService.getBranchAccessByCurrentUser().subscribe((response: any) => {
-            this.branchList = response.detail;
-            this.branchList.sort((a, b) => a.name.localeCompare(b.name));
-        }, error => {
-            console.error(error);
-            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Branch!'));
-        });
 
         if (!ObjectUtil.isEmpty(this.loanHolder) && !ObjectUtil.isEmpty(this.oneFormCustomer)) {
             this.nepData = (JSON.parse(this.loanHolder.nepData));
@@ -2144,26 +2144,39 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
 
                 permanentProvince: [ObjectUtil.isEmpty(value.province) ? undefined : value.province],
                 permanentProvinceCT: [ObjectUtil.isEmpty(nepaData.permanentProvince) ? undefined : nepaData.permanentProvince.ct],
-                permanentProvinceTrans: [ObjectUtil.isEmpty(nepaData.permanentProvince) ? undefined : nepaData.permanentProvince.en.nepaliName],
+                permanentProvinceTrans: [(!ObjectUtil.isEmpty(nepaData.permanentProvince) &&
+                    !ObjectUtil.isEmpty(nepaData.permanentProvince.en) &&
+                    !ObjectUtil.isEmpty(nepaData.permanentProvince.en.nepaliName)) ? nepaData.permanentProvince.en.nepaliName : undefined],
                 permanentDistrict: [ObjectUtil.isEmpty(value.district) ? undefined : value.district],
                 permanentDistrictCT: [ObjectUtil.isEmpty(nepaData.permanentDistrict) ? undefined : nepaData.permanentDistrict.ct],
-                permanentDistrictTrans: [ObjectUtil.isEmpty(nepaData.permanentDistrict) ? undefined : nepaData.permanentDistrict.en.nepaliName],
+                permanentDistrictTrans: [(!ObjectUtil.isEmpty(nepaData.permanentDistrict) &&
+                    !ObjectUtil.isEmpty(nepaData.permanentDistrict.en) &&
+                    !ObjectUtil.isEmpty(nepaData.permanentDistrict.en.nepaliName)) ? nepaData.permanentDistrict.en.nepaliName : undefined],
                 permanentMunicipality: [ObjectUtil.isEmpty(nepaData.permanentMunicipality) ? undefined : nepaData.permanentMunicipality.en],
                 permanentMunicipalityCT: [ObjectUtil.isEmpty(nepaData.permanentMunicipality) ? undefined : nepaData.permanentMunicipality.ct],
-                permanentMunicipalityTrans: [ObjectUtil.isEmpty(nepaData.permanentMunicipality) ? undefined : nepaData.permanentMunicipality.en.nepaliName],
+                permanentMunicipalityTrans: [(!ObjectUtil.isEmpty(nepaData.permanentMunicipality) &&
+                !ObjectUtil.isEmpty(nepaData.permanentMunicipality.en) &&
+                !ObjectUtil.isEmpty(nepaData.permanentMunicipality.en.nepaliName)) ?
+                    nepaData.permanentMunicipality.en.nepaliName : undefined],
                 permanentWard: [ObjectUtil.isEmpty(nepaData.permanentWard) ? undefined : nepaData.permanentWard.en],
                 permanentWardCT: [ObjectUtil.isEmpty(nepaData.permanentWard) ? undefined : nepaData.permanentWard.ct],
                 permanentWardTrans: [ObjectUtil.isEmpty(nepaData.permanentWard) ? undefined : nepaData.permanentWard.np],
 
                 temporaryProvince: [ObjectUtil.isEmpty(value.provinceTemporary) ? undefined : value.provinceTemporary],
                 temporaryProvinceCT: [ObjectUtil.isEmpty(nepaData.temporaryProvince) ? undefined : nepaData.temporaryProvince.ct],
-                temporaryProvinceTrans: [ObjectUtil.isEmpty(nepaData.temporaryProvince) ? undefined : nepaData.temporaryProvince.en.nepaliName],
+                temporaryProvinceTrans: [(!ObjectUtil.isEmpty(nepaData.temporaryProvince) &&
+                    !ObjectUtil.isEmpty(nepaData.temporaryProvince.en) &&
+                    !ObjectUtil.isEmpty(nepaData.temporaryProvince.en.nepaliName)) ? nepaData.temporaryProvince.en.nepaliName : undefined],
                 temporaryDistrict: [ObjectUtil.isEmpty(value.districtTemporary) ? undefined : value.districtTemporary],
                 temporaryDistrictCT: [ObjectUtil.isEmpty(nepaData.temporaryDistrict) ? undefined : nepaData.temporaryDistrict.ct],
-                temporaryDistrictTrans: [ObjectUtil.isEmpty(nepaData.temporaryDistrict) ? undefined : nepaData.temporaryDistrict.en.nepaliName],
+                temporaryDistrictTrans: [(!ObjectUtil.isEmpty(nepaData.temporaryDistrict) &&
+                    !ObjectUtil.isEmpty(nepaData.temporaryDistrict.en) &&
+                    !ObjectUtil.isEmpty(nepaData.temporaryDistrict.en.nepaliName)) ? nepaData.temporaryDistrict.en.nepaliName : undefined],
                 temporaryMunicipality: [ObjectUtil.isEmpty(value.municipalitiesTemporary) ? undefined : value.municipalitiesTemporary],
                 temporaryMunicipalityCT: [ObjectUtil.isEmpty(nepaData.temporaryMunicipality) ? undefined : nepaData.temporaryMunicipality.ct],
-                temporaryMunicipalityTrans: [ObjectUtil.isEmpty(nepaData.temporaryMunicipality) ? undefined : nepaData.temporaryMunicipality.en.nepaliName],
+                temporaryMunicipalityTrans: [(!ObjectUtil.isEmpty(nepaData.temporaryMunicipality) &&
+                !ObjectUtil.isEmpty(nepaData.temporaryMunicipality.en) &&
+                !ObjectUtil.isEmpty(nepaData.temporaryMunicipality.en.nepaliName)) ? nepaData.temporaryMunicipality.en.nepaliName : undefined],
                 temporaryWard: [ObjectUtil.isEmpty(nepaData.temporaryWard) ? undefined : nepaData.temporaryWard.en],
                 temporaryWardCT: [ObjectUtil.isEmpty(nepaData.temporaryWard) ? undefined : nepaData.temporaryWard.ct],
                 temporaryWardTrans: [ObjectUtil.isEmpty(nepaData.temporaryWard) ? undefined : nepaData.temporaryWard.np],
