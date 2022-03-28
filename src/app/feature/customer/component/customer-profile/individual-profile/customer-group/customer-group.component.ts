@@ -50,6 +50,7 @@ export class CustomerGroupComponent implements OnInit {
     this.form = this.formBuilder.group({
       groupCode: [undefined],
       detailInformation: [undefined],
+      groupName: [undefined],
     });
   }
 
@@ -80,6 +81,7 @@ export class CustomerGroupComponent implements OnInit {
     mGroup.customerInfoId = this.customerInfo.id;
     mGroup.groupCode = this.formControls.groupCode.value;
     mGroup.detailInformation = this.formControls.detailInformation.value;
+    mGroup.groupName = this.formControls.groupName.value;
     return mGroup;
   }
 
