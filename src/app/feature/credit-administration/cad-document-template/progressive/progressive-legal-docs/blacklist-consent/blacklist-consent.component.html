@@ -43,28 +43,48 @@
                                                                             type="text">
                         मिति <input class="form-field nepaliFont form-control-sm" formControlName="regDate"
                                     type="text">
-                        दर्ता गर्ने कार्यालय
+                        दर्ता गर्ने /कम्पनी रजिस्ट्रार कार्यालय
                         <input class="form-field nepaliFont form-control-sm" formControlName="regKaryalaya"
-                               type="text">
-                        )
-
+                               type="text">)
                         <br>
-                        ठेगाना :-स्थायी<input class="form-field nepaliFont form-control-sm unicode-size16"
-                                              formControlName="sincerlyPermanentDistrict"
-                                              type="text">
-                        जिल्ला <input class="form-field nepaliFont form-control-sm unicode-size16"
-                                      formControlName="sincerlyPermanentMunicipality"
-                                      type="text">
+                        स्थायी ठेगाना :-
+                        <ng-container *ngIf="loanCategory === 'INDIVIDUAL'">
+                            <input class="form-field nepaliFont form-control-sm unicode-size16"
+                                   formControlName="sincerlyPermanentDistrict"
+                                   type="text">
+                            जिल्ला <input class="form-field nepaliFont form-control-sm unicode-size16"
+                                          formControlName="sincerlyPermanentMunicipality"
+                                          type="text">
+                        </ng-container>
+                        <ng-container *ngIf="loanCategory === 'INSTITUTION'">
+                            <input class="form-field nepaliFont form-control-sm unicode-size2"
+                                   formControlName="sincerlyPermanentDistrict"
+                                   type="text">
+                            जिल्ला <input class="form-field nepaliFont form-control-sm unicode-size2"
+                                          formControlName="sincerlyPermanentMunicipality"
+                                          type="text">
+                        </ng-container>
                         गा.पा./न.पा., वडा नं.<input class="form-field nepaliFont form-control-sm"
                                                   formControlName="sincerlyPermanentWadNo"
                                                   type="text">
                         <br>
-                        हालको ठेगाना :-<input class="form-field nepaliFont form-control-sm unicode-size16"
+                        हालको ठेगाना :-
+                        <ng-container *ngIf="loanCategory === 'INDIVIDUAL'">
+                            <input class="form-field nepaliFont form-control-sm unicode-size16"
                                             formControlName="sincerlyTemporaryDistrict"
                                             type="text">
                         जिल्ला <input class="form-field nepaliFont form-control-sm unicode-size16"
                                       formControlName="sincerlyTemporaryVDCname"
                                       type="text">
+                        </ng-container>
+                        <ng-container *ngIf="loanCategory === 'INSTITUTION'">
+                            <input class="form-field nepaliFont form-control-sm unicode-size2"
+                                            formControlName="sincerlyTemporaryDistrict"
+                                            type="text">
+                        जिल्ला <input class="form-field nepaliFont form-control-sm unicode-size2"
+                                      formControlName="sincerlyTemporaryVDCname"
+                                      type="text">
+                        </ng-container>
                         गा.पा./न.पा., वडा नं.<input class="form-field nepaliFont form-control-sm"
                                                   formControlName="sincerlyTemporaryWadNo"
                                                   type="text">
@@ -124,6 +144,10 @@
                                 <strong>जमानत कर्ताको</strong> नाम :— <input class="form-field nepaliFont form-control-sm"
                                                             formControlName="jamanatName"
                                                             type="text">
+                                <ng-container *ngIf="form.get(['guarantorDetails', i, 'guarantorType']).value === 'Corporate_Guarantor'">,
+                                    प्रतिनिधि <input class="form-field nepaliFont form-control-sm"
+                                                               formControlName="companyPraName"
+                                                               type="text"> </ng-container>
                                 (ना.प्र.न <input class="form-field nepaliFont form-control-sm"
                                                  formControlName="jamanatNPN"
                                                  type="text">
@@ -132,34 +156,57 @@
                                            type="text">
                                 जि प्र.का<input class="form-field nepaliFont form-control-sm"
                                                 formControlName="jamanatJPK"
-                                                type="text"> )
+                                                type="text">)
                                 <br>
-                                <strong>कम्पनीको हकमा</strong> :- (रजिष्टेशन नं<input class="form-field nepaliFont form-control-sm"
-                                                                       formControlName="jamanatRegNo"
-                                                                       type="text">
-                                मिति<input class="form-field nepaliFont form-control-sm"
-                                           formControlName="jamanatRegDate"
+                                <ng-container *ngIf="form.get(['guarantorDetails', i, 'guarantorType']).value === 'Corporate_Guarantor'">
+                                    <strong>कम्पनीको हकमा</strong> :- (रजिष्टेशन नं<input class="form-field nepaliFont form-control-sm"
+                                                                           formControlName="jamanatRegNo"
+                                                                           type="text">
+                                    मिति<input class="form-field nepaliFont form-control-sm"
+                                               formControlName="jamanatRegDate"
+                                               type="text">
+                                    दर्ता गर्ने कार्यालय<input class="form-field nepaliFont form-control-sm"
+                                                               formControlName="jamanatRegCDO"
+                                                               type="text">)<br>
+                                </ng-container>
+                                स्थायी ठेगाना :—
+                                <ng-container *ngIf="form.get(['guarantorDetails', i, 'guarantorType']).value === 'Corporate_Guarantor'">
+                                    <input class="form-field nepaliFont form-control-sm unicode-size2"
+                                           formControlName="jamanatPermanentAddress"
                                            type="text">
-                                दर्ता गर्ने कार्यालय<input class="form-field nepaliFont form-control-sm"
-                                                           formControlName="jamanatRegCDO"
-                                                           type="text"> )
-                                <br>
-                                ठेगाना :—स्थायी <input class="form-field nepaliFont form-control-sm unicode-size16"
-                                                       formControlName="jamanatPermanentAddress"
-                                                       type="text">
-                                जिल्ला <input class="form-field nepaliFont form-control-sm unicode-size16"
-                                              formControlName="jamanatDistrict"
-                                              type="text">
+                                    जिल्ला <input class="form-field nepaliFont form-control-sm unicode-size2"
+                                                  formControlName="jamanatDistrict"
+                                                  type="text">
+                                </ng-container>
+                                <ng-container *ngIf="form.get(['guarantorDetails', i, 'guarantorType']).value === 'Personal_Guarantor'">
+                                    <input class="form-field nepaliFont form-control-sm unicode-size16"
+                                           formControlName="jamanatPermanentAddress"
+                                           type="text">
+                                    जिल्ला <input class="form-field nepaliFont form-control-sm unicode-size16"
+                                                  formControlName="jamanatDistrict"
+                                                  type="text">
+                                </ng-container>
                                 गा.पा./न.पा., वडा नं <input class="form-field nepaliFont form-control-sm"
                                                           formControlName="jamanatWadNo"
                                                           type="text">
                                 <br>
-                                हालको ठेगाना :- <input class="form-field nepaliFont form-control-sm unicode-size16"
+                                हालको ठेगाना :-
+                                <ng-container *ngIf="form.get(['guarantorDetails', i, 'guarantorType']).value === 'Corporate_Guarantor'">
+                                    <input class="form-field nepaliFont form-control-sm unicode-size2"
+                                                    formControlName="jamanatTemporaryAddress"
+                                                    type="text">
+                                जिल्ला <input class="form-field nepaliFont form-control-sm unicode-size2"
+                                  formControlName="jamanatTemporaryDistrict"
+                                  type="text">
+                                </ng-container>
+                                <ng-container *ngIf="form.get(['guarantorDetails', i, 'guarantorType']).value === 'Personal_Guarantor'">
+                                    <input class="form-field nepaliFont form-control-sm unicode-size16"
                                                     formControlName="jamanatTemporaryAddress"
                                                     type="text">
                                 जिल्ला <input class="form-field nepaliFont form-control-sm unicode-size16"
                                   formControlName="jamanatTemporaryDistrict"
                                   type="text">
+                                </ng-container>
                                 गा.पा./न.पा., वडा नं <input class="form-field nepaliFont form-control-sm"
                                                           formControlName="jamanatTemporaryWadNo"
                                                           type="text">
@@ -216,67 +263,6 @@
                     <br>
                     <strong class="text-left">साक्षी : </strong>
                     <br>
-                    <!--<div class="col-md-12 float-right">
-                        <button (click)="addGuarantor()" class="btn btn-primary btn-sm float-right " size="tiny"
-                                type="button">साक्षी थप्नुहोस्<i class="fas fa-plus"></i></button>
-                    </div>
-                    <div *ngFor="let guarantor of form.get('guarantorDetails')['controls']; let i=index"
-                         formArrayName="guarantorDetails">
-                        <div [formGroupName]="i">
-
-                            <div>
-                                <p> {{i + 1 | nepaliWord: 'unicode'}}.&nbsp;&nbsp;दस्तखत :......................</p>
-
-
-                                <table class="table-bordered table text-center ">
-                                    <thead>
-                                    <tr>
-                                        <th width="10%">नाम</th>
-                                        <th width="10%">ना.प्र.नं.</th>
-                                        <th width="15%">मिति</th>
-                                        <th width="15%">जि.प्र.का.</th>
-                                        <th width="15%">जिल्ला</th>
-                                        <th width="25%">गा.पा./न.पा.</th>
-                                        <th width="10%">वडा नं.</th>
-                                    </tr>
-
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td><input class="form-field nepaliFont form-control" formControlName="name"
-                                                   type="text"></td>
-                                        <td><input class="form-field nepaliFont form-control"
-                                                   formControlName="citizenNumber"
-                                                   type="text"></td>
-                                        <td><input class="form-field nepaliFont form-control" formControlName="issuedYear"
-                                                   type="text"></td>
-                                        <td><input class="form-field nepaliFont form-control"
-                                                   formControlName="guarantorCDOoffice"
-                                                   type="text"></td>
-                                        <td><input class="form-field  nepaliFont form-control"
-                                                   formControlName="guarantorDistrict"
-                                                   type="text"></td>
-                                        <td><input class="form-field nepaliFont form-control"
-                                                   formControlName="guarantorMunicipality"
-                                                   type="text"></td>
-                                        <td><input class="form-field nepaliFont form-control"
-                                                   formControlName="guarantorWadNo"
-                                                   type="text"></td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                                <div *ngIf="form.get('guarantorDetails')['length']>1" class="col-md-3 float-right">
-                                    <button (click)="removeGuarantor(i)"
-                                            class="ml-2 mt-1 br-5 btn-danger btn-sm btn-flat"
-                                            value="Delete">
-                                        <em class="fas fa-trash" style="color: white;">
-                                            Delete Guarantor
-                                        </em>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>-->
                 <table class="table table-responsive-md table-borderless">
                     <caption></caption>
                     <thead>
@@ -288,10 +274,10 @@
                     <tbody>
                     <tr>
                         <td>नाम:</td>
-                        <td class="text-left"><input class="form-field form-control-sm nepaliFont "
+                        <td class="text-left"><input class="form-field form-control-sm nepaliFont"
                                                      formControlName="witnessName"
                                                      type="text"/>
-                            (ना.प्र.नं<input class="form-field form-control-sm nepaliFont"
+                            (ना.प्र.नं: <input class="form-field form-control-sm nepaliFont"
                                              formControlName="witnessCitizenshipNo"
                                              placeholder=""
                                              type="text"/>
@@ -309,12 +295,12 @@
                         <td>ठेगाना:</td>
                         <td class="text-left"><input class="form-field form-control-sm nepaliFont "
                                                      formControlName="witnessIssuedPlace"
-                                                     placeholder="" type="text"/>जिल्ला <input
-                                class="form-field form-control-sm nepaliFont"
+                                                     placeholder="" type="text"/>
+                            जिल्ला <input class="form-field form-control-sm nepaliFont"
                                 formControlName="witnessMunicipality"
                                 placeholder=""
                                 type="text"/>
-                            गा.पा./न.पा.वडा नं<input class="form-field form-control-sm nepaliFont"
+                            गा.पा./न.पा.वडा नं <input class="form-field form-control-sm nepaliFont"
                                                      formControlName="witnessWardNo"
                                                      placeholder=""
                                                      type="text"/></td>
@@ -372,7 +358,7 @@
                 ऋणीले मेरो सामुन्नेमा सही छाप गरेको ठीक साँचो हो भनी सही छाप गर्ने धनी वित्तीय संस्थामा कार्यरत कर्मचारी
                 <input class="form-field nepaliFont form-control-sm"
                        formControlName="karmachari"
-                       type="text">कर्मचारी संकेत नं)
+                       type="text">कर्मचारी संकेत नं.
                 <input class="form-field nepaliFont form-control-sm"
                                                              formControlName="karmachariNo"
                                                              type="text">
@@ -380,7 +366,7 @@
                 <br>
                 <br>
                 <div class="text-center">
-                    <strong>ईति सम्बत २०७</strong> <input class="form-field nepaliFont form-control-sm"
+                    <strong>ईति सम्बत </strong> <input class="form-field nepaliFont form-control-sm"
                                      formControlName="itiSambatYear"
                                      type="text">
                     <strong>साल</strong> <input class="form-field nepaliFont form-control-sm" formControlName="itiSambatMonth"
@@ -411,5 +397,7 @@
         </button>
     </div>
 </div>
-<app-blacklist-consent-print *ngIf="initialInfoPrint" [printDocForm]="initialInfoPrint"
+<app-blacklist-consent-print *ngIf="initialInfoPrint"
+                             [printDocForm]="initialInfoPrint"
+                             [loanCat]="loanCategory"
                            hidden></app-blacklist-consent-print>

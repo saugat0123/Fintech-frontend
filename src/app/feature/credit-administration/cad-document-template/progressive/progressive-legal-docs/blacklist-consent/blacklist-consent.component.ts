@@ -10,7 +10,6 @@ import {NepaliCurrencyWordPipe} from '../../../../../../@core/pipe/nepali-curren
 import {CreditAdministrationService} from '../../../../service/credit-administration.service';
 import {ToastService} from '../../../../../../@core/utils';
 import {RouterUtilsService} from '../../../../utils/router-utils.service';
-import {CustomerOfferLetterService} from '../../../../../loan/service/customer-offer-letter.service';
 import {ObjectUtil} from '../../../../../../@core/utils/ObjectUtil';
 import {CadFile} from '../../../../model/CadFile';
 import {Document} from '../../../../../admin/modal/document';
@@ -34,6 +33,7 @@ export class BlacklistConsentComponent implements OnInit {
   offerLetterDocument: OfferDocument;
   nepaliData;
   nepDataPersonal;
+  loanCategory;
 
   constructor(private dialogRef: NbDialogRef<BlacklistConsentComponent>,
               private formBuilder: FormBuilder,
@@ -45,6 +45,9 @@ export class BlacklistConsentComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (!ObjectUtil.isEmpty(this.cadData.assignedLoan)) {
+      this.loanCategory = this.cadData.assignedLoan[0].loanCategory;
+    }
     this.buildForm();
     this.fillForm();
   }
@@ -69,22 +72,45 @@ export class BlacklistConsentComponent implements OnInit {
 
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
-
       this.form.patchValue({
-        sincerlyName: this.nepaliData.name ? this.nepaliData.name : '',
-        sincerlyPermanentMunicipality: !ObjectUtil.isEmpty(this.nepaliData.permanentMunicipalities) ? this.nepaliData.permanentMunicipalities.nepaliName : '',
-        sincerlyPermanentWadNo: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
-        sincerlyPermanentDistrict: !ObjectUtil.isEmpty(this.nepaliData.permanentDistrict) ? this.nepaliData.permanentDistrict.nepaliName : '',
-        sincerlyCitizenshipNo: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
-        sincerlyDate: this.nepaliData.citizenshipIssueDate ? this.nepaliData.citizenshipIssueDate : '',
-        sincerlyCDOoffice: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
-        sincerlyParentName: this.nepaliData.fatherName ? this.nepaliData.fatherName : '',
-        sincerlyGrandParentName: this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : '',
-        sincerlyTemporaryVDCname: !ObjectUtil.isEmpty(this.nepaliData.temporaryMunicipalities) ? this.nepaliData.temporaryMunicipalities.nepaliName : '',
-        sincerlyTemporaryWadNo: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
-        sincerlyTemporaryDistrict: !ObjectUtil.isEmpty(this.nepaliData.temporaryDistrict) ? this.nepaliData.temporaryDistrict.nepaliName : '',
-        sincerlyKarja: this.nepDataPersonal.loanType ? this.nepDataPersonal.loanType : '',
-        spouseOrFatherName: this.nepaliData.husbandName ? this.nepaliData.husbandName : ''
+        sincerlyName: this.nepaliData.representativeName ? this.nepaliData.representativeName :
+            (this.nepaliData.name ? this.nepaliData.name : ''),
+        sincerlyCitizenshipNo: this.nepaliData.representativeCitizenshipNo ? this.nepaliData.representativeCitizenshipNo :
+            (this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : ''),
+        sincerlyDate: this.nepaliData.representativeCitizenshipIssueDate ? this.nepaliData.representativeCitizenshipIssueDate :
+            (this.nepaliData.citizenshipIssueDate ? this.nepaliData.citizenshipIssueDate : ''),
+        sincerlyCDOoffice: this.nepaliData.representativeCitizenshipIssuingAuthority ?
+            this.nepaliData.representativeCitizenshipIssuingAuthority : (this.nepaliData.citizenshipIssueDistrict ?
+                this.nepaliData.citizenshipIssueDistrict : ''),
+        sincerlyRegNo: !ObjectUtil.isEmpty(this.nepaliData.companyRegistrationNo) ?
+            this.nepaliData.companyRegistrationNo : '',
+        regDate: this.nepaliData.registrationDate ? this.nepaliData.registrationDate : '',
+        regKaryalaya: !ObjectUtil.isEmpty(this.nepaliData.companyRegistrarOfficeDistrict) ?
+            this.nepaliData.companyRegistrarOfficeDistrict : '',
+        sincerlyPermanentDistrict: this.nepaliData.representativePermanentDistrict ? this.nepaliData.representativePermanentDistrict :
+            (!ObjectUtil.isEmpty(this.nepaliData.permanentDistrict) ? this.nepaliData.permanentDistrict.nepaliName : ''),
+        sincerlyPermanentMunicipality: this.nepaliData.representativePermanentMunicipality ?
+            this.nepaliData.representativePermanentMunicipality : (!ObjectUtil.isEmpty(this.nepaliData.permanentMunicipalities) ?
+                this.nepaliData.permanentMunicipalities.nepaliName : ''),
+        sincerlyPermanentWadNo: !ObjectUtil.isEmpty(this.nepaliData.representativePermanentWard) ?
+            this.nepaliData.representativePermanentWard : (this.nepaliData.permanentWard ? this.nepaliData.permanentWard : ''),
+        sincerlyTemporaryDistrict: this.nepaliData.representativeTemporaryDistrict ? this.nepaliData.representativeTemporaryDistrict :
+            (!ObjectUtil.isEmpty(this.nepaliData.temporaryDistrict) ? this.nepaliData.temporaryDistrict.nepaliName : ''),
+        sincerlyTemporaryVDCname: !ObjectUtil.isEmpty(this.nepaliData.representativeTemporaryMunicipality) ?
+            this.nepaliData.representativeTemporaryMunicipality : (!ObjectUtil.isEmpty(this.nepaliData.temporaryMunicipalities) ?
+                this.nepaliData.temporaryMunicipalities.nepaliName : ''),
+        sincerlyTemporaryWadNo: this.nepaliData.representativeTemporaryWard ? this.nepaliData.representativeTemporaryWard :
+            (this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : ''),
+        sincerlyParentName: this.nepaliData.representativeFatherName ? this.nepaliData.representativeFatherName :
+            (this.nepaliData.fatherName ? this.nepaliData.fatherName : ''),
+        sincerlyGrandParentName: this.nepaliData.representativeGrandFatherName ? this.nepaliData.representativeGrandFatherName :
+            (this.nepaliData.grandFatherName ? this.nepaliData.grandFatherName : ''),
+        spouseOrFatherName: this.nepaliData.representativeHusbandWifeName ? this.nepaliData.representativeHusbandWifeName :
+            (this.nepaliData.husbandName ? this.nepaliData.husbandName : ''),
+        sincerlyLekhaNo: this.nepaliData.panNo ? this.nepaliData.panNo :
+            (!ObjectUtil.isEmpty(this.initialInfoPrint) ? this.initialInfoPrint.sincerlyLekhaNo : ''),
+        sincerlyKarja: this.nepDataPersonal.loanType ? this.nepDataPersonal.loanType :
+            ( this.nepDataPersonal.loanType ? this.nepDataPersonal.loanType : ''),
       });
     }
     this.setGuarantorDetails(this.nepaliData.guarantorDetails);
@@ -207,6 +233,7 @@ export class BlacklistConsentComponent implements OnInit {
   guarantorFormGroup(): FormGroup {
     return this.formBuilder.group({
       jamanatName: [undefined],
+      companyPraName: [undefined],
       jamanatNPN: [undefined],
       jamanatDate: [undefined],
       jamanatJPK: [undefined],
@@ -222,6 +249,7 @@ export class BlacklistConsentComponent implements OnInit {
       jamanatParentName: [undefined],
       jamanatGrandParentName: [undefined],
       jamanatSpouseName: [undefined],
+      guarantorType: [undefined]
     });
   }
 
@@ -231,28 +259,46 @@ export class BlacklistConsentComponent implements OnInit {
       this.addGuarantor();
       return;
     }
-    data.forEach((value) => {
+    data.forEach((value, i) => {
       formArray.push(this.formBuilder.group({
-        jamanatName: [value.guarantorName],
-        jamanatNPN: [value.citizenNumber],
-        jamanatDate: [value.issuedYear],
-        jamanatJPK: [value.issuedPlace],
-        jamanatRegNo: [value.jamanatRegNo],
-        jamanatRegDate: [value.jamanatRegDate],
-        jamanatRegCDO: [value.jamanatRegCDO],
-        jamanatPermanentAddress: [ !ObjectUtil.isEmpty(value.guarantorPermanentDistrict) ?
-            value.guarantorPermanentDistrict.nepaliName : ''],
+        guarantorType : [!ObjectUtil.isEmpty(value.guarantorType) ? value.guarantorType : ''],
+        jamanatName: [!ObjectUtil.isEmpty(value.guarantorName) ? value.guarantorName :
+            (!ObjectUtil.isEmpty(value.companyNameGuarantor) ? value.companyNameGuarantor : '')],
+        companyPraName: [!ObjectUtil.isEmpty(value.representativeNameGuarantor) ? value.representativeNameGuarantor : ''],
+        jamanatNPN: [!ObjectUtil.isEmpty(value.citizenNumber) ? value.citizenNumber :
+            (!ObjectUtil.isEmpty(value.representativeCitizenshipNoGuarantor) ? value.representativeCitizenshipNoGuarantor : '')],
+        jamanatDate: [!ObjectUtil.isEmpty(value.issuedYear) ? value.issuedYear :
+            (!ObjectUtil.isEmpty(value.representativeCitizenshipIssueDateGuarantor) ?
+                value.representativeCitizenshipIssueDateGuarantor : '')],
+        jamanatJPK: [!ObjectUtil.isEmpty(value.issuedPlace) ? value.issuedPlace :
+            (!ObjectUtil.isEmpty(value.representativeCitizenshipIssuingAuthorityGuarantor) ?
+                value.representativeCitizenshipIssuingAuthorityGuarantor : '')],
+        jamanatRegNo: [!ObjectUtil.isEmpty(value.companyRegistrationNoGuarantor) ? value.companyRegistrationNoGuarantor : ''],
+        jamanatRegDate: [!ObjectUtil.isEmpty(value.registrationDateGuarantor) ? value.registrationDateGuarantor : ''],
+        jamanatRegCDO: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+            this.initialInfoPrint.guarantorDetails[i].jamanatRegCDO : ''],
+        jamanatPermanentAddress: [!ObjectUtil.isEmpty(value.guarantorPermanentDistrict) ?
+            value.guarantorPermanentDistrict.nepaliName :
+            (!ObjectUtil.isEmpty(value.representativePermanentDistrictGuarantor) ? value.representativePermanentDistrictGuarantor : '')],
         jamanatDistrict: [!ObjectUtil.isEmpty(value.guarantorPermanentMunicipality) ?
-            value.guarantorPermanentMunicipality.nepaliName : ''],
-        jamanatWadNo: [value.guarantorPermanentWard],
-        jamanatTemporaryAddress: [ !ObjectUtil.isEmpty(value.guarantorTemporaryDistrict) ?
-            value.guarantorTemporaryDistrict.nepaliName : ''],
+            value.guarantorPermanentMunicipality.nepaliName : (!ObjectUtil.isEmpty(value.representativePermanentMunicipalityGuarantor) ?
+                value.representativePermanentMunicipalityGuarantor : '')],
+        jamanatWadNo: [!ObjectUtil.isEmpty(value.guarantorPermanentWard) ? value.guarantorPermanentWard :
+            (!ObjectUtil.isEmpty(value.representativePermanentWardGuarantor) ? value.representativePermanentWardGuarantor : '')],
+        jamanatTemporaryAddress: [!ObjectUtil.isEmpty(value.guarantorTemporaryDistrict) ?
+            value.guarantorTemporaryDistrict.nepaliName :
+            (!ObjectUtil.isEmpty(value.representativeTemporaryDistrictGuarantor) ? value.representativeTemporaryDistrictGuarantor : '')],
         jamanatTemporaryDistrict: [!ObjectUtil.isEmpty(value.guarantorTemporaryMunicipality) ?
-            value.guarantorTemporaryMunicipality.nepaliName : ''],
-        jamanatTemporaryWadNo: [value.guarantorTemporaryWard],
-        jamanatParentName: [value.guarantorFatherName],
-        jamanatGrandParentName: [value.guarantorGrandfatherName],
-        jamanatSpouseName: [value.guarantorSpouseName],
+            value.guarantorTemporaryMunicipality.nepaliName : (!ObjectUtil.isEmpty(value.representativeTemporaryMunicipalityGuarantor) ?
+                value.representativeTemporaryMunicipalityGuarantor : '')],
+        jamanatTemporaryWadNo: [!ObjectUtil.isEmpty(value.guarantorTemporaryWard) ? value.guarantorTemporaryWard :
+            (!ObjectUtil.isEmpty(value.representativeTemporaryWardGuarantor) ? value.representativeTemporaryWardGuarantor : '')],
+        jamanatParentName: [!ObjectUtil.isEmpty(value.guarantorFatherName) ? value.guarantorFatherName :
+            (!ObjectUtil.isEmpty(value.representativeFatherNameGuarantor) ? value.representativeFatherNameGuarantor : '')],
+        jamanatGrandParentName: [!ObjectUtil.isEmpty(value.guarantorGrandfatherName) ? value.guarantorGrandfatherName :
+            (!ObjectUtil.isEmpty(value.representativeGrandFatherNameGuarantor) ? value.representativeGrandFatherNameGuarantor : '')],
+        jamanatSpouseName: [!ObjectUtil.isEmpty(value.guarantorSpouseName) ? value.guarantorSpouseName :
+            (!ObjectUtil.isEmpty(value.representativeHusbandWifeNameGuarantor) ? value.representativeHusbandWifeNameGuarantor : '')],
       }));
     });
   }
