@@ -143,6 +143,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
     detailOption: any;
     translatedFormGroup: FormGroup;
     guarantorTranslatedFormGroup: FormGroup;
+    shareHolderArray: Array<any> = new Array<any>();
 
     constructor(private formBuilder: FormBuilder,
                 private titleCasePipe: TitleCasePipe,
@@ -179,6 +180,13 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
     }
 
     ngOnInit() {
+        this.branchService.getBranchAccessByCurrentUser().subscribe((response: any) => {
+            this.branchList = response.detail;
+            this.branchList.sort((a, b) => a.name.localeCompare(b.name));
+        }, error => {
+            console.error(error);
+            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Branch!'));
+        });
         if (this.actionType !== 'Edit') {
             this.detailsOption(this.institutionSubType);
         } else if (!ObjectUtil.isEmpty(this.loanHolder)) {
@@ -234,13 +242,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
 
         this.translateObjectValue();
         this.userConfigForm.get('clientType').patchValue(this.customerType);
-        this.branchService.getBranchAccessByCurrentUser().subscribe((response: any) => {
-            this.branchList = response.detail;
-            this.branchList.sort((a, b) => a.name.localeCompare(b.name));
-        }, error => {
-            console.error(error);
-            this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Load Branch!'));
-        });
 
         if (!ObjectUtil.isEmpty(this.loanHolder) && !ObjectUtil.isEmpty(this.oneFormCustomer)) {
             this.nepData = (JSON.parse(this.loanHolder.nepData));
@@ -2045,6 +2046,9 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
             guarantorMaritalStatusCT: [undefined],
             guarantorMaritalStatusTrans: [undefined],
 
+            detailsEntered: [undefined],
+            detailsFrom: [undefined],
+
             nepData: [undefined],
 
         });
@@ -2144,26 +2148,26 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
 
                 permanentProvince: [ObjectUtil.isEmpty(value.province) ? undefined : value.province],
                 permanentProvinceCT: [ObjectUtil.isEmpty(nepaData.permanentProvince) ? undefined : nepaData.permanentProvince.ct],
-                permanentProvinceTrans: [ObjectUtil.isEmpty(nepaData.permanentProvince) ? undefined : nepaData.permanentProvince.en.nepaliName],
+                permanentProvinceTrans: [undefined],
                 permanentDistrict: [ObjectUtil.isEmpty(value.district) ? undefined : value.district],
                 permanentDistrictCT: [ObjectUtil.isEmpty(nepaData.permanentDistrict) ? undefined : nepaData.permanentDistrict.ct],
-                permanentDistrictTrans: [ObjectUtil.isEmpty(nepaData.permanentDistrict) ? undefined : nepaData.permanentDistrict.en.nepaliName],
+                permanentDistrictTrans: [undefined],
                 permanentMunicipality: [ObjectUtil.isEmpty(nepaData.permanentMunicipality) ? undefined : nepaData.permanentMunicipality.en],
                 permanentMunicipalityCT: [ObjectUtil.isEmpty(nepaData.permanentMunicipality) ? undefined : nepaData.permanentMunicipality.ct],
-                permanentMunicipalityTrans: [ObjectUtil.isEmpty(nepaData.permanentMunicipality) ? undefined : nepaData.permanentMunicipality.en.nepaliName],
+                permanentMunicipalityTrans: [undefined],
                 permanentWard: [ObjectUtil.isEmpty(nepaData.permanentWard) ? undefined : nepaData.permanentWard.en],
                 permanentWardCT: [ObjectUtil.isEmpty(nepaData.permanentWard) ? undefined : nepaData.permanentWard.ct],
                 permanentWardTrans: [ObjectUtil.isEmpty(nepaData.permanentWard) ? undefined : nepaData.permanentWard.np],
 
                 temporaryProvince: [ObjectUtil.isEmpty(value.provinceTemporary) ? undefined : value.provinceTemporary],
                 temporaryProvinceCT: [ObjectUtil.isEmpty(nepaData.temporaryProvince) ? undefined : nepaData.temporaryProvince.ct],
-                temporaryProvinceTrans: [ObjectUtil.isEmpty(nepaData.temporaryProvince) ? undefined : nepaData.temporaryProvince.en.nepaliName],
+                temporaryProvinceTrans: [undefined],
                 temporaryDistrict: [ObjectUtil.isEmpty(value.districtTemporary) ? undefined : value.districtTemporary],
                 temporaryDistrictCT: [ObjectUtil.isEmpty(nepaData.temporaryDistrict) ? undefined : nepaData.temporaryDistrict.ct],
-                temporaryDistrictTrans: [ObjectUtil.isEmpty(nepaData.temporaryDistrict) ? undefined : nepaData.temporaryDistrict.en.nepaliName],
+                temporaryDistrictTrans: [undefined],
                 temporaryMunicipality: [ObjectUtil.isEmpty(value.municipalitiesTemporary) ? undefined : value.municipalitiesTemporary],
                 temporaryMunicipalityCT: [ObjectUtil.isEmpty(nepaData.temporaryMunicipality) ? undefined : nepaData.temporaryMunicipality.ct],
-                temporaryMunicipalityTrans: [ObjectUtil.isEmpty(nepaData.temporaryMunicipality) ? undefined : nepaData.temporaryMunicipality.en.nepaliName],
+                temporaryMunicipalityTrans: [undefined],
                 temporaryWard: [ObjectUtil.isEmpty(nepaData.temporaryWard) ? undefined : nepaData.temporaryWard.en],
                 temporaryWardCT: [ObjectUtil.isEmpty(nepaData.temporaryWard) ? undefined : nepaData.temporaryWard.ct],
                 temporaryWardTrans: [ObjectUtil.isEmpty(nepaData.temporaryWard) ? undefined : nepaData.temporaryWard.np],
@@ -4916,61 +4920,104 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
             let ownerTranslatedData: any = [];
             this.spinner = true;
             this.translatedFormGroup = this.formBuilder.group({
-                ownerName: this.userConfigForm.get(['ownerDetails', i, 'ownerName']).value,
-                isAuthorizedPerson: this.userConfigForm.get(['ownerDetails', i, 'isAuthorizedPerson']).value,
-                ownerEmail: this.userConfigForm.get(['ownerDetails', i, 'ownerEmail']).value,
-                ownerContactNo: this.userConfigForm.get(['ownerDetails', i, 'ownerContactNo']).value,
-                ownerGender: this.userConfigForm.get(['ownerDetails', i, 'ownerGender']).value,
-                ownerMaritalStatus: this.userConfigForm.get(['ownerDetails', i, 'ownerMaritalStatus']).value,
-                ownerCitizenshipNo: this.userConfigForm.get(['ownerDetails', i, 'ownerCitizenshipNo']).value,
-                radioOwnerCitizenshipIssuedDate: this.userConfigForm.get(['ownerDetails', i, 'radioOwnerCitizenshipIssuedDate']).value,
-                ownerPanNo: this.userConfigForm.get(['ownerDetails', i, 'ownerPanNo']).value,
-                ownerSharePercentage: this.userConfigForm.get(['ownerDetails', i, 'ownerSharePercentage']).value,
-                radioOwnerDob: this.userConfigForm.get(['ownerDetails', i, 'radioOwnerDob']).value,
-                foreignAddressOption: this.userConfigForm.get(['ownerDetails', i, 'foreignAddressOption']).value,
-                foreignAddressOptionTemp: this.userConfigForm.get(['ownerDetails', i, 'foreignAddressOptionTemp']).value,
-                ownerOtherAddress: this.userConfigForm.get(['ownerDetails', i, 'ownerOtherAddress']).value,
-                ownerOtherAddressTemp: this.userConfigForm.get(['ownerDetails', i, 'ownerOtherAddressTemp']).value,
+                ownerName: this.userConfigForm.get(['ownerDetails', i, 'ownerName']).value ?
+                    this.userConfigForm.get(['ownerDetails', i, 'ownerName']).value : '',
+                isAuthorizedPerson: this.userConfigForm.get(['ownerDetails', i, 'isAuthorizedPerson']).value ?
+                    this.userConfigForm.get(['ownerDetails', i, 'isAuthorizedPerson']).value : '',
+                ownerEmail: this.userConfigForm.get(['ownerDetails', i, 'ownerEmail']).value ?
+                    this.userConfigForm.get(['ownerDetails', i, 'ownerEmail']).value : '',
+                ownerContactNo: this.userConfigForm.get(['ownerDetails', i, 'ownerContactNo']).value ?
+                    this.userConfigForm.get(['ownerDetails', i, 'ownerContactNo']).value : '',
+                ownerGender: this.userConfigForm.get(['ownerDetails', i, 'ownerGender']).value ?
+                    this.userConfigForm.get(['ownerDetails', i, 'ownerGender']).value : '',
+                ownerMaritalStatus: this.userConfigForm.get(['ownerDetails', i, 'ownerMaritalStatus']).value ?
+                    this.userConfigForm.get(['ownerDetails', i, 'ownerMaritalStatus']).value : '',
+                ownerCitizenshipNo: this.userConfigForm.get(['ownerDetails', i, 'ownerCitizenshipNo']).value ?
+                    this.userConfigForm.get(['ownerDetails', i, 'ownerCitizenshipNo']).value : '',
+                radioOwnerCitizenshipIssuedDate: this.userConfigForm.get(['ownerDetails', i, 'radioOwnerCitizenshipIssuedDate']).value ?
+                    this.userConfigForm.get(['ownerDetails', i, 'radioOwnerCitizenshipIssuedDate']).value : '',
+                ownerPanNo: this.userConfigForm.get(['ownerDetails', i, 'ownerPanNo']).value ?
+                    this.userConfigForm.get(['ownerDetails', i, 'ownerPanNo']).value : '',
+                ownerSharePercentage: this.userConfigForm.get(['ownerDetails', i, 'ownerSharePercentage']).value ?
+                    this.userConfigForm.get(['ownerDetails', i, 'ownerSharePercentage']).value : '',
+                radioOwnerDob: this.userConfigForm.get(['ownerDetails', i, 'radioOwnerDob']).value ?
+                    this.userConfigForm.get(['ownerDetails', i, 'radioOwnerDob']).value : '',
+                foreignAddressOption: this.userConfigForm.get(['ownerDetails', i, 'foreignAddressOption']).value ?
+                    this.userConfigForm.get(['ownerDetails', i, 'foreignAddressOption']).value : '',
+                foreignAddressOptionTemp: this.userConfigForm.get(['ownerDetails', i, 'foreignAddressOptionTemp']).value ?
+                    this.userConfigForm.get(['ownerDetails', i, 'foreignAddressOptionTemp']).value : '',
+                ownerOtherAddress: this.userConfigForm.get(['ownerDetails', i, 'ownerOtherAddress']).value ?
+                    this.userConfigForm.get(['ownerDetails', i, 'ownerOtherAddress']).value : '',
+                ownerOtherAddressTemp: this.userConfigForm.get(['ownerDetails', i, 'ownerOtherAddressTemp']).value ?
+                    this.userConfigForm.get(['ownerDetails', i, 'ownerOtherAddressTemp']).value : '',
 
-                ownerFatherName: this.userConfigForm.get(['ownerDetails', i, 'ownerFatherName']).value,
-                ownerGrandFatherName: this.userConfigForm.get(['ownerDetails', i, 'ownerGrandFatherName']).value,
-                ownerFatherInLawName: this.userConfigForm.get(['ownerDetails', i, 'ownerFatherInLawName']).value,
-                ownerHusbandName: this.userConfigForm.get(['ownerDetails', i, 'ownerHusbandName']).value,
-                ownerRelationMedium: this.userConfigForm.get(['ownerDetails', i, 'ownerRelationMedium']).value,
-                ownerDobDateType: this.userConfigForm.get(['ownerDetails', i, 'ownerDobDateType']).value,
+                ownerFatherName: this.userConfigForm.get(['ownerDetails', i, 'ownerFatherName']).value ?
+                    this.userConfigForm.get(['ownerDetails', i, 'ownerFatherName']).value : '',
+                ownerGrandFatherName: this.userConfigForm.get(['ownerDetails', i, 'ownerGrandFatherName']).value ?
+                    this.userConfigForm.get(['ownerDetails', i, 'ownerGrandFatherName']).value : '',
+                ownerFatherInLawName: this.userConfigForm.get(['ownerDetails', i, 'ownerFatherInLawName']).value ?
+                    this.userConfigForm.get(['ownerDetails', i, 'ownerFatherInLawName']).value : '',
+                ownerHusbandName: this.userConfigForm.get(['ownerDetails', i, 'ownerHusbandName']).value ?
+                    this.userConfigForm.get(['ownerDetails', i, 'ownerHusbandName']).value : '',
+                ownerRelationMedium: this.userConfigForm.get(['ownerDetails', i, 'ownerRelationMedium']).value ?
+                    this.userConfigForm.get(['ownerDetails', i, 'ownerRelationMedium']).value : '',
+                ownerDobDateType: this.userConfigForm.get(['ownerDetails', i, 'ownerDobDateType']).value ?
+                    this.userConfigForm.get(['ownerDetails', i, 'ownerDobDateType']).value : '',
 
-                ownerPermanentWardNo: this.userConfigForm.get(['ownerDetails', i, 'ownerPermanentWardNo']).value,
-                ownerPermanentStreetTole: this.userConfigForm.get(['ownerDetails', i, 'ownerPermanentStreetTole']).value,
+                ownerPermanentWardNo: this.userConfigForm.get(['ownerDetails', i, 'ownerPermanentWardNo']).value ?
+                    this.userConfigForm.get(['ownerDetails', i, 'ownerPermanentWardNo']).value : '',
+                ownerPermanentStreetTole: this.userConfigForm.get(['ownerDetails', i, 'ownerPermanentStreetTole']).value ?
+                    this.userConfigForm.get(['ownerDetails', i, 'ownerPermanentStreetTole']).value : '',
 
-                ownerTemporaryWardNo: this.userConfigForm.get(['ownerDetails', i, 'ownerTemporaryWardNo']).value,
-                ownerTemporaryStreetTole: this.userConfigForm.get(['ownerDetails', i, 'ownerTemporaryStreetTole']).value,
+                ownerTemporaryWardNo: this.userConfigForm.get(['ownerDetails', i, 'ownerTemporaryWardNo']).value ?
+                    this.userConfigForm.get(['ownerDetails', i, 'ownerTemporaryWardNo']).value : '',
+                ownerTemporaryStreetTole: this.userConfigForm.get(['ownerDetails', i, 'ownerTemporaryStreetTole']).value ?
+                    this.userConfigForm.get(['ownerDetails', i, 'ownerTemporaryStreetTole']).value : '',
 
-                ownerPermanentAddressRadio: this.userConfigForm.get(['ownerDetails', i, 'ownerPermanentAddressRadio']).value,
-                ownerTemporaryAddressRadio: this.userConfigForm.get(['ownerDetails', i, 'ownerTemporaryAddressRadio']).value,
+                ownerPermanentAddressRadio: this.userConfigForm.get(['ownerDetails', i, 'ownerPermanentAddressRadio']).value ?
+                    this.userConfigForm.get(['ownerDetails', i, 'ownerPermanentAddressRadio']).value : '',
+                ownerTemporaryAddressRadio: this.userConfigForm.get(['ownerDetails', i, 'ownerTemporaryAddressRadio']).value ?
+                    this.userConfigForm.get(['ownerDetails', i, 'ownerTemporaryAddressRadio']).value : '',
 
-                ownerNationality: this.userConfigForm.get(['ownerDetails', i, 'ownerNationality']).value,
-                indianOwnerDetailOption: this.userConfigForm.get(['ownerDetails', i, 'indianOwnerDetailOption']).value,
-                indianEmbassyNo: this.userConfigForm.get(['ownerDetails', i, 'indianEmbassyNo']).value,
+                ownerNationality: this.userConfigForm.get(['ownerDetails', i, 'ownerNationality']).value ?
+                    this.userConfigForm.get(['ownerDetails', i, 'ownerNationality']).value : '',
+                indianOwnerDetailOption: this.userConfigForm.get(['ownerDetails', i, 'indianOwnerDetailOption']).value ?
+                    this.userConfigForm.get(['ownerDetails', i, 'indianOwnerDetailOption']).value : '',
+                indianEmbassyNo: this.userConfigForm.get(['ownerDetails', i, 'indianEmbassyNo']).value ?
+                    this.userConfigForm.get(['ownerDetails', i, 'indianEmbassyNo']).value : '',
 
-                indianEmbassyIssuedFrom: this.userConfigForm.get(['ownerDetails', i, 'indianEmbassyIssuedFrom']).value,
-                indianEmbassyIssuedDateOption: this.userConfigForm.get(['ownerDetails', i, 'indianEmbassyIssuedDateOption']).value,
+                indianEmbassyIssuedFrom: this.userConfigForm.get(['ownerDetails', i, 'indianEmbassyIssuedFrom']).value ?
+                    this.userConfigForm.get(['ownerDetails', i, 'indianEmbassyIssuedFrom']).value : '',
+                indianEmbassyIssuedDateOption: this.userConfigForm.get(['ownerDetails', i, 'indianEmbassyIssuedDateOption']).value ?
+                    this.userConfigForm.get(['ownerDetails', i, 'indianEmbassyIssuedDateOption']).value : '',
 
-                indianOwnerPassportNo: this.userConfigForm.get(['ownerDetails', i, 'indianOwnerPassportNo']).value,
+                indianOwnerPassportNo: this.userConfigForm.get(['ownerDetails', i, 'indianOwnerPassportNo']).value ?
+                    this.userConfigForm.get(['ownerDetails', i, 'indianOwnerPassportNo']).value : '',
 
-                indianOwnerPassportIssuedDateOption: this.userConfigForm.get(['ownerDetails', i, 'indianOwnerPassportIssuedDateOption']).value,
-                indianOwnerPassportValidityDateOption: this.userConfigForm.get(['ownerDetails', i, 'indianOwnerPassportValidityDateOption']).value,
-                indianOwnerPassportIssuedFrom: this.userConfigForm.get(['ownerDetails', i, 'indianOwnerPassportIssuedFrom']).value,
+                indianOwnerPassportIssuedDateOption: this.userConfigForm.get(['ownerDetails', i, 'indianOwnerPassportIssuedDateOption']).value ?
+                    this.userConfigForm.get(['ownerDetails', i, 'indianOwnerPassportIssuedDateOption']).value : '',
+                indianOwnerPassportValidityDateOption: this.userConfigForm.get(['ownerDetails', i, 'indianOwnerPassportValidityDateOption']).value ?
+                    this.userConfigForm.get(['ownerDetails', i, 'indianOwnerPassportValidityDateOption']).value : '',
+                indianOwnerPassportIssuedFrom: this.userConfigForm.get(['ownerDetails', i, 'indianOwnerPassportIssuedFrom']).value ?
+                    this.userConfigForm.get(['ownerDetails', i, 'indianOwnerPassportIssuedFrom']).value : '',
 
-                indianOwnerAdharCardNo: this.userConfigForm.get(['ownerDetails', i, 'indianOwnerAdharCardNo']).value,
+                indianOwnerAdharCardNo: this.userConfigForm.get(['ownerDetails', i, 'indianOwnerAdharCardNo']).value ?
+                    this.userConfigForm.get(['ownerDetails', i, 'indianOwnerAdharCardNo']).value : '',
 
-                indianOwnerAdharCardIssuedDateOption: this.userConfigForm.get(['ownerDetails', i, 'indianOwnerAdharCardIssuedDateOption']).value,
-                indianOwnerAdharCardIssuedFrom: this.userConfigForm.get(['ownerDetails', i, 'indianOwnerAdharCardIssuedFrom']).value,
+                indianOwnerAdharCardIssuedDateOption: this.userConfigForm.get(['ownerDetails', i, 'indianOwnerAdharCardIssuedDateOption']).value ?
+                    this.userConfigForm.get(['ownerDetails', i, 'indianOwnerAdharCardIssuedDateOption']).value : '',
+                indianOwnerAdharCardIssuedFrom: this.userConfigForm.get(['ownerDetails', i, 'indianOwnerAdharCardIssuedFrom']).value ?
+                    this.userConfigForm.get(['ownerDetails', i, 'indianOwnerAdharCardIssuedFrom']).value : '',
 
-                otherOwnerPassportNo: this.userConfigForm.get(['ownerDetails', i, 'otherOwnerPassportNo']).value,
-                otherOwnerPassportIssuedDateOption: this.userConfigForm.get(['ownerDetails', i, 'otherOwnerPassportIssuedDateOption']).value,
+                otherOwnerPassportNo: this.userConfigForm.get(['ownerDetails', i, 'otherOwnerPassportNo']).value ?
+                    this.userConfigForm.get(['ownerDetails', i, 'otherOwnerPassportNo']).value : '',
+                otherOwnerPassportIssuedDateOption: this.userConfigForm.get(['ownerDetails', i, 'otherOwnerPassportIssuedDateOption']).value ?
+                    this.userConfigForm.get(['ownerDetails', i, 'otherOwnerPassportIssuedDateOption']).value : '',
 
-                otherOwnerPassportValidityDateOption: this.userConfigForm.get(['ownerDetails', i, 'otherOwnerPassportValidityDateOption']).value,
-                otherOwnerPassportIssuedFrom: this.userConfigForm.get(['ownerDetails', i, 'otherOwnerPassportIssuedFrom']).value,
+                otherOwnerPassportValidityDateOption: this.userConfigForm.get(['ownerDetails', i, 'otherOwnerPassportValidityDateOption']).value ?
+                    this.userConfigForm.get(['ownerDetails', i, 'otherOwnerPassportValidityDateOption']).value : '',
+                otherOwnerPassportIssuedFrom: this.userConfigForm.get(['ownerDetails', i, 'otherOwnerPassportIssuedFrom']).value ?
+                    this.userConfigForm.get(['ownerDetails', i, 'otherOwnerPassportIssuedFrom']).value : '',
             });
             // ownerTranslatedData = await this.translateService.translateForm(this.userConfigForm, 'ownerDetails', i);
             ownerTranslatedData = await this.translateService.translateForm(this.translatedFormGroup);
@@ -5332,6 +5379,12 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
     accept() {
         this.modalService.dismissAll();
         this.dialogRef.close();
+    }
+    setDetailsEntered(event, i) {
+        console.log('Event:', event);
+        console.log('User Config Form:', this.userConfigForm.get('ownerDetails').value);
+        this.shareHolderArray = this.userConfigForm.get('ownerDetails').value;
+        console.log('Share Holder Array:', this.shareHolderArray);
     }
 
 }

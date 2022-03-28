@@ -2835,6 +2835,24 @@
                 <td> <input  class="form-control" type="text"
                             formControlName="guarantorTypeCT" readonly/></td>
               </tr>
+              <tr *ngIf="userConfigForm.get(['guarantorDetails', i, 'guarantorType']).value !== null
+              && configForm?.clientType?.value == clientType.INSTITUTION">
+                <td></td>
+                <td>
+                  <nb-checkbox formControlName="detailsEntered"
+                               name="detailsEntered"
+                               (change)="setDetailsEntered($event, i)">
+                    <i>Check if Details already entered!</i></nb-checkbox>
+                </td>
+                <td *ngIf="userConfigForm.get(['guarantorDetails', i, 'detailsEntered']).value">
+                  <select required="true" class="form-control"
+                          formControlName="detailsFrom">
+                    <option  value="null" hidden>Name List</option>
+                    <nb-option *ngFor="let owner of shareHolderArray"
+                               [value]="owner.ownerName"> {{owner.ownerName.toUpperCase()}}</nb-option>
+                  </select>
+                </td>
+              </tr>
               <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL">
                 <td>
                   <label class="title">{{i + 1}}. Guarantor Name</label>
