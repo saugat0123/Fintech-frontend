@@ -461,7 +461,6 @@ export class SecurityInitialFormComponent implements OnInit {
             landDetails.push(
                 this.formBuilder.group({
                     owner: [singleData.owner],
-                    ownerNepali: [singleData.ownerNepali],
                     location: [singleData.location],
                     plotNumber: [singleData.plotNumber],
                     areaFormat: [singleData.areaFormat],
@@ -1320,7 +1319,6 @@ export class SecurityInitialFormComponent implements OnInit {
     landDetailsFormGroup(): FormGroup {
         return this.formBuilder.group({
             owner: ['', Validators.required],
-            ownerNepali: ['', Validators.required],
             location: [''],
             plotNumber: [''],
             areaFormat: [''],

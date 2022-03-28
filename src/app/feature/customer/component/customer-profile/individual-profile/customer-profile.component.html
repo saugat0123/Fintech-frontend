@@ -473,9 +473,12 @@
                         *ngIf="customerInfo &&  isEditable"
                         [customerInfoId]="customerInfoId"
                         [isMicroCustomer]="customer?.isMicroCustomer"
+                        [fromProfile]="false"
                         [customerInfo]="customerInfo"></app-customer-loan-information>
                 <app-customer-loan-information-view *ngIf=" !isEditable"
                                                     [customerInfo]="customerInfo"
+                                                    [customerType]="customerType"
+                                                    [fromProfile]="true"
                                                     [isMicroCustomer]="customer?.isMicroCustomer"></app-customer-loan-information-view>
             </div>
         </div>
