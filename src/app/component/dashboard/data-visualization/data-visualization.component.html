@@ -39,7 +39,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div *ngIf="!pieChart || pieChart.length <= 0" class="sb-no-data-info">
-                                <nb-alert status="info">No data available for pie chart.</nb-alert>
+                                <nb-alert status="info" class="sb-bg-dark">No data available for pie chart.</nb-alert>
                         </div>
                         <div id="pie" *ngIf="pieChart && pieChart.length > 0">
                             <ngx-charts-advanced-pie-chart [view]="view" [scheme]="colorScheme" [results]="pieChart">
@@ -176,7 +176,7 @@
                 <div class="row">
                     <div class="col-md-12 sb-bar-chart-container">
                             <div *ngIf="!barChartData || barChartData.length <= 0" class="sb-no-data-info">
-                                    <nb-alert status="info">No data available for bar chart.</nb-alert>
+                                    <nb-alert status="info" class="sb-bg-dark">No data available for bar chart.</nb-alert>
                             </div>
                         <div id="pie" *ngIf="barChartData && barChartData.length > 0">
                             <app-bar-chart [data]="barChartData" [width]="workingWidth"></app-bar-chart>
