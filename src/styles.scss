@@ -13,8 +13,8 @@
 //$color-bank-dark: #D3A22C;
 
 //sb solution
-$color-bank: #f9ff1b;
-$color-bank-dark: #007bff;
+$color-bank: #6f2b90;
+$color-bank-dark: #015a23;
 
 .bank-hr {
   height: 1px;
@@ -99,7 +99,7 @@ $color-bank-dark: #007bff;
 }
 
 .sb-bg-dark {
-  background-color: #0E63AE !important;
+  background-color: #6f2b90 !important;
 }
 .f-18{
   font-size: 18px;
@@ -127,7 +127,7 @@ input[type=number] {
 }
 
 .sb-bg-secondary {
-  background-color: #6EB1DF !important;
+  background-color: #rgb(93 151 115) !important;
 }
 /* shake keyframes */
 @keyframes shake {
