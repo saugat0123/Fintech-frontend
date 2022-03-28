@@ -67,9 +67,9 @@ export class LoanDeedComponent implements OnInit {
                                 this.removeSecurity(i);
                         });
                     } else {*/
-                    if (!ObjectUtil.isEmpty(initialInfo.security)) {
+                    /*if (!ObjectUtil.isEmpty(initialInfo.security)) {
                         this.setSecurity(initialInfo.security);
-                    }
+                    }*/
                 //}
                     this.form.patchValue(this.initialInfoPrint);
                     //this.setGuarantors(initialInfo.guarantorDetails);
@@ -79,7 +79,6 @@ export class LoanDeedComponent implements OnInit {
 
         const loanAmount = JSON.parse(this.cadData.nepData);
         if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
-
             this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
             this.nepDataPersonal = JSON.parse(this.cadData.nepDataPersonal);
             this.form.patchValue({
@@ -112,18 +111,20 @@ export class LoanDeedComponent implements OnInit {
         this.form.get(['swikritiBibaran', 0, 'serviceFeePercent']).patchValue(this.nepDataPersonal.serviceFeePercent);
         this.form.get(['swikritiBibaran', 0, 'tenureOfLoanInYears']).patchValue(this.nepDataPersonal.tenureOfLoanInYears);
 
-        this.nepaliData.collateralDetails.forEach((value, i) => {
+        this.setSecurity(this.nepaliData.collateralDetails);
+
+       /* this.nepaliData.collateralDetails.forEach((value, i) => {
             try {
                 this.setSecurityDetails(value, i);
             } catch (error) {
                 this.addSecurity();
                 this.setSecurityDetails(value, i);
             }
-        });
+        });*/
 
     }
 
-    setSecurityDetails(value, i) {
+    /*setSecurityDetails(value, i) {
         this.form.get(['security', i, 'SecuritiesOwnerName']).patchValue(value.collateralName);
         this.form.get(['security', i, 'SecuritiesDistrict']).patchValue(value.collateralDistrict);
         this.form.get(['security', i, 'SecuritiesMunicipality']).patchValue(value.collateralMunVdcOriginal);
@@ -141,7 +142,7 @@ export class LoanDeedComponent implements OnInit {
         this.form.get(['security', i, 'SecuritiesKeyNo']).patchValue(null);
         this.form.get(['security', i, 'SecuritiesArea']).patchValue(null);
         this.form.get(['security', i, 'SecuritiesRegNo']).patchValue(null);
-    }
+    }*/
 
     setSwikriti(data) {
         const formArray = this.form.get('swikritiBibaran') as FormArray;
@@ -169,7 +170,6 @@ export class LoanDeedComponent implements OnInit {
         }
         data.forEach((value) => {
             formArray.push(this.formBuilder.group({
-                SecuritiesSN: [value.SecuritiesSN],
                 SecuritiesSNBibaran: [value.dhitoBibaran],
                 SecuritiesDistrict: [value.collateralDistrict],
                 SecuritiesMunicipality: [value.collateralMunVdcOriginal],
@@ -281,7 +281,6 @@ export class LoanDeedComponent implements OnInit {
             itiSambatDate: [undefined],
             itiSambatTime: [undefined],
             itiSambatRoj: [undefined],
-            SecuritiesSN: [undefined],
             sthit: [undefined],
             staDistrict: [undefined],
             guarantorDetails: this.formBuilder.array([]),
@@ -301,7 +300,7 @@ export class LoanDeedComponent implements OnInit {
             witnessIssuedPlace1: [undefined],
             witnessMunicipality1: [undefined],
             witnessWardNo1: [undefined],
-            likhat :[undefined]
+            likhat: [undefined]
         });
     }
 
@@ -318,7 +317,6 @@ export class LoanDeedComponent implements OnInit {
 
     securityFormGroup(): FormGroup {
         return this.formBuilder.group({
-            SecuritiesSN: [undefined],
             SecuritiesSNBibaran: [undefined],
             SecuritiesDistrict: [undefined],
             SecuritiesMunicipality: [undefined],
