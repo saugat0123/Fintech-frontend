@@ -89,6 +89,7 @@ import { UptoDisbursementModalityComponent } from './sme-loan-summary/upto-ten-m
 import { UptoRepaymentModalityComponent } from './sme-loan-summary/upto-ten-million/upto-repayment-modality/upto-repayment-modality.component';
 import { NtaStatementAndInspectionComponent } from './sme-loan-summary/upto-ten-million/nta-statement-and-inspection/nta-statement-and-inspection.component';
 import { WaiverDeviationsAndDeferralComponent } from './sme-loan-summary/upto-ten-million/waiver-deviations-and-deferral/waiver-deviations-and-deferral.component';
+import { UptoCurrentStatusAndPresentProposalComponent } from './sme-loan-summary/upto-ten-million/upto-current-status-and-present-proposal/upto-current-status-and-present-proposal.component';
 
 
 const COMPONENTS = [
@@ -205,6 +206,7 @@ const ENTRY_COMPONENTS = [ApprovalSheetInfoComponent];
     UptoRepaymentModalityComponent,
     NtaStatementAndInspectionComponent,
     WaiverDeviationsAndDeferralComponent,
+    UptoCurrentStatusAndPresentProposalComponent,
   ],
   imports: [
     CommonModule,
