@@ -1,5 +1,5 @@
-import {Component, Input, OnInit, ViewEncapsulation} from '@angular/core';
-import {ProgressiveLegalDocConst} from "../../progressive-legal-doc-const";
+import {Component, Input, OnInit} from '@angular/core';
+import {ProgressiveLegalDocConst} from '../../progressive-legal-doc-const';
 
 @Component({
   selector: 'app-blacklist-consent-print',
@@ -8,7 +8,12 @@ import {ProgressiveLegalDocConst} from "../../progressive-legal-doc-const";
 })
 export class BlacklistConsentPrintComponent implements OnInit {
   @Input() printDocForm;
-  offerLetterConst = ProgressiveLegalDocConst;  constructor() { }
+  @Input() loanCat;
+  offerLetterConst = ProgressiveLegalDocConst;
+
+  constructor() {
+  }
+
   ngOnInit() {
   }
 
