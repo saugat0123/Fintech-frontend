@@ -640,7 +640,12 @@ export class CompanyFormComponent implements OnInit {
                 || ObjectUtil.isEmpty(this.companyJsonData.irdReport)) ? undefined :
                 this.companyJsonData.irdReport],
             accountDetails: this.formBuilder.array([]),
-
+            branchAddress: [(ObjectUtil.isEmpty(this.companyJsonData)
+                || ObjectUtil.isEmpty(this.companyJsonData.branchAddress)) ? undefined :
+                this.companyJsonData.branchAddress],
+            warehouseAddress: [(ObjectUtil.isEmpty(this.companyJsonData)
+                || ObjectUtil.isEmpty(this.companyJsonData.warehouseAddress)) ? undefined :
+                this.companyJsonData.warehouseAddress]
         });
         if (!this.additionalFieldSelected) {
             this.companyInfoFormGroup.get('additionalCompanyInfo').disable();
@@ -950,11 +955,14 @@ export class CompanyFormComponent implements OnInit {
 
         this.companyLocation.onSubmit();
         this.companyProjectLocation.onSubmit();
-        this.companyCorrespondenceLocation.onSubmit();
+        // this.companyCorrespondenceLocation.onSubmit();
+        // if (this.companyInfoFormGroup.invalid ||
+        //     ((this.disableCrgAlpha || this.microCustomer) ? false : this.bankingRelationComponent.bankingRelationForm.invalid)
+        //     || this.companyLocation.addressForm.invalid || this.companyProjectLocation.addressForm.invalid
+        //     || this.companyCorrespondenceLocation.addressForm.invalid) {
         if (this.companyInfoFormGroup.invalid ||
             ((this.disableCrgAlpha || this.microCustomer) ? false : this.bankingRelationComponent.bankingRelationForm.invalid)
-            || this.companyLocation.addressForm.invalid || this.companyProjectLocation.addressForm.invalid
-            || this.companyCorrespondenceLocation.addressForm.invalid) {
+            || this.companyLocation.addressForm.invalid || this.companyProjectLocation.addressForm.invalid) {
             this.spinner = false;
             this.toastService.show(new Alert(AlertType.WARNING, 'Check Validation'));
             this.scrollToFirstInvalidControl();
@@ -1032,7 +1040,7 @@ export class CompanyFormComponent implements OnInit {
         this.locations.version = this.companyInfoFormGroup.get('locationVersion').value;
         this.locations.address = JSON.stringify(this.companyLocation.submitData);
         this.locations.projectAddress = JSON.stringify(this.companyProjectLocation.submitData);
-        this.locations.correspondenceAddress = JSON.stringify(this.companyCorrespondenceLocation.submitData);
+        // this.locations.correspondenceAddress = JSON.stringify(this.companyCorrespondenceLocation.submitData);
         this.locations.houseNumber = this.companyInfoFormGroup.get('houseNumber').value;
         this.locations.streetName = this.companyInfoFormGroup.get('streetName').value;
         this.companyInfo.companyLocations = this.locations;

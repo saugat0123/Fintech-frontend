@@ -30,4 +30,6 @@ export class CompanyJsonData {
   relationshipSinceWithCustomer: string = undefined;
   irdReport: string;
   accountDetails: any;
+  branchAddress: string = undefined;
+  warehouseAddress: string = undefined;
 }
