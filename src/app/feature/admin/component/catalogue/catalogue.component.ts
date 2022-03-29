@@ -687,6 +687,7 @@ export class CatalogueComponent implements OnInit {
     }
 
     revertApproveLoan(data) {
+        console.log('data', data);
         if (data.loan.loanTag === 'REMIT_LOAN' && data.loan.isRemitLoan) {
             this.isRemitLoan = true;
         }
@@ -694,7 +695,7 @@ export class CatalogueComponent implements OnInit {
             this.beneficiaryId = data.remitCustomer.beneficiaryId;
         }
         let context;
-        if (data.isHsov && data.documentStatus.toString() !== DocStatus.value(DocStatus.HSOV_PENDING)) {
+        if (data.isHsov) {
             context = {
                 popUpTitle: 'Revert Approved Loan',
                 isForward: false,
@@ -709,7 +710,7 @@ export class CatalogueComponent implements OnInit {
                 beneficiaryId: this.beneficiaryId,
                 toUser: data.currentStage.toUser
             };
-        } else if (data.dualApproval && !data.dualApproved) {
+        } else if (data.dualApproval && data.dualApproved) {
             context = {
                 popUpTitle: 'Revert Approved Loan',
                 isForward: false,
