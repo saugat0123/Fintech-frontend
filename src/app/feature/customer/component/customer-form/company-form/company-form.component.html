@@ -1444,26 +1444,32 @@
                            </div>
                        </div>
                        <!--sister concern starts-->
-                       <ng-container *ngIf="microCustomerType != 'DIRECT'">
-                           <div>
-                               <h5>6.1. Sister Concern</h5>
-                           </div>
-                           <div class="row">
-                               <div class="col-md-6">
-                                   <div class="form-group">
-                                       <label for="sisterConcern"><strong></strong></label>
-                                       <input id="sisterConcern" formControlName="sisterConcern" name="sisterConcern" type="text"
-                                              class="form-control" placeholder="Sister Concern"/>
-                                       <!--                                   <div *ngIf="(submitted) && form.sisterConcern.invalid"-->
-                                       <!--                                        class="invalid-feedback">-->
-                                       <!--                                       <div *ngIf="form.sisterConcern.errors.required">-->
-                                       <!--                                           Sister Concern is required-->
-                                       <!--                                       </div>-->
-                                       <!--                                   </div>-->
-                                   </div>
-                               </div>
-                           </div>
-                       </ng-container>
+                        <ng-container *ngIf="microCustomerType != 'DIRECT'">
+                            <div>
+                                <h5>6.1. Sister Concern</h5>
+                            </div>
+                            <div *ngFor="let sis of companyInfoFormGroup?.get('sisterConcern')['controls']; let i = index"
+                                 formArrayName="sisterConcern" class="col-md-4">
+                                <div [formGroupName]="i" class="form-group">
+                                    <input formControlName="sisterCon"
+                                           class="form-control"
+                                           type="text"
+                                           placeholder="Sister Concern"/>
+                                    <div class="mt-2">
+                                        <button (click)="removeSisterConcern(i)"
+                                                *ngIf="companyInfoFormGroup?.get('sisterConcern')['length'] > 1"
+                                                nbButton size="small"
+                                                status="primary">
+                                            <nb-icon icon="trash-outline"></nb-icon>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <button (click)="addSisterConcern()"
+                                    nbButton status="primary" size="small"
+                                    value="Add More">Add
+                            </button>
+                        </ng-container>
                        <hr>
                        <div class="box-header with-border">
                            <h5 class="box-title title">7. Management Team</h5>

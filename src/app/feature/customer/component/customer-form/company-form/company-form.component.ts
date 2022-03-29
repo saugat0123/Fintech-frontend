@@ -307,6 +307,11 @@ export class CompanyFormComponent implements OnInit {
         } else {
             this.addAccountNumber();
         }
+        if (!ObjectUtil.isEmpty(this.companyInfo)) {
+            this.setSisterConcern(this.companyJsonData.sisterConcern);
+        } else {
+            this.addSisterConcern();
+        }
     }
 
     buildForm() {
@@ -520,9 +525,7 @@ export class CompanyFormComponent implements OnInit {
                 this.companyJsonData.rawMaterialAvailability],
 
             // Sister concert
-            sisterConcern: [ObjectUtil.isEmpty(this.companyJsonData) ? undefined :
-                this.companyJsonData.sisterConcern],
-
+            sisterConcern: this.formBuilder.array([]),
             // company background
             companyBackground: [ObjectUtil.isEmpty(this.companyJsonData) ? undefined :
                 this.companyJsonData.companyBackground, Validators.required],
@@ -1116,6 +1119,7 @@ export class CompanyFormComponent implements OnInit {
         /** Market Scenario detail */
         submitData.marketScenario = this.marketScenarioComponent.submitData;
         submitData.managementTeamList = this.companyInfoFormGroup.get('managementTeams').value;
+        submitData.sisterConcern = this.companyInfoFormGroup.get('sisterConcern').value;
         submitData.proprietorList = this.companyJsonData.proprietorList;
         submitData.totalSharePercent = this.companyInfoFormGroup.get('totalSharePercent').value;
         submitData.isAdditionalCompanyInfo = this.additionalFieldSelected;
@@ -1340,6 +1344,29 @@ export class CompanyFormComponent implements OnInit {
                 'accountNo': this.companyInfo.accountNo
             });
             this.setAccountNumber(oldAccountNo.accountDetails);
+        }
+    }
+
+    addSisterConcern() {
+        (this.companyInfoFormGroup.get('sisterConcern') as FormArray).push(
+            this.formBuilder.group({
+                sisterCon: [undefined],
+            })
+        );
+    }
+
+    removeSisterConcern(index: number) {
+        (<FormArray>this.companyInfoFormGroup.get('sisterConcern')).removeAt(index);
+    }
+
+    setSisterConcern(data) {
+        const sis = this.companyInfoFormGroup.get('sisterConcern') as FormArray;
+        if (!ObjectUtil.isEmpty(data)) {
+            data.forEach(l => {
+                sis.push(this.formBuilder.group({
+                    sisterCon: [l.sisterCon]
+                }));
+            });
         }
     }
 }
