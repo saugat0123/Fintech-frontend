@@ -687,7 +687,6 @@ export class CatalogueComponent implements OnInit {
     }
 
     revertApproveLoan(data) {
-        console.log('data', data);
         if (data.loan.loanTag === 'REMIT_LOAN' && data.loan.isRemitLoan) {
             this.isRemitLoan = true;
         }
