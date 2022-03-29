@@ -1,0 +1,21 @@
+@import '../../progressive-legal-docs.component';
+.viewFull {
+  max-height: 85vh;
+  text-align: justify;
+}
+
+p {
+  line-height: 1.5;
+}
+
+span{
+  line-height: 1;
+}
+
+.unicode-size16{
+  font-size: 16px;
+}
+
+.unicode-size24{
+  font-size: 24px;
+}
