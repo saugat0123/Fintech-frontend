@@ -1,7 +1,5 @@
 <div class="row">
     <div class="col-md-12">
-        <h6 class="text-center">Credit Facilities Report (CFR) -
-            <br>Retail Loan</h6>
         <table class="table table-responsive-md table-bordered table-responsive-sm table-condensed table-sm text-center sb-small">
             <tr class="sb-bg-dark text-white">
                 <td>Originating Branch</td>
@@ -38,31 +36,31 @@
             <tr>
                 <td style="width: 40%">Customer & Address:</td>
                 <td style="width: 28%">Obligor Group & Location</td>
-                <td>Risk Grade: </td>
+                <td>Risk Grade: <span class="font-weight-bold">{{riskGrade}}</span></td>
             </tr>
             <tr>
-                <td>Name: Mr. {{loanDataHolder?.loanHolder.name}}</td>
+                <td>Name: Mr. <span class="font-weight-bold">{{loanDataHolder?.loanHolder.name}}</span></td>
                 <td rowspan="7">Name: to be Created</td>
                 <td>Basel Risk:  </td>
             </tr>
             <tr>
-                <td>Permanent Address:
+                <td>Permanent Address: <span class="font-weight-bold">
                     {{loanDataHolder?.customerInfo?.province?.name}}
                     , {{loanDataHolder?.customerInfo?.district?.name}},
                     {{loanDataHolder?.customerInfo?.municipalities?.name}}
-                    , {{loanDataHolder?.customerInfo?.wardNumber}}</td>
-                <td>NRB Sector Code:.............................</td>
+                    , {{loanDataHolder?.customerInfo?.wardNumber}}</span></td>
+                <td>NRB Sector Code: <span class="font-weight-bold" *ngFor="let item of nrbSectorCodes; let i = index">{{item.code}}<ng-container *ngIf="nrbSectorCodes.length > 1">{{nrbSectorCodes.length-i > 1 ? ', ' : ''}}</ng-container></span><td>
             </tr>
             <tr>
-                <td>Current Address:
+                <td>Current Address: <span class="font-weight-bold">
                     {{loanDataHolder?.customerInfo?.temporaryProvince?.name}}
                     , {{loanDataHolder?.customerInfo?.temporaryDistrict?.name}},
                     {{loanDataHolder?.customerInfo?.temporaryMunicipalities?.name}}
-                    , {{loanDataHolder?.customerInfo?.temporaryWardNumber}}</td>
+                    , {{loanDataHolder?.customerInfo?.temporaryWardNumber}}</span></td>
                 <td>NRB Security Code:..............................</td>
             </tr>
             <tr>
-                <td>Contact No.: {{loanDataHolder?.customerInfo?.contactNumber}}</td>
+                <td>Contact Number: <span class="font-weight-bold">{{loanDataHolder?.customerInfo?.contactNumber}}</span></td>
                 <td>NRB Product Code: ..................................</td>
             </tr>
             <tr>
@@ -181,12 +179,15 @@
                    ................ years from the date of disbursement
                 </td>
                 <td colspan="1" class="text-left pl-1">
-                    <span>
+                    <span *ngFor="let item of securityDetails.initialForm.landDetails">
                                     Registered mortgage over <br>
-                                    Owner: <br>
-                                    Location:       Ward No.:<br>
-                                    Plot No.: ......., Area: ...... sq.m <br><br>
-                                    Valuation Date and Valuator: ........;.......Pvt.Ltd.
+                                    Owner: <span class="font-weight-bold">{{item.owner}}</span><br>
+                                    Location: <span class="font-weight-bold">{{item.location}}</span>
+                                    <br>
+                                    Ward No.: <span class="font-weight-bold"></span>
+                                    <br>
+                                    Plot No.: <span class="font-weight-bold">{{item.plotNumber}}</span>, Area: <span class="font-weight-bold">{{item.area}}</span> sq.m <br><br>
+                                    Valuation Date and Valuator: <span class="font-weight-bold">{{item.landValuatorDate | date}}</span>; <span class="font-weight-bold">{{item.landValuator.name}}</span> Pvt.Ltd.
                                 </span>
                     <table class="table table-bordered text-center mt-2">
                         <tr>
@@ -352,12 +353,12 @@
                     ______________&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;............................
                 </td>
                 <td>
-                    Personal Guarantee of Mrs.............. (Spouse of the borrower) of NPR ............. Mio. <br>
+                    Personal Guarantee of Mrs.............. (Spouse of the borrower) of NPR ............. Million. <br>
                     Consent of Ms. ............ <br>
                     <b>Total</b> <br>
-                    Tangible: NPR ............. Mio<br>
-                    Intangible: ............ Mio<br>
-                    Security Coverage: Ratio for funded Facility of NPR ............ Mio.<br><br>
+                    Tangible: NPR ............. Million<br>
+                    Intangible: ............ Million<br>
+                    Security Coverage: Ratio for funded Facility of NPR ............ Million.<br><br>
 
                     &nbsp;&nbsp;&nbsp;&nbsp;a. Land & Building :- .............% at FMV<br>
                     &nbsp;&nbsp;&nbsp;&nbsp;b. Personal Guarantee :- 100%.<br><br>
@@ -374,12 +375,12 @@
                     <app-signature-section [loanDataHolder]="loanDataHolder"></app-signature-section>
                 </td>
                 <td style="width: 30%">
-                    Personal Guarantee of Mrs.............. (Spouse of the borrower) of NPR ............. Mio. <br>
+                    Personal Guarantee of Mrs.............. (Spouse of the borrower) of NPR ............. Million. <br>
                     Consent of Ms. ............ <br>
                     <b>Total</b> <br>
-                    Tangible: NPR ............. Mio
-                    Intangible: ............ Mio
-                    Security Coverage: Ratio for funded Facility of NPR ............ Mio.
+                    Tangible: NPR ............. Million
+                    Intangible: ............ Million
+                    Security Coverage: Ratio for funded Facility of NPR ............ Million.
 
                     a. Land & Building :- .............% at FMV
                     b. Personal Guarantee :- 100%.
@@ -392,10 +393,10 @@
                 <td>	Documentation Required:<br>
                     a)	Offer Letter<br>
                     b)	Mortgage Deed<br>
-                    c)	Loan Deed covering ................ Mio<br>
-                    d)	Promissory note covering .................. Mio<br>
+                    c)	Loan Deed covering ................ Million<br>
+                    d)	Promissory note covering .................. Million<br>
                     e)	Letter of continuity<br>
-                    f) Personal Guarantee of Mrs. ..................(............... borrower) of NPR ............... Mio<br>
+                    f) Personal Guarantee of Mrs. ..................(............... borrower) of NPR ............... Million<br>
                     g) Consent of Ms. ................ (................. of the borrower)**<br>
                     h) Consent for Blacklist from the borrower & guarantors as per NRB Directives<br>
                 </td>
