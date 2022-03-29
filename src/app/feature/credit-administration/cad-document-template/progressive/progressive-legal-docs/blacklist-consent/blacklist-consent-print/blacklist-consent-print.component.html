@@ -50,7 +50,7 @@
                         {{printDocForm?.sincerlyCDOoffice === null || printDocForm?.sincerlyCDOoffice === '' ? '___________________' : printDocForm?.sincerlyCDOoffice}}
                     </span></td>
                     </tr>
-                    <tr>
+                    <tr *ngIf="loanCat === 'INSTITUTION'">
                         <td class="text-right" style="padding-right: 10px; vertical-align: top"><strong>कम्पनीको
                             हकमा</strong> :-
                         </td>
@@ -238,7 +238,7 @@
                         {{guarantor?.jamanatDistrict === null || guarantor?.jamanatDistrict === '' ? '___________________' : guarantor?.jamanatDistrict}}
                     </span>
                                 </ng-container>
-                                <ng-container *ngIf="guarantor?.guarantorType === 'Personal_Guarantor'">
+                                <ng-container *ngIf="(loanCat === 'INSTITUTION' && guarantor?.guarantorType === 'Personal_Guarantor') || loanCat === 'INDIVIDUAL'">
                                 <span
                                     [ngClass]="{'nepaliFontPreeti unicode-size16': guarantor?.jamanatPermanentAddress!==null && guarantor?.jamanatPermanentAddress!==''}">
                         {{guarantor?.jamanatPermanentAddress === null || guarantor?.jamanatPermanentAddress === '' ? '___________________' : guarantor?.jamanatPermanentAddress}}
@@ -266,7 +266,7 @@
                         {{guarantor?.jamanatTemporaryDistrict === null || guarantor?.jamanatTemporaryDistrict === '' ? '___________________' : guarantor?.jamanatTemporaryDistrict}}
                     </span>
                                 </ng-container>
-                                <ng-container *ngIf="guarantor?.guarantorType === 'Personal_Guarantor'">
+                                <ng-container *ngIf="(loanCat === 'INSTITUTION' && guarantor?.guarantorType === 'Personal_Guarantor') || loanCat === 'INDIVIDUAL'">
                                 <span
                                     [ngClass]="{'nepaliFontPreeti unicode-size16': guarantor?.jamanatTemporaryAddress!==null && guarantor?.jamanatTemporaryAddress!==''}">
                         {{guarantor?.jamanatTemporaryAddress === null || guarantor?.jamanatTemporaryAddress === '' ? '___________________' : guarantor?.jamanatTemporaryAddress}}
@@ -422,7 +422,7 @@
 
             </div>
             <br>
-            <strong> सनाखत साक्षी</strong>
+            <strong>सनाखत साक्षी</strong>
             <br>
             ऋणीले मेरो सामुन्नेमा सही छाप गरेको ठीक साँचो हो भनी सही छाप गर्ने धनी वित्तीय संस्थामा कार्यरत कर्मचारी
             <span [ngClass]="{'nepaliFontPreeti unicode-size24':printDocForm.karmachari!==null && printDocForm.karmachari!==null}">

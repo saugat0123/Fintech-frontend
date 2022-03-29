@@ -38,15 +38,18 @@
                         जि.प्र.का. <input class="form-field nepaliFont form-control-sm"
                                           formControlName="sincerlyCDOoffice"
                                           type="text">
-                       <br> <strong>कम्पनीको हकमा:</strong> (रजिष्टेशन नं.<input class="form-field nepaliFont form-control-sm"
-                                                                            formControlName="sincerlyRegNo"
-                                                                            type="text">
-                        मिति <input class="form-field nepaliFont form-control-sm" formControlName="regDate"
-                                    type="text">
-                        दर्ता गर्ने /कम्पनी रजिस्ट्रार कार्यालय
-                        <input class="form-field nepaliFont form-control-sm" formControlName="regKaryalaya"
-                               type="text">)
-                        <br>
+                       <br>
+                        <ng-container *ngIf="loanCategory === 'INSTITUTION'">
+                            <strong>कम्पनीको हकमा:</strong> (रजिष्टेशन नं.<input class="form-field nepaliFont form-control-sm"
+                                                                                 formControlName="sincerlyRegNo"
+                                                                                 type="text">
+                            मिति <input class="form-field nepaliFont form-control-sm" formControlName="regDate"
+                                        type="text">
+                            दर्ता गर्ने /कम्पनी रजिस्ट्रार कार्यालय
+                            <input class="form-field nepaliFont form-control-sm" formControlName="regKaryalaya"
+                                   type="text">)
+                            <br>
+                        </ng-container>
                         स्थायी ठेगाना :-
                         <ng-container *ngIf="loanCategory === 'INDIVIDUAL'">
                             <input class="form-field nepaliFont form-control-sm unicode-size16"
@@ -178,7 +181,8 @@
                                                   formControlName="jamanatDistrict"
                                                   type="text">
                                 </ng-container>
-                                <ng-container *ngIf="form.get(['guarantorDetails', i, 'guarantorType']).value === 'Personal_Guarantor'">
+                                <ng-container *ngIf="(loanCategory === 'INSTITUTION' && form.get(['guarantorDetails', i, 'guarantorType']).value === 'Personal_Guarantor')
+                                    || loanCategory === 'INDIVIDUAL'">
                                     <input class="form-field nepaliFont form-control-sm unicode-size16"
                                            formControlName="jamanatPermanentAddress"
                                            type="text">
@@ -199,7 +203,8 @@
                                   formControlName="jamanatTemporaryDistrict"
                                   type="text">
                                 </ng-container>
-                                <ng-container *ngIf="form.get(['guarantorDetails', i, 'guarantorType']).value === 'Personal_Guarantor'">
+                                <ng-container *ngIf="(loanCategory === 'INSTITUTION' && form.get(['guarantorDetails', i, 'guarantorType']).value === 'Personal_Guarantor')
+                                    || loanCategory === 'INDIVIDUAL'">
                                     <input class="form-field nepaliFont form-control-sm unicode-size16"
                                                     formControlName="jamanatTemporaryAddress"
                                                     type="text">
