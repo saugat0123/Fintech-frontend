@@ -125,6 +125,32 @@
                     </div>
                 </div>
             </div>
+<!--            <div class="row">-->
+<!--                <div class="col-md-12">-->
+<!--                    <b>TO: {{loanDataHolder?.currentStage?.toUser?.name}} ({{loanDataHolder?.currentStage?.toRole?.roleName}})</b>-->
+<!--                    <br>-->
+<!--                    <b>THROUGH: {{loanDataHolder?.currentStage?.fromUser?.name}} ({{loanDataHolder?.currentStage?.fromRole?.roleName}})</b>-->
+<!--                    <br>-->
+<!--                    <b>FROM: </b> <br>-->
+<!--                    <b>CLIENT NAME: {{loanDataHolder?.loanHolder?.name}}</b> <br>-->
+<!--                    <b>GROUP: </b> <br>-->
+<!--                    <b>ACCOUNT NUMBER:</b> <br>-->
+<!--                    <b>CUSTOMER ID: {{loanDataHolder?.loanHolder?.customerCode || 'NA'}}</b> <br>-->
+<!--                    <b>DATE: {{loanDataHolder?.createdAt ? (loanDataHolder?.createdAt | date) : 'NA'}}</b>-->
+<!--                </div>-->
+<!--            </div>-->
+            <hr class="print-line">
+            <div class="row">
+                <div class="col-md-12">
+                    <app-credit-facility-report [loanDataHolder]="loanDataHolder"
+                                                [customerLoanList]="customerAllLoanList"></app-credit-facility-report>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <app-group-credit-facility-report></app-group-credit-facility-report>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-12">
                     <b>TO: {{loanDataHolder?.currentStage?.toUser?.name}} ({{loanDataHolder?.currentStage?.toRole?.roleName}})</b>
@@ -139,17 +165,10 @@
                     <b>DATE: {{loanDataHolder?.createdAt ? (loanDataHolder?.createdAt | date) : 'NA'}}</b>
                 </div>
             </div>
-            <hr class="print-line">
-            <div class="row">
-                <div class="col-md-12">
-                    <app-credit-facility-report [loanDataHolder]="loanDataHolder"
-                                                [customerLoanList]="customerAllLoanList"></app-credit-facility-report>
-                </div>
-            </div>
             <div class="row ">
                 <div class="col-md-12 sb-small">
                     <div class="clearfix">
-                        <div class="float-left"><span><strong>Ref. No: </strong>{{loanDataHolder?.refNo}}</span></div>
+                        <div class="float-right"><span><strong>Ref. No: </strong>{{loanDataHolder?.refNo}}</span></div>
                         <div class="float-right" *ngIf="loanDataHolder?.isSol">
                             <span><strong>Final Approver: </strong>{{loanDataHolder?.solUser?.name}}</span>
                         </div>
@@ -1558,8 +1577,6 @@
                     </table>
                 </div>
             </div>
-
-         <app-group-credit-facility-report></app-group-credit-facility-report>
         </nb-card-body>
     </nb-card>
 </section>
