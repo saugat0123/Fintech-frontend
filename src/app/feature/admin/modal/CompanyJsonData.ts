@@ -6,7 +6,7 @@ import {Proprietors} from './proprietors';
 export class CompanyJsonData {
 
   otherCompanyDetail: OtherCompanyDetail = undefined;
-  sisterConcern: string = undefined;
+  sisterConcern: Array<any> = new Array<any>();
   majorProductService: string = undefined;
   relationshipSince: string = undefined;
   companyBackground: string = undefined;
@@ -30,5 +30,7 @@ export class CompanyJsonData {
   relationshipSinceWithCustomer: string = undefined;
   irdReport: string;
   accountDetails: any;
+  branchAddress: string = undefined;
+  warehouseAddress: string = undefined;
   // loanType: string = undefined;
 }
