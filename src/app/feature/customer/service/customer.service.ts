@@ -4,7 +4,6 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {ApiUtils} from '../../../@core/utils/api/ApiUtils';
 import {CustomerRelative} from '../../admin/modal/customer-relative';
-import {Customer} from "../../admin/modal/customer";
 
 @Injectable({
     providedIn: 'root'
@@ -24,7 +23,7 @@ export class CustomerService extends BaseService<Object> {
         return this.http.post(req.url, searchObj, {headers: req.header});
     }
 
-    public onBoardRemitCustoer(customer: any){
+    public onBoardRemitCustoer(customer: any) {
         const api = `${this.getApi()}/onboard-remitloan`;
         const req = ApiUtils.getRequest(api);
 

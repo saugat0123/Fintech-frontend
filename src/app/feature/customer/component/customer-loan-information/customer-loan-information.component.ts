@@ -58,6 +58,7 @@ export class CustomerLoanInformationComponent implements OnInit {
     @Input() public customerInfo: CustomerInfoData;
     @Input() public companyInfo: CompanyInfo;
     @Input() isMicroCustomer: boolean;
+    @Input() fromProfile: boolean;
 
     @ViewChild('siteVisitComponent', {static: false})
     public siteVisitComponent: SiteVisitComponent;

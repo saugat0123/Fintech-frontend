@@ -264,7 +264,7 @@ export class FinancialComponent implements OnInit {
             // grossMonthlyObligation: [undefined],
             totalNetMonthlyIncome: [undefined],
             totalEMIInterest: [undefined],
-            emiWithProposal: [undefined, !this.disableCrgAlphaParams && !this.isBusinessLoan ? Validators.required : undefined],
+            emiWithProposal: [undefined],
             emiGrossMonthly: [undefined],
             emiNetMonthly: [undefined],
             note: [undefined],
@@ -486,7 +486,6 @@ export class FinancialComponent implements OnInit {
     //
     // Header Part--
     addIncomeOfBorrower() {
-        console.log('I am income');
         const control = this.financialForm.controls.incomeOfBorrower as FormArray;
         control.push(
             this.formBuilder.group({
