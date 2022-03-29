@@ -92,8 +92,8 @@
                             <div class="report-header">
                                 <div class="report-header-heading mb-2">{{client}}</div>
                                 <div class="report-header-sub-heading">
-                                    <span class="sb-small"> Credit Appraisal </span>
-                                    <br />
+                                    <span class="sb-small">Credit Facilities Report</span>
+                                    <br>
                                     <span class="sb-small"> for </span>
                                 </div>
                                 <div class="report-header-sub-heading" *ngIf="!isJointInfo"><span
@@ -151,6 +151,8 @@
                     <app-group-credit-facility-report></app-group-credit-facility-report>
                 </div>
             </div>
+            <!-- DONT-DETELE -->
+            <!-- 
             <div class="row">
                 <div class="col-md-12">
                     <b>TO: {{loanDataHolder?.currentStage?.toUser?.name}} ({{loanDataHolder?.currentStage?.toRole?.roleName}})</b>
@@ -177,9 +179,9 @@
                 </div>
             </div>
 
-            <hr class="print-line disable-print">
+            <hr class="print-line disable-print"> -->
 
-            <div class="row">
+            <!-- <div class="row"> -->
 
                 <!-- CRG - Normal-->
                 <!--        <div *ngIf="creditRiskSummary" class="col-md-12">-->
@@ -220,7 +222,7 @@
                 <!--        </div>-->
 
                 <!-- CRG - Gamma-->
-                <div *ngIf="crgGammaSummary" class="col-md-12">
+                <!-- <div *ngIf="crgGammaSummary" class="col-md-12">
                     <nb-card class="sb-medium">
                         <nb-card-header class="text-center">
                             <h6>Credit Risk Gauge (Gamma)</h6>
@@ -249,10 +251,10 @@
                             </div>
                         </nb-card-body>
                     </nb-card>
-                </div>
+                </div> -->
 
                 <!--CRG - Alpha-->
-                <div *ngIf="loanDataHolder?.loanCategory === 'INSTITUTION'" class="col-md-12">
+                <!-- <div *ngIf="loanDataHolder?.loanCategory === 'INSTITUTION'" class="col-md-12">
                     <div *ngIf="creditRiskAlphaSummary">
                         <nb-card class="sb-medium">
                             <nb-card-header>
@@ -299,10 +301,10 @@
                             </nb-card-body>
                         </nb-card>
                     </div>
-                </div>
+                </div> -->
 
                 <!--CRG - Lambda-->
-                <div *ngIf="loanDataHolder?.loanCategory === 'INDIVIDUAL'" class="col-md-12">
+                <!-- <div *ngIf="loanDataHolder?.loanCategory === 'INDIVIDUAL'" class="col-md-12">
                     <div *ngIf="creditRiskLambdaSummary">
                         <nb-card class="sb-medium">
                             <nb-card-header>
@@ -344,7 +346,7 @@
                             </nb-card-body>
                         </nb-card>
                     </div>
-                </div>
+                </div> -->
 
                 <!--old Alpha Crg-->
                 <!--<div *ngIf="creditRiskAlphaSummary" class="col-md-12">
@@ -389,10 +391,10 @@
                     </nb-card-body>
                   </nb-card>
                 </div>-->
-            </div>
+            <!-- </div> -->
 
 
-            <div class="row sb-small">
+            <!-- <div class="row sb-small">
                 <div class="col-md-12">
                     <b>Purpose: {{loanDataHolder.loan.name}}</b>
                     <span class="float-right"><b>Loan Authority Under</b>-
@@ -466,7 +468,7 @@
                 </div>
             </div>
 
-            <div class="row" *ngIf="loanCategory === 'INDIVIDUAL' && !isJointInfo">
+            <div class="row" *ngIf="loanCategory === 'INDIVIDUAL' && !isJointInfo"> -->
                 <!-- 1.	Date of Association
                 2.	Capital Structure
                 3.	Proprietor/Promoters/Shareholding Pattern:
@@ -475,7 +477,7 @@
                 <!-- <div class="col-md-12">
                     <p><strong>Details of Borrower</strong></p>
                 </div> -->
-                <div class="col-md-12">
+                <!-- <div class="col-md-12">
 
                     <div *ngIf="loanCategory === 'INDIVIDUAL'">
                         <p class="mt-2"><strong>Family Details</strong></p>
@@ -512,7 +514,7 @@
                                 </tr>
                             </tbody>
                         </table>
-                    </div>
+                    </div> -->
 
 <!--                    <div>-->
 <!--                        <table-->
@@ -587,7 +589,7 @@
 <!--                        &lt;!&ndash;                        </table>&ndash;&gt;-->
 <!--                    </div>-->
 
-                </div>
+                <!-- </div>
             </div>
             <div class="row" *ngIf="loanCategory === 'INDIVIDUAL' && isJointInfo">
                 <div class="col-md-12">
@@ -744,10 +746,10 @@
             <div class="mt-3">
                 <app-income-from-account-summery *ngIf="incomeFromAccountSummary" [formData]="incomeFromAccountData">
                 </app-income-from-account-summery>
-            </div>
+            </div> -->
 
             <!-- FOR GROUP EXPOSURE AND COMPANIES UNDER THE GROUP -->
-            <section>
+            <!-- <section>
             <div *ngIf="megaGroupEnabled">
                 <app-m-group-summary [mGroup]="loanDataHolder?.loanHolder.mgroupInfo"></app-m-group-summary>
             </div>
@@ -798,7 +800,7 @@
 
             <div class="mt-3">
                 <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl" [ciclValue]="loanDataHolder?.loanHolder?.cicl"></app-cicl-view>
-            </div>
+            </div> -->
 
 
             <!-- <div *ngIf="loanDataHolder?.dmsLoanFile !== null" class="row mt-3">
@@ -820,14 +822,14 @@
             </div> -->
 
             <!-- PROPOSAL VIEW WAIVER AND RECOMMENDATION -->
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col-md-12">
                     <p class="mt-3"><strong>Waiver/Deviation: </strong></p>
-                    <!-- <p class="border text-justify p-1">
+                    <p class="border text-justify p-1">
                         {{proposalView?.waiverConclusionRecommendation}}
                     </p> -->
 
-                    <span [innerHTML]="proposalView?.waiverConclusionRecommendation || 'N/A' | safeHtml"></span>
+                    <!-- <span [innerHTML]="proposalView?.waiverConclusionRecommendation || 'N/A' | safeHtml"></span>
                 </div>
             </div>
 
@@ -962,7 +964,7 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
+            </div> -->
 
             <!--<div class="row mt-3">
                 <div class="col-md-6">
@@ -987,7 +989,7 @@
                 </div>
             </div>-->
 
-            <div *ngIf="loanDataHolder?.customerInfo?.withinLimitRemarks">
+            <!-- <div *ngIf="loanDataHolder?.customerInfo?.withinLimitRemarks">
                 <table class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
                     <tr class="sb-bg-dark text-white">
                         <th>Within Limit Remarks (if any)</th>
@@ -1007,7 +1009,7 @@
                         <td class="text-left pl-1"> {{loanDataHolder?.companyInfo?.withinLimitRemarks}}</td>
                     </tr>
                 </table>
-            </div>
+            </div> -->
 
             <!-- FOR GROUP DETAILS IN RETAIL-CA -->
             <!-- <section>
@@ -1033,7 +1035,7 @@
                 </div>
             </div>
         </section> -->
-
+<!-- 
             <hr>
             <ng-container>
                 <app-nta-mega-summary *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0"
@@ -1082,11 +1084,11 @@
                 <span><strong>Customer Reporting Information</strong></span>
                 <app-report-summary [approved]="false"
                     [reportingInfoLevels]="loanDataHolder?.loanHolder?.reportingInfoLevels"></app-report-summary>
-            </div>
+            </div> -->
 
             <!-- <app-insurance-summary *ngIf="loanDataHolder?.insurance" [insurance]="loanDataHolder?.insurance">
             </app-insurance-summary> -->
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col-md-12 disable-print">
                     <span>
                         <b>All Documents</b>
@@ -1182,16 +1184,16 @@
                                 <tr *ngIf="singleDoc">
                                     <td>{{i + 1}}.{{j + 1}}</td>
                                     <td class="text-left pl-1">{{singleGuarantor?.name}}</td>
-                                    <td>{{singleDoc.substring(singleDoc.lastIndexOf('/') + 1, singleDoc.length)}}</td>
+                                    <td>{{singleDoc.substring(singleDoc.lastIndexOf('/') + 1, singleDoc.length)}}</td> -->
 
                                     <!-- Preview Document -->
-                                    <td *ngIf="!hidePreviewButton">
+                                    <!-- <td *ngIf="!hidePreviewButton">
                                         <i (click)="previewOfferLetterDocument(singleDoc,singleGuarantor?.name + 'Net Worth Doc')"
                                             class="fas fa-eye"></i>
-                                    </td>
+                                    </td> -->
 
                                     <!-- Download Document -->
-                                    <td *ngIf="!hidePreviewButton">
+                                    <!-- <td *ngIf="!hidePreviewButton">
                                         <i (click)="downloadCustomerDocument(singleDoc, singleGuarantor?.name+' Net Worth Doc')"
                                            aria-hidden="true" class="fa fa-download" style="cursor: pointer"></i>
                                     </td>
@@ -1223,16 +1225,16 @@
                                     <td class="text-left pr-1">{{singleInsurance?.policyNumber}}</td>
                                     <td class="text-left pl-1">{{singleInsurance?.company}}</td>
                                     <td class="text-left pl-1">
-                                        {{singleDoc.substring(singleDoc.lastIndexOf('/') + 1, singleDoc.length)}}</td>
+                                        {{singleDoc.substring(singleDoc.lastIndexOf('/') + 1, singleDoc.length)}}</td> -->
 
                                     <!-- Preview Document -->
-                                    <td *ngIf="!hidePreviewButton">
+                                    <!-- <td *ngIf="!hidePreviewButton">
                                         <i (click)="previewOfferLetterDocument(singleDoc,singleInsurance?.policyNumber+' Insurance Policy Document')"
                                             class="fas fa-eye"></i>
-                                    </td>
+                                    </td> -->
 
                                     <!-- Download Document -->
-                                    <td *ngIf="!hidePreviewButton">
+                                    <!-- <td *ngIf="!hidePreviewButton">
                                         <i (click)="downloadCustomerDocument(singleDoc, singleInsurance?.policyNumber+' Insurance Policy Document')"
                                            aria-hidden="true" class="fa fa-download" style="cursor: pointer"></i>
                                     </td>
@@ -1241,9 +1243,9 @@
                         </ng-container>
                     </table>
                 </div>
-            </div>
+            </div> -->
 
-            <div class="print-only">
+            <!-- <div class="print-only">
                 <div *ngIf="loanDataHolder?.customerDocument?.length > 0" class="row ">
                     <div class="col-md-12">
                         <p><strong>Loan Documents</strong></p>
@@ -1576,7 +1578,7 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
+            </div> -->
         </nb-card-body>
     </nb-card>
 </section>

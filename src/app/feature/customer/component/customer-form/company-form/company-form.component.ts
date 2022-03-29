@@ -70,6 +70,7 @@ export class CompanyFormComponent implements OnInit {
     @Input() subSectorDetailCodeInput: any;
     @Input() customerCode: any;
     @Input() clientTypeInput: any;
+    // @Input() loanTypeInput: any;
 
     @ViewChild('companyLocation', {static: true}) companyLocation: CommonAddressComponent;
     @ViewChild('companyProjectLocation', {static: true}) companyProjectLocation: CommonAddressComponent;
@@ -122,6 +123,15 @@ export class CompanyFormComponent implements OnInit {
     additionalFieldData: any;
     subSector = [];
     clientType: any;
+    loanTypeList = [{
+        key: 'UPTO_TEN_MILLION',
+        value: 'Upto Ten Million'
+    },
+    {
+        key: 'ABOVE_TEN_MILLION',
+        value: 'Above Ten Million'
+    }
+];
 
     ckeConfig = Editor.CK_CONFIG;
 
@@ -352,6 +362,10 @@ export class CompanyFormComponent implements OnInit {
                 [(ObjectUtil.isEmpty(this.companyJsonData)
                     || ObjectUtil.isEmpty(this.companyJsonData.relationshipSince)) ? undefined :
                     new Date(this.companyJsonData.relationshipSince), DateValidator.isValidBefore],
+                    // loanType:
+                    // [(ObjectUtil.isEmpty(this.companyJsonData)
+                    //     || ObjectUtil.isEmpty(this.companyJsonData.loanType)) ? undefined :
+                    //     this.companyJsonData.loanType, Validators.required],
             relationshipSinceWithCustomer:
                 [(ObjectUtil.isEmpty(this.companyJsonData)
                     || ObjectUtil.isEmpty(this.companyJsonData.relationshipSinceWithCustomer)) ? undefined :
@@ -975,6 +989,7 @@ export class CompanyFormComponent implements OnInit {
         this.companyInfo.contactNum = this.companyInfoFormGroup.get('contactNum').value;
         this.companyInfo.landLineNumber = this.companyInfoFormGroup.get('landLineNumber').value;
         this.companyInfo.clientType = this.companyInfoFormGroup.get('clientType').value;
+        // this.companyJsonData.loanType = this.companyInfoFormGroup.get('loanType').value;
         this.companyInfo.subsectorDetail = this.companyInfoFormGroup.get('subsectorDetail').value;
 
 
@@ -1145,9 +1160,9 @@ export class CompanyFormComponent implements OnInit {
             this.spinner = false;
             this.close();
             if (this.formValue.id == null) {
-                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully saved Company Info'));
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Company Information'));
             } else {
-                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Company Info'));
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Updated Company Information'));
             }
         }, error => {
             console.error(error);
