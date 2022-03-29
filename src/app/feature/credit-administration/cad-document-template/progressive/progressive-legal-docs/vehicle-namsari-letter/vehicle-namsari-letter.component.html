@@ -1,4 +1,4 @@
-<div [nbSpinner]="spinner" class="row" id="{{offerLetterConst.VEHICLE_NAMSARI_LETTER_FOR_HP_LOAN}}">
+<div [nbSpinner]="spinner" class="row" id="{{offerLetterConst.VEHICLE_NAMSARI_LETTER}}">
     <div class="col-md-12 viewFull">
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
             <div class="nep">
@@ -180,11 +180,11 @@
                 [disabled]="!initialInfoPrint"
                 nbButton
                 status="info"
-                printSectionId="print-section-{{ offerLetterConst.VEHICLE_NAMSARI_LETTER_FOR_HP_LOAN }}"
+                printSectionId="print-section-{{ offerLetterConst.VEHICLE_NAMSARI_LETTER }}"
                 ngxPrint> Print
         </button>
     </div>
 </div>
-<app-vehicle-namsari-letter-for-hp-loan-print *ngIf="initialInfoPrint" [printDocForm]="initialInfoPrint"
-                                                    hidden></app-vehicle-namsari-letter-for-hp-loan-print>
+<app-vehicle-namsari-letter-print *ngIf="initialInfoPrint" [printDocForm]="initialInfoPrint"
+                                                    hidden></app-vehicle-namsari-letter-print>
 

@@ -69,8 +69,8 @@ import {HpDeedCorporateComponent} from './progressive-legal-docs/hp-deed-corpora
 import {HpDeedCorporatePrintComponent} from './progressive-legal-docs/hp-deed-corporate/hp-deed-corporate-print/hp-deed-corporate-print.component';
 import {OfferLetterHirePurchaseAndAutoLoanComponent} from './progressive-offer-letter/offer-letter-hire-purchase-and-auto-loan/offer-letter-hire-purchase-and-auto-loan.component';
 import {OfferLetterHirePurchaseAndAutoLoanPrintComponent} from './progressive-offer-letter/offer-letter-hire-purchase-and-auto-loan/offer-letter-hire-purchase-and-auto-loan-print/offer-letter-hire-purchase-and-auto-loan-print.component';
-import { VehicleNamsariLetterForHpLoanComponent } from './progressive-legal-docs/vehicle-namsari-letter-for-hp-loan/vehicle-namsari-letter-for-hp-loan.component';
-import { VehicleNamsariLetterForHpLoanPrintComponent } from './progressive-legal-docs/vehicle-namsari-letter-for-hp-loan/vehicle-namsari-letter-for-hp-loan-print/vehicle-namsari-letter-for-hp-loan-print.component';
+import { VehicleNamsariLetterComponent} from './progressive-legal-docs/vehicle-namsari-letter/vehicle-namsari-letter.component';
+import { VehicleNamsariLetterPrintComponent} from './progressive-legal-docs/vehicle-namsari-letter/vehicle-namsari-letter-print/vehicle-namsari-letter-print.component';
 
 const COMPONENTS = [
   LetterOfArrangementsComponent, LetterOfArrangementsPrintComponent,
@@ -141,8 +141,8 @@ const COMPONENTS = [
     HpDeedCorporatePrintComponent,
     OfferLetterHirePurchaseAndAutoLoanComponent,
     OfferLetterHirePurchaseAndAutoLoanPrintComponent,
-    VehicleNamsariLetterForHpLoanComponent,
-    VehicleNamsariLetterForHpLoanPrintComponent
+    VehicleNamsariLetterComponent,
+    VehicleNamsariLetterPrintComponent
 
 
   ],
@@ -176,7 +176,7 @@ const COMPONENTS = [
         LoanDeedCorporateComponent,
         HpDeedCorporateComponent,
         OfferLetterHirePurchaseAndAutoLoanComponent,
-        VehicleNamsariLetterForHpLoanComponent
+        VehicleNamsariLetterComponent
 
     ],
   imports: [

@@ -14,11 +14,11 @@ import {Document} from '../../../../../admin/modal/document';
 import {Alert, AlertType} from '../../../../../../@theme/model/Alert';
 
 @Component({
-  selector: 'app-vehicle-namsari-letter-for-hp-loan',
-  templateUrl: './vehicle-namsari-letter-for-hp-loan.component.html',
-  styleUrls: ['./vehicle-namsari-letter-for-hp-loan.component.scss']
+  selector: 'app-vehicle-namsari-letter',
+  templateUrl: './vehicle-namsari-letter.component.html',
+  styleUrls: ['./vehicle-namsari-letter.component.scss']
 })
-export class VehicleNamsariLetterForHpLoanComponent implements OnInit {
+export class VehicleNamsariLetterComponent implements OnInit {
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() documentId: number;
   @Input() customerLoanId: number;
@@ -31,7 +31,7 @@ export class VehicleNamsariLetterForHpLoanComponent implements OnInit {
   offerLetterDocument: OfferDocument;
   nepaliData;
 
-  constructor(private dialogRef: NbDialogRef<VehicleNamsariLetterForHpLoanComponent>,
+  constructor(private dialogRef: NbDialogRef<VehicleNamsariLetterComponent>,
               private formBuilder: FormBuilder,
               private administrationService: CreditAdministrationService,
               private toastService: ToastService,
