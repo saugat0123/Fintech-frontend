@@ -1,0 +1,168 @@
+<div class="row" id="print-section-{{offerLetterConst.VEHICLE_NAMSARI_LETTER_FOR_HP_LOAN}}">
+    <div class="col-md-12 viewFull">
+        <form class="nepali">
+            <div class="nep">
+                <div class="row d-flex justify-content-around">
+                    <div class="col-md-6">
+                        <p>
+                            च.न.
+                            <span [ngClass]="{'nepaliFont' : printDocForm?.patraNum !== null && printDocForm?.patraNum !== ''}">
+                                {{printDocForm?.patraNum === null || printDocForm?.patraNum === '' ? '_________________' : printDocForm?.patraNum}}
+                            </span>/
+                            <span [ngClass]="{'nepaliFont' : printDocForm?.patraNum2 !== null && printDocForm?.patraNum2 !== ''}">
+                                {{printDocForm?.patraNum2 === null || printDocForm?.patraNum2 === '' ? '_________________' : printDocForm?.patraNum2}}
+                            </span>/०७९
+                        </p>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="text-right">
+                            मिति :—
+                            <span [ngClass]="{'nepaliFont' : printDocForm?.date !== null && printDocForm?.date !== ''}">
+                                {{printDocForm?.date === null || printDocForm?.date === '' ? '_________________' : printDocForm?.date}}
+                            </span>
+                        </p>
+                    </div>
+                </div>
+                <div>
+                    <p>श्रीमान् कार्यालय प्रमुखज्यू,<br>
+                        यातायात व्यवस्था कार्यालय<br>
+                        साना ठूला सवारी व्यवस्थापन विभाग<br>
+                        <span [ngClass]="{'nepaliFont' : printDocForm?.province !== null && printDocForm?.province !== ''}">
+                            {{printDocForm?.province === null || printDocForm?.province === '' ? '_________________' : printDocForm?.province}}
+                        </span>
+                        प्रदेश,  <span [ngClass]="{'nepaliFont' : printDocForm?.district !== null && printDocForm?.district !== ''}">
+                            {{printDocForm?.district === null || printDocForm?.district === '' ? '_________________' : printDocForm?.district}}
+                        </span>
+                        ,  <span [ngClass]="{'nepaliFont' : printDocForm?.municipality !== null && printDocForm?.municipality !== ''}">
+                            {{printDocForm?.municipality === null || printDocForm?.municipality === '' ? '_________________' : printDocForm?.municipality}}
+                        </span> ।
+                    </p>
+                </div>
+                <div class="text-center">
+                    <strong>विषयः नामसारी गरिदिने सम्बन्धमा ।</strong>
+                </div>
+                <br>
+                <p class="text-justify">
+                    महाशय,<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;यस संस्थाबाट ऋणी
+                    <span [ngClass]="{'nepaliFont' : printDocForm?.name !== null && printDocForm?.name !== ''}">
+                        {{printDocForm?.name === null || printDocForm?.name === '' ? '_________________' : printDocForm?.name}}
+                    </span>
+                    ( ना.प्र.नं. /दर्ता नं.
+                    <span [ngClass]="{'nepaliFont' : printDocForm?.regNo !== null && printDocForm?.regNo !== ''}">
+                        {{printDocForm?.regNo === null || printDocForm?.regNo === '' ? '_________________' : printDocForm?.regNo}}
+                    </span>)
+                    ले हायर पर्चेज कर्जा अन्तर्गत खरीद गर्ने गरी तपसिलमा लेखिए बमोजिमको इन्जिन नं., च्यासिस नं.,  दर्ता नं. को
+                    <span [ngClass]="{'nepaliFont' : printDocForm?.vehicleName !== null && printDocForm?.vehicleName !== ''}">
+                        {{printDocForm?.vehicleName === null || printDocForm?.vehicleName === '' ? '_________________' : printDocForm?.vehicleName}}
+                    </span>
+                    <strong>गाडी</strong> धितो बापत रहने हुुनाले यस संस्थाको नाममा स्वामित्व धनी कायम गरी दिनु भई ऋणीमा
+                    <span [ngClass]="{'nepaliFont' : printDocForm?.debtorName !== null && printDocForm?.debtorName !== ''}">
+                        {{printDocForm?.debtorName === null || printDocForm?.debtorName === '' ? '_________________' : printDocForm?.debtorName}}
+                    </span>
+                    नाम राखी नामसारी दर्ता कायम गरी दिनु हुन अनुरोध गर्दछौ । उक्त नामसारी कार्यको लागि यस संस्थाका कर्मचारी <strong>श्री</strong>
+                    <span [ngClass]="{'nepaliFont' : printDocForm?.officer !== null && printDocForm?.officer !== ''}">
+                        {{printDocForm?.officer === null || printDocForm?.officer === '' ? '_________________' : printDocForm?.officer}}
+                    </span>
+                    लाई अख्तियारी दिई पठाएका छौ । निज कर्मचारीको दस्तखत निम्न बमोजिम हुनेछ ।</p>
+                <p class="text-center"><strong>धन्यवाद ! ! !</strong></p>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                        <caption style="caption-side: top; color: black;" class="text-center"><strong><u>तपसील</u></strong></caption>
+                        <tr>
+                            <th>सवारी साधनको विवरण</th>
+                            <th>ई.नं.</th>
+                            <th>च्या.नं.</th>
+                            <th>दर्ता नं.</th>
+                            <th>रंग</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <span [ngClass]="{'nepaliFont' : printDocForm?.vehicleSpecification !== null && printDocForm?.vehicleSpecification !== ''}">
+                                    {{printDocForm?.vehicleSpecification === null || printDocForm?.vehicleSpecification === '' ? '_________________' : printDocForm?.vehicleSpecification}}
+                                </span>
+                            </td>
+                            <td>
+                                <span [ngClass]="{'nepaliFont' : printDocForm?.engineNo !== null && printDocForm?.engineNo !== ''}">
+                                    {{printDocForm?.engineNo === null || printDocForm?.engineNo === '' ? '_________________' : printDocForm?.engineNo}}
+                                </span>
+                            </td>
+                            <td>
+                                <span [ngClass]="{'nepaliFont' : printDocForm?.chassisNo !== null && printDocForm?.chassisNo !== ''}">
+                                    {{printDocForm?.chassisNo === null || printDocForm?.chassisNo === '' ? '_________________' : printDocForm?.chassisNo}}
+                                </span>
+                            </td>
+                            <td>
+                                <span [ngClass]="{'nepaliFont' : printDocForm?.registeredNo !== null && printDocForm?.registeredNo !== ''}">
+                                    {{printDocForm?.registeredNo === null || printDocForm?.registeredNo === '' ? '_________________' : printDocForm?.registeredNo}}
+                                </span>
+                            </td>
+                            <td>
+                                <span [ngClass]="{'nepaliFont' : printDocForm?.colour !== null && printDocForm?.colour !== ''}">
+                                    {{printDocForm?.colour === null || printDocForm?.colour === '' ? '_________________' : printDocForm?.colour}}
+                                </span>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        कर्मचारीको दस्तखत
+                        <br><br>
+                        ..........................
+                    </div>
+                </div>
+                <div class="mt-5">
+                    भवदीय,
+                </div>
+                <div class="row d-flex justify-content-around mt-5">
+                    <div class="col-md-8">
+                        <p>
+                            .................................
+                            <br>
+                            कर्मचारीको नामः
+                            <span [ngClass]="{'nepaliFont' : printDocForm?.karmachariName !== null && printDocForm?.karmachariName !== ''}">
+                                {{printDocForm?.karmachariName === null || printDocForm?.karmachariName === '' ? '_________________' : printDocForm?.karmachariName}}
+                            </span>
+                            <br>
+                            पदः
+                            <span [ngClass]="{'nepaliFont' : printDocForm?.postName !== null && printDocForm?.postName !== ''}">
+                                {{printDocForm?.postName === null || printDocForm?.postName === '' ? '_________________' : printDocForm?.postName}}
+                            </span>
+                            <br>
+                            प्रोग्रेशिभ फाइनान्स लि.<br>
+                            <span [ngClass]="{'nepaliFont' : printDocForm?.branchName !== null && printDocForm?.branchName !== ''}">
+                                {{printDocForm?.branchName === null || printDocForm?.branchName === '' ? '_________________' : printDocForm?.branchName}}
+                            </span> शाखा
+                        </p>
+                    </div>
+                    <div class="col-md-4">
+                        <p>
+                            .................................
+                            <br>
+                                कर्मचारीको नामः
+                                <span [ngClass]="{'nepaliFont' : printDocForm?.karmachariName2 !== null && printDocForm?.karmachariName2 !== ''}">
+                                    {{printDocForm?.karmachariName2 === null || printDocForm?.karmachariName2 === '' ? '_________________' : printDocForm?.karmachariName2}}
+                                </span>
+                                <br>
+                                पदः
+                                <span [ngClass]="{'nepaliFont' : printDocForm?.postName2 !== null && printDocForm?.postName2 !== ''}">
+                                    {{printDocForm?.postName2 === null || printDocForm?.postName2 === '' ? '_________________' : printDocForm?.postName2}}
+                                </span>
+                                <br>
+                                प्रोग्रेशिभ फाइनान्स लि.<br>
+                                <span [ngClass]="{'nepaliFont' : printDocForm?.branchName !== null && printDocForm?.branchName !== ''}">
+                                    {{printDocForm?.branchName === null || printDocForm?.branchName === '' ? '_________________' : printDocForm?.branchName}}
+                                </span> शाखा
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
