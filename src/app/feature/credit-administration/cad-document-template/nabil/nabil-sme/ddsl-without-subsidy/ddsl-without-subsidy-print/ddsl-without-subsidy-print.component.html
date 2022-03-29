@@ -212,8 +212,8 @@
                             </p>
                         </ng-template>
                         <div>
-                            <app-master-securities-view [securityDetails]="letter?.securities">
-                            </app-master-securities-view>
+                            <app-single-sme-primary-security-view [securityDetails]="letter?.securities">
+                            </app-single-sme-primary-security-view>
                         </div>
                     </li>
                     <li *ngIf="securityTypeConditionFixedAssests || securityTypeSecondaryConditionFixedAssests || securityTypeHypothecation">
@@ -243,8 +243,8 @@
                 </ol>
                 <ng-container><strong>ख. थप/सहायक सुरक्षण (Additional/Secondary Security)</strong></ng-container><br>
                 <div class="pb-4" class="pb-4" *ngIf="securityTypeSecondaryCondition">
-                    <app-master-secondary-securities-view [securityDetails]="letter?.securities">
-                    </app-master-secondary-securities-view>
+                    <app-single-sme-secondary-security-view [securityDetails]="letter?.securities">
+                    </app-single-sme-secondary-security-view>
                 </div>
                 <div *ngIf="securityTypeConditionPg">
                     <ng-container style="margin-left: 2%;"><strong>१. व्यक्तिगत जमानत (Personal Guarantee):</strong></ng-container><br>

@@ -115,6 +115,8 @@ import { LetterOfSetOffProprietorshipComponent } from './letter-of-set-off-propr
 import { LetterOfSetOffPartnershipComponent } from './letter-of-set-off-partnership/letter-of-set-off-partnership.component';
 import { LetterVehicleThirdPartyPartnershipComponent } from './letter-vehicle-third-party-partnership/letter-vehicle-third-party-partnership.component';
 import { LetterVehicleThirdPartyProprietorshipComponent } from './letter-vehicle-third-party-proprietorship/letter-vehicle-third-party-proprietorship.component';
+import { SingleSmePrimarySecurityViewComponent } from './single-sme-primary-security-view/single-sme-primary-security-view.component';
+import { SingleSmeSecondarySecurityViewComponent } from './single-sme-secondary-security-view/single-sme-secondary-security-view.component';
 
 @NgModule({
     declarations: [
@@ -132,7 +134,9 @@ import { LetterVehicleThirdPartyProprietorshipComponent } from './letter-vehicle
         LetterVehicleThirdpartyCompanyComponent, LetterVehicleThirdpartyCompanyPrintComponent,
         PersonalGuaranteeIndividualPrintComponent,
         LoanDeedIndividualComponent, PromissoryNoteCompanyPrintComponent, PersonalGuaranteeProprietorshipComponent, NabilSmeComponent, KisanKarjaSubsidyComponent, UdyamsilKarjaSubsidyComponent, UdyamsilKarjaSubsidyPrintComponent, DdslWithoutSubsidyComponent, DdslWithoutSubsidyPrintComponent, KisanKarjaSubsidyPrintComponent, CombinedOfferLetterComponent, Section1IntroductionComponent, Section2LoanTypeComponent, Section3SecurityAndCollateralComponent, Section4LoanLimitComponent, Section5InterstPenalChargeComponent, Section6FacilitiesClauseComponent, Section7SecurityClauseComponent, Section8InsuranceClauseComponent, Section9OtherClauseComponent, Section10SecurityDocumentsComponent, CombinedOfferLetterPrintComponent, Section6FacilitiesClausePrintComponent, Section9OtherClausePrintComponent, Section3SecurityAndCollateralPrintComponent, Section7SecurityClausePrintComponent, Section10SecurityDocumentsPrintComponent, Section1IntroductionPrintComponent, Section4LoanLimitPrintComponent, Section5InterestPenalChargePrintComponent, Section8InsuranceClausePrintComponent, Section2LoanTypePrintComponent, TermLoanToOrForComponent, TermLoanToOrForPrintComponent, MortgageEquityTermLoanComponent, MortgageEquityTermLoanPrintComponent, AutoLoanComponent, AutoLoanPrintComponent, CommonSectionTopComponent, CommonSectionBottomComponent, CommonSectionBottomPrintComponent, CommonSectionTopPrintComponent, MasterSecuritiesViewComponent, MasterSecondarySecuritiesViewComponent, SharePledgeSecuritiesComponent, CounterGuaranteeCompanyComponent, LetterOfHypothecationProprietorshipComponent, LetterOfHypothecationPartnershipComponent, LetterOfHypothecationCompanyComponent, SupplementaryAggrementProprietorshipComponent, SupplementaryAggrementPartnershipComponent, SupplementaryAggrementCompanyComponent, AssignmentOfReceivableProprietorshipComponent, AssignmentOfReceivablePartnershipComponent, AssignmentOfReceivableCompanyComponent, PowerOfAttorneyProprietorshipComponent, PowerOfAttorneyPartnershipComponent, PowerOfAttorneyCompanyComponent, LoanDeedProprietorshipComponent, CounterGuaranteeProprietorshipComponent, CounterGuaranteePartnershipComponent, MortgageTermLoanComponent, MortgageTermLoanPrintComponent, LetterOfContinuityProprietorshipComponent, LetterOfContinuityCompanyComponent, LetterOfContinuityPartnershipComponent, GeneralLetterOfTrustReceiptPartnershipComponent, GeneralLetterOfTrustReceiptProprietorshipComponent, GeneralLetterOfTrustReceiptCompanyComponent, CrossGuaranteeCompanyComponent, CrossGuaranteeProprietorshipComponent, CrossGuaranteePartnershipComponent, LandSubOrdinatePartnershipComponent, LandSubOrdinateProprietorshipComponent, LandSubOrdinateCompanyComponent, ConsentLetterForMortgageCompanyComponent, ConsentLetterForMortgagePartnershipComponent, ConsentLetterForMortgageProprietorshipComponent, HirePurchaseProprietorshipComponent, HirePurchasePartnershipComponent, HirePurchaseCompanyComponent, LetterOfSetOffCompanyComponent, LetterOfSetOffProprietorshipComponent, LetterOfSetOffPartnershipComponent, LetterVehicleThirdPartyPartnershipComponent,
-        LetterVehicleThirdPartyProprietorshipComponent],
+        LetterVehicleThirdPartyProprietorshipComponent,
+        SingleSmePrimarySecurityViewComponent,
+        SingleSmeSecondarySecurityViewComponent],
 
     exports: [
         PromissoryNoteIndividualComponent,
@@ -206,7 +210,8 @@ import { LetterVehicleThirdPartyProprietorshipComponent } from './letter-vehicle
         HirePurchaseProprietorshipComponent,
         LetterOfSetOffProprietorshipComponent,
         LetterVehicleThirdPartyPartnershipComponent,
-        LetterVehicleThirdPartyProprietorshipComponent
+        LetterVehicleThirdPartyProprietorshipComponent,
+        SingleSmePrimarySecurityViewComponent
     ],
     imports: [
         CommonModule,
