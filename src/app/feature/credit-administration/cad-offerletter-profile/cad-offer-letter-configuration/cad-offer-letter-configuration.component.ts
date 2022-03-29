@@ -617,7 +617,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
                      * guarantor existing CT value patch
                      * @author Paribartan Kalathoki
                      */
-                    this.setGuarantorsDetailsCTValueIfNotTranslated();
+                    // this.setGuarantorsDetailsCTValueIfNotTranslated();
                     // end guarantor detault CT value patch
 
                 } else {
@@ -1230,6 +1230,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
                     ct: this.userConfigForm.get(['guarantorDetails', index, 'issuedPlaceCT']).value ?
                         this.userConfigForm.get(['guarantorDetails', index, 'issuedPlaceCT']).value : '',
                 };
+                nepData['guarantorNationality'] = this.userConfigForm.get(['guarantorDetails', index, 'guarantorNationality']).value ?
+                    this.userConfigForm.get(['guarantorDetails', index, 'guarantorNationality']).value : '';
             }
             if (this.userConfigForm.get(['guarantorDetails', index, 'guarantorForeignAddressOption']).value === 'Local' &&
                 this.actionType === 'Edit' && this.customerType === CustomerType.INSTITUTION) {
@@ -3511,7 +3513,6 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
             });
             this.translatedGuarantorDetails[index] = newArr;
             // this.deleteCTAndTransContorls(index);
-            console.log('Before Saving:', newArr);
             this.userConfigForm.get(['guarantorDetails', index, 'nepData']).setValue(JSON.stringify(newArr));
             // end guarantorDetails
             if (index === 0) {
@@ -3982,55 +3983,99 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
                 temporaryDistrict: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.temporaryDistrict,
                 temporaryMunicipality: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.temporaryMunicipalities,
                 permanentWard: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.loanHolder.customerType === CustomerType.INDIVIDUAL ?
-                    this.oneFormCustomer.wardNumber : JSON.parse(this.loanHolder.nepData).permanentWard.en,
+                    this.oneFormCustomer.wardNumber : (!ObjectUtil.isEmpty(this.loanHolder) &&
+                        !ObjectUtil.isEmpty(this.loanHolder.nepData)) ? JSON.parse(this.loanHolder.nepData).permanentWard.en : undefined,
                 temporaryWard: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.oneFormCustomer.temporaryWardNumber,
                 citizenshipIssueDistrict: ObjectUtil.isEmpty(this.nepData) ? undefined : this.loanHolder.customerType === CustomerType.INDIVIDUAL ?
                     this.nepData.citizenshipIssueDistrict.ct : undefined,
                 registrationNo: ObjectUtil.isEmpty(this.oneFormCustomer) ? undefined : this.loanHolder.customerType === CustomerType.INSTITUTION ?
                     this.oneFormCustomer.registrationNumber : undefined,
-                registeredMunType: ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).registeredMunType) ? undefined : this.loanHolder.customerType === CustomerType.INSTITUTION ?
-                    JSON.parse(this.loanHolder.nepData).registeredMunType.en : undefined,
-                registeredProvince: ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).registeredProvince) ? undefined : this.loanHolder.customerType === CustomerType.INSTITUTION ?
+                registeredMunType: !ObjectUtil.isEmpty(this.loanHolder) && !ObjectUtil.isEmpty(this.loanHolder.nepData) &&
+                !ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).registeredMunType) &&
+                this.loanHolder.customerType === CustomerType.INSTITUTION ? JSON.parse(this.loanHolder.nepData).registeredMunType.en : undefined,
+                registeredProvince: !ObjectUtil.isEmpty(this.loanHolder) && !ObjectUtil.isEmpty(this.loanHolder.nepData) &&
+                !ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).registeredProvince) &&
+                this.loanHolder.customerType === CustomerType.INSTITUTION ?
                     JSON.parse(this.loanHolder.nepData).registeredProvince.en : undefined,
-                registeredProvinceCT: ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).registeredProvince) ? undefined : this.loanHolder.customerType === CustomerType.INSTITUTION ?
+                registeredProvinceCT: !ObjectUtil.isEmpty(this.loanHolder) && !ObjectUtil.isEmpty(this.loanHolder.nepData) &&
+                !ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).registeredProvince) &&
+                this.loanHolder.customerType === CustomerType.INSTITUTION ?
                     JSON.parse(this.loanHolder.nepData).registeredProvince.en.nepaliName : undefined,
-                registeredDistrict: ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).registeredDistrict) ? undefined : this.loanHolder.customerType === CustomerType.INSTITUTION ?
+                registeredDistrict: !ObjectUtil.isEmpty(this.loanHolder) && !ObjectUtil.isEmpty(this.loanHolder.nepData) &&
+                !ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).registeredDistrict) &&
+                this.loanHolder.customerType === CustomerType.INSTITUTION ?
                     JSON.parse(this.loanHolder.nepData).registeredDistrict.en : undefined,
-                registeredDistrictCT: ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).registeredDistrict) ? undefined : this.loanHolder.customerType === CustomerType.INSTITUTION ?
+                registeredDistrictCT: !ObjectUtil.isEmpty(this.loanHolder) && !ObjectUtil.isEmpty(this.loanHolder.nepData) &&
+                !ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).registeredDistrict) &&
+                this.loanHolder.customerType === CustomerType.INSTITUTION ?
                     JSON.parse(this.loanHolder.nepData).registeredDistrict.en.nepaliName : undefined,
-                registeredDistrictTrans: ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).registeredDistrict) ? undefined : this.loanHolder.customerType === CustomerType.INSTITUTION ?
+                registeredDistrictTrans: !ObjectUtil.isEmpty(this.loanHolder) && !ObjectUtil.isEmpty(this.loanHolder.nepData) &&
+                !ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).registeredDistrict) &&
+                this.loanHolder.customerType === CustomerType.INSTITUTION ?
                     JSON.parse(this.loanHolder.nepData).registeredDistrict.en.nepaliName : undefined,
-                registeredMunicipality: ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).registeredMunicipality) ? undefined : this.loanHolder.customerType === CustomerType.INSTITUTION ?
+                registeredMunicipality: !ObjectUtil.isEmpty(this.loanHolder) && !ObjectUtil.isEmpty(this.loanHolder.nepData) &&
+                !ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).registeredMunicipality) &&
+                this.loanHolder.customerType === CustomerType.INSTITUTION ?
                     JSON.parse(this.loanHolder.nepData).registeredMunicipality.en : undefined,
-                registeredMunicipalityCT: ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).registeredMunicipality) ? undefined : this.loanHolder.customerType === CustomerType.INSTITUTION ?
+                registeredMunicipalityCT: !ObjectUtil.isEmpty(this.loanHolder) && !ObjectUtil.isEmpty(this.loanHolder.nepData) &&
+                !ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).registeredMunicipality) &&
+                this.loanHolder.customerType === CustomerType.INSTITUTION ?
                     JSON.parse(this.loanHolder.nepData).registeredMunicipality.en.nepaliName : undefined,
-                registeredMunicipalityTrans: ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).registeredMunicipality) ? undefined : this.loanHolder.customerType === CustomerType.INSTITUTION ?
+                registeredMunicipalityTrans: !ObjectUtil.isEmpty(this.loanHolder) && !ObjectUtil.isEmpty(this.loanHolder.nepData) &&
+                !ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).registeredMunicipality) &&
+                this.loanHolder.customerType === CustomerType.INSTITUTION ?
                     JSON.parse(this.loanHolder.nepData).registeredMunicipality.en.nepaliName : undefined,
-                currentMunType: ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).currentMunType) ? undefined : this.loanHolder.customerType === CustomerType.INSTITUTION ?
+                currentMunType: !ObjectUtil.isEmpty(this.loanHolder) && !ObjectUtil.isEmpty(this.loanHolder.nepData) &&
+                !ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).currentMunType) &&
+                this.loanHolder.customerType === CustomerType.INSTITUTION ?
                     JSON.parse(this.loanHolder.nepData).currentMunType.en : undefined,
-                currentProvince: ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).currentProvince) ? undefined : this.loanHolder.customerType === CustomerType.INSTITUTION ?
+                currentProvince: !ObjectUtil.isEmpty(this.loanHolder) && !ObjectUtil.isEmpty(this.loanHolder.nepData) &&
+                !ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).currentProvince) &&
+                this.loanHolder.customerType === CustomerType.INSTITUTION ?
                     JSON.parse(this.loanHolder.nepData).currentProvince.en : undefined,
-                currentProvinceTrans: ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).currentProvince) ? undefined : this.loanHolder.customerType === CustomerType.INSTITUTION ?
+                currentProvinceTrans: !ObjectUtil.isEmpty(this.loanHolder) && !ObjectUtil.isEmpty(this.loanHolder.nepData) &&
+                !ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).currentProvince) &&
+                this.loanHolder.customerType === CustomerType.INSTITUTION ?
                     JSON.parse(this.loanHolder.nepData).currentProvince.en.nepaliName : undefined,
-                currentProvinceCT: ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).currentProvince) ? undefined : this.loanHolder.customerType === CustomerType.INSTITUTION ?
+                currentProvinceCT: !ObjectUtil.isEmpty(this.loanHolder) && !ObjectUtil.isEmpty(this.loanHolder.nepData) &&
+                !ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).currentProvince) &&
+                this.loanHolder.customerType === CustomerType.INSTITUTION ?
                     JSON.parse(this.loanHolder.nepData).currentProvince.en.nepaliName : undefined,
-                currentDistrict: ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).currentDistrict) ? undefined : this.loanHolder.customerType === CustomerType.INSTITUTION ?
+                currentDistrict: !ObjectUtil.isEmpty(this.loanHolder) && !ObjectUtil.isEmpty(this.loanHolder.nepData) &&
+                !ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).currentDistrict) &&
+                this.loanHolder.customerType === CustomerType.INSTITUTION ?
                     JSON.parse(this.loanHolder.nepData).currentDistrict.en : undefined,
-                currentDistrictTrans: ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).currentDistrict) ? undefined : this.loanHolder.customerType === CustomerType.INSTITUTION ?
+                currentDistrictTrans: !ObjectUtil.isEmpty(this.loanHolder) && !ObjectUtil.isEmpty(this.loanHolder.nepData) &&
+                !ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).currentDistrict) &&
+                this.loanHolder.customerType === CustomerType.INSTITUTION ?
                     JSON.parse(this.loanHolder.nepData).currentDistrict.en.nepaliName : undefined,
-                currentDistrictCT: ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).currentDistrict) ? undefined : this.loanHolder.customerType === CustomerType.INSTITUTION ?
+                currentDistrictCT: !ObjectUtil.isEmpty(this.loanHolder) && !ObjectUtil.isEmpty(this.loanHolder.nepData) &&
+                !ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).currentDistrict) &&
+                this.loanHolder.customerType === CustomerType.INSTITUTION ?
                     JSON.parse(this.loanHolder.nepData).currentDistrict.en.nepaliName : undefined,
-                currentMunicipality: ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).currentMunicipality) ? undefined : this.loanHolder.customerType === CustomerType.INSTITUTION ?
+                currentMunicipality: !ObjectUtil.isEmpty(this.loanHolder) && !ObjectUtil.isEmpty(this.loanHolder.nepData) &&
+                !ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).currentMunicipality) &&
+                this.loanHolder.customerType === CustomerType.INSTITUTION ?
                     JSON.parse(this.loanHolder.nepData).currentMunicipality.en : undefined,
-                currentMunicipalityCT: ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).currentMunicipality) ? undefined : this.loanHolder.customerType === CustomerType.INSTITUTION ?
+                currentMunicipalityCT: !ObjectUtil.isEmpty(this.loanHolder) && !ObjectUtil.isEmpty(this.loanHolder.nepData) &&
+                !ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).currentMunicipality) &&
+                this.loanHolder.customerType === CustomerType.INSTITUTION ?
                     JSON.parse(this.loanHolder.nepData).currentMunicipality.en.nepaliName : undefined,
-                currentMunicipalityTrans: ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).currentMunicipality) ? undefined : this.loanHolder.customerType === CustomerType.INSTITUTION ?
+                currentMunicipalityTrans: !ObjectUtil.isEmpty(this.loanHolder) && !ObjectUtil.isEmpty(this.loanHolder.nepData) &&
+                !ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).currentMunicipality) &&
+                this.loanHolder.customerType === CustomerType.INSTITUTION ?
                     JSON.parse(this.loanHolder.nepData).currentMunicipality.en.nepaliName : undefined,
-                currentWard: ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).currentWard) ? undefined : this.loanHolder.customerType === CustomerType.INSTITUTION ?
+                currentWard: !ObjectUtil.isEmpty(this.loanHolder) && !ObjectUtil.isEmpty(this.loanHolder.nepData) &&
+                !ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).currentWard) &&
+                this.loanHolder.customerType === CustomerType.INSTITUTION ?
                     JSON.parse(this.loanHolder.nepData).currentWard.en : undefined,
-                currentWardTrans: ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).currentWard) ? undefined : this.loanHolder.customerType === CustomerType.INSTITUTION ?
+                currentWardTrans: !ObjectUtil.isEmpty(this.loanHolder) && !ObjectUtil.isEmpty(this.loanHolder.nepData) &&
+                !ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).currentWard) &&
+                this.loanHolder.customerType === CustomerType.INSTITUTION ?
                     JSON.parse(this.loanHolder.nepData).currentWard.np : undefined,
-                currentWardCT: ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).currentWard) ? undefined : this.loanHolder.customerType === CustomerType.INSTITUTION ?
+                currentWardCT: !ObjectUtil.isEmpty(this.loanHolder) && !ObjectUtil.isEmpty(this.loanHolder.nepData) &&
+                !ObjectUtil.isEmpty(JSON.parse(this.loanHolder.nepData).currentWard) &&
+                this.loanHolder.customerType === CustomerType.INSTITUTION ?
                     JSON.parse(this.loanHolder.nepData).currentWard.np : undefined,
             });
 
@@ -4075,125 +4120,127 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
         // },
 
         if (!ObjectUtil.isEmpty(this.loanHolder) && !ObjectUtil.isEmpty(this.oneFormCustomer)) {
-            const nepData = (JSON.parse(this.loanHolder.nepData));
-            // if (this.customerType === CustomerType.INSTITUTION && !ObjectUtil.isEmpty(nepData.radioActYearDate) && this.actionType === 'Edit') {
-            //     if (nepData.radioActYearDate.en === 'AD') {
-            //         this.institutionalActYear = nepData.actYear.en;
-            //     } else if (nepData.radioActYearDate.en === 'BS') {
-            //         this.institutionalActYear = nepData.actYear.en;
-            //     } else {
-            //         this.institutionalActYear = undefined;
-            //     }
-            // }
-            /*let registrationDate: any;
-            if (this.customerType === CustomerType.INSTITUTION) {
-                if (this.nepData.registrationDateOption.en === 'BS') {
-                    registrationDate = this.nepData.registrationDate.en;
-                } else {
-                    registrationDate = this.oneFormCustomer.establishmentDate;
-                }
-            }*/
-            this.userConfigForm.patchValue({
-                panNo: !ObjectUtil.isEmpty(nepData.panNo) && !ObjectUtil.isEmpty(nepData.panNo.en) ?  nepData.panNo.en : undefined,
-                branchCT: !ObjectUtil.isEmpty(nepData.branch) && !ObjectUtil.isEmpty(nepData.branch.ct) ? nepData.branch.ct : undefined,
-                customerCodeCT: !ObjectUtil.isEmpty(nepData.customerCode) && !ObjectUtil.isEmpty(nepData.customerCode.ct)
-                    ? nepData.customerCode.ct : undefined,
-                nameCT: !ObjectUtil.isEmpty(nepData.name) && !ObjectUtil.isEmpty(nepData.name.np) ? nepData.name.np : undefined,
-                emailCT: !ObjectUtil.isEmpty(nepData.email) && !ObjectUtil.isEmpty(nepData.email.np) ? nepData.email.np : undefined,
-                contactNoCT: !ObjectUtil.isEmpty(nepData.contactNo) && !ObjectUtil.isEmpty(nepData.contactNo.ct) ?
-                    nepData.contactNo.ct : undefined,
-                panNoCT: !ObjectUtil.isEmpty(nepData.panNo) && !ObjectUtil.isEmpty(nepData.panNo.np) ? nepData.panNo.np : undefined,
-                actName: !ObjectUtil.isEmpty(nepData.actName) && !ObjectUtil.isEmpty(nepData.actName.en) ? nepData.actName.en : undefined,
-                actNameCT : !ObjectUtil.isEmpty(nepData.actName) && !ObjectUtil.isEmpty(nepData.actName.ct) ? nepData.actName.ct : undefined,
-                actNameTrans : !ObjectUtil.isEmpty(nepData.actName) && !ObjectUtil.isEmpty(nepData.actName.np) ?
-                    nepData.actName.np : undefined,
-                authorizedBodyName: !ObjectUtil.isEmpty(nepData.authorizedBodyName) && !ObjectUtil.isEmpty(nepData.authorizedBodyName.en)
-                    ? nepData.authorizedBodyName.en : undefined,
-                authorizedBodyNameCT: !ObjectUtil.isEmpty(nepData.authorizedBodyName) && !ObjectUtil.isEmpty(nepData.authorizedBodyName.ct) ?
-                    nepData.authorizedBodyName.ct : undefined,
-                authorizedBodyNameTrans: !ObjectUtil.isEmpty(nepData.authorizedBodyName) &&
-                !ObjectUtil.isEmpty(nepData.authorizedBodyName.np) ?
-                    nepData.authorizedBodyName.np : undefined,
-                issuingDistrict: !ObjectUtil.isEmpty(nepData.issuingDistrict) && !ObjectUtil.isEmpty(nepData.issuingDistrict.en) ?
-                    nepData.issuingDistrict.en : undefined,
-                issuingDistrictCT: !ObjectUtil.isEmpty(nepData.issuingDistrict) && !ObjectUtil.isEmpty(nepData.issuingDistrict.ct) ?
-                    nepData.issuingDistrict.ct : undefined,
-                issuingDistrictTrans: !ObjectUtil.isEmpty(nepData.issuingDistrict) && !ObjectUtil.isEmpty(nepData.issuingDistrict.ct) ?
-                    nepData.issuingDistrict.ct : undefined,
-                registeredWith: !ObjectUtil.isEmpty(nepData.registeredWith) && !ObjectUtil.isEmpty(nepData.registeredWith.en) ?
-                    nepData.registeredWith.en : undefined,
-                registeredWithCT: !ObjectUtil.isEmpty(nepData.registeredWith) && !ObjectUtil.isEmpty(nepData.registeredWith.ct) ?
-                    nepData.registeredWith.ct : undefined,
-                registeredWithTrans: !ObjectUtil.isEmpty(nepData.registeredWith) && !ObjectUtil.isEmpty(nepData.registeredWith.np) ?
-                    nepData.registeredWith.np : undefined,
-                registeredStreetTole: !ObjectUtil.isEmpty(nepData.registeredStreetTole) &&
-                !ObjectUtil.isEmpty(nepData.registeredStreetTole.en) ?
-                    nepData.registeredStreetTole.en : undefined,
-                registeredStreetToleTrans: !ObjectUtil.isEmpty(nepData.registeredStreetTole) &&
-                !ObjectUtil.isEmpty(nepData.registeredStreetTole.np) ?
-                    nepData.registeredStreetTole.np : undefined,
-                registeredStreetToleCT: !ObjectUtil.isEmpty(nepData.registeredStreetTole) &&
-                !ObjectUtil.isEmpty(nepData.registeredStreetTole.ct) ?
-                    nepData.registeredStreetTole.ct : undefined,
-                currentStreetTole: !ObjectUtil.isEmpty(nepData.currentStreetTole) && !ObjectUtil.isEmpty(nepData.currentStreetTole.en) ?
-                    nepData.currentStreetTole.en : undefined,
-                currentStreetToleTrans: !ObjectUtil.isEmpty(nepData.currentStreetTole) && !ObjectUtil.isEmpty(nepData.currentStreetTole.np) ?
-                    nepData.currentStreetTole.np : undefined,
-                currentStreetToleCT: !ObjectUtil.isEmpty(nepData.currentStreetTole) && !ObjectUtil.isEmpty(nepData.currentStreetTole.ct) ?
-                    nepData.currentStreetTole.ct : undefined,
-                radioActYearDate: !ObjectUtil.isEmpty(nepData.radioActYearDate) && !ObjectUtil.isEmpty(nepData.radioActYearDate.en) ?
-                    nepData.radioActYearDate.en : undefined,
-                actYear: !ObjectUtil.isEmpty(nepData.actYear) && !ObjectUtil.isEmpty(nepData.actYear.en) ?
-                    nepData.actYear.en : undefined,
-                citizenshipNoCT: !ObjectUtil.isEmpty(nepData.citizenshipNumber) && !ObjectUtil.isEmpty(nepData.citizenshipNumber.np) ?
-                    nepData.citizenshipNumber.np : undefined,
-                genderCT: !ObjectUtil.isEmpty(nepData.gender) && !ObjectUtil.isEmpty(nepData.gender.np) ?
-                    nepData.gender.np : undefined,
-                permanentProvinceCT: !ObjectUtil.isEmpty(nepData.permanentProvince) && !ObjectUtil.isEmpty(nepData.permanentProvince.np) ?
-                    nepData.permanentProvince.np : undefined,
-                permanentDistrictCT: !ObjectUtil.isEmpty(nepData.permanentDistrict) && !ObjectUtil.isEmpty(nepData.permanentDistrict.np) ?
-                    nepData.permanentDistrict.np : undefined,
-                registrationDateOption: !ObjectUtil.isEmpty(nepData.registrationDateOption) &&
-                !ObjectUtil.isEmpty(nepData.registrationDateOption.en) ?
-                    nepData.registrationDateOption.en : undefined,
-                registrationDate: !ObjectUtil.isEmpty(nepData.registrationDate) && !ObjectUtil.isEmpty(nepData.registrationDate.en) ?
-                    new Date(nepData.registrationDate.en) : undefined,
-                registrationDateTrans:  ObjectUtil.isEmpty(this.userConfigForm.get('registrationDate').value) ?
-                    undefined : this.userConfigForm.get('registrationDate').value,
-                registrationDateCT:  ObjectUtil.isEmpty(this.userConfigForm.get('registrationDate').value) ?
-                    undefined : this.userConfigForm.get('registrationDate').value,
+            if (!ObjectUtil.isEmpty(this.loanHolder.nepData)) {
+                const nepData = (JSON.parse(this.loanHolder.nepData));
+                // if (this.customerType === CustomerType.INSTITUTION && !ObjectUtil.isEmpty(nepData.radioActYearDate) && this.actionType === 'Edit') {
+                //     if (nepData.radioActYearDate.en === 'AD') {
+                //         this.institutionalActYear = nepData.actYear.en;
+                //     } else if (nepData.radioActYearDate.en === 'BS') {
+                //         this.institutionalActYear = nepData.actYear.en;
+                //     } else {
+                //         this.institutionalActYear = undefined;
+                //     }
+                // }
+                /*let registrationDate: any;
+                if (this.customerType === CustomerType.INSTITUTION) {
+                    if (this.nepData.registrationDateOption.en === 'BS') {
+                        registrationDate = this.nepData.registrationDate.en;
+                    } else {
+                        registrationDate = this.oneFormCustomer.establishmentDate;
+                    }
+                }*/
+                this.userConfigForm.patchValue({
+                    panNo: !ObjectUtil.isEmpty(nepData.panNo) && !ObjectUtil.isEmpty(nepData.panNo.en) ? nepData.panNo.en : undefined,
+                    branchCT: !ObjectUtil.isEmpty(nepData.branch) && !ObjectUtil.isEmpty(nepData.branch.ct) ? nepData.branch.ct : undefined,
+                    customerCodeCT: !ObjectUtil.isEmpty(nepData.customerCode) && !ObjectUtil.isEmpty(nepData.customerCode.ct)
+                        ? nepData.customerCode.ct : undefined,
+                    nameCT: !ObjectUtil.isEmpty(nepData.name) && !ObjectUtil.isEmpty(nepData.name.np) ? nepData.name.np : undefined,
+                    emailCT: !ObjectUtil.isEmpty(nepData.email) && !ObjectUtil.isEmpty(nepData.email.np) ? nepData.email.np : undefined,
+                    contactNoCT: !ObjectUtil.isEmpty(nepData.contactNo) && !ObjectUtil.isEmpty(nepData.contactNo.ct) ?
+                        nepData.contactNo.ct : undefined,
+                    panNoCT: !ObjectUtil.isEmpty(nepData.panNo) && !ObjectUtil.isEmpty(nepData.panNo.np) ? nepData.panNo.np : undefined,
+                    actName: !ObjectUtil.isEmpty(nepData.actName) && !ObjectUtil.isEmpty(nepData.actName.en) ? nepData.actName.en : undefined,
+                    actNameCT: !ObjectUtil.isEmpty(nepData.actName) && !ObjectUtil.isEmpty(nepData.actName.ct) ? nepData.actName.ct : undefined,
+                    actNameTrans: !ObjectUtil.isEmpty(nepData.actName) && !ObjectUtil.isEmpty(nepData.actName.np) ?
+                        nepData.actName.np : undefined,
+                    authorizedBodyName: !ObjectUtil.isEmpty(nepData.authorizedBodyName) && !ObjectUtil.isEmpty(nepData.authorizedBodyName.en)
+                        ? nepData.authorizedBodyName.en : undefined,
+                    authorizedBodyNameCT: !ObjectUtil.isEmpty(nepData.authorizedBodyName) && !ObjectUtil.isEmpty(nepData.authorizedBodyName.ct) ?
+                        nepData.authorizedBodyName.ct : undefined,
+                    authorizedBodyNameTrans: !ObjectUtil.isEmpty(nepData.authorizedBodyName) &&
+                    !ObjectUtil.isEmpty(nepData.authorizedBodyName.np) ?
+                        nepData.authorizedBodyName.np : undefined,
+                    issuingDistrict: !ObjectUtil.isEmpty(nepData.issuingDistrict) && !ObjectUtil.isEmpty(nepData.issuingDistrict.en) ?
+                        nepData.issuingDistrict.en : undefined,
+                    issuingDistrictCT: !ObjectUtil.isEmpty(nepData.issuingDistrict) && !ObjectUtil.isEmpty(nepData.issuingDistrict.ct) ?
+                        nepData.issuingDistrict.ct : undefined,
+                    issuingDistrictTrans: !ObjectUtil.isEmpty(nepData.issuingDistrict) && !ObjectUtil.isEmpty(nepData.issuingDistrict.ct) ?
+                        nepData.issuingDistrict.ct : undefined,
+                    registeredWith: !ObjectUtil.isEmpty(nepData.registeredWith) && !ObjectUtil.isEmpty(nepData.registeredWith.en) ?
+                        nepData.registeredWith.en : undefined,
+                    registeredWithCT: !ObjectUtil.isEmpty(nepData.registeredWith) && !ObjectUtil.isEmpty(nepData.registeredWith.ct) ?
+                        nepData.registeredWith.ct : undefined,
+                    registeredWithTrans: !ObjectUtil.isEmpty(nepData.registeredWith) && !ObjectUtil.isEmpty(nepData.registeredWith.np) ?
+                        nepData.registeredWith.np : undefined,
+                    registeredStreetTole: !ObjectUtil.isEmpty(nepData.registeredStreetTole) &&
+                    !ObjectUtil.isEmpty(nepData.registeredStreetTole.en) ?
+                        nepData.registeredStreetTole.en : undefined,
+                    registeredStreetToleTrans: !ObjectUtil.isEmpty(nepData.registeredStreetTole) &&
+                    !ObjectUtil.isEmpty(nepData.registeredStreetTole.np) ?
+                        nepData.registeredStreetTole.np : undefined,
+                    registeredStreetToleCT: !ObjectUtil.isEmpty(nepData.registeredStreetTole) &&
+                    !ObjectUtil.isEmpty(nepData.registeredStreetTole.ct) ?
+                        nepData.registeredStreetTole.ct : undefined,
+                    currentStreetTole: !ObjectUtil.isEmpty(nepData.currentStreetTole) && !ObjectUtil.isEmpty(nepData.currentStreetTole.en) ?
+                        nepData.currentStreetTole.en : undefined,
+                    currentStreetToleTrans: !ObjectUtil.isEmpty(nepData.currentStreetTole) && !ObjectUtil.isEmpty(nepData.currentStreetTole.np) ?
+                        nepData.currentStreetTole.np : undefined,
+                    currentStreetToleCT: !ObjectUtil.isEmpty(nepData.currentStreetTole) && !ObjectUtil.isEmpty(nepData.currentStreetTole.ct) ?
+                        nepData.currentStreetTole.ct : undefined,
+                    radioActYearDate: !ObjectUtil.isEmpty(nepData.radioActYearDate) && !ObjectUtil.isEmpty(nepData.radioActYearDate.en) ?
+                        nepData.radioActYearDate.en : undefined,
+                    actYear: !ObjectUtil.isEmpty(nepData.actYear) && !ObjectUtil.isEmpty(nepData.actYear.en) ?
+                        nepData.actYear.en : undefined,
+                    citizenshipNoCT: !ObjectUtil.isEmpty(nepData.citizenshipNumber) && !ObjectUtil.isEmpty(nepData.citizenshipNumber.np) ?
+                        nepData.citizenshipNumber.np : undefined,
+                    genderCT: !ObjectUtil.isEmpty(nepData.gender) && !ObjectUtil.isEmpty(nepData.gender.np) ?
+                        nepData.gender.np : undefined,
+                    permanentProvinceCT: !ObjectUtil.isEmpty(nepData.permanentProvince) && !ObjectUtil.isEmpty(nepData.permanentProvince.np) ?
+                        nepData.permanentProvince.np : undefined,
+                    permanentDistrictCT: !ObjectUtil.isEmpty(nepData.permanentDistrict) && !ObjectUtil.isEmpty(nepData.permanentDistrict.np) ?
+                        nepData.permanentDistrict.np : undefined,
+                    registrationDateOption: !ObjectUtil.isEmpty(nepData.registrationDateOption) &&
+                    !ObjectUtil.isEmpty(nepData.registrationDateOption.en) ?
+                        nepData.registrationDateOption.en : undefined,
+                    registrationDate: !ObjectUtil.isEmpty(nepData.registrationDate) && !ObjectUtil.isEmpty(nepData.registrationDate.en) ?
+                        new Date(nepData.registrationDate.en) : undefined,
+                    registrationDateTrans: ObjectUtil.isEmpty(this.userConfigForm.get('registrationDate').value) ?
+                        undefined : this.userConfigForm.get('registrationDate').value,
+                    registrationDateCT: ObjectUtil.isEmpty(this.userConfigForm.get('registrationDate').value) ?
+                        undefined : this.userConfigForm.get('registrationDate').value,
 
-                registrationDateNepali: !ObjectUtil.isEmpty(nepData.registrationDateNepali) &&
-                !ObjectUtil.isEmpty(nepData.registrationDateNepali.en) ?
-                    nepData.registrationDateNepali.en : undefined,
-                registrationDateNepaliTrans:  ObjectUtil.isEmpty(this.userConfigForm.get('registrationDateNepali').value) ?
-                    undefined : this.userConfigForm.get('registrationDateNepali').value,
-                registrationDateNepaliCT:  ObjectUtil.isEmpty(this.userConfigForm.get('registrationDateNepali').value) ?
-                    undefined : this.userConfigForm.get('registrationDateNepali').value,
+                    registrationDateNepali: !ObjectUtil.isEmpty(nepData.registrationDateNepali) &&
+                    !ObjectUtil.isEmpty(nepData.registrationDateNepali.en) ?
+                        nepData.registrationDateNepali.en : undefined,
+                    registrationDateNepaliTrans: ObjectUtil.isEmpty(this.userConfigForm.get('registrationDateNepali').value) ?
+                        undefined : this.userConfigForm.get('registrationDateNepali').value,
+                    registrationDateNepaliCT: ObjectUtil.isEmpty(this.userConfigForm.get('registrationDateNepali').value) ?
+                        undefined : this.userConfigForm.get('registrationDateNepali').value,
 
-                // permanentMunicipality: !ObjectUtil.isEmpty(nepData.permanentMunicipality) ? nepData.permanentMunicipality.np : undefined,
-                temporaryProvinceCT: !ObjectUtil.isEmpty(nepData.temporaryProvince) && !ObjectUtil.isEmpty(nepData.temporaryProvince.np) ?
-                    nepData.temporaryProvince.np : undefined,
-                temporaryDistrictCT: !ObjectUtil.isEmpty(nepData.temporaryDistrict) && !ObjectUtil.isEmpty(nepData.temporaryDistrict.np) ?
-                    nepData.temporaryDistrict.np : undefined,
-                temporaryMunicipalityCT: !ObjectUtil.isEmpty(nepData.temporaryMunicipality) &&
-                !ObjectUtil.isEmpty(nepData.temporaryMunicipality.ct) ?
-                    nepData.temporaryMunicipality.ct : undefined,
-                permanentMunicipalityCT: !ObjectUtil.isEmpty(nepData.permanentMunicipality) &&
-                !ObjectUtil.isEmpty(nepData.permanentMunicipality.ct) ?
-                    nepData.permanentMunicipality.ct : undefined,
-                permanentWardCT: !ObjectUtil.isEmpty(nepData.permanentWard) && !ObjectUtil.isEmpty(nepData.permanentWard.np) ?
-                    nepData.permanentWard.np : undefined,
-                temporaryWardCT: !ObjectUtil.isEmpty(nepData.temporaryWard) && !ObjectUtil.isEmpty(nepData.temporaryWard.np) ?
-                    nepData.temporaryWard.np : undefined,
-                // citizenshipIssueDateCT: !ObjectUtil.isEmpty(nepData.citizenshipIssueDate) ? nepData.citizenshipIssueDate.np : undefined,
-                // dobCT: !ObjectUtil.isEmpty(nepData.permanentMunicipality) ? nepData.permanentMunicipality.np : undefined,
-                // citizenshipIssueDistrictCT: !ObjectUtil.isEmpty(nepData.permanentMunicipality) ?
-                // nepData.permanentMunicipality.np : undefined,
-                registrationNoCT: ObjectUtil.isEmpty(nepData.registrationNo) ? undefined :
-                    this.loanHolder.customerType === CustomerType.INSTITUTION ?
-                        nepData.registrationNo.ct : undefined
-            });
+                    // permanentMunicipality: !ObjectUtil.isEmpty(nepData.permanentMunicipality) ? nepData.permanentMunicipality.np : undefined,
+                    temporaryProvinceCT: !ObjectUtil.isEmpty(nepData.temporaryProvince) && !ObjectUtil.isEmpty(nepData.temporaryProvince.np) ?
+                        nepData.temporaryProvince.np : undefined,
+                    temporaryDistrictCT: !ObjectUtil.isEmpty(nepData.temporaryDistrict) && !ObjectUtil.isEmpty(nepData.temporaryDistrict.np) ?
+                        nepData.temporaryDistrict.np : undefined,
+                    temporaryMunicipalityCT: !ObjectUtil.isEmpty(nepData.temporaryMunicipality) &&
+                    !ObjectUtil.isEmpty(nepData.temporaryMunicipality.ct) ?
+                        nepData.temporaryMunicipality.ct : undefined,
+                    permanentMunicipalityCT: !ObjectUtil.isEmpty(nepData.permanentMunicipality) &&
+                    !ObjectUtil.isEmpty(nepData.permanentMunicipality.ct) ?
+                        nepData.permanentMunicipality.ct : undefined,
+                    permanentWardCT: !ObjectUtil.isEmpty(nepData.permanentWard) && !ObjectUtil.isEmpty(nepData.permanentWard.np) ?
+                        nepData.permanentWard.np : undefined,
+                    temporaryWardCT: !ObjectUtil.isEmpty(nepData.temporaryWard) && !ObjectUtil.isEmpty(nepData.temporaryWard.np) ?
+                        nepData.temporaryWard.np : undefined,
+                    // citizenshipIssueDateCT: !ObjectUtil.isEmpty(nepData.citizenshipIssueDate) ? nepData.citizenshipIssueDate.np : undefined,
+                    // dobCT: !ObjectUtil.isEmpty(nepData.permanentMunicipality) ? nepData.permanentMunicipality.np : undefined,
+                    // citizenshipIssueDistrictCT: !ObjectUtil.isEmpty(nepData.permanentMunicipality) ?
+                    // nepData.permanentMunicipality.np : undefined,
+                    registrationNoCT: ObjectUtil.isEmpty(nepData.registrationNo) ? undefined :
+                        this.loanHolder.customerType === CustomerType.INSTITUTION ?
+                            nepData.registrationNo.ct : undefined
+                });
+            }
         }
     }
 
@@ -4217,19 +4264,21 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
     }
 
     patchCorrectData() {
-        this.userConfigForm.patchValue({
-            nameCT: this.translatedValues.name,
-            emailCT: this.translatedValues.email,
-            // contactNoCT: this.translatedValues.contactNo,
-            // panNoCT: this.translatedValues.panNo,
-            genderCT: this.translatedValues.gender,
-            relationMediumCT: this.translatedValues.relationMedium,
-            fatherNameCT: this.translatedValues.fatherName,
-            grandFatherNameCT: this.translatedValues.grandFatherName,
-            husbandNameCT: this.translatedValues.husbandName,
-            fatherInLawNameCT: this.translatedValues.fatherInLawName,
-            citizenshipNoCT: this.translatedValues.citizenshipNo,
-        });
+        if (!ObjectUtil.isEmpty(this.translatedValues)) {
+            this.userConfigForm.patchValue({
+                nameCT: this.translatedValues.name ? this.translatedValues.name : '',
+                emailCT: this.translatedValues.email ? this.translatedValues.email : '',
+                // contactNoCT: this.translatedValues.contactNo ? this.translatedValues.contactNo : ',
+                // panNoCT: this.translatedValues.panNo ? this.translatedValues.panNo : ',
+                genderCT: this.translatedValues.gender ? this.translatedValues.gender : '',
+                relationMediumCT: this.translatedValues.relationMedium ? this.translatedValues.relationMedium : '',
+                fatherNameCT: this.translatedValues.fatherName ? this.translatedValues.fatherName : '',
+                grandFatherNameCT: this.translatedValues.grandFatherName ? this.translatedValues.grandFatherName : '',
+                husbandNameCT: this.translatedValues.husbandName ? this.translatedValues.husbandName : '',
+                fatherInLawNameCT: this.translatedValues.fatherInLawName ? this.translatedValues.fatherInLawName : '',
+                citizenshipNoCT: this.translatedValues.citizenshipNo ? this.translatedValues.citizenshipNo : '',
+            });
+        }
     }
 
     async editedTranslateValues() {
@@ -4288,12 +4337,18 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
 
     setInstitutionCTValue(): void {
         this.userConfigForm.patchValue({
-            currentProvinceCT: this.userConfigForm.get('currentProvince').value.nepaliName,
-            currentDistrictCT: this.userConfigForm.get('currentDistrict').value.nepaliName,
-            currentMunicipalityCT: this.userConfigForm.get('currentMunicipality').value.nepaliName,
-            registeredProvinceCT: this.userConfigForm.get('registeredProvince').value.nepaliName,
-            registeredDistrictCT: this.userConfigForm.get('registeredDistrict').value.nepaliName,
-            registeredMunicipalityCT: this.userConfigForm.get('registeredMunicipality').value.nepaliName,
+            currentProvinceCT: (!ObjectUtil.isEmpty(this.userConfigForm.get('currentProvince').value) &&
+                !ObjectUtil.isEmpty(this.userConfigForm.get('currentProvince').value.nepaliName)) ? this.userConfigForm.get('currentProvince').value.nepaliName : '',
+            currentDistrictCT: (!ObjectUtil.isEmpty(this.userConfigForm.get('currentDistrict').value) &&
+                !ObjectUtil.isEmpty(this.userConfigForm.get('currentDistrict').value.nepaliName)) ? this.userConfigForm.get('currentDistrict').value.nepaliName : '',
+            currentMunicipalityCT: (!ObjectUtil.isEmpty(this.userConfigForm.get('currentMunicipality').value) &&
+                !ObjectUtil.isEmpty(this.userConfigForm.get('currentMunicipality').value.nepaliName)) ? this.userConfigForm.get('currentMunicipality').value.nepaliName : '',
+            registeredProvinceCT: (!ObjectUtil.isEmpty(this.userConfigForm.get('registeredProvince').value) &&
+                !ObjectUtil.isEmpty(this.userConfigForm.get('registeredProvince').value.nepaliName)) ? this.userConfigForm.get('registeredProvince').value.nepaliName : '',
+            registeredDistrictCT: (!ObjectUtil.isEmpty(this.userConfigForm.get('registeredDistrict').value) &&
+                !ObjectUtil.isEmpty(this.userConfigForm.get('registeredDistrict').value.nepaliName)) ? this.userConfigForm.get('registeredDistrict').value.nepaliName : '',
+            registeredMunicipalityCT: (!ObjectUtil.isEmpty(this.userConfigForm.get('registeredMunicipality').value) &&
+                !ObjectUtil.isEmpty(this.userConfigForm.get('registeredMunicipality').value.nepaliName)) ? this.userConfigForm.get('registeredMunicipality').value.nepaliName : '',
         });
     }
 
@@ -4847,237 +4902,239 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
 
     patchOwnerDetails() {
         if (this.customerType === CustomerType.INSTITUTION) {
-            const nepData = JSON.parse(this.oneFormCustomer.companyJsonData);
-            const ownerDetailControl = this.userConfigForm.get('ownerDetails') as FormArray;
-           nepData.forEach((data, index) => {
-               this.getDistrictsByIdForOwner(data.ownerPermanentProvince ? data.ownerPermanentProvince.id : null , null, index);
-               this.getMunicipalitiesByIdForOwner(data.ownerPermanentDistrict ? data.ownerPermanentDistrict.id : null, null , index);
-               this.getDistrictsByIdForOwnerTemp(data.ownerTemporaryProvince ? data.ownerTemporaryProvince.id : null , null, index);
-               this.getMunicipalitiesByIdForOwnerTemp(data.ownerTemporaryDistrict ? data.ownerTemporaryDistrict.id : null, null , index);
+            if (!ObjectUtil.isEmpty(this.oneFormCustomer) && !ObjectUtil.isEmpty(this.oneFormCustomer.companyJsonData)) {
+                const nepData = JSON.parse(this.oneFormCustomer.companyJsonData);
+                const ownerDetailControl = this.userConfigForm.get('ownerDetails') as FormArray;
+                nepData.forEach((data, index) => {
+                    this.getDistrictsByIdForOwner(data.ownerPermanentProvince ? data.ownerPermanentProvince.id : null, null, index);
+                    this.getMunicipalitiesByIdForOwner(data.ownerPermanentDistrict ? data.ownerPermanentDistrict.id : null, null, index);
+                    this.getDistrictsByIdForOwnerTemp(data.ownerTemporaryProvince ? data.ownerTemporaryProvince.id : null, null, index);
+                    this.getMunicipalitiesByIdForOwnerTemp(data.ownerTemporaryDistrict ? data.ownerTemporaryDistrict.id : null, null, index);
 
-               ownerDetailControl.push(
-                   this.formBuilder.group({
-                       ownerName : data.ownerName ? data.ownerName : '' ,
-                       ownerNameTrans : data.ownerNameTrans ? data.ownerNameTrans : '' ,
-                       ownerNameCT : data.ownerNameCT ? data.ownerNameCT : '' ,
-                       ownerDob: ObjectUtil.isEmpty(data.ownerDob) ? undefined : data.ownerDob ? new Date(data.ownerDob) : '' ,
-                       ownerDobTrans : data.ownerDobTrans ? data.ownerDobTrans : '' ,
-                       ownerDobCT : data.ownerDobCT ? data.ownerDobCT : '' ,
-                       ownerDobNepali: ObjectUtil.isEmpty(data.ownerDobNepaliCT) ? undefined : data.ownerDobNepaliCT ? data.ownerDobNepaliCT : '' ,
-                       ownerDobNepaliTrans : data.ownerDobNepaliTrans ? data.ownerDobNepaliTrans : '' ,
-                       ownerDobNepaliCT : data.ownerDobNepaliCT ? data.ownerDobNepaliCT : '' ,
-                       ownerEmail : data.ownerEmail ? data.ownerEmail : '' ,
-                       ownerEmailTrans : data.ownerEmailTrans ? data.ownerEmailTrans : '' ,
-                       ownerEmailCT : data.ownerEmailCT ? data.ownerEmailCT : '' ,
-                       ownerContactNo : data.ownerContactNo ? data.ownerContactNo : '' ,
-                       ownerContactNoTrans : data.ownerContactNoTrans ? data.ownerContactNoTrans : '' ,
-                       ownerContactNoCT : data.ownerContactNoCT ? data.ownerContactNoCT : '' ,
-                       ownerGender : data.ownerGender ? data.ownerGender : '' ,
-                       ownerGenderTrans : data.ownerGenderTrans ? data.ownerGenderTrans : '' ,
-                       ownerGenderCT : data.ownerGenderCT ? data.ownerGenderCT : '' ,
-                       ownerMaritalStatus : data.ownerMaritalStatus ? data.ownerMaritalStatus : '' ,
-                       ownerMaritalStatusTrans : data.ownerMaritalStatusTrans ? data.ownerMaritalStatusTrans : '' ,
-                       ownerMaritalStatusCT : data.ownerMaritalStatusCT ? data.ownerMaritalStatusCT : '' ,
-                       ownerCitizenshipNo : data.ownerCitizenshipNo ? data.ownerCitizenshipNo : '' ,
-                       ownerCitizenshipNoTrans : data.ownerCitizenshipNoTrans ? data.ownerCitizenshipNoTrans : '' ,
-                       ownerCitizenshipNoCT : data.ownerCitizenshipNoCT ? data.ownerCitizenshipNoCT : '' ,
-                       ownerCitizenshipIssuedDistrict : data.ownerCitizenshipIssuedDistrict ? data.ownerCitizenshipIssuedDistrict : '' ,
-                       ownerCitizenshipIssuedDistrictTrans : data.ownerCitizenshipIssuedDistrictTrans ? data.ownerCitizenshipIssuedDistrictTrans : '' ,
-                       ownerCitizenshipIssuedDistrictCT : data.ownerCitizenshipIssuedDistrictCT ? data.ownerCitizenshipIssuedDistrictCT : '' ,
-                       ownerCitizenshipIssuedDate : data.ownerCitizenshipIssuedDate !== '' ?
-                               new Date(data.ownerCitizenshipIssuedDate) : '' ,
-                       ownerCitizenshipIssuedDateNepali : data.ownerCitizenshipIssuedDateNepali !== '' ?
-                           data.ownerCitizenshipIssuedDateNepali : '' ,
-                       ownerCitizenshipIssuedDateTrans : data.ownerCitizenshipIssuedDateTrans ? data.ownerCitizenshipIssuedDateTrans : '' ,
-                       ownerCitizenshipIssuedDateCT : data.ownerCitizenshipIssuedDateCT ? data.ownerCitizenshipIssuedDateCT : '' ,
-                       ownerCitizenshipIssuedDateNepaliTrans : data.ownerCitizenshipIssuedDateNepaliTrans ? data.ownerCitizenshipIssuedDateNepaliTrans : '' ,
-                       ownerCitizenshipIssuedDateNepaliCT : data.ownerCitizenshipIssuedDateNepaliCT ? data.ownerCitizenshipIssuedDateNepaliCT : '' ,
-                       radioOwnerCitizenshipIssuedDate : data.radioOwnerCitizenshipIssuedDate ? data.radioOwnerCitizenshipIssuedDate : '' ,
-                       radioOwnerCitizenshipIssuedDateTrans : data.radioOwnerCitizenshipIssuedDateTrans ? data.radioOwnerCitizenshipIssuedDateTrans : '' ,
-                       radioOwnerCitizenshipIssuedDateCT : data.radioOwnerCitizenshipIssuedDateCT ? data.radioOwnerCitizenshipIssuedDateCT : '' ,
-                       ownerPanNo : data.ownerPanNo ? data.ownerPanNo : '' ,
-                       ownerPanNoTrans : data.ownerPanNoTrans ? data.ownerPanNoTrans : '' ,
-                       ownerPanNoCT : data.ownerPanNoCT ? data.ownerPanNoCT : '' ,
-                       ownerSharePercentage : data.ownerSharePercentage ? data.ownerSharePercentage : '' ,
-                       ownerSharePercentageTrans : data.ownerSharePercentageTrans ? data.ownerSharePercentageTrans : '' ,
-                       ownerSharePercentageCT : data.ownerSharePercentageCT ? data.ownerSharePercentageCT : '' ,
-                       radioOwnerDob : 'AD' ,
-                       radioOwnerDobTrans : data.radioOwnerDobTrans ? data.radioOwnerDobTrans : '' ,
-                       radioOwnerDobCT : data.radioOwnerDobCT ? data.radioOwnerDobCT : '' ,
-                       nepData : data.nepData ? data.nepData : '' ,
-                       foreignAddressOption: data.foreignAddressOption ? data.foreignAddressOption : '' ,
-                       foreignAddressOptionTrans: data.foreignAddressOptionTrans ? data.foreignAddressOptionTrans : '' ,
-                       foreignAddressOptionCT : data.foreignAddressOptionCT ? data.foreignAddressOptionCT : '' ,
-                       foreignAddressOptionTemp : data.foreignAddressOptionTemp ? data.foreignAddressOptionTemp : '' ,
-                       foreignAddressOptionTempTrans : data.foreignAddressOptionTempTrans ? data.foreignAddressOptionTempTrans : '' ,
-                       foreignAddressOptionTempCT : data.foreignAddressOptionTempCT ? data.foreignAddressOptionTempCT : '' ,
-                       ownerOtherAddress:  data.ownerOtherAddress ? data.ownerOtherAddress : '' ,
-                       ownerOtherAddressTrans:  data.ownerOtherAddressTrans ? data.ownerOtherAddressTrans : '' ,
-                       ownerOtherAddressCT :  data.ownerOtherAddressCT ? data.ownerOtherAddressCT : '' ,
-                       ownerOtherAddressTemp:  data.ownerOtherAddressTemp ? data.ownerOtherAddressTemp : '' ,
-                       ownerOtherAddressTempTrans:  data.ownerOtherAddressTempTrans ? data.ownerOtherAddressTempTrans : '' ,
-                       ownerOtherAddressTempCT :  data.ownerOtherAddressTempCT ? data.ownerOtherAddressTempCT : '' ,
+                    ownerDetailControl.push(
+                        this.formBuilder.group({
+                            ownerName: data.ownerName ? data.ownerName : '',
+                            ownerNameTrans: data.ownerNameTrans ? data.ownerNameTrans : '',
+                            ownerNameCT: data.ownerNameCT ? data.ownerNameCT : '',
+                            ownerDob: ObjectUtil.isEmpty(data.ownerDob) ? undefined : data.ownerDob ? new Date(data.ownerDob) : '',
+                            ownerDobTrans: data.ownerDobTrans ? data.ownerDobTrans : '',
+                            ownerDobCT: data.ownerDobCT ? data.ownerDobCT : '',
+                            ownerDobNepali: ObjectUtil.isEmpty(data.ownerDobNepaliCT) ? undefined : data.ownerDobNepaliCT ? data.ownerDobNepaliCT : '',
+                            ownerDobNepaliTrans: data.ownerDobNepaliTrans ? data.ownerDobNepaliTrans : '',
+                            ownerDobNepaliCT: data.ownerDobNepaliCT ? data.ownerDobNepaliCT : '',
+                            ownerEmail: data.ownerEmail ? data.ownerEmail : '',
+                            ownerEmailTrans: data.ownerEmailTrans ? data.ownerEmailTrans : '',
+                            ownerEmailCT: data.ownerEmailCT ? data.ownerEmailCT : '',
+                            ownerContactNo: data.ownerContactNo ? data.ownerContactNo : '',
+                            ownerContactNoTrans: data.ownerContactNoTrans ? data.ownerContactNoTrans : '',
+                            ownerContactNoCT: data.ownerContactNoCT ? data.ownerContactNoCT : '',
+                            ownerGender: data.ownerGender ? data.ownerGender : '',
+                            ownerGenderTrans: data.ownerGenderTrans ? data.ownerGenderTrans : '',
+                            ownerGenderCT: data.ownerGenderCT ? data.ownerGenderCT : '',
+                            ownerMaritalStatus: data.ownerMaritalStatus ? data.ownerMaritalStatus : '',
+                            ownerMaritalStatusTrans: data.ownerMaritalStatusTrans ? data.ownerMaritalStatusTrans : '',
+                            ownerMaritalStatusCT: data.ownerMaritalStatusCT ? data.ownerMaritalStatusCT : '',
+                            ownerCitizenshipNo: data.ownerCitizenshipNo ? data.ownerCitizenshipNo : '',
+                            ownerCitizenshipNoTrans: data.ownerCitizenshipNoTrans ? data.ownerCitizenshipNoTrans : '',
+                            ownerCitizenshipNoCT: data.ownerCitizenshipNoCT ? data.ownerCitizenshipNoCT : '',
+                            ownerCitizenshipIssuedDistrict: data.ownerCitizenshipIssuedDistrict ? data.ownerCitizenshipIssuedDistrict : '',
+                            ownerCitizenshipIssuedDistrictTrans: data.ownerCitizenshipIssuedDistrictTrans ? data.ownerCitizenshipIssuedDistrictTrans : '',
+                            ownerCitizenshipIssuedDistrictCT: data.ownerCitizenshipIssuedDistrictCT ? data.ownerCitizenshipIssuedDistrictCT : '',
+                            ownerCitizenshipIssuedDate: data.ownerCitizenshipIssuedDate !== '' ?
+                                new Date(data.ownerCitizenshipIssuedDate) : '',
+                            ownerCitizenshipIssuedDateNepali: data.ownerCitizenshipIssuedDateNepali !== '' ?
+                                data.ownerCitizenshipIssuedDateNepali : '',
+                            ownerCitizenshipIssuedDateTrans: data.ownerCitizenshipIssuedDateTrans ? data.ownerCitizenshipIssuedDateTrans : '',
+                            ownerCitizenshipIssuedDateCT: data.ownerCitizenshipIssuedDateCT ? data.ownerCitizenshipIssuedDateCT : '',
+                            ownerCitizenshipIssuedDateNepaliTrans: data.ownerCitizenshipIssuedDateNepaliTrans ? data.ownerCitizenshipIssuedDateNepaliTrans : '',
+                            ownerCitizenshipIssuedDateNepaliCT: data.ownerCitizenshipIssuedDateNepaliCT ? data.ownerCitizenshipIssuedDateNepaliCT : '',
+                            radioOwnerCitizenshipIssuedDate: data.radioOwnerCitizenshipIssuedDate ? data.radioOwnerCitizenshipIssuedDate : '',
+                            radioOwnerCitizenshipIssuedDateTrans: data.radioOwnerCitizenshipIssuedDateTrans ? data.radioOwnerCitizenshipIssuedDateTrans : '',
+                            radioOwnerCitizenshipIssuedDateCT: data.radioOwnerCitizenshipIssuedDateCT ? data.radioOwnerCitizenshipIssuedDateCT : '',
+                            ownerPanNo: data.ownerPanNo ? data.ownerPanNo : '',
+                            ownerPanNoTrans: data.ownerPanNoTrans ? data.ownerPanNoTrans : '',
+                            ownerPanNoCT: data.ownerPanNoCT ? data.ownerPanNoCT : '',
+                            ownerSharePercentage: data.ownerSharePercentage ? data.ownerSharePercentage : '',
+                            ownerSharePercentageTrans: data.ownerSharePercentageTrans ? data.ownerSharePercentageTrans : '',
+                            ownerSharePercentageCT: data.ownerSharePercentageCT ? data.ownerSharePercentageCT : '',
+                            radioOwnerDob: 'AD',
+                            radioOwnerDobTrans: data.radioOwnerDobTrans ? data.radioOwnerDobTrans : '',
+                            radioOwnerDobCT: data.radioOwnerDobCT ? data.radioOwnerDobCT : '',
+                            nepData: data.nepData ? data.nepData : '',
+                            foreignAddressOption: data.foreignAddressOption ? data.foreignAddressOption : '',
+                            foreignAddressOptionTrans: data.foreignAddressOptionTrans ? data.foreignAddressOptionTrans : '',
+                            foreignAddressOptionCT: data.foreignAddressOptionCT ? data.foreignAddressOptionCT : '',
+                            foreignAddressOptionTemp: data.foreignAddressOptionTemp ? data.foreignAddressOptionTemp : '',
+                            foreignAddressOptionTempTrans: data.foreignAddressOptionTempTrans ? data.foreignAddressOptionTempTrans : '',
+                            foreignAddressOptionTempCT: data.foreignAddressOptionTempCT ? data.foreignAddressOptionTempCT : '',
+                            ownerOtherAddress: data.ownerOtherAddress ? data.ownerOtherAddress : '',
+                            ownerOtherAddressTrans: data.ownerOtherAddressTrans ? data.ownerOtherAddressTrans : '',
+                            ownerOtherAddressCT: data.ownerOtherAddressCT ? data.ownerOtherAddressCT : '',
+                            ownerOtherAddressTemp: data.ownerOtherAddressTemp ? data.ownerOtherAddressTemp : '',
+                            ownerOtherAddressTempTrans: data.ownerOtherAddressTempTrans ? data.ownerOtherAddressTempTrans : '',
+                            ownerOtherAddressTempCT: data.ownerOtherAddressTempCT ? data.ownerOtherAddressTempCT : '',
 
-                       // Relations Details
+                            // Relations Details
 
-                       ownerFatherName : data.ownerFatherName ? data.ownerFatherName : '' ,
-                       ownerFatherNameCT : data.ownerFatherNameCT ? data.ownerFatherNameCT : '' ,
-                       ownerFatherNameTrans : data.ownerFatherNameTrans ? data.ownerFatherNameTrans : '' ,
-                       ownerGrandFatherName : data.ownerGrandFatherName ? data.ownerGrandFatherName : '' ,
-                       ownerGrandFatherNameTrans : data.ownerGrandFatherNameTrans ? data.ownerGrandFatherNameTrans : '' ,
-                       ownerGrandFatherNameCT : data.ownerGrandFatherNameCT ? data.ownerGrandFatherNameCT : '' ,
-                       ownerFatherInLawName : data.ownerFatherInLawName ? data.ownerFatherInLawName : '' ,
-                       ownerFatherInLawNameTrans : data.ownerFatherInLawNameTrans ? data.ownerFatherInLawNameTrans : '' ,
-                       ownerFatherInLawNameCT : data.ownerFatherInLawNameCT ? data.ownerFatherInLawNameCT : '' ,
-                       ownerHusbandName : data.ownerHusbandName ? data.ownerHusbandName : '' ,
-                       ownerHusbandNameTrans : data.ownerHusbandNameTrans ? data.ownerHusbandNameTrans : '' ,
-                       ownerHusbandNameCT : data.ownerHusbandNameCT ? data.ownerHusbandNameCT : '' ,
-                       ownerRelationMedium : data.ownerRelationMedium ? data.ownerRelationMedium : '' ,
-                       ownerRelationMediumTrans : data.ownerRelationMediumTrans ? data.ownerRelationMediumTrans : '' ,
-                       ownerRelationMediumCT : data.ownerRelationMediumCT ? data.ownerRelationMediumCT : '' ,
-                       ownerDobDateType : data.ownerDobDateType ? data.ownerDobDateType : '' ,
-                       ownerDobDateTypeTrans : data.ownerDobDateTypeTrans ? data.ownerDobDateTypeTrans : '' ,
-                       ownerDobDateTypeCT : data.ownerDobDateTypeCT ? data.ownerDobDateTypeCT : '' ,
+                            ownerFatherName: data.ownerFatherName ? data.ownerFatherName : '',
+                            ownerFatherNameCT: data.ownerFatherNameCT ? data.ownerFatherNameCT : '',
+                            ownerFatherNameTrans: data.ownerFatherNameTrans ? data.ownerFatherNameTrans : '',
+                            ownerGrandFatherName: data.ownerGrandFatherName ? data.ownerGrandFatherName : '',
+                            ownerGrandFatherNameTrans: data.ownerGrandFatherNameTrans ? data.ownerGrandFatherNameTrans : '',
+                            ownerGrandFatherNameCT: data.ownerGrandFatherNameCT ? data.ownerGrandFatherNameCT : '',
+                            ownerFatherInLawName: data.ownerFatherInLawName ? data.ownerFatherInLawName : '',
+                            ownerFatherInLawNameTrans: data.ownerFatherInLawNameTrans ? data.ownerFatherInLawNameTrans : '',
+                            ownerFatherInLawNameCT: data.ownerFatherInLawNameCT ? data.ownerFatherInLawNameCT : '',
+                            ownerHusbandName: data.ownerHusbandName ? data.ownerHusbandName : '',
+                            ownerHusbandNameTrans: data.ownerHusbandNameTrans ? data.ownerHusbandNameTrans : '',
+                            ownerHusbandNameCT: data.ownerHusbandNameCT ? data.ownerHusbandNameCT : '',
+                            ownerRelationMedium: data.ownerRelationMedium ? data.ownerRelationMedium : '',
+                            ownerRelationMediumTrans: data.ownerRelationMediumTrans ? data.ownerRelationMediumTrans : '',
+                            ownerRelationMediumCT: data.ownerRelationMediumCT ? data.ownerRelationMediumCT : '',
+                            ownerDobDateType: data.ownerDobDateType ? data.ownerDobDateType : '',
+                            ownerDobDateTypeTrans: data.ownerDobDateTypeTrans ? data.ownerDobDateTypeTrans : '',
+                            ownerDobDateTypeCT: data.ownerDobDateTypeCT ? data.ownerDobDateTypeCT : '',
 
 
-                       //    address Details
-                       // for permanent
-                       ownerPermanentProvince : data.ownerPermanentProvince ? data.ownerPermanentProvince : '' ,
-                       ownerPermanentProvinceTrans : data.ownerPermanentProvinceTrans ? data.ownerPermanentProvinceTrans : '' ,
-                       ownerPermanentProvinceCT : data.ownerPermanentProvinceCT ? data.ownerPermanentProvinceCT : '' ,
-                       ownerPermanentDistrict : data.ownerPermanentDistrict ? data.ownerPermanentDistrict : '' ,
-                       ownerPermanentDistrictTrans : data.ownerPermanentDistrictTrans ? data.ownerPermanentDistrictTrans : '' ,
-                       ownerPermanentDistrictCT : data.ownerPermanentDistrictCT ? data.ownerPermanentDistrictCT : '' ,
-                       ownerPermanentMunicipality : data.ownerPermanentMunicipality ? data.ownerPermanentMunicipality : '' ,
-                       ownerPermanentMunicipalityTrans : data.ownerPermanentMunicipalityTrans ? data.ownerPermanentMunicipalityTrans : '' ,
-                       ownerPermanentMunicipalityCT : data.ownerPermanentMunicipalityCT ? data.ownerPermanentMunicipalityCT : '' ,
-                       ownerPermanentWardNo : data.ownerPermanentWardNo ? data.ownerPermanentWardNo : '' ,
-                       ownerPermanentWardNoTrans : data.ownerPermanentWardNoTrans ? data.ownerPermanentWardNoTrans : '' ,
-                       ownerPermanentWardNoCT : data.ownerPermanentWardNoCT ? data.ownerPermanentWardNoCT : '' ,
-                       ownerPermanentStreetTole : data.ownerPermanentStreetTole ? data.ownerPermanentStreetTole : '' ,
-                       ownerPermanentStreetToleTrans : data.ownerPermanentStreetToleTrans ? data.ownerPermanentStreetToleTrans : '' ,
-                       ownerPermanentStreetToleCT : data.ownerPermanentStreetToleCT ? data.ownerPermanentStreetToleCT : '' ,
+                            //    address Details
+                            // for permanent
+                            ownerPermanentProvince: data.ownerPermanentProvince ? data.ownerPermanentProvince : '',
+                            ownerPermanentProvinceTrans: data.ownerPermanentProvinceTrans ? data.ownerPermanentProvinceTrans : '',
+                            ownerPermanentProvinceCT: data.ownerPermanentProvinceCT ? data.ownerPermanentProvinceCT : '',
+                            ownerPermanentDistrict: data.ownerPermanentDistrict ? data.ownerPermanentDistrict : '',
+                            ownerPermanentDistrictTrans: data.ownerPermanentDistrictTrans ? data.ownerPermanentDistrictTrans : '',
+                            ownerPermanentDistrictCT: data.ownerPermanentDistrictCT ? data.ownerPermanentDistrictCT : '',
+                            ownerPermanentMunicipality: data.ownerPermanentMunicipality ? data.ownerPermanentMunicipality : '',
+                            ownerPermanentMunicipalityTrans: data.ownerPermanentMunicipalityTrans ? data.ownerPermanentMunicipalityTrans : '',
+                            ownerPermanentMunicipalityCT: data.ownerPermanentMunicipalityCT ? data.ownerPermanentMunicipalityCT : '',
+                            ownerPermanentWardNo: data.ownerPermanentWardNo ? data.ownerPermanentWardNo : '',
+                            ownerPermanentWardNoTrans: data.ownerPermanentWardNoTrans ? data.ownerPermanentWardNoTrans : '',
+                            ownerPermanentWardNoCT: data.ownerPermanentWardNoCT ? data.ownerPermanentWardNoCT : '',
+                            ownerPermanentStreetTole: data.ownerPermanentStreetTole ? data.ownerPermanentStreetTole : '',
+                            ownerPermanentStreetToleTrans: data.ownerPermanentStreetToleTrans ? data.ownerPermanentStreetToleTrans : '',
+                            ownerPermanentStreetToleCT: data.ownerPermanentStreetToleCT ? data.ownerPermanentStreetToleCT : '',
 
-                       //    for temporary
+                            //    for temporary
 
-                       ownerTemporaryProvince : data.ownerTemporaryProvince ? data.ownerTemporaryProvince : '' ,
-                       ownerTemporaryProvinceTrans : data.ownerTemporaryProvinceTrans ? data.ownerTemporaryProvinceTrans : '' ,
-                       ownerTemporaryProvinceCT : data.ownerTemporaryProvinceCT ? data.ownerTemporaryProvinceCT : '' ,
-                       ownerTemporaryDistrict : data.ownerTemporaryDistrict ? data.ownerTemporaryDistrict : '' ,
-                       ownerTemporaryDistrictTrans : data.ownerTemporaryDistrictTrans ? data.ownerTemporaryDistrictTrans : '' ,
-                       ownerTemporaryDistrictCT : data.ownerTemporaryDistrictCT ? data.ownerTemporaryDistrictCT : '' ,
-                       ownerTemporaryMunicipality : data.ownerTemporaryMunicipality ? data.ownerTemporaryMunicipality : '' ,
-                       ownerTemporaryMunicipalityTrans : data.ownerTemporaryMunicipalityTrans ? data.ownerTemporaryMunicipalityTrans : '' ,
-                       ownerTemporaryMunicipalityCT : data.ownerTemporaryMunicipalityCT ? data.ownerTemporaryMunicipalityCT : '' ,
-                       ownerTemporaryWardNo : data.ownerTemporaryWardNo ? data.ownerTemporaryWardNo : '' ,
-                       ownerTemporaryWardNoTrans : data.ownerTemporaryWardNoTrans ? data.ownerTemporaryWardNoTrans : '' ,
-                       ownerTemporaryWardNoCT : data.ownerTemporaryWardNoCT ? data.ownerTemporaryWardNoCT : '' ,
-                       ownerTemporaryStreetTole : data.ownerTemporaryStreetTole ? data.ownerTemporaryStreetTole : '' ,
-                       ownerTemporaryStreetToleTrans : data.ownerTemporaryStreetToleTrans ? data.ownerTemporaryStreetToleTrans : '' ,
-                       ownerTemporaryStreetToleCT : data.ownerTemporaryStreetToleCT ? data.ownerTemporaryStreetToleCT : '' ,
+                            ownerTemporaryProvince: data.ownerTemporaryProvince ? data.ownerTemporaryProvince : '',
+                            ownerTemporaryProvinceTrans: data.ownerTemporaryProvinceTrans ? data.ownerTemporaryProvinceTrans : '',
+                            ownerTemporaryProvinceCT: data.ownerTemporaryProvinceCT ? data.ownerTemporaryProvinceCT : '',
+                            ownerTemporaryDistrict: data.ownerTemporaryDistrict ? data.ownerTemporaryDistrict : '',
+                            ownerTemporaryDistrictTrans: data.ownerTemporaryDistrictTrans ? data.ownerTemporaryDistrictTrans : '',
+                            ownerTemporaryDistrictCT: data.ownerTemporaryDistrictCT ? data.ownerTemporaryDistrictCT : '',
+                            ownerTemporaryMunicipality: data.ownerTemporaryMunicipality ? data.ownerTemporaryMunicipality : '',
+                            ownerTemporaryMunicipalityTrans: data.ownerTemporaryMunicipalityTrans ? data.ownerTemporaryMunicipalityTrans : '',
+                            ownerTemporaryMunicipalityCT: data.ownerTemporaryMunicipalityCT ? data.ownerTemporaryMunicipalityCT : '',
+                            ownerTemporaryWardNo: data.ownerTemporaryWardNo ? data.ownerTemporaryWardNo : '',
+                            ownerTemporaryWardNoTrans: data.ownerTemporaryWardNoTrans ? data.ownerTemporaryWardNoTrans : '',
+                            ownerTemporaryWardNoCT: data.ownerTemporaryWardNoCT ? data.ownerTemporaryWardNoCT : '',
+                            ownerTemporaryStreetTole: data.ownerTemporaryStreetTole ? data.ownerTemporaryStreetTole : '',
+                            ownerTemporaryStreetToleTrans: data.ownerTemporaryStreetToleTrans ? data.ownerTemporaryStreetToleTrans : '',
+                            ownerTemporaryStreetToleCT: data.ownerTemporaryStreetToleCT ? data.ownerTemporaryStreetToleCT : '',
 
-                       // address flag
+                            // address flag
 
-                       ownerPermanentAddressRadio : data.ownerPermanentAddressRadio ? data.ownerPermanentAddressRadio : '' ,
-                       ownerPermanentAddressRadioTrans : data.ownerPermanentAddressRadioTrans ? data.ownerPermanentAddressRadioTrans : '' ,
-                       ownerPermanentAddressRadioCT : data.ownerPermanentAddressRadioCT ? data.ownerPermanentAddressRadioCT : '' ,
-                       ownerTemporaryAddressRadio : data.ownerTemporaryAddressRadio ? data.ownerTemporaryAddressRadio  : '' ,
-                       ownerTemporaryAddressRadioTrans : data.ownerTemporaryAddressRadioTrans ? data.ownerTemporaryAddressRadioTrans : '' ,
-                       ownerTemporaryAddressRadioCT : data.ownerTemporaryAddressRadioCT ? data.ownerTemporaryAddressRadioCT : '' ,
+                            ownerPermanentAddressRadio: data.ownerPermanentAddressRadio ? data.ownerPermanentAddressRadio : '',
+                            ownerPermanentAddressRadioTrans: data.ownerPermanentAddressRadioTrans ? data.ownerPermanentAddressRadioTrans : '',
+                            ownerPermanentAddressRadioCT: data.ownerPermanentAddressRadioCT ? data.ownerPermanentAddressRadioCT : '',
+                            ownerTemporaryAddressRadio: data.ownerTemporaryAddressRadio ? data.ownerTemporaryAddressRadio : '',
+                            ownerTemporaryAddressRadioTrans: data.ownerTemporaryAddressRadioTrans ? data.ownerTemporaryAddressRadioTrans : '',
+                            ownerTemporaryAddressRadioCT: data.ownerTemporaryAddressRadioCT ? data.ownerTemporaryAddressRadioCT : '',
 
-                       isSameTemporaryAndPermanent : data.isSameTemporaryAndPermanent ? data.isSameTemporaryAndPermanent : '' ,
+                            isSameTemporaryAndPermanent: data.isSameTemporaryAndPermanent ? data.isSameTemporaryAndPermanent : '',
 
-                       //    Nationality-Indian
+                            //    Nationality-Indian
 
-                       //    Embassy Certificate
+                            //    Embassy Certificate
 
-                       ownerNationality : data.ownerNationality ? data.ownerNationality : '' ,
-                       ownerNationalityTrans : data.ownerNationalityTrans ? data.ownerNationalityTrans : '' ,
-                       ownerNationalityCT : data.ownerNationalityCT ? data.ownerNationalityCT : '' ,
-                       indianOwnerDetailOption : data.indianOwnerDetailOption ? data.indianOwnerDetailOption : '' ,
-                       indianOwnerDetailOptionTrans : data.indianOwnerDetailOptionTrans ? data.indianOwnerDetailOptionTrans : '' ,
-                       indianOwnerDetailOptionCT : data.indianOwnerDetailOptionCT ? data.indianOwnerDetailOptionCT : '' ,
-                       indianEmbassyNo : data.indianEmbassyNo ? data.indianEmbassyNo : '' ,
-                       indianEmbassyNoTrans : data.indianEmbassyNoTrans ? data.indianEmbassyNoTrans : '' ,
-                       indianEmbassyNoCT : data.indianEmbassyNoCT ? data.indianEmbassyNoCT : '' ,
-                       indianEmbassyIssuedDate : data.indianEmbassyIssuedDate ? new Date(data.indianEmbassyIssuedDate) : '',
-                       indianEmbassyIssuedDateTrans : data.indianEmbassyIssuedDateTrans ? data.indianEmbassyIssuedDateTrans : '' ,
-                       indianEmbassyIssuedDateCT : data.indianEmbassyIssuedDateCT ? data.indianEmbassyIssuedDateCT : '' ,
-                       indianEmbassyIssuedFrom : data.indianEmbassyIssuedFrom ? data.indianEmbassyIssuedFrom : '' ,
-                       indianEmbassyIssuedFromTrans : data.indianEmbassyIssuedFromTrans ? data.indianEmbassyIssuedFromTrans : '' ,
-                       indianEmbassyIssuedFromCT : data.indianEmbassyIssuedFromCT ? data.indianEmbassyIssuedFromCT : '' ,
-                       indianEmbassyIssuedDateOption : data.indianEmbassyIssuedDateOption ? data.indianEmbassyIssuedDateOption : '' ,
-                       indianEmbassyIssuedDateOptionTrans : data.indianEmbassyIssuedDateOptionTrans ? data.indianEmbassyIssuedDateOptionTrans : '' ,
-                       indianEmbassyIssuedDateOptionCT : data.indianEmbassyIssuedDateOptionCT ? data.indianEmbassyIssuedDateOptionCT : '' ,
+                            ownerNationality: data.ownerNationality ? data.ownerNationality : '',
+                            ownerNationalityTrans: data.ownerNationalityTrans ? data.ownerNationalityTrans : '',
+                            ownerNationalityCT: data.ownerNationalityCT ? data.ownerNationalityCT : '',
+                            indianOwnerDetailOption: data.indianOwnerDetailOption ? data.indianOwnerDetailOption : '',
+                            indianOwnerDetailOptionTrans: data.indianOwnerDetailOptionTrans ? data.indianOwnerDetailOptionTrans : '',
+                            indianOwnerDetailOptionCT: data.indianOwnerDetailOptionCT ? data.indianOwnerDetailOptionCT : '',
+                            indianEmbassyNo: data.indianEmbassyNo ? data.indianEmbassyNo : '',
+                            indianEmbassyNoTrans: data.indianEmbassyNoTrans ? data.indianEmbassyNoTrans : '',
+                            indianEmbassyNoCT: data.indianEmbassyNoCT ? data.indianEmbassyNoCT : '',
+                            indianEmbassyIssuedDate: data.indianEmbassyIssuedDate ? new Date(data.indianEmbassyIssuedDate) : '',
+                            indianEmbassyIssuedDateTrans: data.indianEmbassyIssuedDateTrans ? data.indianEmbassyIssuedDateTrans : '',
+                            indianEmbassyIssuedDateCT: data.indianEmbassyIssuedDateCT ? data.indianEmbassyIssuedDateCT : '',
+                            indianEmbassyIssuedFrom: data.indianEmbassyIssuedFrom ? data.indianEmbassyIssuedFrom : '',
+                            indianEmbassyIssuedFromTrans: data.indianEmbassyIssuedFromTrans ? data.indianEmbassyIssuedFromTrans : '',
+                            indianEmbassyIssuedFromCT: data.indianEmbassyIssuedFromCT ? data.indianEmbassyIssuedFromCT : '',
+                            indianEmbassyIssuedDateOption: data.indianEmbassyIssuedDateOption ? data.indianEmbassyIssuedDateOption : '',
+                            indianEmbassyIssuedDateOptionTrans: data.indianEmbassyIssuedDateOptionTrans ? data.indianEmbassyIssuedDateOptionTrans : '',
+                            indianEmbassyIssuedDateOptionCT: data.indianEmbassyIssuedDateOptionCT ? data.indianEmbassyIssuedDateOptionCT : '',
 
-                       // Passport
+                            // Passport
 
-                       indianOwnerPassportNo : data.indianOwnerPassportNo ? data.indianOwnerPassportNo : '' ,
-                       indianOwnerPassportNoTrans : data.indianOwnerPassportNoTrans ? data.indianOwnerPassportNoTrans : '' ,
-                       indianOwnerPassportNoCT : data.indianOwnerPassportNoCT ? data.indianOwnerPassportNoCT : '' ,
-                       indianOwnerPassportIssuedDate : data.indianOwnerPassportIssuedDate ? new Date(data.indianOwnerPassportIssuedDate) : '' ,
-                       indianOwnerPassportIssuedDateTrans : data.indianOwnerPassportIssuedDateTrans ? data.indianOwnerPassportIssuedDateTrans : '' ,
-                       indianOwnerPassportIssuedDateCT : data.indianOwnerPassportIssuedDateCT ? data.indianOwnerPassportIssuedDateCT : '' ,
-                       indianOwnerPassportIssuedDateOption : data.indianOwnerPassportIssuedDateOption ? data.indianOwnerPassportIssuedDateOption : '' ,
-                       indianOwnerPassportIssuedDateOptionTrans : data.indianOwnerPassportIssuedDateOption ? data.indianOwnerPassportIssuedDateOption : '' ,
-                       indianOwnerPassportIssuedDateOptionCT : data.indianOwnerPassportIssuedDateOptionCT ? data.indianOwnerPassportIssuedDateOptionCT : '' ,
-                       indianOwnerPassportValidityDate : data.indianOwnerPassportValidityDate ? new Date(data.indianOwnerPassportValidityDate) : '' ,
-                       indianOwnerPassportValidityDateTrans : data.indianOwnerPassportValidityDateTrans ? data.indianOwnerPassportValidityDateTrans : '' ,
-                       indianOwnerPassportValidityDateCT : data.indianOwnerPassportValidityDateCT ? data.indianOwnerPassportValidityDateCT : '' ,
-                       indianOwnerPassportValidityDateOption : data.indianOwnerPassportValidityDateOption ? data.indianOwnerPassportValidityDateOption : '' ,
-                       indianOwnerPassportValidityDateOptionTrans : data.indianOwnerPassportValidityDateOptionTrans ? data.indianOwnerPassportValidityDateOptionTrans : '' ,
-                       indianOwnerPassportValidityDateOptionCT : data.indianOwnerPassportValidityDateOptionCT ? data.indianOwnerPassportValidityDateOptionCT : '' ,
-                       indianOwnerPassportIssuedFrom : data.indianOwnerPassportIssuedFrom ? data.indianOwnerPassportIssuedFrom : '' ,
-                       indianOwnerPassportIssuedFromTrans : data.indianOwnerPassportIssuedFromTrans ? data.indianOwnerPassportIssuedFromTrans : '' ,
-                       indianOwnerPassportIssuedFromCT : data.indianOwnerPassportIssuedFromCT ? data.indianOwnerPassportIssuedFromCT : '' ,
+                            indianOwnerPassportNo: data.indianOwnerPassportNo ? data.indianOwnerPassportNo : '',
+                            indianOwnerPassportNoTrans: data.indianOwnerPassportNoTrans ? data.indianOwnerPassportNoTrans : '',
+                            indianOwnerPassportNoCT: data.indianOwnerPassportNoCT ? data.indianOwnerPassportNoCT : '',
+                            indianOwnerPassportIssuedDate: data.indianOwnerPassportIssuedDate ? new Date(data.indianOwnerPassportIssuedDate) : '',
+                            indianOwnerPassportIssuedDateTrans: data.indianOwnerPassportIssuedDateTrans ? data.indianOwnerPassportIssuedDateTrans : '',
+                            indianOwnerPassportIssuedDateCT: data.indianOwnerPassportIssuedDateCT ? data.indianOwnerPassportIssuedDateCT : '',
+                            indianOwnerPassportIssuedDateOption: data.indianOwnerPassportIssuedDateOption ? data.indianOwnerPassportIssuedDateOption : '',
+                            indianOwnerPassportIssuedDateOptionTrans: data.indianOwnerPassportIssuedDateOption ? data.indianOwnerPassportIssuedDateOption : '',
+                            indianOwnerPassportIssuedDateOptionCT: data.indianOwnerPassportIssuedDateOptionCT ? data.indianOwnerPassportIssuedDateOptionCT : '',
+                            indianOwnerPassportValidityDate: data.indianOwnerPassportValidityDate ? new Date(data.indianOwnerPassportValidityDate) : '',
+                            indianOwnerPassportValidityDateTrans: data.indianOwnerPassportValidityDateTrans ? data.indianOwnerPassportValidityDateTrans : '',
+                            indianOwnerPassportValidityDateCT: data.indianOwnerPassportValidityDateCT ? data.indianOwnerPassportValidityDateCT : '',
+                            indianOwnerPassportValidityDateOption: data.indianOwnerPassportValidityDateOption ? data.indianOwnerPassportValidityDateOption : '',
+                            indianOwnerPassportValidityDateOptionTrans: data.indianOwnerPassportValidityDateOptionTrans ? data.indianOwnerPassportValidityDateOptionTrans : '',
+                            indianOwnerPassportValidityDateOptionCT: data.indianOwnerPassportValidityDateOptionCT ? data.indianOwnerPassportValidityDateOptionCT : '',
+                            indianOwnerPassportIssuedFrom: data.indianOwnerPassportIssuedFrom ? data.indianOwnerPassportIssuedFrom : '',
+                            indianOwnerPassportIssuedFromTrans: data.indianOwnerPassportIssuedFromTrans ? data.indianOwnerPassportIssuedFromTrans : '',
+                            indianOwnerPassportIssuedFromCT: data.indianOwnerPassportIssuedFromCT ? data.indianOwnerPassportIssuedFromCT : '',
 
-                       // Adhar Card
+                            // Adhar Card
 
-                       indianOwnerAdharCardNo : data.indianOwnerAdharCardNo ? data.indianOwnerAdharCardNo : '' ,
-                       indianOwnerAdharCardNoTrans : data.indianOwnerAdharCardNoTrans ? data.indianOwnerAdharCardNoTrans : '' ,
-                       indianOwnerAdharCardNoCT : data.indianOwnerAdharCardNoCT ? data.indianOwnerAdharCardNoCT : '' ,
-                       indianOwnerAdharCardIssuedDate : data.indianOwnerAdharCardIssuedDate ? new Date(data.indianOwnerAdharCardIssuedDate) : '' ,
-                       indianOwnerAdharCardIssuedDateTrans : data.indianOwnerAdharCardIssuedDateTrans ? data.indianOwnerAdharCardIssuedDateTrans : '' ,
-                       indianOwnerAdharCardIssuedDateCT : data.indianOwnerAdharCardIssuedDateCT ? data.indianOwnerAdharCardIssuedDateCT : '' ,
-                       indianOwnerAdharCardIssuedDateOption : data.indianOwnerAdharCardIssuedDateOption ? data.indianOwnerAdharCardIssuedDateOption : '' ,
-                       indianOwnerAdharCardIssuedDateOptionTrans : data.indianOwnerAdharCardIssuedDateOptionTrans ? data.indianOwnerAdharCardIssuedDateOptionTrans : '' ,
-                       indianOwnerAdharCardIssuedDateOptionCT : data.indianOwnerAdharCardIssuedDateOptionCT ? data.indianOwnerAdharCardIssuedDateOptionCT : '' ,
-                       indianOwnerAdharCardIssuedFrom : data.indianOwnerAdharCardIssuedFrom ? data.indianOwnerAdharCardIssuedFrom : '' ,
-                       indianOwnerAdharCardIssuedFromTrans : data.indianOwnerAdharCardIssuedFromTrans ? data.indianOwnerAdharCardIssuedFromTrans : '' ,
-                       indianOwnerAdharCardIssuedFromCT : data.indianOwnerAdharCardIssuedFromCT ? data.indianOwnerAdharCardIssuedFromCT : '' ,
+                            indianOwnerAdharCardNo: data.indianOwnerAdharCardNo ? data.indianOwnerAdharCardNo : '',
+                            indianOwnerAdharCardNoTrans: data.indianOwnerAdharCardNoTrans ? data.indianOwnerAdharCardNoTrans : '',
+                            indianOwnerAdharCardNoCT: data.indianOwnerAdharCardNoCT ? data.indianOwnerAdharCardNoCT : '',
+                            indianOwnerAdharCardIssuedDate: data.indianOwnerAdharCardIssuedDate ? new Date(data.indianOwnerAdharCardIssuedDate) : '',
+                            indianOwnerAdharCardIssuedDateTrans: data.indianOwnerAdharCardIssuedDateTrans ? data.indianOwnerAdharCardIssuedDateTrans : '',
+                            indianOwnerAdharCardIssuedDateCT: data.indianOwnerAdharCardIssuedDateCT ? data.indianOwnerAdharCardIssuedDateCT : '',
+                            indianOwnerAdharCardIssuedDateOption: data.indianOwnerAdharCardIssuedDateOption ? data.indianOwnerAdharCardIssuedDateOption : '',
+                            indianOwnerAdharCardIssuedDateOptionTrans: data.indianOwnerAdharCardIssuedDateOptionTrans ? data.indianOwnerAdharCardIssuedDateOptionTrans : '',
+                            indianOwnerAdharCardIssuedDateOptionCT: data.indianOwnerAdharCardIssuedDateOptionCT ? data.indianOwnerAdharCardIssuedDateOptionCT : '',
+                            indianOwnerAdharCardIssuedFrom: data.indianOwnerAdharCardIssuedFrom ? data.indianOwnerAdharCardIssuedFrom : '',
+                            indianOwnerAdharCardIssuedFromTrans: data.indianOwnerAdharCardIssuedFromTrans ? data.indianOwnerAdharCardIssuedFromTrans : '',
+                            indianOwnerAdharCardIssuedFromCT: data.indianOwnerAdharCardIssuedFromCT ? data.indianOwnerAdharCardIssuedFromCT : '',
 
-                       //    for other than indian
+                            //    for other than indian
 
-                       otherOwnerPassportNo : data.otherOwnerPassportNo ? data.otherOwnerPassportNo : '' ,
-                       otherOwnerPassportNoTrans : data.otherOwnerPassportNoTrans ? data.otherOwnerPassportNoTrans : '' ,
-                       otherOwnerPassportNoCT : data.otherOwnerPassportNoCT ? data.otherOwnerPassportNoCT : '' ,
-                       otherOwnerPassportIssuedDate : data.otherOwnerPassportIssuedDate !== '' ? new Date(data.otherOwnerPassportIssuedDate) : '' ,
-                       otherOwnerPassportIssuedDateNepali : data.otherOwnerPassportIssuedDateNepali !== '' ? data.otherOwnerPassportIssuedDateNepali : '' ,
-                       otherOwnerPassportIssuedDateTrans : data.otherOwnerPassportIssuedDateTrans ? data.otherOwnerPassportIssuedDateTrans : '' ,
-                       otherOwnerPassportIssuedDateCT : data.otherOwnerPassportIssuedDateCT ? data.otherOwnerPassportIssuedDateCT : '' ,
-                       otherOwnerPassportIssuedDateNepaliTrans : data.otherOwnerPassportIssuedDateNepaliTrans ? data.otherOwnerPassportIssuedDateNepaliTrans : '' ,
-                       otherOwnerPassportIssuedDateNepaliCT : data.otherOwnerPassportIssuedDateNepaliCT ? data.otherOwnerPassportIssuedDateNepaliCT : '' ,
-                       otherOwnerPassportIssuedDateOption : data.otherOwnerPassportIssuedDateOption ? data.otherOwnerPassportIssuedDateOption : '' ,
-                       otherOwnerPassportIssuedDateOptionTrans : data.otherOwnerPassportIssuedDateOptionTrans ? data.otherOwnerPassportIssuedDateOptionTrans : '' ,
-                       otherOwnerPassportIssuedDateOptionCT : data.otherOwnerPassportIssuedDateOptionCT ? data.otherOwnerPassportIssuedDateOptionCT : '' ,
-                       otherOwnerPassportValidityDate : data.otherOwnerPassportValidityDate !== '' ? new Date(data.otherOwnerPassportValidityDate) : '' ,
-                       otherOwnerPassportValidityDateTrans : data.otherOwnerPassportValidityDateTrans ? data.otherOwnerPassportValidityDateTrans : '' ,
-                       otherOwnerPassportValidityDateCT : data.otherOwnerPassportValidityDateCT ? data.otherOwnerPassportValidityDateCT : '' ,
-                       otherOwnerPassportValidityDateNepali : data.otherOwnerPassportValidityDateNepali !== '' ? data.otherOwnerPassportValidityDateNepali : '' ,
-                       otherOwnerPassportValidityDateNepaliTrans : data.otherOwnerPassportValidityDateNepaliTrans ? data.otherOwnerPassportValidityDateNepaliTrans : '' ,
-                       otherOwnerPassportValidityDateNepaliCT : data.otherOwnerPassportValidityDateNepaliCT ? data.otherOwnerPassportValidityDateNepaliCT : '' ,
-                       otherOwnerPassportValidityDateOption : data.otherOwnerPassportValidityDateOption ? data.otherOwnerPassportValidityDateOption : '' ,
-                       otherOwnerPassportValidityDateOptionTrans : data.otherOwnerPassportValidityDateOptionTrans ? data.otherOwnerPassportValidityDateOptionTrans : '' ,
-                       otherOwnerPassportValidityDateOptionCT : data.otherOwnerPassportValidityDateOptionCT ? data.otherOwnerPassportValidityDateOptionCT : '' ,
-                       otherOwnerPassportIssuedFrom : data.otherOwnerPassportIssuedFrom ? data.otherOwnerPassportIssuedFrom : '' ,
-                       otherOwnerPassportIssuedFromTrans : data.otherOwnerPassportIssuedFromTrans ? data.otherOwnerPassportIssuedFromTrans : '' ,
-                       otherOwnerPassportIssuedFromCT : data.otherOwnerPassportIssuedFromCT ? data.otherOwnerPassportIssuedFromCT : '' ,
-                       isAuthorizedPerson: data.isAuthorizedPerson ? data.isAuthorizedPerson : '',
-                       isAuthorizedPersonTrans: data.isAuthorizedPersonTrans ? data.isAuthorizedPersonTrans : '',
-                       isAuthorizedPersonCT: data.isAuthorizedPersonCT ? data.isAuthorizedPersonCT : ''
-                   })
-               );
-           });
+                            otherOwnerPassportNo: data.otherOwnerPassportNo ? data.otherOwnerPassportNo : '',
+                            otherOwnerPassportNoTrans: data.otherOwnerPassportNoTrans ? data.otherOwnerPassportNoTrans : '',
+                            otherOwnerPassportNoCT: data.otherOwnerPassportNoCT ? data.otherOwnerPassportNoCT : '',
+                            otherOwnerPassportIssuedDate: data.otherOwnerPassportIssuedDate !== '' ? new Date(data.otherOwnerPassportIssuedDate) : '',
+                            otherOwnerPassportIssuedDateNepali: data.otherOwnerPassportIssuedDateNepali !== '' ? data.otherOwnerPassportIssuedDateNepali : '',
+                            otherOwnerPassportIssuedDateTrans: data.otherOwnerPassportIssuedDateTrans ? data.otherOwnerPassportIssuedDateTrans : '',
+                            otherOwnerPassportIssuedDateCT: data.otherOwnerPassportIssuedDateCT ? data.otherOwnerPassportIssuedDateCT : '',
+                            otherOwnerPassportIssuedDateNepaliTrans: data.otherOwnerPassportIssuedDateNepaliTrans ? data.otherOwnerPassportIssuedDateNepaliTrans : '',
+                            otherOwnerPassportIssuedDateNepaliCT: data.otherOwnerPassportIssuedDateNepaliCT ? data.otherOwnerPassportIssuedDateNepaliCT : '',
+                            otherOwnerPassportIssuedDateOption: data.otherOwnerPassportIssuedDateOption ? data.otherOwnerPassportIssuedDateOption : '',
+                            otherOwnerPassportIssuedDateOptionTrans: data.otherOwnerPassportIssuedDateOptionTrans ? data.otherOwnerPassportIssuedDateOptionTrans : '',
+                            otherOwnerPassportIssuedDateOptionCT: data.otherOwnerPassportIssuedDateOptionCT ? data.otherOwnerPassportIssuedDateOptionCT : '',
+                            otherOwnerPassportValidityDate: data.otherOwnerPassportValidityDate !== '' ? new Date(data.otherOwnerPassportValidityDate) : '',
+                            otherOwnerPassportValidityDateTrans: data.otherOwnerPassportValidityDateTrans ? data.otherOwnerPassportValidityDateTrans : '',
+                            otherOwnerPassportValidityDateCT: data.otherOwnerPassportValidityDateCT ? data.otherOwnerPassportValidityDateCT : '',
+                            otherOwnerPassportValidityDateNepali: data.otherOwnerPassportValidityDateNepali !== '' ? data.otherOwnerPassportValidityDateNepali : '',
+                            otherOwnerPassportValidityDateNepaliTrans: data.otherOwnerPassportValidityDateNepaliTrans ? data.otherOwnerPassportValidityDateNepaliTrans : '',
+                            otherOwnerPassportValidityDateNepaliCT: data.otherOwnerPassportValidityDateNepaliCT ? data.otherOwnerPassportValidityDateNepaliCT : '',
+                            otherOwnerPassportValidityDateOption: data.otherOwnerPassportValidityDateOption ? data.otherOwnerPassportValidityDateOption : '',
+                            otherOwnerPassportValidityDateOptionTrans: data.otherOwnerPassportValidityDateOptionTrans ? data.otherOwnerPassportValidityDateOptionTrans : '',
+                            otherOwnerPassportValidityDateOptionCT: data.otherOwnerPassportValidityDateOptionCT ? data.otherOwnerPassportValidityDateOptionCT : '',
+                            otherOwnerPassportIssuedFrom: data.otherOwnerPassportIssuedFrom ? data.otherOwnerPassportIssuedFrom : '',
+                            otherOwnerPassportIssuedFromTrans: data.otherOwnerPassportIssuedFromTrans ? data.otherOwnerPassportIssuedFromTrans : '',
+                            otherOwnerPassportIssuedFromCT: data.otherOwnerPassportIssuedFromCT ? data.otherOwnerPassportIssuedFromCT : '',
+                            isAuthorizedPerson: data.isAuthorizedPerson ? data.isAuthorizedPerson : '',
+                            isAuthorizedPersonTrans: data.isAuthorizedPersonTrans ? data.isAuthorizedPersonTrans : '',
+                            isAuthorizedPersonCT: data.isAuthorizedPersonCT ? data.isAuthorizedPersonCT : ''
+                        })
+                    );
+                });
+            }
         }
     }
 
