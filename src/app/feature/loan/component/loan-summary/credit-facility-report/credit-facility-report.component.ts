@@ -1,3 +1,4 @@
+import { CreditRiskGradingLambda } from './../../../../admin/modal/CreditRiskGradingLambda';
 import {Component, Input, OnChanges, OnInit} from '@angular/core';
 import {LoanDataHolder} from '../../../model/loanData';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
@@ -21,11 +22,15 @@ export class CreditFacilityReportComponent implements OnInit, OnChanges {
     array = [];
     dtoArray = [];
     signatureList;
-
+    nrbSectorCodes = [];
+    securityDetails;
+    riskGrade;
+    guarantorDetails;
     constructor() {
     }
 
     ngOnInit() {
+        
     }
 
     ngOnChanges(changes): void {
@@ -34,6 +39,10 @@ export class CreditFacilityReportComponent implements OnInit, OnChanges {
             this.customerLoanDtoList = this.loanDataHolder.customerLoanDtoList;
         }
         this.getAllLoanConfig();
+        this.nrbSectorCodes = this.loanDataHolder.loanHolder.reportingInfoLevels;
+        this.securityDetails = JSON.parse(this.loanDataHolder.security.data);
+        this.riskGrade = JSON.parse(this.loanDataHolder.creditRiskGradingLambda.data).totalScore;
+        this.guarantorDetails = this.loanDataHolder.loanHolder.guarantors.guarantorList;
     }
 
     public getTotalFundable(key: string, funded: boolean, loanList: LoanDataHolder[]): number {

@@ -59,10 +59,27 @@
                                         </select>
                                         <div *ngIf="submitted && form.clientType.errors"
                                              class="invalid-feedback">
-                                            <div *ngIf="form.clientType.errors.required">Customer Type is required</div>
+                                            <div *ngIf="form.clientType.errors.required">Customer Client Type is required</div>
                                         </div>
                                     </div>
                                 </div>
+                                <!-- <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label><strong>Customer Loan Type</strong></label>
+                                        <select
+                                                [ngClass]="{ 'is-invalid':submitted && form.loanType.errors }"
+                                                class="custom-select" formControlName="loanType">
+                                            <option [ngValue]="null">Select Loan Type</option>
+
+                                            <option *ngFor="let data of loanTypeList"
+                                                    [ngValue]="data.key">{{data.value}}</option>
+                                        </select>
+                                        <div *ngIf="submitted && form.loanType.errors"
+                                             class="invalid-feedback">
+                                            <div *ngIf="form.loanType.errors.required">Customer Loan Type is required</div>
+                                        </div>
+                                    </div>
+                                </div> -->
                                 <!--                               <div class="col-md-4">-->
                                 <!--                                   <div class="form-group">-->
                                 <!--                                       <label ><strong>SubSector</strong></label>-->
