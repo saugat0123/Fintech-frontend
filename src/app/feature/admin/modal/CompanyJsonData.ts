@@ -30,5 +30,5 @@ export class CompanyJsonData {
   relationshipSinceWithCustomer: string = undefined;
   irdReport: string;
   accountDetails: any;
-  loanType: string = undefined;
+  // loanType: string = undefined;
 }

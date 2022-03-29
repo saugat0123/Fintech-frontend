@@ -70,7 +70,7 @@ export class CompanyFormComponent implements OnInit {
     @Input() subSectorDetailCodeInput: any;
     @Input() customerCode: any;
     @Input() clientTypeInput: any;
-    @Input() loanTypeInput: any;
+    // @Input() loanTypeInput: any;
 
     @ViewChild('companyLocation', {static: true}) companyLocation: CommonAddressComponent;
     @ViewChild('companyProjectLocation', {static: true}) companyProjectLocation: CommonAddressComponent;
@@ -362,10 +362,10 @@ export class CompanyFormComponent implements OnInit {
                 [(ObjectUtil.isEmpty(this.companyJsonData)
                     || ObjectUtil.isEmpty(this.companyJsonData.relationshipSince)) ? undefined :
                     new Date(this.companyJsonData.relationshipSince), DateValidator.isValidBefore],
-                    loanType:
-                    [(ObjectUtil.isEmpty(this.companyJsonData)
-                        || ObjectUtil.isEmpty(this.companyJsonData.loanType)) ? undefined :
-                        this.companyJsonData.loanType, Validators.required],
+                    // loanType:
+                    // [(ObjectUtil.isEmpty(this.companyJsonData)
+                    //     || ObjectUtil.isEmpty(this.companyJsonData.loanType)) ? undefined :
+                    //     this.companyJsonData.loanType, Validators.required],
             relationshipSinceWithCustomer:
                 [(ObjectUtil.isEmpty(this.companyJsonData)
                     || ObjectUtil.isEmpty(this.companyJsonData.relationshipSinceWithCustomer)) ? undefined :
@@ -989,7 +989,7 @@ export class CompanyFormComponent implements OnInit {
         this.companyInfo.contactNum = this.companyInfoFormGroup.get('contactNum').value;
         this.companyInfo.landLineNumber = this.companyInfoFormGroup.get('landLineNumber').value;
         this.companyInfo.clientType = this.companyInfoFormGroup.get('clientType').value;
-        this.companyJsonData.loanType = this.companyInfoFormGroup.get('loanType').value;
+        // this.companyJsonData.loanType = this.companyInfoFormGroup.get('loanType').value;
         this.companyInfo.subsectorDetail = this.companyInfoFormGroup.get('subsectorDetail').value;
 
 

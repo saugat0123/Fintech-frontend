@@ -30,8 +30,6 @@ export class CreditFacilityReportComponent implements OnInit, OnChanges {
     }
 
     ngOnInit() {
-        console.log('LoanDataHolder: ', this.loanDataHolder);
-        console.log('Customer Loan List: ', this.customerLoanList);
         
     }
 
@@ -45,10 +43,6 @@ export class CreditFacilityReportComponent implements OnInit, OnChanges {
         this.securityDetails = JSON.parse(this.loanDataHolder.security.data);
         this.riskGrade = JSON.parse(this.loanDataHolder.creditRiskGradingLambda.data).totalScore;
         this.guarantorDetails = this.loanDataHolder.loanHolder.guarantors.guarantorList;
-        console.log('Security Details: ', this.securityDetails);
-        console.log(this.riskGrade);
-        
-        
     }
 
     public getTotalFundable(key: string, funded: boolean, loanList: LoanDataHolder[]): number {
