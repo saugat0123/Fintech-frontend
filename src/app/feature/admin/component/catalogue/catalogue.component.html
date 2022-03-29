@@ -182,7 +182,9 @@
                          model?.documentStatus.toString()==="DOCUMENTATION" ||
                          model?.documentStatus.toString()==="DISCUSSION" ||
                          model?.documentStatus.toString()==="UNDER_REVIEW" ||
-                         model?.documentStatus.toString()==="VALUATION"'>
+                         model?.documentStatus.toString()==="VALUATION" ||
+                         model?.documentStatus.toString()==="HSOV_PENDING" ||
+                         model?.documentStatus?.toString() === "DUAL_APPROVAL_PENDING"'>
                         {{model?.currentStage?.toUser?.name}}
                         / {{getDifferenceInDays(model?.currentStage?.lastModifiedAt)}}
                     </div>
@@ -198,7 +200,9 @@
                          model?.documentStatus.toString()==="DOCUMENTATION" ||
                          model?.documentStatus.toString()==="DISCUSSION" ||
                          model?.documentStatus.toString()==="UNDER_REVIEW" ||
-                         model?.documentStatus.toString()==="VALUATION"'>
+                         model?.documentStatus.toString()==="VALUATION" ||
+                         model?.documentStatus.toString()==="HSOV_PENDING" ||
+                         model?.documentStatus?.toString() === "DUAL_APPROVAL_PENDING"'>
                         {{getDifferenceInDays(model?.currentStage?.createdAt)}}</div>
                     <div *ngIf='(model?.documentStatus.toString()==="CLOSED" ||
                         model?.documentStatus.toString()==="REJECTED" ||
