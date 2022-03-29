@@ -12,6 +12,7 @@ export class SecurityAdderComponent implements OnInit {
     @Input() taggedShareSecurities;
     customerShareData: any;
     selectedShareSecurityList: any;
+    securityList: any;
 
     constructor() {
     }

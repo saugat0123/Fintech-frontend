@@ -3,8 +3,8 @@
         <div class="row mt-3">
             <div class="col-md-12 input-group-prepend">
                 <nb-select placeholder="Select Share Security" fullWidth #selectedGuarantor>
-                    <nb-option *ngFor="let guarantor of securityList" [value]="guarantor">
-                        {{guarantor.name}} / {{guarantor.issuedPlace}}
+                    <nb-option *ngFor="let shareSecurity of securityList" [value]="shareSecurity">
+                        {{shareSecurity.name}} / {{shareSecurity.issuedPlace}}
                     </nb-option>
                 </nb-select>
                 <!--                <button [disabled]="!guarantor.valid" nbButton size="small" (click)="addGuarantorDetail(selectedGuarantor.selected)"> <i-->
