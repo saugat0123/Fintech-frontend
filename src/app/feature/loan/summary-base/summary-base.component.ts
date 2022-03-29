@@ -170,12 +170,16 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
                 this.actionsList.closed = false;
             }
             if (this.loanDataHolder.currentStage.docAction.toString() === DocAction.value(DocAction.REVERT_APPROVED)) {
-                this.actionsList.approved = true;
                 this.actionsList.sendForward = false;
                 this.actionsList.edit = false;
                 this.actionsList.sendBackward = false;
                 this.actionsList.rejected = false;
                 this.actionsList.closed = false;
+                if (this.loanDataHolder.currentStage.toUser.username.toString() === this.user.username.toString()) {
+                    this.actionsList.approved = true;
+                } else {
+                    this.actionsList.approved = false;
+                }
             }
 
             this.dateService.getDateInNepali(this.loanDataHolder.createdAt.toString()).subscribe((nepDate: any) => {
