@@ -16,16 +16,16 @@
                     </tr>
                     <tr>
                         <td>1</td>
-                        <td>Not Eligible for new loans</td>
-                        <td>BL</td>
+                        <td>Excellent</td>
+                        <td>E</td>
                         <td>
                             90 and above
                         </td>
                     </tr>
                     <tr>
                         <td>2</td>
-                        <td>Acceptable</td>
-                        <td>S</td>
+                        <td>Very Good</td>
+                        <td>VG</td>
                         <td>75-89</td>
                     </tr>
                     <tr>
@@ -36,14 +36,14 @@
                     </tr>
                     <tr>
                         <td>4</td>
-                        <td>Very Good</td>
-                        <td>VG</td>
+                        <td>Acceptable</td>
+                        <td>S</td>
                         <td>50-64</td>
                     </tr>
                     <tr>
                         <td>5</td>
-                        <td>Excellent</td>
-                        <td>E</td>
+                        <td>Not Eligible for new loans</td>
+                        <td>BL</td>
                         <td><50</td>
                     </tr>
                 </table>
@@ -60,7 +60,7 @@
                 <th>Criteria</th>
                 <th>Weight</th>
                 <th>Parameter</th>
-                <th *ngIf="fromProfile">Score</th>
+<!--                <th *ngIf="fromProfile">Score</th>-->
                 <th *ngIf="fromProfile">Actual Parameter</th>
                 <th>Score Obtained</th>
             </tr>
@@ -94,15 +94,15 @@
                                 </ng-container>
                             </ul>
                         </td>
-                        <td>
-                            <ul class="list-unstyled">
-                                <ng-container *ngFor="let answer of crgQuestion?.answers">
-                                    <li *ngIf="answer?.status == 'ACTIVE'">
-                                        {{ answer?.points }}
-                                    </li>
-                                </ng-container>
-                            </ul>
-                        </td>
+<!--                        <td>-->
+<!--                            <ul class="list-unstyled">-->
+<!--                                <ng-container *ngFor="let answer of crgQuestion?.answers">-->
+<!--                                    <li *ngIf="answer?.status == 'ACTIVE'">-->
+<!--                                        {{ answer?.points }}-->
+<!--                                    </li>-->
+<!--                                </ng-container>-->
+<!--                            </ul>-->
+<!--                        </td>-->
                         <td>
                             <ng-container *ngFor="let answer of crgQuestion?.answers; let i = index">
                                 <div *ngIf="answer?.status == 'ACTIVE'">
