@@ -433,7 +433,7 @@
     </div>
 </div>
 
-<div class="row" *ngIf="client === clientName?.SHINE_RESUNGA">
+<div class="row">
     <div class="col-md-12">
         <table *ngIf="approveSheet === 'approveSheet'"
                class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
@@ -487,6 +487,7 @@
                     Principal Amount
                 </th>
                 <th *ngIf="isFixedDeposit">Coupon Rate</th>
+                <th *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isGeneral">Moratorium Period (Month)</th>
             </tr>
             </thead>
             <tbody>
@@ -506,6 +507,7 @@
                 <td *ngIf="showPrincipalAmount && ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))"
                     class="text-right pr-1">Rs.{{proposalAllData?.principalAmount}}</td>
                 <td *ngIf="isFixedDeposit" class="text-right pr-1">{{proposalData?.couponRate}}</td>
+                <td *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isGeneral" class="text-right pr-1">{{proposalAllData?.moratoriumPeriod}}</td>
             </tr>
             </tbody>
         </table>
