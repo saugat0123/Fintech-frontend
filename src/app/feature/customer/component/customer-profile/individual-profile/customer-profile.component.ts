@@ -89,7 +89,7 @@ export class CustomerProfileComponent implements OnInit, AfterContentInit {
     jointInfo = [];
     isJointInfo = false;
     microCustomer: boolean;
-
+    isRemit = false;
     constructor(private route: ActivatedRoute,
                 private customerService: CustomerService,
                 private customerInfoService: CustomerInfoService,

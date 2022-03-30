@@ -141,7 +141,6 @@ export class CadActionComponent implements OnInit, OnChanges {
     }
 
     onSubmit(templateLogin) {
-        console.log(this.formAction);
         this.errorMsgStatus = false;
         this.falseCredential = false;
         this.submitted = true;
@@ -328,7 +327,7 @@ export class CadActionComponent implements OnInit, OnChanges {
                     cadId: [this.cadId],
                     docAction: [val],
                     comment: [undefined, Validators.required],
-                    documentStatus: [this.forwardBackwardDocStatusChange()],
+                    documentStatus: [this.backwardDocStatus()],
                     isBackwardForMaker: returnToMaker,
                     customApproveSelection: [false],
                     toUser: [undefined],
@@ -379,6 +378,16 @@ export class CadActionComponent implements OnInit, OnChanges {
 
     }
 
+    public backwardDocStatus() {
+        if (this.currentStatus === 'OFFER_APPROVED') {
+            return 'OFFER_PENDING';
+        } else if (this.currentStatus === 'DISBURSEMENT_PENDING') {
+            return 'OFFER_PENDING';
+        } else {
+            return this.currentStatus;
+        }
+
+    }
 
     public backwardTooltipMessageAndShowHideBackward() {
         const user = this.currentCADStage.fromUser.name + ' (' + this.currentCADStage.fromRole.roleName + ')';

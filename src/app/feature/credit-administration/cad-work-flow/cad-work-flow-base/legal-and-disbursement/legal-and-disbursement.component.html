@@ -7,7 +7,7 @@
         <div class="clearfix">
             <div [class]="!layoutFlag ? 'float-left':'float-right'">
                 <strong>{{productUtils?.CAD_ADMIN_ENABLE ? (cadOfferLetterApprovedDoc?.docStatus | replace:'_':' '):
-                    cadOfferLetterApprovedDoc?.docStatus === 'DISBURSEMENT_PENDING' ?'Legal & Disbursement Pending':(cadOfferLetterApprovedDoc?.docStatus | replace:'_':' ')}}</strong></div>
+                  ((cadOfferLetterApprovedDoc?.docStatus | cadStatus) | replace:'_':' ')}}</strong></div>
         </div>
         <app-cad-action [cadId]="cadOfferLetterApprovedDoc?.id"
                         [selectedBranchId]="cadOfferLetterApprovedDoc?.loanHolder?.branch?.id"
