@@ -487,6 +487,7 @@
                     Principal Amount
                 </th>
                 <th *ngIf="isFixedDeposit">Coupon Rate</th>
+                <th *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isGeneral">Moratorium Period (Month)</th>
             </tr>
             </thead>
             <tbody>
@@ -506,16 +507,7 @@
                 <td *ngIf="showPrincipalAmount && ((loanNatureSelected && isFundable && fundableNonFundableSelcted && isTerminating) || (isVehicle || isShare || isGeneral))"
                     class="text-right pr-1">Rs.{{proposalAllData?.principalAmount}}</td>
                 <td *ngIf="isFixedDeposit" class="text-right pr-1">{{proposalData?.couponRate}}</td>
-            </tr>
-            </tbody>
-        </table>
-        <table class="table table-sm table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-            <tbody>
-            <tr class="text-white sb-bg-dark">
-                <th>Moratorium Period(Month)</th>
-            </tr>
-            <tr>
-                <td class="text-right pr-1">{{proposalAllData?.moratoriumPeriod}}</td>
+                <td *ngIf="(loanNatureSelected && fundableNonFundableSelcted && isFundable && isTerminating) || isVehicle || isGeneral" class="text-right pr-1">{{proposalAllData?.moratoriumPeriod}}</td>
             </tr>
             </tbody>
         </table>
