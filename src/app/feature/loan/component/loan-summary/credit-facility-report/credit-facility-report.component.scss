@@ -176,3 +176,15 @@
 
   }
 }
+.guarantorsList {
+  list-style-type: lower-alpha;
+  li {
+    line-height: 1.5em;
+  }
+}
+
+.ref-no {
+  td {
+    font-weight: bold !important;
+  }
+}
