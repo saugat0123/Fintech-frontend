@@ -26,6 +26,10 @@ export class CreditFacilityReportComponent implements OnInit, OnChanges {
     securityDetails;
     riskGrade;
     guarantorDetails;
+    proposedLimit: number;
+    guarantorsList: import("c:/Sb solutions/frontApp/sbsolution-frontapp/src/app/feature/loan/model/guarantor").Guarantor[];
+    loanName: string;
+    proposalData: any;
     constructor() {
     }
 
@@ -39,10 +43,7 @@ export class CreditFacilityReportComponent implements OnInit, OnChanges {
             this.customerLoanDtoList = this.loanDataHolder.customerLoanDtoList;
         }
         this.getAllLoanConfig();
-        this.nrbSectorCodes = this.loanDataHolder.loanHolder.reportingInfoLevels;
-        this.securityDetails = JSON.parse(this.loanDataHolder.security.data);
-        this.riskGrade = JSON.parse(this.loanDataHolder.creditRiskGradingLambda.data).totalScore;
-        this.guarantorDetails = this.loanDataHolder.loanHolder.guarantors.guarantorList;
+        this.patchValues();
     }
 
     public getTotalFundable(key: string, funded: boolean, loanList: LoanDataHolder[]): number {
@@ -181,5 +182,16 @@ export class CreditFacilityReportComponent implements OnInit, OnChanges {
                 this.dtoArray.push(dtoCfonfig);
             });
         }
+    }
+    patchValues() {
+        this.nrbSectorCodes = this.loanDataHolder.loanHolder.reportingInfoLevels;
+        this.securityDetails = JSON.parse(this.loanDataHolder.security.data);
+        this.riskGrade = JSON.parse(this.loanDataHolder.creditRiskGradingLambda.data).totalScore;
+        this.guarantorDetails = this.loanDataHolder.loanHolder.guarantors.guarantorList;
+        this.proposedLimit = this.loanDataHolder.proposal.proposedLimit;
+        this.guarantorsList = this.loanDataHolder.loanHolder.guarantors.guarantorList;
+        this.loanName = this.loanDataHolder.loan.name;
+        this.proposalData = JSON.parse(this.loanDataHolder.proposal.data)
+        
     }
 }
