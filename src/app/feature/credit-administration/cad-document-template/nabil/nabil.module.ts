@@ -211,7 +211,8 @@ import { SingleSmeSecondarySecurityViewComponent } from './single-sme-secondary-
         LetterOfSetOffProprietorshipComponent,
         LetterVehicleThirdPartyPartnershipComponent,
         LetterVehicleThirdPartyProprietorshipComponent,
-        SingleSmePrimarySecurityViewComponent
+        SingleSmePrimarySecurityViewComponent,
+        SingleSmeSecondarySecurityViewComponent
     ],
     imports: [
         CommonModule,

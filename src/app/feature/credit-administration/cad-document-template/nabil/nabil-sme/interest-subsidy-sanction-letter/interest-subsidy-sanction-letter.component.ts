@@ -109,6 +109,7 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
   securityTypeConditionLandAndBuildingSecondary = false;
   securityTypeConditionLiveStocks = false;
   securityTypeConditionDocuments = false;
+  securityTypeConditionDocumentsSecondary = false;
   securityTypeConditionPg = false;
   plotNumber;
   customerSubType = CustomerSubType;
@@ -624,18 +625,20 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
       this.securityTypeConditionAssestsPlants = true;
       this.securityTypeConditionLiveStocks = true;
       this.securityDetails.primarySecurity.forEach((val, i) => {
-        if (this.securityDetails.primarySecurity[i].requiredHypothecationInsurance.length > 0) {
-          this.securityDetails.primarySecurity[i].requiredHypothecationInsurance.forEach(value => {
-            if (value === 'INSURANCE_OF_STOCK') {
-              this.inStock = true;
-            }
-            if (value === 'INSURANCE_OF_FIXED_ASSESTS') {
-              this.fixedAssests = true;
-            }
-            if (value === 'INSURANCE_OF_LIVE_STOCKS') {
-              this.liveStock = true;
-            }
-          });
+        if (!ObjectUtil.isEmpty(this.securityDetails.primarySecurity[i].requiredHypothecationInsurance)) {
+          if (this.securityDetails.primarySecurity[i].requiredHypothecationInsurance.length > 0) {
+            this.securityDetails.primarySecurity[i].requiredHypothecationInsurance.forEach(value => {
+              if (value === 'INSURANCE_OF_STOCK') {
+                this.inStock = true;
+              }
+              if (value === 'INSURANCE_OF_FIXED_ASSESTS') {
+                this.fixedAssests = true;
+              }
+              if (value === 'INSURANCE_OF_LIVE_STOCKS') {
+                this.liveStock = true;
+              }
+            });
+          }
         }
       });
     }
@@ -701,7 +704,7 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
         (s) => s.securityType === 'ASSIGNMENT'
       )
     ) {
-      this.securityTypeConditionDocuments = true;
+      this.securityTypeConditionDocumentsSecondary = true;
     }
     if (
         this.securityDetails.secondarySecurity.some(
@@ -717,18 +720,20 @@ export class InterestSubsidySanctionLetterComponent implements OnInit {
     ) {
       this.securityTypeConditionFixedAssestsSecondary = true;
       this.securityDetails.secondarySecurity.forEach((val, i) => {
-        if (this.securityDetails.secondarySecurity[i].requiredHypothecationInsurance.length > 0) {
-          this.securityDetails.secondarySecurity[i].requiredHypothecationInsurance.forEach(value => {
-            if (value === 'INSURANCE_OF_STOCK') {
-              this.inStock = true;
-            }
-            if (value === 'INSURANCE_OF_FIXED_ASSESTS') {
-              this.fixedAssests = true;
-            }
-            if (value === 'INSURANCE_OF_LIVE_STOCKS') {
-              this.liveStock = true;
-            }
-          });
+        if (!ObjectUtil.isEmpty(this.securityDetails.secondarySecurity[i].requiredHypothecationInsurance)) {
+          if (this.securityDetails.secondarySecurity[i].requiredHypothecationInsurance.length > 0) {
+            this.securityDetails.secondarySecurity[i].requiredHypothecationInsurance.forEach(value => {
+              if (value === 'INSURANCE_OF_STOCK') {
+                this.inStock = true;
+              }
+              if (value === 'INSURANCE_OF_FIXED_ASSESTS') {
+                this.fixedAssests = true;
+              }
+              if (value === 'INSURANCE_OF_LIVE_STOCKS') {
+                this.liveStock = true;
+              }
+            });
+          }
         }
       });
     }

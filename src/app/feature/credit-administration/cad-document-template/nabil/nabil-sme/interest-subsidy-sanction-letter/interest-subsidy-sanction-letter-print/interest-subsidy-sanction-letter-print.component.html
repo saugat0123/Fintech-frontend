@@ -277,58 +277,111 @@
                 नगर्नका
                 साथै अघिल्लो प्रदान गरिएका अनुदानहरु पनि फिर्ता माग गर्ने बैंकको अधिकार सुरक्षित रहनेछ ।
             </p><br>
-            <div class="service-contions mt-4">
+            <div class="service-contions mt-4" *ngIf="this.securityDetails.primarySecurity.length > 0 || this.securityDetails.secondarySecurity.length > 0">
                 <div class="col-sm-12">
-                    <ol class="conditions-list orderd-list">
-                        <strong><u>सुरक्षण विवरण: </u></strong>
-
+                    <strong><u>सुरक्षण विवरण: </u></strong>
+                    <ng-container *ngIf="this.securityDetails.primarySecurity.length > 0">
                         <p>
-                            <strong><u>क. प्राथमिक/थप सुरक्षण (Primary/Secondary Security)</u></strong>
+                            <strong> क. <u>प्राथमिक सुरक्षण (Primary Security) </u></strong>
                         </p>
-                        <li *ngIf="securityTypeCondition"><strong> </strong>
-                            <strong>घर/जग्गा धितोेबन्धक हकाधिकार </strong>(Mortgage Charges):<br>
-                            स्वीकृत ऋणकर्जा प्रवाह गर्नु अगावै ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा देहाय
-                            बमोजिमको घर/जग्गा धितोबन्धक पारित/रोक्का गरिदिनु पर्नेछ ।
-                            <div class="pb-4">
-                                <app-single-sme-primary-security-view [securityDetails]="tempData?.securities">
-                                </app-single-sme-primary-security-view>
-                            </div>
-                        </li>
-                        <li *ngIf="securityTypeConditionFixedAssests || securityTypeConditionFixedAssestsSecondary"><strong> सामान मौज्दात धितोेबन्धक
-                                हकाधिकार </strong>(Hypothecation Charges):
-                            <br>
-                            बैंकबाट प्राप्त कर्जा वा सुविधा तथा ऋणीको आफ्नै श्रोत समेतबाट खरिद गरेको जहासुकै
-                            रहे भएको कच्चा पदार्थ प्रशोधित वा
-                            अर्ध प्रशोधित कच्चा पदार्थ, तयारी सामान, पशुपन्छी, दाना, अण्डा, भ्याक्सिन/औषधि,
-                            कृषि उपज आदी लगायतका सम्पूर्ण सामानहरुको
-                            मौज्दात, टहरा, उपकरण लगायत परियोजना संग सम्बन्धित सम्पूर्ण चल अचल सम्पत्तिहरु यस
-                            बैंकको पक्षमा धितोबन्धक हकाधिकार कायम गरिदिनु पर्नेछ ।
-                        </li>
-                        <li *ngIf="securityTypeConditionDocuments">
-                            <strong> हस्तान्तरण </strong>(Assignment):<br>
-                            ऋणीले आफ्ना आसामीबाट भुक्तानी प्राप्त गर्न बांकि रकमहरु (Account Receivables)
-                            बैंकले संकलन गर्न सक्ने अख्तियारनामा हस्तान्तरण गरिदिनु पर्नेछ ।
-                        </li>
-                        <li *ngIf="securityTypeConditionPg">
-                            <strong> व्यक्तिगत जमानत</strong> (Personal Guarantee):<br>
-                            <div *ngFor="let personalGuarantor of tempPersonalGuarantors">
-                                रु.<span class="font-weight-bold">
+                        <ol class="conditions-list orderd-list">
+                            <li *ngIf="securityTypeCondition"><strong> </strong>
+                                <strong>घर/जग्गा धितोेबन्धक हकाधिकार </strong>(Mortgage Charges):<br>
+                                स्वीकृत ऋणकर्जा प्रवाह गर्नु अगावै ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा देहाय
+                                बमोजिमको घर/जग्गा धितोबन्धक पारित/रोक्का गरिदिनु पर्नेछ ।
+                                <div class="pb-4">
+                                    <app-single-sme-primary-security-view [securityDetails]="tempData?.securities">
+                                    </app-single-sme-primary-security-view>
+                                </div>
+                            </li>
+                            <li *ngIf="securityTypeConditionFixedAssests">
+                                <strong> सामान मौज्दात धितोेबन्धक
+                                    हकाधिकार </strong>(Hypothecation Charges):
+                                <br>
+                                बैंकबाट प्राप्त कर्जा वा सुविधा तथा ऋणीको आफ्नै श्रोत समेतबाट खरिद गरेको जहासुकै
+                                रहे भएको कच्चा पदार्थ प्रशोधित वा
+                                अर्ध प्रशोधित कच्चा पदार्थ, तयारी सामान, पशुपन्छी, दाना, अण्डा, भ्याक्सिन/औषधि,
+                                कृषि उपज आदी लगायतका सम्पूर्ण सामानहरुको
+                                मौज्दात, टहरा, उपकरण लगायत परियोजना संग सम्बन्धित सम्पूर्ण चल अचल सम्पत्तिहरु यस
+                                बैंकको पक्षमा धितोबन्धक हकाधिकार कायम गरिदिनु पर्नेछ ।
+                            </li>
+                            <li *ngIf="securityTypeConditionDocuments">
+                                <strong> हस्तान्तरण </strong>(Assignment):<br>
+                                ऋणीले आफ्ना आसामीबाट भुक्तानी प्राप्त गर्न बांकि रकमहरु (Account Receivables)
+                                बैंकले संकलन गर्न सक्ने अख्तियारनामा हस्तान्तरण गरिदिनु पर्नेछ ।
+                            </li>
+                            <!--<li *ngIf="securityTypeConditionPg">
+                                <strong> व्यक्तिगत जमानत</strong> (Personal Guarantee):<br>
+                                <div *ngFor="let personalGuarantor of tempPersonalGuarantors">
+                                    रु.<span class="font-weight-bold">
                                     {{personalGuarantor.gurantedAmount ? personalGuarantor.gurantedAmount.ct : ''}}
                                 </span> /- (अक्षरेपि रु.
-                                <span
-                                    class="font-weight-bold">{{this.nepaliCurrencyWordPipe.transform(personalGuarantor.gurantedAmount
-                                    ? personalGuarantor.gurantedAmount.en : '')}}</span>
-                                मात्र) बराबरको
-                                {{personalGuarantor.gender.en === 'FEMALE' && personalGuarantor.guarantorMaritalStatus.en ===
-                            'Married' ? 'श्रीमती' : (personalGuarantor.gender.en === 'FEMALE' && personalGuarantor.guarantorMaritalStatus.en ===
-                            'Unmarried' ? 'सुश्री' : personalGuarantor.gender.en === 'MALE' ? 'श्री' : 'श्री')}}
-                                <span class="font-weight-bold">
+                                    <span
+                                            class="font-weight-bold">{{this.nepaliCurrencyWordPipe.transform(personalGuarantor.gurantedAmount
+                                        ? personalGuarantor.gurantedAmount.en : '')}}</span>
+                                    मात्र) बराबरको
+                                    {{personalGuarantor.gender.en === 'FEMALE' && personalGuarantor.guarantorMaritalStatus.en ===
+                                'Married' ? 'श्रीमती' : (personalGuarantor.gender.en === 'FEMALE' && personalGuarantor.guarantorMaritalStatus.en ===
+                                'Unmarried' ? 'सुश्री' : personalGuarantor.gender.en === 'MALE' ? 'श्री' : 'श्री')}}
+                                    <span class="font-weight-bold">
                                     {{personalGuarantor.guarantorName ? personalGuarantor.guarantorName.ct : ''}}
                                 </span>
-                                ले बैंकको पक्षमा व्यक्तिगत जमानत लेखिदिनु पर्नेछ ।
-                            </div>
-                        </li>
-                    </ol>
+                                    ले बैंकको पक्षमा व्यक्तिगत जमानत लेखिदिनु पर्नेछ ।
+                                </div>
+                            </li>-->
+                        </ol>
+                    </ng-container>
+                    <ng-container *ngIf="this.securityDetails.secondarySecurity.length > 0">
+                        <p>
+                            <strong>ख. <u>थप सुरक्षण (Secondary Security)</u></strong>
+                        </p>
+                        <ol class="conditions-list orderd-list">
+                            <li *ngIf="securityTypeSecondaryCondition"><strong> </strong>
+                                <strong>घर/जग्गा धितोेबन्धक हकाधिकार </strong>(Mortgage Charges):<br>
+                                स्वीकृत ऋणकर्जा प्रवाह गर्नु अगावै ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा देहाय
+                                बमोजिमको घर/जग्गा धितोबन्धक पारित/रोक्का गरिदिनु पर्नेछ ।
+                                <div class="pb-4">
+                                    <app-single-sme-secondary-security-view [securityDetails]="tempData?.securities">
+                                    </app-single-sme-secondary-security-view>
+                                </div>
+                            </li>
+                            <li *ngIf="securityTypeConditionFixedAssestsSecondary">
+                                <strong> सामान मौज्दात धितोेबन्धक
+                                    हकाधिकार </strong>(Hypothecation Charges):
+                                <br>
+                                बैंकबाट प्राप्त कर्जा वा सुविधा तथा ऋणीको आफ्नै श्रोत समेतबाट खरिद गरेको जहासुकै
+                                रहे भएको कच्चा पदार्थ प्रशोधित वा
+                                अर्ध प्रशोधित कच्चा पदार्थ, तयारी सामान, पशुपन्छी, दाना, अण्डा, भ्याक्सिन/औषधि,
+                                कृषि उपज आदी लगायतका सम्पूर्ण सामानहरुको
+                                मौज्दात, टहरा, उपकरण लगायत परियोजना संग सम्बन्धित सम्पूर्ण चल अचल सम्पत्तिहरु यस
+                                बैंकको पक्षमा धितोबन्धक हकाधिकार कायम गरिदिनु पर्नेछ ।
+                            </li>
+                            <li *ngIf="securityTypeConditionDocumentsSecondary">
+                                <strong> हस्तान्तरण </strong>(Assignment):<br>
+                                ऋणीले आफ्ना आसामीबाट भुक्तानी प्राप्त गर्न बांकि रकमहरु (Account Receivables)
+                                बैंकले संकलन गर्न सक्ने अख्तियारनामा हस्तान्तरण गरिदिनु पर्नेछ ।
+                            </li>
+                            <li *ngIf="securityTypeConditionPg">
+                                <strong> व्यक्तिगत जमानत</strong> (Personal Guarantee):<br>
+                                <div *ngFor="let personalGuarantor of tempPersonalGuarantors">
+                                    रु.<span class="font-weight-bold">
+                                    {{personalGuarantor.gurantedAmount ? personalGuarantor.gurantedAmount.ct : ''}}
+                                </span> /- (अक्षरेपि रु.
+                                    <span
+                                            class="font-weight-bold">{{this.nepaliCurrencyWordPipe.transform(personalGuarantor.gurantedAmount
+                                        ? personalGuarantor.gurantedAmount.en : '')}}</span>
+                                    मात्र) बराबरको
+                                    {{personalGuarantor.gender.en === 'FEMALE' && personalGuarantor.guarantorMaritalStatus.en ===
+                                'Married' ? 'श्रीमती' : (personalGuarantor.gender.en === 'FEMALE' && personalGuarantor.guarantorMaritalStatus.en ===
+                                'Unmarried' ? 'सुश्री' : personalGuarantor.gender.en === 'MALE' ? 'श्री' : 'श्री')}}
+                                    <span class="font-weight-bold">
+                                    {{personalGuarantor.guarantorName ? personalGuarantor.guarantorName.ct : ''}}
+                                </span>
+                                    ले बैंकको पक्षमा व्यक्तिगत जमानत लेखिदिनु पर्नेछ ।
+                                </div>
+                            </li>
+                        </ol>
+                    </ng-container>
                 </div>
             </div>
             <div>
