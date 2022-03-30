@@ -175,6 +175,7 @@ export class SummaryBaseComponent implements OnInit, OnDestroy {
                 this.actionsList.sendBackward = false;
                 this.actionsList.rejected = false;
                 this.actionsList.closed = false;
+                this.actionsList.roleTypeMaker = false;
                 if (this.loanDataHolder.currentStage.toUser.username.toString() === this.user.username.toString()) {
                     this.actionsList.approved = true;
                 } else {
