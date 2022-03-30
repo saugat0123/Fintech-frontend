@@ -317,6 +317,11 @@ export class CompanyFormComponent implements OnInit {
         } else {
             this.addAccountNumber();
         }
+        if (!ObjectUtil.isEmpty(this.companyInfo)) {
+            this.setSisterConcern(this.companyJsonData.sisterConcern);
+        } else {
+            this.addSisterConcern();
+        }
     }
 
     buildForm() {
@@ -534,9 +539,7 @@ export class CompanyFormComponent implements OnInit {
                 this.companyJsonData.rawMaterialAvailability],
 
             // Sister concert
-            sisterConcern: [ObjectUtil.isEmpty(this.companyJsonData) ? undefined :
-                this.companyJsonData.sisterConcern],
-
+            sisterConcern: this.formBuilder.array([]),
             // company background
             companyBackground: [ObjectUtil.isEmpty(this.companyJsonData) ? undefined :
                 this.companyJsonData.companyBackground, Validators.required],
@@ -651,7 +654,12 @@ export class CompanyFormComponent implements OnInit {
                 || ObjectUtil.isEmpty(this.companyJsonData.irdReport)) ? undefined :
                 this.companyJsonData.irdReport],
             accountDetails: this.formBuilder.array([]),
-
+            branchAddress: [(ObjectUtil.isEmpty(this.companyJsonData)
+                || ObjectUtil.isEmpty(this.companyJsonData.branchAddress)) ? undefined :
+                this.companyJsonData.branchAddress],
+            warehouseAddress: [(ObjectUtil.isEmpty(this.companyJsonData)
+                || ObjectUtil.isEmpty(this.companyJsonData.warehouseAddress)) ? undefined :
+                this.companyJsonData.warehouseAddress]
         });
         if (!this.additionalFieldSelected) {
             this.companyInfoFormGroup.get('additionalCompanyInfo').disable();
@@ -961,11 +969,14 @@ export class CompanyFormComponent implements OnInit {
 
         this.companyLocation.onSubmit();
         this.companyProjectLocation.onSubmit();
-        this.companyCorrespondenceLocation.onSubmit();
+        // this.companyCorrespondenceLocation.onSubmit();
+        // if (this.companyInfoFormGroup.invalid ||
+        //     ((this.disableCrgAlpha || this.microCustomer) ? false : this.bankingRelationComponent.bankingRelationForm.invalid)
+        //     || this.companyLocation.addressForm.invalid || this.companyProjectLocation.addressForm.invalid
+        //     || this.companyCorrespondenceLocation.addressForm.invalid) {
         if (this.companyInfoFormGroup.invalid ||
             ((this.disableCrgAlpha || this.microCustomer) ? false : this.bankingRelationComponent.bankingRelationForm.invalid)
-            || this.companyLocation.addressForm.invalid || this.companyProjectLocation.addressForm.invalid
-            || this.companyCorrespondenceLocation.addressForm.invalid) {
+            || this.companyLocation.addressForm.invalid || this.companyProjectLocation.addressForm.invalid) {
             this.spinner = false;
             this.toastService.show(new Alert(AlertType.WARNING, 'Check Validation'));
             this.scrollToFirstInvalidControl();
@@ -1044,7 +1055,7 @@ export class CompanyFormComponent implements OnInit {
         this.locations.version = this.companyInfoFormGroup.get('locationVersion').value;
         this.locations.address = JSON.stringify(this.companyLocation.submitData);
         this.locations.projectAddress = JSON.stringify(this.companyProjectLocation.submitData);
-        this.locations.correspondenceAddress = JSON.stringify(this.companyCorrespondenceLocation.submitData);
+        // this.locations.correspondenceAddress = JSON.stringify(this.companyCorrespondenceLocation.submitData);
         this.locations.houseNumber = this.companyInfoFormGroup.get('houseNumber').value;
         this.locations.streetName = this.companyInfoFormGroup.get('streetName').value;
         this.companyInfo.companyLocations = this.locations;
@@ -1131,6 +1142,7 @@ export class CompanyFormComponent implements OnInit {
         /** Market Scenario detail */
         submitData.marketScenario = this.marketScenarioComponent.submitData;
         submitData.managementTeamList = this.companyInfoFormGroup.get('managementTeams').value;
+        submitData.sisterConcern = this.companyInfoFormGroup.get('sisterConcern').value;
         submitData.proprietorList = this.companyJsonData.proprietorList;
         submitData.totalSharePercent = this.companyInfoFormGroup.get('totalSharePercent').value;
         submitData.isAdditionalCompanyInfo = this.additionalFieldSelected;
@@ -1355,6 +1367,29 @@ export class CompanyFormComponent implements OnInit {
                 'accountNo': this.companyInfo.accountNo
             });
             this.setAccountNumber(oldAccountNo.accountDetails);
+        }
+    }
+
+    addSisterConcern() {
+        (this.companyInfoFormGroup.get('sisterConcern') as FormArray).push(
+            this.formBuilder.group({
+                sisterCon: [undefined],
+            })
+        );
+    }
+
+    removeSisterConcern(index: number) {
+        (<FormArray>this.companyInfoFormGroup.get('sisterConcern')).removeAt(index);
+    }
+
+    setSisterConcern(data) {
+        const sis = this.companyInfoFormGroup.get('sisterConcern') as FormArray;
+        if (!ObjectUtil.isEmpty(data)) {
+            data.forEach(l => {
+                sis.push(this.formBuilder.group({
+                    sisterCon: [l.sisterCon]
+                }));
+            });
         }
     }
 }
