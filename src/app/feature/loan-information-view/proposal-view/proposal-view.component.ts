@@ -54,12 +54,14 @@ export class ProposalViewComponent implements OnInit {
   @Input() loanCategory;
   approvedLoans = [];
   customerLoanDtoList: CustomerLoanDto[];
+  typeOfLoan: any
 
   constructor(private activatedRoute: ActivatedRoute,
               private loanConfigService: LoanConfigService) {
   }
 
   ngOnInit() {
+    this.typeOfLoan=this.loanDataHolder.loanType;
     this.proposalAllData = JSON.parse(this.proposalData.data);
     this.checkedData = JSON.parse(this.proposalData.checkedData);
     if (this.loanDataHolder.customerLoanDtoList !== null) {
