@@ -310,540 +310,642 @@
             <ng-container *ngIf="!isAboveTenMillion && !isUpToTenMillion">
                 <div class="row">
                     <div class="col-md-12">
-                        <p><strong>Proposal</strong></p>
-                        <table class="table table-bordered table-responsive-md table-sm sb-small">
-                            <tbody>
-                                <tr>
-                                    <th class="p-1 w-50">
-                                        The client has requested us to provide Rs.
-                                    </th>
-                                    <td><b>{{proposalView?.proposedLimit}}</b></td>
-                                </tr>
-                                <ng-container *ngFor="let cl of customerAllLoanList">
-                                    <tr>
-                                        <th>
-                                            Pricing:
-                                        </th>
-                                        <td>
-                                            <b>{{cl?.loan?.name}}</b>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>
-                                            Interest:
-                                        </th>
-                                        <td>
-                                            <b>{{(cl?.proposal?.data | jsonParse)?.interestRate}}</b>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>
-                                            Interest:
-                                        </th>
-                                        <td>
-                                            <b>{{(cl?.proposal?.data | jsonParse)?.interestRate}}</b>% p.a. (BR
-                                            + 0.59%)
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>
-                                            Loan Administrative Fee:
-                                        </th>
-                                        <td>
-                                            <b>{{(cl?.proposal?.data | jsonParse)?.serviceCharge}}</b>
-                                            % of the approved limit
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>
-                                            CICL charge:
-                                        </th>
-                                        <td>
-                                            <b>{{cl?.loanHolder?.cicl?.cibCharge}}</b>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>
-                                            Prepayment Charge:
-                                        </th>
-                                        <td>
-                                            <b>{{(cl?.proposal?.data | jsonParse)?.prepaymentCharge}}</b>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th>
-                                            Swap Charge:
-                                        </th>
-                                        <td>
-                                            <b>{{(cl?.proposal?.data | jsonParse)?.swapCharge}}</b>
-                                        </td>
-                                    </tr>
-                                </ng-container>
-                            </tbody>
-                        </table>
+                        <ol>
+                            <li>
+                                <p><strong>PROPOSAL:</strong> To seek approval for providing credit facilities of NPR…. to M/S…………., with details as under:</p>
+                            </li>
+                            <li>
+                                <p><strong>APPROVING AUTHORITY:</strong> …., as per …(CPG/PP...) because of …(the amount involved/…)</p>
+                            </li>
+                            <li>
+                                <p><strong>PURPOSE OF CREDIT FACILITIES:</strong> To finance …………..</p>
+                            </li>
+                            <li>
+                                <!-- details of the customer -->
+                                <p>
+                                    <strong>DETAILS OF THE CUSTOMER:</strong><br>
+                                    <app-upto-details-of-the-customer></app-upto-details-of-the-customer>
+                                </p>
+                            </li>
+                            <li>
+                                <!-- background information -->
+                                <p>
+                                    <strong>BACKGROUND INFORMATION:</strong><br>
+                                    <strong>5.1 BUSINESS:</strong>
+                                </p>
+                                <p class="text-justify" style="margin-top: -10px">
+                                    (Details of business operations – nature of business, product ranges, installed and running
+                                    capacity, product market, market presence, supply chain, buyers and sellers, business operating
+                                    tenure, previous business extension/expansion, manpower used, innovative technology/equipment used,
+                                    scientific research and development etc, wherever applicable.)
+                                </p>
+                                <div class="p-2 background-info col-md-12">
+                                </div>
+                                <p class="mt-2">
+                                    <strong>5.2 PROMOTERS/KEY PERSON(S) AND THEIR NETWORTH:</strong>
+                                </p>
+                                <p class="text-justify" style="margin-top: -10px">
+                                    (Promoter/key person’s family background, education, experiences in related fields, history of
+                                    business ownership and management, net-worth, social standings, other related businesses or occupation etc.)</p>
+                                <div class="p-2 background-info col-md-12"></div>
+                            </li>
+                            <li class="mt-3">
+                                <app-sana-current-status-and-present-proposal></app-sana-current-status-and-present-proposal>
+                            </li>
+                            <li>
+                                <strong>SECURITY ARRANGEMENT</strong>
+                                <app-sana-security-arrangement></app-sana-security-arrangement>
+                            </li>
+                            <li>
+                                <strong>KEY FINANCIAL FIGURES</strong>  (audited for last 1 year, estimated for current year, and projected up to loan tenure)
+                                <app-sana-key-financial-figure></app-sana-key-financial-figure>
+                            </li>
+                            <li>
+                                <!-- group position -->
+                                <p><strong>GROUP POSITION</strong></p>
+                                <app-group-position></app-group-position>
+                            </li>
+                            <li>
+                                <p><strong>ASSESSTMENT FOR REQUIREMENT OF FUND:</strong></p>
+                                <app-sana-assessment-for-requirement-of-fund></app-sana-assessment-for-requirement-of-fund>
+                            </li>
+                            <li>
+                                <!-- banking relationship -->
+                                <p><strong>BANKING RELATIONSHIP:</strong></p>
+                                <app-upto-banking-relationship></app-upto-banking-relationship>
+                            </li>
+                            <li>
+                                <!-- other charges -->
+                                <p><strong>OTHER CHARGES:</strong></p>
+                                <app-sana-other-charges></app-sana-other-charges>
+                            </li>
+                            <li>
+                                <p><strong>COVENANTS:</strong></p>
+                                <app-upto-convenants></app-upto-convenants>
+                            </li>
+                            <li>
+                                <p><strong>DISBURSEMENT MODALITY:</strong></p>
+                                <app-sana-disbursement-modality></app-sana-disbursement-modality>
+                            </li>
+                            <li>
+                                <p><strong>
+                                    REPAYMENT MODALITY:
+                                </strong></p>
+                                <app-sana-repayment-modality></app-sana-repayment-modality>
+                            </li>
+                            <li>
+                                <p><strong>WAIVERS, DEVIATIONS AND DEFERRAL, IF ANY:</strong></p>
+                                <app-waiver-deviations-and-deferral></app-waiver-deviations-and-deferral>
+                            </li>
+                            <li>
+                                <p><strong>NRB/STATUTORY AUDITORS/INTERNAL AUDITORS REMARKS AND THEIR STATUS:</strong></p>
+                                <app-nrb-statutory-remarks-status></app-nrb-statutory-remarks-status>
+                            </li>
+                            <li>
+                                <p><strong>MIS/NRB REPORTING</strong></p>
+                                <app-sana-mis-nrb-reporting></app-sana-mis-nrb-reporting>
+                            </li>
+                            <li>
+                                <p><strong>CONCLUSION, REVIEW AND RECOMMENDATION:</strong></p>
+                                <app-conlusion-review-table></app-conlusion-review-table>
+                            </li>
+                        </ol>
+                        <h5>Annexure - 1</h5>
+                        <app-credit-card-requirement></app-credit-card-requirement>
+<!--                        <p><strong>Proposal</strong></p>-->
+<!--                        <table class="table table-bordered table-responsive-md table-sm sb-small">-->
+<!--                            <tbody>-->
+<!--                                <tr>-->
+<!--                                    <th class="p-1 w-50">-->
+<!--                                        The client has requested us to provide Rs.-->
+<!--                                    </th>-->
+<!--                                    <td><b>{{proposalView?.proposedLimit}}</b></td>-->
+<!--                                </tr>-->
+<!--                                <ng-container *ngFor="let cl of customerAllLoanList">-->
+<!--                                    <tr>-->
+<!--                                        <th>-->
+<!--                                            Pricing:-->
+<!--                                        </th>-->
+<!--                                        <td>-->
+<!--                                            <b>{{cl?.loan?.name}}</b>-->
+<!--                                        </td>-->
+<!--                                    </tr>-->
+<!--                                    <tr>-->
+<!--                                        <th>-->
+<!--                                            Interest:-->
+<!--                                        </th>-->
+<!--                                        <td>-->
+<!--                                            <b>{{(cl?.proposal?.data | jsonParse)?.interestRate}}</b>-->
+<!--                                        </td>-->
+<!--                                    </tr>-->
+<!--                                    <tr>-->
+<!--                                        <th>-->
+<!--                                            Interest:-->
+<!--                                        </th>-->
+<!--                                        <td>-->
+<!--                                            <b>{{(cl?.proposal?.data | jsonParse)?.interestRate}}</b>% p.a. (BR-->
+<!--                                            + 0.59%)-->
+<!--                                        </td>-->
+<!--                                    </tr>-->
+<!--                                    <tr>-->
+<!--                                        <th>-->
+<!--                                            Loan Administrative Fee:-->
+<!--                                        </th>-->
+<!--                                        <td>-->
+<!--                                            <b>{{(cl?.proposal?.data | jsonParse)?.serviceCharge}}</b>-->
+<!--                                            % of the approved limit-->
+<!--                                        </td>-->
+<!--                                    </tr>-->
+<!--                                    <tr>-->
+<!--                                        <th>-->
+<!--                                            CICL charge:-->
+<!--                                        </th>-->
+<!--                                        <td>-->
+<!--                                            <b>{{cl?.loanHolder?.cicl?.cibCharge}}</b>-->
+<!--                                        </td>-->
+<!--                                    </tr>-->
+<!--                                    <tr>-->
+<!--                                        <th>-->
+<!--                                            Prepayment Charge:-->
+<!--                                        </th>-->
+<!--                                        <td>-->
+<!--                                            <b>{{(cl?.proposal?.data | jsonParse)?.prepaymentCharge}}</b>-->
+<!--                                        </td>-->
+<!--                                    </tr>-->
+<!--                                    <tr>-->
+<!--                                        <th>-->
+<!--                                            Swap Charge:-->
+<!--                                        </th>-->
+<!--                                        <td>-->
+<!--                                            <b>{{(cl?.proposal?.data | jsonParse)?.swapCharge}}</b>-->
+<!--                                        </td>-->
+<!--                                    </tr>-->
+<!--                                </ng-container>-->
+<!--                            </tbody>-->
+<!--                        </table>-->
                     </div>
                 </div>
 
-                <div class="row mt-3">
-                    <div class="col-md-12">
-                        <p><strong>Authority Section</strong></p>
-                        <table
-                            class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-                            <thead>
-                                <tr class="sb-bg-dark text-white">
-                                    <th>S.N</th>
-                                    <th>Date</th>
-                                    <th>From User</th>
+<!--                <div class="row mt-3">-->
+<!--                    <div class="col-md-12">-->
+<!--                        <p><strong>Authority Section</strong></p>-->
+<!--                        <table-->
+<!--                            class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">-->
+<!--                            <thead>-->
+<!--                                <tr class="sb-bg-dark text-white">-->
+<!--                                    <th>S.N</th>-->
+<!--                                    <th>Date</th>-->
+<!--                                    <th>From User</th>-->
 
-                                    <th>To User</th>
+<!--                                    <th>To User</th>-->
 
-                                    <th>Status</th>
-                                    <th class="cmt-width">Remarks</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let previousList of loanDataHolder?.previousList ; let i = index">
-                                    <td>{{i + 1}}</td>
-                                    <td class="text-left pl-1">
-                                        {{previousList?.lastModifiedAt | date}}
-                                        ({{previousList?.lastModifiedAt | engNepDate: false}})
-                                    </td>
-                                    <td class="text-left">
-                                        <div class="pl-1">
-                                            {{previousList?.fromUser?.name}}</div>
-                                        <div class="pl-1">
-                                            <span>({{previousList?.fromRole?.roleName}})</span>
-                                        </div>
-                                    </td>
+<!--                                    <th>Status</th>-->
+<!--                                    <th class="cmt-width">Remarks</th>-->
+<!--                                </tr>-->
+<!--                            </thead>-->
+<!--                            <tbody>-->
+<!--                                <tr *ngFor="let previousList of loanDataHolder?.previousList ; let i = index">-->
+<!--                                    <td>{{i + 1}}</td>-->
+<!--                                    <td class="text-left pl-1">-->
+<!--                                        {{previousList?.lastModifiedAt | date}}-->
+<!--                                        ({{previousList?.lastModifiedAt | engNepDate: false}})-->
+<!--                                    </td>-->
+<!--                                    <td class="text-left">-->
+<!--                                        <div class="pl-1">-->
+<!--                                            {{previousList?.fromUser?.name}}</div>-->
+<!--                                        <div class="pl-1">-->
+<!--                                            <span>({{previousList?.fromRole?.roleName}})</span>-->
+<!--                                        </div>-->
+<!--                                    </td>-->
 
-                                    <td class="text-left">
-                                        <div class="pl-1">
-                                            {{previousList?.toUser?.name}}</div>
-                                        <div class="pl-1">
-                                            ({{previousList?.toRole?.roleName}})
-                                        </div>
-                                    </td>
+<!--                                    <td class="text-left">-->
+<!--                                        <div class="pl-1">-->
+<!--                                            {{previousList?.toUser?.name}}</div>-->
+<!--                                        <div class="pl-1">-->
+<!--                                            ({{previousList?.toRole?.roleName}})-->
+<!--                                        </div>-->
+<!--                                    </td>-->
 
-                                    <td class="text-left pl-1">{{previousList?.docAction | loanStatusPipe }}</td>
-                                    <td class="text-left">
-                                        <div class="pl-1 disable-print" [innerHTML]="customSafePipe(
-                                    previousList?.comment?.length > 50 ?
-                                    previousList?.comment?.substring(0, 49) :
-                                    previousList?.comment)">
-                                        </div>
-                                        <a (click)="open(previousList?.comment)"
-                                            *ngIf="previousList?.comment?.length > 50"
-                                            class="text-left pl-1 disable-print">read more ....</a>
-                                        <div>
-                                            <span class="pl-1 print-only justify-content"
-                                                [innerHTML]="previousList?.comment | safeHtml"></span>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>{{currentIndex + 1}}</td>
-                                    <td class="text-left pl-1">{{loanDataHolder?.currentStage?.lastModifiedAt | date}}
-                                        ({{loanDataHolder?.currentStage?.lastModifiedAt | engNepDate: false}})
-                                    </td>
-                                    <td class="text-left">
-                                        <div class="pl-1">
-                                            {{loanDataHolder?.currentStage?.fromUser?.name}}</div>
-                                        <div class="pl-1">
-                                            <span>({{loanDataHolder?.currentStage?.fromRole?.roleName}})</span>
-                                        </div>
-                                    </td>
+<!--                                    <td class="text-left pl-1">{{previousList?.docAction | loanStatusPipe }}</td>-->
+<!--                                    <td class="text-left">-->
+<!--                                        <div class="pl-1 disable-print" [innerHTML]="customSafePipe(-->
+<!--                                    previousList?.comment?.length > 50 ?-->
+<!--                                    previousList?.comment?.substring(0, 49) :-->
+<!--                                    previousList?.comment)">-->
+<!--                                        </div>-->
+<!--                                        <a (click)="open(previousList?.comment)"-->
+<!--                                            *ngIf="previousList?.comment?.length > 50"-->
+<!--                                            class="text-left pl-1 disable-print">read more ....</a>-->
+<!--                                        <div>-->
+<!--                                            <span class="pl-1 print-only justify-content"-->
+<!--                                                [innerHTML]="previousList?.comment | safeHtml"></span>-->
+<!--                                        </div>-->
+<!--                                    </td>-->
+<!--                                </tr>-->
+<!--                                <tr>-->
+<!--                                    <td>{{currentIndex + 1}}</td>-->
+<!--                                    <td class="text-left pl-1">{{loanDataHolder?.currentStage?.lastModifiedAt | date}}-->
+<!--                                        ({{loanDataHolder?.currentStage?.lastModifiedAt | engNepDate: false}})-->
+<!--                                    </td>-->
+<!--                                    <td class="text-left">-->
+<!--                                        <div class="pl-1">-->
+<!--                                            {{loanDataHolder?.currentStage?.fromUser?.name}}</div>-->
+<!--                                        <div class="pl-1">-->
+<!--                                            <span>({{loanDataHolder?.currentStage?.fromRole?.roleName}})</span>-->
+<!--                                        </div>-->
+<!--                                    </td>-->
 
-                                    <td class="text-left">
-                                        <div class="pl-1">
-                                            {{loanDataHolder?.currentStage?.toUser?.name}}</div>
-                                        <div class="pl-1">
-                                            <span>({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>
-                                        </div>
-                                    </td>
+<!--                                    <td class="text-left">-->
+<!--                                        <div class="pl-1">-->
+<!--                                            {{loanDataHolder?.currentStage?.toUser?.name}}</div>-->
+<!--                                        <div class="pl-1">-->
+<!--                                            <span>({{loanDataHolder?.currentStage?.toRole?.roleName}})</span>-->
+<!--                                        </div>-->
+<!--                                    </td>-->
 
-                                    <td class="text-left pl-1">{{loanDataHolder?.currentStage?.docAction |
-                                        loanStatusPipe }}
-                                    </td>
-                                    <td class="text-left">
-                                        <div class="pl-1 disable-print">
-                                            <span [innerHTML]="customSafePipe(loanDataHolder?.currentStage?.comment?.length > 50 ?
-                                    loanDataHolder?.currentStage?.comment?.substring(0, 49) :
-                                    loanDataHolder?.currentStage?.comment)"></span>
-                                        </div>
-                                        <a (click)="open(loanDataHolder.currentStage.comment)"
-                                            *ngIf="loanDataHolder?.currentStage?.comment?.length > 50"
-                                            class="text-left pl-1 disable-print">read more ....</a>
-                                        <div>
-                                            <span class="pl-1 print-only text-justify pr-1"
-                                                [innerHTML]="loanDataHolder?.currentStage?.comment | safeHtml"></span>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <app-signature-section [loanDataHolder]="loanDataHolder"></app-signature-section>
+<!--                                    <td class="text-left pl-1">{{loanDataHolder?.currentStage?.docAction |-->
+<!--                                        loanStatusPipe }}-->
+<!--                                    </td>-->
+<!--                                    <td class="text-left">-->
+<!--                                        <div class="pl-1 disable-print">-->
+<!--                                            <span [innerHTML]="customSafePipe(loanDataHolder?.currentStage?.comment?.length > 50 ?-->
+<!--                                    loanDataHolder?.currentStage?.comment?.substring(0, 49) :-->
+<!--                                    loanDataHolder?.currentStage?.comment)"></span>-->
+<!--                                        </div>-->
+<!--                                        <a (click)="open(loanDataHolder.currentStage.comment)"-->
+<!--                                            *ngIf="loanDataHolder?.currentStage?.comment?.length > 50"-->
+<!--                                            class="text-left pl-1 disable-print">read more ....</a>-->
+<!--                                        <div>-->
+<!--                                            <span class="pl-1 print-only text-justify pr-1"-->
+<!--                                                [innerHTML]="loanDataHolder?.currentStage?.comment | safeHtml"></span>-->
+<!--                                        </div>-->
+<!--                                    </td>-->
+<!--                                </tr>-->
+<!--                            </tbody>-->
+<!--                        </table>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <app-signature-section [loanDataHolder]="loanDataHolder"></app-signature-section>-->
 
-                <div class="row sb-small mt-4">
-                    <div class="col-md-12">
-                        <p><strong>Purpose of Credit Facilities</strong></p>
-                        Loan: <b>{{loanDataHolder?.loan?.name}}</b>
-                        <span class="float-right">Loan Authority Under -
-                            <b>
-                                {{loanDataHolder?.currentStage?.toUser?.name}}
-                                ({{loanDataHolder?.currentStage?.toRole?.roleName}})
-                            </b>
-                        </span>
-                    </div>
-                </div>
-                <div class="row sb-small mb-1">
-                    <div class="col-md-12">
-                        <span>Application Received On: <b>{{loanDataHolder?.createdAt | date}}
-                                ({{nepaliDate}})</b></span>
-                        <span class="float-right">
-                            <span *ngIf="currentDocAction === 'FORWARD'">Forwarded</span>
-                            <span *ngIf="currentDocAction === 'BACKWARD'">Backwarded</span>
-                            By:
-                            <b>{{loanDataHolder?.currentStage?.fromUser?.name}}
-                                ({{loanDataHolder?.currentStage?.fromRole?.roleName}}
-                                )</b>
-                            On: <b>{{loanDataHolder?.lastModifiedAt | date}}
-                                ({{loanDataHolder?.lastModifiedAt | engNepDate: false}})</b>
+<!--                <div class="row sb-small mt-4">-->
+<!--                    <div class="col-md-12">-->
+<!--                        <p><strong>Purpose of Credit Facilities</strong></p>-->
+<!--                        Loan: <b>{{loanDataHolder?.loan?.name}}</b>-->
+<!--                        <span class="float-right">Loan Authority Under - -->
+<!--                            <b>-->
+<!--                                {{loanDataHolder?.currentStage?.toUser?.name}}-->
+<!--                                ({{loanDataHolder?.currentStage?.toRole?.roleName}})-->
+<!--                            </b>-->
+<!--                        </span>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="row sb-small mb-1">-->
+<!--                    <div class="col-md-12">-->
+<!--                        <span>Application Received On: <b>{{loanDataHolder?.createdAt | date}}-->
+<!--                                ({{nepaliDate}})</b></span>-->
+<!--                        <span class="float-right">-->
+<!--                            <span *ngIf="currentDocAction === 'FORWARD'">Forwarded</span>-->
+<!--                            <span *ngIf="currentDocAction === 'BACKWARD'">Backwarded</span>-->
+<!--                            By:-->
+<!--                            <b>{{loanDataHolder?.currentStage?.fromUser?.name}}-->
+<!--                                ({{loanDataHolder?.currentStage?.fromRole?.roleName}}-->
+<!--                                )</b>-->
+<!--                            On: <b>{{loanDataHolder?.lastModifiedAt | date}}-->
+<!--                                ({{loanDataHolder?.lastModifiedAt | engNepDate: false}})</b>-->
 
-                        </span>
+<!--                        </span>-->
 
-                    </div>
-                </div>
+<!--                    </div>-->
+<!--                </div>-->
 
-                <div *ngIf="creditRiskAlphaSummary || creditRiskLambdaSummary || crgGammaSummary">
-                    <p class="mt-4"><strong>Credit Risk Grading</strong></p>
-                    <table
-                        class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">
-                        <thead>
-                            <tr class="text-white sb-bg-dark">
-                                <th>Credit Risk Grading (Flavour)</th>
-                                <th>Credit Risk Grade</th>
-                                <th *ngIf="creditRiskLambdaSummary || creditRiskAlphaSummary">Credit Risk Rating</th>
-                                <th>Credit Risk Score</th>
-                                <th *ngIf="creditRiskLambdaSummary || creditRiskAlphaSummary">Premium</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngIf="loanDataHolder?.loanCategory === 'INDIVIDUAL' && creditRiskLambdaSummary">
-                                <td class="text-left pl-1">Lambda</td>
-                                <td><span [class]="creditGradeLambdaStatusBadge">
-                                        {{creditRiskGradeLambda | titlecase}}</span>
-                                </td>
-                                <td><span [class]="creditGradeLambdaStatusBadge">
-                                        {{ creditRiskRatingLambda | titlecase }}</span>
-                                </td>
-                                <td class="text-right pr-1"><strong> {{ creditRiskLambdaScore }}</strong></td>
-                                <td class="text-right pr-1"><strong> {{ creditRiskLambdaPremium }}</strong></td>
-                            </tr>
-                            <tr *ngIf="loanDataHolder?.loanCategory === 'INSTITUTION' && creditRiskAlphaSummary">
-                                <td class="text-left pl-1">Alpha</td>
-                                <td><span [class]="creditGradeAlphaStatusBadge"> {{creditRiskGradeAlpha |
-                                        titlecase}}</span>
-                                </td>
-                                <td><span [class]="creditGradeAlphaStatusBadge">
-                                        {{ creditRiskRatingAlpha | titlecase }}</span>
-                                </td>
-                                <td class="text-right pr-1"><strong> {{ creditRiskAlphaScore }}</strong></td>
-                                <td class="text-right pr-1"><strong> {{ creditRiskAlphaPremium }}</strong></td>
-                            </tr>
-                            <tr *ngIf="crgGammaSummary">
-                                <td class="text-left pl-1">Gamma</td>
-                                <td><span [class]="crgGammaGradeStatusBadge"> {{crgGammaGrade | titlecase}}</span></td>
-                                <td class="text-right pr-1"><span><strong> {{ crgGammaScore }}</strong></span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+<!--                <div *ngIf="creditRiskAlphaSummary || creditRiskLambdaSummary || crgGammaSummary">-->
+<!--                    <p class="mt-4"><strong>Credit Risk Grading</strong></p>-->
+<!--                    <table-->
+<!--                        class="table table-condensed table-bordered table-responsive-md text-center table-sm sb-small">-->
+<!--                        <thead>-->
+<!--                            <tr class="text-white sb-bg-dark">-->
+<!--                                <th>Credit Risk Grading (Flavour)</th>-->
+<!--                                <th>Credit Risk Grade</th>-->
+<!--                                <th *ngIf="creditRiskLambdaSummary || creditRiskAlphaSummary">Credit Risk Rating</th>-->
+<!--                                <th>Credit Risk Score</th>-->
+<!--                                <th *ngIf="creditRiskLambdaSummary || creditRiskAlphaSummary">Premium</th>-->
+<!--                            </tr>-->
+<!--                        </thead>-->
+<!--                        <tbody>-->
+<!--                            <tr *ngIf="loanDataHolder?.loanCategory === 'INDIVIDUAL' && creditRiskLambdaSummary">-->
+<!--                                <td class="text-left pl-1">Lambda</td>-->
+<!--                                <td><span [class]="creditGradeLambdaStatusBadge">-->
+<!--                                        {{creditRiskGradeLambda | titlecase}}</span>-->
+<!--                                </td>-->
+<!--                                <td><span [class]="creditGradeLambdaStatusBadge">-->
+<!--                                        {{ creditRiskRatingLambda | titlecase }}</span>-->
+<!--                                </td>-->
+<!--                                <td class="text-right pr-1"><strong> {{ creditRiskLambdaScore }}</strong></td>-->
+<!--                                <td class="text-right pr-1"><strong> {{ creditRiskLambdaPremium }}</strong></td>-->
+<!--                            </tr>-->
+<!--                            <tr *ngIf="loanDataHolder?.loanCategory === 'INSTITUTION' && creditRiskAlphaSummary">-->
+<!--                                <td class="text-left pl-1">Alpha</td>-->
+<!--                                <td><span [class]="creditGradeAlphaStatusBadge"> {{creditRiskGradeAlpha |-->
+<!--                                        titlecase}}</span>-->
+<!--                                </td>-->
+<!--                                <td><span [class]="creditGradeAlphaStatusBadge">-->
+<!--                                        {{ creditRiskRatingAlpha | titlecase }}</span>-->
+<!--                                </td>-->
+<!--                                <td class="text-right pr-1"><strong> {{ creditRiskAlphaScore }}</strong></td>-->
+<!--                                <td class="text-right pr-1"><strong> {{ creditRiskAlphaPremium }}</strong></td>-->
+<!--                            </tr>-->
+<!--                            <tr *ngIf="crgGammaSummary">-->
+<!--                                <td class="text-left pl-1">Gamma</td>-->
+<!--                                <td><span [class]="crgGammaGradeStatusBadge"> {{crgGammaGrade | titlecase}}</span></td>-->
+<!--                                <td class="text-right pr-1"><span><strong> {{ crgGammaScore }}</strong></span></td>-->
+<!--                            </tr>-->
+<!--                        </tbody>-->
+<!--                    </table>-->
+<!--                </div>-->
 
                 <!-- PROPOSAL -->
-                <app-proposal-summary class="mt-3" *ngIf="proposalSummary" [customerAllLoanList]="customerAllLoanList"
-                    [proposalData]="proposalData" [loanDataHolder]="loanDataHolder"></app-proposal-summary>
+<!--                <app-proposal-summary class="mt-3" *ngIf="proposalSummary" [customerAllLoanList]="customerAllLoanList"-->
+<!--                    [proposalData]="proposalData" [loanDataHolder]="loanDataHolder"></app-proposal-summary>-->
 
                 <!-- approving authority -->
 
-                <div *ngIf="loanDataHolder?.customerOfferLetter" class="row justify-content-between pt-5 disable-print"
-                    id="offerLetterDiv">
-                    <div class="col-md-12">
-                        <p><strong>Offer Letter Authority Section</strong></p>
-                    </div>
-                    <div class="col-md-12">
-                        <table
-                            class="table table-condensed table-bordered table-responsive-md text-center sb-small table-sm">
-                            <thead>
-                                <tr class="text-white sb-bg-dark">
-                                    <th>S.N</th>
-                                    <th>From User</th>
-                                    <th>From Position</th>
-                                    <th>To User</th>
-                                    <th>To Position</th>
-                                    <th>Status</th>
-                                    <th class="cmt-width">Remarks</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr
-                                    *ngFor="let previousList of loanDataHolder?.customerOfferLetter?.previousList ; let i = index">
-                                    <td>{{i + 1}}</td>
-                                    <td class="text-left pl-1">{{previousList?.fromUser?.name}}</td>
-                                    <td class="text-left pl-1">{{previousList?.fromRole?.roleName}}</td>
-                                    <td class="text-left pl-1">{{previousList?.toUser?.name}}</td>
-                                    <td class="text-left pl-1">{{previousList?.toRole?.roleName}}</td>
-                                    <td class="text-left pl-1">{{previousList?.docAction}}</td>
-                                    <td class="text-left">
-                                        <div class="pl-1">
-                                            <span [innerHTML]="customSafePipe(previousList?.comment?.length > 50 ?
-                                    previousList?.comment?.substring(0, 49) :
-                                    previousList?.comment)"></span>
-                                        </div>
-                                        <a (click)="open(previousList?.comment)"
-                                            *ngIf="previousList?.comment?.length > 50"
-                                            class="text-left pl-1 read-margin">read more ....</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>{{loanDataHolder?.customerOfferLetter?.previousList?.length + 1}}</td>
-                                    <td class="text-left pl-1">
-                                        {{loanDataHolder?.customerOfferLetter?.offerLetterStage?.fromUser?.name}}</td>
-                                    <td class="text-left pl-1">
-                                        {{loanDataHolder?.customerOfferLetter?.offerLetterStage?.fromRole?.roleName}}
-                                    </td>
-                                    <td class="text-left pl-1">
-                                        {{loanDataHolder?.customerOfferLetter?.offerLetterStage?.toUser?.name}}</td>
-                                    <td class="text-left pl-1">
-                                        {{loanDataHolder?.customerOfferLetter?.offerLetterStage?.toRole?.roleName}}</td>
-                                    <td class="text-left pl-1">
-                                        {{loanDataHolder?.customerOfferLetter?.offerLetterStage?.docAction}}</td>
-                                    <td class="text-left">
-                                        <div class="pl-1">
-                                            {{loanDataHolder?.customerOfferLetter?.offerLetterStage?.comment?.length >
-                                            50 ?
-                                            loanDataHolder?.customerOfferLetter?.offerLetterStage?.comment?.substring(0,
-                                            49)
-                                            :
-                                            loanDataHolder?.customerOfferLetter?.offerLetterStage?.comment}}
-                                        </div>
-                                        <a (click)="open(loanDataHolder.customerOfferLetter?.offerLetterStage.comment)"
-                                            *ngIf="loanDataHolder?.customerOfferLetter?.offerLetterStage?.comment?.length > 50"
-                                            class="text-left pl-1 read-margin">read more ....</a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+<!--                <div *ngIf="loanDataHolder?.customerOfferLetter" class="row justify-content-between pt-5 disable-print"-->
+<!--                    id="offerLetterDiv">-->
+<!--                    <div class="col-md-12">-->
+<!--                        <p><strong>Offer Letter Authority Section</strong></p>-->
+<!--                    </div>-->
+<!--                    <div class="col-md-12">-->
+<!--                        <table-->
+<!--                            class="table table-condensed table-bordered table-responsive-md text-center sb-small table-sm">-->
+<!--                            <thead>-->
+<!--                                <tr class="text-white sb-bg-dark">-->
+<!--                                    <th>S.N</th>-->
+<!--                                    <th>From User</th>-->
+<!--                                    <th>From Position</th>-->
+<!--                                    <th>To User</th>-->
+<!--                                    <th>To Position</th>-->
+<!--                                    <th>Status</th>-->
+<!--                                    <th class="cmt-width">Remarks</th>-->
+<!--                                </tr>-->
+<!--                            </thead>-->
+<!--                            <tbody>-->
+<!--                                <tr-->
+<!--                                    *ngFor="let previousList of loanDataHolder?.customerOfferLetter?.previousList ; let i = index">-->
+<!--                                    <td>{{i + 1}}</td>-->
+<!--                                    <td class="text-left pl-1">{{previousList?.fromUser?.name}}</td>-->
+<!--                                    <td class="text-left pl-1">{{previousList?.fromRole?.roleName}}</td>-->
+<!--                                    <td class="text-left pl-1">{{previousList?.toUser?.name}}</td>-->
+<!--                                    <td class="text-left pl-1">{{previousList?.toRole?.roleName}}</td>-->
+<!--                                    <td class="text-left pl-1">{{previousList?.docAction}}</td>-->
+<!--                                    <td class="text-left">-->
+<!--                                        <div class="pl-1">-->
+<!--                                            <span [innerHTML]="customSafePipe(previousList?.comment?.length > 50 ?-->
+<!--                                    previousList?.comment?.substring(0, 49) :-->
+<!--                                    previousList?.comment)"></span>-->
+<!--                                        </div>-->
+<!--                                        <a (click)="open(previousList?.comment)"-->
+<!--                                            *ngIf="previousList?.comment?.length > 50"-->
+<!--                                            class="text-left pl-1 read-margin">read more ....</a>-->
+<!--                                    </td>-->
+<!--                                </tr>-->
+<!--                                <tr>-->
+<!--                                    <td>{{loanDataHolder?.customerOfferLetter?.previousList?.length + 1}}</td>-->
+<!--                                    <td class="text-left pl-1">-->
+<!--                                        {{loanDataHolder?.customerOfferLetter?.offerLetterStage?.fromUser?.name}}</td>-->
+<!--                                    <td class="text-left pl-1">-->
+<!--                                        {{loanDataHolder?.customerOfferLetter?.offerLetterStage?.fromRole?.roleName}}-->
+<!--                                    </td>-->
+<!--                                    <td class="text-left pl-1">-->
+<!--                                        {{loanDataHolder?.customerOfferLetter?.offerLetterStage?.toUser?.name}}</td>-->
+<!--                                    <td class="text-left pl-1">-->
+<!--                                        {{loanDataHolder?.customerOfferLetter?.offerLetterStage?.toRole?.roleName}}</td>-->
+<!--                                    <td class="text-left pl-1">-->
+<!--                                        {{loanDataHolder?.customerOfferLetter?.offerLetterStage?.docAction}}</td>-->
+<!--                                    <td class="text-left">-->
+<!--                                        <div class="pl-1">-->
+<!--                                            {{loanDataHolder?.customerOfferLetter?.offerLetterStage?.comment?.length >-->
+<!--                                            50 ?-->
+<!--                                            loanDataHolder?.customerOfferLetter?.offerLetterStage?.comment?.substring(0,-->
+<!--                                            49)-->
+<!--                                            :-->
+<!--                                            loanDataHolder?.customerOfferLetter?.offerLetterStage?.comment}}-->
+<!--                                        </div>-->
+<!--                                        <a (click)="open(loanDataHolder.customerOfferLetter?.offerLetterStage.comment)"-->
+<!--                                            *ngIf="loanDataHolder?.customerOfferLetter?.offerLetterStage?.comment?.length > 50"-->
+<!--                                            class="text-left pl-1 read-margin">read more ....</a>-->
+<!--                                    </td>-->
+<!--                                </tr>-->
+<!--                            </tbody>-->
+<!--                        </table>-->
+<!--                    </div>-->
+<!--                </div>-->
 
 
                 <!-- PURPOSE OF CREDIT FACILITIES -->
-                <div class="mt-3">
-                    <app-proposal-justification-summary *ngIf="proposalSummary"
-                        [customerAllLoanList]="customerAllLoanList" [proposalData]="proposalData">
-                    </app-proposal-justification-summary>
-                </div>
+<!--                <div class="mt-3">-->
+<!--                    <app-proposal-justification-summary *ngIf="proposalSummary"-->
+<!--                        [customerAllLoanList]="customerAllLoanList" [proposalData]="proposalData">-->
+<!--                    </app-proposal-justification-summary>-->
+<!--                </div>-->
 
                 <!-- details of the customer -->
-                <div class="col-md-12">
-                    <p><strong>Customer Details</strong></p>
-                    <app-company-info-summary [approveSheet]="notApprove" [companyInfo]="loanDataHolder?.companyInfo"
-                        [loanDataHolder]="loanDataHolder"></app-company-info-summary>
-                </div>
+<!--                <div class="col-md-12">-->
+<!--                    <p><strong>Customer Details</strong></p>-->
+<!--                    <app-company-info-summary [approveSheet]="notApprove" [companyInfo]="loanDataHolder?.companyInfo"-->
+<!--                        [loanDataHolder]="loanDataHolder"></app-company-info-summary>-->
+<!--                </div>-->
             </ng-container>
 
-            <ng-container *ngIf="isDetailedView && !isAboveTenMillion && !isUpToTenMillion">
+<!--            <ng-container *ngIf="isDetailedView && !isAboveTenMillion && !isUpToTenMillion">-->
 
-                <app-financial-summary *ngIf="financialSummary" [formData]="financialData"
-                    [loanType]="loanDataHolder?.loanCategory"></app-financial-summary>
+<!--                <app-financial-summary *ngIf="financialSummary" [formData]="financialData"-->
+<!--                    [loanType]="loanDataHolder?.loanCategory"></app-financial-summary>-->
 
-                <!-- background information -->
+<!--                &lt;!&ndash; background information &ndash;&gt;-->
 
-                <div *ngIf="loanCategory === 'INSTITUTION'" class="row mt-4">
-                    <div class="col-md-12">
-                        <p><strong>Company Info</strong></p>
-                        <app-company-info-summary [approveSheet]="notApprove"
-                            [companyInfo]="loanDataHolder?.companyInfo" [loanDataHolder]="loanDataHolder">
-                        </app-company-info-summary>
-                    </div>
-                </div>
+<!--                <div *ngIf="loanCategory === 'INSTITUTION'" class="row mt-4">-->
+<!--                    <div class="col-md-12">-->
+<!--                        <p><strong>Company Info</strong></p>-->
+<!--                        <app-company-info-summary [approveSheet]="notApprove"-->
+<!--                            [companyInfo]="loanDataHolder?.companyInfo" [loanDataHolder]="loanDataHolder">-->
+<!--                        </app-company-info-summary>-->
+<!--                    </div>-->
+<!--                </div>-->
 
-                <!-- current status and present proposal -->
-                <div class="mt-3">
-                    <app-current-status-table></app-current-status-table>
-                </div>
+<!--                &lt;!&ndash; current status and present proposal &ndash;&gt;-->
+<!--                <div class="mt-3">-->
+<!--                    <app-current-status-table></app-current-status-table>-->
+<!--                </div>-->
 
-                <!-- security arrangement insurance -->
+<!--                &lt;!&ndash; security arrangement insurance &ndash;&gt;-->
 
-                <app-security-summary class="mt-3" *ngIf="securitySummary" [formData]="securityData"
-                    [shareSecurity]="shareSecurityData" [collateralSiteVisitDetail]="collateralSiteVisitDetail"
-                    [securityId]="securityId" [siteVisitDocuments]="siteVisitDocuments"
-                    [isCollateralSiteVisit]="isCollateralSiteVisit"
-                    [collateralData]="loanDataHolder?.collateralSiteVisits" [docStatus]="loanDataHolder?.documentStatus"
-                    (downloadSiteVisitDocument)="checkSiteVisitDocument($event)"></app-security-summary>
+<!--                <app-security-summary class="mt-3" *ngIf="securitySummary" [formData]="securityData"-->
+<!--                    [shareSecurity]="shareSecurityData" [collateralSiteVisitDetail]="collateralSiteVisitDetail"-->
+<!--                    [securityId]="securityId" [siteVisitDocuments]="siteVisitDocuments"-->
+<!--                    [isCollateralSiteVisit]="isCollateralSiteVisit"-->
+<!--                    [collateralData]="loanDataHolder?.collateralSiteVisits" [docStatus]="loanDataHolder?.documentStatus"-->
+<!--                    (downloadSiteVisitDocument)="checkSiteVisitDocument($event)"></app-security-summary>-->
 
-                <app-previous-security-summary *ngIf="previousSecuritySummary" [formData]="dataFromPreviousSecurity">
-                </app-previous-security-summary>
+<!--                <app-previous-security-summary *ngIf="previousSecuritySummary" [formData]="dataFromPreviousSecurity">-->
+<!--                </app-previous-security-summary>-->
 
-                <!-- INSURANCE -->
-                <app-insurance-summary *ngIf="loanDataHolder?.insurance" [insurance]="loanDataHolder?.insurance">
-                </app-insurance-summary>
-                <div *ngIf="minOneInsuranceDoc" class="row disable-print">
-                    <div class="col-md-12">
-                        <p><strong>Insurance Documents</strong></p>
-                        <table class="table table-condensed table-bordered table-sm sb-small text-center">
-                            <thead>
-                                <tr class="text-white sb-bg-dark">
-                                    <th>S.N</th>
-                                    <th>Policy Number</th>
-                                    <th>Company</th>
-                                    <th>Document</th>
-                                    <th *ngIf="!hidePreviewButton">Preview</th>
-                                    <th *ngIf="!hidePreviewButton">Download</th>
-                                </tr>
-                            </thead>
-                            <ng-container *ngFor="let singleInsurance of insuranceWithDoc; let i = index">
-                                <tbody
-                                    *ngFor="let singleDoc of singleInsurance.policyDocumentPath.split(','); let j = index">
-                                    <tr *ngIf="singleDoc">
-                                        <td>{{i + 1}}.{{j + 1}}</td>
-                                        <td class="text-left pr-1">{{singleInsurance?.policyNumber}}</td>
-                                        <td class="text-left pl-1">{{singleInsurance?.company}}</td>
-                                        <td class="text-left pl-1">
-                                            {{singleDoc.substring(singleDoc.lastIndexOf('/') + 1,
-                                            singleDoc.length)}}</td>
+<!--                &lt;!&ndash; INSURANCE &ndash;&gt;-->
+<!--                <app-insurance-summary *ngIf="loanDataHolder?.insurance" [insurance]="loanDataHolder?.insurance">-->
+<!--                </app-insurance-summary>-->
+<!--                <div *ngIf="minOneInsuranceDoc" class="row disable-print">-->
+<!--                    <div class="col-md-12">-->
+<!--                        <p><strong>Insurance Documents</strong></p>-->
+<!--                        <table class="table table-condensed table-bordered table-sm sb-small text-center">-->
+<!--                            <thead>-->
+<!--                                <tr class="text-white sb-bg-dark">-->
+<!--                                    <th>S.N</th>-->
+<!--                                    <th>Policy Number</th>-->
+<!--                                    <th>Company</th>-->
+<!--                                    <th>Document</th>-->
+<!--                                    <th *ngIf="!hidePreviewButton">Preview</th>-->
+<!--                                    <th *ngIf="!hidePreviewButton">Download</th>-->
+<!--                                </tr>-->
+<!--                            </thead>-->
+<!--                            <ng-container *ngFor="let singleInsurance of insuranceWithDoc; let i = index">-->
+<!--                                <tbody-->
+<!--                                    *ngFor="let singleDoc of singleInsurance.policyDocumentPath.split(','); let j = index">-->
+<!--                                    <tr *ngIf="singleDoc">-->
+<!--                                        <td>{{i + 1}}.{{j + 1}}</td>-->
+<!--                                        <td class="text-left pr-1">{{singleInsurance?.policyNumber}}</td>-->
+<!--                                        <td class="text-left pl-1">{{singleInsurance?.company}}</td>-->
+<!--                                        <td class="text-left pl-1">-->
+<!--                                            {{singleDoc.substring(singleDoc.lastIndexOf('/') + 1,-->
+<!--                                            singleDoc.length)}}</td>-->
 
-                                        <!-- Preview Document -->
-                                        <td *ngIf="!hidePreviewButton">
-                                            <i (click)="previewOfferLetterDocument(singleDoc,singleInsurance?.policyNumber+' Insurance Policy Document')"
-                                                class="fas fa-eye"></i>
-                                        </td>
+<!--                                        &lt;!&ndash; Preview Document &ndash;&gt;-->
+<!--                                        <td *ngIf="!hidePreviewButton">-->
+<!--                                            <i (click)="previewOfferLetterDocument(singleDoc,singleInsurance?.policyNumber+' Insurance Policy Document')"-->
+<!--                                                class="fas fa-eye"></i>-->
+<!--                                        </td>-->
 
-                                        <!-- Download Document -->
-                                        <td *ngIf="!hidePreviewButton">
-                                            <i (click)="downloadCustomerDocument(singleDoc, singleInsurance?.policyNumber+' Insurance Policy Document')"
-                                                aria-hidden="true" class="fa fa-download" style="cursor: pointer"></i>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </ng-container>
-                        </table>
-                    </div>
-                </div>
+<!--                                        &lt;!&ndash; Download Document &ndash;&gt;-->
+<!--                                        <td *ngIf="!hidePreviewButton">-->
+<!--                                            <i (click)="downloadCustomerDocument(singleDoc, singleInsurance?.policyNumber+' Insurance Policy Document')"-->
+<!--                                                aria-hidden="true" class="fa fa-download" style="cursor: pointer"></i>-->
+<!--                                        </td>-->
+<!--                                    </tr>-->
+<!--                                </tbody>-->
+<!--                            </ng-container>-->
+<!--                        </table>-->
+<!--                    </div>-->
+<!--                </div>-->
 
-                <!-- key financial issues -->
-                <div class="row mt-3">
-                    <div class="col-md-12">
-                        <p><strong>Key Financial Figures </strong>(audited for last 1 year, estimated for current
-                            year, and
-                            projected up to loan tenure)</p>
-                        <app-key-financial-figures></app-key-financial-figures>
-                    </div>
-                </div>
-                <app-financial-summary *ngIf="financialSummary" [formData]="financialData"
-                    [loanType]="loanDataHolder?.loanCategory"></app-financial-summary>
+<!--                &lt;!&ndash; key financial issues &ndash;&gt;-->
+<!--                <div class="row mt-3">-->
+<!--                    <div class="col-md-12">-->
+<!--                        <p><strong>Key Financial Figures </strong>(audited for last 1 year, estimated for current-->
+<!--                            year, and-->
+<!--                            projected up to loan tenure)</p>-->
+<!--                        <app-key-financial-figures></app-key-financial-figures>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <app-financial-summary *ngIf="financialSummary" [formData]="financialData"-->
+<!--                    [loanType]="loanDataHolder?.loanCategory"></app-financial-summary>-->
 
-                <!-- group position  -->
-                <!-- limits
-                        detail of security held for group exposure
-                        outstanding, overde and r/e collateral (EXECUTIVE)
-                     -->
-                <section class="row mt-3">
-                    <div *ngIf="megaGroupEnabled" class="col-md-12">
-                        <app-m-group-summary [mGroup]="loanDataHolder?.loanHolder.mgroupInfo"></app-m-group-summary>
-                    </div>
+<!--                &lt;!&ndash; group position  &ndash;&gt;-->
+<!--                &lt;!&ndash; limits-->
+<!--                        detail of security held for group exposure-->
+<!--                        outstanding, overde and r/e collateral (EXECUTIVE)-->
+<!--                     &ndash;&gt;-->
+<!--                <section class="row mt-3">-->
+<!--                    <div *ngIf="megaGroupEnabled" class="col-md-12">-->
+<!--                        <app-m-group-summary [mGroup]="loanDataHolder?.loanHolder.mgroupInfo"></app-m-group-summary>-->
+<!--                    </div>-->
 
-                    <div *ngIf="sbsGroupEnabled" class="col-md-12">
-                        <app-customer-group-summary *ngIf="loanDataHolder?.loanHolder?.customerGroup"
-                            [groupDto]="loanDataHolder?.groupSummaryDto" [customerInfoData]="loanDataHolder.loanHolder">
-                        </app-customer-group-summary>
-                    </div>
-                    <div *ngIf="productUtils.CBS_ENABLE">
-                        <div class="row mt-5">
-                            <div class="col-md-12">
-                                <p><strong>Group Details</strong>
-                                </p>
-                            </div>
-                            <div class="col-md-12">
-                                <app-cbs-table [customerInfo]="loanDataHolder.loanHolder">
-                                </app-cbs-table>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                <div class="mt-3">
-                    <p><strong>Assessment for Requirement of Fund</strong></p>
-                    <ng-container>
-                        <app-assessment-for-requirement-of-fund></app-assessment-for-requirement-of-fund>
-                    </ng-container>
-                </div>
-                <!-- 11.	BANKING RELATIONSHIP -->
-                <div class="row mt-3 banking-relationship">
-                    <div class="col-md-12">
-                        <app-banking-relationship [loanDataHolder]="loanDataHolder"></app-banking-relationship>
-                    </div>
-                </div>
-                <!--                Other cHarges-->
-                <div class="row mt-3">
-                    <div class="col-md-12">
-                        <app-other-charges [customerAllLoanList]="customerAllLoanList"></app-other-charges>
-                    </div>
-                </div>
-                <!--
-    13.	COVENANTS -->
-                <div class="row mt-3">
-                    <div class="col-md-12">
-                        <app-covenants></app-covenants>
-                    </div>
-                </div>
-                <!--14.	DISBURSEMENT MODALITY: (FACILITY WISE (SME)-->
-                <div class="row mt-3">
-                    <div class="col-md-12">
-                        <p><strong>Disbursement Criteria </strong></p>
-                        <span [innerHTML]="proposalView?.disbursementCriteria || 'N/A' | safeHtml"></span>
-                    </div>
-                </div>
-                <!--15.	REPAYMENT MODALITY:-->
-                <div class="row mt-3">
-                    <div class="col-md-12">
-                        <p><strong>Repayment </strong></p>
-                        <span [innerHTML]="proposalView?.repayment || 'N/A' | safeHtml"></span>
-                    </div>
-                </div>
-                <!--16.	NTA STATEMENT AND INSPECTION (SME)-->
-                <ng-container>
-                    <app-nta-mega-summary *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0"
-                        [fiscalYears]="fiscalYearArray" [netTradingAssetsData]="netTradingAssetsData">
-                    </app-nta-mega-summary>
-                </ng-container>
+<!--                    <div *ngIf="sbsGroupEnabled" class="col-md-12">-->
+<!--                        <app-customer-group-summary *ngIf="loanDataHolder?.loanHolder?.customerGroup"-->
+<!--                            [groupDto]="loanDataHolder?.groupSummaryDto" [customerInfoData]="loanDataHolder.loanHolder">-->
+<!--                        </app-customer-group-summary>-->
+<!--                    </div>-->
+<!--                    <div *ngIf="productUtils.CBS_ENABLE">-->
+<!--                        <div class="row mt-5">-->
+<!--                            <div class="col-md-12">-->
+<!--                                <p><strong>Group Details</strong>-->
+<!--                                </p>-->
+<!--                            </div>-->
+<!--                            <div class="col-md-12">-->
+<!--                                <app-cbs-table [customerInfo]="loanDataHolder.loanHolder">-->
+<!--                                </app-cbs-table>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </section>-->
+<!--                <div class="mt-3">-->
+<!--                    <p><strong>Assessment for Requirement of Fund</strong></p>-->
+<!--                    <ng-container>-->
+<!--                        <app-assessment-for-requirement-of-fund></app-assessment-for-requirement-of-fund>-->
+<!--                    </ng-container>-->
+<!--                </div>-->
+<!--                &lt;!&ndash; 11.	BANKING RELATIONSHIP &ndash;&gt;-->
+<!--                <div class="row mt-3 banking-relationship">-->
+<!--                    <div class="col-md-12">-->
+<!--                        <app-banking-relationship [loanDataHolder]="loanDataHolder"></app-banking-relationship>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                &lt;!&ndash;                Other cHarges&ndash;&gt;-->
+<!--                <div class="row mt-3">-->
+<!--                    <div class="col-md-12">-->
+<!--                        <app-other-charges [customerAllLoanList]="customerAllLoanList"></app-other-charges>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                &lt;!&ndash;-->
+<!--    13.	COVENANTS &ndash;&gt;-->
+<!--                <div class="row mt-3">-->
+<!--                    <div class="col-md-12">-->
+<!--                        <app-covenants></app-covenants>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                &lt;!&ndash;14.	DISBURSEMENT MODALITY: (FACILITY WISE (SME)&ndash;&gt;-->
+<!--                <div class="row mt-3">-->
+<!--                    <div class="col-md-12">-->
+<!--                        <p><strong>Disbursement Criteria </strong></p>-->
+<!--                        <span [innerHTML]="proposalView?.disbursementCriteria || 'N/A' | safeHtml"></span>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                &lt;!&ndash;15.	REPAYMENT MODALITY:&ndash;&gt;-->
+<!--                <div class="row mt-3">-->
+<!--                    <div class="col-md-12">-->
+<!--                        <p><strong>Repayment </strong></p>-->
+<!--                        <span [innerHTML]="proposalView?.repayment || 'N/A' | safeHtml"></span>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                &lt;!&ndash;16.	NTA STATEMENT AND INSPECTION (SME)&ndash;&gt;-->
+<!--                <ng-container>-->
+<!--                    <app-nta-mega-summary *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0"-->
+<!--                        [fiscalYears]="fiscalYearArray" [netTradingAssetsData]="netTradingAssetsData">-->
+<!--                    </app-nta-mega-summary>-->
+<!--                </ng-container>-->
 
-                <ng-template #otherBank>
-                    <app-nta-summary *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0"
-                        [fiscalYears]="fiscalYearArray" [netTradingAssetsData]="netTradingAssetsData">
-                    </app-nta-summary>
-                </ng-template>
-                <br>
-                <div>
-                    <app-comments-summary *ngIf="commentsSummary" [formData]="dataFromComments">
-                    </app-comments-summary>
-                </div>
+<!--                <ng-template #otherBank>-->
+<!--                    <app-nta-summary *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0"-->
+<!--                        [fiscalYears]="fiscalYearArray" [netTradingAssetsData]="netTradingAssetsData">-->
+<!--                    </app-nta-summary>-->
+<!--                </ng-template>-->
+<!--                <br>-->
+<!--                <div>-->
+<!--                    <app-comments-summary *ngIf="commentsSummary" [formData]="dataFromComments">-->
+<!--                    </app-comments-summary>-->
+<!--                </div>-->
 
-                <!-- 17.	WAIVERS, DEVIATIONS AND DEFERRAL, IF ANY -->
+<!--                &lt;!&ndash; 17.	WAIVERS, DEVIATIONS AND DEFERRAL, IF ANY &ndash;&gt;-->
 
-                <div class="row">
-                    <div class="col-md-12">
-                        <p class="mt-3"><strong>Waiver/Deviation </strong></p>
-                        <span [innerHTML]="proposalView?.waiverConclusionRecommendation || 'N/A' | safeHtml"></span>
-                    </div>
-                </div>
-            </ng-container>
-            <div class="row" *ngIf="!isDetailedView && !isAboveTenMillion && !isUpToTenMillion">
-                <div class="col-md-12">
-                    <app-executive-summary-sme></app-executive-summary-sme>
-                </div>
-            </div>
+<!--                <div class="row">-->
+<!--                    <div class="col-md-12">-->
+<!--                        <p class="mt-3"><strong>Waiver/Deviation </strong></p>-->
+<!--                        <span [innerHTML]="proposalView?.waiverConclusionRecommendation || 'N/A' | safeHtml"></span>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </ng-container>-->
+<!--            <div class="row" *ngIf="!isDetailedView && !isAboveTenMillion && !isUpToTenMillion">-->
+<!--                <div class="col-md-12">-->
+<!--                    <app-executive-summary-sme></app-executive-summary-sme>-->
+<!--                </div>-->
+<!--            </div>-->
             <ng-container *ngIf="isUpToTenMillion && !isAboveTenMillion">
                 <app-upto-ten-million></app-upto-ten-million>
             </ng-container>
