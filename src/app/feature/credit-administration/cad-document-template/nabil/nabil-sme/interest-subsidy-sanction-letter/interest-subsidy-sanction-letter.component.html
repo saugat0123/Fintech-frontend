@@ -91,8 +91,7 @@
                             </p>
                             <p class="lh-40 text-justify">
                                 तपाईंले यस बैंकको मिति
-                                <span>{{this.initialInfoPrint?.previousSanctionType.en === 'AD' ? 'ई. स. ' : 'वि.सं.
-                                    '}}</span>
+                                <span>{{this.initialInfoPrint?.previousSanctionType.en === 'AD' ? 'ई. स. ' : 'वि.सं.'}}</span>
                                 <input class="form-field form-control-sm" formControlName="previousSanctionLetter"
                                     name="previousSanctionLetter" placeholder=" " type="text" />को ऋणस्वीकृति पत्रानुसार
                                 स्वीकृत भएका ऋणकर्जा
@@ -293,7 +292,7 @@
                                         </app-single-sme-primary-security-view>
                                     </div>
                                 </li>
-                                <li *ngIf="securityTypeConditionFixedAssests"><strong> सामान मौज्दात धितोेबन्धक हकाधिकार
+                                <li *ngIf="securityTypeConditionFixedAssests || securityTypeConditionFixedAssestsSecondary"><strong> सामान मौज्दात धितोेबन्धक हकाधिकार
                                     </strong>(Hypothecation Charges)
                                     <br>
                                     बैंकबाट प्राप्त कर्जा वा सुविधा तथा ऋणीको आफ्नै श्रोत समेतबाट खरिद गरेको जहासुकै
@@ -322,7 +321,7 @@
                                         बराबरको
                                         {{personalGuarantor.gender.en === 'FEMALE' && personalGuarantor.guarantorMaritalStatus.en ===
                                     'Married' ? 'श्रीमती' : (personalGuarantor.gender.en === 'FEMALE' && personalGuarantor.guarantorMaritalStatus.en ===
-                                    'Unmarried' ? 'सुश्री' : personalGuarantor.gender.en === 'MALE' ? 'श्रीमान्' : 'श्री')}}
+                                    'Unmarried' ? 'सुश्री' : personalGuarantor.gender.en === 'MALE' ? 'श्री' : 'श्री')}}
                                         <input class="form-field form-control-sm"
                                             formControlName="guarantorName"
                                             [value]="personalGuarantor.guarantorName ? personalGuarantor.guarantorName.ct : ''"
@@ -527,11 +526,11 @@
                                 </ol>
 
                             </div>
-                            <div class="service-contions mt-5">
+                            <div class="service-contions mt-5" *ngIf="securityTypeCondition || securityTypeSecondaryCondition">
 
                                 <ol class="conditions-list orderd-list">
                                     <strong>सुरक्षणहरु सम्बन्धित शर्तहरु<br>
-                                        <p *ngIf="securityTypeCondition">
+                                        <p>
                                             घर तथा जग्गा धितोे सुरक्षण</p>
                                     </strong>
                                     <li> माथि उल्लिखित घर/जग्गा बैंकको पक्षमा धितोेबन्धक पारित गर्दा
@@ -591,10 +590,10 @@
                                 </ol>
                             </div>
                         </div>
-                        <div class="service-contions mt-3">
+                        <div class="service-contions mt-3" *ngIf="securityTypeConditionFixedAssests || securityTypeConditionFixedAssestsSecondary">
                             <ol class="conditions-list orderd-list">
                                 <strong>
-                                    <p *ngIf="securityTypeConditionFixedAssests"><strong><u>सामानको मौज्दात सुरक्षण र
+                                    <p><strong><u>सामानको मौज्दात सुरक्षण र
                                                 भुक्तानी
                                                 प्राप्त गर्न बाँकी रकमहरुका
                                                 लागि </u></strong></p>
@@ -624,7 +623,7 @@
                     <div class="service-contions mt-5">
                         <ol class="conditions-list orderd-list">
                             <strong>बिमा सम्बन्धी शर्तहरु </strong>
-                            <li *ngIf="securityTypeConditionStock">ऋणीले आफ्नोे खर्चमा आगलागी, भुकम्प, दंगा/हड्ताल,
+                            <li *ngIf="inStock">ऋणीले आफ्नोे खर्चमा आगलागी, भुकम्प, दंगा/हड्ताल,
                                 दुर्भावनापूर्ण क्षति र
                                 आतंकवाद आदी जस्ता
                                 जोखिमहरुबाट सुरक्षित गरिएको “बैंकिङ्ग शर्त”
@@ -638,7 +637,7 @@
                                 बिमा गरीएको हुनु
                                 पर्नेछ.
                             </li>
-                            <li *ngIf="securityTypeConditionFixedAssests || securityTypeConditionAssestsPlants"> ऋणीले
+                            <li *ngIf="fixedAssests"> ऋणीले
                                 आफ्नोे खर्चमा आगलागी, भुकम्प, दंगा/हड्ताल, दुर्भावनापूर्ण क्षति र
                                 आतंकवाद आदी जस्ता
                                 जोखिमहरुबाट सुरक्षित गरिएको “बैंकिङ्ग शर्त”
@@ -660,8 +659,8 @@
                                 लागत/बजार मूल्य भन्दा कम
                                 हुनु हुने छैन् ।
                             </li>
-                            <li *ngIf="securityTypeConditionLiveStocks"> ऋणीले आफ्नोे खर्चमा आगलागी, भुकम्प,
-                                दंगा÷हड्ताल, दुर्भावनापूर्ण क्षति र
+                            <li *ngIf="liveStock"> ऋणीले आफ्नोे खर्चमा आगलागी, भुकम्प,
+                                दंगा/हड्ताल, दुर्भावनापूर्ण क्षति र
                                 आतंकवाद आदी जस्ता
                                 जोखिमहरुबाट सुरक्षित
                                 गरीएको “बैंकिङ्ग शर्त” (Bankers Clause) सहितको बैंकको पक्षमा
@@ -1025,7 +1024,7 @@
                                     बराबरको
                                     {{personalGuarantor.gender.en === 'FEMALE' && personalGuarantor.guarantorMaritalStatus.en ===
                                     'Married' ? 'श्रीमती' : (personalGuarantor.gender.en === 'FEMALE' && personalGuarantor.guarantorMaritalStatus.en ===
-                                    'Unmarried' ? 'सुश्री' : personalGuarantor.gender.en === 'MALE' ? 'श्रीमान्' : 'श्री')}}
+                                    'Unmarried' ? 'सुश्री' : personalGuarantor.gender.en === 'MALE' ? 'श्री' : 'श्री')}}
                                         <input class="form-field form-control-sm" formControlName="guarantorName"
                                             [value]="personalGuarantor?.guarantorName?.ct" placeholder=" " type="text" /> ले
                                         बैंकको पक्षमा लेखिदिनुपर्ने

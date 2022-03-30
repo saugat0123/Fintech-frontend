@@ -95,6 +95,11 @@ export class InterestSubsidySanctionLetterPrintComponent implements OnInit {
   securityTypeConditionPg = false;
   plotNumber;
   customerSubType = CustomerSubType;
+  inStock = false;
+  fixedAssests = false;
+  liveStock = false;
+  securityTypeConditionFixedAssestsSecondary = false;
+
 
   constructor(
     public nepaliCurrencyWordPipe: NepaliCurrencyWordPipe,
@@ -303,6 +308,21 @@ export class InterestSubsidySanctionLetterPrintComponent implements OnInit {
       this.securityTypeConditionAssestsPlants = true;
       this.securityTypeConditionStock = true;
       this.securityTypeConditionLiveStocks = true;
+      this.securityDetails.primarySecurity.forEach((val, i) => {
+        if (this.securityDetails.primarySecurity[i].requiredHypothecationInsurance.length > 0) {
+          this.securityDetails.primarySecurity[i].requiredHypothecationInsurance.forEach(value => {
+            if (value === 'INSURANCE_OF_STOCK') {
+              this.inStock = true;
+            }
+            if (value === 'INSURANCE_OF_FIXED_ASSESTS') {
+              this.fixedAssests = true;
+            }
+            if (value === 'INSURANCE_OF_LIVE_STOCKS') {
+              this.liveStock = true;
+            }
+          });
+        }
+      });
     }
     if (
       this.securityDetails.primarySecurity.some(
@@ -355,14 +375,26 @@ export class InterestSubsidySanctionLetterPrintComponent implements OnInit {
       });
     }
     if (
-      this.securityDetails.secondarySecurity.some(
-        (s) => s.securityType === "HYPOTHECATION"
-      )
+        this.securityDetails.secondarySecurity.some(
+            (s) => s.securityType === 'HYPOTHECATION'
+        )
     ) {
-      this.securityTypeSecondaryConditionFixedAssests = true;
-      this.securityTypeSecondaryConditionAssestsPlants = true;
-      this.securityTypeSecondaryConditionStock = true;
-      this.securityTypeConditionLiveStocks = true;
+      this.securityTypeConditionFixedAssestsSecondary = true;
+      this.securityDetails.primarySecurity.forEach((val, i) => {
+        if (this.securityDetails.secondarySecurity[i].requiredHypothecationInsurance.length > 0) {
+          this.securityDetails.secondarySecurity[i].requiredHypothecationInsurance.forEach(value => {
+            if (value === 'INSURANCE_OF_STOCK') {
+              this.inStock = true;
+            }
+            if (value === 'INSURANCE_OF_FIXED_ASSESTS') {
+              this.fixedAssests = true;
+            }
+            if (value === 'INSURANCE_OF_LIVE_STOCKS') {
+              this.liveStock = true;
+            }
+          });
+        }
+      });
     }
     if (
       this.securityDetails.secondarySecurity.some(

@@ -142,6 +142,7 @@ export class CommonSecuritySectionPrimaryComponent implements OnInit {
       depositorDetails: this.formBuilder.array([this.buildDepositorDetailsArr()]),
       debentureDetails: this.formBuilder.array([this.buildDebentureDetailsArr()]),*/
       propertyDetails: this.formBuilder.array([this.buildPropertyDetailsArr()]),
+      requiredHypothecationInsurance: [undefined],
     });
   }
 
@@ -481,6 +482,7 @@ export class CommonSecuritySectionPrimaryComponent implements OnInit {
           hypothecationPurposeCT: [val.hypothecationPurposeCT],
           insuranceRequiredCT: [val.insuranceRequiredCT],
           propertyDetails: this.formBuilder.array([]),
+          requiredHypothecationInsurance: [val.requiredHypothecationInsurance],
         })
       );
       this.setProperties(val.propertyDetails, index);

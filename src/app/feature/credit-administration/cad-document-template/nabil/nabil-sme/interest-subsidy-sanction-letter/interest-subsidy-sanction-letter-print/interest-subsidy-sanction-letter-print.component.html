@@ -294,7 +294,7 @@
                                 </app-single-sme-primary-security-view>
                             </div>
                         </li>
-                        <li *ngIf="securityTypeConditionFixedAssests"><strong> सामान मौज्दात धितोेबन्धक
+                        <li *ngIf="securityTypeConditionFixedAssests || securityTypeConditionFixedAssestsSecondary"><strong> सामान मौज्दात धितोेबन्धक
                                 हकाधिकार </strong>(Hypothecation Charges):
                             <br>
                             बैंकबाट प्राप्त कर्जा वा सुविधा तथा ऋणीको आफ्नै श्रोत समेतबाट खरिद गरेको जहासुकै
@@ -321,7 +321,7 @@
                                 मात्र) बराबरको
                                 {{personalGuarantor.gender.en === 'FEMALE' && personalGuarantor.guarantorMaritalStatus.en ===
                             'Married' ? 'श्रीमती' : (personalGuarantor.gender.en === 'FEMALE' && personalGuarantor.guarantorMaritalStatus.en ===
-                            'Unmarried' ? 'सुश्री' : personalGuarantor.gender.en === 'MALE' ? 'श्रीमान्' : 'श्री')}}
+                            'Unmarried' ? 'सुश्री' : personalGuarantor.gender.en === 'MALE' ? 'श्री' : 'श्री')}}
                                 <span class="font-weight-bold">
                                     {{personalGuarantor.guarantorName ? personalGuarantor.guarantorName.ct : ''}}
                                 </span>
@@ -515,10 +515,10 @@
                         </ol>
 
                     </div>
-                    <div>
+                    <div *ngIf="securityTypeCondition || securityTypeSecondaryCondition">
                         <ol class="conditions-list orderd-list">
                             <strong><u>सुरक्षणहरु सम्बन्धित शर्तहरु </u></strong><br>
-                            <ng-container *ngIf="securityTypeCondition">
+                            <ng-container>
                                 <strong><u>घर तथा जग्गा धितोे सुरक्षण </u></strong>
                                 <li> माथि उल्लिखित घर/जग्गा बैंकको पक्षमा धितोेबन्धक पारित गर्दा
                                     लाग्ने सरकारी राजश्व, दै दस्तुर
@@ -608,7 +608,7 @@
             <div>
                 <ol class="conditions-list orderd-list" style="padding-left: 2em">
                     <strong><u>बिमा सम्बन्धी शर्तहरु </u></strong>
-                    <li *ngIf="securityTypeConditionStock">ऋणीले आफ्नोे खर्चमा आगलागी, भुकम्प, दंगा/हड्ताल,
+                    <li *ngIf="inStock">ऋणीले आफ्नोे खर्चमा आगलागी, भुकम्प, दंगा/हड्ताल,
                         दुर्भावनापूर्ण क्षति र
                         आतंकवाद आदी जस्ता
                         जोखिमहरुबाट सुरक्षित गरिएको “बैंकिङ्ग शर्त”
@@ -622,7 +622,7 @@
                         बिमा गरीएको हुनु
                         पर्नेछ.
                     </li>
-                    <li *ngIf="securityTypeConditionFixedAssests || securityTypeConditionAssestsPlants">
+                    <li *ngIf="fixedAssests">
                         ऋणीले आफ्नोे खर्चमा आगलागी, भुकम्प, दंगा/हड्ताल, दुर्भावनापूर्ण क्षति र
                         आतंकवाद आदी जस्ता
                         जोखिमहरुबाट सुरक्षित गरिएको “बैंकिङ्ग शर्त”
@@ -644,7 +644,7 @@
                         लागत/बजार मूल्य भन्दा कम
                         हुनु हुने छैन् ।
                     </li>
-                    <li *ngIf="securityTypeConditionLiveStocks"> ऋणीले आफ्नोे खर्चमा आगलागी, भुकम्प, दंगा/हड्ताल,
+                    <li *ngIf="liveStock"> ऋणीले आफ्नोे खर्चमा आगलागी, भुकम्प, दंगा/हड्ताल,
                         दुर्भावनापूर्ण क्षति र
                         आतंकवाद आदी जस्ता
                         जोखिमहरुबाट सुरक्षित
@@ -1010,7 +1010,7 @@
                             </span> /- बराबरको
                             {{personalGuarantor.gender.en === 'FEMALE' && personalGuarantor.guarantorMaritalStatus.en ===
                             'Married' ? 'श्रीमती' : (personalGuarantor.gender.en === 'FEMALE' && personalGuarantor.guarantorMaritalStatus.en ===
-                            'Unmarried' ? 'सुश्री' : personalGuarantor.gender.en === 'MALE' ? 'श्रीमान्' : 'श्री')}}
+                            'Unmarried' ? 'सुश्री' : personalGuarantor.gender.en === 'MALE' ? 'श्री' : 'श्री')}}
                             <span class="font-weight-bold">
                                 {{personalGuarantor?.guarantorName?.ct}}
                                 <!--{{ commonGuarantorDetails(personalGuarantorsName, finalPersonalName) }}-->

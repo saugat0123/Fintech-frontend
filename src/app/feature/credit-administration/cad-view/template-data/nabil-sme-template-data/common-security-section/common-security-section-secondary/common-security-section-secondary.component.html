@@ -30,6 +30,26 @@
                     </div>
                 </div>
 
+                <div
+                        *ngIf="this.commonSecondarySecurity.get(['securityDetails', i,'securityType']).value === securityType[2]?.key">
+                    <div class="row">
+                        <div class="col-md-6 mb-2" *ngIf="this.customerApprove.assignedLoan[0].loan.name === 'INTEREST SUBSIDY'">
+                            <label><strong>
+                                Insurance Purposed For:
+                            </strong></label>
+                            <nb-select
+                                    multiple
+                                    formControlName="requiredHypothecationInsurance"
+                                    fullWidth
+                                    placeholder="Select Required Insurance ">
+                                <nb-option value="INSURANCE_OF_STOCK">Insurance of Stock</nb-option>
+                                <nb-option value="INSURANCE_OF_FIXED_ASSESTS">Insurance of Fixed Assets/Plants/Machinery & other equipments</nb-option>
+                                <nb-option value="INSURANCE_OF_LIVE_STOCKS">Insurance of Live Stocks/Animals</nb-option>
+                            </nb-select>
+                        </div>
+                    </div>
+                </div>
+
                 <div *ngIf="this.commonSecondarySecurity.get(['securityDetails', i,'securityType']).value === securityType[0]?.key || this.commonSecondarySecurity.get(['securityDetails', i,'securityType']).value === securityType[1]?.key">
                     <div class="row">
                         <div class="form-group col-md-4">
