@@ -27,7 +27,7 @@ export class CreditFacilityReportComponent implements OnInit, OnChanges {
     riskGrade;
     guarantorDetails;
     proposedLimit: number;
-    guarantorsList: import("c:/Sb solutions/frontApp/sbsolution-frontapp/src/app/feature/loan/model/guarantor").Guarantor[];
+    guarantorsList;
     loanName: string;
     proposalData: any;
     constructor() {
@@ -191,7 +191,6 @@ export class CreditFacilityReportComponent implements OnInit, OnChanges {
         this.proposedLimit = this.loanDataHolder.proposal.proposedLimit;
         this.guarantorsList = this.loanDataHolder.loanHolder.guarantors.guarantorList;
         this.loanName = this.loanDataHolder.loan.name;
-        this.proposalData = JSON.parse(this.loanDataHolder.proposal.data)
-        
+        this.proposalData = JSON.parse(this.loanDataHolder.proposal.data);
     }
 }
