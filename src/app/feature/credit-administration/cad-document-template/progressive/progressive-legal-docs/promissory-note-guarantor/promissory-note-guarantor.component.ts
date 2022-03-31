@@ -74,6 +74,7 @@ export class PromissoryNoteGuarantorComponent implements OnInit {
     }
 
     this.form.patchValue({
+      gender: this.nepaliData.gender ? this.nepaliData.gender : '',
     });
   }
 

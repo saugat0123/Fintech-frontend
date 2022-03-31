@@ -249,8 +249,8 @@ export class RokkaLetterComponent implements OnInit {
 
   setSecurityDetails(value, i) {
     this.form.get(['personalSignatureArray', i, 'tableLandOwnerName']).patchValue(value.collateralName);
-    this.form.get(['personalSignatureArray', i, 'tableFatherName']).patchValue(value.collateralName);
-    this.form.get(['personalSignatureArray', i, 'tableGrandFather']).patchValue(value.collateralName);
+    this.form.get(['personalSignatureArray', i, 'tableFatherName']).patchValue(value.collateralFatherName);
+    this.form.get(['personalSignatureArray', i, 'tableGrandFather']).patchValue(value.collateralGrandFatherName);
     this.form.get(['personalSignatureArray', i, 'tableDistrictName']).patchValue(value.collateralDistrict);
     this.form.get(['personalSignatureArray', i, 'tablePerMun']).patchValue(value.collateralMunVdcOriginal);
     this.form.get(['personalSignatureArray', i, 'tablePerWardNo']).patchValue(value.collateralWardNoOld);
