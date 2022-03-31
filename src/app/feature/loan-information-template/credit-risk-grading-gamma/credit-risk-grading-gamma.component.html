@@ -68,20 +68,38 @@
             <tbody>
 
             <ng-container *ngFor="let crgQuestion of crgQuestionsList; let i = index">
-                <tr *ngIf="crgQuestion?.status == 'ACTIVE'">
-                    <td>{{i+1}}</td>
-
-                    <td class="desc-td-width">
+                <tr style="background-color: #17a2b1" *ngIf="crgQuestionsList[i-1]?.crgGroupId !== crgQuestion?.crgGroupId || crgQuestionsList[i-1]?.crgGroupId !== crgQuestion?.crgGroupId">
+                    <td>
+                        <b>Topic</b>
+                    </td>
+                    <td>
                         <ng-container *ngIf="crgQuestionsList[i-1]?.crgGroupId !== crgQuestion?.crgGroupId">
                             <b>{{ groupLabelMap.get(crgQuestion?.crgGroupId) }}</b>
                             <br><br>
                         </ng-container>
-                        <p>{{ crgQuestion?.description }}</p>
                     </td>
                     <td *ngIf="crgQuestionsList[i-1]?.crgGroupId !== crgQuestion?.crgGroupId">
                         <strong>{{ groupWeightageMap.get(crgQuestion?.crgGroupId) }}%</strong>
                     </td>
-                    <td *ngIf="crgQuestionsList[i-1]?.crgGroupId === crgQuestion?.crgGroupId"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+
+                <tr *ngIf="crgQuestion?.status == 'ACTIVE'">
+                    <td>{{i+1}}</td>
+                    <td class="desc-td-width">
+                        <!--<ng-container *ngIf="crgQuestionsList[i-1]?.crgGroupId !== crgQuestion?.crgGroupId">
+                            <b>{{ groupLabelMap.get(crgQuestion?.crgGroupId) }}</b>
+                            <br><br>
+                        </ng-container>-->
+                        <p>{{ crgQuestion?.description }}</p>
+                    </td>
+                    <td></td>
+                    <!--<td *ngIf="crgQuestionsList[i-1]?.crgGroupId !== crgQuestion?.crgGroupId">
+                        <strong>{{ groupWeightageMap.get(crgQuestion?.crgGroupId) }}%</strong>
+                    </td>
+                    <td *ngIf="crgQuestionsList[i-1]?.crgGroupId === crgQuestion?.crgGroupId"></td>-->
                     <td *ngIf="!fromProfile">{{creditRiskGrading.get(crgQuestion?.description).value === null ? '' :
                         creditRiskGrading.get(crgQuestion?.description + 'Parameter').value}}</td>
                     <ng-container *ngIf="fromProfile">
@@ -122,7 +140,7 @@
             </ng-container>
 
             <tr>
-                <th class="text-center" colspan="2"><b>Grading:</b> {{grading === undefined ? '' : grading}}</th>
+                <th class="text-center" colspan="3"><b>Grading:</b> {{grading === undefined ? '' : grading}}</th>
                 <th [attr.colspan]="totalPointsColspan" class="text-center">Total Score:</th>
                 <th class="text-center">{{totalPoints === undefined ? '' : totalPoints}}</th>
             </tr>
