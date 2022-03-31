@@ -42,7 +42,7 @@
                            nbTooltip="click to view detail Loan ">
                             <em class="fa fa-eye"></em>
                         </a>
-                        <a (click)="pullLoan(model)" *ngIf="model?.totalLoan > 0 && storage.roleType == roleType.APPROVAL && storage.roleName.toLowerCase() === 'csu'"
+                        <a (click)="pullLoan(model)" *ngIf="model?.totalLoan > 0 && ((storage.roleType == roleType.APPROVAL && storage.roleName.toLowerCase() === 'csu') || (storage.roleType == roleType.MAKER))"
                            nbTooltip="click to pull"><em
                                 class="fas fa-angle-double-down"></em>Pull</a>
                     </td>

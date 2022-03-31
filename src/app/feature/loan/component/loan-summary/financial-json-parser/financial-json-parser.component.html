@@ -23,22 +23,18 @@
         </div>
     </div>
 </form>
+<!--financial dynamic table-->
 <div class="col-md-12">
-    <table border="1" class="table-sm table-responsive table-hover ">
+    <table border="1" class="table table-bordered table-responsive-md table-sm sb-small table-hover text-white">
         <thead>
-        <tr class=" sb-bg-dark">
+        <tr class=" sb-bg-dark  text-dark">
             <td width="25%"><strong>Particular</strong></td>
             <td *ngFor="let header of financialJson?.column"><strong>{{header}}</strong></td>
         </tr>
         </thead>
         <tbody>
         <tr *ngFor="let schema of financialJson.schema; let i = index">
-            <td class=" sb-bg-dark"><strong>{{schema}}</strong></td>
-<!--            <ng-container >-->
-<!--                <td style="background: #706e6e;"-->
-<!--                    *ngFor="let datas of financialJson?.data[i]; let ii = index">-->
-<!--                    {{datas=== 0.00 || datas === undefined ? '' : (datas | roundvalue)}}</td>-->
-<!--            </ng-container>-->
+            <td class=" sb-bg-dark text-dark"><strong>{{schema}}</strong></td>
             <ng-container >
                 <td style="background: #706e6e;" class="text-right"
                     *ngFor="let header of financialJson?.column; let ii = index">
