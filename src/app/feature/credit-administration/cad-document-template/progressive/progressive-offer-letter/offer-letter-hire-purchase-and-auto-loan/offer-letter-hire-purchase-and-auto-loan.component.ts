@@ -58,14 +58,8 @@ export class OfferLetterHirePurchaseAndAutoLoanComponent implements OnInit {
 
   fillForm() {
     this.nepaliData = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
-    console.log('NepaliData:: =>', this.nepaliData);
     this.nepDataPersonal = JSON.parse(this.cadOfferLetterApprovedDoc.nepDataPersonal);
-    console.log('Nep Data Personal:: =>', this.nepDataPersonal);
     if (!ObjectUtil.isEmpty(this.nepaliData)) {
-      const customerCitizenshipAddress =
-          this.nepaliData.permanentVdc + ', ' +
-          this.nepaliData.permanentVdcWard + ', ' +
-          this.nepaliData.permanentDistrict.nepaliName;
       this.form.patchValue({
         customerName: this.nepaliData.name ? this.nepaliData.name : '',
         customerAddress: !ObjectUtil.isEmpty(this.nepaliData.permanentMunicipalities) ?
