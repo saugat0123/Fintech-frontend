@@ -21,7 +21,7 @@ export class CreditRiskGradingGammaComponent implements OnInit {
     @Input() fromProfile: boolean;
     @Input() loanConfigId: number;
     @Output() crgDataEmitter = new EventEmitter();
-    totalPointsColspan = 3;
+    totalPointsColspan = 2;
     creditRiskGrading: FormGroup = new FormGroup({});
     creditRiskData: CreditRiskGradingGamma = new CreditRiskGradingGamma();
     points: any;
@@ -115,7 +115,6 @@ export class CreditRiskGradingGammaComponent implements OnInit {
     }
 
     calculateTotalViaMap() {
-        if (this.totalPointMapper.size === this.crgQuestionsList.length) {
             let total = 0;
             this.totalPointMapper.forEach(data => {
                 total = total + Number(data);
@@ -134,7 +133,6 @@ export class CreditRiskGradingGammaComponent implements OnInit {
                 this.grading = 'Not Eligible for new loans';
             }
             this.creditRiskGrading.get('grade').patchValue(this.grading);
-        }
     }
 
     onSubmit() {
