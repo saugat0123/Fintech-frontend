@@ -8,13 +8,8 @@
           <p>
             प.सं.
             <span [ngClass]="{'nepaliFont' : printDocForm?.patraNum !== null && printDocForm?.patraNum !== ''}">
-                            {{printDocForm?.patraNum === null || printDocForm?.patraNum === '' ? '_________________' : printDocForm?.patraNum}}
-                        </span>
-            /पिएफएल/
-            <span [ngClass]="{'nepaliFont' : printDocForm?.paFile !== null && printDocForm?.paFile !== ''}">
-                            {{printDocForm?.paFile === null || printDocForm?.paFile === '' ? '_________________' : printDocForm?.paFile}}
-                        </span>
-            /सिआरडि /०७७/०७८
+                {{printDocForm?.patraNum === null || printDocForm?.patraNum === '' ? '_________________' : printDocForm?.patraNum}}
+            </span>
           </p>
         </div>
       </div><br>
@@ -39,6 +34,12 @@
           ठेगाना :
           <span [ngClass]="{'nepaliFont uniFont' : printDocForm?.customerAddress !== null && printDocForm?.customerAddress !== ''}">
             {{printDocForm?.customerAddress === null || printDocForm?.customerAddress === '' ? '_________________' : printDocForm?.customerAddress}}
+          </span>, वडा नं.
+          <span [ngClass]="{'nepaliFont' : printDocForm?.customerAddressWard !== null && printDocForm?.customerAddressWard !== ''}">
+            {{printDocForm?.customerAddressWard === null || printDocForm?.customerAddressWard === '' ? '_________________' : printDocForm?.customerAddressWard}}
+          </span>,
+          <span [ngClass]="{'nepaliFont uniFont' : printDocForm?.customerAddressDistrict !== null && printDocForm?.customerAddressDistrict !== ''}">
+            {{printDocForm?.customerAddressDistrict === null || printDocForm?.customerAddressDistrict === '' ? '_________________' : printDocForm?.customerAddressDistrict}}
           </span>
         </p>
       </div>
@@ -47,6 +48,12 @@
           हालको ठेगाना :
           <span [ngClass]="{'nepaliFont uniFont' : printDocForm?.customerTempAddress !== null && printDocForm?.customerTempAddress !== ''}">
             {{printDocForm?.customerTempAddress === null || printDocForm?.customerTempAddress === '' ? '_________________' : printDocForm?.customerTempAddress}}
+          </span>, वडा नं.
+          <span [ngClass]="{'nepaliFont' : printDocForm?.customerTempAddressWard !== null && printDocForm?.customerTempAddressWard !== ''}">
+            {{printDocForm?.customerTempAddressWard === null || printDocForm?.customerTempAddressWard === '' ? '_________________' : printDocForm?.customerTempAddressWard}}
+          </span>,
+          <span [ngClass]="{'nepaliFont uniFont' : printDocForm?.customerTempAddressDistrict !== null && printDocForm?.customerTempAddressDistrict !== ''}">
+            {{printDocForm?.customerTempAddressDistrict === null || printDocForm?.customerTempAddressDistrict === '' ? '_________________' : printDocForm?.customerTempAddressDistrict}}
           </span>
         </p>
       </div>
@@ -55,6 +62,12 @@
           नागरिकता बमोजिम ठेगाना :
           <span [ngClass]="{'nepaliFont' : printDocForm?.customerCitizenshipAddress !== null && printDocForm?.customerCitizenshipAddress !== ''}">
             {{printDocForm?.customerCitizenshipAddress === null || printDocForm?.customerCitizenshipAddress === '' ? '_________________' : printDocForm?.customerCitizenshipAddress}}
+          </span>, वडा नं.
+          <span [ngClass]="{'nepaliFont' : printDocForm?.customerCitizenshipAddressWard !== null && printDocForm?.customerCitizenshipAddressWard !== ''}">
+            {{printDocForm?.customerCitizenshipAddressWard === null || printDocForm?.customerCitizenshipAddressWard === '' ? '_________________' : printDocForm?.customerCitizenshipAddressWard}}
+          </span>,
+          <span [ngClass]="{'nepaliFont uniFont' : printDocForm?.customerCitizenshipAddressDistrict !== null && printDocForm?.customerCitizenshipAddressDistrict !== ''}">
+            {{printDocForm?.customerCitizenshipAddressDistrict === null || printDocForm?.customerCitizenshipAddressDistrict === '' ? '_________________' : printDocForm?.customerCitizenshipAddressDistrict}}
           </span>
         </p>
       </div>
@@ -113,11 +126,11 @@
                 <td><strong>कर्जा सिमा :</strong></td>
                 <td>
                   अधिकतम रु
-                  <span [ngClass]="{'nepaliFont' : printDocForm?.amount !== null && printDocForm?.amount !== ''}">
+                  <span [ngClass]="{'nepaliFont uniFont' : printDocForm?.amount !== null && printDocForm?.amount !== ''}">
                     {{printDocForm?.amount === null || printDocForm?.amount === '' ? '_________________' : printDocForm?.amount}}
                   </span>
                   /– (अक्षरेपी:
-                  <span [ngClass]="{'nepaliFont' : printDocForm?.amountInWords !== null && printDocForm?.amountInWords !== ''}">
+                  <span [ngClass]="{'nepaliFont uniFont' : printDocForm?.amountInWords !== null && printDocForm?.amountInWords !== ''}">
                     {{printDocForm?.amountInWords === null || printDocForm?.amountInWords === '' ? '_________________' : printDocForm?.amountInWords}}
                   </span>
                   रुपैंया मात्र ।)
@@ -128,18 +141,18 @@
                   <td>सवारी साधन  खरिद गर्न । <br></td>
               </tr>
               <tr>
-                <td><strong> ततिर्नुपर्ने किस्ताको विवरण :</strong></td>
+                <td><strong> तिर्नुपर्ने किस्ताको विवरण :</strong></td>
                 <td>
                   प्रत्येक महिनाको नेपाली क्यलेन्डर अनुसार २५ गतेका दिन मासिक रु
                   <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.monthlyPayment !== null && printDocForm?.monthlyPayment !== ''}">
                     {{printDocForm?.monthlyPayment === null || printDocForm?.monthlyPayment === '' ? '_________________' : printDocForm?.monthlyPayment}}
                   </span>
-                  / - सम मासिक किस्ता (EMI BASIS) मा असुल उपर गरिने छ ।
+                  /- सम मासिक किस्ता (EMI BASIS) मा असुल उपर गरिने छ ।
                   <span [ngClass]="{'nepaliFont unicode-size uniFont' : printDocForm?.yearlyInterest !== null && printDocForm?.yearlyInterest !== ''}">
                     {{printDocForm?.yearlyInterest === null || printDocForm?.yearlyInterest === '' ? '_________________' : printDocForm?.yearlyInterest}}
                   </span>
                   प्रतिशत वार्षिक व्याजका दरले तिर्न वांकी कर्जा तथा सुविधामा व्याज
-                  गणना गरिनेछ  । यो व्याज दर समय समयमा नेपाल राष्ट्र बैंकको परिपत्र वा
+                  गणना गरिनेछ । यो व्याज दर समय समयमा नेपाल राष्ट्र बैंकको परिपत्र वा
                   फाइनान्सको आधार दर वमोजिम परिवर्तन हुन सक्नेछ ।
                   <p>
                     आधार दर (Base Rate) :
@@ -184,8 +197,8 @@
                   </p>
                   (Base Rate + Risk Premium - Temporary Discount = Interest Rate)
                   कर्जाको अवधि कर्जा स्वीकृत भएको मितिबाट
-                  <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.yearDate !== null && printDocForm?.yearDate !== ''}">
-                      {{printDocForm?.yearDate === null || printDocForm?.yearDate === '' ? '_________________' : printDocForm?.yearDate}}
+                  <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.loanLimitTime !== null && printDocForm?.loanLimitTime !== ''}">
+                      {{printDocForm?.loanLimitTime === null || printDocForm?.loanLimitTime === '' ? '_________________' : printDocForm?.loanLimitTime}}
                   </span>वर्ष, भुक्तानीको आधारमा सो
                   अवधि भित्र ।
                 </td>
@@ -382,7 +395,7 @@
           </tr>
           <tr *ngFor="let individualDetail of printDocForm?.individualDetails; index as i">
             <td>
-             {{i + 1 | nepaliWord: 'unicode'}}
+             {{i + 1 | nepaliWord: 'unicode'}}.
             </td>
             <br>
             <td>
@@ -395,12 +408,10 @@
                     {{individualDetail?.shreeName2 === null || individualDetail?.shreeName2 === '' ? '____________________' : individualDetail?.shreeName2}}
                   </span>
                 को रु.
-                <span [ngClass]="{'nepaliFont' : individualDetail?.amount1 !== null && individualDetail?.amount1 !== ''}">
+                <span [ngClass]="{'nepaliFont uniFont' : individualDetail?.amount1 !== null && individualDetail?.amount1 !== ''}">
                     {{individualDetail?.amount1 === null || individualDetail?.amount1 === '' ? '____________________' : individualDetail?.amount1}}
-                  </span>
-                /–
-                (अक्षरेपी :
-                <span [ngClass]="{'nepaliFont' : individualDetail?.amountInWords1 !== null && individualDetail?.amountInWords1 !== ''}">
+                  </span>/– (अक्षरेपी :
+                <span [ngClass]="{'nepaliFont uniFont' : individualDetail?.amountInWords1 !== null && individualDetail?.amountInWords1 !== ''}">
                     {{individualDetail?.amountInWords1 === null || individualDetail?.amountInWords1 === '' ? '____________________' : individualDetail?.amountInWords1}}
                   </span>
                 रुपैंया मात्र ।) को छुट्टा छुट्टै व्यक्तिगत जमानीको लिखत गरिदिनु पर्ने छ ।
@@ -413,12 +424,11 @@
           <tr>
             <td>२.२</td>
             <td>रु.
-              <span [ngClass]="{'nepaliFont' : printDocForm?.amount3 !== null && printDocForm?.amount3 !== ''}">
-                {{printDocForm?.amount3 === null || printDocForm?.amount3 === '' ? '_________________' : printDocForm?.amount3}}
-              </span>
-              /-(अक्षरेपी :
-              <span [ngClass]="{'nepaliFont' : printDocForm?.amountInWords3 !== null && printDocForm?.amountInWords3 !== ''}">
-                {{printDocForm?.amountInWords3 === null || printDocForm?.amountInWords3 === '' ? '_________________' : printDocForm?.amountInWords3}}
+              <span [ngClass]="{'nepaliFont uniFont' : printDocForm?.amount !== null && printDocForm?.amount !== ''}">
+                {{printDocForm?.amount === null || printDocForm?.amount === '' ? '_________________' : printDocForm?.amount}}
+              </span>/-(अक्षरेपी :
+              <span [ngClass]="{'nepaliFont uniFont' : printDocForm?.amountInWords !== null && printDocForm?.amountInWords !== ''}">
+                {{printDocForm?.amountInWords === null || printDocForm?.amountInWords === '' ? '_________________' : printDocForm?.amountInWords}}
               </span>
               रुपैंया मात्र ।) को ऋणि तथा जमानी कर्ताले एक एक प्रति प्रतिज्ञापत्रमा
               सही छाप गरी फाइनान्सलाई उपलव्ध गराउनु पर्ने छ ।
@@ -474,8 +484,8 @@
         <tr>
           <td><strong>४.</strong></td>
           <td> <strong>पुनरावलोकन :</strong> रु.
-            <span [ngClass]="{'nepaliFont' : printDocForm?.amount4 !== null && printDocForm?.amount4 !== ''}">
-                      {{printDocForm?.amount4 === null || printDocForm?.amount4 === '' ? '_________________' : printDocForm?.amount4}}
+            <span [ngClass]="{'nepaliFont uniFont' : printDocForm?.amount !== null && printDocForm?.amount !== ''}">
+                      {{printDocForm?.amount === null || printDocForm?.amount === '' ? '_________________' : printDocForm?.amount}}
                   </span>
             को भुक्तानी मिति जेसुकै उल्लेख गरिएको भएता पनि ऋणीले लिएका कर्जा तथा
             सुविधाहरु कुनै कारण देखाई वा नदेखाई फाइनान्सले फिर्ता भुक्तानी माग गरेका वखत तत्कालै भुक्तानी गर्नु पर्नेछ ।<br>
@@ -803,11 +813,17 @@
                 </span><br>
                 हालको ठेगाना :
                 <span [ngClass]="{'nepaliFont uniFont' : printDocForm?.customerTempAddress !== null && printDocForm?.customerTempAddress !== ''}">
-                      {{printDocForm?.customerTempAddress === null || printDocForm?.customerTempAddress === '' ? '_________________' : printDocForm?.customerTempAddress}}
-                </span><br><br>
+            {{printDocForm?.customerTempAddress === null || printDocForm?.customerTempAddress === '' ? '_________________' : printDocForm?.customerTempAddress}}
+          </span>, वडा नं.
+                <span [ngClass]="{'nepaliFont' : printDocForm?.customerTempAddressWard !== null && printDocForm?.customerTempAddressWard !== ''}">
+            {{printDocForm?.customerTempAddressWard === null || printDocForm?.customerTempAddressWard === '' ? '_________________' : printDocForm?.customerTempAddressWard}}
+          </span>,
+                <span [ngClass]="{'nepaliFont uniFont' : printDocForm?.customerTempAddressDistrict !== null && printDocForm?.customerTempAddressDistrict !== ''}">
+            {{printDocForm?.customerTempAddressDistrict === null || printDocForm?.customerTempAddressDistrict === '' ? '_________________' : printDocForm?.customerTempAddressDistrict}}
+          </span><br><br>
                 मोबाइल नं.
-                <span [ngClass]="{'nepaliFont' : printDocForm?.customerMobileNum1 !== null && printDocForm?.customerMobileNum1 !== ''}">
-                      {{printDocForm?.customerMobileNum1 === null || printDocForm?.customerMobileNum1 === '' ? '_________________' : printDocForm?.customerMobileNum1}}
+                <span [ngClass]="{'nepaliFont' : printDocForm?.customerMobileNum !== null && printDocForm?.customerMobileNum !== ''}">
+                      {{printDocForm?.customerMobileNum === null || printDocForm?.customerMobileNum === '' ? '_________________' : printDocForm?.customerMobileNum}}
                 </span><br><br>
                 Email Address :
                 <span [ngClass]="{'' : printDocForm?.customerEmail !== null && printDocForm?.customerEmail !== ''}">
@@ -870,7 +886,7 @@
             </span><br><br>
             नागरिकता नं., मिति र कार्यालय:—
             <strong> (ना.प्र.नं </strong>
-            <span [ngClass]="{'nepaliFont uniFont' : printDocForm?.signatoryCitizenshipNum !== null && printDocForm?.signatoryCitizenshipNum !== ''}">
+            <span [ngClass]="{'nepaliFont' : printDocForm?.signatoryCitizenshipNum !== null && printDocForm?.signatoryCitizenshipNum !== ''}">
               {{printDocForm?.signatoryCitizenshipNum === null || printDocForm?.signatoryCitizenshipNum === '' ? '_________________' : printDocForm?.signatoryCitizenshipNum}}
             </span>
             <strong> मिति </strong>
@@ -884,8 +900,14 @@
             <strong> ) </strong><br><br>
             ऋणी वा अख्तियार प्राप्त व्यक्तिको ठेगाना :—
             <span [ngClass]="{'nepaliFont uniFont' : printDocForm?.customerAddress !== null && printDocForm?.customerAddress !== ''}">
-              {{printDocForm?.customerAddress === null || printDocForm?.customerAddress === '' ? '_________________' : printDocForm?.customerAddress}}
-            </span>
+            {{printDocForm?.customerAddress === null || printDocForm?.customerAddress === '' ? '_________________' : printDocForm?.customerAddress}}
+          </span>, वडा नं.
+            <span [ngClass]="{'nepaliFont' : printDocForm?.customerAddressWard !== null && printDocForm?.customerAddressWard !== ''}">
+            {{printDocForm?.customerAddressWard === null || printDocForm?.customerAddressWard === '' ? '_________________' : printDocForm?.customerAddressWard}}
+          </span>,
+            <span [ngClass]="{'nepaliFont uniFont' : printDocForm?.customerAddressDistrict !== null && printDocForm?.customerAddressDistrict !== ''}">
+            {{printDocForm?.customerAddressDistrict === null || printDocForm?.customerAddressDistrict === '' ? '_________________' : printDocForm?.customerAddressDistrict}}
+          </span>
             <br><br>
             बाजेको नाम :—
             <span [ngClass]="{'nepaliFont' : printDocForm?.signatoryGrandParentName !== null && printDocForm?.signatoryGrandParentName !== ''}">
