@@ -1,4 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {FormControl, Validators} from '@angular/forms';
 
 @Component({
     selector: 'app-security-adder',
@@ -13,21 +14,42 @@ export class SecurityAdderComponent implements OnInit {
     customerShareData: any;
     selectedShareSecurityList: any;
     securityList: any;
+    msg = '';
+    approvedShareSecurity: any;
+    @Output() saveShareSecurity = new EventEmitter();
+
+
+    shareSecurity = new FormControl(undefined, Validators.required);
 
     constructor() {
     }
 
     ngOnInit() {
-        this.selectedShareSecurityList = this.shareSecurityData;
         this.customerShareData = this.shareSecurityData.customerShareData;
+        this.approvedShareSecurity = JSON.parse(this.shareSecurityData.approvedData).shareSecurityDetails;
     }
 
     removeShareSecurity(data) {
         const removeIndex = this.findShareSecurityIndex(data);
-        this.customerShareData.splice(removeIndex, 1);
+        this.approvedShareSecurity.splice(removeIndex, 1);
     }
 
     findShareSecurityIndex(data) {
-        return this.customerShareData.indexOf(this.customerShareData.filter(d => d.id.toString() === data.id.toString())[0]);
+        return this.approvedShareSecurity.indexOf(this.approvedShareSecurity.filter(
+            d => d.totalShareUnit.toString() === data.totalShareUnit.toString() && d.companyName === data.companyName)[0]);
+    }
+
+    addSecurityDetail(data) {
+        const presentShareSecurity = this.approvedShareSecurity.filter(d => d.id === data.id);
+        if (presentShareSecurity.length <= 0) {
+            this.approvedShareSecurity.push(data);
+            this.msg = '';
+        } else {
+            this.msg = 'selected share security is already added !';
+        }
+    }
+
+    save() {
+        this.saveShareSecurity.emit(this.approvedShareSecurity);
     }
 }
