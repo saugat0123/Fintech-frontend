@@ -39,6 +39,7 @@ export class LoanActionCombinedModalComponent implements OnInit {
     @Input() branchId: number;
     @Input() toRole: Role;
     @Input() toUser: User;
+    @Input() comment: string;
     ckeConfig = Editor.CK_CONFIG;
     public combinedLoan: CombinedLoan;
     public LoanType = LoanType;
@@ -114,6 +115,11 @@ export class LoanActionCombinedModalComponent implements OnInit {
             this.individualType.solUsers = new Map<number, User[]>();
             this.combinedLoan.loans.forEach((l, i) => this.individualType.users.set(i, []));
             this.combinedLoan.loans.forEach((l, i) => this.individualType.solUsers.set(i, []));
+            if (!ObjectUtil.isEmpty(this.comment)) {
+                this.combinedLoan.loans.forEach((com, ind) => {
+                    this.individualType.form.get(['actions', ind, 'comment']).patchValue(this.comment)
+                });
+            }
         } else if (value === 'combined') {
             this.combinedType.form = this.buildCombinedForm();
             if (this.docAction === DocAction[DocAction.BACKWARD_TO_COMMITTEE]) {
@@ -127,6 +133,9 @@ export class LoanActionCombinedModalComponent implements OnInit {
                 });
                 this.getCombinedUserList(this.toRole);
                 this.showUserList = false;
+            }
+            if (!ObjectUtil.isEmpty(this.comment)) {
+                this.combinedType.form.get('comment').patchValue(this.comment);
             }
         }
     }
