@@ -2844,14 +2844,14 @@
                                (change)="setDetailsEntered($event, i)">
                     <i>Check if Details already entered!</i></nb-checkbox>
                 </td>
-                <td *ngIf="userConfigForm.get(['guarantorDetails', i, 'detailsEntered']).value">
+                <!--<td *ngIf="userConfigForm.get(['guarantorDetails', i, 'detailsEntered']).value">
                   <select required="true" class="form-control"
                           formControlName="detailsFrom">
                     <option  value="null" hidden>Name List</option>
                     <nb-option *ngFor="let owner of shareHolderArray"
                                [value]="owner.ownerName"> {{owner.ownerName.toUpperCase()}}</nb-option>
                   </select>
-                </td>
+                </td>-->
               </tr>
               <tr *ngIf="configForm?.clientType?.value == clientType.INDIVIDUAL">
                 <td>

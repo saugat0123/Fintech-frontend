@@ -91,8 +91,7 @@
                             </p>
                             <p class="lh-40 text-justify">
                                 तपाईंले यस बैंकको मिति
-                                <span>{{this.initialInfoPrint?.previousSanctionType.en === 'AD' ? 'ई. स. ' : 'वि.सं.
-                                    '}}</span>
+                                <span>{{this.initialInfoPrint?.previousSanctionType.en === 'AD' ? 'ई. स. ' : 'वि.सं.'}}</span>
                                 <input class="form-field form-control-sm" formControlName="previousSanctionLetter"
                                     name="previousSanctionLetter" placeholder=" " type="text" />को ऋणस्वीकृति पत्रानुसार
                                 स्वीकृत भएका ऋणकर्जा
@@ -277,60 +276,119 @@
                         नगर्नका
                         साथै अघिल्लो प्रदान गरिएका अनुदानहरु पनि फिर्ता माग गर्ने बैंकको अधिकार सुरक्षित रहनेछ ।
                     </p><br>
-                    <div>
+                    <div *ngIf="this.securityDetails.primarySecurity.length > 0 || this.securityDetails.secondarySecurity.length > 0">
                         <div class="col-sm-12">
-                            <ol class="conditions-list orderd-list">
-                                <strong>सुरक्षण विवरणः </strong>
+                            <strong>सुरक्षण विवरणः </strong>
+                            <ng-container *ngIf="this.securityDetails.primarySecurity.length > 0">
                                 <p>
-                                    <strong> क. </strong> प्राथमिक/थप सुरक्षण (Primary/Secondary Security)
+                                    <strong> क. प्राथमिक सुरक्षण (Primary Security) </strong>
                                 </p>
-                                <li *ngIf="securityTypeCondition"><strong>
+                                <ol class="conditions-list orderd-list">
+                                    <li *ngIf="securityTypeCondition"><strong>
                                         घर/जग्गा धितोेबन्धक हकाधिकार </strong>(Mortgage Charges):<br>
-                                    स्वीकृत ऋणकर्जा प्रवाह गर्नु अगावै ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा देहाय
-                                    बमोजिमको घर/जग्गा धितोबन्धक पारित/रोक्का गरिदिनु पर्नेछ ।
-                                    <div class="pb-4">
-                                        <app-master-securities-view [securityDetails]="tempData?.securities">
-                                        </app-master-securities-view>
-                                    </div>
-                                </li>
-                                <li *ngIf="securityTypeConditionFixedAssests"><strong> सामान मौज्दात धितोेबन्धक हकाधिकार
+                                        स्वीकृत ऋणकर्जा प्रवाह गर्नु अगावै ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा देहाय
+                                        बमोजिमको घर/जग्गा धितोबन्धक पारित/रोक्का गरिदिनु पर्नेछ ।
+                                        <div class="pb-4">
+                                            <app-single-sme-primary-security-view
+                                                    [securityDetails]="tempData?.securities">
+                                            </app-single-sme-primary-security-view>
+                                        </div>
+                                    </li>
+                                    <li *ngIf="securityTypeConditionFixedAssests"><strong> सामान मौज्दात धितोेबन्धक
+                                        हकाधिकार
                                     </strong>(Hypothecation Charges)
-                                    <br>
-                                    बैंकबाट प्राप्त कर्जा वा सुविधा तथा ऋणीको आफ्नै श्रोत समेतबाट खरिद गरेको जहासुकै
-                                    रहे भएको कच्चा पदार्थ प्रशोधित वा
-                                    अर्ध प्रशोधित कच्चा पदार्थ, तयारी सामान, पशुपन्छी, दाना, अण्डा, भ्याक्सिन/औषधि,
-                                    कृषि उपज आदी लगायतका सम्पूर्ण सामानहरुको
-                                    मौज्दात, टहरा, उपकरण लगायत परियोजना संग सम्बन्धित सम्पूर्ण चल अचल सम्पत्तिहरु यस
-                                    बैंकको पक्षमा धितोबन्धक हकाधिकार कायम गरिदिनु पर्नेछ ।
-                                </li>
-                                <li *ngIf="securityTypeConditionDocuments">
-                                    <strong> हस्तान्तरण </strong>(Assignment):<br>
-                                    ऋणीले आफ्ना आसामीबाट भुक्तानी प्राप्त गर्न बांकि रकमहरु (Account Receivables)
-                                    बैंकले संकलन गर्न सक्ने अख्तियारनामा हस्तान्तरण गरिदिनु पर्नेछ ।
-                                </li>
-                                <li *ngIf="securityTypeConditionPg">
-                                    <strong> व्यक्तिगत जमानत</strong> (Personal Guarantee):<br>
-                                    <div *ngFor="let personalGuarantor of tempPersonalGuarantors">
-                                        रु.<input class="form-field form-control-sm"
-                                            formControlName="totalAmountInFigure"
-                                            [value]="personalGuarantor?.gurantedAmount?.ct" placeholder=" "
-                                            type="text" />
-                                        /- (अक्षरेपी रु.<input class="form-field form-control-sm"
-                                            formControlName="totalAmountInWords"
-                                            [value]="this.nepaliCurrencyWordPipe.transform(personalGuarantor.gurantedAmount.en)"
-                                            placeholder=" " type="text" /> मात्र)
-                                        बराबरको
-                                        {{personalGuarantor.gender.en === 'FEMALE' && personalGuarantor.guarantorMaritalStatus.en ===
-                                    'Married' ? 'श्रीमती' : (personalGuarantor.gender.en === 'FEMALE' && personalGuarantor.guarantorMaritalStatus.en ===
-                                    'Unmarried' ? 'सुश्री' : personalGuarantor.gender.en === 'MALE' ? 'श्रीमान्' : 'श्री')}}
-                                        <input class="form-field form-control-sm"
-                                            formControlName="guarantorName"
-                                            [value]="personalGuarantor.guarantorName ? personalGuarantor.guarantorName.ct : ''"
-                                            placeholder=" " type="text" />
-                                        ले बैंकको पक्षमा व्यक्तिगत जमानत लेखिदिनु पर्नेछ ।
-                                    </div>
-                                </li>
-                            </ol>
+                                        <br>
+                                        बैंकबाट प्राप्त कर्जा वा सुविधा तथा ऋणीको आफ्नै श्रोत समेतबाट खरिद गरेको जहासुकै
+                                        रहे भएको कच्चा पदार्थ प्रशोधित वा
+                                        अर्ध प्रशोधित कच्चा पदार्थ, तयारी सामान, पशुपन्छी, दाना, अण्डा, भ्याक्सिन/औषधि,
+                                        कृषि उपज आदी लगायतका सम्पूर्ण सामानहरुको
+                                        मौज्दात, टहरा, उपकरण लगायत परियोजना संग सम्बन्धित सम्पूर्ण चल अचल सम्पत्तिहरु यस
+                                        बैंकको पक्षमा धितोबन्धक हकाधिकार कायम गरिदिनु पर्नेछ ।
+                                    </li>
+                                    <li *ngIf="securityTypeConditionDocuments">
+                                        <strong> हस्तान्तरण </strong>(Assignment):<br>
+                                        ऋणीले आफ्ना आसामीबाट भुक्तानी प्राप्त गर्न बांकि रकमहरु (Account Receivables)
+                                        बैंकले संकलन गर्न सक्ने अख्तियारनामा हस्तान्तरण गरिदिनु पर्नेछ ।
+                                    </li>
+                                    <!--<li *ngIf="securityTypeConditionPg">
+                                        <strong> व्यक्तिगत जमानत</strong> (Personal Guarantee):<br>
+                                        <div *ngFor="let personalGuarantor of tempPersonalGuarantors">
+                                            रु.<input class="form-field form-control-sm"
+                                                formControlName="totalAmountInFigure"
+                                                [value]="personalGuarantor?.gurantedAmount?.ct" placeholder=" "
+                                                type="text" />
+                                            /- (अक्षरेपी रु.<input class="form-field form-control-sm"
+                                                formControlName="totalAmountInWords"
+                                                [value]="this.nepaliCurrencyWordPipe.transform(personalGuarantor.gurantedAmount.en)"
+                                                placeholder=" " type="text" /> मात्र)
+                                            बराबरको
+                                            {{personalGuarantor.gender.en === 'FEMALE' && personalGuarantor.guarantorMaritalStatus.en ===
+                                        'Married' ? 'श्रीमती' : (personalGuarantor.gender.en === 'FEMALE' && personalGuarantor.guarantorMaritalStatus.en ===
+                                        'Unmarried' ? 'सुश्री' : personalGuarantor.gender.en === 'MALE' ? 'श्री' : 'श्री')}}
+                                            <input class="form-field form-control-sm"
+                                                formControlName="guarantorName"
+                                                [value]="personalGuarantor.guarantorName ? personalGuarantor.guarantorName.ct : ''"
+                                                placeholder=" " type="text" />
+                                            ले बैंकको पक्षमा व्यक्तिगत जमानत लेखिदिनु पर्नेछ ।
+                                        </div>
+                                    </li>-->
+                                </ol>
+                            </ng-container>
+                            <ng-container *ngIf="this.securityDetails.secondarySecurity.length > 0">
+                                <p>
+                                    <strong> ख. थप सुरक्षण (Secondary Security)</strong>
+                                </p>
+                                <ol class="conditions-list orderd-list">
+                                    <li *ngIf="securityTypeSecondaryCondition"><strong>
+                                        घर/जग्गा धितोेबन्धक हकाधिकार </strong>(Mortgage Charges):<br>
+                                        स्वीकृत ऋणकर्जा प्रवाह गर्नु अगावै ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा देहाय
+                                        बमोजिमको घर/जग्गा धितोबन्धक पारित/रोक्का गरिदिनु पर्नेछ ।
+                                        <div class="pb-4">
+                                            <app-single-sme-secondary-security-view
+                                                    [securityDetails]="tempData?.securities">
+                                            </app-single-sme-secondary-security-view>
+                                        </div>
+                                    </li>
+                                    <li *ngIf="securityTypeConditionFixedAssestsSecondary"><strong> सामान मौज्दात
+                                        धितोेबन्धक हकाधिकार
+                                    </strong>(Hypothecation Charges)
+                                        <br>
+                                        बैंकबाट प्राप्त कर्जा वा सुविधा तथा ऋणीको आफ्नै श्रोत समेतबाट खरिद गरेको जहासुकै
+                                        रहे भएको कच्चा पदार्थ प्रशोधित वा
+                                        अर्ध प्रशोधित कच्चा पदार्थ, तयारी सामान, पशुपन्छी, दाना, अण्डा, भ्याक्सिन/औषधि,
+                                        कृषि उपज आदी लगायतका सम्पूर्ण सामानहरुको
+                                        मौज्दात, टहरा, उपकरण लगायत परियोजना संग सम्बन्धित सम्पूर्ण चल अचल सम्पत्तिहरु यस
+                                        बैंकको पक्षमा धितोबन्धक हकाधिकार कायम गरिदिनु पर्नेछ ।
+                                    </li>
+                                    <li *ngIf="securityTypeConditionDocumentsSecondary">
+                                        <strong> हस्तान्तरण </strong>(Assignment):<br>
+                                        ऋणीले आफ्ना आसामीबाट भुक्तानी प्राप्त गर्न बांकि रकमहरु (Account Receivables)
+                                        बैंकले संकलन गर्न सक्ने अख्तियारनामा हस्तान्तरण गरिदिनु पर्नेछ ।
+                                    </li>
+                                    <li *ngIf="securityTypeConditionPg">
+                                        <strong> व्यक्तिगत जमानत</strong> (Personal Guarantee):<br>
+                                        <div *ngFor="let personalGuarantor of tempPersonalGuarantors">
+                                            रु.<input class="form-field form-control-sm"
+                                                      formControlName="totalAmountInFigure"
+                                                      [value]="personalGuarantor?.gurantedAmount?.ct" placeholder=" "
+                                                      type="text"/>
+                                            /- (अक्षरेपी रु.<input class="form-field form-control-sm"
+                                                                   formControlName="totalAmountInWords"
+                                                                   [value]="this.nepaliCurrencyWordPipe.transform(personalGuarantor.gurantedAmount.en)"
+                                                                   placeholder=" " type="text"/> मात्र)
+                                            बराबरको
+                                            {{personalGuarantor.gender.en === 'FEMALE' && personalGuarantor.guarantorMaritalStatus.en ===
+                                        'Married' ? 'श्रीमती' : (personalGuarantor.gender.en === 'FEMALE' && personalGuarantor.guarantorMaritalStatus.en ===
+                                        'Unmarried' ? 'सुश्री' : personalGuarantor.gender.en === 'MALE' ? 'श्री' : 'श्री')}}
+                                            <input class="form-field form-control-sm"
+                                                   formControlName="guarantorName"
+                                                   [value]="personalGuarantor.guarantorName ? personalGuarantor.guarantorName.ct : ''"
+                                                   placeholder=" " type="text"/>
+                                            ले बैंकको पक्षमा व्यक्तिगत जमानत लेखिदिनु पर्नेछ ।
+                                        </div>
+                                    </li>
+                                </ol>
+                            </ng-container>
                         </div>
                     </div>
 
@@ -527,11 +585,11 @@
                                 </ol>
 
                             </div>
-                            <div class="service-contions mt-5">
+                            <div class="service-contions mt-5" *ngIf="securityTypeCondition || securityTypeSecondaryCondition">
 
                                 <ol class="conditions-list orderd-list">
                                     <strong>सुरक्षणहरु सम्बन्धित शर्तहरु<br>
-                                        <p *ngIf="securityTypeCondition">
+                                        <p>
                                             घर तथा जग्गा धितोे सुरक्षण</p>
                                     </strong>
                                     <li> माथि उल्लिखित घर/जग्गा बैंकको पक्षमा धितोेबन्धक पारित गर्दा
@@ -591,10 +649,10 @@
                                 </ol>
                             </div>
                         </div>
-                        <div class="service-contions mt-3">
+                        <div class="service-contions mt-3" *ngIf="securityTypeConditionFixedAssests || securityTypeConditionFixedAssestsSecondary">
                             <ol class="conditions-list orderd-list">
                                 <strong>
-                                    <p *ngIf="securityTypeConditionFixedAssests"><strong><u>सामानको मौज्दात सुरक्षण र
+                                    <p><strong><u>सामानको मौज्दात सुरक्षण र
                                                 भुक्तानी
                                                 प्राप्त गर्न बाँकी रकमहरुका
                                                 लागि </u></strong></p>
@@ -624,7 +682,7 @@
                     <div class="service-contions mt-5">
                         <ol class="conditions-list orderd-list">
                             <strong>बिमा सम्बन्धी शर्तहरु </strong>
-                            <li *ngIf="securityTypeConditionStock">ऋणीले आफ्नोे खर्चमा आगलागी, भुकम्प, दंगा/हड्ताल,
+                            <li *ngIf="inStock">ऋणीले आफ्नोे खर्चमा आगलागी, भुकम्प, दंगा/हड्ताल,
                                 दुर्भावनापूर्ण क्षति र
                                 आतंकवाद आदी जस्ता
                                 जोखिमहरुबाट सुरक्षित गरिएको “बैंकिङ्ग शर्त”
@@ -638,7 +696,7 @@
                                 बिमा गरीएको हुनु
                                 पर्नेछ.
                             </li>
-                            <li *ngIf="securityTypeConditionFixedAssests || securityTypeConditionAssestsPlants"> ऋणीले
+                            <li *ngIf="fixedAssests"> ऋणीले
                                 आफ्नोे खर्चमा आगलागी, भुकम्प, दंगा/हड्ताल, दुर्भावनापूर्ण क्षति र
                                 आतंकवाद आदी जस्ता
                                 जोखिमहरुबाट सुरक्षित गरिएको “बैंकिङ्ग शर्त”
@@ -660,8 +718,8 @@
                                 लागत/बजार मूल्य भन्दा कम
                                 हुनु हुने छैन् ।
                             </li>
-                            <li *ngIf="securityTypeConditionLiveStocks"> ऋणीले आफ्नोे खर्चमा आगलागी, भुकम्प,
-                                दंगा÷हड्ताल, दुर्भावनापूर्ण क्षति र
+                            <li *ngIf="liveStock"> ऋणीले आफ्नोे खर्चमा आगलागी, भुकम्प,
+                                दंगा/हड्ताल, दुर्भावनापूर्ण क्षति र
                                 आतंकवाद आदी जस्ता
                                 जोखिमहरुबाट सुरक्षित
                                 गरीएको “बैंकिङ्ग शर्त” (Bankers Clause) सहितको बैंकको पक्षमा
@@ -1025,7 +1083,7 @@
                                     बराबरको
                                     {{personalGuarantor.gender.en === 'FEMALE' && personalGuarantor.guarantorMaritalStatus.en ===
                                     'Married' ? 'श्रीमती' : (personalGuarantor.gender.en === 'FEMALE' && personalGuarantor.guarantorMaritalStatus.en ===
-                                    'Unmarried' ? 'सुश्री' : personalGuarantor.gender.en === 'MALE' ? 'श्रीमान्' : 'श्री')}}
+                                    'Unmarried' ? 'सुश्री' : personalGuarantor.gender.en === 'MALE' ? 'श्री' : 'श्री')}}
                                         <input class="form-field form-control-sm" formControlName="guarantorName"
                                             [value]="personalGuarantor?.guarantorName?.ct" placeholder=" " type="text" /> ले
                                         बैंकको पक्षमा लेखिदिनुपर्ने
