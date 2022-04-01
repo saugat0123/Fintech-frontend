@@ -567,14 +567,16 @@ export class ProposalComponent implements OnInit {
     const proposedAmount = this.proposalForm.get('proposedLimit').value;
     const rate = Number(this.proposalForm.get('interestRate').value) / (12 * 100);
     const n = this.proposalForm.get('tenureDurationInMonths').value;
+    const eqiRate = Number(this.proposalForm.get('interestRate').value) / (4 * 100);
     if (proposedAmount && rate && n) {
       const emi = Number((proposedAmount * rate * Math.pow(1 + rate, n)) / Number(Math.pow(1 + rate, n) - 1));
+      const eqi = Number((proposedAmount * eqiRate * Math.pow(1 + eqiRate, n / 4)) / Number(Math.pow(1 + eqiRate, n / 4) - 1));
       switch (repaymentMode) {
         case 'emi':
           this.proposalForm.get('installmentAmount').patchValue(Number(emi.toFixed(2)));
           break;
         case 'eqi':
-          this.proposalForm.get('installmentAmount').patchValue(Number((emi * 3).toFixed(2)));
+          this.proposalForm.get('installmentAmount').patchValue(Number(eqi.toFixed(2)));
           break;
       }
     } else {
