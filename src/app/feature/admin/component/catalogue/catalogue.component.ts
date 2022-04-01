@@ -44,6 +44,7 @@ import {CreditMemoFullRoutes} from '../../../credit-memo/credit-memo-full-routes
 import {CreditMemoService} from '../../../credit-memo/service/credit-memo.service';
 import {CreditMemoModalComponent} from './credit-memo-modal/credit-memo-modal.component';
 import {LoanActionModalComponent} from '../../../loan/loan-action/loan-action-modal/loan-action-modal.component';
+import {LoanActionCombinedModalComponent} from '../../../loan/loan-action/loan-action-combined-modal/loan-action-combined-modal.component';
 
 @Component({
     selector: 'app-catalogue',
@@ -123,6 +124,20 @@ export class CatalogueComponent implements OnInit {
     customerId: number;
     isRemitLoan = false;
     beneficiaryId: any;
+    loanConfigData = [{
+        loanName: null,
+        loanType: null
+    }];
+    loanData = [{
+        loanConfigId: null,
+        customerLoanId: null,
+        toUser: null,
+        toRole: null,
+        docAction: null,
+        comment: null,
+        documentStatus: null
+    }];
+    isCombineLoan = false;
 
     constructor(
         private branchService: BranchService,
@@ -176,9 +191,6 @@ export class CatalogueComponent implements OnInit {
         if (LocalStorageUtil.getStorage().roleType === RoleType.MAKER) {
             this.isMaker = true;
         }
-        // if (LocalStorageUtil.getStorage().roleType === RoleType.APPROVAL) {
-        //     this.isMaker = true;
-        // }
         if (this.roleAccess === RoleAccess.SPECIFIC) {
             this.accessSpecific = true;
         } else if (this.roleAccess === RoleAccess.ALL) {
@@ -551,17 +563,45 @@ export class CatalogueComponent implements OnInit {
         return loanFlags.map((f) => f.flag).includes(LoanFlag[LoanFlag.INSURANCE_EXPIRY]);
     }
 
-    onReInitiateClick(template, customerLoanId, customerName, loanFacilityName, loanType, branchName) {
-        this.reInitiateLoanCustomerName = customerName;
-        this.reInitiateLoanFacilityName = loanFacilityName;
-        this.reInitiateLoanType = loanType;
-        this.reInitiateLoanBranchName = branchName;
-        this.formAction.patchValue({
+    onReInitiateClick(template, customerLoanId, customerName, loanFacilityName, loanType, branchName, combineLoan) {
+        this.loanData = [];
+        if (!ObjectUtil.isEmpty(combineLoan)) {
+            this.loanConfigData = [];
+            this.isCombineLoan = true;
+            this.loanFormService.getLoanByCombineLoanId(combineLoan.id).toPromise().then((res: any) => {
+                res.detail.forEach((cl) => {
+                    this.reInitiateLoanCustomerName = customerName;
+                    this.reInitiateLoanBranchName = branchName;
+                    this.loanConfigData.push({
+                        loanType: cl.loanType,
+                        loanName: cl.loan.name,
+                    });
+                    this.loanData.push({
+                        loanConfigId: null,
+                        customerLoanId: cl.id,
+                        toUser: null,
+                        toRole: null,
+                        docAction: DocAction.value(DocAction.RE_INITIATE),
+                        comment: 'Re-initiate',
+                        documentStatus: null,
+                    });
+                });
+            });
+        } else {
+            this.reInitiateLoanCustomerName = customerName;
+            this.reInitiateLoanFacilityName = loanFacilityName;
+            this.reInitiateLoanType = loanType;
+            this.reInitiateLoanBranchName = branchName;
+            this.loanData.push({
+                loanConfigId: null,
                 customerLoanId: customerLoanId,
+                toUser: null,
+                toRole: null,
                 docAction: DocAction.value(DocAction.RE_INITIATE),
-                comment: 'Re-initiate'
-            }
-        );
+                comment: 'Re-initiate',
+                documentStatus: null,
+            });
+        }
         this.modalService.open(template, {size: 'lg', backdrop: 'static', keyboard: false});
     }
 
@@ -573,10 +613,10 @@ export class CatalogueComponent implements OnInit {
             if (isAuthorized) {
                 this.modalService.dismissAll();
                 this.reInitiateSpinner = true;
-                this.formAction.patchValue({
-                    comment: comment
+                this.loanData.forEach((cl) => {
+                    cl.comment = comment;
                 });
-                this.loanFormService.reInitiateLoan(this.formAction.value).subscribe((response: any) => {
+                this.loanFormService.reInitiateLoan(this.loanData).subscribe((response: any) => {
                     this.toastService.show(new Alert(AlertType.SUCCESS, 'Loan has been successfully re-initiated.'));
                     this.reInitiateSpinner = false;
                     this.modalService.dismissAll();
@@ -740,18 +780,37 @@ export class CatalogueComponent implements OnInit {
                 toUser: data.currentStage.toUser
             };
         }
-        this.dialogRef = this.nbDialogService.open(LoanActionModalComponent, {
-           context,
-            closeOnBackdropClick: false,
-            hasBackdrop: false,
-            hasScroll: true
-        });
-        this.dialogRef.onClose.subscribe(d => {
-            if (ObjectUtil.isEmpty(d)) {
-                this.spinner = false;
-            } else {
-                this.spinner = true;
-            }
-        });
+        if (ObjectUtil.isEmpty(data.combinedLoan)) {
+            this.dialogRef = this.nbDialogService.open(LoanActionModalComponent, {
+                context,
+                closeOnBackdropClick: false,
+                hasBackdrop: false,
+                hasScroll: true
+            });
+            this.dialogRef.onClose.subscribe(d => {
+                if (ObjectUtil.isEmpty(d)) {
+                    this.spinner = false;
+                } else {
+                    this.spinner = true;
+                }
+            });
+        } else {
+            context.combinedLoanId = data.combinedLoan.id;
+            context.isMaker = this.isMaker;
+            context.branchId = data.branch.id,
+            this.dialogRef = this.nbDialogService.open(LoanActionCombinedModalComponent, {
+                context,
+                closeOnBackdropClick: false,
+                hasBackdrop: false,
+                hasScroll: true
+            });
+            this.dialogRef.onClose.subscribe(d => {
+                if (ObjectUtil.isEmpty(d)) {
+                    this.spinner = false;
+                } else {
+                    this.spinner = true;
+                }
+            });
+        }
     }
 }

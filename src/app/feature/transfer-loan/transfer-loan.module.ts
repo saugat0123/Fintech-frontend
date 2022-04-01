@@ -10,6 +10,7 @@ import {NbTooltipModule} from '@nebular/theme';
 import { VerificationActionModelComponent } from './components/verification-action-model/verification-action-model.component';
 import {LoanActionModalComponent} from '../loan/loan-action/loan-action-modal/loan-action-modal.component';
 import {LoanActionVerificationComponent} from '../loan/loan-action/loan-action-verification/loan-action-verification.component';
+import {LoanActionCombinedModalComponent} from '../loan/loan-action/loan-action-combined-modal/loan-action-combined-modal.component';
 
 
 
@@ -19,7 +20,8 @@ import {LoanActionVerificationComponent} from '../loan/loan-action/loan-action-v
       CombinedLoanTransferModelComponent,
       VerificationActionModelComponent,
       LoanActionModalComponent,
-      LoanActionVerificationComponent
+      LoanActionVerificationComponent,
+      LoanActionCombinedModalComponent
   ],
     imports: [
         ThemeModule,
@@ -34,6 +36,7 @@ import {LoanActionVerificationComponent} from '../loan/loan-action/loan-action-v
         CombinedLoanTransferModelComponent,
         VerificationActionModelComponent,
         LoanActionModalComponent,
-        LoanActionVerificationComponent]
+        LoanActionVerificationComponent,
+        LoanActionCombinedModalComponent]
 })
 export class TransferLoanModule { }

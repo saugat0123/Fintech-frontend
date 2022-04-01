@@ -114,8 +114,6 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
   formAction: FormGroup;
   displaySecurity = false;
   isCombineLoan = false;
-  combineLoanType = [];
-  combineLoanName = [];
   loanConfigData = [{
     loanName: null,
     loanType: null
@@ -159,7 +157,6 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
     this.spinner = true;
     this.customerLoanService.getFinalLoanListByLoanHolderId(this.customerInfo.id).subscribe((res: any) => {
       this.customerGroupLoanList = res.detail;
-      console.log('customerGroupLoanList', this.customerGroupLoanList);
       this.loanHistories = this.groupCombinedLoan(this.customerGroupLoanList);
       this.loanHistories.forEach(() => this.toggleArray.push({toggled: false}));
       this.spinner = false;
@@ -321,11 +318,9 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
         .filter((l) => !ObjectUtil.isEmpty(l.combinedLoan))
         .filter((l) => l.combinedLoan.id === loan.combinedLoan.id);
         // create single combined dto
-        console.log('combinedLoans', combinedLoans);
         let documentStat = null;
         const result = combinedLoans.filter((value, index, self) =>
             self.findIndex((m) => m.documentStatus === value.documentStatus) === index);
-        console.log('result', result);
         if (result.length > 1) {
           documentStat = 'N/A';
         } else {
@@ -366,7 +361,6 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
         loanHistories.push(dto);
       }
     }
-    console.log('loanHistories', loanHistories);
     return loanHistories;
   }
 
@@ -534,7 +528,6 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
 
   onReInitiateClick(template, customerLoanId, customerName, loanFacilityName, loanType, branchName, combineLoan) {
     this.loanData = [];
-    console.log('combineLoan', combineLoan);
     if (!ObjectUtil.isEmpty(combineLoan)) {
       this.loanConfigData = [];
       this.isCombineLoan = true;

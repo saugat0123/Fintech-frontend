@@ -38,6 +38,7 @@ export class LoanActionCombinedModalComponent implements OnInit {
     @Input() isMaker: boolean;
     @Input() branchId: number;
     @Input() toRole: Role;
+    @Input() toUser: User;
     ckeConfig = Editor.CK_CONFIG;
     public combinedLoan: CombinedLoan;
     public LoanType = LoanType;
@@ -195,8 +196,27 @@ export class LoanActionCombinedModalComponent implements OnInit {
             if (this.individualType.form.invalid) {
                 return;
             }
-            const dialogRef = this.nbDialogService.open(LoanActionVerificationComponent,
-                {context: {individualCombine: this.individualType.form.value, action: this.docAction}});
+            let dialogRef;
+            if (this.docAction === DocAction[DocAction.REVERT_APPROVED]) {
+                const action = this.individualType.form.get('actions') as FormArray;
+                action.value.forEach((ac) => {
+                   ac.toUser = this.toUser;
+                   ac.toRole = this.toUser.role;
+                });
+                dialogRef = this.nbDialogService.open(LoanActionVerificationComponent, {
+                    context: {
+                        individualCombine: this.individualType.form.value,
+                        action: this.docAction
+                    }
+                });
+            } else {
+                dialogRef = this.nbDialogService.open(LoanActionVerificationComponent, {
+                    context: {
+                        individualCombine: this.individualType.form.value,
+                        action: this.docAction
+                    }
+                });
+            }
             dialogRef.onClose.subscribe((verified: boolean) => {
                 if (verified === true) {
                     this.postCombinedAction(false);
@@ -209,12 +229,26 @@ export class LoanActionCombinedModalComponent implements OnInit {
             if (this.combinedType.form.invalid) {
                 return;
             }
-            const dialogRef = this.nbDialogService.open(LoanActionVerificationComponent, {
-                context: {
-                    toUser: this.combinedType.form.get('toUser').value,
-                    toRole: this.combinedType.form.get('toRole').value, action: this.docAction
-                }
-            });
+            let dialogRef;
+            if (this.docAction === DocAction[DocAction.REVERT_APPROVED]) {
+                this.combinedType.form.get('toUser').patchValue(this.toUser);
+                this.combinedType.form.get('toRole').patchValue(this.toUser.role);
+                dialogRef = this.nbDialogService.open(LoanActionVerificationComponent, {
+                    context: {
+                        toUser: this.toUser,
+                        toRole: this.toUser.role,
+                        action: this.docAction
+                    }
+                });
+            } else {
+                dialogRef = this.nbDialogService.open(LoanActionVerificationComponent, {
+                    context: {
+                        toUser: this.combinedType.form.get('toUser').value,
+                        toRole: this.combinedType.form.get('toRole').value,
+                        action: this.docAction
+                    }
+                });
+            }
             dialogRef.onClose.subscribe((verified: boolean) => {
                 if (verified === true) {
                     this.postCombinedAction(true);
