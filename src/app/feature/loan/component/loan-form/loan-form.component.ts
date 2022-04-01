@@ -68,6 +68,7 @@ import {CrgMicroComponent} from '../../../loan-information-template/crg-micro/cr
 import {MicroCustomerType} from '../../../../@core/model/enum/micro-customer-type';
 import {ProductPaperChecklistComponent} from '../../../loan-information-template/product-paper-checklist/product-paper-checklist.component';
 import {DomSanitizer} from '@angular/platform-browser';
+import {SecurityAdderComponent} from '../../../loan-information-view/security-view/security-adder/security-adder.component';
 
 
 @Component({
@@ -215,6 +216,9 @@ export class LoanFormComponent implements OnInit {
     @ViewChild('guarantor', {static: false})
     guarantorComponent: GuarantorAdderComponent;
 
+    @ViewChild('shareSecurity', {static: false})
+    shareSecurity: SecurityAdderComponent;
+
     @ViewChild('reportingInfoTagging', {static: false})
     reportingInfoTaggingComponent: ReportingInfoTaggingComponent;
 
@@ -231,6 +235,8 @@ export class LoanFormComponent implements OnInit {
     loanTypeKeyValue = LoanType;
     loanType;
     checklistData;
+    shareSecurityData;
+    approvedShareSecurity;
     loans;
     paperChecklist;
     allIds = [];
@@ -260,7 +266,6 @@ export class LoanFormComponent implements OnInit {
         private sanitized: DomSanitizer,
         private el: ElementRef,
         private changeDetectorRef: ChangeDetectorRef
-
     ) {
     }
 
@@ -660,6 +665,24 @@ export class LoanFormComponent implements OnInit {
             this.allIds = obj.id;
         }
 
+        if (name === 'Security' && action) {
+            this.shareSecurity.save();
+            this.loanDocument.loanHolder.shareSecurity = this.shareSecurity.shareSecurityData;
+            if (this.loanDocument.loanHolder.shareSecurity.data !== null) {
+                const updatedShareData = this.loanDocument.loanHolder.shareSecurity.data;
+                const stringifyShareData = JSON.parse(updatedShareData);
+                stringifyShareData.shareSecurityDetails = this.shareSecurity.approvedShareSecurity;
+                this.loanDocument.loanHolder.shareSecurity.data = JSON.stringify(stringifyShareData);
+            }
+            if (this.loanDocument.loanHolder.shareSecurity.approvedData !== null) {
+                const updatedShareApprovedData = this.loanDocument.loanHolder.shareSecurity.approvedData;
+                const stringifyShareApprovedData = JSON.parse(updatedShareApprovedData);
+                stringifyShareApprovedData.shareSecurityDetails = this.shareSecurity.approvedShareSecurity;
+                this.loanDocument.loanHolder.shareSecurity.approvedData = JSON.stringify(stringifyShareApprovedData);
+            }
+        }
+
+
         if (name === 'Loan Document' && action) {
             this.loanDocument.customerDocument = this.customerDocument.customerDocumentArray;
         }
@@ -804,9 +827,15 @@ export class LoanFormComponent implements OnInit {
             this.loanDocument.creditRisk = this.creditRisk.get('creditRisk').value;
             this.loanDocument.loanType = this.loanType;
             this.loanDocument.loanCategory = this.allId.loanCategory;
+
+            if (this.loanType === 'RELEASE_AND_REPLACEMENT') {
+                    this.loanDocument.loanHolder.shareSecurity.customerShareData = this.approvedShareSecurity;
+            }
+
             if (CustomerType[this.loanHolder.customerType] === CustomerType.INSTITUTION) {
                 this.loanDocument.customerInfo = null;
             }
+
             if (ObjectUtil.isEmpty(this.loanDocument.loanHolder)) {
                 this.spinner.hide();
                 this.toastService.show(new Alert(AlertType.ERROR, 'Customer cannot be empty! Please search customer'));
@@ -837,11 +866,16 @@ export class LoanFormComponent implements OnInit {
         this.commonRoutingUtilsService.loadCustomerProfile(loanHolder.associateId, loanHolder.id, loanHolder.customerType);
     }
 
-   updateIncome(event) {
-       this.loanDocument.loanHolder = event;
-       this.save(false);
-   }
-   updateChecklist(event) {
+    updateIncome(event) {
+        this.loanDocument.loanHolder = event;
+        this.save(false);
+    }
+
+    updateChecklist(event) {
         this.checklistData = event;
-   }
+    }
+
+    updateSecurityList(event) {
+        this.approvedShareSecurity = event;
+    }
 }
