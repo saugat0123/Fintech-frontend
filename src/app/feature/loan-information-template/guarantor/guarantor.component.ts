@@ -178,6 +178,10 @@ export class GuarantorComponent implements OnInit {
           ObjectUtil.setUndefinedIfNull(data.netWorth),
           Validators.required
       ],
+      guaranteeAmount: [
+          ObjectUtil.setUndefinedIfNull(data.guaranteeAmount),
+          Validators.required
+      ],
       docPath: [
           ObjectUtil.setUndefinedIfNull(data.docPath)
       ],
@@ -295,7 +299,9 @@ export class GuarantorComponent implements OnInit {
         guarantor.municipalitiesTemporary = municipalityVdc;
       }
       this.guarantorDetail.guarantorList.push(guarantor);
+      console.log('child :', guarantor);
     });
+    
     this.guarantorDataEmitter.emit(this.guarantorDetail);
   }
 
