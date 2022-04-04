@@ -21,6 +21,7 @@ export class Guarantor {
     relationship: string;
     docPath: string;
     netWorth: number;
+    guaranteeAmount: number;
     consentOfLegalHeirs: boolean;
     streetName: string;
     permanentAddressLineOne: string;
