@@ -54,4 +54,10 @@ export class CollateralSiteVisitService extends BaseService<CollateralSiteVisit>
     const req = ApiUtils.getRequest(api);
     return this.http.delete(req.url, {headers: req.header});
   }
+
+  public getCollateralBySecurityAndApprovedData(loanApprovedDate: string, id: number): Observable<any> {
+    const api = `${this.getApi()}/col-site-visit/${loanApprovedDate}/${id}`;
+    const req = ApiUtils.getRequest(api);
+    return this.http.get(req.url, {headers: req.header});
+  }
 }

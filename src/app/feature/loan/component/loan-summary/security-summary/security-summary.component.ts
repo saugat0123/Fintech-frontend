@@ -9,6 +9,7 @@ import {CollateralSiteVisit} from '../../../../loan-information-template/securit
 import {SiteVisitDocument} from '../../../../loan-information-template/security/security-initial-form/fix-asset-collateral/site-visit-document';
 import {SummaryType} from '../../SummaryType';
 import {flatten} from '@angular/compiler';
+import {DatePipe} from '@angular/common';
 
 
 @Component({
@@ -56,6 +57,7 @@ export class SecuritySummaryComponent implements OnInit {
     @Input() isCollateralSiteVisit;
     @Input() nepaliDate;
     @Input() siteVisitDocuments: Array<SiteVisitDocument>;
+    @Input() loanApproveDate: Date;
     isCollateralSiteVisitPresent = false;
     collateralSiteVisits: Array<CollateralSiteVisit> = [];
     siteVisitJson = [];
@@ -68,7 +70,8 @@ export class SecuritySummaryComponent implements OnInit {
     @Input() docStatus;
     @Output() downloadSiteVisitDocument = new EventEmitter();
 
-    constructor(private collateralSiteVisitService: CollateralSiteVisitService) {
+    constructor(private collateralSiteVisitService: CollateralSiteVisitService,
+                private date: DatePipe) {
     }
 
     ngOnInit() {
@@ -192,7 +195,7 @@ export class SecuritySummaryComponent implements OnInit {
         if (this.formData['guarantorsForm']['guarantorsDetails'].length !== 0) {
             this.isPresentGuarantor = true;
         }
-        if (!ObjectUtil.isEmpty(this.collateralData) && this.docStatus.toString() === 'APPROVED') {
+        if (!ObjectUtil.isEmpty(this.collateralData)) {
             this.collateralSiteVisits = this.collateralData;
             const arr = [];
             this.collateralSiteVisits.forEach(f => {
@@ -210,6 +213,13 @@ export class SecuritySummaryComponent implements OnInit {
             });
             if (this.collateralData.length > 0) {
                 this.isCollateralSiteVisitPresent = true;
+            }
+        } else if (this.docStatus.toString() === 'APPROVED') {
+            if (!ObjectUtil.isEmpty(this.securityId)) {
+                this.collateralSiteVisitService.getCollateralBySecurityAndApprovedData(this.date.transform(this.loanApproveDate, 'yyyy-MM-dd'), this.securityId)
+                    .subscribe((res: any) => {
+                    console.log('res', res.detail);
+                });
             }
         } else {
             if (!ObjectUtil.isEmpty(this.securityId)) {
