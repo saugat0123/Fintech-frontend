@@ -27,7 +27,7 @@
                         <ol class="dev-list">
                             <li *ngIf="securityTypeCondition">
                                 <!-- Applicable only if Land/building as primary collateral-->
-                                <strong>घर/जग्गा धितोेबन्धक हकाधिकार (Mortgage Charges):</strong>
+                                <strong>घर/जग्गा धितोबन्धक हकाधिकार (Mortgage Charges):</strong>
                                 <ng-container *ngFor="let item of tempLandBuilding; let i = index">
                                 <p class="m-0"
                                    *ngIf="item.collateralShare == 'NO' && (this.primaryNewMortgage || this.primaryExistingMortgage)">
@@ -35,7 +35,7 @@
                                     <span  *ngIf="item.mortgageType === 'New'">
                                 स्वीकृत ऋणकर्जा प्रवाह गर्नु अगावै
                             </span>
-                                    ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा देहाय बमोजिमको घर/जग्गा धितोेबन्धक पारित
+                                    ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा देहाय बमोजिमको घर/जग्गा धितोबन्धक पारित
                                     <!--For new mortgage / remortgage-->
                                     <span *ngIf="item.mortgageType === 'New'">
                                 गरी दिनु पर्नेछ ।
@@ -48,12 +48,12 @@
                                 <p class="m-0"
                                    *ngIf="item.collateralShareCT == 'NO' && item.mortgageType === 'Enhancement'">
                                     <!-- For existing mortgage with enhancement-->
-                                    यस अघि ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा धितोेबन्धक पारित गरिदिनुभएका देहाय
+                                    यस अघि ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा धितोबन्धक पारित गरिदिनुभएका देहाय
                                     बमोजिमको
                                     घर/जग्गा माथि स्वीकृत थप/ अतिरिक्त ऋणकर्जा/सुविधा सहित सम्पुर्ण ऋणकर्जा सुविधाका
                                     लागि
                                     समेत
-                                    धितोेबन्धक यथावत कायम रहने छ ।
+                                    धितोबन्धक यथावत कायम रहने छ ।
                                 </p>
 
                                 <div *ngIf="item.collateralShareCT == 'YES' && (item.mortgageType === 'New' || item.mortgageType === 'Existing')">
@@ -67,7 +67,7 @@
                                         देहाय बमोजिमको घर जग्गा यस बैकले
                                         <span class="font-weight-bold">{{item.nameOfBorrowingClientCT}}</span>
                                         को नाममा स्वीकृत ऋण कर्जा सुविधा समेत
-                                        उल्लेख गरी संयुक्त रुपमा धितोेबन्धक पारित
+                                        उल्लेख गरी संयुक्त रुपमा धितोबन्धक पारित
                                         <span *ngIf="item.mortgageType === 'New'">
                                     <!--For new mortgage / remortgage-->
                                         गरिदिनु पर्नेछ ।
@@ -84,12 +84,12 @@
                                         <!--this clause if the collateral is shared and For existing mortgage with enhancement-->
                                         यस अघि ऋणकर्जाको सुरक्षण स्वरुप यस बैंकले तपाई ऋणी तथा
                                         <span class="font-weight-bold">{{item.nameOfBorrowingClientCT}}</span>
-                                        को नाममा स्वीकृत ऋण कर्जा सुविधा समेत उल्लेख गरी संयुक्त रुपमा धितोेबन्धक पारित
+                                        को नाममा स्वीकृत ऋण कर्जा सुविधा समेत उल्लेख गरी संयुक्त रुपमा धितोबन्धक पारित
                                         गरिदिनुभएको
                                         देहाय बमोजिमको घर/जग्गा माथि स्वीकृत थप/ अतिरिक्त ऋणकर्जा/सुविधा सहित सम्पुर्ण
                                         ऋणकर्जा
                                         सुविधाका
-                                        लागि धितोेबन्धक यथावत कायम रहने छ ।
+                                        लागि धितोबन्धक यथावत कायम रहने छ ।
                                     </p>
                                 </div>
                                 <div class="pb-4" *ngIf="securityTypeCondition">
@@ -101,7 +101,7 @@
 
                             <!-- Applicable if only hypothecation letter is required-->
                             <li *ngIf="securityTypeHypothecationCondition">
-                                <strong>सामान मौज्दात धितोेबन्धक हकाधिकार (Hypothecation Charges): </strong>
+                                <strong>सामान मौज्दात धितोबन्धक हकाधिकार (Hypothecation Charges): </strong>
                                 <p class="m-0" *ngIf="hypoPurposeTrading"> <!--For trading Unit-->
                                     बैंकबाट प्राप्त कर्जा वा सुविधा तथा ऋणीको आफ्नै श्रोत समेतबाट खरिद गरिएको जहासुकै
                                     रहे
@@ -320,7 +320,7 @@
                         <ol class="dev-list w-100">
                             <li *ngIf="securityTypeSecondaryCondition">
                                 <!-- Applicable only if Land/building as primary collateral-->
-                                <strong>घर/जग्गा धितोेबन्धक हकाधिकार (Mortgage Charges): </strong>
+                                <strong>घर/जग्गा धितोबन्धक हकाधिकार (Mortgage Charges): </strong>
                                 <ng-container *ngFor = "let item of tempSecondaryLandBuilding; let i = index">
                                 <p class="m-0"
                                    *ngIf="item.collateralShare == 'NO' && (item.mortgageType == 'New' || item.mortgageType == 'Existing')">
@@ -328,7 +328,7 @@
                                     <span *ngIf="item.mortgageType === 'New'">
                                         स्वीकृत ऋणकर्जा प्रवाह गर्नु अगावै
                                     </span>
-                                    ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा देहाय बमोजिमको घर/जग्गा धितोेबन्धक पारित
+                                    ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा देहाय बमोजिमको घर/जग्गा धितोबन्धक पारित
                                     <!--For new mortgage / remortgage-->
                                     <span  *ngIf="item.mortgageType === 'New'">
                                         गरी दिनु पर्नेछ ।
@@ -340,11 +340,11 @@
 
                                 <p class="m-0" *ngIf="item.collateralShareCT == 'NO' && item.mortgageType === 'Enhancement'">
                                     <!-- For existing mortgage with enhancement-->
-                                    यस अघि ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा धितोेबन्धक पारित गरिदिनुभएका देहाय
+                                    यस अघि ऋणकर्जाको सुरक्षण स्वरुप बैंकको पक्षमा धितोबन्धक पारित गरिदिनुभएका देहाय
                                     बमोजिमको
                                     घर/जग्गा माथि स्वीकृत थप/अतिरिक्त ऋणकर्जा/सुविधा सहित सम्पुर्ण ऋणकर्जा सुविधाका लागि
                                     समेत
-                                    धितोेबन्धक यथावत कायम रहने छ ।
+                                    धितोबन्धक यथावत कायम रहने छ ।
                                 </p>
 
                                 <div *ngIf="item.collateralShareCT == 'YES' && (item.mortgageType === 'New' || item.mortgageType === 'Existing')">
@@ -357,7 +357,7 @@
                                         देहाय बमोजिमको घर जग्गा यस बैकले
                                         <span class="font-weight-bold">{{item.nameOfBorrowingClientCT}}</span>
                                         को नाममा स्वीकृत ऋण कर्जा सुविधा समेत
-                                        उल्लेख गरी संयुक्त रुपमा धितोेबन्धक पारित
+                                        उल्लेख गरी संयुक्त रुपमा धितोबन्धक पारित
                                         <span *ngIf="item.mortgageType === 'New'"> <!--For new mortgage / remortgage-->
                                         गरिदिनु पर्नेछ ।
                                     </span>
@@ -373,9 +373,9 @@
                                         <!--this clause if the collateral is shared and For existing mortgage with enhancement-->
                                         यस अघि ऋणकर्जाको सुरक्षण स्वरुप यस बैंकले तपाई ऋणी तथा
                                         <span class="font-weight-bold">{{item.nameOfBorrowingClientCT}}</span>
-                                        को नाममा स्वीकृत ऋण कर्जा सुविधा समेत उल्लेख गरी संयुक्त रुपमा धितोेबन्धक पारित
+                                        को नाममा स्वीकृत ऋण कर्जा सुविधा समेत उल्लेख गरी संयुक्त रुपमा धितोबन्धक पारित
                                         गरिदिनुभएको देहाय बमोजिमको घर/जग्गा माथि स्वीकृत थप/ अतिरिक्त ऋणकर्जा/सुविधा
-                                        सहित सम्पुर्ण ऋणकर्जा सुविधाका लागि धितोेबन्धक यथावत कायम रहने छ ।
+                                        सहित सम्पुर्ण ऋणकर्जा सुविधाका लागि धितोबन्धक यथावत कायम रहने छ ।
                                     </p>
                                 </div>
                                 <div class="pb-4" *ngIf="securityTypeSecondaryCondition">
@@ -442,7 +442,7 @@
                             </li>
 
                             <li *ngIf="securityTypeSecondarySharePledgeCondition"> <!--If Share is as security-->
-                                <strong>शेयर धितोेबन्धक (Share Pledge): </strong>
+                                <strong>शेयर धितोबन्धक (Share Pledge): </strong>
                                 <p class="m-0">
                                     ऋणकर्जाको सुरक्षण स्वरुप यस बैंकको पक्षमा देहाय बमोजिमका संस्था/कम्पनीहरुद्धारा जारी
                                     गरिएको
@@ -452,7 +452,7 @@
                                     गरी
                                     सम्बन्धित
                                     कम्पनी वा सो कम्पनीको शेयर रजिष्ट्रारबाट यस बैंकको पक्षमा रोक्का कायम गराई
-                                    धितोेबन्धक
+                                    धितोबन्धक
                                     तमसुक
                                     <span *ngIf="sharePledgeSecondary"> <!--In case of new pledge-->
                                         गरिदिनुभएको यथावत कायम रहने छ ।
