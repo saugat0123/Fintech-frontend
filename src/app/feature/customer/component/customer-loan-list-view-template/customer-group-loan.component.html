@@ -122,7 +122,7 @@
                             <td (click)="model?.combinedLoans ? toggleArray[i].toggled = !toggleArray[i].toggled : onClick(model?.loanId, model.id,model?.currentStage)">{{model?.collateralRequirement}}</td>
                             <td (click)="model?.combinedLoans ? toggleArray[i].toggled = !toggleArray[i].toggled : onClick(model?.loanId, model.id,model?.currentStage)" class="text-right pr-1">
                                 Rs. {{(model?.collateralRequirement * model?.proposalProposedLimit) / 100 |currencyFormatter}}</td>
-                            <td (click)="model?.combinedLoans ? toggleArray[i].toggled = !toggleArray[i].toggled : onClick(model?.loanId, model.id,model?.currentStage)" class="text-left pl-1">{{model?.combinedLoans[0]?.currentStage?.lastModifiedAt | date}}({{model?.combinedLoans[0]?.currentStage?.lastModifiedAt | engNepDate : false}})</td>
+                            <td (click)="model?.combinedLoans ? toggleArray[i].toggled = !toggleArray[i].toggled : onClick(model?.loanId, model.id,model?.currentStage)" class="text-left pl-1">{{model?.currentStage?.lastModifiedAt | date}}({{model?.currentStage?.lastModifiedAt | engNepDate : false}})</td>
                         </tr>
                         <ng-container *ngIf="toggleArray[i].toggled">
                             <tr (click)="onClick(single?.loanId, single.id,single?.currentStage)"
