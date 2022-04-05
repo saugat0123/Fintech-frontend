@@ -47,29 +47,29 @@
                             उल्लिखित घर/जग्गा धितोेबन्धक पारित गरिदिइएको यथावत कायम रहने छ ।
                         </span>
 
-                        <span *ngIf="initialData.smeGlobalForm.loanOption === 'New'">
-            <strong> ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong>
-                        कर्जाको सुरक्षण वापत बैंकको पक्षमा धितोे
-            <ng-container
-                    *ngIf="val.mortgageType === 'New' || val.mortgageType === 'Enhancement'">
-                लेखिदिने
-            </ng-container>
-            <ng-container *ngIf="val.mortgageType === 'Existing'">
-                लेखिदिएको
-            </ng-container>
-                        घर/जग्गाको बैंकको आधिकारिक मुल्याङकनकर्ता द्वारा उद्घोषित
-            <ng-container *ngIf="val.drawingPowerBasis === 'DISTRESS_VALUE'">
-                 न्यूनतम मूल्य (Distress Value)
-            </ng-container>
-            <ng-container *ngIf="val.drawingPowerBasis === 'MARKET_VALUE'">
-                बजार मुल्य (Market Value)
-            </ng-container>
-            को <input class="form-field form-control-sm "
-                      formControlName="drawingPowerMortgageTerm"
-                      placeholder=""
-                      type="text"/>प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ
-            सो बरावर कर्जा उपयोग गर्न सकिनेछ ।
-        </span><br>
+            <span *ngIf="initialData.smeGlobalForm.loanOption != 'Plain Renewal'">
+                <strong> ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong>
+                            कर्जाको सुरक्षण वापत बैंकको पक्षमा धितोे
+                <ng-container
+                        *ngIf="val.mortgageType === 'New' || val.mortgageType === 'Enhancement'">
+                    लेखिदिने
+                </ng-container>
+                <ng-container *ngIf="val.mortgageType === 'Existing'">
+                    लेखिदिएको
+                </ng-container>
+                            घर/जग्गाको बैंकको आधिकारिक मुल्याङकनकर्ता द्वारा उद्घोषित
+                <ng-container *ngIf="val.drawingPowerBasis === 'DISTRESS_VALUE'">
+                     न्यूनतम मूल्य (Distress Value)
+                </ng-container>
+                <ng-container *ngIf="val.drawingPowerBasis === 'MARKET_VALUE'">
+                    बजार मुल्य (Market Value)
+                </ng-container>
+                को <input class="form-field form-control-sm "
+                          formControlName="drawingPowerMortgageTerm"
+                          placeholder=""
+                          type="text"/>प्रतिशत बराबर रकम वा स्वीकृत कर्जा मध्ये जुन कम हुन्छ
+                सो बरावर कर्जा उपयोग गर्न सकिनेछ ।
+            </span><br>
                     </p>
                     <p *ngIf="val.termLoanType === 'NEW_EMI_TERM_LOAN'">
                         <strong>ब्याज दरः त्रैमासिक औसत आधार दर (Quarterly Average Base Rate)</strong>
