@@ -40,7 +40,8 @@ export class SecurityAdderComponent implements OnInit {
     }
 
     addSecurityDetail(data) {
-        const presentShareSecurity = this.approvedShareSecurity.filter(d => d.id === data.id);
+        const presentShareSecurity = this.approvedShareSecurity.filter(d => d.companyName === data.companyName
+            && d.totalShareUnit === data.totalShareUnit);
         if (presentShareSecurity.length <= 0) {
             this.approvedShareSecurity.push(data);
             this.msg = '';
