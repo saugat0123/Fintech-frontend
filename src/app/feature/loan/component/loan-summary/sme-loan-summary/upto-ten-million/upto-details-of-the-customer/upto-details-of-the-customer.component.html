@@ -3,9 +3,9 @@
 <table class="table table-condensed table-bordered table-responsive-md sb-small">
     <tr>
         <td>Legal status</td>
-        <td></td>
+        <td>{{companyInfo?.legalStatus?.corporateStructure?.name}}</td>
         <td>Customer ID:</td>
-        <td></td>
+        <td>{{companyInfo?.customerCode}}</td>
         <td>Next review</td>
         <td>dd/mm/yyyy</td>
     </tr>
@@ -13,14 +13,14 @@
         <td>Group</td>
         <td></td>
         <td>VAT /PAN No.</td>
-        <td></td>
+        <td>{{companyInfo?.panNumber}}</td>
         <td colspan="2">Banking with CCBL since</td>
     </tr>
     <tr>
         <td>Firm/Com. Reg. No.</td>
-        <td></td>
+        <td>{{companyInfo?.registrationNumber}}</td>
         <td>Reg. Date</td>
-        <td>dd/mm/yyyy</td>
+        <td>{{registrationDate}}</td>
         <td>Group</td>
         <td>Customer</td>
     </tr>
@@ -29,12 +29,12 @@
         <td>For FY …..</td>
         <td>A/C strategy </td>
         <td></td>
-        <td>mm/yyyy</td>
-        <td>mm/yyyy</td>
+        <td>{{relationGroup}}</td>
+        <td>{{relationCustomer}}</td>
     </tr>
     <tr>
         <td>Line of business</td>
-        <td colspan="2">………………………</td>
+        <td colspan="2">{{companyJsonData?.businessObjective}}</td>
         <td>Banking Arrangement</td>
         <td colspan="2">Multiple Banking /Sole</td>
     </tr>

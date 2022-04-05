@@ -901,7 +901,7 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
     else if (this.radioSelected === 'above') {
       this.isAboveTenMillion = true;
       this.isUpToTenMillion = false;
-      
+      this.loadSummary();
     }
   }
 }

@@ -324,7 +324,9 @@
                                 <!-- details of the customer -->
                                 <p>
                                     <strong>DETAILS OF THE CUSTOMER:</strong><br>
-                                    <app-upto-details-of-the-customer></app-upto-details-of-the-customer>
+                                    <app-upto-details-of-the-customer [companyInfo]="loanDataHolder?.companyInfo"
+                                                                      [loanDataHolder]="loanDataHolder"
+                                                                      [customerInfoData]="loanDataHolder?.customerInfo"></app-upto-details-of-the-customer>
                                 </p>
                             </li>
                             <li>
@@ -947,7 +949,7 @@
 <!--                </div>-->
 <!--            </div>-->
             <ng-container *ngIf="isUpToTenMillion && !isAboveTenMillion">
-                <app-upto-ten-million></app-upto-ten-million>
+                <app-upto-ten-million [loanData]="loanDataHolder"></app-upto-ten-million>
             </ng-container>
             <ng-container *ngIf="isAboveTenMillion && !isUpToTenMillion">
                 <app-above-ten-million></app-above-ten-million>

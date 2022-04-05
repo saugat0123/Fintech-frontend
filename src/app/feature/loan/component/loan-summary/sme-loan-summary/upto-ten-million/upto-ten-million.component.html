@@ -13,7 +13,10 @@
         <!-- details of the customer -->
         <p>
             <strong>DETAILS OF THE CUSTOMER:</strong><br>
-            <app-upto-details-of-the-customer></app-upto-details-of-the-customer>
+            <app-upto-details-of-the-customer
+                    [companyInfo]="loanData?.companyInfo"
+                    [loanDataHolder]="loanData"
+                    [customerInfoData]="loanData?.customerInfo"></app-upto-details-of-the-customer>
         </p>
     </li>
     <li>
