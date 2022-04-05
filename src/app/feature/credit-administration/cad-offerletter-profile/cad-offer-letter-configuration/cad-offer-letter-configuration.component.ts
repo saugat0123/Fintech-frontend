@@ -1234,6 +1234,10 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
                 };
                 nepData['guarantorNationality'] = this.userConfigForm.get(['guarantorDetails', index, 'guarantorNationality']).value ?
                     this.userConfigForm.get(['guarantorDetails', index, 'guarantorNationality']).value : '';
+                nepData['detailsEntered'] = this.userConfigForm.get(['guarantorDetails', index, 'detailsEntered']).value ?
+                    this.userConfigForm.get(['guarantorDetails', index, 'detailsEntered']).value : '';
+                nepData['detailsFrom'] = this.userConfigForm.get(['guarantorDetails', index, 'detailsFrom']).value ?
+                    this.userConfigForm.get(['guarantorDetails', index, 'detailsFrom']).value : '';
             }
             if (this.userConfigForm.get(['guarantorDetails', index, 'guarantorForeignAddressOption']).value === 'Local' &&
                 this.actionType === 'Edit' && this.customerType === CustomerType.INSTITUTION) {
@@ -2123,6 +2127,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
                     citizenIssuedDate = undefined;
                 }
             }*/
+            console.log('Nepa Data:', nepaData);
 
             if (!ObjectUtil.isEmpty(nepaData.guarantorType)) {
                 if (nepaData.guarantorType.en !== 'Personal Guarantor') {
@@ -2817,7 +2822,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
                 radioCitizenIssuedDateCT: [undefined],
                 // citizenIssuedDateCT: [undefined],
                 id: [value.id],
-
+                detailsEntered: [!ObjectUtil.isEmpty(nepaData.detailsEntered) ? nepaData.detailsEntered : undefined],
+                detailsFrom: [!ObjectUtil.isEmpty(nepaData.detailsFrom) ? nepaData.detailsFrom : undefined],
             }));
         });
     }
@@ -3498,7 +3504,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
             const individualData = a[index] as FormGroup;
             Object.keys(individualData.controls).forEach(key => {
                 if (key.indexOf('CT') > -1 || key.indexOf('Trans') > -1 || !individualData.get(key).value
-                    || key.indexOf('id') > -1 || key.indexOf('nepData') > -1 || key === 'authorizedDobDateType') {
+                    || key.indexOf('id') > -1 || key.indexOf('nepData') > -1 || key === 'authorizedDobDateType' || key === 'detailsEntered' ||
+                    key === 'detailsFrom') {
                     return;
                 }
 
@@ -4903,6 +4910,7 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
             isAuthorizedPersonTrans: [undefined],
             isAuthorizedPersonCT: [undefined],
         });
+        this.shareHolderArray = this.userConfigForm.get('ownerDetails').value;
     }
 
     patchOwnerDetails() {
@@ -5713,14 +5721,130 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
         this.modalService.dismissAll();
     }
 
-    accept() {
+    accept(boolVal) {
         this.modalService.dismissAll();
-        this.dialogRef.close();
+        if (!boolVal) {
+            this.dialogRef.close();
+        }
     }
-    setDetailsEntered(event, i) {
-        console.log('Event:', event);
-        console.log('User Config Form:', this.userConfigForm.get('ownerDetails').value);
+
+    setDetailsEntered() {
         this.shareHolderArray = this.userConfigForm.get('ownerDetails').value;
         console.log('Share Holder Array:', this.shareHolderArray);
+    }
+
+    patchGuarantorFromShare(ownerUnique, i, ownerData) {
+        if (this.userConfigForm.get(['guarantorDetails', i, 'detailsEntered']).value) {
+            console.log('Particular Owner Data:', ownerData);
+            const tempArray = ownerUnique.split(',');
+            console.log('TempArray:', tempArray);
+            const tempDetail = ownerData.filter(val =>
+                val.ownerName === tempArray[0] && val.ownerFatherName === tempArray[1]
+            );
+            console.log('Filtered Value:', tempDetail);
+            this.getGuarantorDistrictsById(ObjectUtil.isEmpty(tempDetail[0].ownerPermanentProvince) ? null : tempDetail[0].ownerPermanentProvince.id, null, 0);
+            this.getGuarantorMunicipalitiesById(ObjectUtil.isEmpty(tempDetail[0].ownerPermanentDistrict) ? null : tempDetail[0].ownerPermanentDistrict.id, null, 0);
+            this.getGuarantorTempDistrictsById(ObjectUtil.isEmpty(tempDetail[0].ownerTemporaryProvince) ? null : tempDetail[0].ownerTemporaryProvince.id, null, 0);
+            this.getGuarantorTempMunicipalitiesById(ObjectUtil.isEmpty(tempDetail[0].ownerTemporaryDistrict) ? null : tempDetail[0].ownerTemporaryDistrict.id, null, 0);
+
+            // Proprietor to guarantor tagging
+            this.userConfigForm.get(['guarantorDetails', i, 'guarantorName']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerName) ? tempDetail[0].ownerName : undefined);
+            this.userConfigForm.get(['guarantorDetails', i, 'guarantorNameTrans']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerNameTrans) ? tempDetail[0].ownerNameTrans : undefined);
+            this.userConfigForm.get(['guarantorDetails', i, 'guarantorNameCT']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerNameCT) ? tempDetail[0].ownerNameCT : undefined);
+
+            this.userConfigForm.get(['guarantorDetails', i, 'gender']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerGender) ? tempDetail[0].ownerGender : undefined);
+            this.userConfigForm.get(['guarantorDetails', i, 'genderTrans']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerGenderTrans) ? tempDetail[0].ownerGenderTrans : undefined);
+            this.userConfigForm.get(['guarantorDetails', i, 'genderCT']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerGenderCT) ? tempDetail[0].ownerGenderCT : undefined);
+
+            this.userConfigForm.get(['guarantorDetails', i, 'guarantorMaritalStatus']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerMaritalStatus) ? tempDetail[0].ownerMaritalStatus : undefined);
+            this.userConfigForm.get(['guarantorDetails', i, 'guarantorMaritalStatusTrans']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerMaritalStatusTrans) ? tempDetail[0].ownerMaritalStatusTrans : undefined);
+            this.userConfigForm.get(['guarantorDetails', i, 'guarantorMaritalStatusCT']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerMaritalStatusCT) ? tempDetail[0].ownerMaritalStatusCT : undefined);
+
+            this.userConfigForm.get(['guarantorDetails', i, 'relationMedium']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerRelationMedium) ? tempDetail[0].ownerRelationMedium : undefined);
+            this.userConfigForm.get(['guarantorDetails', i, 'relationMediumTrans']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerRelationMediumTrans) ? tempDetail[0].ownerRelationMediumTrans : undefined);
+            this.userConfigForm.get(['guarantorDetails', i, 'relationMediumCT']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerRelationMediumCT) ? tempDetail[0].ownerRelationMediumCT : undefined);
+
+            this.userConfigForm.get(['guarantorDetails', i, 'grandFatherName']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerGrandFatherName) ? tempDetail[0].ownerGrandFatherName : undefined);
+            this.userConfigForm.get(['guarantorDetails', i, 'grandFatherNameTrans']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerGrandFatherNameTrans) ? tempDetail[0].ownerGrandFatherNameTrans : undefined);
+            this.userConfigForm.get(['guarantorDetails', i, 'grandFatherNameCT']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerGrandFatherNameCT) ? tempDetail[0].ownerGrandFatherNameCT : undefined);
+
+            this.userConfigForm.get(['guarantorDetails', i, 'fatherName']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerFatherName) ? tempDetail[0].ownerFatherName : undefined);
+            this.userConfigForm.get(['guarantorDetails', i, 'fatherNameTrans']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerFatherNameTrans) ? tempDetail[0].ownerFatherNameTrans : undefined);
+            this.userConfigForm.get(['guarantorDetails', i, 'fatherNameCT']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerFatherNameCT) ? tempDetail[0].ownerFatherNameCT : undefined);
+
+            this.userConfigForm.get(['guarantorDetails', i, 'guarantorNationality']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerNationality) ? tempDetail[0].ownerNationality : undefined);
+            this.userConfigForm.get(['guarantorDetails', i, 'guarantorNationalityTrans']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerNationalityTrans) ? tempDetail[0].ownerNationalityTrans : undefined);
+            this.userConfigForm.get(['guarantorDetails', i, 'guarantorNationalityCT']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerNationalityCT) ? tempDetail[0].ownerNationalityCT : undefined);
+
+            this.userConfigForm.get(['guarantorDetails', i, 'citizenNumber']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerCitizenshipNo) ? tempDetail[0].ownerCitizenshipNo : undefined);
+            this.userConfigForm.get(['guarantorDetails', i, 'citizenNumberTrans']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerCitizenshipNoTrans) ? tempDetail[0].ownerCitizenshipNoTrans : undefined);
+            this.userConfigForm.get(['guarantorDetails', i, 'citizenNumberCT']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerCitizenshipNoCT) ? tempDetail[0].ownerCitizenshipNoCT : undefined);
+
+            this.userConfigForm.get(['guarantorDetails', i, 'issuedPlace']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerCitizenshipIssuedDistrict) ? tempDetail[0].ownerCitizenshipIssuedDistrict : undefined);
+            this.userConfigForm.get(['guarantorDetails', i, 'issuedPlaceTrans']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerCitizenshipIssuedDistrictTrans) ? tempDetail[0].ownerCitizenshipIssuedDistrictTrans : undefined);
+            this.userConfigForm.get(['guarantorDetails', i, 'issuedPlaceCT']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerCitizenshipIssuedDistrictCT) ? tempDetail[0].ownerCitizenshipIssuedDistrictCT : undefined);
+
+            this.userConfigForm.get(['guarantorDetails', i, 'radioCitizenIssuedDate']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].radioOwnerCitizenshipIssuedDate) ? tempDetail[0].radioOwnerCitizenshipIssuedDate : undefined);
+
+            this.userConfigForm.get(['guarantorDetails', i, 'citizenIssuedDateNepali']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerCitizenshipIssuedDateNepali) ? tempDetail[0].ownerCitizenshipIssuedDateNepali : undefined);
+
+            this.userConfigForm.get(['guarantorDetails', i, 'citizenIssuedDate']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerCitizenshipIssuedDate) ? new Date(tempDetail[0].ownerCitizenshipIssuedDate) : undefined);
+
+            // Address Patch (Permanent)
+            this.userConfigForm.get(['guarantorDetails', i, 'permanentProvince']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerPermanentProvince) &&
+            !ObjectUtil.isEmpty(tempDetail[0].ownerPermanentProvince.name) ? tempDetail[0].ownerPermanentProvince : undefined);
+            this.userConfigForm.get(['guarantorDetails', i, 'permanentProvinceTrans']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerPermanentProvinceTrans) ? tempDetail[0].ownerPermanentProvinceTrans : undefined);
+            this.userConfigForm.get(['guarantorDetails', i, 'permanentProvinceCT']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerPermanentProvinceCT) ? tempDetail[0].ownerPermanentProvinceCT : undefined);
+
+            this.userConfigForm.get(['guarantorDetails', i, 'permanentDistrict']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerPermanentDistrict) &&
+            !ObjectUtil.isEmpty(tempDetail[0].ownerPermanentDistrict.name) ? tempDetail[0].ownerPermanentDistrict : undefined);
+            this.userConfigForm.get(['guarantorDetails', i, 'permanentDistrictTrans']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerPermanentDistrictTrans) ? tempDetail[0].ownerPermanentDistrictTrans : undefined);
+            this.userConfigForm.get(['guarantorDetails', i, 'permanentDistrictCT']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerPermanentDistrictCT) ? tempDetail[0].ownerPermanentDistrictCT : undefined);
+
+            this.userConfigForm.get(['guarantorDetails', i, 'guarantorPermanentMunicipalityOrVdc']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerPermanentAddressRadio) ? tempDetail[0].ownerPermanentAddressRadio : undefined);
+
+            this.userConfigForm.get(['guarantorDetails', i, 'permanentMunicipality']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerPermanentMunicipality) &&
+            !ObjectUtil.isEmpty(tempDetail[0].ownerPermanentMunicipality.name) ? tempDetail[0].ownerPermanentMunicipality : undefined);
+            this.userConfigForm.get(['guarantorDetails', i, 'permanentMunicipalityTrans']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerPermanentMunicipalityTrans) ? tempDetail[0].ownerPermanentMunicipalityTrans : undefined);
+            this.userConfigForm.get(['guarantorDetails', i, 'permanentMunicipalityCT']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerPermanentMunicipalityCT) ? tempDetail[0].ownerPermanentMunicipalityCT : undefined);
+
+            this.userConfigForm.get(['guarantorDetails', i, 'permanentWard']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerPermanentWardNo) ? tempDetail[0].ownerPermanentWardNo : undefined);
+            this.userConfigForm.get(['guarantorDetails', i, 'permanentWardTrans']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerPermanentWardNoTrans) ? tempDetail[0].ownerPermanentWardNoTrans : undefined);
+            this.userConfigForm.get(['guarantorDetails', i, 'permanentWardCT']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerPermanentWardNoCT) ? tempDetail[0].ownerPermanentWardNoCT : undefined);
+
+            this.userConfigForm.get(['guarantorDetails', i, 'permanentStreetTole']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerPermanentStreetTole) ? tempDetail[0].ownerPermanentStreetTole : undefined);
+            this.userConfigForm.get(['guarantorDetails', i, 'permanentStreetToleTrans']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerPermanentStreetToleTrans) ? tempDetail[0].ownerPermanentStreetToleTrans : undefined);
+            this.userConfigForm.get(['guarantorDetails', i, 'permanentStreetToleCT']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerPermanentStreetToleCT) ? tempDetail[0].ownerPermanentStreetToleCT : undefined);
+
+            // Address Patch (Temporary)
+
+            this.userConfigForm.get(['guarantorDetails', i, 'isSameGuarantorRegisteredAndCurrentAddress']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].isSameTemporaryAndPermanent) ? tempDetail[0].isSameTemporaryAndPermanent : undefined);
+
+            this.userConfigForm.get(['guarantorDetails', i, 'temporaryProvince']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerTemporaryProvince) &&
+            !ObjectUtil.isEmpty(tempDetail[0].ownerTemporaryProvince.name) ? tempDetail[0].ownerTemporaryProvince : undefined);
+            this.userConfigForm.get(['guarantorDetails', i, 'temporaryProvinceTrans']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerTemporaryProvinceTrans) ? tempDetail[0].ownerTemporaryProvinceTrans : undefined);
+            this.userConfigForm.get(['guarantorDetails', i, 'temporaryProvinceCT']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerTemporaryProvinceCT) ? tempDetail[0].ownerTemporaryProvinceCT : undefined);
+
+            this.userConfigForm.get(['guarantorDetails', i, 'temporaryDistrict']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerTemporaryDistrict) &&
+            !ObjectUtil.isEmpty(tempDetail[0].ownerTemporaryDistrict.name) ? tempDetail[0].ownerTemporaryDistrict : undefined);
+            this.userConfigForm.get(['guarantorDetails', i, 'temporaryDistrictTrans']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerTemporaryDistrictTrans) ? tempDetail[0].ownerTemporaryDistrictTrans : undefined);
+            this.userConfigForm.get(['guarantorDetails', i, 'temporaryDistrictCT']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerTemporaryDistrictCT) ? tempDetail[0].ownerTemporaryDistrictCT : undefined);
+
+            this.userConfigForm.get(['guarantorDetails', i, 'guarantorTemporaryMunicipalityOrVdc']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerTemporaryAddressRadio) ? tempDetail[0].ownerTemporaryAddressRadio : undefined);
+
+            this.userConfigForm.get(['guarantorDetails', i, 'temporaryMunicipality']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerTemporaryMunicipality) &&
+            !ObjectUtil.isEmpty(tempDetail[0].ownerTemporaryMunicipality.name) ? tempDetail[0].ownerTemporaryMunicipality : undefined);
+            this.userConfigForm.get(['guarantorDetails', i, 'temporaryMunicipalityTrans']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerTemporaryMunicipalityTrans) ? tempDetail[0].ownerTemporaryMunicipalityTrans : undefined);
+            this.userConfigForm.get(['guarantorDetails', i, 'temporaryMunicipalityCT']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerTemporaryMunicipalityCT) ? tempDetail[0].ownerTemporaryMunicipalityCT : undefined);
+
+            this.userConfigForm.get(['guarantorDetails', i, 'temporaryWard']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerTemporaryWardNo) ? tempDetail[0].ownerTemporaryWardNo : undefined);
+            this.userConfigForm.get(['guarantorDetails', i, 'temporaryWardTrans']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerTemporaryWardNoTrans) ? tempDetail[0].ownerTemporaryWardNoTrans : undefined);
+            this.userConfigForm.get(['guarantorDetails', i, 'temporaryWardCT']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerTemporaryWardNoCT) ? tempDetail[0].ownerTemporaryWardNoCT : undefined);
+
+            this.userConfigForm.get(['guarantorDetails', i, 'temporaryStreetTole']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerTemporaryStreetTole) ? tempDetail[0].ownerTemporaryStreetTole : undefined);
+            this.userConfigForm.get(['guarantorDetails', i, 'temporaryStreetToleTrans']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerTemporaryStreetToleTrans) ? tempDetail[0].ownerTemporaryStreetToleTrans : undefined);
+            this.userConfigForm.get(['guarantorDetails', i, 'temporaryStreetToleCT']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerTemporaryStreetToleCT) ? tempDetail[0].ownerTemporaryStreetToleCT : undefined);
+
+        }
     }
 }
