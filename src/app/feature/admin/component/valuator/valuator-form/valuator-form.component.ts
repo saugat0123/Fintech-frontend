@@ -38,7 +38,6 @@ export class ValuatorFormComponent implements OnInit, DoCheck {
     valuatorForm: FormGroup;
     valuatingFieldEnum = ValuatingField;
     showHideBranchInput = true;
-    valuatorFieldModel: any;
 
     constructor(
         private service: ValuatorService,
@@ -60,7 +59,6 @@ export class ValuatorFormComponent implements OnInit, DoCheck {
             this.branchList = response.detail;
             if (!ObjectUtil.isEmpty(this.model) && !ObjectUtil.isEmpty(this.model.branch)) {
                 this.valuatorForm.get('branch').patchValue(this.model.branch);
-                this.valuatorFieldModel = this.model.valuatingFields;
                 this.placeHolderValuatingType = '';
                 this.placeHolderBranchSelect = '';
                 if (this.model.isAllBranch) {
@@ -89,9 +87,6 @@ export class ValuatorFormComponent implements OnInit, DoCheck {
             this.getDistrictsById(this.model.province.id, null);
             this.getMunicipalitiesById(this.model.district.id, null);
         }
-        this.valuatorForm.patchValue({
-            valuatingField: ValuatingField.values()
-        });
     }
 
     buildForm() {
@@ -123,7 +118,9 @@ export class ValuatorFormComponent implements OnInit, DoCheck {
             wardNumber: [(ObjectUtil.isEmpty(this.model)
                 || ObjectUtil.isEmpty(this.model.wardNumber)) ? undefined :
                 this.model.wardNumber, [Validators.required, Validators.min(0)]],
-            valuatingField: [undefined, [Validators.required]],
+            valuatingField: [(ObjectUtil.isEmpty(this.model)
+                || ObjectUtil.isEmpty(this.model.valuatingField)) ? undefined :
+                this.model.valuatingField, [Validators.required]],
             bankAssociateDate: [(ObjectUtil.isEmpty(this.model)
                 || ObjectUtil.isEmpty(this.model.bankAssociateDate)) ? undefined :
                 this.formatDate(new Date(this.model.bankAssociateDate)), [Validators.required]],
@@ -219,7 +216,7 @@ export class ValuatorFormComponent implements OnInit, DoCheck {
         firstInvalidControl.focus();
     }
 
-     private getTopOffset(controlEl: HTMLElement): number {
+    private getTopOffset(controlEl: HTMLElement): number {
         const labelOffset = 50;
         return controlEl.getBoundingClientRect().top + window.scrollY - labelOffset;
     }
@@ -239,8 +236,6 @@ export class ValuatorFormComponent implements OnInit, DoCheck {
         }
         this.spinner = true;
         this.model = this.valuatorForm.value;
-        this.model.valuatingFields = this.valuatorForm.get('valuatingField').value;
-        this.model.valuatingField = JSON.stringify(this.valuatorForm.get('valuatingField').value);
         this.service.save(this.model).subscribe(() => {
             if (this.model.id == null) {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully Saved Valuator!'));
@@ -252,7 +247,9 @@ export class ValuatorFormComponent implements OnInit, DoCheck {
                 this.activeModal.close(ModalResponse.SUCCESS);
             }
             }, error => {
+
                 console.log(error);
+
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to Save Valuator!'));
                 this.activeModal.dismiss(error);
             }
