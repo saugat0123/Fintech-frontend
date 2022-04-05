@@ -46,7 +46,7 @@
                         </ng-container>
                         ।
                     </p>
-                    <p *ngIf="tempData.smeGlobalForm.loanOption === 'New'">
+                    <p *ngIf="tempData.autoLoanMasterForm.autoLoanFormArray[i].vehicleRegisteredCT === false && tempData.autoLoanMasterForm.autoLoanFormArray[i].vehiclePurchasedCT === false">
                         <strong>ऋणकर्जा उपयोग गर्न सक्ने सीमा (Drawing Power):</strong>
                         सवारी साधनको मूल्यको <input class="form-field form-control-sm "
                                                     formControlName="newEMIDrawingPowerAutoLoan"
