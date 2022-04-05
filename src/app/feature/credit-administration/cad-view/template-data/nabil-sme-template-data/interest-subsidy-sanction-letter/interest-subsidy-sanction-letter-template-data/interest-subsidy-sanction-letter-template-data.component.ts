@@ -448,13 +448,20 @@ export class InterestSubsidySanctionLetterTemplateDataComponent implements OnIni
 
         // TRANSLATING THE VALUES:
         this.translateFormGroup = this.formBuilder.group({
-            purposeOfLoan: this.interestSubsidy.get('purposeOfLoan').value,
-            nameOfStaff: this.interestSubsidy.get('nameOfStaff').value,
-            nameOfBranchManager: this.interestSubsidy.get('nameOfBranchManager').value,
-            dateOfApprovalType: this.interestSubsidy.get('dateOfApprovalType').value,
-            dateOfApplicationType: this.interestSubsidy.get('dateOfApplicationType').value,
-            previousSanctionType: this.interestSubsidy.get('previousSanctionType').value,
-            securityType: this.interestSubsidy.get('securityType').value,
+            purposeOfLoan: this.interestSubsidy.get('purposeOfLoan').value ?
+                this.interestSubsidy.get('purposeOfLoan').value : '',
+            nameOfStaff: this.interestSubsidy.get('nameOfStaff').value ?
+                this.interestSubsidy.get('nameOfStaff').value : '',
+            nameOfBranchManager: this.interestSubsidy.get('nameOfBranchManager').value ?
+                this.interestSubsidy.get('nameOfBranchManager').value : '',
+            dateOfApprovalType: this.interestSubsidy.get('dateOfApprovalType').value ?
+                this.interestSubsidy.get('dateOfApprovalType').value : '',
+            dateOfApplicationType: this.interestSubsidy.get('dateOfApplicationType').value ?
+                this.interestSubsidy.get('dateOfApplicationType').value : '',
+            previousSanctionType: this.interestSubsidy.get('previousSanctionType').value ?
+                this.interestSubsidy.get('previousSanctionType').value : '',
+            securityType: this.interestSubsidy.get('securityType').value ?
+                this.interestSubsidy.get('securityType').value : '',
         });
         this.translatedValues = await this.translate(this.translateFormGroup);
         this.setGoogleTranslatedValues(this.translatedValues);

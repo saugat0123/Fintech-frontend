@@ -15,7 +15,7 @@
                                             *ngIf="val?.loanOption === 'REGULAR'"> नियमित </ng-container>
                                     अपरिवर्तनीय प्रतित पत्र सुविधा
                                     (Irrevocable letter of credit facility)
-                                    <ng-container *ngIf="val.complementryOther === true"> बुँदा नं.
+                                    <ng-container *ngIf="val.complementaryOther === true"> बुँदा नं.
                                 <span class="nepaliFont">{{this.freeInformation ? this.freeInformation?.section2?.irrevocableLetterOfCreditFreeText[i1]?.SNOfParentLimitIrrevocable : '==================='}}</span>
                          <ng-container *ngIf="val.complimentaryLoanSelected !== 'TOTAL LIMIT'"> को पूरक सुविधा</ng-container>
                                         <ng-container *ngIf="val.complimentaryLoanSelected === 'TOTAL LIMIT'"> कुल सुविधाको पूरक सुविधा </ng-container>

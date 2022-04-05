@@ -5,7 +5,7 @@
         </div>
         <!--FOR NORMAL SCHEME-->
         <div class="row mt-3" *ngIf="loanSchemeSelected === 'No'">
-            <ol class="dev-list orderd-list">
+            <ol class="dev-list conditions-list">
                 <li>
                     हरेक त्रैमास (आषाढ, आश्विन, पौष र चैत्र मसान्त) को समाप्ति पश्चात बैंकको आधिकारिक वेव
                     साईट (Website) तथा राष्ट्रियस्तरको पत्रिकामा <strong>त्रैमासिक औसत आधार दर (Quarterly
@@ -76,7 +76,7 @@
         <!--(For The case of Nabil Sajilo Karja/Nari Karja/Nabil Fast Track Scheme)-->
         <!--<div class="row">
             <div class="col-sm-12">
-                <ol class="dev-list orderd-list">
+                <ol class="dev-list conditions-list">
                     <li>
                         <p>
                             ऋणकर्जा स्वीकृत भएको मितिबाट एक वर्ष सम्मको लागि व्याजदर
@@ -98,7 +98,7 @@
 
         <!--(For The case of  Nabil Aniverssary Scheme)-->
         <div class="row mt-3">
-            <ol class="dev-list orderd-list">
+            <ol class="dev-list conditions-list">
                 <li
                     *ngIf="loanScheme === 'Nabil Sajilo Karja' || loanScheme == 'Nabil Fast Track Scheme' || loanScheme === 'Nari Karja'">
                     ऋणकर्जा स्वीकृत भएको मितिबाट एक वर्ष सम्मको लागि व्याजदर
@@ -154,7 +154,7 @@
             <!--For Floating interest rate-->
             <!--            <div class="row">-->
             <!--                <div class="col-sm-12">-->
-            <!--                    <ol class="dev-list orderd-list">-->
+            <!--                    <ol class="dev-list conditions-list">-->
 
             <!--                        <li>-->
             <!--                            <p>-->
@@ -222,7 +222,7 @@
 
             <!--For Fixed  rate-->
             <div class="row mt-3">
-                <ol class="dev-list-1 orderd-list">
+                <ol class="conditions-list orderd-list" style="padding-left: 3.5em">
                     <li *ngIf="selectedInterestRate === 'Floating Interest Rate'">
                         <p class="m-0">
                             <strong>अग्रिम भुक्तानी शुल्क र/वा स्वाप (Swap) शुल्क :-</strong>
