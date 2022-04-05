@@ -2,7 +2,6 @@ import {District} from './district';
 import {Province} from './province';
 import {MunicipalityVdc} from './municipality_VDC';
 import {Branch} from './branch';
-import {ValuatingField} from './valuatingField';
 
 export class Valuator {
   id: number;
@@ -25,5 +24,4 @@ export class Valuator {
   maxAmount: number;
   inactiveComment: string;
   isAllBranch: boolean;
-  valuatingFields: Array<ValuatingField>;
 }
