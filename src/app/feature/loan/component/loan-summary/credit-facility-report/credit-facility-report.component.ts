@@ -33,6 +33,7 @@ export class CreditFacilityReportComponent implements OnInit, OnChanges {
     currentStage: any;
     securityLandDetails: [];
     proposalDuration: string | number;
+    incomeFromAccount: any;
     constructor() {
     }
 
@@ -189,7 +190,7 @@ export class CreditFacilityReportComponent implements OnInit, OnChanges {
     patchValues() {
         this.nrbSectorCodes = ObjectUtil.isEmpty(this.loanDataHolder.loanHolder) ? [] : this.loanDataHolder.loanHolder.reportingInfoLevels;
         this.securityDetails = ObjectUtil.isEmpty(this.loanDataHolder.security) ? '' : JSON.parse(this.loanDataHolder.security.data);
-        this.riskGrade = ObjectUtil.isEmpty(this.loanDataHolder.creditRiskGradingLambda) ? '' : JSON.parse(this.loanDataHolder.creditRiskGradingLambda.data).totalScore;
+        this.riskGrade = ObjectUtil.isEmpty(this.loanDataHolder.crgGamma) ? '' : JSON.parse(this.loanDataHolder.crgGamma.data);
         this.proposedLimit = ObjectUtil.isEmpty(this.loanDataHolder.proposal) ? '' : this.loanDataHolder.proposal.proposedLimit;
         this.guarantorsList = ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.guarantors) ? '' : this.loanDataHolder.loanHolder.guarantors.guarantorList;
         this.loanName = ObjectUtil.isEmpty(this.loanDataHolder.loan) ? '' : this.loanDataHolder.loan.name;
@@ -198,5 +199,6 @@ export class CreditFacilityReportComponent implements OnInit, OnChanges {
         this.securityLandDetails = ObjectUtil.isEmpty(this.loanDataHolder.security) ? [] : JSON.parse(this.loanDataHolder.security.data).initialForm.landDetails;
         console.log('loan data holder: ', this.loanDataHolder);
         this.proposalDuration = ObjectUtil.isEmpty(this.loanDataHolder.proposal.duration) ? '....................' : this.loanDataHolder.proposal.duration;
+        this.incomeFromAccount = ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.incomeFromAccount) ? '' : JSON.parse(this.loanDataHolder.loanHolder.incomeFromAccount.data);
     }
 }
