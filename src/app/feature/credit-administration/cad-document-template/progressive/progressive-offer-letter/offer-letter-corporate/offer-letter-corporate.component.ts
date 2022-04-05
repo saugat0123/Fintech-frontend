@@ -16,6 +16,7 @@ import {NepaliCurrencyWordPipe} from '../../../../../../@core/pipe/nepali-curren
 import {EngToNepaliNumberPipe} from '../../../../../../@core/pipe/eng-to-nepali-number.pipe';
 import {CurrencyFormatterPipe} from '../../../../../../@core/pipe/currency-formatter.pipe';
 import {NepaliPercentWordPipe} from '../../../../../../@core/pipe/nepali-percent-word.pipe';
+import {NepDataPersonal} from '../../../../model/nepDataPersonal';
 
 @Component({
     selector: 'app-offer-letter-corporate',
@@ -33,6 +34,10 @@ export class OfferLetterCorporateComponent implements OnInit {
     existingOfferLetter = false;
     offerLetterDocument: OfferDocument;
     nepaliData;
+    nepDataPersonal = new NepDataPersonal();
+    primaryCollaterals = new Array<any>();
+    secondaryCollaterals = new Array<any>();
+    additionalGuarantor = new Array<any>();
 
     constructor(private formBuilder: FormBuilder,
                 private nepToEngNumberPipe: NepaliToEngNumberPipe,
@@ -49,30 +54,136 @@ export class OfferLetterCorporateComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.nepaliData = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
+        this.nepDataPersonal = JSON.parse(this.cadOfferLetterApprovedDoc.nepDataPersonal);
+        (this.nepaliData.collateralDetails).forEach(value => {
+            if (value.securityDetails === 'HP') {
+                this.primaryCollaterals.push(value);
+            }
+        });
+        (this.nepaliData.collateralDetails).forEach(value => {
+            if (value.securityDetails === 'Land_And_Building') {
+                this.secondaryCollaterals.push(value);
+            }
+        });
+        (this.nepaliData.guarantorDetails).forEach(value => {
+            if (value.guarantorType === 'Personal_Guarantor') {
+                this.additionalGuarantor.push(value);
+            }
+        });
         this.buildForm();
         this.checkOfferLetter();
+        this.setSecondarySecurityDetails(this.secondaryCollaterals);
+        this.setPrimaryCollaterals(this.primaryCollaterals);
+        this.setAdditionalGuarantor(this.additionalGuarantor);
     }
 
     fillForm() {
-        this.nepaliData = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
-        console.log(this.nepaliData);
+        let guarantorName = '';
+        if (this.nepaliData.guarantorDetails.length > 0) {
+            if (this.nepaliData.guarantorDetails.length === 1) {
+                guarantorName = !ObjectUtil.isEmpty(this.nepaliData.guarantorDetails[0].guarantorName) ?
+                    this.nepaliData.guarantorDetails[0].guarantorName :
+                    (!ObjectUtil.isEmpty(this.nepaliData.guarantorDetails[0].companyNameGuarantor) ?
+                        this.nepaliData.guarantorDetails[0].companyNameGuarantor : '');
+            }
+            if (this.nepaliData.guarantorDetails.length === 2) {
+                guarantorName = !ObjectUtil.isEmpty(this.nepaliData.guarantorDetails[0].guarantorName) ?
+                    this.nepaliData.guarantorDetails[0].guarantorName :
+                    (!ObjectUtil.isEmpty(this.nepaliData.guarantorDetails[0].companyNameGuarantor) ?
+                        this.nepaliData.guarantorDetails[0].companyNameGuarantor : '') + ' र ' +
+                    !ObjectUtil.isEmpty(this.nepaliData.guarantorDetails[1].guarantorName) ?
+                        this.nepaliData.guarantorDetails[1].guarantorName :
+                        (!ObjectUtil.isEmpty(this.nepaliData.guarantorDetails[1].companyNameGuarantor) ?
+                            this.nepaliData.guarantorDetails[1].companyNameGuarantor : '');
+            }
+            if (this.nepaliData.guarantorDetails.length > 2) {
+                guarantorName = !ObjectUtil.isEmpty(this.nepaliData.guarantorDetails[0].guarantorName) ?
+                    this.nepaliData.guarantorDetails[0].guarantorName :
+                    (!ObjectUtil.isEmpty(this.nepaliData.guarantorDetails[0].companyNameGuarantor) ?
+                        this.nepaliData.guarantorDetails[0].companyNameGuarantor : '') + ' , ' +
+                    !ObjectUtil.isEmpty(this.nepaliData.guarantorDetails[1].guarantorName) ?
+                        this.nepaliData.guarantorDetails[1].guarantorName :
+                        (!ObjectUtil.isEmpty(this.nepaliData.guarantorDetails[1].companyNameGuarantor) ?
+                            this.nepaliData.guarantorDetails[1].companyNameGuarantor : '') + ' र ' +
+                        !ObjectUtil.isEmpty(this.nepaliData.guarantorDetails[1].guarantorName) ?
+                        this.nepaliData.guarantorDetails[1].guarantorName :
+                        (!ObjectUtil.isEmpty(this.nepaliData.guarantorDetails[1].companyNameGuarantor) ?
+                            this.nepaliData.guarantorDetails[1].companyNameGuarantor : '');
+            }
+        }
         const customerAddress =
-            this.nepaliData.permanentMunicipality + ' j8f g ' +
-            this.nepaliData.permanentWard + ' , ' +
-            this.nepaliData.permanentDistrict;
+            this.nepaliData.companyDistrict + ', ' +
+            this.nepaliData.companyVdcMun + ', ' +
+            this.nepaliData.companyWardNo;
 
         this.form.patchValue({
-            customerName: this.nepaliData.name ? this.nepaliData.name : '',
+            customerName: !ObjectUtil.isEmpty(this.nepaliData.companyName) ? this.nepaliData.companyName : '',
             customerAddress: customerAddress ? customerAddress : '',
+            shreeName: !ObjectUtil.isEmpty(this.nepaliData.representativeName) ? this.nepaliData.representativeName : '',
 
-            customerMunicipality: this.nepaliData.permanentMunicipality ? this.nepaliData.permanentMunicipality : '',
-            customerWardNum: this.nepaliData.permanentWard ? this.nepaliData.permanentWard : '',
-            customerDistrict: this.nepaliData.permanentDistrict ? this.nepaliData.permanentDistrict : '',
-
-            tapsilGuarantorRelation: this.nepaliData.guarantorDetails[0].relationship ? this.nepaliData.guarantorDetails[0].relationship : '',
+            // loan Details
+            loanTypeNepali: [!ObjectUtil.isEmpty(this.nepDataPersonal.loanType) ? this.nepDataPersonal.loanType : ''],
+            loanTypeEnglish: [!ObjectUtil.isEmpty(this.nepDataPersonal.typeOfLoanInEnglish) ?
+                this.nepDataPersonal.typeOfLoanInEnglish : ''],
+            amount: [!ObjectUtil.isEmpty(this.nepDataPersonal.numberNepali) ? this.nepDataPersonal.numberNepali : ''],
+            amountInWords: [!ObjectUtil.isEmpty(this.nepDataPersonal.nepaliWords) ? this.nepDataPersonal.nepaliWords : ''],
+            loanPurpose: [!ObjectUtil.isEmpty(this.nepDataPersonal.purposeOfLoan) ? this.nepDataPersonal.purposeOfLoan : ''],
+            interestRate: [!ObjectUtil.isEmpty(this.nepDataPersonal.interestRate) ? this.nepDataPersonal.interestRate : ''],
+            interestRepayPlan: [!ObjectUtil.isEmpty(this.nepDataPersonal.interestInstallmentPaymentFrequency) ?
+                this.nepDataPersonal.interestInstallmentPaymentFrequency : ''],
+            loanLimitYearAD: [!ObjectUtil.isEmpty(this.nepDataPersonal.loanMaturityDateAD) ? this.nepDataPersonal.loanMaturityDateAD : ''],
+            loanLimitYearBS: [!ObjectUtil.isEmpty(this.nepDataPersonal.loanMaturityDateBS) ? this.nepDataPersonal.loanMaturityDateBS : ''],
+            loanLimitMonths: [!ObjectUtil.isEmpty(this.nepDataPersonal.tenureOfLoanInMonths) ? this.nepDataPersonal.tenureOfLoanInMonths : ''],
+            // loan free text
+           /* interestRepayMonths: [!ObjectUtil.isEmpty(this.nepDataPersonal.interestRepayMonths) ? this.nepDataPersonal : ''],
+            interestBaseRate: [!ObjectUtil.isEmpty(this.nepDataPersonal.interestBaseRate) ? this.nepDataPersonal : ''],
+            interestPremiumRate: [!ObjectUtil.isEmpty(this.nepDataPersonal.interestPremiumRate) ? this.nepDataPersonal : ''],
+            interestTempDiscountRate: [!ObjectUtil.isEmpty(this.nepDataPersonal.interestTempDiscountRate) ? this.nepDataPersonal : ''],
+            interestFinalRate: [!ObjectUtil.isEmpty(this.nepDataPersonal.interestFinalRate) ? this.nepDataPersonal : ''],
+            pratibadhataAdditionalAmount: [!ObjectUtil.isEmpty(this.nepDataPersonal.pratibadhataAdditionalAmount) ?
+             this.nepDataPersonal : ''],
+            pratibadhataRate: [!ObjectUtil.isEmpty(this.nepDataPersonal.pratibadhataRate) ? this.nepDataPersonal : ''],
+            pratibadhataYearlyRate: [!ObjectUtil.isEmpty(this.nepDataPersonal.pratibadhataYearlyRate) ? this.nepDataPersonal : ''],
+            sthantarandRate: [!ObjectUtil.isEmpty(this.nepDataPersonal.sthantarandRate) ? this.nepDataPersonal : ''],*/
+            dhitoLekhi: [!ObjectUtil.isEmpty(this.nepDataPersonal.numberNepali) ? this.nepDataPersonal.numberNepali : ''],
+            dhitoDate : [!ObjectUtil.isEmpty(this.nepaliData.valuationDate) ? this.nepaliData.valuationDate : ''],
+            dhitoAuditor : [!ObjectUtil.isEmpty(this.nepaliData.valuatorName) ? this.nepaliData.valuatorName : ''],
+            dhitoAmount : [!ObjectUtil.isEmpty(this.nepaliData.fairMarketValue) ? this.nepaliData.fairMarketValue : ''],
+            dhitoDistress : [!ObjectUtil.isEmpty(this.nepaliData.distressValue) ? this.nepaliData.distressValue : ''],
+            shreeName1 : [guarantorName ? guarantorName : ''],
+            financeBranch: [!ObjectUtil.isEmpty(this.nepaliData.branchName) ? this.nepaliData.branchName : ''],
+            financeMunicipality: [!ObjectUtil.isEmpty(this.nepaliData.branchMunVdc) ? this.nepaliData.branchMunVdc : ''],
+            financeWardNum: [!ObjectUtil.isEmpty(this.nepaliData.branchWardNo) ? this.nepaliData.branchWardNo : ''],
+            financeDistrict: [!ObjectUtil.isEmpty(this.nepaliData.branchDistrict) ? this.nepaliData.branchDistrict : ''],
+            financeTelephoneNum: [!ObjectUtil.isEmpty(this.nepaliData.branchTelNo) ? this.nepaliData.branchTelNo : ''],
+            financeFaxNum: [!ObjectUtil.isEmpty(this.nepaliData.branchFaxNo) ? this.nepaliData.branchFaxNo : ''],
+            financeEmail: [!ObjectUtil.isEmpty(this.nepaliData.branchEmail) ? this.nepaliData.branchEmail : ''],
+            customerMunicipality: [!ObjectUtil.isEmpty(this.nepaliData.companyVdcMun) ? this.nepaliData.companyVdcMun : ''],
+            customerWardNum: [!ObjectUtil.isEmpty(this.nepaliData.companyWardNo) ? this.nepaliData.companyWardNo : ''],
+            customerDistrict: [!ObjectUtil.isEmpty(this.nepaliData.companyDistrict) ? this.nepaliData.companyDistrict : ''],
+            akhtiyarName: [!ObjectUtil.isEmpty(this.nepaliData.representativeName) ? this.nepaliData.representativeName : ''],
+            signatoryName: [!ObjectUtil.isEmpty(this.nepaliData.representativeName) ? this.nepaliData.representativeName : ''],
+            signatoryCitizenshipNum: [!ObjectUtil.isEmpty(this.nepaliData.representativeCitizenshipNo) ?
+                this.nepaliData.representativeCitizenshipNo : ''],
+            signatoryCitizenshipIssueDate: [!ObjectUtil.isEmpty(this.nepaliData.representativeCitizenshipIssueDate) ?
+                this.nepaliData.representativeCitizenshipIssueDate : ''],
+            signatoryCitizenshipIssuePlace: [!ObjectUtil.isEmpty(this.nepaliData.representativeCitizenshipIssuingAuthority) ?
+                this.nepaliData.representativeCitizenshipIssuingAuthority : ''],
+            akhtiyarName2: [!ObjectUtil.isEmpty(this.nepaliData.representativePermanentDistrict) ?
+                this.nepaliData.representativePermanentDistrict : ''],
+            akhtiyarMunicipality2: [!ObjectUtil.isEmpty(this.nepaliData.representativePermanentVdc) ?
+                this.nepaliData.representativePermanentVdc : ''],
+            akhtiyarWardNum2: [!ObjectUtil.isEmpty(this.nepaliData.representativePermanentVdcWard) ?
+                this.nepaliData.representativePermanentVdcWard : ''],
+            signatoryGrandParentName: [!ObjectUtil.isEmpty(this.nepaliData.representativeGrandFatherName) ?
+                this.nepaliData.representativeGrandFatherName : ''],
+            signatoryParentName: [!ObjectUtil.isEmpty(this.nepaliData.representativeFatherName) ?
+                this.nepaliData.representativeFatherName : ''],
+            bottomDate: !ObjectUtil.isEmpty(this.initialInfoPrint) ? this.initialInfoPrint.bottomDate : '',
+            bottomPatraNum: !ObjectUtil.isEmpty(this.initialInfoPrint) ? this.initialInfoPrint.bottomPatraNum : ''
         });
-        this.setGuarantors(this.nepaliData.guarantorDetails);
-        this.addEmptySecurityDetail();
+
     }
 
     checkOfferLetter() {
@@ -87,9 +198,6 @@ export class OfferLetterCorporateComponent implements OnInit {
             this.initialInfoPrint = initialInfo;
             this.existingOfferLetter = true;
             this.setGuarantors(initialInfo.guarantors);
-            this.setSecurityDetails(initialInfo.securityDetails);
-            this.setLoan(initialInfo.loan);
-
             this.form.patchValue(this.initialInfoPrint);
         }
     }
@@ -97,7 +205,6 @@ export class OfferLetterCorporateComponent implements OnInit {
     onSubmit(): void {
         this.spinner = true;
         this.cadOfferLetterApprovedDoc.docStatus = CadDocStatus.OFFER_PENDING;
-
         if (this.existingOfferLetter) {
             this.cadOfferLetterApprovedDoc.offerDocumentList.forEach(offerLetterPath => {
                 if (offerLetterPath.docName.toString() ===
@@ -127,26 +234,83 @@ export class OfferLetterCorporateComponent implements OnInit {
 
     }
 
-
-    setSecurityDetails(data) {
+    setSecondarySecurityDetails(data) {
         const formArray = this.form.get('securityDetails') as FormArray;
         (this.form.get('securityDetails') as FormArray).clear();
-        if (data.length === 0) {
+       /* if (data.length === 0) {
             this.addEmptySecurityDetail();
             return;
-        }
+        }*/
         data.forEach(value => {
-            formArray.push(this.formBuilder.group({
-                name: [value.name],
-                parentName: [value.parentName],
-                grandParentName: [value.grandParentName],
-                address: [value.address],
-                jaggaDistrict: [value.jaggaDistrict],
-                jaggaWard: [value.jaggaWard],
-                jaggaKittaNum: [value.jaggaKittaNum],
-                jaggaArea: [value.jaggaArea],
-                jaggaSiNum: [value.jaggaSiNum],
-            }));
+            if (value.securityDetails === 'Land_And_Building') {
+                const tempExistingAddress = value.collateralMunVdcOriginal + ', ' + value.collateralWardNoOld;
+                formArray.push(this.formBuilder.group({
+                    name: [!ObjectUtil.isEmpty(value.collateralName) ? value.collateralName : ''],
+                    parentName: [!ObjectUtil.isEmpty(value.collateralFatherName) ? value.collateralFatherName : ''],
+                    grandParentName: [!ObjectUtil.isEmpty(value.collateralGrandFatherName) ? value.collateralGrandFatherName : ''],
+                    address: [!ObjectUtil.isEmpty(value.collateralPermanentMunVdc) ? value.collateralPermanentMunVdc.nepaliName : ''],
+                    addressVDC: [!ObjectUtil.isEmpty(value.collateralPermanentVdc) ? value.collateralPermanentVdc : ''],
+                    addressWard: [!ObjectUtil.isEmpty(value.collateralPermanentVdcWard) ? value.collateralPermanentVdcWard : ''],
+                    jaggaDistrict: [!ObjectUtil.isEmpty(value.collateralDistrict) ? value.collateralDistrict : ''],
+                    jaggaWard: [tempExistingAddress ? tempExistingAddress : ''],
+                    jaggaKittaNum: [!ObjectUtil.isEmpty(value.plotNo) ? value.plotNo : ''],
+                    jaggaArea: [!ObjectUtil.isEmpty(value.areaOfCollateral) ? value.areaOfCollateral : ''],
+                    jaggaSiNum: [!ObjectUtil.isEmpty(value.seatNo) ? value.seatNo : ''],
+                }));
+            }
+        });
+    }
+
+    setAdditionalGuarantor(data) {
+        const formArray = this.form.get('additionalGuarantor') as FormArray;
+        (this.form.get('additionalGuarantor') as FormArray).clear();
+        data.forEach((value, i) => {
+            if (value.guarantorType === 'Personal_Guarantor') {
+                formArray.push(this.formBuilder.group({
+                    tapsilGuarantorName: [!ObjectUtil.isEmpty(value.guarantorName) ? value.guarantorName : ''],
+                    tapsilGuarantorCitizenshipNum: [!ObjectUtil.isEmpty(value.citizenNumber) ? value.citizenNumber : ''],
+                    tapsilGuarantorCitizenshipIssueDate: [!ObjectUtil.isEmpty(value.issuedYear) ? value.issuedYear : ''],
+                    tapsilGuarantorCitizenshipIssuePlace: [!ObjectUtil.isEmpty(value.issuedPlace) ? value.issuedPlace : ''],
+                    tapsilGuarantorDistrict: [!ObjectUtil.isEmpty(value.guarantorPermanentDistrict) ?
+                        value.guarantorPermanentDistrict.nepaliName : ''],
+                    tapsilGuarantorMunicipality: [!ObjectUtil.isEmpty(value.guarantorPermanentVdc) ? value.guarantorPermanentVdc : ''],
+                    tapsilGuarantorWardNum: [!ObjectUtil.isEmpty(value.guarantorPermanentVdcWard) ? value.guarantorPermanentVdcWard : ''],
+                    tapsilGuarantorRelation: [!ObjectUtil.isEmpty(value.relationship) ? value.relationship : ''],
+                    tapsilGuarantorInLawName: [!ObjectUtil.isEmpty(value.guarantorFatherInLawName) ? value.guarantorFatherInLawName : ''],
+                    tapsilGuarantorSpouseName: [!ObjectUtil.isEmpty(value.guarantorSpouseName) ? value.guarantorSpouseName : ''],
+                    tapsilGuarantorFatherName: [!ObjectUtil.isEmpty(value.guarantorFatherName) ? value.guarantorFatherName : ''],
+                    tapsilGuarantorGrandFatherName: [!ObjectUtil.isEmpty(value.guarantorGrandfatherName) ?
+                        value.guarantorGrandfatherName : ''],
+                    tapsilGuarantorContactNum: [!ObjectUtil.isEmpty(value.guarantorMobileNumber) ? value.guarantorMobileNumber : ''],
+                    tapsilGuarantorEmail: [!ObjectUtil.isEmpty(value.guarantorEmailAddress) ? value.guarantorEmailAddress : ''],
+                    tapsilGuarantorDate: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+                        this.initialInfoPrint.additionalGuarantor[i].tapsilGuarantorDate : ''],
+                }));
+            }
+        });
+    }
+
+    setPrimaryCollaterals(data) {
+        const formArray = this.form.get('primaryCollaterals') as FormArray;
+        /*if (data.length === 0) {
+          this.addPrimaryCollateral();
+          return;
+        }*/
+        data.forEach((value, i) => {
+            if (value.securityDetails === 'HP') {
+                formArray.push(this.formBuilder.group({
+                    vehicleType: [!ObjectUtil.isEmpty(value.vehicleType) ? value.vehicleType : ''],
+                    vehicleNumber: [!ObjectUtil.isEmpty(value.vehicleNumber) ? value.vehicleNumber : ''],
+                    vehicleModelNum: [!ObjectUtil.isEmpty(value.vehicleModelNum) ? value.vehicleModelNum : ''],
+                    engineNumber: [!ObjectUtil.isEmpty(value.engineNumber) ? value.engineNumber : ''],
+                    chassisNumber: [!ObjectUtil.isEmpty(value.chassisNumber) ? value.chassisNumber : ''],
+                    vehicleQuotationPrice: [!ObjectUtil.isEmpty(value.vehicleQuotationPrice) ? value.vehicleQuotationPrice : ''],
+                    marginPercentageOne: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+                        this.initialInfoPrint.primaryCollaterals[i].marginPercentageOne : ''],
+                    marginPercentageTwo: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+                        this.initialInfoPrint.primaryCollaterals[i].marginPercentageTwo : ''],
+                }));
+            }
         });
     }
 
@@ -164,12 +328,16 @@ export class OfferLetterCorporateComponent implements OnInit {
         });
     }
 
-    addEmptySecurityDetail() {
+   /* addEmptySecurityDetail() {
         (this.form.get('securityDetails') as FormArray).push(this.buildSecurityDetail());
-    }
+    }*/
 
     removeSecurityDetail(index) {
         (this.form.get('securityDetails') as FormArray).removeAt(index);
+    }
+
+    removePrimaryCollateral(i: number) {
+        (this.form.get('primaryCollaterals') as FormArray).removeAt(i);
     }
 
     setGuarantors(data) {
@@ -206,27 +374,21 @@ export class OfferLetterCorporateComponent implements OnInit {
             customerAddress: [undefined],
             shreeName: [undefined],
             shreeMobile: [undefined],
-
-
-
-            securityDetails: this.formBuilder.array([this.buildSecurityDetail()]),
-
+            securityDetails: this.formBuilder.array([]),
+            primaryCollaterals: this.formBuilder.array([]),
+            additionalGuarantor: this.formBuilder.array([]),
             dhitoDate: [undefined],
             dhitoAuditor: [undefined],
             dhitoAmount: [undefined],
             dhitoDistress: [undefined],
             dhitoLekhi: [undefined],
-
             shreeName1: [undefined],
             shreeAmount: [undefined],
             shreeAmountInWord: [undefined],
-
             amount2: [undefined],
             amountInWords2: [undefined],
-
             bulletText641: [undefined],
             bulletText642: [undefined],
-
             financeBranch: [undefined],
             financeMunicipality: [undefined],
             financeWardNum: [undefined],
@@ -246,15 +408,12 @@ export class OfferLetterCorporateComponent implements OnInit {
             customerEmail: [undefined],
             akhtiyarName: [undefined],
             akhtiyarContactNum: [undefined],
-
             employeeName: [undefined],
             employeeFinanceBranch: [undefined],
             employeeFinanceDistrict: [undefined],
-
             employeeName2: [undefined],
             employeeFinanceBranch2: [undefined],
             employeeFinanceDistrict2: [undefined],
-
             signatoryName: [undefined],
             signatoryCitizenshipNum: [undefined],
             signatoryCitizenshipIssueDate: [undefined],
@@ -264,34 +423,39 @@ export class OfferLetterCorporateComponent implements OnInit {
             akhtiyarWardNum2: [undefined],
             signatoryGrandParentName: [undefined],
             signatoryParentName: [undefined],
-            loan : this.formBuilder.array([]),
-            guarantors: this.formBuilder.array([]),
+           // loan : this.formBuilder.array([]),
+            loanTypeNepali: [undefined],
+            loanTypeEnglish: [undefined],
+            amount: [undefined],
+            amountInWords: [undefined],
+            loanPurpose: [undefined],
+            interestRate: [undefined],
+            interestRepayPlan: [undefined],
+            loanLimitYearAD: [undefined],
+            loanLimitYearBS: [undefined],
+            loanLimitMonths: [undefined],
 
+            interestRepayMonths: [undefined],
+            interestBaseRate: [undefined],
+            interestPremiumRate: [undefined],
+            interestTempDiscountRate: [undefined],
+            interestFinalRate: [undefined],
+            pratibadhataAdditionalAmount: [undefined],
+            pratibadhataRate: [undefined],
+            pratibadhataYearlyRate: [undefined],
+            sthantarandRate: [undefined],
+
+            guarantors: this.formBuilder.array([]),
             sahichhapEmployee: [undefined],
             docYear: [undefined],
             docMonth: [undefined],
             docDate: [undefined],
             docRoj: [undefined],
-
-
             bottomFinanceBranch: [undefined],
             bottomFinanceBranchAddress: [undefined],
             bottomDate: [undefined],
             bottomPatraNum: [undefined],
-
-            tapsilGuarantorName: [undefined],
-            tapsilGuarantorCitizenshipNum: [undefined],
-            tapsilGuarantorCitizenshipIssueDate: [undefined],
-            tapsilGuarantorCitizenshipIssuePlace: [undefined],
-            tapsilGuarantorDistrict: [undefined],
-            tapsilGuarantorMunicipality: [undefined],
-            tapsilGuarantorWardNum: [undefined],
-            tapsilGuarantorRelation: [undefined],
-            tapsilGuarantorInLawName: [undefined],
-            tapsilGuarantorSpouseName: [undefined],
-            tapsilGuarantorContactNum: [undefined],
-            tapsilGuarantorEmail: [undefined],
-            tapsilGuarantorDate: [undefined],
+            freeText: [undefined],
         });
     }
 
@@ -301,31 +465,27 @@ export class OfferLetterCorporateComponent implements OnInit {
         this.form.get(wordLabel).patchValue(returnVal);
     }
 
-    calcYearlyRate(base, premium, discount, target,i) {
-        const baseRate = this.nepToEngNumberPipe.transform(this.form.get(['loan',i,base]).value);
-        const premiumRate = this.nepToEngNumberPipe.transform(this.form.get(['loan',i,premium]).value);
-        const discountRate = this.nepToEngNumberPipe.transform(this.form.get(['loan',i,discount]).value);
+    calcYearlyRate(base, premium, discount, target) {
+        const baseRate = this.nepToEngNumberPipe.transform(this.form.get( base).value);
+        const premiumRate = this.nepToEngNumberPipe.transform(this.form.get(premium).value);
+        const discountRate = this.nepToEngNumberPipe.transform(this.form.get(discount).value);
         const addRate = parseFloat(baseRate) + parseFloat(premiumRate) - parseFloat(discountRate);
         const finalValue = this.engToNepaliNumberPipe.transform(this.currencyFormatPipe.transform(addRate));
-        this.form.get(['loan',i,target]).patchValue(finalValue);
+        this.form.get(target).patchValue(finalValue);
     }
 
-    addLoan(){
-const formArray = this.form.get('loan') as FormArray
-        formArray.push(this.LoanFormGroup())
-    }
-    removeLoan(i)
-    {
-        const formArray = this.form.get('loan') as FormArray
-        formArray.removeAt(i)
-    }
+   /* addLoan() {
+        const formArray = this.form.get('loan') as FormArray;
+        formArray.push(this.LoanFormGroup());
+    }*/
+    /*removeLoan(i) {
+        const formArray = this.form.get('loan') as FormArray;
+        formArray.removeAt(i);
+    }*/
 
 
-    LoanFormGroup():FormGroup{
-
+    /*LoanFormGroup(): FormGroup {
         return this.formBuilder.group({
-
-
             loanTypeNepali: [undefined],
             loanTypeEnglish: [undefined],
             amount: [undefined],
@@ -342,56 +502,45 @@ const formArray = this.form.get('loan') as FormArray
             loanLimitYearAD: [undefined],
             loanLimitYearBS: [undefined],
             loanLimitMonths: [undefined],
-
             pratibadhataAmount: [undefined],
             pratibadhataAdditionalAmount: [undefined],
             pratibadhataRate: [undefined],
             pratibadhataYearlyRate: [undefined],
-
             sthantarandRate: [undefined],
+        });
+    }*/
 
-        })
-
-    }
-
-
-
-    setLoan(data){
-        const formArray = this.form.get('loan') as FormArray
-        if(data.length ===0)
-        {
-            this.addLoan()
-            return
-        }
-        data.forEach((data)=>{
+    /*setLoan(data) {
+        const formArray = this.form.get('loan') as FormArray;
+        /!*if (data.length === 0) {
+            this.addLoan();
+            return;
+        }*!/
+        /!*data.forEach(val => {
             formArray.push(this.formBuilder.group({
-                loanTypeNepali: [data.loanTypeNepali],
-                loanTypeEnglish: [data.loanTypeEnglish],
-                amount: [data.amount],
-                amountInWords: [data.amountInWords],
-                loanPurpose: [data.loanPurpose],
-                interestRate: [data.interestRate],
-                interestRepayMonths: [data.interestRepayMonths],
-                interestBaseRate: [data.interestBaseRate],
-                interestPremiumRate: [data.interestPremiumRate],
-                interestTempDiscountRate: [data.interestTempDiscountRate],
-                interestFinalRate: [data.interestFinalRate],
-                // loanLimit: [undefined],
-                interestRepayPlan: [data.interestRepayPlan],
-                loanLimitYearAD: [data.loanLimitYearAD],
-                loanLimitYearBS: [data.loanLimitYearBS],
-                loanLimitMonths: [data.loanLimitMonths],
+                loanTypeNepali: [val.loanType],
+                loanTypeEnglish: [val.typeOfLoanInEnglish],
+                amount: [val.numberNepali],
+                amountInWords: [val.nepaliWords],
+                loanPurpose: [val.purposeOfLoan],
+                interestRate: [val.interestRate],
+                interestRepayPlan: [val.interestInstallmentPaymentFrequency],
+                loanLimitYearAD: [val.loanMaturityDateAD],
+                loanLimitYearBS: [val.loanMaturityDateBS],
+                loanLimitMonths: [val.tenureOfLoanInMonths],
 
-                pratibadhataAmount: [data.pratibadhataAmount],
-                pratibadhataAdditionalAmount: [data.pratibadhataAdditionalAmount],
-                pratibadhataRate: [data.pratibadhataRate],
-                pratibadhataYearlyRate: [data.pratibadhataYearlyRate],
+                interestRepayMonths: [val.interestRepayMonths],
+                interestBaseRate: [val.interestBaseRate],
+                interestPremiumRate: [val.interestPremiumRate],
+                interestTempDiscountRate: [val.interestTempDiscountRate],
+                interestFinalRate: [val.interestFinalRate],
 
-                sthantarandRate: [data.sthantarandRate],
-            }))
+                pratibadhataAdditionalAmount: [val.pratibadhataAdditionalAmount],
+                pratibadhataRate: [val.pratibadhataRate],
+                pratibadhataYearlyRate: [val.pratibadhataYearlyRate],
 
-        })
-
-    }
-
+                sthantarandRate: [val.sthantarandRate],
+            }));
+        });*!/
+    }*/
 }
