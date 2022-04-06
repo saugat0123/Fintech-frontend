@@ -7,13 +7,13 @@
             <tr>
               <td class="font-weight-bold text-center" colspan="2">{{report?.name}}</td>
             </tr>
-            <tr class="font-weight-bold sb-bg-secondary text-left">
+            <tr class="font-weight-bold text-left">
               <td class="pl-1">Code</td>
               <td class="pl-1">Description</td>
             </tr>
             <tr *ngFor="let level of report?.reportingInfoLevels">
-              <td class="text-right pr-1">{{level?.code}}</td>
-              <td class="text-left pl-1">{{level?.description}}</td>
+              <th class="text-center pr-1">{{level?.code}}</th>
+              <th class="text-center pl-1">{{level?.description}}</th>
             </tr>
           </ng-container>
         </table>
@@ -25,12 +25,12 @@
                     class="font-weight-bold text-center">{{report?.name}}</td>
               </tr>
               <tr>
-                <td class="font-weight-bold sb-bg-secondary text-white text-left pl-1">Code</td>
-                <td *ngFor="let level of report?.reportingInfoLevels" class="text-right pr-1">{{level?.code}}</td>
+                <td class="font-weight-bold text-left pl-1">Code</td>
+                <th *ngFor="let level of report?.reportingInfoLevels" class="text-center pr-1">{{level?.code}}</th>
               </tr>
               <tr>
-                <td class="font-weight-bold sb-bg-secondary text-white text-left pl-1">Description</td>
-                <td *ngFor="let level of report?.reportingInfoLevels" class="text-left pl-1">{{level?.description}}</td>
+                <td class="font-weight-bold text-left pl-1">Description</td>
+                <th *ngFor="let level of report?.reportingInfoLevels" class="text-center pl-1">{{level?.description}}</th>
               </tr>
             </table>
           </ng-container>
