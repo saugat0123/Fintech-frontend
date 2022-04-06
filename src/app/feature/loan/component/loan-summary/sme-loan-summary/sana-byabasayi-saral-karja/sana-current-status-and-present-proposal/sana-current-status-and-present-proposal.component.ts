@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {LoanDataHolder} from '../../../../../model/loanData';
+import {LoanType} from '../../../../../model/loanType';
 
 @Component({
   selector: 'app-sana-current-status-and-present-proposal',
@@ -6,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sana-current-status-and-present-proposal.component.scss']
 })
 export class SanaCurrentStatusAndPresentProposalComponent implements OnInit {
+  @Input() loanDataHolder: LoanDataHolder;
+  loanType: LoanType;
 
   constructor() { }
 

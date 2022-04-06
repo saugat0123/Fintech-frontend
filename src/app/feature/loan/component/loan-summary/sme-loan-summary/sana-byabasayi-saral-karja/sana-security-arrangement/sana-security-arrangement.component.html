@@ -1,7 +1,7 @@
 <div class="row mr-2">
-    <div class="col-md-10">
+    <div class="col-md-9">
         <p class="text-right mr-5">Existing</p>
-        <table class="table table-condensed table-bordered table-responsive-md sb-small">
+        <table class="table table-bordered">
             <tr class="sb-bg-dark text-white">
                 <td>a</td>
                 <td>Real estate  collateral
@@ -10,26 +10,26 @@
                 <td>FMV</td>
                 <td>DV</td>
             </tr>
-            <tr style="height: 600px">
+            <tr *ngFor="let landData of landDataList">
                 <td></td>
                 <td>
                     <p class="mb-0">Registered mortgage of Real estate collateral as detailed below:</p>
-                    <table class="table table-condensed table-bordered table-responsive-md sb-small mb-0">
+                    <table class="table table-condensed table-bordered table-responsive-md sb-small">
                         <tr>
                             <td>Owner</td>
-                            <td>Mr…….. (relation with borrower)</td>
+                            <td>Mr {{landData?.owner}} (relation with borrower)</td>
                         </tr>
                         <tr>
                             <td>Location</td>
-                            <td></td>
+                            <td>{{landData?.location}}</td>
                         </tr>
                         <tr>
                             <td>Plot No.</td>
-                            <td></td>
+                            <td>{{landData?.plotNumber}}</td>
                         </tr>
                         <tr>
                             <td>Area of land</td>
-                            <td></td>
+                            <td>{{landData?.area}}</td>
                         </tr>
                         <tr>
                             <td>Access Road Type/width</td>
@@ -37,19 +37,19 @@
                         </tr>
                         <tr>
                             <td>Date of Valuation</td>
-                            <td></td>
+                            <td>{{landData?.landValuatorDate | date}}</td>
                         </tr>
                         <tr>
                             <td>Name of Valuator</td>
-                            <td></td>
+                            <td>{{landData?.landValuator?.name}}</td>
                         </tr>
                         <tr>
                             <td>Date of Revaluation</td>
-                            <td></td>
+                            <td>{{landData?.revaluationData?.reValuationDate | date}}</td>
                         </tr>
                         <tr>
                             <td>Name of Re-valuator</td>
-                            <td></td>
+                            <td>{{landData?.revaluationData?.newValuator?.name}}</td>
                         </tr>
                         <tr>
                             <td>Mortgage Amount</td>
@@ -80,16 +80,16 @@
     </div>
     <div class="col-md-2">
         <p class="text-center">Proposed</p>
-        <table class="table table-condensed table-bordered table-responsive-md sb-small">
+        <table class="table table-condensed table-bordered table-responsive-md">
             <tr class="sb-bg-dark text-white">
                 <td>MV</td>
                 <td>FMV</td>
                 <td>DV</td>
             </tr>
-            <tr style="height: 600px">
-                <td></td>
-                <td></td>
-                <td></td>
+            <tr style="height: 605px" *ngFor="let landData of landDataList">
+                <td>{{landData?.landConsideredValue}}</td>
+                <td>{{landData?.marketValue}}</td>
+                <td>{{landData?.distressValue}}</td>
             </tr>
             <tr style="height: 43px">
                 <td></td>
@@ -99,7 +99,7 @@
         </table>
     </div>
     <div class="col-md-10">
-        <table class="table table-condensed table-bordered table-responsive-md sb-small">
+        <table class="table table-bordered">
             <tr>
                 <td>b</td>
                 <td>Hypothecation over fixed assets other than land & building
