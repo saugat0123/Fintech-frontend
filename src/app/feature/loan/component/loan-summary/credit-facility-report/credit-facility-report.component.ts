@@ -1,9 +1,9 @@
-import { CreditRiskGradingLambda } from './../../../../admin/modal/CreditRiskGradingLambda';
-import {Component, Input, OnChanges, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, ViewChild} from '@angular/core';
 import {LoanDataHolder} from '../../../model/loanData';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
 import {CustomerLoanDto} from '../../../model/customerLoanDto';
 import {ApiConfig} from '../../../../../@core/utils/api/ApiConfig';
+import {SecurityInitialFormComponent} from '../../../../loan-information-template/security/security-initial-form/security-initial-form.component';
 
 @Component({
     selector: 'app-credit-facility-report',
@@ -34,11 +34,17 @@ export class CreditFacilityReportComponent implements OnInit, OnChanges {
     securityLandDetails: [];
     proposalDuration: string | number;
     incomeFromAccount: any;
+    totalLandMv = 0;
+    totalLandDv = 0;
+    totalBuildingMv = 0;
+    totalBuildingDv = 0;
+    totalLandAndBuildingMv = 0;
+    totalLandAndBuildingDv = 0;
     constructor() {
     }
 
     ngOnInit() {
-        
+        this.patchValues();
     }
 
     ngOnChanges(changes): void {
@@ -47,7 +53,6 @@ export class CreditFacilityReportComponent implements OnInit, OnChanges {
             this.customerLoanDtoList = this.loanDataHolder.customerLoanDtoList;
         }
         this.getAllLoanConfig();
-        this.patchValues();
     }
 
     public getTotalFundable(key: string, funded: boolean, loanList: LoanDataHolder[]): number {
@@ -192,13 +197,59 @@ export class CreditFacilityReportComponent implements OnInit, OnChanges {
         this.securityDetails = ObjectUtil.isEmpty(this.loanDataHolder.security) ? '' : JSON.parse(this.loanDataHolder.security.data);
         this.riskGrade = ObjectUtil.isEmpty(this.loanDataHolder.crgGamma) ? '' : JSON.parse(this.loanDataHolder.crgGamma.data);
         this.proposedLimit = ObjectUtil.isEmpty(this.loanDataHolder.proposal) ? '' : this.loanDataHolder.proposal.proposedLimit;
-        this.guarantorsList = ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.guarantors) ? '' : this.loanDataHolder.loanHolder.guarantors.guarantorList;
+        this.guarantorsList = ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.guarantors) ? '' :
+            this.loanDataHolder.loanHolder.guarantors.guarantorList;
         this.loanName = ObjectUtil.isEmpty(this.loanDataHolder.loan) ? '' : this.loanDataHolder.loan.name;
         this.proposalData = ObjectUtil.isEmpty(this.loanDataHolder.proposal) ? '' : JSON.parse(this.loanDataHolder.proposal.data);
         this.currentStage = ObjectUtil.isEmpty(this.loanDataHolder.currentStage) ? '' : this.loanDataHolder.currentStage;
-        this.securityLandDetails = ObjectUtil.isEmpty(this.loanDataHolder.security) ? [] : JSON.parse(this.loanDataHolder.security.data).initialForm.landDetails;
+        this.securityLandDetails = ObjectUtil.isEmpty(this.loanDataHolder.security) ? [] :
+            JSON.parse(this.loanDataHolder.security.data).initialForm.landDetails;
         console.log('loan data holder: ', this.loanDataHolder);
-        this.proposalDuration = ObjectUtil.isEmpty(this.loanDataHolder.proposal.duration) ? '....................' : this.loanDataHolder.proposal.duration;
-        this.incomeFromAccount = ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.incomeFromAccount) ? '' : JSON.parse(this.loanDataHolder.loanHolder.incomeFromAccount.data);
+        this.proposalDuration = ObjectUtil.isEmpty(this.loanDataHolder.proposal.duration) ? '....................' :
+            this.loanDataHolder.proposal.duration;
+        this.incomeFromAccount = ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.incomeFromAccount) ? '' :
+            JSON.parse(this.loanDataHolder.loanHolder.incomeFromAccount.data);
+            this.calculateLandSecurityTotal();
+            this.calculateBuildingSecurityTotal();
+            this.calculateLandAndBuildingSecurityTotal();
+    }
+    //Total Market Value Calculation for Land Security
+    calculateLandSecurityTotal() {
+        let marketValues = []
+        let distressValues = []
+        for (let x of this.securityDetails.initialForm.landDetails) {
+            marketValues.push(Number(x.marketValue))
+            distressValues.push(Number(x.distressValue))
+        }
+        for (let i = 0; i < marketValues.length; i++) {
+            this.totalLandMv += marketValues[i];
+            this.totalLandDv += distressValues[i];
+        }
+    }
+    //Total Market Value Calculation for Aparment/Building Security
+    calculateBuildingSecurityTotal() {
+        let marketValues = []
+        let distressValues = []
+        for (let x of this.securityDetails.initialForm.buildingDetails) {
+            marketValues.push(Number(x.buildingFairMarketValue))
+            distressValues.push(Number(x.buildingDistressValue))
+        }
+        for (let i = 0; i < marketValues.length; i++) {
+            this.totalBuildingMv += marketValues[i];
+            this.totalBuildingDv += distressValues[i];
+        }
+    }
+    //Total Market Value Calculation for Land and Building Security
+    calculateLandAndBuildingSecurityTotal() {
+        let marketValues = []
+        let distressValues = []
+        for (let x of this.securityDetails.initialForm.landBuilding) {
+            marketValues.push(Number(x.marketValue))
+            distressValues.push(Number(x.distressValue))
+        }
+        for (let i = 0; i < marketValues.length; i++) {
+            this.totalLandAndBuildingMv += marketValues[i];
+            this.totalLandAndBuildingDv += distressValues[i];
+        }
     }
 }
