@@ -26,10 +26,14 @@ export class CreditFacilityReportComponent implements OnInit, OnChanges {
     securityDetails;
     riskGrade;
     guarantorDetails;
-    proposedLimit: number;
+    proposedLimit: any;
     guarantorsList;
     loanName: string;
     proposalData: any;
+    currentStage: any;
+    securityLandDetails: [];
+    proposalDuration: string | number;
+    incomeFromAccount: any;
     constructor() {
     }
 
@@ -184,13 +188,17 @@ export class CreditFacilityReportComponent implements OnInit, OnChanges {
         }
     }
     patchValues() {
-        this.nrbSectorCodes = this.loanDataHolder.loanHolder.reportingInfoLevels;
-        this.securityDetails = JSON.parse(this.loanDataHolder.security.data);
-        this.riskGrade = JSON.parse(this.loanDataHolder.creditRiskGradingLambda.data).totalScore;
-        this.guarantorDetails = this.loanDataHolder.loanHolder.guarantors.guarantorList;
-        this.proposedLimit = this.loanDataHolder.proposal.proposedLimit;
-        this.guarantorsList = this.loanDataHolder.loanHolder.guarantors.guarantorList;
-        this.loanName = this.loanDataHolder.loan.name;
-        this.proposalData = JSON.parse(this.loanDataHolder.proposal.data);
+        this.nrbSectorCodes = ObjectUtil.isEmpty(this.loanDataHolder.loanHolder) ? [] : this.loanDataHolder.loanHolder.reportingInfoLevels;
+        this.securityDetails = ObjectUtil.isEmpty(this.loanDataHolder.security) ? '' : JSON.parse(this.loanDataHolder.security.data);
+        this.riskGrade = ObjectUtil.isEmpty(this.loanDataHolder.crgGamma) ? '' : JSON.parse(this.loanDataHolder.crgGamma.data);
+        this.proposedLimit = ObjectUtil.isEmpty(this.loanDataHolder.proposal) ? '' : this.loanDataHolder.proposal.proposedLimit;
+        this.guarantorsList = ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.guarantors) ? '' : this.loanDataHolder.loanHolder.guarantors.guarantorList;
+        this.loanName = ObjectUtil.isEmpty(this.loanDataHolder.loan) ? '' : this.loanDataHolder.loan.name;
+        this.proposalData = ObjectUtil.isEmpty(this.loanDataHolder.proposal) ? '' : JSON.parse(this.loanDataHolder.proposal.data);
+        this.currentStage = ObjectUtil.isEmpty(this.loanDataHolder.currentStage) ? '' : this.loanDataHolder.currentStage;
+        this.securityLandDetails = ObjectUtil.isEmpty(this.loanDataHolder.security) ? [] : JSON.parse(this.loanDataHolder.security.data).initialForm.landDetails;
+        console.log('loan data holder: ', this.loanDataHolder);
+        this.proposalDuration = ObjectUtil.isEmpty(this.loanDataHolder.proposal.duration) ? '....................' : this.loanDataHolder.proposal.duration;
+        this.incomeFromAccount = ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.incomeFromAccount) ? '' : JSON.parse(this.loanDataHolder.loanHolder.incomeFromAccount.data);
     }
 }

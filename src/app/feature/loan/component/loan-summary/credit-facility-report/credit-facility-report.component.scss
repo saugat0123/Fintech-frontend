@@ -14,6 +14,9 @@
     }
   }
 
+  td {
+    line-height: 1.9em;
+  }
   .signature-height {
     height: 50px;
   }
@@ -60,9 +63,6 @@
     border-left: thick solid #414141;
   }
 
-  .gauge-label-padding {
-    //padding-top: 90px;
-  }
 
   @media print {
 
@@ -160,7 +160,6 @@
       page-break-after: auto
     }
     td {
-      page-break-inside: avoid;
       page-break-after: auto
     }
     thead {

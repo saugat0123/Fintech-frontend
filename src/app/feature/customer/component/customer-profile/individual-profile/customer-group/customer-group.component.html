@@ -1,12 +1,12 @@
 <div class="row" [formGroup]="form" [nbSpinner]="spinner">
     <div class="col-md-12">
         <div class="form-group">
-            <label for="groupCode">GroupName</label>
+            <label for="groupName">Group Name</label>
             <input class="form-control"
                    placeholder="Group Name" id="groupName" formControlName="groupName">
         </div>
         <div class="form-group">
-            <label for="groupCode">GroupCode</label>
+            <label for="groupCode">Group Code</label>
             <input class="form-control"
                    placeholder="Group Code" id="groupCode" formControlName="groupCode">
         </div>
@@ -14,7 +14,7 @@
     </div>
     <div class="col-md-12">
         <div class="form-group">
-            <label for="groupCode">Detail Information</label>
+            <label for="detailInformation">Detail Information</label>
             <ckeditor id="detailInformation" formControlName="detailInformation"
                       [config]="ckeConfig"></ckeditor>
         </div>

@@ -1,48 +1,46 @@
 <div class="row">
     <div class="col-md-12">
-        <table
-            class="table table-responsive-md table-bordered table-responsive-sm table-condensed table-sm text-center sb-small">
+        <table class="table table-responsive-md table-bordered table-responsive-sm table-condensed text-center">
             <tr class="sb-bg-dark text-white">
-                <td>Originating Branch</td>
-                <td>Date</td>
-                <td>Next Review</td>
-                <td colspan="15">CFR/CA Ref.:</td>
+                <th>Originating Branch</th>
+                <th>Date</th>
+                <th>Next Review</th>
+                <th colspan="15">CFR/CA Ref.:</th>
             </tr>
             <tr class="ref-no">
-                <td class="text-left pl-1">{{loanDataHolder?.branch?.name}}</td>
-                <td class="text-left pl-1">{{loanDataHolder?.createdAt | date}}</td>
-                <td class="text-left pl-1">{{'NA'}}</td>
-                <td class="text-left pl-1">{{loanDataHolder?.refNo.substring(0,1)}}</td>
-                <td class="text-left pl-1">{{loanDataHolder?.refNo.substring(1,2)}}</td>
-                <td class="text-left pl-1">{{loanDataHolder?.refNo.substring(2,3)}}</td>
-                <td class="text-left pl-1">{{loanDataHolder?.refNo.substring(3,4)}}</td>
-                <td class="text-left pl-1">{{loanDataHolder?.refNo.substring(4,5)}}</td>
-                <td class="text-left pl-1">{{loanDataHolder?.refNo.substring(5,6)}}</td>
-                <td class="text-left pl-1">{{loanDataHolder?.refNo.substring(6,7)}}</td>
-                <td class="text-left pl-1">{{loanDataHolder?.refNo.substring(7,8)}}</td>
-                <td class="text-left pl-1">{{loanDataHolder?.refNo.substring(8,9)}}</td>
-                <td class="text-left pl-1">{{loanDataHolder?.refNo.substring(9,10)}}</td>
-                <td class="text-left pl-1">{{loanDataHolder?.refNo.substring(10,11)}}</td>
-                <td class="text-left pl-1">{{loanDataHolder?.refNo.substring(11,12)}}</td>
-                <td class="text-left pl-1">{{loanDataHolder?.refNo.substring(12,13)}}</td>
-                <td class="text-left pl-1">{{loanDataHolder?.refNo.substring(13,14)}}</td>
-                <td class="text-left pl-1"></td>
+                <td class="text-center pl-1">{{loanDataHolder?.branch?.name}}</td>
+                <td class="text-center pl-1">{{loanDataHolder?.createdAt | date}}</td>
+                <td class="text-center pl-1">{{'NA'}}</td>
+                <td class="text-center pl-1">{{loanDataHolder?.refNo.substring(0,1)}}</td>
+                <td class="text-center pl-1">{{loanDataHolder?.refNo.substring(1,2)}}</td>
+                <td class="text-center pl-1">{{loanDataHolder?.refNo.substring(2,3)}}</td>
+                <td class="text-center pl-1">{{loanDataHolder?.refNo.substring(3,4)}}</td>
+                <td class="text-center pl-1">{{loanDataHolder?.refNo.substring(4,5)}}</td>
+                <td class="text-center pl-1">{{loanDataHolder?.refNo.substring(5,6)}}</td>
+                <td class="text-center pl-1">{{loanDataHolder?.refNo.substring(6,7)}}</td>
+                <td class="text-center pl-1">{{loanDataHolder?.refNo.substring(7,8)}}</td>
+                <td class="text-center pl-1">{{loanDataHolder?.refNo.substring(8,9)}}</td>
+                <td class="text-center pl-1">{{loanDataHolder?.refNo.substring(9,10)}}</td>
+                <td class="text-center pl-1">{{loanDataHolder?.refNo.substring(10,11)}}</td>
+                <td class="text-center pl-1">{{loanDataHolder?.refNo.substring(11,12)}}</td>
+                <td class="text-center pl-1">{{loanDataHolder?.refNo.substring(12,13)}}</td>
+                <td class="text-center pl-1">{{loanDataHolder?.refNo.substring(13,14)}}</td>
             </tr>
         </table>
         <!-- </div>
 </div>
 <div class="row">
     <div class="col-md-12">-->
-        <table class="table table-responsive-md table-bordered table-condensed table-sm text-left sb-small mt-n3">
+        <table class="table table-bordered mt-3">
             <tr>
-                <td style="width: 40%">Customer & Address:</td>
-                <td style="width: 28%">Obligor Group & Location</td>
-                <td>Risk Grade: <span class="font-weight-bold">{{riskGrade}}</span></td>
+                <td style="width: 30%">Customer & Address:</td>
+                <td style="width: 20%">Obligor Group & Location</td>
+                <td style="width: 50%;">Risk Grade: <span class="font-weight-bold">{{riskGrade?.totalPoint}}</span></td>
             </tr>
             <tr>
                 <td>Name: Mr./Mrs./Ms <span class="font-weight-bold">{{loanDataHolder?.loanHolder.name}}</span></td>
                 <td rowspan="7">Name: to be Created</td>
-                <td>Basel Risk: </td>
+                <td>Basel Risk: Claims on RRP ( ...... %)</td>
             </tr>
             <tr>
                 <td>Permanent Address: <span class="font-weight-bold">
@@ -50,10 +48,11 @@
                         , {{loanDataHolder?.customerInfo?.district?.name}},
                         {{loanDataHolder?.customerInfo?.municipalities?.name}}
                         , {{loanDataHolder?.customerInfo?.wardNumber}}</span></td>
-                <td>NRB Sector Code: <span class="font-weight-bold"
+                <td>NRB Sector Code: 
+                    <span class="font-weight-bold"
                         *ngFor="let item of nrbSectorCodes; let i = index">{{item.code}}<ng-container
                             *ngIf="nrbSectorCodes.length > 1">{{nrbSectorCodes.length-i > 1 ? ', ' : ''}}</ng-container>
-                    </span>
+                    </span> (Others)
                 <td>
             </tr>
             <tr>
@@ -62,7 +61,7 @@
                         , {{loanDataHolder?.customerInfo?.temporaryDistrict?.name}},
                         {{loanDataHolder?.customerInfo?.temporaryMunicipalities?.name}}
                         , {{loanDataHolder?.customerInfo?.temporaryWardNumber}}</span></td>
-                <td>NRB Security Code:..............................</td>
+                <td>NRB Security Code: .............................. (Land & Building)</td>
             </tr>
             <tr>
                 <td>Contact Number: <span
@@ -70,24 +69,24 @@
                 <td>NRB Product Code: ..................................</td>
             </tr>
             <tr>
-                <td rowspan="3">Contact Person: Mr./Mrs./Ms............................</td>
-                <td>Risk Type: </td>
+                <td rowspan="3">Contact Person: Mr./Mrs./Ms. ...........................</td>
+                <td>Risk Type: Unsecured </td>
             </tr>
             <tr>
-                <td> SIS Sector/Sub-Sector Code:.........................</td>
+                <td> SIS Sector/Sub-Sector Code: .........................</td>
             </tr>
             <tr>
-                <td>SIS Collateral Code:..........................</td>
+                <td>SIS Collateral Code: ..........................</td>
             </tr>
         </table>
-        <table class="table table-responsive-md table-bordered table-condensed table-sm text-center sb-small mt-n3">
+        <table class="table table-responsive-md table-bordered table-condensed text-center mt-3">
             <tr class="sb-bg-dark text-white">
-                <td rowspan="2" colspan="1">Facilities</td>
-                <td colspan="2">Existing</td>
-                <td colspan="2">Proposed Limit</td>
-                <td colspan="1" rowspan="2">Pricing</td>
-                <td colspan="1" rowspan="2">Tenure</td>
-                <td colspan="1" rowspan="2">Security</td>
+                <th rowspan="2" colspan="1">Facilities</th>
+                <th colspan="2">Existing</th>
+                <th colspan="2">Proposed Limit</th>
+                <th colspan="1" rowspan="2">Pricing</th>
+                <th colspan="1" rowspan="2">Tenure</th>
+                <th colspan="1" rowspan="2">Security</th>
             </tr>
             <tr class="sb-bg-dark text-white">
                 <td colspan="1">Funded</td>
@@ -101,70 +100,160 @@
                     <span class="font-weight-bold">{{loanName}}</span>
                 </td>
                 <th colspan="1" class="text-center pr-1">
-                    {{loanDataHolder.loan.isFundable && proposalData.exisitingLimit ? (proposedLimit | currency:"INR") : '-' }}
+                    <!-- {{loanDataHolder?.loan?.isFundable && proposalData?.exisitingLimit ? (proposedLimit |
+                    currency:"NPR ") :
+                    '-' }} -->
+                    -
                 </th>
                 <th colspan="1" class="text-center pr-1">
-                    {{!loanDataHolder.loan.isFundable && !proposalData.exisitingLimit ? (proposedLimit | currency:"INR") : '-'}}
+                    <!-- {{!loanDataHolder?.loan?.isFundable && !proposalData?.exisitingLimit ? (proposedLimit |
+                    currency:"NPR ")
+                    : '-'}} -->
+                    -
                 </th>
                 <th colspan="1" class="text-center pr-1">
-                    {{loanDataHolder.loan.isFundable ? (proposedLimit | currency:"INR") : '-' }}
+                    {{loanDataHolder?.loan?.isFundable ? (proposedLimit | currency:"NPR ") : '-' }}
                 </th>
                 <th colspan="1" class="text-center pr-1">
-                    {{!loanDataHolder.loan.isFundable ? (proposedLimit | currency:"INR") : '-'}}
+                    {{!loanDataHolder?.loan?.isFundable ? (proposedLimit | currency:"NPR ") : '-'}}
                 </th>
                 <td colspan="1" class="text-left pr-1">
-                    ..................% p.a ( <span class="font-weight-bold">{{proposalData.baseRate}}</span> % + ..................%)<br><br>
+                    <span class="font-weight-bold">{{loanDataHolder?.loan?.interestRate}}</span> % p.a ( <span
+                        class="font-weight-bold">{{proposalData?.baseRate}}</span> % +
+                    <span class="font-weight-bold">{{proposalData ? proposalData?.premiumRateOnBaseRate :
+                        '..............' }}</span> %)<br><br>
 
-                    Loan Processing Fee:...................% of the limit<br><br>
+                    Loan Processing Fee: <span class="font-weight-bold">{{incomeFromAccount.loanProcessingDuringReview | currency : 'NPR '}}</span> % of the limit<br><br>
 
-                    CIC charge:
+                    CICL charge: <span class="font-weight-bold">{{loanDataHolder.loanHolder.cicl ?
+                        (loanDataHolder?.loanHolder?.cicl?.cibCharge | currency:'NPR ') :
+                        '.....................'}}</span>
                     On actual basis<br><br>
 
                     Prepayment charge: As Per NRB<br><br>
                     Loan Swap Charge: As per NRB<br><br>
                 </td>
                 <td colspan="1" class="text-left pl-1">
-                    ................ years from the date of disbursement
+                    <span class="font-weight-bold">{{proposalDuration ? proposalDuration : '..................'}}</span>
+                    years from the date of disbursement
                 </td>
                 <td colspan="1" class="text-left pl-1">
-                    <span *ngFor="let item of securityDetails.initialForm.landDetails">
-                        Registered mortgage over <br>
-                        Owner: <span class="font-weight-bold">{{item.owner}}</span><br>
-                        Location: <span class="font-weight-bold">{{item.location}}</span>
-                        <br>
-                        Ward No.: <span class="font-weight-bold"></span>
-                        <br>
-                        Plot No.: <span class="font-weight-bold">{{item.plotNumber}}</span>, Area: <span
-                            class="font-weight-bold">{{item.area}}</span> sq.m <br><br>
-                        Valuation Date and Valuator: <span class="font-weight-bold">{{item.landValuatorDate |
-                            date}}</span>; <span class="font-weight-bold">{{item.landValuator.name}}</span> Pvt.Ltd.
-                    </span>
-                    <table class="table table-bordered text-center mt-2">
-                        <tr>
-                            <td>Particulars</td>
-                            <td>MV</td>
-                            <td>FMV</td>
-                            <td>DV</td>
-                        </tr>
-                        <tr>
-                            <td>Land</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td>Buinding</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <th>Total</th>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                    </table>
+
+                    <div class="land-security" *ngIf="securityDetails">
+                        <span *ngFor="let item of securityLandDetails">
+                            Registered mortgage over <br>
+                            Owner: <span class="font-weight-bold">{{item?.owner}}</span><br>
+                            Location: <span class="font-weight-bold">{{item?.location}}</span>
+                            <br>
+                            Ward No.: <span class="font-weight-bold"></span>
+                            <br>
+                            Plot No.: <span class="font-weight-bold">{{item?.plotNumber}}</span>, Area: <span
+                                class="font-weight-bold">{{item?.area}}</span> sq.m <br>
+                            Valuation Date and Valuator: <span class="font-weight-bold">{{item?.landValuatorDate |
+                                date}}</span>; <span class="font-weight-bold">{{item?.landValuator.name}}</span> Pvt.Ltd.
+                        </span>
+                        <table class="table table-bordered text-center mt-2">
+                            <tr>
+                                <td>Particulars</td>
+                                <td>MV</td>
+                                <td>FMV</td>
+                                <td>DV</td>
+                            </tr>
+                            <tr *ngFor="let item of securityLandDetails">
+                                <td>Land</td>
+                                <th>{{item?.marketValue | currency: 'NPR ' : 'symbol'}}</th>
+                                <th>{{item?.marketValue | currency: 'NPR ' : 'symbol'}}</th>
+                                <th>{{item?.distressValue | currency: 'NPR ' : 'symbol'}}</th>
+                            </tr>
+                            <tr>
+                                <th>Total</th>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="land-building-security" *ngIf="securityDetails">
+                        <span *ngFor="let item of securityDetails.initialForm.landBuilding">
+                            Registered mortgage over <br>
+                            Owner: <span class="font-weight-bold">{{item?.owner}}</span><br>
+                            Location: <span class="font-weight-bold">{{item?.location}}</span>
+                            <br>
+                            Ward No.: <span class="font-weight-bold"></span>
+                            <br>
+                            Plot No.: <span class="font-weight-bold">{{item?.plotNumber}}</span>, Area: <span
+                                class="font-weight-bold">{{item?.area}}</span> sq.m <br>
+                            Valuation Date and Valuator: <span class="font-weight-bold">{{item?.buildingValuatorDate |
+                                date}}</span>; <span class="font-weight-bold">{{item?.buildingValuator.name}}</span> Pvt.Ltd.
+                        </span>
+                        <table class="table table-bordered text-center mt-2">
+                            <tr>
+                                <td>Particulars</td>
+                                <td>MV</td>
+                                <td>FMV</td>
+                                <td>DV</td>
+                            </tr>
+                            <tr *ngFor="let item of securityDetails.initialForm.landBuilding">
+                                <td>Land</td>
+                                <th>{{item?.marketValue | currency: 'NPR ' : 'symbol'}}</th>
+                                <th>{{item?.marketValue | currency: 'NPR ' : 'symbol'}}</th>
+                                <th>{{item?.distressValue | currency: 'NPR ' : 'symbol'}}</th>
+                            </tr>
+                            <tr>
+                                <th>Total</th>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="building-security" *ngIf="securityDetails">
+                        <span *ngFor="let item of securityDetails.initialForm.buildingDetails">
+                            Registered mortgage over <br>
+                            Building Name: <span class="font-weight-bold">{{item?.buildingName}}</span><br>
+                            <!-- Location: <span class="font-weight-bold">{{item?.location}}</span>
+                            <br>
+                            Ward No.: <span class="font-weight-bold"></span>
+                            <br>
+                            Plot No.: <span class="font-weight-bold">{{item?.plotNumber}}</span>, Area: <span
+                                class="font-weight-bold">{{item?.area}}</span> sq.m <br> -->
+                            Valuation Date and Valuator: <span class="font-weight-bold">{{item?.ApartmentValuatorDate |
+                                date}}</span>; <span class="font-weight-bold">{{item?.ApartmentValuator.name}}</span> Pvt.Ltd.
+                        </span>
+                        <table class="table table-bordered text-center mt-2">
+                            <tr>
+                                <td>Particulars</td>
+                                <td>MV</td>
+                                <td>FMV</td>
+                                <td>DV</td>
+                            </tr>
+                            <tr *ngFor="let item of securityDetails.initialForm.buildingDetails">
+                                <td>Building</td>
+                                <th>{{item?.buildingFairMarketValue | currency: 'NPR ' : 'symbol'}}</th>
+                                <th>{{item?.buildingFairMarketValue | currency: 'NPR ' : 'symbol'}}</th>
+                                <th>{{item?.buildingDistressValue | currency: 'NPR ' : 'symbol'}}</th>
+                            </tr>
+                            <tr>
+                                <th>Total</th>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="building-security" *ngIf="securityDetails">
+                        <span *ngFor="let item of securityDetails.initialForm.vehicleDetails">
+                            Registered mortgage over <br>
+                            Vehicle Model: <span class="font-weight-bold">{{item?.model}}</span><br>
+                            Registration Number: <span class="font-weight-bold">{{item?.registrationNumber}}</span><br>
+                            Valuation Date and Valuator: <span class="font-weight-bold">{{item?.vehicalValuatorDate |
+                                date}}</span>; <span class="font-weight-bold">{{item?.vehicalValuator.name}}</span> Pvt.Ltd.
+                        </span>
+                    </div>
+
                 </td>
             </tr>
             <tr *ngFor="let dto of customerLoanDtoList; let ii = index">
@@ -254,14 +343,17 @@
                             <td>FMV</td>
                             <td>DV</td>
                         </tr>
-                        <tr>
+                        <tr *ngFor="let item of securityLandDetails">
                             <td>Land</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td class="font-weight-bold">{{item ? (item?.marketValue | currency: 'NPR ') :
+                                '.................'}}</td>
+                            <td class="font-weight-bold">{{item ? (item?.marketValue | currency: 'NPR ') :
+                                '................'}}</td>
+                            <td class="font-weight-bold">{{item ? (item?.distressValue | currency: 'NPR ') :
+                                '................'}}</td>
                         </tr>
                         <tr>
-                            <td>Buinding</td>
+                            <td>Building</td>
                             <td></td>
                             <td></td>
                             <td></td>
@@ -292,64 +384,66 @@
                 <th colspan="2"></th>
                 <th style="border-bottom: hidden"></th>
             </tr>
-            <tr class="text-left">
-                <td colspan="3">
-                    Branch/Unit Originating CFR<br><br><br>
-                    Prepared By:<br><br><br>
-                    Recommended By:<br><br><br>
-                    Reviewed By:<br><br><br><br>
-                    Approved By:<br><br><br><br>
+            <tr>
+                <td colspan="7">
+                    <app-signature-section [loanDataHolder]="loanDataHolder"></app-signature-section>
                 </td>
-                <td colspan="4">Approved by: ................................<br><br>
-
-                    ______________
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RM-..................................<br><br>
-
-                    ______________
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BM-..................................<br><br>
-
-                    ______________ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Risk Department<br><br><br><br>
-
-                    ______________&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;............................
-                </td>
-                <td>
+                <td class="text-left">
                     <ng-container *ngFor="let guarantor of guarantorsList">
-                        Personal Guarantee of {{loanDataHolder.loanHolder.gender === 'MALE' ? 'Mr.' : 'Mrs./Ms.'}} <span class="font-weight-bold">{{guarantor.name}}</span> (<span class="font-weight-bold">{{guarantor.relationship}}</span> of the borrower) of NPR <span class="font-weight-bold">{{guarantor.netWorth}}</span> Million. <br>
-                        Consent of Mr./Mrs./Ms <span class="font-weight-bold">{{guarantor.name}}</span> <br>
+                        Personal Guarantee of {{loanDataHolder?.loanHolder?.gender === 'MALE' ? 'Mr.' : 'Mrs./Ms.'}}
+                        <span class="font-weight-bold">{{guarantor ? guarantor?.name : '................'}}</span>
+                        (<span class="font-weight-bold">{{guarantor ? guarantor?.relationship :
+                            '..............'}}</span> of the borrower) of <span class="font-weight-bold">{{guarantor ?
+                            (guarantor?.guaranteeAmount | currency:'NPR ':'symbol') : '..............'}}</span> Million.
+                        <br>
+                        Consent of Mr./Mrs./Ms <span class="font-weight-bold">{{guarantor?.name}}</span> <br>
                     </ng-container>
-                    <b>Total</b> <br>
-                    Tangible: NPR ............. Million<br>
+                    <!-- <b>Total</b> <br>
+                    Tangible: ............. Million<br>
                     Intangible: ............ Million<br>
-                    Security Coverage: Ratio for funded Facility of NPR ............ Million.<br><br>
+                    Security Coverage: Ratio for funded Facility of ............ Million.<br><br>
 
                     &nbsp;&nbsp;&nbsp;&nbsp;a. Land & Building :- .............% at FMV<br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;b. Personal Guarantee :- 100%.<br><br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;b. Personal Guarantee :- 100%.<br><br> -->
                 </td>
             </tr>
         </table>
-        <table class="table table-responsive-md table-bordered table-condensed table-sm sb-small mt-n3">
+        <table class="table table-responsive-md table-bordered table-condensed mt-n3">
             <tr>
                 <td></td>
                 <td> Documentation Required:<br>
                     <ol class="guarantorsList">
                         <li>Offer Letter</li>
                         <li>Mortgage Deed</li>
-                        <li>Loan Deed covering <span class="font-weight-bold">{{proposedLimit | currency:"INR"}}</span> Million</li>
-                        <li>Promissory Note covering <span class="font-weight-bold">{{proposedLimit | currency:"INR"}}</span> Million
+                        <li>Loan Deed covering <span class="font-weight-bold">{{proposedLimit | currency:"NPR "}}</span>
+                            Million</li>
+                        <li>Promissory Note covering <span class="font-weight-bold">{{proposedLimit |
+                                currency:"NPR "}}</span> Million
                         </li>
                         <li>Letter of Continuity</li>
-                        <li *ngFor="let guarantor of guarantorsList">Personal Guarantee of {{loanDataHolder.loanHolder.gender === 'MALE' ? 'Mr.' : 'Mrs./Ms.'}} <span class="font-weight-bold">{{guarantor.name}}</span>
-                            (<span class="font-weight-bold">{{guarantor.relationship}}</span> of the borrower) of NPR <span class="font-weight-bold">{{guarantor.netWorth}}</span>
-                            Million</li>
-                        <li *ngFor="let guarantor of guarantorsList">Consent of Mr./Mrs./Ms <span class="font-weight-bold">{{guarantor.name}}</span>
-                            (<span class="font-weight-bold">{{guarantor.relationship}}</span> of the borrower)**</li>
+                        <li *ngFor="let guarantor of guarantorsList">Personal Guarantee of
+                            {{loanDataHolder.loanHolder.gender === 'MALE' ? 'Mr.' : 'Mrs./Ms.'}} <span
+                                class="font-weight-bold">{{guarantor ? guarantor?.name : '................'}}</span>
+                            (<span class="font-weight-bold">{{guarantor ? guarantor?.relationship :
+                                '...............'}}</span> of the borrower) of
+                            <span class="font-weight-bold">{{guarantor ? (guarantor?.guaranteeAmount |
+                                currency:'NPR ':'symbol') : '...............'}}</span>
+                            Million
+                            <!-- {{guarantor?.netWorth | currency:"NPR "}} -->
+                        </li>
+                        <li *ngFor="let guarantor of guarantorsList">Consent of Mr./Mrs./Ms <span
+                                class="font-weight-bold">{{guarantor?.name}}</span>
+                            (<span class="font-weight-bold">{{guarantor?.relationship}}</span> of the borrower)**</li>
                         <li>Consent for Blacklist from the borrower & guarantors as per NRB Directives</li>
                     </ol>
                 </td>
             </tr>
             <tr>
                 <td></td>
-                <td><br>Special Instructions: <strong>Base rate: <span class="font-weight-bold">{{proposalData.baseRate}}</span> % as of ...................</strong>
+                <td><br>Special Instructions: <strong>Base rate: <span class="font-weight-bold">{{proposalData ?
+                            proposalData?.baseRate : '.................'}}</span> % as of
+                        ....................
+                    </strong>
                 </td>
             </tr>
             <tr>
