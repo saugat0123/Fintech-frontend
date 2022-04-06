@@ -32,5 +32,7 @@ export class CompanyJsonData {
   accountDetails: any;
   branchAddress: string = undefined;
   warehouseAddress: string = undefined;
+  companyBackgroundBusiness: string = undefined;
+  promotersKeyPersons: string = undefined;
   // loanType: string = undefined;
 }

@@ -9,7 +9,7 @@ import {
   Output,
   ViewChild,
 } from "@angular/core";
-import { ActivatedRoute, Router, NavigationEnd } from "@angular/router";
+import {ActivatedRoute, Router, NavigationEnd, Params} from '@angular/router';
 import { NbDialogRef, NbDialogService } from "@nebular/theme";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { Clients } from "../../../../../../environments/Clients";
@@ -56,6 +56,9 @@ import * as JSZip from "jszip";
 import { DocStatus } from "../../../model/docStatus";
 import { NgxSpinnerService } from "ngx-spinner";
 import { ApprovalRoleHierarchyComponent } from "../../../approval/approval-role-hierarchy.component";
+import {CompanyInfoService} from '../../../../admin/service/company-info.service';
+import {CustomerInfoService} from '../../../../customer/service/customer-info.service';
+import {CompanyInfo} from '../../../../admin/modal/company-info';
 
 @Component({
   selector: "app-sme-loan-summary",
@@ -202,6 +205,8 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
   isUpToTenMillion = false;
   isDetailedView = false;
   radioSelected: any;
+  tempData;
+  companyInfo: CompanyInfo = new CompanyInfo();
   constructor(
     @Inject(DOCUMENT) private _document: Document,
     private userService: UserService,
@@ -239,7 +244,10 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
     //     const jointCustomerInfo = JSON.parse(this.loanDataHolder.customerInfo.jointInfo);
     //     this.jointInfo.push(jointCustomerInfo.jointCustomerInfo);
     //     this.isJointInfo = true;
-    // }
+    if (!ObjectUtil.isEmpty(this.companyInfo)) {
+      this.companyInfo = this.loanData.companyInfo;
+      this.tempData = JSON.parse(this.companyInfo.companyJsonData);
+    }
     this.loadSummary();
     this.roleType = LocalStorageUtil.getStorage().roleType;
     this.checkDocUploadConfig();
@@ -893,15 +901,12 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
       this.isDetailedView = true;
       this.isUpToTenMillion = false;
       this.isAboveTenMillion = false;
-    }
-    else if (this.radioSelected === 'upto') {
+    } else if (this.radioSelected === 'upto') {
       this.isUpToTenMillion = true;
       this.isAboveTenMillion = false;
-    }
-    else if (this.radioSelected === 'above') {
+    } else if (this.radioSelected === 'above') {
       this.isAboveTenMillion = true;
       this.isUpToTenMillion = false;
-      
     }
   }
 }
