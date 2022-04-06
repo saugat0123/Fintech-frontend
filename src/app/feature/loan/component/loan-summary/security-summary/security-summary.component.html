@@ -906,7 +906,7 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <td class="text-left pl-1">{{formData['initialForm']['remark']}}</td>
+                        <td class="text-left pl-1" [innerHTML]="formData['initialForm']['remark'] | safeHtml"></td>
                     </tr>
                     </tbody>
                 </table>
