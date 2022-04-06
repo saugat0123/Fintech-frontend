@@ -147,7 +147,7 @@
                                 <strong>जमानत कर्ताको</strong> नाम :— <input class="form-field nepaliFont form-control-sm"
                                                             formControlName="jamanatName"
                                                             type="text">
-                                <ng-container *ngIf="form.get(['guarantorDetails', i, 'guarantorType']).value === 'Corporate_Guarantor'">,
+                                <ng-container *ngIf="loanCategory === 'INSTITUTION' && form.get(['guarantorDetails', i, 'guarantorType']).value === 'Corporate_Guarantor'">,
                                     प्रतिनिधि <input class="form-field nepaliFont form-control-sm"
                                                                formControlName="companyPraName"
                                                                type="text"> </ng-container>
@@ -161,7 +161,7 @@
                                                 formControlName="jamanatJPK"
                                                 type="text">)
                                 <br>
-                                <ng-container *ngIf="form.get(['guarantorDetails', i, 'guarantorType']).value === 'Corporate_Guarantor'">
+                                <ng-container *ngIf="loanCategory === 'INSTITUTION' && form.get(['guarantorDetails', i, 'guarantorType']).value === 'Corporate_Guarantor'">
                                     <strong>कम्पनीको हकमा</strong> :- (रजिष्टेशन नं<input class="form-field nepaliFont form-control-sm"
                                                                            formControlName="jamanatRegNo"
                                                                            type="text">
@@ -173,7 +173,7 @@
                                                                type="text">)<br>
                                 </ng-container>
                                 स्थायी ठेगाना :—
-                                <ng-container *ngIf="form.get(['guarantorDetails', i, 'guarantorType']).value === 'Corporate_Guarantor'">
+                                <ng-container *ngIf="loanCategory === 'INSTITUTION' && form.get(['guarantorDetails', i, 'guarantorType']).value === 'Corporate_Guarantor'">
                                     <input class="form-field nepaliFont form-control-sm unicode-size2"
                                            formControlName="jamanatPermanentAddress"
                                            type="text">
@@ -195,7 +195,7 @@
                                                           type="text">
                                 <br>
                                 हालको ठेगाना :-
-                                <ng-container *ngIf="form.get(['guarantorDetails', i, 'guarantorType']).value === 'Corporate_Guarantor'">
+                                <ng-container *ngIf="loanCategory === 'INSTITUTION' && form.get(['guarantorDetails', i, 'guarantorType']).value === 'Corporate_Guarantor'">
                                     <input class="form-field nepaliFont form-control-sm unicode-size2"
                                                     formControlName="jamanatTemporaryAddress"
                                                     type="text">
