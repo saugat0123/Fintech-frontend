@@ -1,10 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {CompanyInfo} from '../../../../../../admin/modal/company-info';
 import {CompanyJsonData} from '../../../../../../admin/modal/CompanyJsonData';
 import {ObjectUtil} from '../../../../../../../@core/utils/ObjectUtil';
 import {LoanDataHolder} from '../../../../../model/loanData';
-import {CustomerInfoData} from '../../../../../model/customerInfoData';
 import {DatePipe} from '@angular/common';
+import {Proprietors} from '../../../../../../admin/modal/proprietors';
 
 @Component({
   selector: 'app-upto-details-of-the-customer',
@@ -13,13 +12,17 @@ import {DatePipe} from '@angular/common';
 })
 export class UptoDetailsOfTheCustomerComponent implements OnInit {
   @Input() companyInfo;
+  @Input() mGroup;
   @Input() loanDataHolder: LoanDataHolder;
-  @Input() customerInfoData: CustomerInfoData;
   companyJsonData: CompanyJsonData = new CompanyJsonData();
-  tempCompanyInfo;
   relationGroup;
   relationCustomer;
   registrationDate;
+  companyLocation;
+  businessLocation;
+  propList: Array<Proprietors>;
+  totalCrgPoint;
+  sum = 0;
   constructor(
       public datepipe: DatePipe
   ) { }
@@ -27,6 +30,14 @@ export class UptoDetailsOfTheCustomerComponent implements OnInit {
   ngOnInit() {
     if (!ObjectUtil.isEmpty(this.loanDataHolder)) {
       this.companyJsonData = JSON.parse(this.loanDataHolder.companyInfo.companyJsonData);
+      this.propList = this.companyJsonData.proprietorList;
+      this.companyLocation = JSON.parse(this.loanDataHolder.companyInfo.companyLocations.address);
+      this.businessLocation = JSON.parse(this.loanDataHolder.companyInfo.companyLocations.projectAddress);
+      if (!ObjectUtil.isEmpty(this.loanDataHolder.crgGamma)) {
+        const gamma = JSON.parse(this.loanDataHolder.crgGamma.data);
+        this.totalCrgPoint = gamma.totalPoint;
+      }
+      this.totalsum();
     }
     this.relationshipSinceDate();
    }
@@ -41,5 +52,11 @@ export class UptoDetailsOfTheCustomerComponent implements OnInit {
     let regDate;
     regDate = this.companyInfo.establishmentDate;
     this.registrationDate = this.datepipe.transform(regDate, 'yyyy-MM-dd');
+  }
+  totalsum() {
+    this.propList.forEach((value) => {
+     const sum1 = value.share;
+     this.sum = this.sum + sum1;
+    });
   }
 }
