@@ -813,7 +813,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
         if (CustomerType[loanHolder.customerType] === CustomerType.INDIVIDUAL) {
             window.open('/#/home/customer/profile/' + loanHolder.associateId + `?customerType=${loanHolder.customerType}&customerInfoId=${loanHolder.id}`, '_blank');
         } else if (CustomerType[loanHolder.customerType] === CustomerType.INSTITUTION) {
-            window.open('/#/home/customer/profile/' + loanHolder.associateId + `?id=${loanHolder.id}&customerType=${loanHolder.customerType}&companyInfoId=${loanHolder.associateId}&customerInfoId=${loanHolder.id}`, '_blank');
+            window.open('/#/home/customer/company-profile/' + loanHolder.associateId + `?id=${loanHolder.id}&customerType=${loanHolder.customerType}&companyInfoId=${loanHolder.associateId}&customerInfoId=${loanHolder.id}`, '_blank');
         }
     }
 
