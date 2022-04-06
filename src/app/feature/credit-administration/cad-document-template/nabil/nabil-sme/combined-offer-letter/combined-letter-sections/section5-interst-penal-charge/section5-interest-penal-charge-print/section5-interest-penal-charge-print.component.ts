@@ -69,7 +69,12 @@ export class Section5InterestPenalChargePrintComponent implements OnInit {
         this.equityMortgageSelected = true;
       }
       if (data === this.loanNameConst.DEMAND_LOAN_FOR_WORKING_CAPITAL ||
-          data === this.loanNameConst.OVERDRAFT_LOAN_FOR_WORKING_CAPITAL_REQUIREMENT) {
+          data === this.loanNameConst.OVERDRAFT_LOAN_FOR_WORKING_CAPITAL_REQUIREMENT ||
+          data === this.loanNameConst.MORTGAGE_OVERDRAFT ||
+          data === this.loanNameConst.EQUITY_MORTGAGED_OVERDRAFT ||
+          data === this.loanNameConst.BRIDGE_GAP_LOAN ||
+          data === this.loanNameConst.SHORT_TERM_LOAN ||
+          data === this.loanNameConst.IMPORT_LOAN_TRUST_RECEIPT_LOAN) {
         this.isWorkingCapitalLoan = true;
       }
     });

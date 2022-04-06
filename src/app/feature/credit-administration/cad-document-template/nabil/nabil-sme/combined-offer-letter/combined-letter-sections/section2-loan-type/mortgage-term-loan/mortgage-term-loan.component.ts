@@ -18,7 +18,7 @@ export class MortgageTermLoanComponent implements OnInit {
   initialData;
   tempData;
   tempInformation;
-  newEMIAutoPopulateMortgageTerm = 'निकासा भएको पछिल्लोे महिना देखि किस्ता भुक्तानी मिति हुनेछ';
+  newEMIAutoPopulateMortgageTerm = "lgsf;f ePsf] kl5Nnf] dlxgf b]lv ls:tf e'QmfgL ldlt x'g]5";
   equityMortgageFreeText: Array <any> = new Array<any>();
 
   constructor(private formBuilder: FormBuilder, ) { }
@@ -64,7 +64,7 @@ export class MortgageTermLoanComponent implements OnInit {
       newEMIAmountMortgageTerm: [undefined],
       newEMIAmountInWordMortgageTerm: [undefined],
       newEMINoOfInstallmentMortgageTerm: [undefined],
-      newEMIAutoPopulateMortgageTerm: ['निकासा भएको पछिल्लोे महिना देखि किस्ता भुक्तानी मिति हुनेछ'],
+      newEMIAutoPopulateMortgageTerm: ["lgsf;f ePsf] kl5Nnf] dlxgf b]lv ls:tf e'QmfgL ldlt x'g]5"],
       newEMILoanPurposeMortgageTerm: [undefined],
       newEMIServiceChargeMortgageTerm: [undefined],
       newEMILoanTenureMortgageTerm: [undefined],
@@ -288,7 +288,7 @@ export class MortgageTermLoanComponent implements OnInit {
         this.form.get(['mortgageTermLoan', val, 'newEMIAutoPopulateMortgageTerm']).patchValue(
             this.tempInformation.section2.mortgageTermLoanFreeText[val] ?
                 this.tempInformation.section2.mortgageTermLoanFreeText[val].newEMIAutoPopulateMortgageTerm :
-                'निकासा भएको पछिल्लोे महिना देखि किस्ता भुक्तानी मिति हुनेछ');
+                "lgsf;f ePsf] kl5Nnf] dlxgf b]lv ls:tf e'QmfgL ldlt x'g]5");
       }
     }
   }
