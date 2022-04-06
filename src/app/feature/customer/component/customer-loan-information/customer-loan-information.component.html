@@ -113,7 +113,7 @@
       </div>
 
 
-      <div class="col-md-4" *ngIf="!isMicroCustomer && (customerInfo?.customerType === customerType?.INDIVIDUAL)">
+      <div class="col-md-4" *ngIf=" (customerInfo?.customerType === customerType?.INDIVIDUAL)">
         <div class="row">
         <nb-card class="col-md-11 py-2" #itemFinancial>
         <a class="cursor info-label" (click)="openModel(itemFinancialTemplate)">
@@ -185,93 +185,8 @@
           </nb-card>
       </ng-template>
 
-<div class="col-md-4" *ngIf="customerInfo?.customerType == customerType.INSTITUTION && isMicroCustomer">
-      <div class="row">
-        <nb-card class="col-md-11 py-2" #loanPortfolio>
-        <a class="cursor info-label" (click)="openModel(borrowerLoanPortfolioComponentTemplate)">
-          <div class="row">
-            <div class="col-md-10">
-              <p class="custom-font">
-                <span>LOAN PORTFOLIO OF BORROWERS</span>
-              </p>
-            </div>
-            <div class="col-md-2 d-flex justify-content-end">
-              <span *ngIf="borrowerPortfolio" style="color:green" title="Status : Saved">
-                <em class="fas fa-check-circle px-2"></em>
-              </span>
-              <span style="color:red" title="Status :Not Saved">
-                <em *ngIf="!borrowerPortfolio" class="fas fa-times-circle px-2"></em>
-              </span>
-            </div>
-          </div>
-        </a>
-      </nb-card>
-      </div>
-      <ng-template #borrowerLoanPortfolioComponentTemplate let-data let-ref="dialogRef">
-        <nb-card class="template-css">
-          <nb-card-header>
-            <span>LOAN PORTFOLIO OF BORROWERS</span>
-            <a aria-label="Close" class="close cursor"
-               data-dismiss="modal" (click)="ref.close()">
-                      <span style="color: red" (click)="ref.close()">
-                <em class="fas fa-times-circle px-2"></em>
-              </span></a>
-          </nb-card-header>
-          <nb-card-body>
-            <app-borrower-loan-portofolio #borrowerLoanPortfolioComponent
 
-                                          (dataEmitter)="saveBorrowerPortFolio($event)"
-                                          [fromProfile]="true"
-                                          [borrowerPortfolioData]="customerInfo?.borrowerPortFolio"
-            ></app-borrower-loan-portofolio>
-          </nb-card-body>
-        </nb-card>
-      </ng-template>
-</div>
 
-      <div class="col-md-4" *ngIf="customerInfo?.customerType == customerType.INSTITUTION && isMicroCustomer">
-      <div class="row">
-        <nb-card class="col-md-11 py-2" #borrowerFinancialHighlight>
-        <a class="cursor info-label" (click)="openModel(borrowerFinancialHighlightTemplate)">
-          <div class="row">
-            <div class="col-md-8">
-              <p class="custom-font">
-                <span class="text-capitalize">FINANCIAL HIGHLIGHTS OF BORROWERS</span>
-              </p>
-            </div>
-            <div class="col-md-4 d-flex justify-content-end">
-              <span *ngIf="microBorrowerFinancial" style="color:green" title="Status : Saved">
-                <em class="fas fa-check-circle px-2"></em>
-              </span>
-              <span style="color:red" title="Status :Not Saved">
-                <em *ngIf="!microBorrowerFinancial" class="fas fa-times-circle px-2"></em>
-              </span>
-            </div>
-          </div>
-        </a>
-      </nb-card>
-      </div>
-      <ng-template #borrowerFinancialHighlightTemplate let-data let-ref="dialogRef">
-        <nb-card class="template-css">
-          <nb-card-header>
-            <span>FINANCIAL HIGHLIGHTS OF BORROWERS</span>
-            <a aria-label="Close" class="close cursor"
-               data-dismiss="modal" (click)="ref.close()">
-                      <span style="color: red" (click)="ref.close()">
-                <em class="fas fa-times-circle px-2"></em>
-              </span></a>
-          </nb-card-header>
-          <nb-card-body>
-            <app-borrower-financial #borrowerFinancialComponent
-
-                                    (dataEmitter)="saveBorrowerFinancial($event)"
-                                    [fromProfile]="true"
-                                    [microBorrowerFinancial]="customerInfo?.microBorrowerFinancial"
-            ></app-borrower-financial>
-          </nb-card-body>
-        </nb-card>
-      </ng-template>
-      </div>
 
 
 
@@ -320,89 +235,9 @@
       </ng-template>
       </div>
 
-      <div class="col-md-4"  *ngIf="customerInfo?.customerType == customerType.INSTITUTION && isMicroCustomer">
-      <div class="row">
-        <nb-card class="col-md-11 py-2" #marketingActivitiesAccordian>
-        <a class="cursor info-label" (click)="openModel(marketingComponentTemplate)">
-          <div class="row">
-            <div class="col-md-8">
-              <p class="custom-font">
-                <span>MARKETING ACTIVITIES</span>
-              </p>
-            </div>
-            <div class="col-md-4 d-flex justify-content-end">
-              <span *ngIf="borrowerPortfolio" style="color:green" title="Status : Saved">
-                <em class="fas fa-check-circle px-2"></em>
-              </span>
-              <span style="color:red" title="Status :Not Saved">
-                <em *ngIf="!borrowerPortfolio" class="fas fa-times-circle px-2"></em>
-              </span>
-            </div>
-          </div>
-        </a>
-      </nb-card>
-      </div>
-        <ng-template #marketingComponentTemplate let-data let-ref="dialogRef">
-          <nb-card class="template-css">
-            <nb-card-header>
-              MARKETING ACTIVITIES
-              <a aria-label="Close" class="close cursor"
-                 data-dismiss="modal" (click)="ref.close()">
-                      <span style="color: red" (click)="ref.close()">
-                <em class="fas fa-times-circle px-2"></em>
-              </span></a>
-            </nb-card-header>
-            <nb-card-body>
-        <app-marketing-activities
-            (dataEmitter)="saveMarketingActivities($event)"
-            [fromProfile]="true"
-            [marketingActivitiesData]="customerInfo?.marketingActivities"></app-marketing-activities>
-            </nb-card-body>
-          </nb-card>
-      </ng-template>
-      </div>
 
-      <div class="col-md-4" *ngIf="customerInfo?.customerType === 'INSTITUTION' && companyInfo.isMicroCustomer">
-      <div class="row">
-        <nb-card class="col-md-11 py-2" #baselRiskAccordion>
-        <a class="cursor info-label" (click)="openModel(baselComponentTemplate)">
-          <div class="row">
-            <div class="col-md-8">
-              <p class="custom-font">
-                <span class="text-uppercase">BASEL wise Risk Weighted Exposure</span>
-              </p>
-            </div>
-            <div class="col-md-4 d-flex justify-content-end">
-              <span *ngIf="microBaselRiskExposure" style="color:green" title="Status : Saved">
-                <em class="fas fa-check-circle px-2"></em>
-              </span>
-              <span style="color:red" title="Status :Not Saved">
-                <em *ngIf="!microBaselRiskExposure" class="fas fa-times-circle px-2"></em>
-              </span>
-            </div>
-          </div>
-        </a>
-      </nb-card>
-      </div>
-        <ng-template #baselComponentTemplate let-data let-ref="dialogRef">
-          <nb-card class="template-css">
-            <nb-card-header>
-              BASEL wise Risk Weighted Exposure
-              <a aria-label="Close" class="close cursor"
-                 data-dismiss="modal" (click)="ref.close()">
-                      <span style="color: red" (click)="ref.close()">
-                <em class="fas fa-times-circle px-2"></em>
-              </span></a>
-            </nb-card-header>
-            <nb-card-body>
-        <app-basel-risk-exposure
-            [formData]="customerInfo?.microBaselRiskExposure"
 
-            (baselRiskExposureEmitter)="saveBaselRiskExposure($event)"></app-basel-risk-exposure>
-            </nb-card-body>
-          </nb-card>
-      </ng-template>
-      </div>
+
 
       <div class="col-md-4">
         <div class="row">
@@ -447,7 +282,7 @@
       </div>
 
 
-      <div class="col-md-4" *ngIf="customerInfo?.customerType === 'INSTITUTION' || isMicroCustomer">
+      <div class="col-md-4" *ngIf="customerInfo?.customerType === 'INSTITUTION'">
       <div class="row">
         <nb-card class="col-md-11 py-2" #itemNetTradingAssets>
         <a class="cursor info-label" (click)="openModel(netComponentTemplate)">
@@ -548,7 +383,7 @@
                 (securityDataEmitter)="saveSecurity($event)"
                 [calendarType]="calendarType"
                 [fromProfile]="true"
-                [isMicroCustomer]="isMicroCustomer"
+                [isMicroCustomer]="false"
                 [securityValue]="customerInfo?.security"
                 [customerType]="customerInfo?.customerType"
                 [shareSecurity]="customerInfo?.shareSecurity"></app-security>
@@ -740,47 +575,7 @@
       </ng-template>
       </div>
 
-      <div class="col-md-4" *ngIf="customerInfo?.customerType === 'INSTITUTION' && companyInfo.isMicroCustomer">
-      <div class="row">
-        <nb-card class="col-md-11 py-2" #synopsisAccordion>
-        <a class="cursor info-label" (click)="openModel(synopsisComponentTemplate)">
-          <div class="row">
-            <div class="col-md-10">
-              <p class="custom-font">
-                <span class="text-uppercase">Synopsis of Creditworthiness</span>
-              </p>
-            </div>
-            <div class="col-md-2 d-flex justify-content-end">
-              <span *ngIf="microLoanSynopsis" style="color:green" title="Status : Saved">
-                <em class="fas fa-check-circle px-2"></em>
-              </span>
-              <span style="color:red" title="Status :Not Saved">
-                <em *ngIf="!microLoanSynopsis" class="fas fa-times-circle px-2"></em>
-              </span>
-            </div>
-          </div>
-        </a>
-      </nb-card>
-      </div>
-        <ng-template #synopsisComponentTemplate let-data let-ref="dialogRef">-->
-          <nb-card class="template-css">
-            <nb-card-header>
-              Synopsis of Creditworthiness
-              <a aria-label="Close" class="close cursor"
-                 data-dismiss="modal" (click)="ref.close()">
-                                <span style="color: red" (click)="ref.close()">
-                          <em class="fas fa-times-circle px-2"></em>
-                        </span></a>
-            </nb-card-header>
-            <nb-card-body>
-        <app-micro-synopsis
-            (creditworthinessEmitter)="saveSynopsisCreditworthiness($event)"
 
-            [formData]="customerInfo?.synopsisCreditworthiness"></app-micro-synopsis>
-            </nb-card-body>
-          </nb-card>
-      </ng-template>
-      </div>
 
       <div class="col-md-4">
         <div class="row">
