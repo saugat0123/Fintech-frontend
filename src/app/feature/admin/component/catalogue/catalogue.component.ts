@@ -467,16 +467,22 @@ export class CatalogueComponent implements OnInit {
         this.loanConfigId = data.loan.id;
         this.customerId = data.id;
         this.tempLoanType = event;
-        if (this.tempLoanType === 'UPDATE_LOAN_INFORMATION') {
-            this.router.navigate(['/home/update-loan/dashboard'], {
-                queryParams: {
-                    id: data.id
-                }
+        if (!ObjectUtil.isEmpty(data.combinedLoan)) {
+            this.loanFormService.removeCombineLoanById(data.combinedLoan.id).subscribe((res: any) => {
+                console.log(res.detail);
             });
-            return;
+        } else {
+            if (this.tempLoanType === 'UPDATE_LOAN_INFORMATION') {
+                this.router.navigate(['/home/update-loan/dashboard'], {
+                    queryParams: {
+                        id: data.id
+                    }
+                });
+                return;
+            }
+            this.loanDataHolder = data;
+            this.modalService.open(onActionChange);
         }
-        this.loanDataHolder = data;
-        this.modalService.open(onActionChange);
     }
 
     renewedOrCloseFrom(loanConfigId, childId) {
