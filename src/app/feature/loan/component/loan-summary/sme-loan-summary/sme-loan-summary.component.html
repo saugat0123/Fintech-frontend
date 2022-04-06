@@ -315,7 +315,14 @@
                                 <p><strong>PROPOSAL:</strong> To seek approval for providing credit facilities of NPR…. to M/S…………., with details as under:</p>
                             </li>
                             <li>
-                                <p><strong>APPROVING AUTHORITY:</strong> …., as per …(CPG/PP...) because of …(the amount involved/…)</p>
+                                <p><strong>APPROVING AUTHORITY:</strong>
+                                    <app-role-heirarchy-chain
+                                               [refId]="id" [loanDataHolder]="loanDataHolder"
+                                               [branchId]="loanDataHolder?.branch?.id"
+                                               [combinedLoanId]="loanDataHolder?.combinedLoan?.id"
+                                               [loanFlags]="loanDataHolder?.loanHolder?.loanFlags">
+                                    </app-role-heirarchy-chain>
+                                    </p>
                             </li>
                             <li>
                                 <p><strong>PURPOSE OF CREDIT FACILITIES:</strong> To finance …………..</p>
@@ -324,7 +331,7 @@
                                 <!-- details of the customer -->
                                 <p>
                                     <strong>DETAILS OF THE CUSTOMER:</strong><br>
-                                    <app-upto-details-of-the-customer></app-upto-details-of-the-customer>
+                                    <app-upto-details-of-the-customer [loanDataHolder]="loanDataHolder"></app-upto-details-of-the-customer>
                                 </p>
                             </li>
                             <li>

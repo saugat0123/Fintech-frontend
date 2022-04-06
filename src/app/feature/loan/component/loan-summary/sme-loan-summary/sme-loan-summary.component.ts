@@ -6,9 +6,9 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  Output,
+  Output, SimpleChanges,
   ViewChild,
-} from "@angular/core";
+} from '@angular/core';
 import {ActivatedRoute, Router, NavigationEnd, Params} from '@angular/router';
 import { NbDialogRef, NbDialogService } from "@nebular/theme";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
@@ -59,6 +59,11 @@ import { ApprovalRoleHierarchyComponent } from "../../../approval/approval-role-
 import {CompanyInfoService} from '../../../../admin/service/company-info.service';
 import {CustomerInfoService} from '../../../../customer/service/customer-info.service';
 import {CompanyInfo} from '../../../../admin/modal/company-info';
+import {CustomerLoanFlag} from '../../../../../@core/model/customer-loan-flag';
+import {DocAction} from '../../../model/docAction';
+import {SingleLoanTransferModelComponent} from '../../../../transfer-loan/components/single-loan-transfer-model/single-loan-transfer-model.component';
+import {CombinedLoanTransferModelComponent} from '../../../../transfer-loan/components/combined-loan-transfer-model/combined-loan-transfer-model.component';
+import {ApprovalRoleHierarchyService} from '../../../approval/approval-role-hierarchy.service';
 
 @Component({
   selector: "app-sme-loan-summary",

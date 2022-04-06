@@ -1,4 +1,4 @@
-<p><strong>Name:</strong> M/S …………………………….. (Chairman: Mr/Ms…….., mobile……)
+<p><strong>Name:</strong> M/S {{loanDataHolder?.companyInfo?.companyName}} (Chairman: Mr/Ms…….., mobile……)
     All amounts in NPR million (unless otherwise indicated)</p>
 <table class="table table-condensed table-bordered table-responsive-md sb-small">
     <tr>
@@ -13,12 +13,12 @@
         <td>Group</td>
         <td></td>
         <td>VAT /PAN No.</td>
-        <td></td>
+        <td>{{loanDataHolder?.companyInfo?.vatNo || loanDataHolder?.companyInfo?.panNumber}}</td>
         <td colspan="2">Banking with CCBL since</td>
     </tr>
     <tr>
         <td>Firm/Com. Reg. No.</td>
-        <td></td>
+        <td>{{loanDataHolder?.companyInfo?.registrationNumber}}</td>
         <td>Reg. Date</td>
         <td>dd/mm/yyyy</td>
         <td>Group</td>
