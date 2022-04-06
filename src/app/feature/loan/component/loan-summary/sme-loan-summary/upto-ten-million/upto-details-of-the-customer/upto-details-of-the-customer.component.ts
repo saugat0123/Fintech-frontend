@@ -12,7 +12,6 @@ import {Proprietors} from '../../../../../../admin/modal/proprietors';
 })
 export class UptoDetailsOfTheCustomerComponent implements OnInit {
   @Input() companyInfo;
-  @Input() mGroup;
   @Input() loanDataHolder: LoanDataHolder;
   companyJsonData: CompanyJsonData = new CompanyJsonData();
   relationGroup;
@@ -22,6 +21,7 @@ export class UptoDetailsOfTheCustomerComponent implements OnInit {
   businessLocation;
   propList: Array<Proprietors>;
   totalCrgPoint;
+  mGroup;
   sum = 0;
   constructor(
       public datepipe: DatePipe
@@ -33,6 +33,7 @@ export class UptoDetailsOfTheCustomerComponent implements OnInit {
       this.propList = this.companyJsonData.proprietorList;
       this.companyLocation = JSON.parse(this.loanDataHolder.companyInfo.companyLocations.address);
       this.businessLocation = JSON.parse(this.loanDataHolder.companyInfo.companyLocations.projectAddress);
+      this.mGroup = this.loanDataHolder.loanHolder.mgroupInfo;
       if (!ObjectUtil.isEmpty(this.loanDataHolder.crgGamma)) {
         const gamma = JSON.parse(this.loanDataHolder.crgGamma.data);
         this.totalCrgPoint = gamma.totalPoint;
