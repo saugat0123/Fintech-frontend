@@ -5743,16 +5743,16 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
 
     patchGuarantorFromShare(ownerUnique, i, ownerData) {
         if (this.userConfigForm.get(['guarantorDetails', i, 'detailsEntered']).value) {
-            console.log('Null Value:', this.userConfigForm.get(['guarantorDetails', i, 'detailsFrom']).value);
+            // console.log('Null Value:', this.userConfigForm.get(['guarantorDetails', i, 'detailsFrom']).value);
             if (this.userConfigForm.get(['guarantorDetails', i, 'detailsFrom']).value !== 'null,null' ||
                 this.userConfigForm.get(['guarantorDetails', i, 'detailsFrom']).value !== 'null') {
-                console.log('Particular Owner Data:', ownerData);
+                // console.log('Particular Owner Data:', ownerData);
                 const tempArray = ownerUnique.split(',');
-                console.log('TempArray:', tempArray);
+                // console.log('TempArray:', tempArray);
                 const tempDetail = ownerData.filter(val =>
-                    val.ownerName === tempArray[0] && val.ownerFatherName === tempArray[1]
+                    val.ownerName === tempArray[0] && (val.ownerFatherName === tempArray[1] || val.ownerFatherName === null)
                 );
-                console.log('Filtered Value:', tempDetail);
+                // console.log('Filtered Value:', tempDetail);
                 if (tempDetail.length > 0) {
                     this.getGuarantorDistrictsById(ObjectUtil.isEmpty(tempDetail[0].ownerPermanentProvince) ? null : tempDetail[0].ownerPermanentProvince.id, null, 0);
                     this.getGuarantorMunicipalitiesById(ObjectUtil.isEmpty(tempDetail[0].ownerPermanentDistrict) ? null : tempDetail[0].ownerPermanentDistrict.id, null, 0);
@@ -5783,6 +5783,14 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
                     this.userConfigForm.get(['guarantorDetails', i, 'fatherName']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerFatherName) ? tempDetail[0].ownerFatherName : undefined);
                     this.userConfigForm.get(['guarantorDetails', i, 'fatherNameTrans']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerFatherNameTrans) ? tempDetail[0].ownerFatherNameTrans : undefined);
                     this.userConfigForm.get(['guarantorDetails', i, 'fatherNameCT']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerFatherNameCT) ? tempDetail[0].ownerFatherNameCT : undefined);
+
+                    this.userConfigForm.get(['guarantorDetails', i, 'husbandName']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerHusbandName) ? tempDetail[0].ownerHusbandName : undefined);
+                    this.userConfigForm.get(['guarantorDetails', i, 'husbandNameTrans']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerHusbandNameTrans) ? tempDetail[0].ownerHusbandNameTrans : undefined);
+                    this.userConfigForm.get(['guarantorDetails', i, 'husbandNameCT']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerHusbandNameCT) ? tempDetail[0].ownerHusbandNameCT : undefined);
+
+                    this.userConfigForm.get(['guarantorDetails', i, 'fatherInLawName']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerFatherInLawName) ? tempDetail[0].ownerFatherInLawName : undefined);
+                    this.userConfigForm.get(['guarantorDetails', i, 'fatherInLawNameTrans']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerFatherInLawNameTrans) ? tempDetail[0].ownerFatherInLawNameTrans : undefined);
+                    this.userConfigForm.get(['guarantorDetails', i, 'fatherInLawNameCT']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerFatherInLawNameCT) ? tempDetail[0].ownerFatherInLawNameCT : undefined);
 
                     this.userConfigForm.get(['guarantorDetails', i, 'guarantorNationality']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerNationality) ? tempDetail[0].ownerNationality : undefined);
                     this.userConfigForm.get(['guarantorDetails', i, 'guarantorNationalityTrans']).patchValue(!ObjectUtil.isEmpty(tempDetail[0].ownerNationalityTrans) ? tempDetail[0].ownerNationalityTrans : undefined);
@@ -5962,6 +5970,14 @@ export class CadOfferLetterConfigurationComponent implements OnInit, AfterViewCh
         this.userConfigForm.get(['guarantorDetails', i, 'fatherName']).patchValue(undefined);
         this.userConfigForm.get(['guarantorDetails', i, 'fatherNameTrans']).patchValue(undefined);
         this.userConfigForm.get(['guarantorDetails', i, 'fatherNameCT']).patchValue(undefined);
+
+        this.userConfigForm.get(['guarantorDetails', i, 'husbandName']).patchValue(undefined);
+        this.userConfigForm.get(['guarantorDetails', i, 'husbandNameTrans']).patchValue(undefined);
+        this.userConfigForm.get(['guarantorDetails', i, 'husbandNameCT']).patchValue(undefined);
+
+        this.userConfigForm.get(['guarantorDetails', i, 'fatherInLawName']).patchValue(undefined);
+        this.userConfigForm.get(['guarantorDetails', i, 'fatherInLawNameTrans']).patchValue(undefined);
+        this.userConfigForm.get(['guarantorDetails', i, 'fatherInLawNameCT']).patchValue(undefined);
 
         this.userConfigForm.get(['guarantorDetails', i, 'guarantorNationality']).patchValue(undefined);
         this.userConfigForm.get(['guarantorDetails', i, 'guarantorNationalityTrans']).patchValue(undefined);
