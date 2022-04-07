@@ -34,12 +34,8 @@ import {Province} from '../../modal/province';
 import {AddressService} from '../../../../@core/service/baseservice/address.service';
 import {LoginPopUp} from '../../../../@core/login-popup/login-pop-up';
 import {ApprovalRoleHierarchyService} from '../../../loan/approval/approval-role-hierarchy.service';
-import {
-    SingleLoanTransferModelComponent
-} from '../../../transfer-loan/components/single-loan-transfer-model/single-loan-transfer-model.component';
-import {
-    CombinedLoanTransferModelComponent
-} from '../../../transfer-loan/components/combined-loan-transfer-model/combined-loan-transfer-model.component';
+import {SingleLoanTransferModelComponent} from '../../../transfer-loan/components/single-loan-transfer-model/single-loan-transfer-model.component';
+import {CombinedLoanTransferModelComponent} from '../../../transfer-loan/components/combined-loan-transfer-model/combined-loan-transfer-model.component';
 import {CreditMemoFullRoutes} from '../../../credit-memo/credit-memo-full-routes';
 import {CreditMemoService} from '../../../credit-memo/service/credit-memo.service';
 import {CreditMemoModalComponent} from './credit-memo-modal/credit-memo-modal.component';
@@ -405,6 +401,17 @@ export class CatalogueComponent implements OnInit {
     changeAction() {
         this.onActionChangeSpinner = true;
         this.loanDataHolder.loanType = this.tempLoanType;
+        if (this.isCombineLoan) {
+            this.loanFormService.removeCombineLoanById(this.loanDataHolder.combinedLoan.id).subscribe((res: any) => {
+                this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully seperated loan.'));
+                this.loanDataHolder.combinedLoan = null;
+                this.renewLoan();
+            });
+        } else {
+            this.renewLoan();
+        }
+    }
+    renewLoan() {
         this.loanFormService.renewLoan(this.loanDataHolder).subscribe((res: any) => {
                 this.toastService.show(new Alert(AlertType.SUCCESS, 'Successfully updated loan type.'));
                 this.modalService.dismissAll('Close modal');
@@ -419,13 +426,13 @@ export class CatalogueComponent implements OnInit {
                         customerId: res.detail.id
                     }
                 });
+                this.isCombineLoan = false;
             }, error => {
                 this.onActionChangeSpinner = false;
                 this.toastService.show(new Alert(AlertType.ERROR, 'Unable to update loan type.'));
                 this.modalService.dismissAll('Close modal');
             }
         );
-
     }
 
     docTransfer(userId, roleId, user) {
@@ -468,21 +475,20 @@ export class CatalogueComponent implements OnInit {
         this.customerId = data.id;
         this.tempLoanType = event;
         if (!ObjectUtil.isEmpty(data.combinedLoan)) {
-            this.loanFormService.removeCombineLoanById(data.combinedLoan.id).subscribe((res: any) => {
-                console.log(res.detail);
-            });
-        } else {
-            if (this.tempLoanType === 'UPDATE_LOAN_INFORMATION') {
-                this.router.navigate(['/home/update-loan/dashboard'], {
-                    queryParams: {
-                        id: data.id
-                    }
-                });
-                return;
-            }
-            this.loanDataHolder = data;
-            this.modalService.open(onActionChange);
+            this.isCombineLoan = true;
         }
+
+        if (this.tempLoanType === 'UPDATE_LOAN_INFORMATION') {
+            this.router.navigate(['/home/update-loan/dashboard'], {
+                queryParams: {
+                    id: data.id
+                }
+            });
+            return;
+        }
+        this.loanDataHolder = data;
+        this.modalService.open(onActionChange);
+
     }
 
     renewedOrCloseFrom(loanConfigId, childId) {
@@ -804,12 +810,12 @@ export class CatalogueComponent implements OnInit {
             context.combinedLoanId = data.combinedLoan.id;
             context.isMaker = this.isMaker;
             context.branchId = data.branch.id,
-            this.dialogRef = this.nbDialogService.open(LoanActionCombinedModalComponent, {
-                context,
-                closeOnBackdropClick: false,
-                hasBackdrop: false,
-                hasScroll: true
-            });
+                this.dialogRef = this.nbDialogService.open(LoanActionCombinedModalComponent, {
+                    context,
+                    closeOnBackdropClick: false,
+                    hasBackdrop: false,
+                    hasScroll: true
+                });
             this.dialogRef.onClose.subscribe(d => {
                 if (ObjectUtil.isEmpty(d)) {
                     this.spinner = false;

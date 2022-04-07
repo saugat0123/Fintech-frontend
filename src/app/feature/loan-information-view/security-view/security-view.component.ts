@@ -72,6 +72,7 @@ export class SecurityViewComponent implements OnInit {
     this.random = Math.floor(Math.random() * 100) + 1;
     this.url = ApiConfig.URL;
     this.securityData = JSON.parse(this.security.data);
+    console.log(this.securityData);
     if (this.securityData['selectedArray'] !== undefined) {
       this.isSecurityPresent = true;
       // land security
