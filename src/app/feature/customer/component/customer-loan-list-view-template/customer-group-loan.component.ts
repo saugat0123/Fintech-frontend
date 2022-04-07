@@ -113,6 +113,20 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
   showBranch = true;
   formAction: FormGroup;
   displaySecurity = false;
+  isCombineLoan = false;
+  loanConfigData = [{
+    loanName: null,
+    loanType: null
+  }];
+  loanData = [{
+    loanConfigId: null,
+    customerLoanId: null,
+    toUser: null,
+    toRole: null,
+    docAction: null,
+    comment: null,
+    documentStatus: null
+  }];
 
   ngOnChanges(changes: SimpleChanges): void {
     this.initial();
@@ -304,6 +318,14 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
         .filter((l) => !ObjectUtil.isEmpty(l.combinedLoan))
         .filter((l) => l.combinedLoan.id === loan.combinedLoan.id);
         // create single combined dto
+        let documentStat = null;
+        const result = combinedLoans.filter((value, index, self) =>
+            self.findIndex((m) => m.documentStatus === value.documentStatus) === index);
+        if (result.length > 1) {
+          documentStat = 'N/A';
+        } else {
+          documentStat = combinedLoans[0].documentStatus;
+        }
         const dto: SingleCombinedLoanDto = {
           collateralRequirement: 0, requiredCollateral: 0,
           id: combinedLoans[0].combinedLoan.id,
@@ -314,7 +336,7 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
           .map((l) => l.proposal.proposedLimit)
           .reduce((a, b) => a + b, 0),
           loanType: 'N/A',
-          documentStatus: 'N/A',
+          documentStatus: documentStat,
           createdAt: combinedLoans[0].combinedLoan.createdAt,
           currentStage: null,
           combinedLoans: combinedLoans.map((l) => {
@@ -348,6 +370,7 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
     nonFunded: SingleCombinedLoanDto[],
     rejected: SingleCombinedLoanDto[],
     closed: SingleCombinedLoanDto[],
+    approved: SingleCombinedLoanDto[],
   } {
     return {
       pending: loans.filter((l) => (l.documentStatus !== DocStatus[DocStatus.APPROVED])
@@ -355,7 +378,8 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
       funded: loans.filter((l) => l.documentStatus === DocStatus[DocStatus.APPROVED] && l.loanIsFundable),
       nonFunded: loans.filter((l) => l.documentStatus === DocStatus[DocStatus.APPROVED] && !l.loanIsFundable),
       rejected: loans.filter((l) => l.documentStatus === DocStatus[DocStatus.REJECTED]),
-      closed: loans.filter((l) => l.documentStatus=== DocStatus[DocStatus.CLOSED]),
+      closed: loans.filter((l) => l.documentStatus === DocStatus[DocStatus.CLOSED]),
+      approved: loans.filter((l) => l.documentStatus === DocStatus[DocStatus.APPROVED]),
     };
   }
 
@@ -502,17 +526,44 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
     });
   }
 
-  onReInitiateClick(template, customerLoanId, customerName, loanFacilityName, loanType, branchName) {
-    this.reInitiateLoanCustomerName = customerName;
-    this.reInitiateLoanFacilityName = loanFacilityName;
-    this.reInitiateLoanType = loanType;
-    this.reInitiateLoanBranchName = branchName;
-    this.formAction.patchValue({
-          customerLoanId: customerLoanId,
+  onReInitiateClick(template, customerLoanId, customerName, loanFacilityName, loanType, branchName, combineLoan) {
+    this.loanData = [];
+    if (!ObjectUtil.isEmpty(combineLoan)) {
+      this.loanConfigData = [];
+      this.isCombineLoan = true;
+      combineLoan.forEach((cl) => {
+        this.reInitiateLoanCustomerName = customerName;
+        this.reInitiateLoanBranchName = branchName;
+        // this.reInitiateLoanType = cl.loanType;
+        this.loanConfigData.push({
+          loanType: cl.loanType,
+          loanName: cl.loanName,
+        });
+        this.loanData.push({
+          loanConfigId: null,
+          customerLoanId: cl.id,
+          toUser: null,
+          toRole: null,
           docAction: DocAction.value(DocAction.RE_INITIATE),
-          comment: 'Re-initiate'
-        }
-    );
+          comment: 'Re-initiate',
+          documentStatus: null,
+        });
+      });
+    } else {
+      this.reInitiateLoanCustomerName = customerName;
+      this.reInitiateLoanFacilityName = loanFacilityName;
+      this.reInitiateLoanType = loanType;
+      this.reInitiateLoanBranchName = branchName;
+      this.loanData.push({
+        loanConfigId: null,
+        customerLoanId: customerLoanId,
+        toUser: null,
+        toRole: null,
+        docAction: DocAction.value(DocAction.RE_INITIATE),
+        comment: 'Re-initiate',
+        documentStatus: null,
+      });
+    }
     this.modalService.open(template, {size: 'lg', backdrop: 'static', keyboard: false});
   }
 
@@ -524,10 +575,13 @@ export class CustomerGroupLoanComponent implements OnInit, OnChanges {
       if (isAuthorized) {
         this.modalService.dismissAll();
         this.reInitiateSpinner = true;
-        this.formAction.patchValue({
-          comment: comment
+        this.loanData.forEach((cl) => {
+          cl.comment = comment;
         });
-        this.customerLoanService.reInitiateLoan(this.formAction.value).subscribe((response: any) => {
+        // this.formAction.patchValue({
+        //   comment: comment
+        // });
+        this.customerLoanService.reInitiateLoan(this.loanData).subscribe((response: any) => {
           this.toastService.show(new Alert(AlertType.SUCCESS, 'Loan has been successfully re-initiated.'));
           this.reInitiateSpinner = false;
           this.modalService.dismissAll();

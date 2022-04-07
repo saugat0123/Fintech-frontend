@@ -31,6 +31,7 @@ export class SecurityScheduleComponent implements OnInit {
         if (!ObjectUtil.isEmpty(this.loanDataHolder.security) && !ObjectUtil.isEmpty(this.loanDataHolder.proposal)) {
             if (!ObjectUtil.isEmpty(this.loanDataHolder.combinedLoan)) {
                 let total = 0;
+                console.log('this is combine loan', this.loanDataHolder.combinedLoan);
                 this.loanDataHolder.combinedLoan.loans.forEach((d) => {
                     total += d.proposal.proposedLimit;
                 });

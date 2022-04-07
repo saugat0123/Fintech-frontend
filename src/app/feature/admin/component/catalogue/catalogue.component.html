@@ -269,7 +269,7 @@
                         <div *ngIf='((model?.documentStatus.toString() === "REJECTED") && canReInitiateLoan)'>
                             <button nbButton status="warning" size="tiny"
                                     (click)="onReInitiateClick(onReInitiateLoan, model?.id, model?.loanHolder?.name,
-                                    model?.loan?.name, loanType[model?.loanType], model?.branch?.name)">
+                                    model?.loan?.name, loanType[model?.loanType], model?.branch?.name, model?.combinedLoan)">
                                 Re-initiate</button>
                         </div>
                         <div *ngIf="model.parentId">
@@ -279,14 +279,11 @@
                         </div>
                         <div *ngIf="!model?.childId; else notCadStage">
                             <span *ngIf="!model?.cadStageChecked && model?.documentStatus.toString() === 'APPROVED' &&
-                                (model?.currentStage?.toUser?.username === currentUserName); else na">
+                                (model?.currentStage?.toUser?.username === currentUserName); else notCadStage">
                                 <button nbButton status="warning" size="tiny"
                                         (click)="revertApproveLoan(model)" nbTooltip="click to Revert Loan">
                                 <em class="fa fa-arrow-circle-left"></em></button>
                             </span>
-                            <ng-template #na>
-                                <p>NA</p>
-                            </ng-template>
                         </div>
                         <ng-template #notCadStage>
                             <div *ngIf='!model.parentId && !((model?.documentStatus.toString() === "REJECTED") && canReInitiateLoan)'>
@@ -388,6 +385,7 @@
         <nb-card class="m-0" [nbSpinner]="onActionChangeSpinner">
             <nb-card-header>
                 <h5>Do you want to change the loan type to {{loanType[tempLoanType]}}?</h5>
+                <p *ngIf="isCombineLoan" class="text-danger">Note: This loan has other combined loan which will be deleted </p>
             </nb-card-header>
             <nb-card-footer>
                 <div class="d-flex justify-content-end">
@@ -398,15 +396,42 @@
         </nb-card>
     </ng-template>
 
+<!--    <ng-template #onActionChange class="p-0">-->
+<!--        <nb-card class="m-0" [nbSpinner]="onActionChangeSpinner">-->
+<!--            <nb-card-header>-->
+<!--                <h5>Do you want to change the loan type to {{loanType[tempLoanType]}}?</h5>-->
+<!--            </nb-card-header>-->
+<!--            <nb-card-footer>-->
+<!--                <div class="d-flex justify-content-end">-->
+<!--                    <button (click)="changeAction()" nbButton status="primary" type="submit">YES</button>-->
+<!--                    <button (click)="onClose()" nbButton status="warning" type="button">NO</button>-->
+<!--                </div>-->
+<!--            </nb-card-footer>-->
+<!--        </nb-card>-->
+<!--    </ng-template>-->
+
     <ng-template #onReInitiateLoan class="p-0">
         <nb-card class="m-0" [nbSpinner]="reInitiateSpinner">
             <nb-card-header>
                 <h5>Are you sure you want to re-initiate this loan?</h5>
             </nb-card-header>
             <nb-card-body>
-                <div>Customer: {{reInitiateLoanCustomerName}} <br>
-                    Loan: {{reInitiateLoanFacilityName}}({{reInitiateLoanType}})</div>
-                <div *ngIf="showBranch">Branch: {{reInitiateLoanBranchName}}</div>
+                <div>Customer:
+                    <ng-container *ngIf="isCombineLoan; else notCombine">
+                        Customer: {{reInitiateLoanCustomerName}} <br>
+                        Loan:
+                        <span *ngFor="let data of loanConfigData; let clInd = index">
+                        {{data?.loanName}}({{data?.loanType}}){{clInd === loanConfigData.length - 1 ? '' : ','}}
+                    </span>
+                    </ng-container>
+                    <ng-template #notCombine>
+                        Customer: {{reInitiateLoanCustomerName}} <br>
+                        Loan: {{reInitiateLoanFacilityName}}({{reInitiateLoanType}})
+                    </ng-template>
+                </div>
+<!--                <div>Customer: {{reInitiateLoanCustomerName}} <br>-->
+<!--                    Loan: {{reInitiateLoanFacilityName}}({{reInitiateLoanType}})</div>-->
+<!--                <div *ngIf="showBranch">Branch: {{reInitiateLoanBranchName}}</div>-->
                 <br>
                 <label for="comment">Remarks to re-initiate loan:</label>
                 <textarea rows="5" #comment id="comment" class="form-control" placeholder="Remarks"></textarea>
