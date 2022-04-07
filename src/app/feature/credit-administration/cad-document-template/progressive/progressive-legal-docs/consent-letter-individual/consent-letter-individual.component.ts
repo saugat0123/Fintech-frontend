@@ -77,13 +77,22 @@ export class ConsentLetterIndividualComponent implements OnInit {
             });
         }
 
+
         if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
             this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
-
+            let allCollateral = '';
+            if (!ObjectUtil.isEmpty(this.nepaliData)) {
+                (this.nepaliData.collateralDetails).forEach(collateral => {
+                    allCollateral = allCollateral + collateral.collateralName + ', ';
+                });
+                allCollateral = allCollateral.slice(0, -2);
+                allCollateral = allCollateral.replace(/,(?=[^,]*$)/, ' /');
+            }
             this.form.patchValue({
                 customerName: this.nepaliData.name ? this.nepaliData.name : '',
                 branch: this.nepaliData.branchName ? this.nepaliData.branchName : '',
-                name: this.isIndividual ? this.nepaliData.name : this.nepaliData.companyName
+                name: this.isIndividual ? this.nepaliData.name : this.nepaliData.companyName,
+                fname: allCollateral ? allCollateral : ''
             });
             this.setJayejethaBibaran(this.nepaliData.collateralDetails);
         }
