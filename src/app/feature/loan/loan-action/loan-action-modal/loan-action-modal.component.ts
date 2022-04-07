@@ -46,7 +46,8 @@ export class LoanActionModalComponent implements OnInit {
     @Input() branchId: number;
     @Input() isMaker: boolean;
     @Input() customerLoanHolder: LoanDataHolder;
-    @Input() toUser;
+    @Input() toUser: User;
+    @Input() comment: string;
     submitted = false;
     formAction: FormGroup;
     userList: Array<User> = new Array<User>();
@@ -96,6 +97,11 @@ export class LoanActionModalComponent implements OnInit {
             this.formAction.patchValue({
                 toUser: this.toUser,
                 toRole: this.toUser.role
+            });
+        }
+        if (!ObjectUtil.isEmpty(this.comment)) {
+            this.formAction.patchValue({
+                comment: this.comment
             });
         }
     }
