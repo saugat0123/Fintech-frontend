@@ -2842,7 +2842,7 @@
                 <td>
                   <nb-checkbox formControlName="detailsEntered"
                                name="detailsEntered"
-                               (change)="setDetailsEntered()">
+                               (change)="setDetailsEntered(i)">
                     <i>Check if Details already entered!</i></nb-checkbox>
                 </td>
                 <td *ngIf="userConfigForm.get(['guarantorDetails', i, 'detailsEntered']).value">
