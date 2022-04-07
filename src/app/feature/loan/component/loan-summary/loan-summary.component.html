@@ -622,9 +622,9 @@
             <app-guarantor-view *ngIf="loanDataHolder?.taggedGuarantors?.length > 0" [individual] = "individual"
                                 [guarantorData]="loanDataHolder?.taggedGuarantors"></app-guarantor-view>
             <app-cicl-view *ngIf="loanDataHolder?.loanHolder?.cicl"  [ciclValue]="loanDataHolder?.loanHolder?.cicl" [loanDataHolder]="loanDataHolder"></app-cicl-view>
-            <app-nta-mega-summary *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0"
+            <app-nta-summary *ngIf="netTradingAssetsSummary && fiscalYearArray?.length > 0"
                                   [fiscalYears]="fiscalYearArray"
-                                  [netTradingAssetsData]="netTradingAssetsData"></app-nta-mega-summary>
+                                  [netTradingAssetsData]="netTradingAssetsData"></app-nta-summary>
             <ng-container *ngIf="checkedData?.waiverChecked">
                 <hr class="print-line header">
                 <table  class="table table-condensed table-bordered table-sm table-responsive-md text-center sb-small" >
