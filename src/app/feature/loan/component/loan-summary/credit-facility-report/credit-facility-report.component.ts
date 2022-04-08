@@ -1,3 +1,4 @@
+import { MGroup } from './../../../../customer/model/mGroup';
 import {Component, Input, OnChanges, OnInit, ViewChild} from '@angular/core';
 import {LoanDataHolder} from '../../../model/loanData';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
