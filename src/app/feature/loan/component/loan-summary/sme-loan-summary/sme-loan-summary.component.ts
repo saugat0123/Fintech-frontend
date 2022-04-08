@@ -9,7 +9,7 @@ import {
   Output,
   ViewChild,
 } from "@angular/core";
-import {ActivatedRoute, Router, NavigationEnd, Params} from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd } from "@angular/router";
 import { NbDialogRef, NbDialogService } from "@nebular/theme";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { Clients } from "../../../../../../environments/Clients";
@@ -56,8 +56,6 @@ import * as JSZip from "jszip";
 import { DocStatus } from "../../../model/docStatus";
 import { NgxSpinnerService } from "ngx-spinner";
 import { ApprovalRoleHierarchyComponent } from "../../../approval/approval-role-hierarchy.component";
-import {CompanyInfoService} from '../../../../admin/service/company-info.service';
-import {CustomerInfoService} from '../../../../customer/service/customer-info.service';
 import {CompanyInfo} from '../../../../admin/modal/company-info';
 
 @Component({
@@ -901,13 +899,15 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
       this.isDetailedView = true;
       this.isUpToTenMillion = false;
       this.isAboveTenMillion = false;
-    } else if (this.radioSelected === 'upto') {
+    }
+    else if (this.radioSelected === 'upto') {
       this.isUpToTenMillion = true;
       this.isAboveTenMillion = false;
-    } else if (this.radioSelected === 'above') {
+    }
+    else if (this.radioSelected === 'above') {
       this.isAboveTenMillion = true;
       this.isUpToTenMillion = false;
-      this.loadSummary();
+
     }
   }
 }
