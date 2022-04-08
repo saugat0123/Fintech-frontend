@@ -1155,6 +1155,8 @@ export class CompanyFormComponent implements OnInit {
         submitData.businessManagementRisk = this.companyInfoFormGroup.get('businessManagementRisk').value;
         submitData.irdReport = this.companyInfoFormGroup.get('irdReport').value;
         submitData.accountDetails = this.companyInfoFormGroup.get('accountDetails').value;
+        submitData.companyBackgroundBusiness = this.companyInfoFormGroup.get('companyBackgroundBusiness').value;
+        submitData.promotersKeyPersons = this.companyInfoFormGroup.get('promotersKeyPersons').value;
 
         if (this.microCustomer) {
             /** micro data **/

@@ -11,6 +11,7 @@ export class SanaSecurityArrangementComponent implements OnInit {
   @Input() loanDataHolder: LoanDataHolder;
   loanData;
   landDataList = [];
+  insuranceList = [];
   constructor() { }
 
   ngOnInit() {
@@ -20,7 +21,9 @@ export class SanaSecurityArrangementComponent implements OnInit {
         const data = JSON.parse(this.loanData.data);
         this.landDataList = data.initialForm.landDetails;
       }
-      console.log('this.loanDataHolder',  this.loanDataHolder);
+    }
+    if (!ObjectUtil.isEmpty(this.loanDataHolder.insurance)) {
+      this.insuranceList = this.loanDataHolder.insurance;
     }
   }
 
