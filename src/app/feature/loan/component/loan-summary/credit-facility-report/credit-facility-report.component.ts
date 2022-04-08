@@ -1,3 +1,4 @@
+import { MGroup } from './../../../../customer/model/mGroup';
 import {Component, Input, OnChanges, OnInit, ViewChild} from '@angular/core';
 import {LoanDataHolder} from '../../../model/loanData';
 import {ObjectUtil} from '../../../../../@core/utils/ObjectUtil';
@@ -216,40 +217,44 @@ export class CreditFacilityReportComponent implements OnInit, OnChanges {
     //Total Market Value Calculation for Land Security
     calculateLandSecurityTotal() {
         let marketValues = []
-        let distressValues = []
-        for (let x of this.securityDetails.initialForm.landDetails) {
-            marketValues.push(Number(x.marketValue))
-            distressValues.push(Number(x.distressValue))
-        }
-        for (let i = 0; i < marketValues.length; i++) {
-            this.totalLandMv += marketValues[i];
-            this.totalLandDv += distressValues[i];
+        let distressValues = [];
+        if (!ObjectUtil.isEmpty(this.securityDetails.initialForm)) {
+            for (let x of this.securityDetails.initialForm.landDetails) {
+                marketValues.push(Number(x.marketValue))
+                distressValues.push(Number(x.distressValue))
+            }
+            for (let i = 0; i < marketValues.length; i++) {
+                this.totalLandMv += marketValues[i];
+                this.totalLandDv += distressValues[i];
+            }
         }
     }
     //Total Market Value Calculation for Aparment/Building Security
     calculateBuildingSecurityTotal() {
         let marketValues = []
         let distressValues = []
-        for (let x of this.securityDetails.initialForm.buildingDetails) {
-            marketValues.push(Number(x.buildingFairMarketValue))
-            distressValues.push(Number(x.buildingDistressValue))
-        }
-        for (let i = 0; i < marketValues.length; i++) {
-            this.totalBuildingMv += marketValues[i];
-            this.totalBuildingDv += distressValues[i];
-        }
+        if (!ObjectUtil.isEmpty(this.securityDetails.initialForm)) {
+            for (let x of this.securityDetails.initialForm.buildingDetails) {
+                marketValues.push(Number(x.buildingFairMarketValue))
+                distressValues.push(Number(x.buildingDistressValue))
+            }
+            for (let i = 0; i < marketValues.length; i++) {
+                this.totalBuildingMv += marketValues[i];
+                this.totalBuildingDv += distressValues[i];
+            }}
     }
     //Total Market Value Calculation for Land and Building Security
     calculateLandAndBuildingSecurityTotal() {
         let marketValues = []
         let distressValues = []
-        for (let x of this.securityDetails.initialForm.landBuilding) {
-            marketValues.push(Number(x.marketValue))
-            distressValues.push(Number(x.distressValue))
-        }
-        for (let i = 0; i < marketValues.length; i++) {
-            this.totalLandAndBuildingMv += marketValues[i];
-            this.totalLandAndBuildingDv += distressValues[i];
-        }
+        if (!ObjectUtil.isEmpty(this.securityDetails.initialForm)) {
+            for (let x of this.securityDetails.initialForm.landBuilding) {
+                marketValues.push(Number(x.marketValue))
+                distressValues.push(Number(x.distressValue))
+            }
+            for (let i = 0; i < marketValues.length; i++) {
+                this.totalLandAndBuildingMv += marketValues[i];
+                this.totalLandAndBuildingDv += distressValues[i];
+            }}
     }
 }
