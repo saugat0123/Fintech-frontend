@@ -1,4 +1,3 @@
-<p><strong>MIS/NRB Reporting</strong></p>
 <table class="table table-condensed table-bordered table-responsive-md sb-small">
     <tr class="sb-bg-dark text-white">
         <th rowspan="2">
@@ -46,13 +45,26 @@
             Risk Grade
         </td>
     </tr>
-    <tr>
+    <tr *ngFor="let reportingData of tempData">
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>{{reportingData?.code}}</td>
+        <td>{{reportingData?.description}}</td>
         <td></td>
         <td></td>
         <td></td>
         <td></td>
         <td></td>
+    </tr>
+    <tr *ngFor="let reportingData of tempData1">
         <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>{{reportingData?.code}}</td>
+        <td>{{reportingData?.description}}</td>
         <td></td>
         <td></td>
         <td></td>
