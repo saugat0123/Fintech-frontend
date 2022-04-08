@@ -221,7 +221,7 @@
         </ng-template>
       </div>
 
-      <div class="col-md-4" *ngIf="customerInfo?.security">
+      <div class="col-md-4" *ngIf="customerInfo?.security?.data">
        <div class="row">
          <nb-card class="col-md-11 py-2" #security>
            <a class="cursor info-label" (click)="openModel(securityComponentTemplate)">
@@ -248,12 +248,13 @@
                 <em class="fas fa-times-circle px-2"></em>
               </span></a>
             </nb-card-header>
-            <nb-card-body>
+            <nb-card-body >
               <app-security-view
+                   *ngIf="customerInfo?.security?.data !== null && customerInfo?.security?.data !== undefined"
                   [security]="customerInfo?.security"
                   [shareSecurityData]="customerInfo?.shareSecurity">
-
               </app-security-view>
+              <h6 *ngIf=" customerInfo?.security?.data === null ||  customerInfo?.security?.data === undefined" class="text-danger">Note: This customer has no current security.</h6>
             </nb-card-body>
           </nb-card>
         </ng-template>
