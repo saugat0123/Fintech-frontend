@@ -30,6 +30,7 @@ export class VehicleNamsariLetterComponent implements OnInit {
   existingOfferLetter = false;
   offerLetterDocument: OfferDocument;
   nepaliData;
+  isIndividual = false;
 
   constructor(private dialogRef: NbDialogRef<VehicleNamsariLetterComponent>,
               private formBuilder: FormBuilder,
@@ -40,6 +41,13 @@ export class VehicleNamsariLetterComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
+    if (!ObjectUtil.isEmpty(this.cadData)) {
+      if (this.cadData.assignedLoan[0].loanHolder.customerType.toString() === 'INDIVIDUAL') {
+        this.isIndividual = true;
+      } else {
+        this.isIndividual = false;
+      }
+    }
     this.fillForm();
   }
 
@@ -50,16 +58,36 @@ export class VehicleNamsariLetterComponent implements OnInit {
         if (singleCadFile.customerLoanId === this.customerLoanId && singleCadFile.cadDocument.id === this.documentId) {
           const initialInfo = JSON.parse(singleCadFile.initialInformation);
           this.initialInfoPrint = initialInfo;
-          if (!ObjectUtil.isEmpty(initialInfo.vehicleDetails)) {
+         /* if (!ObjectUtil.isEmpty(initialInfo.vehicleDetails)) {
             this.setVehicleDetails(initialInfo.vehicleDetails);
-          }
+          }*/
           this.form.patchValue(this.initialInfoPrint);
         }
       });
+
+      this.setVehicleDetails(this.nepaliData.collateralDetails);
     }
 
     this.form.patchValue({
-      branchName: this.nepaliData.branchName ? this.nepaliData.branchName : ''
+      branchName: this.nepaliData.branchName ? this.nepaliData.branchName : '',
+      customerName: this.nepaliData.name ? this.nepaliData.name : '',
+      customerPermanentDistrict: this.nepaliData.permanentDistrict ? this.nepaliData.permanentDistrict.nepaliName : '',
+      customerPermanentVdc: this.nepaliData.permanentVdc ? this.nepaliData.permanentVdc : '',
+      customerPermanentVdcWard: this.nepaliData.permanentVdcWard ? this.nepaliData.permanentVdcWard : '',
+      customerTemporaryDistrict: this.nepaliData.temporaryDistrict ? this.nepaliData.temporaryDistrict.nepaliName : '',
+      customerTemporaryVdcMun: this.nepaliData.temporaryMunicipalities ? this.nepaliData.temporaryMunicipalities.nepaliName : '',
+      customerTemporaryWard: this.nepaliData.temporaryWard ? this.nepaliData.temporaryWard : '',
+      citizenshipNo: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
+      citizenshipIssueAddress: this.nepaliData.citizenshipIssueDistrict ? this.nepaliData.citizenshipIssueDistrict : '',
+      vehicleName: this.nepaliData.collateralDetails ? this.nepaliData.collateralDetails[0].vehicleType : '',
+      debtorName: this.isIndividual ? this.nepaliData.name : this.nepaliData.companyName,
+      isIndividual : this.isIndividual,
+      companyDistrict: this.nepaliData.companyDistrict ? this.nepaliData.companyDistrict : '',
+      companyVdcMun: this.nepaliData.companyVdcMun ? this.nepaliData.companyVdcMun : '',
+      companyWardNo: this.nepaliData.companyWardNo ? this.nepaliData.companyWardNo : '',
+      companyName: this.nepaliData.companyName ? this.nepaliData.companyName : '',
+      panNo: this.nepaliData.panNo ? this.nepaliData.panNo : ''
+
     });
   }
 
@@ -112,8 +140,8 @@ export class VehicleNamsariLetterComponent implements OnInit {
       province: [undefined],
       district: [undefined],
       municipality: [undefined],
-      name: [undefined],
-      regNo: [undefined],
+      customerName: [undefined],
+      citizenshipIssueAddress: [undefined],
       vehicleName: [undefined],
       debtorName: [undefined],
       officer: [undefined],
@@ -122,17 +150,31 @@ export class VehicleNamsariLetterComponent implements OnInit {
       karmachariName2: [undefined],
       postName2: [undefined],
       vehicleDetails: this.formBuilder.array([]),
-      branchName: [undefined]
+      branchName: [undefined],
+      customerPermanentDistrict: [undefined],
+      customerPermanentVdc: [undefined],
+      customerPermanentVdcWard: [undefined],
+      customerTemporaryDistrict: [undefined],
+      customerTemporaryVdcMun: [undefined],
+      customerTemporaryWard: [undefined],
+      citizenshipNo: [undefined],
+      companyName: [undefined],
+      companyDistrict: [undefined],
+      companyVdcMun: [undefined],
+      companyWardNo: [undefined],
+      panNo: [undefined],
+      isIndividual: [undefined]
+
     });
   }
 
   vehicleFormGroup(): FormGroup {
     return this.formBuilder.group({
       vehicleSpecification: [undefined],
+      upakaran: [undefined],
       engineNo: [undefined],
       chassisNo: [undefined],
       registeredNo: [undefined],
-      colour: [undefined],
     });
   }
 
@@ -144,11 +186,11 @@ export class VehicleNamsariLetterComponent implements OnInit {
     }
     data.forEach(value => {
       formArray.push(this.formBuilder.group({
-        vehicleSpecification: [value.vehicleSpecification],
-        engineNo: [value.engineNo],
-        chassisNo: [value.chassisNo],
-        registeredNo: [value.registeredNo],
-        colour: [value.colour],
+        vehicleSpecification: [value.vehicleType],
+        upakaran : [value.vehicleModelNum],
+        engineNo: [value.engineNumber],
+        chassisNo: [value.chassisNumber],
+        registeredNo: [value.vehicleNumber],
       }));
     });
   }
