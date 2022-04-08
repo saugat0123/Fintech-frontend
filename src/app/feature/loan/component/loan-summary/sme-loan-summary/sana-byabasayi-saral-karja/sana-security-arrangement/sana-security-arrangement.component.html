@@ -99,7 +99,7 @@
         </table>
     </div>
     <div class="col-md-10">
-        <table class="table table-condensed table-bordered table-responsive-md">
+        <table class="table table-condensed table-bordered table-responsive-md sb-small">
             <tr>
                 <td>b</td>
                 <td>Hypothecation over fixed assets other than land & building
@@ -235,43 +235,47 @@
     </div>
     <p><strong>7.1 DETAIL OF INSURANCE:</strong></p>
     <table class="table table-condensed table-bordered table-responsive-md sb-small">
+        <thead>
         <tr class="sb-bg-dark text-white">
-            <td>Detail of Assets</td>
-            <td>Insured Sum
+            <th>Detail of Assets</th>
+            <th>Insured Sum
                 <i>In Millions</i>
-            </td>
-            <td>Expiry Date</td>
-            <td>Name of Insurance Co.</td>
-            <td>Risk covered</td>
+            </th>
+            <th>Expiry Date</th>
+            <th>Name of Insurance Co.</th>
+            <th>Risk covered</th>
         </tr>
-        <tr>
+        </thead>
+        <tbody *ngFor="let insurance of insuranceList">
+        <tr *ngIf="insurance.assetInsured === 'Stock'">
             <td>Stocks</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{{insurance?.insuredAmount}}</td>
+            <td>{{insurance?.expiryDate | date}}</td>
+            <td>{{insurance?.company}}</td>
+            <td>{{insurance?.policyType}}</td>
         </tr>
-        <tr>
+        <tr *ngIf="insurance.assetInsured === 'Building & Construction'">
             <td>Building</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{{insurance?.insuredAmount}}</td>
+            <td>{{insurance?.expiryDate | date}}</td>
+            <td>{{insurance?.company}}</td>
+            <td>{{insurance?.policyType}}</td>
         </tr>
-        <tr>
+        <tr *ngIf="insurance.assetInsured === 'Machineries/Equipment'">
             <td>Machinery</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{{insurance?.insuredAmount}}</td>
+            <td>{{insurance?.expiryDate | date}}</td>
+            <td>{{insurance?.company}}</td>
+            <td>{{insurance?.policyType}}</td>
         </tr>
-        <tr>
+        <tr *ngIf="insurance.assetInsured === 'Vehicle'">
             <td>Equipment</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td>{{insurance?.insuredAmount}}</td>
+            <td>{{insurance?.expiryDate | date}}</td>
+            <td>{{insurance?.company}}</td>
+            <td>{{insurance?.policyType}}</td>
         </tr>
+        </tbody>
     </table>
     <p class="text-justify">
         Comments: The insured value of assets (fixed and/or current) should be at 100% of value

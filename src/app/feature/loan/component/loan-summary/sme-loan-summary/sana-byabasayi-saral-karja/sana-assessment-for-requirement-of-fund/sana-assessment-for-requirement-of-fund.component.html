@@ -146,42 +146,45 @@
     </tbody>
 </table>
 <p><strong>10.4	JUSTIFICATION:</strong></p>
-<table class="table table-condensed table-bordered table-responsive-md sb-small">
-    <thead>
-    <tr class="sb-bg-dark text-white">
-        <th>Particulars</th>
-        <th>Amount</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-        <td>Total Working Capital Requirement (As per S. No. 10.1)</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>Total Fixed Assets Requirement (As per S. No. 10.2)</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>Total Expenses Requirement (As per S. No. 10.3)</td>
-        <td></td>
-    </tr>
-    <tr>
-        <td><strong>Total Funds Requirement (10.1+10.2+10.3) (A)</strong></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td><strong>Eligible Limit for Drawdown as per Product Scheme @75% (B)</strong></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td><strong>Proposed SBSK Limit (C)</strong></td>
-        <td></td>
-    </tr>
-    <tr>
-        <td>% of Financing (D) = (C)/(A)*100</td>
-        <td></td>
-    </tr>
-    </tbody>
-</table>
-<p><strong><i>Proposed limit, purpose of funds, utilization vs. stipulated/proposed debt equity ratio, tenure of loan etc.</i></strong></p>
+<!--<table class="table table-condensed table-bordered table-responsive-md sb-small">-->
+<!--    <thead>-->
+<!--    <tr class="sb-bg-dark text-white">-->
+<!--        <th>Particulars</th>-->
+<!--        <th>Amount</th>-->
+<!--    </tr>-->
+<!--    </thead>-->
+<!--    <tbody>-->
+<!--    <tr>-->
+<!--        <td>Total Working Capital Requirement (As per S. No. 10.1)</td>-->
+<!--        <td></td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <td>Total Fixed Assets Requirement (As per S. No. 10.2)</td>-->
+<!--        <td></td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <td>Total Expenses Requirement (As per S. No. 10.3)</td>-->
+<!--        <td></td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <td><strong>Total Funds Requirement (10.1+10.2+10.3) (A)</strong></td>-->
+<!--        <td></td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <td><strong>Eligible Limit for Drawdown as per Product Scheme @75% (B)</strong></td>-->
+<!--        <td></td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <td><strong>Proposed SBSK Limit (C)</strong></td>-->
+<!--        <td></td>-->
+<!--    </tr>-->
+<!--    <tr>-->
+<!--        <td>% of Financing (D) = (C)/(A)*100</td>-->
+<!--        <td></td>-->
+<!--    </tr>-->
+<!--    </tbody>-->
+<!--</table>-->
+<!--<p><strong><i>Proposed limit, purpose of funds, utilization vs. stipulated/proposed debt equity ratio, tenure of loan etc.</i></strong></p>-->
+<div class="p-2 background-info col-md-12 mb-3">
+    <span [innerHTML]="proposalData?.borrowerInformation | safeHtml"></span>
+</div>

@@ -6,10 +6,10 @@ import {
   Input,
   OnDestroy,
   OnInit,
-  Output, SimpleChanges,
+  Output,
   ViewChild,
-} from '@angular/core';
-import {ActivatedRoute, Router, NavigationEnd, Params} from '@angular/router';
+} from "@angular/core";
+import { ActivatedRoute, Router, NavigationEnd } from "@angular/router";
 import { NbDialogRef, NbDialogService } from "@nebular/theme";
 import { NgbModal } from "@ng-bootstrap/ng-bootstrap";
 import { Clients } from "../../../../../../environments/Clients";
@@ -56,14 +56,7 @@ import * as JSZip from "jszip";
 import { DocStatus } from "../../../model/docStatus";
 import { NgxSpinnerService } from "ngx-spinner";
 import { ApprovalRoleHierarchyComponent } from "../../../approval/approval-role-hierarchy.component";
-import {CompanyInfoService} from '../../../../admin/service/company-info.service';
-import {CustomerInfoService} from '../../../../customer/service/customer-info.service';
 import {CompanyInfo} from '../../../../admin/modal/company-info';
-import {CustomerLoanFlag} from '../../../../../@core/model/customer-loan-flag';
-import {DocAction} from '../../../model/docAction';
-import {SingleLoanTransferModelComponent} from '../../../../transfer-loan/components/single-loan-transfer-model/single-loan-transfer-model.component';
-import {CombinedLoanTransferModelComponent} from '../../../../transfer-loan/components/combined-loan-transfer-model/combined-loan-transfer-model.component';
-import {ApprovalRoleHierarchyService} from '../../../approval/approval-role-hierarchy.service';
 
 @Component({
   selector: "app-sme-loan-summary",
@@ -906,13 +899,15 @@ export class SmeLoanSummaryComponent implements OnInit, OnDestroy {
       this.isDetailedView = true;
       this.isUpToTenMillion = false;
       this.isAboveTenMillion = false;
-    } else if (this.radioSelected === 'upto') {
+    }
+    else if (this.radioSelected === 'upto') {
       this.isUpToTenMillion = true;
       this.isAboveTenMillion = false;
-    } else if (this.radioSelected === 'above') {
+    }
+    else if (this.radioSelected === 'above') {
       this.isAboveTenMillion = true;
       this.isUpToTenMillion = false;
-      this.loadSummary();
+
     }
   }
 }
