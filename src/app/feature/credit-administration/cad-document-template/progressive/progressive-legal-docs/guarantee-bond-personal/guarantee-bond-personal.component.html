@@ -80,7 +80,9 @@
                         formControlName="namName"
                         type="text">
                     (जसलाई यस पछि ‘जमानतकर्ता’ भनिएको)
-                    आगे म जमानतकर्ता श्री/श्रीमती/सूश्री <input class="form-control-sm form-field nepaliFont"
+                    आगे
+                    <ng-container *ngIf="this.loanCategory === 'INDIVIDUAL'">
+                        म जमानतकर्ता श्री/श्रीमती/सूश्री <input class="form-control-sm form-field nepaliFont"
 
                                                                 formControlName="buttonGrandParentName"
                                                                 type="text">
@@ -182,7 +184,96 @@
                     को/की श्री/श्रीमती/सुश्री <input class="form-control-sm form-field nepaliFont"
                                                      formControlName="sirName"
                                                      type="text">
-                    –१, समेत जम्मा जना–२ (यस पछि “ऋणी” भनी सम्बोधन गरिएको) ले रिभल्भिङ्ग कर्जा
+                    –१, समेत जम्मा जना–२
+                    </ng-container>
+                    <ng-container *ngIf="this.loanCategory === 'INSTITUTION'">
+                        नेपाल सरकार,
+                        <input class="form-control-sm form-field nepaliFont"
+                               formControlName="company"
+                               type="text"> मन्त्रालय
+                        <input class="form-control-sm form-field nepaliFont"
+                               formControlName="registerCompanyName"
+                               type="text"> विभाग/कम्पनी रजिष्ट्रारको कार्यालय
+                        <input class="form-control-sm form-field nepaliFont"
+                               formControlName="companyDistrict"
+                               type="text">मा
+                        <input class="form-control-sm form-field nepaliFont"
+                               formControlName="actName"
+                               type="text"> ऐन
+                        <input class="form-control-sm form-field nepaliFont"
+                               formControlName="actYear"
+                               type="text"> अन्तर्गत मिति
+                        <input class="form-control-sm form-field nepaliFont"
+                               formControlName="regDate"
+                               type="text">मा प्रा.लि.नं./प्रा.फा.नं./सा.फा.नं.
+                        <input class="form-control-sm form-field nepaliFont"
+                               formControlName="companyRegDate"
+                               type="text">मा दर्ता भई करदता सेवा कार्यालय
+                        <input class="form-control-sm form-field nepaliFont"
+                               formControlName="taxSewa"
+                               type="text">बाट मिति
+                        <input class="form-control-sm form-field nepaliFont"
+                               formControlName="panRegDate"
+                               type="text">मा स्थायी लेखा नम्बर (पान) दर्ता प्रमाणपत्र न.
+                        <input class="form-control-sm form-field nepaliFont"
+                               formControlName="panNo"
+                               type="text">को प्रमाणपत्र प्राप्त
+                        <input class="form-control-sm form-field nepaliFont"
+                               formControlName="companyDist"
+                               type="text"> जिल्ला
+                        <input class="form-control-sm form-field nepaliFont"
+                               formControlName="companyMunicipality"
+                               type="text">गा.पा./न.पा./म.न.पा. वडा नं.
+                        <input class="form-control-sm form-field nepaliFont"
+                               formControlName="companyWardNo"
+                               type="text">मा रजिष्टर्ड कार्यालय रहेको
+                        <input class="form-control-sm form-field nepaliFont"
+                               formControlName="enterpriseName"
+                               type="text">(जसलाई यसउप्रान्त यस लिखतमा ऋणी भनिएको छ) का तर्पबाट अधिकार प्राप्त संचालक/प्रोप्राईटर/साझेदार/प्रतिनिधि
+                        <input class="form-control-sm form-field nepaliFont"
+                               formControlName="grandFatherName"
+                               type="text">को नाति/नातिनि
+                        <input class="form-control-sm form-field nepaliFont"
+                               formControlName="fatherName"
+                               type="text">को छोरा/छोरी
+                        <input class="form-control-sm form-field nepaliFont"
+                               formControlName="spouseName"
+                               type="text">को पति/पत्नी
+                        <input class="form-control-sm form-field nepaliFont"
+                               formControlName="facilityDistrict"
+                               type="text"> जिल्ला
+                        <input class="form-control-sm form-field nepaliFont"
+                               formControlName="muni"
+                               type="text"> गा.पा./न.पा./म.न.पा.वडा नं.
+                        <input class="form-control-sm form-field nepaliFont"
+                               formControlName="ward"
+                               type="text"> स्थायी ठेगाना भई हाल
+                        <input class="form-control-sm form-field nepaliFont"
+                               formControlName="tempDis"
+                               type="text"> जिल्ला
+                        <input class="form-control-sm form-field nepaliFont"
+                               formControlName="tempMuni"
+                               type="text"> गा.पा./न.पा./म.न.पा. वडा न.
+                        <input class="form-control-sm form-field nepaliFont"
+                               formControlName="tempWard"
+                               type="text">, बस्ने वर्ष
+                        <input class="form-control-sm form-field nepaliFont"
+                               formControlName="representativeAge"
+                               type="text">को
+                        <input class="form-control-sm form-field nepaliFont"
+                               formControlName="representativeName"
+                               type="text"> (ना.प्र.नं.
+                        <input class="form-control-sm form-field nepaliFont"
+                               formControlName="reCitizenShipNo"
+                               type="text"> मिति
+                        <input class="form-control-sm form-field nepaliFont"
+                               formControlName="reCitizenShipIssueDate"
+                               type="text"> जि.प्र.का.
+                        <input class="form-control-sm form-field nepaliFont"
+                               formControlName="citizenshipIssueOffice"
+                               type="text">
+                    </ng-container>
+                    (यस पछि “ऋणी” भनी सम्बोधन गरिएको) ले रिभल्भिङ्ग कर्जा
                     <strong>(Revolving Loan)</strong> / आवधिक कर्जा <strong>(Term Loan)</strong> अन्तर्गत घर / आवाश कर्जा योजना
                     <strong>(Housing Loan Scheme)</strong> / जग्गा खरिद कर्जा योजना <strong>(Land Loan Scheme)</strong>
                     / व्यक्तिगत कर्जा योजना

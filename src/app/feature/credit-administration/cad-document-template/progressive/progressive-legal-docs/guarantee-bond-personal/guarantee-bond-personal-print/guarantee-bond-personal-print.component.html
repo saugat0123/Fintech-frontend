@@ -69,7 +69,9 @@
                         <span [ngClass]="{'nepaliFontPreeti unicode-size2' : guarantor?.namName!== null && guarantor?.namName !== ''}">
                             {{guarantor?.namName === null || guarantor?.namName === '' ? '_________________' : guarantor?.namName}}
                         </span>(जसलाई यस पछि ‘जमानतकर्ता’ भनिएको)
-                        आगे म 'जमानतकर्ता' श्री/श्रीमती/सूश्री
+                        आगे
+                    <ng-container *ngIf="this.loanCat === 'INDIVIDUAL'">
+                            म 'जमानतकर्ता' श्री/श्रीमती/सूश्री
                         <span [ngClass]="{'nepaliFontPreeti unicode-size2' : guarantor?.buttonGrandParentName !== null && guarantor?.buttonGrandParentName !== ''}">
                             {{guarantor?.buttonGrandParentName === null || guarantor?.buttonGrandParentName === '' ? '_________________' : guarantor?.buttonGrandParentName}}
                         </span> को/की एकाघर सगोलको/की पति/पत्नी/बाबु/आमा/छोरा/बूहारी/दाजूभाइ वा
@@ -165,7 +167,96 @@
                         को/की श्री/श्रीमती/सुश्री
                         <span [ngClass]="{'nepaliFontPreeti unicode-size2' : guarantor?.sirName !== null && guarantor?.sirName !== ''}">
                             {{guarantor?.sirName === null || guarantor?.sirName === '' ? '_________________' : guarantor?.sirName}}
-                        </span>, –१, समेत जम्मा जना–२ (यस पछि “ऋणी” भनी सम्बोधन गरिएको) ले रिभल्भिङ्ग कर्जा <strong>(Revolving Loan)</strong>
+                        </span>, –१, समेत जम्मा जना–२
+                    </ng-container>
+                        <ng-container *ngIf="this.loanCat === 'INSTITUTION'">
+                            नेपाल सरकार,
+                            <span [ngClass]="{'nepaliFontPreeti unicode-size2' : guarantor?.company !== null && guarantor?.company !== ''}">
+                                {{guarantor?.company === null || guarantor?.company === '' ? '_________________' : guarantor?.company}}
+                            </span> मन्त्रालय
+                            <span [ngClass]="{'nepaliFontPreeti unicode-size2' : guarantor?.registerCompanyName !== null && guarantor?.registerCompanyName !== ''}">
+                                {{guarantor?.registerCompanyName === null || guarantor?.registerCompanyName === '' ? '_________________' : guarantor?.registerCompanyName}}
+                            </span> विभाग/कम्पनी रजिष्ट्रारको कार्यालय
+                            <span [ngClass]="{'nepaliFontPreeti unicode-size2' : guarantor?.companyDistrict !== null && guarantor?.companyDistrict !== ''}">
+                                {{guarantor?.companyDistrict === null || guarantor?.companyDistrict === '' ? '_________________' : guarantor?.companyDistrict}}
+                            </span>मा
+                            <span [ngClass]="{'nepaliFontPreeti unicode-size2' : guarantor?.actName !== null && guarantor?.actName !== ''}">
+                                {{guarantor?.actName === null || guarantor?.actName === '' ? '_________________' : guarantor?.actName}}
+                            </span> ऐन
+                            <span [ngClass]="{'nepaliFontPreeti unicode-size2' : guarantor?.actYear !== null && guarantor?.actYear !== ''}">
+                                {{guarantor?.actYear === null || guarantor?.actYear === '' ? '_________________' : guarantor?.actYear}}
+                            </span> अन्तर्गत मिति
+                            <span [ngClass]="{'nepaliFontPreeti unicode-size2' : guarantor?.regDate !== null && guarantor?.regDate !== ''}">
+                                {{guarantor?.regDate === null || guarantor?.regDate === '' ? '_________________' : guarantor?.regDate}}
+                            </span>मा प्रा.लि.नं./प्रा.फा.नं./सा.फा.नं.
+                            <span [ngClass]="{'nepaliFontPreeti unicode-size2' : guarantor?.companyRegDate !== null && guarantor?.companyRegDate !== ''}">
+                                {{guarantor?.companyRegDate === null || guarantor?.companyRegDate === '' ? '_________________' : guarantor?.companyRegDate}}
+                            </span>मा दर्ता भई करदता सेवा कार्यालय
+                            <span [ngClass]="{'nepaliFontPreeti unicode-size2' : guarantor?.taxSewa !== null && guarantor?.taxSewa !== ''}">
+                                {{guarantor?.taxSewa === null || guarantor?.taxSewa === '' ? '_________________' : guarantor?.taxSewa}}
+                            </span>बाट मिति
+                            <span [ngClass]="{'nepaliFontPreeti unicode-size2' : guarantor?.panRegDate !== null && guarantor?.panRegDate !== ''}">
+                                {{guarantor?.panRegDate === null || guarantor?.panRegDate === '' ? '_________________' : guarantor?.panRegDate}}
+                            </span>मा स्थायी लेखा नम्बर (पान) दर्ता प्रमाणपत्र न.
+                            <span [ngClass]="{'nepaliFontPreeti unicode-size2' : guarantor?.panNo !== null && guarantor?.panNo !== ''}">
+                                {{guarantor?.panNo === null || guarantor?.panNo === '' ? '_________________' : guarantor?.panNo}}
+                            </span>को प्रमाणपत्र प्राप्त
+                            <span [ngClass]="{'nepaliFontPreeti unicode-size2' : guarantor?.companyDist !== null && guarantor?.companyDist !== ''}">
+                                {{guarantor?.companyDist === null || guarantor?.companyDist === '' ? '_________________' : guarantor?.companyDist}}
+                            </span> जिल्ला
+                            <span [ngClass]="{'nepaliFontPreeti unicode-size2' : guarantor?.companyMunicipality !== null && guarantor?.companyMunicipality !== ''}">
+                                {{guarantor?.companyMunicipality === null || guarantor?.companyMunicipality === '' ? '_________________' : guarantor?.companyMunicipality}}
+                            </span>गा.पा./न.पा./म.न.पा. वडा नं.
+                            <span [ngClass]="{'nepaliFontPreeti unicode-size2' : guarantor?.companyWardNo !== null && guarantor?.companyWardNo !== ''}">
+                                {{guarantor?.companyWardNo === null || guarantor?.companyWardNo === '' ? '_________________' : guarantor?.companyWardNo}}
+                            </span>मा रजिष्टर्ड कार्यालय रहेको
+                            <span [ngClass]="{'nepaliFontPreeti unicode-size2' : guarantor?.enterpriseName !== null && guarantor?.enterpriseName !== ''}">
+                                {{guarantor?.enterpriseName === null || guarantor?.enterpriseName === '' ? '_________________' : guarantor?.enterpriseName}}
+                            </span>(जसलाई यसउप्रान्त यस लिखतमा ऋणी भनिएको छ) का तर्पmबाट अधिकार प्राप्त संचालक/प्रोप्राईटर/साझेदार/प्रतिनिधि
+                            <span [ngClass]="{'nepaliFontPreeti unicode-size2' : guarantor?.grandFatherName !== null && guarantor?.grandFatherName !== ''}">
+                                {{guarantor?.grandFatherName === null || guarantor?.grandFatherName === '' ? '_________________' : guarantor?.grandFatherName}}
+                            </span>को नाति/नातिनि
+                            <span [ngClass]="{'nepaliFontPreeti unicode-size2' : guarantor?.fatherName !== null && guarantor?.fatherName !== ''}">
+                                {{guarantor?.fatherName === null || guarantor?.fatherName === '' ? '_________________' : guarantor?.fatherName}}
+                            </span>को छोरा/छोरी
+                            <span [ngClass]="{'nepaliFontPreeti unicode-size2' : guarantor?.spouseName !== null && guarantor?.spouseName !== ''}">
+                                {{guarantor?.spouseName === null || guarantor?.spouseName === '' ? '_________________' : guarantor?.spouseName}}
+                            </span>को पति/पत्नी
+                            <span [ngClass]="{'nepaliFontPreeti unicode-size2' : guarantor?.facilityDistrict !== null && guarantor?.facilityDistrict !== ''}">
+                                {{guarantor?.facilityDistrict === null || guarantor?.facilityDistrict === '' ? '_________________' : guarantor?.facilityDistrict}}
+                            </span> जिल्ला
+                            <span [ngClass]="{'nepaliFontPreeti unicode-size2' : guarantor?.muni !== null && guarantor?.muni !== ''}">
+                                {{guarantor?.muni === null || guarantor?.muni === '' ? '_________________' : guarantor?.muni}}
+                            </span> गा.पा./न.पा./म.न.पा.वडा नं.
+                            <span [ngClass]="{'nepaliFontPreeti unicode-size2' : guarantor?.ward !== null && guarantor?.ward !== ''}">
+                                {{guarantor?.ward === null || guarantor?.ward === '' ? '_________________' : guarantor?.ward}}
+                            </span> स्थायी ठेगाना भई हाल
+                            <span [ngClass]="{'nepaliFontPreeti unicode-size2' : guarantor?.tempDis !== null && guarantor?.tempDis !== ''}">
+                                {{guarantor?.tempDis === null || guarantor?.tempDis === '' ? '_________________' : guarantor?.tempDis}}
+                            </span> जिल्ला
+                            <span [ngClass]="{'nepaliFontPreeti unicode-size2' : guarantor?.tempMuni !== null && guarantor?.tempMuni !== ''}">
+                                {{guarantor?.tempMuni === null || guarantor?.tempMuni === '' ? '_________________' : guarantor?.tempMuni}}
+                            </span> गा.पा./न.पा./म.न.पा. वडा न.
+                            <span [ngClass]="{'nepaliFontPreeti unicode-size2' : guarantor?.tempWard !== null && guarantor?.tempWard !== ''}">
+                                {{guarantor?.tempWard === null || guarantor?.tempWard === '' ? '_________________' : guarantor?.tempWard}}
+                            </span>, बस्ने वर्ष
+                            <span [ngClass]="{'nepaliFontPreeti unicode-size2' : guarantor?.representativeAge !== null && guarantor?.representativeAge !== ''}">
+                                {{guarantor?.representativeAge === null || guarantor?.representativeAge === '' ? '_________________' : guarantor?.representativeAge}}
+                            </span>को
+                            <span [ngClass]="{'nepaliFontPreeti unicode-size2' : guarantor?.representativeName !== null && guarantor?.representativeName !== ''}">
+                                {{guarantor?.representativeName === null || guarantor?.representativeName === '' ? '_________________' : guarantor?.representativeName}}
+                            </span> (ना.प्र.नं.
+                            <span [ngClass]="{'nepaliFontPreeti unicode-size2' : guarantor?.reCitizenShipNo !== null && guarantor?.reCitizenShipNo !== ''}">
+                                {{guarantor?.reCitizenShipNo === null || guarantor?.reCitizenShipNo === '' ? '_________________' : guarantor?.reCitizenShipNo}}
+                            </span> मिति
+                            <span [ngClass]="{'nepaliFontPreeti unicode-size2' : guarantor?.reCitizenShipIssueDate !== null && guarantor?.reCitizenShipIssueDate !== ''}">
+                                {{guarantor?.reCitizenShipIssueDate === null || guarantor?.reCitizenShipIssueDate === '' ? '_________________' : guarantor?.reCitizenShipIssueDate}}
+                            </span> जि.प्र.का.
+                            <span [ngClass]="{'nepaliFontPreeti unicode-size2' : guarantor?.citizenshipIssueOffice !== null && guarantor?.citizenshipIssueOffice !== ''}">
+                                {{guarantor?.citizenshipIssueOffice === null || guarantor?.citizenshipIssueOffice === '' ? '_________________' : guarantor?.citizenshipIssueOffice}}
+                            </span>
+                        </ng-container>
+                        (यस पछि “ऋणी” भनी सम्बोधन गरिएको) ले रिभल्भिङ्ग कर्जा <strong>(Revolving Loan)</strong>
                         / आवधिक कर्जा <strong>(Term Loan)</strong> अन्तर्गत घर / आवाश कर्जा योजना <strong>(Housing Loan Scheme)</strong> /
                         जग्गा खरिद कर्जा योजना <strong>(Land Loan Scheme)</strong> / व्यक्तिगत कर्जा योजना <strong>(Personal Loan Scheme)</strong> /
                         <span [ngClass]="{'nepaliFontPreeti unicode-size2' : guarantor?.personalLoan !== null && guarantor?.personalLoan !== ''}">
