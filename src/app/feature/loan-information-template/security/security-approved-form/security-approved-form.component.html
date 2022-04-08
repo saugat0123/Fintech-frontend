@@ -652,6 +652,28 @@
                                                type="text" readonly/>
                                     </div>
                                 </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="apartmentRate">Releasable Rate</label>
+                                        <input class="form-control rounded"
+                                               formControlName="apartmentRate"
+                                               id="apartmentRate"
+                                               placeholder="Rate %"
+                                               name="apartmentRate"
+                                               type="text" appDecimalNumber/>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="title" for="buildingReliasableValue">Reliasable Value</label>
+                                        <input class="form-control rounded"
+                                               formControlName="buildingReliasableValue"
+                                               id="buildingReliasableValue"
+                                               placeholder="Apartment Market Value"
+                                               name="buildingReliasableValue"
+                                               type="text" appDecimalNumber disabled/>
+                                    </div>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
@@ -1263,14 +1285,6 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label for="landConsideredValue">Realisable Value</label>
-                                    <input class="form-control" formControlName="landConsideredValue"
-                                           id="landBuildingConsideredValue" name="total" placeholder="Realisable Value"
-                                           type="number" readonly>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                <div class="form-group">
                                     <label class="title" for="area">House Number
                                     </label>
                                     <input
@@ -1324,12 +1338,82 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="title" for="distressValue">Distress Value</label>
-                                    <input class="form-control rounded"
+                                    <label class="title" for="distressValue"> Land Market Value</label>
+                                    <input
+                                           class="form-control rounded"
                                            formControlName="distressValue"
                                            name="distressValue"
-                                           placeholder="Distress Value"
-                                           type="text" readonly/>
+                                           placeholder="Market Value"
+                                           type="text" appDecimalNumber/>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="title" for="landBuildingRate">Land Rate</label>
+                                    <input
+                                           class="form-control rounded"
+                                           formControlName="landBuildingRate"
+                                           id="landBuildingRates"
+                                           placeholder="Rate"
+                                           name="landBuildingRate"
+                                           type="number" appDecimalNumber/>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="title" for="totalLandBuildingRate">Land Realisable Value</label>
+                                    <input
+                                           class="form-control rounded"
+                                           formControlName="totalLandRealisableValue"
+                                           id="totalLandBuildingRaste"
+                                           placeholder="Rate"
+                                           name="landBuildingRate"
+                                           type="number" appDecimalNumber/>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="title" for="distressValue"> Apartment Market Value</label>
+                                    <input
+                                           class="form-control rounded"
+                                           formControlName="apartmentDistressValue"
+                                           name="distressValue"
+                                           placeholder="Market Value"
+                                           type="text" appDecimalNumber/>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="title" for="landBuildingRate">Apartment Rate</label>
+                                    <input
+                                           class="form-control rounded"
+                                           formControlName="apartmentRate"
+                                           id="landBuildingRate"
+                                           placeholder="Rate"
+                                           name="landBuildingRate"
+                                           type="number" appDecimalNumber/>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label class="title">Apartment Realisable Value</label>
+                                    <input
+                                           class="form-control rounded"
+                                           formControlName="totalApartmentRealisableValue"
+                                           id="totalLandBuildingRatesa"
+                                           placeholder="Rate"
+                                           name="landBuildingRate"
+                                           type="number" appDecimalNumber/>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="form-group">
+                                    <label for="landConsideredValue">Total Realisable Value</label>
+                                    <input
+                                           class="form-control" formControlName="landConsideredValue"
+                                           id="landBuildingConsideredValue" name="total" placeholder="Realisable Value"
+                                           type="number" appDecimalNumber>
+
                                 </div>
                             </div>
                         </div>
@@ -1783,10 +1867,32 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label class="title" for="quotation">Quotation/Valuation Amount</label>
-                                <input class="form-control rounded" formControlName="quotation"
+                                <input
+                                       class="form-control rounded" formControlName="realisableValue"
+                                       id="realisableValue"
+                                       name="realisableValue" placeholder="Quotation/Valuation Amount"
+                                       type="text" appDecimalNumber />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="title" for="quotation">Realisable Rate</label>
+                                <input
+                                       class="form-control rounded" formControlName="realisableRate"
+                                       id="realisableRate"
+                                       name="realisableRate" placeholder="Realisable Rate"
+                                       type="text" appDecimalNumber/>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="title" for="quotation">Realisable Value</label>
+                                <input
+                                       class="form-control rounded" formControlName="quotation"
                                        id="quotation"
-                                       name="quotation" placeholder="Quotation/Valuation Amount"
-                                       type="text" readonly/>
+                                       name="quotation" placeholder=""
+                                       type="text" disabled/>
+
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -2030,6 +2136,26 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
+                                <label class="title" for="valuationAmount"><strong>Realisable Rate</strong></label>
+                                <input
+                                       class="form-control" formControlName="vehicleRate" id="vehicleRate"
+                                       name="vehicleRate"
+                                       placeholder="Rate %"
+                                       type="number">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="title" for="vehicleRealiasableAmount"><strong>Realisable Amount</strong></label>
+                                <input
+                                       class="form-control" formControlName="vehicleRealiasableAmount" id="vehicleRealiasableAmount"
+                                       name="vehicleRealiasableAmount"
+                                       placeholder="Realiasable Amount"
+                                       type="number" disabled>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
                                 <label class="title" for="downPayment"><strong>Down Payment</strong></label>
                                 <input
                                         (keyup)="vehicleRemainingAmount(i)"
@@ -2079,13 +2205,12 @@
                         </div>
 
                     </div>
-                    <div class="row">
+                    <div class="row" >
                         <div class="col-md-12">
                             <div *ngIf="securityForm.get(['vehicleDetails',i,'vehicleOtherBranchChecked']).value">
                                 <div class="form-group">
                                     <label>Select Branch</label>
                                     <nb-select
-                                            (change)="valuator(securityForm.get(['vehicleDetails',i,'vehicalBranch']).value.id,valuatingFieldEnum.VEHICLE,i)"
                                             [multiple]="false"
                                             formControlName="vehicalBranch"
                                             placeholder="" [disabled]="true">
@@ -2096,14 +2221,14 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row" *ngIf="securityForm.get(['vehicleDetails',i,'isSecondHand']).value">
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label>Valuator Name</label>
                                 <nb-select [multiple]="false"
                                            placeholder=""
                                            formControlName="vehicalValuator"
-                                           (click)="valuator(null,valuatingFieldEnum.VEHICLE,i)" [disabled]="true">
+                                           [disabled]="true">
                                     <nb-option [value]="null">--Select Valuator Name--</nb-option>
                                     <nb-option *ngFor="let valuator of securityValuator.vehicalValuator[i]"
                                                [value]="{ 'id' : valuator?.id , 'name' : valuator?.name}">{{valuator.name}}</nb-option>
