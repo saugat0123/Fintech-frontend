@@ -1,3 +1,4 @@
+import { MGroup } from './../../../customer/model/mGroup';
 import {Component, EventEmitter, Inject, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 import {LoanConfig} from '../../../admin/modal/loan-config';
 import {User} from '../../../admin/modal/user';
@@ -190,6 +191,7 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     zipDocumentName;
     hidePreviewButton = false;
     incomeDataOnly;
+    mGroupInfo: MGroup;
 
     constructor(
         @Inject(DOCUMENT) private _document: Document,
@@ -244,6 +246,9 @@ export class LoanSummaryComponent implements OnInit, OnDestroy {
     }
 
     getLoanDataHolder() {
+        if (!ObjectUtil.isEmpty(this.loanDataHolder.loanHolder.mgroupInfo)) {
+            this.mGroupInfo = this.loanDataHolder.loanHolder.mgroupInfo;
+        }
         this.getAllLoans(this.loanDataHolder.loanHolder.id);
 
         // Setting financial data---

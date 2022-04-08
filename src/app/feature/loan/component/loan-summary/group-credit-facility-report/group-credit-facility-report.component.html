@@ -4,13 +4,13 @@
         <h6 class="text-center"><strong>Group Credit Facilities Report (GCFR)</strong></h6>
         <table class="table table-bordered table-responsive-md">
             <tr class="sb-bg-dark text-white">
-                <td colspan="3" class="text-center">Originating Branch:</td>
-                <td colspan="4"></td>
-                <td colspan="16" class="text-center">Group CFR/CA No:</td>
+                <th colspan="3" class="text-center">Originating Branch:</th>
+                <th colspan="4" class="text-center">Date</th>
+                <th colspan="16" class="text-center">Group CFR/CA No:</th>
             </tr>
             <tr>
-                <td colspan="3" class="text-center">Date</td>
-                <td colspan="4"></td>
+                <th colspan="3" class="text-center">{{loanDataHolder?.branch?.name}}</th>
+                <th colspan="4" class="text-center">{{loanDataHolder?.createdAt | date}}</th>
                 <td></td>
                 <td></td>
                 <td></td>
@@ -29,16 +29,26 @@
             </tr>
             <tr>
                 <td colspan="7">
-                    <p>Customer & Address:</p>
-                    <p>Name:</p>
-                    <p>Permanent Address:</p>
-                    <p>Current Address:</p>
-                    <p>Contact no:</p>
-                    <p>PAN card No.:</p>
+                    <p class="font-weight-bold">Customer & Address</p>
+                    <p>Name: <span class="font-weight-bold">{{loanDataHolder?.loanHolder.name}}</span></p>
+                    <p>Permanent Address: <span class="font-weight-bold">
+                            {{loanDataHolder?.customerInfo?.province?.name}}
+                            , {{loanDataHolder?.customerInfo?.district?.name}},
+                            {{loanDataHolder?.customerInfo?.municipalities?.name}}
+                            , {{loanDataHolder?.customerInfo?.wardNumber}}</span></p>
+                    <p>Current Address: <span class="font-weight-bold">
+                            {{loanDataHolder?.customerInfo?.temporaryProvince?.name}}
+                            , {{loanDataHolder?.customerInfo?.temporaryDistrict?.name}},
+                            {{loanDataHolder?.customerInfo?.temporaryMunicipalities?.name}}
+                            , {{loanDataHolder?.customerInfo?.temporaryWardNumber}}</span></p>
+                    <p>Contact Number: <span class="font-weight-bold">{{loanDataHolder?.loanHolder?.contactNo}}</span>
+                    </p>
+                    <p>PAN card No.: <span class="font-weight-bold">{{incomeSource?.panNumber}}</span></p>
                 </td>
                 <td colspan="16">
                     <p>Group Risk Grade:</p>
-                    <p>Group Name: N/A</p>
+                    <p>Group Code: <span class="font-weight-bold">{{mGroupInfo.groupCode}}</span></p>
+                    <p>Group Name: <span class="font-weight-bold">{{mGroupInfo.groupName}}</span></p>
                 </td>
             </tr>
             <tr class="sb-bg-dark text-white">
@@ -57,12 +67,35 @@
                 <td colspan="6"></td>
             </tr>
             <tr>
-                <td></td>
-                <td></td>
-                <td colspan="2"></td>
-                <td colspan="2"></td>
-                <td colspan="6"></td>
-                <td colspan="11"></td>
+                <th>{{loanDataHolder?.loanHolder.name}}</th>
+                <th>{{loanDataHolder?.loan?.name}}</th>
+                <th>
+                    <div
+                        *ngIf="loanDataHolder.loanType !== 'NEW_LOAN' && loanDataHolder?.loan?.isFundable === true; else dash">
+                        {{proposedLimit | currency:'NPR '}}
+                    </div>
+                    <ng-template #dash>
+                        -
+                    </ng-template>
+                </th>
+                <th>
+                    <div
+                        *ngIf="loanDataHolder.loanType !== 'NEW_LOAN' && (loanDataHolder?.loan?.isFundable === false || !loanDataHolder.loan.isFundable); else dash">
+                        {{proposedLimit | currency:'NPR '}}
+                    </div>
+                    <ng-template #dash>
+                        -
+                    </ng-template>
+                </th>
+                <th>
+                    {{loanDataHolder?.loan?.isFundable === true && loanDataHolder.loanType === 'NEW_LOAN' ?
+                    (proposedLimit | currency:"NPR ") : '-' }}</th>
+                <th>
+                    {{(loanDataHolder?.loan?.isFundable === false || !loanDataHolder.loan.isFundable) &&
+                    loanDataHolder.loanType === 'NEW_LOAN' ?
+                    (proposedLimit | currency:"NPR ") : '-'}}</th>
+                <th colspan="6"></th>
+                <th colspan="11"></th>
             </tr>
             <tr>
                 <td></td>
@@ -106,16 +139,16 @@
             <tr class="text-left">
                 <td colspan="2"></td>
                 <td colspan="4">
-                    <p>
+                    <p class="text-justify">
                         The Bank’s core capital
-                        stood at NPR ….. million
-                        as on ….; accordingly, the
+                        stood at NPR .................. million
+                        as on ...............; accordingly, the
                         SOL of the Bank is as
                         under:
-                        General Limit (25%): NPR …
-                        Product sector (30%): NPR …
+                        General Limit (25%): NPR ..........
+                        Product sector (30%): NPR ............
                         Hydro power, transmission
-                        line, cable car project (50%):…
+                        line, cable car project (50%): ............
                         Our exposure to the unit falls
                         within SOL of the bank.
                     </p>

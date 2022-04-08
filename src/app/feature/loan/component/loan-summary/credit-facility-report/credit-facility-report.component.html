@@ -35,7 +35,8 @@
             <tr>
                 <td style="width: 30%">Customer & Address:</td>
                 <td style="width: 20%">Obligor Group & Location</td>
-                <td style="width: 30%;" colspan="2">Risk Grade: <span class="font-weight-bold">{{riskGrade?.totalPoint}}</span></td>
+                <td style="width: 30%;" colspan="2">Risk Grade: <span
+                        class="font-weight-bold">{{riskGrade?.totalPoint}}</span></td>
             </tr>
             <tr>
                 <td>Name: Mr./Mrs./Ms <span class="font-weight-bold">{{loanDataHolder?.loanHolder.name}}</span></td>
@@ -49,20 +50,18 @@
                         {{loanDataHolder?.customerInfo?.municipalities?.name}}
                         , {{loanDataHolder?.customerInfo?.wardNumber}}</span></td>
                 <td rowspan="3">
-                    <app-report-summary
-                            [approved]="false"
-                            *ngIf="loanDataHolder?.reportingInfoLevels && loanDataHolder?.reportingInfoLevels?.length > 0; else noinfo"
-                            [reportingInfoLevels]="loanDataHolder?.reportingInfoLevels"></app-report-summary>
-                            <ng-template #noinfo>
-                                <p>No any information tagged</p>
-                            </ng-template>
-                            <app-report-summary
-                                    [approved]="false"
-                                    *ngIf="loanDataHolder?.loanHolder?.reportingInfoLevels && loanDataHolder?.loanHolder?.reportingInfoLevels?.length > 0; else noinfo"
-                                    [reportingInfoLevels]="loanDataHolder?.loanHolder?.reportingInfoLevels"></app-report-summary>
-                                    <ng-template #noinfo>
-                                        <p>No any information tagged</p>
-                                    </ng-template>
+                    <app-report-summary [approved]="false"
+                        *ngIf="loanDataHolder?.reportingInfoLevels && loanDataHolder?.reportingInfoLevels?.length > 0; else noinfo"
+                        [reportingInfoLevels]="loanDataHolder?.reportingInfoLevels"></app-report-summary>
+                    <ng-template #noinfo>
+                        <p>No any information tagged</p>
+                    </ng-template>
+                    <app-report-summary [approved]="false"
+                        *ngIf="loanDataHolder?.loanHolder?.reportingInfoLevels && loanDataHolder?.loanHolder?.reportingInfoLevels?.length > 0; else noinfo"
+                        [reportingInfoLevels]="loanDataHolder?.loanHolder?.reportingInfoLevels"></app-report-summary>
+                    <ng-template #noinfo>
+                        <p>No any information tagged</p>
+                    </ng-template>
                     <!-- <span class="font-weight-bold"
                         *ngFor="let item of nrbSectorCodes; let i = index">{{item.code}}<ng-container
                             *ngIf="nrbSectorCodes.length > 1">{{nrbSectorCodes.length-i > 1 ? ', ' : ''}}</ng-container>
@@ -111,22 +110,31 @@
                     <span class="font-weight-bold">{{loanName}}</span>
                 </td>
                 <th colspan="1" class="text-center pr-1">
-                    <!-- {{loanDataHolder?.loan?.isFundable && proposalData?.exisitingLimit ? (proposedLimit |
-                    currency:"NPR ") :
-                    '-' }} -->
-                    -
+                    <div
+                        *ngIf="loanDataHolder.loanType !== 'NEW_LOAN' && loanDataHolder?.loan?.isFundable === true; else dash">
+                        {{proposedLimit | currency:'NPR '}}
+                    </div>
+                    <ng-template #dash>
+                        -
+                    </ng-template>
                 </th>
                 <th colspan="1" class="text-center pr-1">
-                    <!-- {{!loanDataHolder?.loan?.isFundable && !proposalData?.exisitingLimit ? (proposedLimit |
-                    currency:"NPR ")
-                    : '-'}} -->
-                    -
+                    <div
+                        *ngIf="loanDataHolder.loanType !== 'NEW_LOAN' && (loanDataHolder?.loan?.isFundable === false || !loanDataHolder.loan.isFundable); else dash">
+                        {{proposedLimit | currency:'NPR '}}
+                    </div>
+                    <ng-template #dash>
+                        -
+                    </ng-template>
                 </th>
                 <th colspan="1" class="text-center pr-1">
-                    {{loanDataHolder?.loan?.isFundable ? (proposedLimit | currency:"NPR ") : '-' }}
+                    {{loanDataHolder?.loan?.isFundable === true && loanDataHolder.loanType === 'NEW_LOAN' ?
+                    (proposedLimit | currency:"NPR ") : '-' }}
                 </th>
                 <th colspan="1" class="text-center pr-1">
-                    {{!loanDataHolder?.loan?.isFundable ? (proposedLimit | currency:"NPR ") : '-'}}
+                    {{(loanDataHolder?.loan?.isFundable === false || !loanDataHolder.loan.isFundable) &&
+                    loanDataHolder.loanType === 'NEW_LOAN' ?
+                    (proposedLimit | currency:"NPR ") : '-'}}
                 </th>
                 <td colspan="1" class="text-left pr-1">
                     <span class="font-weight-bold">{{loanDataHolder?.loan?.interestRate}}</span> % p.a ( <span
@@ -134,7 +142,8 @@
                     <span class="font-weight-bold">{{proposalData ? proposalData?.premiumRateOnBaseRate :
                         '..............' }}</span> %)<br><br>
 
-                    Loan Processing Fee: <span class="font-weight-bold">{{incomeFromAccount.loanProcessingDuringReview | currency : 'NPR '}}</span> % of the limit<br><br>
+                    Loan Processing Fee: <span class="font-weight-bold">{{incomeFromAccount.loanProcessingDuringReview |
+                        currency : 'NPR '}}</span> % of the limit<br><br>
 
                     CICL charge: <span class="font-weight-bold">{{loanDataHolder.loanHolder.cicl ?
                         (loanDataHolder?.loanHolder?.cicl?.cibCharge | currency:'NPR ') :
@@ -161,7 +170,8 @@
                             Plot No.: <span class="font-weight-bold">{{item?.plotNumber}}</span>, Area: <span
                                 class="font-weight-bold">{{item?.area}}</span> sq.m <br>
                             Valuation Date and Valuator: <span class="font-weight-bold">{{item?.landValuatorDate |
-                                date}}</span>; <span class="font-weight-bold">{{item?.landValuator.name}}</span> Pvt.Ltd.
+                                date}}</span>; <span class="font-weight-bold">{{item?.landValuator.name}}</span>
+                            Pvt.Ltd.
                         </span>
                         <table class="table table-bordered text-center mt-2">
                             <tr>
@@ -196,7 +206,8 @@
                             Plot No.: <span class="font-weight-bold">{{item?.plotNumber}}</span>, Area: <span
                                 class="font-weight-bold">{{item?.area}}</span> sq.m <br>
                             Valuation Date and Valuator: <span class="font-weight-bold">{{item?.buildingValuatorDate |
-                                date}}</span>; <span class="font-weight-bold">{{item?.buildingValuator.name}}</span> Pvt.Ltd.
+                                date}}</span>; <span class="font-weight-bold">{{item?.buildingValuator.name}}</span>
+                            Pvt.Ltd.
                         </span>
                         <table class="table table-bordered text-center mt-2">
                             <tr>
@@ -231,7 +242,8 @@
                             Plot No.: <span class="font-weight-bold">{{item?.plotNumber}}</span>, Area: <span
                                 class="font-weight-bold">{{item?.area}}</span> sq.m <br> -->
                             Valuation Date and Valuator: <span class="font-weight-bold">{{item?.ApartmentValuatorDate |
-                                date}}</span>; <span class="font-weight-bold">{{item?.ApartmentValuator.name}}</span> Pvt.Ltd.
+                                date}}</span>; <span class="font-weight-bold">{{item?.ApartmentValuator.name}}</span>
+                            Pvt.Ltd.
                         </span>
                         <table class="table table-bordered text-center mt-2">
                             <tr>
@@ -265,7 +277,8 @@
                             Vehicle Type: <span class="font-weight-bold">{{item?.model}}</span><br>
                             Registration Number: <span class="font-weight-bold">{{item?.registrationNumber}}</span><br>
                             Valuation Date and Valuator: <span class="font-weight-bold">{{item?.vehicalValuatorDate |
-                                date}}</span>; <span class="font-weight-bold">{{item?.vehicalValuator.name}}</span> Pvt.Ltd.
+                                date}}</span>; <span class="font-weight-bold">{{item?.vehicalValuator.name}}</span>
+                            Pvt.Ltd.
                         </span>
                     </div>
 
