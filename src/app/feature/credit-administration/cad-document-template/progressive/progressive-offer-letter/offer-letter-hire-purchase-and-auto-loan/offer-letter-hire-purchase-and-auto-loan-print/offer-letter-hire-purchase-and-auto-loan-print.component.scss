@@ -3,4 +3,8 @@
   font-size:  16px;
 }
 
-
+@media print {
+  tr {
+    break-inside: initial;
+  }
+}
