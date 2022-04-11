@@ -1,14 +1,10 @@
+<app-checklist-v0 #checklistViewVersionZero></app-checklist-v0>
+
+<app-checklist-v1 #checklistViewVersionOne></app-checklist-v1>
+
+
 <p *ngIf="!fromProfile" class="text-left"><b>{{(summaryType === summaryTypeName.GAMMA && loanCategory === 'INDIVIDUAL') ? '20. Credit CheckList' :
     (summaryType === summaryTypeName.GAMMA && loanCategory === 'INSTITUTION') ? '21. Credit CheckList' : 'Credit CheckList'}}</b></p>
-    <div class="row">
-        <div class="col-md-12 text-right" *ngIf="fromProfile">
-            <nb-radio-group [(ngModel)]="calendarType" class="d-inline-flex"
-                            name="securityInitialInfoCalendarType">
-                <nb-radio value="AD">AD</nb-radio>
-                <nb-radio value="BS">BS</nb-radio>
-            </nb-radio-group>
-        </div>
-    </div>
     <div class="row mt-4">
         <div class="col-md-12">
             <form [formGroup]="formGroupCheckList">
@@ -970,6 +966,3 @@
             </form>
         </div>
     </div>
-    <nb-card-footer *ngIf="fromProfile">
-        <button (click)="submitForm()" class="btn float-right" nbButton type="submit">Save</button>
-    </nb-card-footer>

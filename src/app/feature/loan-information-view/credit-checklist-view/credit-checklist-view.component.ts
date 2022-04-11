@@ -1,4 +1,15 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ComponentFactoryResolver,
+  ComponentRef,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+  ViewContainerRef
+} from '@angular/core';
 import {CreditChecklistView} from '../../loan/model/creditChecklistView';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {ObjectUtil} from '../../../@core/utils/ObjectUtil';
@@ -9,11 +20,35 @@ import {Clients} from '../../../../environments/Clients';
 import {SummaryType} from '../../loan/component/SummaryType';
 
 @Component({
+  selector: 'app-checklist-v0',
+  templateUrl: './credit-checklist-view-v0.html'
+})
+// tslint:disable-next-line:component-class-suffix
+export class ChecklistViewVersionZero {
+  @Input() dataForEdit: any;
+  @Input() version: boolean;
+  @Input() customerType: CustomerType;
+  @Input() client;
+  @Input() clientName = Clients;
+}
+
+@Component({
+  selector: 'app-checklist-v1',
+  templateUrl: './credit-checklist-view-v1.html'
+})
+// tslint:disable-next-line:component-class-suffix
+export class ChecklistViewVersionOne {
+  @Input() dataForEdit: any;
+  @Input() version: boolean;
+  @Input() customerType: CustomerType;
+}
+
+@Component({
   selector: 'app-credit-checklist-view',
   templateUrl: './credit-checklist-view.component.html',
   styleUrls: ['./credit-checklist-view.component.scss']
 })
-export class CreditChecklistViewComponent implements OnInit {
+export class CreditChecklistViewComponent implements OnInit, AfterViewInit {
   @Output() creditChecklistViewEmitter = new EventEmitter();
   @Input() formData: CreditChecklistView;
   @Input() fromProfile;
@@ -30,8 +65,11 @@ export class CreditChecklistViewComponent implements OnInit {
   creditChecklistView: CreditChecklistView = new CreditChecklistView();
   optionList = ['Yes', 'No', 'Na'];
   optionListRegulatory = ['Yes', 'No'];
+  @ViewChild('checklistViewVersionZero', {read: ViewContainerRef, static: true}) viewContainerRef;
+  @ViewChild('checklistViewVersionOne', {read: ViewContainerRef, static: true}) viewContainerRef1;
+  versionOne = false;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private componentFactoryResolver: ComponentFactoryResolver) {
   }
 
   ngOnInit() {
@@ -40,6 +78,31 @@ export class CreditChecklistViewComponent implements OnInit {
       this.dataForEdit = JSON.parse(this.formData.data);
     }
     this.buildForm(this.dataForEdit);
+
+    if (!ObjectUtil.isEmpty(this.dataForEdit)) {
+      // Creating component version 0
+      const factory = this.componentFactoryResolver.resolveComponentFactory(ChecklistViewVersionZero);
+      const component: ComponentRef<ChecklistViewVersionZero> = this.viewContainerRef.createComponent(factory);
+      component.instance.dataForEdit = this.dataForEdit;
+      component.instance.customerType = this.customerType;
+      component.instance.client = this.client;
+      component.instance.clientName = this.clientName;
+
+      // Creating component version 1
+      const factory1 = this.componentFactoryResolver.resolveComponentFactory(ChecklistViewVersionOne);
+      const component1: ComponentRef<ChecklistViewVersionOne> = this.viewContainerRef.createComponent(factory1);
+      component1.instance.dataForEdit = this.dataForEdit;
+      component1.instance.customerType = this.customerType;
+
+      if (ObjectUtil.isEmpty(this.dataForEdit.checklistVersion)) {
+        console.log('nul check version');
+        component.instance.version = true;
+      }
+      if (!ObjectUtil.isEmpty(this.dataForEdit.checklistVersion === 'v1')) {
+        console.log('version 1');
+        component1.instance.version = true;
+      }
+    }
   }
 
   buildForm(data) {
@@ -205,7 +268,7 @@ export class CreditChecklistViewComponent implements OnInit {
     this.formGroupCheckList.get('risk').patchValue('Yes');
     this.formGroupCheckList.get('enhanced').patchValue('Yes');
     this.formGroupCheckList.get('PEP').patchValue('Yes');
-    this.formGroupCheckList.get('diligence').patchValue('Yes')
+    this.formGroupCheckList.get('diligence').patchValue('Yes');
     this.formGroupCheckList.get('CIC').patchValue('Yes');
     this.formGroupCheckList.get('rating').patchValue('Yes');
     this.formGroupCheckList.get('transaction').patchValue('Yes');
@@ -218,4 +281,26 @@ export class CreditChecklistViewComponent implements OnInit {
     this.creditChecklistViewEmitter.emit(this.creditChecklistView);
     console.log(this.formGroupCheckList.value);
   }
+
+  ngAfterViewInit() {
+    // if (!ObjectUtil.isEmpty(this.dataForEdit)) {
+    //   // Creating component version 0
+    //   const factory = this.componentFactoryResolver.resolveComponentFactory(ChecklistViewVersionZero);
+    //   const component: ComponentRef<ChecklistViewVersionZero> = this.viewContainerRef.createComponent(factory);
+    //   component.instance.dataForEdit = this.dataForEdit;
+    //
+    //   // Creating component version 1
+    //   const factory1 = this.componentFactoryResolver.resolveComponentFactory(ChecklistViewVersionOne);
+    //   const component1: ComponentRef<ChecklistViewVersionOne> = this.viewContainerRef.createComponent(factory1);
+    //   component1.instance.dataForEdit = this.dataForEdit;
+    //
+    //   if (ObjectUtil.isEmpty(this.dataForEdit.checklistVersion)) {
+    //     component.instance.version = true;
+    //   } else if (!ObjectUtil.isEmpty(this.dataForEdit.checklistVersion.toString === 'v1')) {
+    //     component.instance.version = true;
+    //   }
+    // }
+  }
 }
+
+
