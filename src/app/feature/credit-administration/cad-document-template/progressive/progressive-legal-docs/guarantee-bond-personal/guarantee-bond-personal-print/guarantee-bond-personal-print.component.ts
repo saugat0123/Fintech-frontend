@@ -9,6 +9,7 @@ import {ProgressiveLegalDocConst} from '../../progressive-legal-doc-const';
 })
 export class GuaranteeBondPersonalPrintComponent implements OnInit {
   @Input() printDocForm;
+  @Input() loanCat;
   offerLetterConst = ProgressiveLegalDocConst;
 
   constructor() {

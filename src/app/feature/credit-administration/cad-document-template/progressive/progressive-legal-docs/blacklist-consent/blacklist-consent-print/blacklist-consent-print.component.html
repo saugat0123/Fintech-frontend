@@ -26,14 +26,14 @@
                 <div class="col-md-12">
                 <table class="table-borderless">
                     <tr>
-                        <td class="text-right" style="width: 25%; padding-right: 10px">दस्तखत :-</td>
+                        <td class="text-left" style="width: 25%; padding-right: 10px">दस्तखत :-</td>
                         <td>...................................</td>
                     </tr>
                     <tr>
-                        <td class="text-right" style="vertical-align: top; padding-right: 10px">दस्तखत
+                        <td class="text-left" style="vertical-align: top; padding-right: 10px">दस्तखत
                             गर्नेको नाम :-
                         </td>
-                        <td> <span
+                        <td class="text-left"> <span
                                 [ngClass]="{'nepaliFontPreeti unicode-size24': printDocForm?.sincerlyName!==null && printDocForm?.sincerlyName!==''}">
                         {{printDocForm?.sincerlyName === null || printDocForm?.sincerlyName === '' ? '___________________' : printDocForm?.sincerlyName}}
                     </span>
@@ -51,7 +51,7 @@
                     </span></td>
                     </tr>
                     <tr *ngIf="loanCat === 'INSTITUTION'">
-                        <td class="text-right" style="padding-right: 10px; vertical-align: top"><strong>कम्पनीको
+                        <td class="text-left" style="padding-right: 10px; vertical-align: top"><strong>कम्पनीको
                             हकमा</strong> :-
                         </td>
                         <td>(रजिष्टेशन नं.<span
@@ -69,7 +69,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td class="text-right" style="padding-right: 10px; vertical-align: top">
+                        <td class="text-left" style="vertical-align: top">
                             स्थायी ठेगाना :-
                         <td>
                         <ng-container *ngIf="loanCat === 'INDIVIDUAL'">
@@ -96,7 +96,7 @@
                     </span></td>
                     </tr>
                     <tr>
-                        <td class="text-right" style="padding-right: 10px; vertical-align: top">हालको ठेगाना :-</td>
+                        <td class="text-left" style="vertical-align: top">हालको ठेगाना :-</td>
                         <td>
                             <ng-container *ngIf="loanCat === 'INDIVIDUAL'">
                             <span [ngClass]="{'nepaliFontPreeti unicode-size16': printDocForm?.sincerlyTemporaryDistrict!==null && printDocForm?.sincerlyTemporaryDistrict!==''}">
@@ -122,42 +122,42 @@
                     </span></td>
                     </tr>
                     <tr>
-                        <td class="text-right" style="padding-right: 10px">बाबुको नाम :-</td>
+                        <td class="text-left">बाबुको नाम :-</td>
                         <td><span
                                 [ngClass]="{'nepaliFontPreeti unicode-size24': printDocForm?.sincerlyParentName!==null && printDocForm?.sincerlyParentName!==''}">
                         {{printDocForm?.sincerlyParentName === null || printDocForm?.sincerlyParentName === '' ? '___________________' : printDocForm?.sincerlyParentName}}
                     </span></td>
                     </tr>
                     <tr>
-                        <td class="text-right" style="padding-right: 10px">बाजेको नाम :-</td>
+                        <td class="text-left">बाजेको नाम :-</td>
                         <td><span
                                 [ngClass]="{'nepaliFontPreeti unicode-size24': printDocForm?.sincerlyGrandParentName!==null && printDocForm?.sincerlyGrandParentName!==''}">
                         {{printDocForm?.sincerlyGrandParentName === null || printDocForm?.sincerlyGrandParentName === '' ? '___________________' : printDocForm?.sincerlyGrandParentName}}
                     </span></td>
                     </tr>
                     <tr>
-                        <td class="text-right" style="padding-right: 10px">पति/पत्नीको नामः</td>
+                        <td class="text-left">पति/पत्नीको नामः</td>
                         <td><span
                                 [ngClass]="{'nepaliFontPreeti unicode-size24': printDocForm?.spouseOrFatherName!==null && printDocForm?.spouseOrFatherName!==''}">
                         {{printDocForm?.spouseOrFatherName === null || printDocForm?.spouseOrFatherName === '' ? '___________________' : printDocForm?.spouseOrFatherName}}
                     </span></td>
                     </tr>
                     <tr>
-                        <td class="text-right" style="padding-right: 10px">स्थायी लेखा नं.:-</td>
+                        <td class="text-left">स्थायी लेखा नं.:-</td>
                         <td><span
                                 [ngClass]="{'nepaliFont': printDocForm?.sincerlyLekhaNo!==null && printDocForm?.sincerlyLekhaNo!==''}">
                         {{printDocForm?.sincerlyLekhaNo === null || printDocForm?.sincerlyLekhaNo === '' ? '___________________' : printDocForm?.sincerlyLekhaNo}}
                     </span></td>
                     </tr>
                     <tr>
-                        <td class="text-right" style="padding-right: 10px">कर्जा सूबिधाहरु:-</td>
+                        <td class="text-left">कर्जा सूबिधाहरु:-</td>
                         <td><span
                                 [ngClass]="{'nepaliFont': printDocForm?.sincerlyKarja!==null && printDocForm?.sincerlyKarja!==''}">
                         {{printDocForm?.sincerlyKarja === null || printDocForm?.sincerlyKarja === '' ? '___________________' : printDocForm?.sincerlyKarja}}
                     </span></td>
                     </tr>
                     <tr>
-                        <td class="text-right" style="width: 25%; padding-right: 10px; vertical-align: top">औठा छाप :-
+                        <td class="text-left" style="width: 25%; vertical-align: top">औठा छाप :-
                         </td>
                         <td>
                             <div class="text-center float-left">

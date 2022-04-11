@@ -68,21 +68,21 @@
                     </tr>
                     <tr>
                         <td style="text-align: right; vertical-align: top;width: 20%">स्थायी ठेगाना :</td>
-                        <td style="text-align: left"><span class="nepaliFont sizefont">{{printDocForm?.sincerlyPermanentAddress}}</span>
+                        <td style="text-align: left"><span class="nepaliFont unicode-size">{{printDocForm?.sincerlyPermanentAddress}}</span>
                             जिल्ला, <span
-                                    [ngClass]="{'nepaliFont sizefont' : printDocForm?.jillaName !== null && printDocForm?.jillaName !== ''}">
+                                    [ngClass]="{'nepaliFont unicode-size' : printDocForm?.jillaName !== null && printDocForm?.jillaName !== ''}">
                         {{printDocForm?.jillaName === null || printDocForm?.jillaName === '' ? '________________' : printDocForm?.jillaName}}
                         </span>
                             गा.पा./न.पा., वडा नं.<span
-                                    [ngClass]="{'nepaliFont' : printDocForm?.jagaName !== null && printDocForm?.jagaName !== ''}">
+                                    [ngClass]="{'nepaliFont unicode-size' : printDocForm?.jagaName !== null && printDocForm?.jagaName !== ''}">
                         {{printDocForm?.jagaName === null || printDocForm?.jagaName === '' ? '________________' : printDocForm?.jagaName}}
                         </span>(साबिक
-                            <span [ngClass]="{'nepaliFont sizefont' : printDocForm?.sincerlyPermanentAddress !== null && printDocForm?.sincerlyPermanentAddress !== ''}">
+                            <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.sincerlyPermanentAddress !== null && printDocForm?.sincerlyPermanentAddress !== ''}">
                         {{printDocForm?.sincerlyPermanentAddress === null || printDocForm?.sincerlyPermanentAddress === '' ? '________________' : printDocForm?.sincerlyPermanentAddress}}</span>,
                             <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.borrowerSabikVDC !== null && printDocForm?.borrowerSabikVDC !== ''}">
                         {{printDocForm?.borrowerSabikVDC === null || printDocForm?.borrowerSabikVDC === '' ? '________________' : printDocForm?.borrowerSabikVDC}}
                         </span>गा.बि.स., वडा नं.
-                            <span [ngClass]="{'nepaliFont' : printDocForm?.borrowerSabikWardNo !== null && printDocForm?.borrowerSabikWardNo !== ''}">
+                            <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.borrowerSabikWardNo !== null && printDocForm?.borrowerSabikWardNo !== ''}">
                         {{printDocForm?.borrowerSabikWardNo === null || printDocForm?.borrowerSabikWardNo === '' ? '__________' : printDocForm?.borrowerSabikWardNo}}</span>)
                         </td>
                     </tr>
@@ -90,11 +90,11 @@
                         <td style="text-align: right; vertical-align: top;width: 20%">हालको ठेगाना :</td>
                         <td style="text-align: left">
                             <span
-                                    [ngClass]="{'nepaliFont sizeFont' : printDocForm?.sincerlytempAddress !== null && printDocForm?.sincerlytempAddress !== ''}">
+                                    [ngClass]="{'nepaliFont unicode-size' : printDocForm?.sincerlytempAddress !== null && printDocForm?.sincerlytempAddress !== ''}">
                         {{printDocForm?.sincerlytempAddress === null || printDocForm?.sincerlytempAddress === '' ? '________________' : printDocForm?.sincerlytempAddress}}
                         </span>
                             जिल्ला, <span
-                                [ngClass]="{'nepaliFont sizefont' : printDocForm?.jillaName1 !== null && printDocForm?.jillaName1 !== ''}">
+                                [ngClass]="{'nepaliFont unicode-size' : printDocForm?.jillaName1 !== null && printDocForm?.jillaName1 !== ''}">
                         {{printDocForm?.jillaName1 === null || printDocForm?.jillaName1 === '' ? '________________' : printDocForm?.jillaName1}}
                         </span>
                             गा.पा./न.पा., वडा नं.

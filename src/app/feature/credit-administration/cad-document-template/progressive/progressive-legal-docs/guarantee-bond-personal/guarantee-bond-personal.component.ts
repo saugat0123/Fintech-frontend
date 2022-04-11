@@ -34,6 +34,7 @@ export class GuaranteeBondPersonalComponent implements OnInit {
   offerLetterDocument: OfferDocument;
   nepaliData;
   nepDataPersonal;
+  loanCategory;
 
   constructor(private dialogRef: NbDialogRef<GuaranteeBondPersonalComponent>,
               private formBuilder: FormBuilder,
@@ -45,6 +46,9 @@ export class GuaranteeBondPersonalComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (!ObjectUtil.isEmpty(this.cadData.assignedLoan)) {
+      this.loanCategory = this.cadData.assignedLoan[0].loanCategory;
+    }
     this.buildForm();
     this.fillForm();
   }
@@ -202,7 +206,35 @@ export class GuaranteeBondPersonalComponent implements OnInit {
       guarantorDistrict1: [undefined],
       guarantorMunicipality1: [undefined],
       guarantorWardNo1: [undefined],
-      borrowerName: [undefined]
+      borrowerName: [undefined],
+      company: [undefined],
+      registerCompanyName: [undefined],
+      companyDistrict: [undefined],
+      actName: [undefined],
+      actYear: [undefined],
+      regDate: [undefined],
+      companyRegDate: [undefined],
+      taxSewa: [undefined],
+      panRegDate: [undefined],
+      panNo: [undefined],
+      companyDist: [undefined],
+      companyMunicipality: [undefined],
+      companyWardNo: [undefined],
+      enterpriseName: [undefined],
+      grandFatherName: [undefined],
+      fatherName: [undefined],
+      spouseName: [undefined],
+      facilityDistrict: [undefined],
+      muni: [undefined],
+      ward: [undefined],
+      tempDis: [undefined],
+      tempMuni: [undefined],
+      tempWard: [undefined],
+      representativeAge: [undefined],
+      representativeName: [undefined],
+      reCitizenShipNo: [undefined],
+      reCitizenShipIssueDate: [undefined],
+      citizenshipIssueOffice: [undefined],
     });
   }
   getNumAmountWord(numLabel, wordLabel) {
@@ -306,7 +338,35 @@ export class GuaranteeBondPersonalComponent implements OnInit {
       sabikVDC: [undefined],
       sabikWaNo: [undefined],
       citizenNo: [undefined],
-      issuedYr: [undefined]
+      issuedYr: [undefined],
+      company: [undefined],
+      registerCompanyName: [undefined],
+      companyDistrict: [undefined],
+      actName: [undefined],
+      actYear: [undefined],
+      regDate: [undefined],
+      companyRegDate: [undefined],
+      taxSewa: [undefined],
+      panRegDate: [undefined],
+      panNo: [undefined],
+      companyDist: [undefined],
+      companyMunicipality: [undefined],
+      companyWardNo: [undefined],
+      enterpriseName: [undefined],
+      grandFatherName: [undefined],
+      fatherName: [undefined],
+      spouseName: [undefined],
+      facilityDistrict: [undefined],
+      muni: [undefined],
+      ward: [undefined],
+      tempDis: [undefined],
+      tempMuni: [undefined],
+      tempWard: [undefined],
+      representativeAge: [undefined],
+      representativeName: [undefined],
+      reCitizenShipNo: [undefined],
+      reCitizenShipIssueDate: [undefined],
+      citizenshipIssueOffice: [undefined],
     });
 
   }
@@ -431,8 +491,37 @@ export class GuaranteeBondPersonalComponent implements OnInit {
         guarantorWardNo1: [value.guarantorWardNo1],
         tempWardNo2: [value.tempWardNo2],
         sabikMunicipality: [value.guarantorPermanentVdc],
-        sabikWardNo: [value.guarantorPermanentVdcWard]
-
+        sabikWardNo: [value.guarantorPermanentVdcWard],
+        company: this.nepaliData.ministryOfGovernmentOfNepal ? this.nepaliData.ministryOfGovernmentOfNepal : '',
+        registerCompanyName: this.nepaliData.department ? this.nepaliData.department : '',
+        companyDistrict: this.nepaliData.companyRegistrarOfficeDistrict ? this.nepaliData.companyRegistrarOfficeDistrict : '',
+        actName: this.nepaliData.nameOfRegisteringAct ? this.nepaliData.nameOfRegisteringAct : '',
+        actYear: this.nepaliData.yearOfActEnactment ? this.nepaliData.yearOfActEnactment : '',
+        regDate: this.nepaliData.registrationDate ? this.nepaliData.registrationDate : '',
+        companyRegDate: this.nepaliData.companyRegistrationNo ? this.nepaliData.companyRegistrationNo : '',
+        taxSewa: this.nepaliData.taxPayerServiceOffice ? this.nepaliData.taxPayerServiceOffice : '',
+        panRegDate: this.nepaliData.panRegistrationDate ? this.nepaliData.panRegistrationDate : '',
+        panNo: this.nepaliData.panNo ? this.nepaliData.panNo : '',
+        companyDist: this.nepaliData.companyDistrict ? this.nepaliData.companyDistrict : '',
+        companyMunicipality: this.nepaliData.companyVdcMun ? this.nepaliData.companyVdcMun : '',
+        companyWardNo: this.nepaliData.companyWardNo ? this.nepaliData.companyWardNo : '',
+        enterpriseName: this.nepaliData.companyName ? this.nepaliData.companyName : '',
+        grandFatherName: this.nepaliData.representativeGrandFatherName ? this.nepaliData.representativeGrandFatherName : '',
+        fatherName: this.nepaliData.representativeFatherName ? this.nepaliData.representativeFatherName : '',
+        spouseName: this.nepaliData.representativeHusbandWifeName ? this.nepaliData.representativeHusbandWifeName : '',
+        facilityDistrict: this.nepaliData.representativePermanentDistrict ? this.nepaliData.representativePermanentDistrict : '',
+        muni: this.nepaliData.representativePermanentVdc ? this.nepaliData.representativePermanentVdc : '',
+        ward: this.nepaliData.representativePermanentVdcWard ? this.nepaliData.representativePermanentVdcWard : '',
+        tempDis: this.nepaliData.representativeTemporaryDistrict ? this.nepaliData.representativeTemporaryDistrict : '',
+        tempMuni: this.nepaliData.representativeTemporaryMunicipality ? this.nepaliData.representativeTemporaryMunicipality : '',
+        tempWard: this.nepaliData.representativeTemporaryWard ? this.nepaliData.representativeTemporaryWard : '',
+        representativeAge: this.nepaliData.borrowerAge ? this.nepaliData.borrowerAge : '',
+        representativeName: this.nepaliData.representativeName ? this.nepaliData.representativeName : '',
+        reCitizenShipNo: this.nepaliData.representativeCitizenshipNo ? this.nepaliData.representativeCitizenshipNo : '',
+        // tslint:disable-next-line:max-line-length
+        reCitizenShipIssueDate: this.nepaliData.representativeCitizenshipIssueDate ? this.nepaliData.representativeCitizenshipIssueDate : '',
+        // tslint:disable-next-line:max-line-length
+        citizenshipIssueOffice: this.nepaliData.representativeCitizenshipIssuingAuthority ? this.nepaliData.representativeCitizenshipIssuingAuthority : '',
       }));
     });
   }
