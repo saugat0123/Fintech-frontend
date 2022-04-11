@@ -72,8 +72,8 @@ export class LoanInformationDetailViewComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.loadSummary();
         this.spinner.show();
+        this.loadSummary();
         this.customerLoanService.detail(this.customerId).subscribe((response) => {
             this.loanDataHolder = response.detail;
             this.isLoaded = true;
