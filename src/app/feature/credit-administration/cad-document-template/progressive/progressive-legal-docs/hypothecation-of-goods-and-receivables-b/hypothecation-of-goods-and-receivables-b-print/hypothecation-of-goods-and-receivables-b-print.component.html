@@ -67,15 +67,9 @@
                 (जसलाई यस उप्रान्त यस लिखतमा ऋणी भनिएको छ) को तर्फबाट अख्तियार प्राप्त संचालक/प्रोप्राईटर/साझेदार/प्रतिनिधि
                 <span [ngClass]="{'nepaliFont unicode-size24' : printDocForm?.sanchalak !== null && printDocForm?.sanchalak !== ''}">
                     {{printDocForm?.sanchalak === null || printDocForm?.sanchalak === '' ? '_________________' : printDocForm?.sanchalak}}
-                </span>र
-                <span [ngClass]="{'nepaliFont unicode-size24' : printDocForm?.pratinidhiName !== null && printDocForm?.pratinidhiName !== ''}">
-                    {{printDocForm?.pratinidhiName === null || printDocForm?.pratinidhiName === '' ? '_________________' : printDocForm?.pratinidhiName}}
                 </span>को नाति/नातिनि
                 <span [ngClass]="{'nepaliFont unicode-size24' : printDocForm?.pratinidhiGrandSon !== null && printDocForm?.pratinidhiGrandSon !== ''}">
                     {{printDocForm?.pratinidhiGrandSon === null || printDocForm?.pratinidhiGrandSon === '' ? '_________________' : printDocForm?.pratinidhiGrandSon}}
-                </span>र
-                <span [ngClass]="{'nepaliFont unicode-size24' : printDocForm?.pratinidhiChild !== null && printDocForm?.pratinidhiChild !== ''}">
-                    {{printDocForm?.pratinidhiChild === null || printDocForm?.pratinidhiChild === '' ? '_________________' : printDocForm?.pratinidhiChild}}
                 </span>को छोरा/छोरी
                 <span [ngClass]="{'nepaliFont unicode-size24' : printDocForm?.pratinidhiSpouse !== null && printDocForm?.pratinidhiSpouse !== ''}">
                     {{printDocForm?.pratinidhiSpouse === null || printDocForm?.pratinidhiSpouse === '' ? '_________________' : printDocForm?.pratinidhiSpouse}}
@@ -369,9 +363,6 @@
                             <td>
                                 <span [ngClass]="{'nepaliFont unicode-size24' : printDocForm?.pratinidhiGrandSon !== null && printDocForm?.pratinidhiGrandSon !== ''}">
                                     {{printDocForm?.pratinidhiGrandSon === null || printDocForm?.pratinidhiGrandSon === '' ? '_________________' : printDocForm?.pratinidhiGrandSon}}
-                                </span>/
-                                <span [ngClass]="{'nepaliFont unicode-size24' : printDocForm?.signMotherName !== null && printDocForm?.signMotherName !== ''}">
-                                    {{printDocForm?.signMotherName === null || printDocForm?.signMotherName === '' ? '_________________' : printDocForm?.signMotherName}}
                                 </span>
                             </td>
                         </tr>
@@ -380,19 +371,13 @@
                             <td>
                                <span [ngClass]="{'nepaliFont unicode-size24' : printDocForm?.sanchalak !== null && printDocForm?.sanchalak !== ''}">
                                     {{printDocForm?.sanchalak === null || printDocForm?.sanchalak === '' ? '_________________' : printDocForm?.sanchalak}}
-                                </span>/
-                                <span [ngClass]="{'nepaliFont unicode-size24' : printDocForm?.signGrandMotherName !== null && printDocForm?.signGrandMotherName !== ''}">
-                                {{printDocForm?.signGrandMotherName === null || printDocForm?.signGrandMotherName === '' ? '_________________' : printDocForm?.signGrandMotherName}}
-                            </span>
+                                </span>
                             </td>
                         </tr>
                         <tr>
                             <td class="text-right">पति/पत्निको नाम :-</td>
                             <td><span [ngClass]="{'nepaliFont unicode-size24' : printDocForm?.pratinidhiSpouse !== null && printDocForm?.pratinidhiSpouse !== ''}">
                                     {{printDocForm?.pratinidhiSpouse === null || printDocForm?.pratinidhiSpouse === '' ? '_________________' : printDocForm?.pratinidhiSpouse}}
-                                </span>/
-                               <span [ngClass]="{'nepaliFont unicode-size24' : printDocForm?.signHusbandName !== null && printDocForm?.signHusbandName !== ''}">
-                                    {{printDocForm?.signHusbandName === null || printDocForm?.signHusbandName === '' ? '_________________' : printDocForm?.signHusbandName}}
                                 </span>
                             </td>
                         </tr>
