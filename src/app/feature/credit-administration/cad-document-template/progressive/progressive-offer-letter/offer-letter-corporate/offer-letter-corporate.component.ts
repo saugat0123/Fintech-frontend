@@ -55,9 +55,7 @@ export class OfferLetterCorporateComponent implements OnInit {
 
     ngOnInit() {
         this.nepaliData = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
-        console.log('nepali data :: => ', this.nepaliData);
         this.nepDataPersonal = JSON.parse(this.cadOfferLetterApprovedDoc.nepDataPersonal);
-        console.log('nep data Personal :: => ', this.nepDataPersonal);
 
         (this.nepaliData.collateralDetails).forEach(value => {
             if (value.securityDetails === 'HP') {
@@ -179,7 +177,6 @@ export class OfferLetterCorporateComponent implements OnInit {
         } else {
             const initialInfo = JSON.parse(this.offerLetterDocument.initialInformation);
             this.initialInfoPrint = initialInfo;
-            console.log('Initial Info :: => ', this.initialInfoPrint);
             this.existingOfferLetter = true;
             this.setGuarantors(initialInfo.guarantors);
             if (!ObjectUtil.isEmpty(this.initialInfoPrint) && !ObjectUtil.isEmpty(this.initialInfoPrint.loan)) {
