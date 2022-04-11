@@ -17,7 +17,7 @@
                     <p class=" float-right">
                     मिति:
                     <span [ngClass]="{'nepaliFont' : printDocForm?.date !== null && printDocForm?.date !== '____________________'}">
-                        {{printDocForm?.date === null || printDocForm?.date === '' ? '_________________' : printDocForm?.date}}
+                        {{printDocForm?.date == null || printDocForm?.date == '' ? '=======================' : printDocForm?.date}}
                     </span>
                     </p>
                 </div>
@@ -59,23 +59,30 @@
                     </p>
                 </div>
             </div>
-            <br>
             <p class="text-center"><strong>भवदीय,</strong></p>
             <div class="row" id="signature">
-                <div class="col-md-12">
-                    <table class="table-borderless text-center float-right fingerXap" id="signature2" style="margin-right: 100px">
-                        <tr>
-                            <th>दाँ.<br><textarea cols="15" id="" name=""
-                                                  rows="10" style="background-color: transparent;resize:none;outline:none;border:none;"></textarea></th>
-                            <th>बाँ.<br><textarea cols="15" id="" name=""
-                                                  rows="10" style="background-color: transparent;resize:none;outline:none;border:none;"></textarea></th>
-                        </tr>
-                    </table>
-                </div>
+                <table style="margin-left: auto;margin-right: auto;" class="table  table-bordered" id="fingerXap">
+                    <thead>
+                    <tr>
+                        <th>दाँ.</th>
+                        <th>बाँ.</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><span class="signature-area"
+                                  style="background-color: transparent;resize:none;outline:none;border:none;"></span>
+                        </td>
+                        <td><span class="signature-area"
+                                  style="background-color: transparent;resize:none;outline:none;border:none;"></span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
             </div>
-            <div class="row" id="Sincerely" style="margin-left: 100px">
-                <div class=" col-md-12">
-                    <p><strong>भवदीय,</strong></p>
+            <div class="row mt-2" id="Sincerely" style="margin-left: 100px">
+                <div class=" col-md-12 mt-4">
                 <p>
                     संस्थाको छाप :-
                     <br><br><br>
