@@ -134,6 +134,7 @@ export class CatalogueComponent implements OnInit {
         documentStatus: null
     }];
     isCombineLoan = false;
+    select: HTMLSelectElement;
 
     constructor(
         private branchService: BranchService,
@@ -396,6 +397,7 @@ export class CatalogueComponent implements OnInit {
     onClose() {
         this.buildActionForm();
         this.modalService.dismissAll();
+        this.select.value = null;
     }
 
     changeAction() {
@@ -470,7 +472,8 @@ export class CatalogueComponent implements OnInit {
         });
     }
 
-    onChange(data, onActionChange, event) {
+    onChange(data, onActionChange, event, select: HTMLSelectElement) {
+        this.select = select;
         this.loanConfigId = data.loan.id;
         this.customerId = data.id;
         this.tempLoanType = event;
@@ -488,7 +491,6 @@ export class CatalogueComponent implements OnInit {
         }
         this.loanDataHolder = data;
         this.modalService.open(onActionChange);
-
     }
 
     renewedOrCloseFrom(loanConfigId, childId) {

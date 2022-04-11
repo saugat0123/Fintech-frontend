@@ -179,6 +179,7 @@
               <app-financial-upload-view
                       [customerInfo]="customerInfo"
                       [customerInfoId] ="customerInfoId"
+                      (customer)="update($event)"
                       [fromProfile]="false">
               </app-financial-upload-view>
             </nb-card-body>

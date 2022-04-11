@@ -50,6 +50,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
     }
 
     ngOnInit() {
+        console.log('this is customer', this.customer);
+        console.log('this is customer', this.customerInfo);
         this.buildForm();
         if (!ObjectUtil.isEmpty(this.customerInfo.nepData)) {
             const data = JSON.parse(this.customerInfo.nepData);
@@ -89,8 +91,8 @@ export class CadOfferLetterConfigurationComponent implements OnInit {
                 this.engToNepNumber.transform(this.customer.temporaryWardNumber) : undefined],
             temporaryMunType: [1],
             guarantorDetails: this.formBuilder.array([]),
-            citizenshipIssueDistrict: [this.customer.citizenshipIssuedPlace ? (this.customer.citizenshipIssuedPlace) : ''],
-            citizenshipIssueDate: [this.customer.citizenshipIssuedDate ? (this.customer.citizenshipIssuedDate) : ''],
+            citizenshipIssueDistrict: [this.customer ?  (this.customer.citizenshipIssuedPlace) : ''],
+            citizenshipIssueDate: [this.customer ? this.customer.citizenshipIssuedDate :  ''],
         });
     }
 
