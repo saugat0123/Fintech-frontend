@@ -31,3 +31,13 @@ span {
 .uniFont{
   font-size: 16px;
 }
+
+.uniFont2{
+  font-size: 20px;
+}
+
+@media print {
+  tr {
+    break-inside: initial;
+  }
+}
