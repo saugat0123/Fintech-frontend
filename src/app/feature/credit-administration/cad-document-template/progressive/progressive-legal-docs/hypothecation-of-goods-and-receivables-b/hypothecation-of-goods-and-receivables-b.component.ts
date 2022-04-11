@@ -102,6 +102,7 @@ export class HypothecationOfGoodsAndReceivablesBComponent implements OnInit {
         karjaRuWord: !ObjectUtil.isEmpty(this.loanAmount) ? this.loanAmount.nepaliWords : '',
         sawikMunicipality: this.nepaliData.representativePermanentVdc ? this.nepaliData.representativePermanentVdc : '',
         sawikWard: this.nepaliData.representativePermanentVdcWard ? this.nepaliData.representativePermanentVdcWard : '',
+        pratinidhiSpouse: this.nepaliData.representativeHusbandWifeName ? this.nepaliData.representativeHusbandWifeName : '',
       });
     }
   }
