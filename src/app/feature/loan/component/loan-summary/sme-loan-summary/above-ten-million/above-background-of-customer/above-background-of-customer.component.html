@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-6">
-        <table class="table table-bordered table-sm sb-small">
-            <tr>
+        <table class="table table-bordered">
+            <tr class="sb-bg-dark text-white">
                 <th colspan="2" class="text-center">3.1 General Information</th>
             </tr>
             <tr>
@@ -10,15 +10,15 @@
             </tr>
             <tr>
                 <td>Firm registration No. and date</td>
-                <td></td>
+                <td class="font-weight-bold">{{tempData?.registrationNumber}} and {{legalStatusData?.registrationDate | date}}</td>
             </tr>
             <tr>
                 <td>Registered at</td>
-                <td></td>
+                <td class="font-weight-bold">{{legalStatusData?.registeredOffice}}</td>
             </tr>
             <tr>
                 <td>Registered under</td>
-                <td></td>
+                <td class="font-weight-bold">{{legalStatusData?.registeredUnderAct}}</td>
             </tr>
             <tr>
                 <td>Firm renewed up to</td>
@@ -26,7 +26,7 @@
             </tr>
             <tr>
                 <td>PAN No., date, and place of issue</td>
-                <td></td>
+                <td class="font-weight-bold">{{tempData?.panNumber}}, {{legalStatusData?.panRegistrationDate | date}} and {{legalStatusData?.regIssuedPlace}}</td>
             </tr>
             <tr>
                 <td>Tax cleared up to</td>
@@ -35,21 +35,21 @@
         </table>
     </div>
     <div class="col-md-6">
-        <table class="table table-bordered table-sm sb-small">
-            <tr>
+        <table class="table table-bordered">
+            <tr class="sb-bg-dark text-white">
                 <th colspan="2" class="text-center">3.2 Capital structure & Ratings</th>
             </tr>
             <tr>
-                <td> Authorized Capital</td>
-                <td></td>
+                <td>Authorized Capital</td>
+                <td  class="font-weight-bold">{{tempData?.capital?.authorizedCapital}}</td>
             </tr>
             <tr>
                 <td>Issued Capital</td>
-                <td></td>
+                <td class="font-weight-bold">{{tempData?.capital?.issuedCapital}}</td>
             </tr>
             <tr>
                 <td>Paid up Capital</td>
-                <td></td>
+                <td class="font-weight-bold">{{tempData?.capital?.paidUpCapital}}</td>
             </tr>
             <tr>
                 <td>Latest Net Worth as per B/S</td>
@@ -72,43 +72,28 @@
 </div>
 <div class="row">
     <div class="col-md-6">
-        <table class="table table-bordered table-sm sb-small">
-            <tr>
+        <table class="table table-bordered">
+            <tr class="sb-bg-dark text-white">
                 <th colspan="3" class="text-center">3.3 Current Board of Directors</th>
             </tr>
-            <tr>
+            <tr class="sb-bg-secondary text-white">
                 <td>Name</td>
                 <td>Position</td>
                 <td>Relation with Chairman</td>
             </tr>
-            <tr>
-                <td></td>
-                <td>Chairman</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>Director</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>Director</td>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td>...</td>
+            <tr *ngFor="let managementTeam of teamList">
+                <td class="font-weight-bold">{{managementTeam?.name}}</td>
+                <td class="font-weight-bold">{{managementTeam?.designation}}</td>
                 <td></td>
             </tr>
         </table>
     </div>
     <div class="col-md-6">
-        <table class="table table-bordered table-sm sb-small">
-            <tr>
+        <table class="table table-bordered">
+            <tr class="sb-bg-dark text-white">
                 <th colspan="2" class="text-center">3.4 Major promotors holding 15% and above</th>
             </tr>
-            <tr>
+            <tr class="sb-bg-secondary text-white">
                 <td>Name</td>
                 <td>%</td>
             </tr>
@@ -134,8 +119,8 @@
 <div class="container-fluid">
     <p style="font-size: 13.5px"><strong>3.5 Address and contact details</strong></p>
 </div>
-<table class="table table-bordered table-sm sb-small">
-    <tr>
+<table class="table table-bordered">
+    <tr class="sb-bg-dark text-white">
         <td></td>
         <td>Registered Office</td>
         <td>Residence of main person</td>
