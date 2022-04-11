@@ -52,13 +52,16 @@ export class OfferLetterHirePurchaseAndAutoLoanComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.nepaliData = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
+    this.nepDataPersonal = JSON.parse(this.cadOfferLetterApprovedDoc.nepDataPersonal);
     this.buildForm();
     this.checkOfferLetter();
+    this.setPrimaryCollaterals(this.nepaliData.collateralDetails);
+    this.setAdditionalCollaterals(this.nepaliData.collateralDetails);
+    this.setIndividualDetails(this.nepaliData.guarantorDetails);
   }
 
   fillForm() {
-    this.nepaliData = JSON.parse(this.cadOfferLetterApprovedDoc.loanHolder.nepData);
-    this.nepDataPersonal = JSON.parse(this.cadOfferLetterApprovedDoc.nepDataPersonal);
     if (!ObjectUtil.isEmpty(this.nepaliData)) {
       this.form.patchValue({
         customerName: this.nepaliData.name ? this.nepaliData.name : '',
@@ -92,9 +95,6 @@ export class OfferLetterHirePurchaseAndAutoLoanComponent implements OnInit {
         signatoryParentName: !ObjectUtil.isEmpty(this.nepaliData.fatherName) ? this.nepaliData.fatherName : '',
         signatoryGrandParentName: !ObjectUtil.isEmpty(this.nepaliData.grandFatherName) ? this.nepaliData.grandFatherName : '',
       });
-      this.setPrimaryCollaterals(this.nepaliData.collateralDetails);
-      this.setAdditionalCollaterals(this.nepaliData.collateralDetails);
-      this.setIndividualDetails(this.nepaliData.guarantorDetails);
     }
   }
 

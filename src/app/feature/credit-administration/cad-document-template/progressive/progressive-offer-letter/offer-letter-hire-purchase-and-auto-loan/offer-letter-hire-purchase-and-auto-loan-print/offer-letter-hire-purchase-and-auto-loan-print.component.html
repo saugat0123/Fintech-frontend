@@ -262,15 +262,15 @@
                     {{primaryCollateral?.vehicleNumber === null || primaryCollateral?.vehicleNumber === '' ? '_____________' : primaryCollateral?.vehicleNumber}}
                   </span><br>
                   मोडल नं. :
-                  <span [ngClass]="{'nepaliFont' : primaryCollateral?.vehicleModelNum !== null && primaryCollateral?.vehicleModelNum !== ''}">
+                  <span [ngClass]="{'' : primaryCollateral?.vehicleModelNum !== null && primaryCollateral?.vehicleModelNum !== ''}">
                     {{primaryCollateral?.vehicleModelNum === null || primaryCollateral?.vehicleModelNum === '' ? '_____________' : primaryCollateral?.vehicleModelNum}}
                   </span><br>
                   इन्जिन नं. :
-                  <span [ngClass]="{'nepaliFont' : primaryCollateral?.engineNumber !== null && primaryCollateral?.engineNumber !== ''}">
+                  <span [ngClass]="{'' : primaryCollateral?.engineNumber !== null && primaryCollateral?.engineNumber !== ''}">
                     {{primaryCollateral?.engineNumber === null || primaryCollateral?.engineNumber === '' ? '_____________' : primaryCollateral?.engineNumber}}
                   </span><br>
                   च्यासिज नं. :
-                  <span [ngClass]="{'nepaliFont' : primaryCollateral?.chassisNumber !== null && primaryCollateral?.chassisNumber !== ''}">
+                  <span [ngClass]="{'' : primaryCollateral?.chassisNumber !== null && primaryCollateral?.chassisNumber !== ''}">
                     {{primaryCollateral?.chassisNumber === null || primaryCollateral?.chassisNumber === '' ? '_____________' : primaryCollateral?.chassisNumber}}
                   </span>
                 </td>
