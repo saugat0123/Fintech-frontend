@@ -69,13 +69,14 @@ export class BlacklistConsentComponent implements OnInit {
 
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
+      console.log(this.nepaliData, 'log');
       if (this.loanCategory === 'INDIVIDUAL') {
         this.form.patchValue({
           sincerlyName: this.nepaliData.name ? this.nepaliData.name : '',
           sincerlyCitizenshipNo: this.nepaliData.citizenshipNo ? this.nepaliData.citizenshipNo : '',
           sincerlyDate: this.nepaliData.citizenshipIssueDate ? this.nepaliData.citizenshipIssueDate : '',
-          sincerlyCDOoffice: this.nepaliData.citizenshipIssueDistrict ?
-                  this.nepaliData.citizenshipIssueDistrict : '',
+          sincerlyCDOoffice: this.nepaliData.representativePermanentDistrict ?
+                  this.nepaliData.representativePermanentDistrict : '',
           sincerlyPermanentDistrict: !ObjectUtil.isEmpty(this.nepaliData.permanentDistrict) ?
               this.nepaliData.permanentDistrict.nepaliName : '',
           sincerlyPermanentMunicipality: !ObjectUtil.isEmpty(this.nepaliData.permanentMunicipalities) ?
@@ -98,8 +99,8 @@ export class BlacklistConsentComponent implements OnInit {
           sincerlyName: this.nepaliData.representativeName ? this.nepaliData.representativeName : '',
           sincerlyCitizenshipNo: this.nepaliData.representativeCitizenshipNo ? this.nepaliData.representativeCitizenshipNo : '',
           sincerlyDate: this.nepaliData.representativeCitizenshipIssueDate ? this.nepaliData.representativeCitizenshipIssueDate : '',
-          sincerlyCDOoffice: !ObjectUtil.isEmpty(this.initialInfoPrint) ?
-              this.initialInfoPrint.sincerlyCDOoffice : '',
+          sincerlyCDOoffice: !ObjectUtil.isEmpty(this.nepaliData) ?
+              this.nepaliData.representativePermanentDistrict : '',
           sincerlyRegNo: !ObjectUtil.isEmpty(this.nepaliData.companyRegistrationNo) ?
               this.nepaliData.companyRegistrationNo : '',
           regDate: this.nepaliData.registrationDate ? this.nepaliData.registrationDate : '',
