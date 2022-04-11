@@ -5,21 +5,26 @@
             <p>
                 श्री लक्ष्मी बैंक लि.
                 <br>
-                शाखा कार्यालय, तौलिहवा ।
+                शाखा कार्यालय, <input type="text" class="nepaliFont form-field form-control-sm font-size-normal" formControlName="branch"> ।
             </p>
             <p class="text-center"><b> विषय:— घोषना गरेको सम्बन्धमा ।</b></p>
-            मैले/हामीले लक्ष्मी बैंक लिमिटेड लगायतका अन्य बैंक तथा वित्तीय संस्थाहरुबाट रु.१,००,००,०००/–
-            (अक्षरेपी रुपैया एक करोड) भन्दा बढी कर्जा उपभोग गरेको छैन/छैनौ भनी घोषण गर्दछु/गर्दछौ ।<br>
-            घोषना गर्ने
-            <br>
-            ऋणीको नामः <input type = "text" class="nepaliFont form-field form-control-sm font-size-normal" formControlName="name" >
-           <br> ठेगानाः <input type = "text" class="nepaliFont form-field form-control-sm font-size-normal" formControlName="address" >
-            <br>दस्तखतः
-            <div class="clearfix mb-5">
-                <div class="signature-area float-right text-center"></div>
-                <div class="signature-area float-right text-center"></div>
+            मैले/हामीले लक्ष्मी बैंक लिमिटेड लगायतका अन्य बैंक तथा वित्तीय संस्थाहरुबाट रु. <input (change)="amountChange($event)" type = "text" class="nepaliFont form-field form-control-sm font-size-normal" formControlName="amount" >/–
+            (अक्षरेपी रुपैया <input class="nepaliFont form-field form-control-sm font-size-normal" formControlName="amountInWords" disabled>) भन्दा बढी कर्जा उपभोग गरेको छैन/छैनौ भनी घोषण गर्दछु/गर्दछौ ।<br>
+           <br>
+            घोषना गर्ने ऋणीको नामः <input type = "text" class="nepaliFont form-field form-control-sm font-size-normal" formControlName="name" >
+<!--           <br> ठेगानाः <input type = "text" class="nepaliFont form-field form-control-sm font-size-normal" formControlName="address" >-->
+            <div *ngIf="!individual">
+                अख्तियार प्राप्त व्यक्ति÷प्रोपाईटरको दस्तखतः
+                <br>
+                छापः
             </div>
-            <div>
+            <div *ngIf="individual">
+                दस्तखतः
+                <div class="clearfix mb-5">
+                    <div class="signature-area float-right text-center"></div>
+                    <div class="signature-area float-right text-center"></div>
+                </div>
+            </div>            <div>
                 <button type="submit" class="btn btn-primary float-right" nbButton status="success">
                     Save
                 </button>

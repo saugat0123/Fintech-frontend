@@ -564,6 +564,9 @@ export class SecurityApprovedFormComponent implements OnInit {
             apartmentStaffRepresentativeDesignation2: [singleData.apartmentStaffRepresentativeDesignation2],
             apartmentStaffRepresentativeName2: [singleData.apartmentStaffRepresentativeName2],
             apartmentOtherBranchChecked: [singleData.apartmentOtherBranchChecked],
+            proposedOwner: [singleData.proposedOwner],
+            apartmentRate: [singleData.apartmentRate],
+            buildingReliasableValue: [singleData.buildingReliasableValue],
           })
       );
     });
@@ -640,7 +643,13 @@ export class SecurityApprovedFormComponent implements OnInit {
             ownerKycApplicableData: [singleData.ownerKycApplicableData],
             progessCost: [singleData.progessCost],
             landBuildingOtherBranchChecked: [singleData.landBuildingOtherBranchChecked],
-            kycCheckForLandAndBuilding: [singleData.kycCheckForLandAndBuilding]
+            kycCheckForLandAndBuilding: [singleData.kycCheckForLandAndBuilding],
+            landBuildingRate: [singleData.landBuildingRate],
+            landbuildingUnderRate: [singleData.landbuildingUnderRate],
+            totalLandRealisableValue: [singleData.totalLandRealisableValue],
+            apartmentDistressValue:  [singleData.apartmentDistressValue],
+            apartmentRate:  [singleData.apartmentRate],
+            totalApartmentRealisableValue:  [singleData.totalApartmentRealisableValue],
           })
       );
     });
@@ -778,6 +787,8 @@ export class SecurityApprovedFormComponent implements OnInit {
                 [singleData.plantMachineryStaffRepresentativeDesignation2],
             plantMachineryStaffRepresentativeName2: [singleData.plantMachineryStaffRepresentativeName2],
             plantOtherBranchChecked: [singleData.plantOtherBranchChecked],
+            realisableRate: [singleData.realisableRate],
+            realisableValue: [singleData.realisableValue],
           })
       );
     });
@@ -1012,6 +1023,9 @@ export class SecurityApprovedFormComponent implements OnInit {
       apartmentStaffRepresentativeDesignation2: [undefined],
       apartmentStaffRepresentativeName2: [undefined],
       apartmentOtherBranchChecked: [undefined],
+      proposedOwner: [undefined],
+      apartmentRate: [undefined],
+      buildingReliasableValue: [undefined],
     });
   }
 
@@ -1069,7 +1083,13 @@ export class SecurityApprovedFormComponent implements OnInit {
       ownerKycApplicableData: [undefined],
       progessCost: [undefined],
       landBuildingOtherBranchChecked: [undefined],
-      kycCheckForLandAndBuilding: [false]
+      kycCheckForLandAndBuilding: [false],
+      landBuildingRate: undefined,
+      landbuildingUnderRate: undefined,
+      totalLandRealisableValue: undefined,
+      apartmentDistressValue: undefined,
+      apartmentRate: undefined,
+      totalApartmentRealisableValue: undefined,
     });
   }
 
@@ -1105,6 +1125,8 @@ export class SecurityApprovedFormComponent implements OnInit {
       plantMachineryStaffRepresentativeDesignation2: [undefined],
       plantMachineryStaffRepresentativeName2: [undefined],
       plantOtherBranchChecked: [undefined],
+      realisableRate: [undefined],
+      realisableValue: [undefined],
     });
   }
 
@@ -1246,6 +1268,9 @@ export class SecurityApprovedFormComponent implements OnInit {
       vehicleQuotationDate: undefined,
       vehicleRemarks: [undefined],
       vehicleOtherBranchChecked: [undefined],
+      isSecondHand: [undefined],
+      vehicleRealiasableAmount: [undefined],
+      vehicleRate: [undefined],
     });
   }
 
@@ -1294,7 +1319,11 @@ export class SecurityApprovedFormComponent implements OnInit {
             vehicleQuotationDate: [ObjectUtil.isEmpty(singleData.vehicleQuotationDate) ?
                 undefined : new Date(singleData.vehicleQuotationDate)],
             vehicleRemarks: [singleData.vehicleRemarks],
-            vehicleOtherBranchChecked: [singleData.vehicleOtherBranchChecked]
+            vehicleOtherBranchChecked: [singleData.vehicleOtherBranchChecked],
+            isSecondHand: [singleData.isSecondHand ? singleData.isSecondHand : undefined],
+            vehicleRealiasableAmount: [singleData.vehicleRealiasableAmount ? singleData.vehicleRealiasableAmount : undefined],
+            vehicleRate: [singleData.vehicleRate ? singleData.vehicleRate : undefined],
+
           })
       );
     });
@@ -1467,6 +1496,8 @@ export class SecurityApprovedFormComponent implements OnInit {
               dividendYeild: [share.dividendYeild],
               dividendPayoutRatio: [share.dividendPayoutRatio],
               ratioAsPerAuitedFinancial: [share.ratioAsPerAuitedFinancial],
+              shareRate: [share.shareRate],
+              drawingPower: [share.drawingPower],
             })
         );
       });
