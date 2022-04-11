@@ -88,7 +88,6 @@ export class HypothecationOfGoodsAndReceivablesBComponent implements OnInit {
         secSecurityOffice: this.nepaliData.companyName ? this.nepaliData.companyName : '',
         sanchalak: this.nepaliData.representativeGrandFatherName ? this.nepaliData.representativeGrandFatherName : '',
         pratinidhiGrandSon: this.nepaliData.representativeFatherName ? this.nepaliData.representativeFatherName : '',
-        pratinidhiSpouse: this.nepaliData.representativeHusbandWifeName ? this.nepaliData.representativeHusbandWifeName : '',
         pratinidhiDistrict: this.nepaliData.representativePermanentDistrict ? this.nepaliData.representativePermanentDistrict : '',
         pratinidhiMunicipality: this.nepaliData.representativePermanentMunicipality ? this.nepaliData.representativePermanentMunicipality : '',
         pratinidhiWard: this.nepaliData.representativePermanentWard ? this.nepaliData.representativePermanentWard : '',
@@ -103,6 +102,7 @@ export class HypothecationOfGoodsAndReceivablesBComponent implements OnInit {
         karjaRuWord: !ObjectUtil.isEmpty(this.loanAmount) ? this.loanAmount.nepaliWords : '',
         sawikMunicipality: this.nepaliData.representativePermanentVdc ? this.nepaliData.representativePermanentVdc : '',
         sawikWard: this.nepaliData.representativePermanentVdcWard ? this.nepaliData.representativePermanentVdcWard : '',
+        pratinidhiSpouse: this.nepaliData.representativeHusbandWifeName ? this.nepaliData.representativeHusbandWifeName : '',
       });
     }
   }
@@ -170,9 +170,7 @@ export class HypothecationOfGoodsAndReceivablesBComponent implements OnInit {
       pramanPatraWadNo: [undefined],
       secSecurityOffice: [undefined],
       sanchalak: [undefined],
-      pratinidhiName: [undefined],
       pratinidhiGrandSon: [undefined],
-      pratinidhiChild: [undefined],
       pratinidhiSpouse: [undefined],
       pratinidhiDistrict: [undefined],
       pratinidhiMunicipality: [undefined],
@@ -203,11 +201,8 @@ export class HypothecationOfGoodsAndReceivablesBComponent implements OnInit {
       currentMunicipality: [undefined],
       currentWard: [undefined],
       signFatherName: [undefined],
-      signMotherName: [undefined],
       signGrandFatherName: [undefined],
-      signGrandMotherName: [undefined],
       signHusbandName: [undefined],
-      signWifeName: [undefined],
       sanakhatPersonName: [undefined],
       sanakhatPersonSymNo: [undefined],
       itisambatYear: [undefined],
