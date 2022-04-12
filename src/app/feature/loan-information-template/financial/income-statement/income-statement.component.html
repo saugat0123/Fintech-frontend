@@ -394,8 +394,7 @@
             formArrayName="accumulatedProfitBOrD">
           <div [formGroupName]="j" [ngClass]="j != 0 ? 'text-center headingParticular' : 'text-center'" >
             <input [readOnly]="j != 0"
-                   (input)="onValueChange('accumulatedProfitBOrD', j)"
-                   (change)="checkForLatterFiscalYearChanges(j)"
+                   (change)="onValueChange('accumulatedProfitBOrD', j)"
                    formControlName="value" class="text-center" type="number" style="border: none; outline: none;" value="0">
           </div>
         </td>
