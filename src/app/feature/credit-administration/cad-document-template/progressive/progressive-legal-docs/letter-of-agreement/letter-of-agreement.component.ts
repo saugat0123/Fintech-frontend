@@ -49,7 +49,6 @@ export class LetterOfAgreementComponent implements OnInit {
   ngOnInit() {
     this.buildForm();
     this.fillForm();
-    console.log('initialInfo::::: => ', this.initialInfoPrint);
   }
 
   fillForm() {
@@ -64,7 +63,6 @@ export class LetterOfAgreementComponent implements OnInit {
     }
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
-      console.log(this.nepaliData, 'log');
       this.nepDataPersonal = JSON.parse(this.cadData.nepDataPersonal);
       this.setCollaterals(this.nepaliData.collateralDetails);
       this.form.patchValue({
