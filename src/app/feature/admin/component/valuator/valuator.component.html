@@ -162,14 +162,8 @@
                             </ng-template>
                         </td>
                         <td>
-                            <div class="col-md-12 justify-content-center"
-                                 *ngFor="let data of valuator.valuatingFields;">
-                                {{ data | replace:'_':' & '}}
-                                <br>
-                            </div>
-                            <div class="col-md-12 justify-content-center"
-                                 *ngIf="valuator.valuatingField && valuator.valuatingFields.length == 0">
-                                {{valuator?.valuatingField |  replace:'_':' & '}}
+                            <div class="col-md-12 justify-content-center" *ngFor="let data of valuator.valuatingFields;">
+                               {{data | replace:'_':' & '}}
                                 <br>
                             </div>
                         </td>
