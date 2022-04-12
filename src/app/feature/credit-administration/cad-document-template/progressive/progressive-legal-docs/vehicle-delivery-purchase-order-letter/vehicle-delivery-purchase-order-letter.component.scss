@@ -2,3 +2,12 @@
 * {
   line-height: 1.9em;
 }
+.nepaliFont {
+  font-size: 22px;
+}
+
+.bigFont {
+  input[type="text"] {
+    font-size: 16px !important;
+  }
+}
