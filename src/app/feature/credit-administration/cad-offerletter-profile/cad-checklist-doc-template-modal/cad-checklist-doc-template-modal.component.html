@@ -154,6 +154,11 @@
                         [customerLoanId]="customerLoanId"
                         *ngSwitchCase=offerLetterConst.VEHICLE_NAMSARI_LETTER>
                 </app-vehicle-namsari-letter>
+                <app-vehicle-delivery-purchase-order-letter
+                        [cadData]="cadData" [documentId]="documentId"
+                        [customerLoanId]="customerLoanId"
+                        *ngSwitchCase=offerLetterConst.VEHICLE_DELIVERY_PURCHASE_ORDER_LETTER>
+                </app-vehicle-delivery-purchase-order-letter>
             </div>
         </div>
         <div *ngIf="client === clientList.MEGA">
