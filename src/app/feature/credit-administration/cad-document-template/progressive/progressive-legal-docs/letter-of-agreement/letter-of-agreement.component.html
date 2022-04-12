@@ -1,6 +1,9 @@
 <div [nbSpinner]="spinner" class="row nepali" id="{{offerLetterConst.LETTER_OF_AGREEMENT}}">
     <div class="col-md-12 viewFull">
         <form (ngSubmit)="onSubmit()" [formGroup]="form">
+        <div *ngFor="let collateral of form.get('collateralDetails')['controls']; index as i"
+             formArrayName="collateralDetails" class="mt-4">
+            <div [formGroupName]="i">
             <div class="row">
                 <div class="col-md-12 text-center">
                     <h5>
@@ -99,9 +102,11 @@
                            placeholder="" type="text"/>
                 महिना <input class="form-field form-control-sm nepaliFont shortInput" formControlName="itiDate"
                              placeholder="" type="text"/>
-                गते रोज <input class="form-field form-control-sm nepaliFont " formControlName="itiSambat"
+                गते रोज <input class="form-field form-control-sm nepaliFont" formControlName="itiSambat"
                                placeholder="" type="text"/>शुभम्।
             </div>
+        </div>
+        </div>
             <div class="col-md-12 mt-lg-4">
                 <button class="btn btn-primary float-right" nbButton status="success" type="submit">
                     Save
