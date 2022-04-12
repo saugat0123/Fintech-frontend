@@ -2,7 +2,7 @@
     <form id="rokkaLetter" class="viewFull nepali margin">
         <div class="row d-flex justify-content-around">
             <div class="col-md-12">
-                <p style="margin-left: 3in">
+                <p class="text-center">
                     शाखा कार्यालय
                     <span [ngClass]="{'nepaliFont unicode-size16':printDocForm?.branchName !== null && printDocForm?.branchName !== ''}">
                         {{printDocForm.branchName === null || printDocForm.branchName === '' ? '_______________' : printDocForm?.branchName}}</span>,
@@ -27,8 +27,7 @@
                     <span [ngClass]="{'nepaliFont unicode-size24':printDocForm?.letterNumber !== null && printDocForm?.letterNumber !== ''}">
                         {{printDocForm.letterNumber === null || printDocForm.letterNumber === '' ? '_______________' : printDocForm?.letterNumber}}
                     </span>
-                    </p>
-                <p>
+                <br>
                     श्रीमान् मालपोत अधिकृत ज्यू,
                     <br>
                     मालपोत कार्यालय,<br>
@@ -48,7 +47,7 @@
                 <p>
                     महाशय,
                 </p>
-                <div *ngIf="loanData?.customerType === 'INDIVIDUAL'">
+                <div *ngIf="loanData?.customerType === 'INDIVIDUAL'" class="text-justify">
                     यस संस्थाका ऋणी
                     <span [ngClass]="{'nepaliFont unicode-size16':printDocForm?.perDistrict !== null && printDocForm?.perDistrict !== ''}">
                         {{printDocForm.perDistrict === null || printDocForm.perDistrict === '' ? '_______________' : printDocForm?.perDistrict}}
@@ -64,8 +63,32 @@
                     <span [ngClass]="{'nepaliFont unicode-size24':printDocForm?.debtorName !== null && printDocForm?.debtorName !== ''}">
                         {{printDocForm.debtorName === null || printDocForm.debtorName === '' ? '_______________' : printDocForm?.debtorName}}
                     </span>
+                    ले तपशीलको जेथाको मूल्याड्ढनले खामेसम्म अर्थात <strong>रु
+                    <span [ngClass]="{'nepaliFont unicode-size20':printDocForm?.loanAmount !== null && printDocForm?.loanAmount !== ''}">
+                        {{printDocForm.loanAmount === null || printDocForm.loanAmount === '' ? '_______________' : printDocForm?.loanAmount}}
+                    </span>/
+                    (अक्षरुपीः <span [ngClass]="{'nepaliFont unicode-size16':printDocForm?.loanAmountWords !== null && printDocForm?.loanAmountWords !== ''}">
+                        {{printDocForm.loanAmountWords === null || printDocForm.loanAmountWords === '' ? '_______________' : printDocForm?.loanAmountWords}}
+                    </span> मात्र ।)</strong> सम्म कर्जा उपभोग
+                    गर्न सक्ने गरी सुरक्षण वापत श्री
+                    <span [ngClass]="{'nepaliFont unicode-size24':printDocForm?.collateralName !== null && printDocForm?.collateralName !== ''}">
+                        {{printDocForm.collateralName === null || printDocForm.collateralName === '' ? '_______________' : printDocForm?.collateralName}}
+                    </span> ले यस कम्पनीलाई सूरक्षण लेखाई दिनू भएको हूनाले बैंक तथा
+                    वित्तिय
+                    संस्था सम्बन्धि ऐन २०७३ बमोजिम तपशिलको जेथा दृष्टिबन्धक लिखत्पारित गरी रोक्का राख्न प्रस्तूत
+                    पत्र प्रेषित गरेका छौं
+                    । अतः तहांबाट उक्त जेथा रोक्का राखी पे्रषित सक्कल रोक्का पत्रमा दरपिठ गरी यस कम्पनीको फूकूवा
+                    पत्र लेखि नआएसम्म
+                    उक्त जेथा कूनै पनि व्यहोराले बेच बिखन, दान दान्तव्य हक हस्तान्तरण, धितो बन्धक इत्यादी गर्न
+                    नपाउने गरी तपशिलको
+                    जेथा रोक्का राखी सो को जानकारी यस कम्पनीलाई गराई पाउंन सादर अनूरोध छ । सो कार्यका लागि यस
+                    कम्पनीका <strong>कर्मचारी श्री
+                    <span [ngClass]="{'nepaliFont unicode-size24':printDocForm?.companyStaffName !== null && printDocForm?.companyStaffName !== ''}">
+                        {{printDocForm.companyStaffName === null || printDocForm.companyStaffName === '' ? '_______________' : printDocForm?.companyStaffName}}
+                    </span> लाई</strong> अख्तियार दिई पठाइएको व्यहोरा समेत
+                    अनूरोध छ ।
                 </div>
-                <div *ngIf="loanData?.customerType === 'INSTITUTION'">
+                <div *ngIf="loanData?.customerType === 'INSTITUTION'" class="text-justify">
                     <span [ngClass]="{'nepaliFont unicode-size24':printDocForm?.corporateDistrict !== null && printDocForm?.corporateDistrict !== ''}">
                         {{printDocForm.corporateDistrict === null || printDocForm.corporateDistrict === '' ? '_______________' : printDocForm?.corporateDistrict}}
                     </span> जिल्ला,
@@ -84,9 +107,7 @@
                     <span [ngClass]="{'nepaliFont unicode-size24':printDocForm?.representativeName !== null && printDocForm?.representativeName !== ''}">
                         {{printDocForm.representativeName === null || printDocForm.representativeName === '' ? '_______________' : printDocForm?.representativeName}}
                     </span>
-                </div>
-                <p class="mt-2">
-                    लेतपशीलको जेथाको मूल्याड्ढनले खामेसम्म अर्थात <strong>रु
+                    ले तपशीलको जेथाको मूल्याड्ढनले खामेसम्म अर्थात <strong>रु
                     <span [ngClass]="{'nepaliFont unicode-size16':printDocForm?.loanAmount !== null && printDocForm?.loanAmount !== ''}">
                         {{printDocForm.loanAmount === null || printDocForm.loanAmount === '' ? '_______________' : printDocForm?.loanAmount}}
                     </span>/
@@ -105,37 +126,30 @@
                     उक्त जेथा कूनै पनि व्यहोराले बेच बिखन, दान दान्तव्य हक हस्तान्तरण, धितो बन्धक इत्यादी गर्न
                     नपाउने गरी तपशिलको
                     जेथा रोक्का राखी सो को जानकारी यस कम्पनीलाई गराई पाउंन सादर अनूरोध छ । सो कार्यका लागि यस
-                    कम्पनीका <strong>कर्मचारी
-                    श्री <span [ngClass]="{'nepaliFont unicode-size24':printDocForm?.companyStaffName !== null && printDocForm?.companyStaffName !== ''}">
+                    कम्पनीका <strong>कर्मचारी श्री
+                    <span [ngClass]="{'nepaliFont unicode-size24':printDocForm?.companyStaffName !== null && printDocForm?.companyStaffName !== ''}">
                         {{printDocForm.companyStaffName === null || printDocForm.companyStaffName === '' ? '_______________' : printDocForm?.companyStaffName}}
                     </span> लाई</strong> अख्तियार दिई पठाइएको व्यहोरा समेत
                     अनूरोध छ ।
-                </p>
+                </div>
             </div>
         </div>
-<!--        <div class="col-md-12">-->
-<!--            <div class="row ml-1 mt-5">-->
-<!--                <p>-->
-<!--                    निजको दस्तखत नमूनाः..............................-->
-<!--                </p>-->
-<!--            </div>-->
-<!--        </div>-->
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12 mt-2">
                 <p class="text-left font-weight-bold">
                     <u>तपशिल</u>
                 </p>
+                <p style="margin-left: 70px" class="font-weight-bold">रोक्का राख्ने जायजेथाको विवरण</p>
             </div>
             <div class="col-md-12">
                 <table class="table table-bordered table-responsive-md">
-                    <caption style="caption-side: top" class="text-left">रोक्का राख्ने जायजेथाको विवरण</caption>
                     <thead>
                     <tr>
-                        <th>घर जग्गाधनिको नाम र तिनपूस्ते</th>
+                        <th>जग्गाधनिको विवरण</th>
                         <th>जिल्ला</th>
                         <th>जग्गाको न.पा./गा.वि.स.,वडा नं.</th>
                         <th>कि.नं.</th>
-                        <th>क्षेत्रफल (बिगाहा/रोपनी/वर्ग मिटर)</th>
+                        <th>क्षेत्रफल रोपनी/ब.मी.</th>
                         <th>सिट नं.</th>
                     </tr>
                     </thead>
@@ -195,7 +209,7 @@
                                     {{personalSignatureData.institutionPerMun === null || personalSignatureData.institutionPerMun === '' ? '' : personalSignatureData?.institutionPerMun}}
                                 </span> गा.पा/न.पा वडा नं.
                             <span [ngClass]="{'nepaliFont':personalSignatureData?.institutionPerWardNo !== null && personalSignatureData?.institutionPerWardNo !== ''}">
-                                    {{personalSignatureData.institutionPerWardNo === null || personalSignatureData.institutionPerWardNo === '' ? '' : personalSignatureData?.institutionPerWardNo}}
+                                    {{personalSignatureData.institutionPerWardNo === null || personalSignatureData.institutionPerWardNo === '' ? '_______________' : personalSignatureData?.institutionPerWardNo}}
                                 </span>
                         </td>
                         <td>
