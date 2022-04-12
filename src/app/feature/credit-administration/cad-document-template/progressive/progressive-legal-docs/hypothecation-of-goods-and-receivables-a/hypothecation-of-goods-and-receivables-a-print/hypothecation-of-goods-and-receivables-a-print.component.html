@@ -255,11 +255,18 @@
                     </tr>
                     <tr>
                         <td colspan="2"><strong>कुल सीमा (अंकमा)</strong></td>
-                        <td>
+                        <td *ngIf="printDocForm?.koshMaAdharit.length == 0; else kosh">
                             <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.totalLimitAmount!== null && printDocForm?.totalLimitAmount !== ''}">
                                 {{printDocForm?.totalLimitAmount === null || printDocForm?.totalLimitAmount === '' ? '_________________' : printDocForm?.totalLimitAmount}}
                             </span>
                         </td>
+                        <ng-template #kosh>
+                            <td>
+                            <span style="font-size: 22px;" [ngClass]="{'nepaliFont' : printDocForm?.totalLimitAmount!== null && printDocForm?.totalLimitAmount !== ''}">
+                                {{printDocForm?.totalLimitAmount === null || printDocForm?.totalLimitAmount === '' ? '_________________' : printDocForm?.totalLimitAmount}}
+                            </span>
+                            </td>
+                        </ng-template>
                     </tr>
                     <tr>
                         <td colspan="2"><strong>कुल सीमा (अक्षरमा)</strong></td>
