@@ -85,13 +85,22 @@
                     </tr>
                     <tr>
                         <td style="vertical-align: top; text-align: right">ठेगाना :-स्थायी</td>
-                        <td><span
-                                [ngClass]="{'nepaliFont sizefont' : printDocForm?.sincerlyPermanentDistrict !== null && printDocForm?.sincerlyPermanentDistrict !== ''}">
+                        <td>
+                            <span *ngIf="loanData?.customerType === 'INDIVIDUAL'"
+                                  [ngClass]="{'nepaliFont sizefont' : printDocForm?.sincerlyPermanentDistrict !== null && printDocForm?.sincerlyPermanentDistrict !== ''}">
+                        {{printDocForm?.sincerlyPermanentDistrict === null || printDocForm?.sincerlyPermanentDistrict === '' ? '_________________' : printDocForm?.sincerlyPermanentDistrict}}
+                    </span>
+                            <span *ngIf="loanData?.customerType === 'INSTITUTION'"
+                                [ngClass]="{'nepaliFont uniFont' : printDocForm?.sincerlyPermanentDistrict !== null && printDocForm?.sincerlyPermanentDistrict !== ''}">
                         {{printDocForm?.sincerlyPermanentDistrict === null || printDocForm?.sincerlyPermanentDistrict === '' ? '_________________' : printDocForm?.sincerlyPermanentDistrict}}
                     </span>
                             जिल्ला
-                            <span
-                                    [ngClass]="{'nepaliFont sizefont' : printDocForm?.sincerlyPermanentMunicipality !== null && printDocForm?.sincerlyPermanentMunicipality !== ''}">
+                            <span *ngIf="loanData?.customerType === 'INDIVIDUAL'"
+                                  [ngClass]="{'nepaliFont sizefont' : printDocForm?.sincerlyPermanentMunicipality !== null && printDocForm?.sincerlyPermanentMunicipality !== ''}">
+                        {{printDocForm?.sincerlyPermanentMunicipality === null || printDocForm?.sincerlyPermanentMunicipality === '' ? '_________________' : printDocForm?.sincerlyPermanentMunicipality}}
+                    </span>
+                            <span *ngIf="loanData?.customerType === 'INSTITUTION'"
+                                    [ngClass]="{'nepaliFont uniFont' : printDocForm?.sincerlyPermanentMunicipality !== null && printDocForm?.sincerlyPermanentMunicipality !== ''}">
                         {{printDocForm?.sincerlyPermanentMunicipality === null || printDocForm?.sincerlyPermanentMunicipality === '' ? '_________________' : printDocForm?.sincerlyPermanentMunicipality}}
                     </span>गा.पा./न.पा., वडा नं.
                             <span [ngClass]="{'nepaliFont' : printDocForm?.sincerlyPermanentWardNo !== null && printDocForm?.sincerlyPermanentWardNo !== ''}">
@@ -108,11 +117,17 @@
                     <tr>
                         <td style="text-align: right">हालको ठेगानाः</td>
                         <td>
-                            <span [ngClass]="{'nepaliFont sizefont' : printDocForm?.sinserlyTempDistrict !== null && printDocForm?.sinserlyTempDistrict !== ''}">
+                            <span *ngIf="loanData?.customerType === 'INDIVIDUAL'" [ngClass]="{'nepaliFont sizefont' : printDocForm?.sinserlyTempDistrict !== null && printDocForm?.sinserlyTempDistrict !== ''}">
+                                {{printDocForm?.sinserlyTempDistrict === null || printDocForm?.sinserlyTempDistrict === '' ? '_________________' : printDocForm?.sinserlyTempDistrict}}
+                            </span>
+                            <span *ngIf="loanData?.customerType === 'INSTITUTION'" [ngClass]="{'nepaliFont uniFont' : printDocForm?.sinserlyTempDistrict !== null && printDocForm?.sinserlyTempDistrict !== ''}">
                                 {{printDocForm?.sinserlyTempDistrict === null || printDocForm?.sinserlyTempDistrict === '' ? '_________________' : printDocForm?.sinserlyTempDistrict}}
                             </span>
                             जिल्ला,
-                            <span [ngClass]="{'nepaliFont sizefont' : printDocForm?.sinserlyTempMunicipality !== null && printDocForm?.sinserlyTempMunicipality !== ''}">
+                            <span *ngIf="loanData?.customerType === 'INDIVIDUAL'" [ngClass]="{'nepaliFont sizefont' : printDocForm?.sinserlyTempMunicipality !== null && printDocForm?.sinserlyTempMunicipality !== ''}">
+                                {{printDocForm?.sinserlyTempMunicipality === null || printDocForm?.sinserlyTempMunicipality === '' ? '_________________' : printDocForm?.sinserlyTempMunicipality}}
+                            </span>
+                            <span *ngIf="loanData?.customerType === 'INSTITUTION'" [ngClass]="{'nepaliFont uniFont' : printDocForm?.sinserlyTempMunicipality !== null && printDocForm?.sinserlyTempMunicipality !== ''}">
                                 {{printDocForm?.sinserlyTempMunicipality === null || printDocForm?.sinserlyTempMunicipality === '' ? '_________________' : printDocForm?.sinserlyTempMunicipality}}
                             </span>
                             गा.पा./न.पा., वडा नं.
