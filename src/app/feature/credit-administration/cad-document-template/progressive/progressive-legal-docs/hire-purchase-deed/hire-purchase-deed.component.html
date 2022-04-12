@@ -17,7 +17,8 @@
                    formControlName="wardNo" type="text">
           स्थित <input class="form-field nepaliFont form-control-sm unicode-size" formControlName="branchName"
                        type="text">शाखा कार्यालय (जसलाई यस उप्रान्त यस लिखतमा <strong>“वित्तीय संस्था”</strong> भनिएको) लिखत गरी दिनेका नाम
-            <span id="yellow"><input class="form-field nepaliFont form-control-sm"
+            <ng-container  *ngIf="this.loanCategory === 'INDIVIDUAL'" id="yellow">
+                <input class="form-field nepaliFont form-control-sm"
                                      formControlName="grandParentName" type="text">
                 को नाति/नातिनि <input class="form-field nepaliFont form-control-sm"
                                       formControlName="parentName" type="text">
@@ -34,7 +35,9 @@
                 गा.बि.स./न.पा., वडा न.
                 <input class="form-field nepaliFont form-control-sm" formControlName="sabikWardNo"
                     type="text">),
-                स्थायी ठेगाना भई हाल  <input class="form-field nepaliFont form-control-sm unicode-size"
+                स्थायी ठेगाना भई हाल <input class="form-field nepaliFont form-control-sm unicode-size"
+                                            formControlName="tempDistrict" type="text">जिल्ला,
+                <input class="form-field nepaliFont form-control-sm unicode-size"
                                              formControlName="tempMunicipality" type="text">
                             गा.पा./न.पा./म.न.पा., वडा नं. <input
                 class="form-field nepaliFont form-control-sm" formControlName="tempWardNo"
@@ -48,8 +51,8 @@
                 मिति <input class="form-field nepaliFont form-control-sm" formControlName="date"
                             type="text">
                 जि.प्र.का.  <input class="form-field nepaliFont form-control-sm"
-                                   formControlName="cdoOffice" type="text">)</span>
-                <span id="red"> वा नेपाल सरकार,
+                                   formControlName="cdoOffice" type="text">)</ng-container>
+                <ng-container *ngIf="this.loanCategory === 'INSTITUTION'" id="red"> वा नेपाल सरकार,
                 <input class="form-field nepaliFont form-control-sm" formControlName="matralayaName"
                      type="text">
                 मन्त्रालय <input class="form-field nepaliFont form-control-sm"
@@ -81,7 +84,7 @@
               मा रजिष्टर्ड कार्यालय रहेको
               <input class="form-field nepaliFont form-control-sm" formControlName="secRegOffice"
                      type="text">
-              (जसलाई यसउप्रान्त यस लिखतमा ऋणी भनिएको छ) कातर्पबाट अधिकार प्राप्तसंचालक/प्रोप्राईटर/साझेदार/प्रतिनिधि
+              (जसलाई यसउप्रान्त यस लिखतमा ऋणी भनिएको छ) का तर्फबाट अधिकार प्राप्तसंचालक/प्रोप्राईटर/साझेदार/प्रतिनिधि
               <input class="form-field nepaliFont form-control-sm" formControlName="pratinidhiGrandParent"
                 type="text">
               को नाति/नातिनि<input class="form-field nepaliFont form-control-sm"
@@ -113,7 +116,7 @@
                                       type="text">
                            जि.प्र.का. <input class="form-field nepaliFont form-control-sm"
                                              formControlName="pratinidhiCDOoffice"
-                                             type="text">,)</span>वा आगे,वित्तीय
+                                             type="text">,)</ng-container>वा आगे,वित्तीय
           संस्था र ऋणीका वीच किस्ताबन्दी खरिद प्रणाली (हायर पर्चेज) सम्बन्धी यो लिखत खडा गरीएको छ। वित्तीय संस्था र ऋणी दुवैले निम्नशर्त बन्देज, उपबन्देजहरुको
           परिपालनागर्न सत्य निष्ठाका साथ मंञ्जुर कबुल गर्दछु। यसको एक प्रति दोहरी बुझीलियौ।</p>
         <br>
@@ -234,11 +237,9 @@
                 <td style="vertical-align: top">१९.</td>
                 <td>यो किस्ताबन्दी खरिद प्रणाली (हायर पर्चेज) को सम्झौतापत्र मा प्रोग्रेशिभ फाइनान्स लिमिटेड.,
                     <input class="form-field nepaliFont unicode-size form-control-sm"
-                           formControlName="kistabandiBranchName"
                            value="{{form.get('branchName').value}}"
                            type="text">शाखा कार्यालय,
                     <input class="form-field nepaliFont unicode-size form-control-sm"
-                           formControlName="kistabandiBranchAddress"
                            value="{{form.get('municipalityName').value}}"
                            type="text">,
                     <input class="form-field nepaliFont unicode-size form-control-sm"
@@ -266,32 +267,36 @@
           </tr>
 
           </thead>
-          <tbody>
-          <tr>
+          <tbody *ngFor="let primaryCollateral of form.get('primaryCollaterals')['controls']; index as i"
+                  formArrayName="primaryCollaterals">
+          <tr [formGroupName]="i">
             <td>
-              <textarea class="tapsil nepaliFont" cols="30" formControlName="tapsilSN" name=""
-                        rows="10"></textarea>
+                {{i + 1 | nepaliNumber}}
             </td>
             <td>
-              <textarea class="tapsil nepaliFont" cols="30" formControlName="sawariPrakar" name=""
-                        rows="10"></textarea>
+                <input class="form-field nepaliFont form-control-sm" formControlName="sawariPrakar"
+                       type="text">
             </td>
             <td>
-              <textarea class="tapsil nepaliFont" cols="30" formControlName="engineNo" name=""
-                        rows="10"></textarea>
+                <input class="form-field form-control-sm" formControlName="engineNo"
+                       type="text">
             </td>
             <td>
-              <textarea class="tapsil nepaliFont" cols="30" formControlName="chasisNo" name=""
-                        rows="10"></textarea>
+                <input class="form-field form-control-sm" formControlName="chasisNo"
+                       type="text">
             </td>
             <td>
-              <textarea class="tapsil nepaliFont" cols="30" formControlName="regNo" name=""
-                        rows="10"></textarea>
+                <input class="form-field nepaliFont form-control-sm" formControlName="regNo"
+                       type="text">
             </td>
             <td>
-              <textarea class="tapsil nepaliFont" cols="30" formControlName="regDate" name=""
-                        rows="10"></textarea>
+                <input class="form-field nepaliFont form-control-sm" formControlName="regDate"
+                       type="text">
             </td>
+              <td *ngIf="form.get('primaryCollaterals')['length']>1">
+                  <em (click)="removePrimaryCollateral(i)" size="small"
+                      class="d-print-none fa fa-trash"></em>
+              </td>
           </tr>
           </tbody>
         </table>
@@ -299,11 +304,16 @@
       </div>
       <br>
       <p class="text-center"><strong>भवदीय,</strong></p>
-      <div class="">
+      <div>
         <p>
           दस्तखत :- ................
           <br>
-          अख्तियार प्राप्त ब्यक्तिको नाम :- <input class="form-field nepaliFont form-control-sm"
+            <ng-container  *ngIf="loanCategory === 'INSTITUTION'">
+                अख्तियार प्राप्त ब्यक्तिको नाम
+            </ng-container>
+            <ng-container  *ngIf="loanCategory === 'INDIVIDUAL'">
+                ऋणीको नाम
+            </ng-container>:- <input class="form-field nepaliFont form-control-sm"
                                                    formControlName="akhtiyarName" type="text">
           (<strong>ना.प्र.नं.</strong> <input class="form-field nepaliFont form-control-sm" formControlName="akhtiyarCitizenshipNo"
                              type="text">
@@ -312,11 +322,22 @@
          <strong>जि.प्र.का.</strong> <input class="form-field nepaliFont form-control-sm" formControlName="akhtiyarMuniciplity"
                             type="text">)
           <br>
-          अख्तियार प्राप्त ब्यक्तिको ठेगाना :-स्थायी <input
-            class="form-field nepaliFont form-control-sm" formControlName="akhtiyarPermanentDistrict"
-            type="text">
-          जिल्ला, <input class="form-field nepaliFont form-control-sm" formControlName="akhtiyarPermanentMunicipality"
+            <ng-container  *ngIf="loanCategory === 'INSTITUTION'">
+                अख्तियार प्राप्त ब्यक्तिको ठेगाना :-स्थायी
+                <input
+                        class="form-field nepaliFont form-control-sm" formControlName="akhtiyarPermanentDistrict"
                         type="text">
+                जिल्ला, <input class="form-field nepaliFont form-control-sm" formControlName="akhtiyarPermanentMunicipality"
+                               type="text">
+            </ng-container>
+            <ng-container  *ngIf="loanCategory === 'INDIVIDUAL'">
+                ऋणीको ठेगाना :-स्थायी
+                <input
+                        class="form-field nepaliFont form-control-sm unicode-size" formControlName="akhtiyarPermanentDistrict"
+                        type="text">
+                जिल्ला, <input class="form-field nepaliFont form-control-sm unicode-size" formControlName="akhtiyarPermanentMunicipality"
+                               type="text">
+            </ng-container>
           गा.पा./न.पा., वडा नं.<input class="form-field nepaliFont form-control-sm" formControlName="akhtiyarPermanentWardNo"
                                    type="text">
           (साबिक <input class="form-field nepaliFont form-control-sm" formControlName="akhtiyarSabikVDC"
@@ -324,10 +345,18 @@
           गा.बि.स./न.पा., वडा नं. <input class="form-field nepaliFont form-control-sm" formControlName="akhtiyarSabikWardNo"
                                        type="text">)
           <br>
-          हालको ठेगाना :- <input class="form-field nepaliFont form-control-sm" formControlName="akhtiyarTempDistrict"
-                             type="text">
-          जिल्ला <input class="form-field nepaliFont form-control-sm" formControlName="akhtiyarTempMunicipality"
-                        type="text">
+          हालको ठेगाना :-
+            <ng-container  *ngIf="loanCategory === 'INSTITUTION'">
+                <input class="form-field nepaliFont form-control-sm" formControlName="akhtiyarTempDistrict"
+                                 type="text">
+                जिल्ला <input class="form-field nepaliFont form-control-sm" formControlName="akhtiyarTempMunicipality"
+                            type="text">
+            </ng-container><ng-container  *ngIf="loanCategory === 'INDIVIDUAL'">
+                <input class="form-field nepaliFont form-control-sm unicode-size" formControlName="akhtiyarTempDistrict"
+                                 type="text">
+                जिल्ला <input class="form-field nepaliFont form-control-sm unicode-size" formControlName="akhtiyarTempMunicipality"
+                            type="text">
+            </ng-container>
           गा.पा./न.पा.वडा नं<input class="form-field nepaliFont form-control-sm" formControlName="akhtiyarTempWardNo"
                                    type="text">
           <br>
@@ -345,8 +374,6 @@
                                    type="text">/
           <input class="form-field nepaliFont form-control-sm" formControlName="sicerlyWifeNAme"
                  type="text">
-
-
         </p>
         <p>संस्थाको छाप/औठा छाप
         <div class="text-center">
@@ -359,10 +386,10 @@
             </thead>
             <tbody>
             <tr>
-              <td><textarea cols="30" name="" readonly
-                            rows="10" style="background-color: transparent;resize:none;border:none;outline:none"></textarea></td>
-              <td><textarea cols="30" name="" readonly
-                            rows="10" style=" background-color: transparent;resize:none;border:none;outline:none"></textarea></td>
+              <td><textarea cols="20" name="" readonly
+                            rows="6" style="background-color: transparent;resize:none;border:none;outline:none"></textarea></td>
+              <td><textarea cols="20" name="" readonly
+                            rows="6" style=" background-color: transparent;resize:none;border:none;outline:none"></textarea></td>
             </tr>
             </tbody>
           </table>
@@ -568,4 +595,5 @@
 </div>
 
 <app-hire-purchase-deed-print *ngIf="initialInfoPrint" [printDocForm]="initialInfoPrint"
+                              [loanCat] = "loanCategory"
                               hidden></app-hire-purchase-deed-print>
