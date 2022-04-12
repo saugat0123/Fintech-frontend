@@ -1,0 +1,229 @@
+<section id="print-section-{{offerLetterConst.VEHICLE_DELIVERY_PURCHASE_ORDER_LETTER}}">
+    <div class="viewFull">
+        <form class="nepali">
+            <div class="d-flex justify-content-between">
+                <div>
+                    <p class="font-weight-bold">प.सं <span
+                            class="font-weight-bold nepaliFont">{{printDocForm.patraNum ? printDocForm.patraNum : '======================' }}</span>
+                    </p>
+                    <p><span
+                            class="font-weight-bold nepaliFont">{{printDocForm.patraNumberTwo ? printDocForm.patraNumberTwo : '======================' }}</span>
+                    </p>
+                    <p><span
+                            class="font-weight-bold nepaliFont">{{printDocForm.patraNumberThree ? printDocForm.patraNumberThree : '======================' }}</span>
+                    </p>
+                </div>
+                <div class="text-right">
+                    <p class="font-weight-bold">मिति: <span
+                            class="font-weight-bold nepaliFont">{{printDocForm.date ? printDocForm.date : '======================' }}</span>
+                    </p>
+                </div>
+            </div>
+            <main class="mt-2">
+
+                <p class="text-center font-weight-bold my-3">
+                    विषय:
+                    <span
+                        class="font-weight-bold nepaliFont">{{printDocForm.bisaya ? printDocForm.bisaya : '======================' }}</span>
+                    डेलिभरी गरिदिने बारे ।
+                </p>
+                <p class="mt-2">महाशय,</p>
+                <!--                    FOR INDIVIDUAL/PERSONAL-->
+                <p *ngIf="isIndividual">
+                    <span
+                            class="font-weight-bold nepaliFont" style="font-size: 16px !important;">{{printDocForm.customerPermanentDistrict ? printDocForm.customerPermanentDistrict : '======================' }}</span>
+                    जिल्ला,
+                    <span
+                            class="font-weight-bold nepaliFont">{{printDocForm.customerPermanentVdc ? printDocForm.customerPermanentVdc : '======================' }}</span>
+                    गा.पा/न.पा/म.न.पा वडा नं
+                    <span
+                            class="font-weight-bold nepaliFont">{{printDocForm.customerPermanentVdcWard ? printDocForm.customerPermanentVdcWard : '======================' }}</span>
+                    स्थाई ठेगाना भई हाल
+                    <span
+                            class="font-weight-bold nepaliFont" style="font-size: 16px !important;">{{printDocForm.customerTemporaryDistrict ? printDocForm.customerTemporaryDistrict : '======================' }}</span>
+                    जिल्ला
+                    <span
+                            class="font-weight-bold nepaliFont" style="font-size: 16px !important;">{{printDocForm.customerTemporaryVdcMun ? printDocForm.customerTemporaryVdcMun : '======================' }}</span>
+                    गा.पा/न.पा/म.न.पा वडा नं
+                    <span
+                        class="font-weight-bold nepaliFont">{{printDocForm.customerTemporaryWard ? printDocForm.customerTemporaryWard : '======================' }}</span>
+                    बस्ने श्री
+                    <span *ngIf="isIndividual">
+                        <span
+                            class="font-weight-bold nepaliFont">{{printDocForm.customerName ? printDocForm.customerName : '======================' }}</span>
+                    </span>
+                    <span *ngIf="!isIndividual">
+                        <span
+                            class="font-weight-bold nepaliFont">{{printDocForm.companyName ? printDocForm.companyName : '======================' }}</span>
+                        </span>
+                    (ना.प्र.नं
+                    <span
+                        class="font-weight-bold nepaliFont">{{printDocForm.citizenshipNo ? printDocForm.citizenshipNo : '======================' }}</span>
+                    ,
+                    <span
+                            class="font-weight-bold nepaliFont">{{printDocForm.citizenshipIssueAddress ? printDocForm.citizenshipIssueAddress : '======================' }}</span>)</p>
+
+                <!--                    FOR CORPORATE-->
+                <p *ngIf="!isIndividual" class="my-3">
+                    <span
+                        class="font-weight-bold nepaliFont">{{printDocForm.companyDistrict ? printDocForm.companyDistrict : '======================' }}</span>
+                    जिल्ला,
+                    <span
+                        class="font-weight-bold nepaliFont">{{printDocForm.companyVdcMun ? printDocForm.companyVdcMun : '======================' }}</span>
+                    गा.पा/न.पा/म.न.पा वडा नं
+                    <span
+                        class="font-weight-bold nepaliFont">{{printDocForm.companyWardNo ? printDocForm.companyWardNo : '======================' }}</span>
+                    स्थित रजिष्टर्ड कार्यालय रहेको श्री
+                    <span
+                        class="font-weight-bold nepaliFont">{{printDocForm.companyName ? printDocForm.companyName : '======================' }}</span>
+                    (<span
+                        class="font-weight-bold nepaliFont">{{printDocForm.panNumber ? printDocForm.panNumber : '======================' }}</span>)
+                    का संचालक/अखितयारी प्राप्त व्यक्ति/प्रतिनिधि/प्रोप्राईटर श्री
+                    <span
+                            class="font-weight-bold nepaliFont">{{printDocForm.proprietor ? printDocForm.proprietor : '======================' }}</span>
+                </p>
+                <p class="my-3">ले तेहांकोे मिति <span
+                        class="font-weight-bold nepaliFont">{{printDocForm.dateTwo ? printDocForm.dateTwo : '======================' }}</span>
+                    कोे कोटेशन अनुसार रु <span
+                            class="font-weight-bold nepaliFont">{{printDocForm.vehiclePrice ? printDocForm.vehiclePrice : '======================' }}</span>
+                    /– मोल पर्ने
+                    <span
+                            class="font-weight-bold nepaliFont">{{printDocForm.thanOne ? printDocForm.thanOne : '======================' }}</span>
+                    थान
+                    <span
+                            class="font-weight-bold nepaliFont">{{printDocForm.bisaya ? printDocForm.bisaya : '======================' }}</span>
+                    हा.प./अटो कर्जा अन्तर्गत श्री
+                    <span *ngIf="isIndividual">
+                        <span
+                                class="font-weight-bold nepaliFont">{{printDocForm.customerName ? printDocForm.customerName : '======================' }}</span>
+                    </span>
+                    <span *ngIf="!isIndividual">
+                        <<span
+                            class="font-weight-bold nepaliFont">{{printDocForm.companyName ? printDocForm.companyName : '======================' }}</span>
+                        </span>
+                    को नाममा खरिद गर्न यस संस्थामा दिएको निवेदन स्वीकृत भएकोले तपसिलमा उल्लेखित
+                    <span
+                            class="font-weight-bold nepaliFont">{{printDocForm.thanTwo ? printDocForm.thanTwo : '======================' }}</span>
+                    थान
+                    <span
+                            class="font-weight-bold nepaliFont">{{printDocForm.bisaya ? printDocForm.bisaya : '======================' }}</span>
+                    निज श्री
+                    <span *ngIf="isIndividual">
+                        <span
+                                class="font-weight-bold nepaliFont">{{printDocForm.customerName ? printDocForm.customerName : '======================' }}</span>
+                    </span>
+                    <span *ngIf="!isIndividual">
+                        <span
+                                class="font-weight-bold nepaliFont">{{printDocForm.companyName ? printDocForm.companyName : '======================' }}</span>
+                        </span>
+                    लाई डेलिभरी गरिदिनुहुन अनुरोध गर्दछौँ ।</p>
+                <p class="my-3">साथै तहाको उक्त कोटेशन अनुशारको रकम मध्यबाट मार्जिन वापतको रकम निज श्री
+                    <span *ngIf="isIndividual">
+                        <span
+                                class="font-weight-bold nepaliFont">{{printDocForm.customerName ? printDocForm.customerName : '======================' }}</span>
+                    </span>
+                    <span *ngIf="!isIndividual"><span
+                            class="font-weight-bold nepaliFont">{{printDocForm.companyName ? printDocForm.companyName : '======================' }}</span>
+                        </span>
+                    लिनुभई तपसिलमा उल्लेखित <span
+                            class="font-weight-bold nepaliFont">{{printDocForm.thanThree ? printDocForm.thanThree : '======================' }}</span> थान
+                    <span
+                            class="font-weight-bold nepaliFont">{{printDocForm.bisaya ? printDocForm.bisaya : '======================' }}</span>
+                    यस संस्थाको नाममा नामसारी भै विलबुक तथा विमा पोलिसि उपलब्ध भएपछि तेंहालाई रु <span
+                            class="font-weight-bold">{{printDocForm.loanAmount ? printDocForm.loanAmount : '...........................' }}</span> /–
+                    (अक्षेरेपी: <span
+                            class="font-weight-bold">{{printDocForm.loanAmountInWords ? printDocForm.loanAmountInWords : '..................................................' }}</span> मात्र ।) को चेकद्वारा भुक्तानी पठाई दिने व्यहोरा अनुरोध
+                    छ ।</p>
+
+                <div class="mt-3">
+                    <p class="font-weight-bold my-3">तपसिल</p>
+                </div>
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>क्र.स.</th>
+                        <th>सवारी साधन/उपकरणको विवरण</th>
+                        <th>ईन्जीन नं.</th>
+                        <th>चेसिस नं.</th>
+                        <th>दर्ता नं.</th>
+                    </tr>
+                    </thead>
+                    <tbody *ngFor="let vehicleDetail of printDocForm.vehicleDetails; let i = index;">
+                    <tr>
+                        <td>{{i + 1 | nepaliNumber}}</td>
+                        <td>
+                            <span
+                                    class="font-weight-bold nepaliFont">{{vehicleDetail.vehicleSpecification ? vehicleDetail.vehicleSpecification : '======================' }}</span>,
+                            <span
+                                    class="font-weight-bold">{{vehicleDetail.upakaran ? vehicleDetail.upakaran : '...........................' }}</span>
+                        </td>
+                        <td>
+                            <span
+                                    class="font-weight-bold">{{vehicleDetail.engineNo ? vehicleDetail.engineNo : '...........................' }}</span>
+                        </td>
+                        <td>
+                            <span
+                                    class="font-weight-bold">{{vehicleDetail.chassisNo ? vehicleDetail.chassisNo : '...........................' }}</span>
+                        </td>
+                        <td>
+                            <span
+                                    class="font-weight-bold nepaliFont">{{vehicleDetail.registeredNo ? vehicleDetail.registeredNo : '======================' }}</span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p class="my-3"><span class="font-weight-bold">नोटः</span> कोटेशन पत्रमा उल्लेखित रकम बराबरको रकम भ्याट
+                    बिलमा समेत हुनुपर्नेछ । फरक पर्न गएमा भ्याट बिलमा उल्लेख भएको रकमको अधिकतम
+                    <span
+                            class="font-weight-bold nepaliFont">{{printDocForm.noteOne ? printDocForm.noteOne : '======================' }}</span>
+                    प्रतिशत सम्म मात्र भुक्रानी दिईनेछ । साथै यो पत्रको मितिले
+                    <span
+                            class="font-weight-bold nepaliFont">{{printDocForm.noteTwo ? printDocForm.noteTwo : '======================' }}</span>
+                    दिनभित्र यस संस्थाको नाममा प्रस्तावित गाडि नामसारी भै दावि रकम
+                    भुक्तानी माग गरिसक्नुपर्नेछ । सो अवधि पश्चात् दावि रकम उपलब्ध गराउन संस्था बाध्य हुनेछैन ।</p>
+                <p class="mt-5 mb-4">भवदीय,</p>
+                <div class="d-flex justify-content-between my-3">
+                    <div class="col-md-6">
+                        <p>
+                            .................................
+                            <br>
+                            कर्मचारीको नामः <span
+                                class="font-weight-bold nepaliFont">{{printDocForm.karmachariName ? printDocForm.karmachariName : '======================' }}</span>
+                            <br>
+                            पदः
+                            <span class="font-weight-bold nepaliFont">
+                                {{printDocForm?.postName === null || printDocForm?.postName === '' ? '======================' : printDocForm?.postName}}
+                            </span>
+                            <br>
+                            प्रोग्रेशिभ फाइनान्स लि.<br>
+                            <span class="font-weight-bold nepaliFont" style="font-size: 16px !important;">
+                                {{printDocForm?.branchName === null || printDocForm?.branchName === '' ? '======================' : printDocForm?.branchName}}
+                            </span> शाखा
+                        </p>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="text-right">
+                            .................................
+                            <br>
+                            कर्मचारीको नामः
+                            <span class="nepaliFont font-weight-bold">
+                                    {{printDocForm?.karmachariName2 === null || printDocForm?.karmachariName2 === '' ? '======================' : printDocForm?.karmachariName2}}
+                                </span>
+                            <br>
+                            पदः
+                            <span class="font-weight-bold nepaliFont">
+                                    {{printDocForm?.postName2 === null || printDocForm?.postName2 === '' ? '======================' : printDocForm?.postName2}}
+                                </span>
+                            <br>
+                            प्रोग्रेशिभ फाइनान्स लि.<br>
+                            <span class="nepaliFont font-weight-bold" style="font-size: 16px !important;">
+                                    {{printDocForm?.branchName === null || printDocForm?.branchName === '' ? '======================' : printDocForm?.branchName}}
+                                </span> शाखा
+                        </p>
+                    </div>
+                </div>
+            </main>
+
+        </form>
+    </div>
+</section>
