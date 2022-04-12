@@ -36,7 +36,7 @@ export class HypothecationOfGoodsAndReceivablesAComponent implements OnInit {
   existingOfferLetter = false;
   offerLetterDocument: OfferDocument;
   nepaliData;
-  amount: number;
+  totalAmt : number = 0;
 
   constructor(private formBuilder: FormBuilder,
               private nepToEngNumberPipe: NepaliToEngNumberPipe,
@@ -155,10 +155,10 @@ export class HypothecationOfGoodsAndReceivablesAComponent implements OnInit {
 
   setKoshMaAdharit(data) {
     const formArray = this.form.get('koshMaAdharit') as FormArray;
-    if (data.length === 0) {
+    /*if (data.length === 0) {
       this.addEmptyKoshMaAdharit();
       return;
-    }
+    }*/
     data.forEach(value => {
       formArray.push(this.formBuilder.group({
         name: [value.name],
@@ -270,13 +270,6 @@ export class HypothecationOfGoodsAndReceivablesAComponent implements OnInit {
 
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
-      /*if (!ObjectUtil.isEmpty(this.nepaliData)) {
-        console.log('koshMaAdharit', this.nepaliData.koshMaAdharit);
-        (this.nepaliData.koshMaAdharit).forEach(data => {
-          this.amount = +this.nepToEngNumberPipe.transform(data.amount);
-          console.log('amount', this.amount);
-        });
-      }*/
 
       const tempAddress = this.nepaliData.companyDistrict + ', ' +
           this.nepaliData.companyVdcMun + ', ' + this.nepaliData.companyWardNo;
@@ -322,9 +315,6 @@ export class HypothecationOfGoodsAndReceivablesAComponent implements OnInit {
       'revolvingAmount',
       'demandLoanAmount',
       'fixedTermAmount',
-      'koshOtherAmount1',
-      'koshOtherAmount2',
-      'koshOtherAmount3'
     ];
     toAddFormControl.forEach(f => {
       res = +this.nepToEngNumberPipe.transform(this.form.get(f).value);
@@ -335,4 +325,23 @@ export class HypothecationOfGoodsAndReceivablesAComponent implements OnInit {
       });
     });
   }
+
+  updateAmount(amount: string, i: number) {
+    const amt = [];
+
+  /*if (!ObjectUtil.isEmpty(this.nepaliData.koshMaAdharit)) {
+    amt[i] = this.nepaliData.koshMaAdharit.amount[i];
+  }*/
+    amt[i] = this.nepToEngNumberPipe.transform(this.form.get(['koshMaAdharit', i, amount]).value);
+    console.log('amount', i, amt[0] + amt[1]);
+    //this.sumAmount();
+  }
+
+  /*sumAmount() {
+  let totalAmt = 0;s
+  for (let i = 0; i < ; i++) {
+    totalAmt += this.nepaliData.koshMaAdharit.amount[i];
+    console.log('total', totalAmt);
+    }
+  }*/
 }
