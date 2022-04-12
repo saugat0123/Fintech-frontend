@@ -16,6 +16,7 @@
 @media print {
   .page-break { page-break-before: always; }
 }
-strong{
-  text-decoration: underline;
+
+span {
+  line-height: 1;
 }
