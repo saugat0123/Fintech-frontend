@@ -14,8 +14,7 @@
                         <input class="form-control-sm form-field nepaliFont"
                                type="text"
                                formControlName="letterNumber">
-                    </p>
-                    <p>
+                        <br>
                         श्रीमान् मालपोत अधिकृत ज्यू,
                         <br>
                         मालपोत कार्यालय,<br>
@@ -39,7 +38,7 @@
                     <div *ngIf="loanData?.customerType === 'INDIVIDUAL'">
                         <!--                    <div>-->
                         यस संस्थाका ऋणी
-                        &emsp;<input class="form-control-sm form-field nepaliFont unicode-size16"
+                        &emsp;<input class="form-control-sm form-field nepaliFont"
                                      type="text"
                                      formControlName="perDistrict">
                         जिल्ला,
@@ -56,7 +55,7 @@
                                formControlName="debtorName">
                     </div>
                     <div *ngIf="loanData?.customerType === 'INSTITUTION'">
-                        <input class="form-control-sm form-field nepaliFont unicode-size16"
+                        <input class="form-control-sm form-field nepaliFont"
                                type="text"
                                formControlName="corporateDistrict"> जिल्ला,
                         <input class="form-control-sm form-field nepaliFont"
@@ -75,8 +74,7 @@
                                type="text"
                                formControlName="representativeName">
                     </div>
-                    <p class="mt-2">
-                        लेतपशीलको जेथाको मूल्याड्ढनले खामेसम्म अर्थात <strong>रु
+                        ले तपशीलको जेथाको मूल्याड्ढनले खामेसम्म अर्थात <strong>रु
                         <input class="form-control-sm form-field nepaliFont"
                                type="text" formControlName="loanAmount">/
                         (अक्षरुपीः <input class="form-control-sm form-field nepaliFont longMediumInput unicode-size16"
@@ -99,7 +97,6 @@
                                     type="text"
                                     formControlName="companyStaffName"> लाई</strong> अख्तियार दिई पठाइएको व्यहोरा समेत
                         अनूरोध छ ।
-                    </p>
                 </div>
             </div>
             <p class="text-left font-weight-bold">

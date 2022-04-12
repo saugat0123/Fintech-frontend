@@ -71,6 +71,8 @@ import {OfferLetterHirePurchaseAndAutoLoanComponent} from './progressive-offer-l
 import {OfferLetterHirePurchaseAndAutoLoanPrintComponent} from './progressive-offer-letter/offer-letter-hire-purchase-and-auto-loan/offer-letter-hire-purchase-and-auto-loan-print/offer-letter-hire-purchase-and-auto-loan-print.component';
 import { VehicleNamsariLetterComponent} from './progressive-legal-docs/vehicle-namsari-letter/vehicle-namsari-letter.component';
 import { VehicleNamsariLetterPrintComponent} from './progressive-legal-docs/vehicle-namsari-letter/vehicle-namsari-letter-print/vehicle-namsari-letter-print.component';
+import { VehicleDeliveryPurchaseOrderLetterComponent } from './progressive-legal-docs/vehicle-delivery-purchase-order-letter/vehicle-delivery-purchase-order-letter.component';
+import { VehicleDeliveryPurchaseOrderLetterPrintComponent } from './progressive-legal-docs/vehicle-delivery-purchase-order-letter/vehicle-delivery-purchase-order-letter-print/vehicle-delivery-purchase-order-letter-print.component';
 
 const COMPONENTS = [
   LetterOfArrangementsComponent, LetterOfArrangementsPrintComponent,
@@ -142,7 +144,9 @@ const COMPONENTS = [
     OfferLetterHirePurchaseAndAutoLoanComponent,
     OfferLetterHirePurchaseAndAutoLoanPrintComponent,
     VehicleNamsariLetterComponent,
-    VehicleNamsariLetterPrintComponent
+    VehicleNamsariLetterPrintComponent,
+    VehicleDeliveryPurchaseOrderLetterComponent,
+    VehicleDeliveryPurchaseOrderLetterPrintComponent
 
 
   ],
@@ -176,7 +180,8 @@ const COMPONENTS = [
         LoanDeedCorporateComponent,
         HpDeedCorporateComponent,
         OfferLetterHirePurchaseAndAutoLoanComponent,
-        VehicleNamsariLetterComponent
+        VehicleNamsariLetterComponent,
+        VehicleDeliveryPurchaseOrderLetterComponent
 
     ],
   imports: [
