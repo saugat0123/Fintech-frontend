@@ -197,15 +197,15 @@ export class OfferLetterHirePurchaseAndAutoLoanComponent implements OnInit {
     }*/
     data.forEach(value => {
       if (value.securityDetails === 'Land_And_Building') {
-        const tempAddress = value.collateralPermanentMunVdc.nepaliName + ', ' + value.collateralPermanentVdc +
-            ', ' + value.collateralPermanentVdcWard;
         const tempExistingAddress = value.collateralMunVdcOriginal + ', ' + value.collateralWardNoOld;
         const tempNewAddress = value.collateralMunVdcChanged + ', ' + value.wardNoNew;
         formArray.push(this.formBuilder.group({
           name: [!ObjectUtil.isEmpty(value.collateralName) ? value.collateralName : ''],
           fatherName: [!ObjectUtil.isEmpty(value.collateralFatherName) ? value.collateralFatherName : ''],
           grandFatherName: [!ObjectUtil.isEmpty(value.collateralGrandFatherName) ? value.collateralGrandFatherName : ''],
-          address: [tempAddress ? tempAddress : ''],
+          address: [!ObjectUtil.isEmpty(value.collateralPermanentMunVdc) ? value.collateralPermanentMunVdc.nepaliName : ''],
+          addressVDC: [!ObjectUtil.isEmpty(value.collateralPermanentVdc) ? value.collateralPermanentVdc : ''],
+          addressWard: [!ObjectUtil.isEmpty(value.collateralPermanentVdcWard) ? value.collateralPermanentVdcWard : ''],
           district: [!ObjectUtil.isEmpty(value.collateralDistrict) ? value.collateralDistrict : ''],
           existingAddress: [tempExistingAddress ? tempExistingAddress : ''],
           currentAddress: [tempNewAddress ? tempNewAddress : ''],
@@ -253,7 +253,6 @@ export class OfferLetterHirePurchaseAndAutoLoanComponent implements OnInit {
       allGuarantors = allGuarantors.replace(/,(?=[^,]*$)/, ' र');*/
       formArray.push(this.formBuilder.group({
         shreeName1: [!ObjectUtil.isEmpty(value.guarantorName) ? value.guarantorName : ''],
-        shreeName2: [!ObjectUtil.isEmpty(this.initialInfoPrint) ? this.initialInfoPrint.individualDetails[i].shreeName2 : ''],
         amount1: !ObjectUtil.isEmpty(this.nepDataPersonal.numberNepali) ? this.nepDataPersonal.numberNepali : '',
         amountInWords1: !ObjectUtil.isEmpty(this.nepDataPersonal.nepaliWords) ? this.nepDataPersonal.nepaliWords : '',
       }));
@@ -263,7 +262,6 @@ export class OfferLetterHirePurchaseAndAutoLoanComponent implements OnInit {
   addIndividualDetails() {
     return this.formBuilder.group({
           shreeName1: [undefined],
-          shreeName2: [undefined],
           amount1: [undefined],
           amountInWords1: [undefined],
         });
