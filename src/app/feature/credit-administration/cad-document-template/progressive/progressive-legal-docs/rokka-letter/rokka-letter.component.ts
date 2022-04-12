@@ -14,6 +14,9 @@ import {ObjectUtil} from "../../../../../../@core/utils/ObjectUtil";
 import {CadFile} from "../../../../model/CadFile";
 import {Document} from "../../../../../admin/modal/document";
 import {Alert, AlertType} from "../../../../../../@theme/model/Alert";
+import {CompanyInfo} from '../../../../../admin/modal/company-info';
+import {CustomerType} from '../../../../../customer/model/customerType';
+import {CustomerInfoData} from '../../../../../loan/model/customerInfoData';
 
 @Component({
   selector: 'app-rokka-letter',
@@ -32,6 +35,10 @@ export class RokkaLetterComponent implements OnInit {
   existingOfferLetter = false;
   offerLetterDocument: OfferDocument;
   nepaliData;
+  customerInstitution = false;
+  customerIndividual = false;
+  loanData;
+  tempData;
 
   constructor(private dialogRef: NbDialogRef<RokkaLetterComponent>,
               private formBuilder: FormBuilder,
@@ -42,8 +49,11 @@ export class RokkaLetterComponent implements OnInit {
               private routerUtilsService: RouterUtilsService) { }
 
   ngOnInit() {
+    this.loanData = this.cadData.loanHolder;
+    this.tempData = JSON.parse(this.cadData.nepData);
     this.buildForm();
     this.fillForm();
+    console.log('this.loanData ', this.loanData);
   }
 
   buildForm() {
@@ -63,8 +73,8 @@ export class RokkaLetterComponent implements OnInit {
       tempWardNo: [undefined],
       tempAddress: [undefined],
       debtorName: [undefined],
-      loanAmount: [undefined],
-      loanAmountWords: [undefined],
+      loanAmount: [!ObjectUtil.isEmpty(this.tempData.numberNepali) ? this.tempData.numberNepali : ''],
+      loanAmountWords: [!ObjectUtil.isEmpty(this.tempData.nepaliWords) ? this.tempData.nepaliWords : ''],
       companyStaffName: [undefined],
       naPramanPatraNumber: [undefined],
       tableLandOwnerName: [undefined],
@@ -89,6 +99,13 @@ export class RokkaLetterComponent implements OnInit {
       postName: [undefined],
       karmachariName2: [undefined],
       postName2: [undefined],
+      corporateDistrict: [undefined],
+      corporateMunicipality: [undefined],
+      corporateWardNumber: [undefined],
+      corporateName: [undefined],
+      representativeName: [undefined],
+      collateralName: [undefined],
+      corporateAddress: [undefined]
     });
   }
 
@@ -108,6 +125,7 @@ export class RokkaLetterComponent implements OnInit {
           this.form.patchValue(this.initialInfoPrint);
         }
       });
+      console.log('this.cadData', this.cadData);
     }
 
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
@@ -116,10 +134,16 @@ export class RokkaLetterComponent implements OnInit {
         branchName: this.nepaliData.branchName ? this.nepaliData.branchName : '',
         branchDistrict: this.nepaliData.branchDistrict ? this.nepaliData.branchDistrict : '',
         branchPhoneNo: this.nepaliData.branchTelNo ? this.nepaliData.branchTelNo : '',
-        debtorName: this.nepaliData.collateralDetails[0].collateralName ? this.nepaliData.collateralDetails[0].collateralName : '',
-        perDistrict: !ObjectUtil.isEmpty(this.nepaliData.collateralOwnerDetails[0]) ? this.nepaliData.collateralOwnerDetails[0].collateralOwnerPermanentDistrict.nepaliName : '',
-        perMunicipality: !ObjectUtil.isEmpty(this.nepaliData.collateralOwnerDetails[0]) ? this.nepaliData.collateralOwnerDetails[0].collateralOwnerPermanentVdc : '',
-        perWardNumber: !ObjectUtil.isEmpty(this.nepaliData.collateralOwnerDetails[0]) ? this.nepaliData.collateralOwnerDetails[0].collateralOwnerPermanentVdcWard : '',
+        debtorName: this.nepaliData.name ? this.nepaliData.name : '',
+        perDistrict: !ObjectUtil.isEmpty(this.nepaliData.permanentDistrict) ? this.nepaliData.permanentDistrict : '',
+        perMunicipality: !ObjectUtil.isEmpty(this.nepaliData.permanentVdc) ? this.nepaliData.permanentVdc : '',
+        perWardNumber: !ObjectUtil.isEmpty(this.nepaliData.permanentVdcWard) ? this.nepaliData.permanentVdcWard : '',
+        corporateDistrict: !ObjectUtil.isEmpty(this.nepaliData.companyDistrict) ? this.nepaliData.companyDistrict : '',
+        corporateMunicipality: !ObjectUtil.isEmpty(this.nepaliData.companyVdcMun) ? this.nepaliData.companyVdcMun : '',
+        corporateWardNumber: !ObjectUtil.isEmpty(this.nepaliData.companyWardNo) ? this.nepaliData.companyWardNo : '',
+        corporateName: !ObjectUtil.isEmpty(this.nepaliData.corporateName) ? this.nepaliData.companyName : '',
+        representativeName: !ObjectUtil.isEmpty(this.nepaliData.representativeName) ? this.nepaliData.representativeName : '',
+        collateralName: !ObjectUtil.isEmpty(this.nepaliData.collateralDetails[0]) ? this.nepaliData.collateralDetails[0].collateralName : '',
       });
     }
 
@@ -198,6 +222,16 @@ export class RokkaLetterComponent implements OnInit {
       tableKittaNo: [undefined],
       tablelandArea: [undefined],
       tableSitNo: [undefined],
+      landOwnerDistrict: [undefined],
+      tableMunicipality: [undefined],
+      tableOldWardNum: [undefined],
+      institutionLandOwnerName: [undefined],
+      institutionRegistrationNo: [undefined],
+      institutionRegistrationDate: [undefined],
+      institutionPanNo: [undefined],
+      institutionLandOwnerDistrict: [undefined],
+      institutionPerMun: [undefined],
+      institutionPerWardNo: [undefined]
     });
   }
 
@@ -230,22 +264,32 @@ export class RokkaLetterComponent implements OnInit {
             value.collateralPermanentDistrict.nepaliName : ''],
         tableRegistrationNumber: [value.tableRegistrationNumber],
         tableDistrictName: [value.collateralDistrict],
-        tablePerMun: [value.collateralMunVdcOriginal],
-        tablePerWardNo: [value.collateralWardNoOld],
+        tablePerMun: [value.collateralPermanentVdc],
+        tablePerWardNo: [value.collateralPermanentVdcWard],
         tableTempMun2: [value.collateralMunVdcChanged],
         tableTempWardNo2: [value.wardNoNew],
         tableKittaNo: [value.plotNo],
         tablelandArea: [value.areaOfCollateral],
         tableSitNo: [value.seatNo],
+        landOwnerDistrict: [value.collateralPermanentDistrict],
+        tableMunicipality: [value.collateralMunVdcOriginal],
+        tableOldWardNum: [value.collateralWardNoOld],
+        institutionLandOwnerName: [value.companyName],
+        institutionRegistrationNo: [value.companyRegistrationNo],
+        institutionRegistrationDate: [value.registrationDate],
+        institutionPanNo: [value.panNo],
+        institutionLandOwnerDistrict: [value.companyDistrict],
+        institutionPerMun: [value.companyVdcMun],
+        institutionPerWardNo: [value.companyWardNo]
       }));
     });
   }
 
-  convertAmountInWords(numLabel, wordLabel) {
-    const wordLabelVar = this.nepToEngNumberPipe.transform(this.form.get(numLabel).value);
-    const convertedVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
-    this.form.get(wordLabel).patchValue(convertedVal);
-  }
+  // convertAmountInWords(numLabel, wordLabel) {
+  //   const wordLabelVar = this.nepToEngNumberPipe.transform(this.form.get(numLabel).value);
+  //   const convertedVal = this.nepaliCurrencyWordPipe.transform(wordLabelVar);
+  //   this.form.get(wordLabel).patchValue(convertedVal);
+  // }
 
   setSecurityDetails(value, i) {
     this.form.get(['personalSignatureArray', i, 'tableLandOwnerName']).patchValue(value.collateralName);
@@ -259,6 +303,7 @@ export class RokkaLetterComponent implements OnInit {
     this.form.get(['personalSignatureArray', i, 'tableKittaNo']).patchValue(value.plotNo);
     this.form.get(['personalSignatureArray', i, 'tablelandArea']).patchValue(value.areaOfCollateral);
     this.form.get(['personalSignatureArray', i, 'tableSitNo']).patchValue(value.seatNo);
+    this.form.get(['personalSignatureArray', i, 'landOwnerDistrict']).patchValue(value.landOwnerDistrict);
   }
 
 }

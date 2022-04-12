@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {CustomerOfferLetter} from '../../../../../loan/model/customer-offer-letter';
 import {OfferDocument} from '../../../../model/OfferDocument';
 import {NbDialogRef} from '@nebular/theme';
@@ -61,30 +61,12 @@ export class LetterOfAgreementComponent implements OnInit {
         }
       });
     }
-
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
       this.nepDataPersonal = JSON.parse(this.cadData.nepDataPersonal);
-      const loanAmount = JSON.parse(this.cadData.nepData);
+      this.setCollaterals(this.nepaliData.collateralDetails);
       this.form.patchValue({
-        perDistrict: this.nepaliData.collateralOwnerDetails[0].collateralOwnerPermanentDistrict.nepaliName ? this.nepaliData.collateralOwnerDetails[0].collateralOwnerPermanentDistrict.nepaliName : '',
-        perMunicipality: this.nepaliData.collateralOwnerDetails[0].collateralOwnerPermanentMunicipalities.nepaliName ? this.nepaliData.collateralOwnerDetails[0].collateralOwnerPermanentMunicipalities.nepaliName : '',
-        perWardNo: this.nepaliData.collateralOwnerDetails[0].collateralOwnerPermanentWard ? this.nepaliData.collateralOwnerDetails[0].collateralOwnerPermanentWard : '',
-        grandFatherName: this.nepaliData.collateralOwnerDetails[0].collateralOwnerGrandFatherName ? this.nepaliData.collateralOwnerDetails[0].collateralOwnerGrandFatherName : '',
-        fatherName: this.nepaliData.collateralOwnerDetails[0].collateralOwnerFatherName ? this.nepaliData.collateralOwnerDetails[0].collateralOwnerFatherName : '',
-        loanHolderName: this.nepaliData.collateralOwnerDetails[0].collateralOwnerName ? this.nepaliData.collateralOwnerDetails[0].collateralOwnerName : '',
-        financeDistrict: this.nepaliData.branchDistrict ? this.nepaliData.branchDistrict : '',
-        financeMunicipality: this.nepaliData.branchMunVdc ? this.nepaliData.branchMunVdc : '',
-        financeWardNo: this.nepaliData.branchWardNo ? this.nepaliData.branchWardNo : '',
-        financeBranchName: this.nepaliData.branchName ? this.nepaliData.branchName : '',
-        officeRegNo: this.nepaliData.collateralDetails[0].regNo ? this.nepaliData.collateralDetails[0].regNo : '',
-        districtName: this.nepaliData.companyDistrict ? this.nepaliData.companyDistrict : '',
-        municipalityName: this.nepaliData.companyVdcMun ? this.nepaliData.companyVdcMun : '',
-        wardNo: this.nepaliData.companyWardNo ? this.nepaliData.companyWardNo : '',
-        companyName: this.nepaliData.companyName ? this.nepaliData.companyName : '',
-        loanAmount: loanAmount.numberNepali ? loanAmount.numberNepali : '',
-        loanAmountWords: loanAmount.nepaliWords ? loanAmount.nepaliWords : '',
-        gender: this.nepaliData.collateralOwnerDetails[0].collateralOwnerGender ?  this.nepaliData.collateralOwnerDetails[0].collateralOwnerGender : '',
+
       });
     }
   }
@@ -132,6 +114,7 @@ export class LetterOfAgreementComponent implements OnInit {
 
   buildForm() {
     this.form = this.formBuilder.group({
+      collateralDetails: this.formBuilder.array([]),
       malpot: [undefined],
       perDistrict: [undefined],
       perMunicipality: [undefined],
@@ -160,8 +143,103 @@ export class LetterOfAgreementComponent implements OnInit {
       itiMonth: [undefined],
       itiDate: [undefined],
       itiSambat: [undefined],
-      gender: [undefined],
+      gender: [undefined]
     });
+  }
+  collateralFormGroup(): FormGroup {
+    return this.formBuilder.group({
+      malpot: [undefined],
+      perDistrict: [undefined],
+      perMunicipality: [undefined],
+      perWardNo: [undefined],
+      temporaryDistrict: [undefined],
+      temporaryMunicipalityVDC: [undefined],
+      temporaryWardNo: [undefined],
+      temporaryAddress: [undefined],
+      grandFatherName: [undefined],
+      fatherName: [undefined],
+      loanHolderAge: [undefined],
+      loanHolderName: [undefined],
+      financeDistrict: [undefined],
+      financeMunicipality: [undefined],
+      financeWardNo: [undefined],
+      financeBranchName: [undefined],
+      officeRegNo: [undefined],
+      financeRegistrationDate: [undefined],
+      districtName: [undefined],
+      municipalityName: [undefined],
+      wardNo: [undefined],
+      companyName: [undefined],
+      loanAmount: [undefined],
+      loanAmountWords: [undefined],
+      itiYear: [undefined],
+      itiMonth: [undefined],
+      itiDate: [undefined],
+      itiSambat: [undefined],
+      gender: [undefined]
+    });
+  }
+  setCollaterals(data) {
+    const loanAmount = JSON.parse(this.cadData.nepData);
+    const formArray = this.form.get('collateralDetails') as FormArray;
+    if (data.length === 0) {
+      this.addMoreCollateral();
+      return;
+    }
+    data.forEach((value, i) => {
+      formArray.push(this.formBuilder.group({
+        perDistrict: [value.collateralPermanentDistrict.nepaliName ? value.collateralPermanentDistrict.nepaliName : ''],
+        perMunicipality: [value.collateralPermanentMunVdc.nepaliName ? value.collateralPermanentMunVdc.nepaliName : ''],
+        perWardNo: [value.collateralPermanentWardNo ? value.collateralPermanentWardNo : ''],
+        grandFatherName: [value.collateralGrandFatherName ? value.collateralGrandFatherName : ''],
+        fatherName: [value.collateralFatherName ? value.collateralFatherName : ''],
+        loanHolderName: [value.collateralName ? value.collateralName : ''],
+        financeDistrict: this.nepaliData.branchDistrict ? this.nepaliData.branchDistrict : '',
+        financeMunicipality: this.nepaliData.branchMunVdc ? this.nepaliData.branchMunVdc : '',
+        financeWardNo: this.nepaliData.branchWardNo ? this.nepaliData.branchWardNo : '',
+        financeBranchName: this.nepaliData.branchName ? this.nepaliData.branchName : '',
+        officeRegNo: [value.regNo ? value.regNo : ''],
+        districtName: this.nepaliData.companyDistrict ? this.nepaliData.companyDistrict : '',
+        municipalityName: this.nepaliData.companyVdcMun ? this.nepaliData.companyVdcMun : '',
+        wardNo: this.nepaliData.companyWardNo ? this.nepaliData.companyWardNo : '',
+        companyName: this.nepaliData.companyName ? this.nepaliData.companyName : '',
+        gender: [value.collateralOwnerGender ?  value.collateralOwnerGender : ''],
+        loanAmount: loanAmount.numberNepali ? loanAmount.numberNepali : '',
+        loanAmountWords: loanAmount.nepaliWords ? loanAmount.nepaliWords : '',
+        loanHolderAge: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+                        !ObjectUtil.isEmpty(this.initialInfoPrint.collateralDetails) ?
+                        !ObjectUtil.isEmpty(this.initialInfoPrint.collateralDetails[i]) ?
+                        this.initialInfoPrint.collateralDetails[i].loanHolderAge : '' : '' : ''],
+        malpot: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.collateralDetails) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.collateralDetails[i]) ?
+                this.initialInfoPrint.collateralDetails[i].malpot : '' : '' : ''],
+        financeRegistrationDate: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.collateralDetails) ?
+                !ObjectUtil.isEmpty(this.initialInfoPrint.collateralDetails[i]) ?
+                this.initialInfoPrint.collateralDetails[i].financeRegistrationDate : '' : '' : ''],
+        itiYear: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+                  !ObjectUtil.isEmpty(this.initialInfoPrint.collateralDetails) ?
+                  !ObjectUtil.isEmpty(this.initialInfoPrint.collateralDetails[i]) ?
+                  this.initialInfoPrint.collateralDetails[i].itiYear : '' : '' : ''],
+        itiMonth: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+                  !ObjectUtil.isEmpty(this.initialInfoPrint.collateralDetails) ?
+                  !ObjectUtil.isEmpty(this.initialInfoPrint.collateralDetails[i]) ?
+                  this.initialInfoPrint.collateralDetails[i].itiMonth : '' : '' : ''],
+        itiDate: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+                  !ObjectUtil.isEmpty(this.initialInfoPrint.collateralDetails) ?
+                  !ObjectUtil.isEmpty(this.initialInfoPrint.collateralDetails[i]) ?
+                  this.initialInfoPrint.collateralDetails[i].itiDate : '' : '' : ''],
+        itiSambat: [!ObjectUtil.isEmpty(this.initialInfoPrint) ?
+                    !ObjectUtil.isEmpty(this.initialInfoPrint.collateralDetails) ?
+                    !ObjectUtil.isEmpty(this.initialInfoPrint.collateralDetails[i]) ?
+                    this.initialInfoPrint.collateralDetails[i].itiSambat : '' : '' : ''],
+      }));
+    });
+  }
+  addMoreCollateral(): void {
+    const formArray = this.form.get('collateralDetails') as FormArray;
+    formArray.push(this.collateralFormGroup());
   }
 
   getNumAmountWord(numLabel, wordLabel) {

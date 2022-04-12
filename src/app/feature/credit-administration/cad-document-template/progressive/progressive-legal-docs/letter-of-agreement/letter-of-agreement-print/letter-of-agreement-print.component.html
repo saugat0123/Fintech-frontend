@@ -1,9 +1,10 @@
 <div class="row" id="print-section-{{offerLetterConst.LETTER_OF_AGREEMENT}}">
     <div class="col-md-12 viewFull">
+    <div *ngFor="let printDocForm of printDocForm.collateralDetails; index as i" class="mt-4">
         <form class="nepali margin">
             <div class="container-fluid row">
                 <div class="col-md-12 text-center">
-                    <h3 class="mb-1">
+                    <h3 class="mb-5">
                         <u>अधिकारनामा</u>
                     </h3>
                 </div>
@@ -100,5 +101,7 @@
                 </p>
             </div>
         </form>
+        <div class="page-break"></div>
+    </div>
     </div>
 </div>

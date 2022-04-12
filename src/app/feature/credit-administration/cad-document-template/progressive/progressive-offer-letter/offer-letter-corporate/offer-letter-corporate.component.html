@@ -70,21 +70,19 @@
                 </p>
                 <div class="row">
                     <div class="col-md-12">
-                        <!--<i (click)="addLoan()" size="large"
-                           class="d-print-none fa fa-plus-square"></i>-->
-                        <!--<div *ngFor="let load of form.get('loan')['controls']; let i=index" formArrayName="loan">
-                            <div [formGroupName]="i">-->
-                        <div>
-                            <div>
+                        <i (click)="addLoan()" size="large"
+                           class="d-print-none fa fa-plus-square">Add</i>
+                        <div *ngFor="let load of form.get('loan')['controls']; let i=index" formArrayName="loan">
+                            <div [formGroupName]="i">
                                 <table class="table table-borderless" width="100%">
                                     <tr>
                                         <td rowspan="9" width="10%">१.
-                                            <!--({{i + 1 | nepaliWord: 'unicode'}})-->
+                                            ({{i + 1 | nepaliWord: 'unicode'}})
                                         </td>
                                         <td colspan="2"><b>कर्जा तथा सुविधाको विवरण : </b></td>
-                                        <!--<td><i (click)="removeLoan(i)" size="small"
-                                               class="d-print-none fa fa-trash"
-                                               *ngIf="form.get('loan')['length']>1"></i></td>-->
+                                        <td *ngIf="form.get('loan')['length']>1">
+                                            <i (click)="removeLoan(i)" size="small"
+                                               class="d-print-none fa fa-trash"></i></td>
                                     </tr>
                                     <tr>
                                         <td><b>कर्जा सुविधाको किसिम :</b></td>
@@ -93,23 +91,23 @@
                                                    formControlName="loanTypeNepali"
                                                    type="text">
                                             कर्जा
-                                            <input class="form-control-sm form-field"
+                                            (<input class="form-control-sm form-field"
                                                    formControlName="loanTypeEnglish"
                                                    type="text">
-                                            (loan)<br></td>
+                                            loan)<br></td>
                                     </tr>
                                     <tr>
                                         <td width="15%"><b>कर्जा सिमा :</b></td>
                                         <td>
                                             अधिकतम रु.
                                             <input class="form-control-sm form-field nepaliFont uniFont"
-                                                   (change)="getNumAmountWord('amount', 'amountInWords')"
-                                                   formControlName="amount"
-                                                   type="text">।–
+                                                   (change)="getLoanNumAmountWord('amount1', 'amountInWords1', i)"
+                                                   formControlName="amount1"
+                                                   type="text">/–
                                             (अक्षरेपी:
                                             <input class="form-control-lg form-field nepaliFont uniFont"
                                                    readonly
-                                                   formControlName="amountInWords"
+                                                   formControlName="amountInWords1"
                                                    type="text">
                                             मात्र) ।
                                         </td>
@@ -142,33 +140,33 @@
                                             महिनाको आधार दर (Base Rate) :
                                             <input class="form-control-sm form-field nepaliFont"
                                                    formControlName="interestBaseRate"
-                                                   (change)="calcYearlyRate('interestBaseRate', 'interestPremiumRate', 'interestTempDiscountRate','interestFinalRate')"
+                                                   (change)="calcYearlyRate('interestBaseRate', 'interestPremiumRate', 'interestTempDiscountRate','interestFinalRate', i)"
                                                    type="text">
                                             प्रतिशत प्रिमियम दर (Premium Rate) :
                                             <input class="form-control-sm form-field nepaliFont"
                                                    formControlName="interestPremiumRate"
-                                                   (change)="calcYearlyRate('interestBaseRate', 'interestPremiumRate', 'interestTempDiscountRate','interestFinalRate')"
+                                                   (change)="calcYearlyRate('interestBaseRate', 'interestPremiumRate', 'interestTempDiscountRate','interestFinalRate', i)"
                                                    type="text">
                                             प्रतिशत अस्थाई छुट (Temporary Discount) :
 
                                             <input class="form-control-sm form-field nepaliFont"
                                                    formControlName="interestTempDiscountRate"
-                                                   (change)="calcYearlyRate('interestBaseRate', 'interestPremiumRate', 'interestTempDiscountRate','interestFinalRate')"
+                                                   (change)="calcYearlyRate('interestBaseRate', 'interestPremiumRate', 'interestTempDiscountRate','interestFinalRate', i)"
                                                    type="text">
                                             प्रतिशत ब्याजदर = आधार दर + प्रिमियम – अस्थाई छुट =
                                             <input class="form-control-sm form-field nepaliFont"
                                                    readonly
-                                                   [value]="form.get('interestBaseRate').value"
+                                                   [value]="form?.get(['loan', i, 'interestBaseRate'])?.value"
                                                    type="text">
                                             % +
                                             <input class="form-control-sm form-field nepaliFont"
                                                    readonly
-                                                   [value]="form.get('interestPremiumRate').value"
+                                                   [value]="form?.get(['loan', i, 'interestPremiumRate'])?.value"
                                                    type="text">
                                             % –
                                             <input class="form-control-sm form-field nepaliFont"
                                                    readonly
-                                                   [value]="form.get('interestTempDiscountRate').value"
+                                                   [value]="form?.get(['loan', i, 'interestTempDiscountRate'])?.value"
                                                    type="text">
                                             % =
                                             <input class="form-control-sm form-field nepaliFont font-size-normal"
@@ -208,7 +206,7 @@
                                         <td>प्रतिवद्धता शुल्क</td>
                                         <td>रु.
                                             <input class="form-control-sm form-field nepaliFont uniFont"
-                                                   formControlName="amount"
+                                                   formControlName="amount1"
                                                    type="text">
                                             को कर्जा लगानी भएको मितिले म्याद अगावै साँवाको
                                             अग्रिम भुक्तानी गरेमा वा कर्जा चुक्ता गरेमा अग्रिम भुक्तानी गरे बराबरको साँवा रकममा थप
@@ -322,8 +320,6 @@
                                                        type="text">
                                             </td>
                                             <td *ngIf="form.get('securityDetails')['length']>1">
-                                                <!--<i (click)="addEmptySecurityDetail()" size="large"
-                                                   class="d-print-none fa fa-plus-square"></i>-->
                                                 <i (click)="removeSecurityDetail(i)" size="small"
                                                    class="d-print-none fa fa-trash"></i>
                                             </td>
@@ -679,95 +675,78 @@
                                     ७.२
                                 </td>
                                 <td colspan="2">
-
-                                    फाइनान्सले पूर्व सूचना दिएर वा नदिई पनि कर्जा÷सुविधालाई नियमित वनाई राख्न ऋणीको खाता
-                                    खर्च
-                                    गर्न सक्नेछ । यसका लागि ऋणीले आफ्नो खातामा पर्याप्त रकम कायम राख्नु पर्नेछ । ऋणीको
-                                    खातामा
-                                    पर्याप्त रकम नभई कर्जा वा सुविधाको किस्ता खिलाफी भएमा ऋणीले फाइनान्स नियमानुसार
-                                    विलम्व
+                                    फाइनान्सले पूर्व सूचना दिएर वा नदिई पनि कर्जा/सुविधालाई नियमित वनाई राख्न ऋणीको खाता खर्च
+                                    गर्न सक्नेछ । यसका लागि ऋणीले आफ्नो खातामा पर्याप्त रकम कायम राख्नु पर्नेछ । ऋणीको खातामा
+                                    पर्याप्त रकम नभई कर्जा वा सुविधाको किस्ता खिलाफी भएमा ऋणीले फाइनान्स नियमानुसार विलम्व
                                     शुल्क तिर्नु पर्नेछ । बैंक जमानत वमोजिमको रकम फाइनान्सले भुक्तानी गरेमा जमानीको रकम
-                                    फाइनान्सले
-                                    ऋणीको खातामा खर्च लेखी सोझै असुल उपर गर्ने छ ।
+                                    फाइनान्सले ऋणीको खातामा खर्च लेखी सोझै असुल उपर गर्ने छ ।
                                 </td>
                             </tr>
                             <tr>
                                 <td>७.३</td>
                                 <td colspan="2">
                                     ऋणीले सवै किसिमका कर, फि, शुल्क तथा लाग्ने दैदस्तुर र अविवादित ज्यालाको भुक्तानी
-                                    समयमै गर्नु
-                                    पर्ने छ ।
+                                    समयमै गर्नु पर्ने छ ।
                                 </td>
                             </tr>
                             <tr>
                                 <td>७.४</td>
                                 <td colspan="2">
                                     सवै किसिमका भैपरि आउने खर्चहरु संस्थापक/सञ्चालक/शेयरधनीवाट पूँजी वा विना व्याजको ऋण
-                                    उठाई
-                                    व्यहोर्नु पर्ने छ । संस्थापक/सञ्चालक/शेयरधनीवाट कुनै ऋण उठाएमा फाइनान्सको कर्जा
-                                    सुविधा पूर्ण
-                                    रुपमा चुक्ता भुक्तानी गरे पछि मात्र त्यस्तो ऋण चुक्ता गर्नु पर्ने छ ।
+                                    उठाई व्यहोर्नु पर्ने छ । संस्थापक/सञ्चालक/शेयरधनीवाट कुनै ऋण उठाएमा फाइनान्सको कर्जा
+                                    सुविधा पूर्ण रुपमा चुक्ता भुक्तानी गरे पछि मात्र त्यस्तो ऋण चुक्ता गर्नु पर्ने छ ।
                                 </td>
                             </tr>
                             <tr>
                                 <td>७.५</td>
                                 <td colspan="2">
                                     संस्थापक/सञ्चालक/शेयरधनीवाट लिएको ऋणको भुक्तानी गर्नु पूर्व फाइनान्सको पूर्व
-                                    स्वीकृति लिनु
-                                    पर्ने छ ।
+                                    स्वीकृति लिनु पर्ने छ ।
                                 </td>
                             </tr>
                             <tr>
                                 <td>७.६</td>
                                 <td colspan="2">
                                     फाइनान्समा भुक्तानी गर्नु पर्ने रकम वांकी रहेको अवस्थामा शेयरधनी वा साझेदारलाई कुनै
-                                    लाभांश
-                                    भुक्तानी गर्न पाइने छैन ।
+                                    लाभांश भुक्तानी गर्न पाइने छैन ।
                                 </td>
                             </tr>
                             <tr>
                                 <td>७.७</td>
                                 <td colspan="2">
                                     स्टक र उठाउनु पर्ने उधारोको रकमले कर्जा रकम खाम्न नसक्ने भएमा व्यवसायिक कर्जाको सिमा
-                                    तत्कालै
-                                    घटाईने छ र नपुग रकम तत्कालै भुक्तानी गर्नु पर्ने छ ।
+                                    तत्कालै घटाईने छ र नपुग रकम तत्कालै भुक्तानी गर्नु पर्ने छ ।
                                 </td>
                             </tr>
                             <tr>
                                 <td>७.८</td>
                                 <td colspan="2">
                                     माथि उल्लेख भए वमोजिम भुक्तानी गर्न ऋणी असफल भएमा वा भुक्तानी नगरेमा ऋणीको चल्ती/बचत
-                                    खाता
-                                    खर्च गरी फाइनान्सले भुक्तानी पठाउने छ ।
+                                    खाता खर्च गरी फाइनान्सले भुक्तानी पठाउने छ ।
                                 </td>
                             </tr>
                             <tr>
                                 <td>७.९</td>
                                 <td colspan="2">
                                     ऋणी वा यस कर्जा/सुविधाको लागि जमानी दिने जमानीकर्ताले यस फाइनान्सको १ (एक) प्रतिशत
-                                    वा सो
-                                    भन्दा वढी शेयर धारण गर्न पाइने छैन ।
+                                    वा सो भन्दा वढी शेयर धारण गर्न पाइने छैन ।
                                 </td>
                             </tr>
                             <tr>
                                 <td>७.१०</td>
                                 <td colspan="2">
-                                    फाइनान्सले प्रचलित नेपाल कानून र नेपाल राष्ट्र बैंकको निर्देशिका वमोजिम ऋणी वा
-                                    ऋणीसंग
+                                    फाइनान्सले प्रचलित नेपाल कानून र नेपाल राष्ट्र बैंकको निर्देशिका वमोजिम ऋणी वा ऋणीसंग
                                     सम्वद्ध व्यक्ति उपर कुनै कारवाही सुरु गर्नका लागि कर्जा सूचना केन्द्र वा अन्य सक्षम
-                                    निकाय
-                                    समक्ष सिफारिश गर्न सक्नेछ ।
+                                    निकाय समक्ष सिफारिश गर्न सक्नेछ ।
                                 </td>
                             </tr>
 
                             <tr>
                                 <td>७.११</td>
                                 <td colspan="2">
-                                    कम्पनी संग सम्बन्धित सम्पूर्ण आर्थिक कारोबार यसै संस्थामार्फत मात्र गर्नुपर्नेछ ।
-                                    अन्यत्रबाट
+                                    कम्पनी संग सम्बन्धित सम्पूर्ण आर्थिक कारोबार यसै संस्थामार्फत मात्र गर्नुपर्नेछ । अन्यत्रबाट
                                     गर्नुपर्ने भएमा यस संस्थाको स्वीकृतिलिई मात्र गर्न सकिनेछ । कानूनले निशेध गरेका कुनै
-                                    पनि
-                                    कारोबर कम्पनीले/बाट गर्न पाउने छैन ।
+                                    पनि कारोबर कम्पनीले/बाट गर्न पाउने छैन ।
                                 </td>
                             </tr>
 
@@ -775,10 +754,8 @@
                                 <td>७.१२</td>
                                 <td colspan="2">
                                     यस वित्तीय संस्थामा कम्पनीको ऋण रकम कायम रहुन्जेल सम्म हालकायम रहेका कम्पनीका
-                                    शेयरधनीहरुले
-                                    आफ्नो नामको शेयर विक्री वा हस्तन्तरण गर्नुपरेमा यस वित्तीय संस्थाको पूर्व
-                                    स्वीकृतिलिई मात्र
-                                    गर्न पाईनेछ ।
+                                    शेयरधनीहरुले आफ्नो नामको शेयर विक्री वा हस्तन्तरण गर्नुपरेमा यस वित्तीय संस्थाको पूर्व
+                                    स्वीकृतिलिई मात्र गर्न पाईनेछ ।
                                 </td>
                             </tr>
 
@@ -787,18 +764,15 @@
                                 <td>७.१३</td>
                                 <td colspan="2">
                                     यो कर्जा सुबिधा स्वीकृति पत्रमा उल्लेखित कुनै पनि शर्त वन्देज ऋणीले उल्लंघन गरेको
-                                    कारणले
-                                    कुनै हानी नोक्सानी वा क्षति भएमा ऋणी आफैले व्यहोर्नु पर्ने छ ।
+                                    कारणले कुनै हानी नोक्सानी वा क्षति भएमा ऋणी आफैले व्यहोर्नु पर्ने छ ।
                                 </td>
                             </tr>
                             <tr>
                                 <td>७.१४</td>
                                 <td colspan="2">
-                                    साथै ऋणीले जग्गा धनीसँग गरेको लिज/बाहाल सम्झौताको अवधि यस वित्तीय संस्थाले कर्जाको
-                                    म्याद
+                                    साथै ऋणीले जग्गा धनीसँग गरेको लिज/बाहाल सम्झौताको अवधि यस वित्तीय संस्थाले कर्जाको म्याद
                                     समाप्त हुने अवधिसम्म रहनु पर्नेमा सो बमोजिम नभएमा उक्त अवधि सम्मको लिज सम्झौता थप
-                                    गरी
-                                    स्वीकृत पत्र बुझेको मितिले ४५ दिन भित्र अध्यावधिक गरि सक्नुपर्नेछ ।
+                                    गरी स्वीकृत पत्र बुझेको मितिले ४५ दिन भित्र अध्यावधिक गरि सक्नुपर्नेछ ।
                                 </td>
                             </tr>
                             <tr>
@@ -814,8 +788,7 @@
                                 <td>८.</td>
                                 <td colspan="2">
                                     <b>किस्ता/कर्जा खिलाफीको अवस्था :</b>
-                                    देहायमा उल्लेखित कुनै एक वा सवै अवस्था सिर्जना भएमा किस्ता/कर्जा खिलाफी भएको मानिने
-                                    छ ।
+                                    देहायमा उल्लेखित कुनै एक वा सवै अवस्था सिर्जना भएमा किस्ता/कर्जा खिलाफी भएको मानिने छ ।
                                 </td>
                             </tr>
                             <tr>
@@ -1336,7 +1309,11 @@
                             <p>जमानतकर्ताको नाम : श्री
                                 <input class="form-control-sm form-field nepaliFont"
                                        type="text"
-                                       formControlName="tapsilGuarantorName"></p>
+                                       formControlName="tapsilGuarantorName">
+                                <ng-container *ngIf="form.get(['additionalGuarantor', i, 'guarantorType']).value === 'Corporate_Guarantor'">,
+                                    प्रतिनिधि <input class="form-field nepaliFont form-control-sm"
+                                                     formControlName="companyPraName"
+                                                     type="text"> </ng-container></p>
                             <p>नागरिकता न./मिति/जिल्ला :
                                 <input class="form-control-sm form-field nepaliFont"
                                        type="text"
@@ -1348,25 +1325,47 @@
                                 <input class="form-control-sm form-field nepaliFont"
                                        type="text"
                                        formControlName="tapsilGuarantorCitizenshipIssuePlace"></p>
+                            <p *ngIf="form.get(['additionalGuarantor', i, 'guarantorType']).value === 'Corporate_Guarantor'">
+                                <strong>कम्पनीको हकमा</strong> :- (रजिष्टेशन नं<input class="form-field nepaliFont form-control-sm"
+                                                                                      formControlName="jamanatRegNo"
+                                                                                      type="text">
+                                मिति<input class="form-field nepaliFont form-control-sm"
+                                           formControlName="jamanatRegDate"
+                                           type="text">
+                                दर्ता गर्ने कार्यालय<input class="form-field nepaliFont form-control-sm"
+                                                           formControlName="jamanatRegCDO"
+                                                           type="text">)<br>
+                            </p>
                             <p>ठेगाना :
-                                <input class="form-control-sm form-field nepaliFont uniFont"
-                                       type="text"
-                                       formControlName="tapsilGuarantorDistrict"> जिल्ला,
-
-                                <input class="form-control-sm form-field nepaliFont"
-                                       type="text"
-                                       formControlName="tapsilGuarantorMunicipality">
+                                <ng-container *ngIf="form.get(['additionalGuarantor', i, 'guarantorType']).value === 'Corporate_Guarantor'">
+                                    <input class="form-control-sm form-field nepaliFont"
+                                           type="text"
+                                           formControlName="tapsilGuarantorDistrict"> जिल्ला,
+                                    <input class="form-control-sm form-field nepaliFont"
+                                           type="text"
+                                           formControlName="tapsilGuarantorMunicipality">
+                                </ng-container>
+                                <ng-container *ngIf="form.get(['additionalGuarantor', i, 'guarantorType']).value === 'Personal_Guarantor'">
+                                    <input class="form-control-sm form-field nepaliFont uniFont"
+                                           type="text"
+                                           formControlName="tapsilGuarantorDistrict"> जिल्ला,
+                                    <input class="form-control-sm form-field nepaliFont"
+                                           type="text"
+                                           formControlName="tapsilGuarantorMunicipality">
+                                </ng-container>
                                 न.पा/म.न.पा वडा न
                                 <input class="form-control-sm form-field nepaliFont"
                                        type="text"
                                        formControlName="tapsilGuarantorWardNum"></p>
-                            <p>ऋणीसगको सम्बन्ध :
+                            <p *ngIf="form.get(['additionalGuarantor', i, 'guarantorType']).value === 'Personal_Guarantor'">
+                                ऋणीसगको सम्बन्ध :
                                 <input class="form-control-sm form-field nepaliFont font-size-normal"
                                        type="text"
                                        placeholder="जमानत कर्ता/ (अन्य भएमा उल्लेख गर्ने)"
                                        formControlName="tapsilGuarantorRelation">
                             </p>
-                            <p>ससुराको नाम : श्री
+                            <p  *ngIf="form.get(['additionalGuarantor', i, 'guarantorType']).value === 'Personal_Guarantor'">
+                                ससुराको नाम : श्री
                                 <input class="form-control-sm form-field nepaliFont"
                                        type="text"
                                        formControlName="tapsilGuarantorInLawName"></p>
