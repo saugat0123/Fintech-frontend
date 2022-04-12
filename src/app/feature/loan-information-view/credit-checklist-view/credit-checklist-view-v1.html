@@ -1,0 +1,336 @@
+<div class="row" *ngIf="version1">
+    <div class="col-md-12">
+        <table class="table table-bordered text-center table-responsive-md table-sm sb-small">
+            <tr>
+                <th class="sb-bg-dark text-white">Credit CheckList</th>
+            </tr>
+        </table>
+        <label>Credit Checklist-General</label>
+        <div class="col-md-6">
+            <label>Date of Checklist:</label>
+            <span>{{dataForEdit?.dateCheckList ? (dataForEdit?.dateCheckList | date) : 'NA'}} ({{dataForEdit?.dateCheckList ? (dataForEdit?.dateCheckList | engNepDate: false) : 'NA'}})</span>
+        </div>
+        <table class="table table-bordered text-center table-responsive-md table-sm sb-small">
+            <thead>
+            <tr class="text-center text-white sb-bg-dark">
+                <th class="px-2">SN</th>
+                <th class="px-2">Prudence and Due Diligence</th>
+                <th class="px-2">Yes/No/NA</th>
+                <th class="width px-2">Remarks</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>1.</td>
+                <td class="text-justify px-2">Borrowing Power checked and confirmed that the company's bylaws permit Bank
+                    borrowing
+                </td>
+                <td>{{dataForEdit?.permit}}</td>
+                <td>{{dataForEdit?.permitRemark}}</td>
+            </tr>
+            <tr>
+                <td>2.</td>
+                <td class="text-justify px-2">
+                    Clearance from Credit Information Center Ltd obtained.Borrower and related
+                    entities (including family members) are not listed in any of the Bank's internally maintained Hot List.
+                </td>
+                <td>{{dataForEdit?.clearance}}</td>
+                <td>{{dataForEdit?.clearanceRemark}}</td>
+            </tr>
+            <tr>
+                <td>3.</td>
+                <td class="text-justify px-2">This proposal does not constitute take-over of a loan from another Financial
+                    Institution at more liberal terms and conditions.
+                </td>
+                <td>{{dataForEdit?.noProposal}}</td>
+                <td>{{dataForEdit?.noProposalRemark}}</td>
+            </tr>
+            <tr>
+                <td>4.</td>
+                <td class="text-justify px-2">
+                    All Internal & External audit comments made in the past 12 months have been
+                    satisfactorily resolved / addressed.
+                </td>
+                <td>{{dataForEdit?.audit}}</td>
+                <td>{{dataForEdit?.auditRemark}}</td>
+            </tr>
+            <tr>
+                <td>5.</td>
+                <td class="text-justify px-2">
+                    Copies of all legal Registrations, Tax Certificates (PAN/VAT), Permit /License
+                    we hold are "current".
+                </td>
+                <td>{{dataForEdit?.copies}}</td>
+                <td>{{dataForEdit?.copiesRemark}}</td>
+            </tr>
+            <tr>
+                <td>6.</td>
+                <td class="text-justify px-2">
+                    Physical verification of security conducted within the last 3 months and found
+                    to be in order.
+                </td>
+                <td>{{dataForEdit?.verification}}</td>
+                <td>{{dataForEdit?.verificationRemark}}</td>
+            </tr>
+            <tr>
+                <td>7.</td>
+                <td class="text-justify px-2">
+                    Latest valuation of Fixed Asset Security has been carried out within the last
+                    24 months. <br>
+                    Date of last valuation:
+                    <b>{{dataForEdit?.dateValuation ? (dataForEdit?.dateValuation | date) : 'NA'}}
+                        ({{dataForEdit?.dateValuation ? (dataForEdit?.dateValuation | engNepDate: false): 'NA'}})</b>
+                </td>
+                <td>{{dataForEdit?.valuation}}</td>
+                <td>{{dataForEdit?.valuationRemark}}</td>
+            </tr>
+            <tr>
+                <td>8.</td>
+                <td class="text-justify px-2">
+                    Assets hypothecated/mortgaged are adequately insured as per the terms of
+                    sanction.<br>
+                    Insurance coverage of the mortgage assets and stocks will be obtained .NA
+                </td>
+                <td>{{dataForEdit?.assets}}</td>
+                <td>{{dataForEdit?.assetsRemark}}</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td class="text-justify px-2"><b>Relationship Management /Monitoring</b></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>9.</td>
+                <td class="text-justify px-2">
+                    Regular customer contacts are evidenced by way of call Reports.<br>
+                    Number of customer contacts made and recorded in the last 12 months: <b>{{dataForEdit?.callReportMonth}}</b> <br>
+                    Date of last customer contact /Call Report:
+                    <b>{{dataForEdit?.callReportDate ? (dataForEdit?.callReportDate | date) :'NA'}} ({{dataForEdit?.callReportDate ? (dataForEdit?.callReportDate | engNepDate: false) : 'NA'}})</b>
+                    <br>
+                    Number of irregularity Report raised in the past 12 months: <b>{{dataForEdit?.callReportIrregularityReport}}</b>
+                </td>
+                <td>{{dataForEdit?.callReport}}</td>
+                <td>{{dataForEdit?.callReportRemark}}</td>
+            </tr>
+            <tr></tr>
+            <ng-container *ngIf="customerType === 'INDIVIDUAL'">
+                <tr>
+                    <td></td>
+                    <td class="text-justify text-center px-2"><b>Review Checklist</b></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>10.</td>
+                    <td class="text-justify px-2">
+                        Self declaration on Bank Borrowing Obtained
+                    </td>
+                    <td>{{dataForEdit?.selfDeclaration}}</td>
+                    <td>{{dataForEdit?.selfDeclarationRemark}}</td>
+                </tr>
+                <tr>
+                    <td>11.</td>
+                    <td class="text-justify px-2">
+                        The Applicant and PG's are not Blacklisted
+                    </td>
+                    <td>{{dataForEdit?.applicantPG}}</td>
+                    <td>{{dataForEdit?.applicantPGRemark}}</td>
+                </tr>
+                <tr>
+                    <td>12.</td>
+                    <td class="text-justify px-2">
+                        Net-Worth Declaration of applicant and Personal Guarantor have been obtained
+                    </td>
+                    <td>{{dataForEdit?.netWorth}}</td>
+                    <td>{{dataForEdit?.netWorthRemark}}</td>
+                </tr>
+                <tr>
+                    <td>13.</td>
+                    <td class="text-justify px-2">
+                        Consent from all the legal heirs of the property owner will be obtained
+                    </td>
+                    <td>{{dataForEdit?.consentObtained}}</td>
+                    <td>{{dataForEdit?.consentObtainedRemark}}</td>
+                </tr>
+                <tr>
+                    <td>14.</td>
+                    <td class="text-justify px-2">
+                        A Director of the Bank or his/her undivided family member is not a <i>Manager,
+                        Partner, Agent and Guarantor and does not have a direct financial interest in the
+                        Borrowing firm / company</i>
+                    </td>
+                    <td>{{dataForEdit?.directorUndivided}}</td>
+                    <td>{{dataForEdit?.directorUndividedRemark}}</td>
+                </tr>
+                <tr>
+                    <td>15.</td>
+                    <td class="text-justify px-2">A Director of the Bank or member of such Director's undivided family has not
+                        provided a Guarantee in favor of the Bank to secure loans and advances made to the Borrowing
+                        firm / company</td>
+                    <td>{{dataForEdit?.borrowingFirmCompany}}</td>
+                    <td>{{dataForEdit?.borrowingFirmCompanyRemark}}</td>
+                </tr>
+                <tr>
+                    <td>16.</td>
+                    <td class="text-justify px-2">
+                        The Borrower is not a Promoter of the Bank or a Shareholder in the Promoter Group
+                    </td>
+                    <td>{{dataForEdit?.borrowerPromoter}}</td>
+                    <td>{{dataForEdit?.borrowerPromoterRemark}}</td>
+                </tr>
+            </ng-container>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-12">
+        <label>Regulatory Compliance Checklist</label>
+        <br>
+        <label>NRB Directives No. 6.8 Ka</label>
+        <table class="table table-bordered text-center table-responsive-md table-sm sb-small">
+            <thead>
+            <tr class="text-white sb-bg-dark">
+                <th class="px-2">SN</th>
+                <th class="px-2">Prohibition on Lending to Directors</th>
+                <th class="px-2">Yes/No</th>
+                <th class="width px-2">Remarks</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>1.</td>
+                <td class="text-justify px-2">
+                    The Borrower or members of his/her undivided family is not a Director on the Bank.
+                </td>
+                <td>{{dataForEdit?.director}}</td>
+                <td>{{dataForEdit?.directorRemark}}</td>
+            </tr>
+            <tr>
+                <td>2.</td>
+                <td class="text-justify px-2">
+                    A Director of the Bank or his/her undivided family member is not a Manager, Partner
+                    ,Agent, Guarantor or does not have a direct financial interest in the borrower or
+                    borrowing firm/ company/institution.
+                </td>
+                <td>{{dataForEdit?.bankPost}}</td>
+                <td>{{dataForEdit?.bankPostRemark}}</td>
+            </tr>
+            <tr>
+                <td>3.</td>
+                <td class="text-justify px-2">
+                    A Director of the Bank or his/her undivided family member does not own more than
+                    10% shares in the borrowing firm/company/institution.
+                </td>
+                <td>{{dataForEdit?.share}}</td>
+                <td>{{dataForEdit?.shareRemark}}</td>
+            </tr>
+            <tr>
+                <td>4.</td>
+                <td class="text-justify px-2">
+                    A Director of the Bank or his/her undivided family member is not a guarantor of the
+                    borrower or borrowing firm /company/ institution.
+                </td>
+                <td>{{dataForEdit?.guarantor}}</td>
+                <td>{{dataForEdit?.guarantorRemark}}</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <label>NRB Directives No. 6.8 Kha</label>
+        <table class="table table-bordered text-center table-responsive-md table-sm sb-small">
+            <thead>
+            <tr class="sb-bg-dark text-white">
+                <th class="px-2">SN</th>
+                <th class="px-2">Prohibition on lending to Promoter, Shareholder, Auditor, Legal Advisor and Employees</th>
+                <th class="px-2">Yes/No</th>
+                <th class="width px-2">Remarks</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>1.</td>
+                <td class="text-justify px-2">
+                    The Borrower or his/her undivided family member is not a Promoter or shareholder
+                    holding more than 1% of total paid up capital of the Bank.
+                </td>
+                <td>{{dataForEdit?.promoter}}</td>
+                <td>{{dataForEdit?.promoterRemark}}</td>
+            </tr>
+            <tr>
+                <td>2.</td>
+                <td class="text-justify px-2">
+                    The borrower or borrowing firm/company/ institution is not Promoter,
+                    shareholder holding 1 percent or more shares, Auditor, Legal Advisor, Employee,
+                    Chief Executive or family members of such persons or having financial interest
+                    or rights to nominate or appoint a Director of the Bank.
+                </td>
+                <td>{{dataForEdit?.shareOfBank}}</td>
+                <td>{{dataForEdit?.shareOfBankRemark}}</td>
+            </tr>
+            <tr>
+                <td>3.</td>
+                <td class="text-justify px-2">
+                    Shareholders having above 1% shares and employees are not partners, guarantors and have no
+                    financial interest on the borrowing individuals/firms/companies/institutions.
+                </td>
+                <td>{{dataForEdit?.financialInterest}}</td>
+                <td>{{dataForEdit?.financialInterestRemark}}</td>
+            </tr>
+            <tr>
+                <td>4.</td>
+                <td class="text-justify px-2">
+                    Shareholder holding more than 1% share and employee does not have more than
+                    10% voting rights in the borrowing firm/company /institution, except directed
+                    otherwise by NRB.
+                </td>
+                <td>{{dataForEdit?.votingRight}}</td>
+                <td>{{dataForEdit?.votingRightRemark}}</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <label>NRB Directives No. 6.8 Ga</label>
+        <table class="table table-bordered text-center table-responsive-md table-sm sb-small">
+            <thead>
+            <tr class="sb-bg-dark text-white">
+                <th class="sn">SN</th>
+                <th class="px-2">Particular</th>
+                <th class="px-2">Yes/No</th>
+                <th class="width px-2">Remarks</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>1.</td>
+                <td class="text-justify px-2">
+                    Collateral securities for the loans should not be owned by Directors, Promoters, Chief Executive Officer or their family members.
+                </td>
+                <td>{{dataForEdit?.collateralSecurity}}</td>
+                <td>{{dataForEdit?.collateralSecurityRemark}}</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <label>NRB Directives No. 6.8 Nga</label>
+        <table class="table table-bordered text-center table-responsive-md table-sm sb-small">
+            <thead>
+            <tr class="sb-bg-dark text-white">
+                <th class="sn">SN</th>
+                <th class="px-2">Particular</th>
+                <th class="px-2">Yes/No</th>
+                <th class="width px-2">Remarks</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>1.</td>
+                <td class="text-justify px-2">
+                    The borrower is not a valuator of the bank.
+                </td>
+                <td>{{dataForEdit?.notValuator}}</td>
+                <td>{{dataForEdit?.notValuatorRemark}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
