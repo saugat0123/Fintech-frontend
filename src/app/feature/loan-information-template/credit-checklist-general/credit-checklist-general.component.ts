@@ -147,6 +147,11 @@ export class CreditChecklistGeneralComponent implements OnInit {
       documentRemark: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.documentRemark)],
       operatorsRemark: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.operatorsRemark)],
       kycRemark: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.kycRemark)],
+      collateralSecurity: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.collateralSecurity)],
+      collateralSecurityRemark: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.collateralSecurityRemark)],
+      notValuator: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.notValuator)],
+      notValuatorRemark: [ObjectUtil.isEmpty(data) ? undefined : ObjectUtil.setUndefinedIfNull(data.notValuatorRemark)],
+      checkVersion: 'v1',
 
     });
   }
@@ -216,5 +221,16 @@ export class CreditChecklistGeneralComponent implements OnInit {
     this.overlay.show();
     this.creditChecklistGeneral.data = JSON.stringify(this.formGroupCheckList.value);
     this.creditChecklistGeneralEmitter.emit(this.creditChecklistGeneral);
+  }
+
+  directiveYesAll(value, formControlName) {
+    switch (value) {
+      case 'ga':
+        this.formGroupCheckList.get(formControlName).patchValue('Yes');
+        break;
+      case 'nga':
+        this.formGroupCheckList.get(formControlName).patchValue('Yes');
+        break;
+    }
   }
 }
