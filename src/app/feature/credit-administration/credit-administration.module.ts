@@ -133,6 +133,8 @@ import {Section2SmeSecurityComponent} from './cad-view/template-data/nabil-sme-t
 import { RequiredLegalDocumentSectionComponent } from './cad-view/template-data/nabil-sme-template-data/sme-template-data/sme-master-template/required-legal-document-section/required-legal-document-section.component';
 import { CommonSecuritySectionPrimaryComponent } from './cad-view/template-data/nabil-sme-template-data/common-security-section/common-security-section-primary/common-security-section-primary.component';
 import { CommonSecuritySectionSecondaryComponent } from './cad-view/template-data/nabil-sme-template-data/common-security-section/common-security-section-secondary/common-security-section-secondary.component';
+import { RetailTemplateDataComponent } from './cad-view/template-data/retail-template-data/retail-template-data.component';
+import { RetailGlobalContentComponent } from './cad-view/template-data/retail-template-data/retail-global-content/retail-global-content.component';
 
 @NgModule({
     declarations: [UnassignedLoanComponent,
@@ -252,7 +254,9 @@ import { CommonSecuritySectionSecondaryComponent } from './cad-view/template-dat
         Section2SmeSecurityComponent,
         RequiredLegalDocumentSectionComponent,
         CommonSecuritySectionPrimaryComponent,
-        CommonSecuritySectionSecondaryComponent],
+        CommonSecuritySectionSecondaryComponent,
+        RetailTemplateDataComponent,
+        RetailGlobalContentComponent],
   imports: [
     ThemeModule,
     CommonModule,

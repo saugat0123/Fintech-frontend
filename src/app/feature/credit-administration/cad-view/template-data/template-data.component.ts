@@ -43,6 +43,7 @@ export class TemplateDataComponent implements OnInit, OnChanges {
     isInterestSubsidy = false;
     isDdslWithoutSubsidy = false;
     isClassA = false;
+    retailCombined = false;
 
 
     constructor(
@@ -121,6 +122,7 @@ export class TemplateDataComponent implements OnInit, OnChanges {
             this.getLoanOfferLetterName();
         }
         if (this.isTabActive && this.offerLetterNames.length > 0) {
+            console.log('Cad Data:', this.cadData);
             this.showTemplate(this.offerLetterNames);
         }
     }
@@ -183,5 +185,9 @@ export class TemplateDataComponent implements OnInit, OnChanges {
                 this.isCombinedOfferLetter = true;
             }
         });
+       if (this.isEducationLoan || this.isPersonalLoan || this.isPersonalOverdraft ||
+       this.isPersonalAndPersonalOverdraft || this.isHomeLoan || this.isMortgageLoan) {
+           this.retailCombined = true;
+       }
    }
 }

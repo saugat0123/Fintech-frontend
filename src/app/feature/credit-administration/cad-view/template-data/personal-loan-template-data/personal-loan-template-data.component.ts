@@ -27,6 +27,9 @@ import {CadOfferLetterConfigurationComponent} from "../../../cad-offerletter-pro
 export class PersonalLoanTemplateDataComponent implements OnInit {
   @Input() cadData: CustomerApprovedLoanCadDocumentation;
   @Input() customerApprovedDoc: CustomerApprovedLoanCadDocumentation;
+  @Input() loanName;
+  @Input() offerDocumentList: Array<OfferDocument>;
+  @Input() cadDocAssignedLoan;
   tdValues: any = {};
   form: FormGroup;
   fieldFlag = false;
