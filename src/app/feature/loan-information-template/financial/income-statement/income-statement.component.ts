@@ -394,6 +394,9 @@ export class IncomeStatementComponent implements OnInit, OnDestroy {
                 Number(this.financialService.fetchValuesForSubCategories(this.incomeStatementForm
                     .get('operatingExpensesCategory'), 'Depreciation', index));
         }
+        if (headingTitle === 'accumulatedProfitBOrD') {
+            this.checkForLatterFiscalYearChanges(index);
+        }
     }
 
     checkForLatterFiscalYearChanges(index: number) {
