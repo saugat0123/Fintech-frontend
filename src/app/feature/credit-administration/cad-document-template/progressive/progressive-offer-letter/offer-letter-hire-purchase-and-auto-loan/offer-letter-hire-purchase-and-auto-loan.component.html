@@ -143,7 +143,7 @@
                          readonly
                          type="text"
                          formControlName="amountInWords">
-                  रुपैंया मात्र ।)
+                  मात्र ।)
                 </td>
               </tr>
               <tr>
@@ -361,8 +361,14 @@
                          formControlName="grandFatherName"
                          type="text"> <br>
                   ठेगाना :
-                  <input class="form-control-sm form-field nepaliFont"
+                  <input class="form-control-sm form-field nepaliFont uniFont"
                          formControlName="address"
+                         type="text">,
+                  <input class="form-control-sm form-field nepaliFont"
+                         formControlName="addressVDC"
+                         type="text">,
+                  <input class="form-control-sm form-field nepaliFont"
+                         formControlName="addressWard"
                          type="text">
                 </td>
                 <td>
@@ -453,10 +459,6 @@
                   <input class="form-control-sm form-field nepaliFont"
                          type="text"
                          formControlName="shreeName1">
-                  र
-                  <input class="form-control-sm form-field nepaliFont"
-                         type="text"
-                         formControlName="shreeName2">
                   को रु.
                   <input
                       class="form-control-sm form-field nepaliFont uniFont"
@@ -468,7 +470,7 @@
                          readonly
                          type="text"
                          formControlName="amountInWords1">
-                  रुपैंया मात्र ।) को छुट्टा छुट्टै व्यक्तिगत जमानीको लिखत गरिदिनु पर्ने छ ।
+                  मात्र ।) को छुट्टा छुट्टै व्यक्तिगत जमानीको लिखत गरिदिनु पर्ने छ ।
                   <em (click)="removeIndividualDetails(i)" size="small" class="float-right fa fa-trash"
                       *ngIf="form.get('individualDetails')['length']>1"></em>
                 </p>
@@ -490,7 +492,7 @@
                      readonly
                      type="text"
                      formControlName="amountInWords">
-              रुपैंया मात्र ।)  को ऋणि तथा जमानी कर्ताले एक एक प्रति प्रतिज्ञापत्रमा
+              मात्र ।)  को ऋणि तथा जमानी कर्ताले एक एक प्रति प्रतिज्ञापत्रमा
               सही छाप गरी फाइनान्सलाई उपलव्ध गराउनु पर्ने छ ।
             </td>
           </tr>
@@ -574,7 +576,7 @@
         <tr>
           <td>६.२</td>
           <td>
-            आवश्यक परेमा फाइनान्स समक्ष ऋणीले धितो राखेको सम्पत्ति पुरै वा आंिशक रुपमा फाइनान्सले अरु कुनै तेश्रो
+            आवश्यक परेमा फाइनान्स समक्ष ऋणीले धितो राखेको सम्पत्ति पुरै वा आंशिक रुपमा फाइनान्सले अरु कुनै तेश्रो
             पक्षलाई पुनः धितो दिन सक्नेछ ।
           </td>
         </tr>
@@ -932,7 +934,6 @@
           </div>
         </div>
       </div>
-      <br>
       <p>
         यस पत्रमा उल्लेखित सम्पूर्ण शर्त तथा बन्देजहरु मलाई पूर्ण मन्जुर छ । उपरोक्त बमोजिम फाइनान्सबाट प्राप्त हुने ऋण कर्जा
         सुबिधा तथा अन्य दायित्व तिर्न बुझाउन मेरो पूर्ण मन्जुरी रहेकोले यो कर्जा स्वीकृतिपत्रमा स्वीकृति जनाई सही छाप गरी

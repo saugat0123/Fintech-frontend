@@ -36,6 +36,7 @@ export class HypothecationOfGoodsAndReceivablesAComponent implements OnInit {
   existingOfferLetter = false;
   offerLetterDocument: OfferDocument;
   nepaliData;
+  amount: number;
 
   constructor(private formBuilder: FormBuilder,
               private nepToEngNumberPipe: NepaliToEngNumberPipe,
@@ -152,6 +153,32 @@ export class HypothecationOfGoodsAndReceivablesAComponent implements OnInit {
     (this.form.get('financeGuarantors') as FormArray).removeAt(index);
   }
 
+  setKoshMaAdharit(data) {
+    const formArray = this.form.get('koshMaAdharit') as FormArray;
+    if (data.length === 0) {
+      this.addEmptyKoshMaAdharit();
+      return;
+    }
+    data.forEach(value => {
+      formArray.push(this.formBuilder.group({
+        name: [value.name],
+        amount: [value.amount]
+      }));
+    });
+  }
+
+  addEmptyKoshMaAdharit() {
+    (this.form.get('koshMaAdharit') as FormArray).push(
+        this.formBuilder.group({
+          name: [undefined],
+          amount: [undefined]
+        }));
+  }
+
+  removeKoshMaAdharit(index) {
+    (this.form.get('koshMaAdharit') as FormArray).removeAt(index);
+  }
+
   setGuarantors(data) {
     const formArray = this.form.get('guarantors') as FormArray;
     if (data.length === 0) {
@@ -222,6 +249,7 @@ export class HypothecationOfGoodsAndReceivablesAComponent implements OnInit {
       guarantors: this.formBuilder.array([]),
       financeGuarantors: this.formBuilder.array([]),
       anusuchis: this.formBuilder.array([]),
+      koshMaAdharit: this.formBuilder.array([]),
     });
   }
 
@@ -234,6 +262,7 @@ export class HypothecationOfGoodsAndReceivablesAComponent implements OnInit {
           this.setAnusuchis(initialInfo.anusuchis);
           this.setFinanceGuarantors(initialInfo.financeGuarantors);
           this.setGuarantors(initialInfo.guarantors);
+          this.setKoshMaAdharit(initialInfo.koshMaAdharit);
           this.form.patchValue(this.initialInfoPrint);
         }
       });
@@ -241,6 +270,14 @@ export class HypothecationOfGoodsAndReceivablesAComponent implements OnInit {
 
     if (!ObjectUtil.isEmpty(this.cadData.loanHolder.nepData)) {
       this.nepaliData = JSON.parse(this.cadData.loanHolder.nepData);
+      /*if (!ObjectUtil.isEmpty(this.nepaliData)) {
+        console.log('koshMaAdharit', this.nepaliData.koshMaAdharit);
+        (this.nepaliData.koshMaAdharit).forEach(data => {
+          this.amount = +this.nepToEngNumberPipe.transform(data.amount);
+          console.log('amount', this.amount);
+        });
+      }*/
+
       const tempAddress = this.nepaliData.companyDistrict + ', ' +
           this.nepaliData.companyVdcMun + ', ' + this.nepaliData.companyWardNo;
       const tempPropCitizenAddress = this.nepaliData.representativePermanentDistrict + ', ' +
