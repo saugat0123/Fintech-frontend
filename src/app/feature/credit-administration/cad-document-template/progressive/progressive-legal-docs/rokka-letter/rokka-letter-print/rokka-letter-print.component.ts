@@ -17,7 +17,6 @@ export class RokkaLetterPrintComponent implements OnInit {
 
   ngOnInit() {
     this.loanData = this.cadData.loanHolder;
-    console.log('this.loanData ', this.loanData);
   }
 
 }
