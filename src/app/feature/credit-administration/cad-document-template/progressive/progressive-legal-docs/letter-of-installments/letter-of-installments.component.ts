@@ -82,12 +82,22 @@ export class LetterOfInstallmentsComponent implements OnInit {
         karjaAmount : loanAmount.numberNepali ? loanAmount.numberNepali : '',
         timePeriod : this.nepDataPersonal.tenureOfLoanInMonths ? this.nepDataPersonal.tenureOfLoanInMonths : '',
         // kistaAmount : this.nepDataPersonal.installmentAmount ? this.nepDataPersonal.installmentAmount : '',
-        guarantorName: !ObjectUtil.isEmpty(this.nepaliData.guarantorDetails) ? this.nepaliData.guarantorDetails[0].guarantorName : '',
-        guarantorDistrict: !ObjectUtil.isEmpty(this.nepaliData.guarantorDetails) ? this.nepaliData.guarantorDetails[0].guarantorPermanentDistrict.nepaliName : '',
-        guarantorMunVdc: !ObjectUtil.isEmpty(this.nepaliData.guarantorDetails) ? this.nepaliData.guarantorDetails[0].guarantorPermanentMunicipality.nepaliName : '',
-        guarantorWardNo: !ObjectUtil.isEmpty(this.nepaliData.guarantorDetails) ? this.nepaliData.guarantorDetails[0].guarantorPermanentWard : '',
         companyName: this.nepaliData.companyName ? this.nepaliData.companyName : '',
         representativeName: this.nepaliData.representativeName ? this.nepaliData.representativeName : ''
+      });
+
+      this.nepaliData.guarantorDetails.forEach((value, i) => {
+        if (value.guarantorType === 'Personal_Guarantor') {
+          this.form.patchValue({
+            guarantorName: !ObjectUtil.isEmpty(value.guarantorName) ? value.guarantorName : '',
+            guarantorDistrict: !ObjectUtil.isEmpty(value.guarantorPermanentDistrict) ?
+                value.guarantorPermanentDistrict.nepaliName : '',
+            guarantorMunVdc: !ObjectUtil.isEmpty(value.guarantorPermanentMunicipality) ?
+                value.guarantorPermanentMunicipality.nepaliName : '',
+            guarantorWardNo: !ObjectUtil.isEmpty(value.guarantorPermanentWard) ?
+                value.guarantorPermanentWard : '',
+          });
+        }
       });
     }
   }
