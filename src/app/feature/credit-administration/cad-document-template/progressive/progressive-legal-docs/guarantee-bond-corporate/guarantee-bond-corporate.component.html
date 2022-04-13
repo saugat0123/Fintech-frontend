@@ -2,6 +2,9 @@
 
     <div class="col-md-12 viewFull">
         <form (ngSubmit)="onSubmit()" [formGroup]="form">
+            <div *ngFor="let corporate of form.get('corporateGuarantors')['controls']; index as i"
+                 formArrayName="corporateGuarantors" class="mt-4">
+                <div [formGroupName]="i">
             <h6 class="text-center">संस्थागत जमानीपत्र <br/>
                 (Corporate Guarantee) <br>
             </h6>
@@ -524,6 +527,8 @@
                     Save
                 </button>
             </div>
+            </div>
+        </div>
         </form>
         <button [disabled]="!initialInfoPrint"
                 [useExistingCss]="true"
