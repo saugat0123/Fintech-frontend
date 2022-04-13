@@ -34,7 +34,8 @@
                             <div class="mt-2">
                                 Loan Status:
                                 <span class="badge badge-info"
-                                    style="font-size: 13px">{{loanDataHolder?.documentStatus?.toString() | titlecase}}</span>
+                                    style="font-size: 13px">{{loanDataHolder?.documentStatus?.toString() |
+                                    titlecase}}</span>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -71,7 +72,6 @@
                                     Branch
                                     ,
                                     {{loanDataHolder?.branch?.province?.name}}</div>
-                                <!-- <div class="badge badge-warning m-1 p-2" style="font-size: 1rem;">Summary</div> -->
                             </div>
                         </div>
                         <div class="col-md-3 text-right">
@@ -89,7 +89,9 @@
                                 <p class="font-weight-bold sb-small">TO</p>
                             </div>
                             <div class="col-md-2">
-                                <p class="sb-small">: ...................</p>
+                                <p class="sb-small">: <span
+                                        class="font-weight-bold">{{loanDataHolder?.currentStage?.toUser?.name}}</span>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -109,7 +111,9 @@
                                 <p class="font-weight-bold sb-small">FROM</p>
                             </div>
                             <div class="col-md-2">
-                                <p class="sb-small">: ...................</p>
+                                <p class="sb-small">: <span
+                                        class="font-weight-bold">{{loanDataHolder?.currentStage?.fromUser?.name}}</span>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -119,7 +123,8 @@
                                 <p class="font-weight-bold sb-small">SUBJECT</p>
                             </div>
                             <div class="col-md-2">
-                                <p class="sb-small">: ...................</p>
+                                <p class="sb-small">: <span
+                                        class="font-weight-bold">{{loanDataHolder?.currentStage?.docAction}}</span></p>
                             </div>
                         </div>
                     </div>
@@ -129,7 +134,8 @@
                                 <p class="font-weight-bold sb-small">CLIENT NAME</p>
                             </div>
                             <div class="col-md-2">
-                                <p class="sb-small">: ...................</p>
+                                <p class="sb-small">: <span
+                                        class="font-weight-bold">{{loanDataHolder?.loanHolder?.name}}</span></p>
                             </div>
                         </div>
                     </div>
@@ -143,13 +149,13 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12 sb-small">
+                    <div class="col-md-12 sb-small" *ngFor="let item of individualData?.accountDetails; let i = index">
                         <div class="row">
                             <div class="col-md-2">
-                                <p class="font-weight-bold sb-small">ACCOUNT NUMBER</p>
+                                <p class="font-weight-bold sb-small">ACCOUNT NUMBER {{i + 1}}</p>
                             </div>
                             <div class="col-md-2">
-                                <p class="sb-small">: ...................</p>
+                                <p class="sb-small">: <span class="font-weight-bold">{{item?.accountNo}}</span></p>
                             </div>
                         </div>
                     </div>
@@ -159,7 +165,8 @@
                                 <p class="font-weight-bold sb-small">CUSTOMER ID</p>
                             </div>
                             <div class="col-md-2">
-                                <p class="sb-small">: ...................</p>
+                                <p class="sb-small">: <span
+                                        class="font-weight-bold">{{loanDataHolder?.loanHolder?.idNumber}}</span></p>
                             </div>
                         </div>
                     </div>
@@ -169,23 +176,27 @@
                                 <p class="font-weight-bold sb-small">DATE</p>
                             </div>
                             <div class="col-md-4">
-                                <p class="sb-small">: ...................</p>
+                                <p class="sb-small">: <span
+                                        class="font-weight-bold">{{loanDataHolder?.loanHolder?.idRegDate | date}}</span>
+                                </p>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6 sb-small">
                         <div class="row justify-content-end">
                             <div class="col-md-4">
-                                <p class="font-weight-bold sb-small">REF. NO. CCBL</p>
+                                <p class="font-weight-bold sb-small text-right">REF. NO. CCBL</p>
                             </div>
                             <div class="col-md-4">
-                                <p class="sb-small">: ...................</p>
+                                <p class="sb-small">: <span class="font-weight-bold">{{loanDataHolder.refNo}}</span></p>
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
+
             <!-- DO NOT REMOVE -->
+
             <!-- <div class="row">
                 <div class="col-md-6 sb-small">
                     <span><strong>Ref. No: </strong>{{loanDataHolder?.refNo}}</span>
@@ -236,12 +247,18 @@
                         <p>............................................................................</p>
                     </li>
                     <li>
+                        <p><strong>Business activity/customer background: </strong></p>
+                        <p> Mr. ...........................................................................</p>
+                    </li>
+                    <li>
                         <p><strong>Family details and networth of the client is as below:</strong></p>
-                        <app-family-details-networth></app-family-details-networth>
+                        <app-family-details-networth [loanDataHolder]="loanDataHolder"></app-family-details-networth>
                     </li>
                     <li>
                         <p><strong>Financial Performance</strong></p>
-                        <app-retail-financial-performance></app-retail-financial-performance>
+                        <app-retail-financial-performance [loanDataHolder]="loanDataHolder"
+                            [financialData]="financialData">
+                        </app-retail-financial-performance>
                     </li>
                     <li>
                         <p><strong>Purpose and Justifaction of Credit Proposal:</strong></p>
@@ -249,8 +266,12 @@
                     </li>
                     <li>
                         <div class="row">
-                            <div class="col-md-6"><p><strong>Source of Repayment</strong></p></div>
-                            <div class="col-md-6"><p><strong>PAN No. :</strong></p></div>
+                            <div class="col-md-6">
+                                <p><strong>Source of Repayment</strong></p>
+                            </div>
+                            <div class="col-md-6">
+                                <p class="text-right"><strong>PAN No. : {{incomeSource?.panNumber}}</strong></p>
+                            </div>
                         </div>
                         <app-retail-source-of-repayment></app-retail-source-of-repayment>
                     </li>
@@ -264,13 +285,13 @@
                         <p><strong>Name of the companies under the group: NA</strong></p>
                     </li>
                     <li>
-                        <p><strong>Group Exposure (in NPR. Mio):  NA</strong></p>
+                        <p><strong>Group Exposure (in NPR. Mio): NA</strong></p>
                     </li>
                     <li>
                         <p><strong>Regularity of payments: NA</strong></p>
                     </li>
                     <li>
-                        <p><strong>Transaction Record of the client: New Relationship. Yet to be tested	</strong></p>
+                        <p><strong>Transaction Record of the client: New Relationship. Yet to be tested </strong></p>
                     </li>
                     <li>
                         <p><strong>Profitability of the Client:</strong></p>
@@ -284,7 +305,8 @@
                         <app-retail-risks></app-retail-risks>
                     </li>
                     <li>
-                        <p><strong>Compliance:</strong> We have fully adhered the policy of NRB and internal bank policies.</p>
+                        <p><strong>Compliance:</strong> We have fully adhered the policy of NRB and internal bank
+                            policies.</p>
                         <app-retail-compliance></app-retail-compliance>
                     </li>
                     <li>
@@ -296,18 +318,21 @@
                         <p>Justification: ..........................</p>
                     </li>
                     <li>
-                        <app-credit-card-requirement
-                        [isRetailDetailView] = isRetailDetailView
-                        ></app-credit-card-requirement>
+                        <app-credit-card-requirement [isRetailDetailView]=isRetailDetailView>
+                        </app-credit-card-requirement>
                     </li>
                     <li>
                         <p><strong>Recommendation: </strong></p>
-                        <app-retail-recommendation></app-retail-recommendation>
+                        <app-retail-recommendation [loanDataHolder]="loanDataHolder"></app-retail-recommendation>
                     </li>
                     <li>
                         <div class="row">
-                            <div class="col-md-6"><p><strong>Security (to be obtained)</strong></p></div>
-                            <div class="col-md-6 text-right"><p>Amount in NPR Million</p></div>
+                            <div class="col-md-6">
+                                <p><strong>Security (to be obtained)</strong></p>
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <p>Amount in NPR Million</p>
+                            </div>
                         </div>
                         <app-retail-security></app-retail-security>
                     </li>
@@ -434,7 +459,7 @@
             <app-signature-section *ngIf="loaded" [loanDataHolder]="loanDataHolder" [signApprovalOn]="false">
             </app-signature-section> -->
 
-            
+
         </div>
     </nb-card-body>
 </nb-card>
