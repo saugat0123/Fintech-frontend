@@ -139,9 +139,10 @@
                                formControlName="valuatingField"
                                [addTag]="addCustomValuatingField"
                                [addTagText] = "null"
-                               [multiple]="false"
+                               [multiple]="true"
+                               [(ngModel)]="valuatorFieldModel"
                                [placeholder]="placeHolderValuatingType">
-                        <ng-option *ngFor="let valuatingField of valuatingFieldEnum.values()"
+                        <ng-option *ngFor="let valuatingField of valuatingFieldEnum?.values()"
                                    [value]="valuatingField">
                             {{valuatingField}}
                         </ng-option>
