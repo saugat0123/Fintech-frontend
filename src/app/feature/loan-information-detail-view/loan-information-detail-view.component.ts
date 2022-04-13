@@ -54,6 +54,9 @@ export class LoanInformationDetailViewComponent implements OnInit, OnDestroy {
     loaded = false;
     siteVisitDocuments: Array<SiteVisitDocument>;
     isRetailDetailView = true;
+    individualData: any;
+    incomeSource: any;
+    financialData: any;
 
     constructor(private loanConfigService: LoanConfigService,
                 private activatedRoute: ActivatedRoute,
@@ -72,6 +75,18 @@ export class LoanInformationDetailViewComponent implements OnInit, OnDestroy {
         this.loadSummary();
         this.customerLoanService.detail(this.customerId).subscribe(response => {
             this.loanDataHolder = response.detail;
+            console.log('Loan Data: ', this.loanDataHolder)
+            if (!ObjectUtil.isEmpty(this.loanDataHolder.customerInfo)) {
+                this.incomeSource = JSON.parse(this.loanDataHolder.customerInfo.incomeSource);
+            }
+            console.log('Loan Data: ', this.loanDataHolder)
+            if (!ObjectUtil.isEmpty(this.loanDataHolder.financial)) {
+                this.financialData = JSON.parse(this.loanDataHolder.financial.data);
+            }
+            if (!ObjectUtil.isEmpty(this.loanDataHolder.customerInfo)) {
+                this.individualData = JSON.parse(this.loanDataHolder.customerInfo.individualJsonData);
+                console.log(this.individualData);
+            }
             this.loaded = true;
             this.id = this.loanDataHolder.id;
             this.loanHolder = this.loanDataHolder.loanHolder;
@@ -119,6 +134,7 @@ export class LoanInformationDetailViewComponent implements OnInit, OnDestroy {
     loadSummary() {
         this.activatedRoute.queryParams.subscribe(
             (paramsValue: Params) => {
+                console.log('Params Value: ', paramsValue)
                 this.allId = {
                     loanConfigId: null,
                     customerId: null,
