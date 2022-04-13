@@ -37,6 +37,10 @@ p {
   font-size: 16px;
 }
 
+.unicode-size24 {
+  font-size: 24px;
+}
+
 //#guaranter{
 //  display: flex;
 //  flex-wrap: initial;
@@ -55,4 +59,8 @@ p {
 table {
   text-align: center;
   width: 100%;
+}
+
+span{
+  line-height: 1;
 }
