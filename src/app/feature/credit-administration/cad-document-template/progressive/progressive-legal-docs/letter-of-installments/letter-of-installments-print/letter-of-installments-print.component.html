@@ -74,12 +74,12 @@
                 </span>
                         <br>ठेगाना :
                         <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.guarantorMunVdc !== null && printDocForm?.guarantorMunVdc !== ''}">
-                    {{printDocForm?.guarantorMunVdc === null || printDocForm?.guarantorMunVdc === '' ? '_________________' : printDocForm?.guarantorMunVdc}}
-                </span>, वडा नं.
+                            {{printDocForm?.guarantorMunVdc === null || printDocForm?.guarantorMunVdc === '' ? '_________________' : printDocForm?.guarantorMunVdc}}</span>,
+                        वडा नं.
                         <span [ngClass]="{'nepaliFont' : printDocForm?.guarantorWardNo !== null && printDocForm?.guarantorWardNo !== ''}">
-                    {{printDocForm?.guarantorWardNo === null || printDocForm?.guarantorWardNo === '' ? '_________________' : printDocForm?.guarantorWardNo}}</span>,
+                            {{printDocForm?.guarantorWardNo === null || printDocForm?.guarantorWardNo === '' ? '_________________' : printDocForm?.guarantorWardNo}}</span>,
                         <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.guarantorDistrict !== null && printDocForm?.guarantorDistrict !== ''}">
-                    {{printDocForm?.guarantorDistrict === null || printDocForm?.guarantorDistrict === '' ? '_________________' : printDocForm?.guarantorDistrict}}
+                            {{printDocForm?.guarantorDistrict === null || printDocForm?.guarantorDistrict === '' ? '_________________' : printDocForm?.guarantorDistrict}}
                 </span>
                     </p>
                     <br>
