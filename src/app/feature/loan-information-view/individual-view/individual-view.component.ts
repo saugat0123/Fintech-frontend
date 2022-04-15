@@ -31,7 +31,7 @@ export class IndividualViewComponent implements OnInit {
   clientName = Clients;
 
   @Input() calendarType: CalendarType;
-dbr;
+  dbr;
   @Input() loanId: any;
   isJointInfo = false;
   jointInfo = [];
@@ -46,7 +46,6 @@ dbr;
   }
 
   ngOnInit() {
-    console.log(this.loanDataHolder);
     if (!ObjectUtil.isEmpty(this.individual)) {
       if (!ObjectUtil.isEmpty(this.individual.individualJsonData)) {
         this.individualJsonData = JSON.parse(this.individual.individualJsonData);
