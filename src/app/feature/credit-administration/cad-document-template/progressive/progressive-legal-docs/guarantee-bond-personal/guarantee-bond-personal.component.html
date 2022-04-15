@@ -2,10 +2,10 @@
     <div class="col-md-12 viewFull">
         <form (ngSubmit)="onSubmit()" [formGroup]="form">
             <div *ngFor="let guarantor of form.get('guarantorDetails')['controls']; index as i"
-                 formArrayName="guarantorDetails" class="mt-4">
+                 formArrayName="guarantorDetails">
                 <div [formGroupName]="i">
             <div class="nep">
-                <div class="text-center" style="margin-top:20px;">
+                <div class="text-center">
                     <strong>बिषयः व्यक्तिगत जमानत</strong>
                 </div>
                 <br>
