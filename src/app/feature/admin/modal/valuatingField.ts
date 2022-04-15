@@ -1,7 +1,7 @@
 export enum ValuatingField {
     LAND = 'Land',
     VEHICLE = 'Vehicle',
-    LAND_BUILDING = 'Land & Building'
+    LAND_BUILDING = 'Land_Building'
 }
 
 export namespace ValuatingField {
