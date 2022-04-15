@@ -350,23 +350,42 @@
       <div class="col-md-4">
         <div class="row">
         <nb-card class="col-md-11 py-2" #itemSecurity>
-        <a class="cursor info-label" (click)="openModel(securityComponentTemplate)">
-          <div class="row">
-            <div class="col-md-8">
-              <p class="custom-font">SECURITY</p>
-            </div>
-            <div class="col-md-4 d-flex justify-content-end">
-              <span *ngIf="customerInfo?.security?.data !== null" style="color:green"
-                    title="Status : Saved">
-                <em class="fas fa-check-circle px-2"></em>
-              </span>
-              <span *ngIf="customerInfo?.security?.data == null" style="color:red"
-                    title="Status :Not Saved">
-                <em class="fas fa-times-circle px-2"></em>
-              </span>
-            </div>
-          </div>
-        </a>
+<!--          if need to rout to old security uncomment this-->
+<!--        <a class="cursor info-label" (click)="openModel(securityComponentTemplate)">-->
+<!--          <div class="row">-->
+<!--            <div class="col-md-8">-->
+<!--              <p class="custom-font">SECURITY</p>-->
+<!--            </div>-->
+<!--            <div class="col-md-4 d-flex justify-content-end">-->
+<!--              <span *ngIf="customerInfo?.security?.data !== null" style="color:green"-->
+<!--                    title="Status : Saved">-->
+<!--                <em class="fas fa-check-circle px-2"></em>-->
+<!--              </span>-->
+<!--              <span *ngIf="customerInfo?.security?.data == null" style="color:red"-->
+<!--                    title="Status :Not Saved">-->
+<!--                <em class="fas fa-times-circle px-2"></em>-->
+<!--              </span>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </a>-->
+<!--                  enhancement of security -->
+                  <a class="cursor info-label" (click)="openMasterSecurityTemplate()">
+                    <div class="row">
+                      <div class="col-md-8">
+                        <p class="custom-font">SECURITY</p>
+                      </div>
+                      <div class="col-md-4 d-flex justify-content-end">
+                        <span *ngIf="customerInfo?.security?.data !== null" style="color:green"
+                              title="Status : Saved">
+                          <em class="fas fa-check-circle px-2"></em>
+                        </span>
+                        <span *ngIf="customerInfo?.security?.data == null" style="color:red"
+                              title="Status :Not Saved">
+                          <em class="fas fa-times-circle px-2"></em>
+                        </span>
+                      </div>
+                    </div>
+                  </a>
       </nb-card>
         </div>
       <ng-template #securityComponentTemplate let-data let-ref="dialogRef">

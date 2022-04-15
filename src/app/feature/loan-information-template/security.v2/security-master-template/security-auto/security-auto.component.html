@@ -1,0 +1,91 @@
+<nb-card>
+    <nb-card-header>
+        <strong>Auto Security</strong>
+    </nb-card-header>
+    <nb-card-body>
+        <div class="row">
+            <div class="col-md-12">
+                <form [formGroup]="autoForm">
+                    <div formArrayName="autoSecurity">
+                        <div *ngFor="let auto of autoForm.get('autoSecurity')['controls']; let i=index;">
+                            <div [formGroupName]="i">
+                                <div class="row ml-1">
+                                    <nb-checkbox status="warning"  formControlName="isNew">Is New</nb-checkbox>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label>Model No</label>
+                                        <div>
+                                            <input class="form-control" type="text" placeholder="12345" formControlName="model">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label>Manufacture Year</label>
+                                        <div>
+                                            <input class="form-control" type="text" placeholder="2022" formControlName="manufactureYear">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label>Chasis No</label>
+                                        <div>
+                                            <input class="form-control" type="text" placeholder="54321" formControlName="chasisNo">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label>Engine No</label>
+                                        <div>
+                                            <input class="form-control" type="text" placeholder="123456" formControlName="engineNo">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label>Valuator</label>
+                                        <div>
+                                            <ng-select formControlName="valuators" placeholder="Select Valuator">
+                                                <ng-option *ngFor="let valuator of valuatorList" [value]="valuator">{{valuator?.name}}</ng-option>
+                                            </ng-select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label>Quotation Amount</label>
+                                        <div>
+                                            <input class="form-control" type="number" formControlName="quotationAmount">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label>Consider Value</label>
+                                        <div>
+                                            <input class="form-control" type="number" formControlName="considerValue">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label>Discount Price</label>
+                                        <div>
+                                            <input class="form-control" type="number" formControlName="discountPrice">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                                <div class="row mt-2" *ngIf="i>0">
+                                    <div class="col-md-12 text-right">
+                                        <button nbButton size="small" style="background-color: #e70a0a" nbTooltip="Delete"
+                                                (click)="removeAuto(i)">
+                                            <nb-icon icon="trash" class="text-white"></nb-icon>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-md-12 text-right">
+                                        <button nbButton size="small" style="background-color: #F58229" nbTooltip="Add More"
+                                                (click)="addAuto()">
+                                            <nb-icon icon="plus-circle" class="text-white"></nb-icon>
+                                        </button>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </nb-card-body>
+</nb-card>

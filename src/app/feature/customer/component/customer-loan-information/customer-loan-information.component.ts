@@ -46,6 +46,7 @@ import {ReviewDate} from '../../../loan/model/reviewDate';
 import {MultiBanking} from '../../../loan/model/multiBanking';
 import {CustomerService} from '../../service/customer.service';
 import {Customer} from '../../../admin/modal/customer';
+import {SecurityMasterTemplateComponent} from '../../../loan-information-template/security.v2/security-master-template/security-master-template.component';
 
 @Component({
     selector: 'app-customer-loan-information',
@@ -685,6 +686,18 @@ export class CustomerLoanInformationComponent implements OnInit {
 
     openModel(name: TemplateRef<any>) {
         this.nbDialogRef = this.modalService.open(name, {closeOnBackdropClick: false, closeOnEsc: false});
+    }
+
+    public openMasterSecurityTemplate(): void {
+        this.nbDialogRef = this.modalService.open(SecurityMasterTemplateComponent,
+            {
+                closeOnBackdropClick: false, closeOnEsc: false,
+            }
+            );
+    }
+
+    public onClose(): void {
+
     }
 
     saveReviewDate(data) {

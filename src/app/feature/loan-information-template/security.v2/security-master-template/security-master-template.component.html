@@ -1,0 +1,32 @@
+<nb-card class="template-css">
+    <nb-card-header class="text-right">
+        <a role="button" (click)="nbDialogRef.close()" class="cursor">
+            <span style="color: red">
+                <em class="fas fa-times-circle px-2"></em>
+              </span>
+        </a>
+    </nb-card-header>
+    <nb-card-body>
+        <div class="row">
+            <div class="col-md-4">
+                <div>
+                    <ng-select [(ngModel)]="selectedSecurity"
+                    (change)="onSecuritySelect()" placeholder="Select Security">
+                        <ng-option *ngFor="let security of securities" [value]="security?.value">{{security?.value}}</ng-option>
+                    </ng-select>
+                </div>
+            </div>
+            <div class="col-md-12" [hidden]="!isLandAndBuildingSecuritySelected">
+                <app-security-land-building></app-security-land-building>
+            </div>
+            <div class="col-md-12" [hidden]="!isAutoSecuritySelected">
+                <app-security-auto></app-security-auto>
+            </div>
+        </div>
+    </nb-card-body>
+    <nb-card-footer>
+        <div class="text-right">
+            <button nbButton size="small" status="success">Save</button>
+        </div>
+    </nb-card-footer>
+</nb-card>

@@ -1,0 +1,135 @@
+<nb-card>
+    <nb-card-header><strong>Land And Building Security</strong></nb-card-header>
+    <nb-card-body>
+        <div class="row">
+            <div class="col-md-12">
+                <form [formGroup]="landBuildingForm">
+                    <div formArrayName="landAndBuilding">
+                        <div *ngFor="let landBuilding of landBuildingForm.get('landAndBuilding')['controls'];let i=index">
+                            <div [formGroupName]="i">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label>Government Rate</label>
+                                        <div>
+                                            <input class="form-control" placeholder="eg: 8%" type="number" formControlName="governmentRate">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label>Market Rate</label>
+                                        <div>
+                                            <input class="form-control" placeholder="eg: 10%" type="number" formControlName="marketRate">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label>Fair Market Value</label>
+                                        <div>
+                                            <input class="form-control" type="number" formControlName="fairMarketValue">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label>Distress Value</label>
+                                        <div>
+                                            <input class="form-control" type="number" formControlName="distressValue">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label>Consider Value</label>
+                                        <div>
+                                            <input class="form-control" type="number" formControlName="considerValue">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label>Sheet No</label>
+                                        <div>
+                                            <input class="form-control" type="text" formControlName="sheetNo">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label>Plot Number</label>
+                                        <div>
+                                            <input class="form-control" type="text" formControlName="plotNumber">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label>Province</label>
+                                        <div>
+                                            <ng-select formControlName="province" placeholder="Select Province"
+                                                       (change)="getDistrictByProvince(landBuilding.get('province').value, i)">
+                                                <ng-option *ngFor="let province of provinceList" [value]="province">{{province?.name}}</ng-option>
+                                            </ng-select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label>District</label>
+                                        <div>
+                                            <ng-select formControlName="district" placeholder="Select District"
+                                                       (change)="getMunicipalityByDistrict(landBuilding.get('district').value, i)">
+                                                <ng-option *ngFor="let district of districtList" [value]="district">{{district?.name}}</ng-option>
+                                            </ng-select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label>Municipality</label>
+                                        <div>
+                                            <ng-select formControlName="municipality" placeholder="Select Municipality">
+                                                <ng-option *ngFor="let municipality of municipalityList" [value]="municipality">{{municipality?.name}}</ng-option>
+                                            </ng-select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label>Geo Location</label>
+                                        <div>
+                                            <input class="form-control" type="text" formControlName="geoLocation">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label>Valuators</label>
+                                        <div>
+                                            <ng-select formControlName="valuators" placeholder="Select Valuator">
+                                                <ng-option *ngFor="let valuator of valuatorList" [value]="valuator">{{valuator?.name}}</ng-option>
+                                            </ng-select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label>Address Line 1</label>
+                                        <div>
+                                            <input class="form-control" type="text" formControlName="addressLine1">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label>Address Line 2</label>
+                                        <div>
+                                            <input class="form-control" type="text" formControlName="addressLine2">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label>Register Office</label>
+                                        <div>
+                                            <input class="form-control" type="text" formControlName="registerOffice">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row mt-2" *ngIf="i>0">
+                                    <div class="col-md-12 text-right">
+                                        <button nbButton size="small" style="background-color: #e70a0a" nbTooltip="Delete"
+                                                (click)="removeLandAndBuilding(i)">
+                                            <nb-icon icon="trash" class="text-white"></nb-icon>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-md-12 text-right">
+                                        <button nbButton size="small" style="background-color: #F58229" nbTooltip="Add More"
+                                                (click)="addLandBuilding()">
+                                            <nb-icon icon="plus-circle" class="text-white"></nb-icon>
+                                        </button>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                </form>
+            </div>
+        </div>
+    </nb-card-body>
+</nb-card>

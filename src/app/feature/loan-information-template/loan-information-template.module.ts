@@ -57,6 +57,9 @@ import { FinancialUploadViewComponent } from './financial/financial-upload-view/
 import {LoanSummaryModule} from '../loan/component/loan-summary/loan-summary.module';
 import {LoanInformationViewModule} from '../loan-information-view/loan-information-view.module';
 import {SecurityApprovedFormComponent} from './security/security-approved-form/security-approved-form.component';
+import { SecurityMasterTemplateComponent } from './security.v2/security-master-template/security-master-template.component';
+import { SecurityLandBuildingComponent } from './security.v2/security-master-template/security-land-building/security-land-building.component';
+import { SecurityAutoComponent } from './security.v2/security-master-template/security-auto/security-auto.component';
 
 const COMPONENTS = [
     SiteVisitComponent,
@@ -93,14 +96,15 @@ const COMPONENTS = [
     SecurityTableComponent,
     CreateDocumentComponent,
     ReviewDateComponent,
-    MultiBankingComponent
+    MultiBankingComponent,
+    SecurityMasterTemplateComponent
 ];
 
 
 @NgModule({
     declarations: [...COMPONENTS, CadDocumentUploadComponent, MicroProposalComponent, CommentsComponent, PreviousSecurityComponent,
         CrgMicroComponent,
-        FinancialUploadViewComponent, SecurityApprovedFormComponent],
+        FinancialUploadViewComponent, SecurityApprovedFormComponent, SecurityMasterTemplateComponent, SecurityLandBuildingComponent, SecurityAutoComponent],
     exports: [...COMPONENTS, MicroProposalComponent, CommentsComponent, CrgMicroComponent, FinancialUploadViewComponent],
     entryComponents: [...COMPONENTS],
     imports: [
