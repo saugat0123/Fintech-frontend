@@ -63,7 +63,7 @@
                     को <span [ngClass]="{'nepaliFont' : printDocForm?.customerName !== null && printDocForm?.customerName !== ''}">
                         {{printDocForm?.customerName === null || printDocForm?.customerName === '' ? '_________________' : printDocForm?.customerName}}
                     </span>
-                    (ना.प्र.नं. <span [ngClass]="{'nepaliFont' : printDocForm?.customerCitizenshipNo !== null && printDocForm?.customerCitizenshipNo!== ''}">
+                    (ना.प्र.नं. <span [ngClass]="{'nepaliFont unicode-size' : printDocForm?.customerCitizenshipNo !== null && printDocForm?.customerCitizenshipNo!== ''}">
                         {{printDocForm?.customerCitizenshipNo === null || printDocForm?.customerCitizenshipNo === '' ? '_________________' : printDocForm?.customerCitizenshipNo}}
                     </span>
                     मिति <span [ngClass]="{'nepaliFont' : printDocForm?.date !== null && printDocForm?.date !== ''}">
@@ -160,8 +160,7 @@
                     </ng-container>
                     वा आगे, वित्तीय संस्था र ऋणीका वीच किस्ताबन्दी खरिद प्रणाली (हायर पर्चेज) सम्बन्धी यो लिखत खडा गरीएको छ। वित्तीय संस्था र ऋणी दुवैले
                     निम्नशर्त बन्देज, उपबन्देजहरुको परिपालना गर्न सत्य निष्ठाका साथ मंञ्जुर कबुल गर्दछु। यसको एक प्रति दोहरी बुझीलियौ।</p>
-                <br>
-                <table class="table-borderless text-justify">
+                <table class="table-borderless text-justify mt-1">
                     <tr>
                         <td style="vertical-align: top">१.</td>
                         <td>ऋणीले निबेदन पत्र द्वारा वित्तीय संस्थासंग माग गरेको माल बस्तु किस्ताबन्दी खरिद प्रणाली (हायरपर्चेज) मा प्राप्त गर्नको लागि माग गरेकाले ऋण
@@ -289,7 +288,6 @@
                     </tr>
                 </table>
             </div>
-            <br>
             <h6 class="text-center"><strong><u>तपसिल</u></strong></h6>
             <div class="table-responsive-md">
                 <table class="table  table-bordered border-dark text-center">
@@ -435,6 +433,7 @@
                 </div>
 
             </div>
+            <div class="page-break"></div>
             <strong class="text-left">साक्षी :</strong>
             <div class="col-md-12 ">
                 <!--<div *ngFor="let guarantor of printDocForm?.guarantorDetail; index as i"
@@ -520,7 +519,6 @@
             </div>
             <br>
             <div>
-                <br>
                 <strong>सनाखत साक्षी</strong>
                 <br>
                 <p>ऋणी/अख्तियार प्राप्तब्यक्तिले मेरो सामुन्नेमा सहीछाप गरेको ठीक साँचो हो भनी सहीछाप गर्ने धनी वित्तीय संस्थामा कार्यरत कर्मचारी

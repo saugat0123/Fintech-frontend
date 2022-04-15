@@ -20,21 +20,25 @@
 
   text-align: center;
 }
-p {
-  text-align: justify;
-  line-height: 1.9em;
-}
+//p {
+//  text-align: justify;
+//  line-height: 1.9em;
+//}
 .viewFull {
   max-height: 85vh;
   text-align: justify;
-  line-height:normal;
 }
 
 * {
   margin-top: 20px;
+  line-height: 1.9em;
+  margin-bottom: 15px;
 }
 .unicode-size {
   font-size: 16px;
+}
+tr {
+  break-inside: initial;
 }
 
 .unicode-size24 {
@@ -63,4 +67,10 @@ table {
 
 span{
   line-height: 1;
+}
+
+@media print {
+  .page-break {
+    page-break-after: always;
+  }
 }
