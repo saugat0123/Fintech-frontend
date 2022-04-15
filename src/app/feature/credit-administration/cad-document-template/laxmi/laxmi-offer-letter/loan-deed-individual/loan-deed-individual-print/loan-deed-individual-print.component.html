@@ -14,32 +14,40 @@
                 वस्थित शाखा कार्यालय,
                 <span class="nepaliFont">{{printDocForm.branch}}</span>
                 (यसपछि धनी बैंक भनिएको छ) आगे तमसुक लेखिदिने ऋणीको नाम
-                <span class="nepaliFont">{{printDocForm.grandParentName}}</span>
-                को नाती/नातिनी,
-                <span class="nepaliFont">{{printDocForm.fatherName}}</span>
-                को छोरा/छोरी
-                <span class="nepaliFont">{{printDocForm.husbandWifeName}}</span>
-                को पति/पत्नी,
-                <span class="nepaliFont">{{printDocForm.permanentDistrict}}</span>
-                जिल्ला,
-                <span class="nepaliFont">{{printDocForm.permanentMunicipality}}</span>
-                न.पा./गा.पा.वडानं.
-                <span class="nepaliFont">{{printDocForm.permanentWardNum}}</span>
-                भई हाल
-                <span class="nepaliFont">{{printDocForm.temporaryDistrict}}</span>
-                जिल्ला,
-                <span class="nepaliFont">{{printDocForm.temporaryMunicipality}}</span>
-                न.पा./गा.पा. वडा नंं.
-                <span class="nepaliFont">{{printDocForm.tempWardNum}}</span>
-                बस्ने बर्ष
-                <span class="nepaliFont">{{printDocForm.age}}</span>
-                को
-                <span class="nepaliFont">{{printDocForm.name}}</span>
-                (ना.प्र.नं.<span class="nepaliFont">{{printDocForm.naPraNa}}</span>, जि.प्र.का.,<span class="nepaliFont">{{printDocForm.districtOffice}}</span>
-                , जारी मिति <span class="nepaliFont">{{printDocForm.issuedYear}}</span>/
-                <span class="nepaliFont">{{printDocForm.issuedMonth}}</span>/
-                <span class="nepaliFont">{{printDocForm.issuedDay}}</span>)
-                (यसपछि ऋणी भनिएको छ) ले धनी बैंकको (अफर लेटर) नं. कर्जा स्वीकृति पत्र
+               <ng-container *ngFor="let printDocForm of printDocForm?.commonData; let i = index;">
+                   <span class="nepaliFont">{{printDocForm.grandParentName}}</span>
+                   को नाती/नातिनी,
+                   <span class="nepaliFont">{{printDocForm.fatherName}}</span>
+                   को छोरा/छोरी
+                   <span class="nepaliFont">{{printDocForm.husbandWifeName}}</span>
+                   को पति/पत्नी,
+                   <span class="nepaliFont">{{printDocForm.permanentDistrict}}</span>
+                   जिल्ला,
+                   <span class="nepaliFont">{{printDocForm.permanentMunicipality}}</span>
+                   न.पा./गा.पा.वडानं.
+                   <span class="nepaliFont">{{printDocForm.permanentWardNum}}</span>
+                   भई हाल
+                   <span class="nepaliFont">{{printDocForm.temporaryDistrict}}</span>
+                   जिल्ला,
+                   <span class="nepaliFont">{{printDocForm.temporaryMunicipality}}</span>
+                   न.पा./गा.पा. वडा नंं.
+                   <span class="nepaliFont">{{printDocForm.tempWardNum}}</span>
+                   बस्ने बर्ष
+                   <span class="nepaliFont">{{printDocForm.age}}</span>
+                   को
+                   <span class="nepaliFont">{{printDocForm.name}}</span>
+                   (ना.प्र.नं.<span class="nepaliFont">{{printDocForm.naPraNa}}</span>, जि.प्र.का.,<span class="nepaliFont">{{printDocForm.districtOffice}}</span>
+                   , जारी मिति <span class="nepaliFont">{{printDocForm.issuedYear}}</span>/
+                   <span class="nepaliFont">{{printDocForm.issuedMonth}}</span>/
+                   <span class="nepaliFont">{{printDocForm.issuedDay}}</span>)
+                   <ng-container *ngIf="isJoint && i<printDocForm?.commonData?.value?.length - 1">––१ र</ng-container>
+               </ng-container>
+                <ng-container *ngIf="isJoint; else individual">
+                    समेत जना <span>{{printDocForm?.commonData?.length | nepaliNumber}}</span> (यसपछि संयुक्त ऋणी भनिएको छ)
+                </ng-container>
+                <ng-template #individual>
+                    (यसपछि ऋणी भनिएको छ)
+                </ng-template> ले धनी बैंकको (अफर लेटर) नं. कर्जा स्वीकृति पत्र
                 <span class="nepaliFont">{{printDocForm.offerYear}}</span>/
                 <span class="nepaliFont">{{printDocForm.offerMonth}}</span>/
                 <span class="nepaliFont">{{printDocForm.offerDay}}</span>)

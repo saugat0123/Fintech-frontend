@@ -26,7 +26,7 @@ import {StateService} from '../../../@core/utils';
                 <div class="chat">
                     <div class="d-flex flex-row-reverse">
                         <div class="p-2">
-                            <app-chat></app-chat>
+<!-- <app-chat></app-chat>-->
                         </div>
                     </div>
                 </div>

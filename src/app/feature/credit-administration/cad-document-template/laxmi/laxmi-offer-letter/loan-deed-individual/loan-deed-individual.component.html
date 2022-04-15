@@ -17,45 +17,55 @@
                 <input type="text" class="form-control-sm form-field nepaliFont"
                        formControlName="branch">
                 (यसपछि धनी बैंक भनिएको छ) आगे तमसुक लेखिदिने ऋणीको नाम
-                <input type="text" class="form-control-sm form-field nepaliFont"
-                       formControlName="grandParentName">
-                को नाती/नातिनी,
-                <input type="text" class="form-control-sm form-field nepaliFont"
-                       formControlName="fatherName">
-                को छोरा/छोरी
-                <input type="text" class="form-control-sm form-field nepaliFont"
-                       formControlName="husbandWifeName">
-                को पति/पत्नी,
-                <input type="text" class="form-control-sm form-field nepaliFont"
-                       formControlName="permanentDistrict">
-                जिल्ला,
-                <input type="text" class="form-control-sm form-field nepaliFont"
-                       formControlName="permanentMunicipality">
-                न.पा./गा.पा. वडा नं.
-                <input type="text" class="form-control-sm form-field nepaliFont"
-                       formControlName="permanentWardNum">
-                भई हाल
-                <input type="text" class="form-control-sm form-field nepaliFont"
-                       formControlName="temporaryDistrict">
-                जिल्ला,
-                <input type="text" class="form-control-sm form-field nepaliFont"
-                       formControlName="temporaryMunicipality">
-                न.पा./गा.पा. वडा नंं.
-                <input type="text" class="form-control-sm form-field nepaliFont"
-                       formControlName="tempWardNum">
-                बस्ने बर्ष
-                <input type="text" class="form-control-sm form-field nepaliFont"
-                       formControlName="age">
-                को
-                <input type="text" class="form-control-sm form-field nepaliFont"
-                       formControlName="name">
-                (ना.प्र.नं.<input type="text" class="form-control-sm form-field nepaliFont"
-                                  formControlName="naPraNa">, जि.प्र.का.,<input type="text" class="form-control-sm form-field nepaliFont"
-                                                                                formControlName="districtOffice">
-                , जारी मिति <input type="text" class="form-control-sm form-field nepaliFont" formControlName="issuedYear">/
-                <input type="text" class="form-control-sm form-field nepaliFont" formControlName="issuedMonth">/
-                <input type="text" class="form-control-sm form-field nepaliFont" formControlName="issuedDay"/>)
-                (यसपछि ऋणी भनिएको छ) ले धनी बैंकको (अफर लेटर) नं. कर्जा स्वीकृति पत्र
+               <ng-container formArrayName="commonData" *ngFor="let data of form.get('commonData')['controls']; let i = index">
+                   <ng-container [formGroupName]="i">
+                       <input type="text" class="form-control-sm form-field nepaliFont"
+                              formControlName="grandParentName">
+                       को नाती/नातिनी,
+                       <input type="text" class="form-control-sm form-field nepaliFont"
+                              formControlName="fatherName">
+                       को छोरा/छोरी
+                       <input type="text" class="form-control-sm form-field nepaliFont"
+                              formControlName="husbandWifeName">
+                       को पति/पत्नी,
+                       <input type="text" class="form-control-sm form-field nepaliFont"
+                              formControlName="permanentDistrict">
+                       जिल्ला,
+                       <input type="text" class="form-control-sm form-field nepaliFont"
+                              formControlName="permanentMunicipality">
+                       न.पा./गा.पा. वडा नं.
+                       <input type="text" class="form-control-sm form-field nepaliFont"
+                              formControlName="permanentWardNum">
+                       भई हाल
+                       <input type="text" class="form-control-sm form-field nepaliFont"
+                              formControlName="temporaryDistrict">
+                       जिल्ला,
+                       <input type="text" class="form-control-sm form-field nepaliFont"
+                              formControlName="temporaryMunicipality">
+                       न.पा./गा.पा. वडा नंं.
+                       <input type="text" class="form-control-sm form-field nepaliFont"
+                              formControlName="tempWardNum">
+                       बस्ने बर्ष
+                       <input type="text" class="form-control-sm form-field nepaliFont"
+                              formControlName="age">
+                       को
+                       <input type="text" class="form-control-sm form-field nepaliFont"
+                              formControlName="name">
+                       (ना.प्र.नं.<input type="text" class="form-control-sm form-field nepaliFont"
+                                         formControlName="naPraNa">, जि.प्र.का.,<input type="text" class="form-control-sm form-field nepaliFont"
+                                                                                       formControlName="districtOffice">
+                       , जारी मिति <input type="text" class="form-control-sm form-field nepaliFont" formControlName="issuedYear">/
+                       <input type="text" class="form-control-sm form-field nepaliFont" formControlName="issuedMonth">/
+                       <input type="text" class="form-control-sm form-field nepaliFont" formControlName="issuedDay"/>) <ng-container *ngIf="cadData?.loanHolder?.isJointCustomer && i<form?.get('commonData')?.value?.length - 1">––१ र</ng-container>
+                   </ng-container>
+               </ng-container>
+            <ng-container *ngIf="cadData?.loanHolder?.isJointCustomer; else individual">
+                समेत जना <span>{{form?.get('commonData')?.value?.length | nepaliNumber }}</span> (यसपछि संयुक्त ऋणी भनिएको छ)
+            </ng-container>
+            <ng-template #individual>
+                (यसपछि ऋणी भनिएको छ)
+            </ng-template>
+                 ले धनी बैंकको (अफर लेटर) नं. कर्जा स्वीकृति पत्र
                 <input type="text" class="form-control-sm form-field nepaliFont" formControlName="offerYear">/
                 <input type="text" class="form-control-sm form-field nepaliFont" formControlName="offerMonth">/
                 <input type="text" class="form-control-sm form-field nepaliFont" formControlName="offerDay"/>)
@@ -130,5 +140,5 @@
         </button>
     </div>
 </div>
-<app-loan-deed-individual-print *ngIf="initialInfoPrint" [printDocForm]="initialInfoPrint"
+<app-loan-deed-individual-print *ngIf="initialInfoPrint" [printDocForm]="initialInfoPrint" [isJoint]="cadData?.loanHolder?.isJointCustomer"
                               hidden></app-loan-deed-individual-print>

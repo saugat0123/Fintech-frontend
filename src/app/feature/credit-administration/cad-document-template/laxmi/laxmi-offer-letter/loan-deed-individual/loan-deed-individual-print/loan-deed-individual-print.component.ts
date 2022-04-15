@@ -16,6 +16,7 @@ export class LoanDeedIndividualPrintComponent implements OnInit {
   ) { }
   @Input() printDocForm;
   @Input() nepaliData;
+  @Input() isJoint;
   cadCheckListEnum = CadCheckListTemplateEnum;
   ngOnInit() {
     this.printDocForm = JSON.parse(this.printDocForm);
